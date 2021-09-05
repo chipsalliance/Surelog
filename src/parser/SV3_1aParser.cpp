@@ -55,13 +55,13 @@ size_t SV3_1aParser::Top_level_ruleContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Top_level_ruleContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTop_level_rule(this);
 }
 
 void SV3_1aParser::Top_level_ruleContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTop_level_rule(this);
 }
@@ -120,13 +120,13 @@ size_t SV3_1aParser::Top_level_library_ruleContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Top_level_library_ruleContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTop_level_library_rule(this);
 }
 
 void SV3_1aParser::Top_level_library_ruleContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTop_level_library_rule(this);
 }
@@ -181,13 +181,13 @@ size_t SV3_1aParser::Library_textContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Library_textContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterLibrary_text(this);
 }
 
 void SV3_1aParser::Library_textContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitLibrary_text(this);
 }
@@ -259,13 +259,13 @@ size_t SV3_1aParser::Library_descriptionsContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Library_descriptionsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterLibrary_descriptions(this);
 }
 
 void SV3_1aParser::Library_descriptionsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitLibrary_descriptions(this);
 }
@@ -371,13 +371,13 @@ size_t SV3_1aParser::Library_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Library_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterLibrary_declaration(this);
 }
 
 void SV3_1aParser::Library_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitLibrary_declaration(this);
 }
@@ -509,13 +509,13 @@ size_t SV3_1aParser::File_path_specContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::File_path_specContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterFile_path_spec(this);
 }
 
 void SV3_1aParser::File_path_specContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitFile_path_spec(this);
 }
@@ -592,13 +592,13 @@ size_t SV3_1aParser::Include_statementContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Include_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInclude_statement(this);
 }
 
 void SV3_1aParser::Include_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInclude_statement(this);
 }
@@ -657,13 +657,13 @@ size_t SV3_1aParser::Source_textContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Source_textContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSource_text(this);
 }
 
 void SV3_1aParser::Source_textContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSource_text(this);
 }
@@ -840,13 +840,13 @@ size_t SV3_1aParser::Null_ruleContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Null_ruleContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNull_rule(this);
 }
 
 void SV3_1aParser::Null_ruleContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNull_rule(this);
 }
@@ -936,13 +936,13 @@ size_t SV3_1aParser::DescriptionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::DescriptionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDescription(this);
 }
 
 void SV3_1aParser::DescriptionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDescription(this);
 }
@@ -1118,13 +1118,13 @@ size_t SV3_1aParser::Module_nonansi_headerContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Module_nonansi_headerContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModule_nonansi_header(this);
 }
 
 void SV3_1aParser::Module_nonansi_headerContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModule_nonansi_header(this);
 }
@@ -1252,13 +1252,13 @@ size_t SV3_1aParser::Module_ansi_headerContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Module_ansi_headerContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModule_ansi_header(this);
 }
 
 void SV3_1aParser::Module_ansi_headerContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModule_ansi_header(this);
 }
@@ -1436,13 +1436,13 @@ size_t SV3_1aParser::Module_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Module_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModule_declaration(this);
 }
 
 void SV3_1aParser::Module_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModule_declaration(this);
 }
@@ -2055,13 +2055,13 @@ size_t SV3_1aParser::Module_keywordContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Module_keywordContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModule_keyword(this);
 }
 
 void SV3_1aParser::Module_keywordContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModule_keyword(this);
 }
@@ -2154,13 +2154,13 @@ size_t SV3_1aParser::Interface_nonansi_headerContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Interface_nonansi_headerContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInterface_nonansi_header(this);
 }
 
 void SV3_1aParser::Interface_nonansi_headerContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInterface_nonansi_header(this);
 }
@@ -2288,13 +2288,13 @@ size_t SV3_1aParser::Interface_ansi_headerContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Interface_ansi_headerContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInterface_ansi_header(this);
 }
 
 void SV3_1aParser::Interface_ansi_headerContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInterface_ansi_header(this);
 }
@@ -2464,13 +2464,13 @@ size_t SV3_1aParser::Interface_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Interface_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInterface_declaration(this);
 }
 
 void SV3_1aParser::Interface_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInterface_declaration(this);
 }
@@ -3006,13 +3006,13 @@ size_t SV3_1aParser::Program_nonansi_headerContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Program_nonansi_headerContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProgram_nonansi_header(this);
 }
 
 void SV3_1aParser::Program_nonansi_headerContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProgram_nonansi_header(this);
 }
@@ -3132,13 +3132,13 @@ size_t SV3_1aParser::Program_ansi_headerContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Program_ansi_headerContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProgram_ansi_header(this);
 }
 
 void SV3_1aParser::Program_ansi_headerContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProgram_ansi_header(this);
 }
@@ -3284,13 +3284,13 @@ size_t SV3_1aParser::Checker_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Checker_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterChecker_declaration(this);
 }
 
 void SV3_1aParser::Checker_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitChecker_declaration(this);
 }
@@ -3569,13 +3569,13 @@ size_t SV3_1aParser::Program_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Program_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProgram_declaration(this);
 }
 
 void SV3_1aParser::Program_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProgram_declaration(this);
 }
@@ -4137,13 +4137,13 @@ size_t SV3_1aParser::Class_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Class_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClass_declaration(this);
 }
 
 void SV3_1aParser::Class_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClass_declaration(this);
 }
@@ -4342,13 +4342,13 @@ size_t SV3_1aParser::Interface_class_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Interface_class_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInterface_class_type(this);
 }
 
 void SV3_1aParser::Interface_class_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInterface_class_type(this);
 }
@@ -4460,13 +4460,13 @@ size_t SV3_1aParser::Interface_class_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Interface_class_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInterface_class_declaration(this);
 }
 
 void SV3_1aParser::Interface_class_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInterface_class_declaration(this);
 }
@@ -4601,13 +4601,13 @@ size_t SV3_1aParser::Interface_class_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Interface_class_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInterface_class_item(this);
 }
 
 void SV3_1aParser::Interface_class_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInterface_class_item(this);
 }
@@ -4718,13 +4718,13 @@ size_t SV3_1aParser::Interface_class_methodContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Interface_class_methodContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInterface_class_method(this);
 }
 
 void SV3_1aParser::Interface_class_methodContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInterface_class_method(this);
 }
@@ -4815,13 +4815,13 @@ size_t SV3_1aParser::Package_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Package_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPackage_declaration(this);
 }
 
 void SV3_1aParser::Package_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPackage_declaration(this);
 }
@@ -5021,12 +5021,12 @@ tree::TerminalNode* SV3_1aParser::TimeUnitsDecl_TimeUnitDivContext::SEMICOLUMN()
 SV3_1aParser::TimeUnitsDecl_TimeUnitDivContext::TimeUnitsDecl_TimeUnitDivContext(Timeunits_declarationContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::TimeUnitsDecl_TimeUnitDivContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTimeUnitsDecl_TimeUnitDiv(this);
 }
 void SV3_1aParser::TimeUnitsDecl_TimeUnitDivContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTimeUnitsDecl_TimeUnitDiv(this);
 }
@@ -5059,12 +5059,12 @@ tree::TerminalNode* SV3_1aParser::TimeUnitsDecl_TimePrecisionTimeUnitContext::TI
 SV3_1aParser::TimeUnitsDecl_TimePrecisionTimeUnitContext::TimeUnitsDecl_TimePrecisionTimeUnitContext(Timeunits_declarationContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::TimeUnitsDecl_TimePrecisionTimeUnitContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTimeUnitsDecl_TimePrecisionTimeUnit(this);
 }
 void SV3_1aParser::TimeUnitsDecl_TimePrecisionTimeUnitContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTimeUnitsDecl_TimePrecisionTimeUnit(this);
 }
@@ -5097,12 +5097,12 @@ tree::TerminalNode* SV3_1aParser::TimeUnitsDecl_TimeUnitTimePrecisionContext::TI
 SV3_1aParser::TimeUnitsDecl_TimeUnitTimePrecisionContext::TimeUnitsDecl_TimeUnitTimePrecisionContext(Timeunits_declarationContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::TimeUnitsDecl_TimeUnitTimePrecisionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTimeUnitsDecl_TimeUnitTimePrecision(this);
 }
 void SV3_1aParser::TimeUnitsDecl_TimeUnitTimePrecisionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTimeUnitsDecl_TimeUnitTimePrecision(this);
 }
@@ -5123,12 +5123,12 @@ tree::TerminalNode* SV3_1aParser::TimeUnitsDecl_TimeUnitContext::SEMICOLUMN() {
 SV3_1aParser::TimeUnitsDecl_TimeUnitContext::TimeUnitsDecl_TimeUnitContext(Timeunits_declarationContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::TimeUnitsDecl_TimeUnitContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTimeUnitsDecl_TimeUnit(this);
 }
 void SV3_1aParser::TimeUnitsDecl_TimeUnitContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTimeUnitsDecl_TimeUnit(this);
 }
@@ -5149,12 +5149,12 @@ tree::TerminalNode* SV3_1aParser::TimeUnitsDecl_TimePrecisionContext::SEMICOLUMN
 SV3_1aParser::TimeUnitsDecl_TimePrecisionContext::TimeUnitsDecl_TimePrecisionContext(Timeunits_declarationContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::TimeUnitsDecl_TimePrecisionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTimeUnitsDecl_TimePrecision(this);
 }
 void SV3_1aParser::TimeUnitsDecl_TimePrecisionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTimeUnitsDecl_TimePrecision(this);
 }
@@ -5174,7 +5174,7 @@ SV3_1aParser::Timeunits_declarationContext* SV3_1aParser::timeunits_declaration(
     _errHandler->sync(this);
     switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 98, _ctx)) {
     case 1: {
-      _localctx = dynamic_cast<Timeunits_declarationContext *>(_tracker.createInstance<SV3_1aParser::TimeUnitsDecl_TimeUnitDivContext>(_localctx));
+      _localctx = parsetree_cast<Timeunits_declarationContext>(_tracker.createInstance<SV3_1aParser::TimeUnitsDecl_TimeUnitDivContext>(_localctx));
       enterOuterAlt(_localctx, 1);
       setState(1929);
       match(SV3_1aParser::TIMEUNIT);
@@ -5190,7 +5190,7 @@ SV3_1aParser::Timeunits_declarationContext* SV3_1aParser::timeunits_declaration(
     }
 
     case 2: {
-      _localctx = dynamic_cast<Timeunits_declarationContext *>(_tracker.createInstance<SV3_1aParser::TimeUnitsDecl_TimeUnitContext>(_localctx));
+      _localctx = parsetree_cast<Timeunits_declarationContext>(_tracker.createInstance<SV3_1aParser::TimeUnitsDecl_TimeUnitContext>(_localctx));
       enterOuterAlt(_localctx, 2);
       setState(1935);
       match(SV3_1aParser::TIMEUNIT);
@@ -5202,7 +5202,7 @@ SV3_1aParser::Timeunits_declarationContext* SV3_1aParser::timeunits_declaration(
     }
 
     case 3: {
-      _localctx = dynamic_cast<Timeunits_declarationContext *>(_tracker.createInstance<SV3_1aParser::TimeUnitsDecl_TimePrecisionContext>(_localctx));
+      _localctx = parsetree_cast<Timeunits_declarationContext>(_tracker.createInstance<SV3_1aParser::TimeUnitsDecl_TimePrecisionContext>(_localctx));
       enterOuterAlt(_localctx, 3);
       setState(1939);
       match(SV3_1aParser::TIMEPRECISION);
@@ -5214,7 +5214,7 @@ SV3_1aParser::Timeunits_declarationContext* SV3_1aParser::timeunits_declaration(
     }
 
     case 4: {
-      _localctx = dynamic_cast<Timeunits_declarationContext *>(_tracker.createInstance<SV3_1aParser::TimeUnitsDecl_TimeUnitTimePrecisionContext>(_localctx));
+      _localctx = parsetree_cast<Timeunits_declarationContext>(_tracker.createInstance<SV3_1aParser::TimeUnitsDecl_TimeUnitTimePrecisionContext>(_localctx));
       enterOuterAlt(_localctx, 4);
       setState(1943);
       match(SV3_1aParser::TIMEUNIT);
@@ -5232,7 +5232,7 @@ SV3_1aParser::Timeunits_declarationContext* SV3_1aParser::timeunits_declaration(
     }
 
     case 5: {
-      _localctx = dynamic_cast<Timeunits_declarationContext *>(_tracker.createInstance<SV3_1aParser::TimeUnitsDecl_TimePrecisionTimeUnitContext>(_localctx));
+      _localctx = parsetree_cast<Timeunits_declarationContext>(_tracker.createInstance<SV3_1aParser::TimeUnitsDecl_TimePrecisionTimeUnitContext>(_localctx));
       enterOuterAlt(_localctx, 5);
       setState(1950);
       match(SV3_1aParser::TIMEPRECISION);
@@ -5307,13 +5307,13 @@ size_t SV3_1aParser::Parameter_port_listContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Parameter_port_listContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterParameter_port_list(this);
 }
 
 void SV3_1aParser::Parameter_port_listContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitParameter_port_list(this);
 }
@@ -5445,13 +5445,13 @@ size_t SV3_1aParser::Parameter_port_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Parameter_port_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterParameter_port_declaration(this);
 }
 
 void SV3_1aParser::Parameter_port_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitParameter_port_declaration(this);
 }
@@ -5553,13 +5553,13 @@ size_t SV3_1aParser::List_of_portsContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::List_of_portsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_ports(this);
 }
 
 void SV3_1aParser::List_of_portsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_ports(this);
 }
@@ -5651,13 +5651,13 @@ size_t SV3_1aParser::List_of_port_declarationsContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::List_of_port_declarationsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_port_declarations(this);
 }
 
 void SV3_1aParser::List_of_port_declarationsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_port_declarations(this);
 }
@@ -5822,13 +5822,13 @@ size_t SV3_1aParser::Port_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Port_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPort_declaration(this);
 }
 
 void SV3_1aParser::Port_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPort_declaration(this);
 }
@@ -5941,13 +5941,13 @@ size_t SV3_1aParser::PortContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::PortContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPort(this);
 }
 
 void SV3_1aParser::PortContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPort(this);
 }
@@ -6069,13 +6069,13 @@ size_t SV3_1aParser::Port_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Port_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPort_expression(this);
 }
 
 void SV3_1aParser::Port_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPort_expression(this);
 }
@@ -6164,13 +6164,13 @@ size_t SV3_1aParser::Port_referenceContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Port_referenceContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPort_reference(this);
 }
 
 void SV3_1aParser::Port_referenceContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPort_reference(this);
 }
@@ -6231,13 +6231,13 @@ size_t SV3_1aParser::Port_directionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Port_directionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPort_direction(this);
 }
 
 void SV3_1aParser::Port_directionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPort_direction(this);
 }
@@ -6300,13 +6300,13 @@ size_t SV3_1aParser::Net_port_headerContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Net_port_headerContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNet_port_header(this);
 }
 
 void SV3_1aParser::Net_port_headerContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNet_port_header(this);
 }
@@ -6370,13 +6370,13 @@ size_t SV3_1aParser::Variable_port_headerContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Variable_port_headerContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterVariable_port_header(this);
 }
 
 void SV3_1aParser::Variable_port_headerContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitVariable_port_header(this);
 }
@@ -6448,13 +6448,13 @@ size_t SV3_1aParser::Interface_port_headerContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Interface_port_headerContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInterface_port_header(this);
 }
 
 void SV3_1aParser::Interface_port_headerContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInterface_port_header(this);
 }
@@ -6596,13 +6596,13 @@ size_t SV3_1aParser::Ansi_port_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Ansi_port_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAnsi_port_declaration(this);
 }
 
 void SV3_1aParser::Ansi_port_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAnsi_port_declaration(this);
 }
@@ -6866,13 +6866,13 @@ size_t SV3_1aParser::Elaboration_system_taskContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Elaboration_system_taskContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterElaboration_system_task(this);
 }
 
 void SV3_1aParser::Elaboration_system_taskContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitElaboration_system_task(this);
 }
@@ -7022,13 +7022,13 @@ size_t SV3_1aParser::Module_common_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Module_common_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModule_common_item(this);
 }
 
 void SV3_1aParser::Module_common_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModule_common_item(this);
 }
@@ -7177,13 +7177,13 @@ size_t SV3_1aParser::Module_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Module_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModule_item(this);
 }
 
 void SV3_1aParser::Module_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModule_item(this);
 }
@@ -7273,13 +7273,13 @@ size_t SV3_1aParser::Module_or_generate_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Module_or_generate_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModule_or_generate_item(this);
 }
 
 void SV3_1aParser::Module_or_generate_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModule_or_generate_item(this);
 }
@@ -7407,13 +7407,13 @@ size_t SV3_1aParser::Module_or_generate_item_declarationContext::getRuleIndex() 
 }
 
 void SV3_1aParser::Module_or_generate_item_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModule_or_generate_item_declaration(this);
 }
 
 void SV3_1aParser::Module_or_generate_item_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModule_or_generate_item_declaration(this);
 }
@@ -7556,13 +7556,13 @@ size_t SV3_1aParser::Non_port_module_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Non_port_module_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNon_port_module_item(this);
 }
 
 void SV3_1aParser::Non_port_module_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNon_port_module_item(this);
 }
@@ -7701,13 +7701,13 @@ size_t SV3_1aParser::Parameter_overrideContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Parameter_overrideContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterParameter_override(this);
 }
 
 void SV3_1aParser::Parameter_overrideContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitParameter_override(this);
 }
@@ -7790,13 +7790,13 @@ size_t SV3_1aParser::Bind_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Bind_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBind_directive(this);
 }
 
 void SV3_1aParser::Bind_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBind_directive(this);
 }
@@ -7889,13 +7889,13 @@ size_t SV3_1aParser::Bind_instantiationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Bind_instantiationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBind_instantiation(this);
 }
 
 void SV3_1aParser::Bind_instantiationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBind_instantiation(this);
 }
@@ -7995,13 +7995,13 @@ size_t SV3_1aParser::Interface_or_generate_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Interface_or_generate_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInterface_or_generate_item(this);
 }
 
 void SV3_1aParser::Interface_or_generate_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInterface_or_generate_item(this);
 }
@@ -8197,13 +8197,13 @@ size_t SV3_1aParser::Extern_tf_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Extern_tf_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterExtern_tf_declaration(this);
 }
 
 void SV3_1aParser::Extern_tf_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitExtern_tf_declaration(this);
 }
@@ -8285,13 +8285,13 @@ size_t SV3_1aParser::Interface_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Interface_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInterface_item(this);
 }
 
 void SV3_1aParser::Interface_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInterface_item(this);
 }
@@ -8389,13 +8389,13 @@ size_t SV3_1aParser::Non_port_interface_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Non_port_interface_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNon_port_interface_item(this);
 }
 
 void SV3_1aParser::Non_port_interface_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNon_port_interface_item(this);
 }
@@ -8513,13 +8513,13 @@ size_t SV3_1aParser::Program_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Program_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProgram_item(this);
 }
 
 void SV3_1aParser::Program_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProgram_item(this);
 }
@@ -8625,13 +8625,13 @@ size_t SV3_1aParser::Non_port_program_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Non_port_program_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNon_port_program_item(this);
 }
 
 void SV3_1aParser::Non_port_program_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNon_port_program_item(this);
 }
@@ -8854,13 +8854,13 @@ size_t SV3_1aParser::Program_generate_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Program_generate_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProgram_generate_item(this);
 }
 
 void SV3_1aParser::Program_generate_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProgram_generate_item(this);
 }
@@ -8951,13 +8951,13 @@ size_t SV3_1aParser::Checker_port_listContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Checker_port_listContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterChecker_port_list(this);
 }
 
 void SV3_1aParser::Checker_port_listContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitChecker_port_list(this);
 }
@@ -9053,13 +9053,13 @@ size_t SV3_1aParser::Checker_port_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Checker_port_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterChecker_port_item(this);
 }
 
 void SV3_1aParser::Checker_port_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitChecker_port_item(this);
 }
@@ -9182,13 +9182,13 @@ size_t SV3_1aParser::Checker_or_generate_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Checker_or_generate_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterChecker_or_generate_item(this);
 }
 
 void SV3_1aParser::Checker_or_generate_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitChecker_or_generate_item(this);
 }
@@ -9355,13 +9355,13 @@ size_t SV3_1aParser::Checker_or_generate_item_declarationContext::getRuleIndex()
 }
 
 void SV3_1aParser::Checker_or_generate_item_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterChecker_or_generate_item_declaration(this);
 }
 
 void SV3_1aParser::Checker_or_generate_item_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitChecker_or_generate_item_declaration(this);
 }
@@ -9532,13 +9532,13 @@ size_t SV3_1aParser::Checker_generate_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Checker_generate_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterChecker_generate_item(this);
 }
 
 void SV3_1aParser::Checker_generate_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitChecker_generate_item(this);
 }
@@ -9661,13 +9661,13 @@ size_t SV3_1aParser::Class_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Class_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClass_item(this);
 }
 
 void SV3_1aParser::Class_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClass_item(this);
 }
@@ -9894,13 +9894,13 @@ size_t SV3_1aParser::Class_propertyContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Class_propertyContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClass_property(this);
 }
 
 void SV3_1aParser::Class_propertyContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClass_property(this);
 }
@@ -10024,13 +10024,13 @@ size_t SV3_1aParser::Pure_virtual_qualifierContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Pure_virtual_qualifierContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPure_virtual_qualifier(this);
 }
 
 void SV3_1aParser::Pure_virtual_qualifierContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPure_virtual_qualifier(this);
 }
@@ -10079,13 +10079,13 @@ size_t SV3_1aParser::Extern_qualifierContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Extern_qualifierContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterExtern_qualifier(this);
 }
 
 void SV3_1aParser::Extern_qualifierContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitExtern_qualifier(this);
 }
@@ -10176,13 +10176,13 @@ size_t SV3_1aParser::Class_methodContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Class_methodContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClass_method(this);
 }
 
 void SV3_1aParser::Class_methodContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClass_method(this);
 }
@@ -10362,13 +10362,13 @@ size_t SV3_1aParser::Class_constructor_prototypeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Class_constructor_prototypeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClass_constructor_prototype(this);
 }
 
 void SV3_1aParser::Class_constructor_prototypeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClass_constructor_prototype(this);
 }
@@ -10475,13 +10475,13 @@ size_t SV3_1aParser::Class_constraintContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Class_constraintContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClass_constraint(this);
 }
 
 void SV3_1aParser::Class_constraintContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClass_constraint(this);
 }
@@ -10553,12 +10553,12 @@ tree::TerminalNode* SV3_1aParser::ClassItemQualifier_StaticContext::STATIC() {
 SV3_1aParser::ClassItemQualifier_StaticContext::ClassItemQualifier_StaticContext(Class_item_qualifierContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::ClassItemQualifier_StaticContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClassItemQualifier_Static(this);
 }
 void SV3_1aParser::ClassItemQualifier_StaticContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClassItemQualifier_Static(this);
 }
@@ -10571,12 +10571,12 @@ tree::TerminalNode* SV3_1aParser::ClassItemQualifier_LocalContext::LOCAL() {
 SV3_1aParser::ClassItemQualifier_LocalContext::ClassItemQualifier_LocalContext(Class_item_qualifierContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::ClassItemQualifier_LocalContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClassItemQualifier_Local(this);
 }
 void SV3_1aParser::ClassItemQualifier_LocalContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClassItemQualifier_Local(this);
 }
@@ -10589,12 +10589,12 @@ tree::TerminalNode* SV3_1aParser::ClassItemQualifier_ProtectedContext::PROTECTED
 SV3_1aParser::ClassItemQualifier_ProtectedContext::ClassItemQualifier_ProtectedContext(Class_item_qualifierContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::ClassItemQualifier_ProtectedContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClassItemQualifier_Protected(this);
 }
 void SV3_1aParser::ClassItemQualifier_ProtectedContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClassItemQualifier_Protected(this);
 }
@@ -10614,7 +10614,7 @@ SV3_1aParser::Class_item_qualifierContext* SV3_1aParser::class_item_qualifier() 
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::STATIC: {
-        _localctx = dynamic_cast<Class_item_qualifierContext *>(_tracker.createInstance<SV3_1aParser::ClassItemQualifier_StaticContext>(_localctx));
+        _localctx = parsetree_cast<Class_item_qualifierContext>(_tracker.createInstance<SV3_1aParser::ClassItemQualifier_StaticContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(2523);
         match(SV3_1aParser::STATIC);
@@ -10622,7 +10622,7 @@ SV3_1aParser::Class_item_qualifierContext* SV3_1aParser::class_item_qualifier() 
       }
 
       case SV3_1aParser::PROTECTED: {
-        _localctx = dynamic_cast<Class_item_qualifierContext *>(_tracker.createInstance<SV3_1aParser::ClassItemQualifier_ProtectedContext>(_localctx));
+        _localctx = parsetree_cast<Class_item_qualifierContext>(_tracker.createInstance<SV3_1aParser::ClassItemQualifier_ProtectedContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(2524);
         match(SV3_1aParser::PROTECTED);
@@ -10630,7 +10630,7 @@ SV3_1aParser::Class_item_qualifierContext* SV3_1aParser::class_item_qualifier() 
       }
 
       case SV3_1aParser::LOCAL: {
-        _localctx = dynamic_cast<Class_item_qualifierContext *>(_tracker.createInstance<SV3_1aParser::ClassItemQualifier_LocalContext>(_localctx));
+        _localctx = parsetree_cast<Class_item_qualifierContext>(_tracker.createInstance<SV3_1aParser::ClassItemQualifier_LocalContext>(_localctx));
         enterOuterAlt(_localctx, 3);
         setState(2525);
         match(SV3_1aParser::LOCAL);
@@ -10675,12 +10675,12 @@ SV3_1aParser::Class_item_qualifierContext* SV3_1aParser::PropQualifier_ClassItem
 SV3_1aParser::PropQualifier_ClassItemContext::PropQualifier_ClassItemContext(Property_qualifierContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::PropQualifier_ClassItemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPropQualifier_ClassItem(this);
 }
 void SV3_1aParser::PropQualifier_ClassItemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPropQualifier_ClassItem(this);
 }
@@ -10693,12 +10693,12 @@ tree::TerminalNode* SV3_1aParser::PropQualifier_RandContext::RAND() {
 SV3_1aParser::PropQualifier_RandContext::PropQualifier_RandContext(Property_qualifierContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::PropQualifier_RandContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPropQualifier_Rand(this);
 }
 void SV3_1aParser::PropQualifier_RandContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPropQualifier_Rand(this);
 }
@@ -10711,12 +10711,12 @@ tree::TerminalNode* SV3_1aParser::PropQualifier_RandcContext::RANDC() {
 SV3_1aParser::PropQualifier_RandcContext::PropQualifier_RandcContext(Property_qualifierContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::PropQualifier_RandcContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPropQualifier_Randc(this);
 }
 void SV3_1aParser::PropQualifier_RandcContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPropQualifier_Randc(this);
 }
@@ -10736,7 +10736,7 @@ SV3_1aParser::Property_qualifierContext* SV3_1aParser::property_qualifier() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::RAND: {
-        _localctx = dynamic_cast<Property_qualifierContext *>(_tracker.createInstance<SV3_1aParser::PropQualifier_RandContext>(_localctx));
+        _localctx = parsetree_cast<Property_qualifierContext>(_tracker.createInstance<SV3_1aParser::PropQualifier_RandContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(2528);
         match(SV3_1aParser::RAND);
@@ -10744,7 +10744,7 @@ SV3_1aParser::Property_qualifierContext* SV3_1aParser::property_qualifier() {
       }
 
       case SV3_1aParser::RANDC: {
-        _localctx = dynamic_cast<Property_qualifierContext *>(_tracker.createInstance<SV3_1aParser::PropQualifier_RandcContext>(_localctx));
+        _localctx = parsetree_cast<Property_qualifierContext>(_tracker.createInstance<SV3_1aParser::PropQualifier_RandcContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(2529);
         match(SV3_1aParser::RANDC);
@@ -10754,7 +10754,7 @@ SV3_1aParser::Property_qualifierContext* SV3_1aParser::property_qualifier() {
       case SV3_1aParser::STATIC:
       case SV3_1aParser::PROTECTED:
       case SV3_1aParser::LOCAL: {
-        _localctx = dynamic_cast<Property_qualifierContext *>(_tracker.createInstance<SV3_1aParser::PropQualifier_ClassItemContext>(_localctx));
+        _localctx = parsetree_cast<Property_qualifierContext>(_tracker.createInstance<SV3_1aParser::PropQualifier_ClassItemContext>(_localctx));
         enterOuterAlt(_localctx, 3);
         setState(2530);
         class_item_qualifier();
@@ -10799,12 +10799,12 @@ tree::TerminalNode* SV3_1aParser::MethodQualifier_VirtualContext::VIRTUAL() {
 SV3_1aParser::MethodQualifier_VirtualContext::MethodQualifier_VirtualContext(Method_qualifierContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::MethodQualifier_VirtualContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterMethodQualifier_Virtual(this);
 }
 void SV3_1aParser::MethodQualifier_VirtualContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitMethodQualifier_Virtual(this);
 }
@@ -10817,12 +10817,12 @@ SV3_1aParser::Class_item_qualifierContext* SV3_1aParser::MethodQualifier_ClassIt
 SV3_1aParser::MethodQualifier_ClassItemContext::MethodQualifier_ClassItemContext(Method_qualifierContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::MethodQualifier_ClassItemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterMethodQualifier_ClassItem(this);
 }
 void SV3_1aParser::MethodQualifier_ClassItemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitMethodQualifier_ClassItem(this);
 }
@@ -10842,7 +10842,7 @@ SV3_1aParser::Method_qualifierContext* SV3_1aParser::method_qualifier() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::VIRTUAL: {
-        _localctx = dynamic_cast<Method_qualifierContext *>(_tracker.createInstance<SV3_1aParser::MethodQualifier_VirtualContext>(_localctx));
+        _localctx = parsetree_cast<Method_qualifierContext>(_tracker.createInstance<SV3_1aParser::MethodQualifier_VirtualContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(2533);
         match(SV3_1aParser::VIRTUAL);
@@ -10852,7 +10852,7 @@ SV3_1aParser::Method_qualifierContext* SV3_1aParser::method_qualifier() {
       case SV3_1aParser::STATIC:
       case SV3_1aParser::PROTECTED:
       case SV3_1aParser::LOCAL: {
-        _localctx = dynamic_cast<Method_qualifierContext *>(_tracker.createInstance<SV3_1aParser::MethodQualifier_ClassItemContext>(_localctx));
+        _localctx = parsetree_cast<Method_qualifierContext>(_tracker.createInstance<SV3_1aParser::MethodQualifier_ClassItemContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(2534);
         class_item_qualifier();
@@ -10893,13 +10893,13 @@ size_t SV3_1aParser::Method_prototypeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Method_prototypeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterMethod_prototype(this);
 }
 
 void SV3_1aParser::Method_prototypeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitMethod_prototype(this);
 }
@@ -10971,13 +10971,13 @@ size_t SV3_1aParser::Super_dot_newContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Super_dot_newContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSuper_dot_new(this);
 }
 
 void SV3_1aParser::Super_dot_newContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSuper_dot_new(this);
 }
@@ -11100,13 +11100,13 @@ size_t SV3_1aParser::Class_constructor_declarationContext::getRuleIndex() const 
 }
 
 void SV3_1aParser::Class_constructor_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClass_constructor_declaration(this);
 }
 
 void SV3_1aParser::Class_constructor_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClass_constructor_declaration(this);
 }
@@ -11364,13 +11364,13 @@ size_t SV3_1aParser::Constraint_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Constraint_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstraint_declaration(this);
 }
 
 void SV3_1aParser::Constraint_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstraint_declaration(this);
 }
@@ -11442,13 +11442,13 @@ size_t SV3_1aParser::Constraint_blockContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Constraint_blockContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstraint_block(this);
 }
 
 void SV3_1aParser::Constraint_blockContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstraint_block(this);
 }
@@ -11596,13 +11596,13 @@ size_t SV3_1aParser::Constraint_block_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Constraint_block_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstraint_block_item(this);
 }
 
 void SV3_1aParser::Constraint_block_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstraint_block_item(this);
 }
@@ -11752,13 +11752,13 @@ size_t SV3_1aParser::Solve_before_listContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Solve_before_listContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSolve_before_list(this);
 }
 
 void SV3_1aParser::Solve_before_listContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSolve_before_list(this);
 }
@@ -11870,13 +11870,13 @@ size_t SV3_1aParser::Constraint_primaryContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Constraint_primaryContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstraint_primary(this);
 }
 
 void SV3_1aParser::Constraint_primaryContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstraint_primary(this);
 }
@@ -12056,13 +12056,13 @@ size_t SV3_1aParser::Constraint_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Constraint_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstraint_expression(this);
 }
 
 void SV3_1aParser::Constraint_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstraint_expression(this);
 }
@@ -12226,13 +12226,13 @@ size_t SV3_1aParser::Uniqueness_constraintContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Uniqueness_constraintContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUniqueness_constraint(this);
 }
 
 void SV3_1aParser::Uniqueness_constraintContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUniqueness_constraint(this);
 }
@@ -12297,13 +12297,13 @@ size_t SV3_1aParser::Constraint_setContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Constraint_setContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstraint_set(this);
 }
 
 void SV3_1aParser::Constraint_setContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstraint_set(this);
 }
@@ -12459,13 +12459,13 @@ size_t SV3_1aParser::Dist_listContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Dist_listContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDist_list(this);
 }
 
 void SV3_1aParser::Dist_listContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDist_list(this);
 }
@@ -12529,13 +12529,13 @@ size_t SV3_1aParser::Dist_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Dist_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDist_item(this);
 }
 
 void SV3_1aParser::Dist_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDist_item(this);
 }
@@ -12605,12 +12605,12 @@ SV3_1aParser::ExpressionContext* SV3_1aParser::DistWeight_AssignValueContext::ex
 SV3_1aParser::DistWeight_AssignValueContext::DistWeight_AssignValueContext(Dist_weightContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::DistWeight_AssignValueContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDistWeight_AssignValue(this);
 }
 void SV3_1aParser::DistWeight_AssignValueContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDistWeight_AssignValue(this);
 }
@@ -12631,12 +12631,12 @@ SV3_1aParser::ExpressionContext* SV3_1aParser::DistWeight_AssignRangeContext::ex
 SV3_1aParser::DistWeight_AssignRangeContext::DistWeight_AssignRangeContext(Dist_weightContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::DistWeight_AssignRangeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDistWeight_AssignRange(this);
 }
 void SV3_1aParser::DistWeight_AssignRangeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDistWeight_AssignRange(this);
 }
@@ -12656,7 +12656,7 @@ SV3_1aParser::Dist_weightContext* SV3_1aParser::dist_weight() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::ASSIGN_VALUE: {
-        _localctx = dynamic_cast<Dist_weightContext *>(_tracker.createInstance<SV3_1aParser::DistWeight_AssignValueContext>(_localctx));
+        _localctx = parsetree_cast<Dist_weightContext>(_tracker.createInstance<SV3_1aParser::DistWeight_AssignValueContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(2713);
         match(SV3_1aParser::ASSIGN_VALUE);
@@ -12666,7 +12666,7 @@ SV3_1aParser::Dist_weightContext* SV3_1aParser::dist_weight() {
       }
 
       case SV3_1aParser::COLUMN: {
-        _localctx = dynamic_cast<Dist_weightContext *>(_tracker.createInstance<SV3_1aParser::DistWeight_AssignRangeContext>(_localctx));
+        _localctx = parsetree_cast<Dist_weightContext>(_tracker.createInstance<SV3_1aParser::DistWeight_AssignRangeContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(2715);
         match(SV3_1aParser::COLUMN);
@@ -12727,13 +12727,13 @@ size_t SV3_1aParser::Constraint_prototypeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Constraint_prototypeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstraint_prototype(this);
 }
 
 void SV3_1aParser::Constraint_prototypeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstraint_prototype(this);
 }
@@ -12832,13 +12832,13 @@ size_t SV3_1aParser::Extern_constraint_declarationContext::getRuleIndex() const 
 }
 
 void SV3_1aParser::Extern_constraint_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterExtern_constraint_declaration(this);
 }
 
 void SV3_1aParser::Extern_constraint_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitExtern_constraint_declaration(this);
 }
@@ -12912,13 +12912,13 @@ size_t SV3_1aParser::Identifier_listContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Identifier_listContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterIdentifier_list(this);
 }
 
 void SV3_1aParser::Identifier_listContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitIdentifier_list(this);
 }
@@ -12996,13 +12996,13 @@ size_t SV3_1aParser::Package_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Package_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPackage_item(this);
 }
 
 void SV3_1aParser::Package_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPackage_item(this);
 }
@@ -13147,13 +13147,13 @@ size_t SV3_1aParser::Package_or_generate_item_declarationContext::getRuleIndex()
 }
 
 void SV3_1aParser::Package_or_generate_item_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPackage_or_generate_item_declaration(this);
 }
 
 void SV3_1aParser::Package_or_generate_item_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPackage_or_generate_item_declaration(this);
 }
@@ -13335,13 +13335,13 @@ size_t SV3_1aParser::Anonymous_programContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Anonymous_programContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAnonymous_program(this);
 }
 
 void SV3_1aParser::Anonymous_programContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAnonymous_program(this);
 }
@@ -13431,13 +13431,13 @@ size_t SV3_1aParser::Anonymous_program_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Anonymous_program_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAnonymous_program_item(this);
 }
 
 void SV3_1aParser::Anonymous_program_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAnonymous_program_item(this);
 }
@@ -13548,13 +13548,13 @@ size_t SV3_1aParser::Local_parameter_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Local_parameter_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterLocal_parameter_declaration(this);
 }
 
 void SV3_1aParser::Local_parameter_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitLocal_parameter_declaration(this);
 }
@@ -13633,13 +13633,13 @@ size_t SV3_1aParser::Parameter_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Parameter_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterParameter_declaration(this);
 }
 
 void SV3_1aParser::Parameter_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitParameter_declaration(this);
 }
@@ -13718,13 +13718,13 @@ size_t SV3_1aParser::Specparam_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Specparam_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSpecparam_declaration(this);
 }
 
 void SV3_1aParser::Specparam_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSpecparam_declaration(this);
 }
@@ -13792,13 +13792,13 @@ size_t SV3_1aParser::Inout_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Inout_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInout_declaration(this);
 }
 
 void SV3_1aParser::Inout_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInout_declaration(this);
 }
@@ -13865,13 +13865,13 @@ size_t SV3_1aParser::Input_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Input_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInput_declaration(this);
 }
 
 void SV3_1aParser::Input_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInput_declaration(this);
 }
@@ -13967,13 +13967,13 @@ size_t SV3_1aParser::Output_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Output_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOutput_declaration(this);
 }
 
 void SV3_1aParser::Output_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOutput_declaration(this);
 }
@@ -14065,13 +14065,13 @@ size_t SV3_1aParser::Interface_port_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Interface_port_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInterface_port_declaration(this);
 }
 
 void SV3_1aParser::Interface_port_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInterface_port_declaration(this);
 }
@@ -14151,13 +14151,13 @@ size_t SV3_1aParser::Ref_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Ref_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRef_declaration(this);
 }
 
 void SV3_1aParser::Ref_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRef_declaration(this);
 }
@@ -14232,13 +14232,13 @@ size_t SV3_1aParser::Data_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Data_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterData_declaration(this);
 }
 
 void SV3_1aParser::Data_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitData_declaration(this);
 }
@@ -14395,13 +14395,13 @@ size_t SV3_1aParser::Variable_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Variable_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterVariable_declaration(this);
 }
 
 void SV3_1aParser::Variable_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitVariable_declaration(this);
 }
@@ -14539,13 +14539,13 @@ size_t SV3_1aParser::Package_import_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Package_import_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPackage_import_declaration(this);
 }
 
 void SV3_1aParser::Package_import_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPackage_import_declaration(this);
 }
@@ -14621,13 +14621,13 @@ size_t SV3_1aParser::Package_import_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Package_import_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPackage_import_item(this);
 }
 
 void SV3_1aParser::Package_import_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPackage_import_item(this);
 }
@@ -14718,13 +14718,13 @@ size_t SV3_1aParser::Package_export_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Package_export_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPackage_export_declaration(this);
 }
 
 void SV3_1aParser::Package_export_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPackage_export_declaration(this);
 }
@@ -14815,13 +14815,13 @@ size_t SV3_1aParser::Genvar_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Genvar_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenvar_declaration(this);
 }
 
 void SV3_1aParser::Genvar_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenvar_declaration(this);
 }
@@ -14940,13 +14940,13 @@ size_t SV3_1aParser::Net_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Net_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNet_declaration(this);
 }
 
 void SV3_1aParser::Net_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNet_declaration(this);
 }
@@ -15241,13 +15241,13 @@ size_t SV3_1aParser::Type_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Type_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterType_declaration(this);
 }
 
 void SV3_1aParser::Type_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitType_declaration(this);
 }
@@ -15437,13 +15437,13 @@ size_t SV3_1aParser::Enum_keywordContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Enum_keywordContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEnum_keyword(this);
 }
 
 void SV3_1aParser::Enum_keywordContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEnum_keyword(this);
 }
@@ -15490,13 +15490,13 @@ size_t SV3_1aParser::Struct_keywordContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Struct_keywordContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterStruct_keyword(this);
 }
 
 void SV3_1aParser::Struct_keywordContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitStruct_keyword(this);
 }
@@ -15543,13 +15543,13 @@ size_t SV3_1aParser::Union_keywordContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Union_keywordContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUnion_keyword(this);
 }
 
 void SV3_1aParser::Union_keywordContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUnion_keyword(this);
 }
@@ -15596,13 +15596,13 @@ size_t SV3_1aParser::Class_keywordContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Class_keywordContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClass_keyword(this);
 }
 
 void SV3_1aParser::Class_keywordContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClass_keyword(this);
 }
@@ -15653,13 +15653,13 @@ size_t SV3_1aParser::Interface_class_keywordContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Interface_class_keywordContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInterface_class_keyword(this);
 }
 
 void SV3_1aParser::Interface_class_keywordContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInterface_class_keyword(this);
 }
@@ -15736,13 +15736,13 @@ size_t SV3_1aParser::Net_type_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Net_type_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNet_type_declaration(this);
 }
 
 void SV3_1aParser::Net_type_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNet_type_declaration(this);
 }
@@ -15870,12 +15870,12 @@ tree::TerminalNode* SV3_1aParser::Lifetime_StaticContext::STATIC() {
 SV3_1aParser::Lifetime_StaticContext::Lifetime_StaticContext(LifetimeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Lifetime_StaticContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterLifetime_Static(this);
 }
 void SV3_1aParser::Lifetime_StaticContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitLifetime_Static(this);
 }
@@ -15888,12 +15888,12 @@ tree::TerminalNode* SV3_1aParser::Lifetime_AutomaticContext::AUTOMATIC() {
 SV3_1aParser::Lifetime_AutomaticContext::Lifetime_AutomaticContext(LifetimeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Lifetime_AutomaticContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterLifetime_Automatic(this);
 }
 void SV3_1aParser::Lifetime_AutomaticContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitLifetime_Automatic(this);
 }
@@ -15913,7 +15913,7 @@ SV3_1aParser::LifetimeContext* SV3_1aParser::lifetime() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::STATIC: {
-        _localctx = dynamic_cast<LifetimeContext *>(_tracker.createInstance<SV3_1aParser::Lifetime_StaticContext>(_localctx));
+        _localctx = parsetree_cast<LifetimeContext>(_tracker.createInstance<SV3_1aParser::Lifetime_StaticContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(3032);
         match(SV3_1aParser::STATIC);
@@ -15921,7 +15921,7 @@ SV3_1aParser::LifetimeContext* SV3_1aParser::lifetime() {
       }
 
       case SV3_1aParser::AUTOMATIC: {
-        _localctx = dynamic_cast<LifetimeContext *>(_tracker.createInstance<SV3_1aParser::Lifetime_AutomaticContext>(_localctx));
+        _localctx = parsetree_cast<LifetimeContext>(_tracker.createInstance<SV3_1aParser::Lifetime_AutomaticContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(3033);
         match(SV3_1aParser::AUTOMATIC);
@@ -15990,13 +15990,13 @@ size_t SV3_1aParser::Casting_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Casting_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCasting_type(this);
 }
 
 void SV3_1aParser::Casting_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCasting_type(this);
 }
@@ -16231,13 +16231,13 @@ size_t SV3_1aParser::Data_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Data_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterData_type(this);
 }
 
 void SV3_1aParser::Data_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitData_type(this);
 }
@@ -16657,13 +16657,13 @@ size_t SV3_1aParser::Packed_keywordContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Packed_keywordContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPacked_keyword(this);
 }
 
 void SV3_1aParser::Packed_keywordContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPacked_keyword(this);
 }
@@ -16710,13 +16710,13 @@ size_t SV3_1aParser::String_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::String_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterString_type(this);
 }
 
 void SV3_1aParser::String_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitString_type(this);
 }
@@ -16763,13 +16763,13 @@ size_t SV3_1aParser::String_valueContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::String_valueContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterString_value(this);
 }
 
 void SV3_1aParser::String_valueContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitString_value(this);
 }
@@ -16816,13 +16816,13 @@ size_t SV3_1aParser::Chandle_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Chandle_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterChandle_type(this);
 }
 
 void SV3_1aParser::Chandle_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitChandle_type(this);
 }
@@ -16869,13 +16869,13 @@ size_t SV3_1aParser::Event_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Event_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEvent_type(this);
 }
 
 void SV3_1aParser::Event_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEvent_type(this);
 }
@@ -16922,13 +16922,13 @@ size_t SV3_1aParser::Const_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Const_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConst_type(this);
 }
 
 void SV3_1aParser::Const_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConst_type(this);
 }
@@ -16975,13 +16975,13 @@ size_t SV3_1aParser::Var_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Var_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterVar_type(this);
 }
 
 void SV3_1aParser::Var_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitVar_type(this);
 }
@@ -17040,13 +17040,13 @@ size_t SV3_1aParser::Data_type_or_implicitContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Data_type_or_implicitContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterData_type_or_implicit(this);
 }
 
 void SV3_1aParser::Data_type_or_implicitContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitData_type_or_implicit(this);
 }
@@ -17137,13 +17137,13 @@ size_t SV3_1aParser::Implicit_data_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Implicit_data_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterImplicit_data_type(this);
 }
 
 void SV3_1aParser::Implicit_data_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitImplicit_data_type(this);
 }
@@ -17225,13 +17225,13 @@ size_t SV3_1aParser::Enum_base_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Enum_base_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEnum_base_type(this);
 }
 
 void SV3_1aParser::Enum_base_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEnum_base_type(this);
 }
@@ -17378,13 +17378,13 @@ size_t SV3_1aParser::Enum_name_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Enum_name_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEnum_name_declaration(this);
 }
 
 void SV3_1aParser::Enum_name_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEnum_name_declaration(this);
 }
@@ -17468,13 +17468,13 @@ size_t SV3_1aParser::Class_scopeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Class_scopeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClass_scope(this);
 }
 
 void SV3_1aParser::Class_scopeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClass_scope(this);
 }
@@ -17567,13 +17567,13 @@ size_t SV3_1aParser::Class_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Class_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClass_type(this);
 }
 
 void SV3_1aParser::Class_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClass_type(this);
 }
@@ -17668,13 +17668,13 @@ size_t SV3_1aParser::Integer_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Integer_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInteger_type(this);
 }
 
 void SV3_1aParser::Integer_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInteger_type(this);
 }
@@ -17765,13 +17765,13 @@ size_t SV3_1aParser::Integer_atom_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Integer_atom_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInteger_atom_type(this);
 }
 
 void SV3_1aParser::Integer_atom_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInteger_atom_type(this);
 }
@@ -17840,13 +17840,13 @@ size_t SV3_1aParser::Integer_vector_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Integer_vector_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInteger_vector_type(this);
 }
 
 void SV3_1aParser::Integer_vector_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInteger_vector_type(this);
 }
@@ -17912,13 +17912,13 @@ size_t SV3_1aParser::Non_integer_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Non_integer_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNon_integer_type(this);
 }
 
 void SV3_1aParser::Non_integer_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNon_integer_type(this);
 }
@@ -18020,13 +18020,13 @@ size_t SV3_1aParser::Net_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Net_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNet_type(this);
 }
 
 void SV3_1aParser::Net_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNet_type(this);
 }
@@ -18109,13 +18109,13 @@ size_t SV3_1aParser::Net_port_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Net_port_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNet_port_type(this);
 }
 
 void SV3_1aParser::Net_port_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNet_port_type(this);
 }
@@ -18221,13 +18221,13 @@ size_t SV3_1aParser::Variable_port_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Variable_port_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterVariable_port_type(this);
 }
 
 void SV3_1aParser::Variable_port_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitVariable_port_type(this);
 }
@@ -18329,13 +18329,13 @@ size_t SV3_1aParser::Var_data_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Var_data_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterVar_data_type(this);
 }
 
 void SV3_1aParser::Var_data_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitVar_data_type(this);
 }
@@ -18434,12 +18434,12 @@ tree::TerminalNode* SV3_1aParser::Signing_UnsignedContext::UNSIGNED() {
 SV3_1aParser::Signing_UnsignedContext::Signing_UnsignedContext(SigningContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Signing_UnsignedContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSigning_Unsigned(this);
 }
 void SV3_1aParser::Signing_UnsignedContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSigning_Unsigned(this);
 }
@@ -18452,12 +18452,12 @@ tree::TerminalNode* SV3_1aParser::Signing_SignedContext::SIGNED() {
 SV3_1aParser::Signing_SignedContext::Signing_SignedContext(SigningContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Signing_SignedContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSigning_Signed(this);
 }
 void SV3_1aParser::Signing_SignedContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSigning_Signed(this);
 }
@@ -18477,7 +18477,7 @@ SV3_1aParser::SigningContext* SV3_1aParser::signing() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::SIGNED: {
-        _localctx = dynamic_cast<SigningContext *>(_tracker.createInstance<SV3_1aParser::Signing_SignedContext>(_localctx));
+        _localctx = parsetree_cast<SigningContext>(_tracker.createInstance<SV3_1aParser::Signing_SignedContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(3260);
         match(SV3_1aParser::SIGNED);
@@ -18485,7 +18485,7 @@ SV3_1aParser::SigningContext* SV3_1aParser::signing() {
       }
 
       case SV3_1aParser::UNSIGNED: {
-        _localctx = dynamic_cast<SigningContext *>(_tracker.createInstance<SV3_1aParser::Signing_UnsignedContext>(_localctx));
+        _localctx = parsetree_cast<SigningContext>(_tracker.createInstance<SV3_1aParser::Signing_UnsignedContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(3261);
         match(SV3_1aParser::UNSIGNED);
@@ -18530,13 +18530,13 @@ size_t SV3_1aParser::Simple_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Simple_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSimple_type(this);
 }
 
 void SV3_1aParser::Simple_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSimple_type(this);
 }
@@ -18631,12 +18631,12 @@ tree::TerminalNode* SV3_1aParser::RandomQualifier_RandCContext::RANDC() {
 SV3_1aParser::RandomQualifier_RandCContext::RandomQualifier_RandCContext(Random_qualifierContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::RandomQualifier_RandCContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRandomQualifier_RandC(this);
 }
 void SV3_1aParser::RandomQualifier_RandCContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRandomQualifier_RandC(this);
 }
@@ -18649,12 +18649,12 @@ tree::TerminalNode* SV3_1aParser::RandomQualifier_RandContext::RAND() {
 SV3_1aParser::RandomQualifier_RandContext::RandomQualifier_RandContext(Random_qualifierContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::RandomQualifier_RandContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRandomQualifier_Rand(this);
 }
 void SV3_1aParser::RandomQualifier_RandContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRandomQualifier_Rand(this);
 }
@@ -18674,7 +18674,7 @@ SV3_1aParser::Random_qualifierContext* SV3_1aParser::random_qualifier() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::RAND: {
-        _localctx = dynamic_cast<Random_qualifierContext *>(_tracker.createInstance<SV3_1aParser::RandomQualifier_RandContext>(_localctx));
+        _localctx = parsetree_cast<Random_qualifierContext>(_tracker.createInstance<SV3_1aParser::RandomQualifier_RandContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(3269);
         match(SV3_1aParser::RAND);
@@ -18682,7 +18682,7 @@ SV3_1aParser::Random_qualifierContext* SV3_1aParser::random_qualifier() {
       }
 
       case SV3_1aParser::RANDC: {
-        _localctx = dynamic_cast<Random_qualifierContext *>(_tracker.createInstance<SV3_1aParser::RandomQualifier_RandCContext>(_localctx));
+        _localctx = parsetree_cast<Random_qualifierContext>(_tracker.createInstance<SV3_1aParser::RandomQualifier_RandCContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(3270);
         match(SV3_1aParser::RANDC);
@@ -18739,13 +18739,13 @@ size_t SV3_1aParser::Struct_union_memberContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Struct_union_memberContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterStruct_union_member(this);
 }
 
 void SV3_1aParser::Struct_union_memberContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitStruct_union_member(this);
 }
@@ -18821,13 +18821,13 @@ size_t SV3_1aParser::Data_type_or_voidContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Data_type_or_voidContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterData_type_or_void(this);
 }
 
 void SV3_1aParser::Data_type_or_voidContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitData_type_or_void(this);
 }
@@ -18924,13 +18924,13 @@ size_t SV3_1aParser::Struct_unionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Struct_unionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterStruct_union(this);
 }
 
 void SV3_1aParser::Struct_unionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitStruct_union(this);
 }
@@ -19003,13 +19003,13 @@ size_t SV3_1aParser::Tagged_keywordContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Tagged_keywordContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTagged_keyword(this);
 }
 
 void SV3_1aParser::Tagged_keywordContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTagged_keyword(this);
 }
@@ -19072,13 +19072,13 @@ size_t SV3_1aParser::Type_referenceContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Type_referenceContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterType_reference(this);
 }
 
 void SV3_1aParser::Type_referenceContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitType_reference(this);
 }
@@ -19195,13 +19195,13 @@ size_t SV3_1aParser::Drive_strengthContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Drive_strengthContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDrive_strength(this);
 }
 
 void SV3_1aParser::Drive_strengthContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDrive_strength(this);
 }
@@ -19393,13 +19393,13 @@ size_t SV3_1aParser::Strength0Context::getRuleIndex() const {
 }
 
 void SV3_1aParser::Strength0Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterStrength0(this);
 }
 
 void SV3_1aParser::Strength0Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitStrength0(this);
 }
@@ -19470,13 +19470,13 @@ size_t SV3_1aParser::Strength1Context::getRuleIndex() const {
 }
 
 void SV3_1aParser::Strength1Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterStrength1(this);
 }
 
 void SV3_1aParser::Strength1Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitStrength1(this);
 }
@@ -19543,13 +19543,13 @@ size_t SV3_1aParser::Charge_strengthContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Charge_strengthContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCharge_strength(this);
 }
 
 void SV3_1aParser::Charge_strengthContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCharge_strength(this);
 }
@@ -19635,13 +19635,13 @@ size_t SV3_1aParser::Delay3Context::getRuleIndex() const {
 }
 
 void SV3_1aParser::Delay3Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDelay3(this);
 }
 
 void SV3_1aParser::Delay3Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDelay3(this);
 }
@@ -19756,13 +19756,13 @@ size_t SV3_1aParser::Delay2Context::getRuleIndex() const {
 }
 
 void SV3_1aParser::Delay2Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDelay2(this);
 }
 
 void SV3_1aParser::Delay2Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDelay2(this);
 }
@@ -19859,13 +19859,13 @@ size_t SV3_1aParser::Pound_delay_valueContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Pound_delay_valueContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPound_delay_value(this);
 }
 
 void SV3_1aParser::Pound_delay_valueContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPound_delay_value(this);
 }
@@ -19984,13 +19984,13 @@ size_t SV3_1aParser::Delay_valueContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Delay_valueContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDelay_value(this);
 }
 
 void SV3_1aParser::Delay_valueContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDelay_value(this);
 }
@@ -20094,13 +20094,13 @@ size_t SV3_1aParser::List_of_defparam_assignmentsContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::List_of_defparam_assignmentsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_defparam_assignments(this);
 }
 
 void SV3_1aParser::List_of_defparam_assignmentsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_defparam_assignments(this);
 }
@@ -20180,13 +20180,13 @@ size_t SV3_1aParser::List_of_interface_identifiersContext::getRuleIndex() const 
 }
 
 void SV3_1aParser::List_of_interface_identifiersContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_interface_identifiers(this);
 }
 
 void SV3_1aParser::List_of_interface_identifiersContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_interface_identifiers(this);
 }
@@ -20278,13 +20278,13 @@ size_t SV3_1aParser::List_of_net_decl_assignmentsContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::List_of_net_decl_assignmentsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_net_decl_assignments(this);
 }
 
 void SV3_1aParser::List_of_net_decl_assignmentsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_net_decl_assignments(this);
 }
@@ -20356,13 +20356,13 @@ size_t SV3_1aParser::List_of_param_assignmentsContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::List_of_param_assignmentsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_param_assignments(this);
 }
 
 void SV3_1aParser::List_of_param_assignmentsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_param_assignments(this);
 }
@@ -20444,13 +20444,13 @@ size_t SV3_1aParser::List_of_port_identifiersContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::List_of_port_identifiersContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_port_identifiers(this);
 }
 
 void SV3_1aParser::List_of_port_identifiersContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_port_identifiers(this);
 }
@@ -20542,13 +20542,13 @@ size_t SV3_1aParser::List_of_specparam_assignmentsContext::getRuleIndex() const 
 }
 
 void SV3_1aParser::List_of_specparam_assignmentsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_specparam_assignments(this);
 }
 
 void SV3_1aParser::List_of_specparam_assignmentsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_specparam_assignments(this);
 }
@@ -20644,13 +20644,13 @@ size_t SV3_1aParser::List_of_tf_variable_identifiersContext::getRuleIndex() cons
 }
 
 void SV3_1aParser::List_of_tf_variable_identifiersContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_tf_variable_identifiers(this);
 }
 
 void SV3_1aParser::List_of_tf_variable_identifiersContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_tf_variable_identifiers(this);
 }
@@ -20778,13 +20778,13 @@ size_t SV3_1aParser::List_of_type_assignmentsContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::List_of_type_assignmentsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_type_assignments(this);
 }
 
 void SV3_1aParser::List_of_type_assignmentsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_type_assignments(this);
 }
@@ -20880,13 +20880,13 @@ size_t SV3_1aParser::List_of_variable_decl_assignmentsContext::getRuleIndex() co
 }
 
 void SV3_1aParser::List_of_variable_decl_assignmentsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_variable_decl_assignments(this);
 }
 
 void SV3_1aParser::List_of_variable_decl_assignmentsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_variable_decl_assignments(this);
 }
@@ -20966,13 +20966,13 @@ size_t SV3_1aParser::List_of_variable_identifiersContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::List_of_variable_identifiersContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_variable_identifiers(this);
 }
 
 void SV3_1aParser::List_of_variable_identifiersContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_variable_identifiers(this);
 }
@@ -21088,13 +21088,13 @@ size_t SV3_1aParser::List_of_variable_port_identifiersContext::getRuleIndex() co
 }
 
 void SV3_1aParser::List_of_variable_port_identifiersContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_variable_port_identifiers(this);
 }
 
 void SV3_1aParser::List_of_variable_port_identifiersContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_variable_port_identifiers(this);
 }
@@ -21214,13 +21214,13 @@ size_t SV3_1aParser::List_of_virtual_interface_declContext::getRuleIndex() const
 }
 
 void SV3_1aParser::List_of_virtual_interface_declContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_virtual_interface_decl(this);
 }
 
 void SV3_1aParser::List_of_virtual_interface_declContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_virtual_interface_decl(this);
 }
@@ -21308,13 +21308,13 @@ size_t SV3_1aParser::Defparam_assignmentContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Defparam_assignmentContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDefparam_assignment(this);
 }
 
 void SV3_1aParser::Defparam_assignmentContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDefparam_assignment(this);
 }
@@ -21381,13 +21381,13 @@ size_t SV3_1aParser::Net_decl_assignmentContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Net_decl_assignmentContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNet_decl_assignment(this);
 }
 
 void SV3_1aParser::Net_decl_assignmentContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNet_decl_assignment(this);
 }
@@ -21471,13 +21471,13 @@ size_t SV3_1aParser::Param_assignmentContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Param_assignmentContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterParam_assignment(this);
 }
 
 void SV3_1aParser::Param_assignmentContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitParam_assignment(this);
 }
@@ -21557,13 +21557,13 @@ size_t SV3_1aParser::Specparam_assignmentContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Specparam_assignmentContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSpecparam_assignment(this);
 }
 
 void SV3_1aParser::Specparam_assignmentContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSpecparam_assignment(this);
 }
@@ -21679,13 +21679,13 @@ size_t SV3_1aParser::Pulse_control_specparamContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Pulse_control_specparamContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPulse_control_specparam(this);
 }
 
 void SV3_1aParser::Pulse_control_specparamContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPulse_control_specparam(this);
 }
@@ -21844,13 +21844,13 @@ size_t SV3_1aParser::Variable_decl_assignmentContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Variable_decl_assignmentContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterVariable_decl_assignment(this);
 }
 
 void SV3_1aParser::Variable_decl_assignmentContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitVariable_decl_assignment(this);
 }
@@ -22002,13 +22002,13 @@ size_t SV3_1aParser::Class_newContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Class_newContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClass_new(this);
 }
 
 void SV3_1aParser::Class_newContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClass_new(this);
 }
@@ -22116,13 +22116,13 @@ size_t SV3_1aParser::Dynamic_array_newContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Dynamic_array_newContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDynamic_array_new(this);
 }
 
 void SV3_1aParser::Dynamic_array_newContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDynamic_array_new(this);
 }
@@ -22204,13 +22204,13 @@ size_t SV3_1aParser::Unpacked_dimensionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Unpacked_dimensionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUnpacked_dimension(this);
 }
 
 void SV3_1aParser::Unpacked_dimensionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUnpacked_dimension(this);
 }
@@ -22301,13 +22301,13 @@ size_t SV3_1aParser::Packed_dimensionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Packed_dimensionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPacked_dimension(this);
 }
 
 void SV3_1aParser::Packed_dimensionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPacked_dimension(this);
 }
@@ -22387,13 +22387,13 @@ size_t SV3_1aParser::Associative_dimensionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Associative_dimensionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAssociative_dimension(this);
 }
 
 void SV3_1aParser::Associative_dimensionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAssociative_dimension(this);
 }
@@ -22473,13 +22473,13 @@ size_t SV3_1aParser::Variable_dimensionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Variable_dimensionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterVariable_dimension(this);
 }
 
 void SV3_1aParser::Variable_dimensionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitVariable_dimension(this);
 }
@@ -22573,13 +22573,13 @@ size_t SV3_1aParser::Queue_dimensionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Queue_dimensionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterQueue_dimension(this);
 }
 
 void SV3_1aParser::Queue_dimensionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitQueue_dimension(this);
 }
@@ -22645,13 +22645,13 @@ size_t SV3_1aParser::Unsized_dimensionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Unsized_dimensionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUnsized_dimension(this);
 }
 
 void SV3_1aParser::Unsized_dimensionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUnsized_dimension(this);
 }
@@ -22704,13 +22704,13 @@ size_t SV3_1aParser::Function_data_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Function_data_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterFunction_data_type(this);
 }
 
 void SV3_1aParser::Function_data_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitFunction_data_type(this);
 }
@@ -22811,13 +22811,13 @@ size_t SV3_1aParser::Function_data_type_or_implicitContext::getRuleIndex() const
 }
 
 void SV3_1aParser::Function_data_type_or_implicitContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterFunction_data_type_or_implicit(this);
 }
 
 void SV3_1aParser::Function_data_type_or_implicitContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitFunction_data_type_or_implicit(this);
 }
@@ -22908,13 +22908,13 @@ size_t SV3_1aParser::Function_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Function_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterFunction_declaration(this);
 }
 
 void SV3_1aParser::Function_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitFunction_declaration(this);
 }
@@ -23042,13 +23042,13 @@ size_t SV3_1aParser::Function_body_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Function_body_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterFunction_body_declaration(this);
 }
 
 void SV3_1aParser::Function_body_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitFunction_body_declaration(this);
 }
@@ -23431,13 +23431,13 @@ size_t SV3_1aParser::Function_prototypeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Function_prototypeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterFunction_prototype(this);
 }
 
 void SV3_1aParser::Function_prototypeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitFunction_prototype(this);
 }
@@ -23586,13 +23586,13 @@ size_t SV3_1aParser::Dpi_import_exportContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Dpi_import_exportContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDpi_import_export(this);
 }
 
 void SV3_1aParser::Dpi_import_exportContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDpi_import_export(this);
 }
@@ -23759,13 +23759,13 @@ size_t SV3_1aParser::Context_keywordContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Context_keywordContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterContext_keyword(this);
 }
 
 void SV3_1aParser::Context_keywordContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitContext_keyword(this);
 }
@@ -23816,13 +23816,13 @@ size_t SV3_1aParser::Function_name_declContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Function_name_declContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterFunction_name_decl(this);
 }
 
 void SV3_1aParser::Function_name_declContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitFunction_name_decl(this);
 }
@@ -23875,13 +23875,13 @@ size_t SV3_1aParser::Task_name_declContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Task_name_declContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTask_name_decl(this);
 }
 
 void SV3_1aParser::Task_name_declContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTask_name_decl(this);
 }
@@ -23930,13 +23930,13 @@ size_t SV3_1aParser::Pure_keywordContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Pure_keywordContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPure_keyword(this);
 }
 
 void SV3_1aParser::Pure_keywordContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPure_keyword(this);
 }
@@ -23991,13 +23991,13 @@ size_t SV3_1aParser::Task_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Task_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTask_declaration(this);
 }
 
 void SV3_1aParser::Task_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTask_declaration(this);
 }
@@ -24121,13 +24121,13 @@ size_t SV3_1aParser::Task_body_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Task_body_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTask_body_declaration(this);
 }
 
 void SV3_1aParser::Task_body_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTask_body_declaration(this);
 }
@@ -24490,13 +24490,13 @@ size_t SV3_1aParser::Tf_item_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Tf_item_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTf_item_declaration(this);
 }
 
 void SV3_1aParser::Tf_item_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTf_item_declaration(this);
 }
@@ -24572,13 +24572,13 @@ size_t SV3_1aParser::Tf_port_listContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Tf_port_listContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTf_port_list(this);
 }
 
 void SV3_1aParser::Tf_port_listContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTf_port_list(this);
 }
@@ -24674,13 +24674,13 @@ size_t SV3_1aParser::Tf_port_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Tf_port_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTf_port_item(this);
 }
 
 void SV3_1aParser::Tf_port_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTf_port_item(this);
 }
@@ -24789,12 +24789,12 @@ tree::TerminalNode* SV3_1aParser::TfPortDir_RefContext::REF() {
 SV3_1aParser::TfPortDir_RefContext::TfPortDir_RefContext(Tf_port_directionContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::TfPortDir_RefContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTfPortDir_Ref(this);
 }
 void SV3_1aParser::TfPortDir_RefContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTfPortDir_Ref(this);
 }
@@ -24811,12 +24811,12 @@ tree::TerminalNode* SV3_1aParser::TfPortDir_ConstRefContext::REF() {
 SV3_1aParser::TfPortDir_ConstRefContext::TfPortDir_ConstRefContext(Tf_port_directionContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::TfPortDir_ConstRefContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTfPortDir_ConstRef(this);
 }
 void SV3_1aParser::TfPortDir_ConstRefContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTfPortDir_ConstRef(this);
 }
@@ -24829,12 +24829,12 @@ tree::TerminalNode* SV3_1aParser::TfPortDir_OutContext::OUTPUT() {
 SV3_1aParser::TfPortDir_OutContext::TfPortDir_OutContext(Tf_port_directionContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::TfPortDir_OutContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTfPortDir_Out(this);
 }
 void SV3_1aParser::TfPortDir_OutContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTfPortDir_Out(this);
 }
@@ -24847,12 +24847,12 @@ tree::TerminalNode* SV3_1aParser::TfPortDir_InpContext::INPUT() {
 SV3_1aParser::TfPortDir_InpContext::TfPortDir_InpContext(Tf_port_directionContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::TfPortDir_InpContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTfPortDir_Inp(this);
 }
 void SV3_1aParser::TfPortDir_InpContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTfPortDir_Inp(this);
 }
@@ -24865,12 +24865,12 @@ tree::TerminalNode* SV3_1aParser::TfPortDir_InoutContext::INOUT() {
 SV3_1aParser::TfPortDir_InoutContext::TfPortDir_InoutContext(Tf_port_directionContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::TfPortDir_InoutContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTfPortDir_Inout(this);
 }
 void SV3_1aParser::TfPortDir_InoutContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTfPortDir_Inout(this);
 }
@@ -24890,7 +24890,7 @@ SV3_1aParser::Tf_port_directionContext* SV3_1aParser::tf_port_direction() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::INPUT: {
-        _localctx = dynamic_cast<Tf_port_directionContext *>(_tracker.createInstance<SV3_1aParser::TfPortDir_InpContext>(_localctx));
+        _localctx = parsetree_cast<Tf_port_directionContext>(_tracker.createInstance<SV3_1aParser::TfPortDir_InpContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(3969);
         match(SV3_1aParser::INPUT);
@@ -24898,7 +24898,7 @@ SV3_1aParser::Tf_port_directionContext* SV3_1aParser::tf_port_direction() {
       }
 
       case SV3_1aParser::OUTPUT: {
-        _localctx = dynamic_cast<Tf_port_directionContext *>(_tracker.createInstance<SV3_1aParser::TfPortDir_OutContext>(_localctx));
+        _localctx = parsetree_cast<Tf_port_directionContext>(_tracker.createInstance<SV3_1aParser::TfPortDir_OutContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(3970);
         match(SV3_1aParser::OUTPUT);
@@ -24906,7 +24906,7 @@ SV3_1aParser::Tf_port_directionContext* SV3_1aParser::tf_port_direction() {
       }
 
       case SV3_1aParser::INOUT: {
-        _localctx = dynamic_cast<Tf_port_directionContext *>(_tracker.createInstance<SV3_1aParser::TfPortDir_InoutContext>(_localctx));
+        _localctx = parsetree_cast<Tf_port_directionContext>(_tracker.createInstance<SV3_1aParser::TfPortDir_InoutContext>(_localctx));
         enterOuterAlt(_localctx, 3);
         setState(3971);
         match(SV3_1aParser::INOUT);
@@ -24914,7 +24914,7 @@ SV3_1aParser::Tf_port_directionContext* SV3_1aParser::tf_port_direction() {
       }
 
       case SV3_1aParser::REF: {
-        _localctx = dynamic_cast<Tf_port_directionContext *>(_tracker.createInstance<SV3_1aParser::TfPortDir_RefContext>(_localctx));
+        _localctx = parsetree_cast<Tf_port_directionContext>(_tracker.createInstance<SV3_1aParser::TfPortDir_RefContext>(_localctx));
         enterOuterAlt(_localctx, 4);
         setState(3972);
         match(SV3_1aParser::REF);
@@ -24922,7 +24922,7 @@ SV3_1aParser::Tf_port_directionContext* SV3_1aParser::tf_port_direction() {
       }
 
       case SV3_1aParser::CONST: {
-        _localctx = dynamic_cast<Tf_port_directionContext *>(_tracker.createInstance<SV3_1aParser::TfPortDir_ConstRefContext>(_localctx));
+        _localctx = parsetree_cast<Tf_port_directionContext>(_tracker.createInstance<SV3_1aParser::TfPortDir_ConstRefContext>(_localctx));
         enterOuterAlt(_localctx, 5);
         setState(3973);
         match(SV3_1aParser::CONST);
@@ -24985,13 +24985,13 @@ size_t SV3_1aParser::Tf_port_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Tf_port_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTf_port_declaration(this);
 }
 
 void SV3_1aParser::Tf_port_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTf_port_declaration(this);
 }
@@ -25079,13 +25079,13 @@ size_t SV3_1aParser::Task_prototypeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Task_prototypeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTask_prototype(this);
 }
 
 void SV3_1aParser::Task_prototypeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTask_prototype(this);
 }
@@ -25212,13 +25212,13 @@ size_t SV3_1aParser::Block_item_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Block_item_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBlock_item_declaration(this);
 }
 
 void SV3_1aParser::Block_item_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBlock_item_declaration(this);
 }
@@ -25375,13 +25375,13 @@ size_t SV3_1aParser::Overload_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Overload_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOverload_declaration(this);
 }
 
 void SV3_1aParser::Overload_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOverload_declaration(this);
 }
@@ -25452,12 +25452,12 @@ tree::TerminalNode* SV3_1aParser::OverloadOp_MinusContext::MINUS() {
 SV3_1aParser::OverloadOp_MinusContext::OverloadOp_MinusContext(Overload_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::OverloadOp_MinusContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOverloadOp_Minus(this);
 }
 void SV3_1aParser::OverloadOp_MinusContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOverloadOp_Minus(this);
 }
@@ -25470,12 +25470,12 @@ tree::TerminalNode* SV3_1aParser::OverloadOp_GreaterEqualContext::GREATER_EQUAL(
 SV3_1aParser::OverloadOp_GreaterEqualContext::OverloadOp_GreaterEqualContext(Overload_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::OverloadOp_GreaterEqualContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOverloadOp_GreaterEqual(this);
 }
 void SV3_1aParser::OverloadOp_GreaterEqualContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOverloadOp_GreaterEqual(this);
 }
@@ -25488,12 +25488,12 @@ tree::TerminalNode* SV3_1aParser::OverloadOp_LessContext::LESS() {
 SV3_1aParser::OverloadOp_LessContext::OverloadOp_LessContext(Overload_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::OverloadOp_LessContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOverloadOp_Less(this);
 }
 void SV3_1aParser::OverloadOp_LessContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOverloadOp_Less(this);
 }
@@ -25506,12 +25506,12 @@ tree::TerminalNode* SV3_1aParser::OverloadOp_PercentContext::PERCENT() {
 SV3_1aParser::OverloadOp_PercentContext::OverloadOp_PercentContext(Overload_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::OverloadOp_PercentContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOverloadOp_Percent(this);
 }
 void SV3_1aParser::OverloadOp_PercentContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOverloadOp_Percent(this);
 }
@@ -25524,12 +25524,12 @@ tree::TerminalNode* SV3_1aParser::OverloadOp_NotEqualContext::NOTEQUAL() {
 SV3_1aParser::OverloadOp_NotEqualContext::OverloadOp_NotEqualContext(Overload_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::OverloadOp_NotEqualContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOverloadOp_NotEqual(this);
 }
 void SV3_1aParser::OverloadOp_NotEqualContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOverloadOp_NotEqual(this);
 }
@@ -25542,12 +25542,12 @@ tree::TerminalNode* SV3_1aParser::OverloadOp_MultContext::STAR() {
 SV3_1aParser::OverloadOp_MultContext::OverloadOp_MultContext(Overload_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::OverloadOp_MultContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOverloadOp_Mult(this);
 }
 void SV3_1aParser::OverloadOp_MultContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOverloadOp_Mult(this);
 }
@@ -25560,12 +25560,12 @@ tree::TerminalNode* SV3_1aParser::OverloadOp_EquivContext::EQUIV() {
 SV3_1aParser::OverloadOp_EquivContext::OverloadOp_EquivContext(Overload_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::OverloadOp_EquivContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOverloadOp_Equiv(this);
 }
 void SV3_1aParser::OverloadOp_EquivContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOverloadOp_Equiv(this);
 }
@@ -25578,12 +25578,12 @@ tree::TerminalNode* SV3_1aParser::OverloadOp_EqualContext::ASSIGN_OP() {
 SV3_1aParser::OverloadOp_EqualContext::OverloadOp_EqualContext(Overload_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::OverloadOp_EqualContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOverloadOp_Equal(this);
 }
 void SV3_1aParser::OverloadOp_EqualContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOverloadOp_Equal(this);
 }
@@ -25596,12 +25596,12 @@ tree::TerminalNode* SV3_1aParser::OverloadOp_LessEqualContext::LESS_EQUAL() {
 SV3_1aParser::OverloadOp_LessEqualContext::OverloadOp_LessEqualContext(Overload_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::OverloadOp_LessEqualContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOverloadOp_LessEqual(this);
 }
 void SV3_1aParser::OverloadOp_LessEqualContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOverloadOp_LessEqual(this);
 }
@@ -25614,12 +25614,12 @@ tree::TerminalNode* SV3_1aParser::OverloadOp_PlusPlusContext::PLUSPLUS() {
 SV3_1aParser::OverloadOp_PlusPlusContext::OverloadOp_PlusPlusContext(Overload_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::OverloadOp_PlusPlusContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOverloadOp_PlusPlus(this);
 }
 void SV3_1aParser::OverloadOp_PlusPlusContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOverloadOp_PlusPlus(this);
 }
@@ -25632,12 +25632,12 @@ tree::TerminalNode* SV3_1aParser::OverloadOp_GreaterContext::GREATER() {
 SV3_1aParser::OverloadOp_GreaterContext::OverloadOp_GreaterContext(Overload_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::OverloadOp_GreaterContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOverloadOp_Greater(this);
 }
 void SV3_1aParser::OverloadOp_GreaterContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOverloadOp_Greater(this);
 }
@@ -25650,12 +25650,12 @@ tree::TerminalNode* SV3_1aParser::OverloadOp_MinusMinusContext::MINUSMINUS() {
 SV3_1aParser::OverloadOp_MinusMinusContext::OverloadOp_MinusMinusContext(Overload_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::OverloadOp_MinusMinusContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOverloadOp_MinusMinus(this);
 }
 void SV3_1aParser::OverloadOp_MinusMinusContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOverloadOp_MinusMinus(this);
 }
@@ -25668,12 +25668,12 @@ tree::TerminalNode* SV3_1aParser::OverloadOp_StarStarContext::STARSTAR() {
 SV3_1aParser::OverloadOp_StarStarContext::OverloadOp_StarStarContext(Overload_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::OverloadOp_StarStarContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOverloadOp_StarStar(this);
 }
 void SV3_1aParser::OverloadOp_StarStarContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOverloadOp_StarStar(this);
 }
@@ -25686,12 +25686,12 @@ tree::TerminalNode* SV3_1aParser::OverloadOp_PlusContext::PLUS() {
 SV3_1aParser::OverloadOp_PlusContext::OverloadOp_PlusContext(Overload_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::OverloadOp_PlusContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOverloadOp_Plus(this);
 }
 void SV3_1aParser::OverloadOp_PlusContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOverloadOp_Plus(this);
 }
@@ -25704,12 +25704,12 @@ tree::TerminalNode* SV3_1aParser::OverloadOp_DivContext::DIV() {
 SV3_1aParser::OverloadOp_DivContext::OverloadOp_DivContext(Overload_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::OverloadOp_DivContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOverloadOp_Div(this);
 }
 void SV3_1aParser::OverloadOp_DivContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOverloadOp_Div(this);
 }
@@ -25729,7 +25729,7 @@ SV3_1aParser::Overload_operatorContext* SV3_1aParser::overload_operator() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::PLUS: {
-        _localctx = dynamic_cast<Overload_operatorContext *>(_tracker.createInstance<SV3_1aParser::OverloadOp_PlusContext>(_localctx));
+        _localctx = parsetree_cast<Overload_operatorContext>(_tracker.createInstance<SV3_1aParser::OverloadOp_PlusContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(4026);
         match(SV3_1aParser::PLUS);
@@ -25737,7 +25737,7 @@ SV3_1aParser::Overload_operatorContext* SV3_1aParser::overload_operator() {
       }
 
       case SV3_1aParser::PLUSPLUS: {
-        _localctx = dynamic_cast<Overload_operatorContext *>(_tracker.createInstance<SV3_1aParser::OverloadOp_PlusPlusContext>(_localctx));
+        _localctx = parsetree_cast<Overload_operatorContext>(_tracker.createInstance<SV3_1aParser::OverloadOp_PlusPlusContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(4027);
         match(SV3_1aParser::PLUSPLUS);
@@ -25745,7 +25745,7 @@ SV3_1aParser::Overload_operatorContext* SV3_1aParser::overload_operator() {
       }
 
       case SV3_1aParser::MINUS: {
-        _localctx = dynamic_cast<Overload_operatorContext *>(_tracker.createInstance<SV3_1aParser::OverloadOp_MinusContext>(_localctx));
+        _localctx = parsetree_cast<Overload_operatorContext>(_tracker.createInstance<SV3_1aParser::OverloadOp_MinusContext>(_localctx));
         enterOuterAlt(_localctx, 3);
         setState(4028);
         match(SV3_1aParser::MINUS);
@@ -25753,7 +25753,7 @@ SV3_1aParser::Overload_operatorContext* SV3_1aParser::overload_operator() {
       }
 
       case SV3_1aParser::MINUSMINUS: {
-        _localctx = dynamic_cast<Overload_operatorContext *>(_tracker.createInstance<SV3_1aParser::OverloadOp_MinusMinusContext>(_localctx));
+        _localctx = parsetree_cast<Overload_operatorContext>(_tracker.createInstance<SV3_1aParser::OverloadOp_MinusMinusContext>(_localctx));
         enterOuterAlt(_localctx, 4);
         setState(4029);
         match(SV3_1aParser::MINUSMINUS);
@@ -25761,7 +25761,7 @@ SV3_1aParser::Overload_operatorContext* SV3_1aParser::overload_operator() {
       }
 
       case SV3_1aParser::STAR: {
-        _localctx = dynamic_cast<Overload_operatorContext *>(_tracker.createInstance<SV3_1aParser::OverloadOp_MultContext>(_localctx));
+        _localctx = parsetree_cast<Overload_operatorContext>(_tracker.createInstance<SV3_1aParser::OverloadOp_MultContext>(_localctx));
         enterOuterAlt(_localctx, 5);
         setState(4030);
         match(SV3_1aParser::STAR);
@@ -25769,7 +25769,7 @@ SV3_1aParser::Overload_operatorContext* SV3_1aParser::overload_operator() {
       }
 
       case SV3_1aParser::STARSTAR: {
-        _localctx = dynamic_cast<Overload_operatorContext *>(_tracker.createInstance<SV3_1aParser::OverloadOp_StarStarContext>(_localctx));
+        _localctx = parsetree_cast<Overload_operatorContext>(_tracker.createInstance<SV3_1aParser::OverloadOp_StarStarContext>(_localctx));
         enterOuterAlt(_localctx, 6);
         setState(4031);
         match(SV3_1aParser::STARSTAR);
@@ -25777,7 +25777,7 @@ SV3_1aParser::Overload_operatorContext* SV3_1aParser::overload_operator() {
       }
 
       case SV3_1aParser::DIV: {
-        _localctx = dynamic_cast<Overload_operatorContext *>(_tracker.createInstance<SV3_1aParser::OverloadOp_DivContext>(_localctx));
+        _localctx = parsetree_cast<Overload_operatorContext>(_tracker.createInstance<SV3_1aParser::OverloadOp_DivContext>(_localctx));
         enterOuterAlt(_localctx, 7);
         setState(4032);
         match(SV3_1aParser::DIV);
@@ -25785,7 +25785,7 @@ SV3_1aParser::Overload_operatorContext* SV3_1aParser::overload_operator() {
       }
 
       case SV3_1aParser::PERCENT: {
-        _localctx = dynamic_cast<Overload_operatorContext *>(_tracker.createInstance<SV3_1aParser::OverloadOp_PercentContext>(_localctx));
+        _localctx = parsetree_cast<Overload_operatorContext>(_tracker.createInstance<SV3_1aParser::OverloadOp_PercentContext>(_localctx));
         enterOuterAlt(_localctx, 8);
         setState(4033);
         match(SV3_1aParser::PERCENT);
@@ -25793,7 +25793,7 @@ SV3_1aParser::Overload_operatorContext* SV3_1aParser::overload_operator() {
       }
 
       case SV3_1aParser::EQUIV: {
-        _localctx = dynamic_cast<Overload_operatorContext *>(_tracker.createInstance<SV3_1aParser::OverloadOp_EquivContext>(_localctx));
+        _localctx = parsetree_cast<Overload_operatorContext>(_tracker.createInstance<SV3_1aParser::OverloadOp_EquivContext>(_localctx));
         enterOuterAlt(_localctx, 9);
         setState(4034);
         match(SV3_1aParser::EQUIV);
@@ -25801,7 +25801,7 @@ SV3_1aParser::Overload_operatorContext* SV3_1aParser::overload_operator() {
       }
 
       case SV3_1aParser::NOTEQUAL: {
-        _localctx = dynamic_cast<Overload_operatorContext *>(_tracker.createInstance<SV3_1aParser::OverloadOp_NotEqualContext>(_localctx));
+        _localctx = parsetree_cast<Overload_operatorContext>(_tracker.createInstance<SV3_1aParser::OverloadOp_NotEqualContext>(_localctx));
         enterOuterAlt(_localctx, 10);
         setState(4035);
         match(SV3_1aParser::NOTEQUAL);
@@ -25809,7 +25809,7 @@ SV3_1aParser::Overload_operatorContext* SV3_1aParser::overload_operator() {
       }
 
       case SV3_1aParser::LESS: {
-        _localctx = dynamic_cast<Overload_operatorContext *>(_tracker.createInstance<SV3_1aParser::OverloadOp_LessContext>(_localctx));
+        _localctx = parsetree_cast<Overload_operatorContext>(_tracker.createInstance<SV3_1aParser::OverloadOp_LessContext>(_localctx));
         enterOuterAlt(_localctx, 11);
         setState(4036);
         match(SV3_1aParser::LESS);
@@ -25817,7 +25817,7 @@ SV3_1aParser::Overload_operatorContext* SV3_1aParser::overload_operator() {
       }
 
       case SV3_1aParser::LESS_EQUAL: {
-        _localctx = dynamic_cast<Overload_operatorContext *>(_tracker.createInstance<SV3_1aParser::OverloadOp_LessEqualContext>(_localctx));
+        _localctx = parsetree_cast<Overload_operatorContext>(_tracker.createInstance<SV3_1aParser::OverloadOp_LessEqualContext>(_localctx));
         enterOuterAlt(_localctx, 12);
         setState(4037);
         match(SV3_1aParser::LESS_EQUAL);
@@ -25825,7 +25825,7 @@ SV3_1aParser::Overload_operatorContext* SV3_1aParser::overload_operator() {
       }
 
       case SV3_1aParser::GREATER: {
-        _localctx = dynamic_cast<Overload_operatorContext *>(_tracker.createInstance<SV3_1aParser::OverloadOp_GreaterContext>(_localctx));
+        _localctx = parsetree_cast<Overload_operatorContext>(_tracker.createInstance<SV3_1aParser::OverloadOp_GreaterContext>(_localctx));
         enterOuterAlt(_localctx, 13);
         setState(4038);
         match(SV3_1aParser::GREATER);
@@ -25833,7 +25833,7 @@ SV3_1aParser::Overload_operatorContext* SV3_1aParser::overload_operator() {
       }
 
       case SV3_1aParser::GREATER_EQUAL: {
-        _localctx = dynamic_cast<Overload_operatorContext *>(_tracker.createInstance<SV3_1aParser::OverloadOp_GreaterEqualContext>(_localctx));
+        _localctx = parsetree_cast<Overload_operatorContext>(_tracker.createInstance<SV3_1aParser::OverloadOp_GreaterEqualContext>(_localctx));
         enterOuterAlt(_localctx, 14);
         setState(4039);
         match(SV3_1aParser::GREATER_EQUAL);
@@ -25841,7 +25841,7 @@ SV3_1aParser::Overload_operatorContext* SV3_1aParser::overload_operator() {
       }
 
       case SV3_1aParser::ASSIGN_OP: {
-        _localctx = dynamic_cast<Overload_operatorContext *>(_tracker.createInstance<SV3_1aParser::OverloadOp_EqualContext>(_localctx));
+        _localctx = parsetree_cast<Overload_operatorContext>(_tracker.createInstance<SV3_1aParser::OverloadOp_EqualContext>(_localctx));
         enterOuterAlt(_localctx, 15);
         setState(4040);
         match(SV3_1aParser::ASSIGN_OP);
@@ -25890,13 +25890,13 @@ size_t SV3_1aParser::Overload_proto_formalsContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Overload_proto_formalsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOverload_proto_formals(this);
 }
 
 void SV3_1aParser::Overload_proto_formalsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOverload_proto_formals(this);
 }
@@ -25972,13 +25972,13 @@ size_t SV3_1aParser::Virtual_interface_declarationContext::getRuleIndex() const 
 }
 
 void SV3_1aParser::Virtual_interface_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterVirtual_interface_declaration(this);
 }
 
 void SV3_1aParser::Virtual_interface_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitVirtual_interface_declaration(this);
 }
@@ -26064,13 +26064,13 @@ size_t SV3_1aParser::Modport_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Modport_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModport_item(this);
 }
 
 void SV3_1aParser::Modport_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModport_item(this);
 }
@@ -26160,13 +26160,13 @@ size_t SV3_1aParser::Modport_ports_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Modport_ports_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModport_ports_declaration(this);
 }
 
 void SV3_1aParser::Modport_ports_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModport_ports_declaration(this);
 }
@@ -26278,13 +26278,13 @@ size_t SV3_1aParser::Modport_simple_ports_declarationContext::getRuleIndex() con
 }
 
 void SV3_1aParser::Modport_simple_ports_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModport_simple_ports_declaration(this);
 }
 
 void SV3_1aParser::Modport_simple_ports_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModport_simple_ports_declaration(this);
 }
@@ -26368,13 +26368,13 @@ size_t SV3_1aParser::Modport_simple_portContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Modport_simple_portContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModport_simple_port(this);
 }
 
 void SV3_1aParser::Modport_simple_portContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModport_simple_port(this);
 }
@@ -26540,13 +26540,13 @@ size_t SV3_1aParser::Modport_hierarchical_ports_declarationContext::getRuleIndex
 }
 
 void SV3_1aParser::Modport_hierarchical_ports_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModport_hierarchical_ports_declaration(this);
 }
 
 void SV3_1aParser::Modport_hierarchical_ports_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModport_hierarchical_ports_declaration(this);
 }
@@ -26630,13 +26630,13 @@ size_t SV3_1aParser::Modport_tf_ports_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Modport_tf_ports_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModport_tf_ports_declaration(this);
 }
 
 void SV3_1aParser::Modport_tf_ports_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModport_tf_ports_declaration(this);
 }
@@ -26712,13 +26712,13 @@ size_t SV3_1aParser::Modport_tf_portContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Modport_tf_portContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModport_tf_port(this);
 }
 
 void SV3_1aParser::Modport_tf_portContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModport_tf_port(this);
 }
@@ -26799,13 +26799,13 @@ size_t SV3_1aParser::Concurrent_assertion_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Concurrent_assertion_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConcurrent_assertion_item(this);
 }
 
 void SV3_1aParser::Concurrent_assertion_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConcurrent_assertion_item(this);
 }
@@ -26901,13 +26901,13 @@ size_t SV3_1aParser::Concurrent_assertion_statementContext::getRuleIndex() const
 }
 
 void SV3_1aParser::Concurrent_assertion_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConcurrent_assertion_statement(this);
 }
 
 void SV3_1aParser::Concurrent_assertion_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConcurrent_assertion_statement(this);
 }
@@ -27012,13 +27012,13 @@ size_t SV3_1aParser::Assert_property_statementContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Assert_property_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAssert_property_statement(this);
 }
 
 void SV3_1aParser::Assert_property_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAssert_property_statement(this);
 }
@@ -27095,13 +27095,13 @@ size_t SV3_1aParser::Assume_property_statementContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Assume_property_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAssume_property_statement(this);
 }
 
 void SV3_1aParser::Assume_property_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAssume_property_statement(this);
 }
@@ -27178,13 +27178,13 @@ size_t SV3_1aParser::Cover_property_statementContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Cover_property_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCover_property_statement(this);
 }
 
 void SV3_1aParser::Cover_property_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCover_property_statement(this);
 }
@@ -27257,13 +27257,13 @@ size_t SV3_1aParser::Expect_property_statementContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Expect_property_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterExpect_property_statement(this);
 }
 
 void SV3_1aParser::Expect_property_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitExpect_property_statement(this);
 }
@@ -27362,13 +27362,13 @@ size_t SV3_1aParser::Cover_sequence_statementContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Cover_sequence_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCover_sequence_statement(this);
 }
 
 void SV3_1aParser::Cover_sequence_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCover_sequence_statement(this);
 }
@@ -27475,13 +27475,13 @@ size_t SV3_1aParser::Restrict_property_statementContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Restrict_property_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRestrict_property_statement(this);
 }
 
 void SV3_1aParser::Restrict_property_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRestrict_property_statement(this);
 }
@@ -27550,13 +27550,13 @@ size_t SV3_1aParser::Property_instanceContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Property_instanceContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProperty_instance(this);
 }
 
 void SV3_1aParser::Property_instanceContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProperty_instance(this);
 }
@@ -27696,13 +27696,13 @@ size_t SV3_1aParser::Property_actual_argContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Property_actual_argContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProperty_actual_arg(this);
 }
 
 void SV3_1aParser::Property_actual_argContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProperty_actual_arg(this);
 }
@@ -27770,13 +27770,13 @@ size_t SV3_1aParser::Concurrent_assertion_item_declarationContext::getRuleIndex(
 }
 
 void SV3_1aParser::Concurrent_assertion_item_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConcurrent_assertion_item_declaration(this);
 }
 
 void SV3_1aParser::Concurrent_assertion_item_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConcurrent_assertion_item_declaration(this);
 }
@@ -27848,13 +27848,13 @@ size_t SV3_1aParser::Assertion_item_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Assertion_item_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAssertion_item_declaration(this);
 }
 
 void SV3_1aParser::Assertion_item_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAssertion_item_declaration(this);
 }
@@ -27973,13 +27973,13 @@ size_t SV3_1aParser::Property_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Property_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProperty_declaration(this);
 }
 
 void SV3_1aParser::Property_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProperty_declaration(this);
 }
@@ -28129,13 +28129,13 @@ size_t SV3_1aParser::Property_port_listContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Property_port_listContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProperty_port_list(this);
 }
 
 void SV3_1aParser::Property_port_listContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProperty_port_list(this);
 }
@@ -28231,13 +28231,13 @@ size_t SV3_1aParser::Property_port_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Property_port_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProperty_port_item(this);
 }
 
 void SV3_1aParser::Property_port_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProperty_port_item(this);
 }
@@ -28333,13 +28333,13 @@ size_t SV3_1aParser::Property_lvar_port_directionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Property_lvar_port_directionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProperty_lvar_port_direction(this);
 }
 
 void SV3_1aParser::Property_lvar_port_directionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProperty_lvar_port_direction(this);
 }
@@ -28390,13 +28390,13 @@ size_t SV3_1aParser::Property_formal_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Property_formal_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProperty_formal_type(this);
 }
 
 void SV3_1aParser::Property_formal_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProperty_formal_type(this);
 }
@@ -28514,13 +28514,13 @@ size_t SV3_1aParser::Property_specContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Property_specContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProperty_spec(this);
 }
 
 void SV3_1aParser::Property_specContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProperty_spec(this);
 }
@@ -28769,13 +28769,13 @@ size_t SV3_1aParser::Property_exprContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Property_exprContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProperty_expr(this);
 }
 
 void SV3_1aParser::Property_exprContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProperty_expr(this);
 }
@@ -29380,13 +29380,13 @@ size_t SV3_1aParser::Property_case_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Property_case_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProperty_case_item(this);
 }
 
 void SV3_1aParser::Property_case_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProperty_case_item(this);
 }
@@ -29602,13 +29602,13 @@ size_t SV3_1aParser::Sequence_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Sequence_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSequence_declaration(this);
 }
 
 void SV3_1aParser::Sequence_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSequence_declaration(this);
 }
@@ -29825,13 +29825,13 @@ size_t SV3_1aParser::Sequence_exprContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Sequence_exprContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSequence_expr(this);
 }
 
 void SV3_1aParser::Sequence_exprContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSequence_expr(this);
 }
@@ -30192,13 +30192,13 @@ size_t SV3_1aParser::Cycle_delay_rangeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Cycle_delay_rangeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCycle_delay_range(this);
 }
 
 void SV3_1aParser::Cycle_delay_rangeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCycle_delay_range(this);
 }
@@ -30307,13 +30307,13 @@ size_t SV3_1aParser::Sequence_method_callContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Sequence_method_callContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSequence_method_call(this);
 }
 
 void SV3_1aParser::Sequence_method_callContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSequence_method_call(this);
 }
@@ -30372,13 +30372,13 @@ size_t SV3_1aParser::Sequence_match_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Sequence_match_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSequence_match_item(this);
 }
 
 void SV3_1aParser::Sequence_match_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSequence_match_item(this);
 }
@@ -30461,13 +30461,13 @@ size_t SV3_1aParser::Sequence_port_listContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Sequence_port_listContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSequence_port_list(this);
 }
 
 void SV3_1aParser::Sequence_port_listContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSequence_port_list(this);
 }
@@ -30563,13 +30563,13 @@ size_t SV3_1aParser::Sequence_port_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Sequence_port_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSequence_port_item(this);
 }
 
 void SV3_1aParser::Sequence_port_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSequence_port_item(this);
 }
@@ -30676,12 +30676,12 @@ tree::TerminalNode* SV3_1aParser::SeqLvarPortDir_OutputContext::OUTPUT() {
 SV3_1aParser::SeqLvarPortDir_OutputContext::SeqLvarPortDir_OutputContext(Sequence_lvar_port_directionContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::SeqLvarPortDir_OutputContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSeqLvarPortDir_Output(this);
 }
 void SV3_1aParser::SeqLvarPortDir_OutputContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSeqLvarPortDir_Output(this);
 }
@@ -30694,12 +30694,12 @@ tree::TerminalNode* SV3_1aParser::SeqLvarPortDir_InoutContext::INOUT() {
 SV3_1aParser::SeqLvarPortDir_InoutContext::SeqLvarPortDir_InoutContext(Sequence_lvar_port_directionContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::SeqLvarPortDir_InoutContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSeqLvarPortDir_Inout(this);
 }
 void SV3_1aParser::SeqLvarPortDir_InoutContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSeqLvarPortDir_Inout(this);
 }
@@ -30712,12 +30712,12 @@ tree::TerminalNode* SV3_1aParser::SeqLvarPortDir_InputContext::INPUT() {
 SV3_1aParser::SeqLvarPortDir_InputContext::SeqLvarPortDir_InputContext(Sequence_lvar_port_directionContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::SeqLvarPortDir_InputContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSeqLvarPortDir_Input(this);
 }
 void SV3_1aParser::SeqLvarPortDir_InputContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSeqLvarPortDir_Input(this);
 }
@@ -30737,7 +30737,7 @@ SV3_1aParser::Sequence_lvar_port_directionContext* SV3_1aParser::sequence_lvar_p
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::INPUT: {
-        _localctx = dynamic_cast<Sequence_lvar_port_directionContext *>(_tracker.createInstance<SV3_1aParser::SeqLvarPortDir_InputContext>(_localctx));
+        _localctx = parsetree_cast<Sequence_lvar_port_directionContext>(_tracker.createInstance<SV3_1aParser::SeqLvarPortDir_InputContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(4653);
         match(SV3_1aParser::INPUT);
@@ -30745,7 +30745,7 @@ SV3_1aParser::Sequence_lvar_port_directionContext* SV3_1aParser::sequence_lvar_p
       }
 
       case SV3_1aParser::INOUT: {
-        _localctx = dynamic_cast<Sequence_lvar_port_directionContext *>(_tracker.createInstance<SV3_1aParser::SeqLvarPortDir_InoutContext>(_localctx));
+        _localctx = parsetree_cast<Sequence_lvar_port_directionContext>(_tracker.createInstance<SV3_1aParser::SeqLvarPortDir_InoutContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(4654);
         match(SV3_1aParser::INOUT);
@@ -30753,7 +30753,7 @@ SV3_1aParser::Sequence_lvar_port_directionContext* SV3_1aParser::sequence_lvar_p
       }
 
       case SV3_1aParser::OUTPUT: {
-        _localctx = dynamic_cast<Sequence_lvar_port_directionContext *>(_tracker.createInstance<SV3_1aParser::SeqLvarPortDir_OutputContext>(_localctx));
+        _localctx = parsetree_cast<Sequence_lvar_port_directionContext>(_tracker.createInstance<SV3_1aParser::SeqLvarPortDir_OutputContext>(_localctx));
         enterOuterAlt(_localctx, 3);
         setState(4655);
         match(SV3_1aParser::OUTPUT);
@@ -30798,12 +30798,12 @@ SV3_1aParser::Data_type_or_implicitContext* SV3_1aParser::SeqFormatType_DataCont
 SV3_1aParser::SeqFormatType_DataContext::SeqFormatType_DataContext(Sequence_formal_typeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::SeqFormatType_DataContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSeqFormatType_Data(this);
 }
 void SV3_1aParser::SeqFormatType_DataContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSeqFormatType_Data(this);
 }
@@ -30816,12 +30816,12 @@ tree::TerminalNode* SV3_1aParser::SeqFormatType_UntypedContext::UNTYPED() {
 SV3_1aParser::SeqFormatType_UntypedContext::SeqFormatType_UntypedContext(Sequence_formal_typeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::SeqFormatType_UntypedContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSeqFormatType_Untyped(this);
 }
 void SV3_1aParser::SeqFormatType_UntypedContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSeqFormatType_Untyped(this);
 }
@@ -30834,12 +30834,12 @@ tree::TerminalNode* SV3_1aParser::SeqFormatType_SequenceContext::SEQUENCE() {
 SV3_1aParser::SeqFormatType_SequenceContext::SeqFormatType_SequenceContext(Sequence_formal_typeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::SeqFormatType_SequenceContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSeqFormatType_Sequence(this);
 }
 void SV3_1aParser::SeqFormatType_SequenceContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSeqFormatType_Sequence(this);
 }
@@ -30887,7 +30887,7 @@ SV3_1aParser::Sequence_formal_typeContext* SV3_1aParser::sequence_formal_type() 
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
-        _localctx = dynamic_cast<Sequence_formal_typeContext *>(_tracker.createInstance<SV3_1aParser::SeqFormatType_DataContext>(_localctx));
+        _localctx = parsetree_cast<Sequence_formal_typeContext>(_tracker.createInstance<SV3_1aParser::SeqFormatType_DataContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(4658);
         data_type_or_implicit();
@@ -30895,7 +30895,7 @@ SV3_1aParser::Sequence_formal_typeContext* SV3_1aParser::sequence_formal_type() 
       }
 
       case SV3_1aParser::SEQUENCE: {
-        _localctx = dynamic_cast<Sequence_formal_typeContext *>(_tracker.createInstance<SV3_1aParser::SeqFormatType_SequenceContext>(_localctx));
+        _localctx = parsetree_cast<Sequence_formal_typeContext>(_tracker.createInstance<SV3_1aParser::SeqFormatType_SequenceContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(4659);
         match(SV3_1aParser::SEQUENCE);
@@ -30903,7 +30903,7 @@ SV3_1aParser::Sequence_formal_typeContext* SV3_1aParser::sequence_formal_type() 
       }
 
       case SV3_1aParser::UNTYPED: {
-        _localctx = dynamic_cast<Sequence_formal_typeContext *>(_tracker.createInstance<SV3_1aParser::SeqFormatType_UntypedContext>(_localctx));
+        _localctx = parsetree_cast<Sequence_formal_typeContext>(_tracker.createInstance<SV3_1aParser::SeqFormatType_UntypedContext>(_localctx));
         enterOuterAlt(_localctx, 3);
         setState(4660);
         match(SV3_1aParser::UNTYPED);
@@ -30952,13 +30952,13 @@ size_t SV3_1aParser::Sequence_instanceContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Sequence_instanceContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSequence_instance(this);
 }
 
 void SV3_1aParser::Sequence_instanceContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSequence_instance(this);
 }
@@ -31066,13 +31066,13 @@ size_t SV3_1aParser::Sequence_list_of_argumentsContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Sequence_list_of_argumentsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSequence_list_of_arguments(this);
 }
 
 void SV3_1aParser::Sequence_list_of_argumentsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSequence_list_of_arguments(this);
 }
@@ -31644,13 +31644,13 @@ size_t SV3_1aParser::Sequence_actual_argContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Sequence_actual_argContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSequence_actual_arg(this);
 }
 
 void SV3_1aParser::Sequence_actual_argContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSequence_actual_arg(this);
 }
@@ -31758,13 +31758,13 @@ size_t SV3_1aParser::Actual_arg_listContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Actual_arg_listContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterActual_arg_list(this);
 }
 
 void SV3_1aParser::Actual_arg_listContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitActual_arg_list(this);
 }
@@ -31937,13 +31937,13 @@ size_t SV3_1aParser::Actual_arg_exprContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Actual_arg_exprContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterActual_arg_expr(this);
 }
 
 void SV3_1aParser::Actual_arg_exprContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitActual_arg_expr(this);
 }
@@ -32015,13 +32015,13 @@ size_t SV3_1aParser::Boolean_abbrevContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Boolean_abbrevContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBoolean_abbrev(this);
 }
 
 void SV3_1aParser::Boolean_abbrevContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBoolean_abbrev(this);
 }
@@ -32114,13 +32114,13 @@ size_t SV3_1aParser::Consecutive_repetitionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Consecutive_repetitionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConsecutive_repetition(this);
 }
 
 void SV3_1aParser::Consecutive_repetitionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConsecutive_repetition(this);
 }
@@ -32207,13 +32207,13 @@ size_t SV3_1aParser::Non_consecutive_repetitionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Non_consecutive_repetitionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNon_consecutive_repetition(this);
 }
 
 void SV3_1aParser::Non_consecutive_repetitionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNon_consecutive_repetition(this);
 }
@@ -32272,13 +32272,13 @@ size_t SV3_1aParser::Goto_repetitionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Goto_repetitionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGoto_repetition(this);
 }
 
 void SV3_1aParser::Goto_repetitionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGoto_repetition(this);
 }
@@ -32333,13 +32333,13 @@ size_t SV3_1aParser::Const_or_range_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Const_or_range_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConst_or_range_expression(this);
 }
 
 void SV3_1aParser::Const_or_range_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConst_or_range_expression(this);
 }
@@ -32415,13 +32415,13 @@ size_t SV3_1aParser::Cycle_delay_const_range_expressionContext::getRuleIndex() c
 }
 
 void SV3_1aParser::Cycle_delay_const_range_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCycle_delay_const_range_expression(this);
 }
 
 void SV3_1aParser::Cycle_delay_const_range_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCycle_delay_const_range_expression(this);
 }
@@ -32509,13 +32509,13 @@ size_t SV3_1aParser::Expression_or_distContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Expression_or_distContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterExpression_or_dist(this);
 }
 
 void SV3_1aParser::Expression_or_distContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitExpression_or_dist(this);
 }
@@ -32589,13 +32589,13 @@ size_t SV3_1aParser::Assertion_variable_declarationContext::getRuleIndex() const
 }
 
 void SV3_1aParser::Assertion_variable_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAssertion_variable_declaration(this);
 }
 
 void SV3_1aParser::Assertion_variable_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAssertion_variable_declaration(this);
 }
@@ -32674,13 +32674,13 @@ size_t SV3_1aParser::Let_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Let_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterLet_declaration(this);
 }
 
 void SV3_1aParser::Let_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitLet_declaration(this);
 }
@@ -32796,13 +32796,13 @@ size_t SV3_1aParser::Let_port_listContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Let_port_listContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterLet_port_list(this);
 }
 
 void SV3_1aParser::Let_port_listContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitLet_port_list(this);
 }
@@ -32890,13 +32890,13 @@ size_t SV3_1aParser::Let_port_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Let_port_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterLet_port_item(this);
 }
 
 void SV3_1aParser::Let_port_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitLet_port_item(this);
 }
@@ -32980,13 +32980,13 @@ size_t SV3_1aParser::Let_formal_typeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Let_formal_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterLet_formal_type(this);
 }
 
 void SV3_1aParser::Let_formal_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitLet_formal_type(this);
 }
@@ -33122,13 +33122,13 @@ size_t SV3_1aParser::Covergroup_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Covergroup_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCovergroup_declaration(this);
 }
 
 void SV3_1aParser::Covergroup_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCovergroup_declaration(this);
 }
@@ -33291,13 +33291,13 @@ size_t SV3_1aParser::Coverage_spec_or_optionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Coverage_spec_or_optionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCoverage_spec_or_option(this);
 }
 
 void SV3_1aParser::Coverage_spec_or_optionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCoverage_spec_or_option(this);
 }
@@ -33396,13 +33396,13 @@ size_t SV3_1aParser::Coverage_optionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Coverage_optionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCoverage_option(this);
 }
 
 void SV3_1aParser::Coverage_optionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCoverage_option(this);
 }
@@ -33482,13 +33482,13 @@ size_t SV3_1aParser::Coverage_specContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Coverage_specContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCoverage_spec(this);
 }
 
 void SV3_1aParser::Coverage_specContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCoverage_spec(this);
 }
@@ -33584,13 +33584,13 @@ size_t SV3_1aParser::Coverage_eventContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Coverage_eventContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCoverage_event(this);
 }
 
 void SV3_1aParser::Coverage_eventContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCoverage_event(this);
 }
@@ -33739,13 +33739,13 @@ size_t SV3_1aParser::Block_event_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Block_event_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBlock_event_expression(this);
 }
 
 void SV3_1aParser::Block_event_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBlock_event_expression(this);
 }
@@ -33894,13 +33894,13 @@ size_t SV3_1aParser::Hierarchical_btf_identifierContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Hierarchical_btf_identifierContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterHierarchical_btf_identifier(this);
 }
 
 void SV3_1aParser::Hierarchical_btf_identifierContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitHierarchical_btf_identifier(this);
 }
@@ -34046,13 +34046,13 @@ size_t SV3_1aParser::Cover_pointContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Cover_pointContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCover_point(this);
 }
 
 void SV3_1aParser::Cover_pointContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCover_point(this);
 }
@@ -34161,13 +34161,13 @@ size_t SV3_1aParser::Bins_or_emptyContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Bins_or_emptyContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBins_or_empty(this);
 }
 
 void SV3_1aParser::Bins_or_emptyContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBins_or_empty(this);
 }
@@ -34350,13 +34350,13 @@ size_t SV3_1aParser::Bins_or_optionsContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Bins_or_optionsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBins_or_options(this);
 }
 
 void SV3_1aParser::Bins_or_optionsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBins_or_options(this);
 }
@@ -34974,12 +34974,12 @@ tree::TerminalNode* SV3_1aParser::Bins_IgnoreContext::IGNORE_BINS() {
 SV3_1aParser::Bins_IgnoreContext::Bins_IgnoreContext(Bins_keywordContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Bins_IgnoreContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBins_Ignore(this);
 }
 void SV3_1aParser::Bins_IgnoreContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBins_Ignore(this);
 }
@@ -34992,12 +34992,12 @@ tree::TerminalNode* SV3_1aParser::Bins_BinsContext::BINS() {
 SV3_1aParser::Bins_BinsContext::Bins_BinsContext(Bins_keywordContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Bins_BinsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBins_Bins(this);
 }
 void SV3_1aParser::Bins_BinsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBins_Bins(this);
 }
@@ -35010,12 +35010,12 @@ tree::TerminalNode* SV3_1aParser::Bins_IllegalContext::ILLEGAL_BINS() {
 SV3_1aParser::Bins_IllegalContext::Bins_IllegalContext(Bins_keywordContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Bins_IllegalContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBins_Illegal(this);
 }
 void SV3_1aParser::Bins_IllegalContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBins_Illegal(this);
 }
@@ -35035,7 +35035,7 @@ SV3_1aParser::Bins_keywordContext* SV3_1aParser::bins_keyword() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::BINS: {
-        _localctx = dynamic_cast<Bins_keywordContext *>(_tracker.createInstance<SV3_1aParser::Bins_BinsContext>(_localctx));
+        _localctx = parsetree_cast<Bins_keywordContext>(_tracker.createInstance<SV3_1aParser::Bins_BinsContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(5121);
         match(SV3_1aParser::BINS);
@@ -35043,7 +35043,7 @@ SV3_1aParser::Bins_keywordContext* SV3_1aParser::bins_keyword() {
       }
 
       case SV3_1aParser::ILLEGAL_BINS: {
-        _localctx = dynamic_cast<Bins_keywordContext *>(_tracker.createInstance<SV3_1aParser::Bins_IllegalContext>(_localctx));
+        _localctx = parsetree_cast<Bins_keywordContext>(_tracker.createInstance<SV3_1aParser::Bins_IllegalContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(5122);
         match(SV3_1aParser::ILLEGAL_BINS);
@@ -35051,7 +35051,7 @@ SV3_1aParser::Bins_keywordContext* SV3_1aParser::bins_keyword() {
       }
 
       case SV3_1aParser::IGNORE_BINS: {
-        _localctx = dynamic_cast<Bins_keywordContext *>(_tracker.createInstance<SV3_1aParser::Bins_IgnoreContext>(_localctx));
+        _localctx = parsetree_cast<Bins_keywordContext>(_tracker.createInstance<SV3_1aParser::Bins_IgnoreContext>(_localctx));
         enterOuterAlt(_localctx, 3);
         setState(5123);
         match(SV3_1aParser::IGNORE_BINS);
@@ -35100,13 +35100,13 @@ size_t SV3_1aParser::Range_listContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Range_listContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRange_list(this);
 }
 
 void SV3_1aParser::Range_listContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRange_list(this);
 }
@@ -35194,13 +35194,13 @@ size_t SV3_1aParser::Trans_listContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Trans_listContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTrans_list(this);
 }
 
 void SV3_1aParser::Trans_listContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTrans_list(this);
 }
@@ -35280,13 +35280,13 @@ size_t SV3_1aParser::Trans_setContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Trans_setContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTrans_set(this);
 }
 
 void SV3_1aParser::Trans_setContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTrans_set(this);
 }
@@ -35366,13 +35366,13 @@ size_t SV3_1aParser::Trans_range_listContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Trans_range_listContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTrans_range_list(this);
 }
 
 void SV3_1aParser::Trans_range_listContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTrans_range_list(this);
 }
@@ -35476,13 +35476,13 @@ size_t SV3_1aParser::Repeat_rangeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Repeat_rangeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRepeat_range(this);
 }
 
 void SV3_1aParser::Repeat_rangeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRepeat_range(this);
 }
@@ -35582,13 +35582,13 @@ size_t SV3_1aParser::Cover_crossContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Cover_crossContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCover_cross(this);
 }
 
 void SV3_1aParser::Cover_crossContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCover_cross(this);
 }
@@ -35681,13 +35681,13 @@ size_t SV3_1aParser::List_of_cross_itemsContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::List_of_cross_itemsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_cross_items(this);
 }
 
 void SV3_1aParser::List_of_cross_itemsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_cross_items(this);
 }
@@ -35751,13 +35751,13 @@ size_t SV3_1aParser::Cross_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Cross_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCross_item(this);
 }
 
 void SV3_1aParser::Cross_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCross_item(this);
 }
@@ -35816,13 +35816,13 @@ size_t SV3_1aParser::Cross_bodyContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Cross_bodyContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCross_body(this);
 }
 
 void SV3_1aParser::Cross_bodyContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCross_body(this);
 }
@@ -35913,13 +35913,13 @@ size_t SV3_1aParser::Cross_body_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Cross_body_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCross_body_item(this);
 }
 
 void SV3_1aParser::Cross_body_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCross_body_item(this);
 }
@@ -36002,13 +36002,13 @@ size_t SV3_1aParser::Bins_selection_or_optionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Bins_selection_or_optionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBins_selection_or_option(this);
 }
 
 void SV3_1aParser::Bins_selection_or_optionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBins_selection_or_option(this);
 }
@@ -36113,13 +36113,13 @@ size_t SV3_1aParser::Bins_selectionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Bins_selectionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBins_selection(this);
 }
 
 void SV3_1aParser::Bins_selectionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBins_selection(this);
 }
@@ -36235,13 +36235,13 @@ size_t SV3_1aParser::Select_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Select_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSelect_expression(this);
 }
 
 void SV3_1aParser::Select_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSelect_expression(this);
 }
@@ -36456,13 +36456,13 @@ size_t SV3_1aParser::Select_conditionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Select_conditionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSelect_condition(this);
 }
 
 void SV3_1aParser::Select_conditionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSelect_condition(this);
 }
@@ -36542,13 +36542,13 @@ size_t SV3_1aParser::Bins_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Bins_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBins_expression(this);
 }
 
 void SV3_1aParser::Bins_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBins_expression(this);
 }
@@ -36618,13 +36618,13 @@ size_t SV3_1aParser::Open_range_listContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Open_range_listContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOpen_range_list(this);
 }
 
 void SV3_1aParser::Open_range_listContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOpen_range_list(this);
 }
@@ -36812,13 +36812,13 @@ size_t SV3_1aParser::Gate_instantiationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Gate_instantiationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGate_instantiation(this);
 }
 
 void SV3_1aParser::Gate_instantiationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGate_instantiation(this);
 }
@@ -37246,13 +37246,13 @@ size_t SV3_1aParser::Cmos_switch_instanceContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Cmos_switch_instanceContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCmos_switch_instance(this);
 }
 
 void SV3_1aParser::Cmos_switch_instanceContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCmos_switch_instance(this);
 }
@@ -37357,13 +37357,13 @@ size_t SV3_1aParser::Enable_gate_instanceContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Enable_gate_instanceContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEnable_gate_instance(this);
 }
 
 void SV3_1aParser::Enable_gate_instanceContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEnable_gate_instance(this);
 }
@@ -37464,13 +37464,13 @@ size_t SV3_1aParser::Mos_switch_instanceContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Mos_switch_instanceContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterMos_switch_instance(this);
 }
 
 void SV3_1aParser::Mos_switch_instanceContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitMos_switch_instance(this);
 }
@@ -37571,13 +37571,13 @@ size_t SV3_1aParser::N_input_gate_instanceContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::N_input_gate_instanceContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterN_input_gate_instance(this);
 }
 
 void SV3_1aParser::N_input_gate_instanceContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitN_input_gate_instance(this);
 }
@@ -37686,13 +37686,13 @@ size_t SV3_1aParser::N_output_gate_instanceContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::N_output_gate_instanceContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterN_output_gate_instance(this);
 }
 
 void SV3_1aParser::N_output_gate_instanceContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitN_output_gate_instance(this);
 }
@@ -37796,13 +37796,13 @@ size_t SV3_1aParser::Pass_switch_instanceContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Pass_switch_instanceContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPass_switch_instance(this);
 }
 
 void SV3_1aParser::Pass_switch_instanceContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPass_switch_instance(this);
 }
@@ -37899,13 +37899,13 @@ size_t SV3_1aParser::Pass_enable_switch_instanceContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Pass_enable_switch_instanceContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPass_enable_switch_instance(this);
 }
 
 void SV3_1aParser::Pass_enable_switch_instanceContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPass_enable_switch_instance(this);
 }
@@ -37990,13 +37990,13 @@ size_t SV3_1aParser::Pull_gate_instanceContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Pull_gate_instanceContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPull_gate_instance(this);
 }
 
 void SV3_1aParser::Pull_gate_instanceContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPull_gate_instance(this);
 }
@@ -38077,13 +38077,13 @@ size_t SV3_1aParser::Pulldown_strengthContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Pulldown_strengthContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPulldown_strength(this);
 }
 
 void SV3_1aParser::Pulldown_strengthContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPulldown_strength(this);
 }
@@ -38190,13 +38190,13 @@ size_t SV3_1aParser::Pullup_strengthContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Pullup_strengthContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPullup_strength(this);
 }
 
 void SV3_1aParser::Pullup_strengthContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPullup_strength(this);
 }
@@ -38295,12 +38295,12 @@ tree::TerminalNode* SV3_1aParser::CmosSwitchType_RCmosContext::RCMOS() {
 SV3_1aParser::CmosSwitchType_RCmosContext::CmosSwitchType_RCmosContext(Cmos_switchtypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::CmosSwitchType_RCmosContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCmosSwitchType_RCmos(this);
 }
 void SV3_1aParser::CmosSwitchType_RCmosContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCmosSwitchType_RCmos(this);
 }
@@ -38313,12 +38313,12 @@ tree::TerminalNode* SV3_1aParser::CmosSwitchType_CmosContext::CMOS() {
 SV3_1aParser::CmosSwitchType_CmosContext::CmosSwitchType_CmosContext(Cmos_switchtypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::CmosSwitchType_CmosContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCmosSwitchType_Cmos(this);
 }
 void SV3_1aParser::CmosSwitchType_CmosContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCmosSwitchType_Cmos(this);
 }
@@ -38338,7 +38338,7 @@ SV3_1aParser::Cmos_switchtypeContext* SV3_1aParser::cmos_switchtype() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::CMOS: {
-        _localctx = dynamic_cast<Cmos_switchtypeContext *>(_tracker.createInstance<SV3_1aParser::CmosSwitchType_CmosContext>(_localctx));
+        _localctx = parsetree_cast<Cmos_switchtypeContext>(_tracker.createInstance<SV3_1aParser::CmosSwitchType_CmosContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(5568);
         match(SV3_1aParser::CMOS);
@@ -38346,7 +38346,7 @@ SV3_1aParser::Cmos_switchtypeContext* SV3_1aParser::cmos_switchtype() {
       }
 
       case SV3_1aParser::RCMOS: {
-        _localctx = dynamic_cast<Cmos_switchtypeContext *>(_tracker.createInstance<SV3_1aParser::CmosSwitchType_RCmosContext>(_localctx));
+        _localctx = parsetree_cast<Cmos_switchtypeContext>(_tracker.createInstance<SV3_1aParser::CmosSwitchType_RCmosContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(5569);
         match(SV3_1aParser::RCMOS);
@@ -38391,12 +38391,12 @@ tree::TerminalNode* SV3_1aParser::EnableGateType_Bufif0Context::BUFIF0() {
 SV3_1aParser::EnableGateType_Bufif0Context::EnableGateType_Bufif0Context(Enable_gatetypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::EnableGateType_Bufif0Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEnableGateType_Bufif0(this);
 }
 void SV3_1aParser::EnableGateType_Bufif0Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEnableGateType_Bufif0(this);
 }
@@ -38409,12 +38409,12 @@ tree::TerminalNode* SV3_1aParser::EnableGateType_Notif0Context::NOTIF0() {
 SV3_1aParser::EnableGateType_Notif0Context::EnableGateType_Notif0Context(Enable_gatetypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::EnableGateType_Notif0Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEnableGateType_Notif0(this);
 }
 void SV3_1aParser::EnableGateType_Notif0Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEnableGateType_Notif0(this);
 }
@@ -38427,12 +38427,12 @@ tree::TerminalNode* SV3_1aParser::EnableGateType_Notif1Context::NOTIF1() {
 SV3_1aParser::EnableGateType_Notif1Context::EnableGateType_Notif1Context(Enable_gatetypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::EnableGateType_Notif1Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEnableGateType_Notif1(this);
 }
 void SV3_1aParser::EnableGateType_Notif1Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEnableGateType_Notif1(this);
 }
@@ -38445,12 +38445,12 @@ tree::TerminalNode* SV3_1aParser::EnableGateType_Bufif1Context::BUFIF1() {
 SV3_1aParser::EnableGateType_Bufif1Context::EnableGateType_Bufif1Context(Enable_gatetypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::EnableGateType_Bufif1Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEnableGateType_Bufif1(this);
 }
 void SV3_1aParser::EnableGateType_Bufif1Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEnableGateType_Bufif1(this);
 }
@@ -38470,7 +38470,7 @@ SV3_1aParser::Enable_gatetypeContext* SV3_1aParser::enable_gatetype() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::BUFIF0: {
-        _localctx = dynamic_cast<Enable_gatetypeContext *>(_tracker.createInstance<SV3_1aParser::EnableGateType_Bufif0Context>(_localctx));
+        _localctx = parsetree_cast<Enable_gatetypeContext>(_tracker.createInstance<SV3_1aParser::EnableGateType_Bufif0Context>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(5572);
         match(SV3_1aParser::BUFIF0);
@@ -38478,7 +38478,7 @@ SV3_1aParser::Enable_gatetypeContext* SV3_1aParser::enable_gatetype() {
       }
 
       case SV3_1aParser::BUFIF1: {
-        _localctx = dynamic_cast<Enable_gatetypeContext *>(_tracker.createInstance<SV3_1aParser::EnableGateType_Bufif1Context>(_localctx));
+        _localctx = parsetree_cast<Enable_gatetypeContext>(_tracker.createInstance<SV3_1aParser::EnableGateType_Bufif1Context>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(5573);
         match(SV3_1aParser::BUFIF1);
@@ -38486,7 +38486,7 @@ SV3_1aParser::Enable_gatetypeContext* SV3_1aParser::enable_gatetype() {
       }
 
       case SV3_1aParser::NOTIF0: {
-        _localctx = dynamic_cast<Enable_gatetypeContext *>(_tracker.createInstance<SV3_1aParser::EnableGateType_Notif0Context>(_localctx));
+        _localctx = parsetree_cast<Enable_gatetypeContext>(_tracker.createInstance<SV3_1aParser::EnableGateType_Notif0Context>(_localctx));
         enterOuterAlt(_localctx, 3);
         setState(5574);
         match(SV3_1aParser::NOTIF0);
@@ -38494,7 +38494,7 @@ SV3_1aParser::Enable_gatetypeContext* SV3_1aParser::enable_gatetype() {
       }
 
       case SV3_1aParser::NOTIF1: {
-        _localctx = dynamic_cast<Enable_gatetypeContext *>(_tracker.createInstance<SV3_1aParser::EnableGateType_Notif1Context>(_localctx));
+        _localctx = parsetree_cast<Enable_gatetypeContext>(_tracker.createInstance<SV3_1aParser::EnableGateType_Notif1Context>(_localctx));
         enterOuterAlt(_localctx, 4);
         setState(5575);
         match(SV3_1aParser::NOTIF1);
@@ -38539,12 +38539,12 @@ tree::TerminalNode* SV3_1aParser::MosSwitchType_PMosContext::PMOS() {
 SV3_1aParser::MosSwitchType_PMosContext::MosSwitchType_PMosContext(Mos_switchtypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::MosSwitchType_PMosContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterMosSwitchType_PMos(this);
 }
 void SV3_1aParser::MosSwitchType_PMosContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitMosSwitchType_PMos(this);
 }
@@ -38557,12 +38557,12 @@ tree::TerminalNode* SV3_1aParser::MosSwitchType_NMosContext::NMOS() {
 SV3_1aParser::MosSwitchType_NMosContext::MosSwitchType_NMosContext(Mos_switchtypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::MosSwitchType_NMosContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterMosSwitchType_NMos(this);
 }
 void SV3_1aParser::MosSwitchType_NMosContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitMosSwitchType_NMos(this);
 }
@@ -38575,12 +38575,12 @@ tree::TerminalNode* SV3_1aParser::MosSwitchType_RPMosContext::RPMOS() {
 SV3_1aParser::MosSwitchType_RPMosContext::MosSwitchType_RPMosContext(Mos_switchtypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::MosSwitchType_RPMosContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterMosSwitchType_RPMos(this);
 }
 void SV3_1aParser::MosSwitchType_RPMosContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitMosSwitchType_RPMos(this);
 }
@@ -38593,12 +38593,12 @@ tree::TerminalNode* SV3_1aParser::MosSwitchType_RNMosContext::RNMOS() {
 SV3_1aParser::MosSwitchType_RNMosContext::MosSwitchType_RNMosContext(Mos_switchtypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::MosSwitchType_RNMosContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterMosSwitchType_RNMos(this);
 }
 void SV3_1aParser::MosSwitchType_RNMosContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitMosSwitchType_RNMos(this);
 }
@@ -38618,7 +38618,7 @@ SV3_1aParser::Mos_switchtypeContext* SV3_1aParser::mos_switchtype() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::NMOS: {
-        _localctx = dynamic_cast<Mos_switchtypeContext *>(_tracker.createInstance<SV3_1aParser::MosSwitchType_NMosContext>(_localctx));
+        _localctx = parsetree_cast<Mos_switchtypeContext>(_tracker.createInstance<SV3_1aParser::MosSwitchType_NMosContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(5578);
         match(SV3_1aParser::NMOS);
@@ -38626,7 +38626,7 @@ SV3_1aParser::Mos_switchtypeContext* SV3_1aParser::mos_switchtype() {
       }
 
       case SV3_1aParser::PMOS: {
-        _localctx = dynamic_cast<Mos_switchtypeContext *>(_tracker.createInstance<SV3_1aParser::MosSwitchType_PMosContext>(_localctx));
+        _localctx = parsetree_cast<Mos_switchtypeContext>(_tracker.createInstance<SV3_1aParser::MosSwitchType_PMosContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(5579);
         match(SV3_1aParser::PMOS);
@@ -38634,7 +38634,7 @@ SV3_1aParser::Mos_switchtypeContext* SV3_1aParser::mos_switchtype() {
       }
 
       case SV3_1aParser::RNMOS: {
-        _localctx = dynamic_cast<Mos_switchtypeContext *>(_tracker.createInstance<SV3_1aParser::MosSwitchType_RNMosContext>(_localctx));
+        _localctx = parsetree_cast<Mos_switchtypeContext>(_tracker.createInstance<SV3_1aParser::MosSwitchType_RNMosContext>(_localctx));
         enterOuterAlt(_localctx, 3);
         setState(5580);
         match(SV3_1aParser::RNMOS);
@@ -38642,7 +38642,7 @@ SV3_1aParser::Mos_switchtypeContext* SV3_1aParser::mos_switchtype() {
       }
 
       case SV3_1aParser::RPMOS: {
-        _localctx = dynamic_cast<Mos_switchtypeContext *>(_tracker.createInstance<SV3_1aParser::MosSwitchType_RPMosContext>(_localctx));
+        _localctx = parsetree_cast<Mos_switchtypeContext>(_tracker.createInstance<SV3_1aParser::MosSwitchType_RPMosContext>(_localctx));
         enterOuterAlt(_localctx, 4);
         setState(5581);
         match(SV3_1aParser::RPMOS);
@@ -38687,12 +38687,12 @@ tree::TerminalNode* SV3_1aParser::NInpGate_XorContext::XOR() {
 SV3_1aParser::NInpGate_XorContext::NInpGate_XorContext(N_input_gatetypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::NInpGate_XorContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNInpGate_Xor(this);
 }
 void SV3_1aParser::NInpGate_XorContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNInpGate_Xor(this);
 }
@@ -38705,12 +38705,12 @@ tree::TerminalNode* SV3_1aParser::NInpGate_NandContext::NAND() {
 SV3_1aParser::NInpGate_NandContext::NInpGate_NandContext(N_input_gatetypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::NInpGate_NandContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNInpGate_Nand(this);
 }
 void SV3_1aParser::NInpGate_NandContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNInpGate_Nand(this);
 }
@@ -38723,12 +38723,12 @@ tree::TerminalNode* SV3_1aParser::NInpGate_AndContext::AND() {
 SV3_1aParser::NInpGate_AndContext::NInpGate_AndContext(N_input_gatetypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::NInpGate_AndContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNInpGate_And(this);
 }
 void SV3_1aParser::NInpGate_AndContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNInpGate_And(this);
 }
@@ -38741,12 +38741,12 @@ tree::TerminalNode* SV3_1aParser::NInpGate_OrContext::OR() {
 SV3_1aParser::NInpGate_OrContext::NInpGate_OrContext(N_input_gatetypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::NInpGate_OrContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNInpGate_Or(this);
 }
 void SV3_1aParser::NInpGate_OrContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNInpGate_Or(this);
 }
@@ -38759,12 +38759,12 @@ tree::TerminalNode* SV3_1aParser::NInpGate_XnorContext::XNOR() {
 SV3_1aParser::NInpGate_XnorContext::NInpGate_XnorContext(N_input_gatetypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::NInpGate_XnorContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNInpGate_Xnor(this);
 }
 void SV3_1aParser::NInpGate_XnorContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNInpGate_Xnor(this);
 }
@@ -38777,12 +38777,12 @@ tree::TerminalNode* SV3_1aParser::NInpGate_NorContext::NOR() {
 SV3_1aParser::NInpGate_NorContext::NInpGate_NorContext(N_input_gatetypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::NInpGate_NorContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNInpGate_Nor(this);
 }
 void SV3_1aParser::NInpGate_NorContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNInpGate_Nor(this);
 }
@@ -38802,7 +38802,7 @@ SV3_1aParser::N_input_gatetypeContext* SV3_1aParser::n_input_gatetype() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::AND: {
-        _localctx = dynamic_cast<N_input_gatetypeContext *>(_tracker.createInstance<SV3_1aParser::NInpGate_AndContext>(_localctx));
+        _localctx = parsetree_cast<N_input_gatetypeContext>(_tracker.createInstance<SV3_1aParser::NInpGate_AndContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(5584);
         match(SV3_1aParser::AND);
@@ -38810,7 +38810,7 @@ SV3_1aParser::N_input_gatetypeContext* SV3_1aParser::n_input_gatetype() {
       }
 
       case SV3_1aParser::NAND: {
-        _localctx = dynamic_cast<N_input_gatetypeContext *>(_tracker.createInstance<SV3_1aParser::NInpGate_NandContext>(_localctx));
+        _localctx = parsetree_cast<N_input_gatetypeContext>(_tracker.createInstance<SV3_1aParser::NInpGate_NandContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(5585);
         match(SV3_1aParser::NAND);
@@ -38818,7 +38818,7 @@ SV3_1aParser::N_input_gatetypeContext* SV3_1aParser::n_input_gatetype() {
       }
 
       case SV3_1aParser::OR: {
-        _localctx = dynamic_cast<N_input_gatetypeContext *>(_tracker.createInstance<SV3_1aParser::NInpGate_OrContext>(_localctx));
+        _localctx = parsetree_cast<N_input_gatetypeContext>(_tracker.createInstance<SV3_1aParser::NInpGate_OrContext>(_localctx));
         enterOuterAlt(_localctx, 3);
         setState(5586);
         match(SV3_1aParser::OR);
@@ -38826,7 +38826,7 @@ SV3_1aParser::N_input_gatetypeContext* SV3_1aParser::n_input_gatetype() {
       }
 
       case SV3_1aParser::NOR: {
-        _localctx = dynamic_cast<N_input_gatetypeContext *>(_tracker.createInstance<SV3_1aParser::NInpGate_NorContext>(_localctx));
+        _localctx = parsetree_cast<N_input_gatetypeContext>(_tracker.createInstance<SV3_1aParser::NInpGate_NorContext>(_localctx));
         enterOuterAlt(_localctx, 4);
         setState(5587);
         match(SV3_1aParser::NOR);
@@ -38834,7 +38834,7 @@ SV3_1aParser::N_input_gatetypeContext* SV3_1aParser::n_input_gatetype() {
       }
 
       case SV3_1aParser::XOR: {
-        _localctx = dynamic_cast<N_input_gatetypeContext *>(_tracker.createInstance<SV3_1aParser::NInpGate_XorContext>(_localctx));
+        _localctx = parsetree_cast<N_input_gatetypeContext>(_tracker.createInstance<SV3_1aParser::NInpGate_XorContext>(_localctx));
         enterOuterAlt(_localctx, 5);
         setState(5588);
         match(SV3_1aParser::XOR);
@@ -38842,7 +38842,7 @@ SV3_1aParser::N_input_gatetypeContext* SV3_1aParser::n_input_gatetype() {
       }
 
       case SV3_1aParser::XNOR: {
-        _localctx = dynamic_cast<N_input_gatetypeContext *>(_tracker.createInstance<SV3_1aParser::NInpGate_XnorContext>(_localctx));
+        _localctx = parsetree_cast<N_input_gatetypeContext>(_tracker.createInstance<SV3_1aParser::NInpGate_XnorContext>(_localctx));
         enterOuterAlt(_localctx, 6);
         setState(5589);
         match(SV3_1aParser::XNOR);
@@ -38887,12 +38887,12 @@ tree::TerminalNode* SV3_1aParser::NOutGate_BufContext::BUF() {
 SV3_1aParser::NOutGate_BufContext::NOutGate_BufContext(N_output_gatetypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::NOutGate_BufContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNOutGate_Buf(this);
 }
 void SV3_1aParser::NOutGate_BufContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNOutGate_Buf(this);
 }
@@ -38905,12 +38905,12 @@ tree::TerminalNode* SV3_1aParser::NOutGate_NotContext::NOT() {
 SV3_1aParser::NOutGate_NotContext::NOutGate_NotContext(N_output_gatetypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::NOutGate_NotContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNOutGate_Not(this);
 }
 void SV3_1aParser::NOutGate_NotContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNOutGate_Not(this);
 }
@@ -38930,7 +38930,7 @@ SV3_1aParser::N_output_gatetypeContext* SV3_1aParser::n_output_gatetype() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::BUF: {
-        _localctx = dynamic_cast<N_output_gatetypeContext *>(_tracker.createInstance<SV3_1aParser::NOutGate_BufContext>(_localctx));
+        _localctx = parsetree_cast<N_output_gatetypeContext>(_tracker.createInstance<SV3_1aParser::NOutGate_BufContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(5592);
         match(SV3_1aParser::BUF);
@@ -38938,7 +38938,7 @@ SV3_1aParser::N_output_gatetypeContext* SV3_1aParser::n_output_gatetype() {
       }
 
       case SV3_1aParser::NOT: {
-        _localctx = dynamic_cast<N_output_gatetypeContext *>(_tracker.createInstance<SV3_1aParser::NOutGate_NotContext>(_localctx));
+        _localctx = parsetree_cast<N_output_gatetypeContext>(_tracker.createInstance<SV3_1aParser::NOutGate_NotContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(5593);
         match(SV3_1aParser::NOT);
@@ -38983,12 +38983,12 @@ tree::TerminalNode* SV3_1aParser::PassEnSwitch_RTranif1Context::RTRANIF1() {
 SV3_1aParser::PassEnSwitch_RTranif1Context::PassEnSwitch_RTranif1Context(Pass_en_switchtypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::PassEnSwitch_RTranif1Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPassEnSwitch_RTranif1(this);
 }
 void SV3_1aParser::PassEnSwitch_RTranif1Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPassEnSwitch_RTranif1(this);
 }
@@ -39001,12 +39001,12 @@ tree::TerminalNode* SV3_1aParser::PassEnSwitch_Tranif0Context::TRANIF0() {
 SV3_1aParser::PassEnSwitch_Tranif0Context::PassEnSwitch_Tranif0Context(Pass_en_switchtypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::PassEnSwitch_Tranif0Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPassEnSwitch_Tranif0(this);
 }
 void SV3_1aParser::PassEnSwitch_Tranif0Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPassEnSwitch_Tranif0(this);
 }
@@ -39019,12 +39019,12 @@ tree::TerminalNode* SV3_1aParser::PassEnSwitch_Tranif1Context::TRANIF1() {
 SV3_1aParser::PassEnSwitch_Tranif1Context::PassEnSwitch_Tranif1Context(Pass_en_switchtypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::PassEnSwitch_Tranif1Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPassEnSwitch_Tranif1(this);
 }
 void SV3_1aParser::PassEnSwitch_Tranif1Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPassEnSwitch_Tranif1(this);
 }
@@ -39037,12 +39037,12 @@ tree::TerminalNode* SV3_1aParser::PassEnSwitch_RTranif0Context::RTRANIF0() {
 SV3_1aParser::PassEnSwitch_RTranif0Context::PassEnSwitch_RTranif0Context(Pass_en_switchtypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::PassEnSwitch_RTranif0Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPassEnSwitch_RTranif0(this);
 }
 void SV3_1aParser::PassEnSwitch_RTranif0Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPassEnSwitch_RTranif0(this);
 }
@@ -39062,7 +39062,7 @@ SV3_1aParser::Pass_en_switchtypeContext* SV3_1aParser::pass_en_switchtype() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::TRANIF0: {
-        _localctx = dynamic_cast<Pass_en_switchtypeContext *>(_tracker.createInstance<SV3_1aParser::PassEnSwitch_Tranif0Context>(_localctx));
+        _localctx = parsetree_cast<Pass_en_switchtypeContext>(_tracker.createInstance<SV3_1aParser::PassEnSwitch_Tranif0Context>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(5596);
         match(SV3_1aParser::TRANIF0);
@@ -39070,7 +39070,7 @@ SV3_1aParser::Pass_en_switchtypeContext* SV3_1aParser::pass_en_switchtype() {
       }
 
       case SV3_1aParser::TRANIF1: {
-        _localctx = dynamic_cast<Pass_en_switchtypeContext *>(_tracker.createInstance<SV3_1aParser::PassEnSwitch_Tranif1Context>(_localctx));
+        _localctx = parsetree_cast<Pass_en_switchtypeContext>(_tracker.createInstance<SV3_1aParser::PassEnSwitch_Tranif1Context>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(5597);
         match(SV3_1aParser::TRANIF1);
@@ -39078,7 +39078,7 @@ SV3_1aParser::Pass_en_switchtypeContext* SV3_1aParser::pass_en_switchtype() {
       }
 
       case SV3_1aParser::RTRANIF1: {
-        _localctx = dynamic_cast<Pass_en_switchtypeContext *>(_tracker.createInstance<SV3_1aParser::PassEnSwitch_RTranif1Context>(_localctx));
+        _localctx = parsetree_cast<Pass_en_switchtypeContext>(_tracker.createInstance<SV3_1aParser::PassEnSwitch_RTranif1Context>(_localctx));
         enterOuterAlt(_localctx, 3);
         setState(5598);
         match(SV3_1aParser::RTRANIF1);
@@ -39086,7 +39086,7 @@ SV3_1aParser::Pass_en_switchtypeContext* SV3_1aParser::pass_en_switchtype() {
       }
 
       case SV3_1aParser::RTRANIF0: {
-        _localctx = dynamic_cast<Pass_en_switchtypeContext *>(_tracker.createInstance<SV3_1aParser::PassEnSwitch_RTranif0Context>(_localctx));
+        _localctx = parsetree_cast<Pass_en_switchtypeContext>(_tracker.createInstance<SV3_1aParser::PassEnSwitch_RTranif0Context>(_localctx));
         enterOuterAlt(_localctx, 4);
         setState(5599);
         match(SV3_1aParser::RTRANIF0);
@@ -39131,12 +39131,12 @@ tree::TerminalNode* SV3_1aParser::PassSwitch_RTranContext::RTRAN() {
 SV3_1aParser::PassSwitch_RTranContext::PassSwitch_RTranContext(Pass_switchtypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::PassSwitch_RTranContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPassSwitch_RTran(this);
 }
 void SV3_1aParser::PassSwitch_RTranContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPassSwitch_RTran(this);
 }
@@ -39149,12 +39149,12 @@ tree::TerminalNode* SV3_1aParser::PassSwitch_TranContext::TRAN() {
 SV3_1aParser::PassSwitch_TranContext::PassSwitch_TranContext(Pass_switchtypeContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::PassSwitch_TranContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPassSwitch_Tran(this);
 }
 void SV3_1aParser::PassSwitch_TranContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPassSwitch_Tran(this);
 }
@@ -39174,7 +39174,7 @@ SV3_1aParser::Pass_switchtypeContext* SV3_1aParser::pass_switchtype() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::TRAN: {
-        _localctx = dynamic_cast<Pass_switchtypeContext *>(_tracker.createInstance<SV3_1aParser::PassSwitch_TranContext>(_localctx));
+        _localctx = parsetree_cast<Pass_switchtypeContext>(_tracker.createInstance<SV3_1aParser::PassSwitch_TranContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(5602);
         match(SV3_1aParser::TRAN);
@@ -39182,7 +39182,7 @@ SV3_1aParser::Pass_switchtypeContext* SV3_1aParser::pass_switchtype() {
       }
 
       case SV3_1aParser::RTRAN: {
-        _localctx = dynamic_cast<Pass_switchtypeContext *>(_tracker.createInstance<SV3_1aParser::PassSwitch_RTranContext>(_localctx));
+        _localctx = parsetree_cast<Pass_switchtypeContext>(_tracker.createInstance<SV3_1aParser::PassSwitch_RTranContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(5603);
         match(SV3_1aParser::RTRAN);
@@ -39243,13 +39243,13 @@ size_t SV3_1aParser::Module_instantiationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Module_instantiationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModule_instantiation(this);
 }
 
 void SV3_1aParser::Module_instantiationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModule_instantiation(this);
 }
@@ -39341,13 +39341,13 @@ size_t SV3_1aParser::Parameter_value_assignmentContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Parameter_value_assignmentContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterParameter_value_assignment(this);
 }
 
 void SV3_1aParser::Parameter_value_assignmentContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitParameter_value_assignment(this);
 }
@@ -39522,13 +39522,13 @@ size_t SV3_1aParser::List_of_parameter_assignmentsContext::getRuleIndex() const 
 }
 
 void SV3_1aParser::List_of_parameter_assignmentsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_parameter_assignments(this);
 }
 
 void SV3_1aParser::List_of_parameter_assignmentsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_parameter_assignments(this);
 }
@@ -39684,13 +39684,13 @@ size_t SV3_1aParser::Ordered_parameter_assignmentContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Ordered_parameter_assignmentContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOrdered_parameter_assignment(this);
 }
 
 void SV3_1aParser::Ordered_parameter_assignmentContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOrdered_parameter_assignment(this);
 }
@@ -39753,13 +39753,13 @@ size_t SV3_1aParser::Named_parameter_assignmentContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Named_parameter_assignmentContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNamed_parameter_assignment(this);
 }
 
 void SV3_1aParser::Named_parameter_assignmentContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNamed_parameter_assignment(this);
 }
@@ -39900,13 +39900,13 @@ size_t SV3_1aParser::Hierarchical_instanceContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Hierarchical_instanceContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterHierarchical_instance(this);
 }
 
 void SV3_1aParser::Hierarchical_instanceContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitHierarchical_instance(this);
 }
@@ -39967,13 +39967,13 @@ size_t SV3_1aParser::Name_of_instanceContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Name_of_instanceContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterName_of_instance(this);
 }
 
 void SV3_1aParser::Name_of_instanceContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitName_of_instance(this);
 }
@@ -40051,13 +40051,13 @@ size_t SV3_1aParser::List_of_port_connectionsContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::List_of_port_connectionsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_port_connections(this);
 }
 
 void SV3_1aParser::List_of_port_connectionsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_port_connections(this);
 }
@@ -40154,13 +40154,13 @@ size_t SV3_1aParser::Ordered_port_connectionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Ordered_port_connectionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOrdered_port_connection(this);
 }
 
 void SV3_1aParser::Ordered_port_connectionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOrdered_port_connection(this);
 }
@@ -40313,13 +40313,13 @@ size_t SV3_1aParser::Named_port_connectionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Named_port_connectionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNamed_port_connection(this);
 }
 
 void SV3_1aParser::Named_port_connectionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNamed_port_connection(this);
 }
@@ -40490,13 +40490,13 @@ size_t SV3_1aParser::Checker_instantiationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Checker_instantiationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterChecker_instantiation(this);
 }
 
 void SV3_1aParser::Checker_instantiationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitChecker_instantiation(this);
 }
@@ -40567,13 +40567,13 @@ size_t SV3_1aParser::List_of_checker_port_connectionsContext::getRuleIndex() con
 }
 
 void SV3_1aParser::List_of_checker_port_connectionsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_checker_port_connections(this);
 }
 
 void SV3_1aParser::List_of_checker_port_connectionsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_checker_port_connections(this);
 }
@@ -40666,13 +40666,13 @@ size_t SV3_1aParser::Ordered_checker_port_connectionContext::getRuleIndex() cons
 }
 
 void SV3_1aParser::Ordered_checker_port_connectionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOrdered_checker_port_connection(this);
 }
 
 void SV3_1aParser::Ordered_checker_port_connectionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOrdered_checker_port_connection(this);
 }
@@ -40848,13 +40848,13 @@ size_t SV3_1aParser::Named_checker_port_connectionContext::getRuleIndex() const 
 }
 
 void SV3_1aParser::Named_checker_port_connectionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNamed_checker_port_connection(this);
 }
 
 void SV3_1aParser::Named_checker_port_connectionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNamed_checker_port_connection(this);
 }
@@ -41044,13 +41044,13 @@ size_t SV3_1aParser::Generated_module_instantiationContext::getRuleIndex() const
 }
 
 void SV3_1aParser::Generated_module_instantiationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenerated_module_instantiation(this);
 }
 
 void SV3_1aParser::Generated_module_instantiationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenerated_module_instantiation(this);
 }
@@ -41248,13 +41248,13 @@ size_t SV3_1aParser::Generate_module_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Generate_module_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenerate_module_item(this);
 }
 
 void SV3_1aParser::Generate_module_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenerate_module_item(this);
 }
@@ -41379,13 +41379,13 @@ size_t SV3_1aParser::Generate_module_conditional_statementContext::getRuleIndex(
 }
 
 void SV3_1aParser::Generate_module_conditional_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenerate_module_conditional_statement(this);
 }
 
 void SV3_1aParser::Generate_module_conditional_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenerate_module_conditional_statement(this);
 }
@@ -41479,13 +41479,13 @@ size_t SV3_1aParser::Generate_module_case_statementContext::getRuleIndex() const
 }
 
 void SV3_1aParser::Generate_module_case_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenerate_module_case_statement(this);
 }
 
 void SV3_1aParser::Generate_module_case_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenerate_module_case_statement(this);
 }
@@ -41635,13 +41635,13 @@ size_t SV3_1aParser::Genvar_module_case_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Genvar_module_case_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenvar_module_case_item(this);
 }
 
 void SV3_1aParser::Genvar_module_case_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenvar_module_case_item(this);
 }
@@ -41821,13 +41821,13 @@ size_t SV3_1aParser::Generate_module_loop_statementContext::getRuleIndex() const
 }
 
 void SV3_1aParser::Generate_module_loop_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenerate_module_loop_statement(this);
 }
 
 void SV3_1aParser::Generate_module_loop_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenerate_module_loop_statement(this);
 }
@@ -41902,13 +41902,13 @@ size_t SV3_1aParser::Genvar_assignmentContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Genvar_assignmentContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenvar_assignment(this);
 }
 
 void SV3_1aParser::Genvar_assignmentContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenvar_assignment(this);
 }
@@ -41999,13 +41999,13 @@ size_t SV3_1aParser::Genvar_decl_assignmentContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Genvar_decl_assignmentContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenvar_decl_assignment(this);
 }
 
 void SV3_1aParser::Genvar_decl_assignmentContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenvar_decl_assignment(this);
 }
@@ -42097,13 +42097,13 @@ size_t SV3_1aParser::Generate_module_named_blockContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Generate_module_named_blockContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenerate_module_named_block(this);
 }
 
 void SV3_1aParser::Generate_module_named_blockContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenerate_module_named_block(this);
 }
@@ -42344,13 +42344,13 @@ size_t SV3_1aParser::Generate_module_blockContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Generate_module_blockContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenerate_module_block(this);
 }
 
 void SV3_1aParser::Generate_module_blockContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenerate_module_block(this);
 }
@@ -42556,13 +42556,13 @@ size_t SV3_1aParser::Generated_interface_instantiationContext::getRuleIndex() co
 }
 
 void SV3_1aParser::Generated_interface_instantiationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenerated_interface_instantiation(this);
 }
 
 void SV3_1aParser::Generated_interface_instantiationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenerated_interface_instantiation(this);
 }
@@ -42734,13 +42734,13 @@ size_t SV3_1aParser::Generate_interface_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Generate_interface_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenerate_interface_item(this);
 }
 
 void SV3_1aParser::Generate_interface_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenerate_interface_item(this);
 }
@@ -42853,13 +42853,13 @@ size_t SV3_1aParser::Generate_interface_conditional_statementContext::getRuleInd
 }
 
 void SV3_1aParser::Generate_interface_conditional_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenerate_interface_conditional_statement(this);
 }
 
 void SV3_1aParser::Generate_interface_conditional_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenerate_interface_conditional_statement(this);
 }
@@ -42953,13 +42953,13 @@ size_t SV3_1aParser::Generate_interface_case_statementContext::getRuleIndex() co
 }
 
 void SV3_1aParser::Generate_interface_case_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenerate_interface_case_statement(this);
 }
 
 void SV3_1aParser::Generate_interface_case_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenerate_interface_case_statement(this);
 }
@@ -43109,13 +43109,13 @@ size_t SV3_1aParser::Genvar_interface_case_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Genvar_interface_case_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenvar_interface_case_item(this);
 }
 
 void SV3_1aParser::Genvar_interface_case_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenvar_interface_case_item(this);
 }
@@ -43295,13 +43295,13 @@ size_t SV3_1aParser::Generate_interface_loop_statementContext::getRuleIndex() co
 }
 
 void SV3_1aParser::Generate_interface_loop_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenerate_interface_loop_statement(this);
 }
 
 void SV3_1aParser::Generate_interface_loop_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenerate_interface_loop_statement(this);
 }
@@ -43396,13 +43396,13 @@ size_t SV3_1aParser::Generate_interface_named_blockContext::getRuleIndex() const
 }
 
 void SV3_1aParser::Generate_interface_named_blockContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenerate_interface_named_block(this);
 }
 
 void SV3_1aParser::Generate_interface_named_blockContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenerate_interface_named_block(this);
 }
@@ -43617,13 +43617,13 @@ size_t SV3_1aParser::Generate_interface_blockContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Generate_interface_blockContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenerate_interface_block(this);
 }
 
 void SV3_1aParser::Generate_interface_blockContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenerate_interface_block(this);
 }
@@ -43803,13 +43803,13 @@ size_t SV3_1aParser::Generate_regionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Generate_regionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenerate_region(this);
 }
 
 void SV3_1aParser::Generate_regionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenerate_region(this);
 }
@@ -44018,13 +44018,13 @@ size_t SV3_1aParser::Loop_generate_constructContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Loop_generate_constructContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterLoop_generate_construct(this);
 }
 
 void SV3_1aParser::Loop_generate_constructContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitLoop_generate_construct(this);
 }
@@ -44099,13 +44099,13 @@ size_t SV3_1aParser::Genvar_initializationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Genvar_initializationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenvar_initialization(this);
 }
 
 void SV3_1aParser::Genvar_initializationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenvar_initialization(this);
 }
@@ -44177,13 +44177,13 @@ size_t SV3_1aParser::Genvar_iterationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Genvar_iterationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenvar_iteration(this);
 }
 
 void SV3_1aParser::Genvar_iterationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenvar_iteration(this);
 }
@@ -44266,13 +44266,13 @@ size_t SV3_1aParser::Conditional_generate_constructContext::getRuleIndex() const
 }
 
 void SV3_1aParser::Conditional_generate_constructContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConditional_generate_construct(this);
 }
 
 void SV3_1aParser::Conditional_generate_constructContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConditional_generate_construct(this);
 }
@@ -44360,13 +44360,13 @@ size_t SV3_1aParser::If_generate_constructContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::If_generate_constructContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterIf_generate_construct(this);
 }
 
 void SV3_1aParser::If_generate_constructContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitIf_generate_construct(this);
 }
@@ -44460,13 +44460,13 @@ size_t SV3_1aParser::Case_generate_constructContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Case_generate_constructContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCase_generate_construct(this);
 }
 
 void SV3_1aParser::Case_generate_constructContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCase_generate_construct(this);
 }
@@ -44616,13 +44616,13 @@ size_t SV3_1aParser::Case_generate_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Case_generate_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCase_generate_item(this);
 }
 
 void SV3_1aParser::Case_generate_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCase_generate_item(this);
 }
@@ -44798,13 +44798,13 @@ size_t SV3_1aParser::Generate_blockContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Generate_blockContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenerate_block(this);
 }
 
 void SV3_1aParser::Generate_blockContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenerate_block(this);
 }
@@ -45041,13 +45041,13 @@ size_t SV3_1aParser::Generate_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Generate_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterGenerate_item(this);
 }
 
 void SV3_1aParser::Generate_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitGenerate_item(this);
 }
@@ -45146,13 +45146,13 @@ size_t SV3_1aParser::Udp_nonansi_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Udp_nonansi_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUdp_nonansi_declaration(this);
 }
 
 void SV3_1aParser::Udp_nonansi_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUdp_nonansi_declaration(this);
 }
@@ -45248,13 +45248,13 @@ size_t SV3_1aParser::Udp_ansi_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Udp_ansi_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUdp_ansi_declaration(this);
 }
 
 void SV3_1aParser::Udp_ansi_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUdp_ansi_declaration(this);
 }
@@ -45386,13 +45386,13 @@ size_t SV3_1aParser::Udp_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Udp_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUdp_declaration(this);
 }
 
 void SV3_1aParser::Udp_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUdp_declaration(this);
 }
@@ -45584,13 +45584,13 @@ size_t SV3_1aParser::Udp_port_listContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Udp_port_listContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUdp_port_list(this);
 }
 
 void SV3_1aParser::Udp_port_listContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUdp_port_list(this);
 }
@@ -45670,13 +45670,13 @@ size_t SV3_1aParser::Udp_declaration_port_listContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Udp_declaration_port_listContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUdp_declaration_port_list(this);
 }
 
 void SV3_1aParser::Udp_declaration_port_listContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUdp_declaration_port_list(this);
 }
@@ -45752,13 +45752,13 @@ size_t SV3_1aParser::Udp_port_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Udp_port_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUdp_port_declaration(this);
 }
 
 void SV3_1aParser::Udp_port_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUdp_port_declaration(this);
 }
@@ -45859,13 +45859,13 @@ size_t SV3_1aParser::Udp_output_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Udp_output_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUdp_output_declaration(this);
 }
 
 void SV3_1aParser::Udp_output_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUdp_output_declaration(this);
 }
@@ -45967,13 +45967,13 @@ size_t SV3_1aParser::Udp_input_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Udp_input_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUdp_input_declaration(this);
 }
 
 void SV3_1aParser::Udp_input_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUdp_input_declaration(this);
 }
@@ -46045,13 +46045,13 @@ size_t SV3_1aParser::Udp_reg_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Udp_reg_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUdp_reg_declaration(this);
 }
 
 void SV3_1aParser::Udp_reg_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUdp_reg_declaration(this);
 }
@@ -46115,13 +46115,13 @@ size_t SV3_1aParser::Udp_bodyContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Udp_bodyContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUdp_body(this);
 }
 
 void SV3_1aParser::Udp_bodyContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUdp_body(this);
 }
@@ -46197,13 +46197,13 @@ size_t SV3_1aParser::Combinational_bodyContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Combinational_bodyContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCombinational_body(this);
 }
 
 void SV3_1aParser::Combinational_bodyContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCombinational_body(this);
 }
@@ -46279,13 +46279,13 @@ size_t SV3_1aParser::Combinational_entryContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Combinational_entryContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCombinational_entry(this);
 }
 
 void SV3_1aParser::Combinational_entryContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCombinational_entry(this);
 }
@@ -46354,13 +46354,13 @@ size_t SV3_1aParser::Sequential_bodyContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Sequential_bodyContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSequential_body(this);
 }
 
 void SV3_1aParser::Sequential_bodyContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSequential_body(this);
 }
@@ -46450,13 +46450,13 @@ size_t SV3_1aParser::Udp_initial_statementContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Udp_initial_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUdp_initial_statement(this);
 }
 
 void SV3_1aParser::Udp_initial_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUdp_initial_statement(this);
 }
@@ -46519,12 +46519,12 @@ tree::TerminalNode* SV3_1aParser::InitVal_1Tickb1Context::ONE_TICK_b1() {
 SV3_1aParser::InitVal_1Tickb1Context::InitVal_1Tickb1Context(Init_valContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::InitVal_1Tickb1Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInitVal_1Tickb1(this);
 }
 void SV3_1aParser::InitVal_1Tickb1Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInitVal_1Tickb1(this);
 }
@@ -46537,12 +46537,12 @@ tree::TerminalNode* SV3_1aParser::InitVal_1TickB1Context::ONE_TICK_B1() {
 SV3_1aParser::InitVal_1TickB1Context::InitVal_1TickB1Context(Init_valContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::InitVal_1TickB1Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInitVal_1TickB1(this);
 }
 void SV3_1aParser::InitVal_1TickB1Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInitVal_1TickB1(this);
 }
@@ -46555,12 +46555,12 @@ tree::TerminalNode* SV3_1aParser::InitVal_1Tickb0Context::ONE_TICK_b0() {
 SV3_1aParser::InitVal_1Tickb0Context::InitVal_1Tickb0Context(Init_valContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::InitVal_1Tickb0Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInitVal_1Tickb0(this);
 }
 void SV3_1aParser::InitVal_1Tickb0Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInitVal_1Tickb0(this);
 }
@@ -46573,12 +46573,12 @@ tree::TerminalNode* SV3_1aParser::InitVal_1TickB0Context::ONE_TICK_B0() {
 SV3_1aParser::InitVal_1TickB0Context::InitVal_1TickB0Context(Init_valContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::InitVal_1TickB0Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInitVal_1TickB0(this);
 }
 void SV3_1aParser::InitVal_1TickB0Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInitVal_1TickB0(this);
 }
@@ -46591,12 +46591,12 @@ tree::TerminalNode* SV3_1aParser::InitVal_1TickbxContext::ONE_TICK_bx() {
 SV3_1aParser::InitVal_1TickbxContext::InitVal_1TickbxContext(Init_valContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::InitVal_1TickbxContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInitVal_1Tickbx(this);
 }
 void SV3_1aParser::InitVal_1TickbxContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInitVal_1Tickbx(this);
 }
@@ -46609,12 +46609,12 @@ tree::TerminalNode* SV3_1aParser::InitVal_1TickbXContext::ONE_TICK_bX() {
 SV3_1aParser::InitVal_1TickbXContext::InitVal_1TickbXContext(Init_valContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::InitVal_1TickbXContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInitVal_1TickbX(this);
 }
 void SV3_1aParser::InitVal_1TickbXContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInitVal_1TickbX(this);
 }
@@ -46627,12 +46627,12 @@ tree::TerminalNode* SV3_1aParser::InitVal_1TickBxContext::ONE_TICK_Bx() {
 SV3_1aParser::InitVal_1TickBxContext::InitVal_1TickBxContext(Init_valContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::InitVal_1TickBxContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInitVal_1TickBx(this);
 }
 void SV3_1aParser::InitVal_1TickBxContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInitVal_1TickBx(this);
 }
@@ -46645,12 +46645,12 @@ tree::TerminalNode* SV3_1aParser::InitVal_1TickBXContext::ONE_TICK_BX() {
 SV3_1aParser::InitVal_1TickBXContext::InitVal_1TickBXContext(Init_valContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::InitVal_1TickBXContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInitVal_1TickBX(this);
 }
 void SV3_1aParser::InitVal_1TickBXContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInitVal_1TickBX(this);
 }
@@ -46663,12 +46663,12 @@ tree::TerminalNode* SV3_1aParser::InitVal_IntegralContext::Integral_number() {
 SV3_1aParser::InitVal_IntegralContext::InitVal_IntegralContext(Init_valContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::InitVal_IntegralContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInitVal_Integral(this);
 }
 void SV3_1aParser::InitVal_IntegralContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInitVal_Integral(this);
 }
@@ -46688,7 +46688,7 @@ SV3_1aParser::Init_valContext* SV3_1aParser::init_val() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::ONE_TICK_b0: {
-        _localctx = dynamic_cast<Init_valContext *>(_tracker.createInstance<SV3_1aParser::InitVal_1Tickb0Context>(_localctx));
+        _localctx = parsetree_cast<Init_valContext>(_tracker.createInstance<SV3_1aParser::InitVal_1Tickb0Context>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(6285);
         match(SV3_1aParser::ONE_TICK_b0);
@@ -46696,7 +46696,7 @@ SV3_1aParser::Init_valContext* SV3_1aParser::init_val() {
       }
 
       case SV3_1aParser::ONE_TICK_b1: {
-        _localctx = dynamic_cast<Init_valContext *>(_tracker.createInstance<SV3_1aParser::InitVal_1Tickb1Context>(_localctx));
+        _localctx = parsetree_cast<Init_valContext>(_tracker.createInstance<SV3_1aParser::InitVal_1Tickb1Context>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(6286);
         match(SV3_1aParser::ONE_TICK_b1);
@@ -46704,7 +46704,7 @@ SV3_1aParser::Init_valContext* SV3_1aParser::init_val() {
       }
 
       case SV3_1aParser::ONE_TICK_B0: {
-        _localctx = dynamic_cast<Init_valContext *>(_tracker.createInstance<SV3_1aParser::InitVal_1TickB0Context>(_localctx));
+        _localctx = parsetree_cast<Init_valContext>(_tracker.createInstance<SV3_1aParser::InitVal_1TickB0Context>(_localctx));
         enterOuterAlt(_localctx, 3);
         setState(6287);
         match(SV3_1aParser::ONE_TICK_B0);
@@ -46712,7 +46712,7 @@ SV3_1aParser::Init_valContext* SV3_1aParser::init_val() {
       }
 
       case SV3_1aParser::ONE_TICK_B1: {
-        _localctx = dynamic_cast<Init_valContext *>(_tracker.createInstance<SV3_1aParser::InitVal_1TickB1Context>(_localctx));
+        _localctx = parsetree_cast<Init_valContext>(_tracker.createInstance<SV3_1aParser::InitVal_1TickB1Context>(_localctx));
         enterOuterAlt(_localctx, 4);
         setState(6288);
         match(SV3_1aParser::ONE_TICK_B1);
@@ -46720,7 +46720,7 @@ SV3_1aParser::Init_valContext* SV3_1aParser::init_val() {
       }
 
       case SV3_1aParser::ONE_TICK_bx: {
-        _localctx = dynamic_cast<Init_valContext *>(_tracker.createInstance<SV3_1aParser::InitVal_1TickbxContext>(_localctx));
+        _localctx = parsetree_cast<Init_valContext>(_tracker.createInstance<SV3_1aParser::InitVal_1TickbxContext>(_localctx));
         enterOuterAlt(_localctx, 5);
         setState(6289);
         match(SV3_1aParser::ONE_TICK_bx);
@@ -46728,7 +46728,7 @@ SV3_1aParser::Init_valContext* SV3_1aParser::init_val() {
       }
 
       case SV3_1aParser::ONE_TICK_bX: {
-        _localctx = dynamic_cast<Init_valContext *>(_tracker.createInstance<SV3_1aParser::InitVal_1TickbXContext>(_localctx));
+        _localctx = parsetree_cast<Init_valContext>(_tracker.createInstance<SV3_1aParser::InitVal_1TickbXContext>(_localctx));
         enterOuterAlt(_localctx, 6);
         setState(6290);
         match(SV3_1aParser::ONE_TICK_bX);
@@ -46736,7 +46736,7 @@ SV3_1aParser::Init_valContext* SV3_1aParser::init_val() {
       }
 
       case SV3_1aParser::ONE_TICK_Bx: {
-        _localctx = dynamic_cast<Init_valContext *>(_tracker.createInstance<SV3_1aParser::InitVal_1TickBxContext>(_localctx));
+        _localctx = parsetree_cast<Init_valContext>(_tracker.createInstance<SV3_1aParser::InitVal_1TickBxContext>(_localctx));
         enterOuterAlt(_localctx, 7);
         setState(6291);
         match(SV3_1aParser::ONE_TICK_Bx);
@@ -46744,7 +46744,7 @@ SV3_1aParser::Init_valContext* SV3_1aParser::init_val() {
       }
 
       case SV3_1aParser::ONE_TICK_BX: {
-        _localctx = dynamic_cast<Init_valContext *>(_tracker.createInstance<SV3_1aParser::InitVal_1TickBXContext>(_localctx));
+        _localctx = parsetree_cast<Init_valContext>(_tracker.createInstance<SV3_1aParser::InitVal_1TickBXContext>(_localctx));
         enterOuterAlt(_localctx, 8);
         setState(6292);
         match(SV3_1aParser::ONE_TICK_BX);
@@ -46752,7 +46752,7 @@ SV3_1aParser::Init_valContext* SV3_1aParser::init_val() {
       }
 
       case SV3_1aParser::Integral_number: {
-        _localctx = dynamic_cast<Init_valContext *>(_tracker.createInstance<SV3_1aParser::InitVal_IntegralContext>(_localctx));
+        _localctx = parsetree_cast<Init_valContext>(_tracker.createInstance<SV3_1aParser::InitVal_IntegralContext>(_localctx));
         enterOuterAlt(_localctx, 9);
         setState(6293);
         match(SV3_1aParser::Integral_number);
@@ -46809,13 +46809,13 @@ size_t SV3_1aParser::Sequential_entryContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Sequential_entryContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSequential_entry(this);
 }
 
 void SV3_1aParser::Sequential_entryContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSequential_entry(this);
 }
@@ -46876,13 +46876,13 @@ size_t SV3_1aParser::Seq_input_listContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Seq_input_listContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSeq_input_list(this);
 }
 
 void SV3_1aParser::Seq_input_listContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSeq_input_list(this);
 }
@@ -46950,13 +46950,13 @@ size_t SV3_1aParser::Level_input_listContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Level_input_listContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterLevel_input_list(this);
 }
 
 void SV3_1aParser::Level_input_listContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitLevel_input_list(this);
 }
@@ -47024,13 +47024,13 @@ size_t SV3_1aParser::Edge_input_listContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Edge_input_listContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEdge_input_list(this);
 }
 
 void SV3_1aParser::Edge_input_listContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEdge_input_list(this);
 }
@@ -47119,13 +47119,13 @@ size_t SV3_1aParser::Edge_indicatorContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Edge_indicatorContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEdge_indicator(this);
 }
 
 void SV3_1aParser::Edge_indicatorContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEdge_indicator(this);
 }
@@ -47209,13 +47209,13 @@ size_t SV3_1aParser::Next_stateContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Next_stateContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNext_state(this);
 }
 
 void SV3_1aParser::Next_stateContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNext_state(this);
 }
@@ -47284,13 +47284,13 @@ size_t SV3_1aParser::Output_symbolContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Output_symbolContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOutput_symbol(this);
 }
 
 void SV3_1aParser::Output_symbolContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOutput_symbol(this);
 }
@@ -47353,13 +47353,13 @@ size_t SV3_1aParser::Level_symbolContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Level_symbolContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterLevel_symbol(this);
 }
 
 void SV3_1aParser::Level_symbolContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitLevel_symbol(this);
 }
@@ -47420,13 +47420,13 @@ size_t SV3_1aParser::Edge_symbolContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Edge_symbolContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEdge_symbol(this);
 }
 
 void SV3_1aParser::Edge_symbolContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEdge_symbol(this);
 }
@@ -47509,13 +47509,13 @@ size_t SV3_1aParser::Udp_instantiationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Udp_instantiationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUdp_instantiation(this);
 }
 
 void SV3_1aParser::Udp_instantiationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUdp_instantiation(this);
 }
@@ -47630,13 +47630,13 @@ size_t SV3_1aParser::Udp_instanceContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Udp_instanceContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUdp_instance(this);
 }
 
 void SV3_1aParser::Udp_instanceContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUdp_instance(this);
 }
@@ -47745,13 +47745,13 @@ size_t SV3_1aParser::Continuous_assignContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Continuous_assignContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterContinuous_assign(this);
 }
 
 void SV3_1aParser::Continuous_assignContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitContinuous_assign(this);
 }
@@ -47864,13 +47864,13 @@ size_t SV3_1aParser::List_of_net_assignmentsContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::List_of_net_assignmentsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_net_assignments(this);
 }
 
 void SV3_1aParser::List_of_net_assignmentsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_net_assignments(this);
 }
@@ -47942,13 +47942,13 @@ size_t SV3_1aParser::List_of_variable_assignmentsContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::List_of_variable_assignmentsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_variable_assignments(this);
 }
 
 void SV3_1aParser::List_of_variable_assignmentsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_variable_assignments(this);
 }
@@ -48028,13 +48028,13 @@ size_t SV3_1aParser::Net_aliasContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Net_aliasContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNet_alias(this);
 }
 
 void SV3_1aParser::Net_aliasContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNet_alias(this);
 }
@@ -48106,13 +48106,13 @@ size_t SV3_1aParser::Net_assignmentContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Net_assignmentContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNet_assignment(this);
 }
 
 void SV3_1aParser::Net_assignmentContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNet_assignment(this);
 }
@@ -48167,13 +48167,13 @@ size_t SV3_1aParser::Initial_constructContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Initial_constructContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInitial_construct(this);
 }
 
 void SV3_1aParser::Initial_constructContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInitial_construct(this);
 }
@@ -48226,13 +48226,13 @@ size_t SV3_1aParser::Always_constructContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Always_constructContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAlways_construct(this);
 }
 
 void SV3_1aParser::Always_constructContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAlways_construct(this);
 }
@@ -48289,12 +48289,12 @@ tree::TerminalNode* SV3_1aParser::AlwaysKeywd_CombContext::ALWAYS_COMB() {
 SV3_1aParser::AlwaysKeywd_CombContext::AlwaysKeywd_CombContext(Always_keywordContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::AlwaysKeywd_CombContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAlwaysKeywd_Comb(this);
 }
 void SV3_1aParser::AlwaysKeywd_CombContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAlwaysKeywd_Comb(this);
 }
@@ -48307,12 +48307,12 @@ tree::TerminalNode* SV3_1aParser::AlwaysKeywd_LatchContext::ALWAYS_LATCH() {
 SV3_1aParser::AlwaysKeywd_LatchContext::AlwaysKeywd_LatchContext(Always_keywordContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::AlwaysKeywd_LatchContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAlwaysKeywd_Latch(this);
 }
 void SV3_1aParser::AlwaysKeywd_LatchContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAlwaysKeywd_Latch(this);
 }
@@ -48325,12 +48325,12 @@ tree::TerminalNode* SV3_1aParser::AlwaysKeywd_FFContext::ALWAYS_FF() {
 SV3_1aParser::AlwaysKeywd_FFContext::AlwaysKeywd_FFContext(Always_keywordContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::AlwaysKeywd_FFContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAlwaysKeywd_FF(this);
 }
 void SV3_1aParser::AlwaysKeywd_FFContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAlwaysKeywd_FF(this);
 }
@@ -48343,12 +48343,12 @@ tree::TerminalNode* SV3_1aParser::AlwaysKeywd_AlwaysContext::ALWAYS() {
 SV3_1aParser::AlwaysKeywd_AlwaysContext::AlwaysKeywd_AlwaysContext(Always_keywordContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::AlwaysKeywd_AlwaysContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAlwaysKeywd_Always(this);
 }
 void SV3_1aParser::AlwaysKeywd_AlwaysContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAlwaysKeywd_Always(this);
 }
@@ -48368,7 +48368,7 @@ SV3_1aParser::Always_keywordContext* SV3_1aParser::always_keyword() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::ALWAYS: {
-        _localctx = dynamic_cast<Always_keywordContext *>(_tracker.createInstance<SV3_1aParser::AlwaysKeywd_AlwaysContext>(_localctx));
+        _localctx = parsetree_cast<Always_keywordContext>(_tracker.createInstance<SV3_1aParser::AlwaysKeywd_AlwaysContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(6436);
         match(SV3_1aParser::ALWAYS);
@@ -48376,7 +48376,7 @@ SV3_1aParser::Always_keywordContext* SV3_1aParser::always_keyword() {
       }
 
       case SV3_1aParser::ALWAYS_COMB: {
-        _localctx = dynamic_cast<Always_keywordContext *>(_tracker.createInstance<SV3_1aParser::AlwaysKeywd_CombContext>(_localctx));
+        _localctx = parsetree_cast<Always_keywordContext>(_tracker.createInstance<SV3_1aParser::AlwaysKeywd_CombContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(6437);
         match(SV3_1aParser::ALWAYS_COMB);
@@ -48384,7 +48384,7 @@ SV3_1aParser::Always_keywordContext* SV3_1aParser::always_keyword() {
       }
 
       case SV3_1aParser::ALWAYS_LATCH: {
-        _localctx = dynamic_cast<Always_keywordContext *>(_tracker.createInstance<SV3_1aParser::AlwaysKeywd_LatchContext>(_localctx));
+        _localctx = parsetree_cast<Always_keywordContext>(_tracker.createInstance<SV3_1aParser::AlwaysKeywd_LatchContext>(_localctx));
         enterOuterAlt(_localctx, 3);
         setState(6438);
         match(SV3_1aParser::ALWAYS_LATCH);
@@ -48392,7 +48392,7 @@ SV3_1aParser::Always_keywordContext* SV3_1aParser::always_keyword() {
       }
 
       case SV3_1aParser::ALWAYS_FF: {
-        _localctx = dynamic_cast<Always_keywordContext *>(_tracker.createInstance<SV3_1aParser::AlwaysKeywd_FFContext>(_localctx));
+        _localctx = parsetree_cast<Always_keywordContext>(_tracker.createInstance<SV3_1aParser::AlwaysKeywd_FFContext>(_localctx));
         enterOuterAlt(_localctx, 4);
         setState(6439);
         match(SV3_1aParser::ALWAYS_FF);
@@ -48481,13 +48481,13 @@ size_t SV3_1aParser::Blocking_assignmentContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Blocking_assignmentContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBlocking_assignment(this);
 }
 
 void SV3_1aParser::Blocking_assignmentContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBlocking_assignment(this);
 }
@@ -48616,13 +48616,13 @@ size_t SV3_1aParser::Operator_assignmentContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Operator_assignmentContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOperator_assignment(this);
 }
 
 void SV3_1aParser::Operator_assignmentContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOperator_assignment(this);
 }
@@ -48721,13 +48721,13 @@ size_t SV3_1aParser::Assignment_operatorContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Assignment_operatorContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAssignment_operator(this);
 }
 
 void SV3_1aParser::Assignment_operatorContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAssignment_operator(this);
 }
@@ -48807,13 +48807,13 @@ size_t SV3_1aParser::Nonblocking_assignmentContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Nonblocking_assignmentContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNonblocking_assignment(this);
 }
 
 void SV3_1aParser::Nonblocking_assignmentContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNonblocking_assignment(this);
 }
@@ -48907,13 +48907,13 @@ size_t SV3_1aParser::Procedural_continuous_assignmentContext::getRuleIndex() con
 }
 
 void SV3_1aParser::Procedural_continuous_assignmentContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProcedural_continuous_assignment(this);
 }
 
 void SV3_1aParser::Procedural_continuous_assignmentContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProcedural_continuous_assignment(this);
 }
@@ -49039,13 +49039,13 @@ size_t SV3_1aParser::Variable_assignmentContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Variable_assignmentContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterVariable_assignment(this);
 }
 
 void SV3_1aParser::Variable_assignmentContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitVariable_assignment(this);
 }
@@ -49104,13 +49104,13 @@ size_t SV3_1aParser::Action_blockContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Action_blockContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAction_block(this);
 }
 
 void SV3_1aParser::Action_blockContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAction_block(this);
 }
@@ -49286,13 +49286,13 @@ size_t SV3_1aParser::Seq_blockContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Seq_blockContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSeq_block(this);
 }
 
 void SV3_1aParser::Seq_blockContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSeq_block(this);
 }
@@ -49495,13 +49495,13 @@ size_t SV3_1aParser::Par_blockContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Par_blockContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPar_block(this);
 }
 
 void SV3_1aParser::Par_blockContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPar_block(this);
 }
@@ -49682,13 +49682,13 @@ size_t SV3_1aParser::Join_keywordContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Join_keywordContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterJoin_keyword(this);
 }
 
 void SV3_1aParser::Join_keywordContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitJoin_keyword(this);
 }
@@ -49735,13 +49735,13 @@ size_t SV3_1aParser::Join_any_keywordContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Join_any_keywordContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterJoin_any_keyword(this);
 }
 
 void SV3_1aParser::Join_any_keywordContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitJoin_any_keyword(this);
 }
@@ -49788,13 +49788,13 @@ size_t SV3_1aParser::Join_none_keywordContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Join_none_keywordContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterJoin_none_keyword(this);
 }
 
 void SV3_1aParser::Join_none_keywordContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitJoin_none_keyword(this);
 }
@@ -49853,13 +49853,13 @@ size_t SV3_1aParser::Statement_or_nullContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Statement_or_nullContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterStatement_or_null(this);
 }
 
 void SV3_1aParser::Statement_or_nullContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitStatement_or_null(this);
 }
@@ -49950,13 +49950,13 @@ size_t SV3_1aParser::StatementContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::StatementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterStatement(this);
 }
 
 void SV3_1aParser::StatementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitStatement(this);
 }
@@ -50117,13 +50117,13 @@ size_t SV3_1aParser::Statement_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Statement_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterStatement_item(this);
 }
 
 void SV3_1aParser::Statement_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitStatement_item(this);
 }
@@ -50349,13 +50349,13 @@ size_t SV3_1aParser::Function_statement_or_nullContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Function_statement_or_nullContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterFunction_statement_or_null(this);
 }
 
 void SV3_1aParser::Function_statement_or_nullContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitFunction_statement_or_null(this);
 }
@@ -50434,13 +50434,13 @@ size_t SV3_1aParser::Procedural_timing_control_statementContext::getRuleIndex() 
 }
 
 void SV3_1aParser::Procedural_timing_control_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProcedural_timing_control_statement(this);
 }
 
 void SV3_1aParser::Procedural_timing_control_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProcedural_timing_control_statement(this);
 }
@@ -50509,13 +50509,13 @@ size_t SV3_1aParser::Delay_or_event_controlContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Delay_or_event_controlContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDelay_or_event_control(this);
 }
 
 void SV3_1aParser::Delay_or_event_controlContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDelay_or_event_control(this);
 }
@@ -50614,13 +50614,13 @@ size_t SV3_1aParser::Delay_controlContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Delay_controlContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDelay_control(this);
 }
 
 void SV3_1aParser::Delay_controlContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDelay_control(this);
 }
@@ -50718,13 +50718,13 @@ size_t SV3_1aParser::Event_controlContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Event_controlContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEvent_control(this);
 }
 
 void SV3_1aParser::Event_controlContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEvent_control(this);
 }
@@ -50859,13 +50859,13 @@ size_t SV3_1aParser::Event_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Event_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEvent_expression(this);
 }
 
 void SV3_1aParser::Event_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEvent_expression(this);
 }
@@ -51029,13 +51029,13 @@ size_t SV3_1aParser::Or_operatorContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Or_operatorContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOr_operator(this);
 }
 
 void SV3_1aParser::Or_operatorContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOr_operator(this);
 }
@@ -51082,13 +51082,13 @@ size_t SV3_1aParser::Comma_operatorContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Comma_operatorContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterComma_operator(this);
 }
 
 void SV3_1aParser::Comma_operatorContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitComma_operator(this);
 }
@@ -51143,13 +51143,13 @@ size_t SV3_1aParser::Procedural_timing_controlContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Procedural_timing_controlContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProcedural_timing_control(this);
 }
 
 void SV3_1aParser::Procedural_timing_controlContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProcedural_timing_control(this);
 }
@@ -51236,13 +51236,13 @@ size_t SV3_1aParser::Jump_statementContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Jump_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterJump_statement(this);
 }
 
 void SV3_1aParser::Jump_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitJump_statement(this);
 }
@@ -51393,13 +51393,13 @@ size_t SV3_1aParser::Final_constructContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Final_constructContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterFinal_construct(this);
 }
 
 void SV3_1aParser::Final_constructContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitFinal_construct(this);
 }
@@ -51496,13 +51496,13 @@ size_t SV3_1aParser::Wait_statementContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Wait_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterWait_statement(this);
 }
 
 void SV3_1aParser::Wait_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitWait_statement(this);
 }
@@ -51629,13 +51629,13 @@ size_t SV3_1aParser::Event_triggerContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Event_triggerContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEvent_trigger(this);
 }
 
 void SV3_1aParser::Event_triggerContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEvent_trigger(this);
 }
@@ -51734,13 +51734,13 @@ size_t SV3_1aParser::Disable_statementContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Disable_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDisable_statement(this);
 }
 
 void SV3_1aParser::Disable_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDisable_statement(this);
 }
@@ -51860,13 +51860,13 @@ size_t SV3_1aParser::Conditional_statementContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Conditional_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConditional_statement(this);
 }
 
 void SV3_1aParser::Conditional_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConditional_statement(this);
 }
@@ -51978,13 +51978,13 @@ size_t SV3_1aParser::Unique_priorityContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Unique_priorityContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUnique_priority(this);
 }
 
 void SV3_1aParser::Unique_priorityContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUnique_priority(this);
 }
@@ -52054,13 +52054,13 @@ size_t SV3_1aParser::Cond_predicateContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Cond_predicateContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCond_predicate(this);
 }
 
 void SV3_1aParser::Cond_predicateContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCond_predicate(this);
 }
@@ -52128,13 +52128,13 @@ size_t SV3_1aParser::Expression_or_cond_patternContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Expression_or_cond_patternContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterExpression_or_cond_pattern(this);
 }
 
 void SV3_1aParser::Expression_or_cond_patternContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitExpression_or_cond_pattern(this);
 }
@@ -52192,13 +52192,13 @@ size_t SV3_1aParser::MatchesContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::MatchesContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterMatches(this);
 }
 
 void SV3_1aParser::MatchesContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitMatches(this);
 }
@@ -52297,13 +52297,13 @@ size_t SV3_1aParser::Case_statementContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Case_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCase_statement(this);
 }
 
 void SV3_1aParser::Case_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCase_statement(this);
 }
@@ -52685,13 +52685,13 @@ size_t SV3_1aParser::Case_keywordContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Case_keywordContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCase_keyword(this);
 }
 
 void SV3_1aParser::Case_keywordContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCase_keyword(this);
 }
@@ -52773,13 +52773,13 @@ size_t SV3_1aParser::Case_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Case_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCase_item(this);
 }
 
 void SV3_1aParser::Case_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCase_item(this);
 }
@@ -52951,13 +52951,13 @@ size_t SV3_1aParser::Case_pattern_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Case_pattern_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCase_pattern_item(this);
 }
 
 void SV3_1aParser::Case_pattern_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCase_pattern_item(this);
 }
@@ -53118,13 +53118,13 @@ size_t SV3_1aParser::Case_inside_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Case_inside_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCase_inside_item(this);
 }
 
 void SV3_1aParser::Case_inside_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCase_inside_item(this);
 }
@@ -53277,13 +53277,13 @@ size_t SV3_1aParser::Randcase_statementContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Randcase_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRandcase_statement(this);
 }
 
 void SV3_1aParser::Randcase_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRandcase_statement(this);
 }
@@ -53414,13 +53414,13 @@ size_t SV3_1aParser::Randcase_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Randcase_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRandcase_item(this);
 }
 
 void SV3_1aParser::Randcase_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRandcase_item(this);
 }
@@ -53527,13 +53527,13 @@ size_t SV3_1aParser::PatternContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::PatternContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPattern(this);
 }
 
 void SV3_1aParser::PatternContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPattern(this);
 }
@@ -53803,13 +53803,13 @@ size_t SV3_1aParser::Assignment_patternContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Assignment_patternContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAssignment_pattern(this);
 }
 
 void SV3_1aParser::Assignment_patternContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAssignment_pattern(this);
 }
@@ -54025,13 +54025,13 @@ size_t SV3_1aParser::Structure_pattern_keyContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Structure_pattern_keyContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterStructure_pattern_key(this);
 }
 
 void SV3_1aParser::Structure_pattern_keyContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitStructure_pattern_key(this);
 }
@@ -54099,13 +54099,13 @@ size_t SV3_1aParser::Array_pattern_keyContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Array_pattern_keyContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterArray_pattern_key(this);
 }
 
 void SV3_1aParser::Array_pattern_keyContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitArray_pattern_key(this);
 }
@@ -54173,13 +54173,13 @@ size_t SV3_1aParser::Assignment_pattern_keyContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Assignment_pattern_keyContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAssignment_pattern_key(this);
 }
 
 void SV3_1aParser::Assignment_pattern_keyContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAssignment_pattern_key(this);
 }
@@ -54265,13 +54265,13 @@ size_t SV3_1aParser::Assignment_pattern_expressionContext::getRuleIndex() const 
 }
 
 void SV3_1aParser::Assignment_pattern_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAssignment_pattern_expression(this);
 }
 
 void SV3_1aParser::Assignment_pattern_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAssignment_pattern_expression(this);
 }
@@ -54352,13 +54352,13 @@ size_t SV3_1aParser::Assignment_pattern_expression_typeContext::getRuleIndex() c
 }
 
 void SV3_1aParser::Assignment_pattern_expression_typeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAssignment_pattern_expression_type(this);
 }
 
 void SV3_1aParser::Assignment_pattern_expression_typeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAssignment_pattern_expression_type(this);
 }
@@ -54436,13 +54436,13 @@ size_t SV3_1aParser::Constant_assignment_pattern_expressionContext::getRuleIndex
 }
 
 void SV3_1aParser::Constant_assignment_pattern_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstant_assignment_pattern_expression(this);
 }
 
 void SV3_1aParser::Constant_assignment_pattern_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstant_assignment_pattern_expression(this);
 }
@@ -54513,13 +54513,13 @@ size_t SV3_1aParser::Assignment_pattern_net_lvalueContext::getRuleIndex() const 
 }
 
 void SV3_1aParser::Assignment_pattern_net_lvalueContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAssignment_pattern_net_lvalue(this);
 }
 
 void SV3_1aParser::Assignment_pattern_net_lvalueContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAssignment_pattern_net_lvalue(this);
 }
@@ -54609,13 +54609,13 @@ size_t SV3_1aParser::Assignment_pattern_variable_lvalueContext::getRuleIndex() c
 }
 
 void SV3_1aParser::Assignment_pattern_variable_lvalueContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAssignment_pattern_variable_lvalue(this);
 }
 
 void SV3_1aParser::Assignment_pattern_variable_lvalueContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAssignment_pattern_variable_lvalue(this);
 }
@@ -54753,13 +54753,13 @@ size_t SV3_1aParser::Loop_statementContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Loop_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterLoop_statement(this);
 }
 
 void SV3_1aParser::Loop_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitLoop_statement(this);
 }
@@ -55054,13 +55054,13 @@ size_t SV3_1aParser::For_initializationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::For_initializationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterFor_initialization(this);
 }
 
 void SV3_1aParser::For_initializationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitFor_initialization(this);
 }
@@ -55173,13 +55173,13 @@ size_t SV3_1aParser::For_variable_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::For_variable_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterFor_variable_declaration(this);
 }
 
 void SV3_1aParser::For_variable_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitFor_variable_declaration(this);
 }
@@ -55272,13 +55272,13 @@ size_t SV3_1aParser::For_stepContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::For_stepContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterFor_step(this);
 }
 
 void SV3_1aParser::For_stepContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitFor_step(this);
 }
@@ -55346,13 +55346,13 @@ size_t SV3_1aParser::For_step_assignmentContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::For_step_assignmentContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterFor_step_assignment(this);
 }
 
 void SV3_1aParser::For_step_assignmentContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitFor_step_assignment(this);
 }
@@ -55435,13 +55435,13 @@ size_t SV3_1aParser::Loop_variablesContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Loop_variablesContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterLoop_variables(this);
 }
 
 void SV3_1aParser::Loop_variablesContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitLoop_variables(this);
 }
@@ -55543,13 +55543,13 @@ size_t SV3_1aParser::Subroutine_call_statementContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Subroutine_call_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSubroutine_call_statement(this);
 }
 
 void SV3_1aParser::Subroutine_call_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSubroutine_call_statement(this);
 }
@@ -55637,13 +55637,13 @@ size_t SV3_1aParser::Assertion_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Assertion_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAssertion_item(this);
 }
 
 void SV3_1aParser::Assertion_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAssertion_item(this);
 }
@@ -55715,13 +55715,13 @@ size_t SV3_1aParser::Deferred_immediate_assertion_itemContext::getRuleIndex() co
 }
 
 void SV3_1aParser::Deferred_immediate_assertion_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDeferred_immediate_assertion_item(this);
 }
 
 void SV3_1aParser::Deferred_immediate_assertion_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDeferred_immediate_assertion_item(this);
 }
@@ -55792,13 +55792,13 @@ size_t SV3_1aParser::Procedural_assertion_statementContext::getRuleIndex() const
 }
 
 void SV3_1aParser::Procedural_assertion_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProcedural_assertion_statement(this);
 }
 
 void SV3_1aParser::Procedural_assertion_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProcedural_assertion_statement(this);
 }
@@ -55873,13 +55873,13 @@ size_t SV3_1aParser::Immediate_assertion_statementContext::getRuleIndex() const 
 }
 
 void SV3_1aParser::Immediate_assertion_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterImmediate_assertion_statement(this);
 }
 
 void SV3_1aParser::Immediate_assertion_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitImmediate_assertion_statement(this);
 }
@@ -55951,13 +55951,13 @@ size_t SV3_1aParser::Simple_immediate_assertion_statementContext::getRuleIndex()
 }
 
 void SV3_1aParser::Simple_immediate_assertion_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSimple_immediate_assertion_statement(this);
 }
 
 void SV3_1aParser::Simple_immediate_assertion_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSimple_immediate_assertion_statement(this);
 }
@@ -56044,13 +56044,13 @@ size_t SV3_1aParser::Simple_immediate_assert_statementContext::getRuleIndex() co
 }
 
 void SV3_1aParser::Simple_immediate_assert_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSimple_immediate_assert_statement(this);
 }
 
 void SV3_1aParser::Simple_immediate_assert_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSimple_immediate_assert_statement(this);
 }
@@ -56121,13 +56121,13 @@ size_t SV3_1aParser::Simple_immediate_assume_statementContext::getRuleIndex() co
 }
 
 void SV3_1aParser::Simple_immediate_assume_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSimple_immediate_assume_statement(this);
 }
 
 void SV3_1aParser::Simple_immediate_assume_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSimple_immediate_assume_statement(this);
 }
@@ -56198,13 +56198,13 @@ size_t SV3_1aParser::Simple_immediate_cover_statementContext::getRuleIndex() con
 }
 
 void SV3_1aParser::Simple_immediate_cover_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSimple_immediate_cover_statement(this);
 }
 
 void SV3_1aParser::Simple_immediate_cover_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSimple_immediate_cover_statement(this);
 }
@@ -56267,13 +56267,13 @@ size_t SV3_1aParser::Deferred_immediate_assertion_statementContext::getRuleIndex
 }
 
 void SV3_1aParser::Deferred_immediate_assertion_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDeferred_immediate_assertion_statement(this);
 }
 
 void SV3_1aParser::Deferred_immediate_assertion_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDeferred_immediate_assertion_statement(this);
 }
@@ -56372,13 +56372,13 @@ size_t SV3_1aParser::Deferred_immediate_assert_statementContext::getRuleIndex() 
 }
 
 void SV3_1aParser::Deferred_immediate_assert_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDeferred_immediate_assert_statement(this);
 }
 
 void SV3_1aParser::Deferred_immediate_assert_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDeferred_immediate_assert_statement(this);
 }
@@ -56497,13 +56497,13 @@ size_t SV3_1aParser::Deferred_immediate_assume_statementContext::getRuleIndex() 
 }
 
 void SV3_1aParser::Deferred_immediate_assume_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDeferred_immediate_assume_statement(this);
 }
 
 void SV3_1aParser::Deferred_immediate_assume_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDeferred_immediate_assume_statement(this);
 }
@@ -56625,13 +56625,13 @@ size_t SV3_1aParser::Deferred_immediate_cover_statementContext::getRuleIndex() c
 }
 
 void SV3_1aParser::Deferred_immediate_cover_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDeferred_immediate_cover_statement(this);
 }
 
 void SV3_1aParser::Deferred_immediate_cover_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDeferred_immediate_cover_statement(this);
 }
@@ -56765,13 +56765,13 @@ size_t SV3_1aParser::Clocking_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Clocking_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClocking_declaration(this);
 }
 
 void SV3_1aParser::Clocking_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClocking_declaration(this);
 }
@@ -56938,13 +56938,13 @@ size_t SV3_1aParser::Clocking_eventContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Clocking_eventContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClocking_event(this);
 }
 
 void SV3_1aParser::Clocking_eventContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClocking_event(this);
 }
@@ -57044,13 +57044,13 @@ size_t SV3_1aParser::Clocking_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Clocking_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClocking_item(this);
 }
 
 void SV3_1aParser::Clocking_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClocking_item(this);
 }
@@ -57164,12 +57164,12 @@ tree::TerminalNode* SV3_1aParser::DefaultSkew_IntputOutputContext::OUTPUT() {
 SV3_1aParser::DefaultSkew_IntputOutputContext::DefaultSkew_IntputOutputContext(Default_skewContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::DefaultSkew_IntputOutputContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDefaultSkew_IntputOutput(this);
 }
 void SV3_1aParser::DefaultSkew_IntputOutputContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDefaultSkew_IntputOutput(this);
 }
@@ -57186,12 +57186,12 @@ SV3_1aParser::Clocking_skewContext* SV3_1aParser::DefaultSkew_OutputContext::clo
 SV3_1aParser::DefaultSkew_OutputContext::DefaultSkew_OutputContext(Default_skewContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::DefaultSkew_OutputContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDefaultSkew_Output(this);
 }
 void SV3_1aParser::DefaultSkew_OutputContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDefaultSkew_Output(this);
 }
@@ -57208,12 +57208,12 @@ SV3_1aParser::Clocking_skewContext* SV3_1aParser::DefaultSkew_IntputContext::clo
 SV3_1aParser::DefaultSkew_IntputContext::DefaultSkew_IntputContext(Default_skewContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::DefaultSkew_IntputContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDefaultSkew_Intput(this);
 }
 void SV3_1aParser::DefaultSkew_IntputContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDefaultSkew_Intput(this);
 }
@@ -57233,7 +57233,7 @@ SV3_1aParser::Default_skewContext* SV3_1aParser::default_skew() {
     _errHandler->sync(this);
     switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 849, _ctx)) {
     case 1: {
-      _localctx = dynamic_cast<Default_skewContext *>(_tracker.createInstance<SV3_1aParser::DefaultSkew_IntputContext>(_localctx));
+      _localctx = parsetree_cast<Default_skewContext>(_tracker.createInstance<SV3_1aParser::DefaultSkew_IntputContext>(_localctx));
       enterOuterAlt(_localctx, 1);
       setState(7327);
       match(SV3_1aParser::INPUT);
@@ -57243,7 +57243,7 @@ SV3_1aParser::Default_skewContext* SV3_1aParser::default_skew() {
     }
 
     case 2: {
-      _localctx = dynamic_cast<Default_skewContext *>(_tracker.createInstance<SV3_1aParser::DefaultSkew_OutputContext>(_localctx));
+      _localctx = parsetree_cast<Default_skewContext>(_tracker.createInstance<SV3_1aParser::DefaultSkew_OutputContext>(_localctx));
       enterOuterAlt(_localctx, 2);
       setState(7329);
       match(SV3_1aParser::OUTPUT);
@@ -57253,7 +57253,7 @@ SV3_1aParser::Default_skewContext* SV3_1aParser::default_skew() {
     }
 
     case 3: {
-      _localctx = dynamic_cast<Default_skewContext *>(_tracker.createInstance<SV3_1aParser::DefaultSkew_IntputOutputContext>(_localctx));
+      _localctx = parsetree_cast<Default_skewContext>(_tracker.createInstance<SV3_1aParser::DefaultSkew_IntputOutputContext>(_localctx));
       enterOuterAlt(_localctx, 3);
       setState(7331);
       match(SV3_1aParser::INPUT);
@@ -57316,12 +57316,12 @@ SV3_1aParser::Clocking_skewContext* SV3_1aParser::ClockingDir_InputOutputContext
 SV3_1aParser::ClockingDir_InputOutputContext::ClockingDir_InputOutputContext(Clocking_directionContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::ClockingDir_InputOutputContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClockingDir_InputOutput(this);
 }
 void SV3_1aParser::ClockingDir_InputOutputContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClockingDir_InputOutput(this);
 }
@@ -57338,12 +57338,12 @@ SV3_1aParser::Clocking_skewContext* SV3_1aParser::ClockingDir_InputContext::cloc
 SV3_1aParser::ClockingDir_InputContext::ClockingDir_InputContext(Clocking_directionContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::ClockingDir_InputContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClockingDir_Input(this);
 }
 void SV3_1aParser::ClockingDir_InputContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClockingDir_Input(this);
 }
@@ -57360,12 +57360,12 @@ SV3_1aParser::Clocking_skewContext* SV3_1aParser::ClockingDir_OutputContext::clo
 SV3_1aParser::ClockingDir_OutputContext::ClockingDir_OutputContext(Clocking_directionContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::ClockingDir_OutputContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClockingDir_Output(this);
 }
 void SV3_1aParser::ClockingDir_OutputContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClockingDir_Output(this);
 }
@@ -57378,12 +57378,12 @@ tree::TerminalNode* SV3_1aParser::ClockingDir_InoutContext::INOUT() {
 SV3_1aParser::ClockingDir_InoutContext::ClockingDir_InoutContext(Clocking_directionContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::ClockingDir_InoutContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClockingDir_Inout(this);
 }
 void SV3_1aParser::ClockingDir_InoutContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClockingDir_Inout(this);
 }
@@ -57404,7 +57404,7 @@ SV3_1aParser::Clocking_directionContext* SV3_1aParser::clocking_direction() {
     _errHandler->sync(this);
     switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 854, _ctx)) {
     case 1: {
-      _localctx = dynamic_cast<Clocking_directionContext *>(_tracker.createInstance<SV3_1aParser::ClockingDir_InputContext>(_localctx));
+      _localctx = parsetree_cast<Clocking_directionContext>(_tracker.createInstance<SV3_1aParser::ClockingDir_InputContext>(_localctx));
       enterOuterAlt(_localctx, 1);
       setState(7338);
       match(SV3_1aParser::INPUT);
@@ -57425,7 +57425,7 @@ SV3_1aParser::Clocking_directionContext* SV3_1aParser::clocking_direction() {
     }
 
     case 2: {
-      _localctx = dynamic_cast<Clocking_directionContext *>(_tracker.createInstance<SV3_1aParser::ClockingDir_OutputContext>(_localctx));
+      _localctx = parsetree_cast<Clocking_directionContext>(_tracker.createInstance<SV3_1aParser::ClockingDir_OutputContext>(_localctx));
       enterOuterAlt(_localctx, 2);
       setState(7342);
       match(SV3_1aParser::OUTPUT);
@@ -57446,7 +57446,7 @@ SV3_1aParser::Clocking_directionContext* SV3_1aParser::clocking_direction() {
     }
 
     case 3: {
-      _localctx = dynamic_cast<Clocking_directionContext *>(_tracker.createInstance<SV3_1aParser::ClockingDir_InputOutputContext>(_localctx));
+      _localctx = parsetree_cast<Clocking_directionContext>(_tracker.createInstance<SV3_1aParser::ClockingDir_InputOutputContext>(_localctx));
       enterOuterAlt(_localctx, 3);
       setState(7346);
       match(SV3_1aParser::INPUT);
@@ -57482,7 +57482,7 @@ SV3_1aParser::Clocking_directionContext* SV3_1aParser::clocking_direction() {
     }
 
     case 4: {
-      _localctx = dynamic_cast<Clocking_directionContext *>(_tracker.createInstance<SV3_1aParser::ClockingDir_InoutContext>(_localctx));
+      _localctx = parsetree_cast<Clocking_directionContext>(_tracker.createInstance<SV3_1aParser::ClockingDir_InoutContext>(_localctx));
       enterOuterAlt(_localctx, 4);
       setState(7354);
       match(SV3_1aParser::INOUT);
@@ -57531,13 +57531,13 @@ size_t SV3_1aParser::List_of_clocking_decl_assignContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::List_of_clocking_decl_assignContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_clocking_decl_assign(this);
 }
 
 void SV3_1aParser::List_of_clocking_decl_assignContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_clocking_decl_assign(this);
 }
@@ -57641,13 +57641,13 @@ size_t SV3_1aParser::Clocking_decl_assignContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Clocking_decl_assignContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClocking_decl_assign(this);
 }
 
 void SV3_1aParser::Clocking_decl_assignContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClocking_decl_assign(this);
 }
@@ -57743,13 +57743,13 @@ size_t SV3_1aParser::Clocking_skewContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Clocking_skewContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClocking_skew(this);
 }
 
 void SV3_1aParser::Clocking_skewContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClocking_skew(this);
 }
@@ -57836,12 +57836,12 @@ tree::TerminalNode* SV3_1aParser::Edge_EdgeContext::EDGE() {
 SV3_1aParser::Edge_EdgeContext::Edge_EdgeContext(Edge_identifierContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Edge_EdgeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEdge_Edge(this);
 }
 void SV3_1aParser::Edge_EdgeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEdge_Edge(this);
 }
@@ -57854,12 +57854,12 @@ tree::TerminalNode* SV3_1aParser::Edge_NegedgeContext::NEGEDGE() {
 SV3_1aParser::Edge_NegedgeContext::Edge_NegedgeContext(Edge_identifierContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Edge_NegedgeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEdge_Negedge(this);
 }
 void SV3_1aParser::Edge_NegedgeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEdge_Negedge(this);
 }
@@ -57872,12 +57872,12 @@ tree::TerminalNode* SV3_1aParser::Edge_PosedgeContext::POSEDGE() {
 SV3_1aParser::Edge_PosedgeContext::Edge_PosedgeContext(Edge_identifierContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Edge_PosedgeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEdge_Posedge(this);
 }
 void SV3_1aParser::Edge_PosedgeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEdge_Posedge(this);
 }
@@ -57897,7 +57897,7 @@ SV3_1aParser::Edge_identifierContext* SV3_1aParser::edge_identifier() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::POSEDGE: {
-        _localctx = dynamic_cast<Edge_identifierContext *>(_tracker.createInstance<SV3_1aParser::Edge_PosedgeContext>(_localctx));
+        _localctx = parsetree_cast<Edge_identifierContext>(_tracker.createInstance<SV3_1aParser::Edge_PosedgeContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(7396);
         match(SV3_1aParser::POSEDGE);
@@ -57905,7 +57905,7 @@ SV3_1aParser::Edge_identifierContext* SV3_1aParser::edge_identifier() {
       }
 
       case SV3_1aParser::NEGEDGE: {
-        _localctx = dynamic_cast<Edge_identifierContext *>(_tracker.createInstance<SV3_1aParser::Edge_NegedgeContext>(_localctx));
+        _localctx = parsetree_cast<Edge_identifierContext>(_tracker.createInstance<SV3_1aParser::Edge_NegedgeContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(7397);
         match(SV3_1aParser::NEGEDGE);
@@ -57913,7 +57913,7 @@ SV3_1aParser::Edge_identifierContext* SV3_1aParser::edge_identifier() {
       }
 
       case SV3_1aParser::EDGE: {
-        _localctx = dynamic_cast<Edge_identifierContext *>(_tracker.createInstance<SV3_1aParser::Edge_EdgeContext>(_localctx));
+        _localctx = parsetree_cast<Edge_identifierContext>(_tracker.createInstance<SV3_1aParser::Edge_EdgeContext>(_localctx));
         enterOuterAlt(_localctx, 3);
         setState(7398);
         match(SV3_1aParser::EDGE);
@@ -57962,13 +57962,13 @@ size_t SV3_1aParser::Clocking_driveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Clocking_driveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClocking_drive(this);
 }
 
 void SV3_1aParser::Clocking_driveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClocking_drive(this);
 }
@@ -58081,13 +58081,13 @@ size_t SV3_1aParser::Cycle_delayContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Cycle_delayContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCycle_delay(this);
 }
 
 void SV3_1aParser::Cycle_delayContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCycle_delay(this);
 }
@@ -58215,13 +58215,13 @@ size_t SV3_1aParser::ClockvarContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::ClockvarContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClockvar(this);
 }
 
 void SV3_1aParser::ClockvarContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClockvar(this);
 }
@@ -58310,13 +58310,13 @@ size_t SV3_1aParser::Clockvar_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Clockvar_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterClockvar_expression(this);
 }
 
 void SV3_1aParser::Clockvar_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitClockvar_expression(this);
 }
@@ -58389,13 +58389,13 @@ size_t SV3_1aParser::Randsequence_statementContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Randsequence_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRandsequence_statement(this);
 }
 
 void SV3_1aParser::Randsequence_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRandsequence_statement(this);
 }
@@ -58540,13 +58540,13 @@ size_t SV3_1aParser::ProductionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::ProductionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProduction(this);
 }
 
 void SV3_1aParser::ProductionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProduction(this);
 }
@@ -58649,13 +58649,13 @@ size_t SV3_1aParser::Rs_ruleContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Rs_ruleContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRs_rule(this);
 }
 
 void SV3_1aParser::Rs_ruleContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRs_rule(this);
 }
@@ -58753,13 +58753,13 @@ size_t SV3_1aParser::Rs_production_listContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Rs_production_listContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRs_production_list(this);
 }
 
 void SV3_1aParser::Rs_production_listContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRs_production_list(this);
 }
@@ -58904,13 +58904,13 @@ size_t SV3_1aParser::Rs_code_blockContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Rs_code_blockContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRs_code_block(this);
 }
 
 void SV3_1aParser::Rs_code_blockContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRs_code_block(this);
 }
@@ -59065,13 +59065,13 @@ size_t SV3_1aParser::Rs_prodContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Rs_prodContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRs_prod(this);
 }
 
 void SV3_1aParser::Rs_prodContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRs_prod(this);
 }
@@ -59172,13 +59172,13 @@ size_t SV3_1aParser::Production_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Production_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProduction_item(this);
 }
 
 void SV3_1aParser::Production_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProduction_item(this);
 }
@@ -59266,13 +59266,13 @@ size_t SV3_1aParser::Rs_if_elseContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Rs_if_elseContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRs_if_else(this);
 }
 
 void SV3_1aParser::Rs_if_elseContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRs_if_else(this);
 }
@@ -59354,13 +59354,13 @@ size_t SV3_1aParser::Rs_repeatContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Rs_repeatContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRs_repeat(this);
 }
 
 void SV3_1aParser::Rs_repeatContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRs_repeat(this);
 }
@@ -59439,13 +59439,13 @@ size_t SV3_1aParser::Rs_caseContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Rs_caseContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRs_case(this);
 }
 
 void SV3_1aParser::Rs_caseContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRs_case(this);
 }
@@ -59599,13 +59599,13 @@ size_t SV3_1aParser::Rs_case_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Rs_case_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRs_case_item(this);
 }
 
 void SV3_1aParser::Rs_case_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRs_case_item(this);
 }
@@ -59769,13 +59769,13 @@ size_t SV3_1aParser::Specify_blockContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Specify_blockContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSpecify_block(this);
 }
 
 void SV3_1aParser::Specify_blockContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSpecify_block(this);
 }
@@ -59859,13 +59859,13 @@ size_t SV3_1aParser::Specify_itemContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Specify_itemContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSpecify_item(this);
 }
 
 void SV3_1aParser::Specify_itemContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSpecify_item(this);
 }
@@ -59966,13 +59966,13 @@ size_t SV3_1aParser::Pulsestyle_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Pulsestyle_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPulsestyle_declaration(this);
 }
 
 void SV3_1aParser::Pulsestyle_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPulsestyle_declaration(this);
 }
@@ -60056,13 +60056,13 @@ size_t SV3_1aParser::Showcancelled_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Showcancelled_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterShowcancelled_declaration(this);
 }
 
 void SV3_1aParser::Showcancelled_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitShowcancelled_declaration(this);
 }
@@ -60146,13 +60146,13 @@ size_t SV3_1aParser::Path_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Path_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPath_declaration(this);
 }
 
 void SV3_1aParser::Path_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPath_declaration(this);
 }
@@ -60241,13 +60241,13 @@ size_t SV3_1aParser::Simple_path_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Simple_path_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSimple_path_declaration(this);
 }
 
 void SV3_1aParser::Simple_path_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSimple_path_declaration(this);
 }
@@ -60343,13 +60343,13 @@ size_t SV3_1aParser::Parallel_path_descriptionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Parallel_path_descriptionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterParallel_path_description(this);
 }
 
 void SV3_1aParser::Parallel_path_descriptionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitParallel_path_description(this);
 }
@@ -60448,13 +60448,13 @@ size_t SV3_1aParser::Full_path_descriptionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Full_path_descriptionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterFull_path_description(this);
 }
 
 void SV3_1aParser::Full_path_descriptionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitFull_path_description(this);
 }
@@ -60541,13 +60541,13 @@ size_t SV3_1aParser::List_of_path_inputsContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::List_of_path_inputsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_path_inputs(this);
 }
 
 void SV3_1aParser::List_of_path_inputsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_path_inputs(this);
 }
@@ -60619,13 +60619,13 @@ size_t SV3_1aParser::List_of_path_outputsContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::List_of_path_outputsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_path_outputs(this);
 }
 
 void SV3_1aParser::List_of_path_outputsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_path_outputs(this);
 }
@@ -60705,13 +60705,13 @@ size_t SV3_1aParser::Specify_input_terminal_descriptorContext::getRuleIndex() co
 }
 
 void SV3_1aParser::Specify_input_terminal_descriptorContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSpecify_input_terminal_descriptor(this);
 }
 
 void SV3_1aParser::Specify_input_terminal_descriptorContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSpecify_input_terminal_descriptor(this);
 }
@@ -60811,13 +60811,13 @@ size_t SV3_1aParser::Specify_output_terminal_descriptorContext::getRuleIndex() c
 }
 
 void SV3_1aParser::Specify_output_terminal_descriptorContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSpecify_output_terminal_descriptor(this);
 }
 
 void SV3_1aParser::Specify_output_terminal_descriptorContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSpecify_output_terminal_descriptor(this);
 }
@@ -60905,13 +60905,13 @@ size_t SV3_1aParser::Path_delay_valueContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Path_delay_valueContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPath_delay_value(this);
 }
 
 void SV3_1aParser::Path_delay_valueContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPath_delay_value(this);
 }
@@ -61047,13 +61047,13 @@ size_t SV3_1aParser::List_of_path_delay_expressionsContext::getRuleIndex() const
 }
 
 void SV3_1aParser::List_of_path_delay_expressionsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_path_delay_expressions(this);
 }
 
 void SV3_1aParser::List_of_path_delay_expressionsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_path_delay_expressions(this);
 }
@@ -61214,13 +61214,13 @@ size_t SV3_1aParser::T_path_delay_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::T_path_delay_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterT_path_delay_expression(this);
 }
 
 void SV3_1aParser::T_path_delay_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitT_path_delay_expression(this);
 }
@@ -61267,13 +61267,13 @@ size_t SV3_1aParser::Trise_path_delay_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Trise_path_delay_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTrise_path_delay_expression(this);
 }
 
 void SV3_1aParser::Trise_path_delay_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTrise_path_delay_expression(this);
 }
@@ -61320,13 +61320,13 @@ size_t SV3_1aParser::Tfall_path_delay_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Tfall_path_delay_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTfall_path_delay_expression(this);
 }
 
 void SV3_1aParser::Tfall_path_delay_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTfall_path_delay_expression(this);
 }
@@ -61373,13 +61373,13 @@ size_t SV3_1aParser::Tz_path_delay_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Tz_path_delay_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTz_path_delay_expression(this);
 }
 
 void SV3_1aParser::Tz_path_delay_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTz_path_delay_expression(this);
 }
@@ -61426,13 +61426,13 @@ size_t SV3_1aParser::T01_path_delay_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::T01_path_delay_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterT01_path_delay_expression(this);
 }
 
 void SV3_1aParser::T01_path_delay_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitT01_path_delay_expression(this);
 }
@@ -61479,13 +61479,13 @@ size_t SV3_1aParser::T10_path_delay_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::T10_path_delay_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterT10_path_delay_expression(this);
 }
 
 void SV3_1aParser::T10_path_delay_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitT10_path_delay_expression(this);
 }
@@ -61532,13 +61532,13 @@ size_t SV3_1aParser::T0z_path_delay_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::T0z_path_delay_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterT0z_path_delay_expression(this);
 }
 
 void SV3_1aParser::T0z_path_delay_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitT0z_path_delay_expression(this);
 }
@@ -61585,13 +61585,13 @@ size_t SV3_1aParser::Tz1_path_delay_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Tz1_path_delay_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTz1_path_delay_expression(this);
 }
 
 void SV3_1aParser::Tz1_path_delay_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTz1_path_delay_expression(this);
 }
@@ -61638,13 +61638,13 @@ size_t SV3_1aParser::T1z_path_delay_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::T1z_path_delay_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterT1z_path_delay_expression(this);
 }
 
 void SV3_1aParser::T1z_path_delay_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitT1z_path_delay_expression(this);
 }
@@ -61691,13 +61691,13 @@ size_t SV3_1aParser::Tz0_path_delay_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Tz0_path_delay_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTz0_path_delay_expression(this);
 }
 
 void SV3_1aParser::Tz0_path_delay_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTz0_path_delay_expression(this);
 }
@@ -61744,13 +61744,13 @@ size_t SV3_1aParser::T0x_path_delay_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::T0x_path_delay_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterT0x_path_delay_expression(this);
 }
 
 void SV3_1aParser::T0x_path_delay_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitT0x_path_delay_expression(this);
 }
@@ -61797,13 +61797,13 @@ size_t SV3_1aParser::Tx1_path_delay_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Tx1_path_delay_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTx1_path_delay_expression(this);
 }
 
 void SV3_1aParser::Tx1_path_delay_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTx1_path_delay_expression(this);
 }
@@ -61850,13 +61850,13 @@ size_t SV3_1aParser::T1x_path_delay_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::T1x_path_delay_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterT1x_path_delay_expression(this);
 }
 
 void SV3_1aParser::T1x_path_delay_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitT1x_path_delay_expression(this);
 }
@@ -61903,13 +61903,13 @@ size_t SV3_1aParser::Tx0_path_delay_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Tx0_path_delay_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTx0_path_delay_expression(this);
 }
 
 void SV3_1aParser::Tx0_path_delay_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTx0_path_delay_expression(this);
 }
@@ -61956,13 +61956,13 @@ size_t SV3_1aParser::Txz_path_delay_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Txz_path_delay_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTxz_path_delay_expression(this);
 }
 
 void SV3_1aParser::Txz_path_delay_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTxz_path_delay_expression(this);
 }
@@ -62009,13 +62009,13 @@ size_t SV3_1aParser::Tzx_path_delay_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Tzx_path_delay_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTzx_path_delay_expression(this);
 }
 
 void SV3_1aParser::Tzx_path_delay_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTzx_path_delay_expression(this);
 }
@@ -62062,13 +62062,13 @@ size_t SV3_1aParser::Path_delay_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Path_delay_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPath_delay_expression(this);
 }
 
 void SV3_1aParser::Path_delay_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPath_delay_expression(this);
 }
@@ -62127,13 +62127,13 @@ size_t SV3_1aParser::Edge_sensitive_path_declarationContext::getRuleIndex() cons
 }
 
 void SV3_1aParser::Edge_sensitive_path_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEdge_sensitive_path_declaration(this);
 }
 
 void SV3_1aParser::Edge_sensitive_path_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEdge_sensitive_path_declaration(this);
 }
@@ -62241,13 +62241,13 @@ size_t SV3_1aParser::Parallel_edge_sensitive_path_descriptionContext::getRuleInd
 }
 
 void SV3_1aParser::Parallel_edge_sensitive_path_descriptionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterParallel_edge_sensitive_path_description(this);
 }
 
 void SV3_1aParser::Parallel_edge_sensitive_path_descriptionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitParallel_edge_sensitive_path_description(this);
 }
@@ -62358,13 +62358,13 @@ size_t SV3_1aParser::Full_edge_sensitive_path_descriptionContext::getRuleIndex()
 }
 
 void SV3_1aParser::Full_edge_sensitive_path_descriptionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterFull_edge_sensitive_path_description(this);
 }
 
 void SV3_1aParser::Full_edge_sensitive_path_descriptionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitFull_edge_sensitive_path_description(this);
 }
@@ -62463,13 +62463,13 @@ size_t SV3_1aParser::State_dependent_path_declarationContext::getRuleIndex() con
 }
 
 void SV3_1aParser::State_dependent_path_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterState_dependent_path_declaration(this);
 }
 
 void SV3_1aParser::State_dependent_path_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitState_dependent_path_declaration(this);
 }
@@ -62602,13 +62602,13 @@ size_t SV3_1aParser::System_timing_checkContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::System_timing_checkContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSystem_timing_check(this);
 }
 
 void SV3_1aParser::System_timing_checkContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSystem_timing_check(this);
 }
@@ -62782,13 +62782,13 @@ size_t SV3_1aParser::Dollar_setup_timing_checkContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Dollar_setup_timing_checkContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDollar_setup_timing_check(this);
 }
 
 void SV3_1aParser::Dollar_setup_timing_checkContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDollar_setup_timing_check(this);
 }
@@ -62915,13 +62915,13 @@ size_t SV3_1aParser::Dollar_hold_timing_checkContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Dollar_hold_timing_checkContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDollar_hold_timing_check(this);
 }
 
 void SV3_1aParser::Dollar_hold_timing_checkContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDollar_hold_timing_check(this);
 }
@@ -63068,13 +63068,13 @@ size_t SV3_1aParser::Dollar_setuphold_timing_checkContext::getRuleIndex() const 
 }
 
 void SV3_1aParser::Dollar_setuphold_timing_checkContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDollar_setuphold_timing_check(this);
 }
 
 void SV3_1aParser::Dollar_setuphold_timing_checkContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDollar_setuphold_timing_check(this);
 }
@@ -63401,13 +63401,13 @@ size_t SV3_1aParser::Dollar_recovery_timing_checkContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Dollar_recovery_timing_checkContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDollar_recovery_timing_check(this);
 }
 
 void SV3_1aParser::Dollar_recovery_timing_checkContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDollar_recovery_timing_check(this);
 }
@@ -63534,13 +63534,13 @@ size_t SV3_1aParser::Dollar_removal_timing_checkContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Dollar_removal_timing_checkContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDollar_removal_timing_check(this);
 }
 
 void SV3_1aParser::Dollar_removal_timing_checkContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDollar_removal_timing_check(this);
 }
@@ -63687,13 +63687,13 @@ size_t SV3_1aParser::Dollar_recrem_timing_checkContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Dollar_recrem_timing_checkContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDollar_recrem_timing_check(this);
 }
 
 void SV3_1aParser::Dollar_recrem_timing_checkContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDollar_recrem_timing_check(this);
 }
@@ -64020,13 +64020,13 @@ size_t SV3_1aParser::Dollar_skew_timing_checkContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Dollar_skew_timing_checkContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDollar_skew_timing_check(this);
 }
 
 void SV3_1aParser::Dollar_skew_timing_checkContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDollar_skew_timing_check(this);
 }
@@ -64161,13 +64161,13 @@ size_t SV3_1aParser::Dollar_timeskew_timing_checkContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Dollar_timeskew_timing_checkContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDollar_timeskew_timing_check(this);
 }
 
 void SV3_1aParser::Dollar_timeskew_timing_checkContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDollar_timeskew_timing_check(this);
 }
@@ -64452,13 +64452,13 @@ size_t SV3_1aParser::Dollar_fullskew_timing_checkContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Dollar_fullskew_timing_checkContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDollar_fullskew_timing_check(this);
 }
 
 void SV3_1aParser::Dollar_fullskew_timing_checkContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDollar_fullskew_timing_check(this);
 }
@@ -64731,13 +64731,13 @@ size_t SV3_1aParser::Dollar_period_timing_checkContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Dollar_period_timing_checkContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDollar_period_timing_check(this);
 }
 
 void SV3_1aParser::Dollar_period_timing_checkContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDollar_period_timing_check(this);
 }
@@ -64860,13 +64860,13 @@ size_t SV3_1aParser::Dollar_width_timing_checkContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Dollar_width_timing_checkContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDollar_width_timing_check(this);
 }
 
 void SV3_1aParser::Dollar_width_timing_checkContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDollar_width_timing_check(this);
 }
@@ -64997,13 +64997,13 @@ size_t SV3_1aParser::Dollar_nochange_timing_checkContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Dollar_nochange_timing_checkContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDollar_nochange_timing_check(this);
 }
 
 void SV3_1aParser::Dollar_nochange_timing_checkContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDollar_nochange_timing_check(this);
 }
@@ -65106,13 +65106,13 @@ size_t SV3_1aParser::Delayed_dataContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Delayed_dataContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDelayed_data(this);
 }
 
 void SV3_1aParser::Delayed_dataContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDelayed_data(this);
 }
@@ -65184,13 +65184,13 @@ size_t SV3_1aParser::Delayed_referenceContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Delayed_referenceContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDelayed_reference(this);
 }
 
 void SV3_1aParser::Delayed_referenceContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDelayed_reference(this);
 }
@@ -65250,13 +65250,13 @@ size_t SV3_1aParser::End_edge_offsetContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::End_edge_offsetContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEnd_edge_offset(this);
 }
 
 void SV3_1aParser::End_edge_offsetContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEnd_edge_offset(this);
 }
@@ -65303,13 +65303,13 @@ size_t SV3_1aParser::Event_based_flagContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Event_based_flagContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEvent_based_flag(this);
 }
 
 void SV3_1aParser::Event_based_flagContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEvent_based_flag(this);
 }
@@ -65356,13 +65356,13 @@ size_t SV3_1aParser::NotifierContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::NotifierContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNotifier(this);
 }
 
 void SV3_1aParser::NotifierContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNotifier(this);
 }
@@ -65409,13 +65409,13 @@ size_t SV3_1aParser::Reference_eventContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Reference_eventContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterReference_event(this);
 }
 
 void SV3_1aParser::Reference_eventContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitReference_event(this);
 }
@@ -65462,13 +65462,13 @@ size_t SV3_1aParser::Remain_active_flagContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Remain_active_flagContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRemain_active_flag(this);
 }
 
 void SV3_1aParser::Remain_active_flagContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRemain_active_flag(this);
 }
@@ -65515,13 +65515,13 @@ size_t SV3_1aParser::Stamptime_conditionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Stamptime_conditionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterStamptime_condition(this);
 }
 
 void SV3_1aParser::Stamptime_conditionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitStamptime_condition(this);
 }
@@ -65568,13 +65568,13 @@ size_t SV3_1aParser::Start_edge_offsetContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Start_edge_offsetContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterStart_edge_offset(this);
 }
 
 void SV3_1aParser::Start_edge_offsetContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitStart_edge_offset(this);
 }
@@ -65621,13 +65621,13 @@ size_t SV3_1aParser::ThresholdContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::ThresholdContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterThreshold(this);
 }
 
 void SV3_1aParser::ThresholdContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitThreshold(this);
 }
@@ -65674,13 +65674,13 @@ size_t SV3_1aParser::Timing_check_limitContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Timing_check_limitContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTiming_check_limit(this);
 }
 
 void SV3_1aParser::Timing_check_limitContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTiming_check_limit(this);
 }
@@ -65739,13 +65739,13 @@ size_t SV3_1aParser::Timing_check_eventContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Timing_check_eventContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTiming_check_event(this);
 }
 
 void SV3_1aParser::Timing_check_eventContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTiming_check_event(this);
 }
@@ -65826,13 +65826,13 @@ size_t SV3_1aParser::Controlled_timing_check_eventContext::getRuleIndex() const 
 }
 
 void SV3_1aParser::Controlled_timing_check_eventContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterControlled_timing_check_event(this);
 }
 
 void SV3_1aParser::Controlled_timing_check_eventContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitControlled_timing_check_event(this);
 }
@@ -65900,12 +65900,12 @@ tree::TerminalNode* SV3_1aParser::TimingCheckEventControl_NegedgeContext::NEGEDG
 SV3_1aParser::TimingCheckEventControl_NegedgeContext::TimingCheckEventControl_NegedgeContext(Timing_check_event_controlContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::TimingCheckEventControl_NegedgeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTimingCheckEventControl_Negedge(this);
 }
 void SV3_1aParser::TimingCheckEventControl_NegedgeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTimingCheckEventControl_Negedge(this);
 }
@@ -65918,12 +65918,12 @@ tree::TerminalNode* SV3_1aParser::TimingCheckEventControl_PosedgeContext::POSEDG
 SV3_1aParser::TimingCheckEventControl_PosedgeContext::TimingCheckEventControl_PosedgeContext(Timing_check_event_controlContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::TimingCheckEventControl_PosedgeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTimingCheckEventControl_Posedge(this);
 }
 void SV3_1aParser::TimingCheckEventControl_PosedgeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTimingCheckEventControl_Posedge(this);
 }
@@ -65936,12 +65936,12 @@ SV3_1aParser::Edge_control_specifierContext* SV3_1aParser::TimingCheckEventContr
 SV3_1aParser::TimingCheckEventControl_EdgeContext::TimingCheckEventControl_EdgeContext(Timing_check_event_controlContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::TimingCheckEventControl_EdgeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTimingCheckEventControl_Edge(this);
 }
 void SV3_1aParser::TimingCheckEventControl_EdgeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTimingCheckEventControl_Edge(this);
 }
@@ -65961,7 +65961,7 @@ SV3_1aParser::Timing_check_event_controlContext* SV3_1aParser::timing_check_even
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::POSEDGE: {
-        _localctx = dynamic_cast<Timing_check_event_controlContext *>(_tracker.createInstance<SV3_1aParser::TimingCheckEventControl_PosedgeContext>(_localctx));
+        _localctx = parsetree_cast<Timing_check_event_controlContext>(_tracker.createInstance<SV3_1aParser::TimingCheckEventControl_PosedgeContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(8195);
         match(SV3_1aParser::POSEDGE);
@@ -65969,7 +65969,7 @@ SV3_1aParser::Timing_check_event_controlContext* SV3_1aParser::timing_check_even
       }
 
       case SV3_1aParser::NEGEDGE: {
-        _localctx = dynamic_cast<Timing_check_event_controlContext *>(_tracker.createInstance<SV3_1aParser::TimingCheckEventControl_NegedgeContext>(_localctx));
+        _localctx = parsetree_cast<Timing_check_event_controlContext>(_tracker.createInstance<SV3_1aParser::TimingCheckEventControl_NegedgeContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(8196);
         match(SV3_1aParser::NEGEDGE);
@@ -65977,7 +65977,7 @@ SV3_1aParser::Timing_check_event_controlContext* SV3_1aParser::timing_check_even
       }
 
       case SV3_1aParser::EDGE: {
-        _localctx = dynamic_cast<Timing_check_event_controlContext *>(_tracker.createInstance<SV3_1aParser::TimingCheckEventControl_EdgeContext>(_localctx));
+        _localctx = parsetree_cast<Timing_check_event_controlContext>(_tracker.createInstance<SV3_1aParser::TimingCheckEventControl_EdgeContext>(_localctx));
         enterOuterAlt(_localctx, 3);
         setState(8197);
         edge_control_specifier();
@@ -66018,13 +66018,13 @@ size_t SV3_1aParser::Specify_terminal_descriptorContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Specify_terminal_descriptorContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSpecify_terminal_descriptor(this);
 }
 
 void SV3_1aParser::Specify_terminal_descriptorContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSpecify_terminal_descriptor(this);
 }
@@ -66112,13 +66112,13 @@ size_t SV3_1aParser::Edge_control_specifierContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Edge_control_specifierContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEdge_control_specifier(this);
 }
 
 void SV3_1aParser::Edge_control_specifierContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEdge_control_specifier(this);
 }
@@ -66188,13 +66188,13 @@ size_t SV3_1aParser::Edge_descriptorContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Edge_descriptorContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEdge_descriptor(this);
 }
 
 void SV3_1aParser::Edge_descriptorContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEdge_descriptor(this);
 }
@@ -66277,13 +66277,13 @@ size_t SV3_1aParser::Timing_check_conditionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Timing_check_conditionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTiming_check_condition(this);
 }
 
 void SV3_1aParser::Timing_check_conditionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTiming_check_condition(this);
 }
@@ -66375,13 +66375,13 @@ size_t SV3_1aParser::Scalar_timing_check_conditionContext::getRuleIndex() const 
 }
 
 void SV3_1aParser::Scalar_timing_check_conditionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterScalar_timing_check_condition(this);
 }
 
 void SV3_1aParser::Scalar_timing_check_conditionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitScalar_timing_check_condition(this);
 }
@@ -66499,12 +66499,12 @@ tree::TerminalNode* SV3_1aParser::Scalar_1Tickb1Context::ONE_TICK_b1() {
 SV3_1aParser::Scalar_1Tickb1Context::Scalar_1Tickb1Context(Scalar_constantContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Scalar_1Tickb1Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterScalar_1Tickb1(this);
 }
 void SV3_1aParser::Scalar_1Tickb1Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitScalar_1Tickb1(this);
 }
@@ -66517,12 +66517,12 @@ tree::TerminalNode* SV3_1aParser::Scalar_1TickB1Context::ONE_TICK_B1() {
 SV3_1aParser::Scalar_1TickB1Context::Scalar_1TickB1Context(Scalar_constantContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Scalar_1TickB1Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterScalar_1TickB1(this);
 }
 void SV3_1aParser::Scalar_1TickB1Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitScalar_1TickB1(this);
 }
@@ -66535,12 +66535,12 @@ tree::TerminalNode* SV3_1aParser::Scalar_1Tickb0Context::ONE_TICK_b0() {
 SV3_1aParser::Scalar_1Tickb0Context::Scalar_1Tickb0Context(Scalar_constantContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Scalar_1Tickb0Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterScalar_1Tickb0(this);
 }
 void SV3_1aParser::Scalar_1Tickb0Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitScalar_1Tickb0(this);
 }
@@ -66553,12 +66553,12 @@ tree::TerminalNode* SV3_1aParser::Scalar_1TickB0Context::ONE_TICK_B0() {
 SV3_1aParser::Scalar_1TickB0Context::Scalar_1TickB0Context(Scalar_constantContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Scalar_1TickB0Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterScalar_1TickB0(this);
 }
 void SV3_1aParser::Scalar_1TickB0Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitScalar_1TickB0(this);
 }
@@ -66571,12 +66571,12 @@ tree::TerminalNode* SV3_1aParser::Scalar_IntegralContext::Integral_number() {
 SV3_1aParser::Scalar_IntegralContext::Scalar_IntegralContext(Scalar_constantContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Scalar_IntegralContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterScalar_Integral(this);
 }
 void SV3_1aParser::Scalar_IntegralContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitScalar_Integral(this);
 }
@@ -66589,12 +66589,12 @@ tree::TerminalNode* SV3_1aParser::Scalar_Tickb0Context::TICK_b0() {
 SV3_1aParser::Scalar_Tickb0Context::Scalar_Tickb0Context(Scalar_constantContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Scalar_Tickb0Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterScalar_Tickb0(this);
 }
 void SV3_1aParser::Scalar_Tickb0Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitScalar_Tickb0(this);
 }
@@ -66607,12 +66607,12 @@ tree::TerminalNode* SV3_1aParser::Scalar_TickB0Context::TICK_B0() {
 SV3_1aParser::Scalar_TickB0Context::Scalar_TickB0Context(Scalar_constantContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Scalar_TickB0Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterScalar_TickB0(this);
 }
 void SV3_1aParser::Scalar_TickB0Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitScalar_TickB0(this);
 }
@@ -66625,12 +66625,12 @@ tree::TerminalNode* SV3_1aParser::Scalar_Tickb1Context::TICK_b1() {
 SV3_1aParser::Scalar_Tickb1Context::Scalar_Tickb1Context(Scalar_constantContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Scalar_Tickb1Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterScalar_Tickb1(this);
 }
 void SV3_1aParser::Scalar_Tickb1Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitScalar_Tickb1(this);
 }
@@ -66643,12 +66643,12 @@ tree::TerminalNode* SV3_1aParser::Scalar_TickB1Context::TICK_B1() {
 SV3_1aParser::Scalar_TickB1Context::Scalar_TickB1Context(Scalar_constantContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Scalar_TickB1Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterScalar_TickB1(this);
 }
 void SV3_1aParser::Scalar_TickB1Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitScalar_TickB1(this);
 }
@@ -66668,7 +66668,7 @@ SV3_1aParser::Scalar_constantContext* SV3_1aParser::scalar_constant() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::ONE_TICK_b0: {
-        _localctx = dynamic_cast<Scalar_constantContext *>(_tracker.createInstance<SV3_1aParser::Scalar_1Tickb0Context>(_localctx));
+        _localctx = parsetree_cast<Scalar_constantContext>(_tracker.createInstance<SV3_1aParser::Scalar_1Tickb0Context>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(8251);
         match(SV3_1aParser::ONE_TICK_b0);
@@ -66676,7 +66676,7 @@ SV3_1aParser::Scalar_constantContext* SV3_1aParser::scalar_constant() {
       }
 
       case SV3_1aParser::ONE_TICK_b1: {
-        _localctx = dynamic_cast<Scalar_constantContext *>(_tracker.createInstance<SV3_1aParser::Scalar_1Tickb1Context>(_localctx));
+        _localctx = parsetree_cast<Scalar_constantContext>(_tracker.createInstance<SV3_1aParser::Scalar_1Tickb1Context>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(8252);
         match(SV3_1aParser::ONE_TICK_b1);
@@ -66684,7 +66684,7 @@ SV3_1aParser::Scalar_constantContext* SV3_1aParser::scalar_constant() {
       }
 
       case SV3_1aParser::ONE_TICK_B0: {
-        _localctx = dynamic_cast<Scalar_constantContext *>(_tracker.createInstance<SV3_1aParser::Scalar_1TickB0Context>(_localctx));
+        _localctx = parsetree_cast<Scalar_constantContext>(_tracker.createInstance<SV3_1aParser::Scalar_1TickB0Context>(_localctx));
         enterOuterAlt(_localctx, 3);
         setState(8253);
         match(SV3_1aParser::ONE_TICK_B0);
@@ -66692,7 +66692,7 @@ SV3_1aParser::Scalar_constantContext* SV3_1aParser::scalar_constant() {
       }
 
       case SV3_1aParser::ONE_TICK_B1: {
-        _localctx = dynamic_cast<Scalar_constantContext *>(_tracker.createInstance<SV3_1aParser::Scalar_1TickB1Context>(_localctx));
+        _localctx = parsetree_cast<Scalar_constantContext>(_tracker.createInstance<SV3_1aParser::Scalar_1TickB1Context>(_localctx));
         enterOuterAlt(_localctx, 4);
         setState(8254);
         match(SV3_1aParser::ONE_TICK_B1);
@@ -66700,7 +66700,7 @@ SV3_1aParser::Scalar_constantContext* SV3_1aParser::scalar_constant() {
       }
 
       case SV3_1aParser::TICK_b0: {
-        _localctx = dynamic_cast<Scalar_constantContext *>(_tracker.createInstance<SV3_1aParser::Scalar_Tickb0Context>(_localctx));
+        _localctx = parsetree_cast<Scalar_constantContext>(_tracker.createInstance<SV3_1aParser::Scalar_Tickb0Context>(_localctx));
         enterOuterAlt(_localctx, 5);
         setState(8255);
         match(SV3_1aParser::TICK_b0);
@@ -66708,7 +66708,7 @@ SV3_1aParser::Scalar_constantContext* SV3_1aParser::scalar_constant() {
       }
 
       case SV3_1aParser::TICK_b1: {
-        _localctx = dynamic_cast<Scalar_constantContext *>(_tracker.createInstance<SV3_1aParser::Scalar_Tickb1Context>(_localctx));
+        _localctx = parsetree_cast<Scalar_constantContext>(_tracker.createInstance<SV3_1aParser::Scalar_Tickb1Context>(_localctx));
         enterOuterAlt(_localctx, 6);
         setState(8256);
         match(SV3_1aParser::TICK_b1);
@@ -66716,7 +66716,7 @@ SV3_1aParser::Scalar_constantContext* SV3_1aParser::scalar_constant() {
       }
 
       case SV3_1aParser::TICK_B0: {
-        _localctx = dynamic_cast<Scalar_constantContext *>(_tracker.createInstance<SV3_1aParser::Scalar_TickB0Context>(_localctx));
+        _localctx = parsetree_cast<Scalar_constantContext>(_tracker.createInstance<SV3_1aParser::Scalar_TickB0Context>(_localctx));
         enterOuterAlt(_localctx, 7);
         setState(8257);
         match(SV3_1aParser::TICK_B0);
@@ -66724,7 +66724,7 @@ SV3_1aParser::Scalar_constantContext* SV3_1aParser::scalar_constant() {
       }
 
       case SV3_1aParser::TICK_B1: {
-        _localctx = dynamic_cast<Scalar_constantContext *>(_tracker.createInstance<SV3_1aParser::Scalar_TickB1Context>(_localctx));
+        _localctx = parsetree_cast<Scalar_constantContext>(_tracker.createInstance<SV3_1aParser::Scalar_TickB1Context>(_localctx));
         enterOuterAlt(_localctx, 8);
         setState(8258);
         match(SV3_1aParser::TICK_B1);
@@ -66732,7 +66732,7 @@ SV3_1aParser::Scalar_constantContext* SV3_1aParser::scalar_constant() {
       }
 
       case SV3_1aParser::Integral_number: {
-        _localctx = dynamic_cast<Scalar_constantContext *>(_tracker.createInstance<SV3_1aParser::Scalar_IntegralContext>(_localctx));
+        _localctx = parsetree_cast<Scalar_constantContext>(_tracker.createInstance<SV3_1aParser::Scalar_IntegralContext>(_localctx));
         enterOuterAlt(_localctx, 9);
         setState(8259);
         match(SV3_1aParser::Integral_number);
@@ -66805,13 +66805,13 @@ size_t SV3_1aParser::ConcatenationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::ConcatenationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConcatenation(this);
 }
 
 void SV3_1aParser::ConcatenationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConcatenation(this);
 }
@@ -66952,13 +66952,13 @@ size_t SV3_1aParser::Constant_concatenationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Constant_concatenationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstant_concatenation(this);
 }
 
 void SV3_1aParser::Constant_concatenationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstant_concatenation(this);
 }
@@ -67071,13 +67071,13 @@ size_t SV3_1aParser::Array_member_labelContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Array_member_labelContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterArray_member_label(this);
 }
 
 void SV3_1aParser::Array_member_labelContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitArray_member_label(this);
 }
@@ -67160,13 +67160,13 @@ size_t SV3_1aParser::Constant_multiple_concatenationContext::getRuleIndex() cons
 }
 
 void SV3_1aParser::Constant_multiple_concatenationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstant_multiple_concatenation(this);
 }
 
 void SV3_1aParser::Constant_multiple_concatenationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstant_multiple_concatenation(this);
 }
@@ -67239,13 +67239,13 @@ size_t SV3_1aParser::Module_path_concatenationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Module_path_concatenationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModule_path_concatenation(this);
 }
 
 void SV3_1aParser::Module_path_concatenationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModule_path_concatenation(this);
 }
@@ -67321,13 +67321,13 @@ size_t SV3_1aParser::Module_path_multiple_concatenationContext::getRuleIndex() c
 }
 
 void SV3_1aParser::Module_path_multiple_concatenationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModule_path_multiple_concatenation(this);
 }
 
 void SV3_1aParser::Module_path_multiple_concatenationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModule_path_multiple_concatenation(this);
 }
@@ -67392,13 +67392,13 @@ size_t SV3_1aParser::Multiple_concatenationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Multiple_concatenationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterMultiple_concatenation(this);
 }
 
 void SV3_1aParser::Multiple_concatenationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitMultiple_concatenation(this);
 }
@@ -67467,13 +67467,13 @@ size_t SV3_1aParser::Streaming_concatenationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Streaming_concatenationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterStreaming_concatenation(this);
 }
 
 void SV3_1aParser::Streaming_concatenationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitStreaming_concatenation(this);
 }
@@ -67543,13 +67543,13 @@ size_t SV3_1aParser::Stream_operatorContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Stream_operatorContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterStream_operator(this);
 }
 
 void SV3_1aParser::Stream_operatorContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitStream_operator(this);
 }
@@ -67610,13 +67610,13 @@ size_t SV3_1aParser::Slice_sizeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Slice_sizeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSlice_size(this);
 }
 
 void SV3_1aParser::Slice_sizeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSlice_size(this);
 }
@@ -67700,13 +67700,13 @@ size_t SV3_1aParser::Stream_concatenationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Stream_concatenationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterStream_concatenation(this);
 }
 
 void SV3_1aParser::Stream_concatenationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitStream_concatenation(this);
 }
@@ -67786,13 +67786,13 @@ size_t SV3_1aParser::Stream_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Stream_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterStream_expression(this);
 }
 
 void SV3_1aParser::Stream_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitStream_expression(this);
 }
@@ -67862,13 +67862,13 @@ size_t SV3_1aParser::Array_range_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Array_range_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterArray_range_expression(this);
 }
 
 void SV3_1aParser::Array_range_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitArray_range_expression(this);
 }
@@ -67940,13 +67940,13 @@ size_t SV3_1aParser::Empty_queueContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Empty_queueContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEmpty_queue(this);
 }
 
 void SV3_1aParser::Empty_queueContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEmpty_queue(this);
 }
@@ -68067,13 +68067,13 @@ size_t SV3_1aParser::Subroutine_callContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Subroutine_callContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSubroutine_call(this);
 }
 
 void SV3_1aParser::Subroutine_callContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSubroutine_call(this);
 }
@@ -68295,13 +68295,13 @@ size_t SV3_1aParser::List_of_argumentsContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::List_of_argumentsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterList_of_arguments(this);
 }
 
 void SV3_1aParser::List_of_argumentsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitList_of_arguments(this);
 }
@@ -68843,13 +68843,13 @@ size_t SV3_1aParser::Method_callContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Method_callContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterMethod_call(this);
 }
 
 void SV3_1aParser::Method_callContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitMethod_call(this);
 }
@@ -68945,13 +68945,13 @@ size_t SV3_1aParser::Method_call_bodyContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Method_call_bodyContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterMethod_call_body(this);
 }
 
 void SV3_1aParser::Method_call_bodyContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitMethod_call_body(this);
 }
@@ -69049,13 +69049,13 @@ size_t SV3_1aParser::Built_in_method_callContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Built_in_method_callContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBuilt_in_method_call(this);
 }
 
 void SV3_1aParser::Built_in_method_callContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBuilt_in_method_call(this);
 }
@@ -69155,13 +69155,13 @@ size_t SV3_1aParser::Array_manipulation_callContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Array_manipulation_callContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterArray_manipulation_call(this);
 }
 
 void SV3_1aParser::Array_manipulation_callContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitArray_manipulation_call(this);
 }
@@ -69301,13 +69301,13 @@ size_t SV3_1aParser::Randomize_callContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Randomize_callContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRandomize_call(this);
 }
 
 void SV3_1aParser::Randomize_callContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRandomize_call(this);
 }
@@ -69503,13 +69503,13 @@ size_t SV3_1aParser::Method_call_rootContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Method_call_rootContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterMethod_call_root(this);
 }
 
 void SV3_1aParser::Method_call_rootContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitMethod_call_root(this);
 }
@@ -69648,13 +69648,13 @@ size_t SV3_1aParser::Array_method_nameContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Array_method_nameContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterArray_method_name(this);
 }
 
 void SV3_1aParser::Array_method_nameContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitArray_method_name(this);
 }
@@ -69743,13 +69743,13 @@ size_t SV3_1aParser::Unique_callContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Unique_callContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUnique_call(this);
 }
 
 void SV3_1aParser::Unique_callContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUnique_call(this);
 }
@@ -69796,13 +69796,13 @@ size_t SV3_1aParser::And_callContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::And_callContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAnd_call(this);
 }
 
 void SV3_1aParser::And_callContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAnd_call(this);
 }
@@ -69849,13 +69849,13 @@ size_t SV3_1aParser::Or_callContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Or_callContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterOr_call(this);
 }
 
 void SV3_1aParser::Or_callContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitOr_call(this);
 }
@@ -69902,13 +69902,13 @@ size_t SV3_1aParser::Xor_callContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Xor_callContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterXor_call(this);
 }
 
 void SV3_1aParser::Xor_callContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitXor_call(this);
 }
@@ -69967,13 +69967,13 @@ size_t SV3_1aParser::Inc_or_dec_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Inc_or_dec_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInc_or_dec_expression(this);
 }
 
 void SV3_1aParser::Inc_or_dec_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInc_or_dec_expression(this);
 }
@@ -70264,13 +70264,13 @@ size_t SV3_1aParser::Constant_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Constant_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstant_expression(this);
 }
 
 void SV3_1aParser::Constant_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstant_expression(this);
 }
@@ -70789,13 +70789,13 @@ size_t SV3_1aParser::Conditional_operatorContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Conditional_operatorContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConditional_operator(this);
 }
 
 void SV3_1aParser::Conditional_operatorContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConditional_operator(this);
 }
@@ -70854,13 +70854,13 @@ size_t SV3_1aParser::Constant_mintypmax_expressionContext::getRuleIndex() const 
 }
 
 void SV3_1aParser::Constant_mintypmax_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstant_mintypmax_expression(this);
 }
 
 void SV3_1aParser::Constant_mintypmax_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstant_mintypmax_expression(this);
 }
@@ -70930,13 +70930,13 @@ size_t SV3_1aParser::Constant_param_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Constant_param_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstant_param_expression(this);
 }
 
 void SV3_1aParser::Constant_param_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstant_param_expression(this);
 }
@@ -71015,13 +71015,13 @@ size_t SV3_1aParser::Param_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Param_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterParam_expression(this);
 }
 
 void SV3_1aParser::Param_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitParam_expression(this);
 }
@@ -71096,13 +71096,13 @@ size_t SV3_1aParser::Constant_range_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Constant_range_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstant_range_expression(this);
 }
 
 void SV3_1aParser::Constant_range_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstant_range_expression(this);
 }
@@ -71170,13 +71170,13 @@ size_t SV3_1aParser::Constant_part_select_rangeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Constant_part_select_rangeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstant_part_select_range(this);
 }
 
 void SV3_1aParser::Constant_part_select_rangeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstant_part_select_range(this);
 }
@@ -71248,13 +71248,13 @@ size_t SV3_1aParser::Constant_rangeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Constant_rangeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstant_range(this);
 }
 
 void SV3_1aParser::Constant_rangeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstant_range(this);
 }
@@ -71313,13 +71313,13 @@ size_t SV3_1aParser::Constant_indexed_rangeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Constant_indexed_rangeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstant_indexed_range(this);
 }
 
 void SV3_1aParser::Constant_indexed_rangeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstant_indexed_range(this);
 }
@@ -71642,13 +71642,13 @@ size_t SV3_1aParser::ExpressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::ExpressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterExpression(this);
 }
 
 void SV3_1aParser::ExpressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitExpression(this);
 }
@@ -72400,13 +72400,13 @@ size_t SV3_1aParser::Value_rangeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Value_rangeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterValue_range(this);
 }
 
 void SV3_1aParser::Value_rangeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitValue_range(this);
 }
@@ -72551,13 +72551,13 @@ size_t SV3_1aParser::Mintypmax_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Mintypmax_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterMintypmax_expression(this);
 }
 
 void SV3_1aParser::Mintypmax_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitMintypmax_expression(this);
 }
@@ -72651,13 +72651,13 @@ size_t SV3_1aParser::Module_path_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Module_path_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModule_path_expression(this);
 }
 
 void SV3_1aParser::Module_path_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModule_path_expression(this);
 }
@@ -72859,13 +72859,13 @@ size_t SV3_1aParser::Module_path_mintypmax_expressionContext::getRuleIndex() con
 }
 
 void SV3_1aParser::Module_path_mintypmax_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModule_path_mintypmax_expression(this);
 }
 
 void SV3_1aParser::Module_path_mintypmax_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModule_path_mintypmax_expression(this);
 }
@@ -72931,13 +72931,13 @@ size_t SV3_1aParser::Range_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Range_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRange_expression(this);
 }
 
 void SV3_1aParser::Range_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRange_expression(this);
 }
@@ -73005,13 +73005,13 @@ size_t SV3_1aParser::Part_select_rangeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Part_select_rangeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPart_select_range(this);
 }
 
 void SV3_1aParser::Part_select_rangeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPart_select_range(this);
 }
@@ -73079,13 +73079,13 @@ size_t SV3_1aParser::Part_select_opContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Part_select_opContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPart_select_op(this);
 }
 
 void SV3_1aParser::Part_select_opContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPart_select_op(this);
 }
@@ -73150,13 +73150,13 @@ size_t SV3_1aParser::Part_select_op_columnContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Part_select_op_columnContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPart_select_op_column(this);
 }
 
 void SV3_1aParser::Part_select_op_columnContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPart_select_op_column(this);
 }
@@ -73221,13 +73221,13 @@ size_t SV3_1aParser::Indexed_rangeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Indexed_rangeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterIndexed_range(this);
 }
 
 void SV3_1aParser::Indexed_rangeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitIndexed_range(this);
 }
@@ -73358,13 +73358,13 @@ size_t SV3_1aParser::Constant_primaryContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Constant_primaryContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstant_primary(this);
 }
 
 void SV3_1aParser::Constant_primaryContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstant_primary(this);
 }
@@ -73603,13 +73603,13 @@ size_t SV3_1aParser::Module_path_primaryContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Module_path_primaryContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterModule_path_primary(this);
 }
 
 void SV3_1aParser::Module_path_primaryContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitModule_path_primary(this);
 }
@@ -73797,13 +73797,13 @@ size_t SV3_1aParser::Complex_func_callContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Complex_func_callContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterComplex_func_call(this);
 }
 
 void SV3_1aParser::Complex_func_callContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitComplex_func_call(this);
 }
@@ -74081,13 +74081,13 @@ size_t SV3_1aParser::PrimaryContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::PrimaryContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPrimary(this);
 }
 
 void SV3_1aParser::PrimaryContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPrimary(this);
 }
@@ -74284,13 +74284,13 @@ size_t SV3_1aParser::This_keywordContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::This_keywordContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterThis_keyword(this);
 }
 
 void SV3_1aParser::This_keywordContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitThis_keyword(this);
 }
@@ -74337,13 +74337,13 @@ size_t SV3_1aParser::Super_keywordContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Super_keywordContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSuper_keyword(this);
 }
 
 void SV3_1aParser::Super_keywordContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSuper_keyword(this);
 }
@@ -74390,13 +74390,13 @@ size_t SV3_1aParser::Dollar_keywordContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Dollar_keywordContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDollar_keyword(this);
 }
 
 void SV3_1aParser::Dollar_keywordContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDollar_keyword(this);
 }
@@ -74447,13 +74447,13 @@ size_t SV3_1aParser::Dollar_root_keywordContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Dollar_root_keywordContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDollar_root_keyword(this);
 }
 
 void SV3_1aParser::Dollar_root_keywordContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDollar_root_keyword(this);
 }
@@ -74510,13 +74510,13 @@ size_t SV3_1aParser::This_dot_superContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::This_dot_superContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterThis_dot_super(this);
 }
 
 void SV3_1aParser::This_dot_superContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitThis_dot_super(this);
 }
@@ -74567,13 +74567,13 @@ size_t SV3_1aParser::Null_keywordContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Null_keywordContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNull_keyword(this);
 }
 
 void SV3_1aParser::Null_keywordContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNull_keyword(this);
 }
@@ -74628,13 +74628,13 @@ size_t SV3_1aParser::Time_literalContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Time_literalContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTime_literal(this);
 }
 
 void SV3_1aParser::Time_literalContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTime_literal(this);
 }
@@ -74702,13 +74702,13 @@ size_t SV3_1aParser::Time_unitContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Time_unitContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTime_unit(this);
 }
 
 void SV3_1aParser::Time_unitContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTime_unit(this);
 }
@@ -74763,13 +74763,13 @@ size_t SV3_1aParser::Implicit_class_handleContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Implicit_class_handleContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterImplicit_class_handle(this);
 }
 
 void SV3_1aParser::Implicit_class_handleContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitImplicit_class_handle(this);
 }
@@ -74860,13 +74860,13 @@ size_t SV3_1aParser::Bit_selectContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Bit_selectContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBit_select(this);
 }
 
 void SV3_1aParser::Bit_selectContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBit_select(this);
 }
@@ -74960,13 +74960,13 @@ size_t SV3_1aParser::SelectContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::SelectContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSelect(this);
 }
 
 void SV3_1aParser::SelectContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSelect(this);
 }
@@ -75082,13 +75082,13 @@ size_t SV3_1aParser::Nonrange_selectContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Nonrange_selectContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNonrange_select(this);
 }
 
 void SV3_1aParser::Nonrange_selectContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNonrange_select(this);
 }
@@ -75183,13 +75183,13 @@ size_t SV3_1aParser::Constant_bit_selectContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Constant_bit_selectContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstant_bit_select(this);
 }
 
 void SV3_1aParser::Constant_bit_selectContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstant_bit_select(this);
 }
@@ -75283,13 +75283,13 @@ size_t SV3_1aParser::Constant_selectContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Constant_selectContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstant_select(this);
 }
 
 void SV3_1aParser::Constant_selectContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstant_select(this);
 }
@@ -75401,13 +75401,13 @@ size_t SV3_1aParser::Primary_literalContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Primary_literalContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPrimary_literal(this);
 }
 
 void SV3_1aParser::Primary_literalContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPrimary_literal(this);
 }
@@ -75516,13 +75516,13 @@ size_t SV3_1aParser::Constant_castContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Constant_castContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConstant_cast(this);
 }
 
 void SV3_1aParser::Constant_castContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConstant_cast(this);
 }
@@ -75623,13 +75623,13 @@ size_t SV3_1aParser::CastContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::CastContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCast(this);
 }
 
 void SV3_1aParser::CastContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCast(this);
 }
@@ -75742,13 +75742,13 @@ size_t SV3_1aParser::Net_lvalueContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Net_lvalueContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNet_lvalue(this);
 }
 
 void SV3_1aParser::Net_lvalueContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNet_lvalue(this);
 }
@@ -75911,13 +75911,13 @@ size_t SV3_1aParser::Variable_lvalueContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Variable_lvalueContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterVariable_lvalue(this);
 }
 
 void SV3_1aParser::Variable_lvalueContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitVariable_lvalue(this);
 }
@@ -76072,13 +76072,13 @@ size_t SV3_1aParser::Nonrange_variable_lvalueContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Nonrange_variable_lvalueContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNonrange_variable_lvalue(this);
 }
 
 void SV3_1aParser::Nonrange_variable_lvalueContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNonrange_variable_lvalue(this);
 }
@@ -76152,13 +76152,13 @@ size_t SV3_1aParser::Inc_or_dec_operatorContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Inc_or_dec_operatorContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInc_or_dec_operator(this);
 }
 
 void SV3_1aParser::Inc_or_dec_operatorContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInc_or_dec_operator(this);
 }
@@ -76223,12 +76223,12 @@ tree::TerminalNode* SV3_1aParser::UnaryModOp_ReductXnor2Context::REDUCTION_XNOR2
 SV3_1aParser::UnaryModOp_ReductXnor2Context::UnaryModOp_ReductXnor2Context(Unary_module_path_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::UnaryModOp_ReductXnor2Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUnaryModOp_ReductXnor2(this);
 }
 void SV3_1aParser::UnaryModOp_ReductXnor2Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUnaryModOp_ReductXnor2(this);
 }
@@ -76241,12 +76241,12 @@ tree::TerminalNode* SV3_1aParser::UnaryModOp_NotContext::BANG() {
 SV3_1aParser::UnaryModOp_NotContext::UnaryModOp_NotContext(Unary_module_path_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::UnaryModOp_NotContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUnaryModOp_Not(this);
 }
 void SV3_1aParser::UnaryModOp_NotContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUnaryModOp_Not(this);
 }
@@ -76259,12 +76259,12 @@ tree::TerminalNode* SV3_1aParser::UnaryModOp_ReductNandContext::REDUCTION_NAND()
 SV3_1aParser::UnaryModOp_ReductNandContext::UnaryModOp_ReductNandContext(Unary_module_path_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::UnaryModOp_ReductNandContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUnaryModOp_ReductNand(this);
 }
 void SV3_1aParser::UnaryModOp_ReductNandContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUnaryModOp_ReductNand(this);
 }
@@ -76277,12 +76277,12 @@ tree::TerminalNode* SV3_1aParser::UnaryModOp_ReductXNor1Context::REDUCTION_XNOR1
 SV3_1aParser::UnaryModOp_ReductXNor1Context::UnaryModOp_ReductXNor1Context(Unary_module_path_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::UnaryModOp_ReductXNor1Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUnaryModOp_ReductXNor1(this);
 }
 void SV3_1aParser::UnaryModOp_ReductXNor1Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUnaryModOp_ReductXNor1(this);
 }
@@ -76295,12 +76295,12 @@ tree::TerminalNode* SV3_1aParser::UnaryModOp_TildaContext::TILDA() {
 SV3_1aParser::UnaryModOp_TildaContext::UnaryModOp_TildaContext(Unary_module_path_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::UnaryModOp_TildaContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUnaryModOp_Tilda(this);
 }
 void SV3_1aParser::UnaryModOp_TildaContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUnaryModOp_Tilda(this);
 }
@@ -76313,12 +76313,12 @@ tree::TerminalNode* SV3_1aParser::UnaryModOp_BitwOrContext::BITW_OR() {
 SV3_1aParser::UnaryModOp_BitwOrContext::UnaryModOp_BitwOrContext(Unary_module_path_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::UnaryModOp_BitwOrContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUnaryModOp_BitwOr(this);
 }
 void SV3_1aParser::UnaryModOp_BitwOrContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUnaryModOp_BitwOr(this);
 }
@@ -76331,12 +76331,12 @@ tree::TerminalNode* SV3_1aParser::UnaryModOp_ReductNorContext::REDUCTION_NOR() {
 SV3_1aParser::UnaryModOp_ReductNorContext::UnaryModOp_ReductNorContext(Unary_module_path_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::UnaryModOp_ReductNorContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUnaryModOp_ReductNor(this);
 }
 void SV3_1aParser::UnaryModOp_ReductNorContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUnaryModOp_ReductNor(this);
 }
@@ -76349,12 +76349,12 @@ tree::TerminalNode* SV3_1aParser::UnaryModOp_BitwXorContext::BITW_XOR() {
 SV3_1aParser::UnaryModOp_BitwXorContext::UnaryModOp_BitwXorContext(Unary_module_path_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::UnaryModOp_BitwXorContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUnaryModOp_BitwXor(this);
 }
 void SV3_1aParser::UnaryModOp_BitwXorContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUnaryModOp_BitwXor(this);
 }
@@ -76367,12 +76367,12 @@ tree::TerminalNode* SV3_1aParser::UnaryModOp_BitwAndContext::BITW_AND() {
 SV3_1aParser::UnaryModOp_BitwAndContext::UnaryModOp_BitwAndContext(Unary_module_path_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::UnaryModOp_BitwAndContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUnaryModOp_BitwAnd(this);
 }
 void SV3_1aParser::UnaryModOp_BitwAndContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUnaryModOp_BitwAnd(this);
 }
@@ -76392,7 +76392,7 @@ SV3_1aParser::Unary_module_path_operatorContext* SV3_1aParser::unary_module_path
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::BANG: {
-        _localctx = dynamic_cast<Unary_module_path_operatorContext *>(_tracker.createInstance<SV3_1aParser::UnaryModOp_NotContext>(_localctx));
+        _localctx = parsetree_cast<Unary_module_path_operatorContext>(_tracker.createInstance<SV3_1aParser::UnaryModOp_NotContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(9440);
         match(SV3_1aParser::BANG);
@@ -76400,7 +76400,7 @@ SV3_1aParser::Unary_module_path_operatorContext* SV3_1aParser::unary_module_path
       }
 
       case SV3_1aParser::TILDA: {
-        _localctx = dynamic_cast<Unary_module_path_operatorContext *>(_tracker.createInstance<SV3_1aParser::UnaryModOp_TildaContext>(_localctx));
+        _localctx = parsetree_cast<Unary_module_path_operatorContext>(_tracker.createInstance<SV3_1aParser::UnaryModOp_TildaContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(9441);
         match(SV3_1aParser::TILDA);
@@ -76408,7 +76408,7 @@ SV3_1aParser::Unary_module_path_operatorContext* SV3_1aParser::unary_module_path
       }
 
       case SV3_1aParser::BITW_AND: {
-        _localctx = dynamic_cast<Unary_module_path_operatorContext *>(_tracker.createInstance<SV3_1aParser::UnaryModOp_BitwAndContext>(_localctx));
+        _localctx = parsetree_cast<Unary_module_path_operatorContext>(_tracker.createInstance<SV3_1aParser::UnaryModOp_BitwAndContext>(_localctx));
         enterOuterAlt(_localctx, 3);
         setState(9442);
         match(SV3_1aParser::BITW_AND);
@@ -76416,7 +76416,7 @@ SV3_1aParser::Unary_module_path_operatorContext* SV3_1aParser::unary_module_path
       }
 
       case SV3_1aParser::REDUCTION_NAND: {
-        _localctx = dynamic_cast<Unary_module_path_operatorContext *>(_tracker.createInstance<SV3_1aParser::UnaryModOp_ReductNandContext>(_localctx));
+        _localctx = parsetree_cast<Unary_module_path_operatorContext>(_tracker.createInstance<SV3_1aParser::UnaryModOp_ReductNandContext>(_localctx));
         enterOuterAlt(_localctx, 4);
         setState(9443);
         match(SV3_1aParser::REDUCTION_NAND);
@@ -76424,7 +76424,7 @@ SV3_1aParser::Unary_module_path_operatorContext* SV3_1aParser::unary_module_path
       }
 
       case SV3_1aParser::BITW_OR: {
-        _localctx = dynamic_cast<Unary_module_path_operatorContext *>(_tracker.createInstance<SV3_1aParser::UnaryModOp_BitwOrContext>(_localctx));
+        _localctx = parsetree_cast<Unary_module_path_operatorContext>(_tracker.createInstance<SV3_1aParser::UnaryModOp_BitwOrContext>(_localctx));
         enterOuterAlt(_localctx, 5);
         setState(9444);
         match(SV3_1aParser::BITW_OR);
@@ -76432,7 +76432,7 @@ SV3_1aParser::Unary_module_path_operatorContext* SV3_1aParser::unary_module_path
       }
 
       case SV3_1aParser::REDUCTION_NOR: {
-        _localctx = dynamic_cast<Unary_module_path_operatorContext *>(_tracker.createInstance<SV3_1aParser::UnaryModOp_ReductNorContext>(_localctx));
+        _localctx = parsetree_cast<Unary_module_path_operatorContext>(_tracker.createInstance<SV3_1aParser::UnaryModOp_ReductNorContext>(_localctx));
         enterOuterAlt(_localctx, 6);
         setState(9445);
         match(SV3_1aParser::REDUCTION_NOR);
@@ -76440,7 +76440,7 @@ SV3_1aParser::Unary_module_path_operatorContext* SV3_1aParser::unary_module_path
       }
 
       case SV3_1aParser::BITW_XOR: {
-        _localctx = dynamic_cast<Unary_module_path_operatorContext *>(_tracker.createInstance<SV3_1aParser::UnaryModOp_BitwXorContext>(_localctx));
+        _localctx = parsetree_cast<Unary_module_path_operatorContext>(_tracker.createInstance<SV3_1aParser::UnaryModOp_BitwXorContext>(_localctx));
         enterOuterAlt(_localctx, 7);
         setState(9446);
         match(SV3_1aParser::BITW_XOR);
@@ -76448,7 +76448,7 @@ SV3_1aParser::Unary_module_path_operatorContext* SV3_1aParser::unary_module_path
       }
 
       case SV3_1aParser::REDUCTION_XNOR1: {
-        _localctx = dynamic_cast<Unary_module_path_operatorContext *>(_tracker.createInstance<SV3_1aParser::UnaryModOp_ReductXNor1Context>(_localctx));
+        _localctx = parsetree_cast<Unary_module_path_operatorContext>(_tracker.createInstance<SV3_1aParser::UnaryModOp_ReductXNor1Context>(_localctx));
         enterOuterAlt(_localctx, 8);
         setState(9447);
         match(SV3_1aParser::REDUCTION_XNOR1);
@@ -76456,7 +76456,7 @@ SV3_1aParser::Unary_module_path_operatorContext* SV3_1aParser::unary_module_path
       }
 
       case SV3_1aParser::REDUCTION_XNOR2: {
-        _localctx = dynamic_cast<Unary_module_path_operatorContext *>(_tracker.createInstance<SV3_1aParser::UnaryModOp_ReductXnor2Context>(_localctx));
+        _localctx = parsetree_cast<Unary_module_path_operatorContext>(_tracker.createInstance<SV3_1aParser::UnaryModOp_ReductXnor2Context>(_localctx));
         enterOuterAlt(_localctx, 9);
         setState(9448);
         match(SV3_1aParser::REDUCTION_XNOR2);
@@ -76501,12 +76501,12 @@ tree::TerminalNode* SV3_1aParser::BinModOp_EquivContext::EQUIV() {
 SV3_1aParser::BinModOp_EquivContext::BinModOp_EquivContext(Binary_module_path_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::BinModOp_EquivContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBinModOp_Equiv(this);
 }
 void SV3_1aParser::BinModOp_EquivContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBinModOp_Equiv(this);
 }
@@ -76519,12 +76519,12 @@ tree::TerminalNode* SV3_1aParser::BinModOp_BitwXorContext::BITW_XOR() {
 SV3_1aParser::BinModOp_BitwXorContext::BinModOp_BitwXorContext(Binary_module_path_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::BinModOp_BitwXorContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBinModOp_BitwXor(this);
 }
 void SV3_1aParser::BinModOp_BitwXorContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBinModOp_BitwXor(this);
 }
@@ -76537,12 +76537,12 @@ tree::TerminalNode* SV3_1aParser::BinModOp_LogicOrContext::LOGICAL_OR() {
 SV3_1aParser::BinModOp_LogicOrContext::BinModOp_LogicOrContext(Binary_module_path_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::BinModOp_LogicOrContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBinModOp_LogicOr(this);
 }
 void SV3_1aParser::BinModOp_LogicOrContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBinModOp_LogicOr(this);
 }
@@ -76555,12 +76555,12 @@ tree::TerminalNode* SV3_1aParser::BinModOp_NotEqualContext::NOTEQUAL() {
 SV3_1aParser::BinModOp_NotEqualContext::BinModOp_NotEqualContext(Binary_module_path_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::BinModOp_NotEqualContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBinModOp_NotEqual(this);
 }
 void SV3_1aParser::BinModOp_NotEqualContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBinModOp_NotEqual(this);
 }
@@ -76573,12 +76573,12 @@ tree::TerminalNode* SV3_1aParser::BinModOp_LogicAndContext::LOGICAL_AND() {
 SV3_1aParser::BinModOp_LogicAndContext::BinModOp_LogicAndContext(Binary_module_path_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::BinModOp_LogicAndContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBinModOp_LogicAnd(this);
 }
 void SV3_1aParser::BinModOp_LogicAndContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBinModOp_LogicAnd(this);
 }
@@ -76591,12 +76591,12 @@ tree::TerminalNode* SV3_1aParser::BinModOp_BitwAndContext::BITW_AND() {
 SV3_1aParser::BinModOp_BitwAndContext::BinModOp_BitwAndContext(Binary_module_path_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::BinModOp_BitwAndContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBinModOp_BitwAnd(this);
 }
 void SV3_1aParser::BinModOp_BitwAndContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBinModOp_BitwAnd(this);
 }
@@ -76609,12 +76609,12 @@ tree::TerminalNode* SV3_1aParser::BinModOp_BitwOrContext::BITW_OR() {
 SV3_1aParser::BinModOp_BitwOrContext::BinModOp_BitwOrContext(Binary_module_path_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::BinModOp_BitwOrContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBinModOp_BitwOr(this);
 }
 void SV3_1aParser::BinModOp_BitwOrContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBinModOp_BitwOr(this);
 }
@@ -76627,12 +76627,12 @@ tree::TerminalNode* SV3_1aParser::BinModOp_ReductXnor1Context::REDUCTION_XNOR1()
 SV3_1aParser::BinModOp_ReductXnor1Context::BinModOp_ReductXnor1Context(Binary_module_path_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::BinModOp_ReductXnor1Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBinModOp_ReductXnor1(this);
 }
 void SV3_1aParser::BinModOp_ReductXnor1Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBinModOp_ReductXnor1(this);
 }
@@ -76645,12 +76645,12 @@ tree::TerminalNode* SV3_1aParser::BinModOp_ReductXnor2Context::REDUCTION_XNOR2()
 SV3_1aParser::BinModOp_ReductXnor2Context::BinModOp_ReductXnor2Context(Binary_module_path_operatorContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::BinModOp_ReductXnor2Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBinModOp_ReductXnor2(this);
 }
 void SV3_1aParser::BinModOp_ReductXnor2Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBinModOp_ReductXnor2(this);
 }
@@ -76670,7 +76670,7 @@ SV3_1aParser::Binary_module_path_operatorContext* SV3_1aParser::binary_module_pa
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::EQUIV: {
-        _localctx = dynamic_cast<Binary_module_path_operatorContext *>(_tracker.createInstance<SV3_1aParser::BinModOp_EquivContext>(_localctx));
+        _localctx = parsetree_cast<Binary_module_path_operatorContext>(_tracker.createInstance<SV3_1aParser::BinModOp_EquivContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(9451);
         match(SV3_1aParser::EQUIV);
@@ -76678,7 +76678,7 @@ SV3_1aParser::Binary_module_path_operatorContext* SV3_1aParser::binary_module_pa
       }
 
       case SV3_1aParser::NOTEQUAL: {
-        _localctx = dynamic_cast<Binary_module_path_operatorContext *>(_tracker.createInstance<SV3_1aParser::BinModOp_NotEqualContext>(_localctx));
+        _localctx = parsetree_cast<Binary_module_path_operatorContext>(_tracker.createInstance<SV3_1aParser::BinModOp_NotEqualContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(9452);
         match(SV3_1aParser::NOTEQUAL);
@@ -76686,7 +76686,7 @@ SV3_1aParser::Binary_module_path_operatorContext* SV3_1aParser::binary_module_pa
       }
 
       case SV3_1aParser::LOGICAL_AND: {
-        _localctx = dynamic_cast<Binary_module_path_operatorContext *>(_tracker.createInstance<SV3_1aParser::BinModOp_LogicAndContext>(_localctx));
+        _localctx = parsetree_cast<Binary_module_path_operatorContext>(_tracker.createInstance<SV3_1aParser::BinModOp_LogicAndContext>(_localctx));
         enterOuterAlt(_localctx, 3);
         setState(9453);
         match(SV3_1aParser::LOGICAL_AND);
@@ -76694,7 +76694,7 @@ SV3_1aParser::Binary_module_path_operatorContext* SV3_1aParser::binary_module_pa
       }
 
       case SV3_1aParser::LOGICAL_OR: {
-        _localctx = dynamic_cast<Binary_module_path_operatorContext *>(_tracker.createInstance<SV3_1aParser::BinModOp_LogicOrContext>(_localctx));
+        _localctx = parsetree_cast<Binary_module_path_operatorContext>(_tracker.createInstance<SV3_1aParser::BinModOp_LogicOrContext>(_localctx));
         enterOuterAlt(_localctx, 4);
         setState(9454);
         match(SV3_1aParser::LOGICAL_OR);
@@ -76702,7 +76702,7 @@ SV3_1aParser::Binary_module_path_operatorContext* SV3_1aParser::binary_module_pa
       }
 
       case SV3_1aParser::BITW_AND: {
-        _localctx = dynamic_cast<Binary_module_path_operatorContext *>(_tracker.createInstance<SV3_1aParser::BinModOp_BitwAndContext>(_localctx));
+        _localctx = parsetree_cast<Binary_module_path_operatorContext>(_tracker.createInstance<SV3_1aParser::BinModOp_BitwAndContext>(_localctx));
         enterOuterAlt(_localctx, 5);
         setState(9455);
         match(SV3_1aParser::BITW_AND);
@@ -76710,7 +76710,7 @@ SV3_1aParser::Binary_module_path_operatorContext* SV3_1aParser::binary_module_pa
       }
 
       case SV3_1aParser::BITW_OR: {
-        _localctx = dynamic_cast<Binary_module_path_operatorContext *>(_tracker.createInstance<SV3_1aParser::BinModOp_BitwOrContext>(_localctx));
+        _localctx = parsetree_cast<Binary_module_path_operatorContext>(_tracker.createInstance<SV3_1aParser::BinModOp_BitwOrContext>(_localctx));
         enterOuterAlt(_localctx, 6);
         setState(9456);
         match(SV3_1aParser::BITW_OR);
@@ -76718,7 +76718,7 @@ SV3_1aParser::Binary_module_path_operatorContext* SV3_1aParser::binary_module_pa
       }
 
       case SV3_1aParser::BITW_XOR: {
-        _localctx = dynamic_cast<Binary_module_path_operatorContext *>(_tracker.createInstance<SV3_1aParser::BinModOp_BitwXorContext>(_localctx));
+        _localctx = parsetree_cast<Binary_module_path_operatorContext>(_tracker.createInstance<SV3_1aParser::BinModOp_BitwXorContext>(_localctx));
         enterOuterAlt(_localctx, 7);
         setState(9457);
         match(SV3_1aParser::BITW_XOR);
@@ -76726,7 +76726,7 @@ SV3_1aParser::Binary_module_path_operatorContext* SV3_1aParser::binary_module_pa
       }
 
       case SV3_1aParser::REDUCTION_XNOR1: {
-        _localctx = dynamic_cast<Binary_module_path_operatorContext *>(_tracker.createInstance<SV3_1aParser::BinModOp_ReductXnor1Context>(_localctx));
+        _localctx = parsetree_cast<Binary_module_path_operatorContext>(_tracker.createInstance<SV3_1aParser::BinModOp_ReductXnor1Context>(_localctx));
         enterOuterAlt(_localctx, 8);
         setState(9458);
         match(SV3_1aParser::REDUCTION_XNOR1);
@@ -76734,7 +76734,7 @@ SV3_1aParser::Binary_module_path_operatorContext* SV3_1aParser::binary_module_pa
       }
 
       case SV3_1aParser::REDUCTION_XNOR2: {
-        _localctx = dynamic_cast<Binary_module_path_operatorContext *>(_tracker.createInstance<SV3_1aParser::BinModOp_ReductXnor2Context>(_localctx));
+        _localctx = parsetree_cast<Binary_module_path_operatorContext>(_tracker.createInstance<SV3_1aParser::BinModOp_ReductXnor2Context>(_localctx));
         enterOuterAlt(_localctx, 9);
         setState(9459);
         match(SV3_1aParser::REDUCTION_XNOR2);
@@ -76779,12 +76779,12 @@ tree::TerminalNode* SV3_1aParser::Number_RealContext::Real_number() {
 SV3_1aParser::Number_RealContext::Number_RealContext(NumberContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Number_RealContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNumber_Real(this);
 }
 void SV3_1aParser::Number_RealContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNumber_Real(this);
 }
@@ -76797,12 +76797,12 @@ tree::TerminalNode* SV3_1aParser::Number_1Tickb0Context::ONE_TICK_b0() {
 SV3_1aParser::Number_1Tickb0Context::Number_1Tickb0Context(NumberContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Number_1Tickb0Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNumber_1Tickb0(this);
 }
 void SV3_1aParser::Number_1Tickb0Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNumber_1Tickb0(this);
 }
@@ -76815,12 +76815,12 @@ tree::TerminalNode* SV3_1aParser::Number_1TickB0Context::ONE_TICK_B0() {
 SV3_1aParser::Number_1TickB0Context::Number_1TickB0Context(NumberContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Number_1TickB0Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNumber_1TickB0(this);
 }
 void SV3_1aParser::Number_1TickB0Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNumber_1TickB0(this);
 }
@@ -76833,12 +76833,12 @@ tree::TerminalNode* SV3_1aParser::Number_1Tickb1Context::ONE_TICK_b1() {
 SV3_1aParser::Number_1Tickb1Context::Number_1Tickb1Context(NumberContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Number_1Tickb1Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNumber_1Tickb1(this);
 }
 void SV3_1aParser::Number_1Tickb1Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNumber_1Tickb1(this);
 }
@@ -76851,12 +76851,12 @@ tree::TerminalNode* SV3_1aParser::Number_1TickB1Context::ONE_TICK_B1() {
 SV3_1aParser::Number_1TickB1Context::Number_1TickB1Context(NumberContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Number_1TickB1Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNumber_1TickB1(this);
 }
 void SV3_1aParser::Number_1TickB1Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNumber_1TickB1(this);
 }
@@ -76869,12 +76869,12 @@ tree::TerminalNode* SV3_1aParser::Number_1TickbxContext::ONE_TICK_bx() {
 SV3_1aParser::Number_1TickbxContext::Number_1TickbxContext(NumberContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Number_1TickbxContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNumber_1Tickbx(this);
 }
 void SV3_1aParser::Number_1TickbxContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNumber_1Tickbx(this);
 }
@@ -76887,12 +76887,12 @@ tree::TerminalNode* SV3_1aParser::Number_1TickbXContext::ONE_TICK_bX() {
 SV3_1aParser::Number_1TickbXContext::Number_1TickbXContext(NumberContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Number_1TickbXContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNumber_1TickbX(this);
 }
 void SV3_1aParser::Number_1TickbXContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNumber_1TickbX(this);
 }
@@ -76905,12 +76905,12 @@ tree::TerminalNode* SV3_1aParser::Number_1TickBxContext::ONE_TICK_Bx() {
 SV3_1aParser::Number_1TickBxContext::Number_1TickBxContext(NumberContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Number_1TickBxContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNumber_1TickBx(this);
 }
 void SV3_1aParser::Number_1TickBxContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNumber_1TickBx(this);
 }
@@ -76923,12 +76923,12 @@ tree::TerminalNode* SV3_1aParser::Number_1TickBXContext::ONE_TICK_BX() {
 SV3_1aParser::Number_1TickBXContext::Number_1TickBXContext(NumberContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Number_1TickBXContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNumber_1TickBX(this);
 }
 void SV3_1aParser::Number_1TickBXContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNumber_1TickBX(this);
 }
@@ -76941,12 +76941,12 @@ tree::TerminalNode* SV3_1aParser::Number_IntegralContext::Integral_number() {
 SV3_1aParser::Number_IntegralContext::Number_IntegralContext(NumberContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Number_IntegralContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNumber_Integral(this);
 }
 void SV3_1aParser::Number_IntegralContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNumber_Integral(this);
 }
@@ -76959,12 +76959,12 @@ tree::TerminalNode* SV3_1aParser::Number_Tick0Context::TICK_0() {
 SV3_1aParser::Number_Tick0Context::Number_Tick0Context(NumberContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Number_Tick0Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNumber_Tick0(this);
 }
 void SV3_1aParser::Number_Tick0Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNumber_Tick0(this);
 }
@@ -76977,12 +76977,12 @@ tree::TerminalNode* SV3_1aParser::Number_Tick1Context::TICK_1() {
 SV3_1aParser::Number_Tick1Context::Number_Tick1Context(NumberContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Number_Tick1Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNumber_Tick1(this);
 }
 void SV3_1aParser::Number_Tick1Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNumber_Tick1(this);
 }
@@ -76995,12 +76995,12 @@ tree::TerminalNode* SV3_1aParser::Number_Tickb0Context::TICK_b0() {
 SV3_1aParser::Number_Tickb0Context::Number_Tickb0Context(NumberContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Number_Tickb0Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNumber_Tickb0(this);
 }
 void SV3_1aParser::Number_Tickb0Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNumber_Tickb0(this);
 }
@@ -77013,12 +77013,12 @@ tree::TerminalNode* SV3_1aParser::Number_TickB0Context::TICK_B0() {
 SV3_1aParser::Number_TickB0Context::Number_TickB0Context(NumberContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Number_TickB0Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNumber_TickB0(this);
 }
 void SV3_1aParser::Number_TickB0Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNumber_TickB0(this);
 }
@@ -77031,12 +77031,12 @@ tree::TerminalNode* SV3_1aParser::Number_Tickb1Context::TICK_b1() {
 SV3_1aParser::Number_Tickb1Context::Number_Tickb1Context(NumberContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Number_Tickb1Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNumber_Tickb1(this);
 }
 void SV3_1aParser::Number_Tickb1Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNumber_Tickb1(this);
 }
@@ -77049,12 +77049,12 @@ tree::TerminalNode* SV3_1aParser::Number_TickB1Context::TICK_B1() {
 SV3_1aParser::Number_TickB1Context::Number_TickB1Context(NumberContext *ctx) { copyFrom(ctx); }
 
 void SV3_1aParser::Number_TickB1Context::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNumber_TickB1(this);
 }
 void SV3_1aParser::Number_TickB1Context::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNumber_TickB1(this);
 }
@@ -77074,7 +77074,7 @@ SV3_1aParser::NumberContext* SV3_1aParser::number() {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SV3_1aParser::Integral_number: {
-        _localctx = dynamic_cast<NumberContext *>(_tracker.createInstance<SV3_1aParser::Number_IntegralContext>(_localctx));
+        _localctx = parsetree_cast<NumberContext>(_tracker.createInstance<SV3_1aParser::Number_IntegralContext>(_localctx));
         enterOuterAlt(_localctx, 1);
         setState(9462);
         match(SV3_1aParser::Integral_number);
@@ -77082,7 +77082,7 @@ SV3_1aParser::NumberContext* SV3_1aParser::number() {
       }
 
       case SV3_1aParser::Real_number: {
-        _localctx = dynamic_cast<NumberContext *>(_tracker.createInstance<SV3_1aParser::Number_RealContext>(_localctx));
+        _localctx = parsetree_cast<NumberContext>(_tracker.createInstance<SV3_1aParser::Number_RealContext>(_localctx));
         enterOuterAlt(_localctx, 2);
         setState(9463);
         match(SV3_1aParser::Real_number);
@@ -77090,7 +77090,7 @@ SV3_1aParser::NumberContext* SV3_1aParser::number() {
       }
 
       case SV3_1aParser::ONE_TICK_b0: {
-        _localctx = dynamic_cast<NumberContext *>(_tracker.createInstance<SV3_1aParser::Number_1Tickb0Context>(_localctx));
+        _localctx = parsetree_cast<NumberContext>(_tracker.createInstance<SV3_1aParser::Number_1Tickb0Context>(_localctx));
         enterOuterAlt(_localctx, 3);
         setState(9464);
         match(SV3_1aParser::ONE_TICK_b0);
@@ -77098,7 +77098,7 @@ SV3_1aParser::NumberContext* SV3_1aParser::number() {
       }
 
       case SV3_1aParser::ONE_TICK_b1: {
-        _localctx = dynamic_cast<NumberContext *>(_tracker.createInstance<SV3_1aParser::Number_1Tickb1Context>(_localctx));
+        _localctx = parsetree_cast<NumberContext>(_tracker.createInstance<SV3_1aParser::Number_1Tickb1Context>(_localctx));
         enterOuterAlt(_localctx, 4);
         setState(9465);
         match(SV3_1aParser::ONE_TICK_b1);
@@ -77106,7 +77106,7 @@ SV3_1aParser::NumberContext* SV3_1aParser::number() {
       }
 
       case SV3_1aParser::ONE_TICK_B0: {
-        _localctx = dynamic_cast<NumberContext *>(_tracker.createInstance<SV3_1aParser::Number_1TickB0Context>(_localctx));
+        _localctx = parsetree_cast<NumberContext>(_tracker.createInstance<SV3_1aParser::Number_1TickB0Context>(_localctx));
         enterOuterAlt(_localctx, 5);
         setState(9466);
         match(SV3_1aParser::ONE_TICK_B0);
@@ -77114,7 +77114,7 @@ SV3_1aParser::NumberContext* SV3_1aParser::number() {
       }
 
       case SV3_1aParser::ONE_TICK_B1: {
-        _localctx = dynamic_cast<NumberContext *>(_tracker.createInstance<SV3_1aParser::Number_1TickB1Context>(_localctx));
+        _localctx = parsetree_cast<NumberContext>(_tracker.createInstance<SV3_1aParser::Number_1TickB1Context>(_localctx));
         enterOuterAlt(_localctx, 6);
         setState(9467);
         match(SV3_1aParser::ONE_TICK_B1);
@@ -77122,7 +77122,7 @@ SV3_1aParser::NumberContext* SV3_1aParser::number() {
       }
 
       case SV3_1aParser::TICK_b0: {
-        _localctx = dynamic_cast<NumberContext *>(_tracker.createInstance<SV3_1aParser::Number_Tickb0Context>(_localctx));
+        _localctx = parsetree_cast<NumberContext>(_tracker.createInstance<SV3_1aParser::Number_Tickb0Context>(_localctx));
         enterOuterAlt(_localctx, 7);
         setState(9468);
         match(SV3_1aParser::TICK_b0);
@@ -77130,7 +77130,7 @@ SV3_1aParser::NumberContext* SV3_1aParser::number() {
       }
 
       case SV3_1aParser::TICK_b1: {
-        _localctx = dynamic_cast<NumberContext *>(_tracker.createInstance<SV3_1aParser::Number_Tickb1Context>(_localctx));
+        _localctx = parsetree_cast<NumberContext>(_tracker.createInstance<SV3_1aParser::Number_Tickb1Context>(_localctx));
         enterOuterAlt(_localctx, 8);
         setState(9469);
         match(SV3_1aParser::TICK_b1);
@@ -77138,7 +77138,7 @@ SV3_1aParser::NumberContext* SV3_1aParser::number() {
       }
 
       case SV3_1aParser::TICK_B0: {
-        _localctx = dynamic_cast<NumberContext *>(_tracker.createInstance<SV3_1aParser::Number_TickB0Context>(_localctx));
+        _localctx = parsetree_cast<NumberContext>(_tracker.createInstance<SV3_1aParser::Number_TickB0Context>(_localctx));
         enterOuterAlt(_localctx, 9);
         setState(9470);
         match(SV3_1aParser::TICK_B0);
@@ -77146,7 +77146,7 @@ SV3_1aParser::NumberContext* SV3_1aParser::number() {
       }
 
       case SV3_1aParser::TICK_B1: {
-        _localctx = dynamic_cast<NumberContext *>(_tracker.createInstance<SV3_1aParser::Number_TickB1Context>(_localctx));
+        _localctx = parsetree_cast<NumberContext>(_tracker.createInstance<SV3_1aParser::Number_TickB1Context>(_localctx));
         enterOuterAlt(_localctx, 10);
         setState(9471);
         match(SV3_1aParser::TICK_B1);
@@ -77154,7 +77154,7 @@ SV3_1aParser::NumberContext* SV3_1aParser::number() {
       }
 
       case SV3_1aParser::TICK_0: {
-        _localctx = dynamic_cast<NumberContext *>(_tracker.createInstance<SV3_1aParser::Number_Tick0Context>(_localctx));
+        _localctx = parsetree_cast<NumberContext>(_tracker.createInstance<SV3_1aParser::Number_Tick0Context>(_localctx));
         enterOuterAlt(_localctx, 11);
         setState(9472);
         match(SV3_1aParser::TICK_0);
@@ -77162,7 +77162,7 @@ SV3_1aParser::NumberContext* SV3_1aParser::number() {
       }
 
       case SV3_1aParser::TICK_1: {
-        _localctx = dynamic_cast<NumberContext *>(_tracker.createInstance<SV3_1aParser::Number_Tick1Context>(_localctx));
+        _localctx = parsetree_cast<NumberContext>(_tracker.createInstance<SV3_1aParser::Number_Tick1Context>(_localctx));
         enterOuterAlt(_localctx, 12);
         setState(9473);
         match(SV3_1aParser::TICK_1);
@@ -77170,7 +77170,7 @@ SV3_1aParser::NumberContext* SV3_1aParser::number() {
       }
 
       case SV3_1aParser::ONE_TICK_bx: {
-        _localctx = dynamic_cast<NumberContext *>(_tracker.createInstance<SV3_1aParser::Number_1TickbxContext>(_localctx));
+        _localctx = parsetree_cast<NumberContext>(_tracker.createInstance<SV3_1aParser::Number_1TickbxContext>(_localctx));
         enterOuterAlt(_localctx, 13);
         setState(9474);
         match(SV3_1aParser::ONE_TICK_bx);
@@ -77178,7 +77178,7 @@ SV3_1aParser::NumberContext* SV3_1aParser::number() {
       }
 
       case SV3_1aParser::ONE_TICK_bX: {
-        _localctx = dynamic_cast<NumberContext *>(_tracker.createInstance<SV3_1aParser::Number_1TickbXContext>(_localctx));
+        _localctx = parsetree_cast<NumberContext>(_tracker.createInstance<SV3_1aParser::Number_1TickbXContext>(_localctx));
         enterOuterAlt(_localctx, 14);
         setState(9475);
         match(SV3_1aParser::ONE_TICK_bX);
@@ -77186,7 +77186,7 @@ SV3_1aParser::NumberContext* SV3_1aParser::number() {
       }
 
       case SV3_1aParser::ONE_TICK_Bx: {
-        _localctx = dynamic_cast<NumberContext *>(_tracker.createInstance<SV3_1aParser::Number_1TickBxContext>(_localctx));
+        _localctx = parsetree_cast<NumberContext>(_tracker.createInstance<SV3_1aParser::Number_1TickBxContext>(_localctx));
         enterOuterAlt(_localctx, 15);
         setState(9476);
         match(SV3_1aParser::ONE_TICK_Bx);
@@ -77194,7 +77194,7 @@ SV3_1aParser::NumberContext* SV3_1aParser::number() {
       }
 
       case SV3_1aParser::ONE_TICK_BX: {
-        _localctx = dynamic_cast<NumberContext *>(_tracker.createInstance<SV3_1aParser::Number_1TickBXContext>(_localctx));
+        _localctx = parsetree_cast<NumberContext>(_tracker.createInstance<SV3_1aParser::Number_1TickBXContext>(_localctx));
         enterOuterAlt(_localctx, 16);
         setState(9477);
         match(SV3_1aParser::ONE_TICK_BX);
@@ -77243,13 +77243,13 @@ size_t SV3_1aParser::Unbased_unsized_literalContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Unbased_unsized_literalContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUnbased_unsized_literal(this);
 }
 
 void SV3_1aParser::Unbased_unsized_literalContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUnbased_unsized_literal(this);
 }
@@ -77342,13 +77342,13 @@ size_t SV3_1aParser::Attribute_instanceContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Attribute_instanceContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAttribute_instance(this);
 }
 
 void SV3_1aParser::Attribute_instanceContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAttribute_instance(this);
 }
@@ -77420,13 +77420,13 @@ size_t SV3_1aParser::Attr_specContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Attr_specContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAttr_spec(this);
 }
 
 void SV3_1aParser::Attr_specContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAttr_spec(this);
 }
@@ -77484,13 +77484,13 @@ size_t SV3_1aParser::Attr_nameContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Attr_nameContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAttr_name(this);
 }
 
 void SV3_1aParser::Attr_nameContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAttr_name(this);
 }
@@ -77609,13 +77609,13 @@ size_t SV3_1aParser::Hierarchical_identifierContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Hierarchical_identifierContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterHierarchical_identifier(this);
 }
 
 void SV3_1aParser::Hierarchical_identifierContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitHierarchical_identifier(this);
 }
@@ -77740,13 +77740,13 @@ size_t SV3_1aParser::IdentifierContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::IdentifierContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterIdentifier(this);
 }
 
 void SV3_1aParser::IdentifierContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitIdentifier(this);
 }
@@ -77846,13 +77846,13 @@ size_t SV3_1aParser::Interface_identifierContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Interface_identifierContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInterface_identifier(this);
 }
 
 void SV3_1aParser::Interface_identifierContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInterface_identifier(this);
 }
@@ -77961,13 +77961,13 @@ size_t SV3_1aParser::Package_scopeContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Package_scopeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPackage_scope(this);
 }
 
 void SV3_1aParser::Package_scopeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPackage_scope(this);
 }
@@ -78073,13 +78073,13 @@ size_t SV3_1aParser::Ps_identifierContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Ps_identifierContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPs_identifier(this);
 }
 
 void SV3_1aParser::Ps_identifierContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPs_identifier(this);
 }
@@ -78169,13 +78169,13 @@ size_t SV3_1aParser::Ps_or_hierarchical_identifierContext::getRuleIndex() const 
 }
 
 void SV3_1aParser::Ps_or_hierarchical_identifierContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPs_or_hierarchical_identifier(this);
 }
 
 void SV3_1aParser::Ps_or_hierarchical_identifierContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPs_or_hierarchical_identifier(this);
 }
@@ -78304,13 +78304,13 @@ size_t SV3_1aParser::Ps_or_hierarchical_array_identifierContext::getRuleIndex() 
 }
 
 void SV3_1aParser::Ps_or_hierarchical_array_identifierContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPs_or_hierarchical_array_identifier(this);
 }
 
 void SV3_1aParser::Ps_or_hierarchical_array_identifierContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPs_or_hierarchical_array_identifier(this);
 }
@@ -78466,13 +78466,13 @@ size_t SV3_1aParser::Ps_or_hierarchical_sequence_identifierContext::getRuleIndex
 }
 
 void SV3_1aParser::Ps_or_hierarchical_sequence_identifierContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPs_or_hierarchical_sequence_identifier(this);
 }
 
 void SV3_1aParser::Ps_or_hierarchical_sequence_identifierContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPs_or_hierarchical_sequence_identifier(this);
 }
@@ -78599,13 +78599,13 @@ size_t SV3_1aParser::Ps_type_identifierContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Ps_type_identifierContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPs_type_identifier(this);
 }
 
 void SV3_1aParser::Ps_type_identifierContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPs_type_identifier(this);
 }
@@ -78693,13 +78693,13 @@ size_t SV3_1aParser::System_taskContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::System_taskContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSystem_task(this);
 }
 
 void SV3_1aParser::System_taskContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSystem_task(this);
 }
@@ -78824,13 +78824,13 @@ size_t SV3_1aParser::System_task_namesContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::System_task_namesContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSystem_task_names(this);
 }
 
 void SV3_1aParser::System_task_namesContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSystem_task_names(this);
 }
@@ -79105,13 +79105,13 @@ size_t SV3_1aParser::Top_directivesContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Top_directivesContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTop_directives(this);
 }
 
 void SV3_1aParser::Top_directivesContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTop_directives(this);
 }
@@ -79460,13 +79460,13 @@ size_t SV3_1aParser::Pragma_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Pragma_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPragma_directive(this);
 }
 
 void SV3_1aParser::Pragma_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPragma_directive(this);
 }
@@ -79557,13 +79557,13 @@ size_t SV3_1aParser::Pragma_expressionContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Pragma_expressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPragma_expression(this);
 }
 
 void SV3_1aParser::Pragma_expressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPragma_expression(this);
 }
@@ -79684,13 +79684,13 @@ size_t SV3_1aParser::Pragma_valueContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Pragma_valueContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterPragma_value(this);
 }
 
 void SV3_1aParser::Pragma_valueContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitPragma_value(this);
 }
@@ -79820,13 +79820,13 @@ size_t SV3_1aParser::Timescale_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Timescale_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterTimescale_directive(this);
 }
 
 void SV3_1aParser::Timescale_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitTimescale_directive(this);
 }
@@ -79887,13 +79887,13 @@ size_t SV3_1aParser::Begin_keywords_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Begin_keywords_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterBegin_keywords_directive(this);
 }
 
 void SV3_1aParser::Begin_keywords_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitBegin_keywords_directive(this);
 }
@@ -79942,13 +79942,13 @@ size_t SV3_1aParser::End_keywords_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::End_keywords_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEnd_keywords_directive(this);
 }
 
 void SV3_1aParser::End_keywords_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEnd_keywords_directive(this);
 }
@@ -80007,13 +80007,13 @@ size_t SV3_1aParser::Unconnected_drive_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Unconnected_drive_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUnconnected_drive_directive(this);
 }
 
 void SV3_1aParser::Unconnected_drive_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUnconnected_drive_directive(this);
 }
@@ -80072,13 +80072,13 @@ size_t SV3_1aParser::Nounconnected_drive_directiveContext::getRuleIndex() const 
 }
 
 void SV3_1aParser::Nounconnected_drive_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNounconnected_drive_directive(this);
 }
 
 void SV3_1aParser::Nounconnected_drive_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNounconnected_drive_directive(this);
 }
@@ -80133,13 +80133,13 @@ size_t SV3_1aParser::Default_nettype_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Default_nettype_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDefault_nettype_directive(this);
 }
 
 void SV3_1aParser::Default_nettype_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDefault_nettype_directive(this);
 }
@@ -80215,13 +80215,13 @@ size_t SV3_1aParser::Uselib_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Uselib_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUselib_directive(this);
 }
 
 void SV3_1aParser::Uselib_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUselib_directive(this);
 }
@@ -80268,13 +80268,13 @@ size_t SV3_1aParser::Celldefine_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Celldefine_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCelldefine_directive(this);
 }
 
 void SV3_1aParser::Celldefine_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCelldefine_directive(this);
 }
@@ -80321,13 +80321,13 @@ size_t SV3_1aParser::Endcelldefine_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Endcelldefine_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEndcelldefine_directive(this);
 }
 
 void SV3_1aParser::Endcelldefine_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEndcelldefine_directive(this);
 }
@@ -80374,13 +80374,13 @@ size_t SV3_1aParser::Protect_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Protect_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProtect_directive(this);
 }
 
 void SV3_1aParser::Protect_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProtect_directive(this);
 }
@@ -80427,13 +80427,13 @@ size_t SV3_1aParser::Endprotect_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Endprotect_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEndprotect_directive(this);
 }
 
 void SV3_1aParser::Endprotect_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEndprotect_directive(this);
 }
@@ -80480,13 +80480,13 @@ size_t SV3_1aParser::Protected_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Protected_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterProtected_directive(this);
 }
 
 void SV3_1aParser::Protected_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitProtected_directive(this);
 }
@@ -80533,13 +80533,13 @@ size_t SV3_1aParser::Endprotected_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Endprotected_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEndprotected_directive(this);
 }
 
 void SV3_1aParser::Endprotected_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEndprotected_directive(this);
 }
@@ -80586,13 +80586,13 @@ size_t SV3_1aParser::Expand_vectornets_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Expand_vectornets_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterExpand_vectornets_directive(this);
 }
 
 void SV3_1aParser::Expand_vectornets_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitExpand_vectornets_directive(this);
 }
@@ -80639,13 +80639,13 @@ size_t SV3_1aParser::Noexpand_vectornets_directiveContext::getRuleIndex() const 
 }
 
 void SV3_1aParser::Noexpand_vectornets_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNoexpand_vectornets_directive(this);
 }
 
 void SV3_1aParser::Noexpand_vectornets_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNoexpand_vectornets_directive(this);
 }
@@ -80692,13 +80692,13 @@ size_t SV3_1aParser::Autoexpand_vectornets_directiveContext::getRuleIndex() cons
 }
 
 void SV3_1aParser::Autoexpand_vectornets_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAutoexpand_vectornets_directive(this);
 }
 
 void SV3_1aParser::Autoexpand_vectornets_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAutoexpand_vectornets_directive(this);
 }
@@ -80745,13 +80745,13 @@ size_t SV3_1aParser::Disable_portfaults_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Disable_portfaults_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDisable_portfaults_directive(this);
 }
 
 void SV3_1aParser::Disable_portfaults_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDisable_portfaults_directive(this);
 }
@@ -80798,13 +80798,13 @@ size_t SV3_1aParser::Enable_portfaults_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Enable_portfaults_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterEnable_portfaults_directive(this);
 }
 
 void SV3_1aParser::Enable_portfaults_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitEnable_portfaults_directive(this);
 }
@@ -80851,13 +80851,13 @@ size_t SV3_1aParser::Nosuppress_faults_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Nosuppress_faults_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNosuppress_faults_directive(this);
 }
 
 void SV3_1aParser::Nosuppress_faults_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNosuppress_faults_directive(this);
 }
@@ -80904,13 +80904,13 @@ size_t SV3_1aParser::Suppress_faults_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Suppress_faults_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSuppress_faults_directive(this);
 }
 
 void SV3_1aParser::Suppress_faults_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSuppress_faults_directive(this);
 }
@@ -80957,13 +80957,13 @@ size_t SV3_1aParser::Signed_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Signed_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSigned_directive(this);
 }
 
 void SV3_1aParser::Signed_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSigned_directive(this);
 }
@@ -81010,13 +81010,13 @@ size_t SV3_1aParser::Unsigned_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Unsigned_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUnsigned_directive(this);
 }
 
 void SV3_1aParser::Unsigned_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUnsigned_directive(this);
 }
@@ -81063,13 +81063,13 @@ size_t SV3_1aParser::Remove_gatename_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Remove_gatename_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRemove_gatename_directive(this);
 }
 
 void SV3_1aParser::Remove_gatename_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRemove_gatename_directive(this);
 }
@@ -81116,13 +81116,13 @@ size_t SV3_1aParser::Noremove_gatenames_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Noremove_gatenames_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNoremove_gatenames_directive(this);
 }
 
 void SV3_1aParser::Noremove_gatenames_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNoremove_gatenames_directive(this);
 }
@@ -81169,13 +81169,13 @@ size_t SV3_1aParser::Remove_netname_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Remove_netname_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterRemove_netname_directive(this);
 }
 
 void SV3_1aParser::Remove_netname_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitRemove_netname_directive(this);
 }
@@ -81222,13 +81222,13 @@ size_t SV3_1aParser::Noremove_netnames_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Noremove_netnames_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNoremove_netnames_directive(this);
 }
 
 void SV3_1aParser::Noremove_netnames_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNoremove_netnames_directive(this);
 }
@@ -81275,13 +81275,13 @@ size_t SV3_1aParser::Accelerate_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Accelerate_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterAccelerate_directive(this);
 }
 
 void SV3_1aParser::Accelerate_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitAccelerate_directive(this);
 }
@@ -81328,13 +81328,13 @@ size_t SV3_1aParser::Noaccelerate_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Noaccelerate_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterNoaccelerate_directive(this);
 }
 
 void SV3_1aParser::Noaccelerate_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitNoaccelerate_directive(this);
 }
@@ -81385,13 +81385,13 @@ size_t SV3_1aParser::Default_trireg_strenght_directiveContext::getRuleIndex() co
 }
 
 void SV3_1aParser::Default_trireg_strenght_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDefault_trireg_strenght_directive(this);
 }
 
 void SV3_1aParser::Default_trireg_strenght_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDefault_trireg_strenght_directive(this);
 }
@@ -81448,13 +81448,13 @@ size_t SV3_1aParser::Default_decay_time_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Default_decay_time_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDefault_decay_time_directive(this);
 }
 
 void SV3_1aParser::Default_decay_time_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDefault_decay_time_directive(this);
 }
@@ -81534,13 +81534,13 @@ size_t SV3_1aParser::Delay_mode_distributed_directiveContext::getRuleIndex() con
 }
 
 void SV3_1aParser::Delay_mode_distributed_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDelay_mode_distributed_directive(this);
 }
 
 void SV3_1aParser::Delay_mode_distributed_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDelay_mode_distributed_directive(this);
 }
@@ -81587,13 +81587,13 @@ size_t SV3_1aParser::Delay_mode_path_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Delay_mode_path_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDelay_mode_path_directive(this);
 }
 
 void SV3_1aParser::Delay_mode_path_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDelay_mode_path_directive(this);
 }
@@ -81640,13 +81640,13 @@ size_t SV3_1aParser::Delay_mode_unit_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Delay_mode_unit_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDelay_mode_unit_directive(this);
 }
 
 void SV3_1aParser::Delay_mode_unit_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDelay_mode_unit_directive(this);
 }
@@ -81693,13 +81693,13 @@ size_t SV3_1aParser::Delay_mode_zero_directiveContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Delay_mode_zero_directiveContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDelay_mode_zero_directive(this);
 }
 
 void SV3_1aParser::Delay_mode_zero_directiveContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDelay_mode_zero_directive(this);
 }
@@ -81746,13 +81746,13 @@ size_t SV3_1aParser::Surelog_macro_not_definedContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Surelog_macro_not_definedContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSurelog_macro_not_defined(this);
 }
 
 void SV3_1aParser::Surelog_macro_not_definedContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSurelog_macro_not_defined(this);
 }
@@ -81811,13 +81811,13 @@ size_t SV3_1aParser::SllineContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::SllineContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterSlline(this);
 }
 
 void SV3_1aParser::SllineContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitSlline(this);
 }
@@ -81914,13 +81914,13 @@ size_t SV3_1aParser::Config_declarationContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Config_declarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConfig_declaration(this);
 }
 
 void SV3_1aParser::Config_declarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConfig_declaration(this);
 }
@@ -82031,13 +82031,13 @@ size_t SV3_1aParser::Design_statementContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Design_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDesign_statement(this);
 }
 
 void SV3_1aParser::Design_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDesign_statement(this);
 }
@@ -82141,13 +82141,13 @@ size_t SV3_1aParser::Config_rule_statementContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Config_rule_statementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterConfig_rule_statement(this);
 }
 
 void SV3_1aParser::Config_rule_statementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitConfig_rule_statement(this);
 }
@@ -82274,13 +82274,13 @@ size_t SV3_1aParser::Default_clauseContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Default_clauseContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterDefault_clause(this);
 }
 
 void SV3_1aParser::Default_clauseContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitDefault_clause(this);
 }
@@ -82331,13 +82331,13 @@ size_t SV3_1aParser::Inst_clauseContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Inst_clauseContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInst_clause(this);
 }
 
 void SV3_1aParser::Inst_clauseContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInst_clause(this);
 }
@@ -82398,13 +82398,13 @@ size_t SV3_1aParser::Inst_nameContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Inst_nameContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterInst_name(this);
 }
 
 void SV3_1aParser::Inst_nameContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitInst_name(this);
 }
@@ -82476,13 +82476,13 @@ size_t SV3_1aParser::Cell_clauseContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Cell_clauseContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterCell_clause(this);
 }
 
 void SV3_1aParser::Cell_clauseContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitCell_clause(this);
 }
@@ -82554,13 +82554,13 @@ size_t SV3_1aParser::Liblist_clauseContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Liblist_clauseContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterLiblist_clause(this);
 }
 
 void SV3_1aParser::Liblist_clauseContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitLiblist_clause(this);
 }
@@ -82659,13 +82659,13 @@ size_t SV3_1aParser::Use_clause_configContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Use_clause_configContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUse_clause_config(this);
 }
 
 void SV3_1aParser::Use_clause_configContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUse_clause_config(this);
 }
@@ -82843,13 +82843,13 @@ size_t SV3_1aParser::Use_clauseContext::getRuleIndex() const {
 }
 
 void SV3_1aParser::Use_clauseContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->enterUse_clause(this);
 }
 
 void SV3_1aParser::Use_clauseContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<SV3_1aParserListener *>(listener);
+  auto parserListener = parsetreelistener_cast<SV3_1aParserListener>(listener);
   if (parserListener != nullptr)
     parserListener->exitUse_clause(this);
 }
@@ -82978,21 +82978,21 @@ SV3_1aParser::Use_clauseContext* SV3_1aParser::use_clause() {
 
 bool SV3_1aParser::sempred(RuleContext *context, size_t ruleIndex, size_t predicateIndex) {
   switch (ruleIndex) {
-    case 229: return property_exprSempred(dynamic_cast<Property_exprContext *>(context), predicateIndex);
+    case 229: return property_exprSempred(parsetree_cast<Property_exprContext>(context), predicateIndex);
 
-    case 232: return sequence_exprSempred(dynamic_cast<Sequence_exprContext *>(context), predicateIndex);
+    case 232: return sequence_exprSempred(parsetree_cast<Sequence_exprContext>(context), predicateIndex);
 
-    case 262: return block_event_expressionSempred(dynamic_cast<Block_event_expressionContext *>(context), predicateIndex);
+    case 262: return block_event_expressionSempred(parsetree_cast<Block_event_expressionContext>(context), predicateIndex);
 
-    case 280: return select_expressionSempred(dynamic_cast<Select_expressionContext *>(context), predicateIndex);
+    case 280: return select_expressionSempred(parsetree_cast<Select_expressionContext>(context), predicateIndex);
 
-    case 398: return event_expressionSempred(dynamic_cast<Event_expressionContext *>(context), predicateIndex);
+    case 398: return event_expressionSempred(parsetree_cast<Event_expressionContext>(context), predicateIndex);
 
-    case 568: return constant_expressionSempred(dynamic_cast<Constant_expressionContext *>(context), predicateIndex);
+    case 568: return constant_expressionSempred(parsetree_cast<Constant_expressionContext>(context), predicateIndex);
 
-    case 577: return expressionSempred(dynamic_cast<ExpressionContext *>(context), predicateIndex);
+    case 577: return expressionSempred(parsetree_cast<ExpressionContext>(context), predicateIndex);
 
-    case 580: return module_path_expressionSempred(dynamic_cast<Module_path_expressionContext *>(context), predicateIndex);
+    case 580: return module_path_expressionSempred(parsetree_cast<Module_path_expressionContext>(context), predicateIndex);
 
   default:
     break;

@@ -10,6 +10,7 @@
 
 
 class  SV3_1aPpLexer : public antlr4::Lexer {
+  IMPLEMENT_RTTI(SV3_1aPpLexer, antlr4::Lexer)
 public:
   enum {
     Escaped_identifier = 1, One_line_comment = 2, Block_comment = 3, TICK_VARIABLE = 4, 
