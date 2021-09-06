@@ -353,6 +353,9 @@ public:
   virtual void enterData_declaration(SV3_1aParser::Data_declarationContext * /*ctx*/) override { }
   virtual void exitData_declaration(SV3_1aParser::Data_declarationContext * /*ctx*/) override { }
 
+  virtual void enterVariable_impl_declaration(SV3_1aParser::Variable_impl_declarationContext * /*ctx*/) override { }
+  virtual void exitVariable_impl_declaration(SV3_1aParser::Variable_impl_declarationContext * /*ctx*/) override { }
+
   virtual void enterVariable_declaration(SV3_1aParser::Variable_declarationContext * /*ctx*/) override { }
   virtual void exitVariable_declaration(SV3_1aParser::Variable_declarationContext * /*ctx*/) override { }
 
