@@ -604,12 +604,19 @@ ref_declaration : REF variable_port_type list_of_variable_identifiers ;
 
 
 data_declaration 
-    : ( const_type )? ( var_type )? ( lifetime )? variable_declaration
+    : ( const_type )? ( ( lifetime )? variable_declaration | var_type ( lifetime )? variable_impl_declaration )
     | type_declaration                              
     | package_import_declaration
     | net_type_declaration                                          
     ;
-    
+
+variable_impl_declaration : (  data_type_or_implicit                            
+                        | signing ( packed_dimension )*      
+                        | ( packed_dimension )+
+		       )
+			list_of_variable_decl_assignments SEMICOLUMN ;
+
+
 variable_declaration : (  data_type                               
                         | signing ( packed_dimension )*      
                         | ( packed_dimension )+
