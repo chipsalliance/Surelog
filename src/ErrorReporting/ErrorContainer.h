@@ -76,7 +76,7 @@ class ErrorContainer {
   void appendErrors(ErrorContainer&);
   SymbolTable* getSymbolTable() { return m_symbolTable; }
   std::tuple<std::string, bool, bool> createErrorMessage(
-      Error& error, bool reentrantPython = true);
+      const Error& error, bool reentrantPython = true);
   void setPythonInterp(void* interpState) { m_interpState = interpState; }
 
  private:
