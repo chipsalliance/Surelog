@@ -126,7 +126,7 @@ void ErrorContainer::appendErrors(ErrorContainer& rhs) {
 }
 
 std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
-    Error& msg, bool reentrantPython) {
+    const Error& msg, bool reentrantPython) {
   const std::map<ErrorDefinition::ErrorType, ErrorDefinition::ErrorInfo>&
       infoMap = ErrorDefinition::getErrorInfoMap();
   std::string tmp;
@@ -168,7 +168,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
       }
       std::string category = ErrorDefinition::getCategoryName(info.m_category);
 
-      Location& loc = msg.m_locations[0];
+      const Location& loc = msg.m_locations[0];
       /* Object */
       std::string text = info.m_errorText;
       const std::string& objectName = m_symbolTable->getSymbol(loc.m_object);
@@ -195,7 +195,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
       /* Extra locations */
       unsigned int nbExtraLoc = msg.m_locations.size();
       for (unsigned int i = 1; i < nbExtraLoc; i++) {
-        Location& extraLoc = msg.m_locations[i];
+        const Location& extraLoc = msg.m_locations[i];
         if (extraLoc.m_fileId) {
           std::string extraLocation;
           const std::string& fileName =
