@@ -1379,6 +1379,10 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
     } else if (subnettype == slChandle_type) {
       UHDM::chandle_var* chandle_var = s.MakeChandle_var();
       var = chandle_var;
+    } else if (subnettype == slIntVec_TypeLogic) {
+      logic_var* logicv = s.MakeLogic_var();
+      logicv->Ranges(packedDimensions);
+      var = logicv;
     } else {
       // default type (fallback)
       logic_var* logicv = s.MakeLogic_var();

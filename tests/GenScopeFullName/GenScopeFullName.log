@@ -187,11 +187,10 @@ design: (work@dut)
           |vpiName:b
           |vpiDirection:1
           |vpiHighConn:
-          \_bit_select: (work@dut.a), line:5:42, endln:5:46, parent:a
+          \_bit_select: (a), line:5:42, endln:5:46, parent:a
             |vpiName:a
-            |vpiFullName:work@dut.a
             |vpiIndex:
-            \_ref_obj: (a.i), line:5:44, endln:5:45, parent:work@dut.a
+            \_ref_obj: (a.i), line:5:44, endln:5:45, parent:a
               |vpiName:i
               |vpiFullName:a.i
               |vpiActual:
@@ -214,11 +213,12 @@ design: (work@dut)
         \_logic_net: (work@dut.gen_modules[0].module_in_genscope.b), line:12:33, endln:12:34, parent:work@dut.gen_modules[0].module_in_genscope
       |vpiParameter:
       \_parameter: (work@dut.gen_modules[0].i), line:4, parent:work@dut.gen_modules[0]
-  |vpiNet:
-  \_logic_net: (work@dut.a), line:2:16, endln:2:17, parent:work@dut
+  |vpiVariables:
+  \_logic_var: (work@dut.a), line:2:16, endln:2:17, parent:work@dut
     |vpiName:a
     |vpiFullName:work@dut.a
-    |vpiNetType:36
+    |vpiAutomatic:1
+    |vpiVisibility:1
     |vpiRange:
     \_range: , line:2:11, endln:2:14
       |vpiLeftRange:
