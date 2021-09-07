@@ -477,10 +477,11 @@ design: (work@dut)
         |vpiName:hash
         |vpiFullName:work@dut.hash
         |vpiActual:
-        \_logic_net: (work@dut.hash), line:15:18, endln:15:22, parent:work@dut
+        \_logic_var: (work@dut.hash), line:15:18, endln:15:22, parent:work@dut
           |vpiName:hash
           |vpiFullName:work@dut.hash
-          |vpiNetType:36
+          |vpiAutomatic:1
+          |vpiVisibility:1
           |vpiRange:
           \_range: , line:15:13, endln:15:16
             |vpiLeftRange:
@@ -496,10 +497,10 @@ design: (work@dut)
               |vpiSize:64
               |UINT:0
           |vpiTypespec:
-          \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:14
-            |vpiName:hmac_pkg::sha_word_t
+          \_logic_typespec: (sha_word_t), line:2:9, endln:2:14
+            |vpiName:sha_word_t
             |vpiRange:
-            \_range: , line:2:16, endln:2:20
+            \_range: , line:2:16, endln:2:20, parent:sha_word_t
               |vpiLeftRange:
               \_constant: , line:2:16, endln:2:18
                 |vpiConstType:9
@@ -541,6 +542,23 @@ design: (work@dut)
                       |UINT:0
                   |vpiTypespec:
                   \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:14
+                    |vpiName:hmac_pkg::sha_word_t
+                    |vpiRange:
+                    \_range: , line:2:16, endln:2:20
+                      |vpiLeftRange:
+                      \_constant: , line:2:16, endln:2:18
+                        |vpiConstType:9
+                        |vpiDecompile:31
+                        |vpiSize:64
+                        |UINT:31
+                      |vpiRightRange:
+                      \_constant: , line:2:19, endln:2:20
+                        |vpiConstType:9
+                        |vpiDecompile:0
+                        |vpiSize:64
+                        |UINT:0
+                    |vpiInstance:
+                    \_package: hmac_pkg (hmac_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut
                 |vpiIODecl:
                 \_io_decl: (w), parent:hmac_pkg::compress
                   |vpiName:w
@@ -789,10 +807,11 @@ design: (work@dut)
         |vpiName:hash
         |vpiFullName:work@dut.hash
         |vpiActual:
-        \_logic_net: (work@dut.hash), line:15:18, endln:15:22, parent:work@dut
+        \_logic_var: (work@dut.hash), line:15:18, endln:15:22, parent:work@dut
           |vpiName:hash
           |vpiFullName:work@dut.hash
-          |vpiNetType:36
+          |vpiAutomatic:1
+          |vpiVisibility:1
           |vpiRange:
           \_range: , line:15:13, endln:15:16
             |vpiLeftRange:
@@ -808,10 +827,10 @@ design: (work@dut)
               |vpiSize:64
               |UINT:0
           |vpiTypespec:
-          \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:14
-            |vpiName:hmac_pkg::sha_word_t
+          \_logic_typespec: (sha_word_t), line:2:9, endln:2:14
+            |vpiName:sha_word_t
             |vpiRange:
-            \_range: , line:2:16, endln:2:20
+            \_range: , line:2:16, endln:2:20, parent:sha_word_t
               |vpiLeftRange:
               \_constant: , line:2:16, endln:2:18
                 |vpiConstType:9
@@ -853,6 +872,23 @@ design: (work@dut)
                       |UINT:0
                   |vpiTypespec:
                   \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:14
+                    |vpiName:hmac_pkg::sha_word_t
+                    |vpiRange:
+                    \_range: , line:2:16, endln:2:20
+                      |vpiLeftRange:
+                      \_constant: , line:2:16, endln:2:18
+                        |vpiConstType:9
+                        |vpiDecompile:31
+                        |vpiSize:64
+                        |UINT:31
+                      |vpiRightRange:
+                      \_constant: , line:2:19, endln:2:20
+                        |vpiConstType:9
+                        |vpiDecompile:0
+                        |vpiSize:64
+                        |UINT:0
+                    |vpiInstance:
+                    \_package: hmac_pkg (hmac_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut
                 |vpiIODecl:
                 \_io_decl: (w), parent:hmac_pkg::compress
                   |vpiName:w
@@ -982,7 +1018,7 @@ design: (work@dut)
       |vpiName:hash
       |vpiFullName:work@dut.hash
       |vpiActual:
-      \_logic_net: (work@dut.hash), line:15:18, endln:15:22, parent:work@dut
+      \_logic_var: (work@dut.hash), line:15:18, endln:15:22, parent:work@dut
   |vpiTaskFunc:
   \_function: (hmac_pkg::compress), line:3:1, endln:8:12, parent:work@dut
     |vpiVisibility:1
@@ -1045,11 +1081,12 @@ design: (work@dut)
     \_module: work@dut (work@dut) dut.sv:12:1: , endln:19:10
     |vpiVariables:
     \_logic_var: (work@dut.compress.sigma_0), line:4:13, endln:4:23, parent:hmac_pkg::compress
-  |vpiNet:
-  \_logic_net: (work@dut.w), line:14:19, endln:14:20, parent:work@dut
+  |vpiVariables:
+  \_logic_var: (work@dut.w), line:14:19, endln:14:20, parent:work@dut
     |vpiName:w
     |vpiFullName:work@dut.w
-    |vpiNetType:36
+    |vpiAutomatic:1
+    |vpiVisibility:1
     |vpiRange:
     \_range: , line:14:13, endln:14:17
       |vpiLeftRange:
@@ -1065,9 +1102,26 @@ design: (work@dut)
         |vpiSize:64
         |UINT:0
     |vpiTypespec:
-    \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:14
-  |vpiNet:
-  \_logic_net: (work@dut.hash), line:15:18, endln:15:22, parent:work@dut
+    \_logic_typespec: (sha_word_t), line:2:9, endln:2:14
+      |vpiName:sha_word_t
+      |vpiRange:
+      \_range: , line:2:16, endln:2:20, parent:sha_word_t
+        |vpiLeftRange:
+        \_constant: , line:2:16, endln:2:18
+          |vpiConstType:9
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+        |vpiRightRange:
+        \_constant: , line:2:19, endln:2:20
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+      |vpiInstance:
+      \_package: hmac_pkg (hmac_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut
+  |vpiVariables:
+  \_logic_var: (work@dut.hash), line:15:18, endln:15:22, parent:work@dut
   |vpiTypedef:
   \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:14
   |vpiTypedef:

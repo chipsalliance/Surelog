@@ -1289,8 +1289,16 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       (subnettype == slString_type) || (subnettype == slNonIntType_Real) ||
       (subnettype == slNonIntType_RealTime) ||
       (subnettype == slNonIntType_ShortReal) ||
-      (subnettype == slChandle_type) || (subnettype == slIntVec_TypeBit)) {
+      (subnettype == slChandle_type) || (subnettype == slIntVec_TypeBit) ||
+      ((!sig->isVar()) && (subnettype == slIntVec_TypeLogic))) {
     isNet = false;
+  }
+  if (sig->getDirection() == slPortDir_Out ||
+      sig->getDirection() == slPortDir_Inp ||
+      sig->getDirection() == slPortDir_Inout) {
+    if ((!sig->isVar()) && (subnettype == slIntVec_TypeLogic)) {
+      isNet = true;
+    }
   }
 
   NodeId typeSpecId = sig->getTypeSpecId();
