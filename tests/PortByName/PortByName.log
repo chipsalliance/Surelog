@@ -137,10 +137,11 @@ design: (work@top)
         |vpiName:top_first
         |vpiFullName:work@top.top_first
         |vpiActual:
-        \_logic_net: (work@top.top_first), line:4:16, endln:4:25, parent:work@top
+        \_logic_var: (work@top.top_first), line:4:16, endln:4:25, parent:work@top
           |vpiName:top_first
           |vpiFullName:work@top.top_first
-          |vpiNetType:36
+          |vpiAutomatic:1
+          |vpiVisibility:1
           |vpiRange:
           \_range: , line:4:10, endln:4:13
             |vpiLeftRange:
@@ -189,14 +190,17 @@ design: (work@top)
         |vpiName:top_second
         |vpiFullName:work@top.top_second
         |vpiActual:
-        \_array_net: (work@top.top_second), line:2:16, endln:2:26, parent:work@top
+        \_array_var: (work@top.top_second), line:2:16, endln:2:26, parent:work@top
+          |vpiArrayType:1
           |vpiName:top_second
           |vpiFullName:work@top.top_second
+          |vpiAutomatic:1
+          |vpiRandType:1
+          |vpiVisibility:1
           |vpiSize:2
-          |vpiNet:
-          \_logic_net: (work@top.top_second), parent:work@top.top_second
+          |vpiReg:
+          \_logic_var: (work@top.top_second), parent:work@top.top_second
             |vpiFullName:work@top.top_second
-            |vpiNetType:36
             |vpiRange:
             \_range: , line:2:10, endln:2:14
               |vpiLeftRange:
@@ -293,14 +297,17 @@ design: (work@top)
         |vpiName:top_third
         |vpiFullName:work@top.top_third
         |vpiActual:
-        \_array_net: (work@top.top_third), line:3:16, endln:3:25, parent:work@top
+        \_array_var: (work@top.top_third), line:3:16, endln:3:25, parent:work@top
+          |vpiArrayType:1
           |vpiName:top_third
           |vpiFullName:work@top.top_third
+          |vpiAutomatic:1
+          |vpiRandType:1
+          |vpiVisibility:1
           |vpiSize:2
-          |vpiNet:
-          \_logic_net: (work@top.top_third), parent:work@top.top_third
+          |vpiReg:
+          \_logic_var: (work@top.top_third), parent:work@top.top_third
             |vpiFullName:work@top.top_third
-            |vpiNetType:36
             |vpiRange:
             \_range: , line:3:10, endln:3:14
               |vpiLeftRange:
@@ -395,14 +402,17 @@ design: (work@top)
         |vpiName:fourth
         |vpiFullName:work@top.id_stage_i.fourth
         |vpiActual:
-        \_array_net: (work@top.id_stage_i.fourth), line:17:16, endln:17:22, parent:work@top.id_stage_i
+        \_array_var: (work@top.id_stage_i.fourth), line:17:16, endln:17:22, parent:work@top.id_stage_i
+          |vpiArrayType:1
           |vpiName:fourth
           |vpiFullName:work@top.id_stage_i.fourth
+          |vpiAutomatic:1
+          |vpiRandType:1
+          |vpiVisibility:1
           |vpiSize:2
-          |vpiNet:
-          \_logic_net: (work@top.id_stage_i.fourth), parent:work@top.id_stage_i.fourth
+          |vpiReg:
+          \_logic_var: (work@top.id_stage_i.fourth), parent:work@top.id_stage_i.fourth
             |vpiFullName:work@top.id_stage_i.fourth
-            |vpiNetType:36
             |vpiRange:
             \_range: , line:17:10, endln:17:14
               |vpiLeftRange:
@@ -451,16 +461,16 @@ design: (work@top)
     \_array_net: (work@top.id_stage_i.second), line:14:39, endln:14:45, parent:work@top.id_stage_i
     |vpiArrayNet:
     \_array_net: (work@top.id_stage_i.third), line:15:39, endln:15:44, parent:work@top.id_stage_i
-    |vpiArrayNet:
-    \_array_net: (work@top.id_stage_i.fourth), line:17:16, endln:17:22, parent:work@top.id_stage_i
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:11:10
-  |vpiNet:
-  \_logic_net: (work@top.top_first), line:4:16, endln:4:25, parent:work@top
-  |vpiArrayNet:
-  \_array_net: (work@top.top_second), line:2:16, endln:2:26, parent:work@top
-  |vpiArrayNet:
-  \_array_net: (work@top.top_third), line:3:16, endln:3:25, parent:work@top
+    |vpiVariables:
+    \_array_var: (work@top.id_stage_i.fourth), line:17:16, endln:17:22, parent:work@top.id_stage_i
+  |vpiVariables:
+  \_array_var: (work@top.top_second), line:2:16, endln:2:26, parent:work@top
+  |vpiVariables:
+  \_array_var: (work@top.top_third), line:3:16, endln:3:25, parent:work@top
+  |vpiVariables:
+  \_logic_var: (work@top.top_first), line:4:16, endln:4:25, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
