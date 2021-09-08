@@ -1,5 +1,3 @@
-# If you have runtime memory issues, disable tcmalloc: add -DNO_TCMALLOC to the make line
-
 # Use bash as the default shell
 SHELL := /bin/bash
 
@@ -26,11 +24,17 @@ RULE_MESSAGES ?= on
 release: run-cmake-release
 	cmake --build build -j $(CPU_CORES)
 
+release_no_tcmalloc: run-cmake-release_no_tcmalloc
+	cmake --build build -j $(CPU_CORES)
+
 debug: run-cmake-debug
 	cmake --build dbuild -j $(CPU_CORES)
 
 run-cmake-release:
 	cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX) -DCMAKE_RULE_MESSAGES=$(RULE_MESSAGES) -S . -B build
+
+run-cmake-release_no_tcmalloc:
+	cmake -DNO_TCMALLOC=On -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX) -DCMAKE_RULE_MESSAGES=$(RULE_MESSAGES) -S . -B build
 
 run-cmake-debug:
 	cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$(PREFIX) -DCMAKE_RULE_MESSAGES=$(RULE_MESSAGES) -S . -B dbuild
