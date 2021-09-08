@@ -3786,14 +3786,15 @@ UHDM::any* CompileHelper::compileExpression(
                     const std::string& param_name = param_ass->Lhs()->VpiName();
                     bool paramFromPackage = false;
                     if (param_ass->Lhs()->UhdmType() == uhdmparameter) {
-                      const parameter* tp = (parameter*) param_ass->Lhs();
+                      const parameter* tp = (parameter*)param_ass->Lhs();
                       if (tp->VpiImported() != "") {
                         paramFromPackage = true;
                       }
                     }
                     if (param_name == name) {
                       if (reduce ||
-                          (paramFromPackage && (param_ass->Rhs()->UhdmType() == uhdmconstant))) {
+                          (paramFromPackage &&
+                           (param_ass->Rhs()->UhdmType() == uhdmconstant))) {
                         if (substituteAssignedValue(param_ass->Rhs(),
                                                     compileDesign)) {
                           ElaboratorListener listener(&s);
