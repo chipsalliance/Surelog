@@ -44,7 +44,9 @@ We started maintaning a list of ideas for contribution under [Help Wanted](https
   make
 or
   make debug
-make install (/usr/local/bin and /usr/local/lib/surelog by default, use DESTDIR= for alternative locations)
+or
+  make release_no_tcmalloc (For no tcmalloc)
+make install (/usr/local/bin and /usr/local/lib/surelog by default, use DESTDIR= for alternative locations. Note: do not use PREFIX=)
 ```
 
 For more build/test options and system requirements for building see
