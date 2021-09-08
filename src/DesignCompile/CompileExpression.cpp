@@ -3777,31 +3777,42 @@ UHDM::any* CompileHelper::compileExpression(
                 }
               }
             }
-            if (component && reduce && (result == nullptr)) {
+            if (component && (result == nullptr)) {
               UHDM::VectorOfparam_assign* param_assigns =
                   component->getParam_assigns();
               if (param_assigns) {
                 for (param_assign* param_ass : *param_assigns) {
                   if (param_ass && param_ass->Lhs()) {
                     const std::string& param_name = param_ass->Lhs()->VpiName();
+                    bool paramFromPackage = false;
+                    if (param_ass->Lhs()->UhdmType() == uhdmparameter) {
+                      const parameter* tp = (parameter*)param_ass->Lhs();
+                      if (tp->VpiImported() != "") {
+                        paramFromPackage = true;
+                      }
+                    }
                     if (param_name == name) {
-                      if (substituteAssignedValue(param_ass->Rhs(),
-                                                  compileDesign)) {
-                        ElaboratorListener listener(&s);
-                        result = UHDM::clone_tree((any*)param_ass->Rhs(), s,
-                                                  &listener);
-                        const any* lhs = param_ass->Lhs();
-                        expr* res = (expr*)result;
-                        const typespec* tps = nullptr;
-                        if (lhs->UhdmType() == UHDM::uhdmtype_parameter) {
-                          tps = ((UHDM::type_parameter*)lhs)->Typespec();
-                        } else {
-                          tps = ((UHDM::parameter*)lhs)->Typespec();
+                      if (reduce ||
+                          (paramFromPackage &&
+                           (param_ass->Rhs()->UhdmType() == uhdmconstant))) {
+                        if (substituteAssignedValue(param_ass->Rhs(),
+                                                    compileDesign)) {
+                          ElaboratorListener listener(&s);
+                          result = UHDM::clone_tree((any*)param_ass->Rhs(), s,
+                                                    &listener);
+                          const any* lhs = param_ass->Lhs();
+                          expr* res = (expr*)result;
+                          const typespec* tps = nullptr;
+                          if (lhs->UhdmType() == UHDM::uhdmtype_parameter) {
+                            tps = ((UHDM::type_parameter*)lhs)->Typespec();
+                          } else {
+                            tps = ((UHDM::parameter*)lhs)->Typespec();
+                          }
+                          if (tps && (res->Typespec() == nullptr)) {
+                            res->Typespec((UHDM::typespec*)tps);
+                          }
+                          break;
                         }
-                        if (tps && (res->Typespec() == nullptr)) {
-                          res->Typespec((UHDM::typespec*)tps);
-                        }
-                        break;
                       }
                     }
                   }

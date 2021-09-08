@@ -322,11 +322,14 @@ design: (work@testharness)
             |vpiNetType:36
       |vpiNet:
       \_logic_net: (work@testharness.i_peripherals.reg_bus.clk_i), line:6:15, endln:6:20, parent:work@testharness.i_peripherals.reg_bus
-      |vpiNet:
-      \_logic_net: (work@testharness.i_peripherals.reg_bus.addr), line:9:28, endln:9:32, parent:work@testharness.i_peripherals.reg_bus
+      |vpiInstance:
+      \_module: work@peripherals (work@testharness.i_peripherals) dut.sv:34:3: , endln:34:33, parent:work@testharness
+      |vpiVariables:
+      \_logic_var: (work@testharness.i_peripherals.reg_bus.addr), line:9:28, endln:9:32, parent:work@testharness.i_peripherals.reg_bus
         |vpiName:addr
         |vpiFullName:work@testharness.i_peripherals.reg_bus.addr
-        |vpiNetType:36
+        |vpiAutomatic:1
+        |vpiVisibility:1
         |vpiRange:
         \_range: , line:9:10, endln:9:24
           |vpiLeftRange:
@@ -341,8 +344,6 @@ design: (work@testharness)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-      |vpiInstance:
-      \_module: work@peripherals (work@testharness.i_peripherals) dut.sv:34:3: , endln:34:33, parent:work@testharness
       |vpiParameter:
       \_parameter: (work@testharness.i_peripherals.reg_bus.ADDR_WIDTH), line:4:17, endln:4:32, parent:work@testharness.i_peripherals.reg_bus
         |vpiName:ADDR_WIDTH
@@ -390,7 +391,7 @@ design: (work@testharness)
                 |vpiName:addr
                 |vpiDirection:2
                 |vpiExpr:
-                \_logic_net: (work@testharness.i_peripherals.reg_bus.addr), line:9:28, endln:9:32, parent:work@testharness.i_peripherals.reg_bus
+                \_logic_var: (work@testharness.i_peripherals.reg_bus.addr), line:9:28, endln:9:32, parent:work@testharness.i_peripherals.reg_bus
         |vpiLowConn:
         \_ref_obj: (work@testharness.i_peripherals.i_apb_to_reg.reg_o), parent:reg_o
           |vpiFullName:work@testharness.i_peripherals.i_apb_to_reg.reg_o
@@ -402,9 +403,10 @@ design: (work@testharness)
               |vpiName:addr
               |vpiDirection:2
               |vpiExpr:
-              \_logic_net: (addr), line:9:28, endln:9:32
+              \_logic_var: (addr), line:9:28, endln:9:32
                 |vpiName:addr
-                |vpiNetType:36
+                |vpiAutomatic:1
+                |vpiVisibility:1
                 |vpiRange:
                 \_range: , line:9:10, endln:9:24
                   |vpiLeftRange:
