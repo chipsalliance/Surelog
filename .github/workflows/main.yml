@@ -328,8 +328,6 @@ jobs:
 
     - name: Build
       run: |
-        # Apply Flatbuffers patch to use gcc
-        cd third_party/flatbuffers && git apply ../flatbuffers_macos.patch && cd ../..
         make release
         sudo make install
 
