@@ -26,7 +26,7 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 set(FLATBUFFERS_BUILD_TESTS OFF CACHE BOOL "Skip flatbuffers' tests")
 add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
-add_subdirectory(third_party/antlr4/runtime/Cpp EXCLUDE_FROM_ALL)
+add_subdirectory(third_party/antlr4_fast/runtime/Cpp EXCLUDE_FROM_ALL)
 
 set(UHDM_BUILD_TESTS OFF CACHE BOOL "Skip UHDM tests")
 add_subdirectory(third_party/UHDM)
@@ -132,7 +132,7 @@ add_custom_command(
 # Java
 find_package(Java REQUIRED COMPONENTS Runtime)
 set(ANTLR_JAR_LOCATION
-    ${PROJECT_SOURCE_DIR}/third_party/antlr4/antlr4-4.9.3-complete.jar)
+    ${PROJECT_SOURCE_DIR}/third_party/antlr4_fast/antlr4-4.9.3-complete.jar)
 
 add_custom_target(GenerateParser DEPENDS
   ${PROJECT_SOURCE_DIR}/src/parser/generated-parsers.tstamp
@@ -366,7 +366,7 @@ endforeach()
 add_library(surelog STATIC ${surelog_SRC} ${surelog_generated_SRC})
 set_target_properties(surelog PROPERTIES PUBLIC_HEADER src/surelog.h)
 target_include_directories(surelog PRIVATE
-  third_party/antlr4/runtime/Cpp/runtime/src
+  third_party/antlr4_fast/runtime/Cpp/runtime/src
   third_party/flatbuffers/include
   third_party/googletest/googletest/include
   third_party/googletest/googlemock/include)
@@ -464,7 +464,7 @@ function(register_gtests)
     add_executable(${test_bin} EXCLUDE_FROM_ALL ${gtest_cc_file})
 
     target_include_directories(${test_bin} PRIVATE
-      ${PROJECT_SOURCE_DIR}/third_party/antlr4/runtime/Cpp/runtime/src
+      ${PROJECT_SOURCE_DIR}/third_party/antlr4_fast/runtime/Cpp/runtime/src
       ${PROJECT_SOURCE_DIR}/third_party/flatbuffers/include)
     # For simplicity, we link the test with libsurelog, but there is of
     # course a lot unnecessary churn if headers are modified.

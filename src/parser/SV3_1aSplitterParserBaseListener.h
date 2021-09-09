@@ -14,7 +14,6 @@
  * of the available methods.
  */
 class  SV3_1aSplitterParserBaseListener : public SV3_1aSplitterParserListener {
-IMPLEMENT_RTTI(SV3_1aSplitterParserBaseListener, SV3_1aSplitterParserListener)
 public:
 
   virtual void enterSource_text(SV3_1aSplitterParser::Source_textContext * /*ctx*/) override { }
