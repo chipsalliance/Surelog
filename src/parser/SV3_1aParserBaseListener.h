@@ -14,7 +14,6 @@
  * of the available methods.
  */
 class  SV3_1aParserBaseListener : public SV3_1aParserListener {
-IMPLEMENT_RTTI(SV3_1aParserBaseListener, SV3_1aParserListener)
 public:
 
   virtual void enterTop_level_rule(SV3_1aParser::Top_level_ruleContext * /*ctx*/) override { }
