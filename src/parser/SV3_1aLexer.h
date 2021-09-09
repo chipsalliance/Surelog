@@ -10,7 +10,6 @@
 
 
 class  SV3_1aLexer : public antlr4::Lexer {
-  IMPLEMENT_RTTI(SV3_1aLexer, antlr4::Lexer)
 public:
   enum {
     QMARK = 1, TICK_b0 = 2, TICK_b1 = 3, TICK_B0 = 4, TICK_B1 = 5, TICK_0 = 6, 
