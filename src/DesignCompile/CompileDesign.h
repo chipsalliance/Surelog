@@ -28,7 +28,7 @@
 
 #include "Serializer.h"
 #include "SourceCompile/Compiler.h"
-#include "sv_vpi_user.h"
+#include "include/sv_vpi_user.h"
 
 namespace SURELOG {
 
