@@ -25,7 +25,7 @@
 
 #include "CommandLine/CommandLineParser.h"
 #include "Design/Design.h"
-#include "sv_vpi_user.h"
+#include "include/sv_vpi_user.h"
 
 namespace SURELOG {
 struct scompiler;
