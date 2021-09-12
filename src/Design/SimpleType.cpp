@@ -24,7 +24,9 @@
 
 #include "Design/FileContent.h"
 #include "SourceCompile/SymbolTable.h"
-#include "uhdm.h"
+
+// UHDM
+#include <uhdm/uhdm.h>
 
 using namespace SURELOG;
 

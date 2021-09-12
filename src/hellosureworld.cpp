@@ -24,11 +24,14 @@
 // Example of usage:
 // cd tests/UnitElabBlock
 // hellouhdm top.v -parse -mutestdout
+
 #include <functional>
 #include <iostream>
 
 #include "surelog.h"
-#include "uhdm.h"
+
+// UHDM
+#include <uhdm/uhdm.h>
 
 int main(int argc, const char** argv) {
   // Read command line, compile a design, use -parse argument

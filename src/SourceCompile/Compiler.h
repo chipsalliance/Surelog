@@ -36,14 +36,15 @@ limitations under the License.
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/SymbolTable.h"
-#include "include/sv_vpi_user.h"
 
 #ifdef USETBB
 #include <tbb/task.h>
 #include <tbb/task_group.h>
-
-#include "tbb/task_scheduler_init.h"
+#include <tbb/task_scheduler_init.h>
 #endif
+
+// UHDM
+#include <uhdm/sv_vpi_user.h>
 
 namespace SURELOG {
 

@@ -24,13 +24,16 @@
 // Example of usage:
 // cd tests/UnitElabBlock
 // hellodesign top.v -parse -mutestdout
+
 #include <functional>
 #include <iostream>
 
-#include "ElaboratorListener.h"
-#include "headers/vpi_listener.h"
 #include "surelog.h"
-#include "uhdm.h"
+
+// UHDM
+#include <uhdm/ElaboratorListener.h>
+#include <uhdm/uhdm.h>
+#include <uhdm/vpi_listener.h>
 
 class DesignListener final : public UHDM::VpiListener {
   virtual void enterModule(const UHDM::module *const object,

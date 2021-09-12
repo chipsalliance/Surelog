@@ -37,7 +37,9 @@
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/SymbolTable.h"
-#include "include/sv_vpi_user.h"
+
+// UHDM
+#include <uhdm/sv_vpi_user.h>
 
 namespace SURELOG {
 

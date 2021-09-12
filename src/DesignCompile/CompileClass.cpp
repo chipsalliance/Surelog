@@ -38,7 +38,9 @@
 #include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/VObjectTypes.h"
 #include "Testbench/ClassDefinition.h"
-#include "headers/uhdm.h"
+
+// UHDM
+#include <uhdm/uhdm.h>
 
 using namespace SURELOG;
 

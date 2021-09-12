@@ -53,10 +53,10 @@
 #include "Utils/StringUtils.h"
 
 // UHDM
-#include "headers/ElaboratorListener.h"
-#include "headers/Serializer.h"
-#include "headers/clone_tree.h"
-#include "headers/uhdm.h"
+#include <uhdm/ElaboratorListener.h>
+#include <uhdm/Serializer.h>
+#include <uhdm/clone_tree.h>
+#include <uhdm/uhdm.h>
 
 using namespace SURELOG;
 using namespace UHDM;

@@ -44,13 +44,13 @@
 #include "Design/VObject.h"
 #include "DesignCompile/CompileDesign.h"
 #include "DesignCompile/UhdmWriter.h"
-#include "ElaboratorListener.h"
+
 #include "ErrorReporting/Error.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "ErrorReporting/ErrorDefinition.h"
 #include "ErrorReporting/Location.h"
 #include "Library/Library.h"
-#include "Serializer.h"
+
 #include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/Compiler.h"
@@ -61,8 +61,12 @@
 #include "Testbench/ClassDefinition.h"
 #include "Testbench/Property.h"
 #include "Utils/StringUtils.h"
-#include "clone_tree.h"
-#include "uhdm.h"
+
+// UHDM
+#include <uhdm/ElaboratorListener.h>
+#include <uhdm/Serializer.h>
+#include <uhdm/clone_tree.h>
+#include <uhdm/uhdm.h>
 
 using namespace SURELOG;
 using namespace UHDM;
@@ -175,8 +179,15 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
     }
     param_assign* mod_assign = assign->getUhdmParamAssign();
     isMultidimensional = assign->isMultidimensional();
+    const std::string& paramName =
+        assign->getFileContent()->SymName(assign->getParamId());
+
     if (mod_assign) {
       const any* rhs = mod_assign->Rhs();
+      expr* override = instance->getComplexValue(paramName);
+      if (override) {
+        rhs = override;
+      }
       if (rhs && rhs->UhdmType() == uhdmoperation) {
         operation* op = (operation*)rhs;
         int opType = op->VpiOpType();
@@ -196,7 +207,10 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
           if (opType == vpiAssignmentPatternOp) {
             const any* lhs = pclone->Lhs();
             any* rhs = (any*)pclone->Rhs();
-
+            if (override) {
+              rhs = UHDM::clone_tree(override, s, &listener);
+              rhs->VpiParent(pclone);
+            }
             rhs = m_helper.expandPatternAssignment((expr*)lhs, (expr*)rhs, mod,
                                                    m_compileDesign, instance);
             pclone->Rhs(rhs);
@@ -217,14 +231,13 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
     inst_assign->VpiEndLineNo(mod_assign->VpiEndLineNo());
     inst_assign->VpiEndColumnNo(mod_assign->VpiEndColumnNo());
     inst_assign->Lhs((any*)mod_assign->Lhs());
-    const std::string& paramName =
-        assign->getFileContent()->SymName(assign->getParamId());
-    bool override = false;
+ 
+    bool overriden = false;
     for (Parameter* tpm :
          instance->getTypeParams()) {  // for parameters that do not resolve to
                                        // scalars (complex structs)
       if (tpm->getName() == paramName) {
-        override = true;
+        overriden = true;
         if (ModuleInstance* pinst = instance->getParent()) {
           ModuleDefinition* pmod =
               dynamic_cast<ModuleDefinition*>(pinst->getDefinition());
@@ -276,7 +289,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
         }
       }
     }
-    if ((override == false) && (!isMultidimensional)) {
+    if ((overriden == false) && (!isMultidimensional)) {
       Value* value = instance->getValue(paramName, m_exprBuilder);
       if (value && value->isValid()) {
         constant* c = s.MakeConstant();
@@ -308,10 +321,10 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
           }
         }
 
-        override = true;
+        overriden = true;
       }
     }
-    if (override == false) {
+    if (overriden == false) {
       expr* exp = instance->getComplexValue(paramName);
       if (exp) {
         if (!isMultidimensional) {
@@ -341,10 +354,10 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
           }
         }
 
-        override = true;
+        overriden = true;
       }
     }
-    if (override == false) {
+    if (overriden == false) {
       // Default
       if (assign->getAssignId()) {
         expr* rhs = (expr*)m_helper.compileExpression(

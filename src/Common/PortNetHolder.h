@@ -23,7 +23,8 @@
 
 #include <vector>
 
-#include "headers/uhdm_forward_decl.h"
+// UHDM
+#include <uhdm/uhdm_forward_decl.h>
 
 #ifndef PORTNETHOLDER_H
 #define PORTNETHOLDER_H

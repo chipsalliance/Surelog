@@ -768,6 +768,8 @@ design: (work@top)
             \_ref_obj: (work@top.asgn0.init.init.size), line:19:20, endln:19:24
               |vpiName:size
               |vpiFullName:work@top.asgn0.init.init.size
+              |vpiActual:
+              \_parameter: (work@top.asgn0.size), line:18:19, endln:18:27, parent:work@top.asgn0
             |vpiOperand:
             \_constant: , line:19:25, endln:19:26
               |vpiConstType:9
@@ -824,7 +826,7 @@ design: (work@top)
             \_string_typespec: (b), line:10:52, endln:10:53
               |vpiName:b
           |vpiTypespec:
-          \_struct_typespec: (pkg::complex_t), line:2:11, endln:2:17, parent:work@top.init_val
+          \_struct_typespec: (pkg::complex_t), line:2:11, endln:2:17
             |vpiPacked:1
             |vpiName:pkg::complex_t
             |vpiTypespecMember:
@@ -962,6 +964,40 @@ design: (work@top)
         |vpiTypespec:
         \_string_typespec: (b), line:10:52, endln:10:53
           |vpiName:b
+      |vpiTypespec:
+      \_struct_typespec: (pkg::complex_t), line:2:11, endln:2:17
+        |vpiPacked:1
+        |vpiName:pkg::complex_t
+        |vpiTypespecMember:
+        \_typespec_member: (a), line:3:11, endln:3:12, parent:pkg::complex_t
+          |vpiName:a
+          |vpiTypespec:
+          \_logic_typespec: , line:3:5, endln:3:10, parent:a
+            |vpiInstance:
+            \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
+        |vpiTypespecMember:
+        \_typespec_member: (b), line:4:17, endln:4:18, parent:pkg::complex_t
+          |vpiName:b
+          |vpiTypespec:
+          \_logic_typespec: , line:4:5, endln:4:10, parent:b
+            |vpiRange:
+            \_range: , line:4:12, endln:4:15
+              |vpiLeftRange:
+              \_constant: , line:4:12, endln:4:13
+                |vpiConstType:9
+                |vpiDecompile:2
+                |vpiSize:64
+                |UINT:2
+              |vpiRightRange:
+              \_constant: , line:4:14, endln:4:15
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+            |vpiInstance:
+            \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
+        |vpiInstance:
+        \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
     |vpiLhs:
     \_parameter: (work@top.init_val), line:10:30, endln:10:58, parent:work@top
 ===================
