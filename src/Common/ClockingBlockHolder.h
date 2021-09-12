@@ -29,10 +29,12 @@
 #include "Design/ClockingBlock.h"
 #include "Design/Signal.h"
 #include "SourceCompile/SymbolTable.h"
+#include "Utils/RTTI.h"
 
 namespace SURELOG {
 
-class ClockingBlockHolder {
+class ClockingBlockHolder : public RTTI {
+  SURELOG_IMPLEMENT_RTTI(ClockingBlockHolder, RTTI)
  public:
   typedef std::multimap<SymbolId, ClockingBlock> ClockingBlockMap;
 

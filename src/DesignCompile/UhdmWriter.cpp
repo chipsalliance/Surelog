@@ -701,7 +701,7 @@ void writeVariables(const DesignComponent::VariableMap& orig_vars,
     Variable* var = orig_var.second;
     const DataType* dtype = var->getDataType();
     const ClassDefinition* classdef =
-        dynamic_cast<const ClassDefinition*>(dtype);
+        valuedcomponenti_cast<const ClassDefinition*>(dtype);
     if (classdef) {
       class_var* cvar = s.MakeClass_var();
       cvar->VpiName(var->getName());
@@ -1174,7 +1174,7 @@ bool writeElabGenScope(Serializer& s, ModuleInstance* instance, gen_scope* m,
 
   // Typepecs
   ModuleDefinition* mod =
-      dynamic_cast<ModuleDefinition*>(instance->getDefinition());
+      valuedcomponenti_cast<ModuleDefinition*>(instance->getDefinition());
   if (mod) {
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     m->Typespecs(typespecs);
@@ -1435,7 +1435,7 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m,
       if (m->Typespecs()) {
         for (auto n : *m->Typespecs()) {
           if (n->UhdmType() == uhdmenum_typespec) {
-            enum_typespec* tps = dynamic_cast<enum_typespec*>(n);
+            enum_typespec* tps = any_cast<enum_typespec*>(n);
             if (tps && tps->Enum_consts()) {
               for (auto c : *tps->Enum_consts()) {
                 if (c->VpiName() == name) {
@@ -1644,7 +1644,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
     ModuleInstance* child = instance->getChildren(i);
     DesignComponent* childDef = child->getDefinition();
-    if (ModuleDefinition* mm = dynamic_cast<ModuleDefinition*>(childDef)) {
+    if (ModuleDefinition* mm = valuedcomponenti_cast<ModuleDefinition*>(childDef)) {
       VObjectType insttype = child->getType();
       if (insttype == VObjectType::slModule_instantiation) {
         if (subModules == nullptr) subModules = s.MakeModuleVec();
@@ -1768,7 +1768,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
           UHDM::udp* udp = s.MakeUdp();
           gate = udp;
           if (ModuleDefinition* mm =
-                  dynamic_cast<ModuleDefinition*>(childDef)) {
+                  valuedcomponenti_cast<ModuleDefinition*>(childDef)) {
             udp->Udp_defn(mm->getUdpDefn());
           }
           if (UHDM::VectorOfrange* ranges = child->getNetlist()->ranges()) {
@@ -1849,7 +1849,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
       } else {
         // Unknown object type
       }
-    } else if (Program* prog = dynamic_cast<Program*>(childDef)) {
+    } else if (Program* prog = valuedcomponenti_cast<Program*>(childDef)) {
       if (subPrograms == nullptr) subPrograms = s.MakeProgramVec();
       program* sm = s.MakeProgram();
       sm->VpiName(child->getInstanceName());
@@ -2106,7 +2106,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
     VectorOfmodule* uhdm_top_modules = s.MakeModuleVec();
     for (ModuleInstance* inst : topLevelModules) {
       DesignComponent* component = inst->getDefinition();
-      ModuleDefinition* mod = dynamic_cast<ModuleDefinition*>(component);
+      ModuleDefinition* mod = valuedcomponenti_cast<ModuleDefinition*>(component);
       const auto& itr = componentMap.find(mod);
       module* m = s.MakeModule();
       module* def = (module*)itr->second;

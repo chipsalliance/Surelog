@@ -47,7 +47,7 @@ bool checkValidFunction(const DataType* dtype, const std::string& function,
   const DataType* def = dtype->getDefinition();
   if (type == VObjectType::slClass_declaration) {
     const ClassDefinition* the_class =
-        dynamic_cast<const ClassDefinition*>(dtype);
+        valuedcomponenti_cast<const ClassDefinition*>(dtype);
     if (the_class) {
       Function* func = the_class->getFunction(function);
       if (func)
@@ -55,7 +55,7 @@ bool checkValidFunction(const DataType* dtype, const std::string& function,
       else
         validFunction = false;
     } else {
-      the_class = dynamic_cast<const ClassDefinition*>(def);
+      the_class = valuedcomponenti_cast<const ClassDefinition*>(def);
       if (the_class) {
         Function* func = the_class->getFunction(function);
         if (func)
@@ -225,7 +225,7 @@ bool TestbenchElaboration::bindBaseClasses_() {
                         class_def.second->getNodeId(), classDefinition,
                         ErrorDefinition::COMP_UNDEFINED_BASE_CLASS);
       const ClassDefinition* bdef =
-          dynamic_cast<const ClassDefinition*>(the_def);
+          valuedcomponenti_cast<const ClassDefinition*>(the_def);
       class_def.second = bdef;
       if (class_def.second) {
         // Super
@@ -257,7 +257,7 @@ bool TestbenchElaboration::bindBaseClasses_() {
         }
         all_derived->push_back(derived);
       } else {
-        class_def.second = dynamic_cast<const Parameter*>(the_def);
+        class_def.second = datatype_cast<const Parameter*>(the_def);
         if (class_def.second) {
           // Super
           DataType* thisdt = new DataType(
@@ -407,7 +407,7 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
                                                SymbolTable* symbols,
                                                ErrorContainer* errors) {
   std::string datatypeName;
-  SubRoutineCallStmt* st = dynamic_cast<SubRoutineCallStmt*>(stmt);
+  SubRoutineCallStmt* st = statement_cast<SubRoutineCallStmt*>(stmt);
   std::vector<std::string> var_chain = st->getVarChainNames();
   std::string function = st->getFunc();
   bool validFunction = true;
@@ -630,7 +630,7 @@ bool TestbenchElaboration::bindFunctionBodies_() {
         switch (stmt_type) {
           case VObjectType::slPs_or_hierarchical_array_identifier: {
             // Foreach loop
-            ForeachLoopStmt* st = dynamic_cast<ForeachLoopStmt*>(stmt);
+            ForeachLoopStmt* st = statement_cast<ForeachLoopStmt*>(stmt);
             if (st) {
               bindForeachLoop_(classDefinition, stmt, st);
             }
@@ -638,7 +638,7 @@ bool TestbenchElaboration::bindFunctionBodies_() {
           }
           case VObjectType::slFor_initialization: {
             // For loop
-            ForLoopStmt* st = dynamic_cast<ForLoopStmt*>(stmt);
+            ForLoopStmt* st = statement_cast<ForLoopStmt*>(stmt);
             if (st) {
               bindForLoop_(classDefinition, stmt, st);
             }

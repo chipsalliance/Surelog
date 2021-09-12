@@ -398,7 +398,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
   Serializer& s = compileDesign->getSerializer();
   UHDM::VectorOftypespec* typespecs = nullptr;
   if (pstmt) {
-    UHDM::scope* scope = dynamic_cast<UHDM::scope*>(pstmt);
+    UHDM::scope* scope = any_cast<UHDM::scope*>(pstmt);
     if (scope) {
       typespecs = scope->Typespecs();
       if (typespecs == nullptr) {
@@ -475,7 +475,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
   }
   const std::string name = fC->SymName(type_name);
   std::string fullName = name;
-  if (Package* pack = dynamic_cast<Package*>(scope)) {
+  if (Package* pack = valuedcomponenti_cast<Package*>(scope)) {
     fullName = pack->getName() + "::" + name;
   }
   if (scope) {
@@ -531,7 +531,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       newTypeDef->setDefinition(st);
       UHDM::typespec* ts = compileTypespec(
           scope, fC, enum_base_type, compileDesign, nullptr, nullptr, reduce);
-      if (reduce && (dynamic_cast<Package*>(scope))) {
+      if (reduce && (valuedcomponenti_cast<Package*>(scope))) {
         ts->Instance(scope->getUhdmInstance());
       }
       if (array_tps) {
@@ -555,7 +555,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       newTypeDef->setDefinition(st);
       UHDM::typespec* ts = compileTypespec(
           scope, fC, enum_base_type, compileDesign, nullptr, nullptr, reduce);
-      if (reduce && (dynamic_cast<Package*>(scope))) {
+      if (reduce && (valuedcomponenti_cast<Package*>(scope))) {
         ts->Instance(scope->getUhdmInstance());
       }
       if (array_tps) {
@@ -627,7 +627,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
         the_enum->getFileContent()->EndColumn(the_enum->getDefinitionId()));
     // Enum basetype
     enum_t->Base_typespec(the_enum->getBaseTypespec());
-    if (reduce && (dynamic_cast<Package*>(scope))) {
+    if (reduce && (valuedcomponenti_cast<Package*>(scope))) {
       enum_t->Instance(scope->getUhdmInstance());
     }
     // Enum values
@@ -693,7 +693,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
 
       // Don't create the typespec here, as it is most likely going to be
       // incomplete at compilation time, except for packages
-      if (reduce && (dynamic_cast<Package*>(scope))) {
+      if (reduce && (valuedcomponenti_cast<Package*>(scope))) {
         UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign,
                                              nullptr, nullptr, reduce);
         if (ts && (ts->UhdmType() != uhdmclass_typespec)) {
@@ -761,7 +761,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign,
                                            nullptr, nullptr, false);
       if (ts) {
-        if (reduce && (dynamic_cast<Package*>(scope))) {
+        if (reduce && (valuedcomponenti_cast<Package*>(scope))) {
           ts->Instance(scope->getUhdmInstance());
         }
         ts->VpiName(name);
@@ -1246,7 +1246,7 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
                          NodeId signal, VObjectType type,
                          VObjectType signal_type, NodeId packed_dimension,
                          bool is_signed, bool is_var, NodeId nodeType) {
-  ModuleDefinition* module = dynamic_cast<ModuleDefinition*>(component);
+  ModuleDefinition* module = valuedcomponenti_cast<ModuleDefinition*>(component);
   VObjectType dir_type = slNoType;
   if (type == VObjectType::slInput_declaration)
     dir_type = slPortDir_Inp;
@@ -1303,7 +1303,7 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
     }
     return;
   }
-  Program* program = dynamic_cast<Program*>(component);
+  Program* program = valuedcomponenti_cast<Program*>(component);
   if (program) {
     while (signal) {
       for (auto& port : program->getPorts()) {
@@ -2124,7 +2124,7 @@ bool CompileHelper::isMultidimensional(UHDM::typespec* ts,
     UHDM_OBJECT_TYPE ttps = ts->UhdmType();
     if (ttps == uhdmlogic_typespec) {
       logic_typespec* lts = (logic_typespec*)ts;
-      if (component && dynamic_cast<Package*>(component)) {
+      if (component && valuedcomponenti_cast<Package*>(component)) {
         if (lts->Ranges() && lts->Ranges()->size() > 0) isMultiDimension = true;
       } else {
         if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
@@ -2307,7 +2307,7 @@ bool CompileHelper::compileParameterDeclaration(
         isMultiDimension = true;
       }
 
-      if (dynamic_cast<Package*>(component) && (instance == nullptr)) {
+      if (valuedcomponenti_cast<Package*>(component) && (instance == nullptr)) {
         Value* val = m_exprBuilder.evalExpr(fC, actual_value, component,
                                             true);  // Errors muted
         if (val->isValid()) {
@@ -2572,11 +2572,11 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
     if (tf) {
       if (tf->UhdmType() == uhdmfunction) {
         func_call* fcall = s.MakeFunc_call();
-        fcall->Function(dynamic_cast<function*>(tf));
+        fcall->Function(any_cast<function*>(tf));
         call = fcall;
       } else {
         task_call* tcall = s.MakeTask_call();
-        tcall->Task(dynamic_cast<task*>(tf));
+        tcall->Task(any_cast<task*>(tf));
         call = tcall;
       }
     }
@@ -2608,10 +2608,10 @@ VectorOfany* CompileHelper::compileTfCallArguments(
     return arguments;
   }
   VectorOfio_decl* io_decls = nullptr;
-  if (const func_call* tf = dynamic_cast<func_call*>(call)) {
+  if (const func_call* tf = any_cast<func_call*>(call)) {
     const function* func = tf->Function();
     if (func) io_decls = func->Io_decls();
-  } else if (const task_call* tf = dynamic_cast<task_call*>(call)) {
+  } else if (const task_call* tf = any_cast<task_call*>(call)) {
     const task* task = tf->Task();
     if (task) io_decls = task->Io_decls();
   }
@@ -2697,7 +2697,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
     NodeId Variable_lvalue = Operator_assignment;
     Delay_or_event_control = fC->Sibling(Variable_lvalue);
     NodeId Expression = fC->Sibling(Delay_or_event_control);
-    lhs_rf = dynamic_cast<expr*>(compileExpression(
+    lhs_rf = any_cast<expr*>(compileExpression(
         component, fC, Variable_lvalue, compileDesign, pstmt, instance));
     AssignOp_Assign = 0;
     if (fC->Type(Delay_or_event_control) == slDynamic_array_new) {
@@ -2733,7 +2733,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
       Hierarchical_identifier = Variable_lvalue;
     }
 
-    lhs_rf = dynamic_cast<expr*>(
+    lhs_rf = any_cast<expr*>(
         compileExpression(component, fC, Hierarchical_identifier, compileDesign,
                           pstmt, instance, false));
     NodeId Expression = 0;
@@ -2756,7 +2756,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
     NodeId Select = fC->Sibling(Hierarchical_identifier);
     NodeId Class_new = fC->Sibling(Select);
     NodeId List_of_arguments = fC->Child(Class_new);
-    lhs_rf = dynamic_cast<expr*>(
+    lhs_rf = any_cast<expr*>(
         compileExpression(component, fC, Hierarchical_identifier, compileDesign,
                           pstmt, instance));
     method_func_call* fcall = s.MakeMethod_func_call();

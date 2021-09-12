@@ -32,6 +32,7 @@ namespace SURELOG {
 class CompileProgram;
 
 class Program : public DesignComponent, public ClockingBlockHolder {
+  SURELOG_IMPLEMENT_RTTI_2_BASES(Program, DesignComponent, ClockingBlockHolder)
   friend class CompileProgram;
 
  public:

@@ -60,6 +60,7 @@ class ExprEval {
 };
 
 class DesignComponent : public ValuedComponentI, public PortNetHolder {
+  SURELOG_IMPLEMENT_RTTI_2_BASES(DesignComponent, ValuedComponentI, PortNetHolder)
  public:
   DesignComponent(const DesignComponent* parent, DesignComponent* definition)
       : ValuedComponentI(parent, definition),

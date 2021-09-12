@@ -41,6 +41,7 @@ namespace SURELOG {
 class CompileClass;
 
 class ClassDefinition : public DesignComponent, public DataType {
+  SURELOG_IMPLEMENT_RTTI_2_BASES(ClassDefinition, DesignComponent, DataType)
   friend class CompileClass;
 
  public:
@@ -127,5 +128,6 @@ class ClassDefinition : public DesignComponent, public DataType {
 };
 
 }  // namespace SURELOG
+SURELOG_IMPLEMENT_RTTI_VIRTUAL_CAST_FUNCTIONS(valuedcomponenti_cast, SURELOG::DataType)
 
 #endif /* CLASSDEFINITION_H */

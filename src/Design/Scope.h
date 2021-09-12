@@ -31,12 +31,14 @@
 #include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/VObjectTypes.h"
 #include "Testbench/Variable.h"
+#include "Utils/RTTI.h"
 
 namespace SURELOG {
 
 class Statement;
 
-class Scope {
+class Scope : public RTTI {
+  SURELOG_IMPLEMENT_RTTI(Scope, RTTI)
  public:
   typedef std::map<std::string, Variable*> VariableMap;
   typedef std::map<std::string, DataType*> DataTypeMap;
@@ -79,5 +81,6 @@ class Scope {
 };
 
 }  // namespace SURELOG
+SURELOG_IMPLEMENT_RTTI_VIRTUAL_CAST_FUNCTIONS(scope_cast, SURELOG::Scope)
 
 #endif /* SCOPE_H */

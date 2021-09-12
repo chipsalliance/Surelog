@@ -957,7 +957,7 @@ void SV3_1aTreeShapeListener::exitHierarchical_identifier(
 
   for (auto &o : ctx->children) {
     antlr4::tree::TerminalNode *tnode =
-        dynamic_cast<antlr4::tree::TerminalNode *>(o);
+        antlr_cast<antlr4::tree::TerminalNode *>(o);
     if (tnode != nullptr) {
       antlr4::Token *symbol = tnode->getSymbol();
       if (symbol->getType() == SV3_1aParser::Simple_identifier ||

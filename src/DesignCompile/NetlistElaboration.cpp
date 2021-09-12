@@ -124,7 +124,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
   bool en_replay =
       m_compileDesign->getCompiler()->getCommandLineParser()->replay();
   ModuleDefinition* mod =
-      dynamic_cast<ModuleDefinition*>(instance->getDefinition());
+      valuedcomponenti_cast<ModuleDefinition*>(instance->getDefinition());
   VectorOfparam_assign* assigns = netlist->param_assigns();
   if (!mod) {
     if (param_port) return true;
@@ -227,7 +227,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
         override = true;
         if (ModuleInstance* pinst = instance->getParent()) {
           ModuleDefinition* pmod =
-              dynamic_cast<ModuleDefinition*>(pinst->getDefinition());
+              valuedcomponenti_cast<ModuleDefinition*>(pinst->getDefinition());
           expr* rhs = (expr*)m_helper.compileExpression(
               pmod, tpm->getFileContent(), tpm->getNodeId(), m_compileDesign,
               nullptr, pinst, !isMultidimensional);
@@ -395,7 +395,7 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance, bool recurse) {
   elab_parameters_(instance, false);
 
   DesignComponent* childDef = instance->getDefinition();
-  if (ModuleDefinition* mm = dynamic_cast<ModuleDefinition*>(childDef)) {
+  if (ModuleDefinition* mm = valuedcomponenti_cast<ModuleDefinition*>(childDef)) {
     VObjectType insttype = instance->getType();
     if (insttype == VObjectType::slInterface_instantiation) {
       elab_interface_(instance->getParent(), instance,
@@ -1171,7 +1171,7 @@ bool NetlistElaboration::elab_generates_(ModuleInstance* instance) {
   Serializer& s = m_compileDesign->getSerializer();
   Netlist* netlist = instance->getNetlist();
   DesignComponent* comp_def = instance->getDefinition();
-  if (ModuleDefinition* mm = dynamic_cast<ModuleDefinition*>(comp_def)) {
+  if (ModuleDefinition* mm = valuedcomponenti_cast<ModuleDefinition*>(comp_def)) {
     VObjectType insttype = instance->getType();
     if (insttype == VObjectType::slConditional_generate_construct ||
         insttype == VObjectType::slLoop_generate_construct ||
@@ -1237,7 +1237,7 @@ bool NetlistElaboration::elab_interfaces_(ModuleInstance* instance) {
       child->setNetlist(netlist);
     }
     DesignComponent* childDef = child->getDefinition();
-    if (ModuleDefinition* mm = dynamic_cast<ModuleDefinition*>(childDef)) {
+    if (ModuleDefinition* mm = valuedcomponenti_cast<ModuleDefinition*>(childDef)) {
       VObjectType insttype = child->getType();
       if (insttype == VObjectType::slInterface_instantiation) {
         elab_interface_(instance, child, child->getInstanceName(),
@@ -1374,7 +1374,7 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
     // Nets
     if (dtype) {
       dtype = dtype->getActual();
-      if (const DummyType* en = dynamic_cast<const DummyType*>(dtype)) {
+      if (const DummyType* en = datatype_cast<const DummyType*>(dtype)) {
         UHDM::typespec* spec = en->getTypespec();
         if (spec->UhdmType() == uhdmlogic_typespec) {
           logic_net* logicn = s.MakeLogic_net();
@@ -1429,7 +1429,7 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           obj = var;
         }
 
-      } else if (const Enum* en = dynamic_cast<const Enum*>(dtype)) {
+      } else if (const Enum* en = datatype_cast<const Enum*>(dtype)) {
         enum_net* stv = s.MakeEnum_net();
         stv->Typespec(en->getTypespec());
         obj = stv;
@@ -1440,7 +1440,7 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           pnets->Elements()->push_back(stv);
           obj = pnets;
         }
-      } else if (const Struct* st = dynamic_cast<const Struct*>(dtype)) {
+      } else if (const Struct* st = datatype_cast<const Struct*>(dtype)) {
         struct_net* stv = s.MakeStruct_net();
         stv->Typespec(st->getTypespec());
         obj = stv;
@@ -1452,7 +1452,7 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           obj = pnets;
         }
       } else if (const SimpleType* sit =
-                     dynamic_cast<const SimpleType*>(dtype)) {
+                     datatype_cast<const SimpleType*>(dtype)) {
         UHDM::typespec* spec = sit->getTypespec();
         if (spec->UhdmType() == uhdmlogic_typespec) {
           logic_net* logicn = s.MakeLogic_net();
@@ -2027,21 +2027,20 @@ any* NetlistElaboration::bind_net_(ModuleInstance* instance,
       itr = symbols.find(basename);
       if (itr != symbols.end()) {
         BaseClass* baseclass = (*itr).second;
-        port* conn = dynamic_cast<port*>(baseclass);
+        port* conn = any_cast<port*>(baseclass);
         ref_obj* ref1 = nullptr;
         const interface* interf = nullptr;
         if (conn) {
-          ref1 = dynamic_cast<ref_obj*>((BaseClass*)conn->Low_conn());
+          ref1 = any_cast<ref_obj*>((BaseClass*)conn->Low_conn());
         }
         if (ref1) {
-          interf = dynamic_cast<interface*>((BaseClass*)ref1->Actual_group());
+          interf = any_cast<interface*>((BaseClass*)ref1->Actual_group());
         }
         if (interf == nullptr) {
-          interf = dynamic_cast<interface*>(baseclass);
+          interf = any_cast<interface*>(baseclass);
         }
         if ((interf == nullptr) && ref1) {
-          modport* mport =
-              dynamic_cast<modport*>((BaseClass*)ref1->Actual_group());
+          modport* mport = any_cast<modport*>((BaseClass*)ref1->Actual_group());
           if (mport) {
             interf = mport->Interface();
           }
@@ -2056,7 +2055,7 @@ any* NetlistElaboration::bind_net_(ModuleInstance* instance,
             }
           }
         } else {
-          modport* mport = dynamic_cast<modport*>(baseclass);
+          modport* mport = any_cast<modport*>(baseclass);
           if (mport) {
             VectorOfio_decl* ios = mport->Io_decls();
             if (ios) {

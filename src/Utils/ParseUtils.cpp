@@ -164,7 +164,7 @@ void ParseUtils::inOrderTraversal(std::vector<antlr4::Token*>& tokens,
     // Get the i-th child node of `parent`.
     antlr4::tree::ParseTree* child = parent->children[i];
     antlr4::tree::TerminalNode* node =
-        dynamic_cast<antlr4::tree::TerminalNode*>(child);
+        antlr_cast<antlr4::tree::TerminalNode*>(child);
     if (node) {
       // We found a leaf/terminal, add its Token to our list.
       tokens.push_back(node->getSymbol());

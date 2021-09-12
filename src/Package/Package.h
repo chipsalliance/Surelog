@@ -37,6 +37,7 @@ namespace SURELOG {
 class CompilePackage;
 
 class Package : public DesignComponent {
+  SURELOG_IMPLEMENT_RTTI(Package, DesignComponent)
   friend CompilePackage;
 
  public:

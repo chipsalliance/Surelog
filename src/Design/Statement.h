@@ -31,10 +31,12 @@
 #include "Design/Scope.h"
 #include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/VObjectTypes.h"
+#include "Utils/RTTI.h"
 
 namespace SURELOG {
 
-class Statement {
+class Statement : public RTTI {
+  SURELOG_IMPLEMENT_RTTI(Statement, RTTI)
  public:
   typedef std::vector<Statement*> StatementVector;
   Statement(Scope* scope, Statement* parentStmt, const FileContent* fileContent,
@@ -82,6 +84,7 @@ class SubRoutineArg {
 };
 
 class SubRoutineCallStmt : public Statement {
+  SURELOG_IMPLEMENT_RTTI(SubRoutineCallStmt, Statement)
  public:
   SubRoutineCallStmt(Scope* scope, Statement* parentStmt,
                      const FileContent* fileContent, NodeId node,
@@ -115,6 +118,7 @@ class SubRoutineCallStmt : public Statement {
 };
 
 class ForLoopStmt : public Scope, public Statement {
+  SURELOG_IMPLEMENT_RTTI_2_BASES(ForLoopStmt, Scope, Statement)
  public:
   ForLoopStmt(std::string name, Scope* scope, Statement* parentStmt,
               const FileContent* fileContent, NodeId node, VObjectType type)
@@ -144,6 +148,7 @@ class ForLoopStmt : public Scope, public Statement {
 };
 
 class ForeachLoopStmt : public Scope, public Statement {
+  SURELOG_IMPLEMENT_RTTI_2_BASES(ForeachLoopStmt, Scope, Statement)
  public:
   ForeachLoopStmt(std::string name, NodeId arrayId, Scope* scope,
                   Statement* parentStmt, const FileContent* fileContent,
@@ -163,5 +168,6 @@ class ForeachLoopStmt : public Scope, public Statement {
 };
 
 };  // namespace SURELOG
+SURELOG_IMPLEMENT_RTTI_VIRTUAL_CAST_FUNCTIONS(statement_cast, SURELOG::Statement)
 
 #endif /* STATEMENT_H */

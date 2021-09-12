@@ -24,6 +24,7 @@
 #include <vector>
 
 #include "headers/uhdm_forward_decl.h"
+#include "Utils/RTTI.h"
 
 #ifndef PORTNETHOLDER_H
 #define PORTNETHOLDER_H
@@ -31,7 +32,8 @@
 namespace SURELOG {
 class Signal;
 
-class PortNetHolder {
+class PortNetHolder : public RTTI {
+  SURELOG_IMPLEMENT_RTTI(PortNetHolder, RTTI)
  public:
   virtual ~PortNetHolder() {}  // virtual as used as interface
 

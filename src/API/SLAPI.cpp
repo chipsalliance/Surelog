@@ -274,7 +274,7 @@ std::vector<antlr4::ParserRuleContext*> SLgetChildrenContext(
     // Get the i-th child node of `parent`.
     antlr4::tree::ParseTree* child = ctx->children[i];
     antlr4::tree::TerminalNode* node =
-        dynamic_cast<antlr4::tree::TerminalNode*>(child);
+        antlr_cast<antlr4::tree::TerminalNode*>(child);
     if (node) {
       // Terminal node
     } else {

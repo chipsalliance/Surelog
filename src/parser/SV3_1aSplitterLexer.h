@@ -10,7 +10,7 @@
 
 
 class  SV3_1aSplitterLexer : public antlr4::Lexer {
-  IMPLEMENT_RTTI(SV3_1aSplitterLexer, antlr4::Lexer)
+  ANTLR_IMPLEMENT_RTTI(SV3_1aSplitterLexer, antlr4::Lexer)
 public:
   enum {
     One_line_comment = 1, Block_comment = 2, MODULE = 3, ENDMODULE = 4, 

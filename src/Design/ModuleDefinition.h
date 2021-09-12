@@ -43,6 +43,7 @@ namespace SURELOG {
 class CompileModule;
 
 class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
+  SURELOG_IMPLEMENT_RTTI_2_BASES(ModuleDefinition, DesignComponent, ClockingBlockHolder)
   friend CompileModule;
 
  public:

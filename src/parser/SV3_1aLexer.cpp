@@ -51,22 +51,22 @@ const atn::ATN& SV3_1aLexer::getATN() const {
 
 bool SV3_1aLexer::sempred(RuleContext *context, size_t ruleIndex, size_t predicateIndex) {
   switch (ruleIndex) {
-    case 84: return TYPESempred(parsetree_cast<antlr4::RuleContext>(context), predicateIndex);
-    case 89: return REFSempred(parsetree_cast<antlr4::RuleContext>(context), predicateIndex);
-    case 96: return NEWSempred(parsetree_cast<antlr4::RuleContext>(context), predicateIndex);
-    case 132: return BYTESempred(parsetree_cast<antlr4::RuleContext>(context), predicateIndex);
-    case 138: return BITSempred(parsetree_cast<antlr4::RuleContext>(context), predicateIndex);
-    case 139: return LOGICSempred(parsetree_cast<antlr4::RuleContext>(context), predicateIndex);
-    case 170: return VARSempred(parsetree_cast<antlr4::RuleContext>(context), predicateIndex);
-    case 188: return CONTEXTSempred(parsetree_cast<antlr4::RuleContext>(context), predicateIndex);
-    case 215: return EXPECTSempred(parsetree_cast<antlr4::RuleContext>(context), predicateIndex);
-    case 251: return SOFTSempred(parsetree_cast<antlr4::RuleContext>(context), predicateIndex);
-    case 287: return GLOBALSempred(parsetree_cast<antlr4::RuleContext>(context), predicateIndex);
-    case 333: return DOSempred(parsetree_cast<antlr4::RuleContext>(context), predicateIndex);
-    case 346: return THISSempred(parsetree_cast<antlr4::RuleContext>(context), predicateIndex);
-    case 348: return RANDOMIZESempred(parsetree_cast<antlr4::RuleContext>(context), predicateIndex);
-    case 349: return FINALSempred(parsetree_cast<antlr4::RuleContext>(context), predicateIndex);
-    case 362: return SAMPLESempred(parsetree_cast<antlr4::RuleContext>(context), predicateIndex);
+    case 84: return TYPESempred(antlr_cast<antlr4::RuleContext *>(context), predicateIndex);
+    case 89: return REFSempred(antlr_cast<antlr4::RuleContext *>(context), predicateIndex);
+    case 96: return NEWSempred(antlr_cast<antlr4::RuleContext *>(context), predicateIndex);
+    case 132: return BYTESempred(antlr_cast<antlr4::RuleContext *>(context), predicateIndex);
+    case 138: return BITSempred(antlr_cast<antlr4::RuleContext *>(context), predicateIndex);
+    case 139: return LOGICSempred(antlr_cast<antlr4::RuleContext *>(context), predicateIndex);
+    case 170: return VARSempred(antlr_cast<antlr4::RuleContext *>(context), predicateIndex);
+    case 188: return CONTEXTSempred(antlr_cast<antlr4::RuleContext *>(context), predicateIndex);
+    case 215: return EXPECTSempred(antlr_cast<antlr4::RuleContext *>(context), predicateIndex);
+    case 251: return SOFTSempred(antlr_cast<antlr4::RuleContext *>(context), predicateIndex);
+    case 287: return GLOBALSempred(antlr_cast<antlr4::RuleContext *>(context), predicateIndex);
+    case 333: return DOSempred(antlr_cast<antlr4::RuleContext *>(context), predicateIndex);
+    case 346: return THISSempred(antlr_cast<antlr4::RuleContext *>(context), predicateIndex);
+    case 348: return RANDOMIZESempred(antlr_cast<antlr4::RuleContext *>(context), predicateIndex);
+    case 349: return FINALSempred(antlr_cast<antlr4::RuleContext *>(context), predicateIndex);
+    case 362: return SAMPLESempred(antlr_cast<antlr4::RuleContext *>(context), predicateIndex);
 
   default:
     break;

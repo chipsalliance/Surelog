@@ -12,7 +12,7 @@
  * This interface defines an abstract listener for a parse tree produced by SV3_1aSplitterParser.
  */
 class  SV3_1aSplitterParserListener : public antlr4::tree::ParseTreeListener {
-IMPLEMENT_RTTI(SV3_1aSplitterParserListener, antlr4::tree::ParseTreeListener)
+ANTLR_IMPLEMENT_RTTI(SV3_1aSplitterParserListener, antlr4::tree::ParseTreeListener)
 public:
 
   virtual void enterSource_text(SV3_1aSplitterParser::Source_textContext *ctx) = 0;

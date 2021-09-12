@@ -58,7 +58,7 @@ Property* ClassDefinition::getProperty(const std::string& name) const {
     for (auto parent : getBaseClassMap()) {
       if (parent.second) {
         const ClassDefinition* cparent =
-            dynamic_cast<const ClassDefinition*>(parent.second);
+            valuedcomponenti_cast<const ClassDefinition*>(parent.second);
         if (cparent) {
           Property* d = cparent->getProperty(name);
           if (d) return d;
@@ -84,7 +84,7 @@ Function* ClassDefinition::getFunction(const std::string& name) const {
   for (const auto& parent : getBaseClassMap()) {
     if (parent.second) {
       const ClassDefinition* cparent =
-          dynamic_cast<const ClassDefinition*>(parent.second);
+          valuedcomponenti_cast<const ClassDefinition*>(parent.second);
       if (cparent) {
         Function* d = cparent->getFunction(name);
         if (d) return d;
@@ -105,7 +105,7 @@ TaskMethod* ClassDefinition::getTask(const std::string& name) const {
     for (const auto& parent : getBaseClassMap()) {
       if (parent.second) {
         const ClassDefinition* cparent =
-            dynamic_cast<const ClassDefinition*>(parent.second);
+            valuedcomponenti_cast<const ClassDefinition*>(parent.second);
         if (cparent) {
           TaskMethod* d = cparent->getTask(name);
           if (d) return d;
@@ -182,7 +182,7 @@ const DataType* ClassDefinition::getBaseDataType(
     for (auto parent : getBaseClassMap()) {
       if (parent.second) {
         const ClassDefinition* cparent =
-            dynamic_cast<const ClassDefinition*>(parent.second);
+            valuedcomponenti_cast<const ClassDefinition*>(parent.second);
         if (cparent) {
           const DataType* d = cparent->getBaseDataType(name);
           if (d) return d;
@@ -199,11 +199,11 @@ bool ClassDefinition::hasCompleteBaseSpecification() const {
   for (const auto& parent : getBaseClassMap()) {
     if (parent.second) {
       const ClassDefinition* cparent =
-          dynamic_cast<const ClassDefinition*>(parent.second);
+          valuedcomponenti_cast<const ClassDefinition*>(parent.second);
       if (cparent) {
         return cparent->hasCompleteBaseSpecification();
       }
-      const Parameter* param = dynamic_cast<const Parameter*>(parent.second);
+      const Parameter* param = datatype_cast<const Parameter*>(parent.second);
       if (param) return false;
     }
   }

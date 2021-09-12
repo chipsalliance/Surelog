@@ -23,6 +23,8 @@
 
 #ifndef VALUEDCOMPONENTI_H
 #define VALUEDCOMPONENTI_H
+
+#include "Utils/RTTI.h"
 #include <map>
 #include <string>
 
@@ -33,7 +35,8 @@ class expr;
 namespace SURELOG {
 class ExprBuilder;
 class Value;
-class ValuedComponentI {
+class ValuedComponentI : public RTTI {
+  SURELOG_IMPLEMENT_RTTI(ValuedComponentI, RTTI)
  public:
   ValuedComponentI(const ValuedComponentI* parentScope,
                    ValuedComponentI* definition)
@@ -68,6 +71,7 @@ class ValuedComponentI {
   std::map<std::string, UHDM::expr*> m_complexValues;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
+SURELOG_IMPLEMENT_RTTI_VIRTUAL_CAST_FUNCTIONS(valuedcomponenti_cast, SURELOG::ValuedComponentI)
 
 #endif /* VALUEDCOMPONENTI_H */

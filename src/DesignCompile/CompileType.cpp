@@ -348,18 +348,18 @@ const UHDM::typespec* bindTypespec(const std::string& name,
                                    SURELOG::ValuedComponentI* instance,
                                    Serializer& s) {
   const typespec* result = nullptr;
-  ModuleInstance* modInst = dynamic_cast<ModuleInstance*>(instance);
+  ModuleInstance* modInst = valuedcomponenti_cast<ModuleInstance*>(instance);
   while (modInst) {
     for (Parameter* param : modInst->getTypeParams()) {
       const std::string& pname = param->getName();
       if (pname == name) {
         any* uparam = param->getUhdmParam();
         if (uparam) {
-          type_parameter* tparam = dynamic_cast<type_parameter*>(uparam);
+          type_parameter* tparam = any_cast<type_parameter*>(uparam);
           if (tparam) {
             result = tparam->Typespec();
             ElaboratorListener listener(&s);
-            result = dynamic_cast<typespec*>(
+            result = any_cast<typespec*>(
                 UHDM::clone_tree((any*)result, s, &listener));
           }
         }
@@ -373,11 +373,11 @@ const UHDM::typespec* bindTypespec(const std::string& name,
         if (param) {
           any* uparam = param->getUhdmParam();
           if (uparam) {
-            type_parameter* tparam = dynamic_cast<type_parameter*>(uparam);
+            type_parameter* tparam = any_cast<type_parameter*>(uparam);
             if (tparam) {
               result = tparam->Typespec();
               ElaboratorListener listener(&s);
-              result = dynamic_cast<typespec*>(
+              result = any_cast<typespec*>(
                   UHDM::clone_tree((any*)result, s, &listener));
             }
           }
@@ -387,7 +387,7 @@ const UHDM::typespec* bindTypespec(const std::string& name,
           dt = dt->getActual();
           result = dt->getTypespec();
           ElaboratorListener listener(&s);
-          result = dynamic_cast<typespec*>(
+          result = any_cast<typespec*>(
               UHDM::clone_tree((any*)result, s, &listener));
         }
       }
@@ -451,9 +451,9 @@ typespec* CompileHelper::compileDatastructureTypespec(
     }
     TypeDef* parent_tpd = nullptr;
     while (dt) {
-      if (const TypeDef* tpd = dynamic_cast<const TypeDef*>(dt)) {
+      if (const TypeDef* tpd = datatype_cast<const TypeDef*>(dt)) {
         parent_tpd = (TypeDef*)tpd;
-      } else if (const Struct* st = dynamic_cast<const Struct*>(dt)) {
+      } else if (const Struct* st = datatype_cast<const Struct*>(dt)) {
         result = st->getTypespec();
         if (!suffixname.empty()) {
           struct_typespec* tpss = (struct_typespec*)result;
@@ -465,19 +465,19 @@ typespec* CompileHelper::compileDatastructureTypespec(
           }
         }
         break;
-      } else if (const Enum* en = dynamic_cast<const Enum*>(dt)) {
+      } else if (const Enum* en = datatype_cast<const Enum*>(dt)) {
         result = en->getTypespec();
         break;
-      } else if (const Union* un = dynamic_cast<const Union*>(dt)) {
+      } else if (const Union* un = datatype_cast<const Union*>(dt)) {
         result = un->getTypespec();
         break;
-      } else if (const DummyType* un = dynamic_cast<const DummyType*>(dt)) {
+      } else if (const DummyType* un = datatype_cast<const DummyType*>(dt)) {
         result = un->getTypespec();
-      } else if (const SimpleType* sit = dynamic_cast<const SimpleType*>(dt)) {
+      } else if (const SimpleType* sit = datatype_cast<const SimpleType*>(dt)) {
         result = sit->getTypespec();
         if (parent_tpd && result) {
           ElaboratorListener listener(&s);
-          typespec* new_result = dynamic_cast<typespec*>(
+          typespec* new_result = any_cast<typespec*>(
               UHDM::clone_tree((any*)result, s, &listener));
           if (new_result) {
             new_result->Typedef_alias(result);
@@ -485,12 +485,12 @@ typespec* CompileHelper::compileDatastructureTypespec(
           }
         }
         break;
-      } else if (/*const Parameter* par = */ dynamic_cast<const Parameter*>(
+      } else if (/*const Parameter* par = */ datatype_cast<const Parameter*>(
           dt)) {
         // Prevent circular definition
         return nullptr;
       } else if (const ClassDefinition* classDefn =
-                     dynamic_cast<const ClassDefinition*>(dt)) {
+                     valuedcomponenti_cast<const ClassDefinition*>(dt)) {
         class_typespec* ref = s.MakeClass_typespec();
         ref->Class_defn(classDefn->getUhdmDefinition());
         ref->VpiName(typeName);
@@ -737,8 +737,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
                              result, instance, reduce);
     }
     case VObjectType::slSystem_task: {
-      UHDM::constant* constant =
-          dynamic_cast<UHDM::constant*>(compileExpression(
+      UHDM::constant* constant = any_cast<UHDM::constant*>(compileExpression(
               component, fC, type, compileDesign, nullptr, instance, true));
       if (constant) {
         integer_typespec* var = s.MakeInteger_typespec();
@@ -940,8 +939,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       if (pack) {
         const DataType* dtype = pack->getDataType(name);
         if (dtype == nullptr) {
-          ClassDefinition* classDefn =
-              dynamic_cast<ClassDefinition*>(pack->getClassDefinition(name));
+          ClassDefinition* classDefn = pack->getClassDefinition(name);
           dtype = (const DataType*)classDefn;
           if (dtype) {
             class_typespec* ref = s.MakeClass_typespec();
@@ -957,20 +955,20 @@ UHDM::typespec* CompileHelper::compileTypespec(
           }
         }
         while (dtype) {
-          const TypeDef* typed = dynamic_cast<const TypeDef*>(dtype);
+          const TypeDef* typed = datatype_cast<const TypeDef*>(dtype);
           if (typed) {
             const DataType* dt = typed->getDataType();
-            if (const Enum* en = dynamic_cast<const Enum*>(dt)) {
+            if (const Enum* en = datatype_cast<const Enum*>(dt)) {
               result = en->getTypespec();
-            } else if (const Struct* st = dynamic_cast<const Struct*>(dt)) {
+            } else if (const Struct* st = datatype_cast<const Struct*>(dt)) {
               result = st->getTypespec();
-            } else if (const Union* un = dynamic_cast<const Union*>(dt)) {
+            } else if (const Union* un = datatype_cast<const Union*>(dt)) {
               result = un->getTypespec();
             } else if (const SimpleType* sit =
-                           dynamic_cast<const SimpleType*>(dt)) {
+                           datatype_cast<const SimpleType*>(dt)) {
               result = sit->getTypespec();
             } else if (const DummyType* sit =
-                           dynamic_cast<const DummyType*>(dt)) {
+                           datatype_cast<const DummyType*>(dt)) {
               result = sit->getTypespec();
             }
           }
@@ -986,7 +984,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
               const std::string& param_name = param->Lhs()->VpiName();
               if (param_name == name) {
                 const any* rhs = param->Rhs();
-                if (const expr* exp = dynamic_cast<const expr*>(rhs)) {
+                if (const expr* exp = any_cast<const expr*>(rhs)) {
                   UHDM::int_typespec* its = s.MakeInt_typespec();
                   its->VpiValue(exp->VpiValue());
                   result = its;
@@ -1122,7 +1120,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
         if (any* cast_to =
                 getValue(typeName, component, compileDesign, instance,
                          fC->getFileName(), fC->Line(type), nullptr, !reduce)) {
-          constant* c = dynamic_cast<constant*>(cast_to);
+          constant* c = any_cast<constant*>(cast_to);
           if (c) {
             integer_typespec* var = s.MakeInteger_typespec();
             var->VpiValue(c->VpiValue());
@@ -1152,7 +1150,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
               const std::string& param_name = param->Lhs()->VpiName();
               if (param_name == typeName) {
                 const any* rhs = param->Rhs();
-                if (const expr* exp = dynamic_cast<const expr*>(rhs)) {
+                if (const expr* exp = any_cast<const expr*>(rhs)) {
                   int_typespec* its = buildIntTypespec(
                       compileDesign, param->VpiFile(), typeName,
                       exp->VpiValue(), param->VpiLineNo(), param->VpiColumnNo(),
@@ -1170,7 +1168,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
         if (!result) {
           while (instance) {
             if (ModuleInstance* inst =
-                    dynamic_cast<ModuleInstance*>(instance)) {
+                    valuedcomponenti_cast<ModuleInstance*>(instance)) {
               if (inst->getNetlist()) {
                 UHDM::VectorOfparam_assign* param_assigns =
                     inst->getNetlist()->param_assigns();
@@ -1179,7 +1177,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
                     const std::string& param_name = param->Lhs()->VpiName();
                     if (param_name == typeName) {
                       const any* rhs = param->Rhs();
-                      if (const expr* exp = dynamic_cast<const expr*>(rhs)) {
+                      if (const expr* exp = any_cast<const expr*>(rhs)) {
                         int_typespec* its = buildIntTypespec(
                             compileDesign, param->VpiFile(), typeName,
                             exp->VpiValue(), param->VpiLineNo(),
@@ -1297,7 +1295,7 @@ UHDM::typespec* CompileHelper::elabTypespec(DesignComponent* component,
       ranges = tps->Ranges();
       if (ranges) {
         ElaboratorListener listener(&s);
-        bit_typespec* res = dynamic_cast<bit_typespec*>(
+        bit_typespec* res = any_cast<bit_typespec*>(
             UHDM::clone_tree((any*)spec, s, &listener));
         ranges = res->Ranges();
         result = res;
@@ -1309,7 +1307,7 @@ UHDM::typespec* CompileHelper::elabTypespec(DesignComponent* component,
       ranges = tps->Ranges();
       if (ranges) {
         ElaboratorListener listener(&s);
-        logic_typespec* res = dynamic_cast<logic_typespec*>(
+        logic_typespec* res = any_cast<logic_typespec*>(
             UHDM::clone_tree((any*)spec, s, &listener));
         ranges = res->Ranges();
         result = res;
@@ -1321,7 +1319,7 @@ UHDM::typespec* CompileHelper::elabTypespec(DesignComponent* component,
       ranges = tps->Ranges();
       if (ranges) {
         ElaboratorListener listener(&s);
-        array_typespec* res = dynamic_cast<array_typespec*>(
+        array_typespec* res = any_cast<array_typespec*>(
             UHDM::clone_tree((any*)spec, s, &listener));
         ranges = res->Ranges();
         result = res;
@@ -1333,7 +1331,7 @@ UHDM::typespec* CompileHelper::elabTypespec(DesignComponent* component,
       ranges = tps->Ranges();
       if (ranges) {
         ElaboratorListener listener(&s);
-        packed_array_typespec* res = dynamic_cast<packed_array_typespec*>(
+        packed_array_typespec* res = any_cast<packed_array_typespec*>(
             UHDM::clone_tree((any*)spec, s, &listener));
         ranges = res->Ranges();
         result = res;

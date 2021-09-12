@@ -34,6 +34,7 @@ class FileContent;
 class Enum;
 
 class TypeDef : public DataType {
+  SURELOG_IMPLEMENT_RTTI(TypeDef, DataType)
  public:
   TypeDef(const FileContent* fC, NodeId id, NodeId the_def,
           const std::string& name);
