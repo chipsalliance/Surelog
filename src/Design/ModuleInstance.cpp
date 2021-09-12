@@ -26,11 +26,13 @@
 #include <string>
 
 #include "Design/FileContent.h"
-#include "ElaboratorListener.h"
 #include "Library/Library.h"
 #include "SourceCompile/SymbolTable.h"
-#include "clone_tree.h"
-#include "uhdm.h"
+
+// UHDM
+#include <uhdm/ElaboratorListener.h>
+#include <uhdm/clone_tree.h>
+#include <uhdm/uhdm.h>
 
 using namespace SURELOG;
 using namespace UHDM;

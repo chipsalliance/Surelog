@@ -31,7 +31,9 @@
 #include "Design/FileContent.h"
 #include "Design/ModPort.h"
 #include "SourceCompile/SymbolTable.h"
-#include "headers/uhdm_forward_decl.h"
+
+// UHDM
+#include <uhdm/uhdm_forward_decl.h>
 
 namespace SURELOG {
 

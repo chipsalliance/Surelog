@@ -44,9 +44,9 @@
 #include "Utils/StringUtils.h"
 
 // UHDM
-#include "ElaboratorListener.h"
-#include "expr.h"
-#include "uhdm.h"
+#include <uhdm/ElaboratorListener.h>
+#include <uhdm/expr.h>
+#include <uhdm/uhdm.h>
 
 using namespace SURELOG;
 using namespace UHDM;
