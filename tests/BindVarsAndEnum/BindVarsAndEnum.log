@@ -679,6 +679,8 @@ design: (work@conditional_Fsm)
                       |vpiDecompile:2
                       |INT:2
                       |vpiSize:64
+                    |vpiInstance:
+                    \_module: work@conditional_Fsm (work@conditional_Fsm) dut.sv:1:1: , endln:18:10, parent:work@conditional_Fsm
   |vpiNet:
   \_logic_net: (work@conditional_Fsm.reset), line:1:36, parent:work@conditional_Fsm
   |vpiNet:
@@ -864,6 +866,128 @@ design: (work@conditional_Fsm)
                       |vpiDecompile:2
                       |INT:2
                       |vpiSize:64
+                    |vpiInstance:
+                    \_module: work@conditional_Fsm (work@conditional_Fsm) dut.sv:1:1: , endln:18:10, parent:work@conditional_Fsm
+                      |vpiDefName:work@conditional_Fsm
+                      |vpiFullName:work@conditional_Fsm
+                      |vpiPort:
+                      \_port: (reset), line:1:36, parent:work@conditional_Fsm
+                        |vpiName:reset
+                        |vpiDirection:1
+                        |vpiLowConn:
+                        \_ref_obj: 
+                          |vpiActual:
+                          \_logic_net: (work@conditional_Fsm.reset), line:1:36, parent:work@conditional_Fsm
+                            |vpiName:reset
+                            |vpiFullName:work@conditional_Fsm.reset
+                      |vpiPort:
+                      \_port: (increment), line:2:13, parent:work@conditional_Fsm
+                        |vpiName:increment
+                        |vpiDirection:1
+                        |vpiLowConn:
+                        \_ref_obj: 
+                          |vpiActual:
+                          \_logic_net: (work@conditional_Fsm.increment), line:2:13, parent:work@conditional_Fsm
+                            |vpiName:increment
+                            |vpiFullName:work@conditional_Fsm.increment
+                      |vpiPort:
+                      \_port: (count), line:3:14, parent:work@conditional_Fsm
+                        |vpiName:count
+                        |vpiDirection:2
+                        |vpiLowConn:
+                        \_ref_obj: 
+                          |vpiActual:
+                          \_logic_net: (work@conditional_Fsm.count), line:3:14, parent:work@conditional_Fsm
+                            |vpiName:count
+                            |vpiFullName:work@conditional_Fsm.count
+                      |vpiProcess:
+                      \_always: , line:11:3, endln:11:31, parent:work@conditional_Fsm
+                        |vpiAlwaysType:1
+                        |vpiStmt:
+                        \_delay_control: , line:11:10, endln:11:31
+                          |#10
+                          |vpiStmt:
+                          \_assignment: , line:11:16, endln:11:30
+                            |vpiOpType:82
+                            |vpiBlocking:1
+                            |vpiRhs:
+                            \_operation: , line:11:24, endln:11:25
+                              |vpiOpType:4
+                              |vpiOperand:
+                              \_ref_obj: (work@conditional_Fsm.clock), line:11:25, endln:11:30
+                                |vpiName:clock
+                                |vpiFullName:work@conditional_Fsm.clock
+                                |vpiActual:
+                                \_bit_var: (work@conditional_Fsm.clock), line:5:7, endln:5:12, parent:work@conditional_Fsm
+                            |vpiLhs:
+                            \_ref_obj: (work@conditional_Fsm.clock), line:11:16, endln:11:21
+                              |vpiName:clock
+                              |vpiFullName:work@conditional_Fsm.clock
+                              |vpiActual:
+                              \_bit_var: (work@conditional_Fsm.clock), line:5:7, endln:5:12, parent:work@conditional_Fsm
+                      |vpiProcess:
+                      \_always: , line:13:3, endln:17:4, parent:work@conditional_Fsm
+                        |vpiAlwaysType:3
+                        |vpiStmt:
+                        \_event_control: , line:13:13, endln:17:4
+                          |vpiCondition:
+                          \_operation: , line:13:15, endln:13:22
+                            |vpiOpType:39
+                            |vpiOperand:
+                            \_ref_obj: (work@conditional_Fsm.clock), line:13:23, endln:13:28
+                              |vpiName:clock
+                              |vpiFullName:work@conditional_Fsm.clock
+                              |vpiActual:
+                              \_bit_var: (work@conditional_Fsm.clock), line:5:7, endln:5:12, parent:work@conditional_Fsm
+                          |vpiStmt:
+                          \_begin: (work@conditional_Fsm), line:13:30, endln:17:4
+                            |vpiFullName:work@conditional_Fsm
+                            |vpiStmt:
+                            \_if_stmt: , line:14:3, endln:16:6, parent:work@conditional_Fsm
+                              |vpiCondition:
+                              \_ref_obj: (work@conditional_Fsm.reset), line:14:7, endln:14:12
+                                |vpiName:reset
+                                |vpiFullName:work@conditional_Fsm.reset
+                                |vpiActual:
+                                \_bit_var: (work@conditional_Fsm.reset), line:1:36, endln:1:41, parent:work@conditional_Fsm
+                              |vpiStmt:
+                              \_begin: (work@conditional_Fsm), line:14:14, endln:16:6
+                                |vpiFullName:work@conditional_Fsm
+                                |vpiStmt:
+                                \_assignment: , line:15:3, endln:15:22, parent:work@conditional_Fsm
+                                  |vpiOpType:82
+                                  |vpiRhs:
+                                  \_ref_obj: (work@conditional_Fsm.RESET), line:15:17, endln:15:22, parent:work@conditional_Fsm
+                                    |vpiName:RESET
+                                    |vpiFullName:work@conditional_Fsm.RESET
+                                    |vpiActual:
+                                    \_enum_const: (RESET), line:7:29, endln:7:34
+                                  |vpiLhs:
+                                  \_ref_obj: (work@conditional_Fsm.curr_state), line:15:3, endln:15:13, parent:work@conditional_Fsm
+                                    |vpiName:curr_state
+                                    |vpiFullName:work@conditional_Fsm.curr_state
+                                    |vpiActual:
+                                    \_enum_var: (work@conditional_Fsm.curr_state), line:8:9, endln:8:19, parent:work@conditional_Fsm
+                      |vpiNet:
+                      \_logic_net: (work@conditional_Fsm.reset), line:1:36, parent:work@conditional_Fsm
+                      |vpiNet:
+                      \_logic_net: (work@conditional_Fsm.increment), line:2:13, parent:work@conditional_Fsm
+                      |vpiNet:
+                      \_logic_net: (work@conditional_Fsm.count), line:3:14, parent:work@conditional_Fsm
+                      |vpiNet:
+                      \_logic_net: (work@conditional_Fsm.clock), line:5:7, parent:work@conditional_Fsm
+                        |vpiName:clock
+                        |vpiFullName:work@conditional_Fsm.clock
+                      |vpiNet:
+                      \_logic_net: (work@conditional_Fsm.curr_state), line:8:9, parent:work@conditional_Fsm
+                        |vpiName:curr_state
+                        |vpiFullName:work@conditional_Fsm.curr_state
+                      |vpiNet:
+                      \_logic_net: (work@conditional_Fsm.next_state), line:8:21, parent:work@conditional_Fsm
+                        |vpiName:next_state
+                        |vpiFullName:work@conditional_Fsm.next_state
+                      |vpiTypedef:
+                      \_enum_typespec: (state), line:7:59, endln:7:64
   |vpiVariables:
   \_bit_var: (work@conditional_Fsm.reset), line:1:36, endln:1:41, parent:work@conditional_Fsm
   |vpiVariables:

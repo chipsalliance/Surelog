@@ -1110,6 +1110,8 @@ design: (work@tlul_adapter_host)
                   |vpiName:b
                   |vpiTypespec:
                   \_int_typespec: , line:27:21, endln:27:24
+                |vpiInstance:
+                \_module: work@top (work@top) dut.sv:25:3: , endln:42:12, parent:work@tlul_adapter_host
             |vpiRange:
             \_range: , line:31:15, endln:31:18
               |vpiLeftRange:
@@ -1344,6 +1346,137 @@ design: (work@tlul_adapter_host)
                   |vpiName:b
                   |vpiTypespec:
                   \_int_typespec: , line:27:21, endln:27:24
+                |vpiInstance:
+                \_module: work@top (work@top) dut.sv:25:3: , endln:42:12, parent:work@tlul_adapter_host
+                  |vpiDefName:work@top
+                  |vpiFullName:work@top
+                  |vpiProcess:
+                  \_initial: , parent:work@top
+                    |vpiStmt:
+                    \_begin: (work@top), line:30:13, endln:33:8
+                      |vpiFullName:work@top
+                      |vpiStmt:
+                      \_assignment: , line:32:7, endln:32:38, parent:work@top
+                        |vpiOpType:82
+                        |vpiBlocking:1
+                        |vpiRhs:
+                        \_operation: , line:32:12, endln:32:38, parent:work@top
+                          |vpiOpType:76
+                          |vpiOperand:
+                          \_constant: , line:32:14, endln:32:15
+                          |vpiOperand:
+                          \_operation: , line:32:16, endln:32:36
+                            |vpiOpType:76
+                            |vpiOperand:
+                            \_constant: , line:32:18, endln:32:19
+                            |vpiOperand:
+                            \_operation: , line:32:20, endln:32:34
+                              |vpiOpType:75
+                              |vpiOperand:
+                              \_ref_obj: (work@top.a), line:32:22, endln:32:23
+                                |vpiName:a
+                                |vpiFullName:work@top.a
+                                |vpiActual:
+                                \_int_var: (work@top.a), line:28:9, endln:28:10, parent:work@top
+                              |vpiOperand:
+                              \_operation: , line:32:24, endln:32:33
+                                |vpiOpType:76
+                                |vpiOperand:
+                                \_constant: , line:32:26, endln:32:27
+                                |vpiOperand:
+                                \_ref_obj: (work@top.b), line:32:28, endln:32:29
+                                  |vpiName:b
+                                  |vpiFullName:work@top.b
+                                  |vpiActual:
+                                  \_int_var: (work@top.b), line:28:11, endln:28:12, parent:work@top
+                        |vpiLhs:
+                        \_ref_obj: (work@top.v1), line:32:7, endln:32:9, parent:work@top
+                          |vpiName:v1
+                          |vpiFullName:work@top.v1
+                          |vpiActual:
+                          \_array_var: (work@top.v1), parent:work@top
+                      |vpiVariables:
+                      \_array_var: (work@top.v1), parent:work@top
+                  |vpiProcess:
+                  \_always: , line:36:3, endln:40:6, parent:work@top
+                    |vpiAlwaysType:2
+                    |vpiStmt:
+                    \_named_begin: (work@top.p_outmux), line:36:15, endln:40:6
+                      |vpiName:p_outmux
+                      |vpiFullName:work@top.p_outmux
+                      |vpiStmt:
+                      \_if_stmt: , line:37:5, endln:39:8, parent:work@top.p_outmux
+                        |vpiCondition:
+                        \_operation: , line:37:9, endln:37:49
+                          |vpiOpType:20
+                          |vpiOperand:
+                          \_ref_obj: (work@top.p_outmux.selected_hart), line:37:9, endln:37:22, parent:work@top.p_outmux
+                            |vpiName:selected_hart
+                            |vpiFullName:work@top.p_outmux.selected_hart
+                          |vpiOperand:
+                          \_operation: , line:37:25, endln:37:49
+                            |vpiOpType:67
+                            |vpiOperand:
+                            \_ref_obj: (work@top.p_outmux.NrHarts), line:37:41, endln:37:48
+                              |vpiName:NrHarts
+                              |vpiFullName:work@top.p_outmux.NrHarts
+                            |vpiTypespec:
+                            \_integer_typespec: , line:37:26, endln:37:38
+                              |INT:3
+                        |vpiStmt:
+                        \_begin: (work@top.p_outmux), line:37:51, endln:39:8
+                          |vpiFullName:work@top.p_outmux
+                          |vpiStmt:
+                          \_assignment: , line:38:7, endln:38:41, parent:work@top.p_outmux
+                            |vpiOpType:82
+                            |vpiBlocking:1
+                            |vpiRhs:
+                            \_hier_path: (dmcontrol_q.resumereq), line:38:20, endln:38:41, parent:work@top.p_outmux
+                              |vpiName:dmcontrol_q.resumereq
+                              |vpiActual:
+                              \_ref_obj: (dmcontrol_q)
+                                |vpiName:dmcontrol_q
+                              |vpiActual:
+                              \_ref_obj: (resumereq)
+                                |vpiName:resumereq
+                            |vpiLhs:
+                            \_ref_obj: (work@top.p_outmux.resumereq_o), line:38:7, endln:38:18, parent:work@top.p_outmux
+                              |vpiName:resumereq_o
+                              |vpiFullName:work@top.p_outmux.resumereq_o
+                  |vpiNet:
+                  \_logic_net: (work@top.XYZ), line:26:25, parent:work@top
+                    |vpiName:XYZ
+                    |vpiFullName:work@top.XYZ
+                  |vpiNet:
+                  \_logic_net: (work@top.a), line:28:9, parent:work@top
+                    |vpiName:a
+                    |vpiFullName:work@top.a
+                  |vpiNet:
+                  \_logic_net: (work@top.b), line:28:11, parent:work@top
+                    |vpiName:b
+                    |vpiFullName:work@top.b
+                  |vpiNet:
+                  \_logic_net: (work@top.c), line:28:13, parent:work@top
+                    |vpiName:c
+                    |vpiFullName:work@top.c
+                  |vpiParameter:
+                  \_parameter: (work@top.HartSelLen), line:35:14, endln:35:28, parent:work@top
+                    |vpiName:HartSelLen
+                    |vpiFullName:work@top.HartSelLen
+                    |vpiLocalParam:1
+                    |UINT:2
+                  |vpiParamAssign:
+                  \_param_assign: , line:35:14, endln:35:28, parent:work@top
+                    |vpiRhs:
+                    \_constant: , line:35:27, endln:35:28
+                      |vpiConstType:9
+                      |vpiDecompile:2
+                      |vpiSize:64
+                      |UINT:2
+                    |vpiLhs:
+                    \_parameter: (work@top.HartSelLen), line:35:14, endln:35:28, parent:work@top
+                  |vpiTypedef:
+                  \_struct_typespec: (ab_t), line:27:13, endln:27:19
             |vpiRange:
             \_range: , line:31:15, endln:31:18
               |vpiLeftRange:
@@ -1418,7 +1551,6 @@ design: (work@tlul_adapter_host)
               |vpiFullName:work@top.p_outmux.NrHarts
             |vpiTypespec:
             \_integer_typespec: , line:37:26, endln:37:38
-              |INT:3
         |vpiStmt:
         \_begin: (work@top.p_outmux), line:37:51, endln:39:8
           |vpiFullName:work@top.p_outmux

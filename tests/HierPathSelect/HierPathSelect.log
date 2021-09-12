@@ -160,6 +160,8 @@ design: (work@dut2)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+    |vpiInstance:
+    \_module: work@dut2 (work@dut2) dut.sv:1:1: , endln:10:10, parent:work@dut2
 |uhdmtopModules:
 \_module: work@dut2 (work@dut2) dut.sv:1:1: , endln:10:10
   |vpiDefName:work@dut2
@@ -205,15 +207,40 @@ design: (work@dut2)
                     |vpiDecompile:0
                     |vpiSize:64
                     |UINT:0
+            |vpiInstance:
+            \_module: work@dut2 (work@dut2) dut.sv:1:1: , endln:10:10, parent:work@dut2
+              |vpiDefName:work@dut2
+              |vpiFullName:work@dut2
+              |vpiContAssign:
+              \_cont_assign: , line:8:8, endln:8:28, parent:work@dut2
+                |vpiRhs:
+                \_constant: , line:8:24, endln:8:28
+                |vpiLhs:
+                \_hier_path: (read_buf.q[1]), line:8:8, endln:8:16
+                  |vpiName:read_buf.q[1]
+                  |vpiActual:
+                  \_ref_obj: (read_buf), parent:read_buf.q[1]
+                    |vpiName:read_buf
+                  |vpiActual:
+                  \_bit_select: (q[1]), line:8:17, endln:8:18, parent:read_buf.q[1]
+                    |vpiName:q[1]
+                    |vpiIndex:
+                    \_constant: , line:8:19, endln:8:20
+                      |vpiConstType:9
+                      |vpiDecompile:1
+                      |vpiSize:64
+                      |UINT:1
+              |vpiNet:
+              \_logic_net: (work@dut2.read_buf), line:6:16, parent:work@dut2
+                |vpiName:read_buf
+                |vpiFullName:work@dut2.read_buf
+              |vpiTypedef:
+              \_struct_typespec: (struct_typedef), line:3:9, endln:3:15
       |vpiActual:
       \_bit_select: (q[1]), line:8:17, endln:8:18, parent:work@dut2.read_buf.q[1]
         |vpiName:q[1]
         |vpiIndex:
         \_constant: , line:8:19, endln:8:20
-          |vpiConstType:9
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
   |vpiNet:
   \_struct_net: (work@dut2.read_buf), line:6:16, endln:6:24, parent:work@dut2
   |vpiTypedef:

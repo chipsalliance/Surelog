@@ -267,6 +267,8 @@ design: (work@top)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
   |vpiDefName:work@top
@@ -385,6 +387,59 @@ design: (work@top)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
+      |vpiDefName:work@top
+      |vpiFullName:work@top
+      |vpiPort:
+      \_port: (o), line:1:32, parent:work@top
+        |vpiName:o
+        |vpiDirection:2
+        |vpiLowConn:
+        \_ref_obj: 
+          |vpiActual:
+          \_logic_net: (work@top.o), line:1:32, parent:work@top
+            |vpiName:o
+            |vpiFullName:work@top.o
+            |vpiNetType:36
+      |vpiContAssign:
+      \_cont_assign: , line:8:11, endln:8:37, parent:work@top
+        |vpiRhs:
+        \_part_select: , line:8:15, endln:8:37, parent:work@top.dr_x
+          |vpiConstantSelect:1
+          |vpiParent:
+          \_ref_obj: dr_x (work@top.dr_x)
+          |vpiLeftRange:
+          \_operation: , line:8:20, endln:8:32
+            |vpiOpType:11
+            |vpiOperand:
+            \_sys_func_call: ($bits), line:8:20, endln:8:32
+              |vpiName:$bits
+              |vpiArgument:
+              \_operation: , line:8:26, endln:8:27, parent:$bits
+                |vpiOpType:4
+                |vpiOperand:
+                \_ref_obj: (dr_q), line:8:27, endln:8:31
+                  |vpiName:dr_q
+                  |vpiActual:
+                  \_logic_var: (work@top.dr_q), line:6:28, endln:6:32, parent:work@top
+            |vpiOperand:
+            \_constant: , line:8:33, endln:8:34
+          |vpiRightRange:
+          \_constant: , line:8:35, endln:8:36
+        |vpiLhs:
+        \_ref_obj: (work@top.o), line:8:11, endln:8:12
+          |vpiName:o
+          |vpiFullName:work@top.o
+      |vpiNet:
+      \_logic_net: (work@top.o), line:1:32, parent:work@top
+      |vpiNet:
+      \_logic_net: (work@top.dr_q), line:6:28, parent:work@top
+        |vpiName:dr_q
+        |vpiFullName:work@top.dr_q
+        |vpiNetType:36
+      |vpiTypedef:
+      \_struct_typespec: (dmi_t), line:2:12, endln:2:18
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

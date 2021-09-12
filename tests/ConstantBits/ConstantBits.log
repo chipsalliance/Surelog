@@ -248,6 +248,8 @@ design: (work@dut)
           |vpiName:icache_enable
           |vpiTypespec:
           \_logic_typespec: , line:7:11, endln:7:16
+        |vpiInstance:
+        \_module: work@dut (work@dut) dut.sv:1:1: , endln:12:10, parent:work@dut
     |vpiLhs:
     \_ref_obj: (work@dut.cpuctrl_wdata), line:11:16, endln:11:29
       |vpiName:cpuctrl_wdata
@@ -336,6 +338,46 @@ design: (work@dut)
           |vpiName:icache_enable
           |vpiTypespec:
           \_logic_typespec: , line:7:11, endln:7:16
+        |vpiInstance:
+        \_module: work@dut (work@dut) dut.sv:1:1: , endln:12:10, parent:work@dut
+          |vpiDefName:work@dut
+          |vpiFullName:work@dut
+          |vpiContAssign:
+          \_cont_assign: , line:11:16, endln:11:81, parent:work@dut
+            |vpiRhs:
+            \_operation: , line:11:32, endln:11:81
+              |vpiOpType:67
+              |vpiOperand:
+              \_part_select: , line:11:44, endln:11:80, parent:work@dut.csr_wdata_int
+                |vpiConstantSelect:1
+                |vpiParent:
+                \_ref_obj: csr_wdata_int (work@dut.csr_wdata_int)
+                |vpiLeftRange:
+                \_operation: , line:11:58, endln:11:75
+                  |vpiOpType:11
+                  |vpiOperand:
+                  \_constant: , line:11:58, endln:11:75
+                  |vpiOperand:
+                  \_constant: , line:11:76, endln:11:77
+                |vpiRightRange:
+                \_constant: , line:11:78, endln:11:79
+              |vpiTypespec:
+              \_struct_typespec: (cpu_ctrl_t), line:3:17, endln:3:23
+            |vpiLhs:
+            \_ref_obj: (work@dut.cpuctrl_wdata), line:11:16, endln:11:29
+              |vpiName:cpuctrl_wdata
+              |vpiFullName:work@dut.cpuctrl_wdata
+          |vpiNet:
+          \_logic_net: (work@dut.cpuctrl_wdata), line:9:22, parent:work@dut
+            |vpiName:cpuctrl_wdata
+            |vpiFullName:work@dut.cpuctrl_wdata
+          |vpiNet:
+          \_logic_net: (work@dut.csr_wdata_int), line:10:22, parent:work@dut
+            |vpiName:csr_wdata_int
+            |vpiFullName:work@dut.csr_wdata_int
+            |vpiNetType:36
+          |vpiTypedef:
+          \_struct_typespec: (cpu_ctrl_t), line:3:17, endln:3:23
     |vpiLhs:
     \_ref_obj: (work@dut.cpuctrl_wdata), line:11:16, endln:11:29
       |vpiName:cpuctrl_wdata

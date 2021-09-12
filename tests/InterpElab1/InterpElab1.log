@@ -447,6 +447,8 @@ design: (work@dut)
       |vpiDecompile:2'b11
       |UINT:3
       |vpiSize:2
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:21:10, parent:work@dut
   |vpiTypedef:
   \_struct_typespec: (lfsr_data_t), line:13:13, endln:13:19
     |vpiPacked:1
@@ -554,6 +556,8 @@ design: (work@dut)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:21:10, parent:work@dut
 |uhdmtopModules:
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:21:10
   |vpiDefName:work@dut
@@ -666,99 +670,166 @@ design: (work@dut)
       |vpiDecompile:2'b11
       |UINT:3
       |vpiSize:2
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:21:10, parent:work@dut
+      |vpiDefName:work@dut
+      |vpiFullName:work@dut
+      |vpiParameter:
+      \_parameter: (work@dut.TIMEOUT_CNT_W), line:3:28, endln:3:45, parent:work@dut
+        |vpiName:TIMEOUT_CNT_W
+        |vpiFullName:work@dut.TIMEOUT_CNT_W
+        |vpiLocalParam:1
+        |UINT:5
+        |vpiTypespec:
+        \_int_typespec: (TIMEOUT_CNT_W), line:3:15, endln:3:18, parent:work@dut.TIMEOUT_CNT_W
+      |vpiParameter:
+      \_parameter: (work@dut.OP_W), line:4:28, endln:4:45, parent:work@dut
+        |vpiName:OP_W
+        |vpiFullName:work@dut.OP_W
+        |vpiLocalParam:1
+        |UINT:5
+        |vpiTypespec:
+        \_int_typespec: (OP_W), line:4:15, endln:4:18, parent:work@dut.OP_W
+      |vpiParameter:
+      \_parameter: (work@dut.LFSR_OUT_W), line:19:29, endln:19:60, parent:work@dut
+        |vpiName:LFSR_OUT_W
+        |vpiFullName:work@dut.LFSR_OUT_W
+        |vpiLocalParam:1
+        |vpiTypespec:
+        \_int_typespec: (LFSR_OUT_W), line:19:16, endln:19:19, parent:work@dut.LFSR_OUT_W
+      |vpiParamAssign:
+      \_param_assign: , line:3:28, endln:3:45, parent:work@dut
+        |vpiRhs:
+        \_constant: , line:3:44, endln:3:45
+          |vpiConstType:9
+          |vpiDecompile:5
+          |vpiSize:64
+          |UINT:5
+          |vpiTypespec:
+          \_int_typespec: (TIMEOUT_CNT_W), line:3:15, endln:3:18, parent:work@dut.TIMEOUT_CNT_W
+        |vpiLhs:
+        \_parameter: (work@dut.TIMEOUT_CNT_W), line:3:28, endln:3:45, parent:work@dut
+      |vpiParamAssign:
+      \_param_assign: , line:4:28, endln:4:45, parent:work@dut
+        |vpiRhs:
+        \_constant: , line:4:44, endln:4:45
+          |vpiConstType:9
+          |vpiDecompile:5
+          |vpiSize:64
+          |UINT:5
+          |vpiTypespec:
+          \_int_typespec: (OP_W), line:4:15, endln:4:18, parent:work@dut.OP_W
+        |vpiLhs:
+        \_parameter: (work@dut.OP_W), line:4:28, endln:4:45, parent:work@dut
+      |vpiParamAssign:
+      \_param_assign: , line:19:29, endln:19:60, parent:work@dut
+        |vpiRhs:
+        \_sys_func_call: ($bits), line:19:42, endln:19:60
+          |vpiName:$bits
+          |vpiArgument:
+          \_ref_obj: (lfsr_data_t), line:19:48, endln:19:59, parent:$bits
+            |vpiName:lfsr_data_t
+        |vpiLhs:
+        \_parameter: (work@dut.LFSR_OUT_W), line:19:29, endln:19:60, parent:work@dut
+      |vpiTypedef:
+      \_enum_typespec: (dummy_instr_e), line:11:7, endln:11:20
+      |vpiTypedef:
+      \_struct_typespec: (lfsr_data_t), line:13:13, endln:13:19
+        |vpiPacked:1
+        |vpiName:lfsr_data_t
+        |vpiTypespecMember:
+        \_typespec_member: (instr_type), line:14:33, endln:14:43
+          |vpiName:instr_type
+          |vpiTypespec:
+          \_enum_typespec: (dummy_instr_e), line:11:7, endln:11:20
+        |vpiTypespecMember:
+        \_typespec_member: (op_b), line:15:33, endln:15:37
+          |vpiName:op_b
+          |vpiTypespec:
+          \_logic_typespec: , line:15:7, endln:15:12
+            |vpiRange:
+            \_range: , line:15:14, endln:15:22, parent:lfsr_data_t
+              |vpiLeftRange:
+              \_operation: , line:15:14, endln:15:18
+                |vpiOpType:11
+                |vpiOperand:
+                \_ref_obj: (lfsr_data_t.OP_W), line:15:14, endln:15:18, parent:lfsr_data_t
+                  |vpiName:OP_W
+                  |vpiFullName:lfsr_data_t.OP_W
+                  |vpiActual:
+                  \_parameter: (work@dut.OP_W), line:4:28, endln:4:45, parent:work@dut
+                |vpiOperand:
+                \_constant: , line:15:19, endln:15:20
+                  |vpiConstType:9
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+              |vpiRightRange:
+              \_constant: , line:15:21, endln:15:22
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+        |vpiTypespecMember:
+        \_typespec_member: (op_a), line:16:33, endln:16:37
+          |vpiName:op_a
+          |vpiTypespec:
+          \_logic_typespec: , line:16:7, endln:16:12
+            |vpiRange:
+            \_range: , line:16:14, endln:16:22, parent:lfsr_data_t
+              |vpiLeftRange:
+              \_operation: , line:16:14, endln:16:18
+                |vpiOpType:11
+                |vpiOperand:
+                \_ref_obj: (lfsr_data_t.OP_W), line:16:14, endln:16:18, parent:lfsr_data_t
+                  |vpiName:OP_W
+                  |vpiFullName:lfsr_data_t.OP_W
+                  |vpiActual:
+                  \_parameter: (work@dut.OP_W), line:4:28, endln:4:45, parent:work@dut
+                |vpiOperand:
+                \_constant: , line:16:19, endln:16:20
+                  |vpiConstType:9
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+              |vpiRightRange:
+              \_constant: , line:16:21, endln:16:22
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+        |vpiTypespecMember:
+        \_typespec_member: (cnt), line:17:33, endln:17:36
+          |vpiName:cnt
+          |vpiTypespec:
+          \_logic_typespec: , line:17:7, endln:17:12
+            |vpiRange:
+            \_range: , line:17:14, endln:17:31, parent:lfsr_data_t
+              |vpiLeftRange:
+              \_operation: , line:17:14, endln:17:27
+                |vpiOpType:11
+                |vpiOperand:
+                \_ref_obj: (lfsr_data_t.TIMEOUT_CNT_W), line:17:14, endln:17:27, parent:lfsr_data_t
+                  |vpiName:TIMEOUT_CNT_W
+                  |vpiFullName:lfsr_data_t.TIMEOUT_CNT_W
+                  |vpiActual:
+                  \_parameter: (work@dut.TIMEOUT_CNT_W), line:3:28, endln:3:45, parent:work@dut
+                |vpiOperand:
+                \_constant: , line:17:28, endln:17:29
+                  |vpiConstType:9
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+              |vpiRightRange:
+              \_constant: , line:17:30, endln:17:31
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+        |vpiInstance:
+        \_module: work@dut (work@dut) dut.sv:1:1: , endln:21:10, parent:work@dut
   |vpiTypedef:
   \_struct_typespec: (lfsr_data_t), line:13:13, endln:13:19
-    |vpiPacked:1
-    |vpiName:lfsr_data_t
-    |vpiTypespecMember:
-    \_typespec_member: (instr_type), line:14:33, endln:14:43
-      |vpiName:instr_type
-      |vpiTypespec:
-      \_enum_typespec: (dummy_instr_e), line:11:7, endln:11:20
-    |vpiTypespecMember:
-    \_typespec_member: (op_b), line:15:33, endln:15:37
-      |vpiName:op_b
-      |vpiTypespec:
-      \_logic_typespec: , line:15:7, endln:15:12
-        |vpiRange:
-        \_range: , line:15:14, endln:15:22, parent:lfsr_data_t
-          |vpiLeftRange:
-          \_operation: , line:15:14, endln:15:18
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (lfsr_data_t.OP_W), line:15:14, endln:15:18, parent:lfsr_data_t
-              |vpiName:OP_W
-              |vpiFullName:lfsr_data_t.OP_W
-              |vpiActual:
-              \_parameter: (work@dut.OP_W), line:4:28, endln:4:45, parent:work@dut
-            |vpiOperand:
-            \_constant: , line:15:19, endln:15:20
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-          |vpiRightRange:
-          \_constant: , line:15:21, endln:15:22
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-    |vpiTypespecMember:
-    \_typespec_member: (op_a), line:16:33, endln:16:37
-      |vpiName:op_a
-      |vpiTypespec:
-      \_logic_typespec: , line:16:7, endln:16:12
-        |vpiRange:
-        \_range: , line:16:14, endln:16:22, parent:lfsr_data_t
-          |vpiLeftRange:
-          \_operation: , line:16:14, endln:16:18
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (lfsr_data_t.OP_W), line:16:14, endln:16:18, parent:lfsr_data_t
-              |vpiName:OP_W
-              |vpiFullName:lfsr_data_t.OP_W
-              |vpiActual:
-              \_parameter: (work@dut.OP_W), line:4:28, endln:4:45, parent:work@dut
-            |vpiOperand:
-            \_constant: , line:16:19, endln:16:20
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-          |vpiRightRange:
-          \_constant: , line:16:21, endln:16:22
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-    |vpiTypespecMember:
-    \_typespec_member: (cnt), line:17:33, endln:17:36
-      |vpiName:cnt
-      |vpiTypespec:
-      \_logic_typespec: , line:17:7, endln:17:12
-        |vpiRange:
-        \_range: , line:17:14, endln:17:31, parent:lfsr_data_t
-          |vpiLeftRange:
-          \_operation: , line:17:14, endln:17:27
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (lfsr_data_t.TIMEOUT_CNT_W), line:17:14, endln:17:27, parent:lfsr_data_t
-              |vpiName:TIMEOUT_CNT_W
-              |vpiFullName:lfsr_data_t.TIMEOUT_CNT_W
-              |vpiActual:
-              \_parameter: (work@dut.TIMEOUT_CNT_W), line:3:28, endln:3:45, parent:work@dut
-            |vpiOperand:
-            \_constant: , line:17:28, endln:17:29
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-          |vpiRightRange:
-          \_constant: , line:17:30, endln:17:31
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
