@@ -182,6 +182,8 @@ design: (work@top)
       |vpiName:nonce
       |vpiTypespec:
       \_int_typespec: , line:4:7, endln:4:10
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:12:10, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:12:10
   |vpiDefName:work@top
@@ -268,6 +270,48 @@ design: (work@top)
           |vpiName:nonce
           |vpiTypespec:
           \_int_typespec: , line:4:7, endln:4:10
+        |vpiInstance:
+        \_module: work@top (work@top) dut.sv:1:1: , endln:12:10, parent:work@top
+          |vpiDefName:work@top
+          |vpiFullName:work@top
+          |vpiPort:
+          \_port: (o), line:1:23, parent:work@top
+            |vpiName:o
+            |vpiDirection:2
+            |vpiLowConn:
+            \_ref_obj: 
+              |vpiActual:
+              \_logic_net: (work@top.o), line:1:23, parent:work@top
+                |vpiName:o
+                |vpiFullName:work@top.o
+          |vpiContAssign:
+          \_cont_assign: , line:9:11, endln:9:40, parent:work@top
+            |vpiRhs:
+            \_constant: , line:9:39, endln:9:40
+            |vpiLhs:
+            \_hier_path: (sram_otp_key_o[...].nonce), line:9:11, endln:9:25
+              |vpiName:sram_otp_key_o[...].nonce
+              |vpiActual:
+              \_bit_select: (sram_otp_key_o)
+                |vpiName:sram_otp_key_o
+                |vpiIndex:
+                \_operation: , line:9:26, endln:9:27
+                  |vpiOpType:11
+                  |vpiOperand:
+                  \_constant: , line:9:26, endln:9:27
+                  |vpiOperand:
+                  \_constant: , line:9:28, endln:9:29
+              |vpiActual:
+              \_ref_obj: (nonce)
+                |vpiName:nonce
+          |vpiNet:
+          \_logic_net: (work@top.o), line:1:23, parent:work@top
+          |vpiNet:
+          \_logic_net: (work@top.sram_otp_key_o), line:7:29, parent:work@top
+            |vpiName:sram_otp_key_o
+            |vpiFullName:work@top.sram_otp_key_o
+          |vpiTypedef:
+          \_struct_typespec: (sram_otp_key_rsp_t), line:3:12, endln:3:18
   |vpiTypedef:
   \_struct_typespec: (sram_otp_key_rsp_t), line:3:12, endln:3:18
 ===================

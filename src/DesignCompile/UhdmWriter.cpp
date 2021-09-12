@@ -545,7 +545,13 @@ void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
         tps->VpiName(newName);
       }
     }
+
     if (tps) {
+      if (!tps->Instance()) {
+        if (parent->UhdmType() != uhdmclass_defn)
+          tps->Instance((instance*)parent);
+      }
+
       if (ids.find(tps->UhdmId()) == ids.end()) {
         dest_typespecs->push_back(tps);
         ids.insert(tps->UhdmId());

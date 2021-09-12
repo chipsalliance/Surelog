@@ -396,6 +396,8 @@ design: (work@dff0_test)
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+    |vpiInstance:
+    \_interface: work@AXI_BUS (work@AXI_BUS) top.v:8:1: , endln:26:13, parent:work@dff0_test
 |uhdmallInterfaces:
 \_interface: work@mem_if (work@mem_if) top.v:29:1: , endln:34:13, parent:work@dff0_test
   |vpiDefName:work@mem_if
@@ -520,6 +522,8 @@ design: (work@dff0_test)
       |vpiDecompile:3
       |INT:3
       |vpiSize:64
+    |vpiInstance:
+    \_module: work@memory_ctrl1 (work@memory_ctrl1) top.v:36:1: , endln:43:10, parent:work@dff0_test
 |uhdmallModules:
 \_module: work@memory_ctrl2 (work@memory_ctrl2) top.v:45:1: , endln:53:10, parent:work@dff0_test
   |vpiDefName:work@memory_ctrl2
@@ -571,6 +575,8 @@ design: (work@dff0_test)
       |vpiDecompile:3
       |INT:3
       |vpiSize:64
+    |vpiInstance:
+    \_module: work@memory_ctrl2 (work@memory_ctrl2) top.v:45:1: , endln:53:10, parent:work@dff0_test
 |uhdmtopModules:
 \_module: work@dff0_test (work@dff0_test) top.v:1:1: , endln:5:10
   |vpiDefName:work@dff0_test
@@ -669,6 +675,57 @@ design: (work@dff0_test)
         |vpiDecompile:3
         |INT:3
         |vpiSize:64
+      |vpiInstance:
+      \_module: work@memory_ctrl1 (work@memory_ctrl1) top.v:36:1: , endln:43:10, parent:work@dff0_test
+        |vpiDefName:work@memory_ctrl1
+        |vpiFullName:work@memory_ctrl1
+        |vpiPort:
+        \_port: (sif), line:36:37, parent:work@memory_ctrl1
+          |vpiName:sif
+          |vpiDirection:3
+          |vpiLowConn:
+          \_ref_obj: 
+            |vpiActual:
+            \_interface: work@mem_if (work@mem_if) top.v:29:1: , endln:34:13, parent:work@dff0_test
+              |vpiDefName:work@mem_if
+              |vpiFullName:work@mem_if
+              |vpiModport:
+              \_modport: (memory), parent:work@mem_if
+                |vpiName:memory
+                |vpiIODecl:
+                \_io_decl: (clk)
+                  |vpiName:clk
+                  |vpiDirection:2
+              |vpiModport:
+              \_modport: (system), parent:work@mem_if
+                |vpiName:system
+                |vpiIODecl:
+                \_io_decl: (clk)
+                  |vpiName:clk
+                  |vpiDirection:1
+              |vpiPort:
+              \_port: (clk), line:29:30, parent:work@mem_if
+                |vpiName:clk
+                |vpiDirection:1
+                |vpiLowConn:
+                \_ref_obj: 
+                  |vpiActual:
+                  \_logic_net: (work@mem_if.clk), line:29:30, parent:work@mem_if
+                    |vpiName:clk
+                    |vpiFullName:work@mem_if.clk
+                    |vpiNetType:1
+              |vpiNet:
+              \_logic_net: (work@mem_if.clk), line:29:30, parent:work@mem_if
+        |vpiNet:
+        \_logic_net: (work@memory_ctrl1.state), line:40:7, parent:work@memory_ctrl1
+          |vpiName:state
+          |vpiFullName:work@memory_ctrl1.state
+        |vpiNet:
+        \_logic_net: (work@memory_ctrl1.sif), line:36:37, parent:work@memory_ctrl1
+          |vpiName:sif
+          |vpiFullName:work@memory_ctrl1.sif
+        |vpiTypedef:
+        \_enum_typespec: (fsm_t), line:38:38, endln:38:43
   |vpiTypedef:
   \_enum_typespec: (fsm_t), line:38:38, endln:38:43
 |uhdmtopModules:
@@ -730,6 +787,32 @@ design: (work@dff0_test)
         |vpiDecompile:3
         |INT:3
         |vpiSize:64
+      |vpiInstance:
+      \_module: work@memory_ctrl2 (work@memory_ctrl2) top.v:45:1: , endln:53:10, parent:work@dff0_test
+        |vpiDefName:work@memory_ctrl2
+        |vpiFullName:work@memory_ctrl2
+        |vpiPort:
+        \_port: (sif), line:45:36, parent:work@memory_ctrl2
+          |vpiName:sif
+          |vpiDirection:3
+          |vpiLowConn:
+          \_ref_obj: 
+            |vpiActual:
+            \_modport: (system), parent:work@mem_if
+        |vpiNet:
+        \_logic_net: (work@memory_ctrl2.state), line:49:7, parent:work@memory_ctrl2
+          |vpiName:state
+          |vpiFullName:work@memory_ctrl2.state
+        |vpiNet:
+        \_logic_net: (work@memory_ctrl2.t), line:51:4, parent:work@memory_ctrl2
+          |vpiName:t
+          |vpiFullName:work@memory_ctrl2.t
+        |vpiNet:
+        \_logic_net: (work@memory_ctrl2.sif), line:45:36, parent:work@memory_ctrl2
+          |vpiName:sif
+          |vpiFullName:work@memory_ctrl2.sif
+        |vpiTypedef:
+        \_enum_typespec: (fsm_t), line:47:38, endln:47:43
   |vpiTypedef:
   \_enum_typespec: (fsm_t), line:47:38, endln:47:43
 ===================

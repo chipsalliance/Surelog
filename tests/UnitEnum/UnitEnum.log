@@ -551,6 +551,8 @@ design: (work@top)
       |vpiDecompile:3
       |INT:3
       |vpiSize:64
+    |vpiInstance:
+    \_module: work@top (work@top) top.v:14:1: , endln:24:10, parent:work@top
   |vpiTypedef:
   \_enum_typespec: (pkg::fsm_t_pkg), line:6:38, endln:6:47
     |vpiName:pkg::fsm_t_pkg
@@ -632,6 +634,72 @@ design: (work@top)
         |vpiDecompile:3
         |INT:3
         |vpiSize:64
+      |vpiInstance:
+      \_module: work@top (work@top) top.v:14:1: , endln:24:10, parent:work@top
+        |vpiDefName:work@top
+        |vpiFullName:work@top
+        |vpiNet:
+        \_logic_net: (work@top.state), line:18:7, parent:work@top
+          |vpiName:state
+          |vpiFullName:work@top.state
+        |vpiNet:
+        \_logic_net: (work@top.state2), line:19:11, parent:work@top
+          |vpiName:state2
+          |vpiFullName:work@top.state2
+        |vpiNet:
+        \_logic_net: (work@top.env), line:21:13, parent:work@top
+          |vpiName:env
+          |vpiFullName:work@top.env
+        |vpiNet:
+        \_logic_net: (work@top.cfg), line:22:16, parent:work@top
+          |vpiName:cfg
+          |vpiFullName:work@top.cfg
+        |vpiNet:
+        \_logic_net: (work@top.cfg), line:23:16, parent:work@top
+          |vpiName:cfg
+          |vpiFullName:work@top.cfg
+        |vpiTypedef:
+        \_enum_typespec: (fsm_t), line:16:38, endln:16:43
+        |vpiTypedef:
+        \_enum_typespec: (pkg::fsm_t_pkg), line:6:38, endln:6:47
+          |vpiName:pkg::fsm_t_pkg
+          |vpiEnumConst:
+          \_enum_const: (IDLE), line:6:16, endln:6:20
+            |vpiName:IDLE
+            |vpiDecompile:0
+            |INT:0
+            |vpiSize:64
+          |vpiEnumConst:
+          \_enum_const: (WRITE), line:6:21, endln:6:26
+            |vpiName:WRITE
+            |vpiDecompile:1
+            |INT:1
+            |vpiSize:64
+          |vpiEnumConst:
+          \_enum_const: (READ), line:6:27, endln:6:31
+            |vpiName:READ
+            |vpiDecompile:2
+            |INT:2
+            |vpiSize:64
+          |vpiEnumConst:
+          \_enum_const: (DONE), line:6:32, endln:6:36
+            |vpiName:DONE
+            |vpiDecompile:3
+            |INT:3
+            |vpiSize:64
+          |vpiInstance:
+          \_package: pkg (pkg::) top.v:2:1: , endln:8:11, parent:work@top
+            |vpiDefName:pkg
+            |vpiName:pkg
+            |vpiFullName:pkg::
+            |vpiClassDefn:
+            \_class_defn: (pkg::Configuration1) top.v:3:1: , endln:4:9, parent:pkg::
+              |vpiName:Configuration1
+              |vpiFullName:pkg::Configuration1
+            |vpiTypedef:
+            \_enum_typespec: (pkg::fsm_t_pkg), line:6:38, endln:6:47
+        |vpiTypedef:
+        \_import: (pkg), line:15:9, endln:15:15
   |vpiVariables:
   \_enum_var: (work@top.state2), line:19:11, endln:19:17, parent:work@top
     |vpiName:state2
@@ -640,42 +708,6 @@ design: (work@top)
     |vpiVisibility:1
     |vpiTypespec:
     \_enum_typespec: (pkg::fsm_t_pkg), line:6:38, endln:6:47
-      |vpiName:pkg::fsm_t_pkg
-      |vpiEnumConst:
-      \_enum_const: (IDLE), line:6:16, endln:6:20
-        |vpiName:IDLE
-        |vpiDecompile:0
-        |INT:0
-        |vpiSize:64
-      |vpiEnumConst:
-      \_enum_const: (WRITE), line:6:21, endln:6:26
-        |vpiName:WRITE
-        |vpiDecompile:1
-        |INT:1
-        |vpiSize:64
-      |vpiEnumConst:
-      \_enum_const: (READ), line:6:27, endln:6:31
-        |vpiName:READ
-        |vpiDecompile:2
-        |INT:2
-        |vpiSize:64
-      |vpiEnumConst:
-      \_enum_const: (DONE), line:6:32, endln:6:36
-        |vpiName:DONE
-        |vpiDecompile:3
-        |INT:3
-        |vpiSize:64
-      |vpiInstance:
-      \_package: pkg (pkg::) top.v:2:1: , endln:8:11, parent:work@top
-        |vpiDefName:pkg
-        |vpiName:pkg
-        |vpiFullName:pkg::
-        |vpiClassDefn:
-        \_class_defn: (pkg::Configuration1) top.v:3:1: , endln:4:9, parent:pkg::
-          |vpiName:Configuration1
-          |vpiFullName:pkg::Configuration1
-        |vpiTypedef:
-        \_enum_typespec: (pkg::fsm_t_pkg), line:6:38, endln:6:47
   |vpiVariables:
   \_class_var: (work@top.cfg), line:22:16, endln:22:19, parent:work@top
     |vpiName:cfg

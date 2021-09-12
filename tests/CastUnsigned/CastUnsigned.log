@@ -622,6 +622,8 @@ design: (work@top)
   |vpiTypedef:
   \_interface_typespec: (foo_if), line:3:19, endln:3:26
     |vpiName:foo_if
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:2:1: , endln:13:10, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:2:1: , endln:13:10
   |vpiDefName:work@top
@@ -692,6 +694,75 @@ design: (work@top)
   |vpiTypedef:
   \_interface_typespec: (foo_if), line:3:19, endln:3:26
     |vpiName:foo_if
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:2:1: , endln:13:10, parent:work@top
+      |vpiDefName:work@top
+      |vpiFullName:work@top
+      |vpiProcess:
+      \_always: , line:7:3, endln:11:6, parent:work@top
+        |vpiAlwaysType:2
+        |vpiStmt:
+        \_named_begin: (work@top.proc_stall_tieoff), line:7:15, endln:11:6
+          |vpiName:proc_stall_tieoff
+          |vpiFullName:work@top.proc_stall_tieoff
+          |vpiStmt:
+          \_if_stmt: , line:8:7, endln:10:10, parent:work@top.proc_stall_tieoff
+            |vpiCondition:
+            \_operation: , line:8:11, endln:8:39
+              |vpiOpType:14
+              |vpiOperand:
+              \_ref_obj: (work@top.proc_stall_tieoff.setup_received), line:8:11, endln:8:25, parent:work@top.proc_stall_tieoff
+                |vpiName:setup_received
+                |vpiFullName:work@top.proc_stall_tieoff.setup_received
+              |vpiOperand:
+              \_operation: , line:8:29, endln:8:39
+                |vpiOpType:67
+                |vpiOperand:
+                \_ref_obj: (work@top.proc_stall_tieoff.i), line:8:37, endln:8:38
+                  |vpiName:i
+                  |vpiFullName:work@top.proc_stall_tieoff.i
+                |vpiTypespec:
+                \_string_typespec: , line:8:29, endln:8:35
+            |vpiStmt:
+            \_begin: (work@top.proc_stall_tieoff), line:8:41, endln:10:10
+              |vpiFullName:work@top.proc_stall_tieoff
+              |vpiStmt:
+              \_assignment: , line:9:9, endln:9:36, parent:work@top.proc_stall_tieoff
+                |vpiOpType:82
+                |vpiBlocking:1
+                |vpiRhs:
+                \_sys_func_call: ($unsigned), line:9:24, endln:9:36, parent:work@top.proc_stall_tieoff
+                  |vpiName:$unsigned
+                  |vpiArgument:
+                  \_ref_obj: (work@top.proc_stall_tieoff.i), line:9:34, endln:9:35, parent:$unsigned
+                    |vpiName:i
+                    |vpiFullName:work@top.proc_stall_tieoff.i
+                |vpiLhs:
+                \_hier_path: (hw2reg.stall), line:9:9, endln:9:15, parent:work@top.proc_stall_tieoff
+                  |vpiName:hw2reg.stall
+                  |vpiActual:
+                  \_ref_obj: (hw2reg), parent:hw2reg.stall
+                    |vpiName:hw2reg
+                  |vpiActual:
+                  \_ref_obj: (stall)
+                    |vpiName:stall
+      |vpiParameter:
+      \_parameter: (work@top.INIT), line:4:19, endln:4:28, parent:work@top
+        |vpiName:INIT
+        |vpiFullName:work@top.INIT
+        |BIN:0
+      |vpiParamAssign:
+      \_param_assign: , line:4:19, endln:4:28, parent:work@top
+        |vpiRhs:
+        \_constant: , line:4:26, endln:4:28
+          |vpiConstType:3
+          |vpiDecompile:'0
+          |vpiSize:-1
+          |BIN:0
+        |vpiLhs:
+        \_parameter: (work@top.INIT), line:4:19, endln:4:28, parent:work@top
+      |vpiTypedef:
+      \_interface_typespec: (foo_if), line:3:19, endln:3:26
 |uhdmtopModules:
 \_module: work@M (work@M) dut.sv:15:1: , endln:17:10
   |vpiDefName:work@M
