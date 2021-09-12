@@ -57,14 +57,16 @@
 #include "SourceCompile/SymbolTable.h"
 #include "Testbench/ClassDefinition.h"
 #include "Utils/StringUtils.h"
-#include "headers/ElaboratorListener.h"
-#include "headers/Serializer.h"
-#include "headers/module.h"
-#include "headers/uhdm.h"
-#include "headers/vpi_listener.h"
-#include "headers/vpi_uhdm.h"
-#include "headers/vpi_visitor.h"
 #include "surelog.h"
+
+// UHDM
+#include <uhdm/ElaboratorListener.h>
+#include <uhdm/Serializer.h>
+#include <uhdm/module.h>
+#include <uhdm/uhdm.h>
+#include <uhdm/vpi_listener.h>
+#include <uhdm/vpi_uhdm.h>
+#include <uhdm/vpi_visitor.h>
 
 using namespace SURELOG;
 using namespace UHDM;

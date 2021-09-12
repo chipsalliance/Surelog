@@ -26,9 +26,11 @@
 
 #include <mutex>
 
-#include "Serializer.h"
 #include "SourceCompile/Compiler.h"
-#include "include/sv_vpi_user.h"
+
+// UHDM
+#include <uhdm/Serializer.h>
+#include <uhdm/sv_vpi_user.h>
 
 namespace SURELOG {
 

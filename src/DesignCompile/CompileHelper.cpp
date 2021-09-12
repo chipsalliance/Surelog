@@ -37,10 +37,8 @@
 #include "Design/Union.h"
 #include "DesignCompile/CompileDesign.h"
 #include "DesignCompile/UhdmWriter.h"
-#include "ElaboratorListener.h"
 #include "Expression/ExprBuilder.h"
 #include "Expression/Value.h"
-#include "Serializer.h"
 #include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/Compiler.h"
@@ -48,9 +46,13 @@
 #include "SourceCompile/PreprocessFile.h"
 #include "Testbench/ClassDefinition.h"
 #include "Testbench/Property.h"
-#include "clone_tree.h"
-#include "expr.h"
-#include "uhdm.h"
+
+// UHDM
+#include <uhdm/ElaboratorListener.h>
+#include <uhdm/Serializer.h>
+#include <uhdm/clone_tree.h>
+#include <uhdm/expr.h>
+#include <uhdm/uhdm.h>
 
 using namespace SURELOG;
 using namespace UHDM;

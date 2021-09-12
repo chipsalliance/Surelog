@@ -46,7 +46,6 @@
 #include "ErrorReporting/ErrorDefinition.h"
 #include "ErrorReporting/Location.h"
 #include "Library/Library.h"
-#include "Serializer.h"
 #include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/Compiler.h"
@@ -56,10 +55,13 @@
 #include "Testbench/ClassDefinition.h"
 #include "Utils/FileUtils.h"
 #include "Utils/StringUtils.h"
-#include "module.h"
 #include "surelog.h"
-#include "uhdm.h"
-#include "vpi_visitor.h"
+
+// UHDM
+#include <uhdm/Serializer.h>
+#include <uhdm/module.h>
+#include <uhdm/uhdm.h>
+#include <uhdm/vpi_visitor.h>
 
 using namespace SURELOG;
 using namespace UHDM;

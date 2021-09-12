@@ -31,7 +31,9 @@
 #include "Design/ValuedComponentI.h"
 #include "Expression/ExprBuilder.h"
 #include "Library/Library.h"
-#include "headers/containers.h"  // uhdm
+
+// UHDM
+#include <uhdm/containers.h>
 
 namespace SURELOG {
 class CompilePackage;

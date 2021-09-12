@@ -38,7 +38,6 @@
 #include "DesignCompile/CompileDesign.h"
 #include "DesignCompile/CompileHelper.h"
 #include "DesignCompile/UhdmWriter.h"
-#include "ElaboratorListener.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "Expression/ExprBuilder.h"
 #include "Expression/Value.h"
@@ -52,11 +51,14 @@
 #include "Utils/FileUtils.h"
 #include "Utils/NumUtils.h"
 #include "Utils/StringUtils.h"
-#include "clone_tree.h"
-#include "expr.h"
-#include "headers/ExprEval.h"
-#include "uhdm.h"
-#include "vpi_visitor.h"
+
+// UHDM
+#include <uhdm/ElaboratorListener.h>
+#include <uhdm/ExprEval.h>
+#include <uhdm/clone_tree.h>
+#include <uhdm/expr.h>
+#include <uhdm/uhdm.h>
+#include <uhdm/vpi_visitor.h>
 
 using namespace SURELOG;
 using namespace UHDM;
