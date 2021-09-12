@@ -44,13 +44,11 @@
 #include "Design/VObject.h"
 #include "DesignCompile/CompileDesign.h"
 #include "DesignCompile/UhdmWriter.h"
-
 #include "ErrorReporting/Error.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "ErrorReporting/ErrorDefinition.h"
 #include "ErrorReporting/Location.h"
 #include "Library/Library.h"
-
 #include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/Compiler.h"
@@ -231,7 +229,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
     inst_assign->VpiEndLineNo(mod_assign->VpiEndLineNo());
     inst_assign->VpiEndColumnNo(mod_assign->VpiEndColumnNo());
     inst_assign->Lhs((any*)mod_assign->Lhs());
- 
+
     bool overriden = false;
     for (Parameter* tpm :
          instance->getTypeParams()) {  // for parameters that do not resolve to
