@@ -28,6 +28,9 @@
 
 #include <stdint.h>
 
+#include <thread>
+#include <vector>
+
 #include "CommandLine/CommandLineParser.h"
 #include "Design/FileContent.h"
 #include "DesignCompile/Builtin.h"
@@ -54,17 +57,14 @@
 #include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/SymbolTable.h"
 #include "Testbench/ClassDefinition.h"
-#include "vpi_visitor.h"
 
 #ifdef USETBB
 #include <tbb/task.h>
 #include <tbb/task_group.h>
-
-#include "tbb/task_scheduler_init.h"
+#include <tbb/task_scheduler_init.h>
 #endif
 
-#include <thread>
-#include <vector>
+#include <uhdm/vpi_visitor.h>
 
 using namespace SURELOG;
 

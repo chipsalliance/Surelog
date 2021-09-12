@@ -46,7 +46,9 @@
 #include "Testbench/ClassDefinition.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
-#include "vpi_visitor.h"
+
+// UHDM
+#include <uhdm/vpi_visitor.h>
 
 using namespace UHDM;
 

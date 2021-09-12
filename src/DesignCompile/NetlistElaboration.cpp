@@ -44,13 +44,11 @@
 #include "Design/VObject.h"
 #include "DesignCompile/CompileDesign.h"
 #include "DesignCompile/UhdmWriter.h"
-#include "ElaboratorListener.h"
 #include "ErrorReporting/Error.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "ErrorReporting/ErrorDefinition.h"
 #include "ErrorReporting/Location.h"
 #include "Library/Library.h"
-#include "Serializer.h"
 #include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/Compiler.h"
@@ -61,8 +59,12 @@
 #include "Testbench/ClassDefinition.h"
 #include "Testbench/Property.h"
 #include "Utils/StringUtils.h"
-#include "clone_tree.h"
-#include "uhdm.h"
+
+// UHDM
+#include <uhdm/ElaboratorListener.h>
+#include <uhdm/Serializer.h>
+#include <uhdm/clone_tree.h>
+#include <uhdm/uhdm.h>
 
 using namespace SURELOG;
 using namespace UHDM;

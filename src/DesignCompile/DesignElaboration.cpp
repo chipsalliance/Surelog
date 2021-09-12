@@ -37,7 +37,6 @@
 #include "DesignCompile/CompileDesign.h"
 #include "DesignCompile/CompileModule.h"
 #include "DesignCompile/NetlistElaboration.h"
-#include "ElaboratorListener.h"
 #include "ErrorReporting/Error.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "ErrorReporting/ErrorDefinition.h"
@@ -53,8 +52,11 @@
 #include "Testbench/ClassDefinition.h"
 #include "Testbench/Property.h"
 #include "Utils/StringUtils.h"
-#include "clone_tree.h"
-#include "vpi_visitor.h"
+
+// UHDM
+#include <uhdm/ElaboratorListener.h>
+#include <uhdm/clone_tree.h>
+#include <uhdm/vpi_visitor.h>
 
 using namespace SURELOG;
 

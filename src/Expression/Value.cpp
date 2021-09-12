@@ -29,7 +29,8 @@
 #include <cstring>
 #include <string>
 
-#include "include/vpi_user.h"
+// UHDM
+#include <uhdm/vpi_user.h>
 
 using namespace SURELOG;
 

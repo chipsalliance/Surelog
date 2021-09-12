@@ -20,12 +20,14 @@
  *
  * Created on June 1, 2018, 8:58 PM
  */
-
 #ifndef PROGRAM_H
 #define PROGRAM_H
+
 #include "Common/ClockingBlockHolder.h"
 #include "Design/DesignComponent.h"
-#include "headers/containers.h"  // uhdm
+
+// UHDM
+#include <uhdm/containers.h>
 
 namespace SURELOG {
 

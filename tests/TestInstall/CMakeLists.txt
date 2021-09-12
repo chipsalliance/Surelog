@@ -54,8 +54,7 @@ endif()
 add_executable(test_hellosureworld ${PROJECT_SOURCE_DIR}/../../src/hellosureworld.cpp)
 target_include_directories(test_hellosureworld PRIVATE
   ${INSTALL_DIR}/include/surelog
-  ${INSTALL_DIR}/include/uhdm
-  ${INSTALL_DIR}/include/uhdm/include
+  ${INSTALL_DIR}/include
   ${Python3_INCLUDE_DIRS}
 )
 target_link_directories(test_hellosureworld
