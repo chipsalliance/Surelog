@@ -805,6 +805,8 @@ design: (work@dut)
       |vpiDecompile:5'd11
       |BIN:001011
       |vpiSize:6
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:15:10, parent:work@dut
 |uhdmtopModules:
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:15:10
   |vpiDefName:work@dut
@@ -1034,6 +1036,83 @@ design: (work@dut)
       |vpiDecompile:5'd11
       |BIN:001011
       |vpiSize:6
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:15:10, parent:work@dut
+      |vpiDefName:work@dut
+      |vpiFullName:work@dut
+      |vpiContAssign:
+      \_cont_assign: , line:14:10, endln:14:70, parent:work@dut
+        |vpiRhs:
+        \_func_call: (sbox4_64bit), line:14:28, endln:14:70
+          |vpiName:sbox4_64bit
+          |vpiFunction:
+          \_function: (work@dut.sbox4_64bit), line:4:2, endln:5:28, parent:work@dut
+          |vpiArgument:
+          \_ref_obj: (work@dut.data_state_xor), line:14:40, endln:14:54, parent:sbox4_64bit
+            |vpiName:data_state_xor
+            |vpiFullName:work@dut.data_state_xor
+          |vpiArgument:
+          \_ref_obj: (work@dut.PRESENT_SBOX4), line:14:56, endln:14:69, parent:sbox4_64bit
+            |vpiName:PRESENT_SBOX4
+            |vpiFullName:work@dut.PRESENT_SBOX4
+            |vpiActual:
+            \_parameter: (work@dut.PRESENT_SBOX4), line:2:31, endln:2:59, parent:work@dut
+        |vpiLhs:
+        \_ref_obj: (work@dut.data_state_sbox), line:14:10, endln:14:25
+          |vpiName:data_state_sbox
+          |vpiFullName:work@dut.data_state_sbox
+      |vpiTaskFunc:
+      \_function: (work@dut.sbox4_64bit), line:4:2, endln:5:28, parent:work@dut
+        |vpiVisibility:1
+        |vpiAutomatic:1
+        |vpiName:sbox4_64bit
+        |vpiFullName:work@dut.sbox4_64bit
+        |vpiReturn:
+        \_logic_var: , line:4:21, endln:4:26
+        |vpiIODecl:
+        \_io_decl: (state_in)
+          |vpiName:state_in
+          |vpiDirection:1
+          |vpiTypedef:
+          \_logic_typespec: , line:4:46, endln:4:51
+        |vpiIODecl:
+        \_io_decl: (sbox4)
+          |vpiName:sbox4
+          |vpiDirection:1
+          |vpiTypedef:
+          \_logic_typespec: , line:4:69, endln:4:74
+        |vpiStmt:
+        \_begin: (work@dut.sbox4_64bit), parent:work@dut.sbox4_64bit
+          |vpiFullName:work@dut.sbox4_64bit
+        |vpiInstance:
+        \_module: work@dut (work@dut) dut.sv:1:1: , endln:15:10, parent:work@dut
+      |vpiParameter:
+      \_parameter: (work@dut.PRESENT_SBOX4), line:2:31, endln:2:59, parent:work@dut
+        |vpiName:PRESENT_SBOX4
+        |vpiFullName:work@dut.PRESENT_SBOX4
+        |vpiTypespec:
+        \_logic_typespec: (PRESENT_SBOX4), line:2:13, endln:2:18, parent:work@dut.PRESENT_SBOX4
+      |vpiParamAssign:
+      \_param_assign: , line:2:31, endln:2:59, parent:work@dut
+        |vpiRhs:
+        \_operation: , line:2:47, endln:2:59
+          |vpiOpType:33
+          |vpiOperand:
+          \_constant: , line:2:48, endln:2:52
+            |vpiConstType:5
+            |vpiDecompile:4'h2
+            |vpiSize:4
+            |HEX:2
+          |vpiOperand:
+          \_constant: , line:2:54, endln:2:58
+            |vpiConstType:5
+            |vpiDecompile:4'h1
+            |vpiSize:4
+            |HEX:1
+        |vpiLhs:
+        \_parameter: (work@dut.PRESENT_SBOX4), line:2:31, endln:2:59, parent:work@dut
+      |vpiTypedef:
+      \_enum_typespec: (exc_cause_e), line:11:5, endln:11:16
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
