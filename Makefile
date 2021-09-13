@@ -55,7 +55,7 @@ test/unittest-coverage: run-cmake-coverage
 	pushd coverage-build && ctest --output-on-failure && popd
 
 coverage-build/surelog.coverage: test/unittest-coverage
-	lcov --no-external --exclude "*_test.cpp" --capture --directory src --directory coverage-build/ --output-file coverage-build/surelog.coverage
+	lcov --no-external --exclude "*_test.cpp" --capture --directory coverage-build/CMakeFiles/surelog.dir --base-directory src --output-file coverage-build/surelog.coverage
 
 coverage-build/html: coverage-build/surelog.coverage
 	genhtml --output-directory coverage-build/html $^
