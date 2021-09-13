@@ -467,11 +467,8 @@ public:
   virtual void enterVar_data_type(SV3_1aParser::Var_data_typeContext *ctx) = 0;
   virtual void exitVar_data_type(SV3_1aParser::Var_data_typeContext *ctx) = 0;
 
-  virtual void enterSigning_Signed(SV3_1aParser::Signing_SignedContext *ctx) = 0;
-  virtual void exitSigning_Signed(SV3_1aParser::Signing_SignedContext *ctx) = 0;
-
-  virtual void enterSigning_Unsigned(SV3_1aParser::Signing_UnsignedContext *ctx) = 0;
-  virtual void exitSigning_Unsigned(SV3_1aParser::Signing_UnsignedContext *ctx) = 0;
+  virtual void enterSigning(SV3_1aParser::SigningContext *ctx) = 0;
+  virtual void exitSigning(SV3_1aParser::SigningContext *ctx) = 0;
 
   virtual void enterSimple_type(SV3_1aParser::Simple_typeContext *ctx) = 0;
   virtual void exitSimple_type(SV3_1aParser::Simple_typeContext *ctx) = 0;
@@ -644,20 +641,8 @@ public:
   virtual void enterTf_port_item(SV3_1aParser::Tf_port_itemContext *ctx) = 0;
   virtual void exitTf_port_item(SV3_1aParser::Tf_port_itemContext *ctx) = 0;
 
-  virtual void enterTfPortDir_Inp(SV3_1aParser::TfPortDir_InpContext *ctx) = 0;
-  virtual void exitTfPortDir_Inp(SV3_1aParser::TfPortDir_InpContext *ctx) = 0;
-
-  virtual void enterTfPortDir_Out(SV3_1aParser::TfPortDir_OutContext *ctx) = 0;
-  virtual void exitTfPortDir_Out(SV3_1aParser::TfPortDir_OutContext *ctx) = 0;
-
-  virtual void enterTfPortDir_Inout(SV3_1aParser::TfPortDir_InoutContext *ctx) = 0;
-  virtual void exitTfPortDir_Inout(SV3_1aParser::TfPortDir_InoutContext *ctx) = 0;
-
-  virtual void enterTfPortDir_Ref(SV3_1aParser::TfPortDir_RefContext *ctx) = 0;
-  virtual void exitTfPortDir_Ref(SV3_1aParser::TfPortDir_RefContext *ctx) = 0;
-
-  virtual void enterTfPortDir_ConstRef(SV3_1aParser::TfPortDir_ConstRefContext *ctx) = 0;
-  virtual void exitTfPortDir_ConstRef(SV3_1aParser::TfPortDir_ConstRefContext *ctx) = 0;
+  virtual void enterTf_port_direction(SV3_1aParser::Tf_port_directionContext *ctx) = 0;
+  virtual void exitTf_port_direction(SV3_1aParser::Tf_port_directionContext *ctx) = 0;
 
   virtual void enterTf_port_declaration(SV3_1aParser::Tf_port_declarationContext *ctx) = 0;
   virtual void exitTf_port_declaration(SV3_1aParser::Tf_port_declarationContext *ctx) = 0;
