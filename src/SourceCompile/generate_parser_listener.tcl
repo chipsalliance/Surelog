@@ -319,6 +319,15 @@ set TYPES(slNumber_1TickbX) 1
 set TYPES(slNumber_1TickBx) 1 
 set TYPES(slNumber_1TickBX) 1 
 
+set TYPES(slSigning_Signed) 1  
+set TYPES(slSigning_Unsigned) 1  
+
+set TYPES(slTfPortDir_Inp) 1   
+set TYPES(slTfPortDir_Out) 1   
+set TYPES(slTfPortDir_Inout) 1   
+set TYPES(slTfPortDir_Ref) 1   
+set TYPES(slTfPortDir_ConstRef) 1        
+
 set TYPES(slIntegerAtomType_Byte) 1 
 set TYPES(slIntegerAtomType_Shortint) 1  
 set TYPES(slIntegerAtomType_Int) 1  

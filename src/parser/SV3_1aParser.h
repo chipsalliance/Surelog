@@ -3821,32 +3821,13 @@ public:
   class  SigningContext : public antlr4::ParserRuleContext {
   public:
     SigningContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    SigningContext() = default;
-    void copyFrom(SigningContext *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
     virtual size_t getRuleIndex() const override;
-
-   
-  };
-
-  class  Signing_UnsignedContext : public SigningContext {
-  public:
-    Signing_UnsignedContext(SigningContext *ctx);
-
-    antlr4::tree::TerminalNode *UNSIGNED();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Signing_SignedContext : public SigningContext {
-  public:
-    Signing_SignedContext(SigningContext *ctx);
-
     antlr4::tree::TerminalNode *SIGNED();
+    antlr4::tree::TerminalNode *UNSIGNED();
+
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
   };
 
   SigningContext* signing();
@@ -4854,60 +4835,16 @@ public:
   class  Tf_port_directionContext : public antlr4::ParserRuleContext {
   public:
     Tf_port_directionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    Tf_port_directionContext() = default;
-    void copyFrom(Tf_port_directionContext *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
     virtual size_t getRuleIndex() const override;
-
-   
-  };
-
-  class  TfPortDir_RefContext : public Tf_port_directionContext {
-  public:
-    TfPortDir_RefContext(Tf_port_directionContext *ctx);
-
-    antlr4::tree::TerminalNode *REF();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  TfPortDir_ConstRefContext : public Tf_port_directionContext {
-  public:
-    TfPortDir_ConstRefContext(Tf_port_directionContext *ctx);
-
-    antlr4::tree::TerminalNode *CONST();
-    antlr4::tree::TerminalNode *REF();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  TfPortDir_OutContext : public Tf_port_directionContext {
-  public:
-    TfPortDir_OutContext(Tf_port_directionContext *ctx);
-
-    antlr4::tree::TerminalNode *OUTPUT();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  TfPortDir_InpContext : public Tf_port_directionContext {
-  public:
-    TfPortDir_InpContext(Tf_port_directionContext *ctx);
-
     antlr4::tree::TerminalNode *INPUT();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  TfPortDir_InoutContext : public Tf_port_directionContext {
-  public:
-    TfPortDir_InoutContext(Tf_port_directionContext *ctx);
-
+    antlr4::tree::TerminalNode *OUTPUT();
     antlr4::tree::TerminalNode *INOUT();
+    antlr4::tree::TerminalNode *REF();
+    antlr4::tree::TerminalNode *CONST();
+
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
   };
 
   Tf_port_directionContext* tf_port_direction();
