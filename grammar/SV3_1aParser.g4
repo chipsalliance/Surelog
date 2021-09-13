@@ -1973,10 +1973,10 @@ initial_construct : INITIAL statement_or_null ;
 always_construct : always_keyword statement ; 
 
 always_keyword  
-    : ALWAYS       # AlwaysKeywd_Always 
-    | ALWAYS_COMB  # AlwaysKeywd_Comb 
-    | ALWAYS_LATCH # AlwaysKeywd_Latch 
-    | ALWAYS_FF    # AlwaysKeywd_FF 
+    : ALWAYS        
+    | ALWAYS_COMB   
+    | ALWAYS_LATCH
+    | ALWAYS_FF  
     ; 
 
 blocking_assignment  

@@ -8676,50 +8676,15 @@ public:
   class  Always_keywordContext : public antlr4::ParserRuleContext {
   public:
     Always_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    Always_keywordContext() = default;
-    void copyFrom(Always_keywordContext *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
     virtual size_t getRuleIndex() const override;
-
-   
-  };
-
-  class  AlwaysKeywd_CombContext : public Always_keywordContext {
-  public:
-    AlwaysKeywd_CombContext(Always_keywordContext *ctx);
-
-    antlr4::tree::TerminalNode *ALWAYS_COMB();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  AlwaysKeywd_LatchContext : public Always_keywordContext {
-  public:
-    AlwaysKeywd_LatchContext(Always_keywordContext *ctx);
-
-    antlr4::tree::TerminalNode *ALWAYS_LATCH();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  AlwaysKeywd_FFContext : public Always_keywordContext {
-  public:
-    AlwaysKeywd_FFContext(Always_keywordContext *ctx);
-
-    antlr4::tree::TerminalNode *ALWAYS_FF();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  AlwaysKeywd_AlwaysContext : public Always_keywordContext {
-  public:
-    AlwaysKeywd_AlwaysContext(Always_keywordContext *ctx);
-
     antlr4::tree::TerminalNode *ALWAYS();
+    antlr4::tree::TerminalNode *ALWAYS_COMB();
+    antlr4::tree::TerminalNode *ALWAYS_LATCH();
+    antlr4::tree::TerminalNode *ALWAYS_FF();
+
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
   };
 
   Always_keywordContext* always_keyword();
