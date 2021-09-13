@@ -815,8 +815,8 @@ var_data_type :
       | var_type data_type_or_implicit ; 
   
 signing  
-    : SIGNED    # Signing_Signed 
-    | UNSIGNED  # Signing_Unsigned 
+    : SIGNED
+    | UNSIGNED
     ; 
   
 
@@ -1066,11 +1066,11 @@ tf_port_item : ( attribute_instance )*
         identifier variable_dimension* ( ASSIGN_OP expression )? ; 
 
 tf_port_direction
-    : INPUT     # TfPortDir_Inp 
-    | OUTPUT    # TfPortDir_Out 
-    | INOUT     # TfPortDir_Inout 
-    | REF       # TfPortDir_Ref 
-    | CONST REF # TfPortDir_ConstRef      
+    : INPUT     
+    | OUTPUT  
+    | INOUT   
+    | REF      
+    | CONST REF    
     ; 
 
 tf_port_declaration : ( attribute_instance )* tf_port_direction ( var_type )? 

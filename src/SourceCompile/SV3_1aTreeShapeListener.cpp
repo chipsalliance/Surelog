@@ -1859,4 +1859,25 @@ void SV3_1aTreeShapeListener::exitNumber(SV3_1aParser::NumberContext *ctx) {
     addVObject(ctx, VObjectType::slNumber_1TickbX);
 }
 
+void SV3_1aTreeShapeListener::exitSigning(SV3_1aParser::SigningContext *ctx) {
+  if (ctx->SIGNED())
+    addVObject(ctx, VObjectType::slSigning_Signed);
+  else if (ctx->UNSIGNED())
+    addVObject(ctx, VObjectType::slSigning_Unsigned);
+}
+
+void SV3_1aTreeShapeListener::exitTf_port_direction(
+    SV3_1aParser::Tf_port_directionContext *ctx) {
+  if (ctx->INPUT())
+    addVObject(ctx, VObjectType::slTfPortDir_Inp);
+  else if (ctx->OUTPUT())
+    addVObject(ctx, VObjectType::slTfPortDir_Out);
+  else if (ctx->INOUT())
+    addVObject(ctx, VObjectType::slTfPortDir_Inout);
+  else if (ctx->REF())
+    addVObject(ctx, VObjectType::slTfPortDir_Ref);
+  else if (ctx->CONST())
+    addVObject(ctx, VObjectType::slTfPortDir_ConstRef);
+}
+
 }  // namespace SURELOG

@@ -469,11 +469,8 @@ public:
   virtual void enterVar_data_type(SV3_1aParser::Var_data_typeContext * /*ctx*/) override { }
   virtual void exitVar_data_type(SV3_1aParser::Var_data_typeContext * /*ctx*/) override { }
 
-  virtual void enterSigning_Signed(SV3_1aParser::Signing_SignedContext * /*ctx*/) override { }
-  virtual void exitSigning_Signed(SV3_1aParser::Signing_SignedContext * /*ctx*/) override { }
-
-  virtual void enterSigning_Unsigned(SV3_1aParser::Signing_UnsignedContext * /*ctx*/) override { }
-  virtual void exitSigning_Unsigned(SV3_1aParser::Signing_UnsignedContext * /*ctx*/) override { }
+  virtual void enterSigning(SV3_1aParser::SigningContext * /*ctx*/) override { }
+  virtual void exitSigning(SV3_1aParser::SigningContext * /*ctx*/) override { }
 
   virtual void enterSimple_type(SV3_1aParser::Simple_typeContext * /*ctx*/) override { }
   virtual void exitSimple_type(SV3_1aParser::Simple_typeContext * /*ctx*/) override { }
@@ -646,20 +643,8 @@ public:
   virtual void enterTf_port_item(SV3_1aParser::Tf_port_itemContext * /*ctx*/) override { }
   virtual void exitTf_port_item(SV3_1aParser::Tf_port_itemContext * /*ctx*/) override { }
 
-  virtual void enterTfPortDir_Inp(SV3_1aParser::TfPortDir_InpContext * /*ctx*/) override { }
-  virtual void exitTfPortDir_Inp(SV3_1aParser::TfPortDir_InpContext * /*ctx*/) override { }
-
-  virtual void enterTfPortDir_Out(SV3_1aParser::TfPortDir_OutContext * /*ctx*/) override { }
-  virtual void exitTfPortDir_Out(SV3_1aParser::TfPortDir_OutContext * /*ctx*/) override { }
-
-  virtual void enterTfPortDir_Inout(SV3_1aParser::TfPortDir_InoutContext * /*ctx*/) override { }
-  virtual void exitTfPortDir_Inout(SV3_1aParser::TfPortDir_InoutContext * /*ctx*/) override { }
-
-  virtual void enterTfPortDir_Ref(SV3_1aParser::TfPortDir_RefContext * /*ctx*/) override { }
-  virtual void exitTfPortDir_Ref(SV3_1aParser::TfPortDir_RefContext * /*ctx*/) override { }
-
-  virtual void enterTfPortDir_ConstRef(SV3_1aParser::TfPortDir_ConstRefContext * /*ctx*/) override { }
-  virtual void exitTfPortDir_ConstRef(SV3_1aParser::TfPortDir_ConstRefContext * /*ctx*/) override { }
+  virtual void enterTf_port_direction(SV3_1aParser::Tf_port_directionContext * /*ctx*/) override { }
+  virtual void exitTf_port_direction(SV3_1aParser::Tf_port_directionContext * /*ctx*/) override { }
 
   virtual void enterTf_port_declaration(SV3_1aParser::Tf_port_declarationContext * /*ctx*/) override { }
   virtual void exitTf_port_declaration(SV3_1aParser::Tf_port_declarationContext * /*ctx*/) override { }
