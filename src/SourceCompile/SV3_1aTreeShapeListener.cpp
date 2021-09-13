@@ -1824,4 +1824,13 @@ void SV3_1aTreeShapeListener::exitAlways_keyword(SV3_1aParser::Always_keywordCon
    }
 }  
 
+void SV3_1aTreeShapeListener::exitEdge_identifier(SV3_1aParser::Edge_identifierContext * ctx) {
+  if (ctx->POSEDGE()) 
+    addVObject (ctx, VObjectType::slEdge_Posedge);
+  else if (ctx->NEGEDGE()) 
+    addVObject (ctx, VObjectType::slEdge_Negedge); 
+  else if (ctx->EDGE()) 
+    addVObject (ctx, VObjectType::slEdge_Edge);   
+}
+
 }  // namespace SURELOG

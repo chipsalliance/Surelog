@@ -1586,14 +1586,8 @@ public:
   virtual void enterClocking_skew(SV3_1aParser::Clocking_skewContext *ctx) = 0;
   virtual void exitClocking_skew(SV3_1aParser::Clocking_skewContext *ctx) = 0;
 
-  virtual void enterEdge_Posedge(SV3_1aParser::Edge_PosedgeContext *ctx) = 0;
-  virtual void exitEdge_Posedge(SV3_1aParser::Edge_PosedgeContext *ctx) = 0;
-
-  virtual void enterEdge_Negedge(SV3_1aParser::Edge_NegedgeContext *ctx) = 0;
-  virtual void exitEdge_Negedge(SV3_1aParser::Edge_NegedgeContext *ctx) = 0;
-
-  virtual void enterEdge_Edge(SV3_1aParser::Edge_EdgeContext *ctx) = 0;
-  virtual void exitEdge_Edge(SV3_1aParser::Edge_EdgeContext *ctx) = 0;
+  virtual void enterEdge_identifier(SV3_1aParser::Edge_identifierContext *ctx) = 0;
+  virtual void exitEdge_identifier(SV3_1aParser::Edge_identifierContext *ctx) = 0;
 
   virtual void enterClocking_drive(SV3_1aParser::Clocking_driveContext *ctx) = 0;
   virtual void exitClocking_drive(SV3_1aParser::Clocking_driveContext *ctx) = 0;

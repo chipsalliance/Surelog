@@ -298,6 +298,10 @@ set TYPES(slAlwaysKeywd_Comb) 1
 set TYPES(slAlwaysKeywd_Latch) 1 
 set TYPES(slAlwaysKeywd_FF) 1
 
+set TYPES(slEdge_Posedge) 1  
+set TYPES(slEdge_Negedge) 1 
+set TYPES(slEdge_Edge) 1 
+
 set TYPES(slIntegerAtomType_Byte) 1 
 set TYPES(slIntegerAtomType_Shortint) 1  
 set TYPES(slIntegerAtomType_Int) 1  
