@@ -1336,17 +1336,8 @@ public:
   virtual void enterAlways_construct(SV3_1aParser::Always_constructContext * /*ctx*/) override { }
   virtual void exitAlways_construct(SV3_1aParser::Always_constructContext * /*ctx*/) override { }
 
-  virtual void enterAlwaysKeywd_Always(SV3_1aParser::AlwaysKeywd_AlwaysContext * /*ctx*/) override { }
-  virtual void exitAlwaysKeywd_Always(SV3_1aParser::AlwaysKeywd_AlwaysContext * /*ctx*/) override { }
-
-  virtual void enterAlwaysKeywd_Comb(SV3_1aParser::AlwaysKeywd_CombContext * /*ctx*/) override { }
-  virtual void exitAlwaysKeywd_Comb(SV3_1aParser::AlwaysKeywd_CombContext * /*ctx*/) override { }
-
-  virtual void enterAlwaysKeywd_Latch(SV3_1aParser::AlwaysKeywd_LatchContext * /*ctx*/) override { }
-  virtual void exitAlwaysKeywd_Latch(SV3_1aParser::AlwaysKeywd_LatchContext * /*ctx*/) override { }
-
-  virtual void enterAlwaysKeywd_FF(SV3_1aParser::AlwaysKeywd_FFContext * /*ctx*/) override { }
-  virtual void exitAlwaysKeywd_FF(SV3_1aParser::AlwaysKeywd_FFContext * /*ctx*/) override { }
+  virtual void enterAlways_keyword(SV3_1aParser::Always_keywordContext * /*ctx*/) override { }
+  virtual void exitAlways_keyword(SV3_1aParser::Always_keywordContext * /*ctx*/) override { }
 
   virtual void enterBlocking_assignment(SV3_1aParser::Blocking_assignmentContext * /*ctx*/) override { }
   virtual void exitBlocking_assignment(SV3_1aParser::Blocking_assignmentContext * /*ctx*/) override { }

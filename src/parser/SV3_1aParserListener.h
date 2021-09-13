@@ -1334,17 +1334,8 @@ public:
   virtual void enterAlways_construct(SV3_1aParser::Always_constructContext *ctx) = 0;
   virtual void exitAlways_construct(SV3_1aParser::Always_constructContext *ctx) = 0;
 
-  virtual void enterAlwaysKeywd_Always(SV3_1aParser::AlwaysKeywd_AlwaysContext *ctx) = 0;
-  virtual void exitAlwaysKeywd_Always(SV3_1aParser::AlwaysKeywd_AlwaysContext *ctx) = 0;
-
-  virtual void enterAlwaysKeywd_Comb(SV3_1aParser::AlwaysKeywd_CombContext *ctx) = 0;
-  virtual void exitAlwaysKeywd_Comb(SV3_1aParser::AlwaysKeywd_CombContext *ctx) = 0;
-
-  virtual void enterAlwaysKeywd_Latch(SV3_1aParser::AlwaysKeywd_LatchContext *ctx) = 0;
-  virtual void exitAlwaysKeywd_Latch(SV3_1aParser::AlwaysKeywd_LatchContext *ctx) = 0;
-
-  virtual void enterAlwaysKeywd_FF(SV3_1aParser::AlwaysKeywd_FFContext *ctx) = 0;
-  virtual void exitAlwaysKeywd_FF(SV3_1aParser::AlwaysKeywd_FFContext *ctx) = 0;
+  virtual void enterAlways_keyword(SV3_1aParser::Always_keywordContext *ctx) = 0;
+  virtual void exitAlways_keyword(SV3_1aParser::Always_keywordContext *ctx) = 0;
 
   virtual void enterBlocking_assignment(SV3_1aParser::Blocking_assignmentContext *ctx) = 0;
   virtual void exitBlocking_assignment(SV3_1aParser::Blocking_assignmentContext *ctx) = 0;
