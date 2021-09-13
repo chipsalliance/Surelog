@@ -10153,41 +10153,14 @@ public:
   class  Edge_identifierContext : public antlr4::ParserRuleContext {
   public:
     Edge_identifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    Edge_identifierContext() = default;
-    void copyFrom(Edge_identifierContext *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
     virtual size_t getRuleIndex() const override;
-
-   
-  };
-
-  class  Edge_EdgeContext : public Edge_identifierContext {
-  public:
-    Edge_EdgeContext(Edge_identifierContext *ctx);
-
-    antlr4::tree::TerminalNode *EDGE();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Edge_NegedgeContext : public Edge_identifierContext {
-  public:
-    Edge_NegedgeContext(Edge_identifierContext *ctx);
-
-    antlr4::tree::TerminalNode *NEGEDGE();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Edge_PosedgeContext : public Edge_identifierContext {
-  public:
-    Edge_PosedgeContext(Edge_identifierContext *ctx);
-
     antlr4::tree::TerminalNode *POSEDGE();
+    antlr4::tree::TerminalNode *NEGEDGE();
+    antlr4::tree::TerminalNode *EDGE();
+
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
   };
 
   Edge_identifierContext* edge_identifier();

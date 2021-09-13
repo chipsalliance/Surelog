@@ -2381,9 +2381,9 @@ clocking_skew
     ; 
 
 edge_identifier :
-    POSEDGE  # Edge_Posedge 
-  | NEGEDGE  # Edge_Negedge
-  | EDGE     # Edge_Edge
+    POSEDGE
+  | NEGEDGE
+  | EDGE
   ; 
 
 clocking_drive  
