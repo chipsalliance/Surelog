@@ -1812,4 +1812,16 @@ void SV3_1aTreeShapeListener::exitNon_integer_type(
     addVObject(ctx, VObjectType::slNonIntType_RealTime);
 }
 
+void SV3_1aTreeShapeListener::exitAlways_keyword(SV3_1aParser::Always_keywordContext * ctx) {
+   if (ctx->ALWAYS_COMB()) {
+     addVObject(ctx, VObjectType::slAlwaysKeywd_Comb);
+   } else if (ctx->ALWAYS_FF()) {
+     addVObject(ctx, VObjectType::slAlwaysKeywd_FF);
+   } else if (ctx->ALWAYS_LATCH()) {
+     addVObject(ctx, VObjectType::slAlwaysKeywd_Latch);
+   } else if (ctx->ALWAYS()) {
+     addVObject(ctx, VObjectType::slAlwaysKeywd_Always);
+   }
+}  
+
 }  // namespace SURELOG

@@ -293,6 +293,11 @@ set TYPES(slPortDir_Out) 1
 set TYPES(slPortDir_Inout) 1 
 set TYPES(slPortDir_Ref) 1 
 
+set TYPES(slAlwaysKeywd_Always) 1 
+set TYPES(slAlwaysKeywd_Comb) 1  
+set TYPES(slAlwaysKeywd_Latch) 1 
+set TYPES(slAlwaysKeywd_FF) 1
+
 set TYPES(slIntegerAtomType_Byte) 1 
 set TYPES(slIntegerAtomType_Shortint) 1  
 set TYPES(slIntegerAtomType_Int) 1  
