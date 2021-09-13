@@ -302,6 +302,23 @@ set TYPES(slEdge_Posedge) 1
 set TYPES(slEdge_Negedge) 1 
 set TYPES(slEdge_Edge) 1 
 
+set TYPES(slNumber_Integral) 1  
+set TYPES(slNumber_Real) 1 
+set TYPES(slNumber_1Tickb0) 1 
+set TYPES(slNumber_1Tickb1) 1 
+set TYPES(slNumber_1TickB0) 1 
+set TYPES(slNumber_1TickB1) 1 
+set TYPES(slNumber_Tickb0) 1 
+set TYPES(slNumber_Tickb1) 1 
+set TYPES(slNumber_TickB0) 1 
+set TYPES(slNumber_TickB1) 1 
+set TYPES(slNumber_Tick0) 1 
+set TYPES(slNumber_Tick1) 1 
+set TYPES(slNumber_1Tickbx) 1 
+set TYPES(slNumber_1TickbX) 1 
+set TYPES(slNumber_1TickBx) 1 
+set TYPES(slNumber_1TickBX) 1 
+
 set TYPES(slIntegerAtomType_Byte) 1 
 set TYPES(slIntegerAtomType_Shortint) 1  
 set TYPES(slIntegerAtomType_Int) 1  

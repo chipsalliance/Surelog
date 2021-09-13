@@ -3184,22 +3184,22 @@ binary_module_path_operator
     ; 
 
 number 
-   : Integral_number # Number_Integral 
-   | Real_number     # Number_Real
-   | ONE_TICK_b0     # Number_1Tickb0
-   | ONE_TICK_b1     # Number_1Tickb1
-   | ONE_TICK_B0     # Number_1TickB0
-   | ONE_TICK_B1     # Number_1TickB1
-   | TICK_b0         # Number_Tickb0
-   | TICK_b1         # Number_Tickb1
-   | TICK_B0         # Number_TickB0
-   | TICK_B1         # Number_TickB1
-   | TICK_0          # Number_Tick0
-   | TICK_1          # Number_Tick1
-   | ONE_TICK_bx     # Number_1Tickbx
-   | ONE_TICK_bX     # Number_1TickbX
-   | ONE_TICK_Bx     # Number_1TickBx
-   | ONE_TICK_BX     # Number_1TickBX
+   : Integral_number
+   | Real_number     
+   | ONE_TICK_b0    
+   | ONE_TICK_b1    
+   | ONE_TICK_B0     
+   | ONE_TICK_B1     
+   | TICK_b0        
+   | TICK_b1        
+   | TICK_B0       
+   | TICK_B1        
+   | TICK_0         
+   | TICK_1        
+   | ONE_TICK_bx    
+   | ONE_TICK_bX     
+   | ONE_TICK_Bx     
+   | ONE_TICK_BX    
    ;
 
 
