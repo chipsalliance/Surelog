@@ -737,13 +737,6 @@ void SV3_1aTreeShapeListener::enterSurelog_macro_not_defined(
   logError(ErrorDefinition::PA_UNKOWN_MACRO, ctx, text);
 }
 
-void SV3_1aTreeShapeListener::exitNumber_Integral(
-    SV3_1aParser::Number_IntegralContext *ctx) {
-  auto number = ctx->Integral_number();
-  addVObject(ctx, number->getText(),
-             VObjectType::slIntConst);  // TODO: Octal, Hexa...
-}
-
 void SV3_1aTreeShapeListener::exitInitVal_Integral(
     SV3_1aParser::InitVal_IntegralContext *ctx) {
   auto number = ctx->Integral_number();
@@ -756,11 +749,6 @@ void SV3_1aTreeShapeListener::exitScalar_Integral(
   auto number = ctx->Integral_number();
   addVObject(ctx, number->getText(),
              VObjectType::slIntConst);  // TODO: Octal, Hexa...
-}
-
-void SV3_1aTreeShapeListener::exitNumber_Real(
-    SV3_1aParser::Number_RealContext *ctx) {
-  addVObject(ctx, ctx->Real_number()->getText(), VObjectType::slRealConst);
 }
 
 void SV3_1aTreeShapeListener::exitUnbased_unsized_literal(
@@ -1812,25 +1800,63 @@ void SV3_1aTreeShapeListener::exitNon_integer_type(
     addVObject(ctx, VObjectType::slNonIntType_RealTime);
 }
 
-void SV3_1aTreeShapeListener::exitAlways_keyword(SV3_1aParser::Always_keywordContext * ctx) {
-   if (ctx->ALWAYS_COMB()) {
-     addVObject(ctx, VObjectType::slAlwaysKeywd_Comb);
-   } else if (ctx->ALWAYS_FF()) {
-     addVObject(ctx, VObjectType::slAlwaysKeywd_FF);
-   } else if (ctx->ALWAYS_LATCH()) {
-     addVObject(ctx, VObjectType::slAlwaysKeywd_Latch);
-   } else if (ctx->ALWAYS()) {
-     addVObject(ctx, VObjectType::slAlwaysKeywd_Always);
-   }
-}  
+void SV3_1aTreeShapeListener::exitAlways_keyword(
+    SV3_1aParser::Always_keywordContext *ctx) {
+  if (ctx->ALWAYS_COMB()) {
+    addVObject(ctx, VObjectType::slAlwaysKeywd_Comb);
+  } else if (ctx->ALWAYS_FF()) {
+    addVObject(ctx, VObjectType::slAlwaysKeywd_FF);
+  } else if (ctx->ALWAYS_LATCH()) {
+    addVObject(ctx, VObjectType::slAlwaysKeywd_Latch);
+  } else if (ctx->ALWAYS()) {
+    addVObject(ctx, VObjectType::slAlwaysKeywd_Always);
+  }
+}
 
-void SV3_1aTreeShapeListener::exitEdge_identifier(SV3_1aParser::Edge_identifierContext * ctx) {
-  if (ctx->POSEDGE()) 
-    addVObject (ctx, VObjectType::slEdge_Posedge);
-  else if (ctx->NEGEDGE()) 
-    addVObject (ctx, VObjectType::slEdge_Negedge); 
-  else if (ctx->EDGE()) 
-    addVObject (ctx, VObjectType::slEdge_Edge);   
+void SV3_1aTreeShapeListener::exitEdge_identifier(
+    SV3_1aParser::Edge_identifierContext *ctx) {
+  if (ctx->POSEDGE())
+    addVObject(ctx, VObjectType::slEdge_Posedge);
+  else if (ctx->NEGEDGE())
+    addVObject(ctx, VObjectType::slEdge_Negedge);
+  else if (ctx->EDGE())
+    addVObject(ctx, VObjectType::slEdge_Edge);
+}
+
+void SV3_1aTreeShapeListener::exitNumber(SV3_1aParser::NumberContext *ctx) {
+  if (ctx->Integral_number()) {
+    auto number = ctx->Integral_number();
+    addVObject(ctx, number->getText(), VObjectType::slIntConst);
+  } else if (ctx->Real_number())
+    addVObject(ctx, ctx->Real_number()->getText(), VObjectType::slRealConst);
+  else if (ctx->ONE_TICK_b0())
+    addVObject(ctx, VObjectType::slNumber_1Tickb0);
+  else if (ctx->ONE_TICK_b1())
+    addVObject(ctx, VObjectType::slNumber_1Tickb1);
+  else if (ctx->ONE_TICK_B0())
+    addVObject(ctx, VObjectType::slNumber_1TickB0);
+  else if (ctx->ONE_TICK_B1())
+    addVObject(ctx, VObjectType::slNumber_1TickB1);
+  else if (ctx->TICK_b0())
+    addVObject(ctx, VObjectType::slNumber_Tickb0);
+  else if (ctx->TICK_b1())
+    addVObject(ctx, VObjectType::slNumber_Tickb1);
+  else if (ctx->TICK_B0())
+    addVObject(ctx, VObjectType::slNumber_TickB0);
+  else if (ctx->TICK_B1())
+    addVObject(ctx, VObjectType::slNumber_TickB1);
+  else if (ctx->TICK_0())
+    addVObject(ctx, VObjectType::slNumber_Tick0);
+  else if (ctx->TICK_1())
+    addVObject(ctx, VObjectType::slNumber_Tick1);
+  else if (ctx->ONE_TICK_bx())
+    addVObject(ctx, VObjectType::slNumber_1Tickbx);
+  else if (ctx->ONE_TICK_bX())
+    addVObject(ctx, VObjectType::slNumber_1TickbX);
+  else if (ctx->ONE_TICK_Bx())
+    addVObject(ctx, VObjectType::slNumber_1TickBx);
+  else if (ctx->ONE_TICK_BX())
+    addVObject(ctx, VObjectType::slNumber_1TickbX);
 }
 
 }  // namespace SURELOG

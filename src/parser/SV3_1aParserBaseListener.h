@@ -2140,53 +2140,8 @@ public:
   virtual void enterBinModOp_ReductXnor2(SV3_1aParser::BinModOp_ReductXnor2Context * /*ctx*/) override { }
   virtual void exitBinModOp_ReductXnor2(SV3_1aParser::BinModOp_ReductXnor2Context * /*ctx*/) override { }
 
-  virtual void enterNumber_Integral(SV3_1aParser::Number_IntegralContext * /*ctx*/) override { }
-  virtual void exitNumber_Integral(SV3_1aParser::Number_IntegralContext * /*ctx*/) override { }
-
-  virtual void enterNumber_Real(SV3_1aParser::Number_RealContext * /*ctx*/) override { }
-  virtual void exitNumber_Real(SV3_1aParser::Number_RealContext * /*ctx*/) override { }
-
-  virtual void enterNumber_1Tickb0(SV3_1aParser::Number_1Tickb0Context * /*ctx*/) override { }
-  virtual void exitNumber_1Tickb0(SV3_1aParser::Number_1Tickb0Context * /*ctx*/) override { }
-
-  virtual void enterNumber_1Tickb1(SV3_1aParser::Number_1Tickb1Context * /*ctx*/) override { }
-  virtual void exitNumber_1Tickb1(SV3_1aParser::Number_1Tickb1Context * /*ctx*/) override { }
-
-  virtual void enterNumber_1TickB0(SV3_1aParser::Number_1TickB0Context * /*ctx*/) override { }
-  virtual void exitNumber_1TickB0(SV3_1aParser::Number_1TickB0Context * /*ctx*/) override { }
-
-  virtual void enterNumber_1TickB1(SV3_1aParser::Number_1TickB1Context * /*ctx*/) override { }
-  virtual void exitNumber_1TickB1(SV3_1aParser::Number_1TickB1Context * /*ctx*/) override { }
-
-  virtual void enterNumber_Tickb0(SV3_1aParser::Number_Tickb0Context * /*ctx*/) override { }
-  virtual void exitNumber_Tickb0(SV3_1aParser::Number_Tickb0Context * /*ctx*/) override { }
-
-  virtual void enterNumber_Tickb1(SV3_1aParser::Number_Tickb1Context * /*ctx*/) override { }
-  virtual void exitNumber_Tickb1(SV3_1aParser::Number_Tickb1Context * /*ctx*/) override { }
-
-  virtual void enterNumber_TickB0(SV3_1aParser::Number_TickB0Context * /*ctx*/) override { }
-  virtual void exitNumber_TickB0(SV3_1aParser::Number_TickB0Context * /*ctx*/) override { }
-
-  virtual void enterNumber_TickB1(SV3_1aParser::Number_TickB1Context * /*ctx*/) override { }
-  virtual void exitNumber_TickB1(SV3_1aParser::Number_TickB1Context * /*ctx*/) override { }
-
-  virtual void enterNumber_Tick0(SV3_1aParser::Number_Tick0Context * /*ctx*/) override { }
-  virtual void exitNumber_Tick0(SV3_1aParser::Number_Tick0Context * /*ctx*/) override { }
-
-  virtual void enterNumber_Tick1(SV3_1aParser::Number_Tick1Context * /*ctx*/) override { }
-  virtual void exitNumber_Tick1(SV3_1aParser::Number_Tick1Context * /*ctx*/) override { }
-
-  virtual void enterNumber_1Tickbx(SV3_1aParser::Number_1TickbxContext * /*ctx*/) override { }
-  virtual void exitNumber_1Tickbx(SV3_1aParser::Number_1TickbxContext * /*ctx*/) override { }
-
-  virtual void enterNumber_1TickbX(SV3_1aParser::Number_1TickbXContext * /*ctx*/) override { }
-  virtual void exitNumber_1TickbX(SV3_1aParser::Number_1TickbXContext * /*ctx*/) override { }
-
-  virtual void enterNumber_1TickBx(SV3_1aParser::Number_1TickBxContext * /*ctx*/) override { }
-  virtual void exitNumber_1TickBx(SV3_1aParser::Number_1TickBxContext * /*ctx*/) override { }
-
-  virtual void enterNumber_1TickBX(SV3_1aParser::Number_1TickBXContext * /*ctx*/) override { }
-  virtual void exitNumber_1TickBX(SV3_1aParser::Number_1TickBXContext * /*ctx*/) override { }
+  virtual void enterNumber(SV3_1aParser::NumberContext * /*ctx*/) override { }
+  virtual void exitNumber(SV3_1aParser::NumberContext * /*ctx*/) override { }
 
   virtual void enterUnbased_unsized_literal(SV3_1aParser::Unbased_unsized_literalContext * /*ctx*/) override { }
   virtual void exitUnbased_unsized_literal(SV3_1aParser::Unbased_unsized_literalContext * /*ctx*/) override { }
