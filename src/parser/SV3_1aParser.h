@@ -13275,158 +13275,27 @@ public:
   class  NumberContext : public antlr4::ParserRuleContext {
   public:
     NumberContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    NumberContext() = default;
-    void copyFrom(NumberContext *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
     virtual size_t getRuleIndex() const override;
-
-   
-  };
-
-  class  Number_RealContext : public NumberContext {
-  public:
-    Number_RealContext(NumberContext *ctx);
-
-    antlr4::tree::TerminalNode *Real_number();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Number_1Tickb0Context : public NumberContext {
-  public:
-    Number_1Tickb0Context(NumberContext *ctx);
-
-    antlr4::tree::TerminalNode *ONE_TICK_b0();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Number_1TickB0Context : public NumberContext {
-  public:
-    Number_1TickB0Context(NumberContext *ctx);
-
-    antlr4::tree::TerminalNode *ONE_TICK_B0();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Number_1Tickb1Context : public NumberContext {
-  public:
-    Number_1Tickb1Context(NumberContext *ctx);
-
-    antlr4::tree::TerminalNode *ONE_TICK_b1();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Number_1TickB1Context : public NumberContext {
-  public:
-    Number_1TickB1Context(NumberContext *ctx);
-
-    antlr4::tree::TerminalNode *ONE_TICK_B1();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Number_1TickbxContext : public NumberContext {
-  public:
-    Number_1TickbxContext(NumberContext *ctx);
-
-    antlr4::tree::TerminalNode *ONE_TICK_bx();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Number_1TickbXContext : public NumberContext {
-  public:
-    Number_1TickbXContext(NumberContext *ctx);
-
-    antlr4::tree::TerminalNode *ONE_TICK_bX();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Number_1TickBxContext : public NumberContext {
-  public:
-    Number_1TickBxContext(NumberContext *ctx);
-
-    antlr4::tree::TerminalNode *ONE_TICK_Bx();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Number_1TickBXContext : public NumberContext {
-  public:
-    Number_1TickBXContext(NumberContext *ctx);
-
-    antlr4::tree::TerminalNode *ONE_TICK_BX();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Number_IntegralContext : public NumberContext {
-  public:
-    Number_IntegralContext(NumberContext *ctx);
-
     antlr4::tree::TerminalNode *Integral_number();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Number_Tick0Context : public NumberContext {
-  public:
-    Number_Tick0Context(NumberContext *ctx);
-
-    antlr4::tree::TerminalNode *TICK_0();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Number_Tick1Context : public NumberContext {
-  public:
-    Number_Tick1Context(NumberContext *ctx);
-
-    antlr4::tree::TerminalNode *TICK_1();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Number_Tickb0Context : public NumberContext {
-  public:
-    Number_Tickb0Context(NumberContext *ctx);
-
+    antlr4::tree::TerminalNode *Real_number();
+    antlr4::tree::TerminalNode *ONE_TICK_b0();
+    antlr4::tree::TerminalNode *ONE_TICK_b1();
+    antlr4::tree::TerminalNode *ONE_TICK_B0();
+    antlr4::tree::TerminalNode *ONE_TICK_B1();
     antlr4::tree::TerminalNode *TICK_b0();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Number_TickB0Context : public NumberContext {
-  public:
-    Number_TickB0Context(NumberContext *ctx);
-
-    antlr4::tree::TerminalNode *TICK_B0();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Number_Tickb1Context : public NumberContext {
-  public:
-    Number_Tickb1Context(NumberContext *ctx);
-
     antlr4::tree::TerminalNode *TICK_b1();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Number_TickB1Context : public NumberContext {
-  public:
-    Number_TickB1Context(NumberContext *ctx);
-
+    antlr4::tree::TerminalNode *TICK_B0();
     antlr4::tree::TerminalNode *TICK_B1();
+    antlr4::tree::TerminalNode *TICK_0();
+    antlr4::tree::TerminalNode *TICK_1();
+    antlr4::tree::TerminalNode *ONE_TICK_bx();
+    antlr4::tree::TerminalNode *ONE_TICK_bX();
+    antlr4::tree::TerminalNode *ONE_TICK_Bx();
+    antlr4::tree::TerminalNode *ONE_TICK_BX();
+
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
   };
 
   NumberContext* number();
