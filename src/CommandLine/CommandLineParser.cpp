@@ -38,9 +38,11 @@
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
+#include <initializer_list>
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <string_view>
 #include <thread>
 #include <vector>
 
@@ -49,31 +51,34 @@
 #include "Utils/StringUtils.h"
 #include "antlr4-runtime.h"
 
-using namespace SURELOG;
+namespace SURELOG {
+static std::string_view defaultLogFileName = "surelog.log";
 
-static std::string defaultLogFileName = "surelog.log";
 // !!! Update this number when the grammar changes !!!
 //         Or when the cache schema changes
 //        This will render the cache invalid
-std::string CommandLineParser::m_versionNumber = "1.13";
+const std::string& CommandLineParser::getVersionNumber() {
+  static const std::string m_versionNumber = "1.13";
+  return m_versionNumber;
+}
 
-static const std::vector<std::string> copyright = {
+static const std::initializer_list<std::string_view> copyright = {
     "Copyright (c) 2017-2021 Alain Dargelas,",
     "http://www.apache.org/licenses/LICENSE-2.0"};
 
-static const std::vector<std::string> banner = {
+static const std::initializer_list<std::string_view> banner = {
     "********************************************",
     "*  SURELOG SystemVerilog  Compiler/Linter  *",
     "********************************************",
 };
 
-static const std::vector<std::string> footer = {
+static const std::initializer_list<std::string_view> footer = {
     "********************************************",
     "*   End SURELOG SVerilog Compiler/Linter   *",
     "********************************************",
 };
 
-static const std::vector<std::string> helpText = {
+static const std::initializer_list<std::string_view> helpText = {
     "  ------------ SURELOG HELP --------------",
     "",
     "STANDARD VERILOG COMMAND LINE:",
@@ -211,16 +216,17 @@ bool is_number(const std::string& s) {
   return (strspn(s.c_str(), "-.0123456789") == s.size());
 }
 
-bool is_c_file(const std::string& s) {
+static bool is_c_file(const std::string& s) {
   std::string ext = StringUtils::leaf(s);
   if (ext == "c" || ext == "cpp" || ext == "cc") return true;
   return false;
 }
 
-std::string printStringArray(const std::vector<std::string>& array) {
+static std::string printStringArray(
+    const std::initializer_list<std::string_view>& all_strings) {
   std::string report;
-  for (unsigned int i = 0; i < array.size(); i++) {
-    report += array[i] + "\n";
+  for (std::string_view s : all_strings) {
+    report.append(s).append("\n");
   }
   report += "\n";
   return report;
@@ -249,7 +255,7 @@ void CommandLineParser::logBanner(int argc, const char** argv) {
   std::string copyrights = printStringArray(copyright);
   m_errors->printToLogFile(banners);
   m_errors->printToLogFile(copyrights);
-  std::string version = "VERSION: " + m_versionNumber + "\n" +
+  std::string version = "VERSION: " + getVersionNumber() + "\n" +
                         "BUILT  : " + std::string(__DATE__) + "\n";
   std::string date = "DATE   : " + currentDateTime() + "\n";
   std::string cmd = "COMMAND:";
@@ -335,11 +341,12 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_lowMem(false),
       m_writeUhdm(true) {
   m_errors->registerCmdLine(this);
-  m_logFileId = m_symbolTable->registerSymbol(defaultLogFileName);
+  m_logFileId = m_symbolTable->registerSymbol(std::string(defaultLogFileName));
   m_compileUnitDirectory = m_symbolTable->registerSymbol("slpp_unit/");
   m_compileAllDirectory = m_symbolTable->registerSymbol("slpp_all/");
   m_outputDir = m_symbolTable->registerSymbol("./");
-  m_defaultLogFileId = m_symbolTable->registerSymbol(defaultLogFileName);
+  m_defaultLogFileId =
+      m_symbolTable->registerSymbol(std::string(defaultLogFileName));
   m_defaultCacheDirId = m_symbolTable->registerSymbol("cache/");
   m_precompiledDirId = m_symbolTable->registerSymbol("pkg");
   if (m_diff_comp_mode) {
@@ -552,7 +559,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       return true;
     }
     if (all_arguments[i] == "--version") {
-      std::string version = "VERSION: " + m_versionNumber + "\n" +
+      std::string version = "VERSION: " + getVersionNumber() + "\n" +
                             "BUILT  : " + std::string(__DATE__) + "\n";
       std::cout << version << std::flush;
       m_help = true;
@@ -1111,8 +1118,11 @@ bool CommandLineParser::prepareCompilation_(int argc, const char** argv) {
       (fileunit() ? m_compileUnitDirectory : m_compileAllDirectory));
   m_fullCompileDir = m_symbolTable->registerSymbol(odir);
 
-  if (!m_logFileSpecified)
-    m_logFileId = m_symbolTable->registerSymbol(odir + defaultLogFileName);
+  if (!m_logFileSpecified) {
+    std::string full_path(odir);
+    full_path.append(defaultLogFileName);
+    m_logFileId = m_symbolTable->registerSymbol(full_path);
+  }
 
   int status = FileUtils::mkDir(odir.c_str());
   if (status != 0) {
@@ -1202,3 +1212,4 @@ bool CommandLineParser::cleanCache() {
 
   return noError;
 }
+}  // namespace SURELOG
