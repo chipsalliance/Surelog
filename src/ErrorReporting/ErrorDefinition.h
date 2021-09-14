@@ -212,7 +212,7 @@ class ErrorDefinition {
   class ErrorInfo {
    public:
     ErrorInfo(ErrorSeverity severity, ErrorCategory category,
-              const std::string& s, const std::string& extra)
+              std::string_view s, std::string_view extra)
         : m_severity(severity),
           m_category(category),
           m_errorText(s),
@@ -227,7 +227,7 @@ class ErrorDefinition {
   static bool init();
 
   static const std::map<ErrorType, ErrorInfo>& getErrorInfoMap() {
-    return m_errorInfoMap;
+    return *mutableGlobalErrorInfoMap();
   }
 
   static ErrorType getErrorType(std::string errorId);
@@ -237,14 +237,16 @@ class ErrorDefinition {
 
   static void setSeverity(ErrorType type, ErrorSeverity severity);
   static void rec(ErrorType type, ErrorSeverity severity,
-                  ErrorCategory category, std::string text,
-                  std::string extraText = "");
+                  ErrorCategory category, std::string_view text,
+                  std::string_view extraText = "");
 
  private:
   ErrorDefinition();
   ErrorDefinition(const ErrorDefinition& orig);
   virtual ~ErrorDefinition();
-  static std::map<ErrorType, ErrorInfo> m_errorInfoMap;
+
+  using ErrorMap = std::map<ErrorType, ErrorInfo>;
+  static ErrorMap* mutableGlobalErrorInfoMap();
 };
 
 };  // namespace SURELOG
