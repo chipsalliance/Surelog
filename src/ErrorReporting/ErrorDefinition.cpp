@@ -26,23 +26,23 @@
 
 using namespace SURELOG;
 
-std::map<ErrorDefinition::ErrorType, ErrorDefinition::ErrorInfo>
-    ErrorDefinition::m_errorInfoMap;
+ErrorDefinition::ErrorMap* ErrorDefinition::mutableGlobalErrorInfoMap() {
+  static ErrorMap error_info_map;
+  return &error_info_map;
+}
 
 void ErrorDefinition::rec(ErrorType type, ErrorSeverity severity,
-                          ErrorCategory category, std::string text,
-                          std::string extraText) {
-  ErrorInfo info(severity, category, text, extraText);
-  m_errorInfoMap.insert(std::make_pair(type, info));
+                          ErrorCategory category, std::string_view text,
+                          std::string_view extraText) {
+  mutableGlobalErrorInfoMap()->emplace(
+      type, ErrorInfo(severity, category, text, extraText));
 }
 
 void ErrorDefinition::setSeverity(ErrorDefinition::ErrorType type,
                                   ErrorDefinition::ErrorSeverity severity) {
-  std::map<ErrorDefinition::ErrorType, ErrorDefinition::ErrorInfo>::iterator
-      itr = m_errorInfoMap.find(type);
-  if (itr != m_errorInfoMap.end()) {
-    ErrorDefinition::ErrorInfo& info = (*itr).second;
-    info.m_severity = severity;
+  ErrorMap::iterator found = mutableGlobalErrorInfoMap()->find(type);
+  if (found != mutableGlobalErrorInfoMap()->end()) {
+    found->second.m_severity = severity;
   }
 }
 
