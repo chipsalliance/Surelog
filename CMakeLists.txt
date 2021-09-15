@@ -154,14 +154,11 @@ set(surelog_grammars-GENERATED_SRC
   ${GENDIR}/src/parser/SV3_1aParserBaseListener.cpp
   ${GENDIR}/src/parser/SV3_1aParser.cpp
   ${GENDIR}/src/parser/SV3_1aParserListener.cpp
+
   ${GENDIR}/src/parser/SV3_1aPpLexer.cpp
   ${GENDIR}/src/parser/SV3_1aPpParserBaseListener.cpp
   ${GENDIR}/src/parser/SV3_1aPpParser.cpp
   ${GENDIR}/src/parser/SV3_1aPpParserListener.cpp
-  ${GENDIR}/src/parser/SV3_1aSplitterLexer.cpp
-  ${GENDIR}/src/parser/SV3_1aSplitterParserBaseListener.cpp
-  ${GENDIR}/src/parser/SV3_1aSplitterParser.cpp
-  ${GENDIR}/src/parser/SV3_1aSplitterParserListener.cpp
 )
 
 add_custom_command(
@@ -178,7 +175,6 @@ add_custom_command(
              -o ${GENDIR}/src/parser/
              SV3_1aLexer.g4    SV3_1aParser.g4
              SV3_1aPpLexer.g4  SV3_1aPpParser.g4
-             SV3_1aSplitterLexer.g4  SV3_1aSplitterParser.g4
   DEPENDS ${ANTLR_JAR_LOCATION} ${surelog_grammars}
   COMMAND ${CMAKE_COMMAND} -E touch ${GENDIR}/src/parser/generated-parsers.tstamp
 )
