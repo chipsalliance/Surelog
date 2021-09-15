@@ -35,7 +35,7 @@
 
 namespace SURELOG {
 
-static std::string EscapeSequence = "#~@";
+static constexpr char EscapeSequence[] = "#~@";
 
 class CommonListenerHelper {
  public:
@@ -102,6 +102,6 @@ class CommonListenerHelper {
   ContextToObjectMap m_contextToObjectMap;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* COMMONLISTENERHELPER_H */
