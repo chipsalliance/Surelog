@@ -111,7 +111,7 @@ class CommandLineParser final {
   bool help() { return m_help; }
   void logBanner(int argc, const char** argv);
   void logFooter();
-  static std::string getVersionNumber() { return m_versionNumber; }
+  static const std::string& getVersionNumber();
   /* Core functions options */
   bool parse() { return m_parse; }
   bool parseOnly() { return m_parseOnly; }
@@ -228,7 +228,6 @@ class CommandLineParser final {
   SymbolId m_defaultCacheDirId;
   SymbolId m_cacheDirId;
   SymbolId m_precompiledDirId;
-  static std::string m_versionNumber;
   bool m_note;
   bool m_info;
   bool m_warning;

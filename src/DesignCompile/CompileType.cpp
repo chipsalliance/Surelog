@@ -53,8 +53,8 @@
 #include <uhdm/expr.h>
 #include <uhdm/uhdm.h>
 
-using namespace SURELOG;
-using namespace UHDM;
+namespace SURELOG {
+using namespace UHDM;  // NOLINT (using a bunch of them)
 
 variables* CompileHelper::getSimpleVarFromTypespec(
     UHDM::typespec* spec, std::vector<UHDM::range*>* packedDimensions,
@@ -1362,3 +1362,4 @@ UHDM::typespec* CompileHelper::elabTypespec(DesignComponent* component,
   }
   return result;
 }
+}  // namespace SURELOG

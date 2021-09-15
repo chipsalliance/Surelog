@@ -50,7 +50,16 @@
 // UHDM
 #include <uhdm/vpi_visitor.h>
 
-using namespace UHDM;
+using UHDM::begin;
+using UHDM::design;
+using UHDM::initial;
+using UHDM::module;
+using UHDM::package;
+using UHDM::VectorOfany;
+using UHDM::VectorOfmodule;
+using UHDM::VectorOfpackage;
+using UHDM::VectorOfprocess_stmt;
+using UHDM::visit_designs;
 
 class MockFileContent : public SURELOG::FileContent {
  public:
@@ -62,9 +71,7 @@ UHDM::Serializer sharedSerializer;
 class MockCompileDesign : public SURELOG::CompileDesign {
  public:
   MockCompileDesign() : CompileDesign(nullptr) {}
-  virtual UHDM::Serializer& getSerializer() override {
-    return sharedSerializer;
-  }
+  UHDM::Serializer& getSerializer() final { return sharedSerializer; }
 };
 // Need this to get serializer for VpiName, VpiValue etc.
 MockCompileDesign cd;

@@ -33,8 +33,8 @@
 #include "flatbuffers/util.h"
 
 namespace SURELOG {
-std::string Cache::getExecutableTimeStamp() {
-  static const std::string sExecTstamp = std::string(__DATE__) + "-" + __TIME__;
+const std::string& Cache::getExecutableTimeStamp() {
+  static const std::string sExecTstamp(__DATE__ "-" __TIME__);
   return sExecTstamp;
 }
 

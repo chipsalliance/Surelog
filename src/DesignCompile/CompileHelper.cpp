@@ -54,8 +54,9 @@
 #include <uhdm/expr.h>
 #include <uhdm/uhdm.h>
 
-using namespace SURELOG;
-using namespace UHDM;
+namespace SURELOG {
+
+using namespace UHDM;  // NOLINT (we use a good chunk of these here)
 
 bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
                                   const FileContent* fC, NodeId id,
@@ -3298,3 +3299,4 @@ void CompileHelper::setRange(UHDM::constant* c, Value* val,
     r->Right_expr(rc);
   }
 }
+}  // namespace SURELOG

@@ -42,6 +42,8 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
 
 
+set(GENDIR ${CMAKE_CURRENT_BINARY_DIR}/generated)
+
 # Python
 if (SURELOG_WITH_PYTHON)
 find_package(Python3 3.3 REQUIRED COMPONENTS Interpreter Development)
@@ -106,10 +108,10 @@ endif()
 
 # Flatbuffer
 set(flatbuffer-GENERATED_SRC
-    ${PROJECT_SOURCE_DIR}/src/Cache/header_generated.h
-    ${PROJECT_SOURCE_DIR}/src/Cache/parser_generated.h
-    ${PROJECT_SOURCE_DIR}/src/Cache/preproc_generated.h
-    ${PROJECT_SOURCE_DIR}/src/Cache/python_api_generated.h)
+    ${GENDIR}/src/Cache/header_generated.h
+    ${GENDIR}/src/Cache/parser_generated.h
+    ${GENDIR}/src/Cache/preproc_generated.h
+    ${GENDIR}/src/Cache/python_api_generated.h)
 
 foreach(header_file ${flatbuffer-GENERATED_SRC})
   set_source_files_properties(${header_file} PROPERTIES GENERATED TRUE)
@@ -118,7 +120,7 @@ add_custom_target(GenerateSerializer DEPENDS ${flatbuffer-GENERATED_SRC})
 add_custom_command(
   OUTPUT ${flatbuffer-GENERATED_SRC}
   COMMAND
-    flatc --cpp --binary -o ${PROJECT_SOURCE_DIR}/src/Cache/
+    flatc --cpp --binary -o ${GENDIR}/src/Cache/
     ${PROJECT_SOURCE_DIR}/src/Cache/header.fbs
     ${PROJECT_SOURCE_DIR}/src/Cache/parser.fbs
     ${PROJECT_SOURCE_DIR}/src/Cache/preproc.fbs
@@ -135,8 +137,8 @@ set(ANTLR_JAR_LOCATION
     ${PROJECT_SOURCE_DIR}/third_party/antlr4_fast/antlr4-4.9.3-complete.jar)
 
 add_custom_target(GenerateParser DEPENDS
-  ${PROJECT_SOURCE_DIR}/src/parser/generated-parsers.tstamp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp)
+  ${GENDIR}/src/parser/generated-parsers.tstamp
+  ${GENDIR}/src/SourceCompile/VObjectTypes.cpp)
 
 set(surelog_grammars
   ${PROJECT_SOURCE_DIR}/grammar/SV3_1aLexer.g4
@@ -148,79 +150,78 @@ set(surelog_grammars
 )
 
 set(surelog_grammars-GENERATED_SRC
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aLexer.cpp
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aParserBaseListener.cpp
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aParser.cpp
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aParserListener.cpp
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpLexer.cpp
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpParserBaseListener.cpp
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpParser.cpp
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpParserListener.cpp
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterLexer.cpp
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterParserBaseListener.cpp
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterParser.cpp
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterParserListener.cpp
+  ${GENDIR}/src/parser/SV3_1aLexer.cpp
+  ${GENDIR}/src/parser/SV3_1aParserBaseListener.cpp
+  ${GENDIR}/src/parser/SV3_1aParser.cpp
+  ${GENDIR}/src/parser/SV3_1aParserListener.cpp
+
+  ${GENDIR}/src/parser/SV3_1aPpLexer.cpp
+  ${GENDIR}/src/parser/SV3_1aPpParserBaseListener.cpp
+  ${GENDIR}/src/parser/SV3_1aPpParser.cpp
+  ${GENDIR}/src/parser/SV3_1aPpParserListener.cpp
 )
 
 add_custom_command(
-  OUTPUT ${surelog_grammars-GENERATED_SRC} ${PROJECT_SOURCE_DIR}/src/parser/generated-parsers.tstamp
+  OUTPUT ${surelog_grammars-GENERATED_SRC} ${GENDIR}/src/parser/generated-parsers.tstamp
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/grammar/"
   COMMAND echo "---------- Parser generation..."
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/src/parser/
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${GENDIR}/src/parser/
   # We can't use ${surelog_grammars} here, as then the generated files would
   # contain a reference to the full path-name (issue #88).
   # Unfortunately, cmake does not provide simple equivalents to
   # gmake's $(nodir $(surelog_grammars)).
   # So, we list them here all manually passing to the command.
   COMMAND java -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp
-             -o ${PROJECT_SOURCE_DIR}/src/parser/
+             -o ${GENDIR}/src/parser/
              SV3_1aLexer.g4    SV3_1aParser.g4
              SV3_1aPpLexer.g4  SV3_1aPpParser.g4
-             SV3_1aSplitterLexer.g4  SV3_1aSplitterParser.g4
   DEPENDS ${ANTLR_JAR_LOCATION} ${surelog_grammars}
-  COMMAND ${CMAKE_COMMAND} -E touch ${PROJECT_SOURCE_DIR}/src/parser/generated-parsers.tstamp
+  COMMAND ${CMAKE_COMMAND} -E touch ${GENDIR}/src/parser/generated-parsers.tstamp
 )
 
 add_custom_command(
-  OUTPUT ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.h
-         ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
-         ${PROJECT_SOURCE_DIR}/src/API/vobjecttypes_py.h
-         ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aTreeShapeListener.h
-         ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.h
-  DEPENDS ${PROJECT_SOURCE_DIR}/src/parser/generated-parsers.tstamp
+  OUTPUT ${GENDIR}/src/SourceCompile/VObjectTypes.h
+         ${GENDIR}/src/SourceCompile/VObjectTypes.cpp
+         ${GENDIR}/src/API/vobjecttypes_py.h
+         ${GENDIR}/src/SourceCompile/SV3_1aTreeShapeListener.h
+         ${GENDIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.h
+  DEPENDS ${GENDIR}/src/parser/generated-parsers.tstamp
           ${PROJECT_SOURCE_DIR}/src/SourceCompile/generate_parser_listener.tcl
 
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
   COMMAND echo "---------- VObjectTypes, Listener generation"
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/src/SourceCompile
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/src/API
-  COMMAND tclsh SourceCompile/generate_parser_listener.tcl input_dir=${PROJECT_SOURCE_DIR}/src out_dir=${PROJECT_SOURCE_DIR}/src
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${GENDIR}/src/SourceCompile
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${GENDIR}/src/API
+  COMMAND tclsh SourceCompile/generate_parser_listener.tcl input_dir=${PROJECT_SOURCE_DIR}/src input_gen_dir=${GENDIR}/src out_dir=${GENDIR}/src
 )
 
 if (SURELOG_WITH_PYTHON)
 set(surelog_python-GENERATED_SRC
-  ${PROJECT_SOURCE_DIR}/src/API/SV3_1aPythonListener.h
-  ${PROJECT_SOURCE_DIR}/src/API/slSV3_1aPythonListener.py
-  ${PROJECT_SOURCE_DIR}/src/API/slapi_wrap.cxx
-  ${PROJECT_SOURCE_DIR}/src/API/slapi_scripts.h
-  ${PROJECT_SOURCE_DIR}/src/API/slapi.py)
+  ${GENDIR}/src/API/SV3_1aPythonListener.h
+  ${GENDIR}/src/API/slSV3_1aPythonListener.py
+  ${GENDIR}/src/API/slapi_wrap.cxx
+  ${GENDIR}/src/API/slapi_scripts.h
+  ${GENDIR}/src/API/slapi.py)
+foreach(gen_src ${surelog_python-GENERATED_SRC})
+  set_source_files_properties(${gen_src} PROPERTIES GENERATED TRUE)
+endforeach()
 add_custom_command(
   OUTPUT  ${surelog_python-GENERATED_SRC}
   DEPENDS ${PROJECT_SOURCE_DIR}/src/API/slapi_scripts.i
-          ${PROJECT_SOURCE_DIR}/src/API/vobjecttypes_py.h
-          ${PROJECT_SOURCE_DIR}/src/parser/generated-parsers.tstamp
           ${PROJECT_SOURCE_DIR}/src/API/generate_python_listener_api.tcl
           ${PROJECT_SOURCE_DIR}/src/API/embed_python_api.tcl
+          ${GENDIR}/src/API/vobjecttypes_py.h
+          ${GENDIR}/src/parser/generated-parsers.tstamp
 
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
   COMMAND echo "---------- Python API generation"
-  COMMAND tclsh API/generate_python_listener_api.tcl
-  COMMAND ${SWIG_EXECUTABLE} -c++ -python -o API/slapi_wrap.cxx API/slapi_scripts.i
-  COMMAND tclsh API/embed_python_api.tcl
+  COMMAND tclsh API/generate_python_listener_api.tcl input_gen_dir=${GENDIR}/src out_dir=${GENDIR}/src
+  COMMAND ${SWIG_EXECUTABLE} -c++ -python -o ${GENDIR}/src/API/slapi_wrap.cxx API/slapi_scripts.i
+  COMMAND tclsh API/embed_python_api.tcl out_dir=${GENDIR}/src
 )
 endif()
 
-include_directories(${PROJECT_SOURCE_DIR}/src)
+include_directories(${PROJECT_SOURCE_DIR}/src ${GENDIR}/src)
 
 # Put source code here, files that are generated at build time in
 # surelog_generated_SRC
@@ -340,24 +341,19 @@ set(surelog_SRC
 
 if (SURELOG_WITH_PYTHON)
 list(APPEND surelog_SRC
-  ${PROJECT_SOURCE_DIR}/src/API/SV3_1aPythonListener.h
+  ${GENDIR}/src/API/SV3_1aPythonListener.h
   ${PROJECT_SOURCE_DIR}/src/API/SV3_1aPythonListener.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/PythonListen.cpp
   ${PROJECT_SOURCE_DIR}/src/Cache/PythonAPICache.cpp
 )
 endif()
 
-# TODO: these generated sources should go to a directory that
-# does not mess with the original source, e.g.
-# ${CMAKE_CURRENT_BINARY_DIR}/gen-src
-# That way, we also don't have/should have to check in the generated
-# files.
 set(surelog_generated_SRC
   # generated parser
   ${surelog_grammars-GENERATED_SRC}
 
   # Derived from parser generation.
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp)
+  ${GENDIR}/src/SourceCompile/VObjectTypes.cpp)
 
 foreach(gen_src ${surelog_generated_SRC})
   set_source_files_properties(${gen_src} PROPERTIES GENERATED TRUE)
@@ -511,7 +507,7 @@ if (SURELOG_WITH_PYTHON)
 add_custom_command(
   TARGET surelog-bin
   POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/src/API/slSV3_1aPythonListener.py
+  COMMAND ${CMAKE_COMMAND} -E copy_if_different ${GENDIR}/src/API/slSV3_1aPythonListener.py
           ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python/slSV3_1aPythonListener.py
   COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/src/API/slformatmsg.py
           ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python/slformatmsg.py
@@ -611,7 +607,7 @@ install(
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/CommandLine)
 install(
   FILES ${PROJECT_SOURCE_DIR}/src/SourceCompile/SymbolTable.h
-        ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.h
+        ${GENDIR}/src/SourceCompile/VObjectTypes.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/SourceCompile)
 install(
   FILES ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Location.h

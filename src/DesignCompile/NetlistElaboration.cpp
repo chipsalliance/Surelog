@@ -66,8 +66,9 @@
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
 
-using namespace SURELOG;
-using namespace UHDM;
+namespace SURELOG {
+
+using namespace UHDM;  // NOLINT (using a bunch of these)
 
 NetlistElaboration::NetlistElaboration(CompileDesign* compileDesign)
     : TestbenchElaboration(compileDesign) {
@@ -2099,3 +2100,4 @@ any* NetlistElaboration::bind_net_(ModuleInstance* instance,
   }
   return result;
 }
+}  // namespace SURELOG

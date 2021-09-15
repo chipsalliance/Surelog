@@ -22,6 +22,9 @@ if [regexp {out_dir=([a-zA-Z0-9_/\.:-]+)} $argv tmp DEST_DIR] {}
 set INPUT_DIR "."
 if [regexp {input_dir=([a-zA-Z0-9_/\.:-]+)} $argv tmp INPUT_DIR] {}
 
+set INPUT_GEN_DIR "."
+if [regexp {input_gen_dir=([a-zA-Z0-9_/\.:-]+)} $argv tmp INPUT_GEN_DIR] {}
+
 set LISTENERS                 "Parser PreProc"
 
 set ANTLR_DEFINITION(Parser)  "parser/SV3_1aParserBaseListener.h"
@@ -38,7 +41,7 @@ set VOBJECTTYPES_PY_H         "API/vobjecttypes_py.h"
 puts "Creating Parser listener $HEADER_OUTPUT(Parser) and object types ${VOBJECTTYPES_CPP_BASENAME}"
 
 proc generate_header { listener } {
-    global LISTENERS ANTLR_DEFINITION HEADER_OUTPUT CPP_INPUT TYPES DEST_DIR INPUT_DIR
+    global LISTENERS ANTLR_DEFINITION HEADER_OUTPUT CPP_INPUT TYPES DEST_DIR INPUT_DIR INPUT_GEN_DIR
 
     set oid [open "${DEST_DIR}/$HEADER_OUTPUT($listener)" "w"]
 
@@ -54,7 +57,7 @@ proc generate_header { listener } {
     }
 
     # Read Listener definition
-    set hid [open $INPUT_DIR/$ANTLR_DEFINITION($listener)]
+    set hid [open $INPUT_GEN_DIR/$ANTLR_DEFINITION($listener)]
     set h_spec "[read $hid]"
     close $hid
     set lines [split $h_spec "\n"]
@@ -288,59 +291,59 @@ set TYPES(slDotStar) 1
 set TYPES(slNonBlockingTriggerEvent) 1
 set TYPES(slPound_Pound_delay) 1
 
-set TYPES(slPortDir_Inp) 1 
-set TYPES(slPortDir_Out) 1 
-set TYPES(slPortDir_Inout) 1 
-set TYPES(slPortDir_Ref) 1 
+set TYPES(slPortDir_Inp) 1
+set TYPES(slPortDir_Out) 1
+set TYPES(slPortDir_Inout) 1
+set TYPES(slPortDir_Ref) 1
 
-set TYPES(slAlwaysKeywd_Always) 1 
-set TYPES(slAlwaysKeywd_Comb) 1  
-set TYPES(slAlwaysKeywd_Latch) 1 
+set TYPES(slAlwaysKeywd_Always) 1
+set TYPES(slAlwaysKeywd_Comb) 1
+set TYPES(slAlwaysKeywd_Latch) 1
 set TYPES(slAlwaysKeywd_FF) 1
 
-set TYPES(slEdge_Posedge) 1  
-set TYPES(slEdge_Negedge) 1 
-set TYPES(slEdge_Edge) 1 
+set TYPES(slEdge_Posedge) 1
+set TYPES(slEdge_Negedge) 1
+set TYPES(slEdge_Edge) 1
 
-set TYPES(slNumber_Integral) 1  
-set TYPES(slNumber_Real) 1 
-set TYPES(slNumber_1Tickb0) 1 
-set TYPES(slNumber_1Tickb1) 1 
-set TYPES(slNumber_1TickB0) 1 
-set TYPES(slNumber_1TickB1) 1 
-set TYPES(slNumber_Tickb0) 1 
-set TYPES(slNumber_Tickb1) 1 
-set TYPES(slNumber_TickB0) 1 
-set TYPES(slNumber_TickB1) 1 
-set TYPES(slNumber_Tick0) 1 
-set TYPES(slNumber_Tick1) 1 
-set TYPES(slNumber_1Tickbx) 1 
-set TYPES(slNumber_1TickbX) 1 
-set TYPES(slNumber_1TickBx) 1 
-set TYPES(slNumber_1TickBX) 1 
+set TYPES(slNumber_Integral) 1
+set TYPES(slNumber_Real) 1
+set TYPES(slNumber_1Tickb0) 1
+set TYPES(slNumber_1Tickb1) 1
+set TYPES(slNumber_1TickB0) 1
+set TYPES(slNumber_1TickB1) 1
+set TYPES(slNumber_Tickb0) 1
+set TYPES(slNumber_Tickb1) 1
+set TYPES(slNumber_TickB0) 1
+set TYPES(slNumber_TickB1) 1
+set TYPES(slNumber_Tick0) 1
+set TYPES(slNumber_Tick1) 1
+set TYPES(slNumber_1Tickbx) 1
+set TYPES(slNumber_1TickbX) 1
+set TYPES(slNumber_1TickBx) 1
+set TYPES(slNumber_1TickBX) 1
 
-set TYPES(slSigning_Signed) 1  
-set TYPES(slSigning_Unsigned) 1  
+set TYPES(slSigning_Signed) 1
+set TYPES(slSigning_Unsigned) 1
 
-set TYPES(slTfPortDir_Inp) 1   
-set TYPES(slTfPortDir_Out) 1   
-set TYPES(slTfPortDir_Inout) 1   
-set TYPES(slTfPortDir_Ref) 1   
-set TYPES(slTfPortDir_ConstRef) 1        
+set TYPES(slTfPortDir_Inp) 1
+set TYPES(slTfPortDir_Out) 1
+set TYPES(slTfPortDir_Inout) 1
+set TYPES(slTfPortDir_Ref) 1
+set TYPES(slTfPortDir_ConstRef) 1
 
-set TYPES(slIntegerAtomType_Byte) 1 
-set TYPES(slIntegerAtomType_Shortint) 1  
-set TYPES(slIntegerAtomType_Int) 1  
-set TYPES(slIntegerAtomType_LongInt) 1  
-set TYPES(slIntegerAtomType_Int) 1 
-set TYPES(slIntegerAtomType_Time) 1 
-set TYPES(slIntVec_TypeBit) 1  
+set TYPES(slIntegerAtomType_Byte) 1
+set TYPES(slIntegerAtomType_Shortint) 1
+set TYPES(slIntegerAtomType_Int) 1
+set TYPES(slIntegerAtomType_LongInt) 1
+set TYPES(slIntegerAtomType_Int) 1
+set TYPES(slIntegerAtomType_Time) 1
+set TYPES(slIntVec_TypeBit) 1
 set TYPES(slIntVec_TypeLogic) 1
-set TYPES(slIntVec_TypeReg) 1 
+set TYPES(slIntVec_TypeReg) 1
 set TYPES(slNonIntType_ShortReal) 1
-set TYPES(slNonIntType_Real) 1 
-set TYPES(slNonIntType_RealTime) 1 
-   
+set TYPES(slNonIntType_Real) 1
+set TYPES(slNonIntType_RealTime) 1
+
 set TYPES(slUnary_Plus) 1
 set TYPES(slUnary_Minus) 1
 set TYPES(slUnary_Not) 1

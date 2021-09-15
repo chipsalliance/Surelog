@@ -58,8 +58,9 @@
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
 
-using namespace SURELOG;
-using namespace UHDM;
+namespace SURELOG {
+
+using namespace UHDM;  // NOLINT (using a bunch of these)
 
 ElaborationStep::ElaborationStep(CompileDesign* compileDesign)
     : m_compileDesign(compileDesign) {
@@ -1460,3 +1461,4 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
   }
   return obj;
 }
+}  // namespace SURELOG

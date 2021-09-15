@@ -55,10 +55,10 @@
 #include <uhdm/expr.h>
 #include <uhdm/uhdm.h>
 
-using namespace SURELOG;
-using namespace UHDM;
+namespace SURELOG {
+using namespace UHDM;  // NOLINT (using a bunch of them)
 
-void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes,
+void CompileHelper::EvalStmt(const std::string& funcName, Scopes& scopes,
                              bool& invalidValue, bool& continue_flag,
                              bool& break_flag, DesignComponent* component,
                              CompileDesign* compileDesign,
@@ -561,3 +561,4 @@ void CompileHelper::evalScheduledExprs(DesignComponent* component,
     }
   }
 }
+}  // namespace SURELOG

@@ -34,9 +34,12 @@
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
 
-using namespace SURELOG;
-using namespace UHDM;
+using UHDM::any;
+using UHDM::constant;
+using UHDM::param_assign;
+using UHDM::uhdmconstant;
 
+namespace SURELOG {
 ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,
                                const FileContent* fileContent, NodeId nodeId,
                                ModuleInstance* parent, std::string instName,
@@ -235,3 +238,4 @@ void ModuleInstance::overrideParentChild(ModuleInstance* parent,
 
   m_allSubInstances = children;
 }
+}  // namespace SURELOG

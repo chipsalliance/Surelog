@@ -45,7 +45,7 @@ class Cache {
 
   time_t get_mtime(const char* path);
 
-  std::string getExecutableTimeStamp();
+  const std::string& getExecutableTimeStamp();
 
   uint8_t* openFlatBuffers(std::string cacheFileName);
 

@@ -14,9 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+set DEST_DIR "."
+if [regexp {out_dir=([a-zA-Z0-9_/\.:-]+)} $argv tmp DEST_DIR] {}
 
-
-set fid [open "API/slapi.py"]
+set fid [open "${DEST_DIR}/API/slapi.py"]
 set content [read $fid]
 close $fid
 
@@ -25,9 +26,9 @@ set content "$content\n[read $fid]"
 close $fid
 
 set lines [split $content "\n"]
-set oid [open "API/slapi_scripts.h" "w"]
+set oid [open "${DEST_DIR}/API/slapi_scripts.h" "w"]
 
-puts $oid "std::vector<std::string> slapi_scripts = {"   
+puts $oid "std::vector<std::string> slapi_scripts = {"
 
 puts $oid "\"import slapi\\n\""
 
@@ -48,4 +49,3 @@ puts $oid "};"
 
 flush $oid
 close $oid
-

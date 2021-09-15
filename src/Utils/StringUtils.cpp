@@ -29,8 +29,7 @@
 #include <regex>
 #include <sstream>
 
-using namespace SURELOG;
-
+namespace SURELOG {
 std::map<std::string, std::string> StringUtils::envVars;
 
 std::string StringUtils::to_string(double a_value, const int n) {
@@ -107,7 +106,7 @@ void StringUtils::tokenizeBalanced(std::string_view str,
   bool inDoubleQuote = false;
   for (unsigned int i = 0; i < stringSize; i++) {
     if (str[i] == '"') {
-      if (inDoubleQuote == false) {
+      if (!inDoubleQuote) {
         level++;
         inDoubleQuote = true;
       } else {
@@ -323,9 +322,9 @@ void StringUtils::autoExpandEnvironmentVariables(std::string* text) {
     }
     if (var.empty() && s) var = s;
 #if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)
-    if (var.size() && (var[var.size() - 1] != '\\')) var += "\\";
+    if (!var.empty() && (var[var.size() - 1] != '\\')) var += "\\";
 #else
-    if (var.size() && (var[var.size() - 1] != '/')) var += "/";
+    if (!var.empty() && (var[var.size() - 1] != '/')) var += "/";
 #endif
     text->replace(match.position(0), match.length(0), var);
   }
@@ -337,3 +336,4 @@ std::string StringUtils::evaluateEnvVars(std::string_view text) {
   autoExpandEnvironmentVariables(&input);
   return input;
 }
+}  // namespace SURELOG

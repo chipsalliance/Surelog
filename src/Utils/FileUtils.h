@@ -24,6 +24,7 @@
 #ifndef FILEUTILS_H
 #define FILEUTILS_H
 
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -39,16 +40,18 @@ class FileUtils final {
   static bool fileIsDirectory(const std::string& name);
   static SymbolId locateFile(SymbolId file, SymbolTable* symbols,
                              const std::vector<SymbolId>& paths);
+  // TODO: mkDir() and rmDir() don't return what one would think they return.
+  // Change to bool
   static int mkDir(const char* path);
   static int rmDir(const char* path);
   static std::string getFullPath(const std::string& path);
   static bool getFullPath(const std::string& path, std::string* result);
   static std::string getPathName(const std::string& path);
   static std::string basename(const std::string& str);
-  static unsigned long fileSize(const std::string& name);
+  static uint64_t fileSize(const std::string& name);
   static std::string hashPath(const std::string& path);
-  static std::vector<SymbolId> collectFiles(const std::string dirPath,
-                                            const std::string extension,
+  static std::vector<SymbolId> collectFiles(const std::string& dirPath,
+                                            const std::string& extension,
                                             SymbolTable* symbols);
   static std::vector<SymbolId> collectFiles(SymbolId dirPath,
                                             SymbolId extension,

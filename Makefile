@@ -37,7 +37,7 @@ run-cmake-release_no_tcmalloc:
 	cmake -DNO_TCMALLOC=On -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX) -DCMAKE_RULE_MESSAGES=$(RULE_MESSAGES) -S . -B build
 
 run-cmake-debug:
-	cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$(PREFIX) -DCMAKE_RULE_MESSAGES=$(RULE_MESSAGES) -S . -B dbuild
+	cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$(PREFIX) -DCMAKE_RULE_MESSAGES=$(RULE_MESSAGES) -DNO_TCMALLOC=On -S . -B dbuild
 
 run-cmake-coverage:
 	cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$(PREFIX) -DCMAKE_RULE_MESSAGES=$(RULE_MESSAGES) -DMY_CXX_WARNING_FLAGS="--coverage" -S . -B coverage-build
@@ -55,7 +55,7 @@ test/unittest-coverage: run-cmake-coverage
 	pushd coverage-build && ctest --output-on-failure && popd
 
 coverage-build/surelog.coverage: test/unittest-coverage
-	lcov --no-external --exclude "*_test.cpp" --capture --directory src --directory coverage-build/ --output-file coverage-build/surelog.coverage
+	lcov --no-external --exclude "*_test.cpp" --capture --directory coverage-build/CMakeFiles/surelog.dir --base-directory src --output-file coverage-build/surelog.coverage
 
 coverage-build/html: coverage-build/surelog.coverage
 	genhtml --output-directory coverage-build/html $^
@@ -89,6 +89,22 @@ regression: release
 
 clean:
 	$(RM) -r build dbuild coverage-build dist tests/TestInstall/build
+	# Only here for a short while until everyone who has checked out
+	# the sources cleans the old codegen locations.
+	$(RM) src/SourceCompile/VObjectTypes.h \
+              src/SourceCompile/VObjectTypes.cpp \
+              src/API/vobjecttypes_py.h \
+              src/SourceCompile/SV3_1aTreeShapeListener.h \
+              src/SourceCompile/SV3_1aPpTreeShapeListener.h
+	$(RM) src/API/SV3_1aPythonListener.h \
+              src/API/slSV3_1aPythonListener.py \
+              src/API/slapi_wrap.cxx \
+              src/API/slapi_scripts.h \
+              src/API/slapi.py
+	$(RM) src/Cache/header_generated.h \
+              src/Cache/parser_generated.h \
+              src/Cache/preproc_generated.h \
+              src/Cache/python_api_generated.h
 
 install: release
 	cmake --install build
