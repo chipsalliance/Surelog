@@ -444,7 +444,7 @@ class CompileHelper final {
                        const std::string& fileName, int lineNumber,
                        UHDM::any* pexpr);
 
-  void EvalStmt(const std::string funcName, Scopes& scopes, bool& invalidValue,
+  void EvalStmt(const std::string& funcName, Scopes& scopes, bool& invalidValue,
                 bool& continue_flag, bool& break_flag,
                 DesignComponent* component, CompileDesign* compileDesign,
                 ValuedComponentI* instance, const std::string& fileName,

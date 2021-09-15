@@ -63,8 +63,15 @@
 #include <uhdm/uhdm.h>
 #include <uhdm/vpi_visitor.h>
 
-using namespace SURELOG;
-using namespace UHDM;
+namespace SURELOG {
+
+using UHDM::BaseClass;
+using UHDM::begin;
+using UHDM::Serializer;
+using UHDM::UHDM_OBJECT_TYPE;
+using UHDM::uhdmunsupported_expr;
+using UHDM::uhdmunsupported_stmt;
+using UHDM::uhdmunsupported_typespec;
 
 bool UhdmChecker::registerFile(const FileContent* fC,
                                std::set<std::string>& moduleNames) {
@@ -670,3 +677,4 @@ bool UhdmChecker::check(const std::string& reportFile) {
   reportHtml(m_compileDesign, reportFile, overallCoverage);
   return true;
 }
+}  // namespace SURELOG
