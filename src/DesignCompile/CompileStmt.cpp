@@ -48,8 +48,8 @@
 #include <uhdm/expr.h>
 #include <uhdm/uhdm.h>
 
-using namespace SURELOG;
-using namespace UHDM;
+namespace SURELOG {
+using namespace UHDM;  // NOLINT (using a bunch of these)
 
 VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
                                         const FileContent* fC, NodeId the_stmt,
@@ -2536,3 +2536,4 @@ void CompileHelper::compileBindStmt(DesignComponent* component,
                                 Instance_target, Source_scope, Instance_name);
   compileDesign->getCompiler()->getDesign()->addBindStmt(fullName, bind);
 }
+}  // namespace SURELOG

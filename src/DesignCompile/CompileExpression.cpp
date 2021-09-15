@@ -60,8 +60,8 @@
 #include <uhdm/uhdm.h>
 #include <uhdm/vpi_visitor.h>
 
-using namespace SURELOG;
-using namespace UHDM;
+namespace SURELOG {
+using namespace UHDM;  // NOLINT (using a bunch of them)
 
 bool CompileHelper::substituteAssignedValue(const UHDM::any* oper,
                                             CompileDesign* compileDesign) {
@@ -6248,3 +6248,4 @@ void CompileHelper::reorderAssignmentPattern(DesignComponent* mod,
     }
   }
 }
+}  // namespace SURELOG

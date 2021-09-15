@@ -68,8 +68,9 @@
 #include <uhdm/vpi_uhdm.h>
 #include <uhdm/vpi_visitor.h>
 
-using namespace SURELOG;
-using namespace UHDM;
+namespace SURELOG {
+
+using namespace UHDM;  // NOLINT (we're using a whole bunch of these)
 
 typedef std::map<ModPort*, modport*> ModPortMap;
 typedef std::map<const DesignComponent*, BaseClass*> ComponentMap;
@@ -2224,3 +2225,4 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
       m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
   return designHandle;
 }
+}  // namespace SURELOG

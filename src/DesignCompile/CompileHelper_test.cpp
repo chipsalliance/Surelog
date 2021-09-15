@@ -50,7 +50,16 @@
 // UHDM
 #include <uhdm/vpi_visitor.h>
 
-using namespace UHDM;
+using UHDM::begin;
+using UHDM::design;
+using UHDM::initial;
+using UHDM::module;
+using UHDM::package;
+using UHDM::VectorOfany;
+using UHDM::VectorOfmodule;
+using UHDM::VectorOfpackage;
+using UHDM::VectorOfprocess_stmt;
+using UHDM::visit_designs;
 
 class MockFileContent : public SURELOG::FileContent {
  public:
