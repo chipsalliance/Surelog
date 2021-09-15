@@ -55,14 +55,13 @@ namespace fs = std::filesystem;
 namespace fs = std::experimental::filesystem;
 #endif
 
-using namespace SURELOG;
-
+namespace SURELOG {
 bool FileUtils::fileExists(const std::string& name) {
   std::error_code ec;
   return fs::exists(name, ec);
 }
 
-unsigned long FileUtils::fileSize(const std::string& name) {
+uint64_t FileUtils::fileSize(const std::string& name) {
   std::error_code ec;
   return fs::file_size(name, ec);
 }
@@ -84,7 +83,7 @@ SymbolId FileUtils::locateFile(SymbolId file, SymbolTable* symbols,
   for (auto id : paths) {
     const std::string& path = symbols->getSymbol(id);
     std::string filePath;
-    if (path.size() && (path[path.size() - 1] == '/'))
+    if (!path.empty() && (path[path.size() - 1] == '/'))
       filePath = path + fileName;
     else
       filePath = path + "/" + fileName;
@@ -92,7 +91,7 @@ SymbolId FileUtils::locateFile(SymbolId file, SymbolTable* symbols,
       return symbols->registerSymbol(filePath);
     }
   }
-  return symbols->getBadId();
+  return SymbolTable::getBadId();
 }
 
 int FileUtils::mkDir(const char* path) {
@@ -136,8 +135,8 @@ std::vector<SymbolId> FileUtils::collectFiles(SymbolId dirPath, SymbolId ext,
                       symbols);
 }
 
-std::vector<SymbolId> FileUtils::collectFiles(const std::string dirPath,
-                                              const std::string ext,
+std::vector<SymbolId> FileUtils::collectFiles(const std::string& dirPath,
+                                              const std::string& ext,
                                               SymbolTable* symbols) {
   std::vector<SymbolId> result;
   if (fileIsDirectory(dirPath)) {
@@ -177,7 +176,7 @@ std::vector<SymbolId> FileUtils::collectFiles(const std::string& pathSpec,
   fs::path suffix;
   for (const fs::path& subpath : path) {
     const std::string substr = subpath.string();
-    if (substr.compare(".") == 0)
+    if (substr == ".")
       continue;
     else if (!suffix.empty())
       suffix /= subpath;
@@ -261,7 +260,7 @@ std::string FileUtils::hashPath(const std::string& path) {
   std::string hashedpath;
   std::size_t val = std::hash<std::string>{}(path);
   std::string last_dir = path;
-  if (last_dir.size()) last_dir.erase(last_dir.end() - 1);
+  if (!last_dir.empty()) last_dir.erase(last_dir.end() - 1);
   auto it1 = std::find_if(last_dir.rbegin(), last_dir.rend(),
                           [](char ch) { return (ch == '/' || ch == '\\'); });
   if (it1 != last_dir.rend()) last_dir.erase(last_dir.begin(), it1.base());
@@ -287,3 +286,4 @@ std::string FileUtils::makeRelativePath(const std::string& in_path) {
   }
   return path;
 }
+}  // namespace SURELOG

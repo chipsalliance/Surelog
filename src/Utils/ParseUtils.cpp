@@ -28,53 +28,49 @@
 
 namespace SURELOG {
 
-std::pair<int, int> ParseUtils::getLineColumn(
+ParseUtils::LineColumn ParseUtils::getLineColumn(
     antlr4::tree::TerminalNode* node) {
-  antlr4::Token* token = node->getSymbol();
-  int lineNb = token->getLine();
-  int columnNb = token->getCharPositionInLine();
+  const antlr4::Token* token = node->getSymbol();
+  const size_t lineNb = token->getLine();
+  const size_t columnNb = token->getCharPositionInLine();
   return std::make_pair(lineNb, columnNb);
 }
 
-std::pair<int, int> ParseUtils::getEndLineColumn(
+ParseUtils::LineColumn ParseUtils::getEndLineColumn(
     antlr4::tree::TerminalNode* node) {
-  antlr4::Token* token = node->getSymbol();
-  int lineNb = token->getLine();
-  int columnNb = token->getCharPositionInLine() + token->getStopIndex() -
-                 token->getStartIndex();
+  const antlr4::Token* token = node->getSymbol();
+  const size_t lineNb = token->getLine();
+  const size_t columnNb = token->getCharPositionInLine() +
+                          token->getStopIndex() - token->getStartIndex();
   return std::make_pair(lineNb, columnNb);
 }
 
-std::pair<int, int> ParseUtils::getLineColumn(
+ParseUtils::LineColumn ParseUtils::getLineColumn(
     antlr4::CommonTokenStream* stream, antlr4::ParserRuleContext* context) {
-  const antlr4::misc::Interval sourceInterval =
-      ((antlr4::ParserRuleContext*)context)->getSourceInterval();
+  const antlr4::misc::Interval sourceInterval = context->getSourceInterval();
   if (sourceInterval.a == -1) return std::make_pair(0, 0);
   antlr4::Token* firstToken = stream->get(sourceInterval.a);
-  int lineNb = firstToken->getLine();
-  int columnNb = firstToken->getCharPositionInLine() + 1;
+  const size_t lineNb = firstToken->getLine();
+  const size_t columnNb = firstToken->getCharPositionInLine() + 1;
   return std::make_pair(lineNb, columnNb);
 }
 
-std::pair<int, int> ParseUtils::getEndLineColumn(
+ParseUtils::LineColumn ParseUtils::getEndLineColumn(
     antlr4::CommonTokenStream* stream, antlr4::ParserRuleContext* context) {
-  const antlr4::misc::Interval sourceInterval =
-      ((antlr4::ParserRuleContext*)context)->getSourceInterval();
+  const antlr4::misc::Interval sourceInterval = context->getSourceInterval();
   if (sourceInterval.b == -1) return std::make_pair(0, 0);
   antlr4::Token* firstToken = stream->get(sourceInterval.b);
-  int lineNb = firstToken->getLine();
-  int columnNb = firstToken->getCharPositionInLine() +
-                 firstToken->getStopIndex() - firstToken->getStartIndex() + 1 +
-                 1;
+  size_t lineNb = firstToken->getLine();
+  size_t columnNb = firstToken->getCharPositionInLine() +
+                    firstToken->getStopIndex() - firstToken->getStartIndex() +
+                    1 + 1;
   return std::make_pair(lineNb, columnNb);
 }
 
 std::vector<antlr4::tree::ParseTree*> ParseUtils::getTopTokenList(
     antlr4::tree::ParseTree* tree) {
   std::vector<antlr4::tree::ParseTree*> tokens;
-  for (unsigned int i = 0; i < tree->children.size(); i++) {
-    // Get the i-th child node of `parent`.
-    antlr4::tree::ParseTree* child = tree->children[i];
+  for (antlr4::tree::ParseTree* child : tree->children) {
     tokens.push_back(child);
   }
   return tokens;
@@ -86,10 +82,8 @@ void ParseUtils::tokenizeAtComma(
   bool notEmpty = false;
   std::vector<std::string> tmpArgs;
   unsigned int topIndex = 0;
-  for (std::vector<antlr4::tree::ParseTree*>::const_iterator itr =
-           tokens.begin();
-       itr != tokens.end(); itr++) {
-    std::string s = (*itr)->getText();
+  for (antlr4::tree::ParseTree* token : tokens) {
+    const std::string s = token->getText();
     if (s == ",") {
       tmpArgs.push_back(",");
       topIndex++;
@@ -107,9 +101,9 @@ void ParseUtils::tokenizeAtComma(
   }
 
   for (unsigned int j = 0; j < tmpArgs.size(); j++) {
-    std::string s = tmpArgs[j];
+    const std::string& s = tmpArgs[j];
     if (s != ",") {
-      for (unsigned int i = 0; i < s.size(); i++) {
+      for (unsigned int i = 0; i < s.size(); i++) {  // TODO: use std:: fun
         if (s[i] != ' ') {
           notEmpty = true;
           break;
@@ -159,6 +153,7 @@ std::vector<antlr4::Token*> ParseUtils::getFlatTokenList(
 
 void ParseUtils::inOrderTraversal(std::vector<antlr4::Token*>& tokens,
                                   antlr4::tree::ParseTree* parent) {
+  if (!parent) return;
   // Iterate over all child nodes of `parent`.
   for (unsigned int i = 0; i < parent->children.size(); i++) {
     // Get the i-th child node of `parent`.

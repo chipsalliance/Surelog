@@ -23,6 +23,7 @@
 
 #ifndef PARSEUTILS_H
 #define PARSEUTILS_H
+
 #include "ParserRuleContext.h"
 #include "antlr4-runtime.h"
 
@@ -31,16 +32,17 @@ namespace SURELOG {
 class ParseUtils final {
  public:
   using ParseTree = antlr4::tree::ParseTree;
+  using LineColumn = std::pair<int, int>;  // TODO: make <size_t, size_t> ?
 
-  static std::pair<int, int> getLineColumn(antlr4::CommonTokenStream* stream,
-                                           antlr4::ParserRuleContext* context);
+  static LineColumn getLineColumn(antlr4::CommonTokenStream* stream,
+                                  antlr4::ParserRuleContext* context);
 
-  static std::pair<int, int> getEndLineColumn(
-      antlr4::CommonTokenStream* stream, antlr4::ParserRuleContext* context);
+  static LineColumn getEndLineColumn(antlr4::CommonTokenStream* stream,
+                                     antlr4::ParserRuleContext* context);
 
-  static std::pair<int, int> getLineColumn(antlr4::tree::TerminalNode* node);
+  static LineColumn getLineColumn(antlr4::tree::TerminalNode* node);
 
-  static std::pair<int, int> getEndLineColumn(antlr4::tree::TerminalNode* node);
+  static LineColumn getEndLineColumn(antlr4::tree::TerminalNode* node);
 
   static std::vector<ParseTree*> getTopTokenList(ParseTree* tree);
   static void tokenizeAtComma(std::vector<std::string>& actualArgs,
