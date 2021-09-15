@@ -52,9 +52,9 @@
 using namespace antlr4;
 
 namespace SURELOG {
-std::string PreprocessFile::MacroNotDefined = "SURELOG_MACRO_NOT_DEFINED";
-std::string PreprocessFile::PP__Line__Marking = "SURELOG__LINE__MARKING";
-std::string PreprocessFile::PP__File__Marking = "SURELOG__FILE__MARKING";
+const char* const PreprocessFile::MacroNotDefined = "SURELOG_MACRO_NOT_DEFINED";
+const char* const PreprocessFile::PP__Line__Marking = "SURELOG__LINE__MARKING";
+const char* const PreprocessFile::PP__File__Marking = "SURELOG__FILE__MARKING";
 
 void PreprocessFile::setDebug(int level) {
   switch (level) {
@@ -263,11 +263,11 @@ void PreprocessFile::addError(Error& error) {
     getCompileSourceFile()->getErrorContainer()->addError(error);
 }
 
-const std::string PreprocessFile::getSymbol(SymbolId id) {
+std::string PreprocessFile::getSymbol(SymbolId id) {
   return getCompileSourceFile()->getSymbolTable()->getSymbol(id);
 }
 
-const std::string PreprocessFile::getFileName(unsigned int line) {
+std::string PreprocessFile::getFileName(unsigned int line) {
   return getSymbol(getFileId(line));
 }
 
@@ -461,7 +461,7 @@ bool PreprocessFile::preprocess() {
   return true;
 }
 
-static unsigned int LinesCount(const std::string& s) {
+static size_t LinesCount(std::string_view s) {
   return std::count(s.begin(), s.end(), '\n');
 }
 
@@ -475,14 +475,14 @@ unsigned int PreprocessFile::getSumLineCount() {
 void PreprocessFile::append(const std::string& s) {
   if (!m_pauseAppend) {
     m_lineCount += LinesCount(s);
-    m_result += s;
+    m_result.append(s);
   }
 }
 
-void PreprocessFile::recordMacro(const std::string name, unsigned int line,
+void PreprocessFile::recordMacro(const std::string& name, unsigned int line,
                                  unsigned short int column,
-                                 const std::string arguments,
-                                 const std::vector<std::string> tokens) {
+                                 const std::string& arguments,
+                                 const std::vector<std::string>& tokens) {
   // *** Argument processing
   std::string arguments_short = arguments;
   // Remove (
@@ -531,10 +531,10 @@ std::string PreprocessFile::reportIncludeInfo() {
   return report;
 }
 
-void PreprocessFile::recordMacro(const std::string name, unsigned int line,
+void PreprocessFile::recordMacro(const std::string& name, unsigned int line,
                                  unsigned short int column,
-                                 const std::vector<std::string> arguments,
-                                 const std::vector<std::string> tokens) {
+                                 const std::vector<std::string>& arguments,
+                                 const std::vector<std::string>& tokens) {
   MacroInfo* macroInfo = new MacroInfo(
       name, arguments.size() ? MacroInfo::WITH_ARGS : MacroInfo::NO_ARGS,
       getFileId(line), line, column, arguments, tokens);
@@ -635,7 +635,7 @@ SymbolId PreprocessFile::getId(const std::string symbol) {
 }
 
 std::string PreprocessFile::evaluateMacroInstance(
-    const std::string macro_instance, PreprocessFile* callingFile,
+    const std::string& macro_instance, PreprocessFile* callingFile,
     unsigned int callingLine,
     SpecialInstructions::CheckLoopInstr checkMacroLoop,
     SpecialInstructions::AsIsUndefinedMacroInstr asisUndefMacro) {
@@ -674,7 +674,7 @@ static bool isKeyword(const std::vector<std::string>& body_tokens) {
 }
 
 std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
-    const std::string name, std::vector<std::string>& actual_args,
+    const std::string& name, std::vector<std::string>& actual_args,
     PreprocessFile* callingFile, unsigned int callingLine,
     LoopCheck& loopChecker, MacroInfo* macroInfo,
     SpecialInstructions& instructions, unsigned int embeddedMacroCallLine,
@@ -936,12 +936,12 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   return std::make_pair(found, result);
 }
 
-MacroInfo* PreprocessFile::getMacro(const std::string name) {
+MacroInfo* PreprocessFile::getMacro(const std::string& name) {
   registerSymbol(name);
   return m_compilationUnit->getMacroInfo(name);
 }
 
-bool PreprocessFile::deleteMacro(const std::string name,
+bool PreprocessFile::deleteMacro(const std::string& name,
                                  std::set<PreprocessFile*>& visited) {
   /*SymbolId macroId = */ registerSymbol(name);
   if (m_debugMacro)
@@ -1020,7 +1020,7 @@ void PreprocessFile::undefineAllMacros(std::set<PreprocessFile*>& visited) {
 }
 
 std::string PreprocessFile::getMacro(
-    const std::string name, std::vector<std::string>& arguments,
+    const std::string& name, std::vector<std::string>& arguments,
     PreprocessFile* callingFile, unsigned int callingLine,
     LoopCheck& loopChecker, SpecialInstructions& instructions,
     unsigned int embeddedMacroCallLine, SymbolId embeddedMacroCallFile) {

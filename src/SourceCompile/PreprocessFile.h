@@ -80,31 +80,31 @@ class PreprocessFile {
   std::string getPreProcessedFileContent();
 
   /* Macro manipulations */
-  void recordMacro(const std::string name, unsigned int line,
+  void recordMacro(const std::string& name, unsigned int line,
                    unsigned short int column,
-                   const std::string formal_arguments,
-                   const std::vector<std::string> body);
-  void recordMacro(const std::string name, unsigned int line,
+                   const std::string& formal_arguments,
+                   const std::vector<std::string>& body);
+  void recordMacro(const std::string& name, unsigned int line,
                    unsigned short int column,
-                   const std::vector<std::string> formal_arguments,
-                   const std::vector<std::string> body);
-  std::string getMacro(const std::string name,
+                   const std::vector<std::string>& formal_arguments,
+                   const std::vector<std::string>& body);
+  std::string getMacro(const std::string& name,
                        std::vector<std::string>& actual_arguments,
                        PreprocessFile* callingFile, unsigned int callingLine,
                        LoopCheck& loopChecker,
                        SpecialInstructions& instructions,
                        unsigned int embeddedMacroCallLine = 0,
                        SymbolId embeddedMacroCallFile = 0);
-  bool deleteMacro(const std::string name, std::set<PreprocessFile*>& visited);
+  bool deleteMacro(const std::string& name, std::set<PreprocessFile*>& visited);
   void undefineAllMacros(std::set<PreprocessFile*>& visited);
-  bool isMacroBody() { return !m_macroBody.empty(); }
-  std::string getMacroBody() { return m_macroBody; }
+  bool isMacroBody() const { return !m_macroBody.empty(); }
+  const std::string& getMacroBody() const { return m_macroBody; }
   MacroInfo* getMacroInfo() { return m_macroInfo; }
   SymbolId getMacroSignature();
   const MacroStorage& getMacros() { return m_macros; }
-  MacroInfo* getMacro(const std::string name);
+  MacroInfo* getMacro(const std::string& name);
 
-  const std::string getFileName(unsigned int line);
+  std::string getFileName(unsigned int line);
 
   std::string reportIncludeInfo();
 
@@ -121,8 +121,8 @@ class PreprocessFile {
   unsigned int getLineNb(unsigned int line);
   PreprocessFile* getIncluder() { return m_includer; }
   unsigned int getIncluderLine() { return m_includerLine; }
-  unsigned int getLineCount() { return m_lineCount; }
-  void setLineCount(unsigned int count) { m_lineCount = count; }
+  size_t getLineCount() { return m_lineCount; }
+  void setLineCount(size_t count) { m_lineCount = count; }
   unsigned int getSumLineCount();
   std::vector<IncludeFileInfo>& getIncludeFileInfo() {
     return m_includeFileInfo;
@@ -137,9 +137,9 @@ class PreprocessFile {
   SymbolId getEmbeddedMacroCallFile() { return m_embeddedMacroCallFile; }
 
   /* Markings */
-  static std::string MacroNotDefined;
-  static std::string PP__Line__Marking;
-  static std::string PP__File__Marking;
+  static const char* const MacroNotDefined;
+  static const char* const PP__Line__Marking;
+  static const char* const PP__File__Marking;
 
  private:
   SymbolId m_fileId;
@@ -150,7 +150,7 @@ class PreprocessFile {
   unsigned int m_includerLine;
   std::vector<PreprocessFile*> m_includes;
   CompileSourceFile* m_compileSourceFile;
-  unsigned int m_lineCount;
+  size_t m_lineCount;
   IncludeFileInfo m_badIncludeFileInfo;
 
  public:
@@ -213,7 +213,7 @@ class PreprocessFile {
   };
 
   std::string evaluateMacroInstance(
-      const std::string macro_instance, PreprocessFile* callingFile,
+      const std::string& macro_instance, PreprocessFile* callingFile,
       unsigned int callingLine,
       SpecialInstructions::CheckLoopInstr checkMacroLoop,
       SpecialInstructions::AsIsUndefinedMacroInstr);
@@ -285,7 +285,7 @@ class PreprocessFile {
   /* Shorthands for symbol manipulations */
   SymbolId registerSymbol(const std::string symbol);
   SymbolId getId(const std::string symbol);
-  const std::string getSymbol(SymbolId id);
+  std::string getSymbol(SymbolId id);
 
   // For recursive macro definition detection
   PreprocessFile* getSourceFile();
@@ -308,7 +308,7 @@ class PreprocessFile {
 
  private:
   std::pair<bool, std::string> evaluateMacro_(
-      const std::string name, std::vector<std::string>& arguments,
+      const std::string& name, std::vector<std::string>& arguments,
       PreprocessFile* callingFile, unsigned int callingLine,
       LoopCheck& loopChecker, MacroInfo* macroInfo,
       SpecialInstructions& instructions, unsigned int embeddedMacroCallLine,
