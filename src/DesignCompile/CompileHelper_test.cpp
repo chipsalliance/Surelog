@@ -62,9 +62,7 @@ UHDM::Serializer sharedSerializer;
 class MockCompileDesign : public SURELOG::CompileDesign {
  public:
   MockCompileDesign() : CompileDesign(nullptr) {}
-  virtual UHDM::Serializer& getSerializer() override {
-    return sharedSerializer;
-  }
+  UHDM::Serializer& getSerializer() final { return sharedSerializer; }
 };
 // Need this to get serializer for VpiName, VpiValue etc.
 MockCompileDesign cd;
