@@ -89,6 +89,13 @@ regression: release
 
 clean:
 	$(RM) -r build dbuild coverage-build dist tests/TestInstall/build
+	# Only here for a short while until everyone who has checked out
+	# the sources cleans the old locations.
+	$(RM) src/SourceCompile/VObjectTypes.h \
+              src/SourceCompile/VObjectTypes.cpp \
+              src/API/vobjecttypes_py.h \
+              src/SourceCompile/SV3_1aTreeShapeListener.h \
+              src/SourceCompile/SV3_1aPpTreeShapeListener.h
 
 install: release
 	cmake --install build
