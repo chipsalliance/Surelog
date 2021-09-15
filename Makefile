@@ -101,7 +101,10 @@ clean:
               src/API/slapi_wrap.cxx \
               src/API/slapi_scripts.h \
               src/API/slapi.py
-
+	$(RM) src/Cache/header_generated.h \
+              src/Cache/parser_generated.h \
+              src/Cache/preproc_generated.h \
+              src/Cache/python_api_generated.h
 
 install: release
 	cmake --install build

@@ -108,10 +108,10 @@ endif()
 
 # Flatbuffer
 set(flatbuffer-GENERATED_SRC
-    ${PROJECT_SOURCE_DIR}/src/Cache/header_generated.h
-    ${PROJECT_SOURCE_DIR}/src/Cache/parser_generated.h
-    ${PROJECT_SOURCE_DIR}/src/Cache/preproc_generated.h
-    ${PROJECT_SOURCE_DIR}/src/Cache/python_api_generated.h)
+    ${GENDIR}/src/Cache/header_generated.h
+    ${GENDIR}/src/Cache/parser_generated.h
+    ${GENDIR}/src/Cache/preproc_generated.h
+    ${GENDIR}/src/Cache/python_api_generated.h)
 
 foreach(header_file ${flatbuffer-GENERATED_SRC})
   set_source_files_properties(${header_file} PROPERTIES GENERATED TRUE)
@@ -120,7 +120,7 @@ add_custom_target(GenerateSerializer DEPENDS ${flatbuffer-GENERATED_SRC})
 add_custom_command(
   OUTPUT ${flatbuffer-GENERATED_SRC}
   COMMAND
-    flatc --cpp --binary -o ${PROJECT_SOURCE_DIR}/src/Cache/
+    flatc --cpp --binary -o ${GENDIR}/src/Cache/
     ${PROJECT_SOURCE_DIR}/src/Cache/header.fbs
     ${PROJECT_SOURCE_DIR}/src/Cache/parser.fbs
     ${PROJECT_SOURCE_DIR}/src/Cache/preproc.fbs
