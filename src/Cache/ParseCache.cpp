@@ -52,12 +52,11 @@
 #include "Utils/StringUtils.h"
 #include "flatbuffers/util.h"
 
-using namespace SURELOG;
-
+namespace SURELOG {
 ParseCache::ParseCache(ParseFile* parser)
     : m_parse(parser), m_isPrecompiled(false) {}
 
-static std::string FlbSchemaVersion = "1.0";
+static constexpr char FlbSchemaVersion[] = "1.0";
 
 std::string ParseCache::getCacheFileName_(std::string svFileName) {
   Precompiled* prec = Precompiled::getSingleton();
@@ -269,3 +268,4 @@ bool ParseCache::save() {
 
   return status;
 }
+}  // namespace SURELOG
