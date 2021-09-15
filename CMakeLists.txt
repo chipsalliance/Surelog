@@ -108,10 +108,10 @@ endif()
 
 # Flatbuffer
 set(flatbuffer-GENERATED_SRC
-    ${PROJECT_SOURCE_DIR}/src/Cache/header_generated.h
-    ${PROJECT_SOURCE_DIR}/src/Cache/parser_generated.h
-    ${PROJECT_SOURCE_DIR}/src/Cache/preproc_generated.h
-    ${PROJECT_SOURCE_DIR}/src/Cache/python_api_generated.h)
+    ${GENDIR}/src/Cache/header_generated.h
+    ${GENDIR}/src/Cache/parser_generated.h
+    ${GENDIR}/src/Cache/preproc_generated.h
+    ${GENDIR}/src/Cache/python_api_generated.h)
 
 foreach(header_file ${flatbuffer-GENERATED_SRC})
   set_source_files_properties(${header_file} PROPERTIES GENERATED TRUE)
@@ -120,7 +120,7 @@ add_custom_target(GenerateSerializer DEPENDS ${flatbuffer-GENERATED_SRC})
 add_custom_command(
   OUTPUT ${flatbuffer-GENERATED_SRC}
   COMMAND
-    flatc --cpp --binary -o ${PROJECT_SOURCE_DIR}/src/Cache/
+    flatc --cpp --binary -o ${GENDIR}/src/Cache/
     ${PROJECT_SOURCE_DIR}/src/Cache/header.fbs
     ${PROJECT_SOURCE_DIR}/src/Cache/parser.fbs
     ${PROJECT_SOURCE_DIR}/src/Cache/preproc.fbs
@@ -200,26 +200,28 @@ add_custom_command(
 )
 
 if (SURELOG_WITH_PYTHON)
-# TODO: generate into ${GENDIR}
 set(surelog_python-GENERATED_SRC
-  ${PROJECT_SOURCE_DIR}/src/API/SV3_1aPythonListener.h
-  ${PROJECT_SOURCE_DIR}/src/API/slSV3_1aPythonListener.py
-  ${PROJECT_SOURCE_DIR}/src/API/slapi_wrap.cxx
-  ${PROJECT_SOURCE_DIR}/src/API/slapi_scripts.h
-  ${PROJECT_SOURCE_DIR}/src/API/slapi.py)
+  ${GENDIR}/src/API/SV3_1aPythonListener.h
+  ${GENDIR}/src/API/slSV3_1aPythonListener.py
+  ${GENDIR}/src/API/slapi_wrap.cxx
+  ${GENDIR}/src/API/slapi_scripts.h
+  ${GENDIR}/src/API/slapi.py)
+foreach(gen_src ${surelog_python-GENERATED_SRC})
+  set_source_files_properties(${gen_src} PROPERTIES GENERATED TRUE)
+endforeach()
 add_custom_command(
   OUTPUT  ${surelog_python-GENERATED_SRC}
   DEPENDS ${PROJECT_SOURCE_DIR}/src/API/slapi_scripts.i
-          ${GENDIR}/src/API/vobjecttypes_py.h
-          ${GENDIR}/src/parser/generated-parsers.tstamp
           ${PROJECT_SOURCE_DIR}/src/API/generate_python_listener_api.tcl
           ${PROJECT_SOURCE_DIR}/src/API/embed_python_api.tcl
+          ${GENDIR}/src/API/vobjecttypes_py.h
+          ${GENDIR}/src/parser/generated-parsers.tstamp
 
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
   COMMAND echo "---------- Python API generation"
-  COMMAND tclsh API/generate_python_listener_api.tcl
-  COMMAND ${SWIG_EXECUTABLE} -c++ -python -o API/slapi_wrap.cxx API/slapi_scripts.i
-  COMMAND tclsh API/embed_python_api.tcl
+  COMMAND tclsh API/generate_python_listener_api.tcl input_gen_dir=${GENDIR}/src out_dir=${GENDIR}/src
+  COMMAND ${SWIG_EXECUTABLE} -c++ -python -o ${GENDIR}/src/API/slapi_wrap.cxx API/slapi_scripts.i
+  COMMAND tclsh API/embed_python_api.tcl out_dir=${GENDIR}/src
 )
 endif()
 
@@ -343,7 +345,7 @@ set(surelog_SRC
 
 if (SURELOG_WITH_PYTHON)
 list(APPEND surelog_SRC
-  ${PROJECT_SOURCE_DIR}/src/API/SV3_1aPythonListener.h
+  ${GENDIR}/src/API/SV3_1aPythonListener.h
   ${PROJECT_SOURCE_DIR}/src/API/SV3_1aPythonListener.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/PythonListen.cpp
   ${PROJECT_SOURCE_DIR}/src/Cache/PythonAPICache.cpp
@@ -509,7 +511,7 @@ if (SURELOG_WITH_PYTHON)
 add_custom_command(
   TARGET surelog-bin
   POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/src/API/slSV3_1aPythonListener.py
+  COMMAND ${CMAKE_COMMAND} -E copy_if_different ${GENDIR}/src/API/slSV3_1aPythonListener.py
           ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python/slSV3_1aPythonListener.py
   COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/src/API/slformatmsg.py
           ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python/slformatmsg.py

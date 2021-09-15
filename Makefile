@@ -90,12 +90,21 @@ regression: release
 clean:
 	$(RM) -r build dbuild coverage-build dist tests/TestInstall/build
 	# Only here for a short while until everyone who has checked out
-	# the sources cleans the old locations.
+	# the sources cleans the old codegen locations.
 	$(RM) src/SourceCompile/VObjectTypes.h \
               src/SourceCompile/VObjectTypes.cpp \
               src/API/vobjecttypes_py.h \
               src/SourceCompile/SV3_1aTreeShapeListener.h \
               src/SourceCompile/SV3_1aPpTreeShapeListener.h
+	$(RM) src/API/SV3_1aPythonListener.h \
+              src/API/slSV3_1aPythonListener.py \
+              src/API/slapi_wrap.cxx \
+              src/API/slapi_scripts.h \
+              src/API/slapi.py
+	$(RM) src/Cache/header_generated.h \
+              src/Cache/parser_generated.h \
+              src/Cache/preproc_generated.h \
+              src/Cache/python_api_generated.h
 
 install: release
 	cmake --install build
