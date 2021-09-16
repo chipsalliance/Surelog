@@ -2356,7 +2356,6 @@ bool CompileHelper::compileParameterDeclaration(
         }
       }
 
-      expr* unpacked = nullptr;
       UHDM::parameter* param = s.MakeParameter();
 
       Parameter* p =
@@ -2373,7 +2372,6 @@ bool CompileHelper::compileParameterDeclaration(
       }
       if (ts) {
         ts->VpiParent(param);
-        if (ts->VpiName() == "") ts->VpiName(fC->SymName(name));
       }
       param->VpiSigned(isSigned);
       param->VpiFile(fC->getFileName());
@@ -2390,6 +2388,10 @@ bool CompileHelper::compileParameterDeclaration(
                           reduce, unpackedSize, muteErrors);
         param->Ranges(unpackedDimensions);
         param->VpiSize(unpackedSize);
+        array_typespec* atps = s.MakeArray_typespec();
+        atps->Elem_typespec((typespec*)param->Typespec());
+        param->Typespec(atps);
+        atps->Ranges(unpackedDimensions);
         while (fC->Type(value) == VObjectType::slUnpacked_dimension) {
           value = fC->Sibling(value);
         }
@@ -2410,7 +2412,6 @@ bool CompileHelper::compileParameterDeclaration(
       param_assign->VpiEndLineNo(fC->EndLine(Param_assignment));
       param_assign->VpiEndColumnNo(fC->EndColumn(Param_assignment));
       param_assigns->push_back(param_assign);
-      param->Expr(unpacked);
       param_assign->Lhs(param);
 
       if (value) {
