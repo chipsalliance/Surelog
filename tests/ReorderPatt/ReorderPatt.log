@@ -164,8 +164,11 @@ design: (work@top)
         |vpiSize:64
         |UINT:0
     |vpiTypespec:
-    \_int_typespec: (x), line:2:14, endln:2:17, parent:work@top.x
-      |vpiName:x
+    \_array_typespec: 
+      |vpiRange:
+      \_range: , line:2:21, endln:2:24, parent:work@top.x
+      |vpiElemTypespec:
+      \_int_typespec: , line:2:14, endln:2:17, parent:work@top.x
   |vpiParameter:
   \_parameter: (work@top.a), line:3:14, endln:3:22, parent:work@top
     |vpiName:a
@@ -239,8 +242,23 @@ design: (work@top)
         |vpiSize:64
         |UINT:0
     |vpiTypespec:
-    \_int_typespec: (x), line:2:14, endln:2:17, parent:work@top.x
-      |vpiName:x
+    \_array_typespec: , parent:work@top.x
+      |vpiRange:
+      \_range: , line:2:21, endln:2:24
+        |vpiLeftRange:
+        \_constant: , line:2:21, endln:2:22
+          |vpiConstType:9
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+        |vpiRightRange:
+        \_constant: , line:2:23, endln:2:24
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+      |vpiElemTypespec:
+      \_int_typespec: , line:2:14, endln:2:17
   |vpiParameter:
   \_parameter: (work@top.a), line:3:14, endln:3:22, parent:work@top
     |vpiName:a
@@ -264,8 +282,7 @@ design: (work@top)
         |vpiSize:64
         |UINT:10
       |vpiTypespec:
-      \_int_typespec: (x), line:2:14, endln:2:17
-        |vpiName:x
+      \_int_typespec: , line:2:14, endln:2:17
     |vpiLhs:
     \_parameter: (work@top.x), line:2:18, endln:2:37, parent:work@top
   |vpiParamAssign:
