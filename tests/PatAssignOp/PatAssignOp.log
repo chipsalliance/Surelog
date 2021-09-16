@@ -657,8 +657,11 @@ design: (work@top)
         |vpiSize:64
         |UINT:0
     |vpiTypespec:
-    \_int_typespec: (coh_noc_cord_markers_pos_p), line:7:14, endln:7:17, parent:work@top.coh_noc_cord_markers_pos_p
-      |vpiName:coh_noc_cord_markers_pos_p
+    \_array_typespec: 
+      |vpiRange:
+      \_range: , line:7:45, endln:7:61, parent:work@top.coh_noc_cord_markers_pos_p
+      |vpiElemTypespec:
+      \_int_typespec: , line:7:14, endln:7:17, parent:work@top.coh_noc_cord_markers_pos_p
   |vpiParameter:
   \_parameter: (work@top.coh_noc_cord_width_p), line:9:14, endln:9:81, parent:work@top
     |vpiName:coh_noc_cord_width_p
@@ -848,8 +851,23 @@ design: (work@top)
         |vpiSize:64
         |UINT:0
     |vpiTypespec:
-    \_int_typespec: (coh_noc_cord_markers_pos_p), line:7:14, endln:7:17, parent:work@top.coh_noc_cord_markers_pos_p
-      |vpiName:coh_noc_cord_markers_pos_p
+    \_array_typespec: , parent:work@top.coh_noc_cord_markers_pos_p
+      |vpiRange:
+      \_range: , line:7:45, endln:7:61
+        |vpiLeftRange:
+        \_ref_obj: (work@top.coh_noc_cord_markers_pos_p.coh_noc_dims_p), line:7:45, endln:7:59
+          |vpiName:coh_noc_dims_p
+          |vpiFullName:work@top.coh_noc_cord_markers_pos_p.coh_noc_dims_p
+          |vpiActual:
+          \_parameter: (work@top.coh_noc_dims_p), line:3:14, endln:3:40, parent:work@top
+        |vpiRightRange:
+        \_constant: , line:7:60, endln:7:61
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+      |vpiElemTypespec:
+      \_int_typespec: , line:7:14, endln:7:17
   |vpiParameter:
   \_parameter: (work@top.coh_noc_cord_width_p), line:9:14, endln:9:81, parent:work@top
     |vpiName:coh_noc_cord_width_p
