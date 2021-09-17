@@ -2391,6 +2391,7 @@ bool CompileHelper::compileParameterDeclaration(
         array_typespec* atps = s.MakeArray_typespec();
         atps->Elem_typespec((typespec*)param->Typespec());
         param->Typespec(atps);
+        p->setTypespec(atps);
         atps->Ranges(unpackedDimensions);
         while (fC->Type(value) == VObjectType::slUnpacked_dimension) {
           value = fC->Sibling(value);
