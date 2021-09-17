@@ -946,6 +946,29 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
     dest_modports->push_back(dest_modport);
   }
   m->Modports(dest_modports);
+  /*
+  // Cont assigns
+  std::vector<cont_assign*>* orig_cont_assigns = mod->getContAssigns();
+  if (orig_cont_assigns) {
+    std::vector<cont_assign*>* assigns = m->Cont_assigns();
+    if (assigns == nullptr) {
+      m->Cont_assigns(s.MakeCont_assignVec());
+      assigns = m->Cont_assigns();
+    }
+    for (auto ps : *orig_cont_assigns) {
+      assigns->push_back(ps);
+      ps->VpiParent(m);
+    }
+  }
+
+  // Processes
+  m->Process(mod->getProcesses());
+  if (m->Process()) {
+    for (auto ps : *m->Process()) {
+      ps->VpiParent(m);
+    }
+  }
+  */
   // Parameters
   if (mod->getParameters()) {
     m->Parameters(mod->getParameters());
@@ -1517,7 +1540,29 @@ bool writeElabInterface(Serializer& s, ModuleInstance* instance, interface* m,
       obj->VpiParent(m);
     }
   }
+  /*
+  // Cont assigns
+  std::vector<cont_assign*>* orig_cont_assigns = mod->getContAssigns();
+  if (orig_cont_assigns) {
+    std::vector<cont_assign*>* assigns = m->Cont_assigns();
+    if (assigns == nullptr) {
+      m->Cont_assigns(s.MakeCont_assignVec());
+      assigns = m->Cont_assigns();
+    }
+    for (auto ps : *orig_cont_assigns) {
+      assigns->push_back(ps);
+      ps->VpiParent(m);
+    }
+  }
 
+  // Processes
+  m->Process(mod->getProcesses());
+  if (m->Process()) {
+    for (auto ps : *m->Process()) {
+      ps->VpiParent(m);
+    }
+  }
+  */
   if (netlist->cont_assigns()) {
     std::vector<cont_assign*>* assigns = m->Cont_assigns();
     if (assigns == nullptr) {
