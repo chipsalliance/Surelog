@@ -26,6 +26,7 @@
 using namespace SURELOG;
 
 Netlist::~Netlist() {
+  /*
   delete m_interfaces;
   delete m_interface_arrays;
   delete m_nets;
@@ -38,4 +39,5 @@ Netlist::~Netlist() {
   delete m_ranges;
   delete m_assign_stmts;
   delete m_param_assigns;
+  */
 }
