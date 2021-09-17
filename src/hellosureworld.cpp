@@ -67,11 +67,10 @@ int main(int argc, const char** argv) {
     }
   }
 
+  // Do not delete these objects until you are done with UHDM
   if (success && (!clp->help())) {
     SURELOG::shutdown_compiler(compiler);
   }
-
-  // Do not delete these objects until you are done with UHDM
   delete clp;
   delete symbolTable;
   delete errors;
