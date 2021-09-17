@@ -44,8 +44,9 @@ SURELOG::Design* get_design(SURELOG::scompiler* compiler);
 vpiHandle get_uhdm_design(SURELOG::scompiler* compiler);
 
 // Terminate the compiler session, cleanup internal datastructures,
-// Purges UHDM and VPI from memory, 
-// this invalidates any UHDM/VPI pointers the client application might still use!
+// Purges UHDM and VPI from memory,
+// this invalidates any UHDM/VPI pointers the client application might still
+// use!
 void shutdown_compiler(SURELOG::scompiler* compiler);
 
 }  // namespace SURELOG

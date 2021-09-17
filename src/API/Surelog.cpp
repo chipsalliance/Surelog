@@ -16,11 +16,11 @@
 
 #include "API/Surelog.h"
 
+#include "DesignCompile/CompileDesign.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "ErrorReporting/Report.h"
 #include "ErrorReporting/Waiver.h"
 #include "SourceCompile/CompilationUnit.h"
-#include "DesignCompile/CompileDesign.h"
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/Compiler.h"
 #include "SourceCompile/PreprocessFile.h"
@@ -40,9 +40,8 @@ SURELOG::Design* SURELOG::get_design(SURELOG::scompiler* the_compiler) {
 }
 
 void SURELOG::shutdown_compiler(SURELOG::scompiler* the_compiler) {
-  if (the_compiler == nullptr)
-    return;
-  SURELOG::Compiler* compiler = (SURELOG::Compiler*) the_compiler;
+  if (the_compiler == nullptr) return;
+  SURELOG::Compiler* compiler = (SURELOG::Compiler*)the_compiler;
   if (CompileDesign* comp = compiler->getCompileDesign()) {
     comp->getSerializer().Purge();
   }
