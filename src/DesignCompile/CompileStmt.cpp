@@ -182,10 +182,10 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
               if (assign->Rhs() == nullptr) {
                 VectorOfvariables* vars = scope->Variables();
                 if (vars == nullptr) {
-                  isDecl = true;
                   vars = s.MakeVariablesVec();
                   scope->Variables(vars);
                 }
+                isDecl = true;
                 vars->push_back((UHDM::variables*)assign->Lhs());
                 ((variables*)assign->Lhs())->VpiParent(stmt);
               }
