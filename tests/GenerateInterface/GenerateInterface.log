@@ -831,20 +831,6 @@ design: (work@top)
 \_interface: work@abc_if (work@abc_if) top.sv:1:1: , endln:13:13, parent:work@top
   |vpiDefName:work@abc_if
   |vpiFullName:work@abc_if
-  |vpiClockingBlock:
-  \_clocking_block: (abc_cb), line:7:7, endln:9:15
-    |vpiName:abc_cb
-    |vpiClockingEvent:
-    \_event_control: 
-      |vpiCondition:
-      \_operation: , line:7:25, endln:7:32
-        |vpiOpType:39
-        |vpiOperand:
-        \_bit_select: (clk_i), line:7:33, endln:7:41, parent:clk_i
-          |vpiName:clk_i
-          |vpiIndex:
-          \_ref_obj: (i), line:7:39, endln:7:40
-            |vpiName:i
   |vpiNet:
   \_logic_net: (work@abc_if.xyz_o), line:3:26, parent:work@abc_if
     |vpiName:xyz_o
@@ -878,6 +864,41 @@ design: (work@top)
 \_interface: work@pins_if (work@pins_if) top.sv:22:1: , endln:32:13, parent:work@top
   |vpiDefName:work@pins_if
   |vpiFullName:work@pins_if
+  |vpiContAssign:
+  \_cont_assign: , line:29:14, endln:29:53, parent:work@top2.intf
+    |vpiRhs:
+    \_operation: , line:29:24, endln:29:34
+      |vpiOpType:32
+      |vpiOperand:
+      \_bit_select: (work@top2.intf.pins_oe), line:29:24, endln:29:34, parent:work@top2.intf.pins_oe
+        |vpiName:pins_oe
+        |vpiFullName:work@top2.intf.pins_oe
+        |vpiIndex:
+        \_ref_obj: (work@top2.intf.pins_oe.i), line:29:32, endln:29:33, parent:work@top2.intf.pins_oe
+          |vpiName:i
+          |vpiFullName:work@top2.intf.pins_oe.i
+      |vpiOperand:
+      \_bit_select: (work@top2.intf.pins_o), line:29:37, endln:29:46, parent:work@top2.intf.pins_o
+        |vpiName:pins_o
+        |vpiFullName:work@top2.intf.pins_o
+        |vpiIndex:
+        \_ref_obj: (work@top2.intf.i), line:29:44, endln:29:45
+          |vpiName:i
+          |vpiFullName:work@top2.intf.i
+      |vpiOperand:
+      \_constant: , line:29:49, endln:29:53
+        |vpiConstType:3
+        |vpiDecompile:1'bz
+        |vpiSize:1
+        |BIN:z
+    |vpiLhs:
+    \_bit_select: (work@top2.intf.pins), line:29:14, endln:29:18, parent:work@top2.intf.pins
+      |vpiName:pins
+      |vpiFullName:work@top2.intf.pins
+      |vpiIndex:
+      \_ref_obj: (work@top2.intf.pins.i), line:29:19, endln:29:20, parent:work@top2.intf.pins
+        |vpiName:i
+        |vpiFullName:work@top2.intf.pins.i
   |vpiPort:
   \_port: (pins), line:23:21, parent:work@pins_if
     |vpiName:pins
@@ -1146,6 +1167,41 @@ design: (work@top)
     |vpiDefLineNo:22
     |vpiName:intf
     |vpiFullName:work@top2.intf
+    |vpiContAssign:
+    \_cont_assign: , line:29:14, endln:29:53, parent:work@top2.intf
+      |vpiRhs:
+      \_operation: , line:29:24, endln:29:34
+        |vpiOpType:32
+        |vpiOperand:
+        \_bit_select: (work@top2.intf.pins_oe), line:29:24, endln:29:34, parent:work@top2.intf.pins_oe
+          |vpiName:pins_oe
+          |vpiFullName:work@top2.intf.pins_oe
+          |vpiIndex:
+          \_ref_obj: (work@top2.intf.pins_oe.i), line:29:32, endln:29:33, parent:work@top2.intf.pins_oe
+            |vpiName:i
+            |vpiFullName:work@top2.intf.pins_oe.i
+        |vpiOperand:
+        \_bit_select: (work@top2.intf.pins_o), line:29:37, endln:29:46, parent:work@top2.intf.pins_o
+          |vpiName:pins_o
+          |vpiFullName:work@top2.intf.pins_o
+          |vpiIndex:
+          \_ref_obj: (work@top2.intf.i), line:29:44, endln:29:45
+            |vpiName:i
+            |vpiFullName:work@top2.intf.i
+        |vpiOperand:
+        \_constant: , line:29:49, endln:29:53
+          |vpiConstType:3
+          |vpiDecompile:1'bz
+          |vpiSize:1
+          |BIN:z
+      |vpiLhs:
+      \_bit_select: (work@top2.intf.pins), line:29:14, endln:29:18, parent:work@top2.intf.pins
+        |vpiName:pins
+        |vpiFullName:work@top2.intf.pins
+        |vpiIndex:
+        \_ref_obj: (work@top2.intf.pins.i), line:29:19, endln:29:20, parent:work@top2.intf.pins
+          |vpiName:i
+          |vpiFullName:work@top2.intf.pins.i
     |vpiPort:
     \_port: (pins), line:23:21, endln:23:25, parent:work@top2.intf
       |vpiName:pins
