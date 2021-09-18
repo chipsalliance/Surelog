@@ -738,6 +738,9 @@ ModuleInstance* DesignElaboration::createBindInstance_(
     std::vector<ModuleInstance*> parentSubInstances;
     instance->setInstanceBinding(parent);
     NodeId parameterOverloading = fC->Sibling(bindNodeId);
+    if (fC->Type(parameterOverloading) == slHierarchical_instance) {
+      parameterOverloading = 0;
+    }
     elaborateInstance_(targetDef->getFileContents()[0],
                        targetDef->getNodeIds()[0], parameterOverloading,
                        factory, instance, config, parentSubInstances);
