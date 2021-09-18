@@ -810,6 +810,17 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
 }
 
 bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
+  std::vector<VObjectType> stopPoints = {
+      VObjectType::slConditional_generate_construct,
+      VObjectType::slGenerate_module_conditional_statement,
+      VObjectType::slLoop_generate_construct,
+      VObjectType::slGenerate_module_loop_statement,
+      VObjectType::slPar_block,
+      VObjectType::slSeq_block,
+      VObjectType::slModule_declaration,
+      VObjectType::slClass_declaration,
+      VObjectType::slFunction_body_declaration,
+      VObjectType::slTask_body_declaration};
   for (unsigned int i = 0; i < m_module->m_fileContents.size(); i++) {
     const FileContent* fC = m_module->m_fileContents[i];
     std::string libName = fC->getLibrary()->getName();
@@ -1073,7 +1084,21 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
       }
 
       if (current.m_sibling) stack.push(current.m_sibling);
-      if (current.m_child) stack.push(current.m_child);
+      if (current.m_child) {
+        if (stopPoints.size()) {
+          bool stop = false;
+          for (auto t : stopPoints) {
+            if (t == current.m_type) {
+              stop = true;
+              break;
+            }
+          }
+          if (!stop)
+            if (current.m_child) stack.push(current.m_child);
+        } else {
+          if (current.m_child) stack.push(current.m_child);
+        }
+      }
     }
   }
 
