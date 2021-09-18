@@ -129,7 +129,7 @@ const TypeDef* DesignComponent::getTypeDef(const std::string& name) const {
   TypeDefMap::const_iterator itr = m_typedefs.find(name);
   if (itr == m_typedefs.end()) {
     const DesignComponent* parent =
-        dynamic_cast<const DesignComponent*>(getParentScope());
+        valuedcomponenti_cast<const DesignComponent*>(getParentScope());
     if (parent) {
       return parent->getTypeDef(name);
     } else
@@ -147,7 +147,7 @@ Function* DesignComponent::getFunction(const std::string& name) const {
   FunctionMap::const_iterator itr = m_functions.find(name);
   if (itr == m_functions.end()) {
     const DesignComponent* parent =
-        dynamic_cast<const DesignComponent*>(getParentScope());
+        valuedcomponenti_cast<const DesignComponent*>(getParentScope());
     if (parent) {
       return parent->getFunction(name);
     } else
@@ -165,7 +165,7 @@ Task* DesignComponent::getTask(const std::string& name) const {
   TaskMap::const_iterator itr = m_tasks.find(name);
   if (itr == m_tasks.end()) {
     const DesignComponent* parent =
-        dynamic_cast<const DesignComponent*>(getParentScope());
+        valuedcomponenti_cast<const DesignComponent*>(getParentScope());
     if (parent) {
       return parent->getTask(name);
     } else

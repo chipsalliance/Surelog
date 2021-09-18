@@ -587,10 +587,10 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
                                        compileDesign, pstmt, instance);
       if (stmts) {
         for (any* st : *stmts) {
-          if (UHDM::atomic_stmt* stm = dynamic_cast<atomic_stmt*>(st))
+          if (UHDM::atomic_stmt* stm = any_cast<atomic_stmt*>(st))
             stm->VpiName(label);
           else if (UHDM::concurrent_assertions* stm =
-                       dynamic_cast<concurrent_assertions*>(st))
+                       any_cast<concurrent_assertions*>(st))
             stm->VpiName(label);
         }
       }
@@ -603,7 +603,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
   if (stmt) {
     if (attributes) {
       // Only attach attributes to following stmt
-      if (UHDM::atomic_stmt* stm = dynamic_cast<atomic_stmt*>(stmt))
+      if (UHDM::atomic_stmt* stm = any_cast<atomic_stmt*>(stmt))
         stm->Attributes(attributes);
     }
     stmt->VpiFile(fC->getFileName(the_stmt));
@@ -617,7 +617,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
   } else if (results) {
     if (attributes) {
       for (any* st : *results) {
-        if (UHDM::atomic_stmt* stm = dynamic_cast<atomic_stmt*>(st))
+        if (UHDM::atomic_stmt* stm = any_cast<atomic_stmt*>(st))
           stm->Attributes(attributes);
       }
     }
@@ -1470,12 +1470,12 @@ bool CompileHelper::compileTask(DesignComponent* component,
                 task->Param_assigns(s.MakeParam_assignVec());
                 param_assigns = task->Param_assigns();
               }
-              if (param_assign* pst = dynamic_cast<param_assign*>(st))
+              if (param_assign* pst = any_cast<param_assign*>(st))
                 param_assigns->push_back(pst);
             } else if (stmt_type == uhdmassign_stmt) {
               assign_stmt* stmt = (assign_stmt*)st;
               if (stmt->Rhs() == nullptr ||
-                  dynamic_cast<variables*>((expr*)stmt->Lhs())) {
+                  any_cast<variables*>((expr*)stmt->Lhs())) {
                 // Declaration
                 VectorOfvariables* vars = task->Variables();
                 if (vars == nullptr) {
@@ -1512,12 +1512,12 @@ bool CompileHelper::compileTask(DesignComponent* component,
               task->Param_assigns(s.MakeParam_assignVec());
               param_assigns = task->Param_assigns();
             }
-            if (param_assign* pst = dynamic_cast<param_assign*>(st))
+            if (param_assign* pst = any_cast<param_assign*>(st))
               param_assigns->push_back(pst);
           } else if (stmt_type == uhdmassign_stmt) {
             assign_stmt* stmt = (assign_stmt*)st;
             if (stmt->Rhs() == nullptr ||
-                dynamic_cast<variables*>((expr*)stmt->Lhs())) {
+                any_cast<variables*>((expr*)stmt->Lhs())) {
               // Declaration
               VectorOfvariables* vars = task->Variables();
               if (vars == nullptr) {
@@ -1576,13 +1576,13 @@ bool CompileHelper::compileClassConstructorDeclaration(
   func->Return(var);
   UHDM::class_typespec* tps = s.MakeClass_typespec();
   var->Typespec(tps);
-  ClassDefinition* cdef = dynamic_cast<ClassDefinition*>(component);
+  ClassDefinition* cdef = valuedcomponenti_cast<ClassDefinition*>(component);
   if (cdef) {
     tps->Class_defn(cdef->getUhdmDefinition());
     const std::string& name = cdef->getUhdmDefinition()->VpiName();
     tps->VpiName(name);
   } else {
-    Package* p = dynamic_cast<Package*>(component);
+    Package* p = valuedcomponenti_cast<Package*>(component);
     if (p) {
       ClassDefinition* cdef = p->getClassDefinition(className);
       if (cdef) {
@@ -1725,7 +1725,7 @@ bool CompileHelper::compileFunction(DesignComponent* component,
   UHDM::function* func = nullptr;
   for (auto f : *component->getTask_funcs()) {
     if (f->VpiName() == name) {
-      func = dynamic_cast<UHDM::function*>(f);
+      func = any_cast<UHDM::function*>(f);
       break;
     }
   }
@@ -1748,7 +1748,7 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     func->Return(var);
     UHDM::class_typespec* tps = s.MakeClass_typespec();
     var->Typespec(tps);
-    ClassDefinition* cdef = dynamic_cast<ClassDefinition*>(component);
+    ClassDefinition* cdef = valuedcomponenti_cast<ClassDefinition*>(component);
     tps->Class_defn(cdef->getUhdmDefinition());
     tps->VpiName(cdef->getUhdmDefinition()->VpiFullName());
   } else {
@@ -1761,7 +1761,7 @@ bool CompileHelper::compileFunction(DesignComponent* component,
         fC->Child(Function_body_declaration);
     NodeId Function_data_type = fC->Child(Function_data_type_or_implicit);
     NodeId Return_data_type = fC->Child(Function_data_type);
-    variables* var = dynamic_cast<variables*>(
+    variables* var = any_cast<variables*>(
         compileVariable(component, fC, Return_data_type, compileDesign, nullptr,
                         nullptr, true, false));
     if (var) {
@@ -1816,12 +1816,12 @@ bool CompileHelper::compileFunction(DesignComponent* component,
                 func->Param_assigns(s.MakeParam_assignVec());
                 param_assigns = func->Param_assigns();
               }
-              if (param_assign* pst = dynamic_cast<param_assign*>(st))
+              if (param_assign* pst = any_cast<param_assign*>(st))
                 param_assigns->push_back(pst);
             } else if (stmt_type == uhdmassign_stmt) {
               assign_stmt* stmt = (assign_stmt*)st;
               if (stmt->Rhs() == nullptr ||
-                  dynamic_cast<variables*>((expr*)stmt->Lhs())) {
+                  any_cast<variables*>((expr*)stmt->Lhs())) {
                 // Declaration
                 VectorOfvariables* vars = func->Variables();
                 if (vars == nullptr) {
@@ -1859,12 +1859,12 @@ bool CompileHelper::compileFunction(DesignComponent* component,
             func->Param_assigns(s.MakeParam_assignVec());
             param_assigns = func->Param_assigns();
           }
-          if (param_assign* pst = dynamic_cast<param_assign*>(st))
+          if (param_assign* pst = any_cast<param_assign*>(st))
             param_assigns->push_back(pst);
         } else if (stmt_type == uhdmassign_stmt) {
           assign_stmt* stmt = (assign_stmt*)st;
           if (stmt->Rhs() == nullptr ||
-              dynamic_cast<variables*>((expr*)stmt->Lhs())) {
+              any_cast<variables*>((expr*)stmt->Lhs())) {
             // Declaration
             VectorOfvariables* vars = func->Variables();
             if (vars == nullptr) {
@@ -1997,7 +1997,7 @@ Function* CompileHelper::compileFunctionPrototype(
   func->VpiColumnNo(fC->Column(id));
   func->VpiEndLineNo(fC->EndLine(id));
   func->VpiEndColumnNo(fC->EndColumn(id));
-  func->Return(dynamic_cast<variables*>(compileVariable(
+  func->Return(any_cast<variables*>(compileVariable(
       scope, fC, type, compileDesign, nullptr, nullptr, true, false)));
   NodeId Tf_port_list = 0;
   if (fC->Type(function_name) == VObjectType::slStringConst) {
@@ -2337,7 +2337,7 @@ UHDM::any* CompileHelper::bindParameter(DesignComponent* component,
                                         CompileDesign* compileDesign,
                                         bool crossHierarchy) {
   if (instance) {
-    ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance);
+    ModuleInstance* inst = valuedcomponenti_cast<ModuleInstance*>(instance);
     while (inst) {
       if (Netlist* netlist = inst->getNetlist()) {
         if (netlist->param_assigns()) {
@@ -2363,7 +2363,7 @@ UHDM::any* CompileHelper::bindVariable(DesignComponent* component,
                                        const std::string& name,
                                        CompileDesign* compileDesign) {
   UHDM::any* result = nullptr;
-  if (ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance)) {
+  if (ModuleInstance* inst = valuedcomponenti_cast<ModuleInstance*>(instance)) {
     Netlist* netlist = inst->getNetlist();
     if (netlist) {
       if (std::vector<UHDM::net*>* nets = netlist->nets()) {

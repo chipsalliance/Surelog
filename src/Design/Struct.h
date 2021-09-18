@@ -33,6 +33,7 @@ namespace SURELOG {
 class FileContent;
 
 class Struct : public DataType {
+  SURELOG_IMPLEMENT_RTTI(Struct, DataType)
  public:
   Struct(const FileContent* fC, NodeId nameId, NodeId structId);
   ~Struct() override;

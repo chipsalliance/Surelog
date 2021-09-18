@@ -34,6 +34,7 @@ namespace SURELOG {
 class FileContent;
 
 class DummyType : public DataType {
+  SURELOG_IMPLEMENT_RTTI(DummyType, DataType)
  public:
   DummyType(const FileContent* fC, NodeId nameId, NodeId structId);
   ~DummyType() override;

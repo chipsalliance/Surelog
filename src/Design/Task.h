@@ -32,6 +32,7 @@
 namespace SURELOG {
 
 class Task : public Procedure {
+  SURELOG_IMPLEMENT_RTTI(Task, Procedure)
  public:
   Task(DesignComponent* parent, const FileContent* fC, NodeId id,
        const std::string& name)

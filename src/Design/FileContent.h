@@ -56,6 +56,7 @@ typedef std::multimap<std::string, ClassDefinition*>
 typedef std::map<std::string, ClassDefinition*> ClassNameClassDefinitionMap;
 
 class FileContent : public DesignComponent {
+  SURELOG_IMPLEMENT_RTTI(FileContent, DesignComponent)
  public:
   FileContent(SymbolId fileId, Library* library, SymbolTable* symbolTable,
               ErrorContainer* errors, FileContent* parent, SymbolId fileChunkId)

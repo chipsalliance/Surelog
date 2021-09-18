@@ -26,6 +26,7 @@
 
 #include <string_view>
 
+#include "Common/RTTI.h"
 #include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/VObjectTypes.h"
 
@@ -37,7 +38,8 @@ namespace SURELOG {
 class FileContent;
 class Value;
 
-class DataType {
+class DataType : public RTTI {
+  SURELOG_IMPLEMENT_RTTI(DataType, RTTI)
  public:
   enum class Category {
     STRUCT,
@@ -119,5 +121,6 @@ class DataType {
 };
 
 }  // namespace SURELOG
+SURELOG_IMPLEMENT_RTTI_VIRTUAL_CAST_FUNCTIONS(datatype_cast, SURELOG::DataType)
 
 #endif /* DATATYPE_H */

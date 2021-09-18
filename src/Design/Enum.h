@@ -38,6 +38,7 @@ class Value;
 class FileContent;
 
 class Enum : public DataType {
+  SURELOG_IMPLEMENT_RTTI(Enum, DataType)
  public:
   Enum(const FileContent* fC, NodeId nameId, NodeId baseTypeId);
   ~Enum() override;
