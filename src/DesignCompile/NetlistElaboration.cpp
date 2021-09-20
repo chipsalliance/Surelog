@@ -2000,22 +2000,24 @@ UHDM::any* NetlistElaboration::bind_net_(ModuleInstance* instance,
     result = m_helper.getValue(name, instance->getDefinition(), m_compileDesign,
                                instance, "", 0, nullptr, true, true);
   }
-  if (Netlist* netlist = instance->getNetlist()) {
-    if (result == nullptr) {
-      if (!strstr(name.c_str(), ".")) {  // Not for hierarchical names
-        // Implicit net
-        Serializer& s = m_compileDesign->getSerializer();
-        logic_net* net = s.MakeLogic_net();
-        net->VpiName(name);
-        result = net;
-        Netlist::SymbolTable& symbols = netlist->getSymbolTable();
-        std::vector<UHDM::net*>* nets = netlist->nets();
-        if (nets == nullptr) {
-          nets = s.MakeNetVec();
-          netlist->nets(nets);
+  if (instance) {
+    if (Netlist* netlist = instance->getNetlist()) {
+      if (result == nullptr) {
+        if (!strstr(name.c_str(), ".")) {  // Not for hierarchical names
+          // Implicit net
+          Serializer& s = m_compileDesign->getSerializer();
+          logic_net* net = s.MakeLogic_net();
+          net->VpiName(name);
+          result = net;
+          Netlist::SymbolTable& symbols = netlist->getSymbolTable();
+          std::vector<UHDM::net*>* nets = netlist->nets();
+          if (nets == nullptr) {
+            nets = s.MakeNetVec();
+            netlist->nets(nets);
+          }
+          nets->push_back(net);
+          symbols.insert(std::make_pair(name, result));
         }
-        nets->push_back(net);
-        symbols.insert(std::make_pair(name, result));
       }
     }
   }
