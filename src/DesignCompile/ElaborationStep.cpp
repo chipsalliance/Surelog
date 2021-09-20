@@ -58,7 +58,6 @@
 #include <uhdm/Serializer.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
-#include <uhdm/ExprEval.h>
 
 namespace SURELOG {
 
