@@ -57,6 +57,7 @@
 #include <uhdm/Serializer.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
+#include <uhdm/ExprEval.h>
 
 namespace SURELOG {
 
@@ -1439,6 +1440,8 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
   }
 
   if (obj) {
+    UHDM::ExprEval eval;
+    obj->Expr(eval.flattenPatternAssignments(s, tps, assignExp));
     obj->VpiSigned(sig->isSigned());
     obj->VpiConstantVariable(sig->isConst());
     obj->VpiIsRandomized(sig->isRand() || sig->isRandc());
