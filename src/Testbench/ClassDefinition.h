@@ -43,6 +43,7 @@ namespace SURELOG {
 class CompileClass;
 
 class ClassDefinition : public DesignComponent, public DataType {
+  SURELOG_IMPLEMENT_RTTI_2_BASES(ClassDefinition, DesignComponent, DataType)
   friend class CompileClass;
 
  public:

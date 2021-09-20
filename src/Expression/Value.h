@@ -28,6 +28,9 @@
 
 #include <iostream>
 #include <string>
+
+#include "Common/RTTI.h"
+
 namespace SURELOG {
 
 class Expr;
@@ -35,7 +38,8 @@ class LValue;
 class StValue;
 class ValueFactory;
 
-class Value {
+class Value : public RTTI {
+  SURELOG_IMPLEMENT_RTTI(Value, RTTI)
  public:
   friend Expr;
   friend ValueFactory;
@@ -136,8 +140,12 @@ class Value {
   unsigned int nbWords_(unsigned int size);
   ValueFactory* m_valueFactory;
 };
+}  // namespace SURELOG
+SURELOG_IMPLEMENT_RTTI_CAST_FUNCTIONS(value_cast, SURELOG::Value)
 
+namespace SURELOG {
 class SValue : public Value {
+  SURELOG_IMPLEMENT_RTTI(SValue, Value)
   friend LValue;
 
  private:
@@ -217,24 +225,21 @@ class SValue : public Value {
 
   bool operator<(const Value& rhs) const final {
     if (m_type == Value::Type::Integer) {
-      return m_value.s_int < (dynamic_cast<const SValue*>(&rhs))->m_value.s_int;
+      return m_value.s_int < (value_cast<const SValue*>(&rhs))->m_value.s_int;
     } else if (m_type == Value::Type::Double) {
-      return m_value.d_int < (dynamic_cast<const SValue*>(&rhs))->m_value.d_int;
+      return m_value.d_int < (value_cast<const SValue*>(&rhs))->m_value.d_int;
     } else {
-      return m_value.u_int < (dynamic_cast<const SValue*>(&rhs))->m_value.u_int;
+      return m_value.u_int < (value_cast<const SValue*>(&rhs))->m_value.u_int;
     }
   }
 
   bool operator==(const Value& rhs) const final {
     if (m_type == Value::Type::Integer) {
-      return m_value.s_int ==
-             (dynamic_cast<const SValue*>(&rhs))->m_value.s_int;
+      return m_value.s_int == (value_cast<const SValue*>(&rhs))->m_value.s_int;
     } else if (m_type == Value::Type::Double) {
-      return m_value.d_int ==
-             (dynamic_cast<const SValue*>(&rhs))->m_value.d_int;
+      return m_value.d_int == (value_cast<const SValue*>(&rhs))->m_value.d_int;
     } else {
-      return m_value.u_int ==
-             (dynamic_cast<const SValue*>(&rhs))->m_value.u_int;
+      return m_value.u_int == (value_cast<const SValue*>(&rhs))->m_value.u_int;
     }
   }
 
@@ -311,6 +316,7 @@ class ValueFactory {
 };
 
 class LValue : public Value {
+  SURELOG_IMPLEMENT_RTTI(LValue, Value)
   friend ValueFactory;
 
  public:
@@ -424,6 +430,7 @@ class LValue : public Value {
 };
 
 class StValue : public Value {
+  SURELOG_IMPLEMENT_RTTI(StValue, Value)
   friend LValue;
 
  public:
@@ -484,10 +491,10 @@ class StValue : public Value {
     m_valid = true;
   }
   bool operator<(const Value& rhs) const final {
-    return m_value < (dynamic_cast<const StValue*>(&rhs))->m_value;
+    return m_value < (value_cast<const StValue*>(&rhs))->m_value;
   }
   bool operator==(const Value& rhs) const final {
-    return m_value == (dynamic_cast<const StValue*>(&rhs))->m_value;
+    return m_value == (value_cast<const StValue*>(&rhs))->m_value;
   }
   uint64_t getValueUL(unsigned short index = 0) const final {
     switch (m_type) {
