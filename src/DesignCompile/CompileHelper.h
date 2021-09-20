@@ -43,6 +43,7 @@ class Task;
 typedef std::vector<TfPortItem*> TfPortList;
 
 class FScope : public ValuedComponentI {
+  SURELOG_IMPLEMENT_RTTI(FScope, ValuedComponentI)
  public:
   FScope(const SURELOG::ValuedComponentI* parent,
          SURELOG::ValuedComponentI* definition)

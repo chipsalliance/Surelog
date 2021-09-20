@@ -33,6 +33,7 @@
 namespace SURELOG {
 
 class ModuleInstance : public ValuedComponentI {
+  SURELOG_IMPLEMENT_RTTI(ModuleInstance, ValuedComponentI)
  public:
   ModuleInstance(DesignComponent* definition, const FileContent* fileContent,
                  NodeId nodeId, ModuleInstance* parent, std::string instName,

@@ -48,11 +48,11 @@ using namespace SURELOG;
 
 Value* ExprBuilder::clone(Value* val) {
   Value* clone = NULL;
-  if (StValue* v = dynamic_cast<StValue*>(val)) {
+  if (StValue* v = value_cast<StValue*>(val)) {
     clone = m_valueFactory.newValue(*v);
-  } else if (LValue* v = dynamic_cast<LValue*>(val)) {
+  } else if (LValue* v = value_cast<LValue*>(val)) {
     clone = m_valueFactory.newValue(*v);
-  } else if (SValue* v = dynamic_cast<SValue*>(val)) {
+  } else if (SValue* v = value_cast<SValue*>(val)) {
     clone = m_valueFactory.newValue(*v);
   }
   return clone;

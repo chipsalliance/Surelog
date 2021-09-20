@@ -626,6 +626,7 @@ install(
 install(
   FILES ${PROJECT_SOURCE_DIR}/src/Common/ClockingBlockHolder.h
         ${PROJECT_SOURCE_DIR}/src/Common/PortNetHolder.h
+        ${PROJECT_SOURCE_DIR}/src/Common/RTTI.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Common)
 install(
   FILES ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileHelper.h

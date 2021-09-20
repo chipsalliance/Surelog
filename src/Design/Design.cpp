@@ -162,7 +162,7 @@ std::string Design::reportInstanceTree() const {
     if (extraInfo) {
       // Extra debug info:
       if (tmp) {
-        ModuleInstance* inst = dynamic_cast<ModuleInstance*>(tmp);
+        ModuleInstance* inst = valuedcomponenti_cast<ModuleInstance*>(tmp);
         if (inst) {
           for (auto ps : inst->getMappedValues()) {
             const std::string& name = ps.first;
