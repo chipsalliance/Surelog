@@ -50,8 +50,7 @@ int FunctorCompilePackage::operator()() const {
 bool CompilePackage::compile() {
   if (!m_package) return false;
   UHDM::Serializer& s = m_compileDesign->getSerializer();
-  UHDM::package* pack =
-      dynamic_cast<UHDM::package*>(m_package->getUhdmInstance());
+  UHDM::package* pack = any_cast<UHDM::package*>(m_package->getUhdmInstance());
   if (pack == nullptr) {
     pack = s.MakePackage();
     pack->VpiName(m_package->getName());

@@ -33,6 +33,7 @@ namespace SURELOG {
 class FileContent;
 
 class Union : public DataType {
+  SURELOG_IMPLEMENT_RTTI(Union, DataType)
  public:
   Union(const FileContent* fC, NodeId nameId, NodeId structId);
   ~Union() override;

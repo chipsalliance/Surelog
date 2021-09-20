@@ -361,7 +361,7 @@ vpiHandle CompileDesign::writeUHDM(const std::string& fileName) {
 
 void decompile(ValuedComponentI* instance) {
   if (instance) {
-    ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance);
+    ModuleInstance* inst = valuedcomponenti_cast<ModuleInstance*>(instance);
     if (inst) {
       DesignComponent* component = inst->getDefinition();
       while (inst) {

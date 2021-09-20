@@ -146,7 +146,7 @@ any* CompileHelper::getObject(const std::string& name,
                               ValuedComponentI* instance, const any* pexpr) {
   any* result = nullptr;
   while (pexpr) {
-    if (const UHDM::scope* s = dynamic_cast<const scope*>(pexpr)) {
+    if (const UHDM::scope* s = any_cast<const scope*>(pexpr)) {
       if ((result == nullptr) && s->Variables()) {
         for (auto o : *s->Variables()) {
           if (o->VpiName() == name) {
@@ -156,7 +156,7 @@ any* CompileHelper::getObject(const std::string& name,
         }
       }
     }
-    if (const UHDM::task_func* s = dynamic_cast<const task_func*>(pexpr)) {
+    if (const UHDM::task_func* s = any_cast<const task_func*>(pexpr)) {
       if ((result == nullptr) && s->Io_decls()) {
         for (auto o : *s->Io_decls()) {
           if (o->VpiName() == name) {
@@ -170,7 +170,8 @@ any* CompileHelper::getObject(const std::string& name,
     pexpr = pexpr->VpiParent();
   }
   if ((result == nullptr) && instance) {
-    if (ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance)) {
+    if (ModuleInstance* inst =
+            valuedcomponenti_cast<ModuleInstance*>(instance)) {
       if (expr* complex = instance->getComplexValue(name)) {
         result = complex;
       }
@@ -241,7 +242,8 @@ any* CompileHelper::getObject(const std::string& name,
   }
 
   if ((result == nullptr) && instance) {
-    if (ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance)) {
+    if (ModuleInstance* inst =
+            valuedcomponenti_cast<ModuleInstance*>(instance)) {
       // Instance component
       if (DesignComponent* comp = inst->getDefinition()) {
         for (ParamAssign* pass : comp->getParamAssignVec()) {
@@ -327,7 +329,7 @@ std::pair<UHDM::task_func*, DesignComponent*> CompileHelper::getTaskFunc(
         }
       }
     }
-    comp = dynamic_cast<DesignComponent*>(
+    comp = valuedcomponenti_cast<DesignComponent*>(
         (DesignComponent*)comp->getParentScope());
   }
   if (component) {
@@ -368,7 +370,7 @@ std::pair<UHDM::task_func*, DesignComponent*> CompileHelper::getTaskFunc(
 }
 
 bool getStringVal(std::string& result, expr* val) {
-  const UHDM::constant* hs0 = dynamic_cast<const UHDM::constant*>(val);
+  const UHDM::constant* hs0 = any_cast<const UHDM::constant*>(val);
   if (hs0) {
     s_vpi_value* sval = String2VpiValue(hs0->VpiValue());
     if (sval) {
@@ -663,11 +665,11 @@ any* CompileHelper::decodeHierPath(hier_path* path, bool& invalidValue,
   }
   if (object) {
     // Substitution
-    if (param_assign* pass = dynamic_cast<param_assign*>(object)) {
+    if (param_assign* pass = any_cast<param_assign*>(object)) {
       const any* rhs = pass->Rhs();
       object = reduceExpr((any*)rhs, invalidValue, component, compileDesign,
                           instance, fileName, lineNumber, pexpr, muteErrors);
-    } else if (bit_select* bts = dynamic_cast<bit_select*>(object)) {
+    } else if (bit_select* bts = any_cast<bit_select*>(object)) {
       object = reduceExpr((any*)bts, invalidValue, component, compileDesign,
                           instance, fileName, lineNumber, pexpr, muteErrors);
     }
@@ -1377,7 +1379,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                     std::string instanceName;
                     if (instance) {
                       if (ModuleInstance* inst =
-                              dynamic_cast<ModuleInstance*>(instance)) {
+                              valuedcomponenti_cast<ModuleInstance*>(
+                                  instance)) {
                         instanceName = inst->getFullPathName();
                       }
                     } else if (component) {
@@ -1492,7 +1495,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                   std::string instanceName;
                   if (instance) {
                     if (ModuleInstance* inst =
-                            dynamic_cast<ModuleInstance*>(instance)) {
+                            valuedcomponenti_cast<ModuleInstance*>(instance)) {
                       instanceName = inst->getFullPathName();
                     }
                   } else if (component) {
@@ -1772,9 +1775,9 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
           any* object =
               getObject(objname, component, compileDesign, instance, pexpr);
           const typespec* tps = nullptr;
-          if (expr* exp = dynamic_cast<expr*>(object)) {
+          if (expr* exp = any_cast<expr*>(object)) {
             tps = exp->Typespec();
-          } else if (typespec* tp = dynamic_cast<typespec*>(object)) {
+          } else if (typespec* tp = any_cast<typespec*>(object)) {
             tps = tp;
           }
           if (tps) {
@@ -1871,7 +1874,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
         getTaskFunc(name, component, compileDesign, pexpr);
     function* actual_func = nullptr;
     if (func) {
-      actual_func = dynamic_cast<function*>(func);
+      actual_func = any_cast<function*>(func);
     }
     if (actual_func == nullptr) {
       ErrorContainer* errors =
@@ -1914,7 +1917,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
         reduceExpr((expr*)index, invalidValue, component, compileDesign,
                    instance, fileName, lineNumber, pexpr, muteErrors));
     if (invalidValue == false) {
-      if (FScope* scope = dynamic_cast<FScope*>(instance)) {
+      if (FScope* scope = valuedcomponenti_cast<FScope*>(instance)) {
         expr* complex = scope->getComplexValue(name);
         if (complex == nullptr) {
           complex =
@@ -1952,7 +1955,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
           }
         }
       } else if (ModuleInstance* inst =
-                     dynamic_cast<ModuleInstance*>(instance)) {
+                     valuedcomponenti_cast<ModuleInstance*>(instance)) {
         any* object = getObject(name, component, compileDesign, inst, pexpr);
         if (object == nullptr) {
           object = getValue(name, component, compileDesign, inst, fileName,
@@ -2144,7 +2147,7 @@ any* CompileHelper::hierarchicalSelector(
   }
   std::string elemName = select_path[level];
 
-  if (variables* var = dynamic_cast<variables*>(object)) {
+  if (variables* var = any_cast<variables*>(object)) {
     UHDM_OBJECT_TYPE ttps = var->UhdmType();
     if (ttps == uhdmstruct_var) {
       struct_typespec* stpt = (struct_typespec*)((struct_var*)var)->Typespec();
@@ -2157,7 +2160,7 @@ any* CompileHelper::hierarchicalSelector(
         }
       }
     }
-  } else if (io_decl* decl = dynamic_cast<io_decl*>(object)) {
+  } else if (io_decl* decl = any_cast<io_decl*>(object)) {
     const any* exp = decl->Expr();
     if (exp) {
       UHDM_OBJECT_TYPE ttps = exp->UhdmType();
@@ -2174,7 +2177,7 @@ any* CompileHelper::hierarchicalSelector(
         }
       }
     }
-  } else if (nets* var = dynamic_cast<nets*>(object)) {
+  } else if (nets* var = any_cast<nets*>(object)) {
     UHDM_OBJECT_TYPE ttps = var->UhdmType();
     if (ttps == uhdmstruct_net) {
       struct_typespec* stpt = (struct_typespec*)((struct_net*)var)->Typespec();
@@ -2195,7 +2198,7 @@ any* CompileHelper::hierarchicalSelector(
     indexName = StringUtils::rtrim(elemName, ']');
     selectIndex = std::strtoull(indexName.c_str(), 0, 10);
     elemName = "";
-    if (operation* oper = dynamic_cast<operation*>(object)) {
+    if (operation* oper = any_cast<operation*>(object)) {
       int opType = oper->VpiOpType();
       if (opType == vpiAssignmentPatternOp) {
         UHDM::VectorOfany* operands = oper->Operands();
@@ -2220,7 +2223,7 @@ any* CompileHelper::hierarchicalSelector(
     return ex;
   }
 
-  if (operation* oper = dynamic_cast<operation*>(object)) {
+  if (operation* oper = any_cast<operation*>(object)) {
     int opType = oper->VpiOpType();
 
     if (opType == vpiAssignmentPatternOp) {
@@ -2232,7 +2235,7 @@ any* CompileHelper::hierarchicalSelector(
       if (component) {
         Parameter* baseP = component->getParameter(select_path[0]);
         if (baseP) {
-          parameter* p = dynamic_cast<parameter*>(baseP->getUhdmParam());
+          parameter* p = any_cast<parameter*>(baseP->getUhdmParam());
           if (p) {
             const typespec* tps = p->Typespec();
             if (tps) {
@@ -2291,7 +2294,7 @@ any* CompileHelper::hierarchicalSelector(
         sInd++;
       }
       if (defaultPattern) {
-        expr* ex = dynamic_cast<expr*>(defaultPattern);
+        expr* ex = any_cast<expr*>(defaultPattern);
         if (ex)
           ex = reduceExpr(ex, invalidValue, component, compileDesign, instance,
                           fileName, lineNumber, pexpr, muteErrors);
@@ -2305,7 +2308,7 @@ any* CompileHelper::hierarchicalSelector(
 long double CompileHelper::get_double(bool& invalidValue,
                                       const UHDM::expr* expr) {
   long double result = 0;
-  if (const UHDM::constant* c = dynamic_cast<const UHDM::constant*>(expr)) {
+  if (const UHDM::constant* c = any_cast<const UHDM::constant*>(expr)) {
     int type = c->VpiConstType();
     std::string v = c->VpiValue();
     switch (type) {
@@ -2328,11 +2331,11 @@ int64_t CompileHelper::get_value(bool& invalidValue, const UHDM::expr* expr) {
   int64_t result = 0;
   int type = 0;
   std::string v;
-  if (const UHDM::constant* c = dynamic_cast<const UHDM::constant*>(expr)) {
+  if (const UHDM::constant* c = any_cast<const UHDM::constant*>(expr)) {
     type = c->VpiConstType();
     v = c->VpiValue();
   } else if (const UHDM::variables* c =
-                 dynamic_cast<const UHDM::variables*>(expr)) {
+                 any_cast<const UHDM::variables*>(expr)) {
     if (c->UhdmType() == uhdmenum_var) {
       type = vpiUIntConst;
       v = c->VpiValue();
@@ -2486,7 +2489,8 @@ any* CompileHelper::getValue(const std::string& name,
 
   ValuedComponentI* tmpInstance = instance;
   while ((result == nullptr) && tmpInstance) {
-    if (ModuleInstance* inst = dynamic_cast<ModuleInstance*>(tmpInstance)) {
+    if (ModuleInstance* inst =
+            valuedcomponenti_cast<ModuleInstance*>(tmpInstance)) {
       Netlist* netlist = inst->getNetlist();
       if (netlist) {
         UHDM::VectorOfparam_assign* param_assigns = netlist->param_assigns();
@@ -2523,9 +2527,10 @@ any* CompileHelper::getValue(const std::string& name,
       }
     }
     if (result) break;
-    if (ModuleInstance* inst = dynamic_cast<ModuleInstance*>(tmpInstance)) {
+    if (ModuleInstance* inst =
+            valuedcomponenti_cast<ModuleInstance*>(tmpInstance)) {
       tmpInstance = (ValuedComponentI*)inst->getParentScope();
-    } else if (FScope* inst = dynamic_cast<FScope*>(tmpInstance)) {
+    } else if (FScope* inst = valuedcomponenti_cast<FScope*>(tmpInstance)) {
       tmpInstance = (ValuedComponentI*)inst->getParentScope();
     } else {
       tmpInstance = nullptr;
@@ -2877,13 +2882,13 @@ UHDM::any* CompileHelper::compileExpression(
       list_op->Operands(operands);
       NodeId lexpr = child;
       NodeId rexpr = fC->Sibling(lexpr);
-      if (expr* op = dynamic_cast<expr*>(
+      if (expr* op = any_cast<expr*>(
               compileExpression(component, fC, lexpr, compileDesign, pexpr,
                                 instance, reduce, muteErrors))) {
         operands->push_back(op);
       }
       if (rexpr) {
-        if (expr* op = dynamic_cast<expr*>(
+        if (expr* op = any_cast<expr*>(
                 compileExpression(component, fC, rexpr, compileDesign, pexpr,
                                   instance, reduce, muteErrors))) {
           operands->push_back(op);
@@ -3739,7 +3744,8 @@ UHDM::any* CompileHelper::compileExpression(
 
           if (sval == NULL || (sval && !sval->isValid())) {
             if (instance) {
-              ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance);
+              ModuleInstance* inst =
+                  valuedcomponenti_cast<ModuleInstance*>(instance);
               if (inst) {
                 Netlist* netlist = inst->getNetlist();
                 if (netlist) {
@@ -4037,7 +4043,7 @@ UHDM::any* CompileHelper::compileExpression(
 
               auto [func, actual_comp] =
                   getTaskFunc(name, component, compileDesign, pexpr);
-              fcall->Function(dynamic_cast<function*>(func));
+              fcall->Function(any_cast<function*>(func));
               VectorOfany* args = compileTfCallArguments(
                   component, fC, List_of_arguments, compileDesign, fcall,
                   instance, reduce, muteErrors);
@@ -4054,10 +4060,10 @@ UHDM::any* CompileHelper::compileExpression(
                   Error err(ErrorDefinition::COMP_UNDEFINED_USER_FUNCTION, loc);
                   errors->addError(err);
                 }
-                result = EvalFunc(
-                    dynamic_cast<function*>(func), args, invalidValue,
-                    (instance) ? actual_comp : component, compileDesign,
-                    instance, fileName, lineNumber, pexpr);
+                result = EvalFunc(any_cast<function*>(func), args, invalidValue,
+                                  (instance) ? actual_comp : component,
+                                  compileDesign, instance, fileName, lineNumber,
+                                  pexpr);
               }
               if (result == nullptr || invalidValue == true) {
                 fcall->Tf_call_args(args);
@@ -4311,13 +4317,13 @@ UHDM::any* CompileHelper::compileExpression(
                 ref_obj* parent = (ref_obj*)select->VpiParent();
                 if (parent) parent->VpiDefName(tmpName);
                 elems->push_back(select);
-                if (part_select* pselect = dynamic_cast<part_select*>(select)) {
+                if (part_select* pselect = any_cast<part_select*>(select)) {
                   std::string selectRange =
                       "[" + pselect->Left_range()->VpiDecompile() + ":" +
                       pselect->Right_range()->VpiDecompile() + "]";
                   name += selectRange;
                 } else if (indexed_part_select* pselect =
-                               dynamic_cast<indexed_part_select*>(select)) {
+                               any_cast<indexed_part_select*>(select)) {
                   std::string selectRange =
                       "[" + pselect->Base_expr()->VpiDecompile() +
                       ((pselect->VpiIndexedPartSelectType() == vpiPosIndexed)
@@ -4519,7 +4525,7 @@ UHDM::any* CompileHelper::compileAssignmentPattern(DesignComponent* component,
   operation->VpiOpType(vpiAssignmentPatternOp);
   operation->Operands(operands);
   bool reduce = false;
-  if (component && dynamic_cast<Package*>(component)) {
+  if (component && valuedcomponenti_cast<Package*>(component)) {
     reduce = true;
   }
   // Page 1035: For an operation of type vpiAssignmentPatternOp, the operand
@@ -4638,7 +4644,8 @@ bool CompileHelper::errorOnNegativeConstant(
   if (val[4] == '-') {
     std::string instanceName;
     if (instance) {
-      if (ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance)) {
+      if (ModuleInstance* inst =
+              valuedcomponenti_cast<ModuleInstance*>(instance)) {
         instanceName = inst->getFullPathName();
       }
     } else if (component) {
@@ -4660,7 +4667,7 @@ bool CompileHelper::errorOnNegativeConstant(
     // GDB: p replay=true
     if (replay) {
       if (instance) {
-        ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance);
+        ModuleInstance* inst = valuedcomponenti_cast<ModuleInstance*>(instance);
         while (inst) {
           std::cout << "Instance:" << inst->getFullPathName() << " "
                     << inst->getFileName() << "\n";
@@ -4737,7 +4744,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
           size = size * tmp;
         }
 
-        expr* lexp = dynamic_cast<expr*>(
+        expr* lexp = any_cast<expr*>(
             compileExpression(component, fC, lexpr, compileDesign, pexpr,
                               instance, reduce, muteErrors));
         if (reduce) {
@@ -4753,7 +4760,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
         }
         range->Left_expr(lexp);
         if (lexp) lexp->VpiParent(range);
-        expr* rexp = dynamic_cast<expr*>(
+        expr* rexp = any_cast<expr*>(
             compileExpression(component, fC, rexpr, compileDesign, pexpr,
                               instance, reduce, muteErrors));
         if (reduce) {
@@ -4805,7 +4812,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
           }
         }
 
-        expr* rexp = dynamic_cast<expr*>(
+        expr* rexp = any_cast<expr*>(
             compileExpression(component, fC, rexpr, compileDesign, pexpr,
                               instance, reduce, muteErrors));
         bool associativeArray = false;
@@ -4981,7 +4988,7 @@ uint64_t CompileHelper::Bits(const UHDM::any* typespec, bool& invalidValue,
                              bool reduce, bool sizeMode) {
   uint64_t bits = 0;
   if (typespec) {
-    const UHDM::typespec* tps = dynamic_cast<const UHDM::typespec*>(typespec);
+    const UHDM::typespec* tps = any_cast<const UHDM::typespec*>(typespec);
     if (tps) {
       if (const UHDM::instance* inst = tps->Instance()) {
         if (Package* pack =
@@ -5098,7 +5105,7 @@ uint64_t CompileHelper::Bits(const UHDM::any* typespec, bool& invalidValue,
       }
       case UHDM::uhdmenum_typespec: {
         const UHDM::enum_typespec* sts =
-            dynamic_cast<const UHDM::enum_typespec*>(typespec);
+            any_cast<const UHDM::enum_typespec*>(typespec);
         if (sts)
           bits =
               Bits(sts->Base_typespec(), invalidValue, component, compileDesign,
@@ -5141,12 +5148,12 @@ uint64_t CompileHelper::Bits(const UHDM::any* typespec, bool& invalidValue,
           }
           if (object) {
             // Substitution
-            if (param_assign* pass = dynamic_cast<param_assign*>(object)) {
+            if (param_assign* pass = any_cast<param_assign*>(object)) {
               const any* rhs = pass->Rhs();
               object =
                   reduceExpr((any*)rhs, invalidValue, component, compileDesign,
                              instance, fileName, lineNumber, nullptr, true);
-            } else if (bit_select* bts = dynamic_cast<bit_select*>(object)) {
+            } else if (bit_select* bts = any_cast<bit_select*>(object)) {
               object =
                   reduceExpr((any*)bts, invalidValue, component, compileDesign,
                              instance, fileName, lineNumber, nullptr, true);
@@ -5366,15 +5373,15 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
     }
   }
   while (dtype) {
-    const TypeDef* typed = dynamic_cast<const TypeDef*>(dtype);
+    const TypeDef* typed = datatype_cast<const TypeDef*>(dtype);
     if (typed) {
       const DataType* dt = typed->getDataType();
-      const Enum* en = dynamic_cast<const Enum*>(dt);
+      const Enum* en = datatype_cast<const Enum*>(dt);
       if (en) {
         result = en->getTypespec();
         break;
       }
-      const Struct* st = dynamic_cast<const Struct*>(dt);
+      const Struct* st = datatype_cast<const Struct*>(dt);
       if (st) {
         result = st->getTypespec();
         if (!suffixnames.empty()) {
@@ -5382,12 +5389,12 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
         }
         break;
       }
-      const Union* un = dynamic_cast<const Union*>(dt);
+      const Union* un = datatype_cast<const Union*>(dt);
       if (un) {
         result = un->getTypespec();
         break;
       }
-      const SimpleType* sit = dynamic_cast<const SimpleType*>(dt);
+      const SimpleType* sit = datatype_cast<const SimpleType*>(dt);
       if (sit) {
         result = sit->getTypespec();
         break;
@@ -5397,7 +5404,7 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
   }
 
   if (result == nullptr) {
-    ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance);
+    ModuleInstance* inst = valuedcomponenti_cast<ModuleInstance*>(instance);
     if (inst) {
       Netlist* netlist = inst->getNetlist();
       if (netlist) {
@@ -5833,11 +5840,11 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
     if (tf) {
       if (tf->UhdmType() == uhdmfunction) {
         func_call* fcall = s.MakeFunc_call();
-        fcall->Function(dynamic_cast<function*>(tf));
+        fcall->Function(any_cast<function*>(tf));
         call = fcall;
       } else {
         task_call* tcall = s.MakeTask_call();
-        tcall->Task(dynamic_cast<task*>(tf));
+        tcall->Task(any_cast<task*>(tf));
         call = tcall;
       }
     }

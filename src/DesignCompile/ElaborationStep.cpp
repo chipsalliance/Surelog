@@ -54,10 +54,10 @@
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
+#include <uhdm/ExprEval.h>
 #include <uhdm/Serializer.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
-#include <uhdm/ExprEval.h>
 
 namespace SURELOG {
 
@@ -138,7 +138,7 @@ bool ElaborationStep::bindTypedefs_() {
       else {
         specs.insert(std::make_pair(prevDef->getTypespec()->VpiName(),
                                     prevDef->getTypespec()));
-        if (Package* pack = dynamic_cast<Package*>(comp)) {
+        if (Package* pack = valuedcomponenti_cast<Package*>(comp)) {
           std::string name =
               pack->getName() + "::" + prevDef->getTypespec()->VpiName();
           specs.insert(std::make_pair(name, prevDef->getTypespec()));
@@ -172,7 +172,7 @@ bool ElaborationStep::bindTypedefs_() {
             typd->setTypespec(tpclone);
             tpclone->VpiName(typd->getName());
             specs.insert(std::make_pair(typd->getName(), tpclone));
-            if (Package* pack = dynamic_cast<Package*>(comp)) {
+            if (Package* pack = valuedcomponenti_cast<Package*>(comp)) {
               std::string name = pack->getName() + "::" + typd->getName();
               specs.insert(std::make_pair(name, tpclone));
             }
@@ -186,7 +186,7 @@ bool ElaborationStep::bindTypedefs_() {
         if (ts) {
           ts->VpiName(typd->getName());
           specs.insert(std::make_pair(typd->getName(), ts));
-          if (Package* pack = dynamic_cast<Package*>(comp)) {
+          if (Package* pack = valuedcomponenti_cast<Package*>(comp)) {
             std::string name = pack->getName() + "::" + typd->getName();
             specs.insert(std::make_pair(name, ts));
           }
@@ -206,7 +206,7 @@ bool ElaborationStep::bindTypedefs_() {
         if (ts) {
           specs.insert(std::make_pair(typd->getName(), ts));
           ts->VpiName(typd->getName());
-          if (Package* pack = dynamic_cast<Package*>(comp)) {
+          if (Package* pack = valuedcomponenti_cast<Package*>(comp)) {
             std::string name = pack->getName() + "::" + typd->getName();
             specs.insert(std::make_pair(name, ts));
           }
@@ -234,28 +234,26 @@ bool ElaborationStep::bindTypedefs_() {
     if (typespec* tps = typd->getTypespec()) {
       for (any* var : comp->getLateTypedefBinding()) {
         const typespec* orig = nullptr;
-        if (expr* ex = dynamic_cast<expr*>(var)) {
+        if (expr* ex = any_cast<expr*>(var)) {
           orig = ex->Typespec();
-        } else if (typespec_member* ex = dynamic_cast<typespec_member*>(var)) {
+        } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
           orig = ex->Typespec();
-        } else if (parameter* ex = dynamic_cast<parameter*>(var)) {
+        } else if (parameter* ex = any_cast<parameter*>(var)) {
           orig = ex->Typespec();
-        } else if (type_parameter* ex = dynamic_cast<type_parameter*>(var)) {
+        } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
           orig = ex->Typespec();
         }
         if (orig->UhdmType() == uhdmunsupported_typespec) {
           const std::string& need = orig->VpiName();
           if (need == tps->VpiName()) {
             s.unsupported_typespecMaker.Erase((unsupported_typespec*)orig);
-            if (expr* ex = dynamic_cast<expr*>(var)) {
+            if (expr* ex = any_cast<expr*>(var)) {
               ex->Typespec(tps);
-            } else if (typespec_member* ex =
-                           dynamic_cast<typespec_member*>(var)) {
+            } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
               ex->Typespec(tps);
-            } else if (parameter* ex = dynamic_cast<parameter*>(var)) {
+            } else if (parameter* ex = any_cast<parameter*>(var)) {
               ex->Typespec(tps);
-            } else if (type_parameter* ex =
-                           dynamic_cast<type_parameter*>(var)) {
+            } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
               ex->Typespec(tps);
             }
           }
@@ -267,13 +265,13 @@ bool ElaborationStep::bindTypedefs_() {
     DesignComponent* comp = module.second;
     for (any* var : comp->getLateTypedefBinding()) {
       const typespec* orig = nullptr;
-      if (expr* ex = dynamic_cast<expr*>(var)) {
+      if (expr* ex = any_cast<expr*>(var)) {
         orig = ex->Typespec();
-      } else if (typespec_member* ex = dynamic_cast<typespec_member*>(var)) {
+      } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
         orig = ex->Typespec();
-      } else if (parameter* ex = dynamic_cast<parameter*>(var)) {
+      } else if (parameter* ex = any_cast<parameter*>(var)) {
         orig = ex->Typespec();
-      } else if (type_parameter* ex = dynamic_cast<type_parameter*>(var)) {
+      } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
         orig = ex->Typespec();
       }
       if (orig->UhdmType() == uhdmunsupported_typespec) {
@@ -282,14 +280,13 @@ bool ElaborationStep::bindTypedefs_() {
         if (itr != specs.end()) {
           typespec* tps = (*itr).second;
           s.unsupported_typespecMaker.Erase((unsupported_typespec*)orig);
-          if (expr* ex = dynamic_cast<expr*>(var)) {
+          if (expr* ex = any_cast<expr*>(var)) {
             ex->Typespec(tps);
-          } else if (typespec_member* ex =
-                         dynamic_cast<typespec_member*>(var)) {
+          } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
             ex->Typespec(tps);
-          } else if (parameter* ex = dynamic_cast<parameter*>(var)) {
+          } else if (parameter* ex = any_cast<parameter*>(var)) {
             ex->Typespec(tps);
-          } else if (type_parameter* ex = dynamic_cast<type_parameter*>(var)) {
+          } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
             ex->Typespec(tps);
           }
         } else {
@@ -303,13 +300,13 @@ bool ElaborationStep::bindTypedefs_() {
     DesignComponent* comp = module.second;
     for (any* var : comp->getLateTypedefBinding()) {
       const typespec* orig = nullptr;
-      if (expr* ex = dynamic_cast<expr*>(var)) {
+      if (expr* ex = any_cast<expr*>(var)) {
         orig = ex->Typespec();
-      } else if (typespec_member* ex = dynamic_cast<typespec_member*>(var)) {
+      } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
         orig = ex->Typespec();
-      } else if (parameter* ex = dynamic_cast<parameter*>(var)) {
+      } else if (parameter* ex = any_cast<parameter*>(var)) {
         orig = ex->Typespec();
-      } else if (type_parameter* ex = dynamic_cast<type_parameter*>(var)) {
+      } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
         orig = ex->Typespec();
       }
       if (orig->UhdmType() == uhdmunsupported_typespec) {
@@ -318,14 +315,13 @@ bool ElaborationStep::bindTypedefs_() {
         if (itr != specs.end()) {
           typespec* tps = (*itr).second;
           s.unsupported_typespecMaker.Erase((unsupported_typespec*)orig);
-          if (expr* ex = dynamic_cast<expr*>(var)) {
+          if (expr* ex = any_cast<expr*>(var)) {
             ex->Typespec(tps);
-          } else if (typespec_member* ex =
-                         dynamic_cast<typespec_member*>(var)) {
+          } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
             ex->Typespec(tps);
-          } else if (parameter* ex = dynamic_cast<parameter*>(var)) {
+          } else if (parameter* ex = any_cast<parameter*>(var)) {
             ex->Typespec(tps);
-          } else if (type_parameter* ex = dynamic_cast<type_parameter*>(var)) {
+          } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
             ex->Typespec(tps);
           }
         } else {
@@ -454,7 +450,7 @@ const DataType* ElaborationStep::bindDataType_(
   }
   if (found == false) {
     const ClassDefinition* classDefinition =
-        dynamic_cast<const ClassDefinition*>(parent);
+        valuedcomponenti_cast<const ClassDefinition*>(parent);
     if (classDefinition) {
       if (classDefinition->getName() == type_name) {
         result = classDefinition;
@@ -496,7 +492,7 @@ const DataType* ElaborationStep::bindDataType_(
     auto res = parent->getNamedObject(type_name);
     if (res) {
       DesignComponent* comp = res->second;
-      result = dynamic_cast<ClassDefinition*>(comp);
+      result = valuedcomponenti_cast<ClassDefinition*>(comp);
       if (result) found = true;
     }
   }
@@ -504,7 +500,7 @@ const DataType* ElaborationStep::bindDataType_(
     auto res = parent->getNamedObject(libName + "@" + type_name);
     if (res) {
       DesignComponent* comp = res->second;
-      result = dynamic_cast<ClassDefinition*>(comp);
+      result = valuedcomponenti_cast<ClassDefinition*>(comp);
       if (result) found = true;
     }
   }
@@ -591,7 +587,7 @@ Variable* ElaborationStep::bindVariable_(std::string var_name, Scope* scope,
   Variable* result = NULL;
 
   const ClassDefinition* classDefinition =
-      dynamic_cast<const ClassDefinition*>(parent);
+      valuedcomponenti_cast<const ClassDefinition*>(parent);
   if (classDefinition) result = classDefinition->getProperty(var_name);
 
   if (result == NULL) {
@@ -602,7 +598,7 @@ Variable* ElaborationStep::bindVariable_(std::string var_name, Scope* scope,
   if ((result == NULL) && scope) {
     Scope* itr_scope = scope;
     while (itr_scope) {
-      Procedure* proc = dynamic_cast<Procedure*>(itr_scope);
+      Procedure* proc = scope_cast<Procedure*>(itr_scope);
       if (proc) {
         for (auto param : proc->getParams()) {
           if (param->getName() == var_name) {
@@ -661,11 +657,11 @@ Variable* ElaborationStep::locateVariable_(std::vector<std::string>& var_chain,
     if (var == "this") {
     } else if (var == "super") {
       const ClassDefinition* classDefinition =
-          dynamic_cast<const ClassDefinition*>(currentComponent);
+          valuedcomponenti_cast<const ClassDefinition*>(currentComponent);
       if (classDefinition) {
         currentComponent = NULL;
         for (const auto& cc : classDefinition->getBaseClassMap()) {
-          currentComponent = dynamic_cast<const ClassDefinition*>(cc.second);
+          currentComponent = datatype_cast<const ClassDefinition*>(cc.second);
           var = "this";
           break;
         }
@@ -684,7 +680,7 @@ Variable* ElaborationStep::locateVariable_(std::vector<std::string>& var_chain,
         dtype = dtype->getDefinition();
       }
       const ClassDefinition* tmpClass =
-          dynamic_cast<const ClassDefinition*>(dtype);
+          datatype_cast<const ClassDefinition*>(dtype);
       if (tmpClass) {
         currentComponent = tmpClass;
       }
@@ -976,14 +972,14 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
           parentComponent->getNamedObject(interfName);
       if (datatype) {
         def = datatype->second;
-        DataType* dt = dynamic_cast<DataType*>(def);
+        DataType* dt = valuedcomponenti_cast<ClassDefinition*>(def);
         if (dt) {
           signal->setDataType(dt);
         }
       } else {
         std::string name = parentComponent->getName() + "::" + interfName;
         def = design->getClassDefinition(name);
-        DataType* dt = dynamic_cast<DataType*>(def);
+        DataType* dt = valuedcomponenti_cast<ClassDefinition*>(def);
         if (dt) {
           signal->setDataType(dt);
         }
@@ -991,8 +987,9 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
       if (def == NULL) {
         def = design->getComponentDefinition(libName + "@" + baseName);
         if (def) {
-          ModuleDefinition* module = dynamic_cast<ModuleDefinition*>(def);
-          ClassDefinition* cl = dynamic_cast<ClassDefinition*>(def);
+          ModuleDefinition* module =
+              valuedcomponenti_cast<ModuleDefinition*>(def);
+          ClassDefinition* cl = valuedcomponenti_cast<ClassDefinition*>(def);
           if (module) {
             signal->setInterfaceDef(module);
           } else if (cl) {
@@ -1014,7 +1011,7 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
       }
       if (def == NULL) {
         def = design->getComponentDefinition(libName + "@" + baseName);
-        ClassDefinition* c = dynamic_cast<ClassDefinition*>(def);
+        ClassDefinition* c = valuedcomponenti_cast<ClassDefinition*>(def);
         if (c) {
           Variable* var =
               new Variable(c, fC, signal->getNodeId(), 0, signal->getName());
@@ -1226,22 +1223,22 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
 
   if (dtype) {
     dtype = dtype->getActual();
-    if (const Enum* en = dynamic_cast<const Enum*>(dtype)) {
+    if (const Enum* en = datatype_cast<const Enum*>(dtype)) {
       enum_var* stv = s.MakeEnum_var();
       stv->Typespec(en->getTypespec());
       obj = stv;
       stv->Expr(assignExp);
-    } else if (const Struct* st = dynamic_cast<const Struct*>(dtype)) {
+    } else if (const Struct* st = datatype_cast<const Struct*>(dtype)) {
       struct_var* stv = s.MakeStruct_var();
       stv->Typespec(st->getTypespec());
       obj = stv;
       stv->Expr(assignExp);
-    } else if (const Union* un = dynamic_cast<const Union*>(dtype)) {
+    } else if (const Union* un = datatype_cast<const Union*>(dtype)) {
       union_var* stv = s.MakeUnion_var();
       stv->Typespec(un->getTypespec());
       obj = stv;
       stv->Expr(assignExp);
-    } else if (const DummyType* un = dynamic_cast<const DummyType*>(dtype)) {
+    } else if (const DummyType* un = datatype_cast<const DummyType*>(dtype)) {
       typespec* tps = un->getTypespec();
       variables* var = nullptr;
       UHDM_OBJECT_TYPE ttps = tps->UhdmType();
@@ -1265,7 +1262,8 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       var->Typespec(tps);
       var->Expr(assignExp);
       obj = var;
-    } else if (const SimpleType* sit = dynamic_cast<const SimpleType*>(dtype)) {
+    } else if (const SimpleType* sit =
+                   datatype_cast<const SimpleType*>(dtype)) {
       UHDM::typespec* spec = sit->getTypespec();
       spec = m_helper.elabTypespec(component, spec, m_compileDesign, nullptr,
                                    instance);
@@ -1277,14 +1275,14 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       var->VpiName(signame);
       var->Typespec(spec);
       obj = var;
-    } else if (/*const ClassDefinition* cl = */ dynamic_cast<
+    } else if (/*const ClassDefinition* cl = */ datatype_cast<
                const ClassDefinition*>(dtype)) {
       class_var* stv = s.MakeClass_var();
       stv->Typespec(tps);
       obj = stv;
       stv->Expr(assignExp);
-    } else if (Parameter* sit =
-                   (Parameter*)dynamic_cast<const Parameter*>(dtype)) {
+    } else if (Parameter* sit = const_cast<Parameter*>(
+                   datatype_cast<const Parameter*>(dtype))) {
       UHDM::typespec* spec = elabTypeParameter_(component, sit, instance);
 
       variables* var = m_helper.getSimpleVarFromTypespec(spec, packedDimensions,
