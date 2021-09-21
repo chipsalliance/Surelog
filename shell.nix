@@ -27,6 +27,9 @@ pkgs.mkShell {
       gperftools
       zlib
       lcov
+      git
+      cacert
+      python3
     ];
 
 }
