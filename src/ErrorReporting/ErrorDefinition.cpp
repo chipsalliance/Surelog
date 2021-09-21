@@ -396,5 +396,7 @@ bool ErrorDefinition::init() {
   rec(UHDM_WRITE_HTML_COVERAGE, INFO, UHDM, "Writing UHDM Html Coverage: %s..");
   rec(UHDM_LOAD_DB, INFO, UHDM, "Loading UHDM DB: %s..");
   rec(UHDM_VISITOR, INFO, UHDM, "Decompiling UHDM..");
+  rec(UHDM_UNDEFINED_PATTERN_KEY, ERROR, UHDM, "Undefined pattern key \"%s\"");
+  rec(UHDM_UNMATCHED_FIELD_IN_PATTERN_ASSIGN, ERROR, UHDM, "Unmatched member during pattern assignment \"%s\"");
   return true;
 }
