@@ -51,6 +51,7 @@
 #include "SourceCompile/VObjectTypes.h"
 #include "Testbench/ClassDefinition.h"
 #include "Testbench/Property.h"
+#include "Utils/FileUtils.h"
 #include "Utils/StringUtils.h"
 
 // UHDM
@@ -82,6 +83,7 @@ bool DesignElaboration::elaborate() {
   reduceUnnamedBlocks_();
   checkElaboration_();
   reportElaboration_();
+  createFileList_();
   return true;
 }
 
@@ -2162,4 +2164,59 @@ bool DesignElaboration::bindDataTypes_() {
     bind_ports_nets_(ports, signals, fC, nullptr, prog);
   }
   return true;
+}
+
+void DesignElaboration::createFileList_() {
+  Design* design = m_compileDesign->getCompiler()->getDesign();
+  std::queue<ModuleInstance*> queue;
+  std::set<const FileContent*> files;
+  for (auto instance : design->getTopLevelModuleInstances()) {
+    queue.push(instance);
+  }
+
+  while (queue.size()) {
+    ModuleInstance* current = queue.front();
+    DesignComponent* def = current->getDefinition();
+    queue.pop();
+    if (current == nullptr) continue;
+    for (unsigned int i = 0; i < current->getNbChildren(); i++) {
+      queue.push(current->getChildren(i));
+    }
+    const FileContent* fC = current->getFileContent();
+    if (fC) {
+      files.insert(fC);
+    }
+    if (def) {
+      for (auto f : def->getFileContents()) {
+        if (f) {
+          files.insert(f);
+        }
+      }
+    }
+  }
+  CommandLineParser* cmdLine =
+      m_compileDesign->getCompiler()->getCommandLineParser();
+
+  if (cmdLine->writePpOutput() || (cmdLine->writePpOutputFileId() != 0)) {
+    const std::string& directory =
+        cmdLine->getSymbolTable().getSymbol(cmdLine->getFullCompileDir());
+    std::ofstream ofs;
+    std::string fileList = directory + "/file_elab.lst";
+    ofs.open(fileList);
+    const std::map<const std::string, std::vector<std::string>>& ppFileName =
+        m_compileDesign->getCompiler()->getPPFileMap();
+    if (ofs.good()) {
+      for (auto fC : files) {
+        auto itr = ppFileName.find(fC->getFileName());
+        if (itr != ppFileName.end()) {
+          for (auto f : (*itr).second) {
+            ofs << f << std::flush << std::endl;
+          }
+        }
+      }
+      ofs.close();
+    } else {
+      std::cout << "Could not create filelist: " << fileList << std::endl;
+    }
+  }
 }
