@@ -135,8 +135,8 @@ std::vector<SymbolId> FileUtils::collectFiles(SymbolId dirPath, SymbolId ext,
                       symbols);
 }
 
-std::vector<SymbolId> FileUtils::collectFiles(const std::string& dirPath,
-                                              const std::string& ext,
+std::vector<SymbolId> FileUtils::collectFiles(std::string dirPath,
+                                              std::string ext,
                                               SymbolTable* symbols) {
   std::vector<SymbolId> result;
   if (fileIsDirectory(dirPath)) {
