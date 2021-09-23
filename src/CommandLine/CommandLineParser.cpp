@@ -87,7 +87,8 @@ static const std::initializer_list<std::string_view> helpText = {
     "  -y <path>             Library directory",
     "  +incdir+<dir>[+<dir>...] Specifies include paths",
     "  -Idir                 Specifies include paths",
-    "  +libext+<extname>+... Specifies the library extensions",
+    "  +libext+<extname>+... Specifies the library extensions, default is "
+    ".v+.sv",
     "  <file>.v              Verilog File",
     "  <file>.sv             SystemVerilog File",
     "  +liborder             Lib Order option (ignored)",
@@ -353,6 +354,8 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
     m_muteStdout = true;
     m_verbose = false;
   }
+  m_libraryExtensions.push_back(
+      m_symbolTable->registerSymbol(".v"));  // default
 }
 
 void CommandLineParser::splitPlusArg_(std::string s, std::string prefix,
@@ -402,6 +405,7 @@ bool CommandLineParser::plus_arguments_(const std::string& s) {
     return true;
   }
   if (s.compare(0, libext.size(), libext) == 0) {
+    m_libraryExtensions.clear();
     splitPlusArg_(s, "libext", m_libraryExtensions);
     return true;
   }

@@ -328,6 +328,17 @@ void StringUtils::autoExpandEnvironmentVariables(std::string* text) {
 #endif
     text->replace(match.position(0), match.length(0), var);
   }
+  static std::regex env3("\\$\\(([^}]+)\\)");
+  while (std::regex_search(*text, match, env3)) {
+    std::string var;
+    const char* s = getenv(match[1].str().c_str());
+    if (s == NULL) {
+      auto itr = envVars.find(match[1].str());
+      if (itr != envVars.end()) var = (*itr).second;
+    }
+    if (var.empty() && s) var = s;
+    text->replace(match.position(0), match.length(0), var);
+  }
 }
 
 // Leave input alone and return new string.

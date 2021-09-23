@@ -278,10 +278,13 @@ bool Compiler::createFileList_() {
     if (ofs.good()) {
       unsigned int size = m_compilers.size();
       for (unsigned int i = 0; i < size; i++) {
-        std::string fileName = m_compilers[i]->getSymbolTable()->getSymbol(
+        std::string ppFileName = m_compilers[i]->getSymbolTable()->getSymbol(
             m_compilers[i]->getPpOutputFileId());
-        fileName = FileUtils::getPreferredPath(fileName);
-        ofs << fileName << std::flush << std::endl;
+        std::string fileName = m_compilers[i]->getSymbolTable()->getSymbol(
+            m_compilers[i]->getFileId());
+        ppFileName = FileUtils::getPreferredPath(ppFileName);
+        ppFileMap[fileName].push_back(ppFileName);
+        ofs << ppFileName << std::flush << std::endl;
       }
       ofs.close();
     } else {

@@ -80,6 +80,7 @@ class DesignElaboration : public TestbenchElaboration {
   void checkConfigurations_();
   bool bindAllInstances_(ModuleInstance*, ModuleInstanceFactory* factory,
                          Config* config);
+  void createFileList_();
   Config* getInstConfig(std::string name);
   Config* getCellConfig(std::string name);
   std::vector<std::pair<std::string, const FileContent*>> m_topLevelModules;
