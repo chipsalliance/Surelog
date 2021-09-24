@@ -311,7 +311,8 @@ bool ResolveSymbols::bindDefinition_(unsigned int objIndex,
       NodeId mod = fcontent->sl_parent(index, bindTypes, actualType);
       if (mod != InvalidNodeId) {
         SetDefinition(objIndex, mod);
-        fcontent->getReferencedObjects().insert(modName);
+        if (!m_fileData->isLibraryCellFile())
+          fcontent->getReferencedObjects().insert(modName);
         m_fileData->SetDefinitionFile(objIndex, fileId);
         switch (actualType) {
           case VObjectType::slUdp_declaration:

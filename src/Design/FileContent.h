@@ -219,6 +219,8 @@ class FileContent : public DesignComponent {
                 std::string* diff_out) const;
 
   SymbolId getSymbolId() const { return m_fileId; }
+  bool isLibraryCellFile() { return m_isLibraryCellFile; }
+  void setLibraryCellFile() { m_isLibraryCellFile = true; }
 
  protected:
   std::vector<DesignElement> m_elements;
@@ -244,6 +246,7 @@ class FileContent : public DesignComponent {
   Library* m_library;          // TODO: should be set in constructor and *const
   SymbolTable* m_symbolTable;  // TODO: should be set in constructor *const
   FileContent* m_parentFile;   // for file chunks
+  bool m_isLibraryCellFile = false;
 };
 
 };  // namespace SURELOG
