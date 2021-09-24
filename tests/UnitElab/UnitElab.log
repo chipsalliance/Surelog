@@ -16040,6 +16040,10 @@ design: (work@bottom1)
     |vpiGenScope:
     \_gen_scope: (work@test.u1), parent:work@test.u1
       |vpiFullName:work@test.u1
+      |vpiNet:
+      \_logic_net: (work@test.u1.c), parent:work@test.u1
+        |vpiName:c
+        |vpiFullName:work@test.u1.c
       |vpiPrimitive:
       \_gate: work@xor (work@test.u1.g1), line:64, parent:work@test.u1
         |vpiDefName:work@xor
@@ -16074,15 +16078,11 @@ design: (work@bottom1)
             |vpiName:c
             |vpiFullName:work@test.u1.c
             |vpiActual:
-            \_logic_net: (work@test.c), parent:work@test
-              |vpiName:c
-              |vpiFullName:work@test.c
+            \_logic_net: (work@test.u1.c), parent:work@test.u1
   |vpiNet:
   \_logic_net: (work@test.a), line:35:13, endln:35:14, parent:work@test
   |vpiNet:
   \_logic_net: (work@test.b), line:35:16, endln:35:17, parent:work@test
-  |vpiNet:
-  \_logic_net: (work@test.c), parent:work@test
   |vpiParameter:
   \_parameter: (work@test.POWER1), line:37:13, endln:37:23, parent:work@test
     |vpiName:POWER1
