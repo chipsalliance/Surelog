@@ -690,7 +690,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               if (parent) {
                 ref->VpiFullName(parent->getFullPathName() + "." + sigName);
                 any* net =
-                  bind_net_(parent, instance->getInstanceBinding(), sigName);
+                    bind_net_(parent, instance->getInstanceBinding(), sigName);
                 ref->Actual_group(net);
               }
             } else {
@@ -739,8 +739,8 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             if (parent) {
               ref->VpiFullName(parent->getFullPathName() + "." + sigName);
               any* net =
-                bind_net_(parent, instance->getInstanceBinding(), sigName);
-              ref->Actual_group(net);  
+                  bind_net_(parent, instance->getInstanceBinding(), sigName);
+              ref->Actual_group(net);
             }
           } else {
             NodeId Hierarchical_identifier = fC->Child(Net_lvalue);
@@ -1077,7 +1077,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                 ref->VpiFullName(parent->getFullPathName() + "." + sigName);
                 pp->High_conn(ref);
                 UHDM::any* net =
-                  bind_net_(parent, instance->getInstanceBinding(), sigName);
+                    bind_net_(parent, instance->getInstanceBinding(), sigName);
                 ref->Actual_group(net);
               }
             }

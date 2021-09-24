@@ -896,6 +896,12 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
                                                m_compileDesign, m_instance);
           break;
         }
+        case VObjectType::slAlways_construct: {
+          if (collectType != CollectType::OTHER) break;
+          m_helper.compileAlwaysBlock(m_module, fC, id, m_compileDesign,
+                                      m_instance);
+          break;
+        }
         case VObjectType::slTask_declaration: {
           if (collectType != CollectType::FUNCTION) break;
           m_helper.compileTask(m_module, fC, id, m_compileDesign);
