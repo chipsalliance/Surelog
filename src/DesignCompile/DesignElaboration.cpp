@@ -374,6 +374,8 @@ bool DesignElaboration::identifyTopModules_() {
         for (auto file1 : all_files) {
           if (file1.second->getReferencedObjects().find(elemName) !=
               file1.second->getReferencedObjects().end()) {
+            if (m_compileDesign->getCompiler()->isLibraryFile(file1.first))
+              continue;
             used = true;
             break;
           }
