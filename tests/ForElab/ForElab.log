@@ -205,6 +205,14 @@ design: (work@tlul_socket_m1)
     |vpiGenScope:
     \_gen_scope: (work@tlul_socket_m1.gen_tree_arb), parent:work@tlul_socket_m1.gen_tree_arb
       |vpiFullName:work@tlul_socket_m1.gen_tree_arb
+      |vpiNet:
+      \_logic_net: (work@tlul_socket_m1.gen_tree_arb.clk_i), parent:work@tlul_socket_m1.gen_tree_arb
+        |vpiName:clk_i
+        |vpiFullName:work@tlul_socket_m1.gen_tree_arb.clk_i
+      |vpiNet:
+      \_logic_net: (work@tlul_socket_m1.gen_tree_arb.rst_ni), parent:work@tlul_socket_m1.gen_tree_arb
+        |vpiName:rst_ni
+        |vpiFullName:work@tlul_socket_m1.gen_tree_arb.rst_ni
       |vpiModule:
       \_module: work@prim_arbiter_tree (work@tlul_socket_m1.gen_tree_arb.u_reqarb) top.v:55:5: , endln:61:7, parent:work@tlul_socket_m1.gen_tree_arb
         |vpiDefName:work@prim_arbiter_tree
@@ -221,9 +229,7 @@ design: (work@tlul_socket_m1)
             |vpiName:clk_i
             |vpiFullName:work@tlul_socket_m1.gen_tree_arb.clk_i
             |vpiActual:
-            \_logic_net: (work@tlul_socket_m1.clk_i), parent:work@tlul_socket_m1
-              |vpiName:clk_i
-              |vpiFullName:work@tlul_socket_m1.clk_i
+            \_logic_net: (work@tlul_socket_m1.gen_tree_arb.clk_i), parent:work@tlul_socket_m1.gen_tree_arb
           |vpiLowConn:
           \_ref_obj: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.clk_i)
             |vpiName:clk_i
@@ -241,9 +247,7 @@ design: (work@tlul_socket_m1)
             |vpiName:rst_ni
             |vpiFullName:work@tlul_socket_m1.gen_tree_arb.rst_ni
             |vpiActual:
-            \_logic_net: (work@tlul_socket_m1.rst_ni), parent:work@tlul_socket_m1
-              |vpiName:rst_ni
-              |vpiFullName:work@tlul_socket_m1.rst_ni
+            \_logic_net: (work@tlul_socket_m1.gen_tree_arb.rst_ni), parent:work@tlul_socket_m1.gen_tree_arb
           |vpiLowConn:
           \_ref_obj: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.rst_ni)
             |vpiName:rst_ni
@@ -266,6 +270,18 @@ design: (work@tlul_socket_m1)
               |vpiGenScope:
               \_gen_scope: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]
                 |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]
+                |vpiNet:
+                \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].a), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]
+                  |vpiName:a
+                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].a
+                |vpiNet:
+                \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].b), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]
+                  |vpiName:b
+                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].b
+                |vpiNet:
+                \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].o), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]
+                  |vpiName:o
+                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].o
                 |vpiPrimitive:
                 \_gate: work@or (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].gate), line:41, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]
                   |vpiDefName:work@or
@@ -280,9 +296,7 @@ design: (work@tlul_socket_m1)
                       |vpiName:a
                       |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].a
                       |vpiActual:
-                      \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.a), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
-                        |vpiName:a
-                        |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.a
+                      \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].a), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]
                   |vpiPrimTerm:
                   \_prim_term: , line:41:18, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].gate
                     |vpiDirection:1
@@ -292,9 +306,7 @@ design: (work@tlul_socket_m1)
                       |vpiName:b
                       |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].b
                       |vpiActual:
-                      \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.b), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
-                        |vpiName:b
-                        |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.b
+                      \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].b), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]
                   |vpiPrimTerm:
                   \_prim_term: , line:41:20, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].gate
                     |vpiDirection:1
@@ -304,9 +316,7 @@ design: (work@tlul_socket_m1)
                       |vpiName:o
                       |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].o
                       |vpiActual:
-                      \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.o), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
-                        |vpiName:o
-                        |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.o
+                      \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].o), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]
                 |vpiParameter:
                 \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].base0), line:39:31, endln:39:51, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]
                   |vpiName:base0
@@ -359,6 +369,18 @@ design: (work@tlul_socket_m1)
               |vpiGenScope:
               \_gen_scope: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]
                 |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]
+                |vpiNet:
+                \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].a), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]
+                  |vpiName:a
+                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].a
+                |vpiNet:
+                \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].b), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]
+                  |vpiName:b
+                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].b
+                |vpiNet:
+                \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].o), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]
+                  |vpiName:o
+                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].o
                 |vpiPrimitive:
                 \_gate: work@or (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].gate), line:41, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]
                   |vpiDefName:work@or
@@ -373,7 +395,7 @@ design: (work@tlul_socket_m1)
                       |vpiName:a
                       |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].a
                       |vpiActual:
-                      \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.a), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
+                      \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].a), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]
                   |vpiPrimTerm:
                   \_prim_term: , line:41:18, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].gate
                     |vpiDirection:1
@@ -383,7 +405,7 @@ design: (work@tlul_socket_m1)
                       |vpiName:b
                       |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].b
                       |vpiActual:
-                      \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.b), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
+                      \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].b), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]
                   |vpiPrimTerm:
                   \_prim_term: , line:41:20, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].gate
                     |vpiDirection:1
@@ -393,7 +415,7 @@ design: (work@tlul_socket_m1)
                       |vpiName:o
                       |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].o
                       |vpiActual:
-                      \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.o), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
+                      \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].o), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]
                 |vpiParameter:
                 \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].base0), line:39:31, endln:39:51, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]
                   |vpiName:base0
@@ -446,6 +468,18 @@ design: (work@tlul_socket_m1)
               |vpiGenScope:
               \_gen_scope: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]
                 |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]
+                |vpiNet:
+                \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].a), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]
+                  |vpiName:a
+                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].a
+                |vpiNet:
+                \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].b), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]
+                  |vpiName:b
+                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].b
+                |vpiNet:
+                \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].o), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]
+                  |vpiName:o
+                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].o
                 |vpiPrimitive:
                 \_gate: work@or (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].gate), line:41, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]
                   |vpiDefName:work@or
@@ -460,7 +494,7 @@ design: (work@tlul_socket_m1)
                       |vpiName:a
                       |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].a
                       |vpiActual:
-                      \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.a), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
+                      \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].a), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]
                   |vpiPrimTerm:
                   \_prim_term: , line:41:18, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].gate
                     |vpiDirection:1
@@ -470,7 +504,7 @@ design: (work@tlul_socket_m1)
                       |vpiName:b
                       |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].b
                       |vpiActual:
-                      \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.b), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
+                      \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].b), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]
                   |vpiPrimTerm:
                   \_prim_term: , line:41:20, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].gate
                     |vpiDirection:1
@@ -480,7 +514,7 @@ design: (work@tlul_socket_m1)
                       |vpiName:o
                       |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].o
                       |vpiActual:
-                      \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.o), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
+                      \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].o), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]
                 |vpiParameter:
                 \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].base0), line:39:31, endln:39:51, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]
                   |vpiName:base0
@@ -570,12 +604,6 @@ design: (work@tlul_socket_m1)
         \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.clk_i), line:21:9, endln:21:14, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
         |vpiNet:
         \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.rst_ni), line:22:9, endln:22:15, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
-        |vpiNet:
-        \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.a), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
-        |vpiNet:
-        \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.b), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
-        |vpiNet:
-        \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.o), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
         |vpiParameter:
         \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.N), line:17:26, endln:17:32, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
           |vpiName:N
@@ -633,10 +661,6 @@ design: (work@tlul_socket_m1)
             \_bit_typespec: , line:19:13, endln:19:16, parent:work@prim_arbiter_tree.Lock
           |vpiLhs:
           \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.Lock), line:19:17, endln:19:33, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
-  |vpiNet:
-  \_logic_net: (work@tlul_socket_m1.clk_i), parent:work@tlul_socket_m1
-  |vpiNet:
-  \_logic_net: (work@tlul_socket_m1.rst_ni), parent:work@tlul_socket_m1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

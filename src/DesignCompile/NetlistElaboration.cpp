@@ -687,10 +687,12 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               ref->VpiEndColumnNo(fC->EndColumn(sigId));
               p->High_conn(ref);
               ref->VpiName(sigName);
-              ref->VpiFullName(parent->getFullPathName() + "." + sigName);
-              any* net =
+              if (parent) {
+                ref->VpiFullName(parent->getFullPathName() + "." + sigName);
+                any* net =
                   bind_net_(parent, instance->getInstanceBinding(), sigName);
-              ref->Actual_group(net);
+                ref->Actual_group(net);
+              }
             } else {
               any* exp = nullptr;
               if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
@@ -734,10 +736,12 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             ref->VpiEndColumnNo(fC->EndColumn(sigId));
             p->High_conn(ref);
             ref->VpiName(sigName);
-            ref->VpiFullName(parent->getFullPathName() + "." + sigName);
-            any* net =
+            if (parent) {
+              ref->VpiFullName(parent->getFullPathName() + "." + sigName);
+              any* net =
                 bind_net_(parent, instance->getInstanceBinding(), sigName);
-            ref->Actual_group(net);
+              ref->Actual_group(net);  
+            }
           } else {
             NodeId Hierarchical_identifier = fC->Child(Net_lvalue);
             if (fC->Type(fC->Child(Hierarchical_identifier)) ==
@@ -947,16 +951,20 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           ref->VpiEndLineNo(fC->EndLine(sigId));
           ref->VpiEndColumnNo(fC->EndColumn(sigId));
           ref->VpiName(sigName);
-          ref->VpiFullName(parent->getFullPathName() + "." + sigName);
-          p->High_conn(ref);
-          ref->Actual_group(net);
+          if (parent) {
+            ref->VpiFullName(parent->getFullPathName() + "." + sigName);
+            p->High_conn(ref);
+            ref->Actual_group(net);
+          }
         } else if (hexpr != nullptr) {
           p->High_conn(hexpr);
           if (hexpr->UhdmType() == uhdmref_obj) {
             ((ref_obj*)hexpr)->Actual_group(net);
-            ((ref_obj*)hexpr)
-                ->VpiFullName(parent->getFullPathName() + "." +
-                              ((ref_obj*)hexpr)->VpiName());
+            if (parent) {
+              ((ref_obj*)hexpr)
+                  ->VpiFullName(parent->getFullPathName() + "." +
+                                ((ref_obj*)hexpr)->VpiName());
+            }
           }
         }
         p->VpiName(formalName);
@@ -1065,11 +1073,13 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               ref->VpiEndLineNo(wildcardLineNumber);
               ref->VpiEndColumnNo(wildcardColumnNumber + 1);
               ref->VpiName(sigName);
-              ref->VpiFullName(parent->getFullPathName() + "." + sigName);
-              pp->High_conn(ref);
-              UHDM::any* net =
+              if (parent) {
+                ref->VpiFullName(parent->getFullPathName() + "." + sigName);
+                pp->High_conn(ref);
+                UHDM::any* net =
                   bind_net_(parent, instance->getInstanceBinding(), sigName);
-              ref->Actual_group(net);
+                ref->Actual_group(net);
+              }
             }
           }
           netlist->ports(newPorts);
@@ -1941,13 +1951,14 @@ UHDM::any* NetlistElaboration::bind_net_(ModuleInstance* instance,
   if (boundInstance) {
     result = bind_net_(boundInstance, name);
   }
+  ModuleInstance* itrInst = instance;
   while (result == nullptr) {
-    if (instance == nullptr) break;
-    const FileContent* fC = instance->getFileContent();
-    NodeId Udp_instantiation = instance->getNodeId();
+    if (itrInst == nullptr) break;
+    const FileContent* fC = itrInst->getFileContent();
+    NodeId Udp_instantiation = itrInst->getNodeId();
     VObjectType insttype = fC->Type(Udp_instantiation);
 
-    result = bind_net_(instance, name);
+    result = bind_net_(itrInst, name);
 
     if ((insttype != VObjectType::slConditional_generate_construct) &&
         (insttype != VObjectType::slLoop_generate_construct) &&
@@ -1965,9 +1976,9 @@ UHDM::any* NetlistElaboration::bind_net_(ModuleInstance* instance,
         (insttype != VObjectType::slGenerate_block)) {
       break;
     }
-    instance = instance->getParent();
+    itrInst = itrInst->getParent();
   }
-  if (result == nullptr) {
+  if (instance && (result == nullptr)) {
     DesignComponent* component = instance->getDefinition();
     if (component) {
       for (auto tp : component->getTypeDefMap()) {
