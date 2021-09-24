@@ -295,6 +295,12 @@ bool CompileDesign::compilation_() {
     index++;
   } while (index < maxThreadCount);
 
+  for (auto file : all_files) {
+    if (m_compiler->isLibraryFile(file.first)) {
+      file.second->setLibraryCellFile();
+    }
+  }
+
   compileMT_<FileContent, Design::FileIdDesignContentMap, FunctorCreateLookup>(
       all_files, maxThreadCount);
 

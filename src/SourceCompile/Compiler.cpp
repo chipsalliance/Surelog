@@ -150,6 +150,7 @@ bool Compiler::ppinit_() {
 
   // Source files (.v, .sv on the command line)
   std::set<SymbolId> sourceFiles;
+  std::set<std::string> sourceFileNames;
   unsigned int size = m_commandLineParser->getSourceFiles().size();
   for (const SymbolId source_file_id : m_commandLineParser->getSourceFiles()) {
     SymbolTable* symbols = m_symbolTable;
@@ -166,6 +167,7 @@ bool Compiler::ppinit_() {
     const std::string fileName =
         m_commandLineParser->getSymbolTable().getSymbol(source_file_id);
     const std::string fullPath = FileUtils::getFullPath(fileName);
+    sourceFileNames.insert(fullPath);
     const SymbolId fullPathId =
         m_commandLineParser->mutableSymbolTable()->registerSymbol(fullPath);
     Library* library = m_librarySet->getLibrary(fullPathId);
@@ -191,7 +193,12 @@ bool Compiler::ppinit_() {
   size = m_commandLineParser->getLibraryFiles().size();
   for (unsigned int i = 0; i < size; i++) {
     SymbolId id = m_commandLineParser->getLibraryFiles()[i];
-    libFiles.insert(id);
+    const std::string fileName =
+        m_commandLineParser->getSymbolTable().getSymbol(id);
+    const std::string fullPath = FileUtils::getFullPath(fileName);
+    if (sourceFileNames.find(fullPath) == sourceFileNames.end()) {
+      libFiles.insert(id);
+    }
   }
   // (-y <path> +libext+<ext>)
   for (auto path : m_commandLineParser->getLibraryPaths()) {
@@ -199,7 +206,12 @@ bool Compiler::ppinit_() {
       auto files = FileUtils::collectFiles(
           path, ext, m_commandLineParser->mutableSymbolTable());
       for (auto file : files) {
-        libFiles.insert(file);
+        const std::string fileName =
+            m_commandLineParser->getSymbolTable().getSymbol(file);
+        const std::string fullPath = FileUtils::getFullPath(fileName);
+        if (sourceFileNames.find(fullPath) == sourceFileNames.end()) {
+          libFiles.insert(file);
+        }
       }
     }
   }
