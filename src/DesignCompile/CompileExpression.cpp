@@ -4548,13 +4548,22 @@ UHDM::any* CompileHelper::compileAssignmentPattern(DesignComponent* component,
     if (any* exp = compileExpression(component, fC, Expression, compileDesign,
                                      operation, instance, reduce, false)) {
       Structure_pattern_key = fC->Sibling(Structure_pattern_key);
-      Expression = Structure_pattern_key;
-      any* val = compileExpression(component, fC, Expression, compileDesign,
-                                   operation, instance, reduce, false);
-
-      operation->VpiOpType(vpiMultiAssignmentPatternOp);
       operands->push_back(exp);
-      operands->push_back(val);
+      operation->VpiOpType(vpiMultiAssignmentPatternOp);
+      Expression = Structure_pattern_key;
+      UHDM::operation* concat = s.MakeOperation();
+      concat->VpiOpType(vpiConcatOp);
+      operands->push_back(concat);
+      concat->VpiParent(operation);
+      UHDM::VectorOfany* suboperands = s.MakeAnyVec();
+      concat->Operands(suboperands);
+      while (Expression) {
+        any* val = compileExpression(component, fC, Expression, compileDesign,
+                                     operation, instance, reduce, false);
+
+        suboperands->push_back(val);
+        Expression = fC->Sibling(Expression);
+      }
     }
     return result;
   }
