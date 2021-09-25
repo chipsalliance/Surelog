@@ -4217,21 +4217,38 @@ UHDM::any* CompileHelper::compileExpression(
         }
         case VObjectType::slStringConst:
         case VObjectType::slDollar_root_keyword: {
-          std::string name = fC->SymName(parent).c_str();
+          std::string name = fC->SymName(parent);
           if (type == slDollar_root_keyword) {
             name = "$root";
           }
           NodeId dotedName = fC->Sibling(parent);
           bool hierPath = false;
+          bool methodCall = false;
           NodeId tmp = dotedName;
+          NodeId List_of_arguments = 0;
           while (tmp) {
             if (fC->Type(tmp) == slStringConst) {
               hierPath = true;
-              break;
+            } else if (fC->Type(tmp) == slList_of_arguments) {
+              methodCall = true;
+              List_of_arguments = tmp;
             }
             tmp = fC->Sibling(tmp);
           }
-          if (!hierPath) {
+          if (methodCall) {
+            method_func_call* fcall = s.MakeMethod_func_call();
+            ref_obj* object = s.MakeRef_obj();
+            object->VpiName(name);
+            fcall->Prefix(object);
+            std::string methodName = fC->SymName(dotedName);
+            fcall->VpiName(methodName);
+            VectorOfany* arguments = compileTfCallArguments(
+                component, fC, List_of_arguments, compileDesign, fcall,
+                instance, reduce, muteErrors);
+            fcall->Tf_call_args(arguments);
+            result = fcall;
+            break;
+          } else if (!hierPath) {
             VObjectType dtype = fC->Type(dotedName);
             if (dotedName == 0) {
               ref_obj* ref = s.MakeRef_obj();
