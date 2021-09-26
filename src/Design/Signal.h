@@ -47,14 +47,14 @@ class Signal final {
   VObjectType getDirection() const { return m_direction; }
   const FileContent* getFileContent() const { return m_fileContent; }
   NodeId getNodeId() const { return m_nodeId; }
-  std::string getName() const { return m_fileContent->SymName(m_nodeId); }
+  std::string_view getName() const { return m_fileContent->SymName(m_nodeId); }
   std::string getInterfaceTypeName() const;
 
   ModuleDefinition* getInterfaceDef() { return m_interfaceDef; }
   void setInterfaceDef(ModuleDefinition* interfaceDef) {
     m_interfaceDef = interfaceDef;
   }
-  ModPort* getModPort() { return m_modPort; }
+  ModPort* getModPort() const { return m_modPort; }
   void setModPort(ModPort* modport) { m_modPort = modport; }
   void setDirection(VObjectType direction) { m_direction = direction; }
   void setType(VObjectType type) { m_type = type; }
@@ -62,7 +62,7 @@ class Signal final {
   void setPackedDimension(NodeId id) { m_packedDimension = id; }
   void setUnpackedDimension(NodeId id) { m_unpackedDimension = id; }
   void setTypespecId(NodeId id) { m_typeSpecId = id; }
-  bool isInterface() { return (m_interfaceTypeNameId != 0); }
+  bool isInterface() const { return (m_interfaceTypeNameId != 0); }
   void setLowConn(Signal* sig) { m_lowConn = sig; }
   void setConst() { m_const = true; }
   void setVar() { m_var = true; }
@@ -72,19 +72,19 @@ class Signal final {
   void setRand() { m_rand = true; }
   void setRandc() { m_randc = true; }
   void setSigned() { m_signed = true; }
-  bool isConst() { return m_const; }
-  bool isVar() { return m_var; }
-  bool isSigned() { return m_signed; }
-  bool isLocal() { return m_local; }
-  bool isStatic() { return m_static; }
-  bool isProtected() { return m_protected; }
-  bool isRand() { return m_rand; }
-  bool isRandc() { return m_randc; }
+  bool isConst() const { return m_const; }
+  bool isVar() const { return m_var; }
+  bool isSigned() const { return m_signed; }
+  bool isLocal() const { return m_local; }
+  bool isStatic() const { return m_static; }
+  bool isProtected() const { return m_protected; }
+  bool isRand() const { return m_rand; }
+  bool isRandc() const { return m_randc; }
   void setDelay(NodeId id) { m_delay = id; }
   void setDriveStrength(NodeId id) { m_drive_strength = id; }
   void setDefaultValue(NodeId id) { m_default_value = id; }
 
-  Signal* getLowConn() { return m_lowConn; }
+  Signal* getLowConn() const { return m_lowConn; }
   NodeId getPackedDimension() const { return m_packedDimension; }
   NodeId getUnpackedDimension() const { return m_unpackedDimension; }
   NodeId getModPortId() const {
@@ -95,7 +95,7 @@ class Signal final {
   NodeId getDelay() const { return m_delay; }
   NodeId getDriveStrength() const { return m_drive_strength; }
   NodeId getDefaultValue() const { return m_default_value; }
-  const DataType* getDataType() { return m_dataType; }
+  const DataType* getDataType() const { return m_dataType; }
 
  private:
   const FileContent* m_fileContent = nullptr;

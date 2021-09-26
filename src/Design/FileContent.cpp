@@ -53,7 +53,7 @@ SymbolId* FileContent::getMutableFileId(NodeId id) {
   return &m_objects[id].m_fileId;
 }
 
-const std::string& FileContent::getFileName(NodeId id) const {
+std::string_view FileContent::getFileName(NodeId id) const {
   SymbolId fileId = m_objects[id].m_fileId;
   return m_symbolTable->getSymbol(fileId);
 }
@@ -63,9 +63,9 @@ std::string FileContent::printObjects() const {
   NodeId index = 0;
 
   if (m_library) text += "LIB:  " + m_library->getName() + "\n";
-  std::string fileName = m_symbolTable->getSymbol(m_fileId);
-  if (strstr(fileName.c_str(), "/bin/sv/builtin.sv")) return "";
-  text += "FILE: " + fileName + "\n";
+  std::string_view fileName = m_symbolTable->getSymbol(m_fileId);
+  if (strstr(fileName.data(), "/bin/sv/builtin.sv")) return "";
+  text.append("FILE: ").append(fileName).append("\n");
   for (auto object : m_objects) {
     text +=
         object.print(m_symbolTable, index, GetDefinitionFile(index), m_fileId);
@@ -90,7 +90,7 @@ std::string FileContent::printSubTree(NodeId uniqueId) {
   return text;
 }
 
-void FileContent::insertObjectLookup(std::string name, NodeId id,
+void FileContent::insertObjectLookup(std::string_view name, NodeId id,
                                      ErrorContainer* errors) {
   NameIdMap::iterator itr = m_objectLookup.find(name);
   if (itr == m_objectLookup.end()) {
@@ -107,7 +107,7 @@ void FileContent::insertObjectLookup(std::string name, NodeId id,
 }
 
 const ModuleDefinition* FileContent::getModuleDefinition(
-    const std::string& moduleName) const {
+    std::string_view moduleName) const {
   ModuleNameModuleDefinitionMap::const_iterator itr =
       m_moduleDefinitions.find(moduleName);
   if (itr != m_moduleDefinitions.end()) {
@@ -117,7 +117,7 @@ const ModuleDefinition* FileContent::getModuleDefinition(
 }
 
 DesignComponent* FileContent::getComponentDefinition(
-    const std::string& componentName) const {
+    std::string_view componentName) const {
   DesignComponent* comp = (DesignComponent*)getModuleDefinition(componentName);
   if (comp) return comp;
   comp = (DesignComponent*)getProgram(componentName);
@@ -127,8 +127,8 @@ DesignComponent* FileContent::getComponentDefinition(
   return NULL;
 }
 
-Package* FileContent::getPackage(const std::string& name) {
-  PackageNamePackageDefinitionMultiMap::iterator itr =
+Package* FileContent::getPackage(std::string_view name) const {
+  PackageNamePackageDefinitionMultiMap::const_iterator itr =
       m_packageDefinitions.find(name);
   if (itr == m_packageDefinitions.end()) {
     return NULL;
@@ -137,7 +137,7 @@ Package* FileContent::getPackage(const std::string& name) {
   }
 }
 
-const Program* FileContent::getProgram(const std::string& name) const {
+const Program* FileContent::getProgram(std::string_view name) const {
   ProgramNameProgramDefinitionMap::const_iterator itr =
       m_programDefinitions.find(name);
   if (itr == m_programDefinitions.end()) {
@@ -148,7 +148,7 @@ const Program* FileContent::getProgram(const std::string& name) const {
 }
 
 const ClassDefinition* FileContent::getClassDefinition(
-    const std::string& name) const {
+    std::string_view name) const {
   ClassNameClassDefinitionMultiMap::const_iterator itr =
       m_classDefinitions.find(name);
   if (itr == m_classDefinitions.end()) {
@@ -192,7 +192,7 @@ SymbolId FileContent::GetDefinitionFile(NodeId index) const {
 VObject FileContent::Object(NodeId index) const { return m_objects[index]; }
 VObject* FileContent::MutableObject(NodeId index) { return &m_objects[index]; }
 
-NodeId FileContent::UniqueId(NodeId index) { return index; }
+NodeId FileContent::UniqueId(NodeId index) const { return index; }
 
 SymbolId FileContent::Name(NodeId index) const {
   return m_objects[index].m_name;

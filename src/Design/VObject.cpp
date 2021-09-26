@@ -31,11 +31,11 @@ using namespace SURELOG;
 std::string VObject::print(SymbolTable* symbols, unsigned int uniqueId,
                            NodeId definitionFile, SymbolId printedFile) const {
   std::string text;
-  std::string symbol = symbols->getSymbol(m_name);
+  std::string_view symbol = symbols->getSymbol(m_name);
   if (symbol == symbols->getBadSymbol()) {
     text += "n<>";
   } else {
-    text = "n<" + symbols->getSymbol(m_name) + ">";
+    text.assign("n<").append(symbols->getSymbol(m_name)).append(">");
   }
 
   text += " ";

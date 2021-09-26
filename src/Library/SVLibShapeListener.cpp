@@ -77,7 +77,7 @@ void SVLibShapeListener::enterLibrary_declaration(
     for (auto id : FileUtils::collectFiles(m_relativePath + pathSpec->getText(),
                                            m_parser->getSymbolTable())) {
       lib->addFileId(id);
-      std::string fileName = m_parser->getSymbolTable()->getSymbol(id);
+      std::string_view fileName = m_parser->getSymbolTable()->getSymbol(id);
       if ((fileName.find(".cfg") != std::string::npos) ||
           (fileName.find(".map") != std::string::npos)) {
         ParseLibraryDef parser(

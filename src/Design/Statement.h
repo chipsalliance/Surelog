@@ -89,8 +89,9 @@ class SubRoutineCallStmt : public Statement {
   SubRoutineCallStmt(Scope* scope, Statement* parentStmt,
                      const FileContent* fileContent, NodeId node,
                      VObjectType type, std::vector<NodeId>& var_chain,
-                     std::string funcName, std::vector<SubRoutineArg*>& args,
-                     bool static_call, bool system_call)
+                     std::string_view funcName,
+                     std::vector<SubRoutineArg*>& args, bool static_call,
+                     bool system_call)
       : Statement(scope, parentStmt, fileContent, node, type),
         m_var_chain(var_chain),
         m_func(funcName),
@@ -100,8 +101,8 @@ class SubRoutineCallStmt : public Statement {
     m_function = NULL;
   }
   std::vector<NodeId>& getVarChain() { return m_var_chain; }
-  std::string getVarName(NodeId base_name) const;
-  std::vector<std::string> getVarChainNames() const;
+  std::string_view getVarName(NodeId base_name) const;
+  std::vector<std::string_view> getVarChainNames() const;
   const std::string& getFunc() const { return m_func; }
   bool isStatic() const { return m_static; }
   bool isSystemCall() const { return m_system; }
@@ -120,7 +121,7 @@ class SubRoutineCallStmt : public Statement {
 class ForLoopStmt : public Scope, public Statement {
   SURELOG_IMPLEMENT_RTTI_2_BASES(ForLoopStmt, Scope, Statement)
  public:
-  ForLoopStmt(std::string name, Scope* scope, Statement* parentStmt,
+  ForLoopStmt(std::string_view name, Scope* scope, Statement* parentStmt,
               const FileContent* fileContent, NodeId node, VObjectType type)
       : Scope(name, scope),
         Statement(scope, parentStmt, fileContent, node, type),
@@ -150,7 +151,7 @@ class ForLoopStmt : public Scope, public Statement {
 class ForeachLoopStmt : public Scope, public Statement {
   SURELOG_IMPLEMENT_RTTI_2_BASES(ForeachLoopStmt, Scope, Statement)
  public:
-  ForeachLoopStmt(std::string name, NodeId arrayId, Scope* scope,
+  ForeachLoopStmt(std::string_view name, NodeId arrayId, Scope* scope,
                   Statement* parentStmt, const FileContent* fileContent,
                   NodeId node, VObjectType type)
       : Scope(name, scope),

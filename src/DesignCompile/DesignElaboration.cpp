@@ -186,9 +186,9 @@ bool DesignElaboration::setupConfigurations_() {
       m_compileDesign->getCompiler()->getCommandLineParser()->getUseConfigs();
   std::set<std::string> selectedConfigs;
   for (auto confId : selectedConfigIds) {
-    std::string name = st->getSymbol(confId);
+    std::string name(st->getSymbol(confId));
     if (name.find(".") == std::string::npos) {
-      name = "work@" + name;
+      name = std::string("work@").append(name);
     } else {
       name = StringUtils::replaceAll(name, ".", "@");
     }
@@ -340,9 +340,10 @@ bool DesignElaboration::identifyTopModules_() {
   bool modulePresent = false;
   bool toplevelModuleFound = false;
   SymbolTable* st = m_compileDesign->getCompiler()->getSymbolTable();
-  std::set<std::string>& userTopList = m_compileDesign->getCompiler()
-                                           ->getCommandLineParser()
-                                           ->getTopLevelModules();
+  std::set<std::string, std::less<>>& userTopList =
+      m_compileDesign->getCompiler()
+          ->getCommandLineParser()
+          ->getTopLevelModules();
   auto all_files =
       m_compileDesign->getCompiler()->getDesign()->getAllFileContents();
   typedef std::multimap<std::string,
@@ -352,7 +353,7 @@ bool DesignElaboration::identifyTopModules_() {
   for (auto file : all_files) {
     if (m_compileDesign->getCompiler()->isLibraryFile(file.first)) continue;
     for (DesignElement& element : file.second->getDesignElements()) {
-      const std::string& elemName = st->getSymbol(element.m_name);
+      const std::string_view elemName = st->getSymbol(element.m_name);
       if (element.m_type == DesignElement::Module) {
         if (element.m_parent) {
           // This is a nested element
@@ -360,7 +361,7 @@ bool DesignElaboration::identifyTopModules_() {
         }
         const std::string& libName = file.second->getLibrary()->getName();
         std::string topname = libName;
-        topname += "@" + elemName;
+        topname.append("@").append(elemName);
 
         if (!file.second->getParent()) {
           // Files that have parent are splited files (When a module is too
@@ -432,7 +433,7 @@ bool DesignElaboration::identifyTopModules_() {
     if (moduleName == prevModuleName) {
       const FileContent* fC1 = (*itr).second.second;
       NodeId nodeId1 = moduleDefinition->m_node;
-      std::string fileName1 = fC1->getFileName(nodeId1);
+      std::string_view fileName1 = fC1->getFileName(nodeId1);
       unsigned int line1 = fC1->Line(nodeId1);
       Location loc1(st->registerSymbol(fileName1), line1, 0,
                     st->registerSymbol(moduleName));
@@ -442,7 +443,7 @@ bool DesignElaboration::identifyTopModules_() {
       while (1) {
         const FileContent* fC2 = prevFileContent;
         NodeId nodeId2 = prevModuleDefinition->m_node;
-        std::string fileName2 = fC2->getFileName(nodeId2);
+        std::string_view fileName2 = fC2->getFileName(nodeId2);
         unsigned int line2 = fC2->Line(nodeId2);
         Location loc2(st->registerSymbol(fileName2), line2, 0,
                       st->registerSymbol(moduleName));
@@ -496,7 +497,7 @@ bool DesignElaboration::identifyTopModules_() {
       for (auto file : all_files) {
         if (m_compileDesign->getCompiler()->isLibraryFile(file.first)) continue;
         for (DesignElement& element : file.second->getDesignElements()) {
-          const std::string& elemName = st->getSymbol(element.m_name);
+          const std::string_view elemName = st->getSymbol(element.m_name);
           if (element.m_type == DesignElement::Module) {
             if (element.m_parent) {
               // This is a nested element
@@ -514,7 +515,7 @@ bool DesignElaboration::identifyTopModules_() {
 
             const std::string& libName = file.second->getLibrary()->getName();
             std::string topname = libName;
-            topname += "@" + elemName;
+            topname.append("@").append(elemName);
             m_uniqueTopLevelModules.insert(topname);
             m_topLevelModules.emplace_back(topname, file.second);
             toplevelModuleFound = true;
@@ -705,19 +706,19 @@ ModuleInstance* DesignElaboration::createBindInstance_(
   const FileContent* fC = bind->getFileContent();
   Library* lib = fC->getLibrary();
   NodeId bindNodeId = bind->getBindId();
-  const std::string bindModName =
-      lib->getName() + "@" + fC->SymName(bindNodeId);
+  std::string bindModName = lib->getName();
+  bindModName.append("@").append(fC->SymName(bindNodeId));
   NodeId instNameId = bind->getInstanceId();
-  const std::string& instName = fC->SymName(instNameId);
+  const std::string_view instName = fC->SymName(instNameId);
   NodeId targetModId = bind->getTargetModId();
   NodeId targetInstId = bind->getTargetInstId();
-  const std::string targetName =
-      lib->getName() + "@" + fC->SymName(targetModId);
+  std::string targetName = lib->getName();
+  targetName.append("@").append(fC->SymName(targetModId));
   DesignComponent* def = parent->getDefinition();
   Design* design = m_compileDesign->getCompiler()->getDesign();
   bool instanceMatch = true;
   if (targetInstId) {
-    const std::string& targetInstName = fC->SymName(targetInstId);
+    const std::string_view targetInstName = fC->SymName(targetInstId);
     instanceMatch = (targetInstName == parent->getInstanceName());
   }
   DesignComponent* targetDef = nullptr;
@@ -725,8 +726,8 @@ ModuleInstance* DesignElaboration::createBindInstance_(
     targetDef = design->getModuleDefinition(bindModName);
     if (targetDef) {
       instance = factory->newModuleInstance(targetDef, fC, bind->getStmtId(),
-                                            parent->getParent(), instName,
-                                            bindModName);
+                                            parent->getParent(),
+                                            instName.data(), bindModName);
     } else {
       SymbolTable* st =
           m_compileDesign->getCompiler()->getErrorContainer()->getSymbolTable();
@@ -971,7 +972,7 @@ void DesignElaboration::elaborateInstance_(
         Value* initValue = m_exprBuilder.getValueFactory().newLValue();
         initValue->set(initVal);
 
-        std::string name = fC->SymName(varId);
+        std::string_view name = fC->SymName(varId);
         parent->setValue(name, initValue, m_exprBuilder, fC->Line(varId));
 
         // End-loop test
@@ -1318,7 +1319,9 @@ void DesignElaboration::elaborateInstance_(
         if (def) {
           break;
         } else {
-          modName = parent->getDefinition()->getName() + "::" + mname;
+          modName.assign(parent->getDefinition()->getName())
+              .append("::")
+              .append(mname);
           def = design->getComponentDefinition(modName);
           if (def) {
             break;
@@ -1587,7 +1590,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
   }
   for (auto pack_import : pack_imports) {
     NodeId pack_id = pack_import.fC->Child(pack_import.nodeId);
-    std::string pack_name = pack_import.fC->SymName(pack_id);
+    std::string_view pack_name = pack_import.fC->SymName(pack_id);
     Package* def = design->getPackage(pack_name);
     if (def) {
       auto& paramSet = def->getObjects(VObjectType::slParam_assignment);
@@ -1596,7 +1599,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         NodeId param = paramSet[i].nodeId;
 
         NodeId ident = packageFile->Child(param);
-        const std::string& name = packageFile->SymName(ident);
+        const std::string_view name = packageFile->SymName(ident);
         if (UHDM::expr* exp = def->getComplexValue(name)) {
           UHDM::Serializer& s = m_compileDesign->getSerializer();
           UHDM::ElaboratorListener listener(&s);
@@ -1607,7 +1610,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
           instance->setValue(name, value, m_exprBuilder,
                              packageFile->Line(param));
         }
-        params.push_back(name);
+        params.push_back(name.data());
       }
     } else {
       Location loc(st->registerSymbol(pack_import.fC->getFileName(pack_id)),
@@ -1623,12 +1626,12 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     for (FileCNodeId param :
          module->getObjects(VObjectType::slParam_assignment)) {
       NodeId ident = param.fC->Child(param.nodeId);
-      std::string name = param.fC->SymName(ident);
-      params.push_back(name);
-      moduleParams.push_back(name);
+      std::string_view name = param.fC->SymName(ident);
+      params.push_back(name.data());
+      moduleParams.push_back(name.data());
     }
   }
-  std::set<std::string> overridenParams;
+  std::set<std::string, std::less<>> overridenParams;
   std::vector<VObjectType> types;
   // Param overrides
   if (parentParamOverride) {
@@ -1665,8 +1668,8 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
       }
       if (parentFile->Type(child) == VObjectType::slStringConst) {
         // Named param
-        std::string name = parentFile->SymName(child);
-        overridenParams.insert(name);
+        std::string_view name = parentFile->SymName(child);
+        overridenParams.insert(name.data());
         NodeId expr = parentFile->Sibling(child);
         UHDM::expr* complexV = (UHDM::expr*)m_helper.compileExpression(
             parentDefinition, parentFile, expr, m_compileDesign, nullptr,
@@ -1691,7 +1694,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                 m_exprBuilder.evalExpr(parentFile, expr, parentInstance, true);
               }
             }
-            const std::string& v = c->VpiValue();
+            const std::string_view v = c->VpiValue();
             value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
           } else if ((exprtype == UHDM::uhdmoperation) ||
                      (exprtype == UHDM::uhdmfunc_call) ||
@@ -1709,7 +1712,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                   UHDM::ref_obj* ref = (UHDM::ref_obj*)complexV;
                   if (ref->Actual_group() == nullptr) {
                     ref->Actual_group(m_helper.bindParameter(
-                        parentDefinition, parentInstance, ref->VpiName(),
+                        parentDefinition, parentInstance, ref->VpiName().data(),
                         m_compileDesign, true));
                   }
                 }
@@ -1728,7 +1731,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
               UHDM::ref_obj* ref = (UHDM::ref_obj*)complexV;
               if (ref->Actual_group() == nullptr) {
                 ref->Actual_group(m_helper.bindParameter(
-                    parentDefinition, parentInstance, ref->VpiName(),
+                    parentDefinition, parentInstance, ref->VpiName().data(),
                     m_compileDesign, true));
               }
               instance->setComplexValue(name, complexV);
@@ -1736,7 +1739,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
             }
           } else if (exprtype == UHDM::uhdmparameter) {
             UHDM::parameter* param = (UHDM::parameter*)complexV;
-            const std::string& pname = param->VpiName();
+            const std::string_view pname = param->VpiName();
             const UHDM::typespec* tps = param->Typespec();
             const UHDM::instance* pinst = tps->Instance();
             if (pinst->UhdmType() == UHDM::uhdmpackage) {
@@ -1798,7 +1801,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                                          parentInstance, true, false);
             }
 
-            const std::string& pname = parentFile->SymName(child);
+            const std::string_view pname = parentFile->SymName(child);
             NodeId param_expression = parentFile->Sibling(child);
             NodeId data_type = parentFile->Child(param_expression);
             NodeId type = parentFile->Child(data_type);
@@ -1852,7 +1855,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         if (complexV) {
           if (complexV->UhdmType() == UHDM::uhdmconstant) {
             UHDM::constant* c = (UHDM::constant*)complexV;
-            const std::string& v = c->VpiValue();
+            const std::string_view v = c->VpiValue();
             value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
           } else if (complexV->UhdmType() == UHDM::uhdmoperation) {
             if (instance) {
@@ -1891,13 +1894,13 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     for (std::map<SymbolId, std::string>::const_iterator itr =
              useroverrides.begin();
          itr != useroverrides.end(); itr++) {
-      const std::string& name =
+      const std::string_view name =
           cmdLine->getSymbolTable().getSymbol((*itr).first);
       const std::string& value = (*itr).second;
       Value* val = m_exprBuilder.fromString(value);
       if (val) {
         instance->setValue(name, val, m_exprBuilder, 0);
-        overridenParams.insert(name);
+        overridenParams.insert(name.data());
       }
     }
   }
@@ -1959,7 +1962,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     for (FileCNodeId param :
          module->getObjects(VObjectType::slParam_assignment)) {
       NodeId ident = param.fC->Child(param.nodeId);
-      std::string name = param.fC->SymName(ident);
+      std::string_view name = param.fC->SymName(ident);
       if (overridenParams.find(name) == overridenParams.end()) {
         NodeId exprId = param.fC->Sibling(ident);
         while (param.fC->Type(exprId) == slUnpacked_dimension) {
@@ -1990,7 +1993,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                     }
                   }
                 }
-                const std::string& v = c->VpiValue();
+                const std::string_view v = c->VpiValue();
                 value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
                 if (p)
                   m_helper.valueRange(value, p->getTypespec(),
@@ -2246,13 +2249,14 @@ void DesignElaboration::createFileList_() {
       m_compileDesign->getCompiler()->getCommandLineParser();
 
   if (cmdLine->writePpOutput() || (cmdLine->writePpOutputFileId() != 0)) {
-    const std::string& directory =
+    const std::string_view directory =
         cmdLine->getSymbolTable().getSymbol(cmdLine->getFullCompileDir());
     std::ofstream ofs;
-    std::string fileList = directory + "/file_elab.lst";
+    std::string fileList(directory);
+    fileList.append("/file_elab.lst");
     ofs.open(fileList);
-    const std::map<const std::string, std::vector<std::string>>& ppFileName =
-        m_compileDesign->getCompiler()->getPPFileMap();
+    const std::map<const std::string, std::vector<std::string>, std::less<>>&
+        ppFileName = m_compileDesign->getCompiler()->getPPFileMap();
     if (ofs.good()) {
       for (auto fC : files) {
         auto itr = ppFileName.find(fC->getFileName());

@@ -24,6 +24,10 @@ project(SURELOG)
 cmake_policy(SET CMP0091 NEW)
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 set(FLATBUFFERS_BUILD_TESTS OFF CACHE BOOL "Skip flatbuffers' tests")
 add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
 add_subdirectory(third_party/antlr4_fast/runtime/Cpp EXCLUDE_FROM_ALL)
@@ -32,15 +36,10 @@ set(UHDM_BUILD_TESTS OFF CACHE BOOL "Skip UHDM tests")
 add_subdirectory(third_party/UHDM)
 add_subdirectory(third_party/googletest EXCLUDE_FROM_ALL)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
 # NOTE: Set the global output directories after the subprojects have had their go at it
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
-
 
 set(GENDIR ${CMAKE_CURRENT_BINARY_DIR}/generated)
 
@@ -444,6 +443,20 @@ endif()
 # Unit tests
 enable_testing()
 include(GoogleTest)
+
+if(MSVC)
+  # Microsoft reports the value of __cplusplus wrong and gmock/gtest pulls in the
+  # string_view implementation based on it's value. Microsoft's solution is to
+  # provide additional flags to make the value correct. More info can be found here -
+  #
+  #   https://docs.microsoft.com/en-us/cpp/build/reference/zc-cplusplus?view=msvc-160
+  #   https://devblogs.microsoft.com/cppblog/msvc-now-correctly-reports-__cplusplus/
+  target_compile_options(gmock PRIVATE /Zc:__cplusplus)
+  target_compile_options(gmock_main PRIVATE /Zc:__cplusplus)
+  target_compile_options(gtest PRIVATE /Zc:__cplusplus)
+  target_compile_options(gtest_main PRIVATE /Zc:__cplusplus)
+endif()
+
 # All unit-tests are registered with this custom target as dependency, so
 # just `make UnitTests` will build them all.
 add_custom_target(UnitTests)

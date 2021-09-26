@@ -40,6 +40,12 @@ typedef uint32_t NodeId;
 static constexpr NodeId InvalidNodeId = 969696;
 
 class SymbolTable {
+  static constexpr int kBufferCapacity = 1024 * 1024;
+  typedef std::vector<std::string> buffers_t;
+
+  typedef std::vector<std::string_view> Id2SymbolMap;
+  typedef std::unordered_map<std::string_view, SymbolId> Symbol2IdMap;
+
  public:
   SymbolTable();
   ~SymbolTable();
@@ -47,28 +53,31 @@ class SymbolTable {
   // Register given "symbol" string as a symbol and return its id.
   // If this is an existing symbol, its ID is returned, otherwise a new one
   // is created.
-  SymbolId registerSymbol(const std::string& symbol);
+  SymbolId registerSymbol(std::string_view symbol);
 
   // Find id of given "symbol" or return bad-ID (see #getBad()) if it doesn't
   // exist.
-  SymbolId getId(const std::string& symbol) const;
+  SymbolId getId(std::string_view symbol) const;
 
   // Get symbol string identified by given ID or BadSymbol if it doesn't exist
   // (see #getBadSymbol()).
-  const std::string& getSymbol(SymbolId id) const;
+  std::string_view getSymbol(SymbolId id) const;
 
   // Get a vector of all symbols. As a special property, the SymbolID can be
   // used as an index into this  vector to get the corresponding text-symbol.
-  const std::vector<std::string>& getSymbols() const { return m_id2SymbolMap; }
+  const std::vector<std::string_view>& getSymbols() const {
+    return m_id2SymbolMap;
+  }
 
-  static const std::string& getBadSymbol();
+  static std::string_view getBadSymbol();
   static SymbolId getBadId() { return 0; }
-  static const std::string& getEmptyMacroMarker();
+  static std::string_view getEmptyMacroMarker();
 
  private:
   SymbolId m_idCounter;
-  std::vector<std::string> m_id2SymbolMap;
-  std::unordered_map<std::string, SymbolId> m_symbol2IdMap;
+  Id2SymbolMap m_id2SymbolMap;
+  Symbol2IdMap m_symbol2IdMap;
+  buffers_t buffers;
 };
 
 };  // namespace SURELOG

@@ -53,23 +53,23 @@ class ElaborationStep {
   const DataType* bindTypeDef_(TypeDef* typd, const DesignComponent* parent,
                                ErrorDefinition::ErrorType errtype);
 
-  const DataType* bindDataType_(const std::string& type_name,
+  const DataType* bindDataType_(std::string_view type_name,
                                 const FileContent* fC, NodeId id,
                                 const DesignComponent* parent,
                                 ErrorDefinition::ErrorType errtype);
 
-  Variable* bindVariable_(std::string var_name, Scope* scope,
+  Variable* bindVariable_(std::string_view var_name, Scope* scope,
                           const FileContent* fc, NodeId id,
                           const DesignComponent* parent,
                           ErrorDefinition::ErrorType errtype,
                           bool returnClassParam);
 
-  Variable* locateVariable_(std::vector<std::string>& var_chain,
+  Variable* locateVariable_(std::vector<std::string_view>& var_chain,
                             const FileContent* fC, NodeId id, Scope* scope,
                             DesignComponent* parentComponent,
                             ErrorDefinition::ErrorType errtype);
 
-  Variable* locateStaticVariable_(std::vector<std::string>& var_chain,
+  Variable* locateStaticVariable_(std::vector<std::string_view>& var_chain,
                                   const FileContent* fC, NodeId id,
                                   Scope* scope,
                                   DesignComponent* parentComponent,

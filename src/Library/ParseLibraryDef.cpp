@@ -103,10 +103,10 @@ bool ParseLibraryDef::parseLibrariesDefinition() {
 
 bool ParseLibraryDef::parseLibraryDefinition(SymbolId fileId, Library* lib) {
   m_fileId = fileId;
-  std::string fileName = m_symbolTable->getSymbol(fileId);
+  std::string_view fileName = m_symbolTable->getSymbol(fileId);
   std::string relativePath = FileUtils::getPathName(fileName);
   std::ifstream stream;
-  stream.open(fileName);
+  stream.open(fileName.data());
 
   if (!stream.good()) {
     Location ppfile(fileId);
@@ -171,7 +171,8 @@ bool ParseLibraryDef::parseConfigDefinition() {
   std::vector<NodeId> configs = fC->sl_collect_all(0, types);
   for (auto config : configs) {
     NodeId ident = fC->Child(config);
-    std::string name = fC->getLibrary()->getName() + "@" + fC->SymName(ident);
+    std::string name = fC->getLibrary()->getName();
+    name.append("@").append(fC->SymName(ident));
     m_symbolTable->registerSymbol(name);
     Config conf(name, fC, config);
 
@@ -188,10 +189,10 @@ bool ParseLibraryDef::parseConfigDefinition() {
       NodeId topName = fC->Sibling(libName);
       if (topName == 0) {
         conf.setDesignLib(fC->getLibrary()->getName());
-        conf.setDesignTop(fC->SymName(libName));
+        conf.setDesignTop(fC->SymName(libName).data());
       } else {
-        conf.setDesignLib(fC->SymName(libName));
-        conf.setDesignTop(fC->SymName(topName));
+        conf.setDesignLib(fC->SymName(libName).data());
+        conf.setDesignTop(fC->SymName(topName).data());
       }
     }
 
@@ -204,7 +205,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
       if (fC->Type(libList) == VObjectType::slLiblist_clause) {
         NodeId lib = fC->Child(libList);
         while (lib) {
-          conf.addDefaultLib(fC->SymName(lib));
+          conf.addDefaultLib(fC->SymName(lib).data());
           lib = fC->Sibling(lib);
         }
       }
@@ -223,7 +224,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
         if (instNameS.empty())
           instNameS = fC->SymName(instName);
         else
-          instNameS += "." + fC->SymName(instName);
+          instNameS.append(".").append(fC->SymName(instName));
         instName = fC->Sibling(instName);
       }
       NodeId instClause = fC->Sibling(inst);
@@ -231,7 +232,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
         NodeId libList = fC->Child(instClause);
         std::vector<std::string> libs;
         while (libList) {
-          libs.push_back(fC->SymName(libList));
+          libs.push_back(fC->SymName(libList).data());
           libList = fC->Sibling(libList);
         }
 
@@ -253,7 +254,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
             if (useName.empty())
               useName = fC->SymName(use);
             else
-              useName += "." + fC->SymName(use);
+              useName.append(".").append(fC->SymName(use));
             use = fC->Sibling(use);
           }
           useName = StringUtils::replaceAll(useName, ".", "@");
@@ -271,7 +272,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
           if (useName.empty())
             useName = fC->SymName(use);
           else
-            useName += "@" + fC->SymName(use);
+            useName.append("@").append(fC->SymName(use));
           use = fC->Sibling(use);
         }
         UseClause usec(UseClause::UseConfig, useName, fC, mem);

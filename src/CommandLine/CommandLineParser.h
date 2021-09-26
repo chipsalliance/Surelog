@@ -161,7 +161,9 @@ class CommandLineParser final {
   std::string getBuiltInPath() { return m_builtinPath; }
   std::string getExePath() { return m_exePath; }
   std::string getExeCommand() { return m_exeCommand; }
-  std::set<std::string>& getTopLevelModules() { return m_topLevelModules; }
+  std::set<std::string, std::less<>>& getTopLevelModules() {
+    return m_topLevelModules;
+  }
   bool fullSVMode() const { return m_sverilog; }
   bool isSVFile(const std::string& fileName) const;
   bool cleanCache();
@@ -253,7 +255,7 @@ class CommandLineParser final {
   std::string m_builtinPath;
   std::string m_exePath;
   std::string m_exeCommand;
-  std::set<std::string> m_topLevelModules;
+  std::set<std::string, std::less<>> m_topLevelModules;
   bool m_sverilog;
   bool m_dumpUhdm;
   bool m_elabUhdm;

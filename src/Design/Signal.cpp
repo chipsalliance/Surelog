@@ -104,7 +104,7 @@ std::string Signal::getInterfaceTypeName() const {
   if (m_fileContent->Type(m_interfaceTypeNameId) == slClass_scope) {
     NodeId Class_type = m_fileContent->Child(m_interfaceTypeNameId);
     NodeId Pack_name = m_fileContent->Child(Class_type);
-    type_name = m_fileContent->SymName(Pack_name) + "::";
+    type_name.assign(m_fileContent->SymName(Pack_name)).append("::");
     NodeId Struct_name = m_fileContent->Sibling(m_interfaceTypeNameId);
     type_name += m_fileContent->SymName(Struct_name);
   } else {
@@ -112,11 +112,11 @@ std::string Signal::getInterfaceTypeName() const {
     NodeId constant_select = m_fileContent->Sibling(m_interfaceTypeNameId);
     if (constant_select) {
       if (m_fileContent->Type(constant_select) == slStringConst) {
-        type_name += "." + m_fileContent->SymName(constant_select);
+        type_name.append(".").append(m_fileContent->SymName(constant_select));
       } else {
         NodeId selector = m_fileContent->Child(constant_select);
         if (m_fileContent->Type(selector) == slStringConst)
-          type_name += "." + m_fileContent->SymName(selector);
+          type_name.append(".").append(m_fileContent->SymName(selector));
       }
     }
   }

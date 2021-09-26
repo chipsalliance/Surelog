@@ -33,7 +33,7 @@ namespace SURELOG {
 class Parameter : public DataType {
   SURELOG_IMPLEMENT_RTTI(Parameter, DataType)
  public:
-  Parameter(const FileContent* fC, NodeId nodeId, const std::string& name,
+  Parameter(const FileContent* fC, NodeId nodeId, std::string_view name,
             NodeId node_type, bool port_param);
 
   ~Parameter() override;

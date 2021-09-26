@@ -1111,11 +1111,9 @@ bool CommandLineParser::isSVFile(const std::string& name) const {
 
 bool CommandLineParser::prepareCompilation_(int argc, const char** argv) {
   bool noError = true;
-  std::string odir = m_symbolTable->getSymbol(m_outputDir);
-  if (odir.size()) {
-    if (odir[odir.size() - 1] != '/') {
-      odir += '/';
-    }
+  std::string odir(m_symbolTable->getSymbol(m_outputDir));
+  if (odir.size() && (odir[odir.size() - 1] != '/')) {
+    odir += '/';
   }
 
   odir += m_symbolTable->getSymbol(
@@ -1165,7 +1163,7 @@ bool CommandLineParser::setupCache_() {
   odir += m_symbolTable->getSymbol(
       (fileunit() ? m_compileUnitDirectory : m_compileAllDirectory));
   if (m_cacheDirId == 0) {
-    cachedir = odir + m_symbolTable->getSymbol(m_defaultCacheDirId);
+    cachedir.assign(odir).append(m_symbolTable->getSymbol(m_defaultCacheDirId));
     m_cacheDirId = m_symbolTable->registerSymbol(cachedir);
   } else {
     cachedir = m_symbolTable->getSymbol(m_cacheDirId);
@@ -1200,7 +1198,7 @@ bool CommandLineParser::cleanCache() {
   odir += m_symbolTable->getSymbol(
       (fileunit() ? m_compileUnitDirectory : m_compileAllDirectory));
   if (m_cacheDirId == 0) {
-    cachedir = odir + m_symbolTable->getSymbol(m_defaultCacheDirId);
+    cachedir.assign(odir).append(m_symbolTable->getSymbol(m_defaultCacheDirId));
     m_cacheDirId = m_symbolTable->registerSymbol(cachedir);
   } else {
     cachedir = m_symbolTable->getSymbol(m_cacheDirId);
