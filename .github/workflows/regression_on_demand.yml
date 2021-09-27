@@ -62,6 +62,15 @@ jobs:
 
         make regression
 
+    - name: Archive regression artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: surelog-linux-gcc-regression
+        path: |
+          ${{ github.workspace }}/build/test/
+          ${{ github.workspace }}/build/tests/
+
   windows-msvc:
     runs-on: windows-latest
 
@@ -121,3 +130,12 @@ jobs:
         where ninja && ninja --version
 
         make regression
+
+    - name: Archive regression artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: surelog-windows-msvc-regression
+        path: |
+          ${{ github.workspace }}/build/test/
+          ${{ github.workspace }}/build/tests/

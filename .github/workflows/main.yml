@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  linux:
+  linux-gcc:
     name: ${{ matrix.mode }}
 
     runs-on: ubuntu-latest
@@ -113,6 +113,15 @@ jobs:
         make install
         make clean   # make sure we only see installation artifacts
         make test_install
+
+    - name: Archive regression artifacts
+      if: matrix.mode == 'regression' && always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: surelog-linux-gcc-regression
+        path: |
+          ${{ github.workspace }}/build/test/
+          ${{ github.workspace }}/build/tests/
 
   msys2-gcc:
     runs-on: windows-latest
@@ -277,11 +286,20 @@ jobs:
         if %errorlevel% neq 0 exit /b %errorlevel%
         make regression
 
-    - name: Archive artifacts
+    - name: Archive build artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: surelog-windows
+        name: surelog-windows-msvc
         path: ${{ github.workspace }}/install
+
+    - name: Archive regression artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: surelog-windows-msvc-regression
+        path: |
+          ${{ github.workspace }}/build/test/
+          ${{ github.workspace }}/build/tests/
 
   macos-gcc:
     runs-on: macos-latest
