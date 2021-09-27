@@ -58,9 +58,9 @@ ErrorContainer::~ErrorContainer() {
 
 void ErrorContainer::init() {
   if (ErrorDefinition::init()) {
-    const std::string& logFileName =
+    const std::string_view logFileName =
         m_clp->getSymbolTable().getSymbol(m_clp->getLogFileId());
-    if (LogListener::failed(m_logListener->initialize(logFileName))) {
+    if (LogListener::failed(m_logListener->initialize(logFileName.data()))) {
       std::cerr << "[FTL:LG0001] Cannot create log file \"" << logFileName
                 << "\"" << std::endl;
     }
@@ -171,7 +171,8 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
       const Location& loc = msg.m_locations[0];
       /* Object */
       std::string text = info.m_errorText;
-      const std::string& objectName = m_symbolTable->getSymbol(loc.m_object);
+      const std::string_view objectName =
+          m_symbolTable->getSymbol(loc.m_object);
       if (objectName != m_symbolTable->getBadSymbol()) {
         size_t objectOffset = text.find("%s");
         if (objectOffset != std::string::npos) {
@@ -183,7 +184,8 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
       std::string location;
       if (loc.m_fileId == 0) {
       } else {
-        const std::string& fileName = m_symbolTable->getSymbol(loc.m_fileId);
+        const std::string_view fileName =
+            m_symbolTable->getSymbol(loc.m_fileId);
         location = fileName;
         if (loc.m_line > 0) {
           location += ":" + std::to_string(loc.m_line) + ":";
@@ -198,7 +200,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
         const Location& extraLoc = msg.m_locations[i];
         if (extraLoc.m_fileId) {
           std::string extraLocation;
-          const std::string& fileName =
+          const std::string_view fileName =
               m_symbolTable->getSymbol(extraLoc.m_fileId);
           extraLocation = fileName;
           if (extraLoc.m_line > 0) {
@@ -226,7 +228,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
           }
         }
         if (extraLoc.m_object) {
-          const std::string& objString =
+          const std::string_view objString =
               m_symbolTable->getSymbol(extraLoc.m_object);
           size_t objectOffset = text.find("%exobj");
           if (objectOffset != std::string::npos) {

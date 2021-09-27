@@ -66,8 +66,7 @@ unsigned int ModuleDefinition::getSize() const {
   return size;
 }
 
-void ModuleDefinition::insertModPort(const std::string& modport,
-                                     Signal& signal) {
+void ModuleDefinition::insertModPort(std::string_view modport, Signal& signal) {
   ModPortSignalMap::iterator itr = m_modportSignalMap.find(modport);
   if (itr == m_modportSignalMap.end()) {
     ModPort modp(this, modport);
@@ -78,7 +77,7 @@ void ModuleDefinition::insertModPort(const std::string& modport,
   }
 }
 
-const Signal* ModuleDefinition::getModPortSignal(const std::string& modport,
+const Signal* ModuleDefinition::getModPortSignal(std::string_view modport,
                                                  NodeId port) const {
   ModPortSignalMap::const_iterator itr = m_modportSignalMap.find(modport);
   if (itr == m_modportSignalMap.end()) {
@@ -93,8 +92,8 @@ const Signal* ModuleDefinition::getModPortSignal(const std::string& modport,
   return NULL;
 }
 
-ModPort* ModuleDefinition::getModPort(const std::string& modport) {
-  ModPortSignalMap::iterator itr = m_modportSignalMap.find(modport);
+ModPort* ModuleDefinition::getModPort(std::string_view modport) {
+  auto itr = m_modportSignalMap.find(modport);
   if (itr == m_modportSignalMap.end()) {
     return NULL;
   } else {
@@ -102,7 +101,7 @@ ModPort* ModuleDefinition::getModPort(const std::string& modport) {
   }
 }
 
-void ModuleDefinition::insertModPort(const std::string& modport,
+void ModuleDefinition::insertModPort(std::string_view modport,
                                      ClockingBlock& cb) {
   ModPortClockingBlockMap::iterator itr =
       m_modportClockingBlockMap.find(modport);
@@ -131,9 +130,9 @@ ClockingBlock* ModuleDefinition::getModPortClockingBlock(
   return NULL;
 }
 
-ClassDefinition* ModuleDefinition::getClassDefinition(const std::string& name) {
-  ClassNameClassDefinitionMultiMap::iterator itr =
-      m_classDefinitions.find(name);
+ClassDefinition* ModuleDefinition::getClassDefinition(
+    std::string_view name) const {
+  auto itr = m_classDefinitions.find(name);
   if (itr == m_classDefinitions.end()) {
     return NULL;
   } else {

@@ -44,10 +44,13 @@ class Netlist {
   Netlist(ModuleInstance* parent) : m_parent(parent) {}
   ~Netlist();
 
-  typedef std::map<std::string, std::pair<ModPort*, UHDM::modport*>> ModPortMap;
-  typedef std::map<std::string, std::pair<ModuleInstance*, UHDM::BaseClass*>>
+  typedef std::map<std::string, std::pair<ModPort*, UHDM::modport*>,
+                   std::less<>>
+      ModPortMap;
+  typedef std::map<std::string, std::pair<ModuleInstance*, UHDM::BaseClass*>,
+                   std::less<>>
       InstanceMap;
-  typedef std::map<std::string, UHDM::BaseClass*> SymbolTable;
+  typedef std::map<std::string, UHDM::BaseClass*, std::less<>> SymbolTable;
 
   std::vector<UHDM::interface*>* interfaces() { return m_interfaces; }
   std::vector<UHDM::interface_array*>* interface_arrays() {

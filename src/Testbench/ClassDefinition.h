@@ -47,7 +47,7 @@ class ClassDefinition : public DesignComponent, public DataType {
   friend class CompileClass;
 
  public:
-  ClassDefinition(std::string name, Library* library,
+  ClassDefinition(std::string_view name, Library* library,
                   DesignComponent* container, const FileContent* fC,
                   NodeId nodeId, ClassDefinition* parent,
                   UHDM::class_defn* uhdm_definition);
@@ -59,50 +59,51 @@ class ClassDefinition : public DesignComponent, public DataType {
     return VObjectType::slClass_declaration;
   }
   bool isInstance() const override { return false; }
-  const std::string& getName() const override { return m_name; }
+  std::string_view getName() const override { return m_name; }
   Library* getLibrary() { return m_library; }
   DesignComponent* getContainer() const { return m_container; }
   void setContainer(DesignComponent* container) { m_container = container; }
   UHDM::class_defn* getUhdmDefinition() const { return m_uhdm_definition; }
 
   // Parameter definitions are stored DesignComponent maps
-  typedef std::map<std::string, Property*> PropertyMap;
-  typedef std::map<std::string, TaskMethod*> TaskMap;
-  typedef std::map<std::string, Constraint*> ConstraintMap;
-  typedef std::map<std::string, const DataType*> BaseClassMap;
-  typedef std::map<std::string, ClassDefinition*> ClassMap;
-  typedef std::map<std::string, CoverGroupDefinition*> CoverGroupMap;
+  typedef std::map<std::string, Property*, std::less<>> PropertyMap;
+  typedef std::map<std::string, TaskMethod*, std::less<>> TaskMap;
+  typedef std::map<std::string, Constraint*, std::less<>> ConstraintMap;
+  typedef std::map<std::string, const DataType*, std::less<>> BaseClassMap;
+  typedef std::map<std::string, ClassDefinition*, std::less<>> ClassMap;
+  typedef std::map<std::string, CoverGroupDefinition*, std::less<>>
+      CoverGroupMap;
 
   PropertyMap& getPropertyMap() { return m_properties; }
-  Property* getProperty(const std::string& name) const;
+  Property* getProperty(std::string_view name) const;
   void insertProperty(Property* p);
 
-  Function* getFunction(const std::string& name) const override;
+  Function* getFunction(std::string_view name) const override;
 
   const TaskMap& getTaskMap() const { return m_tasks; }
   TaskMap& getMutableTaskMap() { return m_tasks; }
-  TaskMethod* getTask(const std::string& name) const;
+  TaskMethod* getTask(std::string_view name) const override;
   void insertTask(TaskMethod* p);
 
   ConstraintMap& getConstraintMap() { return m_constraints; }
-  Constraint* getConstraint(const std::string& name);
+  Constraint* getConstraint(std::string_view name) const;
   void insertConstraint(Constraint* p);
 
   // Nested classes
   ClassMap& getClassMap() { return m_classes; }
-  ClassDefinition* getClass(const std::string& name);
+  ClassDefinition* getClass(std::string_view name) const;
   void insertClass(ClassDefinition* p);
 
   CoverGroupMap& getCoverGroupMap() { return m_covergroups; }
-  CoverGroupDefinition* getCoverGroup(const std::string& name);
+  CoverGroupDefinition* getCoverGroup(std::string_view name) const;
   void insertCoverGroup(CoverGroupDefinition* p);
 
   const BaseClassMap& getBaseClassMap() const { return m_baseclasses; }
   BaseClassMap& getMutableBaseClassMap() { return m_baseclasses; }
-  const DataType* getBaseClass(const std::string& name) const;
+  const DataType* getBaseClass(std::string_view name) const;
   void insertBaseClass(DataType* p);
 
-  const DataType* getBaseDataType(const std::string& type) const;
+  const DataType* getBaseDataType(std::string_view type) const;
 
   bool hasCompleteBaseSpecification() const;
 
@@ -114,7 +115,7 @@ class ClassDefinition : public DesignComponent, public DataType {
   }
 
  private:
-  std::string m_name;
+  const std::string m_name;
   Library* m_library;
   DesignComponent* m_container;
   ClassDefinition* m_parent;

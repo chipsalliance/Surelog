@@ -54,10 +54,12 @@ class PythonAPI {
 
   static void loadScripts();
   static bool loadScript(std::string name, bool check = false);
-  static std::string evalScript(std::string module, std::string function,
+  static std::string evalScript(std::string_view module,
+                                std::string_view function,
                                 std::vector<std::string> args,
                                 PyThreadState* interp);
-  static void evalScript(std::string function, SV3_1aPythonListener* listener,
+  static void evalScript(std::string_view function,
+                         SV3_1aPythonListener* listener,
                          parser_rule_context* ctx);
   static std::string getInvalidScriptString() { return m_invalidScriptResult; }
   static bool isListenerLoaded() { return m_listenerLoaded; }
@@ -67,7 +69,7 @@ class PythonAPI {
   }
   static bool evalScriptPerFile(std::string script, ErrorContainer* errors,
                                 FileContent* fC, PyThreadState* interp);
-  static bool evalScript(std::string script, Design* design);
+  static bool evalScript(std::string_view script, Design* design);
   static void setStrictMode(bool mode) { m_strictMode = mode; }
 
  private:

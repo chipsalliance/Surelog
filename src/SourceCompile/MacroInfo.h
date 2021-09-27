@@ -61,7 +61,7 @@ class MacroInfo {
 };
 
 typedef std::map<std::string, MacroInfo*> MacroStorage;
-typedef std::map<std::string, MacroInfo*> MacroStorageRef;
+typedef std::map<std::string, MacroInfo*, std::less<>> MacroStorageRef;
 
 };  // namespace SURELOG
 

@@ -107,9 +107,17 @@ Value* ValueFactory::newLValue() {
   */
 }
 
-Value* ValueFactory::newValue(SValue& initVal) { return new SValue(initVal); }
+Value* ValueFactory::newValue(SValue& initVal) {
+  SValue* val = new SValue(initVal);
+  val->setValueFactory(this);
+  return val;
+}
 
-Value* ValueFactory::newValue(StValue& initVal) { return new StValue(initVal); }
+Value* ValueFactory::newValue(StValue& initVal) {
+  StValue* val = new StValue(initVal);
+  val->setValueFactory(this);
+  return val;
+}
 
 Value* ValueFactory::newValue(LValue& initVal) {
   // if (m_headFree == nullptr) {
@@ -1813,7 +1821,8 @@ std::string StValue::uhdmValue() {
   else if (m_type == Type::Scalar)
     result = "SCAL:";
   // Remove '"' from the string
-  if (result == "STRING:" && m_value.front() == '"' && m_value.back() == '"')
+  if (result == "STRING:" && !m_value.empty() && m_value.front() == '"' &&
+      m_value.back() == '"')
     m_value = m_value.substr(1, m_value.length() - 2);
   result += m_value;
   return result;

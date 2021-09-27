@@ -179,7 +179,6 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
   for (Design::FileIdDesignContentMap::iterator itr = all_files.begin();
        itr != all_files.end(); itr++) {
     const FileContent* fC = (*itr).second;
-    const std::string fileName = fC->getFileName();
     Library* lib = fC->getLibrary();
     for (const auto& mod : fC->getModuleDefinitions()) {
       ModuleDefinition* existing = design->getModuleDefinition(mod.first);
@@ -217,13 +216,13 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
         const FileContent* oldFC = existing->getFileContents()[0];
         const FileContent* oldParentFile = oldFC->getParent();
         NodeId oldNodeId = existing->getNodeIds()[0];
-        std::string oldFileName = oldFC->getFileName();
+        std::string_view oldFileName = oldFC->getFileName();
         unsigned int oldLine = oldFC->Line(oldNodeId);
         Package* newP = pack.second;
         const FileContent* newFC = newP->getFileContents()[0];
         const FileContent* newParentFile = newFC->getParent();
         NodeId newNodeId = newP->getNodeIds()[0];
-        std::string newFileName = newFC->getFileName();
+        std::string_view newFileName = newFC->getFileName();
         unsigned int newLine = newFC->Line(newNodeId);
         if (!finalCollection) {
           if (((oldParentFile != newParentFile) ||

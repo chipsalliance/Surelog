@@ -54,9 +54,10 @@ std::string PPCache::getCacheFileName_(const std::string& requested_file) {
   const std::string svFileName = FileUtils::basename(
       requested_file.empty() ? m_pp->getFileName(LINE1) : requested_file);
   if (prec->isFilePrecompiled(svFileName)) {
-    std::string packageRepDir = m_pp->getSymbol(m_pp->getCompileSourceFile()
-                                                    ->getCommandLineParser()
-                                                    ->getPrecompiledDir());
+    std::string_view packageRepDir =
+        m_pp->getSymbol(m_pp->getCompileSourceFile()
+                            ->getCommandLineParser()
+                            ->getPrecompiledDir());
     cacheDirId = m_pp->getCompileSourceFile()
                      ->getCommandLineParser()
                      ->mutableSymbolTable()
@@ -64,12 +65,13 @@ std::string PPCache::getCacheFileName_(const std::string& requested_file) {
     m_isPrecompiled = true;
   }
 
-  std::string cacheDirName = m_pp->getSymbol(cacheDirId);
+  std::string_view cacheDirName = m_pp->getSymbol(cacheDirId);
 
   Library* lib = m_pp->getLibrary();
   std::string libName = lib->getName() + "/";
-  std::string cacheFileName = cacheDirName + libName + svFileName + ".slpp";
-  FileUtils::mkDir(std::string(cacheDirName + libName).c_str());
+  std::string cacheFileName(cacheDirName);
+  cacheFileName.append(libName).append(svFileName).append(".slpp");
+  FileUtils::mkDir(std::string(cacheDirName).append(libName).c_str());
   return cacheFileName;
 }
 
@@ -229,7 +231,7 @@ bool PPCache::checkCacheIsValid_(const std::string& cacheFileName) {
         m_pp->getCompileSourceFile()->getCommandLineParser()->getIncludePaths();
     std::vector<std::string> include_path_vec;
     for (auto path : includePathList) {
-      std::string spath = m_pp->getSymbol(path);
+      std::string spath(m_pp->getSymbol(path));
       include_path_vec.push_back(spath);
     }
 
@@ -248,8 +250,8 @@ bool PPCache::checkCacheIsValid_(const std::string& cacheFileName) {
         m_pp->getCompileSourceFile()->getCommandLineParser()->getDefineList();
     std::vector<std::string> define_vec;
     for (auto definePair : defineList) {
-      std::string spath =
-          m_pp->getSymbol(definePair.first) + "=" + definePair.second;
+      std::string spath(m_pp->getSymbol(definePair.first));
+      spath.append("=").append(definePair.second);
       define_vec.push_back(spath);
     }
 
@@ -296,8 +298,8 @@ bool PPCache::save() {
   bool cacheAllowed =
       m_pp->getCompileSourceFile()->getCommandLineParser()->cacheAllowed();
   if (!cacheAllowed) return false;
-  std::string svFileName = m_pp->getFileName(LINE1);
-  std::string origFileName = svFileName;
+  std::string_view svFileName = m_pp->getFileName(LINE1);
+  std::string_view origFileName = svFileName;
   std::string cacheFileName = getCacheFileName_();
 
   if (m_pp->isMacroBody()) return false;
@@ -342,7 +344,7 @@ bool PPCache::save() {
   m_pp->collectIncludedFiles(included);
   for (std::set<PreprocessFile*>::iterator itr = included.begin();
        itr != included.end(); itr++) {
-    std::string svFileName = m_pp->getSymbol((*itr)->getRawFileId());
+    std::string svFileName(m_pp->getSymbol((*itr)->getRawFileId()));
     include_vec.push_back(svFileName);
   }
   auto includeList = builder.CreateVectorOfStrings(include_vec);
@@ -364,7 +366,7 @@ bool PPCache::save() {
       m_pp->getCompileSourceFile()->getCommandLineParser()->getIncludePaths();
   std::vector<std::string> include_path_vec;
   for (auto path : includePathList) {
-    std::string spath = m_pp->getSymbol(path);
+    std::string spath(m_pp->getSymbol(path));
     include_path_vec.push_back(spath);
   }
   auto incPaths = builder.CreateVectorOfStrings(include_path_vec);
@@ -374,8 +376,8 @@ bool PPCache::save() {
       m_pp->getCompileSourceFile()->getCommandLineParser()->getDefineList();
   std::vector<std::string> define_vec;
   for (auto definePair : defineList) {
-    std::string spath =
-        m_pp->getSymbol(definePair.first) + "=" + definePair.second;
+    std::string spath(m_pp->getSymbol(definePair.first));
+    spath.append("=").append(definePair.second);
     define_vec.push_back(spath);
   }
   auto defines = builder.CreateVectorOfStrings(define_vec);
@@ -402,7 +404,7 @@ bool PPCache::save() {
   std::vector<flatbuffers::Offset<MACROCACHE::LineTranslationInfo>>
       linetrans_vec;
   for (auto info : lineTranslationVec) {
-    std::string pretendFileName =
+    std::string_view pretendFileName =
         m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
             info.m_pretendFileId);
     auto lineInfo = MACROCACHE::CreateLineTranslationInfo(
@@ -416,7 +418,7 @@ bool PPCache::save() {
   auto includeInfo = m_pp->getIncludeFileInfo();
   std::vector<flatbuffers::Offset<MACROCACHE::IncludeFileInfo>> lineinfo_vec;
   for (IncludeFileInfo& info : includeInfo) {
-    std::string sectionFileName =
+    std::string_view sectionFileName =
         m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
             info.m_sectionFile);
     auto incInfo = MACROCACHE::CreateIncludeFileInfo(

@@ -51,7 +51,7 @@ int FunctorResolve::operator()() const {
   return true;
 }
 
-std::string ResolveSymbols::SymName(NodeId index) {
+std::string_view ResolveSymbols::SymName(NodeId index) {
   return m_fileData->getSymbolTable()->getSymbol(Name(index));
 }
 
@@ -81,14 +81,15 @@ void ResolveSymbols::createFastLookup() {
     NodeId stId = m_fileData->sl_collect(object, VObjectType::slStringConst,
                                          VObjectType::slAttr_spec);
     if (stId != InvalidNodeId) {
-      std::string name = SymName(stId);
-      m_fileData->insertObjectLookup(name, object, m_errorContainer);
-      std::string fullName = libName + "@" + name;
+      std::string_view name = SymName(stId);
+      m_fileData->insertObjectLookup(name.data(), object, m_errorContainer);
+      std::string fullName = libName;
+      fullName.append("@").append(name);
 
       switch (type) {
         case VObjectType::slPackage_declaration: {
           // Package names are not prefixed by Library names!
-          std::string pkgname = name;
+          std::string pkgname(name);
           Package* pdef = new Package(pkgname, lib, m_fileData, object);
           UHDM::package* pack = s.MakePackage();
           pack->VpiName(pdef->getName());
@@ -105,8 +106,9 @@ void ResolveSymbols::createFastLookup() {
                 m_fileData->sl_collect(subobject, VObjectType::slStringConst,
                                        VObjectType::slAttr_spec);
             if (stId != InvalidNodeId) {
-              std::string name = SymName(stId);
-              std::string fullSubName = pkgname + "::" + name;
+              std::string_view name = SymName(stId);
+              std::string fullSubName = pkgname;
+              fullSubName.append("::").append(name);
               m_fileData->insertObjectLookup(fullSubName, subobject,
                                              m_errorContainer);
 
@@ -114,7 +116,7 @@ void ResolveSymbols::createFastLookup() {
                   new ClassDefinition(name, lib, pdef, m_fileData, subobject,
                                       NULL, s.MakeClass_defn());
               m_fileData->addClassDefinition(fullSubName, def);
-              pdef->addClassDefinition(name, def);
+              pdef->addClassDefinition(name.data(), def);
             }
           }
           break;
@@ -132,15 +134,16 @@ void ResolveSymbols::createFastLookup() {
                 m_fileData->sl_collect(subobject, VObjectType::slStringConst,
                                        VObjectType::slAttr_spec);
             if (stId != InvalidNodeId) {
-              std::string name = SymName(stId);
-              std::string fullSubName = fullName + "::" + name;
+              std::string_view name = SymName(stId);
+              std::string fullSubName = fullName;
+              fullSubName.append("::").append(name);
               m_fileData->insertObjectLookup(fullSubName, subobject,
                                              m_errorContainer);
               ClassDefinition* def =
                   new ClassDefinition(name, lib, mdef, m_fileData, subobject,
                                       NULL, s.MakeClass_defn());
               m_fileData->addClassDefinition(fullSubName, def);
-              mdef->addClassDefinition(name, def);
+              mdef->addClassDefinition(name.data(), def);
             }
           }
           break;
@@ -167,8 +170,9 @@ void ResolveSymbols::createFastLookup() {
                 m_fileData->sl_collect(subobject, VObjectType::slStringConst,
                                        VObjectType::slAttr_spec);
             if (stId != InvalidNodeId) {
-              std::string name = SymName(stId);
-              std::string fullSubName = fullName + "::" + name;
+              std::string_view name = SymName(stId);
+              std::string fullSubName = fullName;
+              fullSubName.append("::").append(name);
               m_fileData->insertObjectLookup(fullSubName, subobject,
                                              m_errorContainer);
 
@@ -259,7 +263,7 @@ unsigned int ResolveSymbols::Line(NodeId index) {
   return Object(index).m_line;
 }
 
-std::string ResolveSymbols::Symbol(SymbolId id) {
+std::string_view ResolveSymbols::Symbol(SymbolId id) {
   return m_fileData->getSymbolTable()->getSymbol(id);
 }
 
@@ -292,10 +296,8 @@ std::vector<NodeId> ResolveSymbols::sl_collect_all(NodeId parent,
 
 bool ResolveSymbols::bindDefinition_(unsigned int objIndex,
                                      std::vector<VObjectType> bindTypes) {
-  std::string modName =
+  std::string_view modName =
       SymName(sl_collect(objIndex, VObjectType::slStringConst));
-  std::string instName =
-      SymName(Child(sl_collect(objIndex, slName_of_instance)));
   Design::FileIdDesignContentMap& all_files =
       this->m_compileDesign->getCompiler()->getDesign()->getAllFileContents();
 
@@ -312,7 +314,7 @@ bool ResolveSymbols::bindDefinition_(unsigned int objIndex,
       if (mod != InvalidNodeId) {
         SetDefinition(objIndex, mod);
         if (!m_fileData->isLibraryCellFile())
-          fcontent->getReferencedObjects().insert(modName);
+          fcontent->getReferencedObjects().insert(modName.data());
         m_fileData->SetDefinitionFile(objIndex, fileId);
         switch (actualType) {
           case VObjectType::slUdp_declaration:

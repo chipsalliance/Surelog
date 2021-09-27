@@ -32,7 +32,7 @@ namespace SURELOG {
 class Property : public Variable {
  public:
   Property(DataType* dataType, const FileContent* fc, NodeId varId,
-           NodeId range, std::string name, bool is_local, bool is_static,
+           NodeId range, std::string_view name, bool is_local, bool is_static,
            bool is_protected, bool is_rand, bool is_randc)
       : Variable(dataType, fc, varId, range, name),
         m_is_local(is_local),

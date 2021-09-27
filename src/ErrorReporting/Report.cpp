@@ -85,12 +85,14 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
                                                      SymbolTable* st) {
   // std::mutex m;
   // m.lock();
-  std::string odir = st->getSymbol(clp->getOutputDir());
-  std::string alldir = st->getSymbol(clp->getCompileAllDir());
-  std::string unitdir = st->getSymbol(clp->getCompileUnitDir());
-  std::string log = st->getSymbol(clp->getDefaultLogFileId());
-  std::string alllog = odir + alldir + log;
-  std::string unitlog = odir + unitdir + log;
+  std::string_view odir = st->getSymbol(clp->getOutputDir());
+  std::string_view alldir = st->getSymbol(clp->getCompileAllDir());
+  std::string_view unitdir = st->getSymbol(clp->getCompileUnitDir());
+  std::string_view log = st->getSymbol(clp->getDefaultLogFileId());
+  std::string alllog(odir);
+  alllog.append(alldir).append(log);
+  std::string unitlog(odir);
+  unitlog.append(unitdir).append(log);
   bool readAll = false;
   bool readUnit = false;
   Result readAllResult;
@@ -132,10 +134,17 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
   std::cout << "FILE UNIT LOG: " << unitlog << std::endl;
   std::cout << "ALL FILES LOG: " << alllog << std::endl;
 
-  std::string diffFile = odir + unitdir + "diff.log";
+  std::string diffFile(odir);
+  diffFile.append(unitdir).append("diff.log");
 
-  std::string diffCmd = "diff -r " + odir + unitdir + " " + odir + alldir +
-                        " --exclude cache --brief > " + diffFile;
+  std::string diffCmd("diff -r ");
+  diffCmd.append(odir)
+      .append(unitdir)
+      .append(" ")
+      .append(odir)
+      .append(alldir)
+      .append(" --exclude cache --brief > ")
+      .append(diffFile);
 
   int retval = system(diffCmd.c_str());
 
@@ -147,7 +156,7 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
       if (line.find("diff.log") != std::string::npos) {
         continue;
       }
-      if (line.find(log.c_str()) != std::string::npos) {
+      if (line.find(log.data()) != std::string::npos) {
         continue;
       }
 
