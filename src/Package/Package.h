@@ -43,7 +43,8 @@ class Package : public DesignComponent {
   friend CompilePackage;
 
  public:
-  Package(std::string name, Library* library, FileContent* fC, NodeId nodeId)
+  Package(std::string_view name, Library* library, FileContent* fC,
+          NodeId nodeId)
       : DesignComponent(fC, NULL), m_name(name), m_library(library) {
     addFileContent(fC, nodeId);
   }
@@ -58,15 +59,16 @@ class Package : public DesignComponent {
     return VObjectType::slPackage_declaration;
   }
   bool isInstance() const override { return false; }
-  const std::string& getName() const override { return m_name; }
+  std::string_view getName() const override { return m_name; }
 
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;
   }
-  void addClassDefinition(std::string className, ClassDefinition* classDef) {
+  void addClassDefinition(std::string_view className,
+                          ClassDefinition* classDef) {
     m_classDefinitions.insert(std::make_pair(className, classDef));
   }
-  ClassDefinition* getClassDefinition(const std::string& name);
+  ClassDefinition* getClassDefinition(std::string_view name) const;
   ExprBuilder* getExprBuilder() { return &m_exprBuilder; }
 
   UHDM::VectorOfattribute* Attributes() const { return attributes_; }
@@ -81,7 +83,7 @@ class Package : public DesignComponent {
   void setNetlist(Netlist* netlist) { m_netlist = netlist; }
 
  private:
-  std::string m_name;
+  const std::string m_name;
   Library* m_library;
   ExprBuilder m_exprBuilder;
   ClassNameClassDefinitionMultiMap m_classDefinitions;

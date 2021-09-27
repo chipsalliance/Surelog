@@ -25,8 +25,8 @@
 
 using namespace SURELOG;
 
-Variable* Scope::getVariable(const std::string& name) {
-  VariableMap::iterator itr = m_variables.find(name);
+Variable* Scope::getVariable(std::string_view name) const {
+  auto itr = m_variables.find(name);
   if (itr == m_variables.end()) {
     if (m_parentScope) {
       Variable* var = m_parentScope->getVariable(name);
@@ -38,8 +38,8 @@ Variable* Scope::getVariable(const std::string& name) {
   }
 }
 
-DataType* Scope::getUsedDataType(const std::string& name) {
-  DataTypeMap::iterator itr = m_usedDataTypes.find(name);
+DataType* Scope::getUsedDataType(std::string_view name) const {
+  auto itr = m_usedDataTypes.find(name);
   if (itr == m_usedDataTypes.end()) {
     return NULL;
   } else {

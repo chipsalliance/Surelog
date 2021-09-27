@@ -31,20 +31,20 @@ CompilationUnit::CompilationUnit(bool fileunit)
 
 CompilationUnit::~CompilationUnit() {}
 
-MacroInfo* CompilationUnit::getMacroInfo(const std::string& macroName) {
-  MacroStorageRef::iterator itr = m_macros.find(macroName);
+MacroInfo* CompilationUnit::getMacroInfo(std::string_view macroName) const {
+  MacroStorageRef::const_iterator itr = m_macros.find(macroName);
   if (itr != m_macros.end()) {
     return (*itr).second;
   }
   return NULL;
 }
 
-void CompilationUnit::registerMacroInfo(const std::string& macroName,
+void CompilationUnit::registerMacroInfo(std::string_view macroName,
                                         MacroInfo* macro) {
   m_macros.insert(MacroStorageRef::value_type(macroName, macro));
 }
 
-void CompilationUnit::deleteMacro(const std::string& macroName) {
+void CompilationUnit::deleteMacro(std::string_view macroName) {
   MacroStorageRef::iterator itr = m_macros.find(macroName);
   if (itr != m_macros.end()) {
     m_macros.erase(itr);

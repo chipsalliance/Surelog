@@ -41,11 +41,11 @@ class CompilationUnit {
   bool isInDesignElement() const { return m_inDesignElement; }
   bool isFileUnit() const { return m_fileunit; }
 
-  void registerMacroInfo(const std::string& macroName, MacroInfo* macro);
-  MacroInfo* getMacroInfo(const std::string& macroName);
+  void registerMacroInfo(std::string_view macroName, MacroInfo* macro);
+  MacroInfo* getMacroInfo(std::string_view macroName) const;
 
   const MacroStorageRef& getMacros() { return m_macros; }
-  void deleteMacro(const std::string& macroName);
+  void deleteMacro(std::string_view macroName);
   void deleteAllMacros() { m_macros.clear(); }
 
   /* Following methods deal with `timescale */

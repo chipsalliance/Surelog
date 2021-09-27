@@ -105,7 +105,7 @@ TEST(CompileExpression, ExprFromParseTree3) {
   EXPECT_EQ(assigns.size(), 2);
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
-    const std::string& name = fC->SymName(param);
+    const std::string_view name = fC->SymName(param);
     NodeId rhs = fC->Sibling(param);
     std::unique_ptr<UHDM::expr> exp1((UHDM::expr*)helper.compileExpression(
         nullptr, fC.get(), rhs, compileDesign.get(), nullptr, nullptr, false,
@@ -144,7 +144,7 @@ TEST(CompileExpression, ExprFromPpTree) {
   EXPECT_EQ(assigns.size(), 2);
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
-    const std::string& name = fC->SymName(param);
+    const std::string_view name = fC->SymName(param);
     NodeId rhs = fC->Sibling(param);
     std::unique_ptr<UHDM::expr> exp1((UHDM::expr*)helper.compileExpression(
         nullptr, fC.get(), rhs, compileDesign.get(), nullptr, nullptr, false,

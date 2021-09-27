@@ -413,7 +413,7 @@ void Design::checkDefParamUsage(DefParam* parent) {
   }
 }
 
-Package* Design::getPackage(const std::string& name) {
+Package* Design::getPackage(std::string_view name) {
   PackageNamePackageDefinitionMultiMap::iterator itr =
       m_packageDefinitions.find(name);
   if (itr == m_packageDefinitions.end()) {
@@ -423,7 +423,7 @@ Package* Design::getPackage(const std::string& name) {
   }
 }
 
-Program* Design::getProgram(const std::string& name) {
+Program* Design::getProgram(std::string_view name) {
   ProgramNameProgramDefinitionMap::iterator itr =
       m_programDefinitions.find(name);
   if (itr == m_programDefinitions.end()) {
@@ -433,9 +433,8 @@ Program* Design::getProgram(const std::string& name) {
   }
 }
 
-ClassDefinition* Design::getClassDefinition(const std::string& name) {
-  ClassNameClassDefinitionMap::iterator itr =
-      m_uniqueClassDefinitions.find(name);
+ClassDefinition* Design::getClassDefinition(std::string_view name) const {
+  auto itr = m_uniqueClassDefinitions.find(name);
   if (itr == m_uniqueClassDefinitions.end()) {
     return NULL;
   } else {
@@ -524,20 +523,16 @@ void Design::clearContainers() {
   m_orderedPackageNames.clear();
 }
 
-std::vector<BindStmt*> Design::getBindStmts(const std::string& targetName) {
+std::vector<BindStmt*> Design::getBindStmts(std::string_view targetName) const {
+  std::pair<BindMap::const_iterator, BindMap::const_iterator> range =
+      m_bindMap.equal_range(targetName);
   std::vector<BindStmt*> results;
-  BindMap::iterator itr = m_bindMap.find(targetName);
-  while (itr != m_bindMap.end()) {
-    if ((*itr).first != targetName) {
-      break;
-    }
-    results.push_back((*itr).second);
-    itr++;
-  }
+  std::transform(range.first, range.second, std::back_inserter(results),
+                 [](BindMap::const_reference entry) { return entry.second; });
   return results;
 }
 
-void Design::addBindStmt(const std::string& targetName, BindStmt* stmt) {
+void Design::addBindStmt(std::string_view targetName, BindStmt* stmt) {
   m_bindMap.insert(std::make_pair(targetName, stmt));
 }
 }  // namespace SURELOG

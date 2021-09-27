@@ -99,31 +99,33 @@ class PreprocessFile {
   void undefineAllMacros(std::set<PreprocessFile*>& visited);
   bool isMacroBody() const { return !m_macroBody.empty(); }
   const std::string& getMacroBody() const { return m_macroBody; }
-  MacroInfo* getMacroInfo() { return m_macroInfo; }
+  MacroInfo* getMacroInfo() const { return m_macroInfo; }
   SymbolId getMacroSignature();
   const MacroStorage& getMacros() { return m_macros; }
-  MacroInfo* getMacro(const std::string& name);
+  MacroInfo* getMacro(std::string_view name);
 
-  std::string getFileName(unsigned int line);
+  std::string_view getFileName(unsigned int line) const;
 
   std::string reportIncludeInfo();
 
-  CompileSourceFile* getCompileSourceFile() { return m_compileSourceFile; }
-  CompilationUnit* getCompilationUnit() { return m_compilationUnit; }
-  Library* getLibrary() { return m_library; }
-  antlr4::CommonTokenStream* getTokenStream() {
+  CompileSourceFile* getCompileSourceFile() const {
+    return m_compileSourceFile;
+  }
+  CompilationUnit* getCompilationUnit() const { return m_compilationUnit; }
+  Library* getLibrary() const { return m_library; }
+  antlr4::CommonTokenStream* getTokenStream() const {
     return m_antlrParserHandler ? m_antlrParserHandler->m_pptokens : NULL;
   }
 
-  SymbolId getFileId(unsigned int line);
+  SymbolId getFileId(unsigned int line) const;
   SymbolId getIncluderFileId(unsigned int line);
-  SymbolId getRawFileId() { return m_fileId; }
-  unsigned int getLineNb(unsigned int line);
-  PreprocessFile* getIncluder() { return m_includer; }
-  unsigned int getIncluderLine() { return m_includerLine; }
-  size_t getLineCount() { return m_lineCount; }
+  SymbolId getRawFileId() const { return m_fileId; }
+  unsigned int getLineNb(unsigned int line) const;
+  PreprocessFile* getIncluder() const { return m_includer; }
+  unsigned int getIncluderLine() const { return m_includerLine; }
+  size_t getLineCount() const { return m_lineCount; }
   void setLineCount(size_t count) { m_lineCount = count; }
-  unsigned int getSumLineCount();
+  unsigned int getSumLineCount() const;
   std::vector<IncludeFileInfo>& getIncludeFileInfo() {
     return m_includeFileInfo;
   }
@@ -283,25 +285,25 @@ class PreprocessFile {
   void addError(Error& error);
 
   /* Shorthands for symbol manipulations */
-  SymbolId registerSymbol(const std::string symbol);
-  SymbolId getId(const std::string symbol);
-  std::string getSymbol(SymbolId id);
+  SymbolId registerSymbol(std::string_view symbol);
+  SymbolId getId(std::string_view symbol) const;
+  std::string_view getSymbol(SymbolId id) const;
 
   // For recursive macro definition detection
   PreprocessFile* getSourceFile();
   LoopCheck m_loopChecker;
 
   void setFileContent(FileContent* content) { m_fileContent = content; }
-  FileContent* getFileContent() { return m_fileContent; }
+  FileContent* getFileContent() const { return m_fileContent; }
 
   void setVerilogVersion(VerilogVersion version) { m_verilogVersion = version; }
-  VerilogVersion getVerilogVersion() { return m_verilogVersion; }
+  VerilogVersion getVerilogVersion() const { return m_verilogVersion; }
 
   // For cache processing
   void saveCache();
   void collectIncludedFiles(std::set<PreprocessFile*>& included);
-  bool usingCachedVersion() { return m_usingCachedVersion; }
-  std::string getProfileInfo() { return m_profileInfo; }
+  bool usingCachedVersion() const { return m_usingCachedVersion; }
+  std::string getProfileInfo() const { return m_profileInfo; }
   std::vector<LineTranslationInfo>& getLineTranslationInfo() {
     return m_lineTranslationVec;
   }

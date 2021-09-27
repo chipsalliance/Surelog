@@ -64,9 +64,9 @@ class UhdmChecker final {
   typedef std::map<LineNb, Ranges> RangesMap;
   typedef std::map<const FileContent*, RangesMap> FileNodeCoverMap;
   FileNodeCoverMap fileNodeCoverMap;
-  std::map<std::string, const FileContent*> fileMap;
-  std::multimap<float, std::pair<std::string, float>> coverageMap;
-  std::map<std::string, float> fileCoverageMap;
+  std::map<std::string, const FileContent*, std::less<>> fileMap;
+  std::multimap<float, std::pair<std::string, float>, std::less<>> coverageMap;
+  std::map<std::string, float, std::less<>> fileCoverageMap;
 };
 
 }  // namespace SURELOG

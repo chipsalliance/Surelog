@@ -112,7 +112,7 @@ ParseFile::ParseFile(CompileSourceFile* compileSourceFile, ParseFile* parent,
   parent->m_children.push_back(this);
 }
 
-ParseFile::ParseFile(const std::string& text, CompileSourceFile* csf,
+ParseFile::ParseFile(std::string_view text, CompileSourceFile* csf,
                      CompilationUnit* compilationUnit, Library* library)
     : m_fileId(0),
       m_ppFileId(0),
@@ -139,7 +139,7 @@ ParseFile::~ParseFile() {
   delete m_listener;
 }
 
-SymbolTable* ParseFile::getSymbolTable() {
+SymbolTable* ParseFile::getSymbolTable() const {
   return m_symbolTable ? m_symbolTable : m_compileSourceFile->getSymbolTable();
 }
 
@@ -147,19 +147,19 @@ ErrorContainer* ParseFile::getErrorContainer() {
   return m_errors ? m_errors : m_compileSourceFile->getErrorContainer();
 }
 
-SymbolId ParseFile::registerSymbol(const std::string symbol) {
+SymbolId ParseFile::registerSymbol(std::string_view symbol) {
   return getCompileSourceFile()->getSymbolTable()->registerSymbol(symbol);
 }
 
-SymbolId ParseFile::getId(const std::string symbol) {
+SymbolId ParseFile::getId(std::string_view symbol) const {
   return getCompileSourceFile()->getSymbolTable()->getId(symbol);
 }
 
-const std::string ParseFile::getSymbol(SymbolId id) {
+std::string_view ParseFile::getSymbol(SymbolId id) const {
   return getCompileSourceFile()->getSymbolTable()->getSymbol(id);
 }
 
-const std::string ParseFile::getFileName(unsigned int line) {
+std::string_view ParseFile::getFileName(unsigned int line) {
   return getSymbol(getFileId(line));
 }
 
@@ -255,7 +255,8 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
   }
 }
 
-bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
+bool ParseFile::parseOneFile_(std::string_view fileName,
+                              unsigned int lineOffset) {
   CommandLineParser* clp = getCompileSourceFile()->getCommandLineParser();
   PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
   Timer tmr;
@@ -264,7 +265,7 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
   std::ifstream stream;
   std::stringstream ss(m_sourceText);
   if (m_sourceText.empty()) {
-    stream.open(fileName);
+    stream.open(fileName.data());
     if (!stream.good()) {
       SymbolId fileId = registerSymbol(fileName);
       Location ppfile(fileId);
@@ -282,7 +283,7 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
       new AntlrParserErrorListener(this, false, lineOffset, fileName);
   antlrParserHandler->m_lexer =
       new SV3_1aLexer(antlrParserHandler->m_inputStream);
-  std::string suffix = StringUtils::leaf(fileName);
+  std::string suffix = StringUtils::leaf(fileName.data());
   VerilogVersion version = VerilogVersion::SystemVerilog;
   if (pp) version = pp->getVerilogVersion();
   if (version != VerilogVersion::NoVersion) {
@@ -343,9 +344,11 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
         m_antlrParserHandler->m_parser->top_level_rule();
 
     if (getCompileSourceFile()->getCommandLineParser()->profile()) {
-      m_profileInfo +=
-          "SLL Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
-          "s " + fileName + "\n";
+      m_profileInfo.append("SLL Parsing: ")
+          .append(StringUtils::to_string(tmr.elapsed_rounded()))
+          .append("s ")
+          .append(fileName)
+          .append("\n");
       tmr.reset();
     }
   } catch (antlr4::ParseCancellationException& pex) {
@@ -363,9 +366,11 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
     antlrParserHandler->m_tree = antlrParserHandler->m_parser->top_level_rule();
 
     if (getCompileSourceFile()->getCommandLineParser()->profile()) {
-      m_profileInfo +=
-          "LL  Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
-          " " + fileName + "\n";
+      m_profileInfo.append("LL  Parsing: ")
+          .append(StringUtils::to_string(tmr.elapsed_rounded()))
+          .append(" ")
+          .append(fileName)
+          .append("\n");
       tmr.reset();
     }
   }
