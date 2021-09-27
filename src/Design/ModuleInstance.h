@@ -84,10 +84,17 @@ class ModuleInstance : public ValuedComponentI {
 
   Value* getValue(const std::string& name,
                   ExprBuilder& exprBuilder) const override;
+  UHDM::expr* getComplexValue(const std::string& name) const override;
 
   ModuleInstance* getInstanceBinding() { return m_boundInstance; }
   bool isElaborated() { return m_elaborated; }
   void setElaborated() { m_elaborated = true; }
+
+  void setOverridenParam(const std::string& name);
+  bool isOverridenParam(const std::string& name);
+
+  // Do not change the signature of this method, it's use in gdb for debug.
+  std::string decompile(char* valueName);
 
  private:
   DesignComponent* m_definition;
@@ -101,6 +108,7 @@ class ModuleInstance : public ValuedComponentI {
   Netlist* m_netlist;
   ModuleInstance* m_boundInstance = nullptr;
   bool m_elaborated = false;
+  std::set<std::string> m_overridenParams;
 };
 
 class ModuleInstanceFactory {

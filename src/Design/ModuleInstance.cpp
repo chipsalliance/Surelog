@@ -33,6 +33,7 @@
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
+#include <uhdm/vpi_visitor.h>
 
 using UHDM::any;
 using UHDM::constant;
@@ -56,11 +57,44 @@ ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,
   }
 }
 
+UHDM::expr* ModuleInstance::getComplexValue(const std::string& name) const {
+  ModuleInstance* instance = (ModuleInstance*)this;
+  while (instance) {
+    UHDM::expr* res = ValuedComponentI::getComplexValue(name);
+    if (res) {
+      return res;
+    }
+
+    if (instance->m_netlist) {
+      UHDM::VectorOfparam_assign* param_assigns =
+          instance->m_netlist->param_assigns();
+      if (param_assigns) {
+        for (param_assign* param : *param_assigns) {
+          if (param && param->Lhs()) {
+            const std::string& param_name = param->Lhs()->VpiName();
+            if (param_name == name) {
+              const any* exp = param->Rhs();
+              if (exp) return (UHDM::expr*)exp;
+            }
+          }
+        }
+      }
+    }
+
+    if (instance->getType() != slModule_instantiation)
+      instance = instance->getParent();
+    else
+      instance = nullptr;
+  }
+  return nullptr;
+}
+
 Value* ModuleInstance::getValue(const std::string& name,
                                 ExprBuilder& exprBuilder) const {
   Value* sval = nullptr;
 
-  if (getComplexValue(name)) {
+  if (ValuedComponentI::getComplexValue(
+          name)) {  // Only check current instance level
     return nullptr;
   }
 
@@ -115,6 +149,19 @@ Value* ModuleInstance::getValue(const std::string& name,
   }
 
   return sval;
+}
+
+std::string ModuleInstance::decompile(char* valueName) {
+  ExprBuilder exprBuilder;
+  Value* val = getValue(valueName, exprBuilder);
+  if (val) {
+    return val->uhdmValue();
+  }
+  if (UHDM::expr* complex = getComplexValue(valueName)) {
+    return UHDM::decompile(complex);
+  } else {
+    return "Undefined";
+  }
 }
 
 ModuleInstance::~ModuleInstance() {
@@ -238,4 +285,14 @@ void ModuleInstance::overrideParentChild(ModuleInstance* parent,
 
   m_allSubInstances = children;
 }
+
+void ModuleInstance::setOverridenParam(const std::string& name) {
+  m_overridenParams.insert(name);
+}
+
+bool ModuleInstance::isOverridenParam(const std::string& name) {
+  if (m_overridenParams.find(name) == m_overridenParams.end()) return false;
+  return true;
+}
+
 }  // namespace SURELOG
