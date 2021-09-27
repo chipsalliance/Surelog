@@ -94,18 +94,19 @@ SymbolId FileUtils::locateFile(SymbolId file, SymbolTable* symbols,
   return SymbolTable::getBadId();
 }
 
-int FileUtils::mkDir(const char* path) {
+bool FileUtils::mkDir(std::string_view path) {
   // CAUTION: There is a known bug in VC compiler where a trailing
   // slash in the path will cause a false return from a call to
   // fs::create_directories.
-  const std::string dirpath(path);
-  fs::create_directories(dirpath);
-  return fs::is_directory(dirpath) ? 0 : -1;
+  std::error_code err;
+  fs::create_directories(path, err);
+  return fs::is_directory(path);
 }
 
-int FileUtils::rmDir(const char* path) {
-  const std::string dirpath(path);
-  return fs::remove_all(dirpath);
+bool FileUtils::rmDirRecursively(std::string_view path) {
+  static constexpr uintmax_t kErrorCondition = static_cast<std::uintmax_t>(-1);
+  std::error_code err;
+  return fs::remove_all(path, err) != kErrorCondition;
 }
 
 std::string FileUtils::getFullPath(const std::string& path) {

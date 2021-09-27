@@ -80,7 +80,7 @@ std::string ParseCache::getCacheFileName_(std::string svFileName) {
   Library* lib = m_parse->getLibrary();
   std::string libName = lib->getName() + "/";
   std::string cacheFileName = cacheDirName + libName + svFileName + ".slpa";
-  FileUtils::mkDir(std::string(cacheDirName + libName).c_str());
+  FileUtils::mkDir(cacheDirName + libName);
   return cacheFileName;
 }
 

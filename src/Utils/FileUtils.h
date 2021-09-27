@@ -26,6 +26,7 @@
 
 #include <cstdint>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace SURELOG {
@@ -40,10 +41,8 @@ class FileUtils final {
   static bool fileIsDirectory(const std::string& name);
   static SymbolId locateFile(SymbolId file, SymbolTable* symbols,
                              const std::vector<SymbolId>& paths);
-  // TODO: mkDir() and rmDir() don't return what one would think they return.
-  // Change to bool
-  static int mkDir(const char* path);
-  static int rmDir(const char* path);
+  static bool mkDir(std::string_view path);
+  static bool rmDirRecursively(std::string_view path);
   static std::string getFullPath(const std::string& path);
   static bool getFullPath(const std::string& path, std::string* result);
   static std::string getPathName(const std::string& path);

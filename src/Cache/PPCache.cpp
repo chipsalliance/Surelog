@@ -69,7 +69,7 @@ std::string PPCache::getCacheFileName_(const std::string& requested_file) {
   Library* lib = m_pp->getLibrary();
   std::string libName = lib->getName() + "/";
   std::string cacheFileName = cacheDirName + libName + svFileName + ".slpp";
-  FileUtils::mkDir(std::string(cacheDirName + libName).c_str());
+  FileUtils::mkDir(cacheDirName + libName);
   return cacheFileName;
 }
 
