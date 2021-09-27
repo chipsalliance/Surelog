@@ -75,9 +75,9 @@ using namespace UHDM;  // NOLINT (we're using a whole bunch of these)
 typedef std::map<ModPort*, modport*> ModPortMap;
 typedef std::map<const DesignComponent*, BaseClass*> ComponentMap;
 typedef std::map<Signal*, BaseClass*> SignalBaseClassMap;
-typedef std::map<std::string, Signal*, std::less<>> SignalMap;
+typedef std::map<std::string, Signal*> SignalMap;
 typedef std::map<ModuleInstance*, BaseClass*> InstanceMap;
-typedef std::map<std::string, BaseClass*, std::less<>> VpiSignalMap;
+typedef std::map<std::string, BaseClass*> VpiSignalMap;
 
 unsigned int getBuiltinType(VObjectType type) {
   switch (type) {
@@ -324,7 +324,7 @@ bool writeElabParameters(Serializer& s, ModuleInstance* instance,
   Netlist* netlist = instance->getNetlist();
   DesignComponent* mod = instance->getDefinition();
 
-  std::map<std::string, any*, std::less<>> paramSet;
+  std::map<std::string, any*> paramSet;
   if (netlist->param_assigns()) {
     VectorOfany* params = m->Parameters();
     if (params == nullptr) params = s.MakeAnyVec();
@@ -339,7 +339,7 @@ bool writeElabParameters(Serializer& s, ModuleInstance* instance,
     VectorOfany* orig_params = mod->getParameters();
     if (orig_params) {
       for (auto orig : *orig_params) {
-        const std::string_view name = orig->VpiName();
+        const std::string& name = orig->VpiName();
         bool pushed = false;
         // Specifc handling of type parameters
         if (orig->UhdmType() == uhdmtype_parameter) {
@@ -405,7 +405,7 @@ bool writeElabParameters(Serializer& s, ModuleInstance* instance,
   if (netlist->param_assigns()) {
     for (auto ps : *m->Param_assigns()) {
       ps->VpiParent(m);
-      const std::string_view name = ps->Lhs()->VpiName();
+      const std::string& name = ps->Lhs()->VpiName();
       std::map<std::string, any*>::iterator itr = paramSet.find(name);
       if (itr != paramSet.end()) {
         ps->Lhs((*itr).second);
@@ -541,9 +541,8 @@ void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
     }
     typespec* tps = dtype->getTypespec();
     if (parent->UhdmType() == uhdmpackage) {
-      if (tps && (!strstr(tps->VpiName().data(), "::"))) {
-        std::string newName(parent->VpiName());
-        newName.append("::").append(tps->VpiName());
+      if (tps && (!strstr(tps->VpiName().c_str(), "::"))) {
+        const std::string newName = parent->VpiName() + "::" + tps->VpiName();
         tps->VpiName(newName);
       }
     }
@@ -673,7 +672,7 @@ void writeClass(ClassDefinition* classDef, VectorOfclass_defn* dest_classes,
     componentMap.insert(std::make_pair(classDef, c));
     c->VpiParent(parent);
     dest_classes->push_back(c);
-    const std::string_view name = classDef->getName();
+    const std::string& name = classDef->getName();
     if (c->VpiName() == "") c->VpiName(name);
     if (c->VpiFullName() == "") c->VpiFullName(name);
     c->Attributes(classDef->Attributes());
@@ -731,7 +730,7 @@ void writeVariables(const DesignComponent::VariableMap& orig_vars,
 
 void writePackage(Package* pack, package* p, Serializer& s,
                   ComponentMap& componentMap) {
-  p->VpiFullName(std::string(pack->getName()).append("::"));
+  p->VpiFullName(pack->getName() + "::");
   // Typepecs
   VectorOftypespec* typespecs = s.MakeTypespecVec();
   p->Typespecs(typespecs);
@@ -750,15 +749,10 @@ void writePackage(Package* pack, package* p, Serializer& s,
     for (auto ps : *p->Parameters()) {
       ps->VpiParent(p);
       if (ps->UhdmType() == uhdmparameter) {
-        ((parameter*)ps)
-            ->VpiFullName(std::string(pack->getName())
-                              .append("::")
-                              .append(ps->VpiName()));
+        ((parameter*)ps)->VpiFullName(pack->getName() + "::" + ps->VpiName());
       } else {
         ((type_parameter*)ps)
-            ->VpiFullName(std::string(pack->getName())
-                              .append("::")
-                              .append(ps->VpiName()));
+            ->VpiFullName(pack->getName() + "::" + ps->VpiName());
       }
     }
   }
@@ -775,9 +769,7 @@ void writePackage(Package* pack, package* p, Serializer& s,
     for (auto tf : *p->Task_funcs()) {
       tf->VpiParent(p);
       tf->Instance(p);
-      ((task_func*)tf)
-          ->VpiFullName(
-              std::string(pack->getName()).append("::").append(tf->VpiName()));
+      ((task_func*)tf)->VpiFullName(pack->getName() + "::" + tf->VpiName());
     }
   }
 
@@ -788,10 +780,7 @@ void writePackage(Package* pack, package* p, Serializer& s,
     if (netlist->variables()) {
       for (auto obj : *netlist->variables()) {
         obj->VpiParent(p);
-        ((variables*)obj)
-            ->VpiFullName(std::string(pack->getName())
-                              .append("::")
-                              .append(obj->VpiName()));
+        ((variables*)obj)->VpiFullName(pack->getName() + "::" + obj->VpiName());
       }
     }
   }
@@ -1177,7 +1166,7 @@ bool writeElabProgram(Serializer& s, ModuleInstance* instance, program* m) {
   if (mod) {
     for (UHDM::ref_obj* ref : mod->getLateBinding()) {
       if (ref->Actual_group()) continue;
-      const std::string_view name = ref->VpiName();
+      const std::string& name = ref->VpiName();
       if (m->Nets()) {
         for (auto n : *m->Nets()) {
           if (n->VpiName() == name) {
@@ -1341,7 +1330,7 @@ bool writeElabGenScope(Serializer& s, ModuleInstance* instance, gen_scope* m,
   if (mod) {
     for (UHDM::ref_obj* ref : mod->getLateBinding()) {
       if (ref->Actual_group()) continue;
-      const std::string_view name = ref->VpiName();
+      const std::string& name = ref->VpiName();
       if (m->Nets()) {
         for (auto n : *m->Nets()) {
           if (n->VpiName() == name) {
@@ -1445,7 +1434,7 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m,
   if (mod) {
     for (UHDM::ref_obj* ref : mod->getLateBinding()) {
       if (ref->Actual_group()) continue;
-      const std::string_view name = ref->VpiName();
+      const std::string& name = ref->VpiName();
       if (m->Nets()) {
         for (auto n : *m->Nets()) {
           if (n->VpiName() == name) {
@@ -1613,7 +1602,7 @@ bool writeElabInterface(Serializer& s, ModuleInstance* instance, interface* m,
   if (mod) {
     for (UHDM::ref_obj* ref : mod->getLateBinding()) {
       if (ref->Actual_group()) continue;
-      const std::string_view name = ref->VpiName();
+      const std::string& name = ref->VpiName();
       if (m->Nets()) {
         for (auto n : *m->Nets()) {
           if (n->VpiName() == name) {
@@ -1968,7 +1957,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
 
 void printUhdmStats(Serializer& s) {
   std::cout << "UHDM Objects Stats:\n";
-  std::map<std::string_view, unsigned long> stats = s.ObjectStats();
+  std::map<std::string, unsigned long> stats = s.ObjectStats();
   std::multimap<unsigned long, std::string> rstats;
   for (auto stat : stats) {
     if (stat.second) rstats.insert(std::make_pair(stat.second, stat.first));

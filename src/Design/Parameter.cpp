@@ -26,7 +26,7 @@
 
 namespace SURELOG {
 Parameter::Parameter(const FileContent* fC, NodeId nodeId,
-                     std::string_view name, NodeId node_type, bool port_param)
+                     const std::string& name, NodeId node_type, bool port_param)
     : DataType(fC, nodeId, name,
                fC ? fC->Type(node_type) : VObjectType::slParameter_declaration,
                true),

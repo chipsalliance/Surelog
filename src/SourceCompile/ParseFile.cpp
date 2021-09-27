@@ -112,7 +112,7 @@ ParseFile::ParseFile(CompileSourceFile* compileSourceFile, ParseFile* parent,
   parent->m_children.push_back(this);
 }
 
-ParseFile::ParseFile(std::string_view text, CompileSourceFile* csf,
+ParseFile::ParseFile(const std::string& text, CompileSourceFile* csf,
                      CompilationUnit* compilationUnit, Library* library)
     : m_fileId(0),
       m_ppFileId(0),
@@ -139,7 +139,7 @@ ParseFile::~ParseFile() {
   delete m_listener;
 }
 
-SymbolTable* ParseFile::getSymbolTable() const {
+SymbolTable* ParseFile::getSymbolTable() {
   return m_symbolTable ? m_symbolTable : m_compileSourceFile->getSymbolTable();
 }
 
@@ -147,19 +147,19 @@ ErrorContainer* ParseFile::getErrorContainer() {
   return m_errors ? m_errors : m_compileSourceFile->getErrorContainer();
 }
 
-SymbolId ParseFile::registerSymbol(std::string_view symbol) {
+SymbolId ParseFile::registerSymbol(const std::string symbol) {
   return getCompileSourceFile()->getSymbolTable()->registerSymbol(symbol);
 }
 
-SymbolId ParseFile::getId(std::string_view symbol) const {
+SymbolId ParseFile::getId(const std::string symbol) {
   return getCompileSourceFile()->getSymbolTable()->getId(symbol);
 }
 
-std::string_view ParseFile::getSymbol(SymbolId id) const {
+const std::string ParseFile::getSymbol(SymbolId id) {
   return getCompileSourceFile()->getSymbolTable()->getSymbol(id);
 }
 
-std::string_view ParseFile::getFileName(unsigned int line) {
+const std::string ParseFile::getFileName(unsigned int line) {
   return getSymbol(getFileId(line));
 }
 
@@ -255,8 +255,7 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
   }
 }
 
-bool ParseFile::parseOneFile_(std::string_view fileName,
-                              unsigned int lineOffset) {
+bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
   CommandLineParser* clp = getCompileSourceFile()->getCommandLineParser();
   PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
   Timer tmr;
@@ -265,7 +264,7 @@ bool ParseFile::parseOneFile_(std::string_view fileName,
   std::ifstream stream;
   std::stringstream ss(m_sourceText);
   if (m_sourceText.empty()) {
-    stream.open(fileName.data());
+    stream.open(fileName);
     if (!stream.good()) {
       SymbolId fileId = registerSymbol(fileName);
       Location ppfile(fileId);
@@ -283,7 +282,7 @@ bool ParseFile::parseOneFile_(std::string_view fileName,
       new AntlrParserErrorListener(this, false, lineOffset, fileName);
   antlrParserHandler->m_lexer =
       new SV3_1aLexer(antlrParserHandler->m_inputStream);
-  std::string suffix = StringUtils::leaf(fileName.data());
+  std::string suffix = StringUtils::leaf(fileName);
   VerilogVersion version = VerilogVersion::SystemVerilog;
   if (pp) version = pp->getVerilogVersion();
   if (version != VerilogVersion::NoVersion) {
@@ -344,11 +343,9 @@ bool ParseFile::parseOneFile_(std::string_view fileName,
         m_antlrParserHandler->m_parser->top_level_rule();
 
     if (getCompileSourceFile()->getCommandLineParser()->profile()) {
-      m_profileInfo.append("SLL Parsing: ")
-          .append(StringUtils::to_string(tmr.elapsed_rounded()))
-          .append("s ")
-          .append(fileName)
-          .append("\n");
+      m_profileInfo +=
+          "SLL Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
+          "s " + fileName + "\n";
       tmr.reset();
     }
   } catch (antlr4::ParseCancellationException& pex) {
@@ -366,11 +363,9 @@ bool ParseFile::parseOneFile_(std::string_view fileName,
     antlrParserHandler->m_tree = antlrParserHandler->m_parser->top_level_rule();
 
     if (getCompileSourceFile()->getCommandLineParser()->profile()) {
-      m_profileInfo.append("LL  Parsing: ")
-          .append(StringUtils::to_string(tmr.elapsed_rounded()))
-          .append(" ")
-          .append(fileName)
-          .append("\n");
+      m_profileInfo +=
+          "LL  Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
+          " " + fileName + "\n";
       tmr.reset();
     }
   }

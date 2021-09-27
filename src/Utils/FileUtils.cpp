@@ -56,37 +56,37 @@ namespace fs = std::experimental::filesystem;
 #endif
 
 namespace SURELOG {
-bool FileUtils::fileExists(std::string_view name) {
+bool FileUtils::fileExists(const std::string& name) {
   std::error_code ec;
   return fs::exists(name, ec);
 }
 
-uint64_t FileUtils::fileSize(std::string_view name) {
+uint64_t FileUtils::fileSize(const std::string& name) {
   std::error_code ec;
   return fs::file_size(name, ec);
 }
 
-bool FileUtils::fileIsDirectory(std::string_view name) {
+bool FileUtils::fileIsDirectory(const std::string& name) {
   return fs::is_directory(name);
 }
 
-bool FileUtils::fileIsRegular(std::string_view name) {
+bool FileUtils::fileIsRegular(const std::string& name) {
   return fs::is_regular_file(name);
 }
 
 SymbolId FileUtils::locateFile(SymbolId file, SymbolTable* symbols,
                                const std::vector<SymbolId>& paths) {
-  const std::string_view fileName = symbols->getSymbol(file);
+  const std::string& fileName = symbols->getSymbol(file);
   if (fileExists(fileName)) {
     return file;
   }
   for (auto id : paths) {
-    const std::string_view path = symbols->getSymbol(id);
+    const std::string& path = symbols->getSymbol(id);
     std::string filePath;
     if (!path.empty() && (path[path.size() - 1] == '/'))
-      filePath.assign(path).append(fileName);
+      filePath = path + fileName;
     else
-      filePath.assign(path).append("/").append(fileName);
+      filePath = path + "/" + fileName;
     if (fileExists(filePath)) {
       return symbols->registerSymbol(filePath);
     }
@@ -108,13 +108,13 @@ int FileUtils::rmDir(const char* path) {
   return fs::remove_all(dirpath);
 }
 
-std::string FileUtils::getFullPath(std::string_view path) {
+std::string FileUtils::getFullPath(const std::string& path) {
   std::error_code ec;
   fs::path fullPath = fs::canonical(path, ec);
-  return ec ? path.data() : fullPath.string();
+  return ec ? path : fullPath.string();
 }
 
-bool FileUtils::getFullPath(std::string_view path, std::string* result) {
+bool FileUtils::getFullPath(const std::string& path, std::string* result) {
   std::error_code ec;
   fs::path fullPath = fs::canonical(path, ec);
   bool found = (!ec && fileIsRegular(fullPath.string()));
@@ -124,7 +124,7 @@ bool FileUtils::getFullPath(std::string_view path, std::string* result) {
   return found;
 }
 
-static bool has_suffix(std::string_view s, std::string_view suffix) {
+static bool has_suffix(std::string s, std::string suffix) {
   return (s.size() >= suffix.size()) &&
          equal(suffix.rbegin(), suffix.rend(), s.rbegin());
 }
@@ -135,8 +135,8 @@ std::vector<SymbolId> FileUtils::collectFiles(SymbolId dirPath, SymbolId ext,
                       symbols);
 }
 
-std::vector<SymbolId> FileUtils::collectFiles(std::string_view dirPath,
-                                              std::string_view ext,
+std::vector<SymbolId> FileUtils::collectFiles(std::string dirPath,
+                                              std::string ext,
                                               SymbolTable* symbols) {
   std::vector<SymbolId> result;
   if (fileIsDirectory(dirPath)) {
@@ -150,7 +150,7 @@ std::vector<SymbolId> FileUtils::collectFiles(std::string_view dirPath,
   return result;
 }
 
-std::vector<SymbolId> FileUtils::collectFiles(std::string_view pathSpec,
+std::vector<SymbolId> FileUtils::collectFiles(const std::string& pathSpec,
                                               SymbolTable* const symbols) {
   // ?   single character wildcard (matches any single character)
   // *   multiple character wildcard (matches any number of characters in a
@@ -228,8 +228,8 @@ std::vector<SymbolId> FileUtils::collectFiles(std::string_view pathSpec,
   return result;
 }
 
-std::string FileUtils::getFileContent(std::string_view filename) {
-  std::ifstream in(filename.data(), std::ios::in | std::ios::binary);
+std::string FileUtils::getFileContent(const std::string& filename) {
+  std::ifstream in(filename, std::ios::in | std::ios::binary);
   if (in) {
     std::string result;
     result.assign(std::istreambuf_iterator<char>(in),
@@ -239,7 +239,7 @@ std::string FileUtils::getFileContent(std::string_view filename) {
   return "FAILED_TO_LOAD_CONTENT";
 }
 
-std::string FileUtils::getPathName(std::string_view path) {
+std::string FileUtils::getPathName(const std::string& path) {
   fs::path fs_path(path);
   return fs_path.has_parent_path()
              ? (fs::path(path).parent_path() += fs::path::preferred_separator)
@@ -247,11 +247,11 @@ std::string FileUtils::getPathName(std::string_view path) {
              : "";
 }
 
-std::string FileUtils::basename(std::string_view str) {
+std::string FileUtils::basename(const std::string& str) {
   return fs::path(str).filename().string();
 }
 
-std::string FileUtils::getPreferredPath(std::string_view path) {
+std::string FileUtils::getPreferredPath(const std::string& path) {
   return fs::path(path).make_preferred().string();
 }
 
@@ -269,7 +269,7 @@ std::string FileUtils::hashPath(const std::string& path) {
   return hashedpath;
 }
 
-std::string FileUtils::makeRelativePath(std::string_view in_path) {
+std::string FileUtils::makeRelativePath(const std::string& in_path) {
   const std::string separator(1, fs::path::preferred_separator);
   // Standardize it so we can avoid special cases and wildcards!
   fs::path p(in_path);

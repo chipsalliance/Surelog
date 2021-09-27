@@ -50,7 +50,7 @@ class Program : public DesignComponent, public ClockingBlockHolder {
     return (m_fileContents[0]->Type(m_nodeIds[0]));
   }
   bool isInstance() const override { return true; }
-  std::string_view getName() const override { return m_name; }
+  const std::string& getName() const override { return m_name; }
 
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;

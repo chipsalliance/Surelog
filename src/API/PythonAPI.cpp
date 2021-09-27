@@ -263,8 +263,7 @@ void PythonAPI::init(int argc, const char** argv) {
 #endif
 }
 
-void PythonAPI::evalScript(std::string_view function,
-                           SV3_1aPythonListener* listener,
+void PythonAPI::evalScript(std::string function, SV3_1aPythonListener* listener,
                            parser_rule_context* ctx1) {
 #ifdef SURELOG_WITH_PYTHON
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)ctx1;
@@ -298,8 +297,7 @@ void PythonAPI::evalScript(std::string_view function,
 #endif
 }
 
-std::string PythonAPI::evalScript(std::string_view module,
-                                  std::string_view function,
+std::string PythonAPI::evalScript(std::string module, std::string function,
                                   std::vector<std::string> args,
                                   PyThreadState* interp) {
 #ifdef SURELOG_WITH_PYTHON
@@ -411,7 +409,7 @@ bool PythonAPI::evalScriptPerFile(std::string script, ErrorContainer* errors,
 #endif
 }
 
-bool PythonAPI::evalScript(std::string_view script, Design* design) {
+bool PythonAPI::evalScript(std::string script, Design* design) {
 #ifdef SURELOG_WITH_PYTHON
   PyEval_AcquireThread(m_mainThreadState);
   loadScript_(script);

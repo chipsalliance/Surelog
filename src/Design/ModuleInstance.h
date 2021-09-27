@@ -36,8 +36,8 @@ class ModuleInstance : public ValuedComponentI {
   SURELOG_IMPLEMENT_RTTI(ModuleInstance, ValuedComponentI)
  public:
   ModuleInstance(DesignComponent* definition, const FileContent* fileContent,
-                 NodeId nodeId, ModuleInstance* parent,
-                 std::string_view instName, std::string_view moduleName);
+                 NodeId nodeId, ModuleInstance* parent, std::string instName,
+                 std::string moduleName);
   ~ModuleInstance() override;
   void addSubInstance(ModuleInstance* subInstance);
   std::vector<ModuleInstance*>& getAllSubInstances() {
@@ -46,35 +46,33 @@ class ModuleInstance : public ValuedComponentI {
   void setInstanceBinding(ModuleInstance* boundToInstance) {
     m_boundInstance = boundToInstance;
   }
-  DesignComponent* getDefinition() const { return m_definition; }
+  DesignComponent* getDefinition() { return m_definition; }
   unsigned int getNbChildren() { return m_allSubInstances.size(); }
-  ModuleInstance* getChildren(unsigned int i) const {
+  ModuleInstance* getChildren(unsigned int i) {
     if (i < m_allSubInstances.size()) {
       return m_allSubInstances[i];
     } else {
       return NULL;
     }
   }
-  ModuleInstance* getParent() const { return m_parent; }
-  const FileContent* getFileContent() const { return m_fileContent; }
+  ModuleInstance* getParent() { return m_parent; }
+  const FileContent* getFileContent() { return m_fileContent; }
   SymbolId getFileId() const { return m_fileContent->getFileId(m_nodeId); }
-  std::string_view getFileName() const {
-    return m_fileContent->getFileName(m_nodeId);
-  }
-  NodeId getNodeId() const { return m_nodeId; }
-  unsigned int getLineNb() const;
-  unsigned short getColumnNb() const;
-  unsigned int getEndLineNb() const;
-  unsigned short getEndColumnNb() const;
-  VObjectType getType() const;
-  VObjectType getModuleType() const;
+  std::string getFileName() { return m_fileContent->getFileName(m_nodeId); }
+  NodeId getNodeId() { return m_nodeId; }
+  unsigned int getLineNb();
+  unsigned short getColumnNb();
+  unsigned int getEndLineNb();
+  unsigned short getEndColumnNb();
+  VObjectType getType();
+  VObjectType getModuleType();
   SymbolId getFullPathId(SymbolTable* symbols);
   SymbolId getInstanceId(SymbolTable* symbols);
   SymbolId getModuleNameId(SymbolTable* symbols);
-  std::string getInstanceName() const;
+  std::string getInstanceName();
   std::string getFullPathName();
-  std::string getModuleName() const;
-  unsigned int getDepth() const;
+  std::string getModuleName();
+  unsigned int getDepth();
 
   void setNodeId(NodeId id) { m_nodeId = id; }  // Used for generate stmt
   void overrideParentChild(ModuleInstance* parent, ModuleInstance* interm,
@@ -84,16 +82,16 @@ class ModuleInstance : public ValuedComponentI {
 
   std::vector<Parameter*>& getTypeParams() { return m_typeParams; }
 
-  Value* getValue(std::string_view name,
+  Value* getValue(const std::string& name,
                   ExprBuilder& exprBuilder) const override;
-  UHDM::expr* getComplexValue(std::string_view name) const override;
+  UHDM::expr* getComplexValue(const std::string& name) const override;
 
   ModuleInstance* getInstanceBinding() { return m_boundInstance; }
   bool isElaborated() { return m_elaborated; }
   void setElaborated() { m_elaborated = true; }
 
-  void setOverridenParam(std::string_view name);
-  bool isOverridenParam(std::string_view name) const;
+  void setOverridenParam(const std::string& name);
+  bool isOverridenParam(const std::string& name);
 
   // Do not change the signature of this method, it's use in gdb for debug.
   std::string decompile(char* valueName);
@@ -110,7 +108,7 @@ class ModuleInstance : public ValuedComponentI {
   Netlist* m_netlist;
   ModuleInstance* m_boundInstance = nullptr;
   bool m_elaborated = false;
-  std::set<std::string, std::less<>> m_overridenParams;
+  std::set<std::string> m_overridenParams;
 };
 
 class ModuleInstanceFactory {
@@ -118,8 +116,8 @@ class ModuleInstanceFactory {
   ModuleInstance* newModuleInstance(DesignComponent* definition,
                                     const FileContent* fileContent,
                                     NodeId nodeId, ModuleInstance* parent,
-                                    std::string_view instName,
-                                    std::string_view moduleName);
+                                    std::string instName,
+                                    std::string moduleName);
 };
 
 }  // namespace SURELOG

@@ -45,7 +45,7 @@ std::string Library::report(SymbolTable* symbols) {
   std::string report;
   report = "LIB: " + m_name + "\n";
   for (auto id : m_fileIds) {
-    report.append("     ").append(symbols->getSymbol(id)).append("\n");
+    report += "     " + symbols->getSymbol(id) + "\n";
   }
   return report;
 }

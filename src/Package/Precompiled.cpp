@@ -39,17 +39,17 @@ void Precompiled::addPrecompiled(const std::string& packageName,
   m_packageFileSet.insert(fileName);
 }
 
-std::string Precompiled::getFileName(std::string_view packageName) const {
+std::string Precompiled::getFileName(const std::string& packageName) const {
   auto found = m_packageMap.find(packageName);
   return (found == m_packageMap.end()) ? "" : found->second;
 }
 
-bool Precompiled::isFilePrecompiled(std::string_view fileName) const {
+bool Precompiled::isFilePrecompiled(const std::string& fileName) const {
   auto found = m_packageFileSet.find(fileName);
   return (found != m_packageFileSet.end());
 }
 
-bool Precompiled::isPackagePrecompiled(std::string_view packageName) const {
+bool Precompiled::isPackagePrecompiled(const std::string& packageName) const {
   auto found = m_packageMap.find(packageName);
   return (found != m_packageMap.end());
 }

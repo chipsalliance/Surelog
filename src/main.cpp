@@ -91,10 +91,8 @@ unsigned int executeCompilation(
 
   std::string ext_command = clp->getExeCommand();
   if (!ext_command.empty()) {
-    std::string_view directory =
-        symbolTable->getSymbol(clp->getFullCompileDir());
-    std::string fileList(directory);
-    fileList.append("/file.lst");
+    std::string directory = symbolTable->getSymbol(clp->getFullCompileDir());
+    std::string fileList = directory + "/file.lst";
     std::string command = ext_command + " " + fileList;
     int result = system(command.c_str());
     codedReturn |= result;
