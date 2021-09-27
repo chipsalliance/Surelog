@@ -257,6 +257,7 @@ any* CompileHelper::getObject(const std::string& name,
             }
           }
         }
+
         const DataType* dtype = comp->getDataType(name);
         if ((result == nullptr) && dtype) {
           dtype = dtype->getActual();
@@ -269,7 +270,16 @@ any* CompileHelper::getObject(const std::string& name,
   if (result && (result->UhdmType() == uhdmref_obj)) {
     ref_obj* ref = (ref_obj*)result;
     const std::string& refname = ref->VpiName();
-    result = getObject(refname, component, compileDesign, instance, pexpr);
+    if (refname != name)
+      result = getObject(refname, component, compileDesign, instance, pexpr);
+  }
+  if (result && result->UhdmType() == uhdmconstant) {
+    if (instance) {
+      Value* sval = instance->getValue(name);
+      if (sval && sval->isValid()) {
+        setRange((constant*)result, sval, compileDesign);
+      }
+    }
   }
   return result;
 }
@@ -1774,6 +1784,11 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
           const std::string& objname = ref->VpiName();
           any* object =
               getObject(objname, component, compileDesign, instance, pexpr);
+          if (object == nullptr) {
+            object =
+                (expr*)getValue(objname, component, compileDesign, instance,
+                                fileName, lineNumber, pexpr, true, muteErrors);
+          }
           const typespec* tps = nullptr;
           if (expr* exp = any_cast<expr*>(object)) {
             tps = exp->Typespec();
@@ -2045,26 +2060,27 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
     if (object == nullptr) {
       object = getValue(name, component, compileDesign, instance, fileName,
                         lineNumber, pexpr, true, muteErrors);
-      if (object && (object->UhdmType() == uhdmconstant)) {
-        constant* co = (constant*)object;
-        int64_t val = get_value(invalidValue, co);
-        std::string binary = NumUtils::toBinary(co->VpiSize(), val);
-        int64_t l = get_value(invalidValue, sel->Left_range());
-        int64_t r = get_value(invalidValue, sel->Right_range());
-        std::reverse(binary.begin(), binary.end());
-        std::string sub;
-        if (l > r)
-          sub = binary.substr(r, l - r + 1);
-        else
-          sub = binary.substr(l, r - l + 1);
-        UHDM::constant* c = s.MakeConstant();
-        c->VpiValue("BIN:" + sub);
-        c->VpiDecompile(sub);
-        c->VpiSize(sub.size());
-        c->VpiConstType(vpiBinaryConst);
-        result = c;
-      }
     }
+    if (object && (object->UhdmType() == uhdmconstant)) {
+      constant* co = (constant*)object;
+      int64_t val = get_value(invalidValue, co);
+      std::string binary = NumUtils::toBinary(co->VpiSize(), val);
+      int64_t l = get_value(invalidValue, sel->Left_range());
+      int64_t r = get_value(invalidValue, sel->Right_range());
+      std::reverse(binary.begin(), binary.end());
+      std::string sub;
+      if (l > r)
+        sub = binary.substr(r, l - r + 1);
+      else
+        sub = binary.substr(l, r - l + 1);
+      UHDM::constant* c = s.MakeConstant();
+      c->VpiValue("BIN:" + sub);
+      c->VpiDecompile(sub);
+      c->VpiSize(sub.size());
+      c->VpiConstType(vpiBinaryConst);
+      result = c;
+    }
+
   } else if (objtype == uhdmvar_select) {
     var_select* sel = (var_select*)result;
     const std::string& name = sel->VpiName();
@@ -2472,6 +2488,12 @@ any* CompileHelper::getValue(const std::string& name,
   if ((result == nullptr) && instance) {
     if (expr* val = instance->getComplexValue(name)) {
       result = val;
+      if (result->UhdmType() == uhdmconstant) {
+        sval = instance->getValue(name);
+        if (sval && sval->isValid()) {
+          setRange((constant*)result, sval, compileDesign);
+        }
+      }
     }
     if (result == nullptr) {
       sval = instance->getValue(name);

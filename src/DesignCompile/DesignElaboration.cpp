@@ -963,7 +963,14 @@ void DesignElaboration::elaborateInstance_(
         // Var init
         NodeId varId = fC->Child(conditionId);
         NodeId constExpr = fC->Sibling(varId);
-        Value* initValue = m_exprBuilder.evalExpr(fC, constExpr, parent);
+
+        bool validValue;
+        int64_t initVal =
+            m_helper.getValue(validValue, def, fC, constExpr, m_compileDesign,
+                              nullptr, parent, true, false);
+        Value* initValue = m_exprBuilder.getValueFactory().newLValue();
+        initValue->set(initVal);
+
         std::string name = fC->SymName(varId);
         parent->setValue(name, initValue, m_exprBuilder, fC->Line(varId));
 
@@ -984,7 +991,6 @@ void DesignElaboration::elaborateInstance_(
         // Generate block
         NodeId genBlock = fC->Sibling(iteration);
 
-        bool validValue;
         int64_t condVal =
             m_helper.getValue(validValue, def, fC, endLoopTest, m_compileDesign,
                               nullptr, parent, true, false);
@@ -1568,7 +1574,6 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
   SymbolTable* st = m_compileDesign->getCompiler()->getSymbolTable();
   ErrorContainer* errors = m_compileDesign->getCompiler()->getErrorContainer();
   DesignComponent* module = instance->getDefinition();
-
   // Parameters imported by package imports
   std::vector<FileCNodeId> pack_imports;
   for (const auto& import :
@@ -1695,6 +1700,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
               complex = true;
               if (m_helper.substituteAssignedValue(complexV, m_compileDesign)) {
                 instance->setComplexValue(name, complexV);
+                instance->setOverridenParam(name);
               } else {
                 complexV = (UHDM::expr*)m_helper.compileExpression(
                     parentDefinition, parentFile, expr, m_compileDesign,
@@ -1708,6 +1714,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                   }
                 }
                 instance->setComplexValue(name, complexV);
+                instance->setOverridenParam(name);
               }
             }
           } else if (exprtype == UHDM::uhdmref_obj) {
@@ -1725,6 +1732,40 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                     m_compileDesign, true));
               }
               instance->setComplexValue(name, complexV);
+              instance->setOverridenParam(name);
+            }
+          } else if (exprtype == UHDM::uhdmparameter) {
+            UHDM::parameter* param = (UHDM::parameter*)complexV;
+            const std::string& pname = param->VpiName();
+            const UHDM::typespec* tps = param->Typespec();
+            const UHDM::instance* pinst = tps->Instance();
+            if (pinst->UhdmType() == UHDM::uhdmpackage) {
+              Design* design = m_compileDesign->getCompiler()->getDesign();
+              if (Package* pack = design->getPackage(pinst->VpiName())) {
+                if ((complexV = pack->getComplexValue(pname))) {
+                  complex = true;
+                  instance->setComplexValue(name, complexV);
+                  instance->setOverridenParam(name);
+                }
+                if (complexV == nullptr) {
+                  if ((value = pack->getValue(pname))) {
+                    instance->setValue(name, value, m_exprBuilder,
+                                       parentFile->Line(expr));
+                    instance->setOverridenParam(name);
+                  }
+                }
+              }
+            } else if (ValuedComponentI* parent = instance->getParent()) {
+              complexV = parent->getComplexValue(pname);
+              if (complexV) {
+                complex = true;
+                instance->setComplexValue(name, complexV);
+                instance->setOverridenParam(name);
+              } else if ((value = parent->getValue(pname, m_exprBuilder))) {
+                instance->setValue(name, value, m_exprBuilder,
+                                   parentFile->Line(expr));
+                instance->setOverridenParam(name);
+              }
             }
           }
         }
@@ -1767,9 +1808,11 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
             // Set the invalid value as a marker for netlist elaboration
             instance->setValue(name, value, m_exprBuilder,
                                parentFile->Line(expr));
+            instance->setOverridenParam(name);
           } else {
             instance->setValue(name, value, m_exprBuilder,
                                parentFile->Line(expr));
+            instance->setOverridenParam(name);
           }
         }
       } else if (module) {
@@ -1815,6 +1858,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
             if (instance) {
               complex = true;
               instance->setComplexValue(name, complexV);
+              instance->setOverridenParam(name);
               m_helper.reorderAssignmentPattern(module, p->getUhdmParam(),
                                                 complexV, m_compileDesign,
                                                 instance, 0);
@@ -1827,9 +1871,11 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                                            isTypeParam);
         }
 
-        if ((complex == false) && value && value->isValid())
+        if ((complex == false) && value && value->isValid()) {
           instance->setValue(name, value, m_exprBuilder,
                              parentFile->Line(expr));
+          instance->setOverridenParam(name);
+        }
 
         index++;
       }

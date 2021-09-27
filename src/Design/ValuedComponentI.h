@@ -64,6 +64,8 @@ class ValuedComponentI : public RTTI {
   std::map<std::string, UHDM::expr*>& getComplexValues() {
     return m_complexValues;
   }
+  // Do not change the signature of this method, it's use in gdb for debug.
+  virtual std::string decompile(char* valueName) { return "Undefined"; }
 
  private:
   const ValuedComponentI* m_parentScope;

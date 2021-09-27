@@ -144,6 +144,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
         parameter* p = s.MakeParameter();
         p->VpiName(paramName);
         param_assign* inst_assign = s.MakeParam_assign();
+        inst_assign->VpiOverriden(instance->isOverridenParam(paramName));
         constant* c = s.MakeConstant();
         c->VpiValue(value->uhdmValue());
         c->VpiDecompile(value->decompiledValue());
@@ -183,47 +184,52 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
 
     if (mod_assign) {
       const any* rhs = mod_assign->Rhs();
-      expr* override = instance->getComplexValue(paramName);
-      if (override) {
-        rhs = override;
+      expr* complexVal = instance->getComplexValue(paramName);
+      if (complexVal) {
+        rhs = complexVal;
       }
-      if (rhs && rhs->UhdmType() == uhdmoperation) {
-        operation* op = (operation*)rhs;
-        int opType = op->VpiOpType();
-        if (opType == vpiCastOp || (opType == vpiMultiConcatOp) ||
-            (opType == vpiConditionOp)) {
-          isMultidimensional = false;
-        }
-
-        // Don't reduce these operations
-        if (opType == vpiAssignmentPatternOp ||
-            opType == vpiMultiAssignmentPatternOp) {
-          ElaboratorListener listener(&s);
-          param_assign* pclone =
-              (param_assign*)UHDM::clone_tree(mod_assign, s, &listener);
-          pclone->VpiParent((any*)mod_assign->VpiParent());
-
-          if (opType == vpiAssignmentPatternOp) {
-            const any* lhs = pclone->Lhs();
-            any* rhs = (any*)pclone->Rhs();
-            if (override) {
-              rhs = UHDM::clone_tree(override, s, &listener);
-              rhs->VpiParent(pclone);
-            }
-            rhs = m_helper.expandPatternAssignment((expr*)lhs, (expr*)rhs, mod,
-                                                   m_compileDesign, instance);
-            pclone->Rhs(rhs);
-            m_helper.reorderAssignmentPattern(mod, lhs, rhs, m_compileDesign,
-                                              instance, 0);
+      bool isOverriden = instance->isOverridenParam(paramName);
+      if ((!isOverriden) || complexVal) {
+        // Complex value(default or overriden), no simple value
+        if (rhs && rhs->UhdmType() == uhdmoperation) {
+          operation* op = (operation*)rhs;
+          int opType = op->VpiOpType();
+          if (opType == vpiCastOp || (opType == vpiMultiConcatOp) ||
+              (opType == vpiConditionOp)) {
+            isMultidimensional = false;
           }
 
-          assigns->push_back(pclone);
-          continue;
+          // Don't reduce these operations
+          if (opType == vpiAssignmentPatternOp ||
+              opType == vpiMultiAssignmentPatternOp) {
+            ElaboratorListener listener(&s);
+            param_assign* pclone =
+                (param_assign*)UHDM::clone_tree(mod_assign, s, &listener);
+            pclone->VpiParent((any*)mod_assign->VpiParent());
+            pclone->VpiOverriden(instance->isOverridenParam(paramName));
+            if (opType == vpiAssignmentPatternOp) {
+              const any* lhs = pclone->Lhs();
+              any* rhs = (any*)pclone->Rhs();
+              if (complexVal) {
+                rhs = UHDM::clone_tree(complexVal, s, &listener);
+                rhs->VpiParent(pclone);
+              }
+              rhs = m_helper.expandPatternAssignment(
+                  (expr*)lhs, (expr*)rhs, mod, m_compileDesign, instance);
+              pclone->Rhs(rhs);
+              m_helper.reorderAssignmentPattern(mod, lhs, rhs, m_compileDesign,
+                                                instance, 0);
+            }
+
+            assigns->push_back(pclone);
+            continue;
+          }
         }
       }
     }
 
     param_assign* inst_assign = s.MakeParam_assign();
+    inst_assign->VpiOverriden(instance->isOverridenParam(paramName));
     inst_assign->VpiFile(mod_assign->VpiFile());
     inst_assign->VpiLineNo(mod_assign->VpiLineNo());
     inst_assign->VpiColumnNo(mod_assign->VpiColumnNo());
@@ -352,8 +358,33 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
             }
           }
         }
-
         overriden = true;
+      } else if (instance->isOverridenParam(paramName)) {
+        // simple value
+        Value* value = instance->getValue(paramName, m_exprBuilder);
+        if (value && value->isValid()) {
+          constant* c = s.MakeConstant();
+          const any* orig_p = mod_assign->Lhs();
+          if (orig_p->UhdmType() == uhdmparameter) {
+            c->Typespec((typespec*)((parameter*)orig_p)->Typespec());
+          } else {
+            c->Typespec((typespec*)((type_parameter*)orig_p)->Typespec());
+          }
+          c->VpiValue(value->uhdmValue());
+          c->VpiDecompile(value->decompiledValue());
+          c->VpiFile(assign->getFileContent()->getFileName());
+          c->VpiSize(value->getSize());
+          c->VpiConstType(value->vpiValType());
+          c->VpiLineNo(assign->getFileContent()->Line(assign->getAssignId()));
+          c->VpiColumnNo(
+              assign->getFileContent()->Column(assign->getAssignId()));
+          c->VpiEndLineNo(
+              assign->getFileContent()->EndLine(assign->getAssignId()));
+          c->VpiEndColumnNo(
+              assign->getFileContent()->EndColumn(assign->getAssignId()));
+          inst_assign->Rhs(c);
+          overriden = true;
+        }
       }
     }
     if (overriden == false) {
