@@ -965,9 +965,9 @@ void DesignElaboration::elaborateInstance_(
         NodeId constExpr = fC->Sibling(varId);
 
         bool validValue;
-        uint64_t initVal =
-            (uint64_t) m_helper.getValue(validValue, def, fC, constExpr, m_compileDesign,
-                              nullptr, parent, true, false);
+        uint64_t initVal = (uint64_t)m_helper.getValue(
+            validValue, def, fC, constExpr, m_compileDesign, nullptr, parent,
+            true, false);
         Value* initValue = m_exprBuilder.getValueFactory().newLValue();
         initValue->set(initVal);
 
