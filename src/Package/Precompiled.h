@@ -20,10 +20,9 @@
  *
  * Created on April 28, 2018, 10:27 AM
  */
-
-#include <map>
-#include <set>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
 
 #ifndef PRECOMPILED_H
 #define PRECOMPILED_H
@@ -35,16 +34,16 @@ class Precompiled final {
   void addPrecompiled(const std::string& package_name,
                       const std::string& fileName);
 
-  std::string getFileName(std::string_view packageName) const;
-  bool isFilePrecompiled(std::string_view fileName) const;
-  bool isPackagePrecompiled(std::string_view package) const;
+  std::string getFileName(const std::string& packageName) const;
+  bool isFilePrecompiled(const std::string& fileName) const;
+  bool isPackagePrecompiled(const std::string& package) const;
 
  private:
   Precompiled();  // Only accessed via singleton.
   Precompiled(const Precompiled&) = delete;
 
-  std::map<std::string, std::string, std::less<>> m_packageMap;
-  std::set<std::string, std::less<>> m_packageFileSet;
+  std::unordered_map<std::string, std::string> m_packageMap;
+  std::unordered_set<std::string> m_packageFileSet;
 };
 
 #endif /* PRECOMPILED_H */

@@ -34,7 +34,7 @@ namespace SURELOG {
 class AntlrParserErrorListener : public antlr4::ANTLRErrorListener {
  public:
   AntlrParserErrorListener(ParseFile *parser, bool watchDogOn,
-                           unsigned int lineOffset, std::string_view fileName)
+                           unsigned int lineOffset, const std::string &fileName)
       : m_parser(parser),
         m_reportedSyntaxError(false),
         m_watchDogOn(watchDogOn),

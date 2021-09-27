@@ -25,7 +25,7 @@
 #define FILECONTENT_H
 
 #include <map>
-#include <set>
+#include <unordered_set>
 #include <vector>
 
 #include "Design/DesignComponent.h"
@@ -45,18 +45,15 @@ class ClassDefinition;
 class ExprBuilder;
 class ErrorContainer;
 
-typedef std::map<std::string, ModuleDefinition*, std::less<>>
-    ModuleNameModuleDefinitionMap;
-typedef std::multimap<std::string, Package*, std::less<>>
+typedef std::map<std::string, ModuleDefinition*> ModuleNameModuleDefinitionMap;
+typedef std::multimap<std::string, Package*>
     PackageNamePackageDefinitionMultiMap;
 typedef std::vector<Package*> PackageDefinitionVec;
-typedef std::map<std::string, Program*, std::less<>>
-    ProgramNameProgramDefinitionMap;
+typedef std::map<std::string, Program*> ProgramNameProgramDefinitionMap;
 
-typedef std::multimap<std::string, ClassDefinition*, std::less<>>
+typedef std::multimap<std::string, ClassDefinition*>
     ClassNameClassDefinitionMultiMap;
-typedef std::map<std::string, ClassDefinition*, std::less<>>
-    ClassNameClassDefinitionMap;
+typedef std::map<std::string, ClassDefinition*> ClassNameClassDefinitionMap;
 
 class FileContent : public DesignComponent {
   SURELOG_IMPLEMENT_RTTI(FileContent, DesignComponent)
@@ -74,7 +71,7 @@ class FileContent : public DesignComponent {
   void setLibrary(Library* lib) { m_library = lib; }
   ~FileContent() override;
 
-  typedef std::map<std::string, NodeId, std::less<>> NameIdMap;
+  typedef std::unordered_map<std::string, NodeId> NameIdMap;
 
   NodeId sl_get(NodeId parent,
                 VObjectType type);  // Get first child item of type
@@ -117,7 +114,7 @@ class FileContent : public DesignComponent {
   unsigned int getSize() const override;
   VObjectType getType() const override { return VObjectType::slNoType; }
   bool isInstance() const override { return false; }
-  std::string_view getName() const override {
+  const std::string& getName() const override {
     return m_symbolTable->getSymbol(m_fileId);
   }
   NodeId getRootNode();
@@ -125,11 +122,11 @@ class FileContent : public DesignComponent {
   std::string printSubTree(NodeId parentIndex);  // Print subtree from parent
   std::string printObject(NodeId noedId) const;  // Only print that object
   std::vector<std::string> collectSubTree(NodeId uniqueId);  // Helper function
-  std::string_view getFileName(NodeId id) const;
-  std::string_view getChunkFileName() const {
+  const std::string& getFileName(NodeId id) const;
+  std::string getChunkFileName() {
     return m_symbolTable->getSymbol(m_fileChunkId);
   }
-  SymbolTable* getSymbolTable() const { return m_symbolTable; }
+  SymbolTable* getSymbolTable() { return m_symbolTable; }
   void setSymbolTable(SymbolTable* table) { m_symbolTable = table; }
   SymbolId getFileId(NodeId id) const;
   SymbolId* getMutableFileId(NodeId id);
@@ -137,16 +134,15 @@ class FileContent : public DesignComponent {
   std::vector<DesignElement>& getDesignElements() { return m_elements; }
   std::vector<VObject>& getVObjects() { return m_objects; }
   const NameIdMap& getObjectLookup() const { return m_objectLookup; }
-  void insertObjectLookup(std::string_view name, NodeId id,
-                          ErrorContainer* errors);
-  std::set<std::string, std::less<>>& getReferencedObjects() {
+  void insertObjectLookup(std::string name, NodeId id, ErrorContainer* errors);
+  std::unordered_set<std::string>& getReferencedObjects() {
     return m_referencedObjects;
   }
 
   VObject Object(NodeId index) const;
   VObject* MutableObject(NodeId index);
 
-  NodeId UniqueId(NodeId index) const;
+  NodeId UniqueId(NodeId index);
 
   SymbolId Name(NodeId index) const;
 
@@ -171,7 +167,7 @@ class FileContent : public DesignComponent {
 
   unsigned short EndColumn(NodeId index) const;
 
-  std::string_view SymName(NodeId index) const {
+  const std::string& SymName(NodeId index) const {
     return m_symbolTable->getSymbol(Name(index));
   }
 
@@ -187,35 +183,35 @@ class FileContent : public DesignComponent {
   const ClassNameClassDefinitionMultiMap& getClassDefinitions() const {
     return m_classDefinitions;
   }
-  void addModuleDefinition(std::string_view moduleName, ModuleDefinition* def) {
+  void addModuleDefinition(std::string moduleName, ModuleDefinition* def) {
     m_moduleDefinitions.insert(std::make_pair(moduleName, def));
   }
-  void addPackageDefinition(std::string_view packageName, Package* package) {
+  void addPackageDefinition(std::string packageName, Package* package) {
     m_packageDefinitions.insert(std::make_pair(packageName, package));
   }
-  void addProgramDefinition(std::string_view programName, Program* program) {
+  void addProgramDefinition(std::string programName, Program* program) {
     m_programDefinitions.insert(std::make_pair(programName, program));
   }
-  void addClassDefinition(std::string_view className,
-                          ClassDefinition* classDef) {
+  void addClassDefinition(std::string className, ClassDefinition* classDef) {
     m_classDefinitions.insert(std::make_pair(className, classDef));
   }
 
   const ModuleDefinition* getModuleDefinition(
-      std::string_view moduleName) const;
+      const std::string& moduleName) const;
 
-  DesignComponent* getComponentDefinition(std::string_view componentName) const;
+  DesignComponent* getComponentDefinition(
+      const std::string& componentName) const;
 
-  Package* getPackage(std::string_view name) const;
+  Package* getPackage(const std::string& name);
 
-  const Program* getProgram(std::string_view name) const;
+  const Program* getProgram(const std::string& name) const;
 
-  const ClassDefinition* getClassDefinition(std::string_view name) const;
+  const ClassDefinition* getClassDefinition(const std::string& name) const;
 
   const FileContent* getParent() const { return m_parentFile; }
   void setParent(FileContent* parent) { m_parentFile = parent; }
 
-  std::string_view getFileName() const {
+  const std::string& getFileName() const {
     return m_symbolTable->getSymbol(m_fileId);
   }
 
@@ -233,7 +229,7 @@ class FileContent : public DesignComponent {
   std::unordered_map<NodeId, SymbolId> m_definitionFiles;
 
   NameIdMap m_objectLookup;  // Populated at ResolveSymbol stage
-  std::set<std::string, std::less<>> m_referencedObjects;
+  std::unordered_set<std::string> m_referencedObjects;
 
   ModuleNameModuleDefinitionMap m_moduleDefinitions;
 

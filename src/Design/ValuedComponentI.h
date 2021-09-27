@@ -45,24 +45,23 @@ class ValuedComponentI : public RTTI {
 
   virtual ~ValuedComponentI(){};
 
-  virtual Value* getValue(std::string_view name) const;
-  virtual Value* getValue(std::string_view name,
+  virtual Value* getValue(const std::string& name) const;
+  virtual Value* getValue(const std::string& name,
                           ExprBuilder& exprBuilder) const;
-  virtual void setValue(std::string_view name, Value* val,
+  virtual void setValue(const std::string& name, Value* val,
                         ExprBuilder& exprBuilder, int lineNb = 0);
-  virtual void deleteValue(std::string_view name, ExprBuilder& exprBuilder);
-  virtual void forgetValue(std::string_view name);
-  std::map<std::string, std::pair<Value*, int>, std::less<>>&
-  getMappedValues() {
+  virtual void deleteValue(const std::string& name, ExprBuilder& exprBuilder);
+  virtual void forgetValue(const std::string& name);
+  std::map<std::string, std::pair<Value*, int>>& getMappedValues() {
     return m_paramMap;
   }
   const ValuedComponentI* getParentScope() const { return m_parentScope; }
   void setParentScope(ValuedComponentI* parent) { m_parentScope = parent; }
 
-  virtual void setComplexValue(std::string_view name, UHDM::expr* val);
-  virtual UHDM::expr* getComplexValue(std::string_view name) const;
-  virtual void forgetComplexValue(std::string_view name);
-  std::map<std::string, UHDM::expr*, std::less<>>& getComplexValues() {
+  virtual void setComplexValue(const std::string& name, UHDM::expr* val);
+  virtual UHDM::expr* getComplexValue(const std::string& name) const;
+  virtual void forgetComplexValue(const std::string& name);
+  std::map<std::string, UHDM::expr*>& getComplexValues() {
     return m_complexValues;
   }
   // Do not change the signature of this method, it's use in gdb for debug.
@@ -71,8 +70,8 @@ class ValuedComponentI : public RTTI {
  private:
   const ValuedComponentI* m_parentScope;
   ValuedComponentI* const m_definition;  // Module def for an instance
-  std::map<std::string, std::pair<Value*, int>, std::less<>> m_paramMap;
-  std::map<std::string, UHDM::expr*, std::less<>> m_complexValues;
+  std::map<std::string, std::pair<Value*, int>> m_paramMap;
+  std::map<std::string, UHDM::expr*> m_complexValues;
 };
 
 }  // namespace SURELOG

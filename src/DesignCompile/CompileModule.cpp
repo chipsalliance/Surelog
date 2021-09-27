@@ -206,7 +206,7 @@ bool CompileModule::collectUdpObjects_() {
         NodeId port = fC->Child(id);
         while (port) {
           UHDM::io_decl* io = s.MakeIo_decl();
-          const std::string_view name = fC->SymName(port);
+          const std::string& name = fC->SymName(port);
           io->VpiFile(fC->getFileName());
           io->VpiLineNo(fC->Line(port));
           io->VpiColumnNo(fC->Column(port));
@@ -230,7 +230,7 @@ bool CompileModule::collectUdpObjects_() {
             Output = fC->Sibling(Output);
         }
 
-        const std::string_view outputname = fC->SymName(Output);
+        const std::string& outputname = fC->SymName(Output);
         std::vector<UHDM::io_decl*>* ios = defn->Io_decls();
         UHDM::logic_net* net = s.MakeLogic_net();
         net->VpiFile(fC->getFileName());
@@ -265,7 +265,7 @@ bool CompileModule::collectUdpObjects_() {
         }
         NodeId Identifier = fC->Child(Indentifier_list);
         while (Identifier) {
-          const std::string_view inputname = fC->SymName(Identifier);
+          const std::string& inputname = fC->SymName(Identifier);
           std::vector<UHDM::io_decl*>* ios = defn->Io_decls();
           if (ios) {
             UHDM::logic_net* net = s.MakeLogic_net();
@@ -305,7 +305,7 @@ bool CompileModule::collectUdpObjects_() {
             ventry += "* ";
             nbSymb = 1;
           } else {
-            const std::string_view symb = fC->SymName(Symbol);
+            const std::string& symb = fC->SymName(Symbol);
             nbSymb = symb.size();
             std::string symbols;
             for (unsigned int i = 0; i < nbSymb; i++) {
@@ -355,7 +355,7 @@ bool CompileModule::collectUdpObjects_() {
               } else if (fC->Type(Symbol) == slBinOp_Mult) {
                 ventry += "* ";
               } else {
-                const std::string_view symb = fC->SymName(Symbol);
+                const std::string& symb = fC->SymName(Symbol);
                 ventry += symb;
               }
               Level_Symbol = fC->Sibling(Level_Symbol);
@@ -373,7 +373,7 @@ bool CompileModule::collectUdpObjects_() {
               ventry += "* ";
               nbSymb = 1;
             } else {
-              const std::string_view symb = fC->SymName(Symbol);
+              const std::string& symb = fC->SymName(Symbol);
               nbSymb = symb.size();
               std::string symbols;
               for (unsigned int i = 0; i < nbSymb; i++) {
@@ -394,7 +394,7 @@ bool CompileModule::collectUdpObjects_() {
         } else if (fC->Type(Symbol) == slBinOp_Mult) {
           ventry += "* ";
         } else {
-          const std::string_view symb = fC->SymName(Symbol);
+          const std::string& symb = fC->SymName(Symbol);
           unsigned int nbSymb = symb.size();
           std::string symbols;
           for (unsigned int i = 0; i < nbSymb; i++) {
@@ -409,7 +409,7 @@ bool CompileModule::collectUdpObjects_() {
 
         if (fC->Type(Symbol) == slOutput_symbol) {
           Symbol = fC->Child(Symbol);
-          const std::string_view symb = fC->SymName(Symbol);
+          const std::string& symb = fC->SymName(Symbol);
           unsigned int nbSymb = symb.size();
           std::string symbols;
           for (unsigned int i = 0; i < nbSymb; i++) {
@@ -463,8 +463,7 @@ bool CompileModule::collectUdpObjects_() {
         assign_stmt->VpiParent(init);
         UHDM::constant* c = s.MakeConstant();
         assign_stmt->Rhs(c);
-        std::string val("UINT:");
-        val.append(fC->SymName(Value));
+        std::string val = "UINT:" + fC->SymName(Value);
         c->VpiValue(val);
         c->VpiDecompile(fC->SymName(Value));
         c->VpiSize(64);
@@ -717,12 +716,11 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           if (fC->Type(nameId) == slVirtual) {
             nameId = fC->Sibling(nameId);
           }
-          std::string_view name = fC->SymName(nameId);
+          std::string name = fC->SymName(nameId);
           FileCNodeId fnid(fC, nameId);
           m_module->addObject(type, fnid);
 
-          std::string completeName(m_module->getName());
-          completeName.append("::").append(name);
+          std::string completeName = m_module->getName() + "::" + name;
 
           DesignComponent* comp = fC->getComponentDefinition(completeName);
 
@@ -956,7 +954,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
            */
           {
             NodeId modportname = fC->Child(id);
-            const std::string_view modportsymb = fC->SymName(modportname);
+            const std::string& modportsymb = fC->SymName(modportname);
             NodeId modport_ports_declaration = fC->Sibling(modportname);
             VObjectType port_direction_type = VObjectType::slNoType;
             while (modport_ports_declaration) {
@@ -1259,6 +1257,6 @@ void CompileModule::compileClockingBlock_(const FileContent* fC, NodeId id) {
     clocking_block_symbol = m_symbols->registerSymbol("unnamed_clocking_block");
   UHDM::clocking_block* cblock = m_helper.compileClockingBlock(
       m_module, fC, id, m_compileDesign, nullptr, m_instance);
-  ClockingBlock cb(clocking_block_type, type, cblock);
+  ClockingBlock cb(fC, clocking_block_type, clocking_event, type, cblock);
   m_module->addClockingBlock(clocking_block_symbol, cb);
 }

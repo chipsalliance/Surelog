@@ -41,7 +41,7 @@ class Procedure : public Scope, public Statement {
   SURELOG_IMPLEMENT_RTTI_2_BASES(Procedure, Scope, Statement)
  public:
   Procedure(DesignComponent* parent, const FileContent* fC, NodeId id,
-            std::string_view name)
+            const std::string& name)
       : Scope(name, NULL),
         Statement(this, NULL, fC, id,
                   fC ? fC->Type(id) : VObjectType::slFunction_prototype),
@@ -73,7 +73,7 @@ class Procedure : public Scope, public Statement {
 class SeqBlock : public Scope, public Statement {
   SURELOG_IMPLEMENT_RTTI_2_BASES(SeqBlock, Scope, Statement)
  public:
-  SeqBlock(std::string_view name, Scope* parent, Statement* parentStmt,
+  SeqBlock(const std::string& name, Scope* parent, Statement* parentStmt,
            const FileContent* fC, NodeId id)
       : Scope(name, parent),
         Statement(this, parentStmt, fC, id,
@@ -84,7 +84,7 @@ class Function : public Procedure {
   SURELOG_IMPLEMENT_RTTI(Function, Procedure)
  public:
   Function(DesignComponent* parent, const FileContent* fC, NodeId id,
-           std::string_view name, DataType* returnType)
+           std::string name, DataType* returnType)
       : Procedure(parent, fC, id, name), m_returnType(returnType) {}
   bool compile(CompileHelper& compile_helper);
   ~Function() override;

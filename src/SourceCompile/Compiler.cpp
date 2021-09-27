@@ -164,7 +164,7 @@ bool Compiler::ppinit_() {
     m_errorContainers.push_back(errors);
     errors->registerCmdLine(m_commandLineParser);
 
-    const std::string_view fileName =
+    const std::string fileName =
         m_commandLineParser->getSymbolTable().getSymbol(source_file_id);
     const std::string fullPath = FileUtils::getFullPath(fileName);
     sourceFileNames.insert(fullPath);
@@ -193,7 +193,7 @@ bool Compiler::ppinit_() {
   size = m_commandLineParser->getLibraryFiles().size();
   for (unsigned int i = 0; i < size; i++) {
     SymbolId id = m_commandLineParser->getLibraryFiles()[i];
-    const std::string_view fileName =
+    const std::string fileName =
         m_commandLineParser->getSymbolTable().getSymbol(id);
     const std::string fullPath = FileUtils::getFullPath(fileName);
     if (sourceFileNames.find(fullPath) == sourceFileNames.end()) {
@@ -206,7 +206,7 @@ bool Compiler::ppinit_() {
       auto files = FileUtils::collectFiles(
           path, ext, m_commandLineParser->mutableSymbolTable());
       for (auto file : files) {
-        const std::string_view fileName =
+        const std::string fileName =
             m_commandLineParser->getSymbolTable().getSymbol(file);
         const std::string fullPath = FileUtils::getFullPath(fileName);
         if (sourceFileNames.find(fullPath) == sourceFileNames.end()) {
@@ -249,13 +249,13 @@ bool Compiler::ppinit_() {
   // Libraries (.map)
   for (auto& lib : m_librarySet->getLibraries()) {
     for (auto id : lib.getFiles()) {
-      std::string_view fileName = lib.getSymbols()->getSymbol(id);
+      std::string fileName = lib.getSymbols()->getSymbol(id);
       if (sourceFiles.find(id) != sourceFiles.end()) {
         // These files are already included in the command line
         continue;
       }
 
-      if (strstr(fileName.data(), ".map")) {
+      if (strstr(fileName.c_str(), ".map")) {
         // .map files are not parsed with the regular parser
         continue;
       }
@@ -282,21 +282,20 @@ bool Compiler::createFileList_() {
   if (m_commandLineParser->writePpOutput() ||
       (m_commandLineParser->writePpOutputFileId() != 0)) {
     SymbolTable* symbolTable = getSymbolTable();
-    const std::string_view directory =
+    const std::string& directory =
         symbolTable->getSymbol(m_commandLineParser->getFullCompileDir());
     std::ofstream ofs;
-    std::string fileList(directory);
-    fileList.append("/file.lst");
+    std::string fileList = directory + "/file.lst";
     ofs.open(fileList);
     if (ofs.good()) {
       unsigned int size = m_compilers.size();
       for (unsigned int i = 0; i < size; i++) {
-        std::string ppFileName(m_compilers[i]->getSymbolTable()->getSymbol(
-            m_compilers[i]->getPpOutputFileId()));
-        std::string_view fileName = m_compilers[i]->getSymbolTable()->getSymbol(
+        std::string ppFileName = m_compilers[i]->getSymbolTable()->getSymbol(
+            m_compilers[i]->getPpOutputFileId());
+        std::string fileName = m_compilers[i]->getSymbolTable()->getSymbol(
             m_compilers[i]->getFileId());
         ppFileName = FileUtils::getPreferredPath(ppFileName);
-        ppFileMap[fileName.data()].push_back(ppFileName);
+        ppFileMap[fileName].push_back(ppFileName);
         ofs << ppFileName << std::flush << std::endl;
       }
       ofs.close();
@@ -315,11 +314,10 @@ bool Compiler::createMultiProcessParser_() {
       (m_commandLineParser->writePpOutputFileId() != 0)) {
     bool muted = m_commandLineParser->muteStdout();
     SymbolTable* symbolTable = getSymbolTable();
-    const std::string_view directory =
+    const std::string& directory =
         symbolTable->getSymbol(m_commandLineParser->getFullCompileDir());
     std::ofstream ofs;
-    std::string fileList(directory);
-    fileList.append("/CMakeLists.txt");
+    std::string fileList = directory + "/CMakeLists.txt";
     ofs.open(fileList);
     std::vector<std::string> batchProcessCommands;
     if (ofs.good()) {
@@ -347,10 +345,9 @@ bool Compiler::createMultiProcessParser_() {
 
       char path[10000];
       char* p = getcwd(path, 9999);
-      std::string outputPath(p);
-      outputPath.append("/").append(directory).append("../");
+      std::string outputPath = std::string(p) + "/" + directory + "../";
       for (unsigned int i = 0; i < m_compilers.size(); i++) {
-        std::string_view root = m_compilers[i]->getSymbolTable()->getSymbol(
+        std::string root = m_compilers[i]->getSymbolTable()->getSymbol(
             m_compilers[i]->getFileId());
         root = FileUtils::basename(root);
         if (prec->isFilePrecompiled(root)) {
@@ -389,7 +386,7 @@ bool Compiler::createMultiProcessParser_() {
       // Big jobs
       for (CompileSourceFile* compiler : bigJobs) {
         absoluteIndex++;
-        std::string_view fileName = compiler->getSymbolTable()->getSymbol(
+        std::string fileName = compiler->getSymbolTable()->getSymbol(
             compiler->getPpOutputFileId());
         fileName = StringUtils::replaceAll(fileName, directory, "");
         std::string targetname =
@@ -401,16 +398,10 @@ bool Compiler::createMultiProcessParser_() {
           svFile = " -sv ";
         }
 
-        std::string batchCmd;
-        batchCmd.append(fileUnit)
-            .append(sverilog)
-            .append(" -parseonly -nostdout -mt 0 -mp 0 -o ")
-            .append(outputPath)
-            .append(" -nobuiltin -l ")
-            .append(FileUtils::basename(targetname))
-            .append(".log ")
-            .append(svFile)
-            .append(fileName);
+        std::string batchCmd =
+            fileUnit + sverilog + " -parseonly -nostdout -mt 0 -mp 0 -o " +
+            outputPath + " -nobuiltin -l " + FileUtils::basename(targetname) +
+            ".log" + " " + svFile + fileName;
 
         ofs << "add_custom_command(OUTPUT " << targetname << std::endl;
         ofs << "  COMMAND " << full_exe_path << batchCmd << std::endl;
@@ -425,7 +416,7 @@ bool Compiler::createMultiProcessParser_() {
         absoluteIndex++;
         for (unsigned int j = 0; j < jobArray[i].size(); j++) {
           CompileSourceFile* compiler = jobArray[i][j];
-          std::string_view fileName = compiler->getSymbolTable()->getSymbol(
+          std::string fileName = compiler->getSymbolTable()->getSymbol(
               compiler->getPpOutputFileId());
           std::string svFile;
           std::string baseFileName = FileUtils::basename(fileName);
@@ -433,7 +424,7 @@ bool Compiler::createMultiProcessParser_() {
             svFile = " -sv ";
           }
           fileName = StringUtils::replaceAll(fileName, directory, "");
-          fileList.append(" ").append(svFile).append(fileName);
+          fileList += " " + svFile + fileName;
           lastFile = fileName;
         }
         if (!fileList.empty()) {
@@ -463,19 +454,14 @@ bool Compiler::createMultiProcessParser_() {
 
       if (nbProcesses == 1) {
         // Single child process
-        std::string fileList(directory);
-        fileList.append("/parser_batch.txt");
+        std::string fileList = directory + "/parser_batch.txt";
         ofs.open(fileList);
         for (auto line : batchProcessCommands) {
           ofs << line << "\n";
         }
         ofs.close();
-        std::string command;
-        command.append("cd ")
-            .append(directory)
-            .append(";")
-            .append(full_exe_path)
-            .append(" -nostdout -batch parser_batch.txt");
+        std::string command = "cd " + directory + ";" + full_exe_path +
+                              " -nostdout -batch parser_batch.txt";
         if (!muted)
           std::cout << "Running: " << command << std::endl << std::flush;
         int result = system(command.c_str());
@@ -483,12 +469,8 @@ bool Compiler::createMultiProcessParser_() {
           std::cout << "Surelog parsing status: " << result << std::endl;
       } else {
         // Multiple child processes managed by cmake
-        std::string command;
-        command.append("cd ")
-            .append(directory)
-            .append(";")
-            .append("cmake .; make -j ")
-            .append(std::to_string(nbProcesses));
+        std::string command = "cd " + directory + ";" + "cmake .; make -j " +
+                              std::to_string(nbProcesses);
         if (!muted)
           std::cout << "Running: " << command << std::endl << std::flush;
         int result = system(command.c_str());
@@ -512,11 +494,10 @@ bool Compiler::createMultiProcessPreProcessor_() {
       (m_commandLineParser->writePpOutputFileId() != 0)) {
     bool muted = m_commandLineParser->muteStdout();
     SymbolTable* symbolTable = getSymbolTable();
-    const std::string_view directory =
+    const std::string& directory =
         symbolTable->getSymbol(m_commandLineParser->getFullCompileDir());
     std::ofstream ofs;
-    std::string fileList(directory);
-    fileList.append("/CMakeLists.txt");
+    std::string fileList = directory + "/CMakeLists.txt";
     ofs.open(fileList);
     if (ofs.good()) {
       ofs << "cmake_minimum_required (VERSION 3.0)" << std::endl;
@@ -527,8 +508,7 @@ bool Compiler::createMultiProcessPreProcessor_() {
       std::string sverilog = (forcedSVMode) ? " -sverilog " : "";
       char path[10000];
       char* p = getcwd(path, 9999);
-      std::string outputPath =
-          std::string(p).append("/").append(directory).append("../");
+      std::string outputPath = std::string(p) + "/" + directory + "../";
       std::string full_exe_path = m_commandLineParser->getExePath();
       full_exe_path = FileUtils::getFullPath(full_exe_path);
       if (m_commandLineParser->profile()) {
@@ -541,7 +521,7 @@ bool Compiler::createMultiProcessPreProcessor_() {
       std::string fileList;
       // +define+
       for (auto id_value : m_commandLineParser->getDefineList()) {
-        const std::string_view defName =
+        const std::string defName =
             m_commandLineParser->getSymbolTable().getSymbol(id_value.first);
         std::string val;
         for (unsigned int index = 0; index < id_value.second.size(); index++) {
@@ -552,58 +532,51 @@ bool Compiler::createMultiProcessPreProcessor_() {
           val += c;
         }
 
-        fileList.append(" -D").append(defName).append("=").append(val);
+        fileList += " -D" + defName + "=" + val;
       }
 
       // Source files (.v, .sv on the command line)
       for (const SymbolId source_file_id :
            m_commandLineParser->getSourceFiles()) {
-        const std::string_view fileName =
+        const std::string fileName =
             m_commandLineParser->getSymbolTable().getSymbol(source_file_id);
         std::string svFile;
         std::string baseFileName = FileUtils::basename(fileName);
         if (m_commandLineParser->isSVFile(baseFileName)) {
           svFile = " -sv ";
         }
-        fileList.append(" ").append(svFile).append(fileName);
+        fileList += " " + svFile + fileName;
       }
       // Library files
       // (-v <file>)
       for (const SymbolId id : m_commandLineParser->getLibraryFiles()) {
-        const std::string_view fileName =
+        const std::string fileName =
             m_commandLineParser->getSymbolTable().getSymbol(id);
-        fileList.append(" -v ").append(fileName);
+        fileList += " -v " + fileName;
       }
       // (-y <path> +libext+<ext>)
       for (auto id : m_commandLineParser->getLibraryPaths()) {
-        const std::string_view fileName =
+        const std::string fileName =
             m_commandLineParser->getSymbolTable().getSymbol(id);
-        fileList.append(" -y ").append(fileName);
+        fileList += " -y " + fileName;
       }
       // +libext+
       for (auto id : m_commandLineParser->getLibraryExtensions()) {
-        const std::string_view extName =
+        const std::string extName =
             m_commandLineParser->getSymbolTable().getSymbol(id);
-        fileList.append(" +libext+").append(extName);
+        fileList += " +libext+" + extName;
       }
       // Include dirs
       for (const SymbolId id : m_commandLineParser->getIncludePaths()) {
-        const std::string_view fileName =
+        const std::string fileName =
             m_commandLineParser->getSymbolTable().getSymbol(id);
-        fileList.append(" -I").append(fileName);
+        fileList += " -I" + fileName;
       }
 
-      std::string batchCmd;
-      batchCmd.append(fileUnit)
-          .append(sverilog)
-          .append(" -writepp -mt 0 -mp 0 -o ")
-          .append(outputPath)
-          .append(" -nobuiltin -noparse -nostdout -cd ")
-          .append(p)
-          .append(" -l ")
-          .append(directory)
-          .append("/preprocessing.log ")
-          .append(fileList);
+      std::string batchCmd =
+          fileUnit + sverilog + " -writepp -mt 0 -mp 0 -o " + outputPath +
+          " -nobuiltin -noparse -nostdout -cd " + std::string(p) + " -l " +
+          directory + "/preprocessing.log" + " " + fileList;
 
       ofs << "add_custom_command(OUTPUT preprocessing" << std::endl;
       ofs << "  COMMAND " << full_exe_path << batchCmd << std::endl;
@@ -614,25 +587,19 @@ bool Compiler::createMultiProcessPreProcessor_() {
       ofs.close();
       if (nbProcesses == 1) {
         // Single child process
-        std::string fileList(directory);
-        fileList.append("/pp_batch.txt");
+        std::string fileList = directory + "/pp_batch.txt";
         ofs.open(fileList);
         ofs << batchCmd << "\n";
         ofs.close();
-        std::string command;
-        command.append("cd ")
-            .append(directory)
-            .append(";")
-            .append(full_exe_path)
-            .append(" -nostdout -batch pp_batch.txt");
+        std::string command = "cd " + directory + ";" + full_exe_path +
+                              " -nostdout -batch pp_batch.txt";
         if (!muted)
           std::cout << "Running: " << command << std::endl << std::flush;
         int result = system(command.c_str());
         if (!muted)
           std::cout << "Surelog preproc status: " << result << std::endl;
       } else {
-        std::string command;
-        command.append("cd ").append(directory).append("; cmake .; make");
+        std::string command = "cd " + directory + ";" + "cmake .; make";
         if (!muted)
           std::cout << "Running: " << command << std::endl << std::flush;
         int result = system(command.c_str());
@@ -666,9 +633,9 @@ bool Compiler::parseinit_() {
 
   std::vector<CompileSourceFile*> tmp_compilers;
   for (CompileSourceFile* const compiler : m_compilers) {
-    const std::string_view fileName =
+    const std::string fileName =
         compiler->getSymbolTable()->getSymbol(compiler->getPpOutputFileId());
-    const std::string_view origFile =
+    const std::string origFile =
         compiler->getSymbolTable()->getSymbol(compiler->getFileId());
     const std::string root = FileUtils::basename(fileName);
     const unsigned int nbThreads = prec->isFilePrecompiled(root)
@@ -1054,11 +1021,9 @@ bool Compiler::compile() {
       m_errors->printMessages(m_commandLineParser->muteStdout());
     }
 
-    std::string_view directory =
-        m_commandLineParser->getSymbolTable().getSymbol(
-            m_commandLineParser->getFullCompileDir());
-    std::string uhdmFile(directory);
-    uhdmFile.append("/surelog.uhdm");
+    std::string directory = m_commandLineParser->getSymbolTable().getSymbol(
+        m_commandLineParser->getFullCompileDir());
+    std::string uhdmFile = directory + "/surelog.uhdm";
 
     m_uhdmDesign = m_compileDesign->writeUHDM(uhdmFile);
     // Do not delete as now UHDM has to live past the compilation step

@@ -27,7 +27,7 @@ using namespace SURELOG;
 
 Statement::~Statement() {}
 
-std::string_view SubRoutineCallStmt::getVarName(NodeId base_name) const {
+std::string SubRoutineCallStmt::getVarName(NodeId base_name) const {
   const FileContent* const fC = getFileContent();
   switch (fC->Type(base_name)) {
     case VObjectType::slSuper_keyword:
@@ -43,8 +43,8 @@ std::string_view SubRoutineCallStmt::getVarName(NodeId base_name) const {
   }
 }
 
-std::vector<std::string_view> SubRoutineCallStmt::getVarChainNames() const {
-  std::vector<std::string_view> result;
+std::vector<std::string> SubRoutineCallStmt::getVarChainNames() const {
+  std::vector<std::string> result;
   for (auto node : m_var_chain) {
     result.push_back(getVarName(node));
   }

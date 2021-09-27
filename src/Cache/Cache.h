@@ -57,8 +57,8 @@ class Cache {
                            std::string cacheFileName);
 
   const flatbuffers::Offset<SURELOG::CACHE::Header> createHeader(
-      flatbuffers::FlatBufferBuilder& builder, std::string_view schemaVersion,
-      std::string_view origFileName);
+      flatbuffers::FlatBufferBuilder& builder, std::string schemaVersion,
+      std::string origFileName);
 
   std::pair<flatbuffers::Offset<VectorOffsetError>,
             flatbuffers::Offset<VectorOffsetString>>

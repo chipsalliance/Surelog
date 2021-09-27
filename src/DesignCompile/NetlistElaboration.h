@@ -45,7 +45,7 @@ class NetlistElaboration : public TestbenchElaboration {
   virtual ~NetlistElaboration() override;
   void elabSignal(Signal* sig, ModuleInstance* instance, ModuleInstance* child,
                   Netlist* parentNetlist, Netlist* netlist,
-                  DesignComponent* comp, std::string_view prefix);
+                  DesignComponent* comp, const std::string& prefix);
 
  private:
   bool elaborate_(ModuleInstance* instance, bool recurse);
@@ -55,27 +55,25 @@ class NetlistElaboration : public TestbenchElaboration {
   bool elab_generates_(ModuleInstance* instance);
   UHDM::interface* elab_interface_(
       ModuleInstance* instance, ModuleInstance* interf_instance,
-      std::string_view instName, std::string_view defName,
-      ModuleDefinition* mod, std::string_view fileName, int lineNb,
-      UHDM::interface_array* interf_array, std::string_view modPortName);
-  UHDM::modport* elab_modport_(ModuleInstance* instance,
-                               ModuleInstance* interfInstance,
-                               std::string_view instName,
-                               std::string_view defName, ModuleDefinition* mod,
-                               std::string_view fileName, int lineNb,
-                               std::string_view modPortName,
-                               UHDM::interface_array* interf_array);
+      const std::string& instName, const std::string& defName,
+      ModuleDefinition* mod, const std::string& fileName, int lineNb,
+      UHDM::interface_array* interf_array, const std::string& modPortName);
+  UHDM::modport* elab_modport_(
+      ModuleInstance* instance, ModuleInstance* interfInstance,
+      const std::string& instName, const std::string& defName,
+      ModuleDefinition* mod, const std::string& fileName, int lineNb,
+      const std::string& modPortName, UHDM::interface_array* interf_array);
   bool elab_ports_nets_(ModuleInstance* instance, bool ports);
   bool elab_ports_nets_(ModuleInstance* instance, ModuleInstance* child,
                         Netlist* parentNetlist, Netlist* netlist,
-                        DesignComponent* comp, std::string_view prefix,
+                        DesignComponent* comp, const std::string& prefix,
                         bool ports);
 
   UHDM::any* bind_net_(ModuleInstance* instance, ModuleInstance* boundInstance,
-                       std::string_view name);
-  UHDM::any* bind_net_(ModuleInstance* instance, std::string_view name);
+                       const std::string& name);
+  UHDM::any* bind_net_(ModuleInstance* instance, const std::string& name);
   ModuleInstance* getInterfaceInstance_(ModuleInstance* instance,
-                                        std::string_view sigName);
+                                        const std::string& sigName);
 };
 
 };  // namespace SURELOG

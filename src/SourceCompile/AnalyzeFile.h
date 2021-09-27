@@ -57,8 +57,8 @@ class AnalyzeFile {
   };
 
   AnalyzeFile(CommandLineParser* clp, Design* design,
-              std::string_view ppFileName, std::string_view fileName,
-              int nbChunks, std::string_view text = "")
+              const std::string& ppFileName, const std::string& fileName,
+              int nbChunks, const std::string& text = "")
       : m_clp(clp),
         m_design(design),
         m_ppFileName(ppFileName),

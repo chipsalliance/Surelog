@@ -37,7 +37,7 @@ class Value;
 class TfPortItem : public Variable {
  public:
   TfPortItem(Procedure* parent, const FileContent* fc, NodeId id, NodeId range,
-             std::string_view name, DataType* type, Value* default_value,
+             const std::string& name, DataType* type, Value* default_value,
              VObjectType direction)
       : Variable(type, fc, id, range, name),
         m_parent(parent),

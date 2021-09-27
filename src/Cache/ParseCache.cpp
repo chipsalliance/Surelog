@@ -65,7 +65,7 @@ std::string ParseCache::getCacheFileName_(std::string svFileName) {
   if (svFileName.empty()) svFileName = m_parse->getPpFileName();
   svFileName = FileUtils::basename(svFileName);
   if (prec->isFilePrecompiled(svFileName)) {
-    std::string_view packageRepDir =
+    std::string packageRepDir =
         m_parse->getSymbol(m_parse->getCompileSourceFile()
                                ->getCommandLineParser()
                                ->getPrecompiledDir());
@@ -76,12 +76,11 @@ std::string ParseCache::getCacheFileName_(std::string svFileName) {
     m_isPrecompiled = true;
   }
 
-  std::string_view cacheDirName = m_parse->getSymbol(cacheDirId);
+  std::string cacheDirName = m_parse->getSymbol(cacheDirId);
   Library* lib = m_parse->getLibrary();
   std::string libName = lib->getName() + "/";
-  std::string cacheFileName(cacheDirName);
-  cacheFileName.append(libName).append(svFileName).append(".slpa");
-  FileUtils::mkDir(std::string(cacheDirName).append(libName).c_str());
+  std::string cacheFileName = cacheDirName + libName + svFileName + ".slpa";
+  FileUtils::mkDir(std::string(cacheDirName + libName).c_str());
   return cacheFileName;
 }
 
@@ -197,12 +196,12 @@ bool ParseCache::save() {
   bool parseOnly = clp->parseOnly();
 
   if (!cacheAllowed) return true;
-  std::string_view svFileName = m_parse->getPpFileName();
-  std::string origFileName(svFileName);
+  std::string svFileName = m_parse->getPpFileName();
+  std::string origFileName = svFileName;
   if (parseOnly) {
     SymbolId cacheDirId = clp->getCacheDir();
-    std::string_view cacheDirName = m_parse->getSymbol(cacheDirId);
-    origFileName.assign(cacheDirName).append("../").append(origFileName);
+    std::string cacheDirName = m_parse->getSymbol(cacheDirId);
+    origFileName = cacheDirName + "../" + origFileName;
   }
   std::string cacheFileName = getCacheFileName_();
 
@@ -213,7 +212,7 @@ bool ParseCache::save() {
   /* Cache the errors and canonical symbols */
   ErrorContainer* errorContainer =
       m_parse->getCompileSourceFile()->getErrorContainer();
-  std::string_view subjectFile = m_parse->getFileName(LINE1);
+  std::string subjectFile = m_parse->getFileName(LINE1);
   SymbolId subjectFileId =
       m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
           subjectFile);

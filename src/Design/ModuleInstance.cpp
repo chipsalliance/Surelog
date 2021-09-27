@@ -43,9 +43,8 @@ using UHDM::uhdmconstant;
 namespace SURELOG {
 ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,
                                const FileContent* fileContent, NodeId nodeId,
-                               ModuleInstance* parent,
-                               std::string_view instName,
-                               std::string_view modName)
+                               ModuleInstance* parent, std::string instName,
+                               std::string modName)
     : ValuedComponentI(parent, moduleDefinition),
       m_definition(moduleDefinition),
       m_fileContent(fileContent),
@@ -54,11 +53,11 @@ ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,
       m_instName(instName),
       m_netlist(nullptr) {
   if (m_definition == NULL) {
-    m_instName.assign(modName).append("&").append(instName);
+    m_instName = modName + "&" + instName;
   }
 }
 
-UHDM::expr* ModuleInstance::getComplexValue(std::string_view name) const {
+UHDM::expr* ModuleInstance::getComplexValue(const std::string& name) const {
   ModuleInstance* instance = (ModuleInstance*)this;
   while (instance) {
     UHDM::expr* res = ValuedComponentI::getComplexValue(name);
@@ -72,7 +71,7 @@ UHDM::expr* ModuleInstance::getComplexValue(std::string_view name) const {
       if (param_assigns) {
         for (param_assign* param : *param_assigns) {
           if (param && param->Lhs()) {
-            const std::string_view param_name = param->Lhs()->VpiName();
+            const std::string& param_name = param->Lhs()->VpiName();
             if (param_name == name) {
               const any* exp = param->Rhs();
               if (exp) return (UHDM::expr*)exp;
@@ -90,7 +89,7 @@ UHDM::expr* ModuleInstance::getComplexValue(std::string_view name) const {
   return nullptr;
 }
 
-Value* ModuleInstance::getValue(std::string_view name,
+Value* ModuleInstance::getValue(const std::string& name,
                                 ExprBuilder& exprBuilder) const {
   Value* sval = nullptr;
 
@@ -107,13 +106,12 @@ Value* ModuleInstance::getValue(std::string_view name,
       if (param_assigns) {
         for (param_assign* param : *param_assigns) {
           if (param && param->Lhs()) {
-            const std::string_view param_name = param->Lhs()->VpiName();
+            const std::string& param_name = param->Lhs()->VpiName();
             if (param_name == name) {
               const any* exp = param->Rhs();
               if (exp && exp->UhdmType() == uhdmconstant) {
                 constant* c = (constant*)exp;
-                sval = exprBuilder.fromVpiValue(std::string(c->VpiValue()),
-                                                c->VpiSize());
+                sval = exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
               }
               break;
             }
@@ -137,7 +135,7 @@ Value* ModuleInstance::getValue(std::string_view name,
         m_definition->getParam_assigns();
     if (param_assigns) {
       for (param_assign* param : *param_assigns) {
-        const std::string_view param_name = param->Lhs()->VpiName();
+        const std::string& param_name = param->Lhs()->VpiName();
         if (param_name == name) {
           const any* exp = param->Rhs();
           if (exp && (exp->UhdmType() == uhdmconstant)) {
@@ -179,17 +177,15 @@ void ModuleInstance::addSubInstance(ModuleInstance* subInstance) {
 
 ModuleInstance* ModuleInstanceFactory::newModuleInstance(
     DesignComponent* moduleDefinition, const FileContent* fileContent,
-    NodeId nodeId, ModuleInstance* parent, std::string_view instName,
-    std::string_view modName) {
+    NodeId nodeId, ModuleInstance* parent, std::string instName,
+    std::string modName) {
   return new ModuleInstance(moduleDefinition, fileContent, nodeId, parent,
                             instName, modName);
 }
 
-VObjectType ModuleInstance::getType() const {
-  return m_fileContent->Type(m_nodeId);
-}
+VObjectType ModuleInstance::getType() { return m_fileContent->Type(m_nodeId); }
 
-VObjectType ModuleInstance::getModuleType() const {
+VObjectType ModuleInstance::getModuleType() {
   VObjectType type = (VObjectType)0;
   if (m_definition) {
     type = m_definition->getType();
@@ -197,19 +193,19 @@ VObjectType ModuleInstance::getModuleType() const {
   return type;
 }
 
-unsigned int ModuleInstance::getLineNb() const {
+unsigned int ModuleInstance::getLineNb() {
   return m_fileContent->Line(m_nodeId);
 }
 
-unsigned short ModuleInstance::getColumnNb() const {
+unsigned short ModuleInstance::getColumnNb() {
   return m_fileContent->Column(m_nodeId);
 }
 
-unsigned int ModuleInstance::getEndLineNb() const {
+unsigned int ModuleInstance::getEndLineNb() {
   return m_fileContent->EndLine(m_nodeId);
 }
 
-unsigned short ModuleInstance::getEndColumnNb() const {
+unsigned short ModuleInstance::getEndColumnNb() {
   return m_fileContent->EndColumn(m_nodeId);
 }
 
@@ -241,9 +237,9 @@ std::string ModuleInstance::getFullPathName() {
   return path;
 }
 
-unsigned int ModuleInstance::getDepth() const {
+unsigned int ModuleInstance::getDepth() {
   unsigned int depth = 0;
-  const ModuleInstance* tmp = this;
+  ModuleInstance* tmp = this;
   while (tmp) {
     tmp = tmp->getParent();
     depth++;
@@ -251,7 +247,7 @@ unsigned int ModuleInstance::getDepth() const {
   return depth;
 }
 
-std::string ModuleInstance::getInstanceName() const {
+std::string ModuleInstance::getInstanceName() {
   if (m_definition == NULL) {
     std::string name =
         m_instName.substr(m_instName.find("&", 0, 1) + 1, m_instName.size());
@@ -261,12 +257,12 @@ std::string ModuleInstance::getInstanceName() const {
   }
 }
 
-std::string ModuleInstance::getModuleName() const {
+std::string ModuleInstance::getModuleName() {
   if (m_definition == NULL) {
     std::string name = m_instName.substr(0, m_instName.find("&", 0, 1));
     return name;
   } else {
-    return m_definition->getName().data();
+    return m_definition->getName();
   }
 }
 
@@ -290,12 +286,13 @@ void ModuleInstance::overrideParentChild(ModuleInstance* parent,
   m_allSubInstances = children;
 }
 
-void ModuleInstance::setOverridenParam(std::string_view name) {
-  m_overridenParams.insert(name.data());
+void ModuleInstance::setOverridenParam(const std::string& name) {
+  m_overridenParams.insert(name);
 }
 
-bool ModuleInstance::isOverridenParam(std::string_view name) const {
-  return (m_overridenParams.find(name) != m_overridenParams.end());
+bool ModuleInstance::isOverridenParam(const std::string& name) {
+  if (m_overridenParams.find(name) == m_overridenParams.end()) return false;
+  return true;
 }
 
 }  // namespace SURELOG

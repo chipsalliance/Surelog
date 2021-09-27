@@ -195,7 +195,7 @@ UHDM::any* CompileHelper::compileVariable(
 
   if (the_type == VObjectType::slStringConst ||
       the_type == VObjectType::slChandle_type) {
-    const std::string_view typeName = fC->SymName(variable);
+    const std::string& typeName = fC->SymName(variable);
 
     if (const DataType* dt = component->getDataType(typeName)) {
       dt = dt->getActual();
@@ -344,7 +344,7 @@ UHDM::any* CompileHelper::compileVariable(
   return result;
 }
 
-const UHDM::typespec* bindTypespec(std::string_view name,
+const UHDM::typespec* bindTypespec(const std::string& name,
                                    SURELOG::ValuedComponentI* instance,
                                    Serializer& s) {
   const typespec* result = nullptr;
@@ -400,7 +400,7 @@ const UHDM::typespec* bindTypespec(std::string_view name,
 typespec* CompileHelper::compileDatastructureTypespec(
     DesignComponent* component, const FileContent* fC, NodeId type,
     CompileDesign* compileDesign, SURELOG::ValuedComponentI* instance,
-    bool reduce, std::string_view suffixname, std::string_view typeName) {
+    bool reduce, const std::string& suffixname, const std::string& typeName) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   typespec* result = nullptr;
   if (component) {
@@ -408,18 +408,16 @@ typespec* CompileHelper::compileDatastructureTypespec(
     if (dt == nullptr) {
       std::string libName = fC->getLibrary()->getName();
       dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(
-          std::string(libName).append("@").append(typeName));
+          libName + "@" + typeName);
       if (dt == nullptr) {
         dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(
-            std::string(component->getName()).append("::").append(typeName));
+            component->getName() + "::" + typeName);
       }
       if (dt == nullptr) {
         if (component->getParentScope())
           dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(
-              std::string(
-                  ((DesignComponent*)component->getParentScope())->getName())
-                  .append("::")
-                  .append(typeName));
+              ((DesignComponent*)component->getParentScope())->getName() +
+              "::" + typeName);
       }
       if (dt == nullptr) {
         dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(
@@ -439,10 +437,10 @@ typespec* CompileHelper::compileDatastructureTypespec(
             UHDM::parameter* lhs = (UHDM::parameter*)param_assign->Lhs();
             result = (typespec*)lhs->Typespec();
             if (result == nullptr) {
-              int_typespec* tps = buildIntTypespec(
-                  compileDesign, fC->getFileName().data(), typeName, "",
-                  fC->Line(type), fC->Column(type), fC->EndLine(type),
-                  fC->EndColumn(type));
+              int_typespec* tps =
+                  buildIntTypespec(compileDesign, fC->getFileName(), typeName,
+                                   "", fC->Line(type), fC->Column(type),
+                                   fC->EndLine(type), fC->EndColumn(type));
               lhs->Typespec(tps);
               result = tps;
             }
@@ -559,10 +557,10 @@ typespec* CompileHelper::compileDatastructureTypespec(
                                                nullptr, instance, reduce);
                   if (exp) {
                     if (exp->UhdmType() == uhdmref_obj) {
-                      const std::string_view name = ((ref_obj*)exp)->VpiName();
+                      const std::string& name = ((ref_obj*)exp)->VpiName();
                       typespec* tps = compileDatastructureTypespec(
                           component, actualFC, param, compileDesign, instance,
-                          reduce, "", name.data());
+                          reduce, "", name);
                       if (tps) {
                         type_parameter* tp = s.MakeType_parameter();
                         tp->VpiName(fName);
@@ -595,8 +593,8 @@ typespec* CompileHelper::compileDatastructureTypespec(
     if (result == nullptr) {
       std::string libName = fC->getLibrary()->getName();
       Design* design = compileDesign->getCompiler()->getDesign();
-      ModuleDefinition* def = design->getModuleDefinition(
-          std::string(libName).append("@").append(typeName));
+      ModuleDefinition* def =
+          design->getModuleDefinition(libName + "@" + typeName);
       if (def) {
         if (def->getType() == slInterface_declaration) {
           interface_typespec* tps = s.MakeInterface_typespec();
@@ -608,7 +606,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
           tps->VpiEndColumnNo(fC->EndColumn(type));
           result = tps;
           if (NodeId sub = fC->Sibling(type)) {
-            const std::string_view name = fC->SymName(sub);
+            const std::string& name = fC->SymName(sub);
             if (def->getModPort(name)) {
               interface_typespec* mptps = s.MakeInterface_typespec();
               mptps->VpiName(name);
@@ -650,8 +648,8 @@ typespec* CompileHelper::compileDatastructureTypespec(
 }
 
 UHDM::typespec_member* CompileHelper::buildTypespecMember(
-    CompileDesign* compileDesign, std::string_view fileName,
-    std::string_view name, std::string_view value, unsigned int line,
+    CompileDesign* compileDesign, const std::string& fileName,
+    const std::string& name, const std::string& value, unsigned int line,
     unsigned short column, unsigned int eline, unsigned short ecolumn) {
   /*
   std::string hash = fileName + ":" + name + ":" + value + ":" +
@@ -678,8 +676,8 @@ UHDM::typespec_member* CompileHelper::buildTypespecMember(
 }
 
 int_typespec* CompileHelper::buildIntTypespec(
-    CompileDesign* compileDesign, std::string_view fileName,
-    std::string_view name, std::string_view value, unsigned int line,
+    CompileDesign* compileDesign, const std::string& fileName,
+    const std::string& name, const std::string& value, unsigned int line,
     unsigned short column, unsigned int eline, unsigned short ecolumn) {
   /*
   std::string hash = fileName + ":" + name + ":" + value + ":" +
@@ -764,7 +762,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
     case VObjectType::slInterface_identifier: {
       interface_typespec* tps = s.MakeInterface_typespec();
       NodeId Name = fC->Child(type);
-      const std::string_view name = fC->SymName(Name);
+      const std::string& name = fC->SymName(Name);
       tps->VpiName(name);
       tps->VpiFile(fC->getFileName());
       tps->VpiLineNo(fC->Line(type));
@@ -797,7 +795,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       NodeId Primary = fC->Child(type);
       NodeId Primary_literal = fC->Child(Primary);
       NodeId Name = fC->Child(Primary_literal);
-      const std::string_view name = fC->SymName(Name);
+      const std::string& name = fC->SymName(Name);
       if (instance) {
         result = (typespec*)bindTypespec(name, instance, s);
       }
@@ -806,14 +804,12 @@ UHDM::typespec* CompileHelper::compileTypespec(
     case VObjectType::slPrimary_literal: {
       NodeId literal = fC->Child(type);
       if (fC->Type(literal) == slStringConst) {
-        const std::string_view typeName = fC->SymName(literal);
-        result =
-            compileDatastructureTypespec(component, fC, type, compileDesign,
-                                         instance, reduce, "", typeName.data());
+        const std::string& typeName = fC->SymName(literal);
+        result = compileDatastructureTypespec(
+            component, fC, type, compileDesign, instance, reduce, "", typeName);
       } else {
         integer_typespec* var = s.MakeInteger_typespec();
-        std::string value("INT:");
-        value.append(fC->SymName(literal));
+        std::string value = "INT:" + fC->SymName(literal);
         var->VpiValue(value);
         var->VpiFile(fC->getFileName());
         var->VpiLineNo(fC->Line(type));
@@ -838,7 +834,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
     }
     case VObjectType::slIntegerAtomType_Int: {
       int_typespec* var = buildIntTypespec(
-          compileDesign, fC->getFileName().data(), "", "", fC->Line(type),
+          compileDesign, fC->getFileName(), "", "", fC->Line(type),
           fC->Column(type), fC->EndLine(type), fC->EndColumn(type));
       result = var;
       break;
@@ -936,7 +932,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       std::string packageName = typeName;
       typeName += "::";
       NodeId symb_id = fC->Sibling(type);
-      std::string_view name = fC->SymName(symb_id);
+      std::string name = fC->SymName(symb_id);
       typeName += name;
       Package* pack =
           compileDesign->getCompiler()->getDesign()->getPackage(packageName);
@@ -985,7 +981,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
           UHDM::VectorOfparam_assign* param_assigns = pack->getParam_assigns();
           if (param_assigns) {
             for (param_assign* param : *param_assigns) {
-              const std::string_view param_name = param->Lhs()->VpiName();
+              const std::string& param_name = param->Lhs()->VpiName();
               if (param_name == name) {
                 const any* rhs = param->Rhs();
                 if (const expr* exp = any_cast<const expr*>(rhs)) {
@@ -1069,9 +1065,9 @@ UHDM::typespec* CompileHelper::compileTypespec(
             member_ts = tps;
           }
           NodeId member_name = fC->Child(Variable_decl_assignment);
-          const std::string_view mem_name = fC->SymName(member_name);
+          const std::string& mem_name = fC->SymName(member_name);
           typespec_member* m = buildTypespecMember(
-              compileDesign, fC->getFileName().data(), mem_name.data(), "",
+              compileDesign, fC->getFileName(), mem_name, "",
               fC->Line(member_name), fC->Column(member_name),
               fC->EndLine(member_name), fC->EndColumn(member_name));
           m->Typespec(member_ts);
@@ -1093,7 +1089,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
                              pstmt, instance, reduce);
     }
     case VObjectType::slStringConst: {
-      const std::string_view typeName = fC->SymName(type);
+      const std::string& typeName = fC->SymName(type);
       if (typeName == "logic") {
         logic_typespec* var = s.MakeLogic_typespec();
         var->Ranges(ranges);
@@ -1121,9 +1117,9 @@ UHDM::typespec* CompileHelper::compileTypespec(
         var->VpiEndColumnNo(fC->EndColumn(type));
         result = var;
       } else if (reduce) {
-        if (any* cast_to = getValue(typeName, component, compileDesign,
-                                    instance, fC->getFileName().data(),
-                                    fC->Line(type), nullptr, !reduce)) {
+        if (any* cast_to =
+                getValue(typeName, component, compileDesign, instance,
+                         fC->getFileName(), fC->Line(type), nullptr, !reduce)) {
           constant* c = any_cast<constant*>(cast_to);
           if (c) {
             integer_typespec* var = s.MakeInteger_typespec();
@@ -1151,7 +1147,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
               component->getParam_assigns();
           if (param_assigns) {
             for (param_assign* param : *param_assigns) {
-              const std::string_view param_name = param->Lhs()->VpiName();
+              const std::string& param_name = param->Lhs()->VpiName();
               if (param_name == typeName) {
                 const any* rhs = param->Rhs();
                 if (const expr* exp = any_cast<const expr*>(rhs)) {
@@ -1178,7 +1174,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
                     inst->getNetlist()->param_assigns();
                 if (param_assigns) {
                   for (param_assign* param : *param_assigns) {
-                    const std::string_view param_name = param->Lhs()->VpiName();
+                    const std::string& param_name = param->Lhs()->VpiName();
                     if (param_name == typeName) {
                       const any* rhs = param->Rhs();
                       if (const expr* exp = any_cast<const expr*>(rhs)) {
@@ -1203,9 +1199,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
         }
       }
       if (result == nullptr) {
-        result =
-            compileDatastructureTypespec(component, fC, type, compileDesign,
-                                         instance, reduce, "", typeName.data());
+        result = compileDatastructureTypespec(
+            component, fC, type, compileDesign, instance, reduce, "", typeName);
         if (ranges && result) {
           if (result->UhdmType() == uhdmstruct_typespec ||
               result->UhdmType() == uhdmenum_typespec ||
@@ -1353,10 +1348,10 @@ UHDM::typespec* CompileHelper::elabTypespec(DesignComponent* component,
       bool invalidValue = false;
       expr* newLeft =
           reduceExpr(oldLeft, invalidValue, component, compileDesign, instance,
-                     oldLeft->VpiFile().data(), oldLeft->VpiLineNo(), pexpr);
+                     oldLeft->VpiFile(), oldLeft->VpiLineNo(), pexpr);
       expr* newRight =
           reduceExpr(oldRight, invalidValue, component, compileDesign, instance,
-                     oldRight->VpiFile().data(), oldRight->VpiLineNo(), pexpr);
+                     oldRight->VpiFile(), oldRight->VpiLineNo(), pexpr);
       if (!invalidValue) {
         oldRange->Left_expr(newLeft);
         oldRange->Right_expr(newRight);
