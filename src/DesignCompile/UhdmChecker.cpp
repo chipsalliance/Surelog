@@ -433,8 +433,7 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
       }
     }
     if (!redCoverage.empty()) {
-      orderedCoverageMap.insert(
-          std::make_pair(static_cast<int>(cov), redCoverage));
+      orderedCoverageMap.insert(std::make_pair(static_cast<int>(cov), redCoverage));
     } else {
       if (!pinkCoverage.empty()) {
         orderedCoverageMap.insert(
