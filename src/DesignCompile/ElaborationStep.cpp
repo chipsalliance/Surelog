@@ -85,7 +85,7 @@ bool ElaborationStep::bindTypedefs_() {
   Design* design = compiler->getDesign();
   Serializer& s = m_compileDesign->getSerializer();
   std::vector<std::pair<TypeDef*, DesignComponent*>> defs;
-  std::map<std::string, typespec*, std::less<>> specs;
+  std::map<std::string, typespec*> specs;
   for (auto file : design->getAllFileContents()) {
     FileContent* fC = file.second;
     for (auto typed : fC->getTypeDefMap()) {
@@ -139,8 +139,8 @@ bool ElaborationStep::bindTypedefs_() {
         specs.insert(std::make_pair(prevDef->getTypespec()->VpiName(),
                                     prevDef->getTypespec()));
         if (Package* pack = valuedcomponenti_cast<Package*>(comp)) {
-          std::string name(pack->getName());
-          name.append("::").append(prevDef->getTypespec()->VpiName());
+          std::string name =
+              pack->getName() + "::" + prevDef->getTypespec()->VpiName();
           specs.insert(std::make_pair(name, prevDef->getTypespec()));
         }
       }
@@ -173,8 +173,7 @@ bool ElaborationStep::bindTypedefs_() {
             tpclone->VpiName(typd->getName());
             specs.insert(std::make_pair(typd->getName(), tpclone));
             if (Package* pack = valuedcomponenti_cast<Package*>(comp)) {
-              std::string name(pack->getName());
-              name.append("::").append(typd->getName());
+              std::string name = pack->getName() + "::" + typd->getName();
               specs.insert(std::make_pair(name, tpclone));
             }
           }
@@ -188,8 +187,7 @@ bool ElaborationStep::bindTypedefs_() {
           ts->VpiName(typd->getName());
           specs.insert(std::make_pair(typd->getName(), ts));
           if (Package* pack = valuedcomponenti_cast<Package*>(comp)) {
-            std::string name(pack->getName());
-            name.append("::").append(typd->getName());
+            std::string name = pack->getName() + "::" + typd->getName();
             specs.insert(std::make_pair(name, ts));
           }
         }
@@ -209,8 +207,7 @@ bool ElaborationStep::bindTypedefs_() {
           specs.insert(std::make_pair(typd->getName(), ts));
           ts->VpiName(typd->getName());
           if (Package* pack = valuedcomponenti_cast<Package*>(comp)) {
-            std::string name(pack->getName());
-            name.append("::").append(typd->getName());
+            std::string name = pack->getName() + "::" + typd->getName();
             specs.insert(std::make_pair(name, ts));
           }
         }
@@ -219,7 +216,7 @@ bool ElaborationStep::bindTypedefs_() {
         if (prevDef == NULL) {
           const FileContent* fC = typd->getFileContent();
           NodeId id = typd->getNodeId();
-          std::string_view fileName = fC->getFileName(id);
+          std::string fileName = fC->getFileName(id);
           unsigned int line = fC->Line(id);
           std::string definition_string;
           NodeId defNode = typd->getDefinitionNode();
@@ -247,7 +244,7 @@ bool ElaborationStep::bindTypedefs_() {
           orig = ex->Typespec();
         }
         if (orig->UhdmType() == uhdmunsupported_typespec) {
-          const std::string_view need = orig->VpiName();
+          const std::string& need = orig->VpiName();
           if (need == tps->VpiName()) {
             s.unsupported_typespecMaker.Erase((unsupported_typespec*)orig);
             if (expr* ex = any_cast<expr*>(var)) {
@@ -278,8 +275,8 @@ bool ElaborationStep::bindTypedefs_() {
         orig = ex->Typespec();
       }
       if (orig->UhdmType() == uhdmunsupported_typespec) {
-        const std::string_view need = orig->VpiName();
-        auto itr = specs.find(need);
+        const std::string& need = orig->VpiName();
+        std::map<std::string, typespec*>::iterator itr = specs.find(need);
         if (itr != specs.end()) {
           typespec* tps = (*itr).second;
           s.unsupported_typespecMaker.Erase((unsupported_typespec*)orig);
@@ -313,7 +310,7 @@ bool ElaborationStep::bindTypedefs_() {
         orig = ex->Typespec();
       }
       if (orig->UhdmType() == uhdmunsupported_typespec) {
-        const std::string_view need = orig->VpiName();
+        const std::string& need = orig->VpiName();
         std::map<std::string, typespec*>::iterator itr = specs.find(need);
         if (itr != specs.end()) {
           typespec* tps = (*itr).second;
@@ -351,9 +348,7 @@ const DataType* ElaborationStep::bindTypeDef_(
   } else if (defType == VObjectType::slClass_scope) {
     NodeId class_type = fC->Child(defNode);
     NodeId nameId = fC->Child(class_type);
-    objName.assign(fC->SymName(nameId))
-        .append("::")
-        .append(fC->SymName(fC->Sibling(defNode)));
+    objName = fC->SymName(nameId) + "::" + fC->SymName(fC->Sibling(defNode));
   } else {
     objName = "NOT_A_VALID_TYPE_NAME";
     symbols->registerSymbol(objName);
@@ -367,7 +362,7 @@ const DataType* ElaborationStep::bindTypeDef_(
 }
 
 const DataType* ElaborationStep::bindDataType_(
-    std::string_view type_name, const FileContent* fC, NodeId id,
+    const std::string& type_name, const FileContent* fC, NodeId id,
     const DesignComponent* parent, ErrorDefinition::ErrorType errtype) {
   Compiler* compiler = m_compileDesign->getCompiler();
   ErrorContainer* errors = compiler->getErrorContainer();
@@ -380,8 +375,7 @@ const DataType* ElaborationStep::bindDataType_(
   ClassNameClassDefinitionMultiMap classes = design->getClassDefinitions();
   bool found = false;
   bool classFound = false;
-  std::string class_in_lib = libName;
-  class_in_lib.append("@").append(type_name);
+  std::string class_in_lib = libName + "@" + type_name;
   ClassNameClassDefinitionMultiMap::iterator itr1 = classes.end();
 
   if (type_name == "signed") {
@@ -417,8 +411,7 @@ const DataType* ElaborationStep::bindDataType_(
     }
   }
   if (found == false) {
-    std::string class_in_class(parent->getName());
-    class_in_class.append("::").append(type_name);
+    std::string class_in_class = parent->getName() + "::" + type_name;
     itr1 = classes.find(class_in_class);
 
     if (itr1 != classes.end()) {
@@ -428,9 +421,9 @@ const DataType* ElaborationStep::bindDataType_(
   }
   if (found == false) {
     if (parent->getParentScope()) {
-      std::string class_in_own_package(
-          ((DesignComponent*)parent->getParentScope())->getName());
-      class_in_own_package.append("::").append(type_name);
+      std::string class_in_own_package =
+          ((DesignComponent*)parent->getParentScope())->getName() +
+          "::" + type_name;
       itr1 = classes.find(class_in_own_package);
       if (itr1 != classes.end()) {
         found = true;
@@ -440,8 +433,7 @@ const DataType* ElaborationStep::bindDataType_(
   }
   if (found == false) {
     for (const auto& package : parent->getAccessPackages()) {
-      std::string class_in_package(package->getName());
-      class_in_package.append("::").append(type_name);
+      std::string class_in_package = package->getName() + "::" + type_name;
       itr1 = classes.find(class_in_package);
       if (itr1 != classes.end()) {
         found = true;
@@ -505,8 +497,7 @@ const DataType* ElaborationStep::bindDataType_(
     }
   }
   if (found == false) {
-    auto res = parent->getNamedObject(
-        std::string(libName).append("@").append(type_name));
+    auto res = parent->getNamedObject(libName + "@" + type_name);
     if (res) {
       DesignComponent* comp = res->second;
       result = valuedcomponenti_cast<ClassDefinition*>(comp);
@@ -514,7 +505,8 @@ const DataType* ElaborationStep::bindDataType_(
     }
   }
   if (found == false) {
-    if (strstr(type_name.data(), "::")) {
+    const char* sname = type_name.c_str();
+    if (strstr(sname, "::")) {
       std::vector<std::string> args;
       StringUtils::tokenizeMulti(type_name, "::", args);
       std::string classOrPackageName = args[0];
@@ -522,9 +514,9 @@ const DataType* ElaborationStep::bindDataType_(
       itr1 = classes.find(libName + "@" + classOrPackageName);
       if (itr1 == classes.end()) {
         if (parent->getParentScope()) {
-          std::string class_in_own_package(
-              ((DesignComponent*)parent->getParentScope())->getName());
-          class_in_own_package.append("::").append(classOrPackageName);
+          std::string class_in_own_package =
+              ((DesignComponent*)parent->getParentScope())->getName() +
+              "::" + classOrPackageName;
           itr1 = classes.find(class_in_own_package);
         }
       }
@@ -563,7 +555,7 @@ const DataType* ElaborationStep::bindDataType_(
   }
 
   if ((found == false) && (errtype != ErrorDefinition::NO_ERROR_MESSAGE)) {
-    std::string_view fileName = fC->getFileName(id);
+    std::string fileName = fC->getFileName(id);
     unsigned int line = fC->Line(id);
     Location loc1(symbols->registerSymbol(fileName), line, 0,
                   symbols->registerSymbol(type_name));
@@ -584,9 +576,8 @@ const DataType* ElaborationStep::bindDataType_(
   return result;
 }
 
-Variable* ElaborationStep::bindVariable_(std::string_view var_name,
-                                         Scope* scope, const FileContent* fC,
-                                         NodeId id,
+Variable* ElaborationStep::bindVariable_(std::string var_name, Scope* scope,
+                                         const FileContent* fC, NodeId id,
                                          const DesignComponent* parent,
                                          ErrorDefinition::ErrorType errtype,
                                          bool returnClassParam) {
@@ -631,7 +622,7 @@ Variable* ElaborationStep::bindVariable_(std::string_view var_name,
   }
 
   if ((result == NULL) && (errtype != ErrorDefinition::NO_ERROR_MESSAGE)) {
-    std::string_view fileName = fC->getFileName(id);
+    std::string fileName = fC->getFileName(id);
     unsigned int line = fC->Line(id);
     Location loc1(symbols->registerSymbol(fileName), line, 0,
                   symbols->registerSymbol(var_name));
@@ -655,10 +646,11 @@ Variable* ElaborationStep::bindVariable_(std::string_view var_name,
   return result;
 }
 
-Variable* ElaborationStep::locateVariable_(
-    std::vector<std::string_view>& var_chain, const FileContent* fC, NodeId id,
-    Scope* scope, DesignComponent* parentComponent,
-    ErrorDefinition::ErrorType errtype) {
+Variable* ElaborationStep::locateVariable_(std::vector<std::string>& var_chain,
+                                           const FileContent* fC, NodeId id,
+                                           Scope* scope,
+                                           DesignComponent* parentComponent,
+                                           ErrorDefinition::ErrorType errtype) {
   Variable* the_obj = NULL;
   const DesignComponent* currentComponent = parentComponent;
   for (auto var : var_chain) {
@@ -680,8 +672,8 @@ Variable* ElaborationStep::locateVariable_(
       }
     }
 
-    the_obj = bindVariable_(var.data(), scope, fC, id, currentComponent,
-                            errtype, false);
+    the_obj =
+        bindVariable_(var, scope, fC, id, currentComponent, errtype, false);
     if (the_obj) {
       const DataType* dtype = the_obj->getDataType();
       while (dtype && dtype->getDefinition()) {
@@ -698,7 +690,7 @@ Variable* ElaborationStep::locateVariable_(
 }
 
 Variable* ElaborationStep::locateStaticVariable_(
-    std::vector<std::string_view>& var_chain, const FileContent* fC, NodeId id,
+    std::vector<std::string>& var_chain, const FileContent* fC, NodeId id,
     Scope* scope, DesignComponent* parentComponent,
     ErrorDefinition::ErrorType errtype) {
   std::string name;
@@ -723,7 +715,7 @@ Variable* ElaborationStep::locateStaticVariable_(
                 classDefinition->getNodeId(), 0, classDefinition->getName());
           }
           if (var_chain.size() == 3) {
-            std::vector<std::string_view> tmp;
+            std::vector<std::string> tmp;
             tmp.push_back(var_chain[2]);
             result =
                 locateVariable_(tmp, fC, id, scope, classDefinition, errtype);
@@ -740,7 +732,7 @@ Variable* ElaborationStep::locateStaticVariable_(
         if (parentComponent && parentComponent->getParentScope()) {
           name =
               ((DesignComponent*)parentComponent->getParentScope())->getName();
-          name.append("::").append(var_chain[0]);
+          name += "::" + var_chain[0];
           classDefinition = design->getClassDefinition(name);
         }
       }
@@ -750,7 +742,7 @@ Variable* ElaborationStep::locateStaticVariable_(
               classDefinition, classDefinition->getFileContent(),
               classDefinition->getNodeId(), 0, classDefinition->getName());
         if (var_chain.size() == 2) {
-          std::vector<std::string_view> tmp;
+          std::vector<std::string> tmp;
           tmp.push_back(var_chain[1]);
 
           const DataType* dtype =
@@ -863,8 +855,8 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
             NodeId if_type_name_s = fC->Child(if_type);
             NodeId if_name = fC->Sibling(if_type);
             if (if_name) {
-              std::string interfaceName(libName);
-              interfaceName.append("@").append(fC->SymName(if_type_name_s));
+              std::string interfaceName =
+                  libName + "@" + fC->SymName(if_type_name_s);
               ModuleDefinition* interface =
                   design->getModuleDefinition(interfaceName);
               if (interface) {
@@ -903,7 +895,7 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
         case VObjectType::slInterface_port_declaration: {
           NodeId interface_identifier = fC->Child(subNode);
           NodeId interfIdName = fC->Child(interface_identifier);
-          std::string_view interfName = fC->SymName(interfIdName);
+          std::string interfName = fC->SymName(interfIdName);
 
           DesignComponent* def = nullptr;
           const DataType* type = nullptr;
@@ -911,23 +903,20 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
           const std::pair<FileCNodeId, DesignComponent*>* datatype =
               parentComponent->getNamedObject(interfName);
           if (!datatype) {
-            def = design->getClassDefinition(
-                std::string(parentComponent->getName())
-                    .append("::")
-                    .append(interfName));
+            def = design->getClassDefinition(parentComponent->getName() +
+                                             "::" + interfName);
           }
           if (datatype) {
             def = datatype->second;
           }
           if (def == NULL) {
-            def = design->getComponentDefinition(
-                std::string(libName).append("@").append(interfName));
+            def = design->getComponentDefinition(libName + "@" + interfName);
           }
           if (def == NULL) {
             type = parentComponent->getDataType(interfName);
           }
-          checkIfBuiltInTypeOrErrorOut(def, fC, id, type, interfName.data(),
-                                       errors, symbols);
+          checkIfBuiltInTypeOrErrorOut(def, fC, id, type, interfName, errors,
+                                       symbols);
           break;
         }
         case VObjectType::slInput_declaration:
@@ -951,8 +940,8 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
             NodeId Class_type_name = fC->Child(Class_type);
             NodeId Class_scope_name = fC->Sibling(typespecId);
             if (bindStructInPackage(design, signal,
-                                    fC->SymName(Class_type_name).data(),
-                                    fC->SymName(Class_scope_name).data()))
+                                    fC->SymName(Class_type_name),
+                                    fC->SymName(Class_scope_name)))
               return true;
           } else if (fC->Type(typespecId) == slStringConst) {
             interfName = fC->SymName(typespecId);
@@ -988,8 +977,7 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
           signal->setDataType(dt);
         }
       } else {
-        std::string name(parentComponent->getName());
-        name.append("::").append(interfName);
+        std::string name = parentComponent->getName() + "::" + interfName;
         def = design->getClassDefinition(name);
         DataType* dt = valuedcomponenti_cast<ClassDefinition*>(def);
         if (dt) {
@@ -1229,7 +1217,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
   const DataType* dtype = sig->getDataType();
   VObjectType subnettype = sig->getType();
 
-  std::string_view signame = sig->getName();
+  std::string signame = sig->getName();
 
   variables* obj = nullptr;
 

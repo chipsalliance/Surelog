@@ -102,8 +102,8 @@ bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
 }
 
 const flatbuffers::Offset<SURELOG::CACHE::Header> Cache::createHeader(
-    flatbuffers::FlatBufferBuilder& builder, std::string_view schemaVersion,
-    std::string_view origFileName) {
+    flatbuffers::FlatBufferBuilder& builder, std::string schemaVersion,
+    std::string origFileName) {
   auto fName = builder.CreateString(origFileName);
   auto sl_version = builder.CreateString(CommandLineParser::getVersionNumber());
   auto sl_build_date = builder.CreateString(getExecutableTimeStamp());
@@ -167,14 +167,7 @@ Cache::cacheErrors(flatbuffers::FlatBufferBuilder& builder,
     canonicalSymbols.registerSymbol(*itr);
   }
 
-  const std::vector<std::string_view>& symbols_sv =
-      canonicalSymbols.getSymbols();
-  std::vector<std::string> symbols_s;
-  symbols_s.reserve(symbols_sv.size());
-  std::transform(symbols_sv.begin(), symbols_sv.end(),
-                 std::back_inserter(symbols_s),
-                 [](std::string_view sv) { return std::string(sv); });
-  auto symbolVec = builder.CreateVectorOfStrings(symbols_s);
+  auto symbolVec = builder.CreateVectorOfStrings(canonicalSymbols.getSymbols());
   auto errvec = builder.CreateVector(error_vec);
   return std::make_pair(errvec, symbolVec);
 }

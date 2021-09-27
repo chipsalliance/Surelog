@@ -127,21 +127,21 @@ class Design final {
   ModuleInstance* findInstance(const std::string& path,
                                ModuleInstance* scope = NULL);
 
-  Package* getPackage(std::string_view name);
+  Package* getPackage(const std::string& name);
 
-  Program* getProgram(std::string_view name);
+  Program* getProgram(const std::string& name);
 
-  ClassDefinition* getClassDefinition(std::string_view name) const;
+  ClassDefinition* getClassDefinition(const std::string& name);
 
   ErrorContainer* getErrorContainer() { return m_errors; }
 
-  typedef std::multimap<const std::string, BindStmt*, std::less<>> BindMap;
+  typedef std::multimap<const std::string, BindStmt*> BindMap;
 
   BindMap& getBindMap() { return m_bindMap; }
 
-  std::vector<BindStmt*> getBindStmts(std::string_view targetName) const;
+  std::vector<BindStmt*> getBindStmts(const std::string& targetName);
 
-  void addBindStmt(std::string_view targetName, BindStmt* stmt);
+  void addBindStmt(const std::string& targetName, BindStmt* stmt);
 
  protected:
   // Thread-safe

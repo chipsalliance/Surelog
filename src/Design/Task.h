@@ -35,7 +35,7 @@ class Task : public Procedure {
   SURELOG_IMPLEMENT_RTTI(Task, Procedure)
  public:
   Task(DesignComponent* parent, const FileContent* fC, NodeId id,
-       std::string_view name)
+       const std::string& name)
       : Procedure(parent, fC, id, name) {}
   ~Task() override;
 

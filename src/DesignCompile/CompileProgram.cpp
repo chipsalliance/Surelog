@@ -239,12 +239,11 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
         if (fC->Type(nameId) == slVirtual) {
           nameId = fC->Sibling(nameId);
         }
-        std::string_view name = fC->SymName(nameId);
+        std::string name = fC->SymName(nameId);
         FileCNodeId fnid(fC, nameId);
         m_program->addObject(type, fnid);
 
-        std::string completeName(m_program->getName());
-        completeName.append("::").append(name);
+        std::string completeName = m_program->getName() + "::" + name;
 
         DesignComponent* comp = fC->getComponentDefinition(completeName);
 

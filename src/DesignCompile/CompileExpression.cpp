@@ -87,13 +87,11 @@ bool CompileHelper::substituteAssignedValue(const UHDM::any* oper,
   return substitute;
 }
 
-expr* CompileHelper::reduceBitSelect(expr* op, unsigned int index_val,
-                                     bool& invalidValue,
-                                     DesignComponent* component,
-                                     CompileDesign* compileDesign,
-                                     ValuedComponentI* instance,
-                                     std::string_view fileName, int lineNumber,
-                                     any* pexpr, bool muteErrors) {
+expr* CompileHelper::reduceBitSelect(
+    expr* op, unsigned int index_val, bool& invalidValue,
+    DesignComponent* component, CompileDesign* compileDesign,
+    ValuedComponentI* instance, const std::string& fileName, int lineNumber,
+    any* pexpr, bool muteErrors) {
   Serializer& s = compileDesign->getSerializer();
   expr* result = nullptr;
   expr* exp = reduceExpr(op, invalidValue, component, compileDesign, instance,
@@ -142,7 +140,8 @@ expr* CompileHelper::reduceBitSelect(expr* op, unsigned int index_val,
   return result;
 }
 
-any* CompileHelper::getObject(std::string_view name, DesignComponent* component,
+any* CompileHelper::getObject(const std::string& name,
+                              DesignComponent* component,
                               CompileDesign* compileDesign,
                               ValuedComponentI* instance, const any* pexpr) {
   any* result = nullptr;
@@ -212,7 +211,7 @@ any* CompileHelper::getObject(std::string_view name, DesignComponent* component,
         }
         if ((result == nullptr) && netlist->param_assigns()) {
           for (auto o : *netlist->param_assigns()) {
-            const std::string_view pname = o->Lhs()->VpiName();
+            const std::string& pname = o->Lhs()->VpiName();
             if (pname == name) {
               result = o;
               break;
@@ -226,7 +225,7 @@ any* CompileHelper::getObject(std::string_view name, DesignComponent* component,
   if ((result == nullptr) && component) {
     for (ParamAssign* pass : component->getParamAssignVec()) {
       if (param_assign* p = pass->getUhdmParamAssign()) {
-        const std::string_view pname = p->Lhs()->VpiName();
+        const std::string& pname = p->Lhs()->VpiName();
         if (pname == name) {
           if (substituteAssignedValue(p->Rhs(), compileDesign)) {
             result = (any*)p->Rhs();
@@ -249,7 +248,7 @@ any* CompileHelper::getObject(std::string_view name, DesignComponent* component,
       if (DesignComponent* comp = inst->getDefinition()) {
         for (ParamAssign* pass : comp->getParamAssignVec()) {
           if (param_assign* p = pass->getUhdmParamAssign()) {
-            const std::string_view pname = p->Lhs()->VpiName();
+            const std::string& pname = p->Lhs()->VpiName();
             if (pname == name) {
               if (substituteAssignedValue(p->Rhs(), compileDesign)) {
                 result = (any*)p->Rhs();
@@ -270,7 +269,7 @@ any* CompileHelper::getObject(std::string_view name, DesignComponent* component,
 
   if (result && (result->UhdmType() == uhdmref_obj)) {
     ref_obj* ref = (ref_obj*)result;
-    const std::string_view refname = ref->VpiName();
+    const std::string& refname = ref->VpiName();
     if (refname != name)
       result = getObject(refname, component, compileDesign, instance, pexpr);
   }
@@ -285,7 +284,7 @@ any* CompileHelper::getObject(std::string_view name, DesignComponent* component,
   return result;
 }
 
-UHDM::task_func* getFuncFromPackage(std::string_view name,
+UHDM::task_func* getFuncFromPackage(const std::string& name,
                                     DesignComponent* component,
                                     std::set<DesignComponent*>& visited) {
   for (Package* pack : component->getAccessPackages()) {
@@ -308,11 +307,11 @@ UHDM::task_func* getFuncFromPackage(std::string_view name,
 }
 
 std::pair<UHDM::task_func*, DesignComponent*> CompileHelper::getTaskFunc(
-    std::string_view name, DesignComponent* component,
+    const std::string& name, DesignComponent* component,
     CompileDesign* compileDesign, any* pexpr) {
   std::pair<UHDM::task_func*, DesignComponent*> result = {nullptr, nullptr};
   DesignComponent* comp = component;
-  if (strstr(name.data(), "::")) {
+  if (strstr(name.c_str(), "::")) {
     std::vector<std::string> res;
     StringUtils::tokenizeMulti(name, "::", res);
     if (res.size() > 1) {
@@ -401,10 +400,10 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
     case VObjectType::slIntConst: {
       // Do not evaluate the constant, keep it as in the source text:
       UHDM::constant* c = s.MakeConstant();
-      const std::string_view value = fC->SymName(child);
+      const std::string& value = fC->SymName(child);
       std::string v;
       c->VpiDecompile(value);
-      if (strstr(value.data(), "'")) {
+      if (strstr(value.c_str(), "'")) {
         char base = 'b';
         unsigned int i = 0;
         for (i = 0; i < value.size(); i++) {
@@ -417,7 +416,7 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
         v = StringUtils::replaceAll(v, "_", "");
         switch (base) {
           case 'h': {
-            std::string size(value);
+            std::string size = value;
             StringUtils::rtrim(size, '\'');
             c->VpiSize(atoi(size.c_str()));
             v = "HEX:" + v;
@@ -425,7 +424,7 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
             break;
           }
           case 'b': {
-            std::string size(value);
+            std::string size = value;
             StringUtils::rtrim(size, '\'');
             c->VpiSize(atoi(size.c_str()));
             v = "BIN:" + v;
@@ -433,7 +432,7 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
             break;
           }
           case 'o': {
-            std::string size(value);
+            std::string size = value;
             StringUtils::rtrim(size, '\'');
             c->VpiSize(atoi(size.c_str()));
             v = "OCT:" + v;
@@ -441,7 +440,7 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
             break;
           }
           case 'd': {
-            std::string size(value);
+            std::string size = value;
             StringUtils::rtrim(size, '\'');
             c->VpiSize(atoi(size.c_str()));
             v = "DEC:" + v;
@@ -457,10 +456,10 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
 
       } else {
         if (value.size() && value[0] == '-') {
-          v.assign("INT:").append(value);
+          v = "INT:" + value;
           c->VpiConstType(vpiIntConst);
         } else {
-          v.assign("UINT:").append(value);
+          v = "UINT:" + value;
           c->VpiConstType(vpiUIntConst);
         }
         c->VpiSize(64);
@@ -472,7 +471,7 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
     }
     case VObjectType::slRealConst: {
       UHDM::constant* c = s.MakeConstant();
-      std::string value(fC->SymName(child));
+      std::string value = fC->SymName(child);
       c->VpiDecompile(value);
       value = "REAL:" + value;
       c->VpiValue(value);
@@ -598,10 +597,10 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
     }
     case VObjectType::slTime_literal: {
       NodeId intC = fC->Child(child);
-      std::string_view value = fC->SymName(intC);
+      std::string value = fC->SymName(intC);
       NodeId unitId = fC->Sibling(intC);
       TimeInfo::Unit unit = TimeInfo::unitFromString(fC->SymName(unitId));
-      uint64_t val = std::strtoull(value.data(), 0, 10);
+      uint64_t val = std::strtoull(value.c_str(), 0, 10);
       switch (unit) {
         case TimeInfo::Unit::Second: {
           val = 1e12 * val;
@@ -639,11 +638,11 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
     }
     case VObjectType::slStringLiteral: {
       UHDM::constant* c = s.MakeConstant();
-      std::string value(fC->SymName(child));
+      std::string value = fC->SymName(child);
       if (value.front() == '"' && value.back() == '"')
         value = value.substr(1, value.length() - 2);
       c->VpiDecompile(value);
-      c->VpiSize(strlen(value.data()));
+      c->VpiSize(strlen(value.c_str()));
       value = "STRING:" + value;
       c->VpiValue(value);
       c->VpiConstType(vpiStringConst);
@@ -660,7 +659,7 @@ any* CompileHelper::decodeHierPath(hier_path* path, bool& invalidValue,
                                    DesignComponent* component,
                                    CompileDesign* compileDesign,
                                    ValuedComponentI* instance,
-                                   std::string_view fileName, int lineNumber,
+                                   const std::string& fileName, int lineNumber,
                                    any* pexpr, bool muteErrors,
                                    bool returnTypespec) {
   std::string baseObject;
@@ -687,7 +686,7 @@ any* CompileHelper::decodeHierPath(hier_path* path, bool& invalidValue,
 
     std::vector<std::string> the_path;
     for (auto elem : *path->Path_elems()) {
-      std::string elemName(elem->VpiName());
+      std::string elemName = elem->VpiName();
       elemName = StringUtils::rtrim(elemName, '[');
       the_path.push_back(elemName);
       if (elem->UhdmType() == uhdmbit_select) {
@@ -712,7 +711,7 @@ expr* CompileHelper::reduceCompOp(operation* op, bool& invalidValue,
                                   DesignComponent* component,
                                   CompileDesign* compileDesign,
                                   ValuedComponentI* instance,
-                                  std::string_view fileName, int lineNumber,
+                                  const std::string& fileName, int lineNumber,
                                   any* pexpr, bool muteErrors) {
   expr* result = op;
   Serializer& s = compileDesign->getSerializer();
@@ -815,7 +814,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                                 DesignComponent* component,
                                 CompileDesign* compileDesign,
                                 ValuedComponentI* instance,
-                                std::string_view fileName, int lineNumber,
+                                const std::string& fileName, int lineNumber,
                                 any* pexpr, bool muteErrors) {
   Serializer& s = compileDesign->getSerializer();
   UHDM_OBJECT_TYPE objtype = result->UhdmType();
@@ -828,7 +827,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
         UHDM_OBJECT_TYPE optype = oper->UhdmType();
         if (optype == uhdmref_obj) {
           ref_obj* ref = (ref_obj*)oper;
-          const std::string_view name = ref->VpiName();
+          const std::string& name = ref->VpiName();
           any* tmp = getValue(name, component, compileDesign, instance,
                               fileName, lineNumber, pexpr, true, muteErrors);
           if (!tmp) {
@@ -1583,34 +1582,34 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
               int consttype = cv->VpiConstType();
               c->VpiConstType(consttype);
               if (consttype == vpiBinaryConst) {
-                std::string_view val = cv->VpiValue();
+                std::string val = cv->VpiValue();
                 std::string res;
                 for (unsigned int i = 0; i < n; i++) {
-                  res += val.data() + strlen("BIN:");
+                  res += val.c_str() + strlen("BIN:");
                 }
                 c->VpiValue("BIN:" + res);
                 c->VpiDecompile(res);
               } else if (consttype == vpiHexConst) {
-                std::string_view val = cv->VpiValue();
+                std::string val = cv->VpiValue();
                 std::string res;
                 for (unsigned int i = 0; i < n; i++) {
-                  res += val.data() + strlen("HEX:");
+                  res += val.c_str() + strlen("HEX:");
                 }
                 c->VpiValue("HEX:" + res);
                 c->VpiDecompile(res);
               } else if (consttype == vpiOctConst) {
-                std::string_view val = cv->VpiValue();
+                std::string val = cv->VpiValue();
                 std::string res;
                 for (unsigned int i = 0; i < n; i++) {
-                  res += val.data() + strlen("OCT:");
+                  res += val.c_str() + strlen("OCT:");
                 }
                 c->VpiValue("OCT:" + res);
                 c->VpiDecompile(res);
               } else if (consttype == vpiStringConst) {
-                std::string_view val = cv->VpiValue();
+                std::string val = cv->VpiValue();
                 std::string res;
                 for (unsigned int i = 0; i < n; i++) {
-                  res += val.data() + strlen("STRING:");
+                  res += val.c_str() + strlen("STRING:");
                 }
                 c->VpiValue("STRING:" + res);
                 c->VpiDecompile(res);
@@ -1639,50 +1638,51 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
             for (unsigned int i = 0; i < operands.size(); i++) {
               if (operands[i]->UhdmType() == uhdmconstant) {
                 constant* c = (constant*)operands[i];
-                std::string_view v = c->VpiValue();
+                std::string v = c->VpiValue();
                 unsigned int size = c->VpiSize();
                 csize += size;
                 int type = c->VpiConstType();
                 switch (type) {
                   case vpiBinaryConst: {
-                    cval += v.data() + strlen("BIN:");
+                    cval += v.c_str() + strlen("BIN:");
                     break;
                   }
                   case vpiDecConst: {
                     long long iv =
-                        std::strtoll(v.data() + strlen("DEC:"), 0, 10);
+                        std::strtoll(v.c_str() + strlen("DEC:"), 0, 10);
                     cval += NumUtils::toBinary(size, iv);
                     break;
                   }
                   case vpiHexConst: {
-                    cval += NumUtils::hexToBin(v.data() + strlen("HEX:"));
+                    cval += NumUtils::hexToBin(v.c_str() + strlen("HEX:"));
                     break;
                   }
                   case vpiOctConst: {
                     long long iv =
-                        std::strtoll(v.data() + strlen("OCT:"), 0, 8);
+                        std::strtoll(v.c_str() + strlen("OCT:"), 0, 8);
                     cval += NumUtils::toBinary(size, iv);
                     break;
                   }
                   case vpiIntConst: {
-                    int64_t iv = std::strtoll(v.data() + strlen("INT:"), 0, 10);
+                    int64_t iv =
+                        std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
                     cval += NumUtils::toBinary(size, iv);
                     break;
                   }
                   case vpiUIntConst: {
                     uint64_t iv =
-                        std::strtoull(v.data() + strlen("UINT:"), 0, 10);
+                        std::strtoull(v.c_str() + strlen("UINT:"), 0, 10);
                     cval += NumUtils::toBinary(size, iv);
                     break;
                   }
                   default: {
-                    if (strstr(v.data(), "UINT:")) {
+                    if (strstr(v.c_str(), "UINT:")) {
                       uint64_t iv =
-                          std::strtoull(v.data() + strlen("UINT:"), 0, 10);
+                          std::strtoull(v.c_str() + strlen("UINT:"), 0, 10);
                       cval += NumUtils::toBinary(size, iv);
                     } else {
                       int64_t iv =
-                          std::strtoll(v.data() + strlen("INT:"), 0, 10);
+                          std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
                       cval += NumUtils::toBinary(size, iv);
                     }
                     break;
@@ -1730,12 +1730,12 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
               } else if (ttps == uhdminteger_typespec) {
                 integer_typespec* itps = (integer_typespec*)tps;
                 uint64_t cast_to = 0;
-                if (strstr(itps->VpiValue().data(), "UINT:")) {
+                if (strstr(itps->VpiValue().c_str(), "UINT:")) {
                   cast_to = std::strtoull(
-                      itps->VpiValue().data() + strlen("UINT:"), 0, 10);
+                      itps->VpiValue().c_str() + strlen("UINT:"), 0, 10);
                 } else {
                   cast_to = std::strtoll(
-                      itps->VpiValue().data() + strlen("INT:"), 0, 10);
+                      itps->VpiValue().c_str() + strlen("INT:"), 0, 10);
                 }
                 UHDM::constant* c = s.MakeConstant();
                 uint64_t mask =
@@ -1773,7 +1773,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
     return (expr*)result;
   } else if (objtype == uhdmsys_func_call) {
     sys_func_call* scall = (sys_func_call*)result;
-    const std::string_view name = scall->VpiName();
+    const std::string& name = scall->VpiName();
     if ((name == "$bits") || (name == "$size")) {
       uint64_t bits = 0;
       bool found = false;
@@ -1781,7 +1781,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
         UHDM::UHDM_OBJECT_TYPE argtype = arg->UhdmType();
         if (argtype == uhdmref_obj) {
           ref_obj* ref = (ref_obj*)arg;
-          const std::string_view objname = ref->VpiName();
+          const std::string& objname = ref->VpiName();
           any* object =
               getObject(objname, component, compileDesign, instance, pexpr);
           if (object == nullptr) {
@@ -1818,8 +1818,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
           hier_path* path = (hier_path*)arg;
           auto elems = path->Path_elems();
           if (elems && (elems->size() > 1)) {
-            const std::string_view base = elems->at(0)->VpiName();
-            const std::string_view suffix = elems->at(1)->VpiName();
+            const std::string& base = elems->at(0)->VpiName();
+            const std::string& suffix = elems->at(1)->VpiName();
             any* var =
                 getObject(base, component, compileDesign, instance, pexpr);
             if (var) {
@@ -1883,7 +1883,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
     }
   } else if (objtype == uhdmfunc_call) {
     func_call* scall = (func_call*)result;
-    const std::string_view name = scall->VpiName();
+    const std::string& name = scall->VpiName();
     std::vector<any*>* args = scall->Tf_call_args();
     auto [func, actual_comp] =
         getTaskFunc(name, component, compileDesign, pexpr);
@@ -1910,7 +1910,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
     }
   } else if (objtype == uhdmref_obj) {
     ref_obj* ref = (ref_obj*)result;
-    const std::string_view name = ref->VpiName();
+    const std::string& name = ref->VpiName();
     any* tmp = getValue(name, component, compileDesign, instance, fileName,
                         lineNumber, pexpr, true, muteErrors);
     if (tmp) {
@@ -1925,7 +1925,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
     return res;
   } else if (objtype == uhdmbit_select) {
     bit_select* sel = (bit_select*)result;
-    const std::string_view name = sel->VpiName();
+    const std::string& name = sel->VpiName();
     const expr* index = sel->VpiIndex();
     uint64_t index_val = get_value(
         invalidValue,
@@ -2055,7 +2055,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
   } else if (objtype == uhdmpart_select) {
     part_select* sel = (part_select*)result;
     ref_obj* parent = (ref_obj*)sel->VpiParent();
-    const std::string_view name = parent->VpiName();
+    const std::string& name = parent->VpiName();
     any* object = getObject(name, component, compileDesign, instance, pexpr);
     if (object == nullptr) {
       object = getValue(name, component, compileDesign, instance, fileName,
@@ -2083,7 +2083,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
 
   } else if (objtype == uhdmvar_select) {
     var_select* sel = (var_select*)result;
-    const std::string_view name = sel->VpiName();
+    const std::string& name = sel->VpiName();
     any* object = getObject(name, component, compileDesign, instance, pexpr);
     if (object == nullptr) {
       object = getValue(name, component, compileDesign, instance, fileName,
@@ -2156,7 +2156,7 @@ any* CompileHelper::hierarchicalSelector(
     std::vector<std::string>& select_path, unsigned int level,
     UHDM::any* object, bool& invalidValue, DesignComponent* component,
     CompileDesign* compileDesign, ValuedComponentI* instance, UHDM::any* pexpr,
-    std::string_view fileName, int lineNumber, bool muteErrors,
+    const std::string& fileName, int lineNumber, bool muteErrors,
     bool returnTypespec) {
   if (level >= select_path.size()) {
     return (expr*)object;
@@ -2326,10 +2326,10 @@ long double CompileHelper::get_double(bool& invalidValue,
   long double result = 0;
   if (const UHDM::constant* c = any_cast<const UHDM::constant*>(expr)) {
     int type = c->VpiConstType();
-    std::string_view v = c->VpiValue();
+    std::string v = c->VpiValue();
     switch (type) {
       case vpiRealConst: {
-        result = std::strtold(v.data() + strlen("REAL:"), 0);
+        result = std::strtold(v.c_str() + strlen("REAL:"), 0);
         break;
       }
       default: {
@@ -2449,16 +2449,17 @@ int64_t CompileHelper::get_value(bool& invalidValue, const UHDM::expr* expr) {
   return result;
 }
 
-any* CompileHelper::getValue(std::string_view name, DesignComponent* component,
+any* CompileHelper::getValue(const std::string& name,
+                             DesignComponent* component,
                              CompileDesign* compileDesign,
                              ValuedComponentI* instance,
-                             std::string_view fileName, int lineNumber,
+                             const std::string& fileName, int lineNumber,
                              any* pexpr, bool reduce, bool muteErrors) {
   Serializer& s = compileDesign->getSerializer();
   Value* sval = nullptr;
   any* result = nullptr;
 
-  if (strstr(name.data(), "::")) {
+  if (strstr(name.c_str(), "::")) {
     std::vector<std::string> res;
     StringUtils::tokenizeMulti(name, "::", res);
     if (res.size() > 1) {
@@ -2518,7 +2519,7 @@ any* CompileHelper::getValue(std::string_view name, DesignComponent* component,
         if (param_assigns) {
           for (param_assign* param : *param_assigns) {
             if (param && param->Lhs()) {
-              const std::string_view param_name = param->Lhs()->VpiName();
+              const std::string& param_name = param->Lhs()->VpiName();
               if (param_name == name) {
                 if (substituteAssignedValue(param->Rhs(), compileDesign)) {
                   if (param->Rhs()->UhdmType() == uhdmoperation) {
@@ -2601,7 +2602,7 @@ any* CompileHelper::getValue(std::string_view name, DesignComponent* component,
     if (param_assigns) {
       for (param_assign* param : *param_assigns) {
         if (param && param->Lhs()) {
-          const std::string_view param_name = param->Lhs()->VpiName();
+          const std::string& param_name = param->Lhs()->VpiName();
           if (param_name == name) {
             if (substituteAssignedValue(param->Rhs(), compileDesign)) {
               if (param->Rhs()->UhdmType() == uhdmoperation) {
@@ -2692,7 +2693,7 @@ any* CompileHelper::getValue(std::string_view name, DesignComponent* component,
 
 UHDM::any* CompileHelper::compileSelectExpression(
     DesignComponent* component, const FileContent* fC, NodeId Bit_select,
-    std::string_view name, CompileDesign* compileDesign, UHDM::any* pexpr,
+    const std::string& name, CompileDesign* compileDesign, UHDM::any* pexpr,
     ValuedComponentI* instance, bool reduce, bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
@@ -2790,7 +2791,7 @@ UHDM::any* CompileHelper::compileSelectExpression(
         result = sel;
       }
     } else if (fC->Type(Bit_select) == VObjectType::slStringConst) {
-      std::string hname(name);
+      std::string hname = name;
       hier_path* path = s.MakeHier_path();
       UHDM::VectorOfany* elems = s.MakeAnyVec();
       ref_obj* r1 = s.MakeRef_obj();
@@ -2814,13 +2815,13 @@ UHDM::any* CompileHelper::compileSelectExpression(
                 for (auto el : *p->Path_elems()) {
                   elems->push_back(el);
                   el->VpiParent(path);
-                  std::string n(el->VpiName());
+                  std::string n = el->VpiName();
                   if (el->UhdmType() == uhdmbit_select) {
                     bit_select* s = (bit_select*)el;
                     const expr* index = s->VpiIndex();
-                    std::string_view ind = index->VpiDecompile();
+                    std::string ind = index->VpiDecompile();
                     if (ind.size() == 0) ind = index->VpiName();
-                    n.append("[").append(ind).append("]");
+                    n += "[" + ind + "]";
                   }
                   hname += "." + n;
                 }
@@ -2828,7 +2829,7 @@ UHDM::any* CompileHelper::compileSelectExpression(
               } else {
                 elems->push_back(sel);
                 sel->VpiParent(path);
-                hname.append(".").append(sel->VpiName());
+                hname += "." + sel->VpiName();
               }
             }
           } else {
@@ -2836,7 +2837,7 @@ UHDM::any* CompileHelper::compileSelectExpression(
             r2->VpiName(fC->SymName(Bit_select));
             r2->VpiFullName(fC->SymName(Bit_select));
             elems->push_back(r2);
-            hname.append(".").append(fC->SymName(Bit_select));
+            hname += "." + fC->SymName(Bit_select);
           }
         }
         Bit_select = fC->Sibling(Bit_select);
@@ -3505,7 +3506,7 @@ UHDM::any* CompileHelper::compileExpression(
           //                 n<a> u<24> t<StringConst> p<25> l<2>
 
           NodeId n = fC->Child(child);
-          const std::string_view name = fC->SymName(n);
+          const std::string& name = fC->SymName(n);
           if (name == "$bits") {
             NodeId List_of_arguments = fC->Sibling(child);
             result =
@@ -3663,11 +3664,11 @@ UHDM::any* CompileHelper::compileExpression(
           std::string name;
           Value* sval = NULL;
           if (childType == VObjectType::slPackage_scope) {
-            const std::string_view packageName = fC->SymName(fC->Child(child));
+            const std::string& packageName = fC->SymName(fC->Child(child));
             NodeId paramId = fC->Sibling(child);
             NodeId selectId = fC->Sibling(paramId);
-            const std::string_view n = fC->SymName(paramId);
-            name.assign(packageName).append("::").append(n);
+            const std::string& n = fC->SymName(paramId);
+            name = packageName + "::" + n;
             Package* pack =
                 compileDesign->getCompiler()->getDesign()->getPackage(
                     packageName);
@@ -3677,7 +3678,7 @@ UHDM::any* CompileHelper::compileExpression(
               if (param_assigns) {
                 for (param_assign* param : *param_assigns) {
                   if (param && param->Lhs()) {
-                    const std::string_view param_name = param->Lhs()->VpiName();
+                    const std::string& param_name = param->Lhs()->VpiName();
                     if (param_name == n) {
                       if (substituteAssignedValue(param->Rhs(),
                                                   compileDesign)) {
@@ -3702,9 +3703,9 @@ UHDM::any* CompileHelper::compileExpression(
               if (result == nullptr) sval = pack->getValue(n);
             }
           } else if (childType == VObjectType::slClass_type) {
-            const std::string_view packageName = fC->SymName(fC->Child(child));
-            const std::string_view n = fC->SymName(fC->Sibling(parent));
-            name.assign(packageName).append("::").append(n);
+            const std::string& packageName = fC->SymName(fC->Child(child));
+            const std::string& n = fC->SymName(fC->Sibling(parent));
+            name = packageName + "::" + n;
             Package* pack =
                 compileDesign->getCompiler()->getDesign()->getPackage(
                     packageName);
@@ -3714,7 +3715,7 @@ UHDM::any* CompileHelper::compileExpression(
               if (param_assigns) {
                 for (param_assign* param : *param_assigns) {
                   if (param && param->Lhs()) {
-                    const std::string_view param_name = param->Lhs()->VpiName();
+                    const std::string& param_name = param->Lhs()->VpiName();
                     if (param_name == n) {
                       if (substituteAssignedValue(param->Rhs(),
                                                   compileDesign)) {
@@ -3748,7 +3749,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             while ((rhs = fC->Sibling(rhs))) {
               if (fC->Type(rhs) == VObjectType::slStringConst) {
-                name.append(".").append(fC->SymName(rhs));
+                name += "." + fC->SymName(rhs);
               } else if (fC->Type(rhs) == VObjectType::slSelect ||
                          fC->Type(rhs) == VObjectType::slConstant_select) {
                 NodeId Bit_select = fC->Child(rhs);
@@ -3775,7 +3776,7 @@ UHDM::any* CompileHelper::compileExpression(
                   if (param_assigns) {
                     for (param_assign* param_ass : *param_assigns) {
                       if (param_ass && param_ass->Lhs()) {
-                        const std::string_view param_name =
+                        const std::string& param_name =
                             param_ass->Lhs()->VpiName();
                         if (param_name == name) {
                           if (reduce ||
@@ -3812,8 +3813,7 @@ UHDM::any* CompileHelper::compileExpression(
               if (param_assigns) {
                 for (param_assign* param_ass : *param_assigns) {
                   if (param_ass && param_ass->Lhs()) {
-                    const std::string_view param_name =
-                        param_ass->Lhs()->VpiName();
+                    const std::string& param_name = param_ass->Lhs()->VpiName();
                     bool paramFromPackage = false;
                     if (param_ass->Lhs()->UhdmType() == uhdmparameter) {
                       const parameter* tp = (parameter*)param_ass->Lhs();
@@ -4027,7 +4027,7 @@ UHDM::any* CompileHelper::compileExpression(
             nameId = fC->Sibling(Dollar_keyword);
           }
           NodeId List_of_arguments = fC->Sibling(nameId);
-          std::string name(fC->SymName(nameId));
+          std::string name = fC->SymName(nameId);
           if (name == "bits") {
             NodeId Expression = fC->Child(List_of_arguments);
             result = compileBits(component, fC, Expression, compileDesign,
@@ -4049,9 +4049,8 @@ UHDM::any* CompileHelper::compileExpression(
               NodeId Class_type = fC->Child(Dollar_keyword);
               NodeId Class_type_name = fC->Child(Class_type);
               NodeId Class_scope_name = fC->Sibling(Dollar_keyword);
-              name.assign(fC->SymName(Class_type_name))
-                  .append("::")
-                  .append(fC->SymName(Class_scope_name));
+              name = fC->SymName(Class_type_name) +
+                     "::" + fC->SymName(Class_scope_name);
             }
             NodeId Select = fC->Sibling(Dollar_keyword);
             if (fC->Type(Select) == slConstant_bit_select ||
@@ -4071,7 +4070,7 @@ UHDM::any* CompileHelper::compileExpression(
                   component, fC, List_of_arguments, compileDesign, fcall,
                   instance, reduce, muteErrors);
               if (reduce) {
-                const std::string_view fileName = fC->getFileName();
+                const std::string& fileName = fC->getFileName();
                 int lineNumber = fC->Line(nameId);
                 if (func == nullptr) {
                   ErrorContainer* errors =
@@ -4085,8 +4084,8 @@ UHDM::any* CompileHelper::compileExpression(
                 }
                 result = EvalFunc(any_cast<function*>(func), args, invalidValue,
                                   (instance) ? actual_comp : component,
-                                  compileDesign, instance, fileName.data(),
-                                  lineNumber, pexpr);
+                                  compileDesign, instance, fileName, lineNumber,
+                                  pexpr);
               }
               if (result == nullptr || invalidValue == true) {
                 fcall->Tf_call_args(args);
@@ -4240,7 +4239,7 @@ UHDM::any* CompileHelper::compileExpression(
         }
         case VObjectType::slStringConst:
         case VObjectType::slDollar_root_keyword: {
-          std::string name(fC->SymName(parent));
+          std::string name = fC->SymName(parent);
           if (type == slDollar_root_keyword) {
             name = "$root";
           }
@@ -4263,7 +4262,7 @@ UHDM::any* CompileHelper::compileExpression(
             ref_obj* object = s.MakeRef_obj();
             object->VpiName(name);
             fcall->Prefix(object);
-            std::string_view methodName = fC->SymName(dotedName);
+            std::string methodName = fC->SymName(dotedName);
             fcall->VpiName(methodName);
             VectorOfany* arguments = compileTfCallArguments(
                 component, fC, List_of_arguments, compileDesign, fcall,
@@ -4323,7 +4322,7 @@ UHDM::any* CompileHelper::compileExpression(
           while (dotedName) {
             VObjectType dtype = fC->Type(dotedName);
             if (dtype == VObjectType::slStringConst) {
-              name.append(".").append(fC->SymName(dotedName));
+              name += "." + fC->SymName(dotedName);
               if (tmpName != "") {
                 ref_obj* ref = s.MakeRef_obj();
                 elems->push_back(ref);
@@ -4358,25 +4357,19 @@ UHDM::any* CompileHelper::compileExpression(
                 if (parent) parent->VpiDefName(tmpName);
                 elems->push_back(select);
                 if (part_select* pselect = any_cast<part_select*>(select)) {
-                  std::string selectRange;
-                  selectRange.append("[")
-                      .append(pselect->Left_range()->VpiDecompile())
-                      .append(":")
-                      .append(pselect->Right_range()->VpiDecompile())
-                      .append("]");
+                  std::string selectRange =
+                      "[" + pselect->Left_range()->VpiDecompile() + ":" +
+                      pselect->Right_range()->VpiDecompile() + "]";
                   name += selectRange;
                 } else if (indexed_part_select* pselect =
                                any_cast<indexed_part_select*>(select)) {
-                  std::string selectRange;
-                  selectRange.append("[")
-                      .append(pselect->Base_expr()->VpiDecompile())
-                      .append((
-                          (pselect->VpiIndexedPartSelectType() == vpiPosIndexed)
-                              ? "+"
-                              : "-"))
-                      .append(":")
-                      .append(pselect->Width_expr()->VpiDecompile())
-                      .append("]");
+                  std::string selectRange =
+                      "[" + pselect->Base_expr()->VpiDecompile() +
+                      ((pselect->VpiIndexedPartSelectType() == vpiPosIndexed)
+                           ? "+"
+                           : "-") +
+                      std::string(":") + pselect->Width_expr()->VpiDecompile() +
+                      "]";
                   name += selectRange;
                 }
               } else if (Expression) {
@@ -4512,7 +4505,7 @@ UHDM::any* CompileHelper::compileExpression(
     // Reduce
     bool invalidValue = false;
     any* tmp = reduceExpr(result, invalidValue, component, compileDesign,
-                          instance, fC->getFileName(the_node).data(),
+                          instance, fC->getFileName(the_node),
                           fC->Line(the_node), pexpr, muteErrors);
     if (tmp && (invalidValue == false)) {
       result = tmp;
@@ -4686,16 +4679,16 @@ bool CompileHelper::errorOnNegativeConstant(DesignComponent* component,
                                             ValuedComponentI* instance) {
   if (exp == nullptr) return false;
   if (exp->UhdmType() != uhdmconstant) return false;
-  const std::string_view val = exp->VpiValue();
-  return errorOnNegativeConstant(component, val.data(), compileDesign, instance,
-                                 exp->VpiFile().data(), exp->VpiLineNo(),
+  const std::string& val = exp->VpiValue();
+  return errorOnNegativeConstant(component, val, compileDesign, instance,
+                                 exp->VpiFile(), exp->VpiLineNo(),
                                  exp->VpiColumnNo());
 }
 
 bool CompileHelper::errorOnNegativeConstant(
-    DesignComponent* component, std::string_view val,
+    DesignComponent* component, const std::string& val,
     CompileDesign* compileDesign, ValuedComponentI* instance,
-    std::string_view fileName, unsigned int lineNo, unsigned short columnNo) {
+    const std::string& fileName, unsigned int lineNo, unsigned short columnNo) {
   if (val[4] == '-') {
     std::string instanceName;
     if (instance) {
@@ -4710,8 +4703,8 @@ bool CompileHelper::errorOnNegativeConstant(
     message += "\"" + instanceName + "\"\n";
     std::string fileContent = FileUtils::getFileContent(fileName);
     std::string lineText = StringUtils::getLineInString(fileContent, lineNo);
-    message.append("             text: ").append(lineText);
-    message.append("             value: ").append(val);
+    message += "             text: " + lineText;
+    message += "             value: " + val;
     ErrorContainer* errors = compileDesign->getCompiler()->getErrorContainer();
     SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
     Location loc(symbols->registerSymbol(fileName), lineNo, columnNo,
@@ -4909,7 +4902,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
 
 UHDM::any* CompileHelper::compilePartSelectRange(
     DesignComponent* component, const FileContent* fC, NodeId Constant_range,
-    std::string_view name, CompileDesign* compileDesign, UHDM::any* pexpr,
+    const std::string& name, CompileDesign* compileDesign, UHDM::any* pexpr,
     ValuedComponentI* instance, bool reduce, bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
@@ -4948,9 +4941,9 @@ UHDM::any* CompileHelper::compilePartSelectRange(
     if (reduce && (lexp->UhdmType() == uhdmconstant) &&
         (rexp->UhdmType() == uhdmconstant)) {
       if (!name.empty()) {
-        any* v = getValue(
-            name, component, compileDesign, instance, fC->getFileName().data(),
-            fC->Line(Constant_expression), pexpr, reduce, muteErrors);
+        any* v = getValue(name, component, compileDesign, instance,
+                          fC->getFileName(), fC->Line(Constant_expression),
+                          pexpr, reduce, muteErrors);
         if (v && (v->UhdmType() == uhdmconstant)) {
           constant* cv = (constant*)v;
           Value* cvv =
@@ -5039,7 +5032,7 @@ uint64_t CompileHelper::Bits(const UHDM::any* typespec, bool& invalidValue,
                              DesignComponent* component,
                              CompileDesign* compileDesign,
                              ValuedComponentI* instance,
-                             std::string_view fileName, int lineNumber,
+                             const std::string& fileName, int lineNumber,
                              bool reduce, bool sizeMode) {
   uint64_t bits = 0;
   if (typespec) {
@@ -5092,11 +5085,11 @@ uint64_t CompileHelper::Bits(const UHDM::any* typespec, bool& invalidValue,
       }
       case UHDM::uhdminteger_typespec: {
         integer_typespec* itps = (integer_typespec*)typespec;
-        if (strstr(itps->VpiValue().data(), "UINT:")) {
+        if (strstr(itps->VpiValue().c_str(), "UINT:")) {
           bits =
-              std::strtoull(itps->VpiValue().data() + strlen("UINT:"), 0, 10);
+              std::strtoull(itps->VpiValue().c_str() + strlen("UINT:"), 0, 10);
         } else {
-          bits = std::strtoll(itps->VpiValue().data() + strlen("INT:"), 0, 10);
+          bits = std::strtoll(itps->VpiValue().c_str() + strlen("INT:"), 0, 10);
         }
         break;
       }
@@ -5347,7 +5340,7 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
       basename = fC->SymName(id);
       NodeId suffix = fC->Sibling(id);
       while (suffix && (fC->Type(suffix) == slStringConst)) {
-        suffixnames.push_back(fC->SymName(suffix).data());
+        suffixnames.push_back(fC->SymName(suffix));
         suffix = fC->Sibling(suffix);
       }
       break;
@@ -5368,9 +5361,8 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
       NodeId Class_type = fC->Child(id);
       NodeId Class_type_name = fC->Child(Class_type);
       NodeId Class_scope_name = fC->Sibling(id);
-      basename.assign(fC->SymName(Class_type_name))
-          .append("::")
-          .append(fC->SymName(Class_scope_name));
+      basename =
+          fC->SymName(Class_type_name) + "::" + fC->SymName(Class_scope_name);
       Package* p = compileDesign->getCompiler()->getDesign()->getPackage(
           fC->SymName(Class_type_name));
       if (p) {
@@ -5380,9 +5372,9 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
       break;
     }
     case VObjectType::slPackage_scope: {
-      const std::string_view packageName = fC->SymName(fC->Child(id));
-      const std::string_view n = fC->SymName(fC->Sibling(id));
-      basename.assign(packageName).append("::").append(n);
+      const std::string& packageName = fC->SymName(fC->Child(id));
+      const std::string& n = fC->SymName(fC->Sibling(id));
+      basename = packageName + "::" + n;
       Package* p =
           compileDesign->getCompiler()->getDesign()->getPackage(packageName);
       if (p) {
@@ -5533,8 +5525,8 @@ UHDM::any* CompileHelper::compileBits(
           }
           if (reduce && tps)
             bits += Bits(tps, invalidValue, component, compileDesign, instance,
-                         fC->getFileName(typeSpecId).data(),
-                         fC->Line(typeSpecId), reduce, sizeMode);
+                         fC->getFileName(typeSpecId), fC->Line(typeSpecId),
+                         reduce, sizeMode);
           ConcatExpression = fC->Sibling(ConcatExpression);
         }
       } else {
@@ -5555,16 +5547,16 @@ UHDM::any* CompileHelper::compileBits(
     }
     if (reduce && tps)
       bits = Bits(tps, invalidValue, component, compileDesign, instance,
-                  fC->getFileName(typeSpecId).data(), fC->Line(typeSpecId),
-                  reduce, sizeMode);
+                  fC->getFileName(typeSpecId), fC->Line(typeSpecId), reduce,
+                  sizeMode);
 
     if (reduce && (!tps)) {
       exp = compileExpression(component, fC, Expression, compileDesign, nullptr,
                               instance, true, true);
       if (exp) {
         bits = Bits(exp, invalidValue, component, compileDesign, instance,
-                    fC->getFileName(typeSpecId).data(), fC->Line(typeSpecId),
-                    reduce, sizeMode);
+                    fC->getFileName(typeSpecId), fC->Line(typeSpecId), reduce,
+                    sizeMode);
       }
     }
   }
@@ -5684,8 +5676,8 @@ UHDM::any* CompileHelper::compileTypename(
       UHDM::sys_func_call* sys = s.MakeSys_func_call();
       sys->VpiName("$typename");
       result = sys;
-      const std::string_view arg = fC->SymName(Expression);
-      c->VpiValue(std::string("STRING:").append(arg));
+      const std::string& arg = fC->SymName(Expression);
+      c->VpiValue("STRING:" + arg);
       c->VpiDecompile(arg);
       c->VpiConstType(vpiStringConst);
       break;
@@ -5709,10 +5701,10 @@ UHDM::any* CompileHelper::compileClog2(
   bool invalidValue = false;
   int64_t val = 0;
   if (reduce)
-    val = get_value(invalidValue,
-                    reduceExpr(operand, invalidValue, component, compileDesign,
-                               instance, fC->getFileName().data(),
-                               fC->Line(Expression), pexpr, muteErrors));
+    val = get_value(
+        invalidValue,
+        reduceExpr(operand, invalidValue, component, compileDesign, instance,
+                   fC->getFileName(), fC->Line(Expression), pexpr, muteErrors));
   if (reduce && (invalidValue == false)) {
     val = val - 1;
     uint64_t clog2 = 0;
@@ -5755,8 +5747,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
     elems->push_back(ref);
     ref->VpiName("$root");
     ref->VpiFullName("$root");
-    std::string name("$root.");
-    name.append(fC->SymName(nameId));
+    std::string name = "$root." + fC->SymName(nameId);
     ref = s.MakeRef_obj();
     elems->push_back(ref);
     ref->VpiName(fC->SymName(nameId));
@@ -5764,7 +5755,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
     nameId = fC->Sibling(nameId);
     while (nameId) {
       if (fC->Type(nameId) == slStringConst) {
-        name.append(".").append(fC->SymName(nameId));
+        name += "." + fC->SymName(nameId);
         ref = s.MakeRef_obj();
         elems->push_back(ref);
         ref->VpiName(fC->SymName(nameId));
@@ -5792,7 +5783,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
   } else if (fC->Type(name) == VObjectType::slDollar_keyword) {
     NodeId Dollar_keyword = name;
     NodeId nameId = fC->Sibling(Dollar_keyword);
-    const std::string_view name = fC->SymName(nameId);
+    const std::string& name = fC->SymName(nameId);
     if (name == "bits") {
       NodeId List_of_arguments = fC->Sibling(nameId);
       result = compileBits(component, fC, List_of_arguments, compileDesign,
@@ -5808,7 +5799,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
     } else {
       NodeId List_of_arguments = fC->Sibling(nameId);
       UHDM::sys_func_call* sys = s.MakeSys_func_call();
-      sys->VpiName(std::string("$").append(name));
+      sys->VpiName("$" + name);
       VectorOfany* arguments = compileTfCallArguments(
           component, fC, List_of_arguments, compileDesign, sys, instance,
           reduce, muteErrors);
@@ -5822,7 +5813,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       return compileExpression(component, fC, Handle, compileDesign, pexpr,
                                instance, reduce, muteErrors);
     }
-    const std::string_view name = fC->SymName(Method);
+    const std::string& name = fC->SymName(Method);
     NodeId List_of_arguments = fC->Sibling(Method);
     if (fC->Type(List_of_arguments) == slList_of_arguments) {
       method_func_call* fcall = s.MakeMethod_func_call();
@@ -5843,9 +5834,9 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       // (this.fields[idx-1].get...)
       if (fC->Type(List_of_arguments) == slSelect)
         List_of_arguments = fC->Child(List_of_arguments);
-      result = compileSelectExpression(component, fC, List_of_arguments,
-                                       name.data(), compileDesign, pexpr,
-                                       instance, reduce, muteErrors);
+      result = compileSelectExpression(component, fC, List_of_arguments, name,
+                                       compileDesign, pexpr, instance, reduce,
+                                       muteErrors);
       if (result == nullptr) {
         // TODO: this is a mockup
         constant* cvar = s.MakeConstant();
@@ -5887,10 +5878,9 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       }
     }
 
-    std::string_view packagename = fC->SymName(Class_type_name);
-    std::string_view functionname = fC->SymName(Class_scope_name);
-    std::string basename(packagename);
-    basename.append("::").append(functionname);
+    std::string packagename = fC->SymName(Class_type_name);
+    std::string functionname = fC->SymName(Class_scope_name);
+    std::string basename = packagename + "::" + functionname;
     tf_call* call = nullptr;
     std::pair<task_func*, DesignComponent*> ret =
         getTaskFunc(basename, component, compileDesign, pexpr);
@@ -5971,7 +5961,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
              fC->Type(dotedName) == VObjectType::slConstant_select ||
              fC->Type(dotedName) == VObjectType::slConstant_expression) {
     NodeId Bit_select = fC->Child(dotedName);
-    const std::string_view sval = fC->SymName(name);
+    const std::string& sval = fC->SymName(name);
     NodeId selectName = fC->Sibling(dotedName);
     if (fC->Type(selectName) == slMethod_call_body) {
       // Example tree
@@ -6010,7 +6000,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       if (fC->Type(method_child) == slBuilt_in_method_call) {
         // vpiName: method name (Array_method_name above)
         NodeId method_name_node = fC->Child(fC->Child(fC->Child(method_child)));
-        const std::string_view method_name = fC->SymName(method_name_node);
+        const std::string& method_name = fC->SymName(method_name_node);
         NodeId randomize_call = fC->Child(method_child);
 
         // vpiPrefix: object to which the method is being applied (sval here)
@@ -6062,7 +6052,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       expr* index =
           (expr*)compileExpression(component, fC, dotedName, compileDesign,
                                    pexpr, instance, reduce, muteErrors);
-      const std::string_view sel = fC->SymName(selectName);
+      const std::string& sel = fC->SymName(selectName);
       UHDM::hier_path* path = s.MakeHier_path();
       VectorOfany* elems = s.MakeAnyVec();
       bit_select* select = s.MakeBit_select();
@@ -6075,9 +6065,9 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       std::string indexval;
       if (index) {
         if (index->UhdmType() == uhdmconstant) {
-          indexval.assign("[").append(index->VpiDecompile()).append("]");
+          indexval = "[" + index->VpiDecompile() + "]";
         } else if (index->UhdmType() == uhdmref_obj) {
-          indexval.append("[").append(index->VpiName()).append("]");
+          indexval += "[" + index->VpiName() + "]";
         }
       }
       ref_obj* selobj = s.MakeRef_obj();
@@ -6085,16 +6075,14 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       selobj->VpiName(sel);
       selobj->VpiFullName(sel);
       elems->push_back(selobj);
-      std::string fullName(sval);
-      fullName.append(indexval).append(".").append(sel);
+      std::string fullName = sval + indexval + "." + sel;
       path->VpiName(fullName);
       path->VpiFullName(fullName);
       path->VpiParent(pexpr);
       result = path;
-    } else if (UHDM::any* st =
-                   getValue(sval, component, compileDesign, instance,
-                            fC->getFileName().data(), fC->Line(Bit_select),
-                            pexpr, reduce, muteErrors)) {
+    } else if (UHDM::any* st = getValue(
+                   sval, component, compileDesign, instance, fC->getFileName(),
+                   fC->Line(Bit_select), pexpr, reduce, muteErrors)) {
       UHDM_OBJECT_TYPE type = st->UhdmType();
       NodeId Select = dotedName;
       if (NodeId Bit_select = fC->Child(Select)) {
@@ -6128,30 +6116,28 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
         }
       }
       if (result == nullptr) {
-        result = compileSelectExpression(component, fC, Bit_select, sval.data(),
+        result = compileSelectExpression(component, fC, Bit_select, sval,
                                          compileDesign, pexpr, instance, reduce,
                                          muteErrors);
       }
     } else {
-      result = compileSelectExpression(component, fC, Bit_select, sval.data(),
+      result = compileSelectExpression(component, fC, Bit_select, sval,
                                        compileDesign, pexpr, instance, reduce,
                                        muteErrors);
     }
     if (result == nullptr) {
-      const std::string_view n = fC->SymName(name);
+      const std::string& n = fC->SymName(name);
       ref_obj* ref = s.MakeRef_obj();
       ref->VpiName(n);
       ref->VpiParent(pexpr);
       if (pexpr) {
-        UHDM::any* var =
-            bindVariable(component, pexpr, n.data(), compileDesign);
+        UHDM::any* var = bindVariable(component, pexpr, n, compileDesign);
         if (var)
           ref->Actual_group(var);
         else if (component)
           component->needLateBinding(ref);
       } else if (instance) {
-        UHDM::any* var =
-            bindVariable(component, instance, n.data(), compileDesign);
+        UHDM::any* var = bindVariable(component, instance, n, compileDesign);
         if (var)
           ref->Actual_group(var);
         else if (component)
@@ -6162,19 +6148,18 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
   } else if (fC->Type(dotedName) == slList_of_arguments) {
     result = compileTfCall(component, fC, nodeId, compileDesign);
   } else if (fC->Type(name) == VObjectType::slStringConst) {
-    const std::string_view n = fC->SymName(name);
+    const std::string& n = fC->SymName(name);
     ref_obj* ref = s.MakeRef_obj();
     ref->VpiName(n);
     ref->VpiParent(pexpr);
     if (pexpr) {
-      UHDM::any* var = bindVariable(component, pexpr, n.data(), compileDesign);
+      UHDM::any* var = bindVariable(component, pexpr, n, compileDesign);
       if (var)
         ref->Actual_group(var);
       else if (component)
         component->needLateBinding(ref);
     } else if (instance) {
-      UHDM::any* var =
-          bindVariable(component, instance, n.data(), compileDesign);
+      UHDM::any* var = bindVariable(component, instance, n, compileDesign);
       if (var)
         ref->Actual_group(var);
       else if (component)
@@ -6196,38 +6181,38 @@ int64_t CompileHelper::getValue(bool& validValue, DesignComponent* component,
                                       pexpr, instance, reduce, muteErrors);
   if (expr && expr->UhdmType() == UHDM::uhdmconstant) {
     UHDM::constant* c = (UHDM::constant*)expr;
-    const std::string_view v = c->VpiValue();
+    const std::string& v = c->VpiValue();
     int type = c->VpiConstType();
     switch (type) {
       case vpiBinaryConst: {
-        result = std::strtoll(v.data() + strlen("BIN:"), 0, 2);
+        result = std::strtoll(v.c_str() + strlen("BIN:"), 0, 2);
         break;
       }
       case vpiDecConst: {
-        result = std::strtoll(v.data() + strlen("DEC:"), 0, 10);
+        result = std::strtoll(v.c_str() + strlen("DEC:"), 0, 10);
         break;
       }
       case vpiHexConst: {
-        result = std::strtoll(v.data() + strlen("HEX:"), 0, 16);
+        result = std::strtoll(v.c_str() + strlen("HEX:"), 0, 16);
         break;
       }
       case vpiOctConst: {
-        result = std::strtoll(v.data() + strlen("OCT:"), 0, 8);
+        result = std::strtoll(v.c_str() + strlen("OCT:"), 0, 8);
         break;
       }
       case vpiIntConst: {
-        result = std::strtoll(v.data() + strlen("INT:"), 0, 10);
+        result = std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
         break;
       }
       case vpiUIntConst: {
-        result = std::strtoull(v.data() + strlen("UINT:"), 0, 10);
+        result = std::strtoull(v.c_str() + strlen("UINT:"), 0, 10);
         break;
       }
       default: {
-        if (strstr(v.data(), "UINT:")) {
-          result = std::strtoull(v.data() + strlen("UINT:"), 0, 10);
+        if (strstr(v.c_str(), "UINT:")) {
+          result = std::strtoull(v.c_str() + strlen("UINT:"), 0, 10);
         } else {
-          result = std::strtoll(v.data() + strlen("INT:"), 0, 10);
+          result = std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
         }
         break;
       }

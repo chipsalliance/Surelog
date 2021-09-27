@@ -67,7 +67,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
   scope->addObject(VObjectType::slPackage_import_item, fnid);
 
   NodeId nameId = fC->Child(id);
-  std::string_view pack_name = fC->SymName(nameId);
+  std::string pack_name = fC->SymName(nameId);
   Package* def = design->getPackage(pack_name);
   if (def) {
     if (def == scope)  // skip
@@ -77,13 +77,12 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
     for (unsigned int i = 0; i < classSet.size(); i++) {
       const FileContent* packageFile = classSet[i].fC;
       NodeId classDef = classSet[i].nodeId;
-      std::string_view name = packageFile->SymName(classDef);
-      std::string fullName(def->getName());
-      fullName.append("::").append(name);
+      std::string name = packageFile->SymName(classDef);
+      std::string fullName = def->getName() + "::" + name;
       DesignComponent* comp = packageFile->getComponentDefinition(fullName);
       FileCNodeId fnid(packageFile, classDef);
       scope->addNamedObject(name, fnid, comp);
-      scope->insertDataType(name.data(), (ClassDefinition*)comp);
+      scope->insertDataType(name, (ClassDefinition*)comp);
     }
     // Typespecs
     auto& typeSet = def->getDataTypeMap();
@@ -112,7 +111,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
     for (auto& param : paramSet) {
       Parameter* orig = param.second;
       Parameter* clone = new Parameter(*orig);
-      clone->setImportedPackage(pack_name.data());
+      clone->setImportedPackage(pack_name);
       scope->insertParameter(clone);
       UHDM::any* p = orig->getUhdmParam();
 
@@ -374,7 +373,7 @@ bool CompileHelper::compileTfPortList(Procedure* parent, const FileContent* fC,
       } else {
         typeName = VObject::getTypeName(the_type);
       }
-      std::string_view name = fC->SymName(tf_param_name);
+      std::string name = fC->SymName(tf_param_name);
       NodeId expression = fC->Sibling(tf_param_name);
       DataType* dtype = new DataType(fC, type, typeName, fC->Type(type));
 
@@ -384,9 +383,8 @@ bool CompileHelper::compileTfPortList(Procedure* parent, const FileContent* fC,
         value = m_exprBuilder.evalExpr(fC, expression, parent->getParent());
       }
       NodeId range = 0;
-      TfPortItem* param =
-          new TfPortItem(parent, fC, tf_port_item, range, name.data(), dtype,
-                         value, tf_port_direction_type);
+      TfPortItem* param = new TfPortItem(parent, fC, tf_port_item, range, name,
+                                         dtype, value, tf_port_direction_type);
       targetList.push_back(param);
       tf_port_item = fC->Sibling(tf_port_item);
     }
@@ -450,13 +448,12 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       dtype == VObjectType::slInterface_class_keyword ||
       dtype == VObjectType::slEnum_keyword) {
     NodeId type_name = fC->Sibling(data_type);
-    std::string_view name = fC->SymName(type_name);
+    std::string name = fC->SymName(type_name);
     const TypeDef* prevDef = scope->getTypeDef(name);
     if (prevDef) return prevDef;
     NodeId stype = fC->Sibling(data_type);
     if (fC->Type(stype) == VObjectType::slStringConst) {
-      TypeDef* newTypeDef =
-          new TypeDef(fC, type_declaration, stype, name.data());
+      TypeDef* newTypeDef = new TypeDef(fC, type_declaration, stype, name);
       scope->insertTypeDef(newTypeDef);
       newType = newTypeDef;
       return newType;
@@ -479,10 +476,10 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
                       nullptr, reduce, size, false);
     array_tps->Ranges(ranges);
   }
-  const std::string_view name = fC->SymName(type_name);
-  std::string fullName(name);
+  const std::string name = fC->SymName(type_name);
+  std::string fullName = name;
   if (Package* pack = valuedcomponenti_cast<Package*>(scope)) {
-    fullName.assign(pack->getName()).append("::").append(name);
+    fullName = pack->getName() + "::" + name;
   }
   if (scope) {
     const TypeDef* prevDef = scope->getTypeDef(name);
@@ -502,7 +499,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
   VObjectType base_type = fC->Type(data_type);
 
   DataType* type = new DataType(fC, data_type, name, base_type);
-  if (scope) scope->insertDataType(name.data(), type);
+  if (scope) scope->insertDataType(name, type);
 
   // Enum or Struct or Union
   NodeId enum_base_type = fC->Child(data_type);
@@ -529,8 +526,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
     structType = true;
     NodeId struct_or_union = fC->Child(enum_base_type);
     VObjectType struct_or_union_type = fC->Type(struct_or_union);
-    TypeDef* newTypeDef =
-        new TypeDef(fC, type_declaration, type_name, name.data());
+    TypeDef* newTypeDef = new TypeDef(fC, type_declaration, type_name, name);
 
     if (struct_or_union_type == VObjectType::slStruct_keyword) {
       Struct* st = new Struct(fC, type_name, enum_base_type);
@@ -596,7 +592,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
   }
   if (enumType) {
     TypeDef* newTypeDef =
-        new TypeDef(fC, type_declaration, enum_base_type, name.data());
+        new TypeDef(fC, type_declaration, enum_base_type, name);
     int val = 0;
     Enum* the_enum = new Enum(fC, type_name, enum_base_type);
     newTypeDef->setDataType(the_enum);
@@ -643,7 +639,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
 
     while (enum_name_declaration) {
       NodeId enumNameId = fC->Child(enum_name_declaration);
-      std::string_view enumName = fC->SymName(enumNameId);
+      std::string enumName = fC->SymName(enumNameId);
       NodeId enumValueId = fC->Sibling(enumNameId);
       Value* value = NULL;
       if (enumValueId) {
@@ -652,7 +648,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
         value = m_exprBuilder.getValueFactory().newLValue();
         value->set(val, Value::Type::Integer, 64);
       }
-      the_enum->addValue(enumName.data(), fC->Line(enumNameId), value);
+      the_enum->addValue(enumName, fC->Line(enumNameId), value);
       enum_name_declaration = fC->Sibling(enum_name_declaration);
       val++;
       if (scope) scope->setValue(enumName, value, m_exprBuilder);
@@ -691,8 +687,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
     NodeId stype = fC->Child(data_type);
     if ((fC->Type(stype) == VObjectType::slStringConst) ||
         fC->Type(stype) == VObjectType::slClass_scope) {
-      TypeDef* newTypeDef =
-          new TypeDef(fC, type_declaration, stype, name.data());
+      TypeDef* newTypeDef = new TypeDef(fC, type_declaration, stype, name);
       type->setDefinition(newTypeDef);
       if (scope) scope->insertTypeDef(newTypeDef);
       DummyType* dummy = new DummyType(fC, type_name, stype);
@@ -760,8 +755,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       if (scope) scope->insertTypeDef(newTypeDef);
       newType = newTypeDef;
     } else {
-      TypeDef* newTypeDef =
-          new TypeDef(fC, type_declaration, stype, name.data());
+      TypeDef* newTypeDef = new TypeDef(fC, type_declaration, stype, name);
       type->setDefinition(newTypeDef);
       if (scope) scope->insertTypeDef(newTypeDef);
       SimpleType* simple = new SimpleType(fC, type_name, stype);
@@ -932,7 +926,7 @@ bool CompileHelper::compileSubroutine_call(Scope* parent, Statement* parentStmt,
 
     next_name = fC->Sibling(next_name);
   }
-  std::string_view funcName = fC->SymName(var_chain[var_chain.size() - 1]);
+  std::string funcName = fC->SymName(var_chain[var_chain.size() - 1]);
   var_chain.pop_back();
 
   NodeId list_of_arguments = next_name;
@@ -946,8 +940,8 @@ bool CompileHelper::compileSubroutine_call(Scope* parent, Statement* parentStmt,
 
   SubRoutineCallStmt* stmt = new SubRoutineCallStmt(
       parent, parentStmt, fC, subroutine_call,
-      VObjectType::slSubroutine_call_statement, var_chain, funcName.data(),
-      args, static_call, system_call);
+      VObjectType::slSubroutine_call_statement, var_chain, funcName, args,
+      static_call, system_call);
   parent->addStmt(stmt);
   if (parentStmt) parentStmt->addStatement(stmt);
   return true;
@@ -1149,7 +1143,7 @@ bool CompileHelper::compileScopeVariable(Scope* parent, const FileContent* fC,
         if (varType == VObjectType::slList_of_arguments) {
           // new ()
         } else {
-          std::string_view varName = fC->SymName(var);
+          std::string varName = fC->SymName(var);
 
           Variable* previous = parent->getVariable(varName);
           if (previous) {
@@ -1210,7 +1204,7 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type,
               the_type == VObjectType::slIntegerAtomType_LongInt ||
               the_type == VObjectType::slIntegerAtomType_Byte) {
             if (the_type == VObjectType::slStringConst) {
-              const std::string_view tname = fC->SymName(integer_vector_type);
+              const std::string& tname = fC->SymName(integer_vector_type);
               if (tname == "logic") {
                 the_type = VObjectType::slIntVec_TypeLogic;
               } else if (tname == "bit") {
@@ -1403,6 +1397,7 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
           */
           NodeId type_identifier = fC->Child(subNode);
           NodeId interfIdName = fC->Child(type_identifier);
+          std::string interfName = fC->SymName(interfIdName);
 
           NodeId list_of_interface_identifiers = fC->Sibling(type_identifier);
           NodeId interface_identifier =
@@ -1741,7 +1736,7 @@ void CompileHelper::compileImportDeclaration(DesignComponent* component,
     NodeId item_name_id = fC->Sibling(package_name_id);
     Value* item_name = m_exprBuilder.getValueFactory().newStValue();
     if (item_name_id != 0) {
-      item_name->set(fC->SymName(item_name_id).data());
+      item_name->set(fC->SymName(item_name_id));
     } else {
       item_name->set("*");
     }
@@ -2043,7 +2038,7 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(
                                    compileDesign, pstmt, instance);
   }
   NodeId IntConst = fC->Child(Delay_control);
-  std::string_view value = fC->SymName(IntConst);
+  std::string value = fC->SymName(IntConst);
   UHDM::delay_control* dc = s.MakeDelay_control();
   dc->VpiDelay(value);
   NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
@@ -2071,7 +2066,7 @@ UHDM::atomic_stmt* CompileHelper::compileDelayControl(
                                    compileDesign, pexpr, instance);
   }
   NodeId IntConst = fC->Child(Delay_control);
-  std::string_view value = fC->SymName(IntConst);
+  std::string value = fC->SymName(IntConst);
   UHDM::delay_control* dc = s.MakeDelay_control();
   dc->VpiDelay(value);
   return dc;
@@ -2238,8 +2233,8 @@ bool CompileHelper::compileParameterDeclaration(
         p->VpiLocalParam(true);
       }
       parameters->push_back(p);
-      Parameter* param = new Parameter(
-          fC, typeNameId, fC->SymName(typeNameId).data(), ntype, port_param);
+      Parameter* param = new Parameter(fC, typeNameId, fC->SymName(typeNameId),
+                                       ntype, port_param);
       param->setTypeParam();
       param->setUhdmParam(p);
       component->insertParameter(param);
@@ -2270,9 +2265,8 @@ bool CompileHelper::compileParameterDeclaration(
         p->VpiLocalParam(true);
       }
       parameters->push_back(p);
-      Parameter* param =
-          new Parameter(fC, Identifier, fC->SymName(Identifier).data(),
-                        Constant_param_expression, port_param);
+      Parameter* param = new Parameter(fC, Identifier, fC->SymName(Identifier),
+                                       Constant_param_expression, port_param);
       param->setTypeParam();
       param->setUhdmParam(p);
       component->insertParameter(param);
@@ -2310,7 +2304,7 @@ bool CompileHelper::compileParameterDeclaration(
 
       NodeId name = fC->Child(Param_assignment);
       NodeId value = fC->Sibling(name);
-      const std::string_view the_name = fC->SymName(name);
+      const std::string& the_name = fC->SymName(name);
       NodeId actual_value = value;
       while (fC->Type(actual_value) == slUnpacked_dimension) {
         actual_value = fC->Sibling(actual_value);
@@ -2333,9 +2327,9 @@ bool CompileHelper::compileParameterDeclaration(
             component->setValue(the_name, val, m_exprBuilder);
           } else if (reduce && (!isMultiDimension)) {
             UHDM::expr* the_expr = (UHDM::expr*)expr;
-            ExprEval expr_eval(the_expr, instance, fC->getFileName().data(),
+            ExprEval expr_eval(the_expr, instance, fC->getFileName(),
                                fC->Line(name), nullptr);
-            component->scheduleParamExprEval(the_name.data(), expr_eval);
+            component->scheduleParamExprEval(the_name, expr_eval);
           } else if (expr && ((exprtype == uhdmoperation) ||
                               (exprtype == uhdmfunc_call) ||
                               (exprtype == uhdmsys_func_call))) {
@@ -2366,7 +2360,7 @@ bool CompileHelper::compileParameterDeclaration(
       UHDM::parameter* param = s.MakeParameter();
 
       Parameter* p =
-          new Parameter(fC, name, fC->SymName(name).data(),
+          new Parameter(fC, name, fC->SymName(name),
                         fC->Child(Data_type_or_implicit), port_param);
       p->setUhdmParam(param);
       p->setTypespec(ts);
@@ -2500,19 +2494,19 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
 
     tfNameNode = fC->Sibling(dollar_or_string);
     call = s.MakeSys_func_call();
-    name.assign("$").append(fC->SymName(tfNameNode));
+    name = "$" + fC->SymName(tfNameNode);
   } else if (leaf_type == VObjectType::slImplicit_class_handle) {
     return compileComplexFuncCall(component, fC, Tf_call_stmt, compileDesign,
                                   nullptr, nullptr, false, false);
   } else if (leaf_type == slDollar_root_keyword) {
     NodeId Dollar_root_keyword = dollar_or_string;
     NodeId nameId = fC->Sibling(Dollar_root_keyword);
-    name.assign("$root.").append(fC->SymName(nameId));
+    name = "$root." + fC->SymName(nameId);
     nameId = fC->Sibling(nameId);
     tfNameNode = nameId;
     while (nameId) {
       if (fC->Type(nameId) == slStringConst) {
-        name.append(".").append(fC->SymName(nameId));
+        name += "." + fC->SymName(nameId);
         tfNameNode = nameId;
       } else if (fC->Type(nameId) == slConstant_bit_select) {
         NodeId Constant_expresion = fC->Child(nameId);
@@ -2566,7 +2560,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
     if (fC->Type(Constant_bit_select) == slConstant_bit_select) {
       tfNameNode = fC->Sibling(Constant_bit_select);
       method_func_call* fcall = s.MakeMethod_func_call();
-      const std::string_view mname = fC->SymName(tfNameNode);
+      const std::string& mname = fC->SymName(tfNameNode);
       fcall->VpiFile(fC->getFileName());
       fcall->VpiLineNo(fC->Line(Constant_bit_select));
       fcall->VpiColumnNo(fC->Column(Constant_bit_select));
@@ -2627,7 +2621,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(
     const task* task = tf->Task();
     if (task) io_decls = task->Io_decls();
   }
-  std::map<std::string, any*, std::less<>> args;
+  std::map<std::string, any*> args;
   std::vector<any*> argOrder;
   while (argumentNode) {
     NodeId sibling = fC->Sibling(argumentNode);
@@ -2667,7 +2661,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(
   if (args.size()) {
     if (io_decls) {
       for (io_decl* decl : *io_decls) {
-        const std::string_view name = decl->VpiName();
+        const std::string& name = decl->VpiName();
         std::map<std::string, any*>::iterator itr = args.find(name);
         if (itr != args.end()) {
           arguments->push_back((*itr).second);
@@ -2796,7 +2790,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
     delay_control->VpiParent(assign);
     NodeId Delay_control = fC->Child(Delay_or_event_control);
     NodeId IntConst = fC->Child(Delay_control);
-    std::string_view value = fC->SymName(IntConst);
+    std::string value = fC->SymName(IntConst);
     delay_control->VpiDelay(value);
   }
   if (AssignOp_Assign)
@@ -2848,7 +2842,7 @@ std::vector<UHDM::attribute*>* CompileHelper::compileAttributes(
       NodeId Attr_spec = fC->Child(nodeId);
       NodeId Attr_name = fC->Child(Attr_spec);
       NodeId Constant_expression = fC->Sibling(Attr_name);
-      const std::string_view name = fC->SymName(fC->Child(Attr_name));
+      const std::string& name = fC->SymName(fC->Child(Attr_name));
       attribute->VpiName(name);
       results->push_back(attribute);
       if (Constant_expression) {
@@ -3096,7 +3090,7 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(
             if (exp) exp->VpiParent(ctrl);
           }
           ios->push_back(io);
-          const std::string_view sigName = fC->SymName(Identifier);
+          const std::string& sigName = fC->SymName(Identifier);
           io->VpiName(sigName);
           if (direction == slClockingDir_Input) {
             io->Input_skew(dcInp);
@@ -3163,17 +3157,16 @@ UHDM::expr* CompileHelper::expandPatternAssignment(UHDM::expr* lhs,
       if (atps->Ranges()) {
         for (auto range : *atps->Ranges()) {
           bool invalidValue = false;
-          uint64_t r1 =
-              get_value(invalidValue,
-                        reduceExpr((any*)range->Left_expr(), invalidValue,
-                                   component, compileDesign, instance,
-                                   range->Left_expr()->VpiFile().data(),
-                                   range->Left_expr()->VpiLineNo(), nullptr));
+          uint64_t r1 = get_value(
+              invalidValue,
+              reduceExpr((any*)range->Left_expr(), invalidValue, component,
+                         compileDesign, instance, range->Left_expr()->VpiFile(),
+                         range->Left_expr()->VpiLineNo(), nullptr));
           uint64_t r2 =
               get_value(invalidValue,
                         reduceExpr((any*)range->Right_expr(), invalidValue,
                                    component, compileDesign, instance,
-                                   range->Right_expr()->VpiFile().data(),
+                                   range->Right_expr()->VpiFile(),
                                    range->Right_expr()->VpiLineNo(), nullptr));
           size *= (r1 > r2) ? (r1 - r2 + 1) : (r2 - r1 + 1);
         }
@@ -3211,12 +3204,11 @@ UHDM::expr* CompileHelper::expandPatternAssignment(UHDM::expr* lhs,
             const typespec* tps = tp->Typespec();
             if (tps->VpiName() == "default") {
               bool invalidValue = false;
-              int val =
-                  get_value(invalidValue,
-                            reduceExpr((any*)tp->Pattern(), invalidValue,
-                                       component, compileDesign, instance,
-                                       tp->Pattern()->VpiFile().data(),
-                                       tp->Pattern()->VpiLineNo(), nullptr));
+              int val = get_value(
+                  invalidValue,
+                  reduceExpr((any*)tp->Pattern(), invalidValue, component,
+                             compileDesign, instance, tp->Pattern()->VpiFile(),
+                             tp->Pattern()->VpiLineNo(), nullptr));
               for (unsigned int i = 0; i < size; i++) {
                 values[i] = val;
               }

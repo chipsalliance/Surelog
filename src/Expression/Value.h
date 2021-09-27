@@ -190,7 +190,7 @@ class SValue : public Value {
 
   short getSize() const final { return m_size; }
   short getSize(unsigned int wordIndex) const final { return m_size; }
-  void setRange(unsigned short lrange, unsigned short rrange) override {
+  void setRange(unsigned short lrange, unsigned short rrange) {
     m_lrange = lrange;
     m_rrange = rrange;
   }
@@ -346,7 +346,7 @@ class LValue : public Value {
     else
       return 0;
   }
-  void setRange(unsigned short lrange, unsigned short rrange) override {
+  void setRange(unsigned short lrange, unsigned short rrange) {
     m_lrange = lrange;
     m_rrange = rrange;
   }
@@ -441,7 +441,7 @@ class StValue : public Value {
 
   short getSize() const final { return m_size; }
   short getSize(unsigned int wordIndex) const final { return m_size; }
-  void setRange(unsigned short lrange, unsigned short rrange) override {}
+  void setRange(unsigned short lrange, unsigned short rrange) {}
   unsigned short getLRange() const final { return 0; };
   unsigned short getRRange() const final { return 0; };
   unsigned short getNbWords() const final { return 1; }
