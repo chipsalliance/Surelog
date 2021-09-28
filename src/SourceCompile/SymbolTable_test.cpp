@@ -56,5 +56,43 @@ TEST(SymbolTableTest, SymbolTableAccess) {
               ElementsAre(SymbolTable::getBadSymbol(), "foo", "bar"));
 }
 
+TEST(SymbolTableTest, SymbolStringsAreStable) {
+  SymbolTable table;
+
+  const SymbolId foo_id = table.registerSymbol("foo");
+
+  // Deliberately using .data() here so that API change to getSymbol() returning
+  // std::string_view later will keep this test source-code compatible.
+  const char *before_data = table.getSymbol(foo_id).data();
+
+  // We want to make sure that even after reallocing the underlying
+  // data structure, the symbol reference does not change. Let's enforce
+  // some reallocs by creating a bunch of symbols.
+  for (int i = 0; i < 100000; ++i) {
+    table.registerSymbol("bar" + std::to_string(i));
+  }
+
+  const char *after_data = table.getSymbol(foo_id).data();
+
+  EXPECT_EQ(before_data, after_data);
+}
+
+// Copying a symbol table also not allocate new strings, but just point
+// to the already existing ones.
+// Note, we shouldn't really have a copy constructor, but while it is there,
+// let's also test that things work as expected.
+TEST(SymbolTableTest, SymbolStringsAreStableAfterTableCopy) {
+  SymbolTable table;
+
+  const SymbolId foo_id = table.registerSymbol("foo");
+
+  const char *before_data = table.getSymbol(foo_id).data();
+
+  {
+    SymbolTable table_copy(table);
+    const char *after_data = table.getSymbol(foo_id).data();
+    EXPECT_EQ(before_data, after_data);
+  }
+}
 }  // namespace
 }  // namespace SURELOG
