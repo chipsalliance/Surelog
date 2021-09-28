@@ -1128,8 +1128,7 @@ bool CommandLineParser::prepareCompilation_(int argc, const char** argv) {
     m_logFileId = m_symbolTable->registerSymbol(full_path);
   }
 
-  int status = FileUtils::mkDir(odir.c_str());
-  if (status != 0) {
+  if (!FileUtils::mkDir(odir)) {
     Location loc(m_fullCompileDir);
     Error err(ErrorDefinition::CMD_PP_CANNOT_CREATE_OUTPUT_DIR, loc);
     m_errors->addError(err);
@@ -1172,15 +1171,14 @@ bool CommandLineParser::setupCache_() {
   }
 
   if (m_cacheAllowed) {
-    int status = FileUtils::mkDir(cachedir.c_str());
-    if (status != 0) {
+    if (!FileUtils::mkDir(cachedir)) {
       Location loc(m_cacheDirId);
       Error err(ErrorDefinition::CMD_PP_CANNOT_CREATE_CACHE_DIR, loc);
       m_errors->addError(err);
       noError = false;
     }
   } else {
-    FileUtils::rmDir(cachedir.c_str());
+    FileUtils::rmDirRecursively(cachedir);
   }
 
   return noError;
@@ -1207,10 +1205,8 @@ bool CommandLineParser::cleanCache() {
   }
 
   if (!m_cacheAllowed) {
-    int status = FileUtils::rmDir(cachedir.c_str());
-    if (status != 0) {
-      std::cout << "ERROR: Cannot delete " << cachedir << " status: " << status
-                << std::endl;
+    if (!FileUtils::rmDirRecursively(cachedir)) {
+      std::cout << "ERROR: Cannot delete " << cachedir << std::endl;
     }
   }
 
