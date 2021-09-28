@@ -289,7 +289,7 @@ bool CompileSourceFile::postPreprocess_() {
     if (m_commandLineParser->lowMem()) {
       return true;
     }
-    if (FileUtils::mkDir(dirPpFile.c_str()) != 0) {
+    if (!FileUtils::mkDir(dirPpFile)) {
       Location loc(ppDirId);
       Error err(ErrorDefinition::PP_CANNOT_CREATE_DIRECTORY, loc);
       m_errors->addError(err);
