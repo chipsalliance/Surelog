@@ -553,6 +553,13 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
     case VObjectType::slDisable_statement: {
       // TODO: flavors
       UHDM::disable* disable = s.MakeDisable();
+      /*
+      NodeId exp = fC->Child(the_stmt);
+      if (exp) {
+        expr* expc =(expr*) compileExpression(component, fC, exp,
+      compileDesign); disable->VpiExpr(expc);
+      }
+      */
       stmt = disable;
       break;
     }
