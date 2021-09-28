@@ -126,8 +126,8 @@ variables* CompileHelper::getSimpleVarFromTypespec(
           var->Typespec(spec);
         }
       } else {
-        UHDM::int_var* int_var = s.MakeInt_var();
-        var = int_var;
+        UHDM::enum_var* enum_var = s.MakeEnum_var();
+        var = enum_var;
       }
       break;
     }
