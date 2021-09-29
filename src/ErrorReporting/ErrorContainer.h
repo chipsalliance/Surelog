@@ -57,8 +57,8 @@ class ErrorContainer {
     int nbInfo = 0;
   };
 
-  ErrorContainer(SymbolTable* symbolTable,
-                 LogListener* const logListener = nullptr);
+  explicit ErrorContainer(SymbolTable* symbolTable,
+                          LogListener* logListener = nullptr);
   virtual ~ErrorContainer();
 
   void registerCmdLine(CommandLineParser* clp) { m_clp = clp; }
@@ -71,19 +71,19 @@ class ErrorContainer {
   bool printMessage(Error& error, bool muteStdout = false);
   bool printStats(Stats stats, bool muteStdout = false);
   bool printToLogFile(const std::string& report);
-  bool hasFatalErrors();
-  Stats getErrorStats();
+  bool hasFatalErrors() const;
+  Stats getErrorStats() const;
   void appendErrors(ErrorContainer&);
   SymbolTable* getSymbolTable() { return m_symbolTable; }
   std::tuple<std::string, bool, bool> createErrorMessage(
-      const Error& error, bool reentrantPython = true);
+      const Error& error, bool reentrantPython = true) const;
   void setPythonInterp(void* interpState) { m_interpState = interpState; }
 
  private:
   ErrorContainer(const ErrorContainer& orig) = delete;
 
-  std::pair<std::string, bool> createReport_();
-  std::pair<std::string, bool> createReport_(Error& error);
+  std::pair<std::string, bool> createReport_() const;
+  std::pair<std::string, bool> createReport_(const Error& error) const;
   std::vector<Error> m_errors;
   std::set<std::string> m_errorSet;
 

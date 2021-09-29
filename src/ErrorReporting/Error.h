@@ -40,17 +40,17 @@ class Error {
         std::vector<Location>* extraLocs = NULL);
   Error(ErrorDefinition::ErrorType errorId, Location& loc, Location& extra);
   Error(ErrorDefinition::ErrorType errorId, std::vector<Location>& locations);
+  Error(const Error& orig) = default;
+
   bool operator==(const Error& rhs) const;
   bool operator<(const Error& rhs) const;
   struct compare {
     bool operator()(const Error& e1, const Error& e2) const { return e1 < e2; }
   };
 
-  /* Do not create Copy constructor, use default*/
-  // Error(const Error& orig);
   virtual ~Error();
   const std::vector<Location>& getLocations() const { return m_locations; }
-  const ErrorDefinition::ErrorType getType() const { return m_errorId; }
+  ErrorDefinition::ErrorType getType() const { return m_errorId; }
 
  private:
   std::vector<Location> m_locations;

@@ -29,8 +29,8 @@
 
 #include "API/PythonAPI.h"
 #include "CommandLine/CommandLineParser.h"
+#include "ErrorReporting/LogListener.h"
 #include "ErrorReporting/Waiver.h"
-#include "LogListener.h"
 #include "antlr4-runtime.h"
 
 #if !(defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
@@ -38,10 +38,9 @@
 #endif
 #include <stdio.h>
 
-using namespace SURELOG;
-
+namespace SURELOG {
 ErrorContainer::ErrorContainer(SymbolTable* symbolTable,
-                               LogListener* const logListener /* = nullptr */)
+                               LogListener* logListener /* = nullptr */)
     : m_clp(NULL),
       m_reportedFatalErrorLogFile(false),
       m_symbolTable(symbolTable),
@@ -97,10 +96,10 @@ Error& ErrorContainer::addError(Error& error, bool showDuplicates,
   }
 
   if (showDuplicates) {
-    m_errors.push_back(error);
+    m_errors.emplace_back(error);
   } else {
     if (m_errorSet.find(std::get<0>(textStatus)) == m_errorSet.end()) {
-      m_errors.push_back(error);
+      m_errors.emplace_back(error);
       m_errorSet.insert(std::get<0>(textStatus));
     }
   }
@@ -126,7 +125,7 @@ void ErrorContainer::appendErrors(ErrorContainer& rhs) {
 }
 
 std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
-    const Error& msg, bool reentrantPython) {
+    const Error& msg, bool reentrantPython) const {
   const std::map<ErrorDefinition::ErrorType, ErrorDefinition::ErrorInfo>&
       infoMap = ErrorDefinition::getErrorInfoMap();
   std::string tmp;
@@ -253,19 +252,19 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
         args.push_back(location);
         args.push_back(text);
         tmp = PythonAPI::evalScript("__main__", "SLformatMsg", args,
-                                    (PyThreadState*)m_interpState);
+                                    m_interpState);
       }
     }
   }
   return std::make_tuple(tmp, reportFatalError, filterMessage);
 }
 
-bool ErrorContainer::hasFatalErrors() {
+bool ErrorContainer::hasFatalErrors() const {
   const std::map<ErrorDefinition::ErrorType, ErrorDefinition::ErrorInfo>&
       infoMap = ErrorDefinition::getErrorInfoMap();
   bool reportFatalError = false;
   for (unsigned int i = 0; i < m_errors.size(); i++) {
-    Error& msg = m_errors[i];
+    const Error& msg = m_errors[i];
     ErrorDefinition::ErrorType type = msg.m_errorId;
     std::map<ErrorDefinition::ErrorType,
              ErrorDefinition::ErrorInfo>::const_iterator itr =
@@ -285,11 +284,11 @@ bool ErrorContainer::hasFatalErrors() {
   return reportFatalError;
 }
 
-std::pair<std::string, bool> ErrorContainer::createReport_() {
+std::pair<std::string, bool> ErrorContainer::createReport_() const {
   std::string report;
   bool reportFatalError = false;
   for (unsigned int i = 0; i < m_errors.size(); i++) {
-    Error& msg = m_errors[i];
+    const Error& msg = m_errors[i];
     std::tuple<std::string, bool, bool> textStatus = createErrorMessage(msg);
     if (std::get<1>(textStatus)) reportFatalError = true;
     if (std::get<2>(textStatus))  // Filtered
@@ -299,10 +298,11 @@ std::pair<std::string, bool> ErrorContainer::createReport_() {
   return std::make_pair(report, reportFatalError);
 }
 
-std::pair<std::string, bool> ErrorContainer::createReport_(Error& error) {
+std::pair<std::string, bool> ErrorContainer::createReport_(
+    const Error& error) const {
   std::string report;
   bool reportFatalError = false;
-  Error& msg = error;
+  const Error& msg = error;
   std::tuple<std::string, bool, bool> textStatus = createErrorMessage(msg);
   if (std::get<1>(textStatus)) reportFatalError = true;
   if (!std::get<2>(textStatus))  // Filtered
@@ -326,11 +326,11 @@ bool ErrorContainer::printStats(ErrorContainer::Stats stats, bool muteStdout) {
   return (successLogFile && (!stats.nbFatal) && (!stats.nbSyntax));
 }
 
-ErrorContainer::Stats ErrorContainer::getErrorStats() {
+ErrorContainer::Stats ErrorContainer::getErrorStats() const {
   const std::map<ErrorDefinition::ErrorType, ErrorDefinition::ErrorInfo>&
       infoMap = ErrorDefinition::getErrorInfoMap();
   ErrorContainer::Stats stats;
-  for (auto msg : m_errors) {
+  for (const auto& msg : m_errors) {
     if (!msg.m_waived) {
       ErrorDefinition::ErrorType type = msg.m_errorId;
       std::map<ErrorDefinition::ErrorType,
@@ -402,3 +402,4 @@ bool ErrorContainer::printMessages(bool muteStdout) {
   bool successLogFile = printToLogFile(report.first);
   return (successLogFile && (!report.second));
 }
+}  // namespace SURELOG
