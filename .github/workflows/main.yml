@@ -69,6 +69,8 @@ jobs:
         echo 'CXX=g++-7' >> $GITHUB_ENV
         echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
         echo 'PREFIX=/tmp/surelog-install' >> $GITHUB_ENV
+        echo "ADDITIONAL_CMAKE_OPTIONS='-DMY_CXX_WARNING_FLAGS="-W -Wall -Wextra -Wno-unused-parameter -Wno-unused-variable -Werror -UNDEBUG"'" >> $GITHUB_ENV
+        echo 'RULE_MESSAGES=off' >> $GITHUB_ENV
 
     - name: Show shell configuration
       run: |
@@ -461,6 +463,7 @@ jobs:
     - name: Configure shell
       run: |
         echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
+        echo 'RULE_MESSAGES=off' >> $GITHUB_ENV
 
     - name: Prepare source
       run: |
