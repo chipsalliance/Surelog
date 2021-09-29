@@ -83,7 +83,7 @@ class Compiler {
   // of the design.
   Design* getDesign() { return m_design; }
 
-  const vpiHandle getUhdmDesign() const { return m_uhdmDesign; }
+  vpiHandle getUhdmDesign() const { return m_uhdmDesign; }
   CompileDesign* getCompileDesign() { return m_compileDesign; }
   ErrorContainer::Stats getErrorStats() const;
   bool isLibraryFile(SymbolId id) const;
