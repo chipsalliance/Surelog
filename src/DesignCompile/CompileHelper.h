@@ -518,6 +518,11 @@ class CompileHelper final {
 
   void adjustSize(UHDM::constant* c, UHDM::typespec* ts);
 
+  /** task/func/scope */
+  UHDM::any* searchObjectName(const std::string& name,
+                              DesignComponent* component,
+                              CompileDesign* compileDesign, UHDM::any* stmt);
+
  private:
   CompileHelper(const CompileHelper&) = delete;
 

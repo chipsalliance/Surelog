@@ -51,6 +51,44 @@
 namespace SURELOG {
 using namespace UHDM;  // NOLINT (using a bunch of these)
 
+any* CompileHelper::searchObjectName(const std::string& name,
+                                     DesignComponent* component,
+                                     CompileDesign* compileDesign, any* stmt) {
+  any* object = nullptr;
+  auto [func, actual_comp] = getTaskFunc(name, component, compileDesign, stmt);
+  if (func) {
+    object = func;
+  }
+  if (object == nullptr) {
+    if (stmt) {
+      if (stmt->VpiName() == name) {
+        object = stmt;
+      }
+      if (object == nullptr) {
+        if (scope* sc = any_cast<UHDM::scope*>(stmt)) {
+          if (sc->Scopes()) {
+            for (scope* s : *sc->Scopes()) {
+              if (s->VpiName() == name) {
+                object = s;
+                break;
+              }
+            }
+          }
+        }
+      }
+      if (object == nullptr) {
+        if (stmt->VpiParent()) {
+          if (any* tmp = searchObjectName(name, component, compileDesign,
+                                          (any*)stmt->VpiParent())) {
+            object = tmp;
+          }
+        }
+      }
+    }
+  }
+  return object;
+}
+
 VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
                                         const FileContent* fC, NodeId the_stmt,
                                         CompileDesign* compileDesign,
@@ -551,16 +589,21 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       break;
     }
     case VObjectType::slDisable_statement: {
-      // TODO: flavors
-      UHDM::disable* disable = s.MakeDisable();
-      /*
       NodeId exp = fC->Child(the_stmt);
       if (exp) {
-        expr* expc =(expr*) compileExpression(component, fC, exp,
-      compileDesign); disable->VpiExpr(expc);
+        UHDM::disable* disable = s.MakeDisable();
+        expr* expc =
+            (expr*)compileExpression(component, fC, exp, compileDesign);
+        if (expc->UhdmType() == uhdmref_obj) {
+          const std::string& name = expc->VpiName();
+          any* object = searchObjectName(name, component, compileDesign, pstmt);
+          disable->VpiExpr(object);
+        }
+        stmt = disable;
+      } else {
+        UHDM::disable_fork* disable = s.MakeDisable_fork();
+        stmt = disable;
       }
-      */
-      stmt = disable;
       break;
     }
     case VObjectType::slContinueStmt: {
