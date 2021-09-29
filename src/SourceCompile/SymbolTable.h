@@ -26,6 +26,7 @@
 
 #include <stdint.h>
 
+#include <memory>
 #include <string>
 #include <string_view>
 #include <unordered_map>
@@ -44,14 +45,17 @@ class SymbolTable {
   SymbolTable();
   ~SymbolTable();
 
+  // Unfortunately, currently the copy constructor is used in a few places.
+  SymbolTable(const SymbolTable&) = default;
+
   // Register given "symbol" string as a symbol and return its id.
   // If this is an existing symbol, its ID is returned, otherwise a new one
   // is created.
-  SymbolId registerSymbol(const std::string& symbol);
+  SymbolId registerSymbol(std::string_view symbol);
 
   // Find id of given "symbol" or return bad-ID (see #getBad()) if it doesn't
   // exist.
-  SymbolId getId(const std::string& symbol) const;
+  SymbolId getId(std::string_view symbol) const;
 
   // Get symbol string identified by given ID or BadSymbol if it doesn't exist
   // (see #getBadSymbol()).
@@ -59,7 +63,12 @@ class SymbolTable {
 
   // Get a vector of all symbols. As a special property, the SymbolID can be
   // used as an index into this  vector to get the corresponding text-symbol.
-  const std::vector<std::string>& getSymbols() const { return m_id2SymbolMap; }
+  // This is an expensive operation as all strings are copied into the vector,
+  // but right now, this is only used in the Cache layer.
+  // TODO: fix cache layer to deal with vector of string_views; this needs
+  // to be upstream fixed in flatbuffers (CreateVectorOfStrings() needs to
+  // accept a vector of string_views).
+  std::vector<std::string> getSymbols() const;
 
   static const std::string& getBadSymbol();
   static SymbolId getBadId() { return 0; }
@@ -67,8 +76,23 @@ class SymbolTable {
 
  private:
   SymbolId m_idCounter;
-  std::vector<std::string> m_id2SymbolMap;
-  std::unordered_map<std::string, SymbolId> m_symbol2IdMap;
+
+  // Stable allocated strings that don't change with vector reallocations.
+  //
+  // Unfortunately, since we have a copy-constructor, we also need to keep
+  // track of number of references, so we use the undesirable std::shared_ptr
+  // here; luckily we only need to worry about reference counting peformance
+  // on copy or realloc.
+  //
+  // On the plus side, now symbol strings are even stable between copies of
+  // symbol tables.
+  // TODO: change the whole system to actually deal with absl::string_view
+  // being returned as symbols, then have a block backing buffer here.
+  std::vector<std::shared_ptr<std::string>> m_id2SymbolMap;
+
+  // The key string_views point to the stable backing buffer provided in
+  // m_id2SymbolMap
+  std::unordered_map<std::string_view, SymbolId> m_symbol2IdMap;
 };
 
 };  // namespace SURELOG
