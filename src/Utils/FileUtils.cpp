@@ -39,14 +39,6 @@
 #include "SourceCompile/SymbolTable.h"
 #include "Utils/StringUtils.h"
 
-#if defined(_MSC_VER)
-#include <direct.h>
-#define PATH_MAX _MAX_PATH
-#else
-#include <dirent.h>
-#include <unistd.h>
-#endif
-
 #if (__cplusplus >= 201703L) && __has_include(<filesystem>)
 #include <filesystem>
 namespace fs = std::filesystem;
@@ -56,21 +48,21 @@ namespace fs = std::experimental::filesystem;
 #endif
 
 namespace SURELOG {
-bool FileUtils::fileExists(const std::string& name) {
+bool FileUtils::fileExists(std::string_view name) {
   std::error_code ec;
   return fs::exists(name, ec);
 }
 
-uint64_t FileUtils::fileSize(const std::string& name) {
+uint64_t FileUtils::fileSize(std::string_view name) {
   std::error_code ec;
   return fs::file_size(name, ec);
 }
 
-bool FileUtils::fileIsDirectory(const std::string& name) {
+bool FileUtils::fileIsDirectory(std::string_view name) {
   return fs::is_directory(name);
 }
 
-bool FileUtils::fileIsRegular(const std::string& name) {
+bool FileUtils::fileIsRegular(std::string_view name) {
   return fs::is_regular_file(name);
 }
 
@@ -109,13 +101,13 @@ bool FileUtils::rmDirRecursively(std::string_view path) {
   return fs::remove_all(path, err) != kErrorCondition;
 }
 
-std::string FileUtils::getFullPath(const std::string& path) {
+std::string FileUtils::getFullPath(std::string_view path) {
   std::error_code ec;
   fs::path fullPath = fs::canonical(path, ec);
-  return ec ? path : fullPath.string();
+  return ec ? std::string(path) : fullPath.string();
 }
 
-bool FileUtils::getFullPath(const std::string& path, std::string* result) {
+bool FileUtils::getFullPath(std::string_view path, std::string* result) {
   std::error_code ec;
   fs::path fullPath = fs::canonical(path, ec);
   bool found = (!ec && fileIsRegular(fullPath.string()));
@@ -125,7 +117,7 @@ bool FileUtils::getFullPath(const std::string& path, std::string* result) {
   return found;
 }
 
-static bool has_suffix(std::string s, std::string suffix) {
+static bool has_suffix(std::string_view s, std::string_view suffix) {
   return (s.size() >= suffix.size()) &&
          equal(suffix.rbegin(), suffix.rend(), s.rbegin());
 }
@@ -136,8 +128,8 @@ std::vector<SymbolId> FileUtils::collectFiles(SymbolId dirPath, SymbolId ext,
                       symbols);
 }
 
-std::vector<SymbolId> FileUtils::collectFiles(std::string dirPath,
-                                              std::string ext,
+std::vector<SymbolId> FileUtils::collectFiles(std::string_view dirPath,
+                                              std::string_view ext,
                                               SymbolTable* symbols) {
   std::vector<SymbolId> result;
   if (fileIsDirectory(dirPath)) {
@@ -151,8 +143,8 @@ std::vector<SymbolId> FileUtils::collectFiles(std::string dirPath,
   return result;
 }
 
-std::vector<SymbolId> FileUtils::collectFiles(const std::string& pathSpec,
-                                              SymbolTable* const symbols) {
+std::vector<SymbolId> FileUtils::collectFiles(std::string_view pathSpec,
+                                              SymbolTable* symbols) {
   // ?   single character wildcard (matches any single character)
   // *   multiple character wildcard (matches any number of characters in a
   // directory/file name)
@@ -240,7 +232,7 @@ std::string FileUtils::getFileContent(const std::string& filename) {
   return "FAILED_TO_LOAD_CONTENT";
 }
 
-std::string FileUtils::getPathName(const std::string& path) {
+std::string FileUtils::getPathName(std::string_view path) {
   fs::path fs_path(path);
   return fs_path.has_parent_path()
              ? (fs::path(path).parent_path() += fs::path::preferred_separator)
@@ -248,11 +240,11 @@ std::string FileUtils::getPathName(const std::string& path) {
              : "";
 }
 
-std::string FileUtils::basename(const std::string& str) {
+std::string FileUtils::basename(std::string_view str) {
   return fs::path(str).filename().string();
 }
 
-std::string FileUtils::getPreferredPath(const std::string& path) {
+std::string FileUtils::getPreferredPath(std::string_view path) {
   return fs::path(path).make_preferred().string();
 }
 
@@ -270,7 +262,7 @@ std::string FileUtils::hashPath(const std::string& path) {
   return hashedpath;
 }
 
-std::string FileUtils::makeRelativePath(const std::string& in_path) {
+std::string FileUtils::makeRelativePath(std::string_view in_path) {
   const std::string separator(1, fs::path::preferred_separator);
   // Standardize it so we can avoid special cases and wildcards!
   fs::path p(in_path);
