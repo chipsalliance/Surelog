@@ -428,3 +428,47 @@ jobs:
 
     - name: Run formatting style check
       run: ./.github/bin/run-clang-format.sh
+
+  ClangTidy:
+    runs-on: ubuntu-20.04
+    if: ${{github.event_name == 'pull_request'}}
+
+    steps:
+
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.8.0
+      with:
+        access_token: ${{ github.token }}
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update -qq
+        sudo apt -qq -y install clang-tidy-12 \
+                                g++-7 tclsh  default-jre cmake \
+                                uuid-dev build-essential
+
+    - name: Use ccache
+      uses: hendrikmuhs/ccache-action@v1
+      with:
+        key: clang-tidy-codegen
+
+    - name: Configure shell
+      run: |
+        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
+
+    - name: Prepare source
+      run: |
+        make run-cmake-release
+        make -j2 -C build GenerateParser
+        make -j2 -C build GenerateSerializer
+        ln -s build/compile_commands.json .
+
+    - name: Run clang tidy
+      run: |
+        ./.github/bin/run-clang-tidy.sh
