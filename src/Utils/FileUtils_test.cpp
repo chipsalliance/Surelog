@@ -16,12 +16,11 @@
 
 #include "Utils/FileUtils.h"
 
-#include "SourceCompile/SymbolTable.h"
-
+#include <fstream>
 #include <string>
 #include <vector>
-#include <fstream>
 
+#include "SourceCompile/SymbolTable.h"
 #include "gtest/gtest.h"
 
 #if (__cplusplus >= 201703L) && __has_include(<filesystem>)
@@ -85,9 +84,9 @@ TEST(FileUtilsTest, LocateFile) {
   FileUtils::mkDir(actual_dir);
 
   std::vector<SymbolId> paths = {
-    sym.registerSymbol(path1),
-    sym.registerSymbol(path2),
-    sym.registerSymbol(actual_dir),
+      sym.registerSymbol(path1),
+      sym.registerSymbol(path2),
+      sym.registerSymbol(actual_dir),
   };
 
   SymbolId search_file_id = sym.registerSymbol(search_file);
