@@ -475,6 +475,7 @@ endfunction()
 
 register_gtests(
   src/Utils/StringUtils_test.cpp
+  src/Utils/FileUtils_test.cpp
   src/DesignCompile/CompileHelper_test.cpp
   src/SourceCompile/SymbolTable_test.cpp
   src/Expression/ExprBuilder_test.cpp
