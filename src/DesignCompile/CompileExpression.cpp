@@ -6000,7 +6000,18 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       if (fC->Type(method_child) == slBuilt_in_method_call) {
         // vpiName: method name (Array_method_name above)
         NodeId method_name_node = fC->Child(fC->Child(fC->Child(method_child)));
-        const std::string& method_name = fC->SymName(method_name_node);
+        std::string method_name = fC->SymName(method_name_node);
+        VObjectType calltype = fC->Type(method_name_node);
+        if (calltype == slAnd_call) {
+          method_name = "and";
+        } else if (calltype == slOr_call) {
+          method_name = "or";
+        } else if (calltype == slXor_call) {
+          method_name = "xor";
+        } else if (calltype == slUnique_call) {
+          method_name = "unique";
+        }
+
         NodeId randomize_call = fC->Child(method_child);
 
         // vpiPrefix: object to which the method is being applied (sval here)
