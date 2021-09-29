@@ -162,9 +162,8 @@ Cache::cacheErrors(flatbuffers::FlatBufferBuilder& builder,
   }
 
   /* Cache all the symbols */
-  for (auto itr = symbols->getSymbols().begin();
-       itr != symbols->getSymbols().end(); itr++) {
-    canonicalSymbols.registerSymbol(*itr);
+  for (const auto& s : symbols->getSymbols()) {
+    canonicalSymbols.registerSymbol(s);
   }
 
   auto symbolVec = builder.CreateVectorOfStrings(canonicalSymbols.getSymbols());
