@@ -4923,9 +4923,8 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
 
         range->Right_expr(rexp);
         rexp->VpiParent(range);
-        
-        ranges->push_back(range);
 
+        ranges->push_back(range);
       }
       Packed_dimension = fC->Sibling(Packed_dimension);
     }
