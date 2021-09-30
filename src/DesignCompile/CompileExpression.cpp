@@ -1577,6 +1577,9 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
               if (n > 1000) n = 1000;  // Must be -1 or something silly
               if (n < 0) n = 0;
               constant* cv = (constant*)(operands[1]);
+              if (cv->UhdmType() != uhdmconstant) {
+                break;
+              }
               UHDM::constant* c = s.MakeConstant();
               unsigned int width = cv->VpiSize();
               int consttype = cv->VpiConstType();
@@ -1584,8 +1587,14 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
               if (consttype == vpiBinaryConst) {
                 std::string val = cv->VpiValue();
                 std::string res;
+                std::string tmp = val.c_str() + strlen("BIN:");
+                std::string value;
+                for (unsigned int i = 0; i < width - tmp.size(); i++) {
+                  value += '0';
+                }
+                value += tmp;
                 for (unsigned int i = 0; i < n; i++) {
-                  res += val.c_str() + strlen("BIN:");
+                  res += value;
                 }
                 c->VpiValue("BIN:" + res);
                 c->VpiDecompile(res);
@@ -1644,7 +1653,13 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                 int type = c->VpiConstType();
                 switch (type) {
                   case vpiBinaryConst: {
-                    cval += v.c_str() + strlen("BIN:");
+                    std::string tmp = v.c_str() + strlen("BIN:");
+                    std::string value;
+                    for (unsigned int i = 0; i < size - tmp.size(); i++) {
+                      value += '0';
+                    }
+                    value += tmp;
+                    cval += value;
                     break;
                   }
                   case vpiDecConst: {
@@ -1654,7 +1669,14 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                     break;
                   }
                   case vpiHexConst: {
-                    cval += NumUtils::hexToBin(v.c_str() + strlen("HEX:"));
+                    std::string tmp =
+                        NumUtils::hexToBin(v.c_str() + strlen("HEX:"));
+                    std::string value;
+                    for (unsigned int i = 0; i < size - tmp.size(); i++) {
+                      value += '0';
+                    }
+                    value += tmp;
+                    cval += value;
                     break;
                   }
                   case vpiOctConst: {
@@ -2960,7 +2982,8 @@ UHDM::any* CompileHelper::compileExpression(
       }
       return result;
     }
-    case VObjectType::slConcatenation: {
+    case VObjectType::slConcatenation:
+    case VObjectType::slConstant_concatenation: {
       UHDM::operation* operation = s.MakeOperation();
       UHDM::VectorOfany* operands = s.MakeAnyVec();
       operation->Attributes(attributes);
@@ -4008,14 +4031,15 @@ UHDM::any* CompileHelper::compileExpression(
           operation->VpiParent(pexpr);
           operation->Operands(operands);
           operation->VpiOpType(vpiMultiConcatOp);
-          NodeId Expression = fC->Child(child);
-          while (Expression) {
-            UHDM::any* exp =
-                compileExpression(component, fC, Expression, compileDesign,
+          NodeId NCopy = fC->Child(child);
+          UHDM::any* exp =
+              compileExpression(component, fC, NCopy, compileDesign, pexpr,
+                                instance, reduce, muteErrors);
+          if (exp) operands->push_back(exp);
+          NodeId Concatenation = fC->Sibling(NCopy);
+          exp = compileExpression(component, fC, Concatenation, compileDesign,
                                   pexpr, instance, reduce, muteErrors);
-            if (exp) operands->push_back(exp);
-            Expression = fC->Sibling(Expression);
-          }
+          if (exp) operands->push_back(exp);
           break;
         }
         case VObjectType::slSubroutine_call: {
