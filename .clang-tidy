@@ -1,0 +1,51 @@
+---
+# readability-make-member-function-const is great, but it also suggests that
+#    in cases where we return a non-const pointer.
+#    So good for a regular cleanup-sweep but not as default.
+# Some of the rules below that are disabled should be re-considered once we
+# have a somewhat clean baseline (runtime-int, readability-casting,
+# narrowing conversion come to mind)
+# In particular the disabled clang-analyzer-* messages should all be
+# enabled as they uncover real bugs, but once we have the other noise reduced.
+# performance-inefficient-string-concatenation is good, but until we use
+# absl in this project with absl::StrCat(), the alternatives are not improving
+# readability.
+Checks: >
+  clang-diagnostic-*,clang-analyzer-*,
+  -clang-analyzer-core.CallAndMessage,
+  -clang-analyzer-core.NullDereference,
+  -clang-analyzer-cplusplus.NewDeleteLeaks,
+  readability-*,
+  -readability-braces-around-statements,
+  -readability-named-parameter,
+  -readability-isolate-declaration,
+  -readability-redundant-access-specifiers,
+  -readability-implicit-bool-conversion,
+  -readability-magic-numbers,
+  -readability-else-after-return,
+  -readability-qualified-auto,
+  -readability-make-member-function-const,
+  -readability-function-cognitive-complexity,
+  -readability-uppercase-literal-suffix,
+  -readability-inconsistent-declaration-parameter-name,
+  -readability-simplify-boolean-expr,
+  google-*,
+  -google-readability-braces-around-statements,
+  -google-readability-todo,
+  -google-readability-casting,
+  -google-runtime-int,
+  -google-build-using-namespace,
+  -google-readability-avoid-underscore-in-googletest-name,
+  performance-*,
+  -performance-inefficient-string-concatenation,
+  bugprone-*,
+  -bugprone-narrowing-conversions,
+  -bugprone-branch-clone,
+  modernize-loop-convert,
+  modernize-raw-string-literal,
+  modernize-use-override,
+
+WarningsAsErrors: ''
+HeaderFilterRegex: ''
+AnalyzeTemporaryDtors: false
+...
