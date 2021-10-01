@@ -433,8 +433,10 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
       Error err(ErrorDefinition::COMP_CANNOT_REDEFINE_BUILTIN_METHOD, loc);
       m_errors->addError(err);
     }
-    m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign, true);
-    m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign, true);
+    m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign,
+                             nullptr, true);
+    m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign,
+                             nullptr, true);
 
   } else if (func_type == VObjectType::slTask_declaration) {
     /*
@@ -463,8 +465,10 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
       taskName = fC->Sibling(task_name);
     }
 
-    m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, true);
-    m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, true);
+    m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, nullptr,
+                         true);
+    m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, nullptr,
+                         true);
 
   } else if (func_type == VObjectType::slMethod_prototype) {
     /*
@@ -495,8 +499,10 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
         taskName = fC->Sibling(task_name);
       }
 
-      m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, true);
-      m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, true);
+      m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, nullptr,
+                           true);
+      m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, nullptr,
+                           true);
 
     } else {
       NodeId function_data_type = fC->Child(func_prototype);
@@ -514,9 +520,9 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
       funcName = fC->SymName(function_name);
 
       m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign,
-                               true);
+                               nullptr, true);
       m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign,
-                               true);
+                               nullptr, true);
     }
     is_extern = true;
   } else if (func_type == VObjectType::slClass_constructor_declaration) {
@@ -529,8 +535,10 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
   } else if (func_type == VObjectType::slClass_constructor_prototype) {
     funcName = "new";
 
-    m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign, true);
-    m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign, true);
+    m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign,
+                             nullptr, true);
+    m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign,
+                             nullptr, true);
 
   } else {
     funcName = "UNRECOGNIZED_METHOD_TYPE";

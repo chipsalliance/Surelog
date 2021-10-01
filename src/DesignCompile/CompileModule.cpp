@@ -675,13 +675,14 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         case VObjectType::slTask_declaration: {
           // Called twice, placeholder first, then definition
           if (collectType == CollectType::OTHER) break;
-          m_helper.compileTask(m_module, fC, id, m_compileDesign);
+          m_helper.compileTask(m_module, fC, id, m_compileDesign, m_instance);
           break;
         }
         case VObjectType::slFunction_declaration: {
           // Called twice, placeholder first, then definition
           if (collectType == CollectType::OTHER) break;
-          m_helper.compileFunction(m_module, fC, id, m_compileDesign);
+          m_helper.compileFunction(m_module, fC, id, m_compileDesign,
+                                   m_instance);
           break;
         }
         case VObjectType::slDpi_import_export: {
@@ -904,12 +905,13 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
         }
         case VObjectType::slTask_declaration: {
           if (collectType != CollectType::FUNCTION) break;
-          m_helper.compileTask(m_module, fC, id, m_compileDesign);
+          m_helper.compileTask(m_module, fC, id, m_compileDesign, m_instance);
           break;
         }
         case VObjectType::slFunction_declaration: {
           if (collectType != CollectType::FUNCTION) break;
-          m_helper.compileFunction(m_module, fC, id, m_compileDesign);
+          m_helper.compileFunction(m_module, fC, id, m_compileDesign,
+                                   m_instance);
           break;
         }
         case VObjectType::slDpi_import_export: {

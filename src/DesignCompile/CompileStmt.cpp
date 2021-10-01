@@ -628,7 +628,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
     }
     case VObjectType::slData_declaration: {
       results = compileDataDeclaration(component, fC, fC->Child(the_stmt),
-                                       compileDesign, pstmt);
+                                       compileDesign, pstmt, instance);
       break;
     }
     case VObjectType::slStringConst: {
@@ -711,7 +711,8 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
                                                    const FileContent* fC,
                                                    NodeId nodeId,
                                                    CompileDesign* compileDesign,
-                                                   UHDM::any* pstmt) {
+                                                   UHDM::any* pstmt,
+                                                   ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   VectorOfany* results = nullptr;
   VObjectType type = fC->Type(nodeId);
@@ -752,8 +753,8 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
         if (fC->Type(tmp) != slExpression) {
           int unpackedSize;
           unpackedDimensions =
-              compileRanges(component, fC, tmp, compileDesign, nullptr, nullptr,
-                            false, unpackedSize, false);
+              compileRanges(component, fC, tmp, compileDesign, nullptr,
+                            instance, false, unpackedSize, false);
         }
         while (tmp && (fC->Type(tmp) != slExpression)) {
           tmp = fC->Sibling(tmp);
@@ -762,7 +763,7 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
 
         variables* var =
             (variables*)compileVariable(component, fC, Data_type, compileDesign,
-                                        pstmt, nullptr, false, false);
+                                        pstmt, instance, false, false);
 
         if (var) {
           var->VpiConstantVariable(const_status);
@@ -791,8 +792,8 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
         assign_stmt->Lhs(var);
         results->push_back(assign_stmt);
         if (Expression) {
-          expr* rhs = (expr*)compileExpression(component, fC, Expression,
-                                               compileDesign);
+          expr* rhs = (expr*)compileExpression(
+              component, fC, Expression, compileDesign, nullptr, instance);
           if (rhs) rhs->VpiParent(assign_stmt);
           assign_stmt->Rhs(rhs);
         }
@@ -1387,7 +1388,8 @@ NodeId CompileHelper::setFuncTaskQualifiers(const FileContent* fC,
 
 bool CompileHelper::compileTask(DesignComponent* component,
                                 const FileContent* fC, NodeId nodeId,
-                                CompileDesign* compileDesign, bool isMethod) {
+                                CompileDesign* compileDesign,
+                                ValuedComponentI* instance, bool isMethod) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   std::vector<UHDM::task_func*>* task_funcs = component->getTask_funcs();
   if (task_funcs == nullptr) {
@@ -1511,7 +1513,7 @@ bool CompileHelper::compileTask(DesignComponent* component,
         }
       } else {
         if (VectorOfany* sts = compileStmt(component, fC, Statement_or_null,
-                                           compileDesign, begin)) {
+                                           compileDesign, begin, instance)) {
           for (any* st : *sts) {
             UHDM_OBJECT_TYPE stmt_type = st->UhdmType();
             if (stmt_type == uhdmparam_assign) {
@@ -1551,8 +1553,8 @@ bool CompileHelper::compileTask(DesignComponent* component,
   } else {
     // Page 983, 2017 Standard: 0 or 1 Stmt
     if (Statement_or_null && (fC->Type(Statement_or_null) != slEndtask)) {
-      VectorOfany* stmts =
-          compileStmt(component, fC, Statement_or_null, compileDesign, task);
+      VectorOfany* stmts = compileStmt(component, fC, Statement_or_null,
+                                       compileDesign, task, instance);
       if (stmts) {
         for (any* st : *stmts) {
           UHDM_OBJECT_TYPE stmt_type = st->UhdmType();
@@ -1733,7 +1735,7 @@ bool CompileHelper::compileClassConstructorDeclaration(
 bool CompileHelper::compileFunction(DesignComponent* component,
                                     const FileContent* fC, NodeId nodeId,
                                     CompileDesign* compileDesign,
-                                    bool isMethod) {
+                                    ValuedComponentI* instance, bool isMethod) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   std::vector<UHDM::task_func*>* task_funcs = component->getTask_funcs();
   if (task_funcs == nullptr) {
@@ -1813,7 +1815,7 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     NodeId Return_data_type = fC->Child(Function_data_type);
     variables* var = any_cast<variables*>(
         compileVariable(component, fC, Return_data_type, compileDesign, nullptr,
-                        nullptr, true, false));
+                        instance, true, false));
     if (var) {
       // Explicit return type
       var->VpiName("");
@@ -1856,8 +1858,8 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     while (Function_statement_or_null) {
       NodeId Statement = fC->Child(Function_statement_or_null);
       if (Statement) {
-        if (VectorOfany* sts =
-                compileStmt(component, fC, Statement, compileDesign, begin)) {
+        if (VectorOfany* sts = compileStmt(component, fC, Statement,
+                                           compileDesign, begin, instance)) {
           for (any* st : *sts) {
             UHDM_OBJECT_TYPE stmt_type = st->UhdmType();
             if (stmt_type == uhdmparam_assign) {
@@ -1899,7 +1901,7 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     NodeId Statement = fC->Child(Function_statement_or_null);
     if (Statement) {
       VectorOfany* sts =
-          compileStmt(component, fC, Statement, compileDesign, func);
+          compileStmt(component, fC, Statement, compileDesign, func, instance);
       if (sts) {
         any* st = (*sts)[0];
         UHDM_OBJECT_TYPE stmt_type = st->UhdmType();

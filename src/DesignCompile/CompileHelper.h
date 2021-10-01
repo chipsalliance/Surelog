@@ -175,11 +175,11 @@ class CompileHelper final {
 
   bool compileTask(DesignComponent* component, const FileContent* fC,
                    NodeId nodeId, CompileDesign* compileDesign,
-                   bool isMethod = false);
+                   ValuedComponentI* instance, bool isMethod = false);
 
   bool compileFunction(DesignComponent* component, const FileContent* fC,
                        NodeId nodeId, CompileDesign* compileDesign,
-                       bool isMethod = false);
+                       ValuedComponentI* instance, bool isMethod = false);
 
   bool compileAssertionItem(DesignComponent* component, const FileContent* fC,
                             NodeId nodeId, CompileDesign* compileDesign);
@@ -291,11 +291,10 @@ class CompileHelper final {
                                                NodeId nodeId,
                                                CompileDesign* compileDesign);
 
-  UHDM::VectorOfany* compileDataDeclaration(DesignComponent* component,
-                                            const FileContent* fC,
-                                            NodeId nodeId,
-                                            CompileDesign* compileDesign,
-                                            UHDM::any* pstmt = nullptr);
+  UHDM::VectorOfany* compileDataDeclaration(
+      DesignComponent* component, const FileContent* fC, NodeId nodeId,
+      CompileDesign* compileDesign, UHDM::any* pstmt = nullptr,
+      ValuedComponentI* instance = nullptr);
 
   UHDM::any* compileForLoop(DesignComponent* component, const FileContent* fC,
                             NodeId nodeId, CompileDesign* compileDesign);
