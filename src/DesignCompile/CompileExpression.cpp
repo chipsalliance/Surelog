@@ -1200,7 +1200,9 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                   if (size == 1) {
                     val = !val;
                   } else {
+                    uint64_t mask = NumUtils::getMask(size);
                     val = ~val;
+                    val = val & mask;
                   }
                 } else {
                   val = ~val;
