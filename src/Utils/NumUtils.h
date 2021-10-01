@@ -42,7 +42,7 @@ class NumUtils {
   static std::string trimLeadingZeros(const std::string &s);
 
   static uint64_t getMask(uint64_t wide);
-  
+
  private:
   NumUtils() = delete;
   NumUtils(const NumUtils &orig) = delete;

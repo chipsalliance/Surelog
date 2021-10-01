@@ -94,7 +94,7 @@ std::string NumUtils::trimLeadingZeros(const std::string &s) {
 uint64_t NumUtils::getMask(uint64_t wide) {
   uint64_t mask;
   uint64_t sizeInBits = sizeof(mask) * 8;
-  mask = (wide >= sizeInBits ? -1 : (1 <<  wide) - 1);
+  mask = (wide >= sizeInBits ? -1 : (1 << wide) - 1);
   return mask;
 }
 
