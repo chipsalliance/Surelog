@@ -84,7 +84,7 @@ design: (work@JKFlipflop)
         |vpiClassDefn:
         \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4:1: , endln:30:9, parent:work@JKFlipflop
     |vpiIODecl:
-    \_io_decl: (bound)
+    \_io_decl: (bound), parent:work@mailbox::new
       |vpiName:bound
       |vpiDirection:1
       |vpiExpr:
@@ -122,7 +122,7 @@ design: (work@JKFlipflop)
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
-    \_io_decl: (message)
+    \_io_decl: (message), parent:work@mailbox::try_put
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
@@ -144,7 +144,7 @@ design: (work@JKFlipflop)
     |vpiReturn:
     \_int_var: , line:21:12, endln:21:15
     |vpiIODecl:
-    \_io_decl: (message)
+    \_io_decl: (message), parent:work@mailbox::try_get
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
@@ -166,7 +166,7 @@ design: (work@JKFlipflop)
     |vpiReturn:
     \_int_var: , line:27:12, endln:27:15
     |vpiIODecl:
-    \_io_decl: (message)
+    \_io_decl: (message), parent:work@mailbox::try_peek
       |vpiName:message
       |vpiDirection:6
 |uhdmallClasses:
@@ -305,7 +305,7 @@ design: (work@JKFlipflop)
         |vpiClassDefn:
         \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58:1: , endln:72:9, parent:work@JKFlipflop
     |vpiIODecl:
-    \_io_decl: (keyCount)
+    \_io_decl: (keyCount), parent:work@semaphore::new
       |vpiName:keyCount
       |vpiDirection:1
       |vpiExpr:
@@ -361,7 +361,7 @@ design: (work@JKFlipflop)
     |vpiReturn:
     \_int_var: , line:69:12, endln:69:15
     |vpiIODecl:
-    \_io_decl: (keyCount)
+    \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiName:keyCount
       |vpiDirection:1
       |vpiExpr:
