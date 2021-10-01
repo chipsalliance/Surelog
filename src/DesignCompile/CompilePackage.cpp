@@ -178,13 +178,13 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
         case VObjectType::slTask_declaration: {
           // Called twice, placeholder first, then definition
           if (collectType == CollectType::OTHER) break;
-          m_helper.compileTask(m_package, fC, id, m_compileDesign);
+          m_helper.compileTask(m_package, fC, id, m_compileDesign, nullptr);
           break;
         }
         case VObjectType::slFunction_declaration: {
           // Called twice, placeholder first, then definition
           if (collectType == CollectType::OTHER) break;
-          m_helper.compileFunction(m_package, fC, id, m_compileDesign);
+          m_helper.compileFunction(m_package, fC, id, m_compileDesign, nullptr);
           break;
         }
         case VObjectType::slParam_assignment: {
