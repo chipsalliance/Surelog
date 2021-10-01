@@ -79,8 +79,10 @@ bool CompileFileContent::collectObjects_() {
         break;
       }
       case VObjectType::slFunction_declaration: {
-        m_helper.compileFunction(m_fileContent, fC, id, m_compileDesign);
-        m_helper.compileFunction(m_fileContent, fC, id, m_compileDesign);
+        m_helper.compileFunction(m_fileContent, fC, id, m_compileDesign,
+                                 nullptr);
+        m_helper.compileFunction(m_fileContent, fC, id, m_compileDesign,
+                                 nullptr);
         break;
       }
       case VObjectType::slData_declaration: {
