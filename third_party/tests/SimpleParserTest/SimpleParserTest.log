@@ -10410,6 +10410,621 @@ design: (work@dff_async_reset)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+  |vpiTaskFunc:
+  \_task: (work@LFSR_TASK.LFSR_TAPS8_TASK), line:9:2, endln:25:9, parent:work@LFSR_TASK
+    |vpiVisibility:1
+    |vpiName:LFSR_TAPS8_TASK
+    |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK
+    |vpiIODecl:
+    \_io_decl: (A), line:10:14, endln:10:15, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+      |vpiName:A
+      |vpiDirection:1
+      |vpiTypedef:
+      \_packed_array_typespec: , line:10:8, endln:10:13
+        |vpiIndexTypespec:
+        \_int_typespec: 
+        |vpiRange:
+        \_range: , line:10:9, endln:10:12
+          |vpiLeftRange:
+          \_constant: , line:10:9, endln:10:10
+            |vpiConstType:9
+            |vpiDecompile:7
+            |vpiSize:64
+            |UINT:7
+          |vpiRightRange:
+          \_constant: , line:10:11, endln:10:12
+            |vpiConstType:9
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+    |vpiIODecl:
+    \_io_decl: (Chain), line:11:14, endln:11:19, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+      |vpiName:Chain
+      |vpiDirection:1
+      |vpiTypedef:
+      \_packed_array_typespec: , line:11:8, endln:11:13
+        |vpiIndexTypespec:
+        \_int_typespec: 
+        |vpiRange:
+        \_range: , line:11:9, endln:11:12
+          |vpiLeftRange:
+          \_constant: , line:11:9, endln:11:10
+            |vpiConstType:9
+            |vpiDecompile:7
+            |vpiSize:64
+            |UINT:7
+          |vpiRightRange:
+          \_constant: , line:11:11, endln:11:12
+            |vpiConstType:9
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+    |vpiIODecl:
+    \_io_decl: (Next_LFSR_Reg), line:12:15, endln:12:28, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+      |vpiName:Next_LFSR_Reg
+      |vpiDirection:2
+      |vpiTypedef:
+      \_logic_typespec: , line:15:2, endln:15:5
+        |vpiRange:
+        \_range: , line:15:7, endln:15:10, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+          |vpiLeftRange:
+          \_constant: , line:15:7, endln:15:8
+            |vpiConstType:9
+            |vpiDecompile:7
+            |vpiSize:64
+            |UINT:7
+          |vpiRightRange:
+          \_constant: , line:15:9, endln:15:10
+            |vpiConstType:9
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+    |vpiStmt:
+    \_begin: (work@LFSR_TASK.LFSR_TAPS8_TASK), line:16:2, endln:24:5, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+      |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK
+      |vpiStmt:
+      \_assignment: , line:17:2, endln:17:27, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_operation: , line:17:11, endln:17:15, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+          |vpiOpType:30
+          |vpiOperand:
+          \_bit_select: (work@LFSR_TASK.LFSR_TAPS8_TASK.A), line:17:11, endln:17:15, parent:work@LFSR_TASK.LFSR_TAPS8_TASK.A
+            |vpiName:A
+            |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.A
+            |vpiIndex:
+            \_constant: , line:17:13, endln:17:14, parent:work@LFSR_TASK.LFSR_TAPS8_TASK.A
+              |vpiConstType:9
+              |vpiDecompile:7
+              |vpiSize:64
+              |UINT:7
+          |vpiOperand:
+          \_operation: , line:17:18, endln:17:20
+            |vpiOpType:8
+            |vpiOperand:
+            \_part_select: , line:17:21, endln:17:27, parent:A
+              |vpiConstantSelect:1
+              |vpiParent:
+              \_ref_obj: A (A)
+              |vpiLeftRange:
+              \_constant: , line:17:23, endln:17:24
+                |vpiConstType:9
+                |vpiDecompile:6
+                |vpiSize:64
+                |UINT:6
+              |vpiRightRange:
+              \_constant: , line:17:25, endln:17:26
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+        |vpiLhs:
+        \_ref_obj: (work@LFSR_TASK.LFSR_TAPS8_TASK.XorNor), line:17:2, endln:17:8, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+          |vpiName:XorNor
+          |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.XorNor
+          |vpiActual:
+          \_logic_var: (XorNor), line:14:2, endln:14:5
+            |vpiName:XorNor
+            |vpiTypespec:
+            \_logic_typespec: , line:14:2, endln:14:5
+      |vpiStmt:
+      \_for_stmt: (work@LFSR_TASK.LFSR_TAPS8_TASK), line:18:2, endln:18:5, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+        |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK
+        |vpiForInitStmt:
+        \_assign_stmt: , parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+          |vpiRhs:
+          \_constant: , line:18:9, endln:18:10
+            |vpiConstType:9
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+          |vpiLhs:
+          \_ref_var: (work@LFSR_TASK.LFSR_TAPS8_TASK.i), line:18:7, endln:18:8
+            |vpiName:i
+            |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.i
+        |vpiForIncStmt:
+        \_assignment: , line:18:18, endln:18:23, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiRhs:
+          \_operation: , line:18:20, endln:18:21, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+            |vpiOpType:24
+            |vpiOperand:
+            \_ref_obj: (work@LFSR_TASK.LFSR_TAPS8_TASK.I), line:18:20, endln:18:21, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+              |vpiName:I
+              |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.I
+            |vpiOperand:
+            \_constant: , line:18:22, endln:18:23
+              |vpiConstType:9
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+          |vpiLhs:
+          \_ref_obj: (work@LFSR_TASK.LFSR_TAPS8_TASK.i), line:18:18, endln:18:19, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+            |vpiName:i
+            |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.i
+        |vpiCondition:
+        \_operation: , line:18:12, endln:18:13, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+          |vpiOpType:21
+          |vpiOperand:
+          \_ref_obj: (work@LFSR_TASK.LFSR_TAPS8_TASK.I), line:18:12, endln:18:13
+            |vpiName:I
+            |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.I
+          |vpiOperand:
+          \_constant: , line:18:15, endln:18:16
+            |vpiConstType:9
+            |vpiDecompile:7
+            |vpiSize:64
+            |UINT:7
+        |vpiStmt:
+        \_if_else: , line:19:2, endln:22:28, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+          |vpiCondition:
+          \_operation: , line:19:6, endln:19:21
+            |vpiOpType:14
+            |vpiOperand:
+            \_bit_select: (work@LFSR_TASK.LFSR_TAPS8_TASK.Chain), line:19:6, endln:19:16, parent:work@LFSR_TASK.LFSR_TAPS8_TASK.Chain
+              |vpiName:Chain
+              |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.Chain
+              |vpiIndex:
+              \_operation: , line:19:12, endln:19:13, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+                |vpiOpType:11
+                |vpiOperand:
+                \_ref_obj: (work@LFSR_TASK.LFSR_TAPS8_TASK.i), line:19:12, endln:19:13, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+                  |vpiName:i
+                  |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.i
+                |vpiOperand:
+                \_constant: , line:19:14, endln:19:15
+                  |vpiConstType:9
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+            |vpiOperand:
+            \_constant: , line:19:20, endln:19:21
+              |vpiConstType:9
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+          |vpiStmt:
+          \_assignment: , line:20:2, endln:20:36
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiRhs:
+            \_operation: , line:20:21, endln:20:27
+              |vpiOpType:30
+              |vpiOperand:
+              \_bit_select: (work@LFSR_TASK.LFSR_TAPS8_TASK.A), line:20:21, endln:20:27, parent:work@LFSR_TASK.LFSR_TAPS8_TASK.A
+                |vpiName:A
+                |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.A
+                |vpiIndex:
+                \_operation: , line:20:23, endln:20:24
+                  |vpiOpType:11
+                  |vpiOperand:
+                  \_ref_obj: (work@LFSR_TASK.LFSR_TAPS8_TASK.i), line:20:23, endln:20:24
+                    |vpiName:i
+                    |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.i
+                  |vpiOperand:
+                  \_constant: , line:20:25, endln:20:26
+                    |vpiConstType:9
+                    |vpiDecompile:1
+                    |vpiSize:64
+                    |UINT:1
+              |vpiOperand:
+              \_ref_obj: (work@LFSR_TASK.LFSR_TAPS8_TASK.XorNor), line:20:30, endln:20:36
+                |vpiName:XorNor
+                |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.XorNor
+            |vpiLhs:
+            \_bit_select: (work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg), line:20:2, endln:20:15, parent:work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg
+              |vpiName:Next_LFSR_Reg
+              |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg
+              |vpiIndex:
+              \_ref_obj: (work@LFSR_TASK.LFSR_TAPS8_TASK.i), line:20:16, endln:20:17
+                |vpiName:i
+                |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.i
+          |vpiElseStmt:
+          \_assignment: , line:22:2, endln:22:27
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiRhs:
+            \_bit_select: (work@LFSR_TASK.LFSR_TAPS8_TASK.A), line:22:21, endln:22:27, parent:work@LFSR_TASK.LFSR_TAPS8_TASK.A
+              |vpiName:A
+              |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.A
+              |vpiIndex:
+              \_operation: , line:22:23, endln:22:24
+                |vpiOpType:11
+                |vpiOperand:
+                \_ref_obj: (work@LFSR_TASK.LFSR_TAPS8_TASK.i), line:22:23, endln:22:24
+                  |vpiName:i
+                  |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.i
+                |vpiOperand:
+                \_constant: , line:22:25, endln:22:26
+                  |vpiConstType:9
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+            |vpiLhs:
+            \_bit_select: (work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg), line:22:2, endln:22:15, parent:work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg
+              |vpiName:Next_LFSR_Reg
+              |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg
+              |vpiIndex:
+              \_ref_obj: (work@LFSR_TASK.LFSR_TAPS8_TASK.i), line:22:16, endln:22:17
+                |vpiName:i
+                |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.i
+      |vpiStmt:
+      \_assignment: , line:23:2, endln:23:27, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_ref_obj: (work@LFSR_TASK.LFSR_TAPS8_TASK.XorNor), line:23:21, endln:23:27, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+          |vpiName:XorNor
+          |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.XorNor
+          |vpiActual:
+          \_logic_var: (XorNor), line:14:2, endln:14:5
+        |vpiLhs:
+        \_bit_select: (work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg), line:23:2, endln:23:15, parent:work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg
+          |vpiName:Next_LFSR_Reg
+          |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg
+          |vpiIndex:
+          \_constant: , line:23:16, endln:23:17, parent:work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg
+            |vpiConstType:9
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+    |vpiInstance:
+    \_module: work@LFSR_TASK (work@LFSR_TASK) lfsr_task.v:2:1: , endln:37:10, parent:work@dff_async_reset
+      |vpiDefName:work@LFSR_TASK
+      |vpiFullName:work@LFSR_TASK
+      |vpiPort:
+      \_port: (clock), line:2:19, parent:work@LFSR_TASK
+        |vpiName:clock
+        |vpiDirection:1
+        |vpiLowConn:
+        \_ref_obj: 
+          |vpiActual:
+          \_logic_net: (work@LFSR_TASK.clock), line:2:19, parent:work@LFSR_TASK
+            |vpiName:clock
+            |vpiFullName:work@LFSR_TASK.clock
+      |vpiPort:
+      \_port: (Reset), line:2:26, parent:work@LFSR_TASK
+        |vpiName:Reset
+        |vpiDirection:1
+        |vpiLowConn:
+        \_ref_obj: 
+          |vpiActual:
+          \_logic_net: (work@LFSR_TASK.Reset), line:2:26, parent:work@LFSR_TASK
+            |vpiName:Reset
+            |vpiFullName:work@LFSR_TASK.Reset
+      |vpiPort:
+      \_port: (seed1), line:2:33, parent:work@LFSR_TASK
+        |vpiName:seed1
+        |vpiDirection:1
+        |vpiLowConn:
+        \_ref_obj: 
+          |vpiActual:
+          \_logic_net: (work@LFSR_TASK.seed1), line:2:33, parent:work@LFSR_TASK
+            |vpiName:seed1
+            |vpiFullName:work@LFSR_TASK.seed1
+      |vpiPort:
+      \_port: (seed2), line:2:40, parent:work@LFSR_TASK
+        |vpiName:seed2
+        |vpiDirection:1
+        |vpiLowConn:
+        \_ref_obj: 
+          |vpiActual:
+          \_logic_net: (work@LFSR_TASK.seed2), line:2:40, parent:work@LFSR_TASK
+            |vpiName:seed2
+            |vpiFullName:work@LFSR_TASK.seed2
+      |vpiPort:
+      \_port: (random1), line:2:47, parent:work@LFSR_TASK
+        |vpiName:random1
+        |vpiDirection:2
+        |vpiLowConn:
+        \_ref_obj: 
+          |vpiActual:
+          \_logic_net: (work@LFSR_TASK.random1), line:6:11, parent:work@LFSR_TASK
+            |vpiName:random1
+            |vpiFullName:work@LFSR_TASK.random1
+            |vpiNetType:48
+      |vpiPort:
+      \_port: (random2), line:2:56, parent:work@LFSR_TASK
+        |vpiName:random2
+        |vpiDirection:2
+        |vpiLowConn:
+        \_ref_obj: 
+          |vpiActual:
+          \_logic_net: (work@LFSR_TASK.random2), line:6:20, parent:work@LFSR_TASK
+            |vpiName:random2
+            |vpiFullName:work@LFSR_TASK.random2
+            |vpiNetType:48
+      |vpiProcess:
+      \_always: , line:27:1, endln:31:39, parent:work@LFSR_TASK
+        |vpiAlwaysType:1
+        |vpiStmt:
+        \_event_control: , line:27:7, endln:31:39
+          |vpiCondition:
+          \_operation: , line:27:9, endln:27:22
+            |vpiOpType:35
+            |vpiOperand:
+            \_operation: , line:27:9, endln:27:16
+              |vpiOpType:39
+              |vpiOperand:
+              \_ref_obj: (clock), line:27:17, endln:27:22
+                |vpiName:clock
+                |vpiActual:
+                \_logic_net: (work@LFSR_TASK.clock), line:2:19, endln:2:24, parent:work@LFSR_TASK
+            |vpiOperand:
+            \_operation: , line:27:26, endln:27:33
+              |vpiOpType:40
+              |vpiOperand:
+              \_ref_obj: (Reset), line:27:34, endln:27:39
+                |vpiName:Reset
+                |vpiActual:
+                \_logic_net: (work@LFSR_TASK.Reset), line:2:26, endln:2:31, parent:work@LFSR_TASK
+          |vpiStmt:
+          \_if_else: , line:28:2, endln:31:39
+            |vpiCondition:
+            \_operation: , line:28:6, endln:28:12
+              |vpiOpType:3
+              |vpiOperand:
+              \_ref_obj: (work@LFSR_TASK.Reset), line:28:7, endln:28:12
+                |vpiName:Reset
+                |vpiFullName:work@LFSR_TASK.Reset
+                |vpiActual:
+                \_logic_net: (work@LFSR_TASK.Reset), line:2:26, endln:2:31, parent:work@LFSR_TASK
+            |vpiStmt:
+            \_assignment: , line:29:2, endln:29:17
+              |vpiOpType:82
+              |vpiBlocking:1
+              |vpiRhs:
+              \_ref_obj: (work@LFSR_TASK.seed1), line:29:12, endln:29:17
+                |vpiName:seed1
+                |vpiFullName:work@LFSR_TASK.seed1
+                |vpiActual:
+                \_logic_net: (work@LFSR_TASK.seed1), line:2:33, endln:2:38, parent:work@LFSR_TASK
+              |vpiLhs:
+              \_ref_obj: (work@LFSR_TASK.random1), line:29:2, endln:29:9
+                |vpiName:random1
+                |vpiFullName:work@LFSR_TASK.random1
+                |vpiActual:
+                \_logic_net: (work@LFSR_TASK.random1), line:6:11, endln:6:18, parent:work@LFSR_TASK
+            |vpiElseStmt:
+            \_func_call: (LFSR_TASK), line:31:2, endln:31:39
+              |vpiName:LFSR_TASK
+              |vpiArgument:
+              \_ref_obj: (work@LFSR_TASK.random1), line:31:13, endln:31:20, parent:LFSR_TASK
+                |vpiName:random1
+                |vpiFullName:work@LFSR_TASK.random1
+                |vpiActual:
+                \_logic_net: (work@LFSR_TASK.random1), line:6:11, endln:6:18, parent:work@LFSR_TASK
+              |vpiArgument:
+              \_ref_obj: (work@LFSR_TASK.Chain1), line:31:22, endln:31:28, parent:LFSR_TASK
+                |vpiName:Chain1
+                |vpiFullName:work@LFSR_TASK.Chain1
+                |vpiActual:
+                \_parameter: (work@LFSR_TASK.Chain1), line:7:17, endln:7:37, parent:work@LFSR_TASK
+                  |vpiName:Chain1
+                  |vpiFullName:work@LFSR_TASK.Chain1
+                  |BIN:10001110
+                  |vpiTypespec:
+                  \_bit_typespec: , line:7:11, endln:7:16, parent:work@LFSR_TASK.Chain1
+                    |vpiRange:
+                    \_range: , line:7:12, endln:7:15
+                      |vpiLeftRange:
+                      \_constant: , line:7:12, endln:7:13
+                        |vpiConstType:9
+                        |vpiDecompile:7
+                        |vpiSize:64
+                        |UINT:7
+                      |vpiRightRange:
+                      \_constant: , line:7:14, endln:7:15
+                        |vpiConstType:9
+                        |vpiDecompile:0
+                        |vpiSize:64
+                        |UINT:0
+              |vpiArgument:
+              \_ref_obj: (work@LFSR_TASK.random1), line:31:30, endln:31:37, parent:LFSR_TASK
+                |vpiName:random1
+                |vpiFullName:work@LFSR_TASK.random1
+                |vpiActual:
+                \_logic_net: (work@LFSR_TASK.random1), line:6:11, endln:6:18, parent:work@LFSR_TASK
+      |vpiProcess:
+      \_always: , line:32:1, endln:36:39, parent:work@LFSR_TASK
+        |vpiAlwaysType:1
+        |vpiStmt:
+        \_event_control: , line:32:7, endln:36:39
+          |vpiCondition:
+          \_operation: , line:32:9, endln:32:22
+            |vpiOpType:35
+            |vpiOperand:
+            \_operation: , line:32:9, endln:32:16
+              |vpiOpType:39
+              |vpiOperand:
+              \_ref_obj: (clock), line:32:17, endln:32:22
+                |vpiName:clock
+                |vpiActual:
+                \_logic_net: (work@LFSR_TASK.clock), line:2:19, endln:2:24, parent:work@LFSR_TASK
+            |vpiOperand:
+            \_operation: , line:32:26, endln:32:33
+              |vpiOpType:40
+              |vpiOperand:
+              \_ref_obj: (Reset), line:32:34, endln:32:39
+                |vpiName:Reset
+                |vpiActual:
+                \_logic_net: (work@LFSR_TASK.Reset), line:2:26, endln:2:31, parent:work@LFSR_TASK
+          |vpiStmt:
+          \_if_else: , line:33:2, endln:36:39
+            |vpiCondition:
+            \_operation: , line:33:6, endln:33:12
+              |vpiOpType:3
+              |vpiOperand:
+              \_ref_obj: (work@LFSR_TASK.Reset), line:33:7, endln:33:12
+                |vpiName:Reset
+                |vpiFullName:work@LFSR_TASK.Reset
+                |vpiActual:
+                \_logic_net: (work@LFSR_TASK.Reset), line:2:26, endln:2:31, parent:work@LFSR_TASK
+            |vpiStmt:
+            \_assignment: , line:34:2, endln:34:17
+              |vpiOpType:82
+              |vpiBlocking:1
+              |vpiRhs:
+              \_ref_obj: (work@LFSR_TASK.seed2), line:34:12, endln:34:17
+                |vpiName:seed2
+                |vpiFullName:work@LFSR_TASK.seed2
+                |vpiActual:
+                \_logic_net: (work@LFSR_TASK.seed2), line:2:40, endln:2:45, parent:work@LFSR_TASK
+              |vpiLhs:
+              \_ref_obj: (work@LFSR_TASK.random2), line:34:2, endln:34:9
+                |vpiName:random2
+                |vpiFullName:work@LFSR_TASK.random2
+                |vpiActual:
+                \_logic_net: (work@LFSR_TASK.random2), line:6:20, endln:6:27, parent:work@LFSR_TASK
+            |vpiElseStmt:
+            \_func_call: (LFSR_TASK), line:36:2, endln:36:39
+              |vpiName:LFSR_TASK
+              |vpiArgument:
+              \_ref_obj: (work@LFSR_TASK.random2), line:36:13, endln:36:20, parent:LFSR_TASK
+                |vpiName:random2
+                |vpiFullName:work@LFSR_TASK.random2
+                |vpiActual:
+                \_logic_net: (work@LFSR_TASK.random2), line:6:20, endln:6:27, parent:work@LFSR_TASK
+              |vpiArgument:
+              \_ref_obj: (work@LFSR_TASK.Chain2), line:36:22, endln:36:28, parent:LFSR_TASK
+                |vpiName:Chain2
+                |vpiFullName:work@LFSR_TASK.Chain2
+                |vpiActual:
+                \_parameter: (work@LFSR_TASK.Chain2), line:8:17, endln:8:37, parent:work@LFSR_TASK
+                  |vpiName:Chain2
+                  |vpiFullName:work@LFSR_TASK.Chain2
+                  |BIN:10101110
+                  |vpiTypespec:
+                  \_bit_typespec: , line:8:11, endln:8:16, parent:work@LFSR_TASK.Chain2
+                    |vpiRange:
+                    \_range: , line:8:12, endln:8:15
+                      |vpiLeftRange:
+                      \_constant: , line:8:12, endln:8:13
+                        |vpiConstType:9
+                        |vpiDecompile:7
+                        |vpiSize:64
+                        |UINT:7
+                      |vpiRightRange:
+                      \_constant: , line:8:14, endln:8:15
+                        |vpiConstType:9
+                        |vpiDecompile:0
+                        |vpiSize:64
+                        |UINT:0
+              |vpiArgument:
+              \_ref_obj: (work@LFSR_TASK.random2), line:36:30, endln:36:37, parent:LFSR_TASK
+                |vpiName:random2
+                |vpiFullName:work@LFSR_TASK.random2
+                |vpiActual:
+                \_logic_net: (work@LFSR_TASK.random2), line:6:20, endln:6:27, parent:work@LFSR_TASK
+      |vpiTaskFunc:
+      \_task: (work@LFSR_TASK.LFSR_TAPS8_TASK), line:9:2, endln:25:9, parent:work@LFSR_TASK
+      |vpiNet:
+      \_logic_net: (work@LFSR_TASK.random1), line:6:11, parent:work@LFSR_TASK
+      |vpiNet:
+      \_logic_net: (work@LFSR_TASK.random2), line:6:20, parent:work@LFSR_TASK
+      |vpiNet:
+      \_logic_net: (work@LFSR_TASK.clock), line:2:19, parent:work@LFSR_TASK
+      |vpiNet:
+      \_logic_net: (work@LFSR_TASK.Reset), line:2:26, parent:work@LFSR_TASK
+      |vpiNet:
+      \_logic_net: (work@LFSR_TASK.seed1), line:2:33, parent:work@LFSR_TASK
+      |vpiNet:
+      \_logic_net: (work@LFSR_TASK.seed2), line:2:40, parent:work@LFSR_TASK
+      |vpiParameter:
+      \_parameter: (work@LFSR_TASK.Chain1), line:7:17, endln:7:37, parent:work@LFSR_TASK
+        |vpiName:Chain1
+        |vpiFullName:work@LFSR_TASK.Chain1
+        |BIN:10001110
+        |vpiTypespec:
+        \_bit_typespec: , line:7:11, endln:7:16, parent:work@LFSR_TASK.Chain1
+          |vpiRange:
+          \_range: , line:7:12, endln:7:15
+            |vpiLeftRange:
+            \_constant: , line:7:12, endln:7:13
+              |vpiConstType:9
+              |vpiDecompile:7
+              |vpiSize:64
+              |UINT:7
+            |vpiRightRange:
+            \_constant: , line:7:14, endln:7:15
+              |vpiConstType:9
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+      |vpiParameter:
+      \_parameter: (work@LFSR_TASK.Chain2), line:8:17, endln:8:37, parent:work@LFSR_TASK
+        |vpiName:Chain2
+        |vpiFullName:work@LFSR_TASK.Chain2
+        |BIN:10101110
+        |vpiTypespec:
+        \_bit_typespec: , line:8:11, endln:8:16, parent:work@LFSR_TASK.Chain2
+          |vpiRange:
+          \_range: , line:8:12, endln:8:15
+            |vpiLeftRange:
+            \_constant: , line:8:12, endln:8:13
+              |vpiConstType:9
+              |vpiDecompile:7
+              |vpiSize:64
+              |UINT:7
+            |vpiRightRange:
+            \_constant: , line:8:14, endln:8:15
+              |vpiConstType:9
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+      |vpiParamAssign:
+      \_param_assign: , line:7:17, endln:7:37, parent:work@LFSR_TASK
+        |vpiRhs:
+        \_constant: , line:7:26, endln:7:37
+          |vpiConstType:3
+          |vpiDecompile:8'b10001110
+          |vpiSize:8
+          |BIN:10001110
+          |vpiTypespec:
+          \_bit_typespec: , line:7:11, endln:7:16, parent:work@LFSR_TASK.Chain1
+        |vpiLhs:
+        \_parameter: (work@LFSR_TASK.Chain1), line:7:17, endln:7:37, parent:work@LFSR_TASK
+      |vpiParamAssign:
+      \_param_assign: , line:8:17, endln:8:37, parent:work@LFSR_TASK
+        |vpiRhs:
+        \_constant: , line:8:26, endln:8:37
+          |vpiConstType:3
+          |vpiDecompile:8'b10101110
+          |vpiSize:8
+          |BIN:10101110
+          |vpiTypespec:
+          \_bit_typespec: , line:8:11, endln:8:16, parent:work@LFSR_TASK.Chain2
+        |vpiLhs:
+        \_parameter: (work@LFSR_TASK.Chain2), line:8:17, endln:8:37, parent:work@LFSR_TASK
+    |vpiVariables:
+    \_int_var: (i), line:13:2, endln:13:9
+      |vpiName:i
+      |vpiTypespec:
+      \_int_typespec: , line:13:2, endln:13:9
+    |vpiVariables:
+    \_logic_var: (XorNor), line:14:2, endln:14:5
   |vpiNet:
   \_logic_net: (work@LFSR_TASK.random1), line:6:11, endln:6:18, parent:work@LFSR_TASK
   |vpiNet:
@@ -10424,46 +11039,8 @@ design: (work@dff_async_reset)
   \_logic_net: (work@LFSR_TASK.seed2), line:2:40, endln:2:45, parent:work@LFSR_TASK
   |vpiParameter:
   \_parameter: (work@LFSR_TASK.Chain1), line:7:17, endln:7:37, parent:work@LFSR_TASK
-    |vpiName:Chain1
-    |vpiFullName:work@LFSR_TASK.Chain1
-    |BIN:10001110
-    |vpiTypespec:
-    \_bit_typespec: , line:7:11, endln:7:16, parent:work@LFSR_TASK.Chain1
-      |vpiRange:
-      \_range: , line:7:12, endln:7:15
-        |vpiLeftRange:
-        \_constant: , line:7:12, endln:7:13
-          |vpiConstType:9
-          |vpiDecompile:7
-          |vpiSize:64
-          |UINT:7
-        |vpiRightRange:
-        \_constant: , line:7:14, endln:7:15
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
   |vpiParameter:
   \_parameter: (work@LFSR_TASK.Chain2), line:8:17, endln:8:37, parent:work@LFSR_TASK
-    |vpiName:Chain2
-    |vpiFullName:work@LFSR_TASK.Chain2
-    |BIN:10101110
-    |vpiTypespec:
-    \_bit_typespec: , line:8:11, endln:8:16, parent:work@LFSR_TASK.Chain2
-      |vpiRange:
-      \_range: , line:8:12, endln:8:15
-        |vpiLeftRange:
-        \_constant: , line:8:12, endln:8:13
-          |vpiConstType:9
-          |vpiDecompile:7
-          |vpiSize:64
-          |UINT:7
-        |vpiRightRange:
-        \_constant: , line:8:14, endln:8:15
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:7:17, endln:7:37, parent:work@LFSR_TASK
     |vpiRhs:
@@ -10474,20 +11051,6 @@ design: (work@dff_async_reset)
       |UINT:142
       |vpiTypespec:
       \_bit_typespec: , line:7:11, endln:7:16, parent:work@LFSR_TASK.Chain1
-        |vpiRange:
-        \_range: , line:7:12, endln:7:15
-          |vpiLeftRange:
-          \_constant: , line:7:12, endln:7:13
-            |vpiConstType:9
-            |vpiDecompile:7
-            |vpiSize:64
-            |UINT:7
-          |vpiRightRange:
-          \_constant: , line:7:14, endln:7:15
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
     |vpiLhs:
     \_parameter: (work@LFSR_TASK.Chain1), line:7:17, endln:7:37, parent:work@LFSR_TASK
   |vpiParamAssign:
@@ -10500,20 +11063,6 @@ design: (work@dff_async_reset)
       |UINT:174
       |vpiTypespec:
       \_bit_typespec: , line:8:11, endln:8:16, parent:work@LFSR_TASK.Chain2
-        |vpiRange:
-        \_range: , line:8:12, endln:8:15
-          |vpiLeftRange:
-          \_constant: , line:8:12, endln:8:13
-            |vpiConstType:9
-            |vpiDecompile:7
-            |vpiSize:64
-            |UINT:7
-          |vpiRightRange:
-          \_constant: , line:8:14, endln:8:15
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
     |vpiLhs:
     \_parameter: (work@LFSR_TASK.Chain2), line:8:17, endln:8:37, parent:work@LFSR_TASK
 |uhdmtopModules:

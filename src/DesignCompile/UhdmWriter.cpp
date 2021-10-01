@@ -859,9 +859,14 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
     }
   }
   // Function and tasks
-  m->Task_funcs(mod->getTask_funcs());
-  if (m->Task_funcs()) {
-    for (auto tf : *m->Task_funcs()) {
+  if (auto from = mod->getTask_funcs()) {
+    UHDM::VectorOftask_func* target = m->Task_funcs();
+    if (target == nullptr) {
+      m->Task_funcs(s.MakeTask_funcVec());
+      target = m->Task_funcs();
+    }
+    for (auto tf : *from) {
+      target->push_back(tf);
       if (tf->VpiParent() == 0) tf->VpiParent(m);
       if (tf->Instance() == 0) tf->Instance(m);
     }
@@ -1164,6 +1169,21 @@ bool writeElabProgram(Serializer& s, ModuleInstance* instance, program* m) {
   }
 
   if (mod) {
+    if (auto from = mod->getTask_funcs()) {
+      UHDM::VectorOftask_func* target = m->Task_funcs();
+      if (target == nullptr) {
+        m->Task_funcs(s.MakeTask_funcVec());
+        target = m->Task_funcs();
+      }
+      for (auto tf : *from) {
+        target->push_back(tf);
+        if (tf->VpiParent() == 0) tf->VpiParent(m);
+        if (tf->Instance() == 0) tf->Instance(m);
+      }
+    }
+  }
+
+  if (mod) {
     for (UHDM::ref_obj* ref : mod->getLateBinding()) {
       if (ref->Actual_group()) continue;
       const std::string& name = ref->VpiName();
@@ -1289,6 +1309,26 @@ bool writeElabGenScope(Serializer& s, ModuleInstance* instance, gen_scope* m,
   if (netlist->array_nets()) {
     for (auto obj : *netlist->array_nets()) {
       obj->VpiParent(m);
+    }
+  }
+
+  DesignComponent* def = instance->getDefinition();
+  if (def->getTask_funcs()) {
+    const any* tmp = m;
+    while ((tmp->UhdmType() != uhdmmodule) &&
+           (tmp->UhdmType() != uhdminterface)) {
+      tmp = tmp->VpiParent();
+    }
+    UHDM::instance* mm = (UHDM::instance*)tmp;
+    // Function and tasks
+    UHDM::VectorOftask_func* target = mm->Task_funcs();
+    if (target == nullptr) {
+      mm->Task_funcs(s.MakeTask_funcVec());
+      target = mm->Task_funcs();
+    }
+    for (auto tf : *def->getTask_funcs()) {
+      target->push_back(tf);
+      if (tf->VpiParent() == 0) tf->VpiParent(mm);
     }
   }
 
@@ -1428,6 +1468,21 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m,
     for (auto obj : *netlist->cont_assigns()) {
       obj->VpiParent(m);
       assigns->push_back(obj);
+    }
+  }
+
+  if (mod) {
+    if (auto from = mod->getTask_funcs()) {
+      UHDM::VectorOftask_func* target = m->Task_funcs();
+      if (target == nullptr) {
+        m->Task_funcs(s.MakeTask_funcVec());
+        target = m->Task_funcs();
+      }
+      for (auto tf : *from) {
+        target->push_back(tf);
+        if (tf->VpiParent() == 0) tf->VpiParent(m);
+        if (tf->Instance() == 0) tf->Instance(m);
+      }
     }
   }
 
@@ -1598,6 +1653,21 @@ bool writeElabInterface(Serializer& s, ModuleInstance* instance, interface* m,
     dest_modports->push_back(dest_modport);
   }
   m->Modports(dest_modports);
+
+  if (mod) {
+    if (auto from = mod->getTask_funcs()) {
+      UHDM::VectorOftask_func* target = m->Task_funcs();
+      if (target == nullptr) {
+        m->Task_funcs(s.MakeTask_funcVec());
+        target = m->Task_funcs();
+      }
+      for (auto tf : *from) {
+        target->push_back(tf);
+        if (tf->VpiParent() == 0) tf->VpiParent(m);
+        if (tf->Instance() == 0) tf->Instance(m);
+      }
+    }
+  }
 
   if (mod) {
     for (UHDM::ref_obj* ref : mod->getLateBinding()) {

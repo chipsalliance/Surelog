@@ -570,7 +570,7 @@ design: (work@t)
         |vpiClassDefn:
         \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4:1: , endln:30:9, parent:work@t
     |vpiIODecl:
-    \_io_decl: (bound)
+    \_io_decl: (bound), parent:work@mailbox::new
       |vpiName:bound
       |vpiDirection:1
       |vpiExpr:
@@ -608,7 +608,7 @@ design: (work@t)
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
-    \_io_decl: (message)
+    \_io_decl: (message), parent:work@mailbox::try_put
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
@@ -630,7 +630,7 @@ design: (work@t)
     |vpiReturn:
     \_int_var: , line:21:12, endln:21:15
     |vpiIODecl:
-    \_io_decl: (message)
+    \_io_decl: (message), parent:work@mailbox::try_get
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
@@ -652,7 +652,7 @@ design: (work@t)
     |vpiReturn:
     \_int_var: , line:27:12, endln:27:15
     |vpiIODecl:
-    \_io_decl: (message)
+    \_io_decl: (message), parent:work@mailbox::try_peek
       |vpiName:message
       |vpiDirection:6
 |uhdmallClasses:
@@ -791,7 +791,7 @@ design: (work@t)
         |vpiClassDefn:
         \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58:1: , endln:72:9, parent:work@t
     |vpiIODecl:
-    \_io_decl: (keyCount)
+    \_io_decl: (keyCount), parent:work@semaphore::new
       |vpiName:keyCount
       |vpiDirection:1
       |vpiExpr:
@@ -847,7 +847,7 @@ design: (work@t)
     |vpiReturn:
     \_int_var: , line:69:12, endln:69:15
     |vpiIODecl:
-    \_io_decl: (keyCount)
+    \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiName:keyCount
       |vpiDirection:1
       |vpiExpr:
@@ -1584,7 +1584,7 @@ design: (work@t)
         \_func_call: (simple_minus), line:11:22, endln:11:68
           |vpiName:simple_minus
           |vpiFunction:
-          \_function: (my_module_types::simple_minus), line:3:4, endln:7:15, parent:work@t
+          \_function: (my_module_types::simple_minus), line:3:4, endln:7:15, parent:my_module_types::
           |vpiArgument:
           \_ref_obj: (work@t.simple_func.value1), line:11:60, endln:11:66, parent:simple_minus
             |vpiName:value1
