@@ -1191,26 +1191,28 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
               expr* operand = reduceExpr(operands[0], invalidValue, component,
                                          compileDesign, instance, fileName,
                                          lineNumber, pexpr, muteErrors);
-              uint64_t val = (uint64_t)get_value(invalidValue, operand);
-              int size = 64;
-              if (operand->UhdmType() == uhdmconstant) {
-                constant* c = (constant*)operand;
-                size = c->VpiSize();
-                if (size == 1) {
-                  val = !val;
+              if (operand) {
+                uint64_t val = (uint64_t)get_value(invalidValue, operand);
+                int size = 64;
+                if (operand->UhdmType() == uhdmconstant) {
+                  constant* c = (constant*)operand;
+                  size = c->VpiSize();
+                  if (size == 1) {
+                    val = !val;
+                  } else {
+                    val = ~val;
+                  }
                 } else {
                   val = ~val;
                 }
-              } else {
-                val = ~val;
-              }
 
-              UHDM::constant* c = s.MakeConstant();
-              c->VpiValue("UINT:" + std::to_string(val));
-              c->VpiDecompile(std::to_string(val));
-              c->VpiSize(size);
-              c->VpiConstType(vpiUIntConst);
-              result = c;
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("UINT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                c->VpiSize(size);
+                c->VpiConstType(vpiUIntConst);
+                result = c;
+              }
             }
             break;
           }

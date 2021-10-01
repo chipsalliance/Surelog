@@ -651,7 +651,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
     } else if (fC->Type(Udp_instance) == VObjectType::slDelay2 ||
                fC->Type(Udp_instance) == VObjectType::slDelay3) {
       expr* delay_expr = (expr*)m_helper.compileExpression(
-          comp, fC, Udp_instance, m_compileDesign);
+          comp, fC, Udp_instance, m_compileDesign, nullptr, parent, true);
       VectorOfexpr* delays = s.MakeExprVec();
       netlist->delays(delays);
       delays->push_back(delay_expr);
@@ -666,7 +666,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       if (Unpacked_dimension) {
         int size;
         VectorOfrange* ranges = m_helper.compileRanges(
-            comp, fC, Unpacked_dimension, m_compileDesign, nullptr, instance,
+            comp, fC, Unpacked_dimension, m_compileDesign, nullptr, parent,
             true, size, false);
         netlist->ranges(ranges);
       }
@@ -738,10 +738,11 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                 }
                 exp = m_helper.compileExpression(
                     comp, fC, Hierarchical_identifier, m_compileDesign, nullptr,
-                    instance);
+                    parent, true);
               } else {
-                exp = m_helper.compileExpression(
-                    comp, fC, Net_lvalue, m_compileDesign, nullptr, instance);
+                exp = m_helper.compileExpression(comp, fC, Net_lvalue,
+                                                 m_compileDesign, nullptr,
+                                                 parent, true);
               }
               p->High_conn(exp);
             }
@@ -784,9 +785,9 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               Hierarchical_identifier = Net_lvalue;
             }
 
-            any* exp =
-                m_helper.compileExpression(comp, fC, Hierarchical_identifier,
-                                           m_compileDesign, nullptr, instance);
+            any* exp = m_helper.compileExpression(
+                comp, fC, Hierarchical_identifier, m_compileDesign, nullptr,
+                parent, true);
             p->High_conn(exp);
             if (exp->UhdmType() == uhdmref_obj) {
               ref_obj* ref = (ref_obj*)exp;
@@ -929,7 +930,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         }
         if (Expression) {
           hexpr = (expr*)m_helper.compileExpression(
-              comp, fC, Expression, m_compileDesign, nullptr, instance);
+              comp, fC, Expression, m_compileDesign, nullptr, parent, true);
           NodeId Primary = fC->Child(Expression);
           NodeId Primary_literal = fC->Child(Primary);
           sigId = fC->Child(Primary_literal);
@@ -1697,7 +1698,7 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       m_helper.setParentNoOverride(exp, assign);
       if (sig->getDelay()) {
         expr* delay_expr = (expr*)m_helper.compileExpression(
-            comp, fC, sig->getDelay(), m_compileDesign);
+            comp, fC, sig->getDelay(), m_compileDesign, nullptr, child, true);
         assign->Delay(delay_expr);
       }
       std::vector<cont_assign*>* assigns = netlist->cont_assigns();
