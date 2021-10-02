@@ -49,11 +49,11 @@
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
+#include <uhdm/ExprEval.h>
 #include <uhdm/Serializer.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/expr.h>
 #include <uhdm/uhdm.h>
-#include <uhdm/ExprEval.h>
 
 namespace SURELOG {
 
@@ -668,7 +668,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
         any* exp = compileExpression(scope, fC, enumValueId, compileDesign,
                                      pstmt, nullptr);
         UHDM::ExprEval eval;
-        econst->VpiDecompile(eval.prettyPrint(exp));                             
+        econst->VpiDecompile(eval.prettyPrint(exp));
       } else {
         econst->VpiDecompile(value->decompiledValue());
       }
