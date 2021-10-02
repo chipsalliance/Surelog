@@ -112,23 +112,9 @@ variables* CompileHelper::getSimpleVarFromTypespec(
     case uhdmenum_typespec: {
       enum_typespec* etps = (enum_typespec*)spec;
       typespec* base = (typespec*)etps->Base_typespec();
-      if (base) {
-        UHDM_OBJECT_TYPE basettps = base->UhdmType();
-        std::vector<UHDM::range*>* basePackedDimensions = nullptr;
-        if (basettps == uhdmbit_typespec) {
-          basePackedDimensions = ((bit_typespec*)base)->Ranges();
-        } else if (basettps == uhdmlogic_typespec) {
-          basePackedDimensions = ((logic_typespec*)base)->Ranges();
-        }
-        var =
-            getSimpleVarFromTypespec(base, basePackedDimensions, compileDesign);
-        if (var) {
-          var->Typespec(spec);
-        }
-      } else {
-        UHDM::enum_var* enum_var = s.MakeEnum_var();
-        var = enum_var;
-      }
+      UHDM::enum_var* enum_var = s.MakeEnum_var();
+      var = enum_var;
+      enum_var->Typespec(base);
       break;
     }
     case uhdmlogic_typespec: {
