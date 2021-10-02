@@ -4953,6 +4953,47 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
         rexp->VpiParent(range);
 
         ranges->push_back(range);
+      } else if (fC->Type(fC->Child(Packed_dimension)) ==
+                 VObjectType::slAssociative_dimension) {
+        NodeId DataType = fC->Child(fC->Child(Packed_dimension));
+        UHDM::range* range = s.MakeRange();
+
+        constant* lexpc = s.MakeConstant();
+        lexpc->VpiConstType(vpiUIntConst);
+        lexpc->VpiSize(64);
+        lexpc->VpiValue("UINT:0");
+        lexpc->VpiDecompile("0");
+        lexpc->VpiFile(fC->getFileName());
+        lexpc->VpiLineNo(fC->Line(Packed_dimension));
+        lexpc->VpiColumnNo(fC->Column(Packed_dimension));
+        lexpc->VpiEndLineNo(fC->EndLine(Packed_dimension));
+        lexpc->VpiEndColumnNo(fC->Column(Packed_dimension) + 1);
+        expr* lexp = lexpc;
+
+        range->Left_expr(lexp);
+        lexp->VpiParent(range);
+
+        constant* rexpc = s.MakeConstant();
+        rexpc->VpiConstType(vpiStringConst);
+        rexpc->VpiSize(0);
+        rexpc->VpiValue("STRING:associative");
+        rexpc->VpiDecompile("associative");
+        rexpc->VpiFile(fC->getFileName());
+        rexpc->VpiLineNo(fC->Line(Packed_dimension));
+        rexpc->VpiColumnNo(fC->Column(Packed_dimension));
+        rexpc->VpiEndLineNo(fC->EndLine(Packed_dimension));
+        rexpc->VpiEndColumnNo(fC->Column(Packed_dimension) + 1);
+
+        typespec* assoc_tps =
+            compileTypespec(component, fC, DataType, compileDesign, nullptr,
+                            instance, reduce, true);
+        rexpc->Typespec(assoc_tps);
+        expr* rexp = rexpc;
+
+        range->Right_expr(rexp);
+        rexp->VpiParent(range);
+
+        ranges->push_back(range);
       }
       Packed_dimension = fC->Sibling(Packed_dimension);
     }
