@@ -49,6 +49,7 @@
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
+#include <uhdm/ExprEval.h>
 #include <uhdm/Serializer.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/expr.h>
@@ -664,13 +665,10 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       econst->VpiEndColumnNo(fC->EndColumn(enumNameId));
       econst->VpiValue(value->uhdmValue());
       if (enumValueId) {
-        std::vector<VObjectType> stopPoints = {slIntConst, slStringConst};
-        std::vector<NodeId> nodes =
-            fC->sl_collect_all(enumValueId, stopPoints, true);
-        if (nodes.size()) {
-          NodeId c = nodes[0];
-          econst->VpiDecompile(fC->SymName(c));
-        }
+        any* exp = compileExpression(scope, fC, enumValueId, compileDesign,
+                                     pstmt, nullptr);
+        UHDM::ExprEval eval;
+        econst->VpiDecompile(eval.prettyPrint(exp));
       } else {
         econst->VpiDecompile(value->decompiledValue());
       }
