@@ -211,7 +211,7 @@ bool ErrorDefinition::init() {
   rec(PP_MACRO_NO_DEFAULT_VALUE, ERROR, PP,
       "Macro instantiation omits argument %exobj for \"%s\"",
       "%exloc No default value for argument %exobj in macro definition");
-  rec(PP_MACRO_PARENTHESIS_NEEDED, ERROR, PP,
+  rec(PP_MACRO_PARENTHESIS_NEEDED, WARNING, PP,
       "Macro instantiation omits parenthesis for \"%s\"",
       "%exloc macro definition has arguments");
   rec(PP_MACRO_NAME_RESERVED, ERROR, PP,
@@ -226,9 +226,9 @@ bool ErrorDefinition::init() {
       "%exloc macro used in macro \"%exobj\"");
   rec(PP_UNTERMINATED_STRING, ERROR, PP, "Illegal unterminated string: >>%s<<",
       "%exloc macro instance");
-  rec(PP_UNESCAPED_CHARACTER_IN_STRING, ERROR, PP,
+  rec(PP_UNESCAPED_CHARACTER_IN_STRING, WARNING, PP,
       "Illegal un-escaped character '%s' in string");
-  rec(PP_UNRECOGNIZED_ESCAPED_SEQUENCE, ERROR, PP,
+  rec(PP_UNRECOGNIZED_ESCAPED_SEQUENCE, WARNING, PP,
       "Unknown escaped sequence '%s'");
   rec(PP_INVALID_INCLUDE_FILENAME, ERROR, PP, "Invalid include filename");
   rec(PP_ILLEGAL_DIRECTIVE_IN_DESIGN_ELEMENT, ERROR, PP,
@@ -291,21 +291,21 @@ bool ErrorDefinition::init() {
   rec(COMP_UNDEFINED_TYPE, ERROR, COMP, "Undefined type \"%s\"");
   rec(COMP_MULTIPLY_DEFINED_PROPERTY, WARNING, COMP,
       "Multiply defined property \"%s\"", "%exloc previous definition");
-  rec(COMP_MULTIPLY_DEFINED_CLASS, ERROR, COMP, "Multiply defined class \"%s\"",
-      "%exloc previous definition");
-  rec(COMP_MULTIPLY_DEFINED_FUNCTION, ERROR, COMP,
+  rec(COMP_MULTIPLY_DEFINED_CLASS, WARNING, COMP,
+      "Multiply defined class \"%s\"", "%exloc previous definition");
+  rec(COMP_MULTIPLY_DEFINED_FUNCTION, WARNING, COMP,
       "Multiply defined function \"%s\"", "%exloc previous definition");
-  rec(COMP_MULTIPLY_DEFINED_TASK, ERROR, COMP, "Multiply defined task \"%s\"",
+  rec(COMP_MULTIPLY_DEFINED_TASK, WARNING, COMP, "Multiply defined task \"%s\"",
       "%exloc previous definition");
-  rec(COMP_MULTIPLY_DEFINED_CONSTRAINT, ERROR, COMP,
+  rec(COMP_MULTIPLY_DEFINED_CONSTRAINT, WARNING, COMP,
       "Multiply defined constraint \"%s\"", "%exloc previous definition");
-  rec(COMP_MULTIPLY_DEFINED_TYPEDEF, ERROR, COMP,
+  rec(COMP_MULTIPLY_DEFINED_TYPEDEF, WARNING, COMP,
       "Multiply defined typedef \"%s\"", "%exloc previous definition");
-  rec(COMP_MULTIPLY_DEFINED_INNER_CLASS, ERROR, COMP,
+  rec(COMP_MULTIPLY_DEFINED_INNER_CLASS, WARNING, COMP,
       "Multiply defined inner class \"%s\"", "%exloc previous definition");
-  rec(COMP_MULTIPLY_DEFINED_COVERGROUP, ERROR, COMP,
+  rec(COMP_MULTIPLY_DEFINED_COVERGROUP, WARNING, COMP,
       "Multiply defined covergroup \"%s\"", "%exloc previous definition");
-  rec(COMP_MULTIPLY_DEFINED_PARAMETER, ERROR, COMP,
+  rec(COMP_MULTIPLY_DEFINED_PARAMETER, WARNING, COMP,
       "Multiply defined parameter \"%s\"", "%exloc previous definition");
   rec(COMP_UNDEFINED_VARIABLE, ERROR, COMP, "Undefined variable \"%s\"");
   rec(COMP_UNDEFINED_BASE_CLASS, ERROR, COMP,
@@ -314,7 +314,7 @@ bool ErrorDefinition::init() {
       "Multiply defined package: \"%s\"", "%exloc previous definition");
   rec(COMP_INCOMPATIBLE_TYPES, ERROR, COMP,
       "Incompatible types: \"%s\" is assigned \"%exobj\"");
-  rec(COMP_MULTIPLY_DEFINED_VARIABLE, ERROR, COMP,
+  rec(COMP_MULTIPLY_DEFINED_VARIABLE, WARNING, COMP,
       "Multiply defined variable \"%s\"", "%exloc previous definition");
   rec(COMP_NO_METHOD_FOR_TYPE, ERROR, COMP,
       "Function \"%exobj\" is not defined for variable %s",
