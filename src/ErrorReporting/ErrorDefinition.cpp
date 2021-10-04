@@ -263,6 +263,7 @@ bool ErrorDefinition::init() {
       "Invalid timescale value: %s, legal values: 1, 10, 100");
   rec(PA_TIMESCALE_INVALID_SCALE, ERROR, PARSE,
       "Timescale precision less precise than timeunit");
+  rec(PA_INTERNAL_ERROR, ERROR, PARSE, "Internal error: %s");
   rec(COMP_COMPILE, INFO, COMP, "Compilation..");
   rec(COMP_COMPILE_PACKAGE, INFO, COMP, "Compile package \"%s\"");
   rec(COMP_COMPILE_CLASS, INFO, COMP, "Compile class \"%s\"");
