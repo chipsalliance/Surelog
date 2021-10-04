@@ -262,7 +262,26 @@
             "program": "${workspaceFolder}/dbuild/bin/surelog",
             "args": ["-DSURELOG_DIR=/home/alain/Surelog", "-DBP_TOP_DIR=../../../../../bp_top/", "-DHARDFLOAT_DIR=../../../../../external/HardFloat/", "-DBP_ME_DIR=../../../../../bp_me/", "-DBP_BE_DIR=../../../../../bp_be/", "-DBP_FE_DIR=../../../../../bp_fe/", "-DBP_COMMON_DIR=../../../../../bp_common/", "-DBASEJUMP_STL_DIR=../../../../../external/basejump_stl/", "-f", "/home/alain/Surelog/third_party/tests/black-parrot/bp_top/syn/BlackParrot.debug"],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/third_party/tests/black-parrot/bp_top/syn/results/verilator/bp_tethered.e_bp_default_cfg.none.build",
+            "cwd": "${workspaceFolder}/third_party/tests/black-parrot/bp_top/syn/results/verilator/bp_tethered.e_bp_multicore_1_cfg.none.build/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "BlackParrotOOB",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-DSURELOG_DIR=/home/alain/Surelog", "-DBP_TOP_DIR=../../../../../bp_top/", "-DHARDFLOAT_DIR=../../../../../external/HardFloat/", "-DBP_ME_DIR=../../../../../bp_me/", "-DBP_BE_DIR=../../../../../bp_be/", "-DBP_FE_DIR=../../../../../bp_fe/", "-DBP_COMMON_DIR=../../../../../bp_common/", "-DBASEJUMP_STL_DIR=../../../../../external/basejump_stl/", "-f", "../../../incl.f", "/home/alain/Surelog/third_party/tests/black-parrot/external/basejump_stl/bsg_misc/bsg_concentrate_static.v", "/home/alain/Surelog/third_party/tests/black-parrot/external/basejump_stl/bsg_misc/bsg_concentrate_static1.v"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/black-parrot/bp_top/syn/results/verilator/bp_tethered.e_bp_multicore_1_cfg.none.build/",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

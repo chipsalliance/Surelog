@@ -230,9 +230,21 @@ SymbolId ParseFile::getFileId(unsigned int line) {
   auto& infos = pp->getIncludeFileInfo();
   if (infos.size()) {
     if (!fileInfoCache.empty()) {
+      if (line > fileInfoCache.size()) {
+        SymbolId fileId = registerSymbol("CACHE OUT OF BOUND");
+        Location ppfile(fileId);
+        Error err(ErrorDefinition::PA_INTERNAL_ERROR, ppfile);
+        addError(err);
+      }
       return fileInfoCache[line];
     }
     buildLineInfoCache_();
+    if (line > fileInfoCache.size()) {
+      SymbolId fileId = registerSymbol("CACHE OUT OF BOUND");
+      Location ppfile(fileId);
+      Error err(ErrorDefinition::PA_INTERNAL_ERROR, ppfile);
+      addError(err);
+    }
     return fileInfoCache[line];
   } else {
     return m_fileId;
@@ -246,9 +258,21 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
   auto& infos = pp->getIncludeFileInfo();
   if (infos.size()) {
     if (!lineInfoCache.empty()) {
+      if (line > lineInfoCache.size()) {
+        SymbolId fileId = registerSymbol("CACHE OUT OF BOUND");
+        Location ppfile(fileId);
+        Error err(ErrorDefinition::PA_INTERNAL_ERROR, ppfile);
+        addError(err);
+      }
       return lineInfoCache[line];
     }
     buildLineInfoCache_();
+    if (line > lineInfoCache.size()) {
+      SymbolId fileId = registerSymbol("CACHE OUT OF BOUND");
+      Location ppfile(fileId);
+      Error err(ErrorDefinition::PA_INTERNAL_ERROR, ppfile);
+      addError(err);
+    }
     return lineInfoCache[line];
   } else {
     return line;
