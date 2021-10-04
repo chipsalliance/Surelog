@@ -117,8 +117,7 @@ void SV3_1aTreeShapeHelper::addNestedDesignElement(
                      generateDesignElemId(), line, column, endLine, endColumn,
                      0);
   elem.m_context = ctx;
-  elem.m_timeInfo =
-      m_pf->getCompilationUnit()->getTimeInfo(m_pf->getFileId(line), line);
+  elem.m_timeInfo = m_pf->getCompilationUnit()->getTimeInfo(fileId, line);
   if (m_nestedElements.size()) {
     elem.m_timeInfo = m_nestedElements.top()->m_timeInfo;
     elem.m_parent = m_nestedElements.top()->m_uniqueId;

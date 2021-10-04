@@ -1,7 +1,6 @@
 set WINDOWS_BLACK_LIST [dict create]
 dict set WINDOWS_BLACK_LIST Ariane 1
 dict set WINDOWS_BLACK_LIST BlackParrot 1
-dict set WINDOWS_BLACK_LIST BlackPBe 1
 dict set WINDOWS_BLACK_LIST BlackUnicore 1
 dict set WINDOWS_BLACK_LIST BlackUcode 1
 dict set WINDOWS_BLACK_LIST CoresSweRV 1
@@ -27,7 +26,6 @@ dict set UNIX_BLACK_LIST UnitElabExternNested 1
 # RAM size in CI machines
 dict set UNIX_BLACK_LIST Earlgrey_nexysvideo 1
 dict set UNIX_BLACK_LIST BlackParrot 1
-dict set UNIX_BLACK_LIST BlackPBe 1
 dict set UNIX_BLACK_LIST BlackUnicore 1
 dict set UNIX_BLACK_LIST BlackUcode 1
 dict set UNIX_BLACK_LIST Lpddr 1

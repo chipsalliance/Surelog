@@ -298,6 +298,10 @@ PreprocessFile::AntlrParserHandler::~AntlrParserHandler() {
   delete m_inputStream;
 }
 
+static size_t LinesCount(std::string_view s) {
+  return std::count(s.begin(), s.end(), '\n');
+}
+
 bool PreprocessFile::preprocess() {
   m_result = "";
   std::string fileName = getSymbol(m_fileId);
@@ -457,12 +461,8 @@ bool PreprocessFile::preprocess() {
                                       m_antlrParserHandler->m_pptree);
   if (m_debugAstModel && !precompiled)
     std::cout << m_fileContent->printObjects();
-
+  m_lineCount = LinesCount(m_result);
   return true;
-}
-
-static size_t LinesCount(std::string_view s) {
-  return std::count(s.begin(), s.end(), '\n');
 }
 
 unsigned int PreprocessFile::getSumLineCount() {
