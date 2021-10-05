@@ -395,8 +395,16 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
               break;
             }
             case 'b':
-              hex_value = std::strtoull(v.c_str(), 0, 2);
-              intformat = true;
+              if (strstr(v.c_str(), "X") || strstr(v.c_str(), "Z") ||
+                  strstr(v.c_str(), "x") || strstr(v.c_str(), "z")) {
+                StValue* stval = (StValue*)m_valueFactory.newStValue();
+                stval->set(v.c_str(), Value::Type::Binary,
+                           (intsize ? intsize : v.size()));
+                value = stval;
+              } else {
+                hex_value = std::strtoull(v.c_str(), 0, 2);
+                intformat = true;
+              }
               break;
             case 'o':
               hex_value = std::strtoull(v.c_str(), 0, 8);
@@ -898,7 +906,8 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, unsigned short size) {
         break;
     }
   } else if ((pos = s.find("BIN:")) != std::string::npos) {
-    if (strstr(s.c_str(), "X") || strstr(s.c_str(), "Z")) {
+    if (strstr(s.c_str(), "X") || strstr(s.c_str(), "Z") ||
+        strstr(s.c_str(), "x") || strstr(s.c_str(), "z")) {
       StValue* sval = (StValue*)m_valueFactory.newStValue();
       sval->set(s.c_str() + pos + strlen("BIN:"), Value::Type::Binary,
                 (size ? size : s.size()));
