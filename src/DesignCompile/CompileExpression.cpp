@@ -4788,7 +4788,8 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
       ((fC->Type(Packed_dimension) == VObjectType::slPacked_dimension) ||
        (fC->Type(Packed_dimension) == VObjectType::slUnpacked_dimension) ||
        (fC->Type(Packed_dimension) == VObjectType::slVariable_dimension) ||
-       (fC->Type(Packed_dimension) == VObjectType::slConstant_range))) {
+       (fC->Type(Packed_dimension) == VObjectType::slConstant_range) ||
+       (fC->Type(Packed_dimension) == VObjectType::slUnsized_dimension))) {
     ranges = s.MakeRangeVec();
     size = 1;
     while (Packed_dimension) {
@@ -4918,8 +4919,10 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
         range->VpiEndColumnNo(fC->EndColumn(Constant_range));
         ranges->push_back(range);
         range->VpiParent(pexpr);
-      } else if (fC->Type(fC->Child(Packed_dimension)) ==
-                 VObjectType::slUnsized_dimension) {
+      } else if ((fC->Type(fC->Child(Packed_dimension)) ==
+                  VObjectType::slUnsized_dimension) ||
+                 (fC->Type(Packed_dimension) ==
+                  VObjectType::slUnsized_dimension)) {
         UHDM::range* range = s.MakeRange();
 
         constant* lexpc = s.MakeConstant();
