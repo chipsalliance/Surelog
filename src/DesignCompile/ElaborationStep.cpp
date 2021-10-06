@@ -1409,10 +1409,37 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
   if (unpackedDimensions) {
     array_var* array_var = s.MakeArray_var();
     array_var->Variables(s.MakeVariablesVec());
-    array_var->Ranges(unpackedDimensions);
+    bool dynamic = false;
+    bool associative = false;
+    bool queue = false;
+    if (unpackedDimensions) {
+      range* r = unpackedDimensions->at(0);
+      const expr* rhs = r->Right_expr();
+      if (rhs->UhdmType() == uhdmconstant) {
+        const std::string& value = rhs->VpiValue();
+        if (value == "STRING:$") {
+          queue = true;
+        } else if (value == "STRING:associative") {
+          associative = true;
+          const typespec* tp = rhs->Typespec();
+          array_var->Typespec((typespec*)tp);
+        } else if (value == "STRING:unsized") {
+          dynamic = true;
+        }
+      }
+    }
+    if (associative) {
+      array_var->VpiArrayType(vpiAssocArray);
+    } else if (queue) {
+      array_var->VpiArrayType(vpiQueueArray);
+    } else if (dynamic) {
+      array_var->VpiArrayType(vpiDynamicArray);
+    } else {
+      array_var->Ranges(unpackedDimensions);
+      array_var->VpiArrayType(vpiStaticArray);
+    }
     array_var->VpiSize(unpackedSize);
     array_var->VpiName(signame);
-    array_var->VpiArrayType(vpiStaticArray);
     array_var->VpiRandType(vpiNotRand);
     array_var->VpiVisibility(vpiPublicVis);
     vars->push_back(array_var);
