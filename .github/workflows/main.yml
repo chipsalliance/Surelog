@@ -34,7 +34,7 @@ jobs:
       run: |
         sudo apt-get update -qq
         sudo apt install -y \
-          g++-7 \
+          g++-9 \
           tclsh \
           default-jre \
           cmake \
@@ -44,9 +44,9 @@ jobs:
           libgoogle-perftools-dev \
           uuid-dev \
           lcov
-        sudo ln -sf /usr/bin/g++-7 /usr/bin/g++
-        sudo ln -sf /usr/bin/gcc-7 /usr/bin/gcc
-        sudo ln -sf /usr/bin/gcov-7 /usr/bin/gcov
+        sudo ln -sf /usr/bin/g++-9 /usr/bin/g++
+        sudo ln -sf /usr/bin/gcc-9 /usr/bin/gcc
+        sudo ln -sf /usr/bin/gcov-9 /usr/bin/gcov
 
     - uses: actions/setup-python@v2
       with:
@@ -65,8 +65,8 @@ jobs:
 
     - name: Configure shell
       run: |
-        echo 'CC=gcc-7' >> $GITHUB_ENV
-        echo 'CXX=g++-7' >> $GITHUB_ENV
+        echo 'CC=gcc-9' >> $GITHUB_ENV
+        echo 'CXX=g++-9' >> $GITHUB_ENV
         echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
         echo 'PREFIX=/tmp/surelog-install' >> $GITHUB_ENV
         echo "ADDITIONAL_CMAKE_OPTIONS='-DMY_CXX_WARNING_FLAGS="-W -Wall -Wextra -Wno-unused-parameter -Wno-unused-variable -Werror -UNDEBUG"'" >> $GITHUB_ENV
@@ -452,7 +452,7 @@ jobs:
       run: |
         sudo apt-get update -qq
         sudo apt -qq -y install clang-tidy-12 \
-                                g++-7 tclsh  default-jre cmake \
+                                g++-9 tclsh  default-jre cmake \
                                 uuid-dev build-essential
 
     - name: Use ccache
