@@ -1419,20 +1419,26 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
         const std::string& value = rhs->VpiValue();
         if (value == "STRING:$") {
           queue = true;
+          unpackedDimensions->erase(unpackedDimensions->begin());
         } else if (value == "STRING:associative") {
           associative = true;
           const typespec* tp = rhs->Typespec();
           array_var->Typespec((typespec*)tp);
+          unpackedDimensions->erase(unpackedDimensions->begin());
         } else if (value == "STRING:unsized") {
           dynamic = true;
+          unpackedDimensions->erase(unpackedDimensions->begin());
         }
       }
     }
     if (associative) {
+      if (unpackedDimensions->size()) array_var->Ranges(unpackedDimensions);
       array_var->VpiArrayType(vpiAssocArray);
     } else if (queue) {
+      if (unpackedDimensions->size()) array_var->Ranges(unpackedDimensions);
       array_var->VpiArrayType(vpiQueueArray);
     } else if (dynamic) {
+      if (unpackedDimensions->size()) array_var->Ranges(unpackedDimensions);
       array_var->VpiArrayType(vpiDynamicArray);
     } else {
       array_var->Ranges(unpackedDimensions);
