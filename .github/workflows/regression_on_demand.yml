@@ -5,10 +5,17 @@ on:
 
 jobs:
   linux-gcc:
+    name: ubuntu-linux-${{ matrix.mode }}
     runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+        - pygen
+        - tclgen
 
     steps:
 
@@ -16,7 +23,7 @@ jobs:
       run: |
         sudo apt-get update -qq
         sudo apt install -y \
-          g++-7 \
+          g++-9 \
           tclsh \
           default-jre \
           cmake \
@@ -26,9 +33,9 @@ jobs:
           libgoogle-perftools-dev \
           uuid-dev \
           lcov
-        sudo ln -sf /usr/bin/g++-7 /usr/bin/g++
-        sudo ln -sf /usr/bin/gcc-7 /usr/bin/gcc
-        sudo ln -sf /usr/bin/gcov-7 /usr/bin/gcov
+        sudo ln -sf /usr/bin/g++-9 /usr/bin/g++
+        sudo ln -sf /usr/bin/gcc-9 /usr/bin/gcc
+        sudo ln -sf /usr/bin/gcov-9 /usr/bin/gcov
 
     - uses: actions/setup-python@v2
       with:
@@ -42,10 +49,16 @@ jobs:
 
     - name: Configure shell
       run: |
-        echo 'CC=gcc-7' >> $GITHUB_ENV
-        echo 'CXX=g++-7' >> $GITHUB_ENV
+        echo 'CC=gcc-9' >> $GITHUB_ENV
+        echo 'CXX=g++-9' >> $GITHUB_ENV
         echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
         echo 'PREFIX=/tmp/surelog-install' >> $GITHUB_ENV
+
+        if [[ "${{ matrix.mode }}" = "pygen" ]] ; then
+          echo 'WITH_PYTHON_GENERATOR=ON' >> $GITHUB_ENV
+        else
+          echo 'WITH_PYTHON_GENERATOR=OFF' >> $GITHUB_ENV
+        fi
 
     - name: Run Regression
       run: |
@@ -66,17 +79,24 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: surelog-linux-gcc-regression
+        name: surelog-linux-gcc-regression-${{ matrix.mode }}
         path: |
           ${{ github.workspace }}/build/test/
           ${{ github.workspace }}/build/tests/
 
   windows-msvc:
+    name: windows-msvc-${{ matrix.mode }}
     runs-on: windows-latest
 
     defaults:
       run:
         shell: cmd
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+        - pygen
+        - tclgen
 
     steps:
     - name: Install Core Dependencies
@@ -121,6 +141,12 @@ jobs:
         set SWIG_DIR=%PROGRMDATA%\chocolatey\lib\swig\tools\install\swigwin-3.0.12
         set PATH=%pythonLocation%;%SWIG_DIR%;%JAVA_HOME%\bin;%MAKE_DIR%;%TCL_DIR%;%PATH%
 
+        if "${{ matrix.mode }}" == "pygen" (
+          set WITH_PYTHON_GENERATOR=ON
+        ) else (
+          set WITH_PYTHON_GENERATOR=OFF
+        )
+
         set
         where cmake && cmake --version
         where make && make --version
@@ -135,7 +161,7 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: surelog-windows-msvc-regression
+        name: surelog-windows-msvc-regression-${{ matrix.mode }}
         path: |
           ${{ github.workspace }}/build/test/
           ${{ github.workspace }}/build/tests/
