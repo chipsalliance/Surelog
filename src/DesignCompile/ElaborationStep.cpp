@@ -1412,33 +1412,76 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
     bool dynamic = false;
     bool associative = false;
     bool queue = false;
-    if (unpackedDimensions) {
-      range* r = unpackedDimensions->at(0);
+    int index = 0;
+    for (auto itr = unpackedDimensions->begin();
+         itr != unpackedDimensions->end(); itr++) {
+      range* r = *itr;
       const expr* rhs = r->Right_expr();
       if (rhs->UhdmType() == uhdmconstant) {
         const std::string& value = rhs->VpiValue();
         if (value == "STRING:$") {
           queue = true;
-          unpackedDimensions->erase(unpackedDimensions->begin());
+          unpackedDimensions->erase(itr);
+          break;
         } else if (value == "STRING:associative") {
           associative = true;
           const typespec* tp = rhs->Typespec();
           array_var->Typespec((typespec*)tp);
-          unpackedDimensions->erase(unpackedDimensions->begin());
+          unpackedDimensions->erase(itr);
+          break;
         } else if (value == "STRING:unsized") {
           dynamic = true;
-          unpackedDimensions->erase(unpackedDimensions->begin());
+          unpackedDimensions->erase(itr);
+          break;
+        }
+      }
+      index++;
+    }
+
+    if (associative || queue || dynamic) {
+      if (unpackedDimensions->size()) {
+        if (index == 0) {
+          array_var->Ranges(unpackedDimensions);
+        } else {
+          array_typespec* tps = s.MakeArray_typespec();
+          array_var->Typespec(tps);
+          tps->Ranges(unpackedDimensions);
+          switch (obj->UhdmType()) {
+            case uhdmint_var: {
+              int_typespec* ts = s.MakeInt_typespec();
+              tps->Elem_typespec(ts);
+              break;
+            }
+            case uhdmlogic_var: {
+              logic_typespec* ts = s.MakeLogic_typespec();
+              tps->Elem_typespec(ts);
+              break;
+            }
+            case uhdmlong_int_var: {
+              long_int_typespec* ts = s.MakeLong_int_typespec();
+              tps->Elem_typespec(ts);
+              break;
+            }
+            case uhdmstring_var: {
+              string_typespec* ts = s.MakeString_typespec();
+              tps->Elem_typespec(ts);
+              break;
+            }
+            default: {
+              unsupported_typespec* ts = s.MakeUnsupported_typespec();
+              tps->Elem_typespec(ts);
+              break;
+            }
+          }
         }
       }
     }
+
     if (associative) {
-      if (unpackedDimensions->size()) array_var->Ranges(unpackedDimensions);
       array_var->VpiArrayType(vpiAssocArray);
     } else if (queue) {
-      if (unpackedDimensions->size()) array_var->Ranges(unpackedDimensions);
       array_var->VpiArrayType(vpiQueueArray);
     } else if (dynamic) {
-      if (unpackedDimensions->size()) array_var->Ranges(unpackedDimensions);
       array_var->VpiArrayType(vpiDynamicArray);
     } else {
       array_var->Ranges(unpackedDimensions);
@@ -1450,9 +1493,11 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
     array_var->VpiVisibility(vpiPublicVis);
     vars->push_back(array_var);
     obj->VpiParent(array_var);
-    UHDM::VectorOfvariables* array_vars = array_var->Variables();
-    array_vars->push_back((variables*)obj);
-    ((variables*)obj)->VpiName("");
+    if ((array_var->Typespec() == nullptr) || associative) {
+      VectorOfvariables* array_vars = array_var->Variables();
+      array_vars->push_back((variables*)obj);
+      ((variables*)obj)->VpiName("");
+    }
     array_var->Expr(assignExp);
     obj = array_var;
   } else {
