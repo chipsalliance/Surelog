@@ -1445,31 +1445,43 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
         } else {
           array_typespec* tps = s.MakeArray_typespec();
           array_var->Typespec(tps);
-          tps->Ranges(unpackedDimensions);
+
+          if (associative)
+            tps->VpiArrayType(vpiAssocArray);
+          else if (queue)
+            tps->VpiArrayType(vpiQueueArray);
+          else if (dynamic)
+            tps->VpiArrayType(vpiDynamicArray);
+          else
+            tps->VpiArrayType(vpiStaticArray);
+          array_typespec* subtps = s.MakeArray_typespec();
+          tps->Elem_typespec(subtps);
+
+          subtps->Ranges(unpackedDimensions);
           switch (obj->UhdmType()) {
             case uhdmint_var: {
               int_typespec* ts = s.MakeInt_typespec();
-              tps->Elem_typespec(ts);
+              subtps->Elem_typespec(ts);
               break;
             }
             case uhdmlogic_var: {
               logic_typespec* ts = s.MakeLogic_typespec();
-              tps->Elem_typespec(ts);
+              subtps->Elem_typespec(ts);
               break;
             }
             case uhdmlong_int_var: {
               long_int_typespec* ts = s.MakeLong_int_typespec();
-              tps->Elem_typespec(ts);
+              subtps->Elem_typespec(ts);
               break;
             }
             case uhdmstring_var: {
               string_typespec* ts = s.MakeString_typespec();
-              tps->Elem_typespec(ts);
+              subtps->Elem_typespec(ts);
               break;
             }
             default: {
               unsupported_typespec* ts = s.MakeUnsupported_typespec();
-              tps->Elem_typespec(ts);
+              subtps->Elem_typespec(ts);
               break;
             }
           }
