@@ -409,10 +409,15 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
         for (i = 0; i < value.size(); i++) {
           if (value[i] == '\'') {
             base = value[i + 1];
+            if (base == 's' || base == 'S') base = value[i + 2];
             break;
           }
         }
-        v = value.substr(i + 2);
+        if (value.find_first_of('s') != std::string::npos) {
+          v = value.substr(i + 3);
+        } else {
+          v = value.substr(i + 2);
+        }
         v = StringUtils::replaceAll(v, "_", "");
         switch (base) {
           case 'h': {
@@ -1593,8 +1598,10 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                 std::string res;
                 std::string tmp = val.c_str() + strlen("BIN:");
                 std::string value;
-                for (unsigned int i = 0; i < width - tmp.size(); i++) {
-                  value += '0';
+                if (width > tmp.size()) {
+                  for (unsigned int i = 0; i < width - tmp.size(); i++) {
+                    value += '0';
+                  }
                 }
                 value += tmp;
                 for (unsigned int i = 0; i < n; i++) {
@@ -1659,8 +1666,10 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                   case vpiBinaryConst: {
                     std::string tmp = v.c_str() + strlen("BIN:");
                     std::string value;
-                    for (unsigned int i = 0; i < size - tmp.size(); i++) {
-                      value += '0';
+                    if (size > tmp.size()) {
+                      for (unsigned int i = 0; i < size - tmp.size(); i++) {
+                        value += '0';
+                      }
                     }
                     value += tmp;
                     cval += value;
@@ -1676,8 +1685,10 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                     std::string tmp =
                         NumUtils::hexToBin(v.c_str() + strlen("HEX:"));
                     std::string value;
-                    for (unsigned int i = 0; i < size - tmp.size(); i++) {
-                      value += '0';
+                    if (size > tmp.size()) {
+                      for (unsigned int i = 0; i < size - tmp.size(); i++) {
+                        value += '0';
+                      }
                     }
                     value += tmp;
                     cval += value;
@@ -2389,6 +2400,7 @@ int64_t CompileHelper::get_value(bool& invalidValue, const UHDM::expr* expr) {
     switch (type) {
       case vpiBinaryConst: {
         StringUtils::ltrim(v, '\'');
+        StringUtils::ltrim(v, 's');
         StringUtils::ltrim(v, 'b');
         try {
           result = std::strtoll(v.c_str() + strlen("BIN:"), 0, 2);
@@ -2407,6 +2419,7 @@ int64_t CompileHelper::get_value(bool& invalidValue, const UHDM::expr* expr) {
       }
       case vpiHexConst: {
         StringUtils::ltrim(v, '\'');
+        StringUtils::ltrim(v, 's');
         StringUtils::ltrim(v, 'h');
         try {
           result = std::strtoll(v.c_str() + strlen("HEX:"), 0, 16);
@@ -2417,6 +2430,7 @@ int64_t CompileHelper::get_value(bool& invalidValue, const UHDM::expr* expr) {
       }
       case vpiOctConst: {
         StringUtils::ltrim(v, '\'');
+        StringUtils::ltrim(v, 's');
         StringUtils::ltrim(v, 'o');
         try {
           result = std::strtoll(v.c_str() + strlen("OCT:"), 0, 8);

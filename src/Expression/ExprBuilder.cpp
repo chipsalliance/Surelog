@@ -375,10 +375,16 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           for (i = 0; i < val.size(); i++) {
             if (val[i] == '\'') {
               base = val[i + 1];
+              if (base == 's' || base == 'S') base = val[i + 2];
               break;
             }
           }
-          std::string v = val.substr(i + 2);
+          std::string v;
+          if (val.find_first_of('s') != std::string::npos) {
+            v = val.substr(i + 3);
+          } else {
+            v = val.substr(i + 2);
+          }
           v = StringUtils::replaceAll(v, "_", "");
           bool intformat = false;
           switch (base) {
@@ -630,10 +636,16 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             for (i = 0; i < token.size(); i++) {
               if (token[i] == '\'') {
                 base = token[i + 1];
+                if (base == 's' || base == 'S') base = token[i + 2];
                 break;
               }
             }
-            std::string v = token.substr(i + 2);
+            std::string v;
+            if (token.find_first_of('s') != std::string::npos) {
+              v = token.substr(i + 3);
+            } else {
+              v = token.substr(i + 2);
+            }
             v = StringUtils::replaceAll(v, "_", "");
             std::string size = token.substr(0, i);
             uint64_t isize = std::strtoull(size.c_str(), 0, 10);
@@ -960,10 +972,15 @@ Value* ExprBuilder::fromString(const std::string& value) {
     for (i = 0; i < value.size(); i++) {
       if (value[i] == '\'') {
         base = value[i + 1];
+        if (base == 's' || base == 'S') base = value[i + 2];
         break;
       }
     }
-    sval = value.substr(i + 2);
+    if (value.find_first_of('s') != std::string::npos) {
+      sval = value.substr(i + 3);
+    } else {
+      sval = value.substr(i + 2);
+    }
     sval = StringUtils::replaceAll(sval, "_", "");
     switch (base) {
       case 'h': {
