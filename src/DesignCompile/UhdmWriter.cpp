@@ -2072,11 +2072,24 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
     // Non-Elaborated Model
 
     // FileContent
-    // Typepecs
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     d->Typespecs(typespecs);
     for (auto& fileIdContent : m_design->getAllFileContents()) {
+      // Typepecs
       writeDataTypes(fileIdContent.second->getDataTypeMap(), d, typespecs, s);
+
+      // Function and tasks
+      if (auto from = fileIdContent.second->getTask_funcs()) {
+        UHDM::VectorOftask_func* target = d->Task_funcs();
+        if (target == nullptr) {
+          d->Task_funcs(s.MakeTask_funcVec());
+          target = d->Task_funcs();
+        }
+        for (auto tf : *from) {
+          target->push_back(tf);
+          if (tf->VpiParent() == 0) tf->VpiParent(d);
+        }
+      }
     }
 
     // Packages
