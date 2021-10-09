@@ -3120,7 +3120,7 @@ UHDM::any* CompileHelper::compileExpression(
                                          instance, reduce, muteErrors);
       if (exp) {
         operands->push_back(exp);
-        exp->VpiParent(operation);
+        if (!exp->VpiParent()) exp->VpiParent(operation);
       }
       Expression = fC->Sibling(Expression);
     }
@@ -3204,7 +3204,7 @@ UHDM::any* CompileHelper::compileExpression(
                                     pexpr, instance, reduce, muteErrors);
               if (exp) {
                 operands->push_back(exp);
-                exp->VpiParent(operation);
+                if (!exp->VpiParent()) exp->VpiParent(operation);
                 if (odd) {
                   if (exp->UhdmType() == uhdmref_obj)
                     ((ref_obj*)exp)->VpiStructMember(true);
@@ -4025,16 +4025,19 @@ UHDM::any* CompileHelper::compileExpression(
         case VObjectType::slConcatenation: {
           UHDM::VectorOfany* operands = s.MakeAnyVec();
           NodeId Expression = fC->Child(child);
+          UHDM::operation* operation = s.MakeOperation();
+          operation->Attributes(attributes);
+          result = operation;
           while (Expression) {
             UHDM::any* exp =
                 compileExpression(component, fC, Expression, compileDesign,
                                   pexpr, instance, reduce, muteErrors);
-            if (exp) operands->push_back(exp);
+            if (exp) {
+              if (!exp->VpiParent()) exp->VpiParent(operation);
+              operands->push_back(exp);
+            }
             Expression = fC->Sibling(Expression);
           }
-          UHDM::operation* operation = s.MakeOperation();
-          operation->Attributes(attributes);
-          result = operation;
           operation->VpiParent(pexpr);
           operation->Operands(operands);
           operation->VpiOpType(vpiConcatOp);
@@ -4053,11 +4056,17 @@ UHDM::any* CompileHelper::compileExpression(
           UHDM::any* exp =
               compileExpression(component, fC, NCopy, compileDesign, pexpr,
                                 instance, reduce, muteErrors);
-          if (exp) operands->push_back(exp);
+          if (exp) {
+            if (!exp->VpiParent()) exp->VpiParent(operation);
+            operands->push_back(exp);
+          }
           NodeId Concatenation = fC->Sibling(NCopy);
           exp = compileExpression(component, fC, Concatenation, compileDesign,
                                   pexpr, instance, reduce, muteErrors);
-          if (exp) operands->push_back(exp);
+          if (exp) {
+            if (!exp->VpiParent()) exp->VpiParent(operation);
+            operands->push_back(exp);
+          }
           break;
         }
         case VObjectType::slSubroutine_call: {
@@ -4641,8 +4650,12 @@ UHDM::any* CompileHelper::compileAssignmentPattern(DesignComponent* component,
       while (Expression) {
         any* val = compileExpression(component, fC, Expression, compileDesign,
                                      operation, instance, reduce, false);
-
-        suboperands->push_back(val);
+        if (val) {
+          if (val->VpiParent() == nullptr) {
+            val->VpiParent(concat);
+          }
+          suboperands->push_back(val);
+        }
         Expression = fC->Sibling(Expression);
       }
     }
