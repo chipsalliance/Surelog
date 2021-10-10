@@ -2782,8 +2782,16 @@ UHDM::any* CompileHelper::compileSelectExpression(
           if (result) {
             UHDM::var_select* var_select = (UHDM::var_select*)result;
             VectorOfexpr* exprs = var_select->Exprs();
-            exprs->push_back(sel);
-            sel->VpiParent(var_select);
+            if (fC->Type(Bit_select) == slBit_select) {
+              bit_select* bit_select = s.MakeBit_select();
+              bit_select->VpiIndex(sel);
+              exprs->push_back(bit_select);
+              bit_select->VpiParent(var_select);
+              if (sel->VpiParent() == nullptr) sel->VpiParent(bit_select);
+            } else {
+              exprs->push_back(sel);
+              sel->VpiParent(var_select);
+            }
           } else if (fC->Child(Bit_select) && fC->Sibling(Bit_select)) {
             UHDM::var_select* var_select = s.MakeVar_select();
             VectorOfexpr* exprs = s.MakeExprVec();
@@ -2791,7 +2799,7 @@ UHDM::any* CompileHelper::compileSelectExpression(
             var_select->VpiName(name);
             exprs->push_back(sel);
             result = var_select;
-            sel->VpiParent(var_select);
+            if (sel->VpiParent() == nullptr) sel->VpiParent(var_select);
           } else {
             bit_select* bit_select = s.MakeBit_select();
             bit_select->VpiName(name);
