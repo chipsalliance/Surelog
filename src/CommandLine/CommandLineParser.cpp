@@ -741,11 +741,18 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (all_arguments[i] == "-exe") {
       i++;
       m_exeCommand = all_arguments[i];
-    } else if (all_arguments[i] == "-lowmem") {
+
+    }
+// No multiprocess on Windows platform, only multithreads
+#if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)
+#else
+    else if (all_arguments[i] == "-lowmem") {
       m_nbMaxProcesses = 1;
       m_writePpOutput = true;
       m_lowMem = true;
-    } else if (all_arguments[i] == "-nouhdm") {
+    }
+#endif
+    else if (all_arguments[i] == "-nouhdm") {
       m_writeUhdm = false;
     } else if (all_arguments[i] == "-mt" || all_arguments[i] == "--threads" ||
                all_arguments[i] == "-mp") {
@@ -783,15 +790,26 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
           if (mt)
             m_nbMaxTreads = maxMT;
           else {
+// No multiprocess on Windows platform, only multithreads
+#if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)
+            m_nbMaxTreads = maxMT;
+#else
             m_nbMaxTreads = maxMT;
             m_nbMaxProcesses = maxMT;
+#endif
           }
         } else {
           if (mt) {
             m_nbMaxTreads = maxMT;
             if (m_nbMaxTreads < 2) m_nbMaxTreads = 2;
           } else {
+// No multiprocess on Windows platform, only multithreads
+#if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)
+            m_nbMaxTreads = maxMT;
+            if (m_nbMaxTreads < 2) m_nbMaxTreads = 2;
+#else
             m_nbMaxProcesses = maxMT;
+#endif
           }
           Location loc(
               mutableSymbolTable()->registerSymbol(std::to_string(maxMT)));
