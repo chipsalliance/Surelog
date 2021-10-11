@@ -33,10 +33,10 @@ namespace SURELOG {
 class Parameter : public DataType {
   SURELOG_IMPLEMENT_RTTI(Parameter, DataType)
  public:
-  Parameter(const FileContent* fC, NodeId nodeId, const std::string& name,
+  Parameter(const FileContent* fC, NodeId nodeId, std::string_view name,
             NodeId node_type, bool port_param);
 
-  ~Parameter() override;
+  ~Parameter() override = default;
 
   VObjectType getType() const override;
   NodeId getNodeType() const { return m_ntype; }
@@ -44,10 +44,10 @@ class Parameter : public DataType {
   void setUhdmParam(UHDM::any* param) { m_param = param; }
   UHDM::any* getUhdmParam() const { return m_param; }
   bool isPortParam() const { return m_port_param; }
-  void setImportedPackage(const std::string& package) {
+  void setImportedPackage(std::string_view package) {
     m_importedPackage = package;
   }
-  std::string importedPackage() { return m_importedPackage; }
+  const std::string& importedPackage() const { return m_importedPackage; }
   bool isTypeParam() const { return type_param; }
   void setTypeParam() { type_param = true; }
   bool isMultidimension() const { return multi_dimension; }

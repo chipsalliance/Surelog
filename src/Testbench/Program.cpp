@@ -36,9 +36,8 @@ unsigned int Program::getSize() const {
   return size;
 }
 
-ClassDefinition* Program::getClassDefinition(const std::string& name) {
-  ClassNameClassDefinitionMultiMap::iterator itr =
-      m_classDefinitions.find(name);
+ClassDefinition* Program::getClassDefinition(std::string_view name) const {
+  auto itr = m_classDefinitions.find(name);
   if (itr == m_classDefinitions.end()) {
     return NULL;
   } else {

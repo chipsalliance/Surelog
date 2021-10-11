@@ -292,7 +292,7 @@ NodeId SLgetRootNode(FileContent* fC) {
 
 std::string SLgetFile(FileContent* fC, NodeId id) {
   if (!fC) return "";
-  return fC->getSymbolTable()->getSymbol(fC->getFileId(id));
+  return std::string(fC->getSymbolTable()->getSymbol(fC->getFileId(id)));
 }
 
 unsigned int SLgetType(FileContent* fC, NodeId id) {
@@ -322,7 +322,7 @@ unsigned int SLgetLine(FileContent* fC, NodeId index) {
 
 std::string SLgetName(FileContent* fC, NodeId index) {
   if (!fC) return "";
-  return fC->SymName(index);
+  return std::string(fC->SymName(index));
 }
 
 NodeId SLgetChild(FileContent* fC, NodeId parent, unsigned int type) {
@@ -447,13 +447,14 @@ ModuleInstance* SLgetTopModuleInstance(Design* design, unsigned int index) {
 
 std::string SLgetModuleName(ModuleDefinition* module) {
   if (!module) return "";
-  return module->getName();
+  return std::string(module->getName());
 }
 
 std::string SLgetModuleFile(ModuleDefinition* module) {
   if (!module) return "";
   if (module->getFileContents().size())
-    return module->getFileContents()[0]->getFileName(module->getNodeIds()[0]);
+    return std::string(
+        module->getFileContents()[0]->getFileName(module->getNodeIds()[0]));
   else
     return "";
 }
@@ -490,13 +491,14 @@ NodeId SLgetModuleRootNode(ModuleDefinition* module) {
 
 std::string SLgetClassName(ClassDefinition* module) {
   if (!module) return "";
-  return module->getName();
+  return std::string(module->getName());
 }
 
 std::string SLgetClassFile(ClassDefinition* module) {
   if (!module) return "";
   if (module->getFileContents().size() && module->getFileContents()[0])
-    return module->getFileContents()[0]->getFileName(module->getNodeIds()[0]);
+    return std::string(
+        module->getFileContents()[0]->getFileName(module->getNodeIds()[0]));
   else
     return "";
 }
@@ -533,13 +535,14 @@ NodeId SLgetClassRootNode(ClassDefinition* module) {
 
 std::string SLgetPackageName(Package* module) {
   if (!module) return "";
-  return module->getName();
+  return std::string(module->getName());
 }
 
 std::string SLgetPackageFile(Package* module) {
   if (!module) return "";
   if (module->getFileContents().size())
-    return module->getFileContents()[0]->getFileName(module->getNodeIds()[0]);
+    return std::string(
+        module->getFileContents()[0]->getFileName(module->getNodeIds()[0]));
   else
     return "";
 }
@@ -575,13 +578,14 @@ NodeId SLgetPackageRootNode(Package* module) {
 
 std::string SLgetProgramName(Program* module) {
   if (!module) return "";
-  return module->getName();
+  return std::string(module->getName());
 }
 
 std::string SLgetProgramFile(Program* module) {
   if (!module) return "";
   if (module->getFileContents().size())
-    return module->getFileContents()[0]->getFileName(module->getNodeIds()[0]);
+    return std::string(
+        module->getFileContents()[0]->getFileName(module->getNodeIds()[0]));
   else
     return "";
 }
@@ -647,7 +651,8 @@ DesignComponent* SLgetInstanceDefinition(ModuleInstance* instance) {
 
 std::string SLgetInstanceFileName(ModuleInstance* instance) {
   if (!instance) return "";
-  return instance->getFileContent()->getFileName(instance->getNodeId());
+  return std::string(
+      instance->getFileContent()->getFileName(instance->getNodeId()));
 }
 
 FileContent* SLgetInstanceFileContent(ModuleInstance* instance) {

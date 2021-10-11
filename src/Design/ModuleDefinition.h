@@ -52,9 +52,9 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   ModuleDefinition(const FileContent* fileContent, NodeId nodeId,
                    std::string_view name);
 
-  ~ModuleDefinition() override;
+  ~ModuleDefinition() override = default;
 
-  const std::string& getName() const override { return m_name; }
+  std::string_view getName() const override { return m_name; }
   VObjectType getType() const override {
     return (m_fileContents.size()) ? m_fileContents[0]->Type(m_nodeIds[0])
                                    : VObjectType::slN_input_gate_instance;
@@ -62,19 +62,18 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   bool isInstance() const override;
   unsigned int getSize() const override;
 
-  typedef std::map<std::string, ClockingBlock> ClockingBlockMap;
-  typedef std::map<std::string, ModPort> ModPortSignalMap;
-  typedef std::map<std::string, std::vector<ClockingBlock>>
+  typedef std::map<std::string, ModPort, std::less<>> ModPortSignalMap;
+  typedef std::map<std::string, std::vector<ClockingBlock>, std::less<>>
       ModPortClockingBlockMap;
 
   ModPortSignalMap& getModPortSignalMap() { return m_modportSignalMap; }
   ModPortClockingBlockMap& getModPortClockingBlockMap() {
     return m_modportClockingBlockMap;
   }
-  void insertModPort(const std::string& modport, Signal& signal);
-  void insertModPort(const std::string& modport, ClockingBlock& block);
-  const Signal* getModPortSignal(const std::string& modport, NodeId port) const;
-  ModPort* getModPort(const std::string& modport);
+  void insertModPort(std::string_view modport, Signal& signal);
+  void insertModPort(std::string_view modport, ClockingBlock& block);
+  const Signal* getModPortSignal(std::string_view modport, NodeId port) const;
+  ModPort* getModPort(std::string_view modport);
 
   ClockingBlock* getModPortClockingBlock(const std::string& modport,
                                          NodeId port);
@@ -82,15 +81,15 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;
   }
-  void addClassDefinition(const std::string& className,
+  void addClassDefinition(std::string_view className,
                           ClassDefinition* classDef) {
     m_classDefinitions.insert(std::make_pair(className, classDef));
   }
-  ClassDefinition* getClassDefinition(const std::string& name);
+  ClassDefinition* getClassDefinition(std::string_view name) const;
 
   void setGenBlockId(NodeId id) { m_gen_block_id = id; }
   NodeId getGenBlockId() const { return m_gen_block_id; }
-  UHDM::udp_defn* getUdpDefn() { return m_udpDefn; }
+  UHDM::udp_defn* getUdpDefn() const { return m_udpDefn; }
 
   UHDM::VectorOfattribute* Attributes() const { return attributes_; }
 

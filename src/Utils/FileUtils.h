@@ -52,7 +52,7 @@ class FileUtils final {
   static std::string getPathName(std::string_view path);
   static std::string basename(std::string_view str);
   static uint64_t fileSize(std::string_view name);
-  static std::string hashPath(const std::string& path);
+  static std::string hashPath(std::string_view path);
   static std::vector<SymbolId> collectFiles(std::string_view dirPath,
                                             std::string_view extension,
                                             SymbolTable* symbols);
@@ -60,8 +60,8 @@ class FileUtils final {
                                             SymbolId extension,
                                             SymbolTable* symbols);
   static std::vector<SymbolId> collectFiles(std::string_view pathSpec,
-                                            SymbolTable* symbols);
-  static std::string getFileContent(const std::string& name);
+                                            SymbolTable* const symbols);
+  static std::string getFileContent(std::string_view name);
   static std::string getPreferredPath(std::string_view path);
   static std::string makeRelativePath(std::string_view path);
 

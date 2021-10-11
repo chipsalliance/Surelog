@@ -88,8 +88,8 @@ class Value : public RTTI {
   virtual void set(int64_t val) = 0;
   virtual void set(double val) = 0;
   virtual void set(uint64_t val, Type type, short size) = 0;
-  virtual void set(const std::string& val) = 0;
-  virtual void set(const std::string& val, Type type) = 0;
+  virtual void set(std::string_view val) = 0;
+  virtual void set(std::string_view val, Type type) = 0;
   virtual bool operator<(const Value& rhs) const = 0;
   virtual bool operator==(const Value& rhs) const = 0;
 
@@ -139,7 +139,7 @@ class Value : public RTTI {
 
  protected:
   unsigned int nbWords_(unsigned int size);
-  ValueFactory* m_valueFactory;
+  ValueFactory* m_valueFactory = nullptr;
 };
 }  // namespace SURELOG
 SURELOG_IMPLEMENT_RTTI_CAST_FUNCTIONS(value_cast, SURELOG::Value)
@@ -191,7 +191,7 @@ class SValue : public Value {
 
   short getSize() const final { return m_size; }
   short getSize(unsigned int wordIndex) const final { return m_size; }
-  void setRange(unsigned short lrange, unsigned short rrange) {
+  void setRange(unsigned short lrange, unsigned short rrange) override {
     m_lrange = lrange;
     m_rrange = rrange;
   }
@@ -209,7 +209,7 @@ class SValue : public Value {
   void set(int64_t val) final;
   void set(double val) final;
   void set(uint64_t val, Type type, short size) final;
-  void set(const std::string& val) final {
+  void set(std::string_view val) final {
     m_type = Value::Type::None;
     m_value.u_int = 0;
     m_size = 0;
@@ -217,7 +217,7 @@ class SValue : public Value {
     m_negative = 0;
   }
 
-  void set(const std::string& val, Type type) final {
+  void set(std::string_view val, Type type) final {
     m_type = Value::Type::None;
     m_value.u_int = 0;
     m_size = 0;
@@ -348,7 +348,7 @@ class LValue : public Value {
     } else
       return 0;
   }
-  void setRange(unsigned short lrange, unsigned short rrange) {
+  void setRange(unsigned short lrange, unsigned short rrange) override {
     m_lrange = lrange;
     m_rrange = rrange;
   }
@@ -366,8 +366,8 @@ class LValue : public Value {
   void set(int64_t val) final;
   void set(double val) final;
   void set(uint64_t val, Type type, short size) final;
-  void set(const std::string& val) final {}
-  void set(const std::string& val, Type type) final {}
+  void set(std::string_view val) final {}
+  void set(std::string_view val, Type type) final {}
   bool operator<(const Value& rhs) const final;
   bool operator==(const Value& rhs) const final;
 
@@ -422,14 +422,14 @@ class LValue : public Value {
 
  private:
   Type m_type;
-  unsigned short m_nbWords;
-  SValue* m_valueArray;
-  unsigned short m_valid;
-  unsigned short m_negative;
+  unsigned short m_nbWords = 0;
+  SValue* m_valueArray = nullptr;
+  unsigned short m_valid = 0;
+  unsigned short m_negative = 0;
   unsigned short m_lrange = 0;
   unsigned short m_rrange = 0;
-  LValue* m_prev;
-  LValue* m_next;
+  LValue* m_prev = nullptr;
+  LValue* m_next = nullptr;
 };
 
 class StValue : public Value {
@@ -444,7 +444,7 @@ class StValue : public Value {
 
   short getSize() const final { return m_size; }
   short getSize(unsigned int wordIndex) const final { return m_size; }
-  void setRange(unsigned short lrange, unsigned short rrange) {}
+  void setRange(unsigned short lrange, unsigned short rrange) override {}
   unsigned short getLRange() const final { return 0; };
   unsigned short getRRange() const final { return 0; };
   unsigned short getNbWords() const final { return 1; }
@@ -476,19 +476,19 @@ class StValue : public Value {
     m_size = size;
     m_valid = true;
   }
-  void set(const std::string& val, Type type) final {
+  void set(std::string_view val, Type type) final {
     m_type = type;
     m_value = val;
     m_size = val.size();
     m_valid = true;
   }
-  void set(const std::string& val, Type type, short size) {
+  void set(std::string_view val, Type type, short size) {
     m_type = type;
     m_value = val;
     m_size = size;
     m_valid = true;
   }
-  void set(const std::string& val) final {
+  void set(std::string_view val) final {
     m_type = Type::String;
     m_value = val;
     m_size = val.size();

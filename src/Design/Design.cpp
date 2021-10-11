@@ -81,7 +81,7 @@ void Design::addPPFileContent(SymbolId fileId, FileContent* content) {
 }
 
 DesignComponent* Design::getComponentDefinition(
-    const std::string& componentName) {
+    std::string_view componentName) const {
   DesignComponent* comp = (DesignComponent*)getModuleDefinition(componentName);
   if (comp) return comp;
   comp = (DesignComponent*)getProgram(componentName);
@@ -91,9 +91,9 @@ DesignComponent* Design::getComponentDefinition(
   return NULL;
 }
 
-ModuleDefinition* Design::getModuleDefinition(const std::string& moduleName) {
-  ModuleNameModuleDefinitionMap::iterator itr =
-      m_moduleDefinitions.find(moduleName);
+ModuleDefinition* Design::getModuleDefinition(
+    std::string_view moduleName) const {
+  auto itr = m_moduleDefinitions.find(moduleName);
   if (itr != m_moduleDefinitions.end()) {
     return (*itr).second;
   }
@@ -167,12 +167,19 @@ std::string Design::reportInstanceTree() const {
           for (auto ps : inst->getMappedValues()) {
             const std::string& name = ps.first;
             Value* val = ps.second.first;
-            tree +=
-                std::string("    " + name + " = " + val->uhdmValue() + "\n");
+            tree.append("    ")
+                .append(name)
+                .append(" = ")
+                .append(val->uhdmValue())
+                .append("\n");
           }
           for (auto ps : inst->getComplexValues()) {
             const std::string& name = ps.first;
-            tree += std::string("    " + name + " = " + "complex" + "\n");
+            tree.append("    ")
+                .append(name)
+                .append(" = ")
+                .append("complex")
+                .append("\n");
           }
         }
       }
@@ -236,15 +243,15 @@ void Design::reportInstanceTreeStats(unsigned int& nbTopLevelModules,
   nbUndefinedModules = undefModules.size();
 }
 
-ModuleInstance* Design::findInstance(const std::string& path,
-                                     ModuleInstance* scope) {
+ModuleInstance* Design::findInstance(std::string_view path,
+                                     ModuleInstance* scope) const {
   std::vector<std::string> vpath;
   StringUtils::tokenize(path, ".", vpath);
   return findInstance(vpath, scope);
 }
 
 ModuleInstance* Design::findInstance(std::vector<std::string>& path,
-                                     ModuleInstance* scope) {
+                                     ModuleInstance* scope) const {
   if (!path.size()) return NULL;
   if (scope) {
     ModuleInstance* res = findInstance_(path, scope);
@@ -270,7 +277,7 @@ ModuleInstance* Design::findInstance(std::vector<std::string>& path,
 }
 
 ModuleInstance* Design::findInstance_(std::vector<std::string>& path,
-                                      ModuleInstance* scope) {
+                                      ModuleInstance* scope) const {
   if (!path.size()) return NULL;
   if (scope == NULL) return NULL;
   if (path.size() == 1) {
@@ -297,10 +304,10 @@ ModuleInstance* Design::findInstance_(std::vector<std::string>& path,
   return NULL;
 }
 
-DefParam* Design::getDefParam(const std::string& name) {
+DefParam* Design::getDefParam(std::string_view name) const {
   std::vector<std::string> vpath;
   StringUtils::tokenize(name, ".", vpath);
-  std::map<std::string, DefParam*>::iterator itr = m_defParams.find(vpath[0]);
+  auto itr = m_defParams.find(vpath[0]);
   if (itr != m_defParams.end()) {
     vpath.erase(vpath.begin());
     return getDefParam_(vpath, (*itr).second);
@@ -308,14 +315,14 @@ DefParam* Design::getDefParam(const std::string& name) {
   return NULL;
 }
 
-Value* Design::getDefParamValue(const std::string& name) {
+Value* Design::getDefParamValue(std::string_view name) const {
   DefParam* def = getDefParam(name);
   if (def) return def->getValue();
   return NULL;
 }
 
 DefParam* Design::getDefParam_(std::vector<std::string>& path,
-                               DefParam* parent) {
+                               DefParam* parent) const {
   if (path.size() == 0) {
     return parent;
   }
@@ -328,7 +335,7 @@ DefParam* Design::getDefParam_(std::vector<std::string>& path,
   return NULL;
 }
 
-void Design::addDefParam(const std::string& name, const FileContent* fC,
+void Design::addDefParam(std::string_view name, const FileContent* fC,
                          NodeId nodeId, Value* value) {
   std::vector<std::string> vpath;
   StringUtils::tokenize(name, ".", vpath);
@@ -413,9 +420,8 @@ void Design::checkDefParamUsage(DefParam* parent) {
   }
 }
 
-Package* Design::getPackage(const std::string& name) {
-  PackageNamePackageDefinitionMultiMap::iterator itr =
-      m_packageDefinitions.find(name);
+Package* Design::getPackage(std::string_view name) const {
+  auto itr = m_packageDefinitions.find(name);
   if (itr == m_packageDefinitions.end()) {
     return NULL;
   } else {
@@ -423,9 +429,8 @@ Package* Design::getPackage(const std::string& name) {
   }
 }
 
-Program* Design::getProgram(const std::string& name) {
-  ProgramNameProgramDefinitionMap::iterator itr =
-      m_programDefinitions.find(name);
+Program* Design::getProgram(std::string_view name) const {
+  auto itr = m_programDefinitions.find(name);
   if (itr == m_programDefinitions.end()) {
     return NULL;
   } else {
@@ -433,9 +438,8 @@ Program* Design::getProgram(const std::string& name) {
   }
 }
 
-ClassDefinition* Design::getClassDefinition(const std::string& name) {
-  ClassNameClassDefinitionMap::iterator itr =
-      m_uniqueClassDefinitions.find(name);
+ClassDefinition* Design::getClassDefinition(std::string_view name) const {
+  auto itr = m_uniqueClassDefinitions.find(name);
   if (itr == m_uniqueClassDefinitions.end()) {
     return NULL;
   } else {
@@ -476,7 +480,7 @@ void Design::orderPackages() {
   }
 }
 
-Package* Design::addPackageDefinition(const std::string& packageName,
+Package* Design::addPackageDefinition(std::string_view packageName,
                                       Package* package) {
   PackageNamePackageDefinitionMultiMap::iterator itr =
       m_packageDefinitions.find(packageName);
@@ -497,7 +501,7 @@ Package* Design::addPackageDefinition(const std::string& packageName,
   }
 }
 
-void Design::addClassDefinition(const std::string& className,
+void Design::addClassDefinition(std::string_view className,
                                 ClassDefinition* classDef) {
   m_classDefinitions.insert(std::make_pair(className, classDef));
   m_uniqueClassDefinitions.insert(std::make_pair(className, classDef));
@@ -524,20 +528,16 @@ void Design::clearContainers() {
   m_orderedPackageNames.clear();
 }
 
-std::vector<BindStmt*> Design::getBindStmts(const std::string& targetName) {
+std::vector<BindStmt*> Design::getBindStmts(std::string_view targetName) const {
+  std::pair<BindMap::const_iterator, BindMap::const_iterator> range =
+      m_bindMap.equal_range(targetName);
   std::vector<BindStmt*> results;
-  BindMap::iterator itr = m_bindMap.find(targetName);
-  while (itr != m_bindMap.end()) {
-    if ((*itr).first != targetName) {
-      break;
-    }
-    results.push_back((*itr).second);
-    itr++;
-  }
+  std::transform(range.first, range.second, std::back_inserter(results),
+                 [](BindMap::const_reference entry) { return entry.second; });
   return results;
 }
 
-void Design::addBindStmt(const std::string& targetName, BindStmt* stmt) {
+void Design::addBindStmt(std::string_view targetName, BindStmt* stmt) {
   m_bindMap.insert(std::make_pair(targetName, stmt));
 }
 }  // namespace SURELOG

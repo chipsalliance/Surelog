@@ -111,7 +111,7 @@ class CommandLineParser final {
   bool help() { return m_help; }
   void logBanner(int argc, const char** argv);
   void logFooter();
-  static const std::string& getVersionNumber();
+  static std::string_view getVersionNumber();
   /* Core functions options */
   bool parse() { return m_parse; }
   bool parseOnly() { return m_parseOnly; }
@@ -156,12 +156,14 @@ class CommandLineParser final {
   bool useTbb() { return m_useTbb; }
   std::string getTimeScale() { return m_timescale; }
   bool createCache() { return m_createCache; }
-  const std::string currentDateTime();
+  std::string currentDateTime() const;
   bool parseBuiltIn();
   std::string getBuiltInPath() { return m_builtinPath; }
   std::string getExePath() { return m_exePath; }
   std::string getExeCommand() { return m_exeCommand; }
-  std::set<std::string>& getTopLevelModules() { return m_topLevelModules; }
+  std::set<std::string, std::less<>>& getTopLevelModules() {
+    return m_topLevelModules;
+  }
   bool fullSVMode() const { return m_sverilog; }
   bool isSVFile(const std::string& fileName) const;
   bool cleanCache();
@@ -253,7 +255,7 @@ class CommandLineParser final {
   std::string m_builtinPath;
   std::string m_exePath;
   std::string m_exeCommand;
-  std::set<std::string> m_topLevelModules;
+  std::set<std::string, std::less<>> m_topLevelModules;
   bool m_sverilog;
   bool m_dumpUhdm;
   bool m_elabUhdm;

@@ -25,8 +25,6 @@
 
 using namespace SURELOG;
 
-Task::~Task() {}
-
 bool Task::compile(CompileHelper& compile_helper) {
   bool result = true;
   const FileContent* const fC = m_fileContent;

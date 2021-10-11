@@ -88,10 +88,10 @@ CompileSourceFile::CompileSourceFile(CompileSourceFile* parent,
 
 bool CompileSourceFile::compile(Action action) {
   m_action = action;
-  std::string fileName = m_symbolTable->getSymbol(m_fileId);
+  std::string_view fileName = m_symbolTable->getSymbol(m_fileId);
   if (m_commandLineParser->verbose()) {
     SymbolId fileId = m_fileId;
-    if (strstr(fileName.c_str(), "/bin/sv/builtin.sv")) {
+    if (fileName.rfind("/bin/sv/builtin.sv") != std::string_view::npos) {
       fileId = m_symbolTable->registerSymbol("builtin.sv");
     }
     Location loc(fileId);
@@ -123,7 +123,7 @@ bool CompileSourceFile::compile(Action action) {
     case Parse:
       return parse_();
     case PythonAPI: {
-      if (!strstr(fileName.c_str(), "/bin/sv/builtin.sv")) {
+      if (fileName.rfind("/bin/sv/builtin.sv") == std::string_view::npos) {
         return pythonAPI_();
       }
     }
@@ -153,15 +153,15 @@ unsigned int CompileSourceFile::getJobSize(Action action) {
   switch (action) {
     case Preprocess:
     case PostPreprocess: {
-      std::string fileName = getSymbolTable()->getSymbol(m_fileId);
+      std::string_view fileName = getSymbolTable()->getSymbol(m_fileId);
       return FileUtils::fileSize(fileName);
     }
     case Parse: {
-      std::string fileName = getSymbolTable()->getSymbol(m_ppResultFileId);
+      std::string_view fileName = getSymbolTable()->getSymbol(m_ppResultFileId);
       return FileUtils::fileSize(fileName);
     }
     case PythonAPI: {
-      std::string fileName = getSymbolTable()->getSymbol(m_ppResultFileId);
+      std::string_view fileName = getSymbolTable()->getSymbol(m_ppResultFileId);
       return FileUtils::fileSize(fileName);
     }
   };
@@ -215,8 +215,7 @@ bool CompileSourceFile::parse_() {
 
 bool CompileSourceFile::preprocess_() {
   Precompiled* prec = Precompiled::getSingleton();
-  std::string root = getSymbolTable()->getSymbol(m_fileId);
-  root = FileUtils::basename(root);
+  std::string root = FileUtils::basename(getSymbolTable()->getSymbol(m_fileId));
 
   PreprocessFile::SpecialInstructions instructions(
       PreprocessFile::SpecialInstructions::DontMute,
@@ -268,20 +267,21 @@ bool CompileSourceFile::postPreprocess_() {
   }
   if (m_commandLineParser->writePpOutput() ||
       (m_commandLineParser->writePpOutputFileId() != 0)) {
-    const std::string& directory =
+    const std::string_view directory =
         symbolTable->getSymbol(m_commandLineParser->getFullCompileDir());
-    std::string fullFileName = symbolTable->getSymbol(m_fileId);
+    const std::string_view fullFileName = symbolTable->getSymbol(m_fileId);
     std::string baseFileName = FileUtils::basename(fullFileName);
     std::string filePath = FileUtils::getPathName(fullFileName);
     std::string hashedPath = FileUtils::hashPath(filePath);
     std::string fileName = hashedPath + baseFileName;
 
-    const std::string& writePpOutputFileName =
+    const std::string_view writePpOutputFileName =
         symbolTable->getSymbol(m_commandLineParser->writePpOutputFileId());
     std::string libName = m_library->getName() + "/";
-    std::string ppFileName = m_commandLineParser->writePpOutput()
-                                 ? directory + libName + fileName
-                                 : writePpOutputFileName;
+    std::string ppFileName =
+        m_commandLineParser->writePpOutput()
+            ? std::string(directory).append(libName).append(fileName)
+            : std::string(writePpOutputFileName);
     std::string dirPpFile = FileUtils::getPathName(ppFileName);
     SymbolId ppOutId = symbolTable->registerSymbol(ppFileName);
     m_ppResultFileId = m_symbolTable->registerSymbol(ppFileName);

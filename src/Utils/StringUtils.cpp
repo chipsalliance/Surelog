@@ -240,12 +240,9 @@ std::string& StringUtils::ltrim(std::string& str, char c) {
   return str;
 }
 
-std::string StringUtils::leaf(std::string str) {
-  char c = '.';
-  auto it1 = std::find_if(str.rbegin(), str.rend(),
-                          [c](char ch) { return (ch == c); });
-  if (it1 != str.rend()) str.erase(str.begin(), it1.base());
-  return str;
+std::string_view StringUtils::leaf(std::string_view str) {
+  auto it = str.rfind('.');
+  return (it == std::string_view::npos) ? str : str.substr(it + 1);
 }
 
 std::string StringUtils::replaceAll(std::string_view str, std::string_view from,

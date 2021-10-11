@@ -51,7 +51,7 @@
 namespace SURELOG {
 using namespace UHDM;  // NOLINT (using a bunch of these)
 
-any* CompileHelper::searchObjectName(const std::string& name,
+any* CompileHelper::searchObjectName(std::string_view name,
                                      DesignComponent* component,
                                      CompileDesign* compileDesign, any* stmt) {
   any* object = nullptr;
@@ -595,7 +595,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         expr* expc =
             (expr*)compileExpression(component, fC, exp, compileDesign);
         if (expc->UhdmType() == uhdmref_obj) {
-          const std::string& name = expc->VpiName();
+          const std::string_view name = expc->VpiName();
           any* object = searchObjectName(name, component, compileDesign, pstmt);
           disable->VpiExpr(object);
         }
@@ -632,7 +632,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       break;
     }
     case VObjectType::slStringConst: {
-      const std::string& label = fC->SymName(the_stmt);
+      const std::string_view label = fC->SymName(the_stmt);
       VectorOfany* stmts = compileStmt(component, fC, fC->Sibling(the_stmt),
                                        compileDesign, pstmt, instance);
       if (stmts) {
@@ -1077,7 +1077,7 @@ n<> u<140> t<List_of_tf_variable_identifiers> p<141> c<139> l<28>
 n<> u<141> t<Tf_port_declaration> p<142> c<137> l<28>
 n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
   */
-  std::map<std::string, io_decl*> ioMap;
+  std::map<std::string, io_decl*, std::less<>> ioMap;
 
   while (tf_item_decl) {
     if (fC->Type(tf_item_decl) == VObjectType::slTf_item_declaration) {
@@ -1121,7 +1121,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
                 compileRanges(component, fC, Variable_dimension, compileDesign,
                               nullptr, nullptr, true, size, false);
           }
-          const std::string& name = fC->SymName(nameId);
+          const std::string_view name = fC->SymName(nameId);
           io_decl* decl = s.MakeIo_decl();
           ios->push_back(decl);
           decl->VpiParent(parent);
@@ -1151,7 +1151,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
               fC->Child(List_of_variable_decl_assignments);
           while (Variable_decl_assignment) {
             NodeId nameId = fC->Child(Variable_decl_assignment);
-            const std::string& name = fC->SymName(nameId);
+            const std::string_view name = fC->SymName(nameId);
             std::map<std::string, io_decl*>::iterator itr = ioMap.find(name);
             if (itr == ioMap.end()) {
               variables* var = (variables*)compileVariable(
@@ -1252,7 +1252,7 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
       }
       decl->Typespec(ts);
       decl->Ranges(unpackedDimensions);
-      const std::string& name = fC->SymName(tf_param_name);
+      const std::string_view name = fC->SymName(tf_param_name);
       decl->VpiName(name);
 
       NodeId expression = fC->Sibling(tf_param_name);
@@ -1319,7 +1319,7 @@ NodeId CompileHelper::setFuncTaskQualifiers(const FileContent* fC,
       if (func) func->VpiAccessType(vpiDPIImportAcc);
     }
     if (func_type == VObjectType::slStringLiteral) {
-      std::string ctype = fC->SymName(func_decl);
+      std::string_view ctype = fC->SymName(func_decl);
       if (ctype.front() == '"' && ctype.back() == '"')
         ctype = ctype.substr(1, ctype.length() - 2);
       if (ctype == "DPI-C") {
@@ -1408,8 +1408,9 @@ bool CompileHelper::compileTask(DesignComponent* component,
     name = fC->SymName(task_name);
   else if (fC->Type(task_name) == VObjectType::slClass_scope) {
     NodeId Class_type = fC->Child(task_name);
-    name = fC->SymName(fC->Child(Class_type));
-    name += "::" + fC->SymName(fC->Sibling(task_name));
+    name.assign(fC->SymName(fC->Child(Class_type)))
+        .append("::")
+        .append(fC->SymName(fC->Sibling(task_name)));
     task_name = fC->Sibling(task_name);
   }
 
@@ -1631,14 +1632,14 @@ bool CompileHelper::compileClassConstructorDeclaration(
   ClassDefinition* cdef = valuedcomponenti_cast<ClassDefinition*>(component);
   if (cdef) {
     tps->Class_defn(cdef->getUhdmDefinition());
-    const std::string& name = cdef->getUhdmDefinition()->VpiName();
+    const std::string_view name = cdef->getUhdmDefinition()->VpiName();
     tps->VpiName(name);
   } else {
     Package* p = valuedcomponenti_cast<Package*>(component);
     if (p) {
       ClassDefinition* cdef = p->getClassDefinition(className);
       if (cdef) {
-        const std::string& name = cdef->getUhdmDefinition()->VpiName();
+        const std::string_view name = cdef->getUhdmDefinition()->VpiName();
         tps->Class_defn(cdef->getUhdmDefinition());
         tps->VpiName(name);
       }
@@ -1768,9 +1769,10 @@ bool CompileHelper::compileFunction(DesignComponent* component,
       Tf_port_list = fC->Sibling(Function_name);
     } else if (fC->Type(Function_name) == VObjectType::slClass_scope) {
       NodeId Class_type = fC->Child(Function_name);
-      name = fC->SymName(fC->Child(Class_type));
       NodeId suffixname = fC->Sibling(Function_name);
-      name += "::" + fC->SymName(suffixname);
+      name.assign(fC->SymName(fC->Child(Class_type)))
+          .append("::")
+          .append(fC->SymName(suffixname));
       Tf_port_list = fC->Sibling(suffixname);
     }
   }
@@ -1954,7 +1956,7 @@ Task* CompileHelper::compileTaskPrototype(DesignComponent* scope,
   NodeId prop = setFuncTaskQualifiers(fC, id, task);
   NodeId task_prototype = prop;
   NodeId task_name = fC->Child(task_prototype);
-  std::string taskName = fC->SymName(task_name);
+  std::string taskName(fC->SymName(task_name));
   task->VpiFile(fC->getFileName());
   task->VpiLineNo(fC->Line(id));
   task->VpiColumnNo(fC->Column(id));
@@ -1965,9 +1967,10 @@ Task* CompileHelper::compileTaskPrototype(DesignComponent* scope,
     Tf_port_list = fC->Sibling(task_name);
   } else if (fC->Type(task_name) == VObjectType::slClass_scope) {
     NodeId Class_type = fC->Child(task_name);
-    taskName = fC->SymName(fC->Child(Class_type));
     NodeId suffixname = fC->Sibling(task_name);
-    taskName += "::" + fC->SymName(suffixname);
+    taskName.assign(fC->SymName(fC->Child(Class_type)))
+        .append("::")
+        .append(fC->SymName(suffixname));
     Tf_port_list = fC->Sibling(suffixname);
   }
 
@@ -2056,9 +2059,10 @@ Function* CompileHelper::compileFunctionPrototype(
     Tf_port_list = fC->Sibling(function_name);
   } else if (fC->Type(function_name) == VObjectType::slClass_scope) {
     NodeId Class_type = fC->Child(function_name);
-    funcName = fC->SymName(fC->Child(Class_type));
     NodeId suffixname = fC->Sibling(function_name);
-    funcName += "::" + fC->SymName(suffixname);
+    funcName.assign(fC->SymName(fC->Child(Class_type)))
+        .append("::")
+        .append(fC->SymName(suffixname));
     Tf_port_list = fC->Sibling(suffixname);
   }
 
@@ -2385,7 +2389,7 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component,
 
 UHDM::any* CompileHelper::bindParameter(DesignComponent* component,
                                         ValuedComponentI* instance,
-                                        const std::string& name,
+                                        std::string_view name,
                                         CompileDesign* compileDesign,
                                         bool crossHierarchy) {
   if (instance) {
@@ -2412,7 +2416,7 @@ UHDM::any* CompileHelper::bindParameter(DesignComponent* component,
 
 UHDM::any* CompileHelper::bindVariable(DesignComponent* component,
                                        ValuedComponentI* instance,
-                                       const std::string& name,
+                                       std::string_view name,
                                        CompileDesign* compileDesign) {
   UHDM::any* result = nullptr;
   if (ModuleInstance* inst = valuedcomponenti_cast<ModuleInstance*>(instance)) {
@@ -2439,7 +2443,7 @@ UHDM::any* CompileHelper::bindVariable(DesignComponent* component,
 
 UHDM::any* CompileHelper::bindVariable(DesignComponent* component,
                                        const UHDM::any* scope,
-                                       const std::string& name,
+                                       std::string_view name,
                                        CompileDesign* compileDesign) {
   UHDM_OBJECT_TYPE scope_type = scope->UhdmType();
   switch (scope_type) {
@@ -2567,7 +2571,7 @@ void CompileHelper::compileBindStmt(DesignComponent* component,
   | bind bind_target_instance bind_instantiation ;
   */
   NodeId Target_scope = fC->Child(Bind_directive);
-  const std::string& targetName = fC->SymName(Target_scope);
+  const std::string_view targetName = fC->SymName(Target_scope);
   NodeId Bind_instantiation = fC->Sibling(Target_scope);
   NodeId Instance_target = 0;
   if (fC->Type(Bind_instantiation) == slStringConst) {
@@ -2583,7 +2587,8 @@ void CompileHelper::compileBindStmt(DesignComponent* component,
   }
   NodeId Instance_name = tmp;
   Instance_name = fC->Child(fC->Child(Instance_name));
-  std::string fullName = fC->getLibrary()->getName() + "@" + targetName;
+  std::string fullName(fC->getLibrary()->getName());
+  fullName.append("@").append(targetName);
   BindStmt* bind = new BindStmt(fC, Module_instantiation, Target_scope,
                                 Instance_target, Source_scope, Instance_name);
   compileDesign->getCompiler()->getDesign()->addBindStmt(fullName, bind);

@@ -24,8 +24,6 @@
 #include "Testbench/FunctionMethod.h"
 
 namespace SURELOG {
-FunctionMethod::~FunctionMethod() {}
-
 bool FunctionMethod::compile(CompileHelper& compile_helper) {
   bool result = Function::compile(compile_helper);
   return result;

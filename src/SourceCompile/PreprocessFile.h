@@ -80,50 +80,51 @@ class PreprocessFile {
   std::string getPreProcessedFileContent();
 
   /* Macro manipulations */
-  void recordMacro(const std::string& name, unsigned int line,
-                   unsigned short int column,
-                   const std::string& formal_arguments,
+  void recordMacro(std::string_view name, unsigned int line,
+                   unsigned short int column, std::string_view formal_arguments,
                    const std::vector<std::string>& body);
-  void recordMacro(const std::string& name, unsigned int line,
+  void recordMacro(std::string_view name, unsigned int line,
                    unsigned short int column,
                    const std::vector<std::string>& formal_arguments,
                    const std::vector<std::string>& body);
-  std::string getMacro(const std::string& name,
+  std::string getMacro(std::string_view name,
                        std::vector<std::string>& actual_arguments,
                        PreprocessFile* callingFile, unsigned int callingLine,
                        LoopCheck& loopChecker,
                        SpecialInstructions& instructions,
                        unsigned int embeddedMacroCallLine = 0,
                        SymbolId embeddedMacroCallFile = 0);
-  bool deleteMacro(const std::string& name, std::set<PreprocessFile*>& visited);
+  bool deleteMacro(std::string_view name, std::set<PreprocessFile*>& visited);
   void undefineAllMacros(std::set<PreprocessFile*>& visited);
   bool isMacroBody() const { return !m_macroBody.empty(); }
   const std::string& getMacroBody() const { return m_macroBody; }
-  MacroInfo* getMacroInfo() { return m_macroInfo; }
+  MacroInfo* getMacroInfo() const { return m_macroInfo; }
   SymbolId getMacroSignature();
   const MacroStorage& getMacros() { return m_macros; }
-  MacroInfo* getMacro(const std::string& name);
+  MacroInfo* getMacro(std::string_view name);
 
-  std::string getFileName(unsigned int line);
+  std::string_view getFileName(unsigned int line) const;
 
   std::string reportIncludeInfo();
 
-  CompileSourceFile* getCompileSourceFile() { return m_compileSourceFile; }
-  CompilationUnit* getCompilationUnit() { return m_compilationUnit; }
-  Library* getLibrary() { return m_library; }
-  antlr4::CommonTokenStream* getTokenStream() {
+  CompileSourceFile* getCompileSourceFile() const {
+    return m_compileSourceFile;
+  }
+  CompilationUnit* getCompilationUnit() const { return m_compilationUnit; }
+  Library* getLibrary() const { return m_library; }
+  antlr4::CommonTokenStream* getTokenStream() const {
     return m_antlrParserHandler ? m_antlrParserHandler->m_pptokens : NULL;
   }
 
-  SymbolId getFileId(unsigned int line);
-  SymbolId getIncluderFileId(unsigned int line);
-  SymbolId getRawFileId() { return m_fileId; }
-  unsigned int getLineNb(unsigned int line);
-  PreprocessFile* getIncluder() { return m_includer; }
-  unsigned int getIncluderLine() { return m_includerLine; }
-  size_t getLineCount() { return m_lineCount; }
+  SymbolId getFileId(unsigned int line) const;
+  SymbolId getIncluderFileId(unsigned int line) const;
+  SymbolId getRawFileId() const { return m_fileId; }
+  unsigned int getLineNb(unsigned int line) const;
+  PreprocessFile* getIncluder() const { return m_includer; }
+  unsigned int getIncluderLine() const { return m_includerLine; }
+  size_t getLineCount() const { return m_lineCount; }
   void setLineCount(size_t count) { m_lineCount = count; }
-  unsigned int getSumLineCount();
+  unsigned int getSumLineCount() const;
   std::vector<IncludeFileInfo>& getIncludeFileInfo() {
     return m_includeFileInfo;
   }
@@ -143,14 +144,14 @@ class PreprocessFile {
 
  private:
   SymbolId m_fileId;
-  Library* m_library;
+  Library* m_library = nullptr;
   std::string m_result;
   std::string m_macroBody;
-  PreprocessFile* m_includer;
-  unsigned int m_includerLine;
+  PreprocessFile* m_includer = nullptr;
+  unsigned int m_includerLine = 0;
   std::vector<PreprocessFile*> m_includes;
-  CompileSourceFile* m_compileSourceFile;
-  size_t m_lineCount;
+  CompileSourceFile* m_compileSourceFile = nullptr;
+  size_t m_lineCount = 0;
   IncludeFileInfo m_badIncludeFileInfo;
 
  public:
@@ -213,7 +214,7 @@ class PreprocessFile {
   };
 
   std::string evaluateMacroInstance(
-      const std::string& macro_instance, PreprocessFile* callingFile,
+      std::string_view macro_instance, PreprocessFile* callingFile,
       unsigned int callingLine,
       SpecialInstructions::CheckLoopInstr checkMacroLoop,
       SpecialInstructions::AsIsUndefinedMacroInstr);
@@ -226,9 +227,9 @@ class PreprocessFile {
         : m_pretendFileId(pretendFileId),
           m_originalLine(originalLine),
           m_pretendLine(pretendLine) {}
-    SymbolId m_pretendFileId;
-    unsigned int m_originalLine;
-    unsigned int m_pretendLine;
+    const SymbolId m_pretendFileId;
+    const unsigned int m_originalLine = 0;
+    const unsigned int m_pretendLine = 0;
   };
 
   /* `ifdef, `ifndef, `elsif, `else Stack */
@@ -236,9 +237,9 @@ class PreprocessFile {
    public:
     enum Type { IFDEF, IFNDEF, ELSIF, ELSE };
     std::string m_macroName;
-    bool m_defined;
+    bool m_defined = false;
     Type m_type;
-    bool m_previousActiveState;
+    bool m_previousActiveState = false;
   };
   typedef std::vector<IfElseItem> IfElseStack;
   IfElseStack m_ifStack;
@@ -261,12 +262,12 @@ class PreprocessFile {
  public:
   /* Options */
   void setDebug(int level);
-  bool m_debugPP;
-  bool m_debugPPResult;
-  bool m_debugPPTokens;
-  bool m_debugPPTree;
-  bool m_debugMacro;
-  bool m_debugAstModel;
+  bool m_debugPP = false;
+  bool m_debugPPResult = false;
+  bool m_debugPPTokens = false;
+  bool m_debugPPTree = false;
+  bool m_debugMacro = false;
+  bool m_debugAstModel = false;
 
   SpecialInstructions m_instructions;
 
@@ -283,38 +284,38 @@ class PreprocessFile {
   void addError(Error& error);
 
   /* Shorthands for symbol manipulations */
-  SymbolId registerSymbol(const std::string symbol);
-  SymbolId getId(const std::string symbol);
-  std::string getSymbol(SymbolId id);
+  SymbolId registerSymbol(std::string_view symbol);
+  SymbolId getId(std::string_view symbol) const;
+  std::string_view getSymbol(SymbolId id) const;
 
   // For recursive macro definition detection
   PreprocessFile* getSourceFile();
   LoopCheck m_loopChecker;
 
   void setFileContent(FileContent* content) { m_fileContent = content; }
-  FileContent* getFileContent() { return m_fileContent; }
+  FileContent* getFileContent() const { return m_fileContent; }
 
   void setVerilogVersion(VerilogVersion version) { m_verilogVersion = version; }
-  VerilogVersion getVerilogVersion() { return m_verilogVersion; }
+  VerilogVersion getVerilogVersion() const { return m_verilogVersion; }
 
   // For cache processing
   void saveCache();
   void collectIncludedFiles(std::set<PreprocessFile*>& included);
-  bool usingCachedVersion() { return m_usingCachedVersion; }
-  std::string getProfileInfo() { return m_profileInfo; }
+  bool usingCachedVersion() const { return m_usingCachedVersion; }
+  std::string getProfileInfo() const { return m_profileInfo; }
   std::vector<LineTranslationInfo>& getLineTranslationInfo() {
     return m_lineTranslationVec;
   }
 
  private:
   std::pair<bool, std::string> evaluateMacro_(
-      const std::string& name, std::vector<std::string>& arguments,
+      std::string_view name, std::vector<std::string>& arguments,
       PreprocessFile* callingFile, unsigned int callingLine,
       LoopCheck& loopChecker, MacroInfo* macroInfo,
       SpecialInstructions& instructions, unsigned int embeddedMacroCallLine,
       SymbolId embeddedMacroCallFile);
 
-  void checkMacroArguments_(const std::string& name, unsigned int line,
+  void checkMacroArguments_(std::string_view name, unsigned int line,
                             unsigned short column,
                             const std::vector<std::string>& arguments,
                             const std::vector<std::string>& tokens);
@@ -324,15 +325,15 @@ class PreprocessFile {
   MacroInfo* m_macroInfo; /* Only used when preprocessing a macro content */
   MacroStorage m_macros;
 
-  CompilationUnit* m_compilationUnit;
+  CompilationUnit* m_compilationUnit = nullptr;
   std::vector<LineTranslationInfo> m_lineTranslationVec;
-  bool m_pauseAppend;
-  bool m_usingCachedVersion;
+  bool m_pauseAppend = false;
+  bool m_usingCachedVersion = false;
   std::vector<IncludeFileInfo> m_includeFileInfo;
-  unsigned int m_embeddedMacroCallLine;
+  unsigned int m_embeddedMacroCallLine = 0;
   SymbolId m_embeddedMacroCallFile;
   std::string m_profileInfo;
-  FileContent* m_fileContent;
+  FileContent* m_fileContent = nullptr;
   VerilogVersion m_verilogVersion;
 };
 

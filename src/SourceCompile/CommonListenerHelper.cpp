@@ -143,8 +143,8 @@ void CommonListenerHelper::addParentChildRelations(int indexParent,
   }
 }
 
-NodeId CommonListenerHelper::getObjectId(ParserRuleContext* ctx) {
-  ContextToObjectMap::iterator itr = m_contextToObjectMap.find(ctx);
+NodeId CommonListenerHelper::getObjectId(ParserRuleContext* ctx) const {
+  auto itr = m_contextToObjectMap.find(ctx);
   if (itr == m_contextToObjectMap.end()) {
     return 0;
   } else {

@@ -48,17 +48,17 @@ class AnalyzeFile {
           m_startChar(startChar),
           m_endChar(endChar) {}
     DesignElement::ElemType m_chunkType;
-    unsigned long m_fromLine;
-    unsigned long m_toLine;
-    unsigned long m_excludeLineFrom;
-    unsigned long m_excludeLineTo;
-    unsigned long m_startChar;
-    unsigned long m_endChar;
+    unsigned long m_fromLine = 0;
+    unsigned long m_toLine = 0;
+    unsigned long m_excludeLineFrom = 0;
+    unsigned long m_excludeLineTo = 0;
+    unsigned long m_startChar = 0;
+    unsigned long m_endChar = 0;
   };
 
   AnalyzeFile(CommandLineParser* clp, Design* design,
-              const std::string& ppFileName, const std::string& fileName,
-              int nbChunks, const std::string& text = "")
+              std::string_view ppFileName, std::string_view fileName,
+              int nbChunks, std::string_view text = "")
       : m_clp(clp),
         m_design(design),
         m_ppFileName(ppFileName),
@@ -71,21 +71,21 @@ class AnalyzeFile {
   std::vector<unsigned int>& getLineOffsets() { return m_lineOffsets; }
 
   AnalyzeFile(const AnalyzeFile& orig) = delete;
-  virtual ~AnalyzeFile() {}
+  virtual ~AnalyzeFile() = default;
 
  private:
-  void checkSLlineDirective_(std::string line, unsigned int lineNb);
+  void checkSLlineDirective_(std::string_view line, unsigned int lineNb);
   std::string setSLlineDirective_(unsigned int lineNb,
                                   unsigned int& origFromLine,
                                   std::string& origFile);
-  CommandLineParser* m_clp;
-  Design* m_design;
-  std::string m_ppFileName;
-  std::string m_fileName;
+  CommandLineParser* const m_clp = nullptr;
+  Design* const m_design = nullptr;
+  const std::string m_ppFileName;
+  const std::string m_fileName;
   std::vector<FileChunk> m_fileChunks;
   std::vector<std::string> m_splitFiles;
   std::vector<unsigned int> m_lineOffsets;
-  int m_nbChunks;
+  int m_nbChunks = 0;
   std::stack<IncludeFileInfo> m_includeFileInfo;
   std::string m_text;  // unit test
 };

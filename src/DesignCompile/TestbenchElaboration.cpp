@@ -41,7 +41,7 @@ using namespace SURELOG;
 
 TestbenchElaboration::~TestbenchElaboration() {}
 
-bool checkValidFunction(const DataType* dtype, const std::string& function,
+bool checkValidFunction(const DataType* dtype, std::string_view function,
                         Statement* stmt, Design* design,
                         std::string& datatypeName) {
   bool validFunction = true;
@@ -83,11 +83,12 @@ bool checkValidFunction(const DataType* dtype, const std::string& function,
   return validFunction;
 }
 
-bool checkValidBuiltinClass_(std::string classname, std::string function,
-                             Statement* stmt, Design* design,
-                             std::string& datatypeName) {
+bool checkValidBuiltinClass_(std::string_view classname,
+                             std::string_view function, Statement* stmt,
+                             Design* design, std::string& datatypeName) {
   bool validFunction = true;
-  ClassDefinition* array = design->getClassDefinition("builtin::" + classname);
+  ClassDefinition* array =
+      design->getClassDefinition(std::string("builtin::").append(classname));
   if (array == nullptr) return false;
   Function* func = array->getFunction(function);
   if (func)
@@ -100,7 +101,7 @@ bool checkValidBuiltinClass_(std::string classname, std::string function,
 }
 
 void computeVarChain(const FileContent* fC, NodeId nodeId,
-                     std::vector<std::string>& var_chain) {
+                     std::vector<std::string_view>& var_chain) {
   while (nodeId) {
     VObjectType type = fC->Type(nodeId);
     switch (type) {
@@ -145,7 +146,7 @@ bool TestbenchElaboration::checkForMultipleDefinition_() {
   ClassNameClassDefinitionMultiMap classes = design->getClassDefinitions();
 
   // Check for multiple definition
-  std::string prevClassName = "";
+  std::string prevClassName;
   ClassDefinition* prevClassDefinition = NULL;
   for (ClassNameClassDefinitionMultiMap::iterator itr = classes.begin();
        itr != classes.end(); itr++) {
@@ -155,7 +156,7 @@ bool TestbenchElaboration::checkForMultipleDefinition_() {
     if (className == prevClassName) {
       const FileContent* fC1 = classDefinition->getFileContents()[0];
       NodeId nodeId1 = classDefinition->getNodeIds()[0];
-      std::string fileName1 = fC1->getFileName(nodeId1);
+      std::string_view fileName1 = fC1->getFileName(nodeId1);
       unsigned int line1 = fC1->Line(nodeId1);
       Location loc1(symbols->registerSymbol(fileName1), line1, 0,
                     symbols->registerSymbol(className));
@@ -165,7 +166,7 @@ bool TestbenchElaboration::checkForMultipleDefinition_() {
       while (1) {
         const FileContent* fC2 = prevClassDefinition->getFileContents()[0];
         NodeId nodeId2 = prevClassDefinition->getNodeIds()[0];
-        std::string fileName2 = fC2->getFileName(nodeId2);
+        std::string_view fileName2 = fC2->getFileName(nodeId2);
         unsigned int line2 = fC2->Line(nodeId2);
         Location loc2(symbols->registerSymbol(fileName2), line2, 0,
                       symbols->registerSymbol(className));
@@ -182,7 +183,7 @@ bool TestbenchElaboration::checkForMultipleDefinition_() {
           done = true;
           break;
         } else {
-          std::string nextClassName = (*itr).first;
+          const std::string& nextClassName = (*itr).first;
           ClassDefinition* nextClassDefinition = (*itr).second;
           prevClassName = nextClassName;
           prevClassDefinition = nextClassDefinition;
@@ -217,7 +218,7 @@ bool TestbenchElaboration::bindBaseClasses_() {
   // Bind base classes
   for (ClassNameClassDefinitionMultiMap::iterator itr = classes.begin();
        itr != classes.end(); itr++) {
-    std::string className = (*itr).first;
+    const std::string& className = (*itr).first;
     ClassDefinition* classDefinition = (*itr).second;
     const FileContent* fCDef = classDefinition->getFileContent();
     for (auto& class_def : classDefinition->getMutableBaseClassMap()) {
@@ -296,11 +297,11 @@ bool TestbenchElaboration::bindDataTypes_() {
   // Bind data types
   for (ClassNameClassDefinitionMultiMap::iterator itr = classes.begin();
        itr != classes.end(); itr++) {
-    std::string className = (*itr).first;
+    const std::string& className = (*itr).first;
     ClassDefinition* classDefinition = (*itr).second;
 
     for (auto& datatype : classDefinition->getUsedDataTypeMap()) {
-      std::string dataTypeName = datatype.first;
+      const std::string& dataTypeName = datatype.first;
       DataType* dtype = datatype.second;
       if (dtype->getDefinition()) continue;
       VObjectType type = dtype->getType();
@@ -315,7 +316,7 @@ bool TestbenchElaboration::bindDataTypes_() {
     }
     for (auto& func : classDefinition->getFunctionMap()) {
       for (auto& datatype : func.second->getUsedDataTypeMap()) {
-        std::string dataTypeName = datatype.first;
+        const std::string& dataTypeName = datatype.first;
         DataType* dtype = datatype.second;
         if (dtype->getDefinition()) continue;
         VObjectType type = dtype->getType();
@@ -349,11 +350,11 @@ bool TestbenchElaboration::bindFunctionReturnTypesAndParamaters_() {
   // Bind Function return values, parameters and body
   for (ClassNameClassDefinitionMultiMap::iterator itr = classes.begin();
        itr != classes.end(); itr++) {
-    std::string className = (*itr).first;
+    const std::string& className = (*itr).first;
     ClassDefinition* classDefinition = (*itr).second;
     for (auto& func : classDefinition->getFunctionMap()) {
       DataType* dtype = func.second->getReturnType();
-      std::string dataTypeName = dtype->getName();
+      const std::string& dataTypeName = dtype->getName();
       if (dtype->getDefinition()) continue;
       if (dtype->getFileContent() == NULL) continue;
       if (dtype->getType() == VObjectType::slStringConst) {
@@ -364,7 +365,7 @@ bool TestbenchElaboration::bindFunctionReturnTypesAndParamaters_() {
       }
       for (auto& param : func.second->getParams()) {
         const DataType* dtype = param->getDataType();
-        std::string dataTypeName = dtype->getName();
+        const std::string& dataTypeName = dtype->getName();
         if (dtype->getDefinition()) continue;
         if (dtype->getFileContent() == NULL) continue;
         if (dtype->getType() == VObjectType::slStringConst) {
@@ -376,11 +377,11 @@ bool TestbenchElaboration::bindFunctionReturnTypesAndParamaters_() {
           Value* value = param->getDefault();
           if (value) {
             if (!dtype->isCompatible(value)) {
-              std::string name = param->getName();
-              std::string typeName = dtype->getName();
+              const std::string& name = param->getName();
+              const std::string& typeName = dtype->getName();
               NodeId p = param->getNodeId();
               const FileContent* fC = dtype->getFileContent();
-              std::string fileName = fC->getFileName(p);
+              const std::string_view fileName = fC->getFileName(p);
               unsigned int line = fC->Line(p);
               Location loc1(
                   symbols->registerSymbol(fileName), line, 0,
@@ -410,8 +411,8 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
                                                ErrorContainer* errors) {
   std::string datatypeName;
   SubRoutineCallStmt* st = statement_cast<SubRoutineCallStmt*>(stmt);
-  std::vector<std::string> var_chain = st->getVarChainNames();
-  std::string function = st->getFunc();
+  std::vector<std::string_view> var_chain = st->getVarChainNames();
+  const std::string& function = st->getFunc();
   bool validFunction = true;
   const DataType* dtype = nullptr;
   Variable* the_obj = nullptr;
@@ -499,7 +500,7 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
       if (!validFunction) {
         const FileContent* fC = st->getFileContent();
         NodeId p = st->getNodeId();
-        std::string fileName = fC->getFileName(p);
+        std::string_view fileName = fC->getFileName(p);
         unsigned int line = fC->Line(p);
         Location loc1(symbols->registerSymbol(fileName), line, 0,
                       symbols->registerSymbol(function));
@@ -523,7 +524,7 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
       return true;
     }
     std::string name;
-    for (auto v : var_chain) name += v + ".";
+    for (auto v : var_chain) name.append(v).append(".");
     if (name.size()) name = name.substr(0, name.size() - 1);
     while (dtype && dtype->getDefinition()) {
       dtype = dtype->getDefinition();
@@ -535,13 +536,13 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
     if (!datatypeName.empty()) typeName = datatypeName;
     NodeId p = st->getNodeId();
     const FileContent* fC = st->getFileContent();
-    std::string fileName = fC->getFileName(p);
+    const std::string_view fileName = fC->getFileName(p);
     unsigned int line = fC->Line(p);
     Location loc1(
         symbols->registerSymbol(fileName), line, 0,
         symbols->registerSymbol("\"" + name + "\"" + " of type " + typeName));
     const FileContent* fC2 = dtype->getFileContent();
-    std::string fileName2 = fC2->getFileName(dtype->getNodeId());
+    const std::string_view fileName2 = fC2->getFileName(dtype->getNodeId());
     unsigned int line2 = fC2->Line(dtype->getNodeId());
     Location loc2(symbols->registerSymbol(fileName2), line2, 0,
                   symbols->registerSymbol(function));
@@ -570,7 +571,7 @@ bool TestbenchElaboration::bindForeachLoop_(ClassDefinition* classDefinition,
                                             ForeachLoopStmt* st) {
   NodeId arrayId = st->getArrayId();
   const FileContent* sfC = st->getFileContent();
-  std::vector<std::string> var_chain;
+  std::vector<std::string_view> var_chain;
   computeVarChain(sfC, arrayId, var_chain);
   Variable* arrayVar =
       locateVariable_(var_chain, sfC, arrayId, stmt->getScope(),
@@ -585,7 +586,7 @@ bool TestbenchElaboration::bindForeachLoop_(ClassDefinition* classDefinition,
     }
     VObjectType rangeType = sfC->Type(rangeTypeId);
     if (rangeType == VObjectType::slStringConst) {
-      std::string dataTypeName = sfC->SymName(rangeTypeId);
+      std::string_view dataTypeName = sfC->SymName(rangeTypeId);
       itrDataType =
           bindDataType_(dataTypeName, sfC, rangeTypeId, classDefinition,
                         ErrorDefinition::COMP_UNDEFINED_TYPE);
@@ -615,7 +616,7 @@ bool TestbenchElaboration::bindFunctionBodies_() {
   // Bind Function return values, parameters and body
   for (ClassNameClassDefinitionMultiMap::iterator itr = classes.begin();
        itr != classes.end(); itr++) {
-    std::string className = (*itr).first;
+    const std::string& className = (*itr).first;
     ClassDefinition* classDefinition = (*itr).second;
     for (auto& func : classDefinition->getFunctionMap()) {
       // Skip binding of parameterized classes
@@ -668,14 +669,14 @@ bool TestbenchElaboration::bindTasks_() {
   // Bind Tasks parameters and body
   for (ClassNameClassDefinitionMultiMap::iterator itr = classes.begin();
        itr != classes.end(); itr++) {
-    std::string className = (*itr).first;
+    const std::string& className = (*itr).first;
     ClassDefinition* classDefinition = (*itr).second;
 
     // Bind Tasks parameters
     for (auto& func : classDefinition->getTaskMap()) {
       for (auto param : func.second->getParams()) {
         const DataType* dtype = param->getDataType();
-        std::string dataTypeName = dtype->getName();
+        const std::string& dataTypeName = dtype->getName();
         if (dtype->getDefinition()) continue;
         if (dtype->getFileContent() == NULL) continue;
         if (dtype->getType() == VObjectType::slStringConst) {
@@ -699,7 +700,7 @@ bool TestbenchElaboration::bindProperties_() {
   // Bind properties
   for (ClassNameClassDefinitionMultiMap::iterator itr = classes.begin();
        itr != classes.end(); itr++) {
-    std::string className = (*itr).first;
+    const std::string& className = (*itr).first;
     ClassDefinition* classDefinition = (*itr).second;
     UHDM::class_defn* defn = classDefinition->getUhdmDefinition();
     UHDM::VectorOfvariables* vars = defn->Variables();
@@ -713,7 +714,7 @@ bool TestbenchElaboration::bindProperties_() {
         defn->Variables(vars);
       }
 
-      const std::string& signame = sig->getName();
+      const std::string_view signame = sig->getName();
 
       // Packed and unpacked ranges
       int packedSize = 0;

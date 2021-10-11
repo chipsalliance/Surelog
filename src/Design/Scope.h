@@ -40,28 +40,28 @@ class Statement;
 class Scope : public RTTI {
   SURELOG_IMPLEMENT_RTTI(Scope, RTTI)
  public:
-  typedef std::map<std::string, Variable*> VariableMap;
-  typedef std::map<std::string, DataType*> DataTypeMap;
+  typedef std::map<std::string, Variable*, std::less<>> VariableMap;
+  typedef std::map<std::string, DataType*, std::less<>> DataTypeMap;
   typedef std::vector<Statement*> StmtVector;
   typedef std::vector<Scope*> ScopeVector;
 
-  Scope(const std::string& name, Scope* parent)
+  Scope(std::string_view name, Scope* parent)
       : m_name(name), m_parentScope(parent) {}
-  virtual ~Scope() {}
+  virtual ~Scope() = default;
 
   const std::string& getName() const { return m_name; }
-  Scope* getParentScope() { return m_parentScope; }
+  Scope* getParentScope() const { return m_parentScope; }
 
   void addVariable(Variable* var) {
     m_variables.insert(std::make_pair(var->getName(), var));
   }
 
   VariableMap& getVariables() { return m_variables; }
-  Variable* getVariable(const std::string& name);
+  Variable* getVariable(std::string_view name) const;
 
   DataTypeMap& getUsedDataTypeMap() { return m_usedDataTypes; }
-  DataType* getUsedDataType(const std::string& name);
-  void insertUsedDataType(const std::string& dataTypeName, DataType* dataType) {
+  DataType* getUsedDataType(std::string_view name) const;
+  void insertUsedDataType(std::string_view dataTypeName, DataType* dataType) {
     m_usedDataTypes.insert(std::make_pair(dataTypeName, dataType));
   }
 

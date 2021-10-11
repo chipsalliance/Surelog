@@ -52,15 +52,17 @@ class Library final {
   }
   std::string report(SymbolTable* symbols);
   void addModuleDefinition(ModuleDefinition* def);
-  std::map<std::string, ModuleDefinition*>& getModules() { return m_modules; }
-  ModuleDefinition* getModule(const std::string& name);
-  SymbolTable* getSymbols() { return m_symbols; }
+  std::map<std::string, ModuleDefinition*, std::less<>>& getModules() {
+    return m_modules;
+  }
+  ModuleDefinition* getModule(std::string_view name) const;
+  SymbolTable* getSymbols() const { return m_symbols; }
 
  private:
-  std::string m_name;
+  const std::string m_name;
   std::vector<SymbolId> m_fileIds;
   std::set<SymbolId> m_fileIdsSet;
-  std::map<std::string, ModuleDefinition*> m_modules;
+  std::map<std::string, ModuleDefinition*, std::less<>> m_modules;
   SymbolTable* const m_symbols;
 };
 

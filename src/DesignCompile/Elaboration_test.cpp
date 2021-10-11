@@ -62,7 +62,7 @@ TEST(Elaboration, ExprFromPpTree) {
   EXPECT_EQ(assigns.size(), 2);
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
-    const std::string& name = fC->SymName(param);
+    const std::string_view name = fC->SymName(param);
     NodeId rhs = fC->Sibling(param);
     // Not reduced
     UHDM::expr* exp1 = (UHDM::expr*)helper.compileExpression(
@@ -205,7 +205,7 @@ TEST(Elaboration, DollarBits) {
       EXPECT_EQ(helper.get_value(invalidValue, rhs), 17);
     }
     for (auto sub : *topMod->Modules()) {
-      const std::string& instName = sub->VpiName();
+      const std::string_view instName = sub->VpiName();
       for (auto passign : *sub->Param_assigns()) {
         UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
         bool invalidValue = false;

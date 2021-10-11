@@ -40,13 +40,18 @@ typedef uint32_t NodeId;
 
 static constexpr NodeId InvalidNodeId = 969696;
 
-class SymbolTable {
+class SymbolTable final {
+  static constexpr int kBufferCapacity = 1024 * 1024;
+  typedef std::vector<std::shared_ptr<std::string>> Buffers;
+  typedef std::vector<std::string_view> Id2SymbolMap;
+  typedef std::unordered_map<std::string_view, SymbolId> Symbol2IdMap;
+
  public:
   SymbolTable();
-  ~SymbolTable();
+  ~SymbolTable() = default;
 
   // Unfortunately, currently the copy constructor is used in a few places.
-  SymbolTable(const SymbolTable&) = default;
+  SymbolTable(const SymbolTable& other);
 
   // Register given "symbol" string as a symbol and return its id.
   // If this is an existing symbol, its ID is returned, otherwise a new one
@@ -59,7 +64,7 @@ class SymbolTable {
 
   // Get symbol string identified by given ID or BadSymbol if it doesn't exist
   // (see #getBadSymbol()).
-  const std::string& getSymbol(SymbolId id) const;
+  std::string_view getSymbol(SymbolId id) const;
 
   // Get a vector of all symbols. As a special property, the SymbolID can be
   // used as an index into this  vector to get the corresponding text-symbol.
@@ -70,30 +75,25 @@ class SymbolTable {
   // accept a vector of string_views).
   std::vector<std::string> getSymbols() const;
 
-  static const std::string& getBadSymbol();
+  static std::string_view getBadSymbol();
   static SymbolId getBadId() { return 0; }
-  static const std::string& getEmptyMacroMarker();
+  static std::string_view getEmptyMacroMarker();
 
  private:
-  SymbolId m_idCounter;
-
-  // Stable allocated strings that don't change with vector reallocations.
-  //
-  // Unfortunately, since we have a copy-constructor, we also need to keep
-  // track of number of references, so we use the undesirable std::shared_ptr
-  // here; luckily we only need to worry about reference counting peformance
-  // on copy or realloc.
-  //
-  // On the plus side, now symbol strings are even stable between copies of
-  // symbol tables.
-  // TODO: change the whole system to actually deal with absl::string_view
-  // being returned as symbols, then have a block backing buffer here.
-  std::vector<std::shared_ptr<std::string>> m_id2SymbolMap;
-
-  // The key string_views point to the stable backing buffer provided in
-  // m_id2SymbolMap
-  std::unordered_map<std::string_view, SymbolId> m_symbol2IdMap;
+  const std::size_t m_minWriteIndex = 0;
+  Buffers m_buffers;
+  Id2SymbolMap m_id2SymbolMap;
+  Symbol2IdMap m_symbol2IdMap;
 };
+
+inline SymbolId SymbolTable::getId(std::string_view symbol) const {
+  auto found = m_symbol2IdMap.find(symbol);
+  return (found == m_symbol2IdMap.end()) ? getBadId() : found->second;
+}
+
+inline std::string_view SymbolTable::getSymbol(SymbolId id) const {
+  return (id >= m_id2SymbolMap.size()) ? getBadSymbol() : m_id2SymbolMap[id];
+}
 
 };  // namespace SURELOG
 

@@ -22,55 +22,54 @@
  */
 #include "SourceCompile/SymbolTable.h"
 
-#include <cassert>
+#include <cstdlib>
+#include <iostream>
 
 using namespace SURELOG;
 
-SymbolTable::SymbolTable() : m_idCounter(getBadId()) {
-  registerSymbol(getBadSymbol());
-}
+SymbolTable::SymbolTable() { registerSymbol(getBadSymbol()); }
 
-SymbolTable::~SymbolTable() {}
+SymbolTable::SymbolTable(const SymbolTable &other)
+    : m_minWriteIndex(other.m_buffers.size()),
+      m_buffers(other.m_buffers),
+      m_id2SymbolMap(other.m_id2SymbolMap),
+      m_symbol2IdMap(other.m_symbol2IdMap) {}
 
-const std::string& SymbolTable::getBadSymbol() {
-  static const std::string k_badSymbol("@@BAD_SYMBOL@@");
+std::string_view SymbolTable::getBadSymbol() {
+  static constexpr std::string_view k_badSymbol("@@BAD_SYMBOL@@");
   return k_badSymbol;
 }
 
-const std::string& SymbolTable::getEmptyMacroMarker() {
-  static const std::string k_emptyMacroMarker("@@EMPTY_MACRO@@");
+std::string_view SymbolTable::getEmptyMacroMarker() {
+  static constexpr std::string_view k_emptyMacroMarker("@@EMPTY_MACRO@@");
   return k_emptyMacroMarker;
 }
 
 SymbolId SymbolTable::registerSymbol(std::string_view symbol) {
-  assert(symbol.data());
-  auto found = m_symbol2IdMap.find(symbol);
-  if (found != m_symbol2IdMap.end()) {
-    return found->second;
+  Symbol2IdMap::const_iterator it = m_symbol2IdMap.find(symbol);
+  if (it == m_symbol2IdMap.end()) {
+    if ((m_buffers.size() <= m_minWriteIndex) ||
+        (m_buffers.back()->size() + symbol.length() + 1) >
+            m_buffers.back()->capacity()) {
+      m_buffers.emplace_back(std::make_shared<std::string>());
+      m_buffers.back()->reserve(kBufferCapacity);
+    }
+
+    Buffers::reference buffer = m_buffers.back();
+    size_t length = buffer->length();
+    buffer->append(symbol).append(1, '\0');
+    symbol = std::string_view(&(*buffer)[length], symbol.length());
+    it = m_symbol2IdMap.insert({symbol, m_id2SymbolMap.size()}).first;
+    m_id2SymbolMap.emplace_back(symbol);
   }
-  m_id2SymbolMap.emplace_back(new std::string(symbol));
-  const std::string_view normalized_symbol = *m_id2SymbolMap.back();
-  const auto inserted = m_symbol2IdMap.insert({normalized_symbol, m_idCounter});
-  assert(inserted.second);  // This new insert must succeed.
-  m_idCounter++;
-  return inserted.first->second;
-}
-
-SymbolId SymbolTable::getId(std::string_view symbol) const {
-  auto found = m_symbol2IdMap.find(symbol);
-  return (found == m_symbol2IdMap.end()) ? getBadId() : found->second;
-}
-
-const std::string& SymbolTable::getSymbol(SymbolId id) const {
-  if (id >= m_id2SymbolMap.size()) return getBadSymbol();
-  return *m_id2SymbolMap[id];
+  return it->second;
 }
 
 std::vector<std::string> SymbolTable::getSymbols() const {
   std::vector<std::string> result;
   result.reserve(m_id2SymbolMap.size());
-  for (const auto& s : m_id2SymbolMap) {
-    result.push_back(*s);
+  for (auto s : m_id2SymbolMap) {
+    result.emplace_back(s);
   }
   return result;
 }

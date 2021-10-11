@@ -52,8 +52,8 @@ class DesignElaboration : public TestbenchElaboration {
   bool identifyTopModules_();
   bool elaborateAllModules_(bool onlyTopLevel);
   void reportElaboration_();
-  bool elaborateModule_(std::string moduleName, const FileContent* fileContent,
-                        bool onlyTopLevel);
+  bool elaborateModule_(std::string_view moduleName,
+                        const FileContent* fileContent, bool onlyTopLevel);
   void checkElaboration_();
   void collectParams_(std::vector<std::string>& params, const FileContent* fC,
                       NodeId nodeId, ModuleInstance* instance,
@@ -81,17 +81,17 @@ class DesignElaboration : public TestbenchElaboration {
   bool bindAllInstances_(ModuleInstance*, ModuleInstanceFactory* factory,
                          Config* config);
   void createFileList_();
-  Config* getInstConfig(std::string name);
-  Config* getCellConfig(std::string name);
+  Config* getInstConfig(std::string_view name);
+  Config* getCellConfig(std::string_view name);
   std::vector<std::pair<std::string, const FileContent*>> m_topLevelModules;
   std::set<std::string> m_uniqueTopLevelModules;
   ModuleDefinitionFactory* m_moduleDefFactory;
   ModuleInstanceFactory* m_moduleInstFactory;
-  std::set<std::string> m_toplevelConfigModules;
-  std::map<std::string, Config> m_instConfig;
-  std::map<std::string, Config> m_cellConfig;
-  std::map<std::string, UseClause> m_instUseClause;
-  std::map<std::string, UseClause> m_cellUseClause;
+  std::set<std::string, std::less<>> m_toplevelConfigModules;
+  std::map<std::string, Config, std::less<>> m_instConfig;
+  std::map<std::string, Config, std::less<>> m_cellConfig;
+  std::map<std::string, UseClause, std::less<>> m_instUseClause;
+  std::map<std::string, UseClause, std::less<>> m_cellUseClause;
 };
 
 };  // namespace SURELOG

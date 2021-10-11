@@ -57,23 +57,25 @@ class ParseFile {
             SymbolId chunkFileId, unsigned int offsetLine);
 
   // Unit test constructor
-  ParseFile(const std::string& text, CompileSourceFile* csf,
+  ParseFile(std::string_view text, CompileSourceFile* csf,
             CompilationUnit* compilationUnit, Library* library);
 
   bool parse();
 
   virtual ~ParseFile();
   bool needToParse();
-  CompileSourceFile* getCompileSourceFile() { return m_compileSourceFile; }
-  CompilationUnit* getCompilationUnit() { return m_compilationUnit; }
-  Library* getLibrary() { return m_library; }
-  const std::string getFileName(unsigned int line);
-  const std::string getPpFileName() { return getSymbol(m_ppFileId); }
-  SymbolTable* getSymbolTable();
-  ErrorContainer* getErrorContainer();
+  CompileSourceFile* getCompileSourceFile() const {
+    return m_compileSourceFile;
+  }
+  CompilationUnit* getCompilationUnit() const { return m_compilationUnit; }
+  Library* getLibrary() const { return m_library; }
+  std::string_view getFileName(unsigned int line);
+  std::string_view getPpFileName() const { return getSymbol(m_ppFileId); }
+  SymbolTable* getSymbolTable() const;
+  ErrorContainer* getErrorContainer() const;
   SymbolId getFileId(unsigned int line);
-  SymbolId getRawFileId() { return m_fileId; }
-  SymbolId getPpFileId() { return m_ppFileId; }
+  SymbolId getRawFileId() const { return m_fileId; }
+  SymbolId getPpFileId() const { return m_ppFileId; }
   unsigned int getLineNb(unsigned int line);
 
   class LineTranslationInfo {
@@ -88,18 +90,20 @@ class ParseFile {
     unsigned int m_pretendLine;
   };
 
-  AntlrParserHandler* getAntlrParserHandler() { return m_antlrParserHandler; }
+  AntlrParserHandler* getAntlrParserHandler() const {
+    return m_antlrParserHandler;
+  }
 
   void addLineTranslationInfo(LineTranslationInfo& info) {
     m_lineTranslationVec.push_back(info);
   }
 
   void addError(Error& error);
-  SymbolId registerSymbol(const std::string symbol);
-  SymbolId getId(const std::string symbol);
-  const std::string getSymbol(SymbolId id);
-  bool usingCachedVersion() { return m_usingCachedVersion; }
-  FileContent* getFileContent() { return m_fileContent; }
+  SymbolId registerSymbol(std::string_view symbol);
+  SymbolId getId(std::string_view symbol) const;
+  std::string_view getSymbol(SymbolId id) const;
+  bool usingCachedVersion() const { return m_usingCachedVersion; }
+  FileContent* getFileContent() const { return m_fileContent; }
   void setFileContent(FileContent* content) { m_fileContent = content; }
   void setDebugAstModel() { debug_AstModel = true; }
   std::string getProfileInfo();
@@ -118,7 +122,7 @@ class ParseFile {
   FileContent* m_fileContent = nullptr;
   bool debug_AstModel;
 
-  bool parseOneFile_(std::string fileName, unsigned int lineOffset);
+  bool parseOneFile_(std::string_view fileName, unsigned int lineOffset);
   void buildLineInfoCache_();
   // For file chunk:
   std::vector<ParseFile*> m_children;

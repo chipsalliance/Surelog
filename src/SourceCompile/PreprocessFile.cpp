@@ -108,7 +108,7 @@ void PreprocessFile::setDebug(int level) {
 }
 class PreprocessFile::DescriptiveErrorListener : public ANTLRErrorListener {
  public:
-  DescriptiveErrorListener(PreprocessFile* pp, std::string filename)
+  DescriptiveErrorListener(PreprocessFile* pp, std::string_view filename)
       : m_pp(pp), m_fileName(filename) {}
 
   void syntaxError(Recognizer* recognizer, Token* offendingSymbol, size_t line,
@@ -130,8 +130,8 @@ class PreprocessFile::DescriptiveErrorListener : public ANTLRErrorListener {
                                 size_t prediction,
                                 atn::ATNConfigSet* configs) override;
 
-  PreprocessFile* m_pp;
-  std::string m_fileName;
+  PreprocessFile* const m_pp = nullptr;
+  const std::string m_fileName;
   std::string m_fileContent;
 };
 
@@ -263,23 +263,22 @@ void PreprocessFile::addError(Error& error) {
     getCompileSourceFile()->getErrorContainer()->addError(error);
 }
 
-std::string PreprocessFile::getSymbol(SymbolId id) {
+std::string_view PreprocessFile::getSymbol(SymbolId id) const {
   return getCompileSourceFile()->getSymbolTable()->getSymbol(id);
 }
 
-std::string PreprocessFile::getFileName(unsigned int line) {
+std::string_view PreprocessFile::getFileName(unsigned int line) const {
   return getSymbol(getFileId(line));
 }
 
 SymbolId PreprocessFile::getMacroSignature() {
-  std::string macroSignature = getSymbol(m_fileId);
+  std::string macroSignature(getSymbol(m_fileId));
   if (m_macroInfo) {
-    macroSignature += "|" + getSymbol(m_macroInfo->m_file);
-    macroSignature += "|" + std::to_string(m_macroInfo->m_line);
+    macroSignature.append("|").append(getSymbol(m_macroInfo->m_file));
+    macroSignature.append("|").append(std::to_string(m_macroInfo->m_line));
   }
   macroSignature += "|" + m_macroBody;
-  SymbolId sigId = registerSymbol(macroSignature);
-  return sigId;
+  return registerSymbol(macroSignature);
 }
 
 PreprocessFile::PreprocessFile(const PreprocessFile& orig) {}
@@ -304,7 +303,7 @@ static size_t LinesCount(std::string_view s) {
 
 bool PreprocessFile::preprocess() {
   m_result = "";
-  std::string fileName = getSymbol(m_fileId);
+  std::string_view fileName = getSymbol(m_fileId);
   Precompiled* prec = Precompiled::getSingleton();
   std::string root = FileUtils::basename(fileName);
   bool precompiled = false;
@@ -335,7 +334,7 @@ bool PreprocessFile::preprocess() {
       if (m_debugPP)
         std::cout << "PP PREPROCESS FILE: " << fileName << std::endl;
       std::ifstream stream;
-      stream.open(fileName);
+      stream.open(std::string(fileName));
       if (!stream.good()) {
         if (m_includer == NULL) {
           Location loc(m_fileId);
@@ -377,7 +376,9 @@ bool PreprocessFile::preprocess() {
     }
     m_antlrParserHandler->m_errorListener =
         new PreprocessFile::DescriptiveErrorListener(
-            this, (m_macroBody.empty()) ? fileName : "in macro " + fileName);
+            this, (m_macroBody.empty())
+                      ? std::string(fileName)
+                      : std::string("in macro ").append(fileName));
     m_antlrParserHandler->m_pplexer =
         new SV3_1aPpLexer(m_antlrParserHandler->m_inputStream);
     m_antlrParserHandler->m_pplexer->removeErrorListeners();
@@ -413,9 +414,11 @@ bool PreprocessFile::preprocess() {
           m_antlrParserHandler->m_ppparser->top_level_rule();
 
       if (getCompileSourceFile()->getCommandLineParser()->profile()) {
-        m_profileInfo +=
-            "PP SSL Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
-            "s " + fileName + "\n";
+        m_profileInfo.append("PP SSL Parsing: ")
+            .append(StringUtils::to_string(tmr.elapsed_rounded()))
+            .append("s ")
+            .append(fileName)
+            .append("\n");
         tmr.reset();
       }
 
@@ -433,9 +436,11 @@ bool PreprocessFile::preprocess() {
           m_antlrParserHandler->m_ppparser->top_level_rule();
 
       if (getCompileSourceFile()->getCommandLineParser()->profile()) {
-        m_profileInfo +=
-            "PP LL  Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
-            " " + fileName + "\n";
+        m_profileInfo.append("PP LL  Parsing: ")
+            .append(StringUtils::to_string(tmr.elapsed_rounded()))
+            .append(" ")
+            .append(fileName)
+            .append("\n");
         tmr.reset();
       }
     }
@@ -465,7 +470,7 @@ bool PreprocessFile::preprocess() {
   return true;
 }
 
-unsigned int PreprocessFile::getSumLineCount() {
+unsigned int PreprocessFile::getSumLineCount() const {
   // unsigned int total = LinesCount(m_result);
   unsigned int total = m_lineCount;
   if (m_includer) total += m_includer->getSumLineCount();
@@ -479,12 +484,12 @@ void PreprocessFile::append(const std::string& s) {
   }
 }
 
-void PreprocessFile::recordMacro(const std::string& name, unsigned int line,
+void PreprocessFile::recordMacro(std::string_view name, unsigned int line,
                                  unsigned short int column,
-                                 const std::string& arguments,
+                                 std::string_view arguments,
                                  const std::vector<std::string>& tokens) {
   // *** Argument processing
-  std::string arguments_short = arguments;
+  std::string arguments_short(arguments);
   // Remove (
   size_t p = arguments_short.find('(');
   if (p != std::string::npos) {
@@ -521,17 +526,22 @@ void PreprocessFile::recordMacro(const std::string& name, unsigned int line,
 
 std::string PreprocessFile::reportIncludeInfo() {
   std::string report;
-  for (auto info : m_includeFileInfo) {
+  for (auto const& info : m_includeFileInfo) {
     std::string type = (info.m_type == IncludeFileInfo::PUSH) ? "in" : "out";
-    report += std::to_string(info.m_originalLine) + " " +
-              getSymbol(info.m_sectionFile) + " " +
-              std::to_string(info.m_sectionStartLine) + " " + type + "\n";
+    report.append(std::to_string(info.m_originalLine))
+        .append(" ")
+        .append(getSymbol(info.m_sectionFile))
+        .append(" ")
+        .append(std::to_string(info.m_sectionStartLine))
+        .append(" ")
+        .append(type)
+        .append("\n");
   }
 
   return report;
 }
 
-void PreprocessFile::recordMacro(const std::string& name, unsigned int line,
+void PreprocessFile::recordMacro(std::string_view name, unsigned int line,
                                  unsigned short int column,
                                  const std::vector<std::string>& arguments,
                                  const std::vector<std::string>& tokens) {
@@ -543,7 +553,7 @@ void PreprocessFile::recordMacro(const std::string& name, unsigned int line,
 }
 
 void PreprocessFile::checkMacroArguments_(
-    const std::string& name, unsigned int line, unsigned short column,
+    std::string_view name, unsigned int line, unsigned short column,
     const std::vector<std::string>& arguments,
     const std::vector<std::string>& tokens) {
   std::set<std::string> argSet;
@@ -599,8 +609,8 @@ void PreprocessFile::checkMacroArguments_(
   }
 }
 
-SymbolId PreprocessFile::getIncluderFileId(unsigned int line) {
-  PreprocessFile* tmp = this;
+SymbolId PreprocessFile::getIncluderFileId(unsigned int line) const {
+  const PreprocessFile* tmp = this;
   while (tmp->m_includer != NULL) {
     tmp = tmp->m_includer;
   }
@@ -626,16 +636,16 @@ void PreprocessFile::forgetPreprocessor_(PreprocessFile* inc,
   }
 }
 
-SymbolId PreprocessFile::registerSymbol(const std::string symbol) {
+SymbolId PreprocessFile::registerSymbol(std::string_view symbol) {
   return getCompileSourceFile()->getSymbolTable()->registerSymbol(symbol);
 }
 
-SymbolId PreprocessFile::getId(const std::string symbol) {
+SymbolId PreprocessFile::getId(std::string_view symbol) const {
   return getCompileSourceFile()->getSymbolTable()->getId(symbol);
 }
 
 std::string PreprocessFile::evaluateMacroInstance(
-    const std::string& macro_instance, PreprocessFile* callingFile,
+    std::string_view macro_instance, PreprocessFile* callingFile,
     unsigned int callingLine,
     SpecialInstructions::CheckLoopInstr checkMacroLoop,
     SpecialInstructions::AsIsUndefinedMacroInstr asisUndefMacro) {
@@ -674,7 +684,7 @@ static bool isKeyword(const std::vector<std::string>& body_tokens) {
 }
 
 std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
-    const std::string& name, std::vector<std::string>& actual_args,
+    std::string_view name, std::vector<std::string>& actual_args,
     PreprocessFile* callingFile, unsigned int callingLine,
     LoopCheck& loopChecker, MacroInfo* macroInfo,
     SpecialInstructions& instructions, unsigned int embeddedMacroCallLine,
@@ -695,10 +705,10 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
           Location exloc(macroInfo->m_file, macroInfo->m_line, 0, getId(name));
           Error err(ErrorDefinition::PP_RECURSIVE_MACRO_DEFINITION, loc, exloc);
           addError(err);
-          return std::make_pair(false, getCompileSourceFile()
-                                           ->getCompiler()
-                                           ->getSymbolTable()
-                                           ->getBadSymbol());
+          return std::make_pair(false, std::string(getCompileSourceFile()
+                                                       ->getCompiler()
+                                                       ->getSymbolTable()
+                                                       ->getBadSymbol()));
         }
       }
     }
@@ -892,7 +902,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   if (body_short.find('`') != std::string::npos) {
     // Recursively resolve macro instantiation within the macro
     if (m_debugMacro) {
-      const std::string fileName = getSymbol(m_fileId);
+      const std::string_view fileName = getSymbol(m_fileId);
       std::cout << "PP BODY EXPANSION FOR " << name << " in : " << fileName
                 << std::endl;
       for (auto arg : actual_args) {
@@ -936,12 +946,12 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   return std::make_pair(found, result);
 }
 
-MacroInfo* PreprocessFile::getMacro(const std::string& name) {
+MacroInfo* PreprocessFile::getMacro(std::string_view name) {
   registerSymbol(name);
   return m_compilationUnit->getMacroInfo(name);
 }
 
-bool PreprocessFile::deleteMacro(const std::string& name,
+bool PreprocessFile::deleteMacro(std::string_view name,
                                  std::set<PreprocessFile*>& visited) {
   /*SymbolId macroId = */ registerSymbol(name);
   if (m_debugMacro)
@@ -1020,7 +1030,7 @@ void PreprocessFile::undefineAllMacros(std::set<PreprocessFile*>& visited) {
 }
 
 std::string PreprocessFile::getMacro(
-    const std::string& name, std::vector<std::string>& arguments,
+    std::string_view name, std::vector<std::string>& arguments,
     PreprocessFile* callingFile, unsigned int callingLine,
     LoopCheck& loopChecker, SpecialInstructions& instructions,
     unsigned int embeddedMacroCallLine, SymbolId embeddedMacroCallFile) {
@@ -1065,7 +1075,7 @@ std::string PreprocessFile::getMacro(
   if (found == false) {
     if (instructions.m_as_is_undefined_macro ==
         SpecialInstructions::AsIsUndefinedMacro) {
-      return "`" + name;
+      return std::string("`").append(name);
     } else {
       return MacroNotDefined;
     }
@@ -1074,7 +1084,7 @@ std::string PreprocessFile::getMacro(
   }
 }
 
-SymbolId PreprocessFile::getFileId(unsigned int line) {
+SymbolId PreprocessFile::getFileId(unsigned int line) const {
   const unsigned int size = m_lineTranslationVec.size();
   if (isMacroBody() && m_macroInfo) {
     return m_macroInfo->m_file;
@@ -1101,7 +1111,7 @@ SymbolId PreprocessFile::getFileId(unsigned int line) {
   }
 }
 
-unsigned int PreprocessFile::getLineNb(unsigned int line) {
+unsigned int PreprocessFile::getLineNb(unsigned int line) const {
   if (isMacroBody() && m_macroInfo) {
     return (m_macroInfo->m_line + line - 1);
   } else {
@@ -1134,9 +1144,10 @@ std::string PreprocessFile::getPreProcessedFileContent() {
   }
   if (!nonEmpty) m_result = "";
   if (m_debugPPResult) {
-    const std::string fileName = getSymbol(m_fileId);
-    std::string objName =
-        (!m_macroBody.empty()) ? "macro " + m_macroBody : "file " + fileName;
+    const std::string_view fileName = getSymbol(m_fileId);
+    std::string objName = (!m_macroBody.empty())
+                              ? std::string("macro ").append(m_macroBody)
+                              : std::string("file ").append(fileName);
     std::cout << "PP RESULT for " << objName
               << " : \nvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n"
               << m_result << "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"

@@ -25,8 +25,6 @@
 
 namespace SURELOG {
 
-Function::~Function() {}
-
 bool Function::compile(CompileHelper& compile_helper) {
   bool result = true;
   const FileContent* const fC = m_fileContent;

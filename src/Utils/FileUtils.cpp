@@ -68,17 +68,17 @@ bool FileUtils::fileIsRegular(std::string_view name) {
 
 SymbolId FileUtils::locateFile(SymbolId file, SymbolTable* symbols,
                                const std::vector<SymbolId>& paths) {
-  const std::string& fileName = symbols->getSymbol(file);
+  const std::string_view fileName = symbols->getSymbol(file);
   if (fileExists(fileName)) {
     return file;
   }
   for (auto id : paths) {
-    const std::string& path = symbols->getSymbol(id);
+    const std::string_view path = symbols->getSymbol(id);
     std::string filePath;
     if (!path.empty() && (path[path.size() - 1] == '/'))
-      filePath = path + fileName;
+      filePath.assign(path).append(fileName);
     else
-      filePath = path + "/" + fileName;
+      filePath.assign(path).append("/").append(fileName);
     if (fileExists(filePath)) {
       return symbols->registerSymbol(filePath);
     }
@@ -144,7 +144,7 @@ std::vector<SymbolId> FileUtils::collectFiles(std::string_view dirPath,
 }
 
 std::vector<SymbolId> FileUtils::collectFiles(std::string_view pathSpec,
-                                              SymbolTable* symbols) {
+                                              SymbolTable* const symbols) {
   // ?   single character wildcard (matches any single character)
   // *   multiple character wildcard (matches any number of characters in a
   // directory/file name)
@@ -221,8 +221,8 @@ std::vector<SymbolId> FileUtils::collectFiles(std::string_view pathSpec,
   return result;
 }
 
-std::string FileUtils::getFileContent(const std::string& filename) {
-  std::ifstream in(filename, std::ios::in | std::ios::binary);
+std::string FileUtils::getFileContent(std::string_view filename) {
+  std::ifstream in(std::string(filename), std::ios::in | std::ios::binary);
   if (in) {
     std::string result;
     result.assign(std::istreambuf_iterator<char>(in),
@@ -248,11 +248,11 @@ std::string FileUtils::getPreferredPath(std::string_view path) {
   return fs::path(path).make_preferred().string();
 }
 
-std::string FileUtils::hashPath(const std::string& path) {
+std::string FileUtils::hashPath(std::string_view path) {
   const std::string separator(1, fs::path::preferred_separator);
   std::string hashedpath;
-  std::size_t val = std::hash<std::string>{}(path);
-  std::string last_dir = path;
+  std::size_t val = std::hash<std::string_view>{}(path);
+  std::string last_dir(path);
   if (!last_dir.empty()) last_dir.erase(last_dir.end() - 1);
   auto it1 = std::find_if(last_dir.rbegin(), last_dir.rend(),
                           [](char ch) { return (ch == '/' || ch == '\\'); });

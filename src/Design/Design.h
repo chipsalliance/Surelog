@@ -68,9 +68,9 @@ class Design final {
 
   FileIdDesignContentMap& getAllPPFileContents() { return m_ppFileContents; }
 
-  LibrarySet* getLibrarySet() { return m_librarySet; }
+  LibrarySet* getLibrarySet() const { return m_librarySet; }
 
-  ConfigSet* getConfigSet() { return m_configSet; }
+  ConfigSet* getConfigSet() const { return m_configSet; }
 
   ModuleNameModuleDefinitionMap& getModuleDefinitions() {
     return m_moduleDefinitions;
@@ -96,9 +96,9 @@ class Design final {
     return m_uniqueClassDefinitions;
   }
 
-  ModuleDefinition* getModuleDefinition(const std::string& moduleName);
+  ModuleDefinition* getModuleDefinition(std::string_view moduleName) const;
 
-  DesignComponent* getComponentDefinition(const std::string& componentName);
+  DesignComponent* getComponentDefinition(std::string_view componentName) const;
 
   const std::vector<ModuleInstance*>& getTopLevelModuleInstances() const {
     return m_topLevelModuleInstances;
@@ -113,35 +113,37 @@ class Design final {
                                unsigned int& nbUndefinedModules,
                                unsigned int& nbUndefinedInstances);
 
-  DefParam* getDefParam(const std::string& name);
+  DefParam* getDefParam(std::string_view name) const;
 
-  Value* getDefParamValue(const std::string& name);
+  Value* getDefParamValue(std::string_view name) const;
 
-  std::map<std::string, DefParam*>& getDefParams() { return m_defParams; }
+  std::map<std::string, DefParam*, std::less<>>& getDefParams() {
+    return m_defParams;
+  }
 
   void checkDefParamUsage(DefParam* parent = NULL);
 
   ModuleInstance* findInstance(std::vector<std::string>& path,
-                               ModuleInstance* scope = NULL);
+                               ModuleInstance* scope = NULL) const;
 
-  ModuleInstance* findInstance(const std::string& path,
-                               ModuleInstance* scope = NULL);
+  ModuleInstance* findInstance(std::string_view path,
+                               ModuleInstance* scope = NULL) const;
 
-  Package* getPackage(const std::string& name);
+  Package* getPackage(std::string_view name) const;
 
-  Program* getProgram(const std::string& name);
+  Program* getProgram(std::string_view name) const;
 
-  ClassDefinition* getClassDefinition(const std::string& name);
+  ClassDefinition* getClassDefinition(std::string_view name) const;
 
-  ErrorContainer* getErrorContainer() { return m_errors; }
+  ErrorContainer* getErrorContainer() const { return m_errors; }
 
-  typedef std::multimap<const std::string, BindStmt*> BindMap;
+  typedef std::multimap<std::string, BindStmt*, std::less<>> BindMap;
 
   BindMap& getBindMap() { return m_bindMap; }
 
-  std::vector<BindStmt*> getBindStmts(const std::string& targetName);
+  std::vector<BindStmt*> getBindStmts(std::string_view targetName) const;
 
-  void addBindStmt(const std::string& targetName, BindStmt* stmt);
+  void addBindStmt(std::string_view targetName, BindStmt* stmt);
 
  protected:
   // Thread-safe
@@ -150,12 +152,11 @@ class Design final {
   // Thread-safe
   void addPPFileContent(SymbolId fileId, FileContent* content);
 
-  void addOrderedPackage(const std::string& packageName) {
-    m_orderedPackageNames.push_back(packageName);
+  void addOrderedPackage(std::string_view packageName) {
+    m_orderedPackageNames.push_back(std::string(packageName));
   }
 
-  void addModuleDefinition(const std::string& moduleName,
-                           ModuleDefinition* def) {
+  void addModuleDefinition(std::string_view moduleName, ModuleDefinition* def) {
     m_moduleDefinitions.insert(std::make_pair(moduleName, def));
   }
 
@@ -163,18 +164,17 @@ class Design final {
     m_topLevelModuleInstances.push_back(instance);
   }
 
-  void addDefParam(const std::string& name, const FileContent* fC,
-                   NodeId nodeId, Value* value);
+  void addDefParam(std::string_view name, const FileContent* fC, NodeId nodeId,
+                   Value* value);
 
-  void addClassDefinition(const std::string& className,
+  void addClassDefinition(std::string_view className,
                           ClassDefinition* classDef);
 
-  void addProgramDefinition(const std::string programName, Program* program) {
+  void addProgramDefinition(std::string_view programName, Program* program) {
     m_programDefinitions.insert(std::make_pair(programName, program));
   }
 
-  Package* addPackageDefinition(const std::string& packageName,
-                                Package* package);
+  Package* addPackageDefinition(std::string_view packageName, Package* package);
 
   void clearContainers();
 
@@ -182,10 +182,11 @@ class Design final {
 
  private:
   ModuleInstance* findInstance_(std::vector<std::string>& path,
-                                ModuleInstance* scope);
+                                ModuleInstance* scope) const;
   void addDefParam_(std::vector<std::string>& path, const FileContent* fC,
                     NodeId nodeId, Value* value, DefParam* parent);
-  DefParam* getDefParam_(std::vector<std::string>& path, DefParam* parent);
+  DefParam* getDefParam_(std::vector<std::string>& path,
+                         DefParam* parent) const;
 
   ErrorContainer* m_errors;
 
@@ -201,7 +202,7 @@ class Design final {
 
   std::vector<ModuleInstance*> m_topLevelModuleInstances;
 
-  std::map<std::string, DefParam*> m_defParams;
+  std::map<std::string, DefParam*, std::less<>> m_defParams;
 
   PackageNamePackageDefinitionMultiMap m_packageDefinitions;
 

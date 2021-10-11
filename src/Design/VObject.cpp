@@ -30,15 +30,13 @@ using namespace SURELOG;
 
 std::string VObject::print(SymbolTable* symbols, unsigned int uniqueId,
                            NodeId definitionFile, SymbolId printedFile) const {
-  std::string text;
-  std::string symbol = symbols->getSymbol(m_name);
-  if (symbol == symbols->getBadSymbol()) {
-    text += "n<>";
-  } else {
-    text = "n<" + symbols->getSymbol(m_name) + ">";
+  std::string text("n<");
+  std::string_view symbol = symbols->getSymbol(m_name);
+  if (symbol != symbols->getBadSymbol()) {
+    text.append(symbol);
   }
 
-  text += " ";
+  text += "> ";
   text += "u<" + std::to_string(uniqueId) + ">";
   text += " ";
   std::string type = getTypeName(m_type);

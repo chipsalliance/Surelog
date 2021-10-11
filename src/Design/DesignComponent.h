@@ -46,7 +46,7 @@ class ParamAssign;
 class ExprEval {
  public:
   ExprEval(UHDM::expr* expr, ValuedComponentI* instance,
-           const std::string& fileName, int lineNumber, UHDM::any* pexpr)
+           std::string_view fileName, int lineNumber, UHDM::any* pexpr)
       : m_expr(expr),
         m_instance(instance),
         m_fileName(fileName),
@@ -54,7 +54,7 @@ class ExprEval {
         m_pexpr(pexpr) {}
   UHDM::expr* m_expr;
   ValuedComponentI* m_instance;
-  std::string m_fileName;
+  const std::string m_fileName;
   int m_lineNumber;
   UHDM::any* m_pexpr;
 };
@@ -71,15 +71,15 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   virtual unsigned int getSize() const = 0;
   virtual VObjectType getType() const = 0;
   virtual bool isInstance() const = 0;
-  virtual const std::string& getName() const = 0;
+  virtual std::string_view getName() const = 0;
   void append(DesignComponent*);
 
-  typedef std::map<std::string, DataType*> DataTypeMap;
-  typedef std::map<std::string, TypeDef*> TypeDefMap;
-  typedef std::map<std::string, Function*> FunctionMap;
-  typedef std::map<std::string, Task*> TaskMap;
-  typedef std::map<std::string, Variable*> VariableMap;
-  typedef std::map<std::string, Parameter*> ParameterMap;
+  typedef std::map<std::string, DataType*, std::less<>> DataTypeMap;
+  typedef std::map<std::string, TypeDef*, std::less<>> TypeDefMap;
+  typedef std::map<std::string, Function*, std::less<>> FunctionMap;
+  typedef std::map<std::string, Task*, std::less<>> TaskMap;
+  typedef std::map<std::string, Variable*, std::less<>> VariableMap;
+  typedef std::map<std::string, Parameter*, std::less<>> ParameterMap;
   typedef std::vector<Parameter*> ParameterVec;
   typedef std::vector<ParamAssign*> ParamAssignVec;
 
@@ -93,33 +93,33 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   const std::vector<FileCNodeId>& getObjects(VObjectType type) const;
   void addObject(VObjectType type, FileCNodeId object);
 
-  void addNamedObject(std::string name, FileCNodeId object,
+  void addNamedObject(std::string_view name, FileCNodeId object,
                       DesignComponent* def = NULL);
-  std::map<std::string, std::pair<FileCNodeId, DesignComponent*>>&
+  std::map<std::string, std::pair<FileCNodeId, DesignComponent*>, std::less<>>&
   getNamedObjects() {
     return m_namedObjects;
   }
   const std::pair<FileCNodeId, DesignComponent*>* getNamedObject(
-      const std::string& name) const;
+      std::string_view name) const;
 
   DataTypeMap& getUsedDataTypeMap() { return m_usedDataTypes; }
-  DataType* getUsedDataType(const std::string& name);
-  void insertUsedDataType(const std::string& dataTypeName, DataType* dataType);
+  DataType* getUsedDataType(std::string_view name) const;
+  void insertUsedDataType(std::string_view dataTypeName, DataType* dataType);
 
   const DataTypeMap& getDataTypeMap() const { return m_dataTypes; }
-  const DataType* getDataType(const std::string& name) const;
-  void insertDataType(const std::string& dataTypeName, DataType* dataType);
+  const DataType* getDataType(std::string_view name) const;
+  void insertDataType(std::string_view dataTypeName, DataType* dataType);
 
   const TypeDefMap& getTypeDefMap() const { return m_typedefs; }
-  const TypeDef* getTypeDef(const std::string& name) const;
+  const TypeDef* getTypeDef(std::string_view name) const;
   void insertTypeDef(TypeDef* p);
 
   FunctionMap& getFunctionMap() { return m_functions; }
-  virtual Function* getFunction(const std::string& name) const;
+  virtual Function* getFunction(std::string_view name) const;
   void insertFunction(Function* p);
 
   TaskMap& getTaskMap() { return m_tasks; }
-  virtual Task* getTask(const std::string& name) const;
+  virtual Task* getTask(std::string_view name) const;
   void insertTask(Task* p);
 
   void addAccessPackage(Package* p) { m_packages.push_back(p); }
@@ -127,10 +127,10 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
 
   void addVariable(Variable* var);
   const VariableMap& getVariables() const { return m_variables; }
-  Variable* getVariable(const std::string& name);
+  Variable* getVariable(std::string_view name) const;
 
   const ParameterMap& getParameterMap() const { return m_parameterMap; }
-  Parameter* getParameter(const std::string& name) const;
+  Parameter* getParameter(std::string_view name) const;
   void insertParameter(Parameter* p);
   const ParameterVec& getOrderedParameters() const {
     return m_orderedParameters;
@@ -157,9 +157,10 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   }
 
   void setUhdmInstance(UHDM::instance* instance) { m_instance = instance; }
-  UHDM::instance* getUhdmInstance() { return m_instance; }
-  void scheduleParamExprEval(const std::string& name, ExprEval& expr_eval) {
-    m_scheduledParamExprEval.push_back(std::make_pair(name, expr_eval));
+  UHDM::instance* getUhdmInstance() const { return m_instance; }
+  void scheduleParamExprEval(std::string_view name, ExprEval& expr_eval) {
+    m_scheduledParamExprEval.push_back(
+        std::make_pair(std::string(name), expr_eval));
   }
   std::vector<std::pair<std::string, ExprEval>>& getScheduledParamExprEval() {
     return m_scheduledParamExprEval;
@@ -173,7 +174,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
 
  private:
   std::map<VObjectType, std::vector<FileCNodeId>> m_objects;
-  std::map<std::string, std::pair<FileCNodeId, DesignComponent*>>
+  std::map<std::string, std::pair<FileCNodeId, DesignComponent*>, std::less<>>
       m_namedObjects;
   std::vector<FileCNodeId> m_empty;
 

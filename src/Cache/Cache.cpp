@@ -33,12 +33,12 @@
 #include "flatbuffers/util.h"
 
 namespace SURELOG {
-const std::string& Cache::getExecutableTimeStamp() {
-  static const std::string sExecTstamp(__DATE__ "-" __TIME__);
+std::string_view Cache::getExecutableTimeStamp() const {
+  static constexpr std::string_view sExecTstamp{__DATE__ "-" __TIME__};
   return sExecTstamp;
 }
 
-time_t Cache::get_mtime(const char* path) {
+time_t Cache::get_mtime(const char* path) const {
   struct stat statbuf;
   if (stat(path, &statbuf) == -1) {
     return -1;
@@ -46,8 +46,8 @@ time_t Cache::get_mtime(const char* path) {
   return statbuf.st_mtime;
 }
 
-uint8_t* Cache::openFlatBuffers(std::string cacheFileName) {
-  FILE* file = fopen(cacheFileName.c_str(), "rb");
+uint8_t* Cache::openFlatBuffers(std::string_view cacheFileName) const {
+  FILE* file = fopen(cacheFileName.data(), "rb");
   if (file == NULL) return NULL;
   fseek(file, 0L, SEEK_END);
   unsigned int length = ftell(file);
@@ -64,30 +64,30 @@ uint8_t* Cache::openFlatBuffers(std::string cacheFileName) {
 }
 
 bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
-                                std::string schemaVersion,
-                                std::string cacheFileName) {
+                                std::string_view schemaVersion,
+                                std::string_view cacheFileName) const {
   /* Schema version */
-  if (schemaVersion != header->m_flb_version()->c_str()) {
+  if (schemaVersion != header->m_flb_version()->string_view()) {
     return false;
   }
 
   /* Tool version */
   if (CommandLineParser::getVersionNumber() !=
-      header->m_sl_version()->c_str()) {
+      header->m_sl_version()->string_view()) {
     return false;
   }
 
   /* Timestamp Tool that created Cache vs tool date */
-  std::string execDate = getExecutableTimeStamp();
-  if (execDate != header->m_sl_date_compiled()->c_str()) {
+  const std::string_view execDate = getExecutableTimeStamp();
+  if (execDate != header->m_sl_date_compiled()->string_view()) {
     return false;
   }
 
   /* Timestamp Cache vs Orig File */
   if (!cacheFileName.empty()) {
-    time_t ct = get_mtime(cacheFileName.c_str());
-    std::string fileName = header->m_file()->c_str();
-    time_t ft = get_mtime(fileName.c_str());
+    time_t ct = get_mtime(cacheFileName.data());
+    const std::string_view fileName = header->m_file()->string_view();
+    time_t ft = get_mtime(fileName.data());
     if (ft == -1) {
       return false;
     }
@@ -102,8 +102,8 @@ bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
 }
 
 const flatbuffers::Offset<SURELOG::CACHE::Header> Cache::createHeader(
-    flatbuffers::FlatBufferBuilder& builder, std::string schemaVersion,
-    std::string origFileName) {
+    flatbuffers::FlatBufferBuilder& builder, std::string_view schemaVersion,
+    std::string_view origFileName) {
   auto fName = builder.CreateString(origFileName);
   auto sl_version = builder.CreateString(CommandLineParser::getVersionNumber());
   auto sl_build_date = builder.CreateString(getExecutableTimeStamp());
@@ -116,11 +116,11 @@ const flatbuffers::Offset<SURELOG::CACHE::Header> Cache::createHeader(
 }
 
 bool Cache::saveFlatbuffers(flatbuffers::FlatBufferBuilder& builder,
-                            std::string cacheFileName) {
+                            std::string_view cacheFileName) {
   const unsigned char* buf = builder.GetBufferPointer();
   int size = builder.GetSize();
   bool status =
-      flatbuffers::SaveFile(cacheFileName.c_str(), (char*)buf, size, true);
+      flatbuffers::SaveFile(cacheFileName.data(), (char*)buf, size, true);
   return status;
 }
 
@@ -177,7 +177,7 @@ void Cache::restoreErrors(const VectorOffsetError* errorsBuf,
                           ErrorContainer* errorContainer,
                           SymbolTable* symbols) {
   for (unsigned int i = 0; i < symbolsBuf->size(); i++) {
-    const std::string symbol = symbolsBuf->Get(i)->c_str();
+    const std::string_view symbol = symbolsBuf->Get(i)->string_view();
     canonicalSymbols.registerSymbol(symbol);
   }
   for (unsigned int i = 0; i < errorsBuf->size(); i++) {

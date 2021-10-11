@@ -66,7 +66,8 @@ static void saveContent(const std::string& fileName,
   }
 }
 
-void AnalyzeFile::checkSLlineDirective_(std::string line, unsigned int lineNb) {
+void AnalyzeFile::checkSLlineDirective_(std::string_view line,
+                                        unsigned int lineNb) {
   std::stringstream ss;
   std::string keyword;
   /* Storing the whole string into string stream */

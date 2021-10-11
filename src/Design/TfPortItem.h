@@ -37,21 +37,21 @@ class Value;
 class TfPortItem : public Variable {
  public:
   TfPortItem(Procedure* parent, const FileContent* fc, NodeId id, NodeId range,
-             const std::string& name, DataType* type, Value* default_value,
+             std::string_view name, DataType* type, Value* default_value,
              VObjectType direction)
       : Variable(type, fc, id, range, name),
         m_parent(parent),
         m_default(default_value),
         m_direction(direction) {}
-  ~TfPortItem() override;
+  ~TfPortItem() override = default;
 
-  Procedure* getParent() { return m_parent; }
-  Value* getDefault() { return m_default; }
+  Procedure* getParent() const { return m_parent; }
+  Value* getDefault() const { return m_default; }
   VObjectType getDirection() const { return m_direction; }
 
  private:
-  Procedure* m_parent;
-  Value* m_default;
+  Procedure* const m_parent = nullptr;
+  Value* const m_default = nullptr;
   const VObjectType m_direction;
 };
 

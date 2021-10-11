@@ -25,5 +25,3 @@
 #include <string>
 
 using namespace SURELOG;
-
-TfPortItem::~TfPortItem() {}

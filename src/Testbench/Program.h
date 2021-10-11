@@ -38,7 +38,8 @@ class Program : public DesignComponent, public ClockingBlockHolder {
   friend class CompileProgram;
 
  public:
-  Program(std::string name, Library* library, FileContent* fC, NodeId nodeId)
+  Program(std::string_view name, Library* library, FileContent* fC,
+          NodeId nodeId)
       : DesignComponent(fC, NULL), m_name(name), m_library(library) {
     addFileContent(fC, nodeId);
   }
@@ -50,15 +51,16 @@ class Program : public DesignComponent, public ClockingBlockHolder {
     return (m_fileContents[0]->Type(m_nodeIds[0]));
   }
   bool isInstance() const override { return true; }
-  const std::string& getName() const override { return m_name; }
+  std::string_view getName() const override { return m_name; }
 
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;
   }
-  void addClassDefinition(std::string className, ClassDefinition* classDef) {
+  void addClassDefinition(std::string_view className,
+                          ClassDefinition* classDef) {
     m_classDefinitions.insert(std::make_pair(className, classDef));
   }
-  ClassDefinition* getClassDefinition(const std::string& name);
+  ClassDefinition* getClassDefinition(std::string_view name) const;
 
   UHDM::VectorOfattribute* Attributes() const { return attributes_; }
 
@@ -68,8 +70,8 @@ class Program : public DesignComponent, public ClockingBlockHolder {
   }
 
  private:
-  std::string m_name;
-  Library* m_library;
+  const std::string m_name;
+  Library* m_library = nullptr;
   ClassNameClassDefinitionMultiMap m_classDefinitions;
 
   UHDM::VectorOfattribute* attributes_ = nullptr;

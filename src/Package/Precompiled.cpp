@@ -33,23 +33,23 @@ Precompiled* Precompiled::getSingleton() {
   return singleton;
 }
 
-void Precompiled::addPrecompiled(const std::string& packageName,
-                                 const std::string& fileName) {
-  m_packageMap.insert({packageName, fileName});
-  m_packageFileSet.insert(fileName);
+void Precompiled::addPrecompiled(std::string_view packageName,
+                                 std::string_view fileName) {
+  m_packageMap.insert({std::string(packageName), std::string(fileName)});
+  m_packageFileSet.insert(std::string(fileName));
 }
 
-std::string Precompiled::getFileName(const std::string& packageName) const {
+std::string Precompiled::getFileName(std::string_view packageName) const {
   auto found = m_packageMap.find(packageName);
   return (found == m_packageMap.end()) ? "" : found->second;
 }
 
-bool Precompiled::isFilePrecompiled(const std::string& fileName) const {
+bool Precompiled::isFilePrecompiled(std::string_view fileName) const {
   auto found = m_packageFileSet.find(fileName);
   return (found != m_packageFileSet.end());
 }
 
-bool Precompiled::isPackagePrecompiled(const std::string& packageName) const {
+bool Precompiled::isPackagePrecompiled(std::string_view packageName) const {
   auto found = m_packageMap.find(packageName);
   return (found != m_packageMap.end());
 }

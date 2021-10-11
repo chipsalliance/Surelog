@@ -44,27 +44,34 @@ class Netlist {
   Netlist(ModuleInstance* parent) : m_parent(parent) {}
   ~Netlist();
 
-  typedef std::map<std::string, std::pair<ModPort*, UHDM::modport*>> ModPortMap;
-  typedef std::map<std::string, std::pair<ModuleInstance*, UHDM::BaseClass*>>
+  typedef std::map<std::string, std::pair<ModPort*, UHDM::modport*>,
+                   std::less<>>
+      ModPortMap;
+  typedef std::map<std::string, std::pair<ModuleInstance*, UHDM::BaseClass*>,
+                   std::less<>>
       InstanceMap;
-  typedef std::map<std::string, UHDM::BaseClass*> SymbolTable;
+  typedef std::map<std::string, UHDM::BaseClass*, std::less<>> SymbolTable;
 
-  std::vector<UHDM::interface*>* interfaces() { return m_interfaces; }
-  std::vector<UHDM::interface_array*>* interface_arrays() {
+  std::vector<UHDM::interface*>* interfaces() const { return m_interfaces; }
+  std::vector<UHDM::interface_array*>* interface_arrays() const {
     return m_interface_arrays;
   }
-  std::vector<UHDM::port*>* ports() { return m_ports; }
-  std::vector<UHDM::net*>* nets() { return m_nets; }
-  std::vector<UHDM::gen_scope_array*>* gen_scopes() {
+  std::vector<UHDM::port*>* ports() const { return m_ports; }
+  std::vector<UHDM::net*>* nets() const { return m_nets; }
+  std::vector<UHDM::gen_scope_array*>* gen_scopes() const {
     return m_gen_scope_arrays;
   }
-  std::vector<UHDM::variables*>* variables() { return m_variables; }
-  std::vector<UHDM::array_var*>* array_vars() { return m_array_vars; }
-  std::vector<UHDM::array_net*>* array_nets() { return m_array_nets; }
-  std::vector<UHDM::expr*>* delays() { return m_delays; }
-  std::vector<UHDM::range*>* ranges() { return m_ranges; }
-  std::vector<UHDM::cont_assign*>* cont_assigns() { return m_assign_stmts; }
-  std::vector<UHDM::param_assign*>* param_assigns() { return m_param_assigns; }
+  std::vector<UHDM::variables*>* variables() const { return m_variables; }
+  std::vector<UHDM::array_var*>* array_vars() const { return m_array_vars; }
+  std::vector<UHDM::array_net*>* array_nets() const { return m_array_nets; }
+  std::vector<UHDM::expr*>* delays() const { return m_delays; }
+  std::vector<UHDM::range*>* ranges() const { return m_ranges; }
+  std::vector<UHDM::cont_assign*>* cont_assigns() const {
+    return m_assign_stmts;
+  }
+  std::vector<UHDM::param_assign*>* param_assigns() const {
+    return m_param_assigns;
+  }
 
   void interfaces(std::vector<UHDM::interface*>* interfaces) {
     m_interfaces = interfaces;
@@ -99,7 +106,7 @@ class Netlist {
   SymbolTable& getSymbolTable() { return m_symbolTable; }
   ModPortMap& getModPortMap() { return m_modPortMap; }
   InstanceMap& getInstanceMap() { return m_instanceMap; }
-  ModuleInstance* getParent() { return m_parent; }
+  ModuleInstance* getParent() const { return m_parent; }
 
  private:
   ModuleInstance* const m_parent;

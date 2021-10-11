@@ -65,13 +65,13 @@ void DesignComponent::addObject(VObjectType type, FileCNodeId object) {
   }
 }
 
-void DesignComponent::addNamedObject(std::string name, FileCNodeId object,
+void DesignComponent::addNamedObject(std::string_view name, FileCNodeId object,
                                      DesignComponent* def) {
   m_namedObjects.insert(std::make_pair(name, std::make_pair(object, def)));
 }
 
 const std::pair<FileCNodeId, DesignComponent*>* DesignComponent::getNamedObject(
-    const std::string& name) const {
+    std::string_view name) const {
   auto itr = m_namedObjects.find(name);
   if (itr == m_namedObjects.end()) {
     return NULL;
@@ -89,16 +89,16 @@ void DesignComponent::append(DesignComponent* comp) {
   for (auto& obj : comp->m_namedObjects) {
     addNamedObject(obj.first, obj.second.first, obj.second.second);
   }
-  for (auto dtype : comp->m_dataTypes)
+  for (auto& dtype : comp->m_dataTypes)
     insertDataType(dtype.first, dtype.second);
 }
 
-void DesignComponent::insertDataType(const std::string& dataTypeName,
+void DesignComponent::insertDataType(std::string_view dataTypeName,
                                      DataType* dataType) {
   m_dataTypes.insert(std::make_pair(dataTypeName, dataType));
 }
 
-const DataType* DesignComponent::getDataType(const std::string& name) const {
+const DataType* DesignComponent::getDataType(std::string_view name) const {
   DataTypeMap::const_iterator itr = m_dataTypes.find(name);
   if (itr == m_dataTypes.end()) {
     const DesignComponent* parent = (const DesignComponent*)getParentScope();
@@ -111,13 +111,13 @@ const DataType* DesignComponent::getDataType(const std::string& name) const {
   }
 }
 
-void DesignComponent::insertUsedDataType(const std::string& dataTypeName,
+void DesignComponent::insertUsedDataType(std::string_view dataTypeName,
                                          DataType* dataType) {
   m_usedDataTypes.insert(std::make_pair(dataTypeName, dataType));
 }
 
-DataType* DesignComponent::getUsedDataType(const std::string& name) {
-  DataTypeMap::iterator itr = m_usedDataTypes.find(name);
+DataType* DesignComponent::getUsedDataType(std::string_view name) const {
+  DataTypeMap::const_iterator itr = m_usedDataTypes.find(name);
   if (itr == m_usedDataTypes.end()) {
     return NULL;
   } else {
@@ -125,7 +125,7 @@ DataType* DesignComponent::getUsedDataType(const std::string& name) {
   }
 }
 
-const TypeDef* DesignComponent::getTypeDef(const std::string& name) const {
+const TypeDef* DesignComponent::getTypeDef(std::string_view name) const {
   TypeDefMap::const_iterator itr = m_typedefs.find(name);
   if (itr == m_typedefs.end()) {
     const DesignComponent* parent =
@@ -143,7 +143,7 @@ void DesignComponent::insertTypeDef(TypeDef* p) {
   m_typedefs.insert(std::make_pair(p->getName(), p));
 }
 
-Function* DesignComponent::getFunction(const std::string& name) const {
+Function* DesignComponent::getFunction(std::string_view name) const {
   FunctionMap::const_iterator itr = m_functions.find(name);
   if (itr == m_functions.end()) {
     const DesignComponent* parent =
@@ -161,7 +161,7 @@ void DesignComponent::insertFunction(Function* p) {
   m_functions.insert(std::make_pair(p->getName(), p));
 }
 
-Task* DesignComponent::getTask(const std::string& name) const {
+Task* DesignComponent::getTask(std::string_view name) const {
   TaskMap::const_iterator itr = m_tasks.find(name);
   if (itr == m_tasks.end()) {
     const DesignComponent* parent =
@@ -183,8 +183,8 @@ void DesignComponent::addVariable(Variable* var) {
   m_variables.insert(std::make_pair(var->getName(), var));
 }
 
-Variable* DesignComponent::getVariable(const std::string& name) {
-  VariableMap::const_iterator itr = m_variables.find(name);
+Variable* DesignComponent::getVariable(std::string_view name) const {
+  auto itr = m_variables.find(name);
   if (itr == m_variables.end()) {
     return NULL;
   } else {
@@ -192,8 +192,8 @@ Variable* DesignComponent::getVariable(const std::string& name) {
   }
 }
 
-Parameter* DesignComponent::getParameter(const std::string& name) const {
-  ParameterMap::const_iterator itr = m_parameterMap.find(name);
+Parameter* DesignComponent::getParameter(std::string_view name) const {
+  auto itr = m_parameterMap.find(name);
   if (itr == m_parameterMap.end()) {
     return NULL;
   } else {

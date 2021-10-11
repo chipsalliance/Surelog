@@ -101,7 +101,6 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
   m_helper.setDesign(m_compileDesign->getCompiler()->getDesign());
   for (unsigned int i = 0; i < m_package->m_fileContents.size(); i++) {
     const FileContent* fC = m_package->m_fileContents[i];
-    std::string libName = fC->getLibrary()->getName();
     VObject current = fC->Object(m_package->m_nodeIds[i]);
     NodeId id = current.m_child;
 
@@ -199,11 +198,12 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
           if (fC->Type(nameId) == slVirtual) {
             nameId = fC->Sibling(nameId);
           }
-          std::string name = fC->SymName(nameId);
+          std::string_view name = fC->SymName(nameId);
           FileCNodeId fnid(fC, nameId);
           m_package->addObject(type, fnid);
 
-          std::string completeName = m_package->getName() + "::" + name;
+          std::string completeName(m_package->getName());
+          completeName.append("::").append(name);
 
           DesignComponent* comp = fC->getComponentDefinition(completeName);
 

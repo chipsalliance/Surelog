@@ -58,12 +58,12 @@
 namespace SURELOG {
 using namespace UHDM;  // NOLINT (using a bunch of them)
 
-void CompileHelper::EvalStmt(const std::string& funcName, Scopes& scopes,
+void CompileHelper::EvalStmt(std::string_view funcName, Scopes& scopes,
                              bool& invalidValue, bool& continue_flag,
                              bool& break_flag, DesignComponent* component,
                              CompileDesign* compileDesign,
                              ValuedComponentI* instance,
-                             const std::string& fileName, int lineNumber,
+                             std::string_view fileName, int lineNumber,
                              const any* stmt) {
   if (invalidValue) {
     return;
@@ -165,7 +165,7 @@ void CompileHelper::EvalStmt(const std::string& funcName, Scopes& scopes,
     }
     case uhdmassignment: {
       assignment* st = (assignment*)stmt;
-      const std::string lhs = st->Lhs()->VpiName();
+      const std::string_view lhs = st->Lhs()->VpiName();
       expr* rhs = (expr*)st->Rhs();
       expr* rhsexp = reduceExpr(rhs, invalidValue, component, compileDesign,
                                 scopes.back(), fileName, lineNumber, nullptr);
@@ -193,7 +193,7 @@ void CompileHelper::EvalStmt(const std::string& funcName, Scopes& scopes,
     }
     case uhdmassign_stmt: {
       assign_stmt* st = (assign_stmt*)stmt;
-      const std::string lhs = st->Lhs()->VpiName();
+      const std::string_view lhs = st->Lhs()->VpiName();
       expr* rhs = (expr*)st->Rhs();
       expr* rhsexp = reduceExpr(rhs, invalidValue, component, compileDesign,
                                 scopes.back(), fileName, lineNumber, nullptr);
@@ -395,14 +395,14 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args,
                               bool& invalidValue, DesignComponent* component,
                               CompileDesign* compileDesign,
                               ValuedComponentI* instance,
-                              const std::string& fileName, int lineNumber,
+                              std::string_view fileName, int lineNumber,
                               any* pexpr) {
   if (func == nullptr) {
     invalidValue = true;
     return nullptr;
   }
   Serializer& s = compileDesign->getSerializer();
-  const std::string name = func->VpiName();
+  const std::string_view name = func->VpiName();
   // set internal scope stack
   Scopes scopes;
   FScope* scope = new FScope((instance) ? instance : component, component);
@@ -415,7 +415,7 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args,
     unsigned int index = 0;
     for (auto io : *func->Io_decls()) {
       if (args && (index < args->size())) {
-        const std::string ioname = io->VpiName();
+        const std::string_view ioname = io->VpiName();
         expr* ioexp = (expr*)args->at(index);
         expr* exparg = reduceExpr(ioexp, invalidValue, component, compileDesign,
                                   instance, fileName, lineNumber, pexpr);

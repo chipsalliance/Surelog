@@ -76,9 +76,9 @@ class CommonListenerHelper {
 
   void addParentChildRelations(int indexParent, antlr4::ParserRuleContext* ctx);
 
-  NodeId getObjectId(antlr4::ParserRuleContext* ctx);
+  NodeId getObjectId(antlr4::ParserRuleContext* ctx) const;
 
-  FileContent* getFileContent() { return m_fileContent; }
+  FileContent* getFileContent() const { return m_fileContent; }
 
   virtual std::tuple<unsigned int, unsigned short, unsigned int, unsigned short>
   getFileLine(antlr4::ParserRuleContext* ctx, SymbolId& fileId) = 0;
