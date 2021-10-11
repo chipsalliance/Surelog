@@ -151,6 +151,13 @@ Value* ModuleInstance::getValue(const std::string& name,
   return sval;
 }
 
+ModuleInstance* ModuleInstance::getChildByName(const std::string& name) {
+  for (auto child : m_allSubInstances) {
+    if (child->getInstanceName() == name) return child;
+  }
+  return nullptr;
+}
+
 std::string ModuleInstance::decompile(char* valueName) {
   ExprBuilder exprBuilder;
   Value* val = getValue(valueName, exprBuilder);

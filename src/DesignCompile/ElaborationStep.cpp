@@ -1240,6 +1240,12 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       stv->Expr(assignExp);
     } else if (const DummyType* un = datatype_cast<const DummyType*>(dtype)) {
       typespec* tps = un->getTypespec();
+      if (tps == nullptr) {
+        tps = m_helper.compileTypespec(component, un->getFileContent(),
+                                       un->getNodeId(), m_compileDesign,
+                                       nullptr, instance, true, true);
+        ((DummyType*)un)->setTypespec(tps);
+      }
       variables* var = nullptr;
       UHDM_OBJECT_TYPE ttps = tps->UhdmType();
       if (ttps == uhdmenum_typespec) {
