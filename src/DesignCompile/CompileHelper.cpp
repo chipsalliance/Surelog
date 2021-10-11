@@ -442,7 +442,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
   NodeId data_type = fC->Child(type_declaration);
 
   VObjectType dtype = fC->Type(data_type);
-
+  NodeId type_name = 0;
   if (dtype == VObjectType::slClass_keyword ||
       dtype == VObjectType::slStruct_keyword ||
       dtype == VObjectType::slUnion_keyword ||
@@ -459,13 +459,28 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       newType = newTypeDef;
       return newType;
     }
+    type_name = fC->Sibling(data_type);
+  } else if (dtype == VObjectType::slStringConst) {
+    NodeId btype = data_type;
+    NodeId Select = fC->Sibling(btype);
+    if (fC->Type(Select) == slConstant_bit_select) {
+      NodeId subType = fC->Sibling(Select);
+      NodeId nameId = fC->Sibling(subType);
+      if (nameId) {
+        data_type = subType;
+      } else {
+        return NULL;
+      }
+      type_name = fC->Sibling(data_type);
+      data_type = btype;
+    }
+  } else {
+    if (dtype != VObjectType::slData_type) {
+      return NULL;
+    }
+    type_name = fC->Sibling(data_type);
   }
 
-  if (dtype != VObjectType::slData_type) {
-    return NULL;
-  }
-
-  const NodeId type_name = fC->Sibling(data_type);
   const NodeId Variable_dimension = fC->Sibling(type_name);
   array_typespec* array_tps = nullptr;
   packed_array_typespec* packed_array_tps = nullptr;
@@ -477,14 +492,14 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
                       nullptr, reduce, size, false);
     array_tps->Ranges(ranges);
   }
-  const std::string name = fC->SymName(type_name);
+  std::string name = fC->SymName(type_name);
   std::string fullName = name;
   if (Package* pack = valuedcomponenti_cast<Package*>(scope)) {
     fullName = pack->getName() + "::" + name;
   }
   if (scope) {
     const TypeDef* prevDef = scope->getTypeDef(name);
-    if (prevDef) {
+    if (prevDef && !prevDef->isForwardDeclaration()) {
       Location loc1(m_symbols->registerSymbol(fC->getFileName(data_type)),
                     fC->Line(data_type), 0, m_symbols->registerSymbol(name));
       const FileContent* prevFile = prevDef->getFileContent();
@@ -682,10 +697,19 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
 
   } else if (structType) {
   } else {
+    bool forwardDeclaration = false;
     NodeId stype = fC->Child(data_type);
+    if (stype == 0 && (fC->Type(data_type) == slStringConst)) {
+      stype = data_type;
+      if (fC->Sibling(stype) == 0) {
+        name = fC->SymName(stype);
+        forwardDeclaration = true;
+      }
+    }
     if ((fC->Type(stype) == VObjectType::slStringConst) ||
         fC->Type(stype) == VObjectType::slClass_scope) {
-      TypeDef* newTypeDef = new TypeDef(fC, type_declaration, stype, name);
+      TypeDef* newTypeDef =
+          new TypeDef(fC, type_declaration, stype, name, forwardDeclaration);
       type->setDefinition(newTypeDef);
       if (scope) scope->insertTypeDef(newTypeDef);
       DummyType* dummy = new DummyType(fC, type_name, stype);
