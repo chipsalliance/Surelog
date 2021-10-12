@@ -293,7 +293,7 @@ non_port_module_item
     | program_declaration                           
     | module_declaration                            
     | timeunits_declaration                         
-    | system_task                                   
+    | system_task SEMICOLUMN
     | surelog_macro_not_defined
     | pragma_directive
     ; 
@@ -2067,7 +2067,7 @@ statement_item
     | randsequence_statement                      
     | randcase_statement                          
     | expect_property_statement                   
-    | system_task                                 
+    | system_task SEMICOLUMN
     | surelog_macro_not_defined
     ; 
      
@@ -3269,7 +3269,7 @@ ps_or_hierarchical_sequence_identifier : ( package_scope )? identifier |  ( doll
 
 ps_type_identifier : ( LOCAL COLUMNCOLUMN | package_scope )?  identifier  ; 
 
-system_task : system_task_names (OPEN_PARENS (list_of_arguments | data_type) CLOSE_PARENS)? SEMICOLUMN? ;
+system_task : system_task_names (OPEN_PARENS (list_of_arguments ( COMMA clocking_event )? | data_type) CLOSE_PARENS)? ;
 
 system_task_names : DOLLAR Simple_identifier (DOLLAR Simple_identifier)*
 		  | DOLLAR TIME
