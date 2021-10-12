@@ -2218,6 +2218,13 @@ void DesignElaboration::createFileList_() {
   Design* design = m_compileDesign->getCompiler()->getDesign();
   std::queue<ModuleInstance*> queue;
   std::set<const FileContent*> files;
+  for (auto pack : design->getPackageDefinitions()) {
+    if (pack.second->getFileContents().size()) {
+      if (pack.second->getFileContents()[0] != nullptr)
+        files.insert(pack.second->getFileContents()[0]);
+    }
+  }
+
   for (auto instance : design->getTopLevelModuleInstances()) {
     queue.push(instance);
   }
