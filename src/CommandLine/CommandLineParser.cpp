@@ -745,6 +745,9 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     }
 // No multiprocess on Windows platform, only multithreads
 #if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)
+    else if (all_arguments[i] == "-lowmem") {
+      std::cout << "Lowmem option is ignored on this platform\n";
+    }
 #else
     else if (all_arguments[i] == "-lowmem") {
       m_nbMaxProcesses = 1;
