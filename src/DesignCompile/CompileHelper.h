@@ -64,6 +64,8 @@ class CompileHelper final {
     m_exprBuilder.seterrorReporting(errors, symbols);
   }
 
+  void setDesign(Design* design) { m_exprBuilder.setDesign(design); }
+
   // ------------------------------------------------------------------------------------------
   // Surelog internal modeling
 
