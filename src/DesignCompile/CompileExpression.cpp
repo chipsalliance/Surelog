@@ -5614,10 +5614,10 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
             const any* param = pass->Lhs();
             if (param->VpiName() == basename) {
               if (param->UhdmType() == uhdmparameter) {
-                parameter* p = (parameter*) param;
+                parameter* p = (parameter*)param;
                 result = p->Typespec();
               } else {
-                type_parameter* p = (type_parameter*) param;
+                type_parameter* p = (type_parameter*)param;
                 result = p->Typespec();
               }
               break;
