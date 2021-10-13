@@ -1506,6 +1506,9 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                   c->VpiConstType(vpiRealConst);
                   result = c;
                 }
+                if (divisor) {
+                  divideByZero = false;
+                }
               }
               if (invalidValueI && invalidValueD) invalidValue = true;
               if (divideByZero) {
@@ -5604,6 +5607,21 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
               }
             }
             if (result) break;
+          }
+        }
+        if (netlist->param_assigns()) {
+          for (param_assign* pass : *netlist->param_assigns()) {
+            const any* param = pass->Lhs();
+            if (param->VpiName() == basename) {
+              if (param->UhdmType() == uhdmparameter) {
+                parameter* p = (parameter*) param;
+                result = p->Typespec();
+              } else {
+                type_parameter* p = (type_parameter*) param;
+                result = p->Typespec();
+              }
+              break;
+            }
           }
         }
       }
