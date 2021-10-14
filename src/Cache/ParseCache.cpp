@@ -85,9 +85,9 @@ std::string ParseCache::getCacheFileName_(std::string svFileName) {
     svFileName = baseFileName;
   } else {
     fs::path fs_path(svFileName);
-    std::string s1 = fs_path.parent_path();
+    std::string s1 = fs_path.parent_path().string();
     fs::path p1(s1);
-    std::string s2 = p1.parent_path();
+    std::string s2 = p1.parent_path().string();
     s1.erase(0, s2.length() + 1);
     svFileName = s1 + "/" + baseFileName;
   }
