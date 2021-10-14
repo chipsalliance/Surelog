@@ -524,6 +524,25 @@
             ]
         }, 
         {
+            "name": "Guards",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "rtl1/ast_pkg.sv", "rtl2/ast_pkg.sv", "-d", "ast"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/tests/Guards",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }, 
+        {
             "name": "SimpleIncludeAndMacros",
             "type": "cppdbg",
             "request": "launch",

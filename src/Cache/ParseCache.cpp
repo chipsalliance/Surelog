@@ -37,6 +37,14 @@
 #include <cstdio>
 #include <ctime>
 
+#if (__cplusplus >= 201703L) && __has_include(<filesystem>)
+#include <filesystem>
+namespace fs = std::filesystem;
+#else
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
+#endif
+
 #include "Cache/Cache.h"
 #include "Cache/parser_generated.h"
 #include "CommandLine/CommandLineParser.h"
@@ -63,8 +71,8 @@ std::string ParseCache::getCacheFileName_(std::string svFileName) {
   SymbolId cacheDirId =
       m_parse->getCompileSourceFile()->getCommandLineParser()->getCacheDir();
   if (svFileName.empty()) svFileName = m_parse->getPpFileName();
-  svFileName = FileUtils::basename(svFileName);
-  if (prec->isFilePrecompiled(svFileName)) {
+  std::string baseFileName = FileUtils::basename(svFileName);
+  if (prec->isFilePrecompiled(baseFileName)) {
     std::string packageRepDir =
         m_parse->getSymbol(m_parse->getCompileSourceFile()
                                ->getCommandLineParser()
@@ -74,6 +82,14 @@ std::string ParseCache::getCacheFileName_(std::string svFileName) {
                      ->mutableSymbolTable()
                      ->registerSymbol(packageRepDir);
     m_isPrecompiled = true;
+    svFileName = baseFileName;
+  } else {
+    fs::path fs_path(svFileName);
+    std::string s1 = fs_path.parent_path();
+    fs::path p1(s1);
+    std::string s2 = p1.parent_path();
+    s1.erase(0, s2.length() + 1);
+    svFileName = s1 + "/" + baseFileName;
   }
 
   std::string cacheDirName = m_parse->getSymbol(cacheDirId);
