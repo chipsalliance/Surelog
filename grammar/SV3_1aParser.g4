@@ -2146,10 +2146,16 @@ disable_statement
     : DISABLE ( hierarchical_identifier | FORK ) SEMICOLUMN  
     ; 
 
+
 conditional_statement : 
    ( unique_priority )? IF OPEN_PARENS cond_predicate CLOSE_PARENS  statement_or_null 
-    ( ELSE IF OPEN_PARENS cond_predicate CLOSE_PARENS  statement_or_null )* 
-    ( ELSE statement_or_null )* ; 
+    ( ELSE statement_or_null  | {_input->LA(1) != ELSE}? ); 
+
+
+//conditional_statement : 
+//   ( unique_priority )? IF OPEN_PARENS cond_predicate CLOSE_PARENS  statement_or_null 
+//    ( ELSE IF OPEN_PARENS cond_predicate CLOSE_PARENS  statement_or_null )* 
+//    ( ELSE statement_or_null )* ; 
 
 unique_priority
     : UNIQUE
