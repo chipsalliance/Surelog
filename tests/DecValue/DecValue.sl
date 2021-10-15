@@ -1,0 +1,1 @@
+-parse -d uhdm -d coveruhdm -elabuhdm -d ast dut.sv -nobuiltin -PA="\'d7_200" -PB="\'d1_800"
