@@ -1014,9 +1014,27 @@ Value* ExprBuilder::fromString(const std::string& value) {
         std::string size = value;
         StringUtils::rtrim(size, '\'');
         int s = atoi(size.c_str());
-        StValue* stval = (StValue*)m_valueFactory.newStValue();
-        stval->set(sval, Value::Type::Integer, s);
-        val = stval;
+        const char* value_ptr = sval.c_str();
+        long double v = std::strtold(value_ptr, &end_parse_ptr);
+        if (value_ptr != end_parse_ptr && strstr(value_ptr, ".")) {
+          val = m_valueFactory.newLValue();
+          val->set((double)v);
+        } else {
+          int64_t v = std::strtoll(value_ptr, &end_parse_ptr, 10);
+          if (value_ptr != end_parse_ptr && value.size() && value[0] == '-') {
+            val = m_valueFactory.newLValue();
+            val->set(v, Value::Type::Integer, s);
+          } else {
+            uint64_t v = std::strtoull(value_ptr, &end_parse_ptr, 10);
+            if (value_ptr != end_parse_ptr) {
+              val = m_valueFactory.newLValue();
+              val->set(v, Value::Type::Unsigned, s);
+            } else {
+              val = m_valueFactory.newStValue();
+              val->set(value);
+            }
+          }
+        }
         break;
       }
       default: {
