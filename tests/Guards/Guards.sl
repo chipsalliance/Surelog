@@ -1,0 +1,1 @@
+-parse -d ast rtl1/ast_pkg.sv  rtl2/ast_pkg.sv 
