@@ -51,9 +51,15 @@ std::string PPCache::getCacheFileName_(const std::string& requested_file) {
   SymbolId cacheDirId =
       m_pp->getCompileSourceFile()->getCommandLineParser()->getCacheDir();
 
-  const std::string svFileName = FileUtils::basename(
-      requested_file.empty() ? m_pp->getFileName(LINE1) : requested_file);
-  if (prec->isFilePrecompiled(svFileName)) {
+  const std::string svFileName =
+      requested_file.empty() ? m_pp->getFileName(LINE1) : requested_file;
+
+  const std::string& baseFileName = FileUtils::basename(svFileName);
+  const std::string& filePath = FileUtils::getPathName(svFileName);
+  std::string hashedPath = FileUtils::hashPath(filePath);
+  std::string fileName = hashedPath + baseFileName;
+
+  if (prec->isFilePrecompiled(baseFileName)) {
     std::string packageRepDir = m_pp->getSymbol(m_pp->getCompileSourceFile()
                                                     ->getCommandLineParser()
                                                     ->getPrecompiledDir());
@@ -62,14 +68,17 @@ std::string PPCache::getCacheFileName_(const std::string& requested_file) {
                      ->mutableSymbolTable()
                      ->registerSymbol(packageRepDir);
     m_isPrecompiled = true;
+    fileName = baseFileName;
+    hashedPath = "";
   }
 
   std::string cacheDirName = m_pp->getSymbol(cacheDirId);
 
   Library* lib = m_pp->getLibrary();
   std::string libName = lib->getName() + "/";
-  std::string cacheFileName = cacheDirName + libName + svFileName + ".slpp";
+  std::string cacheFileName = cacheDirName + libName + fileName + ".slpp";
   FileUtils::mkDir(cacheDirName + libName);
+  FileUtils::mkDir(cacheDirName + libName + hashedPath);
   return cacheFileName;
 }
 
