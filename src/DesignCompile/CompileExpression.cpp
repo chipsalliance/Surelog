@@ -5201,6 +5201,14 @@ uint64_t CompileHelper::Bits(const UHDM::any* typespec, bool& invalidValue,
                     fileName, lineNumber, reduce, sizeMode);
         break;
       }
+      case UHDM::uhdmarray_typespec: {
+        array_typespec* lts = (array_typespec*)typespec;
+        ranges = lts->Ranges();
+        bits =
+            Bits(lts->Elem_typespec(), invalidValue, component, compileDesign,
+                 instance, fileName, lineNumber, reduce, sizeMode);
+        break;
+      }
       case UHDM::uhdmshort_real_typespec: {
         bits = 32;
         break;
@@ -5558,6 +5566,22 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
           NodeId DataType = fC->Parent(Packed_dimension);
           result = compileTypespec(component, fC, DataType, compileDesign,
                                    nullptr, instance, reduce);
+        }
+        NodeId Unpacked_dimension = sig->getUnpackedDimension();
+        if (fC->Type(Unpacked_dimension) != VObjectType::slNull_rule) {
+          array_typespec* array = s.MakeArray_typespec();
+          int size;
+          VectorOfrange* ranges =
+              compileRanges(component, fC, Unpacked_dimension, compileDesign,
+                            nullptr, instance, reduce, size, false);
+          array->Ranges(ranges);
+          if (result == nullptr) {
+            result =
+                compileBuiltinTypespec(component, fC, sig->getNodeId(),
+                                       sig->getType(), compileDesign, nullptr);
+          }
+          array->Elem_typespec((typespec*)result);
+          result = array;
         }
       }
     }

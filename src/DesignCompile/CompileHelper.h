@@ -220,6 +220,12 @@ class CompileHelper final {
                                   UHDM::any* pstmt, ValuedComponentI* instance,
                                   bool reduce, bool isVariable = false);
 
+  UHDM::typespec* compileBuiltinTypespec(DesignComponent* component,
+                                         const FileContent* fC, NodeId type,
+                                         VObjectType the_type,
+                                         CompileDesign* compileDesign,
+                                         std::vector<UHDM::range*>* ranges);
+
   UHDM::typespec* compileDatastructureTypespec(
       DesignComponent* component, const FileContent* fC, NodeId type,
       CompileDesign* compileDesign, SURELOG::ValuedComponentI* instance,
