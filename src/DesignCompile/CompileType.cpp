@@ -110,11 +110,17 @@ variables* CompileHelper::getSimpleVarFromTypespec(
       break;
     }
     case uhdmenum_typespec: {
-      enum_typespec* etps = (enum_typespec*)spec;
-      typespec* base = (typespec*)etps->Base_typespec();
       UHDM::enum_var* enum_var = s.MakeEnum_var();
       var = enum_var;
-      enum_var->Typespec(base);
+      enum_var->Typespec(spec);
+      if (packedDimensions) {
+        packed_array_var* array = s.MakePacked_array_var();
+        VectorOfany* vars = s.MakeAnyVec();
+        array->Ranges(packedDimensions);
+        array->Elements(vars);
+        vars->push_back(var);
+        var = array;
+      }
       break;
     }
     case uhdmlogic_typespec: {
@@ -132,11 +138,29 @@ variables* CompileHelper::getSimpleVarFromTypespec(
     case uhdmunion_typespec: {
       UHDM::union_var* unionv = s.MakeUnion_var();
       var = unionv;
+      var->Typespec(spec);
+      if (packedDimensions) {
+        packed_array_var* array = s.MakePacked_array_var();
+        VectorOfany* vars = s.MakeAnyVec();
+        array->Ranges(packedDimensions);
+        array->Elements(vars);
+        vars->push_back(var);
+        var = array;
+      }
       break;
     }
     case uhdmstruct_typespec: {
       UHDM::struct_var* structv = s.MakeStruct_var();
       var = structv;
+      var->Typespec(spec);
+      if (packedDimensions) {
+        packed_array_var* array = s.MakePacked_array_var();
+        VectorOfany* vars = s.MakeAnyVec();
+        array->Ranges(packedDimensions);
+        array->Elements(vars);
+        vars->push_back(var);
+        var = array;
+      }
       break;
     }
     default:
