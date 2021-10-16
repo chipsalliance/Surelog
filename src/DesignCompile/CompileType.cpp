@@ -714,6 +714,117 @@ int_typespec* CompileHelper::buildIntTypespec(
   return var;
 }
 
+UHDM::typespec* CompileHelper::compileBuiltinTypespec(
+    DesignComponent* component, const FileContent* fC, NodeId type,
+    VObjectType the_type, CompileDesign* compileDesign, VectorOfrange* ranges) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  typespec* result = nullptr;
+  switch (the_type) {
+    case VObjectType::slIntVec_TypeLogic:
+    case VObjectType::slIntVec_TypeReg: {
+      logic_typespec* var = s.MakeLogic_typespec();
+      var->Ranges(ranges);
+      var->VpiFile(fC->getFileName());
+      var->VpiLineNo(fC->Line(type));
+      var->VpiColumnNo(fC->Column(type));
+      var->VpiEndLineNo(fC->EndLine(type));
+      var->VpiEndColumnNo(fC->EndColumn(type));
+      result = var;
+      break;
+    }
+    case VObjectType::slIntegerAtomType_Int: {
+      int_typespec* var = buildIntTypespec(
+          compileDesign, fC->getFileName(), "", "", fC->Line(type),
+          fC->Column(type), fC->EndLine(type), fC->EndColumn(type));
+      result = var;
+      break;
+    }
+    case VObjectType::slIntegerAtomType_Byte: {
+      byte_typespec* var = s.MakeByte_typespec();
+      var->VpiFile(fC->getFileName());
+      var->VpiLineNo(fC->Line(type));
+      var->VpiColumnNo(fC->Column(type));
+      var->VpiEndLineNo(fC->EndLine(type));
+      var->VpiEndColumnNo(fC->EndColumn(type));
+      result = var;
+      break;
+    }
+    case VObjectType::slIntegerAtomType_LongInt: {
+      long_int_typespec* var = s.MakeLong_int_typespec();
+      var->VpiFile(fC->getFileName());
+      var->VpiLineNo(fC->Line(type));
+      var->VpiColumnNo(fC->Column(type));
+      var->VpiEndLineNo(fC->EndLine(type));
+      var->VpiEndColumnNo(fC->EndColumn(type));
+      result = var;
+      break;
+    }
+    case VObjectType::slIntegerAtomType_Shortint: {
+      short_int_typespec* var = s.MakeShort_int_typespec();
+      var->VpiFile(fC->getFileName());
+      var->VpiLineNo(fC->Line(type));
+      var->VpiEndLineNo(fC->EndLine(type));
+      var->VpiEndColumnNo(fC->EndColumn(type));
+      result = var;
+      break;
+    }
+    case VObjectType::slIntegerAtomType_Time: {
+      time_typespec* var = s.MakeTime_typespec();
+      var->VpiFile(fC->getFileName());
+      var->VpiLineNo(fC->Line(type));
+      var->VpiColumnNo(fC->Column(type));
+      var->VpiEndLineNo(fC->EndLine(type));
+      var->VpiEndColumnNo(fC->EndColumn(type));
+      result = var;
+      break;
+    }
+    case VObjectType::slIntVec_TypeBit: {
+      bit_typespec* var = s.MakeBit_typespec();
+      var->Ranges(ranges);
+      var->VpiFile(fC->getFileName());
+      var->VpiLineNo(fC->Line(type));
+      var->VpiColumnNo(fC->Column(type));
+      var->VpiEndLineNo(fC->EndLine(type));
+      var->VpiEndColumnNo(fC->EndColumn(type));
+      result = var;
+      break;
+    }
+    case VObjectType::slNonIntType_ShortReal: {
+      short_real_typespec* var = s.MakeShort_real_typespec();
+      var->VpiFile(fC->getFileName());
+      var->VpiLineNo(fC->Line(type));
+      var->VpiColumnNo(fC->Column(type));
+      var->VpiEndLineNo(fC->EndLine(type));
+      var->VpiEndColumnNo(fC->EndColumn(type));
+      result = var;
+      break;
+    }
+    case VObjectType::slNonIntType_Real: {
+      real_typespec* var = s.MakeReal_typespec();
+      var->VpiFile(fC->getFileName());
+      var->VpiLineNo(fC->Line(type));
+      var->VpiColumnNo(fC->Column(type));
+      var->VpiEndLineNo(fC->EndLine(type));
+      var->VpiEndColumnNo(fC->EndColumn(type));
+      result = var;
+      break;
+    }
+    case VObjectType::slString_type: {
+      UHDM::string_typespec* tps = s.MakeString_typespec();
+      tps->VpiFile(fC->getFileName());
+      tps->VpiLineNo(fC->Line(type));
+      tps->VpiColumnNo(fC->Column(type));
+      tps->VpiEndLineNo(fC->EndLine(type));
+      tps->VpiEndColumnNo(fC->EndColumn(type));
+      result = tps;
+      break;
+    }
+    default:
+      break;
+  }
+  return result;
+}
+
 UHDM::typespec* CompileHelper::compileTypespec(
     DesignComponent* component, const FileContent* fC, NodeId type,
     CompileDesign* compileDesign, UHDM::any* pstmt,
@@ -831,102 +942,18 @@ UHDM::typespec* CompileHelper::compileTypespec(
       break;
     }
     case VObjectType::slIntVec_TypeLogic:
-    case VObjectType::slIntVec_TypeReg: {
-      logic_typespec* var = s.MakeLogic_typespec();
-      var->Ranges(ranges);
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      var->VpiColumnNo(fC->Column(type));
-      var->VpiEndLineNo(fC->EndLine(type));
-      var->VpiEndColumnNo(fC->EndColumn(type));
-      result = var;
-      break;
-    }
-    case VObjectType::slIntegerAtomType_Int: {
-      int_typespec* var = buildIntTypespec(
-          compileDesign, fC->getFileName(), "", "", fC->Line(type),
-          fC->Column(type), fC->EndLine(type), fC->EndColumn(type));
-      result = var;
-      break;
-    }
-    case VObjectType::slIntegerAtomType_Byte: {
-      byte_typespec* var = s.MakeByte_typespec();
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      var->VpiColumnNo(fC->Column(type));
-      var->VpiEndLineNo(fC->EndLine(type));
-      var->VpiEndColumnNo(fC->EndColumn(type));
-      result = var;
-      break;
-    }
-    case VObjectType::slIntegerAtomType_LongInt: {
-      long_int_typespec* var = s.MakeLong_int_typespec();
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      var->VpiColumnNo(fC->Column(type));
-      var->VpiEndLineNo(fC->EndLine(type));
-      var->VpiEndColumnNo(fC->EndColumn(type));
-      result = var;
-      break;
-    }
-    case VObjectType::slIntegerAtomType_Shortint: {
-      short_int_typespec* var = s.MakeShort_int_typespec();
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      var->VpiEndLineNo(fC->EndLine(type));
-      var->VpiEndColumnNo(fC->EndColumn(type));
-      result = var;
-      break;
-    }
-    case VObjectType::slIntegerAtomType_Time: {
-      time_typespec* var = s.MakeTime_typespec();
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      var->VpiColumnNo(fC->Column(type));
-      var->VpiEndLineNo(fC->EndLine(type));
-      var->VpiEndColumnNo(fC->EndColumn(type));
-      result = var;
-      break;
-    }
-    case VObjectType::slIntVec_TypeBit: {
-      bit_typespec* var = s.MakeBit_typespec();
-      var->Ranges(ranges);
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      var->VpiColumnNo(fC->Column(type));
-      var->VpiEndLineNo(fC->EndLine(type));
-      var->VpiEndColumnNo(fC->EndColumn(type));
-      result = var;
-      break;
-    }
-    case VObjectType::slNonIntType_ShortReal: {
-      short_real_typespec* var = s.MakeShort_real_typespec();
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      var->VpiColumnNo(fC->Column(type));
-      var->VpiEndLineNo(fC->EndLine(type));
-      var->VpiEndColumnNo(fC->EndColumn(type));
-      result = var;
-      break;
-    }
-    case VObjectType::slNonIntType_Real: {
-      real_typespec* var = s.MakeReal_typespec();
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      var->VpiColumnNo(fC->Column(type));
-      var->VpiEndLineNo(fC->EndLine(type));
-      var->VpiEndColumnNo(fC->EndColumn(type));
-      result = var;
-      break;
-    }
+    case VObjectType::slIntVec_TypeReg:
+    case VObjectType::slIntegerAtomType_Int:
+    case VObjectType::slIntegerAtomType_Byte:
+    case VObjectType::slIntegerAtomType_LongInt:
+    case VObjectType::slIntegerAtomType_Shortint:
+    case VObjectType::slIntegerAtomType_Time:
+    case VObjectType::slIntVec_TypeBit:
+    case VObjectType::slNonIntType_ShortReal:
+    case VObjectType::slNonIntType_Real:
     case VObjectType::slString_type: {
-      UHDM::string_typespec* tps = s.MakeString_typespec();
-      tps->VpiFile(fC->getFileName());
-      tps->VpiLineNo(fC->Line(type));
-      tps->VpiColumnNo(fC->Column(type));
-      tps->VpiEndLineNo(fC->EndLine(type));
-      tps->VpiEndColumnNo(fC->EndColumn(type));
-      result = tps;
+      result = compileBuiltinTypespec(component, fC, type, the_type,
+                                      compileDesign, ranges);
       break;
     }
     case VObjectType::slPackage_scope:
