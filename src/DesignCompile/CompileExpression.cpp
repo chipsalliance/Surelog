@@ -2479,8 +2479,10 @@ int64_t CompileHelper::get_value(bool& invalidValue, const UHDM::expr* expr) {
         try {
           if (strstr(v.c_str(), "UINT:")) {
             result = std::strtoull(v.c_str() + strlen("UINT:"), 0, 10);
-          } else {
+          } else if (strstr(v.c_str(), "INT:")) {
             result = std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
+          } else {
+            invalidValue = true;
           }
         } catch (...) {
           invalidValue = true;

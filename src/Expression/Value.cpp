@@ -961,6 +961,7 @@ LValue::LValue(const LValue& val)
       m_prev(nullptr),
       m_next(nullptr) {
   for (int i = 0; i < val.m_nbWords; i++) {
+    m_valueArray[i].m_size = 0;
     m_valueArray[i] = val.m_valueArray[i];
   }
 }
@@ -1124,14 +1125,19 @@ void LValue::adjust(const Value* a) {
       m_valueArray = nullptr;
     }
     m_nbWords = a->getNbWords();
-    if (m_nbWords) m_valueArray = new SValue[m_nbWords];
+    if (m_nbWords) {
+      m_valueArray = new SValue[m_nbWords];
+      m_valueArray[0].m_size = 0;
+    }
   }
   if (m_valueArray == nullptr) {
     m_valueArray = new SValue[1];
     m_nbWords = 1;
+    m_valueArray[0].m_size = 0;
   }
   for (unsigned short i = 0; i < m_nbWords; i++) {
     m_valueArray[i].m_value.u_int = 0;
+    m_valueArray[i].m_size = 0;
   }
 }
 
@@ -1368,7 +1374,6 @@ void LValue::u_bitwXnor(const Value* a) {
 void LValue::plus(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
-  m_valueArray[0].m_size = a->getSize(0);
   m_valid = a->isValid() && b->isValid();
   if (!m_valid) return;
 
@@ -1396,13 +1401,14 @@ void LValue::plus(const Value* a, const Value* b) {
   }
   m_valueArray[0].m_negative = m_negative;
   m_valueArray[0].m_type = m_type;
+  m_valueArray[0].m_size =
+      (a->getSize(0) > b->getSize(0)) ? a->getSize(0) : b->getSize(0);
 }
 
 void LValue::minus(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   m_valid = a->isValid() && b->isValid();
-  m_valueArray[0].m_size = a->getSize(0);
   if (!m_valid) return;
   switch (a->getType()) {
     case Value::Type::Scalar:
@@ -1428,13 +1434,14 @@ void LValue::minus(const Value* a, const Value* b) {
   }
   m_valueArray[0].m_negative = m_negative;
   m_valueArray[0].m_type = m_type;
+  m_valueArray[0].m_size =
+      (a->getSize(0) > b->getSize(0)) ? a->getSize(0) : b->getSize(0);
 }
 
 void LValue::mult(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   m_valid = a->isValid() && b->isValid();
-  m_valueArray[0].m_size = a->getSize(0);
   if (!m_valid) return;
 
   switch (a->getType()) {
@@ -1461,13 +1468,16 @@ void LValue::mult(const Value* a, const Value* b) {
   }
   m_valueArray[0].m_negative = m_negative;
   m_valueArray[0].m_type = m_type;
+  m_valueArray[0].m_size =
+      (a->getSize(0) > b->getSize(0)) ? a->getSize(0) : b->getSize(0);
 }
 
 void LValue::div(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   m_valid = a->isValid() && b->isValid();
-  m_valueArray[0].m_size = a->getSize(0);
+  m_valueArray[0].m_size =
+      (a->getSize(0) > b->getSize(0)) ? a->getSize(0) : b->getSize(0);
   if (!m_valid) return;
   if (b->getValueL(0)) {
     switch (a->getType()) {
@@ -1506,7 +1516,8 @@ void LValue::mod(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   m_valid = a->isValid() && b->isValid();
-  m_valueArray[0].m_size = a->getSize(0);
+  m_valueArray[0].m_size =
+      (a->getSize(0) > b->getSize(0)) ? a->getSize(0) : b->getSize(0);
   if (!m_valid) return;
   switch (a->getType()) {
     case Value::Type::Scalar:
@@ -1539,7 +1550,8 @@ void LValue::power(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   m_valid = a->isValid() && b->isValid();
-  m_valueArray[0].m_size = a->getSize(0);
+  m_valueArray[0].m_size =
+      (a->getSize(0) > b->getSize(0)) ? a->getSize(0) : b->getSize(0);
   if (!m_valid) return;
   switch (a->getType()) {
     case Value::Type::Scalar:
@@ -1679,6 +1691,7 @@ void LValue::equiv(const Value* a, const Value* b) {
       return;
     }
   }
+  m_valueArray[0].m_size = 1;
   m_valueArray[0].m_value.u_int = 1;
   m_valueArray[0].m_negative = 0;
   m_negative = 0;
@@ -1730,8 +1743,11 @@ void LValue::bitwAnd(const Value* a, const Value* b) {
     m_valueArray[i].m_value.u_int = a->getValueUL(i) & b->getValueUL(i);
     m_valueArray[i].m_size = a->getSize(i);
   }
+  m_valueArray[0].m_size = 1;
   m_valueArray[0].m_negative = 0;
   m_negative = 0;
+  m_valueArray[0].m_size =
+      (a->getSize(0) > b->getSize(0)) ? a->getSize(0) : b->getSize(0);
   m_type = Value::Type::Unsigned;
 }
 
@@ -1746,6 +1762,8 @@ void LValue::bitwOr(const Value* a, const Value* b) {
   }
   m_valueArray[0].m_negative = 0;
   m_negative = 0;
+  m_valueArray[0].m_size =
+      (a->getSize(0) > b->getSize(0)) ? a->getSize(0) : b->getSize(0);
   m_type = Value::Type::Unsigned;
 }
 
@@ -1760,6 +1778,8 @@ void LValue::bitwXor(const Value* a, const Value* b) {
   }
   m_valueArray[0].m_negative = 0;
   m_negative = 0;
+  m_valueArray[0].m_size =
+      (a->getSize(0) > b->getSize(0)) ? a->getSize(0) : b->getSize(0);
   m_type = Value::Type::Unsigned;
 }
 
