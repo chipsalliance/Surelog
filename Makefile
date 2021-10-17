@@ -65,6 +65,9 @@ coverage-build/html: coverage-build/surelog.coverage
 test/regression: run-cmake-release
 	cd build && ../tests/regression.tcl mt=0 show_diff
 
+test/valgrind: run-cmake-debug
+	cd dbuild && ../tests/regression.tcl debug=valgrind test=ArianeElab path=${PWD}/dbuild/bin
+
 test: test/unittest test/regression
 
 test-parallel: release test/unittest

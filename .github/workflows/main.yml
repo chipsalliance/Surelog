@@ -19,6 +19,7 @@ jobs:
         - test
         - regression
         - coverage
+        - valgrind
         - install
     env:
       MODE: ${{ matrix.mode }}
@@ -43,7 +44,8 @@ jobs:
           google-perftools \
           libgoogle-perftools-dev \
           uuid-dev \
-          lcov
+          lcov \
+          valgrind
         sudo ln -sf /usr/bin/g++-9 /usr/bin/g++
         sudo ln -sf /usr/bin/gcc-9 /usr/bin/gcc
         sudo ln -sf /usr/bin/gcov-9 /usr/bin/gcov
@@ -99,6 +101,12 @@ jobs:
       if: matrix.mode == 'coverage'
       run: |
         make coverage-build/surelog.coverage
+
+    - name: Valgrind
+      if: matrix.mode == 'valgrind'
+      run: |
+        make debug
+        make test/valgrind
 
     - name: Upload coverage
       # will show up under https://app.codecov.io/gh/chipsalliance/Surelog

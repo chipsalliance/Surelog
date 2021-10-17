@@ -599,7 +599,11 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         break;
       }
       i++;
-      m_outputDir = m_symbolTable->registerSymbol(all_arguments[i]);
+      std::string odir = all_arguments[i];
+      if ((odir.back() != '/') && (odir.back() != '\\')) {
+        odir.append("/");
+      }
+      m_outputDir = m_symbolTable->registerSymbol(odir);
     }
   }
   bool status = prepareCompilation_(argc, argv);
@@ -1133,12 +1137,6 @@ bool CommandLineParser::isSVFile(const std::string& name) const {
 bool CommandLineParser::prepareCompilation_(int argc, const char** argv) {
   bool noError = true;
   std::string odir = m_symbolTable->getSymbol(m_outputDir);
-  if (odir.size()) {
-    if (odir[odir.size() - 1] != '/') {
-      odir += '/';
-    }
-  }
-
   odir += m_symbolTable->getSymbol(
       (fileunit() ? m_compileUnitDirectory : m_compileAllDirectory));
   m_fullCompileDir = m_symbolTable->registerSymbol(odir);
@@ -1173,15 +1171,8 @@ bool CommandLineParser::parseBuiltIn() { return m_parseBuiltIn; }
 
 bool CommandLineParser::setupCache_() {
   bool noError = true;
-  std::string odir;
   std::string cachedir;
-  odir = m_symbolTable->getSymbol(m_outputDir);
-  if (odir.size()) {
-    if (odir[odir.size() - 1] != '/') {
-      odir += '/';
-    }
-  }
-
+  std::string odir = m_symbolTable->getSymbol(m_outputDir);
   odir += m_symbolTable->getSymbol(
       (fileunit() ? m_compileUnitDirectory : m_compileAllDirectory));
   if (m_cacheDirId == 0) {
@@ -1207,15 +1198,8 @@ bool CommandLineParser::setupCache_() {
 
 bool CommandLineParser::cleanCache() {
   bool noError = true;
-  std::string odir;
   std::string cachedir;
-  odir = m_symbolTable->getSymbol(m_outputDir);
-  if (odir.size()) {
-    if (odir[odir.size() - 1] != '/') {
-      odir += '/';
-    }
-  }
-
+  std::string odir = m_symbolTable->getSymbol(m_outputDir);
   odir += m_symbolTable->getSymbol(
       (fileunit() ? m_compileUnitDirectory : m_compileAllDirectory));
   if (m_cacheDirId == 0) {
