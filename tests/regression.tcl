@@ -427,7 +427,9 @@ proc run_regression { } {
                 log "$SURELOG_COMMAND $command\n"
             }
         }
-
+        if [file exists "$REGRESSION_PATH/tests/$test/valgrind.log"] {
+            file delete -force "$REGRESSION_PATH/tests/$test/valgrind.log"
+        }
         if {$UPDATE == 1} {
             if [file exist "$REGRESSION_PATH/tests/$test/${testname}.log"] {
                 log  [format "| %-*s | Copying $REGRESSION_PATH/tests/$test/${testname}.log to $testdir/${testname}.log" $w1 $testname]
@@ -822,7 +824,7 @@ if {$result == "PASS"} {
 } else {
     if {$MUTE != 0} {
         puts $LOG_CONTENT
-        if {($SHOW_DIFF == 1) || ($DEBUG == "valgrind"} {
+        if {($SHOW_DIFF == 1) || ($DEBUG == "valgrind")} {
             # Only return non-0 in the reporting pass, not while being run with cmake in parallel
             if {$result != "PASS"} {
                 exit 1
