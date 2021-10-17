@@ -66,7 +66,7 @@ test/regression: run-cmake-release
 	cd build && ../tests/regression.tcl mt=0 show_diff
 
 test/valgrind: run-cmake-debug
-	cd build && ../tests/regression.tcl debug=valgrind test=ArianeElab path=${PWD}/dbuild/bin
+	cd dbuild && ../tests/regression.tcl debug=valgrind test=ArianeElab path=${PWD}/dbuild/bin
 
 test: test/unittest test/regression
 
