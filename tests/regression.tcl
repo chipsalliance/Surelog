@@ -822,7 +822,7 @@ if {$result == "PASS"} {
 } else {
     if {$MUTE != 0} {
         puts $LOG_CONTENT
-        if {$SHOW_DIFF == 1} {
+        if {($SHOW_DIFF == 1) || ($DEBUG == "valgrind"} {
             # Only return non-0 in the reporting pass, not while being run with cmake in parallel
             if {$result != "PASS"} {
                 exit 1

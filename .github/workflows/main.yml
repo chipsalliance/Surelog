@@ -105,6 +105,7 @@ jobs:
     - name: Valgrind
       if: matrix.mode == 'valgrind'
       run: |
+        make debug
         make test/valgrind
 
     - name: Upload coverage
