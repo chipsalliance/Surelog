@@ -657,6 +657,25 @@
             ]
         },
         {
+            "name": "Bp",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-f", "/home/alain/sv-tests/bp", "-nobuiltin", "-d", "vpi_ids", "-elabuhdm", "-replay", "-writepp"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "Oh",
             "type": "cppdbg",
             "request": "launch",

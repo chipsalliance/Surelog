@@ -116,9 +116,6 @@ if [regexp {mp=([0-9]+)} $argv tmp MP_MAX] {
 }
 
 if [regexp {debug=([a-z]+)} $argv tmp DEBUG] {
-    if {$DEBUG == "valgrind"} {
-        set DEBUG_TOOL "valgrind --tool=memcheck --log-file=valgrind.log"
-    }
     if {$DEBUG == "ddd"} {
         set DEBUG_TOOL "ddd"
     }
@@ -379,7 +376,7 @@ proc count_split { string } {
 }
 
 proc run_regression { } {
-    global TESTS TESTS_DIR SURELOG_COMMAND UHDM_DUMP_COMMAND LONGESTTESTNAME TESTTARGET ONETEST UPDATE USER ELAPSED PRIOR_USER PRIOR_ELAPSED MUTE TIME
+    global TESTS TESTS_DIR SURELOG_COMMAND UHDM_DUMP_COMMAND LONGESTTESTNAME TESTTARGET ONETEST UPDATE USER ELAPSED PRIOR_USER PRIOR_ELAPSED MUTE TIME DEBUG
     global DIFF_TESTS PRIOR_MAX_MEM MAX_MEM MAX_TIME PRIOR_MAX_TIME SHOW_DETAILS MT_MAX MP_MAX REGRESSION_PATH LARGE_TESTS LONG_TESTS DIFF_MODE SHELL SHELL_ARGS
     set overrallpass "PASS"
 
@@ -498,7 +495,13 @@ proc run_regression { } {
                 if {($ONETEST != "") && ($testname != $ONETEST)} {
                     continue
                 }
-                catch {set time_result [exec $SHELL $SHELL_ARGS "$SURELOG_COMMAND $command > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
+                set FINAL_COMMAND $SURELOG_COMMAND
+                if {$DEBUG == "valgrind"} {
+                    set surelog [lindex $SURELOG_COMMAND 1]
+                    set FINAL_COMMAND "$TIME valgrind --tool=memcheck --log-file=$REGRESSION_PATH/tests/$test/valgrind.log $surelog"
+                    puts "\n$FINAL_COMMAND\n"
+                }
+                catch {set time_result [exec $SHELL $SHELL_ARGS "$FINAL_COMMAND $command > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
                 if [file exist $REGRESSION_PATH/tests/$test/slpp_all/surelog.uhdm] {
                     if [catch {exec $SHELL $SHELL_ARGS "$UHDM_DUMP_COMMAND $REGRESSION_PATH/tests/$test/slpp_all/surelog.uhdm > $REGRESSION_PATH/tests/$test/uhdm.dump"}] {
                         set passstatus "FAILDUMP"
@@ -600,6 +603,7 @@ proc run_regression { } {
             close $fid
             set no_previous_time_content 0
         }
+
         if [file exists "$testname.log"] {
             set fid [open "$testname.log" "r"]
             set content [read $fid]
@@ -669,6 +673,19 @@ proc run_regression { } {
                 }
             }
         }
+
+        if [file exists "$REGRESSION_PATH/tests/$test/valgrind.log"] {
+            set fid [open "$REGRESSION_PATH/tests/$test/valgrind.log" "r"]
+            set valgrind_content [read $fid]
+            close $fid
+            if ![regexp {ERROR SUMMARY: 0} $valgrind_content] {
+                incr fatals
+                set fatals "$fatals ([expr $fatals - $log_fatals])"
+                set passstatus "FAIL"
+                set overrallpass "FAIL"
+            }
+        }
+
         if {($fatals == -1) || ($errors == -1) || ($warnings == -1) || ($notes == -1)} {
             if {$segfault == 0} {
                 set segfault 1
