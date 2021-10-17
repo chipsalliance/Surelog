@@ -62,6 +62,7 @@
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
+#include <uhdm/ExprEval.h>
 #include <uhdm/Serializer.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
@@ -219,6 +220,15 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
               pclone->Rhs(rhs);
               m_helper.reorderAssignmentPattern(mod, lhs, rhs, m_compileDesign,
                                                 instance, 0);
+              /*
+              if (lhs->UhdmType() == uhdmparameter) {
+                parameter* p = (parameter*)lhs;
+                if (const typespec* tps = p->Typespec()) {
+                  UHDM::ExprEval eval;
+                  eval.flattenPatternAssignments(s, tps, (expr*)rhs);
+                }
+              }
+              */
             }
 
             assigns->push_back(pclone);
