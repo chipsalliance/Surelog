@@ -62,10 +62,10 @@ std::string NumUtils::binToHex(const std::string &s) {
   return out;
 }
 
-std::string NumUtils::toBinary(unsigned int size, uint64_t val) {
+std::string NumUtils::toBinary(int size, uint64_t val) {
   int constexpr bitFieldSize = 100;
   std::string tmp = std::bitset<bitFieldSize>(val).to_string();
-  if (size == 0) {
+  if (size <= 0) {
     for (unsigned int i = 0; i < bitFieldSize; i++) {
       if (tmp[i] == '1') {
         size = bitFieldSize - i;
