@@ -182,7 +182,6 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
     isMultidimensional = assign->isMultidimensional();
     const std::string& paramName =
         assign->getFileContent()->SymName(assign->getParamId());
-
     if (mod_assign) {
       const any* rhs = mod_assign->Rhs();
       expr* complexVal = instance->getComplexValue(paramName);
@@ -220,7 +219,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
               pclone->Rhs(rhs);
               m_helper.reorderAssignmentPattern(mod, lhs, rhs, m_compileDesign,
                                                 instance, 0);
-              /*
+
               if (lhs->UhdmType() == uhdmparameter) {
                 parameter* p = (parameter*)lhs;
                 if (const typespec* tps = p->Typespec()) {
@@ -228,7 +227,6 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
                   eval.flattenPatternAssignments(s, tps, (expr*)rhs);
                 }
               }
-              */
             }
 
             assigns->push_back(pclone);

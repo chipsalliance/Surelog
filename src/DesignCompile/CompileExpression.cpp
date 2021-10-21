@@ -1655,16 +1655,33 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
             break;
           }
           case vpiConcatOp: {
-            UHDM::constant* c = s.MakeConstant();
+            UHDM::constant* c1 = s.MakeConstant();
             std::string cval;
             int csize = 0;
             for (unsigned int i = 0; i < operands.size(); i++) {
-              if (operands[i]->UhdmType() == uhdmconstant) {
-                constant* c = (constant*)operands[i];
-                std::string v = c->VpiValue();
-                unsigned int size = c->VpiSize();
+              any* op = operands[i];
+              UHDM_OBJECT_TYPE optype = op->UhdmType();
+              int operType = 0;
+              if (optype == uhdmoperation) {
+                operation* o = (operation*)op;
+                operType = o->VpiOpType();
+              }
+              if ((optype != uhdmconstant) && (operType != vpiConcatOp) &&
+                  (operType != vpiMultiAssignmentPatternOp) &&
+                  (operType != vpiAssignmentPatternOp)) {
+                if (expr* tmp =
+                        reduceExpr(op, invalidValue, component, compileDesign,
+                                   instance, fileName, lineNumber, pexpr)) {
+                  op = tmp;
+                }
+                optype = op->UhdmType();
+              }
+              if (optype == uhdmconstant) {
+                constant* c2 = (constant*)op;
+                std::string v = c2->VpiValue();
+                unsigned int size = c2->VpiSize();
                 csize += size;
-                int type = c->VpiConstType();
+                int type = c2->VpiConstType();
                 switch (type) {
                   case vpiBinaryConst: {
                     std::string tmp = v.c_str() + strlen("BIN:");
@@ -1679,9 +1696,13 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                     break;
                   }
                   case vpiDecConst: {
-                    long long iv =
-                        std::strtoll(v.c_str() + strlen("DEC:"), 0, 10);
-                    cval += NumUtils::toBinary(size, iv);
+                    if (operands.size() == 1) {
+                      long long iv =
+                          std::strtoll(v.c_str() + strlen("DEC:"), 0, 10);
+                      cval += NumUtils::toBinary(size, iv);
+                    } else {
+                      c1 = nullptr;
+                    }
                     break;
                   }
                   case vpiHexConst: {
@@ -1704,15 +1725,23 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                     break;
                   }
                   case vpiIntConst: {
-                    int64_t iv =
-                        std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
-                    cval += NumUtils::toBinary(size, iv);
+                    if (operands.size() == 1) {
+                      int64_t iv =
+                          std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
+                      cval += NumUtils::toBinary(size, iv);
+                    } else {
+                      c1 = nullptr;
+                    }
                     break;
                   }
                   case vpiUIntConst: {
-                    uint64_t iv =
-                        std::strtoull(v.c_str() + strlen("UINT:"), 0, 10);
-                    cval += NumUtils::toBinary(size, iv);
+                    if (operands.size() == 1) {
+                      uint64_t iv =
+                          std::strtoull(v.c_str() + strlen("UINT:"), 0, 10);
+                      cval += NumUtils::toBinary(size, iv);
+                    } else {
+                      c1 = nullptr;
+                    }
                     break;
                   }
                   default: {
@@ -1729,15 +1758,15 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                   }
                 }
               } else {
-                c = nullptr;
+                c1 = nullptr;
                 break;
               }
             }
-            if (c) {
-              c->VpiValue("BIN:" + cval);
-              c->VpiSize(csize);
-              c->VpiConstType(vpiBinaryConst);
-              result = c;
+            if (c1) {
+              c1->VpiValue("BIN:" + cval);
+              c1->VpiSize(csize);
+              c1->VpiConstType(vpiBinaryConst);
+              result = c1;
             }
             break;
           }
@@ -2017,6 +2046,11 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                             lineNumber, pexpr, true, muteErrors);
         }
         if (object) {
+          if (expr* tmp = reduceExpr((expr*)object, invalidValue, component,
+                                     compileDesign, instance, fileName,
+                                     lineNumber, pexpr, muteErrors)) {
+            object = tmp;
+          }
           UHDM_OBJECT_TYPE otype = object->UhdmType();
           if (otype == uhdmpacked_array_var) {
             packed_array_var* array = (packed_array_var*)object;
@@ -2316,8 +2350,63 @@ any* CompileHelper::hierarchicalSelector(
             }
           }
         }
+      } else if (instance) {
+        ValuedComponentI* tmpInstance = instance;
+        while ((bIndex == -1) && tmpInstance) {
+          if (ModuleInstance* inst =
+                  valuedcomponenti_cast<ModuleInstance*>(tmpInstance)) {
+            Netlist* netlist = inst->getNetlist();
+            if (netlist) {
+              UHDM::VectorOfparam_assign* param_assigns =
+                  netlist->param_assigns();
+              if (param_assigns) {
+                for (param_assign* param : *param_assigns) {
+                  if (param && param->Lhs()) {
+                    const std::string& param_name = param->Lhs()->VpiName();
+                    if (param_name == select_path[0]) {
+                      parameter* p = any_cast<parameter*>((any*)param->Lhs());
+                      if (p) {
+                        const typespec* tps = p->Typespec();
+                        if (tps) {
+                          if (tps->UhdmType() == uhdmpacked_array_typespec) {
+                            packed_array_typespec* tmp =
+                                (packed_array_typespec*)tps;
+                            tps = (typespec*)tmp->Elem_typespec();
+                          }
+                          if (tps->UhdmType() == uhdmstruct_typespec) {
+                            struct_typespec* sts = (struct_typespec*)tps;
+                            UHDM::VectorOftypespec_member* members =
+                                sts->Members();
+                            if (members) {
+                              unsigned int i = 0;
+                              for (UHDM::typespec_member* member : *members) {
+                                if (member->VpiName() == elemName) {
+                                  bIndex = i;
+                                  break;
+                                }
+                                i++;
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          if (ModuleInstance* inst =
+                  valuedcomponenti_cast<ModuleInstance*>(tmpInstance)) {
+            tmpInstance = (ValuedComponentI*)inst->getParentScope();
+          } else if (FScope* inst =
+                         valuedcomponenti_cast<FScope*>(tmpInstance)) {
+            tmpInstance = (ValuedComponentI*)inst->getParentScope();
+          } else {
+            tmpInstance = nullptr;
+          }
+        }
       }
-
       for (auto operand : *operands) {
         UHDM_OBJECT_TYPE operandType = operand->UhdmType();
         if (operandType == uhdmtagged_pattern) {

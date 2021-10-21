@@ -37,7 +37,7 @@ class NumUtils {
 
   static std::string binToHex(const std::string &s);
 
-  static std::string toBinary(unsigned int size, uint64_t val);
+  static std::string toBinary(int size, uint64_t val);
 
   static std::string trimLeadingZeros(const std::string &s);
 
