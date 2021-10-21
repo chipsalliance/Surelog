@@ -1,6 +1,7 @@
 package otp_ctrl_pkg;
   typedef struct packed {
     logic [10:0] size;
+    logic [10:0] offset;
   } part_info_t;
   parameter int NumPart = 2;  
 endpackage // otp_ctrl_pkg
