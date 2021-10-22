@@ -37,9 +37,11 @@ jobs:
         sudo ln -sf /usr/bin/gcc-9 /usr/bin/gcc
         sudo ln -sf /usr/bin/gcov-9 /usr/bin/gcov
 
-    - uses: actions/setup-python@v2
+    - name: Setup Python
+      uses: actions/setup-python@v2
       with:
         python-version: 3.8
+        architecture: x64
 
     - name: Checkout code
       uses: actions/checkout@v2
@@ -51,8 +53,9 @@ jobs:
       run: |
         echo 'CC=gcc-9' >> $GITHUB_ENV
         echo 'CXX=g++-9' >> $GITHUB_ENV
-        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
         echo 'PREFIX=/tmp/surelog-install' >> $GITHUB_ENV
+        echo 'ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=$pythonLocation' >> $GITHUB_ENV
+        echo 'PATH=/usr/lib/ccache:'"$pythonLocation""$PATH" >> $GITHUB_ENV
 
         if [[ "${{ matrix.mode }}" = "pygen" ]] ; then
           echo 'WITH_PYTHON_GENERATOR=ON' >> $GITHUB_ENV
@@ -83,6 +86,9 @@ jobs:
         path: |
           ${{ github.workspace }}/build/test/
           ${{ github.workspace }}/build/tests/
+          !${{ github.workspace }}/build/tests/**/*.uhdm
+          !${{ github.workspace }}/build/tests/**/*.slpa
+          !${{ github.workspace }}/build/tests/**/*.slpp
 
   windows-msvc:
     name: windows-msvc-${{ matrix.mode }}
@@ -139,6 +145,7 @@ jobs:
         set MAKE_DIR=C:\make\bin
         set TCL_DIR=%PROGRAMFILES%\Git\mingw64\bin
         set SWIG_DIR=%PROGRMDATA%\chocolatey\lib\swig\tools\install\swigwin-3.0.12
+        set ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=%pythonLocation%
         set PATH=%pythonLocation%;%SWIG_DIR%;%JAVA_HOME%\bin;%MAKE_DIR%;%TCL_DIR%;%PATH%
 
         if "${{ matrix.mode }}" == "pygen" (
@@ -165,3 +172,6 @@ jobs:
         path: |
           ${{ github.workspace }}/build/test/
           ${{ github.workspace }}/build/tests/
+          !${{ github.workspace }}/build/tests/**/*.uhdm
+          !${{ github.workspace }}/build/tests/**/*.slpa
+          !${{ github.workspace }}/build/tests/**/*.slpp
