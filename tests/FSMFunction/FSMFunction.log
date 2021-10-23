@@ -1365,11 +1365,6 @@ design: (work@fsm_using_function)
               \_ref_obj: (work@fsm_using_function.FSM_SEQ.IDLE), line:60:17, endln:60:21, parent:work@fsm_using_function.FSM_SEQ
                 |vpiName:IDLE
                 |vpiFullName:work@fsm_using_function.FSM_SEQ.IDLE
-                |vpiActual:
-                \_parameter: (work@fsm_using_function.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_function
-                  |vpiName:IDLE
-                  |vpiFullName:work@fsm_using_function.IDLE
-                  |BIN:001
               |vpiLhs:
               \_ref_obj: (work@fsm_using_function.FSM_SEQ.state), line:60:5, endln:60:10, parent:work@fsm_using_function.FSM_SEQ
                 |vpiName:state
@@ -1532,8 +1527,6 @@ design: (work@fsm_using_function)
                 \_ref_obj: (work@fsm_using_function.OUTPUT_LOGIC.IDLE), line:74:5, endln:74:9, parent:work@fsm_using_function.OUTPUT_LOGIC
                   |vpiName:IDLE
                   |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.IDLE
-                  |vpiActual:
-                  \_parameter: (work@fsm_using_function.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_function
                 |vpiStmt:
                 \_begin: (work@fsm_using_function.OUTPUT_LOGIC), line:74:12, endln:77:19
                   |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
@@ -1579,11 +1572,6 @@ design: (work@fsm_using_function)
                 \_ref_obj: (work@fsm_using_function.OUTPUT_LOGIC.GNT0), line:78:4, endln:78:8, parent:work@fsm_using_function.OUTPUT_LOGIC
                   |vpiName:GNT0
                   |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.GNT0
-                  |vpiActual:
-                  \_parameter: (work@fsm_using_function.GNT0), line:24:26, endln:24:39, parent:work@fsm_using_function
-                    |vpiName:GNT0
-                    |vpiFullName:work@fsm_using_function.GNT0
-                    |BIN:010
                 |vpiStmt:
                 \_begin: (work@fsm_using_function.OUTPUT_LOGIC), line:78:11, endln:81:20
                   |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
@@ -1629,11 +1617,6 @@ design: (work@fsm_using_function)
                 \_ref_obj: (work@fsm_using_function.OUTPUT_LOGIC.GNT1), line:82:4, endln:82:8, parent:work@fsm_using_function.OUTPUT_LOGIC
                   |vpiName:GNT1
                   |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.GNT1
-                  |vpiActual:
-                  \_parameter: (work@fsm_using_function.GNT1), line:24:40, endln:24:53, parent:work@fsm_using_function
-                    |vpiName:GNT1
-                    |vpiFullName:work@fsm_using_function.GNT1
-                    |BIN:100
                 |vpiStmt:
                 \_begin: (work@fsm_using_function.OUTPUT_LOGIC), line:82:11, endln:85:20
                   |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
@@ -1749,6 +1732,8 @@ design: (work@fsm_using_function)
     \_ref_obj: (work@fsm_using_function.next_state), line:29:8, endln:29:18
       |vpiName:next_state
       |vpiFullName:work@fsm_using_function.next_state
+      |vpiActual:
+      \_logic_net: (work@fsm_using_function.next_state), line:27:27, endln:27:37, parent:work@fsm_using_function
   |vpiTaskFunc:
   \_function: (work@fsm_using_function.fsm_function), line:31:1, endln:55:12, parent:work@fsm_using_function
     |vpiVisibility:1
@@ -1759,11 +1744,17 @@ design: (work@fsm_using_function)
       |vpiRange:
       \_range: , line:31:11, endln:31:19
         |vpiLeftRange:
-        \_constant: , line:31:11, endln:31:15
-          |vpiConstType:7
-          |vpiDecompile:2
-          |vpiSize:64
-          |INT:2
+        \_operation: , line:31:11, endln:31:15
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (SIZE), line:31:11, endln:31:15
+            |vpiName:SIZE
+          |vpiOperand:
+          \_constant: , line:31:16, endln:31:17
+            |vpiConstType:9
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
         |vpiRightRange:
         \_constant: , line:31:18, endln:31:19
           |vpiConstType:9
@@ -1815,8 +1806,6 @@ design: (work@fsm_using_function)
         \_ref_obj: (work@fsm_using_function.fsm_function.IDLE), line:36:4, endln:36:8, parent:work@fsm_using_function.fsm_function
           |vpiName:IDLE
           |vpiFullName:work@fsm_using_function.fsm_function.IDLE
-          |vpiActual:
-          \_parameter: (work@fsm_using_function.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_function
         |vpiStmt:
         \_if_else: , line:36:11, endln:42:18
           |vpiCondition:
@@ -1845,8 +1834,6 @@ design: (work@fsm_using_function)
               \_ref_obj: (work@fsm_using_function.fsm_function.GNT0), line:37:32, endln:37:36, parent:work@fsm_using_function.fsm_function
                 |vpiName:GNT0
                 |vpiFullName:work@fsm_using_function.fsm_function.GNT0
-                |vpiActual:
-                \_parameter: (work@fsm_using_function.GNT0), line:24:26, endln:24:39, parent:work@fsm_using_function
               |vpiLhs:
               \_ref_obj: (work@fsm_using_function.fsm_function.fsm_function), line:37:17, endln:37:29, parent:work@fsm_using_function.fsm_function
                 |vpiName:fsm_function
@@ -1879,8 +1866,6 @@ design: (work@fsm_using_function)
                 \_ref_obj: (work@fsm_using_function.fsm_function.GNT1), line:39:31, endln:39:35, parent:work@fsm_using_function.fsm_function
                   |vpiName:GNT1
                   |vpiFullName:work@fsm_using_function.fsm_function.GNT1
-                  |vpiActual:
-                  \_parameter: (work@fsm_using_function.GNT1), line:24:40, endln:24:53, parent:work@fsm_using_function
                 |vpiLhs:
                 \_ref_obj: (work@fsm_using_function.fsm_function.fsm_function), line:39:17, endln:39:29, parent:work@fsm_using_function.fsm_function
                   |vpiName:fsm_function
@@ -1896,8 +1881,6 @@ design: (work@fsm_using_function)
                 \_ref_obj: (work@fsm_using_function.fsm_function.IDLE), line:41:32, endln:41:36, parent:work@fsm_using_function.fsm_function
                   |vpiName:IDLE
                   |vpiFullName:work@fsm_using_function.fsm_function.IDLE
-                  |vpiActual:
-                  \_parameter: (work@fsm_using_function.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_function
                 |vpiLhs:
                 \_ref_obj: (work@fsm_using_function.fsm_function.fsm_function), line:41:17, endln:41:29, parent:work@fsm_using_function.fsm_function
                   |vpiName:fsm_function
@@ -1908,8 +1891,6 @@ design: (work@fsm_using_function)
         \_ref_obj: (work@fsm_using_function.fsm_function.GNT0), line:43:4, endln:43:8, parent:work@fsm_using_function.fsm_function
           |vpiName:GNT0
           |vpiFullName:work@fsm_using_function.fsm_function.GNT0
-          |vpiActual:
-          \_parameter: (work@fsm_using_function.GNT0), line:24:26, endln:24:39, parent:work@fsm_using_function
         |vpiStmt:
         \_if_else: , line:43:11, endln:47:18
           |vpiCondition:
@@ -1938,8 +1919,6 @@ design: (work@fsm_using_function)
               \_ref_obj: (work@fsm_using_function.fsm_function.GNT0), line:44:32, endln:44:36, parent:work@fsm_using_function.fsm_function
                 |vpiName:GNT0
                 |vpiFullName:work@fsm_using_function.fsm_function.GNT0
-                |vpiActual:
-                \_parameter: (work@fsm_using_function.GNT0), line:24:26, endln:24:39, parent:work@fsm_using_function
               |vpiLhs:
               \_ref_obj: (work@fsm_using_function.fsm_function.fsm_function), line:44:17, endln:44:29, parent:work@fsm_using_function.fsm_function
                 |vpiName:fsm_function
@@ -1955,8 +1934,6 @@ design: (work@fsm_using_function)
               \_ref_obj: (work@fsm_using_function.fsm_function.IDLE), line:46:32, endln:46:36, parent:work@fsm_using_function.fsm_function
                 |vpiName:IDLE
                 |vpiFullName:work@fsm_using_function.fsm_function.IDLE
-                |vpiActual:
-                \_parameter: (work@fsm_using_function.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_function
               |vpiLhs:
               \_ref_obj: (work@fsm_using_function.fsm_function.fsm_function), line:46:17, endln:46:29, parent:work@fsm_using_function.fsm_function
                 |vpiName:fsm_function
@@ -1967,8 +1944,6 @@ design: (work@fsm_using_function)
         \_ref_obj: (work@fsm_using_function.fsm_function.GNT1), line:48:4, endln:48:8, parent:work@fsm_using_function.fsm_function
           |vpiName:GNT1
           |vpiFullName:work@fsm_using_function.fsm_function.GNT1
-          |vpiActual:
-          \_parameter: (work@fsm_using_function.GNT1), line:24:40, endln:24:53, parent:work@fsm_using_function
         |vpiStmt:
         \_if_else: , line:48:11, endln:52:18
           |vpiCondition:
@@ -1997,8 +1972,6 @@ design: (work@fsm_using_function)
               \_ref_obj: (work@fsm_using_function.fsm_function.GNT1), line:49:32, endln:49:36, parent:work@fsm_using_function.fsm_function
                 |vpiName:GNT1
                 |vpiFullName:work@fsm_using_function.fsm_function.GNT1
-                |vpiActual:
-                \_parameter: (work@fsm_using_function.GNT1), line:24:40, endln:24:53, parent:work@fsm_using_function
               |vpiLhs:
               \_ref_obj: (work@fsm_using_function.fsm_function.fsm_function), line:49:17, endln:49:29, parent:work@fsm_using_function.fsm_function
                 |vpiName:fsm_function
@@ -2014,8 +1987,6 @@ design: (work@fsm_using_function)
               \_ref_obj: (work@fsm_using_function.fsm_function.IDLE), line:51:32, endln:51:36, parent:work@fsm_using_function.fsm_function
                 |vpiName:IDLE
                 |vpiFullName:work@fsm_using_function.fsm_function.IDLE
-                |vpiActual:
-                \_parameter: (work@fsm_using_function.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_function
               |vpiLhs:
               \_ref_obj: (work@fsm_using_function.fsm_function.fsm_function), line:51:17, endln:51:29, parent:work@fsm_using_function.fsm_function
                 |vpiName:fsm_function
@@ -2030,8 +2001,6 @@ design: (work@fsm_using_function)
           \_ref_obj: (work@fsm_using_function.fsm_function.IDLE), line:53:29, endln:53:33
             |vpiName:IDLE
             |vpiFullName:work@fsm_using_function.fsm_function.IDLE
-            |vpiActual:
-            \_parameter: (work@fsm_using_function.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_function
           |vpiLhs:
           \_ref_obj: (work@fsm_using_function.fsm_function.fsm_function), line:53:14, endln:53:26
             |vpiName:fsm_function
@@ -2260,10 +2229,11 @@ design: (work@fsm_using_function)
                 |vpiName:IDLE
                 |vpiFullName:work@fsm_using_function.FSM_SEQ.IDLE
                 |vpiActual:
-                \_parameter: (work@fsm_using_function.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_function
-                  |vpiName:IDLE
-                  |vpiFullName:work@fsm_using_function.IDLE
-                  |BIN:001
+                \_constant: , line:24:19, endln:24:25
+                  |vpiConstType:9
+                  |vpiDecompile:1
+                  |vpiSize:3
+                  |UINT:1
               |vpiLhs:
               \_ref_obj: (work@fsm_using_function.FSM_SEQ.state), line:60:5, endln:60:10
                 |vpiName:state
@@ -2421,7 +2391,7 @@ design: (work@fsm_using_function)
                   |vpiName:IDLE
                   |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.IDLE
                   |vpiActual:
-                  \_parameter: (work@fsm_using_function.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_function
+                  \_constant: , line:24:19, endln:24:25
                 |vpiStmt:
                 \_begin: (work@fsm_using_function.OUTPUT_LOGIC), line:74:12, endln:77:19
                   |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
@@ -2468,10 +2438,11 @@ design: (work@fsm_using_function)
                   |vpiName:GNT0
                   |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.GNT0
                   |vpiActual:
-                  \_parameter: (work@fsm_using_function.GNT0), line:24:26, endln:24:39, parent:work@fsm_using_function
-                    |vpiName:GNT0
-                    |vpiFullName:work@fsm_using_function.GNT0
-                    |BIN:010
+                  \_constant: , line:24:33, endln:24:39
+                    |vpiConstType:9
+                    |vpiDecompile:2
+                    |vpiSize:3
+                    |UINT:2
                 |vpiStmt:
                 \_begin: (work@fsm_using_function.OUTPUT_LOGIC), line:78:11, endln:81:20
                   |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
@@ -2518,10 +2489,11 @@ design: (work@fsm_using_function)
                   |vpiName:GNT1
                   |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.GNT1
                   |vpiActual:
-                  \_parameter: (work@fsm_using_function.GNT1), line:24:40, endln:24:53, parent:work@fsm_using_function
-                    |vpiName:GNT1
-                    |vpiFullName:work@fsm_using_function.GNT1
-                    |BIN:100
+                  \_constant: , line:24:47, endln:24:53
+                    |vpiConstType:9
+                    |vpiDecompile:4
+                    |vpiSize:3
+                    |UINT:4
                 |vpiStmt:
                 \_begin: (work@fsm_using_function.OUTPUT_LOGIC), line:82:11, endln:85:20
                   |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
@@ -2643,11 +2615,17 @@ design: (work@fsm_using_function)
       |vpiRange:
       \_range: , line:31:11, endln:31:19
         |vpiLeftRange:
-        \_constant: , line:31:11, endln:31:15
-          |vpiConstType:7
-          |vpiDecompile:2
-          |vpiSize:64
-          |INT:2
+        \_operation: , line:31:11, endln:31:15
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (SIZE), line:31:11, endln:31:15
+            |vpiName:SIZE
+          |vpiOperand:
+          \_constant: , line:31:16, endln:31:17
+            |vpiConstType:9
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
         |vpiRightRange:
         \_constant: , line:31:18, endln:31:19
           |vpiConstType:9
@@ -2700,7 +2678,7 @@ design: (work@fsm_using_function)
           |vpiName:IDLE
           |vpiFullName:work@fsm_using_function.fsm_function.IDLE
           |vpiActual:
-          \_parameter: (work@fsm_using_function.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_function
+          \_constant: , line:24:19, endln:24:25
         |vpiStmt:
         \_if_else: , line:36:11, endln:42:18
           |vpiCondition:
@@ -2730,7 +2708,7 @@ design: (work@fsm_using_function)
                 |vpiName:GNT0
                 |vpiFullName:work@fsm_using_function.fsm_function.GNT0
                 |vpiActual:
-                \_parameter: (work@fsm_using_function.GNT0), line:24:26, endln:24:39, parent:work@fsm_using_function
+                \_constant: , line:24:33, endln:24:39
               |vpiLhs:
               \_ref_obj: (work@fsm_using_function.fsm_function.fsm_function), line:37:17, endln:37:29
                 |vpiName:fsm_function
@@ -2766,7 +2744,7 @@ design: (work@fsm_using_function)
                   |vpiName:GNT1
                   |vpiFullName:work@fsm_using_function.fsm_function.GNT1
                   |vpiActual:
-                  \_parameter: (work@fsm_using_function.GNT1), line:24:40, endln:24:53, parent:work@fsm_using_function
+                  \_constant: , line:24:47, endln:24:53
                 |vpiLhs:
                 \_ref_obj: (work@fsm_using_function.fsm_function.fsm_function), line:39:17, endln:39:29
                   |vpiName:fsm_function
@@ -2785,7 +2763,7 @@ design: (work@fsm_using_function)
                   |vpiName:IDLE
                   |vpiFullName:work@fsm_using_function.fsm_function.IDLE
                   |vpiActual:
-                  \_parameter: (work@fsm_using_function.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_function
+                  \_constant: , line:24:19, endln:24:25
                 |vpiLhs:
                 \_ref_obj: (work@fsm_using_function.fsm_function.fsm_function), line:41:17, endln:41:29
                   |vpiName:fsm_function
@@ -2799,7 +2777,7 @@ design: (work@fsm_using_function)
           |vpiName:GNT0
           |vpiFullName:work@fsm_using_function.fsm_function.GNT0
           |vpiActual:
-          \_parameter: (work@fsm_using_function.GNT0), line:24:26, endln:24:39, parent:work@fsm_using_function
+          \_constant: , line:24:33, endln:24:39
         |vpiStmt:
         \_if_else: , line:43:11, endln:47:18
           |vpiCondition:
@@ -2829,7 +2807,7 @@ design: (work@fsm_using_function)
                 |vpiName:GNT0
                 |vpiFullName:work@fsm_using_function.fsm_function.GNT0
                 |vpiActual:
-                \_parameter: (work@fsm_using_function.GNT0), line:24:26, endln:24:39, parent:work@fsm_using_function
+                \_constant: , line:24:33, endln:24:39
               |vpiLhs:
               \_ref_obj: (work@fsm_using_function.fsm_function.fsm_function), line:44:17, endln:44:29
                 |vpiName:fsm_function
@@ -2848,7 +2826,7 @@ design: (work@fsm_using_function)
                 |vpiName:IDLE
                 |vpiFullName:work@fsm_using_function.fsm_function.IDLE
                 |vpiActual:
-                \_parameter: (work@fsm_using_function.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_function
+                \_constant: , line:24:19, endln:24:25
               |vpiLhs:
               \_ref_obj: (work@fsm_using_function.fsm_function.fsm_function), line:46:17, endln:46:29
                 |vpiName:fsm_function
@@ -2862,7 +2840,7 @@ design: (work@fsm_using_function)
           |vpiName:GNT1
           |vpiFullName:work@fsm_using_function.fsm_function.GNT1
           |vpiActual:
-          \_parameter: (work@fsm_using_function.GNT1), line:24:40, endln:24:53, parent:work@fsm_using_function
+          \_constant: , line:24:47, endln:24:53
         |vpiStmt:
         \_if_else: , line:48:11, endln:52:18
           |vpiCondition:
@@ -2892,7 +2870,7 @@ design: (work@fsm_using_function)
                 |vpiName:GNT1
                 |vpiFullName:work@fsm_using_function.fsm_function.GNT1
                 |vpiActual:
-                \_parameter: (work@fsm_using_function.GNT1), line:24:40, endln:24:53, parent:work@fsm_using_function
+                \_constant: , line:24:47, endln:24:53
               |vpiLhs:
               \_ref_obj: (work@fsm_using_function.fsm_function.fsm_function), line:49:17, endln:49:29
                 |vpiName:fsm_function
@@ -2911,7 +2889,7 @@ design: (work@fsm_using_function)
                 |vpiName:IDLE
                 |vpiFullName:work@fsm_using_function.fsm_function.IDLE
                 |vpiActual:
-                \_parameter: (work@fsm_using_function.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_function
+                \_constant: , line:24:19, endln:24:25
               |vpiLhs:
               \_ref_obj: (work@fsm_using_function.fsm_function.fsm_function), line:51:17, endln:51:29
                 |vpiName:fsm_function
@@ -2929,7 +2907,7 @@ design: (work@fsm_using_function)
             |vpiName:IDLE
             |vpiFullName:work@fsm_using_function.fsm_function.IDLE
             |vpiActual:
-            \_parameter: (work@fsm_using_function.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_function
+            \_constant: , line:24:19, endln:24:25
           |vpiLhs:
           \_ref_obj: (work@fsm_using_function.fsm_function.fsm_function), line:53:14, endln:53:26
             |vpiName:fsm_function
@@ -2961,10 +2939,19 @@ design: (work@fsm_using_function)
     |UINT:3
   |vpiParameter:
   \_parameter: (work@fsm_using_function.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_function
+    |vpiName:IDLE
+    |vpiFullName:work@fsm_using_function.IDLE
+    |BIN:001
   |vpiParameter:
   \_parameter: (work@fsm_using_function.GNT0), line:24:26, endln:24:39, parent:work@fsm_using_function
+    |vpiName:GNT0
+    |vpiFullName:work@fsm_using_function.GNT0
+    |BIN:010
   |vpiParameter:
   \_parameter: (work@fsm_using_function.GNT1), line:24:40, endln:24:53, parent:work@fsm_using_function
+    |vpiName:GNT1
+    |vpiFullName:work@fsm_using_function.GNT1
+    |BIN:100
   |vpiParamAssign:
   \_param_assign: , line:23:11, endln:23:19, parent:work@fsm_using_function
     |vpiRhs:
@@ -2979,30 +2966,18 @@ design: (work@fsm_using_function)
   \_param_assign: , line:24:11, endln:24:25, parent:work@fsm_using_function
     |vpiRhs:
     \_constant: , line:24:19, endln:24:25
-      |vpiConstType:9
-      |vpiDecompile:1
-      |vpiSize:3
-      |UINT:1
     |vpiLhs:
     \_parameter: (work@fsm_using_function.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_function
   |vpiParamAssign:
   \_param_assign: , line:24:26, endln:24:39, parent:work@fsm_using_function
     |vpiRhs:
     \_constant: , line:24:33, endln:24:39
-      |vpiConstType:9
-      |vpiDecompile:2
-      |vpiSize:3
-      |UINT:2
     |vpiLhs:
     \_parameter: (work@fsm_using_function.GNT0), line:24:26, endln:24:39, parent:work@fsm_using_function
   |vpiParamAssign:
   \_param_assign: , line:24:40, endln:24:53, parent:work@fsm_using_function
     |vpiRhs:
     \_constant: , line:24:47, endln:24:53
-      |vpiConstType:9
-      |vpiDecompile:4
-      |vpiSize:3
-      |UINT:4
     |vpiLhs:
     \_parameter: (work@fsm_using_function.GNT1), line:24:40, endln:24:53, parent:work@fsm_using_function
 ===================

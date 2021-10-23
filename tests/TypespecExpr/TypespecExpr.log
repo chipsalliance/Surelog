@@ -239,6 +239,25 @@ design: (work@Mod2)
     \_ref_obj: (work@Mod1.x), line:2:11, endln:2:12
       |vpiName:x
       |vpiFullName:work@Mod1.x
+      |vpiActual:
+      \_logic_net: (work@Mod2.mod1.x), line:1:71, endln:1:72, parent:work@Mod2.mod1
+        |vpiName:x
+        |vpiFullName:work@Mod2.mod1.x
+        |vpiNetType:36
+        |vpiRange:
+        \_range: , line:1:65, endln:1:69
+          |vpiLeftRange:
+          \_constant: , line:1:65, endln:1:67
+            |vpiConstType:9
+            |vpiDecompile:31
+            |vpiSize:64
+            |UINT:31
+          |vpiRightRange:
+          \_constant: , line:1:68, endln:1:69
+            |vpiConstType:9
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
   |vpiNet:
   \_logic_net: (work@Mod1.x), line:1:71, parent:work@Mod1
   |vpiParameter:
@@ -385,26 +404,38 @@ design: (work@Mod2)
         |vpiName:PARAM
         |vpiFullName:work@Mod2.mod1.PARAM
         |vpiActual:
-        \_parameter: (work@Mod2.mod1.PARAM), line:1:38, endln:1:48, parent:work@Mod2.mod1
-          |vpiName:PARAM
-          |vpiFullName:work@Mod2.mod1.PARAM
-          |BIN:0
+        \_operation: , line:9:18, endln:9:24
+          |vpiOpType:75
+          |vpiReordered:1
+          |vpiOperand:
+          \_constant: , line:7:36, endln:7:38
+            |vpiConstType:3
+            |vpiDecompile:'0
+            |vpiSize:-1
+            |BIN:0
           |vpiTypespec:
-          \_logic_typespec: , line:1:25, endln:1:30, parent:work@Mod2.mod1.PARAM
-            |vpiRange:
-            \_range: , line:1:32, endln:1:36
-              |vpiLeftRange:
-              \_constant: , line:1:32, endln:1:34
-                |vpiConstType:9
-                |vpiDecompile:31
-                |vpiSize:64
-                |UINT:31
-              |vpiRightRange:
-              \_constant: , line:1:35, endln:1:36
-                |vpiConstType:9
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
+          \_struct_typespec: (Struct), line:6:12, endln:6:18
+            |vpiPacked:1
+            |vpiName:Struct
+            |vpiTypespecMember:
+            \_typespec_member: (x), line:6:40, endln:6:41, parent:Struct
+              |vpiName:x
+              |vpiTypespec:
+              \_logic_typespec: , line:6:28, endln:6:33, parent:x
+                |vpiRange:
+                \_range: , line:6:34, endln:6:38
+                  |vpiLeftRange:
+                  \_constant: , line:6:34, endln:6:36
+                    |vpiConstType:9
+                    |vpiDecompile:31
+                    |vpiSize:64
+                    |UINT:31
+                  |vpiRightRange:
+                  \_constant: , line:6:37, endln:6:38
+                    |vpiConstType:9
+                    |vpiDecompile:0
+                    |vpiSize:64
+                    |UINT:0
       |vpiLhs:
       \_ref_obj: (work@Mod2.mod1.x), line:2:11, endln:2:12
         |vpiName:x
@@ -417,42 +448,30 @@ design: (work@Mod2)
     \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10
     |vpiParameter:
     \_parameter: (work@Mod2.mod1.PARAM), line:1:38, endln:1:48, parent:work@Mod2.mod1
+      |vpiName:PARAM
+      |vpiFullName:work@Mod2.mod1.PARAM
+      |BIN:0
+      |vpiTypespec:
+      \_logic_typespec: , line:1:25, endln:1:30, parent:work@Mod2.mod1.PARAM
+        |vpiRange:
+        \_range: , line:1:32, endln:1:36
+          |vpiLeftRange:
+          \_constant: , line:1:32, endln:1:34
+            |vpiConstType:9
+            |vpiDecompile:31
+            |vpiSize:64
+            |UINT:31
+          |vpiRightRange:
+          \_constant: , line:1:35, endln:1:36
+            |vpiConstType:9
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
     |vpiParamAssign:
     \_param_assign: , line:1:38, endln:1:48, parent:work@Mod2.mod1
       |vpiOverriden:1
       |vpiRhs:
       \_operation: , line:9:18, endln:9:24
-        |vpiOpType:75
-        |vpiReordered:1
-        |vpiOperand:
-        \_constant: , line:7:36, endln:7:38
-          |vpiConstType:3
-          |vpiDecompile:'0
-          |vpiSize:-1
-          |BIN:0
-        |vpiTypespec:
-        \_struct_typespec: (Struct), line:6:12, endln:6:18
-          |vpiPacked:1
-          |vpiName:Struct
-          |vpiTypespecMember:
-          \_typespec_member: (x), line:6:40, endln:6:41, parent:Struct
-            |vpiName:x
-            |vpiTypespec:
-            \_logic_typespec: , line:6:28, endln:6:33, parent:x
-              |vpiRange:
-              \_range: , line:6:34, endln:6:38
-                |vpiLeftRange:
-                \_constant: , line:6:34, endln:6:36
-                  |vpiConstType:9
-                  |vpiDecompile:31
-                  |vpiSize:64
-                  |UINT:31
-                |vpiRightRange:
-                \_constant: , line:6:37, endln:6:38
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
       |vpiLhs:
       \_parameter: (work@Mod2.mod1.PARAM), line:1:38, endln:1:48, parent:work@Mod2.mod1
   |vpiVariables:

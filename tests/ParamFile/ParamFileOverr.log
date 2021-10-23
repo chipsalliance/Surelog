@@ -295,11 +295,6 @@ design: (work@dut)
           \_ref_obj: (work@ram_1p.MemInitFile), line:19:7, endln:19:18, parent:work@ram_1p
             |vpiName:MemInitFile
             |vpiFullName:work@ram_1p.MemInitFile
-            |vpiActual:
-            \_parameter: (work@dut.u_ram.MemInitFile), line:13:23, endln:13:39, parent:work@dut.u_ram
-              |vpiName:MemInitFile
-              |vpiFullName:work@dut.u_ram.MemInitFile
-              |STRING:
           |vpiOperand:
           \_constant: , line:19:22, endln:19:24
             |vpiConstType:6
@@ -321,8 +316,6 @@ design: (work@dut)
             \_ref_obj: (work@ram_1p.gen_meminit.MemInitFile), line:20:58, endln:20:69, parent:$display
               |vpiName:MemInitFile
               |vpiFullName:work@ram_1p.gen_meminit.MemInitFile
-              |vpiActual:
-              \_parameter: (work@dut.u_ram.MemInitFile), line:13:23, endln:13:39, parent:work@dut.u_ram
           |vpiStmt:
           \_assign_stmt: , line:21:7, endln:21:24, parent:work@ram_1p.gen_meminit
             |vpiRhs:
@@ -335,6 +328,11 @@ design: (work@dut)
             \_ref_obj: (work@ram_1p.gen_meminit.out), line:21:14, endln:21:17
               |vpiName:out
               |vpiFullName:work@ram_1p.gen_meminit.out
+              |vpiActual:
+              \_logic_net: (work@dut.u_ram.out), line:15:22, endln:15:25, parent:work@dut.u_ram
+                |vpiName:out
+                |vpiFullName:work@dut.u_ram.out
+                |vpiNetType:36
       |vpiStmt:
       \_if_stmt: , line:24:3, endln:27:6, parent:work@ram_1p
         |vpiCondition:
@@ -344,8 +342,6 @@ design: (work@dut)
           \_ref_obj: (work@ram_1p.MemInitFile), line:24:7, endln:24:18, parent:work@ram_1p
             |vpiName:MemInitFile
             |vpiFullName:work@ram_1p.MemInitFile
-            |vpiActual:
-            \_parameter: (work@dut.u_ram.MemInitFile), line:13:23, endln:13:39, parent:work@dut.u_ram
           |vpiOperand:
           \_constant: , line:24:22, endln:24:24
             |vpiConstType:6
@@ -375,6 +371,8 @@ design: (work@dut)
             \_ref_obj: (work@ram_1p.gen_nomeminit.out), line:26:14, endln:26:17
               |vpiName:out
               |vpiFullName:work@ram_1p.gen_nomeminit.out
+              |vpiActual:
+              \_logic_net: (work@dut.u_ram.out), line:15:22, endln:15:25, parent:work@dut.u_ram
   |vpiNet:
   \_logic_net: (work@ram_1p.out), line:15:22, parent:work@ram_1p
   |vpiParameter:

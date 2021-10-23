@@ -547,19 +547,9 @@ design: (work@top)
       |vpiOperand:
       \_ref_obj: (v1), line:35:5, endln:35:7
         |vpiName:v1
-        |vpiActual:
-        \_parameter: (work@top.v1), line:29:14, endln:29:20, parent:work@top
-          |vpiName:v1
-          |vpiFullName:work@top.v1
-          |UINT:1
       |vpiOperand:
       \_ref_obj: (v2), line:35:9, endln:35:11
         |vpiName:v2
-        |vpiActual:
-        \_parameter: (work@top.v2), line:30:14, endln:30:20, parent:work@top
-          |vpiName:v2
-          |vpiFullName:work@top.v2
-          |UINT:0
     |vpiLhs:
     \_parameter: (work@top.CTRL_RESET), line:32:24, endln:36:5, parent:work@top
   |vpiTypedef:
@@ -597,97 +587,99 @@ design: (work@top)
           \_ref_obj: (RESVAL), line:4:17, endln:4:23
             |vpiName:RESVAL
             |vpiActual:
-            \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:3:26, endln:3:37, parent:work@top.u_ctrl_reg_shadowed.staged_reg
-              |vpiName:RESVAL
-              |vpiFullName:work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL
-              |BIN:0
+            \_operation: , line:19:15, endln:19:21
+              |vpiOpType:75
+              |vpiReordered:1
+              |vpiOperand:
+              \_ref_obj: (work@top.u_ctrl_reg_shadowed.staged_reg.v2), line:35:9, endln:35:11
+                |vpiName:v2
+                |vpiFullName:work@top.u_ctrl_reg_shadowed.staged_reg.v2
+                |vpiActual:
+                \_constant: , line:30:19, endln:30:20
+                  |vpiConstType:9
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+              |vpiOperand:
+              \_ref_obj: (work@top.u_ctrl_reg_shadowed.staged_reg.v1), line:35:5, endln:35:7
+                |vpiName:v1
+                |vpiFullName:work@top.u_ctrl_reg_shadowed.staged_reg.v1
+                |vpiActual:
+                \_constant: , line:29:19, endln:29:20
+                  |vpiConstType:9
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
               |vpiTypespec:
-              \_logic_typespec: , line:3:14, endln:3:19, parent:work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL
-                |vpiRange:
-                \_range: , line:3:21, endln:3:24
-                  |vpiLeftRange:
-                  \_constant: , line:3:21, endln:3:22
-                    |vpiConstType:9
-                    |vpiDecompile:4
-                    |vpiSize:64
-                    |UINT:4
-                  |vpiRightRange:
-                  \_constant: , line:3:23, endln:3:24
-                    |vpiConstType:9
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
+              \_struct_typespec: (struct_ab), line:25:12, endln:25:18
+                |vpiPacked:1
+                |vpiName:struct_ab
+                |vpiTypespecMember:
+                \_typespec_member: (a), line:26:19, endln:26:20, parent:struct_ab
+                  |vpiName:a
+                  |vpiTypespec:
+                  \_logic_typespec: , line:26:7, endln:26:12, parent:a
+                    |vpiRange:
+                    \_range: , line:26:14, endln:26:17
+                      |vpiLeftRange:
+                      \_constant: , line:26:14, endln:26:15
+                        |vpiConstType:9
+                        |vpiDecompile:1
+                        |vpiSize:64
+                        |UINT:1
+                      |vpiRightRange:
+                      \_constant: , line:26:16, endln:26:17
+                        |vpiConstType:9
+                        |vpiDecompile:0
+                        |vpiSize:64
+                        |UINT:0
+                |vpiTypespecMember:
+                \_typespec_member: (b), line:27:19, endln:27:20, parent:struct_ab
+                  |vpiName:b
+                  |vpiTypespec:
+                  \_logic_typespec: , line:27:7, endln:27:12, parent:b
+                    |vpiRange:
+                    \_range: , line:27:14, endln:27:17
+                      |vpiLeftRange:
+                      \_constant: , line:27:14, endln:27:15
+                        |vpiConstType:9
+                        |vpiDecompile:2
+                        |vpiSize:64
+                        |UINT:2
+                      |vpiRightRange:
+                      \_constant: , line:27:16, endln:27:17
+                        |vpiConstType:9
+                        |vpiDecompile:0
+                        |vpiSize:64
+                        |UINT:0
           |vpiTypespec:
           \_int_typespec: , line:4:12, endln:4:15
       |vpiParameter:
       \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:3:26, endln:3:37, parent:work@top.u_ctrl_reg_shadowed.staged_reg
+        |vpiName:RESVAL
+        |vpiFullName:work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL
+        |BIN:0
+        |vpiTypespec:
+        \_logic_typespec: , line:3:14, endln:3:19, parent:work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL
+          |vpiRange:
+          \_range: , line:3:21, endln:3:24
+            |vpiLeftRange:
+            \_constant: , line:3:21, endln:3:22
+              |vpiConstType:9
+              |vpiDecompile:4
+              |vpiSize:64
+              |UINT:4
+            |vpiRightRange:
+            \_constant: , line:3:23, endln:3:24
+              |vpiConstType:9
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
       |vpiParamAssign:
       \_param_assign: , line:3:26, endln:3:37, parent:work@top.u_ctrl_reg_shadowed.staged_reg
         |vpiOverriden:1
         |vpiRhs:
         \_operation: , line:19:15, endln:19:21
-          |vpiOpType:75
-          |vpiReordered:1
-          |vpiOperand:
-          \_ref_obj: (work@top.u_ctrl_reg_shadowed.staged_reg.v2), line:35:9, endln:35:11
-            |vpiName:v2
-            |vpiFullName:work@top.u_ctrl_reg_shadowed.staged_reg.v2
-            |vpiActual:
-            \_parameter: (work@top.v2), line:30:14, endln:30:20, parent:work@top
-              |vpiName:v2
-              |vpiFullName:work@top.v2
-              |UINT:0
-          |vpiOperand:
-          \_ref_obj: (work@top.u_ctrl_reg_shadowed.staged_reg.v1), line:35:5, endln:35:7
-            |vpiName:v1
-            |vpiFullName:work@top.u_ctrl_reg_shadowed.staged_reg.v1
-            |vpiActual:
-            \_parameter: (work@top.v1), line:29:14, endln:29:20, parent:work@top
-              |vpiName:v1
-              |vpiFullName:work@top.v1
-              |UINT:1
-          |vpiTypespec:
-          \_struct_typespec: (struct_ab), line:25:12, endln:25:18
-            |vpiPacked:1
-            |vpiName:struct_ab
-            |vpiTypespecMember:
-            \_typespec_member: (a), line:26:19, endln:26:20, parent:struct_ab
-              |vpiName:a
-              |vpiTypespec:
-              \_logic_typespec: , line:26:7, endln:26:12, parent:a
-                |vpiRange:
-                \_range: , line:26:14, endln:26:17
-                  |vpiLeftRange:
-                  \_constant: , line:26:14, endln:26:15
-                    |vpiConstType:9
-                    |vpiDecompile:1
-                    |vpiSize:64
-                    |UINT:1
-                  |vpiRightRange:
-                  \_constant: , line:26:16, endln:26:17
-                    |vpiConstType:9
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-            |vpiTypespecMember:
-            \_typespec_member: (b), line:27:19, endln:27:20, parent:struct_ab
-              |vpiName:b
-              |vpiTypespec:
-              \_logic_typespec: , line:27:7, endln:27:12, parent:b
-                |vpiRange:
-                \_range: , line:27:14, endln:27:17
-                  |vpiLeftRange:
-                  \_constant: , line:27:14, endln:27:15
-                    |vpiConstType:9
-                    |vpiDecompile:2
-                    |vpiSize:64
-                    |UINT:2
-                  |vpiRightRange:
-                  \_constant: , line:27:16, endln:27:17
-                    |vpiConstType:9
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
         |vpiLhs:
         \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:3:26, endln:3:37, parent:work@top.u_ctrl_reg_shadowed.staged_reg
     |vpiInstance:
@@ -832,13 +824,13 @@ design: (work@top)
           |vpiName:v1
           |vpiFullName:work@top.u_ctrl_reg_shadowed.v1
           |vpiActual:
-          \_parameter: (work@top.v1), line:29:14, endln:29:20, parent:work@top
+          \_constant: , line:29:19, endln:29:20
         |vpiOperand:
         \_ref_obj: (work@top.u_ctrl_reg_shadowed.v2), line:35:9, endln:35:11
           |vpiName:v2
           |vpiFullName:work@top.u_ctrl_reg_shadowed.v2
           |vpiActual:
-          \_parameter: (work@top.v2), line:30:14, endln:30:20, parent:work@top
+          \_constant: , line:30:19, endln:30:20
         |vpiTypespec:
         \_struct_typespec: (struct_ab), line:25:12, endln:25:18
           |vpiPacked:1
@@ -887,8 +879,14 @@ design: (work@top)
     \_struct_typespec: (struct_ab), line:8:12, endln:8:18, parent:work@prim_subreg_shadow.RESVAL
   |vpiParameter:
   \_parameter: (work@top.v1), line:29:14, endln:29:20, parent:work@top
+    |vpiName:v1
+    |vpiFullName:work@top.v1
+    |UINT:1
   |vpiParameter:
   \_parameter: (work@top.v2), line:30:14, endln:30:20, parent:work@top
+    |vpiName:v2
+    |vpiFullName:work@top.v2
+    |UINT:0
   |vpiParameter:
   \_parameter: (work@top.CTRL_RESET), line:32:24, endln:36:5, parent:work@top
     |vpiName:CTRL_RESET
@@ -1025,13 +1023,9 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (v1), line:35:5, endln:35:7
               |vpiName:v1
-              |vpiActual:
-              \_parameter: (work@top.v1), line:29:14, endln:29:20, parent:work@top
             |vpiOperand:
             \_ref_obj: (v2), line:35:9, endln:35:11
               |vpiName:v2
-              |vpiActual:
-              \_parameter: (work@top.v2), line:30:14, endln:30:20, parent:work@top
           |vpiLhs:
           \_parameter: (work@top.CTRL_RESET), line:32:24, endln:36:5, parent:work@top
         |vpiTypedef:
@@ -1040,20 +1034,12 @@ design: (work@top)
   \_param_assign: , line:29:14, endln:29:20, parent:work@top
     |vpiRhs:
     \_constant: , line:29:19, endln:29:20
-      |vpiConstType:9
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
     |vpiLhs:
     \_parameter: (work@top.v1), line:29:14, endln:29:20, parent:work@top
   |vpiParamAssign:
   \_param_assign: , line:30:14, endln:30:20, parent:work@top
     |vpiRhs:
     \_constant: , line:30:19, endln:30:20
-      |vpiConstType:9
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
     |vpiLhs:
     \_parameter: (work@top.v2), line:30:14, endln:30:20, parent:work@top
   |vpiParamAssign:
@@ -1066,13 +1052,13 @@ design: (work@top)
         |vpiName:v1
         |vpiFullName:work@top.v1
         |vpiActual:
-        \_parameter: (work@top.v1), line:29:14, endln:29:20, parent:work@top
+        \_constant: , line:29:19, endln:29:20
       |vpiOperand:
       \_ref_obj: (work@top.v2), line:35:9, endln:35:11
         |vpiName:v2
         |vpiFullName:work@top.v2
         |vpiActual:
-        \_parameter: (work@top.v2), line:30:14, endln:30:20, parent:work@top
+        \_constant: , line:30:19, endln:30:20
       |vpiTypespec:
       \_struct_typespec: (struct_ab), line:25:12, endln:25:18
         |vpiPacked:1

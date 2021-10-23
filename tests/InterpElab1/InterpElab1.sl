@@ -1,1 +1,1 @@
-dut.sv -parse -verbose -fileunit -d uhdm -d coveruhdm
+dut.sv -parse -verbose -fileunit -d uhdm -elabuhdm -d coveruhdm

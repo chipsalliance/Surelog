@@ -1815,7 +1815,7 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     NodeId Return_data_type = fC->Child(Function_data_type);
     variables* var = any_cast<variables*>(
         compileVariable(component, fC, Return_data_type, compileDesign, nullptr,
-                        instance, true, false));
+                        instance, false, false));
     if (var) {
       // Explicit return type
       var->VpiName("");

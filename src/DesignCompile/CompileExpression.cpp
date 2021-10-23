@@ -4010,6 +4010,8 @@ UHDM::any* CompileHelper::compileExpression(
                   ref->Actual_group(var);
                 else if (component)
                   component->needLateBinding(ref);
+              } else if (component) {
+                component->needLateBinding(ref);
               }
               result = ref;
             }
