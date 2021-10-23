@@ -1986,7 +1986,8 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                   if (UHDM::typespec* ts = p->getTypespec()) {
                     if (ts->UhdmType() != UHDM::uhdmunsupported_typespec) {
                       c->Typespec(p->getTypespec());
-                      m_helper.adjustSize(c, ts);
+                      m_helper.adjustSize(ts, instance->getDefinition(),
+                                          m_compileDesign, instance, c);
                     }
                   }
                 }
