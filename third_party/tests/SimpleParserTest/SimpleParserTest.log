@@ -707,27 +707,6 @@ design: (work@dff_async_reset)
           \_ref_obj: (work@LFSR_TASK.Chain1), line:31:22, endln:31:28, parent:LFSR_TASK
             |vpiName:Chain1
             |vpiFullName:work@LFSR_TASK.Chain1
-            |vpiActual:
-            \_parameter: (work@LFSR_TASK.Chain1), line:7:17, endln:7:37, parent:work@LFSR_TASK
-              |vpiName:Chain1
-              |vpiFullName:work@LFSR_TASK.Chain1
-              |BIN:10001110
-              |vpiTypespec:
-              \_bit_typespec: , line:7:11, endln:7:16, parent:work@LFSR_TASK.Chain1
-                |vpiRange:
-                \_range: , line:7:12, endln:7:15
-                  |vpiLeftRange:
-                  \_constant: , line:7:12, endln:7:13
-                    |vpiConstType:9
-                    |vpiDecompile:7
-                    |vpiSize:64
-                    |UINT:7
-                  |vpiRightRange:
-                  \_constant: , line:7:14, endln:7:15
-                    |vpiConstType:9
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
           |vpiArgument:
           \_ref_obj: (work@LFSR_TASK.random1), line:31:30, endln:31:37, parent:LFSR_TASK
             |vpiName:random1
@@ -817,27 +796,6 @@ design: (work@dff_async_reset)
           \_ref_obj: (work@LFSR_TASK.Chain2), line:36:22, endln:36:28, parent:LFSR_TASK
             |vpiName:Chain2
             |vpiFullName:work@LFSR_TASK.Chain2
-            |vpiActual:
-            \_parameter: (work@LFSR_TASK.Chain2), line:8:17, endln:8:37, parent:work@LFSR_TASK
-              |vpiName:Chain2
-              |vpiFullName:work@LFSR_TASK.Chain2
-              |BIN:10101110
-              |vpiTypespec:
-              \_bit_typespec: , line:8:11, endln:8:16, parent:work@LFSR_TASK.Chain2
-                |vpiRange:
-                \_range: , line:8:12, endln:8:15
-                  |vpiLeftRange:
-                  \_constant: , line:8:12, endln:8:13
-                    |vpiConstType:9
-                    |vpiDecompile:7
-                    |vpiSize:64
-                    |UINT:7
-                  |vpiRightRange:
-                  \_constant: , line:8:14, endln:8:15
-                    |vpiConstType:9
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
           |vpiArgument:
           \_ref_obj: (work@LFSR_TASK.random2), line:36:30, endln:36:37, parent:LFSR_TASK
             |vpiName:random2
@@ -1285,6 +1243,24 @@ design: (work@dff_async_reset)
       \_ref_obj: (work@arbiter.tpriority), line:21:10, endln:21:19
         |vpiName:tpriority
         |vpiFullName:work@arbiter.tpriority
+        |vpiActual:
+        \_logic_net: (work@top.U.tpriority), line:2:56, endln:2:65, parent:work@top.U
+          |vpiName:tpriority
+          |vpiFullName:work@top.U.tpriority
+          |vpiRange:
+          \_range: , line:16:9, endln:16:36
+            |vpiLeftRange:
+            \_constant: , line:16:9, endln:16:30
+              |vpiConstType:7
+              |vpiDecompile:23
+              |vpiSize:64
+              |INT:23
+            |vpiRightRange:
+            \_constant: , line:16:35, endln:16:36
+              |vpiConstType:9
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
       |vpiStmt:
       \_begin: (work@arbiter), line:22:2, endln:29:5
         |vpiFullName:work@arbiter
@@ -1339,15 +1315,12 @@ design: (work@dff_async_reset)
             \_ref_obj: (work@arbiter.i), line:23:12, endln:23:13
               |vpiName:i
               |vpiFullName:work@arbiter.i
+              |vpiActual:
+              \_int_var: (work@top.U.i), line:3:10, endln:3:11, parent:work@top.U
             |vpiOperand:
             \_ref_obj: (work@arbiter.NUMUNITS), line:23:14, endln:23:22
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
-              |vpiActual:
-              \_parameter: (work@top.U.NUMUNITS), line:7:12, endln:7:24, parent:work@top.U
-                |vpiName:NUMUNITS
-                |vpiFullName:work@top.U.NUMUNITS
-                |UINT:8
           |vpiStmt:
           \_begin: (work@arbiter), line:24:2, endln:28:5, parent:work@arbiter
             |vpiFullName:work@arbiter
@@ -1402,15 +1375,12 @@ design: (work@dff_async_reset)
                 \_ref_obj: (work@arbiter.j), line:25:12, endln:25:13
                   |vpiName:j
                   |vpiFullName:work@arbiter.j
+                  |vpiActual:
+                  \_int_var: (work@top.U.j), line:3:12, endln:3:13, parent:work@top.U
                 |vpiOperand:
                 \_ref_obj: (work@arbiter.ADDRESSWIDTH), line:25:14, endln:25:26
                   |vpiName:ADDRESSWIDTH
                   |vpiFullName:work@arbiter.ADDRESSWIDTH
-                  |vpiActual:
-                  \_parameter: (work@top.U.ADDRESSWIDTH), line:8:12, endln:8:28, parent:work@top.U
-                    |vpiName:ADDRESSWIDTH
-                    |vpiFullName:work@top.U.ADDRESSWIDTH
-                    |UINT:3
               |vpiStmt:
               \_assignment: , line:26:2, endln:26:45, parent:work@arbiter
                 |vpiOpType:82
@@ -1435,8 +1405,6 @@ design: (work@dff_async_reset)
                       \_ref_obj: (work@arbiter.ADDRESSWIDTH), line:26:28, endln:26:40
                         |vpiName:ADDRESSWIDTH
                         |vpiFullName:work@arbiter.ADDRESSWIDTH
-                        |vpiActual:
-                        \_parameter: (work@top.U.ADDRESSWIDTH), line:8:12, endln:8:28, parent:work@top.U
                     |vpiOperand:
                     \_ref_obj: (work@arbiter.j), line:26:43, endln:26:44
                       |vpiName:j
@@ -1710,6 +1678,24 @@ design: (work@dff_async_reset)
                       |vpiOperand:
                       \_ref_obj: (request), line:61:10, endln:61:17
                         |vpiName:request
+                        |vpiActual:
+                        \_logic_net: (work@top.U.request), line:2:47, endln:2:54, parent:work@top.U
+                          |vpiName:request
+                          |vpiFullName:work@top.U.request
+                          |vpiRange:
+                          \_range: , line:15:9, endln:15:23
+                            |vpiLeftRange:
+                            \_constant: , line:15:9, endln:15:17
+                              |vpiConstType:7
+                              |vpiDecompile:7
+                              |vpiSize:64
+                              |INT:7
+                            |vpiRightRange:
+                            \_constant: , line:15:22, endln:15:23
+                              |vpiConstType:9
+                              |vpiDecompile:0
+                              |vpiSize:64
+                              |UINT:0
                       |vpiOperand:
                       \_bit_select: (prio), line:61:21, endln:61:28, parent:prio
                         |vpiName:prio
@@ -1836,12 +1822,12 @@ design: (work@dff_async_reset)
             \_ref_obj: (work@arbiter.k), line:64:11, endln:64:12
               |vpiName:k
               |vpiFullName:work@arbiter.k
+              |vpiActual:
+              \_int_var: (work@top.U.k), line:3:14, endln:3:15, parent:work@top.U
             |vpiOperand:
             \_ref_obj: (work@arbiter.NUMUNITS), line:64:13, endln:64:21
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
-              |vpiActual:
-              \_parameter: (work@top.U.NUMUNITS), line:7:12, endln:7:24, parent:work@top.U
           |vpiStmt:
           \_assignment: , line:65:2, endln:65:51, parent:work@arbiter
             |vpiOpType:82
@@ -1876,8 +1862,6 @@ design: (work@dff_async_reset)
                 \_ref_obj: (work@arbiter.NUMUNITS), line:65:41, endln:65:49
                   |vpiName:NUMUNITS
                   |vpiFullName:work@arbiter.NUMUNITS
-                  |vpiActual:
-                  \_parameter: (work@top.U.NUMUNITS), line:7:12, endln:7:24, parent:work@top.U
                 |vpiOperand:
                 \_constant: , line:65:50, endln:65:51
                   |vpiConstType:9
@@ -1908,12 +1892,37 @@ design: (work@dff_async_reset)
           |vpiOperand:
           \_ref_obj: (prioRequest), line:68:10, endln:68:21
             |vpiName:prioRequest
+            |vpiActual:
+            \_logic_net: (work@top.U.prioRequest), line:44:24, endln:44:35, parent:work@top.U
+              |vpiName:prioRequest
+              |vpiFullName:work@top.U.prioRequest
+              |vpiNetType:1
+              |vpiRange:
+              \_range: , line:44:8, endln:44:22
+                |vpiLeftRange:
+                \_constant: , line:44:8, endln:44:16
+                  |vpiConstType:7
+                  |vpiDecompile:7
+                  |vpiSize:64
+                  |INT:7
+                |vpiRightRange:
+                \_constant: , line:44:21, endln:44:22
+                  |vpiConstType:9
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
           |vpiOperand:
           \_ref_obj: (request), line:68:25, endln:68:32
             |vpiName:request
+            |vpiActual:
+            \_logic_net: (work@top.U.request), line:2:47, endln:2:54, parent:work@top.U
         |vpiOperand:
         \_ref_obj: (roundORpriority), line:68:36, endln:68:51
           |vpiName:roundORpriority
+          |vpiActual:
+          \_logic_net: (work@top.U.roundORpriority), line:2:30, endln:2:45, parent:work@top.U
+            |vpiName:roundORpriority
+            |vpiFullName:work@top.U.roundORpriority
       |vpiStmt:
       \_begin: (work@arbiter), line:69:2, endln:73:5
         |vpiFullName:work@arbiter
@@ -1968,12 +1977,12 @@ design: (work@dff_async_reset)
             \_ref_obj: (work@arbiter.r), line:70:11, endln:70:12
               |vpiName:r
               |vpiFullName:work@arbiter.r
+              |vpiActual:
+              \_int_var: (work@top.U.r), line:3:20, endln:3:21, parent:work@top.U
             |vpiOperand:
             \_ref_obj: (work@arbiter.NUMUNITS), line:70:13, endln:70:21
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
-              |vpiActual:
-              \_parameter: (work@top.U.NUMUNITS), line:7:12, endln:7:24, parent:work@top.U
           |vpiStmt:
           \_assignment: , line:71:2, endln:72:12, parent:work@arbiter
             |vpiOpType:82
@@ -1987,8 +1996,6 @@ design: (work@dff_async_reset)
                 |vpiFullName:work@arbiter.roundORpriority
                 |vpiActual:
                 \_logic_net: (work@top.U.roundORpriority), line:2:30, endln:2:45, parent:work@top.U
-                  |vpiName:roundORpriority
-                  |vpiFullName:work@top.U.roundORpriority
               |vpiOperand:
               \_bit_select: (work@arbiter.prioRequest), line:71:38, endln:71:52, parent:work@arbiter.prioRequest
                 |vpiName:prioRequest
@@ -2208,12 +2215,12 @@ design: (work@dff_async_reset)
             \_ref_obj: (work@arbiter.p), line:81:12, endln:81:13
               |vpiName:p
               |vpiFullName:work@arbiter.p
+              |vpiActual:
+              \_int_var: (work@top.U.p), line:3:16, endln:3:17, parent:work@top.U
             |vpiOperand:
             \_ref_obj: (work@arbiter.NUMUNITS), line:81:14, endln:81:22
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
-              |vpiActual:
-              \_parameter: (work@top.U.NUMUNITS), line:7:12, endln:7:24, parent:work@top.U
           |vpiStmt:
           \_if_stmt: , line:82:2, endln:82:47, parent:work@arbiter
             |vpiCondition:
@@ -2290,9 +2297,30 @@ design: (work@dff_async_reset)
                         |vpiOperand:
                         \_ref_obj: (min), line:85:10, endln:85:13
                           |vpiName:min
+                          |vpiActual:
+                          \_logic_net: (work@top.U.min), line:40:27, endln:40:30, parent:work@top.U
                         |vpiOperand:
                         \_ref_obj: (minPrio), line:85:17, endln:85:24
                           |vpiName:minPrio
+                          |vpiActual:
+                          \_logic_net: (work@top.U.minPrio), line:42:23, endln:42:30, parent:work@top.U
+                            |vpiName:minPrio
+                            |vpiFullName:work@top.U.minPrio
+                            |vpiNetType:48
+                            |vpiRange:
+                            \_range: , line:42:7, endln:42:21
+                              |vpiLeftRange:
+                              \_constant: , line:42:7, endln:42:15
+                                |vpiConstType:7
+                                |vpiDecompile:7
+                                |vpiSize:64
+                                |INT:7
+                              |vpiRightRange:
+                              \_constant: , line:42:20, endln:42:21
+                                |vpiConstType:9
+                                |vpiDecompile:0
+                                |vpiSize:64
+                                |UINT:0
                       |vpiOperand:
                       \_bit_select: (prio), line:85:28, endln:85:35, parent:prio
                         |vpiName:prio
@@ -2419,12 +2447,12 @@ design: (work@dff_async_reset)
             \_ref_obj: (work@arbiter.q), line:88:11, endln:88:12
               |vpiName:q
               |vpiFullName:work@arbiter.q
+              |vpiActual:
+              \_int_var: (work@top.U.q), line:3:18, endln:3:19, parent:work@top.U
             |vpiOperand:
             \_ref_obj: (work@arbiter.NUMUNITS), line:88:13, endln:88:21
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
-              |vpiActual:
-              \_parameter: (work@top.U.NUMUNITS), line:7:12, endln:7:24, parent:work@top.U
           |vpiStmt:
           \_assignment: , line:89:2, endln:89:35, parent:work@arbiter
             |vpiOpType:82
@@ -2482,6 +2510,8 @@ design: (work@dff_async_reset)
       \_ref_obj: (work@arbiter.next), line:94:10, endln:94:14
         |vpiName:next
         |vpiFullName:work@arbiter.next
+        |vpiActual:
+        \_logic_net: (work@top.U.next), line:32:27, endln:32:31, parent:work@top.U
       |vpiStmt:
       \_begin: (work@arbiter), line:95:2, endln:98:5
         |vpiFullName:work@arbiter
@@ -2536,12 +2566,12 @@ design: (work@dff_async_reset)
             \_ref_obj: (work@arbiter.s), line:96:11, endln:96:12
               |vpiName:s
               |vpiFullName:work@arbiter.s
+              |vpiActual:
+              \_int_var: (work@top.U.s), line:3:22, endln:3:23, parent:work@top.U
             |vpiOperand:
             \_ref_obj: (work@arbiter.NUMUNITS), line:96:13, endln:96:21
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
-              |vpiActual:
-              \_parameter: (work@top.U.NUMUNITS), line:7:12, endln:7:24, parent:work@top.U
           |vpiStmt:
           \_assignment: , line:97:2, endln:97:58, parent:work@arbiter
             |vpiOpType:82
@@ -2571,8 +2601,6 @@ design: (work@dff_async_reset)
                 \_ref_obj: (work@arbiter.NUMUNITS), line:97:22, endln:97:30
                   |vpiName:NUMUNITS
                   |vpiFullName:work@arbiter.NUMUNITS
-                  |vpiActual:
-                  \_parameter: (work@top.U.NUMUNITS), line:7:12, endln:7:24, parent:work@top.U
               |vpiOperand:
               \_operation: , line:97:34, endln:97:38
                 |vpiOpType:24
@@ -2610,8 +2638,6 @@ design: (work@dff_async_reset)
                 \_ref_obj: (work@arbiter.NUMUNITS), line:97:50, endln:97:58
                   |vpiName:NUMUNITS
                   |vpiFullName:work@arbiter.NUMUNITS
-                  |vpiActual:
-                  \_parameter: (work@top.U.NUMUNITS), line:7:12, endln:7:24, parent:work@top.U
             |vpiLhs:
             \_bit_select: (work@arbiter.scan), line:97:2, endln:97:6, parent:work@arbiter.scan
               |vpiName:scan
@@ -2654,6 +2680,25 @@ design: (work@dff_async_reset)
                       |vpiOperand:
                       \_ref_obj: (finalRequest), line:100:10, endln:100:22
                         |vpiName:finalRequest
+                        |vpiActual:
+                        \_logic_net: (work@top.U.finalRequest), line:46:23, endln:46:35, parent:work@top.U
+                          |vpiName:finalRequest
+                          |vpiFullName:work@top.U.finalRequest
+                          |vpiNetType:48
+                          |vpiRange:
+                          \_range: , line:46:7, endln:46:21
+                            |vpiLeftRange:
+                            \_constant: , line:46:7, endln:46:15
+                              |vpiConstType:7
+                              |vpiDecompile:7
+                              |vpiSize:64
+                              |INT:7
+                            |vpiRightRange:
+                            \_constant: , line:46:20, endln:46:21
+                              |vpiConstType:9
+                              |vpiDecompile:0
+                              |vpiSize:64
+                              |UINT:0
                       |vpiOperand:
                       \_bit_select: (scan), line:100:26, endln:100:33, parent:scan
                         |vpiName:scan
@@ -2808,6 +2853,8 @@ design: (work@dff_async_reset)
             \_ref_obj: (work@arbiter.t), line:104:11, endln:104:12
               |vpiName:t
               |vpiFullName:work@arbiter.t
+              |vpiActual:
+              \_int_var: (work@top.U.t), line:3:24, endln:3:25, parent:work@top.U
             |vpiOperand:
             \_operation: , line:104:13, endln:104:21
               |vpiOpType:11
@@ -2815,8 +2862,6 @@ design: (work@dff_async_reset)
               \_ref_obj: (work@arbiter.NUMUNITS), line:104:13, endln:104:21
                 |vpiName:NUMUNITS
                 |vpiFullName:work@arbiter.NUMUNITS
-                |vpiActual:
-                \_parameter: (work@top.U.NUMUNITS), line:7:12, endln:7:24, parent:work@top.U
               |vpiOperand:
               \_constant: , line:104:22, endln:104:23
                 |vpiConstType:9
@@ -2908,9 +2953,30 @@ design: (work@dff_async_reset)
                         |vpiOperand:
                         \_ref_obj: (finalRequest), line:108:10, endln:108:22
                           |vpiName:finalRequest
+                          |vpiActual:
+                          \_logic_net: (work@top.U.finalRequest), line:46:23, endln:46:35, parent:work@top.U
                         |vpiOperand:
                         \_ref_obj: (found), line:108:26, endln:108:31
                           |vpiName:found
+                          |vpiActual:
+                          \_logic_net: (work@top.U.found), line:36:23, endln:36:28, parent:work@top.U
+                            |vpiName:found
+                            |vpiFullName:work@top.U.found
+                            |vpiNetType:48
+                            |vpiRange:
+                            \_range: , line:36:7, endln:36:21
+                              |vpiLeftRange:
+                              \_constant: , line:36:7, endln:36:15
+                                |vpiConstType:7
+                                |vpiDecompile:6
+                                |vpiSize:64
+                                |INT:6
+                              |vpiRightRange:
+                              \_constant: , line:36:20, endln:36:21
+                                |vpiConstType:9
+                                |vpiDecompile:0
+                                |vpiSize:64
+                                |UINT:0
                       |vpiOperand:
                       \_bit_select: (scan), line:108:35, endln:108:42, parent:scan
                         |vpiName:scan
@@ -3069,12 +3135,12 @@ design: (work@dff_async_reset)
             \_ref_obj: (work@arbiter.u), line:112:11, endln:112:12
               |vpiName:u
               |vpiFullName:work@arbiter.u
+              |vpiActual:
+              \_int_var: (work@top.U.u), line:3:26, endln:3:27, parent:work@top.U
             |vpiOperand:
             \_ref_obj: (work@arbiter.NUMUNITS), line:112:13, endln:112:21
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
-              |vpiActual:
-              \_parameter: (work@top.U.NUMUNITS), line:7:12, endln:7:24, parent:work@top.U
           |vpiStmt:
           \_assignment: , line:113:2, endln:113:56, parent:work@arbiter
             |vpiOpType:82
@@ -3141,6 +3207,8 @@ design: (work@dff_async_reset)
       \_ref_obj: (work@arbiter.grantD), line:115:10, endln:115:16
         |vpiName:grantD
         |vpiFullName:work@arbiter.grantD
+        |vpiActual:
+        \_logic_net: (work@top.U.grantD), line:31:23, endln:31:29, parent:work@top.U
       |vpiStmt:
       \_begin: (work@arbiter), line:116:2, endln:120:5
         |vpiFullName:work@arbiter
@@ -3211,6 +3279,8 @@ design: (work@dff_async_reset)
             \_ref_obj: (work@arbiter.v), line:118:11, endln:118:12
               |vpiName:v
               |vpiFullName:work@arbiter.v
+              |vpiActual:
+              \_int_var: (work@top.U.v), line:3:28, endln:3:29, parent:work@top.U
             |vpiOperand:
             \_operation: , line:118:13, endln:118:21
               |vpiOpType:11
@@ -3218,8 +3288,6 @@ design: (work@dff_async_reset)
               \_ref_obj: (work@arbiter.NUMUNITS), line:118:13, endln:118:21
                 |vpiName:NUMUNITS
                 |vpiFullName:work@arbiter.NUMUNITS
-                |vpiActual:
-                \_parameter: (work@top.U.NUMUNITS), line:7:12, endln:7:24, parent:work@top.U
               |vpiOperand:
               \_constant: , line:118:22, endln:118:23
                 |vpiConstType:9
@@ -3272,32 +3340,20 @@ design: (work@dff_async_reset)
       \_ref_obj: (work@arbiter.minPrio), line:92:23, endln:92:30
         |vpiName:minPrio
         |vpiFullName:work@arbiter.minPrio
+        |vpiActual:
+        \_logic_net: (work@top.U.minPrio), line:42:23, endln:42:30, parent:work@top.U
       |vpiOperand:
       \_ref_obj: (work@arbiter.request), line:92:33, endln:92:40
         |vpiName:request
         |vpiFullName:work@arbiter.request
         |vpiActual:
         \_logic_net: (work@top.U.request), line:2:47, endln:2:54, parent:work@top.U
-          |vpiName:request
-          |vpiFullName:work@top.U.request
-          |vpiRange:
-          \_range: , line:15:9, endln:15:23
-            |vpiLeftRange:
-            \_constant: , line:15:9, endln:15:17
-              |vpiConstType:7
-              |vpiDecompile:7
-              |vpiSize:64
-              |INT:7
-            |vpiRightRange:
-            \_constant: , line:15:22, endln:15:23
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
     |vpiLhs:
     \_ref_obj: (work@arbiter.prioRequest), line:92:9, endln:92:20
       |vpiName:prioRequest
       |vpiFullName:work@arbiter.prioRequest
+      |vpiActual:
+      \_logic_net: (work@top.U.prioRequest), line:44:24, endln:44:35, parent:work@top.U
   |vpiNet:
   \_logic_net: (work@arbiter.i), line:3:10, parent:work@arbiter
     |vpiName:i
@@ -3485,16 +3541,27 @@ design: (work@dff_async_reset)
         |vpiOperand:
         \_ref_obj: (in1), line:6:9, endln:6:12
           |vpiName:in1
+          |vpiActual:
+          \_logic_net: (work@case1.in1), line:2:15, endln:2:18, parent:work@case1
+            |vpiName:in1
+            |vpiFullName:work@case1.in1
+            |vpiRange:
+            \_range: , line:3:8, endln:3:11
+              |vpiLeftRange:
+              \_constant: , line:3:8, endln:3:9
+                |vpiConstType:9
+                |vpiDecompile:7
+                |vpiSize:64
+                |UINT:7
+              |vpiRightRange:
+              \_constant: , line:3:10, endln:3:11
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
         |vpiOperand:
         \_ref_obj: (in2), line:6:16, endln:6:19
           |vpiName:in2
-      |vpiStmt:
-      \_case_stmt: , line:7:2, endln:16:9
-        |vpiCaseType:1
-        |vpiCondition:
-        \_ref_obj: (work@case1.in2), line:7:8, endln:7:11
-          |vpiName:in2
-          |vpiFullName:work@case1.in2
           |vpiActual:
           \_logic_net: (work@case1.in2), line:2:20, endln:2:23, parent:work@case1
             |vpiName:in2
@@ -3513,6 +3580,15 @@ design: (work@dff_async_reset)
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
+      |vpiStmt:
+      \_case_stmt: , line:7:2, endln:16:9
+        |vpiCaseType:1
+        |vpiCondition:
+        \_ref_obj: (work@case1.in2), line:7:8, endln:7:11
+          |vpiName:in2
+          |vpiFullName:work@case1.in2
+          |vpiActual:
+          \_logic_net: (work@case1.in2), line:2:20, endln:2:23, parent:work@case1
         |vpiCaseItem:
         \_case_item: , line:8:2, endln:8:25
           |vpiExpr:
@@ -3788,6 +3864,24 @@ design: (work@dff_async_reset)
       \_ref_obj: (work@case2.sel), line:27:9, endln:27:12
         |vpiName:sel
         |vpiFullName:work@case2.sel
+        |vpiActual:
+        \_logic_net: (work@case2.sel), line:21:20, endln:21:23, parent:work@case2
+          |vpiName:sel
+          |vpiFullName:work@case2.sel
+          |vpiRange:
+          \_range: , line:23:8, endln:23:11
+            |vpiLeftRange:
+            \_constant: , line:23:8, endln:23:9
+              |vpiConstType:9
+              |vpiDecompile:2
+              |vpiSize:64
+              |UINT:2
+            |vpiRightRange:
+            \_constant: , line:23:10, endln:23:11
+              |vpiConstType:9
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
       |vpiStmt:
       \_case_stmt: , line:28:2, endln:37:9
         |vpiCaseType:1
@@ -3797,22 +3891,6 @@ design: (work@dff_async_reset)
           |vpiFullName:work@case2.sel
           |vpiActual:
           \_logic_net: (work@case2.sel), line:21:20, endln:21:23, parent:work@case2
-            |vpiName:sel
-            |vpiFullName:work@case2.sel
-            |vpiRange:
-            \_range: , line:23:8, endln:23:11
-              |vpiLeftRange:
-              \_constant: , line:23:8, endln:23:9
-                |vpiConstType:9
-                |vpiDecompile:2
-                |vpiSize:64
-                |UINT:2
-              |vpiRightRange:
-              \_constant: , line:23:10, endln:23:11
-                |vpiConstType:9
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
         |vpiCaseItem:
         \_case_item: , line:29:2, endln:29:32
           |vpiExpr:
@@ -4031,6 +4109,24 @@ design: (work@dff_async_reset)
       \_ref_obj: (work@case2.in1), line:38:21, endln:38:24
         |vpiName:in1
         |vpiFullName:work@case2.in1
+        |vpiActual:
+        \_logic_net: (work@case2.in1), line:21:15, endln:21:18, parent:work@case2
+          |vpiName:in1
+          |vpiFullName:work@case2.in1
+          |vpiRange:
+          \_range: , line:22:8, endln:22:11
+            |vpiLeftRange:
+            \_constant: , line:22:8, endln:22:9
+              |vpiConstType:9
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+            |vpiRightRange:
+            \_constant: , line:22:10, endln:22:11
+              |vpiConstType:9
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
       |vpiOperand:
       \_bit_select: (work@case2.select), line:38:27, endln:38:36, parent:work@case2.select
         |vpiName:select
@@ -4067,6 +4163,8 @@ design: (work@dff_async_reset)
       \_ref_obj: (work@case2.in1), line:39:21, endln:39:24
         |vpiName:in1
         |vpiFullName:work@case2.in1
+        |vpiActual:
+        \_logic_net: (work@case2.in1), line:21:15, endln:21:18, parent:work@case2
       |vpiOperand:
       \_bit_select: (work@case2.select), line:39:27, endln:39:36, parent:work@case2.select
         |vpiName:select
@@ -4103,6 +4201,8 @@ design: (work@dff_async_reset)
       \_ref_obj: (work@case2.in1), line:40:21, endln:40:24
         |vpiName:in1
         |vpiFullName:work@case2.in1
+        |vpiActual:
+        \_logic_net: (work@case2.in1), line:21:15, endln:21:18, parent:work@case2
       |vpiOperand:
       \_bit_select: (work@case2.select), line:40:27, endln:40:36, parent:work@case2.select
         |vpiName:select
@@ -4139,6 +4239,8 @@ design: (work@dff_async_reset)
       \_ref_obj: (work@case2.in1), line:41:21, endln:41:24
         |vpiName:in1
         |vpiFullName:work@case2.in1
+        |vpiActual:
+        \_logic_net: (work@case2.in1), line:21:15, endln:21:18, parent:work@case2
       |vpiOperand:
       \_bit_select: (work@case2.select), line:41:27, endln:41:36, parent:work@case2.select
         |vpiName:select
@@ -4175,6 +4277,8 @@ design: (work@dff_async_reset)
       \_ref_obj: (work@case2.in1), line:42:21, endln:42:24
         |vpiName:in1
         |vpiFullName:work@case2.in1
+        |vpiActual:
+        \_logic_net: (work@case2.in1), line:21:15, endln:21:18, parent:work@case2
       |vpiOperand:
       \_bit_select: (work@case2.select), line:42:27, endln:42:36, parent:work@case2.select
         |vpiName:select
@@ -4211,6 +4315,8 @@ design: (work@dff_async_reset)
       \_ref_obj: (work@case2.in1), line:43:23, endln:43:26
         |vpiName:in1
         |vpiFullName:work@case2.in1
+        |vpiActual:
+        \_logic_net: (work@case2.in1), line:21:15, endln:21:18, parent:work@case2
       |vpiOperand:
       \_bit_select: (work@case2.select), line:43:29, endln:43:38, parent:work@case2.select
         |vpiName:select
@@ -4247,6 +4353,8 @@ design: (work@dff_async_reset)
       \_ref_obj: (work@case2.in1), line:44:23, endln:44:26
         |vpiName:in1
         |vpiFullName:work@case2.in1
+        |vpiActual:
+        \_logic_net: (work@case2.in1), line:21:15, endln:21:18, parent:work@case2
       |vpiOperand:
       \_bit_select: (work@case2.select), line:44:29, endln:44:38, parent:work@case2.select
         |vpiName:select
@@ -4283,6 +4391,8 @@ design: (work@dff_async_reset)
       \_ref_obj: (work@case2.in1), line:45:23, endln:45:26
         |vpiName:in1
         |vpiFullName:work@case2.in1
+        |vpiActual:
+        \_logic_net: (work@case2.in1), line:21:15, endln:21:18, parent:work@case2
       |vpiOperand:
       \_bit_select: (work@case2.select), line:45:29, endln:45:38, parent:work@case2.select
         |vpiName:select
@@ -4500,9 +4610,31 @@ design: (work@dff_async_reset)
         |vpiOperand:
         \_ref_obj: (enable), line:19:11, endln:19:17
           |vpiName:enable
+          |vpiActual:
+          \_logic_net: (work@encoder_using_case.enable), line:10:1, endln:10:7, parent:work@encoder_using_case
+            |vpiName:enable
+            |vpiFullName:work@encoder_using_case.enable
         |vpiOperand:
         \_ref_obj: (encoder_in), line:19:21, endln:19:31
           |vpiName:encoder_in
+          |vpiActual:
+          \_logic_net: (work@encoder_using_case.encoder_in), line:9:1, endln:9:11, parent:work@encoder_using_case
+            |vpiName:encoder_in
+            |vpiFullName:work@encoder_using_case.encoder_in
+            |vpiRange:
+            \_range: , line:14:8, endln:14:12
+              |vpiLeftRange:
+              \_constant: , line:14:8, endln:14:10
+                |vpiConstType:9
+                |vpiDecompile:15
+                |vpiSize:64
+                |UINT:15
+              |vpiRightRange:
+              \_constant: , line:14:11, endln:14:12
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
       |vpiStmt:
       \_begin: (work@encoder_using_case), line:20:1, endln:41:4
         |vpiFullName:work@encoder_using_case
@@ -4547,8 +4679,6 @@ design: (work@dff_async_reset)
             |vpiFullName:work@encoder_using_case.enable
             |vpiActual:
             \_logic_net: (work@encoder_using_case.enable), line:10:1, endln:10:7, parent:work@encoder_using_case
-              |vpiName:enable
-              |vpiFullName:work@encoder_using_case.enable
           |vpiStmt:
           \_begin: (work@encoder_using_case), line:22:15, endln:40:6
             |vpiFullName:work@encoder_using_case
@@ -4561,22 +4691,6 @@ design: (work@dff_async_reset)
                 |vpiFullName:work@encoder_using_case.encoder_in
                 |vpiActual:
                 \_logic_net: (work@encoder_using_case.encoder_in), line:9:1, endln:9:11, parent:work@encoder_using_case
-                  |vpiName:encoder_in
-                  |vpiFullName:work@encoder_using_case.encoder_in
-                  |vpiRange:
-                  \_range: , line:14:8, endln:14:12
-                    |vpiLeftRange:
-                    \_constant: , line:14:8, endln:14:10
-                      |vpiConstType:9
-                      |vpiDecompile:15
-                      |vpiSize:64
-                      |UINT:15
-                    |vpiRightRange:
-                    \_constant: , line:14:11, endln:14:12
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
               |vpiCaseItem:
               \_case_item: , line:24:7, endln:24:33
                 |vpiExpr:
@@ -5149,9 +5263,45 @@ design: (work@dff_async_reset)
         |vpiOperand:
         \_ref_obj: (Op), line:54:9, endln:54:11
           |vpiName:Op
+          |vpiActual:
+          \_logic_net: (work@pri_encooder.Op), line:49:22, endln:49:24, parent:work@pri_encooder
+            |vpiName:Op
+            |vpiFullName:work@pri_encooder.Op
+            |vpiRange:
+            \_range: , line:50:8, endln:50:11
+              |vpiLeftRange:
+              \_constant: , line:50:8, endln:50:9
+                |vpiConstType:9
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+              |vpiRightRange:
+              \_constant: , line:50:10, endln:50:11
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
         |vpiOperand:
         \_ref_obj: (Funct), line:54:15, endln:54:20
           |vpiName:Funct
+          |vpiActual:
+          \_logic_net: (work@pri_encooder.Funct), line:49:26, endln:49:31, parent:work@pri_encooder
+            |vpiName:Funct
+            |vpiFullName:work@pri_encooder.Funct
+            |vpiRange:
+            \_range: , line:51:8, endln:51:11
+              |vpiLeftRange:
+              \_constant: , line:51:8, endln:51:9
+                |vpiConstType:9
+                |vpiDecompile:4
+                |vpiSize:64
+                |UINT:4
+              |vpiRightRange:
+              \_constant: , line:51:10, endln:51:11
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
       |vpiStmt:
       \_case_stmt: , line:55:2, endln:72:9
         |vpiCaseType:2
@@ -5164,44 +5314,12 @@ design: (work@dff_async_reset)
             |vpiFullName:work@pri_encooder.Op
             |vpiActual:
             \_logic_net: (work@pri_encooder.Op), line:49:22, endln:49:24, parent:work@pri_encooder
-              |vpiName:Op
-              |vpiFullName:work@pri_encooder.Op
-              |vpiRange:
-              \_range: , line:50:8, endln:50:11
-                |vpiLeftRange:
-                \_constant: , line:50:8, endln:50:9
-                  |vpiConstType:9
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                |vpiRightRange:
-                \_constant: , line:50:10, endln:50:11
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
           |vpiOperand:
           \_ref_obj: (work@pri_encooder.Funct), line:55:14, endln:55:19
             |vpiName:Funct
             |vpiFullName:work@pri_encooder.Funct
             |vpiActual:
             \_logic_net: (work@pri_encooder.Funct), line:49:26, endln:49:31, parent:work@pri_encooder
-              |vpiName:Funct
-              |vpiFullName:work@pri_encooder.Funct
-              |vpiRange:
-              \_range: , line:51:8, endln:51:11
-                |vpiLeftRange:
-                \_constant: , line:51:8, endln:51:9
-                  |vpiConstType:9
-                  |vpiDecompile:4
-                  |vpiSize:64
-                  |UINT:4
-                |vpiRightRange:
-                \_constant: , line:51:10, endln:51:11
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
         |vpiCaseItem:
         \_case_item: , line:56:2, endln:59:5
           |vpiExpr:
@@ -6099,10 +6217,6 @@ design: (work@dff_async_reset)
                   \_ref_obj: (work@syn_fifo.STATUS_COUNTER.RAM_DEPTH), line:86:34, endln:86:43
                     |vpiName:RAM_DEPTH
                     |vpiFullName:work@syn_fifo.STATUS_COUNTER.RAM_DEPTH
-                    |vpiActual:
-                    \_parameter: (work@syn_fifo.RAM_DEPTH), line:24:11, endln:24:40, parent:work@syn_fifo
-                      |vpiName:RAM_DEPTH
-                      |vpiFullName:work@syn_fifo.RAM_DEPTH
               |vpiStmt:
               \_begin: (work@syn_fifo.STATUS_COUNTER), line:86:46, endln:88:6
                 |vpiFullName:work@syn_fifo.STATUS_COUNTER
@@ -6139,6 +6253,8 @@ design: (work@dff_async_reset)
       \_ref_obj: (work@syn_fifo.status_cnt), line:45:16, endln:45:26
         |vpiName:status_cnt
         |vpiFullName:work@syn_fifo.status_cnt
+        |vpiActual:
+        \_logic_net: (work@syn_fifo.status_cnt), line:40:21, endln:40:31, parent:work@syn_fifo
       |vpiOperand:
       \_operation: , line:45:31, endln:45:42
         |vpiOpType:11
@@ -6146,8 +6262,6 @@ design: (work@dff_async_reset)
         \_ref_obj: (work@syn_fifo.RAM_DEPTH), line:45:31, endln:45:40
           |vpiName:RAM_DEPTH
           |vpiFullName:work@syn_fifo.RAM_DEPTH
-          |vpiActual:
-          \_parameter: (work@syn_fifo.RAM_DEPTH), line:24:11, endln:24:40, parent:work@syn_fifo
         |vpiOperand:
         \_constant: , line:45:41, endln:45:42
           |vpiConstType:9
@@ -6158,6 +6272,10 @@ design: (work@dff_async_reset)
     \_ref_obj: (work@syn_fifo.full), line:45:8, endln:45:12
       |vpiName:full
       |vpiFullName:work@syn_fifo.full
+      |vpiActual:
+      \_logic_net: (work@syn_fifo.full), line:18:1, endln:18:5, parent:work@syn_fifo
+        |vpiName:full
+        |vpiFullName:work@syn_fifo.full
   |vpiContAssign:
   \_cont_assign: , line:46:8, endln:46:33, parent:work@syn_fifo
     |vpiRhs:
@@ -6167,6 +6285,8 @@ design: (work@dff_async_reset)
       \_ref_obj: (work@syn_fifo.status_cnt), line:46:17, endln:46:27
         |vpiName:status_cnt
         |vpiFullName:work@syn_fifo.status_cnt
+        |vpiActual:
+        \_logic_net: (work@syn_fifo.status_cnt), line:40:21, endln:40:31, parent:work@syn_fifo
       |vpiOperand:
       \_constant: , line:46:31, endln:46:32
         |vpiConstType:9
@@ -6177,6 +6297,10 @@ design: (work@dff_async_reset)
     \_ref_obj: (work@syn_fifo.empty), line:46:8, endln:46:13
       |vpiName:empty
       |vpiFullName:work@syn_fifo.empty
+      |vpiActual:
+      \_logic_net: (work@syn_fifo.empty), line:17:1, endln:17:6, parent:work@syn_fifo
+        |vpiName:empty
+        |vpiFullName:work@syn_fifo.empty
   |vpiNet:
   \_logic_net: (work@syn_fifo.wr_pointer), line:38:22, parent:work@syn_fifo
     |vpiName:wr_pointer
@@ -6265,11 +6389,6 @@ design: (work@dff_async_reset)
       |vpiOperand:
       \_ref_obj: (ADDR_WIDTH), line:24:29, endln:24:39
         |vpiName:ADDR_WIDTH
-        |vpiActual:
-        \_parameter: (work@syn_fifo.ADDR_WIDTH), line:23:11, endln:23:25, parent:work@syn_fifo
-          |vpiName:ADDR_WIDTH
-          |vpiFullName:work@syn_fifo.ADDR_WIDTH
-          |UINT:8
     |vpiLhs:
     \_parameter: (work@syn_fifo.RAM_DEPTH), line:24:11, endln:24:40, parent:work@syn_fifo
 |uhdmallModules:
@@ -10820,27 +10939,6 @@ design: (work@dff_async_reset)
               \_ref_obj: (work@LFSR_TASK.Chain1), line:31:22, endln:31:28, parent:LFSR_TASK
                 |vpiName:Chain1
                 |vpiFullName:work@LFSR_TASK.Chain1
-                |vpiActual:
-                \_parameter: (work@LFSR_TASK.Chain1), line:7:17, endln:7:37, parent:work@LFSR_TASK
-                  |vpiName:Chain1
-                  |vpiFullName:work@LFSR_TASK.Chain1
-                  |BIN:10001110
-                  |vpiTypespec:
-                  \_bit_typespec: , line:7:11, endln:7:16, parent:work@LFSR_TASK.Chain1
-                    |vpiRange:
-                    \_range: , line:7:12, endln:7:15
-                      |vpiLeftRange:
-                      \_constant: , line:7:12, endln:7:13
-                        |vpiConstType:9
-                        |vpiDecompile:7
-                        |vpiSize:64
-                        |UINT:7
-                      |vpiRightRange:
-                      \_constant: , line:7:14, endln:7:15
-                        |vpiConstType:9
-                        |vpiDecompile:0
-                        |vpiSize:64
-                        |UINT:0
               |vpiArgument:
               \_ref_obj: (work@LFSR_TASK.random1), line:31:30, endln:31:37, parent:LFSR_TASK
                 |vpiName:random1
@@ -10911,27 +11009,6 @@ design: (work@dff_async_reset)
               \_ref_obj: (work@LFSR_TASK.Chain2), line:36:22, endln:36:28, parent:LFSR_TASK
                 |vpiName:Chain2
                 |vpiFullName:work@LFSR_TASK.Chain2
-                |vpiActual:
-                \_parameter: (work@LFSR_TASK.Chain2), line:8:17, endln:8:37, parent:work@LFSR_TASK
-                  |vpiName:Chain2
-                  |vpiFullName:work@LFSR_TASK.Chain2
-                  |BIN:10101110
-                  |vpiTypespec:
-                  \_bit_typespec: , line:8:11, endln:8:16, parent:work@LFSR_TASK.Chain2
-                    |vpiRange:
-                    \_range: , line:8:12, endln:8:15
-                      |vpiLeftRange:
-                      \_constant: , line:8:12, endln:8:13
-                        |vpiConstType:9
-                        |vpiDecompile:7
-                        |vpiSize:64
-                        |UINT:7
-                      |vpiRightRange:
-                      \_constant: , line:8:14, endln:8:15
-                        |vpiConstType:9
-                        |vpiDecompile:0
-                        |vpiSize:64
-                        |UINT:0
               |vpiArgument:
               \_ref_obj: (work@LFSR_TASK.random2), line:36:30, endln:36:37, parent:LFSR_TASK
                 |vpiName:random2
@@ -11039,8 +11116,46 @@ design: (work@dff_async_reset)
   \_logic_net: (work@LFSR_TASK.seed2), line:2:40, endln:2:45, parent:work@LFSR_TASK
   |vpiParameter:
   \_parameter: (work@LFSR_TASK.Chain1), line:7:17, endln:7:37, parent:work@LFSR_TASK
+    |vpiName:Chain1
+    |vpiFullName:work@LFSR_TASK.Chain1
+    |BIN:10001110
+    |vpiTypespec:
+    \_bit_typespec: , line:7:11, endln:7:16, parent:work@LFSR_TASK.Chain1
+      |vpiRange:
+      \_range: , line:7:12, endln:7:15
+        |vpiLeftRange:
+        \_constant: , line:7:12, endln:7:13
+          |vpiConstType:9
+          |vpiDecompile:7
+          |vpiSize:64
+          |UINT:7
+        |vpiRightRange:
+        \_constant: , line:7:14, endln:7:15
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
   |vpiParameter:
   \_parameter: (work@LFSR_TASK.Chain2), line:8:17, endln:8:37, parent:work@LFSR_TASK
+    |vpiName:Chain2
+    |vpiFullName:work@LFSR_TASK.Chain2
+    |BIN:10101110
+    |vpiTypespec:
+    \_bit_typespec: , line:8:11, endln:8:16, parent:work@LFSR_TASK.Chain2
+      |vpiRange:
+      \_range: , line:8:12, endln:8:15
+        |vpiLeftRange:
+        \_constant: , line:8:12, endln:8:13
+          |vpiConstType:9
+          |vpiDecompile:7
+          |vpiSize:64
+          |UINT:7
+        |vpiRightRange:
+        \_constant: , line:8:14, endln:8:15
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:7:17, endln:7:37, parent:work@LFSR_TASK
     |vpiRhs:
