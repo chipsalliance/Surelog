@@ -958,6 +958,25 @@ design: (work@toto)
     \_ref_obj: (work@dut.o), line:26:10, endln:26:11
       |vpiName:o
       |vpiFullName:work@dut.o
+      |vpiActual:
+      \_logic_net: (work@dut.o), line:25:15, endln:25:16, parent:work@dut
+        |vpiName:o
+        |vpiFullName:work@dut.o
+        |vpiNetType:48
+        |vpiRange:
+        \_range: , line:25:10, endln:25:13
+          |vpiLeftRange:
+          \_constant: , line:25:10, endln:25:11
+            |vpiConstType:9
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+          |vpiRightRange:
+          \_constant: , line:25:12, endln:25:13
+            |vpiConstType:9
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
   |vpiNet:
   \_logic_net: (work@dut.a), line:24:16, parent:work@dut
   |vpiNet:
@@ -1180,11 +1199,6 @@ design: (work@toto)
             \_ref_obj: (work@toto.IDLE), line:9:11, endln:9:15, parent:work@toto
               |vpiName:IDLE
               |vpiFullName:work@toto.IDLE
-              |vpiActual:
-              \_parameter: (work@toto.IDLE), line:3:13, endln:3:21, parent:work@toto
-                |vpiName:IDLE
-                |vpiFullName:work@toto.IDLE
-                |UINT:0
         |vpiStmt:
         \_if_stmt: , line:11:5, endln:12:8, parent:work@toto
           |vpiCondition:
@@ -1300,9 +1314,10 @@ design: (work@toto)
               |vpiName:IDLE
               |vpiFullName:work@toto.state.IDLE
               |vpiActual:
-              \_parameter: (work@toto.IDLE), line:3:13, endln:3:21, parent:work@toto
-                |vpiName:IDLE
-                |vpiFullName:work@toto.IDLE
+              \_constant: , line:3:20, endln:3:21
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
                 |UINT:0
         |vpiStmt:
         \_if_stmt: , line:11:5, endln:12:8, parent:work@toto
@@ -1397,14 +1412,13 @@ design: (work@toto)
         |UINT:0
   |vpiParameter:
   \_parameter: (work@toto.IDLE), line:3:13, endln:3:21, parent:work@toto
+    |vpiName:IDLE
+    |vpiFullName:work@toto.IDLE
+    |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:3:13, endln:3:21, parent:work@toto
     |vpiRhs:
     \_constant: , line:3:20, endln:3:21
-      |vpiConstType:9
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
     |vpiLhs:
     \_parameter: (work@toto.IDLE), line:3:13, endln:3:21, parent:work@toto
 |uhdmtopModules:

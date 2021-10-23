@@ -95,6 +95,11 @@ design: (work@vend), id:51
           \_ref_obj: (work@vend.newspaper), id:39, line:30:10, endln:30:19, parID:38
             |vpiName:newspaper
             |vpiFullName:work@vend.newspaper
+            |vpiActual:
+            \_logic_net: (work@vend.newspaper), id:47, line:5:6, endln:5:15, parent:work@vend, parID:60
+              |vpiName:newspaper
+              |vpiFullName:work@vend.newspaper
+              |vpiNetType:1
   |vpiTaskFunc:
   \_function: (work@vend.fsm), id:0, line:10:1, endln:26:12, parent:work@vend, parID:52
     |vpiVisibility:1
@@ -156,11 +161,6 @@ design: (work@vend), id:51
           \_ref_obj: (work@vend.fsm.s0), id:20, line:16:5, endln:16:7, parent:work@vend.fsm, parID:16
             |vpiName:s0
             |vpiFullName:work@vend.fsm.s0
-            |vpiActual:
-            \_parameter: (work@vend.s0), id:61, line:7:11, endln:7:21, parent:work@vend, parID:60
-              |vpiName:s0
-              |vpiFullName:work@vend.s0
-              |BIN:00
           |vpiStmt:
           \_begin: (work@vend.fsm), id:21, line:17:5, endln:22:8, parID:19
             |vpiFullName:work@vend.fsm
@@ -365,10 +365,11 @@ design: (work@vend), id:51
             |vpiName:s0
             |vpiFullName:work@vend.fsm.s0
             |vpiActual:
-            \_parameter: (work@vend.s0), id:61, line:7:11, endln:7:21, parent:work@vend, parID:60
-              |vpiName:s0
-              |vpiFullName:work@vend.s0
-              |BIN:00
+            \_constant: , id:46, line:7:16, endln:7:21
+              |vpiConstType:9
+              |vpiDecompile:0
+              |vpiSize:2
+              |UINT:0
           |vpiStmt:
           \_begin: (work@vend.fsm), id:83, line:17:5, endln:22:8, parID:81
             |vpiFullName:work@vend.fsm
@@ -436,14 +437,13 @@ design: (work@vend), id:51
   \_logic_net: (work@vend.clock), id:48, line:1:13, endln:1:18, parent:work@vend, parID:60
   |vpiParameter:
   \_parameter: (work@vend.s0), id:61, line:7:11, endln:7:21, parent:work@vend, parID:60
+    |vpiName:s0
+    |vpiFullName:work@vend.s0
+    |BIN:00
   |vpiParamAssign:
   \_param_assign: , id:45, line:7:11, endln:7:21, parent:work@vend, parID:60
     |vpiRhs:
     \_constant: , id:46, line:7:16, endln:7:21
-      |vpiConstType:9
-      |vpiDecompile:0
-      |vpiSize:2
-      |UINT:0
     |vpiLhs:
     \_parameter: (work@vend.s0), id:61, line:7:11, endln:7:21, parent:work@vend, parID:60
 ===================

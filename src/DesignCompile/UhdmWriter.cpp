@@ -1205,15 +1205,21 @@ bool writeElabProgram(Serializer& s, ModuleInstance* instance, program* m) {
         }
         if (ref->Actual_group()) continue;
       }
-      if (m->Parameters()) {
-        for (auto n : *m->Parameters()) {
-          if (n->VpiName() == name) {
-            ref->Actual_group(n);
-            break;
+      /*
+      Do not bind here, let the uhdmelab do this correctly
+      if (m->Param_assigns()) {
+        for (auto p : *m->Param_assigns()) {
+          const any* lhs = p->Lhs();
+          if (lhs->UhdmType() != uhdmtype_parameter) {
+            if (lhs->VpiName() == name) {
+              ref->Actual_group((any*) p->Rhs());
+              break;
+            }
           }
         }
         if (ref->Actual_group()) continue;
       }
+      */
     }
   }
 
@@ -1389,15 +1395,21 @@ bool writeElabGenScope(Serializer& s, ModuleInstance* instance, gen_scope* m,
         }
         if (ref->Actual_group()) continue;
       }
-      if (m->Parameters()) {
-        for (auto n : *m->Parameters()) {
-          if (n->VpiName() == name) {
-            ref->Actual_group(n);
-            break;
+      /*
+      Do not bind here, let the uhdmelab do this correctly
+      if (m->Param_assigns()) {
+        for (auto p : *m->Param_assigns()) {
+          const any* lhs = p->Lhs();
+          if (lhs->UhdmType() != uhdmtype_parameter) {
+            if (lhs->VpiName() == name) {
+              ref->Actual_group((any*) p->Rhs());
+              break;
+            }
           }
         }
         if (ref->Actual_group()) continue;
       }
+      */
     }
   }
 
@@ -1508,17 +1520,21 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m,
         }
         if (ref->Actual_group()) continue;
       }
-      if (m->Parameters()) {
-        for (auto n : *m->Parameters()) {
-          if (n->UhdmType() != uhdmtype_parameter) {
-            if (n->VpiName() == name) {
-              ref->Actual_group(n);
+      /*
+      // Do not bind blindly here, let the uhdmelab do this correctly
+      if (m->Param_assigns()) {
+        for (auto p : *m->Param_assigns()) {
+          const any* lhs = p->Lhs();
+          if (lhs->UhdmType() != uhdmtype_parameter) {
+            if (lhs->VpiName() == name) {
+              ref->Actual_group((any*)p->Rhs());
               break;
             }
           }
         }
         if (ref->Actual_group()) continue;
       }
+      */
       if (m->Typespecs()) {
         for (auto n : *m->Typespecs()) {
           if (n->UhdmType() == uhdmenum_typespec) {

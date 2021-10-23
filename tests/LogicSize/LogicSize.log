@@ -175,6 +175,11 @@ design: (work@top)
     \_ref_obj: (work@dut.a), line:3:11, endln:3:12
       |vpiName:a
       |vpiFullName:work@dut.a
+      |vpiActual:
+      \_logic_net: (work@top.u_dut.a), line:1:25, endln:1:26, parent:work@top.u_dut
+        |vpiName:a
+        |vpiFullName:work@top.u_dut.a
+        |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@dut.a), line:1:25, parent:work@dut
   |vpiParameter:
@@ -286,12 +291,13 @@ design: (work@top)
         |vpiName:P
         |vpiFullName:work@top.u_dut.P
         |vpiActual:
-        \_parameter: (work@top.u_dut.P), line:2:20, endln:2:25, parent:work@top.u_dut
-          |vpiName:P
-          |vpiFullName:work@top.u_dut.P
-          |UINT:0
+        \_constant: , line:2:24, endln:2:25
+          |vpiConstType:9
+          |vpiDecompile:1
+          |vpiSize:1
+          |UINT:1
           |vpiTypespec:
-          \_logic_typespec: , line:2:14, endln:2:19, parent:work@top.u_dut.P
+          \_logic_typespec: , line:2:14, endln:2:19, parent:work@dut.P
       |vpiLhs:
       \_ref_obj: (work@top.u_dut.a), line:3:11, endln:3:12
         |vpiName:a
@@ -304,17 +310,16 @@ design: (work@top)
     \_module: work@top (work@top) dut.sv:6:1: , endln:13:10
     |vpiParameter:
     \_parameter: (work@top.u_dut.P), line:2:20, endln:2:25, parent:work@top.u_dut
+      |vpiName:P
+      |vpiFullName:work@top.u_dut.P
+      |UINT:0
+      |vpiTypespec:
+      \_logic_typespec: , line:2:14, endln:2:19, parent:work@top.u_dut.P
     |vpiParamAssign:
     \_param_assign: , line:2:20, endln:2:25, parent:work@top.u_dut
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:2:24, endln:2:25
-        |vpiConstType:9
-        |vpiDecompile:1
-        |vpiSize:1
-        |UINT:1
-        |vpiTypespec:
-        \_logic_typespec: , line:2:14, endln:2:19, parent:work@dut.P
       |vpiLhs:
       \_parameter: (work@top.u_dut.P), line:2:20, endln:2:25, parent:work@top.u_dut
   |vpiNet:
