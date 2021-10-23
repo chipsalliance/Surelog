@@ -2335,50 +2335,60 @@ bool CompileHelper::compileParameterDeclaration(
       }
 
       if (valuedcomponenti_cast<Package*>(component) && (instance == nullptr)) {
+        /*
         Value* val = m_exprBuilder.evalExpr(fC, actual_value, component,
                                             true);  // Errors muted
         if (val->isValid()) {
           component->setValue(the_name, val, m_exprBuilder);
         } else {
-          UHDM::any* expr =
-              compileExpression(component, fC, actual_value, compileDesign,
-                                nullptr, nullptr, !isMultiDimension);
-          UHDM::UHDM_OBJECT_TYPE exprtype = expr->UhdmType();
-          if (expr && exprtype == UHDM::uhdmconstant) {
-            UHDM::constant* c = (UHDM::constant*)expr;
-            val = m_exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
-            component->setValue(the_name, val, m_exprBuilder);
-          } else if (reduce && (!isMultiDimension)) {
-            UHDM::expr* the_expr = (UHDM::expr*)expr;
-            ExprEval expr_eval(the_expr, instance, fC->getFileName(),
-                               fC->Line(name), nullptr);
-            component->scheduleParamExprEval(the_name, expr_eval);
-          } else if (expr && ((exprtype == uhdmoperation) ||
-                              (exprtype == uhdmfunc_call) ||
-                              (exprtype == uhdmsys_func_call))) {
-            component->setComplexValue(the_name, (UHDM::expr*)expr);
-            if (isDecreasing) {
-              if (expr->UhdmType() == uhdmoperation) {
-                operation* op = (operation*)expr;
-                int optype = op->VpiOpType();
-                if (optype == vpiAssignmentPatternOp || optype == vpiConcatOp) {
-                  VectorOfany* operands = op->Operands();
-                  if (operands && operands->size()) {
-                    if ((*operands)[0]->UhdmType() == uhdmref_obj) {
-                      op->VpiReordered(true);
-                      std::reverse(operands->begin(), operands->end());
-                    }
+          */
+        UHDM::any* expr =
+            compileExpression(component, fC, actual_value, compileDesign,
+                              nullptr, nullptr, !isMultiDimension);
+        UHDM::UHDM_OBJECT_TYPE exprtype = expr->UhdmType();
+        if (expr && exprtype == UHDM::uhdmconstant) {
+          UHDM::constant* c = (UHDM::constant*)expr;
+          int size = c->VpiSize();
+          if (ts) {
+            bool invalidValue = false;
+            int sizetmp =
+                Bits(ts, invalidValue, component, compileDesign, instance,
+                     fC->getFileName(), fC->Line(actual_value), true, false);
+            if (!invalidValue) size = sizetmp;
+          }
+          Value* val = m_exprBuilder.fromVpiValue(c->VpiValue(), size);
+          component->setValue(the_name, val, m_exprBuilder);
+        } else if (reduce && (!isMultiDimension)) {
+          UHDM::expr* the_expr = (UHDM::expr*)expr;
+          ExprEval expr_eval(the_expr, instance, fC->getFileName(),
+                             fC->Line(name), nullptr);
+          component->scheduleParamExprEval(the_name, expr_eval);
+        } else if (expr && ((exprtype == uhdmoperation) ||
+                            (exprtype == uhdmfunc_call) ||
+                            (exprtype == uhdmsys_func_call))) {
+          component->setComplexValue(the_name, (UHDM::expr*)expr);
+          if (isDecreasing) {
+            if (expr->UhdmType() == uhdmoperation) {
+              operation* op = (operation*)expr;
+              int optype = op->VpiOpType();
+              if (optype == vpiAssignmentPatternOp || optype == vpiConcatOp) {
+                VectorOfany* operands = op->Operands();
+                if (operands && operands->size()) {
+                  if ((*operands)[0]->UhdmType() == uhdmref_obj) {
+                    op->VpiReordered(true);
+                    std::reverse(operands->begin(), operands->end());
                   }
                 }
               }
             }
-          } else {
-            val = m_exprBuilder.evalExpr(
-                fC, actual_value, component);  // This call to create an error
-            component->setValue(the_name, val, m_exprBuilder);
           }
+        } else {
+          Value* val = m_exprBuilder.evalExpr(
+              fC, actual_value, component);  // This call to create an error
+          component->setValue(the_name, val, m_exprBuilder);
         }
       }
+      //}
 
       UHDM::parameter* param = s.MakeParameter();
 
@@ -2461,7 +2471,16 @@ bool CompileHelper::compileParameterDeclaration(
         if (rhs->UhdmType() == uhdmconstant) {
           constant* c = (constant*)rhs;
           c->Typespec(ts);
-          adjustSize(c, ts);
+
+          int size = c->VpiSize();
+          if (ts) {
+            bool invalidValue = false;
+            int sizetmp =
+                Bits(ts, invalidValue, component, compileDesign, instance,
+                     fC->getFileName(), fC->Line(actual_value), true, false);
+            if (!invalidValue) size = sizetmp;
+          }
+          c->VpiSize(size);
         }
         param_assign->Rhs(rhs);
         if (rhs && (rhs->UhdmType() == uhdmconstant)) {
@@ -2477,24 +2496,20 @@ bool CompileHelper::compileParameterDeclaration(
   return true;
 }
 
-void CompileHelper::adjustSize(UHDM::constant* c, UHDM::typespec* ts) {
+void CompileHelper::adjustSize(const UHDM::typespec* ts,
+                               DesignComponent* component,
+                               CompileDesign* compileDesign,
+                               ValuedComponentI* instance, UHDM::constant* c) {
   if (ts == nullptr) {
     return;
   }
-  switch (ts->UhdmType()) {
-    case uhdmlogic_typespec: {
-      logic_typespec* ltps = (logic_typespec*)ts;
-      if (ltps->Ranges() == nullptr) c->VpiSize(1);
-      break;
-    }
-    case uhdmbit_typespec: {
-      bit_typespec* ltps = (bit_typespec*)ts;
-      if (ltps->Ranges() == nullptr) c->VpiSize(1);
-      break;
-    }
-    default:
-      break;
-  }
+  int size = c->VpiSize();
+  bool invalidValue = false;
+  int sizetmp = Bits(ts, invalidValue, component, compileDesign, instance,
+                     c->VpiFile(), c->VpiLineNo(), true, false);
+  if (!invalidValue) size = sizetmp;
+
+  c->VpiSize(size);
 }
 
 UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
