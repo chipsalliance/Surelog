@@ -2335,13 +2335,6 @@ bool CompileHelper::compileParameterDeclaration(
       }
 
       if (valuedcomponenti_cast<Package*>(component) && (instance == nullptr)) {
-        /*
-        Value* val = m_exprBuilder.evalExpr(fC, actual_value, component,
-                                            true);  // Errors muted
-        if (val->isValid()) {
-          component->setValue(the_name, val, m_exprBuilder);
-        } else {
-          */
         UHDM::any* expr =
             compileExpression(component, fC, actual_value, compileDesign,
                               nullptr, nullptr, !isMultiDimension);
@@ -2388,7 +2381,6 @@ bool CompileHelper::compileParameterDeclaration(
           component->setValue(the_name, val, m_exprBuilder);
         }
       }
-      //}
 
       UHDM::parameter* param = s.MakeParameter();
 
