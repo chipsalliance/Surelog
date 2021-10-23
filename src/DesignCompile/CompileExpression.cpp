@@ -1658,6 +1658,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
             UHDM::constant* c1 = s.MakeConstant();
             std::string cval;
             int csize = 0;
+            bool stringVal = false;
             for (unsigned int i = 0; i < operands.size(); i++) {
               any* op = operands[i];
               UHDM_OBJECT_TYPE optype = op->UhdmType();
@@ -1744,6 +1745,12 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                     }
                     break;
                   }
+                  case vpiStringConst: {
+                    std::string tmp = v.c_str() + strlen("STRING:");
+                    cval += tmp;
+                    stringVal = true;
+                    break;
+                  }
                   default: {
                     if (strstr(v.c_str(), "UINT:")) {
                       uint64_t iv =
@@ -1763,9 +1770,15 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
               }
             }
             if (c1) {
-              c1->VpiValue("BIN:" + cval);
-              c1->VpiSize(csize);
-              c1->VpiConstType(vpiBinaryConst);
+              if (stringVal) {
+                c1->VpiValue("STRING:" + cval);
+                c1->VpiSize(cval.size() * 8);
+                c1->VpiConstType(vpiStringConst);
+              } else {
+                c1->VpiValue("BIN:" + cval);
+                c1->VpiSize(csize);
+                c1->VpiConstType(vpiBinaryConst);
+              }
               result = c1;
             }
             break;
