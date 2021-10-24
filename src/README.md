@@ -9,8 +9,14 @@ Please see [`INSTALL`](../INSTALL.md)
  
 ```bash
 cd Surelog
+
+If you had a previous install, remove it first:
+  make uninstall  (PREFIX=...)
+  
 make
+or 
 make debug
+
 make install (/usr/local/bin and /usr/local/lib/surelog by default, use PREFIX=<path> for alternative locations)
 
 To make with Python you have to add the option to build/cmake:  -DSURELOG_WITH_PYTHON=1
