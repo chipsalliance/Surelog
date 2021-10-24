@@ -6250,6 +6250,21 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
     NodeId Bit_select = fC->Child(dotedName);
     const std::string& sval = fC->SymName(name);
     NodeId selectName = fC->Sibling(dotedName);
+
+    bool hierPath = false;
+    // bool methodCall = false;
+    NodeId tmp = dotedName;
+    NodeId List_of_arguments = 0;
+    while (tmp) {
+      if (fC->Type(tmp) == slStringConst) {
+        hierPath = true;
+      } else if (fC->Type(tmp) == slList_of_arguments) {
+        // methodCall = true;
+        List_of_arguments = tmp;
+      }
+      tmp = fC->Sibling(tmp);
+    }
+
     if (fC->Type(selectName) == slMethod_call_body) {
       // Example tree
       //
@@ -6335,49 +6350,176 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
               instance, reduce, muteErrors);
           fcall->With(with_conditions);
         }
-
         fcall->Prefix(prefix);
       } else {
-        // TODO: non-builtin methods
         fcall = s.MakeMethod_func_call();
-        fcall->VpiName(sval);
+        ref_obj* object = s.MakeRef_obj();
+        object->VpiName(sval);
+        fcall->Prefix(object);
+        std::string methodName = fC->SymName(dotedName);
+        fcall->VpiName(methodName);
+        VectorOfany* arguments = compileTfCallArguments(
+            component, fC, List_of_arguments, compileDesign, fcall, instance,
+            reduce, muteErrors);
+        fcall->Tf_call_args(arguments);
       }
       result = fcall;
     } else if (selectName) {
-      // This is deviating from the standard VPI, in the standard VPI the
-      // bit_select is bit blasted, Here we keep the algebraic expression for
-      // the index.
-      expr* index =
-          (expr*)compileExpression(component, fC, dotedName, compileDesign,
-                                   pexpr, instance, reduce, muteErrors);
-      const std::string& sel = fC->SymName(selectName);
+      std::string the_name = fC->SymName(name);
+      if (!hierPath) {
+        VObjectType dtype = fC->Type(dotedName);
+        if (dotedName == 0) {
+          ref_obj* ref = s.MakeRef_obj();
+          ref->VpiName(the_name);
+          ref->VpiFullName(the_name);
+          result = ref;
+        } else if (dtype == VObjectType::slSelect ||
+                   dtype == VObjectType::slConstant_bit_select ||
+                   dtype == VObjectType::slBit_select ||
+                   dtype == VObjectType::slConstant_select) {
+          std::string ind;
+          NodeId Bit_select = fC->Child(dotedName);
+          NodeId Expression = fC->Child(Bit_select);
+          expr* index = nullptr;
+          if (Expression)
+            index = (expr*)compileExpression(component, fC, Expression,
+                                             compileDesign, pexpr, instance);
+          if (index) {
+            bit_select* select = s.MakeBit_select();
+            select->VpiIndex(index);
+            if (index->UhdmType() == uhdmconstant) {
+              ind = index->VpiDecompile();
+              the_name += "[" + ind + "]";
+            } else if (index->UhdmType() == uhdmref_obj) {
+              ind = index->VpiName();
+              the_name += "[" + ind + "]";
+            } else if (index->UhdmType() == uhdmoperation) {
+              ind = "...";
+              the_name += "[" + ind + "]";
+            }
+            select->VpiFullName(the_name);
+            select->VpiName(the_name);
+            result = select;
+          } else {
+            ref_obj* ref = s.MakeRef_obj();
+            ref->VpiName(the_name);
+            ref->VpiFullName(the_name);
+            result = ref;
+          }
+        }
+        return result;
+      }
+
       UHDM::hier_path* path = s.MakeHier_path();
       VectorOfany* elems = s.MakeAnyVec();
-      bit_select* select = s.MakeBit_select();
-      select->VpiIndex(index);
-      select->VpiName(sval);
-      select->VpiFullName(sval);
-      select->VpiParent(path);
+      std::string tmpName = the_name;
       path->Path_elems(elems);
-      elems->push_back(select);
-      std::string indexval;
-      if (index) {
-        if (index->UhdmType() == uhdmconstant) {
-          indexval = "[" + index->VpiDecompile() + "]";
-        } else if (index->UhdmType() == uhdmref_obj) {
-          indexval += "[" + index->VpiName() + "]";
+      bool is_hierarchical = false;
+      while (dotedName) {
+        VObjectType dtype = fC->Type(dotedName);
+        if (dtype == VObjectType::slStringConst) {
+          the_name += "." + fC->SymName(dotedName);
+          if (tmpName != "") {
+            ref_obj* ref = s.MakeRef_obj();
+            elems->push_back(ref);
+            ref->VpiName(tmpName);
+            ref->VpiFullName(tmpName);
+            ref->VpiParent(path);
+            tmpName = "";
+            is_hierarchical = true;
+          }
+          tmpName = fC->SymName(dotedName);
+        } else if (dtype == VObjectType::slSelect ||
+                   dtype == VObjectType::slBit_select ||
+                   dtype == VObjectType::slConstant_bit_select ||
+                   dtype == VObjectType::slConstant_expression) {
+          std::string ind;
+          NodeId Bit_select = fC->Child(dotedName);
+          NodeId Expression = fC->Child(Bit_select);
+          if (Expression == 0) {
+            if (Bit_select) Expression = fC->Sibling(Bit_select);
+          }
+          if (dtype == VObjectType::slConstant_expression) {
+            Expression = dotedName;
+          }
+
+          is_hierarchical = true;
+          if (Expression && (fC->Type(Expression) == slPart_select_range) &&
+              fC->Child(Expression)) {
+            expr* select = (expr*)compilePartSelectRange(
+                component, fC, fC->Child(Expression), "CREATE_UNNAMED_PARENT",
+                compileDesign, nullptr, instance, reduce, muteErrors);
+            ref_obj* parent = (ref_obj*)select->VpiParent();
+            if (parent) parent->VpiDefName(tmpName);
+            elems->push_back(select);
+            if (part_select* pselect = any_cast<part_select*>(select)) {
+              std::string selectRange =
+                  "[" + pselect->Left_range()->VpiDecompile() + ":" +
+                  pselect->Right_range()->VpiDecompile() + "]";
+              the_name += selectRange;
+            } else if (indexed_part_select* pselect =
+                           any_cast<indexed_part_select*>(select)) {
+              std::string selectRange =
+                  "[" + pselect->Base_expr()->VpiDecompile() +
+                  ((pselect->VpiIndexedPartSelectType() == vpiPosIndexed)
+                       ? "+"
+                       : "-") +
+                  std::string(":") + pselect->Width_expr()->VpiDecompile() +
+                  "]";
+              the_name += selectRange;
+            }
+          } else if (Expression) {
+            expr* index = (expr*)compileExpression(
+                component, fC, Expression, compileDesign, pexpr, instance,
+                reduce, muteErrors);
+            if (index) {
+              bit_select* select = s.MakeBit_select();
+              elems->push_back(select);
+              select->VpiParent(path);
+              select->VpiIndex(index);
+              select->VpiName(tmpName);
+              select->VpiFullName(tmpName);
+              if (index->UhdmType() == uhdmconstant) {
+                ind = index->VpiDecompile();
+                the_name += "[" + ind + "]";
+              } else if (index->UhdmType() == uhdmref_obj) {
+                ind = index->VpiName();
+                the_name += "[" + ind + "]";
+              } else if (index->UhdmType() == uhdmoperation) {
+                ind = "...";
+                the_name += "[" + ind + "]";
+              }
+            }
+          } else {
+            ref_obj* ref = s.MakeRef_obj();
+            elems->push_back(ref);
+            ref->VpiName(tmpName);
+            ref->VpiFullName(tmpName);
+          }
+          tmpName = "";
         }
+        dotedName = fC->Sibling(dotedName);
       }
-      ref_obj* selobj = s.MakeRef_obj();
-      selobj->VpiParent(path);
-      selobj->VpiName(sel);
-      selobj->VpiFullName(sel);
-      elems->push_back(selobj);
-      std::string fullName = sval + indexval + "." + sel;
-      path->VpiName(fullName);
-      path->VpiFullName(fullName);
-      path->VpiParent(pexpr);
-      result = path;
+      if (is_hierarchical) {
+        if (tmpName != "") {
+          ref_obj* ref = s.MakeRef_obj();
+          elems->push_back(ref);
+          ref->VpiName(tmpName);
+          ref->VpiFullName(tmpName);
+          ref->VpiParent(path);
+          tmpName = "";
+        }
+        path->VpiName(the_name);
+        path->VpiFullName(the_name);
+        path->VpiParent(pexpr);
+        result = path;
+      } else {
+        ref_obj* ref = s.MakeRef_obj();
+        ref->VpiName(tmpName);
+        ref->VpiParent(pexpr);
+        tmpName = "";
+        result = ref;
+      }   
     } else if (UHDM::any* st = getValue(
                    sval, component, compileDesign, instance, fC->getFileName(),
                    fC->Line(Bit_select), pexpr, reduce, muteErrors)) {
