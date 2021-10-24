@@ -6,8 +6,9 @@
 Please see [`INSTALL`](../INSTALL.md)
 
 ## Build
- * cd Surelog
+ 
 ```bash
+cd Surelog
 make
 make debug
 make install (/usr/local/bin and /usr/local/lib/surelog by default, use PREFIX=<path> for alternative locations)
