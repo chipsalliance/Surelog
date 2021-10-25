@@ -46,6 +46,7 @@
 #include "SourceCompile/PreprocessFile.h"
 #include "Testbench/ClassDefinition.h"
 #include "Testbench/Property.h"
+#include "Utils/NumUtils.h"
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
@@ -2496,13 +2497,24 @@ void CompileHelper::adjustSize(const UHDM::typespec* ts,
   if (ts == nullptr) {
     return;
   }
-  int size = c->VpiSize();
+  int orig_size = c->VpiSize();
   bool invalidValue = false;
   int sizetmp = Bits(ts, invalidValue, component, compileDesign, instance,
                      c->VpiFile(), c->VpiLineNo(), true, false);
+
+  int size = orig_size;
   if (!invalidValue) size = sizetmp;
 
-  c->VpiSize(size);
+  if (size != orig_size) {
+    uint64_t val = (uint64_t)get_value(invalidValue, c);
+    if (!invalidValue) {
+      uint64_t mask = NumUtils::getMask(size);
+      val = val & mask;
+      c->VpiValue("UINT:" + std::to_string(val));
+      c->VpiConstType(vpiUIntConst);
+    }
+    c->VpiSize(size);
+  }
 }
 
 UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
