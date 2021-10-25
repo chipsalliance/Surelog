@@ -1784,10 +1784,11 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
             break;
           }
           case vpiCastOp: {
-            uint64_t val0 = get_value(
-                invalidValue,
+            expr* oper =
                 reduceExpr(operands[0], invalidValue, component, compileDesign,
-                           instance, fileName, lineNumber, pexpr, true));
+                           instance, fileName, lineNumber, pexpr, true);
+            uint64_t val0 = get_value(invalidValue, oper);
+            if (invalidValue) break;
             const typespec* tps = op->Typespec();
             if (tps) {
               UHDM_OBJECT_TYPE ttps = tps->UhdmType();
@@ -2507,13 +2508,17 @@ int64_t CompileHelper::get_value(bool& invalidValue, const UHDM::expr* expr) {
   if (!invalidValue) {
     switch (type) {
       case vpiBinaryConst: {
-        StringUtils::ltrim(v, '\'');
-        StringUtils::ltrim(v, 's');
-        StringUtils::ltrim(v, 'b');
-        try {
-          result = std::strtoll(v.c_str() + strlen("BIN:"), 0, 2);
-        } catch (...) {
+        if (expr->VpiSize() > 64) {
           invalidValue = true;
+        } else {
+          StringUtils::ltrim(v, '\'');
+          StringUtils::ltrim(v, 's');
+          StringUtils::ltrim(v, 'b');
+          try {
+            result = std::strtoll(v.c_str() + strlen("BIN:"), 0, 2);
+          } catch (...) {
+            invalidValue = true;
+          }
         }
         break;
       }
@@ -2526,24 +2531,32 @@ int64_t CompileHelper::get_value(bool& invalidValue, const UHDM::expr* expr) {
         break;
       }
       case vpiHexConst: {
-        StringUtils::ltrim(v, '\'');
-        StringUtils::ltrim(v, 's');
-        StringUtils::ltrim(v, 'h');
-        try {
-          result = std::strtoll(v.c_str() + strlen("HEX:"), 0, 16);
-        } catch (...) {
+        if (expr->VpiSize() > 64) {
           invalidValue = true;
+        } else {
+          StringUtils::ltrim(v, '\'');
+          StringUtils::ltrim(v, 's');
+          StringUtils::ltrim(v, 'h');
+          try {
+            result = std::strtoll(v.c_str() + strlen("HEX:"), 0, 16);
+          } catch (...) {
+            invalidValue = true;
+          }
         }
         break;
       }
       case vpiOctConst: {
-        StringUtils::ltrim(v, '\'');
-        StringUtils::ltrim(v, 's');
-        StringUtils::ltrim(v, 'o');
-        try {
-          result = std::strtoll(v.c_str() + strlen("OCT:"), 0, 8);
-        } catch (...) {
+        if (expr->VpiSize() > 64) {
           invalidValue = true;
+        } else {
+          StringUtils::ltrim(v, '\'');
+          StringUtils::ltrim(v, 's');
+          StringUtils::ltrim(v, 'o');
+          try {
+            result = std::strtoll(v.c_str() + strlen("OCT:"), 0, 8);
+          } catch (...) {
+            invalidValue = true;
+          }
         }
         break;
       }
