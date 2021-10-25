@@ -16,25 +16,25 @@ n<> u<10> t<Parameter_port_list> p<13> s<12> l<6:12> el<6:15>
 n<> u<11> t<Port> p<12> l<6:16> el<6:16>
 n<> u<12> t<List_of_ports> p<13> c<11> l<6:15> el<6:17>
 n<> u<13> t<Module_nonansi_header> p<193> c<8> s<32> l<6:1> el<6:18>
-n<> u<14> t<IntVec_TypeLogic> p<15> l<7:11> el<7:16>
-n<> u<15> t<Data_type> p<16> c<14> l<7:11> el<7:16>
-n<> u<16> t<Data_type_or_implicit> p<26> c<15> s<25> l<7:11> el<7:16>
-n<NMioPads> u<17> t<StringConst> p<24> s<23> l<7:17> el<7:25>
-n<8> u<18> t<IntConst> p<19> l<7:28> el<7:29>
-n<> u<19> t<Primary_literal> p<20> c<18> l<7:28> el<7:29>
-n<> u<20> t<Constant_primary> p<21> c<19> l<7:28> el<7:29>
-n<> u<21> t<Constant_expression> p<22> c<20> l<7:28> el<7:29>
-n<> u<22> t<Constant_mintypmax_expression> p<23> c<21> l<7:28> el<7:29>
-n<> u<23> t<Constant_param_expression> p<24> c<22> l<7:28> el<7:29>
-n<> u<24> t<Param_assignment> p<25> c<17> l<7:17> el<7:29>
-n<> u<25> t<List_of_param_assignments> p<26> c<24> l<7:17> el<7:29>
-n<> u<26> t<Parameter_declaration> p<27> c<16> l<7:1> el<7:29>
-n<> u<27> t<Package_or_generate_item_declaration> p<28> c<26> l<7:1> el<7:30>
-n<> u<28> t<Module_or_generate_item_declaration> p<29> c<27> l<7:1> el<7:30>
-n<> u<29> t<Module_common_item> p<30> c<28> l<7:1> el<7:30>
-n<> u<30> t<Module_or_generate_item> p<31> c<29> l<7:1> el<7:30>
-n<> u<31> t<Non_port_module_item> p<32> c<30> l<7:1> el<7:30>
-n<> u<32> t<Module_item> p<193> c<31> s<67> l<7:1> el<7:30>
+n<> u<14> t<IntegerAtomType_Int> p<15> l<7:11> el<7:14>
+n<> u<15> t<Data_type> p<16> c<14> l<7:11> el<7:14>
+n<> u<16> t<Data_type_or_implicit> p<26> c<15> s<25> l<7:11> el<7:14>
+n<NMioPads> u<17> t<StringConst> p<24> s<23> l<7:15> el<7:23>
+n<8> u<18> t<IntConst> p<19> l<7:26> el<7:27>
+n<> u<19> t<Primary_literal> p<20> c<18> l<7:26> el<7:27>
+n<> u<20> t<Constant_primary> p<21> c<19> l<7:26> el<7:27>
+n<> u<21> t<Constant_expression> p<22> c<20> l<7:26> el<7:27>
+n<> u<22> t<Constant_mintypmax_expression> p<23> c<21> l<7:26> el<7:27>
+n<> u<23> t<Constant_param_expression> p<24> c<22> l<7:26> el<7:27>
+n<> u<24> t<Param_assignment> p<25> c<17> l<7:15> el<7:27>
+n<> u<25> t<List_of_param_assignments> p<26> c<24> l<7:15> el<7:27>
+n<> u<26> t<Parameter_declaration> p<27> c<16> l<7:1> el<7:27>
+n<> u<27> t<Package_or_generate_item_declaration> p<28> c<26> l<7:1> el<7:28>
+n<> u<28> t<Module_or_generate_item_declaration> p<29> c<27> l<7:1> el<7:28>
+n<> u<29> t<Module_common_item> p<30> c<28> l<7:1> el<7:28>
+n<> u<30> t<Module_or_generate_item> p<31> c<29> l<7:1> el<7:28>
+n<> u<31> t<Non_port_module_item> p<32> c<30> l<7:1> el<7:28>
+n<> u<32> t<Module_item> p<193> c<31> s<67> l<7:1> el<7:28>
 n<> u<33> t<IntVec_TypeLogic> p<50> s<49> l<8:11> el<8:16>
 n<NMioPads> u<34> t<StringConst> p<35> l<8:18> el<8:26>
 n<> u<35> t<Primary_literal> p<36> c<34> l<8:18> el<8:26>
@@ -270,12 +270,12 @@ design: (work@dut)
   |vpiDefName:work@dut
   |vpiFullName:work@dut
   |vpiParameter:
-  \_parameter: (work@dut.NMioPads), line:7:17, endln:7:29, parent:work@dut
+  \_parameter: (work@dut.NMioPads), line:7:15, endln:7:27, parent:work@dut
     |vpiName:NMioPads
     |vpiFullName:work@dut.NMioPads
     |UINT:8
     |vpiTypespec:
-    \_logic_typespec: , line:7:11, endln:7:16, parent:work@dut.NMioPads
+    \_int_typespec: , line:7:11, endln:7:14, parent:work@dut.NMioPads
   |vpiParameter:
   \_parameter: (work@dut.ConnectDioIn), line:8:34, endln:8:60, parent:work@dut
     |vpiName:ConnectDioIn
@@ -331,17 +331,17 @@ design: (work@dut)
           |vpiSize:64
           |UINT:0
   |vpiParamAssign:
-  \_param_assign: , line:7:17, endln:7:29, parent:work@dut
+  \_param_assign: , line:7:15, endln:7:27, parent:work@dut
     |vpiRhs:
-    \_constant: , line:7:28, endln:7:29
+    \_constant: , line:7:26, endln:7:27
       |vpiConstType:9
       |vpiDecompile:8
-      |vpiSize:1
+      |vpiSize:32
       |UINT:8
       |vpiTypespec:
-      \_logic_typespec: , line:7:11, endln:7:16, parent:work@dut.NMioPads
+      \_int_typespec: , line:7:11, endln:7:14, parent:work@dut.NMioPads
     |vpiLhs:
-    \_parameter: (work@dut.NMioPads), line:7:17, endln:7:29, parent:work@dut
+    \_parameter: (work@dut.NMioPads), line:7:15, endln:7:27, parent:work@dut
   |vpiParamAssign:
   \_param_assign: , line:8:34, endln:8:60, parent:work@dut
     |vpiRhs:
@@ -523,12 +523,12 @@ design: (work@dut)
         |vpiFullName:work@dut.gen_mio_pads[7].k
         |UINT:7
   |vpiParameter:
-  \_parameter: (work@dut.NMioPads), line:7:17, endln:7:29, parent:work@dut
+  \_parameter: (work@dut.NMioPads), line:7:15, endln:7:27, parent:work@dut
     |vpiName:NMioPads
     |vpiFullName:work@dut.NMioPads
     |UINT:8
     |vpiTypespec:
-    \_logic_typespec: , line:7:11, endln:7:16, parent:work@dut.NMioPads
+    \_int_typespec: , line:7:11, endln:7:14, parent:work@dut.NMioPads
   |vpiParameter:
   \_parameter: (work@dut.ConnectDioIn), line:8:34, endln:8:60, parent:work@dut
     |vpiName:ConnectDioIn
@@ -546,13 +546,13 @@ design: (work@dut)
             |vpiName:NMioPads
             |vpiFullName:work@dut.ConnectDioIn.NMioPads
             |vpiActual:
-            \_constant: , line:7:28, endln:7:29
+            \_constant: , line:7:26, endln:7:27
               |vpiConstType:9
               |vpiDecompile:8
-              |vpiSize:1
+              |vpiSize:32
               |UINT:8
               |vpiTypespec:
-              \_logic_typespec: , line:7:11, endln:7:16, parent:work@dut.NMioPads
+              \_int_typespec: , line:7:11, endln:7:14, parent:work@dut.NMioPads
           |vpiOperand:
           \_constant: , line:8:29, endln:8:30
             |vpiConstType:9
@@ -582,7 +582,7 @@ design: (work@dut)
             |vpiName:NMioPads
             |vpiFullName:work@dut.ConnectDioOut.NMioPads
             |vpiActual:
-            \_constant: , line:7:28, endln:7:29
+            \_constant: , line:7:26, endln:7:27
           |vpiOperand:
           \_constant: , line:9:29, endln:9:30
             |vpiConstType:9
@@ -596,11 +596,11 @@ design: (work@dut)
           |vpiSize:64
           |UINT:0
   |vpiParamAssign:
-  \_param_assign: , line:7:17, endln:7:29, parent:work@dut
+  \_param_assign: , line:7:15, endln:7:27, parent:work@dut
     |vpiRhs:
-    \_constant: , line:7:28, endln:7:29
+    \_constant: , line:7:26, endln:7:27
     |vpiLhs:
-    \_parameter: (work@dut.NMioPads), line:7:17, endln:7:29, parent:work@dut
+    \_parameter: (work@dut.NMioPads), line:7:15, endln:7:27, parent:work@dut
   |vpiParamAssign:
   \_param_assign: , line:8:34, endln:8:60, parent:work@dut
     |vpiRhs:

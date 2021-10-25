@@ -4,7 +4,7 @@ endmodule
 
 
 module dut #()();
-parameter logic NMioPads = 8;
+parameter int NMioPads = 8;
 parameter logic [NMioPads - 1:0] ConnectDioIn = 8'b11110000;
 parameter logic [NMioPads - 1:0] ConnectDioOut = 8'b11110000;
    
