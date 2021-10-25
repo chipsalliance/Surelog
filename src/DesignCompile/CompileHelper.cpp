@@ -2526,8 +2526,9 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
     call = s.MakeSys_func_call();
     name = "$" + fC->SymName(tfNameNode);
   } else if (leaf_type == VObjectType::slImplicit_class_handle) {
-    return compileComplexFuncCall(component, fC, Tf_call_stmt, compileDesign,
-                                  nullptr, nullptr, false, false);
+    return compileComplexFuncCall(component, fC, fC->Child(Tf_call_stmt),
+                                  compileDesign, nullptr, nullptr, false,
+                                  false);
   } else if (leaf_type == slDollar_root_keyword) {
     NodeId Dollar_root_keyword = dollar_or_string;
     NodeId nameId = fC->Sibling(Dollar_root_keyword);
@@ -2565,9 +2566,9 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
     if (fC->Type(handle) == slSuper_keyword ||
         fC->Type(handle) == slThis_keyword ||
         fC->Type(handle) == slThis_dot_super) {
-      return (tf_call*)compileComplexFuncCall(component, fC, Tf_call_stmt,
-                                              compileDesign, nullptr, nullptr,
-                                              false, false);
+      return (tf_call*)compileComplexFuncCall(
+          component, fC, fC->Child(Tf_call_stmt), compileDesign, nullptr,
+          nullptr, false, false);
     } else if (fC->Type(handle) == slDollar_root_keyword) {
       name = "$root.";
       tfNameNode = fC->Sibling(dollar_or_string);
@@ -2575,9 +2576,9 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
       name += fC->SymName(tfNameNode);
     }
   } else if (leaf_type == slClass_scope) {
-    return (tf_call*)compileComplexFuncCall(component, fC, Tf_call_stmt,
-                                            compileDesign, nullptr, nullptr,
-                                            false, false);
+    return (tf_call*)compileComplexFuncCall(
+        component, fC, fC->Child(Tf_call_stmt), compileDesign, nullptr, nullptr,
+        false, false);
   } else {
     // User call, AST is:
     // n<> u<27> t<Subroutine_call> p<28> c<17> l<3>

@@ -209,7 +209,7 @@ design: (work@t)
         \_hier_path: (s[1].x), line:8:6, endln:8:7, parent:work@t
           |vpiName:s[1].x
           |vpiActual:
-          \_bit_select: (s)
+          \_bit_select: (s), parent:s[1].x
             |vpiName:s
             |vpiIndex:
             \_constant: , line:8:8, endln:8:9
@@ -218,7 +218,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
           |vpiActual:
-          \_ref_obj: (x)
+          \_ref_obj: (x), parent:s[1].x
             |vpiName:x
   |vpiNet:
   \_logic_net: (work@t.s), line:3:11, parent:work@t
@@ -291,7 +291,7 @@ design: (work@t)
         \_hier_path: (s[1].x), line:8:6, endln:8:7
           |vpiName:s[1].x
           |vpiActual:
-          \_bit_select: (s)
+          \_bit_select: (s), parent:work@t.s[1].x
             |vpiName:s
             |vpiIndex:
             \_constant: , line:8:8, endln:8:9
@@ -374,12 +374,12 @@ design: (work@t)
                 \_hier_path: (s[1].x), line:8:6, endln:8:7, parent:work@t
                   |vpiName:s[1].x
                   |vpiActual:
-                  \_bit_select: (s)
+                  \_bit_select: (s), parent:s[1].x
                     |vpiName:s
                     |vpiIndex:
                     \_constant: , line:8:8, endln:8:9
                   |vpiActual:
-                  \_ref_obj: (x)
+                  \_ref_obj: (x), parent:s[1].x
                     |vpiName:x
           |vpiNet:
           \_logic_net: (work@t.s), line:3:11, parent:work@t

@@ -143,11 +143,6 @@ if [regexp {test=([A-Za-z0-9_]+)} $argv tmp TESTTARGET] {
     set ONETEST $TESTTARGET
 }
 
-set BUILD "Release"
-if [regexp {build=([A-Za-z0-9_]+)} $argv tmp BUILD] {
-    puts "BUILD=$BUILD"
-}
-
 set SHOW_DETAILS 0
 if [regexp {\-details} $argv] {
     set SHOW_DETAILS 1
@@ -162,6 +157,12 @@ if [regexp {commit=([A-Za-z0-9_ \.]+)} $argv tmp COMMIT_TEXT] {
 }
 
 set EXE_PATH "[pwd]/bin"
+
+set BUILD "Release"
+if [regexp {build=([A-Za-z0-9_]+)} $argv tmp BUILD] {
+    puts "BUILD=$BUILD"
+    set EXE_PATH "[pwd]/../dbuild/bin"
+}
 
 if [regexp {path=([A-Za-z0-9_/\.\-\:]+)} $argv tmp EXE_PATH] {
 }

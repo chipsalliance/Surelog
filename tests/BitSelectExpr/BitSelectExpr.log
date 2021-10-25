@@ -147,7 +147,7 @@ design: (work@top)
     \_hier_path: (sram_otp_key_o[...].nonce), line:9:11, endln:9:25
       |vpiName:sram_otp_key_o[...].nonce
       |vpiActual:
-      \_bit_select: (sram_otp_key_o)
+      \_bit_select: (sram_otp_key_o), parent:sram_otp_key_o[...].nonce
         |vpiName:sram_otp_key_o
         |vpiIndex:
         \_operation: , line:9:26, endln:9:27
@@ -165,7 +165,7 @@ design: (work@top)
             |vpiSize:64
             |UINT:2
       |vpiActual:
-      \_ref_obj: (nonce)
+      \_ref_obj: (nonce), parent:sram_otp_key_o[...].nonce
         |vpiName:nonce
   |vpiNet:
   \_logic_net: (work@top.o), line:1:23, parent:work@top
@@ -216,7 +216,7 @@ design: (work@top)
     \_hier_path: (sram_otp_key_o[...].nonce), line:9:11, endln:9:25
       |vpiName:sram_otp_key_o[...].nonce
       |vpiActual:
-      \_bit_select: (sram_otp_key_o)
+      \_bit_select: (sram_otp_key_o), parent:work@top.sram_otp_key_o[...].nonce
         |vpiName:sram_otp_key_o
         |vpiIndex:
         \_operation: , line:9:26, endln:9:27, parent:sram_otp_key_o
@@ -292,7 +292,7 @@ design: (work@top)
             \_hier_path: (sram_otp_key_o[...].nonce), line:9:11, endln:9:25
               |vpiName:sram_otp_key_o[...].nonce
               |vpiActual:
-              \_bit_select: (sram_otp_key_o)
+              \_bit_select: (sram_otp_key_o), parent:sram_otp_key_o[...].nonce
                 |vpiName:sram_otp_key_o
                 |vpiIndex:
                 \_operation: , line:9:26, endln:9:27
@@ -302,7 +302,7 @@ design: (work@top)
                   |vpiOperand:
                   \_constant: , line:9:28, endln:9:29
               |vpiActual:
-              \_ref_obj: (nonce)
+              \_ref_obj: (nonce), parent:sram_otp_key_o[...].nonce
                 |vpiName:nonce
           |vpiNet:
           \_logic_net: (work@top.o), line:1:23, parent:work@top
