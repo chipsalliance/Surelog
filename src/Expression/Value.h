@@ -68,6 +68,7 @@ class Value : public RTTI {
 
   // return false if the value is not valid (like nan)
   virtual bool isValid() const = 0;
+  virtual void setValid() = 0;
   virtual void setInvalid() = 0;
 
   virtual bool isNegative() const = 0;
@@ -200,6 +201,7 @@ class SValue : public Value {
   bool isLValue() const final { return false; }
   Type getType() const final { return m_type; }
   bool isValid() const final { return m_valid; }
+  void setValid() final { m_valid = true; }
   void setInvalid() final { m_valid = 0; }
   bool isNegative() const final { return m_negative; }
   void setNegative() final { m_negative = 1; }
@@ -356,6 +358,7 @@ class LValue : public Value {
   bool isLValue() const final { return true; }
   Type getType() const final { return m_type; }
   bool isValid() const final { return m_valid; }
+  void setValid() final { m_valid = true; }
   void setInvalid() final { m_valid = 0; }
   bool isNegative() const final { return m_negative; }
   void setNegative() final { m_negative = 1; }
@@ -448,6 +451,7 @@ class StValue : public Value {
   bool isLValue() const final { return false; }
   Type getType() const final { return m_type; }
   bool isValid() const final { return m_valid; }
+  void setValid() final { m_valid = true; }
   void setInvalid() final { m_valid = false; }
   void setNegative() final {}
   bool isNegative() const final { return false; }
