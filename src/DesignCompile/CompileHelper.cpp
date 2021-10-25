@@ -660,6 +660,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       Value* value = NULL;
       if (enumValueId) {
         value = m_exprBuilder.evalExpr(fC, enumValueId, scope);
+        value->setValid();
       } else {
         value = m_exprBuilder.getValueFactory().newLValue();
         value->set(val, Value::Type::Integer, 64);
