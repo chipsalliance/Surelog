@@ -147,16 +147,18 @@ design: (unnamed)
     |vpiStmt:
     \_do_while: , line:6:3, endln:6:5, parent:toto::uvm_default_factory::print
       |vpiCondition:
-      \_method_func_call: (next), line:10:14, endln:10:36
-        |vpiName:next
-        |vpiPrefix:
-        \_ref_obj: (toto::uvm_default_factory::print::m_type_names), parent:next
+      \_hier_path: (m_type_names.next), line:10:14, endln:10:36
+        |vpiName:m_type_names.next
+        |vpiActual:
+        \_ref_obj: (m_type_names), parent:m_type_names.next
           |vpiName:m_type_names
-          |vpiFullName:toto::uvm_default_factory::print::m_type_names
-        |vpiArgument:
-        \_ref_obj: (toto::uvm_default_factory::print::key), line:10:32, endln:10:35, parent:next
-          |vpiName:key
-          |vpiFullName:toto::uvm_default_factory::print::key
+        |vpiActual:
+        \_method_func_call: (next), parent:m_type_names.next
+          |vpiName:next
+          |vpiArgument:
+          \_ref_obj: (toto::uvm_default_factory::print::m_type_names.next::key), line:10:32, endln:10:35, parent:next
+            |vpiName:key
+            |vpiFullName:toto::uvm_default_factory::print::m_type_names.next::key
       |vpiStmt:
       \_begin: (toto::uvm_default_factory::print), line:6:6, endln:10:7
         |vpiFullName:toto::uvm_default_factory::print

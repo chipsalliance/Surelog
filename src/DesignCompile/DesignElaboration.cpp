@@ -1695,7 +1695,8 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
             value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
           } else if ((exprtype == UHDM::uhdmoperation) ||
                      (exprtype == UHDM::uhdmfunc_call) ||
-                     (exprtype == UHDM::uhdmsys_func_call)) {
+                     (exprtype == UHDM::uhdmsys_func_call) ||
+                     (exprtype == UHDM::uhdmindexed_part_select)) {
             if (instance) {
               complex = true;
               if (m_helper.substituteAssignedValue(complexV, m_compileDesign)) {
