@@ -553,11 +553,14 @@ design: (unnamed)
           |vpiSize:17
           |STRING:arbitration_queue
         |vpiArgument:
-        \_method_func_call: (size), line:7:53, endln:7:74
-          |vpiName:size
-          |vpiPrefix:
-          \_ref_obj: (arb_sequence_q)
+        \_hier_path: (arb_sequence_q.size), line:7:53, endln:7:74, parent:print_array_header
+          |vpiName:arb_sequence_q.size
+          |vpiActual:
+          \_ref_obj: (arb_sequence_q), parent:arb_sequence_q.size
             |vpiName:arb_sequence_q
+          |vpiActual:
+          \_method_func_call: (size)
+            |vpiName:size
       |vpiStmt:
       \_foreach_stmt: (uvm_pkg::uvm_sequencer_base::do_print), line:8:5, endln:8:12, parent:uvm_pkg::uvm_sequencer_base::do_print
         |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print
@@ -609,7 +612,7 @@ design: (unnamed)
               \_ref_obj: (request), parent:arb_sequence_q[i].request.name
                 |vpiName:request
               |vpiActual:
-              \_ref_obj: (name), parent:arb_sequence_q[i].request.name
+              \_method_func_call: (name)
                 |vpiName:name
             |vpiArgument:
             \_hier_path: (arb_sequence_q[i].sequence_id), line:10:67, endln:10:96, parent:$sformatf
