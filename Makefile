@@ -65,7 +65,7 @@ coverage-build/html: coverage-build/surelog.coverage
 test/regression: run-cmake-release
 	cd build && ../tests/regression.tcl mt=0 show_diff
 
-test/valgrind: run-cmake-debug
+test/valgrind: debug
 	cd dbuild && ../tests/regression.tcl debug=valgrind test=ArianeElab path=${PWD}/dbuild/bin
 
 test: test/unittest test/regression
@@ -90,6 +90,14 @@ regression: release
 	cmake -S build/test -B build/test/build
 	pushd build && cmake --build test/build -j $(CPU_CORES) && popd
 	pushd build && tclsh ../tests/regression.tcl diff_mode show_diff && popd
+
+pytest/regression: release
+	python3 scripts/regression.py run --jobs $(CPU_CORES) --show-diffs
+
+pytest/valgrind: debug
+	python3 scripts/regression.py run --tool valgrind --filters ArianeElab --build-dirpath ${PWD}/dbuild
+
+pytest: release test/unittest pytest/regression
 
 clean:
 	$(RM) -r build dbuild coverage-build dist tests/TestInstall/build
