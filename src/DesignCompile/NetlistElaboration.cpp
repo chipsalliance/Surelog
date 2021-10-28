@@ -257,7 +257,6 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
           expr* rhs = (expr*)m_helper.compileExpression(
               pmod, tpm->getFileContent(), tpm->getNodeId(), m_compileDesign,
               nullptr, pinst, !isMultidimensional);
-
           if (en_replay && m_helper.errorOnNegativeConstant(
                                pmod, rhs, m_compileDesign, pinst)) {
             bool replay = false;
@@ -404,7 +403,23 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
         inst_assign->Rhs(rhs);
       }
     }
-
+    if (inst_assign->Rhs() &&
+        m_helper.isOverloaded(inst_assign->Rhs(), m_compileDesign, instance)) {
+      inst_assign->VpiOverriden(true);
+    }
+    if (const any* lhs = inst_assign->Lhs()) {
+      const typespec* tps = nullptr;
+      if (lhs->UhdmType() == uhdmparameter) {
+        tps = ((parameter*)lhs)->Typespec();
+      } else {
+        tps = ((type_parameter*)lhs)->Typespec();
+      }
+      if (tps) {
+        if (m_helper.isOverloaded(tps, m_compileDesign, instance)) {
+          inst_assign->VpiOverriden(true);
+        }
+      }
+    }
     if (inst_assign) assigns->push_back(inst_assign);
   }
   return true;
