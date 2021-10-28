@@ -1397,4 +1397,100 @@ UHDM::typespec* CompileHelper::elabTypespec(DesignComponent* component,
   }
   return result;
 }
+
+bool CompileHelper::isOverloaded(const UHDM::any* expr,
+                                 CompileDesign* compileDesign,
+                                 ValuedComponentI* instance) {
+  if (instance == nullptr) return false;
+  ModuleInstance* inst = valuedcomponenti_cast<ModuleInstance*>(instance);
+  if (inst == nullptr) return false;
+  std::stack<const any*> stack;
+  const UHDM::any* tmp = expr;
+  stack.push(tmp);
+  while (stack.size()) {
+    tmp = stack.top();
+    stack.pop();
+    UHDM_OBJECT_TYPE type = tmp->UhdmType();
+    switch (type) {
+      case uhdmrange: {
+        range* r = (range*)tmp;
+        stack.push(r->Left_expr());
+        stack.push(r->Right_expr());
+        break;
+      }
+      case uhdmconstant: {
+        if (const typespec* tp = ((constant*)tmp)->Typespec()) {
+          stack.push(tp);
+        }
+        break;
+      }
+      case uhdmtypespec: {
+        typespec* tps = (typespec*)tmp;
+        if (const typespec* atps = tps->Typedef_alias()) {
+          stack.push(atps);
+        }
+        break;
+      }
+      case uhdmlogic_typespec: {
+        logic_typespec* tps = (logic_typespec*)tmp;
+        if (tps->Ranges()) {
+          for (auto op : *tps->Ranges()) {
+            stack.push(op);
+          }
+        }
+        break;
+      }
+      case uhdmbit_typespec: {
+        bit_typespec* tps = (bit_typespec*)tmp;
+        if (tps->Ranges()) {
+          for (auto op : *tps->Ranges()) {
+            stack.push(op);
+          }
+        }
+        break;
+      }
+      case uhdmarray_typespec: {
+        array_typespec* tps = (array_typespec*)tmp;
+        if (tps->Ranges()) {
+          for (auto op : *tps->Ranges()) {
+            stack.push(op);
+          }
+        }
+        if (const typespec* etps = tps->Elem_typespec()) {
+          stack.push(etps);
+        }
+        break;
+      }
+      case uhdmpacked_array_typespec: {
+        packed_array_typespec* tps = (packed_array_typespec*)tmp;
+        if (tps->Ranges()) {
+          for (auto op : *tps->Ranges()) {
+            stack.push(op);
+          }
+        }
+        if (const any* etps = tps->Elem_typespec()) {
+          stack.push(etps);
+        }
+        break;
+      }
+      case uhdmparameter:
+      case uhdmref_obj:
+      case uhdmtype_parameter: {
+        if (inst->isOverridenParam(tmp->VpiName())) return true;
+        break;
+      }
+      case uhdmoperation: {
+        operation* oper = (operation*)tmp;
+        for (auto op : *oper->Operands()) {
+          stack.push(op);
+        }
+        break;
+      }
+      default:
+        break;
+    }
+  }
+  return false;
+}
+
 }  // namespace SURELOG
