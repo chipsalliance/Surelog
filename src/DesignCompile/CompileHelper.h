@@ -532,6 +532,9 @@ class CompileHelper final {
                               DesignComponent* component,
                               CompileDesign* compileDesign, UHDM::any* stmt);
 
+  bool isOverloaded(const UHDM::any* expr, CompileDesign* compileDesign,
+                    ValuedComponentI* instance);
+
  private:
   CompileHelper(const CompileHelper&) = delete;
 
