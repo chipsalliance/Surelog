@@ -1,4 +1,4 @@
-name: 'main'
+name: 'pymain'
 
 on:
   push:
@@ -50,9 +50,14 @@ jobs:
         sudo ln -sf /usr/bin/gcc-9 /usr/bin/gcc
         sudo ln -sf /usr/bin/gcov-9 /usr/bin/gcov
 
-    - uses: actions/setup-python@v2
+    - name: Setup Python
+      uses: actions/setup-python@v2
       with:
         python-version: 3.8
+        architecture: x64
+
+    - name: Setup Python Packages
+      run: pip3 install psutil
 
     - name: Checkout code
       uses: actions/checkout@v2
@@ -70,9 +75,10 @@ jobs:
         echo 'CC=gcc-9' >> $GITHUB_ENV
         echo 'CXX=g++-9' >> $GITHUB_ENV
         echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
-        echo 'PREFIX=/tmp/surelog-install' >> $GITHUB_ENV
-        echo "ADDITIONAL_CMAKE_OPTIONS='-DMY_CXX_WARNING_FLAGS="-W -Wall -Wextra -Wno-unused-parameter -Wno-unused-variable -Werror -UNDEBUG"'" >> $GITHUB_ENV
+        echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
+        echo "ADDITIONAL_CMAKE_OPTIONS='-DPython3_ROOT_DIR=${pythonLocation} -DMY_CXX_WARNING_FLAGS="-W -Wall -Wextra -Wno-unused-parameter -Wno-unused-variable -Werror -UNDEBUG"'" >> $GITHUB_ENV
         echo 'RULE_MESSAGES=off' >> $GITHUB_ENV
+        echo 'WITH_PYTHON_GENERATOR=ON' >> $GITHUB_ENV
 
     - name: Show shell configuration
       run: |
@@ -95,7 +101,7 @@ jobs:
     - name: Regression
       if: matrix.mode == 'regression'
       run: |
-        make regression
+        make pytest/regression || true
 
     - name: Coverage
       if: matrix.mode == 'coverage'
@@ -105,7 +111,7 @@ jobs:
     - name: Valgrind
       if: matrix.mode == 'valgrind'
       run: |
-        make test/valgrind
+        make pytest/valgrind
 
     - name: Upload coverage
       # will show up under https://app.codecov.io/gh/chipsalliance/Surelog
@@ -123,14 +129,20 @@ jobs:
         make clean   # make sure we only see installation artifacts
         make test_install
 
+    - name: Archive build artifacts
+      if: matrix.mode == 'install'
+      uses: actions/upload-artifact@v2
+      with:
+        name: surelog-linux-gcc
+        path: ${{ github.workspace }}/install
+
     - name: Archive regression artifacts
       if: matrix.mode == 'regression' && always()
       uses: actions/upload-artifact@v2
       with:
         name: surelog-linux-gcc-regression
         path: |
-          ${{ github.workspace }}/build/test/
-          ${{ github.workspace }}/build/tests/
+          ${{ github.workspace }}/build/regression/**/*.log
 
   msys2-gcc:
     runs-on: windows-latest
@@ -156,12 +168,22 @@ jobs:
         java-package: jre
         architecture: x64
 
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+        architecture: x64
+
+    - name: Setup Python Packages
+      shell: cmd
+      run: pip3 install psutil
+
     - name: Setup Msys2
       uses: msys2/setup-msys2@v2
       with:
         msystem: MSYS
         update: true
-        install: make cmake ninja python python-devel gcc git diffutils
+        install: make cmake ninja gcc git diffutils
       env:
         MSYS2_PATH_TYPE: inherit
 
@@ -188,6 +210,7 @@ jobs:
         export SWIG_DIR=/c/ProgramData/chocolatey/lib/swig/tools/install/swigwin-3.0.12
         export JAVA_HOME=`cygpath -u $JAVA_HOME_8_0_275_X64`
         export CWD=`pwd`
+        export Py3_ROOT_DIR=`cygpath -u $pythonLocation`
 
         echo "SWIG_DIR=$SWIG_DIR" >> $GITHUB_ENV
         echo "JAVA_HOME=$JAVA_HOME" >> $GITHUB_ENV
@@ -195,15 +218,18 @@ jobs:
         echo 'CC=gcc' >> $GITHUB_ENV
         echo 'CXX=g++' >> $GITHUB_ENV
         echo 'NO_TCMALLOC=On' >> $GITHUB_ENV
-        echo "PREFIX=$CWD/install" >> $GITHUB_ENV
+        echo "PREFIX=${CWD}/install" >> $GITHUB_ENV
+        echo 'WITH_PYTHON_GENERATOR=ON' >> $GITHUB_ENV
+        echo "Py3_ROOT_DIR=$Py3_ROOT_DIR" >> $GITHUB_ENV
+        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=$Py3_ROOT_DIR" >> $GITHUB_ENV
 
         echo "$SWIG_DIR" >> $GITHUB_PATH
         echo "$JAVA_HOME/bin" >> $GITHUB_PATH
+        echo "$Py3_ROOT_DIR" >> $GITHUB_PATH
 
     - name: Show shell configuration
       run: |
-        export PATH=$SWIG_DIR:$JAVA_HOME/bin:$PATH
-        export PATH=$SWIG_DIR:$PATH
+        export PATH=$SWIG_DIR:$JAVA_HOME/bin:$Py3_ROOT_DIR:$PATH
         env
         where git && git --version
         where cmake && cmake --version
@@ -218,16 +244,30 @@ jobs:
 
     - name: Build
       run: |
-        export PATH=$SWIG_DIR:$JAVA_HOME/bin:$PATH
+        export PATH=$SWIG_DIR:$JAVA_HOME/bin:$Py3_ROOT_DIR:$PATH
         make release
         make install
 
     - name: Test
       run: |
-        export PATH=$SWIG_DIR:$JAVA_HOME/bin:$PATH
+        export PATH=$SWIG_DIR:$JAVA_HOME/bin:$Py3_ROOT_DIR:$PATH
         make test_install
         make test/unittest
-        make regression
+        make pytest/regression || true
+
+    - name: Archive build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: surelog-msys2-gcc
+        path: ${{ github.workspace }}/install
+
+    - name: Archive regression artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: surelog-msys2-gcc-regression
+        path: |
+          ${{ github.workspace }}/build/regression/**/*.log
 
   windows-msvc:
     runs-on: windows-latest
@@ -253,6 +293,9 @@ jobs:
       with:
         python-version: 3.8
         architecture: x64
+
+    - name: Setup Python Packages
+      run: pip3 install psutil
 
     - name: Setup Java
       uses: actions/setup-java@v1
@@ -292,6 +335,8 @@ jobs:
         set TCL_DIR=%PROGRAMFILES%\Git\mingw64\bin
         set SWIG_DIR=%PROGRMDATA%\chocolatey\lib\swig\tools\install\swigwin-3.0.12
         set PATH=%pythonLocation%;%SWIG_DIR%;%JAVA_HOME%\bin;%MAKE_DIR%;%TCL_DIR%;%PATH%
+        set WITH_PYTHON_GENERATOR=ON
+        set ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=%pythonLocation%
 
         set
         where cmake && cmake --version
@@ -309,7 +354,7 @@ jobs:
         if %errorlevel% neq 0 exit /b %errorlevel%
         make test/unittest
         if %errorlevel% neq 0 exit /b %errorlevel%
-        make regression
+        make pytest/regression || true
 
     - name: Archive build artifacts
       uses: actions/upload-artifact@v2
@@ -323,8 +368,7 @@ jobs:
       with:
         name: surelog-windows-msvc-regression
         path: |
-          ${{ github.workspace }}/build/test/
-          ${{ github.workspace }}/build/tests/
+          ${{ github.workspace }}/build/regression/**/*.log
 
   macos-gcc:
     runs-on: macos-latest
@@ -336,9 +380,14 @@ jobs:
       with:
         access_token: ${{ github.token }}
 
-    - uses: actions/setup-python@v2
+    - name: Setup Python
+      uses: actions/setup-python@v2
       with:
         python-version: 3.8
+        architecture: x64
+
+    - name: Setup Python Packages
+      run: pip3 install psutil
 
     - uses: actions/checkout@v2
       with:
@@ -355,7 +404,9 @@ jobs:
         echo 'CC=gcc-9' >> $GITHUB_ENV
         echo 'CXX=g++-9' >> $GITHUB_ENV
         echo "PATH=$(brew --prefix)/opt/ccache/libexec:$PATH" >> $GITHUB_ENV
-        echo 'PREFIX=/usr/local' >> $GITHUB_ENV
+        echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
+        echo 'WITH_PYTHON_GENERATOR=ON' >> $GITHUB_ENV
+        echo 'ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation}' >> $GITHUB_ENV
 
     - name: Show shell configuration
       run: |
@@ -372,7 +423,7 @@ jobs:
     - name: Build
       run: |
         make release
-        sudo make install
+        make install
 
     - name: Unit tests
       run: |
@@ -381,7 +432,21 @@ jobs:
 
     - name: Regression tests
       run: |
-        make regression
+        make pytest/regression || true
+
+    - name: Archive build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: surelog-macos-gcc
+        path: ${{ github.workspace }}/install
+
+    - name: Archive regression artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: surelog-macos-gcc-regression
+        path: |
+          ${{ github.workspace }}/build/regression/**/*.log
 
   macos-clang:
     runs-on: macos-latest
@@ -393,9 +458,14 @@ jobs:
       with:
         access_token: ${{ github.token }}
 
-    - uses: actions/setup-python@v2
+    - name: Setup Python
+      uses: actions/setup-python@v2
       with:
         python-version: 3.8
+        architecture: x64
+
+    - name: Setup Python Packages
+      run: pip3 install psutil
 
     - uses: actions/checkout@v2
       with:
@@ -409,8 +479,10 @@ jobs:
 
     - name: Configure shell
       run: |
-        echo 'PREFIX=/usr/local' >> $GITHUB_ENV
+        echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
         echo "PATH=$(brew --prefix)/opt/ccache/libexec:$PATH" >> $GITHUB_ENV
+        echo 'WITH_PYTHON_GENERATOR=ON' >> $GITHUB_ENV
+        echo 'ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation}' >> $GITHUB_ENV
 
     - name: Show shell configuration
       run: |
@@ -425,7 +497,7 @@ jobs:
     - name: Build
       run: |
         make release
-        sudo make install
+        make install
 
     - name: Unit tests
       run: |
@@ -434,7 +506,21 @@ jobs:
 
     - name: Regression tests
       run: |
-        make regression
+        make pytest/regression || true
+
+    - name: Archive build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: surelog-macos-clang
+        path: ${{ github.workspace }}/install
+
+    - name: Archive regression artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: surelog-macos-clang-regression
+        path: |
+          ${{ github.workspace }}/build/regression/**/*.log
 
   CodeFormatting:
     runs-on: ubuntu-20.04

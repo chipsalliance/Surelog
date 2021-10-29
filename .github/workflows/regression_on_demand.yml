@@ -43,6 +43,9 @@ jobs:
         python-version: 3.8
         architecture: x64
 
+    - name: Setup Python Packages
+      run: pip3 install psutil
+
     - name: Checkout code
       uses: actions/checkout@v2
       with:
@@ -76,6 +79,7 @@ jobs:
         which $CC && $CC --version
         which $CXX && $CXX --version
 
+        make pytest/regression || true
         make regression
 
     - name: Archive regression artifacts
@@ -86,9 +90,7 @@ jobs:
         path: |
           ${{ github.workspace }}/build/test/
           ${{ github.workspace }}/build/tests/
-          !${{ github.workspace }}/build/tests/**/*.uhdm
-          !${{ github.workspace }}/build/tests/**/*.slpa
-          !${{ github.workspace }}/build/tests/**/*.slpp
+          ${{ github.workspace }}/build/regression/**/*.log
 
   windows-msvc:
     name: windows-msvc-${{ matrix.mode }}
@@ -116,6 +118,9 @@ jobs:
         python-version: 3.8
         architecture: x64
 
+    - name: Setup Python Packages
+      run: pip3 install psutil
+
     - name: Setup Java
       uses: actions/setup-java@v1
       with:
@@ -125,6 +130,15 @@ jobs:
 
     - run: git config --global core.autocrlf input
       shell: bash
+
+    - name: Move Windows builds to C:\ drive
+      if: runner.os == 'Windows'
+      shell: cmd
+      run: |
+        mkdir C:\Surelog
+        cd /D C:\Surelog
+        rd /S /Q %GITHUB_WORKSPACE%
+        mklink /D %GITHUB_WORKSPACE% C:\Surelog
 
     - uses: actions/checkout@v2
       with:
@@ -162,6 +176,7 @@ jobs:
         where python && python --version
         where ninja && ninja --version
 
+        make pytest/regression || true
         make regression
 
     - name: Archive regression artifacts
@@ -172,6 +187,4 @@ jobs:
         path: |
           ${{ github.workspace }}/build/test/
           ${{ github.workspace }}/build/tests/
-          !${{ github.workspace }}/build/tests/**/*.uhdm
-          !${{ github.workspace }}/build/tests/**/*.slpa
-          !${{ github.workspace }}/build/tests/**/*.slpp
+          ${{ github.workspace }}/build/regression/**/*.log
