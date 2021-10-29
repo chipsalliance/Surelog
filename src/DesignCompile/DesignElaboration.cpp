@@ -1919,14 +1919,25 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
   std::vector<NodeId> defParams = fC->sl_collect_all(nodeId, types, stopPoints);
   for (auto defParam : defParams) {
     NodeId hIdent = fC->Child(defParam);
-    NodeId var = fC->Child(hIdent);
+    NodeId var = 0;
+    fC->Child(hIdent);
+    if (fC->Type(hIdent) == slHierarchical_identifier)
+      var = fC->Child(hIdent);
+    else
+      var = hIdent;
     NodeId value = fC->Sibling(hIdent);
     std::string fullPath;
     std::string path;
     while (var) {
-      fullPath += fC->SymName(var);
+      if (fC->Type(var) == slStringConst) {
+        fullPath += fC->SymName(var);
+      }
       var = fC->Sibling(var);
-      if (var) {
+      bool isString = false;
+      if (fC->Type(var) == slStringConst) {
+        isString = true;
+      }
+      if (var && isString) {
         fullPath += ".";
       }
     }
