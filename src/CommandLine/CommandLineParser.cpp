@@ -485,8 +485,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
   m_exePath = exe_name;
   const std::string exe_path = FileUtils::getPathName(exe_name);
   const std::vector<std::string> search_path = {
-      exe_path, exe_path + "../lib/surelog/", "/usr/lib/surelog/",
-      "/usr/local/lib/surelog/"};
+      exe_path, exe_path + "../lib/surelog/"};
 
   m_precompiledDirId = m_symbolTable->registerSymbol(exe_path + "pkg/");
   for (const std::string& dir : search_path) {
