@@ -2095,11 +2095,10 @@ delay_control
 
 
 event_control  
-    : AT (identifier | hierarchical_identifier)
-    | AT OPEN_PARENS event_expression CLOSE_PARENS 
+    : AT OPEN_PARENS event_expression CLOSE_PARENS 
     | ATSTAR
     | AT_PARENS_STAR
-    | AT ps_or_hierarchical_sequence_identifier   
+    | AT ps_or_hierarchical_identifier   
     ; 
 
 
