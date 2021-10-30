@@ -753,20 +753,14 @@ void SV3_1aTreeShapeListener::exitScalar_Integral(
 
 void SV3_1aTreeShapeListener::exitUnbased_unsized_literal(
     SV3_1aParser::Unbased_unsized_literalContext *ctx) {
-  if (ctx->TICK_0())
-    addVObject(ctx, ctx->TICK_0()->getText(), VObjectType::sl0);
-  else if (ctx->TICK_1())
-    addVObject(ctx, ctx->TICK_1()->getText(), VObjectType::sl1);
-  else {
-    std::string s = ctx->Simple_identifier()->getText();
-    VObjectType type = VObjectType::slZ;
-    if (s == "z" || s == "Z") {
-      type = VObjectType::slZ;
-    } else if (s == "x" || s == "X") {
-      type = VObjectType::slX;
-    }
-    addVObject(ctx, s, type);
+  std::string s = ctx->Simple_identifier()->getText();
+  VObjectType type = VObjectType::slZ;
+  if (s == "z" || s == "Z") {
+    type = VObjectType::slZ;
+  } else if (s == "x" || s == "X") {
+    type = VObjectType::slX;
   }
+  addVObject(ctx, s, type);
 }
 
 /*
