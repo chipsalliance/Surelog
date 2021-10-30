@@ -3209,9 +3209,7 @@ number
 
 
 unbased_unsized_literal  
-    : TICK_0     
-    | TICK_1     
-    | TICK Simple_identifier 
+    : TICK Simple_identifier 
     ;  
 
 
