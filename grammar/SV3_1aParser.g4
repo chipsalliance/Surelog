@@ -1441,7 +1441,7 @@ block_event_expression
     ; 
 
 hierarchical_btf_identifier  
-    : (identifier | hierarchical_identifier)                            
+    : hierarchical_identifier                            
     | ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)*  ( class_scope )? identifier 
     ; 
 
@@ -2802,7 +2802,7 @@ subroutine_call
 */
 
 subroutine_call : ( implicit_class_handle DOT | class_scope | package_scope | dollar_keyword )?  
-       ( dollar_root_keyword )? identifier ( constant_bit_select DOT identifier )* ( attribute_instance )* (  ( OPEN_PARENS list_of_arguments CLOSE_PARENS ) | select) (DOT? method_call_body)?
+       ( dollar_root_keyword )? identifier ( constant_bit_select DOT identifier )* ( attribute_instance )* (  ( OPEN_PARENS list_of_arguments CLOSE_PARENS ) | select) (DOT method_call_body)?
        | randomize_call;
 
 
@@ -3059,7 +3059,7 @@ module_path_primary
   Replaces let_expression, tf_call, method_call
 */
 complex_func_call : ( implicit_class_handle DOT | class_scope | package_scope | dollar_keyword | LOCAL COLUMNCOLUMN )?  
-       ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)* ( attribute_instance )* ( ( OPEN_PARENS (list_of_arguments) CLOSE_PARENS ) | select ) (DOT? method_call_body)? ;
+       ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)* ( attribute_instance )* ( ( OPEN_PARENS (list_of_arguments) CLOSE_PARENS ) | select ) (DOT method_call_body)? ;
 
 primary
     : primary_literal                
