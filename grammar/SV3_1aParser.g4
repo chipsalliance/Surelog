@@ -936,7 +936,7 @@ list_of_virtual_interface_decl :
     identifier ( ASSIGN_OP identifier )? 
     ( COMMA identifier ( ASSIGN_OP identifier )? )* ; 
 
-defparam_assignment : hierarchical_identifier ASSIGN_OP constant_mintypmax_expression ; 
+defparam_assignment : (identifier | hierarchical_identifier) ASSIGN_OP constant_mintypmax_expression ; 
 
 net_decl_assignment : identifier ( unpacked_dimension )* ( ASSIGN_OP expression )? ; 
 
@@ -1441,8 +1441,8 @@ block_event_expression
     ; 
 
 hierarchical_btf_identifier  
-    : hierarchical_identifier                             
-    |  ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)*  ( class_scope )? identifier 
+    : (identifier | hierarchical_identifier)                            
+    | ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)*  ( class_scope )? identifier 
     ; 
 
 cover_point : ( identifier COLUMN )? COVERPOINT expression ( IFF OPEN_PARENS expression CLOSE_PARENS )? bins_or_empty ; 
@@ -1983,7 +1983,7 @@ blocking_assignment
     : variable_lvalue ASSIGN_OP delay_or_event_control expression   
     | nonrange_variable_lvalue ASSIGN_OP dynamic_array_new  
                                                                 
-    | ( implicit_class_handle DOT | class_scope | package_scope )? hierarchical_identifier  
+    | ( implicit_class_handle DOT | class_scope | package_scope )? (identifier | hierarchical_identifier) 
         select ASSIGN_OP class_new                                  
     | operator_assignment                                       
     ; 
@@ -2095,7 +2095,7 @@ delay_control
 
 
 event_control  
-    : AT hierarchical_identifier            
+    : AT (identifier | hierarchical_identifier)
     | AT OPEN_PARENS event_expression CLOSE_PARENS 
     | ATSTAR
     | AT_PARENS_STAR
@@ -2133,17 +2133,17 @@ jump_statement
 
 wait_statement  
     : WAIT (( OPEN_PARENS expression CLOSE_PARENS statement_or_null ) | ( FORK SEMICOLUMN ))
-    | WAIT_ORDER OPEN_PARENS hierarchical_identifier (COMMA hierarchical_identifier )* CLOSE_PARENS action_block 
+    | WAIT_ORDER OPEN_PARENS (identifier | hierarchical_identifier) (COMMA (identifier | hierarchical_identifier) )* CLOSE_PARENS action_block 
     ; 
      
 event_trigger  
-    : IMPLY hierarchical_identifier SEMICOLUMN   
+    : IMPLY (identifier | hierarchical_identifier) SEMICOLUMN   
     | NON_BLOCKING_TRIGGER_EVENT_OP ( delay_or_event_control )?  
-      hierarchical_identifier SEMICOLUMN                  
+      (identifier | hierarchical_identifier) SEMICOLUMN                  
     ; 
 
 disable_statement  
-    : DISABLE ( hierarchical_identifier | FORK ) SEMICOLUMN  
+    : DISABLE ( identifier | hierarchical_identifier | FORK ) SEMICOLUMN  
     ; 
 
 
@@ -3157,7 +3157,7 @@ variable_lvalue
     ; 
 
 nonrange_variable_lvalue : 
-      ( implicit_class_handle DOT | package_scope )? hierarchical_identifier nonrange_select ; 
+      ( implicit_class_handle DOT | package_scope )? (identifier | hierarchical_identifier) nonrange_select ; 
      
 
 inc_or_dec_operator
@@ -3222,19 +3222,9 @@ attr_spec : attr_name ( ASSIGN_OP constant_expression )? ;
 
 attr_name : identifier ; 
 
-hierarchical_identifier :  ( dollar_root_keyword )? (
-      Simple_identifier   
-    | Escaped_identifier
-    | THIS                
-    | RANDOMIZE           
-    | SAMPLE
-      ) (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT (
-      Simple_identifier   
-    | Escaped_identifier
-    | THIS                
-    | RANDOMIZE           
-    | SAMPLE
-    ))*  ; 
+hierarchical_identifier :  ( dollar_root_keyword )?
+ identifier
+     ( ( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier )+ ;  
 
 identifier  
     : Simple_identifier   
@@ -3271,7 +3261,7 @@ ps_or_hierarchical_identifier
 
 ps_or_hierarchical_array_identifier : ( implicit_class_handle DOT | class_scope | package_scope )?  ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)*  ; 
 
-ps_or_hierarchical_sequence_identifier : ( package_scope )? identifier |  ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)*  ; 
+ps_or_hierarchical_sequence_identifier : ps_or_hierarchical_array_identifier ; 
 
 ps_type_identifier : ( LOCAL COLUMNCOLUMN | package_scope )?  identifier  ; 
 
