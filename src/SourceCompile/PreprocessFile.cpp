@@ -664,7 +664,7 @@ std::string PreprocessFile::evaluateMacroInstance(
 static bool isKeyword(const std::vector<std::string>& body_tokens) {
   if (body_tokens.empty()) return false;
   std::string first = body_tokens[0];
-  for (const std::string& keyword : {"assert", "assume"}) {
+  for (const char* const& keyword : {"assert", "assume"}) {
     if (first == keyword) return true;
   }
   if (first[0] == '$') {

@@ -2736,6 +2736,8 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
   NodeId Variable_lvalue = 0;
   if (fC->Type(Operator_assignment) == slVariable_lvalue) {
     Variable_lvalue = Operator_assignment;
+  } else if (fC->Type(Operator_assignment) == slStringConst) {
+    Variable_lvalue = Operator_assignment;
   } else {
     Variable_lvalue = fC->Child(Operator_assignment);
   }
@@ -2743,7 +2745,8 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
   UHDM::any* rhs_rf = nullptr;
   NodeId Delay_or_event_control = 0;
   NodeId AssignOp_Assign = 0;
-  if (fC->Type(Variable_lvalue) == slHierarchical_identifier) {
+  if (fC->Type(Variable_lvalue) == slHierarchical_identifier ||
+      fC->Type(Variable_lvalue) == slStringConst) {
     NodeId Variable_lvalue = Operator_assignment;
     Delay_or_event_control = fC->Sibling(Variable_lvalue);
     NodeId Expression = fC->Sibling(Delay_or_event_control);
@@ -2828,7 +2831,8 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
 
   assignment* assign = s.MakeAssignment();
   UHDM::delay_control* delay_control = nullptr;
-  if (Delay_or_event_control) {
+  if (Delay_or_event_control &&
+      (fC->Type(Delay_or_event_control) != slSelect)) {
     delay_control = s.MakeDelay_control();
     assign->Delay_control(delay_control);
     delay_control->VpiParent(assign);
