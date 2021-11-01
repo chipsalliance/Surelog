@@ -953,13 +953,20 @@ int LValue::vpiValType() {
 LValue::LValue(const LValue& val)
     : m_type(val.m_type),
       m_nbWords(val.m_nbWords),
-      m_valueArray(new SValue[val.m_nbWords]),
+      m_valueArray(new SValue[val.m_nbWords ? val.m_nbWords : 1]),
       m_valid(val.isValid()),
       m_negative(val.isNegative()),
       m_lrange(val.getLRange()),
       m_rrange(val.getRRange()),
       m_prev(nullptr),
       m_next(nullptr) {
+  m_valueArray[0].m_size = 0;
+  m_valueArray[0].m_type = m_type;
+  m_valueArray[0].m_value.u_int = 0;
+  m_valueArray[0].m_negative = 0;
+  m_valueArray[0].m_lrange = 0;
+  m_valueArray[0].m_rrange = 0;
+
   for (int i = 0; i < val.m_nbWords; i++) {
     m_valueArray[i].m_size = 0;
     m_valueArray[i] = val.m_valueArray[i];
