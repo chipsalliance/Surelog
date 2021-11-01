@@ -246,7 +246,7 @@ def _run_surelog(
 
   status = Status.PASS
   surelog_timedelta = timedelta(seconds=0)
-  max_cpu_percent = 0
+  max_cpu_time = 0
   max_vms_memory = 0
   max_rss_memory = 0
   if '.sh' in cmdline or '.bat' in cmdline:
@@ -291,7 +291,7 @@ def _run_surelog(
           cwd=dirpath)
 
       while psutil.pid_exists(process.pid) and process.poll() == None:
-        cpu_percent = 0
+        cpu_time = 0
         rss_memory = 0
         vms_memory = 0
         try:
@@ -304,7 +304,7 @@ def _run_surelog(
             try:
               with descendant.oneshot():
                 mem_info = descendant.memory_info()
-                cpu_percent += descendant.cpu_percent(interval=0.25)
+                cpu_time += descendant.cpu_times().user
 
                 rss_memory += mem_info.rss
                 vms_memory += mem_info.vms
@@ -317,7 +317,7 @@ def _run_surelog(
         except (psutil.NoSuchProcess, psutil.AccessDenied):
           pass
 
-        max_cpu_percent = max(max_cpu_percent, cpu_percent)
+        max_cpu_time = max(max_cpu_time, cpu_time)
         max_vms_memory = max(max_vms_memory, vms_memory)
         max_rss_memory = max(max_rss_memory, rss_memory)
 
@@ -345,10 +345,10 @@ def _run_surelog(
 
   return {
     'STATUS': status,
-    'CPU': max_cpu_percent,
+    'CPU-TIME': max_cpu_time,
     'VTL-MEM': max_vms_memory,
     'PHY-MEM': max_rss_memory,
-    'TIME': surelog_timedelta
+    'WALL-TIME': surelog_timedelta
   }
 
 
@@ -400,7 +400,7 @@ def _run_uhdm_dump(
 
   return {
     'STATUS': status,
-    # 'TIME': delta  # Don't overwrite the time. We aren't tracking uhdm-dump times
+    # 'WALL-TIME': delta  # Don't overwrite the time. We aren't tracking uhdm-dump times
   }
 
 
@@ -414,7 +414,7 @@ def _run_one(params):
   start_dt = datetime.now()
   name, filepath, workspace_dirpath, surelog_filepath, uhdm_dump_filepath, mp, mt, tool, output_dirpath = params
 
-  log(f'Running {name}')
+  log(f'Running {name} ...')
 
   dirpath = os.path.dirname(filepath)
   regression_log_filepath = os.path.join(output_dirpath, 'regression.log')
@@ -641,7 +641,7 @@ def _update_one(params):
 
 
 def _print_report(results):
-  columns = ['TESTNAME', 'STATUS', 'FATAL', 'SYNTAX', 'ERROR', 'WARNING', 'NOTE', 'TIME', 'CPU', 'VTL-MEM', 'PHY-MEM']
+  columns = ['TESTNAME', 'STATUS', 'FATAL', 'SYNTAX', 'ERROR', 'WARNING', 'NOTE', 'WALL-TIME', 'CPU-TIME', 'VTL-MEM', 'PHY-MEM']
 
   rows = []
   summary = OrderedDict([(status.name, 0) for status in Status])
@@ -664,8 +664,8 @@ def _print_report(results):
       _get_cell_value(columns[4]),
       _get_cell_value(columns[5]),
       _get_cell_value(columns[6]),
-      str(round(result.get(columns[7], timedelta(seconds=0)).total_seconds(), 2)),
-      str(round(result.get(columns[8], 0), 2)),
+      str(round(result.get(columns[7], timedelta(seconds=0)).total_seconds())),
+      str(round(result.get(columns[8], 0))),
       str(round(result.get(columns[9], 0) / (1024 * 1024))),
       str(round(result.get(columns[10], 0) / (1024 * 1024))),
     ])
