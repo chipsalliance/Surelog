@@ -343,9 +343,9 @@ class LValue : public Value {
 
   short getSize() const final;
   short getSize(unsigned int wordIndex) const final {
-    if (m_valueArray)
+    if (m_valueArray) {
       return m_valueArray[wordIndex].m_size;
-    else
+    } else
       return 0;
   }
   void setRange(unsigned short lrange, unsigned short rrange) {
