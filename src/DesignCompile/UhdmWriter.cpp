@@ -62,6 +62,7 @@
 // UHDM
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/Serializer.h>
+#include <uhdm/clone_tree.h>
 #include <uhdm/module.h>
 #include <uhdm/uhdm.h>
 #include <uhdm/vpi_listener.h>
