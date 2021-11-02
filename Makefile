@@ -66,6 +66,7 @@ test/regression: run-cmake-release
 	cd build && ../tests/regression.tcl mt=0 show_diff
 
 test/valgrind: debug
+	cd dbuild && ../tests/regression.tcl debug=valgrind test=TypeParamElab path=${PWD}/dbuild/bin
 	cd dbuild && ../tests/regression.tcl debug=valgrind test=ArianeElab path=${PWD}/dbuild/bin
 
 test: test/unittest test/regression
@@ -95,6 +96,7 @@ pytest/regression: release
 	python3 scripts/regression.py run --jobs $(CPU_CORES) --show-diffs
 
 pytest/valgrind: debug
+	python3 scripts/regression.py run --tool valgrind --filters TypeParamElab --build-dirpath ${PWD}/dbuild
 	python3 scripts/regression.py run --tool valgrind --filters ArianeElab --build-dirpath ${PWD}/dbuild
 
 pytest: release test/unittest pytest/regression
