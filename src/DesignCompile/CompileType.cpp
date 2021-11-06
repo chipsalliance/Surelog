@@ -463,6 +463,10 @@ typespec* CompileHelper::compileDatastructureTypespec(
     while (dt) {
       if (const TypeDef* tpd = datatype_cast<const TypeDef*>(dt)) {
         parent_tpd = (TypeDef*)tpd;
+        if (parent_tpd->getTypespec()) {
+          result = parent_tpd->getTypespec();
+          break;
+        }
       } else if (const Struct* st = datatype_cast<const Struct*>(dt)) {
         result = st->getTypespec();
         if (!suffixname.empty()) {
@@ -1239,16 +1243,27 @@ UHDM::typespec* CompileHelper::compileTypespec(
         result = compileDatastructureTypespec(
             component, fC, type, compileDesign, instance, reduce, "", typeName);
         if (ranges && result) {
-          if (result->UhdmType() == uhdmstruct_typespec ||
-              result->UhdmType() == uhdmenum_typespec ||
-              result->UhdmType() == uhdmunion_typespec) {
+          UHDM_OBJECT_TYPE dstype = result->UhdmType();
+          if (dstype == uhdmstruct_typespec ||
+              dstype == uhdmenum_typespec ||
+              dstype == uhdmunion_typespec) {
             packed_array_typespec* pats = s.MakePacked_array_typespec();
             pats->Elem_typespec(result);
             pats->Ranges(ranges);
             result = pats;
-          } else if (result->UhdmType() == uhdmlogic_typespec) {
+          } else if (dstype == uhdmlogic_typespec) {
             logic_typespec* pats = s.MakeLogic_typespec();
             pats->Logic_typespec((logic_typespec*)result);
+            pats->Ranges(ranges);
+            result = pats;
+          } else if (dstype == uhdmarray_typespec) {
+            packed_array_typespec* pats = s.MakePacked_array_typespec();
+            pats->Elem_typespec(result);
+            pats->Ranges(ranges);
+            result = pats;
+          } else if (dstype == uhdmpacked_array_typespec) {
+            packed_array_typespec* pats = s.MakePacked_array_typespec();
+            pats->Elem_typespec(result);
             pats->Ranges(ranges);
             result = pats;
           }
