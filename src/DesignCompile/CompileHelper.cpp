@@ -717,7 +717,6 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       DummyType* dummy = new DummyType(fC, type_name, stype);
       newTypeDef->setDataType(dummy);
       newTypeDef->setDefinition(dummy);
-
       // Don't create the typespec here, as it is most likely going to be
       // incomplete at compilation time, except for packages
       if (reduce && (valuedcomponenti_cast<Package*>(scope))) {
@@ -774,6 +773,8 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
             dummy->setTypespec(tpclone);
           }
         }
+      } else {
+        dummy->setUnpackedTypespec(array_tps);
       }
 
       if (scope) scope->insertTypeDef(newTypeDef);
@@ -788,6 +789,11 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign,
                                            nullptr, nullptr, false);
       if (ts) {
+        if (array_tps) {
+          array_tps->Elem_typespec(ts);
+          ts = array_tps;
+        }
+
         if (reduce && (valuedcomponenti_cast<Package*>(scope))) {
           ts->Instance(scope->getUhdmInstance());
         }
