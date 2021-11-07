@@ -110,7 +110,9 @@ class DataType : public RTTI {
   void setTypespec(UHDM::typespec* typespec) { m_typespec = typespec; }
 
   UHDM::typespec* getUnpackedTypespec() const { return m_unpacked_typespec; }
-  void setUnpackedTypespec(UHDM::typespec* typespec) { m_unpacked_typespec = typespec; }
+  void setUnpackedTypespec(UHDM::typespec* typespec) {
+    m_unpacked_typespec = typespec;
+  }
 
  protected:
   const FileContent* m_fileContent = nullptr;

@@ -170,7 +170,8 @@ bool ElaborationStep::bindTypedefs_() {
           }
           if (typespec* unpacked = prevDef->getUnpackedTypespec()) {
             ElaboratorListener listener(&s);
-            array_typespec* unpacked_clone = (array_typespec*)UHDM::clone_tree((any*)unpacked, s, &listener);
+            array_typespec* unpacked_clone =
+                (array_typespec*)UHDM::clone_tree((any*)unpacked, s, &listener);
             unpacked_clone->Elem_typespec(tpclone);
             tpclone = unpacked_clone;
           }

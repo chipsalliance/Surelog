@@ -164,7 +164,7 @@ variables* CompileHelper::getSimpleVarFromTypespec(
       break;
     }
     case uhdmarray_typespec: {
-      UHDM::array_var* array = s.MakeArray_var();                                      
+      UHDM::array_var* array = s.MakeArray_var();
       var = array;
       break;
     }
@@ -1249,8 +1249,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
             component, fC, type, compileDesign, instance, reduce, "", typeName);
         if (ranges && result) {
           UHDM_OBJECT_TYPE dstype = result->UhdmType();
-          if (dstype == uhdmstruct_typespec ||
-              dstype == uhdmenum_typespec ||
+          if (dstype == uhdmstruct_typespec || dstype == uhdmenum_typespec ||
               dstype == uhdmunion_typespec) {
             packed_array_typespec* pats = s.MakePacked_array_typespec();
             pats->Elem_typespec(result);
