@@ -997,3 +997,4 @@ BACK_TICK : '`' ;
 
 SURELOG_MACRO_NOT_DEFINED : 'SURELOG_MACRO_NOT_DEFINED:' Simple_identifier '!!!' ;
 
+ANY: . ;
