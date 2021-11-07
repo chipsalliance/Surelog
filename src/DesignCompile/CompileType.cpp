@@ -163,6 +163,11 @@ variables* CompileHelper::getSimpleVarFromTypespec(
       }
       break;
     }
+    case uhdmarray_typespec: {
+      UHDM::array_var* array = s.MakeArray_var();                                      
+      var = array;
+      break;
+    }
     default:
       break;
   }

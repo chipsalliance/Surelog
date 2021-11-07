@@ -168,6 +168,13 @@ bool ElaborationStep::bindTypedefs_() {
             tpclone = (typespec*)UHDM::clone_tree((any*)tps, s, &listener);
             tpclone->Typedef_alias(tps);
           }
+          if (typespec* unpacked = prevDef->getUnpackedTypespec()) {
+            ElaboratorListener listener(&s);
+            array_typespec* unpacked_clone = (array_typespec*)UHDM::clone_tree((any*)unpacked, s, &listener);
+            unpacked_clone->Elem_typespec(tpclone);
+            tpclone = unpacked_clone;
+          }
+
           if (tpclone) {
             typd->setTypespec(tpclone);
             tpclone->VpiName(typd->getName());

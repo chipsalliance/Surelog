@@ -109,6 +109,9 @@ class DataType : public RTTI {
   UHDM::typespec* getTypespec() const { return m_typespec; }
   void setTypespec(UHDM::typespec* typespec) { m_typespec = typespec; }
 
+  UHDM::typespec* getUnpackedTypespec() const { return m_unpacked_typespec; }
+  void setUnpackedTypespec(UHDM::typespec* typespec) { m_unpacked_typespec = typespec; }
+
  protected:
   const FileContent* m_fileContent = nullptr;
   NodeId m_id = 0;
@@ -117,6 +120,7 @@ class DataType : public RTTI {
   VObjectType m_type;
   bool m_is_parameter = false;
   UHDM::typespec* m_typespec = nullptr;
+  UHDM::typespec* m_unpacked_typespec = nullptr;
   Category m_category = Category::REF;
 };
 
