@@ -3041,9 +3041,9 @@ Processing: -cd frontends/read_liberty_ff_pn testbench.v -writepp -parse -nocach
 [WARNING] : 4
 [   NOTE] : 0
 Processing: -cd frontends/verilog_lexer_package top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
-[SNT:PA0207] top.v:21: Syntax error: token recognition error at: '\',
-\
-^-- ./slpp_all/work/_6142509188972423790/top.v:21:0:.
+[SNT:PA0207] top.v:18: Syntax error: mismatched input '{' expecting <EOF>,
+{* AAA *}
+^-- ./slpp_all/work/_6142509188972423790/top.v:18:0:.
 
 [  FATAL] : 0
 [ SYNTAX] : 1
@@ -9322,7 +9322,7 @@ Processing: -cd regression/issue_00938 top.v -writepp -parse -nocache -nobuiltin
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00502 top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
-[SNT:PA0207] top.v:14:38: Syntax error: token recognition error at: '\',
+[SNT:PA0207] top.v:14:38: Syntax error: no viable alternative at input 'MY_AND2 inst_a1 (.A(A), .B(B), .Y( \',
    MY_AND2 inst_a1 (.A(A), .B(B), .Y( \\SUM/N10 ) ); // needs whitespaces around net name
                                       ^-- ./slpp_all/work/_6142509188972423790/top.v:14:38:.
 
