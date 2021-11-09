@@ -762,7 +762,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
       addError(err);
     }
   }
-
+  bool incorrectArgNb = false;
   static const std::regex ws_re("[ \t]+");
   for (unsigned int i = 0; i < formal_args.size(); i++) {
     std::vector<std::string> formal_arg_default;
@@ -838,11 +838,14 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
             Error err(ErrorDefinition::PP_MACRO_NO_DEFAULT_VALUE, loc, &locs);
             addError(err);
           }
+          incorrectArgNb = true;
         }
       }
     }
   }
-
+  if (incorrectArgNb) {
+    return std::make_pair(true, "`" + name);
+  }
   std::string body;
   for (auto token : body_tokens) {
     body += token;
