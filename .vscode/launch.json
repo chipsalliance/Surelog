@@ -376,7 +376,28 @@
             "program": "${workspaceFolder}/dbuild/bin/surelog",
             "args": ["-nobuiltin", "-createcache", 
                 "+incdir+.+1800.2-2017-1.0/src/", "1800.2-2017-1.0/src/uvm_pkg.sv", "-writepp", 
-                "-parse", "-nocomp", "-noelab", "-verbose"],
+                "-parse", "-nocomp", "-noelab", "-verbose", "-nocache"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/dbuild/bin",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "BuildOVMPkg",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-nobuiltin", "-createcache", 
+                "+incdir+.+ovm-2.1.2/src/", "+incdir+vmm-1.1.1a/sv", "ovm-2.1.2/src/ovm_pkg.sv", "-writepp", 
+                "-parse", "-nocomp", "-noelab", "-verbose", "-nocache"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/dbuild/bin",
             "environment": [],
@@ -642,7 +663,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/dbuild/bin/surelog",
-            "args": ["-parse", "tests/ScratchPad.sv", "-d", "inst" ,"-d", "ast", "-d", "uhdm", "-nobuiltin", "-d", "vpi_ids", "-d", "coveruhdm", "-profile", "-elabuhdm", "-replay", "-writepp", "-nocache"],
+            "args": ["-parse", "tests/ScratchPad.sv", "-DMEM_ROOT=test", "-d", "inst" ,"-d", "ast", "-d", "uhdm", "-nobuiltin", "-d", "vpi_ids", "-d", "coveruhdm", "-elabuhdm", "-replay", "-writepp", "-nocache"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

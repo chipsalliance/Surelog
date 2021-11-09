@@ -2155,8 +2155,12 @@ Processing: -cd chapter-22 -I../../../UVM/1800.2-2017-1.0/src/  -parse -nonote -
 [ERR:PP0109] 22.5.1--define-expansion_12.sv:19: Macro instantiation omits argument 3 (c) for "MACRO1",
              22.5.1--define-expansion_12.sv:17: No default value for argument 3 (c) in macro definition.
 
+[SNT:PA0207] 22.5.1--define-expansion_12.sv:19: Syntax error: no viable alternative at input 'module top ();\n`',
+`MACRO1 // ILLEGAL: b and c omitted, no default for c
+^-- ./slpp_all/work/_6142509188972423790/22.5.1--define-expansion_12.sv:19:0:.
+
 [  FATAL] : 0
-[ SYNTAX] : 0
+[ SYNTAX] : 1
 [  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
@@ -2288,8 +2292,12 @@ Processing: -cd chapter-22 -I../../../UVM/1800.2-2017-1.0/src/  -parse -nonote -
 [ERR:PP0109] 22.5.1--define-expansion_6.sv:19: Macro instantiation omits argument 2 (y) for "D",
              22.5.1--define-expansion_6.sv:17: No default value for argument 2 (y) in macro definition.
 
+[SNT:PA0207] 22.5.1--define-expansion_6.sv:19: Syntax error: no viable alternative at input 'module top ();\n`',
+`D
+^-- ./slpp_all/work/_6142509188972423790/22.5.1--define-expansion_6.sv:19:0:.
+
 [  FATAL] : 0
-[ SYNTAX] : 0
+[ SYNTAX] : 1
 [  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
@@ -2534,12 +2542,8 @@ Processing: -cd chapter-22 -I../../../UVM/1800.2-2017-1.0/src/  -parse -nonote -
 [ERR:PP0109] 22.5.1--define-expansion_7.sv:18: Macro instantiation omits argument 2 (y) for "D",
              22.5.1--define-expansion_7.sv:17: No default value for argument 2 (y) in macro definition.
 
-[SNT:PA0207] 22.5.1--define-expansion_7.sv:18: Syntax error: mismatched input 'initial' expecting <EOF>,
-initial $display("start",  , , "end");
-^-- ./slpp_all/work/_6142509188972423790/22.5.1--define-expansion_7.sv:18:0:.
-
 [  FATAL] : 0
-[ SYNTAX] : 1
+[ SYNTAX] : 0
 [  ERROR] : 2
 [WARNING] : 0
 [   NOTE] : 0
@@ -11148,7 +11152,7 @@ Processing: -cd chapter-25 -I../../../UVM/1800.2-2017-1.0/src/  -parse -nonote -
 [   NOTE] : 0
 Processed 1134 tests.
 [  FATAL] : 0
-[ SYNTAX] : 38
+[ SYNTAX] : 39
 [  ERROR] : 272
 [WARNING] : 1763
 [   NOTE] : 0

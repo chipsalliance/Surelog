@@ -1,0 +1,1 @@
+-parse -DMEM_ROOT=test -d uhdm -d coveruhdm -elabuhdm -d ast dut.sv -nobuiltin
