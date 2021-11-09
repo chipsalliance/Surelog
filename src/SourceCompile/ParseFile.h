@@ -103,7 +103,7 @@ class ParseFile {
   void setFileContent(FileContent* content) { m_fileContent = content; }
   void setDebugAstModel() { debug_AstModel = true; }
   std::string getProfileInfo();
-
+  void profileParser();
  private:
   SymbolId m_fileId;
   SymbolId m_ppFileId;

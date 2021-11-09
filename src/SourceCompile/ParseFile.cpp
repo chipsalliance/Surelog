@@ -354,13 +354,15 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
   }
 
   antlrParserHandler->m_parser = new SV3_1aParser(antlrParserHandler->m_tokens);
-
+  if (getCompileSourceFile()->getCommandLineParser()->profile()) {
+    m_antlrParserHandler->m_parser->setProfile(true);
+  }
   m_antlrParserHandler->m_parser
       ->getInterpreter<antlr4::atn::ParserATNSimulator>()
       ->setPredictionMode(antlr4::atn::PredictionMode::SLL);
+  m_antlrParserHandler->m_parser->removeErrorListeners();
   m_antlrParserHandler->m_parser->setErrorHandler(
       std::make_shared<antlr4::BailErrorStrategy>());
-  m_antlrParserHandler->m_parser->removeErrorListeners();
 
   try {
     m_antlrParserHandler->m_tree =
@@ -371,14 +373,17 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
           "SLL Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
           "s " + fileName + "\n";
       tmr.reset();
+      profileParser();
     }
   } catch (antlr4::ParseCancellationException& pex) {
     m_antlrParserHandler->m_tokens->reset();
     m_antlrParserHandler->m_parser->reset();
-
+    m_antlrParserHandler->m_parser->removeErrorListeners();
+    if (getCompileSourceFile()->getCommandLineParser()->profile()) {
+      m_antlrParserHandler->m_parser->setProfile(true);
+    }
     m_antlrParserHandler->m_parser->setErrorHandler(
         std::make_shared<antlr4::DefaultErrorStrategy>());
-    antlrParserHandler->m_parser->removeErrorListeners();
     antlrParserHandler->m_parser->addErrorListener(
         antlrParserHandler->m_errorListener);
     antlrParserHandler->m_parser
@@ -391,6 +396,7 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
           "LL  Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
           " " + fileName + "\n";
       tmr.reset();
+      profileParser();
     }
   }
   /* Failed attempt to minimize memory usage:
@@ -401,6 +407,36 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
     stream.close();
   }
   return true;
+}
+
+
+void ParseFile::profileParser() {
+  // Core dumps
+  /*
+  for (auto iterator = m_antlrParserHandler->m_parser->getParseInfo().getDecisionInfo().begin();
+       iterator != m_antlrParserHandler->m_parser->getParseInfo().getDecisionInfo().end(); iterator++) {
+    antlr4::atn::DecisionInfo& decisionInfo = *iterator;
+    antlr4::atn::DecisionState* ds =
+        m_antlrParserHandler->m_parser->getATN().getDecisionState(decisionInfo.decision);
+    std::string rule = m_antlrParserHandler->m_parser->getRuleNames()[ds->ruleIndex];
+    if (decisionInfo.timeInPrediction > 0) {
+      std::cout << std::left << std::setw(35) << std::setfill(' ') << rule;
+      std::cout << std::left << std::setw(15) << std::setfill(' ')
+                << decisionInfo.timeInPrediction;
+      std::cout << std::left << std::setw(15) << std::setfill(' ')
+                << decisionInfo.invocations;
+      std::cout << std::left << std::setw(15) << std::setfill(' ')
+                << decisionInfo.SLL_TotalLook;
+      std::cout << std::left << std::setw(15) << std::setfill(' ')
+                << decisionInfo.SLL_MaxLook;
+      std::cout << std::left << std::setw(15) << std::setfill(' ')
+                << decisionInfo.ambiguities.size();
+      std::cout << std::left << std::setw(15) << std::setfill(' ')
+                << decisionInfo.errors.size();
+      std::cout << std::endl;
+    }
+  }
+  */
 }
 
 std::string ParseFile::getProfileInfo() {
