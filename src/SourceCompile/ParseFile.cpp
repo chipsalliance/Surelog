@@ -409,19 +409,21 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
   return true;
 }
 
-
 void ParseFile::profileParser() {
   // Core dumps
   /*
-  for (auto iterator = m_antlrParserHandler->m_parser->getParseInfo().getDecisionInfo().begin();
-       iterator != m_antlrParserHandler->m_parser->getParseInfo().getDecisionInfo().end(); iterator++) {
-    antlr4::atn::DecisionInfo& decisionInfo = *iterator;
+  for (auto iterator =
+  m_antlrParserHandler->m_parser->getParseInfo().getDecisionInfo().begin();
+       iterator !=
+  m_antlrParserHandler->m_parser->getParseInfo().getDecisionInfo().end();
+  iterator++) { antlr4::atn::DecisionInfo& decisionInfo = *iterator;
     antlr4::atn::DecisionState* ds =
         m_antlrParserHandler->m_parser->getATN().getDecisionState(decisionInfo.decision);
-    std::string rule = m_antlrParserHandler->m_parser->getRuleNames()[ds->ruleIndex];
-    if (decisionInfo.timeInPrediction > 0) {
-      std::cout << std::left << std::setw(35) << std::setfill(' ') << rule;
-      std::cout << std::left << std::setw(15) << std::setfill(' ')
+    std::string rule =
+  m_antlrParserHandler->m_parser->getRuleNames()[ds->ruleIndex]; if
+  (decisionInfo.timeInPrediction > 0) { std::cout << std::left << std::setw(35)
+  << std::setfill(' ') << rule; std::cout << std::left << std::setw(15) <<
+  std::setfill(' ')
                 << decisionInfo.timeInPrediction;
       std::cout << std::left << std::setw(15) << std::setfill(' ')
                 << decisionInfo.invocations;

@@ -87,8 +87,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       NodeId classDef = classSet[i].nodeId;
       std::string name = packageFile->SymName(classDef);
       if (!object_name.empty()) {
-        if (name != object_name)
-          continue;
+        if (name != object_name) continue;
       }
       std::string fullName = def->getName() + "::" + name;
       DesignComponent* comp = packageFile->getComponentDefinition(fullName);
@@ -100,8 +99,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
     auto& typeSet = def->getDataTypeMap();
     for (auto& type : typeSet) {
       if (!object_name.empty()) {
-        if (type.first != object_name)
-          continue;
+        if (type.first != object_name) continue;
       }
       scope->insertDataType(type.first, type.second);
     }
@@ -109,8 +107,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
     auto& variableSet = def->getVariables();
     for (auto& var : variableSet) {
       if (!object_name.empty()) {
-        if (var.first != object_name)
-          continue;
+        if (var.first != object_name) continue;
       }
       scope->addVariable(var.second);
       Value* val = def->getValue(var.first);
@@ -130,8 +127,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
     auto& paramSet = def->getParameterMap();
     for (auto& param : paramSet) {
       if (!object_name.empty()) {
-        if (param.first != object_name)
-          continue;
+        if (param.first != object_name) continue;
       }
       Parameter* orig = param.second;
       Parameter* clone = new Parameter(*orig);
@@ -175,8 +171,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
     for (ParamAssign* orig : params) {
       if (!object_name.empty()) {
         UHDM::param_assign* pass = orig->getUhdmParamAssign();
-        if (pass->Lhs()->VpiName() != object_name)
-          continue;
+        if (pass->Lhs()->VpiName() != object_name) continue;
       }
       ParamAssign* clone = new ParamAssign(*orig);
       scope->addParamAssign(clone);
@@ -217,8 +212,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
     auto& values = def->getMappedValues();
     for (auto& mvalue : values) {
       if (!object_name.empty()) {
-        if (mvalue.first != object_name)
-          continue;
+        if (mvalue.first != object_name) continue;
       }
       if (mvalue.second.first->isValid())
         scope->setValue(mvalue.first, m_exprBuilder.clone(mvalue.second.first),
@@ -226,8 +220,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
     }
     for (auto& cvalue : def->getComplexValues()) {
       if (!object_name.empty()) {
-        if (cvalue.first != object_name)
-          continue;
+        if (cvalue.first != object_name) continue;
       }
       scope->setComplexValue(cvalue.first, cvalue.second);
     }
