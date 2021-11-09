@@ -70,6 +70,12 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
 
   NodeId nameId = fC->Child(id);
   std::string pack_name = fC->SymName(nameId);
+  std::string object_name;
+  if (NodeId objId = fC->Sibling(nameId)) {
+    if (fC->Type(objId) == slStringConst) {
+      object_name = fC->SymName(objId);
+    }
+  }
   Package* def = design->getPackage(pack_name);
   if (def) {
     if (def == scope)  // skip
@@ -80,6 +86,9 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       const FileContent* packageFile = classSet[i].fC;
       NodeId classDef = classSet[i].nodeId;
       std::string name = packageFile->SymName(classDef);
+      if (!object_name.empty()) {
+        if (name != object_name) continue;
+      }
       std::string fullName = def->getName() + "::" + name;
       DesignComponent* comp = packageFile->getComponentDefinition(fullName);
       FileCNodeId fnid(packageFile, classDef);
@@ -89,11 +98,17 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
     // Typespecs
     auto& typeSet = def->getDataTypeMap();
     for (auto& type : typeSet) {
+      if (!object_name.empty()) {
+        if (type.first != object_name) continue;
+      }
       scope->insertDataType(type.first, type.second);
     }
     // Variables
     auto& variableSet = def->getVariables();
     for (auto& var : variableSet) {
+      if (!object_name.empty()) {
+        if (var.first != object_name) continue;
+      }
       scope->addVariable(var.second);
       Value* val = def->getValue(var.first);
       if (val) {
@@ -111,6 +126,9 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
     // Type parameters
     auto& paramSet = def->getParameterMap();
     for (auto& param : paramSet) {
+      if (!object_name.empty()) {
+        if (param.first != object_name) continue;
+      }
       Parameter* orig = param.second;
       Parameter* clone = new Parameter(*orig);
       clone->setImportedPackage(pack_name);
@@ -151,6 +169,10 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
     // Regular parameter
     auto& params = def->getParamAssignVec();
     for (ParamAssign* orig : params) {
+      if (!object_name.empty()) {
+        UHDM::param_assign* pass = orig->getUhdmParamAssign();
+        if (pass->Lhs()->VpiName() != object_name) continue;
+      }
       ParamAssign* clone = new ParamAssign(*orig);
       scope->addParamAssign(clone);
       UHDM::param_assign* pass = clone->getUhdmParamAssign();
@@ -189,11 +211,17 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
     // Values (from enum declarations...)
     auto& values = def->getMappedValues();
     for (auto& mvalue : values) {
+      if (!object_name.empty()) {
+        if (mvalue.first != object_name) continue;
+      }
       if (mvalue.second.first->isValid())
         scope->setValue(mvalue.first, m_exprBuilder.clone(mvalue.second.first),
                         m_exprBuilder, mvalue.second.second);
     }
     for (auto& cvalue : def->getComplexValues()) {
+      if (!object_name.empty()) {
+        if (cvalue.first != object_name) continue;
+      }
       scope->setComplexValue(cvalue.first, cvalue.second);
     }
 
@@ -205,6 +233,9 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
         sfuncs = s.MakeTask_funcVec();
       }
       for (auto& func : *funcs) {
+        if (!object_name.empty()) {
+          if (func->VpiName() != object_name) continue;
+        }
         bool duplicate = false;
         for (auto& f : *sfuncs) {
           if (f->VpiName() == func->VpiName()) {
