@@ -807,18 +807,16 @@ void SV3_1aPpTreeShapeListener::enterString(
       (!m_inMacroDefinitionParsing)) {
     if (stringContent.find("`") != std::string::npos) {
       std::string stringData = stringContent;
-      /* No macro substitution in strings (LRM)
-      stringData.erase(0,1);
-      stringData.erase(stringData.end() -1, stringData.end());
-      stringContent = "\"" + m_pp->evaluateMacroInstance(stringData,m_pp,
-      lineCol.first, PreprocessFile::SpecialInstructions::DontCheckLoop,
-                                                         PreprocessFile::SpecialInstructions::AsIsUndefinedMacro
-                                                         ) + "\"" ;
-       */
-      stringContent =
-          std::regex_replace(stringContent, std::regex("``.``"), ".");
-      stringContent =
-          std::regex_replace(stringContent, std::regex("``-``"), "-");
+      stringData.erase(0, 1);
+      stringData.erase(stringData.end() - 1, stringData.end());
+      stringData = std::regex_replace(stringData, std::regex("``.``"), ".");
+      stringData = std::regex_replace(stringData, std::regex("``-``"), "-");
+      std::string mem = stringData;
+      stringData = m_pp->evaluateMacroInstance(
+          stringData, m_pp, lineCol.first,
+          PreprocessFile::SpecialInstructions::DontCheckLoop,
+          PreprocessFile::SpecialInstructions::AsIsUndefinedMacro);
+      stringContent = "\"" + stringData + "\"";
     }
     m_pp->append(stringContent);
   }
