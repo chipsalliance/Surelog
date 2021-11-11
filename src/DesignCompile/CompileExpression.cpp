@@ -4597,6 +4597,16 @@ UHDM::any* CompileHelper::compileAssignmentPattern(DesignComponent* component,
         if (any* exp =
                 compileExpression(component, fC, Expression, compileDesign,
                                   operation, instance, reduce, false)) {
+          if (exp->UhdmType() == uhdmref_obj) {
+            ref_obj* ref = (ref_obj*)exp;
+            const std::string& name = ref->VpiName();
+            any* tmp = getValue(name, component, compileDesign, instance,
+                                fC->getFileName(), fC->Line(Expression), pexpr,
+                                true, true);
+            if (tmp) {
+              exp = tmp;
+            }
+          }
           tagged_pattern* pattern = s.MakeTagged_pattern();
           pattern->Pattern(exp);
           NodeId Constant_expression = fC->Child(Structure_pattern_key);
