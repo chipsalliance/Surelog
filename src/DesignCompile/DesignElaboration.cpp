@@ -1604,8 +1604,9 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
           instance->setComplexValue(name, (UHDM::expr*)pclone);
         } else {
           Value* value = m_exprBuilder.clone(def->getValue(name));
-          instance->setValue(name, value, m_exprBuilder,
-                             packageFile->Line(param));
+          if (value)
+            instance->setValue(name, value, m_exprBuilder,
+                               packageFile->Line(param));
         }
         params.push_back(name);
       }
