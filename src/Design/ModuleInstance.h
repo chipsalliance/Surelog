@@ -64,7 +64,7 @@ class ModuleInstance : public ValuedComponentI {
   unsigned short getColumnNb();
   unsigned int getEndLineNb();
   unsigned short getEndColumnNb();
-  VObjectType getType();
+  VObjectType getType() const;
   VObjectType getModuleType();
   SymbolId getFullPathId(SymbolTable* symbols);
   SymbolId getInstanceId(SymbolTable* symbols);
