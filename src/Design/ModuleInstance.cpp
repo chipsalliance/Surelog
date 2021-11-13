@@ -190,7 +190,9 @@ ModuleInstance* ModuleInstanceFactory::newModuleInstance(
                             instName, modName);
 }
 
-VObjectType ModuleInstance::getType() { return m_fileContent->Type(m_nodeId); }
+VObjectType ModuleInstance::getType() const {
+  return m_fileContent->Type(m_nodeId);
+}
 
 VObjectType ModuleInstance::getModuleType() {
   VObjectType type = (VObjectType)0;

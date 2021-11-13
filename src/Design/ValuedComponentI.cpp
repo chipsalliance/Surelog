@@ -24,6 +24,7 @@
 
 #include <string>
 
+#include "Design/ModuleInstance.h"
 #include "Expression/ExprBuilder.h"
 
 using namespace SURELOG;
@@ -39,12 +40,19 @@ Value* ValuedComponentI::getValue(const std::string& name) const {
     }
 
     if (m_parentScope) {
-      return m_parentScope->getValue(name);
-    } else
-      return NULL;
+      if (const ModuleInstance* inst =
+              valuedcomponenti_cast<ModuleInstance*>(this)) {
+        if (inst->getType() != slModule_instantiation) {
+          return m_parentScope->getValue(name);
+        }
+      } else {
+        return m_parentScope->getValue(name);
+      }
+    }
   } else {
     return (*itr).second.first;
   }
+  return NULL;
 }
 
 Value* ValuedComponentI::getValue(const std::string& name,
