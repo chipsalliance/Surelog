@@ -211,7 +211,7 @@ bool ErrorDefinition::init() {
   rec(PP_MACRO_NO_DEFAULT_VALUE, ERROR, PP,
       "Macro instantiation omits argument %exobj for \"%s\"",
       "%exloc No default value for argument %exobj in macro definition");
-  rec(PP_MACRO_PARENTHESIS_NEEDED, WARNING, PP,
+  rec(PP_MACRO_PARENTHESIS_NEEDED, ERROR, PP,
       "Macro instantiation omits parenthesis for \"%s\"",
       "%exloc macro definition has arguments");
   rec(PP_MACRO_NAME_RESERVED, ERROR, PP,
