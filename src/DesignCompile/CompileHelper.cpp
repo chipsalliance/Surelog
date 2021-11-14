@@ -2543,12 +2543,15 @@ void CompileHelper::adjustSize(const UHDM::typespec* ts,
   if (!invalidValue) size = sizetmp;
 
   if (size != orig_size) {
-    uint64_t val = (uint64_t)get_value(invalidValue, c);
+    int64_t val = get_value(invalidValue, c);
     if (!invalidValue) {
-      uint64_t mask = NumUtils::getMask(size);
-      val = val & mask;
-      c->VpiValue("UINT:" + std::to_string(val));
-      c->VpiConstType(vpiUIntConst);
+      if (c->VpiConstType() == vpiUIntConst) {
+        uint64_t mask = NumUtils::getMask(size);
+        uint64_t uval = (uint64_t)val;
+        uval = uval & mask;
+        c->VpiValue("UINT:" + std::to_string(uval));
+        c->VpiConstType(vpiUIntConst);
+      }
     }
     c->VpiSize(size);
   }

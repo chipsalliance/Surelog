@@ -295,6 +295,12 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
       return vpiWildNeqOp;
     case VObjectType::slIff:
       return vpiIffOp;
+    case VObjectType::slNON_OVERLAP_IMPLY:
+      return vpiNonOverlapImplyOp;
+    case VObjectType::slOVERLAP_IMPLY:
+      return vpiOverlapImplyOp;
+    case VObjectType::slCycle_delay_range:
+      return vpiCycleDelayOp;
     default:
       return 0;
   }

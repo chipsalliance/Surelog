@@ -3776,10 +3776,20 @@ UHDM::any* CompileHelper::compileExpression(
           break;
         }
         case VObjectType::slSequence_expr: {
-          if (fC->Sibling(parent) == 0) {
-            result = compileExpression(component, fC, child, compileDesign,
-                                       nullptr, instance, reduce, muteErrors);
-          } else {
+          result = compileExpression(component, fC, child, compileDesign,
+                                     nullptr, instance, reduce, muteErrors);
+          if (NodeId oper = fC->Sibling(child)) {
+            VObjectType type = fC->Type(oper);
+            operation* operation = s.MakeOperation();
+            UHDM::VectorOfany* operands = s.MakeAnyVec();
+            operation->Operands(operands);
+            operation->VpiOpType(UhdmWriter::getVpiOpType(type));
+            operands->push_back(result);
+            any* rhs = compileExpression(component, fC, fC->Sibling(oper),
+                                         compileDesign, nullptr, instance,
+                                         reduce, muteErrors);
+            operands->push_back(rhs);
+            result = operation;
           }
           break;
         }
@@ -5353,6 +5363,7 @@ const typespec* getMemberTypespec(const typespec* tpss,
                                   const std::vector<std::string>& suffixes,
                                   uint32_t index) {
   const typespec* result = nullptr;
+  if (tpss == nullptr) return result;
   if (tpss->UhdmType() == uhdmstruct_typespec) {
     const struct_typespec* ts = (const struct_typespec*)tpss;
     for (typespec_member* memb : *ts->Members()) {
