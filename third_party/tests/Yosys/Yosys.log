@@ -1932,31 +1932,13 @@ Processing: -cd sva +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timesc
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd sva +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns counter.sv -l counter.sv.log
-[ERR:UH0703] counter.sv:14:19: Internal Error: adding wrong object type (ref_obj) in a property_expr_group group!.
-
-[ERR:UH0703] counter.sv:15:19: Internal Error: adding wrong object type (ref_obj) in a property_expr_group group!.
-
-[ERR:UH0700] counter.sv:16: Unsupported expression "<n<> u<272> t<Sequence_expr> p<281> c<271> s<274> l<16:19> el<16:21>> 	assert property (up ##1 up |=> cnt == $past(cnt, 2) + 8'd 2);
-".
-
-[ERR:UH0703] counter.sv:16:19: Internal Error: adding wrong object type (unsupported_expr) in a property_expr_group group!.
-
-[ERR:UH0703] counter.sv:19:19: Internal Error: adding wrong object type (ref_obj) in a property_expr_group group!.
-
-[ERR:UH0700] counter.sv:21: Unsupported expression "<n<> u<355> t<Sequence_expr> p<364> c<354> s<357> l<21:19> el<21:21>> 	assert property (up ##1 down |=> cnt == $past(cnt, 2));
-".
-
-[ERR:UH0703] counter.sv:21:19: Internal Error: adding wrong object type (unsupported_expr) in a property_expr_group group!.
-
-[ERR:UH0703] counter.sv:22:19: Internal Error: adding wrong object type (ref_obj) in a property_expr_group group!.
-
 [ERR:UH0703] counter.sv:28:26: Internal Error: adding wrong object type (constant) in a property_expr_named_event_group group!.
 
 [ERR:UH0703] counter.sv:29:26: Internal Error: adding wrong object type (constant) in a property_expr_named_event_group group!.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 10
+[  ERROR] : 2
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd sva +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns basic05.sv -l basic05.sv.log
@@ -1972,13 +1954,9 @@ Processing: -cd sva +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timesc
 [WARNING] : 3
 [   NOTE] : 0
 Processing: -cd sva +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns sva_throughout.sv -l sva_throughout.sv.log
-[ERR:UH0703] sva_throughout.sv:8:3: Internal Error: adding wrong object type (ref_obj) in a property_expr_group group!.
-
-[ERR:UH0703] sva_throughout.sv:13:3: Internal Error: adding wrong object type (ref_obj) in a property_expr_group group!.
-
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 2
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd sva +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns basic02.sv -l basic02.sv.log
@@ -1993,7 +1971,8 @@ Processing: -cd sva +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timesc
 
 [ERR:UH0703] sva_range.sv:8:3: Internal Error: adding wrong object type (unsupported_expr) in a property_expr_group group!.
 
-[ERR:UH0703] sva_range.sv:13:3: Internal Error: adding wrong object type (ref_obj) in a property_expr_group group!.
+[ERR:UH0700] sva_range.sv:13: Unsupported expression "<n<> u<95> t<Cycle_delay_range> p<102> c<94> s<101> l<13:9> el<13:12>> 		b |=> ##5 d
+".
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -2051,7 +2030,7 @@ Processing: -cd simple +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -tim
 Processed 253 tests.
 [  FATAL] : 0
 [ SYNTAX] : 10
-[  ERROR] : 15
+[  ERROR] : 5
 [WARNING] : 229
 [   NOTE] : 0
 
