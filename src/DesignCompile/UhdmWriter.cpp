@@ -301,6 +301,20 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
       return vpiOverlapImplyOp;
     case VObjectType::slCycle_delay_range:
       return vpiCycleDelayOp;
+    case VObjectType::slConsecutive_repetition:
+      return vpiConsecutiveRepeatOp;
+    case VObjectType::slNon_consecutive_repetition:
+      return vpiRepeatOp;
+    case VObjectType::slGoto_repetition:
+      return vpiGotoRepeatOp;
+    case VObjectType::slThroughout:
+      return vpiThroughoutOp;
+    case VObjectType::slWithin:
+      return vpiWithinOp;
+    case VObjectType::slIntersect:
+      return vpiIntersectOp;
+    case VObjectType::slFirstMatch:
+      return vpiFirstMatchOp;
     default:
       return 0;
   }

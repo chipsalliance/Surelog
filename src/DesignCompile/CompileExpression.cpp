@@ -3435,10 +3435,42 @@ UHDM::any* CompileHelper::compileExpression(
         case VObjectType::slConstant_param_expression:
         case VObjectType::slAssignment_pattern_expression:
         case VObjectType::slConstant_assignment_pattern_expression:
-        case VObjectType::slExpression_or_dist:
+        case VObjectType::slConst_or_range_expression:
           result = compileExpression(component, fC, child, compileDesign, pexpr,
                                      instance, reduce, muteErrors);
           break;
+        case VObjectType::slExpression_or_dist: {
+          result = compileExpression(component, fC, child, compileDesign, pexpr,
+                                     instance, reduce, muteErrors);
+          if (NodeId dist = fC->Sibling(child)) {
+            operation* op = s.MakeOperation();
+            op->VpiParent(pexpr);
+            UHDM::VectorOfany* operands = s.MakeAnyVec();
+            op->Operands(operands);
+            operands->push_back(result);
+            VObjectType distType = fC->Type(dist);
+            if (distType == slBoolean_abbrev) {
+              NodeId repetition = fC->Child(dist);
+              VObjectType repetType = fC->Type(repetition);
+              op->VpiOpType(UhdmWriter::getVpiOpType(repetType));
+              any* rep =
+                  compileExpression(component, fC, repetition, compileDesign,
+                                    pexpr, instance, reduce, muteErrors);
+              operands->push_back(rep);
+              result = op;
+            } else if (distType == slThroughout || distType == slWithin ||
+                       distType == slIntersect) {
+              NodeId repetition = fC->Sibling(dist);
+              op->VpiOpType(UhdmWriter::getVpiOpType(distType));
+              any* rep =
+                  compileExpression(component, fC, repetition, compileDesign,
+                                    pexpr, instance, reduce, muteErrors);
+              operands->push_back(rep);
+              result = op;
+            }
+          }
+          break;
+        }
         case VObjectType::slComplex_func_call: {
           result = compileComplexFuncCall(component, fC, fC->Child(child),
                                           compileDesign, pexpr, instance,
@@ -3783,8 +3815,41 @@ UHDM::any* CompileHelper::compileExpression(
             operation* operation = s.MakeOperation();
             UHDM::VectorOfany* operands = s.MakeAnyVec();
             operation->Operands(operands);
-            operation->VpiOpType(UhdmWriter::getVpiOpType(type));
             operands->push_back(result);
+            int operationType = UhdmWriter::getVpiOpType(type);
+            if (NodeId subOp1 = fC->Child(oper)) {
+              VObjectType subOp1type = fC->Type(subOp1);
+              if (subOp1type == slPound_Pound_delay) {
+                if (NodeId subOp2 = fC->Sibling(subOp1)) {
+                  VObjectType subOp2type = fC->Type(subOp2);
+                  if (subOp2type == slAssociative_dimension) {
+                    operationType = vpiConsecutiveRepeatOp;
+                  } else if (subOp2type ==
+                             slCycle_delay_const_range_expression) {
+                    range* r = s.MakeRange();
+                    NodeId lhs = fC->Child(subOp2);
+                    NodeId rhs = fC->Sibling(lhs);
+                    r->Left_expr((expr*)compileExpression(
+                        component, fC, lhs, compileDesign, nullptr, instance,
+                        reduce, muteErrors));
+                    r->Right_expr((expr*)compileExpression(
+                        component, fC, rhs, compileDesign, nullptr, instance,
+                        reduce, muteErrors));
+                    operands->push_back(r);
+                  }
+                } else {
+                  std::string val = fC->SymName(subOp1);
+                  val = val.erase(0, 2);
+                  UHDM::constant* c = s.MakeConstant();
+                  c->VpiValue("UINT:" + val);
+                  c->VpiDecompile(val);
+                  c->VpiSize(64);
+                  c->VpiConstType(vpiUIntConst);
+                  operands->push_back(c);
+                }
+              }
+            }
+            operation->VpiOpType(operationType);
             any* rhs = compileExpression(component, fC, fC->Sibling(oper),
                                          compileDesign, nullptr, instance,
                                          reduce, muteErrors);
@@ -4301,6 +4366,52 @@ UHDM::any* CompileHelper::compileExpression(
         case VObjectType::slData_type:
           // When trying to evaluate type parameters
           return nullptr;
+        case VObjectType::slCycle_delay_range: {
+          VObjectType type = fC->Type(child);
+          operation* operation = s.MakeOperation();
+          UHDM::VectorOfany* operands = s.MakeAnyVec();
+          operation->Operands(operands);
+          int operationType = UhdmWriter::getVpiOpType(type);
+          if (NodeId subOp1 = fC->Child(child)) {
+            VObjectType subOp1type = fC->Type(subOp1);
+            if (subOp1type == slPound_Pound_delay) {
+              operationType = vpiUnaryCycleDelayOp;
+              if (NodeId subOp2 = fC->Sibling(subOp1)) {
+                VObjectType subOp2type = fC->Type(subOp2);
+                if (subOp2type == slAssociative_dimension) {
+                  operationType = vpiConsecutiveRepeatOp;
+                } else if (subOp2type == slCycle_delay_const_range_expression) {
+                  range* r = s.MakeRange();
+                  NodeId lhs = fC->Child(subOp2);
+                  NodeId rhs = fC->Sibling(lhs);
+                  r->Left_expr((expr*)compileExpression(
+                      component, fC, lhs, compileDesign, nullptr, instance,
+                      reduce, muteErrors));
+                  r->Right_expr((expr*)compileExpression(
+                      component, fC, rhs, compileDesign, nullptr, instance,
+                      reduce, muteErrors));
+                  operands->push_back(r);
+                }
+              } else {
+                std::string val = fC->SymName(subOp1);
+                val = val.erase(0, 2);
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("UINT:" + val);
+                c->VpiDecompile(val);
+                c->VpiSize(64);
+                c->VpiConstType(vpiUIntConst);
+                operands->push_back(c);
+              }
+            }
+          }
+          operation->VpiOpType(operationType);
+          any* rhs = compileExpression(component, fC, fC->Sibling(child),
+                                       compileDesign, nullptr, instance, reduce,
+                                       muteErrors);
+          operands->push_back(rhs);
+          result = operation;
+          break;
+        }
         default:
           break;
       }
