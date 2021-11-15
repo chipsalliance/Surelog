@@ -436,6 +436,11 @@ set TYPES(slNetType_Wor) 1
 set TYPES(slPulldown) 1
 set TYPES(slPullup) 1
 
+set TYPES(slWithin) 1
+set TYPES(slThroughout) 1
+set TYPES(slFirstMatch) 1
+set TYPES(slIntersect) 1
+
 set TYPES(slDefault) 1
 set TYPES(slGlobal) 1
 
