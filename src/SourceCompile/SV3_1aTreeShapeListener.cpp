@@ -1620,11 +1620,40 @@ void SV3_1aTreeShapeListener::exitCycle_delay_range(
                ctx->Pound_Pound_delay()->getText(),
                VObjectType::slPound_Pound_delay);
   }
+  if (ctx->POUNDPOUND()) {
+    addVObject((antlr4::ParserRuleContext *)ctx->POUNDPOUND(),
+               ctx->POUNDPOUND()->getText(), VObjectType::slPound_Pound_delay);
+  }
   if (ctx->PLUS()) {
     addVObject((antlr4::ParserRuleContext *)ctx->PLUS(),
                VObjectType::slUnary_Plus);
   }
+  if (ctx->ASSOCIATIVE_UNSPECIFIED()) {
+    addVObject((antlr4::ParserRuleContext *)ctx->ASSOCIATIVE_UNSPECIFIED(),
+               VObjectType::slAssociative_dimension);
+  }
   addVObject(ctx, VObjectType::slCycle_delay_range);
+}
+
+void SV3_1aTreeShapeListener::exitSequence_expr(
+    SV3_1aParser::Sequence_exprContext *ctx) {
+  if (ctx->WITHIN()) {
+    addVObject((antlr4::ParserRuleContext *)ctx->WITHIN(),
+               VObjectType::slWithin);
+  }
+  if (ctx->THROUGHOUT()) {
+    addVObject((antlr4::ParserRuleContext *)ctx->THROUGHOUT(),
+               VObjectType::slThroughout);
+  }
+  if (ctx->FIRST_MATCH()) {
+    addVObject((antlr4::ParserRuleContext *)ctx->FIRST_MATCH(),
+               VObjectType::slFirstMatch);
+  }
+  if (ctx->INTERSECT()) {
+    addVObject((antlr4::ParserRuleContext *)ctx->INTERSECT(),
+               VObjectType::slIntersect);
+  }
+  addVObject(ctx, VObjectType::slSequence_expr);
 }
 
 void SV3_1aTreeShapeListener::exitLevel_symbol(
