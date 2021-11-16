@@ -4321,6 +4321,11 @@ UHDM::any* CompileHelper::compileExpression(
             } else {
               bool invalidValue = false;
               UHDM::func_call* fcall = s.MakeFunc_call();
+              fcall->VpiFile(fC->getFileName());
+              fcall->VpiLineNo(fC->Line(Dollar_keyword));
+              fcall->VpiColumnNo(fC->Column(Dollar_keyword));
+              fcall->VpiEndLineNo(fC->EndLine(Dollar_keyword));
+              fcall->VpiEndColumnNo(fC->EndColumn(Dollar_keyword));
               fcall->VpiName(name);
 
               auto [func, actual_comp] =
@@ -4337,7 +4342,8 @@ UHDM::any* CompileHelper::compileExpression(
                       compileDesign->getCompiler()->getErrorContainer();
                   SymbolTable* symbols =
                       compileDesign->getCompiler()->getSymbolTable();
-                  Location loc(symbols->registerSymbol(fileName), lineNumber, 0,
+                  Location loc(symbols->registerSymbol(fileName), lineNumber,
+                               fC->Column(nameId),
                                symbols->registerSymbol(name));
                   Error err(ErrorDefinition::COMP_UNDEFINED_USER_FUNCTION, loc);
                   errors->addError(err);
@@ -6126,6 +6132,11 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
         tcall->Task(any_cast<task*>(tf));
         call = tcall;
       }
+      call->VpiFile(fC->getFileName());
+      call->VpiLineNo(fC->Line(Class_type_name));
+      call->VpiColumnNo(fC->Column(Class_type_name));
+      call->VpiEndLineNo(fC->EndLine(Class_type_name));
+      call->VpiEndColumnNo(fC->EndColumn(Class_type_name));
     }
     Design* design = compileDesign->getCompiler()->getDesign();
     Package* pack = design->getPackage(packagename);
