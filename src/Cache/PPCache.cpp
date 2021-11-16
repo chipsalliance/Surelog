@@ -58,7 +58,9 @@ std::string PPCache::getCacheFileName_(const std::string& requested_file) {
   const std::string& filePath = FileUtils::getPathName(svFileName);
   std::string hashedPath = FileUtils::hashPath(filePath);
   std::string fileName = hashedPath + baseFileName;
-
+  if (m_pp->getCompileSourceFile()->getCommandLineParser()->parseOnly()) {
+    fileName = filePath + baseFileName;
+  }
   if (prec->isFilePrecompiled(baseFileName)) {
     std::string packageRepDir = m_pp->getSymbol(m_pp->getCompileSourceFile()
                                                     ->getCommandLineParser()
@@ -76,6 +78,9 @@ std::string PPCache::getCacheFileName_(const std::string& requested_file) {
 
   Library* lib = m_pp->getLibrary();
   std::string libName = lib->getName() + "/";
+  if (m_pp->getCompileSourceFile()->getCommandLineParser()->parseOnly()) {
+    libName = "";
+  }
   std::string cacheFileName = cacheDirName + libName + fileName + ".slpp";
   FileUtils::mkDir(cacheDirName + libName);
   FileUtils::mkDir(cacheDirName + libName + hashedPath);
@@ -297,7 +302,6 @@ bool PPCache::restore(bool errorsOnly) {
   if (!checkCacheIsValid_(cacheFileName)) {
     return false;
   }
-
   return restore_(cacheFileName, errorsOnly);
 }
 
