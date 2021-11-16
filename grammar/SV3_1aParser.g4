@@ -53,7 +53,7 @@ description
     | ( attribute_instance )* ( package_item 
                               | bind_directive )  
     | config_declaration     
-    | top_directives         
+    | top_directives
     ; 
 
 module_nonansi_header : ( attribute_instance )* module_keyword ( lifetime )?  

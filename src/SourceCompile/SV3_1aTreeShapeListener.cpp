@@ -182,6 +182,7 @@ void SV3_1aTreeShapeListener::exitSlline(SV3_1aParser::SllineContext *ctx) {
   std::string file = ctx->String()->getText();
   StringUtils::ltrim(file, '\"');
   StringUtils::rtrim(file, '\"');
+
   std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
   if (type == IncludeFileInfo::PUSH) {
     // Push

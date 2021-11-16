@@ -279,28 +279,52 @@ bool Compiler::ppinit_() {
 }
 
 bool Compiler::createFileList_() {
-  if (m_commandLineParser->writePpOutput() ||
-      (m_commandLineParser->writePpOutputFileId() != 0)) {
+  if ((m_commandLineParser->writePpOutput() ||
+       (m_commandLineParser->writePpOutputFileId() != 0)) &&
+      (!m_commandLineParser->parseOnly())) {
     SymbolTable* symbolTable = getSymbolTable();
     const std::string& directory =
         symbolTable->getSymbol(m_commandLineParser->getFullCompileDir());
-    std::ofstream ofs;
-    std::string fileList = directory + "/file.lst";
-    ofs.open(fileList);
-    if (ofs.good()) {
-      unsigned int size = m_compilers.size();
-      for (unsigned int i = 0; i < size; i++) {
-        std::string ppFileName = m_compilers[i]->getSymbolTable()->getSymbol(
-            m_compilers[i]->getPpOutputFileId());
-        std::string fileName = m_compilers[i]->getSymbolTable()->getSymbol(
-            m_compilers[i]->getFileId());
-        ppFileName = FileUtils::getPreferredPath(ppFileName);
-        ppFileMap[fileName].push_back(ppFileName);
-        ofs << ppFileName << std::flush << std::endl;
+    {
+      std::ofstream ofs;
+      std::string fileList = directory + "/file.lst";
+      ofs.open(fileList);
+      if (ofs.good()) {
+        unsigned int size = m_compilers.size();
+        for (unsigned int i = 0; i < size; i++) {
+          std::string ppFileName = m_compilers[i]->getSymbolTable()->getSymbol(
+              m_compilers[i]->getPpOutputFileId());
+          std::string fileName = m_compilers[i]->getSymbolTable()->getSymbol(
+              m_compilers[i]->getFileId());
+          ppFileName = FileUtils::getPreferredPath(ppFileName);
+          ppFileMap[fileName].push_back(ppFileName);
+          ofs << ppFileName << std::flush << std::endl;
+        }
+        ofs.close();
+      } else {
+        std::cout << "Could not create filelist: " << fileList << std::endl;
       }
-      ofs.close();
-    } else {
-      std::cout << "Could not create filelist: " << fileList << std::endl;
+    }
+    {
+      std::ofstream ofs;
+      std::string fileList = directory + "/file_map.lst";
+      ofs.open(fileList);
+      if (ofs.good()) {
+        unsigned int size = m_compilers.size();
+        for (unsigned int i = 0; i < size; i++) {
+          std::string ppFileName = m_compilers[i]->getSymbolTable()->getSymbol(
+              m_compilers[i]->getPpOutputFileId());
+          std::string fileName = m_compilers[i]->getSymbolTable()->getSymbol(
+              m_compilers[i]->getFileId());
+          ppFileName = FileUtils::getPreferredPath(ppFileName);
+          ppFileName = StringUtils::replaceAll(ppFileName, directory, "");
+          ppFileMap[fileName].push_back(ppFileName);
+          ofs << ppFileName << " " << fileName << std::flush << std::endl;
+        }
+        ofs.close();
+      } else {
+        std::cout << "Could not create filelist: " << fileList << std::endl;
+      }
     }
   }
   return true;
