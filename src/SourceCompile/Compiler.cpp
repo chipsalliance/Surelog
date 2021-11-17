@@ -318,7 +318,6 @@ bool Compiler::createFileList_() {
               m_compilers[i]->getFileId());
           ppFileName = FileUtils::getPreferredPath(ppFileName);
           ppFileName = StringUtils::replaceAll(ppFileName, directory, "");
-          ppFileMap[fileName].push_back(ppFileName);
           ofs << ppFileName << " " << fileName << std::flush << std::endl;
         }
         ofs.close();
