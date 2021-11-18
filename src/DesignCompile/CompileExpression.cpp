@@ -6212,7 +6212,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
         }
       }
     }
- 
+
     if (dotedName) {
       std::string the_name = fC->SymName(name);
       if (!hierPath) {
@@ -6264,7 +6264,8 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       UHDM::hier_path* path = s.MakeHier_path();
       VectorOfany* elems = s.MakeAnyVec();
       if (instance && reduce) {
-        path->Root_value((expr*)getObject(the_name, component, compileDesign, instance, pexpr));
+        path->Root_value((expr*)getObject(the_name, component, compileDesign,
+                                          instance, pexpr));
       }
       std::string tmpName = the_name;
       path->Path_elems(elems);
