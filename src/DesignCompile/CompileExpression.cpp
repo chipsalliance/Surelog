@@ -6212,109 +6212,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
         }
       }
     }
-    /*
-    if ((methodCall || (fC->Type(selectName) == slMethod_call_body)) &&
-    (!hierPath)) {
-      // Example tree
-      //
-      // Verilog:
-      //   a.find(i) with (i<5);
-      //
-      // AST:
-      //   n<a> u<43> t<StringConst> p<66> s<45> l<4>
-      //   n<> u<44> t<Bit_select> p<45> l<4>
-      //   n<> u<45> t<Select> p<66> c<44> s<65> l<4>
-      //   n<find> u<46> t<StringConst> p<47> l<4>
-      //   n<> u<47> t<Array_method_name> p<63> c<46> s<52> l<4>
-      //   n<i> u<48> t<StringConst> p<49> l<4>
-      //   n<> u<49> t<Primary_literal> p<50> c<48> l<4>
-      //   n<> u<50> t<Primary> p<51> c<49> l<4>
-      //   n<> u<51> t<Expression> p<52> c<50> l<4>
-      //   n<> u<52> t<List_of_arguments> p<63> c<51> s<62> l<4>
-      //   n<i> u<53> t<StringConst> p<54> l<4>
-      //   n<> u<54> t<Primary_literal> p<55> c<53> l<4>
-      //   n<> u<55> t<Primary> p<56> c<54> l<4>
-      //   n<> u<56> t<Expression> p<62> c<55> s<61> l<4>
-      //   n<5> u<57> t<IntConst> p<58> l<4>
-      //   n<> u<58> t<Primary_literal> p<59> c<57> l<4>
-      //   n<> u<59> t<Primary> p<60> c<58> l<4>
-      //   n<> u<60> t<Expression> p<62> c<59> l<4>
-      //   n<> u<61> t<BinOp_Less> p<62> s<60> l<4>
-      //   n<> u<62> t<Expression> p<63> c<56> l<4>
-      //   n<> u<63> t<Array_manipulation_call> p<64> c<47> l<4>
-      //   n<> u<64> t<Built_in_method_call> p<65> c<63> l<4>
-      //   n<> u<65> t<Method_call_body> p<66> c<64> l<4>
-      //   n<> u<66> t<Complex_func_call> p<67> c<43> l<4>
-
-      NodeId method_child = fC->Child(selectName);
-      method_func_call* fcall = nullptr;
-
-      if (fC->Type(method_child) == slBuilt_in_method_call) {
-        // vpiName: method name (Array_method_name above)
-        NodeId method_name_node = fC->Child(fC->Child(fC->Child(method_child)));
-        std::string method_name = fC->SymName(method_name_node);
-        VObjectType calltype = fC->Type(method_name_node);
-        if (calltype == slAnd_call) {
-          method_name = "and";
-        } else if (calltype == slOr_call) {
-          method_name = "or";
-        } else if (calltype == slXor_call) {
-          method_name = "xor";
-        } else if (calltype == slUnique_call) {
-          method_name = "unique";
-        }
-
-        NodeId randomize_call = fC->Child(method_child);
-
-        // vpiPrefix: object to which the method is being applied (sval here)
-        ref_obj* prefix = s.MakeRef_obj();
-        prefix->VpiName(sval);
-
-        if (fC->Type(randomize_call) == slRandomize_call) {
-          fcall = compileRandomizeCall(component, fC, fC->Child(randomize_call),
-                                       compileDesign, pexpr);
-          fcall->Prefix(prefix);
-          result = fcall;
-          return result;
-        }
-
-        fcall = s.MakeMethod_func_call();
-        fcall->VpiName(method_name);
-        NodeId list_of_arguments =
-            fC->Sibling(fC->Child(fC->Child(method_child)));
-        NodeId with_conditions_node;
-        if (fC->Type(list_of_arguments) == slList_of_arguments) {
-          VectorOfany* arguments = compileTfCallArguments(
-              component, fC, list_of_arguments, compileDesign, fcall, instance,
-              reduce, muteErrors);
-          fcall->Tf_call_args(arguments);
-          with_conditions_node = fC->Sibling(list_of_arguments);
-        } else {
-          with_conditions_node = list_of_arguments;
-        }
-        // vpiWith: with conditions (expression in node u<62> above)
-        // (not in every method, node id is 0 if missing)
-        if (with_conditions_node != 0) {
-          expr* with_conditions = (expr*)compileExpression(
-              component, fC, with_conditions_node, compileDesign, pexpr,
-              instance, reduce, muteErrors);
-          fcall->With(with_conditions);
-        }
-        fcall->Prefix(prefix);
-      } else {
-        fcall = s.MakeMethod_func_call();
-        ref_obj* object = s.MakeRef_obj();
-        object->VpiName(sval);
-        fcall->Prefix(object);
-        std::string methodName = fC->SymName(dotedName);
-        fcall->VpiName(methodName);
-        VectorOfany* arguments = compileTfCallArguments(
-            component, fC, List_of_arguments, compileDesign, fcall, instance,
-            reduce, muteErrors);
-        fcall->Tf_call_args(arguments);
-      }
-      result = fcall;
-    } else */
+ 
     if (dotedName) {
       std::string the_name = fC->SymName(name);
       if (!hierPath) {
@@ -6365,6 +6263,9 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
 
       UHDM::hier_path* path = s.MakeHier_path();
       VectorOfany* elems = s.MakeAnyVec();
+      if (instance && reduce) {
+        path->Root_value((expr*)getObject(the_name, component, compileDesign, instance, pexpr));
+      }
       std::string tmpName = the_name;
       path->Path_elems(elems);
       bool is_hierarchical = false;
