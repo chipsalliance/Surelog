@@ -1,1 +1,1 @@
-  -writepp -parse   -mt  max  -nopython -fileunit  */*.v +incdir+.+rtl -nobuiltin -nocache
+  -writepp -parse -nopython -fileunit cache/synth.v rtl/sasc_brg.v rtl/sasc_fifo4.v rtl/sasc_top.v rtl/timescale.v  +incdir+.+rtl -nobuiltin -nocache
