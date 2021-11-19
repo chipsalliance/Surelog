@@ -61,12 +61,25 @@ class Status(Enum):
     return str(self.name)
 
 
-def _find_files(dirpath, pattern):
-  result = []
-  for filepath in Path(dirpath).rglob(pattern):
-    result.append(os.path.relpath(filepath, dirpath))
+def _transform_path(path):
+  if 'MSYSTEM' not in os.environ:
+    return path
 
-  return result
+  path = path.replace('/', '\\').replace('\\\\', '\\').replace('\\', '\\\\')
+  result = subprocess.run(['cygpath', '-u', path], capture_output=True, text=True)
+  result.check_returncode()
+  return result.stdout.strip()
+
+
+def _find_files(dirpath, pattern):
+  relpaths = []
+  for filepath in Path(dirpath).rglob(pattern):
+    relpaths.append(os.path.relpath(filepath, dirpath))
+
+  if 'MSYSTEM' in os.environ:
+    relpaths = [relpath.replace('\\', '/') for relpath in relpaths]
+
+  return sorted(relpaths)
 
 
 def _mkdir(dirpath, retries=10):
@@ -207,7 +220,7 @@ def _get_log_statistics(filepath):
         elif uhdm_dump_started and (line.startswith('|') or line.startswith('\\')):
           uhdm_line_count += 1
 
-      if 'ERR:' in line and '/dev/null' in line and platform.system() == 'Windows':
+      if 'ERR:' in line and '/dev/null' in line:
         # On Windows, this is reported as an error but on Linux it isn't.
         # Don't count it as error on Windows as well so that numbers across platforms can match.
         statistics['ERROR'] = statistics.get('ERROR', 0) - 1
@@ -241,6 +254,8 @@ def _run_surelog(
   cmdline = cmdline.replace('\r', '')
   cmdline = cmdline.replace('\\', '')
   cmdline = cmdline.replace('\n', ' ')
+  cmdline = cmdline.replace('"', '\\"')
+  cmdline = cmdline.replace("'", "\\'")
   cmdline = re.sub('[.\\\/]+[\\\/]UVM', uvm_reldirpath.replace('\\', '\\\\'), cmdline)
   cmdline = cmdline.strip()
 
@@ -250,7 +265,7 @@ def _run_surelog(
   max_vms_memory = 0
   max_rss_memory = 0
   if '.sh' in cmdline or '.bat' in cmdline:
-    args_list = [arg for arg in cmdline.split() if arg] + [surelog_filepath]
+    args = ['sh'] + [arg for arg in cmdline.split() if arg] + [_transform_path(surelog_filepath)]
   else:
     if '*/*.v' in cmdline:
       cmdline = cmdline.replace('*/*.v', ' '.join(_find_files(dirpath, '*.v')))
@@ -267,25 +282,37 @@ def _run_surelog(
           if parts[i].endswith('.v') or parts[i].endswith('.sv') or parts[i].endswith('.pkg'):
             parts[i] = ' '.join(_find_files(dirpath, parts[i]))
 
+    rel_output_dirpath = os.path.relpath(output_dirpath, dirpath)
+    if 'MSYSTEM' in os.environ:
+      rel_output_dirpath = rel_output_dirpath.replace('\\', '/')
+
     cmdline = ' '.join([part for part in parts if part] + [
       '-mt', str(mt),
       '-mp', '1' if '-lowmem' in cmdline else str(mp),
-      '-o', os.path.relpath(output_dirpath, dirpath)
+      '-o', rel_output_dirpath
     ])
-
+    cmdline = ' '.join(['"' + arg + '"' if '"' in arg else arg for arg in cmdline.split() if arg])
     print(f'Processed command line: {cmdline}')
 
-    args_list = tool_args_list + [surelog_filepath] + [arg for arg in cmdline.split() if arg]
+    args = tool_args_list + [surelog_filepath] + cmdline.split()
+
+    # MSYS2 seems to be having some issues when working with quoted
+    # argument on command line, specifically, when passing arguments
+    # as list of strings. The only solution found to be working
+    # reliably is to pass the arguments as a string rather than list
+    # of strings.
+    if '"' in cmdline and 'MSYSTEM' in os.environ:
+      args = ' '.join(args)
 
   print('Launching surelog with arguments:')
-  pprint.pprint(args_list)
+  pprint.pprint(args)
   print('\n')
 
   with open(surelog_log_filepath, 'wt') as surelog_log_strm:
     surelog_start_dt = datetime.now()
     try:
       process = subprocess.Popen(
-          args_list,
+          args,
           stdout=surelog_log_strm,
           stderr=subprocess.STDOUT,
           cwd=dirpath)
@@ -321,15 +348,15 @@ def _run_surelog(
         max_vms_memory = max(max_vms_memory, vms_memory)
         max_rss_memory = max(max_rss_memory, rss_memory)
 
-        time.sleep(0.1)
+        time.sleep(0)
 
       returncode = process.poll()
       surelog_timedelta = datetime.now() - surelog_start_dt
       print(f'Surelog terminated with exit code: {returncode} in {str(surelog_timedelta)}')
-    except subprocess.CalledProcessError as e:
+    except:
       status = Status.FAIL
       surelog_timedelta = datetime.now() - surelog_start_dt
-      print(f'Surelog threw an exception: {e.returncode}')
+      print(f'Surelog threw an exception')
       traceback.print_exc()
 
     surelog_log_strm.flush()
@@ -382,9 +409,9 @@ def _run_uhdm_dump(
             check=False,
             cwd=os.path.dirname(uhdm_dump_filepath))
         print(f'uhdm-dump terminated with exit code: {result.returncode}')
-      except subprocess.CalledProcessError as e:
+      except:
         status = Status.FAILDUMP
-        print(f'uhdm-dump threw an exception: {e.returncode}')
+        print(f'uhdm-dump threw an exception')
         traceback.print_exc()
 
       uhdm_dump_log_strm.flush()
@@ -670,6 +697,14 @@ def _print_report(results):
       str(round(result.get(columns[10], 0) / (1024 * 1024))),
     ])
 
+  longest_test = max(results, key=lambda result: result.get('WALL-TIME', 0))
+  summary['LONGEST TEST'] = longest_test['TESTNAME']
+  summary['MAX TIME'] = str(round(longest_test['WALL-TIME'].total_seconds()))
+
+  largest_test = max(results, key=lambda result: result.get('PHY-MEM', 0))
+  summary['LARGEST TEST'] = largest_test['TESTNAME']
+  summary['MAX MEMORY'] = str(round(largest_test['PHY-MEM'] / (1024 * 1024)))
+
   widths = [max([len(row[index]) for row in [columns] + rows]) for index in range(0, len(columns))]
   row_format = '  | ' + ' | '.join([f'{{:{width}}}' for width in widths]) + ' |'
   separator = '  +-' + '-+-'.join(['-' * width for width in widths]) + '-+'
@@ -689,6 +724,7 @@ def _print_diffs(results):
   max_lines_per_result = 50
   for result in results:
     if result['STATUS'] == Status.DIFF:
+      print('=' * 120)
       print(f'diff {result["golden-log-filepath"]} {result["surelog-log-filepath"]}')
       sys.stdout.writelines(result['diff-lines'][:max_lines_per_result])
       if len(result['diff-lines']) > max_lines_per_result:
@@ -697,15 +733,12 @@ def _print_diffs(results):
 
 
 def _print_summary(summary):
-  columns = ['STATUS', 'COUNT']
   rows = [[k, str(v)] for k, v in summary.items()]
-  widths = [max([len(str(row[index])) for row in [columns] + rows]) for index in range(0, len(columns))]
+  widths = [max([len(str(row[index])) for row in rows]) for index in range(0, 2)]
   row_format = '  | ' + ' | '.join([f'{{:{width}}}' for width in widths]) + ' |'
   separator = '  +-' + '-+-'.join(['-' * width for width in widths]) + '-+'
 
   print('Summary: ')
-  print(separator)
-  print(row_format.format(*columns))
   print(separator)
   for row in rows:
     print(row_format.format(*row))
@@ -766,12 +799,12 @@ def _report(args, tests):
 
   print('\n\n')
   summary = _print_report(results)
+  print('\n\n')
 
   if args.show_diffs:
-    print('\n\n')
     _print_diffs(results)
+    print('\n\n')
 
-  print('\n\n')
   _print_summary(summary)
 
   return 0
@@ -900,8 +933,8 @@ def _main():
   print('\n\n')
 
   end_dt = datetime.now()
-  delta = end_dt - start_dt
-  print(f'Surelog Regression Test Completed @ {str(end_dt)} in {str(delta)}')
+  delta = round((end_dt - start_dt).total_seconds())
+  print(f'Surelog Regression Test Completed @ {str(end_dt)} in {str(delta)} seconds')
   return result
 
 

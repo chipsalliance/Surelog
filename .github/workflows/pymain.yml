@@ -129,20 +129,33 @@ jobs:
         make clean   # make sure we only see installation artifacts
         make test_install
 
+    - name: Prepare build artifacts
+      if: matrix.mode == 'install'
+      run: |
+        mv install surelog-linux-gcc
+        mkdir build
+        tar czvfp build/surelog-linux-gcc.tgz surelog-linux-gcc
+
+    - name: Prepare regression artifacts
+      if: matrix.mode == 'regression' && always()
+      run: |
+        cd build
+        mv regression surelog-linux-gcc-regression
+        find surelog-linux-gcc-regression -name "*.log" | tar czvfp surelog-linux-gcc-regression.tgz -T -
+
     - name: Archive build artifacts
       if: matrix.mode == 'install'
       uses: actions/upload-artifact@v2
       with:
         name: surelog-linux-gcc
-        path: ${{ github.workspace }}/install
+        path: ${{ github.workspace }}/build/surelog-linux-gcc.tgz
 
     - name: Archive regression artifacts
       if: matrix.mode == 'regression' && always()
       uses: actions/upload-artifact@v2
       with:
         name: surelog-linux-gcc-regression
-        path: |
-          ${{ github.workspace }}/build/regression/**/*.log
+        path: ${{ github.workspace }}/build/surelog-linux-gcc-regression.tgz
 
   msys2-gcc:
     runs-on: windows-latest
@@ -255,21 +268,32 @@ jobs:
         make test/unittest
         make pytest/regression || true
 
+    - name: Prepare build artifacts
+      run: |
+        mv install surelog-msys2-gcc
+        tar czvfp build/surelog-msys2-gcc.tgz surelog-msys2-gcc
+
+    - name: Prepare regression artifacts
+      if: always()
+      run: |
+        cd build
+        mv regression surelog-msys2-gcc-regression
+        find surelog-msys2-gcc-regression -name "*.log" | tar czvfp surelog-msys2-gcc-regression.tgz -T -
+
     - name: Archive build artifacts
       uses: actions/upload-artifact@v2
       with:
         name: surelog-msys2-gcc
-        path: ${{ github.workspace }}/install
+        path: ${{ github.workspace }}/build/surelog-msys2-gcc.tgz
 
     - name: Archive regression artifacts
       if: always()
       uses: actions/upload-artifact@v2
       with:
         name: surelog-msys2-gcc-regression
-        path: |
-          ${{ github.workspace }}/build/regression/**/*.log
+        path: ${{ github.workspace }}/build/surelog-msys2-gcc-regression.tgz
 
-  windows-msvc:
+  windows-cl:
     runs-on: windows-latest
 
     defaults:
@@ -356,19 +380,32 @@ jobs:
         if %errorlevel% neq 0 exit /b %errorlevel%
         make pytest/regression || true
 
+    - name: Prepare build artifacts
+      shell: bash
+      run: |
+        mv install surelog-windows-cl
+        tar czvfp build/surelog-windows-cl.tgz surelog-windows-cl
+
+    - name: Prepare regression artifacts
+      shell: bash
+      if: always()
+      run: |
+        cd build
+        mv regression surelog-windows-cl-regression
+        find surelog-windows-cl-regression -name "*.log" | tar czvfp surelog-windows-cl-regression.tgz -T -
+
     - name: Archive build artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: surelog-windows-msvc
-        path: ${{ github.workspace }}/install
+        name: surelog-windows-cl
+        path: ${{ github.workspace }}/build/surelog-windows-cl.tgz
 
     - name: Archive regression artifacts
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: surelog-windows-msvc-regression
-        path: |
-          ${{ github.workspace }}/build/regression/**/*.log
+        name: surelog-windows-cl-regression
+        path: ${{ github.workspace }}/build/surelog-windows-cl-regression.tgz
 
   macos-gcc:
     runs-on: macos-latest
@@ -434,19 +471,30 @@ jobs:
       run: |
         make pytest/regression || true
 
+    - name: Prepare build artifacts
+      run: |
+        mv install surelog-macos-gcc
+        tar czvfp build/surelog-macos-gcc.tgz surelog-macos-gcc
+
+    - name: Prepare regression artifacts
+      if: always()
+      run: |
+        cd build
+        mv regression surelog-macos-gcc-regression
+        find surelog-macos-gcc-regression -name "*.log" | tar czvfp surelog-macos-gcc-regression.tgz -T -
+
     - name: Archive build artifacts
       uses: actions/upload-artifact@v2
       with:
         name: surelog-macos-gcc
-        path: ${{ github.workspace }}/install
+        path: ${{ github.workspace }}/build/surelog-macos-gcc.tgz
 
     - name: Archive regression artifacts
       if: always()
       uses: actions/upload-artifact@v2
       with:
         name: surelog-macos-gcc-regression
-        path: |
-          ${{ github.workspace }}/build/regression/**/*.log
+        path: ${{ github.workspace }}/build/surelog-macos-gcc-regression.tgz
 
   macos-clang:
     runs-on: macos-latest
@@ -508,19 +556,30 @@ jobs:
       run: |
         make pytest/regression || true
 
+    - name: Prepare build artifacts
+      run: |
+        mv install surelog-macos-clang
+        tar czvfp build/surelog-macos-clang.tgz surelog-macos-clang
+
+    - name: Prepare regression artifacts
+      if: always()
+      run: |
+        cd build
+        mv regression surelog-macos-clang-regression
+        find surelog-macos-clang-regression -name "*.log" | tar czvfp surelog-macos-clang-regression.tgz -T -
+
     - name: Archive build artifacts
       uses: actions/upload-artifact@v2
       with:
         name: surelog-macos-clang
-        path: ${{ github.workspace }}/install
+        path: ${{ github.workspace }}/build/surelog-macos-clang.tgz
 
     - name: Archive regression artifacts
       if: always()
       uses: actions/upload-artifact@v2
       with:
         name: surelog-macos-clang-regression
-        path: |
-          ${{ github.workspace }}/build/regression/**/*.log
+        path: ${{ github.workspace }}/build/surelog-macos-clang-regression.tgz
 
   CodeFormatting:
     runs-on: ubuntu-20.04
