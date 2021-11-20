@@ -634,6 +634,8 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
 
 bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   ModuleInstance* parent = instance->getParent();
+  DesignComponent* parent_comp = nullptr;
+  if (parent) parent_comp = parent->getDefinition();
   const FileContent* fC = instance->getFileContent();
   NodeId Udp_instantiation = instance->getNodeId();
   Serializer& s = m_compileDesign->getSerializer();
@@ -674,7 +676,8 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
     } else if (fC->Type(Udp_instance) == VObjectType::slDelay2 ||
                fC->Type(Udp_instance) == VObjectType::slDelay3) {
       expr* delay_expr = (expr*)m_helper.compileExpression(
-          comp, fC, Udp_instance, m_compileDesign, nullptr, parent, true);
+          parent_comp, fC, Udp_instance, m_compileDesign, nullptr, parent,
+          true);
       VectorOfexpr* delays = s.MakeExprVec();
       netlist->delays(delays);
       delays->push_back(delay_expr);
@@ -760,10 +763,10 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                   Hierarchical_identifier = Net_lvalue;
                 }
                 exp = m_helper.compileExpression(
-                    comp, fC, Hierarchical_identifier, m_compileDesign, nullptr,
-                    parent, true);
+                    parent_comp, fC, Hierarchical_identifier, m_compileDesign,
+                    nullptr, parent, true);
               } else {
-                exp = m_helper.compileExpression(comp, fC, Net_lvalue,
+                exp = m_helper.compileExpression(parent_comp, fC, Net_lvalue,
                                                  m_compileDesign, nullptr,
                                                  parent, true);
               }
@@ -809,8 +812,8 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             }
 
             any* exp = m_helper.compileExpression(
-                comp, fC, Hierarchical_identifier, m_compileDesign, nullptr,
-                parent, true);
+                parent_comp, fC, Hierarchical_identifier, m_compileDesign,
+                nullptr, parent, true);
             p->High_conn(exp);
             if (exp->UhdmType() == uhdmref_obj) {
               ref_obj* ref = (ref_obj*)exp;
@@ -952,8 +955,9 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             Expression = fC->Sibling(Expression);
         }
         if (Expression) {
-          hexpr = (expr*)m_helper.compileExpression(
-              comp, fC, Expression, m_compileDesign, nullptr, parent, true);
+          hexpr = (expr*)m_helper.compileExpression(parent_comp, fC, Expression,
+                                                    m_compileDesign, nullptr,
+                                                    parent, true);
           NodeId Primary = fC->Child(Expression);
           NodeId Primary_literal = fC->Child(Primary);
           sigId = fC->Child(Primary_literal);
