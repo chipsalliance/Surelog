@@ -1,0 +1,1 @@
+../../test/axi_adapter/test_list.mk

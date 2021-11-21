@@ -308,7 +308,7 @@ UHDM::task_func* getFuncFromPackage(const std::string& name,
 
 std::pair<UHDM::task_func*, DesignComponent*> CompileHelper::getTaskFunc(
     const std::string& name, DesignComponent* component,
-    CompileDesign* compileDesign, any* pexpr) {
+    CompileDesign* compileDesign, ValuedComponentI* instance, any* pexpr) {
   std::pair<UHDM::task_func*, DesignComponent*> result = {nullptr, nullptr};
   DesignComponent* comp = component;
   if (strstr(name.c_str(), "::")) {
@@ -361,6 +361,23 @@ std::pair<UHDM::task_func*, DesignComponent*> CompileHelper::getTaskFunc(
     if (res) {
       result = std::make_pair(res, component);
       return result;
+    }
+  }
+  if (instance) {
+    ModuleInstance* inst = valuedcomponenti_cast<ModuleInstance*>(instance);
+    while (inst) {
+      DesignComponent* def = inst->getDefinition();
+      if (def) {
+        if (def->getTask_funcs()) {
+          for (UHDM::task_func* tf : *def->getTask_funcs()) {
+            if (tf->VpiName() == name) {
+              result = std::make_pair(tf, def);
+              return result;
+            }
+          }
+        }
+      }
+      inst = inst->getParent();
     }
   }
   Design* design = compileDesign->getCompiler()->getDesign();
@@ -1969,7 +1986,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
     const std::string& name = scall->VpiName();
     std::vector<any*>* args = scall->Tf_call_args();
     auto [func, actual_comp] =
-        getTaskFunc(name, component, compileDesign, pexpr);
+        getTaskFunc(name, component, compileDesign, instance, pexpr);
     function* actual_func = nullptr;
     if (func) {
       actual_func = any_cast<function*>(func);
@@ -4329,7 +4346,7 @@ UHDM::any* CompileHelper::compileExpression(
               fcall->VpiName(name);
 
               auto [func, actual_comp] =
-                  getTaskFunc(name, component, compileDesign, pexpr);
+                  getTaskFunc(name, component, compileDesign, instance, pexpr);
               fcall->Function(any_cast<function*>(func));
               VectorOfany* args = compileTfCallArguments(
                   component, fC, List_of_arguments, compileDesign, fcall,
@@ -6120,7 +6137,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
     std::string basename = packagename + "::" + functionname;
     tf_call* call = nullptr;
     std::pair<task_func*, DesignComponent*> ret =
-        getTaskFunc(basename, component, compileDesign, pexpr);
+        getTaskFunc(basename, component, compileDesign, instance, pexpr);
     task_func* tf = ret.first;
     if (tf) {
       if (tf->UhdmType() == uhdmfunction) {
