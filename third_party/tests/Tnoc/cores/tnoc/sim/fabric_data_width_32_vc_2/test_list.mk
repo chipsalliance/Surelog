@@ -1,0 +1,1 @@
+../../test/fabric/test_list.mk

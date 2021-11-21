@@ -1,0 +1,17 @@
+${TNOC_HOME}/rtl/axi_adapter/tnoc_axi_pkg.sv
+${TNOC_HOME}/rtl/axi_adapter/tnoc_axi_types.sv
+${TNOC_HOME}/rtl/axi_adapter/tnoc_axi_utils.sv
+${TNOC_HOME}/rtl/axi_adapter/tnoc_axi_if.sv
+${TNOC_HOME}/rtl/axi_adapter/tnoc_axi_if_connector.sv
+${TNOC_HOME}/rtl/axi_adapter/tnoc_axi_byte_counter.sv
+${TNOC_HOME}/rtl/axi_adapter/tnoc_axi_id_generator.sv
+${TNOC_HOME}/rtl/axi_adapter/tnoc_axi_id_locker.sv
+${TNOC_HOME}/rtl/axi_adapter/tnoc_axi_request_info_buffer.sv
+${TNOC_HOME}/rtl/axi_adapter/tnoc_axi_write_read_mux.sv
+${TNOC_HOME}/rtl/axi_adapter/tnoc_axi_write_read_demux.sv
+${TNOC_HOME}/rtl/axi_adapter/tnoc_axi_slave_write_adapter.sv
+${TNOC_HOME}/rtl/axi_adapter/tnoc_axi_slave_read_adapter.sv
+${TNOC_HOME}/rtl/axi_adapter/tnoc_axi_slave_adapter.sv
+${TNOC_HOME}/rtl/axi_adapter/tnoc_axi_master_write_adapter.sv
+${TNOC_HOME}/rtl/axi_adapter/tnoc_axi_master_read_adapter.sv
+${TNOC_HOME}/rtl/axi_adapter/tnoc_axi_master_adapter.sv
