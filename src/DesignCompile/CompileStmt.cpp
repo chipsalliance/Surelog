@@ -55,7 +55,8 @@ any* CompileHelper::searchObjectName(const std::string& name,
                                      DesignComponent* component,
                                      CompileDesign* compileDesign, any* stmt) {
   any* object = nullptr;
-  auto [func, actual_comp] = getTaskFunc(name, component, compileDesign, stmt);
+  auto [func, actual_comp] =
+      getTaskFunc(name, component, compileDesign, nullptr, stmt);
   if (func) {
     object = func;
   }

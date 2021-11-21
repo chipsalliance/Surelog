@@ -444,7 +444,8 @@ class CompileHelper final {
 
   std::pair<UHDM::task_func*, DesignComponent*> getTaskFunc(
       const std::string& name, DesignComponent* component,
-      CompileDesign* compileDesign, UHDM::any* pexpr);
+      CompileDesign* compileDesign, ValuedComponentI* instance,
+      UHDM::any* pexpr);
 
   UHDM::expr* EvalFunc(UHDM::function* func, std::vector<UHDM::any*>* args,
                        bool& invalidValue, DesignComponent* component,

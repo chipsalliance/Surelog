@@ -1,0 +1,1 @@
+../../test/router/test_list.mk

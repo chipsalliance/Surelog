@@ -1,0 +1,21 @@
+name: svlint
+
+on: [push, pull_request]
+
+jobs:
+  svlint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run svlint
+        uses: dalance/svlint-action@v1
+        with:
+          filelists: |
+            rtl/common/compile.f
+            rtl/router/compile.f
+            rtl/fabric/compile.f
+            rtl/axi_adapter/compile.f
+        env:
+          TNOC_HOME: ${{ github.workspace }}
