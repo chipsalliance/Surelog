@@ -1311,6 +1311,20 @@ UHDM::typespec* CompileHelper::compileTypespec(
       // Parameters... will capture the signage property elsewhere
       break;
     }
+    case VObjectType::slConstant_range: {
+      UHDM::logic_typespec* tps = s.MakeLogic_typespec();
+      tps->VpiFile(fC->getFileName());
+      tps->VpiLineNo(fC->Line(type));
+      tps->VpiColumnNo(fC->Column(type));
+      tps->VpiEndLineNo(fC->EndLine(type));
+      tps->VpiEndColumnNo(fC->EndColumn(type));
+      VectorOfrange* ranges =
+          compileRanges(component, fC, type, compileDesign, pstmt, instance,
+                        reduce, size, false);
+      tps->Ranges(ranges);
+      result = tps;
+      break;
+    }
     default:
       if (type != 0) {
         ErrorContainer* errors =
