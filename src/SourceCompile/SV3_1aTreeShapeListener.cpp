@@ -799,6 +799,14 @@ void SV3_1aTreeShapeListener::exitString_value(
 
   ident = ctx->String()->getText();
 
+  std::regex escaped(std::string(EscapeSequence) + std::string("(.*?)") +
+                     EscapeSequence);
+  std::smatch match;
+  while (std::regex_search(ident, match, escaped)) {
+    std::string var = "\\" + match[1].str() + " ";
+    ident = ident.replace(match.position(0), match.length(0), var);
+  }
+
   addVObject(ctx, ident, VObjectType::slStringLiteral);
 
   if (ident.size() > SV_MAX_STRING_SIZE) {
@@ -1153,8 +1161,13 @@ void SV3_1aTreeShapeListener::exitPackage_scope(
   } else if (ctx->Escaped_identifier()) {
     childCtx = (antlr4::ParserRuleContext *)ctx->Escaped_identifier();
     ident = ctx->Escaped_identifier()->getText();
-    ident.erase(0, 3);
-    ident.erase(ident.size() - 3, 3);
+    std::regex escaped(std::string(EscapeSequence) + std::string("(.*?)") +
+                       EscapeSequence);
+    std::smatch match;
+    while (std::regex_search(ident, match, escaped)) {
+      std::string var = match[1].str();
+      ident = ident.replace(match.position(0), match.length(0), var);
+    }
   } else if (ctx->THIS()) {
     childCtx = (antlr4::ParserRuleContext *)ctx->THIS();
     ident = ctx->THIS()->getText();
