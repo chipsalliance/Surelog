@@ -6281,8 +6281,16 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       UHDM::hier_path* path = s.MakeHier_path();
       VectorOfany* elems = s.MakeAnyVec();
       if (instance && reduce) {
-        path->Root_value((expr*)getObject(the_name, component, compileDesign,
-                                          instance, pexpr));
+        UHDM::any* rootValue =
+            getObject(the_name, component, compileDesign, instance, pexpr);
+        if (rootValue) {
+          if (expr* expval = any_cast<expr*>(rootValue)) {
+            path->Root_value(rootValue);
+            path->Typespec((typespec*)expval->Typespec());
+          } else if (UHDM::port* expval = any_cast<port*>(rootValue)) {
+            path->Root_value((any*)expval->Low_conn());
+          }
+        }
       }
       std::string tmpName = the_name;
       path->Path_elems(elems);
