@@ -172,9 +172,6 @@ any* CompileHelper::getObject(const std::string& name,
   if ((result == nullptr) && instance) {
     if (ModuleInstance* inst =
             valuedcomponenti_cast<ModuleInstance*>(instance)) {
-      if (expr* complex = instance->getComplexValue(name)) {
-        result = complex;
-      }
       Netlist* netlist = inst->getNetlist();
       if (netlist) {
         if ((result == nullptr) && netlist->array_nets()) {
@@ -217,6 +214,13 @@ any* CompileHelper::getObject(const std::string& name,
               break;
             }
           }
+        }
+      }
+      if ((result == nullptr) ||
+          (result && (result->UhdmType() != uhdmconstant) &&
+           (result->UhdmType() != uhdmparam_assign))) {
+        if (expr* complex = instance->getComplexValue(name)) {
+          result = complex;
         }
       }
     }
@@ -6289,6 +6293,19 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
             path->Typespec((typespec*)expval->Typespec());
           } else if (UHDM::port* expval = any_cast<port*>(rootValue)) {
             path->Root_value((any*)expval->Low_conn());
+          } else if (UHDM::param_assign* passign =
+                         any_cast<param_assign*>(rootValue)) {
+            path->Root_value((any*)passign->Rhs());
+            const any* param = passign->Lhs();
+            const typespec* tps = nullptr;
+            if (param->UhdmType() == uhdmparameter) {
+              parameter* p = (parameter*)param;
+              tps = p->Typespec();
+            } else {
+              type_parameter* p = (type_parameter*)param;
+              tps = p->Typespec();
+            }
+            path->Typespec((typespec*)tps);
           }
         }
       }
