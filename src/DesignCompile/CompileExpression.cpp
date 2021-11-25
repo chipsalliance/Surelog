@@ -217,7 +217,8 @@ any* CompileHelper::getObject(const std::string& name,
         }
       }
       if ((result == nullptr) ||
-          (result && (result->UhdmType() != uhdmconstant))) {
+          (result && (result->UhdmType() != uhdmconstant) &&
+           (result->UhdmType() != uhdmparam_assign))) {
         if (expr* complex = instance->getComplexValue(name)) {
           result = complex;
         }
