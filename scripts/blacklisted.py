@@ -1,3 +1,4 @@
+import os
 import platform
 
 # If you are adding a new entry, please include a short comment
@@ -38,5 +39,5 @@ _unix_black_list = set([name.lower() for name in [
 
 
 def is_blacklisted(name):
-    blacklist = _windows_black_list if platform.system() == 'Windows' else _unix_black_list
+    blacklist = _windows_black_list if platform.system() == 'Windows' and 'MSYSTEM' not in os.environ else _unix_black_list
     return name.lower() in blacklist
