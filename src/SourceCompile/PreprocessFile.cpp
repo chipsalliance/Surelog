@@ -22,6 +22,9 @@
  */
 #include "SourceCompile/PreprocessFile.h"
 
+#include <ctype.h>
+#include <stdio.h>
+
 #include <algorithm>
 #include <cctype>
 #include <cstdlib>
@@ -353,7 +356,12 @@ bool PreprocessFile::preprocess() {
       std::string text;
       char c = stream.get();
       while (stream.good()) {
-        if (c != 0x0D) text += c;
+        if (c != 0x0D) {
+          if (isascii(c))
+            text += c;
+          else
+            text += " ";
+        }
         c = stream.get();
       }
       stream.close();
