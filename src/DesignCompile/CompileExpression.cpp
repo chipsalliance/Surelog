@@ -276,6 +276,11 @@ any* CompileHelper::getObject(const std::string& name,
     const std::string& refname = ref->VpiName();
     if (refname != name)
       result = getObject(refname, component, compileDesign, instance, pexpr);
+    if (result) {
+      if (UHDM::param_assign* passign = any_cast<param_assign*>(result)) {
+        result = (any*) passign->Rhs();
+      }
+    }
   }
   if (result && result->UhdmType() == uhdmconstant) {
     if (instance) {
@@ -695,6 +700,11 @@ any* CompileHelper::decodeHierPath(hier_path* path, bool& invalidValue,
   }
   any* object =
       getObject(baseObject, component, compileDesign, instance, pexpr);
+  if (object) {
+    if (UHDM::param_assign* passign = any_cast<param_assign*>(object)) {
+      object = (any*)passign->Rhs();
+    }
+  }
   if (object == nullptr) {
     object = getValue(baseObject, component, compileDesign, instance, fileName,
                       lineNumber, pexpr, true, muteErrors);
@@ -1888,6 +1898,11 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
           const std::string& objname = ref->VpiName();
           any* object =
               getObject(objname, component, compileDesign, instance, pexpr);
+          if (object) {
+            if (UHDM::param_assign* passign = any_cast<param_assign*>(object)) {
+              object = (any*)passign->Rhs();
+            }
+          }
           if (object == nullptr) {
             object =
                 (expr*)getValue(objname, component, compileDesign, instance,
@@ -1926,6 +1941,12 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
             const std::string& suffix = elems->at(1)->VpiName();
             any* var =
                 getObject(base, component, compileDesign, instance, pexpr);
+            if (var) {
+              if (UHDM::param_assign* passign =
+                      any_cast<param_assign*>(var)) {
+                var = (any*)passign->Rhs();
+              }
+            }
             if (var) {
               UHDM_OBJECT_TYPE vtype = var->UhdmType();
               if (vtype == uhdmport) {
@@ -2041,6 +2062,11 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
         if (complex == nullptr) {
           complex =
               (expr*)getObject(name, component, compileDesign, instance, pexpr);
+          if (complex) {
+            if (UHDM::param_assign* passign = any_cast<param_assign*>(complex)) {
+              complex = (expr*)passign->Rhs();
+            }
+          }
         }
         if (complex == nullptr) {
           complex =
@@ -2076,6 +2102,11 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
       } else if (ModuleInstance* inst =
                      valuedcomponenti_cast<ModuleInstance*>(instance)) {
         any* object = getObject(name, component, compileDesign, inst, pexpr);
+        if (object) {
+          if (UHDM::param_assign* passign = any_cast<param_assign*>(object)) {
+            object = (any*)passign->Rhs();
+          }
+        }
         if (object == nullptr) {
           object = getValue(name, component, compileDesign, inst, fileName,
                             lineNumber, pexpr, true, muteErrors);
@@ -2169,6 +2200,11 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
       name = parent->VpiDefName();
     }
     any* object = getObject(name, component, compileDesign, instance, pexpr);
+    if (object) {
+      if (UHDM::param_assign* passign = any_cast<param_assign*>(object)) {
+        object = (any*)passign->Rhs();
+      }
+    }
     if (object == nullptr) {
       object = getValue(name, component, compileDesign, instance, fileName,
                         lineNumber, pexpr, true, muteErrors);
@@ -2197,6 +2233,11 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
     var_select* sel = (var_select*)result;
     const std::string& name = sel->VpiName();
     any* object = getObject(name, component, compileDesign, instance, pexpr);
+    if (object) {
+      if (UHDM::param_assign* passign = any_cast<param_assign*>(object)) {
+        object = (any*)passign->Rhs();
+      }
+    }
     if (object == nullptr) {
       object = getValue(name, component, compileDesign, instance, fileName,
                         lineNumber, pexpr, true, muteErrors);
@@ -5402,6 +5443,11 @@ uint64_t CompileHelper::Bits(const UHDM::any* typespec, bool& invalidValue,
         } else {
           any* object = getObject(ref->VpiName(), component, compileDesign,
                                   instance, nullptr);
+          if (object) {
+            if (UHDM::param_assign* passign = any_cast<param_assign*>(object)) {
+              object = (any*)passign->Rhs();
+            }
+          }
           if (object == nullptr) {
             object =
                 getValue(ref->VpiName(), component, compileDesign, instance,

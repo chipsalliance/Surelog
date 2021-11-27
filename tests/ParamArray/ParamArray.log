@@ -1350,47 +1350,11 @@ design: (work@top)
       |vpiRange:
       \_range: , line:38:9, endln:38:26
         |vpiLeftRange:
-        \_operation: , line:38:9, endln:38:22
-          |vpiOpType:11
-          |vpiOperand:
-          \_operation: , line:38:9, endln:38:22
-            |vpiOpType:23
-            |vpiOperand:
-            \_hier_path: (Info.size), line:36:33, endln:36:42
-              |vpiName:Info.size
-              |vpiActual:
-              \_ref_obj: (Info), parent:Info.size
-                |vpiName:Info
-                |vpiActual:
-                \_bit_select: (PartInfo), line:47:11, endln:47:33, parent:PartInfo
-                  |vpiName:PartInfo
-                  |vpiIndex:
-                  \_ref_obj: (PartInfo.LifeCycleIdx), line:47:20, endln:47:32, parent:PartInfo
-                    |vpiName:LifeCycleIdx
-                    |vpiFullName:PartInfo.LifeCycleIdx
-                    |vpiActual:
-                    \_enum_const: (LifeCycleIdx), line:24:5, endln:24:17
-                      |vpiName:LifeCycleIdx
-                      |vpiDecompile:1
-                      |INT:1
-                      |vpiSize:64
-              |vpiActual:
-              \_ref_obj: (size), parent:Info.size
-                |vpiName:size
-            |vpiOperand:
-            \_constant: , line:36:46, endln:36:47
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-            |vpiTypespec:
-            \_int_typespec: , line:36:13, endln:36:16
-          |vpiOperand:
-          \_constant: , line:38:23, endln:38:24
-            |vpiConstType:9
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
+        \_constant: , line:38:9, endln:38:22
+          |vpiConstType:7
+          |vpiDecompile:27
+          |vpiSize:64
+          |INT:27
         |vpiRightRange:
         \_constant: , line:38:25, endln:38:26
           |vpiConstType:9
@@ -1500,31 +1464,25 @@ design: (work@top)
     \_param_assign: , line:33:25, endln:33:47, parent:work@top.u_otp_ctrl_lci
       |vpiOverriden:1
       |vpiRhs:
-      \_bit_select: (PartInfo), line:47:11, endln:47:33, parent:PartInfo
+      \_operation: , line:47:11, endln:47:33
+        |vpiOpType:75
+        |vpiFlattened:1
+        |vpiOperand:
+        \_constant: , line:36:33, endln:36:42
+          |vpiConstType:9
+          |vpiDecompile:56
+          |vpiSize:64
+          |UINT:56
       |vpiLhs:
       \_parameter: (work@top.u_otp_ctrl_lci.Info), line:33:25, endln:33:47, parent:work@top.u_otp_ctrl_lci
     |vpiParamAssign:
     \_param_assign: , line:36:17, endln:36:47, parent:work@top.u_otp_ctrl_lci
       |vpiRhs:
-      \_operation: , line:36:33, endln:36:47
-        |vpiOpType:23
-        |vpiOperand:
-        \_hier_path: (Info.size), line:36:33, endln:36:42
-          |vpiName:Info.size
-          |vpiActual:
-          \_ref_obj: (Info), parent:Info.size
-            |vpiName:Info
-            |vpiActual:
-            \_bit_select: (PartInfo), line:47:11, endln:47:33, parent:PartInfo
-          |vpiActual:
-          \_ref_obj: (size)
-            |vpiName:size
-        |vpiOperand:
-        \_constant: , line:36:46, endln:36:47
-          |vpiConstType:9
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
+      \_constant: , line:36:33, endln:36:47
+        |vpiConstType:9
+        |vpiDecompile:28
+        |vpiSize:32
+        |UINT:28
         |vpiTypespec:
         \_int_typespec: , line:36:13, endln:36:16, parent:work@otp_ctrl_lci.NumLcOtpWords
       |vpiLhs:
@@ -1679,12 +1637,12 @@ design: (work@top)
           \_string_typespec: (size), line:14:7, endln:14:11
             |vpiName:size
       |vpiOperand:
-      \_operation: , line:17:5, endln:19:6
+      \_operation: , line:47:11, endln:47:33
         |vpiOpType:75
         |vpiOperand:
         \_tagged_pattern: 
           |vpiPattern:
-          \_constant: , line:18:19, endln:18:21
+          \_constant: , line:36:33, endln:36:42
             |vpiConstType:9
             |vpiDecompile:56
             |vpiSize:64
@@ -1705,6 +1663,10 @@ design: (work@top)
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (LifeCycleIdx), line:24:5, endln:24:17
+      |vpiName:LifeCycleIdx
+      |vpiDecompile:1
+      |INT:1
+      |vpiSize:64
     |vpiInstance:
     \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::) dut.sv:9:1: , endln:27:11, parent:work@top
       |vpiDefName:otp_ctrl_part_pkg
