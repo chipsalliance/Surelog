@@ -278,7 +278,7 @@ any* CompileHelper::getObject(const std::string& name,
       result = getObject(refname, component, compileDesign, instance, pexpr);
     if (result) {
       if (UHDM::param_assign* passign = any_cast<param_assign*>(result)) {
-        result = (any*) passign->Rhs();
+        result = (any*)passign->Rhs();
       }
     }
   }
@@ -1942,8 +1942,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
             any* var =
                 getObject(base, component, compileDesign, instance, pexpr);
             if (var) {
-              if (UHDM::param_assign* passign =
-                      any_cast<param_assign*>(var)) {
+              if (UHDM::param_assign* passign = any_cast<param_assign*>(var)) {
                 var = (any*)passign->Rhs();
               }
             }
@@ -2063,7 +2062,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
           complex =
               (expr*)getObject(name, component, compileDesign, instance, pexpr);
           if (complex) {
-            if (UHDM::param_assign* passign = any_cast<param_assign*>(complex)) {
+            if (UHDM::param_assign* passign =
+                    any_cast<param_assign*>(complex)) {
               complex = (expr*)passign->Rhs();
             }
           }
