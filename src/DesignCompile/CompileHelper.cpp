@@ -2373,7 +2373,9 @@ bool CompileHelper::compileParameterDeclaration(
         isMultiDimension = true;
       }
 
-      if (valuedcomponenti_cast<Package*>(component) && (instance == nullptr)) {
+      if ((valuedcomponenti_cast<Package*>(component) ||
+           valuedcomponenti_cast<FileContent*>(component)) &&
+          (instance == nullptr)) {
         UHDM::any* expr =
             compileExpression(component, fC, actual_value, compileDesign,
                               nullptr, nullptr, !isMultiDimension);

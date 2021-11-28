@@ -54,10 +54,14 @@ bool CompileFileContent::compile() { return collectObjects_(); }
 
 bool CompileFileContent::collectObjects_() {
   std::vector<VObjectType> stopPoints = {
-      VObjectType::slModule_declaration,  VObjectType::slInterface_declaration,
-      VObjectType::slProgram_declaration, VObjectType::slClass_declaration,
-      VObjectType::slPrimitive,           VObjectType::slPackage_declaration,
-      VObjectType::slFunction_declaration};
+      VObjectType::slModule_declaration,
+      VObjectType::slInterface_declaration,
+      VObjectType::slProgram_declaration,
+      VObjectType::slClass_declaration,
+      VObjectType::slPrimitive,
+      VObjectType::slPackage_declaration,
+      VObjectType::slFunction_declaration,
+      VObjectType::slInterface_class_declaration};
 
   FileContent* fC = m_fileContent;
   if (fC->getSize() == 0) return true;
@@ -102,6 +106,38 @@ bool CompileFileContent::collectObjects_() {
           }
           default:
             break;
+        }
+        break;
+      }
+      case VObjectType::slParameter_declaration: {
+        NodeId list_of_type_assignments = fC->Child(id);
+        if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
+            fC->Type(list_of_type_assignments) == slType) {
+          // Type param
+          m_helper.compileParameterDeclaration(
+              m_fileContent, fC, list_of_type_assignments, m_compileDesign,
+              false, nullptr, false, true, false);
+
+        } else {
+          m_helper.compileParameterDeclaration(m_fileContent, fC, id,
+                                               m_compileDesign, false, nullptr,
+                                               false, vpiValidTrue, false);
+        }
+        break;
+      }
+      case VObjectType::slLocal_parameter_declaration: {
+        NodeId list_of_type_assignments = fC->Child(id);
+        if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
+            fC->Type(list_of_type_assignments) == slType) {
+          // Type param
+          m_helper.compileParameterDeclaration(
+              m_fileContent, fC, list_of_type_assignments, m_compileDesign,
+              true, nullptr, false, true, false);
+
+        } else {
+          m_helper.compileParameterDeclaration(m_fileContent, fC, id,
+                                               m_compileDesign, true, nullptr,
+                                               false, true, false);
         }
         break;
       }
