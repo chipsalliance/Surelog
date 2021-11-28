@@ -2127,6 +2127,32 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
           if (tf->VpiParent() == 0) tf->VpiParent(d);
         }
       }
+
+      // Parameters
+      if (auto from = fileIdContent.second->getParameters()) {
+        UHDM::VectorOfany* target = d->Parameters();
+        if (target == nullptr) {
+          d->Parameters(s.MakeAnyVec());
+          target = d->Parameters();
+        }
+        for (auto tf : *from) {
+          target->push_back(tf);
+          if (tf->VpiParent() == 0) tf->VpiParent(d);
+        }
+      }
+
+      // Param assigns
+      if (auto from = fileIdContent.second->getParam_assigns()) {
+        UHDM::VectorOfparam_assign* target = d->Param_assigns();
+        if (target == nullptr) {
+          d->Param_assigns(s.MakeParam_assignVec());
+          target = d->Param_assigns();
+        }
+        for (auto tf : *from) {
+          target->push_back(tf);
+          if (tf->VpiParent() == 0) tf->VpiParent(d);
+        }
+      }
     }
 
     // Packages
