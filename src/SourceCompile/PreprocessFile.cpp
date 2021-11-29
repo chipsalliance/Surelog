@@ -376,16 +376,17 @@ bool PreprocessFile::preprocess() {
         c = stream.get();
       }
       stream.close();
-   
+
       if (nonAsciiContent) {
         if (m_includer == NULL) {
-          Location loc(m_fileId, lineNonAscii, 0, registerSymbol(std::string(1, nonAscii)));
+          Location loc(m_fileId, lineNonAscii, 0,
+                       registerSymbol(std::string(1, nonAscii)));
           Error err(ErrorDefinition::PP_NON_ASCII_CONTENT, loc);
           addError(err);
         } else {
-          Location loc(m_fileId, lineNonAscii, 0, registerSymbol(std::string(1, nonAscii)));
-          Location includeFile(m_includer->m_fileId, m_includerLine, 0,
-                               0);
+          Location loc(m_fileId, lineNonAscii, 0,
+                       registerSymbol(std::string(1, nonAscii)));
+          Location includeFile(m_includer->m_fileId, m_includerLine, 0, 0);
           Error err(ErrorDefinition::PP_NON_ASCII_CONTENT, loc, includeFile);
           addError(err);
         }

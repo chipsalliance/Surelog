@@ -242,7 +242,7 @@ bool ErrorDefinition::init() {
   rec(PP_CANNOT_READ_FILE_CONTENT, ERROR, PP,
       "Cannot read the file's content \"%s\". Only UTF-8 is supported");
   rec(PP_NON_ASCII_CONTENT, NOTE, PP,
-      "Non ASCII character detected, replaced by space \"%s\"");    
+      "Non ASCII character detected, replaced by space \"%s\"");
   rec(PP_RECURSIVE_INCLUDE_DIRECTIVE, FATAL, PP,
       "Recursive include directive for file \"%s\"");
   rec(PP_ILLEGAL_TICK_LINE_VALUE, ERROR, PP,
