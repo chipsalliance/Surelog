@@ -464,6 +464,18 @@ typespec* CompileHelper::compileDatastructureTypespec(
         }
       }
     }
+    if (dt == nullptr) {
+      if (!compileDesign->getCompiler()->getCommandLineParser()->fileunit()) {
+        for (auto fC :
+             compileDesign->getCompiler()->getDesign()->getAllFileContents()) {
+          if (const DataType* dt1 = fC.second->getDataType(typeName)) {
+            dt = dt1;
+            break;
+          }
+        }
+      }
+    }
+
     TypeDef* parent_tpd = nullptr;
     while (dt) {
       if (const TypeDef* tpd = datatype_cast<const TypeDef*>(dt)) {
