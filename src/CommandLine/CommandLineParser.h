@@ -180,11 +180,12 @@ class CommandLineParser final {
   bool prepareCompilation_(int argc, const char** argv);
   bool setupCache_();
 
-  std::vector<SymbolId> m_libraryPaths;          // -y
-  std::vector<SymbolId> m_sourceFiles;           // .v .sv
-  std::set<std::string> m_svSourceFiles;         // user forced sv files
-  std::vector<SymbolId> m_libraryFiles;          // -v
-  std::vector<SymbolId> m_includePaths;          // +incdir+
+  std::vector<SymbolId> m_libraryPaths;   // -y
+  std::vector<SymbolId> m_sourceFiles;    // .v .sv
+  std::set<std::string> m_svSourceFiles;  // user forced sv files
+  std::vector<SymbolId> m_libraryFiles;   // -v
+  std::vector<SymbolId> m_includePaths;   // +incdir+
+  std::set<SymbolId> m_includePathSet;
   std::vector<SymbolId> m_libraryExtensions;     // +libext+
   std::vector<SymbolId> m_orderedLibraries;      // -L <libName>
   std::vector<SymbolId> m_libraryMapFiles;       // -map
