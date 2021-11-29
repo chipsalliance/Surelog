@@ -354,17 +354,42 @@ bool PreprocessFile::preprocess() {
       }
       // Remove ^M (DOS) from text file
       std::string text;
+      char nonAscii;
       char c = stream.get();
+      bool nonAsciiContent = false;
+      int lineNb = 1;
+      int lineNonAscii = 0;
       while (stream.good()) {
         if (c != 0x0D) {
           if (isascii(c))
             text += c;
-          else
+          else {
+            nonAscii = c;
+            lineNonAscii = lineNb;
             text += " ";
+            nonAsciiContent = true;
+          }
+        }
+        if (c == '\n') {
+          lineNb++;
         }
         c = stream.get();
       }
       stream.close();
+   
+      if (nonAsciiContent) {
+        if (m_includer == NULL) {
+          Location loc(m_fileId, lineNonAscii, 0, registerSymbol(std::string(1, nonAscii)));
+          Error err(ErrorDefinition::PP_NON_ASCII_CONTENT, loc);
+          addError(err);
+        } else {
+          Location loc(m_fileId, lineNonAscii, 0, registerSymbol(std::string(1, nonAscii)));
+          Location includeFile(m_includer->m_fileId, m_includerLine, 0,
+                               0);
+          Error err(ErrorDefinition::PP_NON_ASCII_CONTENT, loc, includeFile);
+          addError(err);
+        }
+      }
 
       try {
         m_antlrParserHandler->m_inputStream = new ANTLRInputStream(text);
