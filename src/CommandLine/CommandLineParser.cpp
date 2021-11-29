@@ -1048,6 +1048,14 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         std::string fileName = all_arguments[i];
         fileName = FileUtils::basename(fileName);
         m_svSourceFiles.insert(fileName);
+        std::string path = FileUtils::getPathName(all_arguments[i]);
+        if (!path.empty()) {
+          SymbolId pathId = m_symbolTable->registerSymbol(path);
+          if (m_includePathSet.find(pathId) == m_includePathSet.end()) {
+            m_includePathSet.insert(pathId);
+            m_includePaths.push_back(pathId);
+          }
+        }
       } else {
         m_sverilog = true;
       }
@@ -1079,6 +1087,14 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         } else {
           m_sourceFiles.push_back(
               m_symbolTable->registerSymbol(all_arguments[i]));
+          std::string path = FileUtils::getPathName(all_arguments[i]);
+          if (!path.empty()) {
+            SymbolId pathId = m_symbolTable->registerSymbol(path);
+            if (m_includePathSet.find(pathId) == m_includePathSet.end()) {
+              m_includePathSet.insert(pathId);
+              m_includePaths.push_back(pathId);
+            }
+          }
         }
       }
     }
