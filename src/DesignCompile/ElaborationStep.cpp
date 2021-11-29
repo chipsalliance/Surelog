@@ -1031,6 +1031,21 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
       }
       if (def == NULL) {
         type = parentComponent->getDataType(interfName);
+        if (type == nullptr) {
+          if (!m_compileDesign->getCompiler()
+                   ->getCommandLineParser()
+                   ->fileunit()) {
+            for (auto fC : m_compileDesign->getCompiler()
+                               ->getDesign()
+                               ->getAllFileContents()) {
+              if (const DataType* dt1 = fC.second->getDataType(interfName)) {
+                type = dt1;
+                break;
+              }
+            }
+          }
+        }
+
         if (type) {
           const DataType* def = type->getActual();
           DataType::Category cat = def->getCategory();
