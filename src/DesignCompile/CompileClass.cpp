@@ -848,17 +848,19 @@ bool CompileClass::compile_class_parameters_(const FileContent* fC, NodeId id) {
     NodeId parameter_port_declaration = fC->Child(paramList);
     while (parameter_port_declaration) {
       NodeId list_of_type_assignments = fC->Child(parameter_port_declaration);
+      NodeId type = fC->Child(list_of_type_assignments);
       if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
           fC->Type(list_of_type_assignments) == slType) {
         // Type param
         m_helper.compileParameterDeclaration(
             m_class, fC, list_of_type_assignments, m_compileDesign, false,
             nullptr, false, false, false);
-
+      } else if (fC->Type(type) == slType) {
+        // Handled in compile_parameter_declaration_
       } else {
         // Regular param
         m_helper.compileParameterDeclaration(
-            m_class, fC, list_of_type_assignments, m_compileDesign, false,
+            m_class, fC, parameter_port_declaration, m_compileDesign, false,
             nullptr, false, false, false);
       }
       parameter_port_declaration = fC->Sibling(parameter_port_declaration);
