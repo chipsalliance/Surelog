@@ -326,7 +326,7 @@ bool ErrorDefinition::init() {
       "Undefined system task/function \"$%s\"");
   rec(COMP_UNDEFINED_USER_FUNCTION, ERROR, COMP,
       "Undefined user task/function \"%s\"");
-  rec(COMP_MULTIPLY_DEFINED_DESIGN_UNIT, ERROR, COMP,
+  rec(COMP_MULTIPLY_DEFINED_DESIGN_UNIT, WARNING, COMP,
       "Colliding compilation unit name: \"%s\"", "%exloc previous usage");
   rec(COMP_COMPILE_GENERATE_BLOCK, INFO, COMP, "Compile generate block \"%s\"");
   rec(COMP_INTERNAL_ERROR_OUT_OF_BOUND, ERROR, COMP,
