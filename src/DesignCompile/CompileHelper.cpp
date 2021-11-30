@@ -2501,7 +2501,7 @@ bool CompileHelper::compileParameterDeclaration(
             }
           }
         }
-        if (rhs->UhdmType() == uhdmconstant) {
+        if (rhs && (rhs->UhdmType() == uhdmconstant)) {
           constant* c = (constant*)rhs;
           c->Typespec(ts);
 
