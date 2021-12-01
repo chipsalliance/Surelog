@@ -320,6 +320,9 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
         antlrParserHandler->m_lexer->sverilog = false;
         break;
       case VerilogVersion::Verilog2005:
+        antlrParserHandler->m_lexer->sverilog = false;
+        break;
+      case VerilogVersion::SVerilog2005:
         antlrParserHandler->m_lexer->sverilog = true;
         break;
       case VerilogVersion::Verilog2009:
