@@ -27,6 +27,14 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#if (__cplusplus >= 201703L) && __has_include(<filesystem>)
+#include <filesystem>
+namespace fs = std::filesystem;
+#else
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
+#endif
+
 #if defined(_MSC_VER)
 #include <direct.h>
 #define PATH_MAX _MAX_PATH
@@ -496,9 +504,10 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     }
   }
 
+  const std::string separator(1, fs::path::preferred_separator);
   std::string built_in_verilog;
   for (const std::string& dir : search_path) {
-    built_in_verilog = dir + "sv/builtin.sv";
+    built_in_verilog = dir + "sv" + separator + "builtin.sv";
     if (FileUtils::fileExists(built_in_verilog)) break;
   }
 
@@ -516,7 +525,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (!strcmp(argv[i], "-builtin")) {
       if (i < argc - 1) {
         m_builtinPath = argv[i + 1];
-        built_in_verilog = m_builtinPath + "/builtin.sv";
+        built_in_verilog = m_builtinPath + separator + "builtin.sv";
       }
     } else if (!strcmp(argv[i], "-l")) {
       if (i < argc - 1) {

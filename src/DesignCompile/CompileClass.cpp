@@ -22,6 +22,14 @@
  */
 #include "DesignCompile/CompileClass.h"
 
+#if (__cplusplus >= 201703L) && __has_include(<filesystem>)
+#include <filesystem>
+namespace fs = std::filesystem;
+#else
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
+#endif
+
 #include <string.h>
 
 #include <stack>
@@ -57,7 +65,10 @@ bool CompileClass::compile() {
   NodeId nodeId = m_class->m_nodeIds[0];
 
   std::string fileName = fC->getFileName(nodeId);
-  if (strstr(fileName.c_str(), "/bin/sv/builtin.sv")) {
+  const std::string separator(1, fs::path::preferred_separator);
+  if (strstr(fileName.c_str(), std::string(separator + "bin" + separator +
+                                           "sv" + separator + "builtin.sv")
+                                   .c_str())) {
     fileName = "builtin.sv";
   }
   std::string fullName;

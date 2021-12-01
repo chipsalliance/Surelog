@@ -22,6 +22,14 @@
  */
 #include "SourceCompile/CompileSourceFile.h"
 
+#if (__cplusplus >= 201703L) && __has_include(<filesystem>)
+#include <filesystem>
+namespace fs = std::filesystem;
+#else
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
+#endif
+
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -91,7 +99,10 @@ bool CompileSourceFile::compile(Action action) {
   std::string fileName = m_symbolTable->getSymbol(m_fileId);
   if (m_commandLineParser->verbose()) {
     SymbolId fileId = m_fileId;
-    if (strstr(fileName.c_str(), "/bin/sv/builtin.sv")) {
+    const std::string separator(1, fs::path::preferred_separator);
+    if (strstr(fileName.c_str(), std::string(separator + "bin" + separator +
+                                             "sv" + separator + "builtin.sv")
+                                     .c_str())) {
       fileId = m_symbolTable->registerSymbol("builtin.sv");
     }
     Location loc(fileId);
@@ -123,7 +134,10 @@ bool CompileSourceFile::compile(Action action) {
     case Parse:
       return parse_();
     case PythonAPI: {
-      if (!strstr(fileName.c_str(), "/bin/sv/builtin.sv")) {
+      const std::string separator(1, fs::path::preferred_separator);
+      if (!strstr(fileName.c_str(), std::string(separator + "bin" + separator +
+                                                "sv" + separator + "builtin.sv")
+                                        .c_str())) {
         return pythonAPI_();
       }
     }

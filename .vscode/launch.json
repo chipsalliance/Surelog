@@ -697,6 +697,25 @@
             ]
         },
         {
+            "name": "ScratchPad_v",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "tests/ScratchPad.v", "-d", "inst" ,"-d", "ast", "-d", "uhdm", "-nobuiltin", "-d", "vpi_ids", "-replay", "-nocache"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "ScratchPadLowmem",
             "type": "cppdbg",
             "request": "launch",
