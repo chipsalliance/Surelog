@@ -22,6 +22,14 @@
  */
 #include "DesignCompile/UhdmChecker.h"
 
+#if (__cplusplus >= 201703L) && __has_include(<filesystem>)
+#include <filesystem>
+namespace fs = std::filesystem;
+#else
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
+#endif
+
 #include <string.h>
 
 #include <map>
@@ -657,7 +665,10 @@ bool UhdmChecker::check(const std::string& reportFile) {
   for (const FileContent* fC : files) {
     const std::string& fileName = fC->getFileName();
     if (!clp->createCache()) {
-      if (strstr(fileName.c_str(), "/bin/sv/builtin.sv") ||
+      const std::string separator(1, fs::path::preferred_separator);
+      if (strstr(fileName.c_str(), std::string(separator + "bin" + separator +
+                                               "sv" + separator + "builtin.sv")
+                                       .c_str()) ||
           strstr(fileName.c_str(), "uvm_pkg.sv") ||
           strstr(fileName.c_str(), "ovm_pkg.sv")) {
         continue;

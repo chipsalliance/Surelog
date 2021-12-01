@@ -1097,7 +1097,7 @@ void SV3_1aPpTreeShapeListener::enterBegin_keywords_directive(
   } else if (version == "\"1364-2005\"") {
     m_pp->setVerilogVersion(Verilog2005);
   } else if (version == "\"1800-2005\"") {
-    m_pp->setVerilogVersion(Verilog2005);
+    m_pp->setVerilogVersion(SVerilog2005);
   } else if (version == "\"1800-2009\"") {
     m_pp->setVerilogVersion(Verilog2009);
   } else if (version == "\"1800-2012\"") {

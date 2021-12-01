@@ -51,6 +51,7 @@ enum VerilogVersion {
   Verilog1995,
   Verilog2001,
   Verilog2005,
+  SVerilog2005,
   Verilog2009,
   SystemVerilog
 };
