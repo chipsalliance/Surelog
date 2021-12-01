@@ -22,6 +22,14 @@
  */
 #include "Design/FileContent.h"
 
+#if (__cplusplus >= 201703L) && __has_include(<filesystem>)
+#include <filesystem>
+namespace fs = std::filesystem;
+#else
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
+#endif
+
 #include <string.h>
 
 #include <iostream>
@@ -64,7 +72,11 @@ std::string FileContent::printObjects() const {
 
   if (m_library) text += "LIB:  " + m_library->getName() + "\n";
   std::string fileName = m_symbolTable->getSymbol(m_fileId);
-  if (strstr(fileName.c_str(), "/bin/sv/builtin.sv")) return "";
+  const std::string separator(1, fs::path::preferred_separator);
+  if (strstr(fileName.c_str(), std::string(separator + "bin" + separator +
+                                           "sv" + separator + "builtin.sv")
+                                   .c_str()))
+    return "";
   text += "FILE: " + fileName + "\n";
   for (auto object : m_objects) {
     text +=
