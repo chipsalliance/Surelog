@@ -2166,14 +2166,21 @@ bool CompileHelper::compileAlwaysBlock(DesignComponent* component,
   }
   NodeId Statement = fC->Sibling(always_keyword);
   NodeId Statement_item = fC->Child(Statement);
-  NodeId the_stmt = fC->Child(Statement_item);
-  VectorOfany* stmts =
-      compileStmt(component, fC, the_stmt, compileDesign, always, instance);
+  VectorOfany* stmts = nullptr;
+  if (fC->Type(Statement_item) == slStringConst) {
+    stmts = compileStmt(component, fC, Statement_item, compileDesign, always,
+                        instance);
+  } else {
+    NodeId the_stmt = fC->Child(Statement_item);
+    stmts =
+        compileStmt(component, fC, the_stmt, compileDesign, always, instance);
+  }
   if (stmts) {
     any* stmt = (*stmts)[0];
     always->Stmt(stmt);
     stmt->VpiParent(always);
   }
+
   always->VpiFile(fC->getFileName());
   always->VpiLineNo(fC->Line(id));
   always->VpiColumnNo(fC->Column(id));
