@@ -73,13 +73,6 @@ namespace SURELOG {
 
 using namespace UHDM;  // NOLINT (we're using a whole bunch of these)
 
-typedef std::map<ModPort*, modport*> ModPortMap;
-typedef std::map<const DesignComponent*, BaseClass*> ComponentMap;
-typedef std::map<Signal*, BaseClass*> SignalBaseClassMap;
-typedef std::map<std::string, Signal*> SignalMap;
-typedef std::map<ModuleInstance*, BaseClass*> InstanceMap;
-typedef std::map<std::string, BaseClass*> VpiSignalMap;
-
 unsigned int getBuiltinType(VObjectType type) {
   switch (type) {
     case VObjectType::slNInpGate_And:
@@ -506,9 +499,10 @@ unsigned int UhdmWriter::getVpiNetType(VObjectType type) {
 
 static void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
                        VectorOfport* dest_ports, VectorOfnet* dest_nets,
-                       Serializer& s, ComponentMap& componentMap,
-                       ModPortMap& modPortMap,
-                       SignalBaseClassMap& signalBaseMap, SignalMap& signalMap,
+                       Serializer& s, UhdmWriter::ComponentMap& componentMap,
+                       UhdmWriter::ModPortMap& modPortMap,
+                       UhdmWriter::SignalBaseClassMap& signalBaseMap,
+                       UhdmWriter::SignalMap& signalMap,
                        ModuleInstance* instance = nullptr) {
   int lastPortDirection = vpiInout;
   for (Signal* orig_port : orig_ports) {
@@ -584,13 +578,14 @@ void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
 
 void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent,
                VectorOfnet* dest_nets, Serializer& s,
-               SignalBaseClassMap& signalBaseMap, SignalMap& signalMap,
-               SignalMap& portMap, ModuleInstance* instance = nullptr) {
+               UhdmWriter::SignalBaseClassMap& signalBaseMap,
+               UhdmWriter::SignalMap& signalMap, UhdmWriter::SignalMap& portMap,
+               ModuleInstance* instance = nullptr) {
   for (auto& orig_net : orig_nets) {
     net* dest_net = nullptr;
     if (instance) {
       for (net* net : *instance->getNetlist()->nets()) {
-        SignalMap::iterator itr = signalMap.find(net->VpiName());
+        UhdmWriter::SignalMap::iterator itr = signalMap.find(net->VpiName());
         if (itr == signalMap.end()) {
           if (net->VpiName() == orig_net->getName()) {
             dest_net = net;
@@ -604,11 +599,13 @@ void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent,
     if (dest_net) {
       const FileContent* fC = orig_net->getFileContent();
       if (fC->Type(orig_net->getNodeId()) == slStringConst) {
-        SignalMap::iterator portItr = portMap.find(orig_net->getName());
+        UhdmWriter::SignalMap::iterator portItr =
+            portMap.find(orig_net->getName());
         if (portItr != portMap.end()) {
           Signal* sig = (*portItr).second;
           if (sig) {
-            SignalBaseClassMap::iterator itr = signalBaseMap.find(sig);
+            UhdmWriter::SignalBaseClassMap::iterator itr =
+                signalBaseMap.find(sig);
             if (itr != signalBaseMap.end()) {
               port* p = (port*)((*itr).second);
               if (p->Low_conn() == nullptr) {
@@ -636,7 +633,7 @@ void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent,
 }
 
 void mapLowConns(std::vector<Signal*>& orig_ports, Serializer& s,
-                 SignalBaseClassMap& signalBaseMap) {
+                 UhdmWriter::SignalBaseClassMap& signalBaseMap) {
   for (Signal* orig_port : orig_ports) {
     if (Signal* lowconn = orig_port->getLowConn()) {
       std::map<Signal*, BaseClass*>::iterator itrlow =
@@ -655,7 +652,8 @@ void mapLowConns(std::vector<Signal*>& orig_ports, Serializer& s,
 }
 
 void writeClass(ClassDefinition* classDef, VectorOfclass_defn* dest_classes,
-                Serializer& s, ComponentMap& componentMap, BaseClass* parent) {
+                Serializer& s, UhdmWriter::ComponentMap& componentMap,
+                BaseClass* parent) {
   if (classDef->getFileContents().size() &&
       classDef->getType() == VObjectType::slClass_declaration) {
     const FileContent* fC = classDef->getFileContents()[0];
@@ -717,7 +715,7 @@ void writeClass(ClassDefinition* classDef, VectorOfclass_defn* dest_classes,
 
 void writeClasses(ClassNameClassDefinitionMultiMap& orig_classes,
                   VectorOfclass_defn* dest_classes, Serializer& s,
-                  ComponentMap& componentMap, BaseClass* parent) {
+                  UhdmWriter::ComponentMap& componentMap, BaseClass* parent) {
   for (auto& orig_class : orig_classes) {
     ClassDefinition* classDef = orig_class.second;
     writeClass(classDef, dest_classes, s, componentMap, parent);
@@ -726,7 +724,7 @@ void writeClasses(ClassNameClassDefinitionMultiMap& orig_classes,
 
 void writeVariables(const DesignComponent::VariableMap& orig_vars,
                     BaseClass* parent, VectorOfvariables* dest_vars,
-                    Serializer& s, ComponentMap& componentMap) {
+                    Serializer& s, UhdmWriter::ComponentMap& componentMap) {
   for (auto& orig_var : orig_vars) {
     Variable* var = orig_var.second;
     const DataType* dtype = var->getDataType();
@@ -750,7 +748,7 @@ void writeVariables(const DesignComponent::VariableMap& orig_vars,
 }
 
 void writePackage(Package* pack, package* p, Serializer& s,
-                  ComponentMap& componentMap) {
+                  UhdmWriter::ComponentMap& componentMap) {
   p->VpiFullName(pack->getName() + "::");
   // Typepecs
   VectorOftypespec* typespecs = s.MakeTypespecVec();
@@ -808,11 +806,12 @@ void writePackage(Package* pack, package* p, Serializer& s,
 }
 
 void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
-                 ComponentMap& componentMap, ModPortMap& modPortMap,
+                 UhdmWriter::ComponentMap& componentMap,
+                 UhdmWriter::ModPortMap& modPortMap,
                  ModuleInstance* instance = nullptr) {
-  SignalBaseClassMap signalBaseMap;
-  SignalMap portMap;
-  SignalMap netMap;
+  UhdmWriter::SignalBaseClassMap signalBaseMap;
+  UhdmWriter::SignalMap portMap;
+  UhdmWriter::SignalMap netMap;
   // Typepecs
   VectorOftypespec* typespecs = s.MakeTypespecVec();
   m->Typespecs(typespecs);
@@ -926,9 +925,10 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   }
 }
 
-void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
-                    ComponentMap& componentMap, ModPortMap& modPortMap,
-                    ModuleInstance* instance = nullptr) {
+void UhdmWriter::writeInterface(ModuleDefinition* mod, interface* m,
+                                Serializer& s, ComponentMap& componentMap,
+                                ModPortMap& modPortMap,
+                                ModuleInstance* instance) {
   SignalBaseClassMap signalBaseMap;
   SignalMap portMap;
   SignalMap netMap;
@@ -964,6 +964,14 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
     for (auto& sig : orig_modport.second.getPorts()) {
       io_decl* io = s.MakeIo_decl();
       io->VpiName(sig.getName());
+      const FileContent* fC = sig.getFileContent();
+      NodeId id = sig.getNodeId();
+      if (NodeId Expression = fC->Sibling(id)) {
+        any* exp =
+            m_helper.compileExpression(mod, fC, Expression, m_compileDesign,
+                                       nullptr, instance, true, true);
+        io->Expr(exp);
+      }
       unsigned int direction = UhdmWriter::getVpiDirection(sig.getDirection());
       io->VpiDirection(direction);
       ios->push_back(io);
@@ -1045,11 +1053,12 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
 }
 
 void writeProgram(Program* mod, program* m, Serializer& s,
-                  ComponentMap& componentMap, ModPortMap& modPortMap,
+                  UhdmWriter::ComponentMap& componentMap,
+                  UhdmWriter::ModPortMap& modPortMap,
                   ModuleInstance* instance = nullptr) {
-  SignalBaseClassMap signalBaseMap;
-  SignalMap portMap;
-  SignalMap netMap;
+  UhdmWriter::SignalBaseClassMap signalBaseMap;
+  UhdmWriter::SignalMap portMap;
+  UhdmWriter::SignalMap netMap;
   // Typepecs
   VectorOftypespec* typespecs = s.MakeTypespecVec();
   m->Typespecs(typespecs);
@@ -1579,8 +1588,8 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m,
   return true;
 }
 
-bool writeElabInterface(Serializer& s, ModuleInstance* instance, interface* m,
-                        ExprBuilder& exprBuilder) {
+bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
+                                    interface* m, ExprBuilder& exprBuilder) {
   Netlist* netlist = instance->getNetlist();
 
   // Typepecs
@@ -1681,6 +1690,14 @@ bool writeElabInterface(Serializer& s, ModuleInstance* instance, interface* m,
     for (auto& sig : orig_modport.second.getPorts()) {
       io_decl* io = s.MakeIo_decl();
       io->VpiName(sig.getName());
+      const FileContent* fC = sig.getFileContent();
+      NodeId id = sig.getNodeId();
+      if (NodeId Expression = fC->Sibling(id)) {
+        any* exp =
+            m_helper.compileExpression(mod, fC, Expression, m_compileDesign,
+                                       nullptr, instance, true, true);
+        io->Expr(exp);
+      }
       unsigned int direction = UhdmWriter::getVpiDirection(sig.getDirection());
       io->VpiDirection(direction);
       io->VpiParent(dest_modport);
@@ -1782,10 +1799,12 @@ void writePrimTerms(ModuleInstance* instance, primitive* prim, int vpiGateType,
   }
 }
 
-void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
-                   CompileDesign* compileDesign, ComponentMap& componentMap,
-                   ModPortMap& modPortMap, InstanceMap& instanceMap,
-                   ExprBuilder& exprBuilder) {
+void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
+                               any* m, CompileDesign* compileDesign,
+                               UhdmWriter::ComponentMap& componentMap,
+                               UhdmWriter::ModPortMap& modPortMap,
+                               UhdmWriter::InstanceMap& instanceMap,
+                               ExprBuilder& exprBuilder) {
   Serializer& s = compileDesign->getSerializer();
   VectorOfmodule* subModules = nullptr;
   VectorOfprogram* subPrograms = nullptr;
@@ -2075,7 +2094,7 @@ void printUhdmStats(Serializer& s) {
   std::cout << "\n";
 }
 
-vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
+vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
   ComponentMap componentMap;
   ModPortMap modPortMap;
   InstanceMap instanceMap;
