@@ -232,6 +232,12 @@ class CompileHelper final {
       bool reduce, const std::string& suffixname = "",
       const std::string& typeName = "");
 
+  UHDM::any* compileCheckerInstantiation(DesignComponent* component,
+                                         const FileContent* fC, NodeId nodeId,
+                                         CompileDesign* compileDesign,
+                                         UHDM::any* pstmt,
+                                         ValuedComponentI* instance);
+
   UHDM::any* compileSimpleImmediateAssertion(DesignComponent* component,
                                              const FileContent* fC,
                                              NodeId nodeId,

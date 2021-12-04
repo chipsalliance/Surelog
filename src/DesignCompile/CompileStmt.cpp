@@ -612,6 +612,11 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       stmt = cstmt;
       break;
     }
+    case VObjectType::slChecker_instantiation: {
+      stmt = compileCheckerInstantiation(component, fC, fC->Child(the_stmt),
+                                         compileDesign, pstmt, nullptr);
+      break;
+    }
     case VObjectType::slSimple_immediate_assertion_statement: {
       stmt = compileSimpleImmediateAssertion(component, fC, fC->Child(the_stmt),
                                              compileDesign, pstmt, nullptr);
@@ -2589,4 +2594,21 @@ void CompileHelper::compileBindStmt(DesignComponent* component,
                                 Instance_target, Source_scope, Instance_name);
   compileDesign->getCompiler()->getDesign()->addBindStmt(fullName, bind);
 }
+
+UHDM::any* CompileHelper::compileCheckerInstantiation(
+    DesignComponent* component, const FileContent* fC, NodeId nodeId,
+    CompileDesign* compileDesign, UHDM::any* pstmt,
+    ValuedComponentI* instance) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::checker_inst* result = s.MakeChecker_inst();
+  NodeId Ps_identifier = fC->Child(nodeId);
+  const std::string& CheckerName = fC->SymName(Ps_identifier);
+  result->VpiDefName(CheckerName);
+  NodeId Name_of_instance = fC->Sibling(nodeId);
+  NodeId InstanceName = fC->Child(Name_of_instance);
+  const std::string& InstName = fC->SymName(InstanceName);
+  result->VpiName(InstName);
+  return result;
+}
+
 }  // namespace SURELOG
