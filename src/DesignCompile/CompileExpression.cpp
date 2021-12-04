@@ -3869,6 +3869,32 @@ UHDM::any* CompileHelper::compileExpression(
                                             pexpr, instance);
           break;
         }
+        case VObjectType::slSequence_instance: {
+          NodeId Ps_or_hierarchical_sequence_identifier = fC->Child(child);
+          NodeId Ps_or_hierarchical_array_identifier =
+              fC->Child(Ps_or_hierarchical_sequence_identifier);
+          NodeId NameId = fC->Child(Ps_or_hierarchical_array_identifier);
+          const std::string& name = fC->SymName(NameId);
+          sequence_inst* seqinst = s.MakeSequence_inst();
+          seqinst->VpiName(name);
+          NodeId Sequence_list_of_arguments =
+              fC->Sibling(Ps_or_hierarchical_sequence_identifier);
+          NodeId Sequence_actual_arg = fC->Child(Sequence_list_of_arguments);
+          VectorOfany* args = s.MakeAnyVec();
+          seqinst->Named_event_sequence_expr_groups(args);
+          while (Sequence_actual_arg) {
+            NodeId Event_expression = fC->Child(Sequence_actual_arg);
+            any* exp = compileExpression(component, fC, Event_expression,
+                                         compileDesign, seqinst, instance,
+                                         reduce, muteErrors);
+            if (exp) {
+              args->push_back(exp);
+            }
+            Sequence_actual_arg = fC->Sibling(Sequence_actual_arg);
+          }
+          result = seqinst;
+          break;
+        }
         case VObjectType::slSequence_expr: {
           result = compileExpression(component, fC, child, compileDesign,
                                      nullptr, instance, reduce, muteErrors);
