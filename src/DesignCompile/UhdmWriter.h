@@ -28,16 +28,28 @@
 
 #include "Design/Design.h"
 #include "DesignCompile/CompileDesign.h"
+#include "DesignCompile/CompileHelper.h"
 #include "SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 
 class UhdmWriter final {
  public:
-  UhdmWriter(CompileDesign* compiler, Design* design)
-      : m_compileDesign(compiler), m_design(design) {}
+  typedef std::map<ModPort*, UHDM::modport*> ModPortMap;
+  typedef std::map<const DesignComponent*, UHDM::BaseClass*> ComponentMap;
+  typedef std::map<Signal*, UHDM::BaseClass*> SignalBaseClassMap;
+  typedef std::map<std::string, Signal*> SignalMap;
+  typedef std::map<ModuleInstance*, UHDM::BaseClass*> InstanceMap;
+  typedef std::map<std::string, UHDM::BaseClass*> VpiSignalMap;
 
-  vpiHandle write(const std::string& uhdmFile) const;
+  UhdmWriter(CompileDesign* compiler, Design* design)
+      : m_compileDesign(compiler), m_design(design) {
+    m_helper.seterrorReporting(
+        m_compileDesign->getCompiler()->getErrorContainer(),
+        m_compileDesign->getCompiler()->getSymbolTable());
+  }
+
+  vpiHandle write(const std::string& uhdmFile);
 
   static unsigned int getVpiDirection(VObjectType type);
 
@@ -48,8 +60,21 @@ class UhdmWriter final {
   static unsigned int getStrengthType(VObjectType type);
 
  private:
+  void writeInterface(ModuleDefinition* mod, UHDM::interface* m,
+                      UHDM::Serializer& s, ComponentMap& componentMap,
+                      ModPortMap& modPortMap,
+                      ModuleInstance* instance = nullptr);
+  bool writeElabInterface(UHDM::Serializer& s, ModuleInstance* instance,
+                          UHDM::interface* m, ExprBuilder& exprBuilder);
+  void writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
+                     UHDM::any* m, CompileDesign* compileDesign,
+                     UhdmWriter::ComponentMap& componentMap,
+                     UhdmWriter::ModPortMap& modPortMap,
+                     UhdmWriter::InstanceMap& instanceMap,
+                     ExprBuilder& exprBuilder);
   CompileDesign* const m_compileDesign;
   Design* const m_design;
+  CompileHelper m_helper;
 };
 
 }  // namespace SURELOG

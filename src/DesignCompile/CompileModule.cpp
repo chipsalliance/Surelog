@@ -977,15 +977,19 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
                       break;
                     }
                   }
-                  if (!port_exists) {
-                    Location loc(m_symbols->registerSymbol(
-                                     fC->getFileName(simple_port_name)),
-                                 fC->Line(simple_port_name), 0,
-                                 m_symbols->registerSymbol(
-                                     fC->SymName(simple_port_name)));
-                    Error err(ErrorDefinition::COMP_MODPORT_UNDEFINED_PORT,
-                              loc);
-                    m_errors->addError(err);
+                  NodeId Expression = fC->Sibling(simple_port_name);
+                  if (Expression == 0) {
+                    // If expression is not null, we cannot conclude here
+                    if (!port_exists) {
+                      Location loc(m_symbols->registerSymbol(
+                                       fC->getFileName(simple_port_name)),
+                                   fC->Line(simple_port_name), 0,
+                                   m_symbols->registerSymbol(
+                                       fC->SymName(simple_port_name)));
+                      Error err(ErrorDefinition::COMP_MODPORT_UNDEFINED_PORT,
+                                loc);
+                      m_errors->addError(err);
+                    }
                   }
                   Signal signal(fC, simple_port_name,
                                 VObjectType::slData_type_or_implicit,
