@@ -1189,6 +1189,47 @@ void SV3_1aTreeShapeListener::exitPackage_scope(
   }
 }
 
+void SV3_1aTreeShapeListener::exitPs_identifier(
+    SV3_1aParser::Ps_identifierContext *ctx) {
+  std::string ident;
+  antlr4::ParserRuleContext *childCtx = NULL;
+  if (ctx->Simple_identifier().size()) {
+    childCtx = (antlr4::ParserRuleContext *)ctx->Simple_identifier()[0];
+    ident = ctx->Simple_identifier()[0]->getText();
+    if (ctx->Simple_identifier().size() > 1) {
+      ident += "::" + ctx->Simple_identifier()[1]->getText();
+    }
+  } else if (ctx->Escaped_identifier().size()) {
+    childCtx = (antlr4::ParserRuleContext *)ctx->Escaped_identifier()[0];
+    ident = ctx->Escaped_identifier()[0]->getText();
+    std::regex escaped(std::string(EscapeSequence) + std::string("(.*?)") +
+                       EscapeSequence);
+    std::smatch match;
+    while (std::regex_search(ident, match, escaped)) {
+      std::string var = match[1].str();
+      ident = ident.replace(match.position(0), match.length(0), var);
+    }
+  } else if (ctx->THIS().size()) {
+    childCtx = (antlr4::ParserRuleContext *)ctx->THIS()[0];
+    ident = ctx->THIS()[0]->getText();
+  } else if (ctx->RANDOMIZE().size()) {
+    childCtx = (antlr4::ParserRuleContext *)ctx->RANDOMIZE()[0];
+    ident = ctx->RANDOMIZE()[0]->getText();
+  } else if (ctx->SAMPLE().size()) {
+    childCtx = (antlr4::ParserRuleContext *)ctx->SAMPLE()[0];
+    ident = ctx->SAMPLE()[0]->getText();
+  } else if (ctx->DOLLAR_UNIT()) {
+    childCtx = (antlr4::ParserRuleContext *)ctx->DOLLAR_UNIT();
+    ident = ctx->DOLLAR_UNIT()->getText();
+  }
+  addVObject(childCtx, ident, VObjectType::slStringConst);
+  addVObject(ctx, VObjectType::slPs_identifier);
+
+  if (ident.size() > SV_MAX_IDENTIFIER_SIZE) {
+    logError(ErrorDefinition::PA_MAX_LENGTH_IDENTIFIER, ctx, ident);
+  }
+}
+
 void SV3_1aTreeShapeListener::exitExpression(
     SV3_1aParser::ExpressionContext *ctx) {
   if (ctx->MATCHES()) {
