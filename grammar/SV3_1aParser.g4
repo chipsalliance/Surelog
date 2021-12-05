@@ -1445,7 +1445,7 @@ hierarchical_btf_identifier
     | ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)*  ( class_scope )? identifier 
     ; 
 
-cover_point : ( identifier COLUMN )? COVERPOINT expression ( IFF OPEN_PARENS expression CLOSE_PARENS )? bins_or_empty ; 
+cover_point : ( data_type_or_implicit identifier COLUMN )? COVERPOINT expression ( IFF OPEN_PARENS expression CLOSE_PARENS )? bins_or_empty ; 
 
 bins_or_empty  
     : OPEN_CURLY ( attribute_instance )*  
