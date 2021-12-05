@@ -1507,14 +1507,14 @@ cross_item
     ; 
 
 cross_body  
-    : OPEN_CURLY ( cross_body_item SEMICOLUMN )? CLOSE_CURLY  
+    : OPEN_CURLY ( cross_body_item SEMICOLUMN )* CLOSE_CURLY  
                                                         
     | SEMICOLUMN                                        
     ; 
 
 cross_body_item  
       : function_declaration                  
-      | bins_selection_or_option SEMICOLUMN  
+      | bins_selection_or_option
       ; 
 
 bins_selection_or_option  
