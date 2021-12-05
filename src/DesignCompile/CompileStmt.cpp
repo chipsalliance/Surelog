@@ -228,6 +228,14 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
                 vars->push_back((UHDM::variables*)assign->Lhs());
                 ((variables*)assign->Lhs())->VpiParent(stmt);
               }
+            } else if (cstmt->UhdmType() == uhdmsequence_decl) {
+              VectorOfsequence_decl* decls = scope->Sequence_decls();
+              if (decls == nullptr) {
+                decls = s.MakeSequence_declVec();
+                scope->Sequence_decls(decls);
+              }
+              decls->push_back((sequence_decl*)cstmt);
+              isDecl = true;
             }
             if (!isDecl) {
               stmts->push_back(cstmt);
@@ -610,6 +618,16 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
     case VObjectType::slContinueStmt: {
       UHDM::continue_stmt* cstmt = s.MakeContinue_stmt();
       stmt = cstmt;
+      break;
+    }
+    case VObjectType::slRandsequence_statement: {
+      NodeId Name = fC->Child(the_stmt);
+      sequence_decl* seqdecl = s.MakeSequence_decl();
+      if (Name) {
+        const std::string& name = fC->SymName(Name);
+        seqdecl->VpiName(name);
+      }
+      stmt = seqdecl;
       break;
     }
     case VObjectType::slChecker_instantiation: {
