@@ -2378,7 +2378,7 @@ clocking_direction
 
 list_of_clocking_decl_assign : clocking_decl_assign ( COMMA clocking_decl_assign )* ; 
 
-clocking_decl_assign : identifier ( ASSIGN_OP  ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)*  )? ; 
+clocking_decl_assign : identifier ( ASSIGN_OP expression )? ; 
 
 clocking_skew   
     : edge_identifier ( delay_control )? 
