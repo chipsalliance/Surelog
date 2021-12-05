@@ -202,6 +202,11 @@ class CompileHelper final {
                                      CompileDesign* compileDesign,
                                      UHDM::any* pstmt = nullptr,
                                      ValuedComponentI* instance = nullptr);
+  UHDM::atomic_stmt* compileRandcaseStmt(DesignComponent* component,
+                                         const FileContent* fC, NodeId nodeId,
+                                         CompileDesign* compileDesign,
+                                         UHDM::any* pstmt = nullptr,
+                                         ValuedComponentI* instance = nullptr);
 
   UHDM::VectorOfany* compileStmt(DesignComponent* component,
                                  const FileContent* fC, NodeId nodeId,

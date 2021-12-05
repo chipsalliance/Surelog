@@ -181,6 +181,13 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       stmt = cstmt;
       break;
     }
+    case VObjectType::slRandcase_statement: {
+      NodeId Case_statement = the_stmt;
+      UHDM::atomic_stmt* cstmt = compileRandcaseStmt(
+          component, fC, Case_statement, compileDesign, pstmt, instance);
+      stmt = cstmt;
+      break;
+    }
     case VObjectType::slCase_statement: {
       NodeId Case_statement = the_stmt;
       UHDM::atomic_stmt* cstmt = compileCaseStmt(
@@ -931,6 +938,46 @@ UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(
     stmt->VpiParent(event);
   }
   return event;
+}
+
+UHDM::atomic_stmt* CompileHelper::compileRandcaseStmt(
+    DesignComponent* component, const FileContent* fC, NodeId nodeId,
+    CompileDesign* compileDesign, UHDM::any* pstmt,
+    ValuedComponentI* instance) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::atomic_stmt* result = nullptr;
+  NodeId RandCase = fC->Child(nodeId);
+  UHDM::case_stmt* case_stmt = s.MakeCase_stmt();
+  case_stmt->VpiRandType(vpiRand);
+  UHDM::VectorOfcase_item* case_items = s.MakeCase_itemVec();
+  case_stmt->Case_items(case_items);
+  result = case_stmt;
+  while (RandCase) {
+    NodeId Expression = fC->Child(RandCase);
+    UHDM::case_item* case_item = s.MakeCase_item();
+    case_items->push_back(case_item);
+    VectorOfany* exprs = s.MakeAnyVec();
+    case_item->VpiExprs(exprs);
+    UHDM::any* item_exp = compileExpression(component, fC, Expression,
+                                            compileDesign, pstmt, instance);
+    setParentNoOverride(item_exp, case_item);
+    if (item_exp) {
+      exprs->push_back(item_exp);
+    }
+    NodeId stmt = fC->Sibling(Expression);
+    VectorOfany* stmts =
+        compileStmt(component, fC, stmt, compileDesign, case_item, instance);
+    if (stmts) {
+      any* stmt = (*stmts)[0];
+      stmt->VpiParent(case_item);
+      case_item->Stmt(stmt);
+    }
+    RandCase = fC->Sibling(RandCase);
+    if (fC->Type(RandCase) == slEndcase) {
+      break;
+    }
+  }
+  return result;
 }
 
 UHDM::atomic_stmt* CompileHelper::compileCaseStmt(DesignComponent* component,
