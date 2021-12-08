@@ -1364,6 +1364,7 @@ NodeId CompileHelper::setFuncTaskQualifiers(const FileContent* fC,
          (func_type == VObjectType::slExtern_qualifier) ||
          (func_type == VObjectType::slClassItemQualifier_Protected) ||
          (func_type == VObjectType::slLifetime_Automatic) ||
+         (func_type == VObjectType::slLifetime_Static) ||
          (func_type == VObjectType::slDpi_import_export) ||
          (func_type == VObjectType::slPure_keyword) ||
          (func_type == VObjectType::slImport) ||
@@ -1415,6 +1416,10 @@ NodeId CompileHelper::setFuncTaskQualifiers(const FileContent* fC,
       func_decl = fC->Sibling(func_decl);
       func_type = fC->Type(func_decl);
       if (func) func->VpiAutomatic(true);
+    }
+    if (func_type == VObjectType::slLifetime_Static) {
+      func_decl = fC->Sibling(func_decl);
+      func_type = fC->Type(func_decl);
     }
     if (func_type == VObjectType::slClassItemQualifier_Protected) {
       is_protected = true;
