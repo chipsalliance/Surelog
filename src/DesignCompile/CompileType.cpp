@@ -879,17 +879,21 @@ UHDM::typespec* CompileHelper::compileTypespec(
                              result, instance, reduce);
     }
     case VObjectType::slSystem_task: {
-      UHDM::constant* constant = any_cast<UHDM::constant*>(compileExpression(
-          component, fC, type, compileDesign, nullptr, instance, true));
-      if (constant) {
+      UHDM::any* res = compileExpression(component, fC, type, compileDesign,
+                                         nullptr, instance, reduce);
+      if (res) {
         integer_typespec* var = s.MakeInteger_typespec();
-        var->VpiValue(constant->VpiValue());
         var->VpiFile(fC->getFileName());
         var->VpiLineNo(fC->Line(type));
         var->VpiColumnNo(fC->Column(type));
         var->VpiEndLineNo(fC->EndLine(type));
         var->VpiEndColumnNo(fC->EndColumn(type));
         result = var;
+        if (UHDM::constant* constant = any_cast<UHDM::constant*>(res)) {
+          var->VpiValue(constant->VpiValue());
+        } else {
+          var->Expr((expr*)res);
+        }
       } else {
         unsupported_typespec* tps = s.MakeUnsupported_typespec();
         tps->VpiFile(fC->getFileName());
