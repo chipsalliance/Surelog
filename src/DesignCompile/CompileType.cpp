@@ -1294,14 +1294,16 @@ UHDM::typespec* CompileHelper::compileTypespec(
     case VObjectType::slConstant_expression: {
       expr* exp =
           (expr*)compileExpression(component, fC, type, compileDesign, nullptr,
-                                   instance, true, reduce == false);
+                                   instance, reduce, reduce == false);
       if (exp && exp->UhdmType() == uhdmref_obj) {
         return compileTypespec(component, fC, fC->Child(type), compileDesign,
                                result, instance, reduce);
       } else {
         integer_typespec* var = s.MakeInteger_typespec();
-        if (exp) {
+        if (exp->UhdmType() == uhdmconstant) {
           var->VpiValue(exp->VpiValue());
+        } else {
+          var->Expr(exp);
         }
         var->VpiFile(fC->getFileName());
         var->VpiLineNo(fC->Line(type));
