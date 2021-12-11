@@ -547,6 +547,8 @@ class CompileHelper final {
   bool isOverloaded(const UHDM::any* expr, CompileDesign* compileDesign,
                     ValuedComponentI* instance);
 
+  std::string decompileHelper(const UHDM::any* sel);
+
  private:
   CompileHelper(const CompileHelper&) = delete;
 
