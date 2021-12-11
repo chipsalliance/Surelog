@@ -6329,16 +6329,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
           if (index) {
             bit_select* select = s.MakeBit_select();
             select->VpiIndex(index);
-            if (index->UhdmType() == uhdmconstant) {
-              ind = index->VpiDecompile();
-              the_name += "[" + ind + "]";
-            } else if (index->UhdmType() == uhdmref_obj) {
-              ind = index->VpiName();
-              the_name += "[" + ind + "]";
-            } else if (index->UhdmType() == uhdmoperation) {
-              ind = "...";
-              the_name += "[" + ind + "]";
-            }
+            the_name += decompileHelper(index);
             select->VpiFullName(the_name);
             select->VpiName(fC->SymName(name));
             select->VpiParent(pexpr);
@@ -6421,22 +6412,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
             ref_obj* parent = (ref_obj*)select->VpiParent();
             if (parent) parent->VpiDefName(tmpName);
             elems->push_back(select);
-            if (part_select* pselect = any_cast<part_select*>(select)) {
-              std::string selectRange =
-                  "[" + pselect->Left_range()->VpiDecompile() + ":" +
-                  pselect->Right_range()->VpiDecompile() + "]";
-              the_name += selectRange;
-            } else if (indexed_part_select* pselect =
-                           any_cast<indexed_part_select*>(select)) {
-              std::string selectRange =
-                  "[" + pselect->Base_expr()->VpiDecompile() +
-                  ((pselect->VpiIndexedPartSelectType() == vpiPosIndexed)
-                       ? "+"
-                       : "-") +
-                  std::string(":") + pselect->Width_expr()->VpiDecompile() +
-                  "]";
-              the_name += selectRange;
-            }
+            the_name += decompileHelper(select);
           } else if (Expression) {
             expr* index = (expr*)compileExpression(
                 component, fC, Expression, compileDesign, pexpr, instance,
@@ -6444,20 +6420,11 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
             if (index) {
               bit_select* select = s.MakeBit_select();
               elems->push_back(select);
-              select->VpiParent(path);
+              if (!tmpName.empty()) select->VpiParent(path);
               select->VpiIndex(index);
               select->VpiName(tmpName);
               select->VpiFullName(tmpName);
-              if (index->UhdmType() == uhdmconstant) {
-                ind = index->VpiDecompile();
-                the_name += "[" + ind + "]";
-              } else if (index->UhdmType() == uhdmref_obj) {
-                ind = index->VpiName();
-                the_name += "[" + ind + "]";
-              } else if (index->UhdmType() == uhdmoperation) {
-                ind = "...";
-                the_name += "[" + ind + "]";
-              }
+              the_name += decompileHelper(index);
             }
           } else {
             ref_obj* ref = s.MakeRef_obj();

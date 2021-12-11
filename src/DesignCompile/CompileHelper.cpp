@@ -2000,15 +2000,30 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     NodeId Expression = fC->Sibling(Net_lvalue);
     if (Expression && (fC->Type(Expression) != slUnpacked_dimension)) {
       // LHS
-      NodeId Hierarchical_identifier = fC->Child(Net_lvalue);
-      if (fC->Type(fC->Child(Hierarchical_identifier)) ==
+      NodeId Ps_or_hierarchical_identifier = fC->Child(Net_lvalue);
+      NodeId Hierarchical_identifier = Ps_or_hierarchical_identifier;
+      if (fC->Type(fC->Child(Ps_or_hierarchical_identifier)) ==
           slHierarchical_identifier) {
         Hierarchical_identifier = fC->Child(fC->Child(Hierarchical_identifier));
       }
       UHDM::any* lhs_exp =
           compileExpression(component, fC, Hierarchical_identifier,
                             compileDesign, nullptr, instance);
-
+      NodeId Constant_select = fC->Sibling(Ps_or_hierarchical_identifier);
+      if ((fC->Type(Constant_select) == slConstant_select) &&
+          (Ps_or_hierarchical_identifier != Hierarchical_identifier)) {
+        UHDM::any* sel = compileSelectExpression(
+            component, fC, fC->Child(Constant_select), "", compileDesign,
+            nullptr, instance, false, false);
+        if ((lhs_exp->UhdmType() == uhdmhier_path) && sel) {
+          hier_path* path = (hier_path*)lhs_exp;
+          path->Path_elems()->push_back(sel);
+          std::string path_name = path->VpiName();
+          path_name += decompileHelper(sel);
+          path->VpiName(path_name);
+          path->VpiFullName(path_name);
+        }
+      }
       // RHS
       UHDM::any* rhs_exp = compileExpression(component, fC, Expression,
                                              compileDesign, nullptr, instance);
@@ -2039,6 +2054,46 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     Net_assignment = fC->Sibling(Net_assignment);
   }
   return true;
+}
+
+std::string CompileHelper::decompileHelper(const any* sel) {
+  std::string path_name;
+  if (sel->UhdmType() == uhdmconstant) {
+    std::string ind = ((expr*)sel)->VpiDecompile();
+    path_name += "[" + ind + "]";
+  } else if (sel->UhdmType() == uhdmref_obj) {
+    std::string ind = ((expr*)sel)->VpiName();
+    path_name += "[" + ind + "]";
+  } else if (sel->UhdmType() == uhdmoperation) {
+    std::string ind = "...";
+    path_name += "[" + ind + "]";
+  } else if (sel->UhdmType() == uhdmbit_select) {
+    bit_select* bsel = (bit_select*)sel;
+    const expr* index = bsel->VpiIndex();
+    if (index->UhdmType() == uhdmconstant) {
+      std::string ind = ((expr*)index)->VpiDecompile();
+      path_name += "[" + ind + "]";
+    } else if (index->UhdmType() == uhdmref_obj) {
+      std::string ind = ((expr*)index)->VpiName();
+      path_name += "[" + ind + "]";
+    } else if (index->UhdmType() == uhdmoperation) {
+      std::string ind = "...";
+      path_name += "[" + ind + "]";
+    }
+  } else if (const part_select* pselect = any_cast<const part_select*>(sel)) {
+    std::string selectRange = "[" + pselect->Left_range()->VpiDecompile() +
+                              ":" + pselect->Right_range()->VpiDecompile() +
+                              "]";
+    path_name += selectRange;
+  } else if (const indexed_part_select* pselect =
+                 any_cast<const indexed_part_select*>(sel)) {
+    std::string selectRange =
+        "[" + pselect->Base_expr()->VpiDecompile() +
+        ((pselect->VpiIndexedPartSelectType() == vpiPosIndexed) ? "+" : "-") +
+        std::string(":") + pselect->Width_expr()->VpiDecompile() + "]";
+    path_name += selectRange;
+  }
+  return path_name;
 }
 
 bool CompileHelper::compileInitialBlock(DesignComponent* component,
