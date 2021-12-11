@@ -4,3 +4,13 @@ module alert_handler_reg_wrap;
   end
 endmodule
 
+
+module top;
+  typedef struct packed {
+    int x;
+  } struct_t;
+
+  struct_t [1:0][2:0] a;
+  
+  assign a[0][0].x[0] = 1;
+endmodule
