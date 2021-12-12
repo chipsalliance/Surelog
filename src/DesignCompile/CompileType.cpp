@@ -868,6 +868,14 @@ UHDM::typespec* CompileHelper::compileTypespec(
   } else {
     Packed_dimension = fC->Sibling(type);
   }
+  bool isPacked = false;
+  if (fC->Type(Packed_dimension) == slPacked_keyword) {
+    Packed_dimension = fC->Sibling(Packed_dimension);
+    isPacked = true;
+  }
+  if (fC->Type(Packed_dimension) == slStruct_union_member) {
+    Packed_dimension = fC->Sibling(Packed_dimension);
+  }
   int size;
   VectorOfrange* ranges =
       compileRanges(component, fC, Packed_dimension, compileDesign, pstmt,
@@ -1076,16 +1084,15 @@ UHDM::typespec* CompileHelper::compileTypespec(
       VObjectType struct_or_union_type = fC->Type(struct_or_union);
       VectorOftypespec_member* members = s.MakeTypespec_memberVec();
 
-      bool packed = false;
       NodeId struct_or_union_member = fC->Sibling(type);
       if (fC->Type(struct_or_union_member) == VObjectType::slPacked_keyword) {
         struct_or_union_member = fC->Sibling(struct_or_union_member);
-        packed = true;
+        isPacked = true;
       }
 
       if (struct_or_union_type == VObjectType::slStruct_keyword) {
         struct_typespec* ts = s.MakeStruct_typespec();
-        ts->VpiPacked(packed);
+        ts->VpiPacked(isPacked);
         ts->Members(members);
         result = ts;
         ts->VpiFile(fC->getFileName());
@@ -1095,7 +1102,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
         ts->VpiEndColumnNo(fC->EndColumn(type));
       } else {
         union_typespec* ts = s.MakeUnion_typespec();
-        ts->VpiPacked(packed);
+        ts->VpiPacked(isPacked);
         ts->Members(members);
         result = ts;
         ts->VpiFile(fC->getFileName());
@@ -1103,6 +1110,20 @@ UHDM::typespec* CompileHelper::compileTypespec(
         ts->VpiColumnNo(fC->Column(type));
         ts->VpiEndLineNo(fC->EndLine(type));
         ts->VpiEndColumnNo(fC->EndColumn(type));
+      }
+
+      if (ranges) {
+        if (isPacked) {
+          packed_array_typespec* pats = s.MakePacked_array_typespec();
+          pats->Elem_typespec(result);
+          pats->Ranges(ranges);
+          result = pats;
+        } else {
+          array_typespec* pats = s.MakeArray_typespec();
+          pats->Elem_typespec(result);
+          pats->Ranges(ranges);
+          result = pats;
+        }
       }
 
       while (struct_or_union_member) {
