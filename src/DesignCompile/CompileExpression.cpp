@@ -4101,6 +4101,7 @@ UHDM::any* CompileHelper::compileExpression(
           if (result) break;
 
           if (sval == NULL || (sval && !sval->isValid())) {
+            expr* complexValue = nullptr;
             if (instance) {
               ModuleInstance* inst =
                   valuedcomponenti_cast<ModuleInstance*>(instance);
@@ -4141,6 +4142,10 @@ UHDM::any* CompileHelper::compileExpression(
                     }
                   }
                 }
+                expr* complex = inst->getComplexValue(name);
+                if (complex) {
+                  complexValue = complex;
+                }
               }
             }
             if (component && (result == nullptr)) {
@@ -4163,9 +4168,13 @@ UHDM::any* CompileHelper::compileExpression(
                            (param_ass->Rhs()->UhdmType() == uhdmconstant))) {
                         if (substituteAssignedValue(param_ass->Rhs(),
                                                     compileDesign)) {
-                          ElaboratorListener listener(&s);
-                          result = UHDM::clone_tree((any*)param_ass->Rhs(), s,
-                                                    &listener);
+                          if (complexValue) {
+                            result = complexValue;
+                          } else {
+                            ElaboratorListener listener(&s);
+                            result = UHDM::clone_tree((any*)param_ass->Rhs(), s,
+                                                      &listener);
+                          }
                           const any* lhs = param_ass->Lhs();
                           expr* res = (expr*)result;
                           const typespec* tps = nullptr;
