@@ -693,6 +693,7 @@ any* CompileHelper::decodeHierPath(hier_path* path, bool& invalidValue,
                                    const std::string& fileName, int lineNumber,
                                    any* pexpr, bool muteErrors,
                                    bool returnTypespec) {
+  Serializer& s = compileDesign->getSerializer();
   std::string baseObject;
   if (path->Path_elems()->size()) {
     any* firstElem = path->Path_elems()->at(0);
@@ -718,6 +719,12 @@ any* CompileHelper::decodeHierPath(hier_path* path, bool& invalidValue,
     } else if (bit_select* bts = any_cast<bit_select*>(object)) {
       object = reduceExpr((any*)bts, invalidValue, component, compileDesign,
                           instance, fileName, lineNumber, pexpr, muteErrors);
+    } else if (constant* cons = any_cast<constant*>(object)) {
+      ElaboratorListener listener(&s);
+      object = UHDM::clone_tree((any*)cons, s, &listener);
+      cons = any_cast<constant*>(object);
+      if (cons->Typespec() == nullptr)
+        cons->Typespec((typespec*) path->Typespec());
     }
 
     std::vector<std::string> the_path;
@@ -2356,6 +2363,36 @@ any* CompileHelper::hierarchicalSelector(
             return (expr*)member->Typespec();
           else
             return (expr*)member->Default_value();
+        }
+      }
+    }
+  } else if (constant* cons = any_cast<constant*>(object)) {
+    const typespec* ts = cons->Typespec();
+    if (ts) {
+      UHDM_OBJECT_TYPE ttps = ts->UhdmType();
+      if (ttps == uhdmstruct_typespec) {
+        struct_typespec* stpt = (struct_typespec*) ts;
+        uint64_t from = 0;
+        uint64_t width = 0;
+        for (typespec_member* member : *stpt->Members()) {
+          if (member->VpiName() == elemName) {
+            width = Bits(member, invalidValue, component, compileDesign,
+                         instance, fileName, lineNumber, true, false);
+            uint64_t iv = get_value(invalidValue, cons);
+            uint64_t mask = 0;
+
+            for (uint64_t i = from; i < uint64_t(from + width); i++) {
+              mask |= ((uint64_t)1 << i);
+            }
+            uint64_t res = iv & mask;
+            res = res >> (from);
+            cons->VpiValue("UINT:" + std::to_string(res));
+            cons->VpiSize(width);
+            return cons;
+          } else {
+            from += Bits(member, invalidValue, component, compileDesign,
+                         instance, fileName, lineNumber, true, false);
+          }
         }
       }
     }
@@ -5528,6 +5565,12 @@ uint64_t CompileHelper::Bits(const UHDM::any* typespec, bool& invalidValue,
         bits += Bits(tps, invalidValue, component, compileDesign, instance,
                      fileName, lineNumber, reduce, sizeMode);
         ranges = tmp->Ranges();
+        break;
+      }
+      case uhdmtypespec_member: {
+        typespec_member* tmp = (typespec_member*)typespec;
+        bits += Bits(tmp->Typespec(), invalidValue, component, compileDesign, instance,
+                     fileName, lineNumber, reduce, sizeMode);
         break;
       }
       default:
