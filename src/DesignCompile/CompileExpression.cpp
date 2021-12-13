@@ -724,7 +724,7 @@ any* CompileHelper::decodeHierPath(hier_path* path, bool& invalidValue,
       object = UHDM::clone_tree((any*)cons, s, &listener);
       cons = any_cast<constant*>(object);
       if (cons->Typespec() == nullptr)
-        cons->Typespec((typespec*) path->Typespec());
+        cons->Typespec((typespec*)path->Typespec());
     }
 
     std::vector<std::string> the_path;
@@ -2371,7 +2371,7 @@ any* CompileHelper::hierarchicalSelector(
     if (ts) {
       UHDM_OBJECT_TYPE ttps = ts->UhdmType();
       if (ttps == uhdmstruct_typespec) {
-        struct_typespec* stpt = (struct_typespec*) ts;
+        struct_typespec* stpt = (struct_typespec*)ts;
         uint64_t from = 0;
         uint64_t width = 0;
         for (typespec_member* member : *stpt->Members()) {
@@ -5569,8 +5569,8 @@ uint64_t CompileHelper::Bits(const UHDM::any* typespec, bool& invalidValue,
       }
       case uhdmtypespec_member: {
         typespec_member* tmp = (typespec_member*)typespec;
-        bits += Bits(tmp->Typespec(), invalidValue, component, compileDesign, instance,
-                     fileName, lineNumber, reduce, sizeMode);
+        bits += Bits(tmp->Typespec(), invalidValue, component, compileDesign,
+                     instance, fileName, lineNumber, reduce, sizeMode);
         break;
       }
       default:
