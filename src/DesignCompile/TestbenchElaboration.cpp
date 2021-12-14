@@ -703,6 +703,7 @@ bool TestbenchElaboration::bindProperties_() {
     ClassDefinition* classDefinition = (*itr).second;
     UHDM::class_defn* defn = classDefinition->getUhdmDefinition();
     UHDM::VectorOfvariables* vars = defn->Variables();
+    UHDM::VectorOfnamed_event* events = defn->Named_events();
     for (Signal* sig : classDefinition->getSignals()) {
       const FileContent* fC = sig->getFileContent();
       NodeId id = sig->getNodeId();
@@ -751,6 +752,14 @@ bool TestbenchElaboration::bindProperties_() {
                    unpackedDimensions, unpackedSize, nullptr, vars, exp, tps);
 
       if (obj) {
+        if (obj->UhdmType() == UHDM::uhdmnamed_event) {
+          if (events == nullptr) {
+            defn->Named_events(s.MakeNamed_eventVec());
+            events = defn->Named_events();
+          }
+          events->push_back((UHDM::named_event*)obj);
+        }
+
         obj->VpiLineNo(fC->Line(id));
         obj->VpiColumnNo(fC->Column(id));
         obj->VpiEndLineNo(fC->EndLine(id));
