@@ -1179,6 +1179,12 @@ bool writeElabProgram(Serializer& s, ModuleInstance* instance, program* m) {
       obj->VpiParent(m);
     }
   }
+  m->Named_events(netlist->named_events());
+  if (netlist->named_events()) {
+    for (auto obj : *netlist->named_events()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Array_nets(netlist->array_nets());
   if (netlist->array_nets()) {
     for (auto obj : *netlist->array_nets()) {
@@ -1341,6 +1347,12 @@ bool writeElabGenScope(Serializer& s, ModuleInstance* instance, gen_scope* m,
       obj->VpiParent(m);
     }
   }
+  m->Named_events(netlist->named_events());
+  if (netlist->named_events()) {
+    for (auto obj : *netlist->named_events()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Array_nets(netlist->array_nets());
   if (netlist->array_nets()) {
     for (auto obj : *netlist->array_nets()) {
@@ -1494,6 +1506,12 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m,
       obj->VpiParent(m);
     }
   }
+  m->Named_events(netlist->named_events());
+  if (netlist->named_events()) {
+    for (auto obj : *netlist->named_events()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Array_nets(netlist->array_nets());
   if (netlist->array_nets()) {
     for (auto obj : *netlist->array_nets()) {
@@ -1632,6 +1650,12 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
   m->Array_vars(netlist->array_vars());
   if (netlist->array_vars()) {
     for (auto obj : *netlist->array_vars()) {
+      obj->VpiParent(m);
+    }
+  }
+  m->Named_events(netlist->named_events());
+  if (netlist->named_events()) {
+    for (auto obj : *netlist->named_events()) {
       obj->VpiParent(m);
     }
   }
