@@ -461,7 +461,9 @@ typespec* CompileHelper::compileDatastructureTypespec(
             }
             if (result->UhdmType() == uhdmint_typespec) {
               int_typespec* ts = (int_typespec*)result;
-              ts->Cast_to_expr(lhs);
+              ref_obj* ref = s.MakeRef_obj();
+              ref->Actual_group(lhs);
+              ts->Cast_to_expr(ref);
             }
             return result;
           }
