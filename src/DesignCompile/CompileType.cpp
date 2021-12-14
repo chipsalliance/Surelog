@@ -459,6 +459,10 @@ typespec* CompileHelper::compileDatastructureTypespec(
               lhs->Typespec(tps);
               result = tps;
             }
+            if (result->UhdmType() == uhdmint_typespec) {
+              int_typespec* ts = (int_typespec*)result;
+              ts->Cast_to_expr(lhs);
+            }
             return result;
           }
         }
