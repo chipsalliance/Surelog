@@ -61,6 +61,7 @@ class Netlist {
   std::vector<UHDM::variables*>* variables() { return m_variables; }
   std::vector<UHDM::array_var*>* array_vars() { return m_array_vars; }
   std::vector<UHDM::array_net*>* array_nets() { return m_array_nets; }
+  std::vector<UHDM::named_event*>* named_events() { return m_named_events; }
   std::vector<UHDM::expr*>* delays() { return m_delays; }
   std::vector<UHDM::range*>* ranges() { return m_ranges; }
   std::vector<UHDM::cont_assign*>* cont_assigns() { return m_assign_stmts; }
@@ -79,6 +80,9 @@ class Netlist {
   }
   void variables(std::vector<UHDM::variables*>* variables) {
     m_variables = variables;
+  }
+  void named_events(std::vector<UHDM::named_event*>* events) {
+    m_named_events = events;
   }
   void array_vars(std::vector<UHDM::array_var*>* array_vars) {
     m_array_vars = array_vars;
@@ -113,6 +117,7 @@ class Netlist {
   std::vector<UHDM::variables*>* m_variables = nullptr;
   std::vector<UHDM::array_var*>* m_array_vars = nullptr;
   std::vector<UHDM::array_net*>* m_array_nets = nullptr;
+  std::vector<UHDM::named_event*>* m_named_events = nullptr;
   // properties of the netlist itself (gate)
   std::vector<UHDM::expr*>* m_delays = nullptr;
   std::vector<UHDM::range*>* m_ranges = nullptr;
