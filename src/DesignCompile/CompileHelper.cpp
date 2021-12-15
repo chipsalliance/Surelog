@@ -2166,6 +2166,31 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(
       any* stmt = (*st)[0];
       dc->Stmt(stmt);
       stmt->VpiParent(dc);
+    } else {
+      // Malformed AST due to grammar for: #1 t
+      NodeId unit = fC->Child(IntConst);
+      if (unit) {
+        const std::string& name = fC->SymName(unit);
+        std::pair<task_func*, DesignComponent*> ret =
+            getTaskFunc(name, component, compileDesign, nullptr, nullptr);
+        task_func* tf = ret.first;
+        any* call = nullptr;
+        if (tf) {
+          if (tf->UhdmType() == uhdmfunction) {
+            func_call* fcall = s.MakeFunc_call();
+            fcall->Function(any_cast<function*>(tf));
+            call = fcall;
+          } else {
+            task_call* tcall = s.MakeTask_call();
+            tcall->Task(any_cast<task*>(tf));
+            call = tcall;
+          }
+        }
+        if (call) {
+          dc->Stmt(call);
+          call->VpiParent(dc);
+        }
+      }
     }
   }
   return dc;
