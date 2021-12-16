@@ -665,8 +665,13 @@ void SV3_1aTreeShapeListener::exitTime_literal(
   else if (ctx->Real_number())
     addVObject((antlr4::ParserRuleContext *)ctx->Real_number(),
                std::to_string(value), VObjectType::slIntConst);
-  addVObject(ctx->time_unit(), ctx->time_unit()->getText(),
-             VObjectType::slTime_unit);
+  const std::string &s = ctx->time_unit()->getText();
+  if ((s == "s") || (s == "ms") || (s == "us") || (s == "ns") || (s == "ps") ||
+      (s == "fs")) {
+  } else {
+    logError(ErrorDefinition::COMP_ILLEGAL_TIMESCALE, ctx, s);
+  }
+  addVObject(ctx->time_unit(), s, VObjectType::slTime_unit);
   addVObject(ctx, VObjectType::slTime_literal);
 }
 
