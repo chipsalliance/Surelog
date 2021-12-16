@@ -2640,6 +2640,17 @@ void CompileHelper::adjustSize(const UHDM::typespec* ts,
         uval = uval & mask;
         c->VpiValue("UINT:" + std::to_string(uval));
         c->VpiConstType(vpiUIntConst);
+      } else if (c->VpiConstType() == vpiBinaryConst) {
+        if (orig_size == -1) {
+          // '1, '0
+          uint64_t uval = (uint64_t)val;
+          if (uval == 1) {
+            uint64_t mask = NumUtils::getMask(size);
+            uval = mask;
+            c->VpiValue("UINT:" + std::to_string(uval));
+            c->VpiConstType(vpiUIntConst);
+          }
+        }
       }
     }
     c->VpiSize(size);
