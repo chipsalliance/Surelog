@@ -2129,7 +2129,13 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
             packed_array_var* array = (packed_array_var*)object;
             VectorOfany* elems = array->Elements();
             if (index_val < elems->size()) {
-              result = elems->at(index_val);
+              any* elem = elems->at(index_val);
+              if (elem->UhdmType() == uhdmenum_var ||
+                  elem->UhdmType() == uhdmstruct_var ||
+                  elem->UhdmType() == uhdmunion_var) {
+              } else {
+                result = elems->at(index_val);
+              }
             }
           } else if (otype == uhdmoperation) {
             operation* op = (operation*)object;
