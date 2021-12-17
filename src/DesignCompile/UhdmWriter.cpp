@@ -292,6 +292,22 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
       return vpiNonOverlapImplyOp;
     case VObjectType::slOVERLAP_IMPLY:
       return vpiOverlapImplyOp;
+    case VObjectType::slOVERLAPPED:
+      return vpiOverlapFollowedByOp;
+    case VObjectType::slNONOVERLAPPED:
+      return vpiNonOverlapFollowedByOp;
+    case VObjectType::slUNTIL:
+      return vpiUntilOp;
+    case VObjectType::slS_UNTIL:
+      return vpiUntilOp;
+    case VObjectType::slUNTIL_WITH:
+      return vpiUntilWithOp;
+    case VObjectType::slS_UNTIL_WITH:
+      return vpiUntilWithOp;
+    case VObjectType::slIMPLIES:
+      return vpiImpliesOp;
+    case VObjectType::slIFF:
+      return vpiIffOp;
     case VObjectType::slCycle_delay_range:
       return vpiCycleDelayOp;
     case VObjectType::slConsecutive_repetition:

@@ -4558,6 +4558,39 @@ UHDM::any* CompileHelper::compileExpression(
           result = operation;
           break;
         }
+        case VObjectType::slProperty_expr: {
+          expr* subexp =
+              (expr*)compileExpression(component, fC, child, compileDesign,
+                                       nullptr, instance, reduce, muteErrors);
+          if (NodeId sib = fC->Sibling(child)) {
+            VObjectType type = fC->Type(sib);
+            switch (type) {
+              case slOR:
+              case slAND:
+              case slUNTIL:
+              case slS_UNTIL:
+              case slUNTIL_WITH:
+              case slS_UNTIL_WITH: {
+                int optype = UhdmWriter::getVpiOpType(type);
+                operation* oper = s.MakeOperation();
+                oper->VpiOpType(optype);
+                UHDM::VectorOfany* operands = s.MakeAnyVec();
+                oper->Operands(operands);
+                operands->push_back(subexp);
+                NodeId nop = fC->Sibling(sib);
+                expr* nexp = (expr*)compileExpression(
+                    component, fC, nop, compileDesign, nullptr, instance,
+                    reduce, muteErrors);
+                operands->push_back(nexp);
+                result = oper;
+                break;
+              }
+              default:
+                break;
+            };
+          }
+          break;
+        }
         default:
           break;
       }
