@@ -1182,9 +1182,9 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
 
         NodeId List_of_tf_variable_identifiers =
             fC->Sibling(Data_type_or_implicit);
-        while (List_of_tf_variable_identifiers) {
+        NodeId nameId = fC->Child(List_of_tf_variable_identifiers);
+        while (nameId) {
           VectorOfrange* ranges = nullptr;
-          NodeId nameId = fC->Child(List_of_tf_variable_identifiers);
           NodeId Variable_dimension = fC->Sibling(nameId);
           if (fC->Type(Variable_dimension) == slVariable_dimension) {
             int size;
@@ -1207,8 +1207,10 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
           decl->VpiEndLineNo(fC->EndLine(nameId));
           decl->VpiEndColumnNo(fC->EndColumn(nameId));
           decl->Ranges(ranges);
-          List_of_tf_variable_identifiers =
-              fC->Sibling(List_of_tf_variable_identifiers);
+          if (fC->Type(Variable_dimension) == slVariable_dimension) {
+            nameId = fC->Sibling(nameId);
+          }
+          nameId = fC->Sibling(nameId);
         }
       } else if (fC->Type(Tf_port_declaration) == slBlock_item_declaration) {
         NodeId Data_declaration = fC->Child(Tf_port_declaration);
