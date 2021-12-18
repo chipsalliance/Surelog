@@ -555,7 +555,7 @@ void PreprocessFile::recordMacro(const std::string& name, unsigned int line,
 
 std::string PreprocessFile::reportIncludeInfo() {
   std::string report;
-  for (auto info : m_includeFileInfo) {
+  for (auto& info : m_includeFileInfo) {
     std::string type = (info.m_type == IncludeFileInfo::PUSH) ? "in" : "out";
     report += std::to_string(info.m_originalLine) + " " +
               getSymbol(info.m_sectionFile) + " " +

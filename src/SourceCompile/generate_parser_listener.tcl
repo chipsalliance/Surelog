@@ -36,7 +36,7 @@ set CPP_INPUT(PreProc)        "SourceCompile/SV3_1aPpTreeShapeListener.cpp"
 set HEADER_OUTPUT(PreProc)    "SourceCompile/SV3_1aPpTreeShapeListener.h"
 
 set VOBJECTTYPES_CPP_BASENAME "SourceCompile/VObjectTypes"
-set VOBJECTTYPES_PY_H         "API/vobjecttypes_py.h"
+set VOBJECTTYPES_PY_H         "API/VObjectTypes_py.h"
 
 puts "Creating Parser listener $HEADER_OUTPUT(Parser) and object types ${VOBJECTTYPES_CPP_BASENAME}"
 
@@ -528,7 +528,7 @@ puts $oid "\"\# DO NOT EDIT\\n\""
 
 set id 0
 foreach type [lsort -dictionary [array names TYPES]] {
-    puts $oid "\"$type = $id;\\n\""
+    puts $oid "\"$type = $id;\\n\","
     incr id
 }
 puts $oid "};"

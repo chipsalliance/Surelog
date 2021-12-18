@@ -487,6 +487,14 @@ static std::string GetProgramNameAbsolutePath(const char* progname) {
   return progname;  // Didn't find anything, return progname as-is.
 }
 
+static std::string unquote(const char* const argv) {
+  std::string arg(argv);
+  if ((arg.size() >= 2) && (arg.front() == '\"') && (arg.back() == '\"')) {
+    return arg.substr(1, arg.length() - 2);
+  }
+  return arg;
+}
+
 bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
   const std::string exe_name = GetProgramNameAbsolutePath(argv[0]);
   m_exePath = exe_name;
@@ -505,45 +513,45 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
 
   const std::string separator(1, fs::path::preferred_separator);
 
-  std::vector<std::string> all_arguments;
   std::vector<std::string> cmd_line;
   for (int i = 1; i < argc; i++) {
-    cmd_line.emplace_back(argv[i]);
-    if (!strcmp(argv[i], "-cd")) {
-      std::string newDir = argv[i + 1];
+    std::string arg = unquote(argv[i]);
+    cmd_line.emplace_back(arg);
+    if (arg.compare("-cd") == 0) {
+      std::string newDir = unquote(argv[i + 1]);
       int ret = chdir(newDir.c_str());
       if (ret < 0) {
         std::cout << "Could not change directory to " << newDir << "\n"
                   << std::endl;
       }
-    } else if (!strcmp(argv[i], "-builtin")) {
+    } else if (arg.compare("-builtin") == 0) {
       if (i < argc - 1) {
-        m_builtinPath = argv[i + 1];
+        m_builtinPath = unquote(argv[i + 1]);
       }
-    } else if (!strcmp(argv[i], "-l")) {
+    } else if (arg.compare("-l") == 0) {
       if (i < argc - 1) {
-        m_logFileId = m_symbolTable->registerSymbol(argv[i + 1]);
+        m_logFileId = m_symbolTable->registerSymbol(unquote(argv[i + 1]));
         m_logFileSpecified = true;
       }
-    } else if (strstr(argv[i], "-D")) {
+    } else if (arg.find("-D") != std::string::npos) {
       std::string def;
       std::string value;
-      std::string tmp = argv[i];
-      const size_t loc = tmp.find("=");
+      const size_t loc = arg.find("=");
       if (loc == std::string::npos) {
-        def = tmp.substr(2);
+        def = arg.substr(2);
         StringUtils::registerEnvVar(def, "");
         SymbolId id = m_symbolTable->registerSymbol(def);
         m_defineList.insert(std::make_pair(id, std::string()));
       } else {
-        def = tmp.substr(2, loc - 2);
-        value = tmp.substr(loc + 1);
+        def = arg.substr(2, loc - 2);
+        value = arg.substr(loc + 1);
         StringUtils::registerEnvVar(def, value);
         SymbolId id = m_symbolTable->registerSymbol(def);
         m_defineList.insert(std::make_pair(id, value));
       }
     }
   }
+  std::vector<std::string> all_arguments;
   processArgs_(cmd_line, all_arguments);
   /*
   std::string cmd = "EXPANDED CMD:";

@@ -36,11 +36,9 @@ jobs:
         sudo apt-get update -qq
         sudo apt install -y \
           g++-9 \
-          tclsh \
           default-jre \
           cmake \
           build-essential \
-          swig \
           google-perftools \
           libgoogle-perftools-dev \
           uuid-dev \
@@ -57,7 +55,9 @@ jobs:
         architecture: x64
 
     - name: Setup Python Packages
-      run: pip3 install psutil
+      run: |
+        pip3 install orderedmultidict
+        pip3 install psutil
 
     - name: Checkout code
       uses: actions/checkout@v2
@@ -85,11 +85,9 @@ jobs:
         env
         which cmake && cmake --version
         which make && make --version
-        which swig && swig -version
         which java && java -version
         which python && python --version
         which ninja && ninja --version
-        which tclsh && echo 'puts [info patchlevel];exit 0' | tclsh
         which $CC && $CC --version
         which $CXX && $CXX --version
 
@@ -101,7 +99,7 @@ jobs:
     - name: Regression
       if: matrix.mode == 'regression'
       run: |
-        make pytest/regression || true
+        make pytest/regression
 
     - name: Coverage
       if: matrix.mode == 'coverage'
@@ -170,10 +168,6 @@ jobs:
       with:
         access_token: ${{ github.token }}
 
-    - name: Install core dependencies
-      run: choco install -y swig --side-by-side --version=3.0.12
-      shell: powershell
-
     - name: Setup Java
       uses: actions/setup-java@v1
       with:
@@ -189,7 +183,9 @@ jobs:
 
     - name: Setup Python Packages
       shell: cmd
-      run: pip3 install psutil
+      run: |
+        pip3 install orderedmultidict
+        pip3 install psutil
 
     - name: Setup Msys2
       uses: msys2/setup-msys2@v2
@@ -220,12 +216,10 @@ jobs:
 
     - name: Configure shell environment variables
       run: |
-        export SWIG_DIR=/c/ProgramData/chocolatey/lib/swig/tools/install/swigwin-3.0.12
         export JAVA_HOME=`cygpath -u $JAVA_HOME_8_0_275_X64`
         export CWD=`pwd`
         export Py3_ROOT_DIR=`cygpath -u $pythonLocation`
 
-        echo "SWIG_DIR=$SWIG_DIR" >> $GITHUB_ENV
         echo "JAVA_HOME=$JAVA_HOME" >> $GITHUB_ENV
         echo 'CMAKE_GENERATOR=Ninja' >> $GITHUB_ENV
         echo 'CC=gcc' >> $GITHUB_ENV
@@ -236,37 +230,34 @@ jobs:
         echo "Py3_ROOT_DIR=$Py3_ROOT_DIR" >> $GITHUB_ENV
         echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=$Py3_ROOT_DIR" >> $GITHUB_ENV
 
-        echo "$SWIG_DIR" >> $GITHUB_PATH
         echo "$JAVA_HOME/bin" >> $GITHUB_PATH
         echo "$Py3_ROOT_DIR" >> $GITHUB_PATH
 
     - name: Show shell configuration
       run: |
-        export PATH=$SWIG_DIR:$JAVA_HOME/bin:$Py3_ROOT_DIR:$PATH
+        export PATH=$JAVA_HOME/bin:$Py3_ROOT_DIR:$PATH
         env
         where git && git --version
         where cmake && cmake --version
         where make && make --version
-        where swig && swig -version
         where java && java -version
         where python && python --version
         where ninja && ninja --version
-        where tclsh && echo 'puts [info patchlevel];exit 0' | tclsh
         where $CC && $CC --version
         where $CXX && $CXX --version
 
     - name: Build
       run: |
-        export PATH=$SWIG_DIR:$JAVA_HOME/bin:$Py3_ROOT_DIR:$PATH
+        export PATH=$JAVA_HOME/bin:$Py3_ROOT_DIR:$PATH
         make release
         make install
 
     - name: Test
       run: |
-        export PATH=$SWIG_DIR:$JAVA_HOME/bin:$Py3_ROOT_DIR:$PATH
+        export PATH=$JAVA_HOME/bin:$Py3_ROOT_DIR:$PATH
         make test_install
         make test/unittest
-        make pytest/regression || true
+        make pytest/regression
 
     - name: Prepare build artifacts
       run: |
@@ -310,7 +301,6 @@ jobs:
     - name: Install Core Dependencies
       run: |
         choco install -y make
-        choco install -y swig --side-by-side --version=3.0.12
 
     - name: Setup Python
       uses: actions/setup-python@v2
@@ -319,7 +309,9 @@ jobs:
         architecture: x64
 
     - name: Setup Python Packages
-      run: pip3 install psutil
+      run: |
+        pip3 install orderedmultidict
+        pip3 install psutil
 
     - name: Setup Java
       uses: actions/setup-java@v1
@@ -357,15 +349,13 @@ jobs:
 
         set MAKE_DIR=C:\make\bin
         set TCL_DIR=%PROGRAMFILES%\Git\mingw64\bin
-        set SWIG_DIR=%PROGRMDATA%\chocolatey\lib\swig\tools\install\swigwin-3.0.12
-        set PATH=%pythonLocation%;%SWIG_DIR%;%JAVA_HOME%\bin;%MAKE_DIR%;%TCL_DIR%;%PATH%
+        set PATH=%pythonLocation%;%JAVA_HOME%\bin;%MAKE_DIR%;%TCL_DIR%;%PATH%
         set WITH_PYTHON_GENERATOR=ON
         set ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=%pythonLocation%
 
         set
         where cmake && cmake --version
         where make && make --version
-        where swig && swig -version
         where java && java -version
         where python && python --version
         where ninja && ninja --version
@@ -378,7 +368,7 @@ jobs:
         if %errorlevel% neq 0 exit /b %errorlevel%
         make test/unittest
         if %errorlevel% neq 0 exit /b %errorlevel%
-        make pytest/regression || true
+        make pytest/regression
 
     - name: Prepare build artifacts
       shell: bash
@@ -424,7 +414,9 @@ jobs:
         architecture: x64
 
     - name: Setup Python Packages
-      run: pip3 install psutil
+      run: |
+        pip3 install orderedmultidict
+        pip3 install psutil
 
     - uses: actions/checkout@v2
       with:
@@ -450,10 +442,8 @@ jobs:
         env
         which cmake && cmake --version
         which make && make --version
-        which swig && swig -version
         which java && java -version
         which python && python --version
-        which tclsh && echo 'puts [info patchlevel];exit 0' | tclsh
         which $CC && $CC --version
         which $CXX && $CXX --version
 
@@ -469,7 +459,7 @@ jobs:
 
     - name: Regression tests
       run: |
-        make pytest/regression || true
+        make pytest/regression
 
     - name: Prepare build artifacts
       run: |
@@ -513,7 +503,9 @@ jobs:
         architecture: x64
 
     - name: Setup Python Packages
-      run: pip3 install psutil
+      run: |
+        pip3 install orderedmultidict
+        pip3 install psutil
 
     - uses: actions/checkout@v2
       with:
@@ -537,10 +529,8 @@ jobs:
         env
         which cmake && cmake --version
         which make && make --version
-        which swig && swig -version
         which java && java -version
         which python && python --version
-        which tclsh && echo 'puts [info patchlevel];exit 0' | tclsh
 
     - name: Build
       run: |
@@ -554,7 +544,7 @@ jobs:
 
     - name: Regression tests
       run: |
-        make pytest/regression || true
+        make pytest/regression
 
     - name: Prepare build artifacts
       run: |

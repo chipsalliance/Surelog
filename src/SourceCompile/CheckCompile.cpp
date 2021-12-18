@@ -100,7 +100,7 @@ bool CheckCompile::checkTimescale_() {
   std::unordered_set<SymbolId> reportedMissingTimeunit;
   for (auto fitr = all_files.begin(); fitr != all_files.end(); fitr++) {
     auto fileContent = (*fitr).second;
-    for (auto elem : fileContent->getDesignElements()) {
+    for (auto& elem : fileContent->getDesignElements()) {
       if (elem.m_type == DesignElement::Module ||
           elem.m_type == DesignElement::Interface ||
           elem.m_type == DesignElement::Package ||
