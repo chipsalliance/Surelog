@@ -25,7 +25,11 @@
 #include <string_view>
 
 #include "Design/DataType.h"
+#include "DesignCompile/CompileHelper.h"
+#include "DesignCompile/CompilerHarness.h"
 #include "Package/Package.h"
+#include "SourceCompile/ParserHarness.h"
+#include "SourceCompile/PreprocessHarness.h"
 #include "Testbench/ClassDefinition.h"
 #include "Testbench/FunctionMethod.h"
 
@@ -216,5 +220,100 @@ void Builtin::addBuiltins() {
                            false, false, false, false);
     classDef->insertFunction(method);
   }
+
+  /*
+
+    CompileHelper helper;
+    ParserHarness pharness;
+    CompilerHarness charness;
+    auto fC = pharness.parse(
+        R"(
+          class mailbox;
+
+    function new (int bound = 0);
+    endfunction
+
+    function int num();
+    endfunction
+
+    task put (message);
+    endtask
+
+    function try_put (message);
+    endfunction
+
+    task get (ref message);
+    endtask
+
+    function int try_get (ref message);
+    endfunction
+
+    task peek (ref message);
+    endtask
+
+    function int try_peek(ref message);
+    endfunction
+
+  endclass
+
+
+  class process;
+
+    typedef enum { FINISHED, RUNNING, WAITING, SUSPENDED, KILLED } state;
+
+    static function process self();
+    endfunction
+
+    function state status();
+    endfunction
+
+    task kill();
+    endtask
+
+    task await();
+    endtask
+
+    task suspend();
+    endtask
+
+    task resume();
+    endtask
+
+  endclass
+
+
+  class semaphore;
+
+    function new(int keyCount = 0 );
+    endfunction
+
+    task put(int keyCount = 1);
+    endtask
+
+    task get(int keyCount = 1);
+    endtask
+
+    function int try_get(int keyCount = 1);
+    endfunction
+
+  endclass
+
+        )");
+
+    NodeId root = fC->getRootNode();
+    std::vector<NodeId> classes = fC->sl_collect_all(root, slClass_declaration);
+    for (auto classId: classes) {
+      NodeId stId = fC->sl_collect(classId, VObjectType::slStringConst,
+                                           VObjectType::slAttr_spec);
+      if (stId != InvalidNodeId) {
+        std::string name = fC->SymName(stId);
+        fC->insertObjectLookup(name, object, m_errorContainer);
+        std::string fullName = libName + "@" + name;
+
+        ClassDefinition* def = new ClassDefinition(
+            fullName, lib, NULL, m_fileData, object, NULL, s.MakeClass_defn());
+        m_fileData->addClassDefinition(fullName, def);
+      }
+  */
 }
 }  // namespace SURELOG
