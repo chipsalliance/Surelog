@@ -73,10 +73,6 @@ std::string FileContent::printObjects() const {
   if (m_library) text += "LIB:  " + m_library->getName() + "\n";
   std::string fileName = m_symbolTable->getSymbol(m_fileId);
   const std::string separator(1, fs::path::preferred_separator);
-  if (strstr(fileName.c_str(), std::string(separator + "bin" + separator +
-                                           "sv" + separator + "builtin.sv")
-                                   .c_str()))
-    return "";
   text += "FILE: " + fileName + "\n";
   for (auto object : m_objects) {
     text +=

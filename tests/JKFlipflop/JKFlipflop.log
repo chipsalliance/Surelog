@@ -12,11 +12,11 @@
 
 [INF:CP0303] dut.sv:1: Compile module "work@JKFlipflop".
 
-[INF:CP0302] builtin.sv:4: Compile class "work@mailbox".
+[INF:CP0302] Compile class "work@mailbox".
 
-[INF:CP0302] builtin.sv:33: Compile class "work@process".
+[INF:CP0302] Compile class "work@process".
 
-[INF:CP0302] builtin.sv:58: Compile class "work@semaphore".
+[INF:CP0302] Compile class "work@semaphore".
 
 [NTE:CP0309] dut.sv:1: Implicit port type (wire) for "q".
 
@@ -70,10 +70,10 @@ design: (work@JKFlipflop)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmallClasses:
-\_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4:1: , endln:30:9, parent:work@JKFlipflop
+\_class_defn: (work@mailbox), file:builtin.sv, parent:work@JKFlipflop
   |vpiName:work@mailbox
   |vpiMethod:
-  \_function: (work@mailbox::new), line:6:3, endln:7:14, parent:work@mailbox
+  \_function: (work@mailbox::new), parent:work@mailbox
     |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@mailbox::new
@@ -82,29 +82,29 @@ design: (work@JKFlipflop)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4:1: , endln:30:9, parent:work@JKFlipflop
+        \_class_defn: (work@mailbox), file:builtin.sv, parent:work@JKFlipflop
     |vpiIODecl:
     \_io_decl: (bound), parent:work@mailbox::new
       |vpiName:bound
       |vpiDirection:1
       |vpiExpr:
-      \_constant: , line:6:29, endln:6:30
+      \_constant: 
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
       |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
+      \_int_typespec: 
   |vpiMethod:
-  \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
+  \_function: (work@mailbox::num), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:num
     |vpiFullName:work@mailbox::num
     |vpiReturn:
-    \_int_var: , line:9:12, endln:9:15
+    \_int_var: 
   |vpiMethod:
-  \_task: (work@mailbox::put), line:12:3, endln:13:10, parent:work@mailbox
+  \_task: (work@mailbox::put), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:put
@@ -114,7 +114,7 @@ design: (work@JKFlipflop)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
-  \_function: (work@mailbox::try_put), line:15:3, endln:16:14, parent:work@mailbox
+  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_put
@@ -126,7 +126,7 @@ design: (work@JKFlipflop)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
-  \_task: (work@mailbox::get), line:18:3, endln:19:10, parent:work@mailbox
+  \_task: (work@mailbox::get), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:get
@@ -136,19 +136,19 @@ design: (work@JKFlipflop)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (work@mailbox::try_get), line:21:3, endln:22:14, parent:work@mailbox
+  \_function: (work@mailbox::try_get), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
     |vpiReturn:
-    \_int_var: , line:21:12, endln:21:15
+    \_int_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_task: (work@mailbox::peek), line:24:3, endln:25:10, parent:work@mailbox
+  \_task: (work@mailbox::peek), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:peek
@@ -158,71 +158,71 @@ design: (work@JKFlipflop)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (work@mailbox::try_peek), line:27:3, endln:28:14, parent:work@mailbox
+  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
     |vpiReturn:
-    \_int_var: , line:27:12, endln:27:15
+    \_int_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
       |vpiName:message
       |vpiDirection:6
 |uhdmallClasses:
-\_class_defn: (work@process) ${SURELOG_DIR}/build/bin/sv/builtin.sv:33:1: , endln:55:9, parent:work@JKFlipflop
+\_class_defn: (work@process), file:builtin.sv, parent:work@JKFlipflop
   |vpiName:work@process
   |vpiMethod:
-  \_function: (work@process::self), line:37:3, endln:37:9, parent:work@process
+  \_function: (work@process::self), parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_ref_var: , line:37:19, endln:37:26
+    \_ref_var: 
   |vpiMethod:
-  \_function: (work@process::status), line:40:3, endln:41:14, parent:work@process
+  \_function: (work@process::status), parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_enum_var: , line:40:12, endln:40:17
+    \_enum_var: 
       |vpiTypespec:
-      \_enum_typespec: (state), line:35:66, endln:35:71
+      \_enum_typespec: (state)
         |vpiName:state
         |vpiEnumConst:
-        \_enum_const: (FINISHED), line:35:18, endln:35:26
+        \_enum_const: (FINISHED)
           |vpiName:FINISHED
           |vpiDecompile:0
           |INT:0
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (RUNNING), line:35:28, endln:35:35
+        \_enum_const: (RUNNING)
           |vpiName:RUNNING
           |vpiDecompile:1
           |INT:1
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (WAITING), line:35:37, endln:35:44
+        \_enum_const: (WAITING)
           |vpiName:WAITING
           |vpiDecompile:2
           |INT:2
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:35:46, endln:35:55
+        \_enum_const: (SUSPENDED)
           |vpiName:SUSPENDED
           |vpiDecompile:3
           |INT:3
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (KILLED), line:35:57, endln:35:63
+        \_enum_const: (KILLED)
           |vpiName:KILLED
           |vpiDecompile:4
           |INT:4
           |vpiSize:64
   |vpiMethod:
-  \_task: (work@process::kill), line:43:3, endln:44:10, parent:work@process
+  \_task: (work@process::kill), parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:kill
@@ -231,7 +231,7 @@ design: (work@JKFlipflop)
     \_begin: (work@process::kill), parent:work@process::kill
       |vpiFullName:work@process::kill
   |vpiMethod:
-  \_task: (work@process::await), line:46:3, endln:47:10, parent:work@process
+  \_task: (work@process::await), parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:await
@@ -240,7 +240,7 @@ design: (work@JKFlipflop)
     \_begin: (work@process::await), parent:work@process::await
       |vpiFullName:work@process::await
   |vpiMethod:
-  \_task: (work@process::suspend), line:49:3, endln:50:10, parent:work@process
+  \_task: (work@process::suspend), parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:suspend
@@ -249,7 +249,7 @@ design: (work@JKFlipflop)
     \_begin: (work@process::suspend), parent:work@process::suspend
       |vpiFullName:work@process::suspend
   |vpiMethod:
-  \_task: (work@process::resume), line:52:3, endln:53:10, parent:work@process
+  \_task: (work@process::resume), parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:resume
@@ -258,43 +258,43 @@ design: (work@JKFlipflop)
     \_begin: (work@process::resume), parent:work@process::resume
       |vpiFullName:work@process::resume
   |vpiTypedef:
-  \_enum_typespec: (state), line:35:66, endln:35:71, parent:work@process
+  \_enum_typespec: (state), parent:work@process
     |vpiName:state
     |vpiEnumConst:
-    \_enum_const: (FINISHED), line:35:18, endln:35:26, parent:state
+    \_enum_const: (FINISHED), parent:state
       |vpiName:FINISHED
       |vpiDecompile:0
       |INT:0
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (RUNNING), line:35:28, endln:35:35, parent:state
+    \_enum_const: (RUNNING), parent:state
       |vpiName:RUNNING
       |vpiDecompile:1
       |INT:1
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (WAITING), line:35:37, endln:35:44, parent:state
+    \_enum_const: (WAITING), parent:state
       |vpiName:WAITING
       |vpiDecompile:2
       |INT:2
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (SUSPENDED), line:35:46, endln:35:55, parent:state
+    \_enum_const: (SUSPENDED), parent:state
       |vpiName:SUSPENDED
       |vpiDecompile:3
       |INT:3
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (KILLED), line:35:57, endln:35:63, parent:state
+    \_enum_const: (KILLED), parent:state
       |vpiName:KILLED
       |vpiDecompile:4
       |INT:4
       |vpiSize:64
 |uhdmallClasses:
-\_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58:1: , endln:72:9, parent:work@JKFlipflop
+\_class_defn: (work@semaphore), file:builtin.sv, parent:work@JKFlipflop
   |vpiName:work@semaphore
   |vpiMethod:
-  \_function: (work@semaphore::new), line:60:3, endln:61:14, parent:work@semaphore
+  \_function: (work@semaphore::new), parent:work@semaphore
     |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@semaphore::new
@@ -303,21 +303,21 @@ design: (work@JKFlipflop)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58:1: , endln:72:9, parent:work@JKFlipflop
+        \_class_defn: (work@semaphore), file:builtin.sv, parent:work@JKFlipflop
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::new
       |vpiName:keyCount
       |vpiDirection:1
       |vpiExpr:
-      \_constant: , line:60:31, endln:60:32
+      \_constant: 
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
       |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
+      \_int_typespec: 
   |vpiMethod:
-  \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
+  \_task: (work@semaphore::put), parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:put
@@ -327,15 +327,15 @@ design: (work@JKFlipflop)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiExpr:
-      \_constant: , line:63:27, endln:63:28
+      \_constant: 
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
       |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
+      \_int_typespec: 
   |vpiMethod:
-  \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
+  \_task: (work@semaphore::get), parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:get
@@ -345,33 +345,33 @@ design: (work@JKFlipflop)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiExpr:
-      \_constant: , line:66:27, endln:66:28
+      \_constant: 
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
       |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
+      \_int_typespec: 
   |vpiMethod:
-  \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
+  \_function: (work@semaphore::try_get), parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
     |vpiReturn:
-    \_int_var: , line:69:12, endln:69:15
+    \_int_var: 
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiName:keyCount
       |vpiDirection:1
       |vpiExpr:
-      \_constant: , line:69:39, endln:69:40
+      \_constant: 
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
       |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
+      \_int_typespec: 
 |uhdmallModules:
 \_module: work@D_Flipflop (work@D_Flipflop) dut.sv:9:1: , endln:19:10, parent:work@JKFlipflop
   |vpiDefName:work@D_Flipflop

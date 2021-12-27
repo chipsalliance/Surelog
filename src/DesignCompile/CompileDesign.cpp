@@ -328,6 +328,11 @@ bool CompileDesign::compilation_() {
   compileMT_<Program, ProgramNameProgramDefinitionMap, FunctorCompileProgram>(
       m_compiler->getDesign()->getProgramDefinitions(), maxThreadCount);
 
+  if (m_compiler->getCommandLineParser()->parseBuiltIn()) {
+    Builtin* builtin = new Builtin(this, design);
+    builtin->addBuiltinClasses();
+  }
+
   // Compile classes
   compileMT_<ClassDefinition, ClassNameClassDefinitionMultiMap,
              FunctorCompileClass>(
@@ -337,7 +342,7 @@ bool CompileDesign::compilation_() {
 
   if (m_compiler->getCommandLineParser()->parseBuiltIn()) {
     Builtin* builtin = new Builtin(this, design);
-    builtin->addBuiltins();
+    builtin->addBuiltinTypes();
   }
 
   m_compiler->getDesign()->orderPackages();
