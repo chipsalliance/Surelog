@@ -36,7 +36,8 @@ class Builtin final {
   Builtin(CompileDesign* compiler, Design* design)
       : m_compiler(compiler), m_design(design) {}
 
-  void addBuiltins();
+  void addBuiltinTypes();
+  void addBuiltinClasses();
 
  private:
   CompileDesign* const m_compiler;

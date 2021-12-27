@@ -665,11 +665,7 @@ bool UhdmChecker::check(const std::string& reportFile) {
   for (const FileContent* fC : files) {
     const std::string& fileName = fC->getFileName();
     if (!clp->createCache()) {
-      const std::string separator(1, fs::path::preferred_separator);
-      if (strstr(fileName.c_str(), std::string(separator + "bin" + separator +
-                                               "sv" + separator + "builtin.sv")
-                                       .c_str()) ||
-          strstr(fileName.c_str(), "uvm_pkg.sv") ||
+      if (strstr(fileName.c_str(), "uvm_pkg.sv") ||
           strstr(fileName.c_str(), "ovm_pkg.sv")) {
         continue;
       }

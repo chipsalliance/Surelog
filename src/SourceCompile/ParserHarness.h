@@ -28,6 +28,7 @@
 #include <string>
 
 #include "Design/FileContent.h"
+#include "SourceCompile/Compiler.h"
 
 namespace SURELOG {
 
@@ -35,8 +36,12 @@ class ParserHarness {
  public:
   // Parse content and return FileContent or nullptr if it couldn't
   // be parsed.
+  // Unit test
   std::unique_ptr<FileContent> parse(const std::string& content);
 
+  // Builtin
+  FileContent* parse(const std::string& content, Compiler* compiler,
+                     const std::string fileName);
   ~ParserHarness();
 
  private:

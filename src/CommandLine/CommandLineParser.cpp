@@ -66,7 +66,7 @@ static std::string_view defaultLogFileName = "surelog.log";
 //         Or when the cache schema changes
 //        This will render the cache invalid
 const std::string& CommandLineParser::getVersionNumber() {
-  static const std::string m_versionNumber = "1.17";
+  static const std::string m_versionNumber = "1.18";
   return m_versionNumber;
 }
 
@@ -205,8 +205,7 @@ static const std::initializer_list<std::string_view> helpText = {
     "  -nonote               Filters out NOTE messages",
     "  -nowarning            Filters out WARNING messages",
     "  -o <path>             Turns on all compilation stages, produces all",
-    "  -builtin <path>       Alternative path to builtin.sv, python/ and pkg/ "
-    "dirs",
+    "  -builtin <path>       Alternative path to python/ and pkg/ dirs",
     "outputs under that path",
     "  -cd <dir>             Internally change directory to <dir>",
     "  -exe <command>        Post execute a system call <command>, passes it "
@@ -505,11 +504,6 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
   }
 
   const std::string separator(1, fs::path::preferred_separator);
-  std::string built_in_verilog;
-  for (const std::string& dir : search_path) {
-    built_in_verilog = dir + "sv" + separator + "builtin.sv";
-    if (FileUtils::fileExists(built_in_verilog)) break;
-  }
 
   std::vector<std::string> all_arguments;
   std::vector<std::string> cmd_line;
@@ -525,7 +519,6 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (!strcmp(argv[i], "-builtin")) {
       if (i < argc - 1) {
         m_builtinPath = argv[i + 1];
-        built_in_verilog = m_builtinPath + separator + "builtin.sv";
       }
     } else if (!strcmp(argv[i], "-l")) {
       if (i < argc - 1) {
@@ -580,9 +573,6 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     if (all_arguments[i] == "-nobuiltin") {
       m_parseBuiltIn = false;
     }
-  }
-  if (m_parseBuiltIn) {
-    m_sourceFiles.push_back(m_symbolTable->registerSymbol(built_in_verilog));
   }
   for (unsigned int i = 0; i < all_arguments.size(); i++) {
     if (all_arguments[i] == "-fileunit") {

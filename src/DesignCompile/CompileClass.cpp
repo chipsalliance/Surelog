@@ -61,16 +61,12 @@ int FunctorCompileClass::operator()() const {
 }
 
 bool CompileClass::compile() {
+  if (m_class->m_fileContents.empty()) return true;
   const FileContent* fC = m_class->m_fileContents[0];
+  if (fC == nullptr) return true;
   NodeId nodeId = m_class->m_nodeIds[0];
 
   std::string fileName = fC->getFileName(nodeId);
-  const std::string separator(1, fs::path::preferred_separator);
-  if (strstr(fileName.c_str(), std::string(separator + "bin" + separator +
-                                           "sv" + separator + "builtin.sv")
-                                   .c_str())) {
-    fileName = "builtin.sv";
-  }
   std::string fullName;
 
   std::vector<std::string> names;

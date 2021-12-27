@@ -100,11 +100,6 @@ bool CompileSourceFile::compile(Action action) {
   if (m_commandLineParser->verbose()) {
     SymbolId fileId = m_fileId;
     const std::string separator(1, fs::path::preferred_separator);
-    if (strstr(fileName.c_str(), std::string(separator + "bin" + separator +
-                                             "sv" + separator + "builtin.sv")
-                                     .c_str())) {
-      fileId = m_symbolTable->registerSymbol("builtin.sv");
-    }
     Location loc(fileId);
     ErrorDefinition::ErrorType type =
         ErrorDefinition::PP_PROCESSING_SOURCE_FILE;
@@ -134,12 +129,7 @@ bool CompileSourceFile::compile(Action action) {
     case Parse:
       return parse_();
     case PythonAPI: {
-      const std::string separator(1, fs::path::preferred_separator);
-      if (!strstr(fileName.c_str(), std::string(separator + "bin" + separator +
-                                                "sv" + separator + "builtin.sv")
-                                        .c_str())) {
-        return pythonAPI_();
-      }
+      return pythonAPI_();
     }
   }
   return true;
