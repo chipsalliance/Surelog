@@ -47,7 +47,7 @@ static VObjectType convert(std::string_view type) {
   return result;
 }
 
-void Builtin::addBuiltins() {
+void Builtin::addBuiltinTypes() {
   static const std::vector<std::vector<std::string>> functionDef = {
       {"builtin", "array", "generic", "find"},
       {"builtin", "array", "int", "find_index"},
@@ -220,14 +220,16 @@ void Builtin::addBuiltins() {
                            false, false, false, false);
     classDef->insertFunction(method);
   }
+}
 
-  /*
-
-    CompileHelper helper;
-    ParserHarness pharness;
-    CompilerHarness charness;
-    auto fC = pharness.parse(
-        R"(
+void Builtin::addBuiltinClasses() {
+  // builtin.sv compilation
+  UHDM::Serializer& s = m_compiler->getSerializer();
+  CompileHelper helper;
+  ParserHarness pharness;
+  CompilerHarness charness;
+  FileContent* fC1 = pharness.parse(
+      R"(
           class mailbox;
 
     function new (int bound = 0);
@@ -298,22 +300,28 @@ void Builtin::addBuiltins() {
 
   endclass
 
-        )");
+        )",
+      m_compiler->getCompiler(), "builtin.sv");
 
-    NodeId root = fC->getRootNode();
-    std::vector<NodeId> classes = fC->sl_collect_all(root, slClass_declaration);
-    for (auto classId: classes) {
-      NodeId stId = fC->sl_collect(classId, VObjectType::slStringConst,
-                                           VObjectType::slAttr_spec);
-      if (stId != InvalidNodeId) {
-        std::string name = fC->SymName(stId);
-        fC->insertObjectLookup(name, object, m_errorContainer);
-        std::string fullName = libName + "@" + name;
-
-        ClassDefinition* def = new ClassDefinition(
-            fullName, lib, NULL, m_fileData, object, NULL, s.MakeClass_defn());
-        m_fileData->addClassDefinition(fullName, def);
-      }
-  */
+  NodeId root = fC1->getRootNode();
+  std::vector<NodeId> classes = fC1->sl_collect_all(root, slClass_declaration);
+  m_compiler->getCompiler()->getDesign()->addFileContent(fC1->getFileId(0),
+                                                         fC1);
+  for (auto classId : classes) {
+    NodeId stId = fC1->sl_collect(classId, VObjectType::slStringConst,
+                                  VObjectType::slAttr_spec);
+    const std::string& libName = fC1->getLibrary()->getName();
+    if (stId != InvalidNodeId) {
+      std::string name = fC1->SymName(stId);
+      fC1->insertObjectLookup(name, classId,
+                              m_compiler->getCompiler()->getErrorContainer());
+      std::string fullName = libName + "@" + name;
+      ClassDefinition* def =
+          new ClassDefinition(fullName, fC1->getLibrary(), NULL, fC1, classId,
+                              NULL, s.MakeClass_defn());
+      fC1->addClassDefinition(fullName, def);
+      m_compiler->getCompiler()->getDesign()->addClassDefinition(name, def);
+    }
+  }
 }
 }  // namespace SURELOG

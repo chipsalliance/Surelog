@@ -87,6 +87,28 @@ std::unique_ptr<FileContent> ParserHarness::parse(const std::string& content) {
   return file_content_result;
 }
 
+FileContent* ParserHarness::parse(const std::string& content,
+                                  Compiler* compiler,
+                                  const std::string fileName) {
+  CompilationUnit* unit = new CompilationUnit(false);
+  SymbolTable* symbols = compiler->getSymbolTable();
+  ErrorContainer* errors = compiler->getErrorContainer();
+  CommandLineParser* clp = compiler->getCommandLineParser();
+  Library* lib = new Library("work", symbols);
+  CompileSourceFile* csf =
+      new CompileSourceFile(0, clp, errors, compiler, symbols, unit, lib);
+  ParseFile* pf = new ParseFile(content, csf, unit, lib);
+  NodeId fileId = 0;
+  if (!fileName.empty()) {
+    fileId = symbols->registerSymbol(fileName);
+  }
+  FileContent* file_content_result =
+      new FileContent(fileId, lib, symbols, errors, nullptr, 0);
+  pf->setFileContent(file_content_result);
+  if (!pf->parse()) file_content_result = nullptr;
+  return file_content_result;
+}
+
 ParserHarness::~ParserHarness() { delete m_h; }
 
 }  // namespace SURELOG
