@@ -74,7 +74,7 @@ std::string FileContent::printObjects() const {
   std::string fileName = m_symbolTable->getSymbol(m_fileId);
   const std::string separator(1, fs::path::preferred_separator);
   text += "FILE: " + fileName + "\n";
-  for (auto object : m_objects) {
+  for (auto& object : m_objects) {
     text +=
         object.print(m_symbolTable, index, GetDefinitionFile(index), m_fileId);
     text += "\n";

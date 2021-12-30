@@ -52,9 +52,9 @@
 
 #ifdef SURELOG_WITH_PYTHON
 #include "API/SV3_1aPythonListener.h"
+#include "API/VObjectTypes_py.h"
 #include "API/slapi_scripts.h"
 #include "API/slapi_wrap.cxx"
-#include "API/vobjecttypes_py.h"
 #endif
 
 namespace SURELOG {

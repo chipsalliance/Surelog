@@ -1,5 +1,5 @@
 # -*- mode:cmake -*-
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
 
 # Detect build type, fallback to release and throw a warning if use didn't
 # specify any
@@ -17,6 +17,12 @@ option(
   WITH_LIBCXX
   "Building with clang++ and libc++(in Linux). To enable with: -DWITH_LIBCXX=On"
   On)
+
+option(WITH_PYTHON_GENERATOR "Use Python generator instead of TCL." OFF)
+
+if (DEFINED ENV{WITH_PYTHON_GENERATOR})
+  set(WITH_PYTHON_GENERATOR $ENV{WITH_PYTHON_GENERATOR})
+endif()
 
 project(SURELOG)
 
@@ -45,12 +51,15 @@ set(GENDIR ${CMAKE_CURRENT_BINARY_DIR}/generated)
 
 # Python
 if (SURELOG_WITH_PYTHON)
-find_package(Python3 3.3 REQUIRED COMPONENTS Interpreter Development)
-find_package(SWIG 3.0 REQUIRED)
-message(STATUS "Python3_LIBRARIES = ${Python3_LIBRARIES}")
-message(STATUS "Python3_EXECUTABLE = ${Python3_EXECUTABLE}")
-message(STATUS "Python3_INCLUDE_DIRS = ${Python3_INCLUDE_DIRS}")
-message(STATUS "Python3_RUNTIME_LIBRARY_DIRS = ${Python3_RUNTIME_LIBRARY_DIRS}")
+  find_package(Python3 3.3 REQUIRED COMPONENTS Interpreter Development)
+  find_package(SWIG 3.0 REQUIRED)
+  message(STATUS "Python3_LIBRARIES = ${Python3_LIBRARIES}")
+  message(STATUS "Python3_EXECUTABLE = ${Python3_EXECUTABLE}")
+  message(STATUS "Python3_INCLUDE_DIRS = ${Python3_INCLUDE_DIRS}")
+  message(STATUS "Python3_RUNTIME_LIBRARY_DIRS = ${Python3_RUNTIME_LIBRARY_DIRS}")
+elseif (WITH_PYTHON_GENERATOR)
+  find_package(Python3 3.3 REQUIRED Interpreter)
+  message(STATUS "Python3_EXECUTABLE = ${Python3_EXECUTABLE}")
 endif()
 
 # Use tcmalloc if installed and not NO_TCMALLOC is on. TODO: don't use negative
@@ -178,21 +187,37 @@ add_custom_command(
   COMMAND ${CMAKE_COMMAND} -E touch ${GENDIR}/src/parser/generated-parsers.tstamp
 )
 
-add_custom_command(
-  OUTPUT ${GENDIR}/src/SourceCompile/VObjectTypes.h
-         ${GENDIR}/src/SourceCompile/VObjectTypes.cpp
-         ${GENDIR}/src/API/vobjecttypes_py.h
-         ${GENDIR}/src/SourceCompile/SV3_1aTreeShapeListener.h
-         ${GENDIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.h
-  DEPENDS ${GENDIR}/src/parser/generated-parsers.tstamp
-          ${PROJECT_SOURCE_DIR}/src/SourceCompile/generate_parser_listener.tcl
+if (WITH_PYTHON_GENERATOR)
+  add_custom_command(
+    OUTPUT ${GENDIR}/src/SourceCompile/VObjectTypes.h
+           ${GENDIR}/src/SourceCompile/VObjectTypes.cpp
+           ${GENDIR}/src/API/VObjectTypes_py.h
+           ${GENDIR}/src/SourceCompile/SV3_1aTreeShapeListener.h
+           ${GENDIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.h
+    DEPENDS ${GENDIR}/src/parser/generated-parsers.tstamp
+            ${PROJECT_SOURCE_DIR}/scripts/generate_parser_listener.py
 
-  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
-  COMMAND echo "---------- VObjectTypes, Listener generation"
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${GENDIR}/src/SourceCompile
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${GENDIR}/src/API
-  COMMAND tclsh SourceCompile/generate_parser_listener.tcl input_dir=${PROJECT_SOURCE_DIR}/src input_gen_dir=${GENDIR}/src out_dir=${GENDIR}/src
-)
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+    COMMAND echo "---------- VObjectTypes, Listener generation"
+    COMMAND ${Python3_EXECUTABLE} scripts/generate_parser_listener.py --output-dirpath ${GENDIR}
+  )
+else()
+  add_custom_command(
+    OUTPUT ${GENDIR}/src/SourceCompile/VObjectTypes.h
+           ${GENDIR}/src/SourceCompile/VObjectTypes.cpp
+           ${GENDIR}/src/API/VObjectTypes_py.h
+           ${GENDIR}/src/SourceCompile/SV3_1aTreeShapeListener.h
+           ${GENDIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.h
+    DEPENDS ${GENDIR}/src/parser/generated-parsers.tstamp
+            ${PROJECT_SOURCE_DIR}/src/SourceCompile/generate_parser_listener.tcl
+
+    WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
+    COMMAND echo "---------- VObjectTypes, Listener generation"
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${GENDIR}/src/SourceCompile
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${GENDIR}/src/API
+    COMMAND tclsh SourceCompile/generate_parser_listener.tcl input_dir=${PROJECT_SOURCE_DIR}/src input_gen_dir=${GENDIR}/src out_dir=${GENDIR}/src
+  )
+endif()
 
 if (SURELOG_WITH_PYTHON)
 set(surelog_python-GENERATED_SRC
@@ -209,7 +234,7 @@ add_custom_command(
   DEPENDS ${PROJECT_SOURCE_DIR}/src/API/slapi_scripts.i
           ${PROJECT_SOURCE_DIR}/src/API/generate_python_listener_api.tcl
           ${PROJECT_SOURCE_DIR}/src/API/embed_python_api.tcl
-          ${GENDIR}/src/API/vobjecttypes_py.h
+          ${GENDIR}/src/API/VObjectTypes_py.h
           ${GENDIR}/src/parser/generated-parsers.tstamp
 
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
@@ -722,8 +747,8 @@ if (WIN32 AND $<CONFIG:Debug>)
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog)
   install(
     FILES ${UHDM_BINARY_DIR}/CMakeFiles/uhdm.dir/uhdm.pdb
-          ${UHDM_BINARY_DIR}/third_party/capnproto/c++/src/capnp/CMakeFiles/capnp.dir/capnp.pdb
-          ${UHDM_BINARY_DIR}/third_party/capnproto/c++/src/kj/CMakeFiles/kj.dir/kj.pdb
+          ${Cap\'n\ Proto_BINARY_DIR}/src/capnp/CMakeFiles/capnp.dir/capnp.pdb
+          ${Cap\'n\ Proto_BINARY_DIR}/src/kj/CMakeFiles/kj.dir/kj.pdb
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/uhdm)
 endif()
 
@@ -746,6 +771,7 @@ install(
   FILES ${CMAKE_CURRENT_BINARY_DIR}/SurelogConfig.cmake
   DESTINATION cmake)
 
-ADD_CUSTOM_TARGET(link_target ALL
-                  COMMAND ${CMAKE_COMMAND} -E create_symlink
-                  build/compile_commands.json ../compile_commands.json)
+ADD_CUSTOM_TARGET(
+  link_target ALL
+  COMMAND ${CMAKE_COMMAND} -E create_symlink
+  build/compile_commands.json ${PROJECT_SOURCE_DIR}/compile_commands.json)

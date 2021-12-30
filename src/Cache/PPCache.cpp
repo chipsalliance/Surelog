@@ -386,7 +386,7 @@ bool PPCache::save() {
   auto defineList =
       m_pp->getCompileSourceFile()->getCommandLineParser()->getDefineList();
   std::vector<std::string> define_vec;
-  for (auto definePair : defineList) {
+  for (auto& definePair : defineList) {
     std::string spath =
         m_pp->getSymbol(definePair.first) + "=" + definePair.second;
     define_vec.push_back(spath);
@@ -396,7 +396,7 @@ bool PPCache::save() {
   /* Cache the `timescale directives */
   auto timeinfoList = m_pp->getCompilationUnit()->getTimeInfo();
   std::vector<flatbuffers::Offset<CACHE::TimeInfo>> timeinfo_vec;
-  for (auto info : timeinfoList) {
+  for (auto& info : timeinfoList) {
     if (info.m_fileId != m_pp->getFileId(0)) continue;
     auto timeInfo = CACHE::CreateTimeInfo(
         builder, static_cast<uint16_t>(info.m_type),
