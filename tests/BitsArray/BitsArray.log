@@ -241,12 +241,36 @@ n<> u<194> t<Top_level_rule> l<2:1> el<32:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@aes_reg_status (work@aes_reg_status) dut.sv:2:1: , endln:7:10, parent:work@top
-  |vpiDefName:work@aes_reg_status
   |vpiFullName:work@aes_reg_status
+  |vpiParameter:
+  \_parameter: (work@aes_reg_status.Width), line:3:18, endln:3:27, parent:work@aes_reg_status
+    |UINT:1
+    |vpiTypespec:
+    \_int_typespec: , line:3:14, endln:3:17, parent:work@aes_reg_status.Width
+    |vpiName:Width
+    |vpiFullName:work@aes_reg_status.Width
+  |vpiParamAssign:
+  \_param_assign: , line:3:18, endln:3:27, parent:work@aes_reg_status
+    |vpiRhs:
+    \_constant: , line:3:26, endln:3:27
+      |vpiDecompile:1
+      |vpiSize:32
+      |UINT:1
+      |vpiTypespec:
+      \_int_typespec: , line:3:14, endln:3:17, parent:work@aes_reg_status.Width
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@aes_reg_status.Width), line:3:18, endln:3:27, parent:work@aes_reg_status
+  |vpiDefName:work@aes_reg_status
+  |vpiNet:
+  \_logic_net: (work@aes_reg_status.we_i), line:5:28, parent:work@aes_reg_status
+    |vpiName:we_i
+    |vpiFullName:work@aes_reg_status.we_i
+    |vpiNetType:36
   |vpiPort:
   \_port: (we_i), line:5:28, parent:work@aes_reg_status
     |vpiName:we_i
@@ -255,34 +279,10 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@aes_reg_status.we_i), line:5:28, parent:work@aes_reg_status
-        |vpiName:we_i
-        |vpiFullName:work@aes_reg_status.we_i
-        |vpiNetType:36
-  |vpiNet:
-  \_logic_net: (work@aes_reg_status.we_i), line:5:28, parent:work@aes_reg_status
-  |vpiParameter:
-  \_parameter: (work@aes_reg_status.Width), line:3:18, endln:3:27, parent:work@aes_reg_status
-    |vpiName:Width
-    |vpiFullName:work@aes_reg_status.Width
-    |UINT:1
-    |vpiTypespec:
-    \_int_typespec: , line:3:14, endln:3:17, parent:work@aes_reg_status.Width
-  |vpiParamAssign:
-  \_param_assign: , line:3:18, endln:3:27, parent:work@aes_reg_status
-    |vpiRhs:
-    \_constant: , line:3:26, endln:3:27
-      |vpiConstType:9
-      |vpiDecompile:1
-      |vpiSize:32
-      |UINT:1
-      |vpiTypespec:
-      \_int_typespec: , line:3:14, endln:3:17, parent:work@aes_reg_status.Width
-    |vpiLhs:
-    \_parameter: (work@aes_reg_status.Width), line:3:18, endln:3:27, parent:work@aes_reg_status
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:9:1: , endln:21:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiDefName:work@top
   |vpiNet:
   \_logic_net: (work@top.fcoe_reserved_before_sof), line:11:8, parent:work@top
     |vpiName:fcoe_reserved_before_sof
@@ -294,38 +294,139 @@ design: (work@top)
     |vpiNetType:36
 |uhdmallModules:
 \_module: work@toto (work@toto) dut.sv:23:1: , endln:30:10, parent:work@top
-  |vpiDefName:work@toto
   |vpiFullName:work@toto
-  |vpiNet:
-  \_logic_net: (work@toto.fcoe_reserved_before_sof), line:25:6, parent:work@toto
-    |vpiName:fcoe_reserved_before_sof
-    |vpiFullName:work@toto.fcoe_reserved_before_sof
   |vpiParameter:
   \_parameter: (work@toto.a), line:27:14, endln:27:52, parent:work@toto
+    |UINT:1
     |vpiName:a
     |vpiFullName:work@toto.a
-    |UINT:1
   |vpiParamAssign:
   \_param_assign: , line:27:14, endln:27:52, parent:work@toto
     |vpiRhs:
     \_constant: , line:27:18, endln:27:52
-      |vpiConstType:9
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@toto.a), line:27:14, endln:27:52, parent:work@toto
+  |vpiDefName:work@toto
+  |vpiNet:
+  \_logic_net: (work@toto.fcoe_reserved_before_sof), line:25:6, parent:work@toto
+    |vpiName:fcoe_reserved_before_sof
+    |vpiFullName:work@toto.fcoe_reserved_before_sof
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:9:1: , endln:21:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiVariables:
+  \_array_var: (work@top.fcoe_reserved_before_sof), line:11:8, endln:11:32, parent:work@top
+    |vpiSize:1
+    |vpiName:fcoe_reserved_before_sof
+    |vpiFullName:work@top.fcoe_reserved_before_sof
+    |vpiAutomatic:1
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiArrayType:2
+    |vpiReg:
+    \_bit_var: (work@top.fcoe_reserved_before_sof), parent:work@top.fcoe_reserved_before_sof
+      |vpiFullName:work@top.fcoe_reserved_before_sof
+  |vpiVariables:
+  \_array_var: (work@top.key_init_we), line:13:16, endln:13:27, parent:work@top
+    |vpiSize:2
+    |vpiName:key_init_we
+    |vpiFullName:work@top.key_init_we
+    |vpiAutomatic:1
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiArrayType:1
+    |vpiRange:
+    \_range: , line:13:29, endln:13:30
+      |vpiLeftRange:
+      \_constant: , line:13:29, endln:13:30
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: 
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , line:13:29, endln:13:30
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: 
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiReg:
+    \_logic_var: (work@top.key_init_we), parent:work@top.key_init_we
+      |vpiFullName:work@top.key_init_we
+      |vpiRange:
+      \_range: , line:13:11, endln:13:14
+        |vpiLeftRange:
+        \_constant: , line:13:11, endln:13:12
+          |vpiDecompile:7
+          |vpiSize:64
+          |UINT:7
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:13:13, endln:13:14
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+  |vpiDefName:work@top
   |vpiModule:
   \_module: work@aes_reg_status (work@top.u_reg_status_key_init) dut.sv:15:4: , endln:19:6, parent:work@top
+    |vpiName:u_reg_status_key_init
+    |vpiFullName:work@top.u_reg_status_key_init
+    |vpiParameter:
+    \_parameter: (work@top.u_reg_status_key_init.Width), line:3:18, endln:3:27, parent:work@top.u_reg_status_key_init
+      |UINT:1
+      |vpiTypespec:
+      \_int_typespec: , line:3:14, endln:3:17, parent:work@top.u_reg_status_key_init.Width
+      |vpiName:Width
+      |vpiFullName:work@top.u_reg_status_key_init.Width
+    |vpiParamAssign:
+    \_param_assign: , line:3:18, endln:3:27, parent:work@top.u_reg_status_key_init
+      |vpiOverriden:1
+      |vpiRhs:
+      \_constant: , line:3:26, endln:3:27
+        |vpiDecompile:16
+        |vpiSize:64
+        |UINT:16
+        |vpiTypespec:
+        \_int_typespec: , line:3:14, endln:3:17, parent:work@aes_reg_status.Width
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@top.u_reg_status_key_init.Width), line:3:18, endln:3:27, parent:work@top.u_reg_status_key_init
     |vpiDefName:work@aes_reg_status
     |vpiDefFile:dut.sv
     |vpiDefLineNo:2
-    |vpiName:u_reg_status_key_init
-    |vpiFullName:work@top.u_reg_status_key_init
+    |vpiNet:
+    \_logic_net: (work@top.u_reg_status_key_init.we_i), line:5:28, endln:5:32, parent:work@top.u_reg_status_key_init
+      |vpiName:we_i
+      |vpiFullName:work@top.u_reg_status_key_init.we_i
+      |vpiNetType:36
+      |vpiRange:
+      \_range: , line:5:17, endln:5:26
+        |vpiLeftRange:
+        \_constant: , line:5:17, endln:5:22
+          |vpiDecompile:15
+          |vpiSize:64
+          |INT:15
+          |vpiConstType:7
+        |vpiRightRange:
+        \_constant: , line:5:25, endln:5:26
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:9:1: , endln:21:10
     |vpiPort:
     \_port: (we_i), line:5:28, endln:5:32, parent:work@top.u_reg_status_key_init
       |vpiName:we_i
@@ -338,159 +439,58 @@ design: (work@top)
           |vpiName:key_init_we
           |vpiIndex:
           \_constant: , line:18:27, endln:18:28, parent:key_init_we
-            |vpiConstType:9
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiConstType:9
         |vpiOperand:
         \_bit_select: (key_init_we), line:18:31, endln:18:45, parent:key_init_we
           |vpiName:key_init_we
           |vpiIndex:
           \_constant: , line:18:43, endln:18:44, parent:key_init_we
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
       |vpiLowConn:
       \_ref_obj: (work@top.u_reg_status_key_init.we_i), parent:we_i
         |vpiName:we_i
         |vpiFullName:work@top.u_reg_status_key_init.we_i
         |vpiActual:
         \_logic_net: (work@top.u_reg_status_key_init.we_i), line:5:28, endln:5:32, parent:work@top.u_reg_status_key_init
-          |vpiName:we_i
-          |vpiFullName:work@top.u_reg_status_key_init.we_i
-          |vpiNetType:36
-          |vpiRange:
-          \_range: , line:5:17, endln:5:26
-            |vpiLeftRange:
-            \_constant: , line:5:17, endln:5:22
-              |vpiConstType:7
-              |vpiDecompile:15
-              |vpiSize:64
-              |INT:15
-            |vpiRightRange:
-            \_constant: , line:5:25, endln:5:26
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
       |vpiInstance:
       \_module: work@aes_reg_status (work@top.u_reg_status_key_init) dut.sv:15:4: , endln:19:6, parent:work@top
-    |vpiNet:
-    \_logic_net: (work@top.u_reg_status_key_init.we_i), line:5:28, endln:5:32, parent:work@top.u_reg_status_key_init
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:9:1: , endln:21:10
-    |vpiParameter:
-    \_parameter: (work@top.u_reg_status_key_init.Width), line:3:18, endln:3:27, parent:work@top.u_reg_status_key_init
-      |vpiName:Width
-      |vpiFullName:work@top.u_reg_status_key_init.Width
-      |UINT:1
-      |vpiTypespec:
-      \_int_typespec: , line:3:14, endln:3:17, parent:work@top.u_reg_status_key_init.Width
-    |vpiParamAssign:
-    \_param_assign: , line:3:18, endln:3:27, parent:work@top.u_reg_status_key_init
-      |vpiOverriden:1
-      |vpiRhs:
-      \_constant: , line:3:26, endln:3:27
-        |vpiConstType:9
-        |vpiDecompile:16
-        |vpiSize:64
-        |UINT:16
-        |vpiTypespec:
-        \_int_typespec: , line:3:14, endln:3:17, parent:work@aes_reg_status.Width
-      |vpiLhs:
-      \_parameter: (work@top.u_reg_status_key_init.Width), line:3:18, endln:3:27, parent:work@top.u_reg_status_key_init
-  |vpiVariables:
-  \_array_var: (work@top.fcoe_reserved_before_sof), line:11:8, endln:11:32, parent:work@top
-    |vpiArrayType:2
-    |vpiName:fcoe_reserved_before_sof
-    |vpiFullName:work@top.fcoe_reserved_before_sof
-    |vpiAutomatic:1
-    |vpiRandType:1
-    |vpiVisibility:1
-    |vpiSize:1
-    |vpiReg:
-    \_bit_var: (work@top.fcoe_reserved_before_sof), parent:work@top.fcoe_reserved_before_sof
-      |vpiFullName:work@top.fcoe_reserved_before_sof
-  |vpiVariables:
-  \_array_var: (work@top.key_init_we), line:13:16, endln:13:27, parent:work@top
-    |vpiArrayType:1
-    |vpiName:key_init_we
-    |vpiFullName:work@top.key_init_we
-    |vpiAutomatic:1
-    |vpiRandType:1
-    |vpiVisibility:1
-    |vpiSize:2
-    |vpiReg:
-    \_logic_var: (work@top.key_init_we), parent:work@top.key_init_we
-      |vpiFullName:work@top.key_init_we
-      |vpiRange:
-      \_range: , line:13:11, endln:13:14
-        |vpiLeftRange:
-        \_constant: , line:13:11, endln:13:12
-          |vpiConstType:9
-          |vpiDecompile:7
-          |vpiSize:64
-          |UINT:7
-        |vpiRightRange:
-        \_constant: , line:13:13, endln:13:14
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-    |vpiRange:
-    \_range: , line:13:29, endln:13:30
-      |vpiLeftRange:
-      \_constant: , line:13:29, endln:13:30
-        |vpiConstType:9
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-      |vpiRightRange:
-      \_operation: 
-        |vpiOpType:11
-        |vpiOperand:
-        \_constant: , line:13:29, endln:13:30
-          |vpiConstType:9
-          |vpiDecompile:2
-          |vpiSize:64
-          |UINT:2
-        |vpiOperand:
-        \_constant: 
-          |vpiConstType:7
-          |vpiSize:64
-          |INT:1
 |uhdmtopModules:
 \_module: work@toto (work@toto) dut.sv:23:1: , endln:30:10
-  |vpiDefName:work@toto
   |vpiName:work@toto
   |vpiVariables:
   \_array_var: (work@toto.fcoe_reserved_before_sof), line:25:6, endln:25:30, parent:work@toto
-    |vpiArrayType:2
+    |vpiSize:1
     |vpiName:fcoe_reserved_before_sof
     |vpiFullName:work@toto.fcoe_reserved_before_sof
     |vpiAutomatic:1
     |vpiRandType:1
     |vpiVisibility:1
-    |vpiSize:1
+    |vpiArrayType:2
     |vpiReg:
     \_bit_var: (work@toto.fcoe_reserved_before_sof), parent:work@toto.fcoe_reserved_before_sof
       |vpiFullName:work@toto.fcoe_reserved_before_sof
   |vpiParameter:
   \_parameter: (work@toto.a), line:27:14, endln:27:52, parent:work@toto
+    |UINT:1
     |vpiName:a
     |vpiFullName:work@toto.a
-    |UINT:1
   |vpiParamAssign:
   \_param_assign: , line:27:14, endln:27:52, parent:work@toto
     |vpiRhs:
     \_constant: , line:27:18, endln:27:52
-      |vpiConstType:9
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@toto.a), line:27:14, endln:27:52, parent:work@toto
+  |vpiDefName:work@toto
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

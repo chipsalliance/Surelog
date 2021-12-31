@@ -37,8 +37,16 @@ design: (work@m1)
 |vpiName:work@m1
 |uhdmallModules:
 \_module: work@m1 (work@m1) top.v:1:1: , endln:5:10, parent:work@m1
-  |vpiDefName:work@m1
   |vpiFullName:work@m1
+  |vpiDefName:work@m1
+  |vpiNet:
+  \_logic_net: (work@m1.clk), line:1:17, parent:work@m1
+    |vpiName:clk
+    |vpiFullName:work@m1.clk
+  |vpiNet:
+  \_logic_net: (work@m1.out), line:1:29, parent:work@m1
+    |vpiName:out
+    |vpiFullName:work@m1.out
   |vpiPort:
   \_port: (clk), line:1:17, parent:work@m1
     |vpiName:clk
@@ -47,8 +55,6 @@ design: (work@m1)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@m1.clk), line:1:17, parent:work@m1
-        |vpiName:clk
-        |vpiFullName:work@m1.clk
   |vpiPort:
   \_port: (out), line:1:29, parent:work@m1
     |vpiName:out
@@ -57,8 +63,6 @@ design: (work@m1)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@m1.out), line:1:29, parent:work@m1
-        |vpiName:out
-        |vpiFullName:work@m1.out
   |vpiProcess:
   \_initial: , parent:work@m1
     |vpiStmt:
@@ -66,13 +70,12 @@ design: (work@m1)
       |vpiFullName:work@m1
       |vpiStmt:
       \_sys_func_call: ($display), line:3:5, endln:3:25, parent:work@m1
-        |vpiName:$display
         |vpiArgument:
         \_constant: , line:3:14, endln:3:18
-          |vpiConstType:6
           |vpiDecompile:%d
           |vpiSize:2
           |STRING:%d
+          |vpiConstType:6
         |vpiArgument:
         \_ref_obj: (work@m1.clk), line:3:20, endln:3:23, parent:$display
           |vpiName:clk
@@ -81,14 +84,19 @@ design: (work@m1)
           \_logic_net: (work@m1.clk), line:1:17, endln:1:20, parent:work@m1
             |vpiName:clk
             |vpiFullName:work@m1.clk
-  |vpiNet:
-  \_logic_net: (work@m1.clk), line:1:17, parent:work@m1
-  |vpiNet:
-  \_logic_net: (work@m1.out), line:1:29, parent:work@m1
+        |vpiName:$display
 |uhdmtopModules:
 \_module: work@m1 (work@m1) top.v:1:1: , endln:5:10
-  |vpiDefName:work@m1
   |vpiName:work@m1
+  |vpiDefName:work@m1
+  |vpiNet:
+  \_logic_net: (work@m1.clk), line:1:17, endln:1:20, parent:work@m1
+    |vpiName:clk
+    |vpiFullName:work@m1.clk
+  |vpiNet:
+  \_logic_net: (work@m1.out), line:1:29, endln:1:32, parent:work@m1
+    |vpiName:out
+    |vpiFullName:work@m1.out
   |vpiPort:
   \_port: (clk), line:1:17, endln:1:20, parent:work@m1
     |vpiName:clk
@@ -99,8 +107,6 @@ design: (work@m1)
       |vpiFullName:work@m1.clk
       |vpiActual:
       \_logic_net: (work@m1.clk), line:1:17, endln:1:20, parent:work@m1
-        |vpiName:clk
-        |vpiFullName:work@m1.clk
   |vpiPort:
   \_port: (out), line:1:29, endln:1:32, parent:work@m1
     |vpiName:out
@@ -111,12 +117,6 @@ design: (work@m1)
       |vpiFullName:work@m1.out
       |vpiActual:
       \_logic_net: (work@m1.out), line:1:29, endln:1:32, parent:work@m1
-        |vpiName:out
-        |vpiFullName:work@m1.out
-  |vpiNet:
-  \_logic_net: (work@m1.clk), line:1:17, endln:1:20, parent:work@m1
-  |vpiNet:
-  \_logic_net: (work@m1.out), line:1:29, endln:1:32, parent:work@m1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

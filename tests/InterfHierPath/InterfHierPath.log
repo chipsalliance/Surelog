@@ -118,12 +118,12 @@ n<> u<79> t<Top_level_rule> l<1:1> el<17:1>
 
 ====== UHDM =======
 design: (work@or_ex)
-|vpiName:work@or_ex
 |vpiElaborated:1
+|vpiName:work@or_ex
 |uhdmallInterfaces:
 \_interface: work@logic_gate_if (work@logic_gate_if) dut.sv:1:1: , endln:5:13, parent:work@or_ex
-  |vpiDefName:work@logic_gate_if
   |vpiFullName:work@logic_gate_if
+  |vpiDefName:work@logic_gate_if
   |vpiNet:
   \_logic_net: (work@logic_gate_if.a), line:3:12, parent:work@logic_gate_if
     |vpiName:a
@@ -131,8 +131,13 @@ design: (work@or_ex)
     |vpiNetType:36
 |uhdmallModules:
 \_module: work@or_ex (work@or_ex) dut.sv:8:1: , endln:16:10, parent:work@or_ex
-  |vpiDefName:work@or_ex
   |vpiFullName:work@or_ex
+  |vpiDefName:work@or_ex
+  |vpiNet:
+  \_logic_net: (work@or_ex.a), line:9:22, parent:work@or_ex
+    |vpiName:a
+    |vpiFullName:work@or_ex.a
+    |vpiNetType:36
   |vpiPort:
   \_port: (a), line:9:22, parent:work@or_ex
     |vpiName:a
@@ -141,9 +146,6 @@ design: (work@or_ex)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@or_ex.a), line:9:22, parent:work@or_ex
-        |vpiName:a
-        |vpiFullName:work@or_ex.a
-        |vpiNetType:36
   |vpiContAssign:
   \_cont_assign: , line:14:10, endln:14:18, parent:work@or_ex
     |vpiRhs:
@@ -159,16 +161,16 @@ design: (work@or_ex)
         \_range: , line:9:17, endln:9:20
           |vpiLeftRange:
           \_constant: , line:9:17, endln:9:18
-            |vpiConstType:9
             |vpiDecompile:3
             |vpiSize:64
             |UINT:3
+            |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:9:19, endln:9:20
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
     |vpiLhs:
     \_hier_path: (lg.a), line:14:10, endln:14:12
       |vpiName:lg.a
@@ -178,12 +180,29 @@ design: (work@or_ex)
       |vpiActual:
       \_ref_obj: (a)
         |vpiName:a
-  |vpiNet:
-  \_logic_net: (work@or_ex.a), line:9:22, parent:work@or_ex
 |uhdmtopModules:
 \_module: work@or_ex (work@or_ex) dut.sv:8:1: , endln:16:10
-  |vpiDefName:work@or_ex
   |vpiName:work@or_ex
+  |vpiDefName:work@or_ex
+  |vpiNet:
+  \_logic_net: (work@or_ex.a), line:9:22, endln:9:23, parent:work@or_ex
+    |vpiName:a
+    |vpiFullName:work@or_ex.a
+    |vpiNetType:36
+    |vpiRange:
+    \_range: , line:9:17, endln:9:20
+      |vpiLeftRange:
+      \_constant: , line:9:17, endln:9:18
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:9:19, endln:9:20
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
   |vpiPort:
   \_port: (a), line:9:22, endln:9:23, parent:work@or_ex
     |vpiName:a
@@ -194,34 +213,12 @@ design: (work@or_ex)
       |vpiFullName:work@or_ex.a
       |vpiActual:
       \_logic_net: (work@or_ex.a), line:9:22, endln:9:23, parent:work@or_ex
-        |vpiName:a
-        |vpiFullName:work@or_ex.a
-        |vpiNetType:36
-        |vpiRange:
-        \_range: , line:9:17, endln:9:20
-          |vpiLeftRange:
-          \_constant: , line:9:17, endln:9:18
-            |vpiConstType:9
-            |vpiDecompile:3
-            |vpiSize:64
-            |UINT:3
-          |vpiRightRange:
-          \_constant: , line:9:19, endln:9:20
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
     |vpiInstance:
     \_module: work@or_ex (work@or_ex) dut.sv:8:1: , endln:16:10
   |vpiInterface:
   \_interface: work@logic_gate_if (work@or_ex.lg) dut.sv:12:3: , endln:12:23, parent:work@or_ex
-    |vpiDefName:work@logic_gate_if
-    |vpiDefFile:dut.sv
-    |vpiDefLineNo:1
     |vpiName:lg
     |vpiFullName:work@or_ex.lg
-    |vpiInstance:
-    \_module: work@or_ex (work@or_ex) dut.sv:8:1: , endln:16:10
     |vpiVariables:
     \_logic_var: (work@or_ex.lg.a), line:3:12, endln:3:13, parent:work@or_ex.lg
       |vpiName:a
@@ -232,16 +229,21 @@ design: (work@or_ex)
       \_range: , line:3:7, endln:3:10
         |vpiLeftRange:
         \_constant: , line:3:7, endln:3:8
-          |vpiConstType:9
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
+          |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:3:9, endln:3:10
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
+    |vpiDefName:work@logic_gate_if
+    |vpiDefFile:dut.sv
+    |vpiDefLineNo:1
+    |vpiInstance:
+    \_module: work@or_ex (work@or_ex) dut.sv:8:1: , endln:16:10
   |vpiContAssign:
   \_cont_assign: , line:14:10, endln:14:18, parent:work@or_ex
     |vpiRhs:
@@ -263,8 +265,6 @@ design: (work@or_ex)
         |vpiName:a
         |vpiActual:
         \_logic_var: (work@or_ex.lg.a), line:3:12, endln:3:13, parent:work@or_ex.lg
-  |vpiNet:
-  \_logic_net: (work@or_ex.a), line:9:22, endln:9:23, parent:work@or_ex
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

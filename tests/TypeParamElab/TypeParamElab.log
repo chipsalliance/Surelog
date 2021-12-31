@@ -316,73 +316,74 @@ n<> u<273> t<Top_level_rule> l<1:1> el<38:1>
 
 ====== UHDM =======
 design: (work@axi_node_arbiter)
-|vpiName:work@axi_node_arbiter
 |vpiElaborated:1
+|vpiName:work@axi_node_arbiter
 |uhdmallModules:
 \_module: work@axi_node_arbiter (work@axi_node_arbiter) dut.sv:22:1: , endln:37:10, parent:work@axi_node_arbiter
-  |vpiDefName:work@axi_node_arbiter
   |vpiFullName:work@axi_node_arbiter
   |vpiParameter:
   \_parameter: (work@axi_node_arbiter.AUX_WIDTH), line:23:26, endln:23:39, parent:work@axi_node_arbiter
-    |vpiName:AUX_WIDTH
-    |vpiFullName:work@axi_node_arbiter.AUX_WIDTH
     |UINT:5
     |vpiTypespec:
     \_int_typespec: , line:23:13, endln:23:16, parent:work@axi_node_arbiter.AUX_WIDTH
+    |vpiName:AUX_WIDTH
+    |vpiFullName:work@axi_node_arbiter.AUX_WIDTH
   |vpiParameter:
   \_parameter: (work@axi_node_arbiter.ID_WIDTH), line:24:26, endln:24:38, parent:work@axi_node_arbiter
-    |vpiName:ID_WIDTH
-    |vpiFullName:work@axi_node_arbiter.ID_WIDTH
     |UINT:5
     |vpiTypespec:
     \_int_typespec: , line:24:13, endln:24:16, parent:work@axi_node_arbiter.ID_WIDTH
+    |vpiName:ID_WIDTH
+    |vpiFullName:work@axi_node_arbiter.ID_WIDTH
   |vpiParameter:
   \_parameter: (work@axi_node_arbiter.N_MASTER), line:25:26, endln:25:39, parent:work@axi_node_arbiter
-    |vpiName:N_MASTER
-    |vpiFullName:work@axi_node_arbiter.N_MASTER
     |UINT:10
     |vpiTypespec:
     \_int_typespec: , line:25:13, endln:25:16, parent:work@axi_node_arbiter.N_MASTER
+    |vpiName:N_MASTER
+    |vpiFullName:work@axi_node_arbiter.N_MASTER
   |vpiParamAssign:
   \_param_assign: , line:23:26, endln:23:39, parent:work@axi_node_arbiter
     |vpiRhs:
     \_constant: , line:23:38, endln:23:39
-      |vpiConstType:9
       |vpiDecompile:5
       |vpiSize:32
       |UINT:5
       |vpiTypespec:
       \_int_typespec: , line:23:13, endln:23:16, parent:work@axi_node_arbiter.AUX_WIDTH
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@axi_node_arbiter.AUX_WIDTH), line:23:26, endln:23:39, parent:work@axi_node_arbiter
   |vpiParamAssign:
   \_param_assign: , line:24:26, endln:24:38, parent:work@axi_node_arbiter
     |vpiRhs:
     \_constant: , line:24:37, endln:24:38
-      |vpiConstType:9
       |vpiDecompile:5
       |vpiSize:32
       |UINT:5
       |vpiTypespec:
       \_int_typespec: , line:24:13, endln:24:16, parent:work@axi_node_arbiter.ID_WIDTH
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@axi_node_arbiter.ID_WIDTH), line:24:26, endln:24:38, parent:work@axi_node_arbiter
   |vpiParamAssign:
   \_param_assign: , line:25:26, endln:25:39, parent:work@axi_node_arbiter
     |vpiRhs:
     \_constant: , line:25:37, endln:25:39
-      |vpiConstType:9
       |vpiDecompile:10
       |vpiSize:32
       |UINT:10
       |vpiTypespec:
       \_int_typespec: , line:25:13, endln:25:16, parent:work@axi_node_arbiter.N_MASTER
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@axi_node_arbiter.N_MASTER), line:25:26, endln:25:39, parent:work@axi_node_arbiter
   |vpiTypedef:
   \_struct_typespec: (axi_meta_t), line:27:11, endln:27:17
-    |vpiPacked:1
     |vpiName:axi_meta_t
+    |vpiInstance:
+    \_module: work@axi_node_arbiter (work@axi_node_arbiter) dut.sv:22:1: , endln:37:10, parent:work@axi_node_arbiter
+    |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (aux), line:28:27, endln:28:30
       |vpiName:aux
@@ -399,16 +400,16 @@ design: (work@axi_node_arbiter)
               |vpiFullName:axi_meta_t.AUX_WIDTH
             |vpiOperand:
             \_constant: , line:28:22, endln:28:23
-              |vpiConstType:9
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
+              |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:28:24, endln:28:25
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
     |vpiTypespecMember:
     \_typespec_member: (id), line:29:27, endln:29:29
       |vpiName:id
@@ -425,39 +426,37 @@ design: (work@axi_node_arbiter)
               |vpiFullName:axi_meta_t.ID_WIDTH
             |vpiOperand:
             \_constant: , line:29:21, endln:29:22
-              |vpiConstType:9
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
+              |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:29:23, endln:29:24
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-    |vpiInstance:
-    \_module: work@axi_node_arbiter (work@axi_node_arbiter) dut.sv:22:1: , endln:37:10, parent:work@axi_node_arbiter
+            |vpiConstType:9
+  |vpiDefName:work@axi_node_arbiter
 |uhdmallModules:
 \_module: work@stream_arbiter (work@stream_arbiter) dut.sv:9:1: , endln:20:10, parent:work@axi_node_arbiter
-  |vpiDefName:work@stream_arbiter
   |vpiFullName:work@stream_arbiter
   |vpiParameter:
   \_type_parameter: (work@stream_arbiter.DATA_T), line:10:25, endln:10:31, parent:work@stream_arbiter
-    |vpiFullName:work@stream_arbiter.DATA_T
     |vpiName:DATA_T
+    |vpiFullName:work@stream_arbiter.DATA_T
     |vpiTypespec:
     \_logic_typespec: , line:10:34, endln:10:39, parent:work@stream_arbiter.DATA_T
   |vpiParameter:
   \_parameter: (work@stream_arbiter.N_INP), line:11:25, endln:11:35, parent:work@stream_arbiter
-    |vpiName:N_INP
-    |vpiFullName:work@stream_arbiter.N_INP
     |vpiTypespec:
     \_int_typespec: , line:11:15, endln:11:22, parent:work@stream_arbiter.N_INP
+    |vpiName:N_INP
+    |vpiFullName:work@stream_arbiter.N_INP
   |vpiParameter:
   \_parameter: (work@stream_arbiter.ARBITER), line:12:25, endln:12:39, parent:work@stream_arbiter
+    |STRING:rr
     |vpiName:ARBITER
     |vpiFullName:work@stream_arbiter.ARBITER
-    |STRING:rr
   |vpiParamAssign:
   \_param_assign: , line:11:25, endln:11:35, parent:work@stream_arbiter
     |vpiRhs:
@@ -465,26 +464,71 @@ design: (work@axi_node_arbiter)
       |vpiOpType:1
       |vpiOperand:
       \_constant: , line:11:34, endln:11:35
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@stream_arbiter.N_INP), line:11:25, endln:11:35, parent:work@stream_arbiter
   |vpiParamAssign:
   \_param_assign: , line:12:25, endln:12:39, parent:work@stream_arbiter
     |vpiRhs:
     \_constant: , line:12:35, endln:12:39
-      |vpiConstType:6
       |vpiDecompile:rr
       |vpiSize:2
       |STRING:rr
+      |vpiConstType:6
     |vpiLhs:
     \_parameter: (work@stream_arbiter.ARBITER), line:12:25, endln:12:39, parent:work@stream_arbiter
+  |vpiDefName:work@stream_arbiter
 |uhdmallModules:
 \_module: work@stream_arbiter_flushable (work@stream_arbiter_flushable) dut.sv:1:1: , endln:7:10, parent:work@axi_node_arbiter
-  |vpiDefName:work@stream_arbiter_flushable
   |vpiFullName:work@stream_arbiter_flushable
+  |vpiParameter:
+  \_type_parameter: (work@stream_arbiter_flushable.DATA_T), line:2:25, endln:2:31, parent:work@stream_arbiter_flushable
+    |vpiName:DATA_T
+    |vpiFullName:work@stream_arbiter_flushable.DATA_T
+    |vpiTypespec:
+    \_logic_typespec: , line:2:34, endln:2:39, parent:work@stream_arbiter_flushable.DATA_T
+  |vpiParameter:
+  \_parameter: (work@stream_arbiter_flushable.N_INP), line:3:25, endln:3:35, parent:work@stream_arbiter_flushable
+    |vpiTypespec:
+    \_int_typespec: , line:3:15, endln:3:22, parent:work@stream_arbiter_flushable.N_INP
+    |vpiName:N_INP
+    |vpiFullName:work@stream_arbiter_flushable.N_INP
+  |vpiParameter:
+  \_parameter: (work@stream_arbiter_flushable.ARBITER), line:4:25, endln:4:39, parent:work@stream_arbiter_flushable
+    |STRING:rr
+    |vpiName:ARBITER
+    |vpiFullName:work@stream_arbiter_flushable.ARBITER
+  |vpiParamAssign:
+  \_param_assign: , line:3:25, endln:3:35, parent:work@stream_arbiter_flushable
+    |vpiRhs:
+    \_operation: , line:3:33, endln:3:35
+      |vpiOpType:1
+      |vpiOperand:
+      \_constant: , line:3:34, endln:3:35
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@stream_arbiter_flushable.N_INP), line:3:25, endln:3:35, parent:work@stream_arbiter_flushable
+  |vpiParamAssign:
+  \_param_assign: , line:4:25, endln:4:39, parent:work@stream_arbiter_flushable
+    |vpiRhs:
+    \_constant: , line:4:35, endln:4:39
+      |vpiDecompile:rr
+      |vpiSize:2
+      |STRING:rr
+      |vpiConstType:6
+    |vpiLhs:
+    \_parameter: (work@stream_arbiter_flushable.ARBITER), line:4:25, endln:4:39, parent:work@stream_arbiter_flushable
+  |vpiDefName:work@stream_arbiter_flushable
+  |vpiNet:
+  \_logic_net: (work@stream_arbiter_flushable.oup_data_o), line:5:30, parent:work@stream_arbiter_flushable
+    |vpiName:oup_data_o
+    |vpiFullName:work@stream_arbiter_flushable.oup_data_o
   |vpiPort:
   \_port: (oup_data_o), line:5:30, parent:work@stream_arbiter_flushable
     |vpiName:oup_data_o
@@ -493,209 +537,198 @@ design: (work@axi_node_arbiter)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@stream_arbiter_flushable.oup_data_o), line:5:30, parent:work@stream_arbiter_flushable
-        |vpiName:oup_data_o
-        |vpiFullName:work@stream_arbiter_flushable.oup_data_o
-  |vpiNet:
-  \_logic_net: (work@stream_arbiter_flushable.oup_data_o), line:5:30, parent:work@stream_arbiter_flushable
-  |vpiParameter:
-  \_type_parameter: (work@stream_arbiter_flushable.DATA_T), line:2:25, endln:2:31, parent:work@stream_arbiter_flushable
-    |vpiFullName:work@stream_arbiter_flushable.DATA_T
-    |vpiName:DATA_T
-    |vpiTypespec:
-    \_logic_typespec: , line:2:34, endln:2:39, parent:work@stream_arbiter_flushable.DATA_T
-  |vpiParameter:
-  \_parameter: (work@stream_arbiter_flushable.N_INP), line:3:25, endln:3:35, parent:work@stream_arbiter_flushable
-    |vpiName:N_INP
-    |vpiFullName:work@stream_arbiter_flushable.N_INP
-    |vpiTypespec:
-    \_int_typespec: , line:3:15, endln:3:22, parent:work@stream_arbiter_flushable.N_INP
-  |vpiParameter:
-  \_parameter: (work@stream_arbiter_flushable.ARBITER), line:4:25, endln:4:39, parent:work@stream_arbiter_flushable
-    |vpiName:ARBITER
-    |vpiFullName:work@stream_arbiter_flushable.ARBITER
-    |STRING:rr
-  |vpiParamAssign:
-  \_param_assign: , line:3:25, endln:3:35, parent:work@stream_arbiter_flushable
-    |vpiRhs:
-    \_operation: , line:3:33, endln:3:35
-      |vpiOpType:1
-      |vpiOperand:
-      \_constant: , line:3:34, endln:3:35
-        |vpiConstType:9
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-    |vpiLhs:
-    \_parameter: (work@stream_arbiter_flushable.N_INP), line:3:25, endln:3:35, parent:work@stream_arbiter_flushable
-  |vpiParamAssign:
-  \_param_assign: , line:4:25, endln:4:39, parent:work@stream_arbiter_flushable
-    |vpiRhs:
-    \_constant: , line:4:35, endln:4:39
-      |vpiConstType:6
-      |vpiDecompile:rr
-      |vpiSize:2
-      |STRING:rr
-    |vpiLhs:
-    \_parameter: (work@stream_arbiter_flushable.ARBITER), line:4:25, endln:4:39, parent:work@stream_arbiter_flushable
 |uhdmtopModules:
 \_module: work@axi_node_arbiter (work@axi_node_arbiter) dut.sv:22:1: , endln:37:10
-  |vpiDefName:work@axi_node_arbiter
   |vpiName:work@axi_node_arbiter
-  |vpiModule:
-  \_module: work@stream_arbiter (work@axi_node_arbiter.i_arb_inp) dut.sv:32:2: , endln:35:19, parent:work@axi_node_arbiter
-    |vpiDefName:work@stream_arbiter
-    |vpiDefFile:dut.sv
-    |vpiDefLineNo:9
-    |vpiName:i_arb_inp
-    |vpiFullName:work@axi_node_arbiter.i_arb_inp
-    |vpiModule:
-    \_module: work@stream_arbiter_flushable (work@axi_node_arbiter.i_arb_inp.i_arb) dut.sv:14:3: , endln:18:14, parent:work@axi_node_arbiter.i_arb_inp
-      |vpiDefName:work@stream_arbiter_flushable
-      |vpiDefFile:dut.sv
-      |vpiDefLineNo:1
-      |vpiName:i_arb
-      |vpiFullName:work@axi_node_arbiter.i_arb_inp.i_arb
-      |vpiPort:
-      \_port: (oup_data_o), line:5:30, endln:5:40, parent:work@axi_node_arbiter.i_arb_inp.i_arb
-        |vpiName:oup_data_o
-        |vpiDirection:2
-        |vpiLowConn:
-        \_ref_obj: (work@axi_node_arbiter.i_arb_inp.i_arb.oup_data_o), parent:oup_data_o
-          |vpiName:oup_data_o
-          |vpiFullName:work@axi_node_arbiter.i_arb_inp.i_arb.oup_data_o
-          |vpiActual:
-          \_logic_var: (work@axi_node_arbiter.i_arb_inp.i_arb.oup_data_o), line:5:30, endln:5:40, parent:work@axi_node_arbiter.i_arb_inp.i_arb
-            |vpiName:oup_data_o
-            |vpiFullName:work@axi_node_arbiter.i_arb_inp.i_arb.oup_data_o
-            |vpiAutomatic:1
-            |vpiVisibility:1
-        |vpiInstance:
-        \_module: work@stream_arbiter_flushable (work@axi_node_arbiter.i_arb_inp.i_arb) dut.sv:14:3: , endln:18:14, parent:work@axi_node_arbiter.i_arb_inp
-      |vpiInstance:
-      \_module: work@stream_arbiter (work@axi_node_arbiter.i_arb_inp) dut.sv:32:2: , endln:35:19, parent:work@axi_node_arbiter
-      |vpiVariables:
-      \_logic_var: (work@axi_node_arbiter.i_arb_inp.i_arb.oup_data_o), line:5:30, endln:5:40, parent:work@axi_node_arbiter.i_arb_inp.i_arb
+  |vpiParameter:
+  \_parameter: (work@axi_node_arbiter.AUX_WIDTH), line:23:26, endln:23:39, parent:work@axi_node_arbiter
+    |UINT:5
+    |vpiTypespec:
+    \_int_typespec: , line:23:13, endln:23:16, parent:work@axi_node_arbiter.AUX_WIDTH
+    |vpiName:AUX_WIDTH
+    |vpiFullName:work@axi_node_arbiter.AUX_WIDTH
+  |vpiParameter:
+  \_parameter: (work@axi_node_arbiter.ID_WIDTH), line:24:26, endln:24:38, parent:work@axi_node_arbiter
+    |UINT:5
+    |vpiTypespec:
+    \_int_typespec: , line:24:13, endln:24:16, parent:work@axi_node_arbiter.ID_WIDTH
+    |vpiName:ID_WIDTH
+    |vpiFullName:work@axi_node_arbiter.ID_WIDTH
+  |vpiParameter:
+  \_parameter: (work@axi_node_arbiter.N_MASTER), line:25:26, endln:25:39, parent:work@axi_node_arbiter
+    |UINT:10
+    |vpiTypespec:
+    \_int_typespec: , line:25:13, endln:25:16, parent:work@axi_node_arbiter.N_MASTER
+    |vpiName:N_MASTER
+    |vpiFullName:work@axi_node_arbiter.N_MASTER
+  |vpiParamAssign:
+  \_param_assign: , line:23:26, endln:23:39, parent:work@axi_node_arbiter
+    |vpiRhs:
+    \_constant: , line:23:38, endln:23:39
+      |vpiDecompile:5
+      |vpiSize:32
+      |UINT:5
+      |vpiTypespec:
+      \_int_typespec: , line:23:13, endln:23:16, parent:work@axi_node_arbiter.AUX_WIDTH
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@axi_node_arbiter.AUX_WIDTH), line:23:26, endln:23:39, parent:work@axi_node_arbiter
+  |vpiParamAssign:
+  \_param_assign: , line:24:26, endln:24:38, parent:work@axi_node_arbiter
+    |vpiRhs:
+    \_constant: , line:24:37, endln:24:38
+      |vpiDecompile:5
+      |vpiSize:32
+      |UINT:5
+      |vpiTypespec:
+      \_int_typespec: , line:24:13, endln:24:16, parent:work@axi_node_arbiter.ID_WIDTH
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@axi_node_arbiter.ID_WIDTH), line:24:26, endln:24:38, parent:work@axi_node_arbiter
+  |vpiParamAssign:
+  \_param_assign: , line:25:26, endln:25:39, parent:work@axi_node_arbiter
+    |vpiRhs:
+    \_constant: , line:25:37, endln:25:39
+      |vpiDecompile:10
+      |vpiSize:32
+      |UINT:10
+      |vpiTypespec:
+      \_int_typespec: , line:25:13, endln:25:16, parent:work@axi_node_arbiter.N_MASTER
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@axi_node_arbiter.N_MASTER), line:25:26, endln:25:39, parent:work@axi_node_arbiter
+  |vpiTypedef:
+  \_struct_typespec: (axi_meta_t), line:27:11, endln:27:17
+    |vpiName:axi_meta_t
+    |vpiInstance:
+    \_module: work@axi_node_arbiter (work@axi_node_arbiter) dut.sv:22:1: , endln:37:10, parent:work@axi_node_arbiter
+      |vpiFullName:work@axi_node_arbiter
       |vpiParameter:
-      \_type_parameter: (work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T), parent:work@axi_node_arbiter.i_arb_inp.i_arb
-        |vpiFullName:work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T
-        |vpiName:DATA_T
+      \_parameter: (work@axi_node_arbiter.AUX_WIDTH), line:23:26, endln:23:39, parent:work@axi_node_arbiter
+        |UINT:5
         |vpiTypespec:
-        \_struct_typespec: (axi_meta_t), line:27:11, endln:27:17, parent:work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T
-          |vpiPacked:1
-          |vpiName:axi_meta_t
-          |vpiTypespecMember:
-          \_typespec_member: (aux), line:28:27, endln:28:30, parent:axi_meta_t
-            |vpiName:aux
-            |vpiTypespec:
-            \_logic_typespec: , line:28:5, endln:28:10, parent:aux
-              |vpiRange:
-              \_range: , line:28:12, endln:28:25
-                |vpiLeftRange:
-                \_operation: , line:28:12, endln:28:21
-                  |vpiOpType:11
-                  |vpiOperand:
-                  \_ref_obj: (work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T.axi_meta_t.aux.AUX_WIDTH), line:28:12, endln:28:21
-                    |vpiName:AUX_WIDTH
-                    |vpiFullName:work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T.axi_meta_t.aux.AUX_WIDTH
-                    |vpiActual:
-                    \_constant: , line:23:38, endln:23:39
-                      |vpiConstType:9
-                      |vpiDecompile:5
-                      |vpiSize:32
-                      |UINT:5
-                      |vpiTypespec:
-                      \_int_typespec: , line:23:13, endln:23:16, parent:work@axi_node_arbiter.AUX_WIDTH
-                  |vpiOperand:
-                  \_constant: , line:28:22, endln:28:23
-                    |vpiConstType:9
-                    |vpiDecompile:1
-                    |vpiSize:64
-                    |UINT:1
-                |vpiRightRange:
-                \_constant: , line:28:24, endln:28:25
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-          |vpiTypespecMember:
-          \_typespec_member: (id), line:29:27, endln:29:29, parent:axi_meta_t
-            |vpiName:id
-            |vpiTypespec:
-            \_logic_typespec: , line:29:5, endln:29:10, parent:id
-              |vpiRange:
-              \_range: , line:29:12, endln:29:24
-                |vpiLeftRange:
-                \_operation: , line:29:12, endln:29:20
-                  |vpiOpType:11
-                  |vpiOperand:
-                  \_ref_obj: (work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T.axi_meta_t.id.ID_WIDTH), line:29:12, endln:29:20
-                    |vpiName:ID_WIDTH
-                    |vpiFullName:work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T.axi_meta_t.id.ID_WIDTH
-                    |vpiActual:
-                    \_constant: , line:24:37, endln:24:38
-                      |vpiConstType:9
-                      |vpiDecompile:5
-                      |vpiSize:32
-                      |UINT:5
-                      |vpiTypespec:
-                      \_int_typespec: , line:24:13, endln:24:16, parent:work@axi_node_arbiter.ID_WIDTH
-                  |vpiOperand:
-                  \_constant: , line:29:21, endln:29:22
-                    |vpiConstType:9
-                    |vpiDecompile:1
-                    |vpiSize:64
-                    |UINT:1
-                |vpiRightRange:
-                \_constant: , line:29:23, endln:29:24
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
+        \_int_typespec: , line:23:13, endln:23:16, parent:work@axi_node_arbiter.AUX_WIDTH
+        |vpiName:AUX_WIDTH
+        |vpiFullName:work@axi_node_arbiter.AUX_WIDTH
       |vpiParameter:
-      \_parameter: (work@axi_node_arbiter.i_arb_inp.i_arb.N_INP), line:3:25, endln:3:35, parent:work@axi_node_arbiter.i_arb_inp.i_arb
-        |vpiName:N_INP
-        |vpiFullName:work@axi_node_arbiter.i_arb_inp.i_arb.N_INP
+      \_parameter: (work@axi_node_arbiter.ID_WIDTH), line:24:26, endln:24:38, parent:work@axi_node_arbiter
+        |UINT:5
         |vpiTypespec:
-        \_int_typespec: , line:3:15, endln:3:22, parent:work@axi_node_arbiter.i_arb_inp.i_arb.N_INP
+        \_int_typespec: , line:24:13, endln:24:16, parent:work@axi_node_arbiter.ID_WIDTH
+        |vpiName:ID_WIDTH
+        |vpiFullName:work@axi_node_arbiter.ID_WIDTH
       |vpiParameter:
-      \_parameter: (work@axi_node_arbiter.i_arb_inp.i_arb.ARBITER), line:4:25, endln:4:39, parent:work@axi_node_arbiter.i_arb_inp.i_arb
-        |vpiName:ARBITER
-        |vpiFullName:work@axi_node_arbiter.i_arb_inp.i_arb.ARBITER
-        |STRING:rr
+      \_parameter: (work@axi_node_arbiter.N_MASTER), line:25:26, endln:25:39, parent:work@axi_node_arbiter
+        |UINT:10
+        |vpiTypespec:
+        \_int_typespec: , line:25:13, endln:25:16, parent:work@axi_node_arbiter.N_MASTER
+        |vpiName:N_MASTER
+        |vpiFullName:work@axi_node_arbiter.N_MASTER
       |vpiParamAssign:
-      \_param_assign: , line:3:25, endln:3:35, parent:work@axi_node_arbiter.i_arb_inp.i_arb
-        |vpiOverriden:1
+      \_param_assign: , line:23:26, endln:23:39, parent:work@axi_node_arbiter
         |vpiRhs:
-        \_constant: , line:3:33, endln:3:35
+        \_constant: , line:23:38, endln:23:39
+          |vpiDecompile:5
+          |vpiSize:32
+          |UINT:5
+          |vpiTypespec:
+          \_int_typespec: , line:23:13, endln:23:16, parent:work@axi_node_arbiter.AUX_WIDTH
           |vpiConstType:9
+        |vpiLhs:
+        \_parameter: (work@axi_node_arbiter.AUX_WIDTH), line:23:26, endln:23:39, parent:work@axi_node_arbiter
+      |vpiParamAssign:
+      \_param_assign: , line:24:26, endln:24:38, parent:work@axi_node_arbiter
+        |vpiRhs:
+        \_constant: , line:24:37, endln:24:38
+          |vpiDecompile:5
+          |vpiSize:32
+          |UINT:5
+          |vpiTypespec:
+          \_int_typespec: , line:24:13, endln:24:16, parent:work@axi_node_arbiter.ID_WIDTH
+          |vpiConstType:9
+        |vpiLhs:
+        \_parameter: (work@axi_node_arbiter.ID_WIDTH), line:24:26, endln:24:38, parent:work@axi_node_arbiter
+      |vpiParamAssign:
+      \_param_assign: , line:25:26, endln:25:39, parent:work@axi_node_arbiter
+        |vpiRhs:
+        \_constant: , line:25:37, endln:25:39
           |vpiDecompile:10
           |vpiSize:32
           |UINT:10
           |vpiTypespec:
-          \_int_typespec: , line:3:15, endln:3:22, parent:work@stream_arbiter_flushable.N_INP
+          \_int_typespec: , line:25:13, endln:25:16, parent:work@axi_node_arbiter.N_MASTER
+          |vpiConstType:9
         |vpiLhs:
-        \_parameter: (work@axi_node_arbiter.i_arb_inp.i_arb.N_INP), line:3:25, endln:3:35, parent:work@axi_node_arbiter.i_arb_inp.i_arb
-      |vpiParamAssign:
-      \_param_assign: , line:4:25, endln:4:39, parent:work@axi_node_arbiter.i_arb_inp.i_arb
-        |vpiOverriden:1
-        |vpiRhs:
-        \_constant: , line:4:35, endln:4:39
-          |vpiConstType:6
-          |vpiDecompile:rr
-          |vpiSize:2
-          |STRING:rr
-        |vpiLhs:
-        \_parameter: (work@axi_node_arbiter.i_arb_inp.i_arb.ARBITER), line:4:25, endln:4:39, parent:work@axi_node_arbiter.i_arb_inp.i_arb
-    |vpiInstance:
-    \_module: work@axi_node_arbiter (work@axi_node_arbiter) dut.sv:22:1: , endln:37:10
+        \_parameter: (work@axi_node_arbiter.N_MASTER), line:25:26, endln:25:39, parent:work@axi_node_arbiter
+      |vpiTypedef:
+      \_struct_typespec: (axi_meta_t), line:27:11, endln:27:17
+      |vpiDefName:work@axi_node_arbiter
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (aux), line:28:27, endln:28:30
+      |vpiName:aux
+      |vpiTypespec:
+      \_logic_typespec: , line:28:5, endln:28:10
+        |vpiRange:
+        \_range: , line:28:12, endln:28:25, parent:axi_meta_t
+          |vpiLeftRange:
+          \_operation: , line:28:12, endln:28:21
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (axi_meta_t.AUX_WIDTH), line:28:12, endln:28:21, parent:axi_meta_t
+              |vpiName:AUX_WIDTH
+              |vpiFullName:axi_meta_t.AUX_WIDTH
+            |vpiOperand:
+            \_constant: , line:28:22, endln:28:23
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:28:24, endln:28:25
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+    |vpiTypespecMember:
+    \_typespec_member: (id), line:29:27, endln:29:29
+      |vpiName:id
+      |vpiTypespec:
+      \_logic_typespec: , line:29:5, endln:29:10
+        |vpiRange:
+        \_range: , line:29:12, endln:29:24, parent:axi_meta_t
+          |vpiLeftRange:
+          \_operation: , line:29:12, endln:29:20
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (axi_meta_t.ID_WIDTH), line:29:12, endln:29:20, parent:axi_meta_t
+              |vpiName:ID_WIDTH
+              |vpiFullName:axi_meta_t.ID_WIDTH
+            |vpiOperand:
+            \_constant: , line:29:21, endln:29:22
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:29:23, endln:29:24
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+  |vpiDefName:work@axi_node_arbiter
+  |vpiModule:
+  \_module: work@stream_arbiter (work@axi_node_arbiter.i_arb_inp) dut.sv:32:2: , endln:35:19, parent:work@axi_node_arbiter
+    |vpiName:i_arb_inp
+    |vpiFullName:work@axi_node_arbiter.i_arb_inp
     |vpiParameter:
     \_type_parameter: (work@axi_node_arbiter.i_arb_inp.DATA_T), parent:work@axi_node_arbiter.i_arb_inp
-      |vpiFullName:work@axi_node_arbiter.i_arb_inp.DATA_T
       |vpiName:DATA_T
+      |vpiFullName:work@axi_node_arbiter.i_arb_inp.DATA_T
       |vpiTypespec:
       \_struct_typespec: (axi_meta_t), line:27:11, endln:27:17, parent:work@axi_node_arbiter.i_arb_inp.DATA_T
-        |vpiPacked:1
         |vpiName:axi_meta_t
+        |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (aux), line:28:27, endln:28:30, parent:axi_meta_t
           |vpiName:aux
@@ -714,16 +747,16 @@ design: (work@axi_node_arbiter)
                   \_constant: , line:23:38, endln:23:39
                 |vpiOperand:
                 \_constant: , line:28:22, endln:28:23
-                  |vpiConstType:9
                   |vpiDecompile:1
                   |vpiSize:64
                   |UINT:1
+                  |vpiConstType:9
               |vpiRightRange:
               \_constant: , line:28:24, endln:28:25
-                |vpiConstType:9
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
+                |vpiConstType:9
         |vpiTypespecMember:
         \_typespec_member: (id), line:29:27, endln:29:29, parent:axi_meta_t
           |vpiName:id
@@ -742,214 +775,181 @@ design: (work@axi_node_arbiter)
                   \_constant: , line:24:37, endln:24:38
                 |vpiOperand:
                 \_constant: , line:29:21, endln:29:22
-                  |vpiConstType:9
                   |vpiDecompile:1
                   |vpiSize:64
                   |UINT:1
+                  |vpiConstType:9
               |vpiRightRange:
               \_constant: , line:29:23, endln:29:24
-                |vpiConstType:9
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
+                |vpiConstType:9
     |vpiParameter:
     \_parameter: (work@axi_node_arbiter.i_arb_inp.N_INP), line:11:25, endln:11:35, parent:work@axi_node_arbiter.i_arb_inp
-      |vpiName:N_INP
-      |vpiFullName:work@axi_node_arbiter.i_arb_inp.N_INP
       |vpiTypespec:
       \_int_typespec: , line:11:15, endln:11:22, parent:work@axi_node_arbiter.i_arb_inp.N_INP
+      |vpiName:N_INP
+      |vpiFullName:work@axi_node_arbiter.i_arb_inp.N_INP
     |vpiParameter:
     \_parameter: (work@axi_node_arbiter.i_arb_inp.ARBITER), line:12:25, endln:12:39, parent:work@axi_node_arbiter.i_arb_inp
+      |STRING:rr
       |vpiName:ARBITER
       |vpiFullName:work@axi_node_arbiter.i_arb_inp.ARBITER
-      |STRING:rr
     |vpiParamAssign:
     \_param_assign: , line:11:25, endln:11:35, parent:work@axi_node_arbiter.i_arb_inp
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:11:33, endln:11:35
-        |vpiConstType:9
         |vpiDecompile:10
         |vpiSize:32
         |UINT:10
         |vpiTypespec:
         \_int_typespec: , line:11:15, endln:11:22, parent:work@stream_arbiter.N_INP
+        |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@axi_node_arbiter.i_arb_inp.N_INP), line:11:25, endln:11:35, parent:work@axi_node_arbiter.i_arb_inp
     |vpiParamAssign:
     \_param_assign: , line:12:25, endln:12:39, parent:work@axi_node_arbiter.i_arb_inp
       |vpiRhs:
       \_constant: , line:12:35, endln:12:39
-        |vpiConstType:6
         |vpiDecompile:rr
         |vpiSize:2
         |STRING:rr
+        |vpiConstType:6
       |vpiLhs:
       \_parameter: (work@axi_node_arbiter.i_arb_inp.ARBITER), line:12:25, endln:12:39, parent:work@axi_node_arbiter.i_arb_inp
-  |vpiParameter:
-  \_parameter: (work@axi_node_arbiter.AUX_WIDTH), line:23:26, endln:23:39, parent:work@axi_node_arbiter
-    |vpiName:AUX_WIDTH
-    |vpiFullName:work@axi_node_arbiter.AUX_WIDTH
-    |UINT:5
-    |vpiTypespec:
-    \_int_typespec: , line:23:13, endln:23:16, parent:work@axi_node_arbiter.AUX_WIDTH
-  |vpiParameter:
-  \_parameter: (work@axi_node_arbiter.ID_WIDTH), line:24:26, endln:24:38, parent:work@axi_node_arbiter
-    |vpiName:ID_WIDTH
-    |vpiFullName:work@axi_node_arbiter.ID_WIDTH
-    |UINT:5
-    |vpiTypespec:
-    \_int_typespec: , line:24:13, endln:24:16, parent:work@axi_node_arbiter.ID_WIDTH
-  |vpiParameter:
-  \_parameter: (work@axi_node_arbiter.N_MASTER), line:25:26, endln:25:39, parent:work@axi_node_arbiter
-    |vpiName:N_MASTER
-    |vpiFullName:work@axi_node_arbiter.N_MASTER
-    |UINT:10
-    |vpiTypespec:
-    \_int_typespec: , line:25:13, endln:25:16, parent:work@axi_node_arbiter.N_MASTER
-  |vpiParamAssign:
-  \_param_assign: , line:23:26, endln:23:39, parent:work@axi_node_arbiter
-    |vpiRhs:
-    \_constant: , line:23:38, endln:23:39
-    |vpiLhs:
-    \_parameter: (work@axi_node_arbiter.AUX_WIDTH), line:23:26, endln:23:39, parent:work@axi_node_arbiter
-  |vpiParamAssign:
-  \_param_assign: , line:24:26, endln:24:38, parent:work@axi_node_arbiter
-    |vpiRhs:
-    \_constant: , line:24:37, endln:24:38
-    |vpiLhs:
-    \_parameter: (work@axi_node_arbiter.ID_WIDTH), line:24:26, endln:24:38, parent:work@axi_node_arbiter
-  |vpiParamAssign:
-  \_param_assign: , line:25:26, endln:25:39, parent:work@axi_node_arbiter
-    |vpiRhs:
-    \_constant: , line:25:37, endln:25:39
-      |vpiConstType:9
-      |vpiDecompile:10
-      |vpiSize:32
-      |UINT:10
-      |vpiTypespec:
-      \_int_typespec: , line:25:13, endln:25:16, parent:work@axi_node_arbiter.N_MASTER
-    |vpiLhs:
-    \_parameter: (work@axi_node_arbiter.N_MASTER), line:25:26, endln:25:39, parent:work@axi_node_arbiter
-  |vpiTypedef:
-  \_struct_typespec: (axi_meta_t), line:27:11, endln:27:17
-    |vpiPacked:1
-    |vpiName:axi_meta_t
-    |vpiTypespecMember:
-    \_typespec_member: (aux), line:28:27, endln:28:30
-      |vpiName:aux
-      |vpiTypespec:
-      \_logic_typespec: , line:28:5, endln:28:10
-        |vpiRange:
-        \_range: , line:28:12, endln:28:25, parent:axi_meta_t
-          |vpiLeftRange:
-          \_operation: , line:28:12, endln:28:21
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (axi_meta_t.AUX_WIDTH), line:28:12, endln:28:21, parent:axi_meta_t
-              |vpiName:AUX_WIDTH
-              |vpiFullName:axi_meta_t.AUX_WIDTH
-            |vpiOperand:
-            \_constant: , line:28:22, endln:28:23
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-          |vpiRightRange:
-          \_constant: , line:28:24, endln:28:25
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-    |vpiTypespecMember:
-    \_typespec_member: (id), line:29:27, endln:29:29
-      |vpiName:id
-      |vpiTypespec:
-      \_logic_typespec: , line:29:5, endln:29:10
-        |vpiRange:
-        \_range: , line:29:12, endln:29:24, parent:axi_meta_t
-          |vpiLeftRange:
-          \_operation: , line:29:12, endln:29:20
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (axi_meta_t.ID_WIDTH), line:29:12, endln:29:20, parent:axi_meta_t
-              |vpiName:ID_WIDTH
-              |vpiFullName:axi_meta_t.ID_WIDTH
-            |vpiOperand:
-            \_constant: , line:29:21, endln:29:22
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-          |vpiRightRange:
-          \_constant: , line:29:23, endln:29:24
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
+    |vpiDefName:work@stream_arbiter
+    |vpiDefFile:dut.sv
+    |vpiDefLineNo:9
     |vpiInstance:
-    \_module: work@axi_node_arbiter (work@axi_node_arbiter) dut.sv:22:1: , endln:37:10, parent:work@axi_node_arbiter
-      |vpiDefName:work@axi_node_arbiter
-      |vpiFullName:work@axi_node_arbiter
+    \_module: work@axi_node_arbiter (work@axi_node_arbiter) dut.sv:22:1: , endln:37:10
+    |vpiModule:
+    \_module: work@stream_arbiter_flushable (work@axi_node_arbiter.i_arb_inp.i_arb) dut.sv:14:3: , endln:18:14, parent:work@axi_node_arbiter.i_arb_inp
+      |vpiName:i_arb
+      |vpiFullName:work@axi_node_arbiter.i_arb_inp.i_arb
+      |vpiVariables:
+      \_logic_var: (work@axi_node_arbiter.i_arb_inp.i_arb.oup_data_o), line:5:30, endln:5:40, parent:work@axi_node_arbiter.i_arb_inp.i_arb
+        |vpiName:oup_data_o
+        |vpiFullName:work@axi_node_arbiter.i_arb_inp.i_arb.oup_data_o
+        |vpiAutomatic:1
+        |vpiVisibility:1
       |vpiParameter:
-      \_parameter: (work@axi_node_arbiter.AUX_WIDTH), line:23:26, endln:23:39, parent:work@axi_node_arbiter
-        |vpiName:AUX_WIDTH
-        |vpiFullName:work@axi_node_arbiter.AUX_WIDTH
-        |UINT:5
+      \_type_parameter: (work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T), parent:work@axi_node_arbiter.i_arb_inp.i_arb
+        |vpiName:DATA_T
+        |vpiFullName:work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T
         |vpiTypespec:
-        \_int_typespec: , line:23:13, endln:23:16, parent:work@axi_node_arbiter.AUX_WIDTH
+        \_struct_typespec: (axi_meta_t), line:27:11, endln:27:17, parent:work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T
+          |vpiName:axi_meta_t
+          |vpiPacked:1
+          |vpiTypespecMember:
+          \_typespec_member: (aux), line:28:27, endln:28:30, parent:axi_meta_t
+            |vpiName:aux
+            |vpiTypespec:
+            \_logic_typespec: , line:28:5, endln:28:10, parent:aux
+              |vpiRange:
+              \_range: , line:28:12, endln:28:25
+                |vpiLeftRange:
+                \_operation: , line:28:12, endln:28:21
+                  |vpiOpType:11
+                  |vpiOperand:
+                  \_ref_obj: (work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T.axi_meta_t.aux.AUX_WIDTH), line:28:12, endln:28:21
+                    |vpiName:AUX_WIDTH
+                    |vpiFullName:work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T.axi_meta_t.aux.AUX_WIDTH
+                    |vpiActual:
+                    \_constant: , line:23:38, endln:23:39
+                  |vpiOperand:
+                  \_constant: , line:28:22, endln:28:23
+                    |vpiDecompile:1
+                    |vpiSize:64
+                    |UINT:1
+                    |vpiConstType:9
+                |vpiRightRange:
+                \_constant: , line:28:24, endln:28:25
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
+          |vpiTypespecMember:
+          \_typespec_member: (id), line:29:27, endln:29:29, parent:axi_meta_t
+            |vpiName:id
+            |vpiTypespec:
+            \_logic_typespec: , line:29:5, endln:29:10, parent:id
+              |vpiRange:
+              \_range: , line:29:12, endln:29:24
+                |vpiLeftRange:
+                \_operation: , line:29:12, endln:29:20
+                  |vpiOpType:11
+                  |vpiOperand:
+                  \_ref_obj: (work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T.axi_meta_t.id.ID_WIDTH), line:29:12, endln:29:20
+                    |vpiName:ID_WIDTH
+                    |vpiFullName:work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T.axi_meta_t.id.ID_WIDTH
+                    |vpiActual:
+                    \_constant: , line:24:37, endln:24:38
+                  |vpiOperand:
+                  \_constant: , line:29:21, endln:29:22
+                    |vpiDecompile:1
+                    |vpiSize:64
+                    |UINT:1
+                    |vpiConstType:9
+                |vpiRightRange:
+                \_constant: , line:29:23, endln:29:24
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
       |vpiParameter:
-      \_parameter: (work@axi_node_arbiter.ID_WIDTH), line:24:26, endln:24:38, parent:work@axi_node_arbiter
-        |vpiName:ID_WIDTH
-        |vpiFullName:work@axi_node_arbiter.ID_WIDTH
-        |UINT:5
+      \_parameter: (work@axi_node_arbiter.i_arb_inp.i_arb.N_INP), line:3:25, endln:3:35, parent:work@axi_node_arbiter.i_arb_inp.i_arb
         |vpiTypespec:
-        \_int_typespec: , line:24:13, endln:24:16, parent:work@axi_node_arbiter.ID_WIDTH
+        \_int_typespec: , line:3:15, endln:3:22, parent:work@axi_node_arbiter.i_arb_inp.i_arb.N_INP
+        |vpiName:N_INP
+        |vpiFullName:work@axi_node_arbiter.i_arb_inp.i_arb.N_INP
       |vpiParameter:
-      \_parameter: (work@axi_node_arbiter.N_MASTER), line:25:26, endln:25:39, parent:work@axi_node_arbiter
-        |vpiName:N_MASTER
-        |vpiFullName:work@axi_node_arbiter.N_MASTER
-        |UINT:10
-        |vpiTypespec:
-        \_int_typespec: , line:25:13, endln:25:16, parent:work@axi_node_arbiter.N_MASTER
+      \_parameter: (work@axi_node_arbiter.i_arb_inp.i_arb.ARBITER), line:4:25, endln:4:39, parent:work@axi_node_arbiter.i_arb_inp.i_arb
+        |STRING:rr
+        |vpiName:ARBITER
+        |vpiFullName:work@axi_node_arbiter.i_arb_inp.i_arb.ARBITER
       |vpiParamAssign:
-      \_param_assign: , line:23:26, endln:23:39, parent:work@axi_node_arbiter
+      \_param_assign: , line:3:25, endln:3:35, parent:work@axi_node_arbiter.i_arb_inp.i_arb
+        |vpiOverriden:1
         |vpiRhs:
-        \_constant: , line:23:38, endln:23:39
-          |vpiConstType:9
-          |vpiDecompile:5
-          |vpiSize:32
-          |UINT:5
-          |vpiTypespec:
-          \_int_typespec: , line:23:13, endln:23:16, parent:work@axi_node_arbiter.AUX_WIDTH
-        |vpiLhs:
-        \_parameter: (work@axi_node_arbiter.AUX_WIDTH), line:23:26, endln:23:39, parent:work@axi_node_arbiter
-      |vpiParamAssign:
-      \_param_assign: , line:24:26, endln:24:38, parent:work@axi_node_arbiter
-        |vpiRhs:
-        \_constant: , line:24:37, endln:24:38
-          |vpiConstType:9
-          |vpiDecompile:5
-          |vpiSize:32
-          |UINT:5
-          |vpiTypespec:
-          \_int_typespec: , line:24:13, endln:24:16, parent:work@axi_node_arbiter.ID_WIDTH
-        |vpiLhs:
-        \_parameter: (work@axi_node_arbiter.ID_WIDTH), line:24:26, endln:24:38, parent:work@axi_node_arbiter
-      |vpiParamAssign:
-      \_param_assign: , line:25:26, endln:25:39, parent:work@axi_node_arbiter
-        |vpiRhs:
-        \_constant: , line:25:37, endln:25:39
-          |vpiConstType:9
+        \_constant: , line:3:33, endln:3:35
           |vpiDecompile:10
           |vpiSize:32
           |UINT:10
           |vpiTypespec:
-          \_int_typespec: , line:25:13, endln:25:16, parent:work@axi_node_arbiter.N_MASTER
+          \_int_typespec: , line:3:15, endln:3:22, parent:work@stream_arbiter_flushable.N_INP
+          |vpiConstType:9
         |vpiLhs:
-        \_parameter: (work@axi_node_arbiter.N_MASTER), line:25:26, endln:25:39, parent:work@axi_node_arbiter
-      |vpiTypedef:
-      \_struct_typespec: (axi_meta_t), line:27:11, endln:27:17
+        \_parameter: (work@axi_node_arbiter.i_arb_inp.i_arb.N_INP), line:3:25, endln:3:35, parent:work@axi_node_arbiter.i_arb_inp.i_arb
+      |vpiParamAssign:
+      \_param_assign: , line:4:25, endln:4:39, parent:work@axi_node_arbiter.i_arb_inp.i_arb
+        |vpiOverriden:1
+        |vpiRhs:
+        \_constant: , line:4:35, endln:4:39
+          |vpiDecompile:rr
+          |vpiSize:2
+          |STRING:rr
+          |vpiConstType:6
+        |vpiLhs:
+        \_parameter: (work@axi_node_arbiter.i_arb_inp.i_arb.ARBITER), line:4:25, endln:4:39, parent:work@axi_node_arbiter.i_arb_inp.i_arb
+      |vpiDefName:work@stream_arbiter_flushable
+      |vpiDefFile:dut.sv
+      |vpiDefLineNo:1
+      |vpiInstance:
+      \_module: work@stream_arbiter (work@axi_node_arbiter.i_arb_inp) dut.sv:32:2: , endln:35:19, parent:work@axi_node_arbiter
+      |vpiPort:
+      \_port: (oup_data_o), line:5:30, endln:5:40, parent:work@axi_node_arbiter.i_arb_inp.i_arb
+        |vpiName:oup_data_o
+        |vpiDirection:2
+        |vpiLowConn:
+        \_ref_obj: (work@axi_node_arbiter.i_arb_inp.i_arb.oup_data_o), parent:oup_data_o
+          |vpiName:oup_data_o
+          |vpiFullName:work@axi_node_arbiter.i_arb_inp.i_arb.oup_data_o
+          |vpiActual:
+          \_logic_var: (work@axi_node_arbiter.i_arb_inp.i_arb.oup_data_o), line:5:30, endln:5:40, parent:work@axi_node_arbiter.i_arb_inp.i_arb
+        |vpiInstance:
+        \_module: work@stream_arbiter_flushable (work@axi_node_arbiter.i_arb_inp.i_arb) dut.sv:14:3: , endln:18:14, parent:work@axi_node_arbiter.i_arb_inp
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

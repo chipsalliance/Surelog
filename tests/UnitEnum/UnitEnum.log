@@ -412,9 +412,9 @@ design: (work@top)
 |vpiName:work@top
 |uhdmallPackages:
 \_package: builtin (builtin::), parent:work@top
-  |vpiDefName:builtin
   |vpiName:builtin
   |vpiFullName:builtin::
+  |vpiDefName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin::
     |vpiName:array
@@ -433,42 +433,42 @@ design: (work@top)
     |vpiFullName:builtin::system
 |uhdmallPackages:
 \_package: pkg (pkg::) top.v:2:1: , endln:8:11, parent:work@top
-  |vpiDefName:pkg
   |vpiName:pkg
   |vpiFullName:pkg::
-  |vpiClassDefn:
-  \_class_defn: (pkg::Configuration1) top.v:3:1: , endln:4:9, parent:pkg::
-    |vpiName:Configuration1
-    |vpiFullName:pkg::Configuration1
   |vpiTypedef:
   \_enum_typespec: (pkg::fsm_t_pkg), line:6:38, endln:6:47
     |vpiName:pkg::fsm_t_pkg
+    |vpiInstance:
+    \_package: pkg (pkg::) top.v:2:1: , endln:8:11, parent:work@top
     |vpiEnumConst:
     \_enum_const: (IDLE), line:6:16, endln:6:20
       |vpiName:IDLE
-      |vpiDecompile:0
       |INT:0
+      |vpiDecompile:0
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (WRITE), line:6:21, endln:6:26
       |vpiName:WRITE
-      |vpiDecompile:1
       |INT:1
+      |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (READ), line:6:27, endln:6:31
       |vpiName:READ
-      |vpiDecompile:2
       |INT:2
+      |vpiDecompile:2
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (DONE), line:6:32, endln:6:36
       |vpiName:DONE
-      |vpiDecompile:3
       |INT:3
+      |vpiDecompile:3
       |vpiSize:64
-    |vpiInstance:
-    \_package: pkg (pkg::) top.v:2:1: , endln:8:11, parent:work@top
+  |vpiDefName:pkg
+  |vpiClassDefn:
+  \_class_defn: (pkg::Configuration1) top.v:3:1: , endln:4:9, parent:pkg::
+    |vpiName:Configuration1
+    |vpiFullName:pkg::Configuration1
 |uhdmallClasses:
 \_class_defn: (work@Configuration2) top.v:10:1: , endln:11:9, parent:work@top
   |vpiName:work@Configuration2
@@ -477,9 +477,9 @@ design: (work@top)
   |vpiName:work@mailbox
   |vpiMethod:
   \_function: (work@mailbox::new), parent:work@mailbox
-    |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@mailbox::new
+    |vpiMethod:1
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -488,188 +488,188 @@ design: (work@top)
         \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiIODecl:
     \_io_decl: (bound)
-      |vpiName:bound
       |vpiDirection:1
+      |vpiName:bound
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_function: (work@mailbox::num), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:num
     |vpiFullName:work@mailbox::num
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:put
     |vpiFullName:work@mailbox::put
-    |vpiIODecl:
-    \_io_decl: (message)
-      |vpiName:message
-      |vpiDirection:1
-  |vpiMethod:
-  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiDirection:1
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
     \_io_decl: (message)
-      |vpiName:message
       |vpiDirection:1
+      |vpiName:message
   |vpiMethod:
   \_task: (work@mailbox::get), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:get
     |vpiFullName:work@mailbox::get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (message)
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
   |vpiMethod:
   \_function: (work@mailbox::try_get), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (message)
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
   |vpiMethod:
   \_task: (work@mailbox::peek), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
-    |vpiIODecl:
-    \_io_decl: (message)
-      |vpiName:message
-      |vpiDirection:6
-  |vpiMethod:
-  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiDirection:6
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (message)
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
 |uhdmallClasses:
 \_class_defn: (work@process), file:builtin.sv, parent:work@top
   |vpiName:work@process
+  |vpiTypedef:
+  \_enum_typespec: (state)
+    |vpiName:state
+    |vpiEnumConst:
+    \_enum_const: (FINISHED)
+      |vpiName:FINISHED
+      |INT:0
+      |vpiDecompile:0
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (RUNNING)
+      |vpiName:RUNNING
+      |INT:1
+      |vpiDecompile:1
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (WAITING)
+      |vpiName:WAITING
+      |INT:2
+      |vpiDecompile:2
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (SUSPENDED)
+      |vpiName:SUSPENDED
+      |INT:3
+      |vpiDecompile:3
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (KILLED)
+      |vpiName:KILLED
+      |INT:4
+      |vpiDecompile:4
+      |vpiSize:64
   |vpiMethod:
   \_function: (work@process::self), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:self
     |vpiFullName:work@process::self
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_ref_var: 
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:status
     |vpiFullName:work@process::status
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
       \_enum_typespec: (state)
-        |vpiName:state
-        |vpiEnumConst:
-        \_enum_const: (FINISHED)
-          |vpiName:FINISHED
-          |vpiDecompile:0
-          |INT:0
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (RUNNING)
-          |vpiName:RUNNING
-          |vpiDecompile:1
-          |INT:1
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (WAITING)
-          |vpiName:WAITING
-          |vpiDecompile:2
-          |INT:2
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (SUSPENDED)
-          |vpiName:SUSPENDED
-          |vpiDecompile:3
-          |INT:3
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (KILLED)
-          |vpiName:KILLED
-          |vpiDecompile:4
-          |INT:4
-          |vpiSize:64
   |vpiMethod:
   \_task: (work@process::kill), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:kill
     |vpiFullName:work@process::kill
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::kill), parent:work@process::kill
       |vpiFullName:work@process::kill
   |vpiMethod:
   \_task: (work@process::await), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:await
     |vpiFullName:work@process::await
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::await), parent:work@process::await
       |vpiFullName:work@process::await
   |vpiMethod:
   \_task: (work@process::suspend), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:suspend
     |vpiFullName:work@process::suspend
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::suspend), parent:work@process::suspend
       |vpiFullName:work@process::suspend
   |vpiMethod:
   \_task: (work@process::resume), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:resume
     |vpiFullName:work@process::resume
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::resume), parent:work@process::resume
       |vpiFullName:work@process::resume
-  |vpiTypedef:
-  \_enum_typespec: (state)
 |uhdmallClasses:
 \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
   |vpiName:work@semaphore
   |vpiMethod:
   \_function: (work@semaphore::new), parent:work@semaphore
-    |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@semaphore::new
+    |vpiMethod:1
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -678,76 +678,145 @@ design: (work@top)
         \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
     |vpiIODecl:
     \_io_decl: (keyCount)
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_task: (work@semaphore::put), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:put
     |vpiFullName:work@semaphore::put
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount)
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_task: (work@semaphore::get), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:get
     |vpiFullName:work@semaphore::get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount)
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_function: (work@semaphore::try_get), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (keyCount)
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
 |uhdmallModules:
 \_module: work@top (work@top) top.v:14:1: , endln:24:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiTypedef:
+  \_enum_typespec: (fsm_t), line:16:38, endln:16:43
+    |vpiName:fsm_t
+    |vpiInstance:
+    \_module: work@top (work@top) top.v:14:1: , endln:24:10, parent:work@top
+    |vpiEnumConst:
+    \_enum_const: (IDLE), line:16:16, endln:16:20
+      |vpiName:IDLE
+      |INT:0
+      |vpiDecompile:0
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (WRITE), line:16:21, endln:16:26
+      |vpiName:WRITE
+      |INT:1
+      |vpiDecompile:1
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (READ), line:16:27, endln:16:31
+      |vpiName:READ
+      |INT:2
+      |vpiDecompile:2
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (DONE), line:16:32, endln:16:36
+      |vpiName:DONE
+      |INT:3
+      |vpiDecompile:3
+      |vpiSize:64
+  |vpiTypedef:
+  \_enum_typespec: (pkg::fsm_t_pkg), line:6:38, endln:6:47
+    |vpiName:pkg::fsm_t_pkg
+    |vpiInstance:
+    \_package: pkg (pkg::) top.v:2:1: , endln:8:11, parent:work@top
+      |vpiName:pkg
+      |vpiFullName:pkg::
+      |vpiTypedef:
+      \_enum_typespec: (pkg::fsm_t_pkg), line:6:38, endln:6:47
+      |vpiDefName:pkg
+      |vpiClassDefn:
+      \_class_defn: (pkg::Configuration1) top.v:3:1: , endln:4:9, parent:pkg::
+        |vpiName:Configuration1
+        |vpiFullName:pkg::Configuration1
+    |vpiEnumConst:
+    \_enum_const: (IDLE), line:6:16, endln:6:20
+      |vpiName:IDLE
+      |INT:0
+      |vpiDecompile:0
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (WRITE), line:6:21, endln:6:26
+      |vpiName:WRITE
+      |INT:1
+      |vpiDecompile:1
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (READ), line:6:27, endln:6:31
+      |vpiName:READ
+      |INT:2
+      |vpiDecompile:2
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (DONE), line:6:32, endln:6:36
+      |vpiName:DONE
+      |INT:3
+      |vpiDecompile:3
+      |vpiSize:64
+  |vpiTypedef:
+  \_import: (pkg), line:15:9, endln:15:15
+  |vpiDefName:work@top
   |vpiNet:
   \_logic_net: (work@top.state), line:18:7, parent:work@top
     |vpiName:state
@@ -768,120 +837,60 @@ design: (work@top)
   \_logic_net: (work@top.cfg), line:23:16, parent:work@top
     |vpiName:cfg
     |vpiFullName:work@top.cfg
-  |vpiTypedef:
-  \_enum_typespec: (fsm_t), line:16:38, endln:16:43
-    |vpiName:fsm_t
-    |vpiEnumConst:
-    \_enum_const: (IDLE), line:16:16, endln:16:20
-      |vpiName:IDLE
-      |vpiDecompile:0
-      |INT:0
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (WRITE), line:16:21, endln:16:26
-      |vpiName:WRITE
-      |vpiDecompile:1
-      |INT:1
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (READ), line:16:27, endln:16:31
-      |vpiName:READ
-      |vpiDecompile:2
-      |INT:2
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (DONE), line:16:32, endln:16:36
-      |vpiName:DONE
-      |vpiDecompile:3
-      |INT:3
-      |vpiSize:64
-    |vpiInstance:
-    \_module: work@top (work@top) top.v:14:1: , endln:24:10, parent:work@top
-  |vpiTypedef:
-  \_enum_typespec: (pkg::fsm_t_pkg), line:6:38, endln:6:47
-    |vpiName:pkg::fsm_t_pkg
-    |vpiEnumConst:
-    \_enum_const: (IDLE), line:6:16, endln:6:20
-      |vpiName:IDLE
-      |vpiDecompile:0
-      |INT:0
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (WRITE), line:6:21, endln:6:26
-      |vpiName:WRITE
-      |vpiDecompile:1
-      |INT:1
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (READ), line:6:27, endln:6:31
-      |vpiName:READ
-      |vpiDecompile:2
-      |INT:2
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (DONE), line:6:32, endln:6:36
-      |vpiName:DONE
-      |vpiDecompile:3
-      |INT:3
-      |vpiSize:64
-    |vpiInstance:
-    \_package: pkg (pkg::) top.v:2:1: , endln:8:11, parent:work@top
-      |vpiDefName:pkg
-      |vpiName:pkg
-      |vpiFullName:pkg::
-      |vpiClassDefn:
-      \_class_defn: (pkg::Configuration1) top.v:3:1: , endln:4:9, parent:pkg::
-        |vpiName:Configuration1
-        |vpiFullName:pkg::Configuration1
-      |vpiTypedef:
-      \_enum_typespec: (pkg::fsm_t_pkg), line:6:38, endln:6:47
-  |vpiTypedef:
-  \_import: (pkg), line:15:9, endln:15:15
 |uhdmtopModules:
 \_module: work@top (work@top) top.v:14:1: , endln:24:10
-  |vpiDefName:work@top
   |vpiName:work@top
-  |vpiNet:
-  \_logic_net: (work@top.env), line:21:13, endln:21:16, parent:work@top
-    |vpiName:env
-    |vpiFullName:work@top.env
   |vpiVariables:
   \_enum_var: (work@top.state), line:18:7, endln:18:12, parent:work@top
-    |vpiName:state
-    |vpiFullName:work@top.state
-    |vpiAutomatic:1
-    |vpiVisibility:1
     |vpiTypespec:
     \_enum_typespec: (fsm_t), line:16:38, endln:16:43
       |vpiName:fsm_t
-      |vpiEnumConst:
-      \_enum_const: (IDLE), line:16:16, endln:16:20
-        |vpiName:IDLE
-        |vpiDecompile:0
-        |INT:0
-        |vpiSize:64
-      |vpiEnumConst:
-      \_enum_const: (WRITE), line:16:21, endln:16:26
-        |vpiName:WRITE
-        |vpiDecompile:1
-        |INT:1
-        |vpiSize:64
-      |vpiEnumConst:
-      \_enum_const: (READ), line:16:27, endln:16:31
-        |vpiName:READ
-        |vpiDecompile:2
-        |INT:2
-        |vpiSize:64
-      |vpiEnumConst:
-      \_enum_const: (DONE), line:16:32, endln:16:36
-        |vpiName:DONE
-        |vpiDecompile:3
-        |INT:3
-        |vpiSize:64
       |vpiInstance:
       \_module: work@top (work@top) top.v:14:1: , endln:24:10, parent:work@top
-        |vpiDefName:work@top
         |vpiFullName:work@top
+        |vpiTypedef:
+        \_enum_typespec: (fsm_t), line:16:38, endln:16:43
+        |vpiTypedef:
+        \_enum_typespec: (pkg::fsm_t_pkg), line:6:38, endln:6:47
+          |vpiName:pkg::fsm_t_pkg
+          |vpiInstance:
+          \_package: pkg (pkg::) top.v:2:1: , endln:8:11, parent:work@top
+            |vpiName:pkg
+            |vpiFullName:pkg::
+            |vpiTypedef:
+            \_enum_typespec: (pkg::fsm_t_pkg), line:6:38, endln:6:47
+            |vpiDefName:pkg
+            |vpiClassDefn:
+            \_class_defn: (pkg::Configuration1) top.v:3:1: , endln:4:9, parent:pkg::
+              |vpiName:Configuration1
+              |vpiFullName:pkg::Configuration1
+          |vpiEnumConst:
+          \_enum_const: (IDLE), line:6:16, endln:6:20
+            |vpiName:IDLE
+            |INT:0
+            |vpiDecompile:0
+            |vpiSize:64
+          |vpiEnumConst:
+          \_enum_const: (WRITE), line:6:21, endln:6:26
+            |vpiName:WRITE
+            |INT:1
+            |vpiDecompile:1
+            |vpiSize:64
+          |vpiEnumConst:
+          \_enum_const: (READ), line:6:27, endln:6:31
+            |vpiName:READ
+            |INT:2
+            |vpiDecompile:2
+            |vpiSize:64
+          |vpiEnumConst:
+          \_enum_const: (DONE), line:6:32, endln:6:36
+            |vpiName:DONE
+            |INT:3
+            |vpiDecompile:3
+            |vpiSize:64
+        |vpiTypedef:
+        \_import: (pkg), line:15:9, endln:15:15
+        |vpiDefName:work@top
         |vpiNet:
         \_logic_net: (work@top.state), line:18:7, parent:work@top
           |vpiName:state
@@ -902,85 +911,76 @@ design: (work@top)
         \_logic_net: (work@top.cfg), line:23:16, parent:work@top
           |vpiName:cfg
           |vpiFullName:work@top.cfg
-        |vpiTypedef:
-        \_enum_typespec: (fsm_t), line:16:38, endln:16:43
-        |vpiTypedef:
-        \_enum_typespec: (pkg::fsm_t_pkg), line:6:38, endln:6:47
-          |vpiName:pkg::fsm_t_pkg
-          |vpiEnumConst:
-          \_enum_const: (IDLE), line:6:16, endln:6:20
-            |vpiName:IDLE
-            |vpiDecompile:0
-            |INT:0
-            |vpiSize:64
-          |vpiEnumConst:
-          \_enum_const: (WRITE), line:6:21, endln:6:26
-            |vpiName:WRITE
-            |vpiDecompile:1
-            |INT:1
-            |vpiSize:64
-          |vpiEnumConst:
-          \_enum_const: (READ), line:6:27, endln:6:31
-            |vpiName:READ
-            |vpiDecompile:2
-            |INT:2
-            |vpiSize:64
-          |vpiEnumConst:
-          \_enum_const: (DONE), line:6:32, endln:6:36
-            |vpiName:DONE
-            |vpiDecompile:3
-            |INT:3
-            |vpiSize:64
-          |vpiInstance:
-          \_package: pkg (pkg::) top.v:2:1: , endln:8:11, parent:work@top
-            |vpiDefName:pkg
-            |vpiName:pkg
-            |vpiFullName:pkg::
-            |vpiClassDefn:
-            \_class_defn: (pkg::Configuration1) top.v:3:1: , endln:4:9, parent:pkg::
-              |vpiName:Configuration1
-              |vpiFullName:pkg::Configuration1
-            |vpiTypedef:
-            \_enum_typespec: (pkg::fsm_t_pkg), line:6:38, endln:6:47
-        |vpiTypedef:
-        \_import: (pkg), line:15:9, endln:15:15
+      |vpiEnumConst:
+      \_enum_const: (IDLE), line:16:16, endln:16:20
+        |vpiName:IDLE
+        |INT:0
+        |vpiDecompile:0
+        |vpiSize:64
+      |vpiEnumConst:
+      \_enum_const: (WRITE), line:16:21, endln:16:26
+        |vpiName:WRITE
+        |INT:1
+        |vpiDecompile:1
+        |vpiSize:64
+      |vpiEnumConst:
+      \_enum_const: (READ), line:16:27, endln:16:31
+        |vpiName:READ
+        |INT:2
+        |vpiDecompile:2
+        |vpiSize:64
+      |vpiEnumConst:
+      \_enum_const: (DONE), line:16:32, endln:16:36
+        |vpiName:DONE
+        |INT:3
+        |vpiDecompile:3
+        |vpiSize:64
+    |vpiName:state
+    |vpiFullName:work@top.state
+    |vpiAutomatic:1
+    |vpiVisibility:1
   |vpiVariables:
   \_enum_var: (work@top.state2), line:19:11, endln:19:17, parent:work@top
+    |vpiTypespec:
+    \_enum_typespec: (pkg::fsm_t_pkg), line:6:38, endln:6:47
     |vpiName:state2
     |vpiFullName:work@top.state2
     |vpiAutomatic:1
     |vpiVisibility:1
-    |vpiTypespec:
-    \_enum_typespec: (pkg::fsm_t_pkg), line:6:38, endln:6:47
   |vpiVariables:
   \_class_var: (work@top.cfg), line:22:16, endln:22:19, parent:work@top
-    |vpiName:cfg
-    |vpiFullName:work@top.cfg
-    |vpiAutomatic:1
-    |vpiVisibility:1
     |vpiTypespec:
     \_class_typespec: (Configuration1), line:22:1, endln:22:15
       |vpiName:Configuration1
       |vpiClassDefn:
       \_class_defn: (pkg::Configuration1) top.v:3:1: , endln:4:9, parent:pkg::
-  |vpiVariables:
-  \_class_var: (work@top.cfg), line:23:16, endln:23:19, parent:work@top
     |vpiName:cfg
     |vpiFullName:work@top.cfg
     |vpiAutomatic:1
     |vpiVisibility:1
+  |vpiVariables:
+  \_class_var: (work@top.cfg), line:23:16, endln:23:19, parent:work@top
     |vpiTypespec:
     \_class_typespec: (Configuration2), line:23:1, endln:23:15
       |vpiName:Configuration2
       |vpiClassDefn:
       \_class_defn: (work@Configuration2) top.v:10:1: , endln:11:9, parent:work@top
         |vpiName:work@Configuration2
+    |vpiName:cfg
+    |vpiFullName:work@top.cfg
+    |vpiAutomatic:1
+    |vpiVisibility:1
   |vpiTypedef:
   \_enum_typespec: (fsm_t), line:16:38, endln:16:43
   |vpiTypedef:
   \_enum_typespec: (pkg::fsm_t_pkg), line:6:38, endln:6:47
   |vpiTypedef:
   \_import: (pkg), line:15:9, endln:15:15
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.env), line:21:13, endln:21:16, parent:work@top
+    |vpiName:env
+    |vpiFullName:work@top.env
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

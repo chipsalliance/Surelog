@@ -135,12 +135,22 @@ n<> u<100> t<Top_level_rule> l<1:1> el<10:1>
 
 ====== UHDM =======
 design: (work@dut)
-|vpiName:work@dut
 |vpiElaborated:1
+|vpiName:work@dut
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:9:10, parent:work@dut
-  |vpiDefName:work@dut
   |vpiFullName:work@dut
+  |vpiDefName:work@dut
+  |vpiNet:
+  \_logic_net: (work@dut.a), line:2:14, parent:work@dut
+    |vpiName:a
+    |vpiFullName:work@dut.a
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dut.b), line:1:13, parent:work@dut
+    |vpiName:b
+    |vpiFullName:work@dut.b
+    |vpiNetType:48
   |vpiPort:
   \_port: (b), line:1:13, parent:work@dut
     |vpiName:b
@@ -149,12 +159,8 @@ design: (work@dut)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@dut.b), line:1:13, parent:work@dut
-        |vpiName:b
-        |vpiFullName:work@dut.b
-        |vpiNetType:48
   |vpiProcess:
   \_always: , line:4:9, endln:6:12, parent:work@dut
-    |vpiAlwaysType:1
     |vpiStmt:
     \_event_control: , line:4:16, endln:6:12
       |vpiStmt:
@@ -177,10 +183,10 @@ design: (work@dut)
             |vpiBlocking:1
             |vpiRhs:
             \_constant: , line:5:27, endln:5:28
-              |vpiConstType:9
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
+              |vpiConstType:9
             |vpiLhs:
             \_ref_obj: (work@dut.b), line:5:23, endln:5:24
               |vpiName:b
@@ -190,6 +196,7 @@ design: (work@dut)
                 |vpiName:b
                 |vpiFullName:work@dut.b
                 |vpiNetType:48
+    |vpiAlwaysType:1
   |vpiContAssign:
   \_cont_assign: , line:7:11, endln:7:16, parent:work@dut
     |vpiRhs:
@@ -202,17 +209,20 @@ design: (work@dut)
     \_ref_obj: (work@dut.c), line:7:11, endln:7:12
       |vpiName:c
       |vpiFullName:work@dut.c
+|uhdmtopModules:
+\_module: work@dut (work@dut) dut.sv:1:1: , endln:9:10
+  |vpiName:work@dut
+  |vpiDefName:work@dut
   |vpiNet:
-  \_logic_net: (work@dut.a), line:2:14, parent:work@dut
+  \_logic_net: (work@dut.a), line:2:14, endln:2:15, parent:work@dut
     |vpiName:a
     |vpiFullName:work@dut.a
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (work@dut.b), line:1:13, parent:work@dut
-|uhdmtopModules:
-\_module: work@dut (work@dut) dut.sv:1:1: , endln:9:10
-  |vpiDefName:work@dut
-  |vpiName:work@dut
+  \_logic_net: (work@dut.b), line:1:13, endln:1:14, parent:work@dut
+    |vpiName:b
+    |vpiFullName:work@dut.b
+    |vpiNetType:48
   |vpiPort:
   \_port: (b), line:1:13, endln:1:14, parent:work@dut
     |vpiName:b
@@ -223,16 +233,12 @@ design: (work@dut)
       |vpiFullName:work@dut.b
       |vpiActual:
       \_logic_net: (work@dut.b), line:1:13, endln:1:14, parent:work@dut
-        |vpiName:b
-        |vpiFullName:work@dut.b
-        |vpiNetType:48
     |vpiTypedef:
     \_logic_typespec: , line:3:16, endln:3:19
     |vpiInstance:
     \_module: work@dut (work@dut) dut.sv:1:1: , endln:9:10
   |vpiProcess:
   \_always: , line:4:9, endln:6:12, parent:work@dut
-    |vpiAlwaysType:1
     |vpiStmt:
     \_event_control: , line:4:16, endln:6:12
       |vpiStmt:
@@ -246,34 +252,32 @@ design: (work@dut)
             |vpiFullName:work@dut.a
             |vpiActual:
             \_logic_net: (work@dut.a), line:2:14, endln:2:15, parent:work@dut
-              |vpiName:a
-              |vpiFullName:work@dut.a
-              |vpiNetType:1
           |vpiStmt:
           \_assignment: , line:5:23, endln:5:28
             |vpiOpType:82
             |vpiBlocking:1
             |vpiRhs:
             \_constant: , line:5:27, endln:5:28
-              |vpiConstType:9
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
+              |vpiConstType:9
             |vpiLhs:
             \_ref_obj: (work@dut.b), line:5:23, endln:5:24
               |vpiName:b
               |vpiFullName:work@dut.b
               |vpiActual:
               \_logic_net: (work@dut.b), line:1:13, endln:1:14, parent:work@dut
+    |vpiAlwaysType:1
   |vpiContAssign:
   \_cont_assign: , line:2:14, endln:2:15, parent:work@dut
     |vpiNetDeclAssign:1
     |vpiRhs:
     \_constant: , line:2:18, endln:2:19
-      |vpiConstType:9
       |vpiDecompile:0
       |vpiSize:64
       |UINT:0
+      |vpiConstType:9
     |vpiLhs:
     \_logic_net: (work@dut.a), line:2:14, endln:2:15, parent:work@dut
   |vpiContAssign:
@@ -281,10 +285,10 @@ design: (work@dut)
     |vpiNetDeclAssign:1
     |vpiRhs:
     \_constant: , line:3:24, endln:3:25
-      |vpiConstType:9
       |vpiDecompile:0
       |vpiSize:64
       |UINT:0
+      |vpiConstType:9
     |vpiLhs:
     \_logic_net: (work@dut.b), line:1:13, endln:1:14, parent:work@dut
   |vpiContAssign:
@@ -299,10 +303,6 @@ design: (work@dut)
     \_ref_obj: (work@dut.c), line:7:11, endln:7:12
       |vpiName:c
       |vpiFullName:work@dut.c
-  |vpiNet:
-  \_logic_net: (work@dut.a), line:2:14, endln:2:15, parent:work@dut
-  |vpiNet:
-  \_logic_net: (work@dut.b), line:1:13, endln:1:14, parent:work@dut
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

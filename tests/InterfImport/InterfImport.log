@@ -298,79 +298,97 @@ n<> u<261> t<Top_level_rule> l<1:1> el<35:1>
 
 ====== UHDM =======
 design: (unnamed)
-|vpiName:unnamed
 |vpiElaborated:1
+|vpiName:unnamed
 |uhdmallPackages:
 \_package: tnoc_pkg (tnoc_pkg::) dut.sv:1:1: , endln:4:11, parent:unnamed
-  |vpiDefName:tnoc_pkg
   |vpiName:tnoc_pkg
   |vpiFullName:tnoc_pkg::
   |vpiParameter:
   \_parameter: (tnoc_pkg::TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:46, parent:tnoc_pkg::
+    |UINT:1
+    |vpiLocalParam:1
     |vpiName:TNOC_DEFAULT_PACKET_CONFIG
     |vpiFullName:tnoc_pkg::TNOC_DEFAULT_PACKET_CONFIG
-    |vpiLocalParam:1
-    |UINT:1
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:46, parent:tnoc_pkg::
     |vpiRhs:
     \_constant: , line:2:45, endln:2:46
-      |vpiConstType:9
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (tnoc_pkg::TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:46, parent:tnoc_pkg::
+  |vpiDefName:tnoc_pkg
 |uhdmallInterfaces:
 \_interface: work@tnoc_port_control_if (work@tnoc_port_control_if) dut.sv:6:1: , endln:34:13, parent:unnamed
-  |vpiDefName:work@tnoc_port_control_if
   |vpiFullName:work@tnoc_port_control_if
-  |vpiModport:
-  \_modport: (controller), parent:work@tnoc_port_control_if
-    |vpiName:controller
-    |vpiIODecl:
-    \_io_decl: (request)
-      |vpiName:request
-      |vpiDirection:1
-    |vpiIODecl:
-    \_io_decl: (grant)
-      |vpiName:grant
-      |vpiDirection:2
-    |vpiIODecl:
-    \_io_decl: (free)
-      |vpiName:free
-      |vpiDirection:1
-    |vpiIODecl:
-    \_io_decl: (start_of_packet)
-      |vpiName:start_of_packet
-      |vpiDirection:1
-    |vpiIODecl:
-    \_io_decl: (end_of_packet)
-      |vpiName:end_of_packet
-      |vpiDirection:1
-  |vpiModport:
-  \_modport: (requester), parent:work@tnoc_port_control_if
-    |vpiName:requester
-    |vpiIODecl:
-    \_io_decl: (request)
-      |vpiName:request
-      |vpiDirection:2
-    |vpiIODecl:
-    \_io_decl: (grant)
-      |vpiName:grant
-      |vpiDirection:1
-    |vpiIODecl:
-    \_io_decl: (free)
-      |vpiName:free
-      |vpiDirection:2
-    |vpiIODecl:
-    \_io_decl: (start_of_packet)
-      |vpiName:start_of_packet
-      |vpiDirection:2
-    |vpiIODecl:
-    \_io_decl: (end_of_packet)
-      |vpiName:end_of_packet
-      |vpiDirection:2
+  |vpiParameter:
+  \_parameter: (work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:46, parent:work@tnoc_port_control_if
+    |UINT:1
+    |vpiLocalParam:1
+    |vpiName:TNOC_DEFAULT_PACKET_CONFIG
+    |vpiFullName:work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG
+    |vpiImported:tnoc_pkg
+  |vpiParameter:
+  \_parameter: (work@tnoc_port_control_if.PACKET_CONFIG), line:9:33, endln:9:76, parent:work@tnoc_port_control_if
+    |UINT:1
+    |vpiTypespec:
+    \_unsupported_typespec: (tnoc_packet_config), line:9:13, endln:9:31, parent:work@tnoc_port_control_if.PACKET_CONFIG
+      |vpiName:tnoc_packet_config
+    |vpiName:PACKET_CONFIG
+    |vpiFullName:work@tnoc_port_control_if.PACKET_CONFIG
+  |vpiParameter:
+  \_parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:61, parent:work@tnoc_port_control_if
+    |vpiTypespec:
+    \_int_typespec: , line:11:15, endln:11:18, parent:work@tnoc_port_control_if.CHANNELS
+    |vpiLocalParam:1
+    |vpiName:CHANNELS
+    |vpiFullName:work@tnoc_port_control_if.CHANNELS
+  |vpiParamAssign:
+  \_param_assign: , line:2:15, endln:2:46, parent:work@tnoc_port_control_if
+    |vpiRhs:
+    \_constant: , line:2:45, endln:2:46
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:46
+      |UINT:1
+      |vpiLocalParam:1
+      |vpiName:TNOC_DEFAULT_PACKET_CONFIG
+      |vpiFullName:work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG
+      |vpiImported:tnoc_pkg
+  |vpiParamAssign:
+  \_param_assign: , line:9:33, endln:9:76, parent:work@tnoc_port_control_if
+    |vpiRhs:
+    \_constant: , line:9:50, endln:9:76
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiTypespec:
+      \_unsupported_typespec: (tnoc_packet_config), line:9:13, endln:9:31, parent:work@tnoc_port_control_if.PACKET_CONFIG
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@tnoc_port_control_if.PACKET_CONFIG), line:9:33, endln:9:76, parent:work@tnoc_port_control_if
+  |vpiParamAssign:
+  \_param_assign: , line:11:19, endln:11:61, parent:work@tnoc_port_control_if
+    |vpiRhs:
+    \_hier_path: (PACKET_CONFIG.virtual_channels), line:11:31, endln:11:61
+      |vpiName:PACKET_CONFIG.virtual_channels
+      |vpiActual:
+      \_ref_obj: (PACKET_CONFIG), parent:PACKET_CONFIG.virtual_channels
+        |vpiName:PACKET_CONFIG
+      |vpiActual:
+      \_ref_obj: (virtual_channels)
+        |vpiName:virtual_channels
+    |vpiLhs:
+    \_parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:61, parent:work@tnoc_port_control_if
+  |vpiTypedef:
+  \_import: (tnoc_pkg), line:7:11, endln:7:22
+  |vpiDefName:work@tnoc_port_control_if
   |vpiNet:
   \_logic_net: (work@tnoc_port_control_if.request), line:13:25, parent:work@tnoc_port_control_if
     |vpiName:request
@@ -396,70 +414,52 @@ design: (unnamed)
     |vpiName:end_of_packet
     |vpiFullName:work@tnoc_port_control_if.end_of_packet
     |vpiNetType:36
-  |vpiParameter:
-  \_parameter: (work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:46, parent:work@tnoc_port_control_if
-    |vpiName:TNOC_DEFAULT_PACKET_CONFIG
-    |vpiFullName:work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG
-    |vpiImported:tnoc_pkg
-    |vpiLocalParam:1
-    |UINT:1
-  |vpiParameter:
-  \_parameter: (work@tnoc_port_control_if.PACKET_CONFIG), line:9:33, endln:9:76, parent:work@tnoc_port_control_if
-    |vpiName:PACKET_CONFIG
-    |vpiFullName:work@tnoc_port_control_if.PACKET_CONFIG
-    |UINT:1
-    |vpiTypespec:
-    \_unsupported_typespec: (tnoc_packet_config), line:9:13, endln:9:31, parent:work@tnoc_port_control_if.PACKET_CONFIG
-      |vpiName:tnoc_packet_config
-  |vpiParameter:
-  \_parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:61, parent:work@tnoc_port_control_if
-    |vpiName:CHANNELS
-    |vpiFullName:work@tnoc_port_control_if.CHANNELS
-    |vpiLocalParam:1
-    |vpiTypespec:
-    \_int_typespec: , line:11:15, endln:11:18, parent:work@tnoc_port_control_if.CHANNELS
-  |vpiParamAssign:
-  \_param_assign: , line:2:15, endln:2:46, parent:work@tnoc_port_control_if
-    |vpiRhs:
-    \_constant: , line:2:45, endln:2:46
-      |vpiConstType:9
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-    |vpiLhs:
-    \_parameter: (work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:46
-      |vpiName:TNOC_DEFAULT_PACKET_CONFIG
-      |vpiFullName:work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG
-      |vpiImported:tnoc_pkg
-      |vpiLocalParam:1
-      |UINT:1
-  |vpiParamAssign:
-  \_param_assign: , line:9:33, endln:9:76, parent:work@tnoc_port_control_if
-    |vpiRhs:
-    \_constant: , line:9:50, endln:9:76
-      |vpiConstType:9
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiTypespec:
-      \_unsupported_typespec: (tnoc_packet_config), line:9:13, endln:9:31, parent:work@tnoc_port_control_if.PACKET_CONFIG
-    |vpiLhs:
-    \_parameter: (work@tnoc_port_control_if.PACKET_CONFIG), line:9:33, endln:9:76, parent:work@tnoc_port_control_if
-  |vpiParamAssign:
-  \_param_assign: , line:11:19, endln:11:61, parent:work@tnoc_port_control_if
-    |vpiRhs:
-    \_hier_path: (PACKET_CONFIG.virtual_channels), line:11:31, endln:11:61
-      |vpiName:PACKET_CONFIG.virtual_channels
-      |vpiActual:
-      \_ref_obj: (PACKET_CONFIG), parent:PACKET_CONFIG.virtual_channels
-        |vpiName:PACKET_CONFIG
-      |vpiActual:
-      \_ref_obj: (virtual_channels)
-        |vpiName:virtual_channels
-    |vpiLhs:
-    \_parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:61, parent:work@tnoc_port_control_if
-  |vpiTypedef:
-  \_import: (tnoc_pkg), line:7:11, endln:7:22
+  |vpiModport:
+  \_modport: (controller), parent:work@tnoc_port_control_if
+    |vpiName:controller
+    |vpiIODecl:
+    \_io_decl: (request)
+      |vpiDirection:1
+      |vpiName:request
+    |vpiIODecl:
+    \_io_decl: (grant)
+      |vpiDirection:2
+      |vpiName:grant
+    |vpiIODecl:
+    \_io_decl: (free)
+      |vpiDirection:1
+      |vpiName:free
+    |vpiIODecl:
+    \_io_decl: (start_of_packet)
+      |vpiDirection:1
+      |vpiName:start_of_packet
+    |vpiIODecl:
+    \_io_decl: (end_of_packet)
+      |vpiDirection:1
+      |vpiName:end_of_packet
+  |vpiModport:
+  \_modport: (requester), parent:work@tnoc_port_control_if
+    |vpiName:requester
+    |vpiIODecl:
+    \_io_decl: (request)
+      |vpiDirection:2
+      |vpiName:request
+    |vpiIODecl:
+    \_io_decl: (grant)
+      |vpiDirection:1
+      |vpiName:grant
+    |vpiIODecl:
+    \_io_decl: (free)
+      |vpiDirection:2
+      |vpiName:free
+    |vpiIODecl:
+    \_io_decl: (start_of_packet)
+      |vpiDirection:2
+      |vpiName:start_of_packet
+    |vpiIODecl:
+    \_io_decl: (end_of_packet)
+      |vpiDirection:2
+      |vpiName:end_of_packet
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

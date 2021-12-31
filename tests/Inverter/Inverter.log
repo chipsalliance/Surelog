@@ -131,8 +131,18 @@ design: (work@top)
 |vpiName:work@top
 |uhdmallModules:
 \_module: work@inverter (work@inverter) dut.sv:7:1: , endln:12:10, parent:work@top
-  |vpiDefName:work@inverter
   |vpiFullName:work@inverter
+  |vpiDefName:work@inverter
+  |vpiNet:
+  \_logic_net: (work@inverter.a), line:8:13, parent:work@inverter
+    |vpiName:a
+    |vpiFullName:work@inverter.a
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@inverter.b), line:9:14, parent:work@inverter
+    |vpiName:b
+    |vpiFullName:work@inverter.b
+    |vpiNetType:1
   |vpiPort:
   \_port: (a), line:8:13, parent:work@inverter
     |vpiName:a
@@ -141,9 +151,6 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@inverter.a), line:8:13, parent:work@inverter
-        |vpiName:a
-        |vpiFullName:work@inverter.a
-        |vpiNetType:1
   |vpiPort:
   \_port: (b), line:9:14, parent:work@inverter
     |vpiName:b
@@ -152,9 +159,6 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@inverter.b), line:9:14, parent:work@inverter
-        |vpiName:b
-        |vpiFullName:work@inverter.b
-        |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:11:8, endln:11:12, parent:work@inverter
     |vpiRhs:
@@ -178,14 +182,20 @@ design: (work@top)
         |vpiName:b
         |vpiFullName:work@top.i1.b
         |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (work@inverter.a), line:8:13, parent:work@inverter
-  |vpiNet:
-  \_logic_net: (work@inverter.b), line:9:14, parent:work@inverter
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:5:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.a), line:1:23, parent:work@top
+    |vpiName:a
+    |vpiFullName:work@top.a
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@top.b), line:2:14, parent:work@top
+    |vpiName:b
+    |vpiFullName:work@top.b
+    |vpiNetType:1
   |vpiPort:
   \_port: (a), line:1:23, parent:work@top
     |vpiName:a
@@ -194,9 +204,6 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.a), line:1:23, parent:work@top
-        |vpiName:a
-        |vpiFullName:work@top.a
-        |vpiNetType:1
   |vpiPort:
   \_port: (b), line:2:14, parent:work@top
     |vpiName:b
@@ -205,17 +212,24 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.b), line:2:14, parent:work@top
-        |vpiName:b
-        |vpiFullName:work@top.b
-        |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (work@top.a), line:1:23, parent:work@top
-  |vpiNet:
-  \_logic_net: (work@top.b), line:2:14, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:5:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.a), line:1:23, endln:1:24, parent:work@top
+    |vpiName:a
+    |vpiFullName:work@top.a
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@top.b), line:2:14, endln:2:15, parent:work@top
+    |vpiName:b
+    |vpiFullName:work@top.b
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@top.tmp), parent:work@top
+    |vpiName:tmp
+    |vpiFullName:work@top.tmp
   |vpiPort:
   \_port: (a), line:1:23, endln:1:24, parent:work@top
     |vpiName:a
@@ -226,9 +240,6 @@ design: (work@top)
       |vpiFullName:work@top.a
       |vpiActual:
       \_logic_net: (work@top.a), line:1:23, endln:1:24, parent:work@top
-        |vpiName:a
-        |vpiFullName:work@top.a
-        |vpiNetType:1
   |vpiPort:
   \_port: (b), line:2:14, endln:2:15, parent:work@top
     |vpiName:b
@@ -239,16 +250,25 @@ design: (work@top)
       |vpiFullName:work@top.b
       |vpiActual:
       \_logic_net: (work@top.b), line:2:14, endln:2:15, parent:work@top
-        |vpiName:b
-        |vpiFullName:work@top.b
-        |vpiNetType:1
   |vpiModule:
   \_module: work@inverter (work@top.i1) dut.sv:3:3: , endln:3:22, parent:work@top
+    |vpiName:i1
+    |vpiFullName:work@top.i1
     |vpiDefName:work@inverter
     |vpiDefFile:dut.sv
     |vpiDefLineNo:7
-    |vpiName:i1
-    |vpiFullName:work@top.i1
+    |vpiNet:
+    \_logic_net: (work@top.i1.a), line:8:13, endln:8:14, parent:work@top.i1
+      |vpiName:a
+      |vpiFullName:work@top.i1.a
+      |vpiNetType:1
+    |vpiNet:
+    \_logic_net: (work@top.i1.b), line:9:14, endln:9:15, parent:work@top.i1
+      |vpiName:b
+      |vpiFullName:work@top.i1.b
+      |vpiNetType:1
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:5:10
     |vpiPort:
     \_port: (a), line:8:13, endln:8:14, parent:work@top.i1
       |vpiName:a
@@ -265,9 +285,6 @@ design: (work@top)
         |vpiFullName:work@top.i1.a
         |vpiActual:
         \_logic_net: (work@top.i1.a), line:8:13, endln:8:14, parent:work@top.i1
-          |vpiName:a
-          |vpiFullName:work@top.i1.a
-          |vpiNetType:1
     |vpiPort:
     \_port: (b), line:9:14, endln:9:15, parent:work@top.i1
       |vpiName:b
@@ -278,30 +295,31 @@ design: (work@top)
         |vpiFullName:work@top.tmp
         |vpiActual:
         \_logic_net: (work@top.tmp), parent:work@top
-          |vpiName:tmp
-          |vpiFullName:work@top.tmp
       |vpiLowConn:
       \_ref_obj: (work@top.i1.b)
         |vpiName:b
         |vpiFullName:work@top.i1.b
         |vpiActual:
         \_logic_net: (work@top.i1.b), line:9:14, endln:9:15, parent:work@top.i1
-          |vpiName:b
-          |vpiFullName:work@top.i1.b
-          |vpiNetType:1
-    |vpiNet:
-    \_logic_net: (work@top.i1.a), line:8:13, endln:8:14, parent:work@top.i1
-    |vpiNet:
-    \_logic_net: (work@top.i1.b), line:9:14, endln:9:15, parent:work@top.i1
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:5:10
   |vpiModule:
   \_module: work@inverter (work@top.i2) dut.sv:4:3: , endln:4:22, parent:work@top
+    |vpiName:i2
+    |vpiFullName:work@top.i2
     |vpiDefName:work@inverter
     |vpiDefFile:dut.sv
     |vpiDefLineNo:7
-    |vpiName:i2
-    |vpiFullName:work@top.i2
+    |vpiNet:
+    \_logic_net: (work@top.i2.a), line:8:13, endln:8:14, parent:work@top.i2
+      |vpiName:a
+      |vpiFullName:work@top.i2.a
+      |vpiNetType:1
+    |vpiNet:
+    \_logic_net: (work@top.i2.b), line:9:14, endln:9:15, parent:work@top.i2
+      |vpiName:b
+      |vpiFullName:work@top.i2.b
+      |vpiNetType:1
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:5:10
     |vpiPort:
     \_port: (a), line:8:13, endln:8:14, parent:work@top.i2
       |vpiName:a
@@ -318,9 +336,6 @@ design: (work@top)
         |vpiFullName:work@top.i2.a
         |vpiActual:
         \_logic_net: (work@top.i2.a), line:8:13, endln:8:14, parent:work@top.i2
-          |vpiName:a
-          |vpiFullName:work@top.i2.a
-          |vpiNetType:1
     |vpiPort:
     \_port: (b), line:9:14, endln:9:15, parent:work@top.i2
       |vpiName:b
@@ -337,21 +352,6 @@ design: (work@top)
         |vpiFullName:work@top.i2.b
         |vpiActual:
         \_logic_net: (work@top.i2.b), line:9:14, endln:9:15, parent:work@top.i2
-          |vpiName:b
-          |vpiFullName:work@top.i2.b
-          |vpiNetType:1
-    |vpiNet:
-    \_logic_net: (work@top.i2.a), line:8:13, endln:8:14, parent:work@top.i2
-    |vpiNet:
-    \_logic_net: (work@top.i2.b), line:9:14, endln:9:15, parent:work@top.i2
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:5:10
-  |vpiNet:
-  \_logic_net: (work@top.a), line:1:23, endln:1:24, parent:work@top
-  |vpiNet:
-  \_logic_net: (work@top.b), line:2:14, endln:2:15, parent:work@top
-  |vpiNet:
-  \_logic_net: (work@top.tmp), parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

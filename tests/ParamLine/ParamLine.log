@@ -45,31 +45,46 @@ Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp="BLAH"
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:33:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+    |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
-    |BIN:0
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23, parent:work@top
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
-      |vpiConstType:3
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+  |vpiDefName:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:33:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiParameter:
+  \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+    |BIN:0
+    |vpiName:p
+    |vpiFullName:work@top.p
+  |vpiParamAssign:
+  \_param_assign: , line:2:15, endln:2:23, parent:work@top
+    |vpiRhs:
+    \_constant: , line:2:19, endln:2:23
+      |vpiDecompile:BLAH
+      |vpiSize:6
+      |STRING:BLAH
+      |vpiConstType:6
+    |vpiLhs:
+    \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+  |vpiDefName:work@top
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk1), line:3:4, endln:5:7, parent:work@top
     |vpiName:genblk1
@@ -79,9 +94,9 @@ design: (work@top)
       |vpiFullName:work@top.genblk1
       |vpiModule:
       \_module: work@top.genblk1::GOOD_BLAH (work@top.genblk1.good) dut.sv:4: , parent:work@top.genblk1
-        |vpiDefName:work@top.genblk1::GOOD_BLAH
         |vpiName:good
         |vpiFullName:work@top.genblk1.good
+        |vpiDefName:work@top.genblk1::GOOD_BLAH
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk8), line:24:4, endln:26:7, parent:work@top
     |vpiName:genblk8
@@ -91,24 +106,9 @@ design: (work@top)
       |vpiFullName:work@top.genblk8
       |vpiModule:
       \_module: work@top.genblk8::GOOD_0 (work@top.genblk8.good) dut.sv:25: , parent:work@top.genblk8
-        |vpiDefName:work@top.genblk8::GOOD_0
         |vpiName:good
         |vpiFullName:work@top.genblk8.good
-  |vpiParameter:
-  \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
-    |vpiName:p
-    |vpiFullName:work@top.p
-    |BIN:0
-  |vpiParamAssign:
-  \_param_assign: , line:2:15, endln:2:23, parent:work@top
-    |vpiRhs:
-    \_constant: , line:2:19, endln:2:23
-      |vpiConstType:6
-      |vpiDecompile:BLAH
-      |vpiSize:6
-      |STRING:BLAH
-    |vpiLhs:
-    \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+        |vpiDefName:work@top.genblk8::GOOD_0
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -158,31 +158,46 @@ Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp=4'b1001
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:33:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+    |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
-    |BIN:0
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23, parent:work@top
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
-      |vpiConstType:3
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+  |vpiDefName:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:33:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiParameter:
+  \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+    |BIN:0
+    |vpiName:p
+    |vpiFullName:work@top.p
+  |vpiParamAssign:
+  \_param_assign: , line:2:15, endln:2:23, parent:work@top
+    |vpiRhs:
+    \_constant: , line:2:19, endln:2:23
+      |vpiDecompile:1001
+      |vpiSize:4
+      |BIN:1001
+      |vpiConstType:3
+    |vpiLhs:
+    \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+  |vpiDefName:work@top
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk2), line:6:4, endln:8:7, parent:work@top
     |vpiName:genblk2
@@ -192,24 +207,9 @@ design: (work@top)
       |vpiFullName:work@top.genblk2
       |vpiModule:
       \_module: work@top.genblk2::GOOD_BIN1 (work@top.genblk2.good) dut.sv:7: , parent:work@top.genblk2
-        |vpiDefName:work@top.genblk2::GOOD_BIN1
         |vpiName:good
         |vpiFullName:work@top.genblk2.good
-  |vpiParameter:
-  \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
-    |vpiName:p
-    |vpiFullName:work@top.p
-    |BIN:0
-  |vpiParamAssign:
-  \_param_assign: , line:2:15, endln:2:23, parent:work@top
-    |vpiRhs:
-    \_constant: , line:2:19, endln:2:23
-      |vpiConstType:3
-      |vpiDecompile:1001
-      |vpiSize:4
-      |BIN:1001
-    |vpiLhs:
-    \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+        |vpiDefName:work@top.genblk2::GOOD_BIN1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -251,45 +251,45 @@ Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp='b1002
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:33:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+    |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
-    |BIN:0
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23, parent:work@top
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
-      |vpiConstType:3
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+  |vpiDefName:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:33:10
-  |vpiDefName:work@top
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+    |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
-    |BIN:0
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23, parent:work@top
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
-      |vpiConstType:3
       |vpiDecompile:1002
       |BIN:1002
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+  |vpiDefName:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -339,31 +339,45 @@ Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp='hFF
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:33:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+    |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
-    |BIN:0
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23, parent:work@top
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
-      |vpiConstType:3
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+  |vpiDefName:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:33:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiParameter:
+  \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+    |BIN:0
+    |vpiName:p
+    |vpiFullName:work@top.p
+  |vpiParamAssign:
+  \_param_assign: , line:2:15, endln:2:23, parent:work@top
+    |vpiRhs:
+    \_constant: , line:2:19, endln:2:23
+      |vpiDecompile:FF
+      |HEX:FF
+      |vpiConstType:5
+    |vpiLhs:
+    \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+  |vpiDefName:work@top
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk4), line:12:4, endln:14:7, parent:work@top
     |vpiName:genblk4
@@ -373,23 +387,9 @@ design: (work@top)
       |vpiFullName:work@top.genblk4
       |vpiModule:
       \_module: work@top.genblk4::GOOD_HEXA (work@top.genblk4.good) dut.sv:13: , parent:work@top.genblk4
-        |vpiDefName:work@top.genblk4::GOOD_HEXA
         |vpiName:good
         |vpiFullName:work@top.genblk4.good
-  |vpiParameter:
-  \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
-    |vpiName:p
-    |vpiFullName:work@top.p
-    |BIN:0
-  |vpiParamAssign:
-  \_param_assign: , line:2:15, endln:2:23, parent:work@top
-    |vpiRhs:
-    \_constant: , line:2:19, endln:2:23
-      |vpiConstType:5
-      |vpiDecompile:FF
-      |HEX:FF
-    |vpiLhs:
-    \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+        |vpiDefName:work@top.genblk4::GOOD_HEXA
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -439,31 +439,46 @@ Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp=-12
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:33:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+    |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
-    |BIN:0
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23, parent:work@top
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
-      |vpiConstType:3
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+  |vpiDefName:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:33:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiParameter:
+  \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+    |BIN:0
+    |vpiName:p
+    |vpiFullName:work@top.p
+  |vpiParamAssign:
+  \_param_assign: , line:2:15, endln:2:23, parent:work@top
+    |vpiRhs:
+    \_constant: , line:2:19, endln:2:23
+      |vpiDecompile:-12
+      |vpiSize:64
+      |INT:-12
+      |vpiConstType:7
+    |vpiLhs:
+    \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+  |vpiDefName:work@top
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk5), line:15:4, endln:17:7, parent:work@top
     |vpiName:genblk5
@@ -473,24 +488,9 @@ design: (work@top)
       |vpiFullName:work@top.genblk5
       |vpiModule:
       \_module: work@top.genblk5::GOOD_MINUS12 (work@top.genblk5.good) dut.sv:16: , parent:work@top.genblk5
-        |vpiDefName:work@top.genblk5::GOOD_MINUS12
         |vpiName:good
         |vpiFullName:work@top.genblk5.good
-  |vpiParameter:
-  \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
-    |vpiName:p
-    |vpiFullName:work@top.p
-    |BIN:0
-  |vpiParamAssign:
-  \_param_assign: , line:2:15, endln:2:23, parent:work@top
-    |vpiRhs:
-    \_constant: , line:2:19, endln:2:23
-      |vpiConstType:7
-      |vpiDecompile:-12
-      |vpiSize:64
-      |INT:-12
-    |vpiLhs:
-    \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+        |vpiDefName:work@top.genblk5::GOOD_MINUS12
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -540,31 +540,46 @@ Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp=12
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:33:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+    |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
-    |BIN:0
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23, parent:work@top
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
-      |vpiConstType:3
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+  |vpiDefName:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:33:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiParameter:
+  \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+    |BIN:0
+    |vpiName:p
+    |vpiFullName:work@top.p
+  |vpiParamAssign:
+  \_param_assign: , line:2:15, endln:2:23, parent:work@top
+    |vpiRhs:
+    \_constant: , line:2:19, endln:2:23
+      |vpiDecompile:12
+      |vpiSize:64
+      |UINT:12
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+  |vpiDefName:work@top
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk6), line:18:4, endln:20:7, parent:work@top
     |vpiName:genblk6
@@ -574,24 +589,9 @@ design: (work@top)
       |vpiFullName:work@top.genblk6
       |vpiModule:
       \_module: work@top.genblk6::GOOD_12 (work@top.genblk6.good) dut.sv:19: , parent:work@top.genblk6
-        |vpiDefName:work@top.genblk6::GOOD_12
         |vpiName:good
         |vpiFullName:work@top.genblk6.good
-  |vpiParameter:
-  \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
-    |vpiName:p
-    |vpiFullName:work@top.p
-    |BIN:0
-  |vpiParamAssign:
-  \_param_assign: , line:2:15, endln:2:23, parent:work@top
-    |vpiRhs:
-    \_constant: , line:2:19, endln:2:23
-      |vpiConstType:9
-      |vpiDecompile:12
-      |vpiSize:64
-      |UINT:12
-    |vpiLhs:
-    \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+        |vpiDefName:work@top.genblk6::GOOD_12
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -641,31 +641,46 @@ Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp=12.12
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:33:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+    |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
-    |BIN:0
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23, parent:work@top
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
-      |vpiConstType:3
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+  |vpiDefName:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:33:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiParameter:
+  \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+    |BIN:0
+    |vpiName:p
+    |vpiFullName:work@top.p
+  |vpiParamAssign:
+  \_param_assign: , line:2:15, endln:2:23, parent:work@top
+    |vpiRhs:
+    \_constant: , line:2:19, endln:2:23
+      |vpiDecompile:t.ttts
+      |vpiSize:64
+      |REAL:t.ttts
+      |vpiConstType:2
+    |vpiLhs:
+    \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+  |vpiDefName:work@top
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk7), line:21:4, endln:23:7, parent:work@top
     |vpiName:genblk7
@@ -675,24 +690,9 @@ design: (work@top)
       |vpiFullName:work@top.genblk7
       |vpiModule:
       \_module: work@top.genblk7::GOOD_REAL12 (work@top.genblk7.good) dut.sv:22: , parent:work@top.genblk7
-        |vpiDefName:work@top.genblk7::GOOD_REAL12
         |vpiName:good
         |vpiFullName:work@top.genblk7.good
-  |vpiParameter:
-  \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
-    |vpiName:p
-    |vpiFullName:work@top.p
-    |BIN:0
-  |vpiParamAssign:
-  \_param_assign: , line:2:15, endln:2:23, parent:work@top
-    |vpiRhs:
-    \_constant: , line:2:19, endln:2:23
-      |vpiConstType:2
-      |vpiDecompile:t.ttts
-      |vpiSize:64
-      |REAL:t.ttts
-    |vpiLhs:
-    \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+        |vpiDefName:work@top.genblk7::GOOD_REAL12
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -754,31 +754,46 @@ Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp=0
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:33:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+    |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
-    |BIN:0
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23, parent:work@top
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
-      |vpiConstType:3
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+  |vpiDefName:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:33:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiParameter:
+  \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+    |BIN:0
+    |vpiName:p
+    |vpiFullName:work@top.p
+  |vpiParamAssign:
+  \_param_assign: , line:2:15, endln:2:23, parent:work@top
+    |vpiRhs:
+    \_constant: , line:2:19, endln:2:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+  |vpiDefName:work@top
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk1), line:3:4, endln:5:7, parent:work@top
     |vpiName:genblk1
@@ -788,9 +803,9 @@ design: (work@top)
       |vpiFullName:work@top.genblk1
       |vpiModule:
       \_module: work@top.genblk1::GOOD_BLAH (work@top.genblk1.good) dut.sv:4: , parent:work@top.genblk1
-        |vpiDefName:work@top.genblk1::GOOD_BLAH
         |vpiName:good
         |vpiFullName:work@top.genblk1.good
+        |vpiDefName:work@top.genblk1::GOOD_BLAH
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk8), line:24:4, endln:26:7, parent:work@top
     |vpiName:genblk8
@@ -800,9 +815,9 @@ design: (work@top)
       |vpiFullName:work@top.genblk8
       |vpiModule:
       \_module: work@top.genblk8::GOOD_0 (work@top.genblk8.good) dut.sv:25: , parent:work@top.genblk8
-        |vpiDefName:work@top.genblk8::GOOD_0
         |vpiName:good
         |vpiFullName:work@top.genblk8.good
+        |vpiDefName:work@top.genblk8::GOOD_0
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk9), line:27:4, endln:29:7, parent:work@top
     |vpiName:genblk9
@@ -812,9 +827,9 @@ design: (work@top)
       |vpiFullName:work@top.genblk9
       |vpiModule:
       \_module: work@top.genblk9::GOOD_STR_WITH_DOT (work@top.genblk9.good) dut.sv:28: , parent:work@top.genblk9
-        |vpiDefName:work@top.genblk9::GOOD_STR_WITH_DOT
         |vpiName:good
         |vpiFullName:work@top.genblk9.good
+        |vpiDefName:work@top.genblk9::GOOD_STR_WITH_DOT
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk10), line:30:4, endln:32:7, parent:work@top
     |vpiName:genblk10
@@ -824,24 +839,9 @@ design: (work@top)
       |vpiFullName:work@top.genblk10
       |vpiModule:
       \_module: work@top.genblk10::GOOD_MINUS_STR (work@top.genblk10.good) dut.sv:31: , parent:work@top.genblk10
-        |vpiDefName:work@top.genblk10::GOOD_MINUS_STR
         |vpiName:good
         |vpiFullName:work@top.genblk10.good
-  |vpiParameter:
-  \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
-    |vpiName:p
-    |vpiFullName:work@top.p
-    |BIN:0
-  |vpiParamAssign:
-  \_param_assign: , line:2:15, endln:2:23, parent:work@top
-    |vpiRhs:
-    \_constant: , line:2:19, endln:2:23
-      |vpiConstType:9
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-    |vpiLhs:
-    \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+        |vpiDefName:work@top.genblk10::GOOD_MINUS_STR
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -895,31 +895,46 @@ Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp="STR.WITH.DOT"
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:33:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+    |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
-    |BIN:0
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23, parent:work@top
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
-      |vpiConstType:3
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+  |vpiDefName:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:33:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiParameter:
+  \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+    |BIN:0
+    |vpiName:p
+    |vpiFullName:work@top.p
+  |vpiParamAssign:
+  \_param_assign: , line:2:15, endln:2:23, parent:work@top
+    |vpiRhs:
+    \_constant: , line:2:19, endln:2:23
+      |vpiDecompile:STR.WITH.DOT
+      |vpiSize:14
+      |STRING:STR.WITH.DOT
+      |vpiConstType:6
+    |vpiLhs:
+    \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+  |vpiDefName:work@top
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk8), line:24:4, endln:26:7, parent:work@top
     |vpiName:genblk8
@@ -929,9 +944,9 @@ design: (work@top)
       |vpiFullName:work@top.genblk8
       |vpiModule:
       \_module: work@top.genblk8::GOOD_0 (work@top.genblk8.good) dut.sv:25: , parent:work@top.genblk8
-        |vpiDefName:work@top.genblk8::GOOD_0
         |vpiName:good
         |vpiFullName:work@top.genblk8.good
+        |vpiDefName:work@top.genblk8::GOOD_0
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk9), line:27:4, endln:29:7, parent:work@top
     |vpiName:genblk9
@@ -941,24 +956,9 @@ design: (work@top)
       |vpiFullName:work@top.genblk9
       |vpiModule:
       \_module: work@top.genblk9::GOOD_STR_WITH_DOT (work@top.genblk9.good) dut.sv:28: , parent:work@top.genblk9
-        |vpiDefName:work@top.genblk9::GOOD_STR_WITH_DOT
         |vpiName:good
         |vpiFullName:work@top.genblk9.good
-  |vpiParameter:
-  \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
-    |vpiName:p
-    |vpiFullName:work@top.p
-    |BIN:0
-  |vpiParamAssign:
-  \_param_assign: , line:2:15, endln:2:23, parent:work@top
-    |vpiRhs:
-    \_constant: , line:2:19, endln:2:23
-      |vpiConstType:6
-      |vpiDecompile:STR.WITH.DOT
-      |vpiSize:14
-      |STRING:STR.WITH.DOT
-    |vpiLhs:
-    \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+        |vpiDefName:work@top.genblk9::GOOD_STR_WITH_DOT
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -1012,31 +1012,46 @@ Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp="-STR"
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:33:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+    |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
-    |BIN:0
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23, parent:work@top
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
-      |vpiConstType:3
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+  |vpiDefName:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:33:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiParameter:
+  \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+    |BIN:0
+    |vpiName:p
+    |vpiFullName:work@top.p
+  |vpiParamAssign:
+  \_param_assign: , line:2:15, endln:2:23, parent:work@top
+    |vpiRhs:
+    \_constant: , line:2:19, endln:2:23
+      |vpiDecompile:-STR
+      |vpiSize:6
+      |STRING:-STR
+      |vpiConstType:6
+    |vpiLhs:
+    \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+  |vpiDefName:work@top
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk8), line:24:4, endln:26:7, parent:work@top
     |vpiName:genblk8
@@ -1046,9 +1061,9 @@ design: (work@top)
       |vpiFullName:work@top.genblk8
       |vpiModule:
       \_module: work@top.genblk8::GOOD_0 (work@top.genblk8.good) dut.sv:25: , parent:work@top.genblk8
-        |vpiDefName:work@top.genblk8::GOOD_0
         |vpiName:good
         |vpiFullName:work@top.genblk8.good
+        |vpiDefName:work@top.genblk8::GOOD_0
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk10), line:30:4, endln:32:7, parent:work@top
     |vpiName:genblk10
@@ -1058,24 +1073,9 @@ design: (work@top)
       |vpiFullName:work@top.genblk10
       |vpiModule:
       \_module: work@top.genblk10::GOOD_MINUS_STR (work@top.genblk10.good) dut.sv:31: , parent:work@top.genblk10
-        |vpiDefName:work@top.genblk10::GOOD_MINUS_STR
         |vpiName:good
         |vpiFullName:work@top.genblk10.good
-  |vpiParameter:
-  \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
-    |vpiName:p
-    |vpiFullName:work@top.p
-    |BIN:0
-  |vpiParamAssign:
-  \_param_assign: , line:2:15, endln:2:23, parent:work@top
-    |vpiRhs:
-    \_constant: , line:2:19, endln:2:23
-      |vpiConstType:6
-      |vpiDecompile:-STR
-      |vpiSize:6
-      |STRING:-STR
-    |vpiLhs:
-    \_parameter: (work@top.p), line:2:15, endln:2:23, parent:work@top
+        |vpiDefName:work@top.genblk10::GOOD_MINUS_STR
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

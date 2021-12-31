@@ -119,12 +119,16 @@ n<> u<78> t<Top_level_rule> l<1:1> el<13:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:5:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.o), line:1:26, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
   |vpiPort:
   \_port: (o), line:1:26, parent:work@top
     |vpiName:o
@@ -133,8 +137,6 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.o), line:1:26, parent:work@top
-        |vpiName:o
-        |vpiFullName:work@top.o
   |vpiProcess:
   \_initial: , parent:work@top
     |vpiStmt:
@@ -146,10 +148,10 @@ design: (work@top)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:3:11, endln:3:47
-          |vpiConstType:6
           |vpiDecompile:\\/ _| __| | '_ \\ / _` / 
           |vpiSize:26
           |STRING:\\/ _| __| | '_ \\ / _` / 
+          |vpiConstType:6
         |vpiLhs:
         \_ref_obj: (work@top.o), line:3:7, endln:3:8, parent:work@top
           |vpiName:o
@@ -160,12 +162,16 @@ design: (work@top)
             |vpiFullName:work@top.o
             |vpiAutomatic:1
             |vpiVisibility:1
-  |vpiNet:
-  \_logic_net: (work@top.o), line:1:26, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:5:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiVariables:
+  \_string_var: (work@top.o), line:1:26, endln:1:27, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiAutomatic:1
+    |vpiVisibility:1
+  |vpiDefName:work@top
   |vpiPort:
   \_port: (o), line:1:26, endln:1:27, parent:work@top
     |vpiName:o
@@ -176,10 +182,6 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_string_var: (work@top.o), line:1:26, endln:1:27, parent:work@top
-        |vpiName:o
-        |vpiFullName:work@top.o
-        |vpiAutomatic:1
-        |vpiVisibility:1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:5:10
   |vpiProcess:
@@ -193,18 +195,16 @@ design: (work@top)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:3:11, endln:3:47
-          |vpiConstType:6
           |vpiDecompile:\\/ _| __| | '_ \\ / _` / 
           |vpiSize:26
           |STRING:\\/ _| __| | '_ \\ / _` / 
+          |vpiConstType:6
         |vpiLhs:
         \_ref_obj: (work@top.o), line:3:7, endln:3:8
           |vpiName:o
           |vpiFullName:work@top.o
           |vpiActual:
           \_string_var: (work@top.o), line:1:26, endln:1:27, parent:work@top
-  |vpiVariables:
-  \_string_var: (work@top.o), line:1:26, endln:1:27, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

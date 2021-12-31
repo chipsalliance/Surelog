@@ -113,53 +113,95 @@ n<> u<70> t<Top_level_rule> l<1:1> el<18:1>
 
 ====== UHDM =======
 design: (work@otp_ctrl)
-|vpiName:work@otp_ctrl
 |vpiElaborated:1
+|vpiName:work@otp_ctrl
 |uhdmallPackages:
 \_package: otp_ctrl_pkg (otp_ctrl_pkg::) dut.sv:1:1: , endln:5:26, parent:work@otp_ctrl
-  |vpiDefName:otp_ctrl_pkg
   |vpiName:otp_ctrl_pkg
   |vpiFullName:otp_ctrl_pkg::
   |vpiTypedef:
   \_struct_typespec: (otp_ctrl_pkg::otp_ast_req_t), line:2:11, endln:2:17
-    |vpiPacked:1
     |vpiName:otp_ctrl_pkg::otp_ast_req_t
+    |vpiInstance:
+    \_package: otp_ctrl_pkg (otp_ctrl_pkg::) dut.sv:1:1: , endln:5:26, parent:work@otp_ctrl
+    |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (pwr_seq), line:3:17, endln:3:24
       |vpiName:pwr_seq
       |vpiTypespec:
       \_logic_typespec: , line:3:5, endln:3:10
+        |vpiInstance:
+        \_package: otp_ctrl_pkg (otp_ctrl_pkg::) dut.sv:1:1: , endln:5:26, parent:work@otp_ctrl
         |vpiRange:
         \_range: , line:3:12, endln:3:15, parent:otp_ctrl_pkg::otp_ast_req_t
           |vpiLeftRange:
           \_constant: , line:3:12, endln:3:13
-            |vpiConstType:9
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:3:14, endln:3:15
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-        |vpiInstance:
-        \_package: otp_ctrl_pkg (otp_ctrl_pkg::) dut.sv:1:1: , endln:5:26, parent:work@otp_ctrl
-    |vpiInstance:
-    \_package: otp_ctrl_pkg (otp_ctrl_pkg::) dut.sv:1:1: , endln:5:26, parent:work@otp_ctrl
+            |vpiConstType:9
+  |vpiDefName:otp_ctrl_pkg
 |uhdmallPackages:
 \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::) dut.sv:7:1: , endln:9:31, parent:work@otp_ctrl
-  |vpiDefName:otp_ctrl_part_pkg
   |vpiName:otp_ctrl_part_pkg
   |vpiFullName:otp_ctrl_part_pkg::
   |vpiTypedef:
   \_struct_typespec: (otp_ctrl_pkg::otp_ast_req_t), line:2:11, endln:2:17
   |vpiTypedef:
   \_import: (otp_ctrl_pkg), line:8:10, endln:8:25
+  |vpiDefName:otp_ctrl_part_pkg
 |uhdmallModules:
 \_module: work@otp_ctrl (work@otp_ctrl) dut.sv:11:1: , endln:17:21, parent:work@otp_ctrl
-  |vpiDefName:work@otp_ctrl
   |vpiFullName:work@otp_ctrl
+  |vpiTypedef:
+  \_struct_typespec: (otp_ctrl_pkg::otp_ast_req_t), line:2:11, endln:2:17
+    |vpiName:otp_ctrl_pkg::otp_ast_req_t
+    |vpiInstance:
+    \_package: otp_ctrl_pkg (otp_ctrl_pkg::) dut.sv:1:1: , endln:5:26, parent:work@otp_ctrl
+      |vpiName:otp_ctrl_pkg
+      |vpiFullName:otp_ctrl_pkg::
+      |vpiTypedef:
+      \_struct_typespec: (otp_ctrl_pkg::otp_ast_req_t), line:2:11, endln:2:17
+      |vpiDefName:otp_ctrl_pkg
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (pwr_seq), line:3:17, endln:3:24
+      |vpiName:pwr_seq
+      |vpiTypespec:
+      \_logic_typespec: , line:3:5, endln:3:10
+        |vpiInstance:
+        \_package: otp_ctrl_pkg (otp_ctrl_pkg::) dut.sv:1:1: , endln:5:26, parent:work@otp_ctrl
+        |vpiRange:
+        \_range: , line:3:12, endln:3:15, parent:otp_ctrl_pkg::otp_ast_req_t
+          |vpiLeftRange:
+          \_constant: , line:3:12, endln:3:13
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:3:14, endln:3:15
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+  |vpiTypedef:
+  \_import: (otp_ctrl_pkg), line:12:10, endln:12:25
+  |vpiDefName:work@otp_ctrl
+  |vpiNet:
+  \_logic_net: (work@otp_ctrl.otp_ast_pwr_seq_o), line:14:24, parent:work@otp_ctrl
+    |vpiName:otp_ast_pwr_seq_o
+    |vpiFullName:work@otp_ctrl.otp_ast_pwr_seq_o
+  |vpiNet:
+  \_logic_net: (work@otp_ctrl.otp_ast_pwr_seq_h_i), line:15:24, parent:work@otp_ctrl
+    |vpiName:otp_ast_pwr_seq_h_i
+    |vpiFullName:work@otp_ctrl.otp_ast_pwr_seq_h_i
   |vpiPort:
   \_port: (otp_ast_pwr_seq_o), line:14:24, parent:work@otp_ctrl
     |vpiName:otp_ast_pwr_seq_o
@@ -168,8 +210,6 @@ design: (work@otp_ctrl)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@otp_ctrl.otp_ast_pwr_seq_o), line:14:24, parent:work@otp_ctrl
-        |vpiName:otp_ast_pwr_seq_o
-        |vpiFullName:work@otp_ctrl.otp_ast_pwr_seq_o
   |vpiPort:
   \_port: (otp_ast_pwr_seq_h_i), line:15:24, parent:work@otp_ctrl
     |vpiName:otp_ast_pwr_seq_h_i
@@ -178,50 +218,56 @@ design: (work@otp_ctrl)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@otp_ctrl.otp_ast_pwr_seq_h_i), line:15:24, parent:work@otp_ctrl
-        |vpiName:otp_ast_pwr_seq_h_i
-        |vpiFullName:work@otp_ctrl.otp_ast_pwr_seq_h_i
-  |vpiNet:
-  \_logic_net: (work@otp_ctrl.otp_ast_pwr_seq_o), line:14:24, parent:work@otp_ctrl
-  |vpiNet:
-  \_logic_net: (work@otp_ctrl.otp_ast_pwr_seq_h_i), line:15:24, parent:work@otp_ctrl
+|uhdmtopModules:
+\_module: work@otp_ctrl (work@otp_ctrl) dut.sv:11:1: , endln:17:21
+  |vpiName:work@otp_ctrl
+  |vpiVariables:
+  \_logic_var: (work@otp_ctrl.otp_ast_pwr_seq_h_i), line:15:24, endln:15:43, parent:work@otp_ctrl
+    |vpiName:otp_ast_pwr_seq_h_i
+    |vpiFullName:work@otp_ctrl.otp_ast_pwr_seq_h_i
+    |vpiAutomatic:1
+    |vpiVisibility:1
   |vpiTypedef:
   \_struct_typespec: (otp_ctrl_pkg::otp_ast_req_t), line:2:11, endln:2:17
-    |vpiPacked:1
     |vpiName:otp_ctrl_pkg::otp_ast_req_t
+    |vpiInstance:
+    \_package: otp_ctrl_pkg (otp_ctrl_pkg::) dut.sv:1:1: , endln:5:26, parent:work@otp_ctrl
+      |vpiName:otp_ctrl_pkg
+      |vpiFullName:otp_ctrl_pkg::
+      |vpiTypedef:
+      \_struct_typespec: (otp_ctrl_pkg::otp_ast_req_t), line:2:11, endln:2:17
+      |vpiDefName:otp_ctrl_pkg
+    |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (pwr_seq), line:3:17, endln:3:24
       |vpiName:pwr_seq
       |vpiTypespec:
       \_logic_typespec: , line:3:5, endln:3:10
+        |vpiInstance:
+        \_package: otp_ctrl_pkg (otp_ctrl_pkg::) dut.sv:1:1: , endln:5:26, parent:work@otp_ctrl
         |vpiRange:
         \_range: , line:3:12, endln:3:15, parent:otp_ctrl_pkg::otp_ast_req_t
           |vpiLeftRange:
           \_constant: , line:3:12, endln:3:13
-            |vpiConstType:9
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:3:14, endln:3:15
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-        |vpiInstance:
-        \_package: otp_ctrl_pkg (otp_ctrl_pkg::) dut.sv:1:1: , endln:5:26, parent:work@otp_ctrl
-          |vpiDefName:otp_ctrl_pkg
-          |vpiName:otp_ctrl_pkg
-          |vpiFullName:otp_ctrl_pkg::
-          |vpiTypedef:
-          \_struct_typespec: (otp_ctrl_pkg::otp_ast_req_t), line:2:11, endln:2:17
-    |vpiInstance:
-    \_package: otp_ctrl_pkg (otp_ctrl_pkg::) dut.sv:1:1: , endln:5:26, parent:work@otp_ctrl
+            |vpiConstType:9
   |vpiTypedef:
   \_import: (otp_ctrl_pkg), line:12:10, endln:12:25
-|uhdmtopModules:
-\_module: work@otp_ctrl (work@otp_ctrl) dut.sv:11:1: , endln:17:21
   |vpiDefName:work@otp_ctrl
-  |vpiName:work@otp_ctrl
+  |vpiNet:
+  \_struct_net: (work@otp_ctrl.otp_ast_pwr_seq_o), line:14:24, endln:14:41, parent:work@otp_ctrl
+    |vpiTypespec:
+    \_struct_typespec: (otp_ctrl_pkg::otp_ast_req_t), line:2:11, endln:2:17
+    |vpiName:otp_ast_pwr_seq_o
+    |vpiFullName:work@otp_ctrl.otp_ast_pwr_seq_o
   |vpiPort:
   \_port: (otp_ast_pwr_seq_o), line:14:24, endln:14:41, parent:work@otp_ctrl
     |vpiName:otp_ast_pwr_seq_o
@@ -232,40 +278,6 @@ design: (work@otp_ctrl)
       |vpiFullName:work@otp_ctrl.otp_ast_pwr_seq_o
       |vpiActual:
       \_struct_net: (work@otp_ctrl.otp_ast_pwr_seq_o), line:14:24, endln:14:41, parent:work@otp_ctrl
-        |vpiName:otp_ast_pwr_seq_o
-        |vpiFullName:work@otp_ctrl.otp_ast_pwr_seq_o
-        |vpiTypespec:
-        \_struct_typespec: (otp_ctrl_pkg::otp_ast_req_t), line:2:11, endln:2:17
-          |vpiPacked:1
-          |vpiName:otp_ctrl_pkg::otp_ast_req_t
-          |vpiTypespecMember:
-          \_typespec_member: (pwr_seq), line:3:17, endln:3:24
-            |vpiName:pwr_seq
-            |vpiTypespec:
-            \_logic_typespec: , line:3:5, endln:3:10
-              |vpiRange:
-              \_range: , line:3:12, endln:3:15, parent:otp_ctrl_pkg::otp_ast_req_t
-                |vpiLeftRange:
-                \_constant: , line:3:12, endln:3:13
-                  |vpiConstType:9
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                |vpiRightRange:
-                \_constant: , line:3:14, endln:3:15
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-              |vpiInstance:
-              \_package: otp_ctrl_pkg (otp_ctrl_pkg::) dut.sv:1:1: , endln:5:26, parent:work@otp_ctrl
-                |vpiDefName:otp_ctrl_pkg
-                |vpiName:otp_ctrl_pkg
-                |vpiFullName:otp_ctrl_pkg::
-                |vpiTypedef:
-                \_struct_typespec: (otp_ctrl_pkg::otp_ast_req_t), line:2:11, endln:2:17
-          |vpiInstance:
-          \_package: otp_ctrl_pkg (otp_ctrl_pkg::) dut.sv:1:1: , endln:5:26, parent:work@otp_ctrl
     |vpiTypedef:
     \_struct_typespec: (otp_ctrl_pkg::otp_ast_req_t), line:2:11, endln:2:17
     |vpiInstance:
@@ -280,23 +292,11 @@ design: (work@otp_ctrl)
       |vpiFullName:work@otp_ctrl.otp_ast_pwr_seq_h_i
       |vpiActual:
       \_logic_var: (work@otp_ctrl.otp_ast_pwr_seq_h_i), line:15:24, endln:15:43, parent:work@otp_ctrl
-        |vpiName:otp_ast_pwr_seq_h_i
-        |vpiFullName:work@otp_ctrl.otp_ast_pwr_seq_h_i
-        |vpiAutomatic:1
-        |vpiVisibility:1
     |vpiTypedef:
     \_unsupported_typespec: (otp_ast_rsp_t), line:15:10, endln:15:23
       |vpiName:otp_ast_rsp_t
     |vpiInstance:
     \_module: work@otp_ctrl (work@otp_ctrl) dut.sv:11:1: , endln:17:21
-  |vpiNet:
-  \_struct_net: (work@otp_ctrl.otp_ast_pwr_seq_o), line:14:24, endln:14:41, parent:work@otp_ctrl
-  |vpiVariables:
-  \_logic_var: (work@otp_ctrl.otp_ast_pwr_seq_h_i), line:15:24, endln:15:43, parent:work@otp_ctrl
-  |vpiTypedef:
-  \_struct_typespec: (otp_ctrl_pkg::otp_ast_req_t), line:2:11, endln:2:17
-  |vpiTypedef:
-  \_import: (otp_ctrl_pkg), line:12:10, endln:12:25
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

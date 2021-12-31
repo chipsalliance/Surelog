@@ -59,8 +59,16 @@ design: (work@top)
 |vpiName:work@top
 |uhdmallModules:
 \_module: work@moduleA (work@moduleA) dut.sv:2:1: , endln:3:10, parent:work@top
-  |vpiDefName:work@moduleA
   |vpiFullName:work@moduleA
+  |vpiDefName:work@moduleA
+  |vpiNet:
+  \_logic_net: (work@moduleA.port0), line:2:23, parent:work@moduleA
+    |vpiName:port0
+    |vpiFullName:work@moduleA.port0
+  |vpiNet:
+  \_logic_net: (work@moduleA.port1), line:2:30, parent:work@moduleA
+    |vpiName:port1
+    |vpiFullName:work@moduleA.port1
   |vpiPort:
   \_port: (port0), line:2:23, parent:work@moduleA
     |vpiName:port0
@@ -69,8 +77,6 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@moduleA.port0), line:2:23, parent:work@moduleA
-        |vpiName:port0
-        |vpiFullName:work@moduleA.port0
   |vpiPort:
   \_port: (port1), line:2:30, parent:work@moduleA
     |vpiName:port1
@@ -79,16 +85,10 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@moduleA.port1), line:2:30, parent:work@moduleA
-        |vpiName:port1
-        |vpiFullName:work@moduleA.port1
-  |vpiNet:
-  \_logic_net: (work@moduleA.port0), line:2:23, parent:work@moduleA
-  |vpiNet:
-  \_logic_net: (work@moduleA.port1), line:2:30, parent:work@moduleA
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:5:1: , endln:11:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiDefName:work@top
   |vpiNet:
   \_logic_net: (work@top.topA), line:6:16, parent:work@top
     |vpiName:topA
@@ -101,15 +101,63 @@ design: (work@top)
     |vpiNetType:1
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:5:1: , endln:11:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.topA), line:6:16, endln:6:20, parent:work@top
+    |vpiName:topA
+    |vpiFullName:work@top.topA
+    |vpiNetType:1
+    |vpiRange:
+    \_range: , line:6:11, endln:6:14
+      |vpiLeftRange:
+      \_constant: , line:6:11, endln:6:12
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:6:13, endln:6:14
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiNet:
+  \_logic_net: (work@top.topB), line:6:22, endln:6:26, parent:work@top
+    |vpiName:topB
+    |vpiFullName:work@top.topB
+    |vpiNetType:1
+    |vpiRange:
+    \_range: , line:6:11, endln:6:14
+      |vpiLeftRange:
+      \_constant: , line:6:11, endln:6:12
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:6:13, endln:6:14
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
   |vpiModule:
   \_module: work@moduleA (work@top.instanceA) dut.sv:7:5: , endln:7:57, parent:work@top
+    |vpiName:instanceA
+    |vpiFullName:work@top.instanceA
     |vpiDefName:work@moduleA
     |vpiDefFile:dut.sv
     |vpiDefLineNo:2
-    |vpiName:instanceA
-    |vpiFullName:work@top.instanceA
+    |vpiNet:
+    \_logic_net: (work@top.instanceA.port0), line:2:23, endln:2:28, parent:work@top.instanceA
+      |vpiName:port0
+      |vpiFullName:work@top.instanceA.port0
+    |vpiNet:
+    \_logic_net: (work@top.instanceA.port1), line:2:30, endln:2:35, parent:work@top.instanceA
+      |vpiName:port1
+      |vpiFullName:work@top.instanceA.port1
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:5:1: , endln:11:10
     |vpiPort:
     \_port: (port0), line:2:23, endln:2:28, parent:work@top.instanceA
       |vpiName:port0
@@ -119,18 +167,16 @@ design: (work@top)
         |vpiName:topA
         |vpiIndex:
         \_constant: , line:7:35, endln:7:36, parent:topA
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
       |vpiLowConn:
       \_ref_obj: (work@top.instanceA.port0)
         |vpiName:port0
         |vpiFullName:work@top.instanceA.port0
         |vpiActual:
         \_logic_net: (work@top.instanceA.port0), line:2:23, endln:2:28, parent:work@top.instanceA
-          |vpiName:port0
-          |vpiFullName:work@top.instanceA.port0
     |vpiPort:
     \_port: (port1), line:2:30, endln:2:35, parent:work@top.instanceA
       |vpiName:port1
@@ -140,31 +186,33 @@ design: (work@top)
         |vpiName:topB
         |vpiIndex:
         \_constant: , line:7:52, endln:7:53, parent:topB
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
       |vpiLowConn:
       \_ref_obj: (work@top.instanceA.port1)
         |vpiName:port1
         |vpiFullName:work@top.instanceA.port1
         |vpiActual:
         \_logic_net: (work@top.instanceA.port1), line:2:30, endln:2:35, parent:work@top.instanceA
-          |vpiName:port1
-          |vpiFullName:work@top.instanceA.port1
-    |vpiNet:
-    \_logic_net: (work@top.instanceA.port0), line:2:23, endln:2:28, parent:work@top.instanceA
-    |vpiNet:
-    \_logic_net: (work@top.instanceA.port1), line:2:30, endln:2:35, parent:work@top.instanceA
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:5:1: , endln:11:10
   |vpiModule:
   \_module: work@moduleA (work@top.instanceB) dut.sv:8:5: , endln:8:41, parent:work@top
+    |vpiName:instanceB
+    |vpiFullName:work@top.instanceB
     |vpiDefName:work@moduleA
     |vpiDefFile:dut.sv
     |vpiDefLineNo:2
-    |vpiName:instanceB
-    |vpiFullName:work@top.instanceB
+    |vpiNet:
+    \_logic_net: (work@top.instanceB.port0), line:2:23, endln:2:28, parent:work@top.instanceB
+      |vpiName:port0
+      |vpiFullName:work@top.instanceB.port0
+    |vpiNet:
+    \_logic_net: (work@top.instanceB.port1), line:2:30, endln:2:35, parent:work@top.instanceB
+      |vpiName:port1
+      |vpiFullName:work@top.instanceB.port1
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:5:1: , endln:11:10
     |vpiPort:
     \_port: (port0), line:2:23, endln:2:28, parent:work@top.instanceB
       |vpiName:port0
@@ -174,18 +222,16 @@ design: (work@top)
         |vpiName:topA
         |vpiIndex:
         \_constant: , line:8:28, endln:8:29, parent:topA
-          |vpiConstType:9
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiConstType:9
       |vpiLowConn:
       \_ref_obj: (work@top.instanceB.port0)
         |vpiName:port0
         |vpiFullName:work@top.instanceB.port0
         |vpiActual:
         \_logic_net: (work@top.instanceB.port0), line:2:23, endln:2:28, parent:work@top.instanceB
-          |vpiName:port0
-          |vpiFullName:work@top.instanceB.port0
     |vpiPort:
     \_port: (port1), line:2:30, endln:2:35, parent:work@top.instanceB
       |vpiName:port1
@@ -195,31 +241,33 @@ design: (work@top)
         |vpiName:topB
         |vpiIndex:
         \_constant: , line:8:37, endln:8:38, parent:topB
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
       |vpiLowConn:
       \_ref_obj: (work@top.instanceB.port1)
         |vpiName:port1
         |vpiFullName:work@top.instanceB.port1
         |vpiActual:
         \_logic_net: (work@top.instanceB.port1), line:2:30, endln:2:35, parent:work@top.instanceB
-          |vpiName:port1
-          |vpiFullName:work@top.instanceB.port1
-    |vpiNet:
-    \_logic_net: (work@top.instanceB.port0), line:2:23, endln:2:28, parent:work@top.instanceB
-    |vpiNet:
-    \_logic_net: (work@top.instanceB.port1), line:2:30, endln:2:35, parent:work@top.instanceB
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:5:1: , endln:11:10
   |vpiModule:
   \_module: work@moduleA (work@top.instanceC) dut.sv:9:5: , endln:9:50, parent:work@top
+    |vpiName:instanceC
+    |vpiFullName:work@top.instanceC
     |vpiDefName:work@moduleA
     |vpiDefFile:dut.sv
     |vpiDefLineNo:2
-    |vpiName:instanceC
-    |vpiFullName:work@top.instanceC
+    |vpiNet:
+    \_logic_net: (work@top.instanceC.port0), line:2:23, endln:2:28, parent:work@top.instanceC
+      |vpiName:port0
+      |vpiFullName:work@top.instanceC.port0
+    |vpiNet:
+    \_logic_net: (work@top.instanceC.port1), line:2:30, endln:2:35, parent:work@top.instanceC
+      |vpiName:port1
+      |vpiFullName:work@top.instanceC.port1
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:5:1: , endln:11:10
     |vpiPort:
     \_port: (port0), line:2:23, endln:2:28, parent:work@top.instanceC
       |vpiName:port0
@@ -229,18 +277,16 @@ design: (work@top)
         |vpiName:topA
         |vpiIndex:
         \_constant: , line:9:28, endln:9:29, parent:topA
-          |vpiConstType:9
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiConstType:9
       |vpiLowConn:
       \_ref_obj: (work@top.instanceC.port0)
         |vpiName:port0
         |vpiFullName:work@top.instanceC.port0
         |vpiActual:
         \_logic_net: (work@top.instanceC.port0), line:2:23, endln:2:28, parent:work@top.instanceC
-          |vpiName:port0
-          |vpiFullName:work@top.instanceC.port0
     |vpiPort:
     \_port: (port1), line:2:30, endln:2:35, parent:work@top.instanceC
       |vpiName:port1
@@ -253,40 +299,42 @@ design: (work@top)
           |vpiName:topB
           |vpiIndex:
           \_constant: , line:9:37, endln:9:38, parent:topB
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
         |vpiOperand:
         \_bit_select: (topB), line:9:41, endln:9:48, parent:topB
           |vpiName:topB
           |vpiIndex:
           \_constant: , line:9:46, endln:9:47, parent:topB
-            |vpiConstType:9
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiConstType:9
       |vpiLowConn:
       \_ref_obj: (work@top.instanceC.port1)
         |vpiName:port1
         |vpiFullName:work@top.instanceC.port1
         |vpiActual:
         \_logic_net: (work@top.instanceC.port1), line:2:30, endln:2:35, parent:work@top.instanceC
-          |vpiName:port1
-          |vpiFullName:work@top.instanceC.port1
-    |vpiNet:
-    \_logic_net: (work@top.instanceC.port0), line:2:23, endln:2:28, parent:work@top.instanceC
-    |vpiNet:
-    \_logic_net: (work@top.instanceC.port1), line:2:30, endln:2:35, parent:work@top.instanceC
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:5:1: , endln:11:10
   |vpiModule:
   \_module: work@moduleA (work@top.instanceD) dut.sv:10:5: , endln:10:50, parent:work@top
+    |vpiName:instanceD
+    |vpiFullName:work@top.instanceD
     |vpiDefName:work@moduleA
     |vpiDefFile:dut.sv
     |vpiDefLineNo:2
-    |vpiName:instanceD
-    |vpiFullName:work@top.instanceD
+    |vpiNet:
+    \_logic_net: (work@top.instanceD.port0), line:2:23, endln:2:28, parent:work@top.instanceD
+      |vpiName:port0
+      |vpiFullName:work@top.instanceD.port0
+    |vpiNet:
+    \_logic_net: (work@top.instanceD.port1), line:2:30, endln:2:35, parent:work@top.instanceD
+      |vpiName:port1
+      |vpiFullName:work@top.instanceD.port1
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:5:1: , endln:11:10
     |vpiPort:
     \_port: (port0), line:2:23, endln:2:28, parent:work@top.instanceD
       |vpiName:port0
@@ -299,27 +347,25 @@ design: (work@top)
           |vpiName:topA
           |vpiIndex:
           \_constant: , line:10:28, endln:10:29, parent:topA
-            |vpiConstType:9
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiConstType:9
         |vpiOperand:
         \_bit_select: (topA), line:10:32, endln:10:39, parent:topA
           |vpiName:topA
           |vpiIndex:
           \_constant: , line:10:37, endln:10:38, parent:topA
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
       |vpiLowConn:
       \_ref_obj: (work@top.instanceD.port0)
         |vpiName:port0
         |vpiFullName:work@top.instanceD.port0
         |vpiActual:
         \_logic_net: (work@top.instanceD.port0), line:2:23, endln:2:28, parent:work@top.instanceD
-          |vpiName:port0
-          |vpiFullName:work@top.instanceD.port0
     |vpiPort:
     \_port: (port1), line:2:30, endln:2:35, parent:work@top.instanceD
       |vpiName:port1
@@ -329,62 +375,16 @@ design: (work@top)
         |vpiName:topB
         |vpiIndex:
         \_constant: , line:10:46, endln:10:47, parent:topB
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
       |vpiLowConn:
       \_ref_obj: (work@top.instanceD.port1)
         |vpiName:port1
         |vpiFullName:work@top.instanceD.port1
         |vpiActual:
         \_logic_net: (work@top.instanceD.port1), line:2:30, endln:2:35, parent:work@top.instanceD
-          |vpiName:port1
-          |vpiFullName:work@top.instanceD.port1
-    |vpiNet:
-    \_logic_net: (work@top.instanceD.port0), line:2:23, endln:2:28, parent:work@top.instanceD
-    |vpiNet:
-    \_logic_net: (work@top.instanceD.port1), line:2:30, endln:2:35, parent:work@top.instanceD
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:5:1: , endln:11:10
-  |vpiNet:
-  \_logic_net: (work@top.topA), line:6:16, endln:6:20, parent:work@top
-    |vpiName:topA
-    |vpiFullName:work@top.topA
-    |vpiNetType:1
-    |vpiRange:
-    \_range: , line:6:11, endln:6:14
-      |vpiLeftRange:
-      \_constant: , line:6:11, endln:6:12
-        |vpiConstType:9
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-      |vpiRightRange:
-      \_constant: , line:6:13, endln:6:14
-        |vpiConstType:9
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-  |vpiNet:
-  \_logic_net: (work@top.topB), line:6:22, endln:6:26, parent:work@top
-    |vpiName:topB
-    |vpiFullName:work@top.topB
-    |vpiNetType:1
-    |vpiRange:
-    \_range: , line:6:11, endln:6:14
-      |vpiLeftRange:
-      \_constant: , line:6:11, endln:6:12
-        |vpiConstType:9
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-      |vpiRightRange:
-      \_constant: , line:6:13, endln:6:14
-        |vpiConstType:9
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

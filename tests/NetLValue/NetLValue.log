@@ -154,15 +154,32 @@ Instance tree:
 
 ====== UHDM =======
 design: (work@t)
-|vpiName:work@t
 |vpiElaborated:1
+|vpiName:work@t
 |uhdmallModules:
 \_module: work@t (work@t) dut.sv:1:1: , endln:10:10, parent:work@t
-  |vpiDefName:work@t
   |vpiFullName:work@t
+  |vpiTypedef:
+  \_struct_typespec: (S), line:2:12, endln:2:18
+    |vpiName:S
+    |vpiInstance:
+    \_module: work@t (work@t) dut.sv:1:1: , endln:10:10, parent:work@t
+    |vpiTypespecMember:
+    \_typespec_member: (x), line:2:25, endln:2:26
+      |vpiName:x
+      |vpiTypespec:
+      \_int_typespec: , line:2:21, endln:2:24
+  |vpiDefName:work@t
+  |vpiNet:
+  \_logic_net: (work@t.s), line:3:11, parent:work@t
+    |vpiName:s
+    |vpiFullName:work@t.s
+  |vpiNet:
+  \_logic_net: (work@t.y), line:4:8, parent:work@t
+    |vpiName:y
+    |vpiFullName:work@t.y
   |vpiProcess:
   \_always: , line:6:4, endln:9:7, parent:work@t
-    |vpiAlwaysType:2
     |vpiStmt:
     \_begin: (work@t), line:6:16, endln:9:7
       |vpiFullName:work@t
@@ -178,10 +195,10 @@ design: (work@t)
             |vpiName:s
             |vpiIndex:
             \_constant: , line:7:12, endln:7:13
-              |vpiConstType:9
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+              |vpiConstType:9
           |vpiActual:
           \_ref_obj: (x)
             |vpiName:x
@@ -201,10 +218,10 @@ design: (work@t)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:8:15, endln:8:16
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
         |vpiLhs:
         \_hier_path: (s[1].x), line:8:6, endln:8:7, parent:work@t
           |vpiName:s[1].x
@@ -213,95 +230,17 @@ design: (work@t)
             |vpiName:s
             |vpiIndex:
             \_constant: , line:8:8, endln:8:9
-              |vpiConstType:9
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
+              |vpiConstType:9
           |vpiActual:
           \_ref_obj: (x), parent:s[1].x
             |vpiName:x
-  |vpiNet:
-  \_logic_net: (work@t.s), line:3:11, parent:work@t
-    |vpiName:s
-    |vpiFullName:work@t.s
-  |vpiNet:
-  \_logic_net: (work@t.y), line:4:8, parent:work@t
-    |vpiName:y
-    |vpiFullName:work@t.y
-  |vpiTypedef:
-  \_struct_typespec: (S), line:2:12, endln:2:18
-    |vpiName:S
-    |vpiTypespecMember:
-    \_typespec_member: (x), line:2:25, endln:2:26
-      |vpiName:x
-      |vpiTypespec:
-      \_int_typespec: , line:2:21, endln:2:24
-    |vpiInstance:
-    \_module: work@t (work@t) dut.sv:1:1: , endln:10:10, parent:work@t
+    |vpiAlwaysType:2
 |uhdmtopModules:
 \_module: work@t (work@t) dut.sv:1:1: , endln:10:10
-  |vpiDefName:work@t
   |vpiName:work@t
-  |vpiProcess:
-  \_always: , line:6:4, endln:9:7, parent:work@t
-    |vpiAlwaysType:2
-    |vpiStmt:
-    \_begin: (work@t), line:6:16, endln:9:7
-      |vpiFullName:work@t
-      |vpiStmt:
-      \_assignment: , line:7:6, endln:7:16, parent:work@t
-        |vpiOpType:82
-        |vpiBlocking:1
-        |vpiRhs:
-        \_hier_path: (s[0].x), line:7:10, endln:7:16
-          |vpiName:s[0].x
-          |vpiActual:
-          \_bit_select: (s), parent:work@t.s[0].x
-            |vpiName:s
-            |vpiIndex:
-            \_constant: , line:7:12, endln:7:13
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-          |vpiActual:
-          \_ref_obj: (x), parent:s[0].x
-            |vpiName:x
-        |vpiLhs:
-        \_ref_obj: (work@t.y), line:7:6, endln:7:7
-          |vpiName:y
-          |vpiFullName:work@t.y
-          |vpiActual:
-          \_int_var: (work@t.y), line:4:8, endln:4:9, parent:work@t
-            |vpiName:y
-            |vpiFullName:work@t.y
-            |vpiAutomatic:1
-            |vpiVisibility:1
-      |vpiStmt:
-      \_assignment: , line:8:6, endln:8:16, parent:work@t
-        |vpiOpType:82
-        |vpiBlocking:1
-        |vpiRhs:
-        \_constant: , line:8:15, endln:8:16
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-        |vpiLhs:
-        \_hier_path: (s[1].x), line:8:6, endln:8:7
-          |vpiName:s[1].x
-          |vpiActual:
-          \_bit_select: (s), parent:work@t.s[1].x
-            |vpiName:s
-            |vpiIndex:
-            \_constant: , line:8:8, endln:8:9
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-          |vpiActual:
-          \_ref_obj: (x), parent:s[1].x
-            |vpiName:x
   |vpiVariables:
   \_packed_array_var: (work@t.s), line:3:11, endln:3:12, parent:work@t
     |vpiName:s
@@ -312,34 +251,37 @@ design: (work@t)
     \_range: , line:3:6, endln:3:9
       |vpiLeftRange:
       \_constant: , line:3:6, endln:3:7
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiRightRange:
       \_constant: , line:3:8, endln:3:9
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
     |vpiElement:
     \_struct_var: (work@t.s), parent:work@t.s
-      |vpiFullName:work@t.s
       |vpiTypespec:
       \_struct_typespec: (S), line:2:12, endln:2:18
         |vpiName:S
-        |vpiTypespecMember:
-        \_typespec_member: (x), line:2:25, endln:2:26
-          |vpiName:x
-          |vpiTypespec:
-          \_int_typespec: , line:2:21, endln:2:24
         |vpiInstance:
         \_module: work@t (work@t) dut.sv:1:1: , endln:10:10, parent:work@t
-          |vpiDefName:work@t
           |vpiFullName:work@t
+          |vpiTypedef:
+          \_struct_typespec: (S), line:2:12, endln:2:18
+          |vpiDefName:work@t
+          |vpiNet:
+          \_logic_net: (work@t.s), line:3:11, parent:work@t
+            |vpiName:s
+            |vpiFullName:work@t.s
+          |vpiNet:
+          \_logic_net: (work@t.y), line:4:8, parent:work@t
+            |vpiName:y
+            |vpiFullName:work@t.y
           |vpiProcess:
           \_always: , line:6:4, endln:9:7, parent:work@t
-            |vpiAlwaysType:2
             |vpiStmt:
             \_begin: (work@t), line:6:16, endln:9:7
               |vpiFullName:work@t
@@ -355,6 +297,10 @@ design: (work@t)
                     |vpiName:s
                     |vpiIndex:
                     \_constant: , line:7:12, endln:7:13
+                      |vpiDecompile:0
+                      |vpiSize:64
+                      |UINT:0
+                      |vpiConstType:9
                   |vpiActual:
                   \_ref_obj: (x)
                     |vpiName:x
@@ -364,12 +310,20 @@ design: (work@t)
                   |vpiFullName:work@t.y
                   |vpiActual:
                   \_int_var: (work@t.y), line:4:8, endln:4:9, parent:work@t
+                    |vpiName:y
+                    |vpiFullName:work@t.y
+                    |vpiAutomatic:1
+                    |vpiVisibility:1
               |vpiStmt:
               \_assignment: , line:8:6, endln:8:16, parent:work@t
                 |vpiOpType:82
                 |vpiBlocking:1
                 |vpiRhs:
                 \_constant: , line:8:15, endln:8:16
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
                 |vpiLhs:
                 \_hier_path: (s[1].x), line:8:6, endln:8:7, parent:work@t
                   |vpiName:s[1].x
@@ -378,23 +332,69 @@ design: (work@t)
                     |vpiName:s
                     |vpiIndex:
                     \_constant: , line:8:8, endln:8:9
+                      |vpiDecompile:1
+                      |vpiSize:64
+                      |UINT:1
+                      |vpiConstType:9
                   |vpiActual:
                   \_ref_obj: (x), parent:s[1].x
                     |vpiName:x
-          |vpiNet:
-          \_logic_net: (work@t.s), line:3:11, parent:work@t
-            |vpiName:s
-            |vpiFullName:work@t.s
-          |vpiNet:
-          \_logic_net: (work@t.y), line:4:8, parent:work@t
-            |vpiName:y
-            |vpiFullName:work@t.y
-          |vpiTypedef:
-          \_struct_typespec: (S), line:2:12, endln:2:18
+            |vpiAlwaysType:2
+        |vpiTypespecMember:
+        \_typespec_member: (x), line:2:25, endln:2:26
+          |vpiName:x
+          |vpiTypespec:
+          \_int_typespec: , line:2:21, endln:2:24
+      |vpiFullName:work@t.s
   |vpiVariables:
   \_int_var: (work@t.y), line:4:8, endln:4:9, parent:work@t
   |vpiTypedef:
   \_struct_typespec: (S), line:2:12, endln:2:18
+  |vpiDefName:work@t
+  |vpiProcess:
+  \_always: , line:6:4, endln:9:7, parent:work@t
+    |vpiStmt:
+    \_begin: (work@t), line:6:16, endln:9:7
+      |vpiFullName:work@t
+      |vpiStmt:
+      \_assignment: , line:7:6, endln:7:16, parent:work@t
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_hier_path: (s[0].x), line:7:10, endln:7:16
+          |vpiName:s[0].x
+          |vpiActual:
+          \_bit_select: (s), parent:work@t.s[0].x
+            |vpiName:s
+            |vpiIndex:
+            \_constant: , line:7:12, endln:7:13
+          |vpiActual:
+          \_ref_obj: (x), parent:s[0].x
+            |vpiName:x
+        |vpiLhs:
+        \_ref_obj: (work@t.y), line:7:6, endln:7:7
+          |vpiName:y
+          |vpiFullName:work@t.y
+          |vpiActual:
+          \_int_var: (work@t.y), line:4:8, endln:4:9, parent:work@t
+      |vpiStmt:
+      \_assignment: , line:8:6, endln:8:16, parent:work@t
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_constant: , line:8:15, endln:8:16
+        |vpiLhs:
+        \_hier_path: (s[1].x), line:8:6, endln:8:7
+          |vpiName:s[1].x
+          |vpiActual:
+          \_bit_select: (s), parent:work@t.s[1].x
+            |vpiName:s
+            |vpiIndex:
+            \_constant: , line:8:8, endln:8:9
+          |vpiActual:
+          \_ref_obj: (x), parent:s[1].x
+            |vpiName:x
+    |vpiAlwaysType:2
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

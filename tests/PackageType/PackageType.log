@@ -404,13 +404,13 @@ n<> u<245> t<Top_level_rule> f<0> l<0:11>
 
 ====== UHDM =======
 design: (unnamed)
-|vpiName:unnamed
 |vpiElaborated:1
+|vpiName:unnamed
 |uhdmallPackages:
 \_package: builtin (builtin::), parent:unnamed
-  |vpiDefName:builtin
   |vpiName:builtin
   |vpiFullName:builtin::
+  |vpiDefName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin::
     |vpiName:array
@@ -429,30 +429,28 @@ design: (unnamed)
     |vpiFullName:builtin::system
 |uhdmallPackages:
 \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:24:11, parent:unnamed
-  |vpiDefName:bp_common_aviary_pkg
   |vpiName:bp_common_aviary_pkg
   |vpiFullName:bp_common_aviary_pkg::
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::max_cfgs), line:10:14, endln:10:31, parent:bp_common_aviary_pkg::
+    |UINT:128
+    |vpiLocalParam:1
     |vpiName:max_cfgs
     |vpiFullName:bp_common_aviary_pkg::max_cfgs
-    |vpiLocalParam:1
-    |UINT:128
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::lg_max_cfgs), line:11:14, endln:11:44, parent:bp_common_aviary_pkg::
+    |UINT:7
+    |vpiLocalParam:1
     |vpiName:lg_max_cfgs
     |vpiFullName:bp_common_aviary_pkg::lg_max_cfgs
-    |vpiLocalParam:1
-    |UINT:7
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::bp_inv_cfg_p), line:13:30, endln:14:22, parent:bp_common_aviary_pkg::
-    |vpiName:bp_inv_cfg_p
-    |vpiFullName:bp_common_aviary_pkg::bp_inv_cfg_p
-    |vpiLocalParam:1
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:3:15, parent:bp_common_aviary_pkg::bp_inv_cfg_p
-      |vpiPacked:1
       |vpiName:bp_common_aviary_pkg::bp_proc_param_s
+      |vpiInstance:
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:24:11, parent:unnamed
+      |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (num_core), line:5:11, endln:5:19
         |vpiName:num_core
@@ -467,50 +465,51 @@ design: (unnamed)
         \_int_typespec: , line:6:3, endln:6:10
           |vpiInstance:
           \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:24:11, parent:unnamed
-      |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:24:11, parent:unnamed
+    |vpiLocalParam:1
+    |vpiName:bp_inv_cfg_p
+    |vpiFullName:bp_common_aviary_pkg::bp_inv_cfg_p
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::all_cfgs_gp), line:18:44, endln:21:4, parent:bp_common_aviary_pkg::
-    |vpiName:all_cfgs_gp
-    |vpiFullName:bp_common_aviary_pkg::all_cfgs_gp
     |vpiTypespec:
     \_packed_array_typespec: , parent:bp_common_aviary_pkg::all_cfgs_gp
+      |vpiInstance:
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:24:11, parent:unnamed
       |vpiRange:
       \_range: , line:18:30, endln:18:42
         |vpiLeftRange:
         \_constant: , line:18:30, endln:18:38
-          |vpiConstType:7
           |vpiDecompile:127
           |vpiSize:64
           |INT:127
+          |vpiConstType:7
         |vpiRightRange:
         \_constant: , line:18:41, endln:18:42
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
       |vpiElemTypespec:
       \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:3:15, parent:bp_common_aviary_pkg::bp_inv_cfg_p
-      |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:24:11, parent:unnamed
+    |vpiName:all_cfgs_gp
+    |vpiFullName:bp_common_aviary_pkg::all_cfgs_gp
   |vpiParamAssign:
   \_param_assign: , line:10:14, endln:10:31, parent:bp_common_aviary_pkg::
     |vpiRhs:
     \_constant: , line:10:28, endln:10:31
-      |vpiConstType:9
       |vpiDecompile:128
       |vpiSize:64
       |UINT:128
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (bp_common_aviary_pkg::max_cfgs), line:10:14, endln:10:31, parent:bp_common_aviary_pkg::
   |vpiParamAssign:
   \_param_assign: , line:11:14, endln:11:44, parent:bp_common_aviary_pkg::
     |vpiRhs:
     \_constant: , line:11:28, endln:11:44
-      |vpiConstType:9
       |vpiDecompile:7
       |vpiSize:64
       |UINT:7
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (bp_common_aviary_pkg::lg_max_cfgs), line:11:14, endln:11:44, parent:bp_common_aviary_pkg::
   |vpiParamAssign:
@@ -522,10 +521,10 @@ design: (unnamed)
       \_tagged_pattern: 
         |vpiPattern:
         \_constant: , line:14:16, endln:14:21
-          |vpiConstType:6
           |vpiDecompile:inv
           |vpiSize:3
           |STRING:inv
+          |vpiConstType:6
         |vpiTypespec:
         \_string_typespec: (default), line:14:7, endln:14:14
           |vpiName:default
@@ -546,14 +545,15 @@ design: (unnamed)
     \_parameter: (bp_common_aviary_pkg::all_cfgs_gp), line:18:44, endln:21:4, parent:bp_common_aviary_pkg::
   |vpiTypedef:
   \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:3:15, parent:bp_common_aviary_pkg::bp_inv_cfg_p
+  |vpiDefName:bp_common_aviary_pkg
 |uhdmallClasses:
 \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
   |vpiName:work@mailbox
   |vpiMethod:
   \_function: (work@mailbox::new), parent:work@mailbox
-    |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@mailbox::new
+    |vpiMethod:1
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -562,107 +562,140 @@ design: (unnamed)
         \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
     |vpiIODecl:
     \_io_decl: (bound), parent:work@mailbox::new
-      |vpiName:bound
       |vpiDirection:1
+      |vpiName:bound
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_function: (work@mailbox::num), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:num
     |vpiFullName:work@mailbox::num
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:put
     |vpiFullName:work@mailbox::put
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::put
-      |vpiName:message
-      |vpiDirection:1
-  |vpiMethod:
-  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::put
+      |vpiDirection:1
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_put
-      |vpiName:message
       |vpiDirection:1
+      |vpiName:message
   |vpiMethod:
   \_task: (work@mailbox::get), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:get
     |vpiFullName:work@mailbox::get
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::get
-      |vpiName:message
-      |vpiDirection:6
-  |vpiMethod:
-  \_function: (work@mailbox::try_get), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::get
+      |vpiDirection:6
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_get), parent:work@mailbox
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
   |vpiMethod:
   \_task: (work@mailbox::peek), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::peek
-      |vpiName:message
-      |vpiDirection:6
-  |vpiMethod:
-  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::peek
+      |vpiDirection:6
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
 |uhdmallClasses:
 \_class_defn: (work@process), file:builtin.sv, parent:unnamed
   |vpiName:work@process
+  |vpiTypedef:
+  \_enum_typespec: (state), parent:work@process
+    |vpiName:state
+    |vpiEnumConst:
+    \_enum_const: (FINISHED), parent:state
+      |vpiName:FINISHED
+      |INT:0
+      |vpiDecompile:0
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (RUNNING), parent:state
+      |vpiName:RUNNING
+      |INT:1
+      |vpiDecompile:1
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (WAITING), parent:state
+      |vpiName:WAITING
+      |INT:2
+      |vpiDecompile:2
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (SUSPENDED), parent:state
+      |vpiName:SUSPENDED
+      |INT:3
+      |vpiDecompile:3
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (KILLED), parent:state
+      |vpiName:KILLED
+      |INT:4
+      |vpiDecompile:4
+      |vpiSize:64
   |vpiMethod:
   \_function: (work@process::self), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:self
     |vpiFullName:work@process::self
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_ref_var: 
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:status
     |vpiFullName:work@process::status
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
@@ -671,110 +704,77 @@ design: (unnamed)
         |vpiEnumConst:
         \_enum_const: (FINISHED)
           |vpiName:FINISHED
-          |vpiDecompile:0
           |INT:0
+          |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
           |vpiName:RUNNING
-          |vpiDecompile:1
           |INT:1
+          |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
           |vpiName:WAITING
-          |vpiDecompile:2
           |INT:2
+          |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
           |vpiName:SUSPENDED
-          |vpiDecompile:3
           |INT:3
+          |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
           |vpiName:KILLED
-          |vpiDecompile:4
           |INT:4
+          |vpiDecompile:4
           |vpiSize:64
   |vpiMethod:
   \_task: (work@process::kill), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:kill
     |vpiFullName:work@process::kill
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::kill), parent:work@process::kill
       |vpiFullName:work@process::kill
   |vpiMethod:
   \_task: (work@process::await), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:await
     |vpiFullName:work@process::await
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::await), parent:work@process::await
       |vpiFullName:work@process::await
   |vpiMethod:
   \_task: (work@process::suspend), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:suspend
     |vpiFullName:work@process::suspend
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::suspend), parent:work@process::suspend
       |vpiFullName:work@process::suspend
   |vpiMethod:
   \_task: (work@process::resume), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:resume
     |vpiFullName:work@process::resume
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::resume), parent:work@process::resume
       |vpiFullName:work@process::resume
-  |vpiTypedef:
-  \_enum_typespec: (state), parent:work@process
-    |vpiName:state
-    |vpiEnumConst:
-    \_enum_const: (FINISHED), parent:state
-      |vpiName:FINISHED
-      |vpiDecompile:0
-      |INT:0
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (RUNNING), parent:state
-      |vpiName:RUNNING
-      |vpiDecompile:1
-      |INT:1
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (WAITING), parent:state
-      |vpiName:WAITING
-      |vpiDecompile:2
-      |INT:2
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (SUSPENDED), parent:state
-      |vpiName:SUSPENDED
-      |vpiDecompile:3
-      |INT:3
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (KILLED), parent:state
-      |vpiName:KILLED
-      |vpiDecompile:4
-      |INT:4
-      |vpiSize:64
 |uhdmallClasses:
 \_class_defn: (work@semaphore), file:builtin.sv, parent:unnamed
   |vpiName:work@semaphore
   |vpiMethod:
   \_function: (work@semaphore::new), parent:work@semaphore
-    |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@semaphore::new
+    |vpiMethod:1
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -783,70 +783,70 @@ design: (unnamed)
         \_class_defn: (work@semaphore), file:builtin.sv, parent:unnamed
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::new
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_task: (work@semaphore::put), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:put
     |vpiFullName:work@semaphore::put
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::put
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_task: (work@semaphore::get), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:get
     |vpiFullName:work@semaphore::get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::get
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_function: (work@semaphore::try_get), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
 ===================

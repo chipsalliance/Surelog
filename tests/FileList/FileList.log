@@ -223,25 +223,25 @@ n<> u<124> t<Top_level_rule> l<1:1> el<12:1>
 
 ====== UHDM =======
 design: (work@foo)
-|vpiName:work@foo
 |vpiElaborated:1
+|vpiName:work@foo
 |uhdmallPackages:
 \_package: prim_util_pkg (prim_util_pkg::) pack.sv:1:1: , endln:7:11, parent:work@foo
-  |vpiDefName:prim_util_pkg
   |vpiName:prim_util_pkg
   |vpiFullName:prim_util_pkg::
+  |vpiDefName:prim_util_pkg
   |vpiTaskFunc:
   \_function: (prim_util_pkg::vbits), line:3:2, endln:5:14, parent:prim_util_pkg::
-    |vpiVisibility:1
-    |vpiAutomatic:1
     |vpiName:vbits
     |vpiFullName:prim_util_pkg::vbits
+    |vpiVisibility:1
+    |vpiAutomatic:1
     |vpiReturn:
     \_int_var: , line:3:21, endln:3:28
     |vpiIODecl:
     \_io_decl: (value), parent:prim_util_pkg::vbits
-      |vpiName:value
       |vpiDirection:1
+      |vpiName:value
       |vpiTypedef:
       \_int_typespec: , line:3:35, endln:3:42
         |vpiInstance:
@@ -262,31 +262,141 @@ design: (work@foo)
             \_io_decl: (value), parent:prim_util_pkg::vbits
           |vpiOperand:
           \_constant: , line:4:22, endln:4:23
-            |vpiConstType:9
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiConstType:9
         |vpiOperand:
         \_constant: , line:4:27, endln:4:28
-          |vpiConstType:9
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiConstType:9
         |vpiOperand:
         \_sys_func_call: ($clog2), line:4:31, endln:4:44
-          |vpiName:$clog2
           |vpiArgument:
           \_ref_obj: (prim_util_pkg::vbits::value), line:4:38, endln:4:43, parent:$clog2
             |vpiName:value
             |vpiFullName:prim_util_pkg::vbits::value
             |vpiActual:
             \_io_decl: (value), parent:prim_util_pkg::vbits
+          |vpiName:$clog2
     |vpiInstance:
     \_package: prim_util_pkg (prim_util_pkg::) pack.sv:1:1: , endln:7:11, parent:work@foo
 |uhdmallModules:
 \_module: work@foo (work@foo) dut.sv:1:1: , endln:11:10, parent:work@foo
-  |vpiDefName:work@foo
   |vpiFullName:work@foo
+  |vpiTypedef:
+  \_import: (prim_util_pkg), line:5:8, endln:5:28
+  |vpiDefName:work@foo
+  |vpiTaskFunc:
+  \_function: (prim_util_pkg::vbits), line:3:2, endln:5:14, parent:prim_util_pkg::
+    |vpiName:vbits
+    |vpiFullName:prim_util_pkg::vbits
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_int_var: , line:3:21, endln:3:28
+    |vpiIODecl:
+    \_io_decl: (value)
+      |vpiDirection:1
+      |vpiName:value
+      |vpiTypedef:
+      \_int_typespec: , line:3:35, endln:3:42
+        |vpiInstance:
+        \_package: prim_util_pkg (prim_util_pkg::) pack.sv:1:1: , endln:7:11, parent:work@foo
+          |vpiName:prim_util_pkg
+          |vpiFullName:prim_util_pkg::
+          |vpiDefName:prim_util_pkg
+          |vpiTaskFunc:
+          \_function: (prim_util_pkg::vbits), line:3:2, endln:5:14, parent:prim_util_pkg::
+            |vpiName:vbits
+            |vpiFullName:prim_util_pkg::vbits
+            |vpiVisibility:1
+            |vpiAutomatic:1
+            |vpiReturn:
+            \_int_var: , line:3:21, endln:3:28
+            |vpiIODecl:
+            \_io_decl: (value), parent:prim_util_pkg::vbits
+              |vpiDirection:1
+              |vpiName:value
+              |vpiTypedef:
+              \_int_typespec: , line:3:35, endln:3:42
+            |vpiStmt:
+            \_return_stmt: , line:4:5, endln:4:11, parent:prim_util_pkg::vbits
+              |vpiCondition:
+              \_operation: , line:4:12, endln:4:24
+                |vpiOpType:32
+                |vpiOperand:
+                \_operation: , line:4:13, endln:4:23
+                  |vpiOpType:14
+                  |vpiOperand:
+                  \_ref_obj: (prim_util_pkg::vbits::value), line:4:13, endln:4:18
+                    |vpiName:value
+                    |vpiFullName:prim_util_pkg::vbits::value
+                    |vpiActual:
+                    \_io_decl: (value), parent:prim_util_pkg::vbits
+                  |vpiOperand:
+                  \_constant: , line:4:22, endln:4:23
+                    |vpiDecompile:1
+                    |vpiSize:64
+                    |UINT:1
+                    |vpiConstType:9
+                |vpiOperand:
+                \_constant: , line:4:27, endln:4:28
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+                  |vpiConstType:9
+                |vpiOperand:
+                \_sys_func_call: ($clog2), line:4:31, endln:4:44
+                  |vpiArgument:
+                  \_ref_obj: (prim_util_pkg::vbits::value), line:4:38, endln:4:43, parent:$clog2
+                    |vpiName:value
+                    |vpiFullName:prim_util_pkg::vbits::value
+                    |vpiActual:
+                    \_io_decl: (value), parent:prim_util_pkg::vbits
+                  |vpiName:$clog2
+            |vpiInstance:
+            \_package: prim_util_pkg (prim_util_pkg::) pack.sv:1:1: , endln:7:11, parent:work@foo
+    |vpiStmt:
+    \_return_stmt: , line:4:5, endln:4:11, parent:prim_util_pkg::vbits
+      |vpiCondition:
+      \_operation: , line:4:12, endln:4:24
+        |vpiOpType:32
+        |vpiOperand:
+        \_operation: , line:4:13, endln:4:23
+          |vpiOpType:14
+          |vpiOperand:
+          \_ref_obj: (prim_util_pkg::vbits::value), line:4:13, endln:4:18
+            |vpiName:value
+            |vpiFullName:prim_util_pkg::vbits::value
+          |vpiOperand:
+          \_constant: , line:4:22, endln:4:23
+        |vpiOperand:
+        \_constant: , line:4:27, endln:4:28
+        |vpiOperand:
+        \_sys_func_call: ($clog2), line:4:31, endln:4:44
+          |vpiArgument:
+          \_ref_obj: (prim_util_pkg::vbits::value), line:4:38, endln:4:43, parent:$clog2
+            |vpiName:value
+            |vpiFullName:prim_util_pkg::vbits::value
+          |vpiName:$clog2
+    |vpiInstance:
+    \_package: prim_util_pkg (prim_util_pkg::) pack.sv:1:1: , endln:7:11, parent:work@foo
+  |vpiNet:
+  \_logic_net: (work@foo.clk), line:2:11, parent:work@foo
+    |vpiName:clk
+    |vpiFullName:work@foo.clk
+  |vpiNet:
+  \_logic_net: (work@foo.out), line:3:12, parent:work@foo
+    |vpiName:out
+    |vpiFullName:work@foo.out
+  |vpiNet:
+  \_logic_net: (work@foo.a), line:6:22, parent:work@foo
+    |vpiName:a
+    |vpiFullName:work@foo.a
+    |vpiNetType:36
   |vpiPort:
   \_port: (clk), line:2:11, parent:work@foo
     |vpiName:clk
@@ -295,8 +405,6 @@ design: (work@foo)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@foo.clk), line:2:11, parent:work@foo
-        |vpiName:clk
-        |vpiFullName:work@foo.clk
   |vpiPort:
   \_port: (out), line:3:12, parent:work@foo
     |vpiName:out
@@ -305,11 +413,8 @@ design: (work@foo)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@foo.out), line:3:12, parent:work@foo
-        |vpiName:out
-        |vpiFullName:work@foo.out
   |vpiProcess:
   \_always: , line:7:1, endln:9:4, parent:work@foo
-    |vpiAlwaysType:1
     |vpiStmt:
     \_event_control: , line:7:8, endln:9:4
       |vpiCondition:
@@ -346,28 +451,29 @@ design: (work@foo)
                 \_range: , line:6:8, endln:6:20
                   |vpiLeftRange:
                   \_constant: , line:6:8, endln:6:16
-                    |vpiConstType:7
                     |vpiDecompile:1
                     |vpiSize:64
                     |INT:1
+                    |vpiConstType:7
                   |vpiRightRange:
                   \_constant: , line:6:19, endln:6:20
-                    |vpiConstType:9
                     |vpiDecompile:0
                     |vpiSize:64
                     |UINT:0
+                    |vpiConstType:9
             |vpiOperand:
             \_constant: , line:8:14, endln:8:18
-              |vpiConstType:3
               |vpiDecompile:1'b1
               |vpiSize:1
               |BIN:1
+              |vpiConstType:3
           |vpiLhs:
           \_ref_obj: (work@foo.a), line:8:5, endln:8:6, parent:work@foo
             |vpiName:a
             |vpiFullName:work@foo.a
             |vpiActual:
             \_logic_var: (work@foo.a), line:6:22, endln:6:23, parent:work@foo
+    |vpiAlwaysType:1
   |vpiContAssign:
   \_cont_assign: , line:10:8, endln:10:18, parent:work@foo
     |vpiRhs:
@@ -376,10 +482,10 @@ design: (work@foo)
       |vpiFullName:work@foo.a
       |vpiIndex:
       \_constant: , line:10:16, endln:10:17, parent:work@foo.a
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
     |vpiLhs:
     \_ref_obj: (work@foo.out), line:10:8, endln:10:11
       |vpiName:out
@@ -388,37 +494,63 @@ design: (work@foo)
       \_logic_net: (work@foo.out), line:3:12, endln:3:15, parent:work@foo
         |vpiName:out
         |vpiFullName:work@foo.out
-  |vpiTaskFunc:
-  \_function: (prim_util_pkg::vbits), line:3:2, endln:5:14, parent:prim_util_pkg::
-    |vpiVisibility:1
+|uhdmtopModules:
+\_module: work@foo (work@foo) dut.sv:1:1: , endln:11:10
+  |vpiName:work@foo
+  |vpiVariables:
+  \_logic_var: (work@foo.a), line:6:22, endln:6:23, parent:work@foo
+    |vpiName:a
+    |vpiFullName:work@foo.a
     |vpiAutomatic:1
+    |vpiVisibility:1
+    |vpiRange:
+    \_range: , line:6:8, endln:6:20
+      |vpiLeftRange:
+      \_constant: , line:6:8, endln:6:16
+        |vpiDecompile:1
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+      |vpiRightRange:
+      \_constant: , line:6:19, endln:6:20
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_import: (prim_util_pkg), line:5:8, endln:5:28
+  |vpiDefName:work@foo
+  |vpiTaskFunc:
+  \_function: (prim_util_pkg::vbits), line:3:2, endln:5:14, parent:work@foo
     |vpiName:vbits
     |vpiFullName:prim_util_pkg::vbits
+    |vpiVisibility:1
+    |vpiAutomatic:1
     |vpiReturn:
     \_int_var: , line:3:21, endln:3:28
     |vpiIODecl:
-    \_io_decl: (value)
-      |vpiName:value
+    \_io_decl: (value), parent:prim_util_pkg::vbits
       |vpiDirection:1
+      |vpiName:value
       |vpiTypedef:
       \_int_typespec: , line:3:35, endln:3:42
         |vpiInstance:
         \_package: prim_util_pkg (prim_util_pkg::) pack.sv:1:1: , endln:7:11, parent:work@foo
-          |vpiDefName:prim_util_pkg
           |vpiName:prim_util_pkg
           |vpiFullName:prim_util_pkg::
+          |vpiDefName:prim_util_pkg
           |vpiTaskFunc:
           \_function: (prim_util_pkg::vbits), line:3:2, endln:5:14, parent:prim_util_pkg::
-            |vpiVisibility:1
-            |vpiAutomatic:1
             |vpiName:vbits
             |vpiFullName:prim_util_pkg::vbits
+            |vpiVisibility:1
+            |vpiAutomatic:1
             |vpiReturn:
             \_int_var: , line:3:21, endln:3:28
             |vpiIODecl:
             \_io_decl: (value), parent:prim_util_pkg::vbits
-              |vpiName:value
               |vpiDirection:1
+              |vpiName:value
               |vpiTypedef:
               \_int_typespec: , line:3:35, endln:3:42
             |vpiStmt:
@@ -437,25 +569,25 @@ design: (work@foo)
                     \_io_decl: (value), parent:prim_util_pkg::vbits
                   |vpiOperand:
                   \_constant: , line:4:22, endln:4:23
-                    |vpiConstType:9
                     |vpiDecompile:1
                     |vpiSize:64
                     |UINT:1
+                    |vpiConstType:9
                 |vpiOperand:
                 \_constant: , line:4:27, endln:4:28
-                  |vpiConstType:9
                   |vpiDecompile:1
                   |vpiSize:64
                   |UINT:1
+                  |vpiConstType:9
                 |vpiOperand:
                 \_sys_func_call: ($clog2), line:4:31, endln:4:44
-                  |vpiName:$clog2
                   |vpiArgument:
                   \_ref_obj: (prim_util_pkg::vbits::value), line:4:38, endln:4:43, parent:$clog2
                     |vpiName:value
                     |vpiFullName:prim_util_pkg::vbits::value
                     |vpiActual:
                     \_io_decl: (value), parent:prim_util_pkg::vbits
+                  |vpiName:$clog2
             |vpiInstance:
             \_package: prim_util_pkg (prim_util_pkg::) pack.sv:1:1: , endln:7:11, parent:work@foo
     |vpiStmt:
@@ -467,37 +599,34 @@ design: (work@foo)
         \_operation: , line:4:13, endln:4:23
           |vpiOpType:14
           |vpiOperand:
-          \_ref_obj: (prim_util_pkg::vbits::value), line:4:13, endln:4:18
+          \_ref_obj: (work@foo.vbits.value), line:4:13, endln:4:18
             |vpiName:value
-            |vpiFullName:prim_util_pkg::vbits::value
+            |vpiFullName:work@foo.vbits.value
+            |vpiActual:
+            \_io_decl: (value), parent:prim_util_pkg::vbits
           |vpiOperand:
           \_constant: , line:4:22, endln:4:23
         |vpiOperand:
         \_constant: , line:4:27, endln:4:28
         |vpiOperand:
         \_sys_func_call: ($clog2), line:4:31, endln:4:44
-          |vpiName:$clog2
           |vpiArgument:
-          \_ref_obj: (prim_util_pkg::vbits::value), line:4:38, endln:4:43, parent:$clog2
+          \_ref_obj: (work@foo.vbits.value), line:4:38, endln:4:43, parent:$clog2
             |vpiName:value
-            |vpiFullName:prim_util_pkg::vbits::value
+            |vpiFullName:work@foo.vbits.value
+            |vpiActual:
+            \_io_decl: (value), parent:prim_util_pkg::vbits
+          |vpiName:$clog2
     |vpiInstance:
-    \_package: prim_util_pkg (prim_util_pkg::) pack.sv:1:1: , endln:7:11, parent:work@foo
+    \_module: work@foo (work@foo) dut.sv:1:1: , endln:11:10
   |vpiNet:
-  \_logic_net: (work@foo.clk), line:2:11, parent:work@foo
+  \_logic_net: (work@foo.clk), line:2:11, endln:2:14, parent:work@foo
+    |vpiName:clk
+    |vpiFullName:work@foo.clk
   |vpiNet:
-  \_logic_net: (work@foo.out), line:3:12, parent:work@foo
-  |vpiNet:
-  \_logic_net: (work@foo.a), line:6:22, parent:work@foo
-    |vpiName:a
-    |vpiFullName:work@foo.a
-    |vpiNetType:36
-  |vpiTypedef:
-  \_import: (prim_util_pkg), line:5:8, endln:5:28
-|uhdmtopModules:
-\_module: work@foo (work@foo) dut.sv:1:1: , endln:11:10
-  |vpiDefName:work@foo
-  |vpiName:work@foo
+  \_logic_net: (work@foo.out), line:3:12, endln:3:15, parent:work@foo
+    |vpiName:out
+    |vpiFullName:work@foo.out
   |vpiPort:
   \_port: (clk), line:2:11, endln:2:14, parent:work@foo
     |vpiName:clk
@@ -508,8 +637,6 @@ design: (work@foo)
       |vpiFullName:work@foo.clk
       |vpiActual:
       \_logic_net: (work@foo.clk), line:2:11, endln:2:14, parent:work@foo
-        |vpiName:clk
-        |vpiFullName:work@foo.clk
     |vpiInstance:
     \_module: work@foo (work@foo) dut.sv:1:1: , endln:11:10
   |vpiPort:
@@ -522,13 +649,10 @@ design: (work@foo)
       |vpiFullName:work@foo.out
       |vpiActual:
       \_logic_net: (work@foo.out), line:3:12, endln:3:15, parent:work@foo
-        |vpiName:out
-        |vpiFullName:work@foo.out
     |vpiInstance:
     \_module: work@foo (work@foo) dut.sv:1:1: , endln:11:10
   |vpiProcess:
   \_always: , line:7:1, endln:9:4, parent:work@foo
-    |vpiAlwaysType:1
     |vpiStmt:
     \_event_control: , line:7:8, endln:9:4
       |vpiCondition:
@@ -555,36 +679,19 @@ design: (work@foo)
               |vpiFullName:work@foo.a
               |vpiActual:
               \_logic_var: (work@foo.a), line:6:22, endln:6:23, parent:work@foo
-                |vpiName:a
-                |vpiFullName:work@foo.a
-                |vpiAutomatic:1
-                |vpiVisibility:1
-                |vpiRange:
-                \_range: , line:6:8, endln:6:20
-                  |vpiLeftRange:
-                  \_constant: , line:6:8, endln:6:16
-                    |vpiConstType:7
-                    |vpiDecompile:1
-                    |vpiSize:64
-                    |INT:1
-                  |vpiRightRange:
-                  \_constant: , line:6:19, endln:6:20
-                    |vpiConstType:9
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
             |vpiOperand:
             \_constant: , line:8:14, endln:8:18
-              |vpiConstType:3
               |vpiDecompile:1'b1
               |vpiSize:1
               |BIN:1
+              |vpiConstType:3
           |vpiLhs:
           \_ref_obj: (work@foo.a), line:8:5, endln:8:6
             |vpiName:a
             |vpiFullName:work@foo.a
             |vpiActual:
             \_logic_var: (work@foo.a), line:6:22, endln:6:23, parent:work@foo
+    |vpiAlwaysType:1
   |vpiContAssign:
   \_cont_assign: , line:10:8, endln:10:18, parent:work@foo
     |vpiRhs:
@@ -593,123 +700,16 @@ design: (work@foo)
       |vpiFullName:work@foo.a
       |vpiIndex:
       \_constant: , line:10:16, endln:10:17, parent:work@foo.a
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
     |vpiLhs:
     \_ref_obj: (work@foo.out), line:10:8, endln:10:11
       |vpiName:out
       |vpiFullName:work@foo.out
       |vpiActual:
       \_logic_net: (work@foo.out), line:3:12, endln:3:15, parent:work@foo
-  |vpiTaskFunc:
-  \_function: (prim_util_pkg::vbits), line:3:2, endln:5:14, parent:work@foo
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiName:vbits
-    |vpiFullName:prim_util_pkg::vbits
-    |vpiReturn:
-    \_int_var: , line:3:21, endln:3:28
-    |vpiIODecl:
-    \_io_decl: (value), parent:prim_util_pkg::vbits
-      |vpiName:value
-      |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:3:35, endln:3:42
-        |vpiInstance:
-        \_package: prim_util_pkg (prim_util_pkg::) pack.sv:1:1: , endln:7:11, parent:work@foo
-          |vpiDefName:prim_util_pkg
-          |vpiName:prim_util_pkg
-          |vpiFullName:prim_util_pkg::
-          |vpiTaskFunc:
-          \_function: (prim_util_pkg::vbits), line:3:2, endln:5:14, parent:prim_util_pkg::
-            |vpiVisibility:1
-            |vpiAutomatic:1
-            |vpiName:vbits
-            |vpiFullName:prim_util_pkg::vbits
-            |vpiReturn:
-            \_int_var: , line:3:21, endln:3:28
-            |vpiIODecl:
-            \_io_decl: (value), parent:prim_util_pkg::vbits
-              |vpiName:value
-              |vpiDirection:1
-              |vpiTypedef:
-              \_int_typespec: , line:3:35, endln:3:42
-            |vpiStmt:
-            \_return_stmt: , line:4:5, endln:4:11, parent:prim_util_pkg::vbits
-              |vpiCondition:
-              \_operation: , line:4:12, endln:4:24
-                |vpiOpType:32
-                |vpiOperand:
-                \_operation: , line:4:13, endln:4:23
-                  |vpiOpType:14
-                  |vpiOperand:
-                  \_ref_obj: (prim_util_pkg::vbits::value), line:4:13, endln:4:18
-                    |vpiName:value
-                    |vpiFullName:prim_util_pkg::vbits::value
-                    |vpiActual:
-                    \_io_decl: (value), parent:prim_util_pkg::vbits
-                  |vpiOperand:
-                  \_constant: , line:4:22, endln:4:23
-                    |vpiConstType:9
-                    |vpiDecompile:1
-                    |vpiSize:64
-                    |UINT:1
-                |vpiOperand:
-                \_constant: , line:4:27, endln:4:28
-                  |vpiConstType:9
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                |vpiOperand:
-                \_sys_func_call: ($clog2), line:4:31, endln:4:44
-                  |vpiName:$clog2
-                  |vpiArgument:
-                  \_ref_obj: (prim_util_pkg::vbits::value), line:4:38, endln:4:43, parent:$clog2
-                    |vpiName:value
-                    |vpiFullName:prim_util_pkg::vbits::value
-                    |vpiActual:
-                    \_io_decl: (value), parent:prim_util_pkg::vbits
-            |vpiInstance:
-            \_package: prim_util_pkg (prim_util_pkg::) pack.sv:1:1: , endln:7:11, parent:work@foo
-    |vpiStmt:
-    \_return_stmt: , line:4:5, endln:4:11, parent:prim_util_pkg::vbits
-      |vpiCondition:
-      \_operation: , line:4:12, endln:4:24
-        |vpiOpType:32
-        |vpiOperand:
-        \_operation: , line:4:13, endln:4:23
-          |vpiOpType:14
-          |vpiOperand:
-          \_ref_obj: (work@foo.vbits.value), line:4:13, endln:4:18
-            |vpiName:value
-            |vpiFullName:work@foo.vbits.value
-            |vpiActual:
-            \_io_decl: (value), parent:prim_util_pkg::vbits
-          |vpiOperand:
-          \_constant: , line:4:22, endln:4:23
-        |vpiOperand:
-        \_constant: , line:4:27, endln:4:28
-        |vpiOperand:
-        \_sys_func_call: ($clog2), line:4:31, endln:4:44
-          |vpiName:$clog2
-          |vpiArgument:
-          \_ref_obj: (work@foo.vbits.value), line:4:38, endln:4:43, parent:$clog2
-            |vpiName:value
-            |vpiFullName:work@foo.vbits.value
-            |vpiActual:
-            \_io_decl: (value), parent:prim_util_pkg::vbits
-    |vpiInstance:
-    \_module: work@foo (work@foo) dut.sv:1:1: , endln:11:10
-  |vpiNet:
-  \_logic_net: (work@foo.clk), line:2:11, endln:2:14, parent:work@foo
-  |vpiNet:
-  \_logic_net: (work@foo.out), line:3:12, endln:3:15, parent:work@foo
-  |vpiVariables:
-  \_logic_var: (work@foo.a), line:6:22, endln:6:23, parent:work@foo
-  |vpiTypedef:
-  \_import: (prim_util_pkg), line:5:8, endln:5:28
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
