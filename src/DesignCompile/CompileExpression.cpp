@@ -243,8 +243,7 @@ any* CompileHelper::getObject(const std::string& name,
       dtype = dtype->getActual();
       if (dtype->getTypespec()) result = dtype->getTypespec();
     }
-    /* 
-    TEMP
+
     Signal* sig = nullptr;
     for (auto s : component->getPorts()) {
       if (s->getName() == name) {
@@ -262,12 +261,11 @@ any* CompileHelper::getObject(const std::string& name,
     }
     if (sig) {
       if (sig->getTypeSpecId()) {
-        result =
-            compileTypespec(component, sig->getFileContent(), sig->getTypeSpecId(), compileDesign,
-                            nullptr, instance, false, true);
+        result = compileTypespec(component, sig->getFileContent(),
+                                 sig->getTypeSpecId(), compileDesign, nullptr,
+                                 instance, false, true);
       }
     }
-    */
   }
 
   if ((result == nullptr) && instance) {
@@ -2349,7 +2347,7 @@ any* CompileHelper::hierarchicalSelector(
     CompileDesign* compileDesign, ValuedComponentI* instance, UHDM::any* pexpr,
     const std::string& fileName, int lineNumber, bool muteErrors,
     bool returnTypespec) {
-  Serializer& s = compileDesign->getSerializer();    
+  Serializer& s = compileDesign->getSerializer();
   if (level >= select_path.size()) {
     return (expr*)object;
   }
@@ -2383,7 +2381,7 @@ any* CompileHelper::hierarchicalSelector(
             res = (expr*)member->Default_value();
           if (level == select_path.size() - 1) {
             return res;
-          } else { 
+          } else {
             any* ex = hierarchicalSelector(
                 select_path, level + 1, res, invalidValue, component,
                 compileDesign, instance, pexpr, fileName, lineNumber,
@@ -2480,7 +2478,7 @@ any* CompileHelper::hierarchicalSelector(
       }
     } else if (typespec* tps = any_cast<typespec*>(object)) {
       if (tps->UhdmType() == uhdmlogic_typespec) {
-        logic_typespec* ltps = (logic_typespec*) tps;
+        logic_typespec* ltps = (logic_typespec*)tps;
         VectorOfrange* ranges = ltps->Ranges();
         if (ranges->size() >= 2) {
           logic_typespec* tmp = s.MakeLogic_typespec();
@@ -4265,12 +4263,9 @@ UHDM::any* CompileHelper::compileExpression(
                   if (param_ass && param_ass->Lhs()) {
                     const std::string& param_name = param_ass->Lhs()->VpiName();
                     bool paramFromPackage = false;
-                    /*
-                    TEMP
                     if (valuedcomponenti_cast<Package*>(component)) {
                       paramFromPackage = true;
                     }
-                    */
                     if (param_ass->Lhs()->UhdmType() == uhdmparameter) {
                       const parameter* tp = (parameter*)param_ass->Lhs();
                       if (tp->VpiImported() != "") {
@@ -5797,13 +5792,12 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
     /*
     TEMP
     case VObjectType::slComplex_func_call: {
-      UHDM::any* exp = compileExpression(component, fC, fC->Parent(id), compileDesign, nullptr, instance, reduce, false);
-      if (exp) {
-        if (exp->UhdmType() == uhdmhier_path) {
-          bool invalidValue = false;
-          result = (typespec*) decodeHierPath((hier_path*)exp, invalidValue,
-                                    component, compileDesign, instance,
-                                    fC->getFileName(), fC->Line(id), nullptr, true, true);
+      UHDM::any* exp = compileExpression(component, fC, fC->Parent(id),
+    compileDesign, nullptr, instance, reduce, false); if (exp) { if
+    (exp->UhdmType() == uhdmhier_path) { bool invalidValue = false; result =
+    (typespec*) decodeHierPath((hier_path*)exp, invalidValue, component,
+    compileDesign, instance, fC->getFileName(), fC->Line(id), nullptr, true,
+    true);
         }
       }
       break;
@@ -6026,7 +6020,7 @@ UHDM::any* CompileHelper::compileBits(
         }
         /*
         TEMP
-      } else if (fC->Type(Primary_literal) == slComplex_func_call) {  
+      } else if (fC->Type(Primary_literal) == slComplex_func_call) {
         typeSpecId = Primary_literal;
         */
       } else {
