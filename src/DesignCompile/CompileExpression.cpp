@@ -6590,6 +6590,14 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
             is_hierarchical = true;
           }
           tmpName = fC->SymName(dotedName);
+          /*
+        } else if (dtype == VObjectType::slSelect) {
+          expr* exp = (expr*) compileSelectExpression(component, fC, BitSelect,
+        tmpName, compileDesign, pexpr, instance, reduce, muteErrors); if (exp) {
+            elems->push_back(exp);
+            tmpName = "";
+          }
+          */
         } else if (dtype == VObjectType::slSelect ||
                    dtype == VObjectType::slBit_select ||
                    dtype == VObjectType::slConstant_bit_select ||
