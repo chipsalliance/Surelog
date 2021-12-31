@@ -243,6 +243,31 @@ any* CompileHelper::getObject(const std::string& name,
       dtype = dtype->getActual();
       if (dtype->getTypespec()) result = dtype->getTypespec();
     }
+    /* 
+    TEMP
+    Signal* sig = nullptr;
+    for (auto s : component->getPorts()) {
+      if (s->getName() == name) {
+        sig = s;
+        break;
+      }
+    }
+    if (sig == nullptr) {
+      for (auto s : component->getSignals()) {
+        if (s->getName() == name) {
+          sig = s;
+          break;
+        }
+      }
+    }
+    if (sig) {
+      if (sig->getTypeSpecId()) {
+        result =
+            compileTypespec(component, sig->getFileContent(), sig->getTypeSpecId(), compileDesign,
+                            nullptr, instance, false, true);
+      }
+    }
+    */
   }
 
   if ((result == nullptr) && instance) {
@@ -2324,6 +2349,7 @@ any* CompileHelper::hierarchicalSelector(
     CompileDesign* compileDesign, ValuedComponentI* instance, UHDM::any* pexpr,
     const std::string& fileName, int lineNumber, bool muteErrors,
     bool returnTypespec) {
+  Serializer& s = compileDesign->getSerializer();    
   if (level >= select_path.size()) {
     return (expr*)object;
   }
@@ -2342,6 +2368,32 @@ any* CompileHelper::hierarchicalSelector(
         }
       }
     }
+    /*
+    TEMP
+  } else if (typespec* var = any_cast<typespec*>(object)) {
+    UHDM_OBJECT_TYPE ttps = var->UhdmType();
+    if (ttps == uhdmstruct_typespec) {
+      struct_typespec* stpt = (struct_typespec*)(var);
+      for (typespec_member* member : *stpt->Members()) {
+        if (member->VpiName() == elemName) {
+          expr* res = nullptr;
+          if (returnTypespec)
+            res = (expr*)member->Typespec();
+          else
+            res = (expr*)member->Default_value();
+          if (level == select_path.size() - 1) {
+            return res;
+          } else { 
+            any* ex = hierarchicalSelector(
+                select_path, level + 1, res, invalidValue, component,
+                compileDesign, instance, pexpr, fileName, lineNumber,
+                muteErrors, returnTypespec);
+            return ex;
+          }
+        }
+      }
+    }
+    */
   } else if (io_decl* decl = any_cast<io_decl*>(object)) {
     const any* exp = decl->Expr();
     if (exp) {
@@ -2424,6 +2476,20 @@ any* CompileHelper::hierarchicalSelector(
             return ex;
           }
           sInd++;
+        }
+      }
+    } else if (typespec* tps = any_cast<typespec*>(object)) {
+      if (tps->UhdmType() == uhdmlogic_typespec) {
+        logic_typespec* ltps = (logic_typespec*) tps;
+        VectorOfrange* ranges = ltps->Ranges();
+        if (ranges->size() >= 2) {
+          logic_typespec* tmp = s.MakeLogic_typespec();
+          VectorOfrange* tmpR = s.MakeRangeVec();
+          for (unsigned int i = 1; i < ranges->size(); i++) {
+            tmpR->push_back(ranges->at(i));
+          }
+          tmp->Ranges(tmpR);
+          return tmp;
         }
       }
     }
@@ -4199,6 +4265,12 @@ UHDM::any* CompileHelper::compileExpression(
                   if (param_ass && param_ass->Lhs()) {
                     const std::string& param_name = param_ass->Lhs()->VpiName();
                     bool paramFromPackage = false;
+                    /*
+                    TEMP
+                    if (valuedcomponenti_cast<Package*>(component)) {
+                      paramFromPackage = true;
+                    }
+                    */
                     if (param_ass->Lhs()->UhdmType() == uhdmparameter) {
                       const parameter* tp = (parameter*)param_ass->Lhs();
                       if (tp->VpiImported() != "") {
@@ -5722,6 +5794,21 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
       }
       break;
     }
+    /*
+    TEMP
+    case VObjectType::slComplex_func_call: {
+      UHDM::any* exp = compileExpression(component, fC, fC->Parent(id), compileDesign, nullptr, instance, reduce, false);
+      if (exp) {
+        if (exp->UhdmType() == uhdmhier_path) {
+          bool invalidValue = false;
+          result = (typespec*) decodeHierPath((hier_path*)exp, invalidValue,
+                                    component, compileDesign, instance,
+                                    fC->getFileName(), fC->Line(id), nullptr, true, true);
+        }
+      }
+      break;
+    }
+    */
     case VObjectType::slIntVec_TypeLogic: {
       result = s.MakeLogic_typespec();
       break;
@@ -5937,6 +6024,11 @@ UHDM::any* CompileHelper::compileBits(
                          reduce, sizeMode);
           ConcatExpression = fC->Sibling(ConcatExpression);
         }
+        /*
+        TEMP
+      } else if (fC->Type(Primary_literal) == slComplex_func_call) {  
+        typeSpecId = Primary_literal;
+        */
       } else {
         NodeId StringConst = fC->Child(Primary_literal);
         typeSpecId = StringConst;
@@ -6361,7 +6453,12 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
               else
                 result = param;
             } else {
-              result = param;
+              ref_obj* ref = s.MakeRef_obj();
+              ref->VpiName(packagename + "::" + functionname);
+              ref->VpiFullName(packagename + "::" + functionname);
+              ref->Actual_group(param);
+              ref->VpiParent(pexpr);
+              result = ref;
             }
             break;
           }
