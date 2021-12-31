@@ -110,15 +110,18 @@ n<> u<71> t<Top_level_rule> l<1:1> el<10:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallInterfaces:
 \_interface: work@sw_test_status_if (work@sw_test_status_if) dut.sv:1:1: , endln:5:13, parent:work@top
-  |vpiDefName:work@sw_test_status_if
   |vpiFullName:work@sw_test_status_if
+  |vpiDefName:work@sw_test_status_if
+  |vpiNet:
+  \_logic_net: (work@sw_test_status_if.x), line:1:40, parent:work@sw_test_status_if
+    |vpiName:x
+    |vpiFullName:work@sw_test_status_if.x
   |vpiProcess:
   \_always: , line:2:4, endln:4:7, parent:work@top.u_sw
-    |vpiAlwaysType:1
     |vpiStmt:
     \_begin: (work@top.u_sw), line:2:11, endln:4:7
       |vpiFullName:work@top.u_sw
@@ -128,10 +131,10 @@ design: (work@top)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:3:11, endln:3:13
-          |vpiConstType:9
           |vpiDecompile:10
           |vpiSize:64
           |UINT:10
+          |vpiConstType:9
         |vpiLhs:
         \_ref_obj: (work@top.u_sw.x), line:3:7, endln:3:8, parent:work@top.u_sw
           |vpiName:x
@@ -142,6 +145,7 @@ design: (work@top)
             |vpiFullName:work@top.u_sw.x
             |vpiAutomatic:1
             |vpiVisibility:1
+    |vpiAlwaysType:1
   |vpiPort:
   \_port: (x), line:1:40, parent:work@sw_test_status_if
     |vpiName:x
@@ -150,14 +154,14 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@sw_test_status_if.x), line:1:40, parent:work@sw_test_status_if
-        |vpiName:x
-        |vpiFullName:work@sw_test_status_if.x
-  |vpiNet:
-  \_logic_net: (work@sw_test_status_if.x), line:1:40, parent:work@sw_test_status_if
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:7:1: , endln:9:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.o), line:7:23, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
   |vpiPort:
   \_port: (o), line:7:23, parent:work@top
     |vpiName:o
@@ -166,14 +170,16 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.o), line:7:23, parent:work@top
-        |vpiName:o
-        |vpiFullName:work@top.o
-  |vpiNet:
-  \_logic_net: (work@top.o), line:7:23, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:7:1: , endln:9:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiVariables:
+  \_int_var: (work@top.o), line:7:23, endln:7:24, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiAutomatic:1
+    |vpiVisibility:1
+  |vpiDefName:work@top
   |vpiPort:
   \_port: (o), line:7:23, endln:7:24, parent:work@top
     |vpiName:o
@@ -184,22 +190,25 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_int_var: (work@top.o), line:7:23, endln:7:24, parent:work@top
-        |vpiName:o
-        |vpiFullName:work@top.o
-        |vpiAutomatic:1
-        |vpiVisibility:1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:7:1: , endln:9:10
   |vpiInterface:
   \_interface: work@sw_test_status_if (work@top.u_sw) dut.sv:8:4: , endln:8:34, parent:work@top
+    |vpiName:u_sw
+    |vpiFullName:work@top.u_sw
+    |vpiVariables:
+    \_int_var: (work@top.u_sw.x), line:1:40, endln:1:41, parent:work@top.u_sw
+      |vpiName:x
+      |vpiFullName:work@top.u_sw.x
+      |vpiAutomatic:1
+      |vpiVisibility:1
     |vpiDefName:work@sw_test_status_if
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
-    |vpiName:u_sw
-    |vpiFullName:work@top.u_sw
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:7:1: , endln:9:10
     |vpiProcess:
     \_always: , line:2:4, endln:4:7, parent:work@top.u_sw
-      |vpiAlwaysType:1
       |vpiStmt:
       \_begin: (work@top.u_sw), line:2:11, endln:4:7
         |vpiFullName:work@top.u_sw
@@ -209,20 +218,17 @@ design: (work@top)
           |vpiBlocking:1
           |vpiRhs:
           \_constant: , line:3:11, endln:3:13
-            |vpiConstType:9
             |vpiDecompile:10
             |vpiSize:64
             |UINT:10
+            |vpiConstType:9
           |vpiLhs:
           \_ref_obj: (work@top.u_sw.x), line:3:7, endln:3:8, parent:work@top.u_sw
             |vpiName:x
             |vpiFullName:work@top.u_sw.x
             |vpiActual:
             \_int_var: (work@top.u_sw.x), line:1:40, endln:1:41, parent:work@top.u_sw
-              |vpiName:x
-              |vpiFullName:work@top.u_sw.x
-              |vpiAutomatic:1
-              |vpiVisibility:1
+      |vpiAlwaysType:1
     |vpiPort:
     \_port: (x), line:1:40, endln:1:41, parent:work@top.u_sw
       |vpiName:x
@@ -239,12 +245,6 @@ design: (work@top)
         |vpiFullName:work@top.u_sw.x
         |vpiActual:
         \_int_var: (work@top.u_sw.x), line:1:40, endln:1:41, parent:work@top.u_sw
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:9:10
-    |vpiVariables:
-    \_int_var: (work@top.u_sw.x), line:1:40, endln:1:41, parent:work@top.u_sw
-  |vpiVariables:
-  \_int_var: (work@top.o), line:7:23, endln:7:24, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

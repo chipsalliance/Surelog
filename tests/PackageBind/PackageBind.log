@@ -178,25 +178,29 @@ n<> u<139> t<Top_level_rule> l<1:1> el<15:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallPackages:
 \_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:10:11, parent:work@top
-  |vpiDefName:prim_util_pkg
   |vpiName:prim_util_pkg
   |vpiFullName:prim_util_pkg::
+  |vpiDefName:prim_util_pkg
   |vpiTaskFunc:
   \_function: (prim_util_pkg::_clog2), line:2:4, endln:9:15, parent:prim_util_pkg::
-    |vpiVisibility:1
-    |vpiAutomatic:1
     |vpiName:_clog2
     |vpiFullName:prim_util_pkg::_clog2
+    |vpiVariables:
+    \_int_var: (prim_util_pkg::_clog2::result), line:3:7, endln:3:14, parent:prim_util_pkg::_clog2
+      |vpiName:result
+      |vpiFullName:prim_util_pkg::_clog2::result
+    |vpiVisibility:1
+    |vpiAutomatic:1
     |vpiReturn:
     \_int_var: , line:2:23, endln:2:30
     |vpiIODecl:
     \_io_decl: (value), parent:prim_util_pkg::_clog2
-      |vpiName:value
       |vpiDirection:1
+      |vpiName:value
       |vpiTypedef:
       \_int_typespec: , line:2:38, endln:2:45
         |vpiInstance:
@@ -211,18 +215,16 @@ design: (work@top)
         \_assign_stmt: , parent:prim_util_pkg::_clog2
           |vpiRhs:
           \_constant: , line:5:21, endln:5:22
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
           |vpiLhs:
           \_ref_var: (prim_util_pkg::_clog2::result), line:5:12, endln:5:18
             |vpiName:result
             |vpiFullName:prim_util_pkg::_clog2::result
             |vpiActual:
             \_int_var: (prim_util_pkg::_clog2::result), line:3:7, endln:3:14, parent:prim_util_pkg::_clog2
-              |vpiName:result
-              |vpiFullName:prim_util_pkg::_clog2::result
         |vpiForIncStmt:
         \_operation: , line:5:35, endln:5:41, parent:prim_util_pkg::_clog2
           |vpiOpType:62
@@ -243,10 +245,10 @@ design: (work@top)
             \_io_decl: (value), parent:prim_util_pkg::_clog2
           |vpiOperand:
           \_constant: , line:5:32, endln:5:33
-            |vpiConstType:9
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiConstType:9
         |vpiStmt:
         \_begin: (prim_util_pkg::_clog2), line:5:45, endln:7:10, parent:prim_util_pkg::_clog2
           |vpiFullName:prim_util_pkg::_clog2
@@ -265,10 +267,10 @@ design: (work@top)
                 \_io_decl: (value), parent:prim_util_pkg::_clog2
               |vpiOperand:
               \_constant: , line:6:20, endln:6:21
-                |vpiConstType:9
                 |vpiDecompile:1
                 |vpiSize:64
                 |UINT:1
+                |vpiConstType:9
             |vpiLhs:
             \_ref_obj: (prim_util_pkg::_clog2::value), line:6:3, endln:6:8
               |vpiName:value
@@ -285,12 +287,14 @@ design: (work@top)
           \_int_var: (prim_util_pkg::_clog2::result), line:3:7, endln:3:14, parent:prim_util_pkg::_clog2
     |vpiInstance:
     \_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:10:11, parent:work@top
-    |vpiVariables:
-    \_int_var: (prim_util_pkg::_clog2::result), line:3:7, endln:3:14, parent:prim_util_pkg::_clog2
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:12:1: , endln:14:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.o), line:12:27, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
   |vpiPort:
   \_port: (o), line:12:27, parent:work@top
     |vpiName:o
@@ -299,21 +303,19 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.o), line:12:27, parent:work@top
-        |vpiName:o
-        |vpiFullName:work@top.o
   |vpiContAssign:
   \_cont_assign: , line:13:11, endln:13:40, parent:work@top
     |vpiRhs:
     \_func_call: (prim_util_pkg::_clog2), line:13:15, endln:13:40
-      |vpiName:prim_util_pkg::_clog2
-      |vpiFunction:
-      \_function: (prim_util_pkg::_clog2), line:2:4, endln:9:15, parent:prim_util_pkg::
       |vpiArgument:
       \_constant: , line:13:37, endln:13:39
-        |vpiConstType:9
         |vpiDecompile:15
         |vpiSize:64
         |UINT:15
+        |vpiConstType:9
+      |vpiName:prim_util_pkg::_clog2
+      |vpiFunction:
+      \_function: (prim_util_pkg::_clog2), line:2:4, endln:9:15, parent:prim_util_pkg::
     |vpiLhs:
     \_ref_obj: (work@top.o), line:13:11, endln:13:12
       |vpiName:o
@@ -324,12 +326,16 @@ design: (work@top)
         |vpiFullName:work@top.o
         |vpiAutomatic:1
         |vpiVisibility:1
-  |vpiNet:
-  \_logic_net: (work@top.o), line:12:27, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:12:1: , endln:14:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiVariables:
+  \_int_var: (work@top.o), line:12:27, endln:12:28, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiAutomatic:1
+    |vpiVisibility:1
+  |vpiDefName:work@top
   |vpiPort:
   \_port: (o), line:12:27, endln:12:28, parent:work@top
     |vpiName:o
@@ -340,33 +346,27 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_int_var: (work@top.o), line:12:27, endln:12:28, parent:work@top
-        |vpiName:o
-        |vpiFullName:work@top.o
-        |vpiAutomatic:1
-        |vpiVisibility:1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:12:1: , endln:14:10
   |vpiContAssign:
   \_cont_assign: , line:13:11, endln:13:40, parent:work@top
     |vpiRhs:
     \_func_call: (prim_util_pkg::_clog2), line:13:15, endln:13:40
-      |vpiName:prim_util_pkg::_clog2
-      |vpiFunction:
-      \_function: (prim_util_pkg::_clog2), line:2:4, endln:9:15, parent:prim_util_pkg::
       |vpiArgument:
       \_constant: , line:13:37, endln:13:39
-        |vpiConstType:9
         |vpiDecompile:15
         |vpiSize:64
         |UINT:15
+        |vpiConstType:9
+      |vpiName:prim_util_pkg::_clog2
+      |vpiFunction:
+      \_function: (prim_util_pkg::_clog2), line:2:4, endln:9:15, parent:prim_util_pkg::
     |vpiLhs:
     \_ref_obj: (work@top.o), line:13:11, endln:13:12
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
       \_int_var: (work@top.o), line:12:27, endln:12:28, parent:work@top
-  |vpiVariables:
-  \_int_var: (work@top.o), line:12:27, endln:12:28, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

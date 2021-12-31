@@ -109,12 +109,12 @@ n<> u<74> t<Top_level_rule> l<2:1> el<10:1>
 
 ====== UHDM =======
 design: (work@dff_from_nand), id:16
-|vpiName:work@dff_from_nand
 |vpiElaborated:1
+|vpiName:work@dff_from_nand
 |uhdmallModules:
 \_module: work@dff_from_nand (work@dff_from_nand), id:17 dut.sv:2:1: , endln:8:10, parent:work@dff_from_nand, parID:16
-  |vpiDefName:work@dff_from_nand
   |vpiFullName:work@dff_from_nand
+  |vpiDefName:work@dff_from_nand
   |vpiNet:
   \_logic_net: (work@dff_from_nand.Q), id:18, line:3:6, parent:work@dff_from_nand, parID:17
     |vpiName:Q
@@ -137,8 +137,36 @@ design: (work@dff_from_nand), id:16
     |vpiNetType:48
 |uhdmtopModules:
 \_module: work@dff_from_nand (work@dff_from_nand), id:22 dut.sv:2:1: , endln:8:10
-  |vpiDefName:work@dff_from_nand
   |vpiName:work@dff_from_nand
+  |vpiDefName:work@dff_from_nand
+  |vpiNet:
+  \_logic_net: (work@dff_from_nand.Q), id:0, line:3:6, endln:3:7, parent:work@dff_from_nand, parID:22
+    |vpiName:Q
+    |vpiFullName:work@dff_from_nand.Q
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dff_from_nand.Q_BAR), id:1, line:3:8, endln:3:13, parent:work@dff_from_nand, parID:22
+    |vpiName:Q_BAR
+    |vpiFullName:work@dff_from_nand.Q_BAR
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dff_from_nand.D), id:2, line:4:6, endln:4:7, parent:work@dff_from_nand, parID:22
+    |vpiName:D
+    |vpiFullName:work@dff_from_nand.D
+    |vpiNetType:48
+  |vpiNet:
+  \_logic_net: (work@dff_from_nand.CLK), id:3, line:4:8, endln:4:11, parent:work@dff_from_nand, parID:22
+    |vpiName:CLK
+    |vpiFullName:work@dff_from_nand.CLK
+    |vpiNetType:48
+  |vpiNet:
+  \_logic_net: (work@dff_from_nand.X), id:6, parent:work@dff_from_nand, parID:22
+    |vpiName:X
+    |vpiFullName:work@dff_from_nand.X
+  |vpiNet:
+  \_logic_net: (work@dff_from_nand.X_BAR), id:13, parent:work@dff_from_nand, parID:22
+    |vpiName:X_BAR
+    |vpiFullName:work@dff_from_nand.X_BAR
   |vpiPrimitive:
   \_gate: work@nand (work@dff_from_nand.U1), id:23, line:6, parent:work@dff_from_nand, parID:22
     |vpiDefName:work@nand
@@ -154,8 +182,6 @@ design: (work@dff_from_nand), id:16
         |vpiFullName:work@dff_from_nand.X
         |vpiActual:
         \_logic_net: (work@dff_from_nand.X), id:6, parent:work@dff_from_nand, parID:22
-          |vpiName:X
-          |vpiFullName:work@dff_from_nand.X
     |vpiPrimTerm:
     \_prim_term: , id:25, line:6:12, parent:work@dff_from_nand.U1, parID:23
       |vpiDirection:1
@@ -166,9 +192,6 @@ design: (work@dff_from_nand), id:16
         |vpiFullName:work@dff_from_nand.D
         |vpiActual:
         \_logic_net: (work@dff_from_nand.D), id:2, line:4:6, endln:4:7, parent:work@dff_from_nand, parID:22
-          |vpiName:D
-          |vpiFullName:work@dff_from_nand.D
-          |vpiNetType:48
     |vpiPrimTerm:
     \_prim_term: , id:26, line:6:14, parent:work@dff_from_nand.U1, parID:23
       |vpiDirection:1
@@ -179,9 +202,6 @@ design: (work@dff_from_nand), id:16
         |vpiFullName:work@dff_from_nand.CLK
         |vpiActual:
         \_logic_net: (work@dff_from_nand.CLK), id:3, line:4:8, endln:4:11, parent:work@dff_from_nand, parID:22
-          |vpiName:CLK
-          |vpiFullName:work@dff_from_nand.CLK
-          |vpiNetType:48
   |vpiPrimitive:
   \_gate: work@not (work@dff_from_nand.), id:27, line:7, parent:work@dff_from_nand, parID:22
     |vpiDefName:work@not
@@ -196,8 +216,6 @@ design: (work@dff_from_nand), id:16
         |vpiFullName:work@dff_from_nand.X_BAR
         |vpiActual:
         \_logic_net: (work@dff_from_nand.X_BAR), id:13, parent:work@dff_from_nand, parID:22
-          |vpiName:X_BAR
-          |vpiFullName:work@dff_from_nand.X_BAR
     |vpiPrimTerm:
     \_prim_term: , id:29, line:7:13, parent:work@dff_from_nand., parID:27
       |vpiDirection:1
@@ -208,24 +226,6 @@ design: (work@dff_from_nand), id:16
         |vpiFullName:work@dff_from_nand.X
         |vpiActual:
         \_logic_net: (work@dff_from_nand.X), id:6, parent:work@dff_from_nand, parID:22
-  |vpiNet:
-  \_logic_net: (work@dff_from_nand.Q), id:0, line:3:6, endln:3:7, parent:work@dff_from_nand, parID:22
-    |vpiName:Q
-    |vpiFullName:work@dff_from_nand.Q
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (work@dff_from_nand.Q_BAR), id:1, line:3:8, endln:3:13, parent:work@dff_from_nand, parID:22
-    |vpiName:Q_BAR
-    |vpiFullName:work@dff_from_nand.Q_BAR
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (work@dff_from_nand.D), id:2, line:4:6, endln:4:7, parent:work@dff_from_nand, parID:22
-  |vpiNet:
-  \_logic_net: (work@dff_from_nand.CLK), id:3, line:4:8, endln:4:11, parent:work@dff_from_nand, parID:22
-  |vpiNet:
-  \_logic_net: (work@dff_from_nand.X), id:6, parent:work@dff_from_nand, parID:22
-  |vpiNet:
-  \_logic_net: (work@dff_from_nand.X_BAR), id:13, parent:work@dff_from_nand, parID:22
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -442,12 +442,37 @@ n<> u<383> t<Top_level_rule> l<1:1> el<54:1>
 
 ====== UHDM =======
 design: (work@testbench)
-|vpiName:work@testbench
 |vpiElaborated:1
+|vpiName:work@testbench
 |uhdmallModules:
 \_module: work@bp_lce (work@bp_lce) dut.sv:1:1: , endln:3:10, parent:work@testbench
-  |vpiDefName:work@bp_lce
   |vpiFullName:work@bp_lce
+  |vpiParameter:
+  \_parameter: (work@bp_lce.sets_p), line:1:27, endln:1:41, parent:work@bp_lce
+    |STRING:inv
+    |vpiName:sets_p
+    |vpiFullName:work@bp_lce.sets_p
+  |vpiParamAssign:
+  \_param_assign: , line:1:27, endln:1:41, parent:work@bp_lce
+    |vpiRhs:
+    \_constant: , line:1:36, endln:1:41
+      |vpiDecompile:inv
+      |vpiSize:3
+      |STRING:inv
+      |vpiConstType:6
+    |vpiLhs:
+    \_parameter: (work@bp_lce.sets_p), line:1:27, endln:1:41, parent:work@bp_lce
+  |vpiDefName:work@bp_lce
+  |vpiNet:
+  \_logic_net: (work@bp_lce.a), line:1:55, parent:work@bp_lce
+    |vpiName:a
+    |vpiFullName:work@bp_lce.a
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@bp_lce.b), line:1:71, parent:work@bp_lce
+    |vpiName:b
+    |vpiFullName:work@bp_lce.b
+    |vpiNetType:36
   |vpiPort:
   \_port: (a), line:1:55, parent:work@bp_lce
     |vpiName:a
@@ -456,9 +481,6 @@ design: (work@testbench)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@bp_lce.a), line:1:55, parent:work@bp_lce
-        |vpiName:a
-        |vpiFullName:work@bp_lce.a
-        |vpiNetType:36
   |vpiPort:
   \_port: (b), line:1:71, parent:work@bp_lce
     |vpiName:b
@@ -467,9 +489,6 @@ design: (work@testbench)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@bp_lce.b), line:1:71, parent:work@bp_lce
-        |vpiName:b
-        |vpiFullName:work@bp_lce.b
-        |vpiNetType:36
   |vpiContAssign:
   \_cont_assign: , line:2:8, endln:2:12, parent:work@bp_lce
     |vpiRhs:
@@ -480,29 +499,35 @@ design: (work@testbench)
     \_ref_obj: (work@bp_lce.c), line:2:8, endln:2:9
       |vpiName:c
       |vpiFullName:work@bp_lce.c
-  |vpiNet:
-  \_logic_net: (work@bp_lce.a), line:1:55, parent:work@bp_lce
-  |vpiNet:
-  \_logic_net: (work@bp_lce.b), line:1:71, parent:work@bp_lce
+|uhdmallModules:
+\_module: work@bp_me_nonsynth_lce_tracer (work@bp_me_nonsynth_lce_tracer) dut.sv:8:1: , endln:11:10, parent:work@testbench
+  |vpiFullName:work@bp_me_nonsynth_lce_tracer
   |vpiParameter:
-  \_parameter: (work@bp_lce.sets_p), line:1:27, endln:1:41, parent:work@bp_lce
-    |vpiName:sets_p
-    |vpiFullName:work@bp_lce.sets_p
+  \_parameter: (work@bp_me_nonsynth_lce_tracer.sets_p), line:8:46, endln:8:60, parent:work@bp_me_nonsynth_lce_tracer
     |STRING:inv
+    |vpiName:sets_p
+    |vpiFullName:work@bp_me_nonsynth_lce_tracer.sets_p
   |vpiParamAssign:
-  \_param_assign: , line:1:27, endln:1:41, parent:work@bp_lce
+  \_param_assign: , line:8:46, endln:8:60, parent:work@bp_me_nonsynth_lce_tracer
     |vpiRhs:
-    \_constant: , line:1:36, endln:1:41
-      |vpiConstType:6
+    \_constant: , line:8:55, endln:8:60
       |vpiDecompile:inv
       |vpiSize:3
       |STRING:inv
+      |vpiConstType:6
     |vpiLhs:
-    \_parameter: (work@bp_lce.sets_p), line:1:27, endln:1:41, parent:work@bp_lce
-|uhdmallModules:
-\_module: work@bp_me_nonsynth_lce_tracer (work@bp_me_nonsynth_lce_tracer) dut.sv:8:1: , endln:11:10, parent:work@testbench
+    \_parameter: (work@bp_me_nonsynth_lce_tracer.sets_p), line:8:46, endln:8:60, parent:work@bp_me_nonsynth_lce_tracer
   |vpiDefName:work@bp_me_nonsynth_lce_tracer
-  |vpiFullName:work@bp_me_nonsynth_lce_tracer
+  |vpiNet:
+  \_logic_net: (work@bp_me_nonsynth_lce_tracer.c), line:8:74, parent:work@bp_me_nonsynth_lce_tracer
+    |vpiName:c
+    |vpiFullName:work@bp_me_nonsynth_lce_tracer.c
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@bp_me_nonsynth_lce_tracer.d), line:8:90, parent:work@bp_me_nonsynth_lce_tracer
+    |vpiName:d
+    |vpiFullName:work@bp_me_nonsynth_lce_tracer.d
+    |vpiNetType:36
   |vpiPort:
   \_port: (c), line:8:74, parent:work@bp_me_nonsynth_lce_tracer
     |vpiName:c
@@ -511,9 +536,6 @@ design: (work@testbench)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@bp_me_nonsynth_lce_tracer.c), line:8:74, parent:work@bp_me_nonsynth_lce_tracer
-        |vpiName:c
-        |vpiFullName:work@bp_me_nonsynth_lce_tracer.c
-        |vpiNetType:36
   |vpiPort:
   \_port: (d), line:8:90, parent:work@bp_me_nonsynth_lce_tracer
     |vpiName:d
@@ -522,9 +544,6 @@ design: (work@testbench)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@bp_me_nonsynth_lce_tracer.d), line:8:90, parent:work@bp_me_nonsynth_lce_tracer
-        |vpiName:d
-        |vpiFullName:work@bp_me_nonsynth_lce_tracer.d
-        |vpiNetType:36
   |vpiContAssign:
   \_cont_assign: , line:9:10, endln:9:14, parent:work@bp_me_nonsynth_lce_tracer
     |vpiRhs:
@@ -535,29 +554,40 @@ design: (work@testbench)
     \_ref_obj: (work@bp_me_nonsynth_lce_tracer.a), line:9:10, endln:9:11
       |vpiName:a
       |vpiFullName:work@bp_me_nonsynth_lce_tracer.a
-  |vpiNet:
-  \_logic_net: (work@bp_me_nonsynth_lce_tracer.c), line:8:74, parent:work@bp_me_nonsynth_lce_tracer
-  |vpiNet:
-  \_logic_net: (work@bp_me_nonsynth_lce_tracer.d), line:8:90, parent:work@bp_me_nonsynth_lce_tracer
+|uhdmallModules:
+\_module: work@bp_me_nonsynth_lce_tracer2 (work@bp_me_nonsynth_lce_tracer2) dut.sv:13:1: , endln:16:10, parent:work@testbench
+  |vpiFullName:work@bp_me_nonsynth_lce_tracer2
   |vpiParameter:
-  \_parameter: (work@bp_me_nonsynth_lce_tracer.sets_p), line:8:46, endln:8:60, parent:work@bp_me_nonsynth_lce_tracer
-    |vpiName:sets_p
-    |vpiFullName:work@bp_me_nonsynth_lce_tracer.sets_p
+  \_parameter: (work@bp_me_nonsynth_lce_tracer2.sets_p), line:13:47, endln:13:61, parent:work@bp_me_nonsynth_lce_tracer2
     |STRING:inv
+    |vpiName:sets_p
+    |vpiFullName:work@bp_me_nonsynth_lce_tracer2.sets_p
   |vpiParamAssign:
-  \_param_assign: , line:8:46, endln:8:60, parent:work@bp_me_nonsynth_lce_tracer
+  \_param_assign: , line:13:47, endln:13:61, parent:work@bp_me_nonsynth_lce_tracer2
     |vpiRhs:
-    \_constant: , line:8:55, endln:8:60
-      |vpiConstType:6
+    \_constant: , line:13:56, endln:13:61
       |vpiDecompile:inv
       |vpiSize:3
       |STRING:inv
+      |vpiConstType:6
     |vpiLhs:
-    \_parameter: (work@bp_me_nonsynth_lce_tracer.sets_p), line:8:46, endln:8:60, parent:work@bp_me_nonsynth_lce_tracer
-|uhdmallModules:
-\_module: work@bp_me_nonsynth_lce_tracer2 (work@bp_me_nonsynth_lce_tracer2) dut.sv:13:1: , endln:16:10, parent:work@testbench
+    \_parameter: (work@bp_me_nonsynth_lce_tracer2.sets_p), line:13:47, endln:13:61, parent:work@bp_me_nonsynth_lce_tracer2
   |vpiDefName:work@bp_me_nonsynth_lce_tracer2
-  |vpiFullName:work@bp_me_nonsynth_lce_tracer2
+  |vpiNet:
+  \_logic_net: (work@bp_me_nonsynth_lce_tracer2.a), line:13:75, parent:work@bp_me_nonsynth_lce_tracer2
+    |vpiName:a
+    |vpiFullName:work@bp_me_nonsynth_lce_tracer2.a
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@bp_me_nonsynth_lce_tracer2.b), line:13:91, parent:work@bp_me_nonsynth_lce_tracer2
+    |vpiName:b
+    |vpiFullName:work@bp_me_nonsynth_lce_tracer2.b
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@bp_me_nonsynth_lce_tracer2.clk), line:13:106, parent:work@bp_me_nonsynth_lce_tracer2
+    |vpiName:clk
+    |vpiFullName:work@bp_me_nonsynth_lce_tracer2.clk
+    |vpiNetType:36
   |vpiPort:
   \_port: (a), line:13:75, parent:work@bp_me_nonsynth_lce_tracer2
     |vpiName:a
@@ -566,9 +596,6 @@ design: (work@testbench)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@bp_me_nonsynth_lce_tracer2.a), line:13:75, parent:work@bp_me_nonsynth_lce_tracer2
-        |vpiName:a
-        |vpiFullName:work@bp_me_nonsynth_lce_tracer2.a
-        |vpiNetType:36
   |vpiPort:
   \_port: (b), line:13:91, parent:work@bp_me_nonsynth_lce_tracer2
     |vpiName:b
@@ -577,9 +604,6 @@ design: (work@testbench)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@bp_me_nonsynth_lce_tracer2.b), line:13:91, parent:work@bp_me_nonsynth_lce_tracer2
-        |vpiName:b
-        |vpiFullName:work@bp_me_nonsynth_lce_tracer2.b
-        |vpiNetType:36
   |vpiPort:
   \_port: (clk), line:13:106, parent:work@bp_me_nonsynth_lce_tracer2
     |vpiName:clk
@@ -588,9 +612,6 @@ design: (work@testbench)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@bp_me_nonsynth_lce_tracer2.clk), line:13:106, parent:work@bp_me_nonsynth_lce_tracer2
-        |vpiName:clk
-        |vpiFullName:work@bp_me_nonsynth_lce_tracer2.clk
-        |vpiNetType:36
   |vpiContAssign:
   \_cont_assign: , line:14:10, endln:14:14, parent:work@bp_me_nonsynth_lce_tracer2
     |vpiRhs:
@@ -611,39 +632,38 @@ design: (work@testbench)
         |vpiName:a
         |vpiFullName:work@testbench.u1.lce_tracer2.a
         |vpiNetType:36
-  |vpiNet:
-  \_logic_net: (work@bp_me_nonsynth_lce_tracer2.a), line:13:75, parent:work@bp_me_nonsynth_lce_tracer2
-  |vpiNet:
-  \_logic_net: (work@bp_me_nonsynth_lce_tracer2.b), line:13:91, parent:work@bp_me_nonsynth_lce_tracer2
-  |vpiNet:
-  \_logic_net: (work@bp_me_nonsynth_lce_tracer2.clk), line:13:106, parent:work@bp_me_nonsynth_lce_tracer2
-  |vpiParameter:
-  \_parameter: (work@bp_me_nonsynth_lce_tracer2.sets_p), line:13:47, endln:13:61, parent:work@bp_me_nonsynth_lce_tracer2
-    |vpiName:sets_p
-    |vpiFullName:work@bp_me_nonsynth_lce_tracer2.sets_p
-    |STRING:inv
-  |vpiParamAssign:
-  \_param_assign: , line:13:47, endln:13:61, parent:work@bp_me_nonsynth_lce_tracer2
-    |vpiRhs:
-    \_constant: , line:13:56, endln:13:61
-      |vpiConstType:6
-      |vpiDecompile:inv
-      |vpiSize:3
-      |STRING:inv
-    |vpiLhs:
-    \_parameter: (work@bp_me_nonsynth_lce_tracer2.sets_p), line:13:47, endln:13:61, parent:work@bp_me_nonsynth_lce_tracer2
 |uhdmallModules:
 \_module: work@inter (work@inter) dut.sv:19:1: , endln:23:10, parent:work@testbench
-  |vpiDefName:work@inter
   |vpiFullName:work@inter
+  |vpiDefName:work@inter
 |uhdmallModules:
 \_module: work@sub (work@sub) dut.sv:5:1: , endln:6:10, parent:work@testbench
-  |vpiDefName:work@sub
   |vpiFullName:work@sub
+  |vpiDefName:work@sub
 |uhdmallModules:
 \_module: work@testbench (work@testbench) dut.sv:25:1: , endln:52:10, parent:work@testbench
-  |vpiDefName:work@testbench
   |vpiFullName:work@testbench
+  |vpiParameter:
+  \_parameter: (work@testbench.p), line:30:13, endln:30:18, parent:work@testbench
+    |UINT:0
+    |vpiName:p
+    |vpiFullName:work@testbench.p
+  |vpiParamAssign:
+  \_param_assign: , line:30:13, endln:30:18, parent:work@testbench
+    |vpiRhs:
+    \_constant: , line:30:17, endln:30:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@testbench.p), line:30:13, endln:30:18, parent:work@testbench
+  |vpiDefName:work@testbench
+  |vpiNet:
+  \_logic_net: (work@testbench.clk), line:25:31, parent:work@testbench
+    |vpiName:clk
+    |vpiFullName:work@testbench.clk
+    |vpiNetType:36
   |vpiPort:
   \_port: (clk), line:25:31, parent:work@testbench
     |vpiName:clk
@@ -652,30 +672,30 @@ design: (work@testbench)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@testbench.clk), line:25:31, parent:work@testbench
-        |vpiName:clk
-        |vpiFullName:work@testbench.clk
-        |vpiNetType:36
-  |vpiNet:
-  \_logic_net: (work@testbench.clk), line:25:31, parent:work@testbench
+|uhdmtopModules:
+\_module: work@testbench (work@testbench) dut.sv:25:1: , endln:52:10
+  |vpiName:work@testbench
   |vpiParameter:
   \_parameter: (work@testbench.p), line:30:13, endln:30:18, parent:work@testbench
+    |UINT:0
     |vpiName:p
     |vpiFullName:work@testbench.p
-    |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:30:13, endln:30:18, parent:work@testbench
     |vpiRhs:
     \_constant: , line:30:17, endln:30:18
-      |vpiConstType:9
       |vpiDecompile:0
       |vpiSize:64
       |UINT:0
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@testbench.p), line:30:13, endln:30:18, parent:work@testbench
-|uhdmtopModules:
-\_module: work@testbench (work@testbench) dut.sv:25:1: , endln:52:10
   |vpiDefName:work@testbench
-  |vpiName:work@testbench
+  |vpiNet:
+  \_logic_net: (work@testbench.clk), line:25:31, endln:25:34, parent:work@testbench
+    |vpiName:clk
+    |vpiFullName:work@testbench.clk
+    |vpiNetType:36
   |vpiPort:
   \_port: (clk), line:25:31, endln:25:34, parent:work@testbench
     |vpiName:clk
@@ -686,18 +706,43 @@ design: (work@testbench)
       |vpiFullName:work@testbench.clk
       |vpiActual:
       \_logic_net: (work@testbench.clk), line:25:31, endln:25:34, parent:work@testbench
-        |vpiName:clk
-        |vpiFullName:work@testbench.clk
-        |vpiNetType:36
     |vpiInstance:
     \_module: work@testbench (work@testbench) dut.sv:25:1: , endln:52:10
   |vpiModule:
   \_module: work@bp_lce (work@testbench.u1) dut.sv:27:3: , endln:27:30, parent:work@testbench
+    |vpiName:u1
+    |vpiFullName:work@testbench.u1
+    |vpiParameter:
+    \_parameter: (work@testbench.u1.sets_p), line:1:27, endln:1:41, parent:work@testbench.u1
+      |STRING:inv
+      |vpiName:sets_p
+      |vpiFullName:work@testbench.u1.sets_p
+    |vpiParamAssign:
+    \_param_assign: , line:1:27, endln:1:41, parent:work@testbench.u1
+      |vpiOverriden:1
+      |vpiRhs:
+      \_constant: , line:1:36, endln:1:41
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@testbench.u1.sets_p), line:1:27, endln:1:41, parent:work@testbench.u1
     |vpiDefName:work@bp_lce
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
-    |vpiName:u1
-    |vpiFullName:work@testbench.u1
+    |vpiNet:
+    \_logic_net: (work@testbench.u1.a), line:1:55, endln:1:56, parent:work@testbench.u1
+      |vpiName:a
+      |vpiFullName:work@testbench.u1.a
+      |vpiNetType:36
+    |vpiNet:
+    \_logic_net: (work@testbench.u1.b), line:1:71, endln:1:72, parent:work@testbench.u1
+      |vpiName:b
+      |vpiFullName:work@testbench.u1.b
+      |vpiNetType:36
+    |vpiInstance:
+    \_module: work@testbench (work@testbench) dut.sv:25:1: , endln:52:10
     |vpiPort:
     \_port: (a), line:1:55, endln:1:56, parent:work@testbench.u1
       |vpiName:a
@@ -708,9 +753,6 @@ design: (work@testbench)
         |vpiFullName:work@testbench.u1.a
         |vpiActual:
         \_logic_net: (work@testbench.u1.a), line:1:55, endln:1:56, parent:work@testbench.u1
-          |vpiName:a
-          |vpiFullName:work@testbench.u1.a
-          |vpiNetType:36
       |vpiInstance:
       \_module: work@bp_lce (work@testbench.u1) dut.sv:27:3: , endln:27:30, parent:work@testbench
     |vpiPort:
@@ -723,9 +765,6 @@ design: (work@testbench)
         |vpiFullName:work@testbench.u1.b
         |vpiActual:
         \_logic_net: (work@testbench.u1.b), line:1:71, endln:1:72, parent:work@testbench.u1
-          |vpiName:b
-          |vpiFullName:work@testbench.u1.b
-          |vpiNetType:36
       |vpiInstance:
       \_module: work@bp_lce (work@testbench.u1) dut.sv:27:3: , endln:27:30, parent:work@testbench
     |vpiContAssign:
@@ -740,11 +779,39 @@ design: (work@testbench)
         |vpiFullName:work@testbench.u1.c
     |vpiModule:
     \_module: work@bp_me_nonsynth_lce_tracer (work@testbench.lce_tracer1) dut.sv:34:13: , endln:36:41, parent:work@testbench.u1
+      |vpiName:lce_tracer1
+      |vpiFullName:work@testbench.lce_tracer1
+      |vpiParameter:
+      \_parameter: (work@testbench.u1.lce_tracer1.sets_p), line:8:46, endln:8:60, parent:work@testbench.lce_tracer1
+        |STRING:inv
+        |vpiName:sets_p
+        |vpiFullName:work@testbench.u1.lce_tracer1.sets_p
+      |vpiParamAssign:
+      \_param_assign: , line:8:46, endln:8:60, parent:work@testbench.lce_tracer1
+        |vpiOverriden:1
+        |vpiRhs:
+        \_constant: , line:8:55, endln:8:60
+          |vpiDecompile:2
+          |vpiSize:64
+          |INT:2
+          |vpiConstType:7
+        |vpiLhs:
+        \_parameter: (work@testbench.u1.lce_tracer1.sets_p), line:8:46, endln:8:60, parent:work@testbench.lce_tracer1
       |vpiDefName:work@bp_me_nonsynth_lce_tracer
       |vpiDefFile:dut.sv
       |vpiDefLineNo:8
-      |vpiName:lce_tracer1
-      |vpiFullName:work@testbench.lce_tracer1
+      |vpiNet:
+      \_logic_net: (work@testbench.u1.lce_tracer1.c), line:8:74, endln:8:75, parent:work@testbench.lce_tracer1
+        |vpiName:c
+        |vpiFullName:work@testbench.u1.lce_tracer1.c
+        |vpiNetType:36
+      |vpiNet:
+      \_logic_net: (work@testbench.u1.lce_tracer1.d), line:8:90, endln:8:91, parent:work@testbench.lce_tracer1
+        |vpiName:d
+        |vpiFullName:work@testbench.u1.lce_tracer1.d
+        |vpiNetType:36
+      |vpiInstance:
+      \_module: work@bp_lce (work@testbench.u1) dut.sv:27:3: , endln:27:30, parent:work@testbench
       |vpiPort:
       \_port: (c), line:8:74, endln:8:75, parent:work@testbench.lce_tracer1
         |vpiName:c
@@ -761,9 +828,6 @@ design: (work@testbench)
           |vpiFullName:work@testbench.lce_tracer1.c
           |vpiActual:
           \_logic_net: (work@testbench.u1.lce_tracer1.c), line:8:74, endln:8:75, parent:work@testbench.lce_tracer1
-            |vpiName:c
-            |vpiFullName:work@testbench.u1.lce_tracer1.c
-            |vpiNetType:36
         |vpiInstance:
         \_module: work@bp_me_nonsynth_lce_tracer (work@testbench.lce_tracer1) dut.sv:34:13: , endln:36:41, parent:work@testbench.u1
       |vpiPort:
@@ -782,9 +846,6 @@ design: (work@testbench)
           |vpiFullName:work@testbench.lce_tracer1.d
           |vpiActual:
           \_logic_net: (work@testbench.u1.lce_tracer1.d), line:8:90, endln:8:91, parent:work@testbench.lce_tracer1
-            |vpiName:d
-            |vpiFullName:work@testbench.u1.lce_tracer1.d
-            |vpiNetType:36
         |vpiInstance:
         \_module: work@bp_me_nonsynth_lce_tracer (work@testbench.lce_tracer1) dut.sv:34:13: , endln:36:41, parent:work@testbench.u1
       |vpiContAssign:
@@ -803,42 +864,53 @@ design: (work@testbench)
           \_logic_net: (work@testbench.u1.a), line:1:55, endln:1:56, parent:work@testbench.u1
       |vpiModule:
       \_module: work@sub (work@testbench.lce_tracer1.sub1) dut.sv:10:3: , endln:10:14, parent:work@testbench.lce_tracer1
+        |vpiName:sub1
+        |vpiFullName:work@testbench.lce_tracer1.sub1
         |vpiDefName:work@sub
         |vpiDefFile:dut.sv
         |vpiDefLineNo:5
-        |vpiName:sub1
-        |vpiFullName:work@testbench.lce_tracer1.sub1
         |vpiInstance:
         \_module: work@bp_me_nonsynth_lce_tracer (work@testbench.lce_tracer1) dut.sv:34:13: , endln:36:41, parent:work@testbench.u1
-      |vpiNet:
-      \_logic_net: (work@testbench.u1.lce_tracer1.c), line:8:74, endln:8:75, parent:work@testbench.lce_tracer1
-      |vpiNet:
-      \_logic_net: (work@testbench.u1.lce_tracer1.d), line:8:90, endln:8:91, parent:work@testbench.lce_tracer1
-      |vpiInstance:
-      \_module: work@bp_lce (work@testbench.u1) dut.sv:27:3: , endln:27:30, parent:work@testbench
-      |vpiParameter:
-      \_parameter: (work@testbench.u1.lce_tracer1.sets_p), line:8:46, endln:8:60, parent:work@testbench.lce_tracer1
-        |vpiName:sets_p
-        |vpiFullName:work@testbench.u1.lce_tracer1.sets_p
-        |STRING:inv
-      |vpiParamAssign:
-      \_param_assign: , line:8:46, endln:8:60, parent:work@testbench.lce_tracer1
-        |vpiOverriden:1
-        |vpiRhs:
-        \_constant: , line:8:55, endln:8:60
-          |vpiConstType:7
-          |vpiDecompile:2
-          |vpiSize:64
-          |INT:2
-        |vpiLhs:
-        \_parameter: (work@testbench.u1.lce_tracer1.sets_p), line:8:46, endln:8:60, parent:work@testbench.lce_tracer1
     |vpiModule:
     \_module: work@bp_me_nonsynth_lce_tracer2 (work@testbench.lce_tracer2) dut.sv:40:13: , endln:42:31, parent:work@testbench.u1
+      |vpiName:lce_tracer2
+      |vpiFullName:work@testbench.lce_tracer2
+      |vpiParameter:
+      \_parameter: (work@testbench.u1.lce_tracer2.sets_p), line:13:47, endln:13:61, parent:work@testbench.lce_tracer2
+        |STRING:inv
+        |vpiName:sets_p
+        |vpiFullName:work@testbench.u1.lce_tracer2.sets_p
+      |vpiParamAssign:
+      \_param_assign: , line:13:47, endln:13:61, parent:work@testbench.lce_tracer2
+        |vpiOverriden:1
+        |vpiRhs:
+        \_constant: , line:13:56, endln:13:61
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiLhs:
+        \_parameter: (work@testbench.u1.lce_tracer2.sets_p), line:13:47, endln:13:61, parent:work@testbench.lce_tracer2
       |vpiDefName:work@bp_me_nonsynth_lce_tracer2
       |vpiDefFile:dut.sv
       |vpiDefLineNo:13
-      |vpiName:lce_tracer2
-      |vpiFullName:work@testbench.lce_tracer2
+      |vpiNet:
+      \_logic_net: (work@testbench.u1.lce_tracer2.a), line:13:75, endln:13:76, parent:work@testbench.lce_tracer2
+        |vpiName:a
+        |vpiFullName:work@testbench.u1.lce_tracer2.a
+        |vpiNetType:36
+      |vpiNet:
+      \_logic_net: (work@testbench.u1.lce_tracer2.b), line:13:91, endln:13:92, parent:work@testbench.lce_tracer2
+        |vpiName:b
+        |vpiFullName:work@testbench.u1.lce_tracer2.b
+        |vpiNetType:36
+      |vpiNet:
+      \_logic_net: (work@testbench.u1.lce_tracer2.clk), line:13:106, endln:13:109, parent:work@testbench.lce_tracer2
+        |vpiName:clk
+        |vpiFullName:work@testbench.u1.lce_tracer2.clk
+        |vpiNetType:36
+      |vpiInstance:
+      \_module: work@bp_lce (work@testbench.u1) dut.sv:27:3: , endln:27:30, parent:work@testbench
       |vpiPort:
       \_port: (a), line:13:75, endln:13:76, parent:work@testbench.lce_tracer2
         |vpiName:a
@@ -849,9 +921,6 @@ design: (work@testbench)
           |vpiFullName:work@testbench.a
           |vpiActual:
           \_logic_net: (work@testbench.u1.lce_tracer2.a), line:13:75, endln:13:76, parent:work@testbench.lce_tracer2
-            |vpiName:a
-            |vpiFullName:work@testbench.u1.lce_tracer2.a
-            |vpiNetType:36
         |vpiLowConn:
         \_ref_obj: (work@testbench.lce_tracer2.a), parent:a
           |vpiName:a
@@ -870,9 +939,6 @@ design: (work@testbench)
           |vpiFullName:work@testbench.b
           |vpiActual:
           \_logic_net: (work@testbench.u1.lce_tracer2.b), line:13:91, endln:13:92, parent:work@testbench.lce_tracer2
-            |vpiName:b
-            |vpiFullName:work@testbench.u1.lce_tracer2.b
-            |vpiNetType:36
         |vpiLowConn:
         \_ref_obj: (work@testbench.lce_tracer2.b), parent:b
           |vpiName:b
@@ -891,9 +957,6 @@ design: (work@testbench)
           |vpiFullName:work@testbench.clk
           |vpiActual:
           \_logic_net: (work@testbench.u1.lce_tracer2.clk), line:13:106, endln:13:109, parent:work@testbench.lce_tracer2
-            |vpiName:clk
-            |vpiFullName:work@testbench.u1.lce_tracer2.clk
-            |vpiNetType:36
         |vpiLowConn:
         \_ref_obj: (work@testbench.lce_tracer2.clk), parent:clk
           |vpiName:clk
@@ -918,73 +981,61 @@ design: (work@testbench)
           \_logic_net: (work@testbench.u1.lce_tracer2.a), line:13:75, endln:13:76, parent:work@testbench.lce_tracer2
       |vpiModule:
       \_module: work@sub (work@testbench.lce_tracer2.sub1) dut.sv:15:3: , endln:15:14, parent:work@testbench.lce_tracer2
+        |vpiName:sub1
+        |vpiFullName:work@testbench.lce_tracer2.sub1
         |vpiDefName:work@sub
         |vpiDefFile:dut.sv
         |vpiDefLineNo:5
-        |vpiName:sub1
-        |vpiFullName:work@testbench.lce_tracer2.sub1
         |vpiInstance:
         \_module: work@bp_me_nonsynth_lce_tracer2 (work@testbench.lce_tracer2) dut.sv:40:13: , endln:42:31, parent:work@testbench.u1
-      |vpiNet:
-      \_logic_net: (work@testbench.u1.lce_tracer2.a), line:13:75, endln:13:76, parent:work@testbench.lce_tracer2
-      |vpiNet:
-      \_logic_net: (work@testbench.u1.lce_tracer2.b), line:13:91, endln:13:92, parent:work@testbench.lce_tracer2
-      |vpiNet:
-      \_logic_net: (work@testbench.u1.lce_tracer2.clk), line:13:106, endln:13:109, parent:work@testbench.lce_tracer2
-      |vpiInstance:
-      \_module: work@bp_lce (work@testbench.u1) dut.sv:27:3: , endln:27:30, parent:work@testbench
-      |vpiParameter:
-      \_parameter: (work@testbench.u1.lce_tracer2.sets_p), line:13:47, endln:13:61, parent:work@testbench.lce_tracer2
-        |vpiName:sets_p
-        |vpiFullName:work@testbench.u1.lce_tracer2.sets_p
-        |STRING:inv
-      |vpiParamAssign:
-      \_param_assign: , line:13:47, endln:13:61, parent:work@testbench.lce_tracer2
-        |vpiOverriden:1
-        |vpiRhs:
-        \_constant: , line:13:56, endln:13:61
-          |vpiConstType:9
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-        |vpiLhs:
-        \_parameter: (work@testbench.u1.lce_tracer2.sets_p), line:13:47, endln:13:61, parent:work@testbench.lce_tracer2
-    |vpiNet:
-    \_logic_net: (work@testbench.u1.a), line:1:55, endln:1:56, parent:work@testbench.u1
-    |vpiNet:
-    \_logic_net: (work@testbench.u1.b), line:1:71, endln:1:72, parent:work@testbench.u1
-    |vpiInstance:
-    \_module: work@testbench (work@testbench) dut.sv:25:1: , endln:52:10
-    |vpiParameter:
-    \_parameter: (work@testbench.u1.sets_p), line:1:27, endln:1:41, parent:work@testbench.u1
-      |vpiName:sets_p
-      |vpiFullName:work@testbench.u1.sets_p
-      |STRING:inv
-    |vpiParamAssign:
-    \_param_assign: , line:1:27, endln:1:41, parent:work@testbench.u1
-      |vpiOverriden:1
-      |vpiRhs:
-      \_constant: , line:1:36, endln:1:41
-        |vpiConstType:9
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-      |vpiLhs:
-      \_parameter: (work@testbench.u1.sets_p), line:1:27, endln:1:41, parent:work@testbench.u1
   |vpiModule:
   \_module: work@inter (work@testbench.tt) dut.sv:28:3: , endln:28:15, parent:work@testbench
+    |vpiName:tt
+    |vpiFullName:work@testbench.tt
     |vpiDefName:work@inter
     |vpiDefFile:dut.sv
     |vpiDefLineNo:19
-    |vpiName:tt
-    |vpiFullName:work@testbench.tt
+    |vpiNet:
+    \_logic_net: (work@testbench.tt.clk), parent:work@testbench.tt
+      |vpiName:clk
+      |vpiFullName:work@testbench.tt.clk
+    |vpiInstance:
+    \_module: work@testbench (work@testbench) dut.sv:25:1: , endln:52:10
     |vpiModule:
     \_module: work@bp_lce (work@testbench.tt.u1) dut.sv:21:2: , endln:21:29, parent:work@testbench.tt
+      |vpiName:u1
+      |vpiFullName:work@testbench.tt.u1
+      |vpiParameter:
+      \_parameter: (work@testbench.tt.u1.sets_p), line:1:27, endln:1:41, parent:work@testbench.tt.u1
+        |STRING:inv
+        |vpiName:sets_p
+        |vpiFullName:work@testbench.tt.u1.sets_p
+      |vpiParamAssign:
+      \_param_assign: , line:1:27, endln:1:41, parent:work@testbench.tt.u1
+        |vpiOverriden:1
+        |vpiRhs:
+        \_constant: , line:1:36, endln:1:41
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiLhs:
+        \_parameter: (work@testbench.tt.u1.sets_p), line:1:27, endln:1:41, parent:work@testbench.tt.u1
       |vpiDefName:work@bp_lce
       |vpiDefFile:dut.sv
       |vpiDefLineNo:1
-      |vpiName:u1
-      |vpiFullName:work@testbench.tt.u1
+      |vpiNet:
+      \_logic_net: (work@testbench.tt.u1.a), line:1:55, endln:1:56, parent:work@testbench.tt.u1
+        |vpiName:a
+        |vpiFullName:work@testbench.tt.u1.a
+        |vpiNetType:36
+      |vpiNet:
+      \_logic_net: (work@testbench.tt.u1.b), line:1:71, endln:1:72, parent:work@testbench.tt.u1
+        |vpiName:b
+        |vpiFullName:work@testbench.tt.u1.b
+        |vpiNetType:36
+      |vpiInstance:
+      \_module: work@inter (work@testbench.tt) dut.sv:28:3: , endln:28:15, parent:work@testbench
       |vpiPort:
       \_port: (a), line:1:55, endln:1:56, parent:work@testbench.tt.u1
         |vpiName:a
@@ -995,9 +1046,6 @@ design: (work@testbench)
           |vpiFullName:work@testbench.tt.u1.a
           |vpiActual:
           \_logic_net: (work@testbench.tt.u1.a), line:1:55, endln:1:56, parent:work@testbench.tt.u1
-            |vpiName:a
-            |vpiFullName:work@testbench.tt.u1.a
-            |vpiNetType:36
         |vpiInstance:
         \_module: work@bp_lce (work@testbench.tt.u1) dut.sv:21:2: , endln:21:29, parent:work@testbench.tt
       |vpiPort:
@@ -1010,9 +1058,6 @@ design: (work@testbench)
           |vpiFullName:work@testbench.tt.u1.b
           |vpiActual:
           \_logic_net: (work@testbench.tt.u1.b), line:1:71, endln:1:72, parent:work@testbench.tt.u1
-            |vpiName:b
-            |vpiFullName:work@testbench.tt.u1.b
-            |vpiNetType:36
         |vpiInstance:
         \_module: work@bp_lce (work@testbench.tt.u1) dut.sv:21:2: , endln:21:29, parent:work@testbench.tt
       |vpiContAssign:
@@ -1027,11 +1072,39 @@ design: (work@testbench)
           |vpiFullName:work@testbench.tt.u1.c
       |vpiModule:
       \_module: work@bp_me_nonsynth_lce_tracer (work@testbench.tt.lce_tracer1) dut.sv:34:13: , endln:36:41, parent:work@testbench.tt.u1
+        |vpiName:lce_tracer1
+        |vpiFullName:work@testbench.tt.lce_tracer1
+        |vpiParameter:
+        \_parameter: (work@testbench.tt.u1.lce_tracer1.sets_p), line:8:46, endln:8:60, parent:work@testbench.tt.lce_tracer1
+          |STRING:inv
+          |vpiName:sets_p
+          |vpiFullName:work@testbench.tt.u1.lce_tracer1.sets_p
+        |vpiParamAssign:
+        \_param_assign: , line:8:46, endln:8:60, parent:work@testbench.tt.lce_tracer1
+          |vpiOverriden:1
+          |vpiRhs:
+          \_constant: , line:8:55, endln:8:60
+            |vpiDecompile:2
+            |vpiSize:64
+            |INT:2
+            |vpiConstType:7
+          |vpiLhs:
+          \_parameter: (work@testbench.tt.u1.lce_tracer1.sets_p), line:8:46, endln:8:60, parent:work@testbench.tt.lce_tracer1
         |vpiDefName:work@bp_me_nonsynth_lce_tracer
         |vpiDefFile:dut.sv
         |vpiDefLineNo:8
-        |vpiName:lce_tracer1
-        |vpiFullName:work@testbench.tt.lce_tracer1
+        |vpiNet:
+        \_logic_net: (work@testbench.tt.u1.lce_tracer1.c), line:8:74, endln:8:75, parent:work@testbench.tt.lce_tracer1
+          |vpiName:c
+          |vpiFullName:work@testbench.tt.u1.lce_tracer1.c
+          |vpiNetType:36
+        |vpiNet:
+        \_logic_net: (work@testbench.tt.u1.lce_tracer1.d), line:8:90, endln:8:91, parent:work@testbench.tt.lce_tracer1
+          |vpiName:d
+          |vpiFullName:work@testbench.tt.u1.lce_tracer1.d
+          |vpiNetType:36
+        |vpiInstance:
+        \_module: work@bp_lce (work@testbench.tt.u1) dut.sv:21:2: , endln:21:29, parent:work@testbench.tt
         |vpiPort:
         \_port: (c), line:8:74, endln:8:75, parent:work@testbench.tt.lce_tracer1
           |vpiName:c
@@ -1048,9 +1121,6 @@ design: (work@testbench)
             |vpiFullName:work@testbench.tt.lce_tracer1.c
             |vpiActual:
             \_logic_net: (work@testbench.tt.u1.lce_tracer1.c), line:8:74, endln:8:75, parent:work@testbench.tt.lce_tracer1
-              |vpiName:c
-              |vpiFullName:work@testbench.tt.u1.lce_tracer1.c
-              |vpiNetType:36
           |vpiInstance:
           \_module: work@bp_me_nonsynth_lce_tracer (work@testbench.tt.lce_tracer1) dut.sv:34:13: , endln:36:41, parent:work@testbench.tt.u1
         |vpiPort:
@@ -1069,9 +1139,6 @@ design: (work@testbench)
             |vpiFullName:work@testbench.tt.lce_tracer1.d
             |vpiActual:
             \_logic_net: (work@testbench.tt.u1.lce_tracer1.d), line:8:90, endln:8:91, parent:work@testbench.tt.lce_tracer1
-              |vpiName:d
-              |vpiFullName:work@testbench.tt.u1.lce_tracer1.d
-              |vpiNetType:36
           |vpiInstance:
           \_module: work@bp_me_nonsynth_lce_tracer (work@testbench.tt.lce_tracer1) dut.sv:34:13: , endln:36:41, parent:work@testbench.tt.u1
         |vpiContAssign:
@@ -1090,42 +1157,53 @@ design: (work@testbench)
             \_logic_net: (work@testbench.tt.u1.a), line:1:55, endln:1:56, parent:work@testbench.tt.u1
         |vpiModule:
         \_module: work@sub (work@testbench.tt.lce_tracer1.sub1) dut.sv:10:3: , endln:10:14, parent:work@testbench.tt.lce_tracer1
+          |vpiName:sub1
+          |vpiFullName:work@testbench.tt.lce_tracer1.sub1
           |vpiDefName:work@sub
           |vpiDefFile:dut.sv
           |vpiDefLineNo:5
-          |vpiName:sub1
-          |vpiFullName:work@testbench.tt.lce_tracer1.sub1
           |vpiInstance:
           \_module: work@bp_me_nonsynth_lce_tracer (work@testbench.tt.lce_tracer1) dut.sv:34:13: , endln:36:41, parent:work@testbench.tt.u1
-        |vpiNet:
-        \_logic_net: (work@testbench.tt.u1.lce_tracer1.c), line:8:74, endln:8:75, parent:work@testbench.tt.lce_tracer1
-        |vpiNet:
-        \_logic_net: (work@testbench.tt.u1.lce_tracer1.d), line:8:90, endln:8:91, parent:work@testbench.tt.lce_tracer1
-        |vpiInstance:
-        \_module: work@bp_lce (work@testbench.tt.u1) dut.sv:21:2: , endln:21:29, parent:work@testbench.tt
-        |vpiParameter:
-        \_parameter: (work@testbench.tt.u1.lce_tracer1.sets_p), line:8:46, endln:8:60, parent:work@testbench.tt.lce_tracer1
-          |vpiName:sets_p
-          |vpiFullName:work@testbench.tt.u1.lce_tracer1.sets_p
-          |STRING:inv
-        |vpiParamAssign:
-        \_param_assign: , line:8:46, endln:8:60, parent:work@testbench.tt.lce_tracer1
-          |vpiOverriden:1
-          |vpiRhs:
-          \_constant: , line:8:55, endln:8:60
-            |vpiConstType:7
-            |vpiDecompile:2
-            |vpiSize:64
-            |INT:2
-          |vpiLhs:
-          \_parameter: (work@testbench.tt.u1.lce_tracer1.sets_p), line:8:46, endln:8:60, parent:work@testbench.tt.lce_tracer1
       |vpiModule:
       \_module: work@bp_me_nonsynth_lce_tracer2 (work@testbench.tt.lce_tracer2) dut.sv:40:13: , endln:42:31, parent:work@testbench.tt.u1
+        |vpiName:lce_tracer2
+        |vpiFullName:work@testbench.tt.lce_tracer2
+        |vpiParameter:
+        \_parameter: (work@testbench.tt.u1.lce_tracer2.sets_p), line:13:47, endln:13:61, parent:work@testbench.tt.lce_tracer2
+          |STRING:inv
+          |vpiName:sets_p
+          |vpiFullName:work@testbench.tt.u1.lce_tracer2.sets_p
+        |vpiParamAssign:
+        \_param_assign: , line:13:47, endln:13:61, parent:work@testbench.tt.lce_tracer2
+          |vpiOverriden:1
+          |vpiRhs:
+          \_constant: , line:13:56, endln:13:61
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+          |vpiLhs:
+          \_parameter: (work@testbench.tt.u1.lce_tracer2.sets_p), line:13:47, endln:13:61, parent:work@testbench.tt.lce_tracer2
         |vpiDefName:work@bp_me_nonsynth_lce_tracer2
         |vpiDefFile:dut.sv
         |vpiDefLineNo:13
-        |vpiName:lce_tracer2
-        |vpiFullName:work@testbench.tt.lce_tracer2
+        |vpiNet:
+        \_logic_net: (work@testbench.tt.u1.lce_tracer2.a), line:13:75, endln:13:76, parent:work@testbench.tt.lce_tracer2
+          |vpiName:a
+          |vpiFullName:work@testbench.tt.u1.lce_tracer2.a
+          |vpiNetType:36
+        |vpiNet:
+        \_logic_net: (work@testbench.tt.u1.lce_tracer2.b), line:13:91, endln:13:92, parent:work@testbench.tt.lce_tracer2
+          |vpiName:b
+          |vpiFullName:work@testbench.tt.u1.lce_tracer2.b
+          |vpiNetType:36
+        |vpiNet:
+        \_logic_net: (work@testbench.tt.u1.lce_tracer2.clk), line:13:106, endln:13:109, parent:work@testbench.tt.lce_tracer2
+          |vpiName:clk
+          |vpiFullName:work@testbench.tt.u1.lce_tracer2.clk
+          |vpiNetType:36
+        |vpiInstance:
+        \_module: work@bp_lce (work@testbench.tt.u1) dut.sv:21:2: , endln:21:29, parent:work@testbench.tt
         |vpiPort:
         \_port: (a), line:13:75, endln:13:76, parent:work@testbench.tt.lce_tracer2
           |vpiName:a
@@ -1136,9 +1214,6 @@ design: (work@testbench)
             |vpiFullName:work@testbench.tt.a
             |vpiActual:
             \_logic_net: (work@testbench.tt.u1.lce_tracer2.a), line:13:75, endln:13:76, parent:work@testbench.tt.lce_tracer2
-              |vpiName:a
-              |vpiFullName:work@testbench.tt.u1.lce_tracer2.a
-              |vpiNetType:36
           |vpiLowConn:
           \_ref_obj: (work@testbench.tt.lce_tracer2.a), parent:a
             |vpiName:a
@@ -1157,9 +1232,6 @@ design: (work@testbench)
             |vpiFullName:work@testbench.tt.b
             |vpiActual:
             \_logic_net: (work@testbench.tt.u1.lce_tracer2.b), line:13:91, endln:13:92, parent:work@testbench.tt.lce_tracer2
-              |vpiName:b
-              |vpiFullName:work@testbench.tt.u1.lce_tracer2.b
-              |vpiNetType:36
           |vpiLowConn:
           \_ref_obj: (work@testbench.tt.lce_tracer2.b), parent:b
             |vpiName:b
@@ -1178,9 +1250,6 @@ design: (work@testbench)
             |vpiFullName:work@testbench.tt.clk
             |vpiActual:
             \_logic_net: (work@testbench.tt.u1.lce_tracer2.clk), line:13:106, endln:13:109, parent:work@testbench.tt.lce_tracer2
-              |vpiName:clk
-              |vpiFullName:work@testbench.tt.u1.lce_tracer2.clk
-              |vpiNetType:36
           |vpiLowConn:
           \_ref_obj: (work@testbench.tt.lce_tracer2.clk), parent:clk
             |vpiName:clk
@@ -1205,65 +1274,13 @@ design: (work@testbench)
             \_logic_net: (work@testbench.tt.u1.lce_tracer2.a), line:13:75, endln:13:76, parent:work@testbench.tt.lce_tracer2
         |vpiModule:
         \_module: work@sub (work@testbench.tt.lce_tracer2.sub1) dut.sv:15:3: , endln:15:14, parent:work@testbench.tt.lce_tracer2
+          |vpiName:sub1
+          |vpiFullName:work@testbench.tt.lce_tracer2.sub1
           |vpiDefName:work@sub
           |vpiDefFile:dut.sv
           |vpiDefLineNo:5
-          |vpiName:sub1
-          |vpiFullName:work@testbench.tt.lce_tracer2.sub1
           |vpiInstance:
           \_module: work@bp_me_nonsynth_lce_tracer2 (work@testbench.tt.lce_tracer2) dut.sv:40:13: , endln:42:31, parent:work@testbench.tt.u1
-        |vpiNet:
-        \_logic_net: (work@testbench.tt.u1.lce_tracer2.a), line:13:75, endln:13:76, parent:work@testbench.tt.lce_tracer2
-        |vpiNet:
-        \_logic_net: (work@testbench.tt.u1.lce_tracer2.b), line:13:91, endln:13:92, parent:work@testbench.tt.lce_tracer2
-        |vpiNet:
-        \_logic_net: (work@testbench.tt.u1.lce_tracer2.clk), line:13:106, endln:13:109, parent:work@testbench.tt.lce_tracer2
-        |vpiInstance:
-        \_module: work@bp_lce (work@testbench.tt.u1) dut.sv:21:2: , endln:21:29, parent:work@testbench.tt
-        |vpiParameter:
-        \_parameter: (work@testbench.tt.u1.lce_tracer2.sets_p), line:13:47, endln:13:61, parent:work@testbench.tt.lce_tracer2
-          |vpiName:sets_p
-          |vpiFullName:work@testbench.tt.u1.lce_tracer2.sets_p
-          |STRING:inv
-        |vpiParamAssign:
-        \_param_assign: , line:13:47, endln:13:61, parent:work@testbench.tt.lce_tracer2
-          |vpiOverriden:1
-          |vpiRhs:
-          \_constant: , line:13:56, endln:13:61
-            |vpiConstType:9
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-          |vpiLhs:
-          \_parameter: (work@testbench.tt.u1.lce_tracer2.sets_p), line:13:47, endln:13:61, parent:work@testbench.tt.lce_tracer2
-      |vpiNet:
-      \_logic_net: (work@testbench.tt.u1.a), line:1:55, endln:1:56, parent:work@testbench.tt.u1
-      |vpiNet:
-      \_logic_net: (work@testbench.tt.u1.b), line:1:71, endln:1:72, parent:work@testbench.tt.u1
-      |vpiInstance:
-      \_module: work@inter (work@testbench.tt) dut.sv:28:3: , endln:28:15, parent:work@testbench
-      |vpiParameter:
-      \_parameter: (work@testbench.tt.u1.sets_p), line:1:27, endln:1:41, parent:work@testbench.tt.u1
-        |vpiName:sets_p
-        |vpiFullName:work@testbench.tt.u1.sets_p
-        |STRING:inv
-      |vpiParamAssign:
-      \_param_assign: , line:1:27, endln:1:41, parent:work@testbench.tt.u1
-        |vpiOverriden:1
-        |vpiRhs:
-        \_constant: , line:1:36, endln:1:41
-          |vpiConstType:9
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-        |vpiLhs:
-        \_parameter: (work@testbench.tt.u1.sets_p), line:1:27, endln:1:41, parent:work@testbench.tt.u1
-    |vpiNet:
-    \_logic_net: (work@testbench.tt.clk), parent:work@testbench.tt
-      |vpiName:clk
-      |vpiFullName:work@testbench.tt.clk
-    |vpiInstance:
-    \_module: work@testbench (work@testbench) dut.sv:25:1: , endln:52:10
   |vpiGenScopeArray:
   \_gen_scope_array: (work@testbench.do_bind), line:31:3, endln:49:6, parent:work@testbench
     |vpiName:do_bind
@@ -1271,23 +1288,6 @@ design: (work@testbench)
     |vpiGenScope:
     \_gen_scope: (work@testbench.do_bind), parent:work@testbench.do_bind
       |vpiFullName:work@testbench.do_bind
-  |vpiNet:
-  \_logic_net: (work@testbench.clk), line:25:31, endln:25:34, parent:work@testbench
-  |vpiParameter:
-  \_parameter: (work@testbench.p), line:30:13, endln:30:18, parent:work@testbench
-    |vpiName:p
-    |vpiFullName:work@testbench.p
-    |UINT:0
-  |vpiParamAssign:
-  \_param_assign: , line:30:13, endln:30:18, parent:work@testbench
-    |vpiRhs:
-    \_constant: , line:30:17, endln:30:18
-      |vpiConstType:9
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-    |vpiLhs:
-    \_parameter: (work@testbench.p), line:30:13, endln:30:18, parent:work@testbench
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

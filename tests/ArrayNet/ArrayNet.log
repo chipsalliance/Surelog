@@ -104,39 +104,17 @@ n<> u<69> t<Top_level_rule> l<1:1> el<8:1>
 
 ====== UHDM =======
 design: (work@memory)
-|vpiName:work@memory
 |vpiElaborated:1
+|vpiName:work@memory
 |uhdmallModules:
 \_module: work@memory (work@memory) dut.sv:1:1: , endln:7:10, parent:work@memory
-  |vpiDefName:work@memory
   |vpiFullName:work@memory
-  |vpiProcess:
-  \_initial: , parent:work@memory
-    |vpiStmt:
-    \_begin: (work@memory), line:4:9, endln:6:4
-      |vpiFullName:work@memory
-      |vpiStmt:
-      \_sys_func_call: ($readmemh), line:5:2, endln:5:38, parent:work@memory
-        |vpiName:$readmemh
-        |vpiArgument:
-        \_constant: , line:5:12, endln:5:25
-          |vpiConstType:6
-          |vpiDecompile:memory.list
-          |vpiSize:11
-          |STRING:memory.list
-        |vpiArgument:
-        \_ref_obj: (work@memory.my_memory), line:5:27, endln:5:36, parent:$readmemh
-          |vpiName:my_memory
-          |vpiFullName:work@memory.my_memory
+  |vpiDefName:work@memory
   |vpiNet:
   \_logic_net: (work@memory.my_memory), line:2:11, parent:work@memory
     |vpiName:my_memory
     |vpiFullName:work@memory.my_memory
     |vpiNetType:48
-|uhdmtopModules:
-\_module: work@memory (work@memory) dut.sv:1:1: , endln:7:10
-  |vpiDefName:work@memory
-  |vpiName:work@memory
   |vpiProcess:
   \_initial: , parent:work@memory
     |vpiStmt:
@@ -144,56 +122,78 @@ design: (work@memory)
       |vpiFullName:work@memory
       |vpiStmt:
       \_sys_func_call: ($readmemh), line:5:2, endln:5:38, parent:work@memory
-        |vpiName:$readmemh
         |vpiArgument:
         \_constant: , line:5:12, endln:5:25
-          |vpiConstType:6
           |vpiDecompile:memory.list
           |vpiSize:11
           |STRING:memory.list
+          |vpiConstType:6
+        |vpiArgument:
+        \_ref_obj: (work@memory.my_memory), line:5:27, endln:5:36, parent:$readmemh
+          |vpiName:my_memory
+          |vpiFullName:work@memory.my_memory
+        |vpiName:$readmemh
+|uhdmtopModules:
+\_module: work@memory (work@memory) dut.sv:1:1: , endln:7:10
+  |vpiName:work@memory
+  |vpiDefName:work@memory
+  |vpiArrayNet:
+  \_array_net: (work@memory.my_memory), line:2:11, endln:2:20, parent:work@memory
+    |vpiSize:256
+    |vpiName:my_memory
+    |vpiFullName:work@memory.my_memory
+    |vpiRange:
+    \_range: , line:2:22, endln:2:27
+      |vpiLeftRange:
+      \_constant: , line:2:22, endln:2:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:2:24, endln:2:27
+        |vpiDecompile:255
+        |vpiSize:64
+        |UINT:255
+        |vpiConstType:9
+    |vpiNet:
+    \_logic_net: (work@memory.my_memory), parent:work@memory.my_memory
+      |vpiFullName:work@memory.my_memory
+      |vpiNetType:48
+      |vpiRange:
+      \_range: , line:2:6, endln:2:9
+        |vpiLeftRange:
+        \_constant: , line:2:6, endln:2:7
+          |vpiDecompile:7
+          |vpiSize:64
+          |UINT:7
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:2:8, endln:2:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+  |vpiProcess:
+  \_initial: , parent:work@memory
+    |vpiStmt:
+    \_begin: (work@memory), line:4:9, endln:6:4
+      |vpiFullName:work@memory
+      |vpiStmt:
+      \_sys_func_call: ($readmemh), line:5:2, endln:5:38, parent:work@memory
+        |vpiArgument:
+        \_constant: , line:5:12, endln:5:25
+          |vpiDecompile:memory.list
+          |vpiSize:11
+          |STRING:memory.list
+          |vpiConstType:6
         |vpiArgument:
         \_ref_obj: (work@memory.my_memory), line:5:27, endln:5:36, parent:$readmemh
           |vpiName:my_memory
           |vpiFullName:work@memory.my_memory
           |vpiActual:
           \_array_net: (work@memory.my_memory), line:2:11, endln:2:20, parent:work@memory
-            |vpiName:my_memory
-            |vpiFullName:work@memory.my_memory
-            |vpiSize:256
-            |vpiNet:
-            \_logic_net: (work@memory.my_memory), parent:work@memory.my_memory
-              |vpiFullName:work@memory.my_memory
-              |vpiNetType:48
-              |vpiRange:
-              \_range: , line:2:6, endln:2:9
-                |vpiLeftRange:
-                \_constant: , line:2:6, endln:2:7
-                  |vpiConstType:9
-                  |vpiDecompile:7
-                  |vpiSize:64
-                  |UINT:7
-                |vpiRightRange:
-                \_constant: , line:2:8, endln:2:9
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-            |vpiRange:
-            \_range: , line:2:22, endln:2:27
-              |vpiLeftRange:
-              \_constant: , line:2:22, endln:2:23
-                |vpiConstType:9
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-              |vpiRightRange:
-              \_constant: , line:2:24, endln:2:27
-                |vpiConstType:9
-                |vpiDecompile:255
-                |vpiSize:64
-                |UINT:255
-  |vpiArrayNet:
-  \_array_net: (work@memory.my_memory), line:2:11, endln:2:20, parent:work@memory
+        |vpiName:$readmemh
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

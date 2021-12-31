@@ -93,21 +93,26 @@ n<> u<54> t<Top_level_rule> l<1:1> el<14:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallInterfaces:
 \_interface: work@tnoc_types (work@tnoc_types) dut.sv:1:1: , endln:4:13, parent:work@top
-  |vpiDefName:work@tnoc_types
   |vpiFullName:work@tnoc_types
   |vpiTypedef:
   \_int_typespec: (tnoc_common_header), line:2:10, endln:2:13
     |vpiName:tnoc_common_header
     |vpiInstance:
     \_interface: work@tnoc_types (work@tnoc_types) dut.sv:1:1: , endln:4:13, parent:work@top
+  |vpiDefName:work@tnoc_types
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:7:1: , endln:13:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiTypedef:
+  \_unsupported_typespec: (tnoc_common_header), line:10:11, endln:10:16
+    |vpiName:tnoc_common_header
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:7:1: , endln:13:10, parent:work@top
+  |vpiDefName:work@top
   |vpiNet:
   \_logic_net: (work@top.types), line:8:16, parent:work@top
     |vpiName:types
@@ -116,31 +121,27 @@ design: (work@top)
   \_logic_net: (work@top.common_header), line:12:23, parent:work@top
     |vpiName:common_header
     |vpiFullName:work@top.common_header
-  |vpiTypedef:
-  \_unsupported_typespec: (tnoc_common_header), line:10:11, endln:10:16
-    |vpiName:tnoc_common_header
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:13:10, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:7:1: , endln:13:10
-  |vpiDefName:work@top
   |vpiName:work@top
   |vpiVariables:
   \_logic_var: (work@top.common_header), line:12:23, endln:12:36, parent:work@top
+    |vpiTypespec:
+    \_unsupported_typespec: (types), line:10:11, endln:10:16
+      |vpiName:types
     |vpiName:common_header
     |vpiFullName:work@top.common_header
     |vpiAutomatic:1
     |vpiVisibility:1
-    |vpiTypespec:
-    \_unsupported_typespec: (types), line:10:11, endln:10:16
-      |vpiName:types
   |vpiTypedef:
   \_unsupported_typespec: (tnoc_common_header), line:10:11, endln:10:16
     |vpiName:tnoc_common_header
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:7:1: , endln:13:10, parent:work@top
-      |vpiDefName:work@top
       |vpiFullName:work@top
+      |vpiTypedef:
+      \_unsupported_typespec: (tnoc_common_header), line:10:11, endln:10:16
+      |vpiDefName:work@top
       |vpiNet:
       \_logic_net: (work@top.types), line:8:16, parent:work@top
         |vpiName:types
@@ -149,8 +150,7 @@ design: (work@top)
       \_logic_net: (work@top.common_header), line:12:23, parent:work@top
         |vpiName:common_header
         |vpiFullName:work@top.common_header
-      |vpiTypedef:
-      \_unsupported_typespec: (tnoc_common_header), line:10:11, endln:10:16
+  |vpiDefName:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -213,12 +213,22 @@ n<> u<174> t<Top_level_rule> l<1:1> el<10:1>
 
 ====== UHDM =======
 design: (work@dut)
-|vpiName:work@dut
 |vpiElaborated:1
+|vpiName:work@dut
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:7:1: , endln:9:10, parent:work@dut
-  |vpiDefName:work@dut
   |vpiFullName:work@dut
+  |vpiDefName:work@dut
+  |vpiNet:
+  \_logic_net: (work@dut.in), line:7:30, parent:work@dut
+    |vpiName:in
+    |vpiFullName:work@dut.in
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.out), line:7:52, parent:work@dut
+    |vpiName:out
+    |vpiFullName:work@dut.out
+    |vpiNetType:36
   |vpiPort:
   \_port: (in), line:7:30, parent:work@dut
     |vpiName:in
@@ -227,9 +237,6 @@ design: (work@dut)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@dut.in), line:7:30, parent:work@dut
-        |vpiName:in
-        |vpiFullName:work@dut.in
-        |vpiNetType:36
   |vpiPort:
   \_port: (out), line:7:52, parent:work@dut
     |vpiName:out
@@ -238,17 +245,39 @@ design: (work@dut)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@dut.out), line:7:52, parent:work@dut
-        |vpiName:out
-        |vpiFullName:work@dut.out
-        |vpiNetType:36
-  |vpiNet:
-  \_logic_net: (work@dut.in), line:7:30, parent:work@dut
-  |vpiNet:
-  \_logic_net: (work@dut.out), line:7:52, parent:work@dut
 |uhdmallModules:
 \_module: work@other (work@other) dut.sv:1:1: , endln:5:10, parent:work@dut
-  |vpiDefName:work@other
   |vpiFullName:work@other
+  |vpiParameter:
+  \_parameter: (work@other.Width), line:2:19, endln:2:28, parent:work@other
+    |UINT:1
+    |vpiTypespec:
+    \_int_typespec: , line:2:15, endln:2:18, parent:work@other.Width
+    |vpiName:Width
+    |vpiFullName:work@other.Width
+  |vpiParamAssign:
+  \_param_assign: , line:2:19, endln:2:28, parent:work@other
+    |vpiRhs:
+    \_constant: , line:2:27, endln:2:28
+      |vpiDecompile:1
+      |vpiSize:32
+      |UINT:1
+      |vpiTypespec:
+      \_int_typespec: , line:2:15, endln:2:18, parent:work@other.Width
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@other.Width), line:2:19, endln:2:28, parent:work@other
+  |vpiDefName:work@other
+  |vpiNet:
+  \_logic_net: (work@other.in), line:3:27, parent:work@other
+    |vpiName:in
+    |vpiFullName:work@other.in
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@other.out), line:3:55, parent:work@other
+    |vpiName:out
+    |vpiFullName:work@other.out
+    |vpiNetType:36
   |vpiPort:
   \_port: (in), line:3:27, parent:work@other
     |vpiName:in
@@ -257,9 +286,6 @@ design: (work@dut)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@other.in), line:3:27, parent:work@other
-        |vpiName:in
-        |vpiFullName:work@other.in
-        |vpiNetType:36
   |vpiPort:
   \_port: (out), line:3:55, parent:work@other
     |vpiName:out
@@ -268,9 +294,6 @@ design: (work@dut)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@other.out), line:3:55, parent:work@other
-        |vpiName:out
-        |vpiFullName:work@other.out
-        |vpiNetType:36
   |vpiContAssign:
   \_cont_assign: , line:4:11, endln:4:19, parent:work@other
     |vpiRhs:
@@ -286,16 +309,16 @@ design: (work@dut)
         \_range: , line:3:16, endln:3:25
           |vpiLeftRange:
           \_constant: , line:3:16, endln:3:21
-            |vpiConstType:7
             |vpiDecompile:7
             |vpiSize:64
             |INT:7
+            |vpiConstType:7
           |vpiRightRange:
           \_constant: , line:3:24, endln:3:25
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
     |vpiLhs:
     \_ref_obj: (work@other.out), line:4:11, endln:4:14
       |vpiName:out
@@ -309,43 +332,58 @@ design: (work@dut)
         \_range: , line:3:44, endln:3:53
           |vpiLeftRange:
           \_constant: , line:3:44, endln:3:49
-            |vpiConstType:7
             |vpiDecompile:7
             |vpiSize:64
             |INT:7
+            |vpiConstType:7
           |vpiRightRange:
           \_constant: , line:3:52, endln:3:53
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-  |vpiNet:
-  \_logic_net: (work@other.in), line:3:27, parent:work@other
-  |vpiNet:
-  \_logic_net: (work@other.out), line:3:55, parent:work@other
-  |vpiParameter:
-  \_parameter: (work@other.Width), line:2:19, endln:2:28, parent:work@other
-    |vpiName:Width
-    |vpiFullName:work@other.Width
-    |UINT:1
-    |vpiTypespec:
-    \_int_typespec: , line:2:15, endln:2:18, parent:work@other.Width
-  |vpiParamAssign:
-  \_param_assign: , line:2:19, endln:2:28, parent:work@other
-    |vpiRhs:
-    \_constant: , line:2:27, endln:2:28
-      |vpiConstType:9
-      |vpiDecompile:1
-      |vpiSize:32
-      |UINT:1
-      |vpiTypespec:
-      \_int_typespec: , line:2:15, endln:2:18, parent:work@other.Width
-    |vpiLhs:
-    \_parameter: (work@other.Width), line:2:19, endln:2:28, parent:work@other
+            |vpiConstType:9
 |uhdmtopModules:
 \_module: work@dut (work@dut) dut.sv:7:1: , endln:9:10
-  |vpiDefName:work@dut
   |vpiName:work@dut
+  |vpiDefName:work@dut
+  |vpiNet:
+  \_logic_net: (work@dut.in), line:7:30, endln:7:32, parent:work@dut
+    |vpiName:in
+    |vpiFullName:work@dut.in
+    |vpiNetType:36
+    |vpiRange:
+    \_range: , line:7:25, endln:7:28
+      |vpiLeftRange:
+      \_constant: , line:7:25, endln:7:26
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:7:27, endln:7:28
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiNet:
+  \_logic_net: (work@dut.out), line:7:52, endln:7:55, parent:work@dut
+    |vpiName:out
+    |vpiFullName:work@dut.out
+    |vpiNetType:36
+    |vpiRange:
+    \_range: , line:7:47, endln:7:50
+      |vpiLeftRange:
+      \_constant: , line:7:47, endln:7:48
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:7:49, endln:7:50
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
   |vpiPort:
   \_port: (in), line:7:30, endln:7:32, parent:work@dut
     |vpiName:in
@@ -356,23 +394,6 @@ design: (work@dut)
       |vpiFullName:work@dut.in
       |vpiActual:
       \_logic_net: (work@dut.in), line:7:30, endln:7:32, parent:work@dut
-        |vpiName:in
-        |vpiFullName:work@dut.in
-        |vpiNetType:36
-        |vpiRange:
-        \_range: , line:7:25, endln:7:28
-          |vpiLeftRange:
-          \_constant: , line:7:25, endln:7:26
-            |vpiConstType:9
-            |vpiDecompile:7
-            |vpiSize:64
-            |UINT:7
-          |vpiRightRange:
-          \_constant: , line:7:27, endln:7:28
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
     |vpiInstance:
     \_module: work@dut (work@dut) dut.sv:7:1: , endln:9:10
   |vpiPort:
@@ -385,32 +406,75 @@ design: (work@dut)
       |vpiFullName:work@dut.out
       |vpiActual:
       \_logic_net: (work@dut.out), line:7:52, endln:7:55, parent:work@dut
-        |vpiName:out
-        |vpiFullName:work@dut.out
-        |vpiNetType:36
-        |vpiRange:
-        \_range: , line:7:47, endln:7:50
-          |vpiLeftRange:
-          \_constant: , line:7:47, endln:7:48
-            |vpiConstType:9
-            |vpiDecompile:7
-            |vpiSize:64
-            |UINT:7
-          |vpiRightRange:
-          \_constant: , line:7:49, endln:7:50
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
     |vpiInstance:
     \_module: work@dut (work@dut) dut.sv:7:1: , endln:9:10
   |vpiModule:
   \_module: work@other (work@dut.oth) dut.sv:8:4: , endln:8:57, parent:work@dut
+    |vpiName:oth
+    |vpiFullName:work@dut.oth
+    |vpiParameter:
+    \_parameter: (work@dut.oth.Width), line:2:19, endln:2:28, parent:work@dut.oth
+      |UINT:1
+      |vpiTypespec:
+      \_int_typespec: , line:2:15, endln:2:18, parent:work@dut.oth.Width
+      |vpiName:Width
+      |vpiFullName:work@dut.oth.Width
+    |vpiParamAssign:
+    \_param_assign: , line:2:19, endln:2:28, parent:work@dut.oth
+      |vpiOverriden:1
+      |vpiRhs:
+      \_constant: , line:2:27, endln:2:28
+        |vpiDecompile:8
+        |vpiSize:64
+        |UINT:8
+        |vpiTypespec:
+        \_int_typespec: , line:2:15, endln:2:18, parent:work@other.Width
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@dut.oth.Width), line:2:19, endln:2:28, parent:work@dut.oth
     |vpiDefName:work@other
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
-    |vpiName:oth
-    |vpiFullName:work@dut.oth
+    |vpiNet:
+    \_logic_net: (work@dut.oth.in), line:3:27, endln:3:29, parent:work@dut.oth
+      |vpiName:in
+      |vpiFullName:work@dut.oth.in
+      |vpiNetType:36
+      |vpiRange:
+      \_range: , line:3:16, endln:3:25
+        |vpiLeftRange:
+        \_constant: , line:3:16, endln:3:21
+          |vpiDecompile:7
+          |vpiSize:64
+          |INT:7
+          |vpiConstType:7
+        |vpiRightRange:
+        \_constant: , line:3:24, endln:3:25
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiNet:
+    \_logic_net: (work@dut.oth.out), line:3:55, endln:3:58, parent:work@dut.oth
+      |vpiName:out
+      |vpiFullName:work@dut.oth.out
+      |vpiNetType:36
+      |vpiRange:
+      \_range: , line:3:44, endln:3:53
+        |vpiLeftRange:
+        \_constant: , line:3:44, endln:3:49
+          |vpiDecompile:7
+          |vpiSize:64
+          |INT:7
+          |vpiConstType:7
+        |vpiRightRange:
+        \_constant: , line:3:52, endln:3:53
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:7:1: , endln:9:10
     |vpiPort:
     \_port: (in), line:3:27, endln:3:29, parent:work@dut.oth
       |vpiName:in
@@ -421,23 +485,6 @@ design: (work@dut)
         |vpiFullName:work@dut.in
         |vpiActual:
         \_logic_net: (work@dut.oth.in), line:3:27, endln:3:29, parent:work@dut.oth
-          |vpiName:in
-          |vpiFullName:work@dut.oth.in
-          |vpiNetType:36
-          |vpiRange:
-          \_range: , line:3:16, endln:3:25
-            |vpiLeftRange:
-            \_constant: , line:3:16, endln:3:21
-              |vpiConstType:7
-              |vpiDecompile:7
-              |vpiSize:64
-              |INT:7
-            |vpiRightRange:
-            \_constant: , line:3:24, endln:3:25
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@dut.oth.in), parent:in
         |vpiName:in
@@ -456,23 +503,6 @@ design: (work@dut)
         |vpiFullName:work@dut.out
         |vpiActual:
         \_logic_net: (work@dut.oth.out), line:3:55, endln:3:58, parent:work@dut.oth
-          |vpiName:out
-          |vpiFullName:work@dut.oth.out
-          |vpiNetType:36
-          |vpiRange:
-          \_range: , line:3:44, endln:3:53
-            |vpiLeftRange:
-            \_constant: , line:3:44, endln:3:49
-              |vpiConstType:7
-              |vpiDecompile:7
-              |vpiSize:64
-              |INT:7
-            |vpiRightRange:
-            \_constant: , line:3:52, endln:3:53
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@dut.oth.out), parent:out
         |vpiName:out
@@ -495,36 +525,6 @@ design: (work@dut)
         |vpiFullName:work@dut.oth.out
         |vpiActual:
         \_logic_net: (work@dut.oth.out), line:3:55, endln:3:58, parent:work@dut.oth
-    |vpiNet:
-    \_logic_net: (work@dut.oth.in), line:3:27, endln:3:29, parent:work@dut.oth
-    |vpiNet:
-    \_logic_net: (work@dut.oth.out), line:3:55, endln:3:58, parent:work@dut.oth
-    |vpiInstance:
-    \_module: work@dut (work@dut) dut.sv:7:1: , endln:9:10
-    |vpiParameter:
-    \_parameter: (work@dut.oth.Width), line:2:19, endln:2:28, parent:work@dut.oth
-      |vpiName:Width
-      |vpiFullName:work@dut.oth.Width
-      |UINT:1
-      |vpiTypespec:
-      \_int_typespec: , line:2:15, endln:2:18, parent:work@dut.oth.Width
-    |vpiParamAssign:
-    \_param_assign: , line:2:19, endln:2:28, parent:work@dut.oth
-      |vpiOverriden:1
-      |vpiRhs:
-      \_constant: , line:2:27, endln:2:28
-        |vpiConstType:9
-        |vpiDecompile:8
-        |vpiSize:64
-        |UINT:8
-        |vpiTypespec:
-        \_int_typespec: , line:2:15, endln:2:18, parent:work@other.Width
-      |vpiLhs:
-      \_parameter: (work@dut.oth.Width), line:2:19, endln:2:28, parent:work@dut.oth
-  |vpiNet:
-  \_logic_net: (work@dut.in), line:7:30, endln:7:32, parent:work@dut
-  |vpiNet:
-  \_logic_net: (work@dut.out), line:7:52, endln:7:55, parent:work@dut
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

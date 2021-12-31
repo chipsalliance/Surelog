@@ -775,13 +775,13 @@ there are 8 more instances of this message.
 
 ====== UHDM =======
 design: (work@LogicGates)
-|vpiName:work@LogicGates
 |vpiElaborated:1
+|vpiName:work@LogicGates
 |uhdmallPackages:
 \_package: builtin (builtin::), parent:work@LogicGates
-  |vpiDefName:builtin
   |vpiName:builtin
   |vpiFullName:builtin::
+  |vpiDefName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin::
     |vpiName:array
@@ -803,9 +803,9 @@ design: (work@LogicGates)
   |vpiName:work@mailbox
   |vpiMethod:
   \_function: (work@mailbox::new), parent:work@mailbox
-    |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@mailbox::new
+    |vpiMethod:1
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -814,107 +814,140 @@ design: (work@LogicGates)
         \_class_defn: (work@mailbox), file:builtin.sv, parent:work@LogicGates
     |vpiIODecl:
     \_io_decl: (bound), parent:work@mailbox::new
-      |vpiName:bound
       |vpiDirection:1
+      |vpiName:bound
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_function: (work@mailbox::num), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:num
     |vpiFullName:work@mailbox::num
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:put
     |vpiFullName:work@mailbox::put
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::put
-      |vpiName:message
-      |vpiDirection:1
-  |vpiMethod:
-  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::put
+      |vpiDirection:1
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_put
-      |vpiName:message
       |vpiDirection:1
+      |vpiName:message
   |vpiMethod:
   \_task: (work@mailbox::get), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:get
     |vpiFullName:work@mailbox::get
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::get
-      |vpiName:message
-      |vpiDirection:6
-  |vpiMethod:
-  \_function: (work@mailbox::try_get), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::get
+      |vpiDirection:6
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_get), parent:work@mailbox
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
   |vpiMethod:
   \_task: (work@mailbox::peek), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::peek
-      |vpiName:message
-      |vpiDirection:6
-  |vpiMethod:
-  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::peek
+      |vpiDirection:6
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
 |uhdmallClasses:
 \_class_defn: (work@process), file:builtin.sv, parent:work@LogicGates
   |vpiName:work@process
+  |vpiTypedef:
+  \_enum_typespec: (state), parent:work@process
+    |vpiName:state
+    |vpiEnumConst:
+    \_enum_const: (FINISHED), parent:state
+      |vpiName:FINISHED
+      |INT:0
+      |vpiDecompile:0
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (RUNNING), parent:state
+      |vpiName:RUNNING
+      |INT:1
+      |vpiDecompile:1
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (WAITING), parent:state
+      |vpiName:WAITING
+      |INT:2
+      |vpiDecompile:2
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (SUSPENDED), parent:state
+      |vpiName:SUSPENDED
+      |INT:3
+      |vpiDecompile:3
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (KILLED), parent:state
+      |vpiName:KILLED
+      |INT:4
+      |vpiDecompile:4
+      |vpiSize:64
   |vpiMethod:
   \_function: (work@process::self), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:self
     |vpiFullName:work@process::self
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_ref_var: 
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:status
     |vpiFullName:work@process::status
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
@@ -923,110 +956,77 @@ design: (work@LogicGates)
         |vpiEnumConst:
         \_enum_const: (FINISHED)
           |vpiName:FINISHED
-          |vpiDecompile:0
           |INT:0
+          |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
           |vpiName:RUNNING
-          |vpiDecompile:1
           |INT:1
+          |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
           |vpiName:WAITING
-          |vpiDecompile:2
           |INT:2
+          |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
           |vpiName:SUSPENDED
-          |vpiDecompile:3
           |INT:3
+          |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
           |vpiName:KILLED
-          |vpiDecompile:4
           |INT:4
+          |vpiDecompile:4
           |vpiSize:64
   |vpiMethod:
   \_task: (work@process::kill), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:kill
     |vpiFullName:work@process::kill
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::kill), parent:work@process::kill
       |vpiFullName:work@process::kill
   |vpiMethod:
   \_task: (work@process::await), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:await
     |vpiFullName:work@process::await
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::await), parent:work@process::await
       |vpiFullName:work@process::await
   |vpiMethod:
   \_task: (work@process::suspend), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:suspend
     |vpiFullName:work@process::suspend
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::suspend), parent:work@process::suspend
       |vpiFullName:work@process::suspend
   |vpiMethod:
   \_task: (work@process::resume), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:resume
     |vpiFullName:work@process::resume
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::resume), parent:work@process::resume
       |vpiFullName:work@process::resume
-  |vpiTypedef:
-  \_enum_typespec: (state), parent:work@process
-    |vpiName:state
-    |vpiEnumConst:
-    \_enum_const: (FINISHED), parent:state
-      |vpiName:FINISHED
-      |vpiDecompile:0
-      |INT:0
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (RUNNING), parent:state
-      |vpiName:RUNNING
-      |vpiDecompile:1
-      |INT:1
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (WAITING), parent:state
-      |vpiName:WAITING
-      |vpiDecompile:2
-      |INT:2
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (SUSPENDED), parent:state
-      |vpiName:SUSPENDED
-      |vpiDecompile:3
-      |INT:3
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (KILLED), parent:state
-      |vpiName:KILLED
-      |vpiDecompile:4
-      |INT:4
-      |vpiSize:64
 |uhdmallClasses:
 \_class_defn: (work@semaphore), file:builtin.sv, parent:work@LogicGates
   |vpiName:work@semaphore
   |vpiMethod:
   \_function: (work@semaphore::new), parent:work@semaphore
-    |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@semaphore::new
+    |vpiMethod:1
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -1035,76 +1035,124 @@ design: (work@LogicGates)
         \_class_defn: (work@semaphore), file:builtin.sv, parent:work@LogicGates
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::new
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_task: (work@semaphore::put), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:put
     |vpiFullName:work@semaphore::put
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::put
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_task: (work@semaphore::get), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:get
     |vpiFullName:work@semaphore::get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::get
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_function: (work@semaphore::try_get), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
 |uhdmallModules:
 \_module: work@LogicGates (work@LogicGates) dut.sv:1:1: , endln:20:10, parent:work@LogicGates
-  |vpiDefName:work@LogicGates
   |vpiFullName:work@LogicGates
+  |vpiDefName:work@LogicGates
+  |vpiNet:
+  \_logic_net: (work@LogicGates.a), line:1:19, parent:work@LogicGates
+    |vpiName:a
+    |vpiFullName:work@LogicGates.a
+  |vpiNet:
+  \_logic_net: (work@LogicGates.b), line:1:21, parent:work@LogicGates
+    |vpiName:b
+    |vpiFullName:work@LogicGates.b
+  |vpiNet:
+  \_logic_net: (work@LogicGates.y1), line:1:23, parent:work@LogicGates
+    |vpiName:y1
+    |vpiFullName:work@LogicGates.y1
+  |vpiNet:
+  \_logic_net: (work@LogicGates.y2), line:1:26, parent:work@LogicGates
+    |vpiName:y2
+    |vpiFullName:work@LogicGates.y2
+  |vpiNet:
+  \_logic_net: (work@LogicGates.y3), line:1:29, parent:work@LogicGates
+    |vpiName:y3
+    |vpiFullName:work@LogicGates.y3
+  |vpiNet:
+  \_logic_net: (work@LogicGates.y4), line:1:32, parent:work@LogicGates
+    |vpiName:y4
+    |vpiFullName:work@LogicGates.y4
+  |vpiNet:
+  \_logic_net: (work@LogicGates.y5), line:1:35, parent:work@LogicGates
+    |vpiName:y5
+    |vpiFullName:work@LogicGates.y5
+  |vpiNet:
+  \_logic_net: (work@LogicGates.y6), line:1:38, parent:work@LogicGates
+    |vpiName:y6
+    |vpiFullName:work@LogicGates.y6
+  |vpiNet:
+  \_logic_net: (work@LogicGates.y7), line:1:41, parent:work@LogicGates
+    |vpiName:y7
+    |vpiFullName:work@LogicGates.y7
+  |vpiNet:
+  \_logic_net: (work@LogicGates.y8), line:1:45, parent:work@LogicGates
+    |vpiName:y8
+    |vpiFullName:work@LogicGates.y8
+  |vpiNet:
+  \_logic_net: (work@LogicGates.y9), line:1:49, parent:work@LogicGates
+    |vpiName:y9
+    |vpiFullName:work@LogicGates.y9
+  |vpiNet:
+  \_logic_net: (work@LogicGates.y10), line:1:53, parent:work@LogicGates
+    |vpiName:y10
+    |vpiFullName:work@LogicGates.y10
   |vpiPort:
   \_port: (a), line:1:19, parent:work@LogicGates
     |vpiName:a
@@ -1113,8 +1161,6 @@ design: (work@LogicGates)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@LogicGates.a), line:1:19, parent:work@LogicGates
-        |vpiName:a
-        |vpiFullName:work@LogicGates.a
   |vpiPort:
   \_port: (b), line:1:21, parent:work@LogicGates
     |vpiName:b
@@ -1123,8 +1169,6 @@ design: (work@LogicGates)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@LogicGates.b), line:1:21, parent:work@LogicGates
-        |vpiName:b
-        |vpiFullName:work@LogicGates.b
   |vpiPort:
   \_port: (y1), line:1:23, parent:work@LogicGates
     |vpiName:y1
@@ -1133,8 +1177,6 @@ design: (work@LogicGates)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@LogicGates.y1), line:1:23, parent:work@LogicGates
-        |vpiName:y1
-        |vpiFullName:work@LogicGates.y1
   |vpiPort:
   \_port: (y2), line:1:26, parent:work@LogicGates
     |vpiName:y2
@@ -1143,8 +1185,6 @@ design: (work@LogicGates)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@LogicGates.y2), line:1:26, parent:work@LogicGates
-        |vpiName:y2
-        |vpiFullName:work@LogicGates.y2
   |vpiPort:
   \_port: (y3), line:1:29, parent:work@LogicGates
     |vpiName:y3
@@ -1153,8 +1193,6 @@ design: (work@LogicGates)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@LogicGates.y3), line:1:29, parent:work@LogicGates
-        |vpiName:y3
-        |vpiFullName:work@LogicGates.y3
   |vpiPort:
   \_port: (y4), line:1:32, parent:work@LogicGates
     |vpiName:y4
@@ -1163,8 +1201,6 @@ design: (work@LogicGates)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@LogicGates.y4), line:1:32, parent:work@LogicGates
-        |vpiName:y4
-        |vpiFullName:work@LogicGates.y4
   |vpiPort:
   \_port: (y5), line:1:35, parent:work@LogicGates
     |vpiName:y5
@@ -1173,8 +1209,6 @@ design: (work@LogicGates)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@LogicGates.y5), line:1:35, parent:work@LogicGates
-        |vpiName:y5
-        |vpiFullName:work@LogicGates.y5
   |vpiPort:
   \_port: (y6), line:1:38, parent:work@LogicGates
     |vpiName:y6
@@ -1183,8 +1217,6 @@ design: (work@LogicGates)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@LogicGates.y6), line:1:38, parent:work@LogicGates
-        |vpiName:y6
-        |vpiFullName:work@LogicGates.y6
   |vpiPort:
   \_port: (y7), line:1:41, parent:work@LogicGates
     |vpiName:y7
@@ -1193,8 +1225,6 @@ design: (work@LogicGates)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@LogicGates.y7), line:1:41, parent:work@LogicGates
-        |vpiName:y7
-        |vpiFullName:work@LogicGates.y7
   |vpiPort:
   \_port: (y8), line:1:45, parent:work@LogicGates
     |vpiName:y8
@@ -1203,8 +1233,6 @@ design: (work@LogicGates)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@LogicGates.y8), line:1:45, parent:work@LogicGates
-        |vpiName:y8
-        |vpiFullName:work@LogicGates.y8
   |vpiPort:
   \_port: (y9), line:1:49, parent:work@LogicGates
     |vpiName:y9
@@ -1213,8 +1241,6 @@ design: (work@LogicGates)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@LogicGates.y9), line:1:49, parent:work@LogicGates
-        |vpiName:y9
-        |vpiFullName:work@LogicGates.y9
   |vpiPort:
   \_port: (y10), line:1:53, parent:work@LogicGates
     |vpiName:y10
@@ -1223,36 +1249,82 @@ design: (work@LogicGates)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@LogicGates.y10), line:1:53, parent:work@LogicGates
-        |vpiName:y10
-        |vpiFullName:work@LogicGates.y10
-  |vpiNet:
-  \_logic_net: (work@LogicGates.a), line:1:19, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.b), line:1:21, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.y1), line:1:23, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.y2), line:1:26, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.y3), line:1:29, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.y4), line:1:32, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.y5), line:1:35, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.y6), line:1:38, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.y7), line:1:41, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.y8), line:1:45, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.y9), line:1:49, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.y10), line:1:53, parent:work@LogicGates
 |uhdmtopModules:
 \_module: work@LogicGates (work@LogicGates) dut.sv:1:1: , endln:20:10
-  |vpiDefName:work@LogicGates
   |vpiName:work@LogicGates
+  |vpiDefName:work@LogicGates
+  |vpiNet:
+  \_logic_net: (work@LogicGates.a), line:1:19, endln:1:20, parent:work@LogicGates
+    |vpiName:a
+    |vpiFullName:work@LogicGates.a
+  |vpiNet:
+  \_logic_net: (work@LogicGates.b), line:1:21, endln:1:22, parent:work@LogicGates
+    |vpiName:b
+    |vpiFullName:work@LogicGates.b
+  |vpiNet:
+  \_logic_net: (work@LogicGates.y1), line:1:23, endln:1:25, parent:work@LogicGates
+    |vpiName:y1
+    |vpiFullName:work@LogicGates.y1
+  |vpiNet:
+  \_logic_net: (work@LogicGates.y2), line:1:26, endln:1:28, parent:work@LogicGates
+    |vpiName:y2
+    |vpiFullName:work@LogicGates.y2
+  |vpiNet:
+  \_logic_net: (work@LogicGates.y3), line:1:29, endln:1:31, parent:work@LogicGates
+    |vpiName:y3
+    |vpiFullName:work@LogicGates.y3
+  |vpiNet:
+  \_logic_net: (work@LogicGates.y4), line:1:32, endln:1:34, parent:work@LogicGates
+    |vpiName:y4
+    |vpiFullName:work@LogicGates.y4
+  |vpiNet:
+  \_logic_net: (work@LogicGates.y5), line:1:35, endln:1:37, parent:work@LogicGates
+    |vpiName:y5
+    |vpiFullName:work@LogicGates.y5
+  |vpiNet:
+  \_logic_net: (work@LogicGates.y6), line:1:38, endln:1:40, parent:work@LogicGates
+    |vpiName:y6
+    |vpiFullName:work@LogicGates.y6
+  |vpiNet:
+  \_logic_net: (work@LogicGates.y7), line:1:41, endln:1:43, parent:work@LogicGates
+    |vpiName:y7
+    |vpiFullName:work@LogicGates.y7
+  |vpiNet:
+  \_logic_net: (work@LogicGates.y8), line:1:45, endln:1:47, parent:work@LogicGates
+    |vpiName:y8
+    |vpiFullName:work@LogicGates.y8
+  |vpiNet:
+  \_logic_net: (work@LogicGates.y9), line:1:49, endln:1:51, parent:work@LogicGates
+    |vpiName:y9
+    |vpiFullName:work@LogicGates.y9
+  |vpiNet:
+  \_logic_net: (work@LogicGates.y10), line:1:53, endln:1:56, parent:work@LogicGates
+    |vpiName:y10
+    |vpiFullName:work@LogicGates.y10
+  |vpiNet:
+  \_logic_net: (work@LogicGates.nn), parent:work@LogicGates
+    |vpiName:nn
+    |vpiFullName:work@LogicGates.nn
+  |vpiNet:
+  \_logic_net: (work@LogicGates.out2), parent:work@LogicGates
+    |vpiName:out2
+    |vpiFullName:work@LogicGates.out2
+  |vpiNet:
+  \_logic_net: (work@LogicGates.out3), parent:work@LogicGates
+    |vpiName:out3
+    |vpiFullName:work@LogicGates.out3
+  |vpiNet:
+  \_logic_net: (work@LogicGates.p1), parent:work@LogicGates
+    |vpiName:p1
+    |vpiFullName:work@LogicGates.p1
+  |vpiNet:
+  \_logic_net: (work@LogicGates.p2), parent:work@LogicGates
+    |vpiName:p2
+    |vpiFullName:work@LogicGates.p2
+  |vpiNet:
+  \_logic_net: (work@LogicGates.p3), parent:work@LogicGates
+    |vpiName:p3
+    |vpiFullName:work@LogicGates.p3
   |vpiPort:
   \_port: (a), line:1:19, endln:1:20, parent:work@LogicGates
     |vpiName:a
@@ -1263,8 +1335,6 @@ design: (work@LogicGates)
       |vpiFullName:work@LogicGates.a
       |vpiActual:
       \_logic_net: (work@LogicGates.a), line:1:19, endln:1:20, parent:work@LogicGates
-        |vpiName:a
-        |vpiFullName:work@LogicGates.a
     |vpiInstance:
     \_module: work@LogicGates (work@LogicGates) dut.sv:1:1: , endln:20:10
   |vpiPort:
@@ -1277,8 +1347,6 @@ design: (work@LogicGates)
       |vpiFullName:work@LogicGates.b
       |vpiActual:
       \_logic_net: (work@LogicGates.b), line:1:21, endln:1:22, parent:work@LogicGates
-        |vpiName:b
-        |vpiFullName:work@LogicGates.b
     |vpiInstance:
     \_module: work@LogicGates (work@LogicGates) dut.sv:1:1: , endln:20:10
   |vpiPort:
@@ -1291,8 +1359,6 @@ design: (work@LogicGates)
       |vpiFullName:work@LogicGates.y1
       |vpiActual:
       \_logic_net: (work@LogicGates.y1), line:1:23, endln:1:25, parent:work@LogicGates
-        |vpiName:y1
-        |vpiFullName:work@LogicGates.y1
     |vpiInstance:
     \_module: work@LogicGates (work@LogicGates) dut.sv:1:1: , endln:20:10
   |vpiPort:
@@ -1305,8 +1371,6 @@ design: (work@LogicGates)
       |vpiFullName:work@LogicGates.y2
       |vpiActual:
       \_logic_net: (work@LogicGates.y2), line:1:26, endln:1:28, parent:work@LogicGates
-        |vpiName:y2
-        |vpiFullName:work@LogicGates.y2
     |vpiInstance:
     \_module: work@LogicGates (work@LogicGates) dut.sv:1:1: , endln:20:10
   |vpiPort:
@@ -1319,8 +1383,6 @@ design: (work@LogicGates)
       |vpiFullName:work@LogicGates.y3
       |vpiActual:
       \_logic_net: (work@LogicGates.y3), line:1:29, endln:1:31, parent:work@LogicGates
-        |vpiName:y3
-        |vpiFullName:work@LogicGates.y3
     |vpiInstance:
     \_module: work@LogicGates (work@LogicGates) dut.sv:1:1: , endln:20:10
   |vpiPort:
@@ -1333,8 +1395,6 @@ design: (work@LogicGates)
       |vpiFullName:work@LogicGates.y4
       |vpiActual:
       \_logic_net: (work@LogicGates.y4), line:1:32, endln:1:34, parent:work@LogicGates
-        |vpiName:y4
-        |vpiFullName:work@LogicGates.y4
     |vpiInstance:
     \_module: work@LogicGates (work@LogicGates) dut.sv:1:1: , endln:20:10
   |vpiPort:
@@ -1347,8 +1407,6 @@ design: (work@LogicGates)
       |vpiFullName:work@LogicGates.y5
       |vpiActual:
       \_logic_net: (work@LogicGates.y5), line:1:35, endln:1:37, parent:work@LogicGates
-        |vpiName:y5
-        |vpiFullName:work@LogicGates.y5
     |vpiInstance:
     \_module: work@LogicGates (work@LogicGates) dut.sv:1:1: , endln:20:10
   |vpiPort:
@@ -1361,8 +1419,6 @@ design: (work@LogicGates)
       |vpiFullName:work@LogicGates.y6
       |vpiActual:
       \_logic_net: (work@LogicGates.y6), line:1:38, endln:1:40, parent:work@LogicGates
-        |vpiName:y6
-        |vpiFullName:work@LogicGates.y6
     |vpiInstance:
     \_module: work@LogicGates (work@LogicGates) dut.sv:1:1: , endln:20:10
   |vpiPort:
@@ -1375,8 +1431,6 @@ design: (work@LogicGates)
       |vpiFullName:work@LogicGates.y7
       |vpiActual:
       \_logic_net: (work@LogicGates.y7), line:1:41, endln:1:43, parent:work@LogicGates
-        |vpiName:y7
-        |vpiFullName:work@LogicGates.y7
     |vpiInstance:
     \_module: work@LogicGates (work@LogicGates) dut.sv:1:1: , endln:20:10
   |vpiPort:
@@ -1389,8 +1443,6 @@ design: (work@LogicGates)
       |vpiFullName:work@LogicGates.y8
       |vpiActual:
       \_logic_net: (work@LogicGates.y8), line:1:45, endln:1:47, parent:work@LogicGates
-        |vpiName:y8
-        |vpiFullName:work@LogicGates.y8
     |vpiInstance:
     \_module: work@LogicGates (work@LogicGates) dut.sv:1:1: , endln:20:10
   |vpiPort:
@@ -1403,8 +1455,6 @@ design: (work@LogicGates)
       |vpiFullName:work@LogicGates.y9
       |vpiActual:
       \_logic_net: (work@LogicGates.y9), line:1:49, endln:1:51, parent:work@LogicGates
-        |vpiName:y9
-        |vpiFullName:work@LogicGates.y9
     |vpiInstance:
     \_module: work@LogicGates (work@LogicGates) dut.sv:1:1: , endln:20:10
   |vpiPort:
@@ -1417,8 +1467,6 @@ design: (work@LogicGates)
       |vpiFullName:work@LogicGates.y10
       |vpiActual:
       \_logic_net: (work@LogicGates.y10), line:1:53, endln:1:56, parent:work@LogicGates
-        |vpiName:y10
-        |vpiFullName:work@LogicGates.y10
     |vpiInstance:
     \_module: work@LogicGates (work@LogicGates) dut.sv:1:1: , endln:20:10
   |vpiPrimitive:
@@ -1657,10 +1705,10 @@ design: (work@LogicGates)
     |vpiPrimType:1
     |vpiDelay:
     \_constant: , line:13:9, endln:13:10
-      |vpiConstType:9
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
+      |vpiConstType:9
     |vpiPrimTerm:
     \_prim_term: , line:13:18, parent:work@LogicGates.a1
       |vpiDirection:2
@@ -1704,19 +1752,19 @@ design: (work@LogicGates)
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:14:8, endln:14:9
-          |vpiConstType:9
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiConstType:9
       |vpiOperand:
       \_operation: 
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:14:10, endln:14:11
-          |vpiConstType:9
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
+          |vpiConstType:9
     |vpiPrimTerm:
     \_prim_term: , line:14:17, parent:work@LogicGates.a2
       |vpiDirection:2
@@ -1779,43 +1827,43 @@ design: (work@LogicGates)
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:15:10, endln:15:11
-          |vpiConstType:9
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
+          |vpiConstType:9
         |vpiOperand:
         \_constant: , line:15:12, endln:15:13
-          |vpiConstType:9
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
+          |vpiConstType:9
         |vpiOperand:
         \_constant: , line:15:14, endln:15:15
-          |vpiConstType:9
           |vpiDecompile:4
           |vpiSize:64
           |UINT:4
+          |vpiConstType:9
       |vpiOperand:
       \_operation: 
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:15:17, endln:15:18
-          |vpiConstType:9
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
+          |vpiConstType:9
         |vpiOperand:
         \_constant: , line:15:19, endln:15:20
-          |vpiConstType:9
           |vpiDecompile:4
           |vpiSize:64
           |UINT:4
+          |vpiConstType:9
         |vpiOperand:
         \_constant: , line:15:21, endln:15:22
-          |vpiConstType:9
           |vpiDecompile:5
           |vpiSize:64
           |UINT:5
+          |vpiConstType:9
     |vpiPrimTerm:
     \_prim_term: , line:15:29, parent:work@LogicGates.a3
       |vpiDirection:2
@@ -1825,8 +1873,6 @@ design: (work@LogicGates)
         |vpiFullName:work@LogicGates.nn
         |vpiActual:
         \_logic_net: (work@LogicGates.nn), parent:work@LogicGates
-          |vpiName:nn
-          |vpiFullName:work@LogicGates.nn
     |vpiPrimTerm:
     \_prim_term: , line:15:33, parent:work@LogicGates.a3
       |vpiDirection:1
@@ -1861,28 +1907,28 @@ design: (work@LogicGates)
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:16:12, endln:16:13
-          |vpiConstType:9
           |vpiDecompile:5
           |vpiSize:64
           |UINT:5
+          |vpiConstType:9
       |vpiOperand:
       \_operation: 
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:16:15, endln:16:16
-          |vpiConstType:9
           |vpiDecompile:6
           |vpiSize:64
           |UINT:6
+          |vpiConstType:9
       |vpiOperand:
       \_operation: 
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:16:18, endln:16:19
-          |vpiConstType:9
           |vpiDecompile:7
           |vpiSize:64
           |UINT:7
+          |vpiConstType:9
     |vpiPrimTerm:
     \_prim_term: , line:16:25, parent:work@LogicGates.a4
       |vpiDirection:2
@@ -1892,8 +1938,6 @@ design: (work@LogicGates)
         |vpiFullName:work@LogicGates.out2
         |vpiActual:
         \_logic_net: (work@LogicGates.out2), parent:work@LogicGates
-          |vpiName:out2
-          |vpiFullName:work@LogicGates.out2
     |vpiPrimTerm:
     \_prim_term: , line:16:31, parent:work@LogicGates.a4
       |vpiDirection:1
@@ -1928,64 +1972,64 @@ design: (work@LogicGates)
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:17:12, endln:17:13
-          |vpiConstType:9
           |vpiDecompile:5
           |vpiSize:64
           |UINT:5
+          |vpiConstType:9
         |vpiOperand:
         \_constant: , line:17:14, endln:17:15
-          |vpiConstType:9
           |vpiDecompile:6
           |vpiSize:64
           |UINT:6
+          |vpiConstType:9
         |vpiOperand:
         \_constant: , line:17:16, endln:17:17
-          |vpiConstType:9
           |vpiDecompile:7
           |vpiSize:64
           |UINT:7
+          |vpiConstType:9
       |vpiOperand:
       \_operation: 
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:17:19, endln:17:20
-          |vpiConstType:9
           |vpiDecompile:6
           |vpiSize:64
           |UINT:6
+          |vpiConstType:9
         |vpiOperand:
         \_constant: , line:17:21, endln:17:22
-          |vpiConstType:9
           |vpiDecompile:7
           |vpiSize:64
           |UINT:7
+          |vpiConstType:9
         |vpiOperand:
         \_constant: , line:17:23, endln:17:24
-          |vpiConstType:9
           |vpiDecompile:8
           |vpiSize:64
           |UINT:8
+          |vpiConstType:9
       |vpiOperand:
       \_operation: 
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:17:26, endln:17:27
-          |vpiConstType:9
           |vpiDecompile:7
           |vpiSize:64
           |UINT:7
+          |vpiConstType:9
         |vpiOperand:
         \_constant: , line:17:28, endln:17:29
-          |vpiConstType:9
           |vpiDecompile:8
           |vpiSize:64
           |UINT:8
+          |vpiConstType:9
         |vpiOperand:
         \_constant: , line:17:30, endln:17:31
-          |vpiConstType:9
           |vpiDecompile:9
           |vpiSize:64
           |UINT:9
+          |vpiConstType:9
     |vpiPrimTerm:
     \_prim_term: , line:17:37, parent:work@LogicGates.a5
       |vpiDirection:2
@@ -1995,8 +2039,6 @@ design: (work@LogicGates)
         |vpiFullName:work@LogicGates.out3
         |vpiActual:
         \_logic_net: (work@LogicGates.out3), parent:work@LogicGates
-          |vpiName:out3
-          |vpiFullName:work@LogicGates.out3
     |vpiPrimTerm:
     \_prim_term: , line:17:43, parent:work@LogicGates.a5
       |vpiDirection:1
@@ -2032,8 +2074,6 @@ design: (work@LogicGates)
         |vpiFullName:work@LogicGates.p1
         |vpiActual:
         \_logic_net: (work@LogicGates.p1), parent:work@LogicGates
-          |vpiName:p1
-          |vpiFullName:work@LogicGates.p1
     |vpiPrimTerm:
     \_prim_term: , line:18:15, parent:work@LogicGates.a6
       |vpiDirection:1
@@ -2044,8 +2084,6 @@ design: (work@LogicGates)
         |vpiFullName:work@LogicGates.p2
         |vpiActual:
         \_logic_net: (work@LogicGates.p2), parent:work@LogicGates
-          |vpiName:p2
-          |vpiFullName:work@LogicGates.p2
     |vpiPrimTerm:
     \_prim_term: , line:18:18, parent:work@LogicGates.a6
       |vpiDirection:1
@@ -2056,8 +2094,6 @@ design: (work@LogicGates)
         |vpiFullName:work@LogicGates.p3
         |vpiActual:
         \_logic_net: (work@LogicGates.p3), parent:work@LogicGates
-          |vpiName:p3
-          |vpiFullName:work@LogicGates.p3
   |vpiPrimitive:
   \_gate: work@pullup (work@LogicGates.a7), line:19, parent:work@LogicGates
     |vpiDefName:work@pullup
@@ -2073,42 +2109,6 @@ design: (work@LogicGates)
         |vpiFullName:work@LogicGates.p1
         |vpiActual:
         \_logic_net: (work@LogicGates.p1), parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.a), line:1:19, endln:1:20, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.b), line:1:21, endln:1:22, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.y1), line:1:23, endln:1:25, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.y2), line:1:26, endln:1:28, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.y3), line:1:29, endln:1:31, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.y4), line:1:32, endln:1:34, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.y5), line:1:35, endln:1:37, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.y6), line:1:38, endln:1:40, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.y7), line:1:41, endln:1:43, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.y8), line:1:45, endln:1:47, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.y9), line:1:49, endln:1:51, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.y10), line:1:53, endln:1:56, parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.nn), parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.out2), parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.out3), parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.p1), parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.p2), parent:work@LogicGates
-  |vpiNet:
-  \_logic_net: (work@LogicGates.p3), parent:work@LogicGates
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

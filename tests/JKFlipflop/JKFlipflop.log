@@ -46,13 +46,13 @@
 
 ====== UHDM =======
 design: (work@JKFlipflop)
-|vpiName:work@JKFlipflop
 |vpiElaborated:1
+|vpiName:work@JKFlipflop
 |uhdmallPackages:
 \_package: builtin (builtin::), parent:work@JKFlipflop
-  |vpiDefName:builtin
   |vpiName:builtin
   |vpiFullName:builtin::
+  |vpiDefName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin::
     |vpiName:array
@@ -74,9 +74,9 @@ design: (work@JKFlipflop)
   |vpiName:work@mailbox
   |vpiMethod:
   \_function: (work@mailbox::new), parent:work@mailbox
-    |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@mailbox::new
+    |vpiMethod:1
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -85,107 +85,140 @@ design: (work@JKFlipflop)
         \_class_defn: (work@mailbox), file:builtin.sv, parent:work@JKFlipflop
     |vpiIODecl:
     \_io_decl: (bound), parent:work@mailbox::new
-      |vpiName:bound
       |vpiDirection:1
+      |vpiName:bound
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_function: (work@mailbox::num), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:num
     |vpiFullName:work@mailbox::num
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:put
     |vpiFullName:work@mailbox::put
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::put
-      |vpiName:message
-      |vpiDirection:1
-  |vpiMethod:
-  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::put
+      |vpiDirection:1
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_put
-      |vpiName:message
       |vpiDirection:1
+      |vpiName:message
   |vpiMethod:
   \_task: (work@mailbox::get), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:get
     |vpiFullName:work@mailbox::get
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::get
-      |vpiName:message
-      |vpiDirection:6
-  |vpiMethod:
-  \_function: (work@mailbox::try_get), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::get
+      |vpiDirection:6
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_get), parent:work@mailbox
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
   |vpiMethod:
   \_task: (work@mailbox::peek), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::peek
-      |vpiName:message
-      |vpiDirection:6
-  |vpiMethod:
-  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::peek
+      |vpiDirection:6
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
 |uhdmallClasses:
 \_class_defn: (work@process), file:builtin.sv, parent:work@JKFlipflop
   |vpiName:work@process
+  |vpiTypedef:
+  \_enum_typespec: (state), parent:work@process
+    |vpiName:state
+    |vpiEnumConst:
+    \_enum_const: (FINISHED), parent:state
+      |vpiName:FINISHED
+      |INT:0
+      |vpiDecompile:0
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (RUNNING), parent:state
+      |vpiName:RUNNING
+      |INT:1
+      |vpiDecompile:1
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (WAITING), parent:state
+      |vpiName:WAITING
+      |INT:2
+      |vpiDecompile:2
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (SUSPENDED), parent:state
+      |vpiName:SUSPENDED
+      |INT:3
+      |vpiDecompile:3
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (KILLED), parent:state
+      |vpiName:KILLED
+      |INT:4
+      |vpiDecompile:4
+      |vpiSize:64
   |vpiMethod:
   \_function: (work@process::self), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:self
     |vpiFullName:work@process::self
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_ref_var: 
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:status
     |vpiFullName:work@process::status
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
@@ -194,110 +227,77 @@ design: (work@JKFlipflop)
         |vpiEnumConst:
         \_enum_const: (FINISHED)
           |vpiName:FINISHED
-          |vpiDecompile:0
           |INT:0
+          |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
           |vpiName:RUNNING
-          |vpiDecompile:1
           |INT:1
+          |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
           |vpiName:WAITING
-          |vpiDecompile:2
           |INT:2
+          |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
           |vpiName:SUSPENDED
-          |vpiDecompile:3
           |INT:3
+          |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
           |vpiName:KILLED
-          |vpiDecompile:4
           |INT:4
+          |vpiDecompile:4
           |vpiSize:64
   |vpiMethod:
   \_task: (work@process::kill), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:kill
     |vpiFullName:work@process::kill
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::kill), parent:work@process::kill
       |vpiFullName:work@process::kill
   |vpiMethod:
   \_task: (work@process::await), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:await
     |vpiFullName:work@process::await
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::await), parent:work@process::await
       |vpiFullName:work@process::await
   |vpiMethod:
   \_task: (work@process::suspend), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:suspend
     |vpiFullName:work@process::suspend
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::suspend), parent:work@process::suspend
       |vpiFullName:work@process::suspend
   |vpiMethod:
   \_task: (work@process::resume), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:resume
     |vpiFullName:work@process::resume
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::resume), parent:work@process::resume
       |vpiFullName:work@process::resume
-  |vpiTypedef:
-  \_enum_typespec: (state), parent:work@process
-    |vpiName:state
-    |vpiEnumConst:
-    \_enum_const: (FINISHED), parent:state
-      |vpiName:FINISHED
-      |vpiDecompile:0
-      |INT:0
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (RUNNING), parent:state
-      |vpiName:RUNNING
-      |vpiDecompile:1
-      |INT:1
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (WAITING), parent:state
-      |vpiName:WAITING
-      |vpiDecompile:2
-      |INT:2
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (SUSPENDED), parent:state
-      |vpiName:SUSPENDED
-      |vpiDecompile:3
-      |INT:3
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (KILLED), parent:state
-      |vpiName:KILLED
-      |vpiDecompile:4
-      |INT:4
-      |vpiSize:64
 |uhdmallClasses:
 \_class_defn: (work@semaphore), file:builtin.sv, parent:work@JKFlipflop
   |vpiName:work@semaphore
   |vpiMethod:
   \_function: (work@semaphore::new), parent:work@semaphore
-    |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@semaphore::new
+    |vpiMethod:1
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -306,76 +306,93 @@ design: (work@JKFlipflop)
         \_class_defn: (work@semaphore), file:builtin.sv, parent:work@JKFlipflop
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::new
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_task: (work@semaphore::put), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:put
     |vpiFullName:work@semaphore::put
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::put
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_task: (work@semaphore::get), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:get
     |vpiFullName:work@semaphore::get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::get
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_function: (work@semaphore::try_get), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
 |uhdmallModules:
 \_module: work@D_Flipflop (work@D_Flipflop) dut.sv:9:1: , endln:19:10, parent:work@JKFlipflop
-  |vpiDefName:work@D_Flipflop
   |vpiFullName:work@D_Flipflop
+  |vpiDefName:work@D_Flipflop
+  |vpiNet:
+  \_logic_net: (work@D_Flipflop.Din), line:9:19, parent:work@D_Flipflop
+    |vpiName:Din
+    |vpiFullName:work@D_Flipflop.Din
+  |vpiNet:
+  \_logic_net: (work@D_Flipflop.clk), line:9:23, parent:work@D_Flipflop
+    |vpiName:clk
+    |vpiFullName:work@D_Flipflop.clk
+  |vpiNet:
+  \_logic_net: (work@D_Flipflop.reset), line:9:27, parent:work@D_Flipflop
+    |vpiName:reset
+    |vpiFullName:work@D_Flipflop.reset
+  |vpiNet:
+  \_logic_net: (work@D_Flipflop.q), line:9:33, parent:work@D_Flipflop
+    |vpiName:q
+    |vpiFullName:work@D_Flipflop.q
+    |vpiNetType:48
   |vpiPort:
   \_port: (Din), line:9:19, parent:work@D_Flipflop
     |vpiName:Din
@@ -384,8 +401,6 @@ design: (work@JKFlipflop)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@D_Flipflop.Din), line:9:19, parent:work@D_Flipflop
-        |vpiName:Din
-        |vpiFullName:work@D_Flipflop.Din
   |vpiPort:
   \_port: (clk), line:9:23, parent:work@D_Flipflop
     |vpiName:clk
@@ -394,8 +409,6 @@ design: (work@JKFlipflop)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@D_Flipflop.clk), line:9:23, parent:work@D_Flipflop
-        |vpiName:clk
-        |vpiFullName:work@D_Flipflop.clk
   |vpiPort:
   \_port: (reset), line:9:27, parent:work@D_Flipflop
     |vpiName:reset
@@ -404,8 +417,6 @@ design: (work@JKFlipflop)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@D_Flipflop.reset), line:9:27, parent:work@D_Flipflop
-        |vpiName:reset
-        |vpiFullName:work@D_Flipflop.reset
   |vpiPort:
   \_port: (q), line:9:33, parent:work@D_Flipflop
     |vpiName:q
@@ -414,12 +425,8 @@ design: (work@JKFlipflop)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@D_Flipflop.q), line:9:33, parent:work@D_Flipflop
-        |vpiName:q
-        |vpiFullName:work@D_Flipflop.q
-        |vpiNetType:48
   |vpiProcess:
   \_always: , line:12:5, endln:18:8, parent:work@D_Flipflop
-    |vpiAlwaysType:1
     |vpiStmt:
     \_event_control: , line:12:11, endln:18:8
       |vpiCondition:
@@ -452,10 +459,10 @@ design: (work@JKFlipflop)
             |vpiBlocking:1
             |vpiRhs:
             \_constant: , line:15:7, endln:15:11
-              |vpiConstType:3
               |vpiDecompile:1'b0
               |vpiSize:1
               |BIN:0
+              |vpiConstType:3
             |vpiLhs:
             \_ref_obj: (work@D_Flipflop.q), line:15:5, endln:15:6
               |vpiName:q
@@ -483,18 +490,36 @@ design: (work@JKFlipflop)
               |vpiFullName:work@D_Flipflop.q
               |vpiActual:
               \_logic_net: (work@JKFlipflop.dff.q), line:9:33, endln:9:34, parent:work@JKFlipflop.dff
-  |vpiNet:
-  \_logic_net: (work@D_Flipflop.Din), line:9:19, parent:work@D_Flipflop
-  |vpiNet:
-  \_logic_net: (work@D_Flipflop.clk), line:9:23, parent:work@D_Flipflop
-  |vpiNet:
-  \_logic_net: (work@D_Flipflop.reset), line:9:27, parent:work@D_Flipflop
-  |vpiNet:
-  \_logic_net: (work@D_Flipflop.q), line:9:33, parent:work@D_Flipflop
+    |vpiAlwaysType:1
 |uhdmallModules:
 \_module: work@JKFlipflop (work@JKFlipflop) dut.sv:1:1: , endln:7:10, parent:work@JKFlipflop
-  |vpiDefName:work@JKFlipflop
   |vpiFullName:work@JKFlipflop
+  |vpiDefName:work@JKFlipflop
+  |vpiNet:
+  \_logic_net: (work@JKFlipflop.w), line:4:8, parent:work@JKFlipflop
+    |vpiName:w
+    |vpiFullName:work@JKFlipflop.w
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@JKFlipflop.J), line:1:19, parent:work@JKFlipflop
+    |vpiName:J
+    |vpiFullName:work@JKFlipflop.J
+  |vpiNet:
+  \_logic_net: (work@JKFlipflop.K), line:1:21, parent:work@JKFlipflop
+    |vpiName:K
+    |vpiFullName:work@JKFlipflop.K
+  |vpiNet:
+  \_logic_net: (work@JKFlipflop.clk), line:1:23, parent:work@JKFlipflop
+    |vpiName:clk
+    |vpiFullName:work@JKFlipflop.clk
+  |vpiNet:
+  \_logic_net: (work@JKFlipflop.reset), line:1:27, parent:work@JKFlipflop
+    |vpiName:reset
+    |vpiFullName:work@JKFlipflop.reset
+  |vpiNet:
+  \_logic_net: (work@JKFlipflop.q), line:1:33, parent:work@JKFlipflop
+    |vpiName:q
+    |vpiFullName:work@JKFlipflop.q
   |vpiPort:
   \_port: (J), line:1:19, parent:work@JKFlipflop
     |vpiName:J
@@ -503,8 +528,6 @@ design: (work@JKFlipflop)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@JKFlipflop.J), line:1:19, parent:work@JKFlipflop
-        |vpiName:J
-        |vpiFullName:work@JKFlipflop.J
   |vpiPort:
   \_port: (K), line:1:21, parent:work@JKFlipflop
     |vpiName:K
@@ -513,8 +536,6 @@ design: (work@JKFlipflop)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@JKFlipflop.K), line:1:21, parent:work@JKFlipflop
-        |vpiName:K
-        |vpiFullName:work@JKFlipflop.K
   |vpiPort:
   \_port: (clk), line:1:23, parent:work@JKFlipflop
     |vpiName:clk
@@ -523,8 +544,6 @@ design: (work@JKFlipflop)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@JKFlipflop.clk), line:1:23, parent:work@JKFlipflop
-        |vpiName:clk
-        |vpiFullName:work@JKFlipflop.clk
   |vpiPort:
   \_port: (reset), line:1:27, parent:work@JKFlipflop
     |vpiName:reset
@@ -533,8 +552,6 @@ design: (work@JKFlipflop)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@JKFlipflop.reset), line:1:27, parent:work@JKFlipflop
-        |vpiName:reset
-        |vpiFullName:work@JKFlipflop.reset
   |vpiPort:
   \_port: (q), line:1:33, parent:work@JKFlipflop
     |vpiName:q
@@ -543,8 +560,6 @@ design: (work@JKFlipflop)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@JKFlipflop.q), line:1:33, parent:work@JKFlipflop
-        |vpiName:q
-        |vpiFullName:work@JKFlipflop.q
   |vpiContAssign:
   \_cont_assign: , line:5:10, endln:5:25, parent:work@JKFlipflop
     |vpiRhs:
@@ -601,25 +616,35 @@ design: (work@JKFlipflop)
         |vpiName:w
         |vpiFullName:work@JKFlipflop.w
         |vpiNetType:1
+|uhdmtopModules:
+\_module: work@JKFlipflop (work@JKFlipflop) dut.sv:1:1: , endln:7:10
+  |vpiName:work@JKFlipflop
+  |vpiDefName:work@JKFlipflop
   |vpiNet:
-  \_logic_net: (work@JKFlipflop.w), line:4:8, parent:work@JKFlipflop
+  \_logic_net: (work@JKFlipflop.w), line:4:8, endln:4:9, parent:work@JKFlipflop
     |vpiName:w
     |vpiFullName:work@JKFlipflop.w
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (work@JKFlipflop.J), line:1:19, parent:work@JKFlipflop
+  \_logic_net: (work@JKFlipflop.J), line:1:19, endln:1:20, parent:work@JKFlipflop
+    |vpiName:J
+    |vpiFullName:work@JKFlipflop.J
   |vpiNet:
-  \_logic_net: (work@JKFlipflop.K), line:1:21, parent:work@JKFlipflop
+  \_logic_net: (work@JKFlipflop.K), line:1:21, endln:1:22, parent:work@JKFlipflop
+    |vpiName:K
+    |vpiFullName:work@JKFlipflop.K
   |vpiNet:
-  \_logic_net: (work@JKFlipflop.clk), line:1:23, parent:work@JKFlipflop
+  \_logic_net: (work@JKFlipflop.clk), line:1:23, endln:1:26, parent:work@JKFlipflop
+    |vpiName:clk
+    |vpiFullName:work@JKFlipflop.clk
   |vpiNet:
-  \_logic_net: (work@JKFlipflop.reset), line:1:27, parent:work@JKFlipflop
+  \_logic_net: (work@JKFlipflop.reset), line:1:27, endln:1:32, parent:work@JKFlipflop
+    |vpiName:reset
+    |vpiFullName:work@JKFlipflop.reset
   |vpiNet:
-  \_logic_net: (work@JKFlipflop.q), line:1:33, parent:work@JKFlipflop
-|uhdmtopModules:
-\_module: work@JKFlipflop (work@JKFlipflop) dut.sv:1:1: , endln:7:10
-  |vpiDefName:work@JKFlipflop
-  |vpiName:work@JKFlipflop
+  \_logic_net: (work@JKFlipflop.q), line:1:33, endln:1:34, parent:work@JKFlipflop
+    |vpiName:q
+    |vpiFullName:work@JKFlipflop.q
   |vpiPort:
   \_port: (J), line:1:19, endln:1:20, parent:work@JKFlipflop
     |vpiName:J
@@ -630,8 +655,6 @@ design: (work@JKFlipflop)
       |vpiFullName:work@JKFlipflop.J
       |vpiActual:
       \_logic_net: (work@JKFlipflop.J), line:1:19, endln:1:20, parent:work@JKFlipflop
-        |vpiName:J
-        |vpiFullName:work@JKFlipflop.J
     |vpiInstance:
     \_module: work@JKFlipflop (work@JKFlipflop) dut.sv:1:1: , endln:7:10
   |vpiPort:
@@ -644,8 +667,6 @@ design: (work@JKFlipflop)
       |vpiFullName:work@JKFlipflop.K
       |vpiActual:
       \_logic_net: (work@JKFlipflop.K), line:1:21, endln:1:22, parent:work@JKFlipflop
-        |vpiName:K
-        |vpiFullName:work@JKFlipflop.K
     |vpiInstance:
     \_module: work@JKFlipflop (work@JKFlipflop) dut.sv:1:1: , endln:7:10
   |vpiPort:
@@ -658,8 +679,6 @@ design: (work@JKFlipflop)
       |vpiFullName:work@JKFlipflop.clk
       |vpiActual:
       \_logic_net: (work@JKFlipflop.clk), line:1:23, endln:1:26, parent:work@JKFlipflop
-        |vpiName:clk
-        |vpiFullName:work@JKFlipflop.clk
     |vpiInstance:
     \_module: work@JKFlipflop (work@JKFlipflop) dut.sv:1:1: , endln:7:10
   |vpiPort:
@@ -672,8 +691,6 @@ design: (work@JKFlipflop)
       |vpiFullName:work@JKFlipflop.reset
       |vpiActual:
       \_logic_net: (work@JKFlipflop.reset), line:1:27, endln:1:32, parent:work@JKFlipflop
-        |vpiName:reset
-        |vpiFullName:work@JKFlipflop.reset
     |vpiInstance:
     \_module: work@JKFlipflop (work@JKFlipflop) dut.sv:1:1: , endln:7:10
   |vpiPort:
@@ -686,8 +703,6 @@ design: (work@JKFlipflop)
       |vpiFullName:work@JKFlipflop.q
       |vpiActual:
       \_logic_net: (work@JKFlipflop.q), line:1:33, endln:1:34, parent:work@JKFlipflop
-        |vpiName:q
-        |vpiFullName:work@JKFlipflop.q
     |vpiInstance:
     \_module: work@JKFlipflop (work@JKFlipflop) dut.sv:1:1: , endln:7:10
   |vpiContAssign:
@@ -737,16 +752,32 @@ design: (work@JKFlipflop)
       |vpiFullName:work@JKFlipflop.w
       |vpiActual:
       \_logic_net: (work@JKFlipflop.w), line:4:8, endln:4:9, parent:work@JKFlipflop
-        |vpiName:w
-        |vpiFullName:work@JKFlipflop.w
-        |vpiNetType:1
   |vpiModule:
   \_module: work@D_Flipflop (work@JKFlipflop.dff) dut.sv:6:3: , endln:6:33, parent:work@JKFlipflop
+    |vpiName:dff
+    |vpiFullName:work@JKFlipflop.dff
     |vpiDefName:work@D_Flipflop
     |vpiDefFile:dut.sv
     |vpiDefLineNo:9
-    |vpiName:dff
-    |vpiFullName:work@JKFlipflop.dff
+    |vpiNet:
+    \_logic_net: (work@JKFlipflop.dff.Din), line:9:19, endln:9:22, parent:work@JKFlipflop.dff
+      |vpiName:Din
+      |vpiFullName:work@JKFlipflop.dff.Din
+    |vpiNet:
+    \_logic_net: (work@JKFlipflop.dff.clk), line:9:23, endln:9:26, parent:work@JKFlipflop.dff
+      |vpiName:clk
+      |vpiFullName:work@JKFlipflop.dff.clk
+    |vpiNet:
+    \_logic_net: (work@JKFlipflop.dff.reset), line:9:27, endln:9:32, parent:work@JKFlipflop.dff
+      |vpiName:reset
+      |vpiFullName:work@JKFlipflop.dff.reset
+    |vpiNet:
+    \_logic_net: (work@JKFlipflop.dff.q), line:9:33, endln:9:34, parent:work@JKFlipflop.dff
+      |vpiName:q
+      |vpiFullName:work@JKFlipflop.dff.q
+      |vpiNetType:48
+    |vpiInstance:
+    \_module: work@JKFlipflop (work@JKFlipflop) dut.sv:1:1: , endln:7:10
     |vpiPort:
     \_port: (Din), line:9:19, endln:9:22, parent:work@JKFlipflop.dff
       |vpiName:Din
@@ -763,8 +794,6 @@ design: (work@JKFlipflop)
         |vpiFullName:work@JKFlipflop.dff.Din
         |vpiActual:
         \_logic_net: (work@JKFlipflop.dff.Din), line:9:19, endln:9:22, parent:work@JKFlipflop.dff
-          |vpiName:Din
-          |vpiFullName:work@JKFlipflop.dff.Din
       |vpiInstance:
       \_module: work@D_Flipflop (work@JKFlipflop.dff) dut.sv:6:3: , endln:6:33, parent:work@JKFlipflop
     |vpiPort:
@@ -777,8 +806,6 @@ design: (work@JKFlipflop)
         |vpiFullName:work@JKFlipflop.clk
         |vpiActual:
         \_logic_net: (work@JKFlipflop.dff.clk), line:9:23, endln:9:26, parent:work@JKFlipflop.dff
-          |vpiName:clk
-          |vpiFullName:work@JKFlipflop.dff.clk
       |vpiLowConn:
       \_ref_obj: (work@JKFlipflop.dff.clk), parent:clk
         |vpiName:clk
@@ -797,8 +824,6 @@ design: (work@JKFlipflop)
         |vpiFullName:work@JKFlipflop.reset
         |vpiActual:
         \_logic_net: (work@JKFlipflop.dff.reset), line:9:27, endln:9:32, parent:work@JKFlipflop.dff
-          |vpiName:reset
-          |vpiFullName:work@JKFlipflop.dff.reset
       |vpiLowConn:
       \_ref_obj: (work@JKFlipflop.dff.reset), parent:reset
         |vpiName:reset
@@ -817,9 +842,6 @@ design: (work@JKFlipflop)
         |vpiFullName:work@JKFlipflop.q
         |vpiActual:
         \_logic_net: (work@JKFlipflop.dff.q), line:9:33, endln:9:34, parent:work@JKFlipflop.dff
-          |vpiName:q
-          |vpiFullName:work@JKFlipflop.dff.q
-          |vpiNetType:48
       |vpiLowConn:
       \_ref_obj: (work@JKFlipflop.dff.q), parent:q
         |vpiName:q
@@ -832,7 +854,6 @@ design: (work@JKFlipflop)
       \_module: work@D_Flipflop (work@JKFlipflop.dff) dut.sv:6:3: , endln:6:33, parent:work@JKFlipflop
     |vpiProcess:
     \_always: , line:12:5, endln:18:8, parent:work@JKFlipflop.dff
-      |vpiAlwaysType:1
       |vpiStmt:
       \_event_control: , line:12:11, endln:18:8
         |vpiCondition:
@@ -861,10 +882,10 @@ design: (work@JKFlipflop)
               |vpiBlocking:1
               |vpiRhs:
               \_constant: , line:15:7, endln:15:11
-                |vpiConstType:3
                 |vpiDecompile:1'b0
                 |vpiSize:1
                 |BIN:0
+                |vpiConstType:3
               |vpiLhs:
               \_ref_obj: (work@JKFlipflop.dff.q), line:15:5, endln:15:6
                 |vpiName:q
@@ -887,28 +908,7 @@ design: (work@JKFlipflop)
                 |vpiFullName:work@JKFlipflop.dff.q
                 |vpiActual:
                 \_logic_net: (work@JKFlipflop.dff.q), line:9:33, endln:9:34, parent:work@JKFlipflop.dff
-    |vpiNet:
-    \_logic_net: (work@JKFlipflop.dff.Din), line:9:19, endln:9:22, parent:work@JKFlipflop.dff
-    |vpiNet:
-    \_logic_net: (work@JKFlipflop.dff.clk), line:9:23, endln:9:26, parent:work@JKFlipflop.dff
-    |vpiNet:
-    \_logic_net: (work@JKFlipflop.dff.reset), line:9:27, endln:9:32, parent:work@JKFlipflop.dff
-    |vpiNet:
-    \_logic_net: (work@JKFlipflop.dff.q), line:9:33, endln:9:34, parent:work@JKFlipflop.dff
-    |vpiInstance:
-    \_module: work@JKFlipflop (work@JKFlipflop) dut.sv:1:1: , endln:7:10
-  |vpiNet:
-  \_logic_net: (work@JKFlipflop.w), line:4:8, endln:4:9, parent:work@JKFlipflop
-  |vpiNet:
-  \_logic_net: (work@JKFlipflop.J), line:1:19, endln:1:20, parent:work@JKFlipflop
-  |vpiNet:
-  \_logic_net: (work@JKFlipflop.K), line:1:21, endln:1:22, parent:work@JKFlipflop
-  |vpiNet:
-  \_logic_net: (work@JKFlipflop.clk), line:1:23, endln:1:26, parent:work@JKFlipflop
-  |vpiNet:
-  \_logic_net: (work@JKFlipflop.reset), line:1:27, endln:1:32, parent:work@JKFlipflop
-  |vpiNet:
-  \_logic_net: (work@JKFlipflop.q), line:1:33, endln:1:34, parent:work@JKFlipflop
+      |vpiAlwaysType:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

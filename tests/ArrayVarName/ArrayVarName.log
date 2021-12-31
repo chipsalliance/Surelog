@@ -122,12 +122,88 @@ n<> u<87> t<Top_level_rule> l<1:1> el<9:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:8:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiTaskFunc:
+  \_function: (work@top.get_a1), line:4:4, endln:7:15, parent:work@top
+    |vpiName:get_a1
+    |vpiFullName:work@top.get_a1
+    |vpiVariables:
+    \_array_var: (work@top.get_a1.a)
+      |vpiName:a
+      |vpiFullName:work@top.get_a1.a
+      |vpiRange:
+      \_range: , line:5:14, endln:5:15
+        |vpiLeftRange:
+        \_constant: , line:5:14, endln:5:15
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+        |vpiRightRange:
+        \_operation: 
+          |vpiOpType:11
+          |vpiOperand:
+          \_constant: , line:5:14, endln:5:15
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+          |vpiOperand:
+          \_constant: 
+            |vpiSize:64
+            |INT:1
+            |vpiConstType:7
+      |vpiReg:
+      \_int_var: , line:5:7, endln:5:10
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_int_var: , line:4:23, endln:4:26
+    |vpiStmt:
+    \_begin: (work@top.get_a1), parent:work@top.get_a1
+      |vpiFullName:work@top.get_a1
+      |vpiStmt:
+      \_assign_stmt: , parent:work@top.get_a1
+        |vpiRhs:
+        \_operation: , line:5:19, endln:5:26
+          |vpiOpType:75
+          |vpiOperand:
+          \_constant: , line:5:21, endln:5:22
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+          |vpiOperand:
+          \_constant: , line:5:24, endln:5:25
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiLhs:
+        \_array_var: (work@top.get_a1.a)
+      |vpiStmt:
+      \_return_stmt: , line:6:7, endln:6:13, parent:work@top.get_a1
+        |vpiCondition:
+        \_bit_select: (work@top.get_a1.a), line:6:14, endln:6:18
+          |vpiName:a
+          |vpiFullName:work@top.get_a1.a
+          |vpiIndex:
+          \_constant: , line:6:16, endln:6:17, parent:work@top.get_a1.a
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10, parent:work@top
+  |vpiNet:
+  \_logic_net: (work@top.o), line:1:23, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
   |vpiPort:
   \_port: (o), line:1:23, parent:work@top
     |vpiName:o
@@ -136,8 +212,6 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.o), line:1:23, parent:work@top
-        |vpiName:o
-        |vpiFullName:work@top.o
   |vpiContAssign:
   \_cont_assign: , line:2:11, endln:2:23, parent:work@top
     |vpiRhs:
@@ -155,12 +229,51 @@ design: (work@top)
         |vpiFullName:work@top.o
         |vpiAutomatic:1
         |vpiVisibility:1
+|uhdmtopModules:
+\_module: work@top (work@top) dut.sv:1:1: , endln:8:10
+  |vpiName:work@top
+  |vpiVariables:
+  \_int_var: (work@top.o), line:1:23, endln:1:24, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiAutomatic:1
+    |vpiVisibility:1
+  |vpiDefName:work@top
   |vpiTaskFunc:
   \_function: (work@top.get_a1), line:4:4, endln:7:15, parent:work@top
-    |vpiVisibility:1
-    |vpiAutomatic:1
     |vpiName:get_a1
     |vpiFullName:work@top.get_a1
+    |vpiVariables:
+    \_array_var: (work@top.get_a1.a), parent:work@top.get_a1
+      |vpiName:a
+      |vpiFullName:work@top.get_a1.a
+      |vpiRange:
+      \_range: , line:5:14, endln:5:15, parent:work@top.get_a1.a
+        |vpiLeftRange:
+        \_constant: , line:5:14, endln:5:15
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+        |vpiRightRange:
+        \_operation: 
+          |vpiOpType:11
+          |vpiOperand:
+          \_constant: , line:5:14, endln:5:15
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+          |vpiOperand:
+          \_constant: 
+            |vpiSize:64
+            |INT:1
+            |vpiConstType:7
+      |vpiReg:
+      \_int_var: (work@top.get_a1.a), line:5:7, endln:5:10, parent:work@top.get_a1.a
+        |vpiFullName:work@top.get_a1.a
+    |vpiVisibility:1
+    |vpiAutomatic:1
     |vpiReturn:
     \_int_var: , line:4:23, endln:4:26
     |vpiStmt:
@@ -173,66 +286,48 @@ design: (work@top)
           |vpiOpType:75
           |vpiOperand:
           \_constant: , line:5:21, endln:5:22
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
           |vpiOperand:
           \_constant: , line:5:24, endln:5:25
-            |vpiConstType:9
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiConstType:9
         |vpiLhs:
         \_array_var: (work@top.get_a1.a)
           |vpiName:a
           |vpiFullName:work@top.get_a1.a
-          |vpiReg:
-          \_int_var: , line:5:7, endln:5:10
           |vpiRange:
-          \_range: , line:5:14, endln:5:15
+          \_range: , line:5:14, endln:5:15, parent:work@top.get_a1.a
             |vpiLeftRange:
             \_constant: , line:5:14, endln:5:15
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
             |vpiRightRange:
             \_operation: 
               |vpiOpType:11
               |vpiOperand:
               \_constant: , line:5:14, endln:5:15
-                |vpiConstType:9
-                |vpiDecompile:2
-                |vpiSize:64
-                |UINT:2
               |vpiOperand:
               \_constant: 
-                |vpiConstType:7
-                |vpiSize:64
-                |INT:1
+          |vpiReg:
+          \_int_var: (work@top.get_a1.a), line:5:7, endln:5:10, parent:work@top.get_a1.a
+            |vpiFullName:work@top.get_a1.a
       |vpiStmt:
       \_return_stmt: , line:6:7, endln:6:13, parent:work@top.get_a1
         |vpiCondition:
-        \_bit_select: (work@top.get_a1.a), line:6:14, endln:6:18
+        \_bit_select: (work@top.get_a1), line:6:14, endln:6:18, parent:work@top.get_a1
           |vpiName:a
-          |vpiFullName:work@top.get_a1.a
+          |vpiFullName:work@top.get_a1
           |vpiIndex:
           \_constant: , line:6:16, endln:6:17, parent:work@top.get_a1.a
-            |vpiConstType:9
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiConstType:9
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10, parent:work@top
-    |vpiVariables:
-    \_array_var: (work@top.get_a1.a)
-  |vpiNet:
-  \_logic_net: (work@top.o), line:1:23, parent:work@top
-|uhdmtopModules:
-\_module: work@top (work@top) dut.sv:1:1: , endln:8:10
-  |vpiDefName:work@top
-  |vpiName:work@top
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10
   |vpiPort:
   \_port: (o), line:1:23, endln:1:24, parent:work@top
     |vpiName:o
@@ -243,10 +338,6 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_int_var: (work@top.o), line:1:23, endln:1:24, parent:work@top
-        |vpiName:o
-        |vpiFullName:work@top.o
-        |vpiAutomatic:1
-        |vpiVisibility:1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:8:10
   |vpiContAssign:
@@ -262,97 +353,6 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_int_var: (work@top.o), line:1:23, endln:1:24, parent:work@top
-  |vpiTaskFunc:
-  \_function: (work@top.get_a1), line:4:4, endln:7:15, parent:work@top
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiName:get_a1
-    |vpiFullName:work@top.get_a1
-    |vpiReturn:
-    \_int_var: , line:4:23, endln:4:26
-    |vpiStmt:
-    \_begin: (work@top.get_a1), parent:work@top.get_a1
-      |vpiFullName:work@top.get_a1
-      |vpiStmt:
-      \_assign_stmt: , parent:work@top.get_a1
-        |vpiRhs:
-        \_operation: , line:5:19, endln:5:26
-          |vpiOpType:75
-          |vpiOperand:
-          \_constant: , line:5:21, endln:5:22
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-          |vpiOperand:
-          \_constant: , line:5:24, endln:5:25
-            |vpiConstType:9
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-        |vpiLhs:
-        \_array_var: (work@top.get_a1.a)
-          |vpiName:a
-          |vpiFullName:work@top.get_a1.a
-          |vpiReg:
-          \_int_var: (work@top.get_a1.a), line:5:7, endln:5:10, parent:work@top.get_a1.a
-            |vpiFullName:work@top.get_a1.a
-          |vpiRange:
-          \_range: , line:5:14, endln:5:15, parent:work@top.get_a1.a
-            |vpiLeftRange:
-            \_constant: , line:5:14, endln:5:15
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-            |vpiRightRange:
-            \_operation: 
-              |vpiOpType:11
-              |vpiOperand:
-              \_constant: , line:5:14, endln:5:15
-                |vpiConstType:9
-                |vpiDecompile:2
-                |vpiSize:64
-                |UINT:2
-              |vpiOperand:
-              \_constant: 
-                |vpiConstType:7
-                |vpiSize:64
-                |INT:1
-      |vpiStmt:
-      \_return_stmt: , line:6:7, endln:6:13, parent:work@top.get_a1
-        |vpiCondition:
-        \_bit_select: (work@top.get_a1), line:6:14, endln:6:18, parent:work@top.get_a1
-          |vpiName:a
-          |vpiFullName:work@top.get_a1
-          |vpiIndex:
-          \_constant: , line:6:16, endln:6:17, parent:work@top.get_a1.a
-            |vpiConstType:9
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10
-    |vpiVariables:
-    \_array_var: (work@top.get_a1.a), parent:work@top.get_a1
-      |vpiName:a
-      |vpiFullName:work@top.get_a1.a
-      |vpiReg:
-      \_int_var: (work@top.get_a1.a), line:5:7, endln:5:10, parent:work@top.get_a1.a
-        |vpiFullName:work@top.get_a1.a
-      |vpiRange:
-      \_range: , line:5:14, endln:5:15, parent:work@top.get_a1.a
-        |vpiLeftRange:
-        \_constant: , line:5:14, endln:5:15
-        |vpiRightRange:
-        \_operation: 
-          |vpiOpType:11
-          |vpiOperand:
-          \_constant: , line:5:14, endln:5:15
-          |vpiOperand:
-          \_constant: 
-  |vpiVariables:
-  \_int_var: (work@top.o), line:1:23, endln:1:24, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

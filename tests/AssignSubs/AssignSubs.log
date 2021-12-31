@@ -198,46 +198,91 @@ n<> u<157> t<Top_level_rule> l<1:1> el<20:1>
 
 ====== UHDM =======
 design: (work@dut)
-|vpiName:work@dut
 |vpiElaborated:1
+|vpiName:work@dut
 |uhdmallPackages:
 \_package: pkg (pkg::) dut.sv:1:1: , endln:5:11, parent:work@dut
-  |vpiDefName:pkg
   |vpiName:pkg
   |vpiFullName:pkg::
   |vpiTypedef:
   \_enum_typespec: (pkg::priv_lvl_e), line:4:5, endln:4:15
     |vpiName:pkg::priv_lvl_e
+    |vpiInstance:
+    \_package: pkg (pkg::) dut.sv:1:1: , endln:5:11, parent:work@dut
     |vpiBaseTypespec:
     \_logic_typespec: , line:2:15, endln:2:20
+      |vpiInstance:
+      \_package: pkg (pkg::) dut.sv:1:1: , endln:5:11, parent:work@dut
       |vpiRange:
       \_range: , line:2:22, endln:2:25
         |vpiLeftRange:
         \_constant: , line:2:22, endln:2:23
-          |vpiConstType:9
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
+          |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:2:24, endln:2:25
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-      |vpiInstance:
-      \_package: pkg (pkg::) dut.sv:1:1: , endln:5:11, parent:work@dut
+          |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (PRIV_LVL_M), line:3:3, endln:3:13
       |vpiName:PRIV_LVL_M
-      |vpiDecompile:4'b11
       |UINT:3
+      |vpiDecompile:4'b11
       |vpiSize:4
-    |vpiInstance:
-    \_package: pkg (pkg::) dut.sv:1:1: , endln:5:11, parent:work@dut
+  |vpiDefName:pkg
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:7:1: , endln:19:10, parent:work@dut
-  |vpiDefName:work@dut
   |vpiFullName:work@dut
+  |vpiTypedef:
+  \_enum_typespec: (pkg::priv_lvl_e), line:4:5, endln:4:15
+    |vpiName:pkg::priv_lvl_e
+    |vpiInstance:
+    \_package: pkg (pkg::) dut.sv:1:1: , endln:5:11, parent:work@dut
+      |vpiName:pkg
+      |vpiFullName:pkg::
+      |vpiTypedef:
+      \_enum_typespec: (pkg::priv_lvl_e), line:4:5, endln:4:15
+      |vpiDefName:pkg
+    |vpiBaseTypespec:
+    \_logic_typespec: , line:2:15, endln:2:20
+      |vpiInstance:
+      \_package: pkg (pkg::) dut.sv:1:1: , endln:5:11, parent:work@dut
+      |vpiRange:
+      \_range: , line:2:22, endln:2:25
+        |vpiLeftRange:
+        \_constant: , line:2:22, endln:2:23
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:2:24, endln:2:25
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiEnumConst:
+    \_enum_const: (PRIV_LVL_M), line:3:3, endln:3:13
+      |vpiName:PRIV_LVL_M
+      |UINT:3
+      |vpiDecompile:4'b11
+      |vpiSize:4
+  |vpiTypedef:
+  \_import: (pkg), line:10:9, endln:10:15
+  |vpiDefName:work@dut
+  |vpiNet:
+  \_logic_net: (work@dut.c), line:12:14, parent:work@dut
+    |vpiName:c
+    |vpiFullName:work@dut.c
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.a0), line:7:12, parent:work@dut
+    |vpiName:a0
+    |vpiFullName:work@dut.a0
   |vpiPort:
   \_port: (a0), line:7:12, parent:work@dut
     |vpiName:a0
@@ -246,55 +291,98 @@ design: (work@dut)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@dut.a0), line:7:12, parent:work@dut
-        |vpiName:a0
-        |vpiFullName:work@dut.a0
-  |vpiNet:
-  \_logic_net: (work@dut.c), line:12:14, parent:work@dut
+|uhdmtopModules:
+\_module: work@dut (work@dut) dut.sv:7:1: , endln:19:10
+  |vpiName:work@dut
+  |vpiVariables:
+  \_array_var: (work@dut.c), line:12:14, endln:12:15, parent:work@dut
+    |vpiSize:4
     |vpiName:c
     |vpiFullName:work@dut.c
-    |vpiNetType:36
-  |vpiNet:
-  \_logic_net: (work@dut.a0), line:7:12, parent:work@dut
+    |vpiAutomatic:1
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiArrayType:1
+    |vpiRange:
+    \_range: , line:12:17, endln:12:18
+      |vpiLeftRange:
+      \_constant: , line:12:17, endln:12:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: 
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , line:12:17, endln:12:18
+          |vpiDecompile:4
+          |vpiSize:64
+          |UINT:4
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: 
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiReg:
+    \_logic_var: (work@dut.c), parent:work@dut.c
+      |vpiFullName:work@dut.c
+      |vpiRange:
+      \_range: , line:12:9, endln:12:12
+        |vpiLeftRange:
+        \_constant: , line:12:9, endln:12:10
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:12:11, endln:12:12
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
   |vpiTypedef:
   \_enum_typespec: (pkg::priv_lvl_e), line:4:5, endln:4:15
     |vpiName:pkg::priv_lvl_e
+    |vpiInstance:
+    \_package: pkg (pkg::) dut.sv:1:1: , endln:5:11, parent:work@dut
+      |vpiName:pkg
+      |vpiFullName:pkg::
+      |vpiTypedef:
+      \_enum_typespec: (pkg::priv_lvl_e), line:4:5, endln:4:15
+      |vpiDefName:pkg
     |vpiBaseTypespec:
     \_logic_typespec: , line:2:15, endln:2:20
+      |vpiInstance:
+      \_package: pkg (pkg::) dut.sv:1:1: , endln:5:11, parent:work@dut
       |vpiRange:
       \_range: , line:2:22, endln:2:25
         |vpiLeftRange:
         \_constant: , line:2:22, endln:2:23
-          |vpiConstType:9
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
+          |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:2:24, endln:2:25
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-      |vpiInstance:
-      \_package: pkg (pkg::) dut.sv:1:1: , endln:5:11, parent:work@dut
-        |vpiDefName:pkg
-        |vpiName:pkg
-        |vpiFullName:pkg::
-        |vpiTypedef:
-        \_enum_typespec: (pkg::priv_lvl_e), line:4:5, endln:4:15
+          |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (PRIV_LVL_M), line:3:3, endln:3:13
       |vpiName:PRIV_LVL_M
-      |vpiDecompile:4'b11
       |UINT:3
+      |vpiDecompile:4'b11
       |vpiSize:4
-    |vpiInstance:
-    \_package: pkg (pkg::) dut.sv:1:1: , endln:5:11, parent:work@dut
   |vpiTypedef:
   \_import: (pkg), line:10:9, endln:10:15
-|uhdmtopModules:
-\_module: work@dut (work@dut) dut.sv:7:1: , endln:19:10
   |vpiDefName:work@dut
-  |vpiName:work@dut
+  |vpiNet:
+  \_logic_net: (work@dut.a0), line:7:12, endln:7:14, parent:work@dut
+    |vpiName:a0
+    |vpiFullName:work@dut.a0
   |vpiPort:
   \_port: (a0), line:7:12, endln:7:14, parent:work@dut
     |vpiName:a0
@@ -305,8 +393,6 @@ design: (work@dut)
       |vpiFullName:work@dut.a0
       |vpiActual:
       \_logic_net: (work@dut.a0), line:7:12, endln:7:14, parent:work@dut
-        |vpiName:a0
-        |vpiFullName:work@dut.a0
     |vpiInstance:
     \_module: work@dut (work@dut) dut.sv:7:1: , endln:19:10
   |vpiGenScopeArray:
@@ -316,9 +402,13 @@ design: (work@dut)
     |vpiGenScope:
     \_gen_scope: (work@dut.genblk1[0]), parent:work@dut.genblk1[0]
       |vpiFullName:work@dut.genblk1[0]
+      |vpiParameter:
+      \_parameter: (work@dut.genblk1[0].i), line:14, parent:work@dut.genblk1[0]
+        |UINT:0
+        |vpiName:i
+        |vpiFullName:work@dut.genblk1[0].i
       |vpiProcess:
       \_always: , line:15:3, endln:17:6, parent:work@dut.genblk1[0]
-        |vpiAlwaysType:1
         |vpiStmt:
         \_event_control: , line:15:10, endln:17:6
           |vpiCondition:
@@ -346,10 +436,6 @@ design: (work@dut)
                   |vpiFullName:work@dut.genblk1[0].PRIV_LVL_M
                   |vpiActual:
                   \_enum_const: (PRIV_LVL_M), line:3:3, endln:3:13
-                    |vpiName:PRIV_LVL_M
-                    |vpiDecompile:4'b11
-                    |UINT:3
-                    |vpiSize:4
               |vpiLhs:
               \_bit_select: (work@dut.genblk1[0].c), line:16:4, endln:16:5, parent:work@dut.genblk1[0].c
                 |vpiName:c
@@ -360,93 +446,7 @@ design: (work@dut)
                   |vpiFullName:work@dut.genblk1[0].c.i
                   |vpiActual:
                   \_parameter: (work@dut.genblk1[0].i), line:14, parent:work@dut.genblk1[0]
-                    |vpiName:i
-                    |vpiFullName:work@dut.genblk1[0].i
-                    |UINT:0
-      |vpiParameter:
-      \_parameter: (work@dut.genblk1[0].i), line:14, parent:work@dut.genblk1[0]
-  |vpiNet:
-  \_logic_net: (work@dut.a0), line:7:12, endln:7:14, parent:work@dut
-  |vpiVariables:
-  \_array_var: (work@dut.c), line:12:14, endln:12:15, parent:work@dut
-    |vpiArrayType:1
-    |vpiName:c
-    |vpiFullName:work@dut.c
-    |vpiAutomatic:1
-    |vpiRandType:1
-    |vpiVisibility:1
-    |vpiSize:4
-    |vpiReg:
-    \_logic_var: (work@dut.c), parent:work@dut.c
-      |vpiFullName:work@dut.c
-      |vpiRange:
-      \_range: , line:12:9, endln:12:12
-        |vpiLeftRange:
-        \_constant: , line:12:9, endln:12:10
-          |vpiConstType:9
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-        |vpiRightRange:
-        \_constant: , line:12:11, endln:12:12
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-    |vpiRange:
-    \_range: , line:12:17, endln:12:18
-      |vpiLeftRange:
-      \_constant: , line:12:17, endln:12:18
-        |vpiConstType:9
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-      |vpiRightRange:
-      \_operation: 
-        |vpiOpType:11
-        |vpiOperand:
-        \_constant: , line:12:17, endln:12:18
-          |vpiConstType:9
-          |vpiDecompile:4
-          |vpiSize:64
-          |UINT:4
-        |vpiOperand:
-        \_constant: 
-          |vpiConstType:7
-          |vpiSize:64
-          |INT:1
-  |vpiTypedef:
-  \_enum_typespec: (pkg::priv_lvl_e), line:4:5, endln:4:15
-    |vpiName:pkg::priv_lvl_e
-    |vpiBaseTypespec:
-    \_logic_typespec: , line:2:15, endln:2:20
-      |vpiRange:
-      \_range: , line:2:22, endln:2:25
-        |vpiLeftRange:
-        \_constant: , line:2:22, endln:2:23
-          |vpiConstType:9
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-        |vpiRightRange:
-        \_constant: , line:2:24, endln:2:25
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-      |vpiInstance:
-      \_package: pkg (pkg::) dut.sv:1:1: , endln:5:11, parent:work@dut
-        |vpiDefName:pkg
-        |vpiName:pkg
-        |vpiFullName:pkg::
-        |vpiTypedef:
-        \_enum_typespec: (pkg::priv_lvl_e), line:4:5, endln:4:15
-    |vpiEnumConst:
-    \_enum_const: (PRIV_LVL_M), line:3:3, endln:3:13
-    |vpiInstance:
-    \_package: pkg (pkg::) dut.sv:1:1: , endln:5:11, parent:work@dut
-  |vpiTypedef:
-  \_import: (pkg), line:10:9, endln:10:15
+        |vpiAlwaysType:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

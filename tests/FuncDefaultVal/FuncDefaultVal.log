@@ -209,29 +209,29 @@ n<> u<174> t<Top_level_rule> l<1:1> el<11:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:10:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiDefName:work@top
   |vpiTaskFunc:
   \_function: (work@top.dasm), line:5:1, endln:8:12, parent:work@top
-    |vpiVisibility:1
     |vpiName:dasm
     |vpiFullName:work@top.dasm
+    |vpiVisibility:1
     |vpiReturn:
     \_string_var: , line:5:10, endln:5:16
     |vpiIODecl:
     \_io_decl: (tid)
-      |vpiName:tid
       |vpiDirection:1
+      |vpiName:tid
       |vpiExpr:
       \_constant: , line:5:33, endln:5:34
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
     |vpiStmt:
     \_begin: (work@top.dasm), parent:work@top.dasm
       |vpiFullName:work@top.dasm
@@ -247,30 +247,29 @@ design: (work@top)
             |vpiOpType:14
             |vpiOperand:
             \_part_select: , line:6:13, endln:6:24, parent:work@top.dasm.opcode
-              |vpiConstantSelect:1
               |vpiParent:
               \_ref_obj: opcode (work@top.dasm.opcode)
+              |vpiConstantSelect:1
               |vpiLeftRange:
               \_constant: , line:6:20, endln:6:21
-                |vpiConstType:9
                 |vpiDecompile:1
                 |vpiSize:64
                 |UINT:1
+                |vpiConstType:9
               |vpiRightRange:
               \_constant: , line:6:22, endln:6:23
-                |vpiConstType:9
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
+                |vpiConstType:9
             |vpiOperand:
             \_constant: , line:6:28, endln:6:33
-              |vpiConstType:3
               |vpiDecompile:2'b11
               |vpiSize:2
               |BIN:11
+              |vpiConstType:3
           |vpiOperand:
           \_func_call: (dasm32), line:6:37, endln:6:60
-            |vpiName:dasm32
             |vpiArgument:
             \_ref_obj: (work@top.dasm.opcode), line:6:44, endln:6:50, parent:dasm32
               |vpiName:opcode
@@ -283,9 +282,9 @@ design: (work@top)
             \_ref_obj: (work@top.dasm.tid), line:6:56, endln:6:59, parent:dasm32
               |vpiName:tid
               |vpiFullName:work@top.dasm.tid
+            |vpiName:dasm32
           |vpiOperand:
           \_func_call: (dasm16), line:6:63, endln:6:86
-            |vpiName:dasm16
             |vpiArgument:
             \_ref_obj: (work@top.dasm.opcode), line:6:70, endln:6:76, parent:dasm16
               |vpiName:opcode
@@ -298,6 +297,7 @@ design: (work@top)
             \_ref_obj: (work@top.dasm.tid), line:6:82, endln:6:85, parent:dasm16
               |vpiName:tid
               |vpiFullName:work@top.dasm.tid
+            |vpiName:dasm16
         |vpiLhs:
         \_ref_obj: (work@top.dasm.dasm), line:6:5, endln:6:9, parent:work@top.dasm
           |vpiName:dasm
@@ -336,25 +336,87 @@ design: (work@top)
     |vpiFullName:work@top.gpr
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:10:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiVariables:
+  \_array_var: (work@top.gpr), line:3:18, endln:3:21, parent:work@top
+    |vpiSize:2
+    |vpiName:gpr
+    |vpiFullName:work@top.gpr
+    |vpiAutomatic:1
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiArrayType:1
+    |vpiRange:
+    \_range: , line:3:22, endln:3:23
+      |vpiLeftRange:
+      \_constant: , line:3:22, endln:3:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: 
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , line:3:22, endln:3:23
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: 
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiReg:
+    \_bit_var: (work@top.gpr), parent:work@top.gpr
+      |vpiFullName:work@top.gpr
+      |vpiRange:
+      \_range: , line:3:5, endln:3:9
+        |vpiLeftRange:
+        \_constant: , line:3:5, endln:3:7
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:8, endln:3:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiRange:
+      \_range: , line:3:12, endln:3:16
+        |vpiLeftRange:
+        \_constant: , line:3:12, endln:3:14
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:15, endln:3:16
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+  |vpiDefName:work@top
   |vpiTaskFunc:
   \_function: (work@top.dasm), line:5:1, endln:8:12, parent:work@top
-    |vpiVisibility:1
     |vpiName:dasm
     |vpiFullName:work@top.dasm
+    |vpiVisibility:1
     |vpiReturn:
     \_string_var: , line:5:10, endln:5:16
     |vpiIODecl:
     \_io_decl: (tid), parent:work@top.dasm
-      |vpiName:tid
       |vpiDirection:1
+      |vpiName:tid
       |vpiExpr:
       \_constant: , line:5:33, endln:5:34
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
     |vpiStmt:
     \_begin: (work@top.dasm), parent:work@top.dasm
       |vpiFullName:work@top.dasm
@@ -370,30 +432,29 @@ design: (work@top)
             |vpiOpType:14
             |vpiOperand:
             \_part_select: , line:6:13, endln:6:24, parent:work@top.dasm.opcode
-              |vpiConstantSelect:1
               |vpiParent:
               \_ref_obj: (work@top.dasm.opcode), parent:work@top.dasm.opcode
+              |vpiConstantSelect:1
               |vpiLeftRange:
               \_constant: , line:6:20, endln:6:21
-                |vpiConstType:9
                 |vpiDecompile:1
                 |vpiSize:64
                 |UINT:1
+                |vpiConstType:9
               |vpiRightRange:
               \_constant: , line:6:22, endln:6:23
-                |vpiConstType:9
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
+                |vpiConstType:9
             |vpiOperand:
             \_constant: , line:6:28, endln:6:33
-              |vpiConstType:3
               |vpiDecompile:2'b11
               |vpiSize:2
               |BIN:11
+              |vpiConstType:3
           |vpiOperand:
           \_func_call: (dasm32), line:6:37, endln:6:60
-            |vpiName:dasm32
             |vpiArgument:
             \_ref_obj: (work@top.dasm.opcode), line:6:44, endln:6:50, parent:dasm32
               |vpiName:opcode
@@ -408,9 +469,9 @@ design: (work@top)
               |vpiFullName:work@top.dasm.tid
               |vpiActual:
               \_io_decl: (tid), parent:work@top.dasm
+            |vpiName:dasm32
           |vpiOperand:
           \_func_call: (dasm16), line:6:63, endln:6:86
-            |vpiName:dasm16
             |vpiArgument:
             \_ref_obj: (work@top.dasm.opcode), line:6:70, endln:6:76, parent:dasm16
               |vpiName:opcode
@@ -425,6 +486,7 @@ design: (work@top)
               |vpiFullName:work@top.dasm.tid
               |vpiActual:
               \_io_decl: (tid), parent:work@top.dasm
+            |vpiName:dasm16
         |vpiLhs:
         \_ref_obj: (work@top.dasm.dasm), line:6:5, endln:6:9
           |vpiName:dasm
@@ -461,68 +523,6 @@ design: (work@top)
               |vpiFullName:work@top.dasm.gpr.regn
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:10:10
-  |vpiVariables:
-  \_array_var: (work@top.gpr), line:3:18, endln:3:21, parent:work@top
-    |vpiArrayType:1
-    |vpiName:gpr
-    |vpiFullName:work@top.gpr
-    |vpiAutomatic:1
-    |vpiRandType:1
-    |vpiVisibility:1
-    |vpiSize:2
-    |vpiReg:
-    \_bit_var: (work@top.gpr), parent:work@top.gpr
-      |vpiFullName:work@top.gpr
-      |vpiRange:
-      \_range: , line:3:5, endln:3:9
-        |vpiLeftRange:
-        \_constant: , line:3:5, endln:3:7
-          |vpiConstType:9
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-        |vpiRightRange:
-        \_constant: , line:3:8, endln:3:9
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-      |vpiRange:
-      \_range: , line:3:12, endln:3:16
-        |vpiLeftRange:
-        \_constant: , line:3:12, endln:3:14
-          |vpiConstType:9
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-        |vpiRightRange:
-        \_constant: , line:3:15, endln:3:16
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-    |vpiRange:
-    \_range: , line:3:22, endln:3:23
-      |vpiLeftRange:
-      \_constant: , line:3:22, endln:3:23
-        |vpiConstType:9
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-      |vpiRightRange:
-      \_operation: 
-        |vpiOpType:11
-        |vpiOperand:
-        \_constant: , line:3:22, endln:3:23
-          |vpiConstType:9
-          |vpiDecompile:2
-          |vpiSize:64
-          |UINT:2
-        |vpiOperand:
-        \_constant: 
-          |vpiConstType:7
-          |vpiSize:64
-          |INT:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -34,12 +34,26 @@
 
 ====== UHDM =======
 design: (work@test)
-|vpiName:work@test
 |vpiElaborated:1
+|vpiName:work@test
 |uhdmallModules:
 \_module: work@test (work@test) dut.sv:1:1: , endln:8:10, parent:work@test
-  |vpiDefName:work@test
   |vpiFullName:work@test
+  |vpiDefName:work@test
+  |vpiNet:
+  \_logic_net: (work@test.state), line:1:24, parent:work@test
+    |vpiName:state
+    |vpiFullName:work@test.state
+    |vpiNetType:48
+  |vpiNet:
+  \_logic_net: (work@test.clk), line:1:37, parent:work@test
+    |vpiName:clk
+    |vpiFullName:work@test.clk
+  |vpiNet:
+  \_logic_net: (work@test.data), line:2:12, parent:work@test
+    |vpiName:data
+    |vpiFullName:work@test.data
+    |vpiNetType:48
   |vpiPort:
   \_port: (state), line:1:24, parent:work@test
     |vpiName:state
@@ -48,9 +62,6 @@ design: (work@test)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@test.state), line:1:24, parent:work@test
-        |vpiName:state
-        |vpiFullName:work@test.state
-        |vpiNetType:48
   |vpiPort:
   \_port: (clk), line:1:37, parent:work@test
     |vpiName:clk
@@ -59,11 +70,8 @@ design: (work@test)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@test.clk), line:1:37, parent:work@test
-        |vpiName:clk
-        |vpiFullName:work@test.clk
   |vpiProcess:
   \_always: , line:4:1, endln:6:4, parent:work@test
-    |vpiAlwaysType:1
     |vpiStmt:
     \_event_control: , line:4:8, endln:6:4
       |vpiCondition:
@@ -88,57 +96,77 @@ design: (work@test)
             |vpiOpType:24
             |vpiOperand:
             \_part_select: , line:5:16, endln:5:25, parent:work@test.data
-              |vpiConstantSelect:1
               |vpiParent:
               \_ref_obj: data (work@test.data)
+              |vpiConstantSelect:1
               |vpiLeftRange:
               \_constant: , line:5:21, endln:5:22
-                |vpiConstType:9
                 |vpiDecompile:7
                 |vpiSize:64
                 |UINT:7
+                |vpiConstType:9
               |vpiRightRange:
               \_constant: , line:5:23, endln:5:24
-                |vpiConstType:9
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
+                |vpiConstType:9
             |vpiOperand:
             \_constant: , line:5:28, endln:5:29
-              |vpiConstType:9
               |vpiDecompile:2
               |vpiSize:64
               |UINT:2
+              |vpiConstType:9
           |vpiLhs:
           \_part_select: , line:5:3, endln:5:7, parent:work@test.data
-            |vpiConstantSelect:1
             |vpiParent:
             \_ref_obj: data (work@test.data)
+            |vpiConstantSelect:1
             |vpiLeftRange:
             \_constant: , line:5:8, endln:5:9
-              |vpiConstType:9
               |vpiDecompile:7
               |vpiSize:64
               |UINT:7
+              |vpiConstType:9
             |vpiRightRange:
             \_constant: , line:5:10, endln:5:11
-              |vpiConstType:9
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+              |vpiConstType:9
+    |vpiAlwaysType:1
+|uhdmtopModules:
+\_module: work@test (work@test) dut.sv:1:1: , endln:8:10
+  |vpiName:work@test
+  |vpiDefName:work@test
   |vpiNet:
-  \_logic_net: (work@test.state), line:1:24, parent:work@test
+  \_logic_net: (work@test.state), line:1:24, endln:1:29, parent:work@test
+    |vpiName:state
+    |vpiFullName:work@test.state
+    |vpiNetType:48
   |vpiNet:
-  \_logic_net: (work@test.clk), line:1:37, parent:work@test
+  \_logic_net: (work@test.clk), line:1:37, endln:1:40, parent:work@test
+    |vpiName:clk
+    |vpiFullName:work@test.clk
   |vpiNet:
-  \_logic_net: (work@test.data), line:2:12, parent:work@test
+  \_logic_net: (work@test.data), line:2:12, endln:2:16, parent:work@test
     |vpiName:data
     |vpiFullName:work@test.data
     |vpiNetType:48
-|uhdmtopModules:
-\_module: work@test (work@test) dut.sv:1:1: , endln:8:10
-  |vpiDefName:work@test
-  |vpiName:work@test
+    |vpiRange:
+    \_range: , line:2:6, endln:2:10
+      |vpiLeftRange:
+      \_constant: , line:2:6, endln:2:8
+        |vpiDecompile:15
+        |vpiSize:64
+        |UINT:15
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:2:9, endln:2:10
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
   |vpiPort:
   \_port: (state), line:1:24, endln:1:29, parent:work@test
     |vpiName:state
@@ -149,9 +177,6 @@ design: (work@test)
       |vpiFullName:work@test.state
       |vpiActual:
       \_logic_net: (work@test.state), line:1:24, endln:1:29, parent:work@test
-        |vpiName:state
-        |vpiFullName:work@test.state
-        |vpiNetType:48
     |vpiInstance:
     \_module: work@test (work@test) dut.sv:1:1: , endln:8:10
   |vpiPort:
@@ -164,13 +189,10 @@ design: (work@test)
       |vpiFullName:work@test.clk
       |vpiActual:
       \_logic_net: (work@test.clk), line:1:37, endln:1:40, parent:work@test
-        |vpiName:clk
-        |vpiFullName:work@test.clk
     |vpiInstance:
     \_module: work@test (work@test) dut.sv:1:1: , endln:8:10
   |vpiProcess:
   \_always: , line:4:1, endln:6:4, parent:work@test
-    |vpiAlwaysType:1
     |vpiStmt:
     \_event_control: , line:4:8, endln:6:4
       |vpiCondition:
@@ -193,67 +215,45 @@ design: (work@test)
             |vpiOpType:24
             |vpiOperand:
             \_part_select: , line:5:16, endln:5:25, parent:work@test.data
-              |vpiConstantSelect:1
               |vpiParent:
               \_ref_obj: (work@test.data), parent:work@test.data
+              |vpiConstantSelect:1
               |vpiLeftRange:
               \_constant: , line:5:21, endln:5:22
-                |vpiConstType:9
                 |vpiDecompile:7
                 |vpiSize:64
                 |UINT:7
+                |vpiConstType:9
               |vpiRightRange:
               \_constant: , line:5:23, endln:5:24
-                |vpiConstType:9
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
+                |vpiConstType:9
             |vpiOperand:
             \_constant: , line:5:28, endln:5:29
-              |vpiConstType:9
               |vpiDecompile:2
               |vpiSize:64
               |UINT:2
+              |vpiConstType:9
           |vpiLhs:
           \_part_select: , line:5:3, endln:5:7, parent:work@test.data
-            |vpiConstantSelect:1
             |vpiParent:
             \_ref_obj: (work@test.data), parent:work@test.data
+            |vpiConstantSelect:1
             |vpiLeftRange:
             \_constant: , line:5:8, endln:5:9
-              |vpiConstType:9
               |vpiDecompile:7
               |vpiSize:64
               |UINT:7
+              |vpiConstType:9
             |vpiRightRange:
             \_constant: , line:5:10, endln:5:11
-              |vpiConstType:9
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
-  |vpiNet:
-  \_logic_net: (work@test.state), line:1:24, endln:1:29, parent:work@test
-  |vpiNet:
-  \_logic_net: (work@test.clk), line:1:37, endln:1:40, parent:work@test
-  |vpiNet:
-  \_logic_net: (work@test.data), line:2:12, endln:2:16, parent:work@test
-    |vpiName:data
-    |vpiFullName:work@test.data
-    |vpiNetType:48
-    |vpiRange:
-    \_range: , line:2:6, endln:2:10
-      |vpiLeftRange:
-      \_constant: , line:2:6, endln:2:8
-        |vpiConstType:9
-        |vpiDecompile:15
-        |vpiSize:64
-        |UINT:15
-      |vpiRightRange:
-      \_constant: , line:2:9, endln:2:10
-        |vpiConstType:9
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
+              |vpiConstType:9
+    |vpiAlwaysType:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

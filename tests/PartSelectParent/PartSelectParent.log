@@ -127,12 +127,16 @@ n<> u<92> t<Top_level_rule> l<1:1> el<9:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:8:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.o), line:1:23, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
   |vpiPort:
   \_port: (o), line:1:23, parent:work@top
     |vpiName:o
@@ -141,8 +145,6 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.o), line:1:23, parent:work@top
-        |vpiName:o
-        |vpiFullName:work@top.o
   |vpiProcess:
   \_initial: , parent:work@top
     |vpiStmt:
@@ -154,10 +156,10 @@ design: (work@top)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:3:11, endln:3:12
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
         |vpiLhs:
         \_ref_obj: (work@top.o), line:3:7, endln:3:8, parent:work@top
           |vpiName:o
@@ -174,64 +176,68 @@ design: (work@top)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:4:18, endln:4:23
-          |vpiConstType:3
           |vpiDecompile:2'b11
           |vpiSize:2
           |BIN:11
+          |vpiConstType:3
         |vpiLhs:
         \_operation: , line:4:8, endln:4:14, parent:work@top
           |vpiOpType:33
           |vpiOperand:
           \_part_select: , line:4:8, endln:4:9, parent:o
-            |vpiConstantSelect:1
             |vpiParent:
             \_ref_obj: o (o)
+            |vpiConstantSelect:1
             |vpiLeftRange:
             \_constant: , line:4:10, endln:4:11
-              |vpiConstType:9
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
+              |vpiConstType:9
             |vpiRightRange:
             \_constant: , line:4:12, endln:4:13
-              |vpiConstType:9
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+              |vpiConstType:9
   |vpiContAssign:
   \_cont_assign: , line:7:13, endln:7:29, parent:work@top
     |vpiRhs:
     \_constant: , line:7:24, endln:7:29
-      |vpiConstType:3
       |vpiDecompile:2'b11
       |vpiSize:2
       |BIN:11
+      |vpiConstType:3
     |vpiLhs:
     \_operation: , line:7:14, endln:7:20
       |vpiOpType:33
       |vpiOperand:
       \_part_select: , line:7:14, endln:7:15, parent:work@top.o
-        |vpiConstantSelect:1
         |vpiParent:
         \_ref_obj: o (work@top.o)
+        |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:7:16, endln:7:17
-          |vpiConstType:9
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:7:18, endln:7:19
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-  |vpiNet:
-  \_logic_net: (work@top.o), line:1:23, parent:work@top
+          |vpiConstType:9
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:8:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiVariables:
+  \_int_var: (work@top.o), line:1:23, endln:1:24, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiAutomatic:1
+    |vpiVisibility:1
+  |vpiDefName:work@top
   |vpiPort:
   \_port: (o), line:1:23, endln:1:24, parent:work@top
     |vpiName:o
@@ -242,10 +248,6 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_int_var: (work@top.o), line:1:23, endln:1:24, parent:work@top
-        |vpiName:o
-        |vpiFullName:work@top.o
-        |vpiAutomatic:1
-        |vpiVisibility:1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:8:10
   |vpiProcess:
@@ -259,10 +261,10 @@ design: (work@top)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:3:11, endln:3:12
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
         |vpiLhs:
         \_ref_obj: (work@top.o), line:3:7, endln:3:8
           |vpiName:o
@@ -275,60 +277,58 @@ design: (work@top)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:4:18, endln:4:23
-          |vpiConstType:3
           |vpiDecompile:2'b11
           |vpiSize:2
           |BIN:11
+          |vpiConstType:3
         |vpiLhs:
         \_operation: , line:4:8, endln:4:14
           |vpiOpType:33
           |vpiOperand:
           \_part_select: , line:4:8, endln:4:9, parent:o
-            |vpiConstantSelect:1
             |vpiParent:
             \_ref_obj: (o), parent:o
+            |vpiConstantSelect:1
             |vpiLeftRange:
             \_constant: , line:4:10, endln:4:11
-              |vpiConstType:9
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
+              |vpiConstType:9
             |vpiRightRange:
             \_constant: , line:4:12, endln:4:13
-              |vpiConstType:9
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+              |vpiConstType:9
   |vpiContAssign:
   \_cont_assign: , line:7:13, endln:7:29, parent:work@top
     |vpiRhs:
     \_constant: , line:7:24, endln:7:29
-      |vpiConstType:3
       |vpiDecompile:2'b11
       |vpiSize:2
       |BIN:11
+      |vpiConstType:3
     |vpiLhs:
     \_operation: , line:7:14, endln:7:20
       |vpiOpType:33
       |vpiOperand:
       \_part_select: , line:7:14, endln:7:15, parent:work@top.o
-        |vpiConstantSelect:1
         |vpiParent:
         \_ref_obj: (work@top.o), parent:work@top.o
+        |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:7:16, endln:7:17
-          |vpiConstType:9
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:7:18, endln:7:19
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-  |vpiVariables:
-  \_int_var: (work@top.o), line:1:23, endln:1:24, parent:work@top
+          |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

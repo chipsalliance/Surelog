@@ -1108,105 +1108,32 @@ n<> u<1001> t<Top_level_rule> l<1:1> el<112:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:8:1: , endln:111:10, parent:work@top
-  |vpiDefName:work@dut
   |vpiFullName:work@dut
-  |vpiPort:
-  \_port: (a), line:10:10, parent:work@dut
-    |vpiName:a
-    |vpiDirection:1
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (work@dut.a), line:10:10, parent:work@dut
-        |vpiName:a
-        |vpiFullName:work@dut.a
-  |vpiPort:
-  \_port: (b), line:10:20, parent:work@dut
-    |vpiName:b
-    |vpiDirection:2
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (work@dut.b), line:10:20, parent:work@dut
-        |vpiName:b
-        |vpiFullName:work@dut.b
-  |vpiTaskFunc:
-  \_function: (work@dut.incr_d), line:46:1, endln:51:12, parent:work@dut
-    |vpiVisibility:1
-    |vpiName:incr_d
-    |vpiFullName:work@dut.incr_d
-    |vpiReturn:
-    \_logic_var: 
-    |vpiStmt:
-    \_begin: (work@dut.incr_d), parent:work@dut.incr_d
-      |vpiFullName:work@dut.incr_d
-      |vpiStmt:
-      \_assignment: , line:48:4, endln:48:17, parent:work@dut.incr_d
-        |vpiOpType:82
-        |vpiBlocking:1
-        |vpiRhs:
-        \_constant: , line:48:13, endln:48:17
-          |vpiConstType:2
-          |vpiDecompile:10.1
-          |vpiSize:64
-          |REAL:t.ttts
-        |vpiLhs:
-        \_ref_obj: (work@dut.incr_d.incr_d), line:48:4, endln:48:10, parent:work@dut.incr_d
-          |vpiName:incr_d
-          |vpiFullName:work@dut.incr_d.incr_d
-          |vpiActual:
-          \_int_var: (incr_d), line:47:4, endln:47:11
-            |vpiName:incr_d
-            |vpiTypespec:
-            \_int_typespec: , line:47:4, endln:47:11
-      |vpiStmt:
-      \_operation: , line:49:4, endln:49:12, parent:work@dut.incr_d
-        |vpiOpType:62
-        |vpiOperand:
-        \_ref_obj: (work@dut.incr_d.incr_d), line:49:4, endln:49:10, parent:work@dut.incr_d
-          |vpiName:incr_d
-          |vpiFullName:work@dut.incr_d.incr_d
-          |vpiActual:
-          \_int_var: (incr_d), line:47:4, endln:47:11
-      |vpiStmt:
-      \_return_stmt: , line:50:4, endln:50:10, parent:work@dut.incr_d
-        |vpiCondition:
-        \_ref_obj: (work@dut.incr_d.incr_d), line:50:11, endln:50:17
-          |vpiName:incr_d
-          |vpiFullName:work@dut.incr_d.incr_d
-    |vpiInstance:
-    \_module: work@dut (work@dut) dut.sv:8:1: , endln:111:10, parent:work@top
-    |vpiVariables:
-    \_int_var: (incr_d), line:47:4, endln:47:11
-  |vpiNet:
-  \_logic_net: (work@dut.a), line:10:10, parent:work@dut
-  |vpiNet:
-  \_logic_net: (work@dut.b), line:10:20, parent:work@dut
   |vpiParameter:
   \_parameter: (work@dut.CLKFBOUT_PHASE), line:9:18, endln:9:43, parent:work@dut
-    |vpiName:CLKFBOUT_PHASE
-    |vpiFullName:work@dut.CLKFBOUT_PHASE
     |REAL:t.ttts
     |vpiTypespec:
     \_real_typespec: , line:9:13, endln:9:17, parent:work@dut.CLKFBOUT_PHASE
+    |vpiName:CLKFBOUT_PHASE
+    |vpiFullName:work@dut.CLKFBOUT_PHASE
   |vpiParameter:
   \_parameter: (work@dut.err), line:12:13, endln:12:37, parent:work@dut
     |vpiName:err
     |vpiFullName:work@dut.err
   |vpiParameter:
   \_parameter: (work@dut.f), line:14:11, endln:14:16, parent:work@dut
+    |UINT:9
     |vpiName:f
     |vpiFullName:work@dut.f
-    |UINT:9
   |vpiParameter:
   \_parameter: (work@dut.r), line:15:11, endln:15:18, parent:work@dut
+    |REAL:t.ttts
     |vpiName:r
     |vpiFullName:work@dut.r
-    |REAL:t.ttts
   |vpiParameter:
   \_parameter: (work@dut.average_delay), line:16:11, endln:16:36, parent:work@dut
     |vpiName:average_delay
@@ -1275,12 +1202,12 @@ design: (work@top)
   \_param_assign: , line:9:18, endln:9:43, parent:work@dut
     |vpiRhs:
     \_constant: , line:9:35, endln:9:43
-      |vpiConstType:2
       |vpiDecompile:t.ttts
       |vpiSize:32
       |REAL:t.ttts
       |vpiTypespec:
       \_real_typespec: , line:9:13, endln:9:17, parent:work@dut.CLKFBOUT_PHASE
+      |vpiConstType:2
     |vpiLhs:
     \_parameter: (work@dut.CLKFBOUT_PHASE), line:9:18, endln:9:43, parent:work@dut
   |vpiParamAssign:
@@ -1293,30 +1220,30 @@ design: (work@top)
         |vpiName:CLKFBOUT_PHASE
       |vpiOperand:
       \_constant: , line:12:36, endln:12:37
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.err), line:12:13, endln:12:37, parent:work@dut
   |vpiParamAssign:
   \_param_assign: , line:14:11, endln:14:16, parent:work@dut
     |vpiRhs:
     \_constant: , line:14:15, endln:14:16
-      |vpiConstType:9
       |vpiDecompile:9
       |vpiSize:64
       |UINT:9
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.f), line:14:11, endln:14:16, parent:work@dut
   |vpiParamAssign:
   \_param_assign: , line:15:11, endln:15:18, parent:work@dut
     |vpiRhs:
     \_constant: , line:15:15, endln:15:18
-      |vpiConstType:2
       |vpiDecompile:5.7
       |vpiSize:64
       |REAL:t.ttts
+      |vpiConstType:2
     |vpiLhs:
     \_parameter: (work@dut.r), line:15:11, endln:15:18, parent:work@dut
   |vpiParamAssign:
@@ -1335,10 +1262,10 @@ design: (work@top)
           |vpiName:f
       |vpiOperand:
       \_constant: , line:16:35, endln:16:36
-        |vpiConstType:9
         |vpiDecompile:2
         |vpiSize:64
         |UINT:2
+        |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.average_delay), line:16:11, endln:16:36, parent:work@dut
   |vpiParamAssign:
@@ -1348,16 +1275,16 @@ design: (work@top)
       |vpiOpType:25
       |vpiOperand:
       \_constant: , line:18:16, endln:18:19
-        |vpiConstType:2
         |vpiDecompile:0.1
         |vpiSize:64
         |REAL:t.ttts
+        |vpiConstType:2
       |vpiOperand:
       \_constant: , line:18:22, endln:18:25
-        |vpiConstType:2
         |vpiDecompile:0.5
         |vpiSize:64
         |REAL:t.ttts
+        |vpiConstType:2
     |vpiLhs:
     \_parameter: (work@dut.A1), line:18:11, endln:18:25, parent:work@dut
   |vpiParamAssign:
@@ -1367,16 +1294,16 @@ design: (work@top)
       |vpiOpType:11
       |vpiOperand:
       \_constant: , line:20:16, endln:20:19
-        |vpiConstType:2
         |vpiDecompile:0.1
         |vpiSize:64
         |REAL:t.ttts
+        |vpiConstType:2
       |vpiOperand:
       \_constant: , line:20:22, endln:20:25
-        |vpiConstType:2
         |vpiDecompile:0.5
         |vpiSize:64
         |REAL:t.ttts
+        |vpiConstType:2
     |vpiLhs:
     \_parameter: (work@dut.A2), line:20:11, endln:20:25, parent:work@dut
   |vpiParamAssign:
@@ -1386,10 +1313,10 @@ design: (work@top)
       |vpiOpType:1
       |vpiOperand:
       \_constant: , line:22:18, endln:22:21
-        |vpiConstType:2
         |vpiDecompile:0.6
         |vpiSize:64
         |REAL:t.ttts
+        |vpiConstType:2
     |vpiLhs:
     \_parameter: (work@dut.A3), line:22:11, endln:22:21, parent:work@dut
   |vpiParamAssign:
@@ -1399,16 +1326,16 @@ design: (work@top)
       |vpiOpType:24
       |vpiOperand:
       \_constant: , line:24:16, endln:24:17
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiOperand:
       \_constant: , line:24:20, endln:24:21
-        |vpiConstType:9
         |vpiDecompile:5
         |vpiSize:64
         |UINT:5
+        |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.A4), line:24:11, endln:24:21, parent:work@dut
   |vpiParamAssign:
@@ -1418,16 +1345,16 @@ design: (work@top)
       |vpiOpType:11
       |vpiOperand:
       \_constant: , line:26:16, endln:26:17
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiOperand:
       \_constant: , line:26:20, endln:26:21
-        |vpiConstType:9
         |vpiDecompile:5
         |vpiSize:64
         |UINT:5
+        |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.A5), line:26:11, endln:26:21, parent:work@dut
   |vpiParamAssign:
@@ -1437,16 +1364,16 @@ design: (work@top)
       |vpiOpType:25
       |vpiOperand:
       \_constant: , line:28:16, endln:28:17
-        |vpiConstType:9
         |vpiDecompile:2
         |vpiSize:64
         |UINT:2
+        |vpiConstType:9
       |vpiOperand:
       \_constant: , line:28:20, endln:28:21
-        |vpiConstType:9
         |vpiDecompile:5
         |vpiSize:64
         |UINT:5
+        |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.A6), line:28:11, endln:28:21, parent:work@dut
   |vpiParamAssign:
@@ -1456,16 +1383,16 @@ design: (work@top)
       |vpiOpType:12
       |vpiOperand:
       \_constant: , line:30:16, endln:30:17
-        |vpiConstType:9
         |vpiDecompile:5
         |vpiSize:64
         |UINT:5
+        |vpiConstType:9
       |vpiOperand:
       \_constant: , line:30:20, endln:30:21
-        |vpiConstType:9
         |vpiDecompile:2
         |vpiSize:64
         |UINT:2
+        |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.A7), line:30:11, endln:30:21, parent:work@dut
   |vpiParamAssign:
@@ -1475,16 +1402,16 @@ design: (work@top)
       |vpiOpType:13
       |vpiOperand:
       \_constant: , line:32:16, endln:32:18
-        |vpiConstType:9
         |vpiDecompile:10
         |vpiSize:64
         |UINT:10
+        |vpiConstType:9
       |vpiOperand:
       \_constant: , line:32:21, endln:32:22
-        |vpiConstType:9
         |vpiDecompile:3
         |vpiSize:64
         |UINT:3
+        |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.A8), line:32:11, endln:32:22, parent:work@dut
   |vpiParamAssign:
@@ -1494,16 +1421,16 @@ design: (work@top)
       |vpiOpType:13
       |vpiOperand:
       \_constant: , line:34:16, endln:34:20
-        |vpiConstType:2
         |vpiDecompile:10.3
         |vpiSize:64
         |REAL:t.ttts
+        |vpiConstType:2
       |vpiOperand:
       \_constant: , line:34:23, endln:34:26
-        |vpiConstType:2
         |vpiDecompile:2.1
         |vpiSize:64
         |REAL:t.ttts
+        |vpiConstType:2
     |vpiLhs:
     \_parameter: (work@dut.A9), line:34:11, endln:34:26, parent:work@dut
   |vpiParamAssign:
@@ -1513,16 +1440,16 @@ design: (work@top)
       |vpiOpType:13
       |vpiOperand:
       \_constant: , line:36:17, endln:36:21
-        |vpiConstType:2
         |vpiDecompile:10.3
         |vpiSize:64
         |REAL:t.ttts
+        |vpiConstType:2
       |vpiOperand:
       \_constant: , line:36:24, endln:36:25
-        |vpiConstType:9
         |vpiDecompile:2
         |vpiSize:64
         |UINT:2
+        |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.A10), line:36:11, endln:36:25, parent:work@dut
   |vpiParamAssign:
@@ -1532,16 +1459,16 @@ design: (work@top)
       |vpiOpType:43
       |vpiOperand:
       \_constant: , line:38:17, endln:38:18
-        |vpiConstType:9
         |vpiDecompile:2
         |vpiSize:64
         |UINT:2
+        |vpiConstType:9
       |vpiOperand:
       \_constant: , line:38:22, endln:38:23
-        |vpiConstType:9
         |vpiDecompile:8
         |vpiSize:64
         |UINT:8
+        |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.A11), line:38:11, endln:38:23, parent:work@dut
   |vpiParamAssign:
@@ -1551,16 +1478,16 @@ design: (work@top)
       |vpiOpType:43
       |vpiOperand:
       \_constant: , line:40:17, endln:40:20
-        |vpiConstType:2
         |vpiDecompile:2.1
         |vpiSize:64
         |REAL:t.ttts
+        |vpiConstType:2
       |vpiOperand:
       \_constant: , line:40:24, endln:40:25
-        |vpiConstType:9
         |vpiDecompile:8
         |vpiSize:64
         |UINT:8
+        |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.A12), line:40:11, endln:40:25, parent:work@dut
   |vpiParamAssign:
@@ -1586,16 +1513,16 @@ design: (work@top)
       |vpiOpType:13
       |vpiOperand:
       \_constant: , line:44:17, endln:44:19
-        |vpiConstType:9
         |vpiDecompile:20
         |vpiSize:64
         |UINT:20
+        |vpiConstType:9
       |vpiOperand:
       \_constant: , line:44:22, endln:44:23
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.A14), line:44:11, endln:44:23, parent:work@dut
   |vpiParamAssign:
@@ -1607,10 +1534,91 @@ design: (work@top)
       \_function: (work@dut.incr_d), line:46:1, endln:51:12, parent:work@dut
     |vpiLhs:
     \_parameter: (work@dut.A15), line:53:11, endln:53:25, parent:work@dut
+  |vpiDefName:work@dut
+  |vpiTaskFunc:
+  \_function: (work@dut.incr_d), line:46:1, endln:51:12, parent:work@dut
+    |vpiName:incr_d
+    |vpiFullName:work@dut.incr_d
+    |vpiVariables:
+    \_int_var: (incr_d), line:47:4, endln:47:11
+      |vpiTypespec:
+      \_int_typespec: , line:47:4, endln:47:11
+      |vpiName:incr_d
+    |vpiVisibility:1
+    |vpiReturn:
+    \_logic_var: 
+    |vpiStmt:
+    \_begin: (work@dut.incr_d), parent:work@dut.incr_d
+      |vpiFullName:work@dut.incr_d
+      |vpiStmt:
+      \_assignment: , line:48:4, endln:48:17, parent:work@dut.incr_d
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_constant: , line:48:13, endln:48:17
+          |vpiDecompile:10.1
+          |vpiSize:64
+          |REAL:t.ttts
+          |vpiConstType:2
+        |vpiLhs:
+        \_ref_obj: (work@dut.incr_d.incr_d), line:48:4, endln:48:10, parent:work@dut.incr_d
+          |vpiName:incr_d
+          |vpiFullName:work@dut.incr_d.incr_d
+          |vpiActual:
+          \_int_var: (incr_d), line:47:4, endln:47:11
+      |vpiStmt:
+      \_operation: , line:49:4, endln:49:12, parent:work@dut.incr_d
+        |vpiOpType:62
+        |vpiOperand:
+        \_ref_obj: (work@dut.incr_d.incr_d), line:49:4, endln:49:10, parent:work@dut.incr_d
+          |vpiName:incr_d
+          |vpiFullName:work@dut.incr_d.incr_d
+          |vpiActual:
+          \_int_var: (incr_d), line:47:4, endln:47:11
+      |vpiStmt:
+      \_return_stmt: , line:50:4, endln:50:10, parent:work@dut.incr_d
+        |vpiCondition:
+        \_ref_obj: (work@dut.incr_d.incr_d), line:50:11, endln:50:17
+          |vpiName:incr_d
+          |vpiFullName:work@dut.incr_d.incr_d
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:8:1: , endln:111:10, parent:work@top
+  |vpiNet:
+  \_logic_net: (work@dut.a), line:10:10, parent:work@dut
+    |vpiName:a
+    |vpiFullName:work@dut.a
+  |vpiNet:
+  \_logic_net: (work@dut.b), line:10:20, parent:work@dut
+    |vpiName:b
+    |vpiFullName:work@dut.b
+  |vpiPort:
+  \_port: (a), line:10:10, parent:work@dut
+    |vpiName:a
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@dut.a), line:10:10, parent:work@dut
+  |vpiPort:
+  \_port: (b), line:10:20, parent:work@dut
+    |vpiName:b
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@dut.b), line:10:20, parent:work@dut
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:6:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.clk_i), line:1:18, parent:work@top
+    |vpiName:clk_i
+    |vpiFullName:work@top.clk_i
+  |vpiNet:
+  \_logic_net: (work@top.b), line:1:32, parent:work@top
+    |vpiName:b
+    |vpiFullName:work@top.b
   |vpiPort:
   \_port: (clk_i), line:1:18, parent:work@top
     |vpiName:clk_i
@@ -1619,8 +1627,6 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.clk_i), line:1:18, parent:work@top
-        |vpiName:clk_i
-        |vpiFullName:work@top.clk_i
   |vpiPort:
   \_port: (b), line:1:32, parent:work@top
     |vpiName:b
@@ -1629,16 +1635,18 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.b), line:1:32, parent:work@top
-        |vpiName:b
-        |vpiFullName:work@top.b
-  |vpiNet:
-  \_logic_net: (work@top.clk_i), line:1:18, parent:work@top
-  |vpiNet:
-  \_logic_net: (work@top.b), line:1:32, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:6:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.clk_i), line:1:18, endln:1:23, parent:work@top
+    |vpiName:clk_i
+    |vpiFullName:work@top.clk_i
+  |vpiNet:
+  \_logic_net: (work@top.b), line:1:32, endln:1:33, parent:work@top
+    |vpiName:b
+    |vpiFullName:work@top.b
   |vpiPort:
   \_port: (clk_i), line:1:18, endln:1:23, parent:work@top
     |vpiName:clk_i
@@ -1649,8 +1657,6 @@ design: (work@top)
       |vpiFullName:work@top.clk_i
       |vpiActual:
       \_logic_net: (work@top.clk_i), line:1:18, endln:1:23, parent:work@top
-        |vpiName:clk_i
-        |vpiFullName:work@top.clk_i
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:6:10
   |vpiPort:
@@ -1663,303 +1669,33 @@ design: (work@top)
       |vpiFullName:work@top.b
       |vpiActual:
       \_logic_net: (work@top.b), line:1:32, endln:1:33, parent:work@top
-        |vpiName:b
-        |vpiFullName:work@top.b
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:6:10
   |vpiModule:
   \_module: work@dut (work@top.d) dut.sv:3:3: , endln:5:10, parent:work@top
-    |vpiDefName:work@dut
-    |vpiDefFile:dut.sv
-    |vpiDefLineNo:8
     |vpiName:d
     |vpiFullName:work@top.d
-    |vpiPort:
-    \_port: (a), line:10:10, endln:10:11, parent:work@top.d
-      |vpiName:a
-      |vpiDirection:1
-      |vpiHighConn:
-      \_ref_obj: (work@top.clk_i), line:4:6, endln:4:11, parent:a
-        |vpiName:clk_i
-        |vpiFullName:work@top.clk_i
-        |vpiActual:
-        \_logic_net: (work@top.clk_i), line:1:18, endln:1:23, parent:work@top
-      |vpiLowConn:
-      \_ref_obj: (work@top.d.a), parent:a
-        |vpiName:a
-        |vpiFullName:work@top.d.a
-        |vpiActual:
-        \_logic_net: (work@top.d.a), line:10:10, endln:10:11, parent:work@top.d
-          |vpiName:a
-          |vpiFullName:work@top.d.a
-      |vpiInstance:
-      \_module: work@dut (work@top.d) dut.sv:3:3: , endln:5:10, parent:work@top
-    |vpiPort:
-    \_port: (b), line:10:20, endln:10:21, parent:work@top.d
-      |vpiName:b
-      |vpiDirection:2
-      |vpiHighConn:
-      \_ref_obj: (work@top.b), line:5:6, endln:5:7, parent:b
-        |vpiName:b
-        |vpiFullName:work@top.b
-        |vpiActual:
-        \_logic_net: (work@top.d.b), line:10:20, endln:10:21, parent:work@top.d
-          |vpiName:b
-          |vpiFullName:work@top.d.b
-      |vpiLowConn:
-      \_ref_obj: (work@top.d.b), parent:b
-        |vpiName:b
-        |vpiFullName:work@top.d.b
-        |vpiActual:
-        \_logic_net: (work@top.d.b), line:10:20, endln:10:21, parent:work@top.d
-      |vpiInstance:
-      \_module: work@dut (work@top.d) dut.sv:3:3: , endln:5:10, parent:work@top
-    |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.d.genblk1), line:55:4, endln:57:7, parent:work@top.d
-      |vpiName:genblk1
-      |vpiFullName:work@top.d.genblk1
-      |vpiGenScope:
-      \_gen_scope: (work@top.d.genblk1), parent:work@top.d.genblk1
-        |vpiFullName:work@top.d.genblk1
-        |vpiModule:
-        \_module: work@top.d.genblk1::GOOD (work@top.d.genblk1.good1) dut.sv:56: , parent:work@top.d.genblk1
-          |vpiDefName:work@top.d.genblk1::GOOD
-          |vpiName:good1
-          |vpiFullName:work@top.d.genblk1.good1
-    |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.d.genblk2), line:59:4, endln:61:7, parent:work@top.d
-      |vpiName:genblk2
-      |vpiFullName:work@top.d.genblk2
-      |vpiGenScope:
-      \_gen_scope: (work@top.d.genblk2), parent:work@top.d.genblk2
-        |vpiFullName:work@top.d.genblk2
-        |vpiModule:
-        \_module: work@top.d.genblk2::GOOD (work@top.d.genblk2.good2) dut.sv:60: , parent:work@top.d.genblk2
-          |vpiDefName:work@top.d.genblk2::GOOD
-          |vpiName:good2
-          |vpiFullName:work@top.d.genblk2.good2
-    |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.d.genblk3), line:63:4, endln:65:7, parent:work@top.d
-      |vpiName:genblk3
-      |vpiFullName:work@top.d.genblk3
-      |vpiGenScope:
-      \_gen_scope: (work@top.d.genblk3), parent:work@top.d.genblk3
-        |vpiFullName:work@top.d.genblk3
-        |vpiModule:
-        \_module: work@top.d.genblk3::GOOD (work@top.d.genblk3.good3) dut.sv:64: , parent:work@top.d.genblk3
-          |vpiDefName:work@top.d.genblk3::GOOD
-          |vpiName:good3
-          |vpiFullName:work@top.d.genblk3.good3
-    |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.d.genblk4), line:67:4, endln:69:7, parent:work@top.d
-      |vpiName:genblk4
-      |vpiFullName:work@top.d.genblk4
-      |vpiGenScope:
-      \_gen_scope: (work@top.d.genblk4), parent:work@top.d.genblk4
-        |vpiFullName:work@top.d.genblk4
-        |vpiModule:
-        \_module: work@top.d.genblk4::GOOD (work@top.d.genblk4.good4) dut.sv:68: , parent:work@top.d.genblk4
-          |vpiDefName:work@top.d.genblk4::GOOD
-          |vpiName:good4
-          |vpiFullName:work@top.d.genblk4.good4
-    |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.d.genblk5), line:71:4, endln:73:7, parent:work@top.d
-      |vpiName:genblk5
-      |vpiFullName:work@top.d.genblk5
-      |vpiGenScope:
-      \_gen_scope: (work@top.d.genblk5), parent:work@top.d.genblk5
-        |vpiFullName:work@top.d.genblk5
-        |vpiModule:
-        \_module: work@top.d.genblk5::GOOD (work@top.d.genblk5.good5) dut.sv:72: , parent:work@top.d.genblk5
-          |vpiDefName:work@top.d.genblk5::GOOD
-          |vpiName:good5
-          |vpiFullName:work@top.d.genblk5.good5
-    |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.d.genblk6), line:75:4, endln:77:7, parent:work@top.d
-      |vpiName:genblk6
-      |vpiFullName:work@top.d.genblk6
-      |vpiGenScope:
-      \_gen_scope: (work@top.d.genblk6), parent:work@top.d.genblk6
-        |vpiFullName:work@top.d.genblk6
-        |vpiModule:
-        \_module: work@top.d.genblk6::GOOD (work@top.d.genblk6.good6) dut.sv:76: , parent:work@top.d.genblk6
-          |vpiDefName:work@top.d.genblk6::GOOD
-          |vpiName:good6
-          |vpiFullName:work@top.d.genblk6.good6
-    |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.d.genblk7), line:79:4, endln:81:7, parent:work@top.d
-      |vpiName:genblk7
-      |vpiFullName:work@top.d.genblk7
-      |vpiGenScope:
-      \_gen_scope: (work@top.d.genblk7), parent:work@top.d.genblk7
-        |vpiFullName:work@top.d.genblk7
-        |vpiModule:
-        \_module: work@top.d.genblk7::GOOD (work@top.d.genblk7.good7) dut.sv:80: , parent:work@top.d.genblk7
-          |vpiDefName:work@top.d.genblk7::GOOD
-          |vpiName:good7
-          |vpiFullName:work@top.d.genblk7.good7
-    |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.d.genblk8), line:83:2, endln:85:5, parent:work@top.d
-      |vpiName:genblk8
-      |vpiFullName:work@top.d.genblk8
-      |vpiGenScope:
-      \_gen_scope: (work@top.d.genblk8), parent:work@top.d.genblk8
-        |vpiFullName:work@top.d.genblk8
-        |vpiModule:
-        \_module: work@top.d.genblk8::GOOD (work@top.d.genblk8.good8) dut.sv:84: , parent:work@top.d.genblk8
-          |vpiDefName:work@top.d.genblk8::GOOD
-          |vpiName:good8
-          |vpiFullName:work@top.d.genblk8.good8
-    |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.d.genblk9), line:87:3, endln:89:6, parent:work@top.d
-      |vpiName:genblk9
-      |vpiFullName:work@top.d.genblk9
-      |vpiGenScope:
-      \_gen_scope: (work@top.d.genblk9), parent:work@top.d.genblk9
-        |vpiFullName:work@top.d.genblk9
-        |vpiModule:
-        \_module: work@top.d.genblk9::GOOD (work@top.d.genblk9.good9) dut.sv:88: , parent:work@top.d.genblk9
-          |vpiDefName:work@top.d.genblk9::GOOD
-          |vpiName:good9
-          |vpiFullName:work@top.d.genblk9.good9
-    |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.d.genblk10), line:91:3, endln:93:6, parent:work@top.d
-      |vpiName:genblk10
-      |vpiFullName:work@top.d.genblk10
-      |vpiGenScope:
-      \_gen_scope: (work@top.d.genblk10), parent:work@top.d.genblk10
-        |vpiFullName:work@top.d.genblk10
-        |vpiModule:
-        \_module: work@top.d.genblk10::GOOD (work@top.d.genblk10.good10) dut.sv:92: , parent:work@top.d.genblk10
-          |vpiDefName:work@top.d.genblk10::GOOD
-          |vpiName:good10
-          |vpiFullName:work@top.d.genblk10.good10
-    |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.d.genblk11), line:95:3, endln:97:6, parent:work@top.d
-      |vpiName:genblk11
-      |vpiFullName:work@top.d.genblk11
-      |vpiGenScope:
-      \_gen_scope: (work@top.d.genblk11), parent:work@top.d.genblk11
-        |vpiFullName:work@top.d.genblk11
-        |vpiModule:
-        \_module: work@top.d.genblk11::GOOD (work@top.d.genblk11.good11) dut.sv:96: , parent:work@top.d.genblk11
-          |vpiDefName:work@top.d.genblk11::GOOD
-          |vpiName:good11
-          |vpiFullName:work@top.d.genblk11.good11
-    |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.d.genblk12), line:99:3, endln:101:6, parent:work@top.d
-      |vpiName:genblk12
-      |vpiFullName:work@top.d.genblk12
-      |vpiGenScope:
-      \_gen_scope: (work@top.d.genblk12), parent:work@top.d.genblk12
-        |vpiFullName:work@top.d.genblk12
-        |vpiModule:
-        \_module: work@top.d.genblk12::GOOD (work@top.d.genblk12.good12) dut.sv:100: , parent:work@top.d.genblk12
-          |vpiDefName:work@top.d.genblk12::GOOD
-          |vpiName:good12
-          |vpiFullName:work@top.d.genblk12.good12
-    |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.d.genblk13), line:103:3, endln:105:6, parent:work@top.d
-      |vpiName:genblk13
-      |vpiFullName:work@top.d.genblk13
-      |vpiGenScope:
-      \_gen_scope: (work@top.d.genblk13), parent:work@top.d.genblk13
-        |vpiFullName:work@top.d.genblk13
-        |vpiModule:
-        \_module: work@top.d.genblk13::GOOD (work@top.d.genblk13.good13) dut.sv:104: , parent:work@top.d.genblk13
-          |vpiDefName:work@top.d.genblk13::GOOD
-          |vpiName:good13
-          |vpiFullName:work@top.d.genblk13.good13
-    |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.d.genblk14), line:107:2, endln:109:6, parent:work@top.d
-      |vpiName:genblk14
-      |vpiFullName:work@top.d.genblk14
-      |vpiGenScope:
-      \_gen_scope: (work@top.d.genblk14), parent:work@top.d.genblk14
-        |vpiFullName:work@top.d.genblk14
-        |vpiModule:
-        \_module: work@top.d.genblk14::GOOD (work@top.d.genblk14.good15) dut.sv:108: , parent:work@top.d.genblk14
-          |vpiDefName:work@top.d.genblk14::GOOD
-          |vpiName:good15
-          |vpiFullName:work@top.d.genblk14.good15
-    |vpiTaskFunc:
-    \_function: (work@top.d.incr_d), line:46:1, endln:51:12, parent:work@top.d
-      |vpiVisibility:1
-      |vpiName:incr_d
-      |vpiFullName:work@top.d.incr_d
-      |vpiReturn:
-      \_logic_var: 
-      |vpiStmt:
-      \_begin: (work@top.d.incr_d), parent:work@top.d.incr_d
-        |vpiFullName:work@top.d.incr_d
-        |vpiStmt:
-        \_assignment: , line:48:4, endln:48:17, parent:work@top.d.incr_d
-          |vpiOpType:82
-          |vpiBlocking:1
-          |vpiRhs:
-          \_constant: , line:48:13, endln:48:17
-            |vpiConstType:2
-            |vpiDecompile:10.1
-            |vpiSize:64
-            |REAL:t.ttts
-          |vpiLhs:
-          \_ref_obj: (work@top.d.incr_d.incr_d), line:48:4, endln:48:10
-            |vpiName:incr_d
-            |vpiFullName:work@top.d.incr_d.incr_d
-            |vpiActual:
-            \_int_var: (work@top.d.incr_d.incr_d), line:47:4, endln:47:11, parent:work@top.d.incr_d
-              |vpiName:incr_d
-              |vpiFullName:work@top.d.incr_d.incr_d
-              |vpiTypespec:
-              \_int_typespec: , line:47:4, endln:47:11
-        |vpiStmt:
-        \_operation: , line:49:4, endln:49:12, parent:work@top.d.incr_d
-          |vpiOpType:62
-          |vpiOperand:
-          \_ref_obj: (work@top.d.incr_d.incr_d), line:49:4, endln:49:10
-            |vpiName:incr_d
-            |vpiFullName:work@top.d.incr_d.incr_d
-            |vpiActual:
-            \_int_var: (work@top.d.incr_d.incr_d), line:47:4, endln:47:11, parent:work@top.d.incr_d
-        |vpiStmt:
-        \_return_stmt: , line:50:4, endln:50:10, parent:work@top.d.incr_d
-          |vpiCondition:
-          \_ref_obj: (work@top.d.incr_d.incr_d), line:50:11, endln:50:17
-            |vpiName:incr_d
-            |vpiFullName:work@top.d.incr_d.incr_d
-            |vpiActual:
-            \_int_var: (work@top.d.incr_d.incr_d), line:47:4, endln:47:11, parent:work@top.d.incr_d
-      |vpiInstance:
-      \_module: work@dut (work@top.d) dut.sv:3:3: , endln:5:10, parent:work@top
-      |vpiVariables:
-      \_int_var: (work@top.d.incr_d.incr_d), line:47:4, endln:47:11, parent:work@top.d.incr_d
-    |vpiNet:
-    \_logic_net: (work@top.d.a), line:10:10, endln:10:11, parent:work@top.d
-    |vpiNet:
-    \_logic_net: (work@top.d.b), line:10:20, endln:10:21, parent:work@top.d
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:6:10
     |vpiParameter:
     \_parameter: (work@top.d.CLKFBOUT_PHASE), line:9:18, endln:9:43, parent:work@top.d
-      |vpiName:CLKFBOUT_PHASE
-      |vpiFullName:work@top.d.CLKFBOUT_PHASE
       |REAL:t.ttts
       |vpiTypespec:
       \_real_typespec: , line:9:13, endln:9:17, parent:work@top.d.CLKFBOUT_PHASE
+      |vpiName:CLKFBOUT_PHASE
+      |vpiFullName:work@top.d.CLKFBOUT_PHASE
     |vpiParameter:
     \_parameter: (work@top.d.err), line:12:13, endln:12:37, parent:work@top.d
       |vpiName:err
       |vpiFullName:work@top.d.err
     |vpiParameter:
     \_parameter: (work@top.d.f), line:14:11, endln:14:16, parent:work@top.d
+      |UINT:9
       |vpiName:f
       |vpiFullName:work@top.d.f
-      |UINT:9
     |vpiParameter:
     \_parameter: (work@top.d.r), line:15:11, endln:15:18, parent:work@top.d
+      |REAL:t.ttts
       |vpiName:r
       |vpiFullName:work@top.d.r
-      |REAL:t.ttts
     |vpiParameter:
     \_parameter: (work@top.d.average_delay), line:16:11, endln:16:36, parent:work@top.d
       |vpiName:average_delay
@@ -2029,12 +1765,12 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:9:35, endln:9:43
-        |vpiConstType:2
         |vpiDecompile:t.ttts
         |vpiSize:64
         |REAL:t.ttts
         |vpiTypespec:
         \_real_typespec: , line:9:13, endln:9:17, parent:work@dut.CLKFBOUT_PHASE
+        |vpiConstType:2
       |vpiLhs:
       \_parameter: (work@top.d.CLKFBOUT_PHASE), line:9:18, endln:9:43, parent:work@top.d
     |vpiParamAssign:
@@ -2044,176 +1780,176 @@ design: (work@top)
         |vpiOpType:12
         |vpiOperand:
         \_constant: , line:12:19, endln:12:33
-          |vpiConstType:2
           |vpiDecompile:t.ttts
           |vpiSize:64
           |REAL:t.ttts
+          |vpiConstType:2
         |vpiOperand:
         \_constant: , line:12:36, endln:12:37
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.d.err), line:12:13, endln:12:37, parent:work@top.d
     |vpiParamAssign:
     \_param_assign: , line:14:11, endln:14:16, parent:work@top.d
       |vpiRhs:
       \_constant: , line:14:15, endln:14:16
-        |vpiConstType:9
         |vpiDecompile:9
         |vpiSize:64
         |UINT:9
+        |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.d.f), line:14:11, endln:14:16, parent:work@top.d
     |vpiParamAssign:
     \_param_assign: , line:15:11, endln:15:18, parent:work@top.d
       |vpiRhs:
       \_constant: , line:15:15, endln:15:18
-        |vpiConstType:2
         |vpiDecompile:t.ttts
         |vpiSize:64
         |REAL:t.ttts
+        |vpiConstType:2
       |vpiLhs:
       \_parameter: (work@top.d.r), line:15:11, endln:15:18, parent:work@top.d
     |vpiParamAssign:
     \_param_assign: , line:16:11, endln:16:36, parent:work@top.d
       |vpiRhs:
       \_constant: , line:16:27, endln:16:36
-        |vpiConstType:2
         |vpiDecompile:t.ttts
         |vpiSize:64
         |REAL:t.ttts
+        |vpiConstType:2
       |vpiLhs:
       \_parameter: (work@top.d.average_delay), line:16:11, endln:16:36, parent:work@top.d
     |vpiParamAssign:
     \_param_assign: , line:18:11, endln:18:25, parent:work@top.d
       |vpiRhs:
       \_constant: , line:18:16, endln:18:25
-        |vpiConstType:2
         |vpiDecompile:t.ttts
         |vpiSize:64
         |REAL:t.ttts
+        |vpiConstType:2
       |vpiLhs:
       \_parameter: (work@top.d.A1), line:18:11, endln:18:25, parent:work@top.d
     |vpiParamAssign:
     \_param_assign: , line:20:11, endln:20:25, parent:work@top.d
       |vpiRhs:
       \_constant: , line:20:16, endln:20:25
-        |vpiConstType:2
         |vpiDecompile:-t.ttts
         |vpiSize:64
         |REAL:-t.ttts
+        |vpiConstType:2
       |vpiLhs:
       \_parameter: (work@top.d.A2), line:20:11, endln:20:25, parent:work@top.d
     |vpiParamAssign:
     \_param_assign: , line:22:11, endln:22:21, parent:work@top.d
       |vpiRhs:
       \_constant: , line:22:16, endln:22:21
-        |vpiConstType:2
         |vpiDecompile:-t.ttts
         |vpiSize:64
         |REAL:-t.ttts
+        |vpiConstType:2
       |vpiLhs:
       \_parameter: (work@top.d.A3), line:22:11, endln:22:21, parent:work@top.d
     |vpiParamAssign:
     \_param_assign: , line:24:11, endln:24:21, parent:work@top.d
       |vpiRhs:
       \_constant: , line:24:16, endln:24:21
-        |vpiConstType:7
         |vpiDecompile:6
         |vpiSize:64
         |INT:6
+        |vpiConstType:7
       |vpiLhs:
       \_parameter: (work@top.d.A4), line:24:11, endln:24:21, parent:work@top.d
     |vpiParamAssign:
     \_param_assign: , line:26:11, endln:26:21, parent:work@top.d
       |vpiRhs:
       \_constant: , line:26:16, endln:26:21
-        |vpiConstType:7
         |vpiDecompile:-4
         |vpiSize:64
         |INT:-4
+        |vpiConstType:7
       |vpiLhs:
       \_parameter: (work@top.d.A5), line:26:11, endln:26:21, parent:work@top.d
     |vpiParamAssign:
     \_param_assign: , line:28:11, endln:28:21, parent:work@top.d
       |vpiRhs:
       \_constant: , line:28:16, endln:28:21
-        |vpiConstType:7
         |vpiDecompile:10
         |vpiSize:64
         |INT:10
+        |vpiConstType:7
       |vpiLhs:
       \_parameter: (work@top.d.A6), line:28:11, endln:28:21, parent:work@top.d
     |vpiParamAssign:
     \_param_assign: , line:30:11, endln:30:21, parent:work@top.d
       |vpiRhs:
       \_constant: , line:30:16, endln:30:21
-        |vpiConstType:7
         |vpiDecompile:2
         |vpiSize:64
         |INT:2
+        |vpiConstType:7
       |vpiLhs:
       \_parameter: (work@top.d.A7), line:30:11, endln:30:21, parent:work@top.d
     |vpiParamAssign:
     \_param_assign: , line:32:11, endln:32:22, parent:work@top.d
       |vpiRhs:
       \_constant: , line:32:16, endln:32:22
-        |vpiConstType:7
         |vpiDecompile:1
         |vpiSize:64
         |INT:1
+        |vpiConstType:7
       |vpiLhs:
       \_parameter: (work@top.d.A8), line:32:11, endln:32:22, parent:work@top.d
     |vpiParamAssign:
     \_param_assign: , line:34:11, endln:34:26, parent:work@top.d
       |vpiRhs:
       \_constant: , line:34:16, endln:34:26
-        |vpiConstType:2
         |vpiDecompile:t.ttts
         |vpiSize:64
         |REAL:t.ttts
+        |vpiConstType:2
       |vpiLhs:
       \_parameter: (work@top.d.A9), line:34:11, endln:34:26, parent:work@top.d
     |vpiParamAssign:
     \_param_assign: , line:36:11, endln:36:25, parent:work@top.d
       |vpiRhs:
       \_constant: , line:36:17, endln:36:25
-        |vpiConstType:2
         |vpiDecompile:t.ttts
         |vpiSize:64
         |REAL:t.ttts
+        |vpiConstType:2
       |vpiLhs:
       \_parameter: (work@top.d.A10), line:36:11, endln:36:25, parent:work@top.d
     |vpiParamAssign:
     \_param_assign: , line:38:11, endln:38:23, parent:work@top.d
       |vpiRhs:
       \_constant: , line:38:17, endln:38:23
-        |vpiConstType:7
         |vpiDecompile:256
         |vpiSize:64
         |INT:256
+        |vpiConstType:7
       |vpiLhs:
       \_parameter: (work@top.d.A11), line:38:11, endln:38:23, parent:work@top.d
     |vpiParamAssign:
     \_param_assign: , line:40:11, endln:40:25, parent:work@top.d
       |vpiRhs:
       \_constant: , line:40:17, endln:40:25
-        |vpiConstType:2
         |vpiDecompile:t.ttts
         |vpiSize:64
         |REAL:t.ttts
+        |vpiConstType:2
       |vpiLhs:
       \_parameter: (work@top.d.A12), line:40:11, endln:40:25, parent:work@top.d
     |vpiParamAssign:
     \_param_assign: , line:42:11, endln:42:32, parent:work@top.d
       |vpiRhs:
       \_constant: , line:42:18, endln:42:32
-        |vpiConstType:2
         |vpiDecompile:t.ttts
         |vpiSize:64
         |REAL:t.ttts
+        |vpiConstType:2
       |vpiLhs:
       \_parameter: (work@top.d.A13), line:42:11, endln:42:32, parent:work@top.d
     |vpiParamAssign:
@@ -2223,32 +1959,296 @@ design: (work@top)
         |vpiOpType:13
         |vpiOperand:
         \_constant: , line:44:17, endln:44:19
-          |vpiConstType:9
           |vpiDecompile:20
           |vpiSize:64
           |UINT:20
+          |vpiConstType:9
         |vpiOperand:
         \_constant: , line:44:22, endln:44:23
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.d.A14), line:44:11, endln:44:23, parent:work@top.d
     |vpiParamAssign:
     \_param_assign: , line:53:11, endln:53:25, parent:work@top.d
       |vpiRhs:
       \_constant: , line:53:17, endln:53:25
-        |vpiConstType:2
         |vpiDecompile:t.ttts
         |vpiSize:64
         |REAL:t.ttts
+        |vpiConstType:2
       |vpiLhs:
       \_parameter: (work@top.d.A15), line:53:11, endln:53:25, parent:work@top.d
-  |vpiNet:
-  \_logic_net: (work@top.clk_i), line:1:18, endln:1:23, parent:work@top
-  |vpiNet:
-  \_logic_net: (work@top.b), line:1:32, endln:1:33, parent:work@top
+    |vpiDefName:work@dut
+    |vpiDefFile:dut.sv
+    |vpiDefLineNo:8
+    |vpiTaskFunc:
+    \_function: (work@top.d.incr_d), line:46:1, endln:51:12, parent:work@top.d
+      |vpiName:incr_d
+      |vpiFullName:work@top.d.incr_d
+      |vpiVariables:
+      \_int_var: (work@top.d.incr_d.incr_d), line:47:4, endln:47:11, parent:work@top.d.incr_d
+        |vpiTypespec:
+        \_int_typespec: , line:47:4, endln:47:11
+        |vpiName:incr_d
+        |vpiFullName:work@top.d.incr_d.incr_d
+      |vpiVisibility:1
+      |vpiReturn:
+      \_logic_var: 
+      |vpiStmt:
+      \_begin: (work@top.d.incr_d), parent:work@top.d.incr_d
+        |vpiFullName:work@top.d.incr_d
+        |vpiStmt:
+        \_assignment: , line:48:4, endln:48:17, parent:work@top.d.incr_d
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiRhs:
+          \_constant: , line:48:13, endln:48:17
+            |vpiDecompile:10.1
+            |vpiSize:64
+            |REAL:t.ttts
+            |vpiConstType:2
+          |vpiLhs:
+          \_ref_obj: (work@top.d.incr_d.incr_d), line:48:4, endln:48:10
+            |vpiName:incr_d
+            |vpiFullName:work@top.d.incr_d.incr_d
+            |vpiActual:
+            \_int_var: (work@top.d.incr_d.incr_d), line:47:4, endln:47:11, parent:work@top.d.incr_d
+        |vpiStmt:
+        \_operation: , line:49:4, endln:49:12, parent:work@top.d.incr_d
+          |vpiOpType:62
+          |vpiOperand:
+          \_ref_obj: (work@top.d.incr_d.incr_d), line:49:4, endln:49:10
+            |vpiName:incr_d
+            |vpiFullName:work@top.d.incr_d.incr_d
+            |vpiActual:
+            \_int_var: (work@top.d.incr_d.incr_d), line:47:4, endln:47:11, parent:work@top.d.incr_d
+        |vpiStmt:
+        \_return_stmt: , line:50:4, endln:50:10, parent:work@top.d.incr_d
+          |vpiCondition:
+          \_ref_obj: (work@top.d.incr_d.incr_d), line:50:11, endln:50:17
+            |vpiName:incr_d
+            |vpiFullName:work@top.d.incr_d.incr_d
+            |vpiActual:
+            \_int_var: (work@top.d.incr_d.incr_d), line:47:4, endln:47:11, parent:work@top.d.incr_d
+      |vpiInstance:
+      \_module: work@dut (work@top.d) dut.sv:3:3: , endln:5:10, parent:work@top
+    |vpiNet:
+    \_logic_net: (work@top.d.a), line:10:10, endln:10:11, parent:work@top.d
+      |vpiName:a
+      |vpiFullName:work@top.d.a
+    |vpiNet:
+    \_logic_net: (work@top.d.b), line:10:20, endln:10:21, parent:work@top.d
+      |vpiName:b
+      |vpiFullName:work@top.d.b
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:6:10
+    |vpiPort:
+    \_port: (a), line:10:10, endln:10:11, parent:work@top.d
+      |vpiName:a
+      |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@top.clk_i), line:4:6, endln:4:11, parent:a
+        |vpiName:clk_i
+        |vpiFullName:work@top.clk_i
+        |vpiActual:
+        \_logic_net: (work@top.clk_i), line:1:18, endln:1:23, parent:work@top
+      |vpiLowConn:
+      \_ref_obj: (work@top.d.a), parent:a
+        |vpiName:a
+        |vpiFullName:work@top.d.a
+        |vpiActual:
+        \_logic_net: (work@top.d.a), line:10:10, endln:10:11, parent:work@top.d
+      |vpiInstance:
+      \_module: work@dut (work@top.d) dut.sv:3:3: , endln:5:10, parent:work@top
+    |vpiPort:
+    \_port: (b), line:10:20, endln:10:21, parent:work@top.d
+      |vpiName:b
+      |vpiDirection:2
+      |vpiHighConn:
+      \_ref_obj: (work@top.b), line:5:6, endln:5:7, parent:b
+        |vpiName:b
+        |vpiFullName:work@top.b
+        |vpiActual:
+        \_logic_net: (work@top.d.b), line:10:20, endln:10:21, parent:work@top.d
+      |vpiLowConn:
+      \_ref_obj: (work@top.d.b), parent:b
+        |vpiName:b
+        |vpiFullName:work@top.d.b
+        |vpiActual:
+        \_logic_net: (work@top.d.b), line:10:20, endln:10:21, parent:work@top.d
+      |vpiInstance:
+      \_module: work@dut (work@top.d) dut.sv:3:3: , endln:5:10, parent:work@top
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.d.genblk1), line:55:4, endln:57:7, parent:work@top.d
+      |vpiName:genblk1
+      |vpiFullName:work@top.d.genblk1
+      |vpiGenScope:
+      \_gen_scope: (work@top.d.genblk1), parent:work@top.d.genblk1
+        |vpiFullName:work@top.d.genblk1
+        |vpiModule:
+        \_module: work@top.d.genblk1::GOOD (work@top.d.genblk1.good1) dut.sv:56: , parent:work@top.d.genblk1
+          |vpiName:good1
+          |vpiFullName:work@top.d.genblk1.good1
+          |vpiDefName:work@top.d.genblk1::GOOD
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.d.genblk2), line:59:4, endln:61:7, parent:work@top.d
+      |vpiName:genblk2
+      |vpiFullName:work@top.d.genblk2
+      |vpiGenScope:
+      \_gen_scope: (work@top.d.genblk2), parent:work@top.d.genblk2
+        |vpiFullName:work@top.d.genblk2
+        |vpiModule:
+        \_module: work@top.d.genblk2::GOOD (work@top.d.genblk2.good2) dut.sv:60: , parent:work@top.d.genblk2
+          |vpiName:good2
+          |vpiFullName:work@top.d.genblk2.good2
+          |vpiDefName:work@top.d.genblk2::GOOD
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.d.genblk3), line:63:4, endln:65:7, parent:work@top.d
+      |vpiName:genblk3
+      |vpiFullName:work@top.d.genblk3
+      |vpiGenScope:
+      \_gen_scope: (work@top.d.genblk3), parent:work@top.d.genblk3
+        |vpiFullName:work@top.d.genblk3
+        |vpiModule:
+        \_module: work@top.d.genblk3::GOOD (work@top.d.genblk3.good3) dut.sv:64: , parent:work@top.d.genblk3
+          |vpiName:good3
+          |vpiFullName:work@top.d.genblk3.good3
+          |vpiDefName:work@top.d.genblk3::GOOD
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.d.genblk4), line:67:4, endln:69:7, parent:work@top.d
+      |vpiName:genblk4
+      |vpiFullName:work@top.d.genblk4
+      |vpiGenScope:
+      \_gen_scope: (work@top.d.genblk4), parent:work@top.d.genblk4
+        |vpiFullName:work@top.d.genblk4
+        |vpiModule:
+        \_module: work@top.d.genblk4::GOOD (work@top.d.genblk4.good4) dut.sv:68: , parent:work@top.d.genblk4
+          |vpiName:good4
+          |vpiFullName:work@top.d.genblk4.good4
+          |vpiDefName:work@top.d.genblk4::GOOD
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.d.genblk5), line:71:4, endln:73:7, parent:work@top.d
+      |vpiName:genblk5
+      |vpiFullName:work@top.d.genblk5
+      |vpiGenScope:
+      \_gen_scope: (work@top.d.genblk5), parent:work@top.d.genblk5
+        |vpiFullName:work@top.d.genblk5
+        |vpiModule:
+        \_module: work@top.d.genblk5::GOOD (work@top.d.genblk5.good5) dut.sv:72: , parent:work@top.d.genblk5
+          |vpiName:good5
+          |vpiFullName:work@top.d.genblk5.good5
+          |vpiDefName:work@top.d.genblk5::GOOD
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.d.genblk6), line:75:4, endln:77:7, parent:work@top.d
+      |vpiName:genblk6
+      |vpiFullName:work@top.d.genblk6
+      |vpiGenScope:
+      \_gen_scope: (work@top.d.genblk6), parent:work@top.d.genblk6
+        |vpiFullName:work@top.d.genblk6
+        |vpiModule:
+        \_module: work@top.d.genblk6::GOOD (work@top.d.genblk6.good6) dut.sv:76: , parent:work@top.d.genblk6
+          |vpiName:good6
+          |vpiFullName:work@top.d.genblk6.good6
+          |vpiDefName:work@top.d.genblk6::GOOD
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.d.genblk7), line:79:4, endln:81:7, parent:work@top.d
+      |vpiName:genblk7
+      |vpiFullName:work@top.d.genblk7
+      |vpiGenScope:
+      \_gen_scope: (work@top.d.genblk7), parent:work@top.d.genblk7
+        |vpiFullName:work@top.d.genblk7
+        |vpiModule:
+        \_module: work@top.d.genblk7::GOOD (work@top.d.genblk7.good7) dut.sv:80: , parent:work@top.d.genblk7
+          |vpiName:good7
+          |vpiFullName:work@top.d.genblk7.good7
+          |vpiDefName:work@top.d.genblk7::GOOD
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.d.genblk8), line:83:2, endln:85:5, parent:work@top.d
+      |vpiName:genblk8
+      |vpiFullName:work@top.d.genblk8
+      |vpiGenScope:
+      \_gen_scope: (work@top.d.genblk8), parent:work@top.d.genblk8
+        |vpiFullName:work@top.d.genblk8
+        |vpiModule:
+        \_module: work@top.d.genblk8::GOOD (work@top.d.genblk8.good8) dut.sv:84: , parent:work@top.d.genblk8
+          |vpiName:good8
+          |vpiFullName:work@top.d.genblk8.good8
+          |vpiDefName:work@top.d.genblk8::GOOD
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.d.genblk9), line:87:3, endln:89:6, parent:work@top.d
+      |vpiName:genblk9
+      |vpiFullName:work@top.d.genblk9
+      |vpiGenScope:
+      \_gen_scope: (work@top.d.genblk9), parent:work@top.d.genblk9
+        |vpiFullName:work@top.d.genblk9
+        |vpiModule:
+        \_module: work@top.d.genblk9::GOOD (work@top.d.genblk9.good9) dut.sv:88: , parent:work@top.d.genblk9
+          |vpiName:good9
+          |vpiFullName:work@top.d.genblk9.good9
+          |vpiDefName:work@top.d.genblk9::GOOD
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.d.genblk10), line:91:3, endln:93:6, parent:work@top.d
+      |vpiName:genblk10
+      |vpiFullName:work@top.d.genblk10
+      |vpiGenScope:
+      \_gen_scope: (work@top.d.genblk10), parent:work@top.d.genblk10
+        |vpiFullName:work@top.d.genblk10
+        |vpiModule:
+        \_module: work@top.d.genblk10::GOOD (work@top.d.genblk10.good10) dut.sv:92: , parent:work@top.d.genblk10
+          |vpiName:good10
+          |vpiFullName:work@top.d.genblk10.good10
+          |vpiDefName:work@top.d.genblk10::GOOD
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.d.genblk11), line:95:3, endln:97:6, parent:work@top.d
+      |vpiName:genblk11
+      |vpiFullName:work@top.d.genblk11
+      |vpiGenScope:
+      \_gen_scope: (work@top.d.genblk11), parent:work@top.d.genblk11
+        |vpiFullName:work@top.d.genblk11
+        |vpiModule:
+        \_module: work@top.d.genblk11::GOOD (work@top.d.genblk11.good11) dut.sv:96: , parent:work@top.d.genblk11
+          |vpiName:good11
+          |vpiFullName:work@top.d.genblk11.good11
+          |vpiDefName:work@top.d.genblk11::GOOD
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.d.genblk12), line:99:3, endln:101:6, parent:work@top.d
+      |vpiName:genblk12
+      |vpiFullName:work@top.d.genblk12
+      |vpiGenScope:
+      \_gen_scope: (work@top.d.genblk12), parent:work@top.d.genblk12
+        |vpiFullName:work@top.d.genblk12
+        |vpiModule:
+        \_module: work@top.d.genblk12::GOOD (work@top.d.genblk12.good12) dut.sv:100: , parent:work@top.d.genblk12
+          |vpiName:good12
+          |vpiFullName:work@top.d.genblk12.good12
+          |vpiDefName:work@top.d.genblk12::GOOD
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.d.genblk13), line:103:3, endln:105:6, parent:work@top.d
+      |vpiName:genblk13
+      |vpiFullName:work@top.d.genblk13
+      |vpiGenScope:
+      \_gen_scope: (work@top.d.genblk13), parent:work@top.d.genblk13
+        |vpiFullName:work@top.d.genblk13
+        |vpiModule:
+        \_module: work@top.d.genblk13::GOOD (work@top.d.genblk13.good13) dut.sv:104: , parent:work@top.d.genblk13
+          |vpiName:good13
+          |vpiFullName:work@top.d.genblk13.good13
+          |vpiDefName:work@top.d.genblk13::GOOD
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.d.genblk14), line:107:2, endln:109:6, parent:work@top.d
+      |vpiName:genblk14
+      |vpiFullName:work@top.d.genblk14
+      |vpiGenScope:
+      \_gen_scope: (work@top.d.genblk14), parent:work@top.d.genblk14
+        |vpiFullName:work@top.d.genblk14
+        |vpiModule:
+        \_module: work@top.d.genblk14::GOOD (work@top.d.genblk14.good15) dut.sv:108: , parent:work@top.d.genblk14
+          |vpiName:good15
+          |vpiFullName:work@top.d.genblk14.good15
+          |vpiDefName:work@top.d.genblk14::GOOD
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

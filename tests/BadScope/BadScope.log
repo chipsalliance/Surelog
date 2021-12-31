@@ -185,17 +185,18 @@ n<> u<144> t<Top_level_rule> l<2:1> el<28:1>
 
 ====== UHDM =======
 design: (work@top3)
-|vpiName:work@top3
 |vpiElaborated:1
+|vpiName:work@top3
 |uhdmallPackages:
 \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
-  |vpiDefName:pack
   |vpiName:pack
   |vpiFullName:pack::
   |vpiTypedef:
   \_struct_typespec: (pack::status_t), line:4:10, endln:4:16, parent:work@top3.MSTATUS_RST_VAL
-    |vpiPacked:1
     |vpiName:pack::status_t
+    |vpiInstance:
+    \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
+    |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (A), line:5:16, endln:5:17
       |vpiName:A
@@ -210,21 +211,23 @@ design: (work@top3)
       \_logic_typespec: , line:6:5, endln:6:10
         |vpiInstance:
         \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
-    |vpiInstance:
-    \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
+  |vpiDefName:pack
 |uhdmallModules:
 \_module: work@top3 (work@top3) dut.sv:12:1: , endln:26:10, parent:work@top3
-  |vpiDefName:work@top3
   |vpiFullName:work@top3
   |vpiParameter:
   \_parameter: (work@top3.MSTATUS_RST_VAL), line:21:22, endln:25:54, parent:work@top3
-    |vpiName:MSTATUS_RST_VAL
-    |vpiFullName:work@top3.MSTATUS_RST_VAL
-    |vpiLocalParam:1
     |vpiTypespec:
     \_struct_typespec: (pack::status_t), line:4:10, endln:4:16, parent:work@top3.MSTATUS_RST_VAL
-      |vpiPacked:1
       |vpiName:pack::status_t
+      |vpiInstance:
+      \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
+        |vpiName:pack
+        |vpiFullName:pack::
+        |vpiTypedef:
+        \_struct_typespec: (pack::status_t), line:4:10, endln:4:16, parent:work@top3.MSTATUS_RST_VAL
+        |vpiDefName:pack
+      |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (A), line:5:16, endln:5:17
         |vpiName:A
@@ -232,11 +235,6 @@ design: (work@top3)
         \_logic_typespec: , line:5:5, endln:5:10
           |vpiInstance:
           \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
-            |vpiDefName:pack
-            |vpiName:pack
-            |vpiFullName:pack::
-            |vpiTypedef:
-            \_struct_typespec: (pack::status_t), line:4:10, endln:4:16, parent:work@top3.MSTATUS_RST_VAL
       |vpiTypespecMember:
       \_typespec_member: (B), line:6:16, endln:6:17
         |vpiName:B
@@ -244,8 +242,9 @@ design: (work@top3)
         \_logic_typespec: , line:6:5, endln:6:10
           |vpiInstance:
           \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
-      |vpiInstance:
-      \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
+    |vpiLocalParam:1
+    |vpiName:MSTATUS_RST_VAL
+    |vpiFullName:work@top3.MSTATUS_RST_VAL
   |vpiParamAssign:
   \_param_assign: , line:21:22, endln:25:54, parent:work@top3
     |vpiRhs:
@@ -255,10 +254,10 @@ design: (work@top3)
       \_tagged_pattern: 
         |vpiPattern:
         \_constant: , line:21:48, endln:21:52
-          |vpiConstType:3
           |vpiDecompile:1'b0
           |vpiSize:1
           |BIN:0
+          |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (mie), line:21:42, endln:21:45
           |vpiName:mie
@@ -266,10 +265,10 @@ design: (work@top3)
       \_tagged_pattern: 
         |vpiPattern:
         \_constant: , line:22:49, endln:22:53
-          |vpiConstType:3
           |vpiDecompile:1'b1
           |vpiSize:1
           |BIN:1
+          |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (mpie), line:22:43, endln:22:47
           |vpiName:mpie
@@ -285,10 +284,10 @@ design: (work@top3)
       \_tagged_pattern: 
         |vpiPattern:
         \_constant: , line:24:49, endln:24:53
-          |vpiConstType:3
           |vpiDecompile:1'b0
           |vpiSize:1
           |BIN:0
+          |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (mprv), line:24:43, endln:24:47
           |vpiName:mprv
@@ -296,10 +295,10 @@ design: (work@top3)
       \_tagged_pattern: 
         |vpiPattern:
         \_constant: , line:25:49, endln:25:53
-          |vpiConstType:3
           |vpiDecompile:1'b0
           |vpiSize:1
           |BIN:0
+          |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (tw), line:25:43, endln:25:45
           |vpiName:tw
@@ -309,19 +308,41 @@ design: (work@top3)
   \_struct_typespec: (pack::status_t), line:4:10, endln:4:16, parent:work@top3.MSTATUS_RST_VAL
   |vpiTypedef:
   \_import: (pack), line:13:8, endln:13:15
+  |vpiDefName:work@top3
 |uhdmtopModules:
 \_module: work@top3 (work@top3) dut.sv:12:1: , endln:26:10
-  |vpiDefName:work@top3
   |vpiName:work@top3
   |vpiParameter:
   \_parameter: (work@top3.MSTATUS_RST_VAL), line:21:22, endln:25:54, parent:work@top3
-    |vpiName:MSTATUS_RST_VAL
-    |vpiFullName:work@top3.MSTATUS_RST_VAL
-    |vpiLocalParam:1
     |vpiTypespec:
     \_struct_typespec: (pack::status_t), line:4:10, endln:4:16, parent:work@top3.MSTATUS_RST_VAL
-      |vpiPacked:1
       |vpiName:pack::status_t
+      |vpiInstance:
+      \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
+        |vpiName:pack
+        |vpiFullName:pack::
+        |vpiTypedef:
+        \_struct_typespec: (pack::status_t), line:4:10, endln:4:16, parent:work@top3.MSTATUS_RST_VAL
+          |vpiName:pack::status_t
+          |vpiInstance:
+          \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
+          |vpiPacked:1
+          |vpiTypespecMember:
+          \_typespec_member: (A), line:5:16, endln:5:17
+            |vpiName:A
+            |vpiTypespec:
+            \_logic_typespec: , line:5:5, endln:5:10
+              |vpiInstance:
+              \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
+          |vpiTypespecMember:
+          \_typespec_member: (B), line:6:16, endln:6:17
+            |vpiName:B
+            |vpiTypespec:
+            \_logic_typespec: , line:6:5, endln:6:10
+              |vpiInstance:
+              \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
+        |vpiDefName:pack
+      |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (A), line:5:16, endln:5:17, parent:pack::status_t
         |vpiName:A
@@ -329,29 +350,6 @@ design: (work@top3)
         \_logic_typespec: , line:5:5, endln:5:10, parent:A
           |vpiInstance:
           \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
-            |vpiDefName:pack
-            |vpiName:pack
-            |vpiFullName:pack::
-            |vpiTypedef:
-            \_struct_typespec: (pack::status_t), line:4:10, endln:4:16, parent:work@top3.MSTATUS_RST_VAL
-              |vpiPacked:1
-              |vpiName:pack::status_t
-              |vpiTypespecMember:
-              \_typespec_member: (A), line:5:16, endln:5:17
-                |vpiName:A
-                |vpiTypespec:
-                \_logic_typespec: , line:5:5, endln:5:10
-                  |vpiInstance:
-                  \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
-              |vpiTypespecMember:
-              \_typespec_member: (B), line:6:16, endln:6:17
-                |vpiName:B
-                |vpiTypespec:
-                \_logic_typespec: , line:6:5, endln:6:10
-                  |vpiInstance:
-                  \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
-              |vpiInstance:
-              \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
       |vpiTypespecMember:
       \_typespec_member: (B), line:6:16, endln:6:17, parent:pack::status_t
         |vpiName:B
@@ -359,22 +357,43 @@ design: (work@top3)
         \_logic_typespec: , line:6:5, endln:6:10, parent:B
           |vpiInstance:
           \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
-      |vpiInstance:
-      \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
+    |vpiLocalParam:1
+    |vpiName:MSTATUS_RST_VAL
+    |vpiFullName:work@top3.MSTATUS_RST_VAL
   |vpiParamAssign:
   \_param_assign: , line:21:22, endln:25:54, parent:work@top3
     |vpiRhs:
     \_operation: , line:21:40, endln:25:54
+      |vpiTypespec:
+      \_struct_typespec: (pack::status_t), line:4:10, endln:4:16
+        |vpiName:pack::status_t
+        |vpiInstance:
+        \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
+        |vpiPacked:1
+        |vpiTypespecMember:
+        \_typespec_member: (A), line:5:16, endln:5:17, parent:pack::status_t
+          |vpiName:A
+          |vpiTypespec:
+          \_logic_typespec: , line:5:5, endln:5:10, parent:A
+            |vpiInstance:
+            \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
+        |vpiTypespecMember:
+        \_typespec_member: (B), line:6:16, endln:6:17, parent:pack::status_t
+          |vpiName:B
+          |vpiTypespec:
+          \_logic_typespec: , line:6:5, endln:6:10, parent:B
+            |vpiInstance:
+            \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
       |vpiOpType:75
       |vpiFlattened:1
       |vpiOperand:
       \_tagged_pattern: 
         |vpiPattern:
         \_constant: , line:21:48, endln:21:52
-          |vpiConstType:3
           |vpiDecompile:1'b0
           |vpiSize:1
           |BIN:0
+          |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (mie), line:21:42, endln:21:45
           |vpiName:mie
@@ -382,10 +401,10 @@ design: (work@top3)
       \_tagged_pattern: 
         |vpiPattern:
         \_constant: , line:22:49, endln:22:53
-          |vpiConstType:3
           |vpiDecompile:1'b1
           |vpiSize:1
           |BIN:1
+          |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (mpie), line:22:43, endln:22:47
           |vpiName:mpie
@@ -402,10 +421,10 @@ design: (work@top3)
       \_tagged_pattern: 
         |vpiPattern:
         \_constant: , line:24:49, endln:24:53
-          |vpiConstType:3
           |vpiDecompile:1'b0
           |vpiSize:1
           |BIN:0
+          |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (mprv), line:24:43, endln:24:47
           |vpiName:mprv
@@ -413,39 +432,20 @@ design: (work@top3)
       \_tagged_pattern: 
         |vpiPattern:
         \_constant: , line:25:49, endln:25:53
-          |vpiConstType:3
           |vpiDecompile:1'b0
           |vpiSize:1
           |BIN:0
+          |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (tw), line:25:43, endln:25:45
           |vpiName:tw
-      |vpiTypespec:
-      \_struct_typespec: (pack::status_t), line:4:10, endln:4:16
-        |vpiPacked:1
-        |vpiName:pack::status_t
-        |vpiTypespecMember:
-        \_typespec_member: (A), line:5:16, endln:5:17, parent:pack::status_t
-          |vpiName:A
-          |vpiTypespec:
-          \_logic_typespec: , line:5:5, endln:5:10, parent:A
-            |vpiInstance:
-            \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
-        |vpiTypespecMember:
-        \_typespec_member: (B), line:6:16, endln:6:17, parent:pack::status_t
-          |vpiName:B
-          |vpiTypespec:
-          \_logic_typespec: , line:6:5, endln:6:10, parent:B
-            |vpiInstance:
-            \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
-        |vpiInstance:
-        \_package: pack (pack::) dut.sv:2:1: , endln:9:11, parent:work@top3
     |vpiLhs:
     \_parameter: (work@top3.MSTATUS_RST_VAL), line:21:22, endln:25:54, parent:work@top3
   |vpiTypedef:
   \_struct_typespec: (pack::status_t), line:4:10, endln:4:16, parent:work@top3.MSTATUS_RST_VAL
   |vpiTypedef:
   \_import: (pack), line:13:8, endln:13:15
+  |vpiDefName:work@top3
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -1128,13 +1128,13 @@ n<> u<245> t<Top_level_rule> f<0> l<0:11>
 
 ====== UHDM =======
 design: (work@fsm_using_always)
-|vpiName:work@fsm_using_always
 |vpiElaborated:1
+|vpiName:work@fsm_using_always
 |uhdmallPackages:
 \_package: builtin (builtin::), parent:work@fsm_using_always
-  |vpiDefName:builtin
   |vpiName:builtin
   |vpiFullName:builtin::
+  |vpiDefName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin::
     |vpiName:array
@@ -1156,9 +1156,9 @@ design: (work@fsm_using_always)
   |vpiName:work@mailbox
   |vpiMethod:
   \_function: (work@mailbox::new), parent:work@mailbox
-    |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@mailbox::new
+    |vpiMethod:1
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -1167,107 +1167,140 @@ design: (work@fsm_using_always)
         \_class_defn: (work@mailbox), file:builtin.sv, parent:work@fsm_using_always
     |vpiIODecl:
     \_io_decl: (bound), parent:work@mailbox::new
-      |vpiName:bound
       |vpiDirection:1
+      |vpiName:bound
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_function: (work@mailbox::num), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:num
     |vpiFullName:work@mailbox::num
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:put
     |vpiFullName:work@mailbox::put
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::put
-      |vpiName:message
-      |vpiDirection:1
-  |vpiMethod:
-  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::put
+      |vpiDirection:1
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_put
-      |vpiName:message
       |vpiDirection:1
+      |vpiName:message
   |vpiMethod:
   \_task: (work@mailbox::get), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:get
     |vpiFullName:work@mailbox::get
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::get
-      |vpiName:message
-      |vpiDirection:6
-  |vpiMethod:
-  \_function: (work@mailbox::try_get), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::get
+      |vpiDirection:6
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_get), parent:work@mailbox
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
   |vpiMethod:
   \_task: (work@mailbox::peek), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::peek
-      |vpiName:message
-      |vpiDirection:6
-  |vpiMethod:
-  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::peek
+      |vpiDirection:6
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
 |uhdmallClasses:
 \_class_defn: (work@process), file:builtin.sv, parent:work@fsm_using_always
   |vpiName:work@process
+  |vpiTypedef:
+  \_enum_typespec: (state), parent:work@process
+    |vpiName:state
+    |vpiEnumConst:
+    \_enum_const: (FINISHED), parent:state
+      |vpiName:FINISHED
+      |INT:0
+      |vpiDecompile:0
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (RUNNING), parent:state
+      |vpiName:RUNNING
+      |INT:1
+      |vpiDecompile:1
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (WAITING), parent:state
+      |vpiName:WAITING
+      |INT:2
+      |vpiDecompile:2
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (SUSPENDED), parent:state
+      |vpiName:SUSPENDED
+      |INT:3
+      |vpiDecompile:3
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (KILLED), parent:state
+      |vpiName:KILLED
+      |INT:4
+      |vpiDecompile:4
+      |vpiSize:64
   |vpiMethod:
   \_function: (work@process::self), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:self
     |vpiFullName:work@process::self
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_ref_var: 
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:status
     |vpiFullName:work@process::status
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
@@ -1276,110 +1309,77 @@ design: (work@fsm_using_always)
         |vpiEnumConst:
         \_enum_const: (FINISHED)
           |vpiName:FINISHED
-          |vpiDecompile:0
           |INT:0
+          |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
           |vpiName:RUNNING
-          |vpiDecompile:1
           |INT:1
+          |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
           |vpiName:WAITING
-          |vpiDecompile:2
           |INT:2
+          |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
           |vpiName:SUSPENDED
-          |vpiDecompile:3
           |INT:3
+          |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
           |vpiName:KILLED
-          |vpiDecompile:4
           |INT:4
+          |vpiDecompile:4
           |vpiSize:64
   |vpiMethod:
   \_task: (work@process::kill), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:kill
     |vpiFullName:work@process::kill
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::kill), parent:work@process::kill
       |vpiFullName:work@process::kill
   |vpiMethod:
   \_task: (work@process::await), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:await
     |vpiFullName:work@process::await
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::await), parent:work@process::await
       |vpiFullName:work@process::await
   |vpiMethod:
   \_task: (work@process::suspend), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:suspend
     |vpiFullName:work@process::suspend
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::suspend), parent:work@process::suspend
       |vpiFullName:work@process::suspend
   |vpiMethod:
   \_task: (work@process::resume), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:resume
     |vpiFullName:work@process::resume
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::resume), parent:work@process::resume
       |vpiFullName:work@process::resume
-  |vpiTypedef:
-  \_enum_typespec: (state), parent:work@process
-    |vpiName:state
-    |vpiEnumConst:
-    \_enum_const: (FINISHED), parent:state
-      |vpiName:FINISHED
-      |vpiDecompile:0
-      |INT:0
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (RUNNING), parent:state
-      |vpiName:RUNNING
-      |vpiDecompile:1
-      |INT:1
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (WAITING), parent:state
-      |vpiName:WAITING
-      |vpiDecompile:2
-      |INT:2
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (SUSPENDED), parent:state
-      |vpiName:SUSPENDED
-      |vpiDecompile:3
-      |INT:3
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (KILLED), parent:state
-      |vpiName:KILLED
-      |vpiDecompile:4
-      |INT:4
-      |vpiSize:64
 |uhdmallClasses:
 \_class_defn: (work@semaphore), file:builtin.sv, parent:work@fsm_using_always
   |vpiName:work@semaphore
   |vpiMethod:
   \_function: (work@semaphore::new), parent:work@semaphore
-    |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@semaphore::new
+    |vpiMethod:1
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -1388,76 +1388,176 @@ design: (work@fsm_using_always)
         \_class_defn: (work@semaphore), file:builtin.sv, parent:work@fsm_using_always
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::new
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_task: (work@semaphore::put), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:put
     |vpiFullName:work@semaphore::put
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::put
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_task: (work@semaphore::get), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:get
     |vpiFullName:work@semaphore::get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::get
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_function: (work@semaphore::try_get), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
 |uhdmallModules:
 \_module: work@fsm_using_always (work@fsm_using_always) top.sv:6:1: , endln:91:10, parent:work@fsm_using_always
-  |vpiDefName:work@fsm_using_always
   |vpiFullName:work@fsm_using_always
+  |vpiParameter:
+  \_parameter: (work@fsm_using_always.SIZE), line:23:11, endln:23:19, parent:work@fsm_using_always
+    |UINT:3
+    |vpiName:SIZE
+    |vpiFullName:work@fsm_using_always.SIZE
+  |vpiParameter:
+  \_parameter: (work@fsm_using_always.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_always
+    |BIN:001
+    |vpiName:IDLE
+    |vpiFullName:work@fsm_using_always.IDLE
+  |vpiParameter:
+  \_parameter: (work@fsm_using_always.GNT0), line:24:26, endln:24:39, parent:work@fsm_using_always
+    |BIN:010
+    |vpiName:GNT0
+    |vpiFullName:work@fsm_using_always.GNT0
+  |vpiParameter:
+  \_parameter: (work@fsm_using_always.GNT1), line:24:40, endln:24:53, parent:work@fsm_using_always
+    |BIN:100
+    |vpiName:GNT1
+    |vpiFullName:work@fsm_using_always.GNT1
+  |vpiParamAssign:
+  \_param_assign: , line:23:11, endln:23:19, parent:work@fsm_using_always
+    |vpiRhs:
+    \_constant: , line:23:18, endln:23:19
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@fsm_using_always.SIZE), line:23:11, endln:23:19, parent:work@fsm_using_always
+  |vpiParamAssign:
+  \_param_assign: , line:24:11, endln:24:25, parent:work@fsm_using_always
+    |vpiRhs:
+    \_constant: , line:24:19, endln:24:25
+      |vpiDecompile:3'b001
+      |vpiSize:3
+      |BIN:001
+      |vpiConstType:3
+    |vpiLhs:
+    \_parameter: (work@fsm_using_always.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_always
+  |vpiParamAssign:
+  \_param_assign: , line:24:26, endln:24:39, parent:work@fsm_using_always
+    |vpiRhs:
+    \_constant: , line:24:33, endln:24:39
+      |vpiDecompile:3'b010
+      |vpiSize:3
+      |BIN:010
+      |vpiConstType:3
+    |vpiLhs:
+    \_parameter: (work@fsm_using_always.GNT0), line:24:26, endln:24:39, parent:work@fsm_using_always
+  |vpiParamAssign:
+  \_param_assign: , line:24:40, endln:24:53, parent:work@fsm_using_always
+    |vpiRhs:
+    \_constant: , line:24:47, endln:24:53
+      |vpiDecompile:3'b100
+      |vpiSize:3
+      |BIN:100
+      |vpiConstType:3
+    |vpiLhs:
+    \_parameter: (work@fsm_using_always.GNT1), line:24:40, endln:24:53, parent:work@fsm_using_always
+  |vpiDefName:work@fsm_using_always
+  |vpiNet:
+  \_logic_net: (work@fsm_using_always.clock), line:19:9, parent:work@fsm_using_always
+    |vpiName:clock
+    |vpiFullName:work@fsm_using_always.clock
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@fsm_using_always.reset), line:19:15, parent:work@fsm_using_always
+    |vpiName:reset
+    |vpiFullName:work@fsm_using_always.reset
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@fsm_using_always.req_0), line:19:21, parent:work@fsm_using_always
+    |vpiName:req_0
+    |vpiFullName:work@fsm_using_always.req_0
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@fsm_using_always.req_1), line:19:27, parent:work@fsm_using_always
+    |vpiName:req_1
+    |vpiFullName:work@fsm_using_always.req_1
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@fsm_using_always.gnt_0), line:21:9, parent:work@fsm_using_always
+    |vpiName:gnt_0
+    |vpiFullName:work@fsm_using_always.gnt_0
+    |vpiNetType:48
+  |vpiNet:
+  \_logic_net: (work@fsm_using_always.gnt_1), line:21:15, parent:work@fsm_using_always
+    |vpiName:gnt_1
+    |vpiFullName:work@fsm_using_always.gnt_1
+    |vpiNetType:48
+  |vpiNet:
+  \_logic_net: (work@fsm_using_always.state), line:26:27, parent:work@fsm_using_always
+    |vpiName:state
+    |vpiFullName:work@fsm_using_always.state
+    |vpiNetType:48
+  |vpiNet:
+  \_logic_net: (work@fsm_using_always.next_state), line:27:27, parent:work@fsm_using_always
+    |vpiName:next_state
+    |vpiFullName:work@fsm_using_always.next_state
+    |vpiNetType:48
   |vpiPort:
   \_port: (clock), line:7:1, parent:work@fsm_using_always
     |vpiName:clock
@@ -1466,9 +1566,6 @@ design: (work@fsm_using_always)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@fsm_using_always.clock), line:19:9, parent:work@fsm_using_always
-        |vpiName:clock
-        |vpiFullName:work@fsm_using_always.clock
-        |vpiNetType:1
   |vpiPort:
   \_port: (reset), line:8:1, parent:work@fsm_using_always
     |vpiName:reset
@@ -1477,9 +1574,6 @@ design: (work@fsm_using_always)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@fsm_using_always.reset), line:19:15, parent:work@fsm_using_always
-        |vpiName:reset
-        |vpiFullName:work@fsm_using_always.reset
-        |vpiNetType:1
   |vpiPort:
   \_port: (req_0), line:9:1, parent:work@fsm_using_always
     |vpiName:req_0
@@ -1488,9 +1582,6 @@ design: (work@fsm_using_always)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@fsm_using_always.req_0), line:19:21, parent:work@fsm_using_always
-        |vpiName:req_0
-        |vpiFullName:work@fsm_using_always.req_0
-        |vpiNetType:1
   |vpiPort:
   \_port: (req_1), line:10:1, parent:work@fsm_using_always
     |vpiName:req_1
@@ -1499,9 +1590,6 @@ design: (work@fsm_using_always)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@fsm_using_always.req_1), line:19:27, parent:work@fsm_using_always
-        |vpiName:req_1
-        |vpiFullName:work@fsm_using_always.req_1
-        |vpiNetType:1
   |vpiPort:
   \_port: (gnt_0), line:11:1, parent:work@fsm_using_always
     |vpiName:gnt_0
@@ -1510,9 +1598,6 @@ design: (work@fsm_using_always)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@fsm_using_always.gnt_0), line:21:9, parent:work@fsm_using_always
-        |vpiName:gnt_0
-        |vpiFullName:work@fsm_using_always.gnt_0
-        |vpiNetType:48
   |vpiPort:
   \_port: (gnt_1), line:12:1, parent:work@fsm_using_always
     |vpiName:gnt_1
@@ -1521,12 +1606,8 @@ design: (work@fsm_using_always)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@fsm_using_always.gnt_1), line:21:15, parent:work@fsm_using_always
-        |vpiName:gnt_1
-        |vpiFullName:work@fsm_using_always.gnt_1
-        |vpiNetType:48
   |vpiProcess:
   \_always: , line:29:1, endln:52:4, parent:work@fsm_using_always
-    |vpiAlwaysType:1
     |vpiStmt:
     \_event_control: , line:29:8, endln:52:4
       |vpiCondition:
@@ -1547,16 +1628,16 @@ design: (work@fsm_using_always)
               \_range: , line:26:8, endln:26:16
                 |vpiLeftRange:
                 \_constant: , line:26:8, endln:26:12
-                  |vpiConstType:7
                   |vpiDecompile:2
                   |vpiSize:64
                   |INT:2
+                  |vpiConstType:7
                 |vpiRightRange:
                 \_constant: , line:26:15, endln:26:16
-                  |vpiConstType:9
                   |vpiDecompile:0
                   |vpiSize:64
                   |UINT:0
+                  |vpiConstType:9
           |vpiOperand:
           \_ref_obj: (req_0), line:29:20, endln:29:25
             |vpiName:req_0
@@ -1583,10 +1664,10 @@ design: (work@fsm_using_always)
           |vpiBlocking:1
           |vpiRhs:
           \_constant: , line:31:15, endln:31:21
-            |vpiConstType:3
             |vpiDecompile:3'b000
             |vpiSize:3
             |BIN:000
+            |vpiConstType:3
           |vpiLhs:
           \_ref_obj: (work@fsm_using_always.FSM_COMBO.next_state), line:31:2, endln:31:12, parent:work@fsm_using_always.FSM_COMBO
             |vpiName:next_state
@@ -1600,16 +1681,16 @@ design: (work@fsm_using_always)
               \_range: , line:27:8, endln:27:16
                 |vpiLeftRange:
                 \_constant: , line:27:8, endln:27:12
-                  |vpiConstType:7
                   |vpiDecompile:2
                   |vpiSize:64
                   |INT:2
+                  |vpiConstType:7
                 |vpiRightRange:
                 \_constant: , line:27:15, endln:27:16
-                  |vpiConstType:9
                   |vpiDecompile:0
                   |vpiSize:64
                   |UINT:0
+                  |vpiConstType:9
         |vpiStmt:
         \_case_stmt: , line:32:2, endln:51:10, parent:work@fsm_using_always.FSM_COMBO
           |vpiCaseType:1
@@ -1638,10 +1719,10 @@ design: (work@fsm_using_always)
                   \_logic_net: (work@fsm_using_always.req_0), line:19:21, endln:19:26, parent:work@fsm_using_always
                 |vpiOperand:
                 \_constant: , line:33:24, endln:33:28
-                  |vpiConstType:3
                   |vpiDecompile:1'b1
                   |vpiSize:1
                   |BIN:1
+                  |vpiConstType:3
               |vpiStmt:
               \_begin: (work@fsm_using_always.FSM_COMBO), line:33:30, endln:35:18
                 |vpiFullName:work@fsm_using_always.FSM_COMBO
@@ -1672,10 +1753,10 @@ design: (work@fsm_using_always)
                     \_logic_net: (work@fsm_using_always.req_1), line:19:27, endln:19:32, parent:work@fsm_using_always
                   |vpiOperand:
                   \_constant: , line:35:37, endln:35:41
-                    |vpiConstType:3
                     |vpiDecompile:1'b1
                     |vpiSize:1
                     |BIN:1
+                    |vpiConstType:3
                 |vpiStmt:
                 \_begin: (work@fsm_using_always.FSM_COMBO), line:35:43, endln:37:18
                   |vpiFullName:work@fsm_using_always.FSM_COMBO
@@ -1729,10 +1810,10 @@ design: (work@fsm_using_always)
                   \_logic_net: (work@fsm_using_always.req_0), line:19:21, endln:19:26, parent:work@fsm_using_always
                 |vpiOperand:
                 \_constant: , line:40:24, endln:40:28
-                  |vpiConstType:3
                   |vpiDecompile:1'b1
                   |vpiSize:1
                   |BIN:1
+                  |vpiConstType:3
               |vpiStmt:
               \_begin: (work@fsm_using_always.FSM_COMBO), line:40:30, endln:42:18
                 |vpiFullName:work@fsm_using_always.FSM_COMBO
@@ -1786,10 +1867,10 @@ design: (work@fsm_using_always)
                   \_logic_net: (work@fsm_using_always.req_1), line:19:27, endln:19:32, parent:work@fsm_using_always
                 |vpiOperand:
                 \_constant: , line:45:24, endln:45:28
-                  |vpiConstType:3
                   |vpiDecompile:1'b1
                   |vpiSize:1
                   |BIN:1
+                  |vpiConstType:3
               |vpiStmt:
               \_begin: (work@fsm_using_always.FSM_COMBO), line:45:30, endln:47:18
                 |vpiFullName:work@fsm_using_always.FSM_COMBO
@@ -1840,9 +1921,9 @@ design: (work@fsm_using_always)
                 |vpiFullName:work@fsm_using_always.FSM_COMBO.next_state
                 |vpiActual:
                 \_logic_net: (work@fsm_using_always.next_state), line:27:27, endln:27:37, parent:work@fsm_using_always
+    |vpiAlwaysType:1
   |vpiProcess:
   \_always: , line:54:1, endln:61:4, parent:work@fsm_using_always
-    |vpiAlwaysType:1
     |vpiStmt:
     \_event_control: , line:54:8, endln:61:4
       |vpiCondition:
@@ -1877,10 +1958,10 @@ design: (work@fsm_using_always)
                 |vpiNetType:1
             |vpiOperand:
             \_constant: , line:56:16, endln:56:20
-              |vpiConstType:3
               |vpiDecompile:1'b1
               |vpiSize:1
               |BIN:1
+              |vpiConstType:3
           |vpiStmt:
           \_begin: (work@fsm_using_always.FSM_SEQ), line:56:22, endln:58:6
             |vpiFullName:work@fsm_using_always.FSM_SEQ
@@ -1921,9 +2002,9 @@ design: (work@fsm_using_always)
               |vpiDelayControl:
               \_delay_control: 
                 |#1
+    |vpiAlwaysType:1
   |vpiProcess:
   \_always: , line:63:1, endln:89:4, parent:work@fsm_using_always
-    |vpiAlwaysType:1
     |vpiStmt:
     \_event_control: , line:63:8, endln:89:4
       |vpiCondition:
@@ -1952,10 +2033,10 @@ design: (work@fsm_using_always)
               \_logic_net: (work@fsm_using_always.reset), line:19:15, endln:19:20, parent:work@fsm_using_always
             |vpiOperand:
             \_constant: , line:65:14, endln:65:18
-              |vpiConstType:3
               |vpiDecompile:1'b1
               |vpiSize:1
               |BIN:1
+              |vpiConstType:3
           |vpiStmt:
           \_begin: (work@fsm_using_always.OUTPUT_LOGIC), line:65:20, endln:68:4
             |vpiFullName:work@fsm_using_always.OUTPUT_LOGIC
@@ -1964,10 +2045,10 @@ design: (work@fsm_using_always)
               |vpiOpType:82
               |vpiRhs:
               \_constant: , line:66:15, endln:66:19
-                |vpiConstType:3
                 |vpiDecompile:1'b0
                 |vpiSize:1
                 |BIN:0
+                |vpiConstType:3
               |vpiLhs:
               \_ref_obj: (work@fsm_using_always.OUTPUT_LOGIC.gnt_0), line:66:3, endln:66:8, parent:work@fsm_using_always.OUTPUT_LOGIC
                 |vpiName:gnt_0
@@ -1985,10 +2066,10 @@ design: (work@fsm_using_always)
               |vpiOpType:82
               |vpiRhs:
               \_constant: , line:67:15, endln:67:19
-                |vpiConstType:3
                 |vpiDecompile:1'b0
                 |vpiSize:1
                 |BIN:0
+                |vpiConstType:3
               |vpiLhs:
               \_ref_obj: (work@fsm_using_always.OUTPUT_LOGIC.gnt_1), line:67:3, endln:67:8, parent:work@fsm_using_always.OUTPUT_LOGIC
                 |vpiName:gnt_1
@@ -2027,10 +2108,10 @@ design: (work@fsm_using_always)
                     |vpiOpType:82
                     |vpiRhs:
                     \_constant: , line:72:31, endln:72:35
-                      |vpiConstType:3
                       |vpiDecompile:1'b0
                       |vpiSize:1
                       |BIN:0
+                      |vpiConstType:3
                     |vpiLhs:
                     \_ref_obj: (work@fsm_using_always.OUTPUT_LOGIC.gnt_0), line:72:19, endln:72:24, parent:work@fsm_using_always.OUTPUT_LOGIC
                       |vpiName:gnt_0
@@ -2045,10 +2126,10 @@ design: (work@fsm_using_always)
                     |vpiOpType:82
                     |vpiRhs:
                     \_constant: , line:73:31, endln:73:35
-                      |vpiConstType:3
                       |vpiDecompile:1'b0
                       |vpiSize:1
                       |BIN:0
+                      |vpiConstType:3
                     |vpiLhs:
                     \_ref_obj: (work@fsm_using_always.OUTPUT_LOGIC.gnt_1), line:73:19, endln:73:24, parent:work@fsm_using_always.OUTPUT_LOGIC
                       |vpiName:gnt_1
@@ -2072,10 +2153,10 @@ design: (work@fsm_using_always)
                     |vpiOpType:82
                     |vpiRhs:
                     \_constant: , line:76:32, endln:76:36
-                      |vpiConstType:3
                       |vpiDecompile:1'b1
                       |vpiSize:1
                       |BIN:1
+                      |vpiConstType:3
                     |vpiLhs:
                     \_ref_obj: (work@fsm_using_always.OUTPUT_LOGIC.gnt_0), line:76:20, endln:76:25, parent:work@fsm_using_always.OUTPUT_LOGIC
                       |vpiName:gnt_0
@@ -2090,10 +2171,10 @@ design: (work@fsm_using_always)
                     |vpiOpType:82
                     |vpiRhs:
                     \_constant: , line:77:32, endln:77:36
-                      |vpiConstType:3
                       |vpiDecompile:1'b0
                       |vpiSize:1
                       |BIN:0
+                      |vpiConstType:3
                     |vpiLhs:
                     \_ref_obj: (work@fsm_using_always.OUTPUT_LOGIC.gnt_1), line:77:20, endln:77:25, parent:work@fsm_using_always.OUTPUT_LOGIC
                       |vpiName:gnt_1
@@ -2117,10 +2198,10 @@ design: (work@fsm_using_always)
                     |vpiOpType:82
                     |vpiRhs:
                     \_constant: , line:80:32, endln:80:36
-                      |vpiConstType:3
                       |vpiDecompile:1'b0
                       |vpiSize:1
                       |BIN:0
+                      |vpiConstType:3
                     |vpiLhs:
                     \_ref_obj: (work@fsm_using_always.OUTPUT_LOGIC.gnt_0), line:80:20, endln:80:25, parent:work@fsm_using_always.OUTPUT_LOGIC
                       |vpiName:gnt_0
@@ -2135,10 +2216,10 @@ design: (work@fsm_using_always)
                     |vpiOpType:82
                     |vpiRhs:
                     \_constant: , line:81:32, endln:81:36
-                      |vpiConstType:3
                       |vpiDecompile:1'b1
                       |vpiSize:1
                       |BIN:1
+                      |vpiConstType:3
                     |vpiLhs:
                     \_ref_obj: (work@fsm_using_always.OUTPUT_LOGIC.gnt_1), line:81:20, endln:81:25, parent:work@fsm_using_always.OUTPUT_LOGIC
                       |vpiName:gnt_1
@@ -2158,10 +2239,10 @@ design: (work@fsm_using_always)
                     |vpiOpType:82
                     |vpiRhs:
                     \_constant: , line:84:33, endln:84:37
-                      |vpiConstType:3
                       |vpiDecompile:1'b0
                       |vpiSize:1
                       |BIN:0
+                      |vpiConstType:3
                     |vpiLhs:
                     \_ref_obj: (work@fsm_using_always.OUTPUT_LOGIC.gnt_0), line:84:21, endln:84:26, parent:work@fsm_using_always.OUTPUT_LOGIC
                       |vpiName:gnt_0
@@ -2176,10 +2257,10 @@ design: (work@fsm_using_always)
                     |vpiOpType:82
                     |vpiRhs:
                     \_constant: , line:85:33, endln:85:37
-                      |vpiConstType:3
                       |vpiDecompile:1'b0
                       |vpiSize:1
                       |BIN:0
+                      |vpiConstType:3
                     |vpiLhs:
                     \_ref_obj: (work@fsm_using_always.OUTPUT_LOGIC.gnt_1), line:85:21, endln:85:26, parent:work@fsm_using_always.OUTPUT_LOGIC
                       |vpiName:gnt_1
@@ -2189,92 +2270,139 @@ design: (work@fsm_using_always)
                     |vpiDelayControl:
                     \_delay_control: 
                       |#1
-  |vpiNet:
-  \_logic_net: (work@fsm_using_always.clock), line:19:9, parent:work@fsm_using_always
-  |vpiNet:
-  \_logic_net: (work@fsm_using_always.reset), line:19:15, parent:work@fsm_using_always
-  |vpiNet:
-  \_logic_net: (work@fsm_using_always.req_0), line:19:21, parent:work@fsm_using_always
-  |vpiNet:
-  \_logic_net: (work@fsm_using_always.req_1), line:19:27, parent:work@fsm_using_always
-  |vpiNet:
-  \_logic_net: (work@fsm_using_always.gnt_0), line:21:9, parent:work@fsm_using_always
-  |vpiNet:
-  \_logic_net: (work@fsm_using_always.gnt_1), line:21:15, parent:work@fsm_using_always
-  |vpiNet:
-  \_logic_net: (work@fsm_using_always.state), line:26:27, parent:work@fsm_using_always
-    |vpiName:state
-    |vpiFullName:work@fsm_using_always.state
-    |vpiNetType:48
-  |vpiNet:
-  \_logic_net: (work@fsm_using_always.next_state), line:27:27, parent:work@fsm_using_always
-    |vpiName:next_state
-    |vpiFullName:work@fsm_using_always.next_state
-    |vpiNetType:48
+    |vpiAlwaysType:1
+|uhdmtopModules:
+\_module: work@fsm_using_always (work@fsm_using_always) top.sv:6:1: , endln:91:10
+  |vpiName:work@fsm_using_always
   |vpiParameter:
   \_parameter: (work@fsm_using_always.SIZE), line:23:11, endln:23:19, parent:work@fsm_using_always
+    |UINT:3
     |vpiName:SIZE
     |vpiFullName:work@fsm_using_always.SIZE
-    |UINT:3
   |vpiParameter:
   \_parameter: (work@fsm_using_always.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_always
+    |BIN:001
     |vpiName:IDLE
     |vpiFullName:work@fsm_using_always.IDLE
-    |BIN:001
   |vpiParameter:
   \_parameter: (work@fsm_using_always.GNT0), line:24:26, endln:24:39, parent:work@fsm_using_always
+    |BIN:010
     |vpiName:GNT0
     |vpiFullName:work@fsm_using_always.GNT0
-    |BIN:010
   |vpiParameter:
   \_parameter: (work@fsm_using_always.GNT1), line:24:40, endln:24:53, parent:work@fsm_using_always
+    |BIN:100
     |vpiName:GNT1
     |vpiFullName:work@fsm_using_always.GNT1
-    |BIN:100
   |vpiParamAssign:
   \_param_assign: , line:23:11, endln:23:19, parent:work@fsm_using_always
     |vpiRhs:
     \_constant: , line:23:18, endln:23:19
-      |vpiConstType:9
       |vpiDecompile:3
       |vpiSize:64
       |UINT:3
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@fsm_using_always.SIZE), line:23:11, endln:23:19, parent:work@fsm_using_always
   |vpiParamAssign:
   \_param_assign: , line:24:11, endln:24:25, parent:work@fsm_using_always
     |vpiRhs:
     \_constant: , line:24:19, endln:24:25
-      |vpiConstType:3
-      |vpiDecompile:3'b001
+      |vpiDecompile:1
       |vpiSize:3
-      |BIN:001
+      |UINT:1
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@fsm_using_always.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_always
   |vpiParamAssign:
   \_param_assign: , line:24:26, endln:24:39, parent:work@fsm_using_always
     |vpiRhs:
     \_constant: , line:24:33, endln:24:39
-      |vpiConstType:3
-      |vpiDecompile:3'b010
+      |vpiDecompile:2
       |vpiSize:3
-      |BIN:010
+      |UINT:2
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@fsm_using_always.GNT0), line:24:26, endln:24:39, parent:work@fsm_using_always
   |vpiParamAssign:
   \_param_assign: , line:24:40, endln:24:53, parent:work@fsm_using_always
     |vpiRhs:
     \_constant: , line:24:47, endln:24:53
-      |vpiConstType:3
-      |vpiDecompile:3'b100
+      |vpiDecompile:4
       |vpiSize:3
-      |BIN:100
+      |UINT:4
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@fsm_using_always.GNT1), line:24:40, endln:24:53, parent:work@fsm_using_always
-|uhdmtopModules:
-\_module: work@fsm_using_always (work@fsm_using_always) top.sv:6:1: , endln:91:10
   |vpiDefName:work@fsm_using_always
-  |vpiName:work@fsm_using_always
+  |vpiNet:
+  \_logic_net: (work@fsm_using_always.clock), line:19:9, endln:19:14, parent:work@fsm_using_always
+    |vpiName:clock
+    |vpiFullName:work@fsm_using_always.clock
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@fsm_using_always.reset), line:19:15, endln:19:20, parent:work@fsm_using_always
+    |vpiName:reset
+    |vpiFullName:work@fsm_using_always.reset
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@fsm_using_always.req_0), line:19:21, endln:19:26, parent:work@fsm_using_always
+    |vpiName:req_0
+    |vpiFullName:work@fsm_using_always.req_0
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@fsm_using_always.req_1), line:19:27, endln:19:32, parent:work@fsm_using_always
+    |vpiName:req_1
+    |vpiFullName:work@fsm_using_always.req_1
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@fsm_using_always.gnt_0), line:21:9, endln:21:14, parent:work@fsm_using_always
+    |vpiName:gnt_0
+    |vpiFullName:work@fsm_using_always.gnt_0
+    |vpiNetType:48
+  |vpiNet:
+  \_logic_net: (work@fsm_using_always.gnt_1), line:21:15, endln:21:20, parent:work@fsm_using_always
+    |vpiName:gnt_1
+    |vpiFullName:work@fsm_using_always.gnt_1
+    |vpiNetType:48
+  |vpiNet:
+  \_logic_net: (work@fsm_using_always.state), line:26:27, endln:26:32, parent:work@fsm_using_always
+    |vpiName:state
+    |vpiFullName:work@fsm_using_always.state
+    |vpiNetType:48
+    |vpiRange:
+    \_range: , line:26:8, endln:26:16
+      |vpiLeftRange:
+      \_constant: , line:26:8, endln:26:12
+        |vpiDecompile:2
+        |vpiSize:64
+        |INT:2
+        |vpiConstType:7
+      |vpiRightRange:
+      \_constant: , line:26:15, endln:26:16
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiNet:
+  \_logic_net: (work@fsm_using_always.next_state), line:27:27, endln:27:37, parent:work@fsm_using_always
+    |vpiName:next_state
+    |vpiFullName:work@fsm_using_always.next_state
+    |vpiNetType:48
+    |vpiRange:
+    \_range: , line:27:8, endln:27:16
+      |vpiLeftRange:
+      \_constant: , line:27:8, endln:27:12
+        |vpiDecompile:2
+        |vpiSize:64
+        |INT:2
+        |vpiConstType:7
+      |vpiRightRange:
+      \_constant: , line:27:15, endln:27:16
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
   |vpiPort:
   \_port: (clock), line:7:1, endln:7:6, parent:work@fsm_using_always
     |vpiName:clock
@@ -2285,9 +2413,6 @@ design: (work@fsm_using_always)
       |vpiFullName:work@fsm_using_always.clock
       |vpiActual:
       \_logic_net: (work@fsm_using_always.clock), line:19:9, endln:19:14, parent:work@fsm_using_always
-        |vpiName:clock
-        |vpiFullName:work@fsm_using_always.clock
-        |vpiNetType:1
     |vpiInstance:
     \_module: work@fsm_using_always (work@fsm_using_always) top.sv:6:1: , endln:91:10
   |vpiPort:
@@ -2300,9 +2425,6 @@ design: (work@fsm_using_always)
       |vpiFullName:work@fsm_using_always.reset
       |vpiActual:
       \_logic_net: (work@fsm_using_always.reset), line:19:15, endln:19:20, parent:work@fsm_using_always
-        |vpiName:reset
-        |vpiFullName:work@fsm_using_always.reset
-        |vpiNetType:1
     |vpiInstance:
     \_module: work@fsm_using_always (work@fsm_using_always) top.sv:6:1: , endln:91:10
   |vpiPort:
@@ -2315,9 +2437,6 @@ design: (work@fsm_using_always)
       |vpiFullName:work@fsm_using_always.req_0
       |vpiActual:
       \_logic_net: (work@fsm_using_always.req_0), line:19:21, endln:19:26, parent:work@fsm_using_always
-        |vpiName:req_0
-        |vpiFullName:work@fsm_using_always.req_0
-        |vpiNetType:1
     |vpiInstance:
     \_module: work@fsm_using_always (work@fsm_using_always) top.sv:6:1: , endln:91:10
   |vpiPort:
@@ -2330,9 +2449,6 @@ design: (work@fsm_using_always)
       |vpiFullName:work@fsm_using_always.req_1
       |vpiActual:
       \_logic_net: (work@fsm_using_always.req_1), line:19:27, endln:19:32, parent:work@fsm_using_always
-        |vpiName:req_1
-        |vpiFullName:work@fsm_using_always.req_1
-        |vpiNetType:1
     |vpiInstance:
     \_module: work@fsm_using_always (work@fsm_using_always) top.sv:6:1: , endln:91:10
   |vpiPort:
@@ -2345,9 +2461,6 @@ design: (work@fsm_using_always)
       |vpiFullName:work@fsm_using_always.gnt_0
       |vpiActual:
       \_logic_net: (work@fsm_using_always.gnt_0), line:21:9, endln:21:14, parent:work@fsm_using_always
-        |vpiName:gnt_0
-        |vpiFullName:work@fsm_using_always.gnt_0
-        |vpiNetType:48
     |vpiInstance:
     \_module: work@fsm_using_always (work@fsm_using_always) top.sv:6:1: , endln:91:10
   |vpiPort:
@@ -2360,14 +2473,10 @@ design: (work@fsm_using_always)
       |vpiFullName:work@fsm_using_always.gnt_1
       |vpiActual:
       \_logic_net: (work@fsm_using_always.gnt_1), line:21:15, endln:21:20, parent:work@fsm_using_always
-        |vpiName:gnt_1
-        |vpiFullName:work@fsm_using_always.gnt_1
-        |vpiNetType:48
     |vpiInstance:
     \_module: work@fsm_using_always (work@fsm_using_always) top.sv:6:1: , endln:91:10
   |vpiProcess:
   \_always: , line:29:1, endln:52:4, parent:work@fsm_using_always
-    |vpiAlwaysType:1
     |vpiStmt:
     \_event_control: , line:29:8, endln:52:4
       |vpiCondition:
@@ -2382,23 +2491,6 @@ design: (work@fsm_using_always)
             |vpiFullName:work@fsm_using_always.state
             |vpiActual:
             \_logic_net: (work@fsm_using_always.state), line:26:27, endln:26:32, parent:work@fsm_using_always
-              |vpiName:state
-              |vpiFullName:work@fsm_using_always.state
-              |vpiNetType:48
-              |vpiRange:
-              \_range: , line:26:8, endln:26:16
-                |vpiLeftRange:
-                \_constant: , line:26:8, endln:26:12
-                  |vpiConstType:7
-                  |vpiDecompile:2
-                  |vpiSize:64
-                  |INT:2
-                |vpiRightRange:
-                \_constant: , line:26:15, endln:26:16
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
           |vpiOperand:
           \_ref_obj: (work@fsm_using_always.req_0), line:29:20, endln:29:25
             |vpiName:req_0
@@ -2421,33 +2513,16 @@ design: (work@fsm_using_always)
           |vpiBlocking:1
           |vpiRhs:
           \_constant: , line:31:15, endln:31:21
-            |vpiConstType:3
             |vpiDecompile:3'b000
             |vpiSize:3
             |BIN:000
+            |vpiConstType:3
           |vpiLhs:
           \_ref_obj: (work@fsm_using_always.FSM_COMBO.next_state), line:31:2, endln:31:12
             |vpiName:next_state
             |vpiFullName:work@fsm_using_always.FSM_COMBO.next_state
             |vpiActual:
             \_logic_net: (work@fsm_using_always.next_state), line:27:27, endln:27:37, parent:work@fsm_using_always
-              |vpiName:next_state
-              |vpiFullName:work@fsm_using_always.next_state
-              |vpiNetType:48
-              |vpiRange:
-              \_range: , line:27:8, endln:27:16
-                |vpiLeftRange:
-                \_constant: , line:27:8, endln:27:12
-                  |vpiConstType:7
-                  |vpiDecompile:2
-                  |vpiSize:64
-                  |INT:2
-                |vpiRightRange:
-                \_constant: , line:27:15, endln:27:16
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
         |vpiStmt:
         \_case_stmt: , line:32:2, endln:51:10, parent:work@fsm_using_always.FSM_COMBO
           |vpiCaseType:1
@@ -2465,10 +2540,6 @@ design: (work@fsm_using_always)
               |vpiFullName:work@fsm_using_always.FSM_COMBO.IDLE
               |vpiActual:
               \_constant: , line:24:19, endln:24:25
-                |vpiConstType:9
-                |vpiDecompile:1
-                |vpiSize:3
-                |UINT:1
             |vpiStmt:
             \_if_else: , line:33:11, endln:39:18
               |vpiCondition:
@@ -2482,10 +2553,10 @@ design: (work@fsm_using_always)
                   \_logic_net: (work@fsm_using_always.req_0), line:19:21, endln:19:26, parent:work@fsm_using_always
                 |vpiOperand:
                 \_constant: , line:33:24, endln:33:28
-                  |vpiConstType:3
                   |vpiDecompile:1'b1
                   |vpiSize:1
                   |BIN:1
+                  |vpiConstType:3
               |vpiStmt:
               \_begin: (work@fsm_using_always.FSM_COMBO), line:33:30, endln:35:18
                 |vpiFullName:work@fsm_using_always.FSM_COMBO
@@ -2499,10 +2570,6 @@ design: (work@fsm_using_always)
                     |vpiFullName:work@fsm_using_always.FSM_COMBO.GNT0
                     |vpiActual:
                     \_constant: , line:24:33, endln:24:39
-                      |vpiConstType:9
-                      |vpiDecompile:2
-                      |vpiSize:3
-                      |UINT:2
                   |vpiLhs:
                   \_ref_obj: (work@fsm_using_always.FSM_COMBO.next_state), line:34:17, endln:34:27
                     |vpiName:next_state
@@ -2522,10 +2589,10 @@ design: (work@fsm_using_always)
                     \_logic_net: (work@fsm_using_always.req_1), line:19:27, endln:19:32, parent:work@fsm_using_always
                   |vpiOperand:
                   \_constant: , line:35:37, endln:35:41
-                    |vpiConstType:3
                     |vpiDecompile:1'b1
                     |vpiSize:1
                     |BIN:1
+                    |vpiConstType:3
                 |vpiStmt:
                 \_begin: (work@fsm_using_always.FSM_COMBO), line:35:43, endln:37:18
                   |vpiFullName:work@fsm_using_always.FSM_COMBO
@@ -2539,10 +2606,6 @@ design: (work@fsm_using_always)
                       |vpiFullName:work@fsm_using_always.FSM_COMBO.GNT1
                       |vpiActual:
                       \_constant: , line:24:47, endln:24:53
-                        |vpiConstType:9
-                        |vpiDecompile:4
-                        |vpiSize:3
-                        |UINT:4
                     |vpiLhs:
                     \_ref_obj: (work@fsm_using_always.FSM_COMBO.next_state), line:36:17, endln:36:27
                       |vpiName:next_state
@@ -2589,10 +2652,10 @@ design: (work@fsm_using_always)
                   \_logic_net: (work@fsm_using_always.req_0), line:19:21, endln:19:26, parent:work@fsm_using_always
                 |vpiOperand:
                 \_constant: , line:40:24, endln:40:28
-                  |vpiConstType:3
                   |vpiDecompile:1'b1
                   |vpiSize:1
                   |BIN:1
+                  |vpiConstType:3
               |vpiStmt:
               \_begin: (work@fsm_using_always.FSM_COMBO), line:40:30, endln:42:18
                 |vpiFullName:work@fsm_using_always.FSM_COMBO
@@ -2652,10 +2715,10 @@ design: (work@fsm_using_always)
                   \_logic_net: (work@fsm_using_always.req_1), line:19:27, endln:19:32, parent:work@fsm_using_always
                 |vpiOperand:
                 \_constant: , line:45:24, endln:45:28
-                  |vpiConstType:3
                   |vpiDecompile:1'b1
                   |vpiSize:1
                   |BIN:1
+                  |vpiConstType:3
               |vpiStmt:
               \_begin: (work@fsm_using_always.FSM_COMBO), line:45:30, endln:47:18
                 |vpiFullName:work@fsm_using_always.FSM_COMBO
@@ -2712,9 +2775,9 @@ design: (work@fsm_using_always)
                 |vpiFullName:work@fsm_using_always.FSM_COMBO.next_state
                 |vpiActual:
                 \_logic_net: (work@fsm_using_always.next_state), line:27:27, endln:27:37, parent:work@fsm_using_always
+    |vpiAlwaysType:1
   |vpiProcess:
   \_always: , line:54:1, endln:61:4, parent:work@fsm_using_always
-    |vpiAlwaysType:1
     |vpiStmt:
     \_event_control: , line:54:8, endln:61:4
       |vpiCondition:
@@ -2743,10 +2806,10 @@ design: (work@fsm_using_always)
               \_logic_net: (work@fsm_using_always.reset), line:19:15, endln:19:20, parent:work@fsm_using_always
             |vpiOperand:
             \_constant: , line:56:16, endln:56:20
-              |vpiConstType:3
               |vpiDecompile:1'b1
               |vpiSize:1
               |BIN:1
+              |vpiConstType:3
           |vpiStmt:
           \_begin: (work@fsm_using_always.FSM_SEQ), line:56:22, endln:58:6
             |vpiFullName:work@fsm_using_always.FSM_SEQ
@@ -2789,9 +2852,9 @@ design: (work@fsm_using_always)
               |vpiDelayControl:
               \_delay_control: 
                 |#1
+    |vpiAlwaysType:1
   |vpiProcess:
   \_always: , line:63:1, endln:89:4, parent:work@fsm_using_always
-    |vpiAlwaysType:1
     |vpiStmt:
     \_event_control: , line:63:8, endln:89:4
       |vpiCondition:
@@ -2820,10 +2883,10 @@ design: (work@fsm_using_always)
               \_logic_net: (work@fsm_using_always.reset), line:19:15, endln:19:20, parent:work@fsm_using_always
             |vpiOperand:
             \_constant: , line:65:14, endln:65:18
-              |vpiConstType:3
               |vpiDecompile:1'b1
               |vpiSize:1
               |BIN:1
+              |vpiConstType:3
           |vpiStmt:
           \_begin: (work@fsm_using_always.OUTPUT_LOGIC), line:65:20, endln:68:4
             |vpiFullName:work@fsm_using_always.OUTPUT_LOGIC
@@ -2832,10 +2895,10 @@ design: (work@fsm_using_always)
               |vpiOpType:82
               |vpiRhs:
               \_constant: , line:66:15, endln:66:19
-                |vpiConstType:3
                 |vpiDecompile:1'b0
                 |vpiSize:1
                 |BIN:0
+                |vpiConstType:3
               |vpiLhs:
               \_ref_obj: (work@fsm_using_always.OUTPUT_LOGIC.gnt_0), line:66:3, endln:66:8
                 |vpiName:gnt_0
@@ -2850,10 +2913,10 @@ design: (work@fsm_using_always)
               |vpiOpType:82
               |vpiRhs:
               \_constant: , line:67:15, endln:67:19
-                |vpiConstType:3
                 |vpiDecompile:1'b0
                 |vpiSize:1
                 |BIN:0
+                |vpiConstType:3
               |vpiLhs:
               \_ref_obj: (work@fsm_using_always.OUTPUT_LOGIC.gnt_1), line:67:3, endln:67:8
                 |vpiName:gnt_1
@@ -2891,10 +2954,10 @@ design: (work@fsm_using_always)
                     |vpiOpType:82
                     |vpiRhs:
                     \_constant: , line:72:31, endln:72:35
-                      |vpiConstType:3
                       |vpiDecompile:1'b0
                       |vpiSize:1
                       |BIN:0
+                      |vpiConstType:3
                     |vpiLhs:
                     \_ref_obj: (work@fsm_using_always.OUTPUT_LOGIC.gnt_0), line:72:19, endln:72:24
                       |vpiName:gnt_0
@@ -2909,10 +2972,10 @@ design: (work@fsm_using_always)
                     |vpiOpType:82
                     |vpiRhs:
                     \_constant: , line:73:31, endln:73:35
-                      |vpiConstType:3
                       |vpiDecompile:1'b0
                       |vpiSize:1
                       |BIN:0
+                      |vpiConstType:3
                     |vpiLhs:
                     \_ref_obj: (work@fsm_using_always.OUTPUT_LOGIC.gnt_1), line:73:19, endln:73:24
                       |vpiName:gnt_1
@@ -2938,10 +3001,10 @@ design: (work@fsm_using_always)
                     |vpiOpType:82
                     |vpiRhs:
                     \_constant: , line:76:32, endln:76:36
-                      |vpiConstType:3
                       |vpiDecompile:1'b1
                       |vpiSize:1
                       |BIN:1
+                      |vpiConstType:3
                     |vpiLhs:
                     \_ref_obj: (work@fsm_using_always.OUTPUT_LOGIC.gnt_0), line:76:20, endln:76:25
                       |vpiName:gnt_0
@@ -2956,10 +3019,10 @@ design: (work@fsm_using_always)
                     |vpiOpType:82
                     |vpiRhs:
                     \_constant: , line:77:32, endln:77:36
-                      |vpiConstType:3
                       |vpiDecompile:1'b0
                       |vpiSize:1
                       |BIN:0
+                      |vpiConstType:3
                     |vpiLhs:
                     \_ref_obj: (work@fsm_using_always.OUTPUT_LOGIC.gnt_1), line:77:20, endln:77:25
                       |vpiName:gnt_1
@@ -2985,10 +3048,10 @@ design: (work@fsm_using_always)
                     |vpiOpType:82
                     |vpiRhs:
                     \_constant: , line:80:32, endln:80:36
-                      |vpiConstType:3
                       |vpiDecompile:1'b0
                       |vpiSize:1
                       |BIN:0
+                      |vpiConstType:3
                     |vpiLhs:
                     \_ref_obj: (work@fsm_using_always.OUTPUT_LOGIC.gnt_0), line:80:20, endln:80:25
                       |vpiName:gnt_0
@@ -3003,10 +3066,10 @@ design: (work@fsm_using_always)
                     |vpiOpType:82
                     |vpiRhs:
                     \_constant: , line:81:32, endln:81:36
-                      |vpiConstType:3
                       |vpiDecompile:1'b1
                       |vpiSize:1
                       |BIN:1
+                      |vpiConstType:3
                     |vpiLhs:
                     \_ref_obj: (work@fsm_using_always.OUTPUT_LOGIC.gnt_1), line:81:20, endln:81:25
                       |vpiName:gnt_1
@@ -3026,10 +3089,10 @@ design: (work@fsm_using_always)
                     |vpiOpType:82
                     |vpiRhs:
                     \_constant: , line:84:33, endln:84:37
-                      |vpiConstType:3
                       |vpiDecompile:1'b0
                       |vpiSize:1
                       |BIN:0
+                      |vpiConstType:3
                     |vpiLhs:
                     \_ref_obj: (work@fsm_using_always.OUTPUT_LOGIC.gnt_0), line:84:21, endln:84:26
                       |vpiName:gnt_0
@@ -3044,10 +3107,10 @@ design: (work@fsm_using_always)
                     |vpiOpType:82
                     |vpiRhs:
                     \_constant: , line:85:33, endln:85:37
-                      |vpiConstType:3
                       |vpiDecompile:1'b0
                       |vpiSize:1
                       |BIN:0
+                      |vpiConstType:3
                     |vpiLhs:
                     \_ref_obj: (work@fsm_using_always.OUTPUT_LOGIC.gnt_1), line:85:21, endln:85:26
                       |vpiName:gnt_1
@@ -3057,70 +3120,7 @@ design: (work@fsm_using_always)
                     |vpiDelayControl:
                     \_delay_control: 
                       |#1
-  |vpiNet:
-  \_logic_net: (work@fsm_using_always.clock), line:19:9, endln:19:14, parent:work@fsm_using_always
-  |vpiNet:
-  \_logic_net: (work@fsm_using_always.reset), line:19:15, endln:19:20, parent:work@fsm_using_always
-  |vpiNet:
-  \_logic_net: (work@fsm_using_always.req_0), line:19:21, endln:19:26, parent:work@fsm_using_always
-  |vpiNet:
-  \_logic_net: (work@fsm_using_always.req_1), line:19:27, endln:19:32, parent:work@fsm_using_always
-  |vpiNet:
-  \_logic_net: (work@fsm_using_always.gnt_0), line:21:9, endln:21:14, parent:work@fsm_using_always
-  |vpiNet:
-  \_logic_net: (work@fsm_using_always.gnt_1), line:21:15, endln:21:20, parent:work@fsm_using_always
-  |vpiNet:
-  \_logic_net: (work@fsm_using_always.state), line:26:27, endln:26:32, parent:work@fsm_using_always
-  |vpiNet:
-  \_logic_net: (work@fsm_using_always.next_state), line:27:27, endln:27:37, parent:work@fsm_using_always
-  |vpiParameter:
-  \_parameter: (work@fsm_using_always.SIZE), line:23:11, endln:23:19, parent:work@fsm_using_always
-    |vpiName:SIZE
-    |vpiFullName:work@fsm_using_always.SIZE
-    |UINT:3
-  |vpiParameter:
-  \_parameter: (work@fsm_using_always.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_always
-    |vpiName:IDLE
-    |vpiFullName:work@fsm_using_always.IDLE
-    |BIN:001
-  |vpiParameter:
-  \_parameter: (work@fsm_using_always.GNT0), line:24:26, endln:24:39, parent:work@fsm_using_always
-    |vpiName:GNT0
-    |vpiFullName:work@fsm_using_always.GNT0
-    |BIN:010
-  |vpiParameter:
-  \_parameter: (work@fsm_using_always.GNT1), line:24:40, endln:24:53, parent:work@fsm_using_always
-    |vpiName:GNT1
-    |vpiFullName:work@fsm_using_always.GNT1
-    |BIN:100
-  |vpiParamAssign:
-  \_param_assign: , line:23:11, endln:23:19, parent:work@fsm_using_always
-    |vpiRhs:
-    \_constant: , line:23:18, endln:23:19
-      |vpiConstType:9
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-    |vpiLhs:
-    \_parameter: (work@fsm_using_always.SIZE), line:23:11, endln:23:19, parent:work@fsm_using_always
-  |vpiParamAssign:
-  \_param_assign: , line:24:11, endln:24:25, parent:work@fsm_using_always
-    |vpiRhs:
-    \_constant: , line:24:19, endln:24:25
-    |vpiLhs:
-    \_parameter: (work@fsm_using_always.IDLE), line:24:11, endln:24:25, parent:work@fsm_using_always
-  |vpiParamAssign:
-  \_param_assign: , line:24:26, endln:24:39, parent:work@fsm_using_always
-    |vpiRhs:
-    \_constant: , line:24:33, endln:24:39
-    |vpiLhs:
-    \_parameter: (work@fsm_using_always.GNT0), line:24:26, endln:24:39, parent:work@fsm_using_always
-  |vpiParamAssign:
-  \_param_assign: , line:24:40, endln:24:53, parent:work@fsm_using_always
-    |vpiRhs:
-    \_constant: , line:24:47, endln:24:53
-    |vpiLhs:
-    \_parameter: (work@fsm_using_always.GNT1), line:24:40, endln:24:53, parent:work@fsm_using_always
+    |vpiAlwaysType:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

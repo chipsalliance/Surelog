@@ -100,11 +100,10 @@ n<> u<37> t<Top_level_rule> f<24> l<3:1> el<9:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallPackages:
 \_package: wddr_pkg (wddr_pkg::) wddr_pkg.sv:19:1: , endln:22:11, parent:work@top
-  |vpiDefName:wddr_pkg
   |vpiName:wddr_pkg
   |vpiFullName:wddr_pkg::
   |vpiTypedef:
@@ -112,10 +111,21 @@ design: (work@top)
     |vpiName:wddr_pkg::my_logic
     |vpiInstance:
     \_package: wddr_pkg (wddr_pkg::) wddr_pkg.sv:19:1: , endln:22:11, parent:work@top
+  |vpiDefName:wddr_pkg
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:4:1: , endln:8:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiTypedef:
+  \_logic_typespec: (wddr_pkg::my_logic), line:20:9, endln:20:14
+    |vpiName:wddr_pkg::my_logic
+    |vpiInstance:
+    \_package: wddr_pkg (wddr_pkg::) wddr_pkg.sv:19:1: , endln:22:11, parent:work@top
+      |vpiName:wddr_pkg
+      |vpiFullName:wddr_pkg::
+      |vpiTypedef:
+      \_logic_typespec: (wddr_pkg::my_logic), line:20:9, endln:20:14
+      |vpiDefName:wddr_pkg
+  |vpiDefName:work@top
   |vpiNet:
   \_logic_net: (work@top.a), line:5:13, parent:work@top
     |vpiName:a
@@ -126,36 +136,25 @@ design: (work@top)
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiNetType:36
-  |vpiTypedef:
-  \_logic_typespec: (wddr_pkg::my_logic), line:20:9, endln:20:14
-    |vpiName:wddr_pkg::my_logic
-    |vpiInstance:
-    \_package: wddr_pkg (wddr_pkg::) wddr_pkg.sv:19:1: , endln:22:11, parent:work@top
-      |vpiDefName:wddr_pkg
-      |vpiName:wddr_pkg
-      |vpiFullName:wddr_pkg::
-      |vpiTypedef:
-      \_logic_typespec: (wddr_pkg::my_logic), line:20:9, endln:20:14
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:4:1: , endln:8:10
-  |vpiDefName:work@top
   |vpiName:work@top
   |vpiVariables:
   \_logic_var: (work@top.a), line:5:13, endln:5:14, parent:work@top
-    |vpiName:a
-    |vpiFullName:work@top.a
-    |vpiAutomatic:1
-    |vpiVisibility:1
     |vpiTypespec:
     \_logic_typespec: (wddr_pkg::my_logic), line:20:9, endln:20:14
       |vpiName:wddr_pkg::my_logic
       |vpiInstance:
       \_package: wddr_pkg (wddr_pkg::) wddr_pkg.sv:19:1: , endln:22:11, parent:work@top
-        |vpiDefName:wddr_pkg
         |vpiName:wddr_pkg
         |vpiFullName:wddr_pkg::
         |vpiTypedef:
         \_logic_typespec: (wddr_pkg::my_logic), line:20:9, endln:20:14
+        |vpiDefName:wddr_pkg
+    |vpiName:a
+    |vpiFullName:work@top.a
+    |vpiAutomatic:1
+    |vpiVisibility:1
   |vpiVariables:
   \_logic_var: (work@top.b), line:6:10, endln:6:11, parent:work@top
     |vpiName:b
@@ -164,6 +163,7 @@ design: (work@top)
     |vpiVisibility:1
   |vpiTypedef:
   \_logic_typespec: (wddr_pkg::my_logic), line:20:9, endln:20:14
+  |vpiDefName:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

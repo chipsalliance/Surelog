@@ -318,26 +318,12 @@ n<> u<283> t<Top_level_rule> l<1:1> el<25:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:16:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
-  |vpiGlobalClocking:
-  \_clocking_block: (top_clocking), line:3:3, endln:3:51
-    |vpiName:top_clocking
-    |vpiClockingEvent:
-    \_event_control: 
-      |vpiCondition:
-      \_ref_obj: (clk), line:3:34, endln:3:37
-        |vpiName:clk
-        |vpiActual:
-        \_logic_var: (work@top.clk), line:2:18, endln:2:21, parent:work@top
-          |vpiName:clk
-          |vpiFullName:work@top.clk
-          |vpiAutomatic:1
-          |vpiVisibility:1
+  |vpiDefName:work@top
   |vpiNet:
   \_logic_net: (work@top.a), line:2:9, parent:work@top
     |vpiName:a
@@ -360,13 +346,58 @@ design: (work@top)
     |vpiNetType:36
   |vpiAssertion:
   \_checker_inst: my_checker (work@top.check), line:13:3, endln:15:35, parent:work@top
-    |vpiDefName:my_checker
     |vpiName:check
     |vpiFullName:work@top.check
+    |vpiDefName:my_checker
+  |vpiGlobalClocking:
+  \_clocking_block: (top_clocking), line:3:3, endln:3:51
+    |vpiName:top_clocking
+    |vpiClockingEvent:
+    \_event_control: 
+      |vpiCondition:
+      \_ref_obj: (clk), line:3:34, endln:3:37
+        |vpiName:clk
+        |vpiActual:
+        \_logic_var: (work@top.clk), line:2:18, endln:2:21, parent:work@top
+          |vpiName:clk
+          |vpiFullName:work@top.clk
+          |vpiAutomatic:1
+          |vpiVisibility:1
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:16:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiVariables:
+  \_logic_var: (work@top.a), line:2:9, endln:2:10, parent:work@top
+    |vpiName:a
+    |vpiFullName:work@top.a
+    |vpiAutomatic:1
+    |vpiVisibility:1
+  |vpiVariables:
+  \_logic_var: (work@top.b), line:2:12, endln:2:13, parent:work@top
+    |vpiName:b
+    |vpiFullName:work@top.b
+    |vpiAutomatic:1
+    |vpiVisibility:1
+  |vpiVariables:
+  \_logic_var: (work@top.c), line:2:15, endln:2:16, parent:work@top
+    |vpiName:c
+    |vpiFullName:work@top.c
+    |vpiAutomatic:1
+    |vpiVisibility:1
+  |vpiVariables:
+  \_logic_var: (work@top.clk), line:2:18, endln:2:21, parent:work@top
+    |vpiName:clk
+    |vpiFullName:work@top.clk
+    |vpiAutomatic:1
+    |vpiVisibility:1
+  |vpiDefName:work@top
+  |vpiAssertion:
+  \_checker_inst: my_checker (work@top.check), line:13:3, endln:15:35, parent:work@top
+    |vpiName:check
+    |vpiFullName:work@top.check
+    |vpiDefName:my_checker
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:16:10
   |vpiGlobalClocking:
   \_clocking_block: (work@top.top_clocking), line:3:3, endln:3:51, parent:work@top
     |vpiName:top_clocking
@@ -379,24 +410,10 @@ design: (work@top)
         |vpiFullName:work@top.top_clocking.clk
         |vpiActual:
         \_logic_var: (work@top.clk), line:2:18, endln:2:21, parent:work@top
-          |vpiName:clk
-          |vpiFullName:work@top.clk
-          |vpiAutomatic:1
-          |vpiVisibility:1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:16:10, parent:work@top
-      |vpiDefName:work@top
       |vpiFullName:work@top
-      |vpiGlobalClocking:
-      \_clocking_block: (top_clocking), line:3:3, endln:3:51
-        |vpiName:top_clocking
-        |vpiClockingEvent:
-        \_event_control: 
-          |vpiCondition:
-          \_ref_obj: (clk), line:3:34, endln:3:37
-            |vpiName:clk
-            |vpiActual:
-            \_logic_var: (work@top.clk), line:2:18, endln:2:21, parent:work@top
+      |vpiDefName:work@top
       |vpiNet:
       \_logic_net: (work@top.a), line:2:9, parent:work@top
         |vpiName:a
@@ -419,36 +436,19 @@ design: (work@top)
         |vpiNetType:36
       |vpiAssertion:
       \_checker_inst: my_checker (work@top.check), line:13:3, endln:15:35, parent:work@top
-        |vpiDefName:my_checker
         |vpiName:check
         |vpiFullName:work@top.check
-  |vpiAssertion:
-  \_checker_inst: my_checker (work@top.check), line:13:3, endln:15:35, parent:work@top
-    |vpiDefName:my_checker
-    |vpiName:check
-    |vpiFullName:work@top.check
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:16:10
-  |vpiVariables:
-  \_logic_var: (work@top.a), line:2:9, endln:2:10, parent:work@top
-    |vpiName:a
-    |vpiFullName:work@top.a
-    |vpiAutomatic:1
-    |vpiVisibility:1
-  |vpiVariables:
-  \_logic_var: (work@top.b), line:2:12, endln:2:13, parent:work@top
-    |vpiName:b
-    |vpiFullName:work@top.b
-    |vpiAutomatic:1
-    |vpiVisibility:1
-  |vpiVariables:
-  \_logic_var: (work@top.c), line:2:15, endln:2:16, parent:work@top
-    |vpiName:c
-    |vpiFullName:work@top.c
-    |vpiAutomatic:1
-    |vpiVisibility:1
-  |vpiVariables:
-  \_logic_var: (work@top.clk), line:2:18, endln:2:21, parent:work@top
+        |vpiDefName:my_checker
+      |vpiGlobalClocking:
+      \_clocking_block: (top_clocking), line:3:3, endln:3:51
+        |vpiName:top_clocking
+        |vpiClockingEvent:
+        \_event_control: 
+          |vpiCondition:
+          \_ref_obj: (clk), line:3:34, endln:3:37
+            |vpiName:clk
+            |vpiActual:
+            \_logic_var: (work@top.clk), line:2:18, endln:2:21, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

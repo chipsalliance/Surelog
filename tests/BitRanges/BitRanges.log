@@ -90,12 +90,20 @@ n<> u<55> t<Top_level_rule> l<1:1> el<7:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:6:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.dmi_req_ram), line:3:21, parent:work@top
+    |vpiName:dmi_req_ram
+    |vpiFullName:work@top.dmi_req_ram
+  |vpiNet:
+  \_logic_net: (work@top.dmi_req_addr), line:4:21, parent:work@top
+    |vpiName:dmi_req_addr
+    |vpiFullName:work@top.dmi_req_addr
   |vpiPort:
   \_port: (dmi_req_ram), line:3:21, parent:work@top
     |vpiName:dmi_req_ram
@@ -104,8 +112,6 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.dmi_req_ram), line:3:21, parent:work@top
-        |vpiName:dmi_req_ram
-        |vpiFullName:work@top.dmi_req_ram
   |vpiPort:
   \_port: (dmi_req_addr), line:4:21, parent:work@top
     |vpiName:dmi_req_addr
@@ -114,16 +120,70 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.dmi_req_addr), line:4:21, parent:work@top
-        |vpiName:dmi_req_addr
-        |vpiFullName:work@top.dmi_req_addr
-  |vpiNet:
-  \_logic_net: (work@top.dmi_req_ram), line:3:21, parent:work@top
-  |vpiNet:
-  \_logic_net: (work@top.dmi_req_addr), line:4:21, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:6:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiVariables:
+  \_array_var: (work@top.dmi_req_ram), line:3:21, endln:3:32, parent:work@top
+    |vpiSize:2
+    |vpiName:dmi_req_ram
+    |vpiFullName:work@top.dmi_req_ram
+    |vpiAutomatic:1
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiArrayType:1
+    |vpiRange:
+    \_range: , line:3:34, endln:3:39
+      |vpiLeftRange:
+      \_constant: , line:3:34, endln:3:36
+        |vpiDecompile:23
+        |vpiSize:64
+        |UINT:23
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:3:37, endln:3:39
+        |vpiDecompile:24
+        |vpiSize:64
+        |UINT:24
+        |vpiConstType:9
+    |vpiReg:
+    \_bit_var: (work@top.dmi_req_ram), parent:work@top.dmi_req_ram
+      |vpiFullName:work@top.dmi_req_ram
+      |vpiRange:
+      \_range: , line:3:15, endln:3:18
+        |vpiLeftRange:
+        \_constant: , line:3:15, endln:3:16
+          |vpiDecompile:6
+          |vpiSize:64
+          |UINT:6
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:17, endln:3:18
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+  |vpiVariables:
+  \_bit_var: (work@top.dmi_req_addr), line:4:21, endln:4:33, parent:work@top
+    |vpiName:dmi_req_addr
+    |vpiFullName:work@top.dmi_req_addr
+    |vpiAutomatic:1
+    |vpiVisibility:1
+    |vpiRange:
+    \_range: , line:4:15, endln:4:18
+      |vpiLeftRange:
+      \_constant: , line:4:15, endln:4:16
+        |vpiDecompile:6
+        |vpiSize:64
+        |UINT:6
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:4:17, endln:4:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiDefName:work@top
   |vpiPort:
   \_port: (dmi_req_ram), line:3:21, endln:3:32, parent:work@top
     |vpiName:dmi_req_ram
@@ -134,44 +194,6 @@ design: (work@top)
       |vpiFullName:work@top.dmi_req_ram
       |vpiActual:
       \_array_var: (work@top.dmi_req_ram), line:3:21, endln:3:32, parent:work@top
-        |vpiArrayType:1
-        |vpiName:dmi_req_ram
-        |vpiFullName:work@top.dmi_req_ram
-        |vpiAutomatic:1
-        |vpiRandType:1
-        |vpiVisibility:1
-        |vpiSize:2
-        |vpiReg:
-        \_bit_var: (work@top.dmi_req_ram), parent:work@top.dmi_req_ram
-          |vpiFullName:work@top.dmi_req_ram
-          |vpiRange:
-          \_range: , line:3:15, endln:3:18
-            |vpiLeftRange:
-            \_constant: , line:3:15, endln:3:16
-              |vpiConstType:9
-              |vpiDecompile:6
-              |vpiSize:64
-              |UINT:6
-            |vpiRightRange:
-            \_constant: , line:3:17, endln:3:18
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-        |vpiRange:
-        \_range: , line:3:34, endln:3:39
-          |vpiLeftRange:
-          \_constant: , line:3:34, endln:3:36
-            |vpiConstType:9
-            |vpiDecompile:23
-            |vpiSize:64
-            |UINT:23
-          |vpiRightRange:
-          \_constant: , line:3:37, endln:3:39
-            |vpiConstType:9
-            |vpiDecompile:24
-            |vpiSize:64
-            |UINT:24
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:6:10
   |vpiPort:
@@ -184,30 +206,8 @@ design: (work@top)
       |vpiFullName:work@top.dmi_req_addr
       |vpiActual:
       \_bit_var: (work@top.dmi_req_addr), line:4:21, endln:4:33, parent:work@top
-        |vpiName:dmi_req_addr
-        |vpiFullName:work@top.dmi_req_addr
-        |vpiAutomatic:1
-        |vpiVisibility:1
-        |vpiRange:
-        \_range: , line:4:15, endln:4:18
-          |vpiLeftRange:
-          \_constant: , line:4:15, endln:4:16
-            |vpiConstType:9
-            |vpiDecompile:6
-            |vpiSize:64
-            |UINT:6
-          |vpiRightRange:
-          \_constant: , line:4:17, endln:4:18
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:6:10
-  |vpiVariables:
-  \_array_var: (work@top.dmi_req_ram), line:3:21, endln:3:32, parent:work@top
-  |vpiVariables:
-  \_bit_var: (work@top.dmi_req_addr), line:4:21, endln:4:33, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

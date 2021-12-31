@@ -100,12 +100,17 @@ n<> u<61> t<Top_level_rule> l<1:1> el<10:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:3:10, parent:work@top
-  |vpiDefName:work@dut
   |vpiFullName:work@dut
+  |vpiDefName:work@dut
+  |vpiNet:
+  \_logic_net: (work@dut.o), line:1:26, parent:work@dut
+    |vpiName:o
+    |vpiFullName:work@dut.o
+    |vpiNetType:36
   |vpiPort:
   \_port: (o), line:1:26, parent:work@dut
     |vpiName:o
@@ -114,17 +119,14 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@dut.o), line:1:26, parent:work@dut
-        |vpiName:o
-        |vpiFullName:work@dut.o
-        |vpiNetType:36
   |vpiContAssign:
   \_cont_assign: , line:2:11, endln:2:19, parent:work@dut
     |vpiRhs:
     \_constant: , line:2:15, endln:2:19
-      |vpiConstType:3
       |vpiDecompile:1'b1
       |vpiSize:1
       |BIN:1
+      |vpiConstType:3
     |vpiLhs:
     \_ref_obj: (work@dut.o), line:2:11, endln:2:12
       |vpiName:o
@@ -134,12 +136,15 @@ design: (work@top)
         |vpiName:o
         |vpiFullName:work@top.d.o
         |vpiNetType:36
-  |vpiNet:
-  \_logic_net: (work@dut.o), line:1:26, parent:work@dut
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:5:1: , endln:9:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.o), line:5:26, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiNetType:36
   |vpiPort:
   \_port: (o), line:5:26, parent:work@top
     |vpiName:o
@@ -148,15 +153,15 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.o), line:5:26, parent:work@top
-        |vpiName:o
-        |vpiFullName:work@top.o
-        |vpiNetType:36
-  |vpiNet:
-  \_logic_net: (work@top.o), line:5:26, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:5:1: , endln:9:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.o), line:5:26, endln:5:27, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiNetType:36
   |vpiPort:
   \_port: (o), line:5:26, endln:5:27, parent:work@top
     |vpiName:o
@@ -167,59 +172,54 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_logic_net: (work@top.o), line:5:26, endln:5:27, parent:work@top
-        |vpiName:o
-        |vpiFullName:work@top.o
-        |vpiNetType:36
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:5:1: , endln:9:10
   |vpiModule:
   \_module: work@dut (work@top.d) dut.sv:7:4: , endln:7:21, parent:work@top
+    |vpiName:d
+    |vpiFullName:work@top.d
     |vpiDefName:work@dut
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
-    |vpiName:d
-    |vpiFullName:work@top.d
+    |vpiNet:
+    \_logic_net: (work@top.d.o), line:1:26, endln:1:27, parent:work@top.d
+      |vpiName:o
+      |vpiFullName:work@top.d.o
+      |vpiNetType:36
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:5:1: , endln:9:10
     |vpiPort:
     \_port: (o), line:1:26, endln:1:27, parent:work@top.d
       |vpiName:o
       |vpiDirection:2
       |vpiHighConn:
       \_constant: , line:7:13, endln:7:18
-        |vpiConstType:3
         |vpiDecompile:15'b0
         |vpiSize:15
         |BIN:0
+        |vpiConstType:3
       |vpiLowConn:
       \_ref_obj: (work@top.d.o), parent:o
         |vpiName:o
         |vpiFullName:work@top.d.o
         |vpiActual:
         \_logic_net: (work@top.d.o), line:1:26, endln:1:27, parent:work@top.d
-          |vpiName:o
-          |vpiFullName:work@top.d.o
-          |vpiNetType:36
       |vpiInstance:
       \_module: work@dut (work@top.d) dut.sv:7:4: , endln:7:21, parent:work@top
     |vpiContAssign:
     \_cont_assign: , line:2:11, endln:2:19, parent:work@top.d
       |vpiRhs:
       \_constant: , line:2:15, endln:2:19
-        |vpiConstType:3
         |vpiDecompile:1'b1
         |vpiSize:1
         |BIN:1
+        |vpiConstType:3
       |vpiLhs:
       \_ref_obj: (work@top.d.o), line:2:11, endln:2:12
         |vpiName:o
         |vpiFullName:work@top.d.o
         |vpiActual:
         \_logic_net: (work@top.d.o), line:1:26, endln:1:27, parent:work@top.d
-    |vpiNet:
-    \_logic_net: (work@top.d.o), line:1:26, endln:1:27, parent:work@top.d
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:5:1: , endln:9:10
-  |vpiNet:
-  \_logic_net: (work@top.o), line:5:26, endln:5:27, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

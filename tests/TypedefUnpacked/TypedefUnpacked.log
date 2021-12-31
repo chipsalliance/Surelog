@@ -50,13 +50,14 @@ design: (work@dut)
 |vpiName:work@dut
 |uhdmallPackages:
 \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
-  |vpiDefName:pkg
   |vpiName:pkg
   |vpiFullName:pkg::
   |vpiTypedef:
   \_struct_typespec: (pkg::a), line:2:12, endln:2:18
-    |vpiPacked:1
     |vpiName:pkg::a
+    |vpiInstance:
+    \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
+    |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (x), line:3:16, endln:3:17
       |vpiName:x
@@ -64,29 +65,33 @@ design: (work@dut)
       \_logic_typespec: , line:3:7, endln:3:12
         |vpiInstance:
         \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
-    |vpiInstance:
-    \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
   |vpiTypedef:
   \_array_typespec: (pkg::b)
     |vpiName:pkg::b
+    |vpiInstance:
+    \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
     |vpiRange:
     \_range: , line:5:16, endln:5:19
       |vpiLeftRange:
       \_constant: , line:5:16, endln:5:17
-        |vpiConstType:9
         |vpiDecompile:5
         |vpiSize:64
         |UINT:5
+        |vpiConstType:9
       |vpiRightRange:
       \_constant: , line:5:18, endln:5:19
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
     |vpiElemTypespec:
     \_struct_typespec: (pkg::a), line:2:12, endln:2:18
-      |vpiPacked:1
       |vpiName:pkg::a
+      |vpiTypedefAlias:
+      \_struct_typespec: (pkg::a), line:2:12, endln:2:18
+      |vpiInstance:
+      \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
+      |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (x), line:3:16, endln:3:17, parent:pkg::a
         |vpiName:x
@@ -94,16 +99,19 @@ design: (work@dut)
         \_logic_typespec: , line:3:7, endln:3:12, parent:x
           |vpiInstance:
           \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
-      |vpiTypedefAlias:
-      \_struct_typespec: (pkg::a), line:2:12, endln:2:18
-      |vpiInstance:
-      \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
-    |vpiInstance:
-    \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
+  |vpiDefName:pkg
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:8:1: , endln:12:10, parent:work@dut
-  |vpiDefName:work@dut
   |vpiFullName:work@dut
+  |vpiDefName:work@dut
+  |vpiNet:
+  \_logic_net: (work@dut.o), line:8:19, parent:work@dut
+    |vpiName:o
+    |vpiFullName:work@dut.o
+  |vpiNet:
+  \_logic_net: (work@dut.c), line:9:11, parent:work@dut
+    |vpiName:c
+    |vpiFullName:work@dut.c
   |vpiPort:
   \_port: (o), line:8:19, parent:work@dut
     |vpiName:o
@@ -112,16 +120,14 @@ design: (work@dut)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@dut.o), line:8:19, parent:work@dut
-        |vpiName:o
-        |vpiFullName:work@dut.o
   |vpiContAssign:
   \_cont_assign: , line:10:11, endln:10:21, parent:work@dut
     |vpiRhs:
     \_constant: , line:10:20, endln:10:21
-      |vpiConstType:9
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
+      |vpiConstType:9
     |vpiLhs:
     \_hier_path: (c[1].x), line:10:11, endln:10:12
       |vpiName:c[1].x
@@ -130,10 +136,10 @@ design: (work@dut)
         |vpiName:c
         |vpiIndex:
         \_constant: , line:10:13, endln:10:14
-          |vpiConstType:9
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiConstType:9
       |vpiActual:
       \_ref_obj: (x), parent:c[1].x
         |vpiName:x
@@ -147,10 +153,10 @@ design: (work@dut)
         |vpiName:c
         |vpiIndex:
         \_constant: , line:11:17, endln:11:18
-          |vpiConstType:9
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiConstType:9
       |vpiActual:
       \_ref_obj: (x)
         |vpiName:x
@@ -162,16 +168,74 @@ design: (work@dut)
       \_logic_net: (work@dut.o), line:8:19, endln:8:20, parent:work@dut
         |vpiName:o
         |vpiFullName:work@dut.o
-  |vpiNet:
-  \_logic_net: (work@dut.o), line:8:19, parent:work@dut
-  |vpiNet:
-  \_logic_net: (work@dut.c), line:9:11, parent:work@dut
-    |vpiName:c
-    |vpiFullName:work@dut.c
 |uhdmtopModules:
 \_module: work@dut (work@dut) dut.sv:8:1: , endln:12:10
-  |vpiDefName:work@dut
   |vpiName:work@dut
+  |vpiVariables:
+  \_array_var: (work@dut.c), line:9:11, endln:9:12, parent:work@dut
+    |vpiTypespec:
+    \_array_typespec: (pkg::b)
+      |vpiName:pkg::b
+      |vpiInstance:
+      \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
+        |vpiName:pkg
+        |vpiFullName:pkg::
+        |vpiTypedef:
+        \_struct_typespec: (pkg::a), line:2:12, endln:2:18
+          |vpiName:pkg::a
+          |vpiInstance:
+          \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
+          |vpiPacked:1
+          |vpiTypespecMember:
+          \_typespec_member: (x), line:3:16, endln:3:17
+            |vpiName:x
+            |vpiTypespec:
+            \_logic_typespec: , line:3:7, endln:3:12
+              |vpiInstance:
+              \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
+        |vpiTypedef:
+        \_array_typespec: (pkg::b)
+        |vpiDefName:pkg
+      |vpiRange:
+      \_range: , line:5:16, endln:5:19
+        |vpiLeftRange:
+        \_constant: , line:5:16, endln:5:17
+          |vpiDecompile:5
+          |vpiSize:64
+          |UINT:5
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:5:18, endln:5:19
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiElemTypespec:
+      \_struct_typespec: (pkg::a), line:2:12, endln:2:18
+        |vpiName:pkg::a
+        |vpiTypedefAlias:
+        \_struct_typespec: (pkg::a), line:2:12, endln:2:18
+        |vpiInstance:
+        \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
+        |vpiPacked:1
+        |vpiTypespecMember:
+        \_typespec_member: (x), line:3:16, endln:3:17, parent:pkg::a
+          |vpiName:x
+          |vpiTypespec:
+          \_logic_typespec: , line:3:7, endln:3:12, parent:x
+            |vpiInstance:
+            \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
+    |vpiName:c
+    |vpiFullName:work@dut.c
+    |vpiAutomatic:1
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiArrayType:1
+  |vpiDefName:work@dut
+  |vpiNet:
+  \_logic_net: (work@dut.o), line:8:19, endln:8:20, parent:work@dut
+    |vpiName:o
+    |vpiFullName:work@dut.o
   |vpiPort:
   \_port: (o), line:8:19, endln:8:20, parent:work@dut
     |vpiName:o
@@ -182,70 +246,6 @@ design: (work@dut)
       |vpiFullName:work@dut.o
       |vpiActual:
       \_logic_net: (work@dut.o), line:8:19, endln:8:20, parent:work@dut
-        |vpiName:o
-        |vpiFullName:work@dut.o
-  |vpiNet:
-  \_logic_net: (work@dut.o), line:8:19, endln:8:20, parent:work@dut
-  |vpiVariables:
-  \_array_var: (work@dut.c), line:9:11, endln:9:12, parent:work@dut
-    |vpiArrayType:1
-    |vpiName:c
-    |vpiFullName:work@dut.c
-    |vpiAutomatic:1
-    |vpiRandType:1
-    |vpiVisibility:1
-    |vpiTypespec:
-    \_array_typespec: (pkg::b)
-      |vpiName:pkg::b
-      |vpiRange:
-      \_range: , line:5:16, endln:5:19
-        |vpiLeftRange:
-        \_constant: , line:5:16, endln:5:17
-          |vpiConstType:9
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-        |vpiRightRange:
-        \_constant: , line:5:18, endln:5:19
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-      |vpiElemTypespec:
-      \_struct_typespec: (pkg::a), line:2:12, endln:2:18
-        |vpiPacked:1
-        |vpiName:pkg::a
-        |vpiTypespecMember:
-        \_typespec_member: (x), line:3:16, endln:3:17, parent:pkg::a
-          |vpiName:x
-          |vpiTypespec:
-          \_logic_typespec: , line:3:7, endln:3:12, parent:x
-            |vpiInstance:
-            \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
-              |vpiDefName:pkg
-              |vpiName:pkg
-              |vpiFullName:pkg::
-              |vpiTypedef:
-              \_struct_typespec: (pkg::a), line:2:12, endln:2:18
-                |vpiPacked:1
-                |vpiName:pkg::a
-                |vpiTypespecMember:
-                \_typespec_member: (x), line:3:16, endln:3:17
-                  |vpiName:x
-                  |vpiTypespec:
-                  \_logic_typespec: , line:3:7, endln:3:12
-                    |vpiInstance:
-                    \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
-                |vpiInstance:
-                \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
-              |vpiTypedef:
-              \_array_typespec: (pkg::b)
-        |vpiTypedefAlias:
-        \_struct_typespec: (pkg::a), line:2:12, endln:2:18
-        |vpiInstance:
-        \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
-      |vpiInstance:
-      \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
