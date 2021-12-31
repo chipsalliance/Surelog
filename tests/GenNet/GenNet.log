@@ -272,16 +272,54 @@ n<> u<231> t<Top_level_rule> l<1:1> el<24:1>
 
 ====== UHDM =======
 design: (work@dut)
-|vpiName:work@dut
 |vpiElaborated:1
+|vpiName:work@dut
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:17:1: , endln:23:10, parent:work@dut
-  |vpiDefName:work@dut
   |vpiFullName:work@dut
+  |vpiDefName:work@dut
 |uhdmallModules:
 \_module: work@prim_subreg_arb (work@prim_subreg_arb) dut.sv:1:1: , endln:15:10, parent:work@dut
-  |vpiDefName:work@prim_subreg_arb
   |vpiFullName:work@prim_subreg_arb
+  |vpiParameter:
+  \_parameter: (work@prim_subreg_arb.DW), line:2:17, endln:2:30, parent:work@prim_subreg_arb
+    |UINT:32
+    |vpiTypespec:
+    \_int_typespec: , line:2:13, endln:2:16, parent:work@prim_subreg_arb.DW
+    |vpiName:DW
+    |vpiFullName:work@prim_subreg_arb.DW
+  |vpiParameter:
+  \_parameter: (work@prim_subreg_arb.SWACCESS), line:3:17, endln:3:32, parent:work@prim_subreg_arb
+    |STRING:RW
+    |vpiName:SWACCESS
+    |vpiFullName:work@prim_subreg_arb.SWACCESS
+  |vpiParamAssign:
+  \_param_assign: , line:2:17, endln:2:30, parent:work@prim_subreg_arb
+    |vpiRhs:
+    \_constant: , line:2:28, endln:2:30
+      |vpiDecompile:32
+      |vpiSize:32
+      |UINT:32
+      |vpiTypespec:
+      \_int_typespec: , line:2:13, endln:2:16, parent:work@prim_subreg_arb.DW
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@prim_subreg_arb.DW), line:2:17, endln:2:30, parent:work@prim_subreg_arb
+  |vpiParamAssign:
+  \_param_assign: , line:3:17, endln:3:32, parent:work@prim_subreg_arb
+    |vpiRhs:
+    \_constant: , line:3:28, endln:3:32
+      |vpiDecompile:RW
+      |vpiSize:2
+      |STRING:RW
+      |vpiConstType:6
+    |vpiLhs:
+    \_parameter: (work@prim_subreg_arb.SWACCESS), line:3:17, endln:3:32, parent:work@prim_subreg_arb
+  |vpiDefName:work@prim_subreg_arb
+  |vpiNet:
+  \_logic_net: (work@prim_subreg_arb.q), line:5:18, parent:work@prim_subreg_arb
+    |vpiName:q
+    |vpiFullName:work@prim_subreg_arb.q
   |vpiPort:
   \_port: (q), line:5:18, parent:work@prim_subreg_arb
     |vpiName:q
@@ -290,55 +328,73 @@ design: (work@dut)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@prim_subreg_arb.q), line:5:18, parent:work@prim_subreg_arb
-        |vpiName:q
-        |vpiFullName:work@prim_subreg_arb.q
-  |vpiNet:
-  \_logic_net: (work@prim_subreg_arb.q), line:5:18, parent:work@prim_subreg_arb
-  |vpiParameter:
-  \_parameter: (work@prim_subreg_arb.DW), line:2:17, endln:2:30, parent:work@prim_subreg_arb
-    |vpiName:DW
-    |vpiFullName:work@prim_subreg_arb.DW
-    |UINT:32
-    |vpiTypespec:
-    \_int_typespec: , line:2:13, endln:2:16, parent:work@prim_subreg_arb.DW
-  |vpiParameter:
-  \_parameter: (work@prim_subreg_arb.SWACCESS), line:3:17, endln:3:32, parent:work@prim_subreg_arb
-    |vpiName:SWACCESS
-    |vpiFullName:work@prim_subreg_arb.SWACCESS
-    |STRING:RW
-  |vpiParamAssign:
-  \_param_assign: , line:2:17, endln:2:30, parent:work@prim_subreg_arb
-    |vpiRhs:
-    \_constant: , line:2:28, endln:2:30
-      |vpiConstType:9
-      |vpiDecompile:32
-      |vpiSize:32
-      |UINT:32
-      |vpiTypespec:
-      \_int_typespec: , line:2:13, endln:2:16, parent:work@prim_subreg_arb.DW
-    |vpiLhs:
-    \_parameter: (work@prim_subreg_arb.DW), line:2:17, endln:2:30, parent:work@prim_subreg_arb
-  |vpiParamAssign:
-  \_param_assign: , line:3:17, endln:3:32, parent:work@prim_subreg_arb
-    |vpiRhs:
-    \_constant: , line:3:28, endln:3:32
-      |vpiConstType:6
-      |vpiDecompile:RW
-      |vpiSize:2
-      |STRING:RW
-    |vpiLhs:
-    \_parameter: (work@prim_subreg_arb.SWACCESS), line:3:17, endln:3:32, parent:work@prim_subreg_arb
 |uhdmtopModules:
 \_module: work@dut (work@dut) dut.sv:17:1: , endln:23:10
-  |vpiDefName:work@dut
   |vpiName:work@dut
+  |vpiDefName:work@dut
   |vpiModule:
   \_module: work@prim_subreg_arb (work@dut.m1) dut.sv:19:2: , endln:22:9, parent:work@dut
+    |vpiName:m1
+    |vpiFullName:work@dut.m1
+    |vpiParameter:
+    \_parameter: (work@dut.m1.DW), line:2:17, endln:2:30, parent:work@dut.m1
+      |UINT:32
+      |vpiTypespec:
+      \_int_typespec: , line:2:13, endln:2:16, parent:work@dut.m1.DW
+      |vpiName:DW
+      |vpiFullName:work@dut.m1.DW
+    |vpiParameter:
+    \_parameter: (work@dut.m1.SWACCESS), line:3:17, endln:3:32, parent:work@dut.m1
+      |STRING:RW
+      |vpiName:SWACCESS
+      |vpiFullName:work@dut.m1.SWACCESS
+    |vpiParamAssign:
+    \_param_assign: , line:2:17, endln:2:30, parent:work@dut.m1
+      |vpiOverriden:1
+      |vpiRhs:
+      \_constant: , line:2:28, endln:2:30
+        |vpiDecompile:32
+        |vpiSize:64
+        |UINT:32
+        |vpiTypespec:
+        \_int_typespec: , line:2:13, endln:2:16, parent:work@prim_subreg_arb.DW
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@dut.m1.DW), line:2:17, endln:2:30, parent:work@dut.m1
+    |vpiParamAssign:
+    \_param_assign: , line:3:17, endln:3:32, parent:work@dut.m1
+      |vpiOverriden:1
+      |vpiRhs:
+      \_constant: , line:3:28, endln:3:32
+        |vpiDecompile:RO
+        |vpiSize:2
+        |STRING:RO
+        |vpiConstType:6
+      |vpiLhs:
+      \_parameter: (work@dut.m1.SWACCESS), line:3:17, endln:3:32, parent:work@dut.m1
     |vpiDefName:work@prim_subreg_arb
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
-    |vpiName:m1
-    |vpiFullName:work@dut.m1
+    |vpiNet:
+    \_logic_net: (work@dut.m1.q), line:5:18, endln:5:19, parent:work@dut.m1
+      |vpiName:q
+      |vpiFullName:work@dut.m1.q
+      |vpiRange:
+      \_range: , line:5:10, endln:5:16
+        |vpiLeftRange:
+        \_constant: , line:5:10, endln:5:12
+          |vpiDecompile:31
+          |vpiSize:64
+          |INT:31
+          |vpiConstType:7
+        |vpiRightRange:
+        \_constant: , line:5:15, endln:5:16
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:17:1: , endln:23:10
     |vpiPort:
     \_port: (q), line:5:18, endln:5:19, parent:work@dut.m1
       |vpiName:q
@@ -349,22 +405,6 @@ design: (work@dut)
         |vpiFullName:work@dut.m1.q
         |vpiActual:
         \_logic_net: (work@dut.m1.q), line:5:18, endln:5:19, parent:work@dut.m1
-          |vpiName:q
-          |vpiFullName:work@dut.m1.q
-          |vpiRange:
-          \_range: , line:5:10, endln:5:16
-            |vpiLeftRange:
-            \_constant: , line:5:10, endln:5:12
-              |vpiConstType:7
-              |vpiDecompile:31
-              |vpiSize:64
-              |INT:31
-            |vpiRightRange:
-            \_constant: , line:5:15, endln:5:16
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
       |vpiInstance:
       \_module: work@prim_subreg_arb (work@dut.m1) dut.sv:19:2: , endln:22:9, parent:work@dut
     |vpiGenScopeArray:
@@ -374,6 +414,26 @@ design: (work@dut)
       |vpiGenScope:
       \_gen_scope: (work@dut.m1.gen_ro), parent:work@dut.m1.gen_ro
         |vpiFullName:work@dut.m1.gen_ro
+        |vpiVariables:
+        \_logic_var: (work@dut.m1.gen_ro.unused_q_ro), line:12:20, endln:12:31, parent:work@dut.m1.gen_ro
+          |vpiName:unused_q_ro
+          |vpiFullName:work@dut.m1.gen_ro.unused_q_ro
+          |vpiAutomatic:1
+          |vpiVisibility:1
+          |vpiRange:
+          \_range: , line:12:12, endln:12:18, parent:work@dut.m1.gen_ro.unused_q_ro
+            |vpiLeftRange:
+            \_constant: , line:12:12, endln:12:14
+              |vpiDecompile:31
+              |vpiSize:64
+              |INT:31
+              |vpiConstType:7
+            |vpiRightRange:
+            \_constant: , line:12:17, endln:12:18
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
         |vpiContAssign:
         \_cont_assign: , line:13:12, endln:13:28, parent:work@dut.m1.gen_ro
           |vpiRhs:
@@ -396,68 +456,8 @@ design: (work@dut)
               \_range: , line:12:12, endln:12:18
                 |vpiLeftRange:
                 \_constant: , line:12:12, endln:12:14
-                  |vpiConstType:7
-                  |vpiDecompile:31
-                  |vpiSize:64
-                  |INT:31
                 |vpiRightRange:
                 \_constant: , line:12:17, endln:12:18
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-        |vpiVariables:
-        \_logic_var: (work@dut.m1.gen_ro.unused_q_ro), line:12:20, endln:12:31, parent:work@dut.m1.gen_ro
-          |vpiName:unused_q_ro
-          |vpiFullName:work@dut.m1.gen_ro.unused_q_ro
-          |vpiAutomatic:1
-          |vpiVisibility:1
-          |vpiRange:
-          \_range: , line:12:12, endln:12:18, parent:work@dut.m1.gen_ro.unused_q_ro
-            |vpiLeftRange:
-            \_constant: , line:12:12, endln:12:14
-            |vpiRightRange:
-            \_constant: , line:12:17, endln:12:18
-    |vpiNet:
-    \_logic_net: (work@dut.m1.q), line:5:18, endln:5:19, parent:work@dut.m1
-    |vpiInstance:
-    \_module: work@dut (work@dut) dut.sv:17:1: , endln:23:10
-    |vpiParameter:
-    \_parameter: (work@dut.m1.DW), line:2:17, endln:2:30, parent:work@dut.m1
-      |vpiName:DW
-      |vpiFullName:work@dut.m1.DW
-      |UINT:32
-      |vpiTypespec:
-      \_int_typespec: , line:2:13, endln:2:16, parent:work@dut.m1.DW
-    |vpiParameter:
-    \_parameter: (work@dut.m1.SWACCESS), line:3:17, endln:3:32, parent:work@dut.m1
-      |vpiName:SWACCESS
-      |vpiFullName:work@dut.m1.SWACCESS
-      |STRING:RW
-    |vpiParamAssign:
-    \_param_assign: , line:2:17, endln:2:30, parent:work@dut.m1
-      |vpiOverriden:1
-      |vpiRhs:
-      \_constant: , line:2:28, endln:2:30
-        |vpiConstType:9
-        |vpiDecompile:32
-        |vpiSize:64
-        |UINT:32
-        |vpiTypespec:
-        \_int_typespec: , line:2:13, endln:2:16, parent:work@prim_subreg_arb.DW
-      |vpiLhs:
-      \_parameter: (work@dut.m1.DW), line:2:17, endln:2:30, parent:work@dut.m1
-    |vpiParamAssign:
-    \_param_assign: , line:3:17, endln:3:32, parent:work@dut.m1
-      |vpiOverriden:1
-      |vpiRhs:
-      \_constant: , line:3:28, endln:3:32
-        |vpiConstType:6
-        |vpiDecompile:RO
-        |vpiSize:2
-        |STRING:RO
-      |vpiLhs:
-      \_parameter: (work@dut.m1.SWACCESS), line:3:17, endln:3:32, parent:work@dut.m1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

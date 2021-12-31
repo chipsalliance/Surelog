@@ -430,13 +430,13 @@ n<> u<245> t<Top_level_rule> f<0> l<0:11>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallPackages:
 \_package: builtin (builtin::), parent:work@top
-  |vpiDefName:builtin
   |vpiName:builtin
   |vpiFullName:builtin::
+  |vpiDefName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin::
     |vpiName:array
@@ -455,13 +455,14 @@ design: (work@top)
     |vpiFullName:builtin::system
 |uhdmallPackages:
 \_package: ibex_pkg (ibex_pkg::) dut.sv:1:1: , endln:11:11, parent:work@top
-  |vpiDefName:ibex_pkg
   |vpiName:ibex_pkg
   |vpiFullName:ibex_pkg::
   |vpiTypedef:
   \_struct_typespec: (ibex_pkg::pmp_cfg_t), line:3:11, endln:3:17
-    |vpiPacked:1
     |vpiName:ibex_pkg::pmp_cfg_t
+    |vpiInstance:
+    \_package: ibex_pkg (ibex_pkg::) dut.sv:1:1: , endln:11:11, parent:work@top
+    |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (lock), line:4:20, endln:4:24
       |vpiName:lock
@@ -490,16 +491,15 @@ design: (work@top)
       \_logic_typespec: , line:7:5, endln:7:10
         |vpiInstance:
         \_package: ibex_pkg (ibex_pkg::) dut.sv:1:1: , endln:11:11, parent:work@top
-    |vpiInstance:
-    \_package: ibex_pkg (ibex_pkg::) dut.sv:1:1: , endln:11:11, parent:work@top
+  |vpiDefName:ibex_pkg
 |uhdmallClasses:
 \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
   |vpiName:work@mailbox
   |vpiMethod:
   \_function: (work@mailbox::new), parent:work@mailbox
-    |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@mailbox::new
+    |vpiMethod:1
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -508,107 +508,140 @@ design: (work@top)
         \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiIODecl:
     \_io_decl: (bound), parent:work@mailbox::new
-      |vpiName:bound
       |vpiDirection:1
+      |vpiName:bound
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_function: (work@mailbox::num), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:num
     |vpiFullName:work@mailbox::num
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:put
     |vpiFullName:work@mailbox::put
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::put
-      |vpiName:message
-      |vpiDirection:1
-  |vpiMethod:
-  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::put
+      |vpiDirection:1
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_put
-      |vpiName:message
       |vpiDirection:1
+      |vpiName:message
   |vpiMethod:
   \_task: (work@mailbox::get), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:get
     |vpiFullName:work@mailbox::get
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::get
-      |vpiName:message
-      |vpiDirection:6
-  |vpiMethod:
-  \_function: (work@mailbox::try_get), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::get
+      |vpiDirection:6
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_get), parent:work@mailbox
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
   |vpiMethod:
   \_task: (work@mailbox::peek), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::peek
-      |vpiName:message
-      |vpiDirection:6
-  |vpiMethod:
-  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::peek
+      |vpiDirection:6
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
 |uhdmallClasses:
 \_class_defn: (work@process), file:builtin.sv, parent:work@top
   |vpiName:work@process
+  |vpiTypedef:
+  \_enum_typespec: (state), parent:work@process
+    |vpiName:state
+    |vpiEnumConst:
+    \_enum_const: (FINISHED), parent:state
+      |vpiName:FINISHED
+      |INT:0
+      |vpiDecompile:0
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (RUNNING), parent:state
+      |vpiName:RUNNING
+      |INT:1
+      |vpiDecompile:1
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (WAITING), parent:state
+      |vpiName:WAITING
+      |INT:2
+      |vpiDecompile:2
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (SUSPENDED), parent:state
+      |vpiName:SUSPENDED
+      |INT:3
+      |vpiDecompile:3
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (KILLED), parent:state
+      |vpiName:KILLED
+      |INT:4
+      |vpiDecompile:4
+      |vpiSize:64
   |vpiMethod:
   \_function: (work@process::self), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:self
     |vpiFullName:work@process::self
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_ref_var: 
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:status
     |vpiFullName:work@process::status
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
@@ -617,110 +650,77 @@ design: (work@top)
         |vpiEnumConst:
         \_enum_const: (FINISHED)
           |vpiName:FINISHED
-          |vpiDecompile:0
           |INT:0
+          |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
           |vpiName:RUNNING
-          |vpiDecompile:1
           |INT:1
+          |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
           |vpiName:WAITING
-          |vpiDecompile:2
           |INT:2
+          |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
           |vpiName:SUSPENDED
-          |vpiDecompile:3
           |INT:3
+          |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
           |vpiName:KILLED
-          |vpiDecompile:4
           |INT:4
+          |vpiDecompile:4
           |vpiSize:64
   |vpiMethod:
   \_task: (work@process::kill), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:kill
     |vpiFullName:work@process::kill
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::kill), parent:work@process::kill
       |vpiFullName:work@process::kill
   |vpiMethod:
   \_task: (work@process::await), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:await
     |vpiFullName:work@process::await
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::await), parent:work@process::await
       |vpiFullName:work@process::await
   |vpiMethod:
   \_task: (work@process::suspend), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:suspend
     |vpiFullName:work@process::suspend
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::suspend), parent:work@process::suspend
       |vpiFullName:work@process::suspend
   |vpiMethod:
   \_task: (work@process::resume), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:resume
     |vpiFullName:work@process::resume
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::resume), parent:work@process::resume
       |vpiFullName:work@process::resume
-  |vpiTypedef:
-  \_enum_typespec: (state), parent:work@process
-    |vpiName:state
-    |vpiEnumConst:
-    \_enum_const: (FINISHED), parent:state
-      |vpiName:FINISHED
-      |vpiDecompile:0
-      |INT:0
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (RUNNING), parent:state
-      |vpiName:RUNNING
-      |vpiDecompile:1
-      |INT:1
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (WAITING), parent:state
-      |vpiName:WAITING
-      |vpiDecompile:2
-      |INT:2
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (SUSPENDED), parent:state
-      |vpiName:SUSPENDED
-      |vpiDecompile:3
-      |INT:3
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (KILLED), parent:state
-      |vpiName:KILLED
-      |vpiDecompile:4
-      |INT:4
-      |vpiSize:64
 |uhdmallClasses:
 \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
   |vpiName:work@semaphore
   |vpiMethod:
   \_function: (work@semaphore::new), parent:work@semaphore
-    |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@semaphore::new
+    |vpiMethod:1
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -729,123 +729,125 @@ design: (work@top)
         \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::new
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_task: (work@semaphore::put), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:put
     |vpiFullName:work@semaphore::put
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::put
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_task: (work@semaphore::get), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:get
     |vpiFullName:work@semaphore::get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::get
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_function: (work@semaphore::try_get), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:13:1: , endln:24:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
-  |vpiNet:
-  \_logic_net: (work@top.pmp_cfg1), line:18:34, parent:work@top
-    |vpiName:pmp_cfg1
-    |vpiFullName:work@top.pmp_cfg1
   |vpiParameter:
   \_parameter: (work@top.PMPEnable), line:13:27, endln:13:40, parent:work@top
-    |vpiName:PMPEnable
-    |vpiFullName:work@top.PMPEnable
     |UINT:1
     |vpiTypespec:
     \_bit_typespec: , line:13:23, endln:13:26, parent:work@top.PMPEnable
+    |vpiName:PMPEnable
+    |vpiFullName:work@top.PMPEnable
   |vpiParameter:
   \_parameter: (work@top.PMPNumRegions), line:15:20, endln:15:37, parent:work@top
-    |vpiName:PMPNumRegions
-    |vpiFullName:work@top.PMPNumRegions
-    |vpiLocalParam:1
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:15:16, endln:15:19, parent:work@top.PMPNumRegions
+    |vpiLocalParam:1
+    |vpiName:PMPNumRegions
+    |vpiFullName:work@top.PMPNumRegions
   |vpiParamAssign:
   \_param_assign: , line:13:27, endln:13:40, parent:work@top
     |vpiRhs:
     \_constant: , line:13:39, endln:13:40
-      |vpiConstType:9
       |vpiDecompile:1
       |vpiSize:1
       |UINT:1
       |vpiTypespec:
       \_bit_typespec: , line:13:23, endln:13:26, parent:work@top.PMPEnable
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.PMPEnable), line:13:27, endln:13:40, parent:work@top
   |vpiParamAssign:
   \_param_assign: , line:15:20, endln:15:37, parent:work@top
     |vpiRhs:
     \_constant: , line:15:36, endln:15:37
-      |vpiConstType:9
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
       \_int_typespec: , line:15:16, endln:15:19, parent:work@top.PMPNumRegions
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.PMPNumRegions), line:15:20, endln:15:37, parent:work@top
   |vpiTypedef:
   \_struct_typespec: (ibex_pkg::pmp_cfg_t), line:3:11, endln:3:17
-    |vpiPacked:1
     |vpiName:ibex_pkg::pmp_cfg_t
+    |vpiInstance:
+    \_package: ibex_pkg (ibex_pkg::) dut.sv:1:1: , endln:11:11, parent:work@top
+      |vpiName:ibex_pkg
+      |vpiFullName:ibex_pkg::
+      |vpiTypedef:
+      \_struct_typespec: (ibex_pkg::pmp_cfg_t), line:3:11, endln:3:17
+      |vpiDefName:ibex_pkg
+    |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (lock), line:4:20, endln:4:24
       |vpiName:lock
@@ -853,11 +855,6 @@ design: (work@top)
       \_logic_typespec: , line:4:5, endln:4:10
         |vpiInstance:
         \_package: ibex_pkg (ibex_pkg::) dut.sv:1:1: , endln:11:11, parent:work@top
-          |vpiDefName:ibex_pkg
-          |vpiName:ibex_pkg
-          |vpiFullName:ibex_pkg::
-          |vpiTypedef:
-          \_struct_typespec: (ibex_pkg::pmp_cfg_t), line:3:11, endln:3:17
     |vpiTypespecMember:
     \_typespec_member: (exec), line:5:20, endln:5:24
       |vpiName:exec
@@ -879,14 +876,129 @@ design: (work@top)
       \_logic_typespec: , line:7:5, endln:7:10
         |vpiInstance:
         \_package: ibex_pkg (ibex_pkg::) dut.sv:1:1: , endln:11:11, parent:work@top
-    |vpiInstance:
-    \_package: ibex_pkg (ibex_pkg::) dut.sv:1:1: , endln:11:11, parent:work@top
   |vpiTypedef:
   \_import: (ibex_pkg), line:16:12, endln:16:23
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.pmp_cfg1), line:18:34, parent:work@top
+    |vpiName:pmp_cfg1
+    |vpiFullName:work@top.pmp_cfg1
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:13:1: , endln:24:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiParameter:
+  \_parameter: (work@top.PMPEnable), line:13:27, endln:13:40, parent:work@top
+    |UINT:1
+    |vpiTypespec:
+    \_bit_typespec: , line:13:23, endln:13:26, parent:work@top.PMPEnable
+    |vpiName:PMPEnable
+    |vpiFullName:work@top.PMPEnable
+  |vpiParameter:
+  \_parameter: (work@top.PMPNumRegions), line:15:20, endln:15:37, parent:work@top
+    |UINT:2
+    |vpiTypespec:
+    \_int_typespec: , line:15:16, endln:15:19, parent:work@top.PMPNumRegions
+    |vpiLocalParam:1
+    |vpiName:PMPNumRegions
+    |vpiFullName:work@top.PMPNumRegions
+  |vpiParamAssign:
+  \_param_assign: , line:13:27, endln:13:40, parent:work@top
+    |vpiRhs:
+    \_constant: , line:13:39, endln:13:40
+      |vpiDecompile:1
+      |vpiSize:1
+      |UINT:1
+      |vpiTypespec:
+      \_bit_typespec: , line:13:23, endln:13:26, parent:work@top.PMPEnable
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@top.PMPEnable), line:13:27, endln:13:40, parent:work@top
+  |vpiParamAssign:
+  \_param_assign: , line:15:20, endln:15:37, parent:work@top
+    |vpiRhs:
+    \_constant: , line:15:36, endln:15:37
+      |vpiDecompile:2
+      |vpiSize:32
+      |UINT:2
+      |vpiTypespec:
+      \_int_typespec: , line:15:16, endln:15:19, parent:work@top.PMPNumRegions
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@top.PMPNumRegions), line:15:20, endln:15:37, parent:work@top
+  |vpiTypedef:
+  \_struct_typespec: (ibex_pkg::pmp_cfg_t), line:3:11, endln:3:17
+    |vpiName:ibex_pkg::pmp_cfg_t
+    |vpiInstance:
+    \_package: ibex_pkg (ibex_pkg::) dut.sv:1:1: , endln:11:11, parent:work@top
+      |vpiName:ibex_pkg
+      |vpiFullName:ibex_pkg::
+      |vpiTypedef:
+      \_struct_typespec: (ibex_pkg::pmp_cfg_t), line:3:11, endln:3:17
+      |vpiDefName:ibex_pkg
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (lock), line:4:20, endln:4:24
+      |vpiName:lock
+      |vpiTypespec:
+      \_logic_typespec: , line:4:5, endln:4:10
+        |vpiInstance:
+        \_package: ibex_pkg (ibex_pkg::) dut.sv:1:1: , endln:11:11, parent:work@top
+    |vpiTypespecMember:
+    \_typespec_member: (exec), line:5:20, endln:5:24
+      |vpiName:exec
+      |vpiTypespec:
+      \_logic_typespec: , line:5:5, endln:5:10
+        |vpiInstance:
+        \_package: ibex_pkg (ibex_pkg::) dut.sv:1:1: , endln:11:11, parent:work@top
+    |vpiTypespecMember:
+    \_typespec_member: (write), line:6:20, endln:6:25
+      |vpiName:write
+      |vpiTypespec:
+      \_logic_typespec: , line:6:5, endln:6:10
+        |vpiInstance:
+        \_package: ibex_pkg (ibex_pkg::) dut.sv:1:1: , endln:11:11, parent:work@top
+    |vpiTypespecMember:
+    \_typespec_member: (read), line:7:20, endln:7:24
+      |vpiName:read
+      |vpiTypespec:
+      \_logic_typespec: , line:7:5, endln:7:10
+        |vpiInstance:
+        \_package: ibex_pkg (ibex_pkg::) dut.sv:1:1: , endln:11:11, parent:work@top
+  |vpiTypedef:
+  \_import: (ibex_pkg), line:16:12, endln:16:23
+  |vpiDefName:work@top
+  |vpiArrayNet:
+  \_array_net: (work@top.pmp_cfg1), parent:work@top
+    |vpiSize:1
+    |vpiName:pmp_cfg1
+    |vpiFullName:work@top.pmp_cfg1
+    |vpiRange:
+    \_range: , line:18:52, endln:18:65
+      |vpiLeftRange:
+      \_constant: , line:18:52, endln:18:53
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: 
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , line:18:52, endln:18:65
+          |vpiDecompile:2
+          |vpiSize:32
+          |UINT:2
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: 
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiNet:
+    \_struct_net: (work@top.pmp_cfg1), line:18:34, endln:18:42, parent:work@top.pmp_cfg1
+      |vpiTypespec:
+      \_struct_typespec: (ibex_pkg::pmp_cfg_t), line:3:11, endln:3:17
+      |vpiFullName:work@top.pmp_cfg1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.g_pmp_registers), line:20:4, endln:22:7, parent:work@top
     |vpiName:g_pmp_registers
@@ -896,148 +1008,36 @@ design: (work@top)
       |vpiFullName:work@top.g_pmp_registers
       |vpiArrayNet:
       \_array_net: (work@top.g_pmp_registers.pmp_cfg2), parent:work@top.g_pmp_registers
+        |vpiSize:1
         |vpiName:pmp_cfg2
         |vpiFullName:work@top.g_pmp_registers.pmp_cfg2
-        |vpiSize:1
-        |vpiNet:
-        \_struct_net: (work@top.g_pmp_registers.pmp_cfg2), line:21:36, endln:21:44, parent:work@top.g_pmp_registers.pmp_cfg2
-          |vpiFullName:work@top.g_pmp_registers.pmp_cfg2
-          |vpiTypespec:
-          \_struct_typespec: (ibex_pkg::pmp_cfg_t), line:3:11, endln:3:17
-            |vpiPacked:1
-            |vpiName:ibex_pkg::pmp_cfg_t
-            |vpiTypespecMember:
-            \_typespec_member: (lock), line:4:20, endln:4:24
-              |vpiName:lock
-              |vpiTypespec:
-              \_logic_typespec: , line:4:5, endln:4:10
-                |vpiInstance:
-                \_package: ibex_pkg (ibex_pkg::) dut.sv:1:1: , endln:11:11, parent:work@top
-                  |vpiDefName:ibex_pkg
-                  |vpiName:ibex_pkg
-                  |vpiFullName:ibex_pkg::
-                  |vpiTypedef:
-                  \_struct_typespec: (ibex_pkg::pmp_cfg_t), line:3:11, endln:3:17
-            |vpiTypespecMember:
-            \_typespec_member: (exec), line:5:20, endln:5:24
-              |vpiName:exec
-              |vpiTypespec:
-              \_logic_typespec: , line:5:5, endln:5:10
-                |vpiInstance:
-                \_package: ibex_pkg (ibex_pkg::) dut.sv:1:1: , endln:11:11, parent:work@top
-            |vpiTypespecMember:
-            \_typespec_member: (write), line:6:20, endln:6:25
-              |vpiName:write
-              |vpiTypespec:
-              \_logic_typespec: , line:6:5, endln:6:10
-                |vpiInstance:
-                \_package: ibex_pkg (ibex_pkg::) dut.sv:1:1: , endln:11:11, parent:work@top
-            |vpiTypespecMember:
-            \_typespec_member: (read), line:7:20, endln:7:24
-              |vpiName:read
-              |vpiTypespec:
-              \_logic_typespec: , line:7:5, endln:7:10
-                |vpiInstance:
-                \_package: ibex_pkg (ibex_pkg::) dut.sv:1:1: , endln:11:11, parent:work@top
-            |vpiInstance:
-            \_package: ibex_pkg (ibex_pkg::) dut.sv:1:1: , endln:11:11, parent:work@top
         |vpiRange:
         \_range: , line:21:54, endln:21:67
           |vpiLeftRange:
           \_constant: , line:21:54, endln:21:55
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
           |vpiRightRange:
           \_operation: 
             |vpiOpType:11
             |vpiOperand:
             \_constant: , line:21:54, endln:21:67
-              |vpiConstType:9
               |vpiDecompile:2
               |vpiSize:32
               |UINT:2
+              |vpiConstType:9
             |vpiOperand:
             \_constant: 
-              |vpiConstType:7
               |vpiSize:64
               |INT:1
-  |vpiArrayNet:
-  \_array_net: (work@top.pmp_cfg1), parent:work@top
-    |vpiName:pmp_cfg1
-    |vpiFullName:work@top.pmp_cfg1
-    |vpiSize:1
-    |vpiNet:
-    \_struct_net: (work@top.pmp_cfg1), line:18:34, endln:18:42, parent:work@top.pmp_cfg1
-      |vpiFullName:work@top.pmp_cfg1
-      |vpiTypespec:
-      \_struct_typespec: (ibex_pkg::pmp_cfg_t), line:3:11, endln:3:17
-    |vpiRange:
-    \_range: , line:18:52, endln:18:65
-      |vpiLeftRange:
-      \_constant: , line:18:52, endln:18:53
-        |vpiConstType:9
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-      |vpiRightRange:
-      \_operation: 
-        |vpiOpType:11
-        |vpiOperand:
-        \_constant: , line:18:52, endln:18:65
-          |vpiConstType:9
-          |vpiDecompile:2
-          |vpiSize:32
-          |UINT:2
-        |vpiOperand:
-        \_constant: 
-          |vpiConstType:7
-          |vpiSize:64
-          |INT:1
-  |vpiParameter:
-  \_parameter: (work@top.PMPEnable), line:13:27, endln:13:40, parent:work@top
-    |vpiName:PMPEnable
-    |vpiFullName:work@top.PMPEnable
-    |UINT:1
-    |vpiTypespec:
-    \_bit_typespec: , line:13:23, endln:13:26, parent:work@top.PMPEnable
-  |vpiParameter:
-  \_parameter: (work@top.PMPNumRegions), line:15:20, endln:15:37, parent:work@top
-    |vpiName:PMPNumRegions
-    |vpiFullName:work@top.PMPNumRegions
-    |vpiLocalParam:1
-    |UINT:2
-    |vpiTypespec:
-    \_int_typespec: , line:15:16, endln:15:19, parent:work@top.PMPNumRegions
-  |vpiParamAssign:
-  \_param_assign: , line:13:27, endln:13:40, parent:work@top
-    |vpiRhs:
-    \_constant: , line:13:39, endln:13:40
-      |vpiConstType:9
-      |vpiDecompile:1
-      |vpiSize:1
-      |UINT:1
-      |vpiTypespec:
-      \_bit_typespec: , line:13:23, endln:13:26, parent:work@top.PMPEnable
-    |vpiLhs:
-    \_parameter: (work@top.PMPEnable), line:13:27, endln:13:40, parent:work@top
-  |vpiParamAssign:
-  \_param_assign: , line:15:20, endln:15:37, parent:work@top
-    |vpiRhs:
-    \_constant: , line:15:36, endln:15:37
-      |vpiConstType:9
-      |vpiDecompile:2
-      |vpiSize:32
-      |UINT:2
-      |vpiTypespec:
-      \_int_typespec: , line:15:16, endln:15:19, parent:work@top.PMPNumRegions
-    |vpiLhs:
-    \_parameter: (work@top.PMPNumRegions), line:15:20, endln:15:37, parent:work@top
-  |vpiTypedef:
-  \_struct_typespec: (ibex_pkg::pmp_cfg_t), line:3:11, endln:3:17
-  |vpiTypedef:
-  \_import: (ibex_pkg), line:16:12, endln:16:23
+              |vpiConstType:7
+        |vpiNet:
+        \_struct_net: (work@top.g_pmp_registers.pmp_cfg2), line:21:36, endln:21:44, parent:work@top.g_pmp_registers.pmp_cfg2
+          |vpiTypespec:
+          \_struct_typespec: (ibex_pkg::pmp_cfg_t), line:3:11, endln:3:17
+          |vpiFullName:work@top.g_pmp_registers.pmp_cfg2
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

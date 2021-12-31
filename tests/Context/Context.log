@@ -69,12 +69,32 @@ n<> u<34> t<Top_level_rule> l<1:1> el<4:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:3:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiTaskFunc:
+  \_task: (work@top.get_2), line:2:4, endln:2:52, parent:work@top
+    |vpiName:get_2
+    |vpiFullName:work@top.get_2
+    |vpiAccessType:4
+    |vpiVisibility:1
+    |vpiDPIContext:1
+    |vpiDPICStr:2
+    |vpiIODecl:
+    \_io_decl: (x)
+      |vpiDirection:2
+      |vpiName:x
+      |vpiTypedef:
+      \_int_typespec: , line:2:45, endln:2:48
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:3:10, parent:work@top
+  |vpiNet:
+  \_logic_net: (work@top.a), line:1:23, parent:work@top
+    |vpiName:a
+    |vpiFullName:work@top.a
   |vpiPort:
   \_port: (a), line:1:23, parent:work@top
     |vpiName:a
@@ -83,30 +103,32 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.a), line:1:23, parent:work@top
-        |vpiName:a
-        |vpiFullName:work@top.a
+|uhdmtopModules:
+\_module: work@top (work@top) dut.sv:1:1: , endln:3:10
+  |vpiName:work@top
+  |vpiVariables:
+  \_int_var: (work@top.a), line:1:23, endln:1:24, parent:work@top
+    |vpiName:a
+    |vpiFullName:work@top.a
+    |vpiAutomatic:1
+    |vpiVisibility:1
+  |vpiDefName:work@top
   |vpiTaskFunc:
   \_task: (work@top.get_2), line:2:4, endln:2:52, parent:work@top
+    |vpiName:get_2
+    |vpiFullName:work@top.get_2
     |vpiAccessType:4
     |vpiVisibility:1
     |vpiDPIContext:1
     |vpiDPICStr:2
-    |vpiName:get_2
-    |vpiFullName:work@top.get_2
     |vpiIODecl:
-    \_io_decl: (x)
-      |vpiName:x
+    \_io_decl: (x), parent:work@top.get_2
       |vpiDirection:2
+      |vpiName:x
       |vpiTypedef:
       \_int_typespec: , line:2:45, endln:2:48
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:3:10, parent:work@top
-  |vpiNet:
-  \_logic_net: (work@top.a), line:1:23, parent:work@top
-|uhdmtopModules:
-\_module: work@top (work@top) dut.sv:1:1: , endln:3:10
-  |vpiDefName:work@top
-  |vpiName:work@top
+    \_module: work@top (work@top) dut.sv:1:1: , endln:3:10
   |vpiPort:
   \_port: (a), line:1:23, endln:1:24, parent:work@top
     |vpiName:a
@@ -117,30 +139,8 @@ design: (work@top)
       |vpiFullName:work@top.a
       |vpiActual:
       \_int_var: (work@top.a), line:1:23, endln:1:24, parent:work@top
-        |vpiName:a
-        |vpiFullName:work@top.a
-        |vpiAutomatic:1
-        |vpiVisibility:1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:3:10
-  |vpiTaskFunc:
-  \_task: (work@top.get_2), line:2:4, endln:2:52, parent:work@top
-    |vpiAccessType:4
-    |vpiVisibility:1
-    |vpiDPIContext:1
-    |vpiDPICStr:2
-    |vpiName:get_2
-    |vpiFullName:work@top.get_2
-    |vpiIODecl:
-    \_io_decl: (x), parent:work@top.get_2
-      |vpiName:x
-      |vpiDirection:2
-      |vpiTypedef:
-      \_int_typespec: , line:2:45, endln:2:48
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:3:10
-  |vpiVariables:
-  \_int_var: (work@top.a), line:1:23, endln:1:24, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

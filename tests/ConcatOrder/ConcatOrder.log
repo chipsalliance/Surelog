@@ -359,34 +359,32 @@ n<> u<314> t<Top_level_rule> l<1:1> el<56:1>
 
 ====== UHDM =======
 design: (work@testbench)
-|vpiName:work@testbench
 |vpiElaborated:1
+|vpiName:work@testbench
 |uhdmallPackages:
 \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-  |vpiDefName:bp_common_pkg
   |vpiName:bp_common_pkg
   |vpiFullName:bp_common_pkg::
   |vpiParameter:
   \_parameter: (bp_common_pkg::max_cfgs), line:2:14, endln:2:29, parent:bp_common_pkg::
+    |UINT:2
+    |vpiLocalParam:1
     |vpiName:max_cfgs
     |vpiFullName:bp_common_pkg::max_cfgs
-    |vpiLocalParam:1
-    |UINT:2
   |vpiParameter:
   \_parameter: (bp_common_pkg::lg_max_cfgs), line:3:14, endln:3:71, parent:bp_common_pkg::
+    |INT:1
+    |vpiLocalParam:1
     |vpiName:lg_max_cfgs
     |vpiFullName:bp_common_pkg::lg_max_cfgs
-    |vpiLocalParam:1
-    |INT:1
   |vpiParameter:
   \_parameter: (bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:11:27, parent:bp_common_pkg::
-    |vpiName:bp_multicore_1_cce_ucode_cfg_p
-    |vpiFullName:bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p
-    |vpiLocalParam:1
     |vpiTypespec:
     \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
-      |vpiPacked:1
       |vpiName:bp_common_pkg::bp_proc_param_s
+      |vpiInstance:
+      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+      |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cce_ucode), line:7:22, endln:7:31
         |vpiName:cce_ucode
@@ -394,64 +392,65 @@ design: (work@testbench)
         \_int_typespec: , line:7:5, endln:7:12
           |vpiInstance:
           \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-      |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+    |vpiLocalParam:1
+    |vpiName:bp_multicore_1_cce_ucode_cfg_p
+    |vpiFullName:bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p
   |vpiParameter:
   \_parameter: (bp_common_pkg::all_cfgs_gp), line:13:42, endln:17:4, parent:bp_common_pkg::
-    |vpiName:all_cfgs_gp
-    |vpiFullName:bp_common_pkg::all_cfgs_gp
     |vpiTypespec:
     \_packed_array_typespec: , parent:bp_common_pkg::all_cfgs_gp
+      |vpiInstance:
+      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
       |vpiRange:
       \_range: , line:13:28, endln:13:40
         |vpiLeftRange:
         \_constant: , line:13:28, endln:13:36
-          |vpiConstType:7
           |vpiDecompile:1
           |vpiSize:64
           |INT:1
+          |vpiConstType:7
         |vpiRightRange:
         \_constant: , line:13:39, endln:13:40
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
       |vpiElemTypespec:
       \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
-      |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+    |vpiName:all_cfgs_gp
+    |vpiFullName:bp_common_pkg::all_cfgs_gp
   |vpiParameter:
   \_parameter: (bp_common_pkg::bp_default_cfg_p), line:25:28, endln:28:8, parent:bp_common_pkg::
+    |vpiTypespec:
+    \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
+    |vpiLocalParam:1
     |vpiName:bp_default_cfg_p
     |vpiFullName:bp_common_pkg::bp_default_cfg_p
-    |vpiLocalParam:1
-    |vpiTypespec:
-    \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
   |vpiParameter:
   \_parameter: (bp_common_pkg::bp_unicore_cfg_p), line:30:28, endln:30:63, parent:bp_common_pkg::
-    |vpiName:bp_unicore_cfg_p
-    |vpiFullName:bp_common_pkg::bp_unicore_cfg_p
-    |vpiLocalParam:1
     |vpiTypespec:
     \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
+    |vpiLocalParam:1
+    |vpiName:bp_unicore_cfg_p
+    |vpiFullName:bp_common_pkg::bp_unicore_cfg_p
   |vpiParamAssign:
   \_param_assign: , line:2:14, endln:2:29, parent:bp_common_pkg::
     |vpiRhs:
     \_constant: , line:2:28, endln:2:29
-      |vpiConstType:9
       |vpiDecompile:2
       |vpiSize:64
       |UINT:2
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (bp_common_pkg::max_cfgs), line:2:14, endln:2:29, parent:bp_common_pkg::
   |vpiParamAssign:
   \_param_assign: , line:3:14, endln:3:71, parent:bp_common_pkg::
     |vpiRhs:
     \_constant: , line:3:28, endln:3:71
-      |vpiConstType:7
       |vpiDecompile:1
       |vpiSize:64
       |INT:1
+      |vpiConstType:7
     |vpiLhs:
     \_parameter: (bp_common_pkg::lg_max_cfgs), line:3:14, endln:3:71, parent:bp_common_pkg::
   |vpiParamAssign:
@@ -463,10 +462,10 @@ design: (work@testbench)
       \_tagged_pattern: 
         |vpiPattern:
         \_constant: , line:11:24, endln:11:25
-          |vpiConstType:9
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiConstType:9
         |vpiTypespec:
         \_string_typespec: (cce_ucode), line:11:13, endln:11:22
           |vpiName:cce_ucode
@@ -499,10 +498,10 @@ design: (work@testbench)
       \_tagged_pattern: 
         |vpiPattern:
         \_constant: , line:27:31, endln:27:32
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
         |vpiTypespec:
         \_string_typespec: (cce_ucode), line:27:8, endln:27:17
           |vpiName:cce_ucode
@@ -520,73 +519,265 @@ design: (work@testbench)
   |vpiTypedef:
   \_enum_typespec: (bp_common_pkg::bp_params_e), line:23:5, endln:23:16, parent:work@testbench.bp_params_p
     |vpiName:bp_common_pkg::bp_params_e
+    |vpiInstance:
+    \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
     |vpiBaseTypespec:
     \_bit_typespec: , line:19:16, endln:19:19
+      |vpiInstance:
+      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
       |vpiRange:
       \_range: , line:19:21, endln:19:36
         |vpiLeftRange:
         \_constant: , line:19:21, endln:19:32
-          |vpiConstType:7
           |vpiDecompile:0
           |vpiSize:64
           |INT:0
+          |vpiConstType:7
         |vpiRightRange:
         \_constant: , line:19:35, endln:19:36
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-      |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+          |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (e_bp_multicore_1_cce_ucode_cfg), line:21:5, endln:21:35
       |vpiName:e_bp_multicore_1_cce_ucode_cfg
-      |vpiDecompile:1
       |UINT:1
+      |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (e_bp_default_cfg), line:22:6, endln:22:22
       |vpiName:e_bp_default_cfg
-      |vpiDecompile:0
       |UINT:0
+      |vpiDecompile:0
       |vpiSize:64
-    |vpiInstance:
-    \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
   |vpiTypedef:
   \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
+  |vpiDefName:bp_common_pkg
 |uhdmallModules:
 \_module: work@GOOD (work@GOOD) dut.sv:35:1: , endln:37:10, parent:work@testbench
-  |vpiDefName:work@GOOD
   |vpiFullName:work@GOOD
+  |vpiDefName:work@GOOD
 |uhdmallModules:
 \_module: work@testbench (work@testbench) dut.sv:39:2: , endln:54:11, parent:work@testbench
-  |vpiDefName:work@testbench
   |vpiFullName:work@testbench
   |vpiParameter:
   \_parameter: (work@testbench.all_cfgs_gp), line:13:42, endln:17:4, parent:work@testbench
-    |vpiName:all_cfgs_gp
-    |vpiFullName:work@testbench.all_cfgs_gp
-    |vpiImported:bp_common_pkg
     |vpiTypespec:
     \_packed_array_typespec: , parent:work@testbench.all_cfgs_gp
+      |vpiInstance:
+      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+        |vpiName:bp_common_pkg
+        |vpiFullName:bp_common_pkg::
+        |vpiParameter:
+        \_parameter: (bp_common_pkg::max_cfgs), line:2:14, endln:2:29, parent:bp_common_pkg::
+          |UINT:2
+          |vpiLocalParam:1
+          |vpiName:max_cfgs
+          |vpiFullName:bp_common_pkg::max_cfgs
+        |vpiParameter:
+        \_parameter: (bp_common_pkg::lg_max_cfgs), line:3:14, endln:3:71, parent:bp_common_pkg::
+          |INT:1
+          |vpiLocalParam:1
+          |vpiName:lg_max_cfgs
+          |vpiFullName:bp_common_pkg::lg_max_cfgs
+        |vpiParameter:
+        \_parameter: (bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:11:27, parent:bp_common_pkg::
+          |vpiTypespec:
+          \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
+            |vpiName:bp_common_pkg::bp_proc_param_s
+            |vpiInstance:
+            \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+            |vpiPacked:1
+            |vpiTypespecMember:
+            \_typespec_member: (cce_ucode), line:7:22, endln:7:31
+              |vpiName:cce_ucode
+              |vpiTypespec:
+              \_int_typespec: , line:7:5, endln:7:12
+                |vpiInstance:
+                \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+          |vpiLocalParam:1
+          |vpiName:bp_multicore_1_cce_ucode_cfg_p
+          |vpiFullName:bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p
+        |vpiParameter:
+        \_parameter: (bp_common_pkg::all_cfgs_gp), line:13:42, endln:17:4, parent:bp_common_pkg::
+          |vpiTypespec:
+          \_packed_array_typespec: , parent:bp_common_pkg::all_cfgs_gp
+            |vpiInstance:
+            \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+            |vpiRange:
+            \_range: , line:13:28, endln:13:40
+              |vpiLeftRange:
+              \_constant: , line:13:28, endln:13:36
+                |vpiDecompile:1
+                |vpiSize:64
+                |INT:1
+                |vpiConstType:7
+              |vpiRightRange:
+              \_constant: , line:13:39, endln:13:40
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+            |vpiElemTypespec:
+            \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
+          |vpiName:all_cfgs_gp
+          |vpiFullName:bp_common_pkg::all_cfgs_gp
+        |vpiParameter:
+        \_parameter: (bp_common_pkg::bp_default_cfg_p), line:25:28, endln:28:8, parent:bp_common_pkg::
+          |vpiTypespec:
+          \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
+          |vpiLocalParam:1
+          |vpiName:bp_default_cfg_p
+          |vpiFullName:bp_common_pkg::bp_default_cfg_p
+        |vpiParameter:
+        \_parameter: (bp_common_pkg::bp_unicore_cfg_p), line:30:28, endln:30:63, parent:bp_common_pkg::
+          |vpiTypespec:
+          \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
+          |vpiLocalParam:1
+          |vpiName:bp_unicore_cfg_p
+          |vpiFullName:bp_common_pkg::bp_unicore_cfg_p
+        |vpiParamAssign:
+        \_param_assign: , line:2:14, endln:2:29, parent:bp_common_pkg::
+          |vpiRhs:
+          \_constant: , line:2:28, endln:2:29
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+          |vpiLhs:
+          \_parameter: (bp_common_pkg::max_cfgs), line:2:14, endln:2:29, parent:bp_common_pkg::
+        |vpiParamAssign:
+        \_param_assign: , line:3:14, endln:3:71, parent:bp_common_pkg::
+          |vpiRhs:
+          \_constant: , line:3:28, endln:3:71
+            |vpiDecompile:1
+            |vpiSize:64
+            |INT:1
+            |vpiConstType:7
+          |vpiLhs:
+          \_parameter: (bp_common_pkg::lg_max_cfgs), line:3:14, endln:3:71, parent:bp_common_pkg::
+        |vpiParamAssign:
+        \_param_assign: , line:10:31, endln:11:27, parent:bp_common_pkg::
+          |vpiRhs:
+          \_operation: , line:11:7, endln:11:27
+            |vpiOpType:75
+            |vpiOperand:
+            \_tagged_pattern: 
+              |vpiPattern:
+              \_constant: , line:11:24, endln:11:25
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+                |vpiConstType:9
+              |vpiTypespec:
+              \_string_typespec: (cce_ucode), line:11:13, endln:11:22
+                |vpiName:cce_ucode
+          |vpiLhs:
+          \_parameter: (bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:11:27, parent:bp_common_pkg::
+        |vpiParamAssign:
+        \_param_assign: , line:13:42, endln:17:4, parent:bp_common_pkg::
+          |vpiRhs:
+          \_operation: , line:14:3, endln:17:4
+            |vpiOpType:33
+            |vpiReordered:1
+            |vpiOperand:
+            \_ref_obj: (bp_default_cfg_p), line:16:6, endln:16:22
+              |vpiName:bp_default_cfg_p
+              |vpiActual:
+              \_parameter: (bp_common_pkg::bp_default_cfg_p), line:25:28, endln:28:8, parent:bp_common_pkg::
+            |vpiOperand:
+            \_ref_obj: (bp_multicore_1_cce_ucode_cfg_p), line:15:5, endln:15:35
+              |vpiName:bp_multicore_1_cce_ucode_cfg_p
+              |vpiActual:
+              \_parameter: (bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:11:27, parent:bp_common_pkg::
+          |vpiLhs:
+          \_parameter: (bp_common_pkg::all_cfgs_gp), line:13:42, endln:17:4, parent:bp_common_pkg::
+        |vpiParamAssign:
+        \_param_assign: , line:25:28, endln:28:8, parent:bp_common_pkg::
+          |vpiRhs:
+          \_operation: , line:26:5, endln:28:8
+            |vpiOpType:75
+            |vpiOperand:
+            \_tagged_pattern: 
+              |vpiPattern:
+              \_constant: , line:27:31, endln:27:32
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+              |vpiTypespec:
+              \_string_typespec: (cce_ucode), line:27:8, endln:27:17
+                |vpiName:cce_ucode
+          |vpiLhs:
+          \_parameter: (bp_common_pkg::bp_default_cfg_p), line:25:28, endln:28:8, parent:bp_common_pkg::
+        |vpiParamAssign:
+        \_param_assign: , line:30:28, endln:30:63, parent:bp_common_pkg::
+          |vpiRhs:
+          \_ref_obj: (bp_default_cfg_p), line:30:47, endln:30:63
+            |vpiName:bp_default_cfg_p
+            |vpiActual:
+            \_parameter: (bp_common_pkg::bp_default_cfg_p), line:25:28, endln:28:8, parent:bp_common_pkg::
+          |vpiLhs:
+          \_parameter: (bp_common_pkg::bp_unicore_cfg_p), line:30:28, endln:30:63, parent:bp_common_pkg::
+        |vpiTypedef:
+        \_enum_typespec: (bp_common_pkg::bp_params_e), line:23:5, endln:23:16, parent:work@testbench.bp_params_p
+          |vpiName:bp_common_pkg::bp_params_e
+          |vpiInstance:
+          \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+          |vpiBaseTypespec:
+          \_bit_typespec: , line:19:16, endln:19:19
+            |vpiInstance:
+            \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+            |vpiRange:
+            \_range: , line:19:21, endln:19:36
+              |vpiLeftRange:
+              \_constant: , line:19:21, endln:19:32
+                |vpiDecompile:0
+                |vpiSize:64
+                |INT:0
+                |vpiConstType:7
+              |vpiRightRange:
+              \_constant: , line:19:35, endln:19:36
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+          |vpiEnumConst:
+          \_enum_const: (e_bp_multicore_1_cce_ucode_cfg), line:21:5, endln:21:35
+            |vpiName:e_bp_multicore_1_cce_ucode_cfg
+            |UINT:1
+            |vpiDecompile:1
+            |vpiSize:64
+          |vpiEnumConst:
+          \_enum_const: (e_bp_default_cfg), line:22:6, endln:22:22
+            |vpiName:e_bp_default_cfg
+            |UINT:0
+            |vpiDecompile:0
+            |vpiSize:64
+        |vpiTypedef:
+        \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
+        |vpiDefName:bp_common_pkg
       |vpiRange:
       \_range: , line:13:28, endln:13:40
         |vpiLeftRange:
         \_constant: , line:13:28, endln:13:36
-          |vpiConstType:7
           |vpiDecompile:1
           |vpiSize:64
           |INT:1
+          |vpiConstType:7
         |vpiRightRange:
         \_constant: , line:13:39, endln:13:40
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
       |vpiElemTypespec:
       \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16
-        |vpiPacked:1
         |vpiName:bp_common_pkg::bp_proc_param_s
+        |vpiInstance:
+        \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+        |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cce_ucode), line:7:22, endln:7:31, parent:bp_common_pkg::bp_proc_param_s
           |vpiName:cce_ucode
@@ -594,211 +785,36 @@ design: (work@testbench)
           \_int_typespec: , line:7:5, endln:7:12, parent:cce_ucode
             |vpiInstance:
             \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-              |vpiDefName:bp_common_pkg
-              |vpiName:bp_common_pkg
-              |vpiFullName:bp_common_pkg::
-              |vpiParameter:
-              \_parameter: (bp_common_pkg::max_cfgs), line:2:14, endln:2:29, parent:bp_common_pkg::
-                |vpiName:max_cfgs
-                |vpiFullName:bp_common_pkg::max_cfgs
-                |vpiLocalParam:1
-                |UINT:2
-              |vpiParameter:
-              \_parameter: (bp_common_pkg::lg_max_cfgs), line:3:14, endln:3:71, parent:bp_common_pkg::
-                |vpiName:lg_max_cfgs
-                |vpiFullName:bp_common_pkg::lg_max_cfgs
-                |vpiLocalParam:1
-                |INT:1
-              |vpiParameter:
-              \_parameter: (bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:11:27, parent:bp_common_pkg::
-                |vpiName:bp_multicore_1_cce_ucode_cfg_p
-                |vpiFullName:bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p
-                |vpiLocalParam:1
-                |vpiTypespec:
-                \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
-                  |vpiPacked:1
-                  |vpiName:bp_common_pkg::bp_proc_param_s
-                  |vpiTypespecMember:
-                  \_typespec_member: (cce_ucode), line:7:22, endln:7:31
-                    |vpiName:cce_ucode
-                    |vpiTypespec:
-                    \_int_typespec: , line:7:5, endln:7:12
-                      |vpiInstance:
-                      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-                  |vpiInstance:
-                  \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-              |vpiParameter:
-              \_parameter: (bp_common_pkg::all_cfgs_gp), line:13:42, endln:17:4, parent:bp_common_pkg::
-                |vpiName:all_cfgs_gp
-                |vpiFullName:bp_common_pkg::all_cfgs_gp
-                |vpiTypespec:
-                \_packed_array_typespec: , parent:bp_common_pkg::all_cfgs_gp
-                  |vpiRange:
-                  \_range: , line:13:28, endln:13:40
-                    |vpiLeftRange:
-                    \_constant: , line:13:28, endln:13:36
-                      |vpiConstType:7
-                      |vpiDecompile:1
-                      |vpiSize:64
-                      |INT:1
-                    |vpiRightRange:
-                    \_constant: , line:13:39, endln:13:40
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                  |vpiElemTypespec:
-                  \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
-                  |vpiInstance:
-                  \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-              |vpiParameter:
-              \_parameter: (bp_common_pkg::bp_default_cfg_p), line:25:28, endln:28:8, parent:bp_common_pkg::
-                |vpiName:bp_default_cfg_p
-                |vpiFullName:bp_common_pkg::bp_default_cfg_p
-                |vpiLocalParam:1
-                |vpiTypespec:
-                \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
-              |vpiParameter:
-              \_parameter: (bp_common_pkg::bp_unicore_cfg_p), line:30:28, endln:30:63, parent:bp_common_pkg::
-                |vpiName:bp_unicore_cfg_p
-                |vpiFullName:bp_common_pkg::bp_unicore_cfg_p
-                |vpiLocalParam:1
-                |vpiTypespec:
-                \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
-              |vpiParamAssign:
-              \_param_assign: , line:2:14, endln:2:29, parent:bp_common_pkg::
-                |vpiRhs:
-                \_constant: , line:2:28, endln:2:29
-                  |vpiConstType:9
-                  |vpiDecompile:2
-                  |vpiSize:64
-                  |UINT:2
-                |vpiLhs:
-                \_parameter: (bp_common_pkg::max_cfgs), line:2:14, endln:2:29, parent:bp_common_pkg::
-              |vpiParamAssign:
-              \_param_assign: , line:3:14, endln:3:71, parent:bp_common_pkg::
-                |vpiRhs:
-                \_constant: , line:3:28, endln:3:71
-                  |vpiConstType:7
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |INT:1
-                |vpiLhs:
-                \_parameter: (bp_common_pkg::lg_max_cfgs), line:3:14, endln:3:71, parent:bp_common_pkg::
-              |vpiParamAssign:
-              \_param_assign: , line:10:31, endln:11:27, parent:bp_common_pkg::
-                |vpiRhs:
-                \_operation: , line:11:7, endln:11:27
-                  |vpiOpType:75
-                  |vpiOperand:
-                  \_tagged_pattern: 
-                    |vpiPattern:
-                    \_constant: , line:11:24, endln:11:25
-                      |vpiConstType:9
-                      |vpiDecompile:1
-                      |vpiSize:64
-                      |UINT:1
-                    |vpiTypespec:
-                    \_string_typespec: (cce_ucode), line:11:13, endln:11:22
-                      |vpiName:cce_ucode
-                |vpiLhs:
-                \_parameter: (bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:11:27, parent:bp_common_pkg::
-              |vpiParamAssign:
-              \_param_assign: , line:13:42, endln:17:4, parent:bp_common_pkg::
-                |vpiRhs:
-                \_operation: , line:14:3, endln:17:4
-                  |vpiOpType:33
-                  |vpiReordered:1
-                  |vpiOperand:
-                  \_ref_obj: (bp_default_cfg_p), line:16:6, endln:16:22
-                    |vpiName:bp_default_cfg_p
-                    |vpiActual:
-                    \_parameter: (bp_common_pkg::bp_default_cfg_p), line:25:28, endln:28:8, parent:bp_common_pkg::
-                  |vpiOperand:
-                  \_ref_obj: (bp_multicore_1_cce_ucode_cfg_p), line:15:5, endln:15:35
-                    |vpiName:bp_multicore_1_cce_ucode_cfg_p
-                    |vpiActual:
-                    \_parameter: (bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:11:27, parent:bp_common_pkg::
-                |vpiLhs:
-                \_parameter: (bp_common_pkg::all_cfgs_gp), line:13:42, endln:17:4, parent:bp_common_pkg::
-              |vpiParamAssign:
-              \_param_assign: , line:25:28, endln:28:8, parent:bp_common_pkg::
-                |vpiRhs:
-                \_operation: , line:26:5, endln:28:8
-                  |vpiOpType:75
-                  |vpiOperand:
-                  \_tagged_pattern: 
-                    |vpiPattern:
-                    \_constant: , line:27:31, endln:27:32
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                    |vpiTypespec:
-                    \_string_typespec: (cce_ucode), line:27:8, endln:27:17
-                      |vpiName:cce_ucode
-                |vpiLhs:
-                \_parameter: (bp_common_pkg::bp_default_cfg_p), line:25:28, endln:28:8, parent:bp_common_pkg::
-              |vpiParamAssign:
-              \_param_assign: , line:30:28, endln:30:63, parent:bp_common_pkg::
-                |vpiRhs:
-                \_ref_obj: (bp_default_cfg_p), line:30:47, endln:30:63
-                  |vpiName:bp_default_cfg_p
-                  |vpiActual:
-                  \_parameter: (bp_common_pkg::bp_default_cfg_p), line:25:28, endln:28:8, parent:bp_common_pkg::
-                |vpiLhs:
-                \_parameter: (bp_common_pkg::bp_unicore_cfg_p), line:30:28, endln:30:63, parent:bp_common_pkg::
-              |vpiTypedef:
-              \_enum_typespec: (bp_common_pkg::bp_params_e), line:23:5, endln:23:16, parent:work@testbench.bp_params_p
-                |vpiName:bp_common_pkg::bp_params_e
-                |vpiBaseTypespec:
-                \_bit_typespec: , line:19:16, endln:19:19
-                  |vpiRange:
-                  \_range: , line:19:21, endln:19:36
-                    |vpiLeftRange:
-                    \_constant: , line:19:21, endln:19:32
-                      |vpiConstType:7
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |INT:0
-                    |vpiRightRange:
-                    \_constant: , line:19:35, endln:19:36
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                  |vpiInstance:
-                  \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-                |vpiEnumConst:
-                \_enum_const: (e_bp_multicore_1_cce_ucode_cfg), line:21:5, endln:21:35
-                  |vpiName:e_bp_multicore_1_cce_ucode_cfg
-                  |vpiDecompile:1
-                  |UINT:1
-                  |vpiSize:64
-                |vpiEnumConst:
-                \_enum_const: (e_bp_default_cfg), line:22:6, endln:22:22
-                  |vpiName:e_bp_default_cfg
-                  |vpiDecompile:0
-                  |UINT:0
-                  |vpiSize:64
-                |vpiInstance:
-                \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-              |vpiTypedef:
-              \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
-        |vpiInstance:
-        \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-      |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+    |vpiName:all_cfgs_gp
+    |vpiFullName:work@testbench.all_cfgs_gp
+    |vpiImported:bp_common_pkg
   |vpiParameter:
   \_parameter: (work@testbench.bp_default_cfg_p), line:25:28, endln:28:8, parent:work@testbench
+    |vpiTypespec:
+    \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.bp_default_cfg_p
+      |vpiName:bp_common_pkg::bp_proc_param_s
+      |vpiInstance:
+      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+      |vpiPacked:1
+      |vpiTypespecMember:
+      \_typespec_member: (cce_ucode), line:7:22, endln:7:31, parent:bp_common_pkg::bp_proc_param_s
+        |vpiName:cce_ucode
+        |vpiTypespec:
+        \_int_typespec: , line:7:5, endln:7:12, parent:cce_ucode
+          |vpiInstance:
+          \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+    |vpiLocalParam:1
     |vpiName:bp_default_cfg_p
     |vpiFullName:work@testbench.bp_default_cfg_p
     |vpiImported:bp_common_pkg
-    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (work@testbench.bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:11:27, parent:work@testbench
     |vpiTypespec:
-    \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.bp_default_cfg_p
-      |vpiPacked:1
+    \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.bp_multicore_1_cce_ucode_cfg_p
       |vpiName:bp_common_pkg::bp_proc_param_s
+      |vpiInstance:
+      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+      |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cce_ucode), line:7:22, endln:7:31, parent:bp_common_pkg::bp_proc_param_s
         |vpiName:cce_ucode
@@ -806,18 +822,18 @@ design: (work@testbench)
         \_int_typespec: , line:7:5, endln:7:12, parent:cce_ucode
           |vpiInstance:
           \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-      |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-  |vpiParameter:
-  \_parameter: (work@testbench.bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:11:27, parent:work@testbench
+    |vpiLocalParam:1
     |vpiName:bp_multicore_1_cce_ucode_cfg_p
     |vpiFullName:work@testbench.bp_multicore_1_cce_ucode_cfg_p
     |vpiImported:bp_common_pkg
-    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (work@testbench.bp_unicore_cfg_p), line:30:28, endln:30:63, parent:work@testbench
     |vpiTypespec:
-    \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.bp_multicore_1_cce_ucode_cfg_p
-      |vpiPacked:1
+    \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.bp_unicore_cfg_p
       |vpiName:bp_common_pkg::bp_proc_param_s
+      |vpiInstance:
+      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+      |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cce_ucode), line:7:22, endln:7:31, parent:bp_common_pkg::bp_proc_param_s
         |vpiName:cce_ucode
@@ -825,89 +841,72 @@ design: (work@testbench)
         \_int_typespec: , line:7:5, endln:7:12, parent:cce_ucode
           |vpiInstance:
           \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-      |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-  |vpiParameter:
-  \_parameter: (work@testbench.bp_unicore_cfg_p), line:30:28, endln:30:63, parent:work@testbench
+    |vpiLocalParam:1
     |vpiName:bp_unicore_cfg_p
     |vpiFullName:work@testbench.bp_unicore_cfg_p
     |vpiImported:bp_common_pkg
-    |vpiLocalParam:1
-    |vpiTypespec:
-    \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.bp_unicore_cfg_p
-      |vpiPacked:1
-      |vpiName:bp_common_pkg::bp_proc_param_s
-      |vpiTypespecMember:
-      \_typespec_member: (cce_ucode), line:7:22, endln:7:31, parent:bp_common_pkg::bp_proc_param_s
-        |vpiName:cce_ucode
-        |vpiTypespec:
-        \_int_typespec: , line:7:5, endln:7:12, parent:cce_ucode
-          |vpiInstance:
-          \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-      |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
   |vpiParameter:
   \_parameter: (work@testbench.lg_max_cfgs), line:3:14, endln:3:71, parent:work@testbench
+    |INT:1
+    |vpiLocalParam:1
     |vpiName:lg_max_cfgs
     |vpiFullName:work@testbench.lg_max_cfgs
     |vpiImported:bp_common_pkg
-    |vpiLocalParam:1
-    |INT:1
   |vpiParameter:
   \_parameter: (work@testbench.max_cfgs), line:2:14, endln:2:29, parent:work@testbench
+    |UINT:2
+    |vpiLocalParam:1
     |vpiName:max_cfgs
     |vpiFullName:work@testbench.max_cfgs
     |vpiImported:bp_common_pkg
-    |vpiLocalParam:1
-    |UINT:2
   |vpiParameter:
   \_parameter: (work@testbench.bp_params_p), line:41:26, endln:41:70, parent:work@testbench
-    |vpiName:bp_params_p
-    |vpiFullName:work@testbench.bp_params_p
     |vpiTypespec:
     \_enum_typespec: (bp_common_pkg::bp_params_e), line:23:5, endln:23:16, parent:work@testbench.bp_params_p
+    |vpiName:bp_params_p
+    |vpiFullName:work@testbench.bp_params_p
   |vpiParameter:
   \_parameter: (work@testbench.proc_param_lp), line:43:34, endln:43:74, parent:work@testbench
-    |vpiName:proc_param_lp
-    |vpiFullName:work@testbench.proc_param_lp
-    |vpiLocalParam:1
     |vpiTypespec:
     \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
+    |vpiLocalParam:1
+    |vpiName:proc_param_lp
+    |vpiFullName:work@testbench.proc_param_lp
   |vpiParameter:
   \_parameter: (work@testbench.cce_ucode_p), line:44:18, endln:44:70, parent:work@testbench
+    |vpiLocalParam:1
     |vpiName:cce_ucode_p
     |vpiFullName:work@testbench.cce_ucode_p
-    |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:2:14, endln:2:29, parent:work@testbench
     |vpiRhs:
     \_constant: , line:2:28, endln:2:29
-      |vpiConstType:9
       |vpiDecompile:2
       |vpiSize:64
       |UINT:2
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@testbench.max_cfgs), line:2:14, endln:2:29
+      |UINT:2
+      |vpiLocalParam:1
       |vpiName:max_cfgs
       |vpiFullName:work@testbench.max_cfgs
       |vpiImported:bp_common_pkg
-      |vpiLocalParam:1
-      |UINT:2
   |vpiParamAssign:
   \_param_assign: , line:3:14, endln:3:71, parent:work@testbench
     |vpiRhs:
     \_constant: , line:3:28, endln:3:71
-      |vpiConstType:7
       |vpiDecompile:1
       |vpiSize:64
       |INT:1
+      |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@testbench.lg_max_cfgs), line:3:14, endln:3:71
+      |INT:1
+      |vpiLocalParam:1
       |vpiName:lg_max_cfgs
       |vpiFullName:work@testbench.lg_max_cfgs
       |vpiImported:bp_common_pkg
-      |vpiLocalParam:1
-      |INT:1
   |vpiParamAssign:
   \_param_assign: , line:10:31, endln:11:27, parent:work@testbench
     |vpiRhs:
@@ -917,23 +916,21 @@ design: (work@testbench)
       \_tagged_pattern: 
         |vpiPattern:
         \_constant: , line:11:24, endln:11:25
-          |vpiConstType:9
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiConstType:9
         |vpiTypespec:
         \_string_typespec: (cce_ucode), line:11:13, endln:11:22
           |vpiName:cce_ucode
     |vpiLhs:
     \_parameter: (work@testbench.bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:11:27
-      |vpiName:bp_multicore_1_cce_ucode_cfg_p
-      |vpiFullName:work@testbench.bp_multicore_1_cce_ucode_cfg_p
-      |vpiImported:bp_common_pkg
-      |vpiLocalParam:1
       |vpiTypespec:
       \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.bp_multicore_1_cce_ucode_cfg_p
-        |vpiPacked:1
         |vpiName:bp_common_pkg::bp_proc_param_s
+        |vpiInstance:
+        \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+        |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cce_ucode), line:7:22, endln:7:31, parent:bp_common_pkg::bp_proc_param_s
           |vpiName:cce_ucode
@@ -941,8 +938,10 @@ design: (work@testbench)
           \_int_typespec: , line:7:5, endln:7:12, parent:cce_ucode
             |vpiInstance:
             \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-        |vpiInstance:
-        \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+      |vpiLocalParam:1
+      |vpiName:bp_multicore_1_cce_ucode_cfg_p
+      |vpiFullName:work@testbench.bp_multicore_1_cce_ucode_cfg_p
+      |vpiImported:bp_common_pkg
   |vpiParamAssign:
   \_param_assign: , line:13:42, endln:17:4, parent:work@testbench
     |vpiRhs:
@@ -959,29 +958,30 @@ design: (work@testbench)
         |vpiFullName:work@testbench.bp_multicore_1_cce_ucode_cfg_p
     |vpiLhs:
     \_parameter: (work@testbench.all_cfgs_gp), line:13:42, endln:17:4
-      |vpiName:all_cfgs_gp
-      |vpiFullName:work@testbench.all_cfgs_gp
-      |vpiImported:bp_common_pkg
       |vpiTypespec:
       \_packed_array_typespec: , parent:work@testbench.all_cfgs_gp
+        |vpiInstance:
+        \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
         |vpiRange:
         \_range: , line:13:28, endln:13:40
           |vpiLeftRange:
           \_constant: , line:13:28, endln:13:36
-            |vpiConstType:7
             |vpiDecompile:1
             |vpiSize:64
             |INT:1
+            |vpiConstType:7
           |vpiRightRange:
           \_constant: , line:13:39, endln:13:40
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
         |vpiElemTypespec:
         \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16
-          |vpiPacked:1
           |vpiName:bp_common_pkg::bp_proc_param_s
+          |vpiInstance:
+          \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+          |vpiPacked:1
           |vpiTypespecMember:
           \_typespec_member: (cce_ucode), line:7:22, endln:7:31, parent:bp_common_pkg::bp_proc_param_s
             |vpiName:cce_ucode
@@ -989,10 +989,9 @@ design: (work@testbench)
             \_int_typespec: , line:7:5, endln:7:12, parent:cce_ucode
               |vpiInstance:
               \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-          |vpiInstance:
-          \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-        |vpiInstance:
-        \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+      |vpiName:all_cfgs_gp
+      |vpiFullName:work@testbench.all_cfgs_gp
+      |vpiImported:bp_common_pkg
   |vpiParamAssign:
   \_param_assign: , line:25:28, endln:28:8, parent:work@testbench
     |vpiRhs:
@@ -1002,23 +1001,21 @@ design: (work@testbench)
       \_tagged_pattern: 
         |vpiPattern:
         \_constant: , line:27:31, endln:27:32
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
         |vpiTypespec:
         \_string_typespec: (cce_ucode), line:27:8, endln:27:17
           |vpiName:cce_ucode
     |vpiLhs:
     \_parameter: (work@testbench.bp_default_cfg_p), line:25:28, endln:28:8
-      |vpiName:bp_default_cfg_p
-      |vpiFullName:work@testbench.bp_default_cfg_p
-      |vpiImported:bp_common_pkg
-      |vpiLocalParam:1
       |vpiTypespec:
       \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.bp_default_cfg_p
-        |vpiPacked:1
         |vpiName:bp_common_pkg::bp_proc_param_s
+        |vpiInstance:
+        \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+        |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cce_ucode), line:7:22, endln:7:31, parent:bp_common_pkg::bp_proc_param_s
           |vpiName:cce_ucode
@@ -1026,8 +1023,10 @@ design: (work@testbench)
           \_int_typespec: , line:7:5, endln:7:12, parent:cce_ucode
             |vpiInstance:
             \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-        |vpiInstance:
-        \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+      |vpiLocalParam:1
+      |vpiName:bp_default_cfg_p
+      |vpiFullName:work@testbench.bp_default_cfg_p
+      |vpiImported:bp_common_pkg
   |vpiParamAssign:
   \_param_assign: , line:30:28, endln:30:63, parent:work@testbench
     |vpiRhs:
@@ -1036,14 +1035,12 @@ design: (work@testbench)
       |vpiFullName:work@testbench.bp_default_cfg_p
     |vpiLhs:
     \_parameter: (work@testbench.bp_unicore_cfg_p), line:30:28, endln:30:63
-      |vpiName:bp_unicore_cfg_p
-      |vpiFullName:work@testbench.bp_unicore_cfg_p
-      |vpiImported:bp_common_pkg
-      |vpiLocalParam:1
       |vpiTypespec:
       \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.bp_unicore_cfg_p
-        |vpiPacked:1
         |vpiName:bp_common_pkg::bp_proc_param_s
+        |vpiInstance:
+        \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+        |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cce_ucode), line:7:22, endln:7:31, parent:bp_common_pkg::bp_proc_param_s
           |vpiName:cce_ucode
@@ -1051,8 +1048,10 @@ design: (work@testbench)
           \_int_typespec: , line:7:5, endln:7:12, parent:cce_ucode
             |vpiInstance:
             \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-        |vpiInstance:
-        \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+      |vpiLocalParam:1
+      |vpiName:bp_unicore_cfg_p
+      |vpiFullName:work@testbench.bp_unicore_cfg_p
+      |vpiImported:bp_common_pkg
   |vpiParamAssign:
   \_param_assign: , line:41:26, endln:41:70, parent:work@testbench
     |vpiRhs:
@@ -1092,49 +1091,227 @@ design: (work@testbench)
   \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
   |vpiTypedef:
   \_import: (bp_common_pkg), line:40:9, endln:40:25
+  |vpiDefName:work@testbench
 |uhdmtopModules:
 \_module: work@testbench (work@testbench) dut.sv:39:2: , endln:54:11
-  |vpiDefName:work@testbench
   |vpiName:work@testbench
-  |vpiGenScopeArray:
-  \_gen_scope_array: (work@testbench.genblk1), line:48:2, endln:52:5, parent:work@testbench
-    |vpiName:genblk1
-    |vpiFullName:work@testbench.genblk1
-    |vpiGenScope:
-    \_gen_scope: (work@testbench.genblk1), parent:work@testbench.genblk1
-      |vpiFullName:work@testbench.genblk1
-      |vpiModule:
-      \_module: work@GOOD (work@testbench.genblk1.good) dut.sv:49:6: , endln:49:18, parent:work@testbench.genblk1
-        |vpiDefName:work@GOOD
-        |vpiDefFile:dut.sv
-        |vpiDefLineNo:35
-        |vpiName:good
-        |vpiFullName:work@testbench.genblk1.good
   |vpiParameter:
   \_parameter: (work@testbench.all_cfgs_gp), line:13:42, endln:17:4, parent:work@testbench
-    |vpiName:all_cfgs_gp
-    |vpiFullName:work@testbench.all_cfgs_gp
-    |vpiImported:bp_common_pkg
     |vpiTypespec:
     \_packed_array_typespec: , parent:work@testbench.all_cfgs_gp
+      |vpiInstance:
+      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+        |vpiName:bp_common_pkg
+        |vpiFullName:bp_common_pkg::
+        |vpiParameter:
+        \_parameter: (bp_common_pkg::max_cfgs), line:2:14, endln:2:29, parent:bp_common_pkg::
+          |UINT:2
+          |vpiLocalParam:1
+          |vpiName:max_cfgs
+          |vpiFullName:bp_common_pkg::max_cfgs
+        |vpiParameter:
+        \_parameter: (bp_common_pkg::lg_max_cfgs), line:3:14, endln:3:71, parent:bp_common_pkg::
+          |INT:1
+          |vpiLocalParam:1
+          |vpiName:lg_max_cfgs
+          |vpiFullName:bp_common_pkg::lg_max_cfgs
+        |vpiParameter:
+        \_parameter: (bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:11:27, parent:bp_common_pkg::
+          |vpiTypespec:
+          \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
+            |vpiName:bp_common_pkg::bp_proc_param_s
+            |vpiInstance:
+            \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+            |vpiPacked:1
+            |vpiTypespecMember:
+            \_typespec_member: (cce_ucode), line:7:22, endln:7:31
+              |vpiName:cce_ucode
+              |vpiTypespec:
+              \_int_typespec: , line:7:5, endln:7:12
+                |vpiInstance:
+                \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+          |vpiLocalParam:1
+          |vpiName:bp_multicore_1_cce_ucode_cfg_p
+          |vpiFullName:bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p
+        |vpiParameter:
+        \_parameter: (bp_common_pkg::all_cfgs_gp), line:13:42, endln:17:4, parent:bp_common_pkg::
+          |vpiTypespec:
+          \_packed_array_typespec: , parent:bp_common_pkg::all_cfgs_gp
+            |vpiInstance:
+            \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+            |vpiRange:
+            \_range: , line:13:28, endln:13:40
+              |vpiLeftRange:
+              \_constant: , line:13:28, endln:13:36
+                |vpiDecompile:1
+                |vpiSize:64
+                |INT:1
+                |vpiConstType:7
+              |vpiRightRange:
+              \_constant: , line:13:39, endln:13:40
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+            |vpiElemTypespec:
+            \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
+          |vpiName:all_cfgs_gp
+          |vpiFullName:bp_common_pkg::all_cfgs_gp
+        |vpiParameter:
+        \_parameter: (bp_common_pkg::bp_default_cfg_p), line:25:28, endln:28:8, parent:bp_common_pkg::
+          |vpiTypespec:
+          \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
+          |vpiLocalParam:1
+          |vpiName:bp_default_cfg_p
+          |vpiFullName:bp_common_pkg::bp_default_cfg_p
+        |vpiParameter:
+        \_parameter: (bp_common_pkg::bp_unicore_cfg_p), line:30:28, endln:30:63, parent:bp_common_pkg::
+          |vpiTypespec:
+          \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
+          |vpiLocalParam:1
+          |vpiName:bp_unicore_cfg_p
+          |vpiFullName:bp_common_pkg::bp_unicore_cfg_p
+        |vpiParamAssign:
+        \_param_assign: , line:2:14, endln:2:29, parent:bp_common_pkg::
+          |vpiRhs:
+          \_constant: , line:2:28, endln:2:29
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+          |vpiLhs:
+          \_parameter: (bp_common_pkg::max_cfgs), line:2:14, endln:2:29, parent:bp_common_pkg::
+        |vpiParamAssign:
+        \_param_assign: , line:3:14, endln:3:71, parent:bp_common_pkg::
+          |vpiRhs:
+          \_constant: , line:3:28, endln:3:71
+            |vpiDecompile:1
+            |vpiSize:64
+            |INT:1
+            |vpiConstType:7
+          |vpiLhs:
+          \_parameter: (bp_common_pkg::lg_max_cfgs), line:3:14, endln:3:71, parent:bp_common_pkg::
+        |vpiParamAssign:
+        \_param_assign: , line:10:31, endln:11:27, parent:bp_common_pkg::
+          |vpiRhs:
+          \_operation: , line:11:7, endln:11:27
+            |vpiOpType:75
+            |vpiOperand:
+            \_tagged_pattern: 
+              |vpiPattern:
+              \_constant: , line:11:24, endln:11:25
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+                |vpiConstType:9
+              |vpiTypespec:
+              \_string_typespec: (cce_ucode), line:11:13, endln:11:22
+                |vpiName:cce_ucode
+          |vpiLhs:
+          \_parameter: (bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:11:27, parent:bp_common_pkg::
+        |vpiParamAssign:
+        \_param_assign: , line:13:42, endln:17:4, parent:bp_common_pkg::
+          |vpiRhs:
+          \_operation: , line:14:3, endln:17:4
+            |vpiOpType:33
+            |vpiReordered:1
+            |vpiOperand:
+            \_ref_obj: (bp_default_cfg_p), line:16:6, endln:16:22
+              |vpiName:bp_default_cfg_p
+              |vpiActual:
+              \_parameter: (bp_common_pkg::bp_default_cfg_p), line:25:28, endln:28:8, parent:bp_common_pkg::
+            |vpiOperand:
+            \_ref_obj: (bp_multicore_1_cce_ucode_cfg_p), line:15:5, endln:15:35
+              |vpiName:bp_multicore_1_cce_ucode_cfg_p
+              |vpiActual:
+              \_parameter: (bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:11:27, parent:bp_common_pkg::
+          |vpiLhs:
+          \_parameter: (bp_common_pkg::all_cfgs_gp), line:13:42, endln:17:4, parent:bp_common_pkg::
+        |vpiParamAssign:
+        \_param_assign: , line:25:28, endln:28:8, parent:bp_common_pkg::
+          |vpiRhs:
+          \_operation: , line:26:5, endln:28:8
+            |vpiOpType:75
+            |vpiOperand:
+            \_tagged_pattern: 
+              |vpiPattern:
+              \_constant: , line:27:31, endln:27:32
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+              |vpiTypespec:
+              \_string_typespec: (cce_ucode), line:27:8, endln:27:17
+                |vpiName:cce_ucode
+          |vpiLhs:
+          \_parameter: (bp_common_pkg::bp_default_cfg_p), line:25:28, endln:28:8, parent:bp_common_pkg::
+        |vpiParamAssign:
+        \_param_assign: , line:30:28, endln:30:63, parent:bp_common_pkg::
+          |vpiRhs:
+          \_ref_obj: (bp_default_cfg_p), line:30:47, endln:30:63
+            |vpiName:bp_default_cfg_p
+            |vpiActual:
+            \_parameter: (bp_common_pkg::bp_default_cfg_p), line:25:28, endln:28:8, parent:bp_common_pkg::
+          |vpiLhs:
+          \_parameter: (bp_common_pkg::bp_unicore_cfg_p), line:30:28, endln:30:63, parent:bp_common_pkg::
+        |vpiTypedef:
+        \_enum_typespec: (bp_common_pkg::bp_params_e), line:23:5, endln:23:16, parent:work@testbench.bp_params_p
+          |vpiName:bp_common_pkg::bp_params_e
+          |vpiInstance:
+          \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+          |vpiBaseTypespec:
+          \_bit_typespec: , line:19:16, endln:19:19
+            |vpiInstance:
+            \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+            |vpiRange:
+            \_range: , line:19:21, endln:19:36
+              |vpiLeftRange:
+              \_constant: , line:19:21, endln:19:32
+                |vpiDecompile:0
+                |vpiSize:64
+                |INT:0
+                |vpiConstType:7
+              |vpiRightRange:
+              \_constant: , line:19:35, endln:19:36
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+          |vpiEnumConst:
+          \_enum_const: (e_bp_multicore_1_cce_ucode_cfg), line:21:5, endln:21:35
+            |vpiName:e_bp_multicore_1_cce_ucode_cfg
+            |UINT:1
+            |vpiDecompile:1
+            |vpiSize:64
+          |vpiEnumConst:
+          \_enum_const: (e_bp_default_cfg), line:22:6, endln:22:22
+            |vpiName:e_bp_default_cfg
+            |UINT:0
+            |vpiDecompile:0
+            |vpiSize:64
+        |vpiTypedef:
+        \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
+        |vpiDefName:bp_common_pkg
       |vpiRange:
       \_range: , line:13:28, endln:13:40
         |vpiLeftRange:
         \_constant: , line:13:28, endln:13:36
-          |vpiConstType:7
           |vpiDecompile:1
           |vpiSize:64
           |INT:1
+          |vpiConstType:7
         |vpiRightRange:
         \_constant: , line:13:39, endln:13:40
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
       |vpiElemTypespec:
       \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16
-        |vpiPacked:1
         |vpiName:bp_common_pkg::bp_proc_param_s
+        |vpiInstance:
+        \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+        |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cce_ucode), line:7:22, endln:7:31, parent:bp_common_pkg::bp_proc_param_s
           |vpiName:cce_ucode
@@ -1142,211 +1319,36 @@ design: (work@testbench)
           \_int_typespec: , line:7:5, endln:7:12, parent:cce_ucode
             |vpiInstance:
             \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-              |vpiDefName:bp_common_pkg
-              |vpiName:bp_common_pkg
-              |vpiFullName:bp_common_pkg::
-              |vpiParameter:
-              \_parameter: (bp_common_pkg::max_cfgs), line:2:14, endln:2:29, parent:bp_common_pkg::
-                |vpiName:max_cfgs
-                |vpiFullName:bp_common_pkg::max_cfgs
-                |vpiLocalParam:1
-                |UINT:2
-              |vpiParameter:
-              \_parameter: (bp_common_pkg::lg_max_cfgs), line:3:14, endln:3:71, parent:bp_common_pkg::
-                |vpiName:lg_max_cfgs
-                |vpiFullName:bp_common_pkg::lg_max_cfgs
-                |vpiLocalParam:1
-                |INT:1
-              |vpiParameter:
-              \_parameter: (bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:11:27, parent:bp_common_pkg::
-                |vpiName:bp_multicore_1_cce_ucode_cfg_p
-                |vpiFullName:bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p
-                |vpiLocalParam:1
-                |vpiTypespec:
-                \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
-                  |vpiPacked:1
-                  |vpiName:bp_common_pkg::bp_proc_param_s
-                  |vpiTypespecMember:
-                  \_typespec_member: (cce_ucode), line:7:22, endln:7:31
-                    |vpiName:cce_ucode
-                    |vpiTypespec:
-                    \_int_typespec: , line:7:5, endln:7:12
-                      |vpiInstance:
-                      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-                  |vpiInstance:
-                  \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-              |vpiParameter:
-              \_parameter: (bp_common_pkg::all_cfgs_gp), line:13:42, endln:17:4, parent:bp_common_pkg::
-                |vpiName:all_cfgs_gp
-                |vpiFullName:bp_common_pkg::all_cfgs_gp
-                |vpiTypespec:
-                \_packed_array_typespec: , parent:bp_common_pkg::all_cfgs_gp
-                  |vpiRange:
-                  \_range: , line:13:28, endln:13:40
-                    |vpiLeftRange:
-                    \_constant: , line:13:28, endln:13:36
-                      |vpiConstType:7
-                      |vpiDecompile:1
-                      |vpiSize:64
-                      |INT:1
-                    |vpiRightRange:
-                    \_constant: , line:13:39, endln:13:40
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                  |vpiElemTypespec:
-                  \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
-                  |vpiInstance:
-                  \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-              |vpiParameter:
-              \_parameter: (bp_common_pkg::bp_default_cfg_p), line:25:28, endln:28:8, parent:bp_common_pkg::
-                |vpiName:bp_default_cfg_p
-                |vpiFullName:bp_common_pkg::bp_default_cfg_p
-                |vpiLocalParam:1
-                |vpiTypespec:
-                \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
-              |vpiParameter:
-              \_parameter: (bp_common_pkg::bp_unicore_cfg_p), line:30:28, endln:30:63, parent:bp_common_pkg::
-                |vpiName:bp_unicore_cfg_p
-                |vpiFullName:bp_common_pkg::bp_unicore_cfg_p
-                |vpiLocalParam:1
-                |vpiTypespec:
-                \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
-              |vpiParamAssign:
-              \_param_assign: , line:2:14, endln:2:29, parent:bp_common_pkg::
-                |vpiRhs:
-                \_constant: , line:2:28, endln:2:29
-                  |vpiConstType:9
-                  |vpiDecompile:2
-                  |vpiSize:64
-                  |UINT:2
-                |vpiLhs:
-                \_parameter: (bp_common_pkg::max_cfgs), line:2:14, endln:2:29, parent:bp_common_pkg::
-              |vpiParamAssign:
-              \_param_assign: , line:3:14, endln:3:71, parent:bp_common_pkg::
-                |vpiRhs:
-                \_constant: , line:3:28, endln:3:71
-                  |vpiConstType:7
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |INT:1
-                |vpiLhs:
-                \_parameter: (bp_common_pkg::lg_max_cfgs), line:3:14, endln:3:71, parent:bp_common_pkg::
-              |vpiParamAssign:
-              \_param_assign: , line:10:31, endln:11:27, parent:bp_common_pkg::
-                |vpiRhs:
-                \_operation: , line:11:7, endln:11:27
-                  |vpiOpType:75
-                  |vpiOperand:
-                  \_tagged_pattern: 
-                    |vpiPattern:
-                    \_constant: , line:11:24, endln:11:25
-                      |vpiConstType:9
-                      |vpiDecompile:1
-                      |vpiSize:64
-                      |UINT:1
-                    |vpiTypespec:
-                    \_string_typespec: (cce_ucode), line:11:13, endln:11:22
-                      |vpiName:cce_ucode
-                |vpiLhs:
-                \_parameter: (bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:11:27, parent:bp_common_pkg::
-              |vpiParamAssign:
-              \_param_assign: , line:13:42, endln:17:4, parent:bp_common_pkg::
-                |vpiRhs:
-                \_operation: , line:14:3, endln:17:4
-                  |vpiOpType:33
-                  |vpiReordered:1
-                  |vpiOperand:
-                  \_ref_obj: (bp_default_cfg_p), line:16:6, endln:16:22
-                    |vpiName:bp_default_cfg_p
-                    |vpiActual:
-                    \_parameter: (bp_common_pkg::bp_default_cfg_p), line:25:28, endln:28:8, parent:bp_common_pkg::
-                  |vpiOperand:
-                  \_ref_obj: (bp_multicore_1_cce_ucode_cfg_p), line:15:5, endln:15:35
-                    |vpiName:bp_multicore_1_cce_ucode_cfg_p
-                    |vpiActual:
-                    \_parameter: (bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:11:27, parent:bp_common_pkg::
-                |vpiLhs:
-                \_parameter: (bp_common_pkg::all_cfgs_gp), line:13:42, endln:17:4, parent:bp_common_pkg::
-              |vpiParamAssign:
-              \_param_assign: , line:25:28, endln:28:8, parent:bp_common_pkg::
-                |vpiRhs:
-                \_operation: , line:26:5, endln:28:8
-                  |vpiOpType:75
-                  |vpiOperand:
-                  \_tagged_pattern: 
-                    |vpiPattern:
-                    \_constant: , line:27:31, endln:27:32
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                    |vpiTypespec:
-                    \_string_typespec: (cce_ucode), line:27:8, endln:27:17
-                      |vpiName:cce_ucode
-                |vpiLhs:
-                \_parameter: (bp_common_pkg::bp_default_cfg_p), line:25:28, endln:28:8, parent:bp_common_pkg::
-              |vpiParamAssign:
-              \_param_assign: , line:30:28, endln:30:63, parent:bp_common_pkg::
-                |vpiRhs:
-                \_ref_obj: (bp_default_cfg_p), line:30:47, endln:30:63
-                  |vpiName:bp_default_cfg_p
-                  |vpiActual:
-                  \_parameter: (bp_common_pkg::bp_default_cfg_p), line:25:28, endln:28:8, parent:bp_common_pkg::
-                |vpiLhs:
-                \_parameter: (bp_common_pkg::bp_unicore_cfg_p), line:30:28, endln:30:63, parent:bp_common_pkg::
-              |vpiTypedef:
-              \_enum_typespec: (bp_common_pkg::bp_params_e), line:23:5, endln:23:16, parent:work@testbench.bp_params_p
-                |vpiName:bp_common_pkg::bp_params_e
-                |vpiBaseTypespec:
-                \_bit_typespec: , line:19:16, endln:19:19
-                  |vpiRange:
-                  \_range: , line:19:21, endln:19:36
-                    |vpiLeftRange:
-                    \_constant: , line:19:21, endln:19:32
-                      |vpiConstType:7
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |INT:0
-                    |vpiRightRange:
-                    \_constant: , line:19:35, endln:19:36
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                  |vpiInstance:
-                  \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-                |vpiEnumConst:
-                \_enum_const: (e_bp_multicore_1_cce_ucode_cfg), line:21:5, endln:21:35
-                  |vpiName:e_bp_multicore_1_cce_ucode_cfg
-                  |vpiDecompile:1
-                  |UINT:1
-                  |vpiSize:64
-                |vpiEnumConst:
-                \_enum_const: (e_bp_default_cfg), line:22:6, endln:22:22
-                  |vpiName:e_bp_default_cfg
-                  |vpiDecompile:0
-                  |UINT:0
-                  |vpiSize:64
-                |vpiInstance:
-                \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-              |vpiTypedef:
-              \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
-        |vpiInstance:
-        \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-      |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+    |vpiName:all_cfgs_gp
+    |vpiFullName:work@testbench.all_cfgs_gp
+    |vpiImported:bp_common_pkg
   |vpiParameter:
   \_parameter: (work@testbench.bp_default_cfg_p), line:25:28, endln:28:8, parent:work@testbench
+    |vpiTypespec:
+    \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.bp_default_cfg_p
+      |vpiName:bp_common_pkg::bp_proc_param_s
+      |vpiInstance:
+      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+      |vpiPacked:1
+      |vpiTypespecMember:
+      \_typespec_member: (cce_ucode), line:7:22, endln:7:31, parent:bp_common_pkg::bp_proc_param_s
+        |vpiName:cce_ucode
+        |vpiTypespec:
+        \_int_typespec: , line:7:5, endln:7:12, parent:cce_ucode
+          |vpiInstance:
+          \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+    |vpiLocalParam:1
     |vpiName:bp_default_cfg_p
     |vpiFullName:work@testbench.bp_default_cfg_p
     |vpiImported:bp_common_pkg
-    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (work@testbench.bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:11:27, parent:work@testbench
     |vpiTypespec:
-    \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.bp_default_cfg_p
-      |vpiPacked:1
+    \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.bp_multicore_1_cce_ucode_cfg_p
       |vpiName:bp_common_pkg::bp_proc_param_s
+      |vpiInstance:
+      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+      |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cce_ucode), line:7:22, endln:7:31, parent:bp_common_pkg::bp_proc_param_s
         |vpiName:cce_ucode
@@ -1354,18 +1356,18 @@ design: (work@testbench)
         \_int_typespec: , line:7:5, endln:7:12, parent:cce_ucode
           |vpiInstance:
           \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-      |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-  |vpiParameter:
-  \_parameter: (work@testbench.bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:11:27, parent:work@testbench
+    |vpiLocalParam:1
     |vpiName:bp_multicore_1_cce_ucode_cfg_p
     |vpiFullName:work@testbench.bp_multicore_1_cce_ucode_cfg_p
     |vpiImported:bp_common_pkg
-    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (work@testbench.bp_unicore_cfg_p), line:30:28, endln:30:63, parent:work@testbench
     |vpiTypespec:
-    \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.bp_multicore_1_cce_ucode_cfg_p
-      |vpiPacked:1
+    \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.bp_unicore_cfg_p
       |vpiName:bp_common_pkg::bp_proc_param_s
+      |vpiInstance:
+      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+      |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cce_ucode), line:7:22, endln:7:31, parent:bp_common_pkg::bp_proc_param_s
         |vpiName:cce_ucode
@@ -1373,89 +1375,71 @@ design: (work@testbench)
         \_int_typespec: , line:7:5, endln:7:12, parent:cce_ucode
           |vpiInstance:
           \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-      |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-  |vpiParameter:
-  \_parameter: (work@testbench.bp_unicore_cfg_p), line:30:28, endln:30:63, parent:work@testbench
+    |vpiLocalParam:1
     |vpiName:bp_unicore_cfg_p
     |vpiFullName:work@testbench.bp_unicore_cfg_p
     |vpiImported:bp_common_pkg
-    |vpiLocalParam:1
-    |vpiTypespec:
-    \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.bp_unicore_cfg_p
-      |vpiPacked:1
-      |vpiName:bp_common_pkg::bp_proc_param_s
-      |vpiTypespecMember:
-      \_typespec_member: (cce_ucode), line:7:22, endln:7:31, parent:bp_common_pkg::bp_proc_param_s
-        |vpiName:cce_ucode
-        |vpiTypespec:
-        \_int_typespec: , line:7:5, endln:7:12, parent:cce_ucode
-          |vpiInstance:
-          \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-      |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
   |vpiParameter:
   \_parameter: (work@testbench.lg_max_cfgs), line:3:14, endln:3:71, parent:work@testbench
+    |INT:1
+    |vpiLocalParam:1
     |vpiName:lg_max_cfgs
     |vpiFullName:work@testbench.lg_max_cfgs
     |vpiImported:bp_common_pkg
-    |vpiLocalParam:1
-    |INT:1
   |vpiParameter:
   \_parameter: (work@testbench.max_cfgs), line:2:14, endln:2:29, parent:work@testbench
+    |UINT:2
+    |vpiLocalParam:1
     |vpiName:max_cfgs
     |vpiFullName:work@testbench.max_cfgs
     |vpiImported:bp_common_pkg
-    |vpiLocalParam:1
-    |UINT:2
   |vpiParameter:
   \_parameter: (work@testbench.bp_params_p), line:41:26, endln:41:70, parent:work@testbench
-    |vpiName:bp_params_p
-    |vpiFullName:work@testbench.bp_params_p
     |vpiTypespec:
     \_enum_typespec: (bp_common_pkg::bp_params_e), line:23:5, endln:23:16, parent:work@testbench.bp_params_p
       |vpiName:bp_common_pkg::bp_params_e
+      |vpiInstance:
+      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
       |vpiBaseTypespec:
       \_bit_typespec: , line:19:16, endln:19:19, parent:bp_common_pkg::bp_params_e
+        |vpiInstance:
+        \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
         |vpiRange:
         \_range: , line:19:21, endln:19:36
           |vpiLeftRange:
           \_constant: , line:19:21, endln:19:32
-            |vpiConstType:7
             |vpiDecompile:0
             |vpiSize:64
             |INT:0
+            |vpiConstType:7
           |vpiRightRange:
           \_constant: , line:19:35, endln:19:36
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-        |vpiInstance:
-        \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+            |vpiConstType:9
       |vpiEnumConst:
       \_enum_const: (e_bp_multicore_1_cce_ucode_cfg), line:21:5, endln:21:35, parent:bp_common_pkg::bp_params_e
         |vpiName:e_bp_multicore_1_cce_ucode_cfg
-        |vpiDecompile:1
         |UINT:1
+        |vpiDecompile:1
         |vpiSize:64
       |vpiEnumConst:
       \_enum_const: (e_bp_default_cfg), line:22:6, endln:22:22, parent:bp_common_pkg::bp_params_e
         |vpiName:e_bp_default_cfg
-        |vpiDecompile:0
         |UINT:0
+        |vpiDecompile:0
         |vpiSize:64
-      |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+    |vpiName:bp_params_p
+    |vpiFullName:work@testbench.bp_params_p
   |vpiParameter:
   \_parameter: (work@testbench.proc_param_lp), line:43:34, endln:43:74, parent:work@testbench
-    |vpiName:proc_param_lp
-    |vpiFullName:work@testbench.proc_param_lp
-    |vpiLocalParam:1
     |vpiTypespec:
     \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
-      |vpiPacked:1
       |vpiName:bp_common_pkg::bp_proc_param_s
+      |vpiInstance:
+      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+      |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cce_ucode), line:7:22, endln:7:31, parent:bp_common_pkg::bp_proc_param_s
         |vpiName:cce_ucode
@@ -1463,23 +1447,24 @@ design: (work@testbench)
         \_int_typespec: , line:7:5, endln:7:12, parent:cce_ucode
           |vpiInstance:
           \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
-      |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+    |vpiLocalParam:1
+    |vpiName:proc_param_lp
+    |vpiFullName:work@testbench.proc_param_lp
   |vpiParameter:
   \_parameter: (work@testbench.cce_ucode_p), line:44:18, endln:44:70, parent:work@testbench
+    |vpiLocalParam:1
     |vpiName:cce_ucode_p
     |vpiFullName:work@testbench.cce_ucode_p
-    |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:41:26, endln:41:70, parent:work@testbench
     |vpiRhs:
     \_constant: , line:41:40, endln:41:70
-      |vpiConstType:9
       |vpiDecompile:1
       |vpiSize:1
       |UINT:1
       |vpiTypespec:
       \_enum_typespec: (bp_common_pkg::bp_params_e), line:23:5, endln:23:16, parent:work@testbench.bp_params_p
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@testbench.bp_params_p), line:41:26, endln:41:70, parent:work@testbench
   |vpiParamAssign:
@@ -1489,75 +1474,75 @@ design: (work@testbench)
       |vpiName:all_cfgs_gp
       |vpiIndex:
       \_constant: , line:43:62, endln:43:73, parent:all_cfgs_gp
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:1
         |UINT:1
         |vpiTypespec:
         \_enum_typespec: (bp_common_pkg::bp_params_e), line:23:5, endln:23:16
           |vpiName:bp_common_pkg::bp_params_e
+          |vpiInstance:
+          \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
           |vpiBaseTypespec:
           \_bit_typespec: , line:19:16, endln:19:19, parent:bp_common_pkg::bp_params_e
+            |vpiInstance:
+            \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
             |vpiRange:
             \_range: , line:19:21, endln:19:36
               |vpiLeftRange:
               \_constant: , line:19:21, endln:19:32
-                |vpiConstType:7
                 |vpiDecompile:0
                 |vpiSize:64
                 |INT:0
+                |vpiConstType:7
               |vpiRightRange:
               \_constant: , line:19:35, endln:19:36
-                |vpiConstType:9
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
-            |vpiInstance:
-            \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+                |vpiConstType:9
           |vpiEnumConst:
           \_enum_const: (e_bp_multicore_1_cce_ucode_cfg), line:21:5, endln:21:35, parent:bp_common_pkg::bp_params_e
             |vpiName:e_bp_multicore_1_cce_ucode_cfg
-            |vpiDecompile:1
             |UINT:1
+            |vpiDecompile:1
             |vpiSize:64
           |vpiEnumConst:
           \_enum_const: (e_bp_default_cfg), line:22:6, endln:22:22, parent:bp_common_pkg::bp_params_e
             |vpiName:e_bp_default_cfg
-            |vpiDecompile:0
             |UINT:0
+            |vpiDecompile:0
             |vpiSize:64
-          |vpiInstance:
-          \_package: bp_common_pkg (bp_common_pkg::) dut.sv:1:1: , endln:32:11, parent:work@testbench
+        |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@testbench.proc_param_lp), line:43:34, endln:43:74, parent:work@testbench
   |vpiParamAssign:
   \_param_assign: , line:44:18, endln:44:70, parent:work@testbench
     |vpiRhs:
     \_constant: , line:44:47, endln:44:70
-      |vpiConstType:9
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@testbench.cce_ucode_p), line:44:18, endln:44:70, parent:work@testbench
   |vpiParamAssign:
   \_param_assign: , line:2:14, endln:2:29, parent:work@testbench
     |vpiRhs:
     \_constant: , line:2:28, endln:2:29
-      |vpiConstType:9
       |vpiDecompile:2
       |vpiSize:64
       |UINT:2
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@testbench.max_cfgs), line:2:14, endln:2:29, parent:work@testbench
   |vpiParamAssign:
   \_param_assign: , line:3:14, endln:3:71, parent:work@testbench
     |vpiRhs:
     \_constant: , line:3:28, endln:3:71
-      |vpiConstType:7
       |vpiDecompile:1
       |vpiSize:64
       |INT:1
+      |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@testbench.lg_max_cfgs), line:3:14, endln:3:71, parent:work@testbench
   |vpiParamAssign:
@@ -1568,10 +1553,10 @@ design: (work@testbench)
       |vpiFlattened:1
       |vpiOperand:
       \_constant: , line:44:47, endln:44:70
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@testbench.bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:11:27, parent:work@testbench
   |vpiParamAssign:
@@ -1589,10 +1574,10 @@ design: (work@testbench)
           |vpiFlattened:1
           |vpiOperand:
           \_constant: , line:27:31, endln:27:32
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
       |vpiOperand:
       \_ref_obj: (bp_multicore_1_cce_ucode_cfg_p), line:15:5, endln:15:35
         |vpiName:bp_multicore_1_cce_ucode_cfg_p
@@ -1621,6 +1606,21 @@ design: (work@testbench)
   \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16, parent:work@testbench.proc_param_lp
   |vpiTypedef:
   \_import: (bp_common_pkg), line:40:9, endln:40:25
+  |vpiDefName:work@testbench
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@testbench.genblk1), line:48:2, endln:52:5, parent:work@testbench
+    |vpiName:genblk1
+    |vpiFullName:work@testbench.genblk1
+    |vpiGenScope:
+    \_gen_scope: (work@testbench.genblk1), parent:work@testbench.genblk1
+      |vpiFullName:work@testbench.genblk1
+      |vpiModule:
+      \_module: work@GOOD (work@testbench.genblk1.good) dut.sv:49:6: , endln:49:18, parent:work@testbench.genblk1
+        |vpiName:good
+        |vpiFullName:work@testbench.genblk1.good
+        |vpiDefName:work@GOOD
+        |vpiDefFile:dut.sv
+        |vpiDefLineNo:35
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -136,12 +136,12 @@ n<> u<95> t<Top_level_rule> l<1:1> el<15:1>
 
 ====== UHDM =======
 design: (work@dut)
-|vpiName:work@dut
 |vpiElaborated:1
+|vpiName:work@dut
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:10:10, parent:work@dut
-  |vpiDefName:work@dut
   |vpiFullName:work@dut
+  |vpiDefName:work@dut
   |vpiNet:
   \_logic_net: (work@dut.a), line:2:16, parent:work@dut
     |vpiName:a
@@ -149,8 +149,13 @@ design: (work@dut)
     |vpiNetType:36
 |uhdmallModules:
 \_module: work@ibex_counter (work@ibex_counter) dut.sv:12:1: , endln:14:10, parent:work@dut
-  |vpiDefName:work@ibex_counter
   |vpiFullName:work@ibex_counter
+  |vpiDefName:work@ibex_counter
+  |vpiNet:
+  \_logic_net: (work@ibex_counter.b), line:12:33, parent:work@ibex_counter
+    |vpiName:b
+    |vpiFullName:work@ibex_counter.b
+    |vpiNetType:36
   |vpiPort:
   \_port: (b), line:12:33, parent:work@ibex_counter
     |vpiName:b
@@ -159,60 +164,9 @@ design: (work@dut)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@ibex_counter.b), line:12:33, parent:work@ibex_counter
-        |vpiName:b
-        |vpiFullName:work@ibex_counter.b
-        |vpiNetType:36
-  |vpiNet:
-  \_logic_net: (work@ibex_counter.b), line:12:33, parent:work@ibex_counter
 |uhdmtopModules:
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:10:10
-  |vpiDefName:work@dut
   |vpiName:work@dut
-  |vpiGenScopeArray:
-  \_gen_scope_array: (work@dut.gen_modules[0]), line:4:34, endln:8:7, parent:work@dut
-    |vpiName:gen_modules[0]
-    |vpiFullName:work@dut.gen_modules[0]
-    |vpiGenScope:
-    \_gen_scope: (work@dut.gen_modules[0]), parent:work@dut.gen_modules[0]
-      |vpiFullName:work@dut.gen_modules[0]
-      |vpiModule:
-      \_module: work@ibex_counter (work@dut.gen_modules[0].module_in_genscope) dut.sv:5:7: , endln:5:49, parent:work@dut.gen_modules[0]
-        |vpiDefName:work@ibex_counter
-        |vpiDefFile:dut.sv
-        |vpiDefLineNo:12
-        |vpiName:module_in_genscope
-        |vpiFullName:work@dut.gen_modules[0].module_in_genscope
-        |vpiPort:
-        \_port: (b), line:12:33, endln:12:34, parent:work@dut.gen_modules[0].module_in_genscope
-          |vpiName:b
-          |vpiDirection:1
-          |vpiHighConn:
-          \_bit_select: (a), line:5:42, endln:5:46, parent:a
-            |vpiName:a
-            |vpiIndex:
-            \_constant: , line:5:44, endln:5:45, parent:a
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-          |vpiLowConn:
-          \_ref_obj: (work@dut.gen_modules[0].module_in_genscope.b), parent:b
-            |vpiName:b
-            |vpiFullName:work@dut.gen_modules[0].module_in_genscope.b
-            |vpiActual:
-            \_logic_net: (work@dut.gen_modules[0].module_in_genscope.b), line:12:33, endln:12:34, parent:work@dut.gen_modules[0].module_in_genscope
-              |vpiName:b
-              |vpiFullName:work@dut.gen_modules[0].module_in_genscope.b
-              |vpiNetType:36
-          |vpiInstance:
-          \_module: work@ibex_counter (work@dut.gen_modules[0].module_in_genscope) dut.sv:5:7: , endln:5:49, parent:work@dut.gen_modules[0]
-        |vpiNet:
-        \_logic_net: (work@dut.gen_modules[0].module_in_genscope.b), line:12:33, endln:12:34, parent:work@dut.gen_modules[0].module_in_genscope
-      |vpiParameter:
-      \_parameter: (work@dut.gen_modules[0].i), line:4, parent:work@dut.gen_modules[0]
-        |vpiName:i
-        |vpiFullName:work@dut.gen_modules[0].i
-        |UINT:0
   |vpiVariables:
   \_logic_var: (work@dut.a), line:2:16, endln:2:17, parent:work@dut
     |vpiName:a
@@ -223,16 +177,62 @@ design: (work@dut)
     \_range: , line:2:11, endln:2:14
       |vpiLeftRange:
       \_constant: , line:2:11, endln:2:12
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiRightRange:
       \_constant: , line:2:13, endln:2:14
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
+  |vpiDefName:work@dut
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@dut.gen_modules[0]), line:4:34, endln:8:7, parent:work@dut
+    |vpiName:gen_modules[0]
+    |vpiFullName:work@dut.gen_modules[0]
+    |vpiGenScope:
+    \_gen_scope: (work@dut.gen_modules[0]), parent:work@dut.gen_modules[0]
+      |vpiFullName:work@dut.gen_modules[0]
+      |vpiParameter:
+      \_parameter: (work@dut.gen_modules[0].i), line:4, parent:work@dut.gen_modules[0]
+        |UINT:0
+        |vpiName:i
+        |vpiFullName:work@dut.gen_modules[0].i
+      |vpiModule:
+      \_module: work@ibex_counter (work@dut.gen_modules[0].module_in_genscope) dut.sv:5:7: , endln:5:49, parent:work@dut.gen_modules[0]
+        |vpiName:module_in_genscope
+        |vpiFullName:work@dut.gen_modules[0].module_in_genscope
+        |vpiDefName:work@ibex_counter
+        |vpiDefFile:dut.sv
+        |vpiDefLineNo:12
+        |vpiNet:
+        \_logic_net: (work@dut.gen_modules[0].module_in_genscope.b), line:12:33, endln:12:34, parent:work@dut.gen_modules[0].module_in_genscope
+          |vpiName:b
+          |vpiFullName:work@dut.gen_modules[0].module_in_genscope.b
+          |vpiNetType:36
+        |vpiPort:
+        \_port: (b), line:12:33, endln:12:34, parent:work@dut.gen_modules[0].module_in_genscope
+          |vpiName:b
+          |vpiDirection:1
+          |vpiHighConn:
+          \_bit_select: (a), line:5:42, endln:5:46, parent:a
+            |vpiName:a
+            |vpiIndex:
+            \_constant: , line:5:44, endln:5:45, parent:a
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
+          |vpiLowConn:
+          \_ref_obj: (work@dut.gen_modules[0].module_in_genscope.b), parent:b
+            |vpiName:b
+            |vpiFullName:work@dut.gen_modules[0].module_in_genscope.b
+            |vpiActual:
+            \_logic_net: (work@dut.gen_modules[0].module_in_genscope.b), line:12:33, endln:12:34, parent:work@dut.gen_modules[0].module_in_genscope
+          |vpiInstance:
+          \_module: work@ibex_counter (work@dut.gen_modules[0].module_in_genscope) dut.sv:5:7: , endln:5:49, parent:work@dut.gen_modules[0]
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

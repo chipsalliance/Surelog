@@ -48,13 +48,13 @@
 
 ====== UHDM =======
 design: (work@aes_prng)
-|vpiName:work@aes_prng
 |vpiElaborated:1
+|vpiName:work@aes_prng
 |uhdmallPackages:
 \_package: builtin (builtin::), parent:work@aes_prng
-  |vpiDefName:builtin
   |vpiName:builtin
   |vpiFullName:builtin::
+  |vpiDefName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin::
     |vpiName:array
@@ -76,9 +76,9 @@ design: (work@aes_prng)
   |vpiName:work@mailbox
   |vpiMethod:
   \_function: (work@mailbox::new), parent:work@mailbox
-    |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@mailbox::new
+    |vpiMethod:1
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -87,107 +87,140 @@ design: (work@aes_prng)
         \_class_defn: (work@mailbox), file:builtin.sv, parent:work@aes_prng
     |vpiIODecl:
     \_io_decl: (bound), parent:work@mailbox::new
-      |vpiName:bound
       |vpiDirection:1
+      |vpiName:bound
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_function: (work@mailbox::num), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:num
     |vpiFullName:work@mailbox::num
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:put
     |vpiFullName:work@mailbox::put
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::put
-      |vpiName:message
-      |vpiDirection:1
-  |vpiMethod:
-  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::put
+      |vpiDirection:1
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_put
-      |vpiName:message
       |vpiDirection:1
+      |vpiName:message
   |vpiMethod:
   \_task: (work@mailbox::get), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:get
     |vpiFullName:work@mailbox::get
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::get
-      |vpiName:message
-      |vpiDirection:6
-  |vpiMethod:
-  \_function: (work@mailbox::try_get), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::get
+      |vpiDirection:6
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_get), parent:work@mailbox
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
   |vpiMethod:
   \_task: (work@mailbox::peek), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::peek
-      |vpiName:message
-      |vpiDirection:6
-  |vpiMethod:
-  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::peek
+      |vpiDirection:6
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
 |uhdmallClasses:
 \_class_defn: (work@process), file:builtin.sv, parent:work@aes_prng
   |vpiName:work@process
+  |vpiTypedef:
+  \_enum_typespec: (state), parent:work@process
+    |vpiName:state
+    |vpiEnumConst:
+    \_enum_const: (FINISHED), parent:state
+      |vpiName:FINISHED
+      |INT:0
+      |vpiDecompile:0
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (RUNNING), parent:state
+      |vpiName:RUNNING
+      |INT:1
+      |vpiDecompile:1
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (WAITING), parent:state
+      |vpiName:WAITING
+      |INT:2
+      |vpiDecompile:2
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (SUSPENDED), parent:state
+      |vpiName:SUSPENDED
+      |INT:3
+      |vpiDecompile:3
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (KILLED), parent:state
+      |vpiName:KILLED
+      |INT:4
+      |vpiDecompile:4
+      |vpiSize:64
   |vpiMethod:
   \_function: (work@process::self), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:self
     |vpiFullName:work@process::self
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_ref_var: 
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:status
     |vpiFullName:work@process::status
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
@@ -196,110 +229,77 @@ design: (work@aes_prng)
         |vpiEnumConst:
         \_enum_const: (FINISHED)
           |vpiName:FINISHED
-          |vpiDecompile:0
           |INT:0
+          |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
           |vpiName:RUNNING
-          |vpiDecompile:1
           |INT:1
+          |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
           |vpiName:WAITING
-          |vpiDecompile:2
           |INT:2
+          |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
           |vpiName:SUSPENDED
-          |vpiDecompile:3
           |INT:3
+          |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
           |vpiName:KILLED
-          |vpiDecompile:4
           |INT:4
+          |vpiDecompile:4
           |vpiSize:64
   |vpiMethod:
   \_task: (work@process::kill), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:kill
     |vpiFullName:work@process::kill
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::kill), parent:work@process::kill
       |vpiFullName:work@process::kill
   |vpiMethod:
   \_task: (work@process::await), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:await
     |vpiFullName:work@process::await
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::await), parent:work@process::await
       |vpiFullName:work@process::await
   |vpiMethod:
   \_task: (work@process::suspend), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:suspend
     |vpiFullName:work@process::suspend
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::suspend), parent:work@process::suspend
       |vpiFullName:work@process::suspend
   |vpiMethod:
   \_task: (work@process::resume), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:resume
     |vpiFullName:work@process::resume
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::resume), parent:work@process::resume
       |vpiFullName:work@process::resume
-  |vpiTypedef:
-  \_enum_typespec: (state), parent:work@process
-    |vpiName:state
-    |vpiEnumConst:
-    \_enum_const: (FINISHED), parent:state
-      |vpiName:FINISHED
-      |vpiDecompile:0
-      |INT:0
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (RUNNING), parent:state
-      |vpiName:RUNNING
-      |vpiDecompile:1
-      |INT:1
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (WAITING), parent:state
-      |vpiName:WAITING
-      |vpiDecompile:2
-      |INT:2
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (SUSPENDED), parent:state
-      |vpiName:SUSPENDED
-      |vpiDecompile:3
-      |INT:3
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (KILLED), parent:state
-      |vpiName:KILLED
-      |vpiDecompile:4
-      |INT:4
-      |vpiSize:64
 |uhdmallClasses:
 \_class_defn: (work@semaphore), file:builtin.sv, parent:work@aes_prng
   |vpiName:work@semaphore
   |vpiMethod:
   \_function: (work@semaphore::new), parent:work@semaphore
-    |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@semaphore::new
+    |vpiMethod:1
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -308,119 +308,103 @@ design: (work@aes_prng)
         \_class_defn: (work@semaphore), file:builtin.sv, parent:work@aes_prng
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::new
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_task: (work@semaphore::put), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:put
     |vpiFullName:work@semaphore::put
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::put
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_task: (work@semaphore::get), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:get
     |vpiFullName:work@semaphore::get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::get
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_function: (work@semaphore::try_get), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
 |uhdmallModules:
 \_module: work@aes_prng (work@aes_prng) dut.sv:10:1: , endln:19:10, parent:work@aes_prng
-  |vpiDefName:work@aes_prng
   |vpiFullName:work@aes_prng
+  |vpiDefName:work@aes_prng
 |uhdmallModules:
 \_module: work@prim_lfsr (work@prim_lfsr) dut.sv:1:1: , endln:8:10, parent:work@aes_prng
-  |vpiDefName:work@prim_lfsr
   |vpiFullName:work@prim_lfsr
+  |vpiParameter:
+  \_parameter: (work@prim_lfsr.LfsrDw), line:2:27, endln:2:38, parent:work@prim_lfsr
+    |UINT:12
+    |vpiTypespec:
+    \_int_typespec: , line:2:14, endln:2:17, parent:work@prim_lfsr.LfsrDw
+    |vpiName:LfsrDw
+    |vpiFullName:work@prim_lfsr.LfsrDw
+  |vpiParamAssign:
+  \_param_assign: , line:2:27, endln:2:38, parent:work@prim_lfsr
+    |vpiRhs:
+    \_constant: , line:2:36, endln:2:38
+      |vpiDecompile:12
+      |vpiSize:32
+      |UINT:12
+      |vpiTypespec:
+      \_int_typespec: , line:2:14, endln:2:17, parent:work@prim_lfsr.LfsrDw
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@prim_lfsr.LfsrDw), line:2:27, endln:2:38, parent:work@prim_lfsr
+  |vpiDefName:work@prim_lfsr
   |vpiTaskFunc:
   \_function: (work@prim_lfsr.compute), line:3:4, endln:6:15, parent:work@prim_lfsr
-    |vpiVisibility:1
-    |vpiAutomatic:1
     |vpiName:compute
     |vpiFullName:work@prim_lfsr.compute
-    |vpiReturn:
-    \_logic_var: , line:3:23, endln:3:28
-      |vpiRange:
-      \_range: , line:3:30, endln:3:40
-        |vpiLeftRange:
-        \_operation: , line:3:30, endln:3:36
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (LfsrDw), line:3:30, endln:3:36
-            |vpiName:LfsrDw
-          |vpiOperand:
-          \_constant: , line:3:37, endln:3:38
-            |vpiConstType:9
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-        |vpiRightRange:
-        \_constant: , line:3:39, endln:3:40
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-    |vpiStmt:
-    \_begin: (work@prim_lfsr.compute), parent:work@prim_lfsr.compute
-      |vpiFullName:work@prim_lfsr.compute
-      |vpiStmt:
-      \_return_stmt: , line:5:7, endln:5:13, parent:work@prim_lfsr.compute
-        |vpiCondition:
-        \_ref_obj: (work@prim_lfsr.compute.next_state), line:5:14, endln:5:24
-          |vpiName:next_state
-          |vpiFullName:work@prim_lfsr.compute.next_state
-    |vpiInstance:
-    \_module: work@prim_lfsr (work@prim_lfsr) dut.sv:1:1: , endln:8:10, parent:work@aes_prng
     |vpiVariables:
     \_logic_var: (work@prim_lfsr.compute.next_state), line:4:7, endln:4:12
       |vpiName:next_state
@@ -436,52 +420,115 @@ design: (work@aes_prng)
             |vpiFullName:work@prim_lfsr.compute.LfsrDw
           |vpiOperand:
           \_constant: , line:4:21, endln:4:22
-            |vpiConstType:9
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:4:23, endln:4:24
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-  |vpiParameter:
-  \_parameter: (work@prim_lfsr.LfsrDw), line:2:27, endln:2:38, parent:work@prim_lfsr
-    |vpiName:LfsrDw
-    |vpiFullName:work@prim_lfsr.LfsrDw
-    |UINT:12
-    |vpiTypespec:
-    \_int_typespec: , line:2:14, endln:2:17, parent:work@prim_lfsr.LfsrDw
-  |vpiParamAssign:
-  \_param_assign: , line:2:27, endln:2:38, parent:work@prim_lfsr
-    |vpiRhs:
-    \_constant: , line:2:36, endln:2:38
-      |vpiConstType:9
-      |vpiDecompile:12
-      |vpiSize:32
-      |UINT:12
-      |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:17, parent:work@prim_lfsr.LfsrDw
-    |vpiLhs:
-    \_parameter: (work@prim_lfsr.LfsrDw), line:2:27, endln:2:38, parent:work@prim_lfsr
+          |vpiConstType:9
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_logic_var: , line:3:23, endln:3:28
+      |vpiRange:
+      \_range: , line:3:30, endln:3:40
+        |vpiLeftRange:
+        \_operation: , line:3:30, endln:3:36
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (LfsrDw), line:3:30, endln:3:36
+            |vpiName:LfsrDw
+          |vpiOperand:
+          \_constant: , line:3:37, endln:3:38
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:39, endln:3:40
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiStmt:
+    \_begin: (work@prim_lfsr.compute), parent:work@prim_lfsr.compute
+      |vpiFullName:work@prim_lfsr.compute
+      |vpiStmt:
+      \_return_stmt: , line:5:7, endln:5:13, parent:work@prim_lfsr.compute
+        |vpiCondition:
+        \_ref_obj: (work@prim_lfsr.compute.next_state), line:5:14, endln:5:24
+          |vpiName:next_state
+          |vpiFullName:work@prim_lfsr.compute.next_state
+    |vpiInstance:
+    \_module: work@prim_lfsr (work@prim_lfsr) dut.sv:1:1: , endln:8:10, parent:work@aes_prng
 |uhdmtopModules:
 \_module: work@aes_prng (work@aes_prng) dut.sv:10:1: , endln:19:10
-  |vpiDefName:work@aes_prng
   |vpiName:work@aes_prng
+  |vpiDefName:work@aes_prng
   |vpiModule:
   \_module: work@prim_lfsr (work@aes_prng.u_lfsr16) dut.sv:11:4: , endln:13:17, parent:work@aes_prng
+    |vpiName:u_lfsr16
+    |vpiFullName:work@aes_prng.u_lfsr16
+    |vpiParameter:
+    \_parameter: (work@aes_prng.u_lfsr16.LfsrDw), line:2:27, endln:2:38, parent:work@aes_prng.u_lfsr16
+      |UINT:12
+      |vpiTypespec:
+      \_int_typespec: , line:2:14, endln:2:17, parent:work@aes_prng.u_lfsr16.LfsrDw
+      |vpiName:LfsrDw
+      |vpiFullName:work@aes_prng.u_lfsr16.LfsrDw
+    |vpiParamAssign:
+    \_param_assign: , line:2:27, endln:2:38, parent:work@aes_prng.u_lfsr16
+      |vpiOverriden:1
+      |vpiRhs:
+      \_constant: , line:2:36, endln:2:38
+        |vpiDecompile:16
+        |vpiSize:64
+        |UINT:16
+        |vpiTypespec:
+        \_int_typespec: , line:2:14, endln:2:17, parent:work@prim_lfsr.LfsrDw
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@aes_prng.u_lfsr16.LfsrDw), line:2:27, endln:2:38, parent:work@aes_prng.u_lfsr16
     |vpiDefName:work@prim_lfsr
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
-    |vpiName:u_lfsr16
-    |vpiFullName:work@aes_prng.u_lfsr16
     |vpiTaskFunc:
     \_function: (work@aes_prng.u_lfsr16.compute), line:3:4, endln:6:15, parent:work@aes_prng.u_lfsr16
-      |vpiVisibility:1
-      |vpiAutomatic:1
       |vpiName:compute
       |vpiFullName:work@aes_prng.u_lfsr16.compute
+      |vpiVariables:
+      \_logic_var: (work@aes_prng.u_lfsr16.compute.next_state), line:4:7, endln:4:12, parent:work@aes_prng.u_lfsr16.compute
+        |vpiName:next_state
+        |vpiFullName:work@aes_prng.u_lfsr16.compute.next_state
+        |vpiRange:
+        \_range: , line:4:14, endln:4:24, parent:work@aes_prng.u_lfsr16.compute.next_state
+          |vpiLeftRange:
+          \_operation: , line:4:14, endln:4:20
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (work@aes_prng.u_lfsr16.compute.next_state.LfsrDw), line:4:14, endln:4:20
+              |vpiName:LfsrDw
+              |vpiFullName:work@aes_prng.u_lfsr16.compute.next_state.LfsrDw
+              |vpiActual:
+              \_constant: , line:2:36, endln:2:38
+            |vpiOperand:
+            \_constant: , line:4:21, endln:4:22
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:4:23, endln:4:24
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+      |vpiVisibility:1
+      |vpiAutomatic:1
       |vpiReturn:
       \_logic_var: , line:3:23, endln:3:28
         |vpiRange:
@@ -494,16 +541,16 @@ design: (work@aes_prng)
               |vpiName:LfsrDw
             |vpiOperand:
             \_constant: , line:3:37, endln:3:38
-              |vpiConstType:9
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
+              |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:3:39, endln:3:40
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
       |vpiStmt:
       \_begin: (work@aes_prng.u_lfsr16.compute), parent:work@aes_prng.u_lfsr16.compute
         |vpiFullName:work@aes_prng.u_lfsr16.compute
@@ -515,70 +562,62 @@ design: (work@aes_prng)
             |vpiFullName:work@aes_prng.u_lfsr16.compute.next_state
             |vpiActual:
             \_logic_var: (work@aes_prng.u_lfsr16.compute.next_state), line:4:7, endln:4:12, parent:work@aes_prng.u_lfsr16.compute
-              |vpiName:next_state
-              |vpiFullName:work@aes_prng.u_lfsr16.compute.next_state
-              |vpiRange:
-              \_range: , line:4:14, endln:4:24, parent:work@aes_prng.u_lfsr16.compute.next_state
-                |vpiLeftRange:
-                \_operation: , line:4:14, endln:4:20
-                  |vpiOpType:11
-                  |vpiOperand:
-                  \_ref_obj: (work@aes_prng.u_lfsr16.compute.next_state.LfsrDw), line:4:14, endln:4:20
-                    |vpiName:LfsrDw
-                    |vpiFullName:work@aes_prng.u_lfsr16.compute.next_state.LfsrDw
-                    |vpiActual:
-                    \_constant: , line:2:36, endln:2:38
-                      |vpiConstType:9
-                      |vpiDecompile:16
-                      |vpiSize:64
-                      |UINT:16
-                      |vpiTypespec:
-                      \_int_typespec: , line:2:14, endln:2:17, parent:work@prim_lfsr.LfsrDw
-                  |vpiOperand:
-                  \_constant: , line:4:21, endln:4:22
-                    |vpiConstType:9
-                    |vpiDecompile:1
-                    |vpiSize:64
-                    |UINT:1
-                |vpiRightRange:
-                \_constant: , line:4:23, endln:4:24
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
       |vpiInstance:
       \_module: work@prim_lfsr (work@aes_prng.u_lfsr16) dut.sv:11:4: , endln:13:17, parent:work@aes_prng
-      |vpiVariables:
-      \_logic_var: (work@aes_prng.u_lfsr16.compute.next_state), line:4:7, endln:4:12, parent:work@aes_prng.u_lfsr16.compute
     |vpiInstance:
     \_module: work@aes_prng (work@aes_prng) dut.sv:10:1: , endln:19:10
+  |vpiModule:
+  \_module: work@prim_lfsr (work@aes_prng.u_lfsr18) dut.sv:15:3: , endln:17:17, parent:work@aes_prng
+    |vpiName:u_lfsr18
+    |vpiFullName:work@aes_prng.u_lfsr18
     |vpiParameter:
-    \_parameter: (work@aes_prng.u_lfsr16.LfsrDw), line:2:27, endln:2:38, parent:work@aes_prng.u_lfsr16
-      |vpiName:LfsrDw
-      |vpiFullName:work@aes_prng.u_lfsr16.LfsrDw
+    \_parameter: (work@aes_prng.u_lfsr18.LfsrDw), line:2:27, endln:2:38, parent:work@aes_prng.u_lfsr18
       |UINT:12
       |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:17, parent:work@aes_prng.u_lfsr16.LfsrDw
+      \_int_typespec: , line:2:14, endln:2:17, parent:work@aes_prng.u_lfsr18.LfsrDw
+      |vpiName:LfsrDw
+      |vpiFullName:work@aes_prng.u_lfsr18.LfsrDw
     |vpiParamAssign:
-    \_param_assign: , line:2:27, endln:2:38, parent:work@aes_prng.u_lfsr16
+    \_param_assign: , line:2:27, endln:2:38, parent:work@aes_prng.u_lfsr18
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:2:36, endln:2:38
+        |vpiDecompile:18
+        |vpiSize:64
+        |UINT:18
+        |vpiTypespec:
+        \_int_typespec: , line:2:14, endln:2:17, parent:work@prim_lfsr.LfsrDw
+        |vpiConstType:9
       |vpiLhs:
-      \_parameter: (work@aes_prng.u_lfsr16.LfsrDw), line:2:27, endln:2:38, parent:work@aes_prng.u_lfsr16
-  |vpiModule:
-  \_module: work@prim_lfsr (work@aes_prng.u_lfsr18) dut.sv:15:3: , endln:17:17, parent:work@aes_prng
+      \_parameter: (work@aes_prng.u_lfsr18.LfsrDw), line:2:27, endln:2:38, parent:work@aes_prng.u_lfsr18
     |vpiDefName:work@prim_lfsr
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
-    |vpiName:u_lfsr18
-    |vpiFullName:work@aes_prng.u_lfsr18
     |vpiTaskFunc:
     \_function: (work@aes_prng.u_lfsr18.compute), line:3:4, endln:6:15, parent:work@aes_prng.u_lfsr18
-      |vpiVisibility:1
-      |vpiAutomatic:1
       |vpiName:compute
       |vpiFullName:work@aes_prng.u_lfsr18.compute
+      |vpiVariables:
+      \_logic_var: (work@aes_prng.u_lfsr18.compute.next_state), line:4:7, endln:4:12, parent:work@aes_prng.u_lfsr18.compute
+        |vpiName:next_state
+        |vpiFullName:work@aes_prng.u_lfsr18.compute.next_state
+        |vpiRange:
+        \_range: , line:4:14, endln:4:24, parent:work@aes_prng.u_lfsr18.compute.next_state
+          |vpiLeftRange:
+          \_operation: , line:4:14, endln:4:20
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (work@aes_prng.u_lfsr18.compute.next_state.LfsrDw), line:4:14, endln:4:20
+              |vpiName:LfsrDw
+              |vpiFullName:work@aes_prng.u_lfsr18.compute.next_state.LfsrDw
+              |vpiActual:
+              \_constant: , line:2:36, endln:2:38
+            |vpiOperand:
+            \_constant: , line:4:21, endln:4:22
+          |vpiRightRange:
+          \_constant: , line:4:23, endln:4:24
+      |vpiVisibility:1
+      |vpiAutomatic:1
       |vpiReturn:
       \_logic_var: , line:3:23, endln:3:28
       |vpiStmt:
@@ -592,49 +631,10 @@ design: (work@aes_prng)
             |vpiFullName:work@aes_prng.u_lfsr18.compute.next_state
             |vpiActual:
             \_logic_var: (work@aes_prng.u_lfsr18.compute.next_state), line:4:7, endln:4:12, parent:work@aes_prng.u_lfsr18.compute
-              |vpiName:next_state
-              |vpiFullName:work@aes_prng.u_lfsr18.compute.next_state
-              |vpiRange:
-              \_range: , line:4:14, endln:4:24, parent:work@aes_prng.u_lfsr18.compute.next_state
-                |vpiLeftRange:
-                \_operation: , line:4:14, endln:4:20
-                  |vpiOpType:11
-                  |vpiOperand:
-                  \_ref_obj: (work@aes_prng.u_lfsr18.compute.next_state.LfsrDw), line:4:14, endln:4:20
-                    |vpiName:LfsrDw
-                    |vpiFullName:work@aes_prng.u_lfsr18.compute.next_state.LfsrDw
-                    |vpiActual:
-                    \_constant: , line:2:36, endln:2:38
-                      |vpiConstType:9
-                      |vpiDecompile:18
-                      |vpiSize:64
-                      |UINT:18
-                      |vpiTypespec:
-                      \_int_typespec: , line:2:14, endln:2:17, parent:work@prim_lfsr.LfsrDw
-                  |vpiOperand:
-                  \_constant: , line:4:21, endln:4:22
-                |vpiRightRange:
-                \_constant: , line:4:23, endln:4:24
       |vpiInstance:
       \_module: work@prim_lfsr (work@aes_prng.u_lfsr18) dut.sv:15:3: , endln:17:17, parent:work@aes_prng
-      |vpiVariables:
-      \_logic_var: (work@aes_prng.u_lfsr18.compute.next_state), line:4:7, endln:4:12, parent:work@aes_prng.u_lfsr18.compute
     |vpiInstance:
     \_module: work@aes_prng (work@aes_prng) dut.sv:10:1: , endln:19:10
-    |vpiParameter:
-    \_parameter: (work@aes_prng.u_lfsr18.LfsrDw), line:2:27, endln:2:38, parent:work@aes_prng.u_lfsr18
-      |vpiName:LfsrDw
-      |vpiFullName:work@aes_prng.u_lfsr18.LfsrDw
-      |UINT:12
-      |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:17, parent:work@aes_prng.u_lfsr18.LfsrDw
-    |vpiParamAssign:
-    \_param_assign: , line:2:27, endln:2:38, parent:work@aes_prng.u_lfsr18
-      |vpiOverriden:1
-      |vpiRhs:
-      \_constant: , line:2:36, endln:2:38
-      |vpiLhs:
-      \_parameter: (work@aes_prng.u_lfsr18.LfsrDw), line:2:27, endln:2:38, parent:work@aes_prng.u_lfsr18
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

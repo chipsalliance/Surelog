@@ -239,21 +239,20 @@ n<> u<188> t<Top_level_rule> l<1:1> el<26:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallPackages:
 \_package: foo_pkg (foo_pkg::) dut.sv:1:1: , endln:3:11, parent:work@top
-  |vpiDefName:foo_pkg
   |vpiName:foo_pkg
   |vpiFullName:foo_pkg::
   |vpiParameter:
   \_parameter: (foo_pkg::VALUE_TEMP), line:2:17, endln:2:43, parent:foo_pkg::
-    |vpiName:VALUE_TEMP
-    |vpiFullName:foo_pkg::VALUE_TEMP
     |vpiTypespec:
     \_int_typespec: , line:2:13, endln:2:16, parent:foo_pkg::VALUE_TEMP
       |vpiInstance:
       \_package: foo_pkg (foo_pkg::) dut.sv:1:1: , endln:3:11, parent:work@top
+    |vpiName:VALUE_TEMP
+    |vpiFullName:foo_pkg::VALUE_TEMP
   |vpiParamAssign:
   \_param_assign: , line:2:17, endln:2:43, parent:foo_pkg::
     |vpiRhs:
@@ -263,62 +262,58 @@ design: (work@top)
       \_tagged_pattern: 
         |vpiPattern:
         \_constant: , line:2:41, endln:2:42
-          |vpiConstType:9
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiConstType:9
         |vpiTypespec:
         \_string_typespec: (default), line:2:32, endln:2:39
           |vpiName:default
     |vpiLhs:
     \_parameter: (foo_pkg::VALUE_TEMP), line:2:17, endln:2:43, parent:foo_pkg::
+  |vpiDefName:foo_pkg
 |uhdmallModules:
 \_module: work@bottom (work@bottom) dut.sv:5:1: , endln:7:10, parent:work@top
-  |vpiDefName:work@bottom
   |vpiFullName:work@bottom
   |vpiParameter:
   \_parameter: (work@bottom.VALUE), line:6:17, endln:6:26, parent:work@bottom
-    |vpiName:VALUE
-    |vpiFullName:work@bottom.VALUE
     |UINT:8
     |vpiTypespec:
     \_int_typespec: , line:6:13, endln:6:16, parent:work@bottom.VALUE
+    |vpiName:VALUE
+    |vpiFullName:work@bottom.VALUE
   |vpiParamAssign:
   \_param_assign: , line:6:17, endln:6:26, parent:work@bottom
     |vpiRhs:
     \_constant: , line:6:25, endln:6:26
-      |vpiConstType:9
       |vpiDecompile:8
       |vpiSize:32
       |UINT:8
       |vpiTypespec:
       \_int_typespec: , line:6:13, endln:6:16, parent:work@bottom.VALUE
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@bottom.VALUE), line:6:17, endln:6:26, parent:work@bottom
+  |vpiDefName:work@bottom
 |uhdmallModules:
 \_module: work@lower (work@lower) dut.sv:9:1: , endln:15:10, parent:work@top
-  |vpiDefName:work@lower
   |vpiFullName:work@lower
   |vpiParameter:
   \_parameter: (work@lower.VALUE_TEMP), line:2:17, endln:2:43, parent:work@lower
-    |vpiName:VALUE_TEMP
-    |vpiFullName:work@lower.VALUE_TEMP
-    |vpiImported:foo_pkg
     |vpiTypespec:
     \_int_typespec: , line:2:13, endln:2:16, parent:work@lower.VALUE_TEMP
       |vpiInstance:
       \_package: foo_pkg (foo_pkg::) dut.sv:1:1: , endln:3:11, parent:work@top
-        |vpiDefName:foo_pkg
         |vpiName:foo_pkg
         |vpiFullName:foo_pkg::
         |vpiParameter:
         \_parameter: (foo_pkg::VALUE_TEMP), line:2:17, endln:2:43, parent:foo_pkg::
-          |vpiName:VALUE_TEMP
-          |vpiFullName:foo_pkg::VALUE_TEMP
           |vpiTypespec:
           \_int_typespec: , line:2:13, endln:2:16, parent:foo_pkg::VALUE_TEMP
             |vpiInstance:
             \_package: foo_pkg (foo_pkg::) dut.sv:1:1: , endln:3:11, parent:work@top
+          |vpiName:VALUE_TEMP
+          |vpiFullName:foo_pkg::VALUE_TEMP
         |vpiParamAssign:
         \_param_assign: , line:2:17, endln:2:43, parent:foo_pkg::
           |vpiRhs:
@@ -328,21 +323,25 @@ design: (work@top)
             \_tagged_pattern: 
               |vpiPattern:
               \_constant: , line:2:41, endln:2:42
-                |vpiConstType:9
                 |vpiDecompile:1
                 |vpiSize:64
                 |UINT:1
+                |vpiConstType:9
               |vpiTypespec:
               \_string_typespec: (default), line:2:32, endln:2:39
                 |vpiName:default
           |vpiLhs:
           \_parameter: (foo_pkg::VALUE_TEMP), line:2:17, endln:2:43, parent:foo_pkg::
+        |vpiDefName:foo_pkg
+    |vpiName:VALUE_TEMP
+    |vpiFullName:work@lower.VALUE_TEMP
+    |vpiImported:foo_pkg
   |vpiParameter:
   \_parameter: (work@lower.VALUE), line:11:17, endln:11:39, parent:work@lower
-    |vpiName:VALUE
-    |vpiFullName:work@lower.VALUE
     |vpiTypespec:
     \_int_typespec: , line:11:13, endln:11:16, parent:work@lower.VALUE
+    |vpiName:VALUE
+    |vpiFullName:work@lower.VALUE
   |vpiParamAssign:
   \_param_assign: , line:2:17, endln:2:43, parent:work@lower
     |vpiRhs:
@@ -352,22 +351,22 @@ design: (work@top)
       \_tagged_pattern: 
         |vpiPattern:
         \_constant: , line:2:41, endln:2:42
-          |vpiConstType:9
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiConstType:9
         |vpiTypespec:
         \_string_typespec: (default), line:2:32, endln:2:39
           |vpiName:default
     |vpiLhs:
     \_parameter: (work@lower.VALUE_TEMP), line:2:17, endln:2:43
-      |vpiName:VALUE_TEMP
-      |vpiFullName:work@lower.VALUE_TEMP
-      |vpiImported:foo_pkg
       |vpiTypespec:
       \_int_typespec: , line:2:13, endln:2:16, parent:work@lower.VALUE_TEMP
         |vpiInstance:
         \_package: foo_pkg (foo_pkg::) dut.sv:1:1: , endln:3:11, parent:work@top
+      |vpiName:VALUE_TEMP
+      |vpiFullName:work@lower.VALUE_TEMP
+      |vpiImported:foo_pkg
   |vpiParamAssign:
   \_param_assign: , line:11:17, endln:11:39, parent:work@lower
     |vpiRhs:
@@ -378,174 +377,160 @@ design: (work@top)
         |vpiName:VALUE_TEMP
       |vpiOperand:
       \_constant: , line:11:38, endln:11:39
-        |vpiConstType:9
         |vpiDecompile:2
         |vpiSize:64
         |UINT:2
+        |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@lower.VALUE), line:11:17, endln:11:39, parent:work@lower
   |vpiTypedef:
   \_import: (foo_pkg), line:10:10, endln:10:20
+  |vpiDefName:work@lower
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:22:1: , endln:25:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.VALUE), line:23:17, endln:23:26, parent:work@top
-    |vpiName:VALUE
-    |vpiFullName:work@top.VALUE
     |UINT:5
     |vpiTypespec:
     \_int_typespec: , line:23:13, endln:23:16, parent:work@top.VALUE
+    |vpiName:VALUE
+    |vpiFullName:work@top.VALUE
   |vpiParamAssign:
   \_param_assign: , line:23:17, endln:23:26, parent:work@top
     |vpiRhs:
     \_constant: , line:23:25, endln:23:26
-      |vpiConstType:9
       |vpiDecompile:5
       |vpiSize:32
       |UINT:5
       |vpiTypespec:
       \_int_typespec: , line:23:13, endln:23:16, parent:work@top.VALUE
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.VALUE), line:23:17, endln:23:26, parent:work@top
+  |vpiDefName:work@top
 |uhdmallModules:
 \_module: work@upper (work@upper) dut.sv:17:1: , endln:20:10, parent:work@top
-  |vpiDefName:work@upper
   |vpiFullName:work@upper
   |vpiParameter:
   \_parameter: (work@upper.VALUE), line:18:17, endln:18:26, parent:work@upper
-    |vpiName:VALUE
-    |vpiFullName:work@upper.VALUE
     |UINT:7
     |vpiTypespec:
     \_int_typespec: , line:18:13, endln:18:16, parent:work@upper.VALUE
+    |vpiName:VALUE
+    |vpiFullName:work@upper.VALUE
   |vpiParamAssign:
   \_param_assign: , line:18:17, endln:18:26, parent:work@upper
     |vpiRhs:
     \_constant: , line:18:25, endln:18:26
-      |vpiConstType:9
       |vpiDecompile:7
       |vpiSize:32
       |UINT:7
       |vpiTypespec:
       \_int_typespec: , line:18:13, endln:18:16, parent:work@upper.VALUE
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@upper.VALUE), line:18:17, endln:18:26, parent:work@upper
+  |vpiDefName:work@upper
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:22:1: , endln:25:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiParameter:
+  \_parameter: (work@top.VALUE), line:23:17, endln:23:26, parent:work@top
+    |UINT:5
+    |vpiTypespec:
+    \_int_typespec: , line:23:13, endln:23:16, parent:work@top.VALUE
+    |vpiName:VALUE
+    |vpiFullName:work@top.VALUE
+  |vpiParamAssign:
+  \_param_assign: , line:23:17, endln:23:26, parent:work@top
+    |vpiRhs:
+    \_constant: , line:23:25, endln:23:26
+      |vpiDecompile:5
+      |vpiSize:32
+      |UINT:5
+      |vpiTypespec:
+      \_int_typespec: , line:23:13, endln:23:16, parent:work@top.VALUE
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@top.VALUE), line:23:17, endln:23:26, parent:work@top
+  |vpiDefName:work@top
   |vpiModule:
   \_module: work@upper (work@top.upper_u) dut.sv:24:3: , endln:24:20, parent:work@top
+    |vpiName:upper_u
+    |vpiFullName:work@top.upper_u
+    |vpiParameter:
+    \_parameter: (work@top.upper_u.VALUE), line:18:17, endln:18:26, parent:work@top.upper_u
+      |UINT:7
+      |vpiTypespec:
+      \_int_typespec: , line:18:13, endln:18:16, parent:work@top.upper_u.VALUE
+      |vpiName:VALUE
+      |vpiFullName:work@top.upper_u.VALUE
+    |vpiParamAssign:
+    \_param_assign: , line:18:17, endln:18:26, parent:work@top.upper_u
+      |vpiRhs:
+      \_constant: , line:18:25, endln:18:26
+        |vpiDecompile:7
+        |vpiSize:32
+        |UINT:7
+        |vpiTypespec:
+        \_int_typespec: , line:18:13, endln:18:16, parent:work@upper.VALUE
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@top.upper_u.VALUE), line:18:17, endln:18:26, parent:work@top.upper_u
     |vpiDefName:work@upper
     |vpiDefFile:dut.sv
     |vpiDefLineNo:17
-    |vpiName:upper_u
-    |vpiFullName:work@top.upper_u
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:22:1: , endln:25:10
     |vpiModule:
     \_module: work@lower (work@top.upper_u.lower_u) dut.sv:19:3: , endln:19:20, parent:work@top.upper_u
-      |vpiDefName:work@lower
-      |vpiDefFile:dut.sv
-      |vpiDefLineNo:9
       |vpiName:lower_u
       |vpiFullName:work@top.upper_u.lower_u
-      |vpiModule:
-      \_module: work@bottom (work@top.upper_u.lower_u.bottom_u) dut.sv:12:3: , endln:14:16, parent:work@top.upper_u.lower_u
-        |vpiDefName:work@bottom
-        |vpiDefFile:dut.sv
-        |vpiDefLineNo:5
-        |vpiName:bottom_u
-        |vpiFullName:work@top.upper_u.lower_u.bottom_u
-        |vpiInstance:
-        \_module: work@lower (work@top.upper_u.lower_u) dut.sv:19:3: , endln:19:20, parent:work@top.upper_u
-        |vpiParameter:
-        \_parameter: (work@top.upper_u.lower_u.bottom_u.VALUE), line:6:17, endln:6:26, parent:work@top.upper_u.lower_u.bottom_u
-          |vpiName:VALUE
-          |vpiFullName:work@top.upper_u.lower_u.bottom_u.VALUE
-          |UINT:8
-          |vpiTypespec:
-          \_int_typespec: , line:6:13, endln:6:16, parent:work@top.upper_u.lower_u.bottom_u.VALUE
-        |vpiParamAssign:
-        \_param_assign: , line:6:17, endln:6:26, parent:work@top.upper_u.lower_u.bottom_u
-          |vpiOverriden:1
-          |vpiRhs:
-          \_operation: , line:13:12, endln:13:17
-            |vpiOpType:24
-            |vpiOperand:
-            \_operation: , line:11:25, endln:11:35
-              |vpiOpType:75
-              |vpiOperand:
-              \_tagged_pattern: 
-                |vpiPattern:
-                \_constant: , line:2:41, endln:2:42
-                  |vpiConstType:9
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                |vpiTypespec:
-                \_string_typespec: (default), line:2:32, endln:2:39
-                  |vpiName:default
-              |vpiTypespec:
-              \_int_typespec: , line:2:13, endln:2:16
-                |vpiInstance:
-                \_package: foo_pkg (foo_pkg::) dut.sv:1:1: , endln:3:11, parent:work@top
-                  |vpiDefName:foo_pkg
-                  |vpiName:foo_pkg
-                  |vpiFullName:foo_pkg::
-                  |vpiParameter:
-                  \_parameter: (foo_pkg::VALUE_TEMP), line:2:17, endln:2:43, parent:foo_pkg::
-                    |vpiName:VALUE_TEMP
-                    |vpiFullName:foo_pkg::VALUE_TEMP
-                    |vpiTypespec:
-                    \_int_typespec: , line:2:13, endln:2:16, parent:foo_pkg::VALUE_TEMP
-                      |vpiInstance:
-                      \_package: foo_pkg (foo_pkg::) dut.sv:1:1: , endln:3:11, parent:work@top
-                  |vpiParamAssign:
-                  \_param_assign: , line:2:17, endln:2:43, parent:foo_pkg::
-                    |vpiRhs:
-                    \_operation: , line:2:30, endln:2:43
-                      |vpiOpType:75
-                      |vpiOperand:
-                      \_tagged_pattern: 
-                        |vpiPattern:
-                        \_constant: , line:2:41, endln:2:42
-                          |vpiConstType:9
-                          |vpiDecompile:1
-                          |vpiSize:64
-                          |UINT:1
-                        |vpiTypespec:
-                        \_string_typespec: (default), line:2:32, endln:2:39
-                          |vpiName:default
-                    |vpiLhs:
-                    \_parameter: (foo_pkg::VALUE_TEMP), line:2:17, endln:2:43, parent:foo_pkg::
-            |vpiOperand:
-            \_constant: , line:11:38, endln:11:39
-              |vpiConstType:9
-              |vpiDecompile:2
-              |vpiSize:64
-              |UINT:2
-            |vpiTypespec:
-            \_int_typespec: , line:11:13, endln:11:16
-          |vpiLhs:
-          \_parameter: (work@top.upper_u.lower_u.bottom_u.VALUE), line:6:17, endln:6:26, parent:work@top.upper_u.lower_u.bottom_u
-      |vpiInstance:
-      \_module: work@upper (work@top.upper_u) dut.sv:24:3: , endln:24:20, parent:work@top
       |vpiParameter:
       \_parameter: (work@top.upper_u.lower_u.VALUE_TEMP), line:2:17, endln:2:43, parent:work@top.upper_u.lower_u
-        |vpiName:VALUE_TEMP
-        |vpiFullName:work@top.upper_u.lower_u.VALUE_TEMP
-        |vpiImported:foo_pkg
         |vpiTypespec:
         \_int_typespec: , line:2:13, endln:2:16, parent:work@top.upper_u.lower_u.VALUE_TEMP
           |vpiInstance:
           \_package: foo_pkg (foo_pkg::) dut.sv:1:1: , endln:3:11, parent:work@top
+            |vpiName:foo_pkg
+            |vpiFullName:foo_pkg::
+            |vpiParameter:
+            \_parameter: (foo_pkg::VALUE_TEMP), line:2:17, endln:2:43, parent:foo_pkg::
+              |vpiTypespec:
+              \_int_typespec: , line:2:13, endln:2:16, parent:foo_pkg::VALUE_TEMP
+                |vpiInstance:
+                \_package: foo_pkg (foo_pkg::) dut.sv:1:1: , endln:3:11, parent:work@top
+              |vpiName:VALUE_TEMP
+              |vpiFullName:foo_pkg::VALUE_TEMP
+            |vpiParamAssign:
+            \_param_assign: , line:2:17, endln:2:43, parent:foo_pkg::
+              |vpiRhs:
+              \_operation: , line:2:30, endln:2:43
+                |vpiOpType:75
+                |vpiOperand:
+                \_tagged_pattern: 
+                  |vpiPattern:
+                  \_constant: , line:2:41, endln:2:42
+                    |vpiDecompile:1
+                    |vpiSize:64
+                    |UINT:1
+                    |vpiConstType:9
+                  |vpiTypespec:
+                  \_string_typespec: (default), line:2:32, endln:2:39
+                    |vpiName:default
+              |vpiLhs:
+              \_parameter: (foo_pkg::VALUE_TEMP), line:2:17, endln:2:43, parent:foo_pkg::
+            |vpiDefName:foo_pkg
+        |vpiName:VALUE_TEMP
+        |vpiFullName:work@top.upper_u.lower_u.VALUE_TEMP
+        |vpiImported:foo_pkg
       |vpiParameter:
       \_parameter: (work@top.upper_u.lower_u.VALUE), line:11:17, endln:11:39, parent:work@top.upper_u.lower_u
-        |vpiName:VALUE
-        |vpiFullName:work@top.upper_u.lower_u.VALUE
         |vpiTypespec:
         \_int_typespec: , line:11:13, endln:11:16, parent:work@top.upper_u.lower_u.VALUE
+        |vpiName:VALUE
+        |vpiFullName:work@top.upper_u.lower_u.VALUE
       |vpiParamAssign:
       \_param_assign: , line:2:17, endln:2:43, parent:work@top.upper_u.lower_u
         |vpiRhs:
@@ -555,10 +540,10 @@ design: (work@top)
           \_tagged_pattern: 
             |vpiPattern:
             \_constant: , line:2:41, endln:2:42
-              |vpiConstType:9
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
+              |vpiConstType:9
             |vpiTypespec:
             \_string_typespec: (default), line:2:32, endln:2:39
               |vpiName:default
@@ -568,77 +553,92 @@ design: (work@top)
       \_param_assign: , line:11:17, endln:11:39, parent:work@top.upper_u.lower_u
         |vpiRhs:
         \_operation: , line:11:25, endln:11:39
+          |vpiTypespec:
+          \_int_typespec: , line:11:13, endln:11:16, parent:work@lower.VALUE
           |vpiOpType:24
           |vpiOperand:
           \_operation: , line:11:25, endln:11:35
+            |vpiTypespec:
+            \_int_typespec: , line:2:13, endln:2:16, parent:work@lower.VALUE_TEMP
+              |vpiInstance:
+              \_package: foo_pkg (foo_pkg::) dut.sv:1:1: , endln:3:11, parent:work@top
             |vpiOpType:75
             |vpiOperand:
             \_tagged_pattern: 
               |vpiPattern:
               \_constant: , line:2:41, endln:2:42
-                |vpiConstType:9
                 |vpiDecompile:1
                 |vpiSize:64
                 |UINT:1
+                |vpiConstType:9
               |vpiTypespec:
               \_string_typespec: (default), line:2:32, endln:2:39
                 |vpiName:default
-            |vpiTypespec:
-            \_int_typespec: , line:2:13, endln:2:16, parent:work@lower.VALUE_TEMP
-              |vpiInstance:
-              \_package: foo_pkg (foo_pkg::) dut.sv:1:1: , endln:3:11, parent:work@top
           |vpiOperand:
           \_constant: , line:11:38, endln:11:39
-            |vpiConstType:9
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
-          |vpiTypespec:
-          \_int_typespec: , line:11:13, endln:11:16, parent:work@lower.VALUE
+            |vpiConstType:9
         |vpiLhs:
         \_parameter: (work@top.upper_u.lower_u.VALUE), line:11:17, endln:11:39, parent:work@top.upper_u.lower_u
       |vpiTypedef:
       \_import: (foo_pkg), line:10:10, endln:10:20
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:22:1: , endln:25:10
-    |vpiParameter:
-    \_parameter: (work@top.upper_u.VALUE), line:18:17, endln:18:26, parent:work@top.upper_u
-      |vpiName:VALUE
-      |vpiFullName:work@top.upper_u.VALUE
-      |UINT:7
-      |vpiTypespec:
-      \_int_typespec: , line:18:13, endln:18:16, parent:work@top.upper_u.VALUE
-    |vpiParamAssign:
-    \_param_assign: , line:18:17, endln:18:26, parent:work@top.upper_u
-      |vpiRhs:
-      \_constant: , line:18:25, endln:18:26
-        |vpiConstType:9
-        |vpiDecompile:7
-        |vpiSize:32
-        |UINT:7
-        |vpiTypespec:
-        \_int_typespec: , line:18:13, endln:18:16, parent:work@upper.VALUE
-      |vpiLhs:
-      \_parameter: (work@top.upper_u.VALUE), line:18:17, endln:18:26, parent:work@top.upper_u
-  |vpiParameter:
-  \_parameter: (work@top.VALUE), line:23:17, endln:23:26, parent:work@top
-    |vpiName:VALUE
-    |vpiFullName:work@top.VALUE
-    |UINT:5
-    |vpiTypespec:
-    \_int_typespec: , line:23:13, endln:23:16, parent:work@top.VALUE
-  |vpiParamAssign:
-  \_param_assign: , line:23:17, endln:23:26, parent:work@top
-    |vpiRhs:
-    \_constant: , line:23:25, endln:23:26
-      |vpiConstType:9
-      |vpiDecompile:5
-      |vpiSize:32
-      |UINT:5
-      |vpiTypespec:
-      \_int_typespec: , line:23:13, endln:23:16, parent:work@top.VALUE
-    |vpiLhs:
-    \_parameter: (work@top.VALUE), line:23:17, endln:23:26, parent:work@top
+      |vpiDefName:work@lower
+      |vpiDefFile:dut.sv
+      |vpiDefLineNo:9
+      |vpiInstance:
+      \_module: work@upper (work@top.upper_u) dut.sv:24:3: , endln:24:20, parent:work@top
+      |vpiModule:
+      \_module: work@bottom (work@top.upper_u.lower_u.bottom_u) dut.sv:12:3: , endln:14:16, parent:work@top.upper_u.lower_u
+        |vpiName:bottom_u
+        |vpiFullName:work@top.upper_u.lower_u.bottom_u
+        |vpiParameter:
+        \_parameter: (work@top.upper_u.lower_u.bottom_u.VALUE), line:6:17, endln:6:26, parent:work@top.upper_u.lower_u.bottom_u
+          |UINT:8
+          |vpiTypespec:
+          \_int_typespec: , line:6:13, endln:6:16, parent:work@top.upper_u.lower_u.bottom_u.VALUE
+          |vpiName:VALUE
+          |vpiFullName:work@top.upper_u.lower_u.bottom_u.VALUE
+        |vpiParamAssign:
+        \_param_assign: , line:6:17, endln:6:26, parent:work@top.upper_u.lower_u.bottom_u
+          |vpiOverriden:1
+          |vpiRhs:
+          \_operation: , line:13:12, endln:13:17
+            |vpiTypespec:
+            \_int_typespec: , line:11:13, endln:11:16
+            |vpiOpType:24
+            |vpiOperand:
+            \_operation: , line:11:25, endln:11:35
+              |vpiTypespec:
+              \_int_typespec: , line:2:13, endln:2:16
+                |vpiInstance:
+                \_package: foo_pkg (foo_pkg::) dut.sv:1:1: , endln:3:11, parent:work@top
+              |vpiOpType:75
+              |vpiOperand:
+              \_tagged_pattern: 
+                |vpiPattern:
+                \_constant: , line:2:41, endln:2:42
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+                  |vpiConstType:9
+                |vpiTypespec:
+                \_string_typespec: (default), line:2:32, endln:2:39
+                  |vpiName:default
+            |vpiOperand:
+            \_constant: , line:11:38, endln:11:39
+              |vpiDecompile:2
+              |vpiSize:64
+              |UINT:2
+              |vpiConstType:9
+          |vpiLhs:
+          \_parameter: (work@top.upper_u.lower_u.bottom_u.VALUE), line:6:17, endln:6:26, parent:work@top.upper_u.lower_u.bottom_u
+        |vpiDefName:work@bottom
+        |vpiDefFile:dut.sv
+        |vpiDefLineNo:5
+        |vpiInstance:
+        \_module: work@lower (work@top.upper_u.lower_u) dut.sv:19:3: , endln:19:20, parent:work@top.upper_u
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -204,12 +204,55 @@ n<> u<167> t<Top_level_rule> l<1:1> el<15:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:14:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiParameter:
+  \_parameter: (work@top.Depth), line:2:28, endln:2:40, parent:work@top
+    |UINT:500
+    |vpiTypespec:
+    \_int_typespec: , line:2:15, endln:2:18, parent:work@top.Depth
+    |vpiName:Depth
+    |vpiFullName:work@top.Depth
+  |vpiParameter:
+  \_parameter: (work@top.PTR_WIDTH), line:3:28, endln:3:41, parent:work@top
+    |UINT:3
+    |vpiTypespec:
+    \_int_typespec: , line:3:15, endln:3:18, parent:work@top.PTR_WIDTH
+    |vpiLocalParam:1
+    |vpiName:PTR_WIDTH
+    |vpiFullName:work@top.PTR_WIDTH
+  |vpiParamAssign:
+  \_param_assign: , line:2:28, endln:2:40, parent:work@top
+    |vpiRhs:
+    \_constant: , line:2:37, endln:2:40
+      |vpiDecompile:500
+      |vpiSize:32
+      |UINT:500
+      |vpiTypespec:
+      \_int_typespec: , line:2:15, endln:2:18, parent:work@top.Depth
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@top.Depth), line:2:28, endln:2:40, parent:work@top
+  |vpiParamAssign:
+  \_param_assign: , line:3:28, endln:3:41, parent:work@top
+    |vpiRhs:
+    \_constant: , line:3:40, endln:3:41
+      |vpiDecompile:3
+      |vpiSize:32
+      |UINT:3
+      |vpiTypespec:
+      \_int_typespec: , line:3:15, endln:3:18, parent:work@top.PTR_WIDTH
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@top.PTR_WIDTH), line:3:28, endln:3:41, parent:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.o), line:1:23, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
   |vpiPort:
   \_port: (o), line:1:23, parent:work@top
     |vpiName:o
@@ -218,53 +261,161 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.o), line:1:23, parent:work@top
-        |vpiName:o
-        |vpiFullName:work@top.o
-  |vpiNet:
-  \_logic_net: (work@top.o), line:1:23, parent:work@top
+|uhdmtopModules:
+\_module: work@top (work@top) dut.sv:1:1: , endln:14:10
+  |vpiName:work@top
+  |vpiVariables:
+  \_int_var: (work@top.o), line:1:23, endln:1:24, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiAutomatic:1
+    |vpiVisibility:1
   |vpiParameter:
   \_parameter: (work@top.Depth), line:2:28, endln:2:40, parent:work@top
-    |vpiName:Depth
-    |vpiFullName:work@top.Depth
     |UINT:500
     |vpiTypespec:
     \_int_typespec: , line:2:15, endln:2:18, parent:work@top.Depth
+    |vpiName:Depth
+    |vpiFullName:work@top.Depth
   |vpiParameter:
   \_parameter: (work@top.PTR_WIDTH), line:3:28, endln:3:41, parent:work@top
-    |vpiName:PTR_WIDTH
-    |vpiFullName:work@top.PTR_WIDTH
-    |vpiLocalParam:1
     |UINT:3
     |vpiTypespec:
     \_int_typespec: , line:3:15, endln:3:18, parent:work@top.PTR_WIDTH
+    |vpiLocalParam:1
+    |vpiName:PTR_WIDTH
+    |vpiFullName:work@top.PTR_WIDTH
   |vpiParamAssign:
   \_param_assign: , line:2:28, endln:2:40, parent:work@top
     |vpiRhs:
     \_constant: , line:2:37, endln:2:40
-      |vpiConstType:9
       |vpiDecompile:500
       |vpiSize:32
       |UINT:500
       |vpiTypespec:
       \_int_typespec: , line:2:15, endln:2:18, parent:work@top.Depth
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.Depth), line:2:28, endln:2:40, parent:work@top
   |vpiParamAssign:
   \_param_assign: , line:3:28, endln:3:41, parent:work@top
     |vpiRhs:
     \_constant: , line:3:40, endln:3:41
-      |vpiConstType:9
       |vpiDecompile:3
       |vpiSize:32
       |UINT:3
       |vpiTypespec:
       \_int_typespec: , line:3:15, endln:3:18, parent:work@top.PTR_WIDTH
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.PTR_WIDTH), line:3:28, endln:3:41, parent:work@top
-|uhdmtopModules:
-\_module: work@top (work@top) dut.sv:1:1: , endln:14:10
   |vpiDefName:work@top
-  |vpiName:work@top
+  |vpiTaskFunc:
+  \_function: (work@top.get_casted_param), line:6:7, endln:9:18, parent:work@top
+    |vpiName:get_casted_param
+    |vpiFullName:work@top.get_casted_param
+    |vpiVariables:
+    \_logic_var: (work@top.get_casted_param.dec_tmp_sub), line:7:10, endln:7:15, parent:work@top.get_casted_param
+      |vpiName:dec_tmp_sub
+      |vpiFullName:work@top.get_casted_param.dec_tmp_sub
+      |vpiRange:
+      \_range: , line:7:17, endln:7:30, parent:work@top.get_casted_param.dec_tmp_sub
+        |vpiLeftRange:
+        \_operation: , line:7:17, endln:7:26
+          |vpiOpType:11
+          |vpiOperand:
+          \_constant: , line:7:17, endln:7:26
+            |vpiDecompile:3
+            |vpiSize:32
+            |UINT:3
+            |vpiTypespec:
+            \_int_typespec: , line:3:15, endln:3:18
+            |vpiConstType:9
+          |vpiOperand:
+          \_constant: , line:7:27, endln:7:28
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:7:29, endln:7:30
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_logic_var: , line:6:27, endln:6:40
+      |vpiRange:
+      \_range: , line:6:27, endln:6:40
+        |vpiLeftRange:
+        \_operation: , line:6:27, endln:6:36
+          |vpiOpType:11
+          |vpiOperand:
+          \_constant: , line:6:27, endln:6:36
+            |vpiDecompile:3
+            |vpiSize:32
+            |UINT:3
+            |vpiTypespec:
+            \_int_typespec: , line:3:15, endln:3:18
+            |vpiConstType:9
+          |vpiOperand:
+          \_constant: , line:6:37, endln:6:38
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:6:39, endln:6:40
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiStmt:
+    \_begin: (work@top.get_casted_param), parent:work@top.get_casted_param
+      |vpiFullName:work@top.get_casted_param
+      |vpiStmt:
+      \_assign_stmt: , parent:work@top.get_casted_param
+        |vpiRhs:
+        \_operation: , line:7:46, endln:7:65
+          |vpiTypespec:
+          \_integer_typespec: , line:7:47, endln:7:56
+            |UINT:3
+          |vpiOpType:67
+          |vpiOperand:
+          \_constant: , line:7:59, endln:7:64
+            |vpiDecompile:500
+            |vpiSize:32
+            |UINT:500
+            |vpiTypespec:
+            \_int_typespec: , line:2:15, endln:2:18
+            |vpiConstType:9
+        |vpiLhs:
+        \_logic_var: (work@top.get_casted_param.dec_tmp_sub), line:7:10, endln:7:15
+          |vpiName:dec_tmp_sub
+          |vpiFullName:work@top.get_casted_param.dec_tmp_sub
+          |vpiRange:
+          \_range: , line:7:17, endln:7:30, parent:work@top.get_casted_param.dec_tmp_sub
+            |vpiLeftRange:
+            \_operation: , line:7:17, endln:7:26
+              |vpiOpType:11
+              |vpiOperand:
+              \_constant: , line:7:17, endln:7:26
+              |vpiOperand:
+              \_constant: , line:7:27, endln:7:28
+            |vpiRightRange:
+            \_constant: , line:7:29, endln:7:30
+      |vpiStmt:
+      \_return_stmt: , line:8:10, endln:8:16, parent:work@top.get_casted_param
+        |vpiCondition:
+        \_ref_obj: (work@top.get_casted_param.dec_tmp_sub), line:8:17, endln:8:28
+          |vpiName:dec_tmp_sub
+          |vpiFullName:work@top.get_casted_param.dec_tmp_sub
+          |vpiActual:
+          \_logic_var: (work@top.get_casted_param.dec_tmp_sub), line:7:10, endln:7:15, parent:work@top.get_casted_param
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:14:10
   |vpiPort:
   \_port: (o), line:1:23, endln:1:24, parent:work@top
     |vpiName:o
@@ -275,10 +426,6 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_int_var: (work@top.o), line:1:23, endln:1:24, parent:work@top
-        |vpiName:o
-        |vpiFullName:work@top.o
-        |vpiAutomatic:1
-        |vpiVisibility:1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:14:10
   |vpiGenScopeArray:
@@ -292,167 +439,20 @@ design: (work@top)
       \_cont_assign: , line:11:14, endln:11:42, parent:work@top.gen_block
         |vpiRhs:
         \_operation: , line:11:18, endln:11:42
+          |vpiTypespec:
+          \_int_typespec: , line:11:18, endln:11:21
           |vpiOpType:67
           |vpiOperand:
           \_func_call: (get_casted_param), line:11:23, endln:11:41
             |vpiName:get_casted_param
             |vpiFunction:
             \_function: (work@top.get_casted_param), line:6:7, endln:9:18, parent:work@top
-          |vpiTypespec:
-          \_int_typespec: , line:11:18, endln:11:21
         |vpiLhs:
         \_ref_obj: (work@top.gen_block.o), line:11:14, endln:11:15
           |vpiName:o
           |vpiFullName:work@top.gen_block.o
           |vpiActual:
           \_int_var: (work@top.o), line:1:23, endln:1:24, parent:work@top
-  |vpiTaskFunc:
-  \_function: (work@top.get_casted_param), line:6:7, endln:9:18, parent:work@top
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiName:get_casted_param
-    |vpiFullName:work@top.get_casted_param
-    |vpiReturn:
-    \_logic_var: , line:6:27, endln:6:40
-      |vpiRange:
-      \_range: , line:6:27, endln:6:40
-        |vpiLeftRange:
-        \_operation: , line:6:27, endln:6:36
-          |vpiOpType:11
-          |vpiOperand:
-          \_constant: , line:6:27, endln:6:36
-            |vpiConstType:9
-            |vpiDecompile:3
-            |vpiSize:32
-            |UINT:3
-            |vpiTypespec:
-            \_int_typespec: , line:3:15, endln:3:18
-          |vpiOperand:
-          \_constant: , line:6:37, endln:6:38
-            |vpiConstType:9
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-        |vpiRightRange:
-        \_constant: , line:6:39, endln:6:40
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-    |vpiStmt:
-    \_begin: (work@top.get_casted_param), parent:work@top.get_casted_param
-      |vpiFullName:work@top.get_casted_param
-      |vpiStmt:
-      \_assign_stmt: , parent:work@top.get_casted_param
-        |vpiRhs:
-        \_operation: , line:7:46, endln:7:65
-          |vpiOpType:67
-          |vpiOperand:
-          \_constant: , line:7:59, endln:7:64
-            |vpiConstType:9
-            |vpiDecompile:500
-            |vpiSize:32
-            |UINT:500
-            |vpiTypespec:
-            \_int_typespec: , line:2:15, endln:2:18
-          |vpiTypespec:
-          \_integer_typespec: , line:7:47, endln:7:56
-            |UINT:3
-        |vpiLhs:
-        \_logic_var: (work@top.get_casted_param.dec_tmp_sub), line:7:10, endln:7:15
-          |vpiName:dec_tmp_sub
-          |vpiFullName:work@top.get_casted_param.dec_tmp_sub
-          |vpiRange:
-          \_range: , line:7:17, endln:7:30, parent:work@top.get_casted_param.dec_tmp_sub
-            |vpiLeftRange:
-            \_operation: , line:7:17, endln:7:26
-              |vpiOpType:11
-              |vpiOperand:
-              \_constant: , line:7:17, endln:7:26
-                |vpiConstType:9
-                |vpiDecompile:3
-                |vpiSize:32
-                |UINT:3
-                |vpiTypespec:
-                \_int_typespec: , line:3:15, endln:3:18
-              |vpiOperand:
-              \_constant: , line:7:27, endln:7:28
-                |vpiConstType:9
-                |vpiDecompile:1
-                |vpiSize:64
-                |UINT:1
-            |vpiRightRange:
-            \_constant: , line:7:29, endln:7:30
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-      |vpiStmt:
-      \_return_stmt: , line:8:10, endln:8:16, parent:work@top.get_casted_param
-        |vpiCondition:
-        \_ref_obj: (work@top.get_casted_param.dec_tmp_sub), line:8:17, endln:8:28
-          |vpiName:dec_tmp_sub
-          |vpiFullName:work@top.get_casted_param.dec_tmp_sub
-          |vpiActual:
-          \_logic_var: (work@top.get_casted_param.dec_tmp_sub), line:7:10, endln:7:15, parent:work@top.get_casted_param
-            |vpiName:dec_tmp_sub
-            |vpiFullName:work@top.get_casted_param.dec_tmp_sub
-            |vpiRange:
-            \_range: , line:7:17, endln:7:30, parent:work@top.get_casted_param.dec_tmp_sub
-              |vpiLeftRange:
-              \_operation: , line:7:17, endln:7:26
-                |vpiOpType:11
-                |vpiOperand:
-                \_constant: , line:7:17, endln:7:26
-                |vpiOperand:
-                \_constant: , line:7:27, endln:7:28
-              |vpiRightRange:
-              \_constant: , line:7:29, endln:7:30
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:14:10
-    |vpiVariables:
-    \_logic_var: (work@top.get_casted_param.dec_tmp_sub), line:7:10, endln:7:15, parent:work@top.get_casted_param
-  |vpiVariables:
-  \_int_var: (work@top.o), line:1:23, endln:1:24, parent:work@top
-  |vpiParameter:
-  \_parameter: (work@top.Depth), line:2:28, endln:2:40, parent:work@top
-    |vpiName:Depth
-    |vpiFullName:work@top.Depth
-    |UINT:500
-    |vpiTypespec:
-    \_int_typespec: , line:2:15, endln:2:18, parent:work@top.Depth
-  |vpiParameter:
-  \_parameter: (work@top.PTR_WIDTH), line:3:28, endln:3:41, parent:work@top
-    |vpiName:PTR_WIDTH
-    |vpiFullName:work@top.PTR_WIDTH
-    |vpiLocalParam:1
-    |UINT:3
-    |vpiTypespec:
-    \_int_typespec: , line:3:15, endln:3:18, parent:work@top.PTR_WIDTH
-  |vpiParamAssign:
-  \_param_assign: , line:2:28, endln:2:40, parent:work@top
-    |vpiRhs:
-    \_constant: , line:2:37, endln:2:40
-      |vpiConstType:9
-      |vpiDecompile:500
-      |vpiSize:32
-      |UINT:500
-      |vpiTypespec:
-      \_int_typespec: , line:2:15, endln:2:18, parent:work@top.Depth
-    |vpiLhs:
-    \_parameter: (work@top.Depth), line:2:28, endln:2:40, parent:work@top
-  |vpiParamAssign:
-  \_param_assign: , line:3:28, endln:3:41, parent:work@top
-    |vpiRhs:
-    \_constant: , line:3:40, endln:3:41
-      |vpiConstType:9
-      |vpiDecompile:3
-      |vpiSize:32
-      |UINT:3
-      |vpiTypespec:
-      \_int_typespec: , line:3:15, endln:3:18, parent:work@top.PTR_WIDTH
-    |vpiLhs:
-    \_parameter: (work@top.PTR_WIDTH), line:3:28, endln:3:41, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

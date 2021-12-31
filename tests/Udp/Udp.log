@@ -946,13 +946,13 @@ n<> u<245> t<Top_level_rule> f<0> l<0:11>
 
 ====== UHDM =======
 design: (work@udp_body_tb)
-|vpiName:work@udp_body_tb
 |vpiElaborated:1
+|vpiName:work@udp_body_tb
 |uhdmallPackages:
 \_package: builtin (builtin::), parent:work@udp_body_tb
-  |vpiDefName:builtin
   |vpiName:builtin
   |vpiFullName:builtin::
+  |vpiDefName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin::
     |vpiName:array
@@ -974,9 +974,9 @@ design: (work@udp_body_tb)
   |vpiName:work@mailbox
   |vpiMethod:
   \_function: (work@mailbox::new), parent:work@mailbox
-    |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@mailbox::new
+    |vpiMethod:1
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -985,107 +985,140 @@ design: (work@udp_body_tb)
         \_class_defn: (work@mailbox), file:builtin.sv, parent:work@udp_body_tb
     |vpiIODecl:
     \_io_decl: (bound), parent:work@mailbox::new
-      |vpiName:bound
       |vpiDirection:1
+      |vpiName:bound
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_function: (work@mailbox::num), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:num
     |vpiFullName:work@mailbox::num
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:put
     |vpiFullName:work@mailbox::put
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::put
-      |vpiName:message
-      |vpiDirection:1
-  |vpiMethod:
-  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::put
+      |vpiDirection:1
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_put
-      |vpiName:message
       |vpiDirection:1
+      |vpiName:message
   |vpiMethod:
   \_task: (work@mailbox::get), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:get
     |vpiFullName:work@mailbox::get
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::get
-      |vpiName:message
-      |vpiDirection:6
-  |vpiMethod:
-  \_function: (work@mailbox::try_get), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::get
+      |vpiDirection:6
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_get), parent:work@mailbox
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
   |vpiMethod:
   \_task: (work@mailbox::peek), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::peek
-      |vpiName:message
-      |vpiDirection:6
-  |vpiMethod:
-  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::peek
+      |vpiDirection:6
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
 |uhdmallClasses:
 \_class_defn: (work@process), file:builtin.sv, parent:work@udp_body_tb
   |vpiName:work@process
+  |vpiTypedef:
+  \_enum_typespec: (state), parent:work@process
+    |vpiName:state
+    |vpiEnumConst:
+    \_enum_const: (FINISHED), parent:state
+      |vpiName:FINISHED
+      |INT:0
+      |vpiDecompile:0
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (RUNNING), parent:state
+      |vpiName:RUNNING
+      |INT:1
+      |vpiDecompile:1
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (WAITING), parent:state
+      |vpiName:WAITING
+      |INT:2
+      |vpiDecompile:2
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (SUSPENDED), parent:state
+      |vpiName:SUSPENDED
+      |INT:3
+      |vpiDecompile:3
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (KILLED), parent:state
+      |vpiName:KILLED
+      |INT:4
+      |vpiDecompile:4
+      |vpiSize:64
   |vpiMethod:
   \_function: (work@process::self), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:self
     |vpiFullName:work@process::self
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_ref_var: 
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:status
     |vpiFullName:work@process::status
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
@@ -1094,110 +1127,77 @@ design: (work@udp_body_tb)
         |vpiEnumConst:
         \_enum_const: (FINISHED)
           |vpiName:FINISHED
-          |vpiDecompile:0
           |INT:0
+          |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
           |vpiName:RUNNING
-          |vpiDecompile:1
           |INT:1
+          |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
           |vpiName:WAITING
-          |vpiDecompile:2
           |INT:2
+          |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
           |vpiName:SUSPENDED
-          |vpiDecompile:3
           |INT:3
+          |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
           |vpiName:KILLED
-          |vpiDecompile:4
           |INT:4
+          |vpiDecompile:4
           |vpiSize:64
   |vpiMethod:
   \_task: (work@process::kill), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:kill
     |vpiFullName:work@process::kill
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::kill), parent:work@process::kill
       |vpiFullName:work@process::kill
   |vpiMethod:
   \_task: (work@process::await), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:await
     |vpiFullName:work@process::await
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::await), parent:work@process::await
       |vpiFullName:work@process::await
   |vpiMethod:
   \_task: (work@process::suspend), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:suspend
     |vpiFullName:work@process::suspend
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::suspend), parent:work@process::suspend
       |vpiFullName:work@process::suspend
   |vpiMethod:
   \_task: (work@process::resume), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:resume
     |vpiFullName:work@process::resume
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::resume), parent:work@process::resume
       |vpiFullName:work@process::resume
-  |vpiTypedef:
-  \_enum_typespec: (state), parent:work@process
-    |vpiName:state
-    |vpiEnumConst:
-    \_enum_const: (FINISHED), parent:state
-      |vpiName:FINISHED
-      |vpiDecompile:0
-      |INT:0
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (RUNNING), parent:state
-      |vpiName:RUNNING
-      |vpiDecompile:1
-      |INT:1
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (WAITING), parent:state
-      |vpiName:WAITING
-      |vpiDecompile:2
-      |INT:2
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (SUSPENDED), parent:state
-      |vpiName:SUSPENDED
-      |vpiDecompile:3
-      |INT:3
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (KILLED), parent:state
-      |vpiName:KILLED
-      |vpiDecompile:4
-      |INT:4
-      |vpiSize:64
 |uhdmallClasses:
 \_class_defn: (work@semaphore), file:builtin.sv, parent:work@udp_body_tb
   |vpiName:work@semaphore
   |vpiMethod:
   \_function: (work@semaphore::new), parent:work@semaphore
-    |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@semaphore::new
+    |vpiMethod:1
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -1206,70 +1206,70 @@ design: (work@udp_body_tb)
         \_class_defn: (work@semaphore), file:builtin.sv, parent:work@udp_body_tb
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::new
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_task: (work@semaphore::put), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:put
     |vpiFullName:work@semaphore::put
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::put
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_task: (work@semaphore::get), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:get
     |vpiFullName:work@semaphore::get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::get
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_function: (work@semaphore::try_get), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
 |uhdmallUdps:
@@ -1277,24 +1277,24 @@ design: (work@udp_body_tb)
   |vpiDefName:work@udp_body
   |vpiIODecl:
   \_io_decl: (a), line:2:3, endln:2:4
-    |vpiName:a
     |vpiDirection:2
+    |vpiName:a
     |vpiExpr:
     \_logic_net: (work@udp_body.a), line:6:3, endln:6:11
       |vpiName:a
       |vpiFullName:work@udp_body.a
   |vpiIODecl:
   \_io_decl: (b), line:3:3, endln:3:4
-    |vpiName:b
     |vpiDirection:1
+    |vpiName:b
     |vpiExpr:
     \_logic_net: (work@udp_body.b), line:7:3, endln:7:12
       |vpiName:b
       |vpiFullName:work@udp_body.b
   |vpiIODecl:
   \_io_decl: (c), line:4:3, endln:4:4
-    |vpiName:c
     |vpiDirection:1
+    |vpiName:c
     |vpiExpr:
     \_logic_net: (work@udp_body.c), line:7:3, endln:7:12
       |vpiName:c
@@ -1316,24 +1316,24 @@ design: (work@udp_body_tb)
   |vpiDefName:work@udp_latch
   |vpiIODecl:
   \_io_decl: (q), line:21:21, endln:21:22
-    |vpiName:q
     |vpiDirection:2
+    |vpiName:q
     |vpiExpr:
     \_logic_net: (work@udp_latch.q), line:22:1, endln:22:9
       |vpiName:q
       |vpiFullName:work@udp_latch.q
   |vpiIODecl:
   \_io_decl: (clk), line:21:24, endln:21:27
-    |vpiName:clk
     |vpiDirection:1
+    |vpiName:clk
     |vpiExpr:
     \_logic_net: (work@udp_latch.clk), line:23:1, endln:23:13
       |vpiName:clk
       |vpiFullName:work@udp_latch.clk
   |vpiIODecl:
   \_io_decl: (d), line:21:29, endln:21:30
-    |vpiName:d
     |vpiDirection:1
+    |vpiName:d
     |vpiExpr:
     \_logic_net: (work@udp_latch.d), line:23:1, endln:23:13
       |vpiName:d
@@ -1355,24 +1355,24 @@ design: (work@udp_body_tb)
   |vpiDefName:work@udp_sequential
   |vpiIODecl:
   \_io_decl: (q), line:37:26, endln:37:27
-    |vpiName:q
     |vpiDirection:2
+    |vpiName:q
     |vpiExpr:
     \_logic_net: (work@udp_sequential.q), line:38:1, endln:38:9
       |vpiName:q
       |vpiFullName:work@udp_sequential.q
   |vpiIODecl:
   \_io_decl: (clk), line:37:29, endln:37:32
-    |vpiName:clk
     |vpiDirection:1
+    |vpiName:clk
     |vpiExpr:
     \_logic_net: (work@udp_sequential.clk), line:39:1, endln:39:13
       |vpiName:clk
       |vpiFullName:work@udp_sequential.clk
   |vpiIODecl:
   \_io_decl: (d), line:37:34, endln:37:35
-    |vpiName:d
     |vpiDirection:1
+    |vpiName:d
     |vpiExpr:
     \_logic_net: (work@udp_sequential.d), line:39:1, endln:39:13
       |vpiName:d
@@ -1409,8 +1409,8 @@ design: (work@udp_body_tb)
     |vpiName:my_udp
   |vpiIODecl:
   \_io_decl: (q), line:60:34, endln:60:35
-    |vpiName:q
     |vpiDirection:2
+    |vpiName:q
     |vpiExpr:
     \_logic_net: (work@udp_sequential_initial.q), line:61:1, endln:61:27
       |vpiName:q
@@ -1421,8 +1421,8 @@ design: (work@udp_body_tb)
         |STRING:blah
   |vpiIODecl:
   \_io_decl: (clk), line:60:37, endln:60:40
-    |vpiName:clk
     |vpiDirection:1
+    |vpiName:clk
     |vpiExpr:
     \_logic_net: (work@udp_sequential_initial.clk), line:62:1, endln:62:31
       |vpiName:clk
@@ -1433,8 +1433,8 @@ design: (work@udp_body_tb)
         |STRING:foo
   |vpiIODecl:
   \_io_decl: (d), line:60:42, endln:60:43
-    |vpiName:d
     |vpiDirection:1
+    |vpiName:d
     |vpiExpr:
     \_logic_net: (work@udp_sequential_initial.d), line:62:1, endln:62:31
       |vpiName:d
@@ -1471,249 +1471,18 @@ design: (work@udp_body_tb)
     \_assign_stmt: , line:67:3, endln:67:4
       |vpiRhs:
       \_constant: , line:67:7, endln:67:8
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiLhs:
       \_ref_obj: (work@udp_sequential_initial.q)
         |vpiName:q
         |vpiFullName:work@udp_sequential_initial.q
 |uhdmallModules:
 \_module: work@udp_body_tb (work@udp_body_tb) dut.sv:84:1: , endln:106:10, parent:work@udp_body_tb
-  |vpiDefName:work@udp_body_tb
   |vpiFullName:work@udp_body_tb
-  |vpiProcess:
-  \_initial: , parent:work@udp_body_tb
-    |vpiStmt:
-    \_begin: (work@udp_body_tb), line:91:9, endln:104:4
-      |vpiFullName:work@udp_body_tb
-      |vpiStmt:
-      \_sys_func_call: ($monitor), line:92:3, endln:92:44, parent:work@udp_body_tb
-        |vpiName:$monitor
-        |vpiArgument:
-        \_constant: , line:92:12, endln:92:36
-          |vpiConstType:6
-          |vpiDecompile: B = %b C = %b  A = %b
-          |vpiSize:22
-          |STRING: B = %b C = %b  A = %b
-        |vpiArgument:
-        \_ref_obj: (work@udp_body_tb.b), line:92:37, endln:92:38, parent:$monitor
-          |vpiName:b
-          |vpiFullName:work@udp_body_tb.b
-          |vpiActual:
-          \_logic_net: (work@udp_body_tb.b), line:86:5, endln:86:6, parent:work@udp_body_tb
-            |vpiName:b
-            |vpiFullName:work@udp_body_tb.b
-            |vpiNetType:48
-        |vpiArgument:
-        \_ref_obj: (work@udp_body_tb.c), line:92:39, endln:92:40, parent:$monitor
-          |vpiName:c
-          |vpiFullName:work@udp_body_tb.c
-          |vpiActual:
-          \_logic_net: (work@udp_body_tb.c), line:86:7, endln:86:8, parent:work@udp_body_tb
-            |vpiName:c
-            |vpiFullName:work@udp_body_tb.c
-            |vpiNetType:48
-        |vpiArgument:
-        \_ref_obj: (work@udp_body_tb.a), line:92:41, endln:92:42, parent:$monitor
-          |vpiName:a
-          |vpiFullName:work@udp_body_tb.a
-          |vpiActual:
-          \_logic_net: (work@udp_body_tb.a), line:87:6, endln:87:7, parent:work@udp_body_tb
-            |vpiName:a
-            |vpiFullName:work@udp_body_tb.a
-            |vpiNetType:1
-      |vpiStmt:
-      \_assignment: , line:93:3, endln:93:8, parent:work@udp_body_tb
-        |vpiOpType:82
-        |vpiBlocking:1
-        |vpiRhs:
-        \_constant: , line:93:7, endln:93:8
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-        |vpiLhs:
-        \_ref_obj: (work@udp_body_tb.b), line:93:3, endln:93:4, parent:work@udp_body_tb
-          |vpiName:b
-          |vpiFullName:work@udp_body_tb.b
-          |vpiActual:
-          \_logic_net: (work@udp_body_tb.b), line:86:5, endln:86:6, parent:work@udp_body_tb
-      |vpiStmt:
-      \_assignment: , line:94:3, endln:94:8, parent:work@udp_body_tb
-        |vpiOpType:82
-        |vpiBlocking:1
-        |vpiRhs:
-        \_constant: , line:94:7, endln:94:8
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-        |vpiLhs:
-        \_ref_obj: (work@udp_body_tb.c), line:94:3, endln:94:4, parent:work@udp_body_tb
-          |vpiName:c
-          |vpiFullName:work@udp_body_tb.c
-          |vpiActual:
-          \_logic_net: (work@udp_body_tb.c), line:86:7, endln:86:8, parent:work@udp_body_tb
-      |vpiStmt:
-      \_delay_control: , line:95:3, endln:95:12, parent:work@udp_body_tb
-        |#1
-        |vpiStmt:
-        \_assignment: , line:95:6, endln:95:11
-          |vpiOpType:82
-          |vpiBlocking:1
-          |vpiRhs:
-          \_constant: , line:95:10, endln:95:11
-            |vpiConstType:9
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-          |vpiLhs:
-          \_ref_obj: (work@udp_body_tb.b), line:95:6, endln:95:7
-            |vpiName:b
-            |vpiFullName:work@udp_body_tb.b
-            |vpiActual:
-            \_logic_net: (work@udp_body_tb.b), line:86:5, endln:86:6, parent:work@udp_body_tb
-      |vpiStmt:
-      \_delay_control: , line:96:3, endln:96:12, parent:work@udp_body_tb
-        |#1
-        |vpiStmt:
-        \_assignment: , line:96:6, endln:96:11
-          |vpiOpType:82
-          |vpiBlocking:1
-          |vpiRhs:
-          \_constant: , line:96:10, endln:96:11
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-          |vpiLhs:
-          \_ref_obj: (work@udp_body_tb.b), line:96:6, endln:96:7
-            |vpiName:b
-            |vpiFullName:work@udp_body_tb.b
-            |vpiActual:
-            \_logic_net: (work@udp_body_tb.b), line:86:5, endln:86:6, parent:work@udp_body_tb
-      |vpiStmt:
-      \_delay_control: , line:97:3, endln:97:12, parent:work@udp_body_tb
-        |#1
-        |vpiStmt:
-        \_assignment: , line:97:6, endln:97:11
-          |vpiOpType:82
-          |vpiBlocking:1
-          |vpiRhs:
-          \_constant: , line:97:10, endln:97:11
-            |vpiConstType:9
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-          |vpiLhs:
-          \_ref_obj: (work@udp_body_tb.c), line:97:6, endln:97:7
-            |vpiName:c
-            |vpiFullName:work@udp_body_tb.c
-            |vpiActual:
-            \_logic_net: (work@udp_body_tb.c), line:86:7, endln:86:8, parent:work@udp_body_tb
-      |vpiStmt:
-      \_delay_control: , line:98:3, endln:98:15, parent:work@udp_body_tb
-        |#1
-        |vpiStmt:
-        \_assignment: , line:98:6, endln:98:14
-          |vpiOpType:82
-          |vpiBlocking:1
-          |vpiRhs:
-          \_constant: , line:98:10, endln:98:14
-            |vpiConstType:3
-            |vpiDecompile:1'bX
-            |vpiSize:1
-            |BIN:X
-          |vpiLhs:
-          \_ref_obj: (work@udp_body_tb.b), line:98:6, endln:98:7
-            |vpiName:b
-            |vpiFullName:work@udp_body_tb.b
-            |vpiActual:
-            \_logic_net: (work@udp_body_tb.b), line:86:5, endln:86:6, parent:work@udp_body_tb
-      |vpiStmt:
-      \_delay_control: , line:99:3, endln:99:12, parent:work@udp_body_tb
-        |#1
-        |vpiStmt:
-        \_assignment: , line:99:6, endln:99:11
-          |vpiOpType:82
-          |vpiBlocking:1
-          |vpiRhs:
-          \_constant: , line:99:10, endln:99:11
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-          |vpiLhs:
-          \_ref_obj: (work@udp_body_tb.c), line:99:6, endln:99:7
-            |vpiName:c
-            |vpiFullName:work@udp_body_tb.c
-            |vpiActual:
-            \_logic_net: (work@udp_body_tb.c), line:86:7, endln:86:8, parent:work@udp_body_tb
-      |vpiStmt:
-      \_delay_control: , line:100:3, endln:100:12, parent:work@udp_body_tb
-        |#1
-        |vpiStmt:
-        \_assignment: , line:100:6, endln:100:11
-          |vpiOpType:82
-          |vpiBlocking:1
-          |vpiRhs:
-          \_constant: , line:100:10, endln:100:11
-            |vpiConstType:9
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-          |vpiLhs:
-          \_ref_obj: (work@udp_body_tb.b), line:100:6, endln:100:7
-            |vpiName:b
-            |vpiFullName:work@udp_body_tb.b
-            |vpiActual:
-            \_logic_net: (work@udp_body_tb.b), line:86:5, endln:86:6, parent:work@udp_body_tb
-      |vpiStmt:
-      \_delay_control: , line:101:3, endln:101:15, parent:work@udp_body_tb
-        |#1
-        |vpiStmt:
-        \_assignment: , line:101:6, endln:101:14
-          |vpiOpType:82
-          |vpiBlocking:1
-          |vpiRhs:
-          \_constant: , line:101:10, endln:101:14
-            |vpiConstType:3
-            |vpiDecompile:1'bX
-            |vpiSize:1
-            |BIN:X
-          |vpiLhs:
-          \_ref_obj: (work@udp_body_tb.c), line:101:6, endln:101:7
-            |vpiName:c
-            |vpiFullName:work@udp_body_tb.c
-            |vpiActual:
-            \_logic_net: (work@udp_body_tb.c), line:86:7, endln:86:8, parent:work@udp_body_tb
-      |vpiStmt:
-      \_delay_control: , line:102:3, endln:102:12, parent:work@udp_body_tb
-        |#1
-        |vpiStmt:
-        \_assignment: , line:102:6, endln:102:11
-          |vpiOpType:82
-          |vpiBlocking:1
-          |vpiRhs:
-          \_constant: , line:102:10, endln:102:11
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-          |vpiLhs:
-          \_ref_obj: (work@udp_body_tb.b), line:102:6, endln:102:7
-            |vpiName:b
-            |vpiFullName:work@udp_body_tb.b
-            |vpiActual:
-            \_logic_net: (work@udp_body_tb.b), line:86:5, endln:86:6, parent:work@udp_body_tb
-      |vpiStmt:
-      \_delay_control: , line:103:3, endln:103:14, parent:work@udp_body_tb
-        |#1
-        |vpiStmt:
-        \_sys_func_call: ($finish), line:103:6, endln:103:14
-          |vpiName:$finish
+  |vpiDefName:work@udp_body_tb
   |vpiNet:
   \_logic_net: (work@udp_body_tb.b), line:86:5, parent:work@udp_body_tb
     |vpiName:b
@@ -1729,10 +1498,6 @@ design: (work@udp_body_tb)
     |vpiName:a
     |vpiFullName:work@udp_body_tb.a
     |vpiNetType:1
-|uhdmtopModules:
-\_module: work@udp_body_tb (work@udp_body_tb) dut.sv:84:1: , endln:106:10
-  |vpiDefName:work@udp_body_tb
-  |vpiName:work@udp_body_tb
   |vpiProcess:
   \_initial: , parent:work@udp_body_tb
     |vpiStmt:
@@ -1740,13 +1505,12 @@ design: (work@udp_body_tb)
       |vpiFullName:work@udp_body_tb
       |vpiStmt:
       \_sys_func_call: ($monitor), line:92:3, endln:92:44, parent:work@udp_body_tb
-        |vpiName:$monitor
         |vpiArgument:
         \_constant: , line:92:12, endln:92:36
-          |vpiConstType:6
           |vpiDecompile: B = %b C = %b  A = %b
           |vpiSize:22
           |STRING: B = %b C = %b  A = %b
+          |vpiConstType:6
         |vpiArgument:
         \_ref_obj: (work@udp_body_tb.b), line:92:37, endln:92:38, parent:$monitor
           |vpiName:b
@@ -1774,18 +1538,19 @@ design: (work@udp_body_tb)
             |vpiName:a
             |vpiFullName:work@udp_body_tb.a
             |vpiNetType:1
+        |vpiName:$monitor
       |vpiStmt:
       \_assignment: , line:93:3, endln:93:8, parent:work@udp_body_tb
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:93:7, endln:93:8
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
         |vpiLhs:
-        \_ref_obj: (work@udp_body_tb.b), line:93:3, endln:93:4
+        \_ref_obj: (work@udp_body_tb.b), line:93:3, endln:93:4, parent:work@udp_body_tb
           |vpiName:b
           |vpiFullName:work@udp_body_tb.b
           |vpiActual:
@@ -1796,12 +1561,12 @@ design: (work@udp_body_tb)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:94:7, endln:94:8
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
         |vpiLhs:
-        \_ref_obj: (work@udp_body_tb.c), line:94:3, endln:94:4
+        \_ref_obj: (work@udp_body_tb.c), line:94:3, endln:94:4, parent:work@udp_body_tb
           |vpiName:c
           |vpiFullName:work@udp_body_tb.c
           |vpiActual:
@@ -1815,10 +1580,10 @@ design: (work@udp_body_tb)
           |vpiBlocking:1
           |vpiRhs:
           \_constant: , line:95:10, endln:95:11
-            |vpiConstType:9
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiConstType:9
           |vpiLhs:
           \_ref_obj: (work@udp_body_tb.b), line:95:6, endln:95:7
             |vpiName:b
@@ -1834,10 +1599,10 @@ design: (work@udp_body_tb)
           |vpiBlocking:1
           |vpiRhs:
           \_constant: , line:96:10, endln:96:11
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
           |vpiLhs:
           \_ref_obj: (work@udp_body_tb.b), line:96:6, endln:96:7
             |vpiName:b
@@ -1853,10 +1618,10 @@ design: (work@udp_body_tb)
           |vpiBlocking:1
           |vpiRhs:
           \_constant: , line:97:10, endln:97:11
-            |vpiConstType:9
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiConstType:9
           |vpiLhs:
           \_ref_obj: (work@udp_body_tb.c), line:97:6, endln:97:7
             |vpiName:c
@@ -1872,10 +1637,10 @@ design: (work@udp_body_tb)
           |vpiBlocking:1
           |vpiRhs:
           \_constant: , line:98:10, endln:98:14
-            |vpiConstType:3
             |vpiDecompile:1'bX
             |vpiSize:1
             |BIN:X
+            |vpiConstType:3
           |vpiLhs:
           \_ref_obj: (work@udp_body_tb.b), line:98:6, endln:98:7
             |vpiName:b
@@ -1891,10 +1656,10 @@ design: (work@udp_body_tb)
           |vpiBlocking:1
           |vpiRhs:
           \_constant: , line:99:10, endln:99:11
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
           |vpiLhs:
           \_ref_obj: (work@udp_body_tb.c), line:99:6, endln:99:7
             |vpiName:c
@@ -1910,10 +1675,10 @@ design: (work@udp_body_tb)
           |vpiBlocking:1
           |vpiRhs:
           \_constant: , line:100:10, endln:100:11
-            |vpiConstType:9
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiConstType:9
           |vpiLhs:
           \_ref_obj: (work@udp_body_tb.b), line:100:6, endln:100:7
             |vpiName:b
@@ -1929,10 +1694,10 @@ design: (work@udp_body_tb)
           |vpiBlocking:1
           |vpiRhs:
           \_constant: , line:101:10, endln:101:14
-            |vpiConstType:3
             |vpiDecompile:1'bX
             |vpiSize:1
             |BIN:X
+            |vpiConstType:3
           |vpiLhs:
           \_ref_obj: (work@udp_body_tb.c), line:101:6, endln:101:7
             |vpiName:c
@@ -1948,10 +1713,251 @@ design: (work@udp_body_tb)
           |vpiBlocking:1
           |vpiRhs:
           \_constant: , line:102:10, endln:102:11
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
+          |vpiLhs:
+          \_ref_obj: (work@udp_body_tb.b), line:102:6, endln:102:7
+            |vpiName:b
+            |vpiFullName:work@udp_body_tb.b
+            |vpiActual:
+            \_logic_net: (work@udp_body_tb.b), line:86:5, endln:86:6, parent:work@udp_body_tb
+      |vpiStmt:
+      \_delay_control: , line:103:3, endln:103:14, parent:work@udp_body_tb
+        |#1
+        |vpiStmt:
+        \_sys_func_call: ($finish), line:103:6, endln:103:14
+          |vpiName:$finish
+|uhdmtopModules:
+\_module: work@udp_body_tb (work@udp_body_tb) dut.sv:84:1: , endln:106:10
+  |vpiName:work@udp_body_tb
+  |vpiDefName:work@udp_body_tb
+  |vpiNet:
+  \_logic_net: (work@udp_body_tb.b), line:86:5, endln:86:6, parent:work@udp_body_tb
+    |vpiName:b
+    |vpiFullName:work@udp_body_tb.b
+    |vpiNetType:48
+  |vpiNet:
+  \_logic_net: (work@udp_body_tb.c), line:86:7, endln:86:8, parent:work@udp_body_tb
+    |vpiName:c
+    |vpiFullName:work@udp_body_tb.c
+    |vpiNetType:48
+  |vpiNet:
+  \_logic_net: (work@udp_body_tb.a), line:87:6, endln:87:7, parent:work@udp_body_tb
+    |vpiName:a
+    |vpiFullName:work@udp_body_tb.a
+    |vpiNetType:1
+  |vpiProcess:
+  \_initial: , parent:work@udp_body_tb
+    |vpiStmt:
+    \_begin: (work@udp_body_tb), line:91:9, endln:104:4
+      |vpiFullName:work@udp_body_tb
+      |vpiStmt:
+      \_sys_func_call: ($monitor), line:92:3, endln:92:44, parent:work@udp_body_tb
+        |vpiArgument:
+        \_constant: , line:92:12, endln:92:36
+          |vpiDecompile: B = %b C = %b  A = %b
+          |vpiSize:22
+          |STRING: B = %b C = %b  A = %b
+          |vpiConstType:6
+        |vpiArgument:
+        \_ref_obj: (work@udp_body_tb.b), line:92:37, endln:92:38, parent:$monitor
+          |vpiName:b
+          |vpiFullName:work@udp_body_tb.b
+          |vpiActual:
+          \_logic_net: (work@udp_body_tb.b), line:86:5, endln:86:6, parent:work@udp_body_tb
+        |vpiArgument:
+        \_ref_obj: (work@udp_body_tb.c), line:92:39, endln:92:40, parent:$monitor
+          |vpiName:c
+          |vpiFullName:work@udp_body_tb.c
+          |vpiActual:
+          \_logic_net: (work@udp_body_tb.c), line:86:7, endln:86:8, parent:work@udp_body_tb
+        |vpiArgument:
+        \_ref_obj: (work@udp_body_tb.a), line:92:41, endln:92:42, parent:$monitor
+          |vpiName:a
+          |vpiFullName:work@udp_body_tb.a
+          |vpiActual:
+          \_logic_net: (work@udp_body_tb.a), line:87:6, endln:87:7, parent:work@udp_body_tb
+        |vpiName:$monitor
+      |vpiStmt:
+      \_assignment: , line:93:3, endln:93:8, parent:work@udp_body_tb
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_constant: , line:93:7, endln:93:8
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+        |vpiLhs:
+        \_ref_obj: (work@udp_body_tb.b), line:93:3, endln:93:4
+          |vpiName:b
+          |vpiFullName:work@udp_body_tb.b
+          |vpiActual:
+          \_logic_net: (work@udp_body_tb.b), line:86:5, endln:86:6, parent:work@udp_body_tb
+      |vpiStmt:
+      \_assignment: , line:94:3, endln:94:8, parent:work@udp_body_tb
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_constant: , line:94:7, endln:94:8
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+        |vpiLhs:
+        \_ref_obj: (work@udp_body_tb.c), line:94:3, endln:94:4
+          |vpiName:c
+          |vpiFullName:work@udp_body_tb.c
+          |vpiActual:
+          \_logic_net: (work@udp_body_tb.c), line:86:7, endln:86:8, parent:work@udp_body_tb
+      |vpiStmt:
+      \_delay_control: , line:95:3, endln:95:12, parent:work@udp_body_tb
+        |#1
+        |vpiStmt:
+        \_assignment: , line:95:6, endln:95:11
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiRhs:
+          \_constant: , line:95:10, endln:95:11
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+          |vpiLhs:
+          \_ref_obj: (work@udp_body_tb.b), line:95:6, endln:95:7
+            |vpiName:b
+            |vpiFullName:work@udp_body_tb.b
+            |vpiActual:
+            \_logic_net: (work@udp_body_tb.b), line:86:5, endln:86:6, parent:work@udp_body_tb
+      |vpiStmt:
+      \_delay_control: , line:96:3, endln:96:12, parent:work@udp_body_tb
+        |#1
+        |vpiStmt:
+        \_assignment: , line:96:6, endln:96:11
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiRhs:
+          \_constant: , line:96:10, endln:96:11
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+          |vpiLhs:
+          \_ref_obj: (work@udp_body_tb.b), line:96:6, endln:96:7
+            |vpiName:b
+            |vpiFullName:work@udp_body_tb.b
+            |vpiActual:
+            \_logic_net: (work@udp_body_tb.b), line:86:5, endln:86:6, parent:work@udp_body_tb
+      |vpiStmt:
+      \_delay_control: , line:97:3, endln:97:12, parent:work@udp_body_tb
+        |#1
+        |vpiStmt:
+        \_assignment: , line:97:6, endln:97:11
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiRhs:
+          \_constant: , line:97:10, endln:97:11
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+          |vpiLhs:
+          \_ref_obj: (work@udp_body_tb.c), line:97:6, endln:97:7
+            |vpiName:c
+            |vpiFullName:work@udp_body_tb.c
+            |vpiActual:
+            \_logic_net: (work@udp_body_tb.c), line:86:7, endln:86:8, parent:work@udp_body_tb
+      |vpiStmt:
+      \_delay_control: , line:98:3, endln:98:15, parent:work@udp_body_tb
+        |#1
+        |vpiStmt:
+        \_assignment: , line:98:6, endln:98:14
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiRhs:
+          \_constant: , line:98:10, endln:98:14
+            |vpiDecompile:1'bX
+            |vpiSize:1
+            |BIN:X
+            |vpiConstType:3
+          |vpiLhs:
+          \_ref_obj: (work@udp_body_tb.b), line:98:6, endln:98:7
+            |vpiName:b
+            |vpiFullName:work@udp_body_tb.b
+            |vpiActual:
+            \_logic_net: (work@udp_body_tb.b), line:86:5, endln:86:6, parent:work@udp_body_tb
+      |vpiStmt:
+      \_delay_control: , line:99:3, endln:99:12, parent:work@udp_body_tb
+        |#1
+        |vpiStmt:
+        \_assignment: , line:99:6, endln:99:11
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiRhs:
+          \_constant: , line:99:10, endln:99:11
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+          |vpiLhs:
+          \_ref_obj: (work@udp_body_tb.c), line:99:6, endln:99:7
+            |vpiName:c
+            |vpiFullName:work@udp_body_tb.c
+            |vpiActual:
+            \_logic_net: (work@udp_body_tb.c), line:86:7, endln:86:8, parent:work@udp_body_tb
+      |vpiStmt:
+      \_delay_control: , line:100:3, endln:100:12, parent:work@udp_body_tb
+        |#1
+        |vpiStmt:
+        \_assignment: , line:100:6, endln:100:11
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiRhs:
+          \_constant: , line:100:10, endln:100:11
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+          |vpiLhs:
+          \_ref_obj: (work@udp_body_tb.b), line:100:6, endln:100:7
+            |vpiName:b
+            |vpiFullName:work@udp_body_tb.b
+            |vpiActual:
+            \_logic_net: (work@udp_body_tb.b), line:86:5, endln:86:6, parent:work@udp_body_tb
+      |vpiStmt:
+      \_delay_control: , line:101:3, endln:101:15, parent:work@udp_body_tb
+        |#1
+        |vpiStmt:
+        \_assignment: , line:101:6, endln:101:14
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiRhs:
+          \_constant: , line:101:10, endln:101:14
+            |vpiDecompile:1'bX
+            |vpiSize:1
+            |BIN:X
+            |vpiConstType:3
+          |vpiLhs:
+          \_ref_obj: (work@udp_body_tb.c), line:101:6, endln:101:7
+            |vpiName:c
+            |vpiFullName:work@udp_body_tb.c
+            |vpiActual:
+            \_logic_net: (work@udp_body_tb.c), line:86:7, endln:86:8, parent:work@udp_body_tb
+      |vpiStmt:
+      \_delay_control: , line:102:3, endln:102:12, parent:work@udp_body_tb
+        |#1
+        |vpiStmt:
+        \_assignment: , line:102:6, endln:102:11
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiRhs:
+          \_constant: , line:102:10, endln:102:11
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
           |vpiLhs:
           \_ref_obj: (work@udp_body_tb.b), line:102:6, endln:102:7
             |vpiName:b
@@ -1974,24 +1980,24 @@ design: (work@udp_body_tb)
       |vpiDefName:work@udp_body
       |vpiIODecl:
       \_io_decl: (a), line:2:3, endln:2:4
-        |vpiName:a
         |vpiDirection:2
+        |vpiName:a
         |vpiExpr:
         \_logic_net: (work@udp_body.a), line:6:3, endln:6:11
           |vpiName:a
           |vpiFullName:work@udp_body.a
       |vpiIODecl:
       \_io_decl: (b), line:3:3, endln:3:4
-        |vpiName:b
         |vpiDirection:1
+        |vpiName:b
         |vpiExpr:
         \_logic_net: (work@udp_body.b), line:7:3, endln:7:12
           |vpiName:b
           |vpiFullName:work@udp_body.b
       |vpiIODecl:
       \_io_decl: (c), line:4:3, endln:4:4
-        |vpiName:c
         |vpiDirection:1
+        |vpiName:c
         |vpiExpr:
         \_logic_net: (work@udp_body.c), line:7:3, endln:7:12
           |vpiName:c
@@ -2008,12 +2014,6 @@ design: (work@udp_body_tb)
       \_table_entry: , line:15:1, endln:15:0
         |vpiSize:2
         |STRING:0 0 : 0
-  |vpiNet:
-  \_logic_net: (work@udp_body_tb.b), line:86:5, endln:86:6, parent:work@udp_body_tb
-  |vpiNet:
-  \_logic_net: (work@udp_body_tb.c), line:86:7, endln:86:8, parent:work@udp_body_tb
-  |vpiNet:
-  \_logic_net: (work@udp_body_tb.a), line:87:6, endln:87:7, parent:work@udp_body_tb
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

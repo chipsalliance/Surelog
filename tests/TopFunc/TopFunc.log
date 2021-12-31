@@ -88,12 +88,16 @@ n<> u<53> t<Top_level_rule> l<1:1> el<8:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:5:1: , endln:7:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.o), line:5:23, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
   |vpiPort:
   \_port: (o), line:5:23, parent:work@top
     |vpiName:o
@@ -102,8 +106,6 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.o), line:5:23, parent:work@top
-        |vpiName:o
-        |vpiFullName:work@top.o
   |vpiContAssign:
   \_cont_assign: , line:6:11, endln:6:22, parent:work@top
     |vpiRhs:
@@ -121,12 +123,16 @@ design: (work@top)
         |vpiFullName:work@top.o
         |vpiAutomatic:1
         |vpiVisibility:1
-  |vpiNet:
-  \_logic_net: (work@top.o), line:5:23, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:5:1: , endln:7:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiVariables:
+  \_int_var: (work@top.o), line:5:23, endln:5:24, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiAutomatic:1
+    |vpiVisibility:1
+  |vpiDefName:work@top
   |vpiPort:
   \_port: (o), line:5:23, endln:5:24, parent:work@top
     |vpiName:o
@@ -137,10 +143,6 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_int_var: (work@top.o), line:5:23, endln:5:24, parent:work@top
-        |vpiName:o
-        |vpiFullName:work@top.o
-        |vpiAutomatic:1
-        |vpiVisibility:1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:5:1: , endln:7:10
   |vpiContAssign:
@@ -156,23 +158,21 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_int_var: (work@top.o), line:5:23, endln:5:24, parent:work@top
-  |vpiVariables:
-  \_int_var: (work@top.o), line:5:23, endln:5:24, parent:work@top
 |vpiTaskFunc:
 \_function: (get_1), line:1:1, endln:3:12, parent:work@top
+  |vpiName:get_1
   |vpiVisibility:1
   |vpiAutomatic:1
-  |vpiName:get_1
   |vpiReturn:
   \_int_var: , line:1:20, endln:1:23
   |vpiStmt:
   \_return_stmt: , line:2:4, endln:2:10, parent:get_1
     |vpiCondition:
     \_constant: , line:2:11, endln:2:12
-      |vpiConstType:9
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

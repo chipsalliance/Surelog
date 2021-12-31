@@ -108,23 +108,27 @@ n<> u<63> t<Top_level_rule> l<1:1> el<18:1>
 
 ====== UHDM =======
 design: (work@Core)
-|vpiName:work@Core
 |vpiElaborated:1
+|vpiName:work@Core
 |uhdmallInterfaces:
 \_interface: work@PerformanceCounterIF (work@PerformanceCounterIF) dut.sv:1:1: , endln:6:13, parent:work@Core
-  |vpiDefName:work@PerformanceCounterIF
   |vpiFullName:work@PerformanceCounterIF
+  |vpiDefName:work@PerformanceCounterIF
   |vpiModport:
   \_modport: (CSR), parent:work@PerformanceCounterIF
     |vpiName:CSR
     |vpiIODecl:
     \_io_decl: (perfCounter)
-      |vpiName:perfCounter
       |vpiDirection:1
+      |vpiName:perfCounter
 |uhdmallModules:
 \_module: work@CSR_Unit (work@CSR_Unit) dut.sv:8:1: , endln:11:10, parent:work@Core
-  |vpiDefName:work@CSR_Unit
   |vpiFullName:work@CSR_Unit
+  |vpiDefName:work@CSR_Unit
+  |vpiNet:
+  \_logic_net: (work@CSR_Unit.perfCounter), line:9:30, parent:work@CSR_Unit
+    |vpiName:perfCounter
+    |vpiFullName:work@CSR_Unit.perfCounter
   |vpiPort:
   \_port: (perfCounter), line:9:30, parent:work@CSR_Unit
     |vpiName:perfCounter
@@ -136,43 +140,41 @@ design: (work@Core)
         |vpiName:CSR
         |vpiIODecl:
         \_io_decl: (perfCounter)
-          |vpiName:perfCounter
           |vpiDirection:1
-  |vpiNet:
-  \_logic_net: (work@CSR_Unit.perfCounter), line:9:30, parent:work@CSR_Unit
-    |vpiName:perfCounter
-    |vpiFullName:work@CSR_Unit.perfCounter
+          |vpiName:perfCounter
 |uhdmallModules:
 \_module: work@Core (work@Core) dut.sv:13:1: , endln:17:10, parent:work@Core
-  |vpiDefName:work@Core
   |vpiFullName:work@Core
+  |vpiDefName:work@Core
 |uhdmtopModules:
 \_module: work@Core (work@Core) dut.sv:13:1: , endln:17:10
-  |vpiDefName:work@Core
   |vpiName:work@Core
+  |vpiDefName:work@Core
   |vpiInterface:
   \_interface: work@PerformanceCounterIF (work@Core.perfCounterIF) dut.sv:14:2: , endln:14:40, parent:work@Core
+    |vpiName:perfCounterIF
+    |vpiFullName:work@Core.perfCounterIF
     |vpiDefName:work@PerformanceCounterIF
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
-    |vpiName:perfCounterIF
-    |vpiFullName:work@Core.perfCounterIF
+    |vpiInstance:
+    \_module: work@Core (work@Core) dut.sv:13:1: , endln:17:10
     |vpiModport:
     \_modport: (CSR), parent:work@Core.perfCounterIF
       |vpiName:CSR
       |vpiIODecl:
       \_io_decl: (perfCounter), parent:CSR
-        |vpiName:perfCounter
         |vpiDirection:1
-    |vpiInstance:
-    \_module: work@Core (work@Core) dut.sv:13:1: , endln:17:10
+        |vpiName:perfCounter
   |vpiModule:
   \_module: work@CSR_Unit (work@Core.csrUnit) dut.sv:16:2: , endln:16:34, parent:work@Core
+    |vpiName:csrUnit
+    |vpiFullName:work@Core.csrUnit
     |vpiDefName:work@CSR_Unit
     |vpiDefFile:dut.sv
     |vpiDefLineNo:8
-    |vpiName:csrUnit
-    |vpiFullName:work@Core.csrUnit
+    |vpiInstance:
+    \_module: work@Core (work@Core) dut.sv:13:1: , endln:17:10
     |vpiPort:
     \_port: (perfCounter), line:9:30, endln:9:41, parent:work@Core.csrUnit
       |vpiName:perfCounter
@@ -191,16 +193,14 @@ design: (work@Core)
           |vpiName:CSR
           |vpiIODecl:
           \_io_decl: (perfCounter)
-            |vpiName:perfCounter
             |vpiDirection:1
+            |vpiName:perfCounter
             |vpiExpr:
             \_ref_obj: (work@Core.csrUnit.perfCounter)
               |vpiName:perfCounter
               |vpiFullName:work@Core.csrUnit.perfCounter
       |vpiInstance:
       \_module: work@CSR_Unit (work@Core.csrUnit) dut.sv:16:2: , endln:16:34, parent:work@Core
-    |vpiInstance:
-    \_module: work@Core (work@Core) dut.sv:13:1: , endln:17:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

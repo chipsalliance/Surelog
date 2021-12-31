@@ -478,13 +478,13 @@ n<> u<245> t<Top_level_rule> f<0> l<0:11>
 
 ====== UHDM =======
 design: (unnamed)
-|vpiName:unnamed
 |vpiElaborated:1
+|vpiName:unnamed
 |uhdmallPackages:
 \_package: builtin (builtin::), parent:unnamed
-  |vpiDefName:builtin
   |vpiName:builtin
   |vpiFullName:builtin::
+  |vpiDefName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin::
     |vpiName:array
@@ -503,35 +503,77 @@ design: (unnamed)
     |vpiFullName:builtin::system
 |uhdmallPackages:
 \_package: earlgrey (earlgrey::) dut.sv:1:1: , endln:24:11, parent:unnamed
-  |vpiDefName:earlgrey
   |vpiName:earlgrey
   |vpiFullName:earlgrey::
+  |vpiParameter:
+  \_parameter: (earlgrey::InfosPerBank), line:3:15, endln:9:5, parent:earlgrey::
+    |vpiTypespec:
+    \_int_typespec: , line:3:11, endln:3:14, parent:earlgrey::InfosPerBank
+      |vpiInstance:
+      \_package: earlgrey (earlgrey::) dut.sv:1:1: , endln:24:11, parent:unnamed
+    |vpiName:InfosPerBank
+    |vpiFullName:earlgrey::InfosPerBank
+  |vpiParameter:
+  \_parameter: (earlgrey::InfoTypes), line:10:15, endln:10:28, parent:earlgrey::
+    |UINT:5
+    |vpiTypespec:
+    \_int_typespec: , line:10:11, endln:10:14, parent:earlgrey::InfoTypes
+      |vpiInstance:
+      \_package: earlgrey (earlgrey::) dut.sv:1:1: , endln:24:11, parent:unnamed
+    |vpiName:InfoTypes
+    |vpiFullName:earlgrey::InfoTypes
+  |vpiParamAssign:
+  \_param_assign: , line:3:15, endln:9:5, parent:earlgrey::
+    |vpiRhs:
+    \_constant: 
+      |vpiDecompile:18
+      |vpiSize:32
+      |INT:18
+      |vpiConstType:7
+    |vpiLhs:
+    \_parameter: (earlgrey::InfosPerBank), line:3:15, endln:9:5, parent:earlgrey::
+  |vpiParamAssign:
+  \_param_assign: , line:10:15, endln:10:28, parent:earlgrey::
+    |vpiRhs:
+    \_constant: , line:10:27, endln:10:28
+      |vpiDecompile:5
+      |vpiSize:32
+      |UINT:5
+      |vpiTypespec:
+      \_int_typespec: , line:10:11, endln:10:14, parent:earlgrey::InfoTypes
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (earlgrey::InfoTypes), line:10:15, endln:10:28, parent:earlgrey::
+  |vpiDefName:earlgrey
   |vpiTaskFunc:
   \_function: (earlgrey::max_info_pages), line:12:4, endln:21:14, parent:earlgrey::
-    |vpiVisibility:1
-    |vpiAutomatic:1
     |vpiName:max_info_pages
     |vpiFullName:earlgrey::max_info_pages
+    |vpiVariables:
+    \_int_var: (earlgrey::max_info_pages::current_max), line:14:5, endln:14:8, parent:earlgrey::max_info_pages
+      |vpiName:current_max
+      |vpiFullName:earlgrey::max_info_pages::current_max
+    |vpiVisibility:1
+    |vpiAutomatic:1
     |vpiReturn:
     \_int_var: , line:12:23, endln:12:30
     |vpiIODecl:
     \_io_decl: (infos), parent:earlgrey::max_info_pages
-      |vpiName:infos
       |vpiDirection:1
+      |vpiName:infos
       |vpiRange:
       \_range: , line:12:56, endln:12:65, parent:infos
         |vpiLeftRange:
         \_constant: , line:12:56, endln:12:57
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
         |vpiRightRange:
         \_operation: 
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:12:56, endln:12:65
-            |vpiConstType:9
             |vpiDecompile:5
             |vpiSize:32
             |UINT:5
@@ -539,11 +581,12 @@ design: (unnamed)
             \_int_typespec: , line:10:11, endln:10:14
               |vpiInstance:
               \_package: earlgrey (earlgrey::) dut.sv:1:1: , endln:24:11, parent:unnamed
+            |vpiConstType:9
           |vpiOperand:
           \_constant: 
-            |vpiConstType:7
             |vpiSize:64
             |INT:1
+            |vpiConstType:7
       |vpiTypedef:
       \_int_typespec: , line:12:46, endln:12:49
         |vpiInstance:
@@ -555,10 +598,10 @@ design: (unnamed)
       \_assign_stmt: , parent:earlgrey::max_info_pages
         |vpiRhs:
         \_constant: , line:14:23, endln:14:24
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
         |vpiLhs:
         \_int_var: (earlgrey::max_info_pages::current_max), line:14:5, endln:14:8
           |vpiName:current_max
@@ -570,10 +613,10 @@ design: (unnamed)
         \_assign_stmt: , parent:earlgrey::max_info_pages
           |vpiRhs:
           \_constant: , line:15:18, endln:15:19
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
           |vpiLhs:
           \_int_var: (earlgrey::max_info_pages::i), line:15:10, endln:15:13
             |vpiName:i
@@ -594,7 +637,6 @@ design: (unnamed)
             |vpiFullName:earlgrey::max_info_pages::i
           |vpiOperand:
           \_constant: , line:15:25, endln:15:34
-            |vpiConstType:9
             |vpiDecompile:5
             |vpiSize:32
             |UINT:5
@@ -602,6 +644,7 @@ design: (unnamed)
             \_int_typespec: , line:10:11, endln:10:14
               |vpiInstance:
               \_package: earlgrey (earlgrey::) dut.sv:1:1: , endln:24:11, parent:unnamed
+            |vpiConstType:9
         |vpiStmt:
         \_begin: (earlgrey::max_info_pages), line:15:41, endln:19:8, parent:earlgrey::max_info_pages
           |vpiFullName:earlgrey::max_info_pages
@@ -624,8 +667,6 @@ design: (unnamed)
                 |vpiFullName:earlgrey::max_info_pages::current_max
                 |vpiActual:
                 \_int_var: (earlgrey::max_info_pages::current_max), line:14:5, endln:14:8, parent:earlgrey::max_info_pages
-                  |vpiName:current_max
-                  |vpiFullName:earlgrey::max_info_pages::current_max
             |vpiStmt:
             \_begin: (earlgrey::max_info_pages), line:16:35, endln:18:10
               |vpiFullName:earlgrey::max_info_pages
@@ -657,55 +698,14 @@ design: (unnamed)
           \_int_var: (earlgrey::max_info_pages::current_max), line:14:5, endln:14:8, parent:earlgrey::max_info_pages
     |vpiInstance:
     \_package: earlgrey (earlgrey::) dut.sv:1:1: , endln:24:11, parent:unnamed
-    |vpiVariables:
-    \_int_var: (earlgrey::max_info_pages::current_max), line:14:5, endln:14:8, parent:earlgrey::max_info_pages
-  |vpiParameter:
-  \_parameter: (earlgrey::InfosPerBank), line:3:15, endln:9:5, parent:earlgrey::
-    |vpiName:InfosPerBank
-    |vpiFullName:earlgrey::InfosPerBank
-    |vpiTypespec:
-    \_int_typespec: , line:3:11, endln:3:14, parent:earlgrey::InfosPerBank
-      |vpiInstance:
-      \_package: earlgrey (earlgrey::) dut.sv:1:1: , endln:24:11, parent:unnamed
-  |vpiParameter:
-  \_parameter: (earlgrey::InfoTypes), line:10:15, endln:10:28, parent:earlgrey::
-    |vpiName:InfoTypes
-    |vpiFullName:earlgrey::InfoTypes
-    |UINT:5
-    |vpiTypespec:
-    \_int_typespec: , line:10:11, endln:10:14, parent:earlgrey::InfoTypes
-      |vpiInstance:
-      \_package: earlgrey (earlgrey::) dut.sv:1:1: , endln:24:11, parent:unnamed
-  |vpiParamAssign:
-  \_param_assign: , line:3:15, endln:9:5, parent:earlgrey::
-    |vpiRhs:
-    \_constant: 
-      |vpiConstType:7
-      |vpiDecompile:18
-      |vpiSize:32
-      |INT:18
-    |vpiLhs:
-    \_parameter: (earlgrey::InfosPerBank), line:3:15, endln:9:5, parent:earlgrey::
-  |vpiParamAssign:
-  \_param_assign: , line:10:15, endln:10:28, parent:earlgrey::
-    |vpiRhs:
-    \_constant: , line:10:27, endln:10:28
-      |vpiConstType:9
-      |vpiDecompile:5
-      |vpiSize:32
-      |UINT:5
-      |vpiTypespec:
-      \_int_typespec: , line:10:11, endln:10:14, parent:earlgrey::InfoTypes
-    |vpiLhs:
-    \_parameter: (earlgrey::InfoTypes), line:10:15, endln:10:28, parent:earlgrey::
 |uhdmallClasses:
 \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
   |vpiName:work@mailbox
   |vpiMethod:
   \_function: (work@mailbox::new), parent:work@mailbox
-    |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@mailbox::new
+    |vpiMethod:1
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -714,107 +714,140 @@ design: (unnamed)
         \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
     |vpiIODecl:
     \_io_decl: (bound), parent:work@mailbox::new
-      |vpiName:bound
       |vpiDirection:1
+      |vpiName:bound
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_function: (work@mailbox::num), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:num
     |vpiFullName:work@mailbox::num
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:put
     |vpiFullName:work@mailbox::put
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::put
-      |vpiName:message
-      |vpiDirection:1
-  |vpiMethod:
-  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::put
+      |vpiDirection:1
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_put
-      |vpiName:message
       |vpiDirection:1
+      |vpiName:message
   |vpiMethod:
   \_task: (work@mailbox::get), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:get
     |vpiFullName:work@mailbox::get
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::get
-      |vpiName:message
-      |vpiDirection:6
-  |vpiMethod:
-  \_function: (work@mailbox::try_get), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::get
+      |vpiDirection:6
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_get), parent:work@mailbox
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
   |vpiMethod:
   \_task: (work@mailbox::peek), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::peek
-      |vpiName:message
-      |vpiDirection:6
-  |vpiMethod:
-  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::peek
+      |vpiDirection:6
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
 |uhdmallClasses:
 \_class_defn: (work@process), file:builtin.sv, parent:unnamed
   |vpiName:work@process
+  |vpiTypedef:
+  \_enum_typespec: (state), parent:work@process
+    |vpiName:state
+    |vpiEnumConst:
+    \_enum_const: (FINISHED), parent:state
+      |vpiName:FINISHED
+      |INT:0
+      |vpiDecompile:0
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (RUNNING), parent:state
+      |vpiName:RUNNING
+      |INT:1
+      |vpiDecompile:1
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (WAITING), parent:state
+      |vpiName:WAITING
+      |INT:2
+      |vpiDecompile:2
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (SUSPENDED), parent:state
+      |vpiName:SUSPENDED
+      |INT:3
+      |vpiDecompile:3
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (KILLED), parent:state
+      |vpiName:KILLED
+      |INT:4
+      |vpiDecompile:4
+      |vpiSize:64
   |vpiMethod:
   \_function: (work@process::self), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:self
     |vpiFullName:work@process::self
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_ref_var: 
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:status
     |vpiFullName:work@process::status
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
@@ -823,110 +856,77 @@ design: (unnamed)
         |vpiEnumConst:
         \_enum_const: (FINISHED)
           |vpiName:FINISHED
-          |vpiDecompile:0
           |INT:0
+          |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
           |vpiName:RUNNING
-          |vpiDecompile:1
           |INT:1
+          |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
           |vpiName:WAITING
-          |vpiDecompile:2
           |INT:2
+          |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
           |vpiName:SUSPENDED
-          |vpiDecompile:3
           |INT:3
+          |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
           |vpiName:KILLED
-          |vpiDecompile:4
           |INT:4
+          |vpiDecompile:4
           |vpiSize:64
   |vpiMethod:
   \_task: (work@process::kill), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:kill
     |vpiFullName:work@process::kill
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::kill), parent:work@process::kill
       |vpiFullName:work@process::kill
   |vpiMethod:
   \_task: (work@process::await), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:await
     |vpiFullName:work@process::await
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::await), parent:work@process::await
       |vpiFullName:work@process::await
   |vpiMethod:
   \_task: (work@process::suspend), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:suspend
     |vpiFullName:work@process::suspend
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::suspend), parent:work@process::suspend
       |vpiFullName:work@process::suspend
   |vpiMethod:
   \_task: (work@process::resume), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:resume
     |vpiFullName:work@process::resume
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::resume), parent:work@process::resume
       |vpiFullName:work@process::resume
-  |vpiTypedef:
-  \_enum_typespec: (state), parent:work@process
-    |vpiName:state
-    |vpiEnumConst:
-    \_enum_const: (FINISHED), parent:state
-      |vpiName:FINISHED
-      |vpiDecompile:0
-      |INT:0
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (RUNNING), parent:state
-      |vpiName:RUNNING
-      |vpiDecompile:1
-      |INT:1
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (WAITING), parent:state
-      |vpiName:WAITING
-      |vpiDecompile:2
-      |INT:2
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (SUSPENDED), parent:state
-      |vpiName:SUSPENDED
-      |vpiDecompile:3
-      |INT:3
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (KILLED), parent:state
-      |vpiName:KILLED
-      |vpiDecompile:4
-      |INT:4
-      |vpiSize:64
 |uhdmallClasses:
 \_class_defn: (work@semaphore), file:builtin.sv, parent:unnamed
   |vpiName:work@semaphore
   |vpiMethod:
   \_function: (work@semaphore::new), parent:work@semaphore
-    |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@semaphore::new
+    |vpiMethod:1
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -935,70 +935,70 @@ design: (unnamed)
         \_class_defn: (work@semaphore), file:builtin.sv, parent:unnamed
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::new
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_task: (work@semaphore::put), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:put
     |vpiFullName:work@semaphore::put
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::put
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_task: (work@semaphore::get), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:get
     |vpiFullName:work@semaphore::get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::get
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_function: (work@semaphore::try_get), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
 ===================

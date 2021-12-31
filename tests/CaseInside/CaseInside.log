@@ -452,13 +452,13 @@ n<> u<245> t<Top_level_rule> f<0> l<0:11>
 
 ====== UHDM =======
 design: (work@dm_csrs)
-|vpiName:work@dm_csrs
 |vpiElaborated:1
+|vpiName:work@dm_csrs
 |uhdmallPackages:
 \_package: builtin (builtin::), parent:work@dm_csrs
-  |vpiDefName:builtin
   |vpiName:builtin
   |vpiFullName:builtin::
+  |vpiDefName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin::
     |vpiName:array
@@ -477,58 +477,58 @@ design: (work@dm_csrs)
     |vpiFullName:builtin::system
 |uhdmallPackages:
 \_package: dm (dm::) top.sv:1:1: , endln:10:16, parent:work@dm_csrs
-  |vpiDefName:dm
   |vpiName:dm
   |vpiFullName:dm::
   |vpiTypedef:
   \_enum_typespec: (dm::dm_csr_e), line:8:5, endln:8:13
     |vpiName:dm::dm_csr_e
+    |vpiInstance:
+    \_package: dm (dm::) top.sv:1:1: , endln:10:16, parent:work@dm_csrs
     |vpiBaseTypespec:
     \_logic_typespec: , line:4:16, endln:4:21
+      |vpiInstance:
+      \_package: dm (dm::) top.sv:1:1: , endln:10:16, parent:work@dm_csrs
       |vpiRange:
       \_range: , line:4:23, endln:4:26
         |vpiLeftRange:
         \_constant: , line:4:23, endln:4:24
-          |vpiConstType:9
           |vpiDecompile:7
           |vpiSize:64
           |UINT:7
+          |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:4:25, endln:4:26
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-      |vpiInstance:
-      \_package: dm (dm::) top.sv:1:1: , endln:10:16, parent:work@dm_csrs
+          |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (DMControl), line:5:5, endln:5:14
       |vpiName:DMControl
-      |vpiDecompile:8'h10
       |UINT:16
+      |vpiDecompile:8'h10
       |vpiSize:8
     |vpiEnumConst:
     \_enum_const: (Data0), line:6:5, endln:6:10
       |vpiName:Data0
-      |vpiDecompile:8'h11
       |UINT:17
+      |vpiDecompile:8'h11
       |vpiSize:8
     |vpiEnumConst:
     \_enum_const: (Data1), line:7:5, endln:7:10
       |vpiName:Data1
-      |vpiDecompile:8'h12
       |UINT:18
+      |vpiDecompile:8'h12
       |vpiSize:8
-    |vpiInstance:
-    \_package: dm (dm::) top.sv:1:1: , endln:10:16, parent:work@dm_csrs
+  |vpiDefName:dm
 |uhdmallClasses:
 \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dm_csrs
   |vpiName:work@mailbox
   |vpiMethod:
   \_function: (work@mailbox::new), parent:work@mailbox
-    |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@mailbox::new
+    |vpiMethod:1
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -537,107 +537,140 @@ design: (work@dm_csrs)
         \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dm_csrs
     |vpiIODecl:
     \_io_decl: (bound), parent:work@mailbox::new
-      |vpiName:bound
       |vpiDirection:1
+      |vpiName:bound
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_function: (work@mailbox::num), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:num
     |vpiFullName:work@mailbox::num
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:put
     |vpiFullName:work@mailbox::put
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::put
-      |vpiName:message
-      |vpiDirection:1
-  |vpiMethod:
-  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::put
+      |vpiDirection:1
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_put), parent:work@mailbox
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_put
-      |vpiName:message
       |vpiDirection:1
+      |vpiName:message
   |vpiMethod:
   \_task: (work@mailbox::get), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:get
     |vpiFullName:work@mailbox::get
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::get
-      |vpiName:message
-      |vpiDirection:6
-  |vpiMethod:
-  \_function: (work@mailbox::try_get), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::get
+      |vpiDirection:6
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_get), parent:work@mailbox
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
   |vpiMethod:
   \_task: (work@mailbox::peek), parent:work@mailbox
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
-    |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::peek
-      |vpiName:message
-      |vpiDirection:6
-  |vpiMethod:
-  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (message), parent:work@mailbox::peek
+      |vpiDirection:6
+      |vpiName:message
+  |vpiMethod:
+  \_function: (work@mailbox::try_peek), parent:work@mailbox
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
-      |vpiName:message
       |vpiDirection:6
+      |vpiName:message
 |uhdmallClasses:
 \_class_defn: (work@process), file:builtin.sv, parent:work@dm_csrs
   |vpiName:work@process
+  |vpiTypedef:
+  \_enum_typespec: (state), parent:work@process
+    |vpiName:state
+    |vpiEnumConst:
+    \_enum_const: (FINISHED), parent:state
+      |vpiName:FINISHED
+      |INT:0
+      |vpiDecompile:0
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (RUNNING), parent:state
+      |vpiName:RUNNING
+      |INT:1
+      |vpiDecompile:1
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (WAITING), parent:state
+      |vpiName:WAITING
+      |INT:2
+      |vpiDecompile:2
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (SUSPENDED), parent:state
+      |vpiName:SUSPENDED
+      |INT:3
+      |vpiDecompile:3
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (KILLED), parent:state
+      |vpiName:KILLED
+      |INT:4
+      |vpiDecompile:4
+      |vpiSize:64
   |vpiMethod:
   \_function: (work@process::self), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:self
     |vpiFullName:work@process::self
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_ref_var: 
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:status
     |vpiFullName:work@process::status
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
@@ -646,110 +679,77 @@ design: (work@dm_csrs)
         |vpiEnumConst:
         \_enum_const: (FINISHED)
           |vpiName:FINISHED
-          |vpiDecompile:0
           |INT:0
+          |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
           |vpiName:RUNNING
-          |vpiDecompile:1
           |INT:1
+          |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
           |vpiName:WAITING
-          |vpiDecompile:2
           |INT:2
+          |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
           |vpiName:SUSPENDED
-          |vpiDecompile:3
           |INT:3
+          |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
           |vpiName:KILLED
-          |vpiDecompile:4
           |INT:4
+          |vpiDecompile:4
           |vpiSize:64
   |vpiMethod:
   \_task: (work@process::kill), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:kill
     |vpiFullName:work@process::kill
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::kill), parent:work@process::kill
       |vpiFullName:work@process::kill
   |vpiMethod:
   \_task: (work@process::await), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:await
     |vpiFullName:work@process::await
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::await), parent:work@process::await
       |vpiFullName:work@process::await
   |vpiMethod:
   \_task: (work@process::suspend), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:suspend
     |vpiFullName:work@process::suspend
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::suspend), parent:work@process::suspend
       |vpiFullName:work@process::suspend
   |vpiMethod:
   \_task: (work@process::resume), parent:work@process
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:resume
     |vpiFullName:work@process::resume
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiStmt:
     \_begin: (work@process::resume), parent:work@process::resume
       |vpiFullName:work@process::resume
-  |vpiTypedef:
-  \_enum_typespec: (state), parent:work@process
-    |vpiName:state
-    |vpiEnumConst:
-    \_enum_const: (FINISHED), parent:state
-      |vpiName:FINISHED
-      |vpiDecompile:0
-      |INT:0
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (RUNNING), parent:state
-      |vpiName:RUNNING
-      |vpiDecompile:1
-      |INT:1
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (WAITING), parent:state
-      |vpiName:WAITING
-      |vpiDecompile:2
-      |INT:2
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (SUSPENDED), parent:state
-      |vpiName:SUSPENDED
-      |vpiDecompile:3
-      |INT:3
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (KILLED), parent:state
-      |vpiName:KILLED
-      |vpiDecompile:4
-      |INT:4
-      |vpiSize:64
 |uhdmallClasses:
 \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dm_csrs
   |vpiName:work@semaphore
   |vpiMethod:
   \_function: (work@semaphore::new), parent:work@semaphore
-    |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@semaphore::new
+    |vpiMethod:1
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -758,79 +758,78 @@ design: (work@dm_csrs)
         \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dm_csrs
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::new
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_task: (work@semaphore::put), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:put
     |vpiFullName:work@semaphore::put
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::put
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_task: (work@semaphore::get), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:get
     |vpiFullName:work@semaphore::get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::get
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
   |vpiMethod:
   \_function: (work@semaphore::try_get), parent:work@semaphore
-    |vpiMethod:1
-    |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
+    |vpiMethod:1
+    |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
-      |vpiName:keyCount
       |vpiDirection:1
+      |vpiName:keyCount
       |vpiExpr:
       \_constant: 
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiTypedef:
       \_int_typespec: 
 |uhdmallModules:
 \_module: work@dm_csrs (work@dm_csrs) top.sv:12:1: , endln:29:20, parent:work@dm_csrs
-  |vpiDefName:work@dm_csrs
   |vpiFullName:work@dm_csrs
+  |vpiDefName:work@dm_csrs
   |vpiProcess:
   \_always: , line:13:3, endln:28:6, parent:work@dm_csrs
-    |vpiAlwaysType:2
     |vpiStmt:
     \_named_begin: (work@dm_csrs.csr_read_write), line:13:15, endln:28:6
       |vpiName:csr_read_write
@@ -844,10 +843,10 @@ design: (work@dm_csrs)
           |vpiOpType:33
           |vpiOperand:
           \_constant: , line:15:21, endln:15:25
-            |vpiConstType:3
             |vpiDecompile:1'b0
             |vpiSize:1
             |BIN:0
+            |vpiConstType:3
           |vpiOperand:
           \_hier_path: (dmi_req_i.addr), line:15:27, endln:15:41, parent:work@dm_csrs.csr_read_write
             |vpiName:dmi_req_i.addr
@@ -864,16 +863,16 @@ design: (work@dm_csrs)
             |vpiOpType:37
             |vpiOperand:
             \_constant: , line:17:11, endln:17:20
-              |vpiConstType:9
               |vpiDecompile:17
               |vpiSize:8
               |UINT:17
+              |vpiConstType:9
             |vpiOperand:
             \_constant: , line:17:23, endln:17:32
-              |vpiConstType:9
               |vpiDecompile:18
               |vpiSize:8
               |UINT:18
+              |vpiConstType:9
           |vpiStmt:
           \_begin: (work@dm_csrs.csr_read_write), line:17:36, endln:21:12
             |vpiFullName:work@dm_csrs.csr_read_write
@@ -883,10 +882,10 @@ design: (work@dm_csrs)
               |vpiBlocking:1
               |vpiRhs:
               \_constant: , line:19:29, endln:19:33
-                |vpiConstType:3
                 |vpiDecompile:1'b0
                 |vpiSize:1
                 |BIN:0
+                |vpiConstType:3
               |vpiLhs:
               \_ref_obj: (work@dm_csrs.csr_read_write.resp_queue_data), line:19:11, endln:19:26, parent:work@dm_csrs.csr_read_write
                 |vpiName:resp_queue_data
@@ -898,10 +897,10 @@ design: (work@dm_csrs)
             |vpiOpType:37
             |vpiOperand:
             \_constant: , line:23:9, endln:23:22
-              |vpiConstType:9
               |vpiDecompile:16
               |vpiSize:8
               |UINT:16
+              |vpiConstType:9
           |vpiStmt:
           \_assignment: , line:23:27, endln:23:56
             |vpiOpType:82
@@ -916,13 +915,13 @@ design: (work@dm_csrs)
               |vpiFullName:work@dm_csrs.csr_read_write.resp_queue_data
         |vpiCaseItem:
         \_case_item: , line:25:9, endln:25:18
+    |vpiAlwaysType:2
 |uhdmtopModules:
 \_module: work@dm_csrs (work@dm_csrs) top.sv:12:1: , endln:29:20
-  |vpiDefName:work@dm_csrs
   |vpiName:work@dm_csrs
+  |vpiDefName:work@dm_csrs
   |vpiProcess:
   \_always: , line:13:3, endln:28:6, parent:work@dm_csrs
-    |vpiAlwaysType:2
     |vpiStmt:
     \_named_begin: (work@dm_csrs.csr_read_write), line:13:15, endln:28:6
       |vpiName:csr_read_write
@@ -936,10 +935,10 @@ design: (work@dm_csrs)
           |vpiOpType:33
           |vpiOperand:
           \_constant: , line:15:21, endln:15:25
-            |vpiConstType:3
             |vpiDecompile:1'b0
             |vpiSize:1
             |BIN:0
+            |vpiConstType:3
           |vpiOperand:
           \_hier_path: (dmi_req_i.addr), line:15:27, endln:15:41
             |vpiName:dmi_req_i.addr
@@ -956,16 +955,16 @@ design: (work@dm_csrs)
             |vpiOpType:37
             |vpiOperand:
             \_constant: , line:17:11, endln:17:20
-              |vpiConstType:9
               |vpiDecompile:17
               |vpiSize:8
               |UINT:17
+              |vpiConstType:9
             |vpiOperand:
             \_constant: , line:17:23, endln:17:32
-              |vpiConstType:9
               |vpiDecompile:18
               |vpiSize:8
               |UINT:18
+              |vpiConstType:9
           |vpiStmt:
           \_begin: (work@dm_csrs.csr_read_write), line:17:36, endln:21:12
             |vpiFullName:work@dm_csrs.csr_read_write
@@ -975,10 +974,10 @@ design: (work@dm_csrs)
               |vpiBlocking:1
               |vpiRhs:
               \_constant: , line:19:29, endln:19:33
-                |vpiConstType:3
                 |vpiDecompile:1'b0
                 |vpiSize:1
                 |BIN:0
+                |vpiConstType:3
               |vpiLhs:
               \_ref_obj: (work@dm_csrs.csr_read_write.resp_queue_data), line:19:11, endln:19:26
                 |vpiName:resp_queue_data
@@ -990,10 +989,10 @@ design: (work@dm_csrs)
             |vpiOpType:37
             |vpiOperand:
             \_constant: , line:23:9, endln:23:22
-              |vpiConstType:9
               |vpiDecompile:16
               |vpiSize:8
               |UINT:16
+              |vpiConstType:9
           |vpiStmt:
           \_assignment: , line:23:27, endln:23:56
             |vpiOpType:82
@@ -1008,6 +1007,7 @@ design: (work@dm_csrs)
               |vpiFullName:work@dm_csrs.csr_read_write.resp_queue_data
         |vpiCaseItem:
         \_case_item: , line:25:9, endln:25:18
+    |vpiAlwaysType:2
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

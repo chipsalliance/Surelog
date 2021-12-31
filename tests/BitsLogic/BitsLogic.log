@@ -208,17 +208,18 @@ n<> u<169> t<Top_level_rule> l<1:1> el<29:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallPackages:
 \_package: SchedulerTypes (SchedulerTypes::) dut.sv:1:1: , endln:8:11, parent:work@top
-  |vpiDefName:SchedulerTypes
   |vpiName:SchedulerTypes
   |vpiFullName:SchedulerTypes::
   |vpiTypedef:
   \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:3:15
-    |vpiPacked:1
     |vpiName:SchedulerTypes::IntIssueQueueEntry
+    |vpiInstance:
+    \_package: SchedulerTypes (SchedulerTypes::) dut.sv:1:1: , endln:8:11, parent:work@top
+    |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (a), line:5:11, endln:5:12
       |vpiName:a
@@ -226,36 +227,36 @@ design: (work@top)
       \_logic_typespec: , line:5:5, endln:5:10
         |vpiInstance:
         \_package: SchedulerTypes (SchedulerTypes::) dut.sv:1:1: , endln:8:11, parent:work@top
-    |vpiInstance:
-    \_package: SchedulerTypes (SchedulerTypes::) dut.sv:1:1: , endln:8:11, parent:work@top
+  |vpiDefName:SchedulerTypes
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:12:1: , endln:28:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
-  |vpiNet:
-  \_logic_net: (work@top.b), line:26:15, parent:work@top
-    |vpiName:b
-    |vpiFullName:work@top.b
-    |vpiNetType:36
   |vpiParameter:
   \_parameter: (work@top.p), line:24:11, endln:24:38, parent:work@top
+    |UINT:12
     |vpiName:p
     |vpiFullName:work@top.p
-    |UINT:12
   |vpiParamAssign:
   \_param_assign: , line:24:11, endln:24:38, parent:work@top
     |vpiRhs:
     \_constant: , line:24:15, endln:24:38
-      |vpiConstType:9
       |vpiDecompile:12
       |vpiSize:64
       |UINT:12
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.p), line:24:11, endln:24:38, parent:work@top
   |vpiTypedef:
   \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:3:15
-    |vpiPacked:1
     |vpiName:SchedulerTypes::IntIssueQueueEntry
+    |vpiInstance:
+    \_package: SchedulerTypes (SchedulerTypes::) dut.sv:1:1: , endln:8:11, parent:work@top
+      |vpiName:SchedulerTypes
+      |vpiFullName:SchedulerTypes::
+      |vpiTypedef:
+      \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:3:15
+      |vpiDefName:SchedulerTypes
+    |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (a), line:5:11, endln:5:12
       |vpiName:a
@@ -263,17 +264,12 @@ design: (work@top)
       \_logic_typespec: , line:5:5, endln:5:10
         |vpiInstance:
         \_package: SchedulerTypes (SchedulerTypes::) dut.sv:1:1: , endln:8:11, parent:work@top
-          |vpiDefName:SchedulerTypes
-          |vpiName:SchedulerTypes
-          |vpiFullName:SchedulerTypes::
-          |vpiTypedef:
-          \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:3:15
-    |vpiInstance:
-    \_package: SchedulerTypes (SchedulerTypes::) dut.sv:1:1: , endln:8:11, parent:work@top
   |vpiTypedef:
   \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:14:16
-    |vpiPacked:1
     |vpiName:ReplayQueueEntry
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:12:1: , endln:28:10, parent:work@top
+    |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (intValid), line:16:23, endln:16:31
       |vpiName:intValid
@@ -283,16 +279,16 @@ design: (work@top)
         \_range: , line:16:16, endln:16:21, parent:ReplayQueueEntry
           |vpiLeftRange:
           \_constant: , line:16:16, endln:16:17
-            |vpiConstType:9
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
+            |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:16:20, endln:16:21
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
     |vpiTypespecMember:
     \_typespec_member: (intData), line:17:36, endln:17:43
       |vpiName:intData
@@ -302,16 +298,16 @@ design: (work@top)
         \_range: , line:17:29, endln:17:34, parent:ReplayQueueEntry
           |vpiLeftRange:
           \_constant: , line:17:29, endln:17:30
-            |vpiConstType:9
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
+            |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:17:33, endln:17:34
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
         |vpiElemTypespec:
         \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:3:15
     |vpiTypespecMember:
@@ -323,16 +319,16 @@ design: (work@top)
         \_range: , line:20:16, endln:20:21, parent:ReplayQueueEntry
           |vpiLeftRange:
           \_constant: , line:20:16, endln:20:17
-            |vpiConstType:9
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
+            |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:20:20, endln:20:21
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
     |vpiTypespecMember:
     \_typespec_member: (memAddrHit), line:21:22, endln:21:32
       |vpiName:memAddrHit
@@ -342,21 +338,24 @@ design: (work@top)
         \_range: , line:21:16, endln:21:20, parent:ReplayQueueEntry
           |vpiLeftRange:
           \_constant: , line:21:16, endln:21:17
-            |vpiConstType:9
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
+            |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:21:19, endln:21:20
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:12:1: , endln:28:10, parent:work@top
+            |vpiConstType:9
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.b), line:26:15, parent:work@top
+    |vpiName:b
+    |vpiFullName:work@top.b
+    |vpiNetType:36
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:12:1: , endln:28:10
-  |vpiDefName:work@top
   |vpiName:work@top
   |vpiVariables:
   \_logic_var: (work@top.b), line:26:15, endln:26:16, parent:work@top
@@ -368,35 +367,42 @@ design: (work@top)
     \_range: , line:26:8, endln:26:13
       |vpiLeftRange:
       \_constant: , line:26:8, endln:26:9
-        |vpiConstType:7
         |vpiDecompile:11
         |vpiSize:64
         |INT:11
+        |vpiConstType:7
       |vpiRightRange:
       \_constant: , line:26:12, endln:26:13
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
   |vpiParameter:
   \_parameter: (work@top.p), line:24:11, endln:24:38, parent:work@top
+    |UINT:12
     |vpiName:p
     |vpiFullName:work@top.p
-    |UINT:12
   |vpiParamAssign:
   \_param_assign: , line:24:11, endln:24:38, parent:work@top
     |vpiRhs:
     \_constant: , line:24:15, endln:24:38
-      |vpiConstType:9
       |vpiDecompile:12
       |vpiSize:64
       |UINT:12
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.p), line:24:11, endln:24:38, parent:work@top
   |vpiTypedef:
   \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:3:15
-    |vpiPacked:1
     |vpiName:SchedulerTypes::IntIssueQueueEntry
+    |vpiInstance:
+    \_package: SchedulerTypes (SchedulerTypes::) dut.sv:1:1: , endln:8:11, parent:work@top
+      |vpiName:SchedulerTypes
+      |vpiFullName:SchedulerTypes::
+      |vpiTypedef:
+      \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:3:15
+      |vpiDefName:SchedulerTypes
+    |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (a), line:5:11, endln:5:12
       |vpiName:a
@@ -404,17 +410,38 @@ design: (work@top)
       \_logic_typespec: , line:5:5, endln:5:10
         |vpiInstance:
         \_package: SchedulerTypes (SchedulerTypes::) dut.sv:1:1: , endln:8:11, parent:work@top
-          |vpiDefName:SchedulerTypes
-          |vpiName:SchedulerTypes
-          |vpiFullName:SchedulerTypes::
-          |vpiTypedef:
-          \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:3:15
-    |vpiInstance:
-    \_package: SchedulerTypes (SchedulerTypes::) dut.sv:1:1: , endln:8:11, parent:work@top
   |vpiTypedef:
   \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:14:16
-    |vpiPacked:1
     |vpiName:ReplayQueueEntry
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:12:1: , endln:28:10, parent:work@top
+      |vpiFullName:work@top
+      |vpiParameter:
+      \_parameter: (work@top.p), line:24:11, endln:24:38, parent:work@top
+        |UINT:12
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiParamAssign:
+      \_param_assign: , line:24:11, endln:24:38, parent:work@top
+        |vpiRhs:
+        \_constant: , line:24:15, endln:24:38
+          |vpiDecompile:12
+          |vpiSize:64
+          |UINT:12
+          |vpiConstType:9
+        |vpiLhs:
+        \_parameter: (work@top.p), line:24:11, endln:24:38, parent:work@top
+      |vpiTypedef:
+      \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:3:15
+      |vpiTypedef:
+      \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:14:16
+      |vpiDefName:work@top
+      |vpiNet:
+      \_logic_net: (work@top.b), line:26:15, parent:work@top
+        |vpiName:b
+        |vpiFullName:work@top.b
+        |vpiNetType:36
+    |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (intValid), line:16:23, endln:16:31
       |vpiName:intValid
@@ -424,16 +451,16 @@ design: (work@top)
         \_range: , line:16:16, endln:16:21, parent:ReplayQueueEntry
           |vpiLeftRange:
           \_constant: , line:16:16, endln:16:17
-            |vpiConstType:9
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
+            |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:16:20, endln:16:21
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
     |vpiTypespecMember:
     \_typespec_member: (intData), line:17:36, endln:17:43
       |vpiName:intData
@@ -443,16 +470,16 @@ design: (work@top)
         \_range: , line:17:29, endln:17:34, parent:ReplayQueueEntry
           |vpiLeftRange:
           \_constant: , line:17:29, endln:17:30
-            |vpiConstType:9
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
+            |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:17:33, endln:17:34
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
         |vpiElemTypespec:
         \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:3:15
     |vpiTypespecMember:
@@ -464,16 +491,16 @@ design: (work@top)
         \_range: , line:20:16, endln:20:21, parent:ReplayQueueEntry
           |vpiLeftRange:
           \_constant: , line:20:16, endln:20:17
-            |vpiConstType:9
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
+            |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:20:20, endln:20:21
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiConstType:9
     |vpiTypespecMember:
     \_typespec_member: (memAddrHit), line:21:22, endln:21:32
       |vpiName:memAddrHit
@@ -483,44 +510,17 @@ design: (work@top)
         \_range: , line:21:16, endln:21:20, parent:ReplayQueueEntry
           |vpiLeftRange:
           \_constant: , line:21:16, endln:21:17
-            |vpiConstType:9
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
+            |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:21:19, endln:21:20
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:12:1: , endln:28:10, parent:work@top
-      |vpiDefName:work@top
-      |vpiFullName:work@top
-      |vpiNet:
-      \_logic_net: (work@top.b), line:26:15, parent:work@top
-        |vpiName:b
-        |vpiFullName:work@top.b
-        |vpiNetType:36
-      |vpiParameter:
-      \_parameter: (work@top.p), line:24:11, endln:24:38, parent:work@top
-        |vpiName:p
-        |vpiFullName:work@top.p
-        |UINT:12
-      |vpiParamAssign:
-      \_param_assign: , line:24:11, endln:24:38, parent:work@top
-        |vpiRhs:
-        \_constant: , line:24:15, endln:24:38
-          |vpiConstType:9
-          |vpiDecompile:12
-          |vpiSize:64
-          |UINT:12
-        |vpiLhs:
-        \_parameter: (work@top.p), line:24:11, endln:24:38, parent:work@top
-      |vpiTypedef:
-      \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:3:15
-      |vpiTypedef:
-      \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:14:16
+            |vpiConstType:9
+  |vpiDefName:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

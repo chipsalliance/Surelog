@@ -119,12 +119,48 @@ n<> u<84> t<Top_level_rule> l<1:1> el<8:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiTypedef:
+  \_packed_array_typespec: (struct_array_t)
+    |vpiName:struct_array_t
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
+    |vpiRange:
+    \_range: , line:4:7, endln:4:11
+      |vpiLeftRange:
+      \_constant: , line:4:7, endln:4:9
+        |vpiDecompile:31
+        |vpiSize:64
+        |UINT:31
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:4:10, endln:4:11
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_struct_typespec: , line:2:12, endln:2:18
+      |vpiPacked:1
+      |vpiTypespecMember:
+      \_typespec_member: (x), line:3:13, endln:3:14
+        |vpiName:x
+        |vpiTypespec:
+        \_logic_typespec: , line:3:7, endln:3:12
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.o), line:1:32, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.a), line:5:19, parent:work@top
+    |vpiName:a
+    |vpiFullName:work@top.a
   |vpiPort:
   \_port: (o), line:1:32, parent:work@top
     |vpiName:o
@@ -133,9 +169,6 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.o), line:1:32, parent:work@top
-        |vpiName:o
-        |vpiFullName:work@top.o
-        |vpiNetType:36
   |vpiContAssign:
   \_cont_assign: , line:6:11, endln:6:16, parent:work@top
     |vpiRhs:
@@ -144,43 +177,18 @@ design: (work@top)
       |vpiFullName:work@top.a
       |vpiActual:
       \_struct_var: (work@top.a), line:5:19, endln:5:20, parent:work@top
+        |vpiTypespec:
+        \_packed_array_typespec: (struct_array_t)
         |vpiName:a
         |vpiFullName:work@top.a
         |vpiAutomatic:1
         |vpiVisibility:1
         |vpiExpr:
         \_constant: , line:5:23, endln:5:25
-          |vpiConstType:3
           |vpiDecompile:'1
           |vpiSize:-1
           |BIN:1
-        |vpiTypespec:
-        \_packed_array_typespec: (struct_array_t)
-          |vpiName:struct_array_t
-          |vpiRange:
-          \_range: , line:4:7, endln:4:11
-            |vpiLeftRange:
-            \_constant: , line:4:7, endln:4:9
-              |vpiConstType:9
-              |vpiDecompile:31
-              |vpiSize:64
-              |UINT:31
-            |vpiRightRange:
-            \_constant: , line:4:10, endln:4:11
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-          |vpiElemTypespec:
-          \_struct_typespec: , line:2:12, endln:2:18
-            |vpiPacked:1
-            |vpiTypespecMember:
-            \_typespec_member: (x), line:3:13, endln:3:14
-              |vpiName:x
-              |vpiTypespec:
-              \_logic_typespec: , line:3:7, endln:3:12
-          |vpiInstance:
-          \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
+          |vpiConstType:3
     |vpiLhs:
     \_ref_obj: (work@top.o), line:6:11, endln:6:12
       |vpiName:o
@@ -194,28 +202,115 @@ design: (work@top)
         \_range: , line:1:26, endln:1:30
           |vpiLeftRange:
           \_constant: , line:1:26, endln:1:28
-            |vpiConstType:9
             |vpiDecompile:31
             |vpiSize:64
             |UINT:31
+            |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:1:29, endln:1:30
-            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-  |vpiNet:
-  \_logic_net: (work@top.o), line:1:32, parent:work@top
-  |vpiNet:
-  \_logic_net: (work@top.a), line:5:19, parent:work@top
-    |vpiName:a
-    |vpiFullName:work@top.a
-  |vpiTypedef:
-  \_packed_array_typespec: (struct_array_t)
+            |vpiConstType:9
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:7:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiVariables:
+  \_struct_var: (work@top.a), line:5:19, endln:5:20, parent:work@top
+    |vpiTypespec:
+    \_packed_array_typespec: (struct_array_t)
+      |vpiName:struct_array_t
+      |vpiInstance:
+      \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
+        |vpiFullName:work@top
+        |vpiTypedef:
+        \_packed_array_typespec: (struct_array_t)
+        |vpiDefName:work@top
+        |vpiNet:
+        \_logic_net: (work@top.o), line:1:32, parent:work@top
+          |vpiName:o
+          |vpiFullName:work@top.o
+          |vpiNetType:36
+        |vpiNet:
+        \_logic_net: (work@top.a), line:5:19, parent:work@top
+          |vpiName:a
+          |vpiFullName:work@top.a
+        |vpiPort:
+        \_port: (o), line:1:32, parent:work@top
+          |vpiName:o
+          |vpiDirection:2
+          |vpiLowConn:
+          \_ref_obj: 
+            |vpiActual:
+            \_logic_net: (work@top.o), line:1:32, parent:work@top
+        |vpiContAssign:
+        \_cont_assign: , line:6:11, endln:6:16, parent:work@top
+          |vpiRhs:
+          \_ref_obj: (work@top.a), line:6:15, endln:6:16
+            |vpiName:a
+            |vpiFullName:work@top.a
+            |vpiActual:
+            \_struct_var: (work@top.a), line:5:19, endln:5:20, parent:work@top
+          |vpiLhs:
+          \_ref_obj: (work@top.o), line:6:11, endln:6:12
+            |vpiName:o
+            |vpiFullName:work@top.o
+            |vpiActual:
+            \_logic_net: (work@top.o), line:1:32, endln:1:33, parent:work@top
+              |vpiName:o
+              |vpiFullName:work@top.o
+              |vpiNetType:36
+              |vpiRange:
+              \_range: , line:1:26, endln:1:30
+                |vpiLeftRange:
+                \_constant: , line:1:26, endln:1:28
+                  |vpiDecompile:31
+                  |vpiSize:64
+                  |UINT:31
+                  |vpiConstType:9
+                |vpiRightRange:
+                \_constant: , line:1:29, endln:1:30
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
+      |vpiRange:
+      \_range: , line:4:7, endln:4:11
+        |vpiLeftRange:
+        \_constant: , line:4:7, endln:4:9
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:4:10, endln:4:11
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiElemTypespec:
+      \_struct_typespec: , line:2:12, endln:2:18
+        |vpiPacked:1
+        |vpiTypespecMember:
+        \_typespec_member: (x), line:3:13, endln:3:14
+          |vpiName:x
+          |vpiTypespec:
+          \_logic_typespec: , line:3:7, endln:3:12
+    |vpiName:a
+    |vpiFullName:work@top.a
+    |vpiAutomatic:1
+    |vpiVisibility:1
+    |vpiExpr:
+    \_constant: , line:5:23, endln:5:25
+      |vpiDecompile:'1
+      |vpiSize:-1
+      |BIN:1
+      |vpiConstType:3
+  |vpiTypedef:
+  \_packed_array_typespec: (struct_array_t)
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.o), line:1:32, endln:1:33, parent:work@top
   |vpiPort:
   \_port: (o), line:1:32, endln:1:33, parent:work@top
     |vpiName:o
@@ -226,23 +321,6 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_logic_net: (work@top.o), line:1:32, endln:1:33, parent:work@top
-        |vpiName:o
-        |vpiFullName:work@top.o
-        |vpiNetType:36
-        |vpiRange:
-        \_range: , line:1:26, endln:1:30
-          |vpiLeftRange:
-          \_constant: , line:1:26, endln:1:28
-            |vpiConstType:9
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-          |vpiRightRange:
-          \_constant: , line:1:29, endln:1:30
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:7:10
   |vpiContAssign:
@@ -253,90 +331,12 @@ design: (work@top)
       |vpiFullName:work@top.a
       |vpiActual:
       \_struct_var: (work@top.a), line:5:19, endln:5:20, parent:work@top
-        |vpiName:a
-        |vpiFullName:work@top.a
-        |vpiAutomatic:1
-        |vpiVisibility:1
-        |vpiExpr:
-        \_constant: , line:5:23, endln:5:25
-          |vpiConstType:3
-          |vpiDecompile:'1
-          |vpiSize:-1
-          |BIN:1
-        |vpiTypespec:
-        \_packed_array_typespec: (struct_array_t)
-          |vpiName:struct_array_t
-          |vpiRange:
-          \_range: , line:4:7, endln:4:11
-            |vpiLeftRange:
-            \_constant: , line:4:7, endln:4:9
-              |vpiConstType:9
-              |vpiDecompile:31
-              |vpiSize:64
-              |UINT:31
-            |vpiRightRange:
-            \_constant: , line:4:10, endln:4:11
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-          |vpiElemTypespec:
-          \_struct_typespec: , line:2:12, endln:2:18
-            |vpiPacked:1
-            |vpiTypespecMember:
-            \_typespec_member: (x), line:3:13, endln:3:14
-              |vpiName:x
-              |vpiTypespec:
-              \_logic_typespec: , line:3:7, endln:3:12
-          |vpiInstance:
-          \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
-            |vpiDefName:work@top
-            |vpiFullName:work@top
-            |vpiPort:
-            \_port: (o), line:1:32, parent:work@top
-              |vpiName:o
-              |vpiDirection:2
-              |vpiLowConn:
-              \_ref_obj: 
-                |vpiActual:
-                \_logic_net: (work@top.o), line:1:32, parent:work@top
-                  |vpiName:o
-                  |vpiFullName:work@top.o
-                  |vpiNetType:36
-            |vpiContAssign:
-            \_cont_assign: , line:6:11, endln:6:16, parent:work@top
-              |vpiRhs:
-              \_ref_obj: (work@top.a), line:6:15, endln:6:16
-                |vpiName:a
-                |vpiFullName:work@top.a
-                |vpiActual:
-                \_struct_var: (work@top.a), line:5:19, endln:5:20, parent:work@top
-              |vpiLhs:
-              \_ref_obj: (work@top.o), line:6:11, endln:6:12
-                |vpiName:o
-                |vpiFullName:work@top.o
-                |vpiActual:
-                \_logic_net: (work@top.o), line:1:32, endln:1:33, parent:work@top
-            |vpiNet:
-            \_logic_net: (work@top.o), line:1:32, parent:work@top
-            |vpiNet:
-            \_logic_net: (work@top.a), line:5:19, parent:work@top
-              |vpiName:a
-              |vpiFullName:work@top.a
-            |vpiTypedef:
-            \_packed_array_typespec: (struct_array_t)
     |vpiLhs:
     \_ref_obj: (work@top.o), line:6:11, endln:6:12
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
       \_logic_net: (work@top.o), line:1:32, endln:1:33, parent:work@top
-  |vpiNet:
-  \_logic_net: (work@top.o), line:1:32, endln:1:33, parent:work@top
-  |vpiVariables:
-  \_struct_var: (work@top.a), line:5:19, endln:5:20, parent:work@top
-  |vpiTypedef:
-  \_packed_array_typespec: (struct_array_t)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -185,24 +185,39 @@ n<> u<140> t<Top_level_rule> l<1:1> el<17:1>
 
 ====== UHDM =======
 design: (work@alert_handler_reg_wrap)
-|vpiName:work@alert_handler_reg_wrap
 |vpiElaborated:1
+|vpiName:work@alert_handler_reg_wrap
 |uhdmallModules:
 \_module: work@alert_handler_reg_wrap (work@alert_handler_reg_wrap) dut.sv:1:1: , endln:5:10, parent:work@alert_handler_reg_wrap
-  |vpiDefName:work@alert_handler_reg_wrap
   |vpiFullName:work@alert_handler_reg_wrap
+  |vpiDefName:work@alert_handler_reg_wrap
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:8:1: , endln:16:10, parent:work@alert_handler_reg_wrap
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiTypedef:
+  \_struct_typespec: (struct_t), line:9:11, endln:9:17
+    |vpiName:struct_t
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:8:1: , endln:16:10, parent:work@alert_handler_reg_wrap
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (x), line:10:9, endln:10:10
+      |vpiName:x
+      |vpiTypespec:
+      \_int_typespec: , line:10:5, endln:10:8
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.a), line:13:23, parent:work@top
+    |vpiName:a
+    |vpiFullName:work@top.a
   |vpiContAssign:
   \_cont_assign: , line:15:10, endln:15:26, parent:work@top
     |vpiRhs:
     \_constant: , line:15:25, endln:15:26
-      |vpiConstType:9
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
+      |vpiConstType:9
     |vpiLhs:
     \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
       |vpiName:a[0][0].x[0]
@@ -211,18 +226,18 @@ design: (work@alert_handler_reg_wrap)
         |vpiName:a
         |vpiIndex:
         \_constant: , line:15:12, endln:15:13
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
       |vpiActual:
       \_bit_select: 
         |vpiIndex:
         \_constant: , line:15:15, endln:15:16
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
       |vpiActual:
       \_ref_obj: (x), parent:a[0][0].x[0]
         |vpiName:x
@@ -230,29 +245,14 @@ design: (work@alert_handler_reg_wrap)
       \_bit_select: 
         |vpiIndex:
         \_constant: , line:15:20, endln:15:21
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-  |vpiNet:
-  \_logic_net: (work@top.a), line:13:23, parent:work@top
-    |vpiName:a
-    |vpiFullName:work@top.a
-  |vpiTypedef:
-  \_struct_typespec: (struct_t), line:9:11, endln:9:17
-    |vpiPacked:1
-    |vpiName:struct_t
-    |vpiTypespecMember:
-    \_typespec_member: (x), line:10:9, endln:10:10
-      |vpiName:x
-      |vpiTypespec:
-      \_int_typespec: , line:10:5, endln:10:8
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:8:1: , endln:16:10, parent:work@alert_handler_reg_wrap
+          |vpiConstType:9
 |uhdmtopModules:
 \_module: work@alert_handler_reg_wrap (work@alert_handler_reg_wrap) dut.sv:1:1: , endln:5:10
-  |vpiDefName:work@alert_handler_reg_wrap
   |vpiName:work@alert_handler_reg_wrap
+  |vpiDefName:work@alert_handler_reg_wrap
   |vpiGenScopeArray:
   \_gen_scope_array: (work@alert_handler_reg_wrap.gen_alert_cause[0]), line:2:34, endln:4:6, parent:work@alert_handler_reg_wrap
     |vpiName:gen_alert_cause[0]
@@ -260,14 +260,19 @@ design: (work@alert_handler_reg_wrap)
     |vpiGenScope:
     \_gen_scope: (work@alert_handler_reg_wrap.gen_alert_cause[0]), parent:work@alert_handler_reg_wrap.gen_alert_cause[0]
       |vpiFullName:work@alert_handler_reg_wrap.gen_alert_cause[0]
+      |vpiParameter:
+      \_parameter: (work@alert_handler_reg_wrap.gen_alert_cause[0].k), line:2, parent:work@alert_handler_reg_wrap.gen_alert_cause[0]
+        |UINT:0
+        |vpiName:k
+        |vpiFullName:work@alert_handler_reg_wrap.gen_alert_cause[0].k
       |vpiContAssign:
       \_cont_assign: , line:3:12, endln:3:43, parent:work@alert_handler_reg_wrap.gen_alert_cause[0]
         |vpiRhs:
         \_constant: , line:3:39, endln:3:43
-          |vpiConstType:3
           |vpiDecompile:1'b1
           |vpiSize:1
           |BIN:1
+          |vpiConstType:3
         |vpiLhs:
         \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:18
           |vpiName:hw2reg.alert_cause[k].d
@@ -283,57 +288,12 @@ design: (work@alert_handler_reg_wrap)
               |vpiFullName:work@alert_handler_reg_wrap.gen_alert_cause[0].hw2reg.alert_cause[k].d.k
               |vpiActual:
               \_parameter: (work@alert_handler_reg_wrap.gen_alert_cause[0].k), line:2, parent:work@alert_handler_reg_wrap.gen_alert_cause[0]
-                |vpiName:k
-                |vpiFullName:work@alert_handler_reg_wrap.gen_alert_cause[0].k
-                |UINT:0
           |vpiActual:
           \_ref_obj: (d), parent:hw2reg.alert_cause[k].d
             |vpiName:d
-      |vpiParameter:
-      \_parameter: (work@alert_handler_reg_wrap.gen_alert_cause[0].k), line:2, parent:work@alert_handler_reg_wrap.gen_alert_cause[0]
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:8:1: , endln:16:10
-  |vpiDefName:work@top
   |vpiName:work@top
-  |vpiContAssign:
-  \_cont_assign: , line:15:10, endln:15:26, parent:work@top
-    |vpiRhs:
-    \_constant: , line:15:25, endln:15:26
-      |vpiConstType:9
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-    |vpiLhs:
-    \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
-      |vpiName:a[0][0].x[0]
-      |vpiActual:
-      \_bit_select: (a), parent:work@top.a[0][0].x[0]
-        |vpiName:a
-        |vpiIndex:
-        \_constant: , line:15:12, endln:15:13
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-      |vpiActual:
-      \_bit_select: 
-        |vpiIndex:
-        \_constant: , line:15:15, endln:15:16
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-      |vpiActual:
-      \_ref_obj: (x), parent:a[0][0].x[0]
-        |vpiName:x
-      |vpiActual:
-      \_bit_select: 
-        |vpiIndex:
-        \_constant: , line:15:20, endln:15:21
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
   |vpiVariables:
   \_packed_array_var: (work@top.a), line:13:23, endln:13:24, parent:work@top
     |vpiName:a
@@ -344,50 +304,53 @@ design: (work@alert_handler_reg_wrap)
     \_range: , line:13:13, endln:13:16
       |vpiLeftRange:
       \_constant: , line:13:13, endln:13:14
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiRightRange:
       \_constant: , line:13:15, endln:13:16
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
     |vpiRange:
     \_range: , line:13:18, endln:13:21
       |vpiLeftRange:
       \_constant: , line:13:18, endln:13:19
-        |vpiConstType:9
         |vpiDecompile:2
         |vpiSize:64
         |UINT:2
+        |vpiConstType:9
       |vpiRightRange:
       \_constant: , line:13:20, endln:13:21
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
     |vpiElement:
     \_struct_var: (work@top.a), parent:work@top.a
-      |vpiFullName:work@top.a
       |vpiTypespec:
       \_struct_typespec: (struct_t), line:9:11, endln:9:17
-        |vpiPacked:1
         |vpiName:struct_t
-        |vpiTypespecMember:
-        \_typespec_member: (x), line:10:9, endln:10:10
-          |vpiName:x
-          |vpiTypespec:
-          \_int_typespec: , line:10:5, endln:10:8
         |vpiInstance:
         \_module: work@top (work@top) dut.sv:8:1: , endln:16:10, parent:work@alert_handler_reg_wrap
-          |vpiDefName:work@top
           |vpiFullName:work@top
+          |vpiTypedef:
+          \_struct_typespec: (struct_t), line:9:11, endln:9:17
+          |vpiDefName:work@top
+          |vpiNet:
+          \_logic_net: (work@top.a), line:13:23, parent:work@top
+            |vpiName:a
+            |vpiFullName:work@top.a
           |vpiContAssign:
           \_cont_assign: , line:15:10, endln:15:26, parent:work@top
             |vpiRhs:
             \_constant: , line:15:25, endln:15:26
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
             |vpiLhs:
             \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
               |vpiName:a[0][0].x[0]
@@ -396,10 +359,18 @@ design: (work@alert_handler_reg_wrap)
                 |vpiName:a
                 |vpiIndex:
                 \_constant: , line:15:12, endln:15:13
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
               |vpiActual:
               \_bit_select: 
                 |vpiIndex:
                 \_constant: , line:15:15, endln:15:16
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
               |vpiActual:
               \_ref_obj: (x), parent:a[0][0].x[0]
                 |vpiName:x
@@ -407,14 +378,43 @@ design: (work@alert_handler_reg_wrap)
               \_bit_select: 
                 |vpiIndex:
                 \_constant: , line:15:20, endln:15:21
-          |vpiNet:
-          \_logic_net: (work@top.a), line:13:23, parent:work@top
-            |vpiName:a
-            |vpiFullName:work@top.a
-          |vpiTypedef:
-          \_struct_typespec: (struct_t), line:9:11, endln:9:17
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
+        |vpiPacked:1
+        |vpiTypespecMember:
+        \_typespec_member: (x), line:10:9, endln:10:10
+          |vpiName:x
+          |vpiTypespec:
+          \_int_typespec: , line:10:5, endln:10:8
+      |vpiFullName:work@top.a
   |vpiTypedef:
   \_struct_typespec: (struct_t), line:9:11, endln:9:17
+  |vpiDefName:work@top
+  |vpiContAssign:
+  \_cont_assign: , line:15:10, endln:15:26, parent:work@top
+    |vpiRhs:
+    \_constant: , line:15:25, endln:15:26
+    |vpiLhs:
+    \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
+      |vpiName:a[0][0].x[0]
+      |vpiActual:
+      \_bit_select: (a), parent:work@top.a[0][0].x[0]
+        |vpiName:a
+        |vpiIndex:
+        \_constant: , line:15:12, endln:15:13
+      |vpiActual:
+      \_bit_select: 
+        |vpiIndex:
+        \_constant: , line:15:15, endln:15:16
+      |vpiActual:
+      \_ref_obj: (x), parent:a[0][0].x[0]
+        |vpiName:x
+      |vpiActual:
+      \_bit_select: 
+        |vpiIndex:
+        \_constant: , line:15:20, endln:15:21
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

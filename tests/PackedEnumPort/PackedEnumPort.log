@@ -166,77 +166,82 @@ n<> u<123> t<Top_level_rule> l<2:1> el<38:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallPackages:
 \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:2:1: , endln:8:25, parent:work@top
-  |vpiDefName:lc_ctrl_pkg
   |vpiName:lc_ctrl_pkg
   |vpiFullName:lc_ctrl_pkg::
   |vpiTypedef:
   \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:5:6, endln:5:13
     |vpiName:lc_ctrl_pkg::lc_tx_e
+    |vpiInstance:
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:2:1: , endln:8:25, parent:work@top
     |vpiBaseTypespec:
     \_logic_typespec: , line:3:17, endln:3:22
+      |vpiInstance:
+      \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:2:1: , endln:8:25, parent:work@top
       |vpiRange:
       \_range: , line:3:24, endln:3:27
         |vpiLeftRange:
         \_constant: , line:3:24, endln:3:25
-          |vpiConstType:9
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
+          |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:3:26, endln:3:27
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:2:1: , endln:8:25, parent:work@top
+          |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (On), line:4:7, endln:4:9
       |vpiName:On
-      |vpiDecompile:4'b1010
       |UINT:10
+      |vpiDecompile:4'b1010
       |vpiSize:4
-    |vpiInstance:
-    \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:2:1: , endln:8:25, parent:work@top
   |vpiTypedef:
   \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:5:6, endln:5:13
     |vpiName:lc_ctrl_pkg::lc_tx_t
-    |vpiBaseTypespec:
-    \_logic_typespec: , line:3:17, endln:3:22, parent:lc_ctrl_pkg::lc_tx_t
-      |vpiRange:
-      \_range: , line:3:24, endln:3:27
-        |vpiLeftRange:
-        \_constant: , line:3:24, endln:3:25
-          |vpiConstType:9
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-        |vpiRightRange:
-        \_constant: , line:3:26, endln:3:27
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:2:1: , endln:8:25, parent:work@top
-    |vpiEnumConst:
-    \_enum_const: (On), line:4:7, endln:4:9, parent:lc_ctrl_pkg::lc_tx_t
-      |vpiName:On
-      |vpiDecompile:4'b1010
-      |UINT:10
-      |vpiSize:4
     |vpiTypedefAlias:
     \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:5:6, endln:5:13
     |vpiInstance:
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:2:1: , endln:8:25, parent:work@top
+    |vpiBaseTypespec:
+    \_logic_typespec: , line:3:17, endln:3:22, parent:lc_ctrl_pkg::lc_tx_t
+      |vpiInstance:
+      \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:2:1: , endln:8:25, parent:work@top
+      |vpiRange:
+      \_range: , line:3:24, endln:3:27
+        |vpiLeftRange:
+        \_constant: , line:3:24, endln:3:25
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:26, endln:3:27
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiEnumConst:
+    \_enum_const: (On), line:4:7, endln:4:9, parent:lc_ctrl_pkg::lc_tx_t
+      |vpiName:On
+      |UINT:10
+      |vpiDecompile:4'b1010
+      |vpiSize:4
+  |vpiDefName:lc_ctrl_pkg
 |uhdmallModules:
 \_module: work@lc_ctrl_fsm (work@lc_ctrl_fsm) dut.sv:11:1: , endln:16:24, parent:work@top
-  |vpiDefName:work@lc_ctrl_fsm
   |vpiFullName:work@lc_ctrl_fsm
+  |vpiDefName:work@lc_ctrl_fsm
+  |vpiNet:
+  \_logic_net: (work@lc_ctrl_fsm.lc_clk_byp_ack_i), line:13:15, parent:work@lc_ctrl_fsm
+    |vpiName:lc_clk_byp_ack_i
+    |vpiFullName:work@lc_ctrl_fsm.lc_clk_byp_ack_i
+    |vpiNetType:36
   |vpiPort:
   \_port: (lc_clk_byp_ack_i), line:13:15, parent:work@lc_ctrl_fsm
     |vpiName:lc_clk_byp_ack_i
@@ -245,15 +250,22 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@lc_ctrl_fsm.lc_clk_byp_ack_i), line:13:15, parent:work@lc_ctrl_fsm
-        |vpiName:lc_clk_byp_ack_i
-        |vpiFullName:work@lc_ctrl_fsm.lc_clk_byp_ack_i
-        |vpiNetType:36
-  |vpiNet:
-  \_logic_net: (work@lc_ctrl_fsm.lc_clk_byp_ack_i), line:13:15, parent:work@lc_ctrl_fsm
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:24:1: , endln:37:16, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.o), line:24:23, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
+  |vpiNet:
+  \_logic_net: (work@top.p), line:24:37, parent:work@top
+    |vpiName:p
+    |vpiFullName:work@top.p
+  |vpiNet:
+  \_logic_net: (work@top.lc_clk_byp_ack), line:25:30, parent:work@top
+    |vpiName:lc_clk_byp_ack
+    |vpiFullName:work@top.lc_clk_byp_ack
   |vpiPort:
   \_port: (o), line:24:23, parent:work@top
     |vpiName:o
@@ -262,8 +274,6 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.o), line:24:23, parent:work@top
-        |vpiName:o
-        |vpiFullName:work@top.o
   |vpiPort:
   \_port: (p), line:24:37, parent:work@top
     |vpiName:p
@@ -272,20 +282,111 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.p), line:24:37, parent:work@top
-        |vpiName:p
-        |vpiFullName:work@top.p
-  |vpiNet:
-  \_logic_net: (work@top.o), line:24:23, parent:work@top
-  |vpiNet:
-  \_logic_net: (work@top.p), line:24:37, parent:work@top
-  |vpiNet:
-  \_logic_net: (work@top.lc_clk_byp_ack), line:25:30, parent:work@top
-    |vpiName:lc_clk_byp_ack
-    |vpiFullName:work@top.lc_clk_byp_ack
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:24:1: , endln:37:16
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiVariables:
+  \_int_var: (work@top.o), line:24:23, endln:24:24, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiAutomatic:1
+    |vpiVisibility:1
+  |vpiVariables:
+  \_int_var: (work@top.p), line:24:37, endln:24:38, parent:work@top
+    |vpiName:p
+    |vpiFullName:work@top.p
+    |vpiAutomatic:1
+    |vpiVisibility:1
+  |vpiVariables:
+  \_packed_array_var: (work@top.lc_clk_byp_ack), line:25:30, endln:25:44, parent:work@top
+    |vpiName:lc_clk_byp_ack
+    |vpiFullName:work@top.lc_clk_byp_ack
+    |vpiAutomatic:1
+    |vpiVisibility:1
+    |vpiRange:
+    \_range: , line:25:25, endln:25:28
+      |vpiLeftRange:
+      \_constant: , line:25:25, endln:25:26
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:25:27, endln:25:28
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElement:
+    \_enum_var: (work@top.lc_clk_byp_ack.lc_clk_byp_ack), parent:work@top.lc_clk_byp_ack
+      |vpiTypespec:
+      \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:5:6, endln:5:13
+        |vpiName:lc_ctrl_pkg::lc_tx_t
+        |vpiTypedefAlias:
+        \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:5:6, endln:5:13
+          |vpiName:lc_ctrl_pkg::lc_tx_e
+          |vpiInstance:
+          \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:2:1: , endln:8:25, parent:work@top
+            |vpiName:lc_ctrl_pkg
+            |vpiFullName:lc_ctrl_pkg::
+            |vpiTypedef:
+            \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:5:6, endln:5:13
+            |vpiTypedef:
+            \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:5:6, endln:5:13
+            |vpiDefName:lc_ctrl_pkg
+          |vpiBaseTypespec:
+          \_logic_typespec: , line:3:17, endln:3:22
+            |vpiInstance:
+            \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:2:1: , endln:8:25, parent:work@top
+            |vpiRange:
+            \_range: , line:3:24, endln:3:27
+              |vpiLeftRange:
+              \_constant: , line:3:24, endln:3:25
+                |vpiDecompile:3
+                |vpiSize:64
+                |UINT:3
+                |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:3:26, endln:3:27
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+          |vpiEnumConst:
+          \_enum_const: (On), line:4:7, endln:4:9
+            |vpiName:On
+            |UINT:10
+            |vpiDecompile:4'b1010
+            |vpiSize:4
+        |vpiInstance:
+        \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:2:1: , endln:8:25, parent:work@top
+        |vpiBaseTypespec:
+        \_logic_typespec: , line:3:17, endln:3:22, parent:lc_ctrl_pkg::lc_tx_t
+          |vpiInstance:
+          \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:2:1: , endln:8:25, parent:work@top
+          |vpiRange:
+          \_range: , line:3:24, endln:3:27
+            |vpiLeftRange:
+            \_constant: , line:3:24, endln:3:25
+              |vpiDecompile:3
+              |vpiSize:64
+              |UINT:3
+              |vpiConstType:9
+            |vpiRightRange:
+            \_constant: , line:3:26, endln:3:27
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
+        |vpiEnumConst:
+        \_enum_const: (On), line:4:7, endln:4:9, parent:lc_ctrl_pkg::lc_tx_t
+          |vpiName:On
+          |UINT:10
+          |vpiDecompile:4'b1010
+          |vpiSize:4
+      |vpiName:lc_clk_byp_ack
+      |vpiFullName:work@top.lc_clk_byp_ack.lc_clk_byp_ack
+  |vpiDefName:work@top
   |vpiPort:
   \_port: (o), line:24:23, endln:24:24, parent:work@top
     |vpiName:o
@@ -296,10 +397,6 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_int_var: (work@top.o), line:24:23, endln:24:24, parent:work@top
-        |vpiName:o
-        |vpiFullName:work@top.o
-        |vpiAutomatic:1
-        |vpiVisibility:1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:24:1: , endln:37:16
   |vpiPort:
@@ -312,19 +409,22 @@ design: (work@top)
       |vpiFullName:work@top.p
       |vpiActual:
       \_int_var: (work@top.p), line:24:37, endln:24:38, parent:work@top
-        |vpiName:p
-        |vpiFullName:work@top.p
-        |vpiAutomatic:1
-        |vpiVisibility:1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:24:1: , endln:37:16
   |vpiModule:
   \_module: work@lc_ctrl_fsm (work@top.u_lc_ctrl_fsm) dut.sv:34:4: , endln:36:6, parent:work@top
+    |vpiName:u_lc_ctrl_fsm
+    |vpiFullName:work@top.u_lc_ctrl_fsm
     |vpiDefName:work@lc_ctrl_fsm
     |vpiDefFile:dut.sv
     |vpiDefLineNo:11
-    |vpiName:u_lc_ctrl_fsm
-    |vpiFullName:work@top.u_lc_ctrl_fsm
+    |vpiNet:
+    \_logic_net: (work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i), line:13:15, endln:13:31, parent:work@top.u_lc_ctrl_fsm
+      |vpiName:lc_clk_byp_ack_i
+      |vpiFullName:work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i
+      |vpiNetType:36
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:24:1: , endln:37:16
     |vpiPort:
     \_port: (lc_clk_byp_ack_i), line:13:15, endln:13:31, parent:work@top.u_lc_ctrl_fsm
       |vpiName:lc_clk_byp_ack_i
@@ -334,118 +434,18 @@ design: (work@top)
         |vpiName:lc_clk_byp_ack
         |vpiIndex:
         \_constant: , line:35:41, endln:35:42, parent:lc_clk_byp_ack
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
       |vpiLowConn:
       \_ref_obj: (work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i), parent:lc_clk_byp_ack_i
         |vpiName:lc_clk_byp_ack_i
         |vpiFullName:work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i
         |vpiActual:
         \_logic_net: (work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i), line:13:15, endln:13:31, parent:work@top.u_lc_ctrl_fsm
-          |vpiName:lc_clk_byp_ack_i
-          |vpiFullName:work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i
-          |vpiNetType:36
       |vpiInstance:
       \_module: work@lc_ctrl_fsm (work@top.u_lc_ctrl_fsm) dut.sv:34:4: , endln:36:6, parent:work@top
-    |vpiNet:
-    \_logic_net: (work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i), line:13:15, endln:13:31, parent:work@top.u_lc_ctrl_fsm
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:24:1: , endln:37:16
-  |vpiVariables:
-  \_int_var: (work@top.o), line:24:23, endln:24:24, parent:work@top
-  |vpiVariables:
-  \_int_var: (work@top.p), line:24:37, endln:24:38, parent:work@top
-  |vpiVariables:
-  \_packed_array_var: (work@top.lc_clk_byp_ack), line:25:30, endln:25:44, parent:work@top
-    |vpiName:lc_clk_byp_ack
-    |vpiFullName:work@top.lc_clk_byp_ack
-    |vpiAutomatic:1
-    |vpiVisibility:1
-    |vpiRange:
-    \_range: , line:25:25, endln:25:28
-      |vpiLeftRange:
-      \_constant: , line:25:25, endln:25:26
-        |vpiConstType:9
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-      |vpiRightRange:
-      \_constant: , line:25:27, endln:25:28
-        |vpiConstType:9
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-    |vpiElement:
-    \_enum_var: (work@top.lc_clk_byp_ack.lc_clk_byp_ack), parent:work@top.lc_clk_byp_ack
-      |vpiName:lc_clk_byp_ack
-      |vpiFullName:work@top.lc_clk_byp_ack.lc_clk_byp_ack
-      |vpiTypespec:
-      \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:5:6, endln:5:13
-        |vpiName:lc_ctrl_pkg::lc_tx_t
-        |vpiBaseTypespec:
-        \_logic_typespec: , line:3:17, endln:3:22, parent:lc_ctrl_pkg::lc_tx_t
-          |vpiRange:
-          \_range: , line:3:24, endln:3:27
-            |vpiLeftRange:
-            \_constant: , line:3:24, endln:3:25
-              |vpiConstType:9
-              |vpiDecompile:3
-              |vpiSize:64
-              |UINT:3
-            |vpiRightRange:
-            \_constant: , line:3:26, endln:3:27
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-          |vpiInstance:
-          \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:2:1: , endln:8:25, parent:work@top
-            |vpiDefName:lc_ctrl_pkg
-            |vpiName:lc_ctrl_pkg
-            |vpiFullName:lc_ctrl_pkg::
-            |vpiTypedef:
-            \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:5:6, endln:5:13
-              |vpiName:lc_ctrl_pkg::lc_tx_e
-              |vpiBaseTypespec:
-              \_logic_typespec: , line:3:17, endln:3:22
-                |vpiRange:
-                \_range: , line:3:24, endln:3:27
-                  |vpiLeftRange:
-                  \_constant: , line:3:24, endln:3:25
-                    |vpiConstType:9
-                    |vpiDecompile:3
-                    |vpiSize:64
-                    |UINT:3
-                  |vpiRightRange:
-                  \_constant: , line:3:26, endln:3:27
-                    |vpiConstType:9
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                |vpiInstance:
-                \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:2:1: , endln:8:25, parent:work@top
-              |vpiEnumConst:
-              \_enum_const: (On), line:4:7, endln:4:9
-                |vpiName:On
-                |vpiDecompile:4'b1010
-                |UINT:10
-                |vpiSize:4
-              |vpiInstance:
-              \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:2:1: , endln:8:25, parent:work@top
-            |vpiTypedef:
-            \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:5:6, endln:5:13
-        |vpiEnumConst:
-        \_enum_const: (On), line:4:7, endln:4:9, parent:lc_ctrl_pkg::lc_tx_t
-          |vpiName:On
-          |vpiDecompile:4'b1010
-          |UINT:10
-          |vpiSize:4
-        |vpiTypedefAlias:
-        \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:5:6, endln:5:13
-        |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:2:1: , endln:8:25, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

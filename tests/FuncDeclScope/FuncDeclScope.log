@@ -321,12 +321,31 @@ n<> u<278> t<Top_level_rule> l<1:1> el<41:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallInterfaces:
 \_interface: work@intf (work@intf) dut.sv:1:1: , endln:18:13, parent:work@top
-  |vpiDefName:work@intf
   |vpiFullName:work@intf
+  |vpiParameter:
+  \_parameter: (work@intf.Depth), line:2:27, endln:2:36, parent:work@intf
+    |UINT:4
+    |vpiTypespec:
+    \_int_typespec: , line:2:14, endln:2:17, parent:work@intf.Depth
+    |vpiName:Depth
+    |vpiFullName:work@intf.Depth
+  |vpiParamAssign:
+  \_param_assign: , line:2:27, endln:2:36, parent:work@intf
+    |vpiRhs:
+    \_constant: , line:2:35, endln:2:36
+      |vpiDecompile:4
+      |vpiSize:32
+      |UINT:4
+      |vpiTypespec:
+      \_int_typespec: , line:2:14, endln:2:17, parent:work@intf.Depth
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@intf.Depth), line:2:27, endln:2:36, parent:work@intf
+  |vpiDefName:work@intf
   |vpiTaskFunc:
   \_function: (work@intf.get2), parent:work@intf
     |vpiName:get2
@@ -337,81 +356,199 @@ design: (work@top)
   \_logic_net: (work@intf.o), line:3:27, parent:work@intf
     |vpiName:o
     |vpiFullName:work@intf.o
+|uhdmallModules:
+\_module: work@top (work@top) dut.sv:21:1: , endln:40:10, parent:work@top
+  |vpiFullName:work@top
   |vpiParameter:
-  \_parameter: (work@intf.Depth), line:2:27, endln:2:36, parent:work@intf
-    |vpiName:Depth
-    |vpiFullName:work@intf.Depth
+  \_parameter: (work@top.Depth), line:22:27, endln:22:36, parent:work@top
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:2:14, endln:2:17, parent:work@intf.Depth
+    \_int_typespec: , line:22:14, endln:22:17, parent:work@top.Depth
+    |vpiName:Depth
+    |vpiFullName:work@top.Depth
   |vpiParamAssign:
-  \_param_assign: , line:2:27, endln:2:36, parent:work@intf
+  \_param_assign: , line:22:27, endln:22:36, parent:work@top
     |vpiRhs:
-    \_constant: , line:2:35, endln:2:36
-      |vpiConstType:9
+    \_constant: , line:22:35, endln:22:36
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:17, parent:work@intf.Depth
+      \_int_typespec: , line:22:14, endln:22:17, parent:work@top.Depth
+      |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@intf.Depth), line:2:27, endln:2:36, parent:work@intf
-|uhdmallModules:
-\_module: work@top (work@top) dut.sv:21:1: , endln:40:10, parent:work@top
+    \_parameter: (work@top.Depth), line:22:27, endln:22:36, parent:work@top
   |vpiDefName:work@top
-  |vpiFullName:work@top
   |vpiTaskFunc:
   \_function: (work@top.get4), line:25:4, endln:27:18, parent:work@top
-    |vpiVisibility:1
-    |vpiAutomatic:1
     |vpiName:get4
     |vpiFullName:work@top.get4
+    |vpiVisibility:1
+    |vpiAutomatic:1
     |vpiReturn:
     \_int_var: , line:25:23, endln:25:26
     |vpiStmt:
     \_return_stmt: , line:26:10, endln:26:16, parent:work@top.get4
       |vpiCondition:
       \_constant: , line:26:17, endln:26:18
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:21:1: , endln:40:10, parent:work@top
   |vpiNet:
   \_logic_net: (work@top.o), line:23:27, parent:work@top
     |vpiName:o
     |vpiFullName:work@top.o
+|uhdmtopModules:
+\_module: work@top (work@top) dut.sv:21:1: , endln:40:10
+  |vpiName:work@top
+  |vpiVariables:
+  \_int_var: (work@top.o), line:23:27, endln:23:28, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiAutomatic:1
+    |vpiVisibility:1
   |vpiParameter:
   \_parameter: (work@top.Depth), line:22:27, endln:22:36, parent:work@top
-    |vpiName:Depth
-    |vpiFullName:work@top.Depth
     |UINT:4
     |vpiTypespec:
     \_int_typespec: , line:22:14, endln:22:17, parent:work@top.Depth
+    |vpiName:Depth
+    |vpiFullName:work@top.Depth
   |vpiParamAssign:
   \_param_assign: , line:22:27, endln:22:36, parent:work@top
     |vpiRhs:
     \_constant: , line:22:35, endln:22:36
-      |vpiConstType:9
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
       \_int_typespec: , line:22:14, endln:22:17, parent:work@top.Depth
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.Depth), line:22:27, endln:22:36, parent:work@top
-|uhdmtopModules:
-\_module: work@top (work@top) dut.sv:21:1: , endln:40:10
   |vpiDefName:work@top
-  |vpiName:work@top
+  |vpiTaskFunc:
+  \_function: (work@top.get4), line:25:4, endln:27:18, parent:work@top
+    |vpiName:get4
+    |vpiFullName:work@top.get4
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_int_var: , line:25:23, endln:25:26
+    |vpiStmt:
+    \_return_stmt: , line:26:10, endln:26:16, parent:work@top.get4
+      |vpiCondition:
+      \_constant: , line:26:17, endln:26:18
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:21:1: , endln:40:10
+  |vpiTaskFunc:
+  \_function: (work@top.get1), line:30:7, endln:32:18, parent:work@top
+    |vpiName:get1
+    |vpiFullName:work@top.get1
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_int_var: , line:30:26, endln:30:29
+    |vpiStmt:
+    \_return_stmt: , line:31:10, endln:31:16, parent:work@top.get1
+      |vpiCondition:
+      \_constant: , line:31:17, endln:31:18
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:21:1: , endln:40:10
   |vpiInterface:
   \_interface: work@intf (work@top.interf) dut.sv:28:3: , endln:28:17, parent:work@top
+    |vpiName:interf
+    |vpiFullName:work@top.interf
+    |vpiVariables:
+    \_int_var: (work@top.interf.o), line:3:27, endln:3:28, parent:work@top.interf
+      |vpiName:o
+      |vpiFullName:work@top.interf.o
+      |vpiAutomatic:1
+      |vpiVisibility:1
+    |vpiParameter:
+    \_parameter: (work@top.interf.Depth), line:2:27, endln:2:36, parent:work@top.interf
+      |UINT:4
+      |vpiTypespec:
+      \_int_typespec: , line:2:14, endln:2:17, parent:work@top.interf.Depth
+      |vpiName:Depth
+      |vpiFullName:work@top.interf.Depth
+    |vpiParamAssign:
+    \_param_assign: , line:2:27, endln:2:36, parent:work@top.interf
+      |vpiRhs:
+      \_constant: , line:2:35, endln:2:36
+        |vpiDecompile:4
+        |vpiSize:32
+        |UINT:4
+        |vpiTypespec:
+        \_int_typespec: , line:2:14, endln:2:17, parent:work@intf.Depth
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@top.interf.Depth), line:2:27, endln:2:36, parent:work@top.interf
     |vpiDefName:work@intf
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
-    |vpiName:interf
-    |vpiFullName:work@top.interf
+    |vpiTaskFunc:
+    \_function: (work@intf.get2), parent:work@intf
+      |vpiName:get2
+      |vpiFullName:work@intf.get2
+      |vpiInstance:
+      \_interface: work@intf (work@intf) dut.sv:1:1: , endln:18:13, parent:work@top
+        |vpiFullName:work@intf
+        |vpiParameter:
+        \_parameter: (work@intf.Depth), line:2:27, endln:2:36, parent:work@intf
+          |UINT:4
+          |vpiTypespec:
+          \_int_typespec: , line:2:14, endln:2:17, parent:work@intf.Depth
+          |vpiName:Depth
+          |vpiFullName:work@intf.Depth
+        |vpiParamAssign:
+        \_param_assign: , line:2:27, endln:2:36, parent:work@intf
+          |vpiRhs:
+          \_constant: , line:2:35, endln:2:36
+            |vpiDecompile:4
+            |vpiSize:32
+            |UINT:4
+            |vpiTypespec:
+            \_int_typespec: , line:2:14, endln:2:17, parent:work@intf.Depth
+            |vpiConstType:9
+          |vpiLhs:
+          \_parameter: (work@intf.Depth), line:2:27, endln:2:36, parent:work@intf
+        |vpiDefName:work@intf
+        |vpiTaskFunc:
+        \_function: (work@intf.get2), parent:work@intf
+        |vpiNet:
+        \_logic_net: (work@intf.o), line:3:27, parent:work@intf
+          |vpiName:o
+          |vpiFullName:work@intf.o
+    |vpiTaskFunc:
+    \_function: (work@top.interf.get3), line:10:7, endln:12:18, parent:work@top.interf
+      |vpiName:get3
+      |vpiFullName:work@top.interf.get3
+      |vpiVisibility:1
+      |vpiAutomatic:1
+      |vpiReturn:
+      \_int_var: , line:10:26, endln:10:29
+      |vpiStmt:
+      \_return_stmt: , line:11:10, endln:11:16, parent:work@top.interf.get3
+        |vpiCondition:
+        \_constant: , line:11:17, endln:11:18
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:21:1: , endln:40:10
     |vpiGenScopeArray:
     \_gen_scope_array: (work@top.interf.gen_block), line:9:4, endln:17:19, parent:work@top.interf
       |vpiName:gen_block
@@ -432,82 +569,6 @@ design: (work@top)
             |vpiFullName:work@top.interf.gen_block.o
             |vpiActual:
             \_int_var: (work@top.interf.o), line:3:27, endln:3:28, parent:work@top.interf
-              |vpiName:o
-              |vpiFullName:work@top.interf.o
-              |vpiAutomatic:1
-              |vpiVisibility:1
-    |vpiTaskFunc:
-    \_function: (work@intf.get2), parent:work@intf
-      |vpiName:get2
-      |vpiFullName:work@intf.get2
-      |vpiInstance:
-      \_interface: work@intf (work@intf) dut.sv:1:1: , endln:18:13, parent:work@top
-        |vpiDefName:work@intf
-        |vpiFullName:work@intf
-        |vpiTaskFunc:
-        \_function: (work@intf.get2), parent:work@intf
-        |vpiNet:
-        \_logic_net: (work@intf.o), line:3:27, parent:work@intf
-          |vpiName:o
-          |vpiFullName:work@intf.o
-        |vpiParameter:
-        \_parameter: (work@intf.Depth), line:2:27, endln:2:36, parent:work@intf
-          |vpiName:Depth
-          |vpiFullName:work@intf.Depth
-          |UINT:4
-          |vpiTypespec:
-          \_int_typespec: , line:2:14, endln:2:17, parent:work@intf.Depth
-        |vpiParamAssign:
-        \_param_assign: , line:2:27, endln:2:36, parent:work@intf
-          |vpiRhs:
-          \_constant: , line:2:35, endln:2:36
-            |vpiConstType:9
-            |vpiDecompile:4
-            |vpiSize:32
-            |UINT:4
-            |vpiTypespec:
-            \_int_typespec: , line:2:14, endln:2:17, parent:work@intf.Depth
-          |vpiLhs:
-          \_parameter: (work@intf.Depth), line:2:27, endln:2:36, parent:work@intf
-    |vpiTaskFunc:
-    \_function: (work@top.interf.get3), line:10:7, endln:12:18, parent:work@top.interf
-      |vpiVisibility:1
-      |vpiAutomatic:1
-      |vpiName:get3
-      |vpiFullName:work@top.interf.get3
-      |vpiReturn:
-      \_int_var: , line:10:26, endln:10:29
-      |vpiStmt:
-      \_return_stmt: , line:11:10, endln:11:16, parent:work@top.interf.get3
-        |vpiCondition:
-        \_constant: , line:11:17, endln:11:18
-          |vpiConstType:9
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:21:1: , endln:40:10
-    |vpiVariables:
-    \_int_var: (work@top.interf.o), line:3:27, endln:3:28, parent:work@top.interf
-    |vpiParameter:
-    \_parameter: (work@top.interf.Depth), line:2:27, endln:2:36, parent:work@top.interf
-      |vpiName:Depth
-      |vpiFullName:work@top.interf.Depth
-      |UINT:4
-      |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:17, parent:work@top.interf.Depth
-    |vpiParamAssign:
-    \_param_assign: , line:2:27, endln:2:36, parent:work@top.interf
-      |vpiRhs:
-      \_constant: , line:2:35, endln:2:36
-        |vpiConstType:9
-        |vpiDecompile:4
-        |vpiSize:32
-        |UINT:4
-        |vpiTypespec:
-        \_int_typespec: , line:2:14, endln:2:17, parent:work@intf.Depth
-      |vpiLhs:
-      \_parameter: (work@top.interf.Depth), line:2:27, endln:2:36, parent:work@top.interf
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.gen_block), line:29:4, endln:37:19, parent:work@top
     |vpiName:gen_block
@@ -528,67 +589,6 @@ design: (work@top)
           |vpiFullName:work@top.gen_block.o
           |vpiActual:
           \_int_var: (work@top.o), line:23:27, endln:23:28, parent:work@top
-            |vpiName:o
-            |vpiFullName:work@top.o
-            |vpiAutomatic:1
-            |vpiVisibility:1
-  |vpiTaskFunc:
-  \_function: (work@top.get4), line:25:4, endln:27:18, parent:work@top
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiName:get4
-    |vpiFullName:work@top.get4
-    |vpiReturn:
-    \_int_var: , line:25:23, endln:25:26
-    |vpiStmt:
-    \_return_stmt: , line:26:10, endln:26:16, parent:work@top.get4
-      |vpiCondition:
-      \_constant: , line:26:17, endln:26:18
-        |vpiConstType:9
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:21:1: , endln:40:10
-  |vpiTaskFunc:
-  \_function: (work@top.get1), line:30:7, endln:32:18, parent:work@top
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiName:get1
-    |vpiFullName:work@top.get1
-    |vpiReturn:
-    \_int_var: , line:30:26, endln:30:29
-    |vpiStmt:
-    \_return_stmt: , line:31:10, endln:31:16, parent:work@top.get1
-      |vpiCondition:
-      \_constant: , line:31:17, endln:31:18
-        |vpiConstType:9
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:21:1: , endln:40:10
-  |vpiVariables:
-  \_int_var: (work@top.o), line:23:27, endln:23:28, parent:work@top
-  |vpiParameter:
-  \_parameter: (work@top.Depth), line:22:27, endln:22:36, parent:work@top
-    |vpiName:Depth
-    |vpiFullName:work@top.Depth
-    |UINT:4
-    |vpiTypespec:
-    \_int_typespec: , line:22:14, endln:22:17, parent:work@top.Depth
-  |vpiParamAssign:
-  \_param_assign: , line:22:27, endln:22:36, parent:work@top
-    |vpiRhs:
-    \_constant: , line:22:35, endln:22:36
-      |vpiConstType:9
-      |vpiDecompile:4
-      |vpiSize:32
-      |UINT:4
-      |vpiTypespec:
-      \_int_typespec: , line:22:14, endln:22:17, parent:work@top.Depth
-    |vpiLhs:
-    \_parameter: (work@top.Depth), line:22:27, endln:22:36, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

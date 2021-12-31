@@ -173,42 +173,49 @@ n<> u<134> t<Top_level_rule> l<1:1> el<12:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@submodule (work@submodule) dut.sv:1:1: , endln:6:10, parent:work@top
-  |vpiDefName:work@submodule
   |vpiFullName:work@submodule
-  |vpiContAssign:
-  \_cont_assign: , line:5:11, endln:5:22, parent:work@submodule
-    |vpiRhs:
-    \_operation: , line:5:15, endln:5:22
-      |vpiOpType:67
-      |vpiOperand:
-      \_ref_obj: (work@submodule.Y), line:5:20, endln:5:21
-        |vpiName:Y
-        |vpiFullName:work@submodule.Y
-      |vpiTypespec:
-      \_int_typespec: , line:5:15, endln:5:18
-    |vpiLhs:
-    \_ref_obj: (work@submodule.a), line:5:11, endln:5:12
-      |vpiName:a
-      |vpiFullName:work@submodule.a
   |vpiParameter:
   \_parameter: (work@submodule.X), line:2:18, endln:2:24, parent:work@submodule
-    |vpiName:X
-    |vpiFullName:work@submodule.X
     |UINT:20
     |vpiTypespec:
     \_int_typespec: , line:2:14, endln:2:17, parent:work@submodule.X
+    |vpiName:X
+    |vpiFullName:work@submodule.X
   |vpiParameter:
   \_parameter: (work@submodule.Y), line:4:24, endln:4:30, parent:work@submodule
-    |vpiName:Y
-    |vpiFullName:work@submodule.Y
     |BIN:1
     |vpiTypespec:
     \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:work@submodule.Y
       |vpiName:my_type_t
+      |vpiTypedefAlias:
+      \_logic_typespec: (my_type_t), line:3:12, endln:3:17
+        |vpiName:my_type_t
+        |vpiInstance:
+        \_module: work@submodule (work@submodule) dut.sv:1:1: , endln:6:10, parent:work@top
+        |vpiRange:
+        \_range: , line:3:19, endln:3:24
+          |vpiLeftRange:
+          \_operation: , line:3:19, endln:3:20
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (X), line:3:19, endln:3:20
+              |vpiName:X
+            |vpiOperand:
+            \_constant: , line:3:21, endln:3:22
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:3:23, endln:3:24
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
       |vpiRange:
       \_range: , line:3:19, endln:3:24, parent:my_type_t
         |vpiLeftRange:
@@ -220,258 +227,194 @@ design: (work@top)
             |vpiFullName:work@submodule.Y.my_type_t.X
           |vpiOperand:
           \_constant: , line:3:21, endln:3:22
-            |vpiConstType:9
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:3:23, endln:3:24
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-      |vpiTypedefAlias:
-      \_logic_typespec: (my_type_t), line:3:12, endln:3:17
-        |vpiName:my_type_t
-        |vpiRange:
-        \_range: , line:3:19, endln:3:24
-          |vpiLeftRange:
-          \_operation: , line:3:19, endln:3:20
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (X), line:3:19, endln:3:20
-              |vpiName:X
-            |vpiOperand:
-            \_constant: , line:3:21, endln:3:22
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-          |vpiRightRange:
-          \_constant: , line:3:23, endln:3:24
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-        |vpiInstance:
-        \_module: work@submodule (work@submodule) dut.sv:1:1: , endln:6:10, parent:work@top
+          |vpiConstType:9
+    |vpiName:Y
+    |vpiFullName:work@submodule.Y
   |vpiParamAssign:
   \_param_assign: , line:2:18, endln:2:24, parent:work@submodule
     |vpiRhs:
     \_constant: , line:2:22, endln:2:24
-      |vpiConstType:9
       |vpiDecompile:20
       |vpiSize:32
       |UINT:20
       |vpiTypespec:
       \_int_typespec: , line:2:14, endln:2:17, parent:work@submodule.X
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@submodule.X), line:2:18, endln:2:24, parent:work@submodule
   |vpiParamAssign:
   \_param_assign: , line:4:24, endln:4:30, parent:work@submodule
     |vpiRhs:
     \_constant: , line:4:28, endln:4:30
-      |vpiConstType:3
       |vpiDecompile:'1
       |vpiSize:20
       |BIN:1
       |vpiTypespec:
       \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:work@submodule.Y
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@submodule.Y), line:4:24, endln:4:30, parent:work@submodule
   |vpiTypedef:
   \_logic_typespec: (my_type_t), line:3:12, endln:3:17
+  |vpiDefName:work@submodule
+  |vpiContAssign:
+  \_cont_assign: , line:5:11, endln:5:22, parent:work@submodule
+    |vpiRhs:
+    \_operation: , line:5:15, endln:5:22
+      |vpiTypespec:
+      \_int_typespec: , line:5:15, endln:5:18
+      |vpiOpType:67
+      |vpiOperand:
+      \_ref_obj: (work@submodule.Y), line:5:20, endln:5:21
+        |vpiName:Y
+        |vpiFullName:work@submodule.Y
+    |vpiLhs:
+    \_ref_obj: (work@submodule.a), line:5:11, endln:5:12
+      |vpiName:a
+      |vpiFullName:work@submodule.a
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:8:1: , endln:11:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiDefName:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:8:1: , endln:11:10
-  |vpiDefName:work@top
   |vpiName:work@top
+  |vpiDefName:work@top
   |vpiModule:
   \_module: work@submodule (work@top.u_sub_default) dut.sv:9:4: , endln:9:30, parent:work@top
-    |vpiDefName:work@submodule
-    |vpiDefFile:dut.sv
-    |vpiDefLineNo:1
     |vpiName:u_sub_default
     |vpiFullName:work@top.u_sub_default
-    |vpiContAssign:
-    \_cont_assign: , line:5:11, endln:5:22, parent:work@top.u_sub_default
-      |vpiRhs:
-      \_operation: , line:5:15, endln:5:22
-        |vpiOpType:67
-        |vpiOperand:
-        \_ref_obj: (work@top.u_sub_default.Y), line:5:20, endln:5:21
-          |vpiName:Y
-          |vpiFullName:work@top.u_sub_default.Y
-          |vpiActual:
-          \_constant: , line:4:28, endln:4:30
-            |vpiConstType:9
-            |vpiDecompile:1048575
-            |vpiSize:20
-            |UINT:1048575
-            |vpiTypespec:
-            \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:work@submodule.Y
-              |vpiName:my_type_t
-              |vpiRange:
-              \_range: , line:3:19, endln:3:24, parent:my_type_t
-                |vpiLeftRange:
-                \_operation: , line:3:19, endln:3:20
-                  |vpiOpType:11
-                  |vpiOperand:
-                  \_ref_obj: (work@submodule.Y.my_type_t.X), line:3:19, endln:3:20
-                    |vpiName:X
-                    |vpiFullName:work@submodule.Y.my_type_t.X
-                  |vpiOperand:
-                  \_constant: , line:3:21, endln:3:22
-                    |vpiConstType:9
-                    |vpiDecompile:1
-                    |vpiSize:64
-                    |UINT:1
-                |vpiRightRange:
-                \_constant: , line:3:23, endln:3:24
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-              |vpiTypedefAlias:
-              \_logic_typespec: (my_type_t), line:3:12, endln:3:17
-                |vpiName:my_type_t
-                |vpiRange:
-                \_range: , line:3:19, endln:3:24
-                  |vpiLeftRange:
-                  \_operation: , line:3:19, endln:3:20
-                    |vpiOpType:11
-                    |vpiOperand:
-                    \_ref_obj: (X), line:3:19, endln:3:20
-                      |vpiName:X
-                    |vpiOperand:
-                    \_constant: , line:3:21, endln:3:22
-                      |vpiConstType:9
-                      |vpiDecompile:1
-                      |vpiSize:64
-                      |UINT:1
-                  |vpiRightRange:
-                  \_constant: , line:3:23, endln:3:24
-                    |vpiConstType:9
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                |vpiInstance:
-                \_module: work@submodule (work@submodule) dut.sv:1:1: , endln:6:10, parent:work@top
-                  |vpiDefName:work@submodule
-                  |vpiFullName:work@submodule
-                  |vpiContAssign:
-                  \_cont_assign: , line:5:11, endln:5:22, parent:work@submodule
-                    |vpiRhs:
-                    \_operation: , line:5:15, endln:5:22
-                      |vpiOpType:67
-                      |vpiOperand:
-                      \_ref_obj: (work@submodule.Y), line:5:20, endln:5:21
-                        |vpiName:Y
-                        |vpiFullName:work@submodule.Y
-                      |vpiTypespec:
-                      \_int_typespec: , line:5:15, endln:5:18
-                    |vpiLhs:
-                    \_ref_obj: (work@submodule.a), line:5:11, endln:5:12
-                      |vpiName:a
-                      |vpiFullName:work@submodule.a
-                  |vpiParameter:
-                  \_parameter: (work@submodule.X), line:2:18, endln:2:24, parent:work@submodule
-                    |vpiName:X
-                    |vpiFullName:work@submodule.X
-                    |UINT:20
-                    |vpiTypespec:
-                    \_int_typespec: , line:2:14, endln:2:17, parent:work@submodule.X
-                  |vpiParameter:
-                  \_parameter: (work@submodule.Y), line:4:24, endln:4:30, parent:work@submodule
-                    |vpiName:Y
-                    |vpiFullName:work@submodule.Y
-                    |BIN:1
-                    |vpiTypespec:
-                    \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:work@submodule.Y
-                  |vpiParamAssign:
-                  \_param_assign: , line:2:18, endln:2:24, parent:work@submodule
-                    |vpiRhs:
-                    \_constant: , line:2:22, endln:2:24
-                      |vpiConstType:9
-                      |vpiDecompile:20
-                      |vpiSize:32
-                      |UINT:20
-                      |vpiTypespec:
-                      \_int_typespec: , line:2:14, endln:2:17, parent:work@submodule.X
-                    |vpiLhs:
-                    \_parameter: (work@submodule.X), line:2:18, endln:2:24, parent:work@submodule
-                  |vpiParamAssign:
-                  \_param_assign: , line:4:24, endln:4:30, parent:work@submodule
-                    |vpiRhs:
-                    \_constant: , line:4:28, endln:4:30
-                      |vpiConstType:3
-                      |vpiDecompile:'1
-                      |vpiSize:20
-                      |BIN:1
-                      |vpiTypespec:
-                      \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:work@submodule.Y
-                    |vpiLhs:
-                    \_parameter: (work@submodule.Y), line:4:24, endln:4:30, parent:work@submodule
-                  |vpiTypedef:
-                  \_logic_typespec: (my_type_t), line:3:12, endln:3:17
-        |vpiTypespec:
-        \_int_typespec: , line:5:15, endln:5:18
-      |vpiLhs:
-      \_ref_obj: (work@top.u_sub_default.a), line:5:11, endln:5:12
-        |vpiName:a
-        |vpiFullName:work@top.u_sub_default.a
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:8:1: , endln:11:10
     |vpiParameter:
     \_parameter: (work@top.u_sub_default.X), line:2:18, endln:2:24, parent:work@top.u_sub_default
-      |vpiName:X
-      |vpiFullName:work@top.u_sub_default.X
       |UINT:20
       |vpiTypespec:
       \_int_typespec: , line:2:14, endln:2:17, parent:work@top.u_sub_default.X
+      |vpiName:X
+      |vpiFullName:work@top.u_sub_default.X
     |vpiParameter:
     \_parameter: (work@top.u_sub_default.Y), line:4:24, endln:4:30, parent:work@top.u_sub_default
-      |vpiName:Y
-      |vpiFullName:work@top.u_sub_default.Y
       |BIN:1
       |vpiTypespec:
       \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:work@top.u_sub_default.Y
         |vpiName:my_type_t
-        |vpiRange:
-        \_range: , line:3:19, endln:3:24, parent:my_type_t
-          |vpiLeftRange:
-          \_operation: , line:3:19, endln:3:20
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (work@top.u_sub_default.Y.my_type_t.X), line:3:19, endln:3:20
+        |vpiTypedefAlias:
+        \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:my_type_t
+          |vpiName:my_type_t
+          |vpiInstance:
+          \_module: work@submodule (work@submodule) dut.sv:1:1: , endln:6:10, parent:work@top
+            |vpiFullName:work@submodule
+            |vpiParameter:
+            \_parameter: (work@submodule.X), line:2:18, endln:2:24, parent:work@submodule
+              |UINT:20
+              |vpiTypespec:
+              \_int_typespec: , line:2:14, endln:2:17, parent:work@submodule.X
               |vpiName:X
-              |vpiFullName:work@top.u_sub_default.Y.my_type_t.X
-              |vpiActual:
+              |vpiFullName:work@submodule.X
+            |vpiParameter:
+            \_parameter: (work@submodule.Y), line:4:24, endln:4:30, parent:work@submodule
+              |BIN:1
+              |vpiTypespec:
+              \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:work@submodule.Y
+                |vpiName:my_type_t
+                |vpiTypedefAlias:
+                \_logic_typespec: (my_type_t), line:3:12, endln:3:17
+                  |vpiName:my_type_t
+                  |vpiInstance:
+                  \_module: work@submodule (work@submodule) dut.sv:1:1: , endln:6:10, parent:work@top
+                  |vpiRange:
+                  \_range: , line:3:19, endln:3:24
+                    |vpiLeftRange:
+                    \_operation: , line:3:19, endln:3:20
+                      |vpiOpType:11
+                      |vpiOperand:
+                      \_ref_obj: (X), line:3:19, endln:3:20
+                        |vpiName:X
+                      |vpiOperand:
+                      \_constant: , line:3:21, endln:3:22
+                        |vpiDecompile:1
+                        |vpiSize:64
+                        |UINT:1
+                        |vpiConstType:9
+                    |vpiRightRange:
+                    \_constant: , line:3:23, endln:3:24
+                      |vpiDecompile:0
+                      |vpiSize:64
+                      |UINT:0
+                      |vpiConstType:9
+                |vpiRange:
+                \_range: , line:3:19, endln:3:24, parent:my_type_t
+                  |vpiLeftRange:
+                  \_operation: , line:3:19, endln:3:20
+                    |vpiOpType:11
+                    |vpiOperand:
+                    \_ref_obj: (work@submodule.Y.my_type_t.X), line:3:19, endln:3:20
+                      |vpiName:X
+                      |vpiFullName:work@submodule.Y.my_type_t.X
+                    |vpiOperand:
+                    \_constant: , line:3:21, endln:3:22
+                      |vpiDecompile:1
+                      |vpiSize:64
+                      |UINT:1
+                      |vpiConstType:9
+                  |vpiRightRange:
+                  \_constant: , line:3:23, endln:3:24
+                    |vpiDecompile:0
+                    |vpiSize:64
+                    |UINT:0
+                    |vpiConstType:9
+              |vpiName:Y
+              |vpiFullName:work@submodule.Y
+            |vpiParamAssign:
+            \_param_assign: , line:2:18, endln:2:24, parent:work@submodule
+              |vpiRhs:
               \_constant: , line:2:22, endln:2:24
-                |vpiConstType:9
                 |vpiDecompile:20
                 |vpiSize:32
                 |UINT:20
                 |vpiTypespec:
                 \_int_typespec: , line:2:14, endln:2:17, parent:work@submodule.X
-            |vpiOperand:
-            \_constant: , line:3:21, endln:3:22
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-          |vpiRightRange:
-          \_constant: , line:3:23, endln:3:24
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-        |vpiTypedefAlias:
-        \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:my_type_t
-          |vpiName:my_type_t
+                |vpiConstType:9
+              |vpiLhs:
+              \_parameter: (work@submodule.X), line:2:18, endln:2:24, parent:work@submodule
+            |vpiParamAssign:
+            \_param_assign: , line:4:24, endln:4:30, parent:work@submodule
+              |vpiRhs:
+              \_constant: , line:4:28, endln:4:30
+                |vpiDecompile:'1
+                |vpiSize:20
+                |BIN:1
+                |vpiTypespec:
+                \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:work@submodule.Y
+                |vpiConstType:3
+              |vpiLhs:
+              \_parameter: (work@submodule.Y), line:4:24, endln:4:30, parent:work@submodule
+            |vpiTypedef:
+            \_logic_typespec: (my_type_t), line:3:12, endln:3:17
+            |vpiDefName:work@submodule
+            |vpiContAssign:
+            \_cont_assign: , line:5:11, endln:5:22, parent:work@submodule
+              |vpiRhs:
+              \_operation: , line:5:15, endln:5:22
+                |vpiTypespec:
+                \_int_typespec: , line:5:15, endln:5:18
+                |vpiOpType:67
+                |vpiOperand:
+                \_ref_obj: (work@submodule.Y), line:5:20, endln:5:21
+                  |vpiName:Y
+                  |vpiFullName:work@submodule.Y
+              |vpiLhs:
+              \_ref_obj: (work@submodule.a), line:5:11, endln:5:12
+                |vpiName:a
+                |vpiFullName:work@submodule.a
           |vpiRange:
           \_range: , line:3:19, endln:3:24, parent:my_type_t
             |vpiLeftRange:
@@ -483,20 +426,49 @@ design: (work@top)
                 |vpiFullName:work@top.u_sub_default.Y.my_type_t.my_type_t.X
                 |vpiActual:
                 \_constant: , line:2:22, endln:2:24
+                  |vpiDecompile:20
+                  |vpiSize:32
+                  |UINT:20
+                  |vpiTypespec:
+                  \_int_typespec: , line:2:14, endln:2:17, parent:work@submodule.X
+                  |vpiConstType:9
               |vpiOperand:
               \_constant: , line:3:21, endln:3:22
-                |vpiConstType:9
                 |vpiDecompile:1
                 |vpiSize:64
                 |UINT:1
+                |vpiConstType:9
             |vpiRightRange:
             \_constant: , line:3:23, endln:3:24
-              |vpiConstType:9
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
-          |vpiInstance:
-          \_module: work@submodule (work@submodule) dut.sv:1:1: , endln:6:10, parent:work@top
+              |vpiConstType:9
+        |vpiRange:
+        \_range: , line:3:19, endln:3:24, parent:my_type_t
+          |vpiLeftRange:
+          \_operation: , line:3:19, endln:3:20
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (work@top.u_sub_default.Y.my_type_t.X), line:3:19, endln:3:20
+              |vpiName:X
+              |vpiFullName:work@top.u_sub_default.Y.my_type_t.X
+              |vpiActual:
+              \_constant: , line:2:22, endln:2:24
+            |vpiOperand:
+            \_constant: , line:3:21, endln:3:22
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:3:23, endln:3:24
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+      |vpiName:Y
+      |vpiFullName:work@top.u_sub_default.Y
     |vpiParamAssign:
     \_param_assign: , line:2:18, endln:2:24, parent:work@top.u_sub_default
       |vpiRhs:
@@ -507,89 +479,60 @@ design: (work@top)
     \_param_assign: , line:4:24, endln:4:30, parent:work@top.u_sub_default
       |vpiRhs:
       \_constant: , line:4:28, endln:4:30
+        |vpiDecompile:1048575
+        |vpiSize:20
+        |UINT:1048575
+        |vpiTypespec:
+        \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:work@submodule.Y
+        |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.u_sub_default.Y), line:4:24, endln:4:30, parent:work@top.u_sub_default
     |vpiTypedef:
     \_logic_typespec: (my_type_t), line:3:12, endln:3:17
-  |vpiModule:
-  \_module: work@submodule (work@top.u_sub_5) dut.sv:10:4: , endln:10:33, parent:work@top
     |vpiDefName:work@submodule
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
-    |vpiName:u_sub_5
-    |vpiFullName:work@top.u_sub_5
-    |vpiContAssign:
-    \_cont_assign: , line:5:11, endln:5:22, parent:work@top.u_sub_5
-      |vpiRhs:
-      \_operation: , line:5:15, endln:5:22
-        |vpiOpType:67
-        |vpiOperand:
-        \_ref_obj: (work@top.u_sub_5.Y), line:5:20, endln:5:21
-          |vpiName:Y
-          |vpiFullName:work@top.u_sub_5.Y
-          |vpiActual:
-          \_constant: , line:4:28, endln:4:30
-            |vpiConstType:9
-            |vpiDecompile:31
-            |vpiSize:5
-            |UINT:31
-            |vpiTypespec:
-            \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:work@submodule.Y
-        |vpiTypespec:
-        \_int_typespec: , line:5:15, endln:5:18
-      |vpiLhs:
-      \_ref_obj: (work@top.u_sub_5.a), line:5:11, endln:5:12
-        |vpiName:a
-        |vpiFullName:work@top.u_sub_5.a
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:8:1: , endln:11:10
+    |vpiContAssign:
+    \_cont_assign: , line:5:11, endln:5:22, parent:work@top.u_sub_default
+      |vpiRhs:
+      \_operation: , line:5:15, endln:5:22
+        |vpiTypespec:
+        \_int_typespec: , line:5:15, endln:5:18
+        |vpiOpType:67
+        |vpiOperand:
+        \_ref_obj: (work@top.u_sub_default.Y), line:5:20, endln:5:21
+          |vpiName:Y
+          |vpiFullName:work@top.u_sub_default.Y
+          |vpiActual:
+          \_constant: , line:4:28, endln:4:30
+      |vpiLhs:
+      \_ref_obj: (work@top.u_sub_default.a), line:5:11, endln:5:12
+        |vpiName:a
+        |vpiFullName:work@top.u_sub_default.a
+  |vpiModule:
+  \_module: work@submodule (work@top.u_sub_5) dut.sv:10:4: , endln:10:33, parent:work@top
+    |vpiName:u_sub_5
+    |vpiFullName:work@top.u_sub_5
     |vpiParameter:
     \_parameter: (work@top.u_sub_5.X), line:2:18, endln:2:24, parent:work@top.u_sub_5
-      |vpiName:X
-      |vpiFullName:work@top.u_sub_5.X
       |UINT:20
       |vpiTypespec:
       \_int_typespec: , line:2:14, endln:2:17, parent:work@top.u_sub_5.X
+      |vpiName:X
+      |vpiFullName:work@top.u_sub_5.X
     |vpiParameter:
     \_parameter: (work@top.u_sub_5.Y), line:4:24, endln:4:30, parent:work@top.u_sub_5
-      |vpiName:Y
-      |vpiFullName:work@top.u_sub_5.Y
       |BIN:1
       |vpiTypespec:
       \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:work@top.u_sub_5.Y
         |vpiName:my_type_t
-        |vpiRange:
-        \_range: , line:3:19, endln:3:24, parent:my_type_t
-          |vpiLeftRange:
-          \_operation: , line:3:19, endln:3:20
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (work@top.u_sub_5.Y.my_type_t.X), line:3:19, endln:3:20
-              |vpiName:X
-              |vpiFullName:work@top.u_sub_5.Y.my_type_t.X
-              |vpiActual:
-              \_constant: , line:2:22, endln:2:24
-                |vpiConstType:9
-                |vpiDecompile:5
-                |vpiSize:64
-                |UINT:5
-                |vpiTypespec:
-                \_int_typespec: , line:2:14, endln:2:17, parent:work@submodule.X
-            |vpiOperand:
-            \_constant: , line:3:21, endln:3:22
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-          |vpiRightRange:
-          \_constant: , line:3:23, endln:3:24
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
         |vpiTypedefAlias:
         \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:my_type_t
           |vpiName:my_type_t
+          |vpiInstance:
+          \_module: work@submodule (work@submodule) dut.sv:1:1: , endln:6:10, parent:work@top
           |vpiRange:
           \_range: , line:3:19, endln:3:24, parent:my_type_t
             |vpiLeftRange:
@@ -601,20 +544,49 @@ design: (work@top)
                 |vpiFullName:work@top.u_sub_5.Y.my_type_t.my_type_t.X
                 |vpiActual:
                 \_constant: , line:2:22, endln:2:24
+                  |vpiDecompile:5
+                  |vpiSize:64
+                  |UINT:5
+                  |vpiTypespec:
+                  \_int_typespec: , line:2:14, endln:2:17, parent:work@submodule.X
+                  |vpiConstType:9
               |vpiOperand:
               \_constant: , line:3:21, endln:3:22
-                |vpiConstType:9
                 |vpiDecompile:1
                 |vpiSize:64
                 |UINT:1
+                |vpiConstType:9
             |vpiRightRange:
             \_constant: , line:3:23, endln:3:24
-              |vpiConstType:9
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
-          |vpiInstance:
-          \_module: work@submodule (work@submodule) dut.sv:1:1: , endln:6:10, parent:work@top
+              |vpiConstType:9
+        |vpiRange:
+        \_range: , line:3:19, endln:3:24, parent:my_type_t
+          |vpiLeftRange:
+          \_operation: , line:3:19, endln:3:20
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (work@top.u_sub_5.Y.my_type_t.X), line:3:19, endln:3:20
+              |vpiName:X
+              |vpiFullName:work@top.u_sub_5.Y.my_type_t.X
+              |vpiActual:
+              \_constant: , line:2:22, endln:2:24
+            |vpiOperand:
+            \_constant: , line:3:21, endln:3:22
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:3:23, endln:3:24
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+      |vpiName:Y
+      |vpiFullName:work@top.u_sub_5.Y
     |vpiParamAssign:
     \_param_assign: , line:2:18, endln:2:24, parent:work@top.u_sub_5
       |vpiOverriden:1
@@ -627,10 +599,38 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:4:28, endln:4:30
+        |vpiDecompile:31
+        |vpiSize:5
+        |UINT:31
+        |vpiTypespec:
+        \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:work@submodule.Y
+        |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.u_sub_5.Y), line:4:24, endln:4:30, parent:work@top.u_sub_5
     |vpiTypedef:
     \_logic_typespec: (my_type_t), line:3:12, endln:3:17
+    |vpiDefName:work@submodule
+    |vpiDefFile:dut.sv
+    |vpiDefLineNo:1
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:8:1: , endln:11:10
+    |vpiContAssign:
+    \_cont_assign: , line:5:11, endln:5:22, parent:work@top.u_sub_5
+      |vpiRhs:
+      \_operation: , line:5:15, endln:5:22
+        |vpiTypespec:
+        \_int_typespec: , line:5:15, endln:5:18
+        |vpiOpType:67
+        |vpiOperand:
+        \_ref_obj: (work@top.u_sub_5.Y), line:5:20, endln:5:21
+          |vpiName:Y
+          |vpiFullName:work@top.u_sub_5.Y
+          |vpiActual:
+          \_constant: , line:4:28, endln:4:30
+      |vpiLhs:
+      \_ref_obj: (work@top.u_sub_5.a), line:5:11, endln:5:12
+        |vpiName:a
+        |vpiFullName:work@top.u_sub_5.a
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -162,48 +162,47 @@ n<> u<121> t<Top_level_rule> l<1:1> el<19:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:4:10, parent:work@top
-  |vpiDefName:work@dut
   |vpiFullName:work@dut
   |vpiParameter:
   \_parameter: (work@dut.A), line:2:26, endln:2:27, parent:work@dut
-    |vpiName:A
-    |vpiFullName:work@dut.A
     |vpiTypespec:
     \_logic_typespec: , line:2:14, endln:2:19, parent:work@dut.A
       |vpiRange:
       \_range: , line:2:21, endln:2:24
         |vpiLeftRange:
         \_constant: , line:2:21, endln:2:22
-          |vpiConstType:9
           |vpiDecompile:4
           |vpiSize:64
           |UINT:4
+          |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:2:23, endln:2:24
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
+    |vpiName:A
+    |vpiFullName:work@dut.A
   |vpiParamAssign:
   \_param_assign: , line:2:26, endln:2:27, parent:work@dut
     |vpiLhs:
     \_parameter: (work@dut.A), line:2:26, endln:2:27, parent:work@dut
+  |vpiDefName:work@dut
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:6:1: , endln:18:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.X), line:14:23, endln:14:42, parent:work@top
-    |vpiName:X
-    |vpiFullName:work@top.X
     |vpiTypespec:
     \_struct_typespec: (struct_1), line:7:12, endln:7:18, parent:work@top.X
-      |vpiPacked:1
       |vpiName:struct_1
+      |vpiInstance:
+      \_module: work@top (work@top) dut.sv:6:1: , endln:18:10, parent:work@top
+      |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (a), line:8:19, endln:8:20
         |vpiName:a
@@ -213,18 +212,18 @@ design: (work@top)
           \_range: , line:8:14, endln:8:17, parent:struct_1
             |vpiLeftRange:
             \_constant: , line:8:14, endln:8:15
-              |vpiConstType:9
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
+              |vpiConstType:9
             |vpiRightRange:
             \_constant: , line:8:16, endln:8:17
-              |vpiConstType:9
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
-      |vpiInstance:
-      \_module: work@top (work@top) dut.sv:6:1: , endln:18:10, parent:work@top
+              |vpiConstType:9
+    |vpiName:X
+    |vpiFullName:work@top.X
   |vpiParamAssign:
   \_param_assign: , line:14:23, endln:14:42, parent:work@top
     |vpiRhs:
@@ -234,10 +233,10 @@ design: (work@top)
       \_tagged_pattern: 
         |vpiPattern:
         \_constant: , line:14:32, endln:14:34
-          |vpiConstType:3
           |vpiDecompile:'1
           |vpiSize:-1
           |BIN:1
+          |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (a), line:14:29, endln:14:30
           |vpiName:a
@@ -245,10 +244,10 @@ design: (work@top)
       \_tagged_pattern: 
         |vpiPattern:
         \_constant: , line:14:39, endln:14:41
-          |vpiConstType:3
           |vpiDecompile:'0
           |vpiSize:-1
           |BIN:0
+          |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (b), line:14:36, endln:14:37
           |vpiName:b
@@ -256,132 +255,26 @@ design: (work@top)
     \_parameter: (work@top.X), line:14:23, endln:14:42, parent:work@top
   |vpiTypedef:
   \_struct_typespec: (struct_1), line:7:12, endln:7:18, parent:work@top.X
+  |vpiDefName:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:6:1: , endln:18:10
-  |vpiDefName:work@top
   |vpiName:work@top
-  |vpiModule:
-  \_module: work@dut (work@top.u_dut) dut.sv:17:4: , endln:17:25, parent:work@top
-    |vpiDefName:work@dut
-    |vpiDefFile:dut.sv
-    |vpiDefLineNo:1
-    |vpiName:u_dut
-    |vpiFullName:work@top.u_dut
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:6:1: , endln:18:10
-    |vpiParameter:
-    \_parameter: (work@top.u_dut.A), line:2:26, endln:2:27, parent:work@top.u_dut
-      |vpiName:A
-      |vpiFullName:work@top.u_dut.A
-      |vpiTypespec:
-      \_logic_typespec: , line:2:14, endln:2:19, parent:work@top.u_dut.A
-        |vpiRange:
-        \_range: , line:2:21, endln:2:24
-          |vpiLeftRange:
-          \_constant: , line:2:21, endln:2:22
-            |vpiConstType:9
-            |vpiDecompile:4
-            |vpiSize:64
-            |UINT:4
-          |vpiRightRange:
-          \_constant: , line:2:23, endln:2:24
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-    |vpiParamAssign:
-    \_param_assign: , line:2:26, endln:2:27, parent:work@top.u_dut
-      |vpiOverriden:1
-      |vpiRhs:
-      \_operation: , line:17:13, endln:17:14
-        |vpiOpType:75
-        |vpiFlattened:1
-        |vpiOperand:
-        \_tagged_pattern: 
-          |vpiPattern:
-          \_constant: , line:14:32, endln:14:34
-            |vpiConstType:3
-            |vpiDecompile:'1
-            |vpiSize:-1
-            |BIN:1
-          |vpiTypespec:
-          \_string_typespec: (a), line:14:29, endln:14:30
-            |vpiName:a
-        |vpiOperand:
-        \_tagged_pattern: 
-          |vpiPattern:
-          \_constant: , line:14:39, endln:14:41
-            |vpiConstType:3
-            |vpiDecompile:'0
-            |vpiSize:-1
-            |BIN:0
-          |vpiTypespec:
-          \_string_typespec: (b), line:14:36, endln:14:37
-            |vpiName:b
-        |vpiTypespec:
-        \_struct_typespec: (struct_1), line:7:12, endln:7:18
-          |vpiPacked:1
-          |vpiName:struct_1
-          |vpiTypespecMember:
-          \_typespec_member: (a), line:8:19, endln:8:20, parent:struct_1
-            |vpiName:a
-            |vpiTypespec:
-            \_logic_typespec: , line:8:7, endln:8:12, parent:a
-              |vpiRange:
-              \_range: , line:8:14, endln:8:17
-                |vpiLeftRange:
-                \_constant: , line:8:14, endln:8:15
-                  |vpiConstType:9
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                |vpiRightRange:
-                \_constant: , line:8:16, endln:8:17
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-      |vpiLhs:
-      \_parameter: (work@top.u_dut.A), line:2:26, endln:2:27, parent:work@top.u_dut
   |vpiParameter:
   \_parameter: (work@top.X), line:14:23, endln:14:42, parent:work@top
-    |vpiName:X
-    |vpiFullName:work@top.X
     |vpiTypespec:
     \_struct_typespec: (struct_1), line:7:12, endln:7:18, parent:work@top.X
-      |vpiPacked:1
       |vpiName:struct_1
-      |vpiTypespecMember:
-      \_typespec_member: (a), line:8:19, endln:8:20, parent:struct_1
-        |vpiName:a
-        |vpiTypespec:
-        \_logic_typespec: , line:8:7, endln:8:12, parent:a
-          |vpiRange:
-          \_range: , line:8:14, endln:8:17
-            |vpiLeftRange:
-            \_constant: , line:8:14, endln:8:15
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-            |vpiRightRange:
-            \_constant: , line:8:16, endln:8:17
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
       |vpiInstance:
       \_module: work@top (work@top) dut.sv:6:1: , endln:18:10, parent:work@top
-        |vpiDefName:work@top
         |vpiFullName:work@top
         |vpiParameter:
         \_parameter: (work@top.X), line:14:23, endln:14:42, parent:work@top
-          |vpiName:X
-          |vpiFullName:work@top.X
           |vpiTypespec:
           \_struct_typespec: (struct_1), line:7:12, endln:7:18, parent:work@top.X
-            |vpiPacked:1
             |vpiName:struct_1
+            |vpiInstance:
+            \_module: work@top (work@top) dut.sv:6:1: , endln:18:10, parent:work@top
+            |vpiPacked:1
             |vpiTypespecMember:
             \_typespec_member: (a), line:8:19, endln:8:20
               |vpiName:a
@@ -391,18 +284,18 @@ design: (work@top)
                 \_range: , line:8:14, endln:8:17, parent:struct_1
                   |vpiLeftRange:
                   \_constant: , line:8:14, endln:8:15
-                    |vpiConstType:9
                     |vpiDecompile:1
                     |vpiSize:64
                     |UINT:1
+                    |vpiConstType:9
                   |vpiRightRange:
                   \_constant: , line:8:16, endln:8:17
-                    |vpiConstType:9
                     |vpiDecompile:0
                     |vpiSize:64
                     |UINT:0
-            |vpiInstance:
-            \_module: work@top (work@top) dut.sv:6:1: , endln:18:10, parent:work@top
+                    |vpiConstType:9
+          |vpiName:X
+          |vpiFullName:work@top.X
         |vpiParamAssign:
         \_param_assign: , line:14:23, endln:14:42, parent:work@top
           |vpiRhs:
@@ -412,10 +305,10 @@ design: (work@top)
             \_tagged_pattern: 
               |vpiPattern:
               \_constant: , line:14:32, endln:14:34
-                |vpiConstType:3
                 |vpiDecompile:'1
                 |vpiSize:-1
                 |BIN:1
+                |vpiConstType:3
               |vpiTypespec:
               \_string_typespec: (a), line:14:29, endln:14:30
                 |vpiName:a
@@ -423,10 +316,10 @@ design: (work@top)
             \_tagged_pattern: 
               |vpiPattern:
               \_constant: , line:14:39, endln:14:41
-                |vpiConstType:3
                 |vpiDecompile:'0
                 |vpiSize:-1
                 |BIN:0
+                |vpiConstType:3
               |vpiTypespec:
               \_string_typespec: (b), line:14:36, endln:14:37
                 |vpiName:b
@@ -434,38 +327,37 @@ design: (work@top)
           \_parameter: (work@top.X), line:14:23, endln:14:42, parent:work@top
         |vpiTypedef:
         \_struct_typespec: (struct_1), line:7:12, endln:7:18, parent:work@top.X
+        |vpiDefName:work@top
+      |vpiPacked:1
+      |vpiTypespecMember:
+      \_typespec_member: (a), line:8:19, endln:8:20, parent:struct_1
+        |vpiName:a
+        |vpiTypespec:
+        \_logic_typespec: , line:8:7, endln:8:12, parent:a
+          |vpiRange:
+          \_range: , line:8:14, endln:8:17
+            |vpiLeftRange:
+            \_constant: , line:8:14, endln:8:15
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+            |vpiRightRange:
+            \_constant: , line:8:16, endln:8:17
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
+    |vpiName:X
+    |vpiFullName:work@top.X
   |vpiParamAssign:
   \_param_assign: , line:14:23, endln:14:42, parent:work@top
     |vpiRhs:
     \_operation: , line:14:27, endln:14:42
-      |vpiOpType:75
-      |vpiFlattened:1
-      |vpiOperand:
-      \_tagged_pattern: 
-        |vpiPattern:
-        \_constant: , line:14:32, endln:14:34
-          |vpiConstType:3
-          |vpiDecompile:'1
-          |vpiSize:-1
-          |BIN:1
-        |vpiTypespec:
-        \_string_typespec: (a), line:14:29, endln:14:30
-          |vpiName:a
-      |vpiOperand:
-      \_tagged_pattern: 
-        |vpiPattern:
-        \_constant: , line:14:39, endln:14:41
-          |vpiConstType:3
-          |vpiDecompile:'0
-          |vpiSize:-1
-          |BIN:0
-        |vpiTypespec:
-        \_string_typespec: (b), line:14:36, endln:14:37
-          |vpiName:b
       |vpiTypespec:
       \_struct_typespec: (struct_1), line:7:12, endln:7:18
-        |vpiPacked:1
         |vpiName:struct_1
+        |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (a), line:8:19, endln:8:20, parent:struct_1
           |vpiName:a
@@ -475,20 +367,128 @@ design: (work@top)
             \_range: , line:8:14, endln:8:17
               |vpiLeftRange:
               \_constant: , line:8:14, endln:8:15
-                |vpiConstType:9
                 |vpiDecompile:1
                 |vpiSize:64
                 |UINT:1
+                |vpiConstType:9
               |vpiRightRange:
               \_constant: , line:8:16, endln:8:17
-                |vpiConstType:9
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
+                |vpiConstType:9
+      |vpiOpType:75
+      |vpiFlattened:1
+      |vpiOperand:
+      \_tagged_pattern: 
+        |vpiPattern:
+        \_constant: , line:14:32, endln:14:34
+          |vpiDecompile:'1
+          |vpiSize:-1
+          |BIN:1
+          |vpiConstType:3
+        |vpiTypespec:
+        \_string_typespec: (a), line:14:29, endln:14:30
+          |vpiName:a
+      |vpiOperand:
+      \_tagged_pattern: 
+        |vpiPattern:
+        \_constant: , line:14:39, endln:14:41
+          |vpiDecompile:'0
+          |vpiSize:-1
+          |BIN:0
+          |vpiConstType:3
+        |vpiTypespec:
+        \_string_typespec: (b), line:14:36, endln:14:37
+          |vpiName:b
     |vpiLhs:
     \_parameter: (work@top.X), line:14:23, endln:14:42, parent:work@top
   |vpiTypedef:
   \_struct_typespec: (struct_1), line:7:12, endln:7:18, parent:work@top.X
+  |vpiDefName:work@top
+  |vpiModule:
+  \_module: work@dut (work@top.u_dut) dut.sv:17:4: , endln:17:25, parent:work@top
+    |vpiName:u_dut
+    |vpiFullName:work@top.u_dut
+    |vpiParameter:
+    \_parameter: (work@top.u_dut.A), line:2:26, endln:2:27, parent:work@top.u_dut
+      |vpiTypespec:
+      \_logic_typespec: , line:2:14, endln:2:19, parent:work@top.u_dut.A
+        |vpiRange:
+        \_range: , line:2:21, endln:2:24
+          |vpiLeftRange:
+          \_constant: , line:2:21, endln:2:22
+            |vpiDecompile:4
+            |vpiSize:64
+            |UINT:4
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:2:23, endln:2:24
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+      |vpiName:A
+      |vpiFullName:work@top.u_dut.A
+    |vpiParamAssign:
+    \_param_assign: , line:2:26, endln:2:27, parent:work@top.u_dut
+      |vpiOverriden:1
+      |vpiRhs:
+      \_operation: , line:17:13, endln:17:14
+        |vpiTypespec:
+        \_struct_typespec: (struct_1), line:7:12, endln:7:18
+          |vpiName:struct_1
+          |vpiPacked:1
+          |vpiTypespecMember:
+          \_typespec_member: (a), line:8:19, endln:8:20, parent:struct_1
+            |vpiName:a
+            |vpiTypespec:
+            \_logic_typespec: , line:8:7, endln:8:12, parent:a
+              |vpiRange:
+              \_range: , line:8:14, endln:8:17
+                |vpiLeftRange:
+                \_constant: , line:8:14, endln:8:15
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+                  |vpiConstType:9
+                |vpiRightRange:
+                \_constant: , line:8:16, endln:8:17
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
+        |vpiOpType:75
+        |vpiFlattened:1
+        |vpiOperand:
+        \_tagged_pattern: 
+          |vpiPattern:
+          \_constant: , line:14:32, endln:14:34
+            |vpiDecompile:'1
+            |vpiSize:-1
+            |BIN:1
+            |vpiConstType:3
+          |vpiTypespec:
+          \_string_typespec: (a), line:14:29, endln:14:30
+            |vpiName:a
+        |vpiOperand:
+        \_tagged_pattern: 
+          |vpiPattern:
+          \_constant: , line:14:39, endln:14:41
+            |vpiDecompile:'0
+            |vpiSize:-1
+            |BIN:0
+            |vpiConstType:3
+          |vpiTypespec:
+          \_string_typespec: (b), line:14:36, endln:14:37
+            |vpiName:b
+      |vpiLhs:
+      \_parameter: (work@top.u_dut.A), line:2:26, endln:2:27, parent:work@top.u_dut
+    |vpiDefName:work@dut
+    |vpiDefFile:dut.sv
+    |vpiDefLineNo:1
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:18:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

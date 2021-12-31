@@ -40,22 +40,34 @@
 
 ====== UHDM =======
 design: (unnamed)
-|vpiName:unnamed
 |vpiElaborated:1
+|vpiName:unnamed
 |uhdmallPackages:
 \_package: pack (pack::) dut.sv:1:1: , endln:27:11, parent:unnamed
-  |vpiDefName:pack
   |vpiName:pack
   |vpiFullName:pack::
+  |vpiDefName:pack
   |vpiClassDefn:
   \_class_defn: (pack::C) dut.sv:12:1: , endln:25:9, parent:pack::
     |vpiName:C
     |vpiFullName:pack::C
+    |vpiVariables:
+    \_int_var: (pack::C::x), line:13:7, endln:13:8, parent:pack::C
+      |vpiName:x
+      |vpiFullName:pack::C::x
+      |vpiAutomatic:1
+      |vpiVisibility:1
+    |vpiParameter:
+    \_type_parameter: (pack::C::T), line:12:16, endln:12:16, parent:pack::C
+      |vpiName:T
+      |vpiFullName:pack::C::T
+      |vpiTypespec:
+      \_int_typespec: , line:12:18, endln:12:21, parent:pack::C::T
     |vpiMethod:
     \_function: (pack::C::new), line:15:3, endln:17:14, parent:pack::C
-      |vpiMethod:1
       |vpiName:new
       |vpiFullName:pack::C::new
+      |vpiMethod:1
       |vpiReturn:
       \_class_var: 
         |vpiTypespec:
@@ -64,19 +76,18 @@ design: (unnamed)
           \_class_defn: (pack::C) dut.sv:12:1: , endln:25:9, parent:pack::
       |vpiIODecl:
       \_io_decl: (bound), parent:pack::C::new
-        |vpiName:bound
         |vpiDirection:1
+        |vpiName:bound
         |vpiExpr:
         \_constant: , line:15:29, endln:15:30
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
         |vpiTypedef:
         \_int_typespec: , line:15:17, endln:15:20
       |vpiStmt:
       \_method_func_call: (super.new), parent:pack::C::new
-        |vpiName:super.new
         |vpiArgument:
         \_ref_obj: (pack::C::new::name), line:16:15, endln:16:19, parent:super.new
           |vpiName:name
@@ -97,16 +108,17 @@ design: (unnamed)
         \_ref_obj: (pack::C::new::max_size), line:16:49, endln:16:57, parent:super.new
           |vpiName:max_size
           |vpiFullName:pack::C::new::max_size
+        |vpiName:super.new
     |vpiMethod:
     \_task: (pack::C::set), line:19:3, endln:21:10, parent:pack::C
-      |vpiMethod:1
-      |vpiVisibility:1
       |vpiName:set
       |vpiFullName:pack::C::set
+      |vpiMethod:1
+      |vpiVisibility:1
       |vpiIODecl:
       \_io_decl: (i), parent:pack::C::set
-        |vpiName:i
         |vpiDirection:1
+        |vpiName:i
         |vpiTypedef:
         \_int_typespec: , line:19:13, endln:19:16
       |vpiStmt:
@@ -131,10 +143,10 @@ design: (unnamed)
             |vpiVisibility:1
     |vpiMethod:
     \_function: (pack::C::get), line:22:3, endln:24:14, parent:pack::C
-      |vpiMethod:1
-      |vpiVisibility:1
       |vpiName:get
       |vpiFullName:pack::C::get
+      |vpiMethod:1
+      |vpiVisibility:1
       |vpiReturn:
       \_int_var: , line:22:12, endln:22:15
       |vpiStmt:
@@ -145,18 +157,6 @@ design: (unnamed)
           |vpiFullName:pack::C::get::x
           |vpiActual:
           \_int_var: (pack::C::x), line:13:7, endln:13:8, parent:pack::C
-    |vpiVariables:
-    \_int_var: (pack::C::x), line:13:7, endln:13:8, parent:pack::C
-      |vpiName:x
-      |vpiFullName:pack::C::x
-      |vpiAutomatic:1
-      |vpiVisibility:1
-    |vpiParameter:
-    \_type_parameter: (pack::C::T), line:12:16, endln:12:16, parent:pack::C
-      |vpiFullName:pack::C::T
-      |vpiName:T
-      |vpiTypespec:
-      \_int_typespec: , line:12:18, endln:12:21, parent:pack::C::T
   |vpiClassDefn:
   \_class_defn: (pack::Vector) dut.sv:5:1: , endln:7:9, parent:pack::
     |vpiName:Vector
@@ -171,45 +171,45 @@ design: (unnamed)
       \_range: , line:6:8, endln:6:17, parent:pack::Vector::data
         |vpiLeftRange:
         \_constant: , line:6:8, endln:6:13
-          |vpiConstType:7
           |vpiDecompile:0
           |vpiSize:64
           |INT:0
+          |vpiConstType:7
         |vpiRightRange:
         \_constant: , line:6:16, endln:6:17
-          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiConstType:9
     |vpiParameter:
-    \_parameter: (pack::Vector::WIDTH), line:5:26, endln:5:33, parent:pack::Vector
+    \_parameter: (pack::Vector::WIDTH), line:5:26, endln:5:33
+      |UINT:1
       |vpiName:WIDTH
       |vpiFullName:pack::Vector::WIDTH
-      |UINT:1
     |vpiParamAssign:
     \_param_assign: , line:5:26, endln:5:33, parent:pack::Vector
       |vpiRhs:
       \_constant: , line:5:32, endln:5:33
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
       |vpiLhs:
-      \_parameter: (pack::Vector::WIDTH), line:5:26, endln:5:33, parent:pack::Vector
+      \_parameter: (pack::Vector::WIDTH), line:5:26, endln:5:33
   |vpiClassDefn:
   \_class_defn: (pack::ovm_queue) dut.sv:9:1: , endln:10:9, parent:pack::
     |vpiName:ovm_queue
     |vpiFullName:pack::ovm_queue
     |vpiParameter:
     \_type_parameter: (pack::ovm_queue::T), line:9:24, endln:9:24, parent:pack::ovm_queue
-      |vpiFullName:pack::ovm_queue::T
       |vpiName:T
+      |vpiFullName:pack::ovm_queue::T
       |vpiTypespec:
       \_int_typespec: , line:9:26, endln:9:29, parent:pack::ovm_queue::T
     |vpiParameter:
     \_type_parameter: (pack::ovm_queue::Q), line:9:36, endln:9:36, parent:pack::ovm_queue
-      |vpiFullName:pack::ovm_queue::Q
       |vpiName:Q
+      |vpiFullName:pack::ovm_queue::Q
       |vpiTypespec:
       \_short_int_typespec: , line:9, endln:9:46, parent:pack::ovm_queue::Q
 ===================

@@ -163,12 +163,12 @@ n<> u<128> t<Top_level_rule> l<1:1> el<9:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiDefName:work@top
   |vpiNet:
   \_logic_net: (work@top.b), line:2:10, parent:work@top
     |vpiName:b
@@ -191,43 +191,42 @@ design: (work@top)
     |vpiFullName:work@top.o
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:7:10
-  |vpiDefName:work@top
   |vpiName:work@top
   |vpiVariables:
   \_array_var: (work@top.b), line:2:10, endln:2:11, parent:work@top
-    |vpiArrayType:2
+    |vpiSize:1
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiAutomatic:1
     |vpiRandType:1
     |vpiVisibility:1
-    |vpiSize:1
+    |vpiExpr:
+    \_operation: , line:2:16, endln:2:25
+      |vpiOpType:33
+      |vpiOperand:
+      \_constant: , line:2:17, endln:2:18
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:2:20, endln:2:21
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:2:23, endln:2:24
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiArrayType:2
     |vpiReg:
     \_byte_var: (work@top.b), parent:work@top.b
       |vpiFullName:work@top.b
       |vpiExpr:
       \_operation: , line:2:16, endln:2:25
-        |vpiOpType:33
-        |vpiOperand:
-        \_constant: , line:2:17, endln:2:18
-          |vpiConstType:9
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-        |vpiOperand:
-        \_constant: , line:2:20, endln:2:21
-          |vpiConstType:9
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-        |vpiOperand:
-        \_constant: , line:2:23, endln:2:24
-          |vpiConstType:9
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-    |vpiExpr:
-    \_operation: , line:2:16, endln:2:25
   |vpiVariables:
   \_byte_var: (work@top.o), line:3:10, endln:3:11, parent:work@top
     |vpiName:o
@@ -296,6 +295,7 @@ design: (work@top)
       |vpiActual:
       \_method_func_call: (unique)
         |vpiName:unique
+  |vpiDefName:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

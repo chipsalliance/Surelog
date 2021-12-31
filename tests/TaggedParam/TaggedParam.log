@@ -163,17 +163,18 @@ n<> u<120> t<Top_level_rule> l<1:1> el<28:1>
 
 ====== UHDM =======
 design: (work@fpu_wrap)
-|vpiName:work@fpu_wrap
 |vpiElaborated:1
+|vpiName:work@fpu_wrap
 |uhdmallPackages:
 \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
-  |vpiDefName:fpnew_pkg
   |vpiName:fpnew_pkg
   |vpiFullName:fpnew_pkg::
   |vpiTypedef:
   \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:3:15, parent:work@fpu_wrap.FPU_FEATURES
-    |vpiPacked:1
     |vpiName:fpnew_pkg::fpu_features_t
+    |vpiInstance:
+    \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
+    |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (Width), line:4:18, endln:4:23
       |vpiName:Width
@@ -188,20 +189,23 @@ design: (work@fpu_wrap)
       \_logic_typespec: , line:5:5, endln:5:10
         |vpiInstance:
         \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
-    |vpiInstance:
-    \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
+  |vpiDefName:fpnew_pkg
 |uhdmallModules:
 \_module: work@fpnew_top (work@fpnew_top) dut.sv:10:2: , endln:14:11, parent:work@fpu_wrap
-  |vpiDefName:work@fpnew_top
   |vpiFullName:work@fpnew_top
   |vpiParameter:
   \_parameter: (work@fpnew_top.Features), line:12:45, endln:12:84, parent:work@fpnew_top
-    |vpiName:Features
-    |vpiFullName:work@fpnew_top.Features
     |vpiTypespec:
     \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:3:15, parent:work@fpu_wrap.FPU_FEATURES
-      |vpiPacked:1
       |vpiName:fpnew_pkg::fpu_features_t
+      |vpiInstance:
+      \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
+        |vpiName:fpnew_pkg
+        |vpiFullName:fpnew_pkg::
+        |vpiTypedef:
+        \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:3:15, parent:work@fpu_wrap.FPU_FEATURES
+        |vpiDefName:fpnew_pkg
+      |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (Width), line:4:18, endln:4:23
         |vpiName:Width
@@ -209,11 +213,6 @@ design: (work@fpu_wrap)
         \_int_typespec: , line:4:5, endln:4:8
           |vpiInstance:
           \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
-            |vpiDefName:fpnew_pkg
-            |vpiName:fpnew_pkg
-            |vpiFullName:fpnew_pkg::
-            |vpiTypedef:
-            \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:3:15, parent:work@fpu_wrap.FPU_FEATURES
       |vpiTypespecMember:
       \_typespec_member: (EnableNanBox), line:5:18, endln:5:30
         |vpiName:EnableNanBox
@@ -221,8 +220,8 @@ design: (work@fpu_wrap)
         \_logic_typespec: , line:5:5, endln:5:10
           |vpiInstance:
           \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
-      |vpiInstance:
-      \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
+    |vpiName:Features
+    |vpiFullName:work@fpnew_top.Features
   |vpiParamAssign:
   \_param_assign: , line:12:45, endln:12:84, parent:work@fpnew_top
     |vpiRhs:
@@ -230,17 +229,17 @@ design: (work@fpu_wrap)
       |vpiName:fpnew_pkg::RV64D_Xsflt
     |vpiLhs:
     \_parameter: (work@fpnew_top.Features), line:12:45, endln:12:84, parent:work@fpnew_top
+  |vpiDefName:work@fpnew_top
 |uhdmallModules:
 \_module: work@fpu_wrap (work@fpu_wrap) dut.sv:16:1: , endln:27:10, parent:work@fpu_wrap
-  |vpiDefName:work@fpu_wrap
   |vpiFullName:work@fpu_wrap
   |vpiParameter:
   \_parameter: (work@fpu_wrap.FPU_FEATURES), line:18:38, endln:21:6, parent:work@fpu_wrap
-    |vpiName:FPU_FEATURES
-    |vpiFullName:work@fpu_wrap.FPU_FEATURES
-    |vpiLocalParam:1
     |vpiTypespec:
     \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:3:15, parent:work@fpu_wrap.FPU_FEATURES
+    |vpiLocalParam:1
+    |vpiName:FPU_FEATURES
+    |vpiFullName:work@fpu_wrap.FPU_FEATURES
   |vpiParamAssign:
   \_param_assign: , line:18:38, endln:21:6, parent:work@fpu_wrap
     |vpiRhs:
@@ -250,10 +249,10 @@ design: (work@fpu_wrap)
       \_tagged_pattern: 
         |vpiPattern:
         \_constant: , line:19:22, endln:19:24
-          |vpiConstType:9
           |vpiDecompile:64
           |vpiSize:64
           |UINT:64
+          |vpiConstType:9
         |vpiTypespec:
         \_string_typespec: (Width), line:19:7, endln:19:12
           |vpiName:Width
@@ -261,125 +260,50 @@ design: (work@fpu_wrap)
       \_tagged_pattern: 
         |vpiPattern:
         \_constant: , line:20:22, endln:20:26
-          |vpiConstType:3
           |vpiDecompile:1'b1
           |vpiSize:1
           |BIN:1
+          |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (EnableNanBox), line:20:7, endln:20:19
           |vpiName:EnableNanBox
     |vpiLhs:
     \_parameter: (work@fpu_wrap.FPU_FEATURES), line:18:38, endln:21:6, parent:work@fpu_wrap
+  |vpiDefName:work@fpu_wrap
 |uhdmtopModules:
 \_module: work@fpu_wrap (work@fpu_wrap) dut.sv:16:1: , endln:27:10
-  |vpiDefName:work@fpu_wrap
   |vpiName:work@fpu_wrap
-  |vpiModule:
-  \_module: work@fpnew_top (work@fpu_wrap.i_fpnew_bulk) dut.sv:23:8: , endln:25:24, parent:work@fpu_wrap
-    |vpiDefName:work@fpnew_top
-    |vpiDefFile:dut.sv
-    |vpiDefLineNo:10
-    |vpiName:i_fpnew_bulk
-    |vpiFullName:work@fpu_wrap.i_fpnew_bulk
-    |vpiInstance:
-    \_module: work@fpu_wrap (work@fpu_wrap) dut.sv:16:1: , endln:27:10
-    |vpiParameter:
-    \_parameter: (work@fpu_wrap.i_fpnew_bulk.Features), line:12:45, endln:12:84, parent:work@fpu_wrap.i_fpnew_bulk
-      |vpiName:Features
-      |vpiFullName:work@fpu_wrap.i_fpnew_bulk.Features
-      |vpiTypespec:
-      \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:3:15, parent:work@fpu_wrap.i_fpnew_bulk.Features
-        |vpiPacked:1
-        |vpiName:fpnew_pkg::fpu_features_t
-        |vpiTypespecMember:
-        \_typespec_member: (Width), line:4:18, endln:4:23, parent:fpnew_pkg::fpu_features_t
-          |vpiName:Width
-          |vpiTypespec:
-          \_int_typespec: , line:4:5, endln:4:8, parent:Width
-            |vpiInstance:
-            \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
-              |vpiDefName:fpnew_pkg
-              |vpiName:fpnew_pkg
-              |vpiFullName:fpnew_pkg::
-              |vpiTypedef:
-              \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:3:15, parent:work@fpu_wrap.FPU_FEATURES
-                |vpiPacked:1
-                |vpiName:fpnew_pkg::fpu_features_t
-                |vpiTypespecMember:
-                \_typespec_member: (Width), line:4:18, endln:4:23
-                  |vpiName:Width
-                  |vpiTypespec:
-                  \_int_typespec: , line:4:5, endln:4:8
-                    |vpiInstance:
-                    \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
-                |vpiTypespecMember:
-                \_typespec_member: (EnableNanBox), line:5:18, endln:5:30
-                  |vpiName:EnableNanBox
-                  |vpiTypespec:
-                  \_logic_typespec: , line:5:5, endln:5:10
-                    |vpiInstance:
-                    \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
-                |vpiInstance:
-                \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
-        |vpiTypespecMember:
-        \_typespec_member: (EnableNanBox), line:5:18, endln:5:30, parent:fpnew_pkg::fpu_features_t
-          |vpiName:EnableNanBox
-          |vpiTypespec:
-          \_logic_typespec: , line:5:5, endln:5:10, parent:EnableNanBox
-            |vpiInstance:
-            \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
-        |vpiInstance:
-        \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
-    |vpiParamAssign:
-    \_param_assign: , line:12:45, endln:12:84, parent:work@fpu_wrap.i_fpnew_bulk
-      |vpiOverriden:1
-      |vpiRhs:
-      \_operation: , line:24:25, endln:24:37
-        |vpiOpType:75
-        |vpiFlattened:1
-        |vpiOperand:
-        \_constant: , line:19:22, endln:19:24
-          |vpiConstType:9
-          |vpiDecompile:64
-          |vpiSize:64
-          |UINT:64
-        |vpiOperand:
-        \_constant: , line:20:22, endln:20:26
-          |vpiConstType:3
-          |vpiDecompile:1'b1
-          |vpiSize:1
-          |BIN:1
-        |vpiTypespec:
-        \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:3:15
-          |vpiPacked:1
-          |vpiName:fpnew_pkg::fpu_features_t
-          |vpiTypespecMember:
-          \_typespec_member: (Width), line:4:18, endln:4:23, parent:fpnew_pkg::fpu_features_t
-            |vpiName:Width
-            |vpiTypespec:
-            \_int_typespec: , line:4:5, endln:4:8, parent:Width
-              |vpiInstance:
-              \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
-          |vpiTypespecMember:
-          \_typespec_member: (EnableNanBox), line:5:18, endln:5:30, parent:fpnew_pkg::fpu_features_t
-            |vpiName:EnableNanBox
-            |vpiTypespec:
-            \_logic_typespec: , line:5:5, endln:5:10, parent:EnableNanBox
-              |vpiInstance:
-              \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
-          |vpiInstance:
-          \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
-      |vpiLhs:
-      \_parameter: (work@fpu_wrap.i_fpnew_bulk.Features), line:12:45, endln:12:84, parent:work@fpu_wrap.i_fpnew_bulk
   |vpiParameter:
   \_parameter: (work@fpu_wrap.FPU_FEATURES), line:18:38, endln:21:6, parent:work@fpu_wrap
-    |vpiName:FPU_FEATURES
-    |vpiFullName:work@fpu_wrap.FPU_FEATURES
-    |vpiLocalParam:1
     |vpiTypespec:
     \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:3:15, parent:work@fpu_wrap.FPU_FEATURES
-      |vpiPacked:1
       |vpiName:fpnew_pkg::fpu_features_t
+      |vpiInstance:
+      \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
+        |vpiName:fpnew_pkg
+        |vpiFullName:fpnew_pkg::
+        |vpiTypedef:
+        \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:3:15, parent:work@fpu_wrap.FPU_FEATURES
+          |vpiName:fpnew_pkg::fpu_features_t
+          |vpiInstance:
+          \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
+          |vpiPacked:1
+          |vpiTypespecMember:
+          \_typespec_member: (Width), line:4:18, endln:4:23
+            |vpiName:Width
+            |vpiTypespec:
+            \_int_typespec: , line:4:5, endln:4:8
+              |vpiInstance:
+              \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
+          |vpiTypespecMember:
+          \_typespec_member: (EnableNanBox), line:5:18, endln:5:30
+            |vpiName:EnableNanBox
+            |vpiTypespec:
+            \_logic_typespec: , line:5:5, endln:5:10
+              |vpiInstance:
+              \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
+        |vpiDefName:fpnew_pkg
+      |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (Width), line:4:18, endln:4:23, parent:fpnew_pkg::fpu_features_t
         |vpiName:Width
@@ -394,30 +318,19 @@ design: (work@fpu_wrap)
         \_logic_typespec: , line:5:5, endln:5:10, parent:EnableNanBox
           |vpiInstance:
           \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
-      |vpiInstance:
-      \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
+    |vpiLocalParam:1
+    |vpiName:FPU_FEATURES
+    |vpiFullName:work@fpu_wrap.FPU_FEATURES
   |vpiParamAssign:
   \_param_assign: , line:18:38, endln:21:6, parent:work@fpu_wrap
     |vpiRhs:
     \_operation: , line:18:53, endln:21:6
-      |vpiOpType:75
-      |vpiFlattened:1
-      |vpiOperand:
-      \_constant: , line:19:22, endln:19:24
-        |vpiConstType:9
-        |vpiDecompile:64
-        |vpiSize:64
-        |UINT:64
-      |vpiOperand:
-      \_constant: , line:20:22, endln:20:26
-        |vpiConstType:3
-        |vpiDecompile:1'b1
-        |vpiSize:1
-        |BIN:1
       |vpiTypespec:
       \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:3:15
-        |vpiPacked:1
         |vpiName:fpnew_pkg::fpu_features_t
+        |vpiInstance:
+        \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
+        |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (Width), line:4:18, endln:4:23, parent:fpnew_pkg::fpu_features_t
           |vpiName:Width
@@ -432,10 +345,97 @@ design: (work@fpu_wrap)
           \_logic_typespec: , line:5:5, endln:5:10, parent:EnableNanBox
             |vpiInstance:
             \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
-        |vpiInstance:
-        \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
+      |vpiOpType:75
+      |vpiFlattened:1
+      |vpiOperand:
+      \_constant: , line:19:22, endln:19:24
+        |vpiDecompile:64
+        |vpiSize:64
+        |UINT:64
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:20:22, endln:20:26
+        |vpiDecompile:1'b1
+        |vpiSize:1
+        |BIN:1
+        |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@fpu_wrap.FPU_FEATURES), line:18:38, endln:21:6, parent:work@fpu_wrap
+  |vpiDefName:work@fpu_wrap
+  |vpiModule:
+  \_module: work@fpnew_top (work@fpu_wrap.i_fpnew_bulk) dut.sv:23:8: , endln:25:24, parent:work@fpu_wrap
+    |vpiName:i_fpnew_bulk
+    |vpiFullName:work@fpu_wrap.i_fpnew_bulk
+    |vpiParameter:
+    \_parameter: (work@fpu_wrap.i_fpnew_bulk.Features), line:12:45, endln:12:84, parent:work@fpu_wrap.i_fpnew_bulk
+      |vpiTypespec:
+      \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:3:15, parent:work@fpu_wrap.i_fpnew_bulk.Features
+        |vpiName:fpnew_pkg::fpu_features_t
+        |vpiInstance:
+        \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
+        |vpiPacked:1
+        |vpiTypespecMember:
+        \_typespec_member: (Width), line:4:18, endln:4:23, parent:fpnew_pkg::fpu_features_t
+          |vpiName:Width
+          |vpiTypespec:
+          \_int_typespec: , line:4:5, endln:4:8, parent:Width
+            |vpiInstance:
+            \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
+        |vpiTypespecMember:
+        \_typespec_member: (EnableNanBox), line:5:18, endln:5:30, parent:fpnew_pkg::fpu_features_t
+          |vpiName:EnableNanBox
+          |vpiTypespec:
+          \_logic_typespec: , line:5:5, endln:5:10, parent:EnableNanBox
+            |vpiInstance:
+            \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
+      |vpiName:Features
+      |vpiFullName:work@fpu_wrap.i_fpnew_bulk.Features
+    |vpiParamAssign:
+    \_param_assign: , line:12:45, endln:12:84, parent:work@fpu_wrap.i_fpnew_bulk
+      |vpiOverriden:1
+      |vpiRhs:
+      \_operation: , line:24:25, endln:24:37
+        |vpiTypespec:
+        \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:3:15
+          |vpiName:fpnew_pkg::fpu_features_t
+          |vpiInstance:
+          \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
+          |vpiPacked:1
+          |vpiTypespecMember:
+          \_typespec_member: (Width), line:4:18, endln:4:23, parent:fpnew_pkg::fpu_features_t
+            |vpiName:Width
+            |vpiTypespec:
+            \_int_typespec: , line:4:5, endln:4:8, parent:Width
+              |vpiInstance:
+              \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
+          |vpiTypespecMember:
+          \_typespec_member: (EnableNanBox), line:5:18, endln:5:30, parent:fpnew_pkg::fpu_features_t
+            |vpiName:EnableNanBox
+            |vpiTypespec:
+            \_logic_typespec: , line:5:5, endln:5:10, parent:EnableNanBox
+              |vpiInstance:
+              \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:8:11, parent:work@fpu_wrap
+        |vpiOpType:75
+        |vpiFlattened:1
+        |vpiOperand:
+        \_constant: , line:19:22, endln:19:24
+          |vpiDecompile:64
+          |vpiSize:64
+          |UINT:64
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: , line:20:22, endln:20:26
+          |vpiDecompile:1'b1
+          |vpiSize:1
+          |BIN:1
+          |vpiConstType:3
+      |vpiLhs:
+      \_parameter: (work@fpu_wrap.i_fpnew_bulk.Features), line:12:45, endln:12:84, parent:work@fpu_wrap.i_fpnew_bulk
+    |vpiDefName:work@fpnew_top
+    |vpiDefFile:dut.sv
+    |vpiDefLineNo:10
+    |vpiInstance:
+    \_module: work@fpu_wrap (work@fpu_wrap) dut.sv:16:1: , endln:27:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

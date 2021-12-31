@@ -281,33 +281,32 @@ n<> u<244> t<Top_level_rule> l<1:1> el<17:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallClasses:
 \_class_defn: (work@C) dut.sv:1:1: , endln:8:9, parent:work@top
-  |vpiVirtual:1
   |vpiName:work@C
   |vpiParameter:
   \_type_parameter: (work@C::T), line:1:33, endln:1:34, parent:work@C
-    |vpiFullName:work@C::T
     |vpiName:T
+    |vpiFullName:work@C::T
     |vpiTypespec:
     \_logic_typespec: , line:1:37, endln:1:42, parent:work@C::T
   |vpiParameter:
-  \_parameter: (work@C::SIZE), line:1:54, endln:1:62, parent:work@C
+  \_parameter: (work@C::SIZE), line:1:54, endln:1:62
+    |UINT:1
     |vpiName:SIZE
     |vpiFullName:work@C::SIZE
-    |UINT:1
   |vpiParamAssign:
   \_param_assign: , line:1:54, endln:1:62, parent:work@C
     |vpiRhs:
     \_constant: , line:1:61, endln:1:62
-      |vpiConstType:9
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
+      |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@C::SIZE), line:1:54, endln:1:62, parent:work@C
+    \_parameter: (work@C::SIZE), line:1:54, endln:1:62
   |vpiTypedef:
   \_array_typespec: (t_array), parent:work@C
     |vpiName:t_array
@@ -321,19 +320,19 @@ design: (work@top)
           |vpiName:SIZE
           |vpiFullName:work@C::t_array::SIZE
           |vpiActual:
-          \_parameter: (work@C::SIZE), line:1:54, endln:1:62, parent:work@C
+          \_parameter: (work@C::SIZE), line:1:54, endln:1:62
         |vpiOperand:
         \_constant: , line:3:29, endln:3:30
-          |vpiConstType:9
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiConstType:9
       |vpiRightRange:
       \_constant: , line:3:31, endln:3:32
-        |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiConstType:9
   |vpiTypedef:
   \_struct_typespec: (t_struct), line:4:13, endln:4:19, parent:work@C
     |vpiName:t_struct
@@ -343,29 +342,6 @@ design: (work@top)
       |vpiTypespec:
       \_logic_typespec: (t_vector), line:2:13, endln:2:18
         |vpiName:t_vector
-        |vpiRange:
-        \_range: , line:2:20, endln:2:28, parent:t_vector
-          |vpiLeftRange:
-          \_operation: , line:2:20, endln:2:24
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (t_vector.SIZE), line:2:20, endln:2:24
-              |vpiName:SIZE
-              |vpiFullName:t_vector.SIZE
-              |vpiActual:
-              \_parameter: (work@C::SIZE), line:1:54, endln:1:62, parent:work@C
-            |vpiOperand:
-            \_constant: , line:2:25, endln:2:26
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-          |vpiRightRange:
-          \_constant: , line:2:27, endln:2:28
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
         |vpiTypedefAlias:
         \_logic_typespec: (t_vector), line:2:13, endln:2:18
           |vpiName:t_vector
@@ -378,19 +354,42 @@ design: (work@top)
               \_ref_obj: (SIZE), line:2:20, endln:2:24
                 |vpiName:SIZE
                 |vpiActual:
-                \_parameter: (work@C::SIZE), line:1:54, endln:1:62, parent:work@C
+                \_parameter: (work@C::SIZE), line:1:54, endln:1:62
               |vpiOperand:
               \_constant: , line:2:25, endln:2:26
-                |vpiConstType:9
                 |vpiDecompile:1
                 |vpiSize:64
                 |UINT:1
+                |vpiConstType:9
             |vpiRightRange:
             \_constant: , line:2:27, endln:2:28
-              |vpiConstType:9
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+              |vpiConstType:9
+        |vpiRange:
+        \_range: , line:2:20, endln:2:28, parent:t_vector
+          |vpiLeftRange:
+          \_operation: , line:2:20, endln:2:24
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (t_vector.SIZE), line:2:20, endln:2:24
+              |vpiName:SIZE
+              |vpiFullName:t_vector.SIZE
+              |vpiActual:
+              \_parameter: (work@C::SIZE), line:1:54, endln:1:62
+            |vpiOperand:
+            \_constant: , line:2:25, endln:2:26
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:2:27, endln:2:28
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
     |vpiTypespecMember:
     \_typespec_member: (m1), line:6:17, endln:6:19, parent:t_struct
       |vpiName:m1
@@ -407,7 +406,7 @@ design: (work@top)
               |vpiName:SIZE
               |vpiFullName:t_array.SIZE
               |vpiActual:
-              \_parameter: (work@C::SIZE), line:1:54, endln:1:62, parent:work@C
+              \_parameter: (work@C::SIZE), line:1:54, endln:1:62
             |vpiOperand:
             \_constant: , line:3:29, endln:3:30
           |vpiRightRange:
@@ -425,15 +424,35 @@ design: (work@top)
           |vpiName:SIZE
           |vpiFullName:work@C::t_vector::SIZE
           |vpiActual:
-          \_parameter: (work@C::SIZE), line:1:54, endln:1:62, parent:work@C
+          \_parameter: (work@C::SIZE), line:1:54, endln:1:62
         |vpiOperand:
         \_constant: , line:2:25, endln:2:26
       |vpiRightRange:
       \_constant: , line:2:27, endln:2:28
+  |vpiVirtual:1
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:11:1: , endln:15:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiTypedef:
+  \_logic_typespec: (t_t0), line:12:13, endln:12:18
+    |vpiName:t_t0
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:15:10, parent:work@top
+    |vpiRange:
+    \_range: , line:12:20, endln:12:23
+      |vpiLeftRange:
+      \_constant: , line:12:20, endln:12:21
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:12:22, endln:12:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiDefName:work@top
   |vpiNet:
   \_logic_net: (work@top.v0), line:13:26, parent:work@top
     |vpiName:v0
@@ -446,28 +465,8 @@ design: (work@top)
   \_logic_net: (work@top.s0), line:14:25, parent:work@top
     |vpiName:s0
     |vpiFullName:work@top.s0
-  |vpiTypedef:
-  \_logic_typespec: (t_t0), line:12:13, endln:12:18
-    |vpiName:t_t0
-    |vpiRange:
-    \_range: , line:12:20, endln:12:23
-      |vpiLeftRange:
-      \_constant: , line:12:20, endln:12:21
-        |vpiConstType:9
-        |vpiDecompile:7
-        |vpiSize:64
-        |UINT:7
-      |vpiRightRange:
-      \_constant: , line:12:22, endln:12:23
-        |vpiConstType:9
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:11:1: , endln:15:10, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:11:1: , endln:15:10
-  |vpiDefName:work@top
   |vpiName:work@top
   |vpiVariables:
   \_logic_var: (work@top.v0), line:13:26, endln:13:28, parent:work@top
@@ -490,24 +489,12 @@ design: (work@top)
   |vpiTypedef:
   \_logic_typespec: (t_t0), line:12:13, endln:12:18
     |vpiName:t_t0
-    |vpiRange:
-    \_range: , line:12:20, endln:12:23
-      |vpiLeftRange:
-      \_constant: , line:12:20, endln:12:21
-        |vpiConstType:9
-        |vpiDecompile:7
-        |vpiSize:64
-        |UINT:7
-      |vpiRightRange:
-      \_constant: , line:12:22, endln:12:23
-        |vpiConstType:9
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:11:1: , endln:15:10, parent:work@top
-      |vpiDefName:work@top
       |vpiFullName:work@top
+      |vpiTypedef:
+      \_logic_typespec: (t_t0), line:12:13, endln:12:18
+      |vpiDefName:work@top
       |vpiNet:
       \_logic_net: (work@top.v0), line:13:26, parent:work@top
         |vpiName:v0
@@ -520,8 +507,21 @@ design: (work@top)
       \_logic_net: (work@top.s0), line:14:25, parent:work@top
         |vpiName:s0
         |vpiFullName:work@top.s0
-      |vpiTypedef:
-      \_logic_typespec: (t_t0), line:12:13, endln:12:18
+    |vpiRange:
+    \_range: , line:12:20, endln:12:23
+      |vpiLeftRange:
+      \_constant: , line:12:20, endln:12:21
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:12:22, endln:12:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiDefName:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -434,23 +434,23 @@ there are 1 more instances of this message.
 
 ====== UHDM =======
 design: (work@iNToRecFN)
-|vpiName:work@iNToRecFN
 |vpiElaborated:1
+|vpiName:work@iNToRecFN
 |uhdmallUdps:
 \_udp_defn: work@BUFG, line:14:1, parent:work@iNToRecFN
   |vpiDefName:work@BUFG
   |vpiIODecl:
   \_io_decl: (O), line:14:18, endln:14:19
-    |vpiName:O
     |vpiDirection:2
+    |vpiName:O
     |vpiExpr:
     \_logic_net: (work@BUFG.O), line:15:4, endln:15:12
       |vpiName:O
       |vpiFullName:work@BUFG.O
   |vpiIODecl:
   \_io_decl: (I), line:14:21, endln:14:22
-    |vpiName:I
     |vpiDirection:1
+    |vpiName:I
     |vpiExpr:
     \_logic_net: (work@BUFG.I), line:16:4, endln:16:11
       |vpiName:I
@@ -465,55 +465,25 @@ design: (work@iNToRecFN)
     |STRING:1 : 1
 |uhdmallModules:
 \_module: work@iNToRawFN (work@iNToRawFN) dut.sv:1:1: , endln:4:10, parent:work@iNToRecFN
-  |vpiDefName:work@iNToRawFN
   |vpiFullName:work@iNToRawFN
-  |vpiPort:
-  \_port: (signedIn), line:1:44, parent:work@iNToRawFN
-    |vpiName:signedIn
-    |vpiDirection:3
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (work@iNToRawFN.signedIn), line:1:44, parent:work@iNToRawFN
-        |vpiName:signedIn
-        |vpiFullName:work@iNToRawFN.signedIn
-  |vpiPort:
-  \_port: (sExp), line:1:54, parent:work@iNToRawFN
-    |vpiName:sExp
-    |vpiDirection:3
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (work@iNToRawFN.sExp), line:1:54, parent:work@iNToRawFN
-        |vpiName:sExp
-        |vpiFullName:work@iNToRawFN.sExp
-  |vpiNet:
-  \_logic_net: (work@iNToRawFN.adjustedNormDist), line:3:29, parent:work@iNToRawFN
-    |vpiName:adjustedNormDist
-    |vpiFullName:work@iNToRawFN.adjustedNormDist
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (work@iNToRawFN.signedIn), line:1:44, parent:work@iNToRawFN
-  |vpiNet:
-  \_logic_net: (work@iNToRawFN.sExp), line:1:54, parent:work@iNToRawFN
   |vpiParameter:
   \_parameter: (work@iNToRawFN.intWidth), line:1:29, endln:1:41, parent:work@iNToRawFN
+    |UINT:1
     |vpiName:intWidth
     |vpiFullName:work@iNToRawFN.intWidth
-    |UINT:1
   |vpiParameter:
   \_parameter: (work@iNToRawFN.expWidth), line:2:16, endln:2:46, parent:work@iNToRawFN
+    |vpiLocalParam:1
     |vpiName:expWidth
     |vpiFullName:work@iNToRawFN.expWidth
-    |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:1:29, endln:1:41, parent:work@iNToRawFN
     |vpiRhs:
     \_constant: , line:1:40, endln:1:41
-      |vpiConstType:9
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@iNToRawFN.intWidth), line:1:29, endln:1:41, parent:work@iNToRawFN
   |vpiParamAssign:
@@ -523,42 +493,130 @@ design: (work@iNToRecFN)
       |vpiOpType:24
       |vpiOperand:
       \_sys_func_call: ($clog2), line:2:27, endln:2:42
-        |vpiName:$clog2
         |vpiArgument:
         \_ref_obj: (intWidth), line:2:33, endln:2:41, parent:$clog2
           |vpiName:intWidth
+        |vpiName:$clog2
       |vpiOperand:
       \_constant: , line:2:45, endln:2:46
-        |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+        |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@iNToRawFN.expWidth), line:2:16, endln:2:46, parent:work@iNToRawFN
-|uhdmallModules:
-\_module: work@iNToRawFN3 (work@iNToRawFN3) dut.sv:6:1: , endln:11:10, parent:work@iNToRecFN
-  |vpiDefName:work@iNToRawFN3
-  |vpiFullName:work@iNToRawFN3
+  |vpiDefName:work@iNToRawFN
+  |vpiNet:
+  \_logic_net: (work@iNToRawFN.adjustedNormDist), line:3:29, parent:work@iNToRawFN
+    |vpiName:adjustedNormDist
+    |vpiFullName:work@iNToRawFN.adjustedNormDist
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@iNToRawFN.signedIn), line:1:44, parent:work@iNToRawFN
+    |vpiName:signedIn
+    |vpiFullName:work@iNToRawFN.signedIn
+  |vpiNet:
+  \_logic_net: (work@iNToRawFN.sExp), line:1:54, parent:work@iNToRawFN
+    |vpiName:sExp
+    |vpiFullName:work@iNToRawFN.sExp
   |vpiPort:
-  \_port: (signedIn), line:6:70, parent:work@iNToRawFN3
+  \_port: (signedIn), line:1:44, parent:work@iNToRawFN
     |vpiName:signedIn
     |vpiDirection:3
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@iNToRawFN3.signedIn), line:6:70, parent:work@iNToRawFN3
-        |vpiName:signedIn
-        |vpiFullName:work@iNToRawFN3.signedIn
+      \_logic_net: (work@iNToRawFN.signedIn), line:1:44, parent:work@iNToRawFN
   |vpiPort:
-  \_port: (sExp), line:6:80, parent:work@iNToRawFN3
+  \_port: (sExp), line:1:54, parent:work@iNToRawFN
     |vpiName:sExp
     |vpiDirection:3
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@iNToRawFN3.sExp), line:6:80, parent:work@iNToRawFN3
-        |vpiName:sExp
-        |vpiFullName:work@iNToRawFN3.sExp
+      \_logic_net: (work@iNToRawFN.sExp), line:1:54, parent:work@iNToRawFN
+|uhdmallModules:
+\_module: work@iNToRawFN3 (work@iNToRawFN3) dut.sv:6:1: , endln:11:10, parent:work@iNToRecFN
+  |vpiFullName:work@iNToRawFN3
+  |vpiParameter:
+  \_parameter: (work@iNToRawFN3.intWidth), line:6:30, endln:6:42, parent:work@iNToRawFN3
+    |UINT:1
+    |vpiName:intWidth
+    |vpiFullName:work@iNToRawFN3.intWidth
+  |vpiParameter:
+  \_parameter: (work@iNToRawFN3.intWidth2), line:6:54, endln:6:67, parent:work@iNToRawFN3
+    |UINT:1
+    |vpiName:intWidth2
+    |vpiFullName:work@iNToRawFN3.intWidth2
+  |vpiParameter:
+  \_parameter: (work@iNToRawFN3.expWidth), line:7:16, endln:7:46, parent:work@iNToRawFN3
+    |vpiLocalParam:1
+    |vpiName:expWidth
+    |vpiFullName:work@iNToRawFN3.expWidth
+  |vpiParameter:
+  \_parameter: (work@iNToRawFN3.expWidth2), line:8:16, endln:8:48, parent:work@iNToRawFN3
+    |vpiLocalParam:1
+    |vpiName:expWidth2
+    |vpiFullName:work@iNToRawFN3.expWidth2
+  |vpiParamAssign:
+  \_param_assign: , line:6:30, endln:6:42, parent:work@iNToRawFN3
+    |vpiRhs:
+    \_constant: , line:6:41, endln:6:42
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@iNToRawFN3.intWidth), line:6:30, endln:6:42, parent:work@iNToRawFN3
+  |vpiParamAssign:
+  \_param_assign: , line:6:54, endln:6:67, parent:work@iNToRawFN3
+    |vpiRhs:
+    \_constant: , line:6:66, endln:6:67
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@iNToRawFN3.intWidth2), line:6:54, endln:6:67, parent:work@iNToRawFN3
+  |vpiParamAssign:
+  \_param_assign: , line:7:16, endln:7:46, parent:work@iNToRawFN3
+    |vpiRhs:
+    \_operation: , line:7:27, endln:7:46
+      |vpiOpType:24
+      |vpiOperand:
+      \_sys_func_call: ($clog2), line:7:27, endln:7:42
+        |vpiArgument:
+        \_ref_obj: (intWidth), line:7:33, endln:7:41, parent:$clog2
+          |vpiName:intWidth
+        |vpiName:$clog2
+      |vpiOperand:
+      \_constant: , line:7:45, endln:7:46
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@iNToRawFN3.expWidth), line:7:16, endln:7:46, parent:work@iNToRawFN3
+  |vpiParamAssign:
+  \_param_assign: , line:8:16, endln:8:48, parent:work@iNToRawFN3
+    |vpiRhs:
+    \_operation: , line:8:28, endln:8:48
+      |vpiOpType:24
+      |vpiOperand:
+      \_sys_func_call: ($clog2), line:8:28, endln:8:44
+        |vpiArgument:
+        \_ref_obj: (intWidth2), line:8:34, endln:8:43, parent:$clog2
+          |vpiName:intWidth2
+        |vpiName:$clog2
+      |vpiOperand:
+      \_constant: , line:8:47, endln:8:48
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@iNToRawFN3.expWidth2), line:8:16, endln:8:48, parent:work@iNToRawFN3
+  |vpiDefName:work@iNToRawFN3
   |vpiNet:
   \_logic_net: (work@iNToRawFN3.adjustedNormDist), line:9:29, parent:work@iNToRawFN3
     |vpiName:adjustedNormDist
@@ -571,131 +629,171 @@ design: (work@iNToRecFN)
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@iNToRawFN3.signedIn), line:6:70, parent:work@iNToRawFN3
+    |vpiName:signedIn
+    |vpiFullName:work@iNToRawFN3.signedIn
   |vpiNet:
   \_logic_net: (work@iNToRawFN3.sExp), line:6:80, parent:work@iNToRawFN3
-  |vpiParameter:
-  \_parameter: (work@iNToRawFN3.intWidth), line:6:30, endln:6:42, parent:work@iNToRawFN3
-    |vpiName:intWidth
-    |vpiFullName:work@iNToRawFN3.intWidth
-    |UINT:1
-  |vpiParameter:
-  \_parameter: (work@iNToRawFN3.intWidth2), line:6:54, endln:6:67, parent:work@iNToRawFN3
-    |vpiName:intWidth2
-    |vpiFullName:work@iNToRawFN3.intWidth2
-    |UINT:1
-  |vpiParameter:
-  \_parameter: (work@iNToRawFN3.expWidth), line:7:16, endln:7:46, parent:work@iNToRawFN3
-    |vpiName:expWidth
-    |vpiFullName:work@iNToRawFN3.expWidth
-    |vpiLocalParam:1
-  |vpiParameter:
-  \_parameter: (work@iNToRawFN3.expWidth2), line:8:16, endln:8:48, parent:work@iNToRawFN3
-    |vpiName:expWidth2
-    |vpiFullName:work@iNToRawFN3.expWidth2
-    |vpiLocalParam:1
-  |vpiParamAssign:
-  \_param_assign: , line:6:30, endln:6:42, parent:work@iNToRawFN3
-    |vpiRhs:
-    \_constant: , line:6:41, endln:6:42
-      |vpiConstType:9
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-    |vpiLhs:
-    \_parameter: (work@iNToRawFN3.intWidth), line:6:30, endln:6:42, parent:work@iNToRawFN3
-  |vpiParamAssign:
-  \_param_assign: , line:6:54, endln:6:67, parent:work@iNToRawFN3
-    |vpiRhs:
-    \_constant: , line:6:66, endln:6:67
-      |vpiConstType:9
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-    |vpiLhs:
-    \_parameter: (work@iNToRawFN3.intWidth2), line:6:54, endln:6:67, parent:work@iNToRawFN3
-  |vpiParamAssign:
-  \_param_assign: , line:7:16, endln:7:46, parent:work@iNToRawFN3
-    |vpiRhs:
-    \_operation: , line:7:27, endln:7:46
-      |vpiOpType:24
-      |vpiOperand:
-      \_sys_func_call: ($clog2), line:7:27, endln:7:42
-        |vpiName:$clog2
-        |vpiArgument:
-        \_ref_obj: (intWidth), line:7:33, endln:7:41, parent:$clog2
-          |vpiName:intWidth
-      |vpiOperand:
-      \_constant: , line:7:45, endln:7:46
-        |vpiConstType:9
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-    |vpiLhs:
-    \_parameter: (work@iNToRawFN3.expWidth), line:7:16, endln:7:46, parent:work@iNToRawFN3
-  |vpiParamAssign:
-  \_param_assign: , line:8:16, endln:8:48, parent:work@iNToRawFN3
-    |vpiRhs:
-    \_operation: , line:8:28, endln:8:48
-      |vpiOpType:24
-      |vpiOperand:
-      \_sys_func_call: ($clog2), line:8:28, endln:8:44
-        |vpiName:$clog2
-        |vpiArgument:
-        \_ref_obj: (intWidth2), line:8:34, endln:8:43, parent:$clog2
-          |vpiName:intWidth2
-      |vpiOperand:
-      \_constant: , line:8:47, endln:8:48
-        |vpiConstType:9
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-    |vpiLhs:
-    \_parameter: (work@iNToRawFN3.expWidth2), line:8:16, endln:8:48, parent:work@iNToRawFN3
+    |vpiName:sExp
+    |vpiFullName:work@iNToRawFN3.sExp
+  |vpiPort:
+  \_port: (signedIn), line:6:70, parent:work@iNToRawFN3
+    |vpiName:signedIn
+    |vpiDirection:3
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@iNToRawFN3.signedIn), line:6:70, parent:work@iNToRawFN3
+  |vpiPort:
+  \_port: (sExp), line:6:80, parent:work@iNToRawFN3
+    |vpiName:sExp
+    |vpiDirection:3
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@iNToRawFN3.sExp), line:6:80, parent:work@iNToRawFN3
 |uhdmallModules:
 \_module: work@iNToRecFN (work@iNToRecFN) dut.sv:23:1: , endln:29:10, parent:work@iNToRecFN
-  |vpiDefName:work@iNToRecFN
   |vpiFullName:work@iNToRecFN
   |vpiParameter:
   \_parameter: (work@iNToRecFN.intWidth), line:23:30, endln:23:43, parent:work@iNToRecFN
+    |UINT:64
     |vpiName:intWidth
     |vpiFullName:work@iNToRecFN.intWidth
-    |UINT:64
   |vpiParameter:
   \_parameter: (work@iNToRecFN.intWidth2), line:23:55, endln:23:69, parent:work@iNToRecFN
+    |UINT:64
     |vpiName:intWidth2
     |vpiFullName:work@iNToRecFN.intWidth2
-    |UINT:64
   |vpiParamAssign:
   \_param_assign: , line:23:30, endln:23:43, parent:work@iNToRecFN
     |vpiRhs:
     \_constant: , line:23:41, endln:23:43
-      |vpiConstType:9
       |vpiDecompile:64
       |vpiSize:64
       |UINT:64
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@iNToRecFN.intWidth), line:23:30, endln:23:43, parent:work@iNToRecFN
   |vpiParamAssign:
   \_param_assign: , line:23:55, endln:23:69, parent:work@iNToRecFN
     |vpiRhs:
     \_constant: , line:23:67, endln:23:69
-      |vpiConstType:9
       |vpiDecompile:64
       |vpiSize:64
       |UINT:64
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@iNToRecFN.intWidth2), line:23:55, endln:23:69, parent:work@iNToRecFN
+  |vpiDefName:work@iNToRecFN
 |uhdmtopModules:
 \_module: work@iNToRecFN (work@iNToRecFN) dut.sv:23:1: , endln:29:10
-  |vpiDefName:work@iNToRecFN
   |vpiName:work@iNToRecFN
+  |vpiParameter:
+  \_parameter: (work@iNToRecFN.intWidth), line:23:30, endln:23:43, parent:work@iNToRecFN
+    |UINT:64
+    |vpiName:intWidth
+    |vpiFullName:work@iNToRecFN.intWidth
+  |vpiParameter:
+  \_parameter: (work@iNToRecFN.intWidth2), line:23:55, endln:23:69, parent:work@iNToRecFN
+    |UINT:64
+    |vpiName:intWidth2
+    |vpiFullName:work@iNToRecFN.intWidth2
+  |vpiParamAssign:
+  \_param_assign: , line:23:30, endln:23:43, parent:work@iNToRecFN
+    |vpiRhs:
+    \_constant: , line:23:41, endln:23:43
+      |vpiDecompile:64
+      |vpiSize:64
+      |UINT:64
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@iNToRecFN.intWidth), line:23:30, endln:23:43, parent:work@iNToRecFN
+  |vpiParamAssign:
+  \_param_assign: , line:23:55, endln:23:69, parent:work@iNToRecFN
+    |vpiRhs:
+    \_constant: , line:23:67, endln:23:69
+      |vpiDecompile:64
+      |vpiSize:64
+      |UINT:64
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@iNToRecFN.intWidth2), line:23:55, endln:23:69, parent:work@iNToRecFN
+  |vpiDefName:work@iNToRecFN
+  |vpiNet:
+  \_logic_net: (work@iNToRecFN.signedIn), parent:work@iNToRecFN
+    |vpiName:signedIn
+    |vpiFullName:work@iNToRecFN.signedIn
+  |vpiNet:
+  \_logic_net: (work@iNToRecFN.sExp), parent:work@iNToRecFN
+    |vpiName:sExp
+    |vpiFullName:work@iNToRecFN.sExp
   |vpiModule:
   \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN) dut.sv:24:2: , endln:24:49, parent:work@iNToRecFN
+    |vpiName:iNToRawFN
+    |vpiFullName:work@iNToRecFN.iNToRawFN
+    |vpiParameter:
+    \_parameter: (work@iNToRecFN.iNToRawFN.intWidth), line:1:29, endln:1:41, parent:work@iNToRecFN.iNToRawFN
+      |UINT:1
+      |vpiName:intWidth
+      |vpiFullName:work@iNToRecFN.iNToRawFN.intWidth
+    |vpiParameter:
+    \_parameter: (work@iNToRecFN.iNToRawFN.expWidth), line:2:16, endln:2:46, parent:work@iNToRecFN.iNToRawFN
+      |vpiLocalParam:1
+      |vpiName:expWidth
+      |vpiFullName:work@iNToRecFN.iNToRawFN.expWidth
+    |vpiParamAssign:
+    \_param_assign: , line:1:29, endln:1:41, parent:work@iNToRecFN.iNToRawFN
+      |vpiOverriden:1
+      |vpiRhs:
+      \_constant: , line:1:40, endln:1:41
+        |vpiDecompile:64
+        |vpiSize:64
+        |UINT:64
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@iNToRecFN.iNToRawFN.intWidth), line:1:29, endln:1:41, parent:work@iNToRecFN.iNToRawFN
+    |vpiParamAssign:
+    \_param_assign: , line:2:16, endln:2:46, parent:work@iNToRecFN.iNToRawFN
+      |vpiRhs:
+      \_constant: , line:2:27, endln:2:46
+        |vpiDecompile:7
+        |vpiSize:64
+        |INT:7
+        |vpiConstType:7
+      |vpiLhs:
+      \_parameter: (work@iNToRecFN.iNToRawFN.expWidth), line:2:16, endln:2:46, parent:work@iNToRecFN.iNToRawFN
     |vpiDefName:work@iNToRawFN
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
-    |vpiName:iNToRawFN
-    |vpiFullName:work@iNToRecFN.iNToRawFN
+    |vpiNet:
+    \_logic_net: (work@iNToRecFN.iNToRawFN.adjustedNormDist), line:3:29, endln:3:45, parent:work@iNToRecFN.iNToRawFN
+      |vpiName:adjustedNormDist
+      |vpiFullName:work@iNToRecFN.iNToRawFN.adjustedNormDist
+      |vpiNetType:1
+      |vpiRange:
+      \_range: , line:3:11, endln:3:27
+        |vpiLeftRange:
+        \_constant: , line:3:11, endln:3:25
+          |vpiDecompile:5
+          |vpiSize:64
+          |INT:5
+          |vpiConstType:7
+        |vpiRightRange:
+        \_constant: , line:3:26, endln:3:27
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiNet:
+    \_logic_net: (work@iNToRecFN.iNToRawFN.signedIn), line:1:44, endln:1:52, parent:work@iNToRecFN.iNToRawFN
+      |vpiName:signedIn
+      |vpiFullName:work@iNToRecFN.iNToRawFN.signedIn
+    |vpiNet:
+    \_logic_net: (work@iNToRecFN.iNToRawFN.sExp), line:1:54, endln:1:58, parent:work@iNToRecFN.iNToRawFN
+      |vpiName:sExp
+      |vpiFullName:work@iNToRecFN.iNToRawFN.sExp
+    |vpiInstance:
+    \_module: work@iNToRecFN (work@iNToRecFN) dut.sv:23:1: , endln:29:10
     |vpiPort:
     \_port: (signedIn), line:1:44, endln:1:52, parent:work@iNToRecFN.iNToRawFN
       |vpiName:signedIn
@@ -706,8 +804,6 @@ design: (work@iNToRecFN)
         |vpiFullName:work@iNToRecFN.signedIn
         |vpiActual:
         \_logic_net: (work@iNToRecFN.iNToRawFN.signedIn), line:1:44, endln:1:52, parent:work@iNToRecFN.iNToRawFN
-          |vpiName:signedIn
-          |vpiFullName:work@iNToRecFN.iNToRawFN.signedIn
       |vpiLowConn:
       \_ref_obj: (work@iNToRecFN.iNToRawFN.signedIn), parent:signedIn
         |vpiName:signedIn
@@ -726,8 +822,6 @@ design: (work@iNToRecFN)
         |vpiFullName:work@iNToRecFN.sExp
         |vpiActual:
         \_logic_net: (work@iNToRecFN.iNToRawFN.sExp), line:1:54, endln:1:58, parent:work@iNToRecFN.iNToRawFN
-          |vpiName:sExp
-          |vpiFullName:work@iNToRecFN.iNToRawFN.sExp
       |vpiLowConn:
       \_ref_obj: (work@iNToRecFN.iNToRawFN.sExp), parent:sExp
         |vpiName:sExp
@@ -736,69 +830,123 @@ design: (work@iNToRecFN)
         \_logic_net: (work@iNToRecFN.iNToRawFN.sExp), line:1:54, endln:1:58, parent:work@iNToRecFN.iNToRawFN
       |vpiInstance:
       \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN) dut.sv:24:2: , endln:24:49, parent:work@iNToRecFN
-    |vpiNet:
-    \_logic_net: (work@iNToRecFN.iNToRawFN.adjustedNormDist), line:3:29, endln:3:45, parent:work@iNToRecFN.iNToRawFN
-      |vpiName:adjustedNormDist
-      |vpiFullName:work@iNToRecFN.iNToRawFN.adjustedNormDist
-      |vpiNetType:1
-      |vpiRange:
-      \_range: , line:3:11, endln:3:27
-        |vpiLeftRange:
-        \_constant: , line:3:11, endln:3:25
-          |vpiConstType:7
-          |vpiDecompile:5
-          |vpiSize:64
-          |INT:5
-        |vpiRightRange:
-        \_constant: , line:3:26, endln:3:27
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-    |vpiNet:
-    \_logic_net: (work@iNToRecFN.iNToRawFN.signedIn), line:1:44, endln:1:52, parent:work@iNToRecFN.iNToRawFN
-    |vpiNet:
-    \_logic_net: (work@iNToRecFN.iNToRawFN.sExp), line:1:54, endln:1:58, parent:work@iNToRecFN.iNToRawFN
-    |vpiInstance:
-    \_module: work@iNToRecFN (work@iNToRecFN) dut.sv:23:1: , endln:29:10
+  |vpiModule:
+  \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3) dut.sv:25:2: , endln:25:62, parent:work@iNToRecFN
+    |vpiName:iNToRawFN3
+    |vpiFullName:work@iNToRecFN.iNToRawFN3
     |vpiParameter:
-    \_parameter: (work@iNToRecFN.iNToRawFN.intWidth), line:1:29, endln:1:41, parent:work@iNToRecFN.iNToRawFN
-      |vpiName:intWidth
-      |vpiFullName:work@iNToRecFN.iNToRawFN.intWidth
+    \_parameter: (work@iNToRecFN.iNToRawFN3.intWidth), line:6:30, endln:6:42, parent:work@iNToRecFN.iNToRawFN3
       |UINT:1
+      |vpiName:intWidth
+      |vpiFullName:work@iNToRecFN.iNToRawFN3.intWidth
     |vpiParameter:
-    \_parameter: (work@iNToRecFN.iNToRawFN.expWidth), line:2:16, endln:2:46, parent:work@iNToRecFN.iNToRawFN
-      |vpiName:expWidth
-      |vpiFullName:work@iNToRecFN.iNToRawFN.expWidth
+    \_parameter: (work@iNToRecFN.iNToRawFN3.intWidth2), line:6:54, endln:6:67, parent:work@iNToRecFN.iNToRawFN3
+      |UINT:1
+      |vpiName:intWidth2
+      |vpiFullName:work@iNToRecFN.iNToRawFN3.intWidth2
+    |vpiParameter:
+    \_parameter: (work@iNToRecFN.iNToRawFN3.expWidth), line:7:16, endln:7:46, parent:work@iNToRecFN.iNToRawFN3
       |vpiLocalParam:1
+      |vpiName:expWidth
+      |vpiFullName:work@iNToRecFN.iNToRawFN3.expWidth
+    |vpiParameter:
+    \_parameter: (work@iNToRecFN.iNToRawFN3.expWidth2), line:8:16, endln:8:48, parent:work@iNToRecFN.iNToRawFN3
+      |vpiLocalParam:1
+      |vpiName:expWidth2
+      |vpiFullName:work@iNToRecFN.iNToRawFN3.expWidth2
     |vpiParamAssign:
-    \_param_assign: , line:1:29, endln:1:41, parent:work@iNToRecFN.iNToRawFN
+    \_param_assign: , line:6:30, endln:6:42, parent:work@iNToRecFN.iNToRawFN3
       |vpiOverriden:1
       |vpiRhs:
-      \_constant: , line:1:40, endln:1:41
-        |vpiConstType:9
+      \_constant: , line:6:41, endln:6:42
         |vpiDecompile:64
         |vpiSize:64
         |UINT:64
+        |vpiConstType:9
       |vpiLhs:
-      \_parameter: (work@iNToRecFN.iNToRawFN.intWidth), line:1:29, endln:1:41, parent:work@iNToRecFN.iNToRawFN
+      \_parameter: (work@iNToRecFN.iNToRawFN3.intWidth), line:6:30, endln:6:42, parent:work@iNToRecFN.iNToRawFN3
     |vpiParamAssign:
-    \_param_assign: , line:2:16, endln:2:46, parent:work@iNToRecFN.iNToRawFN
+    \_param_assign: , line:6:54, endln:6:67, parent:work@iNToRecFN.iNToRawFN3
+      |vpiOverriden:1
       |vpiRhs:
-      \_constant: , line:2:27, endln:2:46
-        |vpiConstType:7
+      \_constant: , line:6:66, endln:6:67
+        |vpiDecompile:64
+        |vpiSize:64
+        |UINT:64
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@iNToRecFN.iNToRawFN3.intWidth2), line:6:54, endln:6:67, parent:work@iNToRecFN.iNToRawFN3
+    |vpiParamAssign:
+    \_param_assign: , line:7:16, endln:7:46, parent:work@iNToRecFN.iNToRawFN3
+      |vpiRhs:
+      \_constant: , line:7:27, endln:7:46
         |vpiDecompile:7
         |vpiSize:64
         |INT:7
+        |vpiConstType:7
       |vpiLhs:
-      \_parameter: (work@iNToRecFN.iNToRawFN.expWidth), line:2:16, endln:2:46, parent:work@iNToRecFN.iNToRawFN
-  |vpiModule:
-  \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3) dut.sv:25:2: , endln:25:62, parent:work@iNToRecFN
+      \_parameter: (work@iNToRecFN.iNToRawFN3.expWidth), line:7:16, endln:7:46, parent:work@iNToRecFN.iNToRawFN3
+    |vpiParamAssign:
+    \_param_assign: , line:8:16, endln:8:48, parent:work@iNToRecFN.iNToRawFN3
+      |vpiRhs:
+      \_constant: , line:8:28, endln:8:48
+        |vpiDecompile:7
+        |vpiSize:64
+        |INT:7
+        |vpiConstType:7
+      |vpiLhs:
+      \_parameter: (work@iNToRecFN.iNToRawFN3.expWidth2), line:8:16, endln:8:48, parent:work@iNToRecFN.iNToRawFN3
     |vpiDefName:work@iNToRawFN3
     |vpiDefFile:dut.sv
     |vpiDefLineNo:6
-    |vpiName:iNToRawFN3
-    |vpiFullName:work@iNToRecFN.iNToRawFN3
+    |vpiNet:
+    \_logic_net: (work@iNToRecFN.iNToRawFN3.adjustedNormDist), line:9:29, endln:9:45, parent:work@iNToRecFN.iNToRawFN3
+      |vpiName:adjustedNormDist
+      |vpiFullName:work@iNToRecFN.iNToRawFN3.adjustedNormDist
+      |vpiNetType:1
+      |vpiRange:
+      \_range: , line:9:11, endln:9:27
+        |vpiLeftRange:
+        \_constant: , line:9:11, endln:9:25
+          |vpiDecompile:5
+          |vpiSize:64
+          |INT:5
+          |vpiConstType:7
+        |vpiRightRange:
+        \_constant: , line:9:26, endln:9:27
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiNet:
+    \_logic_net: (work@iNToRecFN.iNToRawFN3.adjustedNormDist2), line:10:30, endln:10:47, parent:work@iNToRecFN.iNToRawFN3
+      |vpiName:adjustedNormDist2
+      |vpiFullName:work@iNToRecFN.iNToRawFN3.adjustedNormDist2
+      |vpiNetType:1
+      |vpiRange:
+      \_range: , line:10:11, endln:10:28
+        |vpiLeftRange:
+        \_constant: , line:10:11, endln:10:26
+          |vpiDecompile:5
+          |vpiSize:64
+          |INT:5
+          |vpiConstType:7
+        |vpiRightRange:
+        \_constant: , line:10:27, endln:10:28
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiNet:
+    \_logic_net: (work@iNToRecFN.iNToRawFN3.signedIn), line:6:70, endln:6:78, parent:work@iNToRecFN.iNToRawFN3
+      |vpiName:signedIn
+      |vpiFullName:work@iNToRecFN.iNToRawFN3.signedIn
+    |vpiNet:
+    \_logic_net: (work@iNToRecFN.iNToRawFN3.sExp), line:6:80, endln:6:84, parent:work@iNToRecFN.iNToRawFN3
+      |vpiName:sExp
+      |vpiFullName:work@iNToRecFN.iNToRawFN3.sExp
+    |vpiInstance:
+    \_module: work@iNToRecFN (work@iNToRecFN) dut.sv:23:1: , endln:29:10
     |vpiPort:
     \_port: (signedIn), line:6:70, endln:6:78, parent:work@iNToRecFN.iNToRawFN3
       |vpiName:signedIn
@@ -809,8 +957,6 @@ design: (work@iNToRecFN)
         |vpiFullName:work@iNToRecFN.signedIn
         |vpiActual:
         \_logic_net: (work@iNToRecFN.iNToRawFN3.signedIn), line:6:70, endln:6:78, parent:work@iNToRecFN.iNToRawFN3
-          |vpiName:signedIn
-          |vpiFullName:work@iNToRecFN.iNToRawFN3.signedIn
       |vpiLowConn:
       \_ref_obj: (work@iNToRecFN.iNToRawFN3.signedIn), parent:signedIn
         |vpiName:signedIn
@@ -829,8 +975,6 @@ design: (work@iNToRecFN)
         |vpiFullName:work@iNToRecFN.sExp
         |vpiActual:
         \_logic_net: (work@iNToRecFN.iNToRawFN3.sExp), line:6:80, endln:6:84, parent:work@iNToRecFN.iNToRawFN3
-          |vpiName:sExp
-          |vpiFullName:work@iNToRecFN.iNToRawFN3.sExp
       |vpiLowConn:
       \_ref_obj: (work@iNToRecFN.iNToRawFN3.sExp), parent:sExp
         |vpiName:sExp
@@ -839,131 +983,31 @@ design: (work@iNToRecFN)
         \_logic_net: (work@iNToRecFN.iNToRawFN3.sExp), line:6:80, endln:6:84, parent:work@iNToRecFN.iNToRawFN3
       |vpiInstance:
       \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3) dut.sv:25:2: , endln:25:62, parent:work@iNToRecFN
-    |vpiNet:
-    \_logic_net: (work@iNToRecFN.iNToRawFN3.adjustedNormDist), line:9:29, endln:9:45, parent:work@iNToRecFN.iNToRawFN3
-      |vpiName:adjustedNormDist
-      |vpiFullName:work@iNToRecFN.iNToRawFN3.adjustedNormDist
-      |vpiNetType:1
-      |vpiRange:
-      \_range: , line:9:11, endln:9:27
-        |vpiLeftRange:
-        \_constant: , line:9:11, endln:9:25
-          |vpiConstType:7
-          |vpiDecompile:5
-          |vpiSize:64
-          |INT:5
-        |vpiRightRange:
-        \_constant: , line:9:26, endln:9:27
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-    |vpiNet:
-    \_logic_net: (work@iNToRecFN.iNToRawFN3.adjustedNormDist2), line:10:30, endln:10:47, parent:work@iNToRecFN.iNToRawFN3
-      |vpiName:adjustedNormDist2
-      |vpiFullName:work@iNToRecFN.iNToRawFN3.adjustedNormDist2
-      |vpiNetType:1
-      |vpiRange:
-      \_range: , line:10:11, endln:10:28
-        |vpiLeftRange:
-        \_constant: , line:10:11, endln:10:26
-          |vpiConstType:7
-          |vpiDecompile:5
-          |vpiSize:64
-          |INT:5
-        |vpiRightRange:
-        \_constant: , line:10:27, endln:10:28
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-    |vpiNet:
-    \_logic_net: (work@iNToRecFN.iNToRawFN3.signedIn), line:6:70, endln:6:78, parent:work@iNToRecFN.iNToRawFN3
-    |vpiNet:
-    \_logic_net: (work@iNToRecFN.iNToRawFN3.sExp), line:6:80, endln:6:84, parent:work@iNToRecFN.iNToRawFN3
-    |vpiInstance:
-    \_module: work@iNToRecFN (work@iNToRecFN) dut.sv:23:1: , endln:29:10
-    |vpiParameter:
-    \_parameter: (work@iNToRecFN.iNToRawFN3.intWidth), line:6:30, endln:6:42, parent:work@iNToRecFN.iNToRawFN3
-      |vpiName:intWidth
-      |vpiFullName:work@iNToRecFN.iNToRawFN3.intWidth
-      |UINT:1
-    |vpiParameter:
-    \_parameter: (work@iNToRecFN.iNToRawFN3.intWidth2), line:6:54, endln:6:67, parent:work@iNToRecFN.iNToRawFN3
-      |vpiName:intWidth2
-      |vpiFullName:work@iNToRecFN.iNToRawFN3.intWidth2
-      |UINT:1
-    |vpiParameter:
-    \_parameter: (work@iNToRecFN.iNToRawFN3.expWidth), line:7:16, endln:7:46, parent:work@iNToRecFN.iNToRawFN3
-      |vpiName:expWidth
-      |vpiFullName:work@iNToRecFN.iNToRawFN3.expWidth
-      |vpiLocalParam:1
-    |vpiParameter:
-    \_parameter: (work@iNToRecFN.iNToRawFN3.expWidth2), line:8:16, endln:8:48, parent:work@iNToRecFN.iNToRawFN3
-      |vpiName:expWidth2
-      |vpiFullName:work@iNToRecFN.iNToRawFN3.expWidth2
-      |vpiLocalParam:1
-    |vpiParamAssign:
-    \_param_assign: , line:6:30, endln:6:42, parent:work@iNToRecFN.iNToRawFN3
-      |vpiOverriden:1
-      |vpiRhs:
-      \_constant: , line:6:41, endln:6:42
-        |vpiConstType:9
-        |vpiDecompile:64
-        |vpiSize:64
-        |UINT:64
-      |vpiLhs:
-      \_parameter: (work@iNToRecFN.iNToRawFN3.intWidth), line:6:30, endln:6:42, parent:work@iNToRecFN.iNToRawFN3
-    |vpiParamAssign:
-    \_param_assign: , line:6:54, endln:6:67, parent:work@iNToRecFN.iNToRawFN3
-      |vpiOverriden:1
-      |vpiRhs:
-      \_constant: , line:6:66, endln:6:67
-        |vpiConstType:9
-        |vpiDecompile:64
-        |vpiSize:64
-        |UINT:64
-      |vpiLhs:
-      \_parameter: (work@iNToRecFN.iNToRawFN3.intWidth2), line:6:54, endln:6:67, parent:work@iNToRecFN.iNToRawFN3
-    |vpiParamAssign:
-    \_param_assign: , line:7:16, endln:7:46, parent:work@iNToRecFN.iNToRawFN3
-      |vpiRhs:
-      \_constant: , line:7:27, endln:7:46
-        |vpiConstType:7
-        |vpiDecompile:7
-        |vpiSize:64
-        |INT:7
-      |vpiLhs:
-      \_parameter: (work@iNToRecFN.iNToRawFN3.expWidth), line:7:16, endln:7:46, parent:work@iNToRecFN.iNToRawFN3
-    |vpiParamAssign:
-    \_param_assign: , line:8:16, endln:8:48, parent:work@iNToRecFN.iNToRawFN3
-      |vpiRhs:
-      \_constant: , line:8:28, endln:8:48
-        |vpiConstType:7
-        |vpiDecompile:7
-        |vpiSize:64
-        |INT:7
-      |vpiLhs:
-      \_parameter: (work@iNToRecFN.iNToRawFN3.expWidth2), line:8:16, endln:8:48, parent:work@iNToRecFN.iNToRawFN3
   |vpiPrimitive:
   \_udp: work@BUFG (work@iNToRecFN.) dut.sv:27: , parent:work@iNToRecFN
     |vpiDefName:work@BUFG
     |vpiFullName:work@iNToRecFN.
+    |vpiDelay:
+    \_constant: , line:27:6, endln:27:11
+      |vpiDecompile:#5
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
     |vpiUdpDefn:
     \_udp_defn: work@BUFG, line:14:1, parent:work@iNToRecFN
       |vpiDefName:work@BUFG
       |vpiIODecl:
       \_io_decl: (O), line:14:18, endln:14:19
-        |vpiName:O
         |vpiDirection:2
+        |vpiName:O
         |vpiExpr:
         \_logic_net: (work@BUFG.O), line:15:4, endln:15:12
           |vpiName:O
           |vpiFullName:work@BUFG.O
       |vpiIODecl:
       \_io_decl: (I), line:14:21, endln:14:22
-        |vpiName:I
         |vpiDirection:1
+        |vpiName:I
         |vpiExpr:
         \_logic_net: (work@BUFG.I), line:16:4, endln:16:11
           |vpiName:I
@@ -976,50 +1020,6 @@ design: (work@iNToRecFN)
       \_table_entry: , line:19:1, endln:19:0
         |vpiSize:1
         |STRING:1 : 1
-    |vpiDelay:
-    \_constant: , line:27:6, endln:27:11
-      |vpiConstType:9
-      |vpiDecompile:#5
-      |vpiSize:64
-      |UINT:0
-  |vpiNet:
-  \_logic_net: (work@iNToRecFN.signedIn), parent:work@iNToRecFN
-    |vpiName:signedIn
-    |vpiFullName:work@iNToRecFN.signedIn
-  |vpiNet:
-  \_logic_net: (work@iNToRecFN.sExp), parent:work@iNToRecFN
-    |vpiName:sExp
-    |vpiFullName:work@iNToRecFN.sExp
-  |vpiParameter:
-  \_parameter: (work@iNToRecFN.intWidth), line:23:30, endln:23:43, parent:work@iNToRecFN
-    |vpiName:intWidth
-    |vpiFullName:work@iNToRecFN.intWidth
-    |UINT:64
-  |vpiParameter:
-  \_parameter: (work@iNToRecFN.intWidth2), line:23:55, endln:23:69, parent:work@iNToRecFN
-    |vpiName:intWidth2
-    |vpiFullName:work@iNToRecFN.intWidth2
-    |UINT:64
-  |vpiParamAssign:
-  \_param_assign: , line:23:30, endln:23:43, parent:work@iNToRecFN
-    |vpiRhs:
-    \_constant: , line:23:41, endln:23:43
-      |vpiConstType:9
-      |vpiDecompile:64
-      |vpiSize:64
-      |UINT:64
-    |vpiLhs:
-    \_parameter: (work@iNToRecFN.intWidth), line:23:30, endln:23:43, parent:work@iNToRecFN
-  |vpiParamAssign:
-  \_param_assign: , line:23:55, endln:23:69, parent:work@iNToRecFN
-    |vpiRhs:
-    \_constant: , line:23:67, endln:23:69
-      |vpiConstType:9
-      |vpiDecompile:64
-      |vpiSize:64
-      |UINT:64
-    |vpiLhs:
-    \_parameter: (work@iNToRecFN.intWidth2), line:23:55, endln:23:69, parent:work@iNToRecFN
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

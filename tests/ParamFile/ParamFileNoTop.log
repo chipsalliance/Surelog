@@ -240,8 +240,26 @@ design: (unnamed)
 |vpiName:unnamed
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:3:1: , endln:10:10, parent:unnamed
-  |vpiDefName:work@dut
   |vpiFullName:work@dut
+  |vpiParameter:
+  \_parameter: (work@dut.SRAMInitFile), line:4:14, endln:4:31, parent:work@dut
+    |STRING:
+    |vpiName:SRAMInitFile
+    |vpiFullName:work@dut.SRAMInitFile
+  |vpiParamAssign:
+  \_param_assign: , line:4:14, endln:4:31, parent:work@dut
+    |vpiRhs:
+    \_constant: , line:4:29, endln:4:31
+      |STRING:
+      |vpiConstType:6
+    |vpiLhs:
+    \_parameter: (work@dut.SRAMInitFile), line:4:14, endln:4:31, parent:work@dut
+  |vpiDefName:work@dut
+  |vpiNet:
+  \_logic_net: (work@dut.o), line:3:26, parent:work@dut
+    |vpiName:o
+    |vpiFullName:work@dut.o
+    |vpiNetType:36
   |vpiPort:
   \_port: (o), line:3:26, parent:work@dut
     |vpiName:o
@@ -250,28 +268,28 @@ design: (unnamed)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@dut.o), line:3:26, parent:work@dut
-        |vpiName:o
-        |vpiFullName:work@dut.o
-        |vpiNetType:36
-  |vpiNet:
-  \_logic_net: (work@dut.o), line:3:26, parent:work@dut
-  |vpiParameter:
-  \_parameter: (work@dut.SRAMInitFile), line:4:14, endln:4:31, parent:work@dut
-    |vpiName:SRAMInitFile
-    |vpiFullName:work@dut.SRAMInitFile
-    |STRING:
-  |vpiParamAssign:
-  \_param_assign: , line:4:14, endln:4:31, parent:work@dut
-    |vpiRhs:
-    \_constant: , line:4:29, endln:4:31
-      |vpiConstType:6
-      |STRING:
-    |vpiLhs:
-    \_parameter: (work@dut.SRAMInitFile), line:4:14, endln:4:31, parent:work@dut
 |uhdmallModules:
 \_module: work@ram_1p (work@ram_1p) dut.sv:12:1: , endln:30:10, parent:unnamed
-  |vpiDefName:work@ram_1p
   |vpiFullName:work@ram_1p
+  |vpiParameter:
+  \_parameter: (work@ram_1p.MemInitFile), line:13:23, endln:13:39, parent:work@ram_1p
+    |STRING:
+    |vpiName:MemInitFile
+    |vpiFullName:work@ram_1p.MemInitFile
+  |vpiParamAssign:
+  \_param_assign: , line:13:23, endln:13:39, parent:work@ram_1p
+    |vpiRhs:
+    \_constant: , line:13:37, endln:13:39
+      |STRING:
+      |vpiConstType:6
+    |vpiLhs:
+    \_parameter: (work@ram_1p.MemInitFile), line:13:23, endln:13:39, parent:work@ram_1p
+  |vpiDefName:work@ram_1p
+  |vpiNet:
+  \_logic_net: (work@ram_1p.out), line:15:22, parent:work@ram_1p
+    |vpiName:out
+    |vpiFullName:work@ram_1p.out
+    |vpiNetType:36
   |vpiPort:
   \_port: (out), line:15:22, parent:work@ram_1p
     |vpiName:out
@@ -280,9 +298,6 @@ design: (unnamed)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@ram_1p.out), line:15:22, parent:work@ram_1p
-        |vpiName:out
-        |vpiFullName:work@ram_1p.out
-        |vpiNetType:36
   |vpiProcess:
   \_initial: , parent:work@ram_1p
     |vpiStmt:
@@ -299,33 +314,33 @@ design: (unnamed)
             |vpiFullName:work@ram_1p.MemInitFile
           |vpiOperand:
           \_constant: , line:19:22, endln:19:24
-            |vpiConstType:6
             |STRING:
+            |vpiConstType:6
         |vpiStmt:
         \_named_begin: (work@ram_1p.gen_meminit), line:19:26, endln:22:6
           |vpiName:gen_meminit
           |vpiFullName:work@ram_1p.gen_meminit
           |vpiStmt:
           \_sys_func_call: ($display), line:20:7, endln:20:71, parent:work@ram_1p.gen_meminit
-            |vpiName:$display
             |vpiArgument:
             \_constant: , line:20:16, endln:20:56
-              |vpiConstType:6
               |vpiDecompile:Initializing memory %m from file '%s'.
               |vpiSize:38
               |STRING:Initializing memory %m from file '%s'.
+              |vpiConstType:6
             |vpiArgument:
             \_ref_obj: (work@ram_1p.gen_meminit.MemInitFile), line:20:58, endln:20:69, parent:$display
               |vpiName:MemInitFile
               |vpiFullName:work@ram_1p.gen_meminit.MemInitFile
+            |vpiName:$display
           |vpiStmt:
           \_assign_stmt: , line:21:7, endln:21:24, parent:work@ram_1p.gen_meminit
             |vpiRhs:
             \_constant: , line:21:20, endln:21:24
-              |vpiConstType:3
               |vpiDecompile:1'b1
               |vpiSize:1
               |BIN:1
+              |vpiConstType:3
             |vpiLhs:
             \_ref_obj: (work@ram_1p.gen_meminit.out), line:21:14, endln:21:17
               |vpiName:out
@@ -341,48 +356,33 @@ design: (unnamed)
             |vpiFullName:work@ram_1p.MemInitFile
           |vpiOperand:
           \_constant: , line:24:22, endln:24:24
-            |vpiConstType:6
             |STRING:
+            |vpiConstType:6
         |vpiStmt:
         \_named_begin: (work@ram_1p.gen_nomeminit), line:24:26, endln:27:6
           |vpiName:gen_nomeminit
           |vpiFullName:work@ram_1p.gen_nomeminit
           |vpiStmt:
           \_sys_func_call: ($display), line:25:7, endln:25:54, parent:work@ram_1p.gen_nomeminit
-            |vpiName:$display
             |vpiArgument:
             \_constant: , line:25:16, endln:25:52
-              |vpiConstType:6
               |vpiDecompile:Initializing memory file is empty.
               |vpiSize:34
               |STRING:Initializing memory file is empty.
+              |vpiConstType:6
+            |vpiName:$display
           |vpiStmt:
           \_assign_stmt: , line:26:7, endln:26:24, parent:work@ram_1p.gen_nomeminit
             |vpiRhs:
             \_constant: , line:26:20, endln:26:24
-              |vpiConstType:3
               |vpiDecompile:1'b0
               |vpiSize:1
               |BIN:0
+              |vpiConstType:3
             |vpiLhs:
             \_ref_obj: (work@ram_1p.gen_nomeminit.out), line:26:14, endln:26:17
               |vpiName:out
               |vpiFullName:work@ram_1p.gen_nomeminit.out
-  |vpiNet:
-  \_logic_net: (work@ram_1p.out), line:15:22, parent:work@ram_1p
-  |vpiParameter:
-  \_parameter: (work@ram_1p.MemInitFile), line:13:23, endln:13:39, parent:work@ram_1p
-    |vpiName:MemInitFile
-    |vpiFullName:work@ram_1p.MemInitFile
-    |STRING:
-  |vpiParamAssign:
-  \_param_assign: , line:13:23, endln:13:39, parent:work@ram_1p
-    |vpiRhs:
-    \_constant: , line:13:37, endln:13:39
-      |vpiConstType:6
-      |STRING:
-    |vpiLhs:
-    \_parameter: (work@ram_1p.MemInitFile), line:13:23, endln:13:39, parent:work@ram_1p
 ===================
 [  FATAL] : 1
 [ SYNTAX] : 0

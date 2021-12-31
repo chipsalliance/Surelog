@@ -269,12 +269,42 @@ n<> u<230> t<Top_level_rule> l<1:1> el<28:1>
 
 ====== UHDM =======
 design: (work@top)
-|vpiName:work@top
 |vpiElaborated:1
+|vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:27:10, parent:work@top
-  |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.phi1), line:8:9, parent:work@top
+    |vpiName:phi1
+    |vpiFullName:work@top.phi1
+  |vpiNet:
+  \_logic_net: (work@top.data), line:8:28, parent:work@top
+    |vpiName:data
+    |vpiFullName:work@top.data
+  |vpiNet:
+  \_logic_net: (work@top.write), line:8:47, parent:work@top
+    |vpiName:write
+    |vpiFullName:work@top.write
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.phi2), line:9:9, parent:work@top
+    |vpiName:phi2
+    |vpiFullName:work@top.phi2
+  |vpiNet:
+  \_logic_net: (work@top.cmd), line:9:27, parent:work@top
+    |vpiName:cmd
+    |vpiFullName:work@top.cmd
+  |vpiNet:
+  \_logic_net: (work@top.enable), line:9:38, parent:work@top
+    |vpiName:enable
+    |vpiFullName:work@top.enable
+  |vpiNet:
+  \_logic_net: (work@top.cmd_reg), line:11:12, parent:work@top
+    |vpiName:cmd_reg
+    |vpiFullName:work@top.cmd_reg
+    |vpiNetType:48
   |vpiPort:
   \_port: (phi1), line:8:9, parent:work@top
     |vpiName:phi1
@@ -283,8 +313,6 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.phi1), line:8:9, parent:work@top
-        |vpiName:phi1
-        |vpiFullName:work@top.phi1
   |vpiPort:
   \_port: (data), line:8:28, parent:work@top
     |vpiName:data
@@ -293,8 +321,6 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.data), line:8:28, parent:work@top
-        |vpiName:data
-        |vpiFullName:work@top.data
   |vpiPort:
   \_port: (write), line:8:47, parent:work@top
     |vpiName:write
@@ -303,9 +329,6 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.write), line:8:47, parent:work@top
-        |vpiName:write
-        |vpiFullName:work@top.write
-        |vpiNetType:36
   |vpiPort:
   \_port: (phi2), line:9:9, parent:work@top
     |vpiName:phi2
@@ -314,8 +337,6 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.phi2), line:9:9, parent:work@top
-        |vpiName:phi2
-        |vpiFullName:work@top.phi2
   |vpiPort:
   \_port: (cmd), line:9:27, parent:work@top
     |vpiName:cmd
@@ -324,8 +345,6 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.cmd), line:9:27, parent:work@top
-        |vpiName:cmd
-        |vpiFullName:work@top.cmd
   |vpiPort:
   \_port: (enable), line:9:38, parent:work@top
     |vpiName:enable
@@ -334,8 +353,6 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.enable), line:9:38, parent:work@top
-        |vpiName:enable
-        |vpiFullName:work@top.enable
   |vpiProcess:
   \_initial: , parent:work@top
     |vpiStmt:
@@ -367,22 +384,22 @@ design: (work@top)
           \_range: , line:11:7, endln:11:10
             |vpiLeftRange:
             \_constant: , line:11:7, endln:11:8
-              |vpiConstType:9
               |vpiDecompile:8
               |vpiSize:64
               |UINT:8
+              |vpiConstType:9
             |vpiRightRange:
             \_constant: , line:11:9, endln:11:10
-              |vpiConstType:9
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
+              |vpiConstType:9
       |vpiOperand:
       \_constant: , line:25:33, endln:25:35
-        |vpiConstType:3
         |vpiDecompile:'X
         |vpiSize:-1
         |BIN:X
+        |vpiConstType:3
     |vpiLhs:
     \_ref_obj: (work@top.cmd), line:25:9, endln:25:12
       |vpiName:cmd
@@ -395,16 +412,16 @@ design: (work@top)
         \_range: , line:9:22, endln:9:25
           |vpiLeftRange:
           \_constant: , line:9:22, endln:9:23
-            |vpiConstType:9
             |vpiDecompile:8
             |vpiSize:64
             |UINT:8
+            |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:9:24, endln:9:25
-            |vpiConstType:9
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiConstType:9
   |vpiClockingBlock:
   \_clocking_block: (mem), line:2:2, endln:4:13
     |vpiName:mem
@@ -415,8 +432,8 @@ design: (work@top)
         |vpiName:clock
     |vpiClockingIODecl:
     \_clocking_io_decl: (instruction)
-      |vpiName:instruction
       |vpiDirection:1
+      |vpiName:instruction
       |vpiExpr:
       \_operation: , line:3:22, endln:3:49
         |vpiOpType:33
@@ -428,21 +445,21 @@ design: (work@top)
           |vpiName:regA
         |vpiOperand:
         \_part_select: , line:3:38, endln:3:47, parent:regB
-          |vpiConstantSelect:1
           |vpiParent:
           \_ref_obj: regB (regB)
+          |vpiConstantSelect:1
           |vpiLeftRange:
           \_constant: , line:3:43, endln:3:44
-            |vpiConstType:9
             |vpiDecompile:3
             |vpiSize:64
             |UINT:3
+            |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:3:45, endln:3:46
-            |vpiConstType:9
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiConstType:9
   |vpiClockingBlock:
   \_clocking_block: (cd1), line:12:2, endln:16:13
     |vpiName:cd1
@@ -460,16 +477,16 @@ design: (work@top)
             |vpiFullName:work@top.phi1
     |vpiClockingIODecl:
     \_clocking_io_decl: (data)
-      |vpiName:data
       |vpiDirection:1
+      |vpiName:data
     |vpiClockingIODecl:
     \_clocking_io_decl: (write)
-      |vpiName:write
       |vpiDirection:2
+      |vpiName:write
     |vpiClockingIODecl:
     \_clocking_io_decl: (state)
-      |vpiName:state
       |vpiDirection:1
+      |vpiName:state
       |vpiExpr:
       \_hier_path: (top.cpu1.state), line:15:17, endln:15:31
         |vpiName:top.cpu1.state
@@ -499,8 +516,8 @@ design: (work@top)
             |vpiFullName:work@top.phi2
     |vpiClockingIODecl:
     \_clocking_io_decl: (cmd)
-      |vpiName:cmd
       |vpiDirection:2
+      |vpiName:cmd
       |vpiInputSkew:
       \_delay_control: 
         |#2
@@ -509,29 +526,84 @@ design: (work@top)
         |#4
     |vpiClockingIODecl:
     \_clocking_io_decl: (enable)
-      |vpiName:enable
       |vpiDirection:1
+      |vpiName:enable
+|uhdmtopModules:
+\_module: work@top (work@top) dut.sv:1:1: , endln:27:10
+  |vpiName:work@top
+  |vpiDefName:work@top
   |vpiNet:
-  \_logic_net: (work@top.phi1), line:8:9, parent:work@top
+  \_logic_net: (work@top.phi1), line:8:9, endln:8:13, parent:work@top
+    |vpiName:phi1
+    |vpiFullName:work@top.phi1
   |vpiNet:
-  \_logic_net: (work@top.data), line:8:28, parent:work@top
+  \_logic_net: (work@top.data), line:8:28, endln:8:32, parent:work@top
+    |vpiName:data
+    |vpiFullName:work@top.data
+    |vpiRange:
+    \_range: , line:8:22, endln:8:26
+      |vpiLeftRange:
+      \_constant: , line:8:22, endln:8:24
+        |vpiDecompile:15
+        |vpiSize:64
+        |UINT:15
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:8:25, endln:8:26
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
   |vpiNet:
-  \_logic_net: (work@top.write), line:8:47, parent:work@top
+  \_logic_net: (work@top.write), line:8:47, endln:8:52, parent:work@top
+    |vpiName:write
+    |vpiFullName:work@top.write
+    |vpiNetType:36
   |vpiNet:
-  \_logic_net: (work@top.phi2), line:9:9, parent:work@top
+  \_logic_net: (work@top.phi2), line:9:9, endln:9:13, parent:work@top
+    |vpiName:phi2
+    |vpiFullName:work@top.phi2
   |vpiNet:
-  \_logic_net: (work@top.cmd), line:9:27, parent:work@top
+  \_logic_net: (work@top.cmd), line:9:27, endln:9:30, parent:work@top
+    |vpiName:cmd
+    |vpiFullName:work@top.cmd
+    |vpiRange:
+    \_range: , line:9:22, endln:9:25
+      |vpiLeftRange:
+      \_constant: , line:9:22, endln:9:23
+        |vpiDecompile:8
+        |vpiSize:64
+        |UINT:8
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:9:24, endln:9:25
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
   |vpiNet:
-  \_logic_net: (work@top.enable), line:9:38, parent:work@top
+  \_logic_net: (work@top.enable), line:9:38, endln:9:44, parent:work@top
+    |vpiName:enable
+    |vpiFullName:work@top.enable
   |vpiNet:
-  \_logic_net: (work@top.cmd_reg), line:11:12, parent:work@top
+  \_logic_net: (work@top.cmd_reg), line:11:12, endln:11:19, parent:work@top
     |vpiName:cmd_reg
     |vpiFullName:work@top.cmd_reg
     |vpiNetType:48
-|uhdmtopModules:
-\_module: work@top (work@top) dut.sv:1:1: , endln:27:10
-  |vpiDefName:work@top
-  |vpiName:work@top
+    |vpiRange:
+    \_range: , line:11:7, endln:11:10
+      |vpiLeftRange:
+      \_constant: , line:11:7, endln:11:8
+        |vpiDecompile:8
+        |vpiSize:64
+        |UINT:8
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:11:9, endln:11:10
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
   |vpiPort:
   \_port: (phi1), line:8:9, endln:8:13, parent:work@top
     |vpiName:phi1
@@ -542,8 +614,6 @@ design: (work@top)
       |vpiFullName:work@top.phi1
       |vpiActual:
       \_logic_net: (work@top.phi1), line:8:9, endln:8:13, parent:work@top
-        |vpiName:phi1
-        |vpiFullName:work@top.phi1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:27:10
   |vpiPort:
@@ -556,22 +626,6 @@ design: (work@top)
       |vpiFullName:work@top.data
       |vpiActual:
       \_logic_net: (work@top.data), line:8:28, endln:8:32, parent:work@top
-        |vpiName:data
-        |vpiFullName:work@top.data
-        |vpiRange:
-        \_range: , line:8:22, endln:8:26
-          |vpiLeftRange:
-          \_constant: , line:8:22, endln:8:24
-            |vpiConstType:9
-            |vpiDecompile:15
-            |vpiSize:64
-            |UINT:15
-          |vpiRightRange:
-          \_constant: , line:8:25, endln:8:26
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:27:10
   |vpiPort:
@@ -584,9 +638,6 @@ design: (work@top)
       |vpiFullName:work@top.write
       |vpiActual:
       \_logic_net: (work@top.write), line:8:47, endln:8:52, parent:work@top
-        |vpiName:write
-        |vpiFullName:work@top.write
-        |vpiNetType:36
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:27:10
   |vpiPort:
@@ -599,8 +650,6 @@ design: (work@top)
       |vpiFullName:work@top.phi2
       |vpiActual:
       \_logic_net: (work@top.phi2), line:9:9, endln:9:13, parent:work@top
-        |vpiName:phi2
-        |vpiFullName:work@top.phi2
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:27:10
   |vpiPort:
@@ -613,22 +662,6 @@ design: (work@top)
       |vpiFullName:work@top.cmd
       |vpiActual:
       \_logic_net: (work@top.cmd), line:9:27, endln:9:30, parent:work@top
-        |vpiName:cmd
-        |vpiFullName:work@top.cmd
-        |vpiRange:
-        \_range: , line:9:22, endln:9:25
-          |vpiLeftRange:
-          \_constant: , line:9:22, endln:9:23
-            |vpiConstType:9
-            |vpiDecompile:8
-            |vpiSize:64
-            |UINT:8
-          |vpiRightRange:
-          \_constant: , line:9:24, endln:9:25
-            |vpiConstType:9
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:27:10
   |vpiPort:
@@ -641,8 +674,6 @@ design: (work@top)
       |vpiFullName:work@top.enable
       |vpiActual:
       \_logic_net: (work@top.enable), line:9:38, endln:9:44, parent:work@top
-        |vpiName:enable
-        |vpiFullName:work@top.enable
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:27:10
   |vpiProcess:
@@ -667,29 +698,12 @@ design: (work@top)
         |vpiFullName:work@top.cmd_reg
         |vpiActual:
         \_logic_net: (work@top.cmd_reg), line:11:12, endln:11:19, parent:work@top
-          |vpiName:cmd_reg
-          |vpiFullName:work@top.cmd_reg
-          |vpiNetType:48
-          |vpiRange:
-          \_range: , line:11:7, endln:11:10
-            |vpiLeftRange:
-            \_constant: , line:11:7, endln:11:8
-              |vpiConstType:9
-              |vpiDecompile:8
-              |vpiSize:64
-              |UINT:8
-            |vpiRightRange:
-            \_constant: , line:11:9, endln:11:10
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
       |vpiOperand:
       \_constant: , line:25:33, endln:25:35
-        |vpiConstType:3
         |vpiDecompile:'X
         |vpiSize:-1
         |BIN:X
+        |vpiConstType:3
     |vpiLhs:
     \_ref_obj: (work@top.cmd), line:25:9, endln:25:12
       |vpiName:cmd
@@ -710,8 +724,8 @@ design: (work@top)
     \_module: work@top (work@top) dut.sv:1:1: , endln:27:10
     |vpiClockingIODecl:
     \_clocking_io_decl: (instruction), parent:work@top.mem
-      |vpiName:instruction
       |vpiDirection:1
+      |vpiName:instruction
       |vpiExpr:
       \_operation: , line:3:22, endln:3:49, parent:instruction
         |vpiOpType:33
@@ -725,21 +739,21 @@ design: (work@top)
           |vpiFullName:work@top.mem.instruction.regA
         |vpiOperand:
         \_part_select: , line:3:38, endln:3:47, parent:regB
-          |vpiConstantSelect:1
           |vpiParent:
           \_ref_obj: (regB), parent:regB
+          |vpiConstantSelect:1
           |vpiLeftRange:
           \_constant: , line:3:43, endln:3:44
-            |vpiConstType:9
             |vpiDecompile:3
             |vpiSize:64
             |UINT:3
+            |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:3:45, endln:3:46
-            |vpiConstType:9
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiConstType:9
   |vpiClockingBlock:
   \_clocking_block: (work@top.cd1), line:12:2, endln:16:13, parent:work@top
     |vpiName:cd1
@@ -759,16 +773,16 @@ design: (work@top)
     \_module: work@top (work@top) dut.sv:1:1: , endln:27:10
     |vpiClockingIODecl:
     \_clocking_io_decl: (data), parent:work@top.cd1
-      |vpiName:data
       |vpiDirection:1
+      |vpiName:data
     |vpiClockingIODecl:
     \_clocking_io_decl: (write), parent:work@top.cd1
-      |vpiName:write
       |vpiDirection:2
+      |vpiName:write
     |vpiClockingIODecl:
     \_clocking_io_decl: (state), parent:work@top.cd1
-      |vpiName:state
       |vpiDirection:1
+      |vpiName:state
       |vpiExpr:
       \_hier_path: (top.cpu1.state), line:15:17, endln:15:31, parent:state
         |vpiName:top.cpu1.state
@@ -800,8 +814,8 @@ design: (work@top)
     \_module: work@top (work@top) dut.sv:1:1: , endln:27:10
     |vpiClockingIODecl:
     \_clocking_io_decl: (cmd), parent:work@top.cd2
-      |vpiName:cmd
       |vpiDirection:2
+      |vpiName:cmd
       |vpiInputSkew:
       \_delay_control: , parent:cmd
         |#2
@@ -810,22 +824,8 @@ design: (work@top)
         |#4
     |vpiClockingIODecl:
     \_clocking_io_decl: (enable), parent:work@top.cd2
-      |vpiName:enable
       |vpiDirection:1
-  |vpiNet:
-  \_logic_net: (work@top.phi1), line:8:9, endln:8:13, parent:work@top
-  |vpiNet:
-  \_logic_net: (work@top.data), line:8:28, endln:8:32, parent:work@top
-  |vpiNet:
-  \_logic_net: (work@top.write), line:8:47, endln:8:52, parent:work@top
-  |vpiNet:
-  \_logic_net: (work@top.phi2), line:9:9, endln:9:13, parent:work@top
-  |vpiNet:
-  \_logic_net: (work@top.cmd), line:9:27, endln:9:30, parent:work@top
-  |vpiNet:
-  \_logic_net: (work@top.enable), line:9:38, endln:9:44, parent:work@top
-  |vpiNet:
-  \_logic_net: (work@top.cmd_reg), line:11:12, endln:11:19, parent:work@top
+      |vpiName:enable
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
