@@ -2366,8 +2366,6 @@ any* CompileHelper::hierarchicalSelector(
         }
       }
     }
-    /*
-    TEMP
   } else if (typespec* var = any_cast<typespec*>(object)) {
     UHDM_OBJECT_TYPE ttps = var->UhdmType();
     if (ttps == uhdmstruct_typespec) {
@@ -2391,7 +2389,6 @@ any* CompileHelper::hierarchicalSelector(
         }
       }
     }
-    */
   } else if (io_decl* decl = any_cast<io_decl*>(object)) {
     const any* exp = decl->Expr();
     if (exp) {
@@ -5789,20 +5786,44 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
       }
       break;
     }
-    /*
-    TEMP
     case VObjectType::slComplex_func_call: {
-      UHDM::any* exp = compileExpression(component, fC, fC->Parent(id),
-    compileDesign, nullptr, instance, reduce, false); if (exp) { if
-    (exp->UhdmType() == uhdmhier_path) { bool invalidValue = false; result =
-    (typespec*) decodeHierPath((hier_path*)exp, invalidValue, component,
-    compileDesign, instance, fC->getFileName(), fC->Line(id), nullptr, true,
-    true);
+      UHDM::any* exp =
+          compileExpression(component, fC, fC->Parent(id), compileDesign,
+                            nullptr, instance, reduce, false);
+      if (exp) {
+        if (exp->UhdmType() == uhdmhier_path) {
+          bool invalidValue = false;
+          result = (typespec*)decodeHierPath(
+              (hier_path*)exp, invalidValue, component, compileDesign, instance,
+              fC->getFileName(), fC->Line(id), nullptr, true, true);
+        } else if (exp->UhdmType() == uhdmbit_select) {
+          bit_select* select = (bit_select*)exp;
+          basename = select->VpiName();
+        } else if (exp->UhdmType() == uhdmref_obj) {
+          basename = exp->VpiName();
+          if (strstr(basename.c_str(), "::")) {
+            std::vector<std::string> res;
+            StringUtils::tokenizeMulti(basename, "::", res);
+            if (res.size() > 1) {
+              const std::string& packName = res[0];
+              const std::string& typeName = res[1];
+              Package* p =
+                  compileDesign->getCompiler()->getDesign()->getPackage(
+                      packName);
+              if (p) {
+                dtype = p->getDataType(typeName);
+              }
+            }
+          }
+        } else if (exp->UhdmType() == uhdmvar_select) {
+          var_select* select = (var_select*)exp;
+          basename = select->VpiName();
+        } else {
+          basename = exp->VpiName();
         }
       }
       break;
     }
-    */
     case VObjectType::slIntVec_TypeLogic: {
       result = s.MakeLogic_typespec();
       break;
@@ -6018,11 +6039,8 @@ UHDM::any* CompileHelper::compileBits(
                          reduce, sizeMode);
           ConcatExpression = fC->Sibling(ConcatExpression);
         }
-        /*
-        TEMP
       } else if (fC->Type(Primary_literal) == slComplex_func_call) {
         typeSpecId = Primary_literal;
-        */
       } else {
         NodeId StringConst = fC->Child(Primary_literal);
         typeSpecId = StringConst;
