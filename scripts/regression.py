@@ -192,10 +192,11 @@ def _get_log_statistics(filepath):
     return {}
 
   statistics = {}
+  negatives = {}
   notes = 0
   uhdm_dump_started = False
   uhdm_line_count = 0
-  with open(filepath, 'rt') as strm:
+  with open(filepath, 'rt', encoding='cp850') as strm:
     for line in strm:
       line = line.strip()
 
@@ -223,9 +224,13 @@ def _get_log_statistics(filepath):
       if 'ERR:' in line and '/dev/null' in line:
         # On Windows, this is reported as an error but on Linux it isn't.
         # Don't count it as error on Windows as well so that numbers across platforms can match.
-        statistics['ERROR'] = statistics.get('ERROR', 0) - 1
+        negatives['ERROR'] = negatives.get('ERROR', 0) + 1
 
   statistics['NOTE'] = statistics.get('NOTE', 0) + uhdm_line_count
+
+  for key, value in negatives.items():
+    statistics[key] = max(statistics.get(key, 0) - value, 0)
+
   return statistics
 
 
@@ -308,7 +313,7 @@ def _run_surelog(
   pprint.pprint(args)
   print('\n')
 
-  with open(surelog_log_filepath, 'wt') as surelog_log_strm:
+  with open(surelog_log_filepath, 'wt', encoding='cp850') as surelog_log_strm:
     surelog_start_dt = datetime.now()
     try:
       process = subprocess.Popen(
@@ -362,7 +367,7 @@ def _run_surelog(
     surelog_log_strm.flush()
 
   if status == Status.PASS and tool_log_filepath and os.path.isfile(tool_log_filepath):
-    content = open(tool_log_filepath, 'r+t').read()
+    content = open(tool_log_filepath, 'rt').read()
     if 'ERROR SUMMARY: 0' not in content:
       status = Status.TOOLFAIL
 
@@ -400,7 +405,7 @@ def _run_uhdm_dump(
     pprint.pprint(uhdm_args)
     print('\n')
 
-    with open(uhdm_dump_log_filepath, 'wt') as uhdm_dump_log_strm:
+    with open(uhdm_dump_log_filepath, 'wt', encoding='cp850') as uhdm_dump_log_strm:
       try:
         result = subprocess.run(
             uhdm_args,
@@ -432,8 +437,8 @@ def _run_uhdm_dump(
 
 
 def _compare_one(lhs_filepath, rhs_filepath):
-  lhs_content = open(lhs_filepath, 'r+t').readlines()
-  rhs_content = open(rhs_filepath, 'r+t').readlines()
+  lhs_content = open(lhs_filepath, 'rt', encoding='cp850').readlines()
+  rhs_content = open(rhs_filepath, 'rt', encoding='cp850').readlines()
   return [line for line in difflib.unified_diff(lhs_content, rhs_content, fromfile=lhs_filepath, tofile=rhs_filepath, n = 0)]
 
 
@@ -465,7 +470,7 @@ def _run_one(params):
     'current': {}
   }
 
-  with open(regression_log_filepath, 'wt') as regression_log_strm, \
+  with open(regression_log_filepath, 'wt', encoding='cp850') as regression_log_strm, \
           redirect_stdout(regression_log_strm), \
           redirect_stderr(regression_log_strm):
     print(f'start-time: {start_dt}')
@@ -509,7 +514,7 @@ def _run_one(params):
 
     print(f'Normalizing surelog log file {surelog_log_filepath}')
     if os.path.isfile(surelog_log_filepath):
-      content = open(surelog_log_filepath, 'rt').read()
+      content = open(surelog_log_filepath, 'rt', encoding='cp850').read()
       if 'Segmentation fault' in content:
         result['STATUS'] = Status.SEGFLT
 
@@ -517,7 +522,7 @@ def _run_one(params):
         workspace_dirpath: '${SURELOG_DIR}'
       })
 
-      open(surelog_log_filepath, 'wt').write(content)
+      open(surelog_log_filepath, 'wt', encoding='cp850').write(content)
     else:
       print(f'File not found: {surelog_log_filepath}')
       result['STATUS'] == Status.FAIL
@@ -590,7 +595,7 @@ def _report_one(params):
     result['STATUS'] = Status.FAIL
     return result
 
-  with open(report_log_filepath, 'wt') as report_log_strm, \
+  with open(report_log_filepath, 'wt', encoding='cp850') as report_log_strm, \
       redirect_stdout(report_log_strm), \
       redirect_stderr(report_log_strm):
 
@@ -830,6 +835,10 @@ def _update(args, tests):
 
 
 def _main():
+  # Configure the standard streams to be unicode compatible
+  sys.stdout.reconfigure(encoding='cp850')
+  sys.stderr.reconfigure(encoding='cp850')
+  
   start_dt = datetime.now()
   print(f'Starting Surelog Regression Tests @ {str(start_dt)}')
 
