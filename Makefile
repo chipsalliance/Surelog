@@ -62,15 +62,6 @@ coverage-build/html: coverage-build/surelog.coverage
 	genhtml --output-directory coverage-build/html $^
 	realpath coverage-build/html/index.html
 
-test/regression: run-cmake-release
-	cd build && ../tests/regression.tcl mt=0 show_diff
-
-test/valgrind: debug
-	cd dbuild && ../tests/regression.tcl debug=valgrind test=TypeParamElab path=${PWD}/dbuild/bin
-	cd dbuild && ../tests/regression.tcl debug=valgrind test=ArianeElab path=${PWD}/dbuild/bin
-
-test: test/unittest test/regression
-
 test-parallel: release test/unittest
 	cmake -E make_directory build/tests
 	cmake -E remove_directory build/test
@@ -92,14 +83,14 @@ regression: release
 	pushd build && cmake --build test/build -j $(CPU_CORES) && popd
 	pushd build && tclsh ../tests/regression.tcl diff_mode show_diff && popd
 
-pytest/regression: release
+test/regression: release
 	python3 scripts/regression.py run --jobs $(CPU_CORES) --show-diffs
 
-pytest/valgrind: debug
+test/valgrind: debug
 	python3 scripts/regression.py run --tool valgrind --filters TypeParamElab --build-dirpath ${PWD}/dbuild
 	python3 scripts/regression.py run --tool valgrind --filters ArianeElab --build-dirpath ${PWD}/dbuild
 
-pytest: release test/unittest pytest/regression
+test: release test/unittest test/regression
 
 clean:
 	$(RM) -r build dbuild coverage-build dist tests/TestInstall/build
