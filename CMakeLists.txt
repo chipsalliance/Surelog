@@ -18,12 +18,6 @@ option(
   "Building with clang++ and libc++(in Linux). To enable with: -DWITH_LIBCXX=On"
   On)
 
-option(WITH_PYTHON_GENERATOR "Use Python generator instead of TCL." OFF)
-
-if (DEFINED ENV{WITH_PYTHON_GENERATOR})
-  set(WITH_PYTHON_GENERATOR $ENV{WITH_PYTHON_GENERATOR})
-endif()
-
 project(SURELOG)
 
 # NOTE: Policy changes has to happen before adding any subprojects
@@ -57,7 +51,7 @@ if (SURELOG_WITH_PYTHON)
   message(STATUS "Python3_EXECUTABLE = ${Python3_EXECUTABLE}")
   message(STATUS "Python3_INCLUDE_DIRS = ${Python3_INCLUDE_DIRS}")
   message(STATUS "Python3_RUNTIME_LIBRARY_DIRS = ${Python3_RUNTIME_LIBRARY_DIRS}")
-elseif (WITH_PYTHON_GENERATOR)
+else()
   find_package(Python3 3.3 REQUIRED Interpreter)
   message(STATUS "Python3_EXECUTABLE = ${Python3_EXECUTABLE}")
 endif()
@@ -187,62 +181,44 @@ add_custom_command(
   COMMAND ${CMAKE_COMMAND} -E touch ${GENDIR}/src/parser/generated-parsers.tstamp
 )
 
-if (WITH_PYTHON_GENERATOR)
-  add_custom_command(
-    OUTPUT ${GENDIR}/src/SourceCompile/VObjectTypes.h
-           ${GENDIR}/src/SourceCompile/VObjectTypes.cpp
-           ${GENDIR}/src/API/VObjectTypes_py.h
-           ${GENDIR}/src/SourceCompile/SV3_1aTreeShapeListener.h
-           ${GENDIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.h
-    DEPENDS ${GENDIR}/src/parser/generated-parsers.tstamp
-            ${PROJECT_SOURCE_DIR}/scripts/generate_parser_listener.py
+add_custom_command(
+  OUTPUT ${GENDIR}/src/SourceCompile/VObjectTypes.h
+         ${GENDIR}/src/SourceCompile/VObjectTypes.cpp
+         ${GENDIR}/src/API/VObjectTypes_py.h
+         ${GENDIR}/src/SourceCompile/SV3_1aTreeShapeListener.h
+         ${GENDIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.h
+  DEPENDS ${GENDIR}/src/parser/generated-parsers.tstamp
+          ${PROJECT_SOURCE_DIR}/scripts/generate_parser_listener.py
 
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-    COMMAND echo "---------- VObjectTypes, Listener generation"
-    COMMAND ${Python3_EXECUTABLE} scripts/generate_parser_listener.py --output-dirpath ${GENDIR}
-  )
-else()
-  add_custom_command(
-    OUTPUT ${GENDIR}/src/SourceCompile/VObjectTypes.h
-           ${GENDIR}/src/SourceCompile/VObjectTypes.cpp
-           ${GENDIR}/src/API/VObjectTypes_py.h
-           ${GENDIR}/src/SourceCompile/SV3_1aTreeShapeListener.h
-           ${GENDIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.h
-    DEPENDS ${GENDIR}/src/parser/generated-parsers.tstamp
-            ${PROJECT_SOURCE_DIR}/src/SourceCompile/generate_parser_listener.tcl
-
-    WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
-    COMMAND echo "---------- VObjectTypes, Listener generation"
-    COMMAND ${CMAKE_COMMAND} -E make_directory ${GENDIR}/src/SourceCompile
-    COMMAND ${CMAKE_COMMAND} -E make_directory ${GENDIR}/src/API
-    COMMAND tclsh SourceCompile/generate_parser_listener.tcl input_dir=${PROJECT_SOURCE_DIR}/src input_gen_dir=${GENDIR}/src out_dir=${GENDIR}/src
-  )
-endif()
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+  COMMAND echo "---------- VObjectTypes, Listener generation"
+  COMMAND ${Python3_EXECUTABLE} scripts/generate_parser_listener.py --output-dirpath ${GENDIR}
+)
 
 if (SURELOG_WITH_PYTHON)
-set(surelog_python-GENERATED_SRC
-  ${GENDIR}/src/API/SV3_1aPythonListener.h
-  ${GENDIR}/src/API/slSV3_1aPythonListener.py
-  ${GENDIR}/src/API/slapi_wrap.cxx
-  ${GENDIR}/src/API/slapi_scripts.h
-  ${GENDIR}/src/API/slapi.py)
-foreach(gen_src ${surelog_python-GENERATED_SRC})
-  set_source_files_properties(${gen_src} PROPERTIES GENERATED TRUE)
-endforeach()
-add_custom_command(
-  OUTPUT  ${surelog_python-GENERATED_SRC}
-  DEPENDS ${PROJECT_SOURCE_DIR}/src/API/slapi_scripts.i
-          ${PROJECT_SOURCE_DIR}/src/API/generate_python_listener_api.tcl
-          ${PROJECT_SOURCE_DIR}/src/API/embed_python_api.tcl
-          ${GENDIR}/src/API/VObjectTypes_py.h
-          ${GENDIR}/src/parser/generated-parsers.tstamp
+  set(surelog_python-GENERATED_SRC
+    ${GENDIR}/src/API/SV3_1aPythonListener.h
+    ${GENDIR}/src/API/slSV3_1aPythonListener.py
+    ${GENDIR}/src/API/slapi_wrap.cxx
+    ${GENDIR}/src/API/slapi_scripts.h
+    ${GENDIR}/src/API/slapi.py)
+  foreach(gen_src ${surelog_python-GENERATED_SRC})
+    set_source_files_properties(${gen_src} PROPERTIES GENERATED TRUE)
+  endforeach()
+  add_custom_command(
+    OUTPUT  ${surelog_python-GENERATED_SRC}
+    DEPENDS ${PROJECT_SOURCE_DIR}/src/API/slapi_scripts.i
+            ${PROJECT_SOURCE_DIR}/src/API/generate_python_listener_api.tcl
+            ${PROJECT_SOURCE_DIR}/src/API/embed_python_api.tcl
+            ${GENDIR}/src/API/VObjectTypes_py.h
+            ${GENDIR}/src/parser/generated-parsers.tstamp
 
-  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
-  COMMAND echo "---------- Python API generation"
-  COMMAND tclsh API/generate_python_listener_api.tcl input_gen_dir=${GENDIR}/src out_dir=${GENDIR}/src
-  COMMAND ${SWIG_EXECUTABLE} -c++ -python -o ${GENDIR}/src/API/slapi_wrap.cxx API/slapi_scripts.i
-  COMMAND tclsh API/embed_python_api.tcl out_dir=${GENDIR}/src
-)
+    WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
+    COMMAND echo "---------- Python API generation"
+    COMMAND tclsh API/generate_python_listener_api.tcl input_gen_dir=${GENDIR}/src out_dir=${GENDIR}/src
+    COMMAND ${SWIG_EXECUTABLE} -c++ -python -o ${GENDIR}/src/API/slapi_wrap.cxx API/slapi_scripts.i
+    COMMAND tclsh API/embed_python_api.tcl out_dir=${GENDIR}/src
+  )
 endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/src ${GENDIR}/src)
@@ -364,12 +340,12 @@ set(surelog_SRC
 )
 
 if (SURELOG_WITH_PYTHON)
-list(APPEND surelog_SRC
-  ${GENDIR}/src/API/SV3_1aPythonListener.h
-  ${PROJECT_SOURCE_DIR}/src/API/SV3_1aPythonListener.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/PythonListen.cpp
-  ${PROJECT_SOURCE_DIR}/src/Cache/PythonAPICache.cpp
-)
+  list(APPEND surelog_SRC
+    ${GENDIR}/src/API/SV3_1aPythonListener.h
+    ${PROJECT_SOURCE_DIR}/src/API/SV3_1aPythonListener.cpp
+    ${PROJECT_SOURCE_DIR}/src/SourceCompile/PythonListen.cpp
+    ${PROJECT_SOURCE_DIR}/src/Cache/PythonAPICache.cpp
+  )
 endif()
 
 set(surelog_generated_SRC
@@ -393,8 +369,6 @@ target_include_directories(surelog PRIVATE
 target_include_directories(surelog PUBLIC $<INSTALL_INTERFACE:include/surelog>)
 if (SURELOG_WITH_PYTHON)
   target_include_directories(surelog PUBLIC ${Python3_INCLUDE_DIRS}) # Keep this at the end
-endif()
-if (SURELOG_WITH_PYTHON)
   target_compile_definitions(surelog PUBLIC SURELOG_WITH_PYTHON)
 endif()
 add_executable(surelog-bin ${PROJECT_SOURCE_DIR}/src/main.cpp)
@@ -541,16 +515,16 @@ add_custom_command(
 )
 
 if (SURELOG_WITH_PYTHON)
-add_custom_command(
-  TARGET surelog-bin
-  POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy_if_different ${GENDIR}/src/API/slSV3_1aPythonListener.py
-          ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python/slSV3_1aPythonListener.py
-  COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/src/API/slformatmsg.py
-          ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python/slformatmsg.py
-  COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/src/API/slwaivers.py
-          ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python/slwaivers.py
-)
+  add_custom_command(
+    TARGET surelog-bin
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${GENDIR}/src/API/slSV3_1aPythonListener.py
+            ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python/slSV3_1aPythonListener.py
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/src/API/slformatmsg.py
+            ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python/slformatmsg.py
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/src/API/slwaivers.py
+            ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python/slwaivers.py
+  )
 endif()
 
 if (WIN32)
