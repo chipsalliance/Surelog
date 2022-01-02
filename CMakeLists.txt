@@ -506,7 +506,6 @@ add_custom_command(
   TARGET surelog-bin
   POST_BUILD
   COMMAND echo "       Creating platform independent staging for precompiled packages"
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/sv
   COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python
   COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/slpp_all
   COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/slpp_unit
@@ -608,10 +607,14 @@ install(
   EXPORT Surelog
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/uhdm
   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/uhdm)
-install(
-  DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python
-            ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/sv
-            ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/pkg
+
+if (SURELOG_WITH_PYTHON)
+  install(
+    DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog)
+endif()
+
+install(DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/pkg
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog)
 install(
   FILES ${PROJECT_SOURCE_DIR}/src/CommandLine/CommandLineParser.h
