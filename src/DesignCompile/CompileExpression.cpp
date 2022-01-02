@@ -6590,57 +6590,71 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
             is_hierarchical = true;
           }
           tmpName = fC->SymName(dotedName);
-          /*
-        } else if (dtype == VObjectType::slSelect) {
-          expr* exp = (expr*) compileSelectExpression(component, fC, BitSelect,
-        tmpName, compileDesign, pexpr, instance, reduce, muteErrors); if (exp) {
-            elems->push_back(exp);
-            tmpName = "";
-          }
-          */
+
         } else if (dtype == VObjectType::slSelect ||
                    dtype == VObjectType::slBit_select ||
                    dtype == VObjectType::slConstant_bit_select ||
                    dtype == VObjectType::slConstant_expression) {
           std::string ind;
-          NodeId Expression = fC->Child(BitSelect);
-          if (Expression == 0) {
-            if (BitSelect) Expression = fC->Sibling(BitSelect);
-          }
-          if (dtype == VObjectType::slConstant_expression) {
-            Expression = dotedName;
-          }
-
-          is_hierarchical = true;
-          if (Expression && (fC->Type(Expression) == slPart_select_range) &&
-              fC->Child(Expression)) {
-            expr* select = (expr*)compilePartSelectRange(
-                component, fC, fC->Child(Expression), "CREATE_UNNAMED_PARENT",
-                compileDesign, nullptr, instance, reduce, muteErrors);
-            ref_obj* parent = (ref_obj*)select->VpiParent();
-            if (parent) parent->VpiDefName(tmpName);
-            elems->push_back(select);
-            the_name += decompileHelper(select);
-          } else if (Expression) {
-            expr* index = (expr*)compileExpression(
-                component, fC, Expression, compileDesign, pexpr, instance,
-                reduce, muteErrors);
-            if (index) {
-              bit_select* select = s.MakeBit_select();
-              elems->push_back(select);
-              if (!tmpName.empty()) select->VpiParent(path);
-              select->VpiIndex(index);
-              select->VpiName(tmpName);
-              select->VpiFullName(tmpName);
-              the_name += decompileHelper(index);
+          while (BitSelect) {
+            is_hierarchical = true;
+            NodeId Expression = fC->Child(BitSelect);
+            if (Expression == 0) {
+              if (BitSelect) {
+                Expression = fC->Sibling(BitSelect);
+                if (Expression) {
+                  BitSelect = Expression;
+                  Expression = fC->Child(BitSelect);
+                }
+              }
             }
-          } else {
-            ref_obj* ref = s.MakeRef_obj();
-            elems->push_back(ref);
-            ref->VpiName(tmpName);
-            ref->VpiFullName(tmpName);
+            if (dtype == VObjectType::slConstant_expression) {
+              Expression = dotedName;
+            }
+
+            if (fC->Type(BitSelect) == slPart_select_range) {
+              expr* select = (expr*)compilePartSelectRange(
+                  component, fC, Expression, "CREATE_UNNAMED_PARENT",
+                  compileDesign, nullptr, instance, reduce, muteErrors);
+              ref_obj* parent = (ref_obj*)select->VpiParent();
+              if (parent) parent->VpiDefName(tmpName);
+              elems->push_back(select);
+              the_name += decompileHelper(select);
+            } else if (Expression &&
+                       (fC->Type(Expression) == slPart_select_range) &&
+                       fC->Child(Expression)) {
+              expr* select = (expr*)compilePartSelectRange(
+                  component, fC, fC->Child(Expression), "CREATE_UNNAMED_PARENT",
+                  compileDesign, nullptr, instance, reduce, muteErrors);
+              ref_obj* parent = (ref_obj*)select->VpiParent();
+              if (parent) parent->VpiDefName(tmpName);
+              elems->push_back(select);
+              the_name += decompileHelper(select);
+            } else if (Expression) {
+              expr* index = (expr*)compileExpression(
+                  component, fC, Expression, compileDesign, pexpr, instance,
+                  reduce, muteErrors);
+              if (index) {
+                bit_select* select = s.MakeBit_select();
+                elems->push_back(select);
+                if (!tmpName.empty()) select->VpiParent(path);
+                select->VpiIndex(index);
+                select->VpiName(tmpName);
+                select->VpiFullName(tmpName);
+                the_name += decompileHelper(index);
+              }
+            } else {
+              ref_obj* ref = s.MakeRef_obj();
+              elems->push_back(ref);
+              ref->VpiName(tmpName);
+              ref->VpiFullName(tmpName);
+            }
+            tmpName = "";
+            if (dtype == VObjectType::slSelect)
+              BitSelect = fC->Sibling(BitSelect);
+            else
+              break;
           }
-          tmpName = "";
         }
 
         NodeId lookAhead = fC->Sibling(dotedName);
@@ -6711,8 +6725,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
             dotedName = fC->Sibling(dotedName);
           }
         }
-
-        dotedName = fC->Sibling(dotedName);
+        if (dotedName) dotedName = fC->Sibling(dotedName);
       }
       if (is_hierarchical) {
         if (tmpName != "") {
