@@ -2469,6 +2469,7 @@ bool CompileHelper::compileParameterDeclaration(
         UHDM::UHDM_OBJECT_TYPE exprtype = expr->UhdmType();
         if (expr && exprtype == UHDM::uhdmconstant) {
           UHDM::constant* c = (UHDM::constant*)expr;
+          if (c->Typespec() == nullptr) c->Typespec(ts);
           int size = c->VpiSize();
           if (ts) {
             bool invalidValue = false;
@@ -2481,6 +2482,7 @@ bool CompileHelper::compileParameterDeclaration(
           component->setValue(the_name, val, m_exprBuilder);
         } else if (reduce && (!isMultiDimension)) {
           UHDM::expr* the_expr = (UHDM::expr*)expr;
+          if (the_expr->Typespec() == nullptr) the_expr->Typespec(ts);
           ExprEval expr_eval(the_expr, instance, fC->getFileName(),
                              fC->Line(name), nullptr);
           component->scheduleParamExprEval(the_name, expr_eval);
@@ -2488,6 +2490,8 @@ bool CompileHelper::compileParameterDeclaration(
                             (exprtype == uhdmfunc_call) ||
                             (exprtype == uhdmsys_func_call))) {
           component->setComplexValue(the_name, (UHDM::expr*)expr);
+          UHDM::expr* the_expr = (UHDM::expr*)expr;
+          if (the_expr->Typespec() == nullptr) the_expr->Typespec(ts);
           if (isDecreasing) {
             if (expr->UhdmType() == uhdmoperation) {
               operation* op = (operation*)expr;
