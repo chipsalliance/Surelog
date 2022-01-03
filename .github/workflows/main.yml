@@ -594,18 +594,29 @@ jobs:
       with:
         access_token: ${{ github.token }}
 
-    - name: Checkout code
-      uses: actions/checkout@v2
-      with:
-        submodules: recursive
-        fetch-depth: 0
-
     - name: Install Dependencies
       run: |
         sudo apt-get update -qq
         sudo apt -qq -y install clang-tidy-12 \
                                 g++-9 default-jre cmake \
                                 uuid-dev build-essential
+
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+        architecture: x64
+
+    - name: Setup Python Packages
+      run: |
+        pip3 install orderedmultidict
+        pip3 install psutil
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+        fetch-depth: 0
 
     - name: Use ccache
       uses: hendrikmuhs/ccache-action@v1
