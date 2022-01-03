@@ -97,8 +97,16 @@ expr* CompileHelper::reduceBitSelect(
   expr* exp = reduceExpr(op, invalidValue, component, compileDesign, instance,
                          fileName, lineNumber, pexpr, muteErrors);
   if (exp && (exp->UhdmType() == uhdmconstant)) {
-    int64_t val = get_value(invalidValue, exp);
-    std::string binary = NumUtils::toBinary(exp->VpiSize(), val);
+    std::string binary;
+    constant* cexp = (constant*)exp;
+    if (cexp->VpiConstType() == vpiBinaryConst) {
+      binary = cexp->VpiValue();
+      binary = binary.erase(0, 4);
+      std::reverse(binary.begin(), binary.end());
+    } else {
+      int64_t val = get_value(invalidValue, exp);
+      binary = NumUtils::toBinary(exp->VpiSize(), val);
+    }
     constant* c = s.MakeConstant();
     unsigned short lr = 0;
     unsigned short rr = 0;
@@ -741,6 +749,9 @@ any* CompileHelper::decodeHierPath(hier_path* path, bool& invalidValue,
                           instance, fileName, lineNumber, pexpr, muteErrors);
     } else if (bit_select* bts = any_cast<bit_select*>(object)) {
       object = reduceExpr((any*)bts, invalidValue, component, compileDesign,
+                          instance, fileName, lineNumber, pexpr, muteErrors);
+    } else if (ref_obj* ref = any_cast<ref_obj*>(object)) {
+      object = reduceExpr((any*)ref, invalidValue, component, compileDesign,
                           instance, fileName, lineNumber, pexpr, muteErrors);
     } else if (constant* cons = any_cast<constant*>(object)) {
       ElaboratorListener listener(&s);
@@ -2487,6 +2498,11 @@ any* CompileHelper::hierarchicalSelector(
           return tmp;
         }
       }
+    } else if (constant* c = any_cast<constant*>(object)) {
+      expr* ex = reduceBitSelect(c, selectIndex, invalidValue, component,
+                                 compileDesign, instance, fileName, lineNumber,
+                                 pexpr, muteErrors);
+      return ex;
     }
 
   } else if (level == 0) {
@@ -2602,9 +2618,15 @@ any* CompileHelper::hierarchicalSelector(
             const any* patt = tpatt->Pattern();
             UHDM_OBJECT_TYPE pattType = patt->UhdmType();
             if (pattType == uhdmconstant) {
-              expr* ex = reduceExpr((expr*)patt, invalidValue, component,
-                                    compileDesign, instance, fileName,
-                                    lineNumber, pexpr, muteErrors);
+              any* ex = reduceExpr((expr*)patt, invalidValue, component,
+                                   compileDesign, instance, fileName,
+                                   lineNumber, pexpr, muteErrors);
+              if (level < select_path.size()) {
+                ex = hierarchicalSelector(
+                    select_path, level + 1, ex, invalidValue, component,
+                    compileDesign, instance, pexpr, fileName, lineNumber,
+                    muteErrors, returnTypespec);
+              }
               return ex;
             } else if (pattType == uhdmoperation) {
               any* ex = hierarchicalSelector(
