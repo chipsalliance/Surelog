@@ -13,6 +13,9 @@ git submodule update --init --recursive
 ## Build Dependencies
 
 * cmake >= 3.13
+* python >= 3.6+
+  * orderedmultidict
+  * psutil (required to run regression tests)
 
 ### Ubuntu/Debian
 
