@@ -62,6 +62,7 @@
 // UHDM
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/Serializer.h>
+#include <uhdm/UhdmLint.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/module.h>
 #include <uhdm/uhdm.h>
@@ -2402,6 +2403,9 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
     listener->uniquifyTypespec(false);
     listen_designs(designs, listener);
   }
+
+  UhdmLint* linter = new UhdmLint(&s);
+  listen_designs(designs, linter);
 
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getUhdmStats())
     printUhdmStats(s);
