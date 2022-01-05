@@ -63,8 +63,8 @@ using namespace SURELOG;
 
 DesignElaboration::DesignElaboration(CompileDesign* compileDesign)
     : TestbenchElaboration(compileDesign) {
-  m_moduleDefFactory = NULL;
-  m_moduleInstFactory = NULL;
+  m_moduleDefFactory = nullptr;
+  m_moduleInstFactory = nullptr;
   m_exprBuilder.seterrorReporting(
       m_compileDesign->getCompiler()->getErrorContainer(),
       m_compileDesign->getCompiler()->getSymbolTable());
@@ -421,8 +421,8 @@ bool DesignElaboration::identifyTopModules_() {
 
   // Check for multiple definition
   std::string prevModuleName = "";
-  DesignElement* prevModuleDefinition = NULL;
-  const FileContent* prevFileContent = NULL;
+  DesignElement* prevModuleDefinition = nullptr;
+  const FileContent* prevFileContent = nullptr;
   for (ModuleMultiMap::iterator itr = all_modules.begin();
        itr != all_modules.end(); itr++) {
     std::string moduleName = (*itr).first;
@@ -561,7 +561,7 @@ bool DesignElaboration::createBuiltinPrimitives_() {
     std::string name = std::string("work@") + type;
     design->addModuleDefinition(name,
                                 m_moduleDefFactory->newModuleDefinition(
-                                    NULL, 0, std::string("work@") + type));
+                                    nullptr, 0, std::string("work@") + type));
   }
 
   return true;
@@ -578,7 +578,7 @@ bool DesignElaboration::elaborateAllModules_(bool onlyTopLevel) {
 }
 
 Config* DesignElaboration::getInstConfig(std::string name) {
-  Config* config = NULL;
+  Config* config = nullptr;
   auto itr = m_instConfig.find(name);
   if (itr != m_instConfig.end()) {
     config = &(*itr).second;
@@ -587,7 +587,7 @@ Config* DesignElaboration::getInstConfig(std::string name) {
 }
 
 Config* DesignElaboration::getCellConfig(std::string name) {
-  Config* config = NULL;
+  Config* config = nullptr;
   auto itr = m_cellConfig.find(name);
   if (itr != m_cellConfig.end()) {
     config = &(*itr).second;
@@ -630,7 +630,7 @@ bool DesignElaboration::elaborateModule_(std::string moduleName,
                                     VObjectType::slProgram_instantiation};
   std::string libName = fC->getLibrary()->getName();
   Config* config = getInstConfig(moduleName);
-  if (config == NULL) config = getCellConfig(moduleName);
+  if (config == nullptr) config = getCellConfig(moduleName);
   Design* design = m_compileDesign->getCompiler()->getDesign();
   if (!m_moduleInstFactory) m_moduleInstFactory = new ModuleInstanceFactory();
   for (const auto& nameId : nameIds) {
@@ -639,7 +639,7 @@ bool DesignElaboration::elaborateModule_(std::string moduleName,
       DesignComponent* def = design->getComponentDefinition(moduleName);
       if (onlyTopLevel) {
         ModuleInstance* instance = m_moduleInstFactory->newModuleInstance(
-            def, fC, nameId.second, NULL, moduleName, moduleName);
+            def, fC, nameId.second, nullptr, moduleName, moduleName);
         design->addTopLevelModuleInstance(instance);
       } else {
         ModuleInstance* instance = design->findInstance(moduleName);
@@ -1005,7 +1005,7 @@ void DesignElaboration::elaborateInstance_(
           instName = modName + "[" + std::to_string(currVal) + "]";
 
           def = design->getComponentDefinition(indexedModName);
-          if (def == NULL) {
+          if (def == nullptr) {
             def = m_moduleDefFactory->newModuleDefinition(fC, subInstanceId,
                                                           indexedModName);
             if (DesignComponent* defParent = parent->getDefinition())
@@ -1233,7 +1233,7 @@ void DesignElaboration::elaborateInstance_(
 
       std::string indexedModName = parent->getFullPathName() + "." + modName;
       def = design->getComponentDefinition(indexedModName);
-      if (def == NULL) {
+      if (def == nullptr) {
         def = m_moduleDefFactory->newModuleDefinition(fC, subInstanceId,
                                                       indexedModName);
         if (DesignComponent* defParent = parent->getDefinition())
@@ -1281,7 +1281,7 @@ void DesignElaboration::elaborateInstance_(
       std::string fullName = parent->getModuleName() + "." + instName;
 
       def = design->getComponentDefinition(fullName);
-      if (def == NULL) {
+      if (def == nullptr) {
         def = m_moduleDefFactory->newModuleDefinition(fC, subInstanceId,
                                                       fullName);
         design->addModuleDefinition(fullName, (ModuleDefinition*)def);

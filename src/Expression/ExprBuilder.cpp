@@ -47,7 +47,7 @@
 using namespace SURELOG;
 
 Value* ExprBuilder::clone(Value* val) {
-  Value* clone = NULL;
+  Value* clone = nullptr;
   if (StValue* v = value_cast<StValue*>(val)) {
     clone = m_valueFactory.newValue(*v);
   } else if (LValue* v = value_cast<LValue*>(val)) {
@@ -461,7 +461,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
       }
       case VObjectType::slPackage_scope:
       case VObjectType::slStringConst: {
-        Value* sval = NULL;
+        Value* sval = nullptr;
         std::string fullName;
         if (childType == VObjectType::slPackage_scope) {
           const std::string& packageName = fC->SymName(fC->Child(child));
@@ -478,7 +478,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
               }
             }
           }
-          if (sval == NULL) fullName = packageName + "::" + name;
+          if (sval == nullptr) fullName = packageName + "::" + name;
         } else {
           const std::string& name = fC->SymName(child);
           if (instance) {
@@ -490,10 +490,10 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
               sval = instance->getValue(name, *this);
             }
           }
-          if (sval == NULL) fullName = name;
+          if (sval == nullptr) fullName = name;
         }
 
-        if (sval == NULL) {
+        if (sval == nullptr) {
           if (muteErrors == false) {
             Location loc(fC->getFileId(child), fC->Line(child), 0,
                          m_symbols->registerSymbol(fullName));
@@ -699,7 +699,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         } else {
           name = fC->SymName(parent);
         }
-        Value* sval = NULL;
+        Value* sval = nullptr;
         if (instance) {
           if (instance->getComplexValue(name)) {
             muteErrors = true;
@@ -709,7 +709,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             sval = instance->getValue(name);
           }
         }
-        if (sval == NULL) {
+        if (sval == nullptr) {
           if (muteErrors == false) {
             Location loc(fC->getFileId(child), fC->Line(child), 0,
                          m_symbols->registerSymbol(name));
@@ -822,7 +822,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
       case slIncDec_PlusPlus: {
         std::string name;
         name = fC->SymName(fC->Sibling(parent));
-        Value* sval = NULL;
+        Value* sval = nullptr;
         if (instance) {
           if (instance->getComplexValue(name)) {
             muteErrors = true;
@@ -840,7 +840,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
       case slIncDec_MinusMinus: {
         std::string name;
         name = fC->SymName(fC->Sibling(parent));
-        Value* sval = NULL;
+        Value* sval = nullptr;
         if (instance) {
           if (instance->getComplexValue(name)) {
             muteErrors = true;

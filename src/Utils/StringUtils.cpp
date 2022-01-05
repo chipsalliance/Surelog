@@ -305,7 +305,7 @@ void StringUtils::autoExpandEnvironmentVariables(std::string* text) {
   while (std::regex_search(*text, match, env)) {
     std::string var;
     const char* s = getenv(match[1].str().c_str());
-    if (s == NULL) {
+    if (s == nullptr) {
       auto itr = envVars.find(match[1].str());
       if (itr != envVars.end()) var = (*itr).second;
     }
@@ -316,7 +316,7 @@ void StringUtils::autoExpandEnvironmentVariables(std::string* text) {
   while (std::regex_search(*text, match, env2)) {
     std::string var;
     const char* s = getenv(match[1].str().c_str());
-    if (s == NULL) {
+    if (s == nullptr) {
       auto itr = envVars.find(match[1].str());
       if (itr != envVars.end()) var = (*itr).second;
     }
@@ -332,7 +332,7 @@ void StringUtils::autoExpandEnvironmentVariables(std::string* text) {
   while (std::regex_search(*text, match, env3)) {
     std::string var;
     const char* s = getenv(match[1].str().c_str());
-    if (s == NULL) {
+    if (s == nullptr) {
       auto itr = envVars.find(match[1].str());
       if (itr != envVars.end()) var = (*itr).second;
     }

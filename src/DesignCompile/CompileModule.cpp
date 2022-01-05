@@ -1009,7 +1009,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
                     m_symbols->registerSymbol(fC->SymName(clocking_block_name));
                 ClockingBlock* cb =
                     m_module->getClockingBlock(clocking_block_symbol);
-                if (cb == NULL) {
+                if (cb == nullptr) {
                   Location loc(m_symbols->registerSymbol(
                                    fC->getFileName(clocking_block_name)),
                                fC->Line(clocking_block_name), 0,
@@ -1134,8 +1134,8 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
 bool CompileModule::checkModule_() {
   int countMissingType = 0;
   int countMissingDirection = 0;
-  Location* missingTypeLoc = NULL;
-  Location* missingDirectionLoc = NULL;
+  Location* missingTypeLoc = nullptr;
+  Location* missingDirectionLoc = nullptr;
   for (Signal* port : m_module->m_ports) {
     if (port->isInterface()) continue;
     if (port->getType() == VObjectType::slData_type_or_implicit) {
@@ -1195,7 +1195,7 @@ bool CompileModule::checkModule_() {
 
 bool CompileModule::checkInterface_() {
   int countMissingType = 0;
-  Location* missingTypeLoc = NULL;
+  Location* missingTypeLoc = nullptr;
   for (auto& port : m_module->m_ports) {
     if (port->getType() == VObjectType::slData_type_or_implicit) {
       if (port->getDirection() == VObjectType::slPortDir_Out ||

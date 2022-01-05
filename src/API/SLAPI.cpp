@@ -85,7 +85,7 @@ void SLoverrideSeverity(const char* messageId, const char* severity) {
 void SLaddError(ErrorContainer* errors, const char* messageId,
                 const char* fileName, unsigned int line, unsigned int col,
                 const char* objectName) {
-  if (errors == NULL) return;
+  if (errors == nullptr) return;
   SymbolTable* symbolTable = errors->getSymbolTable();
   SymbolId fileId = 0;
   if (fileName && (strcmp(fileName, "")))
@@ -105,7 +105,7 @@ void SLaddMLError(ErrorContainer* errors, const char* messageId,
                   const char* objectName1, const char* fileName2,
                   unsigned int line2, unsigned int col2,
                   const char* objectName2) {
-  if (errors == NULL) return;
+  if (errors == nullptr) return;
   SymbolTable* symbolTable = errors->getSymbolTable();
   SymbolId fileId1 = 0;
   if (fileName1 && (strcmp(fileName1, "")))
@@ -472,12 +472,12 @@ VObjectType SLgetModuleType(ModuleDefinition* module) {
 }
 
 FileContent* SLgetModuleFileContent(ModuleDefinition* module) {
-  if (!module) return NULL;
+  if (!module) return nullptr;
   if (module->getFileContents().size())
     // TODO(alain): fix const cast.
     return const_cast<FileContent*>(module->getFileContents()[0]);
   else
-    return NULL;
+    return nullptr;
 }
 
 NodeId SLgetModuleRootNode(ModuleDefinition* module) {
@@ -520,7 +520,7 @@ FileContent* SLgetClassFileContent(ClassDefinition* module) {
     // TODO(Alain): Fix api.
     return const_cast<FileContent*>(module->getFileContents()[0]);
   else
-    return NULL;
+    return nullptr;
 }
 
 NodeId SLgetClassRootNode(ClassDefinition* module) {
@@ -562,7 +562,7 @@ FileContent* SLgetPackageFileContent(Package* module) {
   if (module->getFileContents().size())
     return const_cast<FileContent*>(module->getFileContents()[0]);
   else
-    return NULL;
+    return nullptr;
 }
 
 NodeId SLgetPackageRootNode(Package* module) {
@@ -604,7 +604,7 @@ FileContent* SLgetProgramFileContent(Program* module) {
   if (module->getFileContents().size())
     return const_cast<FileContent*>(module->getFileContents()[0]);
   else
-    return NULL;
+    return nullptr;
 }
 
 NodeId SLgetProgramRootNode(Program* module) {
@@ -641,7 +641,7 @@ std::string SLgetInstanceModuleName(ModuleInstance* instance) {
 }
 
 DesignComponent* SLgetInstanceDefinition(ModuleInstance* instance) {
-  if (!instance) return NULL;
+  if (!instance) return nullptr;
   return instance->getDefinition();
 }
 
@@ -651,7 +651,7 @@ std::string SLgetInstanceFileName(ModuleInstance* instance) {
 }
 
 FileContent* SLgetInstanceFileContent(ModuleInstance* instance) {
-  if (!instance) return NULL;
+  if (!instance) return nullptr;
   // TODO(Alain): fix to return const
   return const_cast<FileContent*>(instance->getFileContent());
 }
@@ -673,12 +673,12 @@ unsigned int SLgetnInstanceChildren(ModuleInstance* instance) {
 
 ModuleInstance* SLgetInstanceChildren(ModuleInstance* instance,
                                       unsigned int i) {
-  if (!instance) return NULL;
+  if (!instance) return nullptr;
   return instance->getChildren(i);
 }
 
 ModuleInstance* SLgetInstanceParent(ModuleInstance* instance) {
-  if (!instance) return NULL;
+  if (!instance) return nullptr;
   return instance->getParent();
 }
 }  // namespace SURELOG

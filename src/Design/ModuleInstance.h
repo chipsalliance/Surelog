@@ -52,7 +52,7 @@ class ModuleInstance : public ValuedComponentI {
     if (i < m_allSubInstances.size()) {
       return m_allSubInstances[i];
     } else {
-      return NULL;
+      return nullptr;
     }
   }
   ModuleInstance* getParent() { return m_parent; }

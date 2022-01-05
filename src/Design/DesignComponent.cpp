@@ -74,7 +74,7 @@ const std::pair<FileCNodeId, DesignComponent*>* DesignComponent::getNamedObject(
     const std::string& name) const {
   auto itr = m_namedObjects.find(name);
   if (itr == m_namedObjects.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return &(*itr).second;
   }
@@ -105,7 +105,7 @@ const DataType* DesignComponent::getDataType(const std::string& name) const {
     if (parent) {
       return parent->getDataType(name);
     } else
-      return NULL;
+      return nullptr;
   } else {
     return (*itr).second;
   }
@@ -119,7 +119,7 @@ void DesignComponent::insertUsedDataType(const std::string& dataTypeName,
 DataType* DesignComponent::getUsedDataType(const std::string& name) {
   DataTypeMap::iterator itr = m_usedDataTypes.find(name);
   if (itr == m_usedDataTypes.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }
@@ -133,7 +133,7 @@ const TypeDef* DesignComponent::getTypeDef(const std::string& name) const {
     if (parent) {
       return parent->getTypeDef(name);
     } else
-      return NULL;
+      return nullptr;
   } else {
     return (*itr).second;
   }
@@ -151,7 +151,7 @@ Function* DesignComponent::getFunction(const std::string& name) const {
     if (parent) {
       return parent->getFunction(name);
     } else
-      return NULL;
+      return nullptr;
   } else {
     return (*itr).second;
   }
@@ -169,7 +169,7 @@ Task* DesignComponent::getTask(const std::string& name) const {
     if (parent) {
       return parent->getTask(name);
     } else
-      return NULL;
+      return nullptr;
   } else {
     return (*itr).second;
   }
@@ -186,7 +186,7 @@ void DesignComponent::addVariable(Variable* var) {
 Variable* DesignComponent::getVariable(const std::string& name) {
   VariableMap::const_iterator itr = m_variables.find(name);
   if (itr == m_variables.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }
@@ -195,7 +195,7 @@ Variable* DesignComponent::getVariable(const std::string& name) {
 Parameter* DesignComponent::getParameter(const std::string& name) const {
   ParameterMap::const_iterator itr = m_parameterMap.find(name);
   if (itr == m_parameterMap.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }

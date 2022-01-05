@@ -54,16 +54,16 @@ ParseFile::ParseFile(SymbolId fileId, SymbolTable* symbolTable,
                      ErrorContainer* errors)
     : m_fileId(fileId),
       m_ppFileId(0),
-      m_compileSourceFile(NULL),
-      m_compilationUnit(NULL),
-      m_library(NULL),
-      m_antlrParserHandler(NULL),
-      m_listener(NULL),
+      m_compileSourceFile(nullptr),
+      m_compilationUnit(nullptr),
+      m_library(nullptr),
+      m_antlrParserHandler(nullptr),
+      m_listener(nullptr),
       m_usingCachedVersion(false),
       m_keepParserHandler(false),
-      m_fileContent(NULL),
+      m_fileContent(nullptr),
       debug_AstModel(false),
-      m_parent(NULL),
+      m_parent(nullptr),
       m_offsetLine(0),
       m_symbolTable(symbolTable),
       m_errors(errors) {
@@ -78,16 +78,16 @@ ParseFile::ParseFile(SymbolId fileId, CompileSourceFile* csf,
       m_compileSourceFile(csf),
       m_compilationUnit(compilationUnit),
       m_library(library),
-      m_antlrParserHandler(NULL),
-      m_listener(NULL),
+      m_antlrParserHandler(nullptr),
+      m_listener(nullptr),
       m_usingCachedVersion(false),
       m_keepParserHandler(keepParserHandler),
-      m_fileContent(NULL),
+      m_fileContent(nullptr),
       debug_AstModel(false),
-      m_parent(NULL),
+      m_parent(nullptr),
       m_offsetLine(0),
-      m_symbolTable(NULL),
-      m_errors(NULL) {
+      m_symbolTable(nullptr),
+      m_errors(nullptr) {
   debug_AstModel =
       m_compileSourceFile->getCommandLineParser()->getDebugAstModel();
 }
@@ -99,16 +99,16 @@ ParseFile::ParseFile(CompileSourceFile* compileSourceFile, ParseFile* parent,
       m_compileSourceFile(compileSourceFile),
       m_compilationUnit(parent->m_compilationUnit),
       m_library(parent->m_library),
-      m_antlrParserHandler(NULL),
-      m_listener(NULL),
+      m_antlrParserHandler(nullptr),
+      m_listener(nullptr),
       m_usingCachedVersion(false),
       m_keepParserHandler(parent->m_keepParserHandler),
       m_fileContent(parent->m_fileContent),
       debug_AstModel(false),
       m_parent(parent),
       m_offsetLine(offsetLine),
-      m_symbolTable(NULL),
-      m_errors(NULL) {
+      m_symbolTable(nullptr),
+      m_errors(nullptr) {
   parent->m_children.push_back(this);
 }
 
@@ -119,13 +119,13 @@ ParseFile::ParseFile(const std::string& text, CompileSourceFile* csf,
       m_compileSourceFile(csf),
       m_compilationUnit(compilationUnit),
       m_library(library),
-      m_antlrParserHandler(NULL),
-      m_listener(NULL),
+      m_antlrParserHandler(nullptr),
+      m_listener(nullptr),
       m_usingCachedVersion(false),
       m_keepParserHandler(false),
-      m_fileContent(NULL),
+      m_fileContent(nullptr),
       debug_AstModel(false),
-      m_parent(NULL),
+      m_parent(nullptr),
       m_offsetLine(0),
       m_symbolTable(csf->getSymbolTable()),
       m_errors(csf->getErrorContainer()),
@@ -503,8 +503,8 @@ bool ParseFile::parse() {
   }
 
   // This is either a parent Parser object of this Parser object has no parent
-  if ((m_children.size() != 0) || (m_parent == NULL)) {
-    if ((m_parent == NULL) && (m_children.size() == 0)) {
+  if ((m_children.size() != 0) || (m_parent == nullptr)) {
+    if ((m_parent == nullptr) && (m_children.size() == 0)) {
       Timer tmr;
 
       m_listener = new SV3_1aTreeShapeListener(

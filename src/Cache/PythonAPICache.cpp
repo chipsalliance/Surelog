@@ -63,7 +63,7 @@ std::string PythonAPICache::getCacheFileName_(std::string svFileName) {
 
 bool PythonAPICache::restore_(std::string cacheFileName) {
   uint8_t* buffer_pointer = openFlatBuffers(cacheFileName);
-  if (buffer_pointer == NULL) return false;
+  if (buffer_pointer == nullptr) return false;
 
   const PYTHONAPICACHE::PythonAPICache* ppcache =
       PYTHONAPICACHE::GetPythonAPICache(buffer_pointer);
@@ -78,7 +78,7 @@ bool PythonAPICache::restore_(std::string cacheFileName) {
 
 bool PythonAPICache::checkCacheIsValid_(std::string cacheFileName) {
   uint8_t* buffer_pointer = openFlatBuffers(cacheFileName);
-  if (buffer_pointer == NULL) return false;
+  if (buffer_pointer == nullptr) return false;
   if (!PYTHONAPICACHE::PythonAPICacheBufferHasIdentifier(buffer_pointer)) {
     delete[] buffer_pointer;
     return false;

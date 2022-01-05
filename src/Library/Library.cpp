@@ -35,7 +35,7 @@ void Library::addModuleDefinition(ModuleDefinition* def) {
 ModuleDefinition* Library::getModule(const std::string& name) {
   std::map<std::string, ModuleDefinition*>::iterator itr = m_modules.find(name);
   if (itr == m_modules.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }

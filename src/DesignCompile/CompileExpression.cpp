@@ -4116,7 +4116,7 @@ UHDM::any* CompileHelper::compileExpression(
         case VObjectType::slHierarchical_identifier:
         case VObjectType::slStringConst: {
           std::string name;
-          Value* sval = NULL;
+          Value* sval = nullptr;
           if (childType == VObjectType::slPackage_scope) {
             const std::string& packageName = fC->SymName(fC->Child(child));
             NodeId paramId = fC->Sibling(child);
@@ -4218,7 +4218,7 @@ UHDM::any* CompileHelper::compileExpression(
           }
           if (result) break;
 
-          if (sval == NULL || (sval && !sval->isValid())) {
+          if (sval == nullptr || (sval && !sval->isValid())) {
             expr* complexValue = nullptr;
             if (instance) {
               ModuleInstance* inst =

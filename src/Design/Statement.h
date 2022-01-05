@@ -57,7 +57,7 @@ class Statement : public RTTI {
 
   NodeId getNodeId() const { return m_nodeId; }
 
-  virtual Function* getFunction() { return NULL; }
+  virtual Function* getFunction() { return nullptr; }
   virtual void setFunction(Function* function) {}
 
   void addStatement(Statement* statement) { m_statements.push_back(statement); }
@@ -97,7 +97,7 @@ class SubRoutineCallStmt : public Statement {
         m_args(args),
         m_static(static_call),
         m_system(system_call) {
-    m_function = NULL;
+    m_function = nullptr;
   }
   std::vector<NodeId>& getVarChain() { return m_var_chain; }
   std::string getVarName(NodeId base_name) const;

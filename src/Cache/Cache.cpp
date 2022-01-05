@@ -48,7 +48,7 @@ time_t Cache::get_mtime(const char* path) {
 
 uint8_t* Cache::openFlatBuffers(std::string cacheFileName) {
   FILE* file = fopen(cacheFileName.c_str(), "rb");
-  if (file == NULL) return NULL;
+  if (file == nullptr) return nullptr;
   fseek(file, 0L, SEEK_END);
   unsigned int length = ftell(file);
   fseek(file, 0L, SEEK_SET);
@@ -57,7 +57,7 @@ uint8_t* Cache::openFlatBuffers(std::string cacheFileName) {
   fclose(file);
   if (length != l) {
     delete[] data;
-    return NULL;
+    return nullptr;
   }
   uint8_t* buffer_pointer = (uint8_t*)data;
   return buffer_pointer;

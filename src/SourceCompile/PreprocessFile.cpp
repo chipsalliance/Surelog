@@ -203,20 +203,20 @@ PreprocessFile::PreprocessFile(SymbolId fileId, CompileSourceFile* csf,
       m_library(library),
       m_result(""),
       m_macroBody(""),
-      m_includer(NULL),
+      m_includer(nullptr),
       m_includerLine(0),
       m_compileSourceFile(csf),
       m_lineCount(0),
-      m_listener(NULL),
+      m_listener(nullptr),
       m_instructions(instructions),
-      m_antlrParserHandler(NULL),
-      m_macroInfo(NULL),
+      m_antlrParserHandler(nullptr),
+      m_macroInfo(nullptr),
       m_compilationUnit(comp_unit),
       m_pauseAppend(false),
       m_usingCachedVersion(false),
       m_embeddedMacroCallLine(0),
       m_embeddedMacroCallFile(0),
-      m_fileContent(NULL),
+      m_fileContent(nullptr),
       m_verilogVersion(VerilogVersion::NoVersion) {
   setDebug(m_compileSourceFile->m_commandLineParser->getDebugLevel());
   if ((!m_compileSourceFile->m_commandLineParser->parseOnly()) &&
@@ -242,16 +242,16 @@ PreprocessFile::PreprocessFile(SymbolId fileId, PreprocessFile* includedIn,
       m_macroBody(macroBody),
       m_compileSourceFile(csf),
       m_lineCount(0),
-      m_listener(NULL),
+      m_listener(nullptr),
       m_instructions(instructions),
-      m_antlrParserHandler(NULL),
+      m_antlrParserHandler(nullptr),
       m_macroInfo(macroInfo),
       m_compilationUnit(comp_unit),
       m_pauseAppend(false),
       m_usingCachedVersion(false),
       m_embeddedMacroCallLine(embeddedMacroCallLine),
       m_embeddedMacroCallFile(embeddedMacroCallFile),
-      m_fileContent(NULL),
+      m_fileContent(nullptr),
       m_verilogVersion(VerilogVersion::NoVersion) {
   setDebug(m_compileSourceFile->m_commandLineParser->getDebugLevel());
   m_includer = includedIn;
@@ -327,7 +327,7 @@ bool PreprocessFile::preprocess() {
   m_antlrParserHandler = getCompileSourceFile()->getAntlrPpHandlerForId(
       (m_macroBody.empty()) ? m_fileId : getMacroSignature());
 
-  if (m_antlrParserHandler == NULL) {
+  if (m_antlrParserHandler == nullptr) {
     m_antlrParserHandler = new AntlrParserHandler();
     if (!m_macroBody.empty()) {
       if (m_debugPP) {
@@ -340,7 +340,7 @@ bool PreprocessFile::preprocess() {
       std::ifstream stream;
       stream.open(fileName);
       if (!stream.good()) {
-        if (m_includer == NULL) {
+        if (m_includer == nullptr) {
           Location loc(m_fileId);
           Error err(ErrorDefinition::PP_CANNOT_OPEN_FILE, loc);
           addError(err);
@@ -378,7 +378,7 @@ bool PreprocessFile::preprocess() {
       stream.close();
 
       if (nonAsciiContent) {
-        if (m_includer == NULL) {
+        if (m_includer == nullptr) {
           Location loc(m_fileId, lineNonAscii, 0,
                        registerSymbol(std::string(1, nonAscii)));
           Error err(ErrorDefinition::PP_NON_ASCII_CONTENT, loc);
@@ -396,7 +396,7 @@ bool PreprocessFile::preprocess() {
         m_antlrParserHandler->m_inputStream = new ANTLRInputStream(text);
       } catch (...) {
         Location loc(0);
-        if (m_includer == NULL) {
+        if (m_includer == nullptr) {
           Location file(m_fileId);
           loc = file;
         } else {
@@ -487,7 +487,7 @@ bool PreprocessFile::preprocess() {
   }
   m_result = "";
   m_lineCount = 0;
-  if (m_listener != NULL) delete m_listener;
+  if (m_listener != nullptr) delete m_listener;
   m_listener = new SV3_1aPpTreeShapeListener(
       this, m_antlrParserHandler->m_pptokens, m_instructions);
   // TODO: this leaks
@@ -635,7 +635,7 @@ void PreprocessFile::checkMacroArguments_(
 
 SymbolId PreprocessFile::getIncluderFileId(unsigned int line) {
   PreprocessFile* tmp = this;
-  while (tmp->m_includer != NULL) {
+  while (tmp->m_includer != nullptr) {
     tmp = tmp->m_includer;
   }
   return tmp->getFileId(line);
@@ -643,7 +643,7 @@ SymbolId PreprocessFile::getIncluderFileId(unsigned int line) {
 
 PreprocessFile* PreprocessFile::getSourceFile() {
   PreprocessFile* tmp = this;
-  while (tmp->m_includer != NULL) {
+  while (tmp->m_includer != nullptr) {
     tmp = tmp->m_includer;
   }
   return tmp;
@@ -679,7 +679,7 @@ std::string PreprocessFile::evaluateMacroInstance(
       SpecialInstructions::Mute, SpecialInstructions::Mark,
       SpecialInstructions::Filter, checkMacroLoop, asisUndefMacro);
   PreprocessFile* pp = new PreprocessFile(
-      0, /*macroArgs,*/ NULL,
+      0, /*macroArgs,*/ nullptr,
       0 /*m_includer ? m_includer : callingFile, callingLine*/,
       m_compileSourceFile, instructions,
       m_includer ? m_includer->m_compilationUnit
@@ -1184,7 +1184,7 @@ std::string PreprocessFile::getPreProcessedFileContent() {
 
 PreprocessFile::IfElseStack& PreprocessFile::getStack() {
   PreprocessFile* tmp = this;
-  while (tmp->m_includer != NULL) {
+  while (tmp->m_includer != nullptr) {
     tmp = tmp->m_includer;
   }
   // std::cout << "STACK FOR: " << tmp->m_fileName << std::endl;

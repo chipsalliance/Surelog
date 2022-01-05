@@ -44,7 +44,7 @@
 
 unsigned int executeCompilation(
     int argc, const char** argv, bool diff_comp_mode, bool fileunit,
-    SURELOG::ErrorContainer::Stats* overallStats = NULL) {
+    SURELOG::ErrorContainer::Stats* overallStats = nullptr) {
   bool success = true;
   bool noFatalErrors = true;
   unsigned int codedReturn = 0;

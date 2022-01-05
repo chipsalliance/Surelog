@@ -96,7 +96,7 @@ static bool compareVectors(std::vector<T> a, std::vector<T> b) {
 
 bool PPCache::restore_(const std::string& cacheFileName, bool errorsOnly) {
   uint8_t* const buffer_pointer = openFlatBuffers(cacheFileName);
-  if (buffer_pointer == NULL) return false;
+  if (buffer_pointer == nullptr) return false;
 
   const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(buffer_pointer);
   if (!errorsOnly) {
@@ -189,11 +189,11 @@ bool PPCache::restore_(const std::string& cacheFileName, bool errorsOnly) {
   // FileContent
   if (!errorsOnly) {
     FileContent* fileContent = m_pp->getFileContent();
-    if (fileContent == NULL) {
+    if (fileContent == nullptr) {
       fileContent = new FileContent(
           m_pp->getFileId(0), m_pp->getLibrary(),
           m_pp->getCompileSourceFile()->getSymbolTable(),
-          m_pp->getCompileSourceFile()->getErrorContainer(), NULL, 0);
+          m_pp->getCompileSourceFile()->getErrorContainer(), nullptr, 0);
       m_pp->setFileContent(fileContent);
       m_pp->getCompileSourceFile()
           ->getCompiler()
@@ -220,7 +220,7 @@ bool PPCache::checkCacheIsValid_(const std::string& cacheFileName) {
     return true;
   }
   uint8_t* buffer_pointer = openFlatBuffers(cacheFileName);
-  if (buffer_pointer == NULL) {
+  if (buffer_pointer == nullptr) {
     delete[] buffer_pointer;
     return false;
   }

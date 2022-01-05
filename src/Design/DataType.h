@@ -60,7 +60,7 @@ class DataType : public RTTI {
       : m_fileContent(fC),
         m_id(id),
         m_name(name),
-        m_definition(NULL),
+        m_definition(nullptr),
         m_type(type),
         m_is_parameter(isParameter) {}
 

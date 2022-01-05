@@ -40,7 +40,7 @@ ClassDefinition* Program::getClassDefinition(const std::string& name) {
   ClassNameClassDefinitionMultiMap::iterator itr =
       m_classDefinitions.find(name);
   if (itr == m_classDefinitions.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }

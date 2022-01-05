@@ -32,7 +32,7 @@ Variable* Scope::getVariable(const std::string& name) {
       Variable* var = m_parentScope->getVariable(name);
       if (var) return var;
     }
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }
@@ -41,7 +41,7 @@ Variable* Scope::getVariable(const std::string& name) {
 DataType* Scope::getUsedDataType(const std::string& name) {
   DataTypeMap::iterator itr = m_usedDataTypes.find(name);
   if (itr == m_usedDataTypes.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }

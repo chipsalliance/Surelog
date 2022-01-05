@@ -52,7 +52,7 @@ ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,
       m_parent(parent),
       m_instName(instName),
       m_netlist(nullptr) {
-  if (m_definition == NULL) {
+  if (m_definition == nullptr) {
     m_instName = modName + "&" + instName;
   }
 }
@@ -257,7 +257,7 @@ unsigned int ModuleInstance::getDepth() {
 }
 
 std::string ModuleInstance::getInstanceName() {
-  if (m_definition == NULL) {
+  if (m_definition == nullptr) {
     std::string name =
         m_instName.substr(m_instName.find("&", 0, 1) + 1, m_instName.size());
     return name;
@@ -267,7 +267,7 @@ std::string ModuleInstance::getInstanceName() {
 }
 
 std::string ModuleInstance::getModuleName() {
-  if (m_definition == NULL) {
+  if (m_definition == nullptr) {
     std::string name = m_instName.substr(0, m_instName.find("&", 0, 1));
     return name;
   } else {
