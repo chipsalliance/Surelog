@@ -63,7 +63,7 @@ void CompileHelper::EvalStmt(const std::string& funcName, Scopes& scopes,
                              bool& break_flag, DesignComponent* component,
                              CompileDesign* compileDesign,
                              ValuedComponentI* instance,
-                             const std::string& fileName, int lineNumber,
+                             const fs::path& fileName, int lineNumber,
                              const any* stmt) {
   if (invalidValue) {
     return;
@@ -382,7 +382,7 @@ void CompileHelper::EvalStmt(const std::string& funcName, Scopes& scopes,
       std::string fileContent = FileUtils::getFileContent(stmt->VpiFile());
       std::string lineText =
           StringUtils::getLineInString(fileContent, stmt->VpiLineNo());
-      Location loc(symbols->registerSymbol(fileName), lineNumber,
+      Location loc(symbols->registerSymbol(fileName.string()), lineNumber,
                    stmt->VpiColumnNo(), symbols->registerSymbol(lineText));
       Error err(ErrorDefinition::UHDM_UNSUPPORTED_STMT, loc);
       errors->addError(err);
@@ -395,7 +395,7 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args,
                               bool& invalidValue, DesignComponent* component,
                               CompileDesign* compileDesign,
                               ValuedComponentI* instance,
-                              const std::string& fileName, int lineNumber,
+                              const fs::path& fileName, int lineNumber,
                               any* pexpr) {
   if (func == nullptr) {
     invalidValue = true;
@@ -463,7 +463,7 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args,
                 FileUtils::getFileContent(stmt->VpiFile());
             std::string lineText =
                 StringUtils::getLineInString(fileContent, stmt->VpiLineNo());
-            Location loc(symbols->registerSymbol(the_stmt->VpiFile()),
+            Location loc(symbols->registerSymbol(the_stmt->VpiFile().string()),
                          stmt->VpiLineNo(), stmt->VpiColumnNo(),
                          symbols->registerSymbol(lineText));
             Error err(ErrorDefinition::UHDM_UNSUPPORTED_STMT, loc);
@@ -488,7 +488,7 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args,
                 FileUtils::getFileContent(stmt->VpiFile());
             std::string lineText =
                 StringUtils::getLineInString(fileContent, stmt->VpiLineNo());
-            Location loc(symbols->registerSymbol(stmt->VpiFile()),
+            Location loc(symbols->registerSymbol(stmt->VpiFile().string()),
                          stmt->VpiLineNo(), stmt->VpiColumnNo(),
                          symbols->registerSymbol(lineText));
             Error err(ErrorDefinition::UHDM_UNSUPPORTED_STMT, loc);
@@ -511,7 +511,7 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args,
               FileUtils::getFileContent(the_stmt->VpiFile());
           std::string lineText =
               StringUtils::getLineInString(fileContent, the_stmt->VpiLineNo());
-          Location loc(symbols->registerSymbol(the_stmt->VpiFile()),
+          Location loc(symbols->registerSymbol(the_stmt->VpiFile().string()),
                        the_stmt->VpiLineNo(), the_stmt->VpiColumnNo(),
                        symbols->registerSymbol(lineText));
           Error err(ErrorDefinition::UHDM_UNSUPPORTED_STMT, loc);

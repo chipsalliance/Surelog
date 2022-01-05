@@ -257,8 +257,8 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       scope->setTask_funcs(sfuncs);
     }
   } else {
-    Location loc(m_symbols->registerSymbol(fC->getFileName(id)), fC->Line(id),
-                 0, m_symbols->registerSymbol(pack_name));
+    Location loc(m_symbols->registerSymbol(fC->getFileName(id).string()),
+                 fC->Line(id), 0, m_symbols->registerSymbol(pack_name));
     Error err(ErrorDefinition::COMP_UNDEFINED_PACKAGE, loc);
     m_errors->addError(err);
   }
@@ -532,13 +532,14 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
   if (scope) {
     const TypeDef* prevDef = scope->getTypeDef(name);
     if (prevDef && !prevDef->isForwardDeclaration()) {
-      Location loc1(m_symbols->registerSymbol(fC->getFileName(data_type)),
-                    fC->Line(data_type), 0, m_symbols->registerSymbol(name));
+      Location loc1(
+          m_symbols->registerSymbol(fC->getFileName(data_type).string()),
+          fC->Line(data_type), 0, m_symbols->registerSymbol(name));
       const FileContent* prevFile = prevDef->getFileContent();
       NodeId prevNode = prevDef->getNodeId();
-      Location loc2(m_symbols->registerSymbol(prevFile->getFileName(prevNode)),
-                    prevFile->Line(prevNode), 0,
-                    m_symbols->registerSymbol(name));
+      Location loc2(
+          m_symbols->registerSymbol(prevFile->getFileName(prevNode).string()),
+          prevFile->Line(prevNode), 0, m_symbols->registerSymbol(name));
       Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_TYPEDEF, loc1, loc2);
       m_errors->addError(err);
     }
@@ -1208,14 +1209,15 @@ bool CompileHelper::compileScopeVariable(Scope* parent, const FileContent* fC,
 
           Variable* previous = parent->getVariable(varName);
           if (previous) {
-            Location loc1(m_symbols->registerSymbol(fC->getFileName(var)),
-                          fC->Line(var), 0, m_symbols->registerSymbol(varName));
+            Location loc1(
+                m_symbols->registerSymbol(fC->getFileName(var).string()),
+                fC->Line(var), 0, m_symbols->registerSymbol(varName));
             const FileContent* prevFile = previous->getFileContent();
             NodeId prevNode = previous->getNodeId();
-            Location loc2(
-                m_symbols->registerSymbol(prevFile->getFileName(prevNode)),
-                prevFile->Line(prevNode), 0,
-                m_symbols->registerSymbol(varName));
+            Location loc2(m_symbols->registerSymbol(
+                              prevFile->getFileName(prevNode).string()),
+                          prevFile->Line(prevNode), 0,
+                          m_symbols->registerSymbol(varName));
             Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_VARIABLE, loc1,
                       loc2);
             m_errors->addError(err);

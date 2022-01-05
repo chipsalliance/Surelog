@@ -43,7 +43,7 @@ class DefParam final {
 
   DefParam(const DefParam& orig) = delete;
 
-  Value* getValue() { return m_value; }
+  Value* getValue() const { return m_value; }
   void setValue(Value* value) { m_value = value; }
 
   void setChild(std::string name, DefParam* child) {

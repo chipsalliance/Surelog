@@ -32,6 +32,8 @@
 // UHDM
 #include <uhdm/vpi_user.h>
 
+#include "Utils/StringUtils.h"
+
 using namespace SURELOG;
 
 unsigned int Value::nbWords_(unsigned int size) {
@@ -1840,9 +1842,8 @@ std::string StValue::uhdmValue() {
   else if (m_type == Type::Scalar)
     result = "SCAL:";
   // Remove '"' from the string
-  if (result == "STRING:" && m_value.length() >= 2 && m_value.front() == '"' &&
-      m_value.back() == '"') {
-    m_value = m_value.substr(1, m_value.length() - 2);
+  if (result == "STRING:") {
+    m_value = StringUtils::unquoted(m_value);
   }
   result += m_value;
   return result;

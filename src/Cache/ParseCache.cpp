@@ -37,14 +37,6 @@
 #include <cstdio>
 #include <ctime>
 
-#if (__cplusplus >= 201703L) && __has_include(<filesystem>)
-#include <filesystem>
-namespace fs = std::filesystem;
-#else
-#include <experimental/filesystem>
-namespace fs = std::experimental::filesystem;
-#endif
-
 #include "Cache/Cache.h"
 #include "Cache/parser_generated.h"
 #include "CommandLine/CommandLineParser.h"
@@ -66,41 +58,37 @@ ParseCache::ParseCache(ParseFile* parser)
 
 static constexpr char FlbSchemaVersion[] = "1.0";
 
-std::string ParseCache::getCacheFileName_(std::string svFileName) {
+fs::path ParseCache::getCacheFileName_(const fs::path& svFileNameIn) {
+  fs::path svFileName = svFileNameIn;
   Precompiled* prec = Precompiled::getSingleton();
   SymbolId cacheDirId =
       m_parse->getCompileSourceFile()->getCommandLineParser()->getCacheDir();
   if (svFileName.empty()) svFileName = m_parse->getPpFileName();
-  std::string baseFileName = FileUtils::basename(svFileName);
+  fs::path baseFileName = FileUtils::basename(svFileName);
   if (prec->isFilePrecompiled(baseFileName)) {
-    std::string packageRepDir =
-        m_parse->getSymbol(m_parse->getCompileSourceFile()
-                               ->getCommandLineParser()
-                               ->getPrecompiledDir());
+    fs::path packageRepDir = m_parse->getSymbol(m_parse->getCompileSourceFile()
+                                                    ->getCommandLineParser()
+                                                    ->getPrecompiledDir());
     cacheDirId = m_parse->getCompileSourceFile()
                      ->getCommandLineParser()
                      ->mutableSymbolTable()
-                     ->registerSymbol(packageRepDir);
+                     ->registerSymbol(packageRepDir.string());
     m_isPrecompiled = true;
     svFileName = baseFileName;
   } else {
-    fs::path fs_path(svFileName);
-    std::string s1 = fs_path.parent_path().string();
-    fs::path p1(s1);
-    std::string s2 = p1.parent_path().string();
-    s1.erase(0, s2.length() + 1);
-    svFileName = s1 + "/" + baseFileName;
+    svFileName = svFileName.parent_path().filename() / baseFileName;
   }
 
-  std::string cacheDirName = m_parse->getSymbol(cacheDirId);
+  fs::path cacheDirName = m_parse->getSymbol(cacheDirId);
   Library* lib = m_parse->getLibrary();
-  std::string libName = lib->getName() + "/";
-  std::string cacheFileName = cacheDirName + libName + svFileName + ".slpa";
-  FileUtils::mkDir(cacheDirName + libName);
+  std::string libName = lib->getName();
+  fs::path cacheFileName =
+      cacheDirName / libName / (svFileName.string() + ".slpa");
+  FileUtils::mkDirs(cacheDirName / libName);
   return cacheFileName;
 }
 
-bool ParseCache::restore_(std::string cacheFileName) {
+bool ParseCache::restore_(const fs::path& cacheFileName) {
   uint8_t* buffer_pointer = openFlatBuffers(cacheFileName);
   if (buffer_pointer == nullptr) return false;
 
@@ -157,7 +145,7 @@ bool ParseCache::restore_(std::string cacheFileName) {
   return true;
 }
 
-bool ParseCache::checkCacheIsValid_(std::string cacheFileName) {
+bool ParseCache::checkCacheIsValid_(const fs::path& cacheFileName) {
   uint8_t* buffer_pointer = openFlatBuffers(cacheFileName);
   if (buffer_pointer == nullptr) {
     return false;
@@ -182,7 +170,7 @@ bool ParseCache::checkCacheIsValid_(std::string cacheFileName) {
 }
 
 bool ParseCache::isValid() {
-  std::string cacheFileName = getCacheFileName_();
+  fs::path cacheFileName = getCacheFileName_();
   return checkCacheIsValid_(cacheFileName);
 }
 
@@ -192,7 +180,7 @@ bool ParseCache::restore() {
   bool cacheAllowed = clp->cacheAllowed();
   if (!cacheAllowed) return false;
 
-  std::string cacheFileName = getCacheFileName_();
+  fs::path cacheFileName = getCacheFileName_();
   if (!checkCacheIsValid_(cacheFileName)) {
     // char path [10000];
     // char* p = getcwd(path, 9999);
@@ -212,14 +200,14 @@ bool ParseCache::save() {
   bool parseOnly = clp->parseOnly();
 
   if (!cacheAllowed) return true;
-  std::string svFileName = m_parse->getPpFileName();
-  std::string origFileName = svFileName;
+  fs::path svFileName = m_parse->getPpFileName();
+  fs::path origFileName = svFileName;
   if (parseOnly) {
     SymbolId cacheDirId = clp->getCacheDir();
-    std::string cacheDirName = m_parse->getSymbol(cacheDirId);
-    origFileName = cacheDirName + "../" + origFileName;
+    fs::path cacheDirName = m_parse->getSymbol(cacheDirId);
+    origFileName = cacheDirName / ".." / origFileName;
   }
-  std::string cacheFileName = getCacheFileName_();
+  fs::path cacheFileName = getCacheFileName_();
 
   flatbuffers::FlatBufferBuilder builder(1024);
   /* Create header section */
@@ -228,10 +216,10 @@ bool ParseCache::save() {
   /* Cache the errors and canonical symbols */
   ErrorContainer* errorContainer =
       m_parse->getCompileSourceFile()->getErrorContainer();
-  std::string subjectFile = m_parse->getFileName(LINE1);
+  fs::path subjectFile = m_parse->getFileName(LINE1);
   SymbolId subjectFileId =
       m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
-          subjectFile);
+          subjectFile.string());
   SymbolTable canonicalSymbols;
   auto errorSymbolPair = cacheErrors(
       builder, canonicalSymbols, errorContainer,

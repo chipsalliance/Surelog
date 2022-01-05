@@ -24,6 +24,7 @@
 #ifndef DESIGNCOMPONENT_H
 #define DESIGNCOMPONENT_H
 
+#include <filesystem>
 #include <map>
 #include <vector>
 
@@ -33,6 +34,8 @@
 #include "Design/ValuedComponentI.h"
 #include "SourceCompile/VObjectTypes.h"
 #include "Testbench/TypeDef.h"
+
+namespace fs = std::filesystem;
 
 namespace SURELOG {
 
@@ -46,7 +49,7 @@ class ParamAssign;
 class ExprEval {
  public:
   ExprEval(UHDM::expr* expr, ValuedComponentI* instance,
-           const std::string& fileName, int lineNumber, UHDM::any* pexpr)
+           const fs::path& fileName, int lineNumber, UHDM::any* pexpr)
       : m_expr(expr),
         m_instance(instance),
         m_fileName(fileName),
@@ -54,7 +57,7 @@ class ExprEval {
         m_pexpr(pexpr) {}
   UHDM::expr* m_expr;
   ValuedComponentI* m_instance;
-  std::string m_fileName;
+  fs::path m_fileName;
   int m_lineNumber;
   UHDM::any* m_pexpr;
 };

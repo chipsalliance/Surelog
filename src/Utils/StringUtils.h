@@ -31,7 +31,7 @@
 
 namespace SURELOG {
 
-class StringUtils {
+class StringUtils final {
  public:
   // Tokenize "str" at "any_of_separator", store in "result" array.
   static void tokenize(std::string_view str, std::string_view any_of_separator,
@@ -122,6 +122,8 @@ class StringUtils {
   static void registerEnvVar(std::string_view var, std::string_view value) {
     envVars.insert(std::make_pair(var, value));
   }
+
+  static std::string unquoted(const std::string& text);
 
  private:
   StringUtils() = delete;

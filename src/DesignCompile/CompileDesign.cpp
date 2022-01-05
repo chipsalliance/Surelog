@@ -28,6 +28,7 @@
 
 #include <stdint.h>
 
+#include <filesystem>
 #include <thread>
 #include <vector>
 
@@ -82,7 +83,7 @@ bool CompileDesign::compile() {
     ErrorContainer* errors = m_compiler->getErrorContainer();
     SymbolTable* symbols = m_compiler->getSymbolTable();
     if (object) {
-      Location loc(symbols->registerSymbol(object->VpiFile()),
+      Location loc(symbols->registerSymbol(object->VpiFile().string()),
                    object->VpiLineNo(), object->VpiColumnNo(),
                    symbols->registerSymbol(msg));
       Error err((ErrorDefinition::ErrorType)errType, loc);
@@ -180,7 +181,7 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
   for (Design::FileIdDesignContentMap::iterator itr = all_files.begin();
        itr != all_files.end(); itr++) {
     const FileContent* fC = (*itr).second;
-    const std::string fileName = fC->getFileName();
+    const fs::path fileName = fC->getFileName();
     Library* lib = fC->getLibrary();
     for (const auto& mod : fC->getModuleDefinitions()) {
       ModuleDefinition* existing = design->getModuleDefinition(mod.first);
@@ -218,22 +219,22 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
         const FileContent* oldFC = existing->getFileContents()[0];
         const FileContent* oldParentFile = oldFC->getParent();
         NodeId oldNodeId = existing->getNodeIds()[0];
-        std::string oldFileName = oldFC->getFileName();
+        fs::path oldFileName = oldFC->getFileName();
         unsigned int oldLine = oldFC->Line(oldNodeId);
         Package* newP = pack.second;
         const FileContent* newFC = newP->getFileContents()[0];
         const FileContent* newParentFile = newFC->getParent();
         NodeId newNodeId = newP->getNodeIds()[0];
-        std::string newFileName = newFC->getFileName();
+        fs::path newFileName = newFC->getFileName();
         unsigned int newLine = newFC->Line(newNodeId);
         if (!finalCollection) {
           if (((oldParentFile != newParentFile) ||
                (oldParentFile == nullptr && newParentFile == nullptr)) &&
               ((oldFileName != newFileName) || (oldLine != newLine))) {
-            Location loc1(symbols->registerSymbol(oldFileName), oldLine, 0,
-                          symbols->registerSymbol(pack.first));
-            Location loc2(symbols->registerSymbol(newFileName), newLine, 0,
-                          symbols->registerSymbol(pack.first));
+            Location loc1(symbols->registerSymbol(oldFileName.string()),
+                          oldLine, 0, symbols->registerSymbol(pack.first));
+            Location loc2(symbols->registerSymbol(newFileName.string()),
+                          newLine, 0, symbols->registerSymbol(pack.first));
             Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_PACKAGE, loc1,
                       loc2);
             errors->addError(err);

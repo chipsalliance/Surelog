@@ -56,7 +56,7 @@ int FunctorCompileModule::operator()() const {
 bool CompileModule::compile() {
   const FileContent* const fC = m_module->m_fileContents[0];
   NodeId nodeId = m_module->m_nodeIds[0];
-  Location loc(m_symbols->registerSymbol(fC->getFileName(nodeId)),
+  Location loc(m_symbols->registerSymbol(fC->getFileName(nodeId).string()),
                fC->Line(nodeId), 0,
                m_symbols->registerSymbol(m_module->getName()));
   VObjectType moduleType = fC->Type(nodeId);
@@ -931,8 +931,9 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
           std::vector<VObjectType> types = {VObjectType::slModport_item};
           std::vector<NodeId> items = fC->sl_collect_all(id, types);
           for (auto nodeId : items) {
-            Location loc(m_symbols->registerSymbol(fC->getFileName(nodeId)),
-                         fC->Line(nodeId), 0, 0);
+            Location loc(
+                m_symbols->registerSymbol(fC->getFileName(nodeId).string()),
+                fC->Line(nodeId), 0, 0);
             Error err(ErrorDefinition::COMP_NO_MODPORT_IN_GENERATE, loc);
             m_errors->addError(err);
           }
@@ -981,11 +982,12 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
                   if (Expression == 0) {
                     // If expression is not null, we cannot conclude here
                     if (!port_exists) {
-                      Location loc(m_symbols->registerSymbol(
-                                       fC->getFileName(simple_port_name)),
-                                   fC->Line(simple_port_name), 0,
-                                   m_symbols->registerSymbol(
-                                       fC->SymName(simple_port_name)));
+                      Location loc(
+                          m_symbols->registerSymbol(
+                              fC->getFileName(simple_port_name).string()),
+                          fC->Line(simple_port_name), 0,
+                          m_symbols->registerSymbol(
+                              fC->SymName(simple_port_name)));
                       Error err(ErrorDefinition::COMP_MODPORT_UNDEFINED_PORT,
                                 loc);
                       m_errors->addError(err);
@@ -1010,10 +1012,10 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
                 ClockingBlock* cb =
                     m_module->getClockingBlock(clocking_block_symbol);
                 if (cb == nullptr) {
-                  Location loc(m_symbols->registerSymbol(
-                                   fC->getFileName(clocking_block_name)),
-                               fC->Line(clocking_block_name), 0,
-                               clocking_block_symbol);
+                  Location loc(
+                      m_symbols->registerSymbol(
+                          fC->getFileName(clocking_block_name).string()),
+                      fC->Line(clocking_block_name), 0, clocking_block_symbol);
                   Error err(
                       ErrorDefinition::COMP_MODPORT_UNDEFINED_CLOCKING_BLOCK,
                       loc);
@@ -1143,8 +1145,9 @@ bool CompileModule::checkModule_() {
           port->getDirection() == VObjectType::slPortDir_Inout) {
         if (countMissingType == 0)
           missingTypeLoc = new Location(
-              m_symbols->registerSymbol(
-                  port->getFileContent()->getFileName(port->getNodeId())),
+              m_symbols->registerSymbol(port->getFileContent()
+                                            ->getFileName(port->getNodeId())
+                                            .string()),
               port->getFileContent()->Line(port->getNodeId()), 0,
               m_symbols->registerSymbol(port->getName()));
         countMissingType++;
@@ -1153,8 +1156,9 @@ bool CompileModule::checkModule_() {
     if (port->getDirection() == VObjectType::slNoType) {
       if (countMissingDirection == 0)
         missingDirectionLoc = new Location(
-            m_symbols->registerSymbol(
-                port->getFileContent()->getFileName(port->getNodeId())),
+            m_symbols->registerSymbol(port->getFileContent()
+                                          ->getFileName(port->getNodeId())
+                                          .string()),
             port->getFileContent()->Line(port->getNodeId()), 0,
             m_symbols->registerSymbol(port->getName()));
       countMissingDirection++;
@@ -1202,8 +1206,9 @@ bool CompileModule::checkInterface_() {
           port->getDirection() == VObjectType::slPortDir_Inout) {
         if (countMissingType == 0)
           missingTypeLoc = new Location(
-              m_symbols->registerSymbol(
-                  port->getFileContent()->getFileName(port->getNodeId())),
+              m_symbols->registerSymbol(port->getFileContent()
+                                            ->getFileName(port->getNodeId())
+                                            .string()),
               port->getFileContent()->Line(port->getNodeId()), 0,
               m_symbols->registerSymbol(port->getName()));
         countMissingType++;

@@ -185,8 +185,8 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
   if (m_inActiveBranch && (!m_inMacroDefinitionParsing)) {
     std::pair<int, int> lineCol =
         ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
-    std::string fileName;
     int openingIndex = -1;
+    std::string fileName;
     if (ctx->String()) {
       fileName = ctx->String()->getText();
     } else if (ctx->macro_instance()) {
@@ -201,10 +201,9 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
       return;
     }
 
+    fileName = StringUtils::unquoted(fileName);
     if (m_pp->m_debugPP)
       std::cout << "PP INCLUDE DIRECTIVE " << fileName << std::endl;
-    if (fileName.size() && fileName[0] == '\"')
-      fileName = fileName.substr(1, fileName.size() - 2);
 
     SymbolId fileId = getSymbolTable()->registerSymbol(fileName);
     SymbolId locfileId = FileUtils::locateFile(fileId, getSymbolTable(),
@@ -275,10 +274,10 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
                 ->getCommandLineParser()
                 ->lineOffsetsAsComments()) {
           post = "\n/* SLline " + std::to_string(lineCol.first + 1) + " \"" +
-                 m_pp->getFileName(lineCol.first) + "\" 2 */\n";
+                 m_pp->getFileName(lineCol.first).string() + "\" 2 */\n";
         } else {
           post = "\n`line " + std::to_string(lineCol.first + 1) + " \"" +
-                 m_pp->getFileName(lineCol.first) + "\" 2\n";
+                 m_pp->getFileName(lineCol.first).string() + "\" 2\n";
         }
       }
     }
@@ -422,7 +421,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
           pre = "`line " + std::to_string(macroInf->m_line) + " \"" +
                 getSymbolTable()->getSymbol(macroInf->m_file) + "\" 0";
           post = "`line " + std::to_string(lineCol.first + 1) + " \"" +
-                 m_pp->getFileName(lineCol.first) + "\" 0";
+                 m_pp->getFileName(lineCol.first).string() + "\" 0";
           if (m_pp->getCompileSourceFile()
                   ->getCommandLineParser()
                   ->lineOffsetsAsComments()) {
@@ -563,7 +562,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceNoArgs(
             pre = "`line " + std::to_string(macroInf->m_line) + " \"" +
                   getSymbolTable()->getSymbol(macroInf->m_file) + "\" 0";
           post = "`line " + std::to_string(lineCol.first + 1) + " \"" +
-                 m_pp->getFileName(lineCol.first) + "\" 0";
+                 m_pp->getFileName(lineCol.first).string() + "\" 0";
           if (m_pp->getCompileSourceFile()
                   ->getCommandLineParser()
                   ->lineOffsetsAsComments()) {
@@ -657,7 +656,7 @@ void SV3_1aPpTreeShapeListener::enterSv_file_directive(
     } else {
       std::pair<int, int> lineCol =
           ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
-      m_pp->append("\"" + m_pp->getFileName(lineCol.first) + "\"");
+      m_pp->append("\"" + m_pp->getFileName(lineCol.first).string() + "\"");
     }
   }
   m_pp->pauseAppend();
@@ -686,8 +685,7 @@ void SV3_1aPpTreeShapeListener::enterLine_directive(
   std::pair<int, int> lineCol =
       ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
   std::string fileName;
-  if (ctx->String()) fileName = ctx->String()->getText();
-  if (fileName.size()) fileName = fileName.substr(1, fileName.size() - 2);
+  if (ctx->String()) fileName = StringUtils::unquoted(ctx->String()->getText());
   std::string number;
   if (ctx->number().size()) number = ctx->number()[0]->getText();
   SymbolId newFileId = getSymbolTable()->registerSymbol(fileName);

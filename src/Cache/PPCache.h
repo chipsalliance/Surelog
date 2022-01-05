@@ -41,9 +41,9 @@ class PPCache : Cache {
  private:
   PPCache(const PPCache& orig) = delete;
 
-  std::string getCacheFileName_(const std::string& fileName = "");
-  bool restore_(const std::string& cacheFileName, bool errorsOnly);
-  bool checkCacheIsValid_(const std::string& cacheFileName);
+  fs::path getCacheFileName_(const fs::path& fileName = "");
+  bool restore_(const fs::path& cacheFileName, bool errorsOnly);
+  bool checkCacheIsValid_(const fs::path& cacheFileName);
 
   PreprocessFile* m_pp;
   bool m_isPrecompiled;

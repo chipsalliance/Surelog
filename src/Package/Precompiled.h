@@ -20,12 +20,15 @@
  *
  * Created on April 28, 2018, 10:27 AM
  */
+#ifndef PRECOMPILED_H
+#define PRECOMPILED_H
+
+#include <filesystem>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
 
-#ifndef PRECOMPILED_H
-#define PRECOMPILED_H
+namespace fs = std::filesystem;
 
 class Precompiled final {
  public:
@@ -35,15 +38,21 @@ class Precompiled final {
                       const std::string& fileName);
 
   std::string getFileName(const std::string& packageName) const;
-  bool isFilePrecompiled(const std::string& fileName) const;
+  bool isFilePrecompiled(const fs::path& fileName) const;
   bool isPackagePrecompiled(const std::string& package) const;
 
  private:
   Precompiled();  // Only accessed via singleton.
   Precompiled(const Precompiled&) = delete;
 
+  struct fs_path_hash final {
+    std::size_t operator()(const fs::path& path) const {
+      return fs::hash_value(path);
+    }
+  };
+
   std::unordered_map<std::string, std::string> m_packageMap;
-  std::unordered_set<std::string> m_packageFileSet;
+  std::unordered_set<fs::path, fs_path_hash> m_packageFileSet;
 };
 
 #endif /* PRECOMPILED_H */

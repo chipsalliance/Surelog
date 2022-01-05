@@ -87,7 +87,7 @@ class Compiler {
   CompileDesign* getCompileDesign() { return m_compileDesign; }
   ErrorContainer::Stats getErrorStats() const;
   bool isLibraryFile(SymbolId id) const;
-  const std::map<const std::string, std::vector<std::string>>& getPPFileMap() {
+  const std::map<fs::path, std::vector<fs::path>>& getPPFileMap() {
     return ppFileMap;
   }
 #ifdef USETBB
@@ -128,7 +128,7 @@ class Compiler {
   std::set<SymbolId> m_libraryFiles;  // -v <file>
   std::string m_text;                 // unit tests
   CompileDesign* m_compileDesign;
-  std::map<const std::string, std::vector<std::string>> ppFileMap;
+  std::map<fs::path, std::vector<fs::path>> ppFileMap;
 #ifdef USETBB
   tbb::task_group m_taskGroup;
 #endif

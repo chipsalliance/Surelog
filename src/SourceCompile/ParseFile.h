@@ -67,8 +67,8 @@ class ParseFile {
   CompileSourceFile* getCompileSourceFile() { return m_compileSourceFile; }
   CompilationUnit* getCompilationUnit() { return m_compilationUnit; }
   Library* getLibrary() { return m_library; }
-  const std::string getFileName(unsigned int line);
-  const std::string getPpFileName() { return getSymbol(m_ppFileId); }
+  const fs::path getFileName(unsigned int line);
+  const fs::path getPpFileName() { return getSymbol(m_ppFileId); }
   SymbolTable* getSymbolTable();
   ErrorContainer* getErrorContainer();
   SymbolId getFileId(unsigned int line);

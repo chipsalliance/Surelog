@@ -81,7 +81,7 @@ void Design::addPPFileContent(SymbolId fileId, FileContent* content) {
 }
 
 DesignComponent* Design::getComponentDefinition(
-    const std::string& componentName) {
+    const std::string& componentName) const {
   DesignComponent* comp = (DesignComponent*)getModuleDefinition(componentName);
   if (comp) return comp;
   comp = (DesignComponent*)getProgram(componentName);
@@ -91,8 +91,9 @@ DesignComponent* Design::getComponentDefinition(
   return nullptr;
 }
 
-ModuleDefinition* Design::getModuleDefinition(const std::string& moduleName) {
-  ModuleNameModuleDefinitionMap::iterator itr =
+ModuleDefinition* Design::getModuleDefinition(
+    const std::string& moduleName) const {
+  ModuleNameModuleDefinitionMap::const_iterator itr =
       m_moduleDefinitions.find(moduleName);
   if (itr != m_moduleDefinitions.end()) {
     return (*itr).second;
@@ -124,8 +125,8 @@ std::string Design::reportInstanceTree() const {
       undef = " [U]";
     }
     std::string type_s;
-    Location loc(symbols->registerSymbol(tmp->getFileName()), tmp->getLineNb(),
-                 0, tmp->getFullPathId(symbols));
+    Location loc(symbols->registerSymbol(tmp->getFileName().string()),
+                 tmp->getLineNb(), 0, tmp->getFullPathId(symbols));
     if (type == slUdp_instantiation) {
       type_s = "[UDP]";
       Error err(ErrorDefinition::ELAB_INSTANCE_PATH, loc);
@@ -187,7 +188,7 @@ void Design::reportInstanceTreeStats(unsigned int& nbTopLevelModules,
                                      unsigned int& numberOfInstances,
                                      unsigned int& numberOfLeafInstances,
                                      unsigned int& nbUndefinedModules,
-                                     unsigned int& nbUndefinedInstances) {
+                                     unsigned int& nbUndefinedInstances) const {
   nbTopLevelModules = 0;
   maxDepth = 0;
   numberOfInstances = 0;
@@ -237,14 +238,14 @@ void Design::reportInstanceTreeStats(unsigned int& nbTopLevelModules,
 }
 
 ModuleInstance* Design::findInstance(const std::string& path,
-                                     ModuleInstance* scope) {
+                                     ModuleInstance* scope) const {
   std::vector<std::string> vpath;
   StringUtils::tokenize(path, ".", vpath);
   return findInstance(vpath, scope);
 }
 
 ModuleInstance* Design::findInstance(std::vector<std::string>& path,
-                                     ModuleInstance* scope) {
+                                     ModuleInstance* scope) const {
   if (!path.size()) return nullptr;
   if (scope) {
     ModuleInstance* res = findInstance_(path, scope);
@@ -270,7 +271,7 @@ ModuleInstance* Design::findInstance(std::vector<std::string>& path,
 }
 
 ModuleInstance* Design::findInstance_(std::vector<std::string>& path,
-                                      ModuleInstance* scope) {
+                                      ModuleInstance* scope) const {
   if (!path.size()) return nullptr;
   if (scope == nullptr) return nullptr;
   if (path.size() == 1) {
@@ -297,10 +298,11 @@ ModuleInstance* Design::findInstance_(std::vector<std::string>& path,
   return nullptr;
 }
 
-DefParam* Design::getDefParam(const std::string& name) {
+DefParam* Design::getDefParam(const std::string& name) const {
   std::vector<std::string> vpath;
   StringUtils::tokenize(name, ".", vpath);
-  std::map<std::string, DefParam*>::iterator itr = m_defParams.find(vpath[0]);
+  std::map<std::string, DefParam*>::const_iterator itr =
+      m_defParams.find(vpath[0]);
   if (itr != m_defParams.end()) {
     vpath.erase(vpath.begin());
     return getDefParam_(vpath, (*itr).second);
@@ -315,7 +317,7 @@ Value* Design::getDefParamValue(const std::string& name) {
 }
 
 DefParam* Design::getDefParam_(std::vector<std::string>& path,
-                               DefParam* parent) {
+                               DefParam* parent) const {
   if (path.size() == 0) {
     return parent;
   }
@@ -413,8 +415,8 @@ void Design::checkDefParamUsage(DefParam* parent) {
   }
 }
 
-Package* Design::getPackage(const std::string& name) {
-  PackageNamePackageDefinitionMultiMap::iterator itr =
+Package* Design::getPackage(const std::string& name) const {
+  PackageNamePackageDefinitionMultiMap::const_iterator itr =
       m_packageDefinitions.find(name);
   if (itr == m_packageDefinitions.end()) {
     return nullptr;
@@ -423,8 +425,8 @@ Package* Design::getPackage(const std::string& name) {
   }
 }
 
-Program* Design::getProgram(const std::string& name) {
-  ProgramNameProgramDefinitionMap::iterator itr =
+Program* Design::getProgram(const std::string& name) const {
+  ProgramNameProgramDefinitionMap::const_iterator itr =
       m_programDefinitions.find(name);
   if (itr == m_programDefinitions.end()) {
     return nullptr;
@@ -433,8 +435,8 @@ Program* Design::getProgram(const std::string& name) {
   }
 }
 
-ClassDefinition* Design::getClassDefinition(const std::string& name) {
-  ClassNameClassDefinitionMap::iterator itr =
+ClassDefinition* Design::getClassDefinition(const std::string& name) const {
+  ClassNameClassDefinitionMap::const_iterator itr =
       m_uniqueClassDefinitions.find(name);
   if (itr == m_uniqueClassDefinitions.end()) {
     return nullptr;
