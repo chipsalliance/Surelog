@@ -42,8 +42,8 @@ class Procedure : public Scope, public Statement {
  public:
   Procedure(DesignComponent* parent, const FileContent* fC, NodeId id,
             const std::string& name)
-      : Scope(name, NULL),
-        Statement(this, NULL, fC, id,
+      : Scope(name, nullptr),
+        Statement(this, nullptr, fC, id,
                   fC ? fC->Type(id) : VObjectType::slFunction_prototype),
         m_parent(parent),
         m_fileContent(fC),

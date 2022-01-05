@@ -30,7 +30,7 @@ using namespace SURELOG;
 
 ModuleDefinition::ModuleDefinition(const FileContent* fileContent,
                                    NodeId nodeId, const std::string_view name)
-    : DesignComponent(fileContent, NULL),
+    : DesignComponent(fileContent, nullptr),
       m_name(name),
       m_gen_block_id(0),
       m_udpDefn(nullptr) {
@@ -82,7 +82,7 @@ const Signal* ModuleDefinition::getModPortSignal(const std::string& modport,
                                                  NodeId port) const {
   ModPortSignalMap::const_iterator itr = m_modportSignalMap.find(modport);
   if (itr == m_modportSignalMap.end()) {
-    return NULL;
+    return nullptr;
   } else {
     for (auto& sig : (*itr).second.getPorts()) {
       if (sig.getNodeId() == port) {
@@ -90,13 +90,13 @@ const Signal* ModuleDefinition::getModPortSignal(const std::string& modport,
       }
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 ModPort* ModuleDefinition::getModPort(const std::string& modport) {
   ModPortSignalMap::iterator itr = m_modportSignalMap.find(modport);
   if (itr == m_modportSignalMap.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return &(*itr).second;
   }
@@ -120,7 +120,7 @@ ClockingBlock* ModuleDefinition::getModPortClockingBlock(
   ModPortClockingBlockMap::iterator itr =
       m_modportClockingBlockMap.find(modport);
   if (itr == m_modportClockingBlockMap.end()) {
-    return NULL;
+    return nullptr;
   } else {
     for (auto& cb : (*itr).second) {
       if (cb.getNodeId() == port) {
@@ -128,14 +128,14 @@ ClockingBlock* ModuleDefinition::getModPortClockingBlock(
       }
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 ClassDefinition* ModuleDefinition::getClassDefinition(const std::string& name) {
   ClassNameClassDefinitionMultiMap::iterator itr =
       m_classDefinitions.find(name);
   if (itr == m_classDefinitions.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }

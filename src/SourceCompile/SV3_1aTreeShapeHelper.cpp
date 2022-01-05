@@ -45,7 +45,7 @@ SV3_1aTreeShapeHelper::SV3_1aTreeShapeHelper(ParseFile* pf,
                                              unsigned int lineOffset)
     : CommonListenerHelper(nullptr, tokens),
       m_pf(pf),
-      m_currentElement(NULL),
+      m_currentElement(nullptr),
       m_lineOffset(lineOffset) {
   if (pf->getCompileSourceFile()) {
     m_ppOutputFileLocation = pf->getCompileSourceFile()
@@ -57,8 +57,8 @@ SV3_1aTreeShapeHelper::SV3_1aTreeShapeHelper(ParseFile* pf,
 SV3_1aTreeShapeHelper::SV3_1aTreeShapeHelper(ParseLibraryDef* pf,
                                              antlr4::CommonTokenStream* tokens)
     : CommonListenerHelper(nullptr, tokens),
-      m_pf(NULL),
-      m_currentElement(NULL),
+      m_pf(nullptr),
+      m_currentElement(nullptr),
       m_lineOffset(0),
       m_ppOutputFileLocation(false) {}
 

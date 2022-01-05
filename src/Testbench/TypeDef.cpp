@@ -31,7 +31,7 @@ TypeDef::TypeDef(const FileContent* fC, NodeId id, NodeId the_def,
                  const std::string& name, bool forwardDeclaration)
     : DataType(fC, id, name, fC->Type(id)),
       m_the_def(the_def),
-      m_datatype(NULL),
+      m_datatype(nullptr),
       m_forwardDeclaration(forwardDeclaration) {
   m_category = DataType::Category::TYPEDEF;
 }

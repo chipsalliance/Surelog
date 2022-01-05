@@ -44,11 +44,11 @@ void SV3_1aPpTreeShapeListener::enterTop_level_rule(
     SV3_1aPpParser::Top_level_ruleContext * /*ctx*/) {
   // TODO: setting m_fileContent should happen at construction time.
   // This also makes it hard to know who the owner is.
-  if (m_pp->getFileContent() == NULL) {
+  if (m_pp->getFileContent() == nullptr) {
     m_fileContent = new FileContent(
         m_pp->getFileId(0), m_pp->getLibrary(),
         m_pp->getCompileSourceFile()->getSymbolTable(),
-        m_pp->getCompileSourceFile()->getErrorContainer(), NULL, 0);
+        m_pp->getCompileSourceFile()->getErrorContainer(), nullptr, 0);
     m_pp->setFileContent(m_fileContent);
     m_pp->getCompileSourceFile()->getCompiler()->getDesign()->addPPFileContent(
         m_pp->getFileId(0), m_fileContent);
@@ -302,7 +302,7 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
 void SV3_1aPpTreeShapeListener::exitInclude_directive(
     SV3_1aPpParser::Include_directiveContext *ctx) {
   if (m_append_paused_context == ctx) {
-    m_append_paused_context = NULL;
+    m_append_paused_context = nullptr;
     m_pp->resumeAppend();
   }
   std::string text;
@@ -445,7 +445,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
 
     m_pp->append(pre + macroBody + post);
 
-    if (m_append_paused_context == NULL) {
+    if (m_append_paused_context == nullptr) {
       m_append_paused_context = ctx;
       m_pp->pauseAppend();
     }
@@ -491,7 +491,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
 void SV3_1aPpTreeShapeListener::exitMacroInstanceWithArgs(
     SV3_1aPpParser::MacroInstanceWithArgsContext *ctx) {
   if (m_append_paused_context == ctx) {
-    m_append_paused_context = NULL;
+    m_append_paused_context = nullptr;
     m_pp->resumeAppend();
     addVObject(ctx, VObjectType::slMacroInstanceWithArgs);
   }
@@ -738,7 +738,7 @@ void SV3_1aPpTreeShapeListener::exitDefine_directive(
       StringUtils::rtrim(macroName);
     }
     MacroInfo *macroInf = m_pp->getMacro(macroName);
-    if (macroInf == NULL) {
+    if (macroInf == nullptr) {
       std::pair<int, int> lineCol = ParseUtils::getLineColumn(
           ctx->Simple_identifier() ? ctx->Simple_identifier()
                                    : ctx->Escaped_identifier());

@@ -47,11 +47,11 @@
 namespace SURELOG {
 void SV3_1aTreeShapeListener::enterTop_level_rule(
     SV3_1aParser::Top_level_ruleContext * /*ctx*/) {
-  if (m_pf->getFileContent() == NULL) {
+  if (m_pf->getFileContent() == nullptr) {
     m_fileContent = new FileContent(
         m_pf->getFileId(0), m_pf->getLibrary(),
         m_pf->getCompileSourceFile()->getSymbolTable(),
-        m_pf->getCompileSourceFile()->getErrorContainer(), NULL, 0);
+        m_pf->getCompileSourceFile()->getErrorContainer(), nullptr, 0);
     m_pf->setFileContent(m_fileContent);
     m_pf->getCompileSourceFile()->getCompiler()->getDesign()->addFileContent(
         m_pf->getFileId(0), m_fileContent);
@@ -70,7 +70,7 @@ void SV3_1aTreeShapeListener::enterTop_level_library_rule(
   // Visited from Library/SVLibShapeListener.h
   m_fileContent = new FileContent(m_pf->getFileId(0), m_pf->getLibrary(),
                                   m_pf->getSymbolTable(),
-                                  m_pf->getErrorContainer(), NULL, 0);
+                                  m_pf->getErrorContainer(), nullptr, 0);
   m_pf->setFileContent(m_fileContent);
 }
 
@@ -223,7 +223,7 @@ void SV3_1aTreeShapeListener::enterInterface_declaration(
 
 void SV3_1aTreeShapeListener::exitInterface_declaration(
     SV3_1aParser::Interface_declarationContext *ctx) {
-  if (ctx->EXTERN() == NULL)
+  if (ctx->EXTERN() == nullptr)
     if (ctx->ENDINTERFACE())
       addVObject((antlr4::ParserRuleContext *)ctx->ENDINTERFACE(),
                  VObjectType::slEndinterface);
@@ -917,7 +917,7 @@ void SV3_1aTreeShapeListener::exitSystem_task_names(
 void SV3_1aTreeShapeListener::exitClass_type(
     SV3_1aParser::Class_typeContext *ctx) {
   std::string ident;
-  antlr4::ParserRuleContext *childCtx = NULL;
+  antlr4::ParserRuleContext *childCtx = nullptr;
   if (ctx->Simple_identifier()) {
     childCtx = (antlr4::ParserRuleContext *)ctx->Simple_identifier();
     ident = ctx->Simple_identifier()->getText();
@@ -1159,7 +1159,7 @@ void SV3_1aTreeShapeListener::exitLoop_statement(
 void SV3_1aTreeShapeListener::exitPackage_scope(
     SV3_1aParser::Package_scopeContext *ctx) {
   std::string ident;
-  antlr4::ParserRuleContext *childCtx = NULL;
+  antlr4::ParserRuleContext *childCtx = nullptr;
   if (ctx->Simple_identifier()) {
     childCtx = (antlr4::ParserRuleContext *)ctx->Simple_identifier();
     ident = ctx->Simple_identifier()->getText();
@@ -1197,7 +1197,7 @@ void SV3_1aTreeShapeListener::exitPackage_scope(
 void SV3_1aTreeShapeListener::exitPs_identifier(
     SV3_1aParser::Ps_identifierContext *ctx) {
   std::string ident;
-  antlr4::ParserRuleContext *childCtx = NULL;
+  antlr4::ParserRuleContext *childCtx = nullptr;
   if (ctx->Simple_identifier().size()) {
     childCtx = (antlr4::ParserRuleContext *)ctx->Simple_identifier()[0];
     ident = ctx->Simple_identifier()[0]->getText();

@@ -34,7 +34,7 @@ ClockingBlock* ClockingBlockHolder::getClockingBlock(SymbolId blockId) {
   if (itr != m_clockingBlockMap.end()) {
     return &(*itr).second;
   } else {
-    return NULL;
+    return nullptr;
   }
 }
 }  // namespace SURELOG

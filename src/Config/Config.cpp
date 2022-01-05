@@ -31,7 +31,7 @@ UseClause* Config::getInstanceUseClause(const std::string& instance) {
   std::map<std::string, UseClause>::iterator itr =
       m_instanceUseClauses.find(instance);
   if (itr == m_instanceUseClauses.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return &(*itr).second;
   }
@@ -40,7 +40,7 @@ UseClause* Config::getInstanceUseClause(const std::string& instance) {
 UseClause* Config::getCellUseClause(const std::string& cell) {
   std::map<std::string, UseClause>::iterator itr = m_cellUseClauses.find(cell);
   if (itr == m_cellUseClauses.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return &(*itr).second;
   }

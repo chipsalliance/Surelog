@@ -39,7 +39,7 @@ class Program : public DesignComponent, public ClockingBlockHolder {
 
  public:
   Program(std::string name, Library* library, FileContent* fC, NodeId nodeId)
-      : DesignComponent(fC, NULL), m_name(name), m_library(library) {
+      : DesignComponent(fC, nullptr), m_name(name), m_library(library) {
     addFileContent(fC, nodeId);
   }
 

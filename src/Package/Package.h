@@ -44,7 +44,7 @@ class Package : public DesignComponent {
 
  public:
   Package(std::string name, Library* library, FileContent* fC, NodeId nodeId)
-      : DesignComponent(fC, NULL), m_name(name), m_library(library) {
+      : DesignComponent(fC, nullptr), m_name(name), m_library(library) {
     addFileContent(fC, nodeId);
   }
   void append(Package* package);

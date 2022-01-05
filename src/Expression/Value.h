@@ -533,7 +533,7 @@ class StValue : public Value {
     }
   }
   double getValueD(unsigned short index = 0) const final {
-    return strtod(m_value.c_str(), NULL);
+    return strtod(m_value.c_str(), nullptr);
   }
   std::string getValueS() const final { return m_value; }
 

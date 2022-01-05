@@ -37,18 +37,18 @@ Library* LibrarySet::getLibrary(std::string_view libName) {
   for (unsigned int i = 0; i < m_libraries.size(); i++) {
     if (m_libraries[i].getName() == libName) return &m_libraries[i];
   }
-  return NULL;
+  return nullptr;
 }
 
 Library* LibrarySet::getLibrary(SymbolId fileId) {
-  Library* lib = NULL;
+  Library* lib = nullptr;
   for (unsigned int i = 0; i < m_libraries.size(); i++) {
     if (m_libraries[i].isMember(fileId)) {
       lib = &m_libraries[i];
       break;
     }
   }
-  if (lib == NULL) {
+  if (lib == nullptr) {
     getLibrary("work")->addFileId(fileId);
     lib = getLibrary("work");
   }

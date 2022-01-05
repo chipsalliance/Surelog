@@ -37,7 +37,7 @@ class Error {
  public:
   friend ErrorContainer;
   Error(ErrorDefinition::ErrorType errorId, Location& loc,
-        std::vector<Location>* extraLocs = NULL);
+        std::vector<Location>* extraLocs = nullptr);
   Error(ErrorDefinition::ErrorType errorId, Location& loc, Location& extra);
   Error(ErrorDefinition::ErrorType errorId, std::vector<Location>& locations);
   Error(const Error& orig) = default;

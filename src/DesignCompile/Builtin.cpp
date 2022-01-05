@@ -197,8 +197,8 @@ void Builtin::addBuiltinTypes() {
     const std::string& returnTypeName = function[2];
     const std::string& functionName = function[3];
     Package* package = m_design->getPackage(packageName);
-    if (package == NULL) {
-      package = new Package(packageName, NULL, NULL, 0);
+    if (package == nullptr) {
+      package = new Package(packageName, nullptr, nullptr, 0);
       UHDM::package* pack = s.MakePackage();
       pack->VpiName(package->getName());
       package->setUhdmInstance(pack);
@@ -206,18 +206,18 @@ void Builtin::addBuiltinTypes() {
     }
     const std::string fullClassName = packageName + "::" + className;
     ClassDefinition* classDef = m_design->getClassDefinition(fullClassName);
-    if (classDef == NULL) {
-      classDef = new ClassDefinition(className, NULL, package, NULL, 0, NULL,
-                                     s.MakeClass_defn());
+    if (classDef == nullptr) {
+      classDef = new ClassDefinition(className, nullptr, package, nullptr, 0,
+                                     nullptr, s.MakeClass_defn());
       m_design->addClassDefinition(fullClassName, classDef);
       package->addClassDefinition(className, classDef);
     }
 
     DataType* dtype =
-        new DataType(NULL, 0, returnTypeName, convert(returnTypeName));
+        new DataType(nullptr, 0, returnTypeName, convert(returnTypeName));
     FunctionMethod* method =
-        new FunctionMethod(classDef, NULL, 0, functionName, dtype, false, false,
-                           false, false, false, false);
+        new FunctionMethod(classDef, nullptr, 0, functionName, dtype, false,
+                           false, false, false, false, false);
     classDef->insertFunction(method);
   }
 }
@@ -317,8 +317,8 @@ void Builtin::addBuiltinClasses() {
                               m_compiler->getCompiler()->getErrorContainer());
       std::string fullName = libName + "@" + name;
       ClassDefinition* def =
-          new ClassDefinition(fullName, fC1->getLibrary(), NULL, fC1, classId,
-                              NULL, s.MakeClass_defn());
+          new ClassDefinition(fullName, fC1->getLibrary(), nullptr, fC1,
+                              classId, nullptr, s.MakeClass_defn());
       fC1->addClassDefinition(fullName, def);
       m_compiler->getCompiler()->getDesign()->addClassDefinition(name, def);
     }

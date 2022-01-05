@@ -88,7 +88,7 @@ DesignComponent* Design::getComponentDefinition(
   if (comp) return comp;
   comp = (DesignComponent*)getClassDefinition(componentName);
   if (comp) return comp;
-  return NULL;
+  return nullptr;
 }
 
 ModuleDefinition* Design::getModuleDefinition(const std::string& moduleName) {
@@ -97,7 +97,7 @@ ModuleDefinition* Design::getModuleDefinition(const std::string& moduleName) {
   if (itr != m_moduleDefinitions.end()) {
     return (*itr).second;
   }
-  return NULL;
+  return nullptr;
 }
 
 std::string Design::reportInstanceTree() const {
@@ -120,7 +120,7 @@ std::string Design::reportInstanceTree() const {
     def = tmp->getModuleName();
     std::string undef;
     VObjectType type = tmp->getType();
-    if (tmp->getDefinition() == NULL) {
+    if (tmp->getDefinition() == nullptr) {
       undef = " [U]";
     }
     std::string type_s;
@@ -245,7 +245,7 @@ ModuleInstance* Design::findInstance(const std::string& path,
 
 ModuleInstance* Design::findInstance(std::vector<std::string>& path,
                                      ModuleInstance* scope) {
-  if (!path.size()) return NULL;
+  if (!path.size()) return nullptr;
   if (scope) {
     ModuleInstance* res = findInstance_(path, scope);
     if (res) return res;
@@ -266,13 +266,13 @@ ModuleInstance* Design::findInstance(std::vector<std::string>& path,
     }
   }
 
-  return NULL;
+  return nullptr;
 }
 
 ModuleInstance* Design::findInstance_(std::vector<std::string>& path,
                                       ModuleInstance* scope) {
-  if (!path.size()) return NULL;
-  if (scope == NULL) return NULL;
+  if (!path.size()) return nullptr;
+  if (scope == nullptr) return nullptr;
   if (path.size() == 1) {
     if (scope->getInstanceName() == path[0]) {
       return scope;
@@ -294,7 +294,7 @@ ModuleInstance* Design::findInstance_(std::vector<std::string>& path,
       }
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 DefParam* Design::getDefParam(const std::string& name) {
@@ -305,13 +305,13 @@ DefParam* Design::getDefParam(const std::string& name) {
     vpath.erase(vpath.begin());
     return getDefParam_(vpath, (*itr).second);
   }
-  return NULL;
+  return nullptr;
 }
 
 Value* Design::getDefParamValue(const std::string& name) {
   DefParam* def = getDefParam(name);
   if (def) return def->getValue();
-  return NULL;
+  return nullptr;
 }
 
 DefParam* Design::getDefParam_(std::vector<std::string>& path,
@@ -325,7 +325,7 @@ DefParam* Design::getDefParam_(std::vector<std::string>& path,
     path.erase(path.begin());
     return getDefParam_(path, (*itr).second);
   }
-  return NULL;
+  return nullptr;
 }
 
 void Design::addDefParam(const std::string& name, const FileContent* fC,
@@ -381,7 +381,7 @@ void Design::addDefParam_(std::vector<std::string>& path, const FileContent* fC,
 }
 
 void Design::checkDefParamUsage(DefParam* parent) {
-  if (parent == NULL) {
+  if (parent == nullptr) {
     // Start by all the top defs of the trie
     for (auto top : m_defParams) {
       checkDefParamUsage(top.second);
@@ -417,7 +417,7 @@ Package* Design::getPackage(const std::string& name) {
   PackageNamePackageDefinitionMultiMap::iterator itr =
       m_packageDefinitions.find(name);
   if (itr == m_packageDefinitions.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }
@@ -427,7 +427,7 @@ Program* Design::getProgram(const std::string& name) {
   ProgramNameProgramDefinitionMap::iterator itr =
       m_programDefinitions.find(name);
   if (itr == m_programDefinitions.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }
@@ -437,7 +437,7 @@ ClassDefinition* Design::getClassDefinition(const std::string& name) {
   ClassNameClassDefinitionMap::iterator itr =
       m_uniqueClassDefinitions.find(name);
   if (itr == m_uniqueClassDefinitions.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }
