@@ -1891,6 +1891,10 @@ bool CompileHelper::compileFunction(DesignComponent* component,
         fC->Child(Function_body_declaration);
     NodeId Function_data_type = fC->Child(Function_data_type_or_implicit);
     NodeId Return_data_type = fC->Child(Function_data_type);
+    if ((!Return_data_type) &&
+        (fC->Type(Function_data_type) == slSigning_Unsigned)) {
+      Return_data_type = Function_data_type;
+    }
     variables* var = any_cast<variables*>(
         compileVariable(component, fC, Return_data_type, compileDesign, nullptr,
                         instance, false, false));

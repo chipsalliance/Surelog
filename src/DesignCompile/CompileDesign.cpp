@@ -75,23 +75,24 @@ CompileDesign::~CompileDesign() {
 }
 
 bool CompileDesign::compile() {
-  // Handle UHDM Internal errors
-  UHDM::ErrorHandler errHandler =
-      [=](UHDM::ErrorType errType, const std::string& msg, UHDM::any* object) {
-        ErrorContainer* errors = m_compiler->getErrorContainer();
-        SymbolTable* symbols = m_compiler->getSymbolTable();
-        if (object) {
-          Location loc(symbols->registerSymbol(object->VpiFile()),
-                       object->VpiLineNo(), object->VpiColumnNo(),
-                       symbols->registerSymbol(msg));
-          Error err((ErrorDefinition::ErrorType)errType, loc);
-          errors->addError(err);
-        } else {
-          Location loc(symbols->registerSymbol(msg));
-          Error err((ErrorDefinition::ErrorType)errType, loc);
-          errors->addError(err);
-        }
-      };
+  // Register UHDM Error callbacks
+  UHDM::ErrorHandler errHandler = [=](UHDM::ErrorType errType,
+                                      const std::string& msg,
+                                      const UHDM::any* object) {
+    ErrorContainer* errors = m_compiler->getErrorContainer();
+    SymbolTable* symbols = m_compiler->getSymbolTable();
+    if (object) {
+      Location loc(symbols->registerSymbol(object->VpiFile()),
+                   object->VpiLineNo(), object->VpiColumnNo(),
+                   symbols->registerSymbol(msg));
+      Error err((ErrorDefinition::ErrorType)errType, loc);
+      errors->addError(err);
+    } else {
+      Location loc(symbols->registerSymbol(msg));
+      Error err((ErrorDefinition::ErrorType)errType, loc);
+      errors->addError(err);
+    }
+  };
   m_serializer.SetErrorHandler(errHandler);
 
   Location loc(0);
