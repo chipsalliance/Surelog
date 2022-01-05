@@ -207,154 +207,124 @@ UHDM::any* CompileHelper::compileVariable(
   VectorOfrange* ranges =
       compileRanges(component, fC, Packed_dimension, compileDesign, pstmt,
                     instance, reduce, size, muteErrors);
+  switch (the_type) {
+    case VObjectType::slStringConst:
+    case VObjectType::slChandle_type: {
+      const std::string& typeName = fC->SymName(variable);
 
-  if (the_type == VObjectType::slStringConst ||
-      the_type == VObjectType::slChandle_type) {
-    const std::string& typeName = fC->SymName(variable);
-
-    if (const DataType* dt = component->getDataType(typeName)) {
-      dt = dt->getActual();
-      typespec* tps = dt->getTypespec();
-      if (tps) {
-        variables* var = getSimpleVarFromTypespec(tps, ranges, compileDesign);
-        if (var) var->VpiName(fC->SymName(variable));
-        result = var;
+      if (const DataType* dt = component->getDataType(typeName)) {
+        dt = dt->getActual();
+        typespec* tps = dt->getTypespec();
+        if (tps) {
+          variables* var = getSimpleVarFromTypespec(tps, ranges, compileDesign);
+          if (var) var->VpiName(fC->SymName(variable));
+          result = var;
+        }
       }
-    }
-    if (result == nullptr) {
-      if (the_type == slChandle_type) {
-        result = s.MakeChandle_var();
-      } else {
-        ref_var* ref = s.MakeRef_var();
-        ref->VpiName(typeName);
-        result = ref;
+      if (result == nullptr) {
+        if (the_type == slChandle_type) {
+          result = s.MakeChandle_var();
+        } else {
+          ref_var* ref = s.MakeRef_var();
+          ref->VpiName(typeName);
+          result = ref;
+        }
       }
+      break;
     }
+    case VObjectType::slIntVec_TypeLogic:
+    case VObjectType::slIntVec_TypeReg: {
+      logic_var* var = s.MakeLogic_var();
+      var->Ranges(ranges);
+      result = var;
+      break;
+    }
+    case VObjectType::slIntegerAtomType_Int: {
+      int_var* var = s.MakeInt_var();
+      result = var;
+      break;
+    }
+    case VObjectType::slSigning_Unsigned: {
+      int_var* var = s.MakeInt_var();
+      result = var;
+      break;
+    }
+    case VObjectType::slIntegerAtomType_Byte: {
+      byte_var* var = s.MakeByte_var();
+      result = var;
+      break;
+    }
+    case VObjectType::slIntegerAtomType_LongInt: {
+      long_int_var* var = s.MakeLong_int_var();
+      result = var;
+      break;
+    }
+    case VObjectType::slIntegerAtomType_Shortint: {
+      short_int_var* var = s.MakeShort_int_var();
+      result = var;
+      break;
+    }
+    case VObjectType::slIntegerAtomType_Time: {
+      time_var* var = s.MakeTime_var();
+      result = var;
+      break;
+    }
+    case VObjectType::slIntVec_TypeBit: {
+      bit_var* var = s.MakeBit_var();
+      var->Ranges(ranges);
+      result = var;
+      break;
+    }
+    case VObjectType::slNonIntType_ShortReal: {
+      short_real_var* var = s.MakeShort_real_var();
+      result = var;
+      break;
+    }
+    case VObjectType::slNonIntType_Real: {
+      real_var* var = s.MakeReal_var();
+      result = var;
+      break;
+    }
+    case VObjectType::slClass_scope: {
+      std::string typeName;
+      NodeId class_type = fC->Child(variable);
+      NodeId class_name = fC->Child(class_type);
+      typeName = fC->SymName(class_name);
+      typeName += "::";
+      NodeId symb_id = fC->Sibling(variable);
+      typeName += fC->SymName(symb_id);
+      class_var* ref = s.MakeClass_var();
+      ref->VpiName(typeName);
+      result = ref;
+      break;
+    }
+    case VObjectType::slString_type: {
+      string_var* var = s.MakeString_var();
+      result = var;
+      break;
+    }
+    case VObjectType::slVariable_lvalue: {
+      NodeId hier_ident = fC->Child(variable);
+      NodeId nameid = fC->Child(hier_ident);
+      int_var* var = s.MakeInt_var();
+      var->VpiName(fC->SymName(nameid));
+      result = var;
+      break;
+    }
+    default: {
+      // Implicit type
+      logic_var* var = s.MakeLogic_var();
+      var->Ranges(ranges);
+      result = var;
+      break;
+    }
+  }
+  if (result) {
     result->VpiFile(fC->getFileName());
     result->VpiLineNo(fC->Line(variable));
     result->VpiColumnNo(fC->Column(variable));
     result->VpiEndLineNo(fC->EndLine(variable));
     result->VpiEndColumnNo(fC->EndColumn(variable));
-  } else if (the_type == VObjectType::slIntVec_TypeLogic ||
-             the_type == VObjectType::slIntVec_TypeReg) {
-    logic_var* var = s.MakeLogic_var();
-    var->Ranges(ranges);
-    var->VpiFile(fC->getFileName());
-    var->VpiLineNo(fC->Line(variable));
-    var->VpiColumnNo(fC->Column(variable));
-    var->VpiEndLineNo(fC->EndLine(variable));
-    var->VpiEndColumnNo(fC->EndColumn(variable));
-    result = var;
-  } else if (the_type == VObjectType::slIntegerAtomType_Int) {
-    int_var* var = s.MakeInt_var();
-    var->VpiFile(fC->getFileName());
-    var->VpiLineNo(fC->Line(variable));
-    var->VpiColumnNo(fC->Column(variable));
-    var->VpiEndLineNo(fC->EndLine(variable));
-    var->VpiEndColumnNo(fC->EndColumn(variable));
-    result = var;
-  } else if (the_type == VObjectType::slIntegerAtomType_Byte) {
-    byte_var* var = s.MakeByte_var();
-    var->VpiFile(fC->getFileName());
-    var->VpiLineNo(fC->Line(variable));
-    var->VpiColumnNo(fC->Column(variable));
-    var->VpiEndLineNo(fC->EndLine(variable));
-    var->VpiEndColumnNo(fC->EndColumn(variable));
-    result = var;
-  } else if (the_type == VObjectType::slIntegerAtomType_LongInt) {
-    long_int_var* var = s.MakeLong_int_var();
-    var->VpiFile(fC->getFileName());
-    var->VpiLineNo(fC->Line(variable));
-    var->VpiColumnNo(fC->Column(variable));
-    var->VpiEndLineNo(fC->EndLine(variable));
-    var->VpiEndColumnNo(fC->EndColumn(variable));
-    result = var;
-  } else if (the_type == VObjectType::slIntegerAtomType_Shortint) {
-    short_int_var* var = s.MakeShort_int_var();
-    var->VpiFile(fC->getFileName());
-    var->VpiLineNo(fC->Line(variable));
-    var->VpiColumnNo(fC->Column(variable));
-    var->VpiEndLineNo(fC->EndLine(variable));
-    var->VpiEndColumnNo(fC->EndColumn(variable));
-    result = var;
-  } else if (the_type == VObjectType::slIntegerAtomType_Time) {
-    time_var* var = s.MakeTime_var();
-    var->VpiFile(fC->getFileName());
-    var->VpiLineNo(fC->Line(variable));
-    var->VpiColumnNo(fC->Column(variable));
-    var->VpiEndLineNo(fC->EndLine(variable));
-    var->VpiEndColumnNo(fC->EndColumn(variable));
-    result = var;
-  } else if (the_type == VObjectType::slIntVec_TypeBit) {
-    bit_var* var = s.MakeBit_var();
-    var->Ranges(ranges);
-    var->VpiFile(fC->getFileName());
-    var->VpiLineNo(fC->Line(variable));
-    var->VpiColumnNo(fC->Column(variable));
-    var->VpiEndLineNo(fC->EndLine(variable));
-    var->VpiEndColumnNo(fC->EndColumn(variable));
-    result = var;
-  } else if (the_type == VObjectType::slNonIntType_ShortReal) {
-    short_real_var* var = s.MakeShort_real_var();
-    var->VpiFile(fC->getFileName());
-    var->VpiLineNo(fC->Line(variable));
-    var->VpiColumnNo(fC->Column(variable));
-    var->VpiEndLineNo(fC->EndLine(variable));
-    var->VpiEndColumnNo(fC->EndColumn(variable));
-    result = var;
-  } else if (the_type == VObjectType::slNonIntType_Real) {
-    real_var* var = s.MakeReal_var();
-    var->VpiFile(fC->getFileName());
-    var->VpiLineNo(fC->Line(variable));
-    var->VpiColumnNo(fC->Column(variable));
-    var->VpiEndLineNo(fC->EndLine(variable));
-    var->VpiEndColumnNo(fC->EndColumn(variable));
-    result = var;
-  } else if (the_type == VObjectType::slClass_scope) {
-    std::string typeName;
-    NodeId class_type = fC->Child(variable);
-    NodeId class_name = fC->Child(class_type);
-    typeName = fC->SymName(class_name);
-    typeName += "::";
-    NodeId symb_id = fC->Sibling(variable);
-    typeName += fC->SymName(symb_id);
-    class_var* ref = s.MakeClass_var();
-    ref->VpiName(typeName);
-    ref->VpiFile(fC->getFileName());
-    ref->VpiLineNo(fC->Line(variable));
-    ref->VpiColumnNo(fC->Column(variable));
-    ref->VpiEndLineNo(fC->EndLine(variable));
-    ref->VpiEndColumnNo(fC->EndColumn(variable));
-    result = ref;
-  } else if (the_type == VObjectType::slString_type) {
-    string_var* var = s.MakeString_var();
-    var->VpiFile(fC->getFileName());
-    var->VpiLineNo(fC->Line(variable));
-    var->VpiColumnNo(fC->Column(variable));
-    var->VpiEndLineNo(fC->EndLine(variable));
-    var->VpiEndColumnNo(fC->EndColumn(variable));
-    result = var;
-  } else if (the_type == VObjectType::slVariable_lvalue) {
-    NodeId hier_ident = fC->Child(variable);
-    NodeId nameid = fC->Child(hier_ident);
-    int_var* var = s.MakeInt_var();
-    var->VpiFile(fC->getFileName());
-    var->VpiLineNo(fC->Line(variable));
-    var->VpiColumnNo(fC->Column(variable));
-    var->VpiEndLineNo(fC->EndLine(variable));
-    var->VpiEndColumnNo(fC->EndColumn(variable));
-    var->VpiName(fC->SymName(nameid));
-    result = var;
-  } else {
-    // Implicit type
-    logic_var* var = s.MakeLogic_var();
-    var->Ranges(ranges);
-    var->VpiFile(fC->getFileName());
-    var->VpiLineNo(fC->Line(variable));
-    var->VpiColumnNo(fC->Column(variable));
-    var->VpiEndLineNo(fC->EndLine(variable));
-    var->VpiEndColumnNo(fC->EndColumn(variable));
-    result = var;
   }
   return result;
 }

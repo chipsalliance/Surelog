@@ -403,7 +403,9 @@ bool ErrorDefinition::init() {
   rec(UHDM_UNDEFINED_PATTERN_KEY, ERROR, UHDM, "Undefined pattern key \"%s\"");
   rec(UHDM_UNMATCHED_FIELD_IN_PATTERN_ASSIGN, ERROR, UHDM,
       "Unmatched member during pattern assignment \"%s\"");
-  rec(UHDM_NO_REAL_TYPE_AS_SELECT, ERROR, UHDM,
+  rec(UHDM_REAL_TYPE_AS_SELECT, ERROR, UHDM,
       "Can't use a real type as bit select \"%s\"");
+  rec(UHDM_RETURN_VALUE_VOID_FUNCTION, ERROR, UHDM,
+      "Void function \"%s\" returns a value");
   return true;
 }
