@@ -62,7 +62,8 @@ bool CheckCompile::mergeSymbolTables_() {
       m_compiler->getDesign()->getAllFileContents();
   for (auto fitr = all_files.begin(); fitr != all_files.end(); fitr++) {
     auto fileContent = (*fitr).second;
-    m_compiler->getSymbolTable()->registerSymbol(fileContent->getFileName());
+    m_compiler->getSymbolTable()->registerSymbol(
+        fileContent->getFileName().string());
     for (NodeId id : fileContent->getNodeIds()) {
       *fileContent->getMutableFileId(id) =
           m_compiler->getSymbolTable()->registerSymbol(

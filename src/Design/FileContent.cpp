@@ -22,16 +22,9 @@
  */
 #include "Design/FileContent.h"
 
-#if (__cplusplus >= 201703L) && __has_include(<filesystem>)
-#include <filesystem>
-namespace fs = std::filesystem;
-#else
-#include <experimental/filesystem>
-namespace fs = std::experimental::filesystem;
-#endif
-
 #include <string.h>
 
+#include <filesystem>
 #include <iostream>
 #include <queue>
 #include <stack>
@@ -43,8 +36,6 @@ namespace fs = std::experimental::filesystem;
 #include "SourceCompile/SymbolTable.h"
 
 using namespace SURELOG;
-
-FileContent::~FileContent() {}
 
 NodeId FileContent::getRootNode() {
   if (m_objects.size() == 0) {
@@ -61,7 +52,7 @@ SymbolId* FileContent::getMutableFileId(NodeId id) {
   return &m_objects[id].m_fileId;
 }
 
-const std::string& FileContent::getFileName(NodeId id) const {
+const fs::path FileContent::getFileName(NodeId id) const {
   SymbolId fileId = m_objects[id].m_fileId;
   return m_symbolTable->getSymbol(fileId);
 }
@@ -71,9 +62,8 @@ std::string FileContent::printObjects() const {
   NodeId index = 0;
 
   if (m_library) text += "LIB:  " + m_library->getName() + "\n";
-  std::string fileName = m_symbolTable->getSymbol(m_fileId);
-  const std::string separator(1, fs::path::preferred_separator);
-  text += "FILE: " + fileName + "\n";
+  fs::path fileName = m_symbolTable->getSymbol(m_fileId);
+  text += "FILE: " + fileName.string() + "\n";
   for (auto& object : m_objects) {
     text +=
         object.print(m_symbolTable, index, GetDefinitionFile(index), m_fileId);
@@ -104,11 +94,12 @@ void FileContent::insertObjectLookup(std::string name, NodeId id,
   if (itr == m_objectLookup.end()) {
     m_objectLookup.insert(std::make_pair(name, id));
   } else {
-    Location loc(errors->getSymbolTable()->registerSymbol(getFileName(id)),
-                 Line(id), 0, errors->getSymbolTable()->registerSymbol(name));
-    Location loc2(
-        errors->getSymbolTable()->registerSymbol(getFileName((*itr).second)),
-        Line((*itr).second), 0);
+    Location loc(
+        errors->getSymbolTable()->registerSymbol(getFileName(id).string()),
+        Line(id), 0, errors->getSymbolTable()->registerSymbol(name));
+    Location loc2(errors->getSymbolTable()->registerSymbol(
+                      getFileName((*itr).second).string()),
+                  Line((*itr).second), 0);
     Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_DESIGN_UNIT, loc, loc2);
     errors->addError(err);
   }

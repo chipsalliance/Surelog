@@ -55,11 +55,11 @@ class ModuleInstance : public ValuedComponentI {
       return nullptr;
     }
   }
-  ModuleInstance* getParent() { return m_parent; }
-  const FileContent* getFileContent() { return m_fileContent; }
+  ModuleInstance* getParent() const { return m_parent; }
+  const FileContent* getFileContent() const { return m_fileContent; }
   SymbolId getFileId() const { return m_fileContent->getFileId(m_nodeId); }
-  std::string getFileName() { return m_fileContent->getFileName(m_nodeId); }
-  NodeId getNodeId() { return m_nodeId; }
+  fs::path getFileName() const { return m_fileContent->getFileName(m_nodeId); }
+  NodeId getNodeId() const { return m_nodeId; }
   unsigned int getLineNb();
   unsigned short getColumnNb();
   unsigned int getEndLineNb();

@@ -23,12 +23,16 @@
 
 #ifndef COMMANDLINEPARSER_HPP
 #define COMMANDLINEPARSER_HPP
+
+#include <filesystem>
 #include <map>
 #include <string>
 #include <vector>
 
 #include "ErrorReporting/ErrorContainer.h"
 #include "SourceCompile/SymbolTable.h"
+
+namespace fs = std::filesystem;
 
 namespace SURELOG {
 
@@ -39,86 +43,96 @@ class CommandLineParser final {
   bool parseCommandLine(int argc, const char** argv);
 
   /* Verilog command line content */
-  const std::vector<SymbolId>& getLibraryPaths() { return m_libraryPaths; }
-  const std::vector<SymbolId>& getSourceFiles() { return m_sourceFiles; }
-  const std::vector<SymbolId>& getLibraryFiles() { return m_libraryFiles; }
-  const std::vector<SymbolId>& getLibraryExtensions() {
+  const std::vector<SymbolId>& getLibraryPaths() const {
+    return m_libraryPaths;
+  }
+  const std::vector<SymbolId>& getSourceFiles() const { return m_sourceFiles; }
+  const std::vector<SymbolId>& getLibraryFiles() const {
+    return m_libraryFiles;
+  }
+  const std::vector<SymbolId>& getLibraryExtensions() const {
     return m_libraryExtensions;
   }
-  const std::vector<SymbolId>& getIncludePaths() { return m_includePaths; }
-  const std::vector<SymbolId>& getOrdredLibraries() {
+  const std::vector<SymbolId>& getIncludePaths() const {
+    return m_includePaths;
+  }
+  const std::vector<SymbolId>& getOrdredLibraries() const {
     return m_orderedLibraries;
   }
-  const std::vector<SymbolId>& getLibraryMapFiles() {
+  const std::vector<SymbolId>& getLibraryMapFiles() const {
     return m_libraryMapFiles;
   }
-  const std::vector<SymbolId>& getConfigFiles() { return m_configFiles; }
-  const std::vector<SymbolId>& getUseConfigs() { return m_useConfigs; }
-  const std::map<SymbolId, std::string>& getDefineList() {
+  const std::vector<SymbolId>& getConfigFiles() const { return m_configFiles; }
+  const std::vector<SymbolId>& getUseConfigs() const { return m_useConfigs; }
+  const std::map<SymbolId, std::string>& getDefineList() const {
     return m_defineList;
   }
-  const std::map<SymbolId, std::string>& getParamList() { return m_paramList; }
-  bool fileunit() { return m_fileunit; }  // File or all compilation semantic
+  const std::map<SymbolId, std::string>& getParamList() const {
+    return m_paramList;
+  }
+  bool fileunit() const {
+    return m_fileunit;
+  }  // File or all compilation semantic
   void setFileUnit() { m_fileunit = true; }
   /* PP Output file/dir options */
-  SymbolId writePpOutputFileId() { return m_writePpOutputFileId; }
-  SymbolId getOutputDir() { return m_outputDir; }
-  SymbolId getCompileAllDir() { return m_compileAllDirectory; }
-  SymbolId getCompileUnitDir() { return m_compileUnitDirectory; }
-  SymbolId getCompileDir() {
+  SymbolId writePpOutputFileId() const { return m_writePpOutputFileId; }
+  SymbolId getOutputDir() const { return m_outputDir; }
+  SymbolId getCompileAllDir() const { return m_compileAllDirectory; }
+  SymbolId getCompileUnitDir() const { return m_compileUnitDirectory; }
+  SymbolId getCompileDir() const {
     return fileunit() ? m_compileUnitDirectory : m_compileAllDirectory;
   }
-  SymbolId getFullCompileDir() { return m_fullCompileDir; }
-  SymbolId getLogFileId() { return m_logFileId; }
-  SymbolId getDefaultLogFileId() { return m_defaultLogFileId; }
-  bool writePpOutput() { return m_writePpOutput; }
+  SymbolId getFullCompileDir() const { return m_fullCompileDir; }
+  SymbolId getLogFileId() const { return m_logFileId; }
+  SymbolId getDefaultLogFileId() const { return m_defaultLogFileId; }
+  bool writePpOutput() const { return m_writePpOutput; }
   void setwritePpOutput(bool value) { m_writePpOutput = value; }
-  bool cacheAllowed() { return m_cacheAllowed; }
+  bool cacheAllowed() const { return m_cacheAllowed; }
   void setCacheAllowed(bool val) { m_cacheAllowed = val; }
-  bool lineOffsetsAsComments() { return m_lineOffsetsAsComments; }
-  SymbolId getCacheDir() { return m_cacheDirId; }
-  SymbolId getPrecompiledDir() { return m_precompiledDirId; }
-  bool usePPOutputFileLocation() { return m_ppOutputFileLocation; }
+  bool lineOffsetsAsComments() const { return m_lineOffsetsAsComments; }
+  SymbolId getCacheDir() const { return m_cacheDirId; }
+  SymbolId getPrecompiledDir() const { return m_precompiledDirId; }
+  bool usePPOutputFileLocation() const { return m_ppOutputFileLocation; }
   /* PP Output content generation options */
-  bool filterFileLine() { return m_filterFileLine; }
+  bool filterFileLine() const { return m_filterFileLine; }
   void setFilterFileLine(bool val) { m_filterFileLine = val; }
-  bool filterSimpleDirectives() { return m_filterSimpleDirectives; }
-  bool filterProtectedRegions() { return m_filterProtectedRegions; }
-  bool filterComments() { return m_filterComments; }
-  bool filterInfo() { return !m_info; }
-  bool filterNote() { return !m_note; }
-  bool filterWarning() { return !m_warning; }
+  bool filterSimpleDirectives() const { return m_filterSimpleDirectives; }
+  bool filterProtectedRegions() const { return m_filterProtectedRegions; }
+  bool filterComments() const { return m_filterComments; }
+  bool filterInfo() const { return !m_info; }
+  bool filterNote() const { return !m_note; }
+  bool filterWarning() const { return !m_warning; }
   void setFilterInfo() { m_info = false; }
   void setFilterNote() { m_note = false; }
   void setFilterWarning() { m_warning = false; }
   /* Debug/traces options */
-  bool muteStdout() { return m_muteStdout; }
+  bool muteStdout() const { return m_muteStdout; }
   void setMuteStdout() { m_muteStdout = true; }
-  bool verbose() { return m_verbose; }
-  bool profile() { return m_profile; }
-  int getDebugLevel() { return m_debugLevel; }
-  bool getDebugAstModel() { return m_debugAstModel; }
-  bool getDebugUhdm() { return m_dumpUhdm; }
-  bool getUhdmStats() { return m_uhdmStats; }
-  bool getElabUhdm() { return m_elabUhdm; }
-  bool getCoverUhdm() { return m_coverUhdm; }
-  bool getParametersSubstitution() { return m_parametersubstitution; }
-  bool showVpiIds() { return m_showVpiIDs; }
-  bool replay() { return m_replay; }
-  bool getDebugInstanceTree() { return m_debugInstanceTree; }
-  bool getDebugLibraryDef() { return m_debugLibraryDef; }
-  bool getDebugIncludeFileInfo() { return m_debugIncludeFileInfo; }
-  bool help() { return m_help; }
+  bool verbose() const { return m_verbose; }
+  bool profile() const { return m_profile; }
+  int getDebugLevel() const { return m_debugLevel; }
+  bool getDebugAstModel() const { return m_debugAstModel; }
+  bool getDebugUhdm() const { return m_dumpUhdm; }
+  bool getUhdmStats() const { return m_uhdmStats; }
+  bool getElabUhdm() const { return m_elabUhdm; }
+  bool getCoverUhdm() const { return m_coverUhdm; }
+  bool getParametersSubstitution() const { return m_parametersubstitution; }
+  bool showVpiIds() const { return m_showVpiIDs; }
+  bool replay() const { return m_replay; }
+  bool getDebugInstanceTree() const { return m_debugInstanceTree; }
+  bool getDebugLibraryDef() const { return m_debugLibraryDef; }
+  bool getDebugIncludeFileInfo() const { return m_debugIncludeFileInfo; }
+  bool help() const { return m_help; }
   void logBanner(int argc, const char** argv);
   void logFooter();
   static const std::string& getVersionNumber();
   /* Core functions options */
-  bool parse() { return m_parse; }
-  bool parseOnly() { return m_parseOnly; }
-  bool lowMem() { return m_lowMem; }
-  bool compile() { return m_compile; }
-  bool elaborate() { return m_elaborate; }
-  bool writeUhdm() { return m_writeUhdm; }
+  bool parse() const { return m_parse; }
+  bool parseOnly() const { return m_parseOnly; }
+  bool lowMem() const { return m_lowMem; }
+  bool compile() const { return m_compile; }
+  bool elaborate() const { return m_elaborate; }
+  bool writeUhdm() const { return m_writeUhdm; }
   void setParse(bool val) { m_parse = val; }
   void setParseOnly(bool val) { m_parseOnly = val; }
   void setLowMem(bool val) { m_lowMem = val; }
@@ -130,40 +144,46 @@ class CommandLineParser final {
   }
   void setWriteUhdm(bool val) { m_writeUhdm = val; }
   void setParametersSubstitution(bool val) { m_parametersubstitution = val; }
-  bool pythonListener() { return m_pythonListener && m_pythonAllowed; }
-  bool pythonAllowed() { return m_pythonAllowed; }
+  bool pythonListener() const { return m_pythonListener && m_pythonAllowed; }
+  bool pythonAllowed() const { return m_pythonAllowed; }
   void noPython() { m_pythonAllowed = false; }
   void withPython();
-  bool pythonEvalScriptPerFile() {
+  bool pythonEvalScriptPerFile() const {
     return m_pythonEvalScriptPerFile && m_pythonAllowed;
   }
-  bool pythonEvalScript() { return m_pythonEvalScript && m_pythonAllowed; }
-  SymbolId pythonEvalScriptPerFileId() { return m_pythonEvalScriptPerFileId; }
-  SymbolId pythonEvalScriptId() { return m_pythonEvalScriptId; }
-  SymbolId pythonListenerId() { return m_pythonListenerFileId; }
+  bool pythonEvalScript() const {
+    return m_pythonEvalScript && m_pythonAllowed;
+  }
+  SymbolId pythonEvalScriptPerFileId() const {
+    return m_pythonEvalScriptPerFileId;
+  }
+  SymbolId pythonEvalScriptId() const { return m_pythonEvalScriptId; }
+  SymbolId pythonListenerId() const { return m_pythonListenerFileId; }
   const SymbolTable& getSymbolTable() const { return *m_symbolTable; }
 
   // There are some places that modify the command-line symbol table.
-  SymbolTable* mutableSymbolTable() { return m_symbolTable; }
+  SymbolTable* mutableSymbolTable() const { return m_symbolTable; }
 
   /* Internal */
-  ErrorContainer* getErrorContainer() { return m_errors; }
-  unsigned short int getNbMaxTreads() { return m_nbMaxTreads; }
-  unsigned short int getNbMaxProcesses() { return m_nbMaxProcesses; }
+  ErrorContainer* getErrorContainer() const { return m_errors; }
+  unsigned short int getNbMaxTreads() const { return m_nbMaxTreads; }
+  unsigned short int getNbMaxProcesses() const { return m_nbMaxProcesses; }
   void setNbMaxTreads(unsigned short int max) { m_nbMaxTreads = max; }
   void setNbMaxProcesses(unsigned short int max) { m_nbMaxProcesses = max; }
-  unsigned int getNbLinesForFileSpliting() { return m_nbLinesForFileSplitting; }
-  bool useTbb() { return m_useTbb; }
-  std::string getTimeScale() { return m_timescale; }
-  bool createCache() { return m_createCache; }
+  unsigned int getNbLinesForFileSpliting() const {
+    return m_nbLinesForFileSplitting;
+  }
+  bool useTbb() const { return m_useTbb; }
+  std::string getTimeScale() const { return m_timescale; }
+  bool createCache() const { return m_createCache; }
   const std::string currentDateTime();
   bool parseBuiltIn();
-  std::string getBuiltInPath() { return m_builtinPath; }
-  std::string getExePath() { return m_exePath; }
-  std::string getExeCommand() { return m_exeCommand; }
+  fs::path getBuiltInPath() const { return m_builtinPath; }
+  fs::path getExePath() const { return m_exePath; }
+  std::string getExeCommand() const { return m_exeCommand; }
   std::set<std::string>& getTopLevelModules() { return m_topLevelModules; }
   bool fullSVMode() const { return m_sverilog; }
-  bool isSVFile(const std::string& fileName) const;
+  bool isSVFile(const fs::path& fileName) const;
   bool cleanCache();
 
  private:
@@ -180,11 +200,11 @@ class CommandLineParser final {
   bool prepareCompilation_(int argc, const char** argv);
   bool setupCache_();
 
-  std::vector<SymbolId> m_libraryPaths;   // -y
-  std::vector<SymbolId> m_sourceFiles;    // .v .sv
-  std::set<std::string> m_svSourceFiles;  // user forced sv files
-  std::vector<SymbolId> m_libraryFiles;   // -v
-  std::vector<SymbolId> m_includePaths;   // +incdir+
+  std::vector<SymbolId> m_libraryPaths;  // -y
+  std::vector<SymbolId> m_sourceFiles;   // .v .sv
+  std::set<fs::path> m_svSourceFiles;    // user forced sv files
+  std::vector<SymbolId> m_libraryFiles;  // -v
+  std::vector<SymbolId> m_includePaths;  // +incdir+
   std::set<SymbolId> m_includePathSet;
   std::vector<SymbolId> m_libraryExtensions;     // +libext+
   std::vector<SymbolId> m_orderedLibraries;      // -L <libName>
@@ -251,8 +271,8 @@ class CommandLineParser final {
   bool m_parseBuiltIn;
   bool m_ppOutputFileLocation;
   bool m_logFileSpecified;
-  std::string m_builtinPath;
-  std::string m_exePath;
+  fs::path m_builtinPath;
+  fs::path m_exePath;
   std::string m_exeCommand;
   std::set<std::string> m_topLevelModules;
   bool m_sverilog;

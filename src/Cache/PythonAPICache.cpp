@@ -27,6 +27,7 @@
 
 #include <cstdio>
 #include <ctime>
+#include <filesystem>
 
 #include "API/PythonAPI.h"
 #include "Cache/Cache.h"
@@ -48,20 +49,20 @@ static std::string FlbSchemaVersion = "1.0";
 
 PythonAPICache::PythonAPICache(PythonListen* listener) : m_listener(listener) {}
 
-std::string PythonAPICache::getCacheFileName_(std::string svFileName) {
+fs::path PythonAPICache::getCacheFileName_(fs::path svFileName) const {
   SymbolId cacheDirId =
       m_listener->getCompileSourceFile()->getCommandLineParser()->getCacheDir();
-  std::string cacheDirName = m_listener->getParseFile()->getSymbol(cacheDirId);
+  fs::path cacheDirName = m_listener->getParseFile()->getSymbol(cacheDirId);
   if (svFileName.empty())
     svFileName = m_listener->getParseFile()->getFileName(LINE1);
   svFileName = FileUtils::basename(svFileName);
   Library* lib = m_listener->getCompileSourceFile()->getLibrary();
-  std::string libName = lib->getName() + "/";
-  std::string cacheFileName = cacheDirName + libName + svFileName + ".slpy";
+  std::string libName = lib->getName();
+  fs::path cacheFileName = cacheDirName / libName / (svFileName + ".slpy");
   return cacheFileName;
 }
 
-bool PythonAPICache::restore_(std::string cacheFileName) {
+bool PythonAPICache::restore_(const fs::path& cacheFileName) {
   uint8_t* buffer_pointer = openFlatBuffers(cacheFileName);
   if (buffer_pointer == nullptr) return false;
 
@@ -76,7 +77,7 @@ bool PythonAPICache::restore_(std::string cacheFileName) {
   return true;
 }
 
-bool PythonAPICache::checkCacheIsValid_(std::string cacheFileName) {
+bool PythonAPICache::checkCacheIsValid_(const fs::path& cacheFileName) {
   uint8_t* buffer_pointer = openFlatBuffers(cacheFileName);
   if (buffer_pointer == nullptr) return false;
   if (!PYTHONAPICACHE::PythonAPICacheBufferHasIdentifier(buffer_pointer)) {
@@ -115,8 +116,7 @@ bool PythonAPICache::checkCacheIsValid_(std::string cacheFileName) {
 }
 
 bool PythonAPICache::isValid() {
-  std::string cacheFileName = getCacheFileName_();
-  return checkCacheIsValid_(cacheFileName);
+  return checkCacheIsValid_(getCacheFileName_());
 }
 
 bool PythonAPICache::restore() {
@@ -125,7 +125,7 @@ bool PythonAPICache::restore() {
                           ->cacheAllowed();
   if (!cacheAllowed) return false;
 
-  std::string cacheFileName = getCacheFileName_();
+  fs::path cacheFileName = getCacheFileName_();
   if (!checkCacheIsValid_(cacheFileName)) {
     return false;
   }
@@ -138,14 +138,14 @@ bool PythonAPICache::save() {
                           ->getCommandLineParser()
                           ->cacheAllowed();
   if (!cacheAllowed) return false;
-  std::string svFileName = m_listener->getParseFile()->getPpFileName();
-  std::string origFileName = svFileName;
+  fs::path svFileName = m_listener->getParseFile()->getPpFileName();
+  fs::path origFileName = svFileName;
 
-  std::string cacheFileName = getCacheFileName_();
+  fs::path cacheFileName = getCacheFileName_();
 
   flatbuffers::FlatBufferBuilder builder(1024);
   /* Create header section */
-  auto header = createHeader(builder, FlbSchemaVersion, origFileName);
+  auto header = createHeader(builder, FlbSchemaVersion, origFileName.string());
 
   std::string pythonScriptFile = PythonAPI::getListenerScript();
   auto scriptFile = builder.CreateString(pythonScriptFile);
@@ -166,7 +166,7 @@ bool PythonAPICache::save() {
   FinishPythonAPICacheBuffer(builder, ppcache);
 
   /* Save Flatbuffer */
-  bool status = saveFlatbuffers(builder, cacheFileName);
+  bool status = saveFlatbuffers(builder, cacheFileName.string());
 
   return status;
 }

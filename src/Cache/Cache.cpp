@@ -38,16 +38,18 @@ const std::string& Cache::getExecutableTimeStamp() {
   return sExecTstamp;
 }
 
-time_t Cache::get_mtime(const char* path) {
+time_t Cache::get_mtime(const fs::path& path) {
+  std::string cpath = path.string();
   struct stat statbuf;
-  if (stat(path, &statbuf) == -1) {
+  if (stat(cpath.c_str(), &statbuf) == -1) {
     return -1;
   }
   return statbuf.st_mtime;
 }
 
-uint8_t* Cache::openFlatBuffers(std::string cacheFileName) {
-  FILE* file = fopen(cacheFileName.c_str(), "rb");
+uint8_t* Cache::openFlatBuffers(const fs::path& cacheFileName) {
+  const std::string filename = cacheFileName.string();
+  FILE* file = fopen(filename.c_str(), "rb");
   if (file == nullptr) return nullptr;
   fseek(file, 0L, SEEK_END);
   unsigned int length = ftell(file);
@@ -65,7 +67,7 @@ uint8_t* Cache::openFlatBuffers(std::string cacheFileName) {
 
 bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
                                 std::string schemaVersion,
-                                std::string cacheFileName) {
+                                const fs::path& cacheFileName) {
   /* Schema version */
   if (schemaVersion != header->m_flb_version()->c_str()) {
     return false;
@@ -85,7 +87,7 @@ bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
 
   /* Timestamp Cache vs Orig File */
   if (!cacheFileName.empty()) {
-    time_t ct = get_mtime(cacheFileName.c_str());
+    time_t ct = get_mtime(cacheFileName);
     std::string fileName = header->m_file()->c_str();
     time_t ft = get_mtime(fileName.c_str());
     if (ft == -1) {
@@ -103,8 +105,8 @@ bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
 
 const flatbuffers::Offset<SURELOG::CACHE::Header> Cache::createHeader(
     flatbuffers::FlatBufferBuilder& builder, std::string schemaVersion,
-    std::string origFileName) {
-  auto fName = builder.CreateString(origFileName);
+    const fs::path& origFileName) {
+  auto fName = builder.CreateString(origFileName.string());
   auto sl_version = builder.CreateString(CommandLineParser::getVersionNumber());
   auto sl_build_date = builder.CreateString(getExecutableTimeStamp());
   auto sl_flb_version = builder.CreateString(schemaVersion);
@@ -116,11 +118,11 @@ const flatbuffers::Offset<SURELOG::CACHE::Header> Cache::createHeader(
 }
 
 bool Cache::saveFlatbuffers(flatbuffers::FlatBufferBuilder& builder,
-                            std::string cacheFileName) {
+                            const fs::path& cacheFileName) {
+  const std::string filename = cacheFileName.string();
   const unsigned char* buf = builder.GetBufferPointer();
   int size = builder.GetSize();
-  bool status =
-      flatbuffers::SaveFile(cacheFileName.c_str(), (char*)buf, size, true);
+  bool status = flatbuffers::SaveFile(filename.c_str(), (char*)buf, size, true);
   return status;
 }
 

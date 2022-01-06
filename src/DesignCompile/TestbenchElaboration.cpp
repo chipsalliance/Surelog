@@ -23,6 +23,7 @@
 
 #include "DesignCompile/TestbenchElaboration.h"
 
+#include <filesystem>
 #include <queue>
 #include <string>
 #include <vector>
@@ -155,9 +156,9 @@ bool TestbenchElaboration::checkForMultipleDefinition_() {
     if (className == prevClassName) {
       const FileContent* fC1 = classDefinition->getFileContents()[0];
       NodeId nodeId1 = classDefinition->getNodeIds()[0];
-      std::string fileName1 = fC1->getFileName(nodeId1);
+      fs::path fileName1 = fC1->getFileName(nodeId1);
       unsigned int line1 = fC1->Line(nodeId1);
-      Location loc1(symbols->registerSymbol(fileName1), line1, 0,
+      Location loc1(symbols->registerSymbol(fileName1.string()), line1, 0,
                     symbols->registerSymbol(className));
 
       std::vector<Location> locations;
@@ -165,9 +166,9 @@ bool TestbenchElaboration::checkForMultipleDefinition_() {
       while (1) {
         const FileContent* fC2 = prevClassDefinition->getFileContents()[0];
         NodeId nodeId2 = prevClassDefinition->getNodeIds()[0];
-        std::string fileName2 = fC2->getFileName(nodeId2);
+        fs::path fileName2 = fC2->getFileName(nodeId2);
         unsigned int line2 = fC2->Line(nodeId2);
-        Location loc2(symbols->registerSymbol(fileName2), line2, 0,
+        Location loc2(symbols->registerSymbol(fileName2.string()), line2, 0,
                       symbols->registerSymbol(className));
 
         if ((fileName1 != fileName2) || (line1 != line2)) {
@@ -380,10 +381,10 @@ bool TestbenchElaboration::bindFunctionReturnTypesAndParamaters_() {
               std::string typeName = dtype->getName();
               NodeId p = param->getNodeId();
               const FileContent* fC = dtype->getFileContent();
-              std::string fileName = fC->getFileName(p);
+              fs::path fileName = fC->getFileName(p);
               unsigned int line = fC->Line(p);
               Location loc1(
-                  symbols->registerSymbol(fileName), line, 0,
+                  symbols->registerSymbol(fileName.string()), line, 0,
                   symbols->registerSymbol(name + " of type " + typeName));
               std::string exp;
               if (value->getType() == Value::Type::String)
@@ -499,9 +500,9 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
       if (!validFunction) {
         const FileContent* fC = st->getFileContent();
         NodeId p = st->getNodeId();
-        std::string fileName = fC->getFileName(p);
+        fs::path fileName = fC->getFileName(p);
         unsigned int line = fC->Line(p);
-        Location loc1(symbols->registerSymbol(fileName), line, 0,
+        Location loc1(symbols->registerSymbol(fileName.string()), line, 0,
                       symbols->registerSymbol(function));
         Error err1(ErrorDefinition::COMP_UNDEFINED_SYSTEM_FUNCTION, loc1);
         errors->addError(err1);
@@ -535,15 +536,15 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
     if (!datatypeName.empty()) typeName = datatypeName;
     NodeId p = st->getNodeId();
     const FileContent* fC = st->getFileContent();
-    std::string fileName = fC->getFileName(p);
+    fs::path fileName = fC->getFileName(p);
     unsigned int line = fC->Line(p);
     Location loc1(
-        symbols->registerSymbol(fileName), line, 0,
+        symbols->registerSymbol(fileName.string()), line, 0,
         symbols->registerSymbol("\"" + name + "\"" + " of type " + typeName));
     const FileContent* fC2 = dtype->getFileContent();
-    std::string fileName2 = fC2->getFileName(dtype->getNodeId());
+    fs::path fileName2 = fC2->getFileName(dtype->getNodeId());
     unsigned int line2 = fC2->Line(dtype->getNodeId());
-    Location loc2(symbols->registerSymbol(fileName2), line2, 0,
+    Location loc2(symbols->registerSymbol(fileName2.string()), line2, 0,
                   symbols->registerSymbol(function));
     Error err1(ErrorDefinition::COMP_NO_METHOD_FOR_TYPE, loc1, loc2);
     errors->addError(err1);
@@ -771,8 +772,8 @@ bool TestbenchElaboration::bindProperties_() {
         ErrorContainer* errors =
             m_compileDesign->getCompiler()->getErrorContainer();
         SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
-        Location loc(symbols->registerSymbol(fC->getFileName()), fC->Line(id),
-                     0, symbols->registerSymbol(signame));
+        Location loc(symbols->registerSymbol(fC->getFileName().string()),
+                     fC->Line(id), 0, symbols->registerSymbol(signame));
         Error err(ErrorDefinition::UHDM_UNSUPPORTED_SIGNAL, loc);
         errors->addError(err);
       }

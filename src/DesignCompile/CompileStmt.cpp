@@ -716,7 +716,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       std::string lineText =
           StringUtils::getLineInString(fileContent, fC->Line(the_stmt));
       Location loc(
-          symbols->registerSymbol(fC->getFileName(the_stmt)),
+          symbols->registerSymbol(fC->getFileName(the_stmt).string()),
           fC->Line(the_stmt), 0,
           symbols->registerSymbol(std::string("<") + fC->printObject(the_stmt) +
                                   std::string("> ") + lineText));
@@ -1393,9 +1393,7 @@ NodeId CompileHelper::setFuncTaskQualifiers(const FileContent* fC,
       if (func) func->VpiAccessType(vpiDPIImportAcc);
     }
     if (func_type == VObjectType::slStringLiteral) {
-      std::string ctype = fC->SymName(func_decl);
-      if (ctype.front() == '"' && ctype.back() == '"')
-        ctype = ctype.substr(1, ctype.length() - 2);
+      std::string ctype = StringUtils::unquoted(fC->SymName(func_decl));
       if (ctype == "DPI-C") {
         if (func) func->VpiDPICStr(vpiDPIC);
       } else if (ctype == "DPI") {

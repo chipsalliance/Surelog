@@ -49,8 +49,8 @@ class ClockingBlock final {
   void addSignal(Signal& signal) { m_signals.push_back(signal); }
   NodeId getNodeId() const { return m_blockId; }
   const std::vector<Signal>& getAllSignals() const { return m_signals; }
-  UHDM::clocking_block* getActual() { return m_actual; }
-  Type getType() { return m_type; }
+  UHDM::clocking_block* getActual() const { return m_actual; }
+  Type getType() const { return m_type; }
 
  private:
   const FileContent* m_fileContent;

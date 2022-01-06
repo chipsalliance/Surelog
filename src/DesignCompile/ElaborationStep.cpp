@@ -24,6 +24,7 @@
 
 #include <string.h>
 
+#include <filesystem>
 #include <map>
 #include <string>
 #include <vector>
@@ -224,7 +225,7 @@ bool ElaborationStep::bindTypedefs_() {
         if (prevDef == nullptr) {
           const FileContent* fC = typd->getFileContent();
           NodeId id = typd->getNodeId();
-          std::string fileName = fC->getFileName(id);
+          fs::path fileName = fC->getFileName(id);
           unsigned int line = fC->Line(id);
           std::string definition_string;
           NodeId defNode = typd->getDefinitionNode();
@@ -232,7 +233,7 @@ bool ElaborationStep::bindTypedefs_() {
           if (defType == VObjectType::slStringConst) {
             definition_string = fC->SymName(defNode);
           }
-          Location loc1(symbols->registerSymbol(fileName), line, 0,
+          Location loc1(symbols->registerSymbol(fileName.string()), line, 0,
                         symbols->registerSymbol(definition_string));
           Error err1(ErrorDefinition::COMP_UNDEFINED_TYPE, loc1);
           errors->addError(err1);
@@ -563,9 +564,9 @@ const DataType* ElaborationStep::bindDataType_(
   }
 
   if ((found == false) && (errtype != ErrorDefinition::NO_ERROR_MESSAGE)) {
-    std::string fileName = fC->getFileName(id);
+    fs::path fileName = fC->getFileName(id);
     unsigned int line = fC->Line(id);
-    Location loc1(symbols->registerSymbol(fileName), line, 0,
+    Location loc1(symbols->registerSymbol(fileName.string()), line, 0,
                   symbols->registerSymbol(type_name));
     Location loc2(0, 0, 0, symbols->registerSymbol(parent->getName()));
     Error err1(errtype, loc1, loc2);
@@ -630,9 +631,9 @@ Variable* ElaborationStep::bindVariable_(std::string var_name, Scope* scope,
   }
 
   if ((result == nullptr) && (errtype != ErrorDefinition::NO_ERROR_MESSAGE)) {
-    std::string fileName = fC->getFileName(id);
+    fs::path fileName = fC->getFileName(id);
     unsigned int line = fC->Line(id);
-    Location loc1(symbols->registerSymbol(fileName), line, 0,
+    Location loc1(symbols->registerSymbol(fileName.string()), line, 0,
                   symbols->registerSymbol(var_name));
     Location loc2(0, 0, 0, symbols->registerSymbol(parent->getName()));
     Error err1(errtype, loc1, loc2);
@@ -792,8 +793,8 @@ void checkIfBuiltInTypeOrErrorOut(DesignComponent* def, const FileContent* fC,
       (interfName != "unsigned") && (interfName != "do") &&
       (interfName != "final") && (interfName != "global") &&
       (interfName != "soft")) {
-    Location loc(symbols->registerSymbol(fC->getFileName(id)), fC->Line(id), 0,
-                 symbols->registerSymbol(interfName));
+    Location loc(symbols->registerSymbol(fC->getFileName(id).string()),
+                 fC->Line(id), 0, symbols->registerSymbol(interfName));
     Error err(ErrorDefinition::COMP_UNDEFINED_TYPE, loc);
     errors->addError(err);
   }
@@ -870,10 +871,10 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
               if (interface) {
                 signal->setInterfaceDef(interface);
               } else {
-                Location loc(
-                    symbols->registerSymbol(fC->getFileName(if_type_name_s)),
-                    fC->Line(if_type_name_s), 0,
-                    symbols->registerSymbol(interfaceName));
+                Location loc(symbols->registerSymbol(
+                                 fC->getFileName(if_type_name_s).string()),
+                             fC->Line(if_type_name_s), 0,
+                             symbols->registerSymbol(interfaceName));
                 Error err(ErrorDefinition::COMP_UNDEFINED_INTERFACE, loc);
                 errors->addError(err);
               }

@@ -54,7 +54,7 @@ class DataType : public RTTI {
     DUMMY,  // placeholder for later binding
   };
 
-  DataType() {}
+  DataType() = default;
   DataType(const FileContent* fC, NodeId id, std::string_view name,
            VObjectType type, bool isParameter = false)
       : m_fileContent(fC),
@@ -72,7 +72,7 @@ class DataType : public RTTI {
     m_type = type;
     m_is_parameter = isParameter;
   }
-  virtual ~DataType() {}
+  virtual ~DataType() = default;
 
   const FileContent* getFileContent() const { return m_fileContent; }
 

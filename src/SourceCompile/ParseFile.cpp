@@ -159,7 +159,7 @@ const std::string ParseFile::getSymbol(SymbolId id) {
   return getCompileSourceFile()->getSymbolTable()->getSymbol(id);
 }
 
-const std::string ParseFile::getFileName(unsigned int line) {
+const fs::path ParseFile::getFileName(unsigned int line) {
   return getSymbol(getFileId(line));
 }
 
@@ -333,7 +333,7 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
         break;
     }
   } else {
-    std::string baseFileName = FileUtils::basename(fileName);
+    fs::path baseFileName = FileUtils::basename(fileName);
     if ((suffix == "sv") || (clp->fullSVMode()) ||
         (clp->isSVFile(baseFileName))) {
       antlrParserHandler->m_lexer->sverilog = true;
@@ -455,7 +455,7 @@ std::string ParseFile::getProfileInfo() {
 
 bool ParseFile::parse() {
   Precompiled* prec = Precompiled::getSingleton();
-  std::string root = FileUtils::basename(this->getPpFileName());
+  fs::path root = FileUtils::basename(this->getPpFileName());
   bool precompiled = false;
   if (prec->isFilePrecompiled(root)) precompiled = true;
 

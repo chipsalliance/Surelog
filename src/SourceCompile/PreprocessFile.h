@@ -24,6 +24,7 @@
 #ifndef PREPROCESSFILE_H
 #define PREPROCESSFILE_H
 
+#include <filesystem>
 #include <map>
 #include <set>
 #include <stack>
@@ -37,6 +38,8 @@
 #include "SourceCompile/LoopCheck.h"
 #include "parser/SV3_1aPpLexer.h"
 #include "parser/SV3_1aPpParser.h"
+
+namespace fs = std::filesystem;
 
 namespace SURELOG {
 
@@ -105,7 +108,7 @@ class PreprocessFile {
   const MacroStorage& getMacros() { return m_macros; }
   MacroInfo* getMacro(const std::string& name);
 
-  std::string getFileName(unsigned int line);
+  fs::path getFileName(unsigned int line);
 
   std::string reportIncludeInfo();
 

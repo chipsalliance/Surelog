@@ -24,6 +24,7 @@
 #include <string.h>
 
 #include <bitset>
+#include <filesystem>
 #include <iostream>
 
 #include "CommandLine/CommandLineParser.h"
@@ -87,11 +88,13 @@ bool CompileHelper::substituteAssignedValue(const UHDM::any* oper,
   return substitute;
 }
 
-expr* CompileHelper::reduceBitSelect(
-    expr* op, unsigned int index_val, bool& invalidValue,
-    DesignComponent* component, CompileDesign* compileDesign,
-    ValuedComponentI* instance, const std::string& fileName, int lineNumber,
-    any* pexpr, bool muteErrors) {
+expr* CompileHelper::reduceBitSelect(expr* op, unsigned int index_val,
+                                     bool& invalidValue,
+                                     DesignComponent* component,
+                                     CompileDesign* compileDesign,
+                                     ValuedComponentI* instance,
+                                     const fs::path& fileName, int lineNumber,
+                                     any* pexpr, bool muteErrors) {
   Serializer& s = compileDesign->getSerializer();
   expr* result = nullptr;
   expr* exp = reduceExpr(op, invalidValue, component, compileDesign, instance,
@@ -700,9 +703,7 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
     }
     case VObjectType::slStringLiteral: {
       UHDM::constant* c = s.MakeConstant();
-      std::string value = fC->SymName(child);
-      if (value.front() == '"' && value.back() == '"')
-        value = value.substr(1, value.length() - 2);
+      std::string value = StringUtils::unquoted(fC->SymName(child));
       c->VpiDecompile(value);
       c->VpiSize(strlen(value.c_str()));
       value = "STRING:" + value;
@@ -721,7 +722,7 @@ any* CompileHelper::decodeHierPath(hier_path* path, bool& invalidValue,
                                    DesignComponent* component,
                                    CompileDesign* compileDesign,
                                    ValuedComponentI* instance,
-                                   const std::string& fileName, int lineNumber,
+                                   const fs::path& fileName, int lineNumber,
                                    any* pexpr, bool muteErrors,
                                    bool returnTypespec) {
   Serializer& s = compileDesign->getSerializer();
@@ -788,7 +789,7 @@ expr* CompileHelper::reduceCompOp(operation* op, bool& invalidValue,
                                   DesignComponent* component,
                                   CompileDesign* compileDesign,
                                   ValuedComponentI* instance,
-                                  const std::string& fileName, int lineNumber,
+                                  const fs::path& fileName, int lineNumber,
                                   any* pexpr, bool muteErrors) {
   expr* result = op;
   Serializer& s = compileDesign->getSerializer();
@@ -891,7 +892,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                                 DesignComponent* component,
                                 CompileDesign* compileDesign,
                                 ValuedComponentI* instance,
-                                const std::string& fileName, int lineNumber,
+                                const fs::path& fileName, int lineNumber,
                                 any* pexpr, bool muteErrors) {
   Serializer& s = compileDesign->getSerializer();
   UHDM_OBJECT_TYPE objtype = result->UhdmType();
@@ -1467,7 +1468,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                     (invalidValueD == false)) {
                   // Divide by 0
                   if (!muteErrors) {
-                    std::string instanceName;
+                    fs::path instanceName;
                     if (instance) {
                       if (ModuleInstance* inst =
                               valuedcomponenti_cast<ModuleInstance*>(
@@ -1481,8 +1482,9 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                         compileDesign->getCompiler()->getErrorContainer();
                     SymbolTable* symbols =
                         compileDesign->getCompiler()->getSymbolTable();
-                    Location loc(symbols->registerSymbol(fileName), lineNumber,
-                                 0, symbols->registerSymbol(instanceName));
+                    Location loc(
+                        symbols->registerSymbol(fileName.string()), lineNumber,
+                        0, symbols->registerSymbol(instanceName.string()));
                     Error err(ErrorDefinition::ELAB_DIVIDE_BY_ZERO, loc);
                     errors->addError(err);
                   }
@@ -1586,7 +1588,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
               if (divideByZero) {
                 // Divide by 0
                 if (!muteErrors) {
-                  std::string instanceName;
+                  fs::path instanceName;
                   if (instance) {
                     if (ModuleInstance* inst =
                             valuedcomponenti_cast<ModuleInstance*>(instance)) {
@@ -1599,8 +1601,9 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                       compileDesign->getCompiler()->getErrorContainer();
                   SymbolTable* symbols =
                       compileDesign->getCompiler()->getSymbolTable();
-                  Location loc(symbols->registerSymbol(fileName), lineNumber, 0,
-                               symbols->registerSymbol(instanceName));
+                  Location loc(symbols->registerSymbol(fileName.string()),
+                               lineNumber, 0,
+                               symbols->registerSymbol(instanceName.string()));
                   Error err(ErrorDefinition::ELAB_DIVIDE_BY_ZERO, loc);
                   errors->addError(err);
                 }
@@ -2060,7 +2063,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
       ErrorContainer* errors =
           compileDesign->getCompiler()->getErrorContainer();
       SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
-      Location loc(symbols->registerSymbol(scall->VpiFile()),
+      Location loc(symbols->registerSymbol(scall->VpiFile().string()),
                    scall->VpiLineNo(), scall->VpiColumnNo(),
                    symbols->registerSymbol(name));
       Error err(ErrorDefinition::COMP_UNDEFINED_USER_FUNCTION, loc);
@@ -2356,7 +2359,7 @@ any* CompileHelper::hierarchicalSelector(
     std::vector<std::string>& select_path, unsigned int level,
     UHDM::any* object, bool& invalidValue, DesignComponent* component,
     CompileDesign* compileDesign, ValuedComponentI* instance, UHDM::any* pexpr,
-    const std::string& fileName, int lineNumber, bool muteErrors,
+    const fs::path& fileName, int lineNumber, bool muteErrors,
     bool returnTypespec) {
   Serializer& s = compileDesign->getSerializer();
   if (level >= select_path.size()) {
@@ -2804,7 +2807,7 @@ any* CompileHelper::getValue(const std::string& name,
                              DesignComponent* component,
                              CompileDesign* compileDesign,
                              ValuedComponentI* instance,
-                             const std::string& fileName, int lineNumber,
+                             const fs::path& fileName, int lineNumber,
                              any* pexpr, bool reduce, bool muteErrors) {
   Serializer& s = compileDesign->getSerializer();
   Value* sval = nullptr;
@@ -3026,19 +3029,19 @@ any* CompileHelper::getValue(const std::string& name,
       setBreakpointHere++;
     }
   }
-  /*
-  if (result == nullptr) {
-      ErrorContainer* errors =
-  compileDesign->getCompiler()->getErrorContainer(); SymbolTable* symbols =
-  compileDesign->getCompiler()->getSymbolTable(); std::string fileContent =
-  FileUtils::getFileContent(fileName); std::string lineText =
-  StringUtils::getLineInString(fileContent, lineNumber); Location loc
-  (symbols->registerSymbol(fileName), lineNumber, 0,
-                    symbols->registerSymbol(lineText));
-      Error err(ErrorDefinition::ELAB_UNDEF_VARIABLE, loc);
-      errors->addError(err);
-  }
-  */
+
+  // if (result == nullptr) {
+  //   ErrorContainer* errors =
+  //   compileDesign->getCompiler()->getErrorContainer(); SymbolTable* symbols =
+  //   compileDesign->getCompiler()->getSymbolTable(); std::string fileContent =
+  //   FileUtils::getFileContent(fileName); std::string lineText =
+  //   StringUtils::getLineInString(fileContent, lineNumber); Location
+  //   loc(symbols->registerSymbol(fileName), lineNumber, 0,
+  //                symbols->registerSymbol(lineText));
+  //   Error err(ErrorDefinition::ELAB_UNDEF_VARIABLE, loc);
+  //   errors->addError(err);
+  // }
+
   return result;
 }
 
@@ -4553,15 +4556,15 @@ UHDM::any* CompileHelper::compileExpression(
                   component, fC, List_of_arguments, compileDesign, fcall,
                   instance, reduce, muteErrors);
               if (reduce) {
-                const std::string& fileName = fC->getFileName();
+                const fs::path fileName = fC->getFileName();
                 int lineNumber = fC->Line(nameId);
                 if (func == nullptr) {
                   ErrorContainer* errors =
                       compileDesign->getCompiler()->getErrorContainer();
                   SymbolTable* symbols =
                       compileDesign->getCompiler()->getSymbolTable();
-                  Location loc(symbols->registerSymbol(fileName), lineNumber,
-                               fC->Column(nameId),
+                  Location loc(symbols->registerSymbol(fileName.string()),
+                               lineNumber, fC->Column(nameId),
                                symbols->registerSymbol(name));
                   Error err(ErrorDefinition::COMP_UNDEFINED_USER_FUNCTION, loc);
                   errors->addError(err);
@@ -4829,7 +4832,7 @@ UHDM::any* CompileHelper::compileExpression(
       std::string lineText =
           StringUtils::getLineInString(fileContent, fC->Line(the_node));
       Location loc(
-          symbols->registerSymbol(fC->getFileName(the_node)),
+          symbols->registerSymbol(fC->getFileName(the_node).string()),
           fC->Line(the_node), 0,
           symbols->registerSymbol(std::string("<") + fC->printObject(the_node) +
                                   std::string("> ") + lineText));
@@ -5047,7 +5050,7 @@ bool CompileHelper::errorOnNegativeConstant(DesignComponent* component,
 bool CompileHelper::errorOnNegativeConstant(
     DesignComponent* component, const std::string& val,
     CompileDesign* compileDesign, ValuedComponentI* instance,
-    const std::string& fileName, unsigned int lineNo, unsigned short columnNo) {
+    const fs::path& fileName, unsigned int lineNo, unsigned short columnNo) {
   if (val[4] == '-') {
     std::string instanceName;
     if (instance) {
@@ -5066,7 +5069,7 @@ bool CompileHelper::errorOnNegativeConstant(
     message += "             value: " + val;
     ErrorContainer* errors = compileDesign->getCompiler()->getErrorContainer();
     SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
-    Location loc(symbols->registerSymbol(fileName), lineNo, columnNo,
+    Location loc(symbols->registerSymbol(fileName.string()), lineNo, columnNo,
                  symbols->registerSymbol(message));
     Error err(ErrorDefinition::ELAB_NEGATIVE_VALUE, loc);
 
@@ -5467,7 +5470,7 @@ uint64_t CompileHelper::Bits(const UHDM::any* typespec, bool& invalidValue,
                              DesignComponent* component,
                              CompileDesign* compileDesign,
                              ValuedComponentI* instance,
-                             const std::string& fileName, int lineNumber,
+                             const fs::path& fileName, int lineNumber,
                              bool reduce, bool sizeMode) {
   uint64_t bits = 0;
   if (typespec) {

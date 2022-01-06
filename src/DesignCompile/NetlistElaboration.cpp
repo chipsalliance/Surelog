@@ -1152,7 +1152,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
 interface* NetlistElaboration::elab_interface_(
     ModuleInstance* instance, ModuleInstance* interf_instance,
     const std::string& instName, const std::string& defName,
-    ModuleDefinition* mod, const std::string& fileName, int lineNb,
+    ModuleDefinition* mod, const fs::path& fileName, int lineNb,
     interface_array* interf_array, const std::string& modPortName) {
   Netlist* netlist = instance->getNetlist();
   Serializer& s = m_compileDesign->getSerializer();
@@ -1233,7 +1233,7 @@ interface* NetlistElaboration::elab_interface_(
 modport* NetlistElaboration::elab_modport_(
     ModuleInstance* instance, ModuleInstance* interfaceInstance,
     const std::string& instName, const std::string& defName,
-    ModuleDefinition* mod, const std::string& fileName, int lineNb,
+    ModuleDefinition* mod, const fs::path& fileName, int lineNb,
     const std::string& modPortName, UHDM::interface_array* interf_array) {
   Netlist* netlist = instance->getNetlist();
   std::string fullname = instName + "." + modPortName;
@@ -1755,8 +1755,8 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
     ErrorContainer* errors =
         m_compileDesign->getCompiler()->getErrorContainer();
     SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
-    Location loc(symbols->registerSymbol(fC->getFileName()), fC->Line(id), 0,
-                 symbols->registerSymbol(signame));
+    Location loc(symbols->registerSymbol(fC->getFileName().string()),
+                 fC->Line(id), 0, symbols->registerSymbol(signame));
     Error err(ErrorDefinition::UHDM_UNSUPPORTED_SIGNAL, loc);
     errors->addError(err);
   }

@@ -655,7 +655,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
 }
 
 UHDM::typespec_member* CompileHelper::buildTypespecMember(
-    CompileDesign* compileDesign, const std::string& fileName,
+    CompileDesign* compileDesign, const fs::path& fileName,
     const std::string& name, const std::string& value, unsigned int line,
     unsigned short column, unsigned int eline, unsigned short ecolumn) {
   /*
@@ -683,7 +683,7 @@ UHDM::typespec_member* CompileHelper::buildTypespecMember(
 }
 
 int_typespec* CompileHelper::buildIntTypespec(
-    CompileDesign* compileDesign, const std::string& fileName,
+    CompileDesign* compileDesign, const fs::path& fileName,
     const std::string& name, const std::string& value, unsigned int line,
     unsigned short column, unsigned int eline, unsigned short ecolumn) {
   /*
@@ -1349,7 +1349,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
         std::string lineText =
             StringUtils::getLineInString(fileContent, fC->Line(type));
         Location loc(
-            symbols->registerSymbol(fC->getFileName(type)), fC->Line(type), 0,
+            symbols->registerSymbol(fC->getFileName(type).string()),
+            fC->Line(type), 0,
             symbols->registerSymbol(std::string("<") + fC->printObject(type) +
                                     std::string("> ") + lineText));
         Error err(ErrorDefinition::UHDM_UNSUPPORTED_TYPE, loc);

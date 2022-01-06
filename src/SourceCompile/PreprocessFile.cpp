@@ -270,7 +270,7 @@ std::string PreprocessFile::getSymbol(SymbolId id) {
   return getCompileSourceFile()->getSymbolTable()->getSymbol(id);
 }
 
-std::string PreprocessFile::getFileName(unsigned int line) {
+fs::path PreprocessFile::getFileName(unsigned int line) {
   return getSymbol(getFileId(line));
 }
 
@@ -307,9 +307,9 @@ static size_t LinesCount(std::string_view s) {
 
 bool PreprocessFile::preprocess() {
   m_result = "";
-  std::string fileName = getSymbol(m_fileId);
+  fs::path fileName = getSymbol(m_fileId);
   Precompiled* prec = Precompiled::getSingleton();
-  std::string root = FileUtils::basename(fileName);
+  fs::path root = FileUtils::basename(fileName);
   bool precompiled = false;
   if (prec->isFilePrecompiled(root)) precompiled = true;
   CommandLineParser* clp = getCompileSourceFile()->getCommandLineParser();
@@ -411,7 +411,8 @@ bool PreprocessFile::preprocess() {
     }
     m_antlrParserHandler->m_errorListener =
         new PreprocessFile::DescriptiveErrorListener(
-            this, (m_macroBody.empty()) ? fileName : "in macro " + fileName);
+            this, (m_macroBody.empty()) ? fileName.string()
+                                        : "in macro " + fileName.string());
     m_antlrParserHandler->m_pplexer =
         new SV3_1aPpLexer(m_antlrParserHandler->m_inputStream);
     m_antlrParserHandler->m_pplexer->removeErrorListeners();
@@ -449,7 +450,7 @@ bool PreprocessFile::preprocess() {
       if (getCompileSourceFile()->getCommandLineParser()->profile()) {
         m_profileInfo +=
             "PP SSL Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
-            "s " + fileName + "\n";
+            "s " + fileName.string() + "\n";
         tmr.reset();
       }
 
@@ -469,7 +470,7 @@ bool PreprocessFile::preprocess() {
       if (getCompileSourceFile()->getCommandLineParser()->profile()) {
         m_profileInfo +=
             "PP LL  Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
-            " " + fileName + "\n";
+            " " + fileName.string() + "\n";
         tmr.reset();
       }
     }
@@ -929,7 +930,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   if (body_short.find('`') != std::string::npos) {
     // Recursively resolve macro instantiation within the macro
     if (m_debugMacro) {
-      const std::string fileName = getSymbol(m_fileId);
+      const fs::path fileName = getSymbol(m_fileId);
       std::cout << "PP BODY EXPANSION FOR " << name << " in : " << fileName
                 << std::endl;
       for (auto arg : actual_args) {
@@ -958,7 +959,8 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
         pp_result = std::regex_replace(
             pp_result, std::regex(PP__File__Marking),
             "\"" +
-                FileUtils::getFullPath(callingFile->getFileName(callingLine)) +
+                FileUtils::getFullPath(callingFile->getFileName(callingLine))
+                    .string() +
                 "\"");
         pp_result = std::regex_replace(pp_result, std::regex(PP__Line__Marking),
                                        std::to_string(callingLine));
@@ -1171,9 +1173,9 @@ std::string PreprocessFile::getPreProcessedFileContent() {
   }
   if (!nonEmpty) m_result = "";
   if (m_debugPPResult) {
-    const std::string fileName = getSymbol(m_fileId);
-    std::string objName =
-        (!m_macroBody.empty()) ? "macro " + m_macroBody : "file " + fileName;
+    const fs::path fileName = getSymbol(m_fileId);
+    std::string objName = (!m_macroBody.empty()) ? "macro " + m_macroBody
+                                                 : "file " + fileName.string();
     std::cout << "PP RESULT for " << objName
               << " : \nvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n"
               << m_result << "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"

@@ -347,4 +347,11 @@ std::string StringUtils::evaluateEnvVars(std::string_view text) {
   autoExpandEnvironmentVariables(&input);
   return input;
 }
+
+std::string StringUtils::unquoted(const std::string& text) {
+  if ((text.size() >= 2) && (text.front() == '\"') && (text.back() == '\"')) {
+    return text.substr(1, text.length() - 2);
+  }
+  return text;
+}
 }  // namespace SURELOG

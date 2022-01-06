@@ -62,7 +62,7 @@ bool CompilePackage::compile() {
   const FileContent* fC = m_package->m_fileContents[0];
   NodeId packId = m_package->m_nodeIds[0];
 
-  Location loc(m_symbols->registerSymbol(fC->getFileName(packId)),
+  Location loc(m_symbols->registerSymbol(fC->getFileName(packId).string()),
                fC->Line(packId), 0, m_symbols->getId(m_package->getName()));
   Error err(ErrorDefinition::COMP_COMPILE_PACKAGE, loc);
 

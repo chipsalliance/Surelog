@@ -24,6 +24,7 @@
 
 #include <string.h>
 
+#include <filesystem>
 #include <queue>
 #include <string>
 #include <unordered_set>
@@ -234,10 +235,10 @@ bool DesignElaboration::setupConfigurations_() {
           Config* conf = configSet->getMutableConfigByName(confName);
           if (!conf) {
             const FileContent* fC = usec.second.getFileContent();
-            Location loc(
-                st->registerSymbol(fC->getFileName(usec.second.getNodeId())),
-                fC->Line(usec.second.getNodeId()), 0,
-                st->registerSymbol(confName));
+            Location loc(st->registerSymbol(
+                             fC->getFileName(usec.second.getNodeId()).string()),
+                         fC->Line(usec.second.getNodeId()), 0,
+                         st->registerSymbol(confName));
             Error err(ErrorDefinition::ELAB_UNDEFINED_CONFIG, loc);
             m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
           }
@@ -250,7 +251,8 @@ bool DesignElaboration::setupConfigurations_() {
   for (const auto& config : allConfigs) {
     const std::string& name = config.getName();
     const FileContent* fC = config.getFileContent();
-    SymbolId fid = st->registerSymbol(fC->getFileName(config.getNodeId()));
+    SymbolId fid =
+        st->registerSymbol(fC->getFileName(config.getNodeId()).string());
     unsigned int line = fC->Line(config.getNodeId());
     Location loc(fid, line, 0, st->getId(config.getName()));
     if (!config.isUsed()) {
@@ -396,7 +398,8 @@ bool DesignElaboration::identifyTopModules_() {
             SymbolId topid = st->registerSymbol(topname);
             auto itr = m_uniqueTopLevelModules.find(topname);
             Location loc(
-                st->registerSymbol(file.second->getFileName(element.m_node)),
+                st->registerSymbol(
+                    (file.second->getFileName(element.m_node)).string()),
                 element.m_line, 0, topid);
             if (itr == m_uniqueTopLevelModules.end()) {
               bool okModule = true;
@@ -432,9 +435,9 @@ bool DesignElaboration::identifyTopModules_() {
     if (moduleName == prevModuleName) {
       const FileContent* fC1 = (*itr).second.second;
       NodeId nodeId1 = moduleDefinition->m_node;
-      std::string fileName1 = fC1->getFileName(nodeId1);
+      fs::path fileName1 = fC1->getFileName(nodeId1);
       unsigned int line1 = fC1->Line(nodeId1);
-      Location loc1(st->registerSymbol(fileName1), line1, 0,
+      Location loc1(st->registerSymbol(fileName1.string()), line1, 0,
                     st->registerSymbol(moduleName));
 
       std::vector<Location> locations;
@@ -442,9 +445,9 @@ bool DesignElaboration::identifyTopModules_() {
       while (1) {
         const FileContent* fC2 = prevFileContent;
         NodeId nodeId2 = prevModuleDefinition->m_node;
-        std::string fileName2 = fC2->getFileName(nodeId2);
+        fs::path fileName2 = fC2->getFileName(nodeId2);
         unsigned int line2 = fC2->Line(nodeId2);
-        Location loc2(st->registerSymbol(fileName2), line2, 0,
+        Location loc2(st->registerSymbol(fileName2.string()), line2, 0,
                       st->registerSymbol(moduleName));
 
         if ((fileName1 != fileName2) || (line1 != line2)) {
@@ -520,7 +523,8 @@ bool DesignElaboration::identifyTopModules_() {
             toplevelModuleFound = true;
             SymbolId topid = st->registerSymbol(topname);
             Location loc(
-                st->registerSymbol(file.second->getFileName(element.m_node)),
+                st->registerSymbol(
+                    (file.second->getFileName(element.m_node)).string()),
                 element.m_line, 0, topid);
             Error err(ErrorDefinition::ELAB_TOP_LEVEL_MODULE, loc);
             m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
@@ -730,9 +734,9 @@ ModuleInstance* DesignElaboration::createBindInstance_(
     } else {
       SymbolTable* st =
           m_compileDesign->getCompiler()->getErrorContainer()->getSymbolTable();
-      Location loc(st->registerSymbol(fC->getFileName(bind->getStmtId())),
-                   fC->Line(bind->getStmtId()), 0,
-                   st->registerSymbol(bindModName));
+      Location loc(
+          st->registerSymbol(fC->getFileName(bind->getStmtId()).string()),
+          fC->Line(bind->getStmtId()), 0, st->registerSymbol(bindModName));
       Error err(ErrorDefinition::ELAB_NO_MODULE_DEFINITION, loc);
       m_compileDesign->getCompiler()->getErrorContainer()->addError(err, false,
                                                                     false);
@@ -808,12 +812,14 @@ void DesignElaboration::elaborateInstance_(
   if (loopDetected) {
     SymbolTable* st =
         m_compileDesign->getCompiler()->getErrorContainer()->getSymbolTable();
-    Location loc(st->registerSymbol(fC->getFileName(parent->getNodeId())),
-                 fC->Line(parent->getNodeId()), 0,
-                 st->registerSymbol(parent->getModuleName()));
-    Location loc2(st->registerSymbol(
-                      tmp->getFileContent()->getFileName(tmp->getNodeId())),
-                  tmp->getFileContent()->Line(tmp->getNodeId()), 0);
+    Location loc(
+        st->registerSymbol(fC->getFileName(parent->getNodeId()).string()),
+        fC->Line(parent->getNodeId()), 0,
+        st->registerSymbol(parent->getModuleName()));
+    Location loc2(
+        st->registerSymbol(
+            tmp->getFileContent()->getFileName(tmp->getNodeId()).string()),
+        tmp->getFileContent()->Line(tmp->getNodeId()), 0);
     Error err(ErrorDefinition::ELAB_INSTANTIATION_LOOP, loc, loc2);
     m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
     return;
@@ -1435,8 +1441,9 @@ void DesignElaboration::elaborateInstance_(
           SymbolTable* st = m_compileDesign->getCompiler()
                                 ->getErrorContainer()
                                 ->getSymbolTable();
-          Location loc(st->registerSymbol(fC->getFileName(subInstanceId)),
-                       fC->Line(subInstanceId), 0, st->registerSymbol(modName));
+          Location loc(
+              st->registerSymbol(fC->getFileName(subInstanceId).string()),
+              fC->Line(subInstanceId), 0, st->registerSymbol(modName));
           Error err(ErrorDefinition::ELAB_NO_MODULE_DEFINITION, loc);
           m_compileDesign->getCompiler()->getErrorContainer()->addError(
               err, false, false);
@@ -1611,9 +1618,9 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         params.push_back(name);
       }
     } else {
-      Location loc(st->registerSymbol(pack_import.fC->getFileName(pack_id)),
-                   pack_import.fC->Line(pack_id), 0,
-                   st->registerSymbol(pack_name));
+      Location loc(
+          st->registerSymbol(pack_import.fC->getFileName(pack_id).string()),
+          pack_import.fC->Line(pack_id), 0, st->registerSymbol(pack_name));
       Error err(ErrorDefinition::ELAB_UNDEFINED_PACKAGE, loc);
       errors->addError(err);
     }
@@ -1843,10 +1850,10 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
           overridenParams.insert(name);
         } else {
           if (parentFile->Type(expr) != slDelay2) {
-            Location loc(
-                st->registerSymbol(parentFile->getFileName(paramAssign)),
-                parentFile->Line(paramAssign), 0,
-                st->registerSymbol(std::to_string(index)));
+            Location loc(st->registerSymbol(
+                             parentFile->getFileName(paramAssign).string()),
+                         parentFile->Line(paramAssign), 0,
+                         st->registerSymbol(std::to_string(index)));
             Error err(ErrorDefinition::ELAB_OUT_OF_RANGE_PARAM_INDEX, loc);
             errors->addError(err);
           }
@@ -2062,9 +2069,9 @@ void DesignElaboration::checkConfigurations_() {
     UseClause& useC = pathUseC.second;
     if (!useC.isUsed()) {
       const FileContent* fC = useC.getFileContent();
-      Location loc(st->registerSymbol(fC->getFileName(useC.getNodeId())),
-                   fC->Line(useC.getNodeId()), 0,
-                   st->registerSymbol(pathUseC.first));
+      Location loc(
+          st->registerSymbol(fC->getFileName(useC.getNodeId()).string()),
+          fC->Line(useC.getNodeId()), 0, st->registerSymbol(pathUseC.first));
       Error err(ErrorDefinition::ELAB_USE_CLAUSE_IGNORED, loc);
       m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
     }
@@ -2073,9 +2080,9 @@ void DesignElaboration::checkConfigurations_() {
     UseClause& useC = pathUseC.second;
     if (!useC.isUsed()) {
       const FileContent* fC = useC.getFileContent();
-      Location loc(st->registerSymbol(fC->getFileName(useC.getNodeId())),
-                   fC->Line(useC.getNodeId()), 0,
-                   st->registerSymbol(pathUseC.first));
+      Location loc(
+          st->registerSymbol(fC->getFileName(useC.getNodeId()).string()),
+          fC->Line(useC.getNodeId()), 0, st->registerSymbol(pathUseC.first));
       Error err(ErrorDefinition::ELAB_USE_CLAUSE_IGNORED, loc);
       m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
     }
@@ -2268,12 +2275,12 @@ void DesignElaboration::createFileList_() {
       m_compileDesign->getCompiler()->getCommandLineParser();
 
   if (cmdLine->writePpOutput() || (cmdLine->writePpOutputFileId() != 0)) {
-    const std::string& directory =
+    const fs::path directory =
         cmdLine->getSymbolTable().getSymbol(cmdLine->getFullCompileDir());
     std::ofstream ofs;
-    std::string fileList = directory + "/file_elab.lst";
+    fs::path fileList = directory / "file_elab.lst";
     ofs.open(fileList);
-    const std::map<const std::string, std::vector<std::string>>& ppFileName =
+    const std::map<fs::path, std::vector<fs::path>>& ppFileName =
         m_compileDesign->getCompiler()->getPPFileMap();
     if (ofs.good()) {
       for (auto fC : files) {
