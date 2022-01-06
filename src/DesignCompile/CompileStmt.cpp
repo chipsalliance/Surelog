@@ -1920,6 +1920,38 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     func->Io_decls(results.first);
     func->Variables(results.second);
     while (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
+      NodeId Block_item_declaration = fC->Child(Tf_port_list);
+      NodeId Parameter_declaration = fC->Child(Block_item_declaration);
+      if ((fC->Type(Parameter_declaration) == slParameter_declaration) ||
+          (fC->Type(Parameter_declaration) == slLocal_parameter_declaration)) {
+        DesignComponent* tmp = new ModuleDefinition(nullptr, 0, "fake");
+        compileParameterDeclaration(
+            tmp, fC, Parameter_declaration, compileDesign,
+            (fC->Type(Parameter_declaration) == slLocal_parameter_declaration),
+            nullptr, false, false, false);
+        if (tmp->getParameters()) {
+          VectorOfany* params = func->Parameters();
+          if (params == nullptr) {
+            func->Parameters(s.MakeAnyVec());
+            params = func->Parameters();
+          }
+          for (auto p : *tmp->getParameters()) {
+            params->push_back(p);
+          }
+        }
+        if (tmp->getParam_assigns()) {
+          VectorOfparam_assign* params = func->Param_assigns();
+          if (params == nullptr) {
+            func->Param_assigns(s.MakeParam_assignVec());
+            params = func->Param_assigns();
+          }
+          for (auto p : *tmp->getParam_assigns()) {
+            params->push_back(p);
+          }
+        }
+        delete tmp;
+      }
+
       Tf_port_list = fC->Sibling(Tf_port_list);
     }
     Function_statement_or_null = Tf_port_list;
