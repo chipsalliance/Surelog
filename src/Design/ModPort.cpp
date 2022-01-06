@@ -30,6 +30,6 @@ const Signal* ModPort::getPort(const std::string& name) const {
       return &sig;
     }
   }
-  return NULL;
+  return nullptr;
 }
 }  // namespace SURELOG

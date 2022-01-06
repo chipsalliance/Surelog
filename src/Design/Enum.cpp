@@ -38,7 +38,7 @@ Enum::~Enum() {}
 Value* Enum::getValue(const std::string& name) {
   NameValueMap::iterator itr = m_values.find(name);
   if (itr == m_values.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second.second;
   }

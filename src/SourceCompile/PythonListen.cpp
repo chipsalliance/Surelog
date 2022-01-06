@@ -60,8 +60,8 @@ bool PythonListen::listen() {
   }
 
   // This is either a parent Parser object of this Parser object has no parent
-  if ((m_parse->m_children.size() != 0) || (m_parse->m_parent == NULL)) {
-    if ((m_parse->m_parent == NULL) && (m_parse->m_children.size() == 0)) {
+  if ((m_parse->m_children.size() != 0) || (m_parse->m_parent == nullptr)) {
+    if ((m_parse->m_parent == nullptr) && (m_parse->m_children.size() == 0)) {
       SV3_1aPythonListener* pythonListener =
           new SV3_1aPythonListener(this, m_compileSourceFile->getPythonInterp(),
                                    m_parse->m_antlrParserHandler->m_tokens, 0);

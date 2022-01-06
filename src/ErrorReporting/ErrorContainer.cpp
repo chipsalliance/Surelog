@@ -41,10 +41,10 @@
 namespace SURELOG {
 ErrorContainer::ErrorContainer(SymbolTable* symbolTable,
                                LogListener* logListener /* = nullptr */)
-    : m_clp(NULL),
+    : m_clp(nullptr),
       m_reportedFatalErrorLogFile(false),
       m_symbolTable(symbolTable),
-      m_interpState(NULL),
+      m_interpState(nullptr),
       m_logListener(logListener ? logListener : new LogListener()),
       m_listenerOwned(logListener == nullptr) {
   m_interpState = PythonAPI::getMainInterp();

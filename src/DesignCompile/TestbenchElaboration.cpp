@@ -146,7 +146,7 @@ bool TestbenchElaboration::checkForMultipleDefinition_() {
 
   // Check for multiple definition
   std::string prevClassName = "";
-  ClassDefinition* prevClassDefinition = NULL;
+  ClassDefinition* prevClassDefinition = nullptr;
   for (ClassNameClassDefinitionMultiMap::iterator itr = classes.begin();
        itr != classes.end(); itr++) {
     std::string className = (*itr).first;
@@ -355,7 +355,7 @@ bool TestbenchElaboration::bindFunctionReturnTypesAndParamaters_() {
       DataType* dtype = func.second->getReturnType();
       std::string dataTypeName = dtype->getName();
       if (dtype->getDefinition()) continue;
-      if (dtype->getFileContent() == NULL) continue;
+      if (dtype->getFileContent() == nullptr) continue;
       if (dtype->getType() == VObjectType::slStringConst) {
         const DataType* the_def = bindDataType_(
             dataTypeName, dtype->getFileContent(), func.second->getNodeId(),
@@ -366,7 +366,7 @@ bool TestbenchElaboration::bindFunctionReturnTypesAndParamaters_() {
         const DataType* dtype = param->getDataType();
         std::string dataTypeName = dtype->getName();
         if (dtype->getDefinition()) continue;
-        if (dtype->getFileContent() == NULL) continue;
+        if (dtype->getFileContent() == nullptr) continue;
         if (dtype->getType() == VObjectType::slStringConst) {
           const DataType* the_def = bindDataType_(
               dataTypeName, dtype->getFileContent(), param->getNodeId(),
@@ -426,7 +426,7 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
 
   if (the_obj) {
     dtype = the_obj->getDataType();
-    if (dtype == NULL) return true;
+    if (dtype == nullptr) return true;
     VObjectType type = dtype->getType();
     const DataType* def = dtype->getDefinition();
 
@@ -677,7 +677,7 @@ bool TestbenchElaboration::bindTasks_() {
         const DataType* dtype = param->getDataType();
         std::string dataTypeName = dtype->getName();
         if (dtype->getDefinition()) continue;
-        if (dtype->getFileContent() == NULL) continue;
+        if (dtype->getFileContent() == nullptr) continue;
         if (dtype->getType() == VObjectType::slStringConst) {
           const DataType* the_def = bindDataType_(
               dataTypeName, dtype->getFileContent(), param->getNodeId(),

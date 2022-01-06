@@ -201,7 +201,7 @@ bool ElaborationStep::bindTypedefs_() {
         }
         typd->setTypespec(ts);
       }
-    } else if (prevDef == NULL) {
+    } else if (prevDef == nullptr) {
       const DataType* def =
           bindTypeDef_(typd, comp, ErrorDefinition::NO_ERROR_MESSAGE);
       if (def && (typd != def)) {
@@ -221,7 +221,7 @@ bool ElaborationStep::bindTypedefs_() {
         }
         typd->setTypespec(ts);
       } else {
-        if (prevDef == NULL) {
+        if (prevDef == nullptr) {
           const FileContent* fC = typd->getFileContent();
           NodeId id = typd->getNodeId();
           std::string fileName = fC->getFileName(id);
@@ -366,7 +366,7 @@ const DataType* ElaborationStep::bindTypeDef_(
   if (result != typd)
     return result;
   else
-    return NULL;
+    return nullptr;
 }
 
 const DataType* ElaborationStep::bindDataType_(
@@ -592,18 +592,18 @@ Variable* ElaborationStep::bindVariable_(std::string var_name, Scope* scope,
   Compiler* compiler = m_compileDesign->getCompiler();
   ErrorContainer* errors = compiler->getErrorContainer();
   SymbolTable* symbols = compiler->getSymbolTable();
-  Variable* result = NULL;
+  Variable* result = nullptr;
 
   const ClassDefinition* classDefinition =
       valuedcomponenti_cast<const ClassDefinition*>(parent);
   if (classDefinition) result = classDefinition->getProperty(var_name);
 
-  if (result == NULL) {
+  if (result == nullptr) {
     if (scope) {
       result = scope->getVariable(var_name);
     }
   }
-  if ((result == NULL) && scope) {
+  if ((result == nullptr) && scope) {
     Scope* itr_scope = scope;
     while (itr_scope) {
       Procedure* proc = scope_cast<Procedure*>(itr_scope);
@@ -620,7 +620,7 @@ Variable* ElaborationStep::bindVariable_(std::string var_name, Scope* scope,
     }
   }
 
-  if (result == NULL && parent) {
+  if (result == nullptr && parent) {
     for (auto package : parent->getAccessPackages()) {
       Value* val = package->getValue(var_name);
       if (val) {
@@ -629,7 +629,7 @@ Variable* ElaborationStep::bindVariable_(std::string var_name, Scope* scope,
     }
   }
 
-  if ((result == NULL) && (errtype != ErrorDefinition::NO_ERROR_MESSAGE)) {
+  if ((result == nullptr) && (errtype != ErrorDefinition::NO_ERROR_MESSAGE)) {
     std::string fileName = fC->getFileName(id);
     unsigned int line = fC->Line(id);
     Location loc1(symbols->registerSymbol(fileName), line, 0,
@@ -645,7 +645,7 @@ Variable* ElaborationStep::bindVariable_(std::string var_name, Scope* scope,
       const DataType* dtype = result->getDataType();
       if (dtype && !dtype->getDefinition()) {
         if (dtype->getType() == VObjectType::slStringConst) {
-          result = NULL;
+          result = nullptr;
         }
       }
     }
@@ -659,7 +659,7 @@ Variable* ElaborationStep::locateVariable_(std::vector<std::string>& var_chain,
                                            Scope* scope,
                                            DesignComponent* parentComponent,
                                            ErrorDefinition::ErrorType errtype) {
-  Variable* the_obj = NULL;
+  Variable* the_obj = nullptr;
   const DesignComponent* currentComponent = parentComponent;
   for (auto var : var_chain) {
     if (var == "this") {
@@ -667,13 +667,13 @@ Variable* ElaborationStep::locateVariable_(std::vector<std::string>& var_chain,
       const ClassDefinition* classDefinition =
           valuedcomponenti_cast<const ClassDefinition*>(currentComponent);
       if (classDefinition) {
-        currentComponent = NULL;
+        currentComponent = nullptr;
         for (const auto& cc : classDefinition->getBaseClassMap()) {
           currentComponent = datatype_cast<const ClassDefinition*>(cc.second);
           var = "this";
           break;
         }
-        if (currentComponent == NULL) {
+        if (currentComponent == nullptr) {
           var = "super";
           currentComponent = parentComponent;
         }
@@ -708,7 +708,7 @@ Variable* ElaborationStep::locateStaticVariable_(
   }
   std::map<std::string, Variable*>::iterator itr = m_staticVariables.find(name);
   if (itr != m_staticVariables.end()) return (*itr).second;
-  Variable* result = NULL;
+  Variable* result = nullptr;
   Design* design = m_compileDesign->getCompiler()->getDesign();
   if (var_chain.size() > 0) {
     Package* package = design->getPackage(var_chain[0]);
@@ -732,10 +732,10 @@ Variable* ElaborationStep::locateStaticVariable_(
       }
     }
 
-    if (result == NULL) {
+    if (result == nullptr) {
       ClassDefinition* classDefinition =
           design->getClassDefinition(var_chain[0]);
-      if (classDefinition == NULL) {
+      if (classDefinition == nullptr) {
         std::string name;
         if (parentComponent && parentComponent->getParentScope()) {
           name =
@@ -766,7 +766,7 @@ Variable* ElaborationStep::locateStaticVariable_(
       }
     }
   }
-  if (result == NULL) {
+  if (result == nullptr) {
     if (var_chain.size()) {
       const DataType* dtype =
           bindDataType_(var_chain[0], fC, id, parentComponent, errtype);
@@ -785,7 +785,7 @@ void checkIfBuiltInTypeOrErrorOut(DesignComponent* def, const FileContent* fC,
                                   const std::string& interfName,
                                   ErrorContainer* errors,
                                   SymbolTable* symbols) {
-  if (def == NULL && type == NULL && (interfName != "logic") &&
+  if (def == nullptr && type == nullptr && (interfName != "logic") &&
       (interfName != "byte") && (interfName != "bit") &&
       (interfName != "new") && (interfName != "expect") &&
       (interfName != "var") && (interfName != "signed") &&
@@ -917,10 +917,10 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
           if (datatype) {
             def = datatype->second;
           }
-          if (def == NULL) {
+          if (def == nullptr) {
             def = design->getComponentDefinition(libName + "@" + interfName);
           }
-          if (def == NULL) {
+          if (def == nullptr) {
             type = parentComponent->getDataType(interfName);
           }
           checkIfBuiltInTypeOrErrorOut(def, fC, id, type, interfName, errors,
@@ -992,7 +992,7 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
           signal->setDataType(dt);
         }
       }
-      if (def == NULL) {
+      if (def == nullptr) {
         def = design->getComponentDefinition(libName + "@" + baseName);
         if (def) {
           ModuleDefinition* module =
@@ -1004,20 +1004,20 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
             signal->setDataType(cl);
             return true;
           } else {
-            def = NULL;
+            def = nullptr;
           }
           if (!modPort.empty()) {
             if (module) {
               if (ModPort* modport = module->getModPort(modPort)) {
                 signal->setModPort(modport);
               } else {
-                def = NULL;
+                def = nullptr;
               }
             }
           }
         }
       }
-      if (def == NULL) {
+      if (def == nullptr) {
         def = design->getComponentDefinition(libName + "@" + baseName);
         ClassDefinition* c = valuedcomponenti_cast<ClassDefinition*>(def);
         if (c) {
@@ -1026,10 +1026,10 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
           parentComponent->addVariable(var);
           return false;
         } else {
-          def = NULL;
+          def = nullptr;
         }
       }
-      if (def == NULL) {
+      if (def == nullptr) {
         type = parentComponent->getDataType(interfName);
         if (type == nullptr) {
           if (!m_compileDesign->getCompiler()
@@ -1069,7 +1069,7 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
       if (signal->getType() != slNoType) {
         return true;
       }
-      if (def == NULL) {
+      if (def == nullptr) {
         if (parentComponent->getParameters()) {
           for (auto param : *parentComponent->getParameters()) {
             if (param->UhdmType() == uhdmtype_parameter) {
@@ -1083,7 +1083,7 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
           }
         }
       }
-      if (def == NULL) {
+      if (def == nullptr) {
         while (instance) {
           for (Parameter* p : instance->getTypeParams()) {
             if (p->getName() == interfName) {

@@ -59,7 +59,7 @@ class SV3_1aPpTreeListenerHelper : public CommonListenerHelper {
         m_inMacroDefinitionParsing(false),
         m_inProtectedRegion(false),
         m_filterProtectedRegions(false),
-        m_append_paused_context(NULL),
+        m_append_paused_context(nullptr),
         m_instructions(instructions) {
     init();
   }

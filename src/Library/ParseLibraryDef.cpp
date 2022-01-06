@@ -50,7 +50,7 @@ ParseLibraryDef::ParseLibraryDef(CommandLineParser* commandLineParser,
       m_symbolTable(symbolTable),
       m_librarySet(librarySet),
       m_configSet(configSet),
-      m_fileContent(NULL) {}
+      m_fileContent(nullptr) {}
 
 bool ParseLibraryDef::parseLibrariesDefinition() {
   // Get .map files from command line
@@ -63,7 +63,7 @@ bool ParseLibraryDef::parseLibrariesDefinition() {
 
   // If "work" library is not yet declared from command line, create it
   std::string workN = "work";
-  if (m_librarySet->getLibrary(workN) == NULL) {
+  if (m_librarySet->getLibrary(workN) == nullptr) {
     Library work(workN, m_symbolTable);
     m_librarySet->addLibrary(work);
   }
@@ -139,7 +139,7 @@ bool ParseLibraryDef::parseLibraryDefinition(SymbolId fileId, Library* lib) {
 
   tree::ParseTreeWalker::DEFAULT.walk(m_listener, m_tree);
 
-  if (m_fileContent->getLibrary() == NULL) {
+  if (m_fileContent->getLibrary() == nullptr) {
     if (lib) {
       m_fileContent->setLibrary(lib);
     } else {

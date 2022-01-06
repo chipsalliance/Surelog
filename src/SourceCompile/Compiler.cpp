@@ -692,7 +692,7 @@ bool Compiler::parseinit_() {
       compiler->getParser()->setFileContent(new FileContent(
           compiler->getParser()->getFileId(0),
           compiler->getParser()->getLibrary(), compiler->getSymbolTable(),
-          compiler->getErrorContainer(), NULL, 0));
+          compiler->getErrorContainer(), nullptr, 0));
 
       int j = 0;
       for (auto& chunk : fileAnalyzer->getSplitFiles()) {
@@ -713,9 +713,10 @@ bool Compiler::parseinit_() {
         chunkCompiler->setErrorContainer(errors);
         // chunkCompiler->getParser ()->setFileContent (fileContent);
 
-        FileContent* const chunkFileContent = new FileContent(
-            compiler->getParser()->getFileId(0),
-            compiler->getParser()->getLibrary(), symbols, errors, NULL, ppId);
+        FileContent* const chunkFileContent =
+            new FileContent(compiler->getParser()->getFileId(0),
+                            compiler->getParser()->getLibrary(), symbols,
+                            errors, nullptr, ppId);
         chunkCompiler->getParser()->setFileContent(chunkFileContent);
         getDesign()->addFileContent(compiler->getParser()->getFileId(0),
                                     chunkFileContent);
@@ -1086,7 +1087,7 @@ PreprocessFile::AntlrParserHandler* Compiler::getAntlrPpHandlerForId(
     PreprocessFile::AntlrParserHandler* ptr = (*itr).second;
     return ptr;
   }
-  return NULL;
+  return nullptr;
 }
 
 bool Compiler::parseLibrariesDef_() {

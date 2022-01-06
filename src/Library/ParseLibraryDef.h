@@ -40,7 +40,7 @@ class ParseLibraryDef final {
                   ConfigSet* configSet);
 
   bool parseLibrariesDefinition();
-  bool parseLibraryDefinition(SymbolId file, Library* lib = NULL);
+  bool parseLibraryDefinition(SymbolId file, Library* lib = nullptr);
   bool parseConfigDefinition();
 
   SymbolId getFileId() const { return m_fileId; }

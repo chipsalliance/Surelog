@@ -47,11 +47,11 @@ SVLibShapeListener::SVLibShapeListener(ParseLibraryDef *parser,
           tokens, 0),
       m_parser(parser),
       m_tokens(tokens),
-      m_currentConfig(NULL),
+      m_currentConfig(nullptr),
       m_relativePath(relativePath) {
-  m_fileContent =
-      new FileContent(m_parser->getFileId(), NULL, m_parser->getSymbolTable(),
-                      m_parser->getErrorContainer(), NULL, 0);
+  m_fileContent = new FileContent(m_parser->getFileId(), nullptr,
+                                  m_parser->getSymbolTable(),
+                                  m_parser->getErrorContainer(), nullptr, 0);
   m_pf->setFileContent(m_fileContent);
   IncludeFileInfo info(1, m_pf->getFileId(0), 0, IncludeFileInfo::PUSH);
   m_includeFileInfo.push(info);
@@ -67,7 +67,7 @@ void SVLibShapeListener::enterLibrary_declaration(
     SV3_1aParser::Library_declarationContext *ctx) {
   std::string name = ctx->identifier()->getText();
   Library *lib = m_parser->getLibrarySet()->getLibrary(name);
-  if (lib == NULL) {
+  if (lib == nullptr) {
     Library lib(name, m_parser->getSymbolTable());
     m_parser->getLibrarySet()->addLibrary(lib);
   }
@@ -181,7 +181,7 @@ void SVLibShapeListener::exitIdentifier(SV3_1aParser::IdentifierContext *ctx) {
 void SVLibShapeListener::exitHierarchical_identifier(
     SV3_1aParser::Hierarchical_identifierContext *ctx) {
   std::string ident;
-  antlr4::ParserRuleContext *childCtx = NULL;
+  antlr4::ParserRuleContext *childCtx = nullptr;
 
   childCtx = (antlr4::ParserRuleContext *)ctx->children[0];
   ident = ctx->getText();

@@ -36,7 +36,7 @@ MacroInfo* CompilationUnit::getMacroInfo(const std::string& macroName) {
   if (itr != m_macros.end()) {
     return (*itr).second;
   }
-  return NULL;
+  return nullptr;
 }
 
 void CompilationUnit::registerMacroInfo(const std::string& macroName,

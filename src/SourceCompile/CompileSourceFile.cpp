@@ -198,7 +198,7 @@ bool CompileSourceFile::pythonAPI_() {
 }
 
 bool CompileSourceFile::initParser() {
-  if (m_parser == NULL)
+  if (m_parser == nullptr)
     m_parser = new ParseFile(m_fileId, this, m_compilationUnit, m_library,
                              m_ppResultFileId,
                              getCommandLineParser()->pythonListener());
@@ -337,7 +337,7 @@ PreprocessFile::AntlrParserHandler* CompileSourceFile::getAntlrPpHandlerForId(
     PreprocessFile::AntlrParserHandler* ptr = (*itr).second;
     return ptr;
   }
-  return NULL;
+  return nullptr;
 }
 
 void CompileSourceFile::setSymbolTable(SymbolTable* symbols) {
@@ -351,8 +351,8 @@ void CompileSourceFile::setPythonInterp(PyThreadState* interpState) {
 }
 
 void CompileSourceFile::shutdownPythonInterp() {
-  m_errors->setPythonInterp(NULL);
+  m_errors->setPythonInterp(nullptr);
   PythonAPI::shutdown(m_interpState);
-  m_interpState = NULL;
+  m_interpState = nullptr;
 }
 #endif

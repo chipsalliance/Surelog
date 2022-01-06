@@ -119,13 +119,13 @@ class Design final {
 
   std::map<std::string, DefParam*>& getDefParams() { return m_defParams; }
 
-  void checkDefParamUsage(DefParam* parent = NULL);
+  void checkDefParamUsage(DefParam* parent = nullptr);
 
   ModuleInstance* findInstance(std::vector<std::string>& path,
-                               ModuleInstance* scope = NULL);
+                               ModuleInstance* scope = nullptr);
 
   ModuleInstance* findInstance(const std::string& path,
-                               ModuleInstance* scope = NULL);
+                               ModuleInstance* scope = nullptr);
 
   Package* getPackage(const std::string& name);
 

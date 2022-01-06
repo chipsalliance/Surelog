@@ -52,7 +52,7 @@ Value* ValuedComponentI::getValue(const std::string& name) const {
   } else {
     return (*itr).second.first;
   }
-  return NULL;
+  return nullptr;
 }
 
 Value* ValuedComponentI::getValue(const std::string& name,

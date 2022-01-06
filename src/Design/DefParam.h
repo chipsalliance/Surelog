@@ -33,12 +33,12 @@ namespace SURELOG {
 
 class DefParam final {
  public:
-  DefParam(const std::string& name, DefParam* parent = NULL)
+  DefParam(const std::string& name, DefParam* parent = nullptr)
       : m_name(name),
-        m_value(NULL),
+        m_value(nullptr),
         m_used(false),
         m_parent(parent),
-        m_fileContent(NULL),
+        m_fileContent(nullptr),
         m_nodeId(0) {}
 
   DefParam(const DefParam& orig) = delete;

@@ -121,7 +121,7 @@ const ModuleDefinition* FileContent::getModuleDefinition(
   if (itr != m_moduleDefinitions.end()) {
     return (*itr).second;
   }
-  return NULL;
+  return nullptr;
 }
 
 DesignComponent* FileContent::getComponentDefinition(
@@ -132,14 +132,14 @@ DesignComponent* FileContent::getComponentDefinition(
   if (comp) return comp;
   comp = (DesignComponent*)getClassDefinition(componentName);
   if (comp) return comp;
-  return NULL;
+  return nullptr;
 }
 
 Package* FileContent::getPackage(const std::string& name) {
   PackageNamePackageDefinitionMultiMap::iterator itr =
       m_packageDefinitions.find(name);
   if (itr == m_packageDefinitions.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }
@@ -149,7 +149,7 @@ const Program* FileContent::getProgram(const std::string& name) const {
   ProgramNameProgramDefinitionMap::const_iterator itr =
       m_programDefinitions.find(name);
   if (itr == m_programDefinitions.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }
@@ -160,7 +160,7 @@ const ClassDefinition* FileContent::getClassDefinition(
   ClassNameClassDefinitionMultiMap::const_iterator itr =
       m_classDefinitions.find(name);
   if (itr == m_classDefinitions.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }

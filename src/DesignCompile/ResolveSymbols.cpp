@@ -112,7 +112,7 @@ void ResolveSymbols::createFastLookup() {
 
               ClassDefinition* def =
                   new ClassDefinition(name, lib, pdef, m_fileData, subobject,
-                                      NULL, s.MakeClass_defn());
+                                      nullptr, s.MakeClass_defn());
               m_fileData->addClassDefinition(fullSubName, def);
               pdef->addClassDefinition(name, def);
             }
@@ -138,7 +138,7 @@ void ResolveSymbols::createFastLookup() {
                                              m_errorContainer);
               ClassDefinition* def =
                   new ClassDefinition(name, lib, mdef, m_fileData, subobject,
-                                      NULL, s.MakeClass_defn());
+                                      nullptr, s.MakeClass_defn());
               m_fileData->addClassDefinition(fullSubName, def);
               mdef->addClassDefinition(name, def);
             }
@@ -147,8 +147,8 @@ void ResolveSymbols::createFastLookup() {
         }
         case VObjectType::slClass_declaration: {
           ClassDefinition* def =
-              new ClassDefinition(fullName, lib, NULL, m_fileData, object, NULL,
-                                  s.MakeClass_defn());
+              new ClassDefinition(fullName, lib, nullptr, m_fileData, object,
+                                  nullptr, s.MakeClass_defn());
           m_fileData->addClassDefinition(fullName, def);
           break;
         }
@@ -176,7 +176,7 @@ void ResolveSymbols::createFastLookup() {
                   VObjectType::slClass_declaration) {
                 ClassDefinition* def =
                     new ClassDefinition(name, lib, mdef, m_fileData, subobject,
-                                        NULL, s.MakeClass_defn());
+                                        nullptr, s.MakeClass_defn());
                 m_fileData->addClassDefinition(fullSubName, def);
                 mdef->addClassDefinition(name, def);
               } else {

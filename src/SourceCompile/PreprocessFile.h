@@ -70,7 +70,7 @@ class PreprocessFile {
                  unsigned int includerLine, CompileSourceFile* csf,
                  SpecialInstructions& instructions,
                  CompilationUnit* compilationUnit, Library* library,
-                 std::string_view macroBody = "", MacroInfo* = NULL,
+                 std::string_view macroBody = "", MacroInfo* = nullptr,
                  unsigned int embeddedMacroCallLine = 0,
                  SymbolId embeddedMacroCallFile = 0);
   PreprocessFile(const PreprocessFile& orig);
@@ -113,7 +113,7 @@ class PreprocessFile {
   CompilationUnit* getCompilationUnit() { return m_compilationUnit; }
   Library* getLibrary() { return m_library; }
   antlr4::CommonTokenStream* getTokenStream() {
-    return m_antlrParserHandler ? m_antlrParserHandler->m_pptokens : NULL;
+    return m_antlrParserHandler ? m_antlrParserHandler->m_pptokens : nullptr;
   }
 
   SymbolId getFileId(unsigned int line);

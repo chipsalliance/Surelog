@@ -44,8 +44,8 @@ bool LoopCheck::addEdge(SymbolId from, SymbolId to) {
   // Create Graph
   std::map<SymbolId, Node*>::iterator fromIt = m_nodes.find(from);
   std::map<SymbolId, Node*>::iterator toIt = m_nodes.find(to);
-  Node* nodeFrom = NULL;
-  Node* nodeTo = NULL;
+  Node* nodeFrom = nullptr;
+  Node* nodeTo = nullptr;
   if (fromIt == m_nodes.end()) {
     nodeFrom = new Node(from);
     m_nodes.insert(std::make_pair(from, nodeFrom));

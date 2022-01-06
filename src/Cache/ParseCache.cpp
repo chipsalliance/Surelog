@@ -102,7 +102,7 @@ std::string ParseCache::getCacheFileName_(std::string svFileName) {
 
 bool ParseCache::restore_(std::string cacheFileName) {
   uint8_t* buffer_pointer = openFlatBuffers(cacheFileName);
-  if (buffer_pointer == NULL) return false;
+  if (buffer_pointer == nullptr) return false;
 
   /* Restore Errors */
   const PARSECACHE::ParseCache* ppcache =
@@ -113,11 +113,11 @@ bool ParseCache::restore_(std::string cacheFileName) {
                 m_parse->getCompileSourceFile()->getSymbolTable());
   /* Restore design content (Verilog Design Elements) */
   FileContent* fileContent = m_parse->getFileContent();
-  if (fileContent == NULL) {
+  if (fileContent == nullptr) {
     fileContent = new FileContent(
         m_parse->getFileId(0), m_parse->getLibrary(),
         m_parse->getCompileSourceFile()->getSymbolTable(),
-        m_parse->getCompileSourceFile()->getErrorContainer(), NULL, 0);
+        m_parse->getCompileSourceFile()->getErrorContainer(), nullptr, 0);
     m_parse->setFileContent(fileContent);
     m_parse->getCompileSourceFile()->getCompiler()->getDesign()->addFileContent(
         m_parse->getFileId(0), fileContent);
@@ -159,7 +159,7 @@ bool ParseCache::restore_(std::string cacheFileName) {
 
 bool ParseCache::checkCacheIsValid_(std::string cacheFileName) {
   uint8_t* buffer_pointer = openFlatBuffers(cacheFileName);
-  if (buffer_pointer == NULL) {
+  if (buffer_pointer == nullptr) {
     return false;
   }
   if (!PARSECACHE::ParseCacheBufferHasIdentifier(buffer_pointer)) {

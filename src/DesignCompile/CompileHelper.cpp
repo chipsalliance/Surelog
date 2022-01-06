@@ -376,7 +376,7 @@ bool CompileHelper::compileTfPortList(Procedure* parent, const FileContent* fC,
   if (tf_port_list && (fC->Type(tf_port_list) == VObjectType::slTf_port_list)) {
     NodeId tf_port_item = fC->Child(tf_port_list);
     while (tf_port_item) {
-      Value* value = NULL;
+      Value* value = nullptr;
       NodeId tf_data_type_or_implicit = fC->Child(tf_port_item);
       NodeId tf_data_type = fC->Child(tf_data_type_or_implicit);
       VObjectType tf_port_direction_type = fC->Type(tf_data_type_or_implicit);
@@ -430,7 +430,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
                                               NodeId data_declaration,
                                               CompileDesign* compileDesign,
                                               UHDM::any* pstmt, bool reduce) {
-  DataType* newType = NULL;
+  DataType* newType = nullptr;
   Serializer& s = compileDesign->getSerializer();
   UHDM::VectorOftypespec* typespecs = nullptr;
   if (pstmt) {
@@ -501,14 +501,14 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       if (nameId) {
         data_type = subType;
       } else {
-        return NULL;
+        return nullptr;
       }
       type_name = fC->Sibling(data_type);
       data_type = btype;
     }
   } else {
     if (dtype != VObjectType::slData_type) {
-      return NULL;
+      return nullptr;
     }
     type_name = fC->Sibling(data_type);
   }
@@ -689,7 +689,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       NodeId enumNameId = fC->Child(enum_name_declaration);
       std::string enumName = fC->SymName(enumNameId);
       NodeId enumValueId = fC->Sibling(enumNameId);
-      Value* value = NULL;
+      Value* value = nullptr;
       if (enumValueId) {
         value = m_exprBuilder.evalExpr(fC, enumValueId, scope);
         value->setValid();
@@ -897,7 +897,7 @@ bool CompileHelper::compileScopeBody(Scope* parent, Statement* parentStmt,
         NodeId expression = fC->Child(list_of_arguments);
         std::vector<SubRoutineArg*> args;
         while (expression) {
-          SubRoutineArg* arg = new SubRoutineArg(expression, NULL);
+          SubRoutineArg* arg = new SubRoutineArg(expression, nullptr);
           args.push_back(arg);
           expression = fC->Sibling(expression);
         }
@@ -994,7 +994,7 @@ bool CompileHelper::compileSubroutine_call(Scope* parent, Statement* parentStmt,
   NodeId expression = fC->Child(list_of_arguments);
   std::vector<SubRoutineArg*> args;
   while (expression) {
-    SubRoutineArg* arg = new SubRoutineArg(expression, NULL);
+    SubRoutineArg* arg = new SubRoutineArg(expression, nullptr);
     args.push_back(arg);
     expression = fC->Sibling(expression);
   }
@@ -1069,7 +1069,7 @@ bool CompileHelper::compileForLoop_stmt(Scope* parent, Statement* parentStmt,
   NodeId for_step = 0;
   NodeId statement_or_null = 0;
   NodeId itr_data_type = 0;
-  ForLoopStmt* stmt = NULL;
+  ForLoopStmt* stmt = nullptr;
   if (init_type == VObjectType::slStatement_or_null) {
     // for ( ; ; )
     statement_or_null = first_node;
@@ -1728,7 +1728,7 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
   NodeId net_decl_assignment = fC->Child(List_of_net_decl_assignments);
   while (net_decl_assignment) {
     NodeId signal = fC->Child(net_decl_assignment);
-    Signal* portRef = NULL;
+    Signal* portRef = nullptr;
     for (auto& port : component->getPorts()) {
       if (port->getName() == fC->SymName(signal)) {
         port->setType(fC->Type(NetType));
@@ -1920,7 +1920,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
           fC->Child(list_of_variable_decl_assignments);
       while (variable_decl_assignment) {
         NodeId signal = fC->Child(variable_decl_assignment);
-        Signal* portRef = NULL;
+        Signal* portRef = nullptr;
         unpackedDimension = fC->Sibling(signal);
         for (Signal* port : component->getPorts()) {
           if (port->getName() == fC->SymName(signal)) {

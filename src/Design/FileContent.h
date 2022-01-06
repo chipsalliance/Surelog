@@ -60,7 +60,7 @@ class FileContent : public DesignComponent {
  public:
   FileContent(SymbolId fileId, Library* library, SymbolTable* symbolTable,
               ErrorContainer* errors, FileContent* parent, SymbolId fileChunkId)
-      : DesignComponent(NULL, NULL),
+      : DesignComponent(nullptr, nullptr),
         m_fileId(fileId),
         m_fileChunkId(fileChunkId),
         m_errors(errors),

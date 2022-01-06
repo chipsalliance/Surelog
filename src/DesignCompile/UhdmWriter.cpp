@@ -1345,6 +1345,9 @@ bool writeElabGenScope(Serializer& s, ModuleInstance* instance, gen_scope* m,
             p->VpiFile(instance->getFileName());
             p->VpiLineNo(param.second.second);
             p->VpiParent(m);
+            p->VpiLocalParam(true);
+            int_typespec* ts = s.MakeInt_typespec();
+            p->Typespec(ts);
             params->push_back(p);
           }
         }

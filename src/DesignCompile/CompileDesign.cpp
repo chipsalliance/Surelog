@@ -228,7 +228,7 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
         unsigned int newLine = newFC->Line(newNodeId);
         if (!finalCollection) {
           if (((oldParentFile != newParentFile) ||
-               (oldParentFile == NULL && newParentFile == NULL)) &&
+               (oldParentFile == nullptr && newParentFile == nullptr)) &&
               ((oldFileName != newFileName) || (oldLine != newLine))) {
             Location loc1(symbols->registerSymbol(oldFileName), oldLine, 0,
                           symbols->registerSymbol(pack.first));

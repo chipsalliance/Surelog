@@ -30,7 +30,7 @@ bool ClassObject::setValue(const std::string& property, Value* value) {
   PropertyValueMap::iterator itr = m_properties.find(property);
   if (itr == m_properties.end()) {
     Property* prop = m_class->getProperty(property);
-    if (prop == NULL) {
+    if (prop == nullptr) {
       return false;
     }
     m_properties.insert(std::make_pair(property, std::make_pair(prop, value)));

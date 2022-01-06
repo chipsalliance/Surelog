@@ -271,15 +271,15 @@ class CompileHelper final {
 
   void compileBindStmt(DesignComponent* component, const FileContent* fC,
                        NodeId nodeId, CompileDesign* compileDesign,
-                       ValuedComponentI* instance = NULL);
+                       ValuedComponentI* instance = nullptr);
 
   UHDM::constant* constantFromValue(Value* val, CompileDesign* compileDesign);
 
   UHDM::any* compileExpression(DesignComponent* component,
                                const FileContent* fC, NodeId nodeId,
                                CompileDesign* compileDesign,
-                               UHDM::any* pexpr = NULL,
-                               ValuedComponentI* instance = NULL,
+                               UHDM::any* pexpr = nullptr,
+                               ValuedComponentI* instance = nullptr,
                                bool reduce = false, bool muteErrors = false);
 
   UHDM::any* compilePartSelectRange(
@@ -486,8 +486,8 @@ class CompileHelper final {
 
   UHDM::typespec* elabTypespec(DesignComponent* component, UHDM::typespec* spec,
                                CompileDesign* compileDesign,
-                               UHDM::any* pexpr = NULL,
-                               ValuedComponentI* instance = NULL);
+                               UHDM::any* pexpr = nullptr,
+                               ValuedComponentI* instance = nullptr);
 
   bool substituteAssignedValue(const UHDM::any* op,
                                CompileDesign* compileDesign);

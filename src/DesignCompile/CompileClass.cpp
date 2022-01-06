@@ -741,7 +741,7 @@ bool CompileClass::compile_local_parameter_declaration_(const FileContent* fC,
 
     FileCNodeId fnid(fC, id);
     m_class->addObject(VObjectType::slLocal_parameter_declaration, fnid);
-    m_class->addNamedObject(name, fnid, NULL);
+    m_class->addNamedObject(name, fnid, nullptr);
 
     param_assignment = fC->Sibling(param_assignment);
   }
@@ -785,7 +785,7 @@ bool CompileClass::compile_parameter_declaration_(const FileContent* fC,
 
     FileCNodeId fnid(fC, id);
     m_class->addObject(VObjectType::slLocal_parameter_declaration, fnid);
-    m_class->addNamedObject(name, fnid, NULL);
+    m_class->addNamedObject(name, fnid, nullptr);
 
     param_assignment = fC->Sibling(param_assignment);
   }
@@ -808,7 +808,7 @@ bool CompileClass::compile_class_type_(const FileContent* fC, NodeId id) {
   // Will be bound in UVMElaboration step
   ClassDefinition* base_class = new ClassDefinition(
       base_class_name, m_class->getLibrary(), m_class->getContainer(), fC,
-      base_class_id, NULL, s.MakeClass_defn());
+      base_class_id, nullptr, s.MakeClass_defn());
   m_class->insertBaseClass(base_class);
 
   return true;

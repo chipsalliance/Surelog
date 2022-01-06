@@ -37,5 +37,5 @@ DesignElement::DesignElement(SymbolId name, SymbolId fileId, ElemType type,
       m_endColumn(endColumn),
       m_parent(parent),
       m_node(0),
-      m_context(NULL) {}
+      m_context(nullptr) {}
 }  // namespace SURELOG

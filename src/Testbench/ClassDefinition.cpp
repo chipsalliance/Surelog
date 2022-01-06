@@ -31,7 +31,7 @@ ClassDefinition::ClassDefinition(std::string name, Library* library,
                                  const FileContent* fC, NodeId nodeId,
                                  ClassDefinition* parent,
                                  UHDM::class_defn* uhdm_definition)
-    : DesignComponent(container ? container : fC, NULL),
+    : DesignComponent(container ? container : fC, nullptr),
       DataType(fC, nodeId, name,
                fC ? fC->Type(nodeId) : VObjectType::slClass_declaration),
       m_name(name),
@@ -65,7 +65,7 @@ Property* ClassDefinition::getProperty(const std::string& name) const {
         }
       }
     }
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }
@@ -96,7 +96,7 @@ Function* ClassDefinition::getFunction(const std::string& name) const {
     return m_container->getFunction(name);
   }
 
-  return NULL;
+  return nullptr;
 }
 
 TaskMethod* ClassDefinition::getTask(const std::string& name) const {
@@ -112,7 +112,7 @@ TaskMethod* ClassDefinition::getTask(const std::string& name) const {
         }
       }
     }
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }
@@ -125,7 +125,7 @@ void ClassDefinition::insertTask(TaskMethod* p) {
 Constraint* ClassDefinition::getConstraint(const std::string& name) {
   ConstraintMap::iterator itr = m_constraints.find(name);
   if (itr == m_constraints.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }
@@ -138,7 +138,7 @@ void ClassDefinition::insertConstraint(Constraint* p) {
 ClassDefinition* ClassDefinition::getClass(const std::string& name) {
   ClassMap::iterator itr = m_classes.find(name);
   if (itr == m_classes.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }
@@ -151,7 +151,7 @@ void ClassDefinition::insertClass(ClassDefinition* p) {
 CoverGroupDefinition* ClassDefinition::getCoverGroup(const std::string& name) {
   CoverGroupMap::iterator itr = m_covergroups.find(name);
   if (itr == m_covergroups.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }
@@ -164,7 +164,7 @@ void ClassDefinition::insertCoverGroup(CoverGroupDefinition* p) {
 const DataType* ClassDefinition::getBaseClass(const std::string& name) const {
   BaseClassMap::const_iterator itr = m_baseclasses.find(name);
   if (itr == m_baseclasses.end()) {
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }
@@ -189,7 +189,7 @@ const DataType* ClassDefinition::getBaseDataType(
         }
       }
     }
-    return NULL;
+    return nullptr;
   } else {
     return (*itr).second;
   }

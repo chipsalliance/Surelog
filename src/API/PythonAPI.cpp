@@ -60,7 +60,7 @@
 namespace SURELOG {
 std::string PythonAPI::m_invalidScriptResult = "INVALID_PYTHON_SCRIPT_RESULT";
 
-PyThreadState* PythonAPI::m_mainThreadState = NULL;
+PyThreadState* PythonAPI::m_mainThreadState = nullptr;
 
 std::string PythonAPI::m_programPath = "";
 
@@ -79,13 +79,13 @@ PythonAPI::~PythonAPI() {}
 #ifdef SURELOG_WITH_PYTHON
 static struct PyModuleDef SLAPI_module = {PyModuleDef_HEAD_INIT,
                                           "slapi",
-                                          NULL,
+                                          nullptr,
                                           -1,
                                           SwigMethods,
-                                          NULL,
-                                          NULL,
-                                          NULL,
-                                          NULL};
+                                          nullptr,
+                                          nullptr,
+                                          nullptr,
+                                          nullptr};
 
 static PyObject* PyInit_slapi(void) { return PyModule_Create(&SLAPI_module); }
 #endif
@@ -311,7 +311,7 @@ std::string PythonAPI::evalScript(std::string module, std::string function,
   pModule = PyImport_Import(pModuleName);
 
   Py_DECREF(pModuleName);
-  if (pModule != NULL) {
+  if (pModule != nullptr) {
     pFunc = PyObject_GetAttrString(pModule, function.c_str());
     /* pFunc is a new reference */
 
@@ -324,10 +324,10 @@ std::string PythonAPI::evalScript(std::string module, std::string function,
       }
       pValue = PyObject_CallObject(pFunc, pArgs);
       Py_DECREF(pArgs);
-      if (pValue != NULL) {
+      if (pValue != nullptr) {
         Py_ssize_t size;
         const char* compName = PyUnicode_AsUTF8AndSize(pValue, &size);
-        if (compName == NULL) {
+        if (compName == nullptr) {
           std::cout << "PYTHON API ERROR: Incorrect function return type, "
                        "expecting a string: "
                     << function << std::endl;
