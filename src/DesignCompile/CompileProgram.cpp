@@ -58,7 +58,7 @@ bool CompileProgram::compile() {
   const FileContent* fC = m_program->m_fileContents[0];
   NodeId nodeId = m_program->m_nodeIds[0];
 
-  Location loc(m_symbols->registerSymbol(fC->getFileName(nodeId)),
+  Location loc(m_symbols->registerSymbol(fC->getFileName(nodeId).string()),
                fC->Line(nodeId), 0,
                m_symbols->registerSymbol(m_program->getName()));
 

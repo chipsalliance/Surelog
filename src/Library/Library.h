@@ -50,11 +50,11 @@ class Library final {
   bool isMember(SymbolId fid) const {
     return m_fileIdsSet.find(fid) != m_fileIdsSet.end();
   }
-  std::string report(SymbolTable* symbols);
+  std::string report(SymbolTable* symbols) const;
   void addModuleDefinition(ModuleDefinition* def);
   std::map<std::string, ModuleDefinition*>& getModules() { return m_modules; }
-  ModuleDefinition* getModule(const std::string& name);
-  SymbolTable* getSymbols() { return m_symbols; }
+  ModuleDefinition* getModule(const std::string& name) const;
+  SymbolTable* getSymbols() const { return m_symbols; }
 
  private:
   std::string m_name;

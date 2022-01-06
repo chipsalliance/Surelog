@@ -44,7 +44,7 @@ std::string Precompiled::getFileName(const std::string& packageName) const {
   return (found == m_packageMap.end()) ? "" : found->second;
 }
 
-bool Precompiled::isFilePrecompiled(const std::string& fileName) const {
+bool Precompiled::isFilePrecompiled(const fs::path& fileName) const {
   auto found = m_packageFileSet.find(fileName);
   return (found != m_packageFileSet.end());
 }

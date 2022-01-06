@@ -96,9 +96,10 @@ class Design final {
     return m_uniqueClassDefinitions;
   }
 
-  ModuleDefinition* getModuleDefinition(const std::string& moduleName);
+  ModuleDefinition* getModuleDefinition(const std::string& moduleName) const;
 
-  DesignComponent* getComponentDefinition(const std::string& componentName);
+  DesignComponent* getComponentDefinition(
+      const std::string& componentName) const;
 
   const std::vector<ModuleInstance*>& getTopLevelModuleInstances() const {
     return m_topLevelModuleInstances;
@@ -111,9 +112,9 @@ class Design final {
                                unsigned int& numberOfInstances,
                                unsigned int& numberOfLeafInstances,
                                unsigned int& nbUndefinedModules,
-                               unsigned int& nbUndefinedInstances);
+                               unsigned int& nbUndefinedInstances) const;
 
-  DefParam* getDefParam(const std::string& name);
+  DefParam* getDefParam(const std::string& name) const;
 
   Value* getDefParamValue(const std::string& name);
 
@@ -122,16 +123,16 @@ class Design final {
   void checkDefParamUsage(DefParam* parent = nullptr);
 
   ModuleInstance* findInstance(std::vector<std::string>& path,
-                               ModuleInstance* scope = nullptr);
+                               ModuleInstance* scope = nullptr) const;
 
   ModuleInstance* findInstance(const std::string& path,
-                               ModuleInstance* scope = nullptr);
+                               ModuleInstance* scope = nullptr) const;
 
-  Package* getPackage(const std::string& name);
+  Package* getPackage(const std::string& name) const;
 
-  Program* getProgram(const std::string& name);
+  Program* getProgram(const std::string& name) const;
 
-  ClassDefinition* getClassDefinition(const std::string& name);
+  ClassDefinition* getClassDefinition(const std::string& name) const;
 
   ErrorContainer* getErrorContainer() { return m_errors; }
 
@@ -182,10 +183,11 @@ class Design final {
 
  private:
   ModuleInstance* findInstance_(std::vector<std::string>& path,
-                                ModuleInstance* scope);
+                                ModuleInstance* scope) const;
   void addDefParam_(std::vector<std::string>& path, const FileContent* fC,
                     NodeId nodeId, Value* value, DefParam* parent);
-  DefParam* getDefParam_(std::vector<std::string>& path, DefParam* parent);
+  DefParam* getDefParam_(std::vector<std::string>& path,
+                         DefParam* parent) const;
 
   ErrorContainer* m_errors;
 

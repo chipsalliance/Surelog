@@ -23,6 +23,7 @@
 
 #include "ErrorReporting/ErrorContainer.h"
 
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <mutex>
@@ -37,6 +38,8 @@
 #include <unistd.h>
 #endif
 #include <stdio.h>
+
+namespace fs = std::filesystem;
 
 namespace SURELOG {
 ErrorContainer::ErrorContainer(SymbolTable* symbolTable,
@@ -57,9 +60,9 @@ ErrorContainer::~ErrorContainer() {
 
 void ErrorContainer::init() {
   if (ErrorDefinition::init()) {
-    const std::string& logFileName =
+    const fs::path logFileName =
         m_clp->getSymbolTable().getSymbol(m_clp->getLogFileId());
-    if (LogListener::failed(m_logListener->initialize(logFileName))) {
+    if (LogListener::failed(m_logListener->initialize(logFileName.string()))) {
       std::cerr << "[FTL:LG0001] Cannot create log file \"" << logFileName
                 << "\"" << std::endl;
     }
@@ -182,8 +185,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
       std::string location;
       if (loc.m_fileId == 0) {
       } else {
-        const std::string& fileName = m_symbolTable->getSymbol(loc.m_fileId);
-        location = fileName;
+        location = m_symbolTable->getSymbol(loc.m_fileId);
         if (loc.m_line > 0) {
           location += ":" + std::to_string(loc.m_line) + ":";
           if (loc.m_column > 0) location += std::to_string(loc.m_column) + ":";
@@ -196,10 +198,8 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
       for (unsigned int i = 1; i < nbExtraLoc; i++) {
         const Location& extraLoc = msg.m_locations[i];
         if (extraLoc.m_fileId) {
-          std::string extraLocation;
-          const std::string& fileName =
+          std::string extraLocation =
               m_symbolTable->getSymbol(extraLoc.m_fileId);
-          extraLocation = fileName;
           if (extraLoc.m_line > 0) {
             extraLocation += ":" + std::to_string(extraLoc.m_line) + ":";
             if (extraLoc.m_column > 0)

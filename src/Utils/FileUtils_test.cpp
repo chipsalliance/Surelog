@@ -16,6 +16,7 @@
 
 #include "Utils/FileUtils.h"
 
+#include <filesystem>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -23,13 +24,7 @@
 #include "SourceCompile/SymbolTable.h"
 #include "gtest/gtest.h"
 
-#if (__cplusplus >= 201703L) && __has_include(<filesystem>)
-#include <filesystem>
 namespace fs = std::filesystem;
-#else
-#include <experimental/filesystem>
-namespace fs = std::experimental::filesystem;
-#endif
 
 namespace SURELOG {
 
@@ -45,7 +40,7 @@ TEST(FileUtilsTest, BasicFileOperations) {
 
   EXPECT_FALSE(FileUtils::fileIsDirectory(dirtest));
 
-  EXPECT_TRUE(FileUtils::mkDir(dirtest));
+  EXPECT_TRUE(FileUtils::mkDirs(dirtest));
 
   EXPECT_TRUE(FileUtils::fileIsDirectory(dirtest));
   EXPECT_FALSE(FileUtils::fileIsRegular(dirtest));
@@ -75,18 +70,18 @@ TEST(FileUtilsTest, LocateFile) {
   SymbolTable sym;
   const std::string search_file = "search-file.txt";
 
-  const std::string basedir = testing::TempDir() + "/locate-file-test";
-  const std::string path1 = basedir + "/dir1-no-slash";
-  const std::string path2 = basedir + "/dir2-with-slash/";
-  const std::string actual_dir = basedir + "/actual-dir";
+  const fs::path basedir = fs::path(testing::TempDir()) / "locate-file-test";
+  const fs::path path1 = basedir / "dir1-no-slash";
+  const fs::path path2 = basedir / "dir2-with-slash/";
+  const fs::path actual_dir = basedir / "actual-dir";
 
-  FileUtils::mkDir(path1);
-  FileUtils::mkDir(actual_dir);
+  FileUtils::mkDirs(path1);
+  FileUtils::mkDirs(actual_dir);
 
   std::vector<SymbolId> paths = {
-      sym.registerSymbol(path1),
-      sym.registerSymbol(path2),
-      sym.registerSymbol(actual_dir),
+      sym.registerSymbol(path1.string()),
+      sym.registerSymbol(path2.string()),
+      sym.registerSymbol(actual_dir.string()),
   };
 
   SymbolId search_file_id = sym.registerSymbol(search_file);
@@ -95,7 +90,7 @@ TEST(FileUtilsTest, LocateFile) {
   SymbolId non_exist = FileUtils::locateFile(search_file_id, &sym, paths);
   EXPECT_EQ(non_exist, SymbolTable::getBadId());
 
-  const std::string actual_loc = actual_dir + "/" + search_file;
+  const fs::path actual_loc = actual_dir / search_file;
   std::ofstream(actual_loc).close();
 
   SymbolId now_exists = FileUtils::locateFile(search_file_id, &sym, paths);
@@ -110,8 +105,7 @@ TEST(FileUtilsTest, LocateFile) {
 
 TEST(FileUtilsTest, GetPathName) {
   EXPECT_EQ(FileUtils::getPathName(""), "");
-  EXPECT_EQ(FileUtils::getPathName("/r/dir/file.txt"),
-            (fs::path("/r/dir") += fs::path::preferred_separator).string());
+  EXPECT_EQ(FileUtils::getPathName("/r/dir/file.txt"), fs::path("/r/dir"));
 }
 
 // Still missing

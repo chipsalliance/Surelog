@@ -32,8 +32,9 @@ void Library::addModuleDefinition(ModuleDefinition* def) {
   m_modules.insert(std::make_pair(def->getName(), def));
 }
 
-ModuleDefinition* Library::getModule(const std::string& name) {
-  std::map<std::string, ModuleDefinition*>::iterator itr = m_modules.find(name);
+ModuleDefinition* Library::getModule(const std::string& name) const {
+  std::map<std::string, ModuleDefinition*>::const_iterator itr =
+      m_modules.find(name);
   if (itr == m_modules.end()) {
     return nullptr;
   } else {
@@ -41,7 +42,7 @@ ModuleDefinition* Library::getModule(const std::string& name) {
   }
 }
 
-std::string Library::report(SymbolTable* symbols) {
+std::string Library::report(SymbolTable* symbols) const {
   std::string report;
   report = "LIB: " + m_name + "\n";
   for (auto id : m_fileIds) {

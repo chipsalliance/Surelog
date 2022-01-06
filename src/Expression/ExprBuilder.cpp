@@ -516,9 +516,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         std::string name = fC->SymName(child).c_str();
         m_valueFactory.deleteValue(value);
         value = m_valueFactory.newStValue();
-        if (name.length() >= 2 && name.front() == '"' && name.back() == '"') {
-          name = name.substr(1, name.length() - 2);
-        }
+        name = StringUtils::unquoted(name);
         value->set(name);
         break;
       }

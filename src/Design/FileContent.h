@@ -24,6 +24,7 @@
 #ifndef FILECONTENT_H
 #define FILECONTENT_H
 
+#include <filesystem>
 #include <map>
 #include <unordered_set>
 #include <vector>
@@ -34,6 +35,8 @@
 #include "Design/VObject.h"
 #include "Design/ValuedComponentI.h"
 #include "SourceCompile/VObjectTypes.h"
+
+namespace fs = std::filesystem;
 
 namespace SURELOG {
 
@@ -69,7 +72,7 @@ class FileContent : public DesignComponent {
         m_parentFile(parent) {}
 
   void setLibrary(Library* lib) { m_library = lib; }
-  ~FileContent() override;
+  ~FileContent() override = default;
 
   typedef std::unordered_map<std::string, NodeId> NameIdMap;
 
@@ -122,8 +125,8 @@ class FileContent : public DesignComponent {
   std::string printSubTree(NodeId parentIndex);  // Print subtree from parent
   std::string printObject(NodeId noedId) const;  // Only print that object
   std::vector<std::string> collectSubTree(NodeId uniqueId);  // Helper function
-  const std::string& getFileName(NodeId id) const;
-  std::string getChunkFileName() {
+  const fs::path getFileName(NodeId id) const;
+  fs::path getChunkFileName() {
     return m_symbolTable->getSymbol(m_fileChunkId);
   }
   SymbolTable* getSymbolTable() { return m_symbolTable; }
@@ -211,9 +214,7 @@ class FileContent : public DesignComponent {
   const FileContent* getParent() const { return m_parentFile; }
   void setParent(FileContent* parent) { m_parentFile = parent; }
 
-  const std::string& getFileName() const {
-    return m_symbolTable->getSymbol(m_fileId);
-  }
+  fs::path getFileName() const { return m_symbolTable->getSymbol(m_fileId); }
 
   bool diffTree(NodeId id, const FileContent* oFc, NodeId oId,
                 std::string* diff_out) const;

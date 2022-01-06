@@ -20,7 +20,10 @@
  *
  * Created on January 27, 2018, 5:05 PM
  */
+
 #include "Library/ParseLibraryDef.h"
+
+#include <filesystem>
 
 #include "CommandLine/CommandLineParser.h"
 #include "Library/AntlrLibParserErrorListener.h"
@@ -79,18 +82,17 @@ bool ParseLibraryDef::parseLibrariesDefinition() {
   }
 
   for (auto file : cfgFiles) {
-    std::string fullPath =
-        FileUtils::getFullPath(m_symbolTable->getSymbol(file));
+    fs::path fullPath = FileUtils::getFullPath(m_symbolTable->getSymbol(file));
     m_librarySet->getLibrary(m_symbolTable->registerSymbol(
-        fullPath));  // Register configuration files in "work" library
+        fullPath.string()));  // Register configuration files in "work" library
   }
 
   unsigned int size = m_commandLineParser->getSourceFiles().size();
   for (unsigned int i = 0; i < size; i++) {
     SymbolId id = m_commandLineParser->getSourceFiles()[i];
-    std::string fullPath = FileUtils::getFullPath(m_symbolTable->getSymbol(id));
+    fs::path fullPath = FileUtils::getFullPath(m_symbolTable->getSymbol(id));
     m_librarySet->getLibrary(m_symbolTable->registerSymbol(
-        fullPath));  // Register files in "work" library
+        fullPath.string()));  // Register files in "work" library
   }
 
   m_librarySet->checkErrors(m_symbolTable, m_errors);
@@ -103,8 +105,8 @@ bool ParseLibraryDef::parseLibrariesDefinition() {
 
 bool ParseLibraryDef::parseLibraryDefinition(SymbolId fileId, Library* lib) {
   m_fileId = fileId;
-  std::string fileName = m_symbolTable->getSymbol(fileId);
-  std::string relativePath = FileUtils::getPathName(fileName);
+  const fs::path fileName = m_symbolTable->getSymbol(fileId);
+  const fs::path relativePath = FileUtils::getPathName(fileName);
   std::ifstream stream;
   stream.open(fileName);
 
@@ -143,10 +145,10 @@ bool ParseLibraryDef::parseLibraryDefinition(SymbolId fileId, Library* lib) {
     if (lib) {
       m_fileContent->setLibrary(lib);
     } else {
-      std::string fullPath =
+      fs::path fullPath =
           FileUtils::getFullPath(m_symbolTable->getSymbol(m_fileId));
-      m_fileContent->setLibrary(
-          m_librarySet->getLibrary(m_symbolTable->registerSymbol(fullPath)));
+      m_fileContent->setLibrary(m_librarySet->getLibrary(
+          m_symbolTable->registerSymbol(fullPath.string())));
     }
   }
 

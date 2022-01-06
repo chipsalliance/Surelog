@@ -22,19 +22,12 @@
  */
 #include "SourceCompile/CompileSourceFile.h"
 
-#if (__cplusplus >= 201703L) && __has_include(<filesystem>)
-#include <filesystem>
-namespace fs = std::filesystem;
-#else
-#include <experimental/filesystem>
-namespace fs = std::experimental::filesystem;
-#endif
-
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 
 #include <cstdlib>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 
@@ -96,10 +89,9 @@ CompileSourceFile::CompileSourceFile(CompileSourceFile* parent,
 
 bool CompileSourceFile::compile(Action action) {
   m_action = action;
-  std::string fileName = m_symbolTable->getSymbol(m_fileId);
+  fs::path fileName = m_symbolTable->getSymbol(m_fileId);
   if (m_commandLineParser->verbose()) {
     SymbolId fileId = m_fileId;
-    const std::string separator(1, fs::path::preferred_separator);
     Location loc(fileId);
     ErrorDefinition::ErrorType type =
         ErrorDefinition::PP_PROCESSING_SOURCE_FILE;
@@ -157,15 +149,15 @@ unsigned int CompileSourceFile::getJobSize(Action action) {
   switch (action) {
     case Preprocess:
     case PostPreprocess: {
-      std::string fileName = getSymbolTable()->getSymbol(m_fileId);
+      fs::path fileName = getSymbolTable()->getSymbol(m_fileId);
       return FileUtils::fileSize(fileName);
     }
     case Parse: {
-      std::string fileName = getSymbolTable()->getSymbol(m_ppResultFileId);
+      fs::path fileName = getSymbolTable()->getSymbol(m_ppResultFileId);
       return FileUtils::fileSize(fileName);
     }
     case PythonAPI: {
-      std::string fileName = getSymbolTable()->getSymbol(m_ppResultFileId);
+      fs::path fileName = getSymbolTable()->getSymbol(m_ppResultFileId);
       return FileUtils::fileSize(fileName);
     }
   };
@@ -219,7 +211,7 @@ bool CompileSourceFile::parse_() {
 
 bool CompileSourceFile::preprocess_() {
   Precompiled* prec = Precompiled::getSingleton();
-  std::string root = getSymbolTable()->getSymbol(m_fileId);
+  fs::path root = getSymbolTable()->getSymbol(m_fileId);
   root = FileUtils::basename(root);
 
   PreprocessFile::SpecialInstructions instructions(
@@ -272,28 +264,28 @@ bool CompileSourceFile::postPreprocess_() {
   }
   if (m_commandLineParser->writePpOutput() ||
       (m_commandLineParser->writePpOutputFileId() != 0)) {
-    const std::string& directory =
+    const fs::path directory =
         symbolTable->getSymbol(m_commandLineParser->getFullCompileDir());
-    std::string fullFileName = symbolTable->getSymbol(m_fileId);
-    std::string baseFileName = FileUtils::basename(fullFileName);
-    std::string filePath = FileUtils::getPathName(fullFileName);
-    std::string hashedPath = FileUtils::hashPath(filePath);
-    std::string fileName = hashedPath + baseFileName;
+    fs::path fullFileName = symbolTable->getSymbol(m_fileId);
+    fs::path baseFileName = FileUtils::basename(fullFileName);
+    fs::path filePath = FileUtils::getPathName(fullFileName);
+    fs::path hashedPath = FileUtils::hashPath(filePath);
+    fs::path fileName = hashedPath / baseFileName;
 
-    const std::string& writePpOutputFileName =
+    const fs::path writePpOutputFileName =
         symbolTable->getSymbol(m_commandLineParser->writePpOutputFileId());
-    std::string libName = m_library->getName() + "/";
-    std::string ppFileName = m_commandLineParser->writePpOutput()
-                                 ? directory + libName + fileName
-                                 : writePpOutputFileName;
-    std::string dirPpFile = FileUtils::getPathName(ppFileName);
-    SymbolId ppOutId = symbolTable->registerSymbol(ppFileName);
-    m_ppResultFileId = m_symbolTable->registerSymbol(ppFileName);
-    SymbolId ppDirId = symbolTable->registerSymbol(dirPpFile);
+    std::string libName = m_library->getName();
+    fs::path ppFileName = m_commandLineParser->writePpOutput()
+                              ? directory / libName / fileName
+                              : writePpOutputFileName;
+    fs::path dirPpFile = FileUtils::getPathName(ppFileName);
+    SymbolId ppOutId = symbolTable->registerSymbol(ppFileName.string());
+    m_ppResultFileId = m_symbolTable->registerSymbol(ppFileName.string());
+    SymbolId ppDirId = symbolTable->registerSymbol(dirPpFile.string());
     if (m_commandLineParser->lowMem()) {
       return true;
     }
-    if (!FileUtils::mkDir(dirPpFile)) {
+    if (!FileUtils::mkDirs(dirPpFile)) {
       Location loc(ppDirId);
       Error err(ErrorDefinition::PP_CANNOT_CREATE_DIRECTORY, loc);
       m_errors->addError(err);

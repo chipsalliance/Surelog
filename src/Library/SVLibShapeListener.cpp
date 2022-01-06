@@ -22,6 +22,7 @@
  */
 #include "Library/SVLibShapeListener.h"
 
+#include <filesystem>
 #include <regex>
 
 #include "CommandLine/CommandLineParser.h"
@@ -40,7 +41,7 @@ using namespace SURELOG;
 
 SVLibShapeListener::SVLibShapeListener(ParseLibraryDef *parser,
                                        antlr4::CommonTokenStream *tokens,
-                                       std::string relativePath)
+                                       const fs::path &relativePath)
     : SV3_1aTreeShapeHelper(
           new ParseFile(parser->getFileId(), parser->getSymbolTable(),
                         parser->getErrorContainer()),
@@ -74,18 +75,18 @@ void SVLibShapeListener::enterLibrary_declaration(
   lib = m_parser->getLibrarySet()->getLibrary(name);
 
   for (auto pathSpec : ctx->file_path_spec()) {
-    for (auto id : FileUtils::collectFiles(m_relativePath + pathSpec->getText(),
+    for (auto id : FileUtils::collectFiles(m_relativePath / pathSpec->getText(),
                                            m_parser->getSymbolTable())) {
       lib->addFileId(id);
-      std::string fileName = m_parser->getSymbolTable()->getSymbol(id);
-      if ((fileName.find(".cfg") != std::string::npos) ||
-          (fileName.find(".map") != std::string::npos)) {
+      fs::path fileName = m_parser->getSymbolTable()->getSymbol(id);
+      if ((fileName.extension() == ".cfg") ||
+          (fileName.extension() == ".map")) {
         ParseLibraryDef parser(
             m_parser->getCommandLineParser(), m_parser->getErrorContainer(),
             m_parser->getSymbolTable(), m_parser->getLibrarySet(),
             m_parser->getConfigSet());
         parser.parseLibraryDefinition(
-            m_parser->getSymbolTable()->registerSymbol(fileName), lib);
+            m_parser->getSymbolTable()->registerSymbol(fileName.string()), lib);
       }
     }
   }
@@ -93,12 +94,12 @@ void SVLibShapeListener::enterLibrary_declaration(
 
 void SVLibShapeListener::enterInclude_statement(
     SV3_1aParser::Include_statementContext *ctx) {
-  std::string filePath = ctx->file_path_spec()->getText();
+  fs::path filePath = ctx->file_path_spec()->getText();
 
   std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
   if (!FileUtils::fileExists(filePath)) {
     Location loc(m_parser->getFileId(), lineCol.first, 0,
-                 m_parser->getSymbolTable()->registerSymbol(filePath));
+                 m_parser->getSymbolTable()->registerSymbol(filePath.string()));
     Error err(ErrorDefinition::PP_CANNOT_OPEN_INCLUDE_FILE, loc);
     m_parser->getErrorContainer()->addError(err);
     return;
@@ -109,7 +110,7 @@ void SVLibShapeListener::enterInclude_statement(
                          m_parser->getSymbolTable(), m_parser->getLibrarySet(),
                          m_parser->getConfigSet());
   parser.parseLibraryDefinition(
-      m_parser->getSymbolTable()->registerSymbol(filePath));
+      m_parser->getSymbolTable()->registerSymbol(filePath.string()));
 }
 
 void SVLibShapeListener::enterUselib_directive(

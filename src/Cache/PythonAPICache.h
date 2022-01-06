@@ -41,9 +41,9 @@ class PythonAPICache : Cache {
  private:
   PythonAPICache(const PythonAPICache& orig) = delete;
 
-  std::string getCacheFileName_(std::string fileName = "");
-  bool restore_(std::string cacheFileName);
-  bool checkCacheIsValid_(std::string cacheFileName);
+  fs::path getCacheFileName_(const fs::path& fileName = "") const;
+  bool restore_(const fs::path& cacheFileName);
+  bool checkCacheIsValid_(const fs::path& cacheFileName);
 
   PythonListen* m_listener;
 };

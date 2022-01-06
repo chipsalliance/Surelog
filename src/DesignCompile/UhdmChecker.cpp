@@ -22,14 +22,6 @@
  */
 #include "DesignCompile/UhdmChecker.h"
 
-#if (__cplusplus >= 201703L) && __has_include(<filesystem>)
-#include <filesystem>
-namespace fs = std::filesystem;
-#else
-#include <experimental/filesystem>
-namespace fs = std::experimental::filesystem;
-#endif
-
 #include <string.h>
 
 #include <map>
@@ -262,12 +254,12 @@ bool UhdmChecker::registerFile(const FileContent* fC,
 }
 
 bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
-                             const std::string& reportFile,
+                             const fs::path& reportFile,
                              float overallCoverage) {
   ErrorContainer* errors = compileDesign->getCompiler()->getErrorContainer();
   SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
   std::ofstream report;
-  report.open(reportFile + ".html");
+  report.open(reportFile.string() + ".html");
   if (report.bad()) return false;
   report << "\n<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody {\n\n}\np "
             "{\nfont-size: 14px;\n}</style>\n";
@@ -284,7 +276,7 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
     std::string fileContent = FileUtils::getFileContent(fC->getFileName());
     std::ofstream reportF;
     std::string fname = "chk" + std::to_string(fileIndex) + ".html";
-    std::string f = FileUtils::getPathName(reportFile) + fname;
+    fs::path f = FileUtils::getPathName(reportFile) / fname;
     reportF.open(f);
     if (reportF.bad()) return false;
     reportF << "\n<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody {\n\n}\np "
@@ -298,7 +290,7 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
 
     RangesMap& uhdmCover = (*fileItr).second;
     float cov = 0.0f;
-    std::map<std::string, float>::iterator itr =
+    std::map<fs::path, float>::iterator itr =
         fileCoverageMap.find(fC->getFileName());
     cov = (*itr).second;
     std::stringstream strst;
@@ -310,22 +302,22 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
         "#82E0AA; margin:0; min-width: 110px; padding:10; float: left; \">" +
         coverage +
         "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" +
-        fname + "> " + fC->getFileName() + "</a></h3></div>\n";
+        fname + "> " + fC->getFileName().string() + "</a></h3></div>\n";
     std::string fileStatPink =
         "<div style=\"overflow: hidden;\"> <h3 style=\"background-color: "
         "#FFB6C1; margin:0; min-width: 110px; padding:10; float: left; \">" +
         coverage +
         "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" +
-        fname + "> " + fC->getFileName() + "</a></h3></div>\n";
+        fname + "> " + fC->getFileName().string() + "</a></h3></div>\n";
     std::string fileStatRed =
         "<div style=\"overflow: hidden;\"> <h3 style=\"background-color: "
         "#FF0000; margin:0; min-width: 110px; padding:10; float: left; \">" +
         coverage +
         "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" +
-        fname + "> " + fC->getFileName() + "</a></h3></div>\n";
+        fname + "> " + fC->getFileName().string() + "</a></h3></div>\n";
     std::string fileStatWhite =
         "<h3 style=\"margin:0; padding:0 \"> <a href=" + fname + ">" +
-        fC->getFileName() + "</a> " + coverage + "</h3>\n";
+        fC->getFileName().string() + "</a> " + coverage + "</h3>\n";
 
     reportF << "<h3>" << fC->getFileName() << coverage << "</h3>\n";
     bool uncovered = false;
@@ -361,7 +353,8 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
         }
 
         if (lineText.empty()) {
-          Location loc(symbols->registerSymbol(fC->getFileName()), line, 0, 0);
+          Location loc(symbols->registerSymbol(fC->getFileName().string()),
+                       line, 0, 0);
           Error err(ErrorDefinition::UHDM_WRONG_COVERAGE_LINE, loc);
           errors->addError(err);
         }
@@ -420,14 +413,17 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
       }
     }
     if (!redCoverage.empty()) {
-      orderedCoverageMap.insert(std::make_pair(cov, redCoverage));
+      orderedCoverageMap.insert(
+          std::make_pair(static_cast<int>(cov), redCoverage));
     } else {
       if (!pinkCoverage.empty()) {
-        orderedCoverageMap.insert(std::make_pair(cov, pinkCoverage));
+        orderedCoverageMap.insert(
+            std::make_pair(static_cast<int>(cov), pinkCoverage));
       }
     }
     if (uncovered == false) {
-      orderedCoverageMap.insert(std::make_pair(cov, fileStatGreen));
+      orderedCoverageMap.insert(
+          std::make_pair(static_cast<int>(cov), fileStatGreen));
     }
     reportF << "</body>\n</html>\n";
     reportF.close();
@@ -465,7 +461,7 @@ void UhdmChecker::mergeColumnCoverage() {
   }
 }
 
-float UhdmChecker::reportCoverage(const std::string& reportFile) {
+float UhdmChecker::reportCoverage(const fs::path& reportFile) {
   std::ofstream report;
   report.open(reportFile);
   if (report.bad()) return false;
@@ -555,7 +551,7 @@ void UhdmChecker::annotate(CompileDesign* m_compileDesign) {
     if ((ot == uhdmunsupported_expr) || (ot == uhdmunsupported_stmt) ||
         (ot == uhdmunsupported_typespec))
       unsupported = true;
-    const std::string& fn = bc->VpiFile();
+    const fs::path& fn = bc->VpiFile();
     const auto& fItr = fileMap.find(fn);
     if (fItr != fileMap.end()) {
       const FileContent* fC = (*fItr).second;
@@ -663,10 +659,10 @@ bool UhdmChecker::check(const std::string& reportFile) {
   }
 
   for (const FileContent* fC : files) {
-    const std::string& fileName = fC->getFileName();
+    const fs::path fileName = fC->getFileName();
     if (!clp->createCache()) {
-      if (strstr(fileName.c_str(), "uvm_pkg.sv") ||
-          strstr(fileName.c_str(), "ovm_pkg.sv")) {
+      if ((fileName.filename().compare("uvm_pkg.sv") == 0) ||
+          (fileName.filename().compare("ovm_pkg.sv") == 0)) {
         continue;
       }
     }

@@ -453,7 +453,9 @@ std::string SLgetModuleName(ModuleDefinition* module) {
 std::string SLgetModuleFile(ModuleDefinition* module) {
   if (!module) return "";
   if (module->getFileContents().size())
-    return module->getFileContents()[0]->getFileName(module->getNodeIds()[0]);
+    return module->getFileContents()[0]
+        ->getFileName(module->getNodeIds()[0])
+        .string();
   else
     return "";
 }
@@ -496,7 +498,9 @@ std::string SLgetClassName(ClassDefinition* module) {
 std::string SLgetClassFile(ClassDefinition* module) {
   if (!module) return "";
   if (module->getFileContents().size() && module->getFileContents()[0])
-    return module->getFileContents()[0]->getFileName(module->getNodeIds()[0]);
+    return module->getFileContents()[0]
+        ->getFileName(module->getNodeIds()[0])
+        .string();
   else
     return "";
 }
@@ -539,7 +543,9 @@ std::string SLgetPackageName(Package* module) {
 std::string SLgetPackageFile(Package* module) {
   if (!module) return "";
   if (module->getFileContents().size())
-    return module->getFileContents()[0]->getFileName(module->getNodeIds()[0]);
+    return module->getFileContents()[0]
+        ->getFileName(module->getNodeIds()[0])
+        .string();
   else
     return "";
 }
@@ -581,7 +587,9 @@ std::string SLgetProgramName(Program* module) {
 std::string SLgetProgramFile(Program* module) {
   if (!module) return "";
   if (module->getFileContents().size())
-    return module->getFileContents()[0]->getFileName(module->getNodeIds()[0]);
+    return module->getFileContents()[0]
+        ->getFileName(module->getNodeIds()[0])
+        .string();
   else
     return "";
 }
@@ -647,7 +655,9 @@ DesignComponent* SLgetInstanceDefinition(ModuleInstance* instance) {
 
 std::string SLgetInstanceFileName(ModuleInstance* instance) {
   if (!instance) return "";
-  return instance->getFileContent()->getFileName(instance->getNodeId());
+  return instance->getFileContent()
+      ->getFileName(instance->getNodeId())
+      .string();
 }
 
 FileContent* SLgetInstanceFileContent(ModuleInstance* instance) {

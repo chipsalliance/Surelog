@@ -23,6 +23,7 @@
 #include "ErrorReporting/Report.h"
 
 #include <chrono>
+#include <filesystem>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -37,6 +38,7 @@
 #include "ErrorReporting/ErrorContainer.h"
 
 using namespace SURELOG;
+namespace fs = std::filesystem;
 
 struct Result {
   std::string m_nbFatal;
@@ -47,9 +49,9 @@ struct Result {
   std::string m_nbInfo;
 };
 
-bool parseReportFile(std::string logFile, Result& result) {
+bool parseReportFile(const fs::path& logFile, Result& result) {
   bool ret = false;
-  std::ifstream ifs(logFile.c_str());
+  std::ifstream ifs(logFile);
   if (!ifs.bad()) {
     std::string line;
     while (std::getline(ifs, line)) {
@@ -85,12 +87,12 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
                                                      SymbolTable* st) {
   // std::mutex m;
   // m.lock();
-  std::string odir = st->getSymbol(clp->getOutputDir());
-  std::string alldir = st->getSymbol(clp->getCompileAllDir());
-  std::string unitdir = st->getSymbol(clp->getCompileUnitDir());
-  std::string log = st->getSymbol(clp->getDefaultLogFileId());
-  std::string alllog = odir + alldir + log;
-  std::string unitlog = odir + unitdir + log;
+  fs::path odir = st->getSymbol(clp->getOutputDir());
+  fs::path alldir = st->getSymbol(clp->getCompileAllDir());
+  fs::path unitdir = st->getSymbol(clp->getCompileUnitDir());
+  fs::path log = st->getSymbol(clp->getDefaultLogFileId());
+  fs::path alllog = odir / alldir / log;
+  fs::path unitlog = odir / unitdir / log;
   bool readAll = false;
   bool readUnit = false;
   Result readAllResult;
@@ -132,11 +134,11 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
   std::cout << "FILE UNIT LOG: " << unitlog << std::endl;
   std::cout << "ALL FILES LOG: " << alllog << std::endl;
 
-  std::string diffFile = odir + unitdir + "diff.log";
+  fs::path diffFile = odir / unitdir / "diff.log";
 
-  std::string diffCmd = "diff -r " + odir + unitdir + " " + odir + alldir +
-                        " --exclude cache --brief > " + diffFile;
-
+  std::string diffCmd = "diff -r " + odir.string() + unitdir.string() + " " +
+                        odir.string() + alldir.string() +
+                        " --exclude cache --brief > " + diffFile.string();
   int retval = system(diffCmd.c_str());
 
   std::ifstream ifs(diffFile.c_str());
@@ -147,7 +149,7 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
       if (line.find("diff.log") != std::string::npos) {
         continue;
       }
-      if (line.find(log.c_str()) != std::string::npos) {
+      if (line.find(log.string()) != std::string::npos) {
         continue;
       }
 

@@ -41,18 +41,18 @@ class Enum : public DataType {
   SURELOG_IMPLEMENT_RTTI(Enum, DataType)
  public:
   Enum(const FileContent* fC, NodeId nameId, NodeId baseTypeId);
-  ~Enum() override;
+  ~Enum() override = default;
 
   typedef std::map<std::string, std::pair<unsigned int, Value*>> NameValueMap;
 
   void addValue(const std::string& name, unsigned int lineNb, Value* value) {
     m_values.insert(std::make_pair(name, std::make_pair(lineNb, value)));
   }
-  Value* getValue(const std::string& name);
+  Value* getValue(const std::string& name) const;
   NodeId getDefinitionId() const { return m_nameId; }
   NameValueMap& getValues() { return m_values; }
 
-  UHDM::typespec* getBaseTypespec() { return m_baseTypespec; }
+  UHDM::typespec* getBaseTypespec() const { return m_baseTypespec; }
   void setBaseTypespec(UHDM::typespec* typespec) { m_baseTypespec = typespec; }
 
  private:

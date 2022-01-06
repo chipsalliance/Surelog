@@ -39,54 +39,42 @@
 #include "SourceCompile/SymbolTable.h"
 #include "Utils/StringUtils.h"
 
-#if (__cplusplus >= 201703L) && __has_include(<filesystem>)
-#include <filesystem>
-namespace fs = std::filesystem;
-#else
-#include <experimental/filesystem>
-namespace fs = std::experimental::filesystem;
-#endif
-
 namespace SURELOG {
-bool FileUtils::fileExists(std::string_view name) {
+bool FileUtils::fileExists(const fs::path& name) {
   std::error_code ec;
   return fs::exists(name, ec);
 }
 
-uint64_t FileUtils::fileSize(std::string_view name) {
+uint64_t FileUtils::fileSize(const fs::path& name) {
   std::error_code ec;
   return fs::file_size(name, ec);
 }
 
-bool FileUtils::fileIsDirectory(std::string_view name) {
+bool FileUtils::fileIsDirectory(const fs::path& name) {
   return fs::is_directory(name);
 }
 
-bool FileUtils::fileIsRegular(std::string_view name) {
+bool FileUtils::fileIsRegular(const fs::path& name) {
   return fs::is_regular_file(name);
 }
 
 SymbolId FileUtils::locateFile(SymbolId file, SymbolTable* symbols,
                                const std::vector<SymbolId>& paths) {
-  const std::string& fileName = symbols->getSymbol(file);
+  const fs::path fileName = symbols->getSymbol(file);
   if (fileExists(fileName)) {
     return file;
   }
   for (auto id : paths) {
-    const std::string& path = symbols->getSymbol(id);
-    std::string filePath;
-    if (!path.empty() && (path[path.size() - 1] == '/'))
-      filePath = path + fileName;
-    else
-      filePath = path + "/" + fileName;
+    const fs::path path = symbols->getSymbol(id);
+    fs::path filePath = path / fileName;
     if (fileExists(filePath)) {
-      return symbols->registerSymbol(filePath);
+      return symbols->registerSymbol(filePath.string());
     }
   }
   return SymbolTable::getBadId();
 }
 
-bool FileUtils::mkDir(std::string_view path) {
+bool FileUtils::mkDirs(const fs::path& path) {
   // CAUTION: There is a known bug in VC compiler where a trailing
   // slash in the path will cause a false return from a call to
   // fs::create_directories.
@@ -95,24 +83,24 @@ bool FileUtils::mkDir(std::string_view path) {
   return fs::is_directory(path);
 }
 
-bool FileUtils::rmDirRecursively(std::string_view path) {
+bool FileUtils::rmDirRecursively(const fs::path& path) {
   static constexpr uintmax_t kErrorCondition = static_cast<std::uintmax_t>(-1);
   std::error_code err;
   return fs::remove_all(path, err) != kErrorCondition;
 }
 
-std::string FileUtils::getFullPath(std::string_view path) {
+fs::path FileUtils::getFullPath(const fs::path& path) {
   std::error_code ec;
   fs::path fullPath = fs::canonical(path, ec);
-  return ec ? std::string(path) : fullPath.string();
+  return ec ? path : fullPath;
 }
 
-bool FileUtils::getFullPath(std::string_view path, std::string* result) {
+bool FileUtils::getFullPath(const fs::path& path, fs::path* result) {
   std::error_code ec;
   fs::path fullPath = fs::canonical(path, ec);
-  bool found = (!ec && fileIsRegular(fullPath.string()));
+  bool found = (!ec && fileIsRegular(fullPath));
   if (result != nullptr) {
-    *result = found ? fullPath.string() : path;
+    *result = found ? fullPath : path;
   }
   return found;
 }
@@ -128,22 +116,22 @@ std::vector<SymbolId> FileUtils::collectFiles(SymbolId dirPath, SymbolId ext,
                       symbols);
 }
 
-std::vector<SymbolId> FileUtils::collectFiles(std::string_view dirPath,
-                                              std::string_view ext,
+std::vector<SymbolId> FileUtils::collectFiles(const fs::path& dirPath,
+                                              const fs::path& ext,
                                               SymbolTable* symbols) {
   std::vector<SymbolId> result;
   if (fileIsDirectory(dirPath)) {
     for (fs::directory_entry entry : fs::directory_iterator(dirPath)) {
-      const std::string filepath = entry.path().string();
-      if (has_suffix(filepath, ext)) {
-        result.push_back(symbols->registerSymbol(filepath));
+      const fs::path& filepath = entry.path();
+      if (filepath.extension() == ext) {
+        result.push_back(symbols->registerSymbol(filepath.string()));
       }
     }
   }
   return result;
 }
 
-std::vector<SymbolId> FileUtils::collectFiles(std::string_view pathSpec,
+std::vector<SymbolId> FileUtils::collectFiles(const fs::path& pathSpec,
                                               SymbolTable* symbols) {
   // ?   single character wildcard (matches any single character)
   // *   multiple character wildcard (matches any number of characters in a
@@ -221,7 +209,7 @@ std::vector<SymbolId> FileUtils::collectFiles(std::string_view pathSpec,
   return result;
 }
 
-std::string FileUtils::getFileContent(const std::string& filename) {
+std::string FileUtils::getFileContent(const fs::path& filename) {
   std::ifstream in(filename, std::ios::in | std::ios::binary);
   if (in) {
     std::string result;
@@ -232,27 +220,21 @@ std::string FileUtils::getFileContent(const std::string& filename) {
   return "FAILED_TO_LOAD_CONTENT";
 }
 
-std::string FileUtils::getPathName(std::string_view path) {
-  fs::path fs_path(path);
-  return fs_path.has_parent_path()
-             ? (fs::path(path).parent_path() += fs::path::preferred_separator)
-                   .string()
-             : "";
+fs::path FileUtils::getPathName(const fs::path& path) {
+  return path.has_parent_path() ? path.parent_path() : "";
 }
 
-std::string FileUtils::basename(std::string_view str) {
-  return fs::path(str).filename().string();
+fs::path FileUtils::basename(const fs::path& path) { return path.filename(); }
+
+fs::path FileUtils::getPreferredPath(const fs::path& path) {
+  return fs::path(path).make_preferred();
 }
 
-std::string FileUtils::getPreferredPath(std::string_view path) {
-  return fs::path(path).make_preferred().string();
-}
-
-std::string FileUtils::hashPath(const std::string& path) {
+std::string FileUtils::hashPath(const fs::path& path) {
   const std::string separator(1, fs::path::preferred_separator);
   std::string hashedpath;
-  std::size_t val = std::hash<std::string>{}(path);
-  std::string last_dir = path;
+  std::size_t val = std::hash<std::string>{}(path.string());
+  std::string last_dir = path.string();
   if (!last_dir.empty()) last_dir.erase(last_dir.end() - 1);
   auto it1 = std::find_if(last_dir.rbegin(), last_dir.rend(),
                           [](char ch) { return (ch == '/' || ch == '\\'); });
@@ -262,13 +244,13 @@ std::string FileUtils::hashPath(const std::string& path) {
   return hashedpath;
 }
 
-std::string FileUtils::makeRelativePath(std::string_view in_path) {
+fs::path FileUtils::makeRelativePath(const fs::path& in_path) {
   const std::string separator(1, fs::path::preferred_separator);
   // Standardize it so we can avoid special cases and wildcards!
-  fs::path p(in_path);
-  std::string path = p.make_preferred().string();
+  std::string path = getPreferredPath(in_path).string();
   // Handle Windows specific absolute paths
-  if (p.is_absolute() && (path.length() > 1) && (path[1] == ':')) path[1] = '$';
+  if (in_path.is_absolute() && (path.length() > 1) && (path[1] == ':'))
+    path[1] = '$';
   // Swap "..\" (or "../") for "__\" (or "__/")
   path = StringUtils::replaceAll(path, ".." + separator, "__" + separator);
   // Swap "\.\" (or "/./") for "\" (or "/")
