@@ -1124,12 +1124,19 @@ UHDM::typespec* CompileHelper::compileTypespec(
             member_ts = tps;
           }
           NodeId member_name = fC->Child(Variable_decl_assignment);
+          NodeId Expression = fC->Sibling(member_name);
           const std::string& mem_name = fC->SymName(member_name);
           typespec_member* m = buildTypespecMember(
               compileDesign, fC->getFileName(), mem_name, "",
               fC->Line(member_name), fC->Column(member_name),
               fC->EndLine(member_name), fC->EndColumn(member_name));
           m->Typespec(member_ts);
+          if (Expression && (fC->Type(Expression) != slVariable_dimension)) {
+            any* ex =
+                compileExpression(component, fC, Expression, compileDesign,
+                                  nullptr, instance, reduce, false);
+            m->Default_value((expr*)ex);
+          }
           if (member_ts &&
               (member_ts->UhdmType() == uhdmunsupported_typespec)) {
             component->needLateTypedefBinding(m);

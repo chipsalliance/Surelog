@@ -407,5 +407,6 @@ bool ErrorDefinition::init() {
       "Can't use a real type as bit select \"%s\"");
   rec(UHDM_RETURN_VALUE_VOID_FUNCTION, ERROR, UHDM,
       "Void function \"%s\" returns a value");
+  rec(UHDM_ILLEGAL_DEFAULT_VALUE, ERROR, UHDM, "Illegal default value");
   return true;
 }
