@@ -1233,7 +1233,6 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
               if (var) {
                 var->VpiName(name);
                 vars->push_back(var);
-                var->Typespec(ts);
               }
             } else {
               (*itr).second->Typespec(ts);
