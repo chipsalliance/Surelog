@@ -30,6 +30,7 @@
 
 #include "Common/PortNetHolder.h"
 #include "Design/DataType.h"
+#include "Design/DesignElement.h"
 #include "Design/FileCNodeId.h"
 #include "Design/ValuedComponentI.h"
 #include "SourceCompile/VObjectTypes.h"
@@ -167,6 +168,8 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   std::vector<std::pair<std::string, ExprEval>>& getScheduledParamExprEval() {
     return m_scheduledParamExprEval;
   }
+  void setDesignElement(const DesignElement* elem) { m_designElement = elem; }
+  const DesignElement* getDesignElement() { return m_designElement; }
 
  protected:
   std::vector<const FileContent*> m_fileContents;
@@ -196,6 +199,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   ParamAssignVec m_paramAssigns;
   UHDM::instance* m_instance;
   std::vector<std::pair<std::string, ExprEval>> m_scheduledParamExprEval;
+  const DesignElement* m_designElement = nullptr;
 };
 
 };  // namespace SURELOG

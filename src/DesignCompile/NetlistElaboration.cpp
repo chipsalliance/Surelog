@@ -746,8 +746,8 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               ref->VpiName(sigName);
               if (parent) {
                 ref->VpiFullName(parent->getFullPathName() + "." + sigName);
-                any* net =
-                    bind_net_(parent, instance->getInstanceBinding(), sigName);
+                any* net = bind_net_(sigId, parent,
+                                     instance->getInstanceBinding(), sigName);
                 ref->Actual_group(net);
               }
             } else {
@@ -796,8 +796,8 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             ref->VpiName(sigName);
             if (parent) {
               ref->VpiFullName(parent->getFullPathName() + "." + sigName);
-              any* net =
-                  bind_net_(parent, instance->getInstanceBinding(), sigName);
+              any* net = bind_net_(sigId, parent,
+                                   instance->getInstanceBinding(), sigName);
               ref->Actual_group(net);
             }
           } else {
@@ -818,7 +818,8 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             if (exp->UhdmType() == uhdmref_obj) {
               ref_obj* ref = (ref_obj*)exp;
               const std::string& n = ref->VpiName();
-              any* net = bind_net_(parent, instance->getInstanceBinding(), n);
+              any* net = bind_net_(Hierarchical_identifier, parent,
+                                   instance->getInstanceBinding(), n);
               ref->Actual_group(net);
             }
           }
@@ -999,7 +1000,8 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         }
         any* net = nullptr;
         if (!sigName.empty()) {
-          net = bind_net_(parent, instance->getInstanceBinding(), sigName);
+          net =
+              bind_net_(sigId, parent, instance->getInstanceBinding(), sigName);
         }
 
         if ((!sigName.empty()) && (hexpr == nullptr)) {
@@ -1135,8 +1137,8 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               if (parent) {
                 ref->VpiFullName(parent->getFullPathName() + "." + sigName);
                 pp->High_conn(ref);
-                UHDM::any* net =
-                    bind_net_(parent, instance->getInstanceBinding(), sigName);
+                UHDM::any* net = bind_net_(
+                    0, parent, instance->getInstanceBinding(), sigName);
                 ref->Actual_group(net);
               }
             }
@@ -2003,7 +2005,7 @@ bool NetlistElaboration::elab_ports_nets_(
   return true;
 }
 
-UHDM::any* NetlistElaboration::bind_net_(ModuleInstance* instance,
+UHDM::any* NetlistElaboration::bind_net_(NodeId id, ModuleInstance* instance,
                                          ModuleInstance* boundInstance,
                                          const std::string& name) {
   UHDM::any* result = nullptr;
@@ -2074,6 +2076,25 @@ UHDM::any* NetlistElaboration::bind_net_(ModuleInstance* instance,
     if (Netlist* netlist = instance->getNetlist()) {
       if (result == nullptr) {
         if (!strstr(name.c_str(), ".")) {  // Not for hierarchical names
+          DesignComponent* component = instance->getDefinition();
+          VObjectType implicitNetType =
+              component->getDesignElement()
+                  ? component->getDesignElement()->m_defaultNetType
+                  : slNetType_Wire;
+          if (implicitNetType == slNoType) {
+            const FileContent* fC = instance->getFileContent();
+            SymbolTable* symbols =
+                m_compileDesign->getCompiler()->getSymbolTable();
+            ErrorContainer* errors =
+                m_compileDesign->getCompiler()->getErrorContainer();
+
+            Location loc(symbols->registerSymbol(fC->getFileName().string()),
+                         id ? fC->Line(id) : instance->getLineNb(),
+                         id ? fC->Column(id) : instance->getColumnNb(),
+                         symbols->registerSymbol(name));
+            Error err(ErrorDefinition::ELAB_ILLEGAL_IMPLICIT_NET, loc);
+            errors->addError(err);
+          }
           // Implicit net
           Serializer& s = m_compileDesign->getSerializer();
           logic_net* net = s.MakeLogic_net();
