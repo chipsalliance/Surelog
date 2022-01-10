@@ -113,20 +113,20 @@ void SV3_1aTreeShapeHelper::addNestedDesignElement(
   SymbolId fileId;
   auto [line, column, endLine, endColumn] = getFileLine(ctx, fileId);
 
-  DesignElement elem(registerSymbol(name), fileId, elemtype,
-                     generateDesignElemId(), line, column, endLine, endColumn,
-                     0);
-  elem.m_context = ctx;
-  elem.m_timeInfo = m_pf->getCompilationUnit()->getTimeInfo(fileId, line);
-  elem.m_defaultNetType =
+  DesignElement* elem = new DesignElement(registerSymbol(name), fileId,
+                                          elemtype, generateDesignElemId(),
+                                          line, column, endLine, endColumn, 0);
+  elem->m_context = ctx;
+  elem->m_timeInfo = m_pf->getCompilationUnit()->getTimeInfo(fileId, line);
+  elem->m_defaultNetType =
       m_pf->getCompilationUnit()->getDefaultNetType(fileId, line);
   if (m_nestedElements.size()) {
-    elem.m_timeInfo = m_nestedElements.top()->m_timeInfo;
-    elem.m_parent = m_nestedElements.top()->m_uniqueId;
+    elem->m_timeInfo = m_nestedElements.top()->m_timeInfo;
+    elem->m_parent = m_nestedElements.top()->m_uniqueId;
   }
   m_fileContent->addDesignElement(m_pf->getLibrary()->getName() + "@" + name,
                                   elem);
-  m_currentElement = &m_fileContent->getDesignElements().back();
+  m_currentElement = m_fileContent->getDesignElements().back();
   m_nestedElements.push(m_currentElement);
 }
 
@@ -136,17 +136,17 @@ void SV3_1aTreeShapeHelper::addDesignElement(antlr4::ParserRuleContext* ctx,
                                              VObjectType objtype) {
   SymbolId fileId;
   auto [line, column, endLine, endColumn] = getFileLine(ctx, fileId);
-  DesignElement elem(registerSymbol(name), fileId, elemtype,
-                     generateDesignElemId(), line, column, endLine, endColumn,
-                     0);
-  elem.m_context = ctx;
-  elem.m_timeInfo =
+  DesignElement* elem = new DesignElement(registerSymbol(name), fileId,
+                                          elemtype, generateDesignElemId(),
+                                          line, column, endLine, endColumn, 0);
+  elem->m_context = ctx;
+  elem->m_timeInfo =
       m_pf->getCompilationUnit()->getTimeInfo(m_pf->getFileId(line), line);
-  elem.m_defaultNetType =
+  elem->m_defaultNetType =
       m_pf->getCompilationUnit()->getDefaultNetType(fileId, line);
   m_fileContent->addDesignElement(m_pf->getLibrary()->getName() + "@" + name,
                                   elem);
-  m_currentElement = &m_fileContent->getDesignElements().back();
+  m_currentElement = m_fileContent->getDesignElements().back();
 }
 
 std::tuple<unsigned int, unsigned short, unsigned int, unsigned short>
