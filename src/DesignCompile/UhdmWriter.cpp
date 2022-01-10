@@ -1641,6 +1641,27 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
         }
         if (ref->Actual_group()) continue;
       }
+      const FileContent* fC = mod->getFileContents()[0];
+      for (auto td : fC->getTypeDefMap()) {
+        const DataType* dt = td.second;
+        while (dt) {
+          typespec* n = dt->getTypespec();
+          if (n && (n->UhdmType() == uhdmenum_typespec)) {
+            enum_typespec* tps = any_cast<enum_typespec*>(n);
+            if (tps && tps->Enum_consts()) {
+              for (auto c : *tps->Enum_consts()) {
+                if (c->VpiName() == name) {
+                  ref->Actual_group(c);
+                  break;
+                }
+              }
+            }
+          }
+          dt = dt->getDefinition();
+          if (ref->Actual_group()) break;
+        }
+        if (ref->Actual_group()) break;
+      }
 
       if (m->Variables()) {
         for (auto var : *m->Variables()) {
