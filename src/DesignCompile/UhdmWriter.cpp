@@ -1641,6 +1641,24 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
         }
         if (ref->Actual_group()) continue;
       }
+
+      if (m->Variables()) {
+        for (auto var : *m->Variables()) {
+          if (var->UhdmType() == uhdmenum_var) {
+            const enum_typespec* tps =
+                any_cast<const enum_typespec*>(var->Typespec());
+            if (tps && tps->Enum_consts()) {
+              for (auto c : *tps->Enum_consts()) {
+                if (c->VpiName() == name) {
+                  ref->Actual_group(c);
+                  break;
+                }
+              }
+            }
+          }
+          if (ref->Actual_group()) break;
+        }
+      }
       if (!ref->Actual_group()) {
         if (mod) {
           if (auto elem = mod->getDesignElement()) {
