@@ -72,6 +72,8 @@ class UhdmWriter final {
                      UhdmWriter::ModPortMap& modPortMap,
                      UhdmWriter::InstanceMap& instanceMap,
                      ExprBuilder& exprBuilder);
+  bool writeElabModule(UHDM::Serializer& s, ModuleInstance* instance,
+                       UHDM::module* m, ExprBuilder& exprBuilder);
   CompileDesign* const m_compileDesign;
   Design* const m_design;
   CompileHelper m_helper;

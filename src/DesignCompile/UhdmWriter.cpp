@@ -1478,8 +1478,8 @@ bool writeElabGenScope(Serializer& s, ModuleInstance* instance, gen_scope* m,
   return true;
 }
 
-bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m,
-                     ExprBuilder& exprBuilder) {
+bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
+                                 module* m, ExprBuilder& exprBuilder) {
   Netlist* netlist = instance->getNetlist();
   if (netlist == nullptr) return true;
   m->Ports(netlist->ports());
@@ -1588,21 +1588,42 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m,
         }
         if (ref->Actual_group()) continue;
       }
-      /*
-      // Do not bind blindly here, let the uhdmelab do this correctly
+
       if (m->Param_assigns()) {
+        bool isParam = false;
         for (auto p : *m->Param_assigns()) {
           const any* lhs = p->Lhs();
           if (lhs->UhdmType() != uhdmtype_parameter) {
             if (lhs->VpiName() == name) {
-              ref->Actual_group((any*)p->Rhs());
+              // Do not bind blindly here, let the uhdmelab do this correctly
+              // ref->Actual_group((any*)p->Rhs());
+              isParam = true;
               break;
             }
           }
         }
-        if (ref->Actual_group()) continue;
+        if (isParam) continue;
       }
-      */
+
+      const any* parent = ref->VpiParent();
+      while (parent) {
+        if (parent->UhdmType() == uhdmfunction) {
+          if (parent->VpiName() == name) {
+            function* func = (function*)parent;
+            if (const any* ret = func->Return()) {
+              ElaboratorListener listener(&s);
+              any* pclone = UHDM::clone_tree(ret, s, &listener);
+              variables* var = (variables*)pclone;
+              var->VpiName(name);
+              ref->Actual_group(pclone);
+            }
+            break;
+          }
+        }
+        parent = parent->VpiParent();
+      }
+      if (ref->Actual_group()) continue;
+
       if (m->Typespecs()) {
         for (auto n : *m->Typespecs()) {
           if (n->UhdmType() == uhdmenum_typespec) {
@@ -1619,6 +1640,29 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m,
           if (ref->Actual_group()) break;
         }
         if (ref->Actual_group()) continue;
+      }
+      if (!ref->Actual_group()) {
+        if (mod) {
+          if (auto elem = mod->getDesignElement()) {
+            if (elem->m_defaultNetType == slNoType) {
+              Location loc(m_compileDesign->getCompiler()
+                               ->getSymbolTable()
+                               ->registerSymbol(ref->VpiFile().string()),
+                           ref->VpiLineNo(), ref->VpiColumnNo(),
+                           m_compileDesign->getCompiler()
+                               ->getSymbolTable()
+                               ->registerSymbol(name));
+              Error err(ErrorDefinition::ELAB_ILLEGAL_IMPLICIT_NET, loc);
+              m_compileDesign->getCompiler()->getErrorContainer()->addError(
+                  err);
+              m_compileDesign->getCompiler()
+                  ->getErrorContainer()
+                  ->printMessages(m_compileDesign->getCompiler()
+                                      ->getCommandLineParser()
+                                      ->muteStdout());
+            }
+          }
+        }
       }
     }
   }

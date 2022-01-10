@@ -113,6 +113,7 @@ bool ParseCache::restore_(const fs::path& cacheFileName) {
   auto content = ppcache->m_elements();
   for (unsigned int i = 0; i < content->size(); i++) {
     auto elemc = content->Get(i);
+    const std::string& elemName = canonicalSymbols.getSymbol(elemc->m_name());
     DesignElement elem(
         m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
             canonicalSymbols.getSymbol(elemc->m_name())),
@@ -122,6 +123,7 @@ bool ParseCache::restore_(const fs::path& cacheFileName) {
         elemc->m_line(), elemc->m_column(), elemc->m_end_line(),
         elemc->m_end_column(), elemc->m_parent());
     elem.m_node = elemc->m_node();
+    elem.m_defaultNetType = (VObjectType)elemc->m_defaultNetType();
     elem.m_timeInfo.m_type = (TimeInfo::Type)elemc->m_timeInfo()->m_type();
     elem.m_timeInfo.m_fileId = elemc->m_timeInfo()->m_fileId();
     elem.m_timeInfo.m_line = elemc->m_timeInfo()->m_line();
@@ -132,7 +134,7 @@ bool ParseCache::restore_(const fs::path& cacheFileName) {
         (TimeInfo::Unit)elemc->m_timeInfo()->m_timePrecision();
     elem.m_timeInfo.m_timePrecisionValue =
         elemc->m_timeInfo()->m_timePrecisionValue();
-    fileContent->getDesignElements().push_back(elem);
+    fileContent->addDesignElement(elemName, elem);
   }
 
   /* Restore design objects */
@@ -230,8 +232,8 @@ bool ParseCache::save() {
   std::vector<flatbuffers::Offset<PARSECACHE::DesignElement>> element_vec;
   if (fcontent)
     for (unsigned int i = 0; i < fcontent->getDesignElements().size(); i++) {
-      DesignElement& elem = fcontent->getDesignElements()[i];
-      TimeInfo& info = elem.m_timeInfo;
+      const DesignElement& elem = fcontent->getDesignElements()[i];
+      const TimeInfo& info = elem.m_timeInfo;
       auto timeInfo = CACHE::CreateTimeInfo(
           builder, static_cast<uint16_t>(info.m_type),
           canonicalSymbols.getId(
@@ -250,7 +252,7 @@ bool ParseCache::save() {
                   elem.m_fileId)),
           elem.m_type, elem.m_uniqueId, elem.m_line, elem.m_column,
           elem.m_endLine, elem.m_endColumn, timeInfo, elem.m_parent,
-          elem.m_node));
+          elem.m_node, elem.m_defaultNetType));
     }
   auto elementList = builder.CreateVector(element_vec);
 

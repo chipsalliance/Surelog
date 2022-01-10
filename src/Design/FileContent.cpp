@@ -555,3 +555,18 @@ bool FileContent::diffTree(NodeId root, const FileContent* oFc, NodeId oroot,
   if (stack2.size()) return true;
   return false;
 }
+
+void FileContent::addDesignElement(const std::string& name,
+                                   DesignElement& elem) {
+  m_elements.push_back(elem);
+  m_elementMap.insert(std::make_pair(name, &(*(m_elements.end() - 1))));
+}
+
+const DesignElement* FileContent::getDesignElement(
+    const std::string& name) const {
+  auto itr = m_elementMap.find(name);
+  if (itr != m_elementMap.end()) {
+    return (*itr).second;
+  }
+  return nullptr;
+}

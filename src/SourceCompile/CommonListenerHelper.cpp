@@ -101,7 +101,8 @@ int CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym,
   int objectIndex = m_fileContent->getVObjects().size() - 1;
   m_contextToObjectMap.insert(std::make_pair(ctx, objectIndex));
   addParentChildRelations(objectIndex, ctx);
-  auto& delements = m_fileContent->getDesignElements();
+  std::vector<SURELOG::DesignElement>& delements =
+      m_fileContent->getDesignElements();
   for (auto it = delements.rbegin(); it != delements.rend(); ++it) {
     if (it->m_context == ctx) {
       // Use the file and line number of the design object (package, module),

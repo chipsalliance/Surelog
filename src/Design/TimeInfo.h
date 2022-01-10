@@ -24,6 +24,8 @@
 #ifndef TIMEINFO_H
 #define TIMEINFO_H
 
+#include <SourceCompile/VObjectTypes.h>
+
 #include <string_view>
 
 #include "SourceCompile/SymbolTable.h"
@@ -52,6 +54,13 @@ class TimeInfo final {
 
   static Unit unitFromString(std::string_view s);
   static uint64_t femtoSeconds(Unit unit, int value);
+};
+
+class NetTypeInfo final {
+ public:
+  VObjectType m_type = slNoType;
+  SymbolId m_fileId = 0;
+  unsigned int m_line = 0;
 };
 
 }  // namespace SURELOG

@@ -135,6 +135,8 @@ class FileContent : public DesignComponent {
   SymbolId* getMutableFileId(NodeId id);
   Library* getLibrary() const { return m_library; }
   std::vector<DesignElement>& getDesignElements() { return m_elements; }
+  void addDesignElement(const std::string& name, DesignElement& elem);
+  const DesignElement* getDesignElement(const std::string& name) const;
   std::vector<VObject>& getVObjects() { return m_objects; }
   const NameIdMap& getObjectLookup() const { return m_objectLookup; }
   void insertObjectLookup(std::string name, NodeId id, ErrorContainer* errors);
@@ -225,7 +227,7 @@ class FileContent : public DesignComponent {
 
  protected:
   std::vector<DesignElement> m_elements;
-
+  std::map<std::string, DesignElement*> m_elementMap;
   std::vector<VObject> m_objects;
   std::unordered_map<NodeId, SymbolId> m_definitionFiles;
 
