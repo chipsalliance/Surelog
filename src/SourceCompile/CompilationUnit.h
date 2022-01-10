@@ -54,6 +54,11 @@ class CompilationUnit {
   void recordTimeInfo(TimeInfo& info);
   TimeInfo& getTimeInfo(SymbolId fileId, unsigned int line);
 
+  /* Following methods deal with `default_nettype */
+  std::vector<NetTypeInfo>& getDefaultNetType() { return m_defaultNetTypes; }
+  void recordDefaultNetType(NetTypeInfo& info);
+  VObjectType getDefaultNetType(SymbolId fileId, unsigned int line);
+
   NodeId generateUniqueDesignElemId() {
     m_uniqueIdGenerator++;
     return m_uniqueIdGenerator;
@@ -70,6 +75,7 @@ class CompilationUnit {
   MacroStorageRef m_macros;
 
   std::vector<TimeInfo> m_timeInfo;
+  std::vector<NetTypeInfo> m_defaultNetTypes;
   TimeInfo m_noTimeInfo;
 
   /* Design Info helper data */

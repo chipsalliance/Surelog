@@ -91,6 +91,8 @@ bool CompileModule::compile() {
       break;
   }
 
+  m_module->setDesignElement(fC->getDesignElement(m_module->getName()));
+
   Error err(errType, loc);
   ErrorContainer* errors = new ErrorContainer(m_symbols);
   errors->registerCmdLine(

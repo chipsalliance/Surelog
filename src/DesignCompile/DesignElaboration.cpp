@@ -348,12 +348,12 @@ bool DesignElaboration::identifyTopModules_() {
   auto all_files =
       m_compileDesign->getCompiler()->getDesign()->getAllFileContents();
   typedef std::multimap<std::string,
-                        std::pair<DesignElement*, const FileContent*>>
+                        std::pair<const DesignElement*, const FileContent*>>
       ModuleMultiMap;
   ModuleMultiMap all_modules;
   for (auto file : all_files) {
     if (m_compileDesign->getCompiler()->isLibraryFile(file.first)) continue;
-    for (DesignElement& element : file.second->getDesignElements()) {
+    for (const DesignElement& element : file.second->getDesignElements()) {
       const std::string& elemName = st->getSymbol(element.m_name);
       if (element.m_type == DesignElement::Module) {
         if (element.m_parent) {
@@ -424,12 +424,12 @@ bool DesignElaboration::identifyTopModules_() {
 
   // Check for multiple definition
   std::string prevModuleName = "";
-  DesignElement* prevModuleDefinition = nullptr;
+  const DesignElement* prevModuleDefinition = nullptr;
   const FileContent* prevFileContent = nullptr;
   for (ModuleMultiMap::iterator itr = all_modules.begin();
        itr != all_modules.end(); itr++) {
     std::string moduleName = (*itr).first;
-    DesignElement* moduleDefinition = (*itr).second.first;
+    const DesignElement* moduleDefinition = (*itr).second.first;
     const FileContent* fileContent = (*itr).second.second;
     bool done = false;
     if (moduleName == prevModuleName) {
@@ -460,7 +460,7 @@ bool DesignElaboration::identifyTopModules_() {
           break;
         } else {
           std::string nextModuleName = (*itr).first;
-          DesignElement* nextModuleDefinition = (*itr).second.first;
+          const DesignElement* nextModuleDefinition = (*itr).second.first;
           const FileContent* nextFileContent = (*itr).second.second;
           prevModuleName = nextModuleName;
           prevModuleDefinition = nextModuleDefinition;
@@ -498,7 +498,7 @@ bool DesignElaboration::identifyTopModules_() {
       bool found = false;
       for (auto file : all_files) {
         if (m_compileDesign->getCompiler()->isLibraryFile(file.first)) continue;
-        for (DesignElement& element : file.second->getDesignElements()) {
+        for (const DesignElement& element : file.second->getDesignElements()) {
           const std::string& elemName = st->getSymbol(element.m_name);
           if (element.m_type == DesignElement::Module) {
             if (element.m_parent) {

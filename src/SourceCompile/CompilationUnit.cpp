@@ -70,6 +70,26 @@ TimeInfo& CompilationUnit::getTimeInfo(SymbolId fileId, unsigned int line) {
   return m_noTimeInfo;
 }
 
+void CompilationUnit::recordDefaultNetType(NetTypeInfo& info) {
+  m_defaultNetTypes.push_back(info);
+}
+
+VObjectType CompilationUnit::getDefaultNetType(SymbolId fileId,
+                                               unsigned int line) {
+  if (!m_defaultNetTypes.size()) {
+    return slNetType_Wire;
+  }
+  for (int i = (int)m_defaultNetTypes.size() - 1; i >= 0; i--) {
+    NetTypeInfo& info = m_defaultNetTypes[i];
+    if (info.m_fileId == fileId) {
+      if (line >= info.m_line) {
+        return info.m_type;
+      }
+    }
+  }
+  return slNetType_Wire;
+}
+
 void CompilationUnit::setCurrentTimeInfo(SymbolId fileId) {
   if (!m_timeInfo.size()) {
     return;

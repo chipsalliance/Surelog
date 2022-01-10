@@ -71,8 +71,8 @@ class NetlistElaboration : public TestbenchElaboration {
                         DesignComponent* comp, const std::string& prefix,
                         bool ports);
 
-  UHDM::any* bind_net_(ModuleInstance* instance, ModuleInstance* boundInstance,
-                       const std::string& name);
+  UHDM::any* bind_net_(NodeId id, ModuleInstance* instance,
+                       ModuleInstance* boundInstance, const std::string& name);
   UHDM::any* bind_net_(ModuleInstance* instance, const std::string& name);
   ModuleInstance* getInterfaceInstance_(ModuleInstance* instance,
                                         const std::string& sigName);
