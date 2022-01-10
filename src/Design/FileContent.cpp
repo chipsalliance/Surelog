@@ -557,9 +557,9 @@ bool FileContent::diffTree(NodeId root, const FileContent* oFc, NodeId oroot,
 }
 
 void FileContent::addDesignElement(const std::string& name,
-                                   DesignElement& elem) {
+                                   DesignElement* elem) {
   m_elements.push_back(elem);
-  m_elementMap.insert(std::make_pair(name, &(*(m_elements.end() - 1))));
+  m_elementMap.insert(std::make_pair(name, elem));
 }
 
 const DesignElement* FileContent::getDesignElement(
