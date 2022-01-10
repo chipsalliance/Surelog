@@ -114,7 +114,7 @@ bool ParseCache::restore_(const fs::path& cacheFileName) {
   for (unsigned int i = 0; i < content->size(); i++) {
     auto elemc = content->Get(i);
     const std::string& elemName = canonicalSymbols.getSymbol(elemc->m_name());
-    DesignElement elem(
+    DesignElement* elem = new DesignElement(
         m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
             canonicalSymbols.getSymbol(elemc->m_name())),
         m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
@@ -122,17 +122,17 @@ bool ParseCache::restore_(const fs::path& cacheFileName) {
         (DesignElement::ElemType)elemc->m_type(), elemc->m_uniqueId(),
         elemc->m_line(), elemc->m_column(), elemc->m_end_line(),
         elemc->m_end_column(), elemc->m_parent());
-    elem.m_node = elemc->m_node();
-    elem.m_defaultNetType = (VObjectType)elemc->m_defaultNetType();
-    elem.m_timeInfo.m_type = (TimeInfo::Type)elemc->m_timeInfo()->m_type();
-    elem.m_timeInfo.m_fileId = elemc->m_timeInfo()->m_fileId();
-    elem.m_timeInfo.m_line = elemc->m_timeInfo()->m_line();
-    elem.m_timeInfo.m_timeUnit =
+    elem->m_node = elemc->m_node();
+    elem->m_defaultNetType = (VObjectType)elemc->m_defaultNetType();
+    elem->m_timeInfo.m_type = (TimeInfo::Type)elemc->m_timeInfo()->m_type();
+    elem->m_timeInfo.m_fileId = elemc->m_timeInfo()->m_fileId();
+    elem->m_timeInfo.m_line = elemc->m_timeInfo()->m_line();
+    elem->m_timeInfo.m_timeUnit =
         (TimeInfo::Unit)elemc->m_timeInfo()->m_timeUnit();
-    elem.m_timeInfo.m_timeUnitValue = elemc->m_timeInfo()->m_timeUnitValue();
-    elem.m_timeInfo.m_timePrecision =
+    elem->m_timeInfo.m_timeUnitValue = elemc->m_timeInfo()->m_timeUnitValue();
+    elem->m_timeInfo.m_timePrecision =
         (TimeInfo::Unit)elemc->m_timeInfo()->m_timePrecision();
-    elem.m_timeInfo.m_timePrecisionValue =
+    elem->m_timeInfo.m_timePrecisionValue =
         elemc->m_timeInfo()->m_timePrecisionValue();
     fileContent->addDesignElement(elemName, elem);
   }
@@ -232,8 +232,8 @@ bool ParseCache::save() {
   std::vector<flatbuffers::Offset<PARSECACHE::DesignElement>> element_vec;
   if (fcontent)
     for (unsigned int i = 0; i < fcontent->getDesignElements().size(); i++) {
-      const DesignElement& elem = fcontent->getDesignElements()[i];
-      const TimeInfo& info = elem.m_timeInfo;
+      const DesignElement* elem = fcontent->getDesignElements()[i];
+      const TimeInfo& info = elem->m_timeInfo;
       auto timeInfo = CACHE::CreateTimeInfo(
           builder, static_cast<uint16_t>(info.m_type),
           canonicalSymbols.getId(
@@ -246,13 +246,13 @@ bool ParseCache::save() {
           builder,
           canonicalSymbols.getId(
               m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
-                  elem.m_name)),
+                  elem->m_name)),
           canonicalSymbols.getId(
               m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
-                  elem.m_fileId)),
-          elem.m_type, elem.m_uniqueId, elem.m_line, elem.m_column,
-          elem.m_endLine, elem.m_endColumn, timeInfo, elem.m_parent,
-          elem.m_node, elem.m_defaultNetType));
+                  elem->m_fileId)),
+          elem->m_type, elem->m_uniqueId, elem->m_line, elem->m_column,
+          elem->m_endLine, elem->m_endColumn, timeInfo, elem->m_parent,
+          elem->m_node, elem->m_defaultNetType));
     }
   auto elementList = builder.CreateVector(element_vec);
 

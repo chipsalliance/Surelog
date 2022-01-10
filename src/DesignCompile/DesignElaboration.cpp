@@ -353,10 +353,10 @@ bool DesignElaboration::identifyTopModules_() {
   ModuleMultiMap all_modules;
   for (auto file : all_files) {
     if (m_compileDesign->getCompiler()->isLibraryFile(file.first)) continue;
-    for (const DesignElement& element : file.second->getDesignElements()) {
-      const std::string& elemName = st->getSymbol(element.m_name);
-      if (element.m_type == DesignElement::Module) {
-        if (element.m_parent) {
+    for (const DesignElement* element : file.second->getDesignElements()) {
+      const std::string& elemName = st->getSymbol(element->m_name);
+      if (element->m_type == DesignElement::Module) {
+        if (element->m_parent) {
           // This is a nested element
           continue;
         }
@@ -368,7 +368,7 @@ bool DesignElaboration::identifyTopModules_() {
           // Files that have parent are splited files (When a module is too
           // large it is splited)
           all_modules.insert(
-              std::make_pair(topname, std::make_pair(&element, file.second)));
+              std::make_pair(topname, std::make_pair(element, file.second)));
         }
 
         modulePresent = true;
@@ -399,8 +399,8 @@ bool DesignElaboration::identifyTopModules_() {
             auto itr = m_uniqueTopLevelModules.find(topname);
             Location loc(
                 st->registerSymbol(
-                    (file.second->getFileName(element.m_node)).string()),
-                element.m_line, 0, topid);
+                    (file.second->getFileName(element->m_node)).string()),
+                element->m_line, 0, topid);
             if (itr == m_uniqueTopLevelModules.end()) {
               bool okModule = true;
               if (userTopList.size()) {
@@ -498,10 +498,10 @@ bool DesignElaboration::identifyTopModules_() {
       bool found = false;
       for (auto file : all_files) {
         if (m_compileDesign->getCompiler()->isLibraryFile(file.first)) continue;
-        for (const DesignElement& element : file.second->getDesignElements()) {
-          const std::string& elemName = st->getSymbol(element.m_name);
-          if (element.m_type == DesignElement::Module) {
-            if (element.m_parent) {
+        for (const DesignElement* element : file.second->getDesignElements()) {
+          const std::string& elemName = st->getSymbol(element->m_name);
+          if (element->m_type == DesignElement::Module) {
+            if (element->m_parent) {
               // This is a nested element
               continue;
             }
@@ -524,8 +524,8 @@ bool DesignElaboration::identifyTopModules_() {
             SymbolId topid = st->registerSymbol(topname);
             Location loc(
                 st->registerSymbol(
-                    (file.second->getFileName(element.m_node)).string()),
-                element.m_line, 0, topid);
+                    (file.second->getFileName(element->m_node)).string()),
+                element->m_line, 0, topid);
             Error err(ErrorDefinition::ELAB_TOP_LEVEL_MODULE, loc);
             m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
           }
