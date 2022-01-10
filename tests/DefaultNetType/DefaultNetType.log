@@ -408,8 +408,6 @@ n<> u<359> t<Top_level_rule> l<1:1> el<50:1>
 
 [ERR:EL0535] dut.sv:33:4: Illegal implicit net "clear".
 
-[ERR:EL0535] dut.sv:34:21: Illegal implicit net "S_A".
-
 [ERR:EL0535] dut.sv:40:14: Illegal implicit net "mode".
 
 [ERR:EL0535] dut.sv:41:13: Illegal implicit net "MODE_A".
@@ -595,14 +593,38 @@ design: (work@ok)
             \_ref_obj: (work@bad2.S_A), line:34:21, endln:34:24, parent:work@bad2
               |vpiName:S_A
               |vpiFullName:work@bad2.S_A
+              |vpiActual:
+              \_enum_const: (S_A), line:30:7, endln:30:10
+                |vpiName:S_A
+                |INT:0
+                |vpiDecompile:0
+                |vpiSize:64
             |vpiLhs:
             \_ref_obj: (work@bad2.currentState), line:34:5, endln:34:17, parent:work@bad2
               |vpiName:currentState
               |vpiFullName:work@bad2.currentState
               |vpiActual:
-              \_logic_net: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
+              \_enum_var: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
+                |vpiTypespec:
+                \_enum_typespec: 
+                  |vpiEnumConst:
+                  \_enum_const: (S_A), line:30:7, endln:30:10
+                  |vpiEnumConst:
+                  \_enum_const: (S_B), line:30:12, endln:30:15
+                    |vpiName:S_B
+                    |INT:1
+                    |vpiDecompile:1
+                    |vpiSize:64
+                  |vpiEnumConst:
+                  \_enum_const: (S_C), line:30:17, endln:30:20
+                    |vpiName:S_C
+                    |INT:2
+                    |vpiDecompile:2
+                    |vpiSize:64
                 |vpiName:currentState
                 |vpiFullName:work@bad2.currentState
+                |vpiAutomatic:1
+                |vpiVisibility:1
         |vpiElseStmt:
         \_begin: (work@bad2), line:35:10, endln:37:4
           |vpiFullName:work@bad2
@@ -614,15 +636,37 @@ design: (work@ok)
               |vpiName:nextState
               |vpiFullName:work@bad2.nextState
               |vpiActual:
-              \_logic_net: (work@bad2.nextState), line:30:36, endln:30:45, parent:work@bad2
+              \_enum_var: (work@bad2.nextState), line:30:36, endln:30:45, parent:work@bad2
+                |vpiTypespec:
+                \_enum_typespec: 
+                  |vpiEnumConst:
+                  \_enum_const: (S_A), line:30:7, endln:30:10
+                    |vpiName:S_A
+                    |INT:0
+                    |vpiDecompile:0
+                    |vpiSize:64
+                  |vpiEnumConst:
+                  \_enum_const: (S_B), line:30:12, endln:30:15
+                    |vpiName:S_B
+                    |INT:1
+                    |vpiDecompile:1
+                    |vpiSize:64
+                  |vpiEnumConst:
+                  \_enum_const: (S_C), line:30:17, endln:30:20
+                    |vpiName:S_C
+                    |INT:2
+                    |vpiDecompile:2
+                    |vpiSize:64
                 |vpiName:nextState
                 |vpiFullName:work@bad2.nextState
+                |vpiAutomatic:1
+                |vpiVisibility:1
             |vpiLhs:
             \_ref_obj: (work@bad2.currentState), line:36:5, endln:36:17, parent:work@bad2
               |vpiName:currentState
               |vpiFullName:work@bad2.currentState
               |vpiActual:
-              \_logic_net: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
+              \_enum_var: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
     |vpiAlwaysType:3
   |vpiProcess:
   \_always: , line:39:3, endln:45:8, parent:work@bad2
@@ -815,15 +859,59 @@ design: (work@ok)
 |uhdmtopModules:
 \_module: work@bad2 (work@bad2) dut.sv:28:1: , endln:49:10
   |vpiName:work@bad2
-  |vpiDefName:work@bad2
-  |vpiNet:
-  \_logic_net: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
+  |vpiVariables:
+  \_enum_var: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
+    |vpiTypespec:
+    \_enum_typespec: 
+      |vpiEnumConst:
+      \_enum_const: (S_A), line:30:7, endln:30:10
+        |vpiName:S_A
+        |INT:0
+        |vpiDecompile:0
+        |vpiSize:64
+      |vpiEnumConst:
+      \_enum_const: (S_B), line:30:12, endln:30:15
+        |vpiName:S_B
+        |INT:1
+        |vpiDecompile:1
+        |vpiSize:64
+      |vpiEnumConst:
+      \_enum_const: (S_C), line:30:17, endln:30:20
+        |vpiName:S_C
+        |INT:2
+        |vpiDecompile:2
+        |vpiSize:64
     |vpiName:currentState
     |vpiFullName:work@bad2.currentState
-  |vpiNet:
-  \_logic_net: (work@bad2.nextState), line:30:36, endln:30:45, parent:work@bad2
+    |vpiAutomatic:1
+    |vpiVisibility:1
+  |vpiVariables:
+  \_enum_var: (work@bad2.nextState), line:30:36, endln:30:45, parent:work@bad2
+    |vpiTypespec:
+    \_enum_typespec: 
+      |vpiEnumConst:
+      \_enum_const: (S_A), line:30:7, endln:30:10
+        |vpiName:S_A
+        |INT:0
+        |vpiDecompile:0
+        |vpiSize:64
+      |vpiEnumConst:
+      \_enum_const: (S_B), line:30:12, endln:30:15
+        |vpiName:S_B
+        |INT:1
+        |vpiDecompile:1
+        |vpiSize:64
+      |vpiEnumConst:
+      \_enum_const: (S_C), line:30:17, endln:30:20
+        |vpiName:S_C
+        |INT:2
+        |vpiDecompile:2
+        |vpiSize:64
     |vpiName:nextState
     |vpiFullName:work@bad2.nextState
+    |vpiAutomatic:1
+    |vpiVisibility:1
+  |vpiDefName:work@bad2
   |vpiNet:
   \_logic_net: (work@bad2.b), parent:work@bad2
     |vpiName:b
@@ -855,12 +943,14 @@ design: (work@ok)
             \_ref_obj: (work@bad2.S_A), line:34:21, endln:34:24
               |vpiName:S_A
               |vpiFullName:work@bad2.S_A
+              |vpiActual:
+              \_enum_const: (S_A), line:30:7, endln:30:10
             |vpiLhs:
             \_ref_obj: (work@bad2.currentState), line:34:5, endln:34:17
               |vpiName:currentState
               |vpiFullName:work@bad2.currentState
               |vpiActual:
-              \_logic_net: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
+              \_enum_var: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
         |vpiElseStmt:
         \_begin: (work@bad2), line:35:10, endln:37:4
           |vpiFullName:work@bad2
@@ -872,13 +962,13 @@ design: (work@ok)
               |vpiName:nextState
               |vpiFullName:work@bad2.nextState
               |vpiActual:
-              \_logic_net: (work@bad2.nextState), line:30:36, endln:30:45, parent:work@bad2
+              \_enum_var: (work@bad2.nextState), line:30:36, endln:30:45, parent:work@bad2
             |vpiLhs:
             \_ref_obj: (work@bad2.currentState), line:36:5, endln:36:17
               |vpiName:currentState
               |vpiFullName:work@bad2.currentState
               |vpiActual:
-              \_logic_net: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
+              \_enum_var: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
     |vpiAlwaysType:3
   |vpiProcess:
   \_always: , line:39:3, endln:45:8, parent:work@bad2
@@ -1134,14 +1224,38 @@ design: (work@ok)
                 \_ref_obj: (work@bad2.S_A), line:34:21, endln:34:24, parent:work@bad2
                   |vpiName:S_A
                   |vpiFullName:work@bad2.S_A
+                  |vpiActual:
+                  \_enum_const: (S_A), line:30:7, endln:30:10
+                    |vpiName:S_A
+                    |INT:0
+                    |vpiDecompile:0
+                    |vpiSize:64
                 |vpiLhs:
                 \_ref_obj: (work@bad2.currentState), line:34:5, endln:34:17, parent:work@bad2
                   |vpiName:currentState
                   |vpiFullName:work@bad2.currentState
                   |vpiActual:
-                  \_logic_net: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
+                  \_enum_var: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
+                    |vpiTypespec:
+                    \_enum_typespec: 
+                      |vpiEnumConst:
+                      \_enum_const: (S_A), line:30:7, endln:30:10
+                      |vpiEnumConst:
+                      \_enum_const: (S_B), line:30:12, endln:30:15
+                        |vpiName:S_B
+                        |INT:1
+                        |vpiDecompile:1
+                        |vpiSize:64
+                      |vpiEnumConst:
+                      \_enum_const: (S_C), line:30:17, endln:30:20
+                        |vpiName:S_C
+                        |INT:2
+                        |vpiDecompile:2
+                        |vpiSize:64
                     |vpiName:currentState
                     |vpiFullName:work@bad2.currentState
+                    |vpiAutomatic:1
+                    |vpiVisibility:1
             |vpiElseStmt:
             \_begin: (work@bad2), line:35:10, endln:37:4
               |vpiFullName:work@bad2
@@ -1153,15 +1267,37 @@ design: (work@ok)
                   |vpiName:nextState
                   |vpiFullName:work@bad2.nextState
                   |vpiActual:
-                  \_logic_net: (work@bad2.nextState), line:30:36, endln:30:45, parent:work@bad2
+                  \_enum_var: (work@bad2.nextState), line:30:36, endln:30:45, parent:work@bad2
+                    |vpiTypespec:
+                    \_enum_typespec: 
+                      |vpiEnumConst:
+                      \_enum_const: (S_A), line:30:7, endln:30:10
+                        |vpiName:S_A
+                        |INT:0
+                        |vpiDecompile:0
+                        |vpiSize:64
+                      |vpiEnumConst:
+                      \_enum_const: (S_B), line:30:12, endln:30:15
+                        |vpiName:S_B
+                        |INT:1
+                        |vpiDecompile:1
+                        |vpiSize:64
+                      |vpiEnumConst:
+                      \_enum_const: (S_C), line:30:17, endln:30:20
+                        |vpiName:S_C
+                        |INT:2
+                        |vpiDecompile:2
+                        |vpiSize:64
                     |vpiName:nextState
                     |vpiFullName:work@bad2.nextState
+                    |vpiAutomatic:1
+                    |vpiVisibility:1
                 |vpiLhs:
                 \_ref_obj: (work@bad2.currentState), line:36:5, endln:36:17, parent:work@bad2
                   |vpiName:currentState
                   |vpiFullName:work@bad2.currentState
                   |vpiActual:
-                  \_logic_net: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
+                  \_enum_var: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
         |vpiAlwaysType:3
       |vpiProcess:
       \_always: , line:39:3, endln:45:8, parent:work@bad2
@@ -1320,11 +1456,11 @@ design: (work@ok)
     |uhdmtopModules:
     \_module: work@bad2 (work@bad2) dut.sv:28:1: , endln:49:10
       |vpiName:work@bad2
+      |vpiVariables:
+      \_enum_var: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
+      |vpiVariables:
+      \_enum_var: (work@bad2.nextState), line:30:36, endln:30:45, parent:work@bad2
       |vpiDefName:work@bad2
-      |vpiNet:
-      \_logic_net: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
-      |vpiNet:
-      \_logic_net: (work@bad2.nextState), line:30:36, endln:30:45, parent:work@bad2
       |vpiNet:
       \_logic_net: (work@bad2.b), parent:work@bad2
         |vpiName:b
@@ -1356,12 +1492,14 @@ design: (work@ok)
                 \_ref_obj: (work@bad2.S_A), line:34:21, endln:34:24
                   |vpiName:S_A
                   |vpiFullName:work@bad2.S_A
+                  |vpiActual:
+                  \_enum_const: (S_A), line:30:7, endln:30:10
                 |vpiLhs:
                 \_ref_obj: (work@bad2.currentState), line:34:5, endln:34:17
                   |vpiName:currentState
                   |vpiFullName:work@bad2.currentState
                   |vpiActual:
-                  \_logic_net: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
+                  \_enum_var: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
             |vpiElseStmt:
             \_begin: (work@bad2), line:35:10, endln:37:4
               |vpiFullName:work@bad2
@@ -1373,13 +1511,13 @@ design: (work@ok)
                   |vpiName:nextState
                   |vpiFullName:work@bad2.nextState
                   |vpiActual:
-                  \_logic_net: (work@bad2.nextState), line:30:36, endln:30:45, parent:work@bad2
+                  \_enum_var: (work@bad2.nextState), line:30:36, endln:30:45, parent:work@bad2
                 |vpiLhs:
                 \_ref_obj: (work@bad2.currentState), line:36:5, endln:36:17
                   |vpiName:currentState
                   |vpiFullName:work@bad2.currentState
                   |vpiActual:
-                  \_logic_net: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
+                  \_enum_var: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
         |vpiAlwaysType:3
       |vpiProcess:
       \_always: , line:39:3, endln:45:8, parent:work@bad2
@@ -1533,7 +1671,7 @@ design: (work@ok)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 14
+[  ERROR] : 13
 [WARNING] : 4
 [   NOTE] : 8
 
