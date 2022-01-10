@@ -1934,14 +1934,13 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
         Signal* sig = nullptr;
         VObjectType sigType = fC->Type(intVec_TypeReg);
         if (sigType == slClass_scope || sigType == slStringConst ||
-            sigType == slStruct_union) {
-          sig = new Signal(fC, signal, fC->Type(intVec_TypeReg),
-                           packedDimension, VObjectType::slNoType,
-                           intVec_TypeReg, unpackedDimension, false);
+            sigType == slStruct_union || sigType == slEnum_name_declaration) {
+          sig = new Signal(fC, signal, sigType, packedDimension,
+                           VObjectType::slNoType, intVec_TypeReg,
+                           unpackedDimension, false);
         } else {
-          sig =
-              new Signal(fC, signal, fC->Type(intVec_TypeReg), packedDimension,
-                         VObjectType::slNoType, unpackedDimension, false);
+          sig = new Signal(fC, signal, sigType, packedDimension,
+                           VObjectType::slNoType, unpackedDimension, false);
         }
         if (is_const) sig->setConst();
         if (var_type) sig->setVar();

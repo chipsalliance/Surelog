@@ -49,6 +49,7 @@
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
+#include <uhdm/ExprEval.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/expr.h>
 #include <uhdm/uhdm.h>
@@ -887,6 +888,54 @@ UHDM::typespec* CompileHelper::compileTypespec(
         tps->VpiEndColumnNo(fC->EndColumn(type));
         result = tps;
       }
+      break;
+    }
+    case VObjectType::slEnum_name_declaration: {
+      enum_typespec* en = s.MakeEnum_typespec();
+      VectorOfenum_const* econsts = s.MakeEnum_constVec();
+      en->Enum_consts(econsts);
+      NodeId enum_name_declaration = type;
+      int val = 0;
+      while (enum_name_declaration) {
+        NodeId enumNameId = fC->Child(enum_name_declaration);
+        std::string enumName = fC->SymName(enumNameId);
+        NodeId enumValueId = fC->Sibling(enumNameId);
+        Value* value = nullptr;
+        if (enumValueId) {
+          value = m_exprBuilder.evalExpr(fC, enumValueId, component);
+          value->setValid();
+        } else {
+          value = m_exprBuilder.getValueFactory().newLValue();
+          value->set(val, Value::Type::Integer, 64);
+        }
+        // the_enum->addValue(enumName, fC->Line(enumNameId), value);
+        enum_name_declaration = fC->Sibling(enum_name_declaration);
+        val++;
+        if (component) component->setValue(enumName, value, m_exprBuilder);
+        Variable* variable =
+            new Variable(nullptr, fC, enumValueId, 0, enumName);
+        if (component) component->addVariable(variable);
+
+        enum_const* econst = s.MakeEnum_const();
+        econst->VpiName(enumName);
+        econst->VpiFile(fC->getFileName());
+        econst->VpiLineNo(fC->Line(enumNameId));
+        econst->VpiColumnNo(fC->Column(enumNameId));
+        econst->VpiEndLineNo(fC->EndLine(enumNameId));
+        econst->VpiEndColumnNo(fC->EndColumn(enumNameId));
+        econst->VpiValue(value->uhdmValue());
+        if (enumValueId) {
+          any* exp = compileExpression(component, fC, enumValueId,
+                                       compileDesign, pstmt, nullptr);
+          UHDM::ExprEval eval;
+          econst->VpiDecompile(eval.prettyPrint(exp));
+        } else {
+          econst->VpiDecompile(value->decompiledValue());
+        }
+        econst->VpiSize(value->getSize());
+        econsts->push_back(econst);
+      }
+      result = en;
       break;
     }
     case VObjectType::slInterface_identifier: {
