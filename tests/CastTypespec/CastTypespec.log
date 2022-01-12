@@ -734,7 +734,7 @@ n<> u<245> t<Top_level_rule> f<0> l<0:11>
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/CastTypespec/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/CastTypespec/slpp_all/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/CastTypespec/slpp_all/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/CastTypespec/slpp_all/surelog.uhdm ...
 
@@ -1258,6 +1258,10 @@ design: (work@tlul_adapter_host)
           |vpiOperand:
           \_ref_obj: (WordSize), line:18:35, endln:18:43
             |vpiName:WordSize
+            |vpiActual:
+            \_logic_net: (WordSize)
+              |vpiName:WordSize
+              |vpiNetType:1
         |vpiTypespec:
         \_string_typespec: (a_size), line:18:7, endln:18:13
           |vpiName:a_size
@@ -1265,6 +1269,10 @@ design: (work@tlul_adapter_host)
     \_ref_obj: (work@tlul_adapter_host.tl_o), line:16:12, endln:16:16
       |vpiName:tl_o
       |vpiFullName:work@tlul_adapter_host.tl_o
+      |vpiActual:
+      \_logic_net: (tl_o)
+        |vpiName:tl_o
+        |vpiNetType:1
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:25:3: , endln:42:12, parent:work@tlul_adapter_host
   |vpiFullName:work@top
@@ -1451,6 +1459,10 @@ design: (work@tlul_adapter_host)
           \_ref_obj: (work@top.p_outmux.selected_hart), line:37:9, endln:37:22, parent:work@top.p_outmux
             |vpiName:selected_hart
             |vpiFullName:work@top.p_outmux.selected_hart
+            |vpiActual:
+            \_logic_net: (selected_hart)
+              |vpiName:selected_hart
+              |vpiNetType:1
           |vpiOperand:
           \_operation: , line:37:25, endln:37:49
             |vpiTypespec:
@@ -1472,6 +1484,10 @@ design: (work@tlul_adapter_host)
             \_ref_obj: (work@top.p_outmux.NrHarts), line:37:41, endln:37:48
               |vpiName:NrHarts
               |vpiFullName:work@top.p_outmux.NrHarts
+              |vpiActual:
+              \_logic_net: (NrHarts)
+                |vpiName:NrHarts
+                |vpiNetType:1
         |vpiStmt:
         \_begin: (work@top.p_outmux), line:37:51, endln:39:8
           |vpiFullName:work@top.p_outmux
@@ -1492,11 +1508,23 @@ design: (work@tlul_adapter_host)
             \_ref_obj: (work@top.p_outmux.resumereq_o), line:38:7, endln:38:18, parent:work@top.p_outmux
               |vpiName:resumereq_o
               |vpiFullName:work@top.p_outmux.resumereq_o
+              |vpiActual:
+              \_logic_net: (resumereq_o)
+                |vpiName:resumereq_o
+                |vpiNetType:1
     |vpiAlwaysType:2
 |uhdmtopModules:
 \_module: work@tlul_adapter_host (work@tlul_adapter_host) dut.sv:14:3: , endln:23:12
   |vpiName:work@tlul_adapter_host
   |vpiDefName:work@tlul_adapter_host
+  |vpiNet:
+  \_logic_net: (tl_o)
+    |vpiName:tl_o
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (WordSize)
+    |vpiName:WordSize
+    |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:16:12, endln:19:6, parent:work@tlul_adapter_host
     |vpiRhs:
@@ -1524,6 +1552,8 @@ design: (work@tlul_adapter_host)
           |vpiOperand:
           \_ref_obj: (WordSize), line:18:35, endln:18:43
             |vpiName:WordSize
+            |vpiActual:
+            \_logic_net: (WordSize)
         |vpiTypespec:
         \_string_typespec: (a_size), line:18:7, endln:18:13
           |vpiName:a_size
@@ -1531,6 +1561,8 @@ design: (work@tlul_adapter_host)
     \_ref_obj: (work@tlul_adapter_host.tl_o), line:16:12, endln:16:16
       |vpiName:tl_o
       |vpiFullName:work@tlul_adapter_host.tl_o
+      |vpiActual:
+      \_logic_net: (tl_o)
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:25:3: , endln:42:12
   |vpiName:work@top
@@ -1773,6 +1805,10 @@ design: (work@tlul_adapter_host)
               \_ref_obj: (work@top.p_outmux.selected_hart), line:37:9, endln:37:22, parent:work@top.p_outmux
                 |vpiName:selected_hart
                 |vpiFullName:work@top.p_outmux.selected_hart
+                |vpiActual:
+                \_logic_net: (selected_hart)
+                  |vpiName:selected_hart
+                  |vpiNetType:1
               |vpiOperand:
               \_operation: , line:37:25, endln:37:49
                 |vpiTypespec:
@@ -1794,6 +1830,10 @@ design: (work@tlul_adapter_host)
                 \_ref_obj: (work@top.p_outmux.NrHarts), line:37:41, endln:37:48
                   |vpiName:NrHarts
                   |vpiFullName:work@top.p_outmux.NrHarts
+                  |vpiActual:
+                  \_logic_net: (NrHarts)
+                    |vpiName:NrHarts
+                    |vpiNetType:1
             |vpiStmt:
             \_begin: (work@top.p_outmux), line:37:51, endln:39:8
               |vpiFullName:work@top.p_outmux
@@ -1814,6 +1854,10 @@ design: (work@tlul_adapter_host)
                 \_ref_obj: (work@top.p_outmux.resumereq_o), line:38:7, endln:38:18, parent:work@top.p_outmux
                   |vpiName:resumereq_o
                   |vpiFullName:work@top.p_outmux.resumereq_o
+                  |vpiActual:
+                  \_logic_net: (resumereq_o)
+                    |vpiName:resumereq_o
+                    |vpiNetType:1
         |vpiAlwaysType:2
     |vpiTypespecMember:
     \_typespec_member: (a), line:27:25, endln:27:26
@@ -1826,6 +1870,12 @@ design: (work@tlul_adapter_host)
       |vpiTypespec:
       \_int_typespec: , line:27:21, endln:27:24
   |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (selected_hart)
+  |vpiNet:
+  \_logic_net: (NrHarts)
+  |vpiNet:
+  \_logic_net: (resumereq_o)
   |vpiProcess:
   \_initial: , parent:work@top
     |vpiStmt:
@@ -1922,6 +1972,8 @@ design: (work@tlul_adapter_host)
           \_ref_obj: (work@top.p_outmux.selected_hart), line:37:9, endln:37:22
             |vpiName:selected_hart
             |vpiFullName:work@top.p_outmux.selected_hart
+            |vpiActual:
+            \_logic_net: (selected_hart)
           |vpiOperand:
           \_operation: , line:37:25, endln:37:49
             |vpiTypespec:
@@ -1931,6 +1983,8 @@ design: (work@tlul_adapter_host)
             \_ref_obj: (work@top.p_outmux.NrHarts), line:37:41, endln:37:48
               |vpiName:NrHarts
               |vpiFullName:work@top.p_outmux.NrHarts
+              |vpiActual:
+              \_logic_net: (NrHarts)
         |vpiStmt:
         \_begin: (work@top.p_outmux), line:37:51, endln:39:8
           |vpiFullName:work@top.p_outmux
@@ -1951,6 +2005,8 @@ design: (work@tlul_adapter_host)
             \_ref_obj: (work@top.p_outmux.resumereq_o), line:38:7, endln:38:18
               |vpiName:resumereq_o
               |vpiFullName:work@top.p_outmux.resumereq_o
+              |vpiActual:
+              \_logic_net: (resumereq_o)
     |vpiAlwaysType:2
 ===================
 [  FATAL] : 0

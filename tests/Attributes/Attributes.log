@@ -905,7 +905,7 @@ n<> u<245> t<Top_level_rule> f<0> l<0:11>
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/Attributes/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/Attributes/slpp_all/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/Attributes/slpp_all/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/Attributes/slpp_all/surelog.uhdm ...
 
@@ -1567,6 +1567,10 @@ design: (work@foo)
         \_ref_obj: (work@foo.a), line:29:11, endln:29:12, parent:work@foo
           |vpiName:a
           |vpiFullName:work@foo.a
+          |vpiActual:
+          \_logic_net: (a)
+            |vpiName:a
+            |vpiNetType:1
         |vpiCaseItem:
         \_case_item: , line:30:7, endln:31:15
           |vpiExpr:
@@ -1589,6 +1593,10 @@ design: (work@foo)
             \_ref_obj: (work@foo.b), line:31:9, endln:31:10
               |vpiName:b
               |vpiFullName:work@foo.b
+              |vpiActual:
+              \_logic_net: (b)
+                |vpiName:b
+                |vpiNetType:1
         |vpiCaseItem:
         \_case_item: , line:32:7, endln:33:15
           |vpiExpr:
@@ -1617,6 +1625,8 @@ design: (work@foo)
             \_ref_obj: (work@foo.b), line:33:9, endln:33:10
               |vpiName:b
               |vpiFullName:work@foo.b
+              |vpiActual:
+              \_logic_net: (b)
         |vpiCaseItem:
         \_case_item: , line:34:7, endln:35:15
           |vpiStmt:
@@ -1633,6 +1643,8 @@ design: (work@foo)
             \_ref_obj: (work@foo.b), line:35:9, endln:35:10
               |vpiName:b
               |vpiFullName:work@foo.b
+              |vpiActual:
+              \_logic_net: (b)
   |vpiContAssign:
   \_cont_assign: , line:22:10, endln:22:62, parent:work@foo
     |vpiRhs:
@@ -1642,10 +1654,16 @@ design: (work@foo)
       \_ref_obj: (work@foo.pieces0), line:22:18, endln:22:25
         |vpiName:pieces0
         |vpiFullName:work@foo.pieces0
+        |vpiActual:
+        \_logic_net: (pieces0)
+          |vpiName:pieces0
+          |vpiNetType:1
       |vpiOperand:
       \_ref_obj: (work@foo.b), line:22:61, endln:22:62
         |vpiName:b
         |vpiFullName:work@foo.b
+        |vpiActual:
+        \_logic_net: (b)
       |vpiAttribute:
       \_attribute: (src)
         |vpiName:src
@@ -1654,6 +1672,10 @@ design: (work@foo)
     \_ref_obj: (work@foo.blah), line:22:10, endln:22:14
       |vpiName:blah
       |vpiFullName:work@foo.blah
+      |vpiActual:
+      \_logic_net: (blah)
+        |vpiName:blah
+        |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:24:10, endln:24:69, parent:work@foo
     |vpiRhs:
@@ -1663,6 +1685,10 @@ design: (work@foo)
       \_ref_obj: (work@foo.empty2), line:24:22, endln:24:28
         |vpiName:empty2
         |vpiFullName:work@foo.empty2
+        |vpiActual:
+        \_logic_net: (empty2)
+          |vpiName:empty2
+          |vpiNetType:1
       |vpiOperand:
       \_constant: , line:24:65, endln:24:69
         |vpiDecompile:4'h9
@@ -1677,6 +1703,10 @@ design: (work@foo)
     \_ref_obj: (work@foo.$37 ), line:24:10, endln:24:20
       |vpiName:$37 
       |vpiFullName:work@foo.$37 
+      |vpiActual:
+      \_logic_net: ($37 )
+        |vpiName:$37 
+        |vpiNetType:1
 |uhdmallModules:
 \_module: work@top (work@top) test_attributes.sv:31:1: , endln:39:10, parent:work@foo
   |vpiFullName:work@top
@@ -1714,6 +1744,30 @@ design: (work@foo)
   \_logic_net: (work@foo.out), line:13:27, endln:13:30, parent:work@foo
     |vpiName:out
     |vpiFullName:work@foo.out
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (blah)
+    |vpiName:blah
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (pieces0)
+    |vpiName:pieces0
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (b)
+    |vpiName:b
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: ($37 )
+    |vpiName:$37 
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (empty2)
+    |vpiName:empty2
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (a)
+    |vpiName:a
     |vpiNetType:1
   |vpiPort:
   \_port: (clk), line:13:12, endln:13:15, parent:work@foo
@@ -1783,6 +1837,8 @@ design: (work@foo)
         \_ref_obj: (work@foo.a), line:29:11, endln:29:12
           |vpiName:a
           |vpiFullName:work@foo.a
+          |vpiActual:
+          \_logic_net: (a)
         |vpiCaseItem:
         \_case_item: , line:30:7, endln:31:15
           |vpiExpr:
@@ -1805,6 +1861,8 @@ design: (work@foo)
             \_ref_obj: (work@foo.b), line:31:9, endln:31:10
               |vpiName:b
               |vpiFullName:work@foo.b
+              |vpiActual:
+              \_logic_net: (b)
         |vpiCaseItem:
         \_case_item: , line:32:7, endln:33:15
           |vpiExpr:
@@ -1833,6 +1891,8 @@ design: (work@foo)
             \_ref_obj: (work@foo.b), line:33:9, endln:33:10
               |vpiName:b
               |vpiFullName:work@foo.b
+              |vpiActual:
+              \_logic_net: (b)
         |vpiCaseItem:
         \_case_item: , line:34:7, endln:35:15
           |vpiStmt:
@@ -1849,6 +1909,8 @@ design: (work@foo)
             \_ref_obj: (work@foo.b), line:35:9, endln:35:10
               |vpiName:b
               |vpiFullName:work@foo.b
+              |vpiActual:
+              \_logic_net: (b)
   |vpiContAssign:
   \_cont_assign: , line:22:10, endln:22:62, parent:work@foo
     |vpiRhs:
@@ -1858,10 +1920,14 @@ design: (work@foo)
       \_ref_obj: (work@foo.pieces0), line:22:18, endln:22:25
         |vpiName:pieces0
         |vpiFullName:work@foo.pieces0
+        |vpiActual:
+        \_logic_net: (pieces0)
       |vpiOperand:
       \_ref_obj: (work@foo.b), line:22:61, endln:22:62
         |vpiName:b
         |vpiFullName:work@foo.b
+        |vpiActual:
+        \_logic_net: (b)
       |vpiAttribute:
       \_attribute: (src)
         |vpiName:src
@@ -1870,6 +1936,8 @@ design: (work@foo)
     \_ref_obj: (work@foo.blah), line:22:10, endln:22:14
       |vpiName:blah
       |vpiFullName:work@foo.blah
+      |vpiActual:
+      \_logic_net: (blah)
   |vpiContAssign:
   \_cont_assign: , line:24:10, endln:24:69, parent:work@foo
     |vpiRhs:
@@ -1879,6 +1947,8 @@ design: (work@foo)
       \_ref_obj: (work@foo.empty2), line:24:22, endln:24:28
         |vpiName:empty2
         |vpiFullName:work@foo.empty2
+        |vpiActual:
+        \_logic_net: (empty2)
       |vpiOperand:
       \_constant: , line:24:65, endln:24:69
         |vpiDecompile:4'h9
@@ -1893,6 +1963,8 @@ design: (work@foo)
     \_ref_obj: (work@foo.$37 ), line:24:10, endln:24:20
       |vpiName:$37 
       |vpiFullName:work@foo.$37 
+      |vpiActual:
+      \_logic_net: ($37 )
   |vpiModule:
   \_module: work@bar (work@foo.bar_instance) dut.sv:19:3: , endln:19:105, parent:work@foo
     |vpiName:bar_instance

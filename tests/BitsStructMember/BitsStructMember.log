@@ -28,7 +28,7 @@
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/BitsStructMember/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/BitsStructMember/slpp_all/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/BitsStructMember/slpp_all/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/BitsStructMember/slpp_all/surelog.uhdm ...
 
@@ -169,12 +169,20 @@ design: (work@top)
         \_ref_obj: (work@top.mux_sel), line:20:18, endln:20:25, parent:work@top
           |vpiName:mux_sel
           |vpiFullName:work@top.mux_sel
+          |vpiActual:
+          \_logic_net: (mux_sel)
+            |vpiName:mux_sel
+            |vpiNetType:1
         |vpiCaseItem:
         \_case_item: , line:21:7, endln:25:10
           |vpiExpr:
           \_ref_obj: (work@top.SelKeyMgr), line:21:7, endln:21:16, parent:work@top
             |vpiName:SelKeyMgr
             |vpiFullName:work@top.SelKeyMgr
+            |vpiActual:
+            \_logic_net: (SelKeyMgr)
+              |vpiName:SelKeyMgr
+              |vpiNetType:1
           |vpiStmt:
           \_begin: (work@top), line:21:18, endln:25:10
             |vpiFullName:work@top
@@ -197,8 +205,11 @@ design: (work@top)
               \_operation: , line:22:58, endln:22:59, parent:work@top
                 |vpiOpType:62
                 |vpiOperand:
-                \_ref_obj: (i), line:22:58, endln:22:59
+                \_ref_obj: (work@top.i), line:22:58, endln:22:59
                   |vpiName:i
+                  |vpiFullName:work@top.i
+                  |vpiActual:
+                  \_int_var: (work@top.i), line:22:14, endln:22:17
               |vpiCondition:
               \_operation: , line:22:26, endln:22:27, parent:work@top
                 |vpiOpType:20
@@ -206,6 +217,8 @@ design: (work@top)
                 \_ref_obj: (work@top.i), line:22:26, endln:22:27
                   |vpiName:i
                   |vpiFullName:work@top.i
+                  |vpiActual:
+                  \_int_var: (work@top.i), line:22:14, endln:22:17
                 |vpiOperand:
                 \_constant: , line:22:30, endln:22:55
                   |vpiDecompile:8
@@ -244,6 +257,8 @@ design: (work@top)
                           \_ref_obj: (work@top.i), line:23:55, endln:23:56, parent:work@top
                             |vpiName:i
                             |vpiFullName:work@top.i
+                            |vpiActual:
+                            \_int_var: (work@top.i), line:22:14, endln:22:17
                   |vpiLhs:
                   \_indexed_part_select: , line:23:11, endln:23:22, parent:work@top.kmac_mask_o
                     |vpiConstantSelect:1
@@ -261,6 +276,8 @@ design: (work@top)
                       \_ref_obj: (work@top.i), line:23:25, endln:23:26
                         |vpiName:i
                         |vpiFullName:work@top.i
+                        |vpiActual:
+                        \_int_var: (work@top.i), line:22:14, endln:22:17
                     |vpiWidthExpr:
                     \_constant: , line:23:28, endln:23:29
                       |vpiDecompile:8
@@ -377,6 +394,10 @@ design: (work@top)
         |vpiOperand:
         \_ref_obj: (MsgWidth), line:17:16, endln:17:24
           |vpiName:MsgWidth
+          |vpiActual:
+          \_logic_net: (MsgWidth)
+            |vpiName:MsgWidth
+            |vpiNetType:1
         |vpiOperand:
         \_constant: , line:17:25, endln:17:26
           |vpiDecompile:1
@@ -389,6 +410,16 @@ design: (work@top)
         |vpiSize:64
         |UINT:0
         |vpiConstType:9
+  |vpiNet:
+  \_logic_net: (mux_sel)
+    |vpiName:mux_sel
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (SelKeyMgr)
+    |vpiName:SelKeyMgr
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (MsgWidth)
   |vpiPort:
   \_port: (keymgr_data_i), line:16:48, endln:16:61, parent:work@top
     |vpiName:keymgr_data_i
@@ -428,12 +459,16 @@ design: (work@top)
         \_ref_obj: (work@top.mux_sel), line:20:18, endln:20:25
           |vpiName:mux_sel
           |vpiFullName:work@top.mux_sel
+          |vpiActual:
+          \_logic_net: (mux_sel)
         |vpiCaseItem:
         \_case_item: , line:21:7, endln:25:10
           |vpiExpr:
           \_ref_obj: (work@top.SelKeyMgr), line:21:7, endln:21:16
             |vpiName:SelKeyMgr
             |vpiFullName:work@top.SelKeyMgr
+            |vpiActual:
+            \_logic_net: (SelKeyMgr)
           |vpiStmt:
           \_begin: (work@top), line:21:18, endln:25:10
             |vpiFullName:work@top
@@ -459,6 +494,10 @@ design: (work@top)
                 \_ref_obj: (work@top.i), line:22:58, endln:22:59
                   |vpiName:i
                   |vpiFullName:work@top.i
+                  |vpiActual:
+                  \_int_var: (work@top.i), line:22:14, endln:22:17
+                    |vpiName:i
+                    |vpiFullName:work@top.i
               |vpiCondition:
               \_operation: , line:22:26, endln:22:27, parent:work@top
                 |vpiOpType:20
@@ -466,6 +505,8 @@ design: (work@top)
                 \_ref_obj: (work@top.i), line:22:26, endln:22:27
                   |vpiName:i
                   |vpiFullName:work@top.i
+                  |vpiActual:
+                  \_int_var: (work@top.i), line:22:14, endln:22:17
                 |vpiOperand:
                 \_constant: , line:22:30, endln:22:55
                   |vpiDecompile:8
@@ -506,6 +547,8 @@ design: (work@top)
                           \_ref_obj: (work@top.keymgr_data_i.strb[i].i), line:23:55, endln:23:56, parent:strb
                             |vpiName:i
                             |vpiFullName:work@top.keymgr_data_i.strb[i].i
+                            |vpiActual:
+                            \_int_var: (work@top.i), line:22:14, endln:22:17
                   |vpiLhs:
                   \_indexed_part_select: , line:23:11, endln:23:22, parent:work@top.kmac_mask_o
                     |vpiConstantSelect:1
@@ -523,6 +566,8 @@ design: (work@top)
                       \_ref_obj: (work@top.kmac_mask_o.i), line:23:25, endln:23:26
                         |vpiName:i
                         |vpiFullName:work@top.kmac_mask_o.i
+                        |vpiActual:
+                        \_int_var: (work@top.i), line:22:14, endln:22:17
                     |vpiWidthExpr:
                     \_constant: , line:23:28, endln:23:29
                       |vpiDecompile:8

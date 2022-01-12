@@ -434,7 +434,7 @@ n<> u<383> t<Top_level_rule> l<1:1> el<54:1>
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/BindStmt/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/BindStmt/slpp_all/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/BindStmt/slpp_all/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/BindStmt/slpp_all/surelog.uhdm ...
 
@@ -495,10 +495,18 @@ design: (work@testbench)
     \_ref_obj: (work@bp_lce.d), line:2:11, endln:2:12
       |vpiName:d
       |vpiFullName:work@bp_lce.d
+      |vpiActual:
+      \_logic_net: (d)
+        |vpiName:d
+        |vpiNetType:1
     |vpiLhs:
     \_ref_obj: (work@bp_lce.c), line:2:8, endln:2:9
       |vpiName:c
       |vpiFullName:work@bp_lce.c
+      |vpiActual:
+      \_logic_net: (c)
+        |vpiName:c
+        |vpiNetType:1
 |uhdmallModules:
 \_module: work@bp_me_nonsynth_lce_tracer (work@bp_me_nonsynth_lce_tracer) dut.sv:8:1: , endln:11:10, parent:work@testbench
   |vpiFullName:work@bp_me_nonsynth_lce_tracer
@@ -550,10 +558,18 @@ design: (work@testbench)
     \_ref_obj: (work@bp_me_nonsynth_lce_tracer.b), line:9:13, endln:9:14
       |vpiName:b
       |vpiFullName:work@bp_me_nonsynth_lce_tracer.b
+      |vpiActual:
+      \_logic_net: (b)
+        |vpiName:b
+        |vpiNetType:1
     |vpiLhs:
     \_ref_obj: (work@bp_me_nonsynth_lce_tracer.a), line:9:10, endln:9:11
       |vpiName:a
       |vpiFullName:work@bp_me_nonsynth_lce_tracer.a
+      |vpiActual:
+      \_logic_net: (a)
+        |vpiName:a
+        |vpiNetType:1
 |uhdmallModules:
 \_module: work@bp_me_nonsynth_lce_tracer2 (work@bp_me_nonsynth_lce_tracer2) dut.sv:13:1: , endln:16:10, parent:work@testbench
   |vpiFullName:work@bp_me_nonsynth_lce_tracer2
@@ -741,6 +757,14 @@ design: (work@testbench)
       |vpiName:b
       |vpiFullName:work@testbench.u1.b
       |vpiNetType:36
+    |vpiNet:
+    \_logic_net: (c)
+      |vpiName:c
+      |vpiNetType:1
+    |vpiNet:
+    \_logic_net: (d)
+      |vpiName:d
+      |vpiNetType:1
     |vpiInstance:
     \_module: work@testbench (work@testbench) dut.sv:25:1: , endln:52:10
     |vpiPort:
@@ -773,10 +797,14 @@ design: (work@testbench)
       \_ref_obj: (work@testbench.u1.d), line:2:11, endln:2:12
         |vpiName:d
         |vpiFullName:work@testbench.u1.d
+        |vpiActual:
+        \_logic_net: (d)
       |vpiLhs:
       \_ref_obj: (work@testbench.u1.c), line:2:8, endln:2:9
         |vpiName:c
         |vpiFullName:work@testbench.u1.c
+        |vpiActual:
+        \_logic_net: (c)
     |vpiModule:
     \_module: work@bp_me_nonsynth_lce_tracer (work@testbench.lce_tracer1) dut.sv:34:13: , endln:36:41, parent:work@testbench.u1
       |vpiName:lce_tracer1
@@ -810,6 +838,14 @@ design: (work@testbench)
         |vpiName:d
         |vpiFullName:work@testbench.u1.lce_tracer1.d
         |vpiNetType:36
+      |vpiNet:
+      \_logic_net: (a)
+        |vpiName:a
+        |vpiNetType:1
+      |vpiNet:
+      \_logic_net: (b)
+        |vpiName:b
+        |vpiNetType:1
       |vpiInstance:
       \_module: work@bp_lce (work@testbench.u1) dut.sv:27:3: , endln:27:30, parent:work@testbench
       |vpiPort:
@@ -821,7 +857,7 @@ design: (work@testbench)
           |vpiName:a
           |vpiFullName:work@testbench.a
           |vpiActual:
-          \_logic_net: (work@testbench.u1.a), line:1:55, endln:1:56, parent:work@testbench.u1
+          \_logic_net: (a)
         |vpiLowConn:
         \_ref_obj: (work@testbench.lce_tracer1.c), parent:c
           |vpiName:c
@@ -839,7 +875,7 @@ design: (work@testbench)
           |vpiName:b
           |vpiFullName:work@testbench.b
           |vpiActual:
-          \_logic_net: (work@testbench.u1.b), line:1:71, endln:1:72, parent:work@testbench.u1
+          \_logic_net: (b)
         |vpiLowConn:
         \_ref_obj: (work@testbench.lce_tracer1.d), parent:d
           |vpiName:d
@@ -855,13 +891,13 @@ design: (work@testbench)
           |vpiName:b
           |vpiFullName:work@testbench.u1.lce_tracer1.b
           |vpiActual:
-          \_logic_net: (work@testbench.u1.b), line:1:71, endln:1:72, parent:work@testbench.u1
+          \_logic_net: (b)
         |vpiLhs:
         \_ref_obj: (work@testbench.u1.lce_tracer1.a), line:9:10, endln:9:11
           |vpiName:a
           |vpiFullName:work@testbench.u1.lce_tracer1.a
           |vpiActual:
-          \_logic_net: (work@testbench.u1.a), line:1:55, endln:1:56, parent:work@testbench.u1
+          \_logic_net: (a)
       |vpiModule:
       \_module: work@sub (work@testbench.lce_tracer1.sub1) dut.sv:10:3: , endln:10:14, parent:work@testbench.lce_tracer1
         |vpiName:sub1
@@ -999,6 +1035,7 @@ design: (work@testbench)
     \_logic_net: (work@testbench.tt.clk), parent:work@testbench.tt
       |vpiName:clk
       |vpiFullName:work@testbench.tt.clk
+      |vpiNetType:1
     |vpiInstance:
     \_module: work@testbench (work@testbench) dut.sv:25:1: , endln:52:10
     |vpiModule:
@@ -1066,10 +1103,14 @@ design: (work@testbench)
         \_ref_obj: (work@testbench.tt.u1.d), line:2:11, endln:2:12
           |vpiName:d
           |vpiFullName:work@testbench.tt.u1.d
+          |vpiActual:
+          \_logic_net: (d)
         |vpiLhs:
         \_ref_obj: (work@testbench.tt.u1.c), line:2:8, endln:2:9
           |vpiName:c
           |vpiFullName:work@testbench.tt.u1.c
+          |vpiActual:
+          \_logic_net: (c)
       |vpiModule:
       \_module: work@bp_me_nonsynth_lce_tracer (work@testbench.tt.lce_tracer1) dut.sv:34:13: , endln:36:41, parent:work@testbench.tt.u1
         |vpiName:lce_tracer1

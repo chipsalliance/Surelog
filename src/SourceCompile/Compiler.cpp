@@ -1055,7 +1055,7 @@ bool Compiler::compile() {
 
     fs::path directory = m_commandLineParser->getSymbolTable().getSymbol(
         m_commandLineParser->getFullCompileDir());
-    fs::path uhdmFile = directory / "surelog.uhdm ";
+    fs::path uhdmFile = directory / "surelog.uhdm";
 
     m_uhdmDesign = m_compileDesign->writeUHDM(uhdmFile.string());
     // Do not delete as now UHDM has to live past the compilation step

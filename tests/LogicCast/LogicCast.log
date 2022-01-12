@@ -343,7 +343,7 @@ n<> u<245> t<Top_level_rule> f<0> l<0:11>
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/LogicCast/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/LogicCast/slpp_all/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/LogicCast/slpp_all/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/LogicCast/slpp_all/surelog.uhdm ...
 
@@ -709,6 +709,10 @@ design: (work@top)
               \_ref_obj: (work@top.csr_read_write.hartsel_o), line:3:40, endln:3:49
                 |vpiName:hartsel_o
                 |vpiFullName:work@top.csr_read_write.hartsel_o
+                |vpiActual:
+                \_logic_net: (hartsel_o)
+                  |vpiName:hartsel_o
+                  |vpiNetType:1
             |vpiOperand:
             \_operation: , line:3:54, endln:3:65
               |vpiOpType:11
@@ -716,6 +720,10 @@ design: (work@top)
               \_ref_obj: (work@top.csr_read_write.NrHarts), line:3:54, endln:3:61
                 |vpiName:NrHarts
                 |vpiFullName:work@top.csr_read_write.NrHarts
+                |vpiActual:
+                \_logic_net: (NrHarts)
+                  |vpiName:NrHarts
+                  |vpiNetType:1
               |vpiOperand:
               \_constant: , line:3:64, endln:3:65
                 |vpiDecompile:1
@@ -736,6 +744,14 @@ design: (work@top)
 \_module: work@top (work@top) dut.sv:1:1: , endln:5:10
   |vpiName:work@top
   |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (hartsel_o)
+    |vpiName:hartsel_o
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (NrHarts)
+    |vpiName:NrHarts
+    |vpiNetType:1
   |vpiProcess:
   \_always: , line:2:3, endln:4:6, parent:work@top
     |vpiStmt:
@@ -764,6 +780,8 @@ design: (work@top)
               \_ref_obj: (work@top.csr_read_write.hartsel_o), line:3:40, endln:3:49
                 |vpiName:hartsel_o
                 |vpiFullName:work@top.csr_read_write.hartsel_o
+                |vpiActual:
+                \_logic_net: (hartsel_o)
             |vpiOperand:
             \_operation: , line:3:54, endln:3:65
               |vpiOpType:11
@@ -771,6 +789,8 @@ design: (work@top)
               \_ref_obj: (work@top.csr_read_write.NrHarts), line:3:54, endln:3:61
                 |vpiName:NrHarts
                 |vpiFullName:work@top.csr_read_write.NrHarts
+                |vpiActual:
+                \_logic_net: (NrHarts)
               |vpiOperand:
               \_constant: , line:3:64, endln:3:65
                 |vpiDecompile:1

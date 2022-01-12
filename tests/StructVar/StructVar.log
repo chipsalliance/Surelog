@@ -42,7 +42,7 @@
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/StructVar/slpp_unit/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/StructVar/slpp_unit/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/StructVar/slpp_unit/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/StructVar/slpp_unit/surelog.uhdm ...
 
@@ -314,11 +314,19 @@ design: (work@test)
       \_ref_obj: (work@test.test), line:75:19, endln:75:23, parent:$vpi_decompiler
         |vpiName:test
         |vpiFullName:work@test.test
+        |vpiActual:
+        \_logic_net: (test)
+          |vpiName:test
+          |vpiNetType:1
       |vpiName:$vpi_decompiler
 |uhdmtopModules:
 \_module: work@test (work@test) dut.sv:69:1: , endln:76:10
   |vpiName:work@test
   |vpiDefName:work@test
+  |vpiNet:
+  \_logic_net: (test)
+    |vpiName:test
+    |vpiNetType:1
   |vpiProcess:
   \_initial: , parent:work@test
     |vpiStmt:
@@ -327,6 +335,8 @@ design: (work@test)
       \_ref_obj: (work@test.test), line:75:19, endln:75:23, parent:$vpi_decompiler
         |vpiName:test
         |vpiFullName:work@test.test
+        |vpiActual:
+        \_logic_net: (test)
       |vpiName:$vpi_decompiler
   |vpiModule:
   \_module: work@dut1 (work@test.u1) dut.sv:70:3: , endln:70:13, parent:work@test

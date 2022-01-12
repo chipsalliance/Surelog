@@ -3945,7 +3945,7 @@ UHDM::any* CompileHelper::compileExpression(
               operation->VpiOpType(vopType);
               operation->Operands(operands);
               operands->push_back(variable);
-
+              variable->VpiParent(operation);
               NodeId rval = fC->Sibling(op);
               if (fC->Type(rval) == VObjectType::slAttribute_instance) {
                 UHDM::VectorOfattribute* attributes =
