@@ -54,7 +54,7 @@
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/OneNetModPortGeneric/slpp_unit/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/OneNetModPortGeneric/slpp_unit/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/OneNetModPortGeneric/slpp_unit/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/OneNetModPortGeneric/slpp_unit/surelog.uhdm ...
 
@@ -340,6 +340,10 @@ design: (work@TOP)
     \_ref_obj: (work@OBSERVER.obs), line:31:11, endln:31:14
       |vpiName:obs
       |vpiFullName:work@OBSERVER.obs
+      |vpiActual:
+      \_logic_net: (obs)
+        |vpiName:obs
+        |vpiNetType:1
 |uhdmallModules:
 \_module: work@SUB (work@SUB) dut.v:26:1: , endln:28:10, parent:work@TOP
   |vpiFullName:work@SUB
@@ -809,6 +813,10 @@ design: (work@TOP)
     \_logic_net: (work@TOP.obs.intf), line:30:27, endln:30:31, parent:work@TOP.obs
       |vpiName:intf
       |vpiFullName:work@TOP.obs.intf
+    |vpiNet:
+    \_logic_net: (obs)
+      |vpiName:obs
+      |vpiNetType:1
     |vpiInstance:
     \_module: work@TOP (work@TOP) tb.v:15:1: , endln:20:10
     |vpiPort:

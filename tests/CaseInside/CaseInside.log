@@ -444,7 +444,7 @@ n<> u<245> t<Top_level_rule> f<0> l<0:11>
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/CaseInside/slpp_unit/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/CaseInside/slpp_unit/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/CaseInside/slpp_unit/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/CaseInside/slpp_unit/surelog.uhdm ...
 
@@ -890,6 +890,10 @@ design: (work@dm_csrs)
               \_ref_obj: (work@dm_csrs.csr_read_write.resp_queue_data), line:19:11, endln:19:26, parent:work@dm_csrs.csr_read_write
                 |vpiName:resp_queue_data
                 |vpiFullName:work@dm_csrs.csr_read_write.resp_queue_data
+                |vpiActual:
+                \_logic_net: (resp_queue_data)
+                  |vpiName:resp_queue_data
+                  |vpiNetType:1
         |vpiCaseItem:
         \_case_item: , line:23:9, endln:23:57
           |vpiExpr:
@@ -909,10 +913,16 @@ design: (work@dm_csrs)
             \_ref_obj: (work@dm_csrs.csr_read_write.dmcontrol_q), line:23:45, endln:23:56
               |vpiName:dmcontrol_q
               |vpiFullName:work@dm_csrs.csr_read_write.dmcontrol_q
+              |vpiActual:
+              \_logic_net: (dmcontrol_q)
+                |vpiName:dmcontrol_q
+                |vpiNetType:1
             |vpiLhs:
             \_ref_obj: (work@dm_csrs.csr_read_write.resp_queue_data), line:23:27, endln:23:42
               |vpiName:resp_queue_data
               |vpiFullName:work@dm_csrs.csr_read_write.resp_queue_data
+              |vpiActual:
+              \_logic_net: (resp_queue_data)
         |vpiCaseItem:
         \_case_item: , line:25:9, endln:25:18
     |vpiAlwaysType:2
@@ -920,6 +930,14 @@ design: (work@dm_csrs)
 \_module: work@dm_csrs (work@dm_csrs) top.sv:12:1: , endln:29:20
   |vpiName:work@dm_csrs
   |vpiDefName:work@dm_csrs
+  |vpiNet:
+  \_logic_net: (resp_queue_data)
+    |vpiName:resp_queue_data
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (dmcontrol_q)
+    |vpiName:dmcontrol_q
+    |vpiNetType:1
   |vpiProcess:
   \_always: , line:13:3, endln:28:6, parent:work@dm_csrs
     |vpiStmt:
@@ -982,6 +1000,8 @@ design: (work@dm_csrs)
               \_ref_obj: (work@dm_csrs.csr_read_write.resp_queue_data), line:19:11, endln:19:26
                 |vpiName:resp_queue_data
                 |vpiFullName:work@dm_csrs.csr_read_write.resp_queue_data
+                |vpiActual:
+                \_logic_net: (resp_queue_data)
         |vpiCaseItem:
         \_case_item: , line:23:9, endln:23:57
           |vpiExpr:
@@ -1001,10 +1021,14 @@ design: (work@dm_csrs)
             \_ref_obj: (work@dm_csrs.csr_read_write.dmcontrol_q), line:23:45, endln:23:56
               |vpiName:dmcontrol_q
               |vpiFullName:work@dm_csrs.csr_read_write.dmcontrol_q
+              |vpiActual:
+              \_logic_net: (dmcontrol_q)
             |vpiLhs:
             \_ref_obj: (work@dm_csrs.csr_read_write.resp_queue_data), line:23:27, endln:23:42
               |vpiName:resp_queue_data
               |vpiFullName:work@dm_csrs.csr_read_write.resp_queue_data
+              |vpiActual:
+              \_logic_net: (resp_queue_data)
         |vpiCaseItem:
         \_case_item: , line:25:9, endln:25:18
     |vpiAlwaysType:2

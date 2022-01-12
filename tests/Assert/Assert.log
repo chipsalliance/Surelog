@@ -76,7 +76,7 @@ n<> u<49> t<Top_level_rule> l<1:1> el<8:1>
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/Assert/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/Assert/slpp_all/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/Assert/slpp_all/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/Assert/slpp_all/surelog.uhdm ...
 
@@ -101,10 +101,18 @@ design: (work@dut)
         |vpiOperand:
         \_ref_obj: (Clock), line:4:29, endln:4:34
           |vpiName:Clock
+          |vpiActual:
+          \_logic_net: (Clock)
+            |vpiName:Clock
+            |vpiNetType:1
 |uhdmtopModules:
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:7:10
   |vpiName:work@dut
   |vpiDefName:work@dut
+  |vpiNet:
+  \_logic_net: (Clock)
+    |vpiName:Clock
+    |vpiNetType:1
   |vpiAssertion:
   \_assert_stmt: (work@dut), line:4:1, endln:4:73, parent:work@dut
     |vpiFullName:work@dut
@@ -117,6 +125,8 @@ design: (work@dut)
         \_ref_obj: (work@dut.Clock), line:4:29, endln:4:34
           |vpiName:Clock
           |vpiFullName:work@dut.Clock
+          |vpiActual:
+          \_logic_net: (Clock)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -768,7 +768,7 @@ n<> u<245> t<Top_level_rule> f<0> l<0:11>
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/PackageFuncCall/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/PackageFuncCall/slpp_all/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/PackageFuncCall/slpp_all/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/PackageFuncCall/slpp_all/surelog.uhdm ...
 
@@ -1550,6 +1550,10 @@ design: (work@top)
                 \_ref_obj: (work@top.p_post_round_xor.NumRoundsHalf), line:32:35, endln:32:48
                   |vpiName:NumRoundsHalf
                   |vpiFullName:work@top.p_post_round_xor.NumRoundsHalf
+                  |vpiActual:
+                  \_logic_net: (NumRoundsHalf)
+                    |vpiName:NumRoundsHalf
+                    |vpiNetType:1
               |vpiOperand:
               \_constant: , line:32:49, endln:32:50
                 |vpiDecompile:1
@@ -1577,6 +1581,10 @@ design: (work@top)
                 \_ref_obj: (work@top.p_post_round_xor.DataWidth), line:35:23, endln:35:32
                   |vpiName:DataWidth
                   |vpiFullName:work@top.p_post_round_xor.DataWidth
+                  |vpiActual:
+                  \_logic_net: (DataWidth)
+                    |vpiName:DataWidth
+                    |vpiNetType:1
                 |vpiOperand:
                 \_constant: , line:35:33, endln:35:34
                   |vpiDecompile:1
@@ -1593,6 +1601,10 @@ design: (work@top)
         \_ref_obj: (work@top.p_post_round_xor.data_o), line:32:12, endln:32:18, parent:work@top.p_post_round_xor
           |vpiName:data_o
           |vpiFullName:work@top.p_post_round_xor.data_o
+          |vpiActual:
+          \_logic_net: (data_o)
+            |vpiName:data_o
+            |vpiNetType:1
       |vpiStmt:
       \_assignment: , line:36:11, endln:36:23, parent:work@top.p_post_round_xor
         |vpiOpType:30
@@ -1601,10 +1613,16 @@ design: (work@top)
         \_ref_obj: (work@top.p_post_round_xor.k1), line:36:21, endln:36:23, parent:work@top.p_post_round_xor
           |vpiName:k1
           |vpiFullName:work@top.p_post_round_xor.k1
+          |vpiActual:
+          \_logic_net: (k1)
+            |vpiName:k1
+            |vpiNetType:1
         |vpiLhs:
         \_ref_obj: (work@top.p_post_round_xor.data_o), line:36:11, endln:36:17, parent:work@top.p_post_round_xor
           |vpiName:data_o
           |vpiFullName:work@top.p_post_round_xor.data_o
+          |vpiActual:
+          \_logic_net: (data_o)
       |vpiStmt:
       \_assignment: , line:37:12, endln:37:30, parent:work@top.p_post_round_xor
         |vpiOpType:30
@@ -1613,10 +1631,16 @@ design: (work@top)
         \_ref_obj: (work@top.p_post_round_xor.k0_prime), line:37:22, endln:37:30, parent:work@top.p_post_round_xor
           |vpiName:k0_prime
           |vpiFullName:work@top.p_post_round_xor.k0_prime
+          |vpiActual:
+          \_logic_net: (k0_prime)
+            |vpiName:k0_prime
+            |vpiNetType:1
         |vpiLhs:
         \_ref_obj: (work@top.p_post_round_xor.data_o), line:37:12, endln:37:18, parent:work@top.p_post_round_xor
           |vpiName:data_o
           |vpiFullName:work@top.p_post_round_xor.data_o
+          |vpiActual:
+          \_logic_net: (data_o)
     |vpiAlwaysType:2
   |vpiContAssign:
   \_cont_assign: , line:28:8, endln:29:55, parent:work@top
@@ -1626,6 +1650,10 @@ design: (work@top)
       \_ref_obj: (work@top.data_state_xor), line:28:55, endln:28:69, parent:prim_cipher_pkg::sbox4_64bit
         |vpiName:data_state_xor
         |vpiFullName:work@top.data_state_xor
+        |vpiActual:
+        \_logic_net: (data_state_xor)
+          |vpiName:data_state_xor
+          |vpiNetType:1
       |vpiArgument:
       \_ref_obj: (prim_cipher_pkg::PRESENT_SBOX4), line:29:24, endln:29:54, parent:prim_cipher_pkg::sbox4_64bit
         |vpiName:prim_cipher_pkg::PRESENT_SBOX4
@@ -2047,10 +2075,42 @@ design: (work@top)
     \_ref_obj: (work@top.data_state_sbox), line:28:8, endln:28:23
       |vpiName:data_state_sbox
       |vpiFullName:work@top.data_state_sbox
+      |vpiActual:
+      \_logic_net: (data_state_sbox)
+        |vpiName:data_state_sbox
+        |vpiNetType:1
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:26:1: , endln:42:10
   |vpiName:work@top
   |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (data_state_sbox)
+    |vpiName:data_state_sbox
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (data_state_xor)
+    |vpiName:data_state_xor
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (data_o)
+    |vpiName:data_o
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (NumRoundsHalf)
+    |vpiName:NumRoundsHalf
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (DataWidth)
+    |vpiName:DataWidth
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (k1)
+    |vpiName:k1
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (k0_prime)
+    |vpiName:k0_prime
+    |vpiNetType:1
   |vpiProcess:
   \_always: , line:31:2, endln:38:13, parent:work@top
     |vpiStmt:
@@ -2084,6 +2144,8 @@ design: (work@top)
                 \_ref_obj: (work@top.p_post_round_xor.data_state.NumRoundsHalf), line:32:35, endln:32:48
                   |vpiName:NumRoundsHalf
                   |vpiFullName:work@top.p_post_round_xor.data_state.NumRoundsHalf
+                  |vpiActual:
+                  \_logic_net: (NumRoundsHalf)
               |vpiOperand:
               \_constant: , line:32:49, endln:32:50
                 |vpiDecompile:1
@@ -2111,6 +2173,8 @@ design: (work@top)
                 \_ref_obj: (prim_cipher_pkg::PRINCE_ROUND_CONST::DataWidth), line:35:23, endln:35:32
                   |vpiName:DataWidth
                   |vpiFullName:prim_cipher_pkg::PRINCE_ROUND_CONST::DataWidth
+                  |vpiActual:
+                  \_logic_net: (DataWidth)
                 |vpiOperand:
                 \_constant: , line:35:33, endln:35:34
                   |vpiDecompile:1
@@ -2127,6 +2191,8 @@ design: (work@top)
         \_ref_obj: (work@top.p_post_round_xor.data_o), line:32:12, endln:32:18
           |vpiName:data_o
           |vpiFullName:work@top.p_post_round_xor.data_o
+          |vpiActual:
+          \_logic_net: (data_o)
       |vpiStmt:
       \_assignment: , line:36:11, endln:36:23, parent:work@top.p_post_round_xor
         |vpiOpType:30
@@ -2135,10 +2201,14 @@ design: (work@top)
         \_ref_obj: (work@top.p_post_round_xor.k1), line:36:21, endln:36:23
           |vpiName:k1
           |vpiFullName:work@top.p_post_round_xor.k1
+          |vpiActual:
+          \_logic_net: (k1)
         |vpiLhs:
         \_ref_obj: (work@top.p_post_round_xor.data_o), line:36:11, endln:36:17
           |vpiName:data_o
           |vpiFullName:work@top.p_post_round_xor.data_o
+          |vpiActual:
+          \_logic_net: (data_o)
       |vpiStmt:
       \_assignment: , line:37:12, endln:37:30, parent:work@top.p_post_round_xor
         |vpiOpType:30
@@ -2147,10 +2217,14 @@ design: (work@top)
         \_ref_obj: (work@top.p_post_round_xor.k0_prime), line:37:22, endln:37:30
           |vpiName:k0_prime
           |vpiFullName:work@top.p_post_round_xor.k0_prime
+          |vpiActual:
+          \_logic_net: (k0_prime)
         |vpiLhs:
         \_ref_obj: (work@top.p_post_round_xor.data_o), line:37:12, endln:37:18
           |vpiName:data_o
           |vpiFullName:work@top.p_post_round_xor.data_o
+          |vpiActual:
+          \_logic_net: (data_o)
     |vpiAlwaysType:2
   |vpiContAssign:
   \_cont_assign: , line:28:8, endln:29:55, parent:work@top
@@ -2160,6 +2234,8 @@ design: (work@top)
       \_ref_obj: (work@top.data_state_xor), line:28:55, endln:28:69, parent:prim_cipher_pkg::sbox4_64bit
         |vpiName:data_state_xor
         |vpiFullName:work@top.data_state_xor
+        |vpiActual:
+        \_logic_net: (data_state_xor)
       |vpiArgument:
       \_ref_obj: (prim_cipher_pkg::PRESENT_SBOX4), line:29:24, endln:29:54, parent:prim_cipher_pkg::sbox4_64bit
         |vpiName:prim_cipher_pkg::PRESENT_SBOX4
@@ -2581,6 +2657,8 @@ design: (work@top)
     \_ref_obj: (work@top.data_state_sbox), line:28:8, endln:28:23
       |vpiName:data_state_sbox
       |vpiFullName:work@top.data_state_sbox
+      |vpiActual:
+      \_logic_net: (data_state_sbox)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -8861,7 +8861,7 @@ n<> u<245> t<Top_level_rule> f<0> l<0:11>
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/BlackParrotParam/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/BlackParrotParam/slpp_all/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/BlackParrotParam/slpp_all/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/BlackParrotParam/slpp_all/surelog.uhdm ...
 
@@ -40472,10 +40472,18 @@ design: (work@bp_be_ptw)
       \_ref_obj: (work@bp_be_ptw.translation_en_i), line:4625:35, endln:4625:51
         |vpiName:translation_en_i
         |vpiFullName:work@bp_be_ptw.translation_en_i
+        |vpiActual:
+        \_logic_net: (translation_en_i)
+          |vpiName:translation_en_i
+          |vpiNetType:1
       |vpiOperand:
       \_ref_obj: (work@bp_be_ptw.writeback_ppn), line:4625:54, endln:4625:67
         |vpiName:writeback_ppn
         |vpiFullName:work@bp_be_ptw.writeback_ppn
+        |vpiActual:
+        \_logic_net: (writeback_ppn)
+          |vpiName:writeback_ppn
+          |vpiNetType:1
       |vpiOperand:
       \_operation: , line:4625:70, endln:4625:90
         |vpiTypespec:
@@ -40486,6 +40494,10 @@ design: (work@bp_be_ptw)
         \_ref_obj: (work@bp_be_ptw.vpn_r), line:4625:84, endln:4625:89
           |vpiName:vpn_r
           |vpiFullName:work@bp_be_ptw.vpn_r
+          |vpiActual:
+          \_logic_net: (vpn_r)
+            |vpiName:vpn_r
+            |vpiNetType:1
     |vpiLhs:
     \_hier_path: (tlb_w_entry.ptag), line:4625:10, endln:4625:21
       |vpiName:tlb_w_entry.ptag
@@ -60001,6 +60013,18 @@ design: (work@bp_be_ptw)
   |vpiTypedef:
   \_import: (bp_be_dcache_pkg), line:4376:10, endln:4376:29
   |vpiDefName:work@bp_be_ptw
+  |vpiNet:
+  \_logic_net: (translation_en_i)
+    |vpiName:translation_en_i
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (writeback_ppn)
+    |vpiName:writeback_ppn
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (vpn_r)
+    |vpiName:vpn_r
+    |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:4625:10, endln:4625:90, parent:work@bp_be_ptw
     |vpiRhs:
@@ -60010,10 +60034,14 @@ design: (work@bp_be_ptw)
       \_ref_obj: (work@bp_be_ptw.translation_en_i), line:4625:35, endln:4625:51
         |vpiName:translation_en_i
         |vpiFullName:work@bp_be_ptw.translation_en_i
+        |vpiActual:
+        \_logic_net: (translation_en_i)
       |vpiOperand:
       \_ref_obj: (work@bp_be_ptw.writeback_ppn), line:4625:54, endln:4625:67
         |vpiName:writeback_ppn
         |vpiFullName:work@bp_be_ptw.writeback_ppn
+        |vpiActual:
+        \_logic_net: (writeback_ppn)
       |vpiOperand:
       \_operation: , line:4625:70, endln:4625:90
         |vpiTypespec:
@@ -60024,6 +60052,8 @@ design: (work@bp_be_ptw)
         \_ref_obj: (work@bp_be_ptw.vpn_r), line:4625:84, endln:4625:89
           |vpiName:vpn_r
           |vpiFullName:work@bp_be_ptw.vpn_r
+          |vpiActual:
+          \_logic_net: (vpn_r)
     |vpiLhs:
     \_hier_path: (tlb_w_entry.ptag), line:4625:10, endln:4625:21
       |vpiName:tlb_w_entry.ptag

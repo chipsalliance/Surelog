@@ -397,9 +397,10 @@ bool ErrorDefinition::init() {
   rec(UHDM_UNSUPPORTED_TYPE, ERROR, UHDM, "Unsupported data type \"%s\"");
   rec(UHDM_CREATING_MODEL, INFO, UHDM, "Creating UHDM Model..");
   rec(UHDM_ELABORATION, INFO, UHDM, "Elaborating UHDM..");
-  rec(UHDM_WRITE_DB, INFO, UHDM, "Writing UHDM DB: %s..");
-  rec(UHDM_WRITE_HTML_COVERAGE, INFO, UHDM, "Writing UHDM Html Coverage: %s..");
-  rec(UHDM_LOAD_DB, INFO, UHDM, "Loading UHDM DB: %s..");
+  rec(UHDM_WRITE_DB, INFO, UHDM, "Writing UHDM DB: %s ..");
+  rec(UHDM_WRITE_HTML_COVERAGE, INFO, UHDM,
+      "Writing UHDM Html Coverage: %s ..");
+  rec(UHDM_LOAD_DB, INFO, UHDM, "Loading UHDM DB: %s ..");
   rec(UHDM_VISITOR, INFO, UHDM, "Decompiling UHDM..");
   rec(UHDM_UNDEFINED_PATTERN_KEY, ERROR, UHDM, "Undefined pattern key \"%s\"");
   rec(UHDM_UNMATCHED_FIELD_IN_PATTERN_ASSIGN, ERROR, UHDM,

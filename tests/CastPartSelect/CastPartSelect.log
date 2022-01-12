@@ -372,7 +372,7 @@ n<> u<245> t<Top_level_rule> f<0> l<0:11>
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/CastPartSelect/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/CastPartSelect/slpp_all/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/CastPartSelect/slpp_all/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/CastPartSelect/slpp_all/surelog.uhdm ...
 
@@ -760,6 +760,10 @@ design: (work@top)
           \_ref_obj: (work@top.csr_pipeline_flushes.CSR_MSTATUS), line:5:39, endln:5:50
             |vpiName:CSR_MSTATUS
             |vpiFullName:work@top.csr_pipeline_flushes.CSR_MSTATUS
+            |vpiActual:
+            \_logic_net: (CSR_MSTATUS)
+              |vpiName:CSR_MSTATUS
+              |vpiNetType:1
         |vpiStmt:
         \_begin: (work@top.csr_pipeline_flushes), line:5:52, endln:7:10
           |vpiFullName:work@top.csr_pipeline_flushes
@@ -777,6 +781,10 @@ design: (work@top)
             \_ref_obj: (work@top.csr_pipeline_flushes.csr_pipe_flush), line:6:9, endln:6:23, parent:work@top.csr_pipeline_flushes
               |vpiName:csr_pipe_flush
               |vpiFullName:work@top.csr_pipeline_flushes.csr_pipe_flush
+              |vpiActual:
+              \_logic_net: (csr_pipe_flush)
+                |vpiName:csr_pipe_flush
+                |vpiNetType:1
     |vpiAlwaysType:2
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:10:10
@@ -801,6 +809,14 @@ design: (work@top)
         |vpiSize:64
         |UINT:0
         |vpiConstType:9
+  |vpiNet:
+  \_logic_net: (CSR_MSTATUS)
+    |vpiName:CSR_MSTATUS
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (csr_pipe_flush)
+    |vpiName:csr_pipe_flush
+    |vpiNetType:1
   |vpiPort:
   \_port: (instr_rdata_i), line:1:32, endln:1:45, parent:work@top
     |vpiName:instr_rdata_i
@@ -850,6 +866,8 @@ design: (work@top)
           \_ref_obj: (work@top.csr_pipeline_flushes.CSR_MSTATUS), line:5:39, endln:5:50
             |vpiName:CSR_MSTATUS
             |vpiFullName:work@top.csr_pipeline_flushes.CSR_MSTATUS
+            |vpiActual:
+            \_logic_net: (CSR_MSTATUS)
         |vpiStmt:
         \_begin: (work@top.csr_pipeline_flushes), line:5:52, endln:7:10
           |vpiFullName:work@top.csr_pipeline_flushes
@@ -867,6 +885,8 @@ design: (work@top)
             \_ref_obj: (work@top.csr_pipeline_flushes.csr_pipe_flush), line:6:9, endln:6:23
               |vpiName:csr_pipe_flush
               |vpiFullName:work@top.csr_pipeline_flushes.csr_pipe_flush
+              |vpiActual:
+              \_logic_net: (csr_pipe_flush)
     |vpiAlwaysType:2
 ===================
 [  FATAL] : 0

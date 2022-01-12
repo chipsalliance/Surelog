@@ -746,7 +746,7 @@ n<> u<715> t<Top_level_rule> l<1:1> el<69:1>
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/EvalFunc/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/EvalFunc/slpp_all/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/EvalFunc/slpp_all/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/EvalFunc/slpp_all/surelog.uhdm ...
 
@@ -1073,6 +1073,8 @@ design: (work@top)
           \_ref_obj: (work@top.vbits.value), line:25:11, endln:25:16
             |vpiName:value
             |vpiFullName:work@top.vbits.value
+            |vpiActual:
+            \_io_decl: (value)
           |vpiOperand:
           \_constant: , line:25:20, endln:25:21
             |vpiDecompile:1
@@ -1091,6 +1093,8 @@ design: (work@top)
           \_ref_obj: (work@top.vbits.value), line:25:36, endln:25:41, parent:$clog2
             |vpiName:value
             |vpiFullName:work@top.vbits.value
+            |vpiActual:
+            \_io_decl: (value)
           |vpiName:$clog2
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:22:1: , endln:68:10, parent:work@top
@@ -1113,6 +1117,8 @@ design: (work@top)
       \_ref_obj: (work@top.foo.value), line:30:8, endln:30:13
         |vpiName:value
         |vpiFullName:work@top.foo.value
+        |vpiActual:
+        \_io_decl: (value), line:29:15, endln:29:20, parent:work@top.foo
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:22:1: , endln:68:10, parent:work@top
   |vpiTaskFunc:
@@ -1176,6 +1182,8 @@ design: (work@top)
           \_ref_obj: (work@top.log2.value), line:39:10, endln:39:15
             |vpiName:value
             |vpiFullName:work@top.log2.value
+            |vpiActual:
+            \_io_decl: (value), line:34:15, endln:34:20, parent:work@top.log2
           |vpiLhs:
           \_ref_obj: (work@top.log2.log2), line:39:3, endln:39:7
             |vpiName:log2
@@ -1197,6 +1205,8 @@ design: (work@top)
               \_ref_obj: (work@top.log2.value), line:42:13, endln:42:18, parent:work@top.log2
                 |vpiName:value
                 |vpiFullName:work@top.log2.value
+                |vpiActual:
+                \_io_decl: (value), line:34:15, endln:34:20, parent:work@top.log2
               |vpiOperand:
               \_constant: , line:42:19, endln:42:20
                 |vpiDecompile:1
@@ -1207,6 +1217,8 @@ design: (work@top)
             \_ref_obj: (work@top.log2.shifted), line:42:3, endln:42:10, parent:work@top.log2
               |vpiName:shifted
               |vpiFullName:work@top.log2.shifted
+              |vpiActual:
+              \_logic_var: (shifted), line:35:1, endln:35:4
           |vpiStmt:
           \_for_stmt: (work@top.log2), line:43:3, endln:43:6, parent:work@top.log2
             |vpiFullName:work@top.log2
@@ -1233,6 +1245,8 @@ design: (work@top)
                 \_ref_obj: (work@top.log2.res), line:43:30, endln:43:33, parent:work@top.log2
                   |vpiName:res
                   |vpiFullName:work@top.log2.res
+                  |vpiActual:
+                  \_ref_var: (work@top.log2.res), line:43:8, endln:43:11
                 |vpiOperand:
                 \_constant: , line:43:34, endln:43:35
                   |vpiDecompile:1
@@ -1243,6 +1257,8 @@ design: (work@top)
               \_ref_obj: (work@top.log2.res), line:43:26, endln:43:29, parent:work@top.log2
                 |vpiName:res
                 |vpiFullName:work@top.log2.res
+                |vpiActual:
+                \_ref_var: (work@top.log2.res), line:43:8, endln:43:11
             |vpiCondition:
             \_operation: , line:43:15, endln:43:22, parent:work@top.log2
               |vpiOpType:18
@@ -1250,6 +1266,8 @@ design: (work@top)
               \_ref_obj: (work@top.log2.shifted), line:43:15, endln:43:22
                 |vpiName:shifted
                 |vpiFullName:work@top.log2.shifted
+                |vpiActual:
+                \_logic_var: (shifted), line:35:1, endln:35:4
               |vpiOperand:
               \_constant: , line:43:23, endln:43:24
                 |vpiDecompile:0
@@ -1267,6 +1285,8 @@ design: (work@top)
                 \_ref_obj: (work@top.log2.shifted), line:44:14, endln:44:21, parent:work@top.log2
                   |vpiName:shifted
                   |vpiFullName:work@top.log2.shifted
+                  |vpiActual:
+                  \_logic_var: (shifted), line:35:1, endln:35:4
                 |vpiOperand:
                 \_constant: , line:44:23, endln:44:24
                   |vpiDecompile:1
@@ -1277,6 +1297,8 @@ design: (work@top)
               \_ref_obj: (work@top.log2.shifted), line:44:4, endln:44:11, parent:work@top.log2
                 |vpiName:shifted
                 |vpiFullName:work@top.log2.shifted
+                |vpiActual:
+                \_logic_var: (shifted), line:35:1, endln:35:4
           |vpiStmt:
           \_assignment: , line:45:3, endln:45:13, parent:work@top.log2
             |vpiOpType:82
@@ -1285,6 +1307,8 @@ design: (work@top)
             \_ref_obj: (work@top.log2.res), line:45:10, endln:45:13, parent:work@top.log2
               |vpiName:res
               |vpiFullName:work@top.log2.res
+              |vpiActual:
+              \_int_var: (res), line:36:1, endln:36:8
             |vpiLhs:
             \_ref_obj: (work@top.log2.log2), line:45:3, endln:45:7, parent:work@top.log2
               |vpiName:log2
@@ -1351,6 +1375,8 @@ design: (work@top)
                 \_ref_obj: (work@top.log2_2.value), line:56:17, endln:56:22, parent:foo
                   |vpiName:value
                   |vpiFullName:work@top.log2_2.value
+                  |vpiActual:
+                  \_io_decl: (value), line:52:15, endln:52:20, parent:work@top.log2_2
                 |vpiName:foo
                 |vpiFunction:
                 \_function: (work@top.foo), line:28:1, endln:31:12, parent:work@top
@@ -1364,6 +1390,8 @@ design: (work@top)
             \_ref_obj: (work@top.log2_2.value), line:56:5, endln:56:10, parent:work@top.log2_2
               |vpiName:value
               |vpiFullName:work@top.log2_2.value
+              |vpiActual:
+              \_io_decl: (value), line:52:15, endln:52:20, parent:work@top.log2_2
           |vpiStmt:
           \_for_stmt: (work@top.log2_2), line:57:5, endln:57:8, parent:work@top.log2_2
             |vpiFullName:work@top.log2_2
@@ -1401,6 +1429,8 @@ design: (work@top)
               \_ref_obj: (work@top.log2_2.value), line:57:12, endln:57:17
                 |vpiName:value
                 |vpiFullName:work@top.log2_2.value
+                |vpiActual:
+                \_io_decl: (value), line:52:15, endln:52:20, parent:work@top.log2_2
               |vpiOperand:
               \_constant: , line:57:20, endln:57:21
                 |vpiDecompile:0
@@ -1418,6 +1448,8 @@ design: (work@top)
                 \_ref_obj: (work@top.log2_2.value), line:58:14, endln:58:19, parent:work@top.log2_2
                   |vpiName:value
                   |vpiFullName:work@top.log2_2.value
+                  |vpiActual:
+                  \_io_decl: (value), line:52:15, endln:52:20, parent:work@top.log2_2
                 |vpiOperand:
                 \_constant: , line:58:23, endln:58:24
                   |vpiDecompile:1
@@ -1428,6 +1460,8 @@ design: (work@top)
               \_ref_obj: (work@top.log2_2.value), line:58:6, endln:58:11, parent:work@top.log2_2
                 |vpiName:value
                 |vpiFullName:work@top.log2_2.value
+                |vpiActual:
+                \_io_decl: (value), line:52:15, endln:52:20, parent:work@top.log2_2
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:22:1: , endln:68:10, parent:work@top
 |uhdmtopModules:
