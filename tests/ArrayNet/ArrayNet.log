@@ -96,7 +96,7 @@ n<> u<69> t<Top_level_rule> l<1:1> el<8:1>
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/ArrayNet/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/ArrayNet/slpp_all/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/ArrayNet/slpp_all/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/ArrayNet/slpp_all/surelog.uhdm ...
 
@@ -132,6 +132,43 @@ design: (work@memory)
         \_ref_obj: (work@memory.my_memory), line:5:27, endln:5:36, parent:$readmemh
           |vpiName:my_memory
           |vpiFullName:work@memory.my_memory
+          |vpiActual:
+          \_array_net: (work@memory.my_memory), line:2:11, endln:2:20, parent:work@memory
+            |vpiSize:256
+            |vpiName:my_memory
+            |vpiFullName:work@memory.my_memory
+            |vpiRange:
+            \_range: , line:2:22, endln:2:27
+              |vpiLeftRange:
+              \_constant: , line:2:22, endln:2:23
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:2:24, endln:2:27
+                |vpiDecompile:255
+                |vpiSize:64
+                |UINT:255
+                |vpiConstType:9
+            |vpiNet:
+            \_logic_net: (work@memory.my_memory), parent:work@memory.my_memory
+              |vpiFullName:work@memory.my_memory
+              |vpiNetType:48
+              |vpiRange:
+              \_range: , line:2:6, endln:2:9
+                |vpiLeftRange:
+                \_constant: , line:2:6, endln:2:7
+                  |vpiDecompile:7
+                  |vpiSize:64
+                  |UINT:7
+                  |vpiConstType:9
+                |vpiRightRange:
+                \_constant: , line:2:8, endln:2:9
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
         |vpiName:$readmemh
 |uhdmtopModules:
 \_module: work@memory (work@memory) dut.sv:1:1: , endln:7:10

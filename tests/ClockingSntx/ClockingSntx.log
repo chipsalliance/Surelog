@@ -261,7 +261,7 @@ n<> u<230> t<Top_level_rule> l<1:1> el<28:1>
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/ClockingSntx/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/ClockingSntx/slpp_all/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/ClockingSntx/slpp_all/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/ClockingSntx/slpp_all/surelog.uhdm ...
 
@@ -430,6 +430,10 @@ design: (work@top)
       |vpiCondition:
       \_ref_obj: (clock), line:2:17, endln:2:22
         |vpiName:clock
+        |vpiActual:
+        \_logic_net: (clock)
+          |vpiName:clock
+          |vpiNetType:1
     |vpiClockingIODecl:
     \_clocking_io_decl: (instruction)
       |vpiDirection:1
@@ -440,9 +444,17 @@ design: (work@top)
         |vpiOperand:
         \_ref_obj: (opcode), line:3:24, endln:3:30
           |vpiName:opcode
+          |vpiActual:
+          \_logic_net: (opcode)
+            |vpiName:opcode
+            |vpiNetType:1
         |vpiOperand:
         \_ref_obj: (regA), line:3:32, endln:3:36
           |vpiName:regA
+          |vpiActual:
+          \_logic_net: (regA)
+            |vpiName:regA
+            |vpiNetType:1
         |vpiOperand:
         \_part_select: , line:3:38, endln:3:47, parent:regB
           |vpiParent:
@@ -604,6 +616,18 @@ design: (work@top)
         |vpiSize:64
         |UINT:1
         |vpiConstType:9
+  |vpiNet:
+  \_logic_net: (clock)
+    |vpiName:clock
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (opcode)
+    |vpiName:opcode
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (regA)
+    |vpiName:regA
+    |vpiNetType:1
   |vpiPort:
   \_port: (phi1), line:8:9, endln:8:13, parent:work@top
     |vpiName:phi1
@@ -720,6 +744,8 @@ design: (work@top)
       \_ref_obj: (work@top.mem.clock), line:2:17, endln:2:22
         |vpiName:clock
         |vpiFullName:work@top.mem.clock
+        |vpiActual:
+        \_logic_net: (clock)
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:27:10
     |vpiClockingIODecl:
@@ -733,10 +759,14 @@ design: (work@top)
         \_ref_obj: (work@top.mem.instruction.opcode), line:3:24, endln:3:30
           |vpiName:opcode
           |vpiFullName:work@top.mem.instruction.opcode
+          |vpiActual:
+          \_logic_net: (opcode)
         |vpiOperand:
         \_ref_obj: (work@top.mem.instruction.regA), line:3:32, endln:3:36
           |vpiName:regA
           |vpiFullName:work@top.mem.instruction.regA
+          |vpiActual:
+          \_logic_net: (regA)
         |vpiOperand:
         \_part_select: , line:3:38, endln:3:47, parent:regB
           |vpiParent:

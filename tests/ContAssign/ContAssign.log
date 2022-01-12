@@ -373,7 +373,7 @@ n<> u<245> t<Top_level_rule> f<0> l<0:11>
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/ContAssign/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/ContAssign/slpp_all/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/ContAssign/slpp_all/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/ContAssign/slpp_all/surelog.uhdm ...
 
@@ -737,10 +737,18 @@ design: (work@top)
     \_ref_obj: (work@top.b), line:11:14, endln:11:15
       |vpiName:b
       |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_net: (b)
+        |vpiName:b
+        |vpiNetType:1
     |vpiLhs:
     \_ref_obj: (work@top.a), line:11:10, endln:11:11
       |vpiName:a
       |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_net: (a)
+        |vpiName:a
+        |vpiNetType:1
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:14:10
   |vpiName:work@top
@@ -759,6 +767,22 @@ design: (work@top)
   \_logic_net: (work@top.toto), line:9:8, endln:9:12, parent:work@top
     |vpiName:toto
     |vpiFullName:work@top.toto
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (a)
+    |vpiName:a
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (b)
+    |vpiName:b
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (clkcnt)
+    |vpiName:clkcnt
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (debug_req_ready)
+    |vpiName:debug_req_ready
     |vpiNetType:1
   |vpiArrayNet:
   \_array_net: (work@top.intf2), line:3:13, endln:3:18, parent:work@top
@@ -801,6 +825,8 @@ design: (work@top)
       \_ref_obj: (work@top.clkcnt), line:5:16, endln:5:22
         |vpiName:clkcnt
         |vpiFullName:work@top.clkcnt
+        |vpiActual:
+        \_logic_net: (clkcnt)
     |vpiLhs:
     \_logic_net: (work@top.ena), line:5:8, endln:5:11, parent:work@top
   |vpiContAssign:
@@ -816,6 +842,8 @@ design: (work@top)
     \_ref_obj: (work@top.debug_req_ready), line:7:33, endln:7:48
       |vpiName:debug_req_ready
       |vpiFullName:work@top.debug_req_ready
+      |vpiActual:
+      \_logic_net: (debug_req_ready)
     |vpiLhs:
     \_logic_net: (work@top.__debug_req_ready), line:7:13, endln:7:30, parent:work@top
   |vpiContAssign:
@@ -824,10 +852,14 @@ design: (work@top)
     \_ref_obj: (work@top.b), line:11:14, endln:11:15
       |vpiName:b
       |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_net: (b)
     |vpiLhs:
     \_ref_obj: (work@top.a), line:11:10, endln:11:11
       |vpiName:a
       |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_net: (a)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

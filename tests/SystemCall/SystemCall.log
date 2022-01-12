@@ -93,7 +93,7 @@ n<> u<66> t<Top_level_rule> l<1:1> el<7:1>
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/SystemCall/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/SystemCall/slpp_all/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/SystemCall/slpp_all/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/SystemCall/slpp_all/surelog.uhdm ...
 
@@ -115,15 +115,31 @@ design: (work@m2)
       \_ref_obj: (work@m2.x), line:4:18, endln:4:19, parent:$past
         |vpiName:x
         |vpiFullName:work@m2.x
+        |vpiActual:
+        \_logic_net: (x)
+          |vpiName:x
+          |vpiNetType:1
       |vpiName:$past
     |vpiLhs:
     \_ref_obj: (work@m2.a), line:4:8, endln:4:9
       |vpiName:a
       |vpiFullName:work@m2.a
+      |vpiActual:
+      \_logic_net: (a)
+        |vpiName:a
+        |vpiNetType:1
 |uhdmtopModules:
 \_module: work@m2 (work@m2) dut.sv:1:1: , endln:6:10
   |vpiName:work@m2
   |vpiDefName:work@m2
+  |vpiNet:
+  \_logic_net: (a)
+    |vpiName:a
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (x)
+    |vpiName:x
+    |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:4:8, endln:4:39, parent:work@m2
     |vpiRhs:
@@ -132,11 +148,15 @@ design: (work@m2)
       \_ref_obj: (work@m2.x), line:4:18, endln:4:19, parent:$past
         |vpiName:x
         |vpiFullName:work@m2.x
+        |vpiActual:
+        \_logic_net: (x)
       |vpiName:$past
     |vpiLhs:
     \_ref_obj: (work@m2.a), line:4:8, endln:4:9
       |vpiName:a
       |vpiFullName:work@m2.a
+      |vpiActual:
+      \_logic_net: (a)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

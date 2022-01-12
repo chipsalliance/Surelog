@@ -444,7 +444,7 @@ n<> u<245> t<Top_level_rule> f<0> l<0:11>
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/PortWildcard/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/PortWildcard/slpp_all/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/PortWildcard/slpp_all/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/PortWildcard/slpp_all/surelog.uhdm ...
 
@@ -879,6 +879,23 @@ design: (work@dut)
   \_logic_net: (work@dut.free_clk), parent:work@dut
     |vpiName:free_clk
     |vpiFullName:work@dut.free_clk
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (rfpc_postsync_in)
+    |vpiName:rfpc_postsync_in
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (dma_mem_dccm_req)
+    |vpiName:dma_mem_dccm_req
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (rfpc_postsync)
+    |vpiName:rfpc_postsync
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (dma_mem_dccm_req_f)
+    |vpiName:dma_mem_dccm_req_f
+    |vpiNetType:1
   |vpiPort:
   \_port: (rst_l), line:16:31, endln:16:36, parent:work@dut
     |vpiName:rst_l
@@ -975,10 +992,14 @@ design: (work@dut)
         \_ref_obj: (work@dut.freezerfpc_ff.din.rfpc_postsync_in), line:18:39, endln:18:55
           |vpiName:rfpc_postsync_in
           |vpiFullName:work@dut.freezerfpc_ff.din.rfpc_postsync_in
+          |vpiActual:
+          \_logic_net: (rfpc_postsync_in)
         |vpiOperand:
         \_ref_obj: (work@dut.freezerfpc_ff.din.dma_mem_dccm_req), line:18:57, endln:18:73
           |vpiName:dma_mem_dccm_req
           |vpiFullName:work@dut.freezerfpc_ff.din.dma_mem_dccm_req
+          |vpiActual:
+          \_logic_net: (dma_mem_dccm_req)
       |vpiLowConn:
       \_ref_obj: (work@dut.freezerfpc_ff.din), parent:din
         |vpiName:din
@@ -1034,10 +1055,14 @@ design: (work@dut)
         \_ref_obj: (work@dut.freezerfpc_ff.dout.rfpc_postsync), line:19:40, endln:19:53
           |vpiName:rfpc_postsync
           |vpiFullName:work@dut.freezerfpc_ff.dout.rfpc_postsync
+          |vpiActual:
+          \_logic_net: (rfpc_postsync)
         |vpiOperand:
         \_ref_obj: (work@dut.freezerfpc_ff.dout.dma_mem_dccm_req_f), line:19:55, endln:19:73
           |vpiName:dma_mem_dccm_req_f
           |vpiFullName:work@dut.freezerfpc_ff.dout.dma_mem_dccm_req_f
+          |vpiActual:
+          \_logic_net: (dma_mem_dccm_req_f)
       |vpiLowConn:
       \_ref_obj: (work@dut.freezerfpc_ff.dout), parent:dout
         |vpiName:dout

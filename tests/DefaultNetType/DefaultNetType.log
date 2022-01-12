@@ -420,7 +420,7 @@ n<> u<359> t<Top_level_rule> l<1:1> el<50:1>
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/DefaultNetType/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/DefaultNetType/slpp_all/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/DefaultNetType/slpp_all/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/DefaultNetType/slpp_all/surelog.uhdm ...
 
@@ -775,6 +775,10 @@ design: (work@ok)
     \_ref_obj: (work@ok.b), line:5:8, endln:5:9
       |vpiName:b
       |vpiFullName:work@ok.b
+      |vpiActual:
+      \_logic_net: (b)
+        |vpiName:b
+        |vpiNetType:1
 |uhdmtopModules:
 \_module: work@ok (work@ok) dut.sv:3:1: , endln:7:10
   |vpiName:work@ok
@@ -784,6 +788,10 @@ design: (work@ok)
     |vpiName:a
     |vpiFullName:work@ok.a
     |vpiNetType:48
+  |vpiNet:
+  \_logic_net: (b)
+    |vpiName:b
+    |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:5:8, endln:5:11, parent:work@ok
     |vpiRhs:
@@ -796,6 +804,8 @@ design: (work@ok)
     \_ref_obj: (work@ok.b), line:5:8, endln:5:9
       |vpiName:b
       |vpiFullName:work@ok.b
+      |vpiActual:
+      \_logic_net: (b)
 |uhdmtopModules:
 \_module: work@bad1 (work@bad1) dut.sv:14:1: , endln:22:10
   |vpiName:work@bad1
@@ -1466,12 +1476,18 @@ design: (work@ok)
         \_ref_obj: (work@ok.b), line:5:8, endln:5:9
           |vpiName:b
           |vpiFullName:work@ok.b
+          |vpiActual:
+          \_logic_net: (b)
+            |vpiName:b
+            |vpiNetType:1
     |uhdmtopModules:
     \_module: work@ok (work@ok) dut.sv:3:1: , endln:7:10
       |vpiName:work@ok
       |vpiDefName:work@ok
       |vpiNet:
       \_logic_net: (work@ok.a), line:4:5, endln:4:6, parent:work@ok
+      |vpiNet:
+      \_logic_net: (b)
       |vpiContAssign:
       \_cont_assign: , line:5:8, endln:5:11, parent:work@ok
         |vpiRhs:
@@ -1484,6 +1500,8 @@ design: (work@ok)
         \_ref_obj: (work@ok.b), line:5:8, endln:5:9
           |vpiName:b
           |vpiFullName:work@ok.b
+          |vpiActual:
+          \_logic_net: (b)
     |uhdmtopModules:
     \_module: work@bad1 (work@bad1) dut.sv:14:1: , endln:22:10
       |vpiName:work@bad1

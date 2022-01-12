@@ -201,7 +201,7 @@ n<> u<174> t<Top_level_rule> l<1:1> el<11:1>
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/FuncDefaultVal/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/FuncDefaultVal/slpp_all/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/FuncDefaultVal/slpp_all/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/FuncDefaultVal/slpp_all/surelog.uhdm ...
 
@@ -274,14 +274,24 @@ design: (work@top)
             \_ref_obj: (work@top.dasm.opcode), line:6:44, endln:6:50, parent:dasm32
               |vpiName:opcode
               |vpiFullName:work@top.dasm.opcode
+              |vpiActual:
+              \_logic_net: (opcode)
+                |vpiName:opcode
+                |vpiNetType:1
             |vpiArgument:
             \_ref_obj: (work@top.dasm.pc), line:6:52, endln:6:54, parent:dasm32
               |vpiName:pc
               |vpiFullName:work@top.dasm.pc
+              |vpiActual:
+              \_logic_net: (pc)
+                |vpiName:pc
+                |vpiNetType:1
             |vpiArgument:
             \_ref_obj: (work@top.dasm.tid), line:6:56, endln:6:59, parent:dasm32
               |vpiName:tid
               |vpiFullName:work@top.dasm.tid
+              |vpiActual:
+              \_io_decl: (tid)
             |vpiName:dasm32
           |vpiOperand:
           \_func_call: (dasm16), line:6:63, endln:6:86
@@ -289,14 +299,20 @@ design: (work@top)
             \_ref_obj: (work@top.dasm.opcode), line:6:70, endln:6:76, parent:dasm16
               |vpiName:opcode
               |vpiFullName:work@top.dasm.opcode
+              |vpiActual:
+              \_logic_net: (opcode)
             |vpiArgument:
             \_ref_obj: (work@top.dasm.pc), line:6:78, endln:6:80, parent:dasm16
               |vpiName:pc
               |vpiFullName:work@top.dasm.pc
+              |vpiActual:
+              \_logic_net: (pc)
             |vpiArgument:
             \_ref_obj: (work@top.dasm.tid), line:6:82, endln:6:85, parent:dasm16
               |vpiName:tid
               |vpiFullName:work@top.dasm.tid
+              |vpiActual:
+              \_io_decl: (tid)
             |vpiName:dasm16
         |vpiLhs:
         \_ref_obj: (work@top.dasm.dasm), line:6:5, endln:6:9, parent:work@top.dasm
@@ -311,6 +327,10 @@ design: (work@top)
         \_ref_obj: (work@top.dasm.regn), line:7:8, endln:7:12
           |vpiName:regn
           |vpiFullName:work@top.dasm.regn
+          |vpiActual:
+          \_logic_net: (regn)
+            |vpiName:regn
+            |vpiNetType:1
         |vpiStmt:
         \_assignment: , line:7:14, endln:7:35
           |vpiOpType:82
@@ -319,6 +339,10 @@ design: (work@top)
           \_ref_obj: (work@top.dasm.regv), line:7:31, endln:7:35
             |vpiName:regv
             |vpiFullName:work@top.dasm.regv
+            |vpiActual:
+            \_logic_net: (regv)
+              |vpiName:regv
+              |vpiNetType:1
           |vpiLhs:
           \_var_select: (work@top.dasm.gpr), line:7:14, endln:7:17
             |vpiName:gpr
@@ -327,10 +351,14 @@ design: (work@top)
             \_ref_obj: (work@top.dasm.tid), line:7:18, endln:7:21
               |vpiName:tid
               |vpiFullName:work@top.dasm.tid
+              |vpiActual:
+              \_io_decl: (tid)
             |vpiIndex:
             \_ref_obj: (work@top.dasm.regn), line:7:23, endln:7:27
               |vpiName:regn
               |vpiFullName:work@top.dasm.regn
+              |vpiActual:
+              \_logic_net: (regn)
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:10:10, parent:work@top
   |vpiNet:
@@ -462,10 +490,18 @@ design: (work@top)
             \_ref_obj: (work@top.dasm.opcode), line:6:44, endln:6:50, parent:dasm32
               |vpiName:opcode
               |vpiFullName:work@top.dasm.opcode
+              |vpiActual:
+              \_logic_net: (opcode)
+                |vpiName:opcode
+                |vpiNetType:1
             |vpiArgument:
             \_ref_obj: (work@top.dasm.pc), line:6:52, endln:6:54, parent:dasm32
               |vpiName:pc
               |vpiFullName:work@top.dasm.pc
+              |vpiActual:
+              \_logic_net: (pc)
+                |vpiName:pc
+                |vpiNetType:1
             |vpiArgument:
             \_ref_obj: (work@top.dasm.tid), line:6:56, endln:6:59, parent:dasm32
               |vpiName:tid
@@ -479,10 +515,14 @@ design: (work@top)
             \_ref_obj: (work@top.dasm.opcode), line:6:70, endln:6:76, parent:dasm16
               |vpiName:opcode
               |vpiFullName:work@top.dasm.opcode
+              |vpiActual:
+              \_logic_net: (opcode)
             |vpiArgument:
             \_ref_obj: (work@top.dasm.pc), line:6:78, endln:6:80, parent:dasm16
               |vpiName:pc
               |vpiFullName:work@top.dasm.pc
+              |vpiActual:
+              \_logic_net: (pc)
             |vpiArgument:
             \_ref_obj: (work@top.dasm.tid), line:6:82, endln:6:85, parent:dasm16
               |vpiName:tid
@@ -502,6 +542,10 @@ design: (work@top)
         \_ref_obj: (work@top.dasm.regn), line:7:8, endln:7:12
           |vpiName:regn
           |vpiFullName:work@top.dasm.regn
+          |vpiActual:
+          \_logic_net: (regn)
+            |vpiName:regn
+            |vpiNetType:1
         |vpiStmt:
         \_assignment: , line:7:14, endln:7:35
           |vpiOpType:82
@@ -510,6 +554,10 @@ design: (work@top)
           \_ref_obj: (work@top.dasm.regv), line:7:31, endln:7:35
             |vpiName:regv
             |vpiFullName:work@top.dasm.regv
+            |vpiActual:
+            \_logic_net: (regv)
+              |vpiName:regv
+              |vpiNetType:1
           |vpiLhs:
           \_var_select: (work@top.dasm.gpr), line:7:14, endln:7:17
             |vpiName:gpr
@@ -524,8 +572,18 @@ design: (work@top)
             \_ref_obj: (work@top.dasm.gpr.regn), line:7:23, endln:7:27, parent:work@top.dasm.gpr
               |vpiName:regn
               |vpiFullName:work@top.dasm.gpr.regn
+              |vpiActual:
+              \_logic_net: (regn)
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:10:10
+  |vpiNet:
+  \_logic_net: (opcode)
+  |vpiNet:
+  \_logic_net: (pc)
+  |vpiNet:
+  \_logic_net: (regn)
+  |vpiNet:
+  \_logic_net: (regv)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

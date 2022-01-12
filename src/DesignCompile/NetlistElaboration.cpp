@@ -2099,6 +2099,7 @@ UHDM::any* NetlistElaboration::bind_net_(NodeId id, ModuleInstance* instance,
           Serializer& s = m_compileDesign->getSerializer();
           logic_net* net = s.MakeLogic_net();
           net->VpiName(name);
+          net->VpiNetType(UhdmWriter::getVpiNetType(implicitNetType));
           result = net;
           Netlist::SymbolTable& symbols = netlist->getSymbolTable();
           std::vector<UHDM::net*>* nets = netlist->nets();

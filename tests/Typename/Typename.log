@@ -360,7 +360,7 @@ n<> u<245> t<Top_level_rule> f<0> l<0:11>
 
 [INF:UH0708] Writing UHDM DB: ../../build/tests/Typename/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/Typename/slpp_all/surelog.uhdm .chk.html...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/Typename/slpp_all/surelog.uhdm.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ../../build/tests/Typename/slpp_all/surelog.uhdm ...
 
@@ -744,12 +744,20 @@ design: (work@top)
           |vpiArgument:
           \_ref_obj: (a), line:6:51, endln:6:52, parent:$typename
             |vpiName:a
+            |vpiActual:
+            \_logic_net: (a)
+              |vpiName:a
+              |vpiNetType:1
           |vpiName:$typename
         |vpiName:$display
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
   |vpiName:work@top
   |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (a)
+    |vpiName:a
+    |vpiNetType:1
   |vpiProcess:
   \_initial: , parent:work@top
     |vpiStmt:
@@ -797,6 +805,8 @@ design: (work@top)
           \_ref_obj: (work@top.a), line:6:51, endln:6:52, parent:$typename
             |vpiName:a
             |vpiFullName:work@top.a
+            |vpiActual:
+            \_logic_net: (a)
           |vpiName:$typename
         |vpiName:$display
 ===================
