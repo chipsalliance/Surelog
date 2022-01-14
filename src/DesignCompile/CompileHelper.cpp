@@ -2454,12 +2454,34 @@ bool CompileHelper::compileParameterDeclaration(
 
       NodeId name = fC->Child(Param_assignment);
       NodeId value = fC->Sibling(name);
-      const std::string& the_name = fC->SymName(name);
-      NodeId actual_value = value;
-      while (fC->Type(actual_value) == slUnpacked_dimension) {
-        actual_value = fC->Sibling(actual_value);
+
+      UHDM::parameter* param = s.MakeParameter();
+      Parameter* p =
+          new Parameter(fC, name, fC->SymName(name),
+                        fC->Child(Data_type_or_implicit), port_param);
+
+      // Unpacked dimensions
+      if (fC->Type(value) == VObjectType::slUnpacked_dimension) {
+        int unpackedSize;
+        std::vector<UHDM::range*>* unpackedDimensions =
+            compileRanges(component, fC, value, compileDesign, param, instance,
+                          reduce, unpackedSize, muteErrors);
+        param->Ranges(unpackedDimensions);
+        param->VpiSize(unpackedSize);
+        array_typespec* atps = s.MakeArray_typespec();
+        atps->Elem_typespec(ts);
+        param->Typespec(atps);
+        p->setTypespec(atps);
+        atps->Ranges(unpackedDimensions);
+        while (fC->Type(value) == VObjectType::slUnpacked_dimension) {
+          value = fC->Sibling(value);
+        }
+        ts = atps;
         isMultiDimension = true;
       }
+
+      const std::string& the_name = fC->SymName(name);
+      NodeId actual_value = value;
 
       if ((valuedcomponenti_cast<Package*>(component) ||
            valuedcomponenti_cast<FileContent*>(component)) &&
@@ -2515,11 +2537,6 @@ bool CompileHelper::compileParameterDeclaration(
         }
       }
 
-      UHDM::parameter* param = s.MakeParameter();
-
-      Parameter* p =
-          new Parameter(fC, name, fC->SymName(name),
-                        fC->Child(Data_type_or_implicit), port_param);
       p->setUhdmParam(param);
       p->setTypespec(ts);
       if (isMultiDimension) p->setMultidimension();
@@ -2539,23 +2556,7 @@ bool CompileHelper::compileParameterDeclaration(
       param->VpiEndLineNo(fC->EndLine(Param_assignment));
       param->VpiEndColumnNo(fC->EndColumn(Param_assignment));
       param->VpiName(fC->SymName(name));
-      // Unpacked dimensions
-      if (fC->Type(value) == VObjectType::slUnpacked_dimension) {
-        int unpackedSize;
-        std::vector<UHDM::range*>* unpackedDimensions =
-            compileRanges(component, fC, value, compileDesign, param, instance,
-                          reduce, unpackedSize, muteErrors);
-        param->Ranges(unpackedDimensions);
-        param->VpiSize(unpackedSize);
-        array_typespec* atps = s.MakeArray_typespec();
-        atps->Elem_typespec((typespec*)param->Typespec());
-        param->Typespec(atps);
-        p->setTypespec(atps);
-        atps->Ranges(unpackedDimensions);
-        while (fC->Type(value) == VObjectType::slUnpacked_dimension) {
-          value = fC->Sibling(value);
-        }
-      }
+
       if (localParam) {
         param->VpiLocalParam(true);
       }
@@ -2605,6 +2606,7 @@ bool CompileHelper::compileParameterDeclaration(
                      fC->getFileName(), fC->Line(actual_value), true, false);
             if (!invalidValue) size = sizetmp;
           }
+          if (rhs->Typespec() == nullptr) rhs->Typespec(ts);
           c->VpiSize(size);
         }
         param_assign->Rhs(rhs);
