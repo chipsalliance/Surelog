@@ -1741,6 +1741,13 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
 
       if (m->Typespecs()) {
         bool isTypespec = false;
+        std::vector<std::string> importedPackages;
+        for (auto n : *m->Typespecs()) {
+          if (n->UhdmType() == uhdmimport) {
+            importedPackages.push_back(n->VpiName());
+          }
+        }
+
         for (auto n : *m->Typespecs()) {
           if (n->UhdmType() == uhdmenum_typespec) {
             enum_typespec* tps = any_cast<enum_typespec*>(n);
@@ -1751,6 +1758,12 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
                   break;
                 }
               }
+            }
+          }
+          for (auto imp : importedPackages) {
+            if (n->VpiName() == std::string(imp + "::" + name)) {
+              isTypespec = true;
+              break;
             }
           }
           if (n->VpiName() == name) {
