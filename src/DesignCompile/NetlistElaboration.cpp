@@ -225,6 +225,12 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
                 if (const typespec* tps = p->Typespec()) {
                   UHDM::ExprEval eval;
                   eval.flattenPatternAssignments(s, tps, (expr*)rhs);
+                } else if (rhs->UhdmType() == uhdmoperation) {
+                  operation* op = (operation*)rhs;
+                  if (const typespec* tps = op->Typespec()) {
+                    UHDM::ExprEval eval;
+                    eval.flattenPatternAssignments(s, tps, (expr*)rhs);
+                  }
                 }
               }
             }
