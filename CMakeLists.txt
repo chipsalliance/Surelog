@@ -435,6 +435,7 @@ if (UNIX)
 endif()
 
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
+  target_link_libraries(uhdm PRIVATE stdc++fs)
   target_link_libraries(surelog PRIVATE stdc++fs)
   target_link_libraries(surelog PRIVATE rt)
 endif()
