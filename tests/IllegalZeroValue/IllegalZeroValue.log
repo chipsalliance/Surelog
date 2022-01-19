@@ -1,0 +1,121 @@
+[INF:CM0023] Creating log file ../../build/tests/IllegalZeroValue/slpp_all/surelog.log.
+
+LIB:  work
+FILE: dut.sv
+n<> u<0> t<Null_rule> p<28> s<27> l<1:1> el<1:0>
+n<> u<1> t<Module_keyword> p<5> s<2> l<1:1> el<1:7>
+n<test> u<2> t<StringConst> p<5> s<4> l<1:8> el<1:12>
+n<> u<3> t<Port> p<4> l<1:13> el<1:13>
+n<> u<4> t<List_of_ports> p<5> c<3> l<1:12> el<1:14>
+n<> u<5> t<Module_nonansi_header> p<25> c<1> s<24> l<1:1> el<1:15>
+n<> u<6> t<IntVec_TypeReg> p<7> l<3:1> el<3:4>
+n<> u<7> t<Data_type> p<17> c<6> s<16> l<3:1> el<3:4>
+n<illegal> u<8> t<StringConst> p<15> s<14> l<3:5> el<3:12>
+n<0> u<9> t<IntConst> p<10> l<3:13> el<3:14>
+n<> u<10> t<Primary_literal> p<11> c<9> l<3:13> el<3:14>
+n<> u<11> t<Constant_primary> p<12> c<10> l<3:13> el<3:14>
+n<> u<12> t<Constant_expression> p<13> c<11> l<3:13> el<3:14>
+n<> u<13> t<Unpacked_dimension> p<14> c<12> l<3:12> el<3:15>
+n<> u<14> t<Variable_dimension> p<15> c<13> l<3:12> el<3:15>
+n<> u<15> t<Variable_decl_assignment> p<16> c<8> l<3:5> el<3:15>
+n<> u<16> t<List_of_variable_decl_assignments> p<17> c<15> l<3:5> el<3:15>
+n<> u<17> t<Variable_declaration> p<18> c<7> l<3:1> el<3:16>
+n<> u<18> t<Data_declaration> p<19> c<17> l<3:1> el<3:16>
+n<> u<19> t<Package_or_generate_item_declaration> p<20> c<18> l<3:1> el<3:16>
+n<> u<20> t<Module_or_generate_item_declaration> p<21> c<19> l<3:1> el<3:16>
+n<> u<21> t<Module_common_item> p<22> c<20> l<3:1> el<3:16>
+n<> u<22> t<Module_or_generate_item> p<23> c<21> l<3:1> el<3:16>
+n<> u<23> t<Non_port_module_item> p<24> c<22> l<3:1> el<3:16>
+n<> u<24> t<Module_item> p<25> c<23> l<3:1> el<3:16>
+n<> u<25> t<Module_declaration> p<26> c<5> l<1:1> el<5:10>
+n<> u<26> t<Description> p<27> c<25> l<1:1> el<5:10>
+n<> u<27> t<Source_text> p<28> c<26> l<1:1> el<5:10>
+n<> u<28> t<Top_level_rule> l<1:1> el<6:1>
+[WRN:PA0205] dut.sv:1: No timescale set for "test".
+
+[INF:CP0300] Compilation...
+
+[INF:CP0303] dut.sv:1: Compile module "work@test".
+
+[INF:EL0526] Design Elaboration...
+
+[NTE:EL0503] dut.sv:1: Top level module "work@test".
+
+[ERR:EL0536] dut.sv:3:13: Illegal Zero or negative size "work@test"
+             text: reg illegal[0];
+             value: UINT:0.
+
+[NTE:EL0508] Nb Top level modules: 1.
+
+[NTE:EL0509] Max instance depth: 1.
+
+[NTE:EL0510] Nb instances: 1.
+
+[NTE:EL0511] Nb leaf instances: 1.
+
+[INF:UH0706] Creating UHDM Model...
+
+[INF:UH0707] Elaborating UHDM...
+
+[INF:UH0708] Writing UHDM DB: ../../build/tests/IllegalZeroValue/slpp_all/surelog.uhdm ...
+
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/IllegalZeroValue/slpp_all/surelog.uhdm.chk.html ...
+
+[INF:UH0710] Loading UHDM DB: ../../build/tests/IllegalZeroValue/slpp_all/surelog.uhdm ...
+
+[INF:UH0711] Decompiling UHDM...
+
+====== UHDM =======
+design: (work@test)
+|vpiElaborated:1
+|vpiName:work@test
+|uhdmallModules:
+\_module: work@test (work@test) dut.sv:1:1: , endln:5:10, parent:work@test
+  |vpiFullName:work@test
+  |vpiDefName:work@test
+  |vpiNet:
+  \_logic_net: (work@test.illegal), line:3:5, parent:work@test
+    |vpiName:illegal
+    |vpiFullName:work@test.illegal
+    |vpiNetType:48
+|uhdmtopModules:
+\_module: work@test (work@test) dut.sv:1:1: , endln:5:10
+  |vpiName:work@test
+  |vpiDefName:work@test
+  |vpiArrayNet:
+  \_array_net: (work@test.illegal), line:3:5, endln:3:12, parent:work@test
+    |vpiName:illegal
+    |vpiFullName:work@test.illegal
+    |vpiRange:
+    \_range: , line:3:13, endln:3:14
+      |vpiLeftRange:
+      \_constant: , line:3:13, endln:3:14
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: 
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , line:3:13, endln:3:14
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: 
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiNet:
+    \_logic_net: (work@test.illegal), parent:work@test.illegal
+      |vpiFullName:work@test.illegal
+      |vpiNetType:48
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 1
+[WARNING] : 1
+[   NOTE] : 5
+
