@@ -5214,7 +5214,6 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
 
         range->Left_expr(lexp);
         lexp->VpiParent(range);
-
         if (reduce) {
           Value* rightV = m_exprBuilder.evalExpr(fC, rexpr, instance, true);
           if (rightV->isValid()) {
@@ -5229,6 +5228,37 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
         bool associativeArray = false;
         if (rexp && rexp->UhdmType() == uhdmconstant) {
           constant* c = (constant*)rexp;
+          const std::string& val = c->VpiValue();
+          if (reduce &&
+              ((val == "UINT:0") || (val == "INT:0") || (val[4] == '-'))) {
+            ErrorContainer* errors =
+                compileDesign->getCompiler()->getErrorContainer();
+            SymbolTable* symbols =
+                compileDesign->getCompiler()->getSymbolTable();
+            std::string instanceName;
+            if (instance) {
+              if (ModuleInstance* inst =
+                      valuedcomponenti_cast<ModuleInstance*>(instance)) {
+                instanceName = inst->getFullPathName();
+              }
+            } else if (component) {
+              instanceName = component->getName();
+            }
+            std::string message;
+            message += "\"" + instanceName + "\"\n";
+            std::string fileContent =
+                FileUtils::getFileContent(fC->getFileName().string());
+            std::string lineText =
+                StringUtils::getLineInString(fileContent, fC->Line(rexpr));
+            message += "             text: " + lineText;
+            message += "             value: " + val;
+
+            Location loc(symbols->registerSymbol(fC->getFileName().string()),
+                         fC->Line(rexpr), fC->Column(rexpr),
+                         symbols->registerSymbol(message));
+            Error err(ErrorDefinition::ELAB_ILLEGAL_ZERO_VALUE, loc);
+            errors->addError(err);
+          }
           if (c->VpiConstType() == vpiUnboundedConst) associativeArray = true;
         }
         if (!associativeArray) {
