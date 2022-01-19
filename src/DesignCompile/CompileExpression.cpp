@@ -6635,6 +6635,9 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
                   compileDesign, nullptr, instance, reduce, muteErrors);
               ref_obj* parent = (ref_obj*)select->VpiParent();
               if (parent) parent->VpiDefName(tmpName);
+              if (tmpName.empty()) {
+                select->VpiParent(nullptr);
+              }
               elems->push_back(select);
               the_name += decompileHelper(select);
             } else if (Expression &&
