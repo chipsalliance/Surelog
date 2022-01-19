@@ -1658,23 +1658,36 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
       }
     } else {
       VObjectType dataType = VObjectType::slData_type_or_implicit;
-      NodeId range = 0;
+      NodeId packed = 0;
+      NodeId unpacked = 0;
       bool is_signed = false;
+      NodeId specParamId = 0;
       // Reuse last signal data type (if any)
       Signal* last = nullptr;
       if (component->getPorts().size()) {
         last = component->getPorts().back();
         dataType = last->getType();
-        range = last->getPackedDimension();
+        packed = last->getPackedDimension();
         is_signed = last->isSigned();
+        specParamId = last->getTypeSpecId();
+        unpacked = last->getUnpackedDimension();
       }
-
-      Signal* signal = new Signal(fC, identifier, dataType, port_direction,
-                                  range, is_signed);
-      component->getPorts().push_back(signal);
-      signal = new Signal(fC, identifier, dataType, port_direction, range,
-                          is_signed);
-      component->getSignals().push_back(signal);
+      if (specParamId) {
+        Signal* signal =
+            new Signal(fC, identifier, dataType, packed, port_direction,
+                       specParamId, unpacked, is_signed);
+        component->getPorts().push_back(signal);
+        signal = new Signal(fC, identifier, dataType, packed, port_direction,
+                            specParamId, unpacked, is_signed);
+        component->getSignals().push_back(signal);
+      } else {
+        Signal* signal = new Signal(fC, identifier, dataType, port_direction,
+                                    packed, is_signed);
+        component->getPorts().push_back(signal);
+        signal = new Signal(fC, identifier, dataType, port_direction, packed,
+                            is_signed);
+        component->getSignals().push_back(signal);
+      }
     }
   }
   return true;
