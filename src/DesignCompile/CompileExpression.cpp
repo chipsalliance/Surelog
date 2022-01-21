@@ -110,6 +110,14 @@ expr* CompileHelper::reduceBitSelect(expr* op, unsigned int index_val,
       int64_t val = get_value(invalidValue, exp);
       binary = NumUtils::toBinary(exp->VpiSize(), val);
     }
+    uint64_t wordSize = 1;
+    if (typespec* cts = (typespec*)cexp->Typespec()) {
+      if (cts->UhdmType() == uhdmint_typespec) {
+        int_typespec* icts = (int_typespec*)cts;
+        wordSize =
+            std::strtoull(icts->VpiValue().c_str() + strlen("UINT:"), 0, 10);
+      }
+    }
     constant* c = s.MakeConstant();
     unsigned short lr = 0;
     unsigned short rr = 0;
@@ -125,16 +133,22 @@ expr* CompileHelper::reduceBitSelect(expr* op, unsigned int index_val,
         }
       }
     }
-    c->VpiSize(1);
+    c->VpiSize(wordSize);
     if (index_val < binary.size()) {
       // TODO: If range does not start at 0
       if (lr > rr) {
         index_val = binary.size() - index_val - 1;
       }
-      char bitv = binary[index_val];
-      int v = bitv - '0';
-      c->VpiValue("BIN:" + std::to_string(v));
-      c->VpiDecompile("1'b" + std::to_string(v));
+      std::string v;
+      for (unsigned int i = 0; i < wordSize; i++) {
+        if ((index_val + i) < binary.size()) {
+          char bitv = binary[index_val + i];
+          v += std::to_string(bitv - '0');
+        }
+      }
+      std::reverse(v.begin(), v.end());
+      c->VpiValue("BIN:" + v);
+      c->VpiDecompile(std::to_string(wordSize) + "'b" + v);
       c->VpiConstType(vpiBinaryConst);
     } else {
       c->VpiValue("BIN:0");
@@ -1725,6 +1739,12 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                 c->VpiConstType(vpiUIntConst);
               }
               c->VpiSize(n * width);
+              // Word size
+              if (width) {
+                int_typespec* ts = s.MakeInt_typespec();
+                ts->VpiValue("UINT:" + std::to_string(width));
+                c->Typespec(ts);
+              }
               result = c;
             }
             break;
