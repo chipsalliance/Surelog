@@ -197,55 +197,82 @@ any* CompileHelper::getObject(const std::string& name,
   if ((result == nullptr) && instance) {
     if (ModuleInstance* inst =
             valuedcomponenti_cast<ModuleInstance*>(instance)) {
-      Netlist* netlist = inst->getNetlist();
-      if (netlist) {
-        if ((result == nullptr) && netlist->array_nets()) {
-          for (auto o : *netlist->array_nets()) {
-            if (o->VpiName() == name) {
-              result = o;
-              break;
+      while (inst) {
+        Netlist* netlist = inst->getNetlist();
+        if (netlist) {
+          if ((result == nullptr) && netlist->array_nets()) {
+            for (auto o : *netlist->array_nets()) {
+              if (o->VpiName() == name) {
+                result = o;
+                break;
+              }
+            }
+          }
+          if ((result == nullptr) && netlist->nets()) {
+            for (auto o : *netlist->nets()) {
+              if (o->VpiName() == name) {
+                result = o;
+                break;
+              }
+            }
+          }
+          if ((result == nullptr) && netlist->variables()) {
+            for (auto o : *netlist->variables()) {
+              if (o->VpiName() == name) {
+                result = o;
+                break;
+              }
+            }
+          }
+          if ((result == nullptr) && netlist->ports()) {
+            for (auto o : *netlist->ports()) {
+              if (o->VpiName() == name) {
+                result = o;
+                break;
+              }
+            }
+          }
+          if ((result == nullptr) && netlist->param_assigns()) {
+            for (auto o : *netlist->param_assigns()) {
+              const std::string& pname = o->Lhs()->VpiName();
+              if (pname == name) {
+                result = o;
+                break;
+              }
             }
           }
         }
-        if ((result == nullptr) && netlist->nets()) {
-          for (auto o : *netlist->nets()) {
-            if (o->VpiName() == name) {
-              result = o;
-              break;
-            }
+        if ((result == nullptr) ||
+            (result && (result->UhdmType() != uhdmconstant) &&
+             (result->UhdmType() != uhdmparam_assign))) {
+          if (expr* complex = instance->getComplexValue(name)) {
+            result = complex;
           }
         }
-        if ((result == nullptr) && netlist->variables()) {
-          for (auto o : *netlist->variables()) {
-            if (o->VpiName() == name) {
-              result = o;
-              break;
-            }
+        if (result) break;
+        if (inst) {
+          VObjectType insttype = inst->getType();
+          if ((insttype != VObjectType::slInterface_instantiation) &&
+              (insttype != VObjectType::slConditional_generate_construct) &&
+              (insttype != VObjectType::slLoop_generate_construct) &&
+              (insttype != VObjectType::slGenerate_item) &&
+              (insttype !=
+               VObjectType::slGenerate_module_conditional_statement) &&
+              (insttype !=
+               VObjectType::slGenerate_interface_conditional_statement) &&
+              (insttype != VObjectType::slGenerate_module_loop_statement) &&
+              (insttype != VObjectType::slGenerate_interface_loop_statement) &&
+              (insttype != VObjectType::slGenerate_module_named_block) &&
+              (insttype != VObjectType::slGenerate_interface_named_block) &&
+              (insttype != VObjectType::slGenerate_module_block) &&
+              (insttype != VObjectType::slGenerate_interface_block) &&
+              (insttype != VObjectType::slGenerate_module_item) &&
+              (insttype != VObjectType::slGenerate_interface_item) &&
+              (insttype != VObjectType::slGenerate_block)) {
+            break;
+          } else {
+            inst = inst->getParent();
           }
-        }
-        if ((result == nullptr) && netlist->ports()) {
-          for (auto o : *netlist->ports()) {
-            if (o->VpiName() == name) {
-              result = o;
-              break;
-            }
-          }
-        }
-        if ((result == nullptr) && netlist->param_assigns()) {
-          for (auto o : *netlist->param_assigns()) {
-            const std::string& pname = o->Lhs()->VpiName();
-            if (pname == name) {
-              result = o;
-              break;
-            }
-          }
-        }
-      }
-      if ((result == nullptr) ||
-          (result && (result->UhdmType() != uhdmconstant) &&
-           (result->UhdmType() != uhdmparam_assign))) {
-        if (expr* complex = instance->getComplexValue(name)) {
-          result = complex;
         }
       }
     }
@@ -2572,7 +2599,8 @@ any* CompileHelper::hierarchicalSelector(
             }
           }
         }
-      } else if (instance) {
+      }
+      if (instance) {
         ValuedComponentI* tmpInstance = instance;
         while ((bIndex == -1) && tmpInstance) {
           if (ModuleInstance* inst =
@@ -2661,7 +2689,11 @@ any* CompileHelper::hierarchicalSelector(
           }
         } else if (operandType == uhdmconstant) {
           if ((bIndex >= 0) && (bIndex == sInd)) {
-            return (expr*)operand;
+            any* ex = hierarchicalSelector(
+                select_path, level + 1, (expr*)operand, invalidValue, component,
+                compileDesign, instance, pexpr, fileName, lineNumber,
+                muteErrors, returnTypespec);
+            return ex;
           }
         }
         sInd++;
