@@ -35,6 +35,9 @@ namespace SURELOG {
 // things in flatbuffers.
 // All methods are protected as they are ment for derived classes to use.
 class Cache {
+ public:
+  static constexpr uint64_t Capacity = 0x000000000FFFFFFF;
+
  protected:
   using VectorOffsetError =
       flatbuffers::Vector<flatbuffers::Offset<SURELOG::CACHE::Error>>;

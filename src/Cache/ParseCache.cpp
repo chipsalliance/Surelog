@@ -202,6 +202,14 @@ bool ParseCache::save() {
   bool parseOnly = clp->parseOnly();
 
   if (!cacheAllowed) return true;
+  FileContent* fcontent = m_parse->getFileContent();
+  if (fcontent->getVObjects().size() > Cache::Capacity) {
+    clp->setCacheAllowed(false);
+    Location loc(0);
+    Error err(ErrorDefinition::CMD_CACHE_CAPACITY_EXCEEDED, loc);
+    m_parse->getCompileSourceFile()->getErrorContainer()->addError(err);
+    return false;
+  }
   fs::path svFileName = m_parse->getPpFileName();
   fs::path origFileName = svFileName;
   if (parseOnly) {
@@ -228,7 +236,6 @@ bool ParseCache::save() {
       m_parse->getCompileSourceFile()->getSymbolTable(), subjectFileId);
 
   /* Cache the design content */
-  FileContent* fcontent = m_parse->getFileContent();
   std::vector<flatbuffers::Offset<PARSECACHE::DesignElement>> element_vec;
   if (fcontent)
     for (unsigned int i = 0; i < fcontent->getDesignElements().size(); i++) {

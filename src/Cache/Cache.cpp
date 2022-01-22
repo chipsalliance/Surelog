@@ -208,8 +208,9 @@ std::vector<CACHE::VObject> Cache::cacheVObjects(FileContent* fcontent,
   // std::vector<flatbuffers::Offset<PARSECACHE::VObject>> object_vec;
   std::vector<CACHE::VObject> object_vec;
   if (!fcontent) return object_vec;
-  if (fcontent->getVObjects().size() > 0x000000000FFFFFFF) {
-    std::cout << "INTERNAL ERROR: Cache is saturated\n";
+  if (fcontent->getVObjects().size() > Capacity) {
+    std::cout << "INTERNAL ERROR: Cache is saturated, Use -nocache option\n";
+    return object_vec;
   }
   for (size_t i = 0; i < fcontent->getVObjects().size(); i++) {
     VObject& object = fcontent->getVObjects()[i];
