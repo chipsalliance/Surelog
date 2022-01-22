@@ -203,12 +203,14 @@ bool ParseCache::save() {
 
   if (!cacheAllowed) return true;
   FileContent* fcontent = m_parse->getFileContent();
-  if (fcontent->getVObjects().size() > Cache::Capacity) {
-    clp->setCacheAllowed(false);
-    Location loc(0);
-    Error err(ErrorDefinition::CMD_CACHE_CAPACITY_EXCEEDED, loc);
-    m_parse->getCompileSourceFile()->getErrorContainer()->addError(err);
-    return false;
+  if (fcontent) {
+    if (fcontent->getVObjects().size() > Cache::Capacity) {
+      clp->setCacheAllowed(false);
+      Location loc(0);
+      Error err(ErrorDefinition::CMD_CACHE_CAPACITY_EXCEEDED, loc);
+      m_parse->getCompileSourceFile()->getErrorContainer()->addError(err);
+      return false;
+    }
   }
   fs::path svFileName = m_parse->getPpFileName();
   fs::path origFileName = svFileName;
