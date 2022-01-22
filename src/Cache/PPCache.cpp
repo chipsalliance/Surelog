@@ -310,6 +310,15 @@ bool PPCache::save() {
   bool cacheAllowed =
       m_pp->getCompileSourceFile()->getCommandLineParser()->cacheAllowed();
   if (!cacheAllowed) return false;
+  FileContent* fcontent = m_pp->getFileContent();
+  if (fcontent->getVObjects().size() > Cache::Capacity) {
+    m_pp->getCompileSourceFile()->getCommandLineParser()->setCacheAllowed(
+        false);
+    Location loc(0);
+    Error err(ErrorDefinition::CMD_CACHE_CAPACITY_EXCEEDED, loc);
+    m_pp->getCompileSourceFile()->getErrorContainer()->addError(err);
+    return false;
+  }
   fs::path svFileName = m_pp->getFileName(LINE1);
   fs::path origFileName = svFileName;
   fs::path cacheFileName = getCacheFileName_();
@@ -444,7 +453,6 @@ bool PPCache::save() {
   auto incinfoFBList = builder.CreateVector(lineinfo_vec);
 
   /* Cache the design objects */
-  FileContent* fcontent = m_pp->getFileContent();
   std::vector<CACHE::VObject> object_vec = cacheVObjects(
       fcontent, canonicalSymbols,
       *m_pp->getCompileSourceFile()->getSymbolTable(), m_pp->getFileId(0));
