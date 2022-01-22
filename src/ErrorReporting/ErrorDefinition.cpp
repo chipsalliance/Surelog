@@ -193,6 +193,8 @@ bool ErrorDefinition::init() {
   rec(CMD_SPLIT_FILE_MISSING_SIZE, FATAL, CMD, "Missing file splitting size");
   rec(CMD_UNDEFINED_CONFIG, ERROR, CMD, "Undefined configuration: \"%s\"");
   rec(CMD_USING_GLOBAL_TIMESCALE, INFO, CMD, "Using global timescale: \"%s\"");
+  rec(CMD_CACHE_CAPACITY_EXCEEDED, WARNING, CMD,
+      "Cache capacity exceeded, turning off cache");
   rec(PP_CANNOT_OPEN_FILE, ERROR, PP, "Cannot open file \"%s\"");
   rec(PP_CANNOT_OPEN_INCLUDE_FILE, ERROR, PP,
       "Cannot open include file \"%s\"");
