@@ -2875,6 +2875,14 @@ any* CompileHelper::getValue(const std::string& name,
       if (Package* pack = design->getPackage(packName)) {
         if (expr* val = pack->getComplexValue(varName)) {
           result = val;
+          if (result) {
+            if (result->UhdmType() == uhdmoperation) {
+              operation* op = (operation*)result;
+              UHDM::ExprEval eval;
+              eval.flattenPatternAssignments(s, op->Typespec(),
+                                             (UHDM::expr*)result);
+            }
+          }
         }
         if (result == nullptr) {
           if (Value* sval = pack->getValue(varName)) {
