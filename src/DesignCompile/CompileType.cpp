@@ -951,6 +951,20 @@ UHDM::typespec* CompileHelper::compileTypespec(
       result = tps;
       break;
     }
+    case VObjectType::slSigning_Signed:
+    case VObjectType::slSigning_Unsigned: {
+      // Parameter implicit type is bit
+      bit_typespec* tps = s.MakeBit_typespec();
+      tps->Ranges(ranges);
+      result = tps;
+
+      result->VpiFile(fC->getFileName());
+      result->VpiLineNo(fC->Line(type));
+      result->VpiColumnNo(fC->Column(type));
+      result->VpiEndLineNo(fC->EndLine(type));
+      result->VpiEndColumnNo(fC->EndColumn(type));
+      break;
+    }
     case VObjectType::slPacked_dimension: {
       if (isVariable) {
         // 6.8 Variable declarations, implicit type
@@ -1375,11 +1389,6 @@ UHDM::typespec* CompileHelper::compileTypespec(
       tps->VpiEndLineNo(fC->EndLine(type));
       tps->VpiEndColumnNo(fC->EndColumn(type));
       result = tps;
-      break;
-    }
-    case VObjectType::slSigning_Signed:
-    case VObjectType::slSigning_Unsigned: {
-      // Parameters... will capture the signage property elsewhere
       break;
     }
     case VObjectType::slConstant_range: {
