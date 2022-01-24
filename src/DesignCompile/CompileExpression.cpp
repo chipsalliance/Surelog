@@ -1086,30 +1086,58 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
               expr* expr1 = reduceExpr(operands[1], invalidValue, component,
                                        compileDesign, instance, fileName,
                                        lineNumber, pexpr, muteErrors);
+              bool unsignedOperation = true;
+              for (auto exp : {expr0, expr1}) {
+                if (exp) {
+                  if (exp->UhdmType() == uhdmconstant) {
+                    constant* c = (constant*)exp;
+                    if (c->VpiConstType() == vpiIntConst ||
+                        c->VpiConstType() == vpiStringConst ||
+                        c->VpiConstType() == vpiRealConst ||
+                        c->VpiConstType() == vpiDecConst) {
+                      unsignedOperation = false;
+                    }
+                  }
+                }
+              }
               bool invalidValueI = false;
               bool invalidValueD = false;
-              int64_t val0 = get_value(invalidValueI, expr0);
-              int64_t val1 = get_value(invalidValueI, expr1);
-              if ((invalidValue == false) && (invalidValueI == false)) {
-                int64_t val = val0 + val1;
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                c->VpiSize(64);
-                c->VpiConstType(vpiIntConst);
-                result = c;
-              } else {
-                invalidValueD = false;
-                long double val0 = get_double(invalidValueD, expr0);
-                long double val1 = get_double(invalidValueD, expr1);
-                if ((invalidValue == false) && (invalidValueD == false)) {
-                  long double val = val0 + val1;
+              if (unsignedOperation) {
+                uint64_t val0 = get_uvalue(invalidValueI, expr0);
+                uint64_t val1 = get_uvalue(invalidValueI, expr1);
+                if ((invalidValue == false) && (invalidValueI == false)) {
+                  uint64_t val = val0 + val1;
                   UHDM::constant* c = s.MakeConstant();
-                  c->VpiValue("REAL:" + std::to_string(val));
+                  c->VpiValue("UINT:" + std::to_string(val));
                   c->VpiDecompile(std::to_string(val));
                   c->VpiSize(64);
-                  c->VpiConstType(vpiRealConst);
+                  c->VpiConstType(vpiUIntConst);
                   result = c;
+                }
+              } else {
+                int64_t val0 = get_value(invalidValueI, expr0);
+                int64_t val1 = get_value(invalidValueI, expr1);
+                if ((invalidValue == false) && (invalidValueI == false)) {
+                  int64_t val = val0 + val1;
+                  UHDM::constant* c = s.MakeConstant();
+                  c->VpiValue("INT:" + std::to_string(val));
+                  c->VpiDecompile(std::to_string(val));
+                  c->VpiSize(64);
+                  c->VpiConstType(vpiIntConst);
+                  result = c;
+                } else {
+                  invalidValueD = false;
+                  long double val0 = get_double(invalidValueD, expr0);
+                  long double val1 = get_double(invalidValueD, expr1);
+                  if ((invalidValue == false) && (invalidValueD == false)) {
+                    long double val = val0 + val1;
+                    UHDM::constant* c = s.MakeConstant();
+                    c->VpiValue("REAL:" + std::to_string(val));
+                    c->VpiDecompile(std::to_string(val));
+                    c->VpiSize(64);
+                    c->VpiConstType(vpiRealConst);
+                    result = c;
+                  }
                 }
               }
               if (invalidValueI && invalidValueD) invalidValue = true;
@@ -2734,6 +2762,129 @@ long double CompileHelper::get_double(bool& invalidValue,
 
 int64_t CompileHelper::get_value(bool& invalidValue, const UHDM::expr* expr) {
   int64_t result = 0;
+  int type = 0;
+  std::string v;
+  if (const UHDM::constant* c = any_cast<const UHDM::constant*>(expr)) {
+    type = c->VpiConstType();
+    v = c->VpiValue();
+  } else if (const UHDM::variables* c =
+                 any_cast<const UHDM::variables*>(expr)) {
+    if (c->UhdmType() == uhdmenum_var) {
+      type = vpiUIntConst;
+      v = c->VpiValue();
+    }
+  } else {
+    invalidValue = true;
+  }
+  if (!invalidValue) {
+    switch (type) {
+      case vpiBinaryConst: {
+        if (expr->VpiSize() > 64) {
+          invalidValue = true;
+        } else {
+          StringUtils::ltrim(v, '\'');
+          StringUtils::ltrim(v, 's');
+          StringUtils::ltrim(v, 'b');
+          try {
+            result = std::strtoll(v.c_str() + strlen("BIN:"), 0, 2);
+          } catch (...) {
+            invalidValue = true;
+          }
+        }
+        break;
+      }
+      case vpiDecConst: {
+        try {
+          result = std::strtoll(v.c_str() + strlen("DEC:"), 0, 10);
+        } catch (...) {
+          invalidValue = true;
+        }
+        break;
+      }
+      case vpiHexConst: {
+        if (expr->VpiSize() > 64) {
+          invalidValue = true;
+        } else {
+          StringUtils::ltrim(v, '\'');
+          StringUtils::ltrim(v, 's');
+          StringUtils::ltrim(v, 'h');
+          try {
+            result = std::strtoll(v.c_str() + strlen("HEX:"), 0, 16);
+          } catch (...) {
+            invalidValue = true;
+          }
+        }
+        break;
+      }
+      case vpiOctConst: {
+        if (expr->VpiSize() > 64) {
+          invalidValue = true;
+        } else {
+          StringUtils::ltrim(v, '\'');
+          StringUtils::ltrim(v, 's');
+          StringUtils::ltrim(v, 'o');
+          try {
+            result = std::strtoll(v.c_str() + strlen("OCT:"), 0, 8);
+          } catch (...) {
+            invalidValue = true;
+          }
+        }
+        break;
+      }
+      case vpiIntConst: {
+        try {
+          result = std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
+        } catch (...) {
+          invalidValue = true;
+        }
+        break;
+      }
+      case vpiUIntConst: {
+        try {
+          result = std::strtoull(v.c_str() + strlen("UINT:"), 0, 10);
+        } catch (...) {
+          invalidValue = true;
+        }
+        break;
+      }
+      case vpiScalar: {
+        try {
+          result = std::strtoll(v.c_str() + strlen("SCAL:"), 0, 2);
+        } catch (...) {
+          invalidValue = true;
+        }
+        break;
+      }
+      case vpiStringConst: {
+        result = 0;
+        break;
+      }
+      case vpiRealConst: {
+        // Don't do the double precision math, leave it to client tools
+        invalidValue = true;
+        break;
+      }
+      default: {
+        try {
+          if (strstr(v.c_str(), "UINT:")) {
+            result = std::strtoull(v.c_str() + strlen("UINT:"), 0, 10);
+          } else if (strstr(v.c_str(), "INT:")) {
+            result = std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
+          } else {
+            invalidValue = true;
+          }
+        } catch (...) {
+          invalidValue = true;
+        }
+        break;
+      }
+    }
+  }
+  return result;
+}
+
+uint64_t CompileHelper::get_uvalue(bool& invalidValue, const UHDM::expr* expr) {
+  uint64_t result = 0;
   int type = 0;
   std::string v;
   if (const UHDM::constant* c = any_cast<const UHDM::constant*>(expr)) {
