@@ -218,6 +218,25 @@ void CompileHelper::EvalStmt(const std::string& funcName, Scopes& scopes,
       if (invalidValueI && invalidValueD) invalidValue = true;
       break;
     }
+    case uhdmrepeat: {
+      repeat* st = (repeat*)stmt;
+      const expr* cond = st->VpiCondition();
+      expr* rcond =
+          reduceExpr((expr*)cond, invalidValue, component, compileDesign,
+                     scopes.back(), fileName, lineNumber, nullptr);
+      int64_t val =
+          get_value(invalidValue,
+                    reduceExpr(rcond, invalidValue, component, compileDesign,
+                               scopes.back(), fileName, lineNumber, nullptr));
+      if (invalidValue == false) {
+        for (int i = 0; i < val; i++) {
+          EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag,
+                   component, compileDesign, scopes.back(), fileName,
+                   lineNumber, st->VpiStmt());
+        }
+      }
+      break;
+    }
     case uhdmfor_stmt: {
       for_stmt* st = (for_stmt*)stmt;
       if (st->VpiForInitStmt()) {
