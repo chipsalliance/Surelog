@@ -1676,6 +1676,15 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         std::string name = parentFile->SymName(child);
         overridenParams.insert(name);
         NodeId expr = parentFile->Sibling(child);
+        if (expr == 0) {
+          Location loc(
+              st->registerSymbol(parentFile->getFileName(paramAssign).string()),
+              parentFile->Line(paramAssign), parentFile->Column(paramAssign),
+              st->registerSymbol(name));
+          Error err(ErrorDefinition::ELAB_EMPTY_PARAM_OVERRIDE, loc);
+          errors->addError(err);
+          continue;
+        }
         UHDM::expr* complexV = (UHDM::expr*)m_helper.compileExpression(
             parentDefinition, parentFile, expr, m_compileDesign, nullptr,
             parentInstance, true, false);

@@ -389,6 +389,8 @@ bool ErrorDefinition::init() {
   rec(ELAB_DIVIDE_BY_ZERO, ERROR, ELAB, "Division by zero in instance \"%s\"");
   rec(ELAB_ILLEGAL_IMPLICIT_NET, ERROR, ELAB, "Illegal implicit net \"%s\"");
   rec(ELAB_ILLEGAL_ZERO_VALUE, ERROR, ELAB, "Illegal Zero or negative size %s");
+  rec(ELAB_EMPTY_PARAM_OVERRIDE, ERROR, ELAB,
+      "Empty parameter override for %s");
   rec(LIB_FILE_MAPS_TO_MULTIPLE_LIBS, ERROR, LIB,
       "File \"%exobj\" maps to multiple libraries: \"%s\"");
   rec(UHDM_UNSUPPORTED_EXPR, ERROR, UHDM, "Unsupported expression \"%s\"");
