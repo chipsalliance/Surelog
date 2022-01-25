@@ -2367,6 +2367,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
       object = getValue(name, component, compileDesign, instance, fileName,
                         lineNumber, pexpr, true, muteErrors);
     }
+    bool selection = false;
     for (auto index : *sel->Exprs()) {
       uint64_t index_val = get_value(
           invalidValue,
@@ -2381,6 +2382,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
             UHDM::VectorOfany* ops = op->Operands();
             if (ops && (index_val < ops->size())) {
               object = ops->at(index_val);
+              selection = true;
             } else {
               invalidValue = true;
             }
@@ -2388,6 +2390,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
             UHDM::VectorOfany* ops = op->Operands();
             if (ops && (index_val < ops->size())) {
               object = ops->at(index_val);
+              selection = true;
             } else {
               invalidValue = true;
             }
@@ -2403,6 +2406,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                 UHDM::VectorOfany* ops = op->Operands();
                 if (ops && (index_val < ops->size())) {
                   object = ops->at(index_val);
+                  selection = true;
                 } else {
                   invalidValue = true;
                 }
@@ -2410,6 +2414,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                 UHDM::VectorOfany* ops = op->Operands();
                 if (ops && (index_val < ops->size())) {
                   object = ops->at(index_val);
+                  selection = true;
                 } else {
                   invalidValue = true;
                 }
@@ -2419,7 +2424,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
         }
       }
     }
-    if (object) result = object;
+    if (object && selection) result = object;
   }
   if (result && result->UhdmType() == uhdmref_obj) {
     bool invalidValueTmp = false;
