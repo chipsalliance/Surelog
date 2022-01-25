@@ -2044,10 +2044,26 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
 
       UHDM::cont_assign* cassign = s.MakeCont_assign();
       if (Strength0) {
-        cassign->VpiStrength0(UhdmWriter::getStrengthType(fC->Type(Strength0)));
+        VObjectType st0 = fC->Type(Strength0);
+        if (st0 == slSupply0 || st0 == slStrong0 || st0 == slPull0 ||
+            st0 == slWeak0 || st0 == slHighZ0) {
+          cassign->VpiStrength0(
+              UhdmWriter::getStrengthType(fC->Type(Strength0)));
+        } else {
+          cassign->VpiStrength1(
+              UhdmWriter::getStrengthType(fC->Type(Strength0)));
+        }
       }
       if (Strength1) {
-        cassign->VpiStrength1(UhdmWriter::getStrengthType(fC->Type(Strength1)));
+        VObjectType st1 = fC->Type(Strength1);
+        if (st1 == slSupply0 || st1 == slStrong0 || st1 == slPull0 ||
+            st1 == slWeak0 || st1 == slHighZ0) {
+          cassign->VpiStrength0(
+              UhdmWriter::getStrengthType(fC->Type(Strength1)));
+        } else {
+          cassign->VpiStrength1(
+              UhdmWriter::getStrengthType(fC->Type(Strength1)));
+        }
       }
       cassign->Delay(delay_expr);
 
@@ -2064,19 +2080,22 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
         component->setContAssigns(s.MakeCont_assignVec());
       }
       /*
-      // Need to support assign strength first
       for (auto as : *component->getContAssigns()) {
         const UHDM::expr* lhs = as->Lhs();
         if (lhs->UhdmType() == uhdmref_obj) {
           const std::string& n = lhs->VpiName();
           if (n == lhs_exp->VpiName()) {
+            if (as->VpiStrength0() != cassign->VpiStrength0())
+              continue;
+            if (as->VpiStrength1() != cassign->VpiStrength1())
+              continue;
             Location loc1(
                 m_symbols->registerSymbol(lhs_exp->VpiFile().string()),
                 lhs_exp->VpiLineNo(), lhs_exp->VpiColumnNo(),
-      m_symbols->registerSymbol(n)); Location
-      loc2(m_symbols->registerSymbol(lhs->VpiFile().string()), lhs->VpiLineNo(),
-      lhs->VpiColumnNo(),0); Error
-      err(ErrorDefinition::COMP_MULTIPLE_CONT_ASSIGN, loc1, loc2);
+                m_symbols->registerSymbol(n));
+            Location loc2(m_symbols->registerSymbol(lhs->VpiFile().string()),
+                          lhs->VpiLineNo(), lhs->VpiColumnNo(), 0);
+            Error err(ErrorDefinition::COMP_MULTIPLE_CONT_ASSIGN, loc1, loc2);
             m_errors->addError(err);
           }
         }
