@@ -954,9 +954,14 @@ UHDM::typespec* CompileHelper::compileTypespec(
     case VObjectType::slSigning_Signed:
     case VObjectType::slSigning_Unsigned: {
       // Parameter implicit type is bit
-      bit_typespec* tps = s.MakeBit_typespec();
-      tps->Ranges(ranges);
-      result = tps;
+      if (ranges) {
+        bit_typespec* tps = s.MakeBit_typespec();
+        tps->Ranges(ranges);
+        result = tps;
+      } else {
+        int_typespec* tps = s.MakeInt_typespec();
+        result = tps;
+      }
 
       result->VpiFile(fC->getFileName());
       result->VpiLineNo(fC->Line(type));
