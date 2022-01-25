@@ -2063,6 +2063,25 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
       if (component->getContAssigns() == nullptr) {
         component->setContAssigns(s.MakeCont_assignVec());
       }
+      /*
+      // Need to support assign strength first
+      for (auto as : *component->getContAssigns()) {
+        const UHDM::expr* lhs = as->Lhs();
+        if (lhs->UhdmType() == uhdmref_obj) {
+          const std::string& n = lhs->VpiName();
+          if (n == lhs_exp->VpiName()) {
+            Location loc1(
+                m_symbols->registerSymbol(lhs_exp->VpiFile().string()),
+                lhs_exp->VpiLineNo(), lhs_exp->VpiColumnNo(),
+      m_symbols->registerSymbol(n)); Location
+      loc2(m_symbols->registerSymbol(lhs->VpiFile().string()), lhs->VpiLineNo(),
+      lhs->VpiColumnNo(),0); Error
+      err(ErrorDefinition::COMP_MULTIPLE_CONT_ASSIGN, loc1, loc2);
+            m_errors->addError(err);
+          }
+        }
+      }
+      */
       component->getContAssigns()->push_back(cassign);
     }
     Net_assignment = fC->Sibling(Net_assignment);
