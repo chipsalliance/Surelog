@@ -521,6 +521,8 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         endOfBlockId = fC->Sibling(endOfBlockId);
         if (type == VObjectType::slGenerate_module_item) break;
       }
+      if (endOfBlockId == 0)
+        endOfBlockId = fC->Sibling(m_module->getGenBlockId());
       if (fC->Type(id) == VObjectType::slGenerate_item) {
         id = fC->Parent(id);
       }
