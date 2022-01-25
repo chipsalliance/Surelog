@@ -5191,9 +5191,9 @@ UHDM::any* CompileHelper::compileAssignmentPattern(DesignComponent* component,
           fC->Sibling(Structure_pattern_key);  // With key '{a: 1, b: 2,...}
 
       if (Expression) {
-        if (any* exp =
-                compileExpression(component, fC, Expression, compileDesign,
-                                  operation, instance, reduce, false)) {
+        if (any* exp = compileExpression(
+                component, fC, Expression, compileDesign, operation, instance,
+                /* Reduce in all contexts */ true, false)) {
           if (exp->UhdmType() == uhdmref_obj) {
             ref_obj* ref = (ref_obj*)exp;
             const std::string& name = ref->VpiName();
