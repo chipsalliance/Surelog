@@ -22,6 +22,8 @@
  */
 #include "DesignCompile/CompileHelper.h"
 
+#include <string.h>
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -1246,8 +1248,20 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type,
   VObjectType signal_type = VObjectType::slData_type_or_implicit;
   if (net_port_type) {
     NodeId data_type_or_implicit = fC->Child(net_port_type);
-    if (fC->Type(data_type_or_implicit) == VObjectType::slNetType_Wire) {
-      signal_type = VObjectType::slNetType_Wire;
+    VObjectType the_type = fC->Type(data_type_or_implicit);
+    if (the_type == VObjectType::slNetType_Wire ||
+        the_type == VObjectType::slNetType_Wand ||
+        the_type == VObjectType::slNetType_Uwire ||
+        the_type == VObjectType::slNetType_Wor ||
+        the_type == VObjectType::slNetType_Tri ||
+        the_type == VObjectType::slNetType_TriAnd ||
+        the_type == VObjectType::slNetType_TriOr ||
+        the_type == VObjectType::slNetType_Tri1 ||
+        the_type == VObjectType::slNetType_Tri0 ||
+        the_type == VObjectType::slNetType_TriReg ||
+        the_type == VObjectType::slNetType_Supply0 ||
+        the_type == VObjectType::slNetType_Supply1) {
+      signal_type = the_type;
       data_type_or_implicit = fC->Sibling(data_type_or_implicit);
       Packed_dimension = fC->Child(data_type_or_implicit);
     } else {
@@ -2079,28 +2093,7 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
       if (component->getContAssigns() == nullptr) {
         component->setContAssigns(s.MakeCont_assignVec());
       }
-      /*
-      for (auto as : *component->getContAssigns()) {
-        const UHDM::expr* lhs = as->Lhs();
-        if (lhs->UhdmType() == uhdmref_obj) {
-          const std::string& n = lhs->VpiName();
-          if (n == lhs_exp->VpiName()) {
-            if (as->VpiStrength0() != cassign->VpiStrength0())
-              continue;
-            if (as->VpiStrength1() != cassign->VpiStrength1())
-              continue;
-            Location loc1(
-                m_symbols->registerSymbol(lhs_exp->VpiFile().string()),
-                lhs_exp->VpiLineNo(), lhs_exp->VpiColumnNo(),
-                m_symbols->registerSymbol(n));
-            Location loc2(m_symbols->registerSymbol(lhs->VpiFile().string()),
-                          lhs->VpiLineNo(), lhs->VpiColumnNo(), 0);
-            Error err(ErrorDefinition::COMP_MULTIPLE_CONT_ASSIGN, loc1, loc2);
-            m_errors->addError(err);
-          }
-        }
-      }
-      */
+
       component->getContAssigns()->push_back(cassign);
     }
     Net_assignment = fC->Sibling(Net_assignment);
