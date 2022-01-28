@@ -1075,9 +1075,18 @@ Processing: -cd misc/cover_error top.v -writepp -parse -nocache -nobuiltin -nono
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd misc/check_error top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
+[ERR:UH0717] top.v:7:12: Multiple continuous assignments to: u,
+             top.v:9:9: other assignment.
+
+[ERR:UH0717] top.v:7:12: Multiple continuous assignments to: u,
+             top.v:11:9: other assignment.
+
+[ERR:UH0717] top.v:9:9: Multiple continuous assignments to: u,
+             top.v:11:9: other assignment.
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 3
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd misc/freduce_ffs top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
@@ -1571,9 +1580,18 @@ Processing: -cd misc/check top.v -writepp -parse -nocache -nobuiltin -nonote -no
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd misc/check top1.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top1.v.log
+[ERR:UH0717] top1.v:7:12: Multiple continuous assignments to: u,
+             top1.v:9:9: other assignment.
+
+[ERR:UH0717] top1.v:7:12: Multiple continuous assignments to: u,
+             top1.v:11:9: other assignment.
+
+[ERR:UH0717] top1.v:9:9: Multiple continuous assignments to: u,
+             top1.v:11:9: other assignment.
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 3
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd misc/rename_error top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
@@ -7083,9 +7101,12 @@ Processing: -cd regression/issue_00289 testbench.v -writepp -parse -nocache -nob
 [WARNING] : 4
 [   NOTE] : 0
 Processing: -cd regression/issue_01161 top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
+[ERR:UH0717] top.v:8:12: Multiple continuous assignments to: z0,
+             top.v:9:12: other assignment.
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00283 top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
@@ -12948,7 +12969,7 @@ Processing: -cd regression/issue_01329 synchronizer.sv -writepp -parse -nocache 
 Processed 1309 tests.
 [  FATAL] : 0
 [ SYNTAX] : 61
-[  ERROR] : 35
+[  ERROR] : 42
 [WARNING] : 2376
 [   NOTE] : 0
 

@@ -60,6 +60,10 @@ class UhdmWriter final {
   static unsigned int getStrengthType(VObjectType type);
 
  private:
+  void writeModule(ModuleDefinition* mod, UHDM::module* m, UHDM::Serializer& s,
+                   UhdmWriter::ComponentMap& componentMap,
+                   UhdmWriter::ModPortMap& modPortMap,
+                   ModuleInstance* instance = nullptr);
   void writeInterface(ModuleDefinition* mod, UHDM::interface* m,
                       UHDM::Serializer& s, ComponentMap& componentMap,
                       ModPortMap& modPortMap,
@@ -74,6 +78,7 @@ class UhdmWriter final {
                      ExprBuilder& exprBuilder);
   bool writeElabModule(UHDM::Serializer& s, ModuleInstance* instance,
                        UHDM::module* m, ExprBuilder& exprBuilder);
+
   CompileDesign* const m_compileDesign;
   Design* const m_design;
   CompileHelper m_helper;
