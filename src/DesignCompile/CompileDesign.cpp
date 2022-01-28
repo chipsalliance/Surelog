@@ -77,23 +77,30 @@ CompileDesign::~CompileDesign() {
 
 bool CompileDesign::compile() {
   // Register UHDM Error callbacks
-  UHDM::ErrorHandler errHandler = [=](UHDM::ErrorType errType,
-                                      const std::string& msg,
-                                      const UHDM::any* object) {
-    ErrorContainer* errors = m_compiler->getErrorContainer();
-    SymbolTable* symbols = m_compiler->getSymbolTable();
-    if (object) {
-      Location loc(symbols->registerSymbol(object->VpiFile().string()),
-                   object->VpiLineNo(), object->VpiColumnNo(),
-                   symbols->registerSymbol(msg));
-      Error err((ErrorDefinition::ErrorType)errType, loc);
-      errors->addError(err);
-    } else {
-      Location loc(symbols->registerSymbol(msg));
-      Error err((ErrorDefinition::ErrorType)errType, loc);
-      errors->addError(err);
-    }
-  };
+  UHDM::ErrorHandler errHandler =
+      [=](UHDM::ErrorType errType, const std::string& msg,
+          const UHDM::any* object1, const UHDM::any* object2) {
+        ErrorContainer* errors = m_compiler->getErrorContainer();
+        SymbolTable* symbols = m_compiler->getSymbolTable();
+        if (object1) {
+          Location loc1(symbols->registerSymbol(object1->VpiFile().string()),
+                        object1->VpiLineNo(), object1->VpiColumnNo(),
+                        symbols->registerSymbol(msg));
+          if (object2) {
+            Location loc2(symbols->registerSymbol(object2->VpiFile().string()),
+                          object2->VpiLineNo(), object2->VpiColumnNo(), 0);
+            Error err((ErrorDefinition::ErrorType)errType, loc1, loc2);
+            errors->addError(err);
+          } else {
+            Error err((ErrorDefinition::ErrorType)errType, loc1);
+            errors->addError(err);
+          }
+        } else {
+          Location loc(symbols->registerSymbol(msg));
+          Error err((ErrorDefinition::ErrorType)errType, loc);
+          errors->addError(err);
+        }
+      };
   m_serializer.SetErrorHandler(errHandler);
 
   Location loc(0);

@@ -822,10 +822,10 @@ void writePackage(Package* pack, package* p, Serializer& s,
   }
 }
 
-void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
-                 UhdmWriter::ComponentMap& componentMap,
-                 UhdmWriter::ModPortMap& modPortMap,
-                 ModuleInstance* instance = nullptr) {
+void UhdmWriter::writeModule(ModuleDefinition* mod, module* m, Serializer& s,
+                             UhdmWriter::ComponentMap& componentMap,
+                             UhdmWriter::ModPortMap& modPortMap,
+                             ModuleInstance* instance) {
   UhdmWriter::SignalBaseClassMap signalBaseMap;
   UhdmWriter::SignalMap portMap;
   UhdmWriter::SignalMap netMap;
