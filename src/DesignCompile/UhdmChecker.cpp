@@ -64,6 +64,7 @@
 #include <uhdm/vpi_visitor.h>
 
 namespace SURELOG {
+namespace fs = std::filesystem;
 
 using UHDM::BaseClass;
 using UHDM::begin;

@@ -53,6 +53,8 @@
 #include "flatbuffers/util.h"
 
 namespace SURELOG {
+namespace fs = std::filesystem;
+
 ParseCache::ParseCache(ParseFile* parser)
     : m_parse(parser), m_isPrecompiled(false) {}
 

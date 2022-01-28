@@ -37,7 +37,7 @@
 
 #include "ErrorReporting/ErrorContainer.h"
 
-using namespace SURELOG;
+namespace SURELOG {
 namespace fs = std::filesystem;
 
 struct Result {
@@ -167,3 +167,4 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
   // m.unlock();
   return std::make_pair(retval != -1, (!nbFatal) && (!nbSyntax));
 }
+}  // namespace SURELOG

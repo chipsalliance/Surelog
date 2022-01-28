@@ -49,7 +49,9 @@
 #include "parser/SV3_1aParser.h"
 
 using namespace antlr4;
-using namespace SURELOG;
+
+namespace SURELOG {
+namespace fs = std::filesystem;
 
 CompileSourceFile::CompileSourceFile(SymbolId fileId, CommandLineParser* clp,
                                      ErrorContainer* errors, Compiler* compiler,
@@ -348,3 +350,4 @@ void CompileSourceFile::shutdownPythonInterp() {
   m_interpState = nullptr;
 }
 #endif
+}  // namespace SURELOG

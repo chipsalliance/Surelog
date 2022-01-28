@@ -41,7 +41,9 @@
 #include "parser/SV3_1aParser.h"
 
 using namespace antlr4;
-using namespace SURELOG;
+
+namespace SURELOG {
+namespace fs = std::filesystem;
 
 ParseLibraryDef::ParseLibraryDef(CommandLineParser* commandLineParser,
                                  ErrorContainer* errors,
@@ -289,3 +291,4 @@ bool ParseLibraryDef::parseConfigDefinition() {
 
   return true;
 }
+}  // namespace SURELOG

@@ -36,8 +36,6 @@
 #include "Design/ValuedComponentI.h"
 #include "SourceCompile/VObjectTypes.h"
 
-namespace fs = std::filesystem;
-
 namespace SURELOG {
 
 class Library;
@@ -125,8 +123,8 @@ class FileContent : public DesignComponent {
   std::string printSubTree(NodeId parentIndex);  // Print subtree from parent
   std::string printObject(NodeId noedId) const;  // Only print that object
   std::vector<std::string> collectSubTree(NodeId uniqueId);  // Helper function
-  const fs::path getFileName(NodeId id) const;
-  fs::path getChunkFileName() {
+  const std::filesystem::path getFileName(NodeId id) const;
+  std::filesystem::path getChunkFileName() {
     return m_symbolTable->getSymbol(m_fileChunkId);
   }
   SymbolTable* getSymbolTable() { return m_symbolTable; }
@@ -216,7 +214,9 @@ class FileContent : public DesignComponent {
   const FileContent* getParent() const { return m_parentFile; }
   void setParent(FileContent* parent) { m_parentFile = parent; }
 
-  fs::path getFileName() const { return m_symbolTable->getSymbol(m_fileId); }
+  std::filesystem::path getFileName() const {
+    return m_symbolTable->getSymbol(m_fileId);
+  }
 
   bool diffTree(NodeId id, const FileContent* oFc, NodeId oId,
                 std::string* diff_out) const;

@@ -30,8 +30,6 @@
 #include <string_view>
 #include <vector>
 
-namespace fs = std::filesystem;
-
 namespace SURELOG {
 
 typedef uint64_t SymbolId;
@@ -39,34 +37,37 @@ class SymbolTable;
 
 class FileUtils final {
  public:
-  static bool fileExists(const fs::path& name);
-  static bool fileIsRegular(const fs::path& name);
-  static bool fileIsDirectory(const fs::path& name);
+  static bool fileExists(const std::filesystem::path& name);
+  static bool fileIsRegular(const std::filesystem::path& name);
+  static bool fileIsDirectory(const std::filesystem::path& name);
 
   // Find file whose name is available in the SymbolTable either in
   // the current directory or under each of the paths.
   // If found, return the symbolID representing that file.
   static SymbolId locateFile(SymbolId file, SymbolTable* symbols,
                              const std::vector<SymbolId>& paths);
-  static bool mkDirs(const fs::path& path);
-  static bool rmDirRecursively(const fs::path& path);
-  static fs::path getFullPath(const fs::path& path);
-  static bool getFullPath(const fs::path& path, fs::path* result);
-  static fs::path getPathName(const fs::path& path);
-  static fs::path basename(const fs::path& str);
-  static uint64_t fileSize(const fs::path& name);
-  static std::string hashPath(const fs::path& path);
-  static std::vector<SymbolId> collectFiles(const fs::path& dirPath,
-                                            const fs::path& extension,
-                                            SymbolTable* symbols);
+  static bool mkDirs(const std::filesystem::path& path);
+  static bool rmDirRecursively(const std::filesystem::path& path);
+  static std::filesystem::path getFullPath(const std::filesystem::path& path);
+  static bool getFullPath(const std::filesystem::path& path,
+                          std::filesystem::path* result);
+  static std::filesystem::path getPathName(const std::filesystem::path& path);
+  static std::filesystem::path basename(const std::filesystem::path& str);
+  static uint64_t fileSize(const std::filesystem::path& name);
+  static std::string hashPath(const std::filesystem::path& path);
+  static std::vector<SymbolId> collectFiles(
+      const std::filesystem::path& dirPath,
+      const std::filesystem::path& extension, SymbolTable* symbols);
   static std::vector<SymbolId> collectFiles(SymbolId dirPath,
                                             SymbolId extension,
                                             SymbolTable* symbols);
-  static std::vector<SymbolId> collectFiles(const fs::path& pathSpec,
-                                            SymbolTable* symbols);
-  static std::string getFileContent(const fs::path& name);
-  static fs::path makeRelativePath(const fs::path& path);
-  static fs::path getPreferredPath(const fs::path& path);
+  static std::vector<SymbolId> collectFiles(
+      const std::filesystem::path& pathSpec, SymbolTable* symbols);
+  static std::string getFileContent(const std::filesystem::path& name);
+  static std::filesystem::path makeRelativePath(
+      const std::filesystem::path& path);
+  static std::filesystem::path getPreferredPath(
+      const std::filesystem::path& path);
 
  private:
   FileUtils() = delete;

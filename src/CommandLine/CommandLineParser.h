@@ -32,8 +32,6 @@
 #include "ErrorReporting/ErrorContainer.h"
 #include "SourceCompile/SymbolTable.h"
 
-namespace fs = std::filesystem;
-
 namespace SURELOG {
 
 class CommandLineParser final {
@@ -178,12 +176,12 @@ class CommandLineParser final {
   bool createCache() const { return m_createCache; }
   const std::string currentDateTime();
   bool parseBuiltIn();
-  fs::path getBuiltInPath() const { return m_builtinPath; }
-  fs::path getExePath() const { return m_exePath; }
+  std::filesystem::path getBuiltInPath() const { return m_builtinPath; }
+  std::filesystem::path getExePath() const { return m_exePath; }
   std::string getExeCommand() const { return m_exeCommand; }
   std::set<std::string>& getTopLevelModules() { return m_topLevelModules; }
   bool fullSVMode() const { return m_sverilog; }
-  bool isSVFile(const fs::path& fileName) const;
+  bool isSVFile(const std::filesystem::path& fileName) const;
   bool cleanCache();
 
  private:
@@ -200,11 +198,11 @@ class CommandLineParser final {
   bool prepareCompilation_(int argc, const char** argv);
   bool setupCache_();
 
-  std::vector<SymbolId> m_libraryPaths;  // -y
-  std::vector<SymbolId> m_sourceFiles;   // .v .sv
-  std::set<fs::path> m_svSourceFiles;    // user forced sv files
-  std::vector<SymbolId> m_libraryFiles;  // -v
-  std::vector<SymbolId> m_includePaths;  // +incdir+
+  std::vector<SymbolId> m_libraryPaths;             // -y
+  std::vector<SymbolId> m_sourceFiles;              // .v .sv
+  std::set<std::filesystem::path> m_svSourceFiles;  // user forced sv files
+  std::vector<SymbolId> m_libraryFiles;             // -v
+  std::vector<SymbolId> m_includePaths;             // +incdir+
   std::set<SymbolId> m_includePathSet;
   std::vector<SymbolId> m_libraryExtensions;     // +libext+
   std::vector<SymbolId> m_orderedLibraries;      // -L <libName>
@@ -271,8 +269,8 @@ class CommandLineParser final {
   bool m_parseBuiltIn;
   bool m_ppOutputFileLocation;
   bool m_logFileSpecified;
-  fs::path m_builtinPath;
-  fs::path m_exePath;
+  std::filesystem::path m_builtinPath;
+  std::filesystem::path m_exePath;
   std::string m_exeCommand;
   std::set<std::string> m_topLevelModules;
   bool m_sverilog;

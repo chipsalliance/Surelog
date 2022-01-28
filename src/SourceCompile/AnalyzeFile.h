@@ -59,8 +59,9 @@ class AnalyzeFile {
   };
 
   AnalyzeFile(CommandLineParser* clp, Design* design,
-              const fs::path& ppFileName, const fs::path& fileName,
-              int nbChunks, const std::string& text = "")
+              const std::filesystem::path& ppFileName,
+              const std::filesystem::path& fileName, int nbChunks,
+              const std::string& text = "")
       : m_clp(clp),
         m_design(design),
         m_ppFileName(ppFileName),
@@ -69,7 +70,7 @@ class AnalyzeFile {
         m_text(text) {}
 
   void analyze();
-  std::vector<fs::path>& getSplitFiles() { return m_splitFiles; }
+  std::vector<std::filesystem::path>& getSplitFiles() { return m_splitFiles; }
   std::vector<unsigned int>& getLineOffsets() { return m_lineOffsets; }
 
   AnalyzeFile(const AnalyzeFile& orig) = delete;
@@ -79,13 +80,13 @@ class AnalyzeFile {
   void checkSLlineDirective_(std::string line, unsigned int lineNb);
   std::string setSLlineDirective_(unsigned int lineNb,
                                   unsigned int& origFromLine,
-                                  fs::path& origFile);
+                                  std::filesystem::path& origFile);
   CommandLineParser* m_clp;
   Design* m_design;
-  fs::path m_ppFileName;
-  fs::path m_fileName;
+  std::filesystem::path m_ppFileName;
+  std::filesystem::path m_fileName;
   std::vector<FileChunk> m_fileChunks;
-  std::vector<fs::path> m_splitFiles;
+  std::vector<std::filesystem::path> m_splitFiles;
   std::vector<unsigned int> m_lineOffsets;
   int m_nbChunks;
   std::stack<IncludeFileInfo> m_includeFileInfo;
