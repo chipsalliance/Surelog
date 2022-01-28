@@ -72,7 +72,7 @@ class DataType : public RTTI {
     m_type = type;
     m_is_parameter = isParameter;
   }
-  virtual ~DataType() = default;
+  ~DataType() override = default;
 
   const FileContent* getFileContent() const { return m_fileContent; }
 

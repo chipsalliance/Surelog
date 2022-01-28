@@ -47,7 +47,7 @@ class Scope : public RTTI {
 
   Scope(const std::string& name, Scope* parent)
       : m_name(name), m_parentScope(parent) {}
-  virtual ~Scope() {}
+  ~Scope() override {}
 
   const std::string& getName() const { return m_name; }
   Scope* getParentScope() { return m_parentScope; }

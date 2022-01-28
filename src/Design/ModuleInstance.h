@@ -94,7 +94,7 @@ class ModuleInstance : public ValuedComponentI {
   bool isOverridenParam(const std::string& name);
 
   // DO NOT change the signature of this method, it is used in gdb for debug.
-  std::string decompile(char* valueName);
+  std::string decompile(char* valueName) final;
 
   ModuleInstance* getChildByName(const std::string& name);
 

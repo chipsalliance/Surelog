@@ -42,7 +42,7 @@ class NetlistElaboration : public TestbenchElaboration {
   bool elaboratePackages();
   bool elaborateInstance(ModuleInstance* instance);
 
-  virtual ~NetlistElaboration() override;
+  ~NetlistElaboration() override;
   void elabSignal(Signal* sig, ModuleInstance* instance, ModuleInstance* child,
                   Netlist* parentNetlist, Netlist* netlist,
                   DesignComponent* comp, const std::string& prefix);
