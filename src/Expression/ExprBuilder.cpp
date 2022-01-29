@@ -404,7 +404,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
               if (strstr(v.c_str(), "X") || strstr(v.c_str(), "Z") ||
                   strstr(v.c_str(), "x") || strstr(v.c_str(), "z")) {
                 StValue* stval = (StValue*)m_valueFactory.newStValue();
-                stval->set(v.c_str(), Value::Type::Binary,
+                stval->set(v, Value::Type::Binary,
                            (intsize ? intsize : v.size()));
                 value = stval;
               } else {
@@ -448,7 +448,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         break;
       }
       case VObjectType::slRealConst: {
-        std::string real = fC->SymName(child).c_str();
+        const std::string& real = fC->SymName(child);
         std::istringstream os(real);
         double d;
         os >> d;
@@ -513,7 +513,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         break;
       }
       case VObjectType::slStringLiteral: {
-        std::string name = fC->SymName(child).c_str();
+        std::string name = fC->SymName(child);
         m_valueFactory.deleteValue(value);
         value = m_valueFactory.newStValue();
         name = StringUtils::unquoted(name);

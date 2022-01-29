@@ -82,17 +82,17 @@ void SLoverrideSeverity(const char* messageId, const char* severity) {
                                ErrorDefinition::getErrorSeverity(severity));
 }
 
+static bool IsEmpty(const char* str) { return !(str && *str); }
+
 void SLaddError(ErrorContainer* errors, const char* messageId,
                 const char* fileName, unsigned int line, unsigned int col,
                 const char* objectName) {
   if (errors == nullptr) return;
   SymbolTable* symbolTable = errors->getSymbolTable();
-  SymbolId fileId = 0;
-  if (fileName && (strcmp(fileName, "")))
-    fileId = symbolTable->registerSymbol(fileName);
-  SymbolId objectId = 0;
-  if (objectName && (strcmp(objectName, "")))
-    objectId = symbolTable->registerSymbol(objectName);
+  const SymbolId fileId =
+      IsEmpty(fileName) ? 0 : symbolTable->registerSymbol(fileName);
+  const SymbolId objectId =
+      IsEmpty(objectName) ? 0 : symbolTable->registerSymbol(objectName);
   Location loc(fileId, line, col, objectId);
 
   ErrorDefinition::ErrorType type = ErrorDefinition::getErrorType(messageId);
@@ -107,19 +107,16 @@ void SLaddMLError(ErrorContainer* errors, const char* messageId,
                   const char* objectName2) {
   if (errors == nullptr) return;
   SymbolTable* symbolTable = errors->getSymbolTable();
-  SymbolId fileId1 = 0;
-  if (fileName1 && (strcmp(fileName1, "")))
-    fileId1 = symbolTable->registerSymbol(fileName1);
-  SymbolId objectId1 = 0;
-  if (objectName1 && (strcmp(objectName1, "")))
-    objectId1 = symbolTable->registerSymbol(objectName1);
+  const SymbolId fileId1 =
+      IsEmpty(fileName1) ? 0 : symbolTable->registerSymbol(fileName1);
+  const SymbolId objectId1 =
+      IsEmpty(objectName1) ? 0 : symbolTable->registerSymbol(objectName1);
   Location loc1(fileId1, line1, col1, objectId1);
 
   SymbolId fileId2 = 0;
-  if (fileName2 && (strcmp(fileName2, "")))
-    fileId2 = symbolTable->registerSymbol(fileName2);
+  if (!IsEmpty(fileName2)) fileId2 = symbolTable->registerSymbol(fileName2);
   SymbolId objectId2 = 0;
-  if (objectName2 && (strcmp(objectName2, "")))
+  if (!IsEmpty(objectName2))
     objectId2 = symbolTable->registerSymbol(objectName2);
   Location loc2(fileId2, line2, col2, objectId2);
 

@@ -500,20 +500,20 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
 
   std::vector<std::string> cmd_line;
   for (int i = 1; i < argc; i++) {
-    std::string arg = StringUtils::unquoted(argv[i]);
+    const std::string arg = StringUtils::unquoted(argv[i]);
     cmd_line.emplace_back(arg);
-    if (arg.compare("-cd") == 0) {
+    if (arg == "-cd") {
       std::string newDir = StringUtils::unquoted(argv[i + 1]);
       int ret = chdir(newDir.c_str());
       if (ret < 0) {
         std::cout << "Could not change directory to " << newDir << "\n"
                   << std::endl;
       }
-    } else if (arg.compare("-builtin") == 0) {
+    } else if (arg == "-builtin") {
       if (i < argc - 1) {
         m_builtinPath = fs::path(StringUtils::unquoted(argv[i + 1]));
       }
-    } else if (arg.compare("-l") == 0) {
+    } else if (arg == "-l") {
       if (i < argc - 1) {
         m_logFileId =
             m_symbolTable->registerSymbol(StringUtils::unquoted(argv[i + 1]));
@@ -522,7 +522,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (arg.find("-D") != std::string::npos) {
       std::string def;
       std::string value;
-      const size_t loc = arg.find("=");
+      const size_t loc = arg.find('=');
       if (loc == std::string::npos) {
         def = arg.substr(2);
         StringUtils::registerEnvVar(def, "");
