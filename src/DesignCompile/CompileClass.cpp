@@ -39,6 +39,7 @@
 #include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/VObjectTypes.h"
 #include "Testbench/ClassDefinition.h"
+#include "Utils/StringUtils.h"
 
 // UHDM
 #include <uhdm/uhdm.h>
@@ -220,6 +221,37 @@ bool CompileClass::compile() {
       case VObjectType::slClass_type:
         compile_class_type_(fC, id);
         break;
+      case VObjectType::slStringConst: {
+        NodeId sibling = fC->Sibling(id);
+        if (!sibling) {
+          if (fC->Type(fC->Parent(id)) != slClass_declaration) break;
+          const std::string endLabel = fC->SymName(id);
+          std::string moduleName = m_class->getName();
+          moduleName = StringUtils::ltrim(moduleName, '@');
+          if (endLabel != moduleName) {
+            Location loc(
+                m_compileDesign->getCompiler()
+                    ->getSymbolTable()
+                    ->registerSymbol(
+                        fC->getFileName(m_class->getNodeIds()[0]).string()),
+                fC->Line(m_class->getNodeIds()[0]),
+                fC->Column(m_class->getNodeIds()[0]),
+                m_compileDesign->getCompiler()
+                    ->getSymbolTable()
+                    ->registerSymbol(moduleName));
+            Location loc2(m_compileDesign->getCompiler()
+                              ->getSymbolTable()
+                              ->registerSymbol(fC->getFileName(id).string()),
+                          fC->Line(id), fC->Column(id),
+                          m_compileDesign->getCompiler()
+                              ->getSymbolTable()
+                              ->registerSymbol(endLabel));
+            Error err(ErrorDefinition::COMP_UNMATCHED_LABEL, loc, loc2);
+            m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
+          }
+        }
+        break;
+      }
       default:
         break;
     }

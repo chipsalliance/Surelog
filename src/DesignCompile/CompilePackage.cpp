@@ -36,7 +36,7 @@
 #include "SourceCompile/ParseFile.h"
 #include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/VObjectTypes.h"
-
+#include "Utils/StringUtils.h"
 using namespace SURELOG;
 
 int FunctorCompilePackage::operator()() const {
@@ -248,6 +248,39 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
             Function* func = m_helper.compileFunctionPrototype(
                 m_package, fC, id, m_compileDesign);
             m_package->insertFunction(func);
+          }
+          break;
+        }
+        case VObjectType::slStringConst: {
+          if (collectType != CollectType::DEFINITION) break;
+          NodeId sibling = fC->Sibling(id);
+          if (!sibling) {
+            if (fC->Type(fC->Parent(id)) != slPackage_declaration) break;
+            const std::string endLabel = fC->SymName(id);
+            std::string moduleName = m_package->getName();
+            moduleName = StringUtils::ltrim(moduleName, '@');
+            if (endLabel != moduleName) {
+              Location loc(
+                  m_compileDesign->getCompiler()
+                      ->getSymbolTable()
+                      ->registerSymbol(
+                          fC->getFileName(m_package->getNodeIds()[0]).string()),
+                  fC->Line(m_package->getNodeIds()[0]),
+                  fC->Column(m_package->getNodeIds()[0]),
+                  m_compileDesign->getCompiler()
+                      ->getSymbolTable()
+                      ->registerSymbol(moduleName));
+              Location loc2(m_compileDesign->getCompiler()
+                                ->getSymbolTable()
+                                ->registerSymbol(fC->getFileName(id).string()),
+                            fC->Line(id), fC->Column(id),
+                            m_compileDesign->getCompiler()
+                                ->getSymbolTable()
+                                ->registerSymbol(endLabel));
+              Error err(ErrorDefinition::COMP_UNMATCHED_LABEL, loc, loc2);
+              m_compileDesign->getCompiler()->getErrorContainer()->addError(
+                  err);
+            }
           }
           break;
         }
