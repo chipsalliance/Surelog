@@ -78,6 +78,11 @@ class UhdmWriter final {
                      ExprBuilder& exprBuilder);
   bool writeElabModule(UHDM::Serializer& s, ModuleInstance* instance,
                        UHDM::module* m, ExprBuilder& exprBuilder);
+  bool writeElabProgram(UHDM::Serializer& s, ModuleInstance* instance,
+                        UHDM::program* m);
+  bool writeElabGenScope(UHDM::Serializer& s, ModuleInstance* instance,
+                         UHDM::gen_scope* m, ExprBuilder& exprBuilder);
+  void lateBinding(UHDM::Serializer& s, DesignComponent* mod, UHDM::scope* m);
 
   CompileDesign* const m_compileDesign;
   Design* const m_design;
