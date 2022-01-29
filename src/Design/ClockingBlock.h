@@ -53,9 +53,9 @@ class ClockingBlock final {
   Type getType() const { return m_type; }
 
  private:
-  const FileContent* m_fileContent;
+  const FileContent* m_fileContent;  // NOLINT: unused field (TODO: remove?)
   NodeId m_blockId;
-  NodeId m_clockingBlockId;
+  NodeId m_clockingBlockId;  // NOLINT: unused field (TODO: remove?)
   std::vector<Signal> m_signals;
   UHDM::clocking_block* m_actual;
   Type m_type;

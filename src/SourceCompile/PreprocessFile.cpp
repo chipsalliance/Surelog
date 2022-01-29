@@ -289,7 +289,7 @@ SymbolId PreprocessFile::getMacroSignature() {
 PreprocessFile::PreprocessFile(const PreprocessFile& orig) {}
 
 PreprocessFile::~PreprocessFile() {
-  if (m_listener) delete m_listener;
+  delete m_listener;
   for (const auto& name_macro : m_macros) delete name_macro.second;
 }
 
@@ -489,7 +489,7 @@ bool PreprocessFile::preprocess() {
   }
   m_result = "";
   m_lineCount = 0;
-  if (m_listener != nullptr) delete m_listener;
+  delete m_listener;
   m_listener = new SV3_1aPpTreeShapeListener(
       this, m_antlrParserHandler->m_pptokens, m_instructions);
   // TODO: this leaks

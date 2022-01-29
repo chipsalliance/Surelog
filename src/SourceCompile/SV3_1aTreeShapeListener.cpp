@@ -612,7 +612,7 @@ void SV3_1aTreeShapeListener::enterTimescale_directive(
   compUnitTimeInfo.m_line = lineCol.first;
   std::regex base_regex("`timescale([0-9]+)([mnsupf]+)/([0-9]+)([mnsupf]+)");
   std::smatch base_match;
-  std::string value = ctx->getText().c_str();
+  const std::string value = ctx->getText();
   if (std::regex_match(value, base_match, base_regex)) {
     std::ssub_match base1_sub_match = base_match[1];
     std::string base1 = base1_sub_match.str();

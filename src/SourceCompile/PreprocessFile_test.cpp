@@ -27,8 +27,8 @@ using ::testing::ElementsAre;
 namespace SURELOG {
 namespace {
 
-static bool ContainsError(const ErrorContainer &errors,
-                          ErrorDefinition::ErrorType etype) {
+bool ContainsError(const ErrorContainer &errors,
+                   ErrorDefinition::ErrorType etype) {
   return std::count_if(
       errors.getErrors().begin(), errors.getErrors().end(),
       [etype](const Error &e) { return e.getType() == etype; });
