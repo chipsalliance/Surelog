@@ -336,6 +336,7 @@ bool ErrorDefinition::init() {
   rec(COMP_CANNOT_REDEFINE_BUILTIN_METHOD, ERROR, COMP,
       "Cannot override builtin method: %s");
   rec(COMP_ILLEGAL_TIMESCALE, ERROR, COMP, "Illegal timescale: %s");
+  rec(COMP_UNSPECIFIED_PORT, ERROR, COMP, "Port \"%s\" of unspecified type");
   rec(PY_PROCESSING_SOURCE_FILE, INFO, PYTH, "Processing source file \"%s\"");
   rec(PY_NO_PYTHON_LISTENER_FOUND, FATAL, PYTH,
       "No Python listener found (slSV3_1aPythonListener.py)");
