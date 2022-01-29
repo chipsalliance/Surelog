@@ -19,6 +19,108 @@ parser grammar SV3_1aParser;
 
 options { tokenVocab = SV3_1aLexer; } 
 
+@parser::members {
+
+  void getCallingContext(antlr4::ParserRuleContext* ctx, std::vector<size_t>& context) {
+    antlr4::ParserRuleContext* current = ctx;
+    while (current != nullptr) {
+      context.push_back(current->getRuleIndex());
+      current = dynamic_cast<antlr4::ParserRuleContext*>(current->parent);
+    }
+  }
+
+  bool isInterfaceGenerator(antlr4::ParserRuleContext* ctx) {
+      std::vector<size_t> parent_ids(20);
+      getCallingContext(ctx, parent_ids);
+
+      bool isModuleOrProgramBlock = false;
+      for (size_t rule_type : parent_ids) {
+        if (!isModuleOrProgramBlock) {
+          if (rule_type == RuleChecker_declaration) {
+            return false;
+          }
+
+          switch(rule_type) {
+            case RuleModule_declaration:
+            case RuleProgram_declaration:
+              isModuleOrProgramBlock = true;
+          }
+
+          // First thing we found was an interface declration
+          if (rule_type == RuleInterface_declaration) {
+            return true;
+          }
+        }
+
+        // At this point we're either a program or a module, and trying to make
+        // sure that we don't have an interface in our ancestor chain. Spec says
+        // if we do we must return true
+        if (rule_type == RuleInterface_declaration) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+  bool isCheckerGenerator(antlr4::ParserRuleContext* ctx) {
+    std::vector<size_t> parent_ids(20);
+    getCallingContext(ctx, parent_ids);
+
+    // In the SV Spec it states that a Checker Generator is only valid if the
+    // generate block is both checker.
+    for (size_t rule_type : parent_ids) {
+      switch (rule_type) {
+        case RuleModule_declaration:
+        case RuleInterface_declaration:
+        case RuleProgram_declaration:
+          return false;
+      }
+
+      if (rule_type == RuleChecker_declaration) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  bool isModuleGenerator(antlr4::ParserRuleContext* ctx) {
+      std::vector<size_t> parent_ids(20);
+      getCallingContext(ctx, parent_ids);
+
+      bool isGenerateInAModuleDeclaration = false;
+
+      // In the SV Spec it states that a Module Generator is only valid if the
+      // generate block is both within a module, and that module is not a child
+      // of an interface block. This code will first make sure the generate
+      // block is in a module, and then verify it is not a child of an interface
+      // block.
+      for (size_t rule_type : parent_ids) {
+        if (!isGenerateInAModuleDeclaration) {
+          switch (rule_type) {
+            case RuleChecker_declaration:
+            case RuleInterface_declaration:
+              return false;
+          }
+
+          // Treat programs as modules
+          if (rule_type == RuleModule_declaration || rule_type == RuleProgram_declaration) {
+            isGenerateInAModuleDeclaration = true;
+          }
+        }
+        // We are in a module, and only return false if we find an interface
+        // declaration in our ancestors.
+
+        if (rule_type == RuleInterface_declaration) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+}
+
 top_level_rule : null_rule source_text EOF ; // SV files
 
 top_level_library_rule : null_rule library_text EOF ; // .map files
@@ -286,7 +388,7 @@ module_or_generate_item_declaration
     ; 
 
 non_port_module_item  
-    : generated_module_instantiation                
+    : generate_region
     | module_or_generate_item                       
     | specify_block                                 
     | ( attribute_instance )* specparam_declaration 
@@ -1799,14 +1901,20 @@ generate_interface_named_block
 
 generate_interface_block : 
     BEGIN ( COLUMN identifier )? 
-    ( generate_interface_item )* 
-    END ( COLUMN identifier )? ; 
+    ( generate_interface_item )*
+    END ( COLUMN identifier )? ;
 
-generate_region : 
-      GENERATE generate_item* ENDGENERATE; 
+// This grammar diffiers from the spec. The spec states that a generate_region
+// is simply a repeated generate_item. This is probably wrong though. The spec
+// states that a generate block can have a labeled begin end block. Which means
+// that there should be a generate_block somwwhere in the generate_region.
+// It's unclear to me if the generate block should be allowed to be repeated.
+// My expectation is that it should not be allowed.
+generate_region :
+      GENERATE generate_block* ENDGENERATE;
 
-loop_generate_construct : 
-      FOR OPEN_PARENS genvar_initialization SEMICOLUMN constant_expression SEMICOLUMN genvar_iteration CLOSE_PARENS generate_block ; 
+loop_generate_construct :
+      FOR OPEN_PARENS genvar_initialization SEMICOLUMN constant_expression SEMICOLUMN genvar_iteration CLOSE_PARENS generate_block ;
 
 genvar_initialization : 
       GENVAR? identifier ASSIGN_OP constant_expression ; 
@@ -1833,16 +1941,18 @@ case_generate_item
       | DEFAULT ( COLUMN )? generate_block 
       ; 
 
-generate_block  
-    :  generate_item 
+generate_block
+    :  generate_item
     | ( identifier COLUMN )? BEGIN ( COLUMN identifier )?  generate_item* END
-      ( COLUMN identifier )? 
-    ; 
+      ( COLUMN identifier )?
+    | ( identifier COLUMN )? BEGIN ( COLUMN identifier )?  generate_block* END
+      ( COLUMN identifier )?
+    ;
 
 generate_item  
-     : module_or_generate_item 
-     | interface_or_generate_item 
-     | checker_or_generate_item 
+     : {isModuleGenerator($ctx)}? module_or_generate_item
+     | {isInterfaceGenerator($ctx)}? interface_or_generate_item
+     | {isCheckerGenerator($ctx)}? checker_or_generate_item
      ; 
 
 udp_nonansi_declaration : ( attribute_instance )* PRIMITIVE identifier  
