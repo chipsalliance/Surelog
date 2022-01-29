@@ -44,7 +44,7 @@
 namespace SURELOG {
 
 #define SV_MAX_IDENTIFIER_SIZE 1024
-#define SV_MAX_STRING_SIZE 4 * 1024 * 1024
+#define SV_MAX_STRING_SIZE (4 * 1024 * 1024)
 
 class SV3_1aTreeShapeHelper : public CommonListenerHelper {
  public:

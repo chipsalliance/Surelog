@@ -66,9 +66,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   SURELOG_IMPLEMENT_RTTI(DesignComponent, ValuedComponentI)
  public:
   DesignComponent(const DesignComponent* parent, DesignComponent* definition)
-      : ValuedComponentI(parent, definition),
-        PortNetHolder(),
-        m_instance(nullptr) {}
+      : ValuedComponentI(parent, definition), m_instance(nullptr) {}
   ~DesignComponent() override {}
 
   virtual unsigned int getSize() const = 0;

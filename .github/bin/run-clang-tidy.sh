@@ -27,7 +27,16 @@ if [ "$1" == "limited" ]; then
     cat > ${LOCAL_TMP}/clang-tidy <<EOF
 Checks: >
     -*,
+    bugprone-macro-parentheses,
+    bugprone-suspicious-string-compare,
+    clang-diagnostic-inconsistent-missing-override,
+    clang-diagnostic-unused-private-field,
     modernize-use-override,
+    readability-delete-null-pointer,
+    readability-redundant-member-init,
+    readability-redundant-string-cstr,
+    readability-static-definition-in-anonymous-namespace,
+    readability-string-compare,
 EOF
     CLANG_TIDY_OPTS="--config-file=${LOCAL_TMP}/clang-tidy"
 fi
