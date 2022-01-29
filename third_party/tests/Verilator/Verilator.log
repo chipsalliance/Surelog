@@ -1261,9 +1261,12 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_sv_bus_mux_demux.v -l t_sv_bus_mux_demux.v.log
+[ERR:CP0341] t_sv_bus_mux_demux.v:48:1: Unmached label "t",
+             t_sv_bus_mux_demux.v:193:13: closing label "sv_bus_mux_demux_tb".
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_const_overflow_bad.v -l t_const_overflow_bad.v.log
@@ -1563,9 +1566,12 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_hierarchy_identifier_bad.v -l t_hierarchy_identifier_bad.v.log
+[ERR:CP0341] t_hierarchy_identifier_bad.v:6:1: Unmached label "t",
+             t_hierarchy_identifier_bad.v:53:13: closing label "t_bad".
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_preproc_kwd.v -l t_preproc_kwd.v.log
@@ -5673,7 +5679,7 @@ Processing: -cd t_sv_bus_mux_demux +incdir+. -parse -noelab -nocache -nobuiltin 
 Processed 837 tests.
 [  FATAL] : 0
 [ SYNTAX] : 54
-[  ERROR] : 159
+[  ERROR] : 161
 [WARNING] : 43
 [   NOTE] : 0
 

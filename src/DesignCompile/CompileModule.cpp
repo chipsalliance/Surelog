@@ -42,6 +42,7 @@
 #include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/VObjectTypes.h"
 #include "Testbench/ClassDefinition.h"
+#include "Utils/StringUtils.h"
 
 using namespace SURELOG;
 
@@ -774,6 +775,41 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           if (collectType != CollectType::OTHER) break;
           m_helper.compileFinalBlock(m_module, fC, id, m_compileDesign);
           break;
+        case VObjectType::slStringConst: {
+          if (collectType != CollectType::DEFINITION) break;
+          NodeId sibling = fC->Sibling(id);
+          if (!sibling) {
+            if (fC->Type(fC->Parent(id)) != slModule_declaration) break;
+            const std::string endLabel = fC->SymName(id);
+            std::string moduleName = m_module->getName();
+            moduleName = StringUtils::ltrim(moduleName, '@');
+            moduleName = StringUtils::ltrim(moduleName, ':');
+            moduleName = StringUtils::ltrim(moduleName, ':');
+            if (endLabel != moduleName) {
+              Location loc(
+                  m_compileDesign->getCompiler()
+                      ->getSymbolTable()
+                      ->registerSymbol(
+                          fC->getFileName(m_module->getNodeIds()[0]).string()),
+                  fC->Line(m_module->getNodeIds()[0]),
+                  fC->Column(m_module->getNodeIds()[0]),
+                  m_compileDesign->getCompiler()
+                      ->getSymbolTable()
+                      ->registerSymbol(moduleName));
+              Location loc2(m_compileDesign->getCompiler()
+                                ->getSymbolTable()
+                                ->registerSymbol(fC->getFileName(id).string()),
+                            fC->Line(id), fC->Column(id),
+                            m_compileDesign->getCompiler()
+                                ->getSymbolTable()
+                                ->registerSymbol(endLabel));
+              Error err(ErrorDefinition::COMP_UNMATCHED_LABEL, loc, loc2);
+              m_compileDesign->getCompiler()->getErrorContainer()->addError(
+                  err);
+            }
+          }
+          break;
+        }
         default:
           break;
       }
@@ -818,11 +854,14 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
   std::vector<VObjectType> stopPoints = {
       VObjectType::slConditional_generate_construct,
       VObjectType::slGenerate_module_conditional_statement,
+      VObjectType::slGenerate_interface_conditional_statement,
       VObjectType::slLoop_generate_construct,
       VObjectType::slGenerate_module_loop_statement,
+      VObjectType::slGenerate_interface_loop_statement,
       VObjectType::slPar_block,
       VObjectType::slSeq_block,
       VObjectType::slModule_declaration,
+      VObjectType::slInterface_declaration,
       VObjectType::slClass_declaration,
       VObjectType::slFunction_body_declaration,
       VObjectType::slTask_body_declaration};
@@ -1095,6 +1134,41 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
           if (collectType != CollectType::OTHER) break;
           FileCNodeId fnid(fC, id);
           m_module->addObject(type, fnid);
+          break;
+        }
+        case VObjectType::slEndinterface: {
+          if (collectType != CollectType::DEFINITION) break;
+          NodeId InterfaceIdentifier = fC->Sibling(id);
+          if (InterfaceIdentifier) {
+            NodeId label = fC->Child(InterfaceIdentifier);
+            const std::string endLabel = fC->SymName(label);
+            std::string moduleName = m_module->getName();
+            moduleName = StringUtils::ltrim(moduleName, '@');
+            moduleName = StringUtils::ltrim(moduleName, ':');
+            moduleName = StringUtils::ltrim(moduleName, ':');
+            if (endLabel != moduleName) {
+              Location loc(
+                  m_compileDesign->getCompiler()
+                      ->getSymbolTable()
+                      ->registerSymbol(
+                          fC->getFileName(m_module->getNodeIds()[0]).string()),
+                  fC->Line(m_module->getNodeIds()[0]),
+                  fC->Column(m_module->getNodeIds()[0]),
+                  m_compileDesign->getCompiler()
+                      ->getSymbolTable()
+                      ->registerSymbol(moduleName));
+              Location loc2(m_compileDesign->getCompiler()
+                                ->getSymbolTable()
+                                ->registerSymbol(fC->getFileName(id).string()),
+                            fC->Line(id), fC->Column(id),
+                            m_compileDesign->getCompiler()
+                                ->getSymbolTable()
+                                ->registerSymbol(endLabel));
+              Error err(ErrorDefinition::COMP_UNMATCHED_LABEL, loc, loc2);
+              m_compileDesign->getCompiler()->getErrorContainer()->addError(
+                  err);
+            }
+          }
           break;
         }
         default:
