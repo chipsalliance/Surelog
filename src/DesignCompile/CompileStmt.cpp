@@ -199,12 +199,16 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       NodeId item = fC->Child(the_stmt);
       VectorOfany* stmts = s.MakeAnyVec();
       UHDM::scope* scope = nullptr;
+      std::string label;
+      NodeId labelId = the_stmt;
       if (fC->Type(item) == VObjectType::slStringConst) {
         UHDM::named_begin* begin = s.MakeNamed_begin();
         begin->Stmts(stmts);
         begin->VpiParent(pstmt);
         stmt = begin;
-        begin->VpiName(fC->SymName(item));
+        label = fC->SymName(item);
+        labelId = item;
+        begin->VpiName(label);
         item = fC->Sibling(item);
         scope = begin;
       } else {
@@ -216,6 +220,23 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       }
       while (item) {
         if (item && (fC->Type(item) == VObjectType::slEnd)) {
+          if (NodeId endLabel = fC->Sibling(item)) {
+            const std::string& endlabel = fC->SymName(endLabel);
+            if (endlabel != label) {
+              ErrorContainer* errors =
+                  compileDesign->getCompiler()->getErrorContainer();
+              SymbolTable* symbols =
+                  compileDesign->getCompiler()->getSymbolTable();
+              Location loc(symbols->registerSymbol(fC->getFileName().string()),
+                           fC->Line(labelId), fC->Column(labelId),
+                           symbols->registerSymbol(label));
+              Location loc2(symbols->registerSymbol(fC->getFileName().string()),
+                            fC->Line(endLabel), fC->Column(endLabel),
+                            symbols->registerSymbol(endlabel));
+              Error err(ErrorDefinition::COMP_UNMATCHED_LABEL, loc, loc2);
+              errors->addError(err);
+            }
+          }
           break;
         }
         VectorOfany* cstmts =
@@ -258,12 +279,16 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       NodeId item = fC->Child(the_stmt);
       VectorOfany* stmts = s.MakeAnyVec();
       UHDM::scope* scope = nullptr;
+      std::string label;
+      NodeId labelId = the_stmt;
       if (fC->Type(item) == VObjectType::slStringConst) {
         UHDM::named_fork* fork = s.MakeNamed_fork();
         fork->Stmts(stmts);
         fork->VpiParent(pstmt);
         stmt = fork;
-        fork->VpiName(fC->SymName(item));
+        label = fC->SymName(item);
+        labelId = item;
+        fork->VpiName(label);
         item = fC->Sibling(item);
         scope = fork;
       } else {
@@ -302,6 +327,30 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         if (item) {
           VObjectType jointype = fC->Type(item);
           int vpijointype = 0;
+          if (jointype == VObjectType::slJoin_keyword ||
+              jointype == VObjectType::slJoin_any_keyword ||
+              jointype == VObjectType::slJoin_none_keyword) {
+            if (NodeId endLabel = fC->Sibling(item)) {
+              const std::string& endlabel = fC->SymName(endLabel);
+              if (endlabel != label) {
+                ErrorContainer* errors =
+                    compileDesign->getCompiler()->getErrorContainer();
+                SymbolTable* symbols =
+                    compileDesign->getCompiler()->getSymbolTable();
+                Location loc(
+                    symbols->registerSymbol(fC->getFileName().string()),
+                    fC->Line(labelId), fC->Column(labelId),
+                    symbols->registerSymbol(label));
+                Location loc2(
+                    symbols->registerSymbol(fC->getFileName().string()),
+                    fC->Line(endLabel), fC->Column(endLabel),
+                    symbols->registerSymbol(endlabel));
+                Error err(ErrorDefinition::COMP_UNMATCHED_LABEL, loc, loc2);
+                errors->addError(err);
+              }
+            }
+          }
+
           if (jointype == VObjectType::slJoin_keyword) {
             vpijointype = vpiJoin;
             if (stmt->UhdmType() == uhdmnamed_fork) {
