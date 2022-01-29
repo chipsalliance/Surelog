@@ -377,7 +377,7 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns vcd1.v -l vcd1.v.log
-[WRN:CP0310] vcd1.v:25: Port "out" definition missing its direction (input, output, inout).
+[WRN:CP0310] vcd1.v:25:16: Port "out" definition missing its direction (input, output, inout).
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -1261,12 +1261,12 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns contrib8.2.v -l contrib8.2.v.log
-[WRN:CP0310] contrib8.2.v:47: Port "%s" definition missing its direction (input, output, inout).
+[WRN:CP0310] contrib8.2.v:47:10: Port "%s" definition missing its direction (input, output, inout).
 
-[WRN:CP0310] contrib8.2.v:51: Port "%s" definition missing its direction (input, output, inout),
+[WRN:CP0310] contrib8.2.v:51:10: Port "%s" definition missing its direction (input, output, inout),
 there are 1 more instances of this message.
 
-[WRN:CP0310] contrib8.2.v:56: Port "%s" definition missing its direction (input, output, inout).
+[WRN:CP0310] contrib8.2.v:56:10: Port "%s" definition missing its direction (input, output, inout).
 
 [ERR:UH0703] contrib8.2.v:42:1: Internal Error: adding wrong object type (module) in a actual_group group!.
 
@@ -1372,11 +1372,13 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns port-test4b.v -l port-test4b.v.log
-[WRN:CP0310] port-test4b.v:11: Port "%s" definition missing its direction (input, output, inout).
+[WRN:CP0310] port-test4b.v:11:19: Port "%s" definition missing its direction (input, output, inout).
+
+[ERR:CP0340] port-test4b.v:11:19: Port "%s" of unspecified type.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 1
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns pr224a.v -l pr224a.v.log
@@ -1844,12 +1846,14 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns port-test2.v -l port-test2.v.log
-[WRN:CP0310] port-test2.v:14: Port "%s" definition missing its direction (input, output, inout),
+[WRN:CP0310] port-test2.v:14:21: Port "%s" definition missing its direction (input, output, inout),
 there are 1 more instances of this message.
+
+[ERR:CP0340] port-test2.v:14:21: Port "%s" of unspecified type.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 1
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns bitsel2.v -l bitsel2.v.log
@@ -2860,11 +2864,13 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns port-test4a.v -l port-test4a.v.log
-[WRN:CP0310] port-test4a.v:11: Port "%s" definition missing its direction (input, output, inout).
+[WRN:CP0310] port-test4a.v:11:19: Port "%s" definition missing its direction (input, output, inout).
+
+[ERR:CP0340] port-test4a.v:11:19: Port "%s" of unspecified type.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 1
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns sdw_task2.v -l sdw_task2.v.log
@@ -4060,7 +4066,7 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns pr377.v -l pr377.v.log
-[WRN:CP0310] pr377.v:1: Port "%s" definition missing its direction (input, output, inout).
+[WRN:CP0310] pr377.v:1:15: Port "%s" definition missing its direction (input, output, inout).
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -4170,11 +4176,13 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns inout.v -l inout.v.log
-[WRN:CP0310] inout.v:21: Port "a" definition missing its direction (input, output, inout).
+[WRN:CP0310] inout.v:21:13: Port "a" definition missing its direction (input, output, inout).
+
+[ERR:CP0340] inout.v:21:13: Port "a" of unspecified type.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 1
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns assign_nb1.v -l assign_nb1.v.log
@@ -4252,7 +4260,7 @@ Processing: -cd contrib +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -ti
 Processed 697 tests.
 [  FATAL] : 0
 [ SYNTAX] : 3
-[  ERROR] : 9
+[  ERROR] : 13
 [WARNING] : 18
 [   NOTE] : 0
 

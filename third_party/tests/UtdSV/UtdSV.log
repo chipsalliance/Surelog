@@ -719,7 +719,9 @@ Processing: -cd . +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescal
 [WARNING] : 42
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns fpu_div.v -l fpu_div.v.log
-[WRN:CP0310] fpu_div.v:45: Port "eiv_dest_rdy" definition missing its direction (input, output, inout).
+[WRN:CP0310] fpu_div.v:45:2: Port "eiv_dest_rdy" definition missing its direction (input, output, inout).
+
+[ERR:CP0340] fpu_div.v:45:2: Port "eiv_dest_rdy" of unspecified type.
 
 [WRN:EL0500] fpu_div.v:221: Cannot find a module definition for "work@fpu_div::fpu_div_ctl".
 
@@ -733,7 +735,7 @@ Processing: -cd . +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescal
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 6
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns cpx_buf_pt.v -l cpx_buf_pt.v.log
@@ -8349,7 +8351,7 @@ Processing: -cd . +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescal
 Processed 300 tests.
 [  FATAL] : 0
 [ SYNTAX] : 1
-[  ERROR] : 2
+[  ERROR] : 3
 [WARNING] : 3269
 [   NOTE] : 0
 
