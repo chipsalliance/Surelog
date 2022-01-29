@@ -37,6 +37,23 @@ module test ();
    module sub2();
    endmodule : bad_sub2
 
+initial begin
+   
+   fork : n1
+     print("");
+   join : n2 
+
+   fork 
+     print("");
+   join : n2 
+
+  fork : n1
+    print("");
+  join 
+
+  end
+
+
 endmodule : bad_test
 
 
