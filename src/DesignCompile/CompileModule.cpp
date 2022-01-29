@@ -1152,7 +1152,8 @@ bool CompileModule::checkModule_() {
               m_symbols->registerSymbol(port->getFileContent()
                                             ->getFileName(port->getNodeId())
                                             .string()),
-              port->getFileContent()->Line(port->getNodeId()), 0,
+              port->getFileContent()->Line(port->getNodeId()),
+              port->getFileContent()->Column(port->getNodeId()),
               m_symbols->registerSymbol(port->getName()));
         countMissingType++;
       }
@@ -1163,7 +1164,8 @@ bool CompileModule::checkModule_() {
             m_symbols->registerSymbol(port->getFileContent()
                                           ->getFileName(port->getNodeId())
                                           .string()),
-            port->getFileContent()->Line(port->getNodeId()), 0,
+            port->getFileContent()->Line(port->getNodeId()),
+            port->getFileContent()->Column(port->getNodeId()),
             m_symbols->registerSymbol(port->getName()));
       countMissingDirection++;
     }
@@ -1193,6 +1195,10 @@ bool CompileModule::checkModule_() {
     } else {
       Error err(ErrorDefinition::COMP_PORT_MISSING_DIRECTION,
                 *missingDirectionLoc);
+      m_errors->addError(err);
+    }
+    if (countMissingType && countMissingDirection) {
+      Error err(ErrorDefinition::COMP_UNSPECIFIED_PORT, *missingDirectionLoc);
       m_errors->addError(err);
     }
     delete missingDirectionLoc;
