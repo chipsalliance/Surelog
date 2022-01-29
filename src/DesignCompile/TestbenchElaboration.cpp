@@ -38,7 +38,8 @@
 // UHDM
 #include <uhdm/uhdm.h>
 
-using namespace SURELOG;
+namespace SURELOG {
+namespace fs = std::filesystem;
 
 TestbenchElaboration::~TestbenchElaboration() {}
 
@@ -781,3 +782,4 @@ bool TestbenchElaboration::bindProperties_() {
   }
   return true;
 }
+}  // namespace SURELOG

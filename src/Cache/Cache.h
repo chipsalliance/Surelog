@@ -46,22 +46,22 @@ class Cache {
 
   Cache() = default;
 
-  time_t get_mtime(const fs::path& path);
+  time_t get_mtime(const std::filesystem::path& path);
 
   const std::string& getExecutableTimeStamp();
 
-  uint8_t* openFlatBuffers(const fs::path& cacheFileName);
+  uint8_t* openFlatBuffers(const std::filesystem::path& cacheFileName);
 
   bool saveFlatbuffers(flatbuffers::FlatBufferBuilder& builder,
-                       const fs::path& cacheFileName);
+                       const std::filesystem::path& cacheFileName);
 
   bool checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
                            std::string schemaVersion,
-                           const fs::path& cacheFileName);
+                           const std::filesystem::path& cacheFileName);
 
   const flatbuffers::Offset<SURELOG::CACHE::Header> createHeader(
       flatbuffers::FlatBufferBuilder& builder, std::string schemaVersion,
-      const fs::path& origFileName);
+      const std::filesystem::path& origFileName);
 
   std::pair<flatbuffers::Offset<VectorOffsetError>,
             flatbuffers::Offset<VectorOffsetString>>

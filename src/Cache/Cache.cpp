@@ -33,6 +33,8 @@
 #include "flatbuffers/util.h"
 
 namespace SURELOG {
+namespace fs = std::filesystem;
+
 const std::string& Cache::getExecutableTimeStamp() {
   static const std::string sExecTstamp(__DATE__ "-" __TIME__);
   return sExecTstamp;
@@ -233,18 +235,18 @@ std::vector<CACHE::VObject> Cache::cacheVObjects(FileContent* fcontent,
     uint64_t field4 = 0;
     SymbolId name = canonicalSymbols.getId(fileTable.getSymbol(object.m_name));
     // clang-format off
-    field1 |= 0x0000000000FFFFFF & (name); 
-    field1 |= 0x0000000FFF000000 & (((uint64_t)object.m_type)      << (24));  
-    field1 |= 0x0000FFF000000000 & (((uint64_t)object.m_column)    << (24 + 12)); 
-    field1 |= 0xFFFF000000000000 & (((uint64_t)object.m_parent     << (24 + 12 + 12)));  
-    field2 |= 0x0000000000000FFF & (object.m_parent                >> (16));  
-    field2 |= 0x000000FFFFFFF000 & (((uint64_t)object.m_definition) << (12));  
-    field2 |= 0xFFFFFF0000000000 & (((uint64_t)object.m_child)     << (12 + 28)); 
-    field3 |= 0x000000000000000F & (((uint64_t)object.m_child)     >> (24));  
-    field3 |= 0x00000000FFFFFFF0 & (object.m_sibling               << (4)); 
-    field3 |= 0x00FFFFFF00000000 & (((uint64_t)object.m_fileId)    << (4 + 28)); 
+    field1 |= 0x0000000000FFFFFF & (name);
+    field1 |= 0x0000000FFF000000 & (((uint64_t)object.m_type)      << (24));
+    field1 |= 0x0000FFF000000000 & (((uint64_t)object.m_column)    << (24 + 12));
+    field1 |= 0xFFFF000000000000 & (((uint64_t)object.m_parent     << (24 + 12 + 12)));
+    field2 |= 0x0000000000000FFF & (object.m_parent                >> (16));
+    field2 |= 0x000000FFFFFFF000 & (((uint64_t)object.m_definition) << (12));
+    field2 |= 0xFFFFFF0000000000 & (((uint64_t)object.m_child)     << (12 + 28));
+    field3 |= 0x000000000000000F & (((uint64_t)object.m_child)     >> (24));
+    field3 |= 0x00000000FFFFFFF0 & (object.m_sibling               << (4));
+    field3 |= 0x00FFFFFF00000000 & (((uint64_t)object.m_fileId)    << (4 + 28));
     field3 |= 0xFF00000000000000 & (((uint64_t)object.m_line)      << (4 + 28 + 24));
-    field4 |= 0x000000000000FFFF & (((uint64_t)object.m_line)      >> (8));  
+    field4 |= 0x000000000000FFFF & (((uint64_t)object.m_line)      >> (8));
     field4 |= 0x000000FFFFFF0000 & (((uint64_t)object.m_endLine)   << (16));
     field4 |= 0x000FFF0000000000 & (((uint64_t)object.m_endColumn) << (16 + 24));
     // clang-format on

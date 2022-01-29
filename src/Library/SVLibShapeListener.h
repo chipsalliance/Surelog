@@ -33,7 +33,7 @@ class SVLibShapeListener : public SV3_1aParserBaseListener,
                            public SV3_1aTreeShapeHelper {
  public:
   SVLibShapeListener(ParseLibraryDef* parser, antlr4::CommonTokenStream* tokens,
-                     const fs::path& relativePath);
+                     const std::filesystem::path& relativePath);
 
   SymbolId registerSymbol(const std::string& symbol) final;
 
@@ -169,7 +169,7 @@ class SVLibShapeListener : public SV3_1aParserBaseListener,
   ParseLibraryDef* m_parser;
   antlr4::CommonTokenStream* m_tokens;
   Config* m_currentConfig;
-  const fs::path m_relativePath;
+  const std::filesystem::path m_relativePath;
 };
 
 };  // namespace SURELOG

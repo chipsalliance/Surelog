@@ -37,7 +37,8 @@
 #include "antlr4-runtime.h"
 #include "atn/ParserATNSimulator.h"
 
-using namespace SURELOG;
+namespace SURELOG {
+namespace fs = std::filesystem;
 
 SVLibShapeListener::SVLibShapeListener(ParseLibraryDef *parser,
                                        antlr4::CommonTokenStream *tokens,
@@ -194,3 +195,4 @@ void SVLibShapeListener::exitHierarchical_identifier(
     logError(ErrorDefinition::PA_MAX_LENGTH_IDENTIFIER, ctx, ident);
   }
 }
+}  // namespace SURELOG

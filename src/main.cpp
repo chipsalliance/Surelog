@@ -42,6 +42,8 @@
 #include "Utils/StringUtils.h"
 #include "surelog.h"
 
+namespace fs = std::filesystem;
+
 unsigned int executeCompilation(
     int argc, const char** argv, bool diff_comp_mode, bool fileunit,
     SURELOG::ErrorContainer::Stats* overallStats = nullptr) {

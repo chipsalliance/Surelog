@@ -67,7 +67,8 @@
 
 #include <uhdm/vpi_visitor.h>
 
-using namespace SURELOG;
+namespace SURELOG {
+namespace fs = std::filesystem;
 
 CompileDesign::CompileDesign(Compiler* compiler) : m_compiler(compiler) {}
 CompileDesign::~CompileDesign() {
@@ -421,3 +422,4 @@ void decompile(ValuedComponentI* instance) {
     }
   }
 }
+}  // namespace SURELOG

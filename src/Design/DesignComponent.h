@@ -36,8 +36,6 @@
 #include "SourceCompile/VObjectTypes.h"
 #include "Testbench/TypeDef.h"
 
-namespace fs = std::filesystem;
-
 namespace SURELOG {
 
 class Package;
@@ -50,7 +48,8 @@ class ParamAssign;
 class ExprEval {
  public:
   ExprEval(UHDM::expr* expr, ValuedComponentI* instance,
-           const fs::path& fileName, int lineNumber, UHDM::any* pexpr)
+           const std::filesystem::path& fileName, int lineNumber,
+           UHDM::any* pexpr)
       : m_expr(expr),
         m_instance(instance),
         m_fileName(fileName),
@@ -58,7 +57,7 @@ class ExprEval {
         m_pexpr(pexpr) {}
   UHDM::expr* m_expr;
   ValuedComponentI* m_instance;
-  fs::path m_fileName;
+  std::filesystem::path m_fileName;
   int m_lineNumber;
   UHDM::any* m_pexpr;
 };

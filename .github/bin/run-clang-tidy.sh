@@ -13,11 +13,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-TIDY_OUT=${TMPDIR:-/tmp}/clang-tidy-surelog.out
+LOCAL_TMP=${TMPDIR:-/tmp}
+
+TIDY_OUT=${LOCAL_TMP}/clang-tidy-surelog.out
 
 CLANG_TIDY=clang-tidy-12
 
 hash ${CLANG_TIDY} || exit 2  # make sure it is installed.
+
+if [ "$1" == "limited" ]; then
+    # For now, since there are a lot things to fix, don't enable everything
+    # that is mentioned in .clang-tidy, but add rules as we fix them.
+    cat > ${LOCAL_TMP}/clang-tidy <<EOF
+Checks: >
+    -*,
+    modernize-use-override,
+EOF
+    CLANG_TIDY_OPTS="--config-file=${LOCAL_TMP}/clang-tidy"
+fi
+
+CLANG_TIDY_OPTS="${CLANG_TIDY_OPTS} --quiet"
 
 if [ ! -r compile_commands.json ]; then
     echo "To get compile_commands.json, run in root of project and "
@@ -26,22 +41,17 @@ if [ ! -r compile_commands.json ]; then
 fi
 
 find src/ -name "*.cpp" -or -name "*.h" \
-  | xargs -P$(nproc) -n 5 -- \
-          ${CLANG_TIDY} --quiet 2>/dev/null \
-  > ${TIDY_OUT}
-
+    | grep -v Python | grep -v Constraint.h \
+    | xargs -P$(nproc) -n 5 -- ${CLANG_TIDY} ${CLANG_TIDY_OPTS} 2>/dev/null \
+            > ${TIDY_OUT}
 
 cat ${TIDY_OUT}
 
-sed 's|\(.*\)\(\[[a-z-]*\]$\)|\2|p;d' < ${TIDY_OUT} | sort | uniq -c | sort -n
+sed 's|\(.*\)\(\[[a-zA-Z.-]*\]$\)|\2|p;d' < ${TIDY_OUT} | sort | uniq -c | sort -n
 
 if [ -s ${TIDY_OUT} ]; then
-    echo "There were clang-tidy warnings. Please fix"
-    echo "For now, this is not an error yet"
-    # For now, we don't fail-exit as there is a lot of fixing needed, so
-    # we just have the messages above as FYI.
-    exit 0
-    #exit 1
+    echo "There were clang-tidy warnings. Please fix."
+    exit 1
 fi
 
 echo "No clang-tidy complaints.😎"

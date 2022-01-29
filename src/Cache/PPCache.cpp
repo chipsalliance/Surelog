@@ -43,6 +43,8 @@
 #include "flatbuffers/util.h"
 
 namespace SURELOG {
+namespace fs = std::filesystem;
+
 PPCache::PPCache(PreprocessFile* pp) : m_pp(pp), m_isPrecompiled(false) {}
 
 static const char FlbSchemaVersion[] = "1.0";

@@ -40,9 +40,10 @@ class ParseCache : Cache {
  private:
   ParseCache(const ParseCache& orig) = delete;
 
-  fs::path getCacheFileName_(const fs::path& fileName = "");
-  bool restore_(const fs::path& cacheFileName);
-  bool checkCacheIsValid_(const fs::path& cacheFileName);
+  std::filesystem::path getCacheFileName_(
+      const std::filesystem::path& fileName = "");
+  bool restore_(const std::filesystem::path& cacheFileName);
+  bool checkCacheIsValid_(const std::filesystem::path& cacheFileName);
 
   ParseFile* m_parse;
   bool m_isPrecompiled;

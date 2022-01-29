@@ -44,6 +44,7 @@
 #include <uhdm/uhdm.h>
 
 using namespace SURELOG;
+namespace fs = std::filesystem;
 
 int FunctorCompileClass::operator()() const {
   CompileClass* instance =

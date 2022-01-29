@@ -43,7 +43,7 @@ class ValuedComponentI : public RTTI {
                    ValuedComponentI* definition)
       : m_parentScope(parentScope), m_definition(definition){};
 
-  virtual ~ValuedComponentI(){};
+  ~ValuedComponentI() override{};
 
   virtual Value* getValue(const std::string& name) const;
   virtual Value* getValue(const std::string& name,

@@ -68,6 +68,7 @@
 #include <uhdm/uhdm.h>
 
 namespace SURELOG {
+namespace fs = std::filesystem;
 
 using namespace UHDM;  // NOLINT (using a bunch of these)
 

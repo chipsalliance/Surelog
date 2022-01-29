@@ -45,9 +45,10 @@ class UhdmChecker final {
 
  private:
   bool registerFile(const FileContent* fC, std::set<std::string>& moduleNames);
-  bool reportHtml(CompileDesign* compileDesign, const fs::path& reportFile,
+  bool reportHtml(CompileDesign* compileDesign,
+                  const std::filesystem::path& reportFile,
                   float overallCoverage);
-  float reportCoverage(const fs::path& reportFile);
+  float reportCoverage(const std::filesystem::path& reportFile);
   void annotate(CompileDesign* m_compileDesign);
   void mergeColumnCoverage();
   CompileDesign* const m_compileDesign;
@@ -64,9 +65,9 @@ class UhdmChecker final {
   typedef std::map<LineNb, Ranges> RangesMap;
   typedef std::map<const FileContent*, RangesMap> FileNodeCoverMap;
   FileNodeCoverMap fileNodeCoverMap;
-  std::map<fs::path, const FileContent*> fileMap;
-  std::multimap<float, std::pair<fs::path, float>> coverageMap;
-  std::map<fs::path, float> fileCoverageMap;
+  std::map<std::filesystem::path, const FileContent*> fileMap;
+  std::multimap<float, std::pair<std::filesystem::path, float>> coverageMap;
+  std::map<std::filesystem::path, float> fileCoverageMap;
 };
 
 }  // namespace SURELOG

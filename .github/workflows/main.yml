@@ -633,8 +633,8 @@ jobs:
         make run-cmake-release
         make -j2 -C build GenerateParser
         make -j2 -C build GenerateSerializer
-        ln -s build/compile_commands.json .
+        ln -sf build/compile_commands.json .
 
     - name: Run clang tidy
       run: |
-        ./.github/bin/run-clang-tidy.sh
+        ./.github/bin/run-clang-tidy.sh limited

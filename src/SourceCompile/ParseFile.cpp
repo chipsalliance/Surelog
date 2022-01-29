@@ -50,6 +50,8 @@
 #include "parser/SV3_1aParserBaseListener.h"
 
 namespace SURELOG {
+namespace fs = std::filesystem;
+
 ParseFile::ParseFile(SymbolId fileId, SymbolTable* symbolTable,
                      ErrorContainer* errors)
     : m_fileId(fileId),

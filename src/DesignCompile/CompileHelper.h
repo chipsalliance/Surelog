@@ -422,22 +422,24 @@ class CompileHelper final {
   UHDM::expr* reduceExpr(UHDM::any* expr, bool& invalidValue,
                          DesignComponent* component,
                          CompileDesign* compileDesign,
-                         ValuedComponentI* instance, const fs::path& fileName,
-                         int lineNumber, UHDM::any* pexpr,
-                         bool muteErrors = false);
+                         ValuedComponentI* instance,
+                         const std::filesystem::path& fileName, int lineNumber,
+                         UHDM::any* pexpr, bool muteErrors = false);
 
   UHDM::expr* reduceCompOp(UHDM::operation* op, bool& invalidValue,
                            DesignComponent* component,
                            CompileDesign* compileDesign,
-                           ValuedComponentI* instance, const fs::path& fileName,
+                           ValuedComponentI* instance,
+                           const std::filesystem::path& fileName,
                            int lineNumber, UHDM::any* pexpr, bool muteErrors);
 
   UHDM::expr* reduceBitSelect(UHDM::expr* op, unsigned int index_val,
                               bool& invalidValue, DesignComponent* component,
                               CompileDesign* compileDesign,
                               ValuedComponentI* instance,
-                              const fs::path& fileName, int lineNumber,
-                              UHDM::any* pexpr, bool muteErrors);
+                              const std::filesystem::path& fileName,
+                              int lineNumber, UHDM::any* pexpr,
+                              bool muteErrors);
 
   UHDM::expr* expandPatternAssignment(UHDM::expr* lhs, UHDM::expr* rhs,
                                       DesignComponent* component,
@@ -446,8 +448,9 @@ class CompileHelper final {
 
   uint64_t Bits(const UHDM::any* typespec, bool& invalidValue,
                 DesignComponent* component, CompileDesign* compileDesign,
-                ValuedComponentI* instance, const fs::path& fileName,
-                int lineNumber, bool reduce, bool sizeMode);
+                ValuedComponentI* instance,
+                const std::filesystem::path& fileName, int lineNumber,
+                bool reduce, bool sizeMode);
 
   UHDM::variables* getSimpleVarFromTypespec(
       UHDM::typespec* spec, std::vector<UHDM::range*>* packedDimensions,
@@ -461,21 +464,22 @@ class CompileHelper final {
   UHDM::expr* EvalFunc(UHDM::function* func, std::vector<UHDM::any*>* args,
                        bool& invalidValue, DesignComponent* component,
                        CompileDesign* compileDesign, ValuedComponentI* instance,
-                       const fs::path& fileName, int lineNumber,
+                       const std::filesystem::path& fileName, int lineNumber,
                        UHDM::any* pexpr);
 
   void EvalStmt(const std::string& funcName, Scopes& scopes, bool& invalidValue,
                 bool& continue_flag, bool& break_flag,
                 DesignComponent* component, CompileDesign* compileDesign,
-                ValuedComponentI* instance, const fs::path& fileName,
-                int lineNumber, const UHDM::any* stmt);
+                ValuedComponentI* instance,
+                const std::filesystem::path& fileName, int lineNumber,
+                const UHDM::any* stmt);
 
   void evalScheduledExprs(DesignComponent* component,
                           CompileDesign* compileDesign);
 
   UHDM::any* getValue(const std::string& name, DesignComponent* component,
                       CompileDesign* compileDesign, ValuedComponentI* instance,
-                      const fs::path& fileName, int lineNumber,
+                      const std::filesystem::path& fileName, int lineNumber,
                       UHDM::any* pexpr, bool reduce, bool muteErrors = false);
 
   int64_t getValue(bool& validValue, DesignComponent* component,
@@ -510,24 +514,22 @@ class CompileHelper final {
                                const std::string& value,
                                CompileDesign* compileDesign,
                                ValuedComponentI* instance,
-                               const fs::path& fileName, unsigned int lineNo,
-                               unsigned short columnNo);
+                               const std::filesystem::path& fileName,
+                               unsigned int lineNo, unsigned short columnNo);
 
-  UHDM::any* hierarchicalSelector(std::vector<std::string>& select_path,
-                                  unsigned int level, UHDM::any* object,
-                                  bool& invalidValue,
-                                  DesignComponent* component,
-                                  CompileDesign* compileDesign,
-                                  ValuedComponentI* instance, UHDM::any* pexpr,
-                                  const fs::path& fileName, int lineNumber,
-                                  bool muteErrors, bool returnTypespec);
+  UHDM::any* hierarchicalSelector(
+      std::vector<std::string>& select_path, unsigned int level,
+      UHDM::any* object, bool& invalidValue, DesignComponent* component,
+      CompileDesign* compileDesign, ValuedComponentI* instance,
+      UHDM::any* pexpr, const std::filesystem::path& fileName, int lineNumber,
+      bool muteErrors, bool returnTypespec);
 
   UHDM::any* decodeHierPath(UHDM::hier_path* path, bool& invalidValue,
                             DesignComponent* component,
                             CompileDesign* compileDesign,
                             ValuedComponentI* instance,
-                            const fs::path& fileName, int lineNumber,
-                            UHDM::any* pexpr, bool muteErrors,
+                            const std::filesystem::path& fileName,
+                            int lineNumber, UHDM::any* pexpr, bool muteErrors,
                             bool returnTypespec);
 
   bool valueRange(Value* val, UHDM::typespec* tps, DesignComponent* component,
@@ -558,11 +560,11 @@ class CompileHelper final {
 
   // Caches
   UHDM::int_typespec* buildIntTypespec(
-      CompileDesign* compileDesign, const fs::path& fileName,
+      CompileDesign* compileDesign, const std::filesystem::path& fileName,
       const std::string& name, const std::string& value, unsigned int line,
       unsigned short column, unsigned int eline, unsigned short ecolumn);
   UHDM::typespec_member* buildTypespecMember(
-      CompileDesign* compileDesign, const fs::path& fileName,
+      CompileDesign* compileDesign, const std::filesystem::path& fileName,
       const std::string& name, const std::string& value, unsigned int line,
       unsigned short column, unsigned int eline, unsigned short ecolumn);
   std::unordered_map<std::string, UHDM::int_typespec*> m_cache_int_typespec;

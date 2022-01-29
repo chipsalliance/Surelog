@@ -81,7 +81,7 @@ class ClassDefinition : public DesignComponent, public DataType {
 
   const TaskMap& getTaskMap() const { return m_tasks; }
   TaskMap& getMutableTaskMap() { return m_tasks; }
-  TaskMethod* getTask(const std::string& name) const;
+  TaskMethod* getTask(const std::string& name) const override;
   void insertTask(TaskMethod* p);
 
   ConstraintMap& getConstraintMap() { return m_constraints; }

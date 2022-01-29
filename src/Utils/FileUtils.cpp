@@ -40,6 +40,8 @@
 #include "Utils/StringUtils.h"
 
 namespace SURELOG {
+namespace fs = std::filesystem;
+
 bool FileUtils::fileExists(const fs::path& name) {
   std::error_code ec;
   return fs::exists(name, ec);
@@ -103,11 +105,6 @@ bool FileUtils::getFullPath(const fs::path& path, fs::path* result) {
     *result = found ? fullPath : path;
   }
   return found;
-}
-
-static bool has_suffix(std::string_view s, std::string_view suffix) {
-  return (s.size() >= suffix.size()) &&
-         equal(suffix.rbegin(), suffix.rend(), s.rbegin());
 }
 
 std::vector<SymbolId> FileUtils::collectFiles(SymbolId dirPath, SymbolId ext,
@@ -194,7 +191,7 @@ std::vector<SymbolId> FileUtils::collectFiles(const fs::path& pathSpec,
       fs::directory_options::skip_permission_denied |
       fs::directory_options::follow_directory_symlink;
 
-  for (fs::directory_entry entry :
+  for (const fs::directory_entry& entry :
        fs::recursive_directory_iterator(prefix, options)) {
     if (fs::is_regular_file(entry.path())) {
       const std::string relative =

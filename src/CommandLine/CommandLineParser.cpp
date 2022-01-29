@@ -53,13 +53,15 @@
 #include "antlr4-runtime.h"
 
 namespace SURELOG {
+namespace fs = std::filesystem;
+
 static std::string_view defaultLogFileName = "surelog.log";
 
 // !!! Update this number when the grammar changes !!!
 //         Or when the cache schema changes
 //        This will render the cache invalid
 const std::string& CommandLineParser::getVersionNumber() {
-  static const std::string m_versionNumber = "1.20";
+  static const std::string m_versionNumber = "1.21";
   return m_versionNumber;
 }
 

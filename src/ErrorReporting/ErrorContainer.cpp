@@ -39,9 +39,9 @@
 #endif
 #include <stdio.h>
 
+namespace SURELOG {
 namespace fs = std::filesystem;
 
-namespace SURELOG {
 ErrorContainer::ErrorContainer(SymbolTable* symbolTable,
                                LogListener* logListener /* = nullptr */)
     : m_clp(nullptr),
