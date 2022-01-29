@@ -46,7 +46,7 @@ class Statement : public RTTI {
         m_fileContent(fileContent),
         m_nodeId(node),
         m_type(type) {}
-  virtual ~Statement();
+  ~Statement() override;
 
   Scope* getScope() { return m_scope; }
   Statement* getParentStmt() { return m_parent; }
