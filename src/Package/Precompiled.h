@@ -28,8 +28,6 @@
 #include <unordered_map>
 #include <unordered_set>
 
-namespace fs = std::filesystem;
-
 class Precompiled final {
  public:
   static Precompiled* getSingleton();
@@ -38,7 +36,7 @@ class Precompiled final {
                       const std::string& fileName);
 
   std::string getFileName(const std::string& packageName) const;
-  bool isFilePrecompiled(const fs::path& fileName) const;
+  bool isFilePrecompiled(const std::filesystem::path& fileName) const;
   bool isPackagePrecompiled(const std::string& package) const;
 
  private:
@@ -46,13 +44,13 @@ class Precompiled final {
   Precompiled(const Precompiled&) = delete;
 
   struct fs_path_hash final {
-    std::size_t operator()(const fs::path& path) const {
-      return fs::hash_value(path);
+    std::size_t operator()(const std::filesystem::path& path) const {
+      return std::filesystem::hash_value(path);
     }
   };
 
   std::unordered_map<std::string, std::string> m_packageMap;
-  std::unordered_set<fs::path, fs_path_hash> m_packageFileSet;
+  std::unordered_set<std::filesystem::path, fs_path_hash> m_packageFileSet;
 };
 
 #endif /* PRECOMPILED_H */

@@ -60,8 +60,8 @@
 #include <uhdm/clone_tree.h>
 #include <uhdm/vpi_visitor.h>
 
-using namespace SURELOG;
-
+namespace SURELOG {
+namespace fs = std::filesystem;
 DesignElaboration::DesignElaboration(CompileDesign* compileDesign)
     : TestbenchElaboration(compileDesign) {
   m_moduleDefFactory = nullptr;
@@ -2306,3 +2306,4 @@ void DesignElaboration::createFileList_() {
     }
   }
 }
+}  // namespace SURELOG

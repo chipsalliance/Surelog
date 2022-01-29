@@ -65,6 +65,8 @@
 #include "antlr4-runtime.h"
 
 namespace SURELOG {
+namespace fs = std::filesystem;
+
 Compiler::Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
                    SymbolTable* symbolTable)
     : m_commandLineParser(commandLineParser),

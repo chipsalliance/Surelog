@@ -45,6 +45,8 @@
 #include "flatbuffers/util.h"
 
 namespace SURELOG {
+namespace fs = std::filesystem;
+
 static std::string FlbSchemaVersion = "1.0";
 
 PythonAPICache::PythonAPICache(PythonListen* listener) : m_listener(listener) {}

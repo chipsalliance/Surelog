@@ -63,6 +63,7 @@
 
 namespace SURELOG {
 using namespace UHDM;  // NOLINT (using a bunch of them)
+namespace fs = std::filesystem;
 
 bool CompileHelper::substituteAssignedValue(const UHDM::any* oper,
                                             CompileDesign* compileDesign) {

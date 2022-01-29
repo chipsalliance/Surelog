@@ -35,8 +35,8 @@
 #include "Library/Library.h"
 #include "SourceCompile/SymbolTable.h"
 
-using namespace SURELOG;
-
+namespace SURELOG {
+namespace fs = std::filesystem;
 NodeId FileContent::getRootNode() {
   if (m_objects.size() == 0) {
     return 0;
@@ -570,3 +570,4 @@ const DesignElement* FileContent::getDesignElement(
   }
   return nullptr;
 }
+}  // namespace SURELOG

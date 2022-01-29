@@ -46,7 +46,8 @@
 #include "SourceCompile/PreprocessFile.h"
 #include "Utils/StringUtils.h"
 
-using namespace SURELOG;
+namespace SURELOG {
+namespace fs = std::filesystem;
 
 static void saveContent(const fs::path& fileName, const std::string& content) {
   std::ifstream ifs;
@@ -761,3 +762,4 @@ void AnalyzeFile::analyze() {
     }
   }
 }
+}  // namespace SURELOG

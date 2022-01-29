@@ -39,8 +39,6 @@
 #include "parser/SV3_1aPpLexer.h"
 #include "parser/SV3_1aPpParser.h"
 
-namespace fs = std::filesystem;
-
 namespace SURELOG {
 
 class SV3_1aPpTreeShapeListener;
@@ -108,7 +106,7 @@ class PreprocessFile {
   const MacroStorage& getMacros() { return m_macros; }
   MacroInfo* getMacro(const std::string& name);
 
-  fs::path getFileName(unsigned int line);
+  std::filesystem::path getFileName(unsigned int line);
 
   std::string reportIncludeInfo();
 

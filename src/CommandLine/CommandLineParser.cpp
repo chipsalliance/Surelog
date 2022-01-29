@@ -53,6 +53,8 @@
 #include "antlr4-runtime.h"
 
 namespace SURELOG {
+namespace fs = std::filesystem;
+
 static std::string_view defaultLogFileName = "surelog.log";
 
 // !!! Update this number when the grammar changes !!!
