@@ -3888,6 +3888,15 @@ UHDM::any* CompileHelper::compileExpression(
         case VObjectType::slMintypmax_expression: {
           NodeId Expression = fC->Child(child);
           NodeId Sibling = fC->Sibling(Expression);
+          if (Sibling == 0) {
+            NodeId Constant_primary = fC->Child(Expression);
+            NodeId Constant_expression = fC->Child(Constant_primary);
+            NodeId TmpSibling = fC->Sibling(Constant_expression);
+            if (TmpSibling && (fC->Type(TmpSibling) == slConstant_expression)) {
+              Sibling = TmpSibling;
+              Expression = Constant_primary;
+            }
+          }
           if (Sibling) {
             operation* op = s.MakeOperation();
             op->VpiOpType(vpiMinTypMaxOp);
@@ -4001,7 +4010,7 @@ UHDM::any* CompileHelper::compileExpression(
               compileExpression(component, fC, child, compileDesign, pexpr,
                                 instance, reduce, muteErrors);
           NodeId op = fC->Sibling(child);
-          if (!op) {
+          if ((!op) || (fC->Type(op) == slConstant_expression)) {
             result = opL;
             break;
           }
