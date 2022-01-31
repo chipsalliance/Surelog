@@ -166,7 +166,10 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
       prop_spec->VpiClockingEvent(clocking_event);
       prop_spec->VpiPropertyExpr(property_expr);
       assume_stmt->VpiProperty(prop_spec);
-      assume_stmt->Stmt(if_stmt);
+      if (if_stmt)
+        assume_stmt->Stmt(if_stmt);
+      else
+        assume_stmt->Stmt(else_stmt);
       stmt = assume_stmt;
       break;
     }
