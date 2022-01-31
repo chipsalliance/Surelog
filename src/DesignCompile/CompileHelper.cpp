@@ -1750,7 +1750,8 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
   }
 
   NodeId delay = 0;
-  if (fC->Type(List_of_net_decl_assignments) == slDelay3) {
+  if (fC->Type(List_of_net_decl_assignments) == slDelay3 ||
+      fC->Type(List_of_net_decl_assignments) == slDelay_control) {
     delay = List_of_net_decl_assignments;
     List_of_net_decl_assignments = fC->Sibling(List_of_net_decl_assignments);
   }

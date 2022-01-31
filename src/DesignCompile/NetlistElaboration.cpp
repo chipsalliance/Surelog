@@ -97,7 +97,7 @@ bool NetlistElaboration::elaboratePackages() {
     pack->setNetlist(netlist);
     // Variables in Packages
     for (Signal* sig : pack->getSignals()) {
-      elabSignal(sig, nullptr, nullptr, nullptr, netlist, pack, "");
+      elabSignal(sig, nullptr, nullptr, nullptr, netlist, pack, "", false);
     }
   }
   return true;
@@ -1358,7 +1358,7 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
                                     ModuleInstance* child,
                                     Netlist* parentNetlist, Netlist* netlist,
                                     DesignComponent* comp,
-                                    const std::string& prefix) {
+                                    const std::string& prefix, bool signalIsPort) {
   Serializer& s = m_compileDesign->getSerializer();
   std::vector<net*>* nets = netlist->nets();
   std::vector<variables*>* vars = netlist->variables();
@@ -1431,6 +1431,19 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       isNet = false;
     } else if (ttmp == uhdmbyte_typespec) {
       isNet = false;
+    } else if (ttmp == uhdminterface_typespec) {
+      if (!signalIsPort) {
+        SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
+        ErrorContainer* errors =
+            m_compileDesign->getCompiler()->getErrorContainer();
+        Location loc1(symbols->registerSymbol(fC->getFileName().string()),
+                      fC->Line(id), fC->Column(id),
+                      symbols->registerSymbol(sig->getName()));
+        Error err(ErrorDefinition::ELAB_USE_INTERFACE_AS_SIGNAL_TYPE, loc1);
+        errors->addError(err);
+      }
+      // Don't create a signal
+      return;
     }
   }
 
@@ -1650,9 +1663,6 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         netlist->nets(nets);
       }
       nets->push_back(stv);
-    } else if (tps && tps->UhdmType() == uhdminterface_typespec) {
-      // No signal needs to be created in that case
-      return;
     } else if (tps && tps->UhdmType() == uhdmstruct_typespec) {
       struct_net* stv = s.MakeStruct_net();
       stv->Typespec(tps);
@@ -1974,9 +1984,18 @@ bool NetlistElaboration::elab_ports_nets_(
         if (do_ports) continue;
         if (fC->Type(sig->getNodeId()) == slStringConst) {
           const std::string& signame = sig->getName();
-          if (portInterf.find(signame) == portInterf.end())
+          if (portInterf.find(signame) == portInterf.end()) {
+            bool sigIsPort = false;
+            if (ports) {
+              for (auto s : *ports) {
+                if (s->VpiName() == signame) {
+                  sigIsPort = true;
+                }
+              }
+            }
             elabSignal(sig, instance, child, parentNetlist, netlist, comp,
-                       prefix);
+                       prefix, sigIsPort);
+          }
         }
 
       } else if (pass == 2) {
