@@ -4895,6 +4895,8 @@ UHDM::any* CompileHelper::compileExpression(
               default:
                 break;
             };
+          } else {
+            result = subexp;
           }
           break;
         }
