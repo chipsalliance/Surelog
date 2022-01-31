@@ -1358,7 +1358,8 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
                                     ModuleInstance* child,
                                     Netlist* parentNetlist, Netlist* netlist,
                                     DesignComponent* comp,
-                                    const std::string& prefix, bool signalIsPort) {
+                                    const std::string& prefix,
+                                    bool signalIsPort) {
   Serializer& s = m_compileDesign->getSerializer();
   std::vector<net*>* nets = netlist->nets();
   std::vector<variables*>* vars = netlist->variables();

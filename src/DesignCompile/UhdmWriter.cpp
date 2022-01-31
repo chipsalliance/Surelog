@@ -630,7 +630,7 @@ void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent,
                 ref->Actual_group(dest_net);
                 p->Low_conn(ref);
               } else if (p->Low_conn()->UhdmType() == uhdmref_obj) {
-                ref_obj* ref = (ref_obj*) p->Low_conn();
+                ref_obj* ref = (ref_obj*)p->Low_conn();
                 if (ref->Actual_group() == nullptr) {
                   ref->Actual_group(dest_net);
                 }
