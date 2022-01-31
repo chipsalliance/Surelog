@@ -45,7 +45,8 @@ class NetlistElaboration : public TestbenchElaboration {
   ~NetlistElaboration() override;
   void elabSignal(Signal* sig, ModuleInstance* instance, ModuleInstance* child,
                   Netlist* parentNetlist, Netlist* netlist,
-                  DesignComponent* comp, const std::string& prefix);
+                  DesignComponent* comp, const std::string& prefix,
+                  bool signalIsPort);
 
  private:
   bool elaborate_(ModuleInstance* instance, bool recurse);

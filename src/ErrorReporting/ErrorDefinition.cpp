@@ -394,6 +394,8 @@ bool ErrorDefinition::init() {
   rec(ELAB_ILLEGAL_ZERO_VALUE, ERROR, ELAB, "Illegal Zero or negative size %s");
   rec(ELAB_EMPTY_PARAM_OVERRIDE, ERROR, ELAB,
       "Empty parameter override for %s");
+  rec(ELAB_USE_INTERFACE_AS_SIGNAL_TYPE, ERROR, ELAB,
+      "Illegal use of an interface as a signal type for \"%s\"");
   rec(LIB_FILE_MAPS_TO_MULTIPLE_LIBS, ERROR, LIB,
       "File \"%exobj\" maps to multiple libraries: \"%s\"");
   rec(UHDM_UNSUPPORTED_EXPR, ERROR, UHDM, "Unsupported expression \"%s\"");
