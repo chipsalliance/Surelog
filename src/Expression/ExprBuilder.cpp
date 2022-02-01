@@ -367,7 +367,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         std::string size = val;
         StringUtils::rtrim(size, '\'');
         int64_t intsize = 0;
-        if (size != "") intsize = std::strtoull(size.c_str(), 0, 10);
+        if (!size.empty()) intsize = std::strtoull(size.c_str(), 0, 10);
         if (strstr(val.c_str(), "'")) {
           uint64_t hex_value = 0;
           char base = 'h';
@@ -427,13 +427,13 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
               break;
           }
           if (intformat) {
-            if (size == "")
+            if (size.empty())
               value->set(hex_value, Value::Type::Integer, 0);
             else
               value->set(hex_value, Value::Type::Unsigned, intsize);
           }
         } else {
-          if (val.size() && (val[0] == '-')) {
+          if (!val.empty() && (val[0] == '-')) {
             int64_t i = std::strtoll(val.c_str(), 0, 10);
             value->set(i);
           } else {
@@ -667,7 +667,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           Constant_expression = fC->Sibling(Constant_expression);
         }
         base = 'b';
-        if (svalue == "") {
+        if (svalue.empty()) {
           value->set((int64_t)0);
         } else {
           m_valueFactory.deleteValue(value);
@@ -1020,7 +1020,7 @@ Value* ExprBuilder::fromString(const std::string& value) {
           val->set((double)v);
         } else {
           int64_t v = std::strtoll(value_ptr, &end_parse_ptr, 10);
-          if (value_ptr != end_parse_ptr && value.size() && value[0] == '-') {
+          if (value_ptr != end_parse_ptr && !value.empty() && value[0] == '-') {
             val = m_valueFactory.newLValue();
             val->set(v, Value::Type::Integer, s);
           } else {
@@ -1053,7 +1053,7 @@ Value* ExprBuilder::fromString(const std::string& value) {
       val->set((double)v);
     } else {
       int64_t v = std::strtoll(value_ptr, &end_parse_ptr, 10);
-      if (value_ptr != end_parse_ptr && value.size() && value[0] == '-') {
+      if (value_ptr != end_parse_ptr && !value.empty() && value[0] == '-') {
         val = m_valueFactory.newLValue();
         val->set(v);
       } else {

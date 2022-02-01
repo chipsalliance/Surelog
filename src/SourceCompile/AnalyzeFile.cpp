@@ -95,8 +95,8 @@ void AnalyzeFile::checkSLlineDirective_(std::string line, unsigned int lineNb) {
       m_includeFileInfo.push(info);
     } else if (type == IncludeFileInfo::POP) {
       // Pop
-      if (m_includeFileInfo.size()) m_includeFileInfo.pop();
-      if (m_includeFileInfo.size()) {
+      if (!m_includeFileInfo.empty()) m_includeFileInfo.pop();
+      if (!m_includeFileInfo.empty()) {
         m_includeFileInfo.top().m_sectionFile = info.m_sectionFile;
         m_includeFileInfo.top().m_originalLine = lineNb;
         m_includeFileInfo.top().m_sectionStartLine =
@@ -111,7 +111,7 @@ std::string AnalyzeFile::setSLlineDirective_(unsigned int lineNb,
                                              unsigned int& origFromLine,
                                              fs::path& origFile) {
   std::string result;
-  if (m_includeFileInfo.size()) {
+  if (!m_includeFileInfo.empty()) {
     result = "SLline ";
     origFile = m_clp->mutableSymbolTable()->getSymbol(
         m_includeFileInfo.top().m_sectionFile);
@@ -125,7 +125,7 @@ std::string AnalyzeFile::setSLlineDirective_(unsigned int lineNb,
     result += std::to_string(1);
     result += "\n";
   }
-  result = "";
+  result = "";  // BUG or intentional ?
   return result;
 }
 

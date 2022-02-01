@@ -51,7 +51,7 @@ TEST(Elaboration, ExprFromPpTree) {
   auto insts = design->getTopLevelModuleInstances();
   ModuleInstance* top = nullptr;
   DesignComponent* component = nullptr;
-  if (insts.size()) {
+  if (!insts.empty()) {
     top = insts.at(0);
     component = top->getDefinition();
   }
@@ -97,7 +97,7 @@ TEST(Elaboration, ExprFromText) {
   auto insts = design->getTopLevelModuleInstances();
   ModuleInstance* top = nullptr;
   DesignComponent* component = nullptr;
-  if (insts.size()) {
+  if (!insts.empty()) {
     top = insts.at(0);
     component = top->getDefinition();
   }
@@ -141,7 +141,7 @@ TEST(Elaboration, ExprUsePackage) {
   auto insts = design->getTopLevelModuleInstances();
   ModuleInstance* top = nullptr;
   DesignComponent* component = nullptr;
-  if (insts.size()) {
+  if (!insts.empty()) {
     top = insts.at(0);
     component = top->getDefinition();
   }
@@ -191,7 +191,7 @@ TEST(Elaboration, DollarBits) {
   endmodule // top)");
   auto insts = design->getTopLevelModuleInstances();
   ModuleInstance* top = nullptr;
-  if (insts.size()) {
+  if (!insts.empty()) {
     top = insts.at(0);
   }
   EXPECT_NE(top, nullptr);
@@ -267,10 +267,10 @@ TEST(Elaboration, ConcatHexa) {
   std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
   module dut();
     localparam logic [31:0] JT = {
-      4'h0,     
-      16'h4F54, 
-      11'h426,  
-      1'b1      
+      4'h0,
+      16'h4F54,
+      11'h426,
+      1'b1
     };
   endmodule)");
   Compiler* compiler = compileDesign->getCompiler();
@@ -295,7 +295,7 @@ TEST(Elaboration, ParamSubstituteWhenConstant) {
   std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
   package aes_pkg;
     parameter logic [7:0][3:0] X = 32'habcd;
-  endpackage 
+  endpackage
   module aes_cipher_core;
     import aes_pkg::*;
     parameter logic [7:0][3:0] P = X;
@@ -323,8 +323,8 @@ TEST(Elaboration, ParamSubstituteComplex) {
   std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
 module top();
 
-typedef logic [0:4]       fmt_logic_t;  
-  
+typedef logic [0:4]       fmt_logic_t;
+
 typedef struct packed {
     int unsigned Width;
     logic        EnableVectors;
@@ -343,11 +343,11 @@ localparam fpu_features_t RV64D_Xsflt = '{
  localparam XLEN = 64;
 
 localparam IS_XLEN64  = (XLEN == 32) ? 1'b0 : 1'b1;
-localparam bit RVF = IS_XLEN64; 
+localparam bit RVF = IS_XLEN64;
 localparam bit RVD = IS_XLEN64;
-localparam bit XF16    = 1'b0; 
-localparam bit XF16ALT = 1'b0; 
-localparam bit XF8     = 1'b0; 
+localparam bit XF16    = 1'b0;
+localparam bit XF16ALT = 1'b0;
+localparam bit XF8     = 1'b0;
 localparam bit XFVEC   = 1'b0;
 
 localparam fpu_features_t FPU_FEATURES = '{
@@ -359,7 +359,7 @@ localparam fpu_features_t FPU_FEATURES = '{
     };
  parameter fpu_features_t   Features       = FPU_FEATURES;
  parameter fmt_logic_t      FpFmtMask     = Features.FpFmtMask;
- 
+
 localparam DEBUGME = FpFmtMask[0];
 
 endmodule

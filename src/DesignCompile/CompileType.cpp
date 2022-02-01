@@ -1527,7 +1527,7 @@ bool CompileHelper::isOverloaded(const UHDM::any* expr,
   std::stack<const any*> stack;
   const UHDM::any* tmp = expr;
   stack.push(tmp);
-  while (stack.size()) {
+  while (!stack.empty()) {
     tmp = stack.top();
     stack.pop();
     UHDM_OBJECT_TYPE type = tmp->UhdmType();

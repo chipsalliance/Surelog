@@ -75,7 +75,7 @@ bool CompileClass::compile() {
   if (tmp_container) {
     fullName = tmp_container->getName() + "::";
   }
-  if (names.size()) {
+  if (!names.empty()) {
     unsigned int index = names.size() - 1;
     while (1) {
       fullName += names[index];
@@ -159,7 +159,7 @@ bool CompileClass::compile() {
   stack.push(id);
   bool inFunction_body_declaration = false;
   bool inTask_body_declaration = false;
-  while (stack.size()) {
+  while (!stack.empty()) {
     bool skipGuts = false;
     id = stack.top();
     stack.pop();

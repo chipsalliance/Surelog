@@ -126,7 +126,7 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
 
     std::stack<NodeId> stack;
     stack.push(id);
-    while (stack.size()) {
+    while (!stack.empty()) {
       id = stack.top();
       stack.pop();
       current = fC->Object(id);
@@ -290,7 +290,7 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
 
       if (current.m_sibling) stack.push(current.m_sibling);
       if (current.m_child) {
-        if (stopPoints.size()) {
+        if (!stopPoints.empty()) {
           bool stop = false;
           for (auto t : stopPoints) {
             if (t == current.m_type) {

@@ -260,7 +260,7 @@ bool CompileSourceFile::postPreprocess_() {
     return true;
   }
   std::string m_pp_result = m_pp->getPreProcessedFileContent();
-  if (m_text.size()) {
+  if (!m_text.empty()) {
     m_parser = new ParseFile(m_pp_result, this, m_compilationUnit,
                              m_library);  // unit test
   }

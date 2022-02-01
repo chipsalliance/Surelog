@@ -244,9 +244,9 @@ ModuleInstance* Design::findInstance(const std::string& path,
   return findInstance(vpath, scope);
 }
 
-ModuleInstance* Design::findInstance(std::vector<std::string>& path,
+ModuleInstance* Design::findInstance(const std::vector<std::string>& path,
                                      ModuleInstance* scope) const {
-  if (!path.size()) return nullptr;
+  if (path.empty()) return nullptr;
   if (scope) {
     ModuleInstance* res = findInstance_(path, scope);
     if (res) return res;
@@ -270,9 +270,9 @@ ModuleInstance* Design::findInstance(std::vector<std::string>& path,
   return nullptr;
 }
 
-ModuleInstance* Design::findInstance_(std::vector<std::string>& path,
+ModuleInstance* Design::findInstance_(const std::vector<std::string>& path,
                                       ModuleInstance* scope) const {
-  if (!path.size()) return nullptr;
+  if (path.empty()) return nullptr;
   if (scope == nullptr) return nullptr;
   if (path.size() == 1) {
     if (scope->getInstanceName() == path[0]) {
@@ -282,16 +282,15 @@ ModuleInstance* Design::findInstance_(std::vector<std::string>& path,
 
   for (unsigned int i = 0; i < scope->getNbChildren(); i++) {
     ModuleInstance* child = scope->getChildren(i);
-    if (path.size()) {
-      if (child->getInstanceName() == path[0]) {
-        if (path.size() == 1) {
-          return child;
-        } else {
-          std::vector<std::string> subpath = path;
-          subpath.erase(subpath.begin());
-          ModuleInstance* res = findInstance(subpath, child);
-          if (res) return res;
-        }
+    if (path.empty()) continue;
+    if (child->getInstanceName() == path[0]) {
+      if (path.size() == 1) {
+        return child;
+      } else {
+        std::vector<std::string> subpath = path;
+        subpath.erase(subpath.begin());
+        ModuleInstance* res = findInstance(subpath, child);
+        if (res) return res;
       }
     }
   }
@@ -318,7 +317,7 @@ Value* Design::getDefParamValue(const std::string& name) {
 
 DefParam* Design::getDefParam_(std::vector<std::string>& path,
                                DefParam* parent) const {
-  if (path.size() == 0) {
+  if (path.empty()) {
     return parent;
   }
   std::map<std::string, DefParam*>::iterator itr =
@@ -348,7 +347,7 @@ void Design::addDefParam(const std::string& name, const FileContent* fC,
 
 void Design::addDefParam_(std::vector<std::string>& path, const FileContent* fC,
                           NodeId nodeId, Value* value, DefParam* parent) {
-  if (path.size() == 0) {
+  if (path.empty()) {
     parent->setValue(value);
     parent->setLocation(fC, nodeId);
     return;
@@ -357,7 +356,7 @@ void Design::addDefParam_(std::vector<std::string>& path, const FileContent* fC,
       parent->getChildren().find(path[0]);
   if (itr != parent->getChildren().end()) {
     path.erase(path.begin());
-    if (path.size() == 0) {
+    if (path.empty()) {
       DefParam* previous = (*itr).second;
       if ((fC->getFileId(nodeId) !=
            previous->getLocation()->getFileId(previous->getNodeId())) ||
@@ -446,7 +445,7 @@ ClassDefinition* Design::getClassDefinition(const std::string& name) const {
 }
 
 void Design::orderPackages() {
-  if (m_orderedPackageNames.size() == 0) return;
+  if (m_orderedPackageNames.empty()) return;
   m_orderedPackageDefinitions.resize(m_orderedPackageNames.size());
   unsigned int index = 0;
   typedef std::map<std::string, int> MultiDefCount;

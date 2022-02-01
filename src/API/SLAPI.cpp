@@ -447,22 +447,23 @@ std::string SLgetModuleName(ModuleDefinition* module) {
   return module->getName();
 }
 
+template <typename ClassOrPackageOrProgram>
+static bool ModuleHasFirstFileContent(const ClassOrPackageOrProgram* module) {
+  if (!module) return false;
+  if (module->getFileContents().empty()) return false;
+  return module->getFileContents()[0] != nullptr;
+}
+
 std::string SLgetModuleFile(ModuleDefinition* module) {
-  if (!module) return "";
-  if (module->getFileContents().size())
-    return module->getFileContents()[0]
-        ->getFileName(module->getNodeIds()[0])
-        .string();
-  else
-    return "";
+  if (!ModuleHasFirstFileContent(module)) return "";
+  return module->getFileContents()[0]
+      ->getFileName(module->getNodeIds()[0])
+      .string();
 }
 
 unsigned int SLgetModuleLine(ModuleDefinition* module) {
-  if (!module) return 0;
-  if (module->getFileContents().size())
-    return module->getFileContents()[0]->Line(module->getNodeIds()[0]);
-  else
-    return 0;
+  if (!ModuleHasFirstFileContent(module)) return 0;
+  return module->getFileContents()[0]->Line(module->getNodeIds()[0]);
 }
 
 VObjectType SLgetModuleType(ModuleDefinition* module) {
@@ -471,12 +472,9 @@ VObjectType SLgetModuleType(ModuleDefinition* module) {
 }
 
 FileContent* SLgetModuleFileContent(ModuleDefinition* module) {
-  if (!module) return nullptr;
-  if (module->getFileContents().size())
-    // TODO(alain): fix const cast.
-    return const_cast<FileContent*>(module->getFileContents()[0]);
-  else
-    return nullptr;
+  if (!ModuleHasFirstFileContent(module)) return nullptr;
+  // TODO(alain): fix const cast.
+  return const_cast<FileContent*>(module->getFileContents()[0]);
 }
 
 NodeId SLgetModuleRootNode(ModuleDefinition* module) {
@@ -490,21 +488,15 @@ std::string SLgetClassName(ClassDefinition* module) {
 }
 
 std::string SLgetClassFile(ClassDefinition* module) {
-  if (!module) return "";
-  if (module->getFileContents().size() && module->getFileContents()[0])
-    return module->getFileContents()[0]
-        ->getFileName(module->getNodeIds()[0])
-        .string();
-  else
-    return "";
+  if (!ModuleHasFirstFileContent(module)) return "";
+  return module->getFileContents()[0]
+      ->getFileName(module->getNodeIds()[0])
+      .string();
 }
 
 unsigned int SLgetClassLine(ClassDefinition* module) {
-  if (!module) return 0;
-  if (module->getFileContents().size() && module->getFileContents()[0])
-    return module->getFileContents()[0]->Line(module->getNodeIds()[0]);
-  else
-    return 0;
+  if (!ModuleHasFirstFileContent(module)) return 0;
+  return module->getFileContents()[0]->Line(module->getNodeIds()[0]);
 }
 
 VObjectType SLgetClassType(ClassDefinition* module) {
@@ -513,12 +505,9 @@ VObjectType SLgetClassType(ClassDefinition* module) {
 }
 
 FileContent* SLgetClassFileContent(ClassDefinition* module) {
-  if (!module) return 0;
-  if (module->getFileContents().size() && module->getFileContents()[0])
-    // TODO(Alain): Fix api.
-    return const_cast<FileContent*>(module->getFileContents()[0]);
-  else
-    return nullptr;
+  if (!ModuleHasFirstFileContent(module)) return nullptr;
+  // TODO(Alain): Fix api.
+  return const_cast<FileContent*>(module->getFileContents()[0]);
 }
 
 NodeId SLgetClassRootNode(ClassDefinition* module) {
@@ -532,21 +521,15 @@ std::string SLgetPackageName(Package* module) {
 }
 
 std::string SLgetPackageFile(Package* module) {
-  if (!module) return "";
-  if (module->getFileContents().size())
-    return module->getFileContents()[0]
-        ->getFileName(module->getNodeIds()[0])
-        .string();
-  else
-    return "";
+  if (!ModuleHasFirstFileContent(module)) return "";
+  return module->getFileContents()[0]
+      ->getFileName(module->getNodeIds()[0])
+      .string();
 }
 
 unsigned int SLgetPackageLine(Package* module) {
-  if (!module) return 0;
-  if (module->getFileContents().size())
-    return module->getFileContents()[0]->Line(module->getNodeIds()[0]);
-  else
-    return 0;
+  if (!ModuleHasFirstFileContent(module)) return 0;
+  return module->getFileContents()[0]->Line(module->getNodeIds()[0]);
 }
 
 VObjectType SLgetPackageType(Package* module) {
@@ -555,11 +538,8 @@ VObjectType SLgetPackageType(Package* module) {
 }
 
 FileContent* SLgetPackageFileContent(Package* module) {
-  if (!module) return 0;
-  if (module->getFileContents().size())
-    return const_cast<FileContent*>(module->getFileContents()[0]);
-  else
-    return nullptr;
+  if (!ModuleHasFirstFileContent(module)) return nullptr;
+  return const_cast<FileContent*>(module->getFileContents()[0]);
 }
 
 NodeId SLgetPackageRootNode(Package* module) {
@@ -573,21 +553,15 @@ std::string SLgetProgramName(Program* module) {
 }
 
 std::string SLgetProgramFile(Program* module) {
-  if (!module) return "";
-  if (module->getFileContents().size())
-    return module->getFileContents()[0]
-        ->getFileName(module->getNodeIds()[0])
-        .string();
-  else
-    return "";
+  if (!ModuleHasFirstFileContent(module)) return "";
+  return module->getFileContents()[0]
+      ->getFileName(module->getNodeIds()[0])
+      .string();
 }
 
 unsigned int SLgetProgramLine(Program* module) {
-  if (!module) return 0;
-  if (module->getFileContents().size())
-    return module->getFileContents()[0]->Line(module->getNodeIds()[0]);
-  else
-    return 0;
+  if (!ModuleHasFirstFileContent(module)) return 0;
+  return module->getFileContents()[0]->Line(module->getNodeIds()[0]);
 }
 
 VObjectType SLgetProgramType(Program* module) {
@@ -596,11 +570,8 @@ VObjectType SLgetProgramType(Program* module) {
 }
 
 FileContent* SLgetProgramFileContent(Program* module) {
-  if (!module) return 0;
-  if (module->getFileContents().size())
-    return const_cast<FileContent*>(module->getFileContents()[0]);
-  else
-    return nullptr;
+  if (!ModuleHasFirstFileContent(module)) return nullptr;
+  return const_cast<FileContent*>(module->getFileContents()[0]);
 }
 
 NodeId SLgetProgramRootNode(Program* module) {

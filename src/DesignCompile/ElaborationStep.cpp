@@ -431,7 +431,7 @@ const DataType* ElaborationStep::bindDataType_(
   SymbolTable* symbols = compiler->getSymbolTable();
   Design* design = compiler->getDesign();
   std::string libName = "work";
-  if (parent->getFileContents().size()) {
+  if (!parent->getFileContents().empty()) {
     libName = parent->getFileContents()[0]->getLibrary()->getName();
   }
   ClassNameClassDefinitionMultiMap classes = design->getClassDefinitions();
@@ -764,7 +764,7 @@ Variable* ElaborationStep::locateStaticVariable_(
   if (itr != m_staticVariables.end()) return (*itr).second;
   Variable* result = nullptr;
   Design* design = m_compileDesign->getCompiler()->getDesign();
-  if (var_chain.size() > 0) {
+  if (!var_chain.empty()) {
     Package* package = design->getPackage(var_chain[0]);
     if (package) {
       if (var_chain.size() > 1) {
@@ -821,7 +821,7 @@ Variable* ElaborationStep::locateStaticVariable_(
     }
   }
   if (result == nullptr) {
-    if (var_chain.size()) {
+    if (!var_chain.empty()) {
       const DataType* dtype =
           bindDataType_(var_chain[0], fC, id, parentComponent, errtype);
       if (dtype) {
@@ -1535,7 +1535,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
     }
 
     if (associative || queue || dynamic) {
-      if (unpackedDimensions->size()) {
+      if (!unpackedDimensions->empty()) {
         if (index == 0) {
           array_var->Ranges(unpackedDimensions);
         } else {
