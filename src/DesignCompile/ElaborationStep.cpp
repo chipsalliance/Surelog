@@ -189,15 +189,38 @@ bool ElaborationStep::bindTypedefs_() {
         }
       }
       if (typd->getTypespec() == nullptr) {
-        UHDM::typespec* ts = m_helper.compileTypespec(
-            defTuple.second, typd->getFileContent(), typd->getDefinitionNode(),
-            m_compileDesign, nullptr, nullptr, true);
+        const FileContent* typeF = typd->getFileContent();
+        NodeId typeId = typd->getDefinitionNode();
+        UHDM::typespec* ts =
+            m_helper.compileTypespec(defTuple.second, typeF, typeId,
+                                     m_compileDesign, nullptr, nullptr, true);
         if (ts) {
           ts->VpiName(typd->getName());
+          std::string name;
+          bool muteError = false;
+          if (typeF->Type(typeId) == slStringConst) {
+            name = typeF->SymName(typeId);
+            NodeId dotName = typeF->Sibling(typeId);
+            if (typeF->Type(dotName) == slStringConst ||
+                (typeF->Type(dotName) == slConstant_bit_select)) {
+              muteError = true;
+            }
+          } else {
+            name = typd->getName();
+          }
           specs.insert(std::make_pair(typd->getName(), ts));
           if (Package* pack = valuedcomponenti_cast<Package*>(comp)) {
             std::string name = pack->getName() + "::" + typd->getName();
             specs.insert(std::make_pair(name, ts));
+          }
+          if (ts->UhdmType() == uhdmunsupported_typespec) {
+            if (!muteError) {
+              Location loc1(symbols->registerSymbol(ts->VpiFile().string()),
+                            ts->VpiLineNo(), ts->VpiColumnNo(),
+                            symbols->registerSymbol(name));
+              Error err1(ErrorDefinition::COMP_UNDEFINED_TYPE, loc1);
+              errors->addError(err1);
+            }
           }
         }
         typd->setTypespec(ts);
@@ -254,17 +277,29 @@ bool ElaborationStep::bindTypedefs_() {
         }
         if (orig->UhdmType() == uhdmunsupported_typespec) {
           const std::string& need = orig->VpiName();
+          bool bound = false;
           if (need == tps->VpiName()) {
             s.unsupported_typespecMaker.Erase((unsupported_typespec*)orig);
             if (expr* ex = any_cast<expr*>(var)) {
               ex->Typespec(tps);
+              bound = true;
             } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
               ex->Typespec(tps);
+              bound = true;
             } else if (parameter* ex = any_cast<parameter*>(var)) {
               ex->Typespec(tps);
+              bound = true;
             } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
               ex->Typespec(tps);
+              bound = true;
             }
+          }
+          if (!bound) {
+            Location loc1(symbols->registerSymbol(orig->VpiFile().string()),
+                          orig->VpiLineNo(), orig->VpiColumnNo(),
+                          symbols->registerSymbol(need));
+            Error err1(ErrorDefinition::COMP_UNDEFINED_TYPE, loc1);
+            // errors->addError(err1);
           }
         }
       }
@@ -286,21 +321,30 @@ bool ElaborationStep::bindTypedefs_() {
       if (orig->UhdmType() == uhdmunsupported_typespec) {
         const std::string& need = orig->VpiName();
         std::map<std::string, typespec*>::iterator itr = specs.find(need);
+        bool bound = false;
         if (itr != specs.end()) {
           typespec* tps = (*itr).second;
           s.unsupported_typespecMaker.Erase((unsupported_typespec*)orig);
           if (expr* ex = any_cast<expr*>(var)) {
             ex->Typespec(tps);
+            bound = true;
           } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
             ex->Typespec(tps);
+            bound = true;
           } else if (parameter* ex = any_cast<parameter*>(var)) {
             ex->Typespec(tps);
+            bound = true;
           } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
             ex->Typespec(tps);
+            bound = true;
           }
-        } else {
-          int setBreakpointHere = 0;
-          setBreakpointHere++;
+        }
+        if (!bound) {
+          Location loc1(symbols->registerSymbol(orig->VpiFile().string()),
+                        orig->VpiLineNo(), orig->VpiColumnNo(),
+                        symbols->registerSymbol(need));
+          Error err1(ErrorDefinition::COMP_UNDEFINED_TYPE, loc1);
+          // errors->addError(err1);
         }
       }
     }
@@ -321,21 +365,30 @@ bool ElaborationStep::bindTypedefs_() {
       if (orig->UhdmType() == uhdmunsupported_typespec) {
         const std::string& need = orig->VpiName();
         std::map<std::string, typespec*>::iterator itr = specs.find(need);
+        bool bound = false;
         if (itr != specs.end()) {
           typespec* tps = (*itr).second;
           s.unsupported_typespecMaker.Erase((unsupported_typespec*)orig);
           if (expr* ex = any_cast<expr*>(var)) {
             ex->Typespec(tps);
+            bound = true;
           } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
             ex->Typespec(tps);
+            bound = true;
           } else if (parameter* ex = any_cast<parameter*>(var)) {
             ex->Typespec(tps);
+            bound = true;
           } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
             ex->Typespec(tps);
+            bound = true;
           }
-        } else {
-          int setBreakpointHere = 0;
-          setBreakpointHere++;
+        }
+        if (!bound) {
+          Location loc1(symbols->registerSymbol(orig->VpiFile().string()),
+                        orig->VpiLineNo(), orig->VpiColumnNo(),
+                        symbols->registerSymbol(need));
+          Error err1(ErrorDefinition::COMP_UNDEFINED_TYPE, loc1);
+          // errors->addError(err1);
         }
       }
     }
