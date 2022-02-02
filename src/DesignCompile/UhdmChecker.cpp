@@ -93,7 +93,7 @@ bool UhdmChecker::registerFile(const FileContent* fC,
   RangesMap& uhdmCover = (*fileItr).second;
   bool skipModule = false;
   NodeId endModuleNode = 0;
-  while (stack.size()) {
+  while (!stack.empty()) {
     id = stack.top();
     stack.pop();
     current = fC->Object(id);

@@ -523,7 +523,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       if (Statement) {
         VectorOfany* while_stmts = compileStmt(
             component, fC, Statement, compileDesign, do_while, instance);
-        if (while_stmts && while_stmts->size()) {
+        if (while_stmts && !while_stmts->empty()) {
           any* stmt = (*while_stmts)[0];
           do_while->VpiStmt(stmt);
           stmt->VpiParent(do_while);
@@ -550,7 +550,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         if (Statement) {
           VectorOfany* while_stmts = compileStmt(
               component, fC, Statement, compileDesign, waitst, instance);
-          if (while_stmts && while_stmts->size()) {
+          if (while_stmts && !while_stmts->empty()) {
             any* stmt = (*while_stmts)[0];
             waitst->VpiStmt(stmt);
             stmt->VpiParent(waitst);
@@ -581,7 +581,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
           // If only
           VectorOfany* if_stmts =
               compileStmt(component, fC, Stmt, compileDesign, waitst, instance);
-          if (if_stmts && if_stmts->size()) {
+          if (if_stmts && !if_stmts->empty()) {
             any* stmt = (*if_stmts)[0];
             waitst->VpiStmt(stmt);
             stmt->VpiParent(waitst);
@@ -591,7 +591,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
           Stmt = fC->Sibling(Stmt);
           VectorOfany* if_stmts =
               compileStmt(component, fC, Stmt, compileDesign, waitst, instance);
-          if (if_stmts && if_stmts->size()) {
+          if (if_stmts && !if_stmts->empty()) {
             any* stmt = (*if_stmts)[0];
             waitst->VpiElseStmt(stmt);
             stmt->VpiParent(waitst);
@@ -600,7 +600,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
           // if else
           VectorOfany* if_stmts =
               compileStmt(component, fC, Stmt, compileDesign, waitst, instance);
-          if (if_stmts && if_stmts->size()) {
+          if (if_stmts && !if_stmts->empty()) {
             any* stmt = (*if_stmts)[0];
             waitst->VpiStmt(stmt);
             stmt->VpiParent(waitst);
@@ -609,7 +609,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
           Stmt = fC->Sibling(Else);
           VectorOfany* else_stmts =
               compileStmt(component, fC, Stmt, compileDesign, waitst, instance);
-          if (else_stmts && else_stmts->size()) {
+          if (else_stmts && !else_stmts->empty()) {
             any* stmt = (*else_stmts)[0];
             waitst->VpiElseStmt(stmt);
             stmt->VpiParent(waitst);

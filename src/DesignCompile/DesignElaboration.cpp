@@ -217,7 +217,7 @@ bool DesignElaboration::setupConfigurations_() {
     }
   }
   std::unordered_set<const Config*> configS;
-  while (configq.size()) {
+  while (!configq.empty()) {
     std::string configName = configq.front();
     configq.pop();
     Config* conf = configSet->getMutableConfigByName(configName);
@@ -386,7 +386,7 @@ bool DesignElaboration::identifyTopModules_() {
         if (!used) {
           bool isTop = true;
 
-          if (m_toplevelConfigModules.size()) {
+          if (!m_toplevelConfigModules.empty()) {
             isTop = false;
             if (m_toplevelConfigModules.find(topname) !=
                 m_toplevelConfigModules.end()) {
@@ -403,7 +403,7 @@ bool DesignElaboration::identifyTopModules_() {
                 element->m_line, 0, topid);
             if (itr == m_uniqueTopLevelModules.end()) {
               bool okModule = true;
-              if (userTopList.size()) {
+              if (!userTopList.empty()) {
                 if (userTopList.find(elemName) == userTopList.end())
                   okModule = false;
               }
@@ -474,7 +474,7 @@ bool DesignElaboration::identifyTopModules_() {
         }
       }
 
-      if (locations.size()) {
+      if (!locations.empty()) {
         Error err1(ErrorDefinition::ELAB_MULTIPLY_DEFINED_MODULE, loc1,
                    &locations);
         m_compileDesign->getCompiler()->getErrorContainer()->addError(err1);
@@ -673,7 +673,7 @@ void DesignElaboration::recurseInstanceLoop_(
     // This is where the real logic goes.
     // indexes[i] contain the value of the i-th index.
     for (unsigned int i = 0; i < indexes.size(); i++) {
-      if (instanceName.size()) {
+      if (!instanceName.empty()) {
         if (instanceName[instanceName.size() - 1] == ' ') {
           instanceName.erase(instanceName.end() - 1);
         }
@@ -942,7 +942,7 @@ void DesignElaboration::elaborateInstance_(
 
       std::vector<NodeId> blockIds =
           fC->sl_collect_all(subInstanceId, btypes, true);
-      if (blockIds.size()) {
+      if (!blockIds.empty()) {
         NodeId blockId = blockIds[0];
         NodeId blockNameId = fC->Child(blockId);
         if (fC->Type(blockNameId) == VObjectType::slStringConst) {
@@ -1193,7 +1193,7 @@ void DesignElaboration::elaborateInstance_(
                 if (fC->Type(If_generate_construct) ==
                     slIf_generate_construct) {
                   blockIds = fC->sl_collect_all(childId, btypes, true);
-                  if (blockIds.size()) {
+                  if (!blockIds.empty()) {
                     NodeId blockId = blockIds[0];
                     NodeId blockNameId = fC->Child(blockId);
                     if (fC->Type(blockNameId) == VObjectType::slStringConst) {
@@ -1216,7 +1216,7 @@ void DesignElaboration::elaborateInstance_(
 
             } else {  // if-else-if
               blockIds = fC->sl_collect_all(childId, btypes, true);
-              if (blockIds.size()) {
+              if (!blockIds.empty()) {
                 NodeId blockId = blockIds[0];
                 NodeId blockNameId = fC->Child(blockId);
                 if (fC->Type(blockNameId) == VObjectType::slStringConst) {
@@ -1381,7 +1381,7 @@ void DesignElaboration::elaborateInstance_(
           fC->sl_collect_all(subInstanceId, insttypes, true);
 
       NodeId hierInstId = InvalidNodeId;
-      if (hierInstIds.size()) hierInstId = hierInstIds[0];
+      if (!hierInstIds.empty()) hierInstId = hierInstIds[0];
 
       if (hierInstId == InvalidNodeId) continue;
 
@@ -2105,7 +2105,7 @@ void DesignElaboration::reduceUnnamedBlocks_() {
     queue.push(instance);
   }
 
-  while (queue.size()) {
+  while (!queue.empty()) {
     ModuleInstance* current = queue.front();
     queue.pop();
     if (current == nullptr) continue;
@@ -2208,7 +2208,7 @@ bool DesignElaboration::bindDataTypes_() {
   for (auto modNamePair : modules) {
     ModuleDefinition* mod = modNamePair.second;
     VObjectType compType = mod->getType();
-    if (mod->getFileContents().size() == 0) {
+    if (mod->getFileContents().empty()) {
       // Built-in primitive
     } else if (compType == VObjectType::slModule_declaration ||
                compType == VObjectType::slInterface_declaration ||
@@ -2250,7 +2250,7 @@ void DesignElaboration::createFileList_() {
   std::queue<ModuleInstance*> queue;
   std::set<const FileContent*> files;
   for (auto pack : design->getPackageDefinitions()) {
-    if (pack.second->getFileContents().size()) {
+    if (!pack.second->getFileContents().empty()) {
       if (pack.second->getFileContents()[0] != nullptr)
         files.insert(pack.second->getFileContents()[0]);
     }
@@ -2260,7 +2260,7 @@ void DesignElaboration::createFileList_() {
     queue.push(instance);
   }
 
-  while (queue.size()) {
+  while (!queue.empty()) {
     ModuleInstance* current = queue.front();
     DesignComponent* def = current->getDefinition();
     queue.pop();

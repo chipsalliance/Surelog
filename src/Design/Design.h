@@ -122,7 +122,7 @@ class Design final {
 
   void checkDefParamUsage(DefParam* parent = nullptr);
 
-  ModuleInstance* findInstance(std::vector<std::string>& path,
+  ModuleInstance* findInstance(const std::vector<std::string>& path,
                                ModuleInstance* scope = nullptr) const;
 
   ModuleInstance* findInstance(const std::string& path,
@@ -182,7 +182,7 @@ class Design final {
   void orderPackages();
 
  private:
-  ModuleInstance* findInstance_(std::vector<std::string>& path,
+  ModuleInstance* findInstance_(const std::vector<std::string>& path,
                                 ModuleInstance* scope) const;
   void addDefParam_(std::vector<std::string>& path, const FileContent* fC,
                     NodeId nodeId, Value* value, DefParam* parent);

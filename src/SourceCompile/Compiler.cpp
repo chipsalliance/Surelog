@@ -183,7 +183,7 @@ bool Compiler::ppinit_() {
     m_compilers.push_back(compiler);
   }
 
-  if (m_text.size()) {
+  if (!m_text.empty()) {
     Library* library = new Library("UnitTest", m_symbolTable);
     CompileSourceFile* compiler =
         new CompileSourceFile(0, m_commandLineParser, m_errors, this,

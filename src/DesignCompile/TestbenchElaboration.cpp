@@ -196,7 +196,7 @@ bool TestbenchElaboration::checkForMultipleDefinition_() {
         }
       }
 
-      if (locations.size()) {
+      if (!locations.empty()) {
         Error err1(ErrorDefinition::COMP_MULTIPLY_DEFINED_CLASS, loc1,
                    &locations);
         errors->addError(err1);
@@ -494,7 +494,7 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
       }
     }
   }
-  if (var_chain.size() == 0) {
+  if (var_chain.empty()) {
     if (st->isSystemCall()) {
       validFunction = checkValidBuiltinClass_("system", function, stmt, design,
                                               datatypeName);
@@ -526,7 +526,7 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
     }
     std::string name;
     for (auto v : var_chain) name += v + ".";
-    if (name.size()) name = name.substr(0, name.size() - 1);
+    if (!name.empty()) name = name.substr(0, name.size() - 1);
     while (dtype && dtype->getDefinition()) {
       dtype = dtype->getDefinition();
     }
@@ -626,7 +626,7 @@ bool TestbenchElaboration::bindFunctionBodies_() {
       std::queue<Statement*> stmts;
       for (Statement* stmt : func.second->getStmts()) stmts.push(stmt);
 
-      while (stmts.size()) {
+      while (!stmts.empty()) {
         Statement* stmt = stmts.front();
         stmts.pop();
         for (Statement* stmt1 : stmt->getStatements()) stmts.push(stmt1);

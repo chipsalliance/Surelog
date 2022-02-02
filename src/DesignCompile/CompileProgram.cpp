@@ -128,7 +128,7 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
   std::stack<NodeId> stack;
   stack.push(id);
   VObjectType port_direction = VObjectType::slNoType;
-  while (stack.size()) {
+  while (!stack.empty()) {
     id = stack.top();
     if (ParameterPortListId && (id == ParameterPortListId)) {
       ParameterPortListId = 0;
@@ -337,7 +337,7 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
 
     if (current.m_sibling) stack.push(current.m_sibling);
     if (current.m_child) {
-      if (stopPoints.size()) {
+      if (!stopPoints.empty()) {
         bool stop = false;
         for (auto t : stopPoints) {
           if (t == current.m_type) {

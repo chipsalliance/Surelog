@@ -1678,7 +1678,7 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
       NodeId specParamId = 0;
       // Reuse last signal data type (if any)
       Signal* last = nullptr;
-      if (component->getPorts().size()) {
+      if (!component->getPorts().empty()) {
         last = component->getPorts().back();
         dataType = last->getType();
         packed = last->getPackedDimension();
@@ -2324,7 +2324,7 @@ bool CompileHelper::isMultidimensional(UHDM::typespec* ts,
     if (ttps == uhdmlogic_typespec) {
       logic_typespec* lts = (logic_typespec*)ts;
       if (component && valuedcomponenti_cast<Package*>(component)) {
-        if (lts->Ranges() && lts->Ranges()->size() > 0) isMultiDimension = true;
+        if (lts->Ranges() && !lts->Ranges()->empty()) isMultiDimension = true;
       } else {
         if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
       }
@@ -2566,7 +2566,7 @@ bool CompileHelper::compileParameterDeclaration(
               int optype = op->VpiOpType();
               if (optype == vpiAssignmentPatternOp || optype == vpiConcatOp) {
                 VectorOfany* operands = op->Operands();
-                if (operands && operands->size()) {
+                if (operands && !operands->empty()) {
                   if ((*operands)[0]->UhdmType() == uhdmref_obj) {
                     op->VpiReordered(true);
                     std::reverse(operands->begin(), operands->end());
@@ -2630,7 +2630,7 @@ bool CompileHelper::compileParameterDeclaration(
             int optype = op->VpiOpType();
             if (optype == vpiAssignmentPatternOp || optype == vpiConcatOp) {
               VectorOfany* operands = op->Operands();
-              if (operands && operands->size()) {
+              if (operands && !operands->empty()) {
                 if ((*operands)[0]->UhdmType() == uhdmref_obj) {
                   op->VpiReordered(true);
                   std::reverse(operands->begin(), operands->end());
@@ -2824,7 +2824,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
     }
     if (call == nullptr) call = s.MakeFunc_call();
   }
-  if (call->VpiName() == "") call->VpiName(name);
+  if (call->VpiName().empty()) call->VpiName(name);
 
   NodeId argListNode = fC->Sibling(tfNameNode);
   if (fC->Type(argListNode) == slAttribute_instance) {
@@ -2894,7 +2894,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(
     }
     argumentNode = fC->Sibling(argumentNode);
   }
-  if (args.size()) {
+  if (!args.empty()) {
     if (io_decls) {
       for (io_decl* decl : *io_decls) {
         const std::string& name = decl->VpiName();

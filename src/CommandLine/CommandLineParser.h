@@ -190,9 +190,9 @@ class CommandLineParser final {
   bool plus_arguments_(const std::string& s);
   void processArgs_(std::vector<std::string>& args,
                     std::vector<std::string>& container);
-  void splitPlusArg_(std::string s, std::string prefix,
+  void splitPlusArg_(const std::string& s, const std::string& prefix,
                      std::vector<SymbolId>& container);
-  void splitPlusArg_(std::string s, std::string prefix,
+  void splitPlusArg_(const std::string& s, const std::string& prefix,
                      std::map<SymbolId, std::string>& container);
   bool checkCommandLine_();
   bool prepareCompilation_(int argc, const char** argv);

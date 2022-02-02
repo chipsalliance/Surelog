@@ -1198,7 +1198,7 @@ interface* NetlistElaboration::elab_interface_(
   VectorOfmodport* dest_modports = s.MakeModportVec();
   for (auto& orig_modport : orig_modports) {
     const std::string modportfullname = instName + "." + orig_modport.first;
-    if ((modPortName != "") && (modportfullname != modPortName)) continue;
+    if (!modPortName.empty() && (modportfullname != modPortName)) continue;
     modport* dest_modport = s.MakeModport();
     dest_modport->Interface(sm);
     dest_modport->VpiParent(sm);

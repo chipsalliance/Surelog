@@ -206,7 +206,7 @@ void SV3_1aPpTreeListenerHelper::checkMultiplyDefinedMacro(
 void SV3_1aPpTreeListenerHelper::setCurrentBranchActivity(
     unsigned int currentLine) {
   PreprocessFile::IfElseStack& stack = m_pp->getStack();
-  if (stack.size()) {
+  if (!stack.empty()) {
     int index = stack.size() - 1;
     bool checkPrev = true;
     while (checkPrev) {
@@ -256,7 +256,7 @@ bool SV3_1aPpTreeListenerHelper::isPreviousBranchActive() {
   PreprocessFile::IfElseStack& stack = m_pp->getStack();
   bool previousBranchActive = false;
   bool checkPrev = true;
-  if (stack.size() == 0) {
+  if (stack.empty()) {
     return false;
   }
   int index = stack.size() - 1;

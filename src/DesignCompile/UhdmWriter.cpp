@@ -676,7 +676,7 @@ void mapLowConns(std::vector<Signal*>& orig_ports, Serializer& s,
 void writeClass(ClassDefinition* classDef, VectorOfclass_defn* dest_classes,
                 Serializer& s, UhdmWriter::ComponentMap& componentMap,
                 BaseClass* parent) {
-  if (classDef->getFileContents().size() &&
+  if (!classDef->getFileContents().empty() &&
       classDef->getType() == VObjectType::slClass_declaration) {
     const FileContent* fC = classDef->getFileContents()[0];
     class_defn* c = classDef->getUhdmDefinition();
@@ -714,8 +714,8 @@ void writeClass(ClassDefinition* classDef, VectorOfclass_defn* dest_classes,
     c->VpiParent(parent);
     dest_classes->push_back(c);
     const std::string& name = classDef->getName();
-    if (c->VpiName() == "") c->VpiName(name);
-    if (c->VpiFullName() == "") c->VpiFullName(name);
+    if (c->VpiName().empty()) c->VpiName(name);
+    if (c->VpiFullName().empty()) c->VpiFullName(name);
     c->Attributes(classDef->Attributes());
     if (fC) {
       // Builtin classes have no file
@@ -2035,7 +2035,7 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
       if (insttype == VObjectType::slModule_instantiation) {
         if (subModules == nullptr) subModules = s.MakeModuleVec();
         module* sm = s.MakeModule();
-        if (childDef && childDef->getFileContents().size() &&
+        if (childDef && !childDef->getFileContents().empty() &&
             compileDesign->getCompiler()->isLibraryFile(
                 childDef->getFileContents()[0]->getSymbolId())) {
           sm->VpiCellInstance(true);
@@ -2391,7 +2391,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
     VectorOfpackage* v2 = s.MakePackageVec();
     for (Package* pack : packages) {
       if (!pack) continue;
-      if (pack->getFileContents().size() &&
+      if (!pack->getFileContents().empty() &&
           pack->getType() == VObjectType::slPackage_declaration) {
         const FileContent* fC = pack->getFileContents()[0];
         package* p = (package*)pack->getUhdmInstance();
@@ -2419,7 +2419,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
     VectorOfprogram* uhdm_programs = s.MakeProgramVec();
     for (auto progNamePair : programs) {
       Program* prog = progNamePair.second;
-      if (prog->getFileContents().size() &&
+      if (!prog->getFileContents().empty() &&
           prog->getType() == VObjectType::slProgram_declaration) {
         const FileContent* fC = prog->getFileContents()[0];
         program* p = s.MakeProgram();
@@ -2444,7 +2444,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
     VectorOfinterface* uhdm_interfaces = s.MakeInterfaceVec();
     for (auto modNamePair : modules) {
       ModuleDefinition* mod = modNamePair.second;
-      if (mod->getFileContents().size() == 0) {
+      if (mod->getFileContents().empty()) {
         // Built-in primitive
       } else if (mod->getType() == VObjectType::slInterface_declaration) {
         const FileContent* fC = mod->getFileContents()[0];
@@ -2471,7 +2471,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
     VectorOfudp_defn* uhdm_udps = s.MakeUdp_defnVec();
     for (auto modNamePair : modules) {
       ModuleDefinition* mod = modNamePair.second;
-      if (mod->getFileContents().size() == 0) {
+      if (mod->getFileContents().empty()) {
         // Built-in primitive
       } else if (mod->getType() == VObjectType::slModule_declaration) {
         const FileContent* fC = mod->getFileContents()[0];
@@ -2514,7 +2514,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
     VectorOfclass_defn* v4 = s.MakeClass_defnVec();
     for (auto classNamePair : classes) {
       ClassDefinition* classDef = classNamePair.second;
-      if (classDef->getFileContents().size() &&
+      if (!classDef->getFileContents().empty() &&
           classDef->getType() == VObjectType::slClass_declaration) {
         class_defn* c = classDef->getUhdmDefinition();
         if (!c->VpiParent()) {
@@ -2617,7 +2617,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
           m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
 
       std::cout << "====== UHDM =======\n";
-      if (restoredDesigns.size()) {
+      if (!restoredDesigns.empty()) {
         designHandle = restoredDesigns[0];
       }
       vpi_show_ids(

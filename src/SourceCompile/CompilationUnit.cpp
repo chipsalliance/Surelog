@@ -56,7 +56,7 @@ void CompilationUnit::recordTimeInfo(TimeInfo& info) {
 }
 
 TimeInfo& CompilationUnit::getTimeInfo(SymbolId fileId, unsigned int line) {
-  if (!m_timeInfo.size()) {
+  if (m_timeInfo.empty()) {
     return m_noTimeInfo;
   }
   for (int i = (int)m_timeInfo.size() - 1; i >= 0; i--) {
@@ -76,7 +76,7 @@ void CompilationUnit::recordDefaultNetType(NetTypeInfo& info) {
 
 VObjectType CompilationUnit::getDefaultNetType(SymbolId fileId,
                                                unsigned int line) {
-  if (!m_defaultNetTypes.size()) {
+  if (m_defaultNetTypes.empty()) {
     return slNetType_Wire;
   }
   for (int i = (int)m_defaultNetTypes.size() - 1; i >= 0; i--) {
@@ -91,7 +91,7 @@ VObjectType CompilationUnit::getDefaultNetType(SymbolId fileId,
 }
 
 void CompilationUnit::setCurrentTimeInfo(SymbolId fileId) {
-  if (!m_timeInfo.size()) {
+  if (m_timeInfo.empty()) {
     return;
   }
   TimeInfo info = m_timeInfo[m_timeInfo.size() - 1];
