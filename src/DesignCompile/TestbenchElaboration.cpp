@@ -525,7 +525,7 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
       return true;
     }
     std::string name;
-    for (auto v : var_chain) name += v + ".";
+    for (const auto& v : var_chain) name += v + ".";
     if (!name.empty()) name = name.substr(0, name.size() - 1);
     while (dtype && dtype->getDefinition()) {
       dtype = dtype->getDefinition();

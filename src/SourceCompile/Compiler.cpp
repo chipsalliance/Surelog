@@ -474,7 +474,7 @@ bool Compiler::createMultiProcessParser_() {
       }
 
       ofs << "add_custom_target(Parse ALL DEPENDS" << std::endl;
-      for (auto target : targets) {
+      for (const auto& target : targets) {
         ofs << target << std::endl;
       }
       ofs << ")" << std::endl;
@@ -485,7 +485,7 @@ bool Compiler::createMultiProcessParser_() {
         // Single child process
         fs::path fileList = directory / "parser_batch.txt";
         ofs.open(fileList);
-        for (auto line : batchProcessCommands) {
+        for (const auto& line : batchProcessCommands) {
           ofs << line << "\n";
         }
         ofs.close();

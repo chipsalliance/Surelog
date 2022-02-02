@@ -89,39 +89,39 @@ bool ElaborationStep::bindTypedefs_() {
   std::map<std::string, typespec*> specs;
   for (auto file : design->getAllFileContents()) {
     FileContent* fC = file.second;
-    for (auto typed : fC->getTypeDefMap()) {
+    for (const auto& typed : fC->getTypeDefMap()) {
       TypeDef* typd = typed.second;
       defs.emplace_back(typd, fC);
     }
   }
 
-  for (auto package : design->getPackageDefinitions()) {
+  for (const auto& package : design->getPackageDefinitions()) {
     Package* pack = package.second;
-    for (auto typed : pack->getTypeDefMap()) {
+    for (const auto& typed : pack->getTypeDefMap()) {
       TypeDef* typd = typed.second;
       defs.emplace_back(typd, pack);
     }
   }
 
-  for (auto module : design->getModuleDefinitions()) {
+  for (const auto& module : design->getModuleDefinitions()) {
     ModuleDefinition* mod = module.second;
-    for (auto typed : mod->getTypeDefMap()) {
+    for (const auto& typed : mod->getTypeDefMap()) {
       TypeDef* typd = typed.second;
       defs.emplace_back(typd, mod);
     }
   }
 
-  for (auto program_def : design->getProgramDefinitions()) {
+  for (const auto& program_def : design->getProgramDefinitions()) {
     Program* program = program_def.second;
-    for (auto typed : program->getTypeDefMap()) {
+    for (const auto& typed : program->getTypeDefMap()) {
       TypeDef* typd = typed.second;
       defs.emplace_back(typd, program);
     }
   }
 
-  for (auto class_def : design->getClassDefinitions()) {
+  for (const auto& class_def : design->getClassDefinitions()) {
     ClassDefinition* classp = class_def.second;
-    for (auto typed : classp->getTypeDefMap()) {
+    for (const auto& typed : classp->getTypeDefMap()) {
       TypeDef* typd = typed.second;
       defs.emplace_back(typd, classp);
     }
@@ -305,7 +305,7 @@ bool ElaborationStep::bindTypedefs_() {
       }
     }
   }
-  for (auto module : design->getPackageDefinitions()) {
+  for (const auto& module : design->getPackageDefinitions()) {
     DesignComponent* comp = module.second;
     for (any* var : comp->getLateTypedefBinding()) {
       const typespec* orig = nullptr;
@@ -349,7 +349,7 @@ bool ElaborationStep::bindTypedefs_() {
       }
     }
   }
-  for (auto module : design->getModuleDefinitions()) {
+  for (const auto& module : design->getModuleDefinitions()) {
     DesignComponent* comp = module.second;
     for (any* var : comp->getLateTypedefBinding()) {
       const typespec* orig = nullptr;

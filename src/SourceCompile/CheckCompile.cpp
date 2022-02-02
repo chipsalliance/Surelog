@@ -133,7 +133,7 @@ bool CheckCompile::checkTimescale_() {
     }
   }
   if (timeUnitUsed && timeScaleUsed) {
-    for (auto loc : noTimeUnitLocs) {
+    for (const auto& loc : noTimeUnitLocs) {
       if (reportedMissingTimeunit.find(loc.m_object) ==
           reportedMissingTimeunit.end()) {
         reportedMissingTimeunit.insert(loc.m_object);

@@ -264,7 +264,7 @@ bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName) {
     auto defineList =
         m_pp->getCompileSourceFile()->getCommandLineParser()->getDefineList();
     std::vector<std::string> define_vec;
-    for (auto definePair : defineList) {
+    for (const auto& definePair : defineList) {
       std::string spath =
           m_pp->getSymbol(definePair.first) + "=" + definePair.second;
       define_vec.push_back(spath);

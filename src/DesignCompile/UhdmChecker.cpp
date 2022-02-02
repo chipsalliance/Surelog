@@ -430,7 +430,7 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
     reportF.close();
     fileIndex++;
   }
-  for (auto covFile : orderedCoverageMap) {
+  for (const auto& covFile : orderedCoverageMap) {
     report << covFile.second << "\n";
   }
 
@@ -532,7 +532,7 @@ float UhdmChecker::reportCoverage(const fs::path& reportFile) {
   report << "\nOverall coverage: " << std::setprecision(3) << overallCoverage
          << "%\n";
   report << "\nOrdered coverage:\n";
-  for (auto covFile : coverageMap) {
+  for (const auto& covFile : coverageMap) {
     report << covFile.second.first << ":" << covFile.second.second << ": "
            << std::setprecision(3) << covFile.first << "% "
            << "\n";
@@ -652,7 +652,7 @@ bool UhdmChecker::check(const std::string& reportFile) {
   for (ModuleInstance* top : m_design->getTopLevelModuleInstances()) {
     collectUsedFileContents(files, moduleNames, top);
   }
-  for (auto packInfo : m_design->getPackageDefinitions()) {
+  for (const auto& packInfo : m_design->getPackageDefinitions()) {
     Package* pack = packInfo.second;
     for (auto file : pack->getFileContents()) {
       if (file) files.insert(file);

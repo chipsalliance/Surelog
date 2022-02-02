@@ -118,7 +118,7 @@ bool CompileDesign::compile() {
 template <class ObjectType, class ObjectMapType, typename FunctorType>
 void CompileDesign::compileMT_(ObjectMapType& objects, int maxThreadCount) {
   if (maxThreadCount == 0) {
-    for (auto itr : objects) {
+    for (const auto& itr : objects) {
       FunctorType funct(this, itr.second, m_compiler->getDesign(),
                         m_symbolTables[0], m_errorContainers[0]);
       funct.operator()();
@@ -131,7 +131,7 @@ void CompileDesign::compileMT_(ObjectMapType& objects, int maxThreadCount) {
       jobSize[i] = 0;
     }
     std::vector<std::vector<ObjectType*>> jobArray(maxThreadCount);
-    for (auto mod : objects) {
+    for (const auto& mod : objects) {
       unsigned int size = mod.second->getSize();
       if (size == 0) size = 100;
       unsigned int newJobIndex = 0;
@@ -218,7 +218,7 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
         if (finalCollection) lib->addModuleDefinition(mod.second);
       }
     }
-    for (auto prog : fC->getProgramDefinitions()) {
+    for (const auto& prog : fC->getProgramDefinitions()) {
       design->addProgramDefinition(prog.first, prog.second);
     }
     for (auto pack : fC->getPackageDefinitions()) {
@@ -264,7 +264,7 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
     }
     for (auto def : fC->getClassDefinitions()) {
       design->addClassDefinition(def.first, def.second);
-      for (auto def1 : def.second->getClassMap()) {
+      for (const auto& def1 : def.second->getClassMap()) {
         design->addClassDefinition(def1.first, def1.second);
       }
     }
@@ -400,13 +400,13 @@ void decompile(ValuedComponentI* instance) {
         std::cout << "Mod: " << inst->getModuleName() << " "
                   << component->getFileContents()[0]->getFileName() << "\n";
 
-        for (auto ps : inst->getMappedValues()) {
+        for (const auto& ps : inst->getMappedValues()) {
           const std::string& name = ps.first;
           Value* val = ps.second.first;
           std::cout << std::string("    " + name + " = " + val->uhdmValue() +
                                    "\n");
         }
-        for (auto ps : inst->getComplexValues()) {
+        for (const auto& ps : inst->getComplexValues()) {
           const std::string& name = ps.first;
           std::cout << std::string("    " + name + " =  complex\n");
         }

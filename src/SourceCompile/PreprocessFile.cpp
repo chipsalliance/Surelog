@@ -537,7 +537,7 @@ void PreprocessFile::recordMacro(const std::string& name, unsigned int line,
 
   if (m_debugMacro) {
     std::string body;
-    for (auto token : tokens) {
+    for (const auto& token : tokens) {
       body += token;
     }
     std::cout << "PP RECORDING MACRO: " << name << ": | " << body << " | "
@@ -594,7 +594,7 @@ void PreprocessFile::checkMacroArguments_(
     tok = StringUtils::replaceAll(tok, "`", "");
     tokenSet.insert(tok);
   }
-  for (auto s : argSet) {
+  for (const auto& s : argSet) {
     if (tokenSet.find(s) == tokenSet.end()) {
       Location loc(m_fileId, line, column, registerSymbol(s));
       Error err(ErrorDefinition::PP_MACRO_UNUSED_ARGUMENT, loc);
@@ -883,7 +883,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
     return std::make_pair(true, "`" + name);
   }
   std::string body;
-  for (auto token : body_tokens) {
+  for (const auto& token : body_tokens) {
     body += token;
   }
   if (keyword && !actual_args.empty() && formal_args.empty()) {
@@ -934,7 +934,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
       const fs::path fileName = getSymbol(m_fileId);
       std::cout << "PP BODY EXPANSION FOR " << name << " in : " << fileName
                 << std::endl;
-      for (auto arg : actual_args) {
+      for (const auto& arg : actual_args) {
         std::cout << "PP ARG: " << arg << "\n";
       }
     }
@@ -1067,7 +1067,7 @@ std::string PreprocessFile::getMacro(
   SymbolId macroId = registerSymbol(name);
   if (m_debugMacro) {
     std::cout << "PP CALL TO getMacro for " << name << "\n";
-    for (auto arg : arguments) {
+    for (const auto& arg : arguments) {
       std::cout << "PP ARG: " << arg << "\n";
     }
     instructions.print();
