@@ -480,11 +480,8 @@ FileContent* SLgetModuleFileContent(ModuleDefinition* module) {
 }
 
 NodeId SLgetModuleRootNode(ModuleDefinition* module) {
-  if (!module) return 0;
-  if (module->getFileContents().size())
-    return module->getNodeIds()[0];
-  else
-    return 0;
+  if (!module || module->getNodeIds().empty()) return 0;
+  return module->getNodeIds()[0];
 }
 
 std::string SLgetClassName(ClassDefinition* module) {
@@ -525,11 +522,8 @@ FileContent* SLgetClassFileContent(ClassDefinition* module) {
 }
 
 NodeId SLgetClassRootNode(ClassDefinition* module) {
-  if (!module) return 0;
-  if (module->getFileContents().size() && module->getFileContents()[0])
-    return module->getNodeIds()[0];
-  else
-    return 0;
+  if (!module || module->getNodeIds().empty()) return 0;
+  return module->getNodeIds()[0];
 }
 
 std::string SLgetPackageName(Package* module) {
@@ -569,11 +563,8 @@ FileContent* SLgetPackageFileContent(Package* module) {
 }
 
 NodeId SLgetPackageRootNode(Package* module) {
-  if (!module) return 0;
-  if (module->getFileContents().size())
-    return module->getNodeIds()[0];
-  else
-    return 0;
+  if (!module || module->getNodeIds().empty()) return 0;
+  return module->getNodeIds()[0];
 }
 
 std::string SLgetProgramName(Program* module) {
@@ -613,11 +604,8 @@ FileContent* SLgetProgramFileContent(Program* module) {
 }
 
 NodeId SLgetProgramRootNode(Program* module) {
-  if (!module) return 0;
-  if (module->getFileContents().size())
-    return module->getNodeIds()[0];
-  else
-    return 0;
+  if (!module || module->getNodeIds().empty()) return 0;
+  return module->getNodeIds()[0];
 }
 
 VObjectType SLgetInstanceType(ModuleInstance* instance) {
