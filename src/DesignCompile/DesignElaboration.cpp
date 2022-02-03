@@ -266,7 +266,7 @@ bool DesignElaboration::setupConfigurations_() {
   }
 
   // Remove unused configs from set
-  for (auto name : unused) {
+  for (const auto& name : unused) {
     std::vector<Config>::iterator itr;
     for (itr = allConfigs.begin(); itr != allConfigs.end(); itr++) {
       if ((*itr).getName() == name) {
@@ -494,7 +494,7 @@ bool DesignElaboration::identifyTopModules_() {
 
   // User overrides
   if (!toplevelModuleFound) {
-    for (auto userM : userTopList) {
+    for (const auto& userM : userTopList) {
       bool found = false;
       for (auto file : all_files) {
         if (m_compileDesign->getCompiler()->isLibraryFile(file.first)) continue;
@@ -573,7 +573,7 @@ bool DesignElaboration::createBuiltinPrimitives_() {
 
 bool DesignElaboration::elaborateAllModules_(bool onlyTopLevel) {
   bool status = true;
-  for (auto topmodule : m_topLevelModules) {
+  for (const auto& topmodule : m_topLevelModules) {
     if (!elaborateModule_(topmodule.first, topmodule.second, onlyTopLevel)) {
       status = false;
     }
@@ -783,7 +783,7 @@ void DesignElaboration::elaborateInstance_(
   while (tmp) {
     if (tmp->getDefinition() == parentDef) {
       loopDetected = true;
-      for (auto pvalues : parent->getMappedValues()) {
+      for (const auto& pvalues : parent->getMappedValues()) {
         const std::string& name = pvalues.first;
         Value* pval = pvalues.second.first;
         Value* val = tmp->getValue(name, m_exprBuilder);
@@ -794,7 +794,7 @@ void DesignElaboration::elaborateInstance_(
           }
         }
       }
-      for (auto cvalues : parent->getComplexValues()) {
+      for (const auto& cvalues : parent->getComplexValues()) {
         const std::string& name = cvalues.first;
         UHDM::expr* pval = cvalues.second;
         UHDM::expr* val = tmp->getComplexValue(name);
@@ -827,7 +827,7 @@ void DesignElaboration::elaborateInstance_(
 
   // Apply DefParams
   Design* design = m_compileDesign->getCompiler()->getDesign();
-  for (auto name : params) {
+  for (const auto& name : params) {
     DefParam* defparam =
         design->getDefParam(parent->getFullPathName() + "." + name);
     if (defparam) {
@@ -1310,7 +1310,7 @@ void DesignElaboration::elaborateInstance_(
 
       std::vector<std::string> libs;
       if (config) {
-        for (auto lib : config->getDefaultLibs()) {
+        for (const auto& lib : config->getDefaultLibs()) {
           libs.push_back(lib);
         }
         libs.push_back(libName);
@@ -1318,7 +1318,7 @@ void DesignElaboration::elaborateInstance_(
         libs.push_back(libName);
       }
 
-      for (auto lib : libs) {
+      for (const auto& lib : libs) {
         modName = lib + "@" + mname;
         def = design->getComponentDefinition(modName);
         if (def) {
@@ -1343,7 +1343,7 @@ void DesignElaboration::elaborateInstance_(
             break;
           }
           case UseClause::UseLib: {
-            for (auto lib : use.getLibs()) {
+            for (const auto& lib : use.getLibs()) {
               modName = lib + "@" + mname;
               def = design->getComponentDefinition(modName);
               if (def) {
@@ -1405,7 +1405,7 @@ void DesignElaboration::elaborateInstance_(
               break;
             }
             case UseClause::UseLib: {
-              for (auto lib : use.getLibs()) {
+              for (const auto& lib : use.getLibs()) {
                 modName = lib + "@" + mname;
                 def = design->getComponentDefinition(modName);
                 if (def) {
@@ -2181,7 +2181,7 @@ bool DesignElaboration::bindDataTypes_(ModuleInstance* instance,
 bool DesignElaboration::bindPackagesDataTypes_() {
   Design* design = m_compileDesign->getCompiler()->getDesign();
   auto packages = design->getPackageDefinitions();
-  for (auto packNamePair : packages) {
+  for (const auto& packNamePair : packages) {
     Package* package = packNamePair.second;
     const FileContent* fC = package->getFileContents()[0];
     std::vector<Signal*>& ports = package->getPorts();  // Always empty
@@ -2195,7 +2195,7 @@ bool DesignElaboration::bindPackagesDataTypes_() {
 bool DesignElaboration::bindDataTypes_() {
   Design* design = m_compileDesign->getCompiler()->getDesign();
   auto packages = design->getPackageDefinitions();
-  for (auto packNamePair : packages) {
+  for (const auto& packNamePair : packages) {
     Package* package = packNamePair.second;
     const FileContent* fC = package->getFileContents()[0];
     std::vector<Signal*>& ports = package->getPorts();  // Always empty
@@ -2205,7 +2205,7 @@ bool DesignElaboration::bindDataTypes_() {
   }
 
   auto modules = design->getModuleDefinitions();
-  for (auto modNamePair : modules) {
+  for (const auto& modNamePair : modules) {
     ModuleDefinition* mod = modNamePair.second;
     VObjectType compType = mod->getType();
     if (mod->getFileContents().empty()) {
@@ -2235,7 +2235,7 @@ bool DesignElaboration::bindDataTypes_() {
     }
   }
   auto programs = design->getProgramDefinitions();
-  for (auto programPair : programs) {
+  for (const auto& programPair : programs) {
     Program* prog = programPair.second;
     const FileContent* fC = prog->getFileContents()[0];
     std::vector<Signal*>& ports = prog->getPorts();
@@ -2249,7 +2249,7 @@ void DesignElaboration::createFileList_() {
   Design* design = m_compileDesign->getCompiler()->getDesign();
   std::queue<ModuleInstance*> queue;
   std::set<const FileContent*> files;
-  for (auto pack : design->getPackageDefinitions()) {
+  for (const auto& pack : design->getPackageDefinitions()) {
     if (!pack.second->getFileContents().empty()) {
       if (pack.second->getFileContents()[0] != nullptr)
         files.insert(pack.second->getFileContents()[0]);
@@ -2295,7 +2295,7 @@ void DesignElaboration::createFileList_() {
       for (auto fC : files) {
         auto itr = ppFileName.find(fC->getFileName());
         if (itr != ppFileName.end()) {
-          for (auto f : (*itr).second) {
+          for (const auto& f : itr->second) {
             ofs << f << std::flush << std::endl;
           }
         }

@@ -118,7 +118,7 @@ std::vector<SymbolId> FileUtils::collectFiles(const fs::path& dirPath,
                                               SymbolTable* symbols) {
   std::vector<SymbolId> result;
   if (fileIsDirectory(dirPath)) {
-    for (fs::directory_entry entry : fs::directory_iterator(dirPath)) {
+    for (const fs::directory_entry& entry : fs::directory_iterator(dirPath)) {
       const fs::path& filepath = entry.path();
       if (filepath.extension() == ext) {
         result.push_back(symbols->registerSymbol(filepath.string()));

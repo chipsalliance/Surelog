@@ -65,8 +65,8 @@ void DesignComponent::addObject(VObjectType type, FileCNodeId object) {
   }
 }
 
-void DesignComponent::addNamedObject(std::string name, FileCNodeId object,
-                                     DesignComponent* def) {
+void DesignComponent::addNamedObject(const std::string& name,
+                                     FileCNodeId object, DesignComponent* def) {
   m_namedObjects.insert(std::make_pair(name, std::make_pair(object, def)));
 }
 
@@ -89,7 +89,7 @@ void DesignComponent::append(DesignComponent* comp) {
   for (auto& obj : comp->m_namedObjects) {
     addNamedObject(obj.first, obj.second.first, obj.second.second);
   }
-  for (auto dtype : comp->m_dataTypes)
+  for (const auto& dtype : comp->m_dataTypes)
     insertDataType(dtype.first, dtype.second);
 }
 

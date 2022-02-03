@@ -55,7 +55,7 @@ unsigned int ClassDefinition::getSize() const {
 Property* ClassDefinition::getProperty(const std::string& name) const {
   PropertyMap::const_iterator itr = m_properties.find(name);
   if (itr == m_properties.end()) {
-    for (auto parent : getBaseClassMap()) {
+    for (const auto& parent : getBaseClassMap()) {
       if (parent.second) {
         const ClassDefinition* cparent =
             datatype_cast<const ClassDefinition*>(parent.second);
@@ -179,7 +179,7 @@ const DataType* ClassDefinition::getBaseDataType(
   const DataTypeMap& dataTypes = getDataTypeMap();
   DataTypeMap::const_iterator itr = dataTypes.find(name);
   if (itr == dataTypes.end()) {
-    for (auto parent : getBaseClassMap()) {
+    for (const auto& parent : getBaseClassMap()) {
       if (parent.second) {
         const ClassDefinition* cparent =
             datatype_cast<const ClassDefinition*>(parent.second);

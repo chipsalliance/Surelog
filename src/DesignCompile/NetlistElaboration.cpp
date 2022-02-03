@@ -133,7 +133,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
   VectorOfparam_assign* assigns = netlist->param_assigns();
   if (!mod) {
     if (param_port) return true;
-    for (auto mv : instance->getMappedValues()) {
+    for (const auto& mv : instance->getMappedValues()) {
       if (assigns == nullptr) {
         netlist->param_assigns(s.MakeParam_assignVec());
         assigns = netlist->param_assigns();
@@ -164,7 +164,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
   }
   if (mod->getParameters() != nullptr) {
     // Type params
-    for (auto nameParam : mod->getParameterMap()) {
+    for (const auto& nameParam : mod->getParameterMap()) {
       Parameter* sit = nameParam.second;
       elabTypeParameter_(mod, sit, instance);
     }
@@ -2069,7 +2069,7 @@ UHDM::any* NetlistElaboration::bind_net_(NodeId id, ModuleInstance* instance,
   if (instance && (result == nullptr)) {
     DesignComponent* component = instance->getDefinition();
     if (component) {
-      for (auto tp : component->getTypeDefMap()) {
+      for (const auto& tp : component->getTypeDefMap()) {
         TypeDef* tpd = tp.second;
         typespec* tps = tpd->getTypespec();
         if (tps && tps->UhdmType() == uhdmenum_typespec) {
@@ -2081,7 +2081,7 @@ UHDM::any* NetlistElaboration::bind_net_(NodeId id, ModuleInstance* instance,
           }
         }
       }
-      for (auto tp : component->getDataTypeMap()) {
+      for (const auto& tp : component->getDataTypeMap()) {
         const DataType* dt = tp.second;
         dt = dt->getActual();
         typespec* tps = dt->getTypespec();

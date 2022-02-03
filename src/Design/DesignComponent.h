@@ -96,7 +96,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   const std::vector<FileCNodeId>& getObjects(VObjectType type) const;
   void addObject(VObjectType type, FileCNodeId object);
 
-  void addNamedObject(std::string name, FileCNodeId object,
+  void addNamedObject(const std::string& name, FileCNodeId object,
                       DesignComponent* def = nullptr);
   std::map<std::string, std::pair<FileCNodeId, DesignComponent*>>&
   getNamedObjects() {
