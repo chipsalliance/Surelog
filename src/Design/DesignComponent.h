@@ -77,6 +77,8 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
 
   typedef std::map<std::string, DataType*> DataTypeMap;
   typedef std::map<std::string, TypeDef*> TypeDefMap;
+  typedef std::vector<DataType*> DataTypeVec;
+  typedef std::vector<TypeDef*> TypeDefVec;
   typedef std::map<std::string, Function*> FunctionMap;
   typedef std::map<std::string, Task*> TaskMap;
   typedef std::map<std::string, Variable*> VariableMap;

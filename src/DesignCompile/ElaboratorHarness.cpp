@@ -39,7 +39,7 @@ std::tuple<Design*, FileContent*, CompileDesign*> ElaboratorHarness::elaborate(
   compiler->compile();
   Design* design = compiler->getDesign();
   FileContent* fC = nullptr;
-  if (compiler->getCompileSourceFiles().size()) {
+  if (!compiler->getCompileSourceFiles().empty()) {
     CompileSourceFile* csf = compiler->getCompileSourceFiles().at(0);
     ParseFile* pf = csf->getParser();
     fC = pf->getFileContent();

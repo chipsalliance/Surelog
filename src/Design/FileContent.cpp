@@ -38,7 +38,7 @@
 namespace SURELOG {
 namespace fs = std::filesystem;
 NodeId FileContent::getRootNode() {
-  if (m_objects.size() == 0) {
+  if (m_objects.empty()) {
     return 0;
   }
   return m_objects[0].m_sibling;
@@ -262,7 +262,7 @@ unsigned short FileContent::EndColumn(NodeId index) const {
 }
 
 NodeId FileContent::sl_get(NodeId parent, VObjectType type) {
-  if (!m_objects.size()) return 0;
+  if (m_objects.empty()) return 0;
   if (parent > m_objects.size() - 1) return 0;
   VObject current = Object(parent);
   if (current.m_type == type) return parent;
@@ -279,7 +279,7 @@ NodeId FileContent::sl_get(NodeId parent, VObjectType type) {
 
 NodeId FileContent::sl_parent(NodeId parent, std::vector<VObjectType> types,
                               VObjectType& actualType) {
-  if (!m_objects.size()) return 0;
+  if (m_objects.empty()) return 0;
   if (parent > m_objects.size() - 1) return 0;
   VObject current = Object(parent);
   for (auto type : types)
@@ -301,7 +301,7 @@ NodeId FileContent::sl_parent(NodeId parent, std::vector<VObjectType> types,
 }
 
 NodeId FileContent::sl_parent(NodeId parent, VObjectType type) {
-  if (!m_objects.size()) return 0;
+  if (m_objects.empty()) return 0;
   if (parent > m_objects.size() - 1) return 0;
   VObject current = Object(parent);
   if (current.m_type == type) return parent;
@@ -318,7 +318,7 @@ NodeId FileContent::sl_parent(NodeId parent, VObjectType type) {
 
 std::vector<NodeId> FileContent::sl_get_all(NodeId parent, VObjectType type) {
   std::vector<NodeId> objects;
-  if (!m_objects.size()) return objects;
+  if (m_objects.empty()) return objects;
   if (parent > m_objects.size() - 1) return objects;
   VObject current = Object(parent);
   if (current.m_type == type) objects.push_back(parent);
@@ -336,7 +336,7 @@ std::vector<NodeId> FileContent::sl_get_all(NodeId parent, VObjectType type) {
 std::vector<NodeId> FileContent::sl_get_all(NodeId parent,
                                             std::vector<VObjectType>& types) {
   std::vector<NodeId> objects;
-  if (!m_objects.size()) return objects;
+  if (m_objects.empty()) return objects;
   if (parent > m_objects.size() - 1) return objects;
   VObject current = Object(parent);
   for (auto type : types) {
@@ -361,7 +361,7 @@ std::vector<NodeId> FileContent::sl_get_all(NodeId parent,
 }
 
 NodeId FileContent::sl_collect(NodeId parent, VObjectType type) const {
-  if (!m_objects.size()) return 0;
+  if (m_objects.empty()) return 0;
   if (parent > m_objects.size() - 1) return 0;
   VObject current = Object(parent);
   if (current.m_type == type) return parent;
@@ -383,7 +383,7 @@ NodeId FileContent::sl_collect(NodeId parent, VObjectType type) const {
 std::vector<NodeId> FileContent::sl_collect_all(NodeId parent, VObjectType type,
                                                 bool first) const {
   std::vector<NodeId> objects;
-  if (!m_objects.size()) return objects;
+  if (m_objects.empty()) return objects;
   if (parent > m_objects.size() - 1) return objects;
   VObject current = Object(parent);
   NodeId id = current.m_child;
@@ -391,7 +391,7 @@ std::vector<NodeId> FileContent::sl_collect_all(NodeId parent, VObjectType type,
   if (!id) return objects;
   std::stack<NodeId> stack;
   stack.push(id);
-  while (stack.size()) {
+  while (!stack.empty()) {
     id = stack.top();
     stack.pop();
     current = Object(id);
@@ -409,7 +409,7 @@ std::vector<NodeId> FileContent::sl_collect_all(NodeId parent,
                                                 std::vector<VObjectType>& types,
                                                 bool first) const {
   std::vector<NodeId> objects;
-  if (!m_objects.size()) return objects;
+  if (m_objects.empty()) return objects;
   if (parent > m_objects.size() - 1) return objects;
   VObject current = Object(parent);
   NodeId id = current.m_child;
@@ -417,7 +417,7 @@ std::vector<NodeId> FileContent::sl_collect_all(NodeId parent,
   if (!id) return objects;
   std::stack<NodeId> stack;
   stack.push(id);
-  while (stack.size()) {
+  while (!stack.empty()) {
     id = stack.top();
     stack.pop();
     current = Object(id);
@@ -439,7 +439,7 @@ std::vector<NodeId> FileContent::sl_collect_all(NodeId parent,
 NodeId FileContent::sl_collect(NodeId parent, VObjectType type,
                                VObjectType stopPoint) const {
   NodeId result = InvalidNodeId;
-  if (!m_objects.size()) return result;
+  if (m_objects.empty()) return result;
   if (parent > m_objects.size() - 1) return result;
   VObject current = Object(parent);
   NodeId id = current.m_child;
@@ -447,7 +447,7 @@ NodeId FileContent::sl_collect(NodeId parent, VObjectType type,
   if (!id) return result;
   std::stack<NodeId> stack;
   stack.push(id);
-  while (stack.size()) {
+  while (!stack.empty()) {
     id = stack.top();
     stack.pop();
     current = Object(id);
@@ -469,7 +469,7 @@ std::vector<NodeId> FileContent::sl_collect_all(
     NodeId parent, std::vector<VObjectType>& types,
     std::vector<VObjectType>& stopPoints, bool first) const {
   std::vector<NodeId> objects;
-  if (!m_objects.size()) return objects;
+  if (m_objects.empty()) return objects;
   if (parent > m_objects.size() - 1) return objects;
   VObject current = Object(parent);
   NodeId id = current.m_child;
@@ -477,7 +477,7 @@ std::vector<NodeId> FileContent::sl_collect_all(
   if (!id) return objects;
   std::stack<NodeId> stack;
   stack.push(id);
-  while (stack.size()) {
+  while (!stack.empty()) {
     id = stack.top();
     stack.pop();
     current = Object(id);
@@ -493,7 +493,7 @@ std::vector<NodeId> FileContent::sl_collect_all(
     if (current.m_sibling) stack.push(current.m_sibling);
 
     if (current.m_child) {
-      if (stopPoints.size()) {
+      if (!stopPoints.empty()) {
         bool stop = false;
         for (auto t : stopPoints) {
           if (t == current.m_type) {
@@ -529,8 +529,8 @@ bool FileContent::diffTree(NodeId root, const FileContent* oFc, NodeId oroot,
   std::stack<NodeId> stack2;
   stack1.push(id1);
   stack2.push(id2);
-  while (stack1.size()) {
-    if (!stack2.size()) return true;
+  while (!stack1.empty()) {
+    if (stack2.empty()) return true;
     id1 = stack1.top();
     id2 = stack2.top();
     stack1.pop();
@@ -552,8 +552,7 @@ bool FileContent::diffTree(NodeId root, const FileContent* oFc, NodeId oroot,
     if (current2.m_sibling) stack2.push(current2.m_sibling);
     if (current2.m_child) stack2.push(current2.m_child);
   }
-  if (stack2.size()) return true;
-  return false;
+  return !stack2.empty();
 }
 
 void FileContent::addDesignElement(const std::string& name,

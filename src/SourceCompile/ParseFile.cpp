@@ -173,7 +173,7 @@ void ParseFile::buildLineInfoCache_() {
   PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
   if (!pp) return;
   auto& infos = pp->getIncludeFileInfo();
-  if (infos.size()) {
+  if (!infos.empty()) {
     fileInfoCache.resize(pp->getSumLineCount() + 10);
     lineInfoCache.resize(pp->getSumLineCount() + 10);
     lineInfoCache[0] = 1;
@@ -230,7 +230,7 @@ SymbolId ParseFile::getFileId(unsigned int line) {
   PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
   if (!pp) return 0;
   auto& infos = pp->getIncludeFileInfo();
-  if (infos.size()) {
+  if (!infos.empty()) {
     if (!fileInfoCache.empty()) {
       if (line > fileInfoCache.size()) {
         SymbolId fileId = registerSymbol("CACHE OUT OF BOUND");
@@ -258,7 +258,7 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
   PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
   if (!pp) return 0;
   auto& infos = pp->getIncludeFileInfo();
-  if (infos.size()) {
+  if (!infos.empty()) {
     if (!lineInfoCache.empty()) {
       if (line > lineInfoCache.size()) {
         SymbolId fileId = registerSymbol("CACHE OUT OF BOUND");
@@ -461,7 +461,7 @@ bool ParseFile::parse() {
   bool precompiled = false;
   if (prec->isFilePrecompiled(root)) precompiled = true;
 
-  if (m_children.size() == 0) {
+  if (m_children.empty()) {
     ParseCache cache(this);
 
     if (cache.restore()) {
@@ -490,7 +490,7 @@ bool ParseFile::parse() {
   }
 
   // This is not a parent Parser object
-  if (m_children.size() == 0) {
+  if (m_children.empty()) {
     // std::cout << std::endl << "Parsing " << getSymbol(m_ppFileId) << "
     // Line: " << m_offsetLine << std::endl << std::flush;
 
@@ -505,8 +505,8 @@ bool ParseFile::parse() {
   }
 
   // This is either a parent Parser object of this Parser object has no parent
-  if ((m_children.size() != 0) || (m_parent == nullptr)) {
-    if ((m_parent == nullptr) && (m_children.size() == 0)) {
+  if (!m_children.empty() || (m_parent == nullptr)) {
+    if ((m_parent == nullptr) && (m_children.empty())) {
       Timer tmr;
 
       m_listener = new SV3_1aTreeShapeListener(
@@ -538,7 +538,7 @@ bool ParseFile::parse() {
       }
     }
 
-    if (m_children.size() != 0) {
+    if (!m_children.empty()) {
       for (unsigned int i = 0; i < m_children.size(); i++) {
         if (m_children[i]->m_antlrParserHandler) {
           // Only visit the chunks that got re-parsed

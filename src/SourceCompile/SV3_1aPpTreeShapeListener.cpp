@@ -687,7 +687,7 @@ void SV3_1aPpTreeShapeListener::enterLine_directive(
   std::string fileName;
   if (ctx->String()) fileName = StringUtils::unquoted(ctx->String()->getText());
   std::string number;
-  if (ctx->number().size()) number = ctx->number()[0]->getText();
+  if (!ctx->number().empty()) number = ctx->number()[0]->getText();
   SymbolId newFileId = getSymbolTable()->registerSymbol(fileName);
   if (ctx->number().size() > 1) {
     std::string type = ctx->number()[1]->getText();
@@ -1046,7 +1046,7 @@ void SV3_1aPpTreeShapeListener::enterEndif_directive(
   PreprocessFile::IfElseStack &stack = m_pp->getStack();
   std::pair<int, int> lineCol =
       ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
-  if (stack.size()) {
+  if (!stack.empty()) {
     bool unroll = true;
     if (ctx->One_line_comment()) {
       addLineFiller(ctx);

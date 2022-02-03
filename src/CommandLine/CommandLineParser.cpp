@@ -360,12 +360,13 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_symbolTable->registerSymbol(".v"));  // default
 }
 
-void CommandLineParser::splitPlusArg_(std::string s, std::string prefix,
+void CommandLineParser::splitPlusArg_(const std::string& s,
+                                      const std::string& prefix,
                                       std::vector<SymbolId>& container) {
   std::istringstream f(s);
   std::string tmp;
   while (getline(f, tmp, '+')) {
-    if (tmp.size() && (tmp != prefix)) {
+    if (!tmp.empty() && (tmp != prefix)) {
       SymbolId id = m_symbolTable->registerSymbol(tmp);
       container.push_back(id);
     }
@@ -373,12 +374,12 @@ void CommandLineParser::splitPlusArg_(std::string s, std::string prefix,
 }
 
 void CommandLineParser::splitPlusArg_(
-    std::string s, std::string prefix,
+    const std::string& s, const std::string& prefix,
     std::map<SymbolId, std::string>& container) {
   std::istringstream f(s);
   std::string tmp;
   while (getline(f, tmp, '+')) {
-    if (tmp.size() && (tmp != prefix)) {
+    if (!tmp.empty() && (tmp != prefix)) {
       std::string def;
       std::string value;
       const size_t loc = tmp.find("=");
@@ -400,7 +401,7 @@ bool CommandLineParser::plus_arguments_(const std::string& s) {
   std::string incdir("+incdir+");
   std::string libext("+libext+");
   std::string define("+define+");
-  if (s.size() == 0) return false;
+  if (s.empty()) return false;
   if (s.at(0) != '+') return false;
   if (s.compare(0, incdir.size(), incdir) == 0) {
     splitPlusArg_(s, "incdir", m_includePaths);
@@ -1057,21 +1058,21 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       } else {
         m_sverilog = true;
       }
-    } else if (all_arguments[i].size() && all_arguments[i] == "--x-assign") {
+    } else if (!all_arguments[i].empty() && all_arguments[i] == "--x-assign") {
       Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
       m_errors->addError(err);
       i++;
-    } else if (all_arguments[i].size() && all_arguments[i] == "--x-initial") {
+    } else if (!all_arguments[i].empty() && all_arguments[i] == "--x-initial") {
       Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
       m_errors->addError(err);
       i++;
-    } else if (all_arguments[i].size() && all_arguments[i].at(0) == '+') {
+    } else if (!all_arguments[i].empty() && all_arguments[i].at(0) == '+') {
       Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
       m_errors->addError(err);
-    } else if (all_arguments[i].size() && all_arguments[i].at(0) == '-') {
+    } else if (!all_arguments[i].empty() && all_arguments[i].at(0) == '-') {
       Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_MINUS_ARG_IGNORED, loc);
       m_errors->addError(err);

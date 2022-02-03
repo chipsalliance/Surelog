@@ -54,9 +54,6 @@ ModuleDefinition* ModuleDefinitionFactory::newModuleDefinition(
 }
 
 unsigned int ModuleDefinition::getSize() const {
-  if (m_fileContents.size()) {
-    return 0;
-  }
   unsigned int size = 0;
   for (unsigned int i = 0; i < m_fileContents.size(); i++) {
     NodeId end = m_nodeIds[i];

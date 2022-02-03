@@ -182,7 +182,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
     // Design clause
     std::vector<VObjectType> designStmt = {VObjectType::slDesign_statement};
     std::vector<NodeId> designs = fC->sl_collect_all(config, designStmt);
-    if (designs.size() == 0) {
+    if (designs.empty()) {
       // TODO: Error
     } else if (designs.size() > 1) {
       // TODO: Error
@@ -202,7 +202,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
     // Default clause
     std::vector<VObjectType> defaultStmt = {VObjectType::slDefault_clause};
     std::vector<NodeId> defaults = fC->sl_collect_all(config, defaultStmt);
-    if (defaults.size() > 0) {
+    if (!defaults.empty()) {
       NodeId defaultClause = defaults[0];
       NodeId libList = fC->Sibling(defaultClause);
       if (fC->Type(libList) == VObjectType::slLiblist_clause) {

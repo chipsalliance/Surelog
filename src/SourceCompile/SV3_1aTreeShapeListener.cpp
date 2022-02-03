@@ -192,8 +192,8 @@ void SV3_1aTreeShapeListener::exitSlline(SV3_1aParser::SllineContext *ctx) {
     m_includeFileInfo.push(info);
   } else if (type == IncludeFileInfo::POP) {
     // Pop
-    if (m_includeFileInfo.size()) m_includeFileInfo.pop();
-    if (m_includeFileInfo.size()) {
+    if (!m_includeFileInfo.empty()) m_includeFileInfo.pop();
+    if (!m_includeFileInfo.empty()) {
       m_includeFileInfo.top().m_sectionFile =
           m_pf->getSymbolTable()->registerSymbol(file);
       m_includeFileInfo.top().m_originalLine = lineCol.first /*+ m_lineOffset*/;
@@ -902,7 +902,7 @@ void SV3_1aTreeShapeListener::exitSystem_task_names(
   else if (ctx->ASSERT())
     addVObject((antlr4::ParserRuleContext *)ctx->ASSERT(), ident,
                VObjectType::slStringConst);
-  else if (ctx->Simple_identifier().size())
+  else if (!ctx->Simple_identifier().empty())
     addVObject((antlr4::ParserRuleContext *)ctx->Simple_identifier()[0], ident,
                VObjectType::slStringConst);
   else if (ctx->SIGNED())
@@ -1198,13 +1198,13 @@ void SV3_1aTreeShapeListener::exitPs_identifier(
     SV3_1aParser::Ps_identifierContext *ctx) {
   std::string ident;
   antlr4::ParserRuleContext *childCtx = nullptr;
-  if (ctx->Simple_identifier().size()) {
+  if (!ctx->Simple_identifier().empty()) {
     childCtx = (antlr4::ParserRuleContext *)ctx->Simple_identifier()[0];
     ident = ctx->Simple_identifier()[0]->getText();
     if (ctx->Simple_identifier().size() > 1) {
       ident += "::" + ctx->Simple_identifier()[1]->getText();
     }
-  } else if (ctx->Escaped_identifier().size()) {
+  } else if (!ctx->Escaped_identifier().empty()) {
     childCtx = (antlr4::ParserRuleContext *)ctx->Escaped_identifier()[0];
     ident = ctx->Escaped_identifier()[0]->getText();
     std::regex escaped(std::string(EscapeSequence) + std::string("(.*?)") +
@@ -1214,13 +1214,13 @@ void SV3_1aTreeShapeListener::exitPs_identifier(
       std::string var = match[1].str();
       ident = ident.replace(match.position(0), match.length(0), var);
     }
-  } else if (ctx->THIS().size()) {
+  } else if (!ctx->THIS().empty()) {
     childCtx = (antlr4::ParserRuleContext *)ctx->THIS()[0];
     ident = ctx->THIS()[0]->getText();
-  } else if (ctx->RANDOMIZE().size()) {
+  } else if (!ctx->RANDOMIZE().empty()) {
     childCtx = (antlr4::ParserRuleContext *)ctx->RANDOMIZE()[0];
     ident = ctx->RANDOMIZE()[0]->getText();
-  } else if (ctx->SAMPLE().size()) {
+  } else if (!ctx->SAMPLE().empty()) {
     childCtx = (antlr4::ParserRuleContext *)ctx->SAMPLE()[0];
     ident = ctx->SAMPLE()[0]->getText();
   } else if (ctx->DOLLAR_UNIT()) {
@@ -1382,7 +1382,7 @@ void SV3_1aTreeShapeListener::exitExpression(
     else
       addVObject((antlr4::ParserRuleContext *)ctx->BITW_AND(),
                  VObjectType::slBinOp_BitwAnd);
-  } else if (ctx->LOGICAL_AND().size()) {
+  } else if (!ctx->LOGICAL_AND().empty()) {
     addVObject((antlr4::ParserRuleContext *)ctx->LOGICAL_AND()[0],
                VObjectType::slBinOp_LogicAnd);
   } else if (ctx->LOGICAL_OR()) {
@@ -1549,7 +1549,7 @@ void SV3_1aTreeShapeListener::exitConstant_expression(
     else
       addVObject((antlr4::ParserRuleContext *)ctx->BITW_AND(),
                  VObjectType::slBinOp_BitwAnd);
-  } else if (ctx->LOGICAL_AND().size()) {
+  } else if (!ctx->LOGICAL_AND().empty()) {
     addVObject((antlr4::ParserRuleContext *)ctx->LOGICAL_AND()[0],
                VObjectType::slBinOp_LogicAnd);
   } else if (ctx->LOGICAL_OR()) {

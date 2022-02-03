@@ -197,14 +197,8 @@ bool ElaborationStep::bindTypedefs_() {
         if (ts) {
           ts->VpiName(typd->getName());
           std::string name;
-          bool muteError = false;
           if (typeF->Type(typeId) == slStringConst) {
             name = typeF->SymName(typeId);
-            NodeId dotName = typeF->Sibling(typeId);
-            if (typeF->Type(dotName) == slStringConst ||
-                (typeF->Type(dotName) == slConstant_bit_select)) {
-              muteError = true;
-            }
           } else {
             name = typd->getName();
           }
@@ -214,16 +208,19 @@ bool ElaborationStep::bindTypedefs_() {
             specs.insert(std::make_pair(name, ts));
           }
           if (ts->UhdmType() == uhdmunsupported_typespec) {
-            if (!muteError) {
-              Location loc1(symbols->registerSymbol(ts->VpiFile().string()),
-                            ts->VpiLineNo(), ts->VpiColumnNo(),
-                            symbols->registerSymbol(name));
-              Error err1(ErrorDefinition::COMP_UNDEFINED_TYPE, loc1);
-              errors->addError(err1);
-            }
+            Location loc1(symbols->registerSymbol(ts->VpiFile().string()),
+                          ts->VpiLineNo(), ts->VpiColumnNo(),
+                          symbols->registerSymbol(name));
+            Error err1(ErrorDefinition::COMP_UNDEFINED_TYPE, loc1);
+            errors->addError(err1);
           }
         }
         typd->setTypespec(ts);
+        if (DataType* dt = (DataType*)typd->getDataType()) {
+          if (dt->getTypespec() == nullptr) {
+            dt->setTypespec(ts);
+          }
+        }
       }
     } else if (prevDef == nullptr) {
       const DataType* def =
@@ -431,7 +428,7 @@ const DataType* ElaborationStep::bindDataType_(
   SymbolTable* symbols = compiler->getSymbolTable();
   Design* design = compiler->getDesign();
   std::string libName = "work";
-  if (parent->getFileContents().size()) {
+  if (!parent->getFileContents().empty()) {
     libName = parent->getFileContents()[0]->getLibrary()->getName();
   }
   ClassNameClassDefinitionMultiMap classes = design->getClassDefinitions();
@@ -764,7 +761,7 @@ Variable* ElaborationStep::locateStaticVariable_(
   if (itr != m_staticVariables.end()) return (*itr).second;
   Variable* result = nullptr;
   Design* design = m_compileDesign->getCompiler()->getDesign();
-  if (var_chain.size() > 0) {
+  if (!var_chain.empty()) {
     Package* package = design->getPackage(var_chain[0]);
     if (package) {
       if (var_chain.size() > 1) {
@@ -821,7 +818,7 @@ Variable* ElaborationStep::locateStaticVariable_(
     }
   }
   if (result == nullptr) {
-    if (var_chain.size()) {
+    if (!var_chain.empty()) {
       const DataType* dtype =
           bindDataType_(var_chain[0], fC, id, parentComponent, errtype);
       if (dtype) {
@@ -1332,12 +1329,26 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       } else if (ttps == uhdmunion_typespec) {
         var = s.MakeUnion_var();
       } else if (ttps == uhdmpacked_array_typespec) {
-        var = s.MakePacked_array_var();
+        packed_array_var* avar = s.MakePacked_array_var();
+        auto elems = s.MakeAnyVec();
+        avar->Elements(elems);
+        var = avar;
       } else if (ttps == uhdmarray_typespec) {
         array_var* array_var = s.MakeArray_var();
         array_var->VpiArrayType(vpiStaticArray);
         array_var->VpiRandType(vpiNotRand);
         var = array_var;
+      } else if (ttps == uhdmint_typespec) {
+        var = s.MakeInt_var();
+      } else if (ttps == uhdmlong_int_typespec) {
+        var = s.MakeLong_int_var();
+      } else if (ttps == uhdmstring_typespec) {
+        var = s.MakeString_var();
+      } else if (ttps == uhdmlogic_typespec) {
+        logic_typespec* ltps = (logic_typespec*)tps;
+        logic_var* avar = s.MakeLogic_var();
+        avar->Ranges(ltps->Ranges());
+        var = avar;
       } else {
         var = s.MakeLogic_var();
       }
@@ -1535,7 +1546,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
     }
 
     if (associative || queue || dynamic) {
-      if (unpackedDimensions->size()) {
+      if (!unpackedDimensions->empty()) {
         if (index == 0) {
           array_var->Ranges(unpackedDimensions);
         } else {

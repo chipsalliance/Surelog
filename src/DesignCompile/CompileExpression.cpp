@@ -562,7 +562,7 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
         }
 
       } else {
-        if (value.size() && value[0] == '-') {
+        if (!value.empty() && value[0] == '-') {
           v = "INT:" + value;
           c->VpiConstType(vpiIntConst);
         } else {
@@ -769,7 +769,7 @@ any* CompileHelper::decodeHierPath(hier_path* path, bool& invalidValue,
                                    bool returnTypespec) {
   Serializer& s = compileDesign->getSerializer();
   std::string baseObject;
-  if (path->Path_elems()->size()) {
+  if (!path->Path_elems()->empty()) {
     any* firstElem = path->Path_elems()->at(0);
     baseObject = firstElem->VpiName();
   }
@@ -2699,7 +2699,7 @@ any* CompileHelper::hierarchicalSelector(
           if (tps->VpiName() == "default") {
             defaultPattern = (any*)tpatt->Pattern();
           }
-          if (elemName.size() && (tps->VpiName() == elemName)) {
+          if (!elemName.empty() && (tps->VpiName() == elemName)) {
             const any* patt = tpatt->Pattern();
             UHDM_OBJECT_TYPE pattType = patt->UhdmType();
             if (pattType == uhdmconstant) {
@@ -3391,7 +3391,7 @@ UHDM::any* CompileHelper::compileSelectExpression(
                     bit_select* s = (bit_select*)el;
                     const expr* index = s->VpiIndex();
                     std::string ind = index->VpiDecompile();
-                    if (ind.size() == 0) ind = index->VpiName();
+                    if (ind.empty()) ind = index->VpiName();
                     n += "[" + ind + "]";
                   }
                   hname += "." + n;
@@ -4508,7 +4508,7 @@ UHDM::any* CompileHelper::compileExpression(
                     }
                     if (param_ass->Lhs()->UhdmType() == uhdmparameter) {
                       const parameter* tp = (parameter*)param_ass->Lhs();
-                      if (tp->VpiImported() != "") {
+                      if (!tp->VpiImported().empty()) {
                         paramFromPackage = true;
                       }
                     }
@@ -6855,7 +6855,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
         NodeId BitSelect = fC->Child(dotedName);
         if (dtype == VObjectType::slStringConst) {
           the_name += "." + fC->SymName(dotedName);
-          if (tmpName != "") {
+          if (!tmpName.empty()) {
             ref_obj* ref = s.MakeRef_obj();
             elems->push_back(ref);
             ref->VpiName(tmpName);
@@ -7006,7 +7006,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
         if (dotedName) dotedName = fC->Sibling(dotedName);
       }
       if (is_hierarchical) {
-        if (tmpName != "") {
+        if (!tmpName.empty()) {
           ref_obj* ref = s.MakeRef_obj();
           elems->push_back(ref);
           ref->VpiName(tmpName);

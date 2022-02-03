@@ -182,7 +182,7 @@ bool CompileModule::collectUdpObjects_() {
   stack.push(id);
   m_module->m_udpDefn = s.MakeUdp_defn();
   UHDM::udp_defn* defn = m_module->m_udpDefn;
-  while (stack.size()) {
+  while (!stack.empty()) {
     id = stack.top();
     stack.pop();
     current = fC->Object(id);
@@ -551,7 +551,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
     stack.push(id);
     VObjectType port_direction = VObjectType::slNoType;
 
-    while (stack.size()) {
+    while (!stack.empty()) {
       id = stack.top();
       if (endOfBlockId && (id == endOfBlockId)) {
         break;
@@ -816,7 +816,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
 
       if (current.m_sibling) stack.push(current.m_sibling);
       if (current.m_child && (!skipChildren)) {
-        if (stopPoints.size()) {
+        if (!stopPoints.empty()) {
           bool stop = false;
           for (auto t : stopPoints) {
             if (t == current.m_type) {
@@ -892,7 +892,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
     std::stack<NodeId> stack;
     stack.push(id);
     VObjectType port_direction = VObjectType::slNoType;
-    while (stack.size()) {
+    while (!stack.empty()) {
       id = stack.top();
       if (ParameterPortListId && (id == ParameterPortListId)) {
         ParameterPortListId = 0;
@@ -1177,7 +1177,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
 
       if (current.m_sibling) stack.push(current.m_sibling);
       if (current.m_child) {
-        if (stopPoints.size()) {
+        if (!stopPoints.empty()) {
           bool stop = false;
           for (auto t : stopPoints) {
             if (t == current.m_type) {
