@@ -69,6 +69,8 @@ n<> u<54> t<Top_level_rule> l<1:1> el<14:1>
 
 [INF:EL0526] Design Elaboration...
 
+[ERR:CP0317] dut.sv:10:11: Undefined type "types".
+
 [NTE:EL0503] dut.sv:7: Top level module "work@top".
 
 [ERR:EL0538] dut.sv:8:16: Illegal use of an interface as a signal type for "types".
@@ -129,34 +131,33 @@ design: (work@top)
   |vpiVariables:
   \_logic_var: (work@top.common_header), line:12:23, endln:12:36, parent:work@top
     |vpiTypespec:
-    \_unsupported_typespec: (types), line:10:11, endln:10:16
-      |vpiName:types
+    \_unsupported_typespec: (tnoc_common_header), line:10:11, endln:10:16
+      |vpiName:tnoc_common_header
+      |vpiInstance:
+      \_module: work@top (work@top) dut.sv:7:1: , endln:13:10, parent:work@top
+        |vpiFullName:work@top
+        |vpiTypedef:
+        \_unsupported_typespec: (tnoc_common_header), line:10:11, endln:10:16
+        |vpiDefName:work@top
+        |vpiNet:
+        \_logic_net: (work@top.types), line:8:16, parent:work@top
+          |vpiName:types
+          |vpiFullName:work@top.types
+        |vpiNet:
+        \_logic_net: (work@top.common_header), line:12:23, parent:work@top
+          |vpiName:common_header
+          |vpiFullName:work@top.common_header
     |vpiName:common_header
     |vpiFullName:work@top.common_header
     |vpiAutomatic:1
     |vpiVisibility:1
   |vpiTypedef:
   \_unsupported_typespec: (tnoc_common_header), line:10:11, endln:10:16
-    |vpiName:tnoc_common_header
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:13:10, parent:work@top
-      |vpiFullName:work@top
-      |vpiTypedef:
-      \_unsupported_typespec: (tnoc_common_header), line:10:11, endln:10:16
-      |vpiDefName:work@top
-      |vpiNet:
-      \_logic_net: (work@top.types), line:8:16, parent:work@top
-        |vpiName:types
-        |vpiFullName:work@top.types
-      |vpiNet:
-      \_logic_net: (work@top.common_header), line:12:23, parent:work@top
-        |vpiName:common_header
-        |vpiFullName:work@top.common_header
   |vpiDefName:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 2
 [WARNING] : 2
 [   NOTE] : 5
 

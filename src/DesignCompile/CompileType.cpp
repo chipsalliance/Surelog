@@ -441,6 +441,62 @@ typespec* CompileHelper::compileDatastructureTypespec(
           }
         }
       }
+      if (dt == nullptr) {
+        for (Signal* sig : component->getPorts()) {
+          // Interface port type
+          if (sig->getName() == typeName) {
+            if (sig->getInterfaceTypeNameId()) {
+              std::string suffixname;
+              std::string typeName;
+              if (fC->Type(sig->getInterfaceTypeNameId()) == slStringConst) {
+                typeName = fC->SymName(sig->getInterfaceTypeNameId());
+              }
+              NodeId suffixNode = 0;
+              if ((suffixNode = fC->Sibling(type))) {
+                if (fC->Type(suffixNode) == slStringConst) {
+                  suffixname = fC->SymName(suffixNode);
+                } else if (fC->Type(suffixNode) == slConstant_bit_select) {
+                  suffixNode = fC->Sibling(suffixNode);
+                  if (fC->Type(suffixNode) == slStringConst) {
+                    suffixname = fC->SymName(suffixNode);
+                  }
+                }
+              }
+              typespec* tmp = compileDatastructureTypespec(
+                  component, fC, sig->getInterfaceTypeNameId(), compileDesign,
+                  instance, reduce, suffixname, typeName);
+              if (tmp) {
+                if (tmp->UhdmType() == uhdminterface_typespec) {
+                  if (!suffixname.empty()) {
+                    ErrorContainer* errors =
+                        compileDesign->getCompiler()->getErrorContainer();
+                    SymbolTable* symbols =
+                        compileDesign->getCompiler()->getSymbolTable();
+                    Location loc1(
+                        symbols->registerSymbol(fC->getFileName().string()),
+                        fC->Line(suffixNode), fC->Column(suffixNode),
+                        symbols->registerSymbol(suffixname));
+                    std::string libName = fC->getLibrary()->getName();
+                    Design* design = compileDesign->getCompiler()->getDesign();
+                    ModuleDefinition* def =
+                        design->getModuleDefinition(libName + "@" + typeName);
+                    const FileContent* interF = def->getFileContents()[0];
+                    Location loc2(
+                        symbols->registerSymbol(interF->getFileName().string()),
+                        interF->Line(def->getNodeIds()[0]),
+                        interF->Column(def->getNodeIds()[0]),
+                        symbols->registerSymbol(typeName));
+                    Error err(ErrorDefinition::ELAB_UNKNOWN_INTERFACE_MEMBER,
+                              loc1, loc2);
+                    errors->addError(err);
+                  }
+                }
+                return tmp;
+              }
+            }
+          }
+        }
+      }
     }
     if (dt == nullptr) {
       if (!compileDesign->getCompiler()->getCommandLineParser()->fileunit()) {
@@ -614,6 +670,23 @@ typespec* CompileHelper::compileDatastructureTypespec(
           tps->VpiEndLineNo(fC->EndLine(type));
           tps->VpiEndColumnNo(fC->EndColumn(type));
           result = tps;
+          if (!suffixname.empty()) {
+            const DataType* defType = def->getDataType(suffixname);
+            bool foundDataType = false;
+            while (defType) {
+              foundDataType = true;
+              if (typespec* t = defType->getTypespec()) {
+                result = t;
+                return result;
+              }
+              defType = defType->getDefinition();
+            }
+            if (foundDataType) {
+              // The binding to the actual typespec is still incomplete
+              result = s.MakeLogic_typespec();
+              return result;
+            }
+          }
           if (NodeId sub = fC->Sibling(type)) {
             const std::string& name = fC->SymName(sub);
             if (def->getModPort(name)) {
