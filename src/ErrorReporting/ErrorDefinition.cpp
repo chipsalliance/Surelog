@@ -396,6 +396,11 @@ bool ErrorDefinition::init() {
       "Empty parameter override for %s");
   rec(ELAB_USE_INTERFACE_AS_SIGNAL_TYPE, ERROR, ELAB,
       "Illegal use of an interface as a signal type for \"%s\"");
+  rec(ELAB_UNKNOWN_STRUCT_MEMBER, ERROR, ELAB, "Unknown struct member \"%s\"",
+      "%exloc struct definition for \"%exobj\"");
+  rec(ELAB_UNKNOWN_INTERFACE_MEMBER, ERROR, ELAB,
+      "Unknown interface member \"%s\"",
+      "%exloc interface definition for \"%exobj\"");
   rec(LIB_FILE_MAPS_TO_MULTIPLE_LIBS, ERROR, LIB,
       "File \"%exobj\" maps to multiple libraries: \"%s\"");
   rec(UHDM_UNSUPPORTED_EXPR, ERROR, UHDM, "Unsupported expression \"%s\"");

@@ -197,14 +197,8 @@ bool ElaborationStep::bindTypedefs_() {
         if (ts) {
           ts->VpiName(typd->getName());
           std::string name;
-          bool muteError = false;
           if (typeF->Type(typeId) == slStringConst) {
             name = typeF->SymName(typeId);
-            NodeId dotName = typeF->Sibling(typeId);
-            if (typeF->Type(dotName) == slStringConst ||
-                (typeF->Type(dotName) == slConstant_bit_select)) {
-              muteError = true;
-            }
           } else {
             name = typd->getName();
           }
@@ -214,16 +208,19 @@ bool ElaborationStep::bindTypedefs_() {
             specs.insert(std::make_pair(name, ts));
           }
           if (ts->UhdmType() == uhdmunsupported_typespec) {
-            if (!muteError) {
-              Location loc1(symbols->registerSymbol(ts->VpiFile().string()),
-                            ts->VpiLineNo(), ts->VpiColumnNo(),
-                            symbols->registerSymbol(name));
-              Error err1(ErrorDefinition::COMP_UNDEFINED_TYPE, loc1);
-              errors->addError(err1);
-            }
+            Location loc1(symbols->registerSymbol(ts->VpiFile().string()),
+                          ts->VpiLineNo(), ts->VpiColumnNo(),
+                          symbols->registerSymbol(name));
+            Error err1(ErrorDefinition::COMP_UNDEFINED_TYPE, loc1);
+            errors->addError(err1);
           }
         }
         typd->setTypespec(ts);
+        if (DataType* dt = (DataType*)typd->getDataType()) {
+          if (dt->getTypespec() == nullptr) {
+            dt->setTypespec(ts);
+          }
+        }
       }
     } else if (prevDef == nullptr) {
       const DataType* def =
@@ -1332,12 +1329,26 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       } else if (ttps == uhdmunion_typespec) {
         var = s.MakeUnion_var();
       } else if (ttps == uhdmpacked_array_typespec) {
-        var = s.MakePacked_array_var();
+        packed_array_var* avar = s.MakePacked_array_var();
+        auto elems = s.MakeAnyVec();
+        avar->Elements(elems);
+        var = avar;
       } else if (ttps == uhdmarray_typespec) {
         array_var* array_var = s.MakeArray_var();
         array_var->VpiArrayType(vpiStaticArray);
         array_var->VpiRandType(vpiNotRand);
         var = array_var;
+      } else if (ttps == uhdmint_typespec) {
+        var = s.MakeInt_var();
+      } else if (ttps == uhdmlong_int_typespec) {
+        var = s.MakeLong_int_var();
+      } else if (ttps == uhdmstring_typespec) {
+        var = s.MakeString_var();
+      } else if (ttps == uhdmlogic_typespec) {
+        logic_typespec* ltps = (logic_typespec*)tps;
+        logic_var* avar = s.MakeLogic_var();
+        avar->Ranges(ltps->Ranges());
+        var = avar;
       } else {
         var = s.MakeLogic_var();
       }
