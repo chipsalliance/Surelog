@@ -2573,9 +2573,9 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
   listen_designs(designs, linter);
   delete linter;
 
-  //UhdmStrengthRes* resolveStrength = new UhdmStrengthRes(&s);
-  //listen_designs(designs, resolveStrength);
-  //delete resolveStrength;
+  // UhdmStrengthRes* resolveStrength = new UhdmStrengthRes(&s);
+  // listen_designs(designs, resolveStrength);
+  // delete resolveStrength;
 
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getUhdmStats())
     printUhdmStats(s);

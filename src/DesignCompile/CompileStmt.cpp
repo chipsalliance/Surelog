@@ -200,19 +200,30 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       VectorOfany* stmts = s.MakeAnyVec();
       UHDM::scope* scope = nullptr;
       std::string label;
-      NodeId labelId = the_stmt;
+      NodeId labelId = 0;
       if (fC->Type(item) == VObjectType::slStringConst) {
+        labelId = item;
+        item = fC->Sibling(item);
+      } else {
+        NodeId Statement_item = fC->Parent(the_stmt);
+        NodeId Statement = fC->Parent(Statement_item);
+        NodeId Label = fC->Child(Statement);
+        if (fC->Sibling(Label) == Statement_item) {
+          if (fC->Type(Label) == slStringConst) labelId = Label;
+        }
+      }
+
+      if (labelId) {
         UHDM::named_begin* begin = s.MakeNamed_begin();
         begin->Stmts(stmts);
         begin->VpiParent(pstmt);
         stmt = begin;
-        label = fC->SymName(item);
-        labelId = item;
+        label = fC->SymName(labelId);
         begin->VpiName(label);
-        item = fC->Sibling(item);
         scope = begin;
       } else {
         UHDM::begin* begin = s.MakeBegin();
+        labelId = the_stmt;
         begin->Stmts(stmts);
         begin->VpiParent(pstmt);
         stmt = begin;
@@ -283,6 +294,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       NodeId labelId = 0;
       if (fC->Type(item) == VObjectType::slStringConst) {
         labelId = item;
+        item = fC->Sibling(item);
       } else {
         NodeId Statement_item = fC->Parent(the_stmt);
         NodeId Statement = fC->Parent(Statement_item);
