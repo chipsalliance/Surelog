@@ -63,6 +63,7 @@
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/Serializer.h>
 #include <uhdm/UhdmLint.h>
+//#include <uhdm/UhdmStrengthRes.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/module.h>
 #include <uhdm/uhdm.h>
@@ -2570,6 +2571,11 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
 
   UhdmLint* linter = new UhdmLint(&s);
   listen_designs(designs, linter);
+  delete linter;
+
+  // UhdmStrengthRes* resolveStrength = new UhdmStrengthRes(&s);
+  // listen_designs(designs, resolveStrength);
+  // delete resolveStrength;
 
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getUhdmStats())
     printUhdmStats(s);
