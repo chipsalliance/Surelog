@@ -82,7 +82,7 @@ unsigned int FileContent::getSize() const { return m_objects.size(); }
 
 std::string FileContent::printSubTree(NodeId uniqueId) {
   std::string text;
-  for (auto s : collectSubTree(uniqueId)) {
+  for (const auto& s : collectSubTree(uniqueId)) {
     text += s + "\n";
   }
   return text;
@@ -164,13 +164,13 @@ std::vector<std::string> FileContent::collectSubTree(NodeId index) {
                                         GetDefinitionFile(index), m_fileId));
 
   if (m_objects[index].m_child) {
-    for (auto s : collectSubTree(m_objects[index].m_child)) {
+    for (const auto& s : collectSubTree(m_objects[index].m_child)) {
       text.push_back("    " + s);
     }
   }
 
   if (m_objects[index].m_sibling) {
-    for (auto s : collectSubTree(m_objects[index].m_sibling)) {
+    for (const auto& s : collectSubTree(m_objects[index].m_sibling)) {
       text.push_back(s);
     }
   }

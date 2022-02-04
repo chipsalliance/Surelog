@@ -3202,7 +3202,7 @@ any* CompileHelper::getValue(const std::string& name,
     }
   }
   if (component && (result == nullptr)) {
-    for (auto tp : component->getTypeDefMap()) {
+    for (const auto& tp : component->getTypeDefMap()) {
       TypeDef* tpd = tp.second;
       typespec* tps = tpd->getTypespec();
       if (tps && tps->UhdmType() == uhdmenum_typespec) {
@@ -5312,13 +5312,13 @@ bool CompileHelper::errorOnNegativeConstant(
           std::cout << "Mod: " << inst->getModuleName() << " "
                     << component->getFileContents()[0]->getFileName() << "\n";
 
-          for (auto ps : inst->getMappedValues()) {
+          for (const auto& ps : inst->getMappedValues()) {
             const std::string& name = ps.first;
             Value* val = ps.second.first;
             std::cout << std::string("    " + name + " = " + val->uhdmValue() +
                                      "\n");
           }
-          for (auto ps : inst->getComplexValues()) {
+          for (const auto& ps : inst->getComplexValues()) {
             const std::string& name = ps.first;
             std::cout << std::string("    " + name + " =  complex\n");
           }

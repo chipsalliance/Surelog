@@ -32,6 +32,7 @@ Checks: >
     clang-diagnostic-inconsistent-missing-override,
     clang-diagnostic-unused-private-field,
     modernize-use-override,
+    performance-for-range-copy,
     readability-container-size-empty,
     readability-delete-null-pointer,
     readability-redundant-member-init,

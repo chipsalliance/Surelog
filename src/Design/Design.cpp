@@ -51,7 +51,7 @@ Design::~Design() {
   for (auto elem : m_fileContents) {
     delete elem.second;
   }
-  for (auto elem : m_moduleDefinitions) {
+  for (const auto& elem : m_moduleDefinitions) {
     delete elem.second;
   }
   for (auto elem : m_topLevelModuleInstances) {
@@ -60,10 +60,10 @@ Design::~Design() {
   for (auto elem : m_orderedPackageDefinitions) {
     delete elem;
   }
-  for (auto elem : m_programDefinitions) {
+  for (const auto& elem : m_programDefinitions) {
     delete elem.second;
   }
-  for (auto elem : m_uniqueClassDefinitions) {
+  for (const auto& elem : m_uniqueClassDefinitions) {
     delete elem.second;
   }
 }
@@ -165,13 +165,13 @@ std::string Design::reportInstanceTree() const {
       if (tmp) {
         ModuleInstance* inst = valuedcomponenti_cast<ModuleInstance*>(tmp);
         if (inst) {
-          for (auto ps : inst->getMappedValues()) {
+          for (const auto& ps : inst->getMappedValues()) {
             const std::string& name = ps.first;
             Value* val = ps.second.first;
             tree +=
                 std::string("    " + name + " = " + val->uhdmValue() + "\n");
           }
-          for (auto ps : inst->getComplexValues()) {
+          for (const auto& ps : inst->getComplexValues()) {
             const std::string& name = ps.first;
             tree += std::string("    " + name + " = " + "complex" + "\n");
           }
@@ -384,7 +384,7 @@ void Design::addDefParam_(std::vector<std::string>& path, const FileContent* fC,
 void Design::checkDefParamUsage(DefParam* parent) {
   if (parent == nullptr) {
     // Start by all the top defs of the trie
-    for (auto top : m_defParams) {
+    for (const auto& top : m_defParams) {
       checkDefParamUsage(top.second);
     }
   } else {
@@ -408,7 +408,7 @@ void Design::checkDefParamUsage(DefParam* parent) {
       Error err(ErrorDefinition::ELAB_UNMATCHED_DEFPARAM, loc);
       m_errors->addError(err);
     }
-    for (auto param : parent->getChildren()) {
+    for (const auto& param : parent->getChildren()) {
       checkDefParamUsage(param.second);
     }
   }
@@ -450,7 +450,7 @@ void Design::orderPackages() {
   unsigned int index = 0;
   typedef std::map<std::string, int> MultiDefCount;
   MultiDefCount multiDefCount;
-  for (auto packageName : m_orderedPackageNames) {
+  for (const auto& packageName : m_orderedPackageNames) {
     for (unsigned int i = 0; i < m_packageDefinitions.size(); i++) {
       PackageNamePackageDefinitionMultiMap::iterator pos =
           m_packageDefinitions.begin();

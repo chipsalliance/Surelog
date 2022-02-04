@@ -63,6 +63,7 @@
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/Serializer.h>
 #include <uhdm/UhdmLint.h>
+//#include <uhdm/UhdmStrengthRes.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/module.h>
 #include <uhdm/uhdm.h>
@@ -915,8 +916,8 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   }
 
   // ClockingBlocks
-  for (auto ctupple : mod->getClockingBlockMap()) {
-    ClockingBlock& cblock = ctupple.second;
+  for (const auto& ctupple : mod->getClockingBlockMap()) {
+    const ClockingBlock& cblock = ctupple.second;
     switch (cblock.getType()) {
       case ClockingBlock::Type::Default: {
         m->Default_clocking(cblock.getActual());
@@ -1050,8 +1051,8 @@ void UhdmWriter::writeInterface(ModuleDefinition* mod, interface* m,
   }
 
   // ClockingBlocks
-  for (auto ctupple : mod->getClockingBlockMap()) {
-    ClockingBlock& cblock = ctupple.second;
+  for (const auto& ctupple : mod->getClockingBlockMap()) {
+    const ClockingBlock& cblock = ctupple.second;
     switch (cblock.getType()) {
       case ClockingBlock::Type::Default: {
         m->Default_clocking(cblock.getActual());
@@ -1140,8 +1141,8 @@ void writeProgram(Program* mod, program* m, Serializer& s,
   }
 
   // ClockingBlocks
-  for (auto ctupple : mod->getClockingBlockMap()) {
-    ClockingBlock& cblock = ctupple.second;
+  for (const auto& ctupple : mod->getClockingBlockMap()) {
+    const ClockingBlock& cblock = ctupple.second;
     switch (cblock.getType()) {
       case ClockingBlock::Type::Default: {
         m->Default_clocking(cblock.getActual());
@@ -1383,8 +1384,8 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
   }
 
   // ClockingBlocks
-  for (auto ctupple : mod->getClockingBlockMap()) {
-    ClockingBlock& cblock = ctupple.second;
+  for (const auto& ctupple : mod->getClockingBlockMap()) {
+    const ClockingBlock& cblock = ctupple.second;
     switch (cblock.getType()) {
       case ClockingBlock::Type::Default: {
         // No default clocking
@@ -1619,7 +1620,7 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
             }
           }
         }
-        for (auto imp : importedPackages) {
+        for (const auto& imp : importedPackages) {
           if (n->VpiName() == std::string(imp + "::" + name)) {
             isTypespec = true;
             break;
@@ -1635,7 +1636,7 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
       if (ref->Actual_group()) continue;
     }
     const FileContent* fC = mod->getFileContents()[0];
-    for (auto td : fC->getTypeDefMap()) {
+    for (const auto& td : fC->getTypeDefMap()) {
       const DataType* dt = td.second;
       while (dt) {
         typespec* n = dt->getTypespec();
@@ -2290,10 +2291,10 @@ void printUhdmStats(Serializer& s) {
   std::cout << "UHDM Objects Stats:\n";
   std::map<std::string, unsigned long> stats = s.ObjectStats();
   std::multimap<unsigned long, std::string> rstats;
-  for (auto stat : stats) {
+  for (const auto& stat : stats) {
     if (stat.second) rstats.insert(std::make_pair(stat.second, stat.first));
   }
-  for (auto stat : rstats) {
+  for (const auto& stat : rstats) {
     std::cout << stat.second << " " << stat.first << "\n";
   }
   std::cout << "\n";
@@ -2417,7 +2418,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
     // Programs
     auto programs = m_design->getProgramDefinitions();
     VectorOfprogram* uhdm_programs = s.MakeProgramVec();
-    for (auto progNamePair : programs) {
+    for (const auto& progNamePair : programs) {
       Program* prog = progNamePair.second;
       if (!prog->getFileContents().empty() &&
           prog->getType() == VObjectType::slProgram_declaration) {
@@ -2442,7 +2443,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
     // Interfaces
     auto modules = m_design->getModuleDefinitions();
     VectorOfinterface* uhdm_interfaces = s.MakeInterfaceVec();
-    for (auto modNamePair : modules) {
+    for (const auto& modNamePair : modules) {
       ModuleDefinition* mod = modNamePair.second;
       if (mod->getFileContents().empty()) {
         // Built-in primitive
@@ -2469,7 +2470,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
     VectorOfmodule* uhdm_modules = s.MakeModuleVec();
     // Udps
     VectorOfudp_defn* uhdm_udps = s.MakeUdp_defnVec();
-    for (auto modNamePair : modules) {
+    for (const auto& modNamePair : modules) {
       ModuleDefinition* mod = modNamePair.second;
       if (mod->getFileContents().empty()) {
         // Built-in primitive
@@ -2512,7 +2513,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
     // Classes
     auto classes = m_design->getClassDefinitions();
     VectorOfclass_defn* v4 = s.MakeClass_defnVec();
-    for (auto classNamePair : classes) {
+    for (const auto& classNamePair : classes) {
       ClassDefinition* classDef = classNamePair.second;
       if (!classDef->getFileContents().empty() &&
           classDef->getType() == VObjectType::slClass_declaration) {
@@ -2570,6 +2571,11 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
 
   UhdmLint* linter = new UhdmLint(&s);
   listen_designs(designs, linter);
+  delete linter;
+
+  //UhdmStrengthRes* resolveStrength = new UhdmStrengthRes(&s);
+  //listen_designs(designs, resolveStrength);
+  //delete resolveStrength;
 
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getUhdmStats())
     printUhdmStats(s);

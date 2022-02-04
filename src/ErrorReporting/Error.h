@@ -33,13 +33,15 @@ namespace SURELOG {
 
 class ErrorContainer;
 
-class Error {
+class Error final {
  public:
   friend ErrorContainer;
-  Error(ErrorDefinition::ErrorType errorId, Location& loc,
-        std::vector<Location>* extraLocs = nullptr);
-  Error(ErrorDefinition::ErrorType errorId, Location& loc, Location& extra);
-  Error(ErrorDefinition::ErrorType errorId, std::vector<Location>& locations);
+  Error(ErrorDefinition::ErrorType errorId, const Location& loc,
+        const std::vector<Location>* extraLocs = nullptr);
+  Error(ErrorDefinition::ErrorType errorId, const Location& loc,
+        const Location& extra);
+  Error(ErrorDefinition::ErrorType errorId,
+        const std::vector<Location>& locations);
   Error(const Error& orig) = default;
 
   bool operator==(const Error& rhs) const;
@@ -48,7 +50,6 @@ class Error {
     bool operator()(const Error& e1, const Error& e2) const { return e1 < e2; }
   };
 
-  virtual ~Error();
   const std::vector<Location>& getLocations() const { return m_locations; }
   ErrorDefinition::ErrorType getType() const { return m_errorId; }
 
