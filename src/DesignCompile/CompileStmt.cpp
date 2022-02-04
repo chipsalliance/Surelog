@@ -280,18 +280,27 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       VectorOfany* stmts = s.MakeAnyVec();
       UHDM::scope* scope = nullptr;
       std::string label;
-      NodeId labelId = the_stmt;
+      NodeId labelId = 0;
       if (fC->Type(item) == VObjectType::slStringConst) {
+        labelId = item;
+      } else {
+        NodeId Statement_item = fC->Parent(the_stmt);
+        NodeId Statement = fC->Parent(Statement_item);
+        NodeId Label = fC->Child(Statement);
+        if (fC->Sibling(Label) == Statement_item) {
+          if (fC->Type(Label) == slStringConst) labelId = Label;
+        }
+      }
+      if (labelId) {
         UHDM::named_fork* fork = s.MakeNamed_fork();
         fork->Stmts(stmts);
         fork->VpiParent(pstmt);
         stmt = fork;
-        label = fC->SymName(item);
-        labelId = item;
+        label = fC->SymName(labelId);
         fork->VpiName(label);
-        item = fC->Sibling(item);
         scope = fork;
       } else {
+        labelId = the_stmt;
         UHDM::fork_stmt* fork = s.MakeFork_stmt();
         fork->Stmts(stmts);
         fork->VpiParent(pstmt);

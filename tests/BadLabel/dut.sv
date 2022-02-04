@@ -57,3 +57,10 @@ initial begin
 endmodule : bad_test
 
 
+module block_tb ();
+	reg a = 0;
+	initial
+	        name1: fork
+			a = 1;
+		join: name1
+endmodule
