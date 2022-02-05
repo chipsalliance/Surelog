@@ -2825,7 +2825,12 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
     if (call == nullptr) call = s.MakeFunc_call();
   }
   if (call->VpiName().empty()) call->VpiName(name);
-
+  if (call->VpiLineNo() == 0) {
+    call->VpiLineNo(fC->Line(Tf_call_stmt));
+    call->VpiColumnNo(fC->Column(Tf_call_stmt));
+    call->VpiEndLineNo(fC->EndLine(Tf_call_stmt));
+    call->VpiEndColumnNo(fC->EndColumn(Tf_call_stmt));
+  }
   NodeId argListNode = fC->Sibling(tfNameNode);
   if (fC->Type(argListNode) == slAttribute_instance) {
     /* UHDM::VectorOfattribute* attributes = */ compileAttributes(
