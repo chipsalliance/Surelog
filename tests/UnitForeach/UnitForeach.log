@@ -791,7 +791,7 @@ design: (unnamed)
       |vpiStmt:
       \_method_func_call: (print_array_header), line:7:5, endln:7:76, parent:uvm_pkg::uvm_sequencer_base::do_print
         |vpiArgument:
-        \_constant: , line:7:32, endln:7:51
+        \_constant: , line:7:32, endln:7:51, parent:print_array_header
           |vpiDecompile:arbitration_queue
           |vpiSize:17
           |STRING:arbitration_queue
@@ -823,21 +823,22 @@ design: (unnamed)
         |vpiStmt:
         \_method_func_call: (print_string), line:9:7, endln:10:104, parent:uvm_pkg::uvm_sequencer_base::do_print
           |vpiArgument:
-          \_sys_func_call: ($sformatf), line:9:28, endln:9:49
+          \_sys_func_call: ($sformatf), line:9:28, endln:9:49, parent:print_string
             |vpiArgument:
-            \_constant: , line:9:38, endln:9:45
+            \_constant: , line:9:38, endln:9:45, parent:$sformatf
               |vpiDecompile:[%0d]
               |vpiSize:5
               |STRING:[%0d]
               |vpiConstType:6
             |vpiArgument:
-            \_ref_obj: (i), line:9:47, endln:9:48, parent:$sformatf
+            \_ref_obj: (uvm_pkg::uvm_sequencer_base::do_print::i), line:9:47, endln:9:48, parent:$sformatf
               |vpiName:i
+              |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::i
             |vpiName:$sformatf
           |vpiArgument:
-          \_sys_func_call: ($sformatf), line:10:10, endln:10:97
+          \_sys_func_call: ($sformatf), line:10:10, endln:10:97, parent:print_string
             |vpiArgument:
-            \_constant: , line:10:20, endln:10:33
+            \_constant: , line:10:20, endln:10:33, parent:$sformatf
               |vpiDecompile:%s@seqid%0d
               |vpiSize:11
               |STRING:%s@seqid%0d
@@ -849,8 +850,9 @@ design: (unnamed)
               \_bit_select: (arb_sequence_q), parent:arb_sequence_q[i].request.name
                 |vpiName:arb_sequence_q
                 |vpiIndex:
-                \_ref_obj: (i), line:10:49, endln:10:50, parent:$sformatf
+                \_ref_obj: (uvm_pkg::uvm_sequencer_base::do_print::i), line:10:49, endln:10:50, parent:$sformatf
                   |vpiName:i
+                  |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::i
               |vpiActual:
               \_ref_obj: (request), parent:arb_sequence_q[i].request.name
                 |vpiName:request
@@ -864,14 +866,15 @@ design: (unnamed)
               \_bit_select: (arb_sequence_q), parent:arb_sequence_q[i].sequence_id
                 |vpiName:arb_sequence_q
                 |vpiIndex:
-                \_ref_obj: (i), line:10:82, endln:10:83, parent:$sformatf
+                \_ref_obj: (uvm_pkg::uvm_sequencer_base::do_print::i), line:10:82, endln:10:83, parent:$sformatf
                   |vpiName:i
+                  |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::i
               |vpiActual:
               \_ref_obj: (sequence_id)
                 |vpiName:sequence_id
             |vpiName:$sformatf
           |vpiArgument:
-          \_constant: , line:10:99, endln:10:102
+          \_constant: , line:10:99, endln:10:102, parent:print_string
             |vpiDecompile:[
             |vpiSize:1
             |STRING:[

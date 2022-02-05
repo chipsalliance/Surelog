@@ -648,6 +648,28 @@ n<> u<601> t<Top_level_rule> l<3:1> el<69:1>
 
 [INF:UH0706] Creating UHDM Model...
 
+[ERR:UH0718] top.v:11:5: Illegal lhs of type wire "shifter".
+
+[ERR:UH0718] top.v:13:5: Illegal lhs of type wire "result".
+
+[ERR:UH0718] top.v:14:5: Illegal lhs of type wire "result".
+
+[ERR:UH0718] top.v:15:5: Illegal lhs of type wire "result".
+
+[ERR:UH0718] top.v:16:5: Illegal lhs of type wire "result".
+
+[ERR:UH0718] top.v:17:5: Illegal lhs of type wire "result".
+
+[ERR:UH0718] top.v:19:5: Illegal lhs of type wire "result".
+
+[ERR:UH0718] top.v:20:5: Illegal lhs of type wire "result".
+
+[ERR:UH0718] top.v:32:5: Illegal lhs of type wire "result".
+
+[ERR:UH0718] top.v:34:5: Illegal lhs of type wire "shifter".
+
+[ERR:UH0718] top.v:35:5: Illegal lhs of type wire "shifter".
+
 [INF:UH0708] Writing UHDM DB: ../../build/tests/UnitTest/slpp_unit/surelog.uhdm ...
 
 [INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/UnitTest/slpp_unit/surelog.uhdm.chk.html ...
@@ -1068,7 +1090,7 @@ design: (work@tb_operators)
           |vpiStmt:
           \_sys_func_call: ($display), line:23:9, endln:23:32, parent:work@tb_operators
             |vpiArgument:
-            \_constant: , line:23:18, endln:23:30
+            \_constant: , line:23:18, endln:23:30, parent:$display
               |vpiDecompile:GTE TEST 1
               |vpiSize:10
               |STRING:GTE TEST 1
@@ -1097,7 +1119,7 @@ design: (work@tb_operators)
             |vpiStmt:
             \_sys_func_call: ($display), line:25:9, endln:25:32, parent:work@tb_operators
               |vpiArgument:
-              \_constant: , line:25:18, endln:25:30
+              \_constant: , line:25:18, endln:25:30, parent:$display
                 |vpiDecompile:GTE TEST 2
                 |vpiSize:10
                 |STRING:GTE TEST 2
@@ -1126,7 +1148,7 @@ design: (work@tb_operators)
               |vpiStmt:
               \_sys_func_call: ($display), line:27:9, endln:27:32, parent:work@tb_operators
                 |vpiArgument:
-                \_constant: , line:27:18, endln:27:30
+                \_constant: , line:27:18, endln:27:30, parent:$display
                   |vpiDecompile:GTE TEST 3
                   |vpiSize:10
                   |STRING:GTE TEST 3
@@ -1155,7 +1177,7 @@ design: (work@tb_operators)
                 |vpiStmt:
                 \_sys_func_call: ($display), line:29:9, endln:29:32, parent:work@tb_operators
                   |vpiArgument:
-                  \_constant: , line:29:18, endln:29:30
+                  \_constant: , line:29:18, endln:29:30, parent:$display
                     |vpiDecompile:GTE TEST 3
                     |vpiSize:10
                     |STRING:GTE TEST 3
@@ -1458,7 +1480,7 @@ design: (work@tb_operators)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 12
 [WARNING] : 4
 [   NOTE] : 8
 
