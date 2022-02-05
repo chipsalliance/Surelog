@@ -28,7 +28,8 @@ _default_workspace_dirpath = os.path.dirname(os.path.dirname(_this_filepath))
 # Except for the workspace dirpath all paths are expected to be relative
 # either to the workspace directory or the build directory
 _default_test_dirpaths = [ 'tests', os.path.join('third_party', 'tests') ]
-_default_build_dirpath = 'build'
+# _default_build_dirpath = 'build'
+_default_build_dirpath = os.path.join('out', 'build', 'Debug')
 _default_output_dirpath = 'regression'
 _default_surelog_filename = 'surelog.exe' if platform.system() == 'Windows' else 'surelog'
 _default_uhdm_dump_filename = 'uhdm-dump.exe' if platform.system() == 'Windows' else 'uhdm-dump'
@@ -907,7 +908,7 @@ def _main():
     for dirpath in args.test_dirpaths
   ]
 
-  args.filters = [text if text.isalnum() else re.compile(text, re.IGNORECASE) for text in args.filters]
+  args.filters = [re.compile(text, re.IGNORECASE) for text in args.filters]
   all_tests, filtered_tests, blacklisted_tests = _scan(args.test_dirpaths, args.filters)
 
   print( 'Environment:')

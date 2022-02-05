@@ -1843,9 +1843,7 @@ void CompileHelper::compileImportDeclaration(DesignComponent* component,
     UHDM::constant* imported_item = constantFromValue(item_name, compileDesign);
     m_exprBuilder.deleteValue(item_name);
     import_stmt->Item(imported_item);
-
-    std::string package_name(fC->SymName(package_name_id));
-    import_stmt->VpiName(package_name);
+    import_stmt->VpiName(fC->SymName(package_name_id));
 
     package_import_item_id = fC->Sibling(package_import_item_id);
     component->addImportedSymbol(import_stmt);
@@ -2241,6 +2239,12 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(
           }
         }
         if (call) {
+          NodeId nameId = fC->Child(unit);
+          call->VpiFile(fC->getFileName());
+          call->VpiLineNo(fC->Line(nameId));
+          call->VpiColumnNo(fC->Column(nameId));
+          call->VpiEndLineNo(fC->EndLine(nameId));
+          call->VpiEndColumnNo(fC->EndColumn(nameId));
           dc->Stmt(call);
           call->VpiParent(dc);
         }
@@ -2604,10 +2608,10 @@ bool CompileHelper::compileParameterDeclaration(
       }
       param->VpiSigned(isSigned);
       param->VpiFile(fC->getFileName());
-      param->VpiLineNo(fC->Line(Param_assignment));
-      param->VpiColumnNo(fC->Column(Param_assignment));
-      param->VpiEndLineNo(fC->EndLine(Param_assignment));
-      param->VpiEndColumnNo(fC->EndColumn(Param_assignment));
+      param->VpiLineNo(fC->Line(name));
+      param->VpiColumnNo(fC->Column(name));
+      param->VpiEndLineNo(fC->EndLine(name));
+      param->VpiEndColumnNo(fC->EndColumn(name));
       param->VpiName(fC->SymName(name));
 
       if (localParam) {
@@ -2831,6 +2835,11 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
       }
     }
     if (call == nullptr) call = s.MakeFunc_call();
+    call->VpiFile(fC->getFileName());
+    call->VpiLineNo(fC->Line(tfNameNode));
+    call->VpiColumnNo(fC->Column(tfNameNode));
+    call->VpiEndLineNo(fC->EndLine(tfNameNode));
+    call->VpiEndColumnNo(fC->EndColumn(tfNameNode));
   }
   if (call->VpiName().empty()) call->VpiName(name);
   if (call->VpiLineNo() == 0) {
