@@ -2817,6 +2817,11 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
       fcall->VpiName(mname);
       ref_obj* prefix = s.MakeRef_obj();
       prefix->VpiName(name);
+      prefix->VpiFile(fC->getFileName());
+      prefix->VpiLineNo(fC->Line(tfNameNode));
+      prefix->VpiColumnNo(fC->Column(tfNameNode));
+      prefix->VpiEndLineNo(fC->EndLine(tfNameNode));
+      prefix->VpiEndColumnNo(fC->EndColumn(tfNameNode));
       fcall->Prefix(prefix);
       call = fcall;
     }
@@ -2835,11 +2840,12 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
       }
     }
     if (call == nullptr) call = s.MakeFunc_call();
-    call->VpiFile(fC->getFileName());
-    call->VpiLineNo(fC->Line(tfNameNode));
-    call->VpiColumnNo(fC->Column(tfNameNode));
-    call->VpiEndLineNo(fC->EndLine(tfNameNode));
-    call->VpiEndColumnNo(fC->EndColumn(tfNameNode));
+    if (call->VpiLineNo() == 0) {
+      call->VpiLineNo(fC->Line(tfNameNode));
+      call->VpiColumnNo(fC->Column(tfNameNode));
+      call->VpiEndLineNo(fC->EndLine(tfNameNode));
+      call->VpiEndColumnNo(fC->EndColumn(tfNameNode));
+    }
   }
   if (call->VpiName().empty()) call->VpiName(name);
   if (call->VpiLineNo() == 0) {

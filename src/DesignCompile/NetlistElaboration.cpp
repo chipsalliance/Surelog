@@ -1088,6 +1088,11 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           }
           if (mp) {
             ref_obj* ref = s.MakeRef_obj();
+            ref->VpiFile(p->VpiFile());
+            ref->VpiLineNo(p->VpiLineNo());
+            ref->VpiColumnNo(p->VpiColumnNo());
+            ref->VpiEndLineNo(p->VpiEndLineNo());
+            ref->VpiEndColumnNo(p->VpiEndColumnNo());
             ref->Actual_group(mp);
             p->Low_conn(ref);
           }
@@ -1232,9 +1237,15 @@ interface* NetlistElaboration::elab_interface_(
         net = bind_net_(interf_instance, sigName);
       }
       if (net && (net->UhdmType() == uhdminterface)) {
+        const FileContent *const fC = sig.getFileContent();
         ref_obj* n = s.MakeRef_obj();
         n->VpiName(sigName);
         n->VpiFullName(instance->getFullPathName() + "." + sigName);
+        n->VpiFile(fC->getFileName());
+        n->VpiLineNo(fC->Line(sig.getNodeId()));
+        n->VpiColumnNo(fC->Column(sig.getNodeId()));
+        n->VpiEndLineNo(fC->EndLine(sig.getNodeId()));
+        n->VpiEndColumnNo(fC->EndColumn(sig.getNodeId()));
         if (sigName != instName)  // prevent loop in listener
           n->Actual_group(net);
         net = n;

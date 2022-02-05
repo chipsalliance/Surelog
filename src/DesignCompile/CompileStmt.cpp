@@ -758,10 +758,12 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         stm->Attributes(attributes);
     }
     stmt->VpiFile(fC->getFileName(the_stmt));
-    stmt->VpiLineNo(fC->Line(the_stmt));
-    stmt->VpiColumnNo(fC->Column(the_stmt));
-    stmt->VpiEndLineNo(fC->EndLine(the_stmt));
-    stmt->VpiEndColumnNo(fC->EndColumn(the_stmt));
+    if (stmt->VpiLineNo() == 0) {
+      stmt->VpiLineNo(fC->Line(the_stmt));
+      stmt->VpiColumnNo(fC->Column(the_stmt));
+      stmt->VpiEndLineNo(fC->EndLine(the_stmt));
+      stmt->VpiEndColumnNo(fC->EndColumn(the_stmt));
+    }
     stmt->VpiParent(pstmt);
     results = s.MakeAnyVec();
     results->push_back(stmt);
@@ -1380,6 +1382,10 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
         tf_data_type = fC->Sibling(tf_data_type_or_implicit);
         tf_param_name = fC->Sibling(tf_data_type);
       }
+      decl->VpiLineNo(fC->Line(tf_param_name));
+      decl->VpiColumnNo(fC->Column(tf_param_name));
+      decl->VpiEndLineNo(fC->EndLine(tf_param_name));
+      decl->VpiEndColumnNo(fC->EndColumn(tf_param_name));
       NodeId type = fC->Child(tf_data_type);
 
       NodeId unpackedDimension =

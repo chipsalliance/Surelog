@@ -3881,6 +3881,11 @@ UHDM::any* CompileHelper::compileExpression(
           NodeId Identifier = fC->Sibling(child);
           ref_obj* ref = s.MakeRef_obj();
           ref->VpiName(fC->SymName(Identifier));
+          ref->VpiFile(fC->getFileName());
+          ref->VpiLineNo(fC->Line(Identifier));
+          ref->VpiColumnNo(fC->Column(Identifier));
+          ref->VpiEndLineNo(fC->EndLine(Identifier));
+          ref->VpiEndColumnNo(fC->EndColumn(Identifier));
           result = ref;
           break;
         }
