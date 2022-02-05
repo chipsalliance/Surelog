@@ -903,6 +903,12 @@ n<> u<245> t<Top_level_rule> f<0> l<0:11>
 
 [INF:UH0707] Elaborating UHDM...
 
+[ERR:UH0718] dut.sv:31:9: Illegal lhs of type wire "b".
+
+[ERR:UH0718] dut.sv:33:9: Illegal lhs of type wire "b".
+
+[ERR:UH0718] dut.sv:35:9: Illegal lhs of type wire "b".
+
 [INF:UH0708] Writing UHDM DB: ../../build/tests/Attributes/slpp_all/surelog.uhdm ...
 
 [INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/Attributes/slpp_all/surelog.uhdm.chk.html ...
@@ -1704,8 +1710,8 @@ design: (work@foo)
       |vpiName:$37 
       |vpiFullName:work@foo.$37 
       |vpiActual:
-      \_logic_net: ($37 )
-        |vpiName:$37 
+      \_logic_net: ($37)
+        |vpiName:$37
         |vpiNetType:1
 |uhdmallModules:
 \_module: work@top (work@top) test_attributes.sv:31:1: , endln:39:10, parent:work@foo
@@ -1758,8 +1764,8 @@ design: (work@foo)
     |vpiName:b
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: ($37 )
-    |vpiName:$37 
+  \_logic_net: ($37)
+    |vpiName:$37
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (empty2)
@@ -1964,7 +1970,7 @@ design: (work@foo)
       |vpiName:$37 
       |vpiFullName:work@foo.$37 
       |vpiActual:
-      \_logic_net: ($37 )
+      \_logic_net: ($37)
   |vpiModule:
   \_module: work@bar (work@foo.bar_instance) dut.sv:19:3: , endln:19:105, parent:work@foo
     |vpiName:bar_instance
@@ -2141,7 +2147,7 @@ design: (work@foo)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 3
 [WARNING] : 8
 [   NOTE] : 7
 
