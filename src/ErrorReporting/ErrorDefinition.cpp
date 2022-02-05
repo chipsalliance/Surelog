@@ -427,5 +427,6 @@ bool ErrorDefinition::init() {
   rec(UHDM_ILLEGAL_DEFAULT_VALUE, ERROR, UHDM, "Illegal default value");
   rec(UHDM_MULTIPLE_CONT_ASSIGN, ERROR, UHDM,
       "Multiple continuous assignments to: %s", "%exloc other assignment");
+  rec(UHDM_ILLEGAL_WIRE_LHS, ERROR, UHDM, "Illegal lhs of type wire \"%s\"");
   return true;
 }

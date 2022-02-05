@@ -63,7 +63,6 @@
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/Serializer.h>
 #include <uhdm/UhdmLint.h>
-//#include <uhdm/UhdmStrengthRes.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/module.h>
 #include <uhdm/uhdm.h>
@@ -1417,10 +1416,295 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
                              scope* m) {
   for (UHDM::ref_obj* ref : mod->getLateBinding()) {
     if (ref->Actual_group()) continue;
-    const std::string& name = ref->VpiName();
+    std::string name = ref->VpiName();
+    name = StringUtils::trim(name);
     if (strstr(name.c_str(), "::")) {
       continue;
     }
+
+    const any* parent = ref->VpiParent();
+    while (parent) {
+      if (parent->UhdmType() == uhdmfunction) {
+        function* func = (function*)parent;
+        if (parent->VpiName() == name) {
+          if (const any* ret = func->Return()) {
+            ElaboratorListener listener(&s);
+            any* pclone = UHDM::clone_tree(ret, s, &listener);
+            variables* var = (variables*)pclone;
+            var->VpiName(name);
+            ref->Actual_group(pclone);
+          }
+          break;
+        }
+        if (auto decls = func->Io_decls()) {
+          for (auto decl : *decls) {
+            if (decl->VpiName() == name) {
+              if (decl->UhdmType() == uhdmref_var) continue;
+              if (decl->UhdmType() == uhdmref_obj) continue;
+              ref->Actual_group(decl);
+              break;
+            }
+          }
+        }
+        if (auto vars = func->Variables()) {
+          for (auto decl : *vars) {
+            if (decl->VpiName() == name) {
+              if (decl->UhdmType() == uhdmref_var) continue;
+              if (decl->UhdmType() == uhdmref_obj) continue;
+              ref->Actual_group(decl);
+              break;
+            }
+          }
+        }
+        if (auto params = func->Parameters()) {
+          for (auto decl : *params) {
+            if (decl->VpiName() == name) {
+              ref->Actual_group(decl);
+              break;
+            }
+          }
+        }
+        if (const UHDM::instance* inst = func->Instance()) {
+          if (inst->UhdmType() == uhdmpackage) {
+            package* pack = (package*)inst;
+            if (pack->Variables()) {
+              for (auto n : *pack->Variables()) {
+                if (n->VpiName() == name) {
+                  if (n->UhdmType() == uhdmref_var) continue;
+                  if (n->UhdmType() == uhdmref_obj) continue;
+                  ref->Actual_group(n);
+                  break;
+                }
+                const std::string pname =
+                    std::string(m->VpiName() + "::" + name);
+                if (n->VpiName() == pname) {
+                  if (n->UhdmType() == uhdmref_var) continue;
+                  if (n->UhdmType() == uhdmref_obj) continue;
+                  ref->Actual_group(n);
+                  break;
+                }
+              }
+            }
+          }
+        }
+        if (ref->Actual_group()) break;
+      } else if (parent->UhdmType() == uhdmtask) {
+        task* ta = (task*)parent;
+        if (auto decls = ta->Io_decls()) {
+          for (auto decl : *decls) {
+            if (decl->VpiName() == name) {
+              if (decl->UhdmType() == uhdmref_var) continue;
+              if (decl->UhdmType() == uhdmref_obj) continue;
+              ref->Actual_group(decl);
+              break;
+            }
+          }
+        }
+        if (auto vars = ta->Variables()) {
+          for (auto decl : *vars) {
+            if (decl->VpiName() == name) {
+              if (decl->UhdmType() == uhdmref_var) continue;
+              if (decl->UhdmType() == uhdmref_obj) continue;
+              ref->Actual_group(decl);
+              break;
+            }
+          }
+        }
+        if (const UHDM::instance* inst = ta->Instance()) {
+          if (inst->UhdmType() == uhdmpackage) {
+            package* pack = (package*)inst;
+            if (pack->Variables()) {
+              for (auto n : *pack->Variables()) {
+                if (n->VpiName() == name) {
+                  if (n->UhdmType() == uhdmref_var) continue;
+                  if (n->UhdmType() == uhdmref_obj) continue;
+                  ref->Actual_group(n);
+                  break;
+                }
+                const std::string pname =
+                    std::string(m->VpiName() + "::" + name);
+                if (n->VpiName() == pname) {
+                  if (n->UhdmType() == uhdmref_var) continue;
+                  if (n->UhdmType() == uhdmref_obj) continue;
+                  ref->Actual_group(n);
+                  break;
+                }
+              }
+            }
+          }
+        }
+        if (ref->Actual_group()) break;
+      } else if (parent->UhdmType() == uhdmfor_stmt) {
+        for_stmt* f = (for_stmt*)parent;
+        VectorOfany* inits = f->VpiForInitStmts();
+        if (inits) {
+          for (auto init : *inits) {
+            if (init->UhdmType() == uhdmassign_stmt) {
+              assign_stmt* as = (assign_stmt*)init;
+              const expr* lhs = as->Lhs();
+              if (lhs->VpiName() == name) {
+                if (lhs->UhdmType() == uhdmref_var) continue;
+                if (lhs->UhdmType() == uhdmref_obj) continue;
+                ref->Actual_group((expr*)lhs);
+                break;
+              }
+            }
+          }
+        }
+      } else if (parent->UhdmType() == uhdmbegin) {
+        begin* b = (begin*)parent;
+        if (auto vars = b->Variables()) {
+          for (auto decl : *vars) {
+            if (decl->VpiName() == name) {
+              if (decl->UhdmType() == uhdmref_var) continue;
+              if (decl->UhdmType() == uhdmref_obj) continue;
+              ref->Actual_group(decl);
+              break;
+            }
+          }
+        }
+        if (ref->Actual_group()) break;
+        if (auto params = b->Parameters()) {
+          for (auto decl : *params) {
+            if (decl->VpiName() == name) {
+              ref->Actual_group(decl);
+              break;
+            }
+          }
+        }
+        if (ref->Actual_group()) break;
+        VectorOfany* stmts = b->Stmts();
+        if (stmts) {
+          for (auto init : *stmts) {
+            if (init->UhdmType() == uhdmassign_stmt) {
+              assign_stmt* as = (assign_stmt*)init;
+              const expr* lhs = as->Lhs();
+              if (lhs->VpiName() == name) {
+                if (lhs->UhdmType() == uhdmref_var) continue;
+                if (lhs->UhdmType() == uhdmref_obj) continue;
+                ref->Actual_group((expr*)lhs);
+                break;
+              }
+            }
+          }
+        }
+      } else if (parent->UhdmType() == uhdmnamed_begin) {
+        named_begin* b = (named_begin*)parent;
+        if (auto vars = b->Variables()) {
+          for (auto decl : *vars) {
+            if (decl->VpiName() == name) {
+              if (decl->UhdmType() == uhdmref_var) continue;
+              if (decl->UhdmType() == uhdmref_obj) continue;
+              ref->Actual_group(decl);
+              break;
+            }
+          }
+        }
+        if (ref->Actual_group()) break;
+        if (auto params = b->Parameters()) {
+          for (auto decl : *params) {
+            if (decl->VpiName() == name) {
+              ref->Actual_group(decl);
+              break;
+            }
+          }
+        }
+        if (ref->Actual_group()) break;
+        VectorOfany* stmts = b->Stmts();
+        if (stmts) {
+          for (auto init : *stmts) {
+            if (init->UhdmType() == uhdmassign_stmt) {
+              assign_stmt* as = (assign_stmt*)init;
+              const expr* lhs = as->Lhs();
+              if (lhs->VpiName() == name) {
+                if (lhs->UhdmType() == uhdmref_var) continue;
+                if (lhs->UhdmType() == uhdmref_obj) continue;
+                ref->Actual_group((expr*)lhs);
+                break;
+              }
+            }
+          }
+        }
+      } else if (parent->UhdmType() == uhdmfork_stmt) {
+        fork_stmt* b = (fork_stmt*)parent;
+        if (auto vars = b->Variables()) {
+          for (auto decl : *vars) {
+            if (decl->VpiName() == name) {
+              if (decl->UhdmType() == uhdmref_var) continue;
+              if (decl->UhdmType() == uhdmref_obj) continue;
+              ref->Actual_group(decl);
+              break;
+            }
+          }
+        }
+        if (ref->Actual_group()) break;
+        if (auto params = b->Parameters()) {
+          for (auto decl : *params) {
+            if (decl->VpiName() == name) {
+              ref->Actual_group(decl);
+              break;
+            }
+          }
+        }
+        if (ref->Actual_group()) break;
+        VectorOfany* stmts = b->Stmts();
+        if (stmts) {
+          for (auto init : *stmts) {
+            if (init->UhdmType() == uhdmassign_stmt) {
+              assign_stmt* as = (assign_stmt*)init;
+              const expr* lhs = as->Lhs();
+              if (lhs->VpiName() == name) {
+                if (lhs->UhdmType() == uhdmref_var) continue;
+                if (lhs->UhdmType() == uhdmref_obj) continue;
+                ref->Actual_group((expr*)lhs);
+                break;
+              }
+            }
+          }
+        }
+      } else if (parent->UhdmType() == uhdmnamed_fork) {
+        named_fork* b = (named_fork*)parent;
+        if (auto vars = b->Variables()) {
+          for (auto decl : *vars) {
+            if (decl->VpiName() == name) {
+              if (decl->UhdmType() == uhdmref_var) continue;
+              if (decl->UhdmType() == uhdmref_obj) continue;
+              ref->Actual_group(decl);
+              break;
+            }
+          }
+        }
+        if (ref->Actual_group()) break;
+        if (auto params = b->Parameters()) {
+          for (auto decl : *params) {
+            if (decl->VpiName() == name) {
+              ref->Actual_group(decl);
+              break;
+            }
+          }
+        }
+        if (ref->Actual_group()) break;
+        VectorOfany* stmts = b->Stmts();
+        if (stmts) {
+          for (auto init : *stmts) {
+            if (init->UhdmType() == uhdmassign_stmt) {
+              assign_stmt* as = (assign_stmt*)init;
+              const expr* lhs = as->Lhs();
+              if (lhs->VpiName() == name) {
+                if (lhs->UhdmType() == uhdmref_var) continue;
+                if (lhs->UhdmType() == uhdmref_obj) continue;
+                ref->Actual_group((expr*)lhs);
+                break;
+              }
+            }
+          }
+        }
+      }
+      if (ref->Actual_group()) break;
+      parent = parent->VpiParent();
+    }
+    if (ref->Actual_group()) continue;
+
     if (m->UhdmType() == uhdmmodule || m->UhdmType() == uhdminterface ||
         m->UhdmType() == uhdmprogram) {
       instance* inst = (instance*)m;
@@ -1481,123 +1765,6 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
       }
       if (isParam) continue;
     }
-
-    const any* parent = ref->VpiParent();
-    while (parent) {
-      if (parent->UhdmType() == uhdmfunction) {
-        function* func = (function*)parent;
-        if (parent->VpiName() == name) {
-          if (const any* ret = func->Return()) {
-            ElaboratorListener listener(&s);
-            any* pclone = UHDM::clone_tree(ret, s, &listener);
-            variables* var = (variables*)pclone;
-            var->VpiName(name);
-            ref->Actual_group(pclone);
-          }
-          break;
-        }
-        if (auto decls = func->Io_decls()) {
-          for (auto decl : *decls) {
-            if (decl->VpiName() == name) {
-              ref->Actual_group(decl);
-              break;
-            }
-          }
-        }
-        if (auto vars = func->Variables()) {
-          for (auto decl : *vars) {
-            if (decl->VpiName() == name) {
-              ref->Actual_group(decl);
-              break;
-            }
-          }
-        }
-        if (auto params = func->Parameters()) {
-          for (auto decl : *params) {
-            if (decl->VpiName() == name) {
-              ref->Actual_group(decl);
-              break;
-            }
-          }
-        }
-        if (const UHDM::instance* inst = func->Instance()) {
-          if (inst->UhdmType() == uhdmpackage) {
-            package* pack = (package*)inst;
-            if (pack->Variables()) {
-              for (auto n : *pack->Variables()) {
-                if (n->VpiName() == name) {
-                  ref->Actual_group(n);
-                  break;
-                }
-                const std::string pname =
-                    std::string(m->VpiName() + "::" + name);
-                if (n->VpiName() == pname) {
-                  ref->Actual_group(n);
-                  break;
-                }
-              }
-            }
-          }
-        }
-        if (ref->Actual_group()) break;
-      } else if (parent->UhdmType() == uhdmtask) {
-        task* ta = (task*)parent;
-        if (auto decls = ta->Io_decls()) {
-          for (auto decl : *decls) {
-            if (decl->VpiName() == name) {
-              ref->Actual_group(decl);
-              break;
-            }
-          }
-        }
-        if (auto vars = ta->Variables()) {
-          for (auto decl : *vars) {
-            if (decl->VpiName() == name) {
-              ref->Actual_group(decl);
-              break;
-            }
-          }
-        }
-        if (const UHDM::instance* inst = ta->Instance()) {
-          if (inst->UhdmType() == uhdmpackage) {
-            package* pack = (package*)inst;
-            if (pack->Variables()) {
-              for (auto n : *pack->Variables()) {
-                if (n->VpiName() == name) {
-                  ref->Actual_group(n);
-                  break;
-                }
-                const std::string pname =
-                    std::string(m->VpiName() + "::" + name);
-                if (n->VpiName() == pname) {
-                  ref->Actual_group(n);
-                  break;
-                }
-              }
-            }
-          }
-        }
-        if (ref->Actual_group()) break;
-      } else if (parent->UhdmType() == uhdmfor_stmt) {
-        for_stmt* f = (for_stmt*)parent;
-        VectorOfany* inits = f->VpiForInitStmts();
-        if (inits) {
-          for (auto init : *inits) {
-            if (init->UhdmType() == uhdmassign_stmt) {
-              assign_stmt* as = (assign_stmt*)init;
-              const expr* lhs = as->Lhs();
-              if (lhs->VpiName() == name) {
-                ref->Actual_group((expr*)lhs);
-                break;
-              }
-            }
-          }
-        }
-      }
-      if (ref->Actual_group()) break;
-      parent = parent->VpiParent();
-    }
-    if (ref->Actual_group()) continue;
 
     if (m->Typespecs()) {
       bool isTypespec = false;
@@ -2572,10 +2739,6 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
   UhdmLint* linter = new UhdmLint(&s);
   listen_designs(designs, linter);
   delete linter;
-
-  // UhdmStrengthRes* resolveStrength = new UhdmStrengthRes(&s);
-  // listen_designs(designs, resolveStrength);
-  // delete resolveStrength;
 
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getUhdmStats())
     printUhdmStats(s);

@@ -6467,6 +6467,7 @@ UHDM::any* CompileHelper::compileTypename(
       c->VpiValue("STRING:" + arg);
       c->VpiDecompile(arg);
       c->VpiConstType(vpiStringConst);
+      c->VpiParent(sys);
       break;
   }
   return result;

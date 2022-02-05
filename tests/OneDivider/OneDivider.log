@@ -183,7 +183,7 @@ design: (work@tb)
     |vpiStmt:
     \_sys_func_call: ($display), line:28:60, endln:28:76
       |vpiArgument:
-      \_constant: , line:28:69, endln:28:74
+      \_constant: , line:28:69, endln:28:74, parent:$display
         |vpiDecompile:OK!
         |vpiSize:3
         |STRING:OK!
@@ -205,13 +205,13 @@ design: (work@tb)
     |vpiElseStmt:
     \_sys_func_call: ($fatal), line:28:82, endln:28:112
       |vpiArgument:
-      \_constant: , line:28:89, endln:28:90
+      \_constant: , line:28:89, endln:28:90, parent:$fatal
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
         |vpiConstType:9
       |vpiArgument:
-      \_constant: , line:28:92, endln:28:110
+      \_constant: , line:28:92, endln:28:110, parent:$fatal
         |vpiDecompile:FAILED ASSERTION
         |vpiSize:16
         |STRING:FAILED ASSERTION
@@ -225,7 +225,7 @@ design: (work@tb)
       |vpiStmt:
       \_sys_func_call: ($dumpfile), line:6:5, endln:6:27, parent:work@tb
         |vpiArgument:
-        \_constant: , line:6:15, endln:6:25
+        \_constant: , line:6:15, endln:6:25, parent:$dumpfile
           |vpiDecompile:test.vcd
           |vpiSize:8
           |STRING:test.vcd
@@ -237,7 +237,7 @@ design: (work@tb)
       |vpiStmt:
       \_sys_func_call: ($monitor), line:8:5, endln:8:54, parent:work@tb
         |vpiArgument:
-        \_constant: , line:8:14, endln:8:37
+        \_constant: , line:8:14, endln:8:37, parent:$monitor
           |vpiDecompile:@%0dns clk = %0d, %0d
           |vpiSize:21
           |STRING:@%0dns clk = %0d, %0d
