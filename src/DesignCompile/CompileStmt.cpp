@@ -1206,10 +1206,14 @@ CompileHelper::compileTfPortDecl(DesignComponent* component,
                                  NodeId tf_item_decl,
                                  CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
-  std::vector<io_decl*>* ios = s.MakeIo_declVec();
-  std::vector<variables*>* vars = s.MakeVariablesVec();
+  std::vector<io_decl*>* ios = parent->Io_decls();
+  if (ios == nullptr) ios = s.MakeIo_declVec();
+  std::vector<variables*>* vars = parent->Variables();
+  if (vars == nullptr) vars = s.MakeVariablesVec();
   std::pair<std::vector<UHDM::io_decl*>*, std::vector<UHDM::variables*>*>
       results = std::make_pair(ios, vars);
+  parent->Io_decls(results.first);
+  parent->Variables(results.second);
   /*
 n<> u<137> t<TfPortDir_Inp> p<141> s<138> l<28>
 n<> u<138> t<Data_type_or_implicit> p<141> s<140> l<28>
@@ -1236,7 +1240,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
           // Implicit type
           int size;
           VectorOfrange* ranges =
-              compileRanges(component, fC, Data_type, compileDesign, nullptr,
+              compileRanges(component, fC, Data_type, compileDesign, parent,
                             nullptr, true, size, false);
           packed_array_typespec* pts = s.MakePacked_array_typespec();
           pts->VpiFile(fC->getFileName());
@@ -1260,7 +1264,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
             int size;
             ranges =
                 compileRanges(component, fC, Variable_dimension, compileDesign,
-                              nullptr, nullptr, true, size, false);
+                              parent, nullptr, true, size, false);
           }
           const std::string& name = fC->SymName(nameId);
           io_decl* decl = s.MakeIo_decl();
@@ -1298,7 +1302,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
             std::map<std::string, io_decl*>::iterator itr = ioMap.find(name);
             if (itr == ioMap.end()) {
               variables* var = (variables*)compileVariable(
-                  component, fC, Data_type, compileDesign, nullptr, nullptr,
+                  component, fC, Data_type, compileDesign, parent, nullptr,
                   true, false);
               if (var) {
                 var->VpiName(name);
@@ -1588,10 +1592,7 @@ bool CompileHelper::compileTask(DesignComponent* component,
   } else if (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
     NodeId Block_item_declaration = fC->Child(Tf_port_list);
     if (fC->Type(Block_item_declaration) != slBlock_item_declaration) {
-      auto results =
-          compileTfPortDecl(component, task, fC, Tf_port_list, compileDesign);
-      task->Io_decls(results.first);
-      task->Variables(results.second);
+      compileTfPortDecl(component, task, fC, Tf_port_list, compileDesign);
       while (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
         NodeId Tf_port_declaration = fC->Child(Tf_port_list);
         if (fC->Type(Tf_port_declaration) == slTf_port_declaration) {
@@ -1627,22 +1628,8 @@ bool CompileHelper::compileTask(DesignComponent* component,
       if (Statement_or_null && (fC->Type(Statement_or_null) == slEndtask))
         break;
       if (fC->Type(fC->Child(Statement_or_null)) == slTf_port_declaration) {
-        auto results = compileTfPortDecl(component, task, fC, Statement_or_null,
-                                         compileDesign);
-        if (task->Io_decls() == nullptr) {
-          task->Io_decls(results.first);
-        } else {
-          for (auto v : *results.first) {
-            task->Io_decls()->push_back(v);
-          }
-        }
-        if (task->Variables()) {
-          task->Variables(results.second);
-        } else {
-          for (auto v : *results.second) {
-            task->Variables()->push_back(v);
-          }
-        }
+        compileTfPortDecl(component, task, fC, Statement_or_null,
+                          compileDesign);
         while (fC->Type(Statement_or_null) ==
                VObjectType::slTf_item_declaration) {
           NodeId Tf_port_declaration = fC->Child(Statement_or_null);
