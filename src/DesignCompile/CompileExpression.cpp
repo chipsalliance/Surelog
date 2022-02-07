@@ -5951,6 +5951,13 @@ uint64_t CompileHelper::Bits(const UHDM::any* typespec, bool& invalidValue,
                      instance, fileName, lineNumber, reduce, sizeMode);
         break;
       }
+      case uhdmio_decl: {
+        io_decl* decl = (io_decl*)typespec;
+        const UHDM::typespec* tps = decl->Typespec();
+        bits += Bits(tps, invalidValue, component, compileDesign, instance,
+                     fileName, lineNumber, reduce, sizeMode);
+        break;
+      }
       default:
         invalidValue = true;
         break;
@@ -6338,7 +6345,7 @@ UHDM::any* CompileHelper::compileBits(
                   sizeMode);
 
     if (reduce && (!tps)) {
-      exp = compileExpression(component, fC, Expression, compileDesign, nullptr,
+      exp = compileExpression(component, fC, Expression, compileDesign, pexpr,
                               instance, true, true);
       if (exp) {
         bits = Bits(exp, invalidValue, component, compileDesign, instance,
