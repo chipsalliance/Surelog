@@ -390,9 +390,11 @@ if (APPLE)
   endif()
 endif()
 
+if (NOT QUICK_COMP)
 add_executable(hellosureworld ${PROJECT_SOURCE_DIR}/src/hellosureworld.cpp)
 add_executable(hellouhdm ${PROJECT_SOURCE_DIR}/src/hellouhdm.cpp)
 add_executable(hellodesign ${PROJECT_SOURCE_DIR}/src/hellodesign.cpp)
+endif()
 
 if(MSVC OR WIN32)
   # We have two files named "surelog.lib" and both getting generated in the lib folder
@@ -498,9 +500,11 @@ register_gtests(
   src/DesignCompile/Uhdm_test.cpp
 )
 
+if (NOT QUICK_COMP)
 target_link_libraries(hellosureworld surelog)
 target_link_libraries(hellouhdm surelog)
 target_link_libraries(hellodesign surelog)
+endif()
 
 # Creation of the distribution directory, Precompiled package creation
 add_custom_command(
@@ -591,8 +595,11 @@ add_custom_command(
     -parse -nocomp -noelab -nostdout  >> uvm_pkg.log
   COMMAND echo "       Package UVM created"
   WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+
+if (NOT QUICK_COMP)
 add_dependencies(hellosureworld PrecompileOVM)
 add_dependencies(hellosureworld PrecompileUVM)
+endif()
 
 # Installation target
 install(

@@ -288,16 +288,29 @@ UHDM::any* CompileHelper::compileVariable(
       break;
     }
     case VObjectType::slClass_scope: {
-      std::string typeName;
       NodeId class_type = fC->Child(variable);
       NodeId class_name = fC->Child(class_type);
-      typeName = fC->SymName(class_name);
-      typeName += "::";
+      const std::string& packageName = fC->SymName(class_name);
+      Design* design = compileDesign->getCompiler()->getDesign();
       NodeId symb_id = fC->Sibling(variable);
-      typeName += fC->SymName(symb_id);
-      class_var* ref = s.MakeClass_var();
-      ref->VpiName(typeName);
-      result = ref;
+      const std::string& typeName = fC->SymName(symb_id);
+      Package* pack = design->getPackage(packageName);
+      variables* var = nullptr;
+      if (pack) {
+        const DataType* dtype = pack->getDataType(typeName);
+        while (dtype) {
+          typespec* tps = dtype->getTypespec();
+          if (tps) {
+            var = getSimpleVarFromTypespec(tps, ranges, compileDesign);
+            break;
+          }
+          dtype = dtype->getDefinition();
+        }
+      }
+      const std::string completeName = packageName + "::" + typeName;
+      if (var == nullptr) var = s.MakeClass_var();
+      var->VpiName(completeName);
+      result = var;
       break;
     }
     case VObjectType::slString_type: {
