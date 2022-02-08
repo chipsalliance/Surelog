@@ -2875,7 +2875,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(
           compileExpression(component, fC, Expression, compileDesign, call,
                             instance, reduce, muteErrors);
       if (exp) {
-        exp->VpiParent(call);
+        if (exp->VpiParent() == nullptr) exp->VpiParent(call);
         args.insert(std::make_pair(fC->SymName(argumentNode), exp));
         argOrder.push_back(exp);
       }
@@ -2889,7 +2889,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(
           compileExpression(component, fC, Expression, compileDesign, call,
                             instance, reduce, muteErrors);
       if (exp) {
-        exp->VpiParent(call);
+        if (exp->VpiParent() == nullptr) exp->VpiParent(call);
         arguments->push_back(exp);
       }
       argumentNode = fC->Sibling(argumentNode);
@@ -2901,7 +2901,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(
                             instance, reduce, muteErrors);
       if (exp) {
         arguments->push_back(exp);
-        exp->VpiParent(call);
+        if (exp->VpiParent() == nullptr) exp->VpiParent(call);
       }
     }
     argumentNode = fC->Sibling(argumentNode);
