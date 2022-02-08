@@ -1576,6 +1576,7 @@ bool CompileHelper::compileTask(DesignComponent* component,
     task_funcs->push_back(task);
     return true;
   }
+  if (task->Io_decls() || task->Variables() || task->Stmt()) return true;
   setFuncTaskQualifiers(fC, nodeId, task);
   task->VpiMethod(isMethod);
   task->VpiFile(fC->getFileName());
@@ -1920,6 +1921,7 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     task_funcs->push_back(func);
     return true;
   }
+  if (func->Io_decls() || func->Variables() || func->Stmt()) return true;
   setFuncTaskQualifiers(fC, nodeId, func);
   func->VpiMethod(isMethod);
   func->VpiFile(fC->getFileName());
