@@ -4384,7 +4384,17 @@ UHDM::any* CompileHelper::compileExpression(
                       instance, reduce, muteErrors);
               }
               if (result == nullptr) sval = pack->getValue(n);
-            }
+            } /*else {
+              ErrorContainer* errors =
+                  compileDesign->getCompiler()->getErrorContainer();
+              SymbolTable* symbols =
+                  compileDesign->getCompiler()->getSymbolTable();
+              Location loc(symbols->registerSymbol(fC->getFileName().string()),
+                           fC->Line(child), fC->Column(child),
+                           symbols->registerSymbol(packageName));
+              Error err(ErrorDefinition::COMP_UNDEFINED_PACKAGE, loc);
+              errors->addError(err);
+            }*/
           } else if (childType == VObjectType::slClass_type) {
             const std::string& packageName = fC->SymName(fC->Child(child));
             const std::string& n = fC->SymName(fC->Sibling(parent));

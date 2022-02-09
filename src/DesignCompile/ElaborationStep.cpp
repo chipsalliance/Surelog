@@ -1117,9 +1117,6 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
           signal->setDataType(type);
         }
       }
-      if (signal->getType() != slNoType) {
-        return true;
-      }
       if (def == nullptr) {
         if (parentComponent->getParameters()) {
           for (auto param : *parentComponent->getParameters()) {
@@ -1133,6 +1130,9 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
             }
           }
         }
+      }
+      if (signal->getType() != slNoType) {
+        return true;
       }
       if (def == nullptr) {
         while (instance) {
@@ -1381,11 +1381,13 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
 
       variables* var = m_helper.getSimpleVarFromTypespec(spec, packedDimensions,
                                                          m_compileDesign);
-      var->Expr(assignExp);
-      var->VpiConstantVariable(sig->isConst());
-      var->VpiSigned(sig->isSigned());
-      var->VpiName(signame);
-      obj = var;
+      if (var) {
+        var->Expr(assignExp);
+        var->VpiConstantVariable(sig->isConst());
+        var->VpiSigned(sig->isSigned());
+        var->VpiName(signame);
+        obj = var;
+      }
     }
   } else if (tps) {
     UHDM::UHDM_OBJECT_TYPE tpstype = tps->UhdmType();
