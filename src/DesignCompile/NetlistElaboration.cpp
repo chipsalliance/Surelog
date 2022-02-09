@@ -95,9 +95,22 @@ bool NetlistElaboration::elaboratePackages() {
     Package* pack = packageDef.second;
     Netlist* netlist = new Netlist(nullptr);
     pack->setNetlist(netlist);
-    // Variables in Packages
+    // Variables and nets in Packages
+    std::set<Signal*> notSignals;
     for (Signal* sig : pack->getSignals()) {
-      elabSignal(sig, nullptr, nullptr, nullptr, netlist, pack, "", false);
+      if (!elabSignal(sig, nullptr, nullptr, nullptr, netlist, pack, "",
+                      false)) {
+        notSignals.insert(sig);
+      }
+    }
+    for (auto sig : notSignals) {
+      for (std::vector<Signal*>::iterator itr = pack->getSignals().begin();
+           itr != pack->getSignals().end(); itr++) {
+        if ((*itr) == sig) {
+          pack->getSignals().erase(itr);
+          break;
+        }
+      }
     }
   }
   return true;
@@ -1354,7 +1367,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance,
                           ports);
 }
 
-void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
+bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
                                     ModuleInstance* child,
                                     Netlist* parentNetlist, Netlist* netlist,
                                     DesignComponent* comp,
@@ -1444,7 +1457,7 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         errors->addError(err);
       }
       // Don't create a signal
-      return;
+      return isNet;
     }
   }
 
@@ -1780,6 +1793,7 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
     Error err(ErrorDefinition::UHDM_UNSUPPORTED_SIGNAL, loc);
     errors->addError(err);
   }
+  return isNet;
 }
 
 bool NetlistElaboration::elab_ports_nets_(

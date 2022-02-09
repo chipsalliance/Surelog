@@ -218,8 +218,6 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
         }
         case VObjectType::slNet_declaration: {
           if (collectType != CollectType::DEFINITION) break;
-          // In a package this is certainly a var that the parser
-          // mis-interpreted
           m_helper.compileNetDeclaration(m_package, fC, id, false,
                                          m_compileDesign);
           break;

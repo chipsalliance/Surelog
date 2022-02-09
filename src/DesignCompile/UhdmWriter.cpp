@@ -825,6 +825,15 @@ void writePackage(Package* pack, package* p, Serializer& s,
       }
     }
   }
+  // Nets
+  UhdmWriter::SignalBaseClassMap signalBaseMap;
+  UhdmWriter::SignalMap portMap;
+  UhdmWriter::SignalMap netMap;
+  std::vector<Signal*> orig_nets = pack->getSignals();
+  VectorOfnet* dest_nets = s.MakeNetVec();
+  writeNets(orig_nets, p, dest_nets, s, signalBaseMap, netMap, portMap,
+            nullptr);
+  p->Nets(dest_nets);
 }
 
 void UhdmWriter::writeModule(ModuleDefinition* mod, module* m, Serializer& s,
