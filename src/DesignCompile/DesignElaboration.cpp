@@ -2161,8 +2161,8 @@ void DesignElaboration::bind_ports_nets_(std::vector<Signal*>& ports,
                   ErrorDefinition::COMP_UNDEFINED_TYPE);
   }
   for (Signal* signal : signals) {
-    bindPortType_(signal, fC, signal->getNodeId(), nullptr, instance, mod,
-                  ErrorDefinition::COMP_UNDEFINED_TYPE);
+    bindPortType_(signal, signal->getFileContent(), signal->getNodeId(),
+                  nullptr, instance, mod, ErrorDefinition::COMP_UNDEFINED_TYPE);
   }
 }
 
