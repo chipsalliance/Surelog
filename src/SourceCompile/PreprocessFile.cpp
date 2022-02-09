@@ -392,8 +392,7 @@ bool PreprocessFile::preprocess() {
           Error err(ErrorDefinition::PP_NON_ASCII_CONTENT, loc);
           addError(err);
         } else {
-          Location loc(m_fileId, lineNonAscii, 0,
-                       registerSymbol(symbol));
+          Location loc(m_fileId, lineNonAscii, 0, registerSymbol(symbol));
           Location includeFile(m_includer->m_fileId, m_includerLine, 0, 0);
           Error err(ErrorDefinition::PP_NON_ASCII_CONTENT, loc, includeFile);
           addError(err);
