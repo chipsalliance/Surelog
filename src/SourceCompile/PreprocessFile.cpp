@@ -359,7 +359,9 @@ bool PreprocessFile::preprocess() {
       char c = stream.get();
       bool nonAsciiContent = false;
       int lineNb = 1;
+      int columnNb = 0;
       int lineNonAscii = 0;
+      int columnNonAscii = 0;
       while (stream.good()) {
         if (c != 0x0D) {
           if (isascii(c))
@@ -367,26 +369,30 @@ bool PreprocessFile::preprocess() {
           else {
             nonAscii = c;
             lineNonAscii = lineNb;
+            columnNonAscii = columnNb;
             text += " ";
             nonAsciiContent = true;
           }
         }
         if (c == '\n') {
           lineNb++;
+          columnNb = 0;
         }
+        columnNb++;
         c = stream.get();
       }
       stream.close();
 
       if (nonAsciiContent) {
+        std::string symbol;
+        if (!clp->pythonAllowed()) symbol = std::string(1, nonAscii);
         if (m_includer == nullptr) {
-          Location loc(m_fileId, lineNonAscii, 0,
-                       registerSymbol(std::string(1, nonAscii)));
+          Location loc(m_fileId, lineNonAscii, columnNonAscii,
+                       registerSymbol(symbol));
           Error err(ErrorDefinition::PP_NON_ASCII_CONTENT, loc);
           addError(err);
         } else {
-          Location loc(m_fileId, lineNonAscii, 0,
-                       registerSymbol(std::string(1, nonAscii)));
+          Location loc(m_fileId, lineNonAscii, 0, registerSymbol(symbol));
           Location includeFile(m_includer->m_fileId, m_includerLine, 0, 0);
           Error err(ErrorDefinition::PP_NON_ASCII_CONTENT, loc, includeFile);
           addError(err);
