@@ -51,20 +51,23 @@ static std::string FlbSchemaVersion = "1.0";
 
 PythonAPICache::PythonAPICache(PythonListen* listener) : m_listener(listener) {}
 
-fs::path PythonAPICache::getCacheFileName_(fs::path svFileName) const {
+std::filesystem::path PythonAPICache::getCacheFileName_(
+    const std::filesystem::path& svFileName) const {
+  std::filesystem::path svFileNamePriv = svFileName;
   SymbolId cacheDirId =
       m_listener->getCompileSourceFile()->getCommandLineParser()->getCacheDir();
   fs::path cacheDirName = m_listener->getParseFile()->getSymbol(cacheDirId);
-  if (svFileName.empty())
-    svFileName = m_listener->getParseFile()->getFileName(LINE1);
-  svFileName = FileUtils::basename(svFileName);
+  if (svFileNamePriv.empty())
+    svFileNamePriv = m_listener->getParseFile()->getFileName(LINE1);
+  svFileNamePriv = FileUtils::basename(svFileNamePriv);
   Library* lib = m_listener->getCompileSourceFile()->getLibrary();
   std::string libName = lib->getName();
-  fs::path cacheFileName = cacheDirName / libName / (svFileName + ".slpy");
+  fs::path cacheFileName =
+      cacheDirName / libName / (svFileNamePriv.string() + ".slpy");
   return cacheFileName;
 }
 
-bool PythonAPICache::restore_(const fs::path& cacheFileName) {
+bool PythonAPICache::restore_(const std::filesystem::path& cacheFileName) {
   uint8_t* buffer_pointer = openFlatBuffers(cacheFileName);
   if (buffer_pointer == nullptr) return false;
 
@@ -79,7 +82,8 @@ bool PythonAPICache::restore_(const fs::path& cacheFileName) {
   return true;
 }
 
-bool PythonAPICache::checkCacheIsValid_(const fs::path& cacheFileName) {
+bool PythonAPICache::checkCacheIsValid_(
+    const std::filesystem::path& cacheFileName) {
   uint8_t* buffer_pointer = openFlatBuffers(cacheFileName);
   if (buffer_pointer == nullptr) return false;
   if (!PYTHONAPICACHE::PythonAPICacheBufferHasIdentifier(buffer_pointer)) {

@@ -21,6 +21,7 @@ jobs:
         - coverage
         - valgrind
         - install
+        - pythonapi
     env:
       MODE: ${{ matrix.mode }}
 
@@ -89,6 +90,10 @@ jobs:
         which ninja && ninja --version
         which $CC && $CC --version
         which $CXX && $CXX --version
+    - name: PythonAPI
+      if: matrix.mode == 'pythonapi'
+      run: |
+        make ADDITIONAL_CMAKE_OPTIONS="-DSURELOG_WITH_PYTHON=1 -DCMAKE_CXX_FLAGS=-fpermissive"
 
     - name: Test
       if: matrix.mode == 'test'
