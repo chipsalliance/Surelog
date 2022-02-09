@@ -117,6 +117,14 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
         scope->setValue(var.first, m_exprBuilder.clone(val), m_exprBuilder);
       }
     }
+    // Nets
+    auto& netSet = def->getSignals();
+    for (auto& net : netSet) {
+      if (!object_name.empty()) {
+        if (net->getName() != object_name) continue;
+      }
+      scope->getSignals().push_back(net);
+    }
     // Incomplete bindings
     for (auto& var : def->getLateBinding()) {
       scope->needLateBinding(var);

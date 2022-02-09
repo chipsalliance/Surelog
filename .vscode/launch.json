@@ -431,6 +431,26 @@
             ]
         },
         {
+            "name": "OVMSwitch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-timescale=1ns/1ns", "+vcs+flush+all", "+warn=all", "-sverilog", "+incdir+../../UVM/ovm-2.1.2/src/", "-writepp", "-verbose", 
+                "-parse", "-fileunit",  "../../UVM/ovm-2.1.2/src/ovm_pkg.sv",  "rtl.sv", "interface.sv", "top.sv", "+OVM_TESTNAME=test1"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/OVMSwitch/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "TestBatchMode",
             "type": "cppdbg",
             "request": "launch",
