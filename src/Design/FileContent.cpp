@@ -214,6 +214,13 @@ NodeId FileContent::Parent(NodeId index) const {
 }
 
 VObjectType FileContent::Type(NodeId index) const {
+  if (index >= m_objects.size()) {
+    Location loc(this->m_fileId);
+    Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
+    m_errors->addError(err);
+    std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";
+    return (VObjectType)m_objects[0].m_type;
+  }
   return (VObjectType)m_objects[index].m_type;
 }
 
