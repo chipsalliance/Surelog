@@ -122,8 +122,8 @@ bool ParseCache::restore_(const fs::path& cacheFileName) {
         m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
             canonicalSymbols.getSymbol(elemc->file_id())),
         (DesignElement::ElemType)elemc->type(), elemc->unique_id(),
-        elemc->line(), elemc->column(), elemc->end_line(),
-        elemc->end_column(), elemc->parent());
+        elemc->line(), elemc->column(), elemc->end_line(), elemc->end_column(),
+        elemc->parent());
     elem->m_node = elemc->node();
     elem->m_defaultNetType = (VObjectType)elemc->default_net_type();
     elem->m_timeInfo.m_type = (TimeInfo::Type)elemc->time_info()->type();

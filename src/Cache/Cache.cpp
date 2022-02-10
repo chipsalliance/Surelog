@@ -76,8 +76,7 @@ bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
   }
 
   /* Tool version */
-  if (CommandLineParser::getVersionNumber() !=
-      header->sl_version()->c_str()) {
+  if (CommandLineParser::getVersionNumber() != header->sl_version()->c_str()) {
     return false;
   }
 
@@ -191,8 +190,8 @@ void Cache::restoreErrors(const VectorOffsetError* errorsBuf,
       auto locFlb = errorFlb->locations()->Get(j);
       SymbolId translFileId = symbols->registerSymbol(
           canonicalSymbols.getSymbol(locFlb->file_id()));
-      SymbolId translObjectId = symbols->registerSymbol(
-          canonicalSymbols.getSymbol(locFlb->object()));
+      SymbolId translObjectId =
+          symbols->registerSymbol(canonicalSymbols.getSymbol(locFlb->object()));
       Location loc(translFileId, locFlb->line(), locFlb->column(),
                    translObjectId);
       locs.push_back(loc);

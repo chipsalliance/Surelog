@@ -56,7 +56,9 @@ class CompileSourceFile {
   virtual ~CompileSourceFile();
   Compiler* getCompiler() const { return m_compiler; }
   ErrorContainer* getErrorContainer() const { return m_errors; }
-  CommandLineParser* getCommandLineParser() const { return m_commandLineParser; }
+  CommandLineParser* getCommandLineParser() const {
+    return m_commandLineParser;
+  }
   SymbolTable* getSymbolTable() const { return m_symbolTable; }
   Library* getLibrary() const { return m_library; }
   void registerPP(PreprocessFile* pp) { m_ppIncludeVec.push_back(pp); }

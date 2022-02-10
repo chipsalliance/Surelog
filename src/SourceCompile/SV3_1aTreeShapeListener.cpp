@@ -60,7 +60,8 @@ void SV3_1aTreeShapeListener::enterTop_level_rule(
   }
   CommandLineParser *clp = m_pf->getCompileSourceFile()->getCommandLineParser();
   if ((!clp->parseOnly()) && (!clp->lowMem())) {
-    IncludeFileInfo info(1, m_pf->getFileId(0), 0, 0, 0, 0, IncludeFileInfo::PUSH);
+    IncludeFileInfo info(1, m_pf->getFileId(0), 0, 0, 0, 0,
+                         IncludeFileInfo::PUSH);
     m_includeFileInfo.push(info);
   }
 }
@@ -184,9 +185,9 @@ void SV3_1aTreeShapeListener::exitSlline(SV3_1aParser::SllineContext *ctx) {
   std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
   if (type == IncludeFileInfo::PUSH) {
     // Push
-    IncludeFileInfo info(startLine,
-                         m_pf->getSymbolTable()->registerSymbol(file),
-                         lineCol.first, lineCol.second, 0, 0, IncludeFileInfo::PUSH);
+    IncludeFileInfo info(
+        startLine, m_pf->getSymbolTable()->registerSymbol(file), lineCol.first,
+        lineCol.second, 0, 0, IncludeFileInfo::PUSH);
     m_includeFileInfo.push(info);
   } else if (type == IncludeFileInfo::POP) {
     // Pop
@@ -194,7 +195,8 @@ void SV3_1aTreeShapeListener::exitSlline(SV3_1aParser::SllineContext *ctx) {
     if (!m_includeFileInfo.empty()) {
       m_includeFileInfo.top().m_sectionFile =
           m_pf->getSymbolTable()->registerSymbol(file);
-      m_includeFileInfo.top().m_originalStartLine = lineCol.first /*+ m_lineOffset*/;
+      m_includeFileInfo.top().m_originalStartLine =
+          lineCol.first /*+ m_lineOffset*/;
       m_includeFileInfo.top().m_originalStartColumn =
           lineCol.second /*+ m_lineOffset*/;
       m_includeFileInfo.top().m_sectionStartLine = startLine;

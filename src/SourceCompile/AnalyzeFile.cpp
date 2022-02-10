@@ -66,7 +66,8 @@ static void saveContent(const fs::path& fileName, const std::string& content) {
   }
 }
 
-void AnalyzeFile::checkSLlineDirective_(const std::string& line, unsigned int lineNb) {
+void AnalyzeFile::checkSLlineDirective_(const std::string& line,
+                                        unsigned int lineNb) {
   std::stringstream ss(line); /* Storing the whole string into string stream */
   std::string keyword;
   ss >> keyword;
@@ -108,8 +109,8 @@ std::string AnalyzeFile::setSLlineDirective_(unsigned int lineNb,
         m_includeFileInfo.top().m_sectionFile);
     const IncludeFileInfo& info = m_includeFileInfo.top();
     origFromLine = lineNb - info.m_originalStartLine + info.m_sectionStartLine;
-    result << "SLline " << origFromLine << " \""
-           << origFile.string() << "\" " << 1 << "\n";
+    result << "SLline " << origFromLine << " \"" << origFile.string() << "\" "
+           << 1 << "\n";
   } else {
     result << "";  // BUG or intentional ?
   }
@@ -537,7 +538,7 @@ void AnalyzeFile::analyze() {
               }
               if ((!inComment) && (!inLineComment) && (!inString)) {
                 if (std::isalpha(static_cast<unsigned char>(c)) || (c == '_')) {
-                    keyword += c;
+                  keyword += c;
                 }
               }
             }
