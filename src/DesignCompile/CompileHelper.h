@@ -34,6 +34,9 @@
 #include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/VObjectTypes.h"
 
+// UHDM
+#include <uhdm/containers.h>
+
 namespace SURELOG {
 class Scope;
 class Statement;

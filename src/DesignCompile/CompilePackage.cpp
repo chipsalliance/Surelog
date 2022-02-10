@@ -37,6 +37,10 @@
 #include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/VObjectTypes.h"
 #include "Utils/StringUtils.h"
+
+// UHDM
+#include <uhdm/package.h>
+
 using namespace SURELOG;
 
 int FunctorCompilePackage::operator()() const {

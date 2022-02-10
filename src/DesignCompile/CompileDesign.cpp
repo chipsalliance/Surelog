@@ -65,6 +65,7 @@
 #include <tbb/task_scheduler_init.h>
 #endif
 
+#include <uhdm/param_assign.h>
 #include <uhdm/vpi_visitor.h>
 
 namespace SURELOG {

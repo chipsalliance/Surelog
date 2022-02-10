@@ -58,6 +58,13 @@
 // UHDM
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/clone_tree.h>
+#include <uhdm/constant.h>
+#include <uhdm/expr.h>
+#include <uhdm/instance.h>
+#include <uhdm/operation.h>
+#include <uhdm/parameter.h>
+#include <uhdm/ref_obj.h>
+#include <uhdm/typespec.h>
 #include <uhdm/vpi_visitor.h>
 
 namespace SURELOG {
