@@ -1016,7 +1016,8 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
                   SymbolId port_symbol = fC->Name(simple_port_name);
                   bool port_exists = false;
                   for (auto& port : m_module->m_signals) {
-                    if (port->getFileContent()->Name(port->getNodeId()) == port_symbol) {
+                    if (port->getFileContent()->Name(port->getNodeId()) ==
+                        port_symbol) {
                       port_exists = true;
                       break;
                     }
