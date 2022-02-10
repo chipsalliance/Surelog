@@ -628,7 +628,12 @@ install(
   FILES ${PROJECT_SOURCE_DIR}/src/CommandLine/CommandLineParser.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/CommandLine)
 install(
-  FILES ${PROJECT_SOURCE_DIR}/src/SourceCompile/SymbolTable.h
+  FILES ${PROJECT_SOURCE_DIR}/src/SourceCompile/Compiler.h
+        ${PROJECT_SOURCE_DIR}/src/SourceCompile/CompileSourceFile.h
+        ${PROJECT_SOURCE_DIR}/src/SourceCompile/IncludeFileInfo.h
+        ${PROJECT_SOURCE_DIR}/src/SourceCompile/LoopCheck.h
+        ${PROJECT_SOURCE_DIR}/src/SourceCompile/PreprocessFile.h
+        ${PROJECT_SOURCE_DIR}/src/SourceCompile/SymbolTable.h
         ${GENDIR}/src/SourceCompile/VObjectTypes.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/SourceCompile)
 install(

@@ -22,6 +22,9 @@
  */
 #include "DesignCompile/ElaboratorHarness.h"
 
+#include "CommandLine/CommandLineParser.h"
+#include "SourceCompile/ParseFile.h"
+
 namespace SURELOG {
 
 std::tuple<Design*, FileContent*, CompileDesign*> ElaboratorHarness::elaborate(

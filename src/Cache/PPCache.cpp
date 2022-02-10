@@ -170,8 +170,10 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
           incinfo->m_sectionStartLine(),
           m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(
               sectionFileName.string()),
-          incinfo->m_originalLine(), (IncludeFileInfo::Action)incinfo->m_type(),
-          incinfo->m_indexOpening(), incinfo->m_indexClosing());
+          incinfo->m_originalStartLine(), incinfo->m_originalStartColumn(),
+          incinfo->m_originalEndLine(), incinfo->m_originalEndColumn(),
+          (IncludeFileInfo::Action)incinfo->m_type(), incinfo->m_indexOpening(),
+          incinfo->m_indexClosing());
       m_pp->getIncludeFileInfo().push_back(inf);
     }
   }
@@ -447,8 +449,10 @@ bool PPCache::save() {
             info.m_sectionFile);
     auto incInfo = MACROCACHE::CreateIncludeFileInfo(
         builder, info.m_sectionStartLine,
-        builder.CreateString(sectionFileName.string()), info.m_originalLine,
-        info.m_type, info.m_indexOpening, info.m_indexClosing);
+        builder.CreateString(sectionFileName.string()),
+        info.m_originalStartLine, info.m_originalStartColumn,
+        info.m_originalEndLine, info.m_originalEndColumn, info.m_type,
+        info.m_indexOpening, info.m_indexClosing);
     // std::cout << "save sectionFile: " << sectionFileName << " s:" <<
     // info.m_sectionStartLine << " o:" << info.m_originalLine << " t:" <<
     // info.m_type << "\n";

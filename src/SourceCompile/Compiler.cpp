@@ -56,6 +56,7 @@
 #include "SourceCompile/CheckCompile.h"
 #include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/ParseFile.h"
 #include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/SymbolTable.h"
 #include "Utils/ContainerUtils.h"

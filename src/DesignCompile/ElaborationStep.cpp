@@ -29,6 +29,7 @@
 #include <string>
 #include <vector>
 
+#include "CommandLine/CommandLineParser.h"
 #include "Design/DummyType.h"
 #include "Design/Enum.h"
 #include "Design/FileContent.h"

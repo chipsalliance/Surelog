@@ -24,6 +24,8 @@
 
 #include <memory>
 
+#include "CommandLine/CommandLineParser.h"
+
 namespace SURELOG {
 
 struct CompilerHarness::Holder {

@@ -22,6 +22,7 @@
  */
 #include <iostream>
 
+#include "CommandLine/CommandLineParser.h"
 #include "CompileDesign.h"
 #include "Design/Design.h"
 #include "Design/DummyType.h"

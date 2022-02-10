@@ -77,7 +77,7 @@ class AnalyzeFile {
   virtual ~AnalyzeFile() {}
 
  private:
-  void checkSLlineDirective_(std::string line, unsigned int lineNb);
+  void checkSLlineDirective_(const std::string& line, unsigned int lineNb);
   std::string setSLlineDirective_(unsigned int lineNb,
                                   unsigned int& origFromLine,
                                   std::filesystem::path& origFile);

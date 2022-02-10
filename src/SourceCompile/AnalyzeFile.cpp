@@ -66,31 +66,23 @@ static void saveContent(const fs::path& fileName, const std::string& content) {
   }
 }
 
-void AnalyzeFile::checkSLlineDirective_(std::string line, unsigned int lineNb) {
-  std::stringstream ss;
+void AnalyzeFile::checkSLlineDirective_(const std::string& line, unsigned int lineNb) {
+  std::stringstream ss(line); /* Storing the whole string into string stream */
   std::string keyword;
-  /* Storing the whole string into string stream */
-  ss << line;
-  std::string tmp;
-  ss >> tmp;
-  std::stringstream(tmp) >> keyword;
-  unsigned int type = 0;
+  ss >> keyword;
   if (keyword == "SLline") {
-    IncludeFileInfo info(0, 0, 0, IncludeFileInfo::NONE);
-    ss >> tmp;
-    std::stringstream(tmp) >> info.m_sectionStartLine;
-    ss >> tmp;
+    IncludeFileInfo info(0, 0, 0, 0, 0, 0, IncludeFileInfo::NONE);
+    ss >> info.m_sectionStartLine;
     std::string file;
-    std::stringstream(tmp) >> file;
-    StringUtils::ltrim(file, '\"');
-    StringUtils::rtrim(file, '\"');
+    ss >> file;
+    file = StringUtils::unquoted(file);
     info.m_sectionFile = m_clp->mutableSymbolTable()->registerSymbol(file);
-    ss >> tmp;
-    std::stringstream(tmp) >> type;
+    unsigned int type = 0;
+    ss >> type;
 
     if (type == IncludeFileInfo::PUSH) {
       // Push
-      info.m_originalLine = lineNb;
+      info.m_originalStartLine = lineNb;
       info.m_type = IncludeFileInfo::PUSH;
       m_includeFileInfo.push(info);
     } else if (type == IncludeFileInfo::POP) {
@@ -98,7 +90,7 @@ void AnalyzeFile::checkSLlineDirective_(std::string line, unsigned int lineNb) {
       if (!m_includeFileInfo.empty()) m_includeFileInfo.pop();
       if (!m_includeFileInfo.empty()) {
         m_includeFileInfo.top().m_sectionFile = info.m_sectionFile;
-        m_includeFileInfo.top().m_originalLine = lineNb;
+        m_includeFileInfo.top().m_originalStartLine = lineNb;
         m_includeFileInfo.top().m_sectionStartLine =
             info.m_sectionStartLine - 1;
         m_includeFileInfo.top().m_type = IncludeFileInfo::POP;
@@ -110,23 +102,18 @@ void AnalyzeFile::checkSLlineDirective_(std::string line, unsigned int lineNb) {
 std::string AnalyzeFile::setSLlineDirective_(unsigned int lineNb,
                                              unsigned int& origFromLine,
                                              fs::path& origFile) {
-  std::string result;
+  std::ostringstream result;
   if (!m_includeFileInfo.empty()) {
-    result = "SLline ";
     origFile = m_clp->mutableSymbolTable()->getSymbol(
         m_includeFileInfo.top().m_sectionFile);
-    unsigned int origLine = m_includeFileInfo.top().m_originalLine;
-    unsigned int sectionStartLine = m_includeFileInfo.top().m_sectionStartLine;
-    origFromLine = lineNb - origLine + sectionStartLine;
-    result += std::to_string(origFromLine);
-    result += " \"";
-    result += origFile.string();
-    result += "\" ";
-    result += std::to_string(1);
-    result += "\n";
+    const IncludeFileInfo& info = m_includeFileInfo.top();
+    origFromLine = lineNb - info.m_originalStartLine + info.m_sectionStartLine;
+    result << "SLline " << origFromLine << " \""
+           << origFile.string() << "\" " << 1 << "\n";
+  } else {
+    result << "";  // BUG or intentional ?
   }
-  result = "";  // BUG or intentional ?
-  return result;
+  return result.str();
 }
 
 void AnalyzeFile::analyze() {
@@ -219,9 +206,8 @@ void AnalyzeFile::analyze() {
             inPackage = true;
             startLine = lineNb;
             startChar = charNb;
-            FileChunk chunk(DesignElement::ElemType::Package, startLine, 0,
-                            startChar, 0);
-            fileChunks.push_back(chunk);
+            fileChunks.emplace_back(DesignElement::ElemType::Package, startLine,
+                                    0, startChar, 0);
             indexPackage = fileChunks.size() - 1;
           }
           if (keyword == "endpackage") {
@@ -241,9 +227,8 @@ void AnalyzeFile::analyze() {
             if (inModule == 0) {
               startLine = lineNb;
               startChar = charNb;
-              FileChunk chunk(DesignElement::ElemType::Module, startLine, 0,
-                              startChar, 0);
-              fileChunks.push_back(chunk);
+              fileChunks.emplace_back(DesignElement::ElemType::Module,
+                                      startLine, 0, startChar, 0);
               indexModule = fileChunks.size() - 1;
             }
             inModule++;
@@ -311,9 +296,8 @@ void AnalyzeFile::analyze() {
           }
           if (keyword == "endclass") {
             if (inClass == 1) {
-              FileChunk chunk(DesignElement::ElemType::Class, startLine, lineNb,
-                              startChar, charNb);
-              fileChunks.push_back(chunk);
+              fileChunks.emplace_back(DesignElement::ElemType::Class, startLine,
+                                      lineNb, startChar, charNb);
               nbClass++;
             }
             inClass--;
@@ -327,9 +311,8 @@ void AnalyzeFile::analyze() {
           }
           if (keyword == "endinterface") {
             if (inInterface == 1) {
-              FileChunk chunk(DesignElement::ElemType::Interface, startLine,
-                              lineNb, startChar, charNb);
-              fileChunks.push_back(chunk);
+              fileChunks.emplace_back(DesignElement::ElemType::Interface,
+                                      startLine, lineNb, startChar, charNb);
               nbInterface++;
             }
             inInterface--;
@@ -341,9 +324,8 @@ void AnalyzeFile::analyze() {
           }
           if (keyword == "endconfig") {
             if (inConfig) {
-              FileChunk chunk(DesignElement::ElemType::Config, startLine,
-                              lineNb, startChar, charNb);
-              fileChunks.push_back(chunk);
+              fileChunks.emplace_back(DesignElement::ElemType::Config,
+                                      startLine, lineNb, startChar, charNb);
               nbConfig++;
             }
             inConfig = false;
@@ -355,9 +337,8 @@ void AnalyzeFile::analyze() {
           }
           if (keyword == "endchecker") {
             if (inChecker) {
-              FileChunk chunk(DesignElement::ElemType::Checker, startLine,
-                              lineNb, startChar, charNb);
-              fileChunks.push_back(chunk);
+              fileChunks.emplace_back(DesignElement::ElemType::Checker,
+                                      startLine, lineNb, startChar, charNb);
               nbChecker++;
             }
             inChecker = false;
@@ -369,9 +350,8 @@ void AnalyzeFile::analyze() {
           }
           if (keyword == "endprogram") {
             if (inProgram) {
-              FileChunk chunk(DesignElement::ElemType::Program, startLine,
-                              lineNb, startChar, charNb);
-              fileChunks.push_back(chunk);
+              fileChunks.emplace_back(DesignElement::ElemType::Program,
+                                      startLine, lineNb, startChar, charNb);
               nbProgram++;
             }
             inProgram = false;
@@ -383,9 +363,8 @@ void AnalyzeFile::analyze() {
           }
           if (keyword == "endprimitive") {
             if (inPrimitive) {
-              FileChunk chunk(DesignElement::ElemType::Primitive, startLine,
-                              lineNb, startChar, charNb);
-              fileChunks.push_back(chunk);
+              fileChunks.emplace_back(DesignElement::ElemType::Primitive,
+                                      startLine, lineNb, startChar, charNb);
               nbPrimitive++;
             }
             inPrimitive = false;
@@ -414,18 +393,18 @@ void AnalyzeFile::analyze() {
   unsigned int lineSize = lineNb;
 
   if (m_clp->getNbMaxProcesses()) {
-    m_splitFiles.push_back(m_ppFileName);
+    m_splitFiles.emplace_back(m_ppFileName);
     m_lineOffsets.push_back(0);
     return;
   }
 
   if (lineSize < minNbLineForPartitioning) {
-    m_splitFiles.push_back(m_ppFileName);
+    m_splitFiles.emplace_back(m_ppFileName);
     m_lineOffsets.push_back(0);
     return;
   }
   if (m_nbChunks < 2) {
-    m_splitFiles.push_back(m_ppFileName);
+    m_splitFiles.emplace_back(m_ppFileName);
     m_lineOffsets.push_back(0);
     return;
   }
@@ -449,10 +428,9 @@ void AnalyzeFile::analyze() {
 
   unsigned int fromLine = 1;
   unsigned int toIndex = 0;
-  IncludeFileInfo info(
-      1, m_clp->mutableSymbolTable()->registerSymbol(m_fileName.string()), 1,
-      IncludeFileInfo::PUSH);
-  m_includeFileInfo.push(info);
+  m_includeFileInfo.emplace(
+      1, m_clp->mutableSymbolTable()->registerSymbol(m_fileName.string()), 1, 0,
+      1, 0, IncludeFileInfo::PUSH);
   unsigned int linesWriten = 0;
   for (unsigned int i = 0; i < fileChunks.size(); i++) {
     DesignElement::ElemType chunkType = fileChunks[i].m_chunkType;
@@ -530,7 +508,7 @@ void AnalyzeFile::analyze() {
 
           // Detect end of package or end of module
           for (unsigned int l = fromLine; l < toLine; l++) {
-            std::string line = allLines[l];
+            const std::string& line = allLines[l];
             checkSLlineDirective_(line, l);
 
             bool inLineComment = false;
@@ -544,11 +522,10 @@ void AnalyzeFile::analyze() {
             linesWriten++;
 
             actualContent = true;
-            char c = 0;
             char cp = 0;
             std::string keyword;
-            for (unsigned int ii = 0; ii < line.size(); ii++) {
-              c = line[ii];
+            for (char c : line) {
+              cp = c;
               if (cp == '/' && c == '*') {
                 if (!inLineComment) inComment = true;
               } else if (cp == '/' && c == '/') {
@@ -559,27 +536,17 @@ void AnalyzeFile::analyze() {
                 if ((!inLineComment) && (!inComment)) inString = !inString;
               }
               if ((!inComment) && (!inLineComment) && (!inString)) {
-                if ((islower(c) || isupper(c) || c == '_') &&
-                    (ii != (line.size() - 1))) {
-                  keyword += c;
-                } else {
-                  if ((islower(c) || isupper(c) || c == '_') &&
-                      (ii == (line.size() - 1))) {
+                if (std::isalpha(static_cast<unsigned char>(c)) || (c == '_')) {
                     keyword += c;
-                  }
-
-                  if ((chunkType == DesignElement::Package) &&
-                      (keyword == "endpackage"))
-                    endPackageDetected = true;
-                  if ((chunkType == DesignElement::Module) &&
-                      (keyword == "endmodule"))
-                    endPackageDetected = true;
-
-                  keyword = "";
                 }
               }
-              cp = c;
             }
+            if ((chunkType == DesignElement::Package) &&
+                (keyword == "endpackage"))
+              endPackageDetected = true;
+            if ((chunkType == DesignElement::Module) &&
+                (keyword == "endmodule"))
+              endPackageDetected = true;
           }
 
           if (actualContent) {
@@ -610,7 +577,7 @@ void AnalyzeFile::analyze() {
           content += "  " + fileLevelImportSection;
           saveContent(splitFileName, content);
 
-          m_splitFiles.push_back(splitFileName);
+          m_splitFiles.emplace_back(splitFileName);
 
           // m_lineOffsets.push_back(fromLine - 1);
 
@@ -680,7 +647,7 @@ void AnalyzeFile::analyze() {
         }
         saveContent(splitFileName, content);
 
-        m_splitFiles.push_back(splitFileName);
+        m_splitFiles.emplace_back(splitFileName);
 
         // m_lineOffsets.push_back (fromLine-1);
 
@@ -753,7 +720,7 @@ void AnalyzeFile::analyze() {
       }
       saveContent(splitFileName, content);
 
-      m_splitFiles.push_back(splitFileName);
+      m_splitFiles.emplace_back(splitFileName);
 
       chunkNb++;
 
