@@ -526,7 +526,6 @@ void AnalyzeFile::analyze() {
             char cp = 0;
             std::string keyword;
             for (char c : line) {
-              cp = c;
               if (cp == '/' && c == '*') {
                 if (!inLineComment) inComment = true;
               } else if (cp == '/' && c == '/') {
@@ -541,6 +540,7 @@ void AnalyzeFile::analyze() {
                   keyword += c;
                 }
               }
+              cp = c;
             }
             if ((chunkType == DesignElement::Package) &&
                 (keyword == "endpackage"))
