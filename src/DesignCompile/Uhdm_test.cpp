@@ -24,6 +24,11 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
+// UHDM
+#include <uhdm/design.h>
+#include <uhdm/module.h>
+#include <uhdm/port.h>
+
 using ::testing::ElementsAre;
 
 namespace SURELOG {
@@ -38,7 +43,7 @@ TEST(Uhdm, PortType) {
   CompileDesign* compileDesign;
   // Preprocess, Parse, Compile, Elaborate, Create UHDM model
   std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
-  module dut1(logic a, logic b); 
+  module dut1(logic a, logic b);
   endmodule
   module dut2(input logic c, logic d);
   endmodule

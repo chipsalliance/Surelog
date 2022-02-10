@@ -44,6 +44,16 @@
 #include "Testbench/ClassDefinition.h"
 #include "Utils/StringUtils.h"
 
+// UHDM
+#include <uhdm/assign_stmt.h>
+#include <uhdm/constant.h>
+#include <uhdm/initial.h>
+#include <uhdm/io_decl.h>
+#include <uhdm/logic_net.h>
+#include <uhdm/ref_obj.h>
+#include <uhdm/table_entry.h>
+#include <uhdm/udp_defn.h>
+
 using namespace SURELOG;
 
 int FunctorCompileModule::operator()() const {
