@@ -25,26 +25,26 @@ file_extension "slpa";
 namespace SURELOG.PARSECACHE;
 
 table DesignElement {
-    m_name:ulong; 
-    m_fileId:ulong;
-    m_type:uint;
-    m_uniqueId:ulong;
-    m_line:uint;
-    m_column:uint;
-    m_end_line:uint;
-    m_end_column:uint;
-    m_timeInfo:CACHE.TimeInfo;
-    m_parent:ulong;
-    m_node:uint;
-    m_defaultNetType:uint;
+  name:ulong;
+  file_id:ulong;
+  type:uint;
+  unique_id:ulong;
+  line:uint;
+  column:uint;
+  end_line:uint;
+  end_column:uint;
+  time_info:CACHE.TimeInfo;
+  parent:ulong;
+  node:uint;
+  default_net_type:uint;
 }
 
 table ParseCache {
-  m_header:CACHE.Header;
-  m_errors:[CACHE.Error];
-  m_symbols:[string];
-  m_elements:[DesignElement];
-  m_objects:[CACHE.VObject];
+  header:CACHE.Header;
+  errors:[CACHE.Error];
+  symbols:[string];
+  elements:[DesignElement];
+  objects:[CACHE.VObject];
 }
 
 root_type ParseCache;

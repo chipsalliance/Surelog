@@ -104,40 +104,40 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
   const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(buffer_pointer);
   if (!errorsOnly) {
     const flatbuffers::Vector<flatbuffers::Offset<MACROCACHE::Macro>>* macros =
-        ppcache->m_macros();
+        ppcache->macros();
     for (unsigned int i = 0; i < macros->size(); i++) {
       const MACROCACHE::Macro* macro = macros->Get(i);
       std::vector<std::string> args;
       std::vector<std::string> tokens;
-      for (unsigned int j = 0; j < macro->m_arguments()->size(); j++) {
-        args.push_back(macro->m_arguments()->Get(j)->str());
+      for (unsigned int j = 0; j < macro->arguments()->size(); j++) {
+        args.push_back(macro->arguments()->Get(j)->str());
       }
-      for (unsigned int j = 0; j < macro->m_tokens()->size(); j++) {
-        tokens.push_back(macro->m_tokens()->Get(j)->str());
+      for (unsigned int j = 0; j < macro->tokens()->size(); j++) {
+        tokens.push_back(macro->tokens()->Get(j)->str());
       }
-      m_pp->recordMacro(macro->m_name()->str(), macro->m_line(),
-                        macro->m_column(), args, tokens);
+      m_pp->recordMacro(macro->name()->str(), macro->line(),
+                        macro->column(), args, tokens);
     }
   }
   SymbolTable canonicalSymbols;
-  restoreErrors(ppcache->m_errors(), ppcache->m_symbols(), canonicalSymbols,
+  restoreErrors(ppcache->errors(), ppcache->symbols(), canonicalSymbols,
                 m_pp->getCompileSourceFile()->getErrorContainer(),
                 m_pp->getCompileSourceFile()->getSymbolTable());
 
   /* Restore `timescale directives */
   if (!errorsOnly) {
     const flatbuffers::Vector<flatbuffers::Offset<CACHE::TimeInfo>>* timeinfos =
-        ppcache->m_timeInfo();
+        ppcache->time_info();
     for (unsigned int i = 0; i < timeinfos->size(); i++) {
       const CACHE::TimeInfo* fbtimeinfo = timeinfos->Get(i);
       TimeInfo timeInfo;
-      timeInfo.m_type = (TimeInfo::Type)fbtimeinfo->m_type();
-      timeInfo.m_fileId = fbtimeinfo->m_fileId();
-      timeInfo.m_line = fbtimeinfo->m_line();
-      timeInfo.m_timeUnit = (TimeInfo::Unit)fbtimeinfo->m_timeUnit();
-      timeInfo.m_timeUnitValue = fbtimeinfo->m_timeUnitValue();
-      timeInfo.m_timePrecision = (TimeInfo::Unit)fbtimeinfo->m_timePrecision();
-      timeInfo.m_timePrecisionValue = fbtimeinfo->m_timePrecisionValue();
+      timeInfo.m_type = (TimeInfo::Type)fbtimeinfo->type();
+      timeInfo.m_fileId = fbtimeinfo->file_id();
+      timeInfo.m_line = fbtimeinfo->line();
+      timeInfo.m_timeUnit = (TimeInfo::Unit)fbtimeinfo->time_unit();
+      timeInfo.m_timeUnitValue = fbtimeinfo->time_unit_value();
+      timeInfo.m_timePrecision = (TimeInfo::Unit)fbtimeinfo->time_precision();
+      timeInfo.m_timePrecisionValue = fbtimeinfo->time_precision_value();
       m_pp->getCompilationUnit()->recordTimeInfo(timeInfo);
     }
   }
@@ -145,40 +145,40 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
   if (!errorsOnly) {
     const flatbuffers::Vector<
         flatbuffers::Offset<MACROCACHE::LineTranslationInfo>>* lineinfos =
-        ppcache->m_lineTranslationVec();
+        ppcache->line_translation_vec();
     for (unsigned int i = 0; i < lineinfos->size(); i++) {
       const MACROCACHE::LineTranslationInfo* lineinfo = lineinfos->Get(i);
-      const fs::path pretendFileName = lineinfo->m_pretendFile()->str();
+      const fs::path pretendFileName = lineinfo->pretend_file()->str();
       PreprocessFile::LineTranslationInfo lineFileInfo(
           m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(
               pretendFileName.string()),
-          lineinfo->m_originalLine(), lineinfo->m_pretendLine());
+          lineinfo->original_line(), lineinfo->pretend_line());
       m_pp->addLineTranslationInfo(lineFileInfo);
     }
   }
   /* Restore include file info */
   if (!errorsOnly) {
     const flatbuffers::Vector<flatbuffers::Offset<MACROCACHE::IncludeFileInfo>>*
-        incinfos = ppcache->m_includeFileInfo();
+        incinfos = ppcache->include_file_info();
     for (unsigned int i = 0; i < incinfos->size(); i++) {
       const MACROCACHE::IncludeFileInfo* incinfo = incinfos->Get(i);
-      const fs::path sectionFileName = incinfo->m_sectionFile()->str();
+      const fs::path sectionFileName = incinfo->section_file()->str();
       // std::cout << "read sectionFile: " << sectionFileName << " s:" <<
       // incinfo->m_sectionStartLine() << " o:" << incinfo->m_originalLine() <<
       // " t:" << incinfo->m_type() << "\n";
       IncludeFileInfo inf(
-          incinfo->m_sectionStartLine(),
+          incinfo->section_start_line(),
           m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(
               sectionFileName.string()),
-          incinfo->m_originalStartLine(), incinfo->m_originalStartColumn(),
-          incinfo->m_originalEndLine(), incinfo->m_originalEndColumn(),
-          (IncludeFileInfo::Action)incinfo->m_type(), incinfo->m_indexOpening(),
-          incinfo->m_indexClosing());
+          incinfo->original_start_line(), incinfo->original_start_column(),
+          incinfo->original_end_line(), incinfo->original_end_column(),
+          (IncludeFileInfo::Action)incinfo->type(), incinfo->index_opening(),
+          incinfo->index_closing());
       m_pp->getIncludeFileInfo().push_back(inf);
     }
   }
   // Includes
-  auto includes = ppcache->m_includes();
+  auto includes = ppcache->includes();
   if (includes) {
     for (unsigned int i = 0; i < includes->size(); i++) {
       auto include = includes->Get(i);
@@ -187,8 +187,8 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
   }
   // File Body
   if (!errorsOnly) {
-    if (ppcache->m_body() && !ppcache->m_body()->string_view().empty()) {
-      m_pp->append(ppcache->m_body()->str());
+    if (ppcache->body() && !ppcache->body()->string_view().empty()) {
+      m_pp->append(ppcache->body()->str());
     }
   }
   // FileContent
@@ -206,7 +206,7 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
           ->addPPFileContent(m_pp->getFileId(0), fileContent);
     }
 
-    auto objects = ppcache->m_objects();
+    auto objects = ppcache->objects();
     restoreVObjects(objects, canonicalSymbols,
                     *m_pp->getCompileSourceFile()->getSymbolTable(),
                     m_pp->getFileId(0), fileContent);
@@ -235,7 +235,7 @@ bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName) {
   }
 
   const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(buffer_pointer);
-  auto header = ppcache->m_header();
+  auto header = ppcache->header();
 
   if (!m_isPrecompiled) {
     if (!checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileName)) {
@@ -253,8 +253,8 @@ bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName) {
     }
 
     std::vector<fs::path> cache_include_path_vec;
-    for (unsigned int i = 0; i < ppcache->m_cmd_include_paths()->size(); i++) {
-      const fs::path path = ppcache->m_cmd_include_paths()->Get(i)->str();
+    for (unsigned int i = 0; i < ppcache->cmd_include_paths()->size(); i++) {
+      const fs::path path = ppcache->cmd_include_paths()->Get(i)->str();
       cache_include_path_vec.push_back(path);
     }
     if (!compareVectors(include_path_vec, cache_include_path_vec)) {
@@ -273,8 +273,8 @@ bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName) {
     }
 
     std::vector<std::string> cache_define_vec;
-    for (unsigned int i = 0; i < ppcache->m_cmd_define_options()->size(); i++) {
-      const std::string path = ppcache->m_cmd_define_options()->Get(i)->str();
+    for (unsigned int i = 0; i < ppcache->cmd_define_options()->size(); i++) {
+      const std::string path = ppcache->cmd_define_options()->Get(i)->str();
       cache_define_vec.push_back(path);
     }
     if (!compareVectors(define_vec, cache_define_vec)) {
@@ -283,7 +283,7 @@ bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName) {
     }
 
     /* All includes*/
-    auto includes = ppcache->m_includes();
+    auto includes = ppcache->includes();
     if (includes)
       for (unsigned int i = 0; i < includes->size(); i++) {
         auto include = includes->Get(i);

@@ -98,7 +98,7 @@ bool ParseCache::restore_(const fs::path& cacheFileName) {
   const PARSECACHE::ParseCache* ppcache =
       PARSECACHE::GetParseCache(buffer_pointer);
   SymbolTable canonicalSymbols;
-  restoreErrors(ppcache->m_errors(), ppcache->m_symbols(), canonicalSymbols,
+  restoreErrors(ppcache->errors(), ppcache->symbols(), canonicalSymbols,
                 m_parse->getCompileSourceFile()->getErrorContainer(),
                 m_parse->getCompileSourceFile()->getSymbolTable());
   /* Restore design content (Verilog Design Elements) */
@@ -112,35 +112,35 @@ bool ParseCache::restore_(const fs::path& cacheFileName) {
     m_parse->getCompileSourceFile()->getCompiler()->getDesign()->addFileContent(
         m_parse->getFileId(0), fileContent);
   }
-  auto content = ppcache->m_elements();
+  auto content = ppcache->elements();
   for (unsigned int i = 0; i < content->size(); i++) {
     auto elemc = content->Get(i);
-    const std::string& elemName = canonicalSymbols.getSymbol(elemc->m_name());
+    const std::string& elemName = canonicalSymbols.getSymbol(elemc->name());
     DesignElement* elem = new DesignElement(
         m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
-            canonicalSymbols.getSymbol(elemc->m_name())),
+            canonicalSymbols.getSymbol(elemc->name())),
         m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
-            canonicalSymbols.getSymbol(elemc->m_fileId())),
-        (DesignElement::ElemType)elemc->m_type(), elemc->m_uniqueId(),
-        elemc->m_line(), elemc->m_column(), elemc->m_end_line(),
-        elemc->m_end_column(), elemc->m_parent());
-    elem->m_node = elemc->m_node();
-    elem->m_defaultNetType = (VObjectType)elemc->m_defaultNetType();
-    elem->m_timeInfo.m_type = (TimeInfo::Type)elemc->m_timeInfo()->m_type();
-    elem->m_timeInfo.m_fileId = elemc->m_timeInfo()->m_fileId();
-    elem->m_timeInfo.m_line = elemc->m_timeInfo()->m_line();
+            canonicalSymbols.getSymbol(elemc->file_id())),
+        (DesignElement::ElemType)elemc->type(), elemc->unique_id(),
+        elemc->line(), elemc->column(), elemc->end_line(),
+        elemc->end_column(), elemc->parent());
+    elem->m_node = elemc->node();
+    elem->m_defaultNetType = (VObjectType)elemc->default_net_type();
+    elem->m_timeInfo.m_type = (TimeInfo::Type)elemc->time_info()->type();
+    elem->m_timeInfo.m_fileId = elemc->time_info()->file_id();
+    elem->m_timeInfo.m_line = elemc->time_info()->line();
     elem->m_timeInfo.m_timeUnit =
-        (TimeInfo::Unit)elemc->m_timeInfo()->m_timeUnit();
-    elem->m_timeInfo.m_timeUnitValue = elemc->m_timeInfo()->m_timeUnitValue();
+        (TimeInfo::Unit)elemc->time_info()->time_unit();
+    elem->m_timeInfo.m_timeUnitValue = elemc->time_info()->time_unit_value();
     elem->m_timeInfo.m_timePrecision =
-        (TimeInfo::Unit)elemc->m_timeInfo()->m_timePrecision();
+        (TimeInfo::Unit)elemc->time_info()->time_precision();
     elem->m_timeInfo.m_timePrecisionValue =
-        elemc->m_timeInfo()->m_timePrecisionValue();
+        elemc->time_info()->time_precision_value();
     fileContent->addDesignElement(elemName, elem);
   }
 
   /* Restore design objects */
-  auto objects = ppcache->m_objects();
+  auto objects = ppcache->objects();
   restoreVObjects(objects, canonicalSymbols,
                   *m_parse->getCompileSourceFile()->getSymbolTable(),
                   m_parse->getFileId(0), fileContent);
@@ -160,7 +160,7 @@ bool ParseCache::checkCacheIsValid_(const fs::path& cacheFileName) {
   }
   const PARSECACHE::ParseCache* ppcache =
       PARSECACHE::GetParseCache(buffer_pointer);
-  auto header = ppcache->m_header();
+  auto header = ppcache->header();
 
   if (!m_isPrecompiled) {
     if (!checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileName)) {
