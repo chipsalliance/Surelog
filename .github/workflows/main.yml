@@ -150,7 +150,7 @@ jobs:
         path: ${{ github.workspace }}/build/surelog-linux-gcc-regression.tgz
 
   msys2-gcc:
-    runs-on: windows-latest
+    runs-on: windows-2022
     defaults:
       run:
         shell: msys2 {0}
@@ -278,7 +278,7 @@ jobs:
         path: ${{ github.workspace }}/build/surelog-msys2-gcc-regression.tgz
 
   windows-cl:
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     defaults:
       run:
@@ -331,7 +331,7 @@ jobs:
 
     - name: Build & Test
       run: |
-        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+        call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
 
         set CMAKE_GENERATOR=Ninja
         set CC=cl
