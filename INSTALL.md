@@ -19,7 +19,7 @@ git submodule update --init --recursive
 
 ### Ubuntu/Debian
 
-`sudo apt-get install build-essential cmake git pkg-config tclsh swig uuid-dev libgoogle-perftools-dev python3 python3-dev default-jre lcov`
+`sudo apt-get install build-essential cmake git pkg-config tclsh swig uuid-dev libgoogle-perftools-dev python3 python3-orderedmultidict python3-psutil python3-dev default-jre lcov`
 
 *Note:* If you intend to change the grammar, add: `sudo apt-get install ant`
 

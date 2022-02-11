@@ -42,23 +42,13 @@ jobs:
           build-essential \
           google-perftools \
           libgoogle-perftools-dev \
+          python3 python3-orderedmultidict python3-psutil python3-dev \
           uuid-dev \
           lcov \
           valgrind
         sudo ln -sf /usr/bin/g++-9 /usr/bin/g++
         sudo ln -sf /usr/bin/gcc-9 /usr/bin/gcc
         sudo ln -sf /usr/bin/gcov-9 /usr/bin/gcov
-
-    - name: Setup Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-        architecture: x64
-
-    - name: Setup Python Packages
-      run: |
-        pip3 install orderedmultidict
-        pip3 install psutil
 
     - name: Checkout code
       uses: actions/checkout@v2
