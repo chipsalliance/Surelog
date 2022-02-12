@@ -428,5 +428,7 @@ bool ErrorDefinition::init() {
   rec(UHDM_MULTIPLE_CONT_ASSIGN, ERROR, UHDM,
       "Multiple continuous assignments to: %s", "%exloc other assignment");
   rec(UHDM_ILLEGAL_WIRE_LHS, ERROR, UHDM, "Illegal lhs of type wire \"%s\"");
+  rec(UHDM_ILLEGAL_PACKED_DIMENSION, ERROR, UHDM,
+      "Illegal dynamic packed dimension \"%s\"");
   return true;
 }

@@ -25,6 +25,9 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
+// UHDM
+#include <uhdm/expr.h>
+
 using ::testing::ElementsAre;
 
 namespace SURELOG {

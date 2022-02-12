@@ -36,6 +36,7 @@
 // UHDM
 #include <uhdm/Serializer.h>
 #include <uhdm/class_defn.h>
+#include <uhdm/package.h>
 
 namespace SURELOG {
 static VObjectType convert(std::string_view type) {
