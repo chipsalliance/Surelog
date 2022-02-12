@@ -380,7 +380,8 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             }
           }
           std::string v;
-          if (val.find_first_of('s') != std::string::npos) {
+          if ((val.find_first_of('s') != std::string::npos) ||
+              (val.find_first_of('S') != std::string::npos)) {
             v = val.substr(i + 3);
           } else {
             v = val.substr(i + 2);
@@ -388,7 +389,8 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           v = StringUtils::replaceAll(v, "_", "");
           bool intformat = false;
           switch (base) {
-            case 'h': {
+            case 'h':
+            case 'H': {
               if (intsize > 64) {
                 m_valueFactory.deleteValue(value);
                 StValue* stval = (StValue*)m_valueFactory.newStValue();
@@ -401,6 +403,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
               break;
             }
             case 'b':
+            case 'B':
               if (strstr(v.c_str(), "X") || strstr(v.c_str(), "Z") ||
                   strstr(v.c_str(), "x") || strstr(v.c_str(), "z")) {
                 StValue* stval = (StValue*)m_valueFactory.newStValue();
@@ -413,10 +416,12 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
               }
               break;
             case 'o':
+            case 'O':
               hex_value = std::strtoull(v.c_str(), 0, 8);
               intformat = true;
               break;
             case 'd':
+            case 'D':
               hex_value = std::strtoull(v.c_str(), 0, 10);
               intformat = true;
               break;
