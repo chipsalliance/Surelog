@@ -515,14 +515,16 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
             break;
           }
         }
-        if (value.find_first_of('s') != std::string::npos) {
+        if ((value.find_first_of('s') != std::string::npos) ||
+            (value.find_first_of('S') != std::string::npos)) {
           v = value.substr(i + 3);
         } else {
           v = value.substr(i + 2);
         }
         v = StringUtils::replaceAll(v, "_", "");
         switch (base) {
-          case 'h': {
+          case 'h':
+          case 'H': {
             std::string size = value;
             StringUtils::rtrim(size, '\'');
             c->VpiSize(atoi(size.c_str()));
@@ -530,7 +532,8 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
             c->VpiConstType(vpiHexConst);
             break;
           }
-          case 'b': {
+          case 'b':
+          case 'B': {
             std::string size = value;
             StringUtils::rtrim(size, '\'');
             c->VpiSize(atoi(size.c_str()));
@@ -538,7 +541,8 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
             c->VpiConstType(vpiBinaryConst);
             break;
           }
-          case 'o': {
+          case 'o':
+          case 'O': {
             std::string size = value;
             StringUtils::rtrim(size, '\'');
             c->VpiSize(atoi(size.c_str()));
@@ -546,7 +550,8 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
             c->VpiConstType(vpiOctConst);
             break;
           }
-          case 'd': {
+          case 'd':
+          case 'D': {
             std::string size = value;
             StringUtils::rtrim(size, '\'');
             c->VpiSize(atoi(size.c_str()));
