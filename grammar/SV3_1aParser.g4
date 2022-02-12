@@ -1943,7 +1943,7 @@ case_generate_item
 
 generate_block
     :  generate_item
-    | ( identifier COLUMN )? BEGIN ( COLUMN identifier )? (generate_item* | generate_block) END
+    | ( identifier COLUMN )? BEGIN ( COLUMN identifier )? (generate_item | generate_block)* END
       ( COLUMN identifier )?
     ;
 
