@@ -748,6 +748,54 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       results = stmts;
       break;
     }
+    case slExpect_property_statement: {
+      expect_stmt* expect = s.MakeExpect_stmt();
+      NodeId Property_expr = fC->Child(the_stmt);
+      NodeId If_block = fC->Sibling(Property_expr);
+      UHDM::any* if_stmt = nullptr;
+      UHDM::any* else_stmt = nullptr;
+      if (fC->Type(If_block) == slAction_block) {
+        NodeId if_stmt_id = fC->Child(If_block);
+        NodeId else_stmt_id = 0;
+        if (fC->Type(if_stmt_id) == slElse) {
+          else_stmt_id = fC->Sibling(if_stmt_id);
+          if_stmt_id = 0;
+        } else {
+          NodeId else_keyword = fC->Sibling(if_stmt_id);
+          if (else_keyword) else_stmt_id = fC->Sibling(else_keyword);
+        }
+        UHDM::VectorOfany* if_stmts = nullptr;
+        if (if_stmt_id)
+          if_stmts =
+              compileStmt(component, fC, if_stmt_id, compileDesign, pstmt);
+        if (if_stmts) if_stmt = (*if_stmts)[0];
+        UHDM::VectorOfany* else_stmts = nullptr;
+        if (else_stmt_id)
+          else_stmts =
+              compileStmt(component, fC, else_stmt_id, compileDesign, pstmt);
+        if (else_stmts) else_stmt = (*else_stmts)[0];
+      }
+      UHDM::property_spec* prop_spec = s.MakeProperty_spec();
+      NodeId Clocking_event = fC->Child(Property_expr);
+
+      UHDM::expr* clocking_event = nullptr;
+      if (fC->Type(Clocking_event) == slClocking_event) {
+        clocking_event = (UHDM::expr*)compileExpression(
+            component, fC, Clocking_event, compileDesign, pstmt, instance,
+            false);
+        Clocking_event = fC->Sibling(Clocking_event);
+      }
+      prop_spec->VpiClockingEvent(clocking_event);
+      UHDM::expr* property_expr = any_cast<expr*>(
+          compileExpression(component, fC, Clocking_event, compileDesign, pstmt,
+                            instance, false));
+      prop_spec->VpiPropertyExpr(property_expr);
+      expect->Property_spec(prop_spec);
+      expect->Stmt(if_stmt);
+      expect->Else_stmt(else_stmt);
+      stmt = expect;
+      break;
+    }
     default:
       break;
   }
