@@ -172,7 +172,7 @@ void ParseFile::addError(Error& error) {
 void ParseFile::buildLineInfoCache_() {
   PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
   if (!pp) return;
-  auto& infos = pp->getIncludeFileInfo();
+  auto const& infos = pp->getIncludeFileInfo();
   if (!infos.empty()) {
     fileInfoCache.resize(pp->getSumLineCount() + 10);
     lineInfoCache.resize(pp->getSumLineCount() + 10);
@@ -186,12 +186,12 @@ void ParseFile::buildLineInfoCache_() {
       unsigned int indexOpeningRange = 0;
       unsigned int index = infos.size() - 1;
       while (1) {
-        if ((lineItr >= infos[index].m_originalLine) &&
+        if ((lineItr >= infos[index].m_originalStartLine) &&
             (infos[index].m_type == IncludeFileInfo::POP)) {
           SymbolId fileId = infos[index].m_sectionFile;
           fileInfoCache[lineItr] = fileId;
           unsigned int l = infos[index].m_sectionStartLine +
-                           (lineItr - infos[index].m_originalLine);
+                           (lineItr - infos[index].m_originalStartLine);
           lineInfoCache[lineItr] = l;
           break;
         }
@@ -205,14 +205,15 @@ void ParseFile::buildLineInfoCache_() {
             if (index == indexOpeningRange) inRange = false;
           }
         }
-        if ((lineItr >= infos[index].m_originalLine) &&
+        if ((lineItr >= infos[index].m_originalStartLine) &&
             (infos[index].m_type == IncludeFileInfo::PUSH) &&
             (infos[index].m_indexClosing > -1) &&
-            (lineItr < infos[infos[index].m_indexClosing].m_originalLine)) {
+            (lineItr <
+             infos[infos[index].m_indexClosing].m_originalStartLine)) {
           SymbolId fileId = infos[index].m_sectionFile;
           fileInfoCache[lineItr] = fileId;
           unsigned int l = infos[index].m_sectionStartLine +
-                           (lineItr - infos[index].m_originalLine);
+                           (lineItr - infos[index].m_originalStartLine);
           lineInfoCache[lineItr] = l;
           break;
         }

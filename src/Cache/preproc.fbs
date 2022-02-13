@@ -27,42 +27,45 @@ namespace SURELOG.MACROCACHE;
 enum MacroType :byte { NO_ARGS = 0, WITH_ARGS = 1 }
 
 table Macro {
-  m_name:string;
-  m_type:MacroType;
-  m_line:uint;
-  m_column:ushort;
-  m_arguments:[string];
-  m_tokens:[string];
+  name:string;
+  type:MacroType;
+  line:uint;
+  column:ushort;
+  arguments:[string];
+  tokens:[string];
 }
 
 table IncludeFileInfo {
-  m_sectionStartLine:uint;
-  m_sectionFile:string;
-  m_originalLine:uint;
-  m_type:uint;  // 1 or 2, push or pop
-  m_indexOpening:int;
-  m_indexClosing:int;
+  section_start_line:uint;
+  section_file:string;
+  original_start_line:uint;
+  original_start_column:uint;
+  original_end_line:uint;
+  original_end_column:uint;
+  type:uint;  // 1 or 2, push or pop
+  index_opening:int;
+  index_closing:int;
 }
 
 table LineTranslationInfo {
-    m_pretendFile:string;
-    m_originalLine:uint;
-    m_pretendLine:uint;
+  pretend_file:string;
+  original_line:uint;
+  pretend_line:uint;
 }
 
 table PPCache {
-  m_header:CACHE.Header;
-  m_macros:[Macro];
-  m_includes:[string];
-  m_body:string;
-  m_errors:[CACHE.Error];
-  m_symbols:[string];
-  m_cmd_include_paths:[string];
-  m_cmd_define_options:[string]; 
-  m_timeInfo:[CACHE.TimeInfo];
-  m_lineTranslationVec:[LineTranslationInfo];
-  m_includeFileInfo:[IncludeFileInfo];
-  m_objects:[CACHE.VObject];
+  header:CACHE.Header;
+  macros:[Macro];
+  includes:[string];
+  body:string;
+  errors:[CACHE.Error];
+  symbols:[string];
+  cmd_include_paths:[string];
+  cmd_define_options:[string]; 
+  time_info:[CACHE.TimeInfo];
+  line_translation_vec:[LineTranslationInfo];
+  include_file_info:[IncludeFileInfo];
+  objects:[CACHE.VObject];
 }
 
 root_type PPCache;
