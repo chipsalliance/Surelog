@@ -58,7 +58,7 @@ class CompileClass final {
         m_symbols(symbols),
         m_errors(errors) {
     m_helper.seterrorReporting(errors, symbols);
-    builtins_ = {"constraint_mode", "randomize", "rand_mode"};
+    builtins_ = {"constraint_mode", "randomize", "rand_mode", "srandom"};
   }
 
   bool compile();

@@ -66,6 +66,12 @@ bool checkValidFunction(const DataType* dtype, const std::string& function,
           stmt->setFunction(func);
         else
           validFunction = false;
+        ClassDefinition* genClass =
+            design->getClassDefinition("builtin::any_sverilog_class");
+        if (genClass && genClass->getFunction(function)) {
+          validFunction = true;
+          stmt->setFunction(genClass->getFunction(function));
+        }
       }
     }
   } else if (dtype->isString_type(type)) {
@@ -516,6 +522,13 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
       else {
         validFunction = false;
         dtype = classDefinition;
+      }
+
+      ClassDefinition* genClass =
+          design->getClassDefinition("builtin::any_sverilog_class");
+      if (genClass && genClass->getFunction(function)) {
+        validFunction = true;
+        stmt->setFunction(genClass->getFunction(function));
       }
     }
   }
