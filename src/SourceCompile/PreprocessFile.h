@@ -32,18 +32,29 @@
 #include <vector>
 
 #include "ErrorReporting/Error.h"
-#include "Library/Library.h"
-#include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/IncludeFileInfo.h"
 #include "SourceCompile/LoopCheck.h"
-#include "parser/SV3_1aPpLexer.h"
-#include "parser/SV3_1aPpParser.h"
+
+namespace antlr4 {
+class ANTLRInputStream;
+class CommonTokenStream;
+namespace tree {
+class ParseTree;
+}  // namespace tree
+}  // namespace antlr4
+
+class SV3_1aPpParser;
+class SV3_1aPpLexer;
 
 namespace SURELOG {
 
 class SV3_1aPpTreeShapeListener;
 class CompileSourceFile;
 class FileContent;
+class CompilationUnit;
+class MacroInfo;
+class Library;
+typedef std::map<std::string, MacroInfo*> MacroStorage;
 
 #define LINE1 1
 
@@ -108,24 +119,29 @@ class PreprocessFile {
 
   std::filesystem::path getFileName(unsigned int line);
 
-  std::string reportIncludeInfo();
+  std::string reportIncludeInfo() const;
 
-  CompileSourceFile* getCompileSourceFile() { return m_compileSourceFile; }
-  CompilationUnit* getCompilationUnit() { return m_compilationUnit; }
-  Library* getLibrary() { return m_library; }
-  antlr4::CommonTokenStream* getTokenStream() {
+  CompileSourceFile* getCompileSourceFile() const {
+    return m_compileSourceFile;
+  }
+  CompilationUnit* getCompilationUnit() const { return m_compilationUnit; }
+  Library* getLibrary() const { return m_library; }
+  antlr4::CommonTokenStream* getTokenStream() const {
     return m_antlrParserHandler ? m_antlrParserHandler->m_pptokens : nullptr;
   }
 
-  SymbolId getFileId(unsigned int line);
-  SymbolId getIncluderFileId(unsigned int line);
-  SymbolId getRawFileId() { return m_fileId; }
+  SymbolId getFileId(unsigned int line) const;
+  SymbolId getIncluderFileId(unsigned int line) const;
+  SymbolId getRawFileId() const { return m_fileId; }
   unsigned int getLineNb(unsigned int line);
-  PreprocessFile* getIncluder() { return m_includer; }
-  unsigned int getIncluderLine() { return m_includerLine; }
-  size_t getLineCount() { return m_lineCount; }
+  PreprocessFile* getIncluder() const { return m_includer; }
+  unsigned int getIncluderLine() const { return m_includerLine; }
+  size_t getLineCount() const { return m_lineCount; }
   void setLineCount(size_t count) { m_lineCount = count; }
   unsigned int getSumLineCount();
+  const std::vector<IncludeFileInfo>& getIncludeFileInfo() const {
+    return m_includeFileInfo;
+  }
   std::vector<IncludeFileInfo>& getIncludeFileInfo() {
     return m_includeFileInfo;
   }
@@ -135,8 +151,10 @@ class PreprocessFile {
     else
       return m_badIncludeFileInfo;
   }
-  unsigned int getEmbeddedMacroCallLine() { return m_embeddedMacroCallLine; }
-  SymbolId getEmbeddedMacroCallFile() { return m_embeddedMacroCallFile; }
+  unsigned int getEmbeddedMacroCallLine() const {
+    return m_embeddedMacroCallLine;
+  }
+  SymbolId getEmbeddedMacroCallFile() const { return m_embeddedMacroCallFile; }
 
   /* Markings */
   static const char* const MacroNotDefined;
@@ -145,19 +163,19 @@ class PreprocessFile {
 
  private:
   SymbolId m_fileId;
-  Library* m_library;
+  Library* m_library = nullptr;
   std::string m_result;
   std::string m_macroBody;
-  PreprocessFile* m_includer;
-  unsigned int m_includerLine;
+  PreprocessFile* m_includer = nullptr;
+  unsigned int m_includerLine = 0;
   std::vector<PreprocessFile*> m_includes;
   CompileSourceFile* m_compileSourceFile;
-  size_t m_lineCount;
+  size_t m_lineCount = 0;
   IncludeFileInfo m_badIncludeFileInfo;
 
  public:
   /* Instructions passed from calling scope */
-  class SpecialInstructions {
+  class SpecialInstructions final {
    public:
     enum TraceInstr : bool { Mute = true, DontMute = false };
     enum EmptyMacroInstr : bool { Mark = true, DontMark = false };
@@ -193,19 +211,7 @@ class PreprocessFile {
           m_check_macro_loop(check_macro_loop),
           m_as_is_undefined_macro(as_is_undefined_macro),
           m_evaluate(evalaute) {}
-    void print() {
-      std::cout << "Trace:" << (m_mute ? "Mute" : "DontMute")
-                << ", EmptyMacro:" << (m_mark_empty_macro ? "Mark" : "DontMark")
-                << ", FileLineInfo:"
-                << (m_filterFileLine ? "Filter " : "DontFilter")
-                << ", CheckLoop:"
-                << (m_check_macro_loop ? "CheckLoop" : "DontCheckLoop")
-                << ", AsIsUndefMacro:"
-                << (m_as_is_undefined_macro ? "AsIsUndefinedMacro"
-                                            : "ComplainUndefinedMacro")
-                << ", Evaluate:" << (m_evaluate ? "Evaluate" : "DontEvaluate")
-                << std::endl;
-    };
+    void print();
     TraceInstr m_mute;
     EmptyMacroInstr m_mark_empty_macro;
     FileLineInfoInstr m_filterFileLine;
@@ -221,35 +227,32 @@ class PreprocessFile {
       SpecialInstructions::AsIsUndefinedMacroInstr);
 
   /* Incoming `line handling */
-  class LineTranslationInfo {
-   public:
+  struct LineTranslationInfo final {
     LineTranslationInfo(SymbolId pretendFileId, unsigned int originalLine,
                         unsigned int pretendLine)
         : m_pretendFileId(pretendFileId),
           m_originalLine(originalLine),
           m_pretendLine(pretendLine) {}
-    SymbolId m_pretendFileId;
-    unsigned int m_originalLine;
-    unsigned int m_pretendLine;
+    const SymbolId m_pretendFileId;
+    const unsigned int m_originalLine = 0;
+    const unsigned int m_pretendLine = 0;
   };
 
   /* `ifdef, `ifndef, `elsif, `else Stack */
-  class IfElseItem {
-   public:
+  struct IfElseItem final {
     enum Type { IFDEF, IFNDEF, ELSIF, ELSE };
     std::string m_macroName;
-    bool m_defined;
+    bool m_defined = false;
     Type m_type;
-    bool m_previousActiveState;
+    bool m_previousActiveState = false;
   };
   typedef std::vector<IfElseItem> IfElseStack;
   IfElseStack m_ifStack;
   IfElseStack& getStack();
 
   /* Antlr parser container */
-  class AntlrParserHandler {
-   public:
-    AntlrParserHandler() {}
+  struct AntlrParserHandler final {
+    AntlrParserHandler() = default;
     ~AntlrParserHandler();
     antlr4::ANTLRInputStream* m_inputStream = nullptr;
     SV3_1aPpLexer* m_pplexer = nullptr;
@@ -263,12 +266,12 @@ class PreprocessFile {
  public:
   /* Options */
   void setDebug(int level);
-  bool m_debugPP;
-  bool m_debugPPResult;
-  bool m_debugPPTokens;
-  bool m_debugPPTree;
-  bool m_debugMacro;
-  bool m_debugAstModel;
+  bool m_debugPP = false;
+  bool m_debugPPResult = false;
+  bool m_debugPPTokens = false;
+  bool m_debugPPTree = false;
+  bool m_debugMacro = false;
+  bool m_debugAstModel = false;
 
   SpecialInstructions m_instructions;
 
@@ -285,9 +288,9 @@ class PreprocessFile {
   void addError(Error& error);
 
   /* Shorthands for symbol manipulations */
-  SymbolId registerSymbol(const std::string symbol);
-  SymbolId getId(const std::string symbol);
-  std::string getSymbol(SymbolId id);
+  SymbolId registerSymbol(const std::string& symbol) const;
+  SymbolId getId(const std::string& symbol) const;
+  std::string getSymbol(SymbolId id) const;
 
   // For recursive macro definition detection
   PreprocessFile* getSourceFile();
@@ -321,20 +324,21 @@ class PreprocessFile {
                             const std::vector<std::string>& arguments,
                             const std::vector<std::string>& tokens);
   void forgetPreprocessor_(PreprocessFile*, PreprocessFile* pp);
-  AntlrParserHandler* m_antlrParserHandler;
+  AntlrParserHandler* m_antlrParserHandler = nullptr;
 
-  MacroInfo* m_macroInfo; /* Only used when preprocessing a macro content */
+  /* Only used when preprocessing a macro content */
+  MacroInfo* m_macroInfo = nullptr;
   MacroStorage m_macros;
 
-  CompilationUnit* m_compilationUnit;
+  CompilationUnit* m_compilationUnit = nullptr;
   std::vector<LineTranslationInfo> m_lineTranslationVec;
-  bool m_pauseAppend;
-  bool m_usingCachedVersion;
+  bool m_pauseAppend = false;
+  bool m_usingCachedVersion = false;
   std::vector<IncludeFileInfo> m_includeFileInfo;
   unsigned int m_embeddedMacroCallLine;
   SymbolId m_embeddedMacroCallFile;
   std::string m_profileInfo;
-  FileContent* m_fileContent;
+  FileContent* m_fileContent = nullptr;
   VerilogVersion m_verilogVersion;
 };
 

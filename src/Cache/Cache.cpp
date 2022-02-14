@@ -71,26 +71,25 @@ bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
                                 std::string schemaVersion,
                                 const fs::path& cacheFileName) {
   /* Schema version */
-  if (schemaVersion != header->m_flb_version()->c_str()) {
+  if (schemaVersion != header->flb_version()->c_str()) {
     return false;
   }
 
   /* Tool version */
-  if (CommandLineParser::getVersionNumber() !=
-      header->m_sl_version()->c_str()) {
+  if (CommandLineParser::getVersionNumber() != header->sl_version()->c_str()) {
     return false;
   }
 
   /* Timestamp Tool that created Cache vs tool date */
   std::string execDate = getExecutableTimeStamp();
-  if (execDate != header->m_sl_date_compiled()->c_str()) {
+  if (execDate != header->sl_date_compiled()->c_str()) {
     return false;
   }
 
   /* Timestamp Cache vs Orig File */
   if (!cacheFileName.empty()) {
     time_t ct = get_mtime(cacheFileName);
-    std::string fileName = header->m_file()->c_str();
+    std::string fileName = header->file()->c_str();
     time_t ft = get_mtime(fileName.c_str());
     if (ft == -1) {
       return false;
@@ -187,17 +186,17 @@ void Cache::restoreErrors(const VectorOffsetError* errorsBuf,
   for (unsigned int i = 0; i < errorsBuf->size(); i++) {
     auto errorFlb = errorsBuf->Get(i);
     std::vector<Location> locs;
-    for (unsigned int j = 0; j < errorFlb->m_locations()->size(); j++) {
-      auto locFlb = errorFlb->m_locations()->Get(j);
+    for (unsigned int j = 0; j < errorFlb->locations()->size(); j++) {
+      auto locFlb = errorFlb->locations()->Get(j);
       SymbolId translFileId = symbols->registerSymbol(
-          canonicalSymbols.getSymbol(locFlb->m_fileId()));
-      SymbolId translObjectId = symbols->registerSymbol(
-          canonicalSymbols.getSymbol(locFlb->m_object()));
-      Location loc(translFileId, locFlb->m_line(), locFlb->m_column(),
+          canonicalSymbols.getSymbol(locFlb->file_id()));
+      SymbolId translObjectId =
+          symbols->registerSymbol(canonicalSymbols.getSymbol(locFlb->object()));
+      Location loc(translFileId, locFlb->line(), locFlb->column(),
                    translObjectId);
       locs.push_back(loc);
     }
-    Error err((ErrorDefinition::ErrorType)errorFlb->m_errorId(), locs);
+    Error err((ErrorDefinition::ErrorType)errorFlb->error_id(), locs);
     errorContainer->addError(err, false);
   }
 }
@@ -276,10 +275,10 @@ void Cache::restoreVObjects(
     //                objectc->m_parent(), objectc->m_definition(),
     //               objectc->m_child(),  objectc->m_sibling());
 
-    uint64_t field1 = objectc->m_field1();
-    uint64_t field2 = objectc->m_field2();
-    uint64_t field3 = objectc->m_field3();
-    uint64_t field4 = objectc->m_field4();
+    uint64_t field1 = objectc->field1();
+    uint64_t field2 = objectc->field2();
+    uint64_t field3 = objectc->field3();
+    uint64_t field4 = objectc->field4();
     // Decode compression done when saving cache (see below)
     // clang-format off
     SymbolId name =            (field1 & 0x0000000000FFFFFF);

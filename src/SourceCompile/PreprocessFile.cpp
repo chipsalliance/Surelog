@@ -30,6 +30,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <regex>
+#include <sstream>
 
 #include "Cache/PPCache.h"
 #include "CommandLine/CommandLineParser.h"
@@ -59,6 +60,19 @@ namespace fs = std::filesystem;
 const char* const PreprocessFile::MacroNotDefined = "SURELOG_MACRO_NOT_DEFINED";
 const char* const PreprocessFile::PP__Line__Marking = "SURELOG__LINE__MARKING";
 const char* const PreprocessFile::PP__File__Marking = "SURELOG__FILE__MARKING";
+
+void PreprocessFile::SpecialInstructions::print() {
+  std::cout << "Trace:" << (m_mute ? "Mute" : "DontMute")
+            << ", EmptyMacro:" << (m_mark_empty_macro ? "Mark" : "DontMark")
+            << ", FileLineInfo:"
+            << (m_filterFileLine ? "Filter " : "DontFilter") << ", CheckLoop:"
+            << (m_check_macro_loop ? "CheckLoop" : "DontCheckLoop")
+            << ", AsIsUndefMacro:"
+            << (m_as_is_undefined_macro ? "AsIsUndefinedMacro"
+                                        : "ComplainUndefinedMacro")
+            << ", Evaluate:" << (m_evaluate ? "Evaluate" : "DontEvaluate")
+            << std::endl;
+}
 
 void PreprocessFile::setDebug(int level) {
   switch (level) {
@@ -222,7 +236,7 @@ PreprocessFile::PreprocessFile(SymbolId fileId, CompileSourceFile* csf,
   setDebug(m_compileSourceFile->m_commandLineParser->getDebugLevel());
   if ((!m_compileSourceFile->m_commandLineParser->parseOnly()) &&
       (!m_compileSourceFile->m_commandLineParser->lowMem())) {
-    IncludeFileInfo info(0, m_fileId, 0, IncludeFileInfo::POP);
+    IncludeFileInfo info(0, m_fileId, 0, 0, 0, 0, IncludeFileInfo::POP);
     info.m_indexClosing = 0;
     info.m_indexOpening = 0;
     getIncludeFileInfo().push_back(info);
@@ -267,7 +281,7 @@ void PreprocessFile::addError(Error& error) {
     getCompileSourceFile()->getErrorContainer()->addError(error);
 }
 
-std::string PreprocessFile::getSymbol(SymbolId id) {
+std::string PreprocessFile::getSymbol(SymbolId id) const {
   return getCompileSourceFile()->getSymbolTable()->getSymbol(id);
 }
 
@@ -561,16 +575,17 @@ void PreprocessFile::recordMacro(const std::string& name, unsigned int line,
   checkMacroArguments_(name, line, column, args, tokens);
 }
 
-std::string PreprocessFile::reportIncludeInfo() {
-  std::string report;
-  for (auto& info : m_includeFileInfo) {
-    std::string type = (info.m_type == IncludeFileInfo::PUSH) ? "in" : "out";
-    report += std::to_string(info.m_originalLine) + " " +
-              getSymbol(info.m_sectionFile) + " " +
-              std::to_string(info.m_sectionStartLine) + " " + type + "\n";
+std::string PreprocessFile::reportIncludeInfo() const {
+  std::ostringstream strm;
+  for (auto const& info : m_includeFileInfo) {
+    const char* const type =
+        (info.m_type == IncludeFileInfo::PUSH) ? "in" : "out";
+    strm << info.m_originalStartLine << "," << info.m_originalStartColumn << ":"
+         << info.m_originalEndLine << "," << info.m_originalEndColumn << " "
+         << getSymbol(info.m_sectionFile) << " " << info.m_sectionStartLine
+         << " " << type << std::endl;
   }
-
-  return report;
+  return strm.str();
 }
 
 void PreprocessFile::recordMacro(const std::string& name, unsigned int line,
@@ -641,8 +656,8 @@ void PreprocessFile::checkMacroArguments_(
   }
 }
 
-SymbolId PreprocessFile::getIncluderFileId(unsigned int line) {
-  PreprocessFile* tmp = this;
+SymbolId PreprocessFile::getIncluderFileId(unsigned int line) const {
+  const PreprocessFile* tmp = this;
   while (tmp->m_includer != nullptr) {
     tmp = tmp->m_includer;
   }
@@ -668,11 +683,11 @@ void PreprocessFile::forgetPreprocessor_(PreprocessFile* inc,
   }
 }
 
-SymbolId PreprocessFile::registerSymbol(const std::string symbol) {
+SymbolId PreprocessFile::registerSymbol(const std::string& symbol) const {
   return getCompileSourceFile()->getSymbolTable()->registerSymbol(symbol);
 }
 
-SymbolId PreprocessFile::getId(const std::string symbol) {
+SymbolId PreprocessFile::getId(const std::string& symbol) const {
   return getCompileSourceFile()->getSymbolTable()->getId(symbol);
 }
 
@@ -1120,7 +1135,7 @@ std::string PreprocessFile::getMacro(
   }
 }
 
-SymbolId PreprocessFile::getFileId(unsigned int line) {
+SymbolId PreprocessFile::getFileId(unsigned int line) const {
   const unsigned int size = m_lineTranslationVec.size();
   if (isMacroBody() && m_macroInfo) {
     return m_macroInfo->m_file;
