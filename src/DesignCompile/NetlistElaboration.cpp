@@ -228,8 +228,12 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
                 rhs = UHDM::clone_tree(complexVal, s, &listener);
                 rhs->VpiParent(pclone);
               }
-              rhs = m_helper.expandPatternAssignment(
-                  (expr*)lhs, (expr*)rhs, mod, m_compileDesign, instance);
+              const typespec* ts = nullptr;
+              if (lhs->UhdmType() == uhdmparameter) {
+                ts = ((parameter*)lhs)->Typespec();
+              }
+              rhs = m_helper.expandPatternAssignment(ts, (expr*)rhs, mod,
+                                                     m_compileDesign, instance);
               pclone->Rhs(rhs);
               m_helper.reorderAssignmentPattern(mod, lhs, rhs, m_compileDesign,
                                                 instance, 0);

@@ -2016,23 +2016,25 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                 nullptr, instance, !isMultidimension, false);
             Value* value = nullptr;
             bool complex = false;
+            UHDM::typespec* ts = nullptr;
+            if (p) {
+              ts = p->getTypespec();
+            }
             if (expr) {
               if (expr->UhdmType() == UHDM::uhdmconstant) {
                 UHDM::constant* c = (UHDM::constant*)expr;
-                if (p) {
-                  if (UHDM::typespec* ts = p->getTypespec()) {
-                    if (ts->UhdmType() != UHDM::uhdmunsupported_typespec) {
-                      c->Typespec(p->getTypespec());
-                      m_helper.adjustSize(ts, instance->getDefinition(),
-                                          m_compileDesign, instance, c);
-                    }
+                if (ts) {
+                  if (ts->UhdmType() != UHDM::uhdmunsupported_typespec) {
+                    c->Typespec(ts);
+                    m_helper.adjustSize(ts, instance->getDefinition(),
+                                        m_compileDesign, instance, c);
                   }
                 }
+
                 const std::string& v = c->VpiValue();
                 value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
-                if (p)
-                  m_helper.valueRange(value, p->getTypespec(),
-                                      instance->getDefinition(),
+                if (ts)
+                  m_helper.valueRange(value, ts, instance->getDefinition(),
                                       m_compileDesign, instance);
               } else if (expr->UhdmType() == UHDM::uhdmoperation) {
                 if (instance) {
@@ -2041,10 +2043,11 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                   UHDM::operation* op = (UHDM::operation*)expr;
                   int opType = op->VpiOpType();
                   if (opType == vpiAssignmentPatternOp) {
-                    expr = m_helper.expandPatternAssignment(
-                        (UHDM::expr*)p->getUhdmParam(), expr, module,
-                        m_compileDesign, instance);
-                    instance->setComplexValue(name, expr);
+                    if (ts) {
+                      expr = m_helper.expandPatternAssignment(
+                          ts, expr, module, m_compileDesign, instance);
+                      if (expr) instance->setComplexValue(name, expr);
+                    }
                   }
                   if (p) {
                     if (UHDM::typespec* ts = p->getTypespec()) {
@@ -2052,10 +2055,10 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                         op->Typespec(p->getTypespec());
                       }
                     }
+                    m_helper.reorderAssignmentPattern(module, p->getUhdmParam(),
+                                                      expr, m_compileDesign,
+                                                      instance, 0);
                   }
-                  m_helper.reorderAssignmentPattern(module, p->getUhdmParam(),
-                                                    expr, m_compileDesign,
-                                                    instance, 0);
                 }
               }
             }

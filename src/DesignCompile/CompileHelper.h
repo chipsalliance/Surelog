@@ -444,7 +444,8 @@ class CompileHelper final {
                               int lineNumber, UHDM::any* pexpr,
                               bool muteErrors);
 
-  UHDM::expr* expandPatternAssignment(UHDM::expr* lhs, UHDM::expr* rhs,
+  UHDM::expr* expandPatternAssignment(const UHDM::typespec* tps,
+                                      UHDM::expr* rhs,
                                       DesignComponent* component,
                                       CompileDesign* compileDesign,
                                       ValuedComponentI* instance);
