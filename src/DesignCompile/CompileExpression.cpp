@@ -3104,10 +3104,12 @@ any* CompileHelper::getValue(const std::string& name,
                     if (opType == vpiAssignmentPatternOp) {
                       const any* lhs = param->Lhs();
                       any* rhs = (any*)param->Rhs();
-
-                      rhs = expandPatternAssignment((expr*)lhs, (expr*)rhs,
-                                                    component, compileDesign,
-                                                    instance);
+                      const typespec* ts = nullptr;
+                      if (lhs->UhdmType() == uhdmparameter) {
+                        ts = ((parameter*)lhs)->Typespec();
+                      }
+                      rhs = expandPatternAssignment(ts, (expr*)rhs, component,
+                                                    compileDesign, instance);
                       param->Rhs(rhs);
                       reorderAssignmentPattern(component, lhs, rhs,
                                                compileDesign, instance, 0);
@@ -3187,10 +3189,12 @@ any* CompileHelper::getValue(const std::string& name,
                 if (opType == vpiAssignmentPatternOp) {
                   const any* lhs = param->Lhs();
                   any* rhs = (any*)param->Rhs();
-
-                  rhs =
-                      expandPatternAssignment((expr*)lhs, (expr*)rhs, component,
-                                              compileDesign, instance);
+                  const typespec* ts = nullptr;
+                  if (lhs->UhdmType() == uhdmparameter) {
+                    ts = ((parameter*)lhs)->Typespec();
+                  }
+                  rhs = expandPatternAssignment(ts, (expr*)rhs, component,
+                                                compileDesign, instance);
                   param->Rhs(rhs);
                   reorderAssignmentPattern(component, lhs, rhs, compileDesign,
                                            instance, 0);
