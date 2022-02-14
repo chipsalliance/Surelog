@@ -20,60 +20,59 @@
 namespace SURELOG.CACHE;
 
 table Header {
-  m_sl_version:string;
-  m_flb_version:string;
-  m_sl_date_compiled:string;
-  m_file_date_compiled:string; 
-  m_file:string; 
+  sl_version:string;
+  flb_version:string;
+  sl_date_compiled:string;
+  file_date_compiled:string;
+  file:string; 
 }
 
 table Error {
-  m_locations:[Location];
-  m_errorId:uint;
+  locations:[Location];
+  error_id:uint;
 }
 
 table Location {
-   m_fileId:ulong;
-   m_line:uint;
-   m_column:ushort;
-   m_object:ulong;
+  file_id:ulong;
+  line:uint;
+  column:ushort;
+  object:ulong;
 }
 
 
 table TimeInfo {
-    m_type:ushort;
-    m_fileId:ulong;
-    m_line:uint;
-    m_timeUnit:ushort;
-    m_timeUnitValue:double;    
-    m_timePrecision:ushort;
-    m_timePrecisionValue:double;
+  type:ushort;
+  file_id:ulong;
+  line:uint;
+  time_unit:ushort;
+  time_unit_value:double;
+  time_precision:ushort;
+  time_precision_value:double;
 }
 
 // This is what we need to encode, 
 //  but we limit all the ulong and uint objects to 20 bits and the ushort stays at 16 bits for the line and 12 bits for the type
 /*
 table VObject {
-    m_name:ulong; 
-    m_type:ushort;
-    m_column:ushort;
-    m_line:uint;
-    m_parent:uint;
-    m_definition:uint;
-    m_child:uint;
-    m_sibling:uint;
-    m_file:ulong;
-    m_endLine:uint;
-    m_endColumn:ushort;
-}  
+  name:ulong;
+  type:ushort;
+  column:ushort;
+  line:uint;
+  parent:uint;
+  definition:uint;
+  child:uint;
+  sibling:uint;
+  file:ulong;
+  end_line:uint;
+  end_column:ushort;
+}
 */
 /*
  It results in a compressed struct as below:
 */
 struct VObject {
-    m_field1:ulong; 
-    m_field2:ulong;
-    m_field3:ulong;
-    m_field4:ulong;
+  field1:ulong;
+  field2:ulong;
+  field3:ulong;
+  field4:ulong;
 }
-

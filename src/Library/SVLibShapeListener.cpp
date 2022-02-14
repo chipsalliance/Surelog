@@ -55,7 +55,8 @@ SVLibShapeListener::SVLibShapeListener(ParseLibraryDef *parser,
                                   m_parser->getSymbolTable(),
                                   m_parser->getErrorContainer(), nullptr, 0);
   m_pf->setFileContent(m_fileContent);
-  IncludeFileInfo info(1, m_pf->getFileId(0), 0, IncludeFileInfo::PUSH);
+  IncludeFileInfo info(1, m_pf->getFileId(0), 0, 0, 0, 0,
+                       IncludeFileInfo::PUSH);
   m_includeFileInfo.push(info);
 }
 
