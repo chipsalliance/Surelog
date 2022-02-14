@@ -3397,7 +3397,7 @@ bool CompileHelper::isSelected(const FileContent* fC,
   return false;
 }
 
-UHDM::expr* CompileHelper::expandPatternAssignment(UHDM::expr* lhs,
+UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
                                                    UHDM::expr* rhs,
                                                    DesignComponent* component,
                                                    CompileDesign* compileDesign,
@@ -3407,43 +3407,38 @@ UHDM::expr* CompileHelper::expandPatternAssignment(UHDM::expr* lhs,
   uint64_t size = 1;
   expr* result = rhs;
   VectorOfany* vars = nullptr;
-  if (lhs->UhdmType() == uhdmparameter) {
-    parameter* param = (parameter*)lhs;
-    const typespec* tps = param->Typespec();
-    if (tps == nullptr) return result;
-    if (tps->UhdmType() == uhdmpacked_array_typespec) {
-      vars = s.MakeAnyVec();
-      const packed_array_typespec* atps = (const packed_array_typespec*)tps;
-      if (atps->Ranges()) {
-        for (auto range : *atps->Ranges()) {
-          bool invalidValue = false;
-          uint64_t r1 = get_value(
-              invalidValue,
-              reduceExpr((any*)range->Left_expr(), invalidValue, component,
-                         compileDesign, instance, range->Left_expr()->VpiFile(),
-                         range->Left_expr()->VpiLineNo(), nullptr));
-          uint64_t r2 =
-              get_value(invalidValue,
-                        reduceExpr((any*)range->Right_expr(), invalidValue,
-                                   component, compileDesign, instance,
-                                   range->Right_expr()->VpiFile(),
-                                   range->Right_expr()->VpiLineNo(), nullptr));
-          size *= (r1 > r2) ? (r1 - r2 + 1) : (r2 - r1 + 1);
-        }
+  if (tps == nullptr) return result;
+  if (tps->UhdmType() == uhdmpacked_array_typespec) {
+    vars = s.MakeAnyVec();
+    const packed_array_typespec* atps = (const packed_array_typespec*)tps;
+    if (atps->Ranges()) {
+      for (auto range : *atps->Ranges()) {
+        bool invalidValue = false;
+        uint64_t r1 = get_value(
+            invalidValue,
+            reduceExpr((any*)range->Left_expr(), invalidValue, component,
+                       compileDesign, instance, range->Left_expr()->VpiFile(),
+                       range->Left_expr()->VpiLineNo(), nullptr));
+        uint64_t r2 = get_value(
+            invalidValue,
+            reduceExpr((any*)range->Right_expr(), invalidValue, component,
+                       compileDesign, instance, range->Right_expr()->VpiFile(),
+                       range->Right_expr()->VpiLineNo(), nullptr));
+        size *= (r1 > r2) ? (r1 - r2 + 1) : (r2 - r1 + 1);
       }
-      typespec* etps = (typespec*)atps->Elem_typespec();
-      UHDM_OBJECT_TYPE etps_type = etps->UhdmType();
-      if (size > 1) {
-        if (etps_type == uhdmenum_typespec) {
-          packed_array_var* array = s.MakePacked_array_var();
-          array->VpiSize(size);
-          array->Ranges(atps->Ranges());
-          array->Elements(vars);
-          for (unsigned int i = 0; i < size; i++) {
-            vars->push_back(s.MakeEnum_var());
-          }
-          result = array;
+    }
+    typespec* etps = (typespec*)atps->Elem_typespec();
+    UHDM_OBJECT_TYPE etps_type = etps->UhdmType();
+    if (size > 1) {
+      if (etps_type == uhdmenum_typespec) {
+        packed_array_var* array = s.MakePacked_array_var();
+        array->VpiSize(size);
+        array->Ranges(atps->Ranges());
+        array->Elements(vars);
+        for (unsigned int i = 0; i < size; i++) {
+          vars->push_back(s.MakeEnum_var());
         }
+        result = array;
       }
     }
   }

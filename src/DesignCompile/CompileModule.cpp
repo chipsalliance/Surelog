@@ -642,10 +642,12 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           if (collectType != CollectType::DEFINITION) break;
           ParameterPortListId = id;
           NodeId list_of_param_assignments = fC->Child(id);
-          if (list_of_param_assignments)
+          while (list_of_param_assignments) {
             m_helper.compileParameterDeclaration(
                 m_module, fC, list_of_param_assignments, m_compileDesign, false,
                 m_instance, false, m_instance != nullptr, false);
+            list_of_param_assignments = fC->Sibling(list_of_param_assignments);
+          }
           break;
         }
         case VObjectType::slParameter_declaration: {
@@ -921,10 +923,12 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
           if (collectType != CollectType::DEFINITION) break;
           ParameterPortListId = id;
           NodeId list_of_param_assignments = fC->Child(id);
-          if (list_of_param_assignments)
+          while (list_of_param_assignments) {
             m_helper.compileParameterDeclaration(
                 m_module, fC, list_of_param_assignments, m_compileDesign, false,
                 m_instance, false, m_instance != nullptr, false);
+            list_of_param_assignments = fC->Sibling(list_of_param_assignments);
+          }
           break;
         }
         case VObjectType::slAnsi_port_declaration: {
