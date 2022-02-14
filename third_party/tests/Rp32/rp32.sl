@@ -13,4 +13,4 @@ hdl/rtl/core/r5p_pkg.sv
  hdl/rtl/core/r5p_bru.sv
  hdl/rtl/core/r5p_alu.sv
 r5p_soc_de0_cv.sv
--verbose -parse
+-verbose -parse -elabuhdm -d inst -d coveruhdm
