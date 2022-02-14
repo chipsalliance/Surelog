@@ -184,12 +184,21 @@ void Builtin::addBuiltinTypes() {
       {"builtin", "system", "void", "unit", "generic"},
       {"builtin", "system", "void", "urandom", "generic"},
       {"builtin", "system", "void", "urandom_range", "generic"},
+      {"builtin", "system", "void", "dist_uniform", "generic"},
+      {"builtin", "system", "void", "dist_normal", "generic"},
+      {"builtin", "system", "void", "dist_exponential", "generic"},
+      {"builtin", "system", "void", "dist_poisson", "generic"},
+      {"builtin", "system", "void", "dist_chi_square", "generic"},
+      {"builtin", "system", "void", "dist_t", "generic"},
+      {"builtin", "system", "void", "dist_erlang", "generic"},
       {"builtin", "system", "void", "warning", "generic"},
       {"builtin", "system", "void", "writememb", "generic"},
       {"builtin", "system", "void", "writememh", "generic"},
       {"builtin", "system", "void", "value$plusargs", "generic"},
-
-  };
+      {"builtin", "any_sverilog_class", "void", "randomize"},
+      {"builtin", "any_sverilog_class", "void", "srandom"},
+      {"builtin", "any_sverilog_class", "void", "constraint_mode"},
+      {"builtin", "any_sverilog_class", "void", "rand_mode"}};
 
   UHDM::Serializer& s = m_compiler->getSerializer();
   for (const auto& function : functionDef) {
