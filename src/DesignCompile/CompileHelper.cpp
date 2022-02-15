@@ -705,7 +705,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
         any* exp = compileExpression(scope, fC, enumValueId, compileDesign,
                                      pstmt, nullptr, reduce);
         if (exp && (exp->UhdmType() == uhdmconstant)) {
-          constant* c = (constant*) exp;
+          constant* c = (constant*)exp;
           value = m_exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
         }
       }
