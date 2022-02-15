@@ -185,6 +185,8 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
   if (m_inActiveBranch && (!m_inMacroDefinitionParsing)) {
     std::pair<int, int> lineCol =
         ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
+    std::pair<int, int> endLineCol =
+        ParseUtils::getEndLineColumn(m_pp->getTokenStream(), ctx);
     int openingIndex = -1;
     std::string fileName;
     if (ctx->String()) {
@@ -231,10 +233,13 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
       tmp = tmp->getIncluder();
     }
 
-    // unsigned int sectionStartLine, SymbolId sectionFile, unsigned int
-    // originalLine, unsigned int type
-    IncludeFileInfo info(1, fileId, m_pp->getSumLineCount() + 1, 0, 0, 0,
-                         IncludeFileInfo::PUSH);
+    unsigned int lineSum = m_pp->getSumLineCount();
+    IncludeFileInfo info(/*sectionStartLine*/ 1, /* sectionFile */ fileId,
+                         /* originalStartLine */ lineSum + 1,
+                         /* originalStartColumn */ lineCol.second,
+                         /* originalEndLine */ lineSum + 2,
+                         /* originalEndColumn */ endLineCol.second,
+                         /* type */ IncludeFileInfo::PUSH);
     m_pp->getSourceFile()->getIncludeFileInfo().push_back(info);
     openingIndex = m_pp->getSourceFile()->getIncludeFileInfo().size() - 1;
 
@@ -288,9 +293,13 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
       m_pp->pauseAppend();
     }
 
-    IncludeFileInfo infop(lineCol.first, m_pp->getFileId(lineCol.first),
-                          m_pp->getSumLineCount() + 1, 0, 0, 0,
-                          IncludeFileInfo::POP);
+    IncludeFileInfo infop(/*sectionStartLine*/ lineCol.first,
+                          /* sectionFile */ m_pp->getFileId(lineCol.first),
+                          /* originalStartLine */ m_pp->getSumLineCount() + 1,
+                          /* originalStartColumn */ 0,
+                          /* originalEndLine */ 0,
+                          /* originalEndColumn */ 0,
+                          /* type */ IncludeFileInfo::POP);
     infop.m_indexOpening = openingIndex;
     m_pp->getSourceFile()->getIncludeFileInfo().push_back(infop);
     if (openingIndex >= 0)
