@@ -702,9 +702,14 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       NodeId enumValueId = fC->Sibling(enumNameId);
       Value* value = nullptr;
       if (enumValueId) {
-        value = m_exprBuilder.evalExpr(fC, enumValueId, scope);
-        value->setValid();
-      } else {
+        any* exp = compileExpression(scope, fC, enumValueId, compileDesign,
+                                     pstmt, nullptr, reduce);
+        if (exp && (exp->UhdmType() == uhdmconstant)) {
+          constant* c = (constant*)exp;
+          value = m_exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
+        }
+      }
+      if (value == nullptr) {
         value = m_exprBuilder.getValueFactory().newLValue();
         value->set(val, Value::Type::Integer, 64);
       }
@@ -725,7 +730,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       econst->VpiValue(value->uhdmValue());
       if (enumValueId) {
         any* exp = compileExpression(scope, fC, enumValueId, compileDesign,
-                                     pstmt, nullptr);
+                                     pstmt, nullptr, reduce);
         UHDM::ExprEval eval;
         econst->VpiDecompile(eval.prettyPrint(exp));
       } else {
