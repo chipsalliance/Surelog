@@ -522,39 +522,34 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
           v = value.substr(i + 2);
         }
         v = StringUtils::replaceAll(v, "_", "");
+        std::string size = value;
+        StringUtils::rtrim(size, '\'');
+        if (size == "") {
+          c->VpiSize(-1);
+        } else {
+          c->VpiSize(atoi(size.c_str()));
+        }
         switch (base) {
           case 'h':
           case 'H': {
-            std::string size = value;
-            StringUtils::rtrim(size, '\'');
-            c->VpiSize(atoi(size.c_str()));
             v = "HEX:" + v;
             c->VpiConstType(vpiHexConst);
             break;
           }
           case 'b':
           case 'B': {
-            std::string size = value;
-            StringUtils::rtrim(size, '\'');
-            c->VpiSize(atoi(size.c_str()));
             v = "BIN:" + v;
             c->VpiConstType(vpiBinaryConst);
             break;
           }
           case 'o':
           case 'O': {
-            std::string size = value;
-            StringUtils::rtrim(size, '\'');
-            c->VpiSize(atoi(size.c_str()));
             v = "OCT:" + v;
             c->VpiConstType(vpiOctConst);
             break;
           }
           case 'd':
           case 'D': {
-            std::string size = value;
-            StringUtils::rtrim(size, '\'');
-            c->VpiSize(atoi(size.c_str()));
             v = "DEC:" + v;
             c->VpiConstType(vpiDecConst);
             break;
@@ -1882,7 +1877,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                     break;
                   }
                   case vpiIntConst: {
-                    if (operands.size() == 1) {
+                    if (operands.size() == 1 || (size != 64)) {
                       int64_t iv =
                           std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
                       cval += NumUtils::toBinary(size, iv);
@@ -1892,7 +1887,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                     break;
                   }
                   case vpiUIntConst: {
-                    if (operands.size() == 1) {
+                    if (operands.size() == 1 || (size != 64)) {
                       uint64_t iv =
                           std::strtoull(v.c_str() + strlen("UINT:"), 0, 10);
                       cval += NumUtils::toBinary(size, iv);

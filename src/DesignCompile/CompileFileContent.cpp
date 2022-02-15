@@ -84,9 +84,9 @@ bool CompileFileContent::collectObjects_() {
       }
       case VObjectType::slFunction_declaration: {
         m_helper.compileFunction(m_fileContent, fC, id, m_compileDesign,
-                                 nullptr);
+                                 nullptr, true);
         m_helper.compileFunction(m_fileContent, fC, id, m_compileDesign,
-                                 nullptr);
+                                 nullptr, true);
         break;
       }
       case VObjectType::slData_declaration: {
@@ -101,7 +101,7 @@ bool CompileFileContent::collectObjects_() {
               n<> u<18> t<Data_declaration> p<19> c<17> l<13>
             */
             m_helper.compileTypeDef(m_fileContent, m_fileContent, id,
-                                    m_compileDesign);
+                                    m_compileDesign, nullptr, true);
             break;
           }
           default:
@@ -121,7 +121,7 @@ bool CompileFileContent::collectObjects_() {
         } else {
           m_helper.compileParameterDeclaration(m_fileContent, fC, id,
                                                m_compileDesign, false, nullptr,
-                                               false, vpiValidTrue, false);
+                                               false, true, false);
         }
         break;
       }
