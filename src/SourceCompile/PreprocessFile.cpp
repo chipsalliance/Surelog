@@ -522,7 +522,6 @@ bool PreprocessFile::preprocess() {
 }
 
 unsigned int PreprocessFile::getSumLineCount() {
-  // unsigned int total = LinesCount(m_result);
   unsigned int total = m_lineCount;
   if (m_includer) total += m_includer->getSumLineCount();
   return total;
