@@ -524,7 +524,7 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
         v = StringUtils::replaceAll(v, "_", "");
         std::string size = value;
         StringUtils::rtrim(size, '\'');
-        if (size == "") {
+        if (size.empty()) {
           c->VpiSize(-1);
         } else {
           c->VpiSize(atoi(size.c_str()));
