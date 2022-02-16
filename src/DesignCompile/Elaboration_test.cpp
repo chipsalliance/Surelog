@@ -380,7 +380,7 @@ endmodule
         UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
         bool invalidValue = false;
         EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
-        // Need update       EXPECT_EQ(helper.get_value(invalidValue, rhs), 1);
+        EXPECT_EQ(helper.get_value(invalidValue, rhs), 1);
       }
     }
   }
