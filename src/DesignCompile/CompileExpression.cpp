@@ -5217,9 +5217,25 @@ UHDM::any* CompileHelper::compileAssignmentPattern(DesignComponent* component,
           fC->Sibling(Structure_pattern_key);  // With key '{a: 1, b: 2,...}
 
       if (Expression) {
-        if (any* exp = compileExpression(
-                component, fC, Expression, compileDesign, operation, instance,
-                /* Reduce in all contexts */ true, false)) {
+        if (any* exp =
+                compileExpression(component, fC, Expression, compileDesign,
+                                  operation, instance, reduce, false)) {
+          if (exp->UhdmType() == uhdmoperation) {
+            UHDM::operation* op = (UHDM::operation*)exp;
+            bool reduceMore = true;
+            int opType = op->VpiOpType();
+            if (opType == vpiConcatOp) {
+              if (op->Operands()->size() != 1) {
+                reduceMore = false;
+              }
+            }
+            if (reduceMore) {
+              bool invalidValue = false;
+              exp = reduceExpr(exp, invalidValue, component, compileDesign,
+                               instance, op->VpiFile().string(),
+                               op->VpiLineNo(), nullptr, true);
+            }
+          }
           if (exp->UhdmType() == uhdmref_obj) {
             ref_obj* ref = (ref_obj*)exp;
             const std::string& name = ref->VpiName();
