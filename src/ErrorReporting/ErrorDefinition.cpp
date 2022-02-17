@@ -430,5 +430,7 @@ bool ErrorDefinition::init() {
   rec(UHDM_ILLEGAL_WIRE_LHS, ERROR, UHDM, "Illegal lhs of type wire \"%s\"");
   rec(UHDM_ILLEGAL_PACKED_DIMENSION, ERROR, UHDM,
       "Illegal dynamic packed dimension \"%s\"");
+  rec(UHDM_NON_SYNTHESIZABLE, ERROR, UHDM,
+      "Non-synthesizable construct \"%s\"");
   return true;
 }

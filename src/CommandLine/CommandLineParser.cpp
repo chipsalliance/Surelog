@@ -199,6 +199,7 @@ static const std::initializer_list<std::string_view> helpText = {
     "  -noinfo               Filters out INFO messages",
     "  -nonote               Filters out NOTE messages",
     "  -nowarning            Filters out WARNING messages",
+    "  -synth                Reports non-synthesizable constructs",
     "  -o <path>             Turns on all compilation stages, produces all",
     "  -builtin <path>       Alternative path to python/ and pkg/ dirs",
     "outputs under that path",
@@ -342,7 +343,8 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_replay(false),
       m_uhdmStats(false),
       m_lowMem(false),
-      m_writeUhdm(true) {
+      m_writeUhdm(true), 
+      m_nonSynthesizable(false) {
   m_errors->registerCmdLine(this);
   m_logFileId = m_symbolTable->registerSymbol(std::string(defaultLogFileName));
   m_compileUnitDirectory = m_symbolTable->registerSymbol("slpp_unit");
@@ -902,6 +904,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_note = false;
     } else if (all_arguments[i] == "-nowarning") {
       m_warning = false;
+     } else if (all_arguments[i] == "-synth") {
+      m_nonSynthesizable = true;
     } else if (all_arguments[i] == "-profile") {
       m_profile = true;
     } else if (all_arguments[i] == "-nobuiltin") {
