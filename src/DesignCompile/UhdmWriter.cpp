@@ -69,6 +69,7 @@
 #include <uhdm/vpi_listener.h>
 #include <uhdm/vpi_uhdm.h>
 #include <uhdm/vpi_visitor.h>
+#include <uhdm/SynthSubset.h>
 
 namespace SURELOG {
 
@@ -2748,6 +2749,15 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
   UhdmLint* linter = new UhdmLint(&s);
   listen_designs(designs, linter);
   delete linter;
+
+  if (m_compileDesign->getCompiler()
+          ->getCommandLineParser()
+          ->reportNonSynthesizable()) {
+    std::set<const any*> nonSynthesizableObjects;
+    SynthSubset* annotate = new SynthSubset(&s, nonSynthesizableObjects, true);
+    listen_designs(designs, annotate);
+    delete annotate;
+  }
 
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getUhdmStats())
     printUhdmStats(s);

@@ -97,12 +97,15 @@ class CommandLineParser final {
   bool filterSimpleDirectives() const { return m_filterSimpleDirectives; }
   bool filterProtectedRegions() const { return m_filterProtectedRegions; }
   bool filterComments() const { return m_filterComments; }
+  /* error reporting options */
   bool filterInfo() const { return !m_info; }
   bool filterNote() const { return !m_note; }
   bool filterWarning() const { return !m_warning; }
   void setFilterInfo() { m_info = false; }
   void setFilterNote() { m_note = false; }
   void setFilterWarning() { m_warning = false; }
+  void setReportNonSynthesizable(bool report) { m_nonSynthesizable = report; }
+  bool reportNonSynthesizable() { return m_nonSynthesizable; }
   /* Debug/traces options */
   bool muteStdout() const { return m_muteStdout; }
   void setMuteStdout() { m_muteStdout = true; }
@@ -282,6 +285,7 @@ class CommandLineParser final {
   bool m_uhdmStats;
   bool m_lowMem;
   bool m_writeUhdm;
+  bool m_nonSynthesizable;
 };
 
 }  // namespace SURELOG
