@@ -62,6 +62,7 @@
 // UHDM
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/Serializer.h>
+#include <uhdm/SynthSubset.h>
 #include <uhdm/UhdmLint.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/module.h>
@@ -69,7 +70,6 @@
 #include <uhdm/vpi_listener.h>
 #include <uhdm/vpi_uhdm.h>
 #include <uhdm/vpi_visitor.h>
-#include <uhdm/SynthSubset.h>
 
 namespace SURELOG {
 

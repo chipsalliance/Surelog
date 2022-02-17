@@ -343,7 +343,7 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_replay(false),
       m_uhdmStats(false),
       m_lowMem(false),
-      m_writeUhdm(true), 
+      m_writeUhdm(true),
       m_nonSynthesizable(false) {
   m_errors->registerCmdLine(this);
   m_logFileId = m_symbolTable->registerSymbol(std::string(defaultLogFileName));
@@ -904,7 +904,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_note = false;
     } else if (all_arguments[i] == "-nowarning") {
       m_warning = false;
-     } else if (all_arguments[i] == "-synth") {
+    } else if (all_arguments[i] == "-synth") {
       m_nonSynthesizable = true;
     } else if (all_arguments[i] == "-profile") {
       m_profile = true;
