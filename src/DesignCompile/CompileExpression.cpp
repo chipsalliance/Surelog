@@ -5709,14 +5709,22 @@ UHDM::any* CompileHelper::compilePartSelectRange(
             if (fC->Type(op) == VObjectType::slIncPartSelectOp) {
               int steps = r / 4;
               l = l / 4;
-              for (unsigned int i = l; i < l + steps; i++) {
-                part += val[val.size() - 1 - i];
+              for (int i = l; i < (int)(l + steps); i++) {
+                int index = ((int)val.size()) - 1 - i;
+                if (index >= 0)
+                  part += val[index];
+                else
+                  part += '0';
               }
             } else {
               int steps = r / 4;
               l = l / 4;
-              for (unsigned int i = l; i > l - steps; i--) {
-                part += val[val.size() - 1 - i];
+              for (int i = l; i > (int)(l - steps); i--) {
+                int index = ((int)val.size()) - 1 - i;
+                if (index >= 0)
+                  part += val[index];
+                else
+                  part += '0';
               }
             }
             res = std::strtoull(part.c_str(), 0, 16);
@@ -5724,11 +5732,15 @@ UHDM::any* CompileHelper::compilePartSelectRange(
             uint64_t iv = cvv->getValueUL();
             uint64_t mask = 0;
             if (fC->Type(op) == VObjectType::slDecPartSelectOp) {
-              for (uint64_t i = l; i > uint64_t(l - r); i--) {
-                mask |= ((uint64_t)1 << i);
+              if (l >= r) {
+                for (uint64_t i = l; i > uint64_t(l - r); i--) {
+                  mask |= ((uint64_t)1 << i);
+                }
+                res = iv & mask;
+                res = res >> (l - r);
+              } else {
+                res = 0;
               }
-              res = iv & mask;
-              res = res >> (l - r);
             } else {
               for (uint64_t i = l; i < uint64_t(l + r); i++) {
                 mask |= ((uint64_t)1 << i);
