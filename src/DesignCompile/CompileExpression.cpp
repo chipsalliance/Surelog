@@ -137,8 +137,8 @@ expr* CompileHelper::reduceBitSelect(expr* op, unsigned int index_val,
     c->VpiSize(wordSize);
     if (index_val < binary.size()) {
       // TODO: If range does not start at 0
-      if (lr > rr) {
-        index_val = binary.size() - index_val - 1;
+      if (lr >= rr) {
+        index_val = binary.size() - ((index_val + 1) * wordSize);
       }
       std::string v;
       for (unsigned int i = 0; i < wordSize; i++) {
