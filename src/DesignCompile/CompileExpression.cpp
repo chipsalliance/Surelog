@@ -1389,6 +1389,33 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
             }
             break;
           }
+          case vpiInsideOp: {
+            if (operands.size() > 1) {
+              int64_t val = get_value(
+                  invalidValue, reduceExpr(operands[0], invalidValue, component,
+                                           compileDesign, instance, fileName,
+                                           lineNumber, pexpr, muteErrors));
+              if (invalidValue) break;
+              for (unsigned int i = 1; i < operands.size(); i++) {
+                int64_t oval =
+                    get_value(invalidValue,
+                              reduceExpr(operands[i], invalidValue, component,
+                                         compileDesign, instance, fileName,
+                                         lineNumber, pexpr, muteErrors));
+                if (invalidValue) break;
+                if (oval == val) {
+                  UHDM::constant* c = s.MakeConstant();
+                  c->VpiValue("UINT:1");
+                  c->VpiDecompile(std::to_string(1));
+                  c->VpiSize(64);
+                  c->VpiConstType(vpiUIntConst);
+                  result = c;
+                  break;
+                }
+              }
+            }
+            break;
+          }
           case vpiUnaryAndOp: {
             if (operands.size() == 1) {
               constant* cst = (constant*)(reduceExpr(
