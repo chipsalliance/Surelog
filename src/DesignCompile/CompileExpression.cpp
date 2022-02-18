@@ -981,6 +981,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                   invalidValue, reduceExpr(operands[1], invalidValue, component,
                                            compileDesign, instance, fileName,
                                            lineNumber, pexpr, muteErrors));
+              if (invalidValue) break;
               uint64_t val = ((uint64_t)val0) >> ((uint64_t)val1);
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("UINT:" + std::to_string(val));
@@ -1068,6 +1069,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                   invalidValue, reduceExpr(operands[1], invalidValue, component,
                                            compileDesign, instance, fileName,
                                            lineNumber, pexpr, muteErrors));
+              if (invalidValue) break;
               uint64_t val = ((uint64_t)val0) << ((uint64_t)val1);
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("UINT:" + std::to_string(val));
@@ -1155,6 +1157,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                   invalidValue, reduceExpr(operands[1], invalidValue, component,
                                            compileDesign, instance, fileName,
                                            lineNumber, pexpr, muteErrors));
+              if (invalidValue) break;
               uint64_t val = ((uint64_t)val0) | ((uint64_t)val1);
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("UINT:" + std::to_string(val));
@@ -1175,6 +1178,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                   invalidValue, reduceExpr(operands[1], invalidValue, component,
                                            compileDesign, instance, fileName,
                                            lineNumber, pexpr, muteErrors));
+              if (invalidValue) break;
               uint64_t val = ((uint64_t)val0) & ((uint64_t)val1);
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("UINT:" + std::to_string(val));
@@ -1195,6 +1199,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                   invalidValue, reduceExpr(operands[1], invalidValue, component,
                                            compileDesign, instance, fileName,
                                            lineNumber, pexpr, muteErrors));
+              if (invalidValue) break;
               uint64_t val = ((uint64_t)val0) || ((uint64_t)val1);
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("UINT:" + std::to_string(val));
@@ -1215,6 +1220,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                   invalidValue, reduceExpr(operands[1], invalidValue, component,
                                            compileDesign, instance, fileName,
                                            lineNumber, pexpr, muteErrors));
+              if (invalidValue) break;
               uint64_t val = ((uint64_t)val0) && ((uint64_t)val1);
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("UINT:" + std::to_string(val));
@@ -1341,6 +1347,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                                          lineNumber, pexpr, muteErrors);
               if (operand) {
                 uint64_t val = (uint64_t)get_value(invalidValue, operand);
+                if (invalidValue) break;
                 int size = 64;
                 if (operand->UhdmType() == uhdmconstant) {
                   constant* c = (constant*)operand;
@@ -1372,6 +1379,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                   invalidValue, reduceExpr(operands[0], invalidValue, component,
                                            compileDesign, instance, fileName,
                                            lineNumber, pexpr, muteErrors)));
+              if (invalidValue) break;
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("UINT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
@@ -1387,6 +1395,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                   operands[0], invalidValue, component, compileDesign, instance,
                   fileName, lineNumber, pexpr, muteErrors));
               uint64_t val = get_value(invalidValue, cst);
+              if (invalidValue) break;
               uint64_t res = val & 1;
               for (int i = 1; i < cst->VpiSize(); i++) {
                 res = res & ((val & (1 << i)) >> i);
@@ -1406,6 +1415,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                   invalidValue, reduceExpr(operands[0], invalidValue, component,
                                            compileDesign, instance, fileName,
                                            lineNumber, pexpr, muteErrors));
+              if (invalidValue) break;
               uint64_t res = val & 1;
               for (unsigned int i = 1; i < 32; i++) {
                 res = res & ((val & (1 << i)) >> i);
@@ -1426,6 +1436,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                   invalidValue, reduceExpr(operands[0], invalidValue, component,
                                            compileDesign, instance, fileName,
                                            lineNumber, pexpr, muteErrors));
+              if (invalidValue) break;
               uint64_t res = val & 1;
               for (unsigned int i = 1; i < 32; i++) {
                 res = res | ((val & (1 << i)) >> i);
@@ -1445,6 +1456,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                   invalidValue, reduceExpr(operands[0], invalidValue, component,
                                            compileDesign, instance, fileName,
                                            lineNumber, pexpr, muteErrors));
+              if (invalidValue) break;
               uint64_t res = val & 1;
               for (unsigned int i = 1; i < 64; i++) {
                 res = res | ((val & (1 << i)) >> i);
@@ -1465,6 +1477,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                   invalidValue, reduceExpr(operands[0], invalidValue, component,
                                            compileDesign, instance, fileName,
                                            lineNumber, pexpr, muteErrors));
+              if (invalidValue) break;
               uint64_t res = val & 1;
               for (unsigned int i = 1; i < 64; i++) {
                 res = res ^ ((val & (1 << i)) >> i);
@@ -1484,6 +1497,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                   invalidValue, reduceExpr(operands[0], invalidValue, component,
                                            compileDesign, instance, fileName,
                                            lineNumber, pexpr, muteErrors));
+              if (invalidValue) break;
               uint64_t res = val & 1;
               for (unsigned int i = 1; i < 64; i++) {
                 res = res ^ ((val & (1 << i)) >> i);
@@ -1696,6 +1710,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                                       compileDesign, instance, fileName,
                                       lineNumber, pexpr, muteErrors);
               int64_t condVal = get_value(invalidValue, cond);
+              if (invalidValue) break;
               int64_t val = 0;
               expr* the_val = nullptr;
               if (condVal) {
@@ -1731,6 +1746,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                   invalidValue, reduceExpr(operands[0], invalidValue, component,
                                            compileDesign, instance, fileName,
                                            lineNumber, pexpr, muteErrors));
+              if (invalidValue) break;
               if (n > 1000) n = 1000;  // Must be -1 or something silly
               if (n < 0) n = 0;
               constant* cv = (constant*)(operands[1]);
@@ -1786,6 +1802,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                     invalidValue,
                     reduceExpr(cv, invalidValue, component, compileDesign,
                                instance, fileName, lineNumber, pexpr));
+                if (invalidValue) break;
                 uint64_t res = 0;
                 for (unsigned int i = 0; i < n; i++) {
                   res |= val << (i * width);
@@ -5231,9 +5248,12 @@ UHDM::any* CompileHelper::compileAssignmentPattern(DesignComponent* component,
             }
             if (reduceMore) {
               bool invalidValue = false;
-              exp = reduceExpr(exp, invalidValue, component, compileDesign,
-                               instance, op->VpiFile().string(),
-                               op->VpiLineNo(), nullptr, true);
+              any* tmp = reduceExpr(exp, invalidValue, component, compileDesign,
+                                    instance, op->VpiFile().string(),
+                                    op->VpiLineNo(), nullptr, true);
+              if (invalidValue == false) {
+                exp = tmp;
+              }
             }
           }
           if (exp->UhdmType() == uhdmref_obj) {
