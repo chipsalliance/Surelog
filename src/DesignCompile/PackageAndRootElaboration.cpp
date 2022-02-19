@@ -20,7 +20,7 @@
  *
  * Created on June 3, 2019, 10:02 PM
  */
-#include "DesignCompile/PackageAndRootElaboration.h"
+#include "Surelog/DesignCompile/PackageAndRootElaboration.h"
 
 using namespace SURELOG;
 

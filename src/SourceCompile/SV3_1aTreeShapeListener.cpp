@@ -20,25 +20,25 @@
  *
  * Created on April 16, 2017, 8:28 PM
  */
-#include "SourceCompile/SV3_1aTreeShapeListener.h"
+#include "Surelog/SourceCompile/SV3_1aTreeShapeListener.h"
 
 #include <cstdlib>
 #include <iostream>
 #include <regex>
 
-#include "CommandLine/CommandLineParser.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/SV3_1aPpTreeShapeListener.h"
-#include "SourceCompile/SV3_1aTreeShapeHelper.h"
-#include "SourceCompile/SymbolTable.h"
-#include "Utils/FileUtils.h"
-#include "Utils/ParseUtils.h"
-#include "Utils/StringUtils.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h"
+#include "Surelog/SourceCompile/SV3_1aTreeShapeHelper.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/FileUtils.h"
+#include "Surelog/Utils/ParseUtils.h"
+#include "Surelog/Utils/StringUtils.h"
 #include "antlr4-runtime.h"
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"

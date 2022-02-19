@@ -18,7 +18,7 @@
 #include <string_view>
 #include <vector>
 
-#include "SourceCompile/ParserHarness.h"
+#include "Surelog/SourceCompile/ParserHarness.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 

@@ -18,10 +18,10 @@
 #include <string_view>
 #include <vector>
 
-#include "DesignCompile/CompileHelper.h"
-#include "DesignCompile/CompilerHarness.h"
-#include "SourceCompile/ParserHarness.h"
-#include "SourceCompile/PreprocessHarness.h"
+#include "Surelog/DesignCompile/CompileHelper.h"
+#include "Surelog/DesignCompile/CompilerHarness.h"
+#include "Surelog/SourceCompile/ParserHarness.h"
+#include "Surelog/SourceCompile/PreprocessHarness.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 

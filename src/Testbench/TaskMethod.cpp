@@ -21,7 +21,7 @@
  * Created on February 21, 2019, 8:21 PM
  */
 
-#include "Testbench/TaskMethod.h"
+#include "Surelog/Testbench/TaskMethod.h"
 
 namespace SURELOG {
 TaskMethod::~TaskMethod() {}

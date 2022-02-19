@@ -21,7 +21,7 @@
  * Created on February 21, 2019, 8:20 PM
  */
 
-#include "Testbench/FunctionMethod.h"
+#include "Surelog/Testbench/FunctionMethod.h"
 
 namespace SURELOG {
 FunctionMethod::~FunctionMethod() {}

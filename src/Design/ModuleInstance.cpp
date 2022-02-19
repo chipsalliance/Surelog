@@ -20,14 +20,14 @@
  *
  * Created on October 16, 2017, 10:48 PM
  */
-#include "Design/ModuleInstance.h"
+#include "Surelog/Design/ModuleInstance.h"
 
 #include <iostream>
 #include <string>
 
-#include "Design/FileContent.h"
-#include "Library/Library.h"
-#include "SourceCompile/SymbolTable.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Library/Library.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>

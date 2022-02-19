@@ -20,7 +20,7 @@
  *
  * Created on November 2, 2017, 9:45 PM
  */
-#include "Expression/ExprBuilder.h"
+#include "Surelog/Expression/ExprBuilder.h"
 
 #include <assert.h>
 #include <math.h>
@@ -38,11 +38,11 @@
 #include <iostream>
 #include <sstream>
 
-#include "Design/Design.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/VObjectTypes.h"
-#include "Utils/NumUtils.h"
-#include "Utils/StringUtils.h"
+#include "Surelog/Design/Design.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
+#include "Surelog/Utils/NumUtils.h"
+#include "Surelog/Utils/StringUtils.h"
 
 using namespace SURELOG;
 

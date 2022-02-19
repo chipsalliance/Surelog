@@ -20,7 +20,7 @@
  *
  * Created on April 10, 2017, 8:56 PM
  */
-#include "ErrorReporting/Report.h"
+#include "Surelog/ErrorReporting/Report.h"
 
 #include <chrono>
 #include <filesystem>
@@ -35,7 +35,7 @@
 #include <unistd.h>
 #endif
 
-#include "ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
 
 namespace SURELOG {
 namespace fs = std::filesystem;

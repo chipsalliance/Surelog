@@ -20,7 +20,7 @@
  *
  * Created on February 24, 2017, 9:38 PM
  */
-#include "SourceCompile/PreprocessFile.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
 
 #include <ctype.h>
 #include <stdio.h>
@@ -32,21 +32,21 @@
 #include <regex>
 #include <sstream>
 
-#include "Cache/PPCache.h"
-#include "CommandLine/CommandLineParser.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "ErrorReporting/Waiver.h"
-#include "Package/Precompiled.h"
 #include "Parser.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/SV3_1aPpTreeShapeListener.h"
-#include "SourceCompile/SymbolTable.h"
-#include "Utils/FileUtils.h"
-#include "Utils/ParseUtils.h"
-#include "Utils/StringUtils.h"
-#include "Utils/Timer.h"
+#include "Surelog/Cache/PPCache.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/Waiver.h"
+#include "Surelog/Package/Precompiled.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/FileUtils.h"
+#include "Surelog/Utils/ParseUtils.h"
+#include "Surelog/Utils/StringUtils.h"
+#include "Surelog/Utils/Timer.h"
 #include "antlr4-runtime.h"
 #include "atn/ParserATNSimulator.h"
 #include "parser/SV3_1aPpLexer.h"

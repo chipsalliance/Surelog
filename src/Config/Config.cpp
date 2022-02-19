@@ -20,10 +20,10 @@
  *
  * Created on February 10, 2018, 11:09 PM
  */
-#include "Config/Config.h"
+#include "Surelog/Config/Config.h"
 
-#include "Design/FileContent.h"
-#include "SourceCompile/SymbolTable.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 using namespace SURELOG;
 

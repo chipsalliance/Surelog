@@ -20,7 +20,7 @@
  *
  * Created on October 29, 2017, 10:33 PM
  */
-#include "Expression/Value.h"
+#include "Surelog/Expression/Value.h"
 
 #include <math.h>
 
@@ -32,7 +32,7 @@
 // UHDM
 #include <uhdm/vpi_user.h>
 
-#include "Utils/StringUtils.h"
+#include "Surelog/Utils/StringUtils.h"
 
 using namespace SURELOG;
 

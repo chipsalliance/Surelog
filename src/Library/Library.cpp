@@ -20,11 +20,11 @@
  *
  * Created on January 27, 2018, 5:25 PM
  */
-#include "Library/Library.h"
+#include "Surelog/Library/Library.h"
 
-#include "Design/FileContent.h"
-#include "Design/ModuleDefinition.h"
-#include "SourceCompile/SymbolTable.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/ModuleDefinition.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 using namespace SURELOG;
 

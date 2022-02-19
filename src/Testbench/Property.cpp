@@ -20,7 +20,7 @@
  *
  * Created on January 23, 2019, 9:17 PM
  */
-#include "Testbench/Property.h"
+#include "Surelog/Testbench/Property.h"
 
 namespace SURELOG {
 Property::~Property() {}

@@ -20,19 +20,19 @@
  *
  * Created on July 29, 2017, 5:32 PM
  */
-#include "SourceCompile/AntlrParserErrorListener.h"
+#include "Surelog/SourceCompile/AntlrParserErrorListener.h"
 
 #include <string.h>
 
-#include "CommandLine/CommandLineParser.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/SymbolTable.h"
-#include "Utils/FileUtils.h"
-#include "Utils/StringUtils.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/FileUtils.h"
+#include "Surelog/Utils/StringUtils.h"
 #include "atn/ParserATNSimulator.h"
 
 namespace SURELOG {

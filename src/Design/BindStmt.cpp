@@ -20,7 +20,7 @@
  *
  * Created on May 19, 2019, 11:55 AM
  */
-#include "Design/BindStmt.h"
+#include "Surelog/Design/BindStmt.h"
 
 using namespace SURELOG;
 

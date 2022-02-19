@@ -21,19 +21,19 @@
  * Created on February 6, 2019, 9:01 PM
  */
 
-#include "DesignCompile/TestbenchElaboration.h"
+#include "Surelog/DesignCompile/TestbenchElaboration.h"
 
 #include <filesystem>
 #include <queue>
 #include <string>
 #include <vector>
 
-#include "Design/DataType.h"
-#include "Design/VObject.h"
-#include "ErrorReporting/Location.h"
-#include "SourceCompile/VObjectTypes.h"
-#include "Testbench/ClassDefinition.h"
-#include "Testbench/Property.h"
+#include "Surelog/Design/DataType.h"
+#include "Surelog/Design/VObject.h"
+#include "Surelog/ErrorReporting/Location.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
+#include "Surelog/Testbench/ClassDefinition.h"
+#include "Surelog/Testbench/Property.h"
 
 // UHDM
 #include <uhdm/uhdm.h>

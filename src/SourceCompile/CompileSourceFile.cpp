@@ -20,7 +20,7 @@
  *
  * Created on February 20, 2017, 9:54 PM
  */
-#include "SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
 
 #include <string.h>
 #include <sys/stat.h>
@@ -31,19 +31,19 @@
 #include <fstream>
 #include <iostream>
 
-#include "API/PythonAPI.h"
-#include "CommandLine/CommandLineParser.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "Package/Precompiled.h"
-#include "SourceCompile/AntlrParserHandler.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/PythonListen.h"
-#include "SourceCompile/SymbolTable.h"
-#include "Utils/FileUtils.h"
-#include "Utils/StringUtils.h"
+#include "Surelog/API/PythonAPI.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/Package/Precompiled.h"
+#include "Surelog/SourceCompile/AntlrParserHandler.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/SourceCompile/PythonListen.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/FileUtils.h"
+#include "Surelog/Utils/StringUtils.h"
 #include "antlr4-runtime.h"
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"

@@ -20,7 +20,7 @@
  *
  * Created on January 31, 2020, 9:46 PM
  */
-#include "Design/ModPort.h"
+#include "Surelog/Design/ModPort.h"
 
 namespace SURELOG {
 

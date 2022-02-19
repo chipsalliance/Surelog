@@ -110,10 +110,10 @@ endif()
 
 # Flatbuffer
 set(flatbuffer-GENERATED_SRC
-    ${GENDIR}/src/Cache/header_generated.h
-    ${GENDIR}/src/Cache/parser_generated.h
-    ${GENDIR}/src/Cache/preproc_generated.h
-    ${GENDIR}/src/Cache/python_api_generated.h)
+    ${GENDIR}/include/Surelog/Cache/header_generated.h
+    ${GENDIR}/include/Surelog/Cache/parser_generated.h
+    ${GENDIR}/include/Surelog/Cache/preproc_generated.h
+    ${GENDIR}/include/Surelog/Cache/python_api_generated.h)
 
 foreach(header_file ${flatbuffer-GENERATED_SRC})
   set_source_files_properties(${header_file} PROPERTIES GENERATED TRUE)
@@ -122,7 +122,7 @@ add_custom_target(GenerateSerializer DEPENDS ${flatbuffer-GENERATED_SRC})
 add_custom_command(
   OUTPUT ${flatbuffer-GENERATED_SRC}
   COMMAND
-    flatc --cpp --binary -o ${GENDIR}/src/Cache/
+    flatc --cpp --binary -o ${GENDIR}/include/Surelog/Cache
     ${PROJECT_SOURCE_DIR}/src/Cache/header.fbs
     ${PROJECT_SOURCE_DIR}/src/Cache/parser.fbs
     ${PROJECT_SOURCE_DIR}/src/Cache/preproc.fbs
@@ -173,7 +173,7 @@ add_custom_command(
   # Unfortunately, cmake does not provide simple equivalents to
   # gmake's $(nodir $(surelog_grammars)).
   # So, we list them here all manually passing to the command.
-  COMMAND java -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp
+  COMMAND java -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp -package SURELOG
              -o ${GENDIR}/src/parser/
              SV3_1aLexer.g4    SV3_1aParser.g4
              SV3_1aPpLexer.g4  SV3_1aPpParser.g4
@@ -182,11 +182,11 @@ add_custom_command(
 )
 
 add_custom_command(
-  OUTPUT ${GENDIR}/src/SourceCompile/VObjectTypes.h
+  OUTPUT ${GENDIR}/include/Surelog/SourceCompile/VObjectTypes.h
          ${GENDIR}/src/SourceCompile/VObjectTypes.cpp
-         ${GENDIR}/src/API/VObjectTypes_py.h
-         ${GENDIR}/src/SourceCompile/SV3_1aTreeShapeListener.h
-         ${GENDIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.h
+         ${GENDIR}/include/Surelog/API/VObjectTypes_py.h
+         ${GENDIR}/include/Surelog/SourceCompile/SV3_1aTreeShapeListener.h
+         ${GENDIR}/include/Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h
   DEPENDS ${GENDIR}/src/parser/generated-parsers.tstamp
           ${PROJECT_SOURCE_DIR}/scripts/generate_parser_listener.py
 
@@ -197,11 +197,11 @@ add_custom_command(
 
 if (SURELOG_WITH_PYTHON)
   set(surelog_python-GENERATED_SRC
-    ${GENDIR}/src/API/SV3_1aPythonListener.h
-    ${GENDIR}/src/API/slSV3_1aPythonListener.py
-    ${GENDIR}/src/API/slapi_wrap.cxx
-    ${GENDIR}/src/API/slapi_scripts.h
-    ${GENDIR}/src/API/slapi.py)
+    ${GENDIR}/include/Surelog/API/SV3_1aPythonListener.h
+    ${GENDIR}/include/Surelog/API/slapi_scripts.h
+    ${GENDIR}/include/Surelog/API/slapi_wrap.cxx
+    ${GENDIR}/include/Surelog/API/slapi.py
+    ${GENDIR}/src/API/slSV3_1aPythonListener.py)
   foreach(gen_src ${surelog_python-GENERATED_SRC})
     set_source_files_properties(${gen_src} PROPERTIES GENERATED TRUE)
   endforeach()
@@ -210,18 +210,21 @@ if (SURELOG_WITH_PYTHON)
     DEPENDS ${PROJECT_SOURCE_DIR}/src/API/slapi_scripts.i
             ${PROJECT_SOURCE_DIR}/src/API/generate_python_listener_api.tcl
             ${PROJECT_SOURCE_DIR}/src/API/embed_python_api.tcl
-            ${GENDIR}/src/API/VObjectTypes_py.h
+            ${GENDIR}/include/Surelog/API/VObjectTypes_py.h
             ${GENDIR}/src/parser/generated-parsers.tstamp
 
-    WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
+    WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
     COMMAND echo "---------- Python API generation"
-    COMMAND tclsh API/generate_python_listener_api.tcl input_gen_dir=${GENDIR}/src out_dir=${GENDIR}/src
-    COMMAND ${SWIG_EXECUTABLE} -c++ -python -o ${GENDIR}/src/API/slapi_wrap.cxx API/slapi_scripts.i
-    COMMAND tclsh API/embed_python_api.tcl out_dir=${GENDIR}/src
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${GENDIR}/src/API
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${GENDIR}/include/Surelog/API
+    COMMAND tclsh src/API/generate_python_listener_api.tcl input_gen_dir=${GENDIR}/src out_dir=${GENDIR}
+    COMMAND ${SWIG_EXECUTABLE} -c++ -python -I${PROJECT_SOURCE_DIR}/include -o ${GENDIR}/include/Surelog/API/slapi_wrap.cxx ${PROJECT_SOURCE_DIR}/src/API/slapi_scripts.i
+    COMMAND tclsh src/API/embed_python_api.tcl input_dir=${GENDIR} out_dir=${GENDIR}/include/Surelog
+    COMMAND ls -lR ${GENDIR}
   )
 endif()
 
-include_directories(${PROJECT_SOURCE_DIR}/src ${GENDIR}/src)
+include_directories(${PROJECT_SOURCE_DIR}/include ${GENDIR}/include ${GENDIR}/src)
 
 # Put source code here, files that are generated at build time in
 # surelog_generated_SRC
@@ -341,7 +344,7 @@ set(surelog_SRC
 
 if (SURELOG_WITH_PYTHON)
   list(APPEND surelog_SRC
-    ${GENDIR}/src/API/SV3_1aPythonListener.h
+    ${GENDIR}/include/Surelog/API/SV3_1aPythonListener.h
     ${PROJECT_SOURCE_DIR}/src/API/SV3_1aPythonListener.cpp
     ${PROJECT_SOURCE_DIR}/src/SourceCompile/PythonListen.cpp
     ${PROJECT_SOURCE_DIR}/src/Cache/PythonAPICache.cpp
@@ -360,13 +363,13 @@ foreach(gen_src ${surelog_generated_SRC})
 endforeach()
 
 add_library(surelog STATIC ${surelog_SRC} ${surelog_generated_SRC})
-set_target_properties(surelog PROPERTIES PUBLIC_HEADER src/surelog.h)
+set_target_properties(surelog PROPERTIES PUBLIC_HEADER include/Surelog/surelog.h)
 target_include_directories(surelog PRIVATE
   third_party/antlr4_fast/runtime/Cpp/runtime/src
   third_party/flatbuffers/include
   third_party/googletest/googletest/include
   third_party/googletest/googlemock/include)
-target_include_directories(surelog PUBLIC $<INSTALL_INTERFACE:include/surelog>)
+target_include_directories(surelog PUBLIC $<INSTALL_INTERFACE:include>)
 if (SURELOG_WITH_PYTHON)
   target_include_directories(surelog PUBLIC ${Python3_INCLUDE_DIRS}) # Keep this at the end
   target_compile_definitions(surelog PUBLIC SURELOG_WITH_PYTHON)
@@ -609,7 +612,7 @@ install(
   TARGETS surelog antlr4_static flatbuffers
   EXPORT Surelog
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
-  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog)
+  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog)
 install(
   TARGETS uhdm capnp kj
   EXPORT Surelog
@@ -625,93 +628,93 @@ endif()
 install(DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/pkg
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog)
 install(
-  FILES ${PROJECT_SOURCE_DIR}/src/CommandLine/CommandLineParser.h
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/CommandLine)
+  FILES ${PROJECT_SOURCE_DIR}/include/Surelog/CommandLine/CommandLineParser.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/CommandLine)
 install(
-  FILES ${PROJECT_SOURCE_DIR}/src/SourceCompile/SymbolTable.h
-        ${GENDIR}/src/SourceCompile/VObjectTypes.h
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/SourceCompile)
+  FILES ${PROJECT_SOURCE_DIR}/include/Surelog/SourceCompile/SymbolTable.h
+        ${GENDIR}/include/Surelog/SourceCompile/VObjectTypes.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/SourceCompile)
 install(
-  FILES ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Location.h
-        ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Error.h
-        ${PROJECT_SOURCE_DIR}/src/ErrorReporting/ErrorDefinition.h
-        ${PROJECT_SOURCE_DIR}/src/ErrorReporting/ErrorContainer.h
-        ${PROJECT_SOURCE_DIR}/src/ErrorReporting/LogListener.h
-        ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Report.h
-        ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Waiver.h
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/ErrorReporting)
+  FILES ${PROJECT_SOURCE_DIR}/include/Surelog/ErrorReporting/Location.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/ErrorReporting/Error.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/ErrorReporting/ErrorDefinition.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/ErrorReporting/ErrorContainer.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/ErrorReporting/LogListener.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/ErrorReporting/Report.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/ErrorReporting/Waiver.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/ErrorReporting)
 install(
-  FILES ${PROJECT_SOURCE_DIR}/src/API/PythonAPI.h
-        ${PROJECT_SOURCE_DIR}/src/API/SLAPI.h
-        ${PROJECT_SOURCE_DIR}/src/API/Surelog.h
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/API)
+  FILES ${PROJECT_SOURCE_DIR}/include/Surelog/API/PythonAPI.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/API/SLAPI.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/API/Surelog.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/API)
 install(
-  FILES ${PROJECT_SOURCE_DIR}/src/Common/ClockingBlockHolder.h
-        ${PROJECT_SOURCE_DIR}/src/Common/PortNetHolder.h
-        ${PROJECT_SOURCE_DIR}/src/Common/RTTI.h
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Common)
+  FILES ${PROJECT_SOURCE_DIR}/include/Surelog/Common/ClockingBlockHolder.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Common/PortNetHolder.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Common/RTTI.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/Common)
 install(
-  FILES ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileHelper.h
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/DesignCompile)
+  FILES ${PROJECT_SOURCE_DIR}/include/Surelog/DesignCompile/CompileHelper.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/DesignCompile)
 install(
-  FILES ${PROJECT_SOURCE_DIR}/src/Design/ClockingBlock.h
-        ${PROJECT_SOURCE_DIR}/src/Design/Design.h
-        ${PROJECT_SOURCE_DIR}/src/Design/BindStmt.h
-        ${PROJECT_SOURCE_DIR}/src/Design/Instance.h
-        ${PROJECT_SOURCE_DIR}/src/Design/Signal.h
-        ${PROJECT_SOURCE_DIR}/src/Design/ValuedComponentI.h
-        ${PROJECT_SOURCE_DIR}/src/Design/DataType.h
-        ${PROJECT_SOURCE_DIR}/src/Design/Enum.h
-        ${PROJECT_SOURCE_DIR}/src/Design/Struct.h
-        ${PROJECT_SOURCE_DIR}/src/Design/ModuleDefinition.h
-        ${PROJECT_SOURCE_DIR}/src/Design/Statement.h
-        ${PROJECT_SOURCE_DIR}/src/Design/VObject.h
-        ${PROJECT_SOURCE_DIR}/src/Design/DefParam.h
-        ${PROJECT_SOURCE_DIR}/src/Design/FileCNodeId.h
-        ${PROJECT_SOURCE_DIR}/src/Design/ModuleInstance.h
-        ${PROJECT_SOURCE_DIR}/src/Design/Task.h
-        ${PROJECT_SOURCE_DIR}/src/Design/DesignComponent.h
-        ${PROJECT_SOURCE_DIR}/src/Design/FileContent.h
-        ${PROJECT_SOURCE_DIR}/src/Design/Parameter.h
-        ${PROJECT_SOURCE_DIR}/src/Design/ParamAssign.h
-        ${PROJECT_SOURCE_DIR}/src/Design/TfPortItem.h
-        ${PROJECT_SOURCE_DIR}/src/Design/DesignElement.h
-        ${PROJECT_SOURCE_DIR}/src/Design/Netlist.h
-        ${PROJECT_SOURCE_DIR}/src/Design/Function.h
-        ${PROJECT_SOURCE_DIR}/src/Design/Scope.h
-        ${PROJECT_SOURCE_DIR}/src/Design/TimeInfo.h
-        ${PROJECT_SOURCE_DIR}/src/Design/ModPort.h
-        ${PROJECT_SOURCE_DIR}/src/Design/Union.h
-        ${PROJECT_SOURCE_DIR}/src/Design/SimpleType.h
-        ${PROJECT_SOURCE_DIR}/src/Design/DummyType.h
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Design)
+  FILES ${PROJECT_SOURCE_DIR}/include/Surelog/Design/ClockingBlock.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/Design.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/BindStmt.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/Instance.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/Signal.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/ValuedComponentI.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/DataType.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/Enum.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/Struct.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/ModuleDefinition.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/Statement.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/VObject.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/DefParam.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/FileCNodeId.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/ModuleInstance.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/Task.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/DesignComponent.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/FileContent.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/Parameter.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/ParamAssign.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/TfPortItem.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/DesignElement.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/Netlist.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/Function.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/Scope.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/TimeInfo.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/ModPort.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/Union.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/SimpleType.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/DummyType.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/Design)
 install(
-  FILES ${PROJECT_SOURCE_DIR}/src/Testbench/ClassDefinition.h
-        ${PROJECT_SOURCE_DIR}/src/Testbench/CoverGroupDefinition.h
-        ${PROJECT_SOURCE_DIR}/src/Testbench/Property.h
-        ${PROJECT_SOURCE_DIR}/src/Testbench/Variable.h
-        ${PROJECT_SOURCE_DIR}/src/Testbench/ClassObject.h
-        ${PROJECT_SOURCE_DIR}/src/Testbench/FunctionMethod.h
-        ${PROJECT_SOURCE_DIR}/src/Testbench/TaskMethod.h
-        ${PROJECT_SOURCE_DIR}/src/Testbench/Constraint.h
-        ${PROJECT_SOURCE_DIR}/src/Testbench/Program.h
-        ${PROJECT_SOURCE_DIR}/src/Testbench/TypeDef.h
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Testbench)
+  FILES ${PROJECT_SOURCE_DIR}/include/Surelog/Testbench/ClassDefinition.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Testbench/CoverGroupDefinition.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Testbench/Property.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Testbench/Variable.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Testbench/ClassObject.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Testbench/FunctionMethod.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Testbench/TaskMethod.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Testbench/Constraint.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Testbench/Program.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Testbench/TypeDef.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/Testbench)
 install(
-  FILES ${PROJECT_SOURCE_DIR}/src/Package/Package.h
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Package)
+  FILES ${PROJECT_SOURCE_DIR}/include/Surelog/Package/Package.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/Package)
 install(
-  FILES ${PROJECT_SOURCE_DIR}/src/Library/Library.h
-        ${PROJECT_SOURCE_DIR}/src/Library/LibrarySet.h
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Library)
+  FILES ${PROJECT_SOURCE_DIR}/include/Surelog/Library/Library.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Library/LibrarySet.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/Library)
 install(
-  FILES ${PROJECT_SOURCE_DIR}/src/Config/Config.h
-        ${PROJECT_SOURCE_DIR}/src/Config/ConfigSet.h
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Config)
+  FILES ${PROJECT_SOURCE_DIR}/include/Surelog/Config/Config.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Config/ConfigSet.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/Config)
 install(
-  FILES ${PROJECT_SOURCE_DIR}/src/Expression/ExprBuilder.h
-        ${PROJECT_SOURCE_DIR}/src/Expression/Value.h
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Expression)
+  FILES ${PROJECT_SOURCE_DIR}/include/Surelog/Expression/ExprBuilder.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Expression/Value.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/Expression)
 
 if (WIN32 AND $<CONFIG:Debug>)
   if (SURELOG_WITH_PYTHON)

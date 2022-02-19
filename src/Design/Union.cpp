@@ -20,10 +20,10 @@
  *
  * Created on May 19, 2020, 11:55 AM
  */
-#include "Design/Union.h"
+#include "Surelog/Design/Union.h"
 
-#include "Design/FileContent.h"
-#include "SourceCompile/SymbolTable.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 using namespace SURELOG;
 

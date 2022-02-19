@@ -20,11 +20,11 @@
  *
  * Created on June 1, 2018, 8:58 PM
  */
-#include "Testbench/Program.h"
+#include "Surelog/Testbench/Program.h"
 
-#include "Design/DesignComponent.h"
-#include "Design/FileContent.h"
-#include "SourceCompile/SymbolTable.h"
+#include "Surelog/Design/DesignComponent.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 Program::~Program() {}

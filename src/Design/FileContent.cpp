@@ -20,7 +20,7 @@
  *
  * Created on June 8, 2017, 8:22 PM
  */
-#include "Design/FileContent.h"
+#include "Surelog/Design/FileContent.h"
 
 #include <string.h>
 
@@ -29,11 +29,11 @@
 #include <queue>
 #include <stack>
 
-#include "Design/DesignElement.h"
-#include "Design/TimeInfo.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "Library/Library.h"
-#include "SourceCompile/SymbolTable.h"
+#include "Surelog/Design/DesignElement.h"
+#include "Surelog/Design/TimeInfo.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/Library/Library.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 namespace fs = std::filesystem;

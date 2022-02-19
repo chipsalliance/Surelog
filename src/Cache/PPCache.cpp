@@ -20,7 +20,7 @@
  *
  * Created on April 23, 2017, 8:49 PM
  */
-#include "Cache/PPCache.h"
+#include "Surelog/Cache/PPCache.h"
 
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -30,16 +30,16 @@
 #include <ctime>
 #include <filesystem>
 
-#include "Cache/Cache.h"
-#include "Cache/preproc_generated.h"
-#include "CommandLine/CommandLineParser.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "Package/Precompiled.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "Utils/FileUtils.h"
-#include "Utils/StringUtils.h"
+#include "Surelog/Cache/Cache.h"
+#include "Surelog/Cache/preproc_generated.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/Package/Precompiled.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/Utils/FileUtils.h"
+#include "Surelog/Utils/StringUtils.h"
 #include "flatbuffers/util.h"
 
 namespace SURELOG {

@@ -20,7 +20,7 @@
  *
  * Created on February 10, 2018, 11:14 PM
  */
-#include "Config/ConfigSet.h"
+#include "Surelog/Config/ConfigSet.h"
 
 using namespace SURELOG;
 

@@ -14,14 +14,14 @@
  limitations under the License.
 */
 
-#include "Utils/FileUtils.h"
+#include "Surelog/Utils/FileUtils.h"
 
 #include <filesystem>
 #include <fstream>
 #include <string>
 #include <vector>
 
-#include "SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 #include "gtest/gtest.h"
 
 namespace fs = std::filesystem;

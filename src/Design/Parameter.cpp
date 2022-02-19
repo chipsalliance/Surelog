@@ -20,9 +20,9 @@
  *
  * Created on April 15, 2019, 8:03 PM
  */
-#include "Design/Parameter.h"
+#include "Surelog/Design/Parameter.h"
 
-#include "Design/FileContent.h"
+#include "Surelog/Design/FileContent.h"
 
 namespace SURELOG {
 Parameter::Parameter(const FileContent* fC, NodeId nodeId,

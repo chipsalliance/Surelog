@@ -21,17 +21,17 @@
  * Created on March 5, 2017, 11:12 PM
  */
 
-#include "ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
 
 #include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <mutex>
 
-#include "API/PythonAPI.h"
-#include "CommandLine/CommandLineParser.h"
-#include "ErrorReporting/LogListener.h"
-#include "ErrorReporting/Waiver.h"
+#include "Surelog/API/PythonAPI.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/ErrorReporting/LogListener.h"
+#include "Surelog/ErrorReporting/Waiver.h"
 #include "antlr4-runtime.h"
 
 #if !(defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
@@ -252,7 +252,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
         args.push_back(location);
         args.push_back(text);
         tmp = PythonAPI::evalScript("__main__", "SLformatMsg", args,
-                                    m_interpState);
+                                    (PyThreadState*)m_interpState);
       }
     }
   }
