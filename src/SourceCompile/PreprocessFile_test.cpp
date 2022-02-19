@@ -18,7 +18,7 @@
 #include <string_view>
 #include <vector>
 
-#include "SourceCompile/PreprocessHarness.h"
+#include "Surelog/SourceCompile/PreprocessHarness.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 

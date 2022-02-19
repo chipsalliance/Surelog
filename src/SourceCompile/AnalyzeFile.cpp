@@ -20,7 +20,7 @@
  *
  * Created on July 23, 2017, 11:05 PM
  */
-#include "SourceCompile/AnalyzeFile.h"
+#include "Surelog/SourceCompile/AnalyzeFile.h"
 
 #include <ctype.h>
 #include <stdio.h>
@@ -32,19 +32,19 @@
 #include <sstream>
 #include <stack>
 
-#include "Design/Design.h"
-#include "Design/DesignElement.h"
-#include "Design/TimeInfo.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "ErrorReporting/Location.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/IncludeFileInfo.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "Utils/StringUtils.h"
+#include "Surelog/Design/Design.h"
+#include "Surelog/Design/DesignElement.h"
+#include "Surelog/Design/TimeInfo.h"
+#include "Surelog/ErrorReporting/Error.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/IncludeFileInfo.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {
 namespace fs = std::filesystem;

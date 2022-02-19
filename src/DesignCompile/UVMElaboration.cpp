@@ -20,7 +20,7 @@
  *
  * Created on July 12, 2017, 8:56 PM
  */
-#include "DesignCompile/UVMElaboration.h"
+#include "Surelog/DesignCompile/UVMElaboration.h"
 
 using namespace SURELOG;
 

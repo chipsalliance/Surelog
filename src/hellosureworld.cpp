@@ -28,7 +28,7 @@
 #include <functional>
 #include <iostream>
 
-#include "surelog.h"
+#include "Surelog/surelog.h"
 
 // UHDM
 #include <uhdm/uhdm.h>

@@ -20,27 +20,27 @@
  *
  * Created on July 1, 2017, 1:23 PM
  */
-#include "Design/Design.h"
+#include "Surelog/Design/Design.h"
 
 #include <queue>
 #include <set>
 
-#include "CommandLine/CommandLineParser.h"
-#include "Design/FileContent.h"
-#include "Design/VObject.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/SymbolTable.h"
-#include "SourceCompile/VObjectTypes.h"
-#include "Testbench/ClassDefinition.h"
-#include "Utils/FileUtils.h"
-#include "Utils/StringUtils.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/VObject.h"
+#include "Surelog/ErrorReporting/Error.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
+#include "Surelog/Testbench/ClassDefinition.h"
+#include "Surelog/Utils/FileUtils.h"
+#include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {
 

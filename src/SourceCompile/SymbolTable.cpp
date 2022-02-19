@@ -20,7 +20,7 @@
  *
  * Created on March 6, 2017, 11:10 PM
  */
-#include "SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 #include <cassert>
 

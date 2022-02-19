@@ -20,11 +20,11 @@
  *
  * Created on Feb 08, 2018, 9:54 PM
  */
-#include "Library/AntlrLibParserErrorListener.h"
+#include "Surelog/Library/AntlrLibParserErrorListener.h"
 
-#include "CommandLine/CommandLineParser.h"
-#include "Design/FileContent.h"
-#include "ErrorReporting/ErrorContainer.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "atn/ParserATNSimulator.h"
 
 namespace SURELOG {

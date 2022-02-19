@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-#include "SourceCompile/CommonListenerHelper.h"
+#include "Surelog/SourceCompile/CommonListenerHelper.h"
 
 /*
  * File:   CommonListenerHelper.cpp
@@ -26,7 +26,7 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "Utils/ParseUtils.h"
+#include "Surelog/Utils/ParseUtils.h"
 #include "antlr4-runtime.h"
 
 using namespace std;

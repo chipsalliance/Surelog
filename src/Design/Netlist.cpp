@@ -21,7 +21,7 @@
  * Created on Mar 1, 2020, 8:03 PM
  */
 
-#include "Design/Netlist.h"
+#include "Surelog/Design/Netlist.h"
 
 using namespace SURELOG;
 

@@ -21,7 +21,7 @@
  * Created on March 5, 2017, 11:30 PM
  */
 
-#include "ErrorReporting/Error.h"
+#include "Surelog/ErrorReporting/Error.h"
 
 using namespace SURELOG;
 

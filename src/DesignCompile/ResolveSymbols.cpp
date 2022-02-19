@@ -20,13 +20,13 @@
  *
  * Created on July 1, 2017, 12:38 PM
  */
-#include "DesignCompile/ResolveSymbols.h"
+#include "Surelog/DesignCompile/ResolveSymbols.h"
 
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "ErrorReporting/Location.h"
-#include "Testbench/ClassDefinition.h"
+#include "Surelog/ErrorReporting/Error.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
+#include "Surelog/Testbench/ClassDefinition.h"
 
 // UHDM
 #include <uhdm/uhdm.h>

@@ -14,7 +14,7 @@
  limitations under the License.
 */
 
-#include "SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 #include <string>
 #include <string_view>

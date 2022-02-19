@@ -20,7 +20,7 @@
  *
  * Created on June 1, 2021, 8:37 PM
  */
-#include "SourceCompile/PreprocessHarness.h"
+#include "Surelog/SourceCompile/PreprocessHarness.h"
 
 #if (defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
 #include <process.h>  // Has to be included before <thread>
@@ -45,22 +45,22 @@
 #include <thread>
 #include <vector>
 
-#include "API/PythonAPI.h"
-#include "CommandLine/CommandLineParser.h"
-#include "DesignCompile/CompileDesign.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "Library/ParseLibraryDef.h"
-#include "Package/Precompiled.h"
-#include "SourceCompile/AnalyzeFile.h"
-#include "SourceCompile/CheckCompile.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/SymbolTable.h"
-#include "Utils/ContainerUtils.h"
-#include "Utils/FileUtils.h"
-#include "Utils/StringUtils.h"
-#include "Utils/Timer.h"
+#include "Surelog/API/PythonAPI.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/Library/ParseLibraryDef.h"
+#include "Surelog/Package/Precompiled.h"
+#include "Surelog/SourceCompile/AnalyzeFile.h"
+#include "Surelog/SourceCompile/CheckCompile.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/ContainerUtils.h"
+#include "Surelog/Utils/FileUtils.h"
+#include "Surelog/Utils/StringUtils.h"
+#include "Surelog/Utils/Timer.h"
 #include "antlr4-runtime.h"
 
 namespace SURELOG {

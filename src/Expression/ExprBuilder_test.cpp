@@ -14,14 +14,14 @@
  limitations under the License.
 */
 
-#include "Expression/ExprBuilder.h"
+#include "Surelog/Expression/ExprBuilder.h"
 
 #include <memory>
 #include <string>
 #include <string_view>
 #include <vector>
 
-#include "SourceCompile/ParserHarness.h"
+#include "Surelog/SourceCompile/ParserHarness.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 

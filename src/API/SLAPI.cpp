@@ -20,31 +20,31 @@
  *
  * Created on May 13, 2017, 4:42 PM
  */
-#include "API/SLAPI.h"
+#include "Surelog/API/SLAPI.h"
 
 #include <string.h>
 
 #include <cstdlib>
 #include <iostream>
 
-#include "API/PythonAPI.h"
+#include "Surelog/API/PythonAPI.h"
 #ifdef SURELOG_WITH_PYTHON
-#include "API/SV3_1aPythonListener.h"
+#include "Surelog/API/SV3_1aPythonListener.h"
 #endif
 
-#include "CommandLine/CommandLineParser.h"
-#include "Design/FileContent.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "ErrorReporting/Waiver.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/SymbolTable.h"
-#include "Testbench/ClassDefinition.h"
-#include "Utils/FileUtils.h"
-#include "Utils/ParseUtils.h"
-#include "Utils/StringUtils.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Waiver.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Testbench/ClassDefinition.h"
+#include "Surelog/Utils/FileUtils.h"
+#include "Surelog/Utils/ParseUtils.h"
+#include "Surelog/Utils/StringUtils.h"
 #include "antlr4-runtime.h"
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"
@@ -199,7 +199,7 @@ std::string SLgetFile(SV3_1aPythonListener* prog,
 #ifdef SURELOG_WITH_PYTHON
   SV3_1aPythonListener* listener = (SV3_1aPythonListener*)prog;
   std::string file =
-      listener->getPythonListen()->getParseFile()->getFileName(0);
+      listener->getPythonListen()->getParseFile()->getFileName(0).string();
   return file;
 #else
   std::cerr << "SLgetFile(): Python support not compiled in\n";

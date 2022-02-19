@@ -21,7 +21,7 @@
  * Created on December 29, 2020, 10:43 PM
  */
 
-#include "Utils/NumUtils.h"
+#include "Surelog/Utils/NumUtils.h"
 
 #include <algorithm>
 #include <bitset>

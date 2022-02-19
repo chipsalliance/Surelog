@@ -37,10 +37,10 @@
 #include <string>
 #include <vector>
 
-#include "API/PythonAPI.h"
-#include "ErrorReporting/Report.h"
-#include "Utils/StringUtils.h"
-#include "surelog.h"
+#include "Surelog/API/PythonAPI.h"
+#include "Surelog/ErrorReporting/Report.h"
+#include "Surelog/Utils/StringUtils.h"
+#include "Surelog/surelog.h"
 
 namespace fs = std::filesystem;
 

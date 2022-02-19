@@ -20,9 +20,9 @@
  *
  * Created on March 5, 2017, 11:25 PM
  */
-#include "ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 
-#include "Utils/StringUtils.h"
+#include "Surelog/Utils/StringUtils.h"
 
 using namespace SURELOG;
 

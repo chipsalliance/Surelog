@@ -20,7 +20,7 @@
  *
  * Created on June 7, 2018, 10:26 PM
  */
-#include "DesignCompile/CompileClass.h"
+#include "Surelog/DesignCompile/CompileClass.h"
 
 #include <string.h>
 
@@ -29,17 +29,17 @@
 #include <string>
 #include <vector>
 
-#include "CommandLine/CommandLineParser.h"
-#include "Design/FileContent.h"
-#include "Design/VObject.h"
-#include "DesignCompile/CompileDesign.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "ErrorReporting/Location.h"
-#include "SourceCompile/SymbolTable.h"
-#include "SourceCompile/VObjectTypes.h"
-#include "Testbench/ClassDefinition.h"
-#include "Utils/StringUtils.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/VObject.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/ErrorReporting/Error.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/Location.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
+#include "Surelog/Testbench/ClassDefinition.h"
+#include "Surelog/Utils/StringUtils.h"
 
 // UHDM
 #include <uhdm/uhdm.h>

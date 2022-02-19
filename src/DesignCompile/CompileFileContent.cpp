@@ -20,25 +20,25 @@
  *
  * Created on March 28, 2018, 10:16 PM
  */
-#include "DesignCompile/CompileFileContent.h"
+#include "Surelog/DesignCompile/CompileFileContent.h"
 
-#include "CommandLine/CommandLineParser.h"
-#include "Design/FileContent.h"
-#include "Design/VObject.h"
-#include "DesignCompile/CompileDesign.h"
-#include "DesignCompile/CompileHelper.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "ErrorReporting/Location.h"
-#include "Library/Library.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/SymbolTable.h"
-#include "SourceCompile/VObjectTypes.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/VObject.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/DesignCompile/CompileHelper.h"
+#include "Surelog/ErrorReporting/Error.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
+#include "Surelog/Library/Library.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 
 using namespace SURELOG;
 

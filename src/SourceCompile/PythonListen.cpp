@@ -20,20 +20,20 @@
  *
  * Created on June 4, 2017, 8:09 PM
  */
-#include "SourceCompile/PythonListen.h"
+#include "Surelog/SourceCompile/PythonListen.h"
 
 #include <cstdlib>
 #include <iostream>
 
-#include "API/SV3_1aPythonListener.h"
-#include "Cache/PythonAPICache.h"
-#include "CommandLine/CommandLineParser.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/AntlrParserHandler.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/SymbolTable.h"
+#include "Surelog/API/SV3_1aPythonListener.h"
+#include "Surelog/Cache/PythonAPICache.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/SourceCompile/AntlrParserHandler.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 #include "antlr4-runtime.h"
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"

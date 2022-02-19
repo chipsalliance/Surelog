@@ -20,11 +20,11 @@
  *
  * Created on March 18, 2018, 7:58 PM
  */
-#include "Package/Package.h"
+#include "Surelog/Package/Package.h"
 
-#include "Expression/ExprBuilder.h"
-#include "SourceCompile/SymbolTable.h"
-#include "Testbench/ClassDefinition.h"
+#include "Surelog/Expression/ExprBuilder.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Testbench/ClassDefinition.h"
 
 namespace SURELOG {
 Package::~Package() {}

@@ -20,11 +20,11 @@
  *
  * Created on June 14, 2017, 10:58 PM
  */
-#include "Design/VObject.h"
+#include "Surelog/Design/VObject.h"
 
 #include <string>
 
-#include "SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 using namespace SURELOG;
 

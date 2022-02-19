@@ -20,25 +20,25 @@
  *
  * Created on June 10, 2017, 10:15 PM
  */
-#include "SourceCompile/CheckCompile.h"
+#include "Surelog/SourceCompile/CheckCompile.h"
 
 #include <iostream>
 #include <set>
 
-#include "CommandLine/CommandLineParser.h"
-#include "Design/DesignElement.h"
-#include "Design/FileContent.h"
-#include "Design/TimeInfo.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "ErrorReporting/Location.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/SymbolTable.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Design/DesignElement.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/TimeInfo.h"
+#include "Surelog/ErrorReporting/Error.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 CheckCompile::~CheckCompile() {}

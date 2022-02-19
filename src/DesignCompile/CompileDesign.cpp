@@ -20,7 +20,7 @@
  *
  * Created on July 1, 2017, 1:11 PM
  */
-#include "DesignCompile/CompileDesign.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
 
 #if (defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
 #include <process.h>  // Has to be included before <thread>
@@ -32,32 +32,32 @@
 #include <thread>
 #include <vector>
 
-#include "CommandLine/CommandLineParser.h"
-#include "Design/FileContent.h"
-#include "DesignCompile/Builtin.h"
-#include "DesignCompile/CompileClass.h"
-#include "DesignCompile/CompileFileContent.h"
-#include "DesignCompile/CompileModule.h"
-#include "DesignCompile/CompilePackage.h"
-#include "DesignCompile/CompileProgram.h"
-#include "DesignCompile/DesignElaboration.h"
-#include "DesignCompile/NetlistElaboration.h"
-#include "DesignCompile/PackageAndRootElaboration.h"
-#include "DesignCompile/ResolveSymbols.h"
-#include "DesignCompile/UVMElaboration.h"
-#include "DesignCompile/UhdmWriter.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "ErrorReporting/Location.h"
-#include "Library/Library.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/SymbolTable.h"
-#include "Testbench/ClassDefinition.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/DesignCompile/Builtin.h"
+#include "Surelog/DesignCompile/CompileClass.h"
+#include "Surelog/DesignCompile/CompileFileContent.h"
+#include "Surelog/DesignCompile/CompileModule.h"
+#include "Surelog/DesignCompile/CompilePackage.h"
+#include "Surelog/DesignCompile/CompileProgram.h"
+#include "Surelog/DesignCompile/DesignElaboration.h"
+#include "Surelog/DesignCompile/NetlistElaboration.h"
+#include "Surelog/DesignCompile/PackageAndRootElaboration.h"
+#include "Surelog/DesignCompile/ResolveSymbols.h"
+#include "Surelog/DesignCompile/UVMElaboration.h"
+#include "Surelog/DesignCompile/UhdmWriter.h"
+#include "Surelog/ErrorReporting/Error.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
+#include "Surelog/Library/Library.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Testbench/ClassDefinition.h"
 
 #ifdef USETBB
 #include <tbb/task.h>

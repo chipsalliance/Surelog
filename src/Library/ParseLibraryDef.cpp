@@ -21,20 +21,20 @@
  * Created on January 27, 2018, 5:05 PM
  */
 
-#include "Library/ParseLibraryDef.h"
+#include "Surelog/Library/ParseLibraryDef.h"
 
 #include <filesystem>
 
-#include "CommandLine/CommandLineParser.h"
-#include "Library/AntlrLibParserErrorListener.h"
-#include "Library/SVLibShapeListener.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "Utils/FileUtils.h"
-#include "Utils/StringUtils.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Library/AntlrLibParserErrorListener.h"
+#include "Surelog/Library/SVLibShapeListener.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/Utils/FileUtils.h"
+#include "Surelog/Utils/StringUtils.h"
 #include "antlr4-runtime.h"
 #include "atn/ParserATNSimulator.h"
 #include "parser/SV3_1aLexer.h"

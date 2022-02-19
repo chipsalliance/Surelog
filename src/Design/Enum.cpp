@@ -20,10 +20,10 @@
  *
  * Created on May 19, 2019, 11:55 AM
  */
-#include "Design/Enum.h"
+#include "Surelog/Design/Enum.h"
 
-#include "Design/FileContent.h"
-#include "SourceCompile/SymbolTable.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 Enum::Enum(const FileContent* fC, NodeId nameId, NodeId baseTypeId)

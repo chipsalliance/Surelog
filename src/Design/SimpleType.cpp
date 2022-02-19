@@ -20,10 +20,10 @@
  *
  * Created on May 19, 2020, 11:55 AM
  */
-#include "Design/SimpleType.h"
+#include "Surelog/Design/SimpleType.h"
 
-#include "Design/FileContent.h"
-#include "SourceCompile/SymbolTable.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 // UHDM
 #include <uhdm/uhdm.h>

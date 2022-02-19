@@ -21,7 +21,7 @@
  * Created on April 28, 2018, 10:27 AM
  */
 
-#include "Package/Precompiled.h"
+#include "Surelog/Package/Precompiled.h"
 
 Precompiled::Precompiled() {
   addPrecompiled("uvm_pkg", "uvm_pkg.sv");

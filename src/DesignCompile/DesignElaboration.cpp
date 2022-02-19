@@ -20,7 +20,7 @@
  *
  * Created on July 12, 2017, 8:55 PM
  */
-#include "DesignCompile/DesignElaboration.h"
+#include "Surelog/DesignCompile/DesignElaboration.h"
 
 #include <string.h>
 
@@ -29,31 +29,31 @@
 #include <string>
 #include <unordered_set>
 
-#include "CommandLine/CommandLineParser.h"
-#include "Config/ConfigSet.h"
-#include "Design/FileContent.h"
-#include "Design/Function.h"
-#include "Design/Parameter.h"
-#include "Design/VObject.h"
-#include "DesignCompile/CompileDesign.h"
-#include "DesignCompile/CompileModule.h"
-#include "DesignCompile/NetlistElaboration.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "ErrorReporting/Location.h"
-#include "Library/Library.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/SymbolTable.h"
-#include "SourceCompile/VObjectTypes.h"
-#include "Testbench/ClassDefinition.h"
-#include "Testbench/Property.h"
-#include "Utils/FileUtils.h"
-#include "Utils/StringUtils.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Config/ConfigSet.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/Function.h"
+#include "Surelog/Design/Parameter.h"
+#include "Surelog/Design/VObject.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/DesignCompile/CompileModule.h"
+#include "Surelog/DesignCompile/NetlistElaboration.h"
+#include "Surelog/ErrorReporting/Error.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
+#include "Surelog/Library/Library.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
+#include "Surelog/Testbench/ClassDefinition.h"
+#include "Surelog/Testbench/Property.h"
+#include "Surelog/Utils/FileUtils.h"
+#include "Surelog/Utils/StringUtils.h"
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>

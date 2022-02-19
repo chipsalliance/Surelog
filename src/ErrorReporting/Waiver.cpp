@@ -20,14 +20,14 @@
  *
  * Created on May 7, 2017, 11:11 PM
  */
-#include "ErrorReporting/Waiver.h"
+#include "Surelog/ErrorReporting/Waiver.h"
 
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
 
-#include "ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 
 using namespace SURELOG;
 
