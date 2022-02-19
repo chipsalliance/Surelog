@@ -21,7 +21,7 @@
  * Created on June 1, 2018, 9:08 PM
  */
 
-#include "Surelog/Common/ClockingBlockHolder.h"
+#include <Surelog/Common/ClockingBlockHolder.h>
 
 namespace SURELOG {
 void ClockingBlockHolder::addClockingBlock(SymbolId blockId,

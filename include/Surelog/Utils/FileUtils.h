@@ -25,6 +25,8 @@
 #define SURELOG_FILEUTILS_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
+
 #include <cstdint>
 #include <filesystem>
 #include <string>
@@ -33,7 +35,6 @@
 
 namespace SURELOG {
 
-typedef uint64_t SymbolId;
 class SymbolTable;
 
 class FileUtils final {

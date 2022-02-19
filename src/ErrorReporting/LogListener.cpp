@@ -20,9 +20,10 @@
  *
  * Created on March 10, 2021, 9:30 PM
  */
-#include "Surelog/ErrorReporting/LogListener.h"
 
-using namespace SURELOG;
+#include <Surelog/ErrorReporting/LogListener.h>
+
+namespace SURELOG {
 
 LogListener::LogResult LogListener::initialize(const std::string &filename) {
   std::ofstream strm(filename, std::fstream::out);
@@ -122,3 +123,5 @@ LogListener::LogResult LogListener::log(const std::string &message) {
   strm.close();
   return LogResult::Ok;
 }
+
+}  // namespace SURELOG

@@ -14,23 +14,22 @@
  limitations under the License.
 */
 
-#include <string>
-#include <string_view>
-#include <vector>
-
-#include "Surelog/DesignCompile/CompileHelper.h"
-#include "Surelog/DesignCompile/CompilerHarness.h"
-#include "Surelog/SourceCompile/ParserHarness.h"
-#include "Surelog/SourceCompile/PreprocessHarness.h"
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/DesignCompile/CompileDesign.h>
+#include <Surelog/DesignCompile/CompileHelper.h>
+#include <Surelog/DesignCompile/CompilerHarness.h>
+#include <Surelog/SourceCompile/ParserHarness.h>
+#include <Surelog/SourceCompile/PreprocessHarness.h>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
 // UHDM
 #include <uhdm/expr.h>
 
+namespace SURELOG {
+
 using ::testing::ElementsAre;
 
-namespace SURELOG {
 namespace {
 TEST(CompileExpression, ExprFromParseTree1) {
   CompileHelper helper;

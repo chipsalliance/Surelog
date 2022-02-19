@@ -25,20 +25,19 @@
 #define SURELOG_UNION_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/DataType.h>
+
 #include <map>
 #include <string>
 
-#include "Surelog/Design/DataType.h"
-
 namespace SURELOG {
-
-class FileContent;
 
 class Union : public DataType {
   SURELOG_IMPLEMENT_RTTI(Union, DataType)
  public:
   Union(const FileContent* fC, NodeId nameId, NodeId structId);
-  ~Union() override;
+  ~Union() override = default;
 
   NodeId getNameId() const { return m_nameId; }
 

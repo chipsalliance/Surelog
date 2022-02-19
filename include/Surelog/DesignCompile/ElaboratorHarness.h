@@ -25,12 +25,13 @@
 #define SURELOG_ELABORATORHARNESS_H
 #pragma once
 
-#include "Surelog/Design/Netlist.h"
-#include "Surelog/DesignCompile/ElaborationStep.h"
-#include "Surelog/Expression/ExprBuilder.h"
-#include "TestbenchElaboration.h"
+#include <string>
 
 namespace SURELOG {
+
+class Design;
+class FileContent;
+class CompileDesign;
 
 class ElaboratorHarness {
  public:

@@ -25,10 +25,12 @@
 #define SURELOG_STRUCT_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/DataType.h>
+#include <Surelog/DesignCompile/CompileHelper.h>
+
 #include <map>
 #include <string>
-
-#include "Surelog/Design/DataType.h"
 
 namespace SURELOG {
 
@@ -38,7 +40,7 @@ class Struct : public DataType {
   SURELOG_IMPLEMENT_RTTI(Struct, DataType)
  public:
   Struct(const FileContent* fC, NodeId nameId, NodeId structId);
-  ~Struct() override;
+  ~Struct() override = default;
 
   NodeId getNameId() const { return m_nameId; }
 

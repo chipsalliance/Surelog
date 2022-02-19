@@ -20,13 +20,11 @@
  *
  * Created on June 14, 2017, 10:58 PM
  */
-#include "Surelog/Design/VObject.h"
 
-#include <string>
+#include <Surelog/Design/VObject.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
 
-#include "Surelog/SourceCompile/SymbolTable.h"
-
-using namespace SURELOG;
+namespace SURELOG {
 
 std::string VObject::print(SymbolTable* symbols, unsigned int uniqueId,
                            NodeId definitionFile, SymbolId printedFile) const {
@@ -77,3 +75,4 @@ std::string VObject::print(SymbolTable* symbols, unsigned int uniqueId,
   }
   return text;
 }
+}  // namespace SURELOG

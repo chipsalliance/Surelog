@@ -20,17 +20,22 @@
  *
  * Created on April 28, 2017, 9:32 PM
  */
+
 #ifndef SURELOG_CACHE_H
 #define SURELOG_CACHE_H
 #pragma once
 
-#include "Surelog/Cache/header_generated.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "flatbuffers/flatbuffers.h"
+#include <Surelog/Cache/header_generated.h>
+#include <Surelog/Common/SymbolId.h>
+#include <flatbuffers/flatbuffers.h>
+
+#include <filesystem>
 
 namespace SURELOG {
+
+class ErrorContainer;
+class FileContent;
+class SymbolTable;
 
 // A cache class used as a base for various other cashes persisting
 // things in flatbuffers.

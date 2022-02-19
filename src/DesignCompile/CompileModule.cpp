@@ -20,29 +20,17 @@
  *
  * Created on March 22, 2018, 9:43 PM
  */
-#include "Surelog/DesignCompile/CompileModule.h"
 
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/Design/ClockingBlock.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Design/Signal.h"
-#include "Surelog/Design/VObject.h"
-#include "Surelog/DesignCompile/CompileDesign.h"
-#include "Surelog/DesignCompile/CompileHelper.h"
-#include "Surelog/ErrorReporting/Error.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/ErrorReporting/ErrorDefinition.h"
-#include "Surelog/ErrorReporting/Location.h"
-#include "Surelog/Library/Library.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
-#include "Surelog/Testbench/ClassDefinition.h"
-#include "Surelog/Utils/StringUtils.h"
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/ModuleDefinition.h>
+#include <Surelog/DesignCompile/CompileDesign.h>
+#include <Surelog/DesignCompile/CompileModule.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/Library/Library.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/StringUtils.h>
 
 // UHDM
 #include <uhdm/assign_stmt.h>
@@ -54,7 +42,9 @@
 #include <uhdm/table_entry.h>
 #include <uhdm/udp_defn.h>
 
-using namespace SURELOG;
+#include <stack>
+
+namespace SURELOG {
 
 int FunctorCompileModule::operator()() const {
   CompileModule* instance = new CompileModule(
@@ -1370,3 +1360,5 @@ void CompileModule::compileClockingBlock_(const FileContent* fC, NodeId id) {
   ClockingBlock cb(fC, clocking_block_type, clocking_event, type, cblock);
   m_module->addClockingBlock(clocking_block_symbol, cb);
 }
+
+}  // namespace SURELOG

@@ -25,26 +25,29 @@
 #define SURELOG_DESIGNCOMPONENT_H
 #pragma once
 
-#include <filesystem>
-#include <map>
-#include <vector>
+#include <Surelog/Common/PortNetHolder.h>
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/FileCNodeId.h>
+#include <Surelog/Design/ValuedComponentI.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
 
-#include "Surelog/Common/PortNetHolder.h"
-#include "Surelog/Design/DataType.h"
-#include "Surelog/Design/DesignElement.h"
-#include "Surelog/Design/FileCNodeId.h"
-#include "Surelog/Design/ValuedComponentI.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
-#include "Surelog/Testbench/TypeDef.h"
+// UHDM
+#include <uhdm/uhdm_forward_decl.h>
+
+#include <filesystem>
 
 namespace SURELOG {
 
-class Package;
+class DataType;
+class DesignElement;
+class FileContent;
 class Function;
-class Task;
-class Variable;
-class Parameter;
+class Package;
 class ParamAssign;
+class Parameter;
+class Task;
+class TypeDef;
+class Variable;
 
 class ExprEval {
  public:

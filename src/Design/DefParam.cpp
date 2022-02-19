@@ -20,10 +20,10 @@
  *
  * Created on January 7, 2018, 8:55 PM
  */
-#include "Surelog/Design/DefParam.h"
 
-#include "Surelog/Library/Library.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Design/DefParam.h>
+
+#include <vector>
 
 namespace SURELOG {
 

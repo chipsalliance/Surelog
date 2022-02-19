@@ -25,10 +25,13 @@
 #define SURELOG_PROPERTY_H
 #pragma once
 
-#include "Surelog/Design/DataType.h"
-#include "Surelog/Testbench/Variable.h"
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Testbench/Variable.h>
 
 namespace SURELOG {
+
+class DataType;
+class FileContent;
 
 class Property : public Variable {
  public:
@@ -41,7 +44,7 @@ class Property : public Variable {
         m_is_protected(is_protected),
         m_is_rand(is_rand),
         m_is_randc(is_randc) {}
-  ~Property() override;
+  ~Property() override = default;
 
   bool isLocal() const { return m_is_local; }
   bool isStatic() const { return m_is_static; }

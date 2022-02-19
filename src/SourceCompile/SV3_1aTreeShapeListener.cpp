@@ -20,31 +20,22 @@
  *
  * Created on April 16, 2017, 8:28 PM
  */
-#include "Surelog/SourceCompile/SV3_1aTreeShapeListener.h"
 
-#include <cstdlib>
-#include <iostream>
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Design/Design.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/SourceCompile/CompilationUnit.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/ParseFile.h>
+#include <Surelog/SourceCompile/SV3_1aTreeShapeListener.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/ParseUtils.h>
+#include <Surelog/Utils/StringUtils.h>
+
 #include <regex>
 
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h"
-#include "Surelog/SourceCompile/SV3_1aTreeShapeHelper.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Utils/FileUtils.h"
-#include "Surelog/Utils/ParseUtils.h"
-#include "Surelog/Utils/StringUtils.h"
-#include "antlr4-runtime.h"
-#include "parser/SV3_1aLexer.h"
-#include "parser/SV3_1aParser.h"
-#include "parser/SV3_1aParserBaseListener.h"
-
 namespace SURELOG {
+
 void SV3_1aTreeShapeListener::enterTop_level_rule(
     SV3_1aParser::Top_level_ruleContext * /*ctx*/) {
   if (m_pf->getFileContent() == nullptr) {

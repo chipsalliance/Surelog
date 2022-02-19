@@ -20,36 +20,30 @@
  *
  * Created on February 24, 2017, 10:03 PM
  */
-#include "Surelog/SourceCompile/ParseFile.h"
 
-#include <cstdlib>
-#include <iostream>
+#include <Surelog/Cache/ParseCache.h>
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/Package/Precompiled.h>
+#include <Surelog/SourceCompile/AntlrParserErrorListener.h>
+#include <Surelog/SourceCompile/AntlrParserHandler.h>
+#include <Surelog/SourceCompile/CompileSourceFile.h>
+#include <Surelog/SourceCompile/ParseFile.h>
+#include <Surelog/SourceCompile/SV3_1aTreeShapeListener.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/FileUtils.h>
+#include <Surelog/Utils/StringUtils.h>
+#include <Surelog/Utils/Timer.h>
+#include <antlr4-runtime.h>
+#include <parser/SV3_1aLexer.h>
+#include <parser/SV3_1aParser.h>
 
-#include "Recognizer.h"
-#include "Surelog/Cache/ParseCache.h"
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/Package/Precompiled.h"
-#include "Surelog/SourceCompile/AntlrParserErrorListener.h"
-#include "Surelog/SourceCompile/AntlrParserHandler.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SV3_1aTreeShapeListener.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Utils/FileUtils.h"
-#include "Surelog/Utils/ParseUtils.h"
-#include "Surelog/Utils/StringUtils.h"
-#include "Surelog/Utils/Timer.h"
-#include "antlr4-runtime.h"
-#include "atn/ParserATNSimulator.h"
-#include "parser/SV3_1aLexer.h"
-#include "parser/SV3_1aParser.h"
-#include "parser/SV3_1aParserBaseListener.h"
+#include <fstream>
+#include <sstream>
 
 namespace SURELOG {
+
 namespace fs = std::filesystem;
 
 ParseFile::ParseFile(SymbolId fileId, SymbolTable* symbolTable,
@@ -157,11 +151,11 @@ SymbolId ParseFile::getId(const std::string symbol) {
   return getCompileSourceFile()->getSymbolTable()->getId(symbol);
 }
 
-const std::string ParseFile::getSymbol(SymbolId id) {
+std::string ParseFile::getSymbol(SymbolId id) const {
   return getCompileSourceFile()->getSymbolTable()->getSymbol(id);
 }
 
-const fs::path ParseFile::getFileName(unsigned int line) {
+fs::path ParseFile::getFileName(unsigned int line) {
   return getSymbol(getFileId(line));
 }
 

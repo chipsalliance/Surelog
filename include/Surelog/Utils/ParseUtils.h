@@ -25,8 +25,7 @@
 #define SURELOG_PARSEUTILS_H
 #pragma once
 
-#include "ParserRuleContext.h"
-#include "antlr4-runtime.h"
+#include <ParserRuleContext.h>
 
 namespace SURELOG {
 

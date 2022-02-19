@@ -25,13 +25,11 @@
 #define SURELOG_TFPORTITEM_H
 #pragma once
 
-#include "Surelog/Design/DesignComponent.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Expression/Value.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Testbench/Variable.h"
+#include <Surelog/SourceCompile/VObjectTypes.h>
+#include <Surelog/Testbench/Variable.h>
 
 namespace SURELOG {
+
 class Procedure;
 class Value;
 
@@ -44,10 +42,10 @@ class TfPortItem : public Variable {
         m_parent(parent),
         m_default(default_value),
         m_direction(direction) {}
-  ~TfPortItem() override;
+  ~TfPortItem() override = default;
 
-  Procedure* getParent() { return m_parent; }
-  Value* getDefault() { return m_default; }
+  Procedure* getParent() const { return m_parent; }
+  Value* getDefault() const { return m_default; }
   VObjectType getDirection() const { return m_direction; }
 
  private:

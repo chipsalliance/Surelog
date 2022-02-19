@@ -20,54 +20,39 @@
  *
  * Created on Mar 1, 2020, 6:36 PM
  */
-#include "Surelog/DesignCompile/NetlistElaboration.h"
 
-#include <string.h>
-
-#include <algorithm>
-#include <queue>
-#include <string>
-#include <vector>
-
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/Common/PortNetHolder.h"
-#include "Surelog/Config/ConfigSet.h"
-#include "Surelog/Design/DummyType.h"
-#include "Surelog/Design/Enum.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Design/Function.h"
-#include "Surelog/Design/Netlist.h"
-#include "Surelog/Design/ParamAssign.h"
-#include "Surelog/Design/SimpleType.h"
-#include "Surelog/Design/Struct.h"
-#include "Surelog/Design/Union.h"
-#include "Surelog/Design/VObject.h"
-#include "Surelog/DesignCompile/CompileDesign.h"
-#include "Surelog/DesignCompile/UhdmWriter.h"
-#include "Surelog/ErrorReporting/Error.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/ErrorReporting/ErrorDefinition.h"
-#include "Surelog/ErrorReporting/Location.h"
-#include "Surelog/Library/Library.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
-#include "Surelog/Testbench/ClassDefinition.h"
-#include "Surelog/Testbench/Property.h"
-#include "Surelog/Utils/StringUtils.h"
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Design/DesignComponent.h>
+#include <Surelog/Design/DesignElement.h>
+#include <Surelog/Design/DummyType.h>
+#include <Surelog/Design/Enum.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/ModPort.h>
+#include <Surelog/Design/ModuleDefinition.h>
+#include <Surelog/Design/ModuleInstance.h>
+#include <Surelog/Design/Netlist.h>
+#include <Surelog/Design/ParamAssign.h>
+#include <Surelog/Design/Parameter.h>
+#include <Surelog/Design/SimpleType.h>
+#include <Surelog/Design/Struct.h>
+#include <Surelog/Design/Union.h>
+#include <Surelog/DesignCompile/CompileDesign.h>
+#include <Surelog/DesignCompile/NetlistElaboration.h>
+#include <Surelog/DesignCompile/UhdmWriter.h>
+#include <Surelog/Package/Package.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Testbench/TypeDef.h>
+#include <Surelog/Utils/StringUtils.h>
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/ExprEval.h>
-#include <uhdm/Serializer.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
 
 namespace SURELOG {
+
 namespace fs = std::filesystem;
 
 using namespace UHDM;  // NOLINT (using a bunch of these)
@@ -2120,7 +2105,8 @@ UHDM::any* NetlistElaboration::bind_net_(NodeId id, ModuleInstance* instance,
   if (instance) {
     if (Netlist* netlist = instance->getNetlist()) {
       if (result == nullptr) {
-        if (!strstr(name.c_str(), ".")) {  // Not for hierarchical names
+        if (name.find('.') ==
+            std::string::npos) {  // Not for hierarchical names
           DesignComponent* component = instance->getDefinition();
           VObjectType implicitNetType =
               component->getDesignElement()
@@ -2173,7 +2159,7 @@ any* NetlistElaboration::bind_net_(ModuleInstance* instance,
     } else {
       std::string basename = name;
       std::string subname;
-      if (strstr(basename.c_str(), ".")) {
+      if (basename.find('.') != std::string::npos) {
         subname = basename;
         StringUtils::ltrim(subname, '.');
         StringUtils::rtrim(basename, '.');

@@ -20,15 +20,12 @@
  *
  * Created on May 20, 2019, 21:03 PM
  */
-#include "Surelog/Design/ValuedComponentI.h"
 
-#include <string>
+#include <Surelog/Design/ModuleInstance.h>
+#include <Surelog/Design/ValuedComponentI.h>
+#include <Surelog/Expression/ExprBuilder.h>
 
-#include "Surelog/Design/ModuleInstance.h"
-#include "Surelog/Expression/ExprBuilder.h"
-
-using namespace SURELOG;
-
+namespace SURELOG {
 Value* ValuedComponentI::getValue(const std::string& name) const {
   auto itr = m_paramMap.find(name);
   if (itr == m_paramMap.end()) {
@@ -108,3 +105,4 @@ void ValuedComponentI::forgetComplexValue(const std::string& name) {
     m_complexValues.erase(itr);
   }
 }
+}  // namespace SURELOG

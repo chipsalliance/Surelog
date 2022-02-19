@@ -20,13 +20,17 @@
  *
  * Created on October 20, 2017, 10:29 PM
  */
-#include "Surelog/Design/ModuleDefinition.h"
 
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Library/Library.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/ModPort.h>
+#include <Surelog/Design/ModuleDefinition.h>
 
-using namespace SURELOG;
+namespace SURELOG {
+
+VObjectType ModuleDefinition::getType() const {
+  return (m_fileContents.size()) ? m_fileContents[0]->Type(m_nodeIds[0])
+                                 : VObjectType::slN_input_gate_instance;
+}
 
 ModuleDefinition::ModuleDefinition(const FileContent* fileContent,
                                    NodeId nodeId, const std::string_view name)
@@ -137,3 +141,5 @@ ClassDefinition* ModuleDefinition::getClassDefinition(const std::string& name) {
     return (*itr).second;
   }
 }
+
+}  // namespace SURELOG

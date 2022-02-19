@@ -25,20 +25,17 @@
 #define SURELOG_NETLIST_H
 #pragma once
 
+// UHDM
+#include <uhdm/uhdm_forward_decl.h>
+
 #include <map>
 #include <string>
 #include <vector>
 
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Design/ModPort.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-
-// UHDM
-#include <uhdm/uhdm_forward_decl.h>
-
 namespace SURELOG {
 
 class ModuleInstance;
+class ModPort;
 
 class Netlist {
  public:

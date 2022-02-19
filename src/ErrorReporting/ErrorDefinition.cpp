@@ -20,11 +20,10 @@
  *
  * Created on March 5, 2017, 11:25 PM
  */
-#include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include <Surelog/ErrorReporting/ErrorDefinition.h>
+#include <Surelog/Utils/StringUtils.h>
 
-#include "Surelog/Utils/StringUtils.h"
-
-using namespace SURELOG;
+namespace SURELOG {
 
 ErrorDefinition::ErrorMap* ErrorDefinition::mutableGlobalErrorInfoMap() {
   static ErrorMap error_info_map;
@@ -434,3 +433,5 @@ bool ErrorDefinition::init() {
       "Non-synthesizable construct \"%s\"");
   return true;
 }
+
+}  // namespace SURELOG

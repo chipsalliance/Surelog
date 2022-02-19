@@ -20,14 +20,15 @@
  *
  * Created on May 30, 2019, 6:36 PM
  */
+
 #ifndef SURELOG_BUILTIN_H
 #define SURELOG_BUILTIN_H
 #pragma once
 
-#include "Surelog/Design/Design.h"
-#include "Surelog/DesignCompile/CompileDesign.h"
-
 namespace SURELOG {
+
+class CompileDesign;
+class Design;
 
 // TODO: this looks like it should probably be more a
 // function ? Something like

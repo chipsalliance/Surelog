@@ -20,18 +20,17 @@
  *
  * Created on January 27, 2018, 5:28 PM
  */
-#include "Surelog/Library/LibrarySet.h"
 
-#include <iostream>
-#include <set>
-#include <vector>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/Library/Library.h>
+#include <Surelog/Library/LibrarySet.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
 
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+namespace SURELOG {
 
-using namespace SURELOG;
-
-LibrarySet::LibrarySet() {}
+void LibrarySet::addLibrary(const Library& lib) {
+  m_libraries.emplace_back(lib);
+}
 
 Library* LibrarySet::getLibrary(std::string_view libName) {
   for (unsigned int i = 0; i < m_libraries.size(); i++) {
@@ -80,3 +79,5 @@ void LibrarySet::checkErrors(SymbolTable* symbols, ErrorContainer* errors) {
     }
   }
 }
+
+}  // namespace SURELOG

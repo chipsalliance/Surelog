@@ -25,12 +25,14 @@
 #define SURELOG_PARAM_ASSIGN_H
 #pragma once
 
-#include <string>
+#include <Surelog/Common/SymbolId.h>
 
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+// UHDM
+#include <uhdm/uhdm_forward_decl.h>
 
 namespace SURELOG {
+
+class FileContent;
 
 class ParamAssign {
  public:
@@ -42,7 +44,7 @@ class ParamAssign {
         m_is_multidimensional(isMultidimensional),
         m_port_param(port_param) {}
 
-  ~ParamAssign();
+  ~ParamAssign() = default;
 
   const FileContent* getFileContent() const { return m_fileContent; }
   NodeId getParamId() const { return m_paramId; }

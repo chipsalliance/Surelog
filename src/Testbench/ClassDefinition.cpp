@@ -20,12 +20,16 @@
  *
  * Created on June 1, 2018, 10:12 PM
  */
-#include "Surelog/Testbench/ClassDefinition.h"
 
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/Parameter.h>
+#include <Surelog/Testbench/ClassDefinition.h>
+#include <Surelog/Testbench/Constraint.h>
+#include <Surelog/Testbench/CoverGroupDefinition.h>
+#include <Surelog/Testbench/Property.h>
 
 namespace SURELOG {
+
 ClassDefinition::ClassDefinition(std::string name, Library* library,
                                  DesignComponent* container,
                                  const FileContent* fC, NodeId nodeId,
@@ -42,8 +46,6 @@ ClassDefinition::ClassDefinition(std::string name, Library* library,
   m_category = DataType::Category::CLASS;
   addFileContent(fC, nodeId);
 }
-
-ClassDefinition::~ClassDefinition() {}
 
 unsigned int ClassDefinition::getSize() const {
   NodeId end = m_nodeIds[0];
@@ -209,4 +211,5 @@ bool ClassDefinition::hasCompleteBaseSpecification() const {
   }
   return true;
 }
+
 }  // namespace SURELOG

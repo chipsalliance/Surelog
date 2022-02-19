@@ -20,25 +20,31 @@
  *
  * Created on May 30, 2019, 6:36 PM
  */
-#include "Surelog/DesignCompile/Builtin.h"
 
-#include <string_view>
-
-#include "Surelog/Design/DataType.h"
-#include "Surelog/DesignCompile/CompileHelper.h"
-#include "Surelog/DesignCompile/CompilerHarness.h"
-#include "Surelog/Package/Package.h"
-#include "Surelog/SourceCompile/ParserHarness.h"
-#include "Surelog/SourceCompile/PreprocessHarness.h"
-#include "Surelog/Testbench/ClassDefinition.h"
-#include "Surelog/Testbench/FunctionMethod.h"
+#include <Surelog/Design/Design.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/DesignCompile/Builtin.h>
+#include <Surelog/DesignCompile/CompileDesign.h>
+#include <Surelog/DesignCompile/CompileHelper.h>
+#include <Surelog/DesignCompile/CompilerHarness.h>
+#include <Surelog/Library/Library.h>
+#include <Surelog/Package/Package.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/ParserHarness.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
+#include <Surelog/Testbench/ClassDefinition.h>
+#include <Surelog/Testbench/FunctionMethod.h>
 
 // UHDM
 #include <uhdm/Serializer.h>
-#include <uhdm/class_defn.h>
 #include <uhdm/package.h>
 
+#include <string_view>
+#include <vector>
+
 namespace SURELOG {
+
 static VObjectType convert(std::string_view type) {
   VObjectType result = VObjectType::slNoType;
   if (type == "int")

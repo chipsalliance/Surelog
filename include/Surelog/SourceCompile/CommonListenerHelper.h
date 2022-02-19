@@ -25,16 +25,24 @@
 #define SURELOG_COMMONLISTENERHELPER_H
 #pragma once
 
-#include <map>
-#include <stack>
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
+
+#include <string>
 #include <unordered_map>
 
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
-#include "Surelog/Utils/ParseUtils.h"
+namespace antlr4 {
+class CommonTokenStream;
+class ParserRuleContext;
+namespace tree {
+class ParseTree;
+}
+}  // namespace antlr4
 
 namespace SURELOG {
+
+class FileContent;
+class VObject;
 
 static constexpr char EscapeSequence[] = "#~@";
 

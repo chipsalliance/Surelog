@@ -20,16 +20,16 @@
  *
  * Created on May 7, 2017, 11:11 PM
  */
-#include "Surelog/ErrorReporting/Waiver.h"
+
+#include <Surelog/ErrorReporting/ErrorDefinition.h>
+#include <Surelog/ErrorReporting/Waiver.h>
 
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
 
-#include "Surelog/ErrorReporting/ErrorDefinition.h"
-
-using namespace SURELOG;
+namespace SURELOG {
 
 std::set<std::string> Waiver::m_macroArgCheck;
 std::multimap<ErrorDefinition::ErrorType, Waiver::WaiverData> Waiver::m_waivers;
@@ -51,3 +51,5 @@ void Waiver::initWaivers() { m_macroArgCheck.insert("vmm_sformatf"); }
 bool Waiver::macroArgCheck(const std::string& name) {
   return (m_macroArgCheck.find(name) != m_macroArgCheck.end());
 }
+
+}  // namespace SURELOG

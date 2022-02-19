@@ -25,12 +25,15 @@
 #define SURELOG_DEFPARAM_H
 #pragma once
 
-#include <map>
+#include <Surelog/Common/SymbolId.h>
 
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Expression/Value.h"
+#include <map>
+#include <string>
 
 namespace SURELOG {
+
+class FileContent;
+class Value;
 
 class DefParam final {
  public:

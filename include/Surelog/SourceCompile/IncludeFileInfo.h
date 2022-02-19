@@ -25,7 +25,7 @@
 #define SURELOG_INCLUDEFILEINFO_H
 #pragma once
 
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Common/SymbolId.h>
 
 namespace SURELOG {
 

@@ -25,7 +25,7 @@
 #define SURELOG_FUNCTIONMETHOD_H
 #pragma once
 
-#include "Surelog/Design/Function.h"
+#include <Surelog/Design/Function.h>
 
 namespace SURELOG {
 
@@ -42,7 +42,7 @@ class FunctionMethod : public Function {
         m_local(is_local),
         m_protected(is_protected),
         m_pure(is_pure) {}
-  ~FunctionMethod() override;
+  ~FunctionMethod() override = default;
 
   bool isVirtual() const { return m_virtual; }
   bool isExtern() const { return m_extern; }

@@ -20,9 +20,11 @@
  *
  * Created on May 6, 2018, 5:32 PM
  */
-#include "Surelog/Design/Signal.h"
 
-using namespace SURELOG;
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/Signal.h>
+
+namespace SURELOG {
 
 Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type,
                VObjectType direction, NodeId packedDimension, bool is_signed)
@@ -122,3 +124,11 @@ std::string Signal::getInterfaceTypeName() const {
   }
   return type_name;
 }
+
+std::string Signal::getName() const { return m_fileContent->SymName(m_nodeId); }
+
+NodeId Signal::getModPortId() const {
+  return m_fileContent->Sibling(m_interfaceTypeNameId);
+}
+
+}  // namespace SURELOG

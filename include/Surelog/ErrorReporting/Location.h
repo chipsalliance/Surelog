@@ -25,7 +25,7 @@
 #define SURELOG_LOCATION_H
 #pragma once
 
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Common/SymbolId.h>
 
 namespace SURELOG {
 
@@ -40,7 +40,7 @@ class Location {
   // Location(const Location& orig);
   bool operator==(const Location& rhs) const;
   bool operator<(const Location& rhs) const;
-  virtual ~Location();
+  virtual ~Location() = default;
   SymbolId m_fileId;
   unsigned int m_line;
   unsigned short int m_column;

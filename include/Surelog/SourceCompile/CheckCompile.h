@@ -33,7 +33,7 @@ class CheckCompile {
  public:
   CheckCompile(Compiler* compiler) : m_compiler(compiler) {}
   bool check();
-  virtual ~CheckCompile();
+  virtual ~CheckCompile() = default;
 
  private:
   bool mergeSymbolTables_();

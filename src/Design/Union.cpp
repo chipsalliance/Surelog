@@ -20,12 +20,11 @@
  *
  * Created on May 19, 2020, 11:55 AM
  */
-#include "Surelog/Design/Union.h"
 
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/Union.h>
 
-using namespace SURELOG;
+namespace SURELOG {
 
 Union::Union(const FileContent* fC, NodeId nameId, NodeId structId)
     : DataType(fC, structId, fC->SymName(nameId), fC->Type(structId)),
@@ -33,4 +32,4 @@ Union::Union(const FileContent* fC, NodeId nameId, NodeId structId)
   m_category = DataType::Category::UNION;
 }
 
-Union::~Union() {}
+}  // namespace SURELOG

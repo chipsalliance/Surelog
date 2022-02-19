@@ -25,13 +25,12 @@
 #define SURELOG_WAIVER_H
 #pragma once
 
+#include <Surelog/ErrorReporting/ErrorDefinition.h>
+
 #include <map>
 #include <set>
 #include <string>
 #include <string_view>
-#include <vector>
-
-#include "Surelog/ErrorReporting/ErrorDefinition.h"
 
 namespace SURELOG {
 

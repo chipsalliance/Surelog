@@ -25,23 +25,23 @@
 #define SURELOG_BINDSTMT_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
+
+// UHDM
+#include <uhdm/uhdm_forward_decl.h>
+
 #include <map>
 #include <string>
 
-#include "Surelog/Design/FileContent.h"
-
-namespace UHDM {
-class typespec;
-};
 namespace SURELOG {
 
 class FileContent;
 
-class BindStmt {
+class BindStmt final {
  public:
   BindStmt(const FileContent* fC, NodeId stmtId, NodeId targetModId,
            NodeId targetInstId, NodeId bindId, NodeId instanceId);
-  ~BindStmt();
+  ~BindStmt() = default;
 
   const FileContent* getFileContent() const { return m_fC; }
   NodeId getStmtId() const { return m_stmtId; }

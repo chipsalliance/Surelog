@@ -20,6 +20,7 @@
  *
  * Created on April 28, 2018, 10:27 AM
  */
+
 #ifndef SURELOG_PRECOMPILED_H
 #define SURELOG_PRECOMPILED_H
 #pragma once
@@ -28,6 +29,8 @@
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
+
+namespace SURELOG {
 
 class Precompiled final {
  public:
@@ -54,4 +57,6 @@ class Precompiled final {
   std::unordered_set<std::filesystem::path, fs_path_hash> m_packageFileSet;
 };
 
-#endif /* SURELOG_PRECOMPILED_H */
+}  // namespace SURELOG
+
+#endif /* PRECOMPILED_H */

@@ -25,11 +25,11 @@
 #define SURELOG_ERROR_H
 #pragma once
 
+#include <Surelog/ErrorReporting/ErrorDefinition.h>
+#include <Surelog/ErrorReporting/Location.h>
+
 #include <string>
 #include <vector>
-
-#include "Surelog/ErrorReporting/ErrorDefinition.h"
-#include "Surelog/ErrorReporting/Location.h"
 
 namespace SURELOG {
 

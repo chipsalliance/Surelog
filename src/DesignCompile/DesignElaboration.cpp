@@ -20,40 +20,28 @@
  *
  * Created on July 12, 2017, 8:55 PM
  */
-#include "Surelog/DesignCompile/DesignElaboration.h"
 
-#include <string.h>
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Config/ConfigSet.h>
+#include <Surelog/Design/BindStmt.h>
+#include <Surelog/Design/DefParam.h>
+#include <Surelog/Design/DesignElement.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/ModuleDefinition.h>
+#include <Surelog/Design/ModuleInstance.h>
+#include <Surelog/Design/Parameter.h>
+#include <Surelog/DesignCompile/CompileDesign.h>
+#include <Surelog/DesignCompile/CompileModule.h>
+#include <Surelog/DesignCompile/DesignElaboration.h>
+#include <Surelog/DesignCompile/NetlistElaboration.h>
+#include <Surelog/Library/Library.h>
+#include <Surelog/Package/Package.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Testbench/Program.h>
+#include <Surelog/Utils/StringUtils.h>
 
-#include <filesystem>
-#include <queue>
-#include <string>
-#include <unordered_set>
-
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/Config/ConfigSet.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Design/Function.h"
-#include "Surelog/Design/Parameter.h"
-#include "Surelog/Design/VObject.h"
-#include "Surelog/DesignCompile/CompileDesign.h"
-#include "Surelog/DesignCompile/CompileModule.h"
-#include "Surelog/DesignCompile/NetlistElaboration.h"
-#include "Surelog/ErrorReporting/Error.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/ErrorReporting/ErrorDefinition.h"
-#include "Surelog/ErrorReporting/Location.h"
-#include "Surelog/Library/Library.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
-#include "Surelog/Testbench/ClassDefinition.h"
-#include "Surelog/Testbench/Property.h"
-#include "Surelog/Utils/FileUtils.h"
-#include "Surelog/Utils/StringUtils.h"
+#include <cstring>
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
@@ -65,10 +53,15 @@
 #include <uhdm/parameter.h>
 #include <uhdm/ref_obj.h>
 #include <uhdm/typespec.h>
-#include <uhdm/vpi_visitor.h>
+
+#include <fstream>
+#include <queue>
+#include <unordered_set>
 
 namespace SURELOG {
+
 namespace fs = std::filesystem;
+
 DesignElaboration::DesignElaboration(CompileDesign* compileDesign)
     : TestbenchElaboration(compileDesign) {
   m_moduleDefFactory = nullptr;
@@ -1979,7 +1972,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     std::string prefix;
     if (design->findInstance(pathRoot)) {
       std::string p = design->findInstance(pathRoot)->getFullPathName();
-      if (strstr(p.c_str(), ".")) {
+      if (p.find('.') != std::string::npos) {
         prefix = instance->getFullPathName() + ".";
       } else {
         prefix = fC->getLibrary()->getName() + "@";
@@ -2147,12 +2140,12 @@ void DesignElaboration::reduceUnnamedBlocks_() {
         fullModName = StringUtils::leaf(fullModName);
         std::string fullModNameP = parent->getModuleName();
         fullModNameP = StringUtils::leaf(fullModNameP);
-        if (strstr(fullModName.c_str(), "genblk")) {
+        if (fullModName.find("genblk") != std::string::npos) {
           if (fullModName == fullModNameP)
             parent->getParent()->overrideParentChild(parent->getParent(),
                                                      parent, current);
         } else {
-          if (strstr(fullModNameP.c_str(), "genblk"))
+          if (fullModNameP.find("genblk") != std::string::npos)
             parent->getParent()->overrideParentChild(parent->getParent(),
                                                      parent, current);
         }

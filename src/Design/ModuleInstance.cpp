@@ -20,31 +20,30 @@
  *
  * Created on October 16, 2017, 10:48 PM
  */
-#include "Surelog/Design/ModuleInstance.h"
 
-#include <iostream>
-#include <string>
-
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Library/Library.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Design/DesignComponent.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/ModuleInstance.h>
+#include <Surelog/Design/Netlist.h>
+#include <Surelog/Expression/ExprBuilder.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
 
 // UHDM
-#include <uhdm/ElaboratorListener.h>
-#include <uhdm/clone_tree.h>
-#include <uhdm/uhdm.h>
+#include <uhdm/constant.h>
+#include <uhdm/param_assign.h>
 #include <uhdm/vpi_visitor.h>
 
+namespace SURELOG {
 using UHDM::any;
 using UHDM::constant;
 using UHDM::param_assign;
 using UHDM::uhdmconstant;
 
-namespace SURELOG {
 ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,
                                const FileContent* fileContent, NodeId nodeId,
-                               ModuleInstance* parent, std::string instName,
-                               std::string modName)
+                               ModuleInstance* parent,
+                               const std::string& instName,
+                               const std::string& modName)
     : ValuedComponentI(parent, moduleDefinition),
       m_definition(moduleDefinition),
       m_fileContent(fileContent),
@@ -200,6 +199,14 @@ VObjectType ModuleInstance::getModuleType() {
     type = m_definition->getType();
   }
   return type;
+}
+
+SymbolId ModuleInstance::getFileId() const {
+  return m_fileContent->getFileId(m_nodeId);
+}
+
+std::filesystem::path ModuleInstance::getFileName() const {
+  return m_fileContent->getFileName(m_nodeId);
 }
 
 unsigned int ModuleInstance::getLineNb() {

@@ -28,10 +28,10 @@
 #include <memory>
 #include <string>
 
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/SourceCompile/Compiler.h"
-
 namespace SURELOG {
+
+class Compiler;
+class FileContent;
 
 class ParserHarness {
  public:
@@ -42,7 +42,7 @@ class ParserHarness {
 
   // Builtin
   FileContent* parse(const std::string& content, Compiler* compiler,
-                     const std::string fileName);
+                     const std::string& fileName);
   ~ParserHarness();
 
  private:

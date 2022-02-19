@@ -21,7 +21,9 @@
  * Created on April 28, 2018, 10:27 AM
  */
 
-#include "Surelog/Package/Precompiled.h"
+#include <Surelog/Package/Precompiled.h>
+
+namespace SURELOG {
 
 Precompiled::Precompiled() {
   addPrecompiled("uvm_pkg", "uvm_pkg.sv");
@@ -54,3 +56,5 @@ bool Precompiled::isPackagePrecompiled(const std::string& packageName) const {
   auto found = m_packageMap.find(packageName);
   return (found != m_packageMap.end());
 }
+
+}  // namespace SURELOG

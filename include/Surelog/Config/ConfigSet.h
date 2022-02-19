@@ -25,10 +25,10 @@
 #define SURELOG_CONFIGSET_H
 #pragma once
 
+#include <Surelog/Config/Config.h>
+
 #include <string_view>
 #include <vector>
-
-#include "Surelog/Config/Config.h"
 
 namespace SURELOG {
 

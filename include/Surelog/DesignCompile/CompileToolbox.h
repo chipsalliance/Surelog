@@ -25,19 +25,20 @@
 #define SURELOG_COMPILETOOLBOX_H
 #pragma once
 
-#include "Surelog/Design/DesignComponent.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Common/SymbolId.h>
 
 namespace SURELOG {
+
+class DesignComponent;
+class FileContent;
 
 // TODO: this looks like not really used or at least should be provided
 // as standalone function ?
 class CompileToolbox {
  public:
-  CompileToolbox();
-
-  virtual ~CompileToolbox();  // Used as inheritance functionality provider.
+  CompileToolbox() = default;
+  virtual ~CompileToolbox() =
+      default;  // Used as inheritance functionality provider.
 
  protected:
   virtual bool compileInitialBlock_(FileContent* fC, NodeId nodeId,

@@ -20,12 +20,15 @@
  *
  * Created on June 1, 2018, 8:58 PM
  */
+
 #ifndef SURELOG_PROGRAM_H
 #define SURELOG_PROGRAM_H
 #pragma once
 
-#include "Surelog/Common/ClockingBlockHolder.h"
-#include "Surelog/Design/DesignComponent.h"
+#include <Surelog/Common/ClockingBlockHolder.h>
+#include <Surelog/Common/Containers.h>
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/DesignComponent.h>
 
 // UHDM
 #include <uhdm/containers.h>
@@ -33,23 +36,19 @@
 namespace SURELOG {
 
 class CompileProgram;
+class FileContent;
+class Library;
 
 class Program : public DesignComponent, public ClockingBlockHolder {
   SURELOG_IMPLEMENT_RTTI(Program, DesignComponent)
   friend class CompileProgram;
 
  public:
-  Program(std::string name, Library* library, FileContent* fC, NodeId nodeId)
-      : DesignComponent(fC, nullptr), m_name(name), m_library(library) {
-    addFileContent(fC, nodeId);
-  }
-
-  ~Program() override;
+  Program(std::string name, Library* library, FileContent* fC, NodeId nodeId);
+  ~Program() override = default;
 
   unsigned int getSize() const override;
-  VObjectType getType() const override {
-    return (m_fileContents[0]->Type(m_nodeIds[0]));
-  }
+  VObjectType getType() const override;
   bool isInstance() const override { return true; }
   const std::string& getName() const override { return m_name; }
 

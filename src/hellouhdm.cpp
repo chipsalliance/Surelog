@@ -25,10 +25,10 @@
 // cd tests/UnitElabBlock
 // hellouhdm top.v -parse -mutestdout
 
+#include <Surelog/surelog.h>
+
 #include <functional>
 #include <iostream>
-
-#include "Surelog/surelog.h"
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>

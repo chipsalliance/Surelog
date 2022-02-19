@@ -20,42 +20,28 @@
  *
  * Created on May 13, 2017, 4:42 PM
  */
-#include "Surelog/API/PythonAPI.h"
 
-#include <string.h>
-
-#include <cstdio>
-#include <cstdlib>
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <string>
-
-#include "ParserRuleContext.h"
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/PythonListen.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Utils/FileUtils.h"
-#include "Surelog/Utils/StringUtils.h"
-#include "parser/SV3_1aParserBaseListener.h"
-
-// Antlr runtime. TODO: add proper prefix.
-#include "ParserRuleContext.h"
-#include "Surelog/API/SLAPI.h"
-#include "antlr4-runtime.h"
+#include <Surelog/API/PythonAPI.h>
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/Design.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/Utils/FileUtils.h>
+#include <Surelog/Utils/StringUtils.h>
+#include <antlr4-runtime.h>
 
 #ifdef SURELOG_WITH_PYTHON
-#include "Surelog/API/SV3_1aPythonListener.h"
-#include "Surelog/API/VObjectTypes_py.h"
-#include "Surelog/API/slapi_scripts.h"
-#include "Surelog/API/slapi_wrap.cxx"
+#include <Python.h>
+#include <Surelog/API/SLAPI.h>
+#include <Surelog/API/SV3_1aPythonListener.h>
+#include <Surelog/API/VObjectTypes_py.h>
+#include <Surelog/API/slapi_scripts.h>
+
+typedef SURELOG::NodeId NodeId;
+#include <Surelog/API/slapi_wrap.cxx>
 #endif
+
+#include <cstring>
+#include <iostream>
 
 namespace SURELOG {
 std::string PythonAPI::m_invalidScriptResult = "INVALID_PYTHON_SCRIPT_RESULT";
@@ -71,10 +57,6 @@ std::string PythonAPI::m_listenerScript;
 bool PythonAPI::m_strictMode = false;
 
 std::string PythonAPI::m_builtinPath;
-
-PythonAPI::PythonAPI() {}
-
-PythonAPI::~PythonAPI() {}
 
 #ifdef SURELOG_WITH_PYTHON
 static struct PyModuleDef SLAPI_module = {PyModuleDef_HEAD_INIT,
@@ -118,7 +100,7 @@ bool PythonAPI::loadScript_(std::string name, bool check) {
     return true;
   } else {
     if (check)
-      std::cout << "PYTHON API ERROR: Script \"" << name
+      std::cerr << "PYTHON API ERROR: Script \"" << name
                 << "\" does not exist.\n";
   }
 #endif
@@ -297,8 +279,9 @@ void PythonAPI::evalScript(std::string function, SV3_1aPythonListener* listener,
 #endif
 }
 
-std::string PythonAPI::evalScript(std::string module, std::string function,
-                                  std::vector<std::string> args,
+std::string PythonAPI::evalScript(const std::string& module,
+                                  const std::string& function,
+                                  const std::vector<std::string>& args,
                                   PyThreadState* interp) {
 #ifdef SURELOG_WITH_PYTHON
   PyEval_AcquireThread(interp);

@@ -20,23 +20,20 @@
  *
  * Created on May 19, 2020, 11:55 AM
  */
-#include "Surelog/Design/Struct.h"
 
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/Struct.h>
 
 // UHDM
 #include <uhdm/uhdm.h>
 
-using namespace SURELOG;
+namespace SURELOG {
 
 Struct::Struct(const FileContent* fC, NodeId nameId, NodeId structId)
     : DataType(fC, structId, fC->SymName(nameId), fC->Type(structId)),
       m_nameId(nameId) {
   m_category = DataType::Category::STRUCT;
 }
-
-Struct::~Struct() {}
 
 bool Struct::isNet() const {
   if (!m_typespec) {
@@ -54,3 +51,5 @@ bool Struct::isNet() const {
   }
   return true;
 }
+
+}  // namespace SURELOG

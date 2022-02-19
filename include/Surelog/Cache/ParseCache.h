@@ -25,10 +25,11 @@
 #define SURELOG_PARSECACHE_H
 #pragma once
 
-#include "Surelog/Cache/Cache.h"
-#include "Surelog/SourceCompile/ParseFile.h"
+#include <Surelog/Cache/Cache.h>
 
 namespace SURELOG {
+
+class ParseFile;
 
 class ParseCache : Cache {
  public:

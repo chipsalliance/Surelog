@@ -25,14 +25,17 @@
 #define SURELOG_RESOLVESYMBOLS_H
 #pragma once
 
-#include "Surelog/Design/Design.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Design/TimeInfo.h"
-#include "Surelog/DesignCompile/CompileDesign.h"
-#include "Surelog/DesignCompile/CompileStep.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/DesignCompile/CompileStep.h>
 
 namespace SURELOG {
+
+class Compiler;
+class CompileDesign;
+class Design;
+class ErrorContainer;
+class FileContent;
+class SymbolTable;
 
 struct FunctorCreateLookup {
   FunctorCreateLookup(CompileDesign* compileDesign, FileContent* fileContent,
@@ -45,10 +48,10 @@ struct FunctorCreateLookup {
   int operator()() const;
 
  private:
-  CompileDesign* m_compileDesign;
-  FileContent* m_fileData;
-  SymbolTable* m_symbolTable;
-  ErrorContainer* m_errorContainer;
+  CompileDesign* const m_compileDesign;
+  FileContent* const m_fileData;
+  SymbolTable* const m_symbolTable;
+  ErrorContainer* const m_errorContainer;
 };
 
 struct FunctorResolve {
@@ -62,10 +65,10 @@ struct FunctorResolve {
   int operator()() const;
 
  private:
-  CompileDesign* m_compileDesign;
-  FileContent* m_fileData;
-  SymbolTable* m_symbolTable;
-  ErrorContainer* m_errorContainer;
+  CompileDesign* const m_compileDesign;
+  FileContent* const m_fileData;
+  SymbolTable* const m_symbolTable;
+  ErrorContainer* const m_errorContainer;
 };
 
 class ResolveSymbols : public CompileStep {
@@ -128,18 +131,18 @@ class ResolveSymbols : public CompileStep {
       VObjectType type) override;  // Recursively search for all items of type
 
   ResolveSymbols(const ResolveSymbols& orig);
-  ~ResolveSymbols() override;
+  ~ResolveSymbols() override = default;
 
-  Compiler* getCompiler() { return m_compileDesign->getCompiler(); }
+  Compiler* getCompiler() const;
 
  private:
   bool bindDefinition_(unsigned int objIndex,
                        std::vector<VObjectType> bindTypes);
 
-  CompileDesign* m_compileDesign;
-  FileContent* m_fileData;
-  SymbolTable* m_symbolTable;
-  ErrorContainer* m_errorContainer;
+  CompileDesign* const m_compileDesign;
+  FileContent* const m_fileData;
+  SymbolTable* const m_symbolTable;
+  ErrorContainer* const m_errorContainer;
 };
 
 };  // namespace SURELOG

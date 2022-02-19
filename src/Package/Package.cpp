@@ -20,14 +20,18 @@
  *
  * Created on March 18, 2018, 7:58 PM
  */
-#include "Surelog/Package/Package.h"
 
-#include "Surelog/Expression/ExprBuilder.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Testbench/ClassDefinition.h"
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Package/Package.h>
+#include <Surelog/Testbench/ClassDefinition.h>
 
 namespace SURELOG {
-Package::~Package() {}
+
+Package::Package(std::string name, Library* library, FileContent* fC,
+                 NodeId nodeId)
+    : DesignComponent(fC, nullptr), m_name(name), m_library(library) {
+  addFileContent(fC, nodeId);
+}
 
 unsigned int Package::getSize() const {
   NodeId end = this->m_nodeIds[0];
@@ -57,4 +61,5 @@ void Package::append(Package* package) {
     classDef.second->setContainer(this);
   }
 }
+
 }  // namespace SURELOG

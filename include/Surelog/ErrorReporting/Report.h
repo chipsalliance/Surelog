@@ -27,14 +27,14 @@
 
 #include <utility>
 
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-
 namespace SURELOG {
+
+class CommandLineParser;
+class SymbolTable;
 
 class Report final {
  public:
-  Report() {}
+  Report() = default;
   std::pair<bool, bool> makeDiffCompUnitReport(CommandLineParser* clp,
                                                SymbolTable* st);
 

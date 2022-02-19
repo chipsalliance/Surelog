@@ -14,17 +14,16 @@
  limitations under the License.
 */
 
-#include <string>
-#include <string_view>
-#include <vector>
-
-#include "Surelog/SourceCompile/ParserHarness.h"
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
-using ::testing::ElementsAre;
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/SourceCompile/ParseFile.h>
+#include <Surelog/SourceCompile/ParserHarness.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
 namespace SURELOG {
+using ::testing::ElementsAre;
+
 namespace {
 TEST(ParserTest, BasicParse) {
   ParserHarness harness;

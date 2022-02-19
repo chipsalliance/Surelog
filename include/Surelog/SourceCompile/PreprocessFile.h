@@ -25,36 +25,34 @@
 #define SURELOG_PREPROCESSFILE_H
 #pragma once
 
-#include <filesystem>
-#include <map>
-#include <set>
-#include <stack>
-#include <string>
-#include <vector>
+#include <Surelog/Common/Containers.h>
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/SourceCompile/IncludeFileInfo.h>
+#include <Surelog/SourceCompile/LoopCheck.h>
 
-#include "Surelog/ErrorReporting/Error.h"
-#include "Surelog/SourceCompile/IncludeFileInfo.h"
-#include "Surelog/SourceCompile/LoopCheck.h"
+#include <filesystem>
+#include <set>
+#include <vector>
 
 namespace antlr4 {
 class ANTLRInputStream;
 class CommonTokenStream;
 namespace tree {
 class ParseTree;
-}  // namespace tree
+}
 }  // namespace antlr4
 
 namespace SURELOG {
 
-class SV3_1aPpParser;
-class SV3_1aPpLexer;
-class SV3_1aPpTreeShapeListener;
-class CompileSourceFile;
-class FileContent;
 class CompilationUnit;
-class MacroInfo;
+class CompileSourceFile;
+class Error;
+class FileContent;
 class Library;
-typedef std::map<std::string, MacroInfo*> MacroStorage;
+class MacroInfo;
+class SV3_1aPpLexer;
+class SV3_1aPpParser;
+class SV3_1aPpTreeShapeListener;
 
 #define LINE1 1
 

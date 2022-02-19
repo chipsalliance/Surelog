@@ -25,11 +25,15 @@
 #define SURELOG_SVLIBSHAPELISTENER_H
 #pragma once
 
-#include "Surelog/SourceCompile/SV3_1aTreeShapeHelper.h"
-#include "Surelog/SourceCompile/SV3_1aTreeShapeListener.h"
-#include "parser/SV3_1aParserBaseListener.h"
+#include <Surelog/SourceCompile/SV3_1aTreeShapeHelper.h>
+#include <parser/SV3_1aParserBaseListener.h>
+
+#include <filesystem>
 
 namespace SURELOG {
+
+class Config;
+class ParseLibraryDef;
 
 class SVLibShapeListener : public SV3_1aParserBaseListener,
                            public SV3_1aTreeShapeHelper {

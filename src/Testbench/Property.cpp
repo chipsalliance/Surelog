@@ -20,8 +20,5 @@
  *
  * Created on January 23, 2019, 9:17 PM
  */
-#include "Surelog/Testbench/Property.h"
 
-namespace SURELOG {
-Property::~Property() {}
-}  // namespace SURELOG
+#include <Surelog/Testbench/Property.h>

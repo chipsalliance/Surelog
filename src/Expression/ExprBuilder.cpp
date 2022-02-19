@@ -20,11 +20,18 @@
  *
  * Created on November 2, 2017, 9:45 PM
  */
-#include "Surelog/Expression/ExprBuilder.h"
+#include <Surelog/Design/Design.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/Expression/ExprBuilder.h>
+#include <Surelog/Package/Package.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
+#include <Surelog/Utils/NumUtils.h>
+#include <Surelog/Utils/StringUtils.h>
 
-#include <assert.h>
-#include <math.h>
-#include <string.h>
+#include <cmath>
+
 #if defined(_MSC_VER)
 #define strcasecmp _stricmp
 #define strdup _strdup
@@ -32,19 +39,9 @@
 #include <strings.h>
 #endif
 
-#include <stdint.h>
-
-#include <bitset>
-#include <iostream>
 #include <sstream>
 
-#include "Surelog/Design/Design.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
-#include "Surelog/Utils/NumUtils.h"
-#include "Surelog/Utils/StringUtils.h"
-
-using namespace SURELOG;
+namespace SURELOG {
 
 Value* ExprBuilder::clone(Value* val) {
   Value* clone = nullptr;
@@ -367,8 +364,8 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         std::string size = val;
         StringUtils::rtrim(size, '\'');
         int64_t intsize = 0;
-        if (!size.empty()) intsize = std::strtoull(size.c_str(), 0, 10);
-        if (strstr(val.c_str(), "'")) {
+        if (!size.empty()) intsize = std::strtoull(size.c_str(), nullptr, 10);
+        if (val.find('\'') != std::string::npos) {
           uint64_t hex_value = 0;
           char base = 'h';
           unsigned int i = 0;
@@ -397,37 +394,36 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
                 stval->set(v, Value::Type::Hexadecimal, intsize);
                 value = stval;
               } else {
-                hex_value = std::strtoull(v.c_str(), 0, 16);
+                hex_value = std::strtoull(v.c_str(), nullptr, 16);
                 intformat = true;
               }
               break;
             }
             case 'b':
             case 'B':
-              if (strstr(v.c_str(), "X") || strstr(v.c_str(), "Z") ||
-                  strstr(v.c_str(), "x") || strstr(v.c_str(), "z")) {
+              if (v.find_first_of("xzXZ") != std::string::npos) {
                 StValue* stval = (StValue*)m_valueFactory.newStValue();
                 stval->set(v, Value::Type::Binary,
                            (intsize ? intsize : v.size()));
                 value = stval;
               } else {
-                hex_value = std::strtoull(v.c_str(), 0, 2);
+                hex_value = std::strtoull(v.c_str(), nullptr, 2);
                 intformat = true;
               }
               break;
             case 'o':
             case 'O':
-              hex_value = std::strtoull(v.c_str(), 0, 8);
+              hex_value = std::strtoull(v.c_str(), nullptr, 8);
               intformat = true;
               break;
             case 'd':
             case 'D':
-              hex_value = std::strtoull(v.c_str(), 0, 10);
+              hex_value = std::strtoull(v.c_str(), nullptr, 10);
               intformat = true;
               break;
             default:
               // '1
-              hex_value = std::strtoull(v.c_str(), 0, 2);
+              hex_value = std::strtoull(v.c_str(), nullptr, 2);
               intformat = true;
               break;
           }
@@ -439,13 +435,13 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           }
         } else {
           if (!val.empty() && (val[0] == '-')) {
-            int64_t i = std::strtoll(val.c_str(), 0, 10);
+            int64_t i = std::strtoll(val.c_str(), nullptr, 10);
             value->set(i);
           } else {
-            if (uint64_t i = std::strtoull(val.c_str(), 0, 10)) {
+            if (uint64_t i = std::strtoull(val.c_str(), nullptr, 10)) {
               value->set(i);
             } else {
-              uint64_t j = atoll(val.c_str());
+              uint64_t j = std::strtoull(val.c_str(), nullptr, 10);
               value->set(j);
             }
           }
@@ -601,13 +597,13 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           value->set((int64_t)clog2);
         } else if (funcName == "ln") {
           int val = args[0]->getValueL();
-          value->set((int64_t)log(val));
+          value->set((int64_t)std::log(val));
         } else if (funcName == "clog") {
           int val = args[0]->getValueL();
-          value->set((int64_t)log10(val));
+          value->set((int64_t)std::log10(val));
         } else if (funcName == "exp") {
           int val = args[0]->getValueL();
-          value->set((int64_t)exp2(val));
+          value->set((int64_t)std::exp2(val));
         } else if (funcName == "bits") {
           // $bits is implemented in compileExpression.cpp
           value->set((int64_t)0);
@@ -635,7 +631,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             unsigned long long v = constVal->getValueUL();
             token = NumUtils::toBinary(constVal->getSize(), v);
           }
-          if (strstr(token.c_str(), "'")) {
+          if (token.find('\'') != std::string::npos) {
             unsigned int i = 0;
             for (i = 0; i < token.size(); i++) {
               if (token[i] == '\'') {
@@ -652,15 +648,15 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             }
             v = StringUtils::replaceAll(v, "_", "");
             std::string size = token.substr(0, i);
-            uint64_t isize = std::strtoull(size.c_str(), 0, 10);
+            uint64_t isize = std::strtoull(size.c_str(), nullptr, 10);
             if (base == 'd') {
-              long long iv = std::strtoll(v.c_str(), 0, 10);
+              long long iv = std::strtoll(v.c_str(), nullptr, 10);
               v = NumUtils::toBinary(isize, iv);
             } else if (base == 'h') {
-              long long iv = std::strtoll(v.c_str(), 0, 16);
+              long long iv = std::strtoll(v.c_str(), nullptr, 16);
               v = NumUtils::toBinary(isize, iv);
             } else if (base == 'o') {
-              long long iv = std::strtoll(v.c_str(), 0, 8);
+              long long iv = std::strtoll(v.c_str(), nullptr, 8);
               v = NumUtils::toBinary(isize, iv);
             }
             svalue += v;
@@ -872,27 +868,31 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, unsigned short size) {
   size_t pos;
   if ((pos = s.find("UINT:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
-    uint64_t v = std::strtoull(s.c_str() + pos + strlen("UINT:"), 0, 10);
+    uint64_t v = std::strtoull(
+        s.c_str() + pos + std::string_view("UINT:").length(), nullptr, 10);
     if (size)
       val->set(v, Value::Type::Unsigned, size);
     else
       val->set(v);
   } else if ((pos = s.find("INT:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
-    int64_t v = std::strtoll(s.c_str() + pos + strlen("INT:"), 0, 10);
+    int64_t v = std::strtoll(
+        s.c_str() + pos + std::string_view("INT:").length(), nullptr, 10);
     if (size)
       val->set(v, Value::Type::Integer, size);
     else
       val->set(v);
   } else if ((pos = s.find("DEC:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
-    int64_t v = std::strtoll(s.c_str() + pos + strlen("DEC:"), 0, 10);
+    int64_t v = std::strtoll(
+        s.c_str() + pos + std::string_view("DEC:").length(), nullptr, 10);
     if (size)
       val->set(v, Value::Type::Integer, size);
     else
       val->set(v);
   } else if ((pos = s.find("SCAL:")) != std::string::npos) {
-    const char* const parse_pos = s.c_str() + pos + strlen("SCAL:");
+    const char* const parse_pos =
+        s.c_str() + pos + std::string_view("SCAL:").length();
     switch (parse_pos[0]) {
       case 'Z':
 
@@ -915,33 +915,34 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, unsigned short size) {
         if (strcasecmp(parse_pos, "DontCare") == 0) {
         } else if (strcasecmp(parse_pos, "NoChange") == 0) {
         } else {
-          int64_t v = std::strtoull(parse_pos, 0, 10);
+          int64_t v = std::strtoull(parse_pos, nullptr, 10);
           val = m_valueFactory.newLValue();
           val->set(v);
         }
         break;
     }
   } else if ((pos = s.find("BIN:")) != std::string::npos) {
-    if (strstr(s.c_str(), "X") || strstr(s.c_str(), "Z") ||
-        strstr(s.c_str(), "x") || strstr(s.c_str(), "z")) {
+    if (s.find_first_of("xzXZ") != std::string::npos) {
       StValue* sval = (StValue*)m_valueFactory.newStValue();
-      sval->set(s.c_str() + pos + strlen("BIN:"), Value::Type::Binary,
-                (size ? size : s.size()));
+      sval->set(s.c_str() + pos + std::string_view("BIN:").length(),
+                Value::Type::Binary, (size ? size : s.size()));
       val = sval;
     } else {
       val = m_valueFactory.newLValue();
-      uint64_t v = std::strtoull(s.c_str() + pos + strlen("BIN:"), 0, 2);
+      uint64_t v = std::strtoull(
+          s.c_str() + pos + std::string_view("BIN:").length(), nullptr, 2);
       val->set(v, Value::Type::Unsigned, size ? size : 0);
     }
   } else if ((pos = s.find("HEX:")) != std::string::npos) {
     if (s.size() > 20) {  // HEX:FFFFFFFFFFFFFFFF
       StValue* sval = (StValue*)m_valueFactory.newStValue();
-      sval->set(s.c_str() + pos + strlen("HEX:"), Value::Type::Hexadecimal,
-                (size ? size : (s.size() - 4) * 4));
+      sval->set(s.c_str() + pos + std::string_view("HEX:").length(),
+                Value::Type::Hexadecimal, (size ? size : (s.size() - 4) * 4));
       val = sval;
     } else {
       val = m_valueFactory.newLValue();
-      uint64_t v = std::strtoull(s.c_str() + pos + strlen("HEX:"), 0, 16);
+      uint64_t v = std::strtoull(
+          s.c_str() + pos + std::string_view("HEX:").length(), nullptr, 16);
       if (size)
         val->set(v, Value::Type::Unsigned, size);
       else
@@ -949,17 +950,19 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, unsigned short size) {
     }
   } else if ((pos = s.find("OCT:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
-    uint64_t v = std::strtoull(s.c_str() + pos + strlen("OCT:"), 0, 8);
+    uint64_t v = std::strtoull(
+        s.c_str() + pos + std::string_view("OCT:").length(), nullptr, 8);
     if (size)
       val->set(v, Value::Type::Unsigned, size);
     else
       val->set(v, Value::Type::Unsigned, (size ? size : (s.size() - 4) * 4));
   } else if ((pos = s.find("STRING:")) != std::string::npos) {
     val = m_valueFactory.newStValue();
-    val->set(s.c_str() + pos + strlen("STRING:"));
+    val->set(s.c_str() + pos + std::string_view("STRING:").length());
   } else if ((pos = s.find("REAL:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
-    double v = std::strtod(s.c_str() + pos + strlen("REAL:"), 0);
+    double v = std::strtod(s.c_str() + pos + std::string_view("REAL:").length(),
+                           nullptr);
     val->set(v);
   }
   return val;
@@ -970,7 +973,7 @@ Value* ExprBuilder::fromString(const std::string& value) {
   std::string sval;
   const char* value_ptr = value.c_str();
   char* end_parse_ptr;
-  if (strstr(value_ptr, "'")) {
+  if (value.find('\'') != std::string::npos) {
     char base = 'b';
     unsigned int i = 0;
     for (i = 0; i < value.size(); i++) {
@@ -990,7 +993,7 @@ Value* ExprBuilder::fromString(const std::string& value) {
       case 'h': {
         std::string size = value;
         StringUtils::rtrim(size, '\'');
-        int s = atoi(size.c_str());
+        int s = std::atoi(size.c_str());
         StValue* stval = (StValue*)m_valueFactory.newStValue();
         stval->set(sval, Value::Type::Hexadecimal, s);
         val = stval;
@@ -999,7 +1002,7 @@ Value* ExprBuilder::fromString(const std::string& value) {
       case 'b': {
         std::string size = value;
         StringUtils::rtrim(size, '\'');
-        int s = atoi(size.c_str());
+        int s = std::atoi(size.c_str());
         StValue* stval = (StValue*)m_valueFactory.newStValue();
         stval->set(sval, Value::Type::Binary, s);
         val = stval;
@@ -1008,7 +1011,7 @@ Value* ExprBuilder::fromString(const std::string& value) {
       case 'o': {
         std::string size = value;
         StringUtils::rtrim(size, '\'');
-        int s = atoi(size.c_str());
+        int s = std::atoi(size.c_str());
         StValue* stval = (StValue*)m_valueFactory.newStValue();
         stval->set(sval, Value::Type::Octal, s);
         val = stval;
@@ -1017,10 +1020,11 @@ Value* ExprBuilder::fromString(const std::string& value) {
       case 'd': {
         std::string size = value;
         StringUtils::rtrim(size, '\'');
-        int s = atoi(size.c_str());
+        int s = std::atoi(size.c_str());
         const char* value_ptr = sval.c_str();
         long double v = std::strtold(value_ptr, &end_parse_ptr);
-        if (value_ptr != end_parse_ptr && strstr(value_ptr, ".")) {
+        if (value_ptr != end_parse_ptr &&
+            (sval.find('.') != std::string::npos)) {
           val = m_valueFactory.newLValue();
           val->set((double)v);
         } else {
@@ -1044,7 +1048,7 @@ Value* ExprBuilder::fromString(const std::string& value) {
       default: {
         std::string size = value;
         StringUtils::rtrim(size, '\'');
-        int s = atoi(size.c_str());
+        int s = std::atoi(size.c_str());
         StValue* stval = (StValue*)m_valueFactory.newStValue();
         stval->set(sval, Value::Type::Binary, s);
         val = stval;
@@ -1053,7 +1057,7 @@ Value* ExprBuilder::fromString(const std::string& value) {
     }
   } else {
     long double v = std::strtold(value_ptr, &end_parse_ptr);
-    if (value_ptr != end_parse_ptr && strstr(value_ptr, ".")) {
+    if (value_ptr != end_parse_ptr && (value.find('.') != std::string::npos)) {
       val = m_valueFactory.newLValue();
       val->set((double)v);
     } else {
@@ -1075,3 +1079,5 @@ Value* ExprBuilder::fromString(const std::string& value) {
   }
   return val;
 }
+
+}  // namespace SURELOG

@@ -25,19 +25,19 @@
 #define SURELOG_ERRORCONTAINER_H
 #pragma once
 
+#include <Surelog/ErrorReporting/Error.h>
+
 #include <set>
 #include <string>
 #include <vector>
-
-#include "Surelog/ErrorReporting/Error.h"
-#include "Surelog/ErrorReporting/ErrorDefinition.h"
 
 namespace SURELOG {
 
 class CommandLineParser;
 class LogListener;
+class SymbolTable;
 
-class ErrorContainer {
+class ErrorContainer final {
  public:
   class Stats {
    public:

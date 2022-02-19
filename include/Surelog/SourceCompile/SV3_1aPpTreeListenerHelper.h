@@ -25,18 +25,18 @@
 #define SURELOG_SV3_1APPTREELISTENERHELPER_H
 #pragma once
 
-#include <regex>
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/ErrorReporting/ErrorDefinition.h>
+#include <Surelog/ErrorReporting/Location.h>
+#include <Surelog/SourceCompile/CommonListenerHelper.h>
+#include <Surelog/SourceCompile/PreprocessFile.h>
 
-#include "Surelog/Design/TimeInfo.h"
-#include "Surelog/SourceCompile/CommonListenerHelper.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "antlr4-runtime.h"
+#include <set>
+#include <vector>
 
 namespace SURELOG {
+
+class SymbolTable;
 
 class SV3_1aPpTreeListenerHelper : public CommonListenerHelper {
  protected:
@@ -83,16 +83,13 @@ class SV3_1aPpTreeListenerHelper : public CommonListenerHelper {
   void init();
   void addLineFiller(antlr4::ParserRuleContext* ctx);
 
-  SymbolTable* getSymbolTable() {
-    return m_pp->getCompileSourceFile()->getSymbolTable();
-  }
-
+  SymbolTable* getSymbolTable() const;
   SymbolId registerSymbol(const std::string& symbol) final;
 
   std::tuple<unsigned int, unsigned short, unsigned int, unsigned short>
   getFileLine(antlr4::ParserRuleContext* ctx, SymbolId& fileId) override;
 
-  ~SV3_1aPpTreeListenerHelper() override;
+  ~SV3_1aPpTreeListenerHelper() override = default;
 };
 
 }  // namespace SURELOG

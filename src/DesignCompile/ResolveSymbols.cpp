@@ -20,20 +20,22 @@
  *
  * Created on July 1, 2017, 12:38 PM
  */
-#include "Surelog/DesignCompile/ResolveSymbols.h"
 
-#include "Surelog/ErrorReporting/Error.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/ErrorReporting/ErrorDefinition.h"
-#include "Surelog/ErrorReporting/Location.h"
-#include "Surelog/Testbench/ClassDefinition.h"
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/ModuleDefinition.h>
+#include <Surelog/DesignCompile/CompileDesign.h>
+#include <Surelog/DesignCompile/ResolveSymbols.h>
+#include <Surelog/Library/Library.h>
+#include <Surelog/Package/Package.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Testbench/ClassDefinition.h>
+#include <Surelog/Testbench/Program.h>
 
 // UHDM
-#include <uhdm/uhdm.h>
+#include <uhdm/package.h>
 
-using namespace SURELOG;
-
-ResolveSymbols::~ResolveSymbols() {}
+namespace SURELOG {
 
 int FunctorCreateLookup::operator()() const {
   ResolveSymbols* instance = new ResolveSymbols(
@@ -379,3 +381,9 @@ bool ResolveSymbols::resolve() {
 
   return true;
 }
+
+Compiler* ResolveSymbols::getCompiler() const {
+  return m_compileDesign->getCompiler();
+}
+
+}  // namespace SURELOG

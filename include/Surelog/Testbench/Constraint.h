@@ -25,13 +25,14 @@
 #define SURELOG_CONSTRAINT_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
+
+#include <string>
 #include <string_view>
 
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
-
 namespace SURELOG {
+
+class FileContent;
 
 class Constraint final {
  public:

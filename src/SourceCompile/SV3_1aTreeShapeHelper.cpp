@@ -20,28 +20,23 @@
  *
  * Created on June 25, 2017, 2:51 PM
  */
-#include "Surelog/SourceCompile/SV3_1aTreeShapeHelper.h"
 
-#include <cstdlib>
-#include <iostream>
-
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Utils/ParseUtils.h"
-#include "antlr4-runtime.h"
-#include "parser/SV3_1aLexer.h"
-#include "parser/SV3_1aParser.h"
-#include "parser/SV3_1aParserBaseListener.h"
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/Library/Library.h>
+#include <Surelog/SourceCompile/CompilationUnit.h>
+#include <Surelog/SourceCompile/CompileSourceFile.h>
+#include <Surelog/SourceCompile/ParseFile.h>
+#include <Surelog/SourceCompile/SV3_1aTreeShapeHelper.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/ParseUtils.h>
 
 namespace SURELOG {
+
 SV3_1aTreeShapeHelper::SV3_1aTreeShapeHelper(ParseFile* pf,
                                              antlr4::CommonTokenStream* tokens,
+
                                              unsigned int lineOffset)
     : CommonListenerHelper(nullptr, tokens),
       m_pf(pf),

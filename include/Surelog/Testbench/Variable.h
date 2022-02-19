@@ -25,13 +25,15 @@
 #define SURELOG_VARIABLE_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
+
+#include <string>
 #include <string_view>
 
-#include "Surelog/Design/DataType.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-
 namespace SURELOG {
+
+class DataType;
+class FileContent;
 
 class Variable {
  public:
@@ -42,7 +44,7 @@ class Variable {
         m_nodeId(varId),
         m_range(range),
         m_name(name) {}
-  virtual ~Variable();
+  virtual ~Variable() = default;
 
   const DataType* getDataType() const { return m_dataType; }
   const std::string& getName() const { return m_name; }

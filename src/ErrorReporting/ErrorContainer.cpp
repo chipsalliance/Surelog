@@ -21,25 +21,26 @@
  * Created on March 5, 2017, 11:12 PM
  */
 
-#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include <Surelog/API/PythonAPI.h>
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/ErrorReporting/ErrorDefinition.h>
+#include <Surelog/ErrorReporting/LogListener.h>
+#include <Surelog/ErrorReporting/Waiver.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <antlr4-runtime.h>
+#include <stdio.h>
 
 #include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <mutex>
-
-#include "Surelog/API/PythonAPI.h"
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/ErrorReporting/LogListener.h"
-#include "Surelog/ErrorReporting/Waiver.h"
-#include "antlr4-runtime.h"
-
 #if !(defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
 #include <unistd.h>
 #endif
-#include <stdio.h>
 
 namespace SURELOG {
+
 namespace fs = std::filesystem;
 
 ErrorContainer::ErrorContainer(SymbolTable* symbolTable,

@@ -20,16 +20,17 @@
  *
  * Created on July 12, 2017, 8:56 PM
  */
-#include "Surelog/DesignCompile/UVMElaboration.h"
 
-using namespace SURELOG;
+#include <Surelog/DesignCompile/UVMElaboration.h>
+
+namespace SURELOG {
 
 UVMElaboration::UVMElaboration(CompileDesign* compileDesign)
     : TestbenchElaboration(compileDesign) {}
-
-UVMElaboration::~UVMElaboration() {}
 
 bool UVMElaboration::elaborate() {
   bindClasses_();
   return true;
 }
+
+}  // namespace SURELOG

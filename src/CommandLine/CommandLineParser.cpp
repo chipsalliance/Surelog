@@ -20,12 +20,13 @@
  *
  * Created on January 26, 2017, 9:47 PM
  */
-#include "Surelog/CommandLine/CommandLineParser.h"
 
-#include <limits.h>
-#include <string.h>
-#include <sys/stat.h>
-#include <sys/types.h>
+#include <Surelog/API/PythonAPI.h>
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/FileUtils.h>
+#include <Surelog/Utils/StringUtils.h>
 
 #if defined(_MSC_VER)
 #include <direct.h>
@@ -35,22 +36,11 @@
 #include <unistd.h>
 #endif
 
-#include <cstdlib>
-#include <ctime>
-#include <filesystem>
+#include <cstring>
 #include <fstream>
-#include <initializer_list>
 #include <iostream>
 #include <sstream>
-#include <string>
-#include <string_view>
 #include <thread>
-#include <vector>
-
-#include "Surelog/API/PythonAPI.h"
-#include "Surelog/Utils/FileUtils.h"
-#include "Surelog/Utils/StringUtils.h"
-#include "antlr4-runtime.h"
 
 namespace SURELOG {
 namespace fs = std::filesystem;
@@ -648,7 +638,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         if (tmp == "parametersubstitution") {
           m_parametersubstitution = true;
         } else {
-          std::cout << "Feature: " << tmp << " ignored." << std::endl;
+          std::cerr << "Feature: " << tmp << " ignored." << std::endl;
         }
       }
     } else if (all_arguments[i].find("--disable-feature=") == 0) {
@@ -659,7 +649,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         if (tmp == "parametersubstitution") {
           m_parametersubstitution = false;
         } else {
-          std::cout << "Feature: " << tmp << " ignored." << std::endl;
+          std::cerr << "Feature: " << tmp << " ignored." << std::endl;
         }
       }
     } else if (all_arguments[i].find("-timescale=") == 0) {
@@ -745,7 +735,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
 // No multiprocess on Windows platform, only multithreads
 #if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)
     else if (all_arguments[i] == "-lowmem") {
-      std::cout << "Lowmem option is ignored on this platform\n";
+      std::cerr << "Lowmem option is ignored on this platform\n";
     }
 #else
     else if (all_arguments[i] == "-lowmem") {
@@ -985,7 +975,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_elaborate = true;
       m_pythonListener = true;
       if (!m_pythonAllowed)
-        std::cout << "ERROR: No Python allowed, check your arguments!\n";
+        std::cerr << "ERROR: No Python allowed, check your arguments!\n";
     } else if (all_arguments[i] == "-nopython") {
       m_pythonAllowed = false;
     } else if (all_arguments[i] == "-withpython") {
@@ -1008,7 +998,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       if (m_pythonAllowed)
         PythonAPI::loadScript(all_arguments[i], true);
       else
-        std::cout << "ERROR: No Python allowed, check your arguments!\n";
+        std::cerr << "ERROR: No Python allowed, check your arguments!\n";
     } else if (all_arguments[i] == "-pythonlistenerfile") {
       if (i == all_arguments.size() - 1) {
         Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
@@ -1043,7 +1033,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       if (m_pythonAllowed)
         PythonAPI::loadScript(all_arguments[i], true);
       else
-        std::cout << "ERROR: No Python allowed, check your arguments!\n";
+        std::cerr << "ERROR: No Python allowed, check your arguments!\n";
     } else if (all_arguments[i] == "-nocache") {
       m_cacheAllowed = false;
     } else if (all_arguments[i] == "-sv") {
@@ -1235,7 +1225,7 @@ bool CommandLineParser::cleanCache() {
 
   if (!m_cacheAllowed) {
     if (!FileUtils::rmDirRecursively(cachedir)) {
-      std::cout << "ERROR: Cannot delete " << cachedir << std::endl;
+      std::cerr << "ERROR: Cannot delete " << cachedir << std::endl;
     }
   }
 

@@ -20,11 +20,12 @@
  *
  * Created on March 6, 2017, 11:10 PM
  */
-#include "Surelog/SourceCompile/SymbolTable.h"
+
+#include <Surelog/SourceCompile/SymbolTable.h>
 
 #include <cassert>
 
-using namespace SURELOG;
+namespace SURELOG {
 
 SymbolTable::SymbolTable() : m_idCounter(getBadId()) {
   registerSymbol(getBadSymbol());
@@ -74,3 +75,5 @@ std::vector<std::string> SymbolTable::getSymbols() const {
   }
   return result;
 }
+
+}  // namespace SURELOG

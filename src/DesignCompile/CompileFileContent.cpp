@@ -20,27 +20,13 @@
  *
  * Created on March 28, 2018, 10:16 PM
  */
-#include "Surelog/DesignCompile/CompileFileContent.h"
 
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Design/VObject.h"
-#include "Surelog/DesignCompile/CompileDesign.h"
-#include "Surelog/DesignCompile/CompileHelper.h"
-#include "Surelog/ErrorReporting/Error.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/ErrorReporting/ErrorDefinition.h"
-#include "Surelog/ErrorReporting/Location.h"
-#include "Surelog/Library/Library.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/DesignCompile/CompileFileContent.h>
 
-using namespace SURELOG;
+#include <stack>
+
+namespace SURELOG {
 
 int FunctorCompileFileContent::operator()() const {
   CompileFileContent* instance = new CompileFileContent(
@@ -165,3 +151,5 @@ bool CompileFileContent::collectObjects_() {
 
   return true;
 }
+
+}  // namespace SURELOG

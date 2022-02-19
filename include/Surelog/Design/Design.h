@@ -25,31 +25,49 @@
 #define SURELOG_DESIGN_H
 #pragma once
 
-#include <mutex>
+#include <Surelog/Common/Containers.h>
+#include <Surelog/Common/SymbolId.h>
 
-#include "Surelog/Config/ConfigSet.h"
-#include "Surelog/Design/BindStmt.h"
-#include "Surelog/Design/DefParam.h"
-#include "Surelog/Design/ModuleDefinition.h"
-#include "Surelog/Design/ModuleInstance.h"
-#include "Surelog/Library/LibrarySet.h"
-#include "Surelog/Package/Package.h"
-#include "Surelog/Testbench/Program.h"
+#include <map>
+#include <mutex>
+#include <vector>
 
 namespace SURELOG {
 
+class AnalyzeFile;
+class BindStmt;
+class Builtin;
+class CompileDesign;
+class Compiler;
+class ConfigSet;
+class DefParam;
+class DesignComponent;
+class DesignElaboration;
+class ErrorContainer;
+class FileContent;
+class LibrarySet;
+class ModuleInstance;
+class ParseCache;
+class ParseFile;
+class PPCache;
+class PreprocessFile;
+class SV3_1aPpTreeShapeListener;
+class SV3_1aTreeShapeListener;
+class SVLibShapeListener;
+class Value;
+
 class Design final {
-  friend class CompileDesign;
   friend class AnalyzeFile;
-  friend class PreprocessFile;
-  friend class ParseFile;
+  friend class Builtin;
+  friend class CompileDesign;
   friend class Compiler;
-  friend class PPCache;
+  friend class DesignElaboration;
   friend class ParseCache;
+  friend class ParseFile;
+  friend class PPCache;
+  friend class PreprocessFile;
   friend class SV3_1aPpTreeShapeListener;
   friend class SV3_1aTreeShapeListener;
-  friend class Builtin;
-  friend class DesignElaboration;
   friend class SVLibShapeListener;
 
  public:
@@ -69,9 +87,9 @@ class Design final {
 
   FileIdDesignContentMap& getAllPPFileContents() { return m_ppFileContents; }
 
-  LibrarySet* getLibrarySet() { return m_librarySet; }
+  LibrarySet* getLibrarySet() const { return m_librarySet; }
 
-  ConfigSet* getConfigSet() { return m_configSet; }
+  ConfigSet* getConfigSet() const { return m_configSet; }
 
   ModuleNameModuleDefinitionMap& getModuleDefinitions() {
     return m_moduleDefinitions;

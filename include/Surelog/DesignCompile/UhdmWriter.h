@@ -25,14 +25,24 @@
 #define SURELOG_UHDMWRITER_H
 #pragma once
 
+#include <Surelog/DesignCompile/CompileHelper.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
+
+// UHDM
+#include <uhdm/uhdm_forward_decl.h>
+
 #include <string>
 
-#include "Surelog/Design/Design.h"
-#include "Surelog/DesignCompile/CompileDesign.h"
-#include "Surelog/DesignCompile/CompileHelper.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
-
 namespace SURELOG {
+
+class CompileDesign;
+class Design;
+class DesignComponent;
+class ExprBuilder;
+class ModPort;
+class ModuleDefinition;
+class ModuleInstance;
+class Signal;
 
 class UhdmWriter final {
  public:
@@ -43,12 +53,7 @@ class UhdmWriter final {
   typedef std::map<ModuleInstance*, UHDM::BaseClass*> InstanceMap;
   typedef std::map<std::string, UHDM::BaseClass*> VpiSignalMap;
 
-  UhdmWriter(CompileDesign* compiler, Design* design)
-      : m_compileDesign(compiler), m_design(design) {
-    m_helper.seterrorReporting(
-        m_compileDesign->getCompiler()->getErrorContainer(),
-        m_compileDesign->getCompiler()->getSymbolTable());
-  }
+  UhdmWriter(CompileDesign* compiler, Design* design);
 
   vpiHandle write(const std::string& uhdmFile);
 
@@ -62,8 +67,7 @@ class UhdmWriter final {
 
  private:
   void writeModule(ModuleDefinition* mod, UHDM::module* m, UHDM::Serializer& s,
-                   UhdmWriter::ComponentMap& componentMap,
-                   UhdmWriter::ModPortMap& modPortMap,
+                   ComponentMap& componentMap, ModPortMap& modPortMap,
                    ModuleInstance* instance = nullptr);
   void writeInterface(ModuleDefinition* mod, UHDM::interface* m,
                       UHDM::Serializer& s, ComponentMap& componentMap,
@@ -73,10 +77,8 @@ class UhdmWriter final {
                           UHDM::interface* m, ExprBuilder& exprBuilder);
   void writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
                      UHDM::any* m, CompileDesign* compileDesign,
-                     UhdmWriter::ComponentMap& componentMap,
-                     UhdmWriter::ModPortMap& modPortMap,
-                     UhdmWriter::InstanceMap& instanceMap,
-                     ExprBuilder& exprBuilder);
+                     ComponentMap& componentMap, ModPortMap& modPortMap,
+                     InstanceMap& instanceMap, ExprBuilder& exprBuilder);
   bool writeElabModule(UHDM::Serializer& s, ModuleInstance* instance,
                        UHDM::module* m, ExprBuilder& exprBuilder);
   bool writeElabProgram(UHDM::Serializer& s, ModuleInstance* instance,
