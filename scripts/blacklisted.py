@@ -15,7 +15,7 @@ _windows_black_list = set([name.lower() for name in [
     r'coresswerv',
     r'earlgrey_nexysvideo',
     r'earlgrey_verilator_0_1',
-    r'earlgrey_verilator_01_05_21',
+    r'earlgrey_verilator_01_05_21', # lowmem is unsupported
     r'lpddr',
     r'simpleincludeandmacros',
     r'simpleparsertestcache', # race condition
@@ -32,12 +32,18 @@ _unix_black_list = set([name.lower() for name in [
     r'blackucode',
     r'blackunicore',
     r'lpddr',
-    r'simpleparsertestcache',  # race condition
-    r'earlgrey_nexysvideo',  # ram size in ci machines
-    r'unitelabexternnested', # 2 message diff:
+    r'simpleparsertestcache', # race condition
+    r'earlgrey_nexysvideo',   # ram size in ci machines
+    r'unitelabexternnested',  # 2 message diff:
 ]])
 
+_msys2_black_list = _unix_black_list.union([
+  r'earlgrey_verilator_01_05_21', # lowmem is unsupported
+])
 
 def is_blacklisted(name):
-    blacklist = _windows_black_list if platform.system() == 'Windows' and 'MSYSTEM' not in os.environ else _unix_black_list
+    if platform.system() == 'Windows':
+        blacklist = _msys2_black_list if 'MSYSTEM' in os.environ else _windows_black_list
+    else:
+        blacklist =  _unix_black_list
     return name.lower() in blacklist
