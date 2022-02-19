@@ -49,6 +49,8 @@ or
   make debug
 or
   make release_no_tcmalloc (For no tcmalloc)
+or
+  make release_with_python
   
 make install (/usr/local/bin and /usr/local/lib/surelog by default,
               use PREFIX= for alternative location)

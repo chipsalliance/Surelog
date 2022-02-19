@@ -25,6 +25,9 @@ RULE_MESSAGES ?= on
 release: run-cmake-release
 	cmake --build build -j $(CPU_CORES)
 
+release_with_python: run-cmake-release-with-python
+	cmake --build build -j $(CPU_CORES)
+
 release_no_tcmalloc: run-cmake-release_no_tcmalloc
 	cmake --build build -j $(CPU_CORES)
 
@@ -36,6 +39,9 @@ quick: run-cmake-quick
 
 run-cmake-release:
 	cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX) -DCMAKE_RULE_MESSAGES=$(RULE_MESSAGES) $(ADDITIONAL_CMAKE_OPTIONS) -S . -B build
+
+run-cmake-release-with-python:
+	cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX) -DCMAKE_RULE_MESSAGES=$(RULE_MESSAGES) $(ADDITIONAL_CMAKE_OPTIONS) -DSURELOG_WITH_PYTHON=1 -DCMAKE_CXX_FLAGS=-fpermissive -S . -B build
 
 run-cmake-release_no_tcmalloc:
 	cmake -DNO_TCMALLOC=On -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX) -DCMAKE_RULE_MESSAGES=$(RULE_MESSAGES) $(ADDITIONAL_CMAKE_OPTIONS) -S . -B build
