@@ -7,4 +7,7 @@ initial begin
   $display();
 end
 
+class A;
+endclass
+   
 endmodule
