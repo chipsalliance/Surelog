@@ -40,6 +40,7 @@
 #include "Surelog/SourceCompile/CompilationUnit.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/SourceCompile/PythonListen.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/Testbench/ClassDefinition.h"
 #include "Surelog/Utils/FileUtils.h"

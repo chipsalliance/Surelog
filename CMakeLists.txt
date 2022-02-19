@@ -183,10 +183,10 @@ add_custom_command(
 
 add_custom_command(
   OUTPUT ${GENDIR}/include/Surelog/SourceCompile/VObjectTypes.h
-         ${GENDIR}/src/SourceCompile/VObjectTypes.cpp
          ${GENDIR}/include/Surelog/API/VObjectTypes_py.h
          ${GENDIR}/include/Surelog/SourceCompile/SV3_1aTreeShapeListener.h
          ${GENDIR}/include/Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h
+         ${GENDIR}/src/SourceCompile/VObjectTypes.cpp
   DEPENDS ${GENDIR}/src/parser/generated-parsers.tstamp
           ${PROJECT_SOURCE_DIR}/scripts/generate_parser_listener.py
 
@@ -207,20 +207,24 @@ if (SURELOG_WITH_PYTHON)
   endforeach()
   add_custom_command(
     OUTPUT  ${surelog_python-GENERATED_SRC}
-    DEPENDS ${PROJECT_SOURCE_DIR}/src/API/slapi_scripts.i
-            ${PROJECT_SOURCE_DIR}/src/API/generate_python_listener_api.tcl
-            ${PROJECT_SOURCE_DIR}/src/API/embed_python_api.tcl
-            ${GENDIR}/include/Surelog/API/VObjectTypes_py.h
+    DEPENDS ${GENDIR}/include/Surelog/API/VObjectTypes_py.h
+            ${PROJECT_SOURCE_DIR}/src/API/slapi_scripts.i
+            ${PROJECT_SOURCE_DIR}/scripts/generate_python_listener.py
+            ${PROJECT_SOURCE_DIR}/scripts/embed_python_api.py
             ${GENDIR}/src/parser/generated-parsers.tstamp
 
     WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
     COMMAND echo "---------- Python API generation"
-    COMMAND ${CMAKE_COMMAND} -E make_directory ${GENDIR}/src/API
-    COMMAND ${CMAKE_COMMAND} -E make_directory ${GENDIR}/include/Surelog/API
-    COMMAND tclsh src/API/generate_python_listener_api.tcl input_gen_dir=${GENDIR}/src out_dir=${GENDIR}
-    COMMAND ${SWIG_EXECUTABLE} -c++ -python -I${PROJECT_SOURCE_DIR}/include -o ${GENDIR}/include/Surelog/API/slapi_wrap.cxx ${PROJECT_SOURCE_DIR}/src/API/slapi_scripts.i
-    COMMAND tclsh src/API/embed_python_api.tcl input_dir=${GENDIR} out_dir=${GENDIR}/include/Surelog
-    COMMAND ls -lR ${GENDIR}
+    COMMAND ${Python3_EXECUTABLE} scripts/generate_python_listener.py
+            --template-header-filepath ${GENDIR}/src/parser/SV3_1aParserBaseListener.h
+            --output-dirpath ${GENDIR}
+    COMMAND ${SWIG_EXECUTABLE} -c++ -python
+            -I${PROJECT_SOURCE_DIR}/include
+            -o ${GENDIR}/include/Surelog/API/slapi_wrap.cxx
+            ${PROJECT_SOURCE_DIR}/src/API/slapi_scripts.i
+    COMMAND ${Python3_EXECUTABLE} scripts/embed_python_api.py
+            --template-script-filepaths ${GENDIR}/include/Surelog/API/slapi.py ${PROJECT_SOURCE_DIR}/src/API/slformatmsg.py
+            --output-dirpath ${GENDIR}/include/Surelog/API
   )
 endif()
 
