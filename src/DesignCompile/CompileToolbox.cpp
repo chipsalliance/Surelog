@@ -20,7 +20,7 @@
  *
  * Created on June 13, 2018, 9:36 PM
  */
-#include "DesignCompile/CompileToolbox.h"
+#include "Surelog/DesignCompile/CompileToolbox.h"
 
 namespace SURELOG {
 CompileToolbox::CompileToolbox() {}

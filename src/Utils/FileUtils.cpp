@@ -20,7 +20,7 @@
  *
  * Created on March 16, 2017, 11:02 PM
  */
-#include "Utils/FileUtils.h"
+#include "Surelog/Utils/FileUtils.h"
 
 #include <errno.h>
 #include <limits.h> /* PATH_MAX */
@@ -36,8 +36,8 @@
 #include <sstream>
 #include <string>
 
-#include "SourceCompile/SymbolTable.h"
-#include "Utils/StringUtils.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {
 namespace fs = std::filesystem;

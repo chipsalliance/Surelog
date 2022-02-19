@@ -20,7 +20,7 @@
  *
  * Created on April 28, 2017, 9:32 PM
  */
-#include "Cache/Cache.h"
+#include "Surelog/Cache/Cache.h"
 
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -29,7 +29,7 @@
 #include <ctime>
 #include <iostream>
 
-#include "CommandLine/CommandLineParser.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
 #include "flatbuffers/util.h"
 
 namespace SURELOG {

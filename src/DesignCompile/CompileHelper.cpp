@@ -20,7 +20,7 @@
  *
  * Created on May 14, 2019, 8:03 PM
  */
-#include "DesignCompile/CompileHelper.h"
+#include "Surelog/DesignCompile/CompileHelper.h"
 
 #include <string.h>
 
@@ -28,27 +28,27 @@
 #include <string>
 #include <vector>
 
-#include "Design/Design.h"
-#include "Design/DummyType.h"
-#include "Design/Enum.h"
-#include "Design/Function.h"
-#include "Design/ParamAssign.h"
-#include "Design/Parameter.h"
-#include "Design/SimpleType.h"
-#include "Design/Struct.h"
-#include "Design/Union.h"
-#include "DesignCompile/CompileDesign.h"
-#include "DesignCompile/UhdmWriter.h"
-#include "Expression/ExprBuilder.h"
-#include "Expression/Value.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "Testbench/ClassDefinition.h"
-#include "Testbench/Property.h"
-#include "Utils/NumUtils.h"
+#include "Surelog/Design/Design.h"
+#include "Surelog/Design/DummyType.h"
+#include "Surelog/Design/Enum.h"
+#include "Surelog/Design/Function.h"
+#include "Surelog/Design/ParamAssign.h"
+#include "Surelog/Design/Parameter.h"
+#include "Surelog/Design/SimpleType.h"
+#include "Surelog/Design/Struct.h"
+#include "Surelog/Design/Union.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/DesignCompile/UhdmWriter.h"
+#include "Surelog/Expression/ExprBuilder.h"
+#include "Surelog/Expression/Value.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/Testbench/ClassDefinition.h"
+#include "Surelog/Testbench/Property.h"
+#include "Surelog/Utils/NumUtils.h"
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>

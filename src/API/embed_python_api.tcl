@@ -14,14 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+set INPUT_DIR "."
+if [regexp {input_dir=([a-zA-Z0-9_/\.:-]+)} $argv tmp INPUT_DIR] {}
+
 set DEST_DIR "."
 if [regexp {out_dir=([a-zA-Z0-9_/\.:-]+)} $argv tmp DEST_DIR] {}
 
-set fid [open "${DEST_DIR}/API/slapi.py"]
+set fid [open "${INPUT_DIR}/include/Surelog/API/slapi.py"]
 set content [read $fid]
 close $fid
 
-set fid [open "API/slformatmsg.py"]
+set fid [open "src/API/slformatmsg.py"]
 set content "$content\n[read $fid]"
 close $fid
 

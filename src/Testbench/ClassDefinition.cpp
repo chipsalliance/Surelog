@@ -20,10 +20,10 @@
  *
  * Created on June 1, 2018, 10:12 PM
  */
-#include "Testbench/ClassDefinition.h"
+#include "Surelog/Testbench/ClassDefinition.h"
 
-#include "Design/FileContent.h"
-#include "SourceCompile/SymbolTable.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 ClassDefinition::ClassDefinition(std::string name, Library* library,

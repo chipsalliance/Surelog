@@ -20,7 +20,7 @@
  *
  * Created on May 28, 2017, 10:49 PM
  */
-#include "Cache/PythonAPICache.h"
+#include "Surelog/Cache/PythonAPICache.h"
 
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -29,18 +29,18 @@
 #include <ctime>
 #include <filesystem>
 
-#include "API/PythonAPI.h"
-#include "Cache/Cache.h"
-#include "CommandLine/CommandLineParser.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/SymbolTable.h"
-#include "Utils/FileUtils.h"
-#include "Utils/StringUtils.h"
+#include "Surelog/API/PythonAPI.h"
+#include "Surelog/Cache/Cache.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/FileUtils.h"
+#include "Surelog/Utils/StringUtils.h"
 #include "antlr4-runtime.h"
 #include "flatbuffers/util.h"
 

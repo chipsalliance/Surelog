@@ -20,18 +20,18 @@
  *
  * Created on May 30, 2019, 6:36 PM
  */
-#include "DesignCompile/Builtin.h"
+#include "Surelog/DesignCompile/Builtin.h"
 
 #include <string_view>
 
-#include "Design/DataType.h"
-#include "DesignCompile/CompileHelper.h"
-#include "DesignCompile/CompilerHarness.h"
-#include "Package/Package.h"
-#include "SourceCompile/ParserHarness.h"
-#include "SourceCompile/PreprocessHarness.h"
-#include "Testbench/ClassDefinition.h"
-#include "Testbench/FunctionMethod.h"
+#include "Surelog/Design/DataType.h"
+#include "Surelog/DesignCompile/CompileHelper.h"
+#include "Surelog/DesignCompile/CompilerHarness.h"
+#include "Surelog/Package/Package.h"
+#include "Surelog/SourceCompile/ParserHarness.h"
+#include "Surelog/SourceCompile/PreprocessHarness.h"
+#include "Surelog/Testbench/ClassDefinition.h"
+#include "Surelog/Testbench/FunctionMethod.h"
 
 // UHDM
 #include <uhdm/Serializer.h>

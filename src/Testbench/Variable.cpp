@@ -20,7 +20,7 @@
  *
  * Created on May 26, 2019, 10:42 AM
  */
-#include "Testbench/Variable.h"
+#include "Surelog/Testbench/Variable.h"
 
 namespace SURELOG {
 Variable::~Variable() {}

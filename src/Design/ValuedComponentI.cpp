@@ -20,12 +20,12 @@
  *
  * Created on May 20, 2019, 21:03 PM
  */
-#include "Design/ValuedComponentI.h"
+#include "Surelog/Design/ValuedComponentI.h"
 
 #include <string>
 
-#include "Design/ModuleInstance.h"
-#include "Expression/ExprBuilder.h"
+#include "Surelog/Design/ModuleInstance.h"
+#include "Surelog/Expression/ExprBuilder.h"
 
 using namespace SURELOG;
 

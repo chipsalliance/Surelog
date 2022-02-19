@@ -20,7 +20,7 @@
  *
  * Created on June 05, 2021, 90:03 AM
  */
-#include "DesignCompile/CompilerHarness.h"
+#include "Surelog/DesignCompile/CompilerHarness.h"
 
 #include <memory>
 

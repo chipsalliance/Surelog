@@ -20,17 +20,17 @@
  *
  * Created on March 25, 2018, 10:27 PM
  */
-#include "Design/DesignComponent.h"
+#include "Surelog/Design/DesignComponent.h"
 
 #include <vector>
 
-#include "Design/FileContent.h"
-#include "Design/Function.h"
-#include "Design/Parameter.h"
-#include "Design/Task.h"
-#include "SourceCompile/SymbolTable.h"
-#include "SourceCompile/VObjectTypes.h"
-#include "Testbench/Variable.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/Function.h"
+#include "Surelog/Design/Parameter.h"
+#include "Surelog/Design/Task.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
+#include "Surelog/Testbench/Variable.h"
 
 namespace SURELOG {
 void DesignComponent::addFileContent(const FileContent* fileContent,

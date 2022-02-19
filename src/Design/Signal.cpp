@@ -20,7 +20,7 @@
  *
  * Created on May 6, 2018, 5:32 PM
  */
-#include "Design/Signal.h"
+#include "Surelog/Design/Signal.h"
 
 using namespace SURELOG;
 

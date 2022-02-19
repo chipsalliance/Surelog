@@ -20,7 +20,7 @@
  *
  * Created on January 26, 2017, 9:47 PM
  */
-#include "CommandLine/CommandLineParser.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
 
 #include <limits.h>
 #include <string.h>
@@ -47,9 +47,9 @@
 #include <thread>
 #include <vector>
 
-#include "API/PythonAPI.h"
-#include "Utils/FileUtils.h"
-#include "Utils/StringUtils.h"
+#include "Surelog/API/PythonAPI.h"
+#include "Surelog/Utils/FileUtils.h"
+#include "Surelog/Utils/StringUtils.h"
 #include "antlr4-runtime.h"
 
 namespace SURELOG {

@@ -20,11 +20,11 @@
  *
  * Created on March 6, 2019, 9:14 PM
  */
-#include "Testbench/TypeDef.h"
+#include "Surelog/Testbench/TypeDef.h"
 
-#include "Design/FileContent.h"
-#include "SourceCompile/SymbolTable.h"
-#include "SourceCompile/VObjectTypes.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 TypeDef::TypeDef(const FileContent* fC, NodeId id, NodeId the_def,

@@ -14,17 +14,17 @@
  limitations under the License.
  */
 
-#include "API/Surelog.h"
+#include "Surelog/API/Surelog.h"
 
-#include "DesignCompile/CompileDesign.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "ErrorReporting/Report.h"
-#include "ErrorReporting/Waiver.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/SymbolTable.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/Report.h"
+#include "Surelog/ErrorReporting/Waiver.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 SURELOG::scompiler* SURELOG::start_compiler(SURELOG::CommandLineParser* clp) {
   Compiler* the_compiler = new SURELOG::Compiler(clp, clp->getErrorContainer(),

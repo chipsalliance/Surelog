@@ -19,8 +19,8 @@
 #include <tuple>
 #include <vector>
 
-#include "DesignCompile/CompileHelper.h"
-#include "DesignCompile/ElaboratorHarness.h"
+#include "Surelog/DesignCompile/CompileHelper.h"
+#include "Surelog/DesignCompile/ElaboratorHarness.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 

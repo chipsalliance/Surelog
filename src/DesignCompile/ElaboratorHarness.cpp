@@ -20,7 +20,7 @@
  *
  * Created on June 08, 2021, 10:03 PM
  */
-#include "DesignCompile/ElaboratorHarness.h"
+#include "Surelog/DesignCompile/ElaboratorHarness.h"
 
 namespace SURELOG {
 

@@ -20,7 +20,7 @@
  *
  * Created on May 2, 2017, 8:14 PM
  */
-#include "SourceCompile/LoopCheck.h"
+#include "Surelog/SourceCompile/LoopCheck.h"
 
 #include <queue>
 

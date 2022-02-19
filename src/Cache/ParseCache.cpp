@@ -20,7 +20,7 @@
  *
  * Created on April 29, 2017, 4:20 PM
  */
-#include "Cache/ParseCache.h"
+#include "Surelog/Cache/ParseCache.h"
 
 #if defined(_MSC_VER)
 #include <direct.h>
@@ -37,19 +37,19 @@
 #include <cstdio>
 #include <ctime>
 
-#include "Cache/Cache.h"
-#include "Cache/parser_generated.h"
-#include "CommandLine/CommandLineParser.h"
-#include "Design/FileContent.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "Package/Precompiled.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/SymbolTable.h"
-#include "Utils/FileUtils.h"
-#include "Utils/StringUtils.h"
+#include "Surelog/Cache/Cache.h"
+#include "Surelog/Cache/parser_generated.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/Package/Precompiled.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/FileUtils.h"
+#include "Surelog/Utils/StringUtils.h"
 #include "flatbuffers/util.h"
 
 namespace SURELOG {
