@@ -59,8 +59,17 @@ void SV3_1aPpTreeShapeListener::enterTop_level_rule(
 
 void SV3_1aPpTreeShapeListener::enterComments(
     SV3_1aPpParser::CommentsContext *ctx) {
-  // if (m_pp->getIncluder ())
-  //  return;
+  if (m_pp->getCompileSourceFile()
+          ->getCommandLineParser()
+          ->reportNonSynthesizable()) {
+    if (ctx->One_line_comment()) {
+      const std::string &text = ctx->One_line_comment()->getText();
+      if (strstr(text.c_str(), "//pragma translate_off")) {
+        m_filterProtectedRegions = true;
+        m_inProtectedRegion = true;
+      }
+    }
+  }
   if (!m_pp->getCompileSourceFile()->getCommandLineParser()->filterComments()) {
     if (m_inActiveBranch &&
         (!(m_filterProtectedRegions && m_inProtectedRegion)) &&
@@ -69,6 +78,22 @@ void SV3_1aPpTreeShapeListener::enterComments(
         m_pp->append(ctx->Block_comment()->getText());
       } else if (ctx->One_line_comment()) {
         m_pp->append(ctx->One_line_comment()->getText());
+      }
+    }
+  }
+  if (m_pp->getCompileSourceFile()
+          ->getCommandLineParser()
+          ->reportNonSynthesizable()) {
+    if (ctx->One_line_comment()) {
+      const std::string &text = ctx->One_line_comment()->getText();
+      if (strstr(text.c_str(), "//pragma translate_on")) {
+        if (!m_pp->getCompileSourceFile()
+                 ->getCommandLineParser()
+                 ->filterProtectedRegions()) {
+          m_filterProtectedRegions = false;
+        }
+        m_inProtectedRegion = false;
+        addLineFiller(ctx);
       }
     }
   }

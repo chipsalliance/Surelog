@@ -406,6 +406,8 @@ bool Compiler::createMultiProcessParser_() {
 
       std::string fileUnit;
       if (m_commandLineParser->fileunit()) fileUnit = " -fileunit ";
+      std::string synth;
+      if (m_commandLineParser->reportNonSynthesizable()) synth = " -synth ";
 
       std::vector<std::string> targets;
       int absoluteIndex = 0;
@@ -425,7 +427,7 @@ bool Compiler::createMultiProcessParser_() {
           svFile = " -sv ";
         }
 
-        std::string batchCmd = fileUnit + sverilog +
+        std::string batchCmd = fileUnit + sverilog + synth +
                                " -parseonly -nostdout -mt 0 -mp 0 -o " +
                                outputPath.string() + " -nobuiltin -l " +
                                FileUtils::basename(targetname).string() +
@@ -460,7 +462,7 @@ bool Compiler::createMultiProcessParser_() {
                                    FileUtils::basename(lastFile).string();
           targets.push_back(targetname);
 
-          std::string batchCmd = fileUnit + sverilog +
+          std::string batchCmd = fileUnit + sverilog + synth +
                                  " -parseonly -nostdout -mt 0 -mp 0 -o " +
                                  outputPath.string() + " -nobuiltin -l " +
                                  FileUtils::basename(targetname).string() +
@@ -547,6 +549,9 @@ bool Compiler::createMultiProcessPreProcessor_() {
       std::string fileUnit = "";
       if (m_commandLineParser->fileunit()) fileUnit = " -fileunit ";
 
+      std::string synth;
+      if (m_commandLineParser->reportNonSynthesizable()) synth = " -synth ";
+
       std::string fileList;
       // +define+
       for (auto id_value : m_commandLineParser->getDefineList()) {
@@ -602,8 +607,8 @@ bool Compiler::createMultiProcessPreProcessor_() {
         fileList += " -I" + fileName.string();
       }
 
-      std::string batchCmd = fileUnit + sverilog + " -writepp -mt 0 -mp 0 -o " +
-                             outputPath.string() +
+      std::string batchCmd = fileUnit + sverilog + synth +
+                             " -writepp -mt 0 -mp 0 -o " + outputPath.string() +
                              " -nobuiltin -noparse -nostdout -cd " +
                              std::string(p) + " -l " + directory.string() +
                              "/preprocessing.log" + " " + fileList;
