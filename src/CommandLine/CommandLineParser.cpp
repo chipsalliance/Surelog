@@ -200,6 +200,7 @@ static const std::initializer_list<std::string_view> helpText = {
     "  -nonote               Filters out NOTE messages",
     "  -nowarning            Filters out WARNING messages",
     "  -synth                Reports non-synthesizable constructs",
+    "                        Honnors //pragma translate_off  ,  //pragma translate_on",
     "  -o <path>             Turns on all compilation stages, produces all",
     "  -builtin <path>       Alternative path to python/ and pkg/ dirs",
     "outputs under that path",

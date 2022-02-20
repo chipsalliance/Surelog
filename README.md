@@ -188,6 +188,7 @@ target_link_libraries(<your project name> surelog)
    -nonote               Filters out NOTE messages
    -nowarning            Filters out WARNING messages
    -synth                Reports non-synthesizable constructs
+                         Honnors //pragma translate_off  ,  //pragma translate_on 
    -o <path>             Turns on all compilation stages, produces all outputs under that path
    -cd <dir>             Internally change directory to <dir>
    -exe <command>        Post execute a system call <command>, passes it the preprocessor file list.
