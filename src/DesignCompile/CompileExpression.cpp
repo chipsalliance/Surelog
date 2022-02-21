@@ -2052,7 +2052,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
   } else if (objtype == uhdmsys_func_call) {
     sys_func_call* scall = (sys_func_call*)result;
     const std::string& name = scall->VpiName();
-    if ((name == "$bits") || (name == "$size")) {
+    if ((name == "$bits") || (name == "$size") || (name == "$high") ||
+        (name == "$low") || (name == "$left") || (name == "$right")) {
       uint64_t bits = 0;
       bool found = false;
       for (auto arg : *scall->Tf_call_args()) {
@@ -4179,6 +4180,12 @@ UHDM::any* CompileHelper::compileExpression(
             result =
                 compileBits(component, fC, List_of_arguments, compileDesign,
                             pexpr, instance, reduce, true, muteErrors);
+          } else if (name == "$high" || name == "$low" || name == "$left" ||
+                     name == "$right") {
+            NodeId List_of_arguments = fC->Sibling(child);
+            result =
+                compileBound(component, fC, List_of_arguments, compileDesign,
+                             pexpr, instance, reduce, muteErrors, name);
           } else if (name == "$clog2") {
             NodeId List_of_arguments = fC->Sibling(child);
             result =
@@ -4805,6 +4812,11 @@ UHDM::any* CompileHelper::compileExpression(
             result =
                 compileClog2(component, fC, List_of_arguments, compileDesign,
                              pexpr, instance, reduce, muteErrors);
+          } else if (name == "high" || name == "low" || name == "left" ||
+                     name == "right") {
+            result =
+                compileBound(component, fC, List_of_arguments, compileDesign,
+                             pexpr, instance, reduce, muteErrors, name);
           } else if (name == "typename") {
             result = compileTypename(component, fC, List_of_arguments,
                                      compileDesign, pexpr, instance, reduce);
@@ -6569,6 +6581,88 @@ UHDM::any* CompileHelper::compileTypename(
   return result;
 }
 
+UHDM::any* CompileHelper::compileBound(
+    DesignComponent* component, const FileContent* fC, NodeId List_of_arguments,
+    CompileDesign* compileDesign, UHDM::any* pexpr, ValuedComponentI* instance,
+    bool reduce, bool muteErrors, const std::string& name) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::any* result = nullptr;
+  NodeId Expression = List_of_arguments;
+  if (fC->Type(Expression) == slList_of_arguments) {
+    Expression = fC->Child(Expression);
+  }
+  expr* operand =
+      (expr*)compileExpression(component, fC, Expression, compileDesign, pexpr,
+                               instance, false, muteErrors);
+  if (operand) {
+    const typespec* ts = operand->Typespec();
+    VectorOfrange* ranges = nullptr;
+    if (ts) {
+      switch (ts->UhdmType()) {
+        case uhdmbit_typespec: {
+          bit_typespec* bts = (bit_typespec*)ts;
+          ranges = bts->Ranges();
+          break;
+        }
+        case uhdmlogic_typespec: {
+          logic_typespec* bts = (logic_typespec*)ts;
+          ranges = bts->Ranges();
+          break;
+        }
+        case uhdmarray_typespec: {
+          array_typespec* bts = (array_typespec*)ts;
+          ranges = bts->Ranges();
+          break;
+        }
+        case uhdmpacked_array_typespec: {
+          packed_array_typespec* bts = (packed_array_typespec*)ts;
+          ranges = bts->Ranges();
+          break;
+        }
+        default:
+          break;
+      }
+    }
+    if (ranges) {
+      range* r = ranges->at(0);
+      expr* lr = (expr*)r->Left_expr();
+      expr* rr = (expr*)r->Right_expr();
+      bool invalidValue = false;
+      lr = reduceExpr(lr, invalidValue, component, compileDesign, instance, "",
+                      0, nullptr, true);
+      int64_t lrv = get_value(invalidValue, lr);
+      rr = reduceExpr(rr, invalidValue, component, compileDesign, instance, "",
+                      0, nullptr, true);
+      int64_t rrv = get_value(invalidValue, rr);
+      if (name == "left") {
+        return lr;
+      } else if (name == "right") {
+        return rr;
+      } else if (name == "high") {
+        if (lrv > rrv) {
+          return lr;
+        } else {
+          return rr;
+        }
+      } else if (name == "low") {
+        if (lrv > rrv) {
+          return rr;
+        } else {
+          return lr;
+        }
+      }
+    }
+  }
+  UHDM::sys_func_call* sys = s.MakeSys_func_call();
+  sys->VpiName("$" + name);
+  VectorOfany* arguments =
+      compileTfCallArguments(component, fC, List_of_arguments, compileDesign,
+                             sys, instance, reduce, muteErrors);
+  sys->Tf_call_args(arguments);
+  result = sys;
+  return result;
+}
+
 UHDM::any* CompileHelper::compileClog2(
     DesignComponent* component, const FileContent* fC, NodeId List_of_arguments,
     CompileDesign* compileDesign, UHDM::any* pexpr, ValuedComponentI* instance,
@@ -6693,7 +6787,12 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       NodeId List_of_arguments = fC->Sibling(nameId);
       result = compileClog2(component, fC, List_of_arguments, compileDesign,
                             pexpr, instance, reduce, muteErrors);
-    } else {
+    } else if (name == "high" || name == "low" || name == "left" ||
+               name == "right") {
+      result = compileBound(component, fC, List_of_arguments, compileDesign,
+                            pexpr, instance, reduce, muteErrors, name);
+    }
+    if (result == nullptr) {
       NodeId List_of_arguments = fC->Sibling(nameId);
       UHDM::sys_func_call* sys = s.MakeSys_func_call();
       sys->VpiName("$" + name);
