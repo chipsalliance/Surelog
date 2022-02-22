@@ -25,37 +25,23 @@
 #define SURELOG_FILECONTENT_H
 #pragma once
 
-#include <filesystem>
-#include <map>
+#include <Surelog/Common/Containers.h>
+#include <Surelog/Design/DesignComponent.h>
+#include <Surelog/Design/VObject.h>
+
+#include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
-#include "Surelog/Design/DesignComponent.h"
-#include "Surelog/Design/DesignElement.h"
-#include "Surelog/Design/TimeInfo.h"
-#include "Surelog/Design/VObject.h"
-#include "Surelog/Design/ValuedComponentI.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
-
 namespace SURELOG {
 
+class ClassDefinition;
+class ErrorContainer;
+class ExprBuilder;
 class Library;
 class ModuleDefinition;
 class Package;
 class Program;
-class ClassDefinition;
-class ExprBuilder;
-class ErrorContainer;
-
-typedef std::map<std::string, ModuleDefinition*> ModuleNameModuleDefinitionMap;
-typedef std::multimap<std::string, Package*>
-    PackageNamePackageDefinitionMultiMap;
-typedef std::vector<Package*> PackageDefinitionVec;
-typedef std::map<std::string, Program*> ProgramNameProgramDefinitionMap;
-
-typedef std::multimap<std::string, ClassDefinition*>
-    ClassNameClassDefinitionMultiMap;
-typedef std::map<std::string, ClassDefinition*> ClassNameClassDefinitionMap;
 
 class FileContent : public DesignComponent {
   SURELOG_IMPLEMENT_RTTI(FileContent, DesignComponent)
@@ -116,18 +102,14 @@ class FileContent : public DesignComponent {
   unsigned int getSize() const override;
   VObjectType getType() const override { return VObjectType::slNoType; }
   bool isInstance() const override { return false; }
-  const std::string& getName() const override {
-    return m_symbolTable->getSymbol(m_fileId);
-  }
+  const std::string& getName() const override;
   NodeId getRootNode();
   std::string printObjects() const;              // The whole file content
   std::string printSubTree(NodeId parentIndex);  // Print subtree from parent
   std::string printObject(NodeId noedId) const;  // Only print that object
   std::vector<std::string> collectSubTree(NodeId uniqueId);  // Helper function
   const std::filesystem::path getFileName(NodeId id) const;
-  std::filesystem::path getChunkFileName() {
-    return m_symbolTable->getSymbol(m_fileChunkId);
-  }
+  std::filesystem::path getChunkFileName() const;
   SymbolTable* getSymbolTable() { return m_symbolTable; }
   void setSymbolTable(SymbolTable* table) { m_symbolTable = table; }
   SymbolId getFileId(NodeId id) const;
@@ -171,9 +153,7 @@ class FileContent : public DesignComponent {
 
   unsigned short EndColumn(NodeId index) const;
 
-  const std::string& SymName(NodeId index) const {
-    return m_symbolTable->getSymbol(Name(index));
-  }
+  const std::string& SymName(NodeId index) const;
 
   const ModuleNameModuleDefinitionMap& getModuleDefinitions() const {
     return m_moduleDefinitions;
@@ -215,9 +195,7 @@ class FileContent : public DesignComponent {
   const FileContent* getParent() const { return m_parentFile; }
   void setParent(FileContent* parent) { m_parentFile = parent; }
 
-  std::filesystem::path getFileName() const {
-    return m_symbolTable->getSymbol(m_fileId);
-  }
+  std::filesystem::path getFileName() const;
 
   bool diffTree(NodeId id, const FileContent* oFc, NodeId oId,
                 std::string* diff_out) const;

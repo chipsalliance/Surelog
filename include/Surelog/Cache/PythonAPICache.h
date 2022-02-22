@@ -25,13 +25,15 @@
 #define SURELOG_PYTHONAPICACHE_H
 #pragma once
 
-#include "Surelog/Cache/Cache.h"
-#include "Surelog/Cache/python_api_generated.h"
-#include "Surelog/SourceCompile/PythonListen.h"
+#include <Surelog/Cache/Cache.h>
+
+#include <filesystem>
 
 namespace SURELOG {
 
-class PythonAPICache : Cache {
+class PythonListen;
+
+class PythonAPICache final : Cache {
  public:
   PythonAPICache(PythonListen* listener);
 

@@ -25,26 +25,31 @@
 #define SURELOG_COMPILEHELPER_H
 #pragma once
 
-#include <string>
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/ValuedComponentI.h>
+#include <Surelog/Expression/ExprBuilder.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
 
-#include "Surelog/Design/DataType.h"
-#include "Surelog/Design/DesignComponent.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Design/TfPortItem.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/Expression/ExprBuilder.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
+#include <string>
 
 // UHDM
 #include <uhdm/containers.h>
 
 namespace SURELOG {
+
+class CompileDesign;
+class DataType;
+class Design;
+class DesignComponent;
+class ErrorContainer;
+class FileContent;
+class Function;
+class Procedure;
 class Scope;
 class Statement;
-class Design;
-class CompileDesign;
+class SymbolTable;
 class Task;
+class TfPortItem;
 typedef std::vector<TfPortItem*> TfPortList;
 
 class FScope : public ValuedComponentI {

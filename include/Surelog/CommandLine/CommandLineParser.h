@@ -25,15 +25,18 @@
 #define SURELOG_COMMANDLINEPARSER_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
+
 #include <filesystem>
 #include <map>
+#include <set>
 #include <string>
 #include <vector>
 
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-
 namespace SURELOG {
+
+class ErrorContainer;
+class SymbolTable;
 
 class CommandLineParser final {
  public:

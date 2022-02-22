@@ -25,17 +25,20 @@
 #define SURELOG_DATATYPE_H
 #pragma once
 
-#include <string_view>
+#include <Surelog/Common/RTTI.h>
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
 
-#include "Surelog/Common/RTTI.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
+#include <string>
+#include <string_view>
 
 namespace UHDM {
 class typespec;
 };
 
 namespace SURELOG {
+
+class DataType;
 class FileContent;
 class Value;
 
@@ -65,7 +68,7 @@ class DataType : public RTTI {
         m_type(type),
         m_is_parameter(isParameter) {}
 
-  void init(const FileContent* fC, NodeId id, std::string name,
+  void init(const FileContent* fC, NodeId id, std::string_view name,
             VObjectType type, bool isParameter = false) {
     m_fileContent = fC;
     m_id = id;

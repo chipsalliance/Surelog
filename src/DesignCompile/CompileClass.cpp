@@ -20,31 +20,28 @@
  *
  * Created on June 7, 2018, 10:26 PM
  */
-#include "Surelog/DesignCompile/CompileClass.h"
 
-#include <string.h>
-
-#include <filesystem>
-#include <stack>
-#include <string>
-#include <vector>
-
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Design/VObject.h"
-#include "Surelog/DesignCompile/CompileDesign.h"
-#include "Surelog/ErrorReporting/Error.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/ErrorReporting/Location.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
-#include "Surelog/Testbench/ClassDefinition.h"
-#include "Surelog/Utils/StringUtils.h"
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/DesignCompile/CompileClass.h>
+#include <Surelog/DesignCompile/CompileDesign.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Testbench/ClassDefinition.h>
+#include <Surelog/Testbench/Constraint.h>
+#include <Surelog/Testbench/CoverGroupDefinition.h>
+#include <Surelog/Testbench/FunctionMethod.h>
+#include <Surelog/Testbench/Property.h>
+#include <Surelog/Utils/StringUtils.h>
 
 // UHDM
-#include <uhdm/uhdm.h>
+#include <uhdm/class_defn.h>
 
-using namespace SURELOG;
+#include <stack>
+
+namespace SURELOG {
+
 namespace fs = std::filesystem;
 
 int FunctorCompileClass::operator()() const {
@@ -905,3 +902,5 @@ bool CompileClass::compile_class_parameters_(const FileContent* fC, NodeId id) {
   }
   return true;
 }
+
+}  // namespace SURELOG

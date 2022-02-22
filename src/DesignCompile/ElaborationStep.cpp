@@ -20,47 +20,43 @@
  *
  * Created on July 12, 2017, 8:55 PM
  */
-#include "Surelog/DesignCompile/ElaborationStep.h"
 
-#include <string.h>
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Design/DataType.h>
+#include <Surelog/Design/DummyType.h>
+#include <Surelog/Design/Enum.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/Function.h>
+#include <Surelog/Design/ModuleDefinition.h>
+#include <Surelog/Design/ModuleInstance.h>
+#include <Surelog/Design/Netlist.h>
+#include <Surelog/Design/Parameter.h>
+#include <Surelog/Design/SimpleType.h>
+#include <Surelog/Design/Struct.h>
+#include <Surelog/Design/TfPortItem.h>
+#include <Surelog/Design/Union.h>
+#include <Surelog/DesignCompile/CompileDesign.h>
+#include <Surelog/DesignCompile/ElaborationStep.h>
+#include <Surelog/Library/Library.h>
+#include <Surelog/Package/Package.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Testbench/ClassDefinition.h>
+#include <Surelog/Testbench/Program.h>
+#include <Surelog/Testbench/Property.h>
+#include <Surelog/Testbench/TypeDef.h>
+#include <Surelog/Utils/StringUtils.h>
 
-#include <filesystem>
-#include <map>
-#include <string>
-#include <vector>
-
-#include "Surelog/Design/DummyType.h"
-#include "Surelog/Design/Enum.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Design/Netlist.h"
-#include "Surelog/Design/SimpleType.h"
-#include "Surelog/Design/Struct.h"
-#include "Surelog/Design/Union.h"
-#include "Surelog/Design/VObject.h"
-#include "Surelog/DesignCompile/CompileDesign.h"
-#include "Surelog/ErrorReporting/Error.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/ErrorReporting/ErrorDefinition.h"
-#include "Surelog/ErrorReporting/Location.h"
-#include "Surelog/Library/Library.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
-#include "Surelog/Testbench/ClassDefinition.h"
-#include "Surelog/Utils/StringUtils.h"
+#include <cstring>
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/ExprEval.h>
-#include <uhdm/Serializer.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
 
 namespace SURELOG {
+
 namespace fs = std::filesystem;
 using namespace UHDM;  // NOLINT (using a bunch of these)
 
@@ -564,8 +560,7 @@ const DataType* ElaborationStep::bindDataType_(
     }
   }
   if (found == false) {
-    const char* sname = type_name.c_str();
-    if (strstr(sname, "::")) {
+    if (type_name.find("::") != std::string::npos) {
       std::vector<std::string> args;
       StringUtils::tokenizeMulti(type_name, "::", args);
       std::string classOrPackageName = args[0];
@@ -1009,11 +1004,11 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
       }
       std::string baseName = interfName;
       std::string modPort;
-      if (strstr(interfName.c_str(), ".")) {
+      if (interfName.find('.') != std::string::npos) {
         modPort = interfName;
         StringUtils::ltrim(modPort, '.');
         StringUtils::rtrim(baseName, '.');
-      } else if (strstr(interfName.c_str(), "::")) {
+      } else if (interfName.find("::") != std::string::npos) {
         std::vector<std::string> result;
         StringUtils::tokenizeMulti(interfName, "::", result);
         if (result.size() > 1) {

@@ -25,11 +25,13 @@
 #define SURELOG_COMPILATIONUNIT_H
 #pragma once
 
-#include "Surelog/Design/TimeInfo.h"
-#include "Surelog/SourceCompile/MacroInfo.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Common/Containers.h>
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/TimeInfo.h>
 
 namespace SURELOG {
+
+class MacroInfo;
 
 class CompilationUnit {
  public:
@@ -45,7 +47,7 @@ class CompilationUnit {
   void registerMacroInfo(const std::string& macroName, MacroInfo* macro);
   MacroInfo* getMacroInfo(const std::string& macroName);
 
-  const MacroStorageRef& getMacros() { return m_macros; }
+  const MacroStorageRef& getMacros() const { return m_macros; }
   void deleteMacro(const std::string& macroName);
   void deleteAllMacros() { m_macros.clear(); }
 

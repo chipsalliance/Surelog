@@ -25,9 +25,16 @@
 #define SURELOG_COMPILEMODULE_H
 #pragma once
 
-#include "Surelog/DesignCompile/CompileHelper.h"
+#include <Surelog/DesignCompile/CompileHelper.h>
 
 namespace SURELOG {
+
+class CompileDesign;
+class Design;
+class ErrorContainer;
+class ModuleDefinition;
+class SymbolTable;
+class ValuedComponentI;
 
 struct FunctorCompileModule {
   FunctorCompileModule(CompileDesign* compiler, ModuleDefinition* module,
@@ -43,12 +50,12 @@ struct FunctorCompileModule {
   int operator()() const;
 
  private:
-  CompileDesign* m_compileDesign;
-  ModuleDefinition* m_module;
-  Design* m_design;
-  SymbolTable* m_symbols;
-  ErrorContainer* m_errors;
-  ValuedComponentI* m_instance;
+  CompileDesign* const m_compileDesign;
+  ModuleDefinition* const m_module;
+  Design* const m_design;
+  SymbolTable* const m_symbols;
+  ErrorContainer* const m_errors;
+  ValuedComponentI* const m_instance;
 };
 
 class CompileModule final {

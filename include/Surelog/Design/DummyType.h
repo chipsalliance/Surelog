@@ -25,10 +25,11 @@
 #define SURELOG_DUMMY_TYPE_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/DataType.h>
+
 #include <map>
 #include <string>
-
-#include "Surelog/Design/DataType.h"
 
 namespace SURELOG {
 

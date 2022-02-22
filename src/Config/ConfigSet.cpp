@@ -20,13 +20,14 @@
  *
  * Created on February 10, 2018, 11:14 PM
  */
-#include "Surelog/Config/ConfigSet.h"
 
-using namespace SURELOG;
+#include <Surelog/Config/ConfigSet.h>
 
+namespace SURELOG {
 Config* ConfigSet::getMutableConfigByName(std::string_view configName) {
   for (auto& config : m_configs) {
     if (config.getName() == configName) return &config;
   }
   return nullptr;
 }
+}  // namespace SURELOG

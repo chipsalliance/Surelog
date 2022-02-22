@@ -20,13 +20,11 @@
  *
  * Created on June 14, 2018, 10:07 PM
  */
-#include "Surelog/Design/DataType.h"
 
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Expression/Value.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Design/DataType.h>
+#include <Surelog/Expression/Value.h>
 
-using namespace SURELOG;
+namespace SURELOG {
 
 const DataType* DataType::getActual() const {
   const DataType* actual = this;
@@ -121,3 +119,4 @@ bool DataType::isCompatible(const Value* value) const {
   }
   return result;
 }
+}  // namespace SURELOG

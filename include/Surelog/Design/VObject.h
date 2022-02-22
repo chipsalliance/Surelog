@@ -25,10 +25,14 @@
 #define SURELOG_VOBJECT_H
 #pragma once
 
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
+
+#include <string>
 
 namespace SURELOG {
+
+class SymbolTable;
 
 class VObject final {
  public:

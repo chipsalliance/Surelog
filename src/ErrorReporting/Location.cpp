@@ -20,11 +20,10 @@
  *
  * Created on March 6, 2017, 6:48 PM
  */
-#include "Surelog/ErrorReporting/Location.h"
 
-using namespace SURELOG;
+#include <Surelog/ErrorReporting/Location.h>
 
-Location::~Location() {}
+namespace SURELOG {
 
 bool Location::operator==(const Location& rhs) const {
   if (m_fileId != rhs.m_fileId) return false;
@@ -41,3 +40,5 @@ bool Location::operator<(const Location& rhs) const {
   if (m_object < rhs.m_object) return true;
   return false;
 }
+
+}  // namespace SURELOG

@@ -28,25 +28,22 @@
 #include <string>
 #include <vector>
 
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-
-#ifdef SURELOG_WITH_PYTHON
-#include "Python.h"
-#else
-#define PyThreadState void
-#endif
+struct _ts;
+typedef struct _ts PyThreadState;
 
 namespace SURELOG {
 
-class SV3_1aPythonListener;
-class FileContent;
 class Design;
+class ErrorContainer;
+class FileContent;
+class SV3_1aPythonListener;
 struct parser_rule_context;
 
 class PythonAPI {
  public:
-  PythonAPI();
-  virtual ~PythonAPI();
+  PythonAPI() = default;
+  virtual ~PythonAPI() = default;
+
   /* Main interpreter (in main thread) */
   static void init(int argc, const char** argv);
   static void shutdown();
@@ -57,8 +54,9 @@ class PythonAPI {
 
   static void loadScripts();
   static bool loadScript(std::string name, bool check = false);
-  static std::string evalScript(std::string module, std::string function,
-                                std::vector<std::string> args,
+  static std::string evalScript(const std::string& module,
+                                const std::string& function,
+                                const std::vector<std::string>& args,
                                 PyThreadState* interp);
   static void evalScript(std::string function, SV3_1aPythonListener* listener,
                          parser_rule_context* ctx);

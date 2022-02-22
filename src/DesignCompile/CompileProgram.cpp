@@ -20,32 +20,23 @@
  *
  * Created on June 6, 2018, 10:43 PM
  */
-#include "Surelog/DesignCompile/CompileProgram.h"
 
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/Design/ClockingBlock.h"
-#include "Surelog/Design/Signal.h"
-#include "Surelog/Design/VObject.h"
-#include "Surelog/DesignCompile/CompileDesign.h"
-#include "Surelog/DesignCompile/CompileHelper.h"
-#include "Surelog/ErrorReporting/Error.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/ErrorReporting/ErrorDefinition.h"
-#include "Surelog/ErrorReporting/Location.h"
-#include "Surelog/Library/Library.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
-#include "Surelog/Testbench/ClassDefinition.h"
-#include "Surelog/Utils/StringUtils.h"
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/DesignCompile/CompileDesign.h>
+#include <Surelog/DesignCompile/CompileProgram.h>
+#include <Surelog/ErrorReporting/Error.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/ErrorReporting/ErrorDefinition.h>
+#include <Surelog/ErrorReporting/Location.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Testbench/Program.h>
+#include <Surelog/Utils/StringUtils.h>
 
-using namespace SURELOG;
+#include <stack>
 
-CompileProgram::~CompileProgram() {}
+namespace SURELOG {
 
 int FunctorCompileProgram::operator()() const {
   CompileProgram* instance = new CompileProgram(m_compileDesign, m_program,
@@ -354,3 +345,5 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
   }
   return true;
 }
+
+}  // namespace SURELOG

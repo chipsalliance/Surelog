@@ -25,19 +25,22 @@
 #define SURELOG_LIBRARYSET_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
+
 #include <string_view>
 #include <vector>
 
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/Library/Library.h"
-
 namespace SURELOG {
+
+class ErrorContainer;
+class Library;
+class SymbolTable;
 
 class LibrarySet final {
  public:
-  LibrarySet();
+  LibrarySet() = default;
 
-  void addLibrary(const Library& lib) { m_libraries.push_back(lib); }
+  void addLibrary(const Library& lib);
   std::vector<Library>& getLibraries() { return m_libraries; }
   Library* getLibrary(std::string_view libName);
   Library* getLibrary(SymbolId fileId);

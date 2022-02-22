@@ -25,17 +25,24 @@
 #define SURELOG_ANTLRPARSERHANDLER_H
 #pragma once
 
-#include "antlr4-runtime.h"
-#include "parser/SV3_1aLexer.h"
-#include "parser/SV3_1aParser.h"
+namespace antlr4 {
+class ANTLRInputStream;
+class CommonTokenStream;
+
+namespace tree {
+class ParseTree;
+}
+}  // namespace antlr4
 
 namespace SURELOG {
 
 class AntlrParserErrorListener;
+class SV3_1aLexer;
+class SV3_1aParser;
 
 class AntlrParserHandler {
  public:
-  AntlrParserHandler() {}
+  AntlrParserHandler() = default;
   ~AntlrParserHandler();
 
   antlr4::ANTLRInputStream* m_inputStream = nullptr;

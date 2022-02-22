@@ -21,18 +21,20 @@
  * Created on Mar 1, 2020, 6:36 PM
  */
 
-#ifndef SURELOG_NETLIST_ELABORATION_H
-#define SURELOG_NETLIST_ELABORATION_H
+#ifndef SURELOG_NETLISTELABORATION_H
+#define SURELOG_NETLISTELABORATION_H
 #pragma once
 
-#include "Surelog/Design/Netlist.h"
-#include "Surelog/DesignCompile/ElaborationStep.h"
-#include "Surelog/Expression/ExprBuilder.h"
-#include "TestbenchElaboration.h"
+#include <Surelog/DesignCompile/TestbenchElaboration.h>
 
 namespace SURELOG {
 
 class CompileDesign;
+class DesignComponent;
+class ModuleDefinition;
+class ModuleInstance;
+class Netlist;
+class Signal;
 
 class NetlistElaboration : public TestbenchElaboration {
  public:

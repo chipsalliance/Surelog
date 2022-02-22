@@ -25,8 +25,7 @@
 #define SURELOG_PACKAGEANDROOTELABORATION_H
 #pragma once
 
-#include "Surelog/DesignCompile/CompileDesign.h"
-#include "Surelog/DesignCompile/ElaborationStep.h"
+#include <Surelog/DesignCompile/ElaborationStep.h>
 
 namespace SURELOG {
 
@@ -35,7 +34,7 @@ class PackageAndRootElaboration : public ElaborationStep {
   PackageAndRootElaboration(CompileDesign* compileDesign)
       : ElaborationStep(compileDesign) {}
 
-  ~PackageAndRootElaboration() override;
+  ~PackageAndRootElaboration() override = default;
 
   bool elaborate() override;
 

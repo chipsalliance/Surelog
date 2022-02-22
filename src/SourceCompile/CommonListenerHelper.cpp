@@ -14,8 +14,6 @@
  limitations under the License.
  */
 
-#include "Surelog/SourceCompile/CommonListenerHelper.h"
-
 /*
  * File:   CommonListenerHelper.cpp
  * Author: alain
@@ -23,15 +21,14 @@
  * Created on December 5, 2019, 9:13 PM
  */
 
-#include <cstdlib>
-#include <iostream>
+#include <Surelog/Design/DesignElement.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/SourceCompile/CommonListenerHelper.h>
+#include <antlr4-runtime.h>
 
-#include "Surelog/Utils/ParseUtils.h"
-#include "antlr4-runtime.h"
+namespace SURELOG {
 
-using namespace std;
 using namespace antlr4;
-using namespace SURELOG;
 
 CommonListenerHelper::~CommonListenerHelper() {
   // TODO: ownership not clear
@@ -152,3 +149,5 @@ NodeId CommonListenerHelper::getObjectId(ParserRuleContext* ctx) {
     return (*itr).second;
   }
 }
+
+}  // namespace SURELOG

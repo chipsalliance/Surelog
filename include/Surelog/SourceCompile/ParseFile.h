@@ -25,23 +25,25 @@
 #define SURELOG_PARSEFILE_H
 #pragma once
 
-#include <string>
+#include <Surelog/ErrorReporting/Error.h>
 
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/ErrorReporting/Error.h"
-#include "Surelog/SourceCompile/AntlrParserHandler.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "parser/SV3_1aLexer.h"
-#include "parser/SV3_1aParser.h"
+#include <filesystem>
+#include <string>
 
 namespace SURELOG {
 
-class SV3_1aTreeShapeListener;
-class SV3_1aPythonListener;
 class AntlrParserErrorListener;
+class AntlrParserHandler;
 class CompileSourceFile;
+class CompilationUnit;
+class ErrorContainer;
+class FileContent;
+class Library;
+class SV3_1aPythonListener;
+class SV3_1aTreeShapeListener;
+class SymbolTable;
 
-class ParseFile {
+class ParseFile final {
  public:
   friend class PythonListen;
 
@@ -65,16 +67,18 @@ class ParseFile {
 
   virtual ~ParseFile();
   bool needToParse();
-  CompileSourceFile* getCompileSourceFile() { return m_compileSourceFile; }
-  CompilationUnit* getCompilationUnit() { return m_compilationUnit; }
-  Library* getLibrary() { return m_library; }
-  const std::filesystem::path getFileName(unsigned int line);
-  const std::filesystem::path getPpFileName() { return getSymbol(m_ppFileId); }
+  CompileSourceFile* getCompileSourceFile() const {
+    return m_compileSourceFile;
+  }
+  CompilationUnit* getCompilationUnit() const { return m_compilationUnit; }
+  Library* getLibrary() const { return m_library; }
+  std::filesystem::path getFileName(unsigned int line);
+  std::filesystem::path getPpFileName() const { return getSymbol(m_ppFileId); }
   SymbolTable* getSymbolTable();
   ErrorContainer* getErrorContainer();
   SymbolId getFileId(unsigned int line);
-  SymbolId getRawFileId() { return m_fileId; }
-  SymbolId getPpFileId() { return m_ppFileId; }
+  SymbolId getRawFileId() const { return m_fileId; }
+  SymbolId getPpFileId() const { return m_ppFileId; }
   unsigned int getLineNb(unsigned int line);
 
   class LineTranslationInfo {
@@ -89,7 +93,9 @@ class ParseFile {
     unsigned int m_pretendLine;
   };
 
-  AntlrParserHandler* getAntlrParserHandler() { return m_antlrParserHandler; }
+  AntlrParserHandler* getAntlrParserHandler() const {
+    return m_antlrParserHandler;
+  }
 
   void addLineTranslationInfo(LineTranslationInfo& info) {
     m_lineTranslationVec.push_back(info);
@@ -98,7 +104,7 @@ class ParseFile {
   void addError(Error& error);
   SymbolId registerSymbol(const std::string symbol);
   SymbolId getId(const std::string symbol);
-  const std::string getSymbol(SymbolId id);
+  std::string getSymbol(SymbolId id) const;
   bool usingCachedVersion() { return m_usingCachedVersion; }
   FileContent* getFileContent() { return m_fileContent; }
   void setFileContent(FileContent* content) { m_fileContent = content; }

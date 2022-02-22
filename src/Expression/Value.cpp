@@ -20,21 +20,16 @@
  *
  * Created on October 29, 2017, 10:33 PM
  */
-#include "Surelog/Expression/Value.h"
 
-#include <math.h>
+#include <Surelog/Expression/Value.h>
+#include <Surelog/Utils/StringUtils.h>
 
 #include <cmath>
-#include <cstdint>
-#include <cstring>
-#include <string>
 
 // UHDM
 #include <uhdm/vpi_user.h>
 
-#include "Surelog/Utils/StringUtils.h"
-
-using namespace SURELOG;
+namespace SURELOG {
 
 unsigned int Value::nbWords_(unsigned int size) {
   uint64_t nb = size / 64;
@@ -627,22 +622,22 @@ void SValue::power(const Value* a, const Value* b) {
   switch (aval->getType()) {
     case Value::Type::Scalar:
       m_negative = 0;
-      m_value.u_int = pow(aval->m_value.u_int, bval->m_value.u_int);
+      m_value.u_int = std::pow(aval->m_value.u_int, bval->m_value.u_int);
       m_type = Value::Type::Unsigned;
       break;
     case Value::Type::Double:
-      m_negative = pow(aval->m_value.d_int, bval->m_value.d_int) < 0;
-      m_value.d_int = pow(aval->m_value.d_int, bval->m_value.d_int);
+      m_negative = std::pow(aval->m_value.d_int, bval->m_value.d_int) < 0;
+      m_value.d_int = std::pow(aval->m_value.d_int, bval->m_value.d_int);
       m_type = Value::Type::Double;
       break;
     case Value::Type::Integer:
-      m_negative = pow(aval->m_value.s_int, bval->m_value.s_int) < 0;
-      m_value.s_int = pow(aval->m_value.s_int, bval->m_value.s_int);
+      m_negative = std::pow(aval->m_value.s_int, bval->m_value.s_int) < 0;
+      m_value.s_int = std::pow(aval->m_value.s_int, bval->m_value.s_int);
       m_type = Value::Type::Integer;
       break;
     default:
       m_negative = 0;
-      m_value.u_int = pow(aval->m_value.u_int, bval->m_value.u_int);
+      m_value.u_int = std::pow(aval->m_value.u_int, bval->m_value.u_int);
       m_type = Value::Type::Unsigned;
       break;
   }
@@ -1890,3 +1885,5 @@ int StValue::vpiValType() {
   }
   return 0;
 }
+
+}  // namespace SURELOG

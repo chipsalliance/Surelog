@@ -25,14 +25,12 @@
 #define SURELOG_NUMUTILS_H
 #pragma once
 
-#include <map>
+#include <cstdint>
 #include <string>
-#include <string_view>
-#include <vector>
 
 namespace SURELOG {
 
-class NumUtils {
+class NumUtils final {
  public:
   static std::string hexToBin(const std::string &s);
 

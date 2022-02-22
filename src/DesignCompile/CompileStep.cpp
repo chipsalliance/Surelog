@@ -21,12 +21,4 @@
  * Created on July 5, 2017, 10:44 PM
  */
 
-#include "Surelog/DesignCompile/CompileStep.h"
-
-using namespace SURELOG;
-
-CompileStep::CompileStep() {}
-
-CompileStep::CompileStep(const CompileStep& orig) {}
-
-CompileStep::~CompileStep() {}
+#include <Surelog/DesignCompile/CompileStep.h>

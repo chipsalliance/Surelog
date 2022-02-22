@@ -20,42 +20,26 @@
  *
  * Created on May 14, 2019, 8:03 PM
  */
-#include <bitset>
-#include <iostream>
 
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/Design/Design.h"
-#include "Surelog/Design/Enum.h"
-#include "Surelog/Design/Function.h"
-#include "Surelog/Design/ParamAssign.h"
-#include "Surelog/Design/Parameter.h"
-#include "Surelog/Design/SimpleType.h"
-#include "Surelog/Design/Struct.h"
-#include "Surelog/Design/Union.h"
-#include "Surelog/DesignCompile/CompileDesign.h"
-#include "Surelog/DesignCompile/CompileHelper.h"
-#include "Surelog/DesignCompile/UhdmWriter.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/Expression/ExprBuilder.h"
-#include "Surelog/Expression/Value.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/Testbench/Property.h"
-#include "Surelog/Testbench/TypeDef.h"
-#include "Surelog/Utils/FileUtils.h"
-#include "Surelog/Utils/NumUtils.h"
-#include "Surelog/Utils/StringUtils.h"
+#include <Surelog/Design/DesignComponent.h>
+#include <Surelog/Design/ParamAssign.h>
+#include <Surelog/DesignCompile/CompileDesign.h>
+#include <Surelog/DesignCompile/CompileHelper.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/FileUtils.h>
+#include <Surelog/Utils/StringUtils.h>
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/clone_tree.h>
-#include <uhdm/expr.h>
 #include <uhdm/uhdm.h>
 
+#include <bitset>
+#include <iostream>
+
 namespace SURELOG {
+
 namespace fs = std::filesystem;
 using namespace UHDM;  // NOLINT (using a bunch of them)
 

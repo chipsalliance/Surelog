@@ -20,28 +20,20 @@
  *
  * Created on June 10, 2017, 10:15 PM
  */
-#include "Surelog/SourceCompile/CheckCompile.h"
+
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Design/Design.h>
+#include <Surelog/Design/DesignElement.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/SourceCompile/CheckCompile.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
 
 #include <iostream>
 #include <set>
 
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/Design/DesignElement.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Design/TimeInfo.h"
-#include "Surelog/ErrorReporting/Error.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/ErrorReporting/ErrorDefinition.h"
-#include "Surelog/ErrorReporting/Location.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-
 namespace SURELOG {
-CheckCompile::~CheckCompile() {}
 
 bool CheckCompile::check() {
   if (!checkSyntaxErrors_()) return false;

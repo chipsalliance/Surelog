@@ -25,18 +25,19 @@
 #define SURELOG_ENUM_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/DataType.h>
+
+// UHDM
+#include <uhdm/uhdm_forward_decl.h>
+
 #include <map>
 #include <string>
 
-#include "Surelog/Design/DataType.h"
-
-namespace UHDM {
-class typespec;
-};
 namespace SURELOG {
 
-class Value;
 class FileContent;
+class Value;
 
 class Enum : public DataType {
   SURELOG_IMPLEMENT_RTTI(Enum, DataType)

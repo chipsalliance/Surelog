@@ -20,8 +20,10 @@
  *
  * Created on March 16, 2017, 11:02 PM
  */
-#include "Surelog/Utils/FileUtils.h"
 
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/FileUtils.h>
+#include <Surelog/Utils/StringUtils.h>
 #include <errno.h>
 #include <limits.h> /* PATH_MAX */
 #include <stdio.h>
@@ -36,10 +38,8 @@
 #include <sstream>
 #include <string>
 
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Utils/StringUtils.h"
-
 namespace SURELOG {
+
 namespace fs = std::filesystem;
 
 bool FileUtils::fileExists(const fs::path& name) {

@@ -20,37 +20,29 @@
  *
  * Created on February 20, 2017, 9:54 PM
  */
-#include "Surelog/SourceCompile/CompileSourceFile.h"
 
-#include <string.h>
-#include <sys/stat.h>
-#include <sys/types.h>
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/Library/Library.h>
+#include <Surelog/Package/Precompiled.h>
+#include <Surelog/SourceCompile/CompileSourceFile.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/ParseFile.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/FileUtils.h>
 
-#include <cstdlib>
-#include <filesystem>
+#ifdef SURELOG_WITH_PYTHON
+#include <Python.h>
+#include <Surelog/API/PythonAPI.h>
+#include <Surelog/SourceCompile/PythonListen.h>
+#endif
+
 #include <fstream>
 #include <iostream>
 
-#include "Surelog/API/PythonAPI.h"
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/Package/Precompiled.h"
-#include "Surelog/SourceCompile/AntlrParserHandler.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/PythonListen.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Utils/FileUtils.h"
-#include "Surelog/Utils/StringUtils.h"
-#include "antlr4-runtime.h"
-#include "parser/SV3_1aLexer.h"
-#include "parser/SV3_1aParser.h"
+namespace SURELOG {
 
 using namespace antlr4;
-
-namespace SURELOG {
 namespace fs = std::filesystem;
 
 CompileSourceFile::CompileSourceFile(SymbolId fileId, CommandLineParser* clp,
@@ -243,7 +235,7 @@ bool CompileSourceFile::preprocess_() {
   }
 
   if (m_commandLineParser->getDebugIncludeFileInfo())
-    std::cout << m_pp->reportIncludeInfo();
+    std::cerr << m_pp->reportIncludeInfo();
 
   if ((!m_commandLineParser->createCache()) && prec->isFilePrecompiled(root))
     return true;

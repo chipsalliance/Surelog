@@ -25,16 +25,16 @@
 #define SURELOG_UHDMCHECKER_H
 #pragma once
 
+#include <filesystem>
 #include <map>
 #include <set>
-#include <string>
 #include <vector>
 
-#include "Surelog/Design/Design.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/DesignCompile/CompileDesign.h"
-
 namespace SURELOG {
+
+class CompileDesign;
+class Design;
+class FileContent;
 
 class UhdmChecker final {
  public:

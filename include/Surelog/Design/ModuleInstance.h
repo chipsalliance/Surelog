@@ -25,21 +25,27 @@
 #define SURELOG_MODULEINSTANCE_H
 #pragma once
 
-#include "Surelog/Design/ModuleDefinition.h"
-#include "Surelog/Design/Netlist.h"
-#include "Surelog/Design/ValuedComponentI.h"
-#include "Surelog/Expression/ExprBuilder.h"
-#include "Surelog/Expression/Value.h"
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/ValuedComponentI.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
 
 namespace SURELOG {
+
+class DesignComponent;
+class FileContent;
+class ModuleInstance;
+class Netlist;
+class Parameter;
+class SymbolTable;
 
 class ModuleInstance : public ValuedComponentI {
   SURELOG_IMPLEMENT_RTTI(ModuleInstance, ValuedComponentI)
  public:
   ModuleInstance(DesignComponent* definition, const FileContent* fileContent,
-                 NodeId nodeId, ModuleInstance* parent, std::string instName,
-                 std::string moduleName);
+                 NodeId nodeId, ModuleInstance* parent,
+                 const std::string& instName, const std::string& moduleName);
   ~ModuleInstance() override;
+
   void addSubInstance(ModuleInstance* subInstance);
   std::vector<ModuleInstance*>& getAllSubInstances() {
     return m_allSubInstances;
@@ -58,10 +64,8 @@ class ModuleInstance : public ValuedComponentI {
   }
   ModuleInstance* getParent() const { return m_parent; }
   const FileContent* getFileContent() const { return m_fileContent; }
-  SymbolId getFileId() const { return m_fileContent->getFileId(m_nodeId); }
-  std::filesystem::path getFileName() const {
-    return m_fileContent->getFileName(m_nodeId);
-  }
+  SymbolId getFileId() const;
+  std::filesystem::path getFileName() const;
   NodeId getNodeId() const { return m_nodeId; }
   unsigned int getLineNb();
   unsigned short getColumnNb();

@@ -25,14 +25,17 @@
 #define SURELOG_PARSELIBRARYDEF_H
 #pragma once
 
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/Config/ConfigSet.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/Library/LibrarySet.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Common/SymbolId.h>
 
 namespace SURELOG {
+
+class CommandLineParser;
+class ConfigSet;
+class ErrorContainer;
+class FileContent;
+class Library;
+class LibrarySet;
+class SymbolTable;
 
 class ParseLibraryDef final {
  public:
@@ -45,15 +48,17 @@ class ParseLibraryDef final {
   bool parseConfigDefinition();
 
   SymbolId getFileId() const { return m_fileId; }
-  CommandLineParser* getCommandLineParser() { return m_commandLineParser; }
+  CommandLineParser* getCommandLineParser() const {
+    return m_commandLineParser;
+  }
 
-  ErrorContainer* getErrorContainer() { return m_errors; }
+  ErrorContainer* getErrorContainer() const { return m_errors; }
 
-  SymbolTable* getSymbolTable() { return m_symbolTable; }
+  SymbolTable* getSymbolTable() const { return m_symbolTable; }
 
-  LibrarySet* getLibrarySet() { return m_librarySet; }
+  LibrarySet* getLibrarySet() const { return m_librarySet; }
 
-  ConfigSet* getConfigSet() { return m_configSet; }
+  ConfigSet* getConfigSet() const { return m_configSet; }
 
  private:
   ParseLibraryDef(const ParseLibraryDef& orig) = delete;

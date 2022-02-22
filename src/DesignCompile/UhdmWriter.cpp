@@ -20,54 +20,37 @@
  *
  * Created on January 17, 2020, 9:13 PM
  */
-#include "Surelog/DesignCompile/UhdmWriter.h"
 
-#include <string.h>
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Design/DesignElement.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/ModPort.h>
+#include <Surelog/Design/ModuleDefinition.h>
+#include <Surelog/Design/ModuleInstance.h>
+#include <Surelog/Design/Netlist.h>
+#include <Surelog/Design/Parameter.h>
+#include <Surelog/Design/Signal.h>
+#include <Surelog/DesignCompile/CompileDesign.h>
+#include <Surelog/DesignCompile/UhdmChecker.h>
+#include <Surelog/DesignCompile/UhdmWriter.h>
+#include <Surelog/Package/Package.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Testbench/ClassDefinition.h>
+#include <Surelog/Testbench/Program.h>
+#include <Surelog/Testbench/TypeDef.h>
+#include <Surelog/Testbench/Variable.h>
+#include <Surelog/Utils/StringUtils.h>
 
-#include <map>
-
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Design/ModuleInstance.h"
-#include "Surelog/Design/Netlist.h"
-#include "Surelog/Design/SimpleType.h"
-#include "Surelog/Design/Struct.h"
-#include "Surelog/Design/Union.h"
-#include "Surelog/DesignCompile/Builtin.h"
-#include "Surelog/DesignCompile/CompileClass.h"
-#include "Surelog/DesignCompile/CompileFileContent.h"
-#include "Surelog/DesignCompile/CompileModule.h"
-#include "Surelog/DesignCompile/CompilePackage.h"
-#include "Surelog/DesignCompile/CompileProgram.h"
-#include "Surelog/DesignCompile/DesignElaboration.h"
-#include "Surelog/DesignCompile/PackageAndRootElaboration.h"
-#include "Surelog/DesignCompile/ResolveSymbols.h"
-#include "Surelog/DesignCompile/UVMElaboration.h"
-#include "Surelog/DesignCompile/UhdmChecker.h"
-#include "Surelog/ErrorReporting/Error.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/ErrorReporting/ErrorDefinition.h"
-#include "Surelog/ErrorReporting/Location.h"
-#include "Surelog/Library/Library.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Testbench/ClassDefinition.h"
-#include "Surelog/Utils/StringUtils.h"
+#include <cstring>
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
-#include <uhdm/Serializer.h>
 #include <uhdm/SynthSubset.h>
 #include <uhdm/UhdmLint.h>
 #include <uhdm/clone_tree.h>
-#include <uhdm/module.h>
 #include <uhdm/uhdm.h>
 #include <uhdm/vpi_listener.h>
-#include <uhdm/vpi_uhdm.h>
 #include <uhdm/vpi_visitor.h>
 
 namespace SURELOG {
@@ -131,6 +114,13 @@ unsigned int getBuiltinType(VObjectType type) {
     default:
       return 0;
   }
+}
+
+UhdmWriter::UhdmWriter(CompileDesign* compiler, Design* design)
+    : m_compileDesign(compiler), m_design(design) {
+  m_helper.seterrorReporting(
+      m_compileDesign->getCompiler()->getErrorContainer(),
+      m_compileDesign->getCompiler()->getSymbolTable());
 }
 
 unsigned int UhdmWriter::getStrengthType(VObjectType type) {
@@ -573,7 +563,7 @@ void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
     }
     typespec* tps = dtype->getTypespec();
     if (parent->UhdmType() == uhdmpackage) {
-      if (tps && (!strstr(tps->VpiName().c_str(), "::"))) {
+      if (tps && (tps->VpiName().find("::") == std::string::npos)) {
         const std::string newName = parent->VpiName() + "::" + tps->VpiName();
         tps->VpiName(newName);
       }
@@ -1427,7 +1417,7 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
     if (ref->Actual_group()) continue;
     std::string name = ref->VpiName();
     name = StringUtils::trim(name);
-    if (strstr(name.c_str(), "::")) {
+    if (name.find("::") != std::string::npos) {
       continue;
     }
 

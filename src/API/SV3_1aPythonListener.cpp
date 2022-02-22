@@ -20,27 +20,12 @@
  *
  * Created on April 16, 2017, 8:28 PM
  */
-#include "Surelog/API/SV3_1aPythonListener.h"
 
-#include <cstdlib>
-#include <iostream>
-
-#include "Surelog/API/PythonAPI.h"
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/PythonListen.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Utils/FileUtils.h"
-#include "Surelog/Utils/ParseUtils.h"
-#include "antlr4-runtime.h"
-#include "parser/SV3_1aLexer.h"
-#include "parser/SV3_1aParser.h"
-#include "parser/SV3_1aParserBaseListener.h"
+#include <Surelog/API/SV3_1aPythonListener.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/SourceCompile/PythonListen.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/ParseUtils.h>
 
 namespace SURELOG {
 SV3_1aPythonListener::SV3_1aPythonListener(PythonListen* pl,

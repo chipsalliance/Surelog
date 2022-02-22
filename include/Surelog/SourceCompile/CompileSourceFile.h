@@ -25,19 +25,30 @@
 #define SURELOG_COMPILESOURCEFILE_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/SourceCompile/PreprocessFile.h>
+
+#include <map>
 #include <string>
 #include <vector>
 
-#include "Surelog/API/PythonAPI.h"
-#include "Surelog/SourceCompile/AnalyzeFile.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
+#ifdef SURELOG_WITH_PYTHON
+struct _ts;
+typedef struct _ts PyThreadState;
+#endif
 
 namespace SURELOG {
 
-class ParseFile;
+class AnalyzeFile;
+class CommandLineParser;
+class CompilationUnit;
 class Compiler;
+class ErrorContainer;
+class Library;
+class ParseFile;
+class PreprocessFile;
 class PythonListen;
+class SymbolTable;
 
 class CompileSourceFile {
  public:

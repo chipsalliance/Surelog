@@ -25,15 +25,19 @@
 #define SURELOG_COMPILEDESIGN_H
 #pragma once
 
-#include <mutex>
-
-#include "Surelog/SourceCompile/Compiler.h"
+#include <Surelog/Design/Design.h>
 
 // UHDM
 #include <uhdm/Serializer.h>
 #include <uhdm/sv_vpi_user.h>
 
+#include <mutex>
+
 namespace SURELOG {
+
+class Compiler;
+class SymbolTable;
+class ValuedComponentI;
 
 void decompile(ValuedComponentI* instance);
 
@@ -47,7 +51,7 @@ class CompileDesign {
   bool elaborate();
   vpiHandle writeUHDM(const std::string& fileName);
 
-  Compiler* getCompiler() { return m_compiler; }
+  Compiler* getCompiler() const { return m_compiler; }
   virtual UHDM::Serializer& getSerializer() { return m_serializer; }
   void lockSerializer() { m_serializerMutex.lock(); }
   void unlockSerializer() { m_serializerMutex.unlock(); }

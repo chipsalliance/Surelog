@@ -25,32 +25,29 @@
 #define SURELOG_PACKAGE_H
 #pragma once
 
-#include "Surelog/Design/DataType.h"
-#include "Surelog/Design/DesignComponent.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Design/Netlist.h"
-#include "Surelog/Design/ValuedComponentI.h"
-#include "Surelog/Expression/ExprBuilder.h"
-#include "Surelog/Library/Library.h"
+#include <Surelog/Common/Containers.h>
+#include <Surelog/Design/DesignComponent.h>
+#include <Surelog/Expression/ExprBuilder.h>
 
 // UHDM
 #include <uhdm/containers.h>
 
 namespace SURELOG {
+
 class CompilePackage;
+class FileContent;
+class Library;
+class Netlist;
 
 class Package : public DesignComponent {
   SURELOG_IMPLEMENT_RTTI(Package, DesignComponent)
   friend CompilePackage;
 
  public:
-  Package(std::string name, Library* library, FileContent* fC, NodeId nodeId)
-      : DesignComponent(fC, nullptr), m_name(name), m_library(library) {
-    addFileContent(fC, nodeId);
-  }
+  Package(std::string name, Library* library, FileContent* fC, NodeId nodeId);
   void append(Package* package);
 
-  ~Package() override;
+  ~Package() override = default;
 
   Library* getLibrary() { return m_library; }
 

@@ -20,37 +20,20 @@
  *
  * Created on April 29, 2017, 4:20 PM
  */
-#include "Surelog/Cache/ParseCache.h"
 
-#if defined(_MSC_VER)
-#include <direct.h>
-#include <process.h>
-#else
-#include <sys/param.h>
-#include <unistd.h>
-#endif
-
-#include <sys/stat.h>
-#include <sys/types.h>
-
-#include <cstdint>
-#include <cstdio>
-#include <ctime>
-
-#include "Surelog/Cache/Cache.h"
-#include "Surelog/Cache/parser_generated.h"
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/Package/Precompiled.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Utils/FileUtils.h"
-#include "Surelog/Utils/StringUtils.h"
-#include "flatbuffers/util.h"
+#include <Surelog/Cache/ParseCache.h>
+#include <Surelog/Cache/parser_generated.h>
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Design/Design.h>
+#include <Surelog/Design/DesignElement.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Library/Library.h>
+#include <Surelog/Package/Precompiled.h>
+#include <Surelog/SourceCompile/CompileSourceFile.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/ParseFile.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/FileUtils.h>
 
 namespace SURELOG {
 namespace fs = std::filesystem;

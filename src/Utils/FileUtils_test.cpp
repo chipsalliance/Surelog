@@ -14,19 +14,18 @@
  limitations under the License.
 */
 
-#include "Surelog/Utils/FileUtils.h"
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/FileUtils.h>
+#include <gtest/gtest.h>
 
 #include <filesystem>
 #include <fstream>
 #include <string>
 #include <vector>
 
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "gtest/gtest.h"
+namespace SURELOG {
 
 namespace fs = std::filesystem;
-
-namespace SURELOG {
 
 namespace {
 TEST(FileUtilsTest, BasicFileOperations) {

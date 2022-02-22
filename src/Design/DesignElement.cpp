@@ -20,7 +20,8 @@
  *
  * Created on June 8, 2017, 8:05 PM
  */
-#include "Surelog/Design/DesignElement.h"
+
+#include <Surelog/Design/DesignElement.h>
 
 namespace SURELOG {
 DesignElement::DesignElement(SymbolId name, SymbolId fileId, ElemType type,

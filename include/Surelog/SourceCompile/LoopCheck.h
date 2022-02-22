@@ -20,20 +20,22 @@
  *
  * Created on May 2, 2017, 8:14 PM
  */
+
 #ifndef SURELOG_LOOPCHECK_H
 #define SURELOG_LOOPCHECK_H
 #pragma once
+
+#include <Surelog/Common/SymbolId.h>
 
 #include <map>
 #include <set>
 #include <vector>
 
-#include "Surelog/SourceCompile/SymbolTable.h"
-
 namespace SURELOG {
+
 class LoopCheck {
  public:
-  LoopCheck();
+  LoopCheck() = default;
   ~LoopCheck();
 
   void clear();

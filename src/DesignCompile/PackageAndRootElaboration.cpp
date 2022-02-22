@@ -20,14 +20,15 @@
  *
  * Created on June 3, 2019, 10:02 PM
  */
-#include "Surelog/DesignCompile/PackageAndRootElaboration.h"
 
-using namespace SURELOG;
+#include <Surelog/DesignCompile/PackageAndRootElaboration.h>
 
-PackageAndRootElaboration::~PackageAndRootElaboration() {}
+namespace SURELOG {
 
 bool PackageAndRootElaboration::elaborate() {
   bool result = true;
   result &= bindTypedefs_();
   return result;
 }
+
+}  // namespace SURELOG

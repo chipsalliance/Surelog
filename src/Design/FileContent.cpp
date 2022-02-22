@@ -20,23 +20,34 @@
  *
  * Created on June 8, 2017, 8:22 PM
  */
-#include "Surelog/Design/FileContent.h"
 
-#include <string.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/Library/Library.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
 
-#include <filesystem>
 #include <iostream>
-#include <queue>
 #include <stack>
-
-#include "Surelog/Design/DesignElement.h"
-#include "Surelog/Design/TimeInfo.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/Library/Library.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 namespace fs = std::filesystem;
+
+const std::string& FileContent::getName() const {
+  return m_symbolTable->getSymbol(m_fileId);
+}
+
+std::filesystem::path FileContent::getChunkFileName() const {
+  return m_symbolTable->getSymbol(m_fileChunkId);
+}
+
+const std::string& FileContent::SymName(NodeId index) const {
+  return m_symbolTable->getSymbol(Name(index));
+}
+
+std::filesystem::path FileContent::getFileName() const {
+  return m_symbolTable->getSymbol(m_fileId);
+}
+
 NodeId FileContent::getRootNode() {
   if (m_objects.empty()) {
     return 0;
@@ -198,7 +209,7 @@ SymbolId FileContent::Name(NodeId index) const {
     Location loc(this->m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
-    std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";
+    std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return (VObjectType)m_objects[0].m_type;
   }
   return m_objects[index].m_name;
@@ -209,7 +220,7 @@ NodeId FileContent::Child(NodeId index) const {
     Location loc(this->m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
-    std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";
+    std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return (VObjectType)m_objects[0].m_type;
   }
   return m_objects[index].m_child;
@@ -231,7 +242,7 @@ NodeId FileContent::Definition(NodeId index) const {
     Location loc(this->m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
-    std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";
+    std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return (VObjectType)m_objects[0].m_type;
   }
   return m_objects[index].m_definition;
@@ -242,7 +253,7 @@ NodeId FileContent::Parent(NodeId index) const {
     Location loc(this->m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
-    std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";
+    std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return (VObjectType)m_objects[0].m_type;
   }
   return m_objects[index].m_parent;
@@ -253,7 +264,7 @@ VObjectType FileContent::Type(NodeId index) const {
     Location loc(this->m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
-    std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";
+    std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return (VObjectType)m_objects[0].m_type;
   }
   return (VObjectType)m_objects[index].m_type;
@@ -264,7 +275,7 @@ unsigned int FileContent::Line(NodeId index) const {
     Location loc(this->m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
-    std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";
+    std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return m_objects[0].m_line;
   }
   return m_objects[index].m_line;
@@ -275,7 +286,7 @@ unsigned short FileContent::Column(NodeId index) const {
     Location loc(this->m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
-    std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";
+    std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return m_objects[0].m_column;
   }
   return m_objects[index].m_column;
@@ -286,7 +297,7 @@ unsigned int FileContent::EndLine(NodeId index) const {
     Location loc(this->m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
-    std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";
+    std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return m_objects[0].m_endLine;
   }
   return m_objects[index].m_endLine;
@@ -297,7 +308,7 @@ unsigned short FileContent::EndColumn(NodeId index) const {
     Location loc(this->m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
-    std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";
+    std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return m_objects[0].m_endColumn;
   }
   return m_objects[index].m_endColumn;

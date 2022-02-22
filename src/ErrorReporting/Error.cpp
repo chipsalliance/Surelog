@@ -21,9 +21,9 @@
  * Created on March 5, 2017, 11:30 PM
  */
 
-#include "Surelog/ErrorReporting/Error.h"
+#include <Surelog/ErrorReporting/Error.h>
 
-using namespace SURELOG;
+namespace SURELOG {
 
 Error::Error(ErrorDefinition::ErrorType errorId, const Location& loc,
              const std::vector<Location>* extraLocs)
@@ -67,3 +67,5 @@ bool Error::operator<(const Error& rhs) const {
   }
   return false;
 }
+
+}  // namespace SURELOG

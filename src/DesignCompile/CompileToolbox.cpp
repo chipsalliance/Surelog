@@ -20,15 +20,14 @@
  *
  * Created on June 13, 2018, 9:36 PM
  */
-#include "Surelog/DesignCompile/CompileToolbox.h"
+
+#include <Surelog/DesignCompile/CompileToolbox.h>
 
 namespace SURELOG {
-CompileToolbox::CompileToolbox() {}
-
-CompileToolbox::~CompileToolbox() {}
 
 bool CompileToolbox::compileInitialBlock_(FileContent* fC, NodeId nodeId,
                                           DesignComponent* component) {
   return true;
 }
+
 }  // namespace SURELOG

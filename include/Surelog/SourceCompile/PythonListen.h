@@ -27,11 +27,13 @@
 
 #ifdef SURELOG_WITH_PYTHON
 
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/ParseFile.h"
+#include <Surelog/SourceCompile/CompileSourceFile.h>
+#include <Surelog/SourceCompile/ParseFile.h>
 
 namespace SURELOG {
+
 class SV3_1aPythonListener;
+
 class PythonListen {
  public:
   PythonListen(ParseFile* parse, CompileSourceFile* m_compileSourceFile);

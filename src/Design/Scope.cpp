@@ -21,9 +21,14 @@
  * Created on August 31, 2019, 11:24 AM
  */
 
-#include "Surelog/Design/Scope.h"
+#include <Surelog/Design/Scope.h>
+#include <Surelog/Testbench/Variable.h>
 
-using namespace SURELOG;
+namespace SURELOG {
+
+void Scope::addVariable(Variable* var) {
+  m_variables.insert(std::make_pair(var->getName(), var));
+}
 
 Variable* Scope::getVariable(const std::string& name) {
   VariableMap::iterator itr = m_variables.find(name);
@@ -46,3 +51,5 @@ DataType* Scope::getUsedDataType(const std::string& name) {
     return (*itr).second;
   }
 }
+
+}  // namespace SURELOG

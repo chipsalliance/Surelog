@@ -20,11 +20,31 @@
  *
  * Created on March 4, 2017, 5:16 PM
  */
-#include "Surelog/SourceCompile/Compiler.h"
 
-#if (defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
-#include <process.h>  // Has to be included before <thread>
-#endif
+#include <Surelog/API/PythonAPI.h>
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Config/ConfigSet.h>
+#include <Surelog/Design/Design.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/DesignCompile/CompileDesign.h>
+#include <Surelog/Library/Library.h>
+#include <Surelog/Library/LibrarySet.h>
+#include <Surelog/Library/ParseLibraryDef.h>
+#include <Surelog/Package/Precompiled.h>
+#include <Surelog/SourceCompile/AnalyzeFile.h>
+#include <Surelog/SourceCompile/CheckCompile.h>
+#include <Surelog/SourceCompile/CompilationUnit.h>
+#include <Surelog/SourceCompile/CompileSourceFile.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/ParseFile.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/ContainerUtils.h>
+#include <Surelog/Utils/FileUtils.h>
+#include <Surelog/Utils/StringUtils.h>
+#include <Surelog/Utils/Timer.h>
+#include <antlr4-runtime.h>
+
+#include <thread>
 
 #if defined(_MSC_VER)
 #include <direct.h>
@@ -33,38 +53,8 @@
 #include <unistd.h>
 #endif
 
-#include <math.h>
-#include <stdint.h>
-#include <string.h>
-#include <sys/stat.h>
-
-#include <cstdlib>
-#include <filesystem>
-#include <fstream>
-#include <iostream>
-#include <mutex>
-#include <thread>
-#include <vector>
-
-#include "Surelog/API/PythonAPI.h"
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/DesignCompile/CompileDesign.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/Library/ParseLibraryDef.h"
-#include "Surelog/Package/Precompiled.h"
-#include "Surelog/SourceCompile/AnalyzeFile.h"
-#include "Surelog/SourceCompile/CheckCompile.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Utils/ContainerUtils.h"
-#include "Surelog/Utils/FileUtils.h"
-#include "Surelog/Utils/StringUtils.h"
-#include "Surelog/Utils/Timer.h"
-#include "antlr4-runtime.h"
-
 namespace SURELOG {
+
 namespace fs = std::filesystem;
 
 Compiler::Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,

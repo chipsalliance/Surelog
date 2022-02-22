@@ -25,12 +25,13 @@
 #define SURELOG_PORTNETHOLDER_H
 #pragma once
 
-#include <vector>
-
 // UHDM
 #include <uhdm/uhdm_forward_decl.h>
 
+#include <vector>
+
 namespace SURELOG {
+
 class Signal;
 
 class PortNetHolder {

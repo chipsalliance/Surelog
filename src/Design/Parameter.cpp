@@ -20,11 +20,12 @@
  *
  * Created on April 15, 2019, 8:03 PM
  */
-#include "Surelog/Design/Parameter.h"
 
-#include "Surelog/Design/FileContent.h"
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/Parameter.h>
 
 namespace SURELOG {
+
 Parameter::Parameter(const FileContent* fC, NodeId nodeId,
                      const std::string& name, NodeId node_type, bool port_param)
     : DataType(fC, nodeId, name,
@@ -41,4 +42,5 @@ Parameter::~Parameter() {}
 VObjectType Parameter::getType() const {
   return getFileContent()->Type(m_ntype);
 }
+
 }  // namespace SURELOG

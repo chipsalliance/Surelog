@@ -25,13 +25,14 @@
 #define SURELOG_CLOCKINGBLOCKHOLDER_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/ClockingBlock.h>
+
 #include <map>
 
-#include "Surelog/Design/ClockingBlock.h"
-#include "Surelog/Design/Signal.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-
 namespace SURELOG {
+
+class ClockingBlock;
 
 class ClockingBlockHolder {
  public:

@@ -14,45 +14,43 @@
  limitations under the License.
  */
 
-#include "Surelog/API/Surelog.h"
+#include <Surelog/API/Surelog.h>
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Design/Design.h>
+#include <Surelog/DesignCompile/CompileDesign.h>
+#include <Surelog/SourceCompile/Compiler.h>
 
-#include "Surelog/DesignCompile/CompileDesign.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/ErrorReporting/Report.h"
-#include "Surelog/ErrorReporting/Waiver.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+namespace SURELOG {
 
-SURELOG::scompiler* SURELOG::start_compiler(SURELOG::CommandLineParser* clp) {
-  Compiler* the_compiler = new SURELOG::Compiler(clp, clp->getErrorContainer(),
-                                                 clp->mutableSymbolTable());
+scompiler* start_compiler(CommandLineParser* clp) {
+  Compiler* the_compiler =
+      new Compiler(clp, clp->getErrorContainer(), clp->mutableSymbolTable());
   bool status = the_compiler->compile();
   if (!status) return nullptr;
-  return (SURELOG::scompiler*)the_compiler;
+  return (scompiler*)the_compiler;
 }
 
-SURELOG::Design* SURELOG::get_design(SURELOG::scompiler* the_compiler) {
-  if (the_compiler) return ((SURELOG::Compiler*)the_compiler)->getDesign();
+Design* get_design(scompiler* the_compiler) {
+  if (the_compiler) return ((Compiler*)the_compiler)->getDesign();
   return nullptr;
 }
 
-void SURELOG::shutdown_compiler(SURELOG::scompiler* the_compiler) {
+void shutdown_compiler(scompiler* the_compiler) {
   if (the_compiler == nullptr) return;
-  SURELOG::Compiler* compiler = (SURELOG::Compiler*)the_compiler;
+  Compiler* compiler = (Compiler*)the_compiler;
   if (CompileDesign* comp = compiler->getCompileDesign()) {
     comp->getSerializer().Purge();
   }
-  delete (SURELOG::Compiler*)the_compiler;
+  delete (Compiler*)the_compiler;
 }
 
-vpiHandle SURELOG::get_uhdm_design(SURELOG::scompiler* compiler) {
+vpiHandle get_uhdm_design(scompiler* compiler) {
   vpiHandle design_handle = 0;
-  SURELOG::Compiler* the_compiler = (SURELOG::Compiler*)compiler;
+  Compiler* the_compiler = (Compiler*)compiler;
   if (the_compiler) {
     design_handle = the_compiler->getUhdmDesign();
   }
   return design_handle;
 }
+
+}  // namespace SURELOG

@@ -25,19 +25,27 @@
 #define SURELOG_ELABORATIONSTEP_H
 #pragma once
 
-#include <string>
-#include <vector>
-
-#include "Surelog/Design/DesignComponent.h"
-#include "Surelog/Design/Scope.h"
-#include "Surelog/DesignCompile/CompileDesign.h"
-#include "Surelog/DesignCompile/CompileHelper.h"
-#include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include <Surelog/DesignCompile/CompileHelper.h>
+#include <Surelog/ErrorReporting/ErrorDefinition.h>
+#include <Surelog/Expression/ExprBuilder.h>
 
 // UHDM
 #include <uhdm/uhdm_forward_decl.h>
 
+#include <string>
+#include <vector>
+
 namespace SURELOG {
+
+class CompileDesign;
+class ErrorContainer;
+class ModuleInstance;
+class Parameter;
+class Scope;
+class Signal;
+class SymbolTable;
+class TypeDef;
+class Variable;
 
 class ElaborationStep {
  public:

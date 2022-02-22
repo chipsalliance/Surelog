@@ -20,44 +20,39 @@
  *
  * Created on July 1, 2017, 1:11 PM
  */
-#include "Surelog/DesignCompile/CompileDesign.h"
 
-#if (defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
-#include <process.h>  // Has to be included before <thread>
-#endif
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/ModuleDefinition.h>
+#include <Surelog/Design/ModuleInstance.h>
+#include <Surelog/Design/Netlist.h>
+#include <Surelog/DesignCompile/Builtin.h>
+#include <Surelog/DesignCompile/CompileClass.h>
+#include <Surelog/DesignCompile/CompileDesign.h>
+#include <Surelog/DesignCompile/CompileFileContent.h>
+#include <Surelog/DesignCompile/CompileModule.h>
+#include <Surelog/DesignCompile/CompilePackage.h>
+#include <Surelog/DesignCompile/CompileProgram.h>
+#include <Surelog/DesignCompile/DesignElaboration.h>
+#include <Surelog/DesignCompile/NetlistElaboration.h>
+#include <Surelog/DesignCompile/PackageAndRootElaboration.h>
+#include <Surelog/DesignCompile/ResolveSymbols.h>
+#include <Surelog/DesignCompile/UVMElaboration.h>
+#include <Surelog/DesignCompile/UhdmWriter.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/Library/Library.h>
+#include <Surelog/Package/Package.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Testbench/ClassDefinition.h>
+#include <Surelog/Testbench/Program.h>
 
-#include <stdint.h>
+// UHDM
+#include <uhdm/param_assign.h>
+#include <uhdm/vpi_visitor.h>
 
-#include <filesystem>
+#include <climits>
 #include <thread>
-#include <vector>
-
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/DesignCompile/Builtin.h"
-#include "Surelog/DesignCompile/CompileClass.h"
-#include "Surelog/DesignCompile/CompileFileContent.h"
-#include "Surelog/DesignCompile/CompileModule.h"
-#include "Surelog/DesignCompile/CompilePackage.h"
-#include "Surelog/DesignCompile/CompileProgram.h"
-#include "Surelog/DesignCompile/DesignElaboration.h"
-#include "Surelog/DesignCompile/NetlistElaboration.h"
-#include "Surelog/DesignCompile/PackageAndRootElaboration.h"
-#include "Surelog/DesignCompile/ResolveSymbols.h"
-#include "Surelog/DesignCompile/UVMElaboration.h"
-#include "Surelog/DesignCompile/UhdmWriter.h"
-#include "Surelog/ErrorReporting/Error.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/ErrorReporting/ErrorDefinition.h"
-#include "Surelog/ErrorReporting/Location.h"
-#include "Surelog/Library/Library.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Testbench/ClassDefinition.h"
 
 #ifdef USETBB
 #include <tbb/task.h>
@@ -65,10 +60,8 @@
 #include <tbb/task_scheduler_init.h>
 #endif
 
-#include <uhdm/param_assign.h>
-#include <uhdm/vpi_visitor.h>
-
 namespace SURELOG {
+
 namespace fs = std::filesystem;
 
 CompileDesign::CompileDesign(Compiler* compiler) : m_compiler(compiler) {}

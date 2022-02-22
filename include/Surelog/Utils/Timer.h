@@ -25,14 +25,13 @@
 #define SURELOG_TIMER_H
 #pragma once
 
-#include <math.h>
-
 #include <chrono>
+#include <cmath>
 #include <iostream>
 
 namespace SURELOG {
 
-class Timer {
+class Timer final {
  public:
   Timer() : beg_(clock_::now()) {}
 

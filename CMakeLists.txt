@@ -654,8 +654,10 @@ install(
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/API)
 install(
   FILES ${PROJECT_SOURCE_DIR}/include/Surelog/Common/ClockingBlockHolder.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Common/Containers.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/PortNetHolder.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/RTTI.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Common/SymbolId.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/Common)
 install(
   FILES ${PROJECT_SOURCE_DIR}/include/Surelog/DesignCompile/CompileHelper.h

@@ -20,12 +20,12 @@
  *
  * Created on May 2, 2017, 8:14 PM
  */
-#include "Surelog/SourceCompile/LoopCheck.h"
+
+#include <Surelog/SourceCompile/LoopCheck.h>
 
 #include <queue>
 
 namespace SURELOG {
-LoopCheck::LoopCheck() {}
 
 LoopCheck::~LoopCheck() {
   for (auto itr : m_nodes) {
@@ -93,4 +93,5 @@ std::vector<SymbolId> LoopCheck::reportLoop() const {
   }
   return loop;
 }
+
 }  // namespace SURELOG

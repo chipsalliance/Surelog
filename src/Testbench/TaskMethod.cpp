@@ -21,13 +21,13 @@
  * Created on February 21, 2019, 8:21 PM
  */
 
-#include "Surelog/Testbench/TaskMethod.h"
+#include <Surelog/Testbench/TaskMethod.h>
 
 namespace SURELOG {
-TaskMethod::~TaskMethod() {}
 
 bool TaskMethod::compile(CompileHelper& compile_helper) {
   bool result = Task::compile(compile_helper);
   return result;
 }
+
 }  // namespace SURELOG
