@@ -343,6 +343,11 @@ class CompileHelper final {
                           UHDM::any* pexpr, ValuedComponentI* instance,
                           bool reduce, bool muteErrors);
 
+  UHDM::any* compileBound(DesignComponent* component, const FileContent* fC,
+                          NodeId Expression, CompileDesign* compileDesign,
+                          UHDM::any* pexpr, ValuedComponentI* instance,
+                          bool reduce, bool muteErrors, const std::string& name);
+
   UHDM::any* compileTypename(DesignComponent* component, const FileContent* fC,
                              NodeId Expression, CompileDesign* compileDesign,
                              UHDM::any* pexpr, ValuedComponentI* instance,

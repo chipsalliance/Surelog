@@ -922,7 +922,7 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, unsigned short size) {
         break;
     }
   } else if ((pos = s.find("BIN:")) != std::string::npos) {
-    if (s.find_first_of("xzXZ") != std::string::npos) {
+    if ((s.find_first_of("xzXZ") != std::string::npos) || (size > 64)) {
       StValue* sval = (StValue*)m_valueFactory.newStValue();
       sval->set(s.c_str() + pos + std::string_view("BIN:").length(),
                 Value::Type::Binary, (size ? size : s.size()));
