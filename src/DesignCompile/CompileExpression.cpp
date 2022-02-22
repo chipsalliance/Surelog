@@ -486,7 +486,7 @@ bool getStringVal(std::string& result, expr* val) {
   if (hs0) {
     s_vpi_value* sval = String2VpiValue(hs0->VpiValue());
     if (sval) {
-      if (sval->format == vpiStringVal) {
+      if (sval->format == vpiStringVal || sval->format == vpiBinStrVal) {
         result = sval->value.str;
         return true;
       }
