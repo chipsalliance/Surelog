@@ -25,16 +25,20 @@
 #define SURELOG_STATEMENT_H
 #pragma once
 
-#include <string>
+#include <Surelog/Common/RTTI.h>
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/Scope.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
 
-#include "Surelog/Common/RTTI.h"
-#include "Surelog/Design/DataType.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Design/Scope.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
+#include <string>
+#include <vector>
 
 namespace SURELOG {
+
+class Scope;
+class FileContent;
+class Function;
+class Value;
 
 class Statement : public RTTI {
   SURELOG_IMPLEMENT_RTTI(Statement, RTTI)
@@ -47,10 +51,10 @@ class Statement : public RTTI {
         m_fileContent(fileContent),
         m_nodeId(node),
         m_type(type) {}
-  ~Statement() override;
+  ~Statement() override = default;
 
-  Scope* getScope() { return m_scope; }
-  Statement* getParentStmt() { return m_parent; }
+  Scope* getScope() const { return m_scope; }
+  Statement* getParentStmt() const { return m_parent; }
 
   VObjectType getType() const { return m_type; }
 

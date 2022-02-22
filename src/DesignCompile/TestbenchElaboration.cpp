@@ -21,27 +21,29 @@
  * Created on February 6, 2019, 9:01 PM
  */
 
-#include "Surelog/DesignCompile/TestbenchElaboration.h"
-
-#include <filesystem>
-#include <queue>
-#include <string>
-#include <vector>
-
-#include "Surelog/Design/DataType.h"
-#include "Surelog/Design/VObject.h"
-#include "Surelog/ErrorReporting/Location.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
-#include "Surelog/Testbench/ClassDefinition.h"
-#include "Surelog/Testbench/Property.h"
+#include <Surelog/Design/Design.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/Parameter.h>
+#include <Surelog/Design/Signal.h>
+#include <Surelog/Design/Statement.h>
+#include <Surelog/Design/TfPortItem.h>
+#include <Surelog/DesignCompile/CompileDesign.h>
+#include <Surelog/DesignCompile/TestbenchElaboration.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Testbench/ClassDefinition.h>
+#include <Surelog/Testbench/Property.h>
 
 // UHDM
-#include <uhdm/uhdm.h>
+#include <uhdm/class_defn.h>
+#include <uhdm/class_typespec.h>
+#include <uhdm/extends.h>
+
+#include <queue>
 
 namespace SURELOG {
-namespace fs = std::filesystem;
 
-TestbenchElaboration::~TestbenchElaboration() {}
+namespace fs = std::filesystem;
 
 bool checkValidFunction(const DataType* dtype, const std::string& function,
                         Statement* stmt, Design* design,
@@ -795,4 +797,5 @@ bool TestbenchElaboration::bindProperties_() {
   }
   return true;
 }
+
 }  // namespace SURELOG

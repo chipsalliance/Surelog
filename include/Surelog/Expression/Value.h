@@ -25,12 +25,10 @@
 #define SURELOG_VALUE_H
 #pragma once
 
-#include <stdint.h>
+#include <Surelog/Common/RTTI.h>
 
-#include <iostream>
+#include <cstdint>
 #include <string>
-
-#include "Surelog/Common/RTTI.h"
 
 namespace SURELOG {
 
@@ -504,33 +502,33 @@ class StValue : public Value {
   uint64_t getValueUL(unsigned short index = 0) const final {
     switch (m_type) {
       case Value::Type::Integer:
-        return (uint64_t)std::strtoull(m_value.c_str(), 0, 10);
+        return (uint64_t)std::strtoull(m_value.c_str(), nullptr, 10);
       case Value::Type::Unsigned:
-        return (uint64_t)std::strtoull(m_value.c_str(), 0, 10);
+        return (uint64_t)std::strtoull(m_value.c_str(), nullptr, 10);
       case Value::Type::Hexadecimal:
-        return (uint64_t)std::strtoull(m_value.c_str(), 0, 16);
+        return (uint64_t)std::strtoull(m_value.c_str(), nullptr, 16);
       case Value::Type::Octal:
-        return (uint64_t)std::strtoull(m_value.c_str(), 0, 8);
+        return (uint64_t)std::strtoull(m_value.c_str(), nullptr, 8);
       case Value::Type::Binary:
-        return (uint64_t)std::strtoull(m_value.c_str(), 0, 2);
+        return (uint64_t)std::strtoull(m_value.c_str(), nullptr, 2);
       default:
-        return (uint64_t)std::strtoull(m_value.c_str(), 0, 10);
+        return (uint64_t)std::strtoull(m_value.c_str(), nullptr, 10);
     }
   }
   int64_t getValueL(unsigned short index = 0) const final {
     switch (m_type) {
       case Value::Type::Integer:
-        return (uint64_t)std::strtoll(m_value.c_str(), 0, 10);
+        return (uint64_t)std::strtoll(m_value.c_str(), nullptr, 10);
       case Value::Type::Unsigned:
-        return (uint64_t)std::strtoll(m_value.c_str(), 0, 10);
+        return (uint64_t)std::strtoll(m_value.c_str(), nullptr, 10);
       case Value::Type::Hexadecimal:
-        return (uint64_t)std::strtoll(m_value.c_str(), 0, 16);
+        return (uint64_t)std::strtoll(m_value.c_str(), nullptr, 16);
       case Value::Type::Octal:
-        return (uint64_t)std::strtoll(m_value.c_str(), 0, 8);
+        return (uint64_t)std::strtoll(m_value.c_str(), nullptr, 8);
       case Value::Type::Binary:
-        return (uint64_t)std::strtoll(m_value.c_str(), 0, 2);
+        return (uint64_t)std::strtoll(m_value.c_str(), nullptr, 2);
       default:
-        return (uint64_t)std::strtoll(m_value.c_str(), 0, 10);
+        return (uint64_t)std::strtoll(m_value.c_str(), nullptr, 10);
     }
   }
   double getValueD(unsigned short index = 0) const final {

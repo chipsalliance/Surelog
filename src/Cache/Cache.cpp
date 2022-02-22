@@ -20,17 +20,17 @@
  *
  * Created on April 28, 2017, 9:32 PM
  */
-#include "Surelog/Cache/Cache.h"
 
+#include <Surelog/Cache/Cache.h>
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include <cstdio>
 #include <ctime>
 #include <iostream>
-
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "flatbuffers/util.h"
 
 namespace SURELOG {
 namespace fs = std::filesystem;

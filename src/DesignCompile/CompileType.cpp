@@ -20,41 +20,44 @@
  *
  * Created on May 14, 2019, 8:03 PM
  */
-#include <iostream>
 
-#include "Surelog/Design/Design.h"
-#include "Surelog/Design/DummyType.h"
-#include "Surelog/Design/Enum.h"
-#include "Surelog/Design/Function.h"
-#include "Surelog/Design/ParamAssign.h"
-#include "Surelog/Design/Parameter.h"
-#include "Surelog/Design/SimpleType.h"
-#include "Surelog/Design/Struct.h"
-#include "Surelog/Design/Task.h"
-#include "Surelog/Design/Union.h"
-#include "Surelog/DesignCompile/CompileDesign.h"
-#include "Surelog/DesignCompile/CompileHelper.h"
-#include "Surelog/DesignCompile/UhdmWriter.h"
-#include "Surelog/Expression/ExprBuilder.h"
-#include "Surelog/Expression/Value.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/Testbench/ClassDefinition.h"
-#include "Surelog/Testbench/Property.h"
-#include "Surelog/Utils/FileUtils.h"
-#include "Surelog/Utils/StringUtils.h"
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Design/DataType.h>
+#include <Surelog/Design/DummyType.h>
+#include <Surelog/Design/Enum.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/Function.h>
+#include <Surelog/Design/ModuleDefinition.h>
+#include <Surelog/Design/ModuleInstance.h>
+#include <Surelog/Design/Netlist.h>
+#include <Surelog/Design/ParamAssign.h>
+#include <Surelog/Design/Parameter.h>
+#include <Surelog/Design/SimpleType.h>
+#include <Surelog/Design/Struct.h>
+#include <Surelog/Design/Task.h>
+#include <Surelog/Design/Union.h>
+#include <Surelog/DesignCompile/CompileDesign.h>
+#include <Surelog/DesignCompile/CompileHelper.h>
+#include <Surelog/Library/Library.h>
+#include <Surelog/Package/Package.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Testbench/ClassDefinition.h>
+#include <Surelog/Testbench/TypeDef.h>
+#include <Surelog/Testbench/Variable.h>
+#include <Surelog/Utils/FileUtils.h>
+#include <Surelog/Utils/StringUtils.h>
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/ExprEval.h>
 #include <uhdm/clone_tree.h>
-#include <uhdm/expr.h>
 #include <uhdm/uhdm.h>
 
+#include <stack>
+
 namespace SURELOG {
+
 using namespace UHDM;  // NOLINT (using a bunch of them)
 namespace fs = std::filesystem;
 

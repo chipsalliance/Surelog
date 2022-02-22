@@ -25,18 +25,19 @@
 #define SURELOG_VALUEDCOMPONENTI_H
 #pragma once
 
+#include <Surelog/Common/RTTI.h>
+
+// UHDM
+#include <uhdm/uhdm_forward_decl.h>
+
 #include <map>
 #include <string>
 
-#include "Surelog/Common/RTTI.h"
-
-namespace UHDM {
-class expr;
-}
-
 namespace SURELOG {
+
 class ExprBuilder;
 class Value;
+
 class ValuedComponentI : public RTTI {
   SURELOG_IMPLEMENT_RTTI(ValuedComponentI, RTTI)
  public:
@@ -44,7 +45,7 @@ class ValuedComponentI : public RTTI {
                    ValuedComponentI* definition)
       : m_parentScope(parentScope), m_definition(definition){};
 
-  ~ValuedComponentI() override{};
+  ~ValuedComponentI() override = default;
 
   virtual Value* getValue(const std::string& name) const;
   virtual Value* getValue(const std::string& name,

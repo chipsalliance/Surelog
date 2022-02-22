@@ -27,9 +27,9 @@
 
 #include <memory>
 
-#include "Surelog/DesignCompile/CompileDesign.h"
-
 namespace SURELOG {
+
+class CompileDesign;
 
 class CompilerHarness {
  public:

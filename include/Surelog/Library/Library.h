@@ -25,16 +25,17 @@
 #define SURELOG_LIBRARY_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
+
 #include <map>
 #include <set>
 #include <string>
 #include <vector>
 
-#include "Surelog/SourceCompile/SymbolTable.h"
-
 namespace SURELOG {
 
 class ModuleDefinition;
+class SymbolTable;
 
 class Library final {
  public:

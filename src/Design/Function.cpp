@@ -21,11 +21,20 @@
  * Created on February 21, 2019, 8:19 PM
  */
 
-#include "Surelog/Design/Function.h"
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/Function.h>
+#include <Surelog/DesignCompile/CompileHelper.h>
 
 namespace SURELOG {
-
-Function::~Function() {}
+Procedure::Procedure(DesignComponent* parent, const FileContent* fC, NodeId id,
+                     const std::string& name)
+    : Scope(name, nullptr),
+      Statement(this, nullptr, fC, id,
+                fC ? fC->Type(id) : VObjectType::slFunction_prototype),
+      m_parent(parent),
+      m_fileContent(fC),
+      m_nodeId(id),
+      m_name(name) {}
 
 bool Function::compile(CompileHelper& compile_helper) {
   bool result = true;
@@ -62,4 +71,10 @@ bool Function::compile(CompileHelper& compile_helper) {
                                             function_statement_or_null);
   return result;
 }
+
+SeqBlock::SeqBlock(const std::string& name, Scope* parent,
+                   Statement* parentStmt, const FileContent* fC, NodeId id)
+    : Scope(name, parent),
+      Statement(this, parentStmt, fC, id,
+                fC ? fC->Type(id) : VObjectType::slSeq_block) {}
 }  // namespace SURELOG

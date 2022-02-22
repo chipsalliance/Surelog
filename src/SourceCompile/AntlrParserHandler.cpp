@@ -1,3 +1,4 @@
+
 /*
  Copyright 2019 Alain Dargelas
 
@@ -20,14 +21,14 @@
  *
  * Created on June 4, 2017, 4:21 PM
  */
-#include "Surelog/SourceCompile/AntlrParserHandler.h"
 
-#include "Surelog/SourceCompile/AntlrParserErrorListener.h"
-#include "antlr4-runtime.h"
-#include "parser/SV3_1aLexer.h"
-#include "parser/SV3_1aParser.h"
+#include <Surelog/SourceCompile/AntlrParserErrorListener.h>
+#include <Surelog/SourceCompile/AntlrParserHandler.h>
+#include <parser/SV3_1aLexer.h>
+#include <parser/SV3_1aParser.h>
 
 namespace SURELOG {
+
 AntlrParserHandler::~AntlrParserHandler() {
   delete m_errorListener;
   // ParseTree is deleted in antlr4::ParseTreeTracker

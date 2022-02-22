@@ -25,12 +25,17 @@
 #define SURELOG_TESTBENCHELABORATION_H
 #pragma once
 
-#include "Surelog/Design/Statement.h"
-#include "Surelog/DesignCompile/ElaborationStep.h"
+#include <Surelog/DesignCompile/ElaborationStep.h>
 
 namespace SURELOG {
-class Variable;
+
+class ClassDefinition;
+class ForeachLoopStmt;
+class ForLoopStmt;
 class Procedure;
+class Statement;
+class Variable;
+
 class TestbenchElaboration : public ElaborationStep {
  public:
   TestbenchElaboration(CompileDesign* compileDesign)
@@ -38,7 +43,7 @@ class TestbenchElaboration : public ElaborationStep {
 
   TestbenchElaboration(const TestbenchElaboration& orig);
 
-  ~TestbenchElaboration() override;
+  ~TestbenchElaboration() override = default;
 
  protected:
   bool checkForMultipleDefinition_();

@@ -25,18 +25,11 @@ limitations under the License.
 #define SURELOG_COMPILER_H
 #pragma once
 
-#include <map>
-#include <set>
-#include <string>
-#include <thread>
-
-#include "Surelog/Config/ConfigSet.h"
-#include "Surelog/Design/Design.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/Library/LibrarySet.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/SourceCompile/CompileSourceFile.h>
+#include <Surelog/SourceCompile/PreprocessFile.h>
+#include <uhdm/vpi_user.h>
 
 #ifdef USETBB
 #include <tbb/task.h>
@@ -44,14 +37,22 @@ limitations under the License.
 #include <tbb/task_scheduler_init.h>
 #endif
 
-// UHDM
-#include <uhdm/sv_vpi_user.h>
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
 
 namespace SURELOG {
 
-class PreprocessFile;
-class FileContent;
+class CommandLineParser;
 class CompileDesign;
+class ConfigSet;
+class Design;
+class ErrorContainer;
+class FileContent;
+class LibrarySet;
+class PreprocessFile;
+class SymbolTable;
 
 class Compiler {
  public:
@@ -62,14 +63,16 @@ class Compiler {
   virtual ~Compiler();
 
   bool compile();
-  CommandLineParser* getCommandLineParser() { return m_commandLineParser; }
-  SymbolTable* getSymbolTable() { return m_symbolTable; }
-  ErrorContainer* getErrorContainer() { return m_errors; }
+  CommandLineParser* getCommandLineParser() const {
+    return m_commandLineParser;
+  }
+  SymbolTable* getSymbolTable() const { return m_symbolTable; }
+  ErrorContainer* getErrorContainer() const { return m_errors; }
   std::vector<CompileSourceFile*>& getCompileSourceFiles() {
     return m_compilers;
   }
   const std::map<SymbolId, PreprocessFile::AntlrParserHandler*>&
-  getPpAntlrHandlerMap() {
+  getPpAntlrHandlerMap() const {
     return m_antlrPpMap;
   }
   void registerAntlrPpHandlerForId(SymbolId id,
@@ -82,10 +85,10 @@ class Compiler {
   // All _modifying_ operations should be calls on the Compiler,
   // not on the handed out Design object, as the Compiler is owner
   // of the design.
-  Design* getDesign() { return m_design; }
+  Design* getDesign() const { return m_design; }
 
   vpiHandle getUhdmDesign() const { return m_uhdmDesign; }
-  CompileDesign* getCompileDesign() { return m_compileDesign; }
+  CompileDesign* getCompileDesign() const { return m_compileDesign; }
   ErrorContainer::Stats getErrorStats() const;
   bool isLibraryFile(SymbolId id) const;
   const std::map<std::filesystem::path, std::vector<std::filesystem::path>>&

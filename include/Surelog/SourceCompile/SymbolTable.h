@@ -1,3 +1,4 @@
+
 /*
  Copyright 2019 Alain Dargelas
 
@@ -25,7 +26,7 @@
 #define SURELOG_SYMBOLTABLE_H
 #pragma once
 
-#include <stdint.h>
+#include <Surelog/Common/SymbolId.h>
 
 #include <memory>
 #include <string>
@@ -34,10 +35,6 @@
 #include <vector>
 
 namespace SURELOG {
-
-typedef uint64_t SymbolId;
-
-typedef uint32_t NodeId;
 
 static constexpr NodeId InvalidNodeId = 969696;
 

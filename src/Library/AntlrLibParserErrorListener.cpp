@@ -20,12 +20,12 @@
  *
  * Created on Feb 08, 2018, 9:54 PM
  */
-#include "Surelog/Library/AntlrLibParserErrorListener.h"
 
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "atn/ParserATNSimulator.h"
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/Library/AntlrLibParserErrorListener.h>
+#include <Surelog/Library/ParseLibraryDef.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <antlr4-runtime.h>
 
 namespace SURELOG {
 
@@ -51,4 +51,5 @@ void AntlrLibParserErrorListener::reportAttemptingFullContext(
 void AntlrLibParserErrorListener::reportContextSensitivity(
     antlr4::Parser *recognizer, const antlr4::dfa::DFA &dfa, size_t startIndex,
     size_t stopIndex, size_t prediction, antlr4::atn::ATNConfigSet *configs) {}
+
 }  // namespace SURELOG

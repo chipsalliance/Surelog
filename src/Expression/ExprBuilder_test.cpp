@@ -14,20 +14,21 @@
  limitations under the License.
 */
 
-#include "Surelog/Expression/ExprBuilder.h"
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Expression/ExprBuilder.h>
+#include <Surelog/SourceCompile/ParserHarness.h>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
 #include <memory>
 #include <string>
 #include <string_view>
 #include <vector>
 
-#include "Surelog/SourceCompile/ParserHarness.h"
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
+namespace SURELOG {
 
 using ::testing::ElementsAre;
 
-namespace SURELOG {
 namespace {
 TEST(ExprBuilderTest, BasicValueOp) {
   {

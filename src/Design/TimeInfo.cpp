@@ -20,13 +20,10 @@
  *
  * Created on June 8, 2017, 8:27 PM
  */
-#include "Surelog/Design/TimeInfo.h"
 
-#include <string>
+#include <Surelog/Design/TimeInfo.h>
 
-#include "Surelog/SourceCompile/SymbolTable.h"
-
-using namespace SURELOG;
+namespace SURELOG {
 
 TimeInfo::Unit TimeInfo::unitFromString(std::string_view s) {
   if (s == "s")
@@ -67,3 +64,5 @@ uint64_t TimeInfo::femtoSeconds(Unit unit, int value) {
   }
   return result;
 }
+
+}  // namespace SURELOG

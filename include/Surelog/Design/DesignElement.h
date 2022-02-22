@@ -25,8 +25,8 @@
 #define SURELOG_DESIGNELEMENT_H
 #pragma once
 
-#include "Surelog/Design/TimeInfo.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/TimeInfo.h>
 
 namespace SURELOG {
 

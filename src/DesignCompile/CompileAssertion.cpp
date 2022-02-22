@@ -20,33 +20,17 @@
  *
  * Created on May 14, 2019, 8:03 PM
  */
-#include <iostream>
 
-#include "Surelog/Design/Design.h"
-#include "Surelog/Design/Enum.h"
-#include "Surelog/Design/Function.h"
-#include "Surelog/Design/SimpleType.h"
-#include "Surelog/Design/Struct.h"
-#include "Surelog/Design/Union.h"
-#include "Surelog/DesignCompile/CompileDesign.h"
-#include "Surelog/DesignCompile/CompileHelper.h"
-#include "Surelog/DesignCompile/UhdmWriter.h"
-#include "Surelog/Expression/ExprBuilder.h"
-#include "Surelog/Expression/Value.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/Testbench/Property.h"
-#include "Surelog/Utils/FileUtils.h"
-#include "Surelog/Utils/StringUtils.h"
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/DesignCompile/CompileDesign.h>
+#include <Surelog/DesignCompile/CompileHelper.h>
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/clone_tree.h>
-#include <uhdm/expr.h>
 #include <uhdm/uhdm.h>
+
+#include <iostream>
 
 namespace SURELOG {
 

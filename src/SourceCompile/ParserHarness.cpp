@@ -20,34 +20,16 @@
  *
  * Created on June 05, 2021, 90:03 AM
  */
-#include "Surelog/SourceCompile/ParserHarness.h"
 
-#include <cstdlib>
-#include <iostream>
-
-#include "Surelog/Cache/ParseCache.h"
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/ErrorReporting/Error.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/Package/Precompiled.h"
-#include "Surelog/SourceCompile/AntlrParserErrorListener.h"
-#include "Surelog/SourceCompile/AntlrParserHandler.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SV3_1aTreeShapeListener.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Utils/FileUtils.h"
-#include "Surelog/Utils/ParseUtils.h"
-#include "Surelog/Utils/StringUtils.h"
-#include "Surelog/Utils/Timer.h"
-#include "antlr4-runtime.h"
-#include "atn/ParserATNSimulator.h"
-#include "parser/SV3_1aLexer.h"
-#include "parser/SV3_1aParser.h"
-#include "parser/SV3_1aParserBaseListener.h"
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/Library/Library.h>
+#include <Surelog/SourceCompile/CompilationUnit.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/ParseFile.h>
+#include <Surelog/SourceCompile/ParserHarness.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
 
 namespace SURELOG {
 
@@ -89,7 +71,7 @@ std::unique_ptr<FileContent> ParserHarness::parse(const std::string& content) {
 
 FileContent* ParserHarness::parse(const std::string& content,
                                   Compiler* compiler,
-                                  const std::string fileName) {
+                                  const std::string& fileName) {
   CompilationUnit* unit = new CompilationUnit(false);
   SymbolTable* symbols = compiler->getSymbolTable();
   ErrorContainer* errors = compiler->getErrorContainer();

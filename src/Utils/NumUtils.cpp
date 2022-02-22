@@ -21,7 +21,7 @@
  * Created on December 29, 2020, 10:43 PM
  */
 
-#include "Surelog/Utils/NumUtils.h"
+#include <Surelog/Utils/NumUtils.h>
 
 #include <algorithm>
 #include <bitset>
@@ -31,6 +31,7 @@
 #include <sstream>
 
 namespace SURELOG {
+
 std::string NumUtils::hexToBin(const std::string &s) {
   std::string out;
   for (auto i : s) {

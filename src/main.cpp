@@ -29,6 +29,10 @@
 #include <unistd.h>
 #endif
 
+#include <Surelog/API/PythonAPI.h>
+#include <Surelog/ErrorReporting/Report.h>
+#include <Surelog/Utils/StringUtils.h>
+#include <Surelog/surelog.h>
 #include <string.h>
 #include <sys/stat.h>
 
@@ -36,11 +40,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
-#include "Surelog/API/PythonAPI.h"
-#include "Surelog/ErrorReporting/Report.h"
-#include "Surelog/Utils/StringUtils.h"
-#include "Surelog/surelog.h"
 
 namespace fs = std::filesystem;
 

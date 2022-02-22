@@ -20,11 +20,9 @@
  *
  * Created on March 16, 2017, 10:23 PM
  */
-#include "Surelog/Utils/ParseUtils.h"
 
-#include <vector>
-
-#include "antlr4-runtime.h"
+#include <Surelog/Utils/ParseUtils.h>
+#include <antlr4-runtime.h>
 
 namespace SURELOG {
 
@@ -169,4 +167,5 @@ void ParseUtils::inOrderTraversal(std::vector<antlr4::Token*>& tokens,
     }
   }
 }
+
 }  // namespace SURELOG

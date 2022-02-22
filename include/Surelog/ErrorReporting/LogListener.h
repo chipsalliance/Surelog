@@ -31,6 +31,7 @@
 #include <string>
 
 namespace SURELOG {
+
 // A thread-safe log listener that flushes it contents to a named file on disk.
 // Supports caching a fixed number of messages if the messages arrives before
 // the listener is initialized.

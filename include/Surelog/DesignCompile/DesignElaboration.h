@@ -25,11 +25,14 @@
 #define SURELOG_DESIGNELABORATION_H
 #pragma once
 
-#include "Surelog/DesignCompile/CompileDesign.h"
-#include "Surelog/DesignCompile/TestbenchElaboration.h"
-#include "Surelog/Expression/ExprBuilder.h"
+#include <Surelog/Config/Config.h>
+#include <Surelog/DesignCompile/TestbenchElaboration.h>
 
 namespace SURELOG {
+
+class BindStmt;
+class ModuleDefinitionFactory;
+class ModuleInstanceFactory;
 
 class DesignElaboration : public TestbenchElaboration {
  public:

@@ -20,13 +20,10 @@
  *
  * Created on February 10, 2018, 11:09 PM
  */
-#include "Surelog/Config/Config.h"
 
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Config/Config.h>
 
-using namespace SURELOG;
-
+namespace SURELOG {
 UseClause* Config::getInstanceUseClause(const std::string& instance) {
   std::map<std::string, UseClause>::iterator itr =
       m_instanceUseClauses.find(instance);
@@ -61,3 +58,4 @@ void Config::addCellUseClause(const std::string& cell, UseClause use) {
   }
   m_cellUseClauses.insert(std::make_pair(cell, use));
 }
+}  // namespace SURELOG

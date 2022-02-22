@@ -25,12 +25,11 @@
 #define SURELOG_MACROINFO_H
 #pragma once
 
-#include <map>
+#include <Surelog/Common/SymbolId.h>
+
 #include <string>
 #include <string_view>
 #include <vector>
-
-#include "Surelog/SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 
@@ -60,9 +59,6 @@ class MacroInfo {
   const std::vector<std::string> m_arguments;
   const std::vector<std::string> m_tokens;
 };
-
-typedef std::map<std::string, MacroInfo*> MacroStorage;
-typedef std::map<std::string, MacroInfo*> MacroStorageRef;
 
 };  // namespace SURELOG
 

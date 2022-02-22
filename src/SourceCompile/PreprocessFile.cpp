@@ -20,43 +20,35 @@
  *
  * Created on February 24, 2017, 9:38 PM
  */
-#include "Surelog/SourceCompile/PreprocessFile.h"
 
-#include <ctype.h>
-#include <stdio.h>
+#include <Surelog/Cache/PPCache.h>
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/ErrorReporting/Waiver.h>
+#include <Surelog/Package/Precompiled.h>
+#include <Surelog/SourceCompile/CompilationUnit.h>
+#include <Surelog/SourceCompile/CompileSourceFile.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/MacroInfo.h>
+#include <Surelog/SourceCompile/PreprocessFile.h>
+#include <Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/FileUtils.h>
+#include <Surelog/Utils/StringUtils.h>
+#include <Surelog/Utils/Timer.h>
+#include <antlr4-runtime.h>
+#include <parser/SV3_1aPpLexer.h>
+#include <parser/SV3_1aPpParser.h>
 
-#include <algorithm>
-#include <cctype>
-#include <cstdlib>
 #include <iostream>
 #include <regex>
-#include <sstream>
-
-#include "Parser.h"
-#include "Surelog/Cache/PPCache.h"
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/ErrorReporting/Waiver.h"
-#include "Surelog/Package/Precompiled.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Utils/FileUtils.h"
-#include "Surelog/Utils/ParseUtils.h"
-#include "Surelog/Utils/StringUtils.h"
-#include "Surelog/Utils/Timer.h"
-#include "antlr4-runtime.h"
-#include "atn/ParserATNSimulator.h"
-#include "parser/SV3_1aPpLexer.h"
-#include "parser/SV3_1aPpParser.h"
-#include "parser/SV3_1aPpParserBaseListener.h"
-
-using namespace antlr4;
 
 namespace SURELOG {
+
+using namespace antlr4;
 namespace fs = std::filesystem;
+
 const char* const PreprocessFile::MacroNotDefined = "SURELOG_MACRO_NOT_DEFINED";
 const char* const PreprocessFile::PP__Line__Marking = "SURELOG__LINE__MARKING";
 const char* const PreprocessFile::PP__File__Marking = "SURELOG__FILE__MARKING";
@@ -124,6 +116,7 @@ void PreprocessFile::setDebug(int level) {
       break;
   }
 }
+
 class PreprocessFile::DescriptiveErrorListener : public ANTLRErrorListener {
  public:
   DescriptiveErrorListener(PreprocessFile* pp, std::string filename)
@@ -180,7 +173,7 @@ void PreprocessFile::DescriptiveErrorListener::syntaxError(
     if (!m_fileContent.empty()) {
       lineText = StringUtils::getLineInString(m_fileContent, line);
       if (!lineText.empty()) {
-        if (!strstr(lineText.c_str(), "\n")) {
+        if (lineText.find('\n') == std::string::npos) {
           lineText += "\n";
         }
         for (unsigned int i = 0; i < charPositionInLine; i++) lineText += " ";

@@ -20,13 +20,12 @@
  *
  * Created on January 27, 2018, 5:25 PM
  */
-#include "Surelog/Library/Library.h"
 
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Design/ModuleDefinition.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Design/ModuleDefinition.h>
+#include <Surelog/Library/Library.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
 
-using namespace SURELOG;
+namespace SURELOG {
 
 void Library::addModuleDefinition(ModuleDefinition* def) {
   m_modules.insert(std::make_pair(def->getName(), def));
@@ -50,3 +49,5 @@ std::string Library::report(SymbolTable* symbols) const {
   }
   return report;
 }
+
+}  // namespace SURELOG

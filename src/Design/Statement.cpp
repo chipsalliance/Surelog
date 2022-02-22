@@ -21,11 +21,10 @@
  * Created on May 25, 2019, 11:34 AM
  */
 
-#include "Surelog/Design/Statement.h"
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/Statement.h>
 
-using namespace SURELOG;
-
-Statement::~Statement() {}
+namespace SURELOG {
 
 std::string SubRoutineCallStmt::getVarName(NodeId base_name) const {
   const FileContent* const fC = getFileContent();
@@ -50,3 +49,5 @@ std::vector<std::string> SubRoutineCallStmt::getVarChainNames() const {
   }
   return result;
 }
+
+}  // namespace SURELOG

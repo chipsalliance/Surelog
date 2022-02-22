@@ -20,13 +20,12 @@
  *
  * Created on March 6, 2019, 9:14 PM
  */
-#include "Surelog/Testbench/TypeDef.h"
 
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Testbench/TypeDef.h>
 
 namespace SURELOG {
+
 TypeDef::TypeDef(const FileContent* fC, NodeId id, NodeId the_def,
                  const std::string& name, bool forwardDeclaration)
     : DataType(fC, id, name, fC->Type(id)),
@@ -35,7 +34,5 @@ TypeDef::TypeDef(const FileContent* fC, NodeId id, NodeId the_def,
       m_forwardDeclaration(forwardDeclaration) {
   m_category = DataType::Category::TYPEDEF;
 }
-
-TypeDef::~TypeDef() {}
 
 }  // namespace SURELOG

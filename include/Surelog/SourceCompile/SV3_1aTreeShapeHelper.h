@@ -25,27 +25,26 @@
 #define SURELOG_SV3_1ATREESHAPEHELPER_H
 #pragma once
 
-#include <map>
-#include <stack>
-#include <unordered_map>
+#include <Surelog/Design/DesignElement.h>
+#include <Surelog/ErrorReporting/ErrorDefinition.h>
+#include <Surelog/ErrorReporting/Location.h>
+#include <Surelog/SourceCompile/CommonListenerHelper.h>
+#include <Surelog/SourceCompile/IncludeFileInfo.h>
+#include <parser/SV3_1aParser.h>
 
-#include "Surelog/Design/DesignElement.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Design/TimeInfo.h"
-#include "Surelog/Library/ParseLibraryDef.h"
-#include "Surelog/SourceCompile/CommonListenerHelper.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/IncludeFileInfo.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
-#include "Surelog/Utils/ParseUtils.h"
+#include <stack>
+
+namespace antlr4 {
+class CommonTokenStream;
+}
 
 namespace SURELOG {
 
 #define SV_MAX_IDENTIFIER_SIZE 1024
 #define SV_MAX_STRING_SIZE (4 * 1024 * 1024)
+
+class ParseFile;
+class ParseLibraryDef;
 
 class SV3_1aTreeShapeHelper : public CommonListenerHelper {
  public:

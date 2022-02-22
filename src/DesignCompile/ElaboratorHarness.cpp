@@ -20,7 +20,14 @@
  *
  * Created on June 08, 2021, 10:03 PM
  */
-#include "Surelog/DesignCompile/ElaboratorHarness.h"
+
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/DesignCompile/ElaboratorHarness.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/SourceCompile/CompileSourceFile.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/ParseFile.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
 
 namespace SURELOG {
 

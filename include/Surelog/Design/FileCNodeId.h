@@ -25,17 +25,18 @@
 #define SURELOG_FILECNODEID_H
 #pragma once
 
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Common/SymbolId.h>
 
 namespace SURELOG {
+
 class FileContent;
 
 class FileCNodeId {
  public:
   FileCNodeId(const FileContent* f, NodeId n) : fC(f), nodeId(n) {}
 
-  const FileContent* fC;
-  NodeId nodeId;
+  const FileContent* const fC;
+  const NodeId nodeId;
 };
 
 };  // namespace SURELOG

@@ -25,10 +25,14 @@
 #define SURELOG_CLASSOBJECT_H
 #pragma once
 
-#include "ClassDefinition.h"
-#include "Surelog/Expression/Value.h"
+#include <map>
+#include <string>
 
 namespace SURELOG {
+
+class ClassDefinition;
+class Property;
+class Value;
 
 class ClassObject final {
  public:

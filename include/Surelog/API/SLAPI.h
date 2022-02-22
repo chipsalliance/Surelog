@@ -25,14 +25,18 @@
 #define SURELOG_SLAPI_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
+
 #include <string>
 #include <vector>
 
-#include "ParserRuleContext.h"  // Antlr runtime
-#include "Surelog/SourceCompile/VObjectTypes.h"
+namespace antlr4 {
+class ParserRuleContext;
+}
 
 namespace SURELOG {
-typedef uint32_t NodeId;  // as defined in SourceCompile/SymbolTable.h
+
 class ModuleDefinition;
 class FileContent;
 class SV3_1aPythonListener;

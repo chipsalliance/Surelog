@@ -20,22 +20,15 @@
  *
  * Created on July 29, 2017, 5:32 PM
  */
-#include "Surelog/SourceCompile/AntlrParserErrorListener.h"
 
-#include <string.h>
-
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Utils/FileUtils.h"
-#include "Surelog/Utils/StringUtils.h"
-#include "atn/ParserATNSimulator.h"
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/SourceCompile/AntlrParserErrorListener.h>
+#include <Surelog/SourceCompile/ParseFile.h>
+#include <Surelog/Utils/FileUtils.h>
+#include <Surelog/Utils/StringUtils.h>
 
 namespace SURELOG {
+
 void AntlrParserErrorListener::syntaxError(
     antlr4::Recognizer *recognizer, antlr4::Token *offendingSymbol, size_t line,
     size_t charPositionInLine, const std::string &msg, std::exception_ptr e) {
@@ -51,7 +44,7 @@ void AntlrParserErrorListener::syntaxError(
   if (!m_fileContent.empty()) {
     lineText = StringUtils::getLineInString(m_fileContent, line);
     if (!lineText.empty()) {
-      if (!strstr(lineText.c_str(), "\n")) {
+      if (lineText.find('\n') == std::string::npos) {
         lineText += "\n";
       }
       for (unsigned int i = 0; i < charPositionInLine; i++) lineText += " ";
@@ -84,4 +77,5 @@ void AntlrParserErrorListener::reportAttemptingFullContext(
 void AntlrParserErrorListener::reportContextSensitivity(
     antlr4::Parser *recognizer, const antlr4::dfa::DFA &dfa, size_t startIndex,
     size_t stopIndex, size_t prediction, antlr4::atn::ATNConfigSet *configs) {}
+
 }  // namespace SURELOG

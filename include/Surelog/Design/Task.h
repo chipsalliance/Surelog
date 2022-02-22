@@ -25,13 +25,15 @@
 #define SURELOG_TASK_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/Function.h>
+
 #include <string>
 
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Design/Function.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-
 namespace SURELOG {
+
+class DesignComponent;
+class FileContent;
 
 class Task : public Procedure {
   SURELOG_IMPLEMENT_RTTI(Task, Procedure)
@@ -39,7 +41,7 @@ class Task : public Procedure {
   Task(DesignComponent* parent, const FileContent* fC, NodeId id,
        const std::string& name)
       : Procedure(parent, fC, id, name) {}
-  ~Task() override;
+  ~Task() override = default;
 
   bool compile(CompileHelper& compile_helper);
 };

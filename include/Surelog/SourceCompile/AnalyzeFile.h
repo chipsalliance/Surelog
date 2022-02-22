@@ -28,14 +28,15 @@
 #include <filesystem>
 #include <stack>
 
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/Design/Design.h"
-#include "Surelog/Design/DesignElement.h"
-#include "Surelog/SourceCompile/IncludeFileInfo.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/DesignElement.h>
+#include <Surelog/SourceCompile/IncludeFileInfo.h>
 
 namespace SURELOG {
+
+class CommandLineParser;
 class Design;
+class SymbolTable;
 
 class AnalyzeFile {
  public:

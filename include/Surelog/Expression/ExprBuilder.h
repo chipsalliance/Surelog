@@ -25,16 +25,16 @@
 #define SURELOG_EXPRBUILDER_H
 #pragma once
 
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Design/ValuedComponentI.h"
-#include "Surelog/Expression/Value.h"
-#include "Surelog/Library/Library.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Expression/Value.h>
 
 namespace SURELOG {
 
-class ErrorContainer;
 class Design;
+class ErrorContainer;
+class FileContent;
+class SymbolTable;
+class ValuedComponentI;
 
 class ExprBuilder final {
  public:

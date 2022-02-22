@@ -363,23 +363,12 @@ def _generate_header(listener, antlr_definition_filepath, cpp_input_filepath, ou
       '#define SURELOG_SV3_1ATREESHAPELISTENER_H',
       '#pragma once',
       '',
-      '',
-      '#include <stack>',
-      '#include <map>',
-      '#include <unordered_map>',
-      '',
-      '#include "Surelog/Utils/ParseUtils.h"',
-      '#include "Surelog/SourceCompile/SymbolTable.h"',
-      '#include "Surelog/Design/TimeInfo.h"',
-      '#include "Surelog/Design/DesignElement.h"',
-      '#include "Surelog/Design/FileContent.h"',
-      '#include "Surelog/SourceCompile/ParseFile.h"',
-      '#include "Surelog/SourceCompile/CompilationUnit.h"',
-      '#include "Surelog/SourceCompile/CompileSourceFile.h"',
-      '#include "Surelog/SourceCompile/SV3_1aTreeShapeHelper.h"',
-      '#include "parser/SV3_1aParserBaseListener.h"',
+      '#include <Surelog/SourceCompile/SV3_1aTreeShapeHelper.h>',
+      '#include <parser/SV3_1aParserBaseListener.h>',
       '',
       'namespace SURELOG {',
+      '',
+      '  class ParseFile;',
       '',
       '  class SV3_1aTreeShapeListener : public SV3_1aParserBaseListener, public SV3_1aTreeShapeHelper {',
       '  private:',
@@ -395,17 +384,9 @@ def _generate_header(listener, antlr_definition_filepath, cpp_input_filepath, ou
       '#define SURELOG_SV3_1APPTREESHAPELISTENER_H',
       '#pragma once',
       '',
-      '',
-      '#include <regex>',
-      '',
-      '#include "Surelog/SourceCompile/PreprocessFile.h"',
-      '#include "Surelog/SourceCompile/CompileSourceFile.h"',
-      '#include "Surelog/SourceCompile/Compiler.h"',
-      '#include "Surelog/SourceCompile/SymbolTable.h"',
-      '#include "Surelog/SourceCompile/CompilationUnit.h"',
-      '#include "Surelog/Design/TimeInfo.h"',
-      '#include "Surelog/SourceCompile/SV3_1aPpTreeListenerHelper.h"',
-      '#include "parser/SV3_1aPpParserBaseListener.h"',
+      '#include <Surelog/SourceCompile/PreprocessFile.h>',
+      '#include <Surelog/SourceCompile/SV3_1aPpTreeListenerHelper.h>',
+      '#include <parser/SV3_1aPpParserBaseListener.h>',
       '',
       'namespace SURELOG {',
       '',
@@ -429,9 +410,6 @@ def _generate_header(listener, antlr_definition_filepath, cpp_input_filepath, ou
         m = parse_method_name_regex.match(line)
         if m:
           method_name = m.group('method_name')
-
-          if 'ErrorNode' in method_name:
-            abc = 0
 
           if method_name.startswith('exit'):
             type_name = method_name.replace('enter', '').replace('exit', '').replace('visit', '')
@@ -471,12 +449,11 @@ def _generate_VObjectTypes_h(filepath):
     '#define SURELOG_VOBJECTTYPES_H',
     '#pragma once',
     '',
-    '',
     'enum VObjectType {',
   ]
 
   index = 0
-  for type_name in sorted(_type_names, key=lambda s: s.lower()):
+  for type_name in sorted(_type_names):
     content.append(f'  {type_name} = {index},')
     index += 1
 
@@ -496,8 +473,7 @@ def _generate_VObjectTypes_cpp(filepath):
     '// DO NOT EDIT',
     '',
     '#include <string>',
-    '#include "Surelog/Design/VObject.h"',
-    '',
+    '#include <Surelog/Design/VObject.h>',
     '',
     'using namespace SURELOG;',
     '',
@@ -505,7 +481,7 @@ def _generate_VObjectTypes_cpp(filepath):
     '  switch (type) {',
   ]
 
-  content.extend([f'  case {type_name}: return "{type_name}";' for type_name in sorted(_type_names, key=lambda s: s.lower())])
+  content.extend([f'  case {type_name}: return "{type_name}";' for type_name in sorted(_type_names)])
   content.extend([
     '  default: return "";',
     '  }',
@@ -525,7 +501,6 @@ def _generate_VObjectTypes_py_h(filepath):
     '#define SURELOG_VOBJECTTYPES_PY_H',
     '#pragma once',
     '',
-    '',
     '#include <vector>',
     '#include <string_view>',
     '',
@@ -535,7 +510,7 @@ def _generate_VObjectTypes_py_h(filepath):
   ]
 
   index = 0
-  for type_name in sorted(_type_names, key=lambda s: s.lower()):
+  for type_name in sorted(_type_names):
     content.append(f'  "{type_name} = {index};\\n",')
     index += 1
 

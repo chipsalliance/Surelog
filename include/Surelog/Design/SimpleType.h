@@ -25,10 +25,11 @@
 #define SURELOG_SIMPLE_TYPE_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/DataType.h>
+
 #include <map>
 #include <string>
-
-#include "Surelog/Design/DataType.h"
 
 namespace SURELOG {
 
@@ -38,7 +39,7 @@ class SimpleType : public DataType {
   SURELOG_IMPLEMENT_RTTI(SimpleType, DataType)
  public:
   SimpleType(const FileContent* fC, NodeId nameId, NodeId structId);
-  ~SimpleType() override;
+  ~SimpleType() override = default;
 
   NodeId getNameId() const { return m_nameId; }
 

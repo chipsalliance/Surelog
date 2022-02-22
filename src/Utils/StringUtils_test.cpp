@@ -14,18 +14,13 @@
  limitations under the License.
 */
 
-#include "Surelog/Utils/StringUtils.h"
-
-#include <string>
-#include <string_view>
-#include <vector>
-
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
-using ::testing::ElementsAre;
+#include <Surelog/Utils/StringUtils.h>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
 namespace SURELOG {
+using ::testing::ElementsAre;
+
 namespace {
 TEST(StringUtilsTest, Tokenize) {
   std::vector<std::string> tok_result;

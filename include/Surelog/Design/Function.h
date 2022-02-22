@@ -25,34 +25,27 @@
 #define SURELOG_FUNCTION_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/Scope.h>
+#include <Surelog/Design/Statement.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
+
 #include <string>
 
-#include "Surelog/Design/DataType.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Design/Scope.h"
-#include "Surelog/Design/Statement.h"
-#include "Surelog/Design/TfPortItem.h"
-#include "Surelog/DesignCompile/CompileHelper.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
-#include "Surelog/Testbench/Variable.h"
-
 namespace SURELOG {
+
+class CompileHelper;
+class DesignComponent;
+class FileContent;
+class TfPortItem;
+typedef std::vector<TfPortItem*> TfPortList;
 
 class Procedure : public Scope, public Statement {
   SURELOG_IMPLEMENT_RTTI_2_BASES(Procedure, Scope, Statement)
  public:
   Procedure(DesignComponent* parent, const FileContent* fC, NodeId id,
-            const std::string& name)
-      : Scope(name, nullptr),
-        Statement(this, nullptr, fC, id,
-                  fC ? fC->Type(id) : VObjectType::slFunction_prototype),
-        m_parent(parent),
-        m_fileContent(fC),
-        m_nodeId(id),
-        m_name(name) {}
-
-  ~Procedure() override {}
+            const std::string& name);
+  ~Procedure() override = default;
 
   DesignComponent* getParent() const { return m_parent; }
 
@@ -76,10 +69,7 @@ class SeqBlock : public Scope, public Statement {
   SURELOG_IMPLEMENT_RTTI_2_BASES(SeqBlock, Scope, Statement)
  public:
   SeqBlock(const std::string& name, Scope* parent, Statement* parentStmt,
-           const FileContent* fC, NodeId id)
-      : Scope(name, parent),
-        Statement(this, parentStmt, fC, id,
-                  fC ? fC->Type(id) : VObjectType::slSeq_block){};
+           const FileContent* fC, NodeId id);
 };
 
 class Function : public Procedure {
@@ -89,9 +79,9 @@ class Function : public Procedure {
            std::string name, DataType* returnType)
       : Procedure(parent, fC, id, name), m_returnType(returnType) {}
   bool compile(CompileHelper& compile_helper);
-  ~Function() override;
+  ~Function() override = default;
 
-  DataType* getReturnType() { return m_returnType; }
+  DataType* getReturnType() const { return m_returnType; }
 
  private:
   DataType* m_returnType;

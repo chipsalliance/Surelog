@@ -25,15 +25,14 @@
 #define SURELOG_ANTLRLIBPARSERERRORLISTENER_H
 #pragma once
 
-#include <stddef.h>
+#include <ANTLRErrorListener.h>
 
+#include <cstddef>
 #include <exception>
 
-#include "Surelog/Library/ParseLibraryDef.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "antlr4-runtime.h"
-
 namespace SURELOG {
+
+class ParseLibraryDef;
 
 class AntlrLibParserErrorListener : public antlr4::ANTLRErrorListener {
  public:

@@ -25,10 +25,16 @@
 #define SURELOG_COMPILEPROGRAM_H
 #pragma once
 
-#include "Surelog/DesignCompile/CompileHelper.h"
-#include "Surelog/DesignCompile/CompileToolbox.h"
+#include <Surelog/DesignCompile/CompileHelper.h>
+#include <Surelog/DesignCompile/CompileToolbox.h>
 
 namespace SURELOG {
+
+class CompileDesign;
+class Design;
+class ErrorContainer;
+class Program;
+class SymbolTable;
 
 struct FunctorCompileProgram {
   FunctorCompileProgram(CompileDesign* compiler, Program* program,
@@ -42,11 +48,11 @@ struct FunctorCompileProgram {
   int operator()() const;
 
  private:
-  CompileDesign* m_compileDesign;
-  Program* m_program;
-  Design* m_design;
-  SymbolTable* m_symbols;
-  ErrorContainer* m_errors;
+  CompileDesign* const m_compileDesign;
+  Program* const m_program;
+  Design* const m_design;
+  SymbolTable* const m_symbols;
+  ErrorContainer* const m_errors;
 };
 
 class CompileProgram : public CompileToolbox {
@@ -63,7 +69,7 @@ class CompileProgram : public CompileToolbox {
 
   bool compile();
 
-  ~CompileProgram() override;
+  ~CompileProgram() override = default;
 
  private:
   enum CollectType { FUNCTION, DEFINITION, OTHER };

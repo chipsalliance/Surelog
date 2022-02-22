@@ -25,23 +25,23 @@
 #define SURELOG_CLASSDEFINITION_H
 #pragma once
 
-#include "Surelog/Design/DataType.h"
-#include "Surelog/Design/DesignComponent.h"
-#include "Surelog/Design/Parameter.h"
-#include "Surelog/Design/ValuedComponentI.h"
-#include "Surelog/Testbench/Constraint.h"
-#include "Surelog/Testbench/CoverGroupDefinition.h"
-#include "Surelog/Testbench/FunctionMethod.h"
-#include "Surelog/Testbench/Property.h"
-#include "Surelog/Testbench/TaskMethod.h"
-#include "Surelog/Testbench/TypeDef.h"
+#include <Surelog/Design/DataType.h>
+#include <Surelog/Design/DesignComponent.h>
+#include <Surelog/Testbench/TaskMethod.h>
 
 // UHDM
 #include <uhdm/containers.h>
 #include <uhdm/uhdm_forward_decl.h>
 
 namespace SURELOG {
+
 class CompileClass;
+class Constraint;
+class CoverGroupDefinition;
+class DataType;
+class FileContent;
+class Library;
+class Property;
 
 class ClassDefinition : public DesignComponent, public DataType {
   SURELOG_IMPLEMENT_RTTI_2_BASES(ClassDefinition, DesignComponent, DataType)
@@ -53,7 +53,7 @@ class ClassDefinition : public DesignComponent, public DataType {
                   NodeId nodeId, ClassDefinition* parent,
                   UHDM::class_defn* uhdm_definition);
 
-  ~ClassDefinition() override;
+  ~ClassDefinition() override = default;
 
   unsigned int getSize() const override;
   VObjectType getType() const override {

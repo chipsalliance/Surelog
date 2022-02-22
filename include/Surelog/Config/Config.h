@@ -25,15 +25,16 @@
 #define SURELOG_CONFIG_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
+
 #include <map>
 #include <string>
 #include <string_view>
 #include <vector>
 
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-
 namespace SURELOG {
+
+class FileContent;
 
 class UseClause {
  public:

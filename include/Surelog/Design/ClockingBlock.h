@@ -25,16 +25,17 @@
 #define SURELOG_CLOCKINGBLOCK_H
 #pragma once
 
-#include <vector>
-
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Design/Signal.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/Signal.h>
 
 // UHDM
 #include <uhdm/uhdm_forward_decl.h>
 
+#include <vector>
+
 namespace SURELOG {
+
+class FileContent;
 
 class ClockingBlock final {
  public:

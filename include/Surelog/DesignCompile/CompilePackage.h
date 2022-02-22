@@ -25,14 +25,15 @@
 #define SURELOG_COMPILEPACKAGE_H
 #pragma once
 
-#include "Surelog/Design/Design.h"
-#include "Surelog/DesignCompile/CompileDesign.h"
-#include "Surelog/DesignCompile/CompileHelper.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/Package/Package.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/DesignCompile/CompileHelper.h>
 
 namespace SURELOG {
+
+class CompileDesign;
+class Design;
+class ErrorContainer;
+class Package;
+class SymbolTable;
 
 struct FunctorCompilePackage {
   FunctorCompilePackage(CompileDesign* compiler, Package* package,
@@ -46,11 +47,11 @@ struct FunctorCompilePackage {
   int operator()() const;
 
  private:
-  CompileDesign* m_compileDesign;
-  Package* m_package;
-  Design* m_design;
-  SymbolTable* m_symbols;
-  ErrorContainer* m_errors;
+  CompileDesign* const m_compileDesign;
+  Package* const m_package;
+  Design* const m_design;
+  SymbolTable* const m_symbols;
+  ErrorContainer* const m_errors;
 };
 
 class CompilePackage final {

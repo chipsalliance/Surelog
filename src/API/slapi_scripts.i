@@ -6,19 +6,5 @@
 
 %template (UIntVector) std::vector<unsigned int>;
         
-%include "Surelog//API//SLAPI.h"
+%include <Surelog/API/SLAPI.h>
 
-    
-       
-   
-       
-       
- 
-        
-       
-   
-    
-       
-    
-    
-       

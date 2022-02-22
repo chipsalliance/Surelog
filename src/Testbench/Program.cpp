@@ -20,20 +20,29 @@
  *
  * Created on June 1, 2018, 8:58 PM
  */
-#include "Surelog/Testbench/Program.h"
 
-#include "Surelog/Design/DesignComponent.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Design/DesignComponent.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Testbench/Program.h>
 
 namespace SURELOG {
-Program::~Program() {}
+
+Program::Program(std::string name, Library* library, FileContent* fC,
+                 NodeId nodeId)
+    : DesignComponent(fC, nullptr), m_name(name), m_library(library) {
+  addFileContent(fC, nodeId);
+}
 
 unsigned int Program::getSize() const {
   NodeId end = m_nodeIds[0];
   NodeId begin = m_fileContents[0]->Child(end);
   unsigned int size = end - begin;
   return size;
+}
+
+VObjectType Program::getType() const {
+  return (m_fileContents[0]->Type(m_nodeIds[0]));
 }
 
 ClassDefinition* Program::getClassDefinition(const std::string& name) {
@@ -45,4 +54,5 @@ ClassDefinition* Program::getClassDefinition(const std::string& name) {
     return (*itr).second;
   }
 }
+
 }  // namespace SURELOG

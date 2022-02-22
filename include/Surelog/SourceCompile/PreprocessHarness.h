@@ -25,22 +25,8 @@
 #define SURELOG_PREPROCESSHARNESS_H
 #pragma once
 
-#include <map>
-#include <set>
-#include <string>
-#include <string_view>
-#include <thread>
-
-#include "Surelog/Config/ConfigSet.h"
-#include "Surelog/Design/Design.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/Library/LibrarySet.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-
-// UHDM
-#include <uhdm/sv_vpi_user.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
 
 namespace SURELOG {
 

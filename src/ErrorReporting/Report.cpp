@@ -20,7 +20,10 @@
  *
  * Created on April 10, 2017, 8:56 PM
  */
-#include "Surelog/ErrorReporting/Report.h"
+
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/ErrorReporting/Report.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
 
 #include <chrono>
 #include <filesystem>
@@ -35,9 +38,10 @@
 #include <unistd.h>
 #endif
 
-#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include <Surelog/ErrorReporting/ErrorContainer.h>
 
 namespace SURELOG {
+
 namespace fs = std::filesystem;
 
 struct Result {

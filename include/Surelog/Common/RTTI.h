@@ -1,6 +1,5 @@
 #ifndef SURELOG_RTTI_H
 #define SURELOG_RTTI_H
-
 #pragma once
 
 #include <uhdm/RTTI.h>

@@ -21,11 +21,11 @@
  * Created on February 21, 2019, 8:19 PM
  */
 
-#include "Surelog/Design/Task.h"
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/Task.h>
+#include <Surelog/DesignCompile/CompileHelper.h>
 
-using namespace SURELOG;
-
-Task::~Task() {}
+namespace SURELOG {
 
 bool Task::compile(CompileHelper& compile_helper) {
   bool result = true;
@@ -37,3 +37,5 @@ bool Task::compile(CompileHelper& compile_helper) {
   result &= compile_helper.compileTfPortList(this, fC, tf_port_list, m_params);
   return result;
 }
+
+}  // namespace SURELOG

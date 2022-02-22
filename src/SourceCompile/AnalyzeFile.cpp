@@ -20,33 +20,20 @@
  *
  * Created on July 23, 2017, 11:05 PM
  */
-#include "Surelog/SourceCompile/AnalyzeFile.h"
 
-#include <ctype.h>
-#include <stdio.h>
-#include <string.h>
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Design/Design.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/SourceCompile/AnalyzeFile.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/StringUtils.h>
 
 #include <fstream>
-#include <iostream>
 #include <regex>
 #include <sstream>
-#include <stack>
-
-#include "Surelog/Design/Design.h"
-#include "Surelog/Design/DesignElement.h"
-#include "Surelog/Design/TimeInfo.h"
-#include "Surelog/ErrorReporting/Error.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/ErrorReporting/ErrorDefinition.h"
-#include "Surelog/ErrorReporting/Location.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/IncludeFileInfo.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {
+
 namespace fs = std::filesystem;
 
 static void saveContent(const fs::path& fileName, const std::string& content) {
@@ -601,8 +588,8 @@ void AnalyzeFile::analyze() {
         if (i == fileChunks.size() - 1) {
           toLine = allLines.size() - 1;
         }
-        const char* temp = allLines[toLine].c_str();
-        if (strstr(temp, "/*") && (!strstr(temp, "*/"))) {
+        if ((allLines[toLine].find("/*") != std::string::npos) &&
+            (allLines[toLine].find("*/") == std::string::npos)) {
           m_splitFiles.clear();
           m_lineOffsets.clear();
           Location loc(

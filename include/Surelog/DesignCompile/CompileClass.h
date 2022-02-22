@@ -25,7 +25,7 @@
 #define SURELOG_COMPILECLASS_H
 #pragma once
 
-#include "Surelog/DesignCompile/CompileHelper.h"
+#include <Surelog/DesignCompile/CompileHelper.h>
 
 namespace SURELOG {
 

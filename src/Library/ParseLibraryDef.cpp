@@ -21,28 +21,27 @@
  * Created on January 27, 2018, 5:05 PM
  */
 
-#include "Surelog/Library/ParseLibraryDef.h"
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Config/ConfigSet.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/Library/AntlrLibParserErrorListener.h>
+#include <Surelog/Library/Library.h>
+#include <Surelog/Library/LibrarySet.h>
+#include <Surelog/Library/ParseLibraryDef.h>
+#include <Surelog/Library/SVLibShapeListener.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/FileUtils.h>
+#include <Surelog/Utils/StringUtils.h>
+#include <antlr4-runtime.h>
+#include <parser/SV3_1aLexer.h>
+#include <parser/SV3_1aParser.h>
 
 #include <filesystem>
 
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/Library/AntlrLibParserErrorListener.h"
-#include "Surelog/Library/SVLibShapeListener.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/Utils/FileUtils.h"
-#include "Surelog/Utils/StringUtils.h"
-#include "antlr4-runtime.h"
-#include "atn/ParserATNSimulator.h"
-#include "parser/SV3_1aLexer.h"
-#include "parser/SV3_1aParser.h"
+namespace SURELOG {
 
 using namespace antlr4;
-
-namespace SURELOG {
 namespace fs = std::filesystem;
 
 ParseLibraryDef::ParseLibraryDef(CommandLineParser* commandLineParser,

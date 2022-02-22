@@ -25,9 +25,15 @@
 #define SURELOG_SIGNAL_H
 #pragma once
 
-#include "Surelog/Design/FileContent.h"
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
+
+#include <string>
 
 namespace SURELOG {
+
+class DataType;
+class FileContent;
 class ModPort;
 class ModuleDefinition;
 
@@ -48,7 +54,7 @@ class Signal final {
   VObjectType getDirection() const { return m_direction; }
   const FileContent* getFileContent() const { return m_fileContent; }
   NodeId getNodeId() const { return m_nodeId; }
-  std::string getName() const { return m_fileContent->SymName(m_nodeId); }
+  std::string getName() const;
   std::string getInterfaceTypeName() const;
 
   ModuleDefinition* getInterfaceDef() { return m_interfaceDef; }
@@ -88,9 +94,7 @@ class Signal final {
   Signal* getLowConn() { return m_lowConn; }
   NodeId getPackedDimension() const { return m_packedDimension; }
   NodeId getUnpackedDimension() const { return m_unpackedDimension; }
-  NodeId getModPortId() const {
-    return m_fileContent->Sibling(m_interfaceTypeNameId);
-  }
+  NodeId getModPortId() const;
   NodeId getInterfaceTypeNameId() const { return m_interfaceTypeNameId; }
   NodeId getTypeSpecId() const { return m_typeSpecId; }
   NodeId getDelay() const { return m_delay; }

@@ -21,8 +21,4 @@
  * Created on Nov 23, 2020, 8:03 PM
  */
 
-#include "Surelog/Design/ParamAssign.h"
-
-#include "Surelog/Design/FileContent.h"
-
-using namespace SURELOG;
+#include <Surelog/Design/ParamAssign.h>

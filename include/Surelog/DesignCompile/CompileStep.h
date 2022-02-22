@@ -25,14 +25,21 @@
 #define SURELOG_COMPILESTEP_H
 #pragma once
 
-#include "Surelog/Design/VObject.h"
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
+
+#include <string>
+#include <vector>
+
 namespace SURELOG {
+
+class VObject;
 
 class CompileStep {
  public:
-  CompileStep();
-  CompileStep(const CompileStep& orig);
-  virtual ~CompileStep();
+  CompileStep() = default;
+  CompileStep(const CompileStep& orig) = default;
+  virtual ~CompileStep() = default;
 
   virtual const VObject Object(NodeId index) const = 0;
 

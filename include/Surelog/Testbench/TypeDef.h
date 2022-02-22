@@ -25,24 +25,25 @@
 #define SURELOG_TYPEDEF_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/DataType.h>
+
 #include <string>
 
-#include "Surelog/Design/DataType.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-
 namespace SURELOG {
-class FileContent;
+
 class Enum;
+class FileContent;
 
 class TypeDef : public DataType {
   SURELOG_IMPLEMENT_RTTI(TypeDef, DataType)
  public:
   TypeDef(const FileContent* fC, NodeId id, NodeId the_def,
           const std::string& name, bool forwardDeclaration = false);
-  ~TypeDef() override;
+  ~TypeDef() override = default;
 
   void setDataType(DataType* the_type) { m_datatype = the_type; }
-  NodeId getDefinitionNode() { return m_the_def; }
+  NodeId getDefinitionNode() const { return m_the_def; }
   const DataType* getDataType() const { return m_datatype; }
   bool isForwardDeclaration() const { return m_forwardDeclaration; }
 

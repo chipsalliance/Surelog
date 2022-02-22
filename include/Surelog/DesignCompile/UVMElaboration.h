@@ -25,16 +25,17 @@
 #define SURELOG_UVMELABORATION_H
 #pragma once
 
-#include "Surelog/DesignCompile/CompileDesign.h"
-#include "Surelog/DesignCompile/TestbenchElaboration.h"
+#include <Surelog/DesignCompile/TestbenchElaboration.h>
 
 namespace SURELOG {
+
+class CompileDesign;
 
 class UVMElaboration : public TestbenchElaboration {
  public:
   UVMElaboration(CompileDesign* compileDesign);
   UVMElaboration(const UVMElaboration& orig) = delete;
-  ~UVMElaboration() override;
+  ~UVMElaboration() override = default;
 
   bool elaborate() override;
 

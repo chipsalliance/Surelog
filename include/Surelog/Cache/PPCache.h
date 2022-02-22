@@ -25,12 +25,13 @@
 #define SURELOG_PPCACHE_H
 #pragma once
 
-#include "Surelog/Cache/Cache.h"
-#include "Surelog/ErrorReporting/Error.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Cache/Cache.h>
+
+#include <filesystem>
 
 namespace SURELOG {
+
+class PreprocessFile;
 
 class PPCache : Cache {
  public:

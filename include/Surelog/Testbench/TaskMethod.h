@@ -25,7 +25,7 @@
 #define SURELOG_TASKMETHOD_H
 #pragma once
 
-#include "Surelog/Design/Task.h"
+#include <Surelog/Design/Task.h>
 
 namespace SURELOG {
 
@@ -34,7 +34,7 @@ class TaskMethod : public Task {
   TaskMethod(DesignComponent* parent, const FileContent* fC, NodeId id,
              std::string name, bool is_extern)
       : Task(parent, fC, id, name), m_extern(is_extern) {}
-  ~TaskMethod() override;
+  ~TaskMethod() override = default;
   bool isExtern() { return m_extern; }
   bool compile(CompileHelper& compile_helper);
 

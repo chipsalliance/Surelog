@@ -14,21 +14,27 @@
  limitations under the License.
 */
 
+#include <Surelog/Design/Design.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/ModuleInstance.h>
+#include <Surelog/DesignCompile/CompileDesign.h>
+#include <Surelog/DesignCompile/CompileHelper.h>
+#include <Surelog/DesignCompile/ElaboratorHarness.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+
 #include <string>
 #include <string_view>
 #include <tuple>
 #include <vector>
-
-#include "Surelog/DesignCompile/CompileHelper.h"
-#include "Surelog/DesignCompile/ElaboratorHarness.h"
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
 
 // UHDM
 #include <uhdm/design.h>
 #include <uhdm/expr.h>
 #include <uhdm/module.h>
 #include <uhdm/param_assign.h>
+#include <uhdm/vpi_user.h>
 
 using ::testing::ElementsAre;
 

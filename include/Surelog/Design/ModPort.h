@@ -20,14 +20,15 @@
  *
  * Created on January 31, 2020, 9:46 PM
  */
+
 #ifndef SURELOG_MODPORT_H
 #define SURELOG_MODPORT_H
 #pragma once
 
-#include <vector>
+#include <Surelog/Design/Signal.h>
 
-#include "Signal.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <string_view>
+#include <vector>
 
 namespace SURELOG {
 

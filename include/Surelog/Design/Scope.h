@@ -25,19 +25,16 @@
 #define SURELOG_SCOPE_H
 #pragma once
 
-#include <string>
+#include <Surelog/Common/RTTI.h>
 
-#include "Surelog/Common/RTTI.h"
-#include "Surelog/Design/DataType.h"
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/Design/TfPortItem.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/SourceCompile/VObjectTypes.h"
-#include "Surelog/Testbench/Variable.h"
+#include <string>
+#include <vector>
 
 namespace SURELOG {
 
+class DataType;
 class Statement;
+class Variable;
 
 class Scope : public RTTI {
   SURELOG_IMPLEMENT_RTTI(Scope, RTTI)
@@ -54,9 +51,7 @@ class Scope : public RTTI {
   const std::string& getName() const { return m_name; }
   Scope* getParentScope() { return m_parentScope; }
 
-  void addVariable(Variable* var) {
-    m_variables.insert(std::make_pair(var->getName(), var));
-  }
+  void addVariable(Variable* var);
 
   VariableMap& getVariables() { return m_variables; }
   Variable* getVariable(const std::string& name);

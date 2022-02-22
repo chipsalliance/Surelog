@@ -21,7 +21,7 @@
  * Created on March 14, 2017, 10:43 PM
  */
 
-#include "Surelog/Utils/StringUtils.h"
+#include <Surelog/Utils/StringUtils.h>
 
 #include <algorithm>
 #include <iostream>
@@ -30,6 +30,7 @@
 #include <sstream>
 
 namespace SURELOG {
+
 std::map<std::string, std::string> StringUtils::envVars;
 
 std::string StringUtils::to_string(double a_value, const int n) {
@@ -354,4 +355,5 @@ std::string StringUtils::unquoted(const std::string& text) {
   }
   return text;
 }
+
 }  // namespace SURELOG

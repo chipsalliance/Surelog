@@ -1,3 +1,4 @@
+
 /*
  Copyright 2020 Alain Dargelas
 
@@ -20,15 +21,14 @@
  *
  * Created on May 19, 2020, 11:55 AM
  */
-#include "Surelog/Design/SimpleType.h"
 
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/SimpleType.h>
 
 // UHDM
 #include <uhdm/uhdm.h>
 
-using namespace SURELOG;
+namespace SURELOG {
 
 SimpleType::SimpleType(const FileContent* fC, NodeId nameId, NodeId structId)
     : DataType(fC, structId, fC->SymName(nameId), fC->Type(structId)),
@@ -36,4 +36,4 @@ SimpleType::SimpleType(const FileContent* fC, NodeId nameId, NodeId structId)
   m_category = DataType::Category::SIMPLE_TYPEDEF;
 }
 
-SimpleType::~SimpleType() {}
+}  // namespace SURELOG

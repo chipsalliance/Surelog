@@ -20,10 +20,5 @@
  *
  * Created on May 12, 2019, 9:06 PM
  */
-#include "Surelog/Design/TfPortItem.h"
 
-#include <string>
-
-using namespace SURELOG;
-
-TfPortItem::~TfPortItem() {}
+#include <Surelog/Design/TfPortItem.h>

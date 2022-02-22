@@ -14,18 +14,17 @@
  limitations under the License.
 */
 
-#include "Surelog/SourceCompile/SymbolTable.h"
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
 #include <string>
 #include <string_view>
 #include <vector>
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+namespace SURELOG {
 using testing::ElementsAre;
 
-namespace SURELOG {
 namespace {
 TEST(SymbolTableTest, SymbolTableAccess) {
   SymbolTable table;

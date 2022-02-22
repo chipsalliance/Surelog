@@ -25,11 +25,10 @@
 #define SURELOG_TIMEINFO_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <string_view>
-
-#include "Surelog/SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 

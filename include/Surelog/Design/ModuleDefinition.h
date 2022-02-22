@@ -25,25 +25,21 @@
 #define SURELOG_MODULEDEFINITION_H
 #pragma once
 
-#include <string_view>
-#include <vector>
-
-#include "Surelog/Common/ClockingBlockHolder.h"
-#include "Surelog/Design/ClockingBlock.h"
-#include "Surelog/Design/DataType.h"
-#include "Surelog/Design/DesignComponent.h"
-#include "Surelog/Design/ModPort.h"
-#include "Surelog/Design/Signal.h"
-#include "Surelog/Design/ValuedComponentI.h"
+#include <Surelog/Common/ClockingBlockHolder.h>
+#include <Surelog/Common/Containers.h>
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/DesignComponent.h>
 
 // UHDM
 #include <uhdm/containers.h>
 
-namespace UHDM {
-class udp_defn;
-}
+#include <string_view>
+#include <vector>
+
 namespace SURELOG {
+
 class CompileModule;
+class FileContent;
 
 class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   SURELOG_IMPLEMENT_RTTI(ModuleDefinition, DesignComponent)
@@ -56,10 +52,7 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   ~ModuleDefinition() override;
 
   const std::string& getName() const override { return m_name; }
-  VObjectType getType() const override {
-    return (m_fileContents.size()) ? m_fileContents[0]->Type(m_nodeIds[0])
-                                   : VObjectType::slN_input_gate_instance;
-  }
+  VObjectType getType() const override;
   bool isInstance() const override;
   unsigned int getSize() const override;
 

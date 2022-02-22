@@ -13,27 +13,25 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-#include "Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h"
 
-#include <cstdlib>
-#include <iostream>
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Design/Design.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/SourceCompile/CompilationUnit.h>
+#include <Surelog/SourceCompile/CompileSourceFile.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/MacroInfo.h>
+#include <Surelog/SourceCompile/PreprocessFile.h>
+#include <Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/FileUtils.h>
+#include <Surelog/Utils/ParseUtils.h>
+#include <Surelog/Utils/StringUtils.h>
+
 #include <regex>
 
-#include "Surelog/CommandLine/CommandLineParser.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/SourceCompile/CompilationUnit.h"
-#include "Surelog/SourceCompile/CompileSourceFile.h"
-#include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/PreprocessFile.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Utils/FileUtils.h"
-#include "Surelog/Utils/ParseUtils.h"
-#include "Surelog/Utils/StringUtils.h"
-#include "parser/SV3_1aPpLexer.h"
-#include "parser/SV3_1aPpParser.h"
-#include "parser/SV3_1aPpParserBaseListener.h"
-
 namespace SURELOG {
+
 SV3_1aPpTreeShapeListener::SV3_1aPpTreeShapeListener(
     PreprocessFile *pp, antlr4::CommonTokenStream *tokens,
     PreprocessFile::SpecialInstructions &instructions)

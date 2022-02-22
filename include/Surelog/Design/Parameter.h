@@ -25,12 +25,17 @@
 #define SURELOG_PARAMETER_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/DataType.h>
+
+// UHDM
+#include <uhdm/uhdm_forward_decl.h>
+
 #include <string>
 
-#include "Surelog/Design/FileContent.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-
 namespace SURELOG {
+
+class FileContent;
 
 class Parameter : public DataType {
   SURELOG_IMPLEMENT_RTTI(Parameter, DataType)
