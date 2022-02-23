@@ -26,6 +26,7 @@
 #pragma once
 
 #include <Surelog/DesignCompile/CompileHelper.h>
+#include <Surelog/Testbench/ClassDefinition.h>
 
 namespace SURELOG {
 

@@ -26,6 +26,7 @@
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
+#include <flatbuffers/util.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 
