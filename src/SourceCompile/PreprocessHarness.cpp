@@ -32,21 +32,26 @@ namespace SURELOG {
 
 PreprocessHarness::PreprocessHarness() : m_errors(&m_symbols) {}
 
-std::string PreprocessHarness::preprocess(std::string_view content) {
+std::string PreprocessHarness::preprocess(std::string_view content,
+                                          CompilationUnit* compUnit) {
   std::string result;
   PreprocessFile::SpecialInstructions instructions(
       PreprocessFile::SpecialInstructions::DontMute,
       PreprocessFile::SpecialInstructions::DontMark,
       PreprocessFile::SpecialInstructions::DontFilter,
       PreprocessFile::SpecialInstructions::CheckLoop,
-      PreprocessFile::SpecialInstructions::ComplainUndefinedMacro);
+      PreprocessFile::SpecialInstructions::ComplainUndefinedMacro,
+      PreprocessFile::SpecialInstructions::Evaluate,
+      compUnit ? PreprocessFile::SpecialInstructions::Persist
+               : PreprocessFile::SpecialInstructions::DontPersist);
   CompilationUnit unit(false);
   CommandLineParser clp(&m_errors, &m_symbols, false, false);
   Library lib("work", &m_symbols);
   Compiler compiler(&clp, &m_errors, &m_symbols);
-  CompileSourceFile csf(0, &clp, &m_errors, &compiler, &m_symbols, &unit, &lib);
-  PreprocessFile pp(0, nullptr, 0, &csf, instructions, &unit, &lib, content,
-                    nullptr, 0, 0);
+  CompileSourceFile csf(0, &clp, &m_errors, &compiler, &m_symbols,
+                        compUnit ? compUnit : &unit, &lib);
+  PreprocessFile pp(0, nullptr, 0, &csf, instructions,
+                    compUnit ? compUnit : &unit, &lib, content, nullptr, 0, 0);
 
   if (!pp.preprocess()) {
     result = "ERROR_PP";
