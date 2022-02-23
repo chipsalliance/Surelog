@@ -27,13 +27,14 @@
 
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/SourceCompile/CompilationUnit.h>
 
 namespace SURELOG {
 
 class PreprocessHarness {
  public:
   PreprocessHarness();
-  std::string preprocess(std::string_view content);
+  std::string preprocess(std::string_view content, CompilationUnit* compUnit = nullptr);
 
   const ErrorContainer &collected_errors() const { return m_errors; }
 

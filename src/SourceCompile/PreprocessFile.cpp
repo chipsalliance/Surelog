@@ -297,7 +297,8 @@ PreprocessFile::PreprocessFile(const PreprocessFile& orig) {}
 
 PreprocessFile::~PreprocessFile() {
   delete m_listener;
-  for (const auto& name_macro : m_macros) delete name_macro.second;
+  if (!m_instructions.m_persist)
+    for (const auto& name_macro : m_macros) delete name_macro.second;
 }
 
 PreprocessFile::AntlrParserHandler::~AntlrParserHandler() {

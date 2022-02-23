@@ -29,6 +29,7 @@ namespace SURELOG {
 
 class CompileDesign;
 class Design;
+class CompilationUnit;
 
 // TODO: this looks like it should probably be more a
 // function ? Something like
@@ -37,7 +38,7 @@ class Builtin final {
  public:
   Builtin(CompileDesign* compiler, Design* design)
       : m_compiler(compiler), m_design(design) {}
-
+  void addBuiltinMacros(CompilationUnit* compUnit);
   void addBuiltinTypes();
   void addBuiltinClasses();
 
