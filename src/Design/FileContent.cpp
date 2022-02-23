@@ -41,6 +41,13 @@ std::filesystem::path FileContent::getChunkFileName() const {
 }
 
 const std::string& FileContent::SymName(NodeId index) const {
+  if (index >= m_objects.size()) {
+    Location loc(this->m_fileId);
+    Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
+    m_errors->addError(err);
+    std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
+    return m_symbolTable->getSymbol(Name(0));
+  }
   return m_symbolTable->getSymbol(Name(index));
 }
 
@@ -199,10 +206,38 @@ SymbolId FileContent::GetDefinitionFile(NodeId index) const {
   return 0;
 }
 
-VObject FileContent::Object(NodeId index) const { return m_objects[index]; }
-VObject* FileContent::MutableObject(NodeId index) { return &m_objects[index]; }
+VObject FileContent::Object(NodeId index) const {
+  if (index >= m_objects.size()) {
+    Location loc(this->m_fileId);
+    Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
+    m_errors->addError(err);
+    std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
+    return m_objects[0];
+  }
+  return m_objects[index];
+}
 
-NodeId FileContent::UniqueId(NodeId index) { return index; }
+VObject* FileContent::MutableObject(NodeId index) {
+  if (index >= m_objects.size()) {
+    Location loc(this->m_fileId);
+    Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
+    m_errors->addError(err);
+    std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
+    return &m_objects[0];
+  }
+  return &m_objects[index];
+}
+
+NodeId FileContent::UniqueId(NodeId index) {
+  if (index >= m_objects.size()) {
+    Location loc(this->m_fileId);
+    Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
+    m_errors->addError(err);
+    std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
+    return 0;
+  }
+  return index;
+}
 
 SymbolId FileContent::Name(NodeId index) const {
   if (index >= m_objects.size()) {
