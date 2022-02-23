@@ -2313,7 +2313,7 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
                  (insttype == VObjectType::slGate_instantiation)) {
         UHDM::primitive* gate = nullptr;
         UHDM::primitive_array* gate_array = nullptr;
-        const FileContent* fC = instance->getFileContent();
+        const FileContent* fC = child->getFileContent();
         NodeId gatenode = fC->Child(child->getNodeId());
         VObjectType gatetype = fC->Type(gatenode);
         int vpiGateType = getBuiltinType(gatetype);

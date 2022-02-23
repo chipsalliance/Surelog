@@ -27,6 +27,7 @@
 
 #include <filesystem>
 #include <stack>
+#include <vector>
 
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/DesignElement.h>
