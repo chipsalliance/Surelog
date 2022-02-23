@@ -26,6 +26,7 @@
 #include <Surelog/Config/ConfigSet.h>
 #include <Surelog/Design/Design.h>
 #include <Surelog/Design/FileContent.h>
+#include <Surelog/DesignCompile/Builtin.h>
 #include <Surelog/DesignCompile/CompileDesign.h>
 #include <Surelog/Library/Library.h>
 #include <Surelog/Library/LibrarySet.h>
@@ -137,6 +138,10 @@ bool Compiler::isLibraryFile(SymbolId id) const {
 bool Compiler::ppinit_() {
   if (!m_commandLineParser->fileunit()) {
     m_commonCompilationUnit = new CompilationUnit(false);
+    if (m_commandLineParser->parseBuiltIn()) {
+      Builtin* builtin = new Builtin(nullptr, nullptr);
+      builtin->addBuiltinMacros(m_commonCompilationUnit);
+    }
   }
 
   CompilationUnit* comp_unit = m_commonCompilationUnit;
@@ -149,6 +154,10 @@ bool Compiler::ppinit_() {
     SymbolTable* symbols = m_symbolTable;
     if (m_commandLineParser->fileunit()) {
       comp_unit = new CompilationUnit(true);
+      if (m_commandLineParser->parseBuiltIn()) {
+        Builtin* builtin = new Builtin(nullptr, nullptr);
+        builtin->addBuiltinMacros(comp_unit);
+      }
       m_compilationUnits.push_back(comp_unit);
       symbols = new SymbolTable(m_commandLineParser->getSymbolTable());
       m_symbolTables.push_back(symbols);

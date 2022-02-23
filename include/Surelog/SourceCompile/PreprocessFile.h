@@ -183,6 +183,7 @@ class PreprocessFile {
       AsIsUndefinedMacro = true,
       ComplainUndefinedMacro = false
     };
+    enum PersistMacroInstr : bool { Persist = true, DontPersist = false };
     enum EvaluateInstr : bool { Evaluate = true, DontEvaluate = false };
     SpecialInstructions()
         : m_mute(DontMute),
@@ -190,25 +191,26 @@ class PreprocessFile {
           m_filterFileLine(DontFilter),
           m_check_macro_loop(DontCheckLoop),
           m_as_is_undefined_macro(ComplainUndefinedMacro),
-          m_evaluate(Evaluate) {}
+          m_evaluate(Evaluate), m_persist(DontPersist) {}
     SpecialInstructions(SpecialInstructions& rhs)
         : m_mute(rhs.m_mute),
           m_mark_empty_macro(rhs.m_mark_empty_macro),
           m_filterFileLine(rhs.m_filterFileLine),
           m_check_macro_loop(rhs.m_check_macro_loop),
           m_as_is_undefined_macro(rhs.m_as_is_undefined_macro),
-          m_evaluate(rhs.m_evaluate) {}
+          m_evaluate(rhs.m_evaluate), m_persist(rhs.m_persist) {}
     SpecialInstructions(TraceInstr mute, EmptyMacroInstr mark_empty_macro,
                         FileLineInfoInstr filterFileLine,
                         CheckLoopInstr check_macro_loop,
                         AsIsUndefinedMacroInstr as_is_undefined_macro,
-                        EvaluateInstr evalaute = Evaluate)
+                        EvaluateInstr evaluate = Evaluate, PersistMacroInstr persist = DontPersist)
         : m_mute(mute),
           m_mark_empty_macro(mark_empty_macro),
           m_filterFileLine(filterFileLine),
           m_check_macro_loop(check_macro_loop),
           m_as_is_undefined_macro(as_is_undefined_macro),
-          m_evaluate(evalaute) {}
+          m_evaluate(evaluate),
+          m_persist(persist) {}
     void print();
     TraceInstr m_mute;
     EmptyMacroInstr m_mark_empty_macro;
@@ -216,6 +218,7 @@ class PreprocessFile {
     CheckLoopInstr m_check_macro_loop;
     AsIsUndefinedMacroInstr m_as_is_undefined_macro;
     EvaluateInstr m_evaluate;
+    PersistMacroInstr m_persist;
   };
 
   std::string evaluateMacroInstance(
