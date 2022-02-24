@@ -1771,13 +1771,17 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
               if (invalidValue) break;
               if (n > 1000) n = 1000;  // Must be -1 or something silly
               if (n < 0) n = 0;
-              constant *cv = (constant *)(operands[1]);
+              expr *cv = (expr *)(operands[1]);
               if (cv->UhdmType() != uhdmconstant) {
-                break;
+                cv = reduceExpr(cv, invalidValue, component, compileDesign,
+                                instance, fileName, lineNumber, pexpr);
+                if (cv->UhdmType() != uhdmconstant) {
+                  break;
+                }
               }
               UHDM::constant *c = s.MakeConstant();
               unsigned int width = cv->VpiSize();
-              int consttype = cv->VpiConstType();
+              int consttype = ((UHDM::constant *)cv)->VpiConstType();
               c->VpiConstType(consttype);
               if (consttype == vpiBinaryConst) {
                 std::string val = cv->VpiValue();
@@ -1821,10 +1825,7 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
                 c->VpiValue("STRING:" + res);
                 c->VpiDecompile(res);
               } else {
-                uint64_t val = get_value(
-                    invalidValue,
-                    reduceExpr(cv, invalidValue, component, compileDesign,
-                               instance, fileName, lineNumber, pexpr));
+                uint64_t val = get_value(invalidValue, cv);
                 if (invalidValue) break;
                 uint64_t res = 0;
                 for (unsigned int i = 0; i < n; i++) {
