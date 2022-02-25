@@ -854,6 +854,8 @@ design: (work@dut)
             |vpiFullName:work@dut.device
             |vpiActual:
             \_int_var: (work@dut.device), line:7:7, endln:7:13, parent:work@dut
+              |vpiTypespec:
+              \_int_typespec: 
               |vpiName:device
               |vpiFullName:work@dut.device
               |vpiAutomatic:1
@@ -861,7 +863,7 @@ design: (work@dut)
               |vpiExpr:
               \_constant: , line:7:16, endln:7:17
                 |vpiDecompile:2
-                |vpiSize:64
+                |vpiSize:32
                 |UINT:2
                 |vpiConstType:9
         |vpiLhs:
@@ -870,50 +872,60 @@ design: (work@dut)
           |vpiFullName:work@dut.device_sel_req
           |vpiActual:
           \_logic_var: (work@dut.device_sel_req), line:6:32, endln:6:46, parent:work@dut
+            |vpiTypespec:
+            \_logic_typespec: 
+              |vpiRange:
+              \_range: , line:6:10, endln:6:30
+                |vpiLeftRange:
+                \_constant: , line:6:10, endln:6:26
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |INT:1
+                  |vpiConstType:7
+                |vpiRightRange:
+                \_constant: , line:6:29, endln:6:30
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
             |vpiName:device_sel_req
             |vpiFullName:work@dut.device_sel_req
             |vpiAutomatic:1
             |vpiVisibility:1
             |vpiRange:
             \_range: , line:6:10, endln:6:30
-              |vpiLeftRange:
-              \_constant: , line:6:10, endln:6:26
-                |vpiDecompile:1
-                |vpiSize:64
-                |INT:1
-                |vpiConstType:7
-              |vpiRightRange:
-              \_constant: , line:6:29, endln:6:30
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
     |vpiAlwaysType:2
 |uhdmtopModules:
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:12:10
   |vpiName:work@dut
   |vpiVariables:
   \_logic_var: (work@dut.device_sel_req), line:6:32, endln:6:46, parent:work@dut
+    |vpiTypespec:
+    \_logic_typespec: 
+      |vpiRange:
+      \_range: , line:6:10, endln:6:30
+        |vpiLeftRange:
+        \_constant: , line:6:10, endln:6:26
+          |vpiDecompile:1
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+        |vpiRightRange:
+        \_constant: , line:6:29, endln:6:30
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:device_sel_req
     |vpiFullName:work@dut.device_sel_req
     |vpiAutomatic:1
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:6:10, endln:6:30
-      |vpiLeftRange:
-      \_constant: , line:6:10, endln:6:26
-        |vpiDecompile:1
-        |vpiSize:64
-        |INT:1
-        |vpiConstType:7
-      |vpiRightRange:
-      \_constant: , line:6:29, endln:6:30
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-        |vpiConstType:9
   |vpiVariables:
   \_int_var: (work@dut.device), line:7:7, endln:7:13, parent:work@dut
+    |vpiTypespec:
+    \_int_typespec: 
     |vpiName:device
     |vpiFullName:work@dut.device
     |vpiAutomatic:1
@@ -921,7 +933,7 @@ design: (work@dut)
     |vpiExpr:
     \_constant: , line:7:16, endln:7:17
       |vpiDecompile:2
-      |vpiSize:64
+      |vpiSize:32
       |UINT:2
       |vpiConstType:9
   |vpiParameter:
