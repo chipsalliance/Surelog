@@ -1439,21 +1439,34 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
     if (subnettype == slIntegerAtomType_Shortint) {
       UHDM::short_int_var* int_var = s.MakeShort_int_var();
       var = int_var;
+      tps = s.MakeShort_int_typespec();
+      int_var->Typespec(tps);
     } else if (subnettype == slIntegerAtomType_Int) {
       UHDM::int_var* int_var = s.MakeInt_var();
       var = int_var;
+      tps = s.MakeInt_typespec();
+      int_var->Typespec(tps);
     } else if (subnettype == slIntegerAtomType_LongInt) {
       UHDM::long_int_var* int_var = s.MakeLong_int_var();
       var = int_var;
+      tps = s.MakeLong_int_typespec();
+      int_var->Typespec(tps);
     } else if (subnettype == slIntegerAtomType_Time) {
       UHDM::time_var* int_var = s.MakeTime_var();
       var = int_var;
     } else if (subnettype == slIntVec_TypeBit) {
       UHDM::bit_var* int_var = s.MakeBit_var();
+      bit_typespec* btps = s.MakeBit_typespec();
+      btps->Ranges(packedDimensions);
+      tps = btps;
+      int_var->Typespec(tps);
       int_var->Ranges(packedDimensions);
       var = int_var;
     } else if (subnettype == slIntegerAtomType_Byte) {
       UHDM::byte_var* int_var = s.MakeByte_var();
+      byte_typespec* btps = s.MakeByte_typespec();
+      tps = btps;
+      int_var->Typespec(tps);
       var = int_var;
     } else if (subnettype == slNonIntType_ShortReal) {
       UHDM::short_real_var* int_var = s.MakeShort_real_var();
@@ -1473,6 +1486,10 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
     } else if (subnettype == slIntVec_TypeLogic) {
       logic_var* logicv = s.MakeLogic_var();
       logicv->Ranges(packedDimensions);
+      logic_typespec* ltps = s.MakeLogic_typespec();
+      ltps->Ranges(packedDimensions);
+      tps = ltps;
+      logicv->Typespec(tps);
       var = logicv;
     } else if (subnettype == slEvent_type) {
       named_event* event = s.MakeNamed_event();
@@ -1629,6 +1646,20 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       ((logic_var*)obj)->VpiName(signame);
     }
     vars->push_back((variables*)obj);
+  }
+
+  if (assignExp) {
+    if (assignExp->UhdmType() == uhdmconstant) {
+      m_helper.adjustSize(tps, component, m_compileDesign, instance,
+                          (constant*)assignExp);
+    } else if (assignExp->UhdmType() == uhdmoperation) {
+      operation* op = (operation*)assignExp;
+      for (auto oper : *op->Operands()) {
+        if (oper->UhdmType() == uhdmconstant)
+          m_helper.adjustSize(tps, component, m_compileDesign, instance,
+                              (constant*)oper);
+      }
+    }
   }
 
   if (obj) {
