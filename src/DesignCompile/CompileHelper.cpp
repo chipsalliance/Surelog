@@ -2693,9 +2693,10 @@ void CompileHelper::adjustSize(const UHDM::typespec* ts,
     return;
   }
   int orig_size = c->VpiSize();
+  if (orig_size == -1) return;
   bool invalidValue = false;
   int sizetmp = Bits(ts, invalidValue, component, compileDesign, instance,
-                     c->VpiFile(), c->VpiLineNo(), true, false);
+                     c->VpiFile(), c->VpiLineNo(), true, true);
 
   int size = orig_size;
   if (!invalidValue) size = sizetmp;
