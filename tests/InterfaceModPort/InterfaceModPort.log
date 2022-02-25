@@ -1882,55 +1882,6 @@ design: (work@interface_modports)
     \_ref_obj: 
       |vpiActual:
       \_modport: (system), parent:work@mem_if
-        |vpiName:system
-        |vpiIODecl:
-        \_io_decl: (clk)
-          |vpiDirection:1
-          |vpiName:clk
-        |vpiIODecl:
-        \_io_decl: (reset)
-          |vpiDirection:1
-          |vpiName:reset
-        |vpiIODecl:
-        \_io_decl: (we_sys)
-          |vpiDirection:1
-          |vpiName:we_sys
-        |vpiIODecl:
-        \_io_decl: (cmd_valid_sys)
-          |vpiDirection:1
-          |vpiName:cmd_valid_sys
-        |vpiIODecl:
-        \_io_decl: (addr_sys)
-          |vpiDirection:1
-          |vpiName:addr_sys
-        |vpiIODecl:
-        \_io_decl: (datao_mem)
-          |vpiDirection:1
-          |vpiName:datao_mem
-        |vpiIODecl:
-        \_io_decl: (we_mem)
-          |vpiDirection:2
-          |vpiName:we_mem
-        |vpiIODecl:
-        \_io_decl: (ce_mem)
-          |vpiDirection:2
-          |vpiName:ce_mem
-        |vpiIODecl:
-        \_io_decl: (addr_mem)
-          |vpiDirection:2
-          |vpiName:addr_mem
-        |vpiIODecl:
-        \_io_decl: (datai_mem)
-          |vpiDirection:2
-          |vpiName:datai_mem
-        |vpiIODecl:
-        \_io_decl: (ready_sys)
-          |vpiDirection:2
-          |vpiName:ready_sys
-        |vpiIODecl:
-        \_io_decl: (data_sys)
-          |vpiDirection:3
-          |vpiName:data_sys
 |uhdmallModules:
 \_module: work@memory_model (work@memory_model) top.v:62:1: , endln:82:10, parent:work@interface_modports
   |vpiFullName:work@memory_model
@@ -1952,35 +1903,6 @@ design: (work@interface_modports)
     \_ref_obj: 
       |vpiActual:
       \_modport: (memory), parent:work@mem_if
-        |vpiName:memory
-        |vpiIODecl:
-        \_io_decl: (clk)
-          |vpiDirection:1
-          |vpiName:clk
-        |vpiIODecl:
-        \_io_decl: (reset)
-          |vpiDirection:1
-          |vpiName:reset
-        |vpiIODecl:
-        \_io_decl: (we_mem)
-          |vpiDirection:1
-          |vpiName:we_mem
-        |vpiIODecl:
-        \_io_decl: (ce_mem)
-          |vpiDirection:1
-          |vpiName:ce_mem
-        |vpiIODecl:
-        \_io_decl: (addr_mem)
-          |vpiDirection:1
-          |vpiName:addr_mem
-        |vpiIODecl:
-        \_io_decl: (datai_mem)
-          |vpiDirection:1
-          |vpiName:datai_mem
-        |vpiIODecl:
-        \_io_decl: (datao_mem)
-          |vpiDirection:2
-          |vpiName:datao_mem
   |vpiProcess:
   \_always: , line:69:1, endln:72:5, parent:work@memory_model
     |vpiStmt:
@@ -2125,18 +2047,6 @@ design: (work@interface_modports)
   |vpiName:work@interface_modports
   |vpiVariables:
   \_logic_var: (work@interface_modports.clk), line:114:7, endln:114:10, parent:work@interface_modports
-    |vpiTypespec:
-    \_logic_typespec: 
-    |vpiName:clk
-    |vpiFullName:work@interface_modports.clk
-    |vpiAutomatic:1
-    |vpiVisibility:1
-    |vpiExpr:
-    \_constant: , line:114:13, endln:114:14
-      |vpiDecompile:0
-      |vpiSize:1
-      |UINT:0
-      |vpiConstType:9
   |vpiDefName:work@interface_modports
   |vpiProgram:
   \_program: work@test (work@interface_modports.U_test) top.v:122:1: , endln:122:21, parent:work@interface_modports
@@ -2755,102 +2665,6 @@ design: (work@interface_modports)
     \_enum_var: (work@interface_modports.U_ctrl.state), line:91:7, endln:91:12, parent:work@interface_modports.U_ctrl
       |vpiTypespec:
       \_enum_typespec: (fsm_t), line:89:38, endln:89:43
-        |vpiName:fsm_t
-        |vpiInstance:
-        \_module: work@memory_ctrl (work@memory_ctrl) top.v:87:1: , endln:94:10, parent:work@interface_modports
-          |vpiFullName:work@memory_ctrl
-          |vpiTypedef:
-          \_enum_typespec: (fsm_t), line:89:38, endln:89:43
-          |vpiDefName:work@memory_ctrl
-          |vpiNet:
-          \_logic_net: (work@memory_ctrl.state), line:91:7, parent:work@memory_ctrl
-            |vpiName:state
-            |vpiFullName:work@memory_ctrl.state
-          |vpiNet:
-          \_logic_net: (work@memory_ctrl.sif), line:87:35, parent:work@memory_ctrl
-            |vpiName:sif
-            |vpiFullName:work@memory_ctrl.sif
-          |vpiPort:
-          \_port: (sif), line:87:35, parent:work@memory_ctrl
-            |vpiName:sif
-            |vpiDirection:3
-            |vpiLowConn:
-            \_ref_obj: 
-              |vpiActual:
-              \_modport: (system), parent:work@mem_if
-                |vpiName:system
-                |vpiIODecl:
-                \_io_decl: (clk)
-                  |vpiDirection:1
-                  |vpiName:clk
-                |vpiIODecl:
-                \_io_decl: (reset)
-                  |vpiDirection:1
-                  |vpiName:reset
-                |vpiIODecl:
-                \_io_decl: (we_sys)
-                  |vpiDirection:1
-                  |vpiName:we_sys
-                |vpiIODecl:
-                \_io_decl: (cmd_valid_sys)
-                  |vpiDirection:1
-                  |vpiName:cmd_valid_sys
-                |vpiIODecl:
-                \_io_decl: (addr_sys)
-                  |vpiDirection:1
-                  |vpiName:addr_sys
-                |vpiIODecl:
-                \_io_decl: (datao_mem)
-                  |vpiDirection:1
-                  |vpiName:datao_mem
-                |vpiIODecl:
-                \_io_decl: (we_mem)
-                  |vpiDirection:2
-                  |vpiName:we_mem
-                |vpiIODecl:
-                \_io_decl: (ce_mem)
-                  |vpiDirection:2
-                  |vpiName:ce_mem
-                |vpiIODecl:
-                \_io_decl: (addr_mem)
-                  |vpiDirection:2
-                  |vpiName:addr_mem
-                |vpiIODecl:
-                \_io_decl: (datai_mem)
-                  |vpiDirection:2
-                  |vpiName:datai_mem
-                |vpiIODecl:
-                \_io_decl: (ready_sys)
-                  |vpiDirection:2
-                  |vpiName:ready_sys
-                |vpiIODecl:
-                \_io_decl: (data_sys)
-                  |vpiDirection:3
-                  |vpiName:data_sys
-        |vpiEnumConst:
-        \_enum_const: (IDLE), line:89:16, endln:89:20
-          |vpiName:IDLE
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (WRITE), line:89:21, endln:89:26
-          |vpiName:WRITE
-          |INT:1
-          |vpiDecompile:1
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (READ), line:89:27, endln:89:31
-          |vpiName:READ
-          |INT:2
-          |vpiDecompile:2
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (DONE), line:89:32, endln:89:36
-          |vpiName:DONE
-          |INT:3
-          |vpiDecompile:3
-          |vpiSize:64
       |vpiName:state
       |vpiFullName:work@interface_modports.U_ctrl.state
       |vpiAutomatic:1
