@@ -810,8 +810,6 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiNet:
   \_logic_net: (work@top.clk), line:2:8, endln:2:11, parent:work@top
-    |vpiName:clk
-    |vpiFullName:work@top.clk
   |vpiGlobalClocking:
   \_clocking_block: (work@top.cb), line:9:3, endln:9:49, parent:work@top
     |vpiName:cb
@@ -829,90 +827,6 @@ design: (work@top)
           \_logic_net: (work@top.clk), line:2:8, endln:2:11, parent:work@top
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:17:10, parent:work@top
-      |vpiFullName:work@top
-      |vpiDefName:work@top
-      |vpiNet:
-      \_logic_net: (work@top.clk), line:2:8, parent:work@top
-        |vpiName:clk
-        |vpiFullName:work@top.clk
-      |vpiGlobalClocking:
-      \_clocking_block: (cb), line:9:3, endln:9:49
-        |vpiName:cb
-        |vpiClockingEvent:
-        \_event_control: 
-          |vpiCondition:
-          \_operation: , line:9:24, endln:9:31
-            |vpiOpType:39
-            |vpiOperand:
-            \_ref_obj: (clk), line:9:32, endln:9:35
-              |vpiName:clk
-              |vpiActual:
-              \_logic_net: (work@top.clk), line:2:8, endln:2:11, parent:work@top
-      |vpiDefaultClocking:
-      \_clocking_block: (unnamed_clocking_block), line:5:3, endln:7:14
-        |vpiName:unnamed_clocking_block
-        |vpiOutputEdge:50
-        |vpiInputSkew:
-        \_delay_control: 
-          |#1
-        |vpiClockingEvent:
-        \_event_control: 
-          |vpiCondition:
-          \_operation: , line:5:22, endln:5:29
-            |vpiOpType:39
-            |vpiOperand:
-            \_ref_obj: (clk), line:5:30, endln:5:33
-              |vpiName:clk
-              |vpiActual:
-              \_logic_net: (work@top.clk), line:2:8, endln:2:11, parent:work@top
-      |vpiPort:
-      \_port: (clk), line:2:8, parent:work@top
-        |vpiName:clk
-        |vpiDirection:1
-        |vpiLowConn:
-        \_ref_obj: 
-          |vpiActual:
-          \_logic_net: (work@top.clk), line:2:8, parent:work@top
-      |vpiClockingBlock:
-      \_clocking_block: (cb1), line:11:3, endln:15:14
-        |vpiName:cb1
-        |vpiInputSkew:
-        \_delay_control: 
-          |#1
-        |vpiOutputSkew:
-        \_delay_control: 
-          |#2
-        |vpiClockingEvent:
-        \_event_control: 
-          |vpiCondition:
-          \_operation: , line:11:18, endln:11:25
-            |vpiOpType:39
-            |vpiOperand:
-            \_ref_obj: (clk), line:11:26, endln:11:29
-              |vpiName:clk
-              |vpiActual:
-              \_logic_net: (work@top.clk), line:2:8, endln:2:11, parent:work@top
-        |vpiClockingIODecl:
-        \_clocking_io_decl: (from_Dut)
-          |vpiDirection:1
-          |vpiName:from_Dut
-          |vpiInputSkew:
-          \_delay_control: 
-            |#1
-        |vpiClockingIODecl:
-        \_clocking_io_decl: (to_Dut)
-          |vpiDirection:2
-          |vpiName:to_Dut
-          |vpiOutputEdge:13
-          |vpiExpr:
-          \_hier_path: (top.to), line:14:29, endln:14:35
-            |vpiName:top.to
-            |vpiActual:
-            \_ref_obj: (top), parent:top.to
-              |vpiName:top
-            |vpiActual:
-            \_ref_obj: (to)
-              |vpiName:to
   |vpiDefaultClocking:
   \_clocking_block: (work@top.unnamed_clocking_block), line:5:3, endln:7:14, parent:work@top
     |vpiName:unnamed_clocking_block

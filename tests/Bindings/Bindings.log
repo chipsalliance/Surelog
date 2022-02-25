@@ -2399,42 +2399,8 @@ design: (work@dut1)
   |vpiName:work@dut1
   |vpiVariables:
   \_logic_var: (work@dut1.device_sel_req), line:25:32, endln:25:46, parent:work@dut1
-    |vpiTypespec:
-    \_logic_typespec: 
-      |vpiRange:
-      \_range: , line:25:10, endln:25:30
-        |vpiLeftRange:
-        \_constant: , line:25:10, endln:25:26
-          |vpiDecompile:0
-          |vpiSize:64
-          |INT:0
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:25:29, endln:25:30
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-    |vpiName:device_sel_req
-    |vpiFullName:work@dut1.device_sel_req
-    |vpiAutomatic:1
-    |vpiVisibility:1
-    |vpiRange:
-    \_range: , line:25:10, endln:25:30
   |vpiVariables:
   \_int_var: (work@dut1.device), line:26:7, endln:26:13, parent:work@dut1
-    |vpiTypespec:
-    \_int_typespec: 
-    |vpiName:device
-    |vpiFullName:work@dut1.device
-    |vpiAutomatic:1
-    |vpiVisibility:1
-    |vpiExpr:
-    \_constant: , line:26:16, endln:26:17
-      |vpiDecompile:2
-      |vpiSize:32
-      |UINT:2
-      |vpiConstType:9
   |vpiParameter:
   \_parameter: (work@dut1.NrDevices), line:21:17, endln:21:30, parent:work@dut1
     |UINT:1
@@ -2487,7 +2453,6 @@ design: (work@dut1)
         \_operation: , line:28:22, endln:28:47
           |vpiTypespec:
           \_int_typespec: (NumBitsDeviceSel), line:24:27, endln:24:27
-            |vpiName:NumBitsDeviceSel
           |vpiOpType:67
           |vpiOperand:
           \_ref_obj: (work@dut1.device), line:28:40, endln:28:46
@@ -2643,24 +2608,14 @@ design: (work@dut1)
   |vpiDefName:work@dut3
   |vpiNet:
   \_logic_net: (next_lfsr_state)
-    |vpiName:next_lfsr_state
-    |vpiNetType:1
   |vpiNet:
   \_logic_net: (entropy_i)
-    |vpiName:entropy_i
-    |vpiNetType:1
   |vpiNet:
   \_logic_net: (coeffs)
-    |vpiName:coeffs
-    |vpiNetType:1
   |vpiNet:
   \_logic_net: (lfsr_q)
-    |vpiName:lfsr_q
-    |vpiNetType:1
   |vpiNet:
   \_logic_net: (lockup)
-    |vpiName:lockup
-    |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:60:10, endln:60:95, parent:work@dut3
     |vpiRhs:
@@ -2673,8 +2628,6 @@ design: (work@dut1)
         \_operation: , line:60:28, endln:60:46
           |vpiTypespec:
           \_int_typespec: (LfsrDw), line:54:45, endln:54:45
-            |vpiName:LfsrDw
-            |UINT:3
           |vpiOpType:67
           |vpiOperand:
           \_ref_obj: (work@dut3.entropy_i), line:60:36, endln:60:45
@@ -2702,10 +2655,6 @@ design: (work@dut1)
                 |vpiName:lfsr_q
                 |vpiIndex:
                 \_constant: , line:60:65, endln:60:66, parent:work@dut3.lfsr_q
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-                  |vpiConstType:9
           |vpiOperand:
           \_ref_obj: (work@dut3.coeffs), line:60:72, endln:60:78
             |vpiName:coeffs
@@ -2723,10 +2672,6 @@ design: (work@dut1)
           \_logic_net: (lfsr_q)
         |vpiOperand:
         \_constant: , line:60:93, endln:60:94
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
     |vpiLhs:
     \_ref_obj: (work@dut3.next_lfsr_state), line:60:10, endln:60:25
       |vpiName:next_lfsr_state
@@ -2764,15 +2709,6 @@ design: (work@dut1)
         |vpiName:width_p
         |vpiExpr:
         \_ref_obj: 
-          |vpiActual:
-          \_parameter: (work@bsg_dff_reset.width_p), line:67:25, endln:67:35, parent:work@bsg_dff_reset
-            |vpiTypespec:
-            \_int_typespec: (width_p), line:75:22, endln:75:29
-              |vpiName:width_p
-              |vpiExpr:
-              \_ref_obj: 
-            |vpiName:width_p
-            |vpiFullName:work@bsg_dff_reset.width_p
       |vpiName:width_p
       |vpiFullName:work@dut3.a1.width_p
     |vpiParameter:
@@ -2823,20 +2759,12 @@ design: (work@dut1)
     |vpiDefLineNo:67
     |vpiNet:
     \_logic_net: (clk_i)
-      |vpiName:clk_i
-      |vpiNetType:1
     |vpiNet:
     \_logic_net: (reset_i)
-      |vpiName:reset_i
-      |vpiNetType:1
     |vpiNet:
     \_logic_net: (data_r)
-      |vpiName:data_r
-      |vpiNetType:1
     |vpiNet:
     \_logic_net: (data_i)
-      |vpiName:data_i
-      |vpiNetType:1
     |vpiInstance:
     \_module: work@dut3 (work@dut3) dut.sv:54:1: , endln:64:10
     |vpiProcess:
@@ -3051,176 +2979,6 @@ design: (work@dut1)
         |vpiName:lc_tx_e
         |vpiInstance:
         \_module: work@dut5 (work@dut5) dut.sv:82:1: , endln:108:10, parent:work@dut1
-          |vpiFullName:work@dut5
-          |vpiParameter:
-          \_parameter: (work@dut5.inputs_p), line:83:14, endln:83:27, parent:work@dut5
-            |vpiName:inputs_p
-            |vpiFullName:work@dut5.inputs_p
-          |vpiParameter:
-          \_parameter: (work@dut5.lg_inputs_p), line:84:13, endln:84:45, parent:work@dut5
-            |vpiName:lg_inputs_p
-            |vpiFullName:work@dut5.lg_inputs_p
-          |vpiParameter:
-          \_parameter: (work@dut5.width_p), line:85:13, endln:85:25, parent:work@dut5
-            |vpiName:width_p
-            |vpiFullName:work@dut5.width_p
-          |vpiParameter:
-          \_parameter: (work@dut5.TxWidth), line:86:17, endln:86:28, parent:work@dut5
-            |UINT:4
-            |vpiTypespec:
-            \_int_typespec: , line:86:13, endln:86:16, parent:work@dut5.TxWidth
-            |vpiName:TxWidth
-            |vpiFullName:work@dut5.TxWidth
-          |vpiParameter:
-          \_parameter: (work@dut5.LC_TX_DEFAULT), line:94:22, endln:94:41, parent:work@dut5
-            |vpiTypespec:
-            \_enum_typespec: (lc_tx_t), line:90:7, endln:90:14
-              |vpiName:lc_tx_t
-              |vpiTypedefAlias:
-              \_enum_typespec: (lc_tx_e), line:90:7, endln:90:14
-                |vpiName:lc_tx_e
-                |vpiInstance:
-                \_module: work@dut5 (work@dut5) dut.sv:82:1: , endln:108:10, parent:work@dut1
-                |vpiBaseTypespec:
-                \_logic_typespec: , line:87:18, endln:87:23
-                  |vpiRange:
-                  \_range: , line:87:25, endln:87:36
-                    |vpiLeftRange:
-                    \_operation: , line:87:25, endln:87:32
-                      |vpiOpType:11
-                      |vpiOperand:
-                      \_ref_obj: (TxWidth), line:87:25, endln:87:32
-                        |vpiName:TxWidth
-                      |vpiOperand:
-                      \_constant: , line:87:33, endln:87:34
-                        |vpiDecompile:1
-                        |vpiSize:64
-                        |UINT:1
-                        |vpiConstType:9
-                    |vpiRightRange:
-                    \_constant: , line:87:35, endln:87:36
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                      |vpiConstType:9
-                |vpiEnumConst:
-                \_enum_const: (On), line:88:7, endln:88:9
-                  |vpiName:On
-                  |UINT:10
-                  |vpiDecompile:4'b1010
-                  |vpiSize:4
-                |vpiEnumConst:
-                \_enum_const: (Off), line:89:7, endln:89:10
-                  |vpiName:Off
-                  |UINT:5
-                  |vpiDecompile:4'b0101
-                  |vpiSize:4
-              |vpiInstance:
-              \_module: work@dut5 (work@dut5) dut.sv:82:1: , endln:108:10, parent:work@dut1
-              |vpiBaseTypespec:
-              \_logic_typespec: , line:87:18, endln:87:23, parent:lc_tx_t
-                |vpiRange:
-                \_range: , line:87:25, endln:87:36
-                  |vpiLeftRange:
-                  \_operation: , line:87:25, endln:87:32
-                    |vpiOpType:11
-                    |vpiOperand:
-                    \_ref_obj: (lc_tx_t.TxWidth), line:87:25, endln:87:32
-                      |vpiName:TxWidth
-                      |vpiFullName:lc_tx_t.TxWidth
-                    |vpiOperand:
-                    \_constant: , line:87:33, endln:87:34
-                      |vpiDecompile:1
-                      |vpiSize:64
-                      |UINT:1
-                      |vpiConstType:9
-                  |vpiRightRange:
-                  \_constant: , line:87:35, endln:87:36
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                    |vpiConstType:9
-              |vpiEnumConst:
-              \_enum_const: (On), line:88:7, endln:88:9, parent:lc_tx_t
-                |vpiName:On
-                |UINT:10
-                |vpiDecompile:4'b1010
-                |vpiSize:4
-              |vpiEnumConst:
-              \_enum_const: (Off), line:89:7, endln:89:10, parent:lc_tx_t
-                |vpiName:Off
-                |UINT:5
-                |vpiDecompile:4'b0101
-                |vpiSize:4
-            |vpiName:LC_TX_DEFAULT
-            |vpiFullName:work@dut5.LC_TX_DEFAULT
-          |vpiParamAssign:
-          \_param_assign: , line:83:14, endln:83:27, parent:work@dut5
-            |vpiRhs:
-            \_operation: , line:83:25, endln:83:27
-              |vpiOpType:1
-              |vpiOperand:
-              \_constant: , line:83:26, endln:83:27
-                |vpiDecompile:1
-                |vpiSize:64
-                |UINT:1
-                |vpiConstType:9
-            |vpiLhs:
-            \_parameter: (work@dut5.inputs_p), line:83:14, endln:83:27, parent:work@dut5
-          |vpiParamAssign:
-          \_param_assign: , line:84:13, endln:84:45, parent:work@dut5
-            |vpiRhs:
-            \_sys_func_call: ($clog2), line:84:29, endln:84:45
-              |vpiArgument:
-              \_ref_obj: (inputs_p), line:84:36, endln:84:44, parent:$clog2
-                |vpiName:inputs_p
-              |vpiName:$clog2
-            |vpiLhs:
-            \_parameter: (work@dut5.lg_inputs_p), line:84:13, endln:84:45, parent:work@dut5
-          |vpiParamAssign:
-          \_param_assign: , line:85:13, endln:85:25, parent:work@dut5
-            |vpiRhs:
-            \_operation: , line:85:23, endln:85:25
-              |vpiOpType:1
-              |vpiOperand:
-              \_constant: , line:85:24, endln:85:25
-                |vpiDecompile:1
-                |vpiSize:64
-                |UINT:1
-                |vpiConstType:9
-            |vpiLhs:
-            \_parameter: (work@dut5.width_p), line:85:13, endln:85:25, parent:work@dut5
-          |vpiParamAssign:
-          \_param_assign: , line:86:17, endln:86:28, parent:work@dut5
-            |vpiRhs:
-            \_constant: , line:86:27, endln:86:28
-              |vpiDecompile:4
-              |vpiSize:32
-              |UINT:4
-              |vpiTypespec:
-              \_int_typespec: , line:86:13, endln:86:16, parent:work@dut5.TxWidth
-              |vpiConstType:9
-            |vpiLhs:
-            \_parameter: (work@dut5.TxWidth), line:86:17, endln:86:28, parent:work@dut5
-          |vpiParamAssign:
-          \_param_assign: , line:94:22, endln:94:41, parent:work@dut5
-            |vpiRhs:
-            \_ref_obj: (Off), line:94:38, endln:94:41
-              |vpiName:Off
-              |vpiActual:
-              \_enum_const: (Off), line:89:7, endln:89:10
-            |vpiLhs:
-            \_parameter: (work@dut5.LC_TX_DEFAULT), line:94:22, endln:94:41, parent:work@dut5
-          |vpiTypedef:
-          \_enum_typespec: (lc_tx_e), line:90:7, endln:90:14
-          |vpiTypedef:
-          \_enum_typespec: (lc_tx_t), line:90:7, endln:90:14
-          |vpiDefName:work@dut5
-          |vpiNet:
-          \_logic_net: (work@dut5.shifted), line:96:23, parent:work@dut5
-            |vpiName:shifted
-            |vpiFullName:work@dut5.shifted
-            |vpiNetType:1
         |vpiBaseTypespec:
         \_logic_typespec: , line:87:18, endln:87:23, parent:lc_tx_e
           |vpiRange:
