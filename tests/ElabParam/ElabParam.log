@@ -499,6 +499,31 @@ design: (work@dut)
   |vpiName:builtin
   |vpiFullName:builtin::
   |vpiDefName:builtin
+|uhdmallPackages:
+\_package: top_pkg (top_pkg::) dut.sv:1:1: , endln:9:12, parent:work@dut
+  |vpiName:top_pkg
+  |vpiFullName:top_pkg::
+  |vpiParamAssign:
+  \_param_assign: , line:7:25, endln:7:38, parent:top_pkg::
+    |vpiRhs:
+    \_constant: , line:7:37, endln:7:38
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (PMP_CFG_W), line:7:25, endln:7:38
+      |vpiTypespec:
+      \_int_typespec: , line:7:12, endln:7:15, parent:PMP_CFG_W
+        |vpiInstance:
+        \_package: top_pkg (top_pkg::) dut.sv:1:1: , endln:9:12, parent:work@dut
+      |vpiName:PMP_CFG_W
+  |vpiDefName:top_pkg
+|uhdmtopPackages:
+\_package: builtin (builtin::), file:, parent:work@dut
+  |vpiName:builtin
+  |vpiFullName:builtin::
+  |vpiDefName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::any_sverilog_class), file:, parent:builtin::
     |vpiName:any_sverilog_class
@@ -519,7 +544,7 @@ design: (work@dut)
   \_class_defn: (builtin::system), file:, parent:builtin::
     |vpiName:system
     |vpiFullName:builtin::system
-|uhdmallPackages:
+|uhdmtopPackages:
 \_package: top_pkg (top_pkg::) dut.sv:1:1: , endln:9:12, parent:work@dut
   |vpiName:top_pkg
   |vpiFullName:top_pkg::

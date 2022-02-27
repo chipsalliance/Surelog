@@ -149,6 +149,34 @@ design: (work@test)
 \_package: my_package1 (my_package1::) dut.sv:1:1: , endln:10:11, parent:work@test
   |vpiName:my_package1
   |vpiFullName:my_package1::
+  |vpiParamAssign:
+  \_param_assign: , line:3:12, endln:3:18, parent:my_package1::
+    |vpiRhs:
+    \_constant: , line:3:17, endln:3:18
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (p1), line:3:12, endln:3:18
+      |vpiName:p1
+  |vpiParamAssign:
+  \_param_assign: , line:4:12, endln:4:18, parent:my_package1::
+    |vpiRhs:
+    \_constant: , line:4:17, endln:4:18
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (p2), line:4:12, endln:4:18
+      |vpiLocalParam:1
+      |vpiName:p2
+  |vpiDefName:my_package1
+|uhdmtopPackages:
+\_package: my_package1 (my_package1::) dut.sv:1:1: , endln:10:11, parent:work@test
+  |vpiName:my_package1
+  |vpiFullName:my_package1::
   |vpiParameter:
   \_parameter: (my_package1::p1), line:3:12, endln:3:18, parent:my_package1::
     |UINT:1

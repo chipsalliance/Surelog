@@ -263,6 +263,26 @@ design: (work@dut)
 \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut
   |vpiName:my_pkg
   |vpiFullName:my_pkg::
+  |vpiParamAssign:
+  \_param_assign: , line:7:24, endln:7:37, parent:my_pkg::
+    |vpiRhs:
+    \_constant: , line:7:36, endln:7:37
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (PMP_CFG_W), line:7:24, endln:7:37
+      |vpiTypespec:
+      \_int_typespec: , line:7:11, endln:7:14, parent:PMP_CFG_W
+        |vpiInstance:
+        \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut
+      |vpiName:PMP_CFG_W
+  |vpiDefName:my_pkg
+|uhdmtopPackages:
+\_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut
+  |vpiName:my_pkg
+  |vpiFullName:my_pkg::
   |vpiParameter:
   \_parameter: (my_pkg::PMP_CFG_W), line:7:24, endln:7:37, parent:my_pkg::
     |UINT:2
