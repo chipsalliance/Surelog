@@ -762,9 +762,8 @@ void writeVariables(const DesignComponent::VariableMap& orig_vars,
 
 class ReInstanceTypespec : public VpiListener {
  public:
-  ReInstanceTypespec(Serializer* serializer, package* p)
-      : m_serializer(serializer), m_package(p) {}
-  ~ReInstanceTypespec() {}
+  ReInstanceTypespec(package* p) : m_package(p) {}
+  ~ReInstanceTypespec() override {}
 
   void leaveShort_real_typespec(const short_real_typespec* object,
                                 const BaseClass* parent, vpiHandle handle,
@@ -922,14 +921,13 @@ class ReInstanceTypespec : public VpiListener {
   }
 
  private:
-  Serializer* m_serializer;
   package* m_package = nullptr;
 };
 
 // Non-elaborated package typespec Instance relation need to point to
 // non-elablarated package
 void reInstanceTypespec(Serializer& serializer, any* root, package* p) {
-  ReInstanceTypespec* listener = new ReInstanceTypespec(&serializer, p);
+  ReInstanceTypespec* listener = new ReInstanceTypespec(p);
   vpiHandle handle = serializer.MakeUhdmHandle(root->UhdmType(), root);
   listen_any(handle, listener);
   vpi_release_handle(handle);

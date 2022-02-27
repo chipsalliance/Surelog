@@ -1288,6 +1288,13 @@ UHDM::typespec* CompileHelper::compileTypespec(
               compileDesign, fC->getFileName(), mem_name, "",
               fC->Line(member_name), fC->Column(member_name),
               fC->EndLine(member_name), fC->EndColumn(member_name));
+          if (member_ts && (member_ts->UhdmType() == uhdmenum_typespec)) {
+            m->VpiRefFile(fC->getFileName());
+            m->VpiRefLineNo(fC->Line(Data_type));
+            m->VpiRefColumnNo(fC->Column(Data_type));
+            m->VpiRefEndLineNo(fC->EndLine(Data_type));
+            m->VpiRefEndColumnNo(fC->EndColumn(Data_type));
+          }
           m->Typespec(member_ts);
           if (Expression && (fC->Type(Expression) != slVariable_dimension)) {
             any* ex =
