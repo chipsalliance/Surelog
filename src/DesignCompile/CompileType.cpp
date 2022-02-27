@@ -1298,7 +1298,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
               fC->Line(member_name), fC->Column(member_name),
               fC->EndLine(member_name), fC->EndColumn(member_name));
           if (member_ts && (member_ts->UhdmType() == uhdmenum_typespec)) {
-            m->VpiRefFile(fC->getFileName());
+            m->VpiRefFile(fC->getFileName().string());
             m->VpiRefLineNo(fC->Line(Data_type));
             m->VpiRefColumnNo(fC->Column(Data_type));
             m->VpiRefEndLineNo(fC->EndLine(Data_type));
