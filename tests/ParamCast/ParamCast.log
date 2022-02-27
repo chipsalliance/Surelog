@@ -388,6 +388,41 @@ design: (work@otp_ctrl)
   |vpiName:builtin
   |vpiFullName:builtin::
   |vpiDefName:builtin
+|uhdmallPackages:
+\_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::) dut.sv:1:1: , endln:12:11, parent:work@otp_ctrl
+  |vpiName:otp_ctrl_part_pkg
+  |vpiFullName:otp_ctrl_part_pkg::
+  |vpiParamAssign:
+  \_param_assign: , line:10:16, endln:10:46, parent:otp_ctrl_part_pkg::
+    |vpiRhs:
+    \_operation: , line:10:28, endln:10:46
+      |vpiTypespec:
+      \_int_typespec: , line:10:28, endln:10:31
+        |vpiInstance:
+        \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::) dut.sv:1:1: , endln:12:11, parent:work@otp_ctrl
+      |vpiOpType:67
+      |vpiOperand:
+      \_ref_obj: (NumAgentsIdx), line:10:33, endln:10:45
+        |vpiName:NumAgentsIdx
+        |vpiActual:
+        \_enum_const: (NumAgentsIdx), line:7:5, endln:7:17
+          |vpiName:NumAgentsIdx
+          |INT:3
+          |vpiDecompile:3
+          |vpiSize:64
+    |vpiLhs:
+    \_parameter: (NumAgents), line:10:16, endln:10:46
+      |vpiTypespec:
+      \_int_typespec: , line:10:12, endln:10:15, parent:NumAgents
+        |vpiInstance:
+        \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::) dut.sv:1:1: , endln:12:11, parent:work@otp_ctrl
+      |vpiName:NumAgents
+  |vpiDefName:otp_ctrl_part_pkg
+|uhdmtopPackages:
+\_package: builtin (builtin::), file:, parent:work@otp_ctrl
+  |vpiName:builtin
+  |vpiFullName:builtin::
+  |vpiDefName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::any_sverilog_class), file:, parent:builtin::
     |vpiName:any_sverilog_class
@@ -408,7 +443,7 @@ design: (work@otp_ctrl)
   \_class_defn: (builtin::system), file:, parent:builtin::
     |vpiName:system
     |vpiFullName:builtin::system
-|uhdmallPackages:
+|uhdmtopPackages:
 \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::) dut.sv:1:1: , endln:12:11, parent:work@otp_ctrl
   |vpiName:otp_ctrl_part_pkg
   |vpiFullName:otp_ctrl_part_pkg::
@@ -457,10 +492,6 @@ design: (work@otp_ctrl)
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (NumAgentsIdx), line:7:5, endln:7:17
-      |vpiName:NumAgentsIdx
-      |INT:3
-      |vpiDecompile:3
-      |vpiSize:64
   |vpiDefName:otp_ctrl_part_pkg
 |uhdmallClasses:
 \_class_defn: (work@mailbox), file:builtin.sv, parent:work@otp_ctrl

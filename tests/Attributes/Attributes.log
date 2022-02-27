@@ -926,6 +926,19 @@ design: (work@foo)
   |vpiName:builtin
   |vpiFullName:builtin::
   |vpiDefName:builtin
+|uhdmallPackages:
+\_package: myPackage (myPackage::) test_attributes.sv:2:1: , endln:4:11, parent:work@foo
+  |vpiName:myPackage
+  |vpiFullName:myPackage::
+  |vpiAttribute:
+  \_attribute: (myPackageAttribute1)
+    |vpiName:myPackageAttribute1
+  |vpiDefName:myPackage
+|uhdmtopPackages:
+\_package: builtin (builtin::), file:, parent:work@foo
+  |vpiName:builtin
+  |vpiFullName:builtin::
+  |vpiDefName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::any_sverilog_class), file:, parent:builtin::
     |vpiName:any_sverilog_class
@@ -946,13 +959,12 @@ design: (work@foo)
   \_class_defn: (builtin::system), file:, parent:builtin::
     |vpiName:system
     |vpiFullName:builtin::system
-|uhdmallPackages:
+|uhdmtopPackages:
 \_package: myPackage (myPackage::) test_attributes.sv:2:1: , endln:4:11, parent:work@foo
   |vpiName:myPackage
   |vpiFullName:myPackage::
   |vpiAttribute:
   \_attribute: (myPackageAttribute1)
-    |vpiName:myPackageAttribute1
   |vpiDefName:myPackage
 |uhdmallClasses:
 \_class_defn: (work@mailbox), file:builtin.sv, parent:work@foo

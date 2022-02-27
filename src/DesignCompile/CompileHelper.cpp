@@ -2638,6 +2638,31 @@ bool CompileHelper::compileParameterDeclaration(
       param_assign->Lhs(param);
 
       if (value) {
+        // Unelaborated parameters
+        if ((valuedcomponenti_cast<Package*>(component) ||
+             valuedcomponenti_cast<FileContent*>(component)) &&
+            (instance == nullptr)) {
+          expr* rhs = (expr*)compileExpression(
+              component, fC, value, compileDesign, nullptr, instance, false);
+          UHDM::param_assign* param_assign = s.MakeParam_assign();
+          param_assign->VpiFile(fC->getFileName());
+          param_assign->VpiLineNo(fC->Line(Param_assignment));
+          param_assign->VpiColumnNo(fC->Column(Param_assignment));
+          param_assign->VpiEndLineNo(fC->EndLine(Param_assignment));
+          param_assign->VpiEndColumnNo(fC->EndColumn(Param_assignment));
+          ElaboratorListener listener(&s);
+          any* pclone = UHDM::clone_tree(param, s, &listener);
+          param_assign->Lhs(pclone);
+          param_assign->Rhs(rhs);
+          UHDM::VectorOfparam_assign* param_assigns =
+              component->getOrigParam_assigns();
+          if (param_assigns == nullptr) {
+            component->setOrigParam_assigns(s.MakeParam_assignVec());
+            param_assigns = component->getOrigParam_assigns();
+          }
+          param_assigns->push_back(param_assign);
+        }
+
         expr* rhs = (expr*)compileExpression(component, fC, value,
                                              compileDesign, nullptr, instance,
                                              reduce && (!isMultiDimension));

@@ -523,6 +523,56 @@ design: (work@t)
   |vpiName:builtin
   |vpiFullName:builtin::
   |vpiDefName:builtin
+|uhdmallPackages:
+\_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
+  |vpiName:my_funcs
+  |vpiFullName:my_funcs::
+  |vpiDefName:my_funcs
+|uhdmallPackages:
+\_package: my_module_types (my_module_types::) dut.sv:16:1: , endln:21:11, parent:work@t
+  |vpiName:my_module_types
+  |vpiFullName:my_module_types::
+  |vpiParamAssign:
+  \_param_assign: , line:19:15, endln:19:27, parent:my_module_types::
+    |vpiRhs:
+    \_constant: , line:19:26, endln:19:27
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (MY_PARAM), line:19:15, endln:19:27
+      |vpiLocalParam:1
+      |vpiName:MY_PARAM
+  |vpiParamAssign:
+  \_param_assign: , line:20:15, endln:20:64, parent:my_module_types::
+    |vpiRhs:
+    \_func_call: (simple_func), line:20:27, endln:20:64
+      |vpiArgument:
+      \_constant: , line:20:60, endln:20:62, parent:simple_func
+        |vpiDecompile:24
+        |vpiSize:64
+        |UINT:24
+        |vpiConstType:9
+      |vpiArgument:
+      \_constant: , line:20:47, endln:20:49, parent:simple_func
+        |vpiDecompile:12
+        |vpiSize:64
+        |UINT:12
+        |vpiConstType:9
+      |vpiName:simple_func
+      |vpiFunction:
+      \_function: (my_module_types::simple_func), line:9:4, endln:13:15, parent:my_module_types::
+    |vpiLhs:
+    \_parameter: (MY_PARAM2), line:20:15, endln:20:64
+      |vpiLocalParam:1
+      |vpiName:MY_PARAM2
+  |vpiDefName:my_module_types
+|uhdmtopPackages:
+\_package: builtin (builtin::), file:, parent:work@t
+  |vpiName:builtin
+  |vpiFullName:builtin::
+  |vpiDefName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::any_sverilog_class), file:, parent:builtin::
     |vpiName:any_sverilog_class
@@ -543,7 +593,7 @@ design: (work@t)
   \_class_defn: (builtin::system), file:, parent:builtin::
     |vpiName:system
     |vpiFullName:builtin::system
-|uhdmallPackages:
+|uhdmtopPackages:
 \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
   |vpiName:my_funcs
   |vpiFullName:my_funcs::
@@ -658,7 +708,7 @@ design: (work@t)
           \_int_var: , line:9:23, endln:9:26
     |vpiInstance:
     \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
-|uhdmallPackages:
+|uhdmtopPackages:
 \_package: my_module_types (my_module_types::) dut.sv:16:1: , endln:21:11, parent:work@t
   |vpiName:my_module_types
   |vpiFullName:my_module_types::

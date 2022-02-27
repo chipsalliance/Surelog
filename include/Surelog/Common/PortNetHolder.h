@@ -70,6 +70,13 @@ class PortNetHolder {
     m_param_assigns = param_assigns;
   }
 
+  std::vector<UHDM::param_assign*>* getOrigParam_assigns() const {
+    return m_orig_param_assigns;
+  }
+  void setOrigParam_assigns(std::vector<UHDM::param_assign*>* param_assigns) {
+    m_orig_param_assigns = param_assigns;
+  }
+
   std::vector<UHDM::task_func*>* getTask_funcs() const { return m_task_funcs; }
 
   void setTask_funcs(std::vector<UHDM::task_func*>* task_funcs) {
@@ -83,6 +90,7 @@ class PortNetHolder {
   std::vector<UHDM::process_stmt*>* m_processes = nullptr;
   std::vector<UHDM::any*>* m_parameters = nullptr;
   std::vector<UHDM::param_assign*>* m_param_assigns = nullptr;
+  std::vector<UHDM::param_assign*>* m_orig_param_assigns = nullptr;
   std::vector<UHDM::task_func*>* m_task_funcs = nullptr;
   std::vector<UHDM::any*>* m_assertions = nullptr;
 };

@@ -485,6 +485,78 @@ design: (unnamed)
   |vpiName:builtin
   |vpiFullName:builtin::
   |vpiDefName:builtin
+|uhdmallPackages:
+\_package: earlgrey (earlgrey::) dut.sv:1:1: , endln:24:11, parent:unnamed
+  |vpiName:earlgrey
+  |vpiFullName:earlgrey::
+  |vpiParamAssign:
+  \_param_assign: , line:3:15, endln:9:5, parent:earlgrey::
+    |vpiRhs:
+    \_func_call: (max_info_pages), line:3:33, endln:9:5
+      |vpiArgument:
+      \_operation: , line:3:48, endln:9:4, parent:max_info_pages
+        |vpiOpType:75
+        |vpiOperand:
+        \_constant: , line:4:5, endln:4:7
+          |vpiDecompile:10
+          |vpiSize:64
+          |UINT:10
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: , line:5:5, endln:5:6
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: , line:6:5, endln:6:7
+          |vpiDecompile:14
+          |vpiSize:64
+          |UINT:14
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: , line:7:5, endln:7:7
+          |vpiDecompile:18
+          |vpiSize:64
+          |UINT:18
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: , line:8:5, endln:8:7
+          |vpiDecompile:12
+          |vpiSize:64
+          |UINT:12
+          |vpiConstType:9
+      |vpiName:max_info_pages
+      |vpiFunction:
+      \_function: (earlgrey::max_info_pages), line:12:4, endln:21:14, parent:earlgrey::
+    |vpiLhs:
+    \_parameter: (InfosPerBank), line:3:15, endln:9:5
+      |vpiTypespec:
+      \_int_typespec: , line:3:11, endln:3:14, parent:InfosPerBank
+        |vpiInstance:
+        \_package: earlgrey (earlgrey::) dut.sv:1:1: , endln:24:11, parent:unnamed
+      |vpiName:InfosPerBank
+  |vpiParamAssign:
+  \_param_assign: , line:10:15, endln:10:28, parent:earlgrey::
+    |vpiRhs:
+    \_constant: , line:10:27, endln:10:28
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (InfoTypes), line:10:15, endln:10:28
+      |vpiTypespec:
+      \_int_typespec: , line:10:11, endln:10:14, parent:InfoTypes
+        |vpiInstance:
+        \_package: earlgrey (earlgrey::) dut.sv:1:1: , endln:24:11, parent:unnamed
+      |vpiName:InfoTypes
+  |vpiDefName:earlgrey
+|uhdmtopPackages:
+\_package: builtin (builtin::), file:, parent:unnamed
+  |vpiName:builtin
+  |vpiFullName:builtin::
+  |vpiDefName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::any_sverilog_class), file:, parent:builtin::
     |vpiName:any_sverilog_class
@@ -505,7 +577,7 @@ design: (unnamed)
   \_class_defn: (builtin::system), file:, parent:builtin::
     |vpiName:system
     |vpiFullName:builtin::system
-|uhdmallPackages:
+|uhdmtopPackages:
 \_package: earlgrey (earlgrey::) dut.sv:1:1: , endln:24:11, parent:unnamed
   |vpiName:earlgrey
   |vpiFullName:earlgrey::
@@ -577,15 +649,11 @@ design: (unnamed)
         \_operation: 
           |vpiOpType:11
           |vpiOperand:
-          \_constant: , line:12:56, endln:12:65
-            |vpiDecompile:5
-            |vpiSize:32
-            |UINT:5
-            |vpiTypespec:
-            \_int_typespec: , line:10:11, endln:10:14
-              |vpiInstance:
-              \_package: earlgrey (earlgrey::) dut.sv:1:1: , endln:24:11, parent:unnamed
-            |vpiConstType:9
+          \_ref_obj: (earlgrey::max_info_pages::infos::InfoTypes), line:12:56, endln:12:65
+            |vpiName:InfoTypes
+            |vpiFullName:earlgrey::max_info_pages::infos::InfoTypes
+            |vpiActual:
+            \_parameter: (earlgrey::InfoTypes), line:10:15, endln:10:28, parent:earlgrey::
           |vpiOperand:
           \_constant: 
             |vpiSize:64
@@ -640,15 +708,11 @@ design: (unnamed)
             |vpiName:i
             |vpiFullName:earlgrey::max_info_pages::i
           |vpiOperand:
-          \_constant: , line:15:25, endln:15:34
-            |vpiDecompile:5
-            |vpiSize:32
-            |UINT:5
-            |vpiTypespec:
-            \_int_typespec: , line:10:11, endln:10:14
-              |vpiInstance:
-              \_package: earlgrey (earlgrey::) dut.sv:1:1: , endln:24:11, parent:unnamed
-            |vpiConstType:9
+          \_ref_obj: (earlgrey::max_info_pages::InfoTypes), line:15:25, endln:15:34
+            |vpiName:InfoTypes
+            |vpiFullName:earlgrey::max_info_pages::InfoTypes
+            |vpiActual:
+            \_parameter: (earlgrey::InfoTypes), line:10:15, endln:10:28, parent:earlgrey::
         |vpiStmt:
         \_begin: (earlgrey::max_info_pages), line:15:41, endln:19:8, parent:earlgrey::max_info_pages
           |vpiFullName:earlgrey::max_info_pages
