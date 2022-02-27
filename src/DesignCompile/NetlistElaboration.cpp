@@ -1548,6 +1548,9 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           pnets->Elements(s.MakeAnyVec());
           pnets->Elements()->push_back(stv);
           obj = pnets;
+          pnets->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
+        } else {
+          stv->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
         }
       } else if (const Struct* st = datatype_cast<const Struct*>(dtype)) {
         struct_net* stv = s.MakeStruct_net();
@@ -1559,6 +1562,9 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           pnets->Elements(s.MakeAnyVec());
           pnets->Elements()->push_back(stv);
           obj = pnets;
+          pnets->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
+        } else {
+          stv->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
         }
       } else if (const SimpleType* sit =
                      datatype_cast<const SimpleType*>(dtype)) {
@@ -1581,6 +1587,9 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
             pnets->Elements(s.MakeAnyVec());
             pnets->Elements()->push_back(stv);
             obj = pnets;
+            pnets->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
+          } else {
+            stv->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
           }
         } else if (spec->UhdmType() == uhdmenum_typespec) {
           enum_net* stv = s.MakeEnum_net();
@@ -1592,6 +1601,9 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
             pnets->Elements(s.MakeAnyVec());
             pnets->Elements()->push_back(stv);
             obj = pnets;
+            pnets->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
+          } else {
+            stv->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
           }
         } else if (spec->UhdmType() == uhdmbit_typespec) {
           bit_var* logicn = s.MakeBit_var();
