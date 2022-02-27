@@ -54,6 +54,54 @@ design: (work@top)
 \_package: ibex_pkg (ibex_pkg::) dut.sv:3:1: , endln:9:11, parent:work@top
   |vpiName:ibex_pkg
   |vpiFullName:ibex_pkg::
+  |vpiDefName:ibex_pkg
+|uhdmallPackages:
+\_package: ibex_tracer_pkg (ibex_tracer_pkg::) dut.sv:11:1: , endln:14:11, parent:work@top
+  |vpiName:ibex_tracer_pkg
+  |vpiFullName:ibex_tracer_pkg::
+  |vpiParamAssign:
+  \_param_assign: , line:13:24, endln:13:59, parent:ibex_tracer_pkg::
+    |vpiRhs:
+    \_operation: , line:13:35, endln:13:59
+      |vpiOpType:33
+      |vpiOperand:
+      \_constant: , line:13:37, endln:13:42
+        |vpiDecompile:25'h?
+        |vpiSize:25
+        |HEX:?
+        |vpiConstType:5
+      |vpiOperand:
+      \_operation: , line:13:44, endln:13:58
+        |vpiOpType:33
+        |vpiOperand:
+        \_ref_obj: (OPCODE_LUI), line:13:45, endln:13:55
+          |vpiName:OPCODE_LUI
+    |vpiLhs:
+    \_parameter: (INSN_LUI), line:13:24, endln:13:59
+      |vpiTypespec:
+      \_logic_typespec: , line:13:11, endln:13:16, parent:INSN_LUI
+        |vpiInstance:
+        \_package: ibex_tracer_pkg (ibex_tracer_pkg::) dut.sv:11:1: , endln:14:11, parent:work@top
+        |vpiRange:
+        \_range: , line:13:18, endln:13:22
+          |vpiLeftRange:
+          \_constant: , line:13:18, endln:13:20
+            |vpiDecompile:31
+            |vpiSize:64
+            |UINT:31
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:13:21, endln:13:22
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+      |vpiName:INSN_LUI
+  |vpiDefName:ibex_tracer_pkg
+|uhdmtopPackages:
+\_package: ibex_pkg (ibex_pkg::) dut.sv:3:1: , endln:9:11, parent:work@top
+  |vpiName:ibex_pkg
+  |vpiFullName:ibex_pkg::
   |vpiTypedef:
   \_enum_typespec: (ibex_pkg::opcode_e), line:8:3, endln:8:11
     |vpiName:ibex_pkg::opcode_e
@@ -90,7 +138,7 @@ design: (work@top)
       |vpiDecompile:7'h37
       |vpiSize:7
   |vpiDefName:ibex_pkg
-|uhdmallPackages:
+|uhdmtopPackages:
 \_package: ibex_tracer_pkg (ibex_tracer_pkg::) dut.sv:11:1: , endln:14:11, parent:work@top
   |vpiName:ibex_tracer_pkg
   |vpiFullName:ibex_tracer_pkg::

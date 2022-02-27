@@ -245,6 +245,34 @@ design: (work@top)
 \_package: foo_pkg (foo_pkg::) dut.sv:1:1: , endln:3:11, parent:work@top
   |vpiName:foo_pkg
   |vpiFullName:foo_pkg::
+  |vpiParamAssign:
+  \_param_assign: , line:2:17, endln:2:43, parent:foo_pkg::
+    |vpiRhs:
+    \_operation: , line:2:30, endln:2:43
+      |vpiOpType:75
+      |vpiOperand:
+      \_tagged_pattern: 
+        |vpiPattern:
+        \_constant: , line:2:41, endln:2:42
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiTypespec:
+        \_string_typespec: (default), line:2:32, endln:2:39
+          |vpiName:default
+    |vpiLhs:
+    \_parameter: (VALUE_TEMP), line:2:17, endln:2:43
+      |vpiTypespec:
+      \_int_typespec: , line:2:13, endln:2:16, parent:VALUE_TEMP
+        |vpiInstance:
+        \_package: foo_pkg (foo_pkg::) dut.sv:1:1: , endln:3:11, parent:work@top
+      |vpiName:VALUE_TEMP
+  |vpiDefName:foo_pkg
+|uhdmtopPackages:
+\_package: foo_pkg (foo_pkg::) dut.sv:1:1: , endln:3:11, parent:work@top
+  |vpiName:foo_pkg
+  |vpiFullName:foo_pkg::
   |vpiParameter:
   \_parameter: (foo_pkg::VALUE_TEMP), line:2:17, endln:2:43, parent:foo_pkg::
     |vpiTypespec:

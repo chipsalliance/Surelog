@@ -4599,7 +4599,8 @@ UHDM::any *CompileHelper::compileExpression(
                   if (param_ass && param_ass->Lhs()) {
                     const std::string &param_name = param_ass->Lhs()->VpiName();
                     bool paramFromPackage = false;
-                    if (valuedcomponenti_cast<Package *>(component)) {
+                    if ((valuedcomponenti_cast<Package *>(component)) &&
+                        (reduce)) {
                       paramFromPackage = true;
                     }
                     if (param_ass->Lhs()->UhdmType() == uhdmparameter) {

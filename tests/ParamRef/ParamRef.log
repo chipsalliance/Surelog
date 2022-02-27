@@ -240,6 +240,84 @@ design: (work@top_earlgrey)
 \_package: tl_main_pkg (tl_main_pkg::) dut.sv:1:1: , endln:3:11, parent:work@top_earlgrey
   |vpiName:tl_main_pkg
   |vpiFullName:tl_main_pkg::
+  |vpiParamAssign:
+  \_param_assign: , line:2:19, endln:2:43, parent:tl_main_pkg::
+    |vpiRhs:
+    \_constant: , line:2:42, endln:2:43
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (ADDR_SPACE_DEBUG_MEM), line:2:19, endln:2:43
+      |vpiTypespec:
+      \_int_typespec: , line:2:15, endln:2:18, parent:ADDR_SPACE_DEBUG_MEM
+        |vpiInstance:
+        \_package: tl_main_pkg (tl_main_pkg::) dut.sv:1:1: , endln:3:11, parent:work@top_earlgrey
+      |vpiLocalParam:1
+      |vpiName:ADDR_SPACE_DEBUG_MEM
+  |vpiDefName:tl_main_pkg
+|uhdmallPackages:
+\_package: dm (dm::) dut.sv:5:1: , endln:8:16, parent:work@top_earlgrey
+  |vpiName:dm
+  |vpiFullName:dm::
+  |vpiParamAssign:
+  \_param_assign: , line:6:19, endln:6:35, parent:dm::
+    |vpiRhs:
+    \_constant: , line:6:33, endln:6:35
+      |vpiDecompile:10
+      |vpiSize:64
+      |UINT:10
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (HaltAddress), line:6:19, endln:6:35
+      |vpiTypespec:
+      \_int_typespec: , line:6:15, endln:6:18, parent:HaltAddress
+        |vpiInstance:
+        \_package: dm (dm::) dut.sv:5:1: , endln:8:16, parent:work@top_earlgrey
+      |vpiLocalParam:1
+      |vpiName:HaltAddress
+  |vpiParamAssign:
+  \_param_assign: , line:7:28, endln:7:62, parent:dm::
+    |vpiRhs:
+    \_operation: , line:7:47, endln:7:62
+      |vpiOpType:24
+      |vpiOperand:
+      \_ref_obj: (HaltAddress), line:7:47, endln:7:58
+        |vpiName:HaltAddress
+      |vpiOperand:
+      \_constant: , line:7:61, endln:7:62
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (ExceptionAddress), line:7:28, endln:7:62
+      |vpiTypespec:
+      \_logic_typespec: , line:7:15, endln:7:20, parent:ExceptionAddress
+        |vpiInstance:
+        \_package: dm (dm::) dut.sv:5:1: , endln:8:16, parent:work@top_earlgrey
+        |vpiRange:
+        \_range: , line:7:22, endln:7:26
+          |vpiLeftRange:
+          \_constant: , line:7:22, endln:7:24
+            |vpiDecompile:31
+            |vpiSize:64
+            |UINT:31
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:7:25, endln:7:26
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+      |vpiLocalParam:1
+      |vpiName:ExceptionAddress
+  |vpiDefName:dm
+|uhdmtopPackages:
+\_package: tl_main_pkg (tl_main_pkg::) dut.sv:1:1: , endln:3:11, parent:work@top_earlgrey
+  |vpiName:tl_main_pkg
+  |vpiFullName:tl_main_pkg::
   |vpiParameter:
   \_parameter: (tl_main_pkg::ADDR_SPACE_DEBUG_MEM), line:2:19, endln:2:43, parent:tl_main_pkg::
     |UINT:1
@@ -263,7 +341,7 @@ design: (work@top_earlgrey)
     |vpiLhs:
     \_parameter: (tl_main_pkg::ADDR_SPACE_DEBUG_MEM), line:2:19, endln:2:43, parent:tl_main_pkg::
   |vpiDefName:tl_main_pkg
-|uhdmallPackages:
+|uhdmtopPackages:
 \_package: dm (dm::) dut.sv:5:1: , endln:8:16, parent:work@top_earlgrey
   |vpiName:dm
   |vpiFullName:dm::
@@ -318,15 +396,10 @@ design: (work@top_earlgrey)
     \_operation: , line:7:47, endln:7:62
       |vpiOpType:24
       |vpiOperand:
-      \_constant: , line:7:47, endln:7:58
-        |vpiDecompile:10
-        |vpiSize:32
-        |UINT:10
-        |vpiTypespec:
-        \_int_typespec: , line:6:15, endln:6:18
-          |vpiInstance:
-          \_package: dm (dm::) dut.sv:5:1: , endln:8:16, parent:work@top_earlgrey
-        |vpiConstType:9
+      \_ref_obj: (HaltAddress), line:7:47, endln:7:58
+        |vpiName:HaltAddress
+        |vpiActual:
+        \_parameter: (dm::HaltAddress), line:6:19, endln:6:35, parent:dm::
       |vpiOperand:
       \_constant: , line:7:61, endln:7:62
         |vpiDecompile:2
@@ -466,13 +539,28 @@ design: (work@top_earlgrey)
     \_param_assign: , line:19:27, endln:19:46, parent:work@top_earlgrey.u_rv_core_ibex
       |vpiOverriden:1
       |vpiRhs:
-      \_constant: , line:19:45, endln:19:46
-        |vpiDecompile:13
-        |vpiSize:64
-        |UINT:13
-        |vpiTypespec:
-        \_int_typespec: , line:19:14, endln:19:17, parent:work@rv_core_ibex.DmExceptionAddr
-        |vpiConstType:9
+      \_operation: , line:14:23, endln:14:66
+        |vpiOpType:24
+        |vpiOperand:
+        \_constant: , line:14:23, endln:14:43
+          |vpiDecompile:1
+          |vpiSize:32
+          |UINT:1
+          |vpiConstType:9
+        |vpiOperand:
+        \_operation: , line:14:46, endln:14:66
+          |vpiTypespec:
+          \_logic_typespec: , line:7:15, endln:7:20, parent:dm::ExceptionAddress
+          |vpiOpType:24
+          |vpiOperand:
+          \_ref_obj: (HaltAddress), line:7:47, endln:7:58
+            |vpiName:HaltAddress
+          |vpiOperand:
+          \_constant: , line:7:61, endln:7:62
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top_earlgrey.u_rv_core_ibex.DmExceptionAddr), line:19:27, endln:19:46, parent:work@top_earlgrey.u_rv_core_ibex
     |vpiDefName:work@rv_core_ibex
@@ -495,13 +583,46 @@ design: (work@top_earlgrey)
       \_param_assign: , line:26:27, endln:26:46, parent:work@top_earlgrey.u_rv_core_ibex.u_core
         |vpiOverriden:1
         |vpiRhs:
-        \_constant: , line:26:45, endln:26:46
-          |vpiDecompile:13
-          |vpiSize:64
-          |UINT:13
+        \_operation: , line:21:24, endln:21:39
           |vpiTypespec:
-          \_int_typespec: , line:26:14, endln:26:17, parent:work@ibex_core.DmExceptionAddr
-          |vpiConstType:9
+          \_int_typespec: , line:19:14, endln:19:17, parent:work@rv_core_ibex.DmExceptionAddr
+          |vpiOpType:24
+          |vpiOperand:
+          \_constant: , line:14:23, endln:14:43
+            |vpiDecompile:1
+            |vpiSize:32
+            |UINT:1
+            |vpiConstType:9
+          |vpiOperand:
+          \_operation: , line:14:46, endln:14:66
+            |vpiTypespec:
+            \_logic_typespec: , line:7:15, endln:7:20
+              |vpiInstance:
+              \_package: dm (dm::) dut.sv:5:1: , endln:8:16, parent:work@top_earlgrey
+              |vpiRange:
+              \_range: , line:7:22, endln:7:26
+                |vpiLeftRange:
+                \_constant: , line:7:22, endln:7:24
+                  |vpiDecompile:31
+                  |vpiSize:64
+                  |UINT:31
+                  |vpiConstType:9
+                |vpiRightRange:
+                \_constant: , line:7:25, endln:7:26
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
+            |vpiOpType:24
+            |vpiOperand:
+            \_ref_obj: (HaltAddress), line:7:47, endln:7:58
+              |vpiName:HaltAddress
+            |vpiOperand:
+            \_constant: , line:7:61, endln:7:62
+              |vpiDecompile:2
+              |vpiSize:64
+              |UINT:2
+              |vpiConstType:9
         |vpiLhs:
         \_parameter: (work@top_earlgrey.u_rv_core_ibex.u_core.DmExceptionAddr), line:26:27, endln:26:46, parent:work@top_earlgrey.u_rv_core_ibex.u_core
       |vpiDefName:work@ibex_core

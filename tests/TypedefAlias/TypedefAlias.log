@@ -48,6 +48,16 @@ design: (work@test)
 \_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
   |vpiName:package1
   |vpiFullName:package1::
+  |vpiDefName:package1
+|uhdmallPackages:
+\_package: package2 (package2::) dut.sv:9:1: , endln:11:22, parent:work@test
+  |vpiName:package2
+  |vpiFullName:package2::
+  |vpiDefName:package2
+|uhdmtopPackages:
+\_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
+  |vpiName:package1
+  |vpiFullName:package1::
   |vpiTypedef:
   \_struct_typespec: (package1::type_alias), line:2:11, endln:2:17
     |vpiName:package1::type_alias
@@ -77,7 +87,7 @@ design: (work@test)
   |vpiTypedef:
   \_struct_typespec: (package1::type_t), line:2:11, endln:2:17
   |vpiDefName:package1
-|uhdmallPackages:
+|uhdmtopPackages:
 \_package: package2 (package2::) dut.sv:9:1: , endln:11:22, parent:work@test
   |vpiName:package2
   |vpiFullName:package2::

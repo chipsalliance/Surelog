@@ -64,6 +64,363 @@ design: (work@dut)
 \_package: top_pkg (top_pkg::) dut.sv:1:1: , endln:20:13, parent:work@dut
   |vpiName:top_pkg
   |vpiFullName:top_pkg::
+  |vpiParamAssign:
+  \_param_assign: , line:3:14, endln:3:22, parent:top_pkg::
+    |vpiRhs:
+    \_constant: , line:3:20, endln:3:22
+      |vpiDecompile:32
+      |vpiSize:64
+      |UINT:32
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (TL_AW), line:3:14, endln:3:22
+      |vpiLocalParam:1
+      |vpiName:TL_AW
+  |vpiParamAssign:
+  \_param_assign: , line:4:14, endln:4:22, parent:top_pkg::
+    |vpiRhs:
+    \_constant: , line:4:20, endln:4:22
+      |vpiDecompile:32
+      |vpiSize:64
+      |UINT:32
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (TL_DW), line:4:14, endln:4:22
+      |vpiLocalParam:1
+      |vpiName:TL_DW
+  |vpiParamAssign:
+  \_param_assign: , line:5:14, endln:5:22, parent:top_pkg::
+    |vpiRhs:
+    \_constant: , line:5:21, endln:5:22
+      |vpiDecompile:8
+      |vpiSize:64
+      |UINT:8
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (TL_AIW), line:5:14, endln:5:22
+      |vpiLocalParam:1
+      |vpiName:TL_AIW
+  |vpiParamAssign:
+  \_param_assign: , line:6:14, endln:6:22, parent:top_pkg::
+    |vpiRhs:
+    \_constant: , line:6:21, endln:6:22
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (TL_DIW), line:6:14, endln:6:22
+      |vpiLocalParam:1
+      |vpiName:TL_DIW
+  |vpiParamAssign:
+  \_param_assign: , line:7:14, endln:7:23, parent:top_pkg::
+    |vpiRhs:
+    \_constant: , line:7:21, endln:7:23
+      |vpiDecompile:16
+      |vpiSize:64
+      |UINT:16
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (TL_DUW), line:7:14, endln:7:23
+      |vpiLocalParam:1
+      |vpiName:TL_DUW
+  |vpiParamAssign:
+  \_param_assign: , line:8:14, endln:8:31, parent:top_pkg::
+    |vpiRhs:
+    \_operation: , line:8:21, endln:8:31
+      |vpiOpType:23
+      |vpiOperand:
+      \_ref_obj: (TL_DW), line:8:22, endln:8:27
+        |vpiName:TL_DW
+      |vpiOperand:
+      \_constant: , line:8:29, endln:8:30
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (TL_DBW), line:8:14, endln:8:31
+      |vpiLocalParam:1
+      |vpiName:TL_DBW
+  |vpiParamAssign:
+  \_param_assign: , line:9:14, endln:9:45, parent:top_pkg::
+    |vpiRhs:
+    \_sys_func_call: ($clog2), line:9:21, endln:9:45
+      |vpiArgument:
+      \_operation: , line:9:28, endln:9:42, parent:$clog2
+        |vpiOpType:24
+        |vpiOperand:
+        \_sys_func_call: ($clog2), line:9:28, endln:9:42
+          |vpiArgument:
+          \_ref_obj: (TL_DBW), line:9:35, endln:9:41, parent:$clog2
+            |vpiName:TL_DBW
+          |vpiName:$clog2
+        |vpiOperand:
+        \_constant: , line:9:43, endln:9:44
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiName:$clog2
+    |vpiLhs:
+    \_parameter: (TL_SZW), line:9:14, endln:9:45
+      |vpiLocalParam:1
+      |vpiName:TL_SZW
+  |vpiParamAssign:
+  \_param_assign: , line:10:14, endln:10:27, parent:top_pkg::
+    |vpiRhs:
+    \_constant: , line:10:26, endln:10:27
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (FLASH_BANKS), line:10:14, endln:10:27
+      |vpiLocalParam:1
+      |vpiName:FLASH_BANKS
+  |vpiParamAssign:
+  \_param_assign: , line:11:14, endln:11:38, parent:top_pkg::
+    |vpiRhs:
+    \_constant: , line:11:35, endln:11:38
+      |vpiDecompile:256
+      |vpiSize:64
+      |UINT:256
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (FLASH_PAGES_PER_BANK), line:11:14, endln:11:38
+      |vpiLocalParam:1
+      |vpiName:FLASH_PAGES_PER_BANK
+  |vpiParamAssign:
+  \_param_assign: , line:12:14, endln:12:38, parent:top_pkg::
+    |vpiRhs:
+    \_constant: , line:12:35, endln:12:38
+      |vpiDecompile:256
+      |vpiSize:64
+      |UINT:256
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (FLASH_WORDS_PER_PAGE), line:12:14, endln:12:38
+      |vpiLocalParam:1
+      |vpiName:FLASH_WORDS_PER_PAGE
+  |vpiParamAssign:
+  \_param_assign: , line:13:14, endln:13:36, parent:top_pkg::
+    |vpiRhs:
+    \_constant: , line:13:35, endln:13:36
+      |vpiDecompile:4
+      |vpiSize:64
+      |UINT:4
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (FLASH_BYTES_PER_WORD), line:13:14, endln:13:36
+      |vpiLocalParam:1
+      |vpiName:FLASH_BYTES_PER_WORD
+  |vpiParamAssign:
+  \_param_assign: , line:14:14, endln:14:45, parent:top_pkg::
+    |vpiRhs:
+    \_sys_func_call: ($clog2), line:14:26, endln:14:45
+      |vpiArgument:
+      \_ref_obj: (FLASH_BANKS), line:14:33, endln:14:44, parent:$clog2
+        |vpiName:FLASH_BANKS
+      |vpiName:$clog2
+    |vpiLhs:
+    \_parameter: (FLASH_BKW), line:14:14, endln:14:45
+      |vpiLocalParam:1
+      |vpiName:FLASH_BKW
+  |vpiParamAssign:
+  \_param_assign: , line:15:14, endln:15:54, parent:top_pkg::
+    |vpiRhs:
+    \_sys_func_call: ($clog2), line:15:26, endln:15:54
+      |vpiArgument:
+      \_ref_obj: (FLASH_PAGES_PER_BANK), line:15:33, endln:15:53, parent:$clog2
+        |vpiName:FLASH_PAGES_PER_BANK
+      |vpiName:$clog2
+    |vpiLhs:
+    \_parameter: (FLASH_PGW), line:15:14, endln:15:54
+      |vpiLocalParam:1
+      |vpiName:FLASH_PGW
+  |vpiParamAssign:
+  \_param_assign: , line:16:14, endln:16:54, parent:top_pkg::
+    |vpiRhs:
+    \_sys_func_call: ($clog2), line:16:26, endln:16:54
+      |vpiArgument:
+      \_ref_obj: (FLASH_WORDS_PER_PAGE), line:16:33, endln:16:53, parent:$clog2
+        |vpiName:FLASH_WORDS_PER_PAGE
+      |vpiName:$clog2
+    |vpiLhs:
+    \_parameter: (FLASH_WDW), line:16:14, endln:16:54
+      |vpiLocalParam:1
+      |vpiName:FLASH_WDW
+  |vpiParamAssign:
+  \_param_assign: , line:17:14, endln:17:58, parent:top_pkg::
+    |vpiRhs:
+    \_operation: , line:17:25, endln:17:58
+      |vpiOpType:24
+      |vpiOperand:
+      \_operation: , line:17:25, endln:17:34
+        |vpiOpType:24
+        |vpiOperand:
+        \_ref_obj: (FLASH_BKW), line:17:25, endln:17:34
+          |vpiName:FLASH_BKW
+        |vpiOperand:
+        \_ref_obj: (FLASH_PGW), line:17:37, endln:17:46
+          |vpiName:FLASH_PGW
+      |vpiOperand:
+      \_ref_obj: (FLASH_WDW), line:17:49, endln:17:58
+        |vpiName:FLASH_WDW
+    |vpiLhs:
+    \_parameter: (FLASH_AW), line:17:14, endln:17:58
+      |vpiLocalParam:1
+      |vpiName:FLASH_AW
+  |vpiParamAssign:
+  \_param_assign: , line:18:14, endln:18:49, parent:top_pkg::
+    |vpiRhs:
+    \_operation: , line:18:25, endln:18:49
+      |vpiOpType:25
+      |vpiOperand:
+      \_ref_obj: (FLASH_BYTES_PER_WORD), line:18:25, endln:18:45
+        |vpiName:FLASH_BYTES_PER_WORD
+      |vpiOperand:
+      \_constant: , line:18:48, endln:18:49
+        |vpiDecompile:8
+        |vpiSize:64
+        |UINT:8
+        |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (FLASH_DW), line:18:14, endln:18:49
+      |vpiLocalParam:1
+      |vpiName:FLASH_DW
+  |vpiDefName:top_pkg
+|uhdmallPackages:
+\_package: tlul_pkg (tlul_pkg::) dut.sv:22:1: , endln:46:11, parent:work@dut
+  |vpiName:tlul_pkg
+  |vpiFullName:tlul_pkg::
+  |vpiDefName:tlul_pkg
+|uhdmallPackages:
+\_package: hmac_pkg (hmac_pkg::) dut.sv:48:1: , endln:62:11, parent:work@dut
+  |vpiName:hmac_pkg
+  |vpiFullName:hmac_pkg::
+  |vpiParamAssign:
+  \_param_assign: , line:52:18, endln:52:31, parent:hmac_pkg::
+    |vpiRhs:
+    \_constant: , line:52:30, endln:52:31
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (NumAlerts), line:52:18, endln:52:31
+      |vpiTypespec:
+      \_int_typespec: , line:52:14, endln:52:17, parent:NumAlerts
+        |vpiInstance:
+        \_package: hmac_pkg (hmac_pkg::) dut.sv:48:1: , endln:62:11, parent:work@dut
+      |vpiLocalParam:1
+      |vpiName:NumAlerts
+  |vpiParamAssign:
+  \_param_assign: , line:53:36, endln:53:67, parent:hmac_pkg::
+    |vpiRhs:
+    \_operation: , line:53:51, endln:53:67
+      |vpiTypespec:
+      \_int_typespec: (NumAlerts), line:52:18, endln:52:18
+        |vpiName:NumAlerts
+        |vpiInstance:
+        \_package: hmac_pkg (hmac_pkg::) dut.sv:48:1: , endln:62:11, parent:work@dut
+        |UINT:1
+      |vpiOpType:67
+      |vpiOperand:
+      \_constant: , line:53:62, endln:53:66
+        |vpiDecompile:1'b1
+        |vpiSize:1
+        |BIN:1
+        |vpiConstType:3
+    |vpiLhs:
+    \_parameter: (AlertAsyncOn), line:53:36, endln:53:67
+      |vpiTypespec:
+      \_logic_typespec: , line:53:14, endln:53:19, parent:AlertAsyncOn
+        |vpiInstance:
+        \_package: hmac_pkg (hmac_pkg::) dut.sv:48:1: , endln:62:11, parent:work@dut
+        |vpiRange:
+        \_range: , line:53:21, endln:53:34
+          |vpiLeftRange:
+          \_constant: , line:53:21, endln:53:30
+            |vpiDecompile:0
+            |vpiSize:64
+            |INT:0
+            |vpiConstType:7
+          |vpiRightRange:
+          \_constant: , line:53:33, endln:53:34
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+      |vpiLocalParam:1
+      |vpiName:AlertAsyncOn
+  |vpiParamAssign:
+  \_param_assign: , line:55:18, endln:55:35, parent:hmac_pkg::
+    |vpiRhs:
+    \_constant: , line:55:33, endln:55:35
+      |vpiDecompile:16
+      |vpiSize:64
+      |UINT:16
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (MsgFifoDepth), line:55:18, endln:55:35
+      |vpiTypespec:
+      \_int_typespec: , line:55:14, endln:55:17, parent:MsgFifoDepth
+        |vpiInstance:
+        \_package: hmac_pkg (hmac_pkg::) dut.sv:48:1: , endln:62:11, parent:work@dut
+      |vpiLocalParam:1
+      |vpiName:MsgFifoDepth
+  |vpiParamAssign:
+  \_param_assign: , line:57:18, endln:57:31, parent:hmac_pkg::
+    |vpiRhs:
+    \_constant: , line:57:29, endln:57:31
+      |vpiDecompile:64
+      |vpiSize:64
+      |UINT:64
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (NumRound), line:57:18, endln:57:31
+      |vpiTypespec:
+      \_int_typespec: , line:57:14, endln:57:17, parent:NumRound
+        |vpiInstance:
+        \_package: hmac_pkg (hmac_pkg::) dut.sv:48:1: , endln:62:11, parent:work@dut
+      |vpiLocalParam:1
+      |vpiName:NumRound
+  |vpiParamAssign:
+  \_param_assign: , line:60:18, endln:60:48, parent:hmac_pkg::
+    |vpiRhs:
+    \_operation: , line:60:29, endln:60:48
+      |vpiOpType:12
+      |vpiOperand:
+      \_constant: , line:60:29, endln:60:46
+        |vpiDecompile:32
+        |vpiSize:64
+        |UINT:32
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:60:47, endln:60:48
+        |vpiDecompile:8
+        |vpiSize:64
+        |UINT:8
+        |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (WordByte), line:60:18, endln:60:48
+      |vpiTypespec:
+      \_int_typespec: , line:60:14, endln:60:17, parent:WordByte
+        |vpiInstance:
+        \_package: hmac_pkg (hmac_pkg::) dut.sv:48:1: , endln:62:11, parent:work@dut
+      |vpiLocalParam:1
+      |vpiName:WordByte
+  |vpiDefName:hmac_pkg
+|uhdmallPackages:
+\_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:65:1: , endln:72:11, parent:work@dut
+  |vpiName:flash_ctrl_pkg
+  |vpiFullName:flash_ctrl_pkg::
+  |vpiDefName:flash_ctrl_pkg
+|uhdmtopPackages:
+\_package: top_pkg (top_pkg::) dut.sv:1:1: , endln:20:13, parent:work@dut
+  |vpiName:top_pkg
+  |vpiFullName:top_pkg::
   |vpiParameter:
   \_parameter: (top_pkg::TL_AW), line:3:14, endln:3:22, parent:top_pkg::
     |UINT:32
@@ -321,7 +678,7 @@ design: (work@dut)
     |vpiLhs:
     \_parameter: (top_pkg::FLASH_DW), line:18:14, endln:18:49, parent:top_pkg::
   |vpiDefName:top_pkg
-|uhdmallPackages:
+|uhdmtopPackages:
 \_package: tlul_pkg (tlul_pkg::) dut.sv:22:1: , endln:46:11, parent:work@dut
   |vpiName:tlul_pkg
   |vpiFullName:tlul_pkg::
@@ -508,7 +865,7 @@ design: (work@dut)
         |vpiInstance:
         \_package: tlul_pkg (tlul_pkg::) dut.sv:22:1: , endln:46:11, parent:work@dut
   |vpiDefName:tlul_pkg
-|uhdmallPackages:
+|uhdmtopPackages:
 \_package: hmac_pkg (hmac_pkg::) dut.sv:48:1: , endln:62:11, parent:work@dut
   |vpiName:hmac_pkg
   |vpiFullName:hmac_pkg::
@@ -662,7 +1019,7 @@ design: (work@dut)
         |UINT:0
         |vpiConstType:9
   |vpiDefName:hmac_pkg
-|uhdmallPackages:
+|uhdmtopPackages:
 \_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:65:1: , endln:72:11, parent:work@dut
   |vpiName:flash_ctrl_pkg
   |vpiFullName:flash_ctrl_pkg::

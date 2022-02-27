@@ -46,6 +46,7 @@
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
+#include <uhdm/Serializer.h>
 #include <uhdm/SynthSubset.h>
 #include <uhdm/UhdmLint.h>
 #include <uhdm/clone_tree.h>
@@ -759,71 +760,262 @@ void writeVariables(const DesignComponent::VariableMap& orig_vars,
   }
 }
 
-void writePackage(Package* pack, package* p, Serializer& s,
-                  UhdmWriter::ComponentMap& componentMap) {
-  p->VpiFullName(pack->getName() + "::");
-  // Typepecs
-  VectorOftypespec* typespecs = s.MakeTypespecVec();
-  p->Typespecs(typespecs);
-  writeDataTypes(pack->getDataTypeMap(), p, typespecs, s);
-  for (auto item : pack->getImportedSymbols()) {
-    typespecs->push_back(item);
+class ReInstanceTypespec : public VpiListener {
+ public:
+  ReInstanceTypespec(Serializer* serializer, package* p)
+      : m_serializer(serializer), m_package(p) {}
+  ~ReInstanceTypespec() {}
+
+  void leaveShort_real_typespec(const short_real_typespec* object,
+                                const BaseClass* parent, vpiHandle handle,
+                                vpiHandle parentHandle) final {
+    reInstance(object);
   }
-  // Classes
-  ClassNameClassDefinitionMultiMap& orig_classes = pack->getClassDefinitions();
-  VectorOfclass_defn* dest_classes = s.MakeClass_defnVec();
-  writeClasses(orig_classes, dest_classes, s, componentMap, p);
-  p->Class_defns(dest_classes);
-  // Parameters
-  if (pack->getParameters()) {
-    p->Parameters(pack->getParameters());
-    for (auto ps : *p->Parameters()) {
-      ps->VpiParent(p);
-      if (ps->UhdmType() == uhdmparameter) {
-        ((parameter*)ps)->VpiFullName(pack->getName() + "::" + ps->VpiName());
-      } else {
-        ((type_parameter*)ps)
-            ->VpiFullName(pack->getName() + "::" + ps->VpiName());
+
+  void leaveReal_typespec(const real_typespec* object, const BaseClass* parent,
+                          vpiHandle handle, vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+
+  void leaveByte_typespec(const byte_typespec* object, const BaseClass* parent,
+                          vpiHandle handle, vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+
+  void leaveShort_int_typespec(const short_int_typespec* object,
+                               const BaseClass* parent, vpiHandle handle,
+                               vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+
+  void leaveInt_typespec(const int_typespec* object, const BaseClass* parent,
+                         vpiHandle handle, vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+
+  void leaveLong_int_typespec(const long_int_typespec* object,
+                              const BaseClass* parent, vpiHandle handle,
+                              vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+
+  void leaveInteger_typespec(const integer_typespec* object,
+                             const BaseClass* parent, vpiHandle handle,
+                             vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+
+  void leaveTime_typespec(const time_typespec* object, const BaseClass* parent,
+                          vpiHandle handle, vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+
+  void leaveString_typespec(const string_typespec* object,
+                            const BaseClass* parent, vpiHandle handle,
+                            vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+
+  void leaveChandle_typespec(const chandle_typespec* object,
+                             const BaseClass* parent, vpiHandle handle,
+                             vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+
+  void leavePacked_array_typespec(const packed_array_typespec* object,
+                                  const BaseClass* parent, vpiHandle handle,
+                                  vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+
+  void leaveArray_typespec(const array_typespec* object,
+                           const BaseClass* parent, vpiHandle handle,
+                           vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+
+  void leaveVoid_typespec(const void_typespec* object, const BaseClass* parent,
+                          vpiHandle handle, vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+
+  void leaveSequence_typespec(const sequence_typespec* object,
+                              const BaseClass* parent, vpiHandle handle,
+                              vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+
+  void leaveProperty_typespec(const property_typespec* object,
+                              const BaseClass* parent, vpiHandle handle,
+                              vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+
+  void leaveInterface_typespec(const interface_typespec* object,
+                               const BaseClass* parent, vpiHandle handle,
+                               vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+
+  void leaveStruct_typespec(const struct_typespec* object,
+                            const BaseClass* parent, vpiHandle handle,
+                            vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+  void leaveUnion_typespec(const union_typespec* object,
+                           const BaseClass* parent, vpiHandle handle,
+                           vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+  void leaveEnum_typespec(const enum_typespec* object, const BaseClass* parent,
+                          vpiHandle handle, vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+  void leaveLogic_typespec(const logic_typespec* object,
+                           const BaseClass* parent, vpiHandle handle,
+                           vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+  void leaveBit_typespec(const bit_typespec* object, const BaseClass* parent,
+                         vpiHandle handle, vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+  void leaveUnsupported_typespec(const unsupported_typespec* object,
+                                 const BaseClass* parent, vpiHandle handle,
+                                 vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+  void leaveFunction(const function* object, const BaseClass* parent,
+                     vpiHandle handle, vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+  void leaveTask(const task* object, const BaseClass* parent, vpiHandle handle,
+                 vpiHandle parentHandle) final {
+    reInstance(object);
+  }
+  void reInstance(const any* cobject) {
+    any* object = (any*)cobject;
+    const instance* inst = nullptr;
+    if (typespec* tps = any_cast<typespec*>(object)) {
+      inst = (instance*)tps->Instance();
+    } else if (function* tps = any_cast<function*>(object)) {
+      inst = (instance*)tps->Instance();
+    } else if (task* tps = any_cast<task*>(object)) {
+      inst = (instance*)tps->Instance();
+    }
+    if (inst) {
+      const std::string& name = inst->VpiName();
+      design* d = (design*)m_package->VpiParent();
+      for (auto pack : *d->AllPackages()) {
+        if (pack->VpiName() == name) {
+          if (typespec* tps = any_cast<typespec*>(object)) {
+            tps->Instance(pack);
+          } else if (function* tps = any_cast<function*>(object)) {
+            tps->Instance(pack);
+          } else if (task* tps = any_cast<task*>(object)) {
+            tps->Instance(pack);
+          }
+          break;
+        }
+      }
+    }
+  }
+
+ private:
+  Serializer* m_serializer;
+  package* m_package = nullptr;
+};
+
+// Non-elaborated package typespec Instance relation need to point to
+// non-elablarated package
+void reInstanceTypespec(Serializer& serializer, any* root, package* p) {
+  ReInstanceTypespec* listener = new ReInstanceTypespec(&serializer, p);
+  vpiHandle handle = serializer.MakeUhdmHandle(root->UhdmType(), root);
+  listen_any(handle, listener);
+  vpi_release_handle(handle);
+}
+
+void writePackage(Package* pack, package* p, Serializer& s,
+                  UhdmWriter::ComponentMap& componentMap, bool top) {
+  p->VpiFullName(pack->getName() + "::");
+  if (top) {
+    // Typepecs
+    VectorOftypespec* typespecs = s.MakeTypespecVec();
+    p->Typespecs(typespecs);
+    writeDataTypes(pack->getDataTypeMap(), p, typespecs, s);
+    for (auto item : pack->getImportedSymbols()) {
+      typespecs->push_back(item);
+    }
+    // Classes
+    ClassNameClassDefinitionMultiMap& orig_classes =
+        pack->getClassDefinitions();
+    VectorOfclass_defn* dest_classes = s.MakeClass_defnVec();
+    writeClasses(orig_classes, dest_classes, s, componentMap, p);
+    p->Class_defns(dest_classes);
+    // Parameters
+    if (pack->getParameters()) {
+      p->Parameters(pack->getParameters());
+      for (auto ps : *p->Parameters()) {
+        ps->VpiParent(p);
+        if (ps->UhdmType() == uhdmparameter) {
+          ((parameter*)ps)->VpiFullName(pack->getName() + "::" + ps->VpiName());
+        } else {
+          ((type_parameter*)ps)
+              ->VpiFullName(pack->getName() + "::" + ps->VpiName());
+        }
       }
     }
   }
   // Param_assigns
-  if (pack->getParam_assigns()) {
-    p->Param_assigns(pack->getParam_assigns());
-    for (auto ps : *p->Param_assigns()) {
-      ps->VpiParent(p);
+  if (top) {
+    if (pack->getParam_assigns()) {
+      p->Param_assigns(pack->getParam_assigns());
+      for (auto ps : *p->Param_assigns()) {
+        ps->VpiParent(p);
+      }
     }
-  }
-  // Function and tasks
-  p->Task_funcs(pack->getTask_funcs());
-  if (p->Task_funcs()) {
-    for (auto tf : *p->Task_funcs()) {
-      tf->VpiParent(p);
-      tf->Instance(p);
-      ((task_func*)tf)->VpiFullName(pack->getName() + "::" + tf->VpiName());
-    }
-  }
-
-  // Variables
-  Netlist* netlist = pack->getNetlist();
-  if (netlist) {
-    p->Variables(netlist->variables());
-    if (netlist->variables()) {
-      for (auto obj : *netlist->variables()) {
-        obj->VpiParent(p);
-        ((variables*)obj)->VpiFullName(pack->getName() + "::" + obj->VpiName());
+  } else {
+    if (pack->getOrigParam_assigns()) {
+      p->Param_assigns(pack->getOrigParam_assigns());
+      for (auto ps : *p->Param_assigns()) {
+        ps->VpiParent(p);
+        reInstanceTypespec(s, ps, p);
       }
     }
   }
-  // Nets
-  UhdmWriter::SignalBaseClassMap signalBaseMap;
-  UhdmWriter::SignalMap portMap;
-  UhdmWriter::SignalMap netMap;
-  std::vector<Signal*> orig_nets = pack->getSignals();
-  VectorOfnet* dest_nets = s.MakeNetVec();
-  writeNets(orig_nets, p, dest_nets, s, signalBaseMap, netMap, portMap,
-            nullptr);
-  p->Nets(dest_nets);
+  if (top) {
+    // Function and tasks
+    p->Task_funcs(pack->getTask_funcs());
+    if (p->Task_funcs()) {
+      for (auto tf : *p->Task_funcs()) {
+        tf->VpiParent(p);
+        tf->Instance(p);
+        ((task_func*)tf)->VpiFullName(pack->getName() + "::" + tf->VpiName());
+      }
+    }
+
+    // Variables
+    Netlist* netlist = pack->getNetlist();
+    if (netlist) {
+      p->Variables(netlist->variables());
+      if (netlist->variables()) {
+        for (auto obj : *netlist->variables()) {
+          obj->VpiParent(p);
+          ((variables*)obj)
+              ->VpiFullName(pack->getName() + "::" + obj->VpiName());
+        }
+      }
+    }
+    // Nets
+    UhdmWriter::SignalBaseClassMap signalBaseMap;
+    UhdmWriter::SignalMap portMap;
+    UhdmWriter::SignalMap netMap;
+    std::vector<Signal*> orig_nets = pack->getSignals();
+    VectorOfnet* dest_nets = s.MakeNetVec();
+    writeNets(orig_nets, p, dest_nets, s, signalBaseMap, netMap, portMap,
+              nullptr);
+    p->Nets(dest_nets);
+  }
 }
 
 void UhdmWriter::writeModule(ModuleDefinition* mod, module* m, Serializer& s,
@@ -2555,6 +2747,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
         break;
       }
     }
+
     VectorOfpackage* v2 = s.MakePackageVec();
     for (Package* pack : packages) {
       if (!pack) continue;
@@ -2566,7 +2759,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
         p->VpiParent(d);
         p->VpiDefName(pack->getName());
         p->Attributes(pack->Attributes());
-        writePackage(pack, p, s, componentMap);
+        writePackage(pack, p, s, componentMap, true);
         if (fC) {
           // Builtin package has no file
           p->VpiFile(fC->getFileName());
@@ -2579,7 +2772,33 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
         v2->push_back(p);
       }
     }
-    d->AllPackages(v2);
+    d->TopPackages(v2);
+
+    VectorOfpackage* v3 = s.MakePackageVec();
+    d->AllPackages(v3);
+    for (Package* pack : packages) {
+      if (!pack) continue;
+      if (!pack->getFileContents().empty() &&
+          pack->getType() == VObjectType::slPackage_declaration) {
+        const FileContent* fC = pack->getFileContents()[0];
+        package* p = s.MakePackage();
+        p->VpiName(pack->getName());
+        p->VpiParent(d);
+        p->VpiDefName(pack->getName());
+        p->Attributes(pack->Attributes());
+        v3->push_back(p);
+        writePackage(pack, p, s, componentMap, false);
+        if (fC) {
+          // Builtin package has no file
+          p->VpiFile(fC->getFileName());
+          NodeId modId = pack->getNodeIds()[0];
+          p->VpiLineNo(fC->Line(modId));
+          p->VpiColumnNo(fC->Column(modId));
+          p->VpiEndLineNo(fC->EndLine(modId));
+          p->VpiEndColumnNo(fC->EndColumn(modId));
+        }
+      }
+    }
 
     // Programs
     auto programs = m_design->getProgramDefinitions();
