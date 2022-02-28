@@ -1386,6 +1386,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       (subnettype == slNonIntType_RealTime) ||
       (subnettype == slNonIntType_ShortReal) || (subnettype == slEvent_type) ||
       (subnettype == slChandle_type) || (subnettype == slIntVec_TypeBit) ||
+      (subnettype == slEnum_base_type) ||
       ((!sig->isVar()) && (subnettype == slIntVec_TypeLogic))) {
     isNet = false;
   }
