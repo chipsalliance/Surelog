@@ -1979,7 +1979,8 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
         Signal* sig = nullptr;
         VObjectType sigType = fC->Type(intVec_TypeReg);
         if (sigType == slClass_scope || sigType == slStringConst ||
-            sigType == slStruct_union || sigType == slEnum_name_declaration) {
+            sigType == slStruct_union || sigType == slEnum_base_type ||
+            sigType == slEnum_name_declaration) {
           sig = new Signal(fC, signal, sigType, packedDimension,
                            VObjectType::slNoType, intVec_TypeReg,
                            unpackedDimension, false);

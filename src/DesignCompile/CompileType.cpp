@@ -980,8 +980,17 @@ UHDM::typespec* CompileHelper::compileTypespec(
       }
       break;
     }
+    case VObjectType::slEnum_base_type:
     case VObjectType::slEnum_name_declaration: {
+      typespec* baseType = nullptr;
+      if (the_type == slEnum_base_type) {
+        baseType =
+            compileTypespec(component, fC, fC->Child(type), compileDesign,
+                            pstmt, instance, reduce, isVariable);
+        type = fC->Sibling(type);
+      }
       enum_typespec* en = s.MakeEnum_typespec();
+      en->Base_typespec(baseType);
       VectorOfenum_const* econsts = s.MakeEnum_constVec();
       en->Enum_consts(econsts);
       NodeId enum_name_declaration = type;
