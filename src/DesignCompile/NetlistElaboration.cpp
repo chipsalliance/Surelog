@@ -937,6 +937,11 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                 p = s.MakePort();
                 ports->push_back(p);
                 p->VpiName(formalName);
+                p->VpiFile(fC->getFileName());
+                p->VpiLineNo(fC->Line(formalId));
+                p->VpiColumnNo(fC->Column(formalId));
+                p->VpiEndLineNo(fC->EndLine(formalId));
+                p->VpiEndColumnNo(fC->EndColumn(formalId));
               }
               operation* op = s.MakeOperation();
               op->VpiOpType(vpiNullOp);
@@ -1038,6 +1043,11 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           }
         }
         p->VpiName(formalName);
+        p->VpiFile(fC->getFileName());
+        p->VpiLineNo(fC->Line(sigId));
+        p->VpiColumnNo(fC->Column(sigId));
+        p->VpiEndLineNo(fC->EndLine(sigId));
+        p->VpiEndColumnNo(fC->EndColumn(sigId));
         p->Attributes(attributes);
         bool lowconn_is_nettype = false;
         if (const any* lc = p->Low_conn()) {
@@ -1077,6 +1087,11 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           }
           if (mp) {
             ref_obj* ref = s.MakeRef_obj();
+            ref->VpiFile(p->VpiFile());
+            ref->VpiLineNo(p->VpiLineNo());
+            ref->VpiColumnNo(p->VpiColumnNo());
+            ref->VpiEndLineNo(p->VpiEndLineNo());
+            ref->VpiEndColumnNo(p->VpiEndColumnNo());
             ref->Actual_group(mp);
             p->Low_conn(ref);
           }
@@ -1132,6 +1147,11 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             if (!found) {
               port* p = s.MakePort();
               p->VpiName(sigName);
+              p->VpiFile(fC->getFileName());
+              p->VpiLineNo(wildcardLineNumber);
+              p->VpiColumnNo(wildcardColumnNumber);
+              p->VpiEndLineNo(wildcardLineNumber);
+              p->VpiEndColumnNo(wildcardColumnNumber + 1);
               newPorts->push_back(p);
               pp = p;
             }
@@ -1221,9 +1241,15 @@ interface* NetlistElaboration::elab_interface_(
         net = bind_net_(interf_instance, sigName);
       }
       if (net && (net->UhdmType() == uhdminterface)) {
+        const FileContent* const fC = sig.getFileContent();
         ref_obj* n = s.MakeRef_obj();
         n->VpiName(sigName);
         n->VpiFullName(instance->getFullPathName() + "." + sigName);
+        n->VpiFile(fC->getFileName());
+        n->VpiLineNo(fC->Line(sig.getNodeId()));
+        n->VpiColumnNo(fC->Column(sig.getNodeId()));
+        n->VpiEndLineNo(fC->EndLine(sig.getNodeId()));
+        n->VpiEndColumnNo(fC->EndColumn(sig.getNodeId()));
         if (sigName != instName)  // prevent loop in listener
           n->Actual_group(net);
         net = n;
@@ -1643,6 +1669,11 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         array_net->Ranges(unpackedDimensions);
         array_net->VpiName(signame);
         array_net->VpiSize(unpackedSize);
+        array_net->VpiFile(fC->getFileName());
+        array_net->VpiLineNo(fC->Line(sig->getNodeId()));
+        array_net->VpiColumnNo(fC->Column(sig->getNodeId()));
+        array_net->VpiEndLineNo(fC->EndLine(sig->getNodeId()));
+        array_net->VpiEndColumnNo(fC->EndColumn(sig->getNodeId()));
         if (array_nets == nullptr) {
           array_nets = s.MakeArray_netVec();
           netlist->array_nets(array_nets);
@@ -1689,6 +1720,11 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         array_net->Ranges(unpackedDimensions);
         array_net->VpiName(signame);
         array_net->VpiSize(unpackedSize);
+        array_net->VpiFile(fC->getFileName());
+        array_net->VpiLineNo(fC->Line(sig->getNodeId()));
+        array_net->VpiColumnNo(fC->Column(sig->getNodeId()));
+        array_net->VpiEndLineNo(fC->EndLine(sig->getNodeId()));
+        array_net->VpiEndColumnNo(fC->EndColumn(sig->getNodeId()));
         if (array_nets == nullptr) {
           array_nets = s.MakeArray_netVec();
           netlist->array_nets(array_nets);
@@ -1717,11 +1753,21 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
       logicn->Ranges(packedDimensions);
       if (unpackedDimensions) {
+        logicn->VpiLineNo(fC->Line(id));
+        logicn->VpiColumnNo(fC->Column(id));
+        logicn->VpiEndLineNo(fC->EndLine(id));
+        logicn->VpiEndColumnNo(fC->EndColumn(id));
+        logicn->VpiFile(fC->getFileName());
         array_net* array_net = s.MakeArray_net();
         array_net->Nets(s.MakeNetVec());
         array_net->Ranges(unpackedDimensions);
         array_net->VpiName(signame);
         array_net->VpiSize(unpackedSize);
+        array_net->VpiFile(fC->getFileName());
+        array_net->VpiLineNo(fC->Line(sig->getNodeId()));
+        array_net->VpiColumnNo(fC->Column(sig->getNodeId()));
+        array_net->VpiEndLineNo(fC->EndLine(sig->getNodeId()));
+        array_net->VpiEndColumnNo(fC->EndColumn(sig->getNodeId()));
         if (array_nets == nullptr) {
           array_nets = s.MakeArray_netVec();
           netlist->array_nets(array_nets);
@@ -2115,45 +2161,47 @@ UHDM::any* NetlistElaboration::bind_net_(NodeId id, ModuleInstance* instance,
     result = m_helper.getValue(name, instance->getDefinition(), m_compileDesign,
                                instance, "", 0, nullptr, true, true);
   }
-  if (instance) {
+  if ((instance != nullptr) && (result == nullptr)) {
     if (Netlist* netlist = instance->getNetlist()) {
-      if (result == nullptr) {
-        if (name.find('.') ==
-            std::string::npos) {  // Not for hierarchical names
-          DesignComponent* component = instance->getDefinition();
-          VObjectType implicitNetType =
-              component->getDesignElement()
-                  ? component->getDesignElement()->m_defaultNetType
-                  : slNetType_Wire;
-          if (implicitNetType == slNoType) {
-            const FileContent* fC = instance->getFileContent();
-            SymbolTable* symbols =
-                m_compileDesign->getCompiler()->getSymbolTable();
-            ErrorContainer* errors =
-                m_compileDesign->getCompiler()->getErrorContainer();
+      const FileContent* fC = instance->getFileContent();
+      if (name.find('.') == std::string::npos) {  // Not for hierarchical names
+        DesignComponent* component = instance->getDefinition();
+        VObjectType implicitNetType =
+            component->getDesignElement()
+                ? component->getDesignElement()->m_defaultNetType
+                : slNetType_Wire;
+        if (implicitNetType == slNoType) {
+          SymbolTable* symbols =
+              m_compileDesign->getCompiler()->getSymbolTable();
+          ErrorContainer* errors =
+              m_compileDesign->getCompiler()->getErrorContainer();
 
-            Location loc(symbols->registerSymbol(fC->getFileName().string()),
-                         id ? fC->Line(id) : instance->getLineNb(),
-                         id ? fC->Column(id) : instance->getColumnNb(),
-                         symbols->registerSymbol(name));
-            Error err(ErrorDefinition::ELAB_ILLEGAL_IMPLICIT_NET, loc);
-            errors->addError(err);
-          }
-          // Implicit net
-          Serializer& s = m_compileDesign->getSerializer();
-          logic_net* net = s.MakeLogic_net();
-          net->VpiName(name);
-          net->VpiNetType(UhdmWriter::getVpiNetType(implicitNetType));
-          result = net;
-          Netlist::SymbolTable& symbols = netlist->getSymbolTable();
-          std::vector<UHDM::net*>* nets = netlist->nets();
-          if (nets == nullptr) {
-            nets = s.MakeNetVec();
-            netlist->nets(nets);
-          }
-          nets->push_back(net);
-          symbols.insert(std::make_pair(name, result));
+          Location loc(symbols->registerSymbol(fC->getFileName().string()),
+                       id ? fC->Line(id) : instance->getLineNb(),
+                       id ? fC->Column(id) : instance->getColumnNb(),
+                       symbols->registerSymbol(name));
+          Error err(ErrorDefinition::ELAB_ILLEGAL_IMPLICIT_NET, loc);
+          errors->addError(err);
         }
+        // Implicit net
+        Serializer& s = m_compileDesign->getSerializer();
+        logic_net* net = s.MakeLogic_net();
+        net->VpiName(name);
+        net->VpiNetType(UhdmWriter::getVpiNetType(implicitNetType));
+        net->VpiFile(fC->getFileName());
+        net->VpiLineNo(fC->Line(id));
+        net->VpiColumnNo(fC->Column(id));
+        net->VpiEndLineNo(fC->EndLine(id));
+        net->VpiEndColumnNo(fC->EndColumn(id));
+        result = net;
+        Netlist::SymbolTable& symbols = netlist->getSymbolTable();
+        std::vector<UHDM::net*>* nets = netlist->nets();
+        if (nets == nullptr) {
+          nets = s.MakeNetVec();
+          netlist->nets(nets);
+        }
+        nets->push_back(net);
+        symbols.insert(std::make_pair(name, result));
       }
     }
   }

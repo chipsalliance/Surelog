@@ -528,6 +528,10 @@ static void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
         orig_port->getFileContent()->Line(orig_port->getNodeId()));
     dest_port->VpiColumnNo(
         orig_port->getFileContent()->Column(orig_port->getNodeId()));
+    dest_port->VpiEndLineNo(
+        orig_port->getFileContent()->EndLine(orig_port->getNodeId()));
+    dest_port->VpiEndColumnNo(
+        orig_port->getFileContent()->EndColumn(orig_port->getNodeId()));
     dest_port->VpiFile(orig_port->getFileContent()->getFileName());
     dest_port->VpiParent(parent);
     if (ModPort* orig_modport = orig_port->getModPort()) {
@@ -636,6 +640,10 @@ void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent,
             orig_net->getFileContent()->Line(orig_net->getNodeId()));
         dest_net->VpiColumnNo(
             orig_net->getFileContent()->Column(orig_net->getNodeId()));
+        dest_net->VpiEndLineNo(
+            orig_net->getFileContent()->EndLine(orig_net->getNodeId()));
+        dest_net->VpiEndColumnNo(
+            orig_net->getFileContent()->EndColumn(orig_net->getNodeId()));
         dest_net->VpiFile(orig_net->getFileContent()->getFileName());
         dest_net->VpiNetType(UhdmWriter::getVpiNetType(orig_net->getType()));
         dest_net->VpiParent(parent);
@@ -2626,6 +2634,9 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
       sm->VpiFullName(child->getFullPathName());
       sm->VpiFile(child->getFileName());
       sm->VpiLineNo(child->getLineNb());
+      sm->VpiColumnNo(child->getColumnNb());
+      sm->VpiEndLineNo(child->getEndLineNb());
+      sm->VpiEndColumnNo(child->getEndColumnNb());
       subModules->push_back(sm);
       UHDM_OBJECT_TYPE utype = m->UhdmType();
       if (utype == uhdmmodule) {
@@ -2950,6 +2961,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
     ElaboratorListener* listener = new ElaboratorListener(&s, false);
     listener->uniquifyTypespec(false);
     listen_designs(designs, listener);
+    delete listener;
   }
 
   UhdmLint* linter = new UhdmLint(&s);
