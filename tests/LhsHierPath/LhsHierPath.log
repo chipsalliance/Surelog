@@ -188,7 +188,7 @@ design: (work@top)
     \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |vpiPacked:1
     |vpiTypespecMember:
-    \_typespec_member: (alerts_ack), line:7:23, endln:7:33
+    \_typespec_member: (alerts_ack), line:7:23, endln:7:33, parent:my_pkg::ast_alert_rsp_t
       |vpiName:alerts_ack
       |vpiTypespec:
       \_packed_array_typespec: 
@@ -215,7 +215,7 @@ design: (work@top)
           \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
           |vpiPacked:1
           |vpiTypespecMember:
-          \_typespec_member: (p), line:3:13, endln:3:14
+          \_typespec_member: (p), line:3:13, endln:3:14, parent:my_pkg::ast_dif_t
             |vpiName:p
             |vpiTypespec:
             \_logic_typespec: , line:3:7, endln:3:12
@@ -229,21 +229,21 @@ design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
   |vpiNet:
-  \_logic_net: (work@top.o), line:11:19, parent:work@top
+  \_logic_net: (work@top.o), line:11:19, endln:11:20, parent:work@top
     |vpiName:o
     |vpiFullName:work@top.o
   |vpiNet:
-  \_logic_net: (work@top.ast_alert_o), line:12:28, parent:work@top
+  \_logic_net: (work@top.ast_alert_o), line:12:28, endln:12:39, parent:work@top
     |vpiName:ast_alert_o
     |vpiFullName:work@top.ast_alert_o
   |vpiPort:
-  \_port: (o), line:11:19, parent:work@top
+  \_port: (o), line:11:19, endln:11:20, parent:work@top
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@top.o), line:11:19, parent:work@top
+      \_logic_net: (work@top.o), line:11:19, endln:11:20, parent:work@top
   |vpiProcess:
   \_always: , line:13:4, endln:15:7, parent:work@top
     |vpiStmt:
@@ -260,13 +260,13 @@ design: (work@top)
           |BIN:1
           |vpiConstType:3
         |vpiLhs:
-        \_hier_path: (ast_alert_o.alerts_ack[0].p), line:14:7, endln:14:18, parent:work@top
+        \_hier_path: (ast_alert_o.alerts_ack[0].p), line:14:7, endln:14:34, parent:work@top
           |vpiName:ast_alert_o.alerts_ack[0].p
           |vpiActual:
           \_ref_obj: (ast_alert_o), parent:ast_alert_o.alerts_ack[0].p
             |vpiName:ast_alert_o
           |vpiActual:
-          \_bit_select: (alerts_ack), parent:ast_alert_o.alerts_ack[0].p
+          \_bit_select: (alerts_ack), line:14:19, endln:14:29, parent:ast_alert_o.alerts_ack[0].p
             |vpiName:alerts_ack
             |vpiIndex:
             \_constant: , line:14:30, endln:14:31
@@ -284,10 +284,10 @@ design: (work@top)
     \_hier_path: (ast_alert_o.alerts_ack[0].p), line:16:15, endln:16:42
       |vpiName:ast_alert_o.alerts_ack[0].p
       |vpiActual:
-      \_ref_obj: (ast_alert_o), parent:ast_alert_o.alerts_ack[0].p
+      \_ref_obj: (ast_alert_o), line:16:15, endln:16:26, parent:ast_alert_o.alerts_ack[0].p
         |vpiName:ast_alert_o
       |vpiActual:
-      \_bit_select: (alerts_ack), parent:ast_alert_o.alerts_ack[0].p
+      \_bit_select: (alerts_ack), line:16:15, endln:16:26, parent:ast_alert_o.alerts_ack[0].p
         |vpiName:alerts_ack
         |vpiIndex:
         \_constant: , line:16:38, endln:16:39
@@ -296,7 +296,7 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
       |vpiActual:
-      \_ref_obj: (p)
+      \_ref_obj: (p), line:16:41, endln:16:42
         |vpiName:p
     |vpiLhs:
     \_ref_obj: (work@top.o), line:16:11, endln:16:12
@@ -344,7 +344,7 @@ design: (work@top)
         |vpiRhs:
         \_constant: , line:14:37, endln:14:41
         |vpiLhs:
-        \_hier_path: (ast_alert_o.alerts_ack[0].p), line:14:7, endln:14:18
+        \_hier_path: (ast_alert_o.alerts_ack[0].p), line:14:7, endln:14:34
           |vpiName:ast_alert_o.alerts_ack[0].p
           |vpiActual:
           \_ref_obj: (ast_alert_o), parent:ast_alert_o.alerts_ack[0].p
@@ -352,7 +352,7 @@ design: (work@top)
             |vpiActual:
             \_struct_var: (work@top.ast_alert_o), line:12:28, endln:12:39, parent:work@top
           |vpiActual:
-          \_bit_select: (alerts_ack), parent:work@top.ast_alert_o.alerts_ack[0].p
+          \_bit_select: (alerts_ack), line:14:19, endln:14:29, parent:work@top.ast_alert_o.alerts_ack[0].p
             |vpiName:alerts_ack
             |vpiIndex:
             \_constant: , line:14:30, endln:14:31
@@ -366,17 +366,17 @@ design: (work@top)
     \_hier_path: (ast_alert_o.alerts_ack[0].p), line:16:15, endln:16:42
       |vpiName:ast_alert_o.alerts_ack[0].p
       |vpiActual:
-      \_ref_obj: (ast_alert_o), parent:ast_alert_o.alerts_ack[0].p
+      \_ref_obj: (ast_alert_o), line:16:15, endln:16:26, parent:ast_alert_o.alerts_ack[0].p
         |vpiName:ast_alert_o
         |vpiActual:
         \_struct_var: (work@top.ast_alert_o), line:12:28, endln:12:39, parent:work@top
       |vpiActual:
-      \_bit_select: (alerts_ack), parent:work@top.ast_alert_o.alerts_ack[0].p
+      \_bit_select: (alerts_ack), line:16:15, endln:16:26, parent:work@top.ast_alert_o.alerts_ack[0].p
         |vpiName:alerts_ack
         |vpiIndex:
         \_constant: , line:16:38, endln:16:39
       |vpiActual:
-      \_ref_obj: (p), parent:ast_alert_o.alerts_ack[0].p
+      \_ref_obj: (p), line:16:41, endln:16:42, parent:ast_alert_o.alerts_ack[0].p
         |vpiName:p
     |vpiLhs:
     \_ref_obj: (work@top.o), line:16:11, endln:16:12

@@ -268,7 +268,7 @@ design: (work@dut)
     \_package: pkg1 (pkg1::) dut.sv:1:1: , endln:5:11, parent:work@dut
     |vpiPacked:1
     |vpiTypespecMember:
-    \_typespec_member: (first), line:3:21, endln:3:26
+    \_typespec_member: (first), line:3:21, endln:3:26, parent:pkg1::struct1
       |vpiName:first
       |vpiTypespec:
       \_logic_typespec: , line:3:9, endln:3:14
@@ -300,7 +300,7 @@ design: (work@dut)
     \_package: pkg2 (pkg2::) dut.sv:7:1: , endln:11:11, parent:work@dut
     |vpiPacked:1
     |vpiTypespecMember:
-    \_typespec_member: (second), line:9:21, endln:9:27
+    \_typespec_member: (second), line:9:21, endln:9:27, parent:pkg2::struct1
       |vpiName:second
       |vpiTypespec:
       \_logic_typespec: , line:9:9, endln:9:14
@@ -331,7 +331,7 @@ design: (work@dut)
     \_module: work@dut (work@dut) dut.sv:13:1: , endln:25:10, parent:work@dut
     |vpiPacked:1
     |vpiTypespecMember:
-    \_typespec_member: (third), line:15:21, endln:15:26
+    \_typespec_member: (third), line:15:21, endln:15:26, parent:struct2
       |vpiName:third
       |vpiTypespec:
       \_logic_typespec: , line:15:9, endln:15:14
@@ -351,43 +351,43 @@ design: (work@dut)
             |vpiConstType:9
   |vpiDefName:work@dut
   |vpiNet:
-  \_logic_net: (work@dut.var1), line:13:12, parent:work@dut
+  \_logic_net: (work@dut.var1), line:13:12, endln:13:16, parent:work@dut
     |vpiName:var1
     |vpiFullName:work@dut.var1
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (work@dut.var2), line:13:18, parent:work@dut
+  \_logic_net: (work@dut.var2), line:13:18, endln:13:22, parent:work@dut
     |vpiName:var2
     |vpiFullName:work@dut.var2
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (work@dut.var3), line:13:24, parent:work@dut
+  \_logic_net: (work@dut.var3), line:13:24, endln:13:28, parent:work@dut
     |vpiName:var3
     |vpiFullName:work@dut.var3
   |vpiPort:
-  \_port: (var1), line:13:12, parent:work@dut
+  \_port: (var1), line:13:12, endln:13:16, parent:work@dut
     |vpiName:var1
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@dut.var1), line:13:12, parent:work@dut
+      \_logic_net: (work@dut.var1), line:13:12, endln:13:16, parent:work@dut
   |vpiPort:
-  \_port: (var2), line:13:18, parent:work@dut
+  \_port: (var2), line:13:18, endln:13:22, parent:work@dut
     |vpiName:var2
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@dut.var2), line:13:18, parent:work@dut
+      \_logic_net: (work@dut.var2), line:13:18, endln:13:22, parent:work@dut
   |vpiPort:
-  \_port: (var3), line:13:24, parent:work@dut
+  \_port: (var3), line:13:24, endln:13:28, parent:work@dut
     |vpiName:var3
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@dut.var3), line:13:24, parent:work@dut
+      \_logic_net: (work@dut.var3), line:13:24, endln:13:28, parent:work@dut
   |vpiContAssign:
   \_cont_assign: , line:22:12, endln:22:28, parent:work@dut
     |vpiRhs:
@@ -397,7 +397,7 @@ design: (work@dut)
       |UINT:255
       |vpiConstType:9
     |vpiLhs:
-    \_hier_path: (var1.first), line:22:12, endln:22:16
+    \_hier_path: (var1.first), line:22:12, endln:22:22
       |vpiName:var1.first
       |vpiActual:
       \_ref_obj: (var1), parent:var1.first
@@ -414,7 +414,7 @@ design: (work@dut)
       |UINT:127
       |vpiConstType:9
     |vpiLhs:
-    \_hier_path: (var2.second), line:23:12, endln:23:16
+    \_hier_path: (var2.second), line:23:12, endln:23:23
       |vpiName:var2.second
       |vpiActual:
       \_ref_obj: (var2), parent:var2.second
@@ -431,7 +431,7 @@ design: (work@dut)
       |UINT:63
       |vpiConstType:9
     |vpiLhs:
-    \_hier_path: (var3.third), line:24:12, endln:24:16
+    \_hier_path: (var3.third), line:24:12, endln:24:22
       |vpiName:var3.third
       |vpiActual:
       \_ref_obj: (var3), parent:var3.third

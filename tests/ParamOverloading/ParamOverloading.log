@@ -337,7 +337,7 @@ design: (work@top)
 \_module: work@prim_subreg (work@prim_subreg) dut.sv:2:1: , endln:5:10, parent:work@top
   |vpiFullName:work@prim_subreg
   |vpiParameter:
-  \_parameter: (work@prim_subreg.RESVAL), line:3:26, endln:3:37, parent:work@prim_subreg
+  \_parameter: (work@prim_subreg.RESVAL), line:3:26, endln:3:32, parent:work@prim_subreg
     |BIN:0
     |vpiTypespec:
     \_logic_typespec: , line:3:14, endln:3:19, parent:work@prim_subreg.RESVAL
@@ -368,17 +368,17 @@ design: (work@top)
       \_logic_typespec: , line:3:14, endln:3:19, parent:work@prim_subreg.RESVAL
       |vpiConstType:3
     |vpiLhs:
-    \_parameter: (work@prim_subreg.RESVAL), line:3:26, endln:3:37, parent:work@prim_subreg
+    \_parameter: (work@prim_subreg.RESVAL), line:3:26, endln:3:32, parent:work@prim_subreg
   |vpiDefName:work@prim_subreg
   |vpiNet:
-  \_logic_net: (work@prim_subreg.a), line:4:8, parent:work@prim_subreg
+  \_logic_net: (work@prim_subreg.a), line:4:8, endln:4:9, parent:work@prim_subreg
     |vpiName:a
     |vpiFullName:work@prim_subreg.a
 |uhdmallModules:
 \_module: work@prim_subreg_shadow (work@prim_subreg_shadow) dut.sv:7:1: , endln:22:10, parent:work@top
   |vpiFullName:work@prim_subreg_shadow
   |vpiParameter:
-  \_parameter: (work@prim_subreg_shadow.RESVAL), line:13:24, endln:16:5, parent:work@prim_subreg_shadow
+  \_parameter: (work@prim_subreg_shadow.RESVAL), line:13:24, endln:13:30, parent:work@prim_subreg_shadow
     |vpiTypespec:
     \_struct_typespec: (struct_ab), line:8:12, endln:8:18, parent:work@prim_subreg_shadow.RESVAL
       |vpiName:struct_ab
@@ -386,7 +386,7 @@ design: (work@top)
       \_module: work@prim_subreg_shadow (work@prim_subreg_shadow) dut.sv:7:1: , endln:22:10, parent:work@top
       |vpiPacked:1
       |vpiTypespecMember:
-      \_typespec_member: (a), line:9:19, endln:9:20
+      \_typespec_member: (a), line:9:19, endln:9:20, parent:struct_ab
         |vpiName:a
         |vpiTypespec:
         \_logic_typespec: , line:9:7, endln:9:12
@@ -405,7 +405,7 @@ design: (work@top)
               |UINT:0
               |vpiConstType:9
       |vpiTypespecMember:
-      \_typespec_member: (b), line:10:19, endln:10:20
+      \_typespec_member: (b), line:10:19, endln:10:20, parent:struct_ab
         |vpiName:b
         |vpiTypespec:
         \_logic_typespec: , line:10:7, endln:10:12
@@ -431,7 +431,7 @@ design: (work@top)
     \_operation: , line:13:33, endln:16:5
       |vpiOpType:75
       |vpiOperand:
-      \_tagged_pattern: 
+      \_tagged_pattern: , line:14:10, endln:14:12
         |vpiPattern:
         \_constant: , line:14:10, endln:14:12
           |vpiDecompile:'0
@@ -442,7 +442,7 @@ design: (work@top)
         \_string_typespec: (a), line:14:7, endln:14:8
           |vpiName:a
       |vpiOperand:
-      \_tagged_pattern: 
+      \_tagged_pattern: , line:15:10, endln:15:12
         |vpiPattern:
         \_constant: , line:15:10, endln:15:12
           |vpiDecompile:'1
@@ -453,7 +453,7 @@ design: (work@top)
         \_string_typespec: (b), line:15:7, endln:15:8
           |vpiName:b
     |vpiLhs:
-    \_parameter: (work@prim_subreg_shadow.RESVAL), line:13:24, endln:16:5, parent:work@prim_subreg_shadow
+    \_parameter: (work@prim_subreg_shadow.RESVAL), line:13:24, endln:13:30, parent:work@prim_subreg_shadow
   |vpiTypedef:
   \_struct_typespec: (struct_ab), line:8:12, endln:8:18, parent:work@prim_subreg_shadow.RESVAL
   |vpiDefName:work@prim_subreg_shadow
@@ -461,17 +461,17 @@ design: (work@top)
 \_module: work@top (work@top) dut.sv:24:1: , endln:41:10, parent:work@top
   |vpiFullName:work@top
   |vpiParameter:
-  \_parameter: (work@top.v1), line:29:14, endln:29:20, parent:work@top
+  \_parameter: (work@top.v1), line:29:14, endln:29:16, parent:work@top
     |UINT:1
     |vpiName:v1
     |vpiFullName:work@top.v1
   |vpiParameter:
-  \_parameter: (work@top.v2), line:30:14, endln:30:20, parent:work@top
+  \_parameter: (work@top.v2), line:30:14, endln:30:16, parent:work@top
     |UINT:0
     |vpiName:v2
     |vpiFullName:work@top.v2
   |vpiParameter:
-  \_parameter: (work@top.CTRL_RESET), line:32:24, endln:36:5, parent:work@top
+  \_parameter: (work@top.CTRL_RESET), line:32:24, endln:32:34, parent:work@top
     |vpiTypespec:
     \_struct_typespec: (struct_ab), line:25:12, endln:25:18, parent:work@top.CTRL_RESET
       |vpiName:struct_ab
@@ -479,7 +479,7 @@ design: (work@top)
       \_module: work@top (work@top) dut.sv:24:1: , endln:41:10, parent:work@top
       |vpiPacked:1
       |vpiTypespecMember:
-      \_typespec_member: (a), line:26:19, endln:26:20
+      \_typespec_member: (a), line:26:19, endln:26:20, parent:struct_ab
         |vpiName:a
         |vpiTypespec:
         \_logic_typespec: , line:26:7, endln:26:12
@@ -498,7 +498,7 @@ design: (work@top)
               |UINT:0
               |vpiConstType:9
       |vpiTypespecMember:
-      \_typespec_member: (b), line:27:19, endln:27:20
+      \_typespec_member: (b), line:27:19, endln:27:20, parent:struct_ab
         |vpiName:b
         |vpiTypespec:
         \_logic_typespec: , line:27:7, endln:27:12
@@ -527,7 +527,7 @@ design: (work@top)
       |UINT:1
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@top.v1), line:29:14, endln:29:20, parent:work@top
+    \_parameter: (work@top.v1), line:29:14, endln:29:16, parent:work@top
   |vpiParamAssign:
   \_param_assign: , line:30:14, endln:30:20, parent:work@top
     |vpiRhs:
@@ -537,7 +537,7 @@ design: (work@top)
       |UINT:0
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@top.v2), line:30:14, endln:30:20, parent:work@top
+    \_parameter: (work@top.v2), line:30:14, endln:30:16, parent:work@top
   |vpiParamAssign:
   \_param_assign: , line:32:24, endln:36:5, parent:work@top
     |vpiRhs:
@@ -550,7 +550,7 @@ design: (work@top)
       \_ref_obj: (v2), line:35:9, endln:35:11
         |vpiName:v2
     |vpiLhs:
-    \_parameter: (work@top.CTRL_RESET), line:32:24, endln:36:5, parent:work@top
+    \_parameter: (work@top.CTRL_RESET), line:32:24, endln:32:34, parent:work@top
   |vpiTypedef:
   \_struct_typespec: (struct_ab), line:25:12, endln:25:18, parent:work@top.CTRL_RESET
   |vpiDefName:work@top
@@ -558,17 +558,17 @@ design: (work@top)
 \_module: work@top (work@top) dut.sv:24:1: , endln:41:10
   |vpiName:work@top
   |vpiParameter:
-  \_parameter: (work@top.v1), line:29:14, endln:29:20, parent:work@top
+  \_parameter: (work@top.v1), line:29:14, endln:29:16, parent:work@top
     |UINT:1
     |vpiName:v1
     |vpiFullName:work@top.v1
   |vpiParameter:
-  \_parameter: (work@top.v2), line:30:14, endln:30:20, parent:work@top
+  \_parameter: (work@top.v2), line:30:14, endln:30:16, parent:work@top
     |UINT:0
     |vpiName:v2
     |vpiFullName:work@top.v2
   |vpiParameter:
-  \_parameter: (work@top.CTRL_RESET), line:32:24, endln:36:5, parent:work@top
+  \_parameter: (work@top.CTRL_RESET), line:32:24, endln:32:34, parent:work@top
     |vpiTypespec:
     \_struct_typespec: (struct_ab), line:25:12, endln:25:18, parent:work@top.CTRL_RESET
       |vpiName:struct_ab
@@ -624,7 +624,7 @@ design: (work@top)
       |UINT:1
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@top.v1), line:29:14, endln:29:20, parent:work@top
+    \_parameter: (work@top.v1), line:29:14, endln:29:16, parent:work@top
   |vpiParamAssign:
   \_param_assign: , line:30:14, endln:30:20, parent:work@top
     |vpiRhs:
@@ -634,7 +634,7 @@ design: (work@top)
       |UINT:0
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@top.v2), line:30:14, endln:30:20, parent:work@top
+    \_parameter: (work@top.v2), line:30:14, endln:30:16, parent:work@top
   |vpiParamAssign:
   \_param_assign: , line:32:24, endln:36:5, parent:work@top
     |vpiRhs:
@@ -695,7 +695,7 @@ design: (work@top)
         |vpiActual:
         \_constant: , line:30:19, endln:30:20
     |vpiLhs:
-    \_parameter: (work@top.CTRL_RESET), line:32:24, endln:36:5, parent:work@top
+    \_parameter: (work@top.CTRL_RESET), line:32:24, endln:32:34, parent:work@top
   |vpiTypedef:
   \_struct_typespec: (struct_ab), line:25:12, endln:25:18, parent:work@top.CTRL_RESET
   |vpiDefName:work@top
@@ -704,7 +704,7 @@ design: (work@top)
     |vpiName:u_ctrl_reg_shadowed
     |vpiFullName:work@top.u_ctrl_reg_shadowed
     |vpiParameter:
-    \_parameter: (work@top.u_ctrl_reg_shadowed.RESVAL), line:13:24, endln:16:5, parent:work@top.u_ctrl_reg_shadowed
+    \_parameter: (work@top.u_ctrl_reg_shadowed.RESVAL), line:13:24, endln:13:30, parent:work@top.u_ctrl_reg_shadowed
       |vpiTypespec:
       \_struct_typespec: (struct_ab), line:8:12, endln:8:18, parent:work@top.u_ctrl_reg_shadowed.RESVAL
         |vpiName:struct_ab
@@ -812,7 +812,7 @@ design: (work@top)
           |vpiActual:
           \_constant: , line:30:19, endln:30:20
       |vpiLhs:
-      \_parameter: (work@top.u_ctrl_reg_shadowed.RESVAL), line:13:24, endln:16:5, parent:work@top.u_ctrl_reg_shadowed
+      \_parameter: (work@top.u_ctrl_reg_shadowed.RESVAL), line:13:24, endln:13:30, parent:work@top.u_ctrl_reg_shadowed
     |vpiTypedef:
     \_struct_typespec: (struct_ab), line:8:12, endln:8:18, parent:work@prim_subreg_shadow.RESVAL
     |vpiDefName:work@prim_subreg_shadow
@@ -899,7 +899,7 @@ design: (work@top)
                 |vpiActual:
                 \_constant: , line:29:19, endln:29:20
       |vpiParameter:
-      \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:3:26, endln:3:37, parent:work@top.u_ctrl_reg_shadowed.staged_reg
+      \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:3:26, endln:3:32, parent:work@top.u_ctrl_reg_shadowed.staged_reg
         |BIN:0
         |vpiTypespec:
         \_logic_typespec: , line:3:14, endln:3:19, parent:work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL
@@ -925,7 +925,7 @@ design: (work@top)
         |vpiRhs:
         \_operation: , line:19:15, endln:19:21
         |vpiLhs:
-        \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:3:26, endln:3:37, parent:work@top.u_ctrl_reg_shadowed.staged_reg
+        \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:3:26, endln:3:32, parent:work@top.u_ctrl_reg_shadowed.staged_reg
       |vpiDefName:work@prim_subreg
       |vpiDefFile:dut.sv
       |vpiDefLineNo:2

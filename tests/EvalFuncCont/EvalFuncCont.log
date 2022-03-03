@@ -922,18 +922,18 @@ design: (work@t)
 \_module: work@t (work@t) dut.sv:8:1: , endln:35:10, parent:work@t
   |vpiFullName:work@t
   |vpiParameter:
-  \_parameter: (work@t.WIDTH), line:14:15, endln:14:25, parent:work@t
+  \_parameter: (work@t.WIDTH), line:14:15, endln:14:20, parent:work@t
     |UINT:33
     |vpiName:WIDTH
     |vpiFullName:work@t.WIDTH
   |vpiParameter:
-  \_parameter: (work@t.MAX_WIDTH), line:15:15, endln:15:29, parent:work@t
+  \_parameter: (work@t.MAX_WIDTH), line:15:15, endln:15:24, parent:work@t
     |UINT:11
     |vpiLocalParam:1
     |vpiName:MAX_WIDTH
     |vpiFullName:work@t.MAX_WIDTH
   |vpiParameter:
-  \_parameter: (work@t.NUM_OUT), line:16:15, endln:16:39, parent:work@t
+  \_parameter: (work@t.NUM_OUT), line:16:15, endln:16:22, parent:work@t
     |vpiLocalParam:1
     |vpiName:NUM_OUT
     |vpiFullName:work@t.NUM_OUT
@@ -946,7 +946,7 @@ design: (work@t)
       |UINT:33
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@t.WIDTH), line:14:15, endln:14:25, parent:work@t
+    \_parameter: (work@t.WIDTH), line:14:15, endln:14:20, parent:work@t
   |vpiParamAssign:
   \_param_assign: , line:15:15, endln:15:29, parent:work@t
     |vpiRhs:
@@ -956,11 +956,11 @@ design: (work@t)
       |UINT:11
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@t.MAX_WIDTH), line:15:15, endln:15:29, parent:work@t
+    \_parameter: (work@t.MAX_WIDTH), line:15:15, endln:15:24, parent:work@t
   |vpiParamAssign:
   \_param_assign: , line:16:15, endln:16:39, parent:work@t
     |vpiRhs:
-    \_func_call: (num_out), line:16:25, endln:16:39
+    \_func_call: (num_out), line:16:25, endln:16:32
       |vpiArgument:
       \_ref_obj: (WIDTH), line:16:33, endln:16:38, parent:num_out
         |vpiName:WIDTH
@@ -968,7 +968,7 @@ design: (work@t)
       |vpiFunction:
       \_function: (work@t.num_out), line:20:4, endln:27:15, parent:work@t
     |vpiLhs:
-    \_parameter: (work@t.NUM_OUT), line:16:15, endln:16:39, parent:work@t
+    \_parameter: (work@t.NUM_OUT), line:16:15, endln:16:22, parent:work@t
   |vpiDefName:work@t
   |vpiTaskFunc:
   \_function: (work@t.num_out), line:20:4, endln:27:15, parent:work@t
@@ -1006,16 +1006,16 @@ design: (work@t)
       |vpiStmt:
       \_while_stmt: , line:23:7, endln:23:12, parent:work@t.num_out
         |vpiCondition:
-        \_operation: , line:23:14, endln:23:45
+        \_operation: , line:23:14, endln:23:57
           |vpiOpType:18
           |vpiOperand:
-          \_operation: , line:23:14, endln:23:35
+          \_operation: , line:23:14, endln:23:45
             |vpiOpType:12
             |vpiOperand:
             \_operation: , line:23:15, endln:23:34
               |vpiOpType:11
               |vpiOperand:
-              \_operation: , line:23:15, endln:23:20
+              \_operation: , line:23:15, endln:23:30
                 |vpiOpType:24
                 |vpiOperand:
                 \_ref_obj: (work@t.num_out.width), line:23:15, endln:23:20
@@ -1055,7 +1055,7 @@ design: (work@t)
             |vpiOpType:82
             |vpiBlocking:1
             |vpiRhs:
-            \_operation: , line:24:19, endln:24:26, parent:work@t.num_out
+            \_operation: , line:24:19, endln:24:30, parent:work@t.num_out
               |vpiOpType:25
               |vpiOperand:
               \_ref_obj: (work@t.num_out.num_out), line:24:19, endln:24:26, parent:work@t.num_out
@@ -1082,24 +1082,24 @@ design: (work@t)
     |vpiInstance:
     \_module: work@t (work@t) dut.sv:8:1: , endln:35:10, parent:work@t
   |vpiNet:
-  \_logic_net: (work@t.z), line:18:23, parent:work@t
+  \_logic_net: (work@t.z), line:18:23, endln:18:24, parent:work@t
     |vpiName:z
     |vpiFullName:work@t.z
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (work@t.clk), line:10:4, parent:work@t
+  \_logic_net: (work@t.clk), line:10:4, endln:10:7, parent:work@t
     |vpiName:clk
     |vpiFullName:work@t.clk
   |vpiPort:
-  \_port: (clk), line:10:4, parent:work@t
+  \_port: (clk), line:10:4, endln:10:7, parent:work@t
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@t.clk), line:10:4, parent:work@t
+      \_logic_net: (work@t.clk), line:10:4, endln:10:7, parent:work@t
   |vpiProcess:
-  \_initial: , parent:work@t
+  \_initial: , line:29:4, endln:34:7, parent:work@t
     |vpiStmt:
     \_begin: (work@t), line:29:12, endln:34:7
       |vpiFullName:work@t
@@ -1119,7 +1119,7 @@ design: (work@t)
             |UINT:4
             |vpiConstType:9
         |vpiStmt:
-        \_sys_func_call: ($stop), line:30:25, endln:30:31
+        \_sys_func_call: ($stop), line:30:25, endln:30:30
           |vpiName:$stop
       |vpiStmt:
       \_if_stmt: , line:31:7, endln:31:32, parent:work@t
@@ -1159,10 +1159,10 @@ design: (work@t)
             |UINT:4
             |vpiConstType:9
         |vpiStmt:
-        \_sys_func_call: ($stop), line:31:26, endln:31:32
+        \_sys_func_call: ($stop), line:31:26, endln:31:31
           |vpiName:$stop
       |vpiStmt:
-      \_sys_func_call: ($write), line:32:7, endln:32:40, parent:work@t
+      \_sys_func_call: ($write), line:32:7, endln:32:39, parent:work@t
         |vpiArgument:
         \_constant: , line:32:14, endln:32:38, parent:$write
           |vpiDecompile:*-* All Finished *-*\n
@@ -1171,24 +1171,24 @@ design: (work@t)
           |vpiConstType:6
         |vpiName:$write
       |vpiStmt:
-      \_sys_func_call: ($finish), line:33:7, endln:33:15, parent:work@t
+      \_sys_func_call: ($finish), line:33:7, endln:33:14, parent:work@t
         |vpiName:$finish
 |uhdmtopModules:
 \_module: work@t (work@t) dut.sv:8:1: , endln:35:10
   |vpiName:work@t
   |vpiParameter:
-  \_parameter: (work@t.WIDTH), line:14:15, endln:14:25, parent:work@t
+  \_parameter: (work@t.WIDTH), line:14:15, endln:14:20, parent:work@t
     |UINT:33
     |vpiName:WIDTH
     |vpiFullName:work@t.WIDTH
   |vpiParameter:
-  \_parameter: (work@t.MAX_WIDTH), line:15:15, endln:15:29, parent:work@t
+  \_parameter: (work@t.MAX_WIDTH), line:15:15, endln:15:24, parent:work@t
     |UINT:11
     |vpiLocalParam:1
     |vpiName:MAX_WIDTH
     |vpiFullName:work@t.MAX_WIDTH
   |vpiParameter:
-  \_parameter: (work@t.NUM_OUT), line:16:15, endln:16:39, parent:work@t
+  \_parameter: (work@t.NUM_OUT), line:16:15, endln:16:22, parent:work@t
     |vpiLocalParam:1
     |vpiName:NUM_OUT
     |vpiFullName:work@t.NUM_OUT
@@ -1201,7 +1201,7 @@ design: (work@t)
       |UINT:33
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@t.WIDTH), line:14:15, endln:14:25, parent:work@t
+    \_parameter: (work@t.WIDTH), line:14:15, endln:14:20, parent:work@t
   |vpiParamAssign:
   \_param_assign: , line:15:15, endln:15:29, parent:work@t
     |vpiRhs:
@@ -1211,7 +1211,7 @@ design: (work@t)
       |UINT:11
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@t.MAX_WIDTH), line:15:15, endln:15:29, parent:work@t
+    \_parameter: (work@t.MAX_WIDTH), line:15:15, endln:15:24, parent:work@t
   |vpiParamAssign:
   \_param_assign: , line:16:15, endln:16:39, parent:work@t
     |vpiRhs:
@@ -1221,7 +1221,7 @@ design: (work@t)
       |INT:4
       |vpiConstType:7
     |vpiLhs:
-    \_parameter: (work@t.NUM_OUT), line:16:15, endln:16:39, parent:work@t
+    \_parameter: (work@t.NUM_OUT), line:16:15, endln:16:22, parent:work@t
   |vpiDefName:work@t
   |vpiTaskFunc:
   \_function: (work@t.num_out), line:20:4, endln:27:15, parent:work@t
@@ -1254,16 +1254,16 @@ design: (work@t)
       |vpiStmt:
       \_while_stmt: , line:23:7, endln:23:12, parent:work@t.num_out
         |vpiCondition:
-        \_operation: , line:23:14, endln:23:45
+        \_operation: , line:23:14, endln:23:57
           |vpiOpType:18
           |vpiOperand:
-          \_operation: , line:23:14, endln:23:35
+          \_operation: , line:23:14, endln:23:45
             |vpiOpType:12
             |vpiOperand:
             \_operation: , line:23:15, endln:23:34
               |vpiOpType:11
               |vpiOperand:
-              \_operation: , line:23:15, endln:23:20
+              \_operation: , line:23:15, endln:23:30
                 |vpiOpType:24
                 |vpiOperand:
                 \_ref_obj: (work@t.num_out.width), line:23:15, endln:23:20
@@ -1299,7 +1299,7 @@ design: (work@t)
             |vpiOpType:82
             |vpiBlocking:1
             |vpiRhs:
-            \_operation: , line:24:19, endln:24:26
+            \_operation: , line:24:19, endln:24:30
               |vpiOpType:25
               |vpiOperand:
               \_ref_obj: (work@t.num_out.num_out), line:24:19, endln:24:26
@@ -1338,7 +1338,7 @@ design: (work@t)
     |vpiInstance:
     \_module: work@t (work@t) dut.sv:8:1: , endln:35:10
   |vpiProcess:
-  \_initial: , parent:work@t
+  \_initial: , line:29:4, endln:34:7, parent:work@t
     |vpiStmt:
     \_begin: (work@t), line:29:12, endln:34:7
       |vpiFullName:work@t
@@ -1356,7 +1356,7 @@ design: (work@t)
           |vpiOperand:
           \_constant: , line:30:22, endln:30:23
         |vpiStmt:
-        \_sys_func_call: ($stop), line:30:25, endln:30:31
+        \_sys_func_call: ($stop), line:30:25, endln:30:30
           |vpiName:$stop
       |vpiStmt:
       \_if_stmt: , line:31:7, endln:31:32, parent:work@t
@@ -1375,15 +1375,15 @@ design: (work@t)
           |vpiOperand:
           \_constant: , line:31:23, endln:31:24
         |vpiStmt:
-        \_sys_func_call: ($stop), line:31:26, endln:31:32
+        \_sys_func_call: ($stop), line:31:26, endln:31:31
           |vpiName:$stop
       |vpiStmt:
-      \_sys_func_call: ($write), line:32:7, endln:32:40, parent:work@t
+      \_sys_func_call: ($write), line:32:7, endln:32:39, parent:work@t
         |vpiArgument:
         \_constant: , line:32:14, endln:32:38, parent:$write
         |vpiName:$write
       |vpiStmt:
-      \_sys_func_call: ($finish), line:33:7, endln:33:15, parent:work@t
+      \_sys_func_call: ($finish), line:33:7, endln:33:14, parent:work@t
         |vpiName:$finish
 ===================
 [  FATAL] : 0

@@ -165,17 +165,17 @@ design: (work@t)
     |vpiInstance:
     \_module: work@t (work@t) dut.sv:1:1: , endln:10:10, parent:work@t
     |vpiTypespecMember:
-    \_typespec_member: (x), line:2:25, endln:2:26
+    \_typespec_member: (x), line:2:25, endln:2:26, parent:S
       |vpiName:x
       |vpiTypespec:
       \_int_typespec: , line:2:21, endln:2:24
   |vpiDefName:work@t
   |vpiNet:
-  \_logic_net: (work@t.s), line:3:11, parent:work@t
+  \_logic_net: (work@t.s), line:3:11, endln:3:12, parent:work@t
     |vpiName:s
     |vpiFullName:work@t.s
   |vpiNet:
-  \_logic_net: (work@t.y), line:4:8, parent:work@t
+  \_logic_net: (work@t.y), line:4:8, endln:4:9, parent:work@t
     |vpiName:y
     |vpiFullName:work@t.y
   |vpiProcess:
@@ -191,7 +191,7 @@ design: (work@t)
         \_hier_path: (s[0].x), line:7:10, endln:7:16, parent:work@t
           |vpiName:s[0].x
           |vpiActual:
-          \_bit_select: (s), parent:s[0].x
+          \_bit_select: (s), line:7:10, endln:7:11, parent:s[0].x
             |vpiName:s
             |vpiIndex:
             \_constant: , line:7:12, endln:7:13
@@ -200,7 +200,7 @@ design: (work@t)
               |UINT:0
               |vpiConstType:9
           |vpiActual:
-          \_ref_obj: (x)
+          \_ref_obj: (x), line:7:15, endln:7:16
             |vpiName:x
         |vpiLhs:
         \_ref_obj: (work@t.y), line:7:6, endln:7:7, parent:work@t
@@ -228,7 +228,7 @@ design: (work@t)
         \_hier_path: (s[1].x), line:8:6, endln:8:7, parent:work@t
           |vpiName:s[1].x
           |vpiActual:
-          \_bit_select: (s), parent:s[1].x
+          \_bit_select: (s), line:8:6, endln:8:7, parent:s[1].x
             |vpiName:s
             |vpiIndex:
             \_constant: , line:8:8, endln:8:9
@@ -286,12 +286,12 @@ design: (work@t)
         \_hier_path: (s[0].x), line:7:10, endln:7:16
           |vpiName:s[0].x
           |vpiActual:
-          \_bit_select: (s), parent:work@t.s[0].x
+          \_bit_select: (s), line:7:10, endln:7:11, parent:work@t.s[0].x
             |vpiName:s
             |vpiIndex:
             \_constant: , line:7:12, endln:7:13
           |vpiActual:
-          \_ref_obj: (x), parent:s[0].x
+          \_ref_obj: (x), line:7:15, endln:7:16, parent:s[0].x
             |vpiName:x
         |vpiLhs:
         \_ref_obj: (work@t.y), line:7:6, endln:7:7
@@ -309,7 +309,7 @@ design: (work@t)
         \_hier_path: (s[1].x), line:8:6, endln:8:7
           |vpiName:s[1].x
           |vpiActual:
-          \_bit_select: (s), parent:work@t.s[1].x
+          \_bit_select: (s), line:8:6, endln:8:7, parent:work@t.s[1].x
             |vpiName:s
             |vpiIndex:
             \_constant: , line:8:8, endln:8:9

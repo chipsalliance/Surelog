@@ -158,7 +158,7 @@ design: (work@test)
       |UINT:1
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (p1), line:3:12, endln:3:18
+    \_parameter: (p1), line:3:12, endln:3:14
       |vpiName:p1
   |vpiParamAssign:
   \_param_assign: , line:4:12, endln:4:18, parent:my_package1::
@@ -169,7 +169,7 @@ design: (work@test)
       |UINT:2
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (p2), line:4:12, endln:4:18
+    \_parameter: (p2), line:4:12, endln:4:14
       |vpiLocalParam:1
       |vpiName:p2
   |vpiDefName:my_package1
@@ -178,12 +178,12 @@ design: (work@test)
   |vpiName:my_package1
   |vpiFullName:my_package1::
   |vpiParameter:
-  \_parameter: (my_package1::p1), line:3:12, endln:3:18, parent:my_package1::
+  \_parameter: (my_package1::p1), line:3:12, endln:3:14, parent:my_package1::
     |UINT:1
     |vpiName:p1
     |vpiFullName:my_package1::p1
   |vpiParameter:
-  \_parameter: (my_package1::p2), line:4:12, endln:4:18, parent:my_package1::
+  \_parameter: (my_package1::p2), line:4:12, endln:4:14, parent:my_package1::
     |UINT:2
     |vpiLocalParam:1
     |vpiName:p2
@@ -197,7 +197,7 @@ design: (work@test)
       |UINT:1
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (my_package1::p1), line:3:12, endln:3:18, parent:my_package1::
+    \_parameter: (my_package1::p1), line:3:12, endln:3:14, parent:my_package1::
   |vpiParamAssign:
   \_param_assign: , line:4:12, endln:4:18, parent:my_package1::
     |vpiRhs:
@@ -207,7 +207,7 @@ design: (work@test)
       |UINT:2
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (my_package1::p2), line:4:12, endln:4:18, parent:my_package1::
+    \_parameter: (my_package1::p2), line:4:12, endln:4:14, parent:my_package1::
   |vpiTypedef:
   \_logic_typespec: (my_package1::word), line:6:9, endln:6:14
     |vpiName:my_package1::word
@@ -229,7 +229,7 @@ design: (work@test)
         |vpiConstType:9
   |vpiDefName:my_package1
   |vpiNet:
-  \_logic_net: (my_package1::v), line:8:6, parent:my_package1::
+  \_logic_net: (my_package1::v), line:8:6, endln:8:7, parent:my_package1::
     |vpiName:v
     |vpiFullName:my_package1::v
     |vpiNetType:36
@@ -237,13 +237,13 @@ design: (work@test)
 \_module: work@test (work@test) dut.sv:13:1: , endln:21:10, parent:work@test
   |vpiFullName:work@test
   |vpiParameter:
-  \_parameter: (work@test.p1), line:3:12, endln:3:18, parent:work@test
+  \_parameter: (work@test.p1), line:3:12, endln:3:14, parent:work@test
     |UINT:1
     |vpiName:p1
     |vpiFullName:work@test.p1
     |vpiImported:my_package1
   |vpiParameter:
-  \_parameter: (work@test.p2), line:4:12, endln:4:18, parent:work@test
+  \_parameter: (work@test.p2), line:4:12, endln:4:14, parent:work@test
     |UINT:2
     |vpiLocalParam:1
     |vpiName:p2
@@ -258,7 +258,7 @@ design: (work@test)
       |UINT:1
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@test.p1), line:3:12, endln:3:18
+    \_parameter: (work@test.p1), line:3:12, endln:3:14
       |UINT:1
       |vpiName:p1
       |vpiFullName:work@test.p1
@@ -272,7 +272,7 @@ design: (work@test)
       |UINT:2
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@test.p2), line:4:12, endln:4:18
+    \_parameter: (work@test.p2), line:4:12, endln:4:14
       |UINT:2
       |vpiLocalParam:1
       |vpiName:p2
@@ -284,12 +284,12 @@ design: (work@test)
   \_import: (my_package1), line:15:8, endln:15:22
   |vpiDefName:work@test
   |vpiNet:
-  \_logic_net: (work@test.v), line:8:6, parent:work@test
+  \_logic_net: (work@test.v), line:8:6, endln:8:7, parent:work@test
     |vpiName:v
     |vpiFullName:work@test.v
     |vpiNetType:36
   |vpiProcess:
-  \_initial: , parent:work@test
+  \_initial: , line:17:1, endln:19:4, parent:work@test
     |vpiStmt:
     \_begin: (work@test), line:17:9, endln:19:4
       |vpiFullName:work@test
@@ -298,7 +298,7 @@ design: (work@test)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
-        \_operation: , line:18:7, endln:18:9, parent:work@test
+        \_operation: , line:18:7, endln:18:14, parent:work@test
           |vpiOpType:24
           |vpiOperand:
           \_constant: , line:18:7, endln:18:9
@@ -347,13 +347,13 @@ design: (work@test)
   |vpiVariables:
   \_logic_var: (work@test.v), line:8:6, endln:8:7, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.p1), line:3:12, endln:3:18, parent:work@test
+  \_parameter: (work@test.p1), line:3:12, endln:3:14, parent:work@test
     |UINT:1
     |vpiName:p1
     |vpiFullName:work@test.p1
     |vpiImported:my_package1
   |vpiParameter:
-  \_parameter: (work@test.p2), line:4:12, endln:4:18, parent:work@test
+  \_parameter: (work@test.p2), line:4:12, endln:4:14, parent:work@test
     |UINT:2
     |vpiLocalParam:1
     |vpiName:p2
@@ -368,7 +368,7 @@ design: (work@test)
       |UINT:1
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@test.p1), line:3:12, endln:3:18, parent:work@test
+    \_parameter: (work@test.p1), line:3:12, endln:3:14, parent:work@test
   |vpiParamAssign:
   \_param_assign: , line:4:12, endln:4:18, parent:work@test
     |vpiRhs:
@@ -378,14 +378,14 @@ design: (work@test)
       |UINT:2
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@test.p2), line:4:12, endln:4:18, parent:work@test
+    \_parameter: (work@test.p2), line:4:12, endln:4:14, parent:work@test
   |vpiTypedef:
   \_logic_typespec: (my_package1::word), line:6:9, endln:6:14
   |vpiTypedef:
   \_import: (my_package1), line:15:8, endln:15:22
   |vpiDefName:work@test
   |vpiProcess:
-  \_initial: , parent:work@test
+  \_initial: , line:17:1, endln:19:4, parent:work@test
     |vpiStmt:
     \_begin: (work@test), line:17:9, endln:19:4
       |vpiFullName:work@test
@@ -394,7 +394,7 @@ design: (work@test)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
-        \_operation: , line:18:7, endln:18:9
+        \_operation: , line:18:7, endln:18:14
           |vpiOpType:24
           |vpiOperand:
           \_constant: , line:18:7, endln:18:9

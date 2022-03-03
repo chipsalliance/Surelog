@@ -157,12 +157,12 @@ design: (work@dut)
     |vpiInstance:
     \_module: work@dut (work@dut) dut.sv:1:1: , endln:13:10, parent:work@dut
     |vpiTypespecMember:
-    \_typespec_member: (A), line:3:7, endln:3:8
+    \_typespec_member: (A), line:3:7, endln:3:8, parent:ABC
       |vpiName:A
       |vpiTypespec:
       \_int_typespec: , line:3:3, endln:3:6
     |vpiTypespecMember:
-    \_typespec_member: (BC1), line:7:5, endln:7:8
+    \_typespec_member: (BC1), line:7:5, endln:7:8, parent:ABC
       |vpiName:BC1
       |vpiTypespec:
       \_struct_typespec: , line:4:3, endln:4:9
@@ -176,8 +176,13 @@ design: (work@dut)
           |vpiName:C
           |vpiTypespec:
           \_int_typespec: , line:6:5, endln:6:8
+      |vpiRefFile:dut.sv
+      |vpiRefLineNo:4
+      |vpiRefColumnNo:3
+      |vpiRefEndLineNo:7
+      |vpiRefEndColumnNo:4
     |vpiTypespecMember:
-    \_typespec_member: (BC2), line:7:10, endln:7:13
+    \_typespec_member: (BC2), line:7:10, endln:7:13, parent:ABC
       |vpiName:BC2
       |vpiTypespec:
       \_struct_typespec: , line:4:3, endln:4:9
@@ -191,9 +196,14 @@ design: (work@dut)
           |vpiName:C
           |vpiTypespec:
           \_int_typespec: , line:6:5, endln:6:8
+      |vpiRefFile:dut.sv
+      |vpiRefLineNo:4
+      |vpiRefColumnNo:3
+      |vpiRefEndLineNo:7
+      |vpiRefEndColumnNo:4
   |vpiDefName:work@dut
   |vpiNet:
-  \_logic_net: (work@dut.test), line:10:5, parent:work@dut
+  \_logic_net: (work@dut.test), line:10:5, endln:10:9, parent:work@dut
     |vpiName:test
     |vpiFullName:work@dut.test
   |vpiContAssign:
@@ -202,7 +212,7 @@ design: (work@dut)
     \_operation: , line:12:15, endln:12:61
       |vpiOpType:75
       |vpiOperand:
-      \_tagged_pattern: 
+      \_tagged_pattern: , line:12:22, endln:12:32
         |vpiPattern:
         \_operation: , line:12:22, endln:12:32
           |vpiOpType:75
@@ -222,7 +232,7 @@ design: (work@dut)
         \_string_typespec: (BC1), line:12:17, endln:12:20
           |vpiName:BC1
       |vpiOperand:
-      \_tagged_pattern: 
+      \_tagged_pattern: , line:12:39, endln:12:40
         |vpiPattern:
         \_constant: , line:12:39, endln:12:40
           |vpiDecompile:0
@@ -232,12 +242,12 @@ design: (work@dut)
         |vpiTypespec:
         \_int_typespec: , line:12:34, endln:12:37
       |vpiOperand:
-      \_tagged_pattern: 
+      \_tagged_pattern: , line:12:47, endln:12:60
         |vpiPattern:
         \_operation: , line:12:47, endln:12:60
           |vpiOpType:75
           |vpiOperand:
-          \_tagged_pattern: 
+          \_tagged_pattern: , line:12:58, endln:12:59
             |vpiPattern:
             \_constant: , line:12:58, endln:12:59
               |vpiDecompile:0

@@ -210,7 +210,7 @@ design: (work@module_a)
     \_package: new_package (new_package::) dut.sv:1:1: , endln:9:25, parent:work@module_a
     |vpiPacked:1
     |vpiTypespecMember:
-    \_typespec_member: (a), line:3:19, endln:3:20
+    \_typespec_member: (a), line:3:19, endln:3:20, parent:new_package::zzz
       |vpiName:a
       |vpiTypespec:
       \_logic_typespec: , line:3:5, endln:3:10
@@ -231,7 +231,7 @@ design: (work@module_a)
             |UINT:0
             |vpiConstType:9
     |vpiTypespecMember:
-    \_typespec_member: (b), line:4:19, endln:4:20
+    \_typespec_member: (b), line:4:19, endln:4:20, parent:new_package::zzz
       |vpiName:b
       |vpiTypespec:
       \_logic_typespec: , line:4:5, endln:4:10
@@ -252,21 +252,21 @@ design: (work@module_a)
             |UINT:0
             |vpiConstType:9
     |vpiTypespecMember:
-    \_typespec_member: (c), line:5:19, endln:5:20
+    \_typespec_member: (c), line:5:19, endln:5:20, parent:new_package::zzz
       |vpiName:c
       |vpiTypespec:
       \_logic_typespec: , line:5:5, endln:5:10
         |vpiInstance:
         \_package: new_package (new_package::) dut.sv:1:1: , endln:9:25, parent:work@module_a
     |vpiTypespecMember:
-    \_typespec_member: (d), line:6:19, endln:6:20
+    \_typespec_member: (d), line:6:19, endln:6:20, parent:new_package::zzz
       |vpiName:d
       |vpiTypespec:
       \_logic_typespec: , line:6:5, endln:6:10
         |vpiInstance:
         \_package: new_package (new_package::) dut.sv:1:1: , endln:9:25, parent:work@module_a
     |vpiTypespecMember:
-    \_typespec_member: (e), line:7:19, endln:7:20
+    \_typespec_member: (e), line:7:19, endln:7:20, parent:new_package::zzz
       |vpiName:e
       |vpiTypespec:
       \_logic_typespec: , line:7:5, endln:7:10
@@ -284,41 +284,41 @@ design: (work@module_a)
     \_struct_typespec: (new_package::zzz), line:2:9, endln:2:15, parent:work@module_a.TYPE_PARAMETER
   |vpiDefName:work@module_a
   |vpiNet:
-  \_logic_net: (work@module_a.input_struct), line:17:25, parent:work@module_a
+  \_logic_net: (work@module_a.input_struct), line:17:25, endln:17:37, parent:work@module_a
     |vpiName:input_struct
     |vpiFullName:work@module_a.input_struct
   |vpiNet:
-  \_logic_net: (work@module_a.output_struct), line:18:26, parent:work@module_a
+  \_logic_net: (work@module_a.output_struct), line:18:26, endln:18:39, parent:work@module_a
     |vpiName:output_struct
     |vpiFullName:work@module_a.output_struct
   |vpiNet:
-  \_logic_net: (work@module_a.clk), line:19:10, parent:work@module_a
+  \_logic_net: (work@module_a.clk), line:19:10, endln:19:13, parent:work@module_a
     |vpiName:clk
     |vpiFullName:work@module_a.clk
   |vpiPort:
-  \_port: (input_struct), line:17:25, parent:work@module_a
+  \_port: (input_struct), line:17:25, endln:17:37, parent:work@module_a
     |vpiName:input_struct
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@module_a.input_struct), line:17:25, parent:work@module_a
+      \_logic_net: (work@module_a.input_struct), line:17:25, endln:17:37, parent:work@module_a
   |vpiPort:
-  \_port: (output_struct), line:18:26, parent:work@module_a
+  \_port: (output_struct), line:18:26, endln:18:39, parent:work@module_a
     |vpiName:output_struct
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@module_a.output_struct), line:18:26, parent:work@module_a
+      \_logic_net: (work@module_a.output_struct), line:18:26, endln:18:39, parent:work@module_a
   |vpiPort:
-  \_port: (clk), line:19:10, parent:work@module_a
+  \_port: (clk), line:19:10, endln:19:13, parent:work@module_a
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@module_a.clk), line:19:10, parent:work@module_a
+      \_logic_net: (work@module_a.clk), line:19:10, endln:19:13, parent:work@module_a
   |vpiProcess:
   \_always: , line:23:3, endln:25:6, parent:work@module_a
     |vpiStmt:

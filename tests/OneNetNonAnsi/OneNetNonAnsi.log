@@ -42,31 +42,31 @@ design: (work@tb)
   |vpiFullName:work@dut
   |vpiDefName:work@dut
   |vpiNet:
-  \_logic_net: (work@dut.i), line:4:8, parent:work@dut
+  \_logic_net: (work@dut.i), line:4:8, endln:4:9, parent:work@dut
     |vpiName:i
     |vpiFullName:work@dut.i
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (work@dut.o), line:5:7, parent:work@dut
+  \_logic_net: (work@dut.o), line:5:7, endln:5:8, parent:work@dut
     |vpiName:o
     |vpiFullName:work@dut.o
     |vpiNetType:48
   |vpiPort:
-  \_port: (i), line:1:13, parent:work@dut
+  \_port: (i), line:1:13, endln:1:14, parent:work@dut
     |vpiName:i
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@dut.i), line:4:8, parent:work@dut
+      \_logic_net: (work@dut.i), line:4:8, endln:4:9, parent:work@dut
   |vpiPort:
-  \_port: (o), line:1:16, parent:work@dut
+  \_port: (o), line:1:16, endln:1:17, parent:work@dut
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@dut.o), line:5:7, parent:work@dut
+      \_logic_net: (work@dut.o), line:5:7, endln:5:8, parent:work@dut
   |vpiContAssign:
   \_cont_assign: , line:6:10, endln:6:15, parent:work@dut
     |vpiRhs:
@@ -92,22 +92,22 @@ design: (work@tb)
   |vpiFullName:work@tb
   |vpiDefName:work@tb
   |vpiNet:
-  \_logic_net: (work@tb.i), line:2:9, parent:work@tb
+  \_logic_net: (work@tb.i), line:2:9, endln:2:10, parent:work@tb
     |vpiName:i
     |vpiFullName:work@tb.i
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (work@tb.o), line:2:12, parent:work@tb
+  \_logic_net: (work@tb.o), line:2:12, endln:2:13, parent:work@tb
     |vpiName:o
     |vpiFullName:work@tb.o
     |vpiNetType:36
   |vpiProcess:
-  \_initial: , parent:work@tb
+  \_initial: , line:4:3, endln:9:6, parent:work@tb
     |vpiStmt:
     \_begin: (work@tb), line:4:11, endln:9:6
       |vpiFullName:work@tb
       |vpiStmt:
-      \_sys_func_call: ($dumpfile), line:5:5, endln:5:27, parent:work@tb
+      \_sys_func_call: ($dumpfile), line:5:5, endln:5:26, parent:work@tb
         |vpiArgument:
         \_constant: , line:5:15, endln:5:25, parent:$dumpfile
           |vpiDecompile:test.vcd
@@ -116,10 +116,10 @@ design: (work@tb)
           |vpiConstType:6
         |vpiName:$dumpfile
       |vpiStmt:
-      \_sys_func_call: ($dumpvars), line:6:5, endln:6:15, parent:work@tb
+      \_sys_func_call: ($dumpvars), line:6:5, endln:6:14, parent:work@tb
         |vpiName:$dumpvars
       |vpiStmt:
-      \_sys_func_call: ($monitor), line:7:5, endln:7:52, parent:work@tb
+      \_sys_func_call: ($monitor), line:7:5, endln:7:51, parent:work@tb
         |vpiArgument:
         \_constant: , line:7:14, endln:7:39, parent:$monitor
           |vpiDecompile:@%0dns i = %0d, o = %0d
@@ -158,10 +158,10 @@ design: (work@tb)
       \_delay_control: , line:8:5, endln:8:20, parent:work@tb
         |#100
         |vpiStmt:
-        \_sys_func_call: ($finish), line:8:10, endln:8:20
+        \_sys_func_call: ($finish), line:8:10, endln:8:19
           |vpiName:$finish
   |vpiProcess:
-  \_initial: , parent:work@tb
+  \_initial: , line:11:3, endln:17:6, parent:work@tb
     |vpiStmt:
     \_begin: (work@tb), line:12:3, endln:17:6
       |vpiFullName:work@tb
@@ -187,7 +187,7 @@ design: (work@tb)
         |vpiStmt:
         \_immediate_assert: , line:14:8, endln:14:66
           |vpiExpr:
-          \_operation: , line:14:15, endln:14:16
+          \_operation: , line:14:15, endln:14:21
             |vpiOpType:14
             |vpiOperand:
             \_ref_obj: (work@tb.i), line:14:15, endln:14:16
@@ -202,7 +202,7 @@ design: (work@tb)
               |vpiActual:
               \_logic_var: (work@tb.o), line:2:12, endln:2:13, parent:work@tb
           |vpiStmt:
-          \_sys_func_call: ($display), line:14:23, endln:14:39
+          \_sys_func_call: ($display), line:14:23, endln:14:38
             |vpiArgument:
             \_constant: , line:14:32, endln:14:37, parent:$display
               |vpiDecompile:OK!
@@ -211,7 +211,7 @@ design: (work@tb)
               |vpiConstType:6
             |vpiName:$display
           |vpiElseStmt:
-          \_sys_func_call: ($fatal), line:14:45, endln:14:66
+          \_sys_func_call: ($fatal), line:14:45, endln:14:65
             |vpiArgument:
             \_constant: , line:14:52, endln:14:53, parent:$fatal
               |vpiDecompile:1
@@ -250,7 +250,7 @@ design: (work@tb)
         |vpiStmt:
         \_immediate_assert: , line:16:8, endln:16:66
           |vpiExpr:
-          \_operation: , line:16:15, endln:16:16
+          \_operation: , line:16:15, endln:16:21
             |vpiOpType:14
             |vpiOperand:
             \_ref_obj: (work@tb.i), line:16:15, endln:16:16
@@ -265,7 +265,7 @@ design: (work@tb)
               |vpiActual:
               \_logic_var: (work@tb.o), line:2:12, endln:2:13, parent:work@tb
           |vpiStmt:
-          \_sys_func_call: ($display), line:16:23, endln:16:39
+          \_sys_func_call: ($display), line:16:23, endln:16:38
             |vpiArgument:
             \_constant: , line:16:32, endln:16:37, parent:$display
               |vpiDecompile:OK!
@@ -274,7 +274,7 @@ design: (work@tb)
               |vpiConstType:6
             |vpiName:$display
           |vpiElseStmt:
-          \_sys_func_call: ($fatal), line:16:45, endln:16:66
+          \_sys_func_call: ($fatal), line:16:45, endln:16:65
             |vpiArgument:
             \_constant: , line:16:52, endln:16:53, parent:$fatal
               |vpiDecompile:1

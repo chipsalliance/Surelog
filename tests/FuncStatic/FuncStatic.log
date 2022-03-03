@@ -267,29 +267,29 @@ design: (work@test)
 \_module: work@test (work@test) dut.sv:1:1: , endln:20:10, parent:work@test
   |vpiFullName:work@test
   |vpiParameter:
-  \_parameter: (work@test.value1), line:15:12, endln:15:35, parent:work@test
+  \_parameter: (work@test.value1), line:15:12, endln:15:18, parent:work@test
     |vpiLocalParam:1
     |vpiName:value1
     |vpiFullName:work@test.value1
   |vpiParameter:
-  \_parameter: (work@test.value2), line:16:12, endln:16:35, parent:work@test
+  \_parameter: (work@test.value2), line:16:12, endln:16:18, parent:work@test
     |vpiLocalParam:1
     |vpiName:value2
     |vpiFullName:work@test.value2
   |vpiParameter:
-  \_parameter: (work@test.value3), line:17:12, endln:17:35, parent:work@test
+  \_parameter: (work@test.value3), line:17:12, endln:17:18, parent:work@test
     |vpiLocalParam:1
     |vpiName:value3
     |vpiFullName:work@test.value3
   |vpiParameter:
-  \_parameter: (work@test.value4), line:18:12, endln:18:35, parent:work@test
+  \_parameter: (work@test.value4), line:18:12, endln:18:18, parent:work@test
     |vpiLocalParam:1
     |vpiName:value4
     |vpiFullName:work@test.value4
   |vpiParamAssign:
   \_param_assign: , line:15:12, endln:15:35, parent:work@test
     |vpiRhs:
-    \_func_call: (accumulate1), line:15:21, endln:15:35
+    \_func_call: (accumulate1), line:15:21, endln:15:32
       |vpiArgument:
       \_constant: , line:15:33, endln:15:34, parent:accumulate1
         |vpiDecompile:2
@@ -300,11 +300,11 @@ design: (work@test)
       |vpiFunction:
       \_function: (work@test.accumulate1), line:3:1, endln:7:12, parent:work@test
     |vpiLhs:
-    \_parameter: (work@test.value1), line:15:12, endln:15:35, parent:work@test
+    \_parameter: (work@test.value1), line:15:12, endln:15:18, parent:work@test
   |vpiParamAssign:
   \_param_assign: , line:16:12, endln:16:35, parent:work@test
     |vpiRhs:
-    \_func_call: (accumulate1), line:16:21, endln:16:35
+    \_func_call: (accumulate1), line:16:21, endln:16:32
       |vpiArgument:
       \_constant: , line:16:33, endln:16:34, parent:accumulate1
         |vpiDecompile:3
@@ -315,11 +315,11 @@ design: (work@test)
       |vpiFunction:
       \_function: (work@test.accumulate1), line:3:1, endln:7:12, parent:work@test
     |vpiLhs:
-    \_parameter: (work@test.value2), line:16:12, endln:16:35, parent:work@test
+    \_parameter: (work@test.value2), line:16:12, endln:16:18, parent:work@test
   |vpiParamAssign:
   \_param_assign: , line:17:12, endln:17:35, parent:work@test
     |vpiRhs:
-    \_func_call: (accumulate2), line:17:21, endln:17:35
+    \_func_call: (accumulate2), line:17:21, endln:17:32
       |vpiArgument:
       \_constant: , line:17:33, endln:17:34, parent:accumulate2
         |vpiDecompile:2
@@ -330,11 +330,11 @@ design: (work@test)
       |vpiFunction:
       \_function: (work@test.accumulate2), line:9:1, endln:13:12, parent:work@test
     |vpiLhs:
-    \_parameter: (work@test.value3), line:17:12, endln:17:35, parent:work@test
+    \_parameter: (work@test.value3), line:17:12, endln:17:18, parent:work@test
   |vpiParamAssign:
   \_param_assign: , line:18:12, endln:18:35, parent:work@test
     |vpiRhs:
-    \_func_call: (accumulate2), line:18:21, endln:18:35
+    \_func_call: (accumulate2), line:18:21, endln:18:32
       |vpiArgument:
       \_constant: , line:18:33, endln:18:34, parent:accumulate2
         |vpiDecompile:3
@@ -345,21 +345,21 @@ design: (work@test)
       |vpiFunction:
       \_function: (work@test.accumulate2), line:9:1, endln:13:12, parent:work@test
     |vpiLhs:
-    \_parameter: (work@test.value4), line:18:12, endln:18:35, parent:work@test
+    \_parameter: (work@test.value4), line:18:12, endln:18:18, parent:work@test
   |vpiDefName:work@test
   |vpiTaskFunc:
   \_function: (work@test.accumulate1), line:3:1, endln:7:12, parent:work@test
     |vpiName:accumulate1
     |vpiFullName:work@test.accumulate1
     |vpiVariables:
-    \_int_var: (work@test.accumulate1.acc), line:4:10, endln:4:13
+    \_int_var: (work@test.accumulate1.acc), line:4:14, endln:4:17
       |vpiName:acc
       |vpiFullName:work@test.accumulate1.acc
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: , line:3:17, endln:3:24
     |vpiIODecl:
-    \_io_decl: (value)
+    \_io_decl: (value), line:3:51, endln:3:56
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
@@ -368,7 +368,7 @@ design: (work@test)
     \_begin: (work@test.accumulate1), parent:work@test.accumulate1
       |vpiFullName:work@test.accumulate1
       |vpiStmt:
-      \_assign_stmt: , parent:work@test.accumulate1
+      \_assign_stmt: , line:4:14, endln:4:21, parent:work@test.accumulate1
         |vpiRhs:
         \_constant: , line:4:20, endln:4:21
           |vpiDecompile:1
@@ -376,32 +376,32 @@ design: (work@test)
           |UINT:1
           |vpiConstType:9
         |vpiLhs:
-        \_int_var: (work@test.accumulate1.acc), line:4:10, endln:4:13
+        \_int_var: (work@test.accumulate1.acc), line:4:14, endln:4:17
       |vpiStmt:
       \_assignment: , line:5:3, endln:5:20, parent:work@test.accumulate1
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
-        \_operation: , line:5:9, endln:5:12, parent:work@test.accumulate1
+        \_operation: , line:5:9, endln:5:20, parent:work@test.accumulate1
           |vpiOpType:24
           |vpiOperand:
           \_ref_obj: (work@test.accumulate1.acc), line:5:9, endln:5:12, parent:work@test.accumulate1
             |vpiName:acc
             |vpiFullName:work@test.accumulate1.acc
             |vpiActual:
-            \_int_var: (work@test.accumulate1.acc), line:4:10, endln:4:13
+            \_int_var: (work@test.accumulate1.acc), line:4:14, endln:4:17
           |vpiOperand:
           \_ref_obj: (work@test.accumulate1.value), line:5:15, endln:5:20
             |vpiName:value
             |vpiFullName:work@test.accumulate1.value
             |vpiActual:
-            \_io_decl: (value)
+            \_io_decl: (value), line:3:51, endln:3:56
         |vpiLhs:
         \_ref_obj: (work@test.accumulate1.acc), line:5:3, endln:5:6, parent:work@test.accumulate1
           |vpiName:acc
           |vpiFullName:work@test.accumulate1.acc
           |vpiActual:
-          \_int_var: (work@test.accumulate1.acc), line:4:10, endln:4:13
+          \_int_var: (work@test.accumulate1.acc), line:4:14, endln:4:17
       |vpiStmt:
       \_return_stmt: , line:6:3, endln:6:9, parent:work@test.accumulate1
         |vpiCondition:
@@ -409,7 +409,7 @@ design: (work@test)
           |vpiName:acc
           |vpiFullName:work@test.accumulate1.acc
           |vpiActual:
-          \_int_var: (work@test.accumulate1.acc), line:4:10, endln:4:13
+          \_int_var: (work@test.accumulate1.acc), line:4:14, endln:4:17
     |vpiInstance:
     \_module: work@test (work@test) dut.sv:1:1: , endln:20:10, parent:work@test
   |vpiTaskFunc:
@@ -417,14 +417,14 @@ design: (work@test)
     |vpiName:accumulate2
     |vpiFullName:work@test.accumulate2
     |vpiVariables:
-    \_int_var: (work@test.accumulate2.acc), line:10:3, endln:10:6
+    \_int_var: (work@test.accumulate2.acc), line:10:7, endln:10:10
       |vpiName:acc
       |vpiFullName:work@test.accumulate2.acc
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: , line:9:10, endln:9:17
     |vpiIODecl:
-    \_io_decl: (value)
+    \_io_decl: (value), line:9:44, endln:9:49
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
@@ -433,7 +433,7 @@ design: (work@test)
     \_begin: (work@test.accumulate2), parent:work@test.accumulate2
       |vpiFullName:work@test.accumulate2
       |vpiStmt:
-      \_assign_stmt: , parent:work@test.accumulate2
+      \_assign_stmt: , line:10:7, endln:10:14, parent:work@test.accumulate2
         |vpiRhs:
         \_constant: , line:10:13, endln:10:14
           |vpiDecompile:1
@@ -441,32 +441,32 @@ design: (work@test)
           |UINT:1
           |vpiConstType:9
         |vpiLhs:
-        \_int_var: (work@test.accumulate2.acc), line:10:3, endln:10:6
+        \_int_var: (work@test.accumulate2.acc), line:10:7, endln:10:10
       |vpiStmt:
       \_assignment: , line:11:3, endln:11:20, parent:work@test.accumulate2
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
-        \_operation: , line:11:9, endln:11:12, parent:work@test.accumulate2
+        \_operation: , line:11:9, endln:11:20, parent:work@test.accumulate2
           |vpiOpType:24
           |vpiOperand:
           \_ref_obj: (work@test.accumulate2.acc), line:11:9, endln:11:12, parent:work@test.accumulate2
             |vpiName:acc
             |vpiFullName:work@test.accumulate2.acc
             |vpiActual:
-            \_int_var: (work@test.accumulate2.acc), line:10:3, endln:10:6
+            \_int_var: (work@test.accumulate2.acc), line:10:7, endln:10:10
           |vpiOperand:
           \_ref_obj: (work@test.accumulate2.value), line:11:15, endln:11:20
             |vpiName:value
             |vpiFullName:work@test.accumulate2.value
             |vpiActual:
-            \_io_decl: (value)
+            \_io_decl: (value), line:9:44, endln:9:49
         |vpiLhs:
         \_ref_obj: (work@test.accumulate2.acc), line:11:3, endln:11:6, parent:work@test.accumulate2
           |vpiName:acc
           |vpiFullName:work@test.accumulate2.acc
           |vpiActual:
-          \_int_var: (work@test.accumulate2.acc), line:10:3, endln:10:6
+          \_int_var: (work@test.accumulate2.acc), line:10:7, endln:10:10
       |vpiStmt:
       \_return_stmt: , line:12:3, endln:12:9, parent:work@test.accumulate2
         |vpiCondition:
@@ -474,29 +474,29 @@ design: (work@test)
           |vpiName:acc
           |vpiFullName:work@test.accumulate2.acc
           |vpiActual:
-          \_int_var: (work@test.accumulate2.acc), line:10:3, endln:10:6
+          \_int_var: (work@test.accumulate2.acc), line:10:7, endln:10:10
     |vpiInstance:
     \_module: work@test (work@test) dut.sv:1:1: , endln:20:10, parent:work@test
 |uhdmtopModules:
 \_module: work@test (work@test) dut.sv:1:1: , endln:20:10
   |vpiName:work@test
   |vpiParameter:
-  \_parameter: (work@test.value1), line:15:12, endln:15:35, parent:work@test
+  \_parameter: (work@test.value1), line:15:12, endln:15:18, parent:work@test
     |vpiLocalParam:1
     |vpiName:value1
     |vpiFullName:work@test.value1
   |vpiParameter:
-  \_parameter: (work@test.value2), line:16:12, endln:16:35, parent:work@test
+  \_parameter: (work@test.value2), line:16:12, endln:16:18, parent:work@test
     |vpiLocalParam:1
     |vpiName:value2
     |vpiFullName:work@test.value2
   |vpiParameter:
-  \_parameter: (work@test.value3), line:17:12, endln:17:35, parent:work@test
+  \_parameter: (work@test.value3), line:17:12, endln:17:18, parent:work@test
     |vpiLocalParam:1
     |vpiName:value3
     |vpiFullName:work@test.value3
   |vpiParameter:
-  \_parameter: (work@test.value4), line:18:12, endln:18:35, parent:work@test
+  \_parameter: (work@test.value4), line:18:12, endln:18:18, parent:work@test
     |vpiLocalParam:1
     |vpiName:value4
     |vpiFullName:work@test.value4
@@ -509,7 +509,7 @@ design: (work@test)
       |INT:3
       |vpiConstType:7
     |vpiLhs:
-    \_parameter: (work@test.value1), line:15:12, endln:15:35, parent:work@test
+    \_parameter: (work@test.value1), line:15:12, endln:15:18, parent:work@test
   |vpiParamAssign:
   \_param_assign: , line:16:12, endln:16:35, parent:work@test
     |vpiRhs:
@@ -519,7 +519,7 @@ design: (work@test)
       |INT:4
       |vpiConstType:7
     |vpiLhs:
-    \_parameter: (work@test.value2), line:16:12, endln:16:35, parent:work@test
+    \_parameter: (work@test.value2), line:16:12, endln:16:18, parent:work@test
   |vpiParamAssign:
   \_param_assign: , line:17:12, endln:17:35, parent:work@test
     |vpiRhs:
@@ -529,7 +529,7 @@ design: (work@test)
       |INT:3
       |vpiConstType:7
     |vpiLhs:
-    \_parameter: (work@test.value3), line:17:12, endln:17:35, parent:work@test
+    \_parameter: (work@test.value3), line:17:12, endln:17:18, parent:work@test
   |vpiParamAssign:
   \_param_assign: , line:18:12, endln:18:35, parent:work@test
     |vpiRhs:
@@ -539,21 +539,21 @@ design: (work@test)
       |INT:4
       |vpiConstType:7
     |vpiLhs:
-    \_parameter: (work@test.value4), line:18:12, endln:18:35, parent:work@test
+    \_parameter: (work@test.value4), line:18:12, endln:18:18, parent:work@test
   |vpiDefName:work@test
   |vpiTaskFunc:
   \_function: (work@test.accumulate1), line:3:1, endln:7:12, parent:work@test
     |vpiName:accumulate1
     |vpiFullName:work@test.accumulate1
     |vpiVariables:
-    \_int_var: (work@test.accumulate1.acc), line:4:10, endln:4:13, parent:work@test.accumulate1
+    \_int_var: (work@test.accumulate1.acc), line:4:14, endln:4:17, parent:work@test.accumulate1
       |vpiName:acc
       |vpiFullName:work@test.accumulate1.acc
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: , line:3:17, endln:3:24
     |vpiIODecl:
-    \_io_decl: (value), parent:work@test.accumulate1
+    \_io_decl: (value), line:3:51, endln:3:56, parent:work@test.accumulate1
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
@@ -562,11 +562,11 @@ design: (work@test)
     \_begin: (work@test.accumulate1), parent:work@test.accumulate1
       |vpiFullName:work@test.accumulate1
       |vpiStmt:
-      \_assign_stmt: , parent:work@test.accumulate1
+      \_assign_stmt: , line:4:14, endln:4:21, parent:work@test.accumulate1
         |vpiRhs:
         \_constant: , line:4:20, endln:4:21
         |vpiLhs:
-        \_int_var: (work@test.accumulate1.acc), line:4:10, endln:4:13
+        \_int_var: (work@test.accumulate1.acc), line:4:14, endln:4:17
           |vpiName:acc
           |vpiFullName:work@test.accumulate1.acc
       |vpiStmt:
@@ -574,26 +574,26 @@ design: (work@test)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
-        \_operation: , line:5:9, endln:5:12
+        \_operation: , line:5:9, endln:5:20
           |vpiOpType:24
           |vpiOperand:
           \_ref_obj: (work@test.accumulate1.acc), line:5:9, endln:5:12
             |vpiName:acc
             |vpiFullName:work@test.accumulate1.acc
             |vpiActual:
-            \_int_var: (work@test.accumulate1.acc), line:4:10, endln:4:13, parent:work@test.accumulate1
+            \_int_var: (work@test.accumulate1.acc), line:4:14, endln:4:17, parent:work@test.accumulate1
           |vpiOperand:
           \_ref_obj: (work@test.accumulate1.value), line:5:15, endln:5:20
             |vpiName:value
             |vpiFullName:work@test.accumulate1.value
             |vpiActual:
-            \_io_decl: (value), parent:work@test.accumulate1
+            \_io_decl: (value), line:3:51, endln:3:56, parent:work@test.accumulate1
         |vpiLhs:
         \_ref_obj: (work@test.accumulate1.acc), line:5:3, endln:5:6
           |vpiName:acc
           |vpiFullName:work@test.accumulate1.acc
           |vpiActual:
-          \_int_var: (work@test.accumulate1.acc), line:4:10, endln:4:13, parent:work@test.accumulate1
+          \_int_var: (work@test.accumulate1.acc), line:4:14, endln:4:17, parent:work@test.accumulate1
       |vpiStmt:
       \_return_stmt: , line:6:3, endln:6:9, parent:work@test.accumulate1
         |vpiCondition:
@@ -601,7 +601,7 @@ design: (work@test)
           |vpiName:acc
           |vpiFullName:work@test.accumulate1.acc
           |vpiActual:
-          \_int_var: (work@test.accumulate1.acc), line:4:10, endln:4:13, parent:work@test.accumulate1
+          \_int_var: (work@test.accumulate1.acc), line:4:14, endln:4:17, parent:work@test.accumulate1
     |vpiInstance:
     \_module: work@test (work@test) dut.sv:1:1: , endln:20:10
   |vpiTaskFunc:
@@ -609,14 +609,14 @@ design: (work@test)
     |vpiName:accumulate2
     |vpiFullName:work@test.accumulate2
     |vpiVariables:
-    \_int_var: (work@test.accumulate2.acc), line:10:3, endln:10:6, parent:work@test.accumulate2
+    \_int_var: (work@test.accumulate2.acc), line:10:7, endln:10:10, parent:work@test.accumulate2
       |vpiName:acc
       |vpiFullName:work@test.accumulate2.acc
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: , line:9:10, endln:9:17
     |vpiIODecl:
-    \_io_decl: (value), parent:work@test.accumulate2
+    \_io_decl: (value), line:9:44, endln:9:49, parent:work@test.accumulate2
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
@@ -625,11 +625,11 @@ design: (work@test)
     \_begin: (work@test.accumulate2), parent:work@test.accumulate2
       |vpiFullName:work@test.accumulate2
       |vpiStmt:
-      \_assign_stmt: , parent:work@test.accumulate2
+      \_assign_stmt: , line:10:7, endln:10:14, parent:work@test.accumulate2
         |vpiRhs:
         \_constant: , line:10:13, endln:10:14
         |vpiLhs:
-        \_int_var: (work@test.accumulate2.acc), line:10:3, endln:10:6
+        \_int_var: (work@test.accumulate2.acc), line:10:7, endln:10:10
           |vpiName:acc
           |vpiFullName:work@test.accumulate2.acc
       |vpiStmt:
@@ -637,26 +637,26 @@ design: (work@test)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
-        \_operation: , line:11:9, endln:11:12
+        \_operation: , line:11:9, endln:11:20
           |vpiOpType:24
           |vpiOperand:
           \_ref_obj: (work@test.accumulate2.acc), line:11:9, endln:11:12
             |vpiName:acc
             |vpiFullName:work@test.accumulate2.acc
             |vpiActual:
-            \_int_var: (work@test.accumulate2.acc), line:10:3, endln:10:6, parent:work@test.accumulate2
+            \_int_var: (work@test.accumulate2.acc), line:10:7, endln:10:10, parent:work@test.accumulate2
           |vpiOperand:
           \_ref_obj: (work@test.accumulate2.value), line:11:15, endln:11:20
             |vpiName:value
             |vpiFullName:work@test.accumulate2.value
             |vpiActual:
-            \_io_decl: (value), parent:work@test.accumulate2
+            \_io_decl: (value), line:9:44, endln:9:49, parent:work@test.accumulate2
         |vpiLhs:
         \_ref_obj: (work@test.accumulate2.acc), line:11:3, endln:11:6
           |vpiName:acc
           |vpiFullName:work@test.accumulate2.acc
           |vpiActual:
-          \_int_var: (work@test.accumulate2.acc), line:10:3, endln:10:6, parent:work@test.accumulate2
+          \_int_var: (work@test.accumulate2.acc), line:10:7, endln:10:10, parent:work@test.accumulate2
       |vpiStmt:
       \_return_stmt: , line:12:3, endln:12:9, parent:work@test.accumulate2
         |vpiCondition:
@@ -664,7 +664,7 @@ design: (work@test)
           |vpiName:acc
           |vpiFullName:work@test.accumulate2.acc
           |vpiActual:
-          \_int_var: (work@test.accumulate2.acc), line:10:3, endln:10:6, parent:work@test.accumulate2
+          \_int_var: (work@test.accumulate2.acc), line:10:7, endln:10:10, parent:work@test.accumulate2
     |vpiInstance:
     \_module: work@test (work@test) dut.sv:1:1: , endln:20:10
 ===================
