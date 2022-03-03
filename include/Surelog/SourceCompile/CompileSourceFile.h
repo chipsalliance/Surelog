@@ -67,16 +67,18 @@ class CompileSourceFile {
   bool compile(Action action);
   CompileSourceFile(const CompileSourceFile& orig);
   virtual ~CompileSourceFile();
-  Compiler* getCompiler() { return m_compiler; }
-  ErrorContainer* getErrorContainer() { return m_errors; }
-  CommandLineParser* getCommandLineParser() { return m_commandLineParser; }
-  SymbolTable* getSymbolTable() { return m_symbolTable; }
-  Library* getLibrary() { return m_library; }
+  Compiler* getCompiler() const { return m_compiler; }
+  ErrorContainer* getErrorContainer() const { return m_errors; }
+  CommandLineParser* getCommandLineParser() const {
+    return m_commandLineParser;
+  }
+  SymbolTable* getSymbolTable() const { return m_symbolTable; }
+  Library* getLibrary() const { return m_library; }
   void registerPP(PreprocessFile* pp) { m_ppIncludeVec.push_back(pp); }
   bool initParser();
 
   const std::map<SymbolId, PreprocessFile::AntlrParserHandler*>&
-  getPpAntlrHandlerMap() {
+  getPpAntlrHandlerMap() const {
     return m_antlrPpMap;
   }
   void registerAntlrPpHandlerForId(SymbolId id,
@@ -94,14 +96,14 @@ class CompileSourceFile {
 
   unsigned int getJobSize(Action action);
 
-  SymbolId getFileId() { return m_fileId; }
-  SymbolId getPpOutputFileId() { return m_ppResultFileId; }
+  SymbolId getFileId() const { return m_fileId; }
+  SymbolId getPpOutputFileId() const { return m_ppResultFileId; }
 
   void setFileAnalyzer(AnalyzeFile* analyzer) { m_fileAnalyzer = analyzer; }
-  AnalyzeFile* getFileAnalyzer() { return m_fileAnalyzer; }
+  AnalyzeFile* getFileAnalyzer() const { return m_fileAnalyzer; }
 
-  ParseFile* getParser() { return m_parser; }
-  PreprocessFile* getPreprocessor() { return m_pp; }
+  ParseFile* getParser() const { return m_parser; }
+  PreprocessFile* getPreprocessor() const { return m_pp; }
 
  private:
   bool preprocess_();
