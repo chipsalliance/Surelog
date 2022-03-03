@@ -939,6 +939,7 @@ design: (work@foo)
   |vpiName:builtin
   |vpiFullName:builtin::
   |vpiDefName:builtin
+  |vpiTop:1
   |vpiClassDefn:
   \_class_defn: (builtin::any_sverilog_class), file:, parent:builtin::
     |vpiName:any_sverilog_class
@@ -966,6 +967,7 @@ design: (work@foo)
   |vpiAttribute:
   \_attribute: (myPackageAttribute1)
   |vpiDefName:myPackage
+  |vpiTop:1
 |uhdmallClasses:
 \_class_defn: (work@mailbox), file:builtin.sv, parent:work@foo
   |vpiName:work@mailbox
@@ -1747,6 +1749,7 @@ design: (work@foo)
 \_module: work@foo (work@foo) dut.sv:13:1: , endln:41:10
   |vpiName:work@foo
   |vpiDefName:work@foo
+  |vpiTop:1
   |vpiNet:
   \_logic_net: (work@foo.clk), line:13:12, endln:13:15, parent:work@foo
     |vpiName:clk
@@ -1779,6 +1782,7 @@ design: (work@foo)
   \_logic_net: (empty2)
   |vpiNet:
   \_logic_net: (a)
+  |vpiTopModule:1
   |vpiPort:
   \_port: (clk), line:13:12, endln:13:15, parent:work@foo
     |vpiName:clk
@@ -2104,6 +2108,8 @@ design: (work@foo)
   \_attribute: (mymoduleTop), parent:work@top
     |vpiName:mymoduleTop
   |vpiDefName:work@top
+  |vpiTop:1
+  |vpiTopModule:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
