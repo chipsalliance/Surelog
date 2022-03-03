@@ -847,7 +847,7 @@ design: (work@toto)
   |vpiFullName:work@toto
   |vpiDefName:work@toto
   |vpiNet:
-  \_logic_net: (work@toto.d), line:50:5, parent:work@toto
+  \_logic_net: (work@toto.d), line:50:5, endln:50:6, parent:work@toto
     |vpiName:d
     |vpiFullName:work@toto.d
   |vpiClassDefn:
@@ -855,7 +855,7 @@ design: (work@toto)
     |vpiName:c1
     |vpiFullName:work@toto::c1
     |vpiTypedef:
-    \_enum_typespec: (uvm_severity), line:27:3, endln:27:15, parent:work@toto::c1
+    \_enum_typespec: (uvm_severity), line:21:1, endln:27:16, parent:work@toto::c1
       |vpiName:uvm_severity
       |vpiBaseTypespec:
       \_bit_typespec: , line:21:14, endln:21:17, parent:uvm_severity
@@ -886,7 +886,7 @@ design: (work@toto)
         |vpiDecompile:1
         |vpiSize:1
       |vpiEnumConst:
-      \_enum_const: (UVM_ERROR), line:25:3, endln:25:12, parent:uvm_severity
+      \_enum_const: (UVM_ERROR), line:25:3, endln:25:21, parent:uvm_severity
         |vpiName:UVM_ERROR
         |STRING:toto
         |vpiDecompile:toto
@@ -925,7 +925,7 @@ design: (work@toto)
       |vpiName:get_current_item
       |vpiFullName:work@toto::c1::get_current_item
       |vpiVariables:
-      \_ref_var: (work@toto::c1::get_current_item::t), line:31:5, endln:31:8, parent:work@toto::c1::get_current_item
+      \_ref_var: (work@toto::c1::get_current_item::t), line:31:9, endln:31:10, parent:work@toto::c1::get_current_item
         |vpiName:t
         |vpiFullName:work@toto::c1::get_current_item::t
       |vpiMethod:1
@@ -939,7 +939,7 @@ design: (work@toto)
       |vpiMethod:1
       |vpiVisibility:1
       |vpiIODecl:
-      \_io_decl: (provider), parent:work@toto::c1::connect
+      \_io_decl: (provider), line:35:34, endln:35:42, parent:work@toto::c1::connect
         |vpiDirection:1
         |vpiName:provider
         |vpiTypedef:
@@ -954,11 +954,11 @@ design: (work@toto)
       |vpiReturn:
       \_int_var: , line:38:13, endln:38:16
       |vpiIODecl:
-      \_io_decl: (severity), parent:work@toto::c1::get_verbosity_level
+      \_io_decl: (severity), line:38:50, endln:38:58, parent:work@toto::c1::get_verbosity_level
         |vpiDirection:1
         |vpiName:severity
         |vpiTypedef:
-        \_enum_typespec: (uvm_severity), line:27:3, endln:27:15
+        \_enum_typespec: (uvm_severity), line:21:1, endln:27:16
           |vpiName:uvm_severity
           |vpiBaseTypespec:
           \_bit_typespec: , line:21:14, endln:21:17
@@ -981,7 +981,7 @@ design: (work@toto)
             |vpiDecompile:1
             |vpiSize:1
           |vpiEnumConst:
-          \_enum_const: (UVM_ERROR), line:25:3, endln:25:12
+          \_enum_const: (UVM_ERROR), line:25:3, endln:25:21
             |vpiName:UVM_ERROR
             |STRING:toto
             |vpiDecompile:toto
@@ -993,7 +993,7 @@ design: (work@toto)
             |vpiDecompile:3
             |vpiSize:1
       |vpiIODecl:
-      \_io_decl: (reg_a), parent:work@toto::c1::get_verbosity_level
+      \_io_decl: (reg_a), line:38:79, endln:38:84, parent:work@toto::c1::get_verbosity_level
         |vpiDirection:1
         |vpiName:reg_a
         |vpiRange:
@@ -1021,13 +1021,13 @@ design: (work@toto)
       |vpiReturn:
       \_int_var: , line:41:11, endln:41:14
       |vpiIODecl:
-      \_io_decl: (severity), parent:work@toto::c1::set_verbosity_level
+      \_io_decl: (severity), line:41:48, endln:41:56, parent:work@toto::c1::set_verbosity_level
         |vpiDirection:1
         |vpiName:severity
         |vpiTypedef:
-        \_enum_typespec: (uvm_severity), line:27:3, endln:27:15
+        \_enum_typespec: (uvm_severity), line:21:1, endln:27:16
       |vpiIODecl:
-      \_io_decl: (reg_a), parent:work@toto::c1::set_verbosity_level
+      \_io_decl: (reg_a), line:41:79, endln:41:84, parent:work@toto::c1::set_verbosity_level
         |vpiDirection:1
         |vpiName:reg_a
         |vpiRange:
@@ -1053,7 +1053,7 @@ design: (work@toto)
       |vpiMethod:1
       |vpiVisibility:1
       |vpiIODecl:
-      \_io_decl: (obj), parent:work@toto::c1::wait_for_total_count
+      \_io_decl: (obj), line:44:31, endln:44:34, parent:work@toto::c1::wait_for_total_count
         |vpiDirection:1
         |vpiName:obj
         |vpiTypedef:
@@ -1062,7 +1062,7 @@ design: (work@toto)
           |vpiClassDefn:
           \_class_defn: (work@toto::c2) top.v:8:1: , endln:12:9, parent:work@toto
       |vpiIODecl:
-      \_io_decl: (count), parent:work@toto::c1::wait_for_total_count
+      \_io_decl: (count), line:44:45, endln:44:50, parent:work@toto::c1::wait_for_total_count
         |vpiDirection:1
         |vpiName:count
         |vpiExpr:
@@ -1090,7 +1090,7 @@ design: (work@toto)
     |vpiName:c1
     |vpiFullName:work@toto::c1
     |vpiTypedef:
-    \_enum_typespec: (uvm_severity), line:27:3, endln:27:15, parent:work@toto::c1
+    \_enum_typespec: (uvm_severity), line:21:1, endln:27:16, parent:work@toto::c1
       |vpiName:uvm_severity
       |vpiBaseTypespec:
       \_bit_typespec: , line:21:14, endln:21:17, parent:uvm_severity
@@ -1113,7 +1113,7 @@ design: (work@toto)
         |vpiDecompile:1
         |vpiSize:1
       |vpiEnumConst:
-      \_enum_const: (UVM_ERROR), line:25:3, endln:25:12, parent:uvm_severity
+      \_enum_const: (UVM_ERROR), line:25:3, endln:25:21, parent:uvm_severity
         |vpiName:UVM_ERROR
         |STRING:toto
         |vpiDecompile:toto
@@ -1135,7 +1135,7 @@ design: (work@toto)
       |vpiName:get_current_item
       |vpiFullName:work@toto::c1::get_current_item
       |vpiVariables:
-      \_ref_var: (work@toto::c1::get_current_item::t), line:31:5, endln:31:8, parent:work@toto::c1::get_current_item
+      \_ref_var: (work@toto::c1::get_current_item::t), line:31:9, endln:31:10, parent:work@toto::c1::get_current_item
         |vpiName:t
         |vpiFullName:work@toto::c1::get_current_item::t
       |vpiMethod:1
@@ -1149,7 +1149,7 @@ design: (work@toto)
       |vpiMethod:1
       |vpiVisibility:1
       |vpiIODecl:
-      \_io_decl: (provider), parent:work@toto::c1::connect
+      \_io_decl: (provider), line:35:34, endln:35:42, parent:work@toto::c1::connect
         |vpiDirection:1
         |vpiName:provider
         |vpiTypedef:
@@ -1163,13 +1163,13 @@ design: (work@toto)
       |vpiReturn:
       \_int_var: , line:38:13, endln:38:16
       |vpiIODecl:
-      \_io_decl: (severity), parent:work@toto::c1::get_verbosity_level
+      \_io_decl: (severity), line:38:50, endln:38:58, parent:work@toto::c1::get_verbosity_level
         |vpiDirection:1
         |vpiName:severity
         |vpiTypedef:
-        \_enum_typespec: (uvm_severity), line:27:3, endln:27:15
+        \_enum_typespec: (uvm_severity), line:21:1, endln:27:16
       |vpiIODecl:
-      \_io_decl: (reg_a), parent:work@toto::c1::get_verbosity_level
+      \_io_decl: (reg_a), line:38:79, endln:38:84, parent:work@toto::c1::get_verbosity_level
         |vpiDirection:1
         |vpiName:reg_a
         |vpiRange:
@@ -1189,13 +1189,13 @@ design: (work@toto)
       |vpiReturn:
       \_int_var: , line:41:11, endln:41:14
       |vpiIODecl:
-      \_io_decl: (severity), parent:work@toto::c1::set_verbosity_level
+      \_io_decl: (severity), line:41:48, endln:41:56, parent:work@toto::c1::set_verbosity_level
         |vpiDirection:1
         |vpiName:severity
         |vpiTypedef:
-        \_enum_typespec: (uvm_severity), line:27:3, endln:27:15
+        \_enum_typespec: (uvm_severity), line:21:1, endln:27:16
       |vpiIODecl:
-      \_io_decl: (reg_a), parent:work@toto::c1::set_verbosity_level
+      \_io_decl: (reg_a), line:41:79, endln:41:84, parent:work@toto::c1::set_verbosity_level
         |vpiDirection:1
         |vpiName:reg_a
         |vpiRange:
@@ -1213,13 +1213,13 @@ design: (work@toto)
       |vpiMethod:1
       |vpiVisibility:1
       |vpiIODecl:
-      \_io_decl: (obj), parent:work@toto::c1::wait_for_total_count
+      \_io_decl: (obj), line:44:31, endln:44:34, parent:work@toto::c1::wait_for_total_count
         |vpiDirection:1
         |vpiName:obj
         |vpiTypedef:
         \_class_typespec: (c2), line:44:28, endln:44:30
       |vpiIODecl:
-      \_io_decl: (count), parent:work@toto::c1::wait_for_total_count
+      \_io_decl: (count), line:44:45, endln:44:50, parent:work@toto::c1::wait_for_total_count
         |vpiDirection:1
         |vpiName:count
         |vpiExpr:

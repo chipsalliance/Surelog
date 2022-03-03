@@ -4573,7 +4573,7 @@ UHDM::any *CompileHelper::compileExpression(
               name = fC->SymName(tmp);
             }
             NodeId rhsbackup = rhs;
-            while (rhs = fC->Sibling(rhs)) {
+            while ((rhs = fC->Sibling(rhs))) {
               if (fC->Type(rhs) == VObjectType::slStringConst) {
                 name += "." + fC->SymName(rhs);
               } else if (fC->Type(rhs) == VObjectType::slSelect ||

@@ -295,14 +295,14 @@ design: (work@dut)
     \_package: pr_pkg (pr_pkg::) dut.sv:1:1: , endln:7:11, parent:work@dut
     |vpiPacked:1
     |vpiTypespecMember:
-    \_typespec_member: (alert_p), line:3:11, endln:3:18
+    \_typespec_member: (alert_p), line:3:11, endln:3:18, parent:pr_pkg::alert_tx_t
       |vpiName:alert_p
       |vpiTypespec:
       \_logic_typespec: , line:3:5, endln:3:10
         |vpiInstance:
         \_package: pr_pkg (pr_pkg::) dut.sv:1:1: , endln:7:11, parent:work@dut
     |vpiTypespecMember:
-    \_typespec_member: (alert_n), line:4:11, endln:4:18
+    \_typespec_member: (alert_n), line:4:11, endln:4:18, parent:pr_pkg::alert_tx_t
       |vpiName:alert_n
       |vpiTypespec:
       \_logic_typespec: , line:4:5, endln:4:10
@@ -320,7 +320,7 @@ design: (work@dut)
     \_package: dm (dm::) dut.sv:15:1: , endln:24:11, parent:work@dut
     |vpiPacked:1
     |vpiTypespecMember:
-    \_typespec_member: (zero1), line:17:17, endln:17:22
+    \_typespec_member: (zero1), line:17:17, endln:17:22, parent:dm::hartinfo_t
       |vpiName:zero1
       |vpiTypespec:
       \_logic_typespec: , line:17:3, endln:17:8
@@ -341,7 +341,7 @@ design: (work@dut)
             |UINT:24
             |vpiConstType:9
     |vpiTypespecMember:
-    \_typespec_member: (nscratch), line:18:17, endln:18:25
+    \_typespec_member: (nscratch), line:18:17, endln:18:25, parent:dm::hartinfo_t
       |vpiName:nscratch
       |vpiTypespec:
       \_logic_typespec: , line:18:3, endln:18:8
@@ -362,7 +362,7 @@ design: (work@dut)
             |UINT:20
             |vpiConstType:9
     |vpiTypespecMember:
-    \_typespec_member: (zero0), line:19:17, endln:19:22
+    \_typespec_member: (zero0), line:19:17, endln:19:22, parent:dm::hartinfo_t
       |vpiName:zero0
       |vpiTypespec:
       \_logic_typespec: , line:19:3, endln:19:8
@@ -383,14 +383,14 @@ design: (work@dut)
             |UINT:17
             |vpiConstType:9
     |vpiTypespecMember:
-    \_typespec_member: (dataaccess), line:20:17, endln:20:27
+    \_typespec_member: (dataaccess), line:20:17, endln:20:27, parent:dm::hartinfo_t
       |vpiName:dataaccess
       |vpiTypespec:
       \_logic_typespec: , line:20:3, endln:20:8
         |vpiInstance:
         \_package: dm (dm::) dut.sv:15:1: , endln:24:11, parent:work@dut
     |vpiTypespecMember:
-    \_typespec_member: (datasize), line:21:17, endln:21:25
+    \_typespec_member: (datasize), line:21:17, endln:21:25, parent:dm::hartinfo_t
       |vpiName:datasize
       |vpiTypespec:
       \_logic_typespec: , line:21:3, endln:21:8
@@ -411,7 +411,7 @@ design: (work@dut)
             |UINT:12
             |vpiConstType:9
     |vpiTypespecMember:
-    \_typespec_member: (dataaddr), line:22:17, endln:22:25
+    \_typespec_member: (dataaddr), line:22:17, endln:22:25, parent:dm::hartinfo_t
       |vpiName:dataaddr
       |vpiTypespec:
       \_logic_typespec: , line:22:3, endln:22:8
@@ -437,23 +437,23 @@ design: (work@dut)
   |vpiFullName:work@dut
   |vpiDefName:work@dut
   |vpiNet:
-  \_logic_net: (work@dut.alert_tx_o), line:10:33, parent:work@dut
+  \_logic_net: (work@dut.alert_tx_o), line:10:33, endln:10:43, parent:work@dut
     |vpiName:alert_tx_o
     |vpiFullName:work@dut.alert_tx_o
     |vpiNetType:1
   |vpiPort:
-  \_port: (alert_tx_o), line:10:33, parent:work@dut
+  \_port: (alert_tx_o), line:10:33, endln:10:43, parent:work@dut
     |vpiName:alert_tx_o
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@dut.alert_tx_o), line:10:33, parent:work@dut
+      \_logic_net: (work@dut.alert_tx_o), line:10:33, endln:10:43, parent:work@dut
 |uhdmallModules:
 \_module: work@dut2 (work@dut2) dut.sv:26:1: , endln:33:10, parent:work@dut
   |vpiFullName:work@dut2
   |vpiParameter:
-  \_parameter: (work@dut2.NrHarts), line:27:31, endln:27:51, parent:work@dut2
+  \_parameter: (work@dut2.NrHarts), line:27:31, endln:27:38, parent:work@dut2
     |UINT:1
     |vpiTypespec:
     \_int_typespec: , line:27:11, endln:27:14, parent:work@dut2.NrHarts
@@ -470,34 +470,34 @@ design: (work@dut)
       \_int_typespec: , line:27:11, endln:27:14, parent:work@dut2.NrHarts
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@dut2.NrHarts), line:27:31, endln:27:51, parent:work@dut2
+    \_parameter: (work@dut2.NrHarts), line:27:31, endln:27:38, parent:work@dut2
   |vpiDefName:work@dut2
   |vpiNet:
-  \_logic_net: (work@dut2.hartinfo_i), line:30:44, parent:work@dut2
+  \_logic_net: (work@dut2.hartinfo_i), line:30:44, endln:30:54, parent:work@dut2
     |vpiName:hartinfo_i
     |vpiFullName:work@dut2.hartinfo_i
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (work@dut2.hart_info_i_without_range), line:31:44, parent:work@dut2
+  \_logic_net: (work@dut2.hart_info_i_without_range), line:31:44, endln:31:69, parent:work@dut2
     |vpiName:hart_info_i_without_range
     |vpiFullName:work@dut2.hart_info_i_without_range
     |vpiNetType:1
   |vpiPort:
-  \_port: (hartinfo_i), line:30:44, parent:work@dut2
+  \_port: (hartinfo_i), line:30:44, endln:30:54, parent:work@dut2
     |vpiName:hartinfo_i
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@dut2.hartinfo_i), line:30:44, parent:work@dut2
+      \_logic_net: (work@dut2.hartinfo_i), line:30:44, endln:30:54, parent:work@dut2
   |vpiPort:
-  \_port: (hart_info_i_without_range), line:31:44, parent:work@dut2
+  \_port: (hart_info_i_without_range), line:31:44, endln:31:69, parent:work@dut2
     |vpiName:hart_info_i_without_range
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@dut2.hart_info_i_without_range), line:31:44, parent:work@dut2
+      \_logic_net: (work@dut2.hart_info_i_without_range), line:31:44, endln:31:69, parent:work@dut2
 |uhdmtopModules:
 \_module: work@dut (work@dut) dut.sv:9:1: , endln:13:10
   |vpiName:work@dut
@@ -543,7 +543,7 @@ design: (work@dut)
 \_module: work@dut2 (work@dut2) dut.sv:26:1: , endln:33:10
   |vpiName:work@dut2
   |vpiParameter:
-  \_parameter: (work@dut2.NrHarts), line:27:31, endln:27:51, parent:work@dut2
+  \_parameter: (work@dut2.NrHarts), line:27:31, endln:27:38, parent:work@dut2
     |UINT:1
     |vpiTypespec:
     \_int_typespec: , line:27:11, endln:27:14, parent:work@dut2.NrHarts
@@ -560,7 +560,7 @@ design: (work@dut)
       \_int_typespec: , line:27:11, endln:27:14, parent:work@dut2.NrHarts
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@dut2.NrHarts), line:27:31, endln:27:51, parent:work@dut2
+    \_parameter: (work@dut2.NrHarts), line:27:31, endln:27:38, parent:work@dut2
   |vpiDefName:work@dut2
   |vpiNet:
   \_packed_array_net: (work@dut2.hartinfo_i), line:30:44, endln:30:54, parent:work@dut2

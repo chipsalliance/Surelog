@@ -363,7 +363,7 @@ design: (work@top)
 \_module: work@prim_subreg (work@prim_subreg) dut.sv:1:1: , endln:4:10, parent:work@top
   |vpiFullName:work@prim_subreg
   |vpiParameter:
-  \_parameter: (work@prim_subreg.RESVAL), line:2:26, endln:2:37, parent:work@prim_subreg
+  \_parameter: (work@prim_subreg.RESVAL), line:2:26, endln:2:32, parent:work@prim_subreg
     |BIN:0
     |vpiTypespec:
     \_logic_typespec: , line:2:14, endln:2:19, parent:work@prim_subreg.RESVAL
@@ -394,17 +394,17 @@ design: (work@top)
       \_logic_typespec: , line:2:14, endln:2:19, parent:work@prim_subreg.RESVAL
       |vpiConstType:3
     |vpiLhs:
-    \_parameter: (work@prim_subreg.RESVAL), line:2:26, endln:2:37, parent:work@prim_subreg
+    \_parameter: (work@prim_subreg.RESVAL), line:2:26, endln:2:32, parent:work@prim_subreg
   |vpiDefName:work@prim_subreg
   |vpiNet:
-  \_logic_net: (work@prim_subreg.a), line:3:8, parent:work@prim_subreg
+  \_logic_net: (work@prim_subreg.a), line:3:8, endln:3:9, parent:work@prim_subreg
     |vpiName:a
     |vpiFullName:work@prim_subreg.a
 |uhdmallModules:
 \_module: work@prim_subreg_shadow (work@prim_subreg_shadow) dut.sv:6:1: , endln:24:10, parent:work@top
   |vpiFullName:work@prim_subreg_shadow
   |vpiParameter:
-  \_parameter: (work@prim_subreg_shadow.RESVAL), line:16:23, endln:19:5, parent:work@prim_subreg_shadow
+  \_parameter: (work@prim_subreg_shadow.RESVAL), line:16:23, endln:16:29, parent:work@prim_subreg_shadow
     |vpiTypespec:
     \_struct_typespec: (struct_t), line:7:12, endln:7:18, parent:work@prim_subreg_shadow.RESVAL
       |vpiName:struct_t
@@ -412,7 +412,7 @@ design: (work@top)
       \_module: work@prim_subreg_shadow (work@prim_subreg_shadow) dut.sv:6:1: , endln:24:10, parent:work@top
       |vpiPacked:1
       |vpiTypespecMember:
-      \_typespec_member: (a), line:8:19, endln:8:20
+      \_typespec_member: (a), line:8:19, endln:8:20, parent:struct_t
         |vpiName:a
         |vpiTypespec:
         \_logic_typespec: , line:8:7, endln:8:12
@@ -431,7 +431,7 @@ design: (work@top)
               |UINT:0
               |vpiConstType:9
       |vpiTypespecMember:
-      \_typespec_member: (b), line:9:19, endln:9:20
+      \_typespec_member: (b), line:9:19, endln:9:20, parent:struct_t
         |vpiName:b
         |vpiTypespec:
         \_logic_typespec: , line:9:7, endln:9:12
@@ -457,7 +457,7 @@ design: (work@top)
     \_operation: , line:16:32, endln:19:5
       |vpiOpType:75
       |vpiOperand:
-      \_tagged_pattern: 
+      \_tagged_pattern: , line:17:10, endln:17:19
         |vpiPattern:
         \_constant: 
           |vpiDecompile:0
@@ -468,7 +468,7 @@ design: (work@top)
         \_string_typespec: (a), line:17:7, endln:17:8
           |vpiName:a
       |vpiOperand:
-      \_tagged_pattern: 
+      \_tagged_pattern: , line:18:10, endln:18:12
         |vpiPattern:
         \_constant: , line:18:10, endln:18:12
           |vpiDecompile:'1
@@ -479,9 +479,9 @@ design: (work@top)
         \_string_typespec: (b), line:18:7, endln:18:8
           |vpiName:b
     |vpiLhs:
-    \_parameter: (work@prim_subreg_shadow.RESVAL), line:16:23, endln:19:5, parent:work@prim_subreg_shadow
+    \_parameter: (work@prim_subreg_shadow.RESVAL), line:16:23, endln:16:29, parent:work@prim_subreg_shadow
   |vpiTypedef:
-  \_enum_typespec: (enum_t), line:14:6, endln:14:12
+  \_enum_typespec: (enum_t), line:12:4, endln:14:13
     |vpiName:enum_t
     |vpiInstance:
     \_module: work@prim_subreg_shadow (work@prim_subreg_shadow) dut.sv:6:1: , endln:24:10, parent:work@top
@@ -502,7 +502,7 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
     |vpiEnumConst:
-    \_enum_const: (ENUM_ITEM), line:13:7, endln:13:16
+    \_enum_const: (ENUM_ITEM), line:13:7, endln:13:25
       |vpiName:ENUM_ITEM
       |UINT:0
       |vpiDecompile:3'b000
@@ -514,7 +514,7 @@ design: (work@top)
 \_module: work@top (work@top) dut.sv:26:1: , endln:44:10, parent:work@top
   |vpiFullName:work@top
   |vpiParameter:
-  \_parameter: (work@top.CTRL_RESET), line:36:23, endln:39:5, parent:work@top
+  \_parameter: (work@top.CTRL_RESET), line:36:23, endln:36:33, parent:work@top
     |vpiTypespec:
     \_struct_typespec: (struct_t), line:27:12, endln:27:18, parent:work@top.CTRL_RESET
       |vpiName:struct_t
@@ -522,7 +522,7 @@ design: (work@top)
       \_module: work@top (work@top) dut.sv:26:1: , endln:44:10, parent:work@top
       |vpiPacked:1
       |vpiTypespecMember:
-      \_typespec_member: (a), line:28:19, endln:28:20
+      \_typespec_member: (a), line:28:19, endln:28:20, parent:struct_t
         |vpiName:a
         |vpiTypespec:
         \_logic_typespec: , line:28:7, endln:28:12
@@ -541,7 +541,7 @@ design: (work@top)
               |UINT:0
               |vpiConstType:9
       |vpiTypespecMember:
-      \_typespec_member: (b), line:29:19, endln:29:20
+      \_typespec_member: (b), line:29:19, endln:29:20, parent:struct_t
         |vpiName:b
         |vpiTypespec:
         \_logic_typespec: , line:29:7, endln:29:12
@@ -567,7 +567,7 @@ design: (work@top)
     \_operation: , line:36:36, endln:39:5
       |vpiOpType:75
       |vpiOperand:
-      \_tagged_pattern: 
+      \_tagged_pattern: , line:37:10, endln:37:19
         |vpiPattern:
         \_constant: 
           |vpiDecompile:3
@@ -578,7 +578,7 @@ design: (work@top)
         \_string_typespec: (a), line:37:7, endln:37:8
           |vpiName:a
       |vpiOperand:
-      \_tagged_pattern: 
+      \_tagged_pattern: , line:38:10, endln:38:12
         |vpiPattern:
         \_constant: , line:38:10, endln:38:12
           |vpiDecompile:'0
@@ -589,9 +589,9 @@ design: (work@top)
         \_string_typespec: (b), line:38:7, endln:38:8
           |vpiName:b
     |vpiLhs:
-    \_parameter: (work@top.CTRL_RESET), line:36:23, endln:39:5, parent:work@top
+    \_parameter: (work@top.CTRL_RESET), line:36:23, endln:36:33, parent:work@top
   |vpiTypedef:
-  \_enum_typespec: (enum_t), line:34:6, endln:34:12
+  \_enum_typespec: (enum_t), line:32:4, endln:34:13
     |vpiName:enum_t
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:26:1: , endln:44:10, parent:work@top
@@ -612,7 +612,7 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
     |vpiEnumConst:
-    \_enum_const: (ENUM_ITEM), line:33:7, endln:33:16
+    \_enum_const: (ENUM_ITEM), line:33:7, endln:33:24
       |vpiName:ENUM_ITEM
       |UINT:3
       |vpiDecompile:2'b11
@@ -624,7 +624,7 @@ design: (work@top)
 \_module: work@top (work@top) dut.sv:26:1: , endln:44:10
   |vpiName:work@top
   |vpiParameter:
-  \_parameter: (work@top.CTRL_RESET), line:36:23, endln:39:5, parent:work@top
+  \_parameter: (work@top.CTRL_RESET), line:36:23, endln:36:33, parent:work@top
     |vpiTypespec:
     \_struct_typespec: (struct_t), line:27:12, endln:27:18, parent:work@top.CTRL_RESET
       |vpiName:struct_t
@@ -732,9 +732,9 @@ design: (work@top)
         |BIN:0
         |vpiConstType:3
     |vpiLhs:
-    \_parameter: (work@top.CTRL_RESET), line:36:23, endln:39:5, parent:work@top
+    \_parameter: (work@top.CTRL_RESET), line:36:23, endln:36:33, parent:work@top
   |vpiTypedef:
-  \_enum_typespec: (enum_t), line:34:6, endln:34:12
+  \_enum_typespec: (enum_t), line:32:4, endln:34:13
   |vpiTypedef:
   \_struct_typespec: (struct_t), line:27:12, endln:27:18, parent:work@top.CTRL_RESET
   |vpiDefName:work@top
@@ -743,7 +743,7 @@ design: (work@top)
     |vpiName:u_ctrl_reg_shadowed
     |vpiFullName:work@top.u_ctrl_reg_shadowed
     |vpiParameter:
-    \_parameter: (work@top.u_ctrl_reg_shadowed.RESVAL), line:16:23, endln:19:5, parent:work@top.u_ctrl_reg_shadowed
+    \_parameter: (work@top.u_ctrl_reg_shadowed.RESVAL), line:16:23, endln:16:29, parent:work@top.u_ctrl_reg_shadowed
       |vpiTypespec:
       \_struct_typespec: (struct_t), line:7:12, endln:7:18, parent:work@top.u_ctrl_reg_shadowed.RESVAL
         |vpiName:struct_t
@@ -852,9 +852,9 @@ design: (work@top)
           |BIN:0
           |vpiConstType:3
       |vpiLhs:
-      \_parameter: (work@top.u_ctrl_reg_shadowed.RESVAL), line:16:23, endln:19:5, parent:work@top.u_ctrl_reg_shadowed
+      \_parameter: (work@top.u_ctrl_reg_shadowed.RESVAL), line:16:23, endln:16:29, parent:work@top.u_ctrl_reg_shadowed
     |vpiTypedef:
-    \_enum_typespec: (enum_t), line:14:6, endln:14:12
+    \_enum_typespec: (enum_t), line:12:4, endln:14:13
     |vpiTypedef:
     \_struct_typespec: (struct_t), line:7:12, endln:7:18, parent:work@prim_subreg_shadow.RESVAL
     |vpiDefName:work@prim_subreg_shadow
@@ -942,7 +942,7 @@ design: (work@top)
                 |UINT:3
                 |vpiConstType:9
       |vpiParameter:
-      \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:2:26, endln:2:37, parent:work@top.u_ctrl_reg_shadowed.staged_reg
+      \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:2:26, endln:2:32, parent:work@top.u_ctrl_reg_shadowed.staged_reg
         |BIN:0
         |vpiTypespec:
         \_logic_typespec: , line:2:14, endln:2:19, parent:work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL
@@ -968,7 +968,7 @@ design: (work@top)
         |vpiRhs:
         \_operation: , line:22:15, endln:22:21
         |vpiLhs:
-        \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:2:26, endln:2:37, parent:work@top.u_ctrl_reg_shadowed.staged_reg
+        \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:2:26, endln:2:32, parent:work@top.u_ctrl_reg_shadowed.staged_reg
       |vpiDefName:work@prim_subreg
       |vpiDefFile:dut.sv
       |vpiDefLineNo:1

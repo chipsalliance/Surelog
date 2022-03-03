@@ -201,13 +201,13 @@ design: (work@alert_handler_reg_wrap)
     \_module: work@top (work@top) dut.sv:8:1: , endln:16:10, parent:work@alert_handler_reg_wrap
     |vpiPacked:1
     |vpiTypespecMember:
-    \_typespec_member: (x), line:10:9, endln:10:10
+    \_typespec_member: (x), line:10:9, endln:10:10, parent:struct_t
       |vpiName:x
       |vpiTypespec:
       \_int_typespec: , line:10:5, endln:10:8
   |vpiDefName:work@top
   |vpiNet:
-  \_logic_net: (work@top.a), line:13:23, parent:work@top
+  \_logic_net: (work@top.a), line:13:23, endln:13:24, parent:work@top
     |vpiName:a
     |vpiFullName:work@top.a
   |vpiContAssign:
@@ -222,7 +222,7 @@ design: (work@alert_handler_reg_wrap)
     \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
       |vpiName:a[0][0].x[0]
       |vpiActual:
-      \_bit_select: (a), parent:a[0][0].x[0]
+      \_bit_select: (a), line:15:10, endln:15:11, parent:a[0][0].x[0]
         |vpiName:a
         |vpiIndex:
         \_constant: , line:15:12, endln:15:13
@@ -231,7 +231,7 @@ design: (work@alert_handler_reg_wrap)
           |UINT:0
           |vpiConstType:9
       |vpiActual:
-      \_bit_select: 
+      \_bit_select: , line:15:10, endln:15:11
         |vpiIndex:
         \_constant: , line:15:15, endln:15:16
           |vpiDecompile:0
@@ -277,13 +277,13 @@ design: (work@alert_handler_reg_wrap)
           |BIN:1
           |vpiConstType:3
         |vpiLhs:
-        \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:18
+        \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
           |vpiName:hw2reg.alert_cause[k].d
           |vpiActual:
           \_ref_obj: (hw2reg), parent:hw2reg.alert_cause[k].d
             |vpiName:hw2reg
           |vpiActual:
-          \_bit_select: (alert_cause), parent:work@alert_handler_reg_wrap.gen_alert_cause[0].hw2reg.alert_cause[k].d
+          \_bit_select: (alert_cause), line:3:19, endln:3:30, parent:work@alert_handler_reg_wrap.gen_alert_cause[0].hw2reg.alert_cause[k].d
             |vpiName:alert_cause
             |vpiIndex:
             \_ref_obj: (work@alert_handler_reg_wrap.gen_alert_cause[0].hw2reg.alert_cause[k].d.k), line:3:31, endln:3:32, parent:alert_cause
@@ -347,12 +347,12 @@ design: (work@alert_handler_reg_wrap)
     \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
       |vpiName:a[0][0].x[0]
       |vpiActual:
-      \_bit_select: (a), parent:work@top.a[0][0].x[0]
+      \_bit_select: (a), line:15:10, endln:15:11, parent:work@top.a[0][0].x[0]
         |vpiName:a
         |vpiIndex:
         \_constant: , line:15:12, endln:15:13
       |vpiActual:
-      \_bit_select: 
+      \_bit_select: , line:15:10, endln:15:11
         |vpiIndex:
         \_constant: , line:15:15, endln:15:16
       |vpiActual:

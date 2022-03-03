@@ -224,7 +224,7 @@ design: (work@top)
       |UINT:2
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (Shares), line:2:18, endln:2:28
+    \_parameter: (Shares), line:2:18, endln:2:24
       |vpiTypespec:
       \_int_typespec: , line:2:14, endln:2:17, parent:Shares
         |vpiInstance:
@@ -239,7 +239,7 @@ design: (work@top)
       |UINT:16
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (KeyWidth), line:3:18, endln:3:31
+    \_parameter: (KeyWidth), line:3:18, endln:3:26
       |vpiTypespec:
       \_int_typespec: , line:3:14, endln:3:17, parent:KeyWidth
         |vpiInstance:
@@ -251,7 +251,7 @@ design: (work@top)
   |vpiName:keymgr_pkg
   |vpiFullName:keymgr_pkg::
   |vpiParameter:
-  \_parameter: (keymgr_pkg::Shares), line:2:18, endln:2:28, parent:keymgr_pkg::
+  \_parameter: (keymgr_pkg::Shares), line:2:18, endln:2:24, parent:keymgr_pkg::
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:2:14, endln:2:17, parent:keymgr_pkg::Shares
@@ -260,7 +260,7 @@ design: (work@top)
     |vpiName:Shares
     |vpiFullName:keymgr_pkg::Shares
   |vpiParameter:
-  \_parameter: (keymgr_pkg::KeyWidth), line:3:18, endln:3:31, parent:keymgr_pkg::
+  \_parameter: (keymgr_pkg::KeyWidth), line:3:18, endln:3:26, parent:keymgr_pkg::
     |UINT:16
     |vpiTypespec:
     \_int_typespec: , line:3:14, endln:3:17, parent:keymgr_pkg::KeyWidth
@@ -279,7 +279,7 @@ design: (work@top)
       \_int_typespec: , line:2:14, endln:2:17, parent:keymgr_pkg::Shares
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (keymgr_pkg::Shares), line:2:18, endln:2:28, parent:keymgr_pkg::
+    \_parameter: (keymgr_pkg::Shares), line:2:18, endln:2:24, parent:keymgr_pkg::
   |vpiParamAssign:
   \_param_assign: , line:3:18, endln:3:31, parent:keymgr_pkg::
     |vpiRhs:
@@ -291,7 +291,7 @@ design: (work@top)
       \_int_typespec: , line:3:14, endln:3:17, parent:keymgr_pkg::KeyWidth
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (keymgr_pkg::KeyWidth), line:3:18, endln:3:31, parent:keymgr_pkg::
+    \_parameter: (keymgr_pkg::KeyWidth), line:3:18, endln:3:26, parent:keymgr_pkg::
   |vpiTypedef:
   \_struct_typespec: (keymgr_pkg::hw_key_req_t), line:5:12, endln:5:18
     |vpiName:keymgr_pkg::hw_key_req_t
@@ -299,7 +299,7 @@ design: (work@top)
     \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:8:11, parent:work@top
     |vpiPacked:1
     |vpiTypespecMember:
-    \_typespec_member: (key), line:6:40, endln:6:43
+    \_typespec_member: (key), line:6:40, endln:6:43, parent:keymgr_pkg::hw_key_req_t
       |vpiName:key
       |vpiTypespec:
       \_logic_typespec: , line:6:7, endln:6:12
@@ -338,7 +338,7 @@ design: (work@top)
 \_module: work@top (work@top) dut.sv:10:1: , endln:14:10, parent:work@top
   |vpiFullName:work@top
   |vpiParameter:
-  \_parameter: (work@top.PP), line:12:14, endln:12:46, parent:work@top
+  \_parameter: (work@top.PP), line:12:14, endln:12:16, parent:work@top
     |UINT:16
     |vpiName:PP
     |vpiFullName:work@top.PP
@@ -351,25 +351,25 @@ design: (work@top)
       |UINT:16
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@top.PP), line:12:14, endln:12:46, parent:work@top
+    \_parameter: (work@top.PP), line:12:14, endln:12:16, parent:work@top
   |vpiDefName:work@top
   |vpiNet:
-  \_logic_net: (work@top.o), line:10:23, parent:work@top
+  \_logic_net: (work@top.o), line:10:23, endln:10:24, parent:work@top
     |vpiName:o
     |vpiFullName:work@top.o
   |vpiNet:
-  \_logic_net: (work@top.keymgr_key_i), line:11:29, parent:work@top
+  \_logic_net: (work@top.keymgr_key_i), line:11:29, endln:11:41, parent:work@top
     |vpiName:keymgr_key_i
     |vpiFullName:work@top.keymgr_key_i
     |vpiNetType:1
   |vpiPort:
-  \_port: (o), line:10:23, parent:work@top
+  \_port: (o), line:10:23, endln:10:24, parent:work@top
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@top.o), line:10:23, parent:work@top
+      \_logic_net: (work@top.o), line:10:23, endln:10:24, parent:work@top
   |vpiContAssign:
   \_cont_assign: , line:13:11, endln:13:41, parent:work@top
     |vpiRhs:
@@ -396,7 +396,7 @@ design: (work@top)
   |vpiVariables:
   \_int_var: (work@top.o), line:10:23, endln:10:24, parent:work@top
   |vpiParameter:
-  \_parameter: (work@top.PP), line:12:14, endln:12:46, parent:work@top
+  \_parameter: (work@top.PP), line:12:14, endln:12:16, parent:work@top
     |UINT:16
     |vpiName:PP
     |vpiFullName:work@top.PP
@@ -409,7 +409,7 @@ design: (work@top)
       |UINT:16
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@top.PP), line:12:14, endln:12:46, parent:work@top
+    \_parameter: (work@top.PP), line:12:14, endln:12:16, parent:work@top
   |vpiDefName:work@top
   |vpiNet:
   \_struct_net: (work@top.keymgr_key_i), line:11:29, endln:11:41, parent:work@top

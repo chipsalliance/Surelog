@@ -277,16 +277,16 @@ design: (work@top)
   |vpiFullName:work@I
   |vpiDefName:work@I
   |vpiNet:
-  \_logic_net: (work@I.r), line:2:13, parent:work@I
+  \_logic_net: (work@I.r), line:2:13, endln:2:14, parent:work@I
     |vpiName:r
     |vpiFullName:work@I.r
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (work@I.x), line:3:11, parent:work@I
+  \_logic_net: (work@I.x), line:3:11, endln:3:12, parent:work@I
     |vpiName:x
     |vpiFullName:work@I.x
   |vpiNet:
-  \_logic_net: (work@I.R), line:4:5, parent:work@I
+  \_logic_net: (work@I.R), line:4:5, endln:4:6, parent:work@I
     |vpiName:R
     |vpiFullName:work@I.R
   |vpiModport:
@@ -382,19 +382,19 @@ design: (work@top)
   |vpiFullName:work@sub
   |vpiDefName:work@sub
   |vpiNet:
-  \_logic_net: (work@sub.I), line:9:23, parent:work@sub
+  \_logic_net: (work@sub.I), line:9:23, endln:9:24, parent:work@sub
     |vpiName:I
     |vpiFullName:work@sub.I
   |vpiPort:
-  \_port: (I), line:9:23, parent:work@sub
+  \_port: (I), line:9:23, endln:9:24, parent:work@sub
     |vpiName:I
     |vpiDirection:3
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@sub.I), line:9:23, parent:work@sub
+      \_logic_net: (work@sub.I), line:9:23, endln:9:24, parent:work@sub
   |vpiProcess:
-  \_initial: , parent:work@sub
+  \_initial: , line:11:3, endln:11:25, parent:work@sub
     |vpiStmt:
     \_assignment: , line:11:11, endln:11:24
       |vpiOpType:82
@@ -406,7 +406,7 @@ design: (work@top)
         |BIN:1010
         |vpiConstType:3
       |vpiLhs:
-      \_hier_path: (I.P), line:11:11, endln:11:12
+      \_hier_path: (I.P), line:11:11, endln:11:14
         |vpiName:I.P
         |vpiActual:
         \_ref_obj: (I), parent:I.P
@@ -419,12 +419,12 @@ design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
   |vpiProcess:
-  \_initial: , parent:work@top
+  \_initial: , line:18:3, endln:18:40, parent:work@top
     |vpiStmt:
     \_delay_control: , line:18:11, endln:18:40
       |#1
       |vpiStmt:
-      \_sys_func_call: ($display), line:18:14, endln:18:40
+      \_sys_func_call: ($display), line:18:14, endln:18:39
         |vpiArgument:
         \_constant: , line:18:23, endln:18:30, parent:$display
           |vpiDecompile:0x%0b
@@ -435,10 +435,10 @@ design: (work@top)
         \_hier_path: (inst.r), line:18:32, endln:18:38, parent:$display
           |vpiName:inst.r
           |vpiActual:
-          \_ref_obj: (inst), parent:inst.r
+          \_ref_obj: (inst), line:18:32, endln:18:36, parent:inst.r
             |vpiName:inst
           |vpiActual:
-          \_ref_obj: (r)
+          \_ref_obj: (r), line:18:37, endln:18:38
             |vpiName:r
         |vpiName:$display
 |uhdmtopModules:
@@ -564,24 +564,24 @@ design: (work@top)
         |vpiDirection:1
         |vpiName:R
   |vpiProcess:
-  \_initial: , parent:work@top
+  \_initial: , line:18:3, endln:18:40, parent:work@top
     |vpiStmt:
     \_delay_control: , line:18:11, endln:18:40
       |#1
       |vpiStmt:
-      \_sys_func_call: ($display), line:18:14, endln:18:40
+      \_sys_func_call: ($display), line:18:14, endln:18:39
         |vpiArgument:
         \_constant: , line:18:23, endln:18:30, parent:$display
         |vpiArgument:
         \_hier_path: (inst.r), line:18:32, endln:18:38, parent:$display
           |vpiName:inst.r
           |vpiActual:
-          \_ref_obj: (inst), parent:inst.r
+          \_ref_obj: (inst), line:18:32, endln:18:36, parent:inst.r
             |vpiName:inst
             |vpiActual:
             \_interface: work@I (work@top.inst) dut.sv:15:3: , endln:15:12, parent:work@top
           |vpiActual:
-          \_ref_obj: (r), parent:inst.r
+          \_ref_obj: (r), line:18:37, endln:18:38, parent:inst.r
             |vpiName:r
             |vpiActual:
             \_logic_var: (work@top.inst.r), line:2:13, endln:2:14, parent:work@top.inst
@@ -600,19 +600,19 @@ design: (work@top)
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:14:1: , endln:20:10
     |vpiPort:
-    \_port: (I), line:9:23, endln:9:24, parent:work@top.s
+    \_port: (I), line:16:10, endln:16:14, parent:work@top.s
       |vpiName:I
       |vpiDirection:3
       |vpiHighConn:
       \_hier_path: (inst.A), line:16:10, endln:16:16, parent:I
         |vpiName:inst.A
         |vpiActual:
-        \_ref_obj: (inst), parent:inst.A
+        \_ref_obj: (inst), line:16:10, endln:16:14, parent:inst.A
           |vpiName:inst
           |vpiActual:
           \_interface: work@I (work@top.inst) dut.sv:15:3: , endln:15:12, parent:work@top
         |vpiActual:
-        \_ref_obj: (A), parent:inst.A
+        \_ref_obj: (A), line:16:15, endln:16:16, parent:inst.A
           |vpiName:A
       |vpiLowConn:
       \_ref_obj: (work@top.s.I), parent:I
@@ -623,7 +623,7 @@ design: (work@top)
       |vpiInstance:
       \_module: work@sub (work@top.s) dut.sv:16:3: , endln:16:18, parent:work@top
     |vpiProcess:
-    \_initial: , parent:work@top.s
+    \_initial: , line:11:3, endln:11:25, parent:work@top.s
       |vpiStmt:
       \_assignment: , line:11:11, endln:11:24
         |vpiOpType:82
@@ -631,7 +631,7 @@ design: (work@top)
         |vpiRhs:
         \_constant: , line:11:17, endln:11:24
         |vpiLhs:
-        \_hier_path: (I.P), line:11:11, endln:11:12
+        \_hier_path: (I.P), line:11:11, endln:11:14
           |vpiName:I.P
           |vpiActual:
           \_ref_obj: (I), parent:I.P

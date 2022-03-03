@@ -726,7 +726,7 @@ design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
   |vpiNet:
-  \_logic_net: (work@top.clk), line:2:8, parent:work@top
+  \_logic_net: (work@top.clk), line:2:8, endln:2:11, parent:work@top
     |vpiName:clk
     |vpiFullName:work@top.clk
   |vpiGlobalClocking:
@@ -762,13 +762,13 @@ design: (work@top)
           |vpiActual:
           \_logic_net: (work@top.clk), line:2:8, endln:2:11, parent:work@top
   |vpiPort:
-  \_port: (clk), line:2:8, parent:work@top
+  \_port: (clk), line:2:8, endln:2:11, parent:work@top
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@top.clk), line:2:8, parent:work@top
+      \_logic_net: (work@top.clk), line:2:8, endln:2:11, parent:work@top
   |vpiClockingBlock:
   \_clocking_block: (cb1), line:11:3, endln:15:14
     |vpiName:cb1
@@ -804,10 +804,10 @@ design: (work@top)
       \_hier_path: (top.to), line:14:29, endln:14:35
         |vpiName:top.to
         |vpiActual:
-        \_ref_obj: (top), parent:top.to
+        \_ref_obj: (top), line:14:29, endln:14:32, parent:top.to
           |vpiName:top
         |vpiActual:
-        \_ref_obj: (to)
+        \_ref_obj: (to), line:14:33, endln:14:35
           |vpiName:to
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:17:10
@@ -904,10 +904,10 @@ design: (work@top)
       \_hier_path: (top.to), line:14:29, endln:14:35, parent:to_Dut
         |vpiName:top.to
         |vpiActual:
-        \_ref_obj: (top), parent:top.to
+        \_ref_obj: (top), line:14:29, endln:14:32, parent:top.to
           |vpiName:top
         |vpiActual:
-        \_ref_obj: (to), parent:top.to
+        \_ref_obj: (to), line:14:33, endln:14:35, parent:top.to
           |vpiName:to
 ===================
 [  FATAL] : 0

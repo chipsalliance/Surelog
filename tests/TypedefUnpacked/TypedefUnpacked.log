@@ -64,7 +64,7 @@ design: (work@dut)
     \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
     |vpiPacked:1
     |vpiTypespecMember:
-    \_typespec_member: (x), line:3:16, endln:3:17
+    \_typespec_member: (x), line:3:16, endln:3:17, parent:pkg::a
       |vpiName:x
       |vpiTypespec:
       \_logic_typespec: , line:3:7, endln:3:12
@@ -110,21 +110,21 @@ design: (work@dut)
   |vpiFullName:work@dut
   |vpiDefName:work@dut
   |vpiNet:
-  \_logic_net: (work@dut.o), line:8:19, parent:work@dut
+  \_logic_net: (work@dut.o), line:8:19, endln:8:20, parent:work@dut
     |vpiName:o
     |vpiFullName:work@dut.o
   |vpiNet:
-  \_logic_net: (work@dut.c), line:9:11, parent:work@dut
+  \_logic_net: (work@dut.c), line:9:11, endln:9:12, parent:work@dut
     |vpiName:c
     |vpiFullName:work@dut.c
   |vpiPort:
-  \_port: (o), line:8:19, parent:work@dut
+  \_port: (o), line:8:19, endln:8:20, parent:work@dut
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@dut.o), line:8:19, parent:work@dut
+      \_logic_net: (work@dut.o), line:8:19, endln:8:20, parent:work@dut
   |vpiContAssign:
   \_cont_assign: , line:10:11, endln:10:21, parent:work@dut
     |vpiRhs:
@@ -137,7 +137,7 @@ design: (work@dut)
     \_hier_path: (c[1].x), line:10:11, endln:10:12
       |vpiName:c[1].x
       |vpiActual:
-      \_bit_select: (c), parent:c[1].x
+      \_bit_select: (c), line:10:11, endln:10:12, parent:c[1].x
         |vpiName:c
         |vpiIndex:
         \_constant: , line:10:13, endln:10:14
@@ -154,7 +154,7 @@ design: (work@dut)
     \_hier_path: (c[1].x), line:11:15, endln:11:21
       |vpiName:c[1].x
       |vpiActual:
-      \_bit_select: (c), parent:c[1].x
+      \_bit_select: (c), line:11:15, endln:11:16, parent:c[1].x
         |vpiName:c
         |vpiIndex:
         \_constant: , line:11:17, endln:11:18
@@ -163,7 +163,7 @@ design: (work@dut)
           |UINT:1
           |vpiConstType:9
       |vpiActual:
-      \_ref_obj: (x)
+      \_ref_obj: (x), line:11:20, endln:11:21
         |vpiName:x
     |vpiLhs:
     \_ref_obj: (work@dut.o), line:11:11, endln:11:12

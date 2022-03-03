@@ -836,7 +836,7 @@ design: (work@dut)
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:15:10, parent:work@dut
   |vpiFullName:work@dut
   |vpiParameter:
-  \_parameter: (work@dut.PRESENT_SBOX4), line:2:31, endln:2:59, parent:work@dut
+  \_parameter: (work@dut.PRESENT_SBOX4), line:2:31, endln:2:44, parent:work@dut
     |vpiTypespec:
     \_logic_typespec: , line:2:13, endln:2:18, parent:work@dut.PRESENT_SBOX4
       |vpiRange:
@@ -887,9 +887,9 @@ design: (work@dut)
         |HEX:1
         |vpiConstType:5
     |vpiLhs:
-    \_parameter: (work@dut.PRESENT_SBOX4), line:2:31, endln:2:59, parent:work@dut
+    \_parameter: (work@dut.PRESENT_SBOX4), line:2:31, endln:2:44, parent:work@dut
   |vpiTypedef:
-  \_enum_typespec: (exc_cause_e), line:11:5, endln:11:16
+  \_enum_typespec: (exc_cause_e), line:7:3, endln:11:17
     |vpiName:exc_cause_e
     |vpiInstance:
     \_module: work@dut (work@dut) dut.sv:1:1: , endln:15:10, parent:work@dut
@@ -910,19 +910,19 @@ design: (work@dut)
           |UINT:0
           |vpiConstType:9
     |vpiEnumConst:
-    \_enum_const: (EXC_CAUSE_IRQ_SOFTWARE_M), line:8:5, endln:8:29
+    \_enum_const: (EXC_CAUSE_IRQ_SOFTWARE_M), line:8:5, endln:8:49
       |vpiName:EXC_CAUSE_IRQ_SOFTWARE_M
       |BIN:100011
       |vpiDecompile:{1'b1,5'd03}
       |vpiSize:6
     |vpiEnumConst:
-    \_enum_const: (EXC_CAUSE_IRQ_TIMER_M), line:9:5, endln:9:26
+    \_enum_const: (EXC_CAUSE_IRQ_TIMER_M), line:9:5, endln:9:49
       |vpiName:EXC_CAUSE_IRQ_TIMER_M
       |BIN:100111
       |vpiDecompile:{1'b1,5'd07}
       |vpiSize:6
     |vpiEnumConst:
-    \_enum_const: (EXC_CAUSE_ECALL_MMODE), line:10:5, endln:10:26
+    \_enum_const: (EXC_CAUSE_ECALL_MMODE), line:10:5, endln:10:49
       |vpiName:EXC_CAUSE_ECALL_MMODE
       |BIN:001011
       |vpiDecompile:{1'b0,5'd11}
@@ -935,7 +935,7 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:4:21, endln:4:26
+    \_logic_var: , line:4:21, endln:4:33
       |vpiRange:
       \_range: , line:4:28, endln:4:32
         |vpiLeftRange:
@@ -951,7 +951,7 @@ design: (work@dut)
           |UINT:0
           |vpiConstType:9
     |vpiIODecl:
-    \_io_decl: (state_in)
+    \_io_decl: (state_in), line:4:59, endln:4:67
       |vpiDirection:1
       |vpiName:state_in
       |vpiTypedef:
@@ -971,7 +971,7 @@ design: (work@dut)
             |UINT:0
             |vpiConstType:9
     |vpiIODecl:
-    \_io_decl: (sbox4)
+    \_io_decl: (sbox4), line:4:87, endln:4:92
       |vpiDirection:1
       |vpiName:sbox4
       |vpiTypedef:
@@ -1012,7 +1012,7 @@ design: (work@dut)
   |vpiContAssign:
   \_cont_assign: , line:14:10, endln:14:70, parent:work@dut
     |vpiRhs:
-    \_func_call: (sbox4_64bit), line:14:28, endln:14:70
+    \_func_call: (sbox4_64bit), line:14:28, endln:14:39
       |vpiArgument:
       \_ref_obj: (work@dut.data_state_xor), line:14:40, endln:14:54, parent:sbox4_64bit
         |vpiName:data_state_xor
@@ -1040,7 +1040,7 @@ design: (work@dut)
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:15:10
   |vpiName:work@dut
   |vpiParameter:
-  \_parameter: (work@dut.PRESENT_SBOX4), line:2:31, endln:2:59, parent:work@dut
+  \_parameter: (work@dut.PRESENT_SBOX4), line:2:31, endln:2:44, parent:work@dut
     |vpiTypespec:
     \_logic_typespec: , line:2:13, endln:2:18, parent:work@dut.PRESENT_SBOX4
       |vpiRange:
@@ -1094,9 +1094,9 @@ design: (work@dut)
         |HEX:2
         |vpiConstType:5
     |vpiLhs:
-    \_parameter: (work@dut.PRESENT_SBOX4), line:2:31, endln:2:59, parent:work@dut
+    \_parameter: (work@dut.PRESENT_SBOX4), line:2:31, endln:2:44, parent:work@dut
   |vpiTypedef:
-  \_enum_typespec: (exc_cause_e), line:11:5, endln:11:16
+  \_enum_typespec: (exc_cause_e), line:7:3, endln:11:17
   |vpiDefName:work@dut
   |vpiTaskFunc:
   \_function: (work@dut.sbox4_64bit), line:4:2, endln:5:28, parent:work@dut
@@ -1105,15 +1105,15 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:4:21, endln:4:26
+    \_logic_var: , line:4:21, endln:4:33
     |vpiIODecl:
-    \_io_decl: (state_in), parent:work@dut.sbox4_64bit
+    \_io_decl: (state_in), line:4:59, endln:4:67, parent:work@dut.sbox4_64bit
       |vpiDirection:1
       |vpiName:state_in
       |vpiTypedef:
       \_logic_typespec: , line:4:46, endln:4:51
     |vpiIODecl:
-    \_io_decl: (sbox4), parent:work@dut.sbox4_64bit
+    \_io_decl: (sbox4), line:4:87, endln:4:92, parent:work@dut.sbox4_64bit
       |vpiDirection:1
       |vpiName:sbox4
       |vpiTypedef:
@@ -1130,7 +1130,7 @@ design: (work@dut)
   |vpiContAssign:
   \_cont_assign: , line:14:10, endln:14:70, parent:work@dut
     |vpiRhs:
-    \_func_call: (sbox4_64bit), line:14:28, endln:14:70
+    \_func_call: (sbox4_64bit), line:14:28, endln:14:39
       |vpiArgument:
       \_ref_obj: (work@dut.data_state_xor), line:14:40, endln:14:54, parent:sbox4_64bit
         |vpiName:data_state_xor
