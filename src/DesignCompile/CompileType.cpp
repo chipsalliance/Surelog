@@ -983,11 +983,16 @@ UHDM::typespec* CompileHelper::compileTypespec(
     case VObjectType::slEnum_base_type:
     case VObjectType::slEnum_name_declaration: {
       typespec* baseType = nullptr;
+      uint64_t baseSize = 64;
       if (the_type == slEnum_base_type) {
         baseType =
             compileTypespec(component, fC, fC->Child(type), compileDesign,
                             pstmt, instance, reduce, isVariable);
         type = fC->Sibling(type);
+        bool invalidValue;
+        baseSize =
+            Bits(baseType, invalidValue, component, compileDesign, instance,
+                 fC->getFileName(), baseType->VpiLineNo(), reduce, true);
       }
       enum_typespec* en = s.MakeEnum_typespec();
       en->Base_typespec(baseType);
@@ -1005,7 +1010,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
           value->setValid();
         } else {
           value = m_exprBuilder.getValueFactory().newLValue();
-          value->set(val, Value::Type::Integer, 64);
+          value->set(val, Value::Type::Integer, baseSize);
         }
         // the_enum->addValue(enumName, fC->Line(enumNameId), value);
         enum_name_declaration = fC->Sibling(enum_name_declaration);
