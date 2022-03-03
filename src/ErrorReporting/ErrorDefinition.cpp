@@ -431,6 +431,10 @@ bool ErrorDefinition::init() {
       "Illegal dynamic packed dimension \"%s\"");
   rec(UHDM_NON_SYNTHESIZABLE, ERROR, UHDM,
       "Non-synthesizable construct \"%s\"");
+  rec(UHDM_ENUM_CONST_SIZE_MISMATCH, ERROR, UHDM,
+      "Enum const size does not match base type size \"%s\"",
+      "%exloc base type");
+  rec(UHDM_DIVIDE_BY_ZERO, ERROR, UHDM, "Division by zero in instance \"%s\"");
   return true;
 }
 

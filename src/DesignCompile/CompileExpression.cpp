@@ -6022,6 +6022,11 @@ uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
         bits = c->VpiSize();
         break;
       }
+      case uhdmenum_const: {
+        enum_const *c = (enum_const *)typespec;
+        bits = c->VpiSize();
+        break;
+      }
       case uhdmref_obj: {
         ref_obj *ref = (ref_obj *)typespec;
         if (const any *act = ref->Actual_group()) {
