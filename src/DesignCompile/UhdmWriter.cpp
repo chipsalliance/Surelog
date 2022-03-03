@@ -2766,6 +2766,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
         package* p = (package*)pack->getUhdmInstance();
         componentMap.insert(std::make_pair(pack, p));
         p->VpiParent(d);
+        p->VpiTop(true);
         p->VpiDefName(pack->getName());
         p->Attributes(pack->Attributes());
         writePackage(pack, p, s, componentMap, true);
@@ -2930,7 +2931,8 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
           valuedcomponenti_cast<ModuleDefinition*>(component);
       const auto& itr = componentMap.find(mod);
       module* m = s.MakeModule();
-      //     m->VpiTopModule(true);
+      m->VpiTopModule(true);
+      m->VpiTop(true);
       module* def = (module*)itr->second;
       m->VpiDefName(def->VpiDefName());
       m->VpiName(def->VpiDefName());  // Top's instance name is module name
