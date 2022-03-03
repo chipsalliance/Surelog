@@ -117,7 +117,7 @@ design: (work@top)
     |vpiInstance:
     \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
     |vpiTypespecMember:
-    \_typespec_member: (first), line:3:20, endln:3:25
+    \_typespec_member: (first), line:3:20, endln:3:25, parent:my_pkg::variable_type
       |vpiName:first
       |vpiTypespec:
       \_logic_typespec: , line:3:9, endln:3:14
@@ -138,7 +138,7 @@ design: (work@top)
             |UINT:0
             |vpiConstType:9
     |vpiTypespecMember:
-    \_typespec_member: (second), line:4:13, endln:4:19
+    \_typespec_member: (second), line:4:13, endln:4:19, parent:my_pkg::variable_type
       |vpiName:second
       |vpiTypespec:
       \_int_typespec: , line:4:9, endln:4:12
@@ -154,29 +154,29 @@ design: (work@top)
   \_import: (my_pkg), line:7:19, endln:7:40
   |vpiDefName:work@top
   |vpiNet:
-  \_logic_net: (work@top.a), line:9:25, parent:work@top
+  \_logic_net: (work@top.a), line:9:25, endln:9:26, parent:work@top
     |vpiName:a
     |vpiFullName:work@top.a
   |vpiNet:
-  \_logic_net: (work@top.b), line:9:28, parent:work@top
+  \_logic_net: (work@top.b), line:9:28, endln:9:29, parent:work@top
     |vpiName:b
     |vpiFullName:work@top.b
   |vpiPort:
-  \_port: (a), line:9:25, parent:work@top
+  \_port: (a), line:9:25, endln:9:26, parent:work@top
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@top.a), line:9:25, parent:work@top
+      \_logic_net: (work@top.a), line:9:25, endln:9:26, parent:work@top
   |vpiPort:
-  \_port: (b), line:9:28, parent:work@top
+  \_port: (b), line:9:28, endln:9:29, parent:work@top
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@top.b), line:9:28, parent:work@top
+      \_logic_net: (work@top.b), line:9:28, endln:9:29, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:7:1: , endln:11:10
   |vpiName:work@top

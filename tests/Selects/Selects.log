@@ -184,7 +184,7 @@ design: (work@t)
     \_module: work@t (work@t) dut.sv:1:1: , endln:16:10, parent:work@t
     |vpiPacked:1
     |vpiTypespecMember:
-    \_typespec_member: (q), line:4:18, endln:4:19
+    \_typespec_member: (q), line:4:18, endln:4:19, parent:rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t
       |vpiName:q
       |vpiTypespec:
       \_logic_typespec: , line:4:5, endln:4:10
@@ -195,7 +195,7 @@ design: (work@t)
     \_module: work@t (work@t) dut.sv:1:1: , endln:16:10, parent:work@t
     |vpiPacked:1
     |vpiTypespecMember:
-    \_typespec_member: (sw_rst_ctrl_n), line:8:46, endln:8:59
+    \_typespec_member: (sw_rst_ctrl_n), line:8:46, endln:8:59, parent:rstmgr_reg2hw_t
       |vpiName:sw_rst_ctrl_n
       |vpiTypespec:
       \_packed_array_typespec: 
@@ -217,20 +217,20 @@ design: (work@t)
         \_struct_typespec: (rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t), line:3:11, endln:3:17
   |vpiDefName:work@t
   |vpiNet:
-  \_logic_net: (work@t.reg2hw), line:11:19, parent:work@t
+  \_logic_net: (work@t.reg2hw), line:11:19, endln:11:25, parent:work@t
     |vpiName:reg2hw
     |vpiFullName:work@t.reg2hw
   |vpiNet:
-  \_logic_net: (work@t.sw_rst_ctrl_n), line:12:44, parent:work@t
+  \_logic_net: (work@t.sw_rst_ctrl_n), line:12:44, endln:12:57, parent:work@t
     |vpiName:sw_rst_ctrl_n
     |vpiFullName:work@t.sw_rst_ctrl_n
   |vpiNet:
-  \_logic_net: (work@t.X), line:14:9, parent:work@t
+  \_logic_net: (work@t.X), line:14:9, endln:14:10, parent:work@t
     |vpiName:X
     |vpiFullName:work@t.X
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (work@t.Y), line:15:9, parent:work@t
+  \_logic_net: (work@t.Y), line:15:9, endln:15:10, parent:work@t
     |vpiName:Y
     |vpiFullName:work@t.Y
     |vpiNetType:36
@@ -282,12 +282,12 @@ design: (work@t)
     \_hier_path: (reg2hw.sw_rst_ctrl_n[0].q), line:14:13, endln:14:38
       |vpiName:reg2hw.sw_rst_ctrl_n[0].q
       |vpiActual:
-      \_ref_obj: (reg2hw), parent:reg2hw.sw_rst_ctrl_n[0].q
+      \_ref_obj: (reg2hw), line:14:13, endln:14:19, parent:reg2hw.sw_rst_ctrl_n[0].q
         |vpiName:reg2hw
         |vpiActual:
         \_struct_var: (work@t.reg2hw), line:11:19, endln:11:25, parent:work@t
       |vpiActual:
-      \_bit_select: (sw_rst_ctrl_n), parent:reg2hw.sw_rst_ctrl_n[0].q
+      \_bit_select: (sw_rst_ctrl_n), line:14:13, endln:14:19, parent:reg2hw.sw_rst_ctrl_n[0].q
         |vpiName:sw_rst_ctrl_n
         |vpiIndex:
         \_constant: , line:14:34, endln:14:35
@@ -296,7 +296,7 @@ design: (work@t)
           |UINT:0
           |vpiConstType:9
       |vpiActual:
-      \_ref_obj: (q)
+      \_ref_obj: (q), line:14:37, endln:14:38
         |vpiName:q
   |vpiVariables:
   \_logic_var: (work@t.Y), line:15:9, endln:15:10, parent:work@t
@@ -310,7 +310,7 @@ design: (work@t)
     \_hier_path: (sw_rst_ctrl_n[0].q), line:15:13, endln:15:31
       |vpiName:sw_rst_ctrl_n[0].q
       |vpiActual:
-      \_bit_select: (sw_rst_ctrl_n), parent:sw_rst_ctrl_n[0].q
+      \_bit_select: (sw_rst_ctrl_n), line:15:13, endln:15:26, parent:sw_rst_ctrl_n[0].q
         |vpiName:sw_rst_ctrl_n
         |vpiIndex:
         \_constant: , line:15:27, endln:15:28
@@ -319,7 +319,7 @@ design: (work@t)
           |UINT:0
           |vpiConstType:9
       |vpiActual:
-      \_ref_obj: (q)
+      \_ref_obj: (q), line:15:30, endln:15:31
         |vpiName:q
   |vpiTypedef:
   \_struct_typespec: (rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t), line:3:11, endln:3:17

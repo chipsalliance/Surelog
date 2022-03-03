@@ -128,14 +128,9 @@ variables* CompileHelper::getSimpleVarFromTypespec(
       }
       break;
     }
-    case uhdmlogic_typespec: {
-      logic_var* logicv = s.MakeLogic_var();
-      logicv->Ranges(packedDimensions);
-      var = logicv;
-      break;
-    }
+    case uhdmlogic_typespec:
     case uhdmvoid_typespec: {
-      UHDM::logic_var* logicv = s.MakeLogic_var();
+      logic_var* logicv = s.MakeLogic_var();
       logicv->Ranges(packedDimensions);
       var = logicv;
       break;
@@ -188,6 +183,7 @@ UHDM::any* CompileHelper::compileVariable(
     SURELOG::ValuedComponentI* instance, bool reduce, bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
+  const NodeId variable_in = variable;
   VObjectType the_type = fC->Type(variable);
   if (the_type == VObjectType::slData_type ||
       the_type == VObjectType::slPs_or_hierarchical_identifier) {
@@ -241,6 +237,11 @@ UHDM::any* CompileHelper::compileVariable(
     case VObjectType::slIntVec_TypeReg: {
       logic_var* var = s.MakeLogic_var();
       var->Ranges(ranges);
+      var->VpiFile(fC->getFileName());
+      var->VpiLineNo(fC->Line(variable_in));
+      var->VpiColumnNo(fC->Column(variable_in));
+      var->VpiEndLineNo(fC->EndLine(variable_in));
+      var->VpiEndColumnNo(fC->EndColumn(variable_in));
       result = var;
       break;
     }
@@ -337,7 +338,7 @@ UHDM::any* CompileHelper::compileVariable(
       break;
     }
   }
-  if (result) {
+  if (result && (result->VpiLineNo() == 0)) {
     result->VpiFile(fC->getFileName());
     result->VpiLineNo(fC->Line(variable));
     result->VpiColumnNo(fC->Column(variable));
@@ -995,6 +996,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
                  fC->getFileName(), baseType->VpiLineNo(), reduce, true);
       }
       enum_typespec* en = s.MakeEnum_typespec();
+      en->VpiFile(fC->getFileName());
       en->Base_typespec(baseType);
       VectorOfenum_const* econsts = s.MakeEnum_constVec();
       en->Enum_consts(econsts);
@@ -1013,7 +1015,6 @@ UHDM::typespec* CompileHelper::compileTypespec(
           value->set(val, Value::Type::Integer, baseSize);
         }
         // the_enum->addValue(enumName, fC->Line(enumNameId), value);
-        enum_name_declaration = fC->Sibling(enum_name_declaration);
         val++;
         if (component) component->setValue(enumName, value, m_exprBuilder);
         Variable* variable =
@@ -1022,11 +1023,12 @@ UHDM::typespec* CompileHelper::compileTypespec(
 
         enum_const* econst = s.MakeEnum_const();
         econst->VpiName(enumName);
+        econst->VpiParent(en);
         econst->VpiFile(fC->getFileName());
-        econst->VpiLineNo(fC->Line(enumNameId));
-        econst->VpiColumnNo(fC->Column(enumNameId));
-        econst->VpiEndLineNo(fC->EndLine(enumNameId));
-        econst->VpiEndColumnNo(fC->EndColumn(enumNameId));
+        econst->VpiLineNo(fC->Line(enum_name_declaration));
+        econst->VpiColumnNo(fC->Column(enum_name_declaration));
+        econst->VpiEndLineNo(fC->EndLine(enum_name_declaration));
+        econst->VpiEndColumnNo(fC->EndColumn(enum_name_declaration));
         econst->VpiValue(value->uhdmValue());
         if (enumValueId) {
           any* exp = compileExpression(component, fC, enumValueId,
@@ -1038,6 +1040,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
         }
         econst->VpiSize(value->getSize());
         econsts->push_back(econst);
+        enum_name_declaration = fC->Sibling(enum_name_declaration);
       }
       result = en;
       break;
@@ -1243,22 +1246,17 @@ UHDM::typespec* CompileHelper::compileTypespec(
         ts->VpiPacked(isPacked);
         ts->Members(members);
         result = ts;
-        ts->VpiFile(fC->getFileName());
-        ts->VpiLineNo(fC->Line(type));
-        ts->VpiColumnNo(fC->Column(type));
-        ts->VpiEndLineNo(fC->EndLine(type));
-        ts->VpiEndColumnNo(fC->EndColumn(type));
       } else {
         union_typespec* ts = s.MakeUnion_typespec();
         ts->VpiPacked(isPacked);
         ts->Members(members);
         result = ts;
-        ts->VpiFile(fC->getFileName());
-        ts->VpiLineNo(fC->Line(type));
-        ts->VpiColumnNo(fC->Column(type));
-        ts->VpiEndLineNo(fC->EndLine(type));
-        ts->VpiEndColumnNo(fC->EndColumn(type));
       }
+      result->VpiFile(fC->getFileName());
+      result->VpiLineNo(fC->Line(type));
+      result->VpiColumnNo(fC->Column(type));
+      result->VpiEndLineNo(fC->EndLine(type));
+      result->VpiEndColumnNo(fC->EndColumn(type));
 
       if (ranges) {
         if (isPacked) {
@@ -1298,17 +1296,21 @@ UHDM::typespec* CompileHelper::compileTypespec(
           NodeId member_name = fC->Child(Variable_decl_assignment);
           NodeId Expression = fC->Sibling(member_name);
           const std::string& mem_name = fC->SymName(member_name);
-          typespec_member* m = buildTypespecMember(
-              compileDesign, fC->getFileName(), mem_name, "",
-              fC->Line(member_name), fC->Column(member_name),
-              fC->EndLine(member_name), fC->EndColumn(member_name));
-          if (member_ts && (member_ts->UhdmType() == uhdmenum_typespec)) {
-            m->VpiRefFile(fC->getFileName());
+          typespec_member* m =
+              buildTypespecMember(compileDesign, fC->getFileName(), mem_name,
+                                  "", fC->Line(Variable_decl_assignment),
+                                  fC->Column(Variable_decl_assignment),
+                                  fC->EndLine(Variable_decl_assignment),
+                                  fC->EndColumn(Variable_decl_assignment));
+          if (member_ts && ((member_ts->UhdmType() == uhdmenum_typespec) ||
+                            (member_ts->UhdmType() == uhdmstruct_typespec))) {
+            m->VpiRefFile(fC->getFileName().string());
             m->VpiRefLineNo(fC->Line(Data_type));
             m->VpiRefColumnNo(fC->Column(Data_type));
             m->VpiRefEndLineNo(fC->EndLine(Data_type));
             m->VpiRefEndColumnNo(fC->EndColumn(Data_type));
           }
+          m->VpiParent(result);
           m->Typespec(member_ts);
           if (Expression && (fC->Type(Expression) != slVariable_dimension)) {
             any* ex =

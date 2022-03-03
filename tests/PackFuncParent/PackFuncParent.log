@@ -267,7 +267,7 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:2:23, endln:2:28
+    \_logic_var: , line:2:23, endln:2:34
       |vpiRange:
       \_range: , line:2:30, endln:2:33
         |vpiLeftRange:
@@ -283,7 +283,7 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
     |vpiIODecl:
-    \_io_decl: (state_in), parent:my_pkg::sbox4_8bit
+    \_io_decl: (state_in), line:2:58, endln:2:66, parent:my_pkg::sbox4_8bit
       |vpiDirection:1
       |vpiName:state_in
       |vpiTypedef:
@@ -311,7 +311,7 @@ design: (work@top)
         |vpiName:state_in
         |vpiFullName:my_pkg::sbox4_8bit::state_in
         |vpiActual:
-        \_io_decl: (state_in), parent:my_pkg::sbox4_8bit
+        \_io_decl: (state_in), line:2:58, endln:2:66, parent:my_pkg::sbox4_8bit
     |vpiInstance:
     \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:11:11, parent:work@top
   |vpiTaskFunc:
@@ -319,7 +319,7 @@ design: (work@top)
     |vpiName:sbox4_16bit
     |vpiFullName:my_pkg::sbox4_16bit
     |vpiVariables:
-    \_logic_var: (my_pkg::sbox4_16bit::state_out), line:7:7, endln:7:12, parent:my_pkg::sbox4_16bit
+    \_logic_var: (my_pkg::sbox4_16bit::state_out), line:7:20, endln:7:29, parent:my_pkg::sbox4_16bit
       |vpiName:state_out
       |vpiFullName:my_pkg::sbox4_16bit::state_out
       |vpiRange:
@@ -339,7 +339,7 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:6:23, endln:6:28
+    \_logic_var: , line:6:23, endln:6:35
       |vpiRange:
       \_range: , line:6:30, endln:6:34
         |vpiLeftRange:
@@ -355,7 +355,7 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
     |vpiIODecl:
-    \_io_decl: (state_in), parent:my_pkg::sbox4_16bit
+    \_io_decl: (state_in), line:6:61, endln:6:69, parent:my_pkg::sbox4_16bit
       |vpiDirection:1
       |vpiName:state_in
       |vpiTypedef:
@@ -384,7 +384,7 @@ design: (work@top)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
-        \_func_call: (sbox4_8bit), line:8:27, endln:8:55
+        \_func_call: (sbox4_8bit), line:8:27, endln:8:37
           |vpiArgument:
           \_indexed_part_select: , line:8:38, endln:8:54, parent:state_in
             |vpiConstantSelect:1
@@ -405,7 +405,7 @@ design: (work@top)
           |vpiFunction:
           \_function: (my_pkg::sbox4_8bit), line:2:4, endln:4:28, parent:my_pkg::
         |vpiLhs:
-        \_indexed_part_select: , line:8:7, endln:8:16, parent:my_pkg::sbox4_16bit::state_out
+        \_indexed_part_select: , line:8:7, endln:8:24, parent:my_pkg::sbox4_16bit::state_out
           |vpiConstantSelect:1
           |vpiIndexedPartSelectType:1
           |vpiBaseExpr:
@@ -427,7 +427,7 @@ design: (work@top)
           |vpiName:state_out
           |vpiFullName:my_pkg::sbox4_16bit::state_out
           |vpiActual:
-          \_logic_var: (my_pkg::sbox4_16bit::state_out), line:7:7, endln:7:12, parent:my_pkg::sbox4_16bit
+          \_logic_var: (my_pkg::sbox4_16bit::state_out), line:7:20, endln:7:29, parent:my_pkg::sbox4_16bit
     |vpiInstance:
     \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:11:11, parent:work@top
 |uhdmallModules:
@@ -435,22 +435,22 @@ design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
   |vpiNet:
-  \_logic_net: (work@top.o), line:13:32, parent:work@top
+  \_logic_net: (work@top.o), line:13:32, endln:13:33, parent:work@top
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:36
   |vpiPort:
-  \_port: (o), line:13:32, parent:work@top
+  \_port: (o), line:13:32, endln:13:33, parent:work@top
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@top.o), line:13:32, parent:work@top
+      \_logic_net: (work@top.o), line:13:32, endln:13:33, parent:work@top
   |vpiContAssign:
   \_cont_assign: , line:14:11, endln:14:44, parent:work@top
     |vpiRhs:
-    \_func_call: (my_pkg::sbox4_16bit), line:14:15, endln:14:44
+    \_func_call: (my_pkg::sbox4_16bit), line:14:15, endln:14:21
       |vpiArgument:
       \_constant: , line:14:35, endln:14:43, parent:my_pkg::sbox4_16bit
         |vpiDecompile:16'hABCD
@@ -504,7 +504,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:14:11, endln:14:44, parent:work@top
     |vpiRhs:
-    \_func_call: (my_pkg::sbox4_16bit), line:14:15, endln:14:44
+    \_func_call: (my_pkg::sbox4_16bit), line:14:15, endln:14:21
       |vpiArgument:
       \_constant: , line:14:35, endln:14:43, parent:my_pkg::sbox4_16bit
       |vpiName:my_pkg::sbox4_16bit

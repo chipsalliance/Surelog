@@ -101,17 +101,17 @@ design: (work@door_mod)
       |vpiAutomatic:1
       |vpiVisibility:1
     |vpiParameter:
-    \_parameter: (pack::door::OPENED), line:7:15, endln:7:32
+    \_parameter: (pack::door::OPENED), line:7:15, endln:7:21
       |BIN:00
       |vpiName:OPENED
       |vpiFullName:pack::door::OPENED
     |vpiParameter:
-    \_parameter: (pack::door::CLOSED), line:8:8, endln:8:25
+    \_parameter: (pack::door::CLOSED), line:8:8, endln:8:14
       |BIN:01
       |vpiName:CLOSED
       |vpiFullName:pack::door::CLOSED
     |vpiParameter:
-    \_parameter: (pack::door::LOCKED), line:9:8, endln:9:25
+    \_parameter: (pack::door::LOCKED), line:9:8, endln:9:14
       |BIN:10
       |vpiName:LOCKED
       |vpiFullName:pack::door::LOCKED
@@ -124,7 +124,7 @@ design: (work@door_mod)
         |BIN:00
         |vpiConstType:3
       |vpiLhs:
-      \_parameter: (pack::door::OPENED), line:7:15, endln:7:32
+      \_parameter: (pack::door::OPENED), line:7:15, endln:7:21
     |vpiParamAssign:
     \_param_assign: , line:8:8, endln:8:25, parent:pack::door
       |vpiRhs:
@@ -134,7 +134,7 @@ design: (work@door_mod)
         |BIN:01
         |vpiConstType:3
       |vpiLhs:
-      \_parameter: (pack::door::CLOSED), line:8:8, endln:8:25
+      \_parameter: (pack::door::CLOSED), line:8:8, endln:8:14
     |vpiParamAssign:
     \_param_assign: , line:9:8, endln:9:25, parent:pack::door
       |vpiRhs:
@@ -144,7 +144,7 @@ design: (work@door_mod)
         |BIN:10
         |vpiConstType:3
       |vpiLhs:
-      \_parameter: (pack::door::LOCKED), line:9:8, endln:9:25
+      \_parameter: (pack::door::LOCKED), line:9:8, endln:9:14
     |vpiVirtual:1
     |vpiMethod:
     \_task: (pack::door::door_fsm), line:10:5, endln:10:17, parent:pack::door
@@ -200,7 +200,7 @@ design: (work@door_mod)
               |vpiName:OPENED
               |vpiFullName:pack::doorOpen::door_fsm::OPENED
               |vpiActual:
-              \_parameter: (pack::door::OPENED), line:7:15, endln:7:32
+              \_parameter: (pack::door::OPENED), line:7:15, endln:7:21
             |vpiLhs:
             \_ref_obj: (pack::doorOpen::door_fsm::state), line:15:20, endln:15:25
               |vpiName:state
@@ -223,11 +223,11 @@ design: (work@door_mod)
   |vpiFullName:work@door_mod
   |vpiDefName:work@door_mod
   |vpiNet:
-  \_logic_net: (work@door_mod.open), line:22:20, parent:work@door_mod
+  \_logic_net: (work@door_mod.open), line:22:20, endln:22:24, parent:work@door_mod
     |vpiName:open
     |vpiFullName:work@door_mod.open
   |vpiProcess:
-  \_initial: , parent:work@door_mod
+  \_initial: , line:23:5, endln:26:8, parent:work@door_mod
     |vpiStmt:
     \_begin: (work@door_mod), line:23:13, endln:26:8
       |vpiFullName:work@door_mod
@@ -239,13 +239,13 @@ design: (work@door_mod)
         \_method_func_call: (new), parent:work@door_mod
           |vpiName:new
         |vpiLhs:
-        \_ref_obj: (open), line:24:9, endln:24:13
+        \_ref_obj: (open), line:24:14, endln:24:14
           |vpiName:open
       |vpiStmt:
-      \_method_func_call: (door_fsm), line:25:9, endln:25:25, parent:work@door_mod
+      \_method_func_call: (door_fsm), line:25:14, endln:25:22, parent:work@door_mod
         |vpiName:door_fsm
         |vpiPrefix:
-        \_ref_obj: (open)
+        \_ref_obj: (open), line:25:9, endln:25:13
           |vpiName:open
 |uhdmtopModules:
 \_module: work@door_mod (work@door_mod) dut.sv:21:1: , endln:27:10
@@ -254,7 +254,7 @@ design: (work@door_mod)
   \_class_var: (work@door_mod.open), line:22:20, endln:22:24, parent:work@door_mod
   |vpiDefName:work@door_mod
   |vpiProcess:
-  \_initial: , parent:work@door_mod
+  \_initial: , line:23:5, endln:26:8, parent:work@door_mod
     |vpiStmt:
     \_begin: (work@door_mod), line:23:13, endln:26:8
       |vpiFullName:work@door_mod
@@ -266,7 +266,7 @@ design: (work@door_mod)
         \_method_func_call: (new)
           |vpiName:new
         |vpiLhs:
-        \_ref_obj: (open), line:24:9, endln:24:13
+        \_ref_obj: (open), line:24:14, endln:24:14
           |vpiName:open
           |vpiActual:
           \_class_var: (work@door_mod.open), line:22:20, endln:22:24, parent:work@door_mod
@@ -274,7 +274,7 @@ design: (work@door_mod)
       \_method_task_call: (door_fsm), parent:work@door_mod
         |vpiName:door_fsm
         |vpiPrefix:
-        \_ref_obj: (work@door_mod.open), parent:door_fsm
+        \_ref_obj: (work@door_mod.open), line:25:9, endln:25:13, parent:door_fsm
           |vpiName:open
           |vpiFullName:work@door_mod.open
           |vpiActual:

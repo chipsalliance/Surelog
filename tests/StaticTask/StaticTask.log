@@ -122,7 +122,7 @@ design: (work@tb)
     |vpiName:display
     |vpiFullName:work@tb.display
     |vpiVariables:
-    \_int_var: (work@tb.display.i), line:6:2, endln:6:9
+    \_int_var: (work@tb.display.i), line:6:10, endln:6:11
       |vpiName:i
       |vpiFullName:work@tb.display.i
     |vpiVisibility:1
@@ -130,7 +130,7 @@ design: (work@tb)
     \_begin: (work@tb.display), parent:work@tb.display
       |vpiFullName:work@tb.display
       |vpiStmt:
-      \_assign_stmt: , parent:work@tb.display
+      \_assign_stmt: , line:6:10, endln:6:15, parent:work@tb.display
         |vpiRhs:
         \_constant: , line:6:14, endln:6:15
           |vpiDecompile:0
@@ -138,20 +138,20 @@ design: (work@tb)
           |UINT:0
           |vpiConstType:9
         |vpiLhs:
-        \_int_var: (work@tb.display.i), line:6:2, endln:6:9
+        \_int_var: (work@tb.display.i), line:6:10, endln:6:11
       |vpiStmt:
       \_assignment: , line:7:2, endln:7:11, parent:work@tb.display
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
-        \_operation: , line:7:6, endln:7:7, parent:work@tb.display
+        \_operation: , line:7:6, endln:7:11, parent:work@tb.display
           |vpiOpType:24
           |vpiOperand:
           \_ref_obj: (work@tb.display.i), line:7:6, endln:7:7, parent:work@tb.display
             |vpiName:i
             |vpiFullName:work@tb.display.i
             |vpiActual:
-            \_int_var: (work@tb.display.i), line:6:2, endln:6:9
+            \_int_var: (work@tb.display.i), line:6:10, endln:6:11
           |vpiOperand:
           \_constant: , line:7:10, endln:7:11
             |vpiDecompile:1
@@ -163,9 +163,9 @@ design: (work@tb)
           |vpiName:i
           |vpiFullName:work@tb.display.i
           |vpiActual:
-          \_int_var: (work@tb.display.i), line:6:2, endln:6:9
+          \_int_var: (work@tb.display.i), line:6:10, endln:6:11
       |vpiStmt:
-      \_sys_func_call: ($display), line:8:2, endln:8:23, parent:work@tb.display
+      \_sys_func_call: ($display), line:8:2, endln:8:22, parent:work@tb.display
         |vpiArgument:
         \_constant: , line:8:11, endln:8:18, parent:$display
           |vpiDecompile:i=%0d
@@ -177,14 +177,14 @@ design: (work@tb)
           |vpiName:i
           |vpiFullName:work@tb.display.i
           |vpiActual:
-          \_int_var: (work@tb.display.i), line:6:2, endln:6:9
+          \_int_var: (work@tb.display.i), line:6:10, endln:6:11
         |vpiName:$display
     |vpiInstance:
     \_module: work@tb (work@tb) dut.sv:1:1: , endln:10:10, parent:work@tb
   |vpiProcess:
-  \_initial: , parent:work@tb
+  \_initial: , line:3:2, endln:3:20, parent:work@tb
     |vpiStmt:
-    \_task_call: (display), line:3:10, endln:3:20
+    \_task_call: (display), line:3:10, endln:3:17
       |vpiName:display
       |vpiTask:
       \_task: (work@tb.display), line:5:2, endln:9:9, parent:work@tb
@@ -197,7 +197,7 @@ design: (work@tb)
     |vpiName:display
     |vpiFullName:work@tb.display
     |vpiVariables:
-    \_int_var: (work@tb.display.i), line:6:2, endln:6:9, parent:work@tb.display
+    \_int_var: (work@tb.display.i), line:6:10, endln:6:11, parent:work@tb.display
       |vpiName:i
       |vpiFullName:work@tb.display.i
     |vpiVisibility:1
@@ -205,11 +205,11 @@ design: (work@tb)
     \_begin: (work@tb.display), parent:work@tb.display
       |vpiFullName:work@tb.display
       |vpiStmt:
-      \_assign_stmt: , parent:work@tb.display
+      \_assign_stmt: , line:6:10, endln:6:15, parent:work@tb.display
         |vpiRhs:
         \_constant: , line:6:14, endln:6:15
         |vpiLhs:
-        \_int_var: (work@tb.display.i), line:6:2, endln:6:9
+        \_int_var: (work@tb.display.i), line:6:10, endln:6:11
           |vpiName:i
           |vpiFullName:work@tb.display.i
       |vpiStmt:
@@ -217,14 +217,14 @@ design: (work@tb)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
-        \_operation: , line:7:6, endln:7:7
+        \_operation: , line:7:6, endln:7:11
           |vpiOpType:24
           |vpiOperand:
           \_ref_obj: (work@tb.display.i), line:7:6, endln:7:7
             |vpiName:i
             |vpiFullName:work@tb.display.i
             |vpiActual:
-            \_int_var: (work@tb.display.i), line:6:2, endln:6:9, parent:work@tb.display
+            \_int_var: (work@tb.display.i), line:6:10, endln:6:11, parent:work@tb.display
           |vpiOperand:
           \_constant: , line:7:10, endln:7:11
         |vpiLhs:
@@ -232,9 +232,9 @@ design: (work@tb)
           |vpiName:i
           |vpiFullName:work@tb.display.i
           |vpiActual:
-          \_int_var: (work@tb.display.i), line:6:2, endln:6:9, parent:work@tb.display
+          \_int_var: (work@tb.display.i), line:6:10, endln:6:11, parent:work@tb.display
       |vpiStmt:
-      \_sys_func_call: ($display), line:8:2, endln:8:23, parent:work@tb.display
+      \_sys_func_call: ($display), line:8:2, endln:8:22, parent:work@tb.display
         |vpiArgument:
         \_constant: , line:8:11, endln:8:18, parent:$display
         |vpiArgument:
@@ -242,14 +242,14 @@ design: (work@tb)
           |vpiName:i
           |vpiFullName:work@tb.display.i
           |vpiActual:
-          \_int_var: (work@tb.display.i), line:6:2, endln:6:9, parent:work@tb.display
+          \_int_var: (work@tb.display.i), line:6:10, endln:6:11, parent:work@tb.display
         |vpiName:$display
     |vpiInstance:
     \_module: work@tb (work@tb) dut.sv:1:1: , endln:10:10
   |vpiProcess:
-  \_initial: , parent:work@tb
+  \_initial: , line:3:2, endln:3:20, parent:work@tb
     |vpiStmt:
-    \_task_call: (display), line:3:10, endln:3:20
+    \_task_call: (display), line:3:10, endln:3:17
       |vpiName:display
       |vpiTask:
       \_task: (work@tb.display), line:5:2, endln:9:9, parent:work@tb

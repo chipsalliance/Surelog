@@ -403,12 +403,12 @@ design: (work@test)
   |vpiFullName:work@block_tb
   |vpiDefName:work@block_tb
   |vpiNet:
-  \_logic_net: (work@block_tb.a), line:61:6, parent:work@block_tb
+  \_logic_net: (work@block_tb.a), line:61:6, endln:61:7, parent:work@block_tb
     |vpiName:a
     |vpiFullName:work@block_tb.a
     |vpiNetType:48
   |vpiProcess:
-  \_initial: , parent:work@block_tb
+  \_initial: , line:62:2, endln:65:14, parent:work@block_tb
     |vpiStmt:
     \_named_fork: (work@block_tb.name1), line:63:17, endln:65:14
       |vpiName:name1
@@ -437,11 +437,11 @@ design: (work@test)
   |vpiFullName:work@test
   |vpiDefName:work@test
   |vpiNet:
-  \_logic_net: (work@test.err), line:27:8, parent:work@test
+  \_logic_net: (work@test.err), line:27:8, endln:27:11, parent:work@test
     |vpiName:err
     |vpiFullName:work@test.err
   |vpiProcess:
-  \_initial: , parent:work@test
+  \_initial: , line:29:4, endln:32:25, parent:work@test
     |vpiStmt:
     \_named_begin: (work@test.dummy_label), line:30:4, endln:32:25
       |vpiName:dummy_label
@@ -470,7 +470,7 @@ design: (work@test)
                 |UINT:0
                 |vpiConstType:9
         |vpiStmt:
-        \_sys_func_call: ($display), line:31:17, endln:31:36
+        \_sys_func_call: ($display), line:31:17, endln:31:35
           |vpiArgument:
           \_constant: , line:31:26, endln:31:34, parent:$display
             |vpiDecompile:PASSED
@@ -479,7 +479,7 @@ design: (work@test)
             |vpiConstType:6
           |vpiName:$display
   |vpiProcess:
-  \_initial: , parent:work@test
+  \_initial: , line:40:1, endln:54:6, parent:work@test
     |vpiStmt:
     \_begin: (work@test), line:40:9, endln:54:6
       |vpiFullName:work@test
@@ -488,7 +488,7 @@ design: (work@test)
         |vpiName:n1
         |vpiFullName:work@test.n1
         |vpiStmt:
-        \_func_call: (print), line:43:6, endln:43:16, parent:work@test.n1
+        \_func_call: (print), line:43:6, endln:43:11, parent:work@test.n1
           |vpiArgument:
           \_constant: , line:43:12, endln:43:14, parent:print
             |STRING:
@@ -498,7 +498,7 @@ design: (work@test)
       \_fork_stmt: (work@test), line:46:4, endln:48:13, parent:work@test
         |vpiFullName:work@test
         |vpiStmt:
-        \_func_call: (print), line:47:6, endln:47:16, parent:work@test
+        \_func_call: (print), line:47:6, endln:47:11, parent:work@test
           |vpiArgument:
           \_constant: , line:47:12, endln:47:14, parent:print
             |STRING:
@@ -509,7 +509,7 @@ design: (work@test)
         |vpiName:n1
         |vpiFullName:work@test.n1
         |vpiStmt:
-        \_func_call: (print), line:51:5, endln:51:15, parent:work@test.n1
+        \_func_call: (print), line:51:5, endln:51:10, parent:work@test.n1
           |vpiArgument:
           \_constant: , line:51:11, endln:51:13, parent:print
             |STRING:
@@ -530,7 +530,7 @@ design: (work@test)
   \_bit_var: (work@test.err), line:27:8, endln:27:11, parent:work@test
   |vpiDefName:work@test
   |vpiProcess:
-  \_initial: , parent:work@test
+  \_initial: , line:29:4, endln:32:25, parent:work@test
     |vpiStmt:
     \_named_begin: (work@test.dummy_label), line:30:4, endln:32:25
       |vpiName:dummy_label
@@ -547,12 +547,12 @@ design: (work@test)
             |vpiActual:
             \_bit_var: (work@test.err), line:27:8, endln:27:11, parent:work@test
         |vpiStmt:
-        \_sys_func_call: ($display), line:31:17, endln:31:36
+        \_sys_func_call: ($display), line:31:17, endln:31:35
           |vpiArgument:
           \_constant: , line:31:26, endln:31:34, parent:$display
           |vpiName:$display
   |vpiProcess:
-  \_initial: , parent:work@test
+  \_initial: , line:40:1, endln:54:6, parent:work@test
     |vpiStmt:
     \_begin: (work@test), line:40:9, endln:54:6
       |vpiFullName:work@test
@@ -561,7 +561,7 @@ design: (work@test)
         |vpiName:n1
         |vpiFullName:work@test.n1
         |vpiStmt:
-        \_func_call: (print), line:43:6, endln:43:16, parent:work@test.n1
+        \_func_call: (print), line:43:6, endln:43:11, parent:work@test.n1
           |vpiArgument:
           \_constant: , line:43:12, endln:43:14, parent:print
           |vpiName:print
@@ -569,7 +569,7 @@ design: (work@test)
       \_fork_stmt: (work@test), line:46:4, endln:48:13, parent:work@test
         |vpiFullName:work@test
         |vpiStmt:
-        \_func_call: (print), line:47:6, endln:47:16, parent:work@test
+        \_func_call: (print), line:47:6, endln:47:11, parent:work@test
           |vpiArgument:
           \_constant: , line:47:12, endln:47:14, parent:print
           |vpiName:print
@@ -578,7 +578,7 @@ design: (work@test)
         |vpiName:n1
         |vpiFullName:work@test.n1
         |vpiStmt:
-        \_func_call: (print), line:51:5, endln:51:15, parent:work@test.n1
+        \_func_call: (print), line:51:5, endln:51:10, parent:work@test.n1
           |vpiArgument:
           \_constant: , line:51:11, endln:51:13, parent:print
           |vpiName:print
@@ -589,7 +589,7 @@ design: (work@test)
   |vpiNet:
   \_logic_net: (work@block_tb.a), line:61:6, endln:61:7, parent:work@block_tb
   |vpiProcess:
-  \_initial: , parent:work@block_tb
+  \_initial: , line:62:2, endln:65:14, parent:work@block_tb
     |vpiStmt:
     \_named_fork: (work@block_tb.name1), line:63:17, endln:65:14
       |vpiName:name1

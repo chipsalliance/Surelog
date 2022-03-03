@@ -680,14 +680,12 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
     }
 
     enum_t->VpiFile(the_enum->getFileContent()->getFileName());
-    enum_t->VpiLineNo(
-        the_enum->getFileContent()->Line(the_enum->getDefinitionId()));
-    enum_t->VpiColumnNo(
-        the_enum->getFileContent()->Column(the_enum->getDefinitionId()));
-    enum_t->VpiEndLineNo(
-        the_enum->getFileContent()->EndLine(the_enum->getDefinitionId()));
+    enum_t->VpiLineNo(the_enum->getFileContent()->Line(type_declaration));
+    enum_t->VpiColumnNo(the_enum->getFileContent()->Column(type_declaration));
+    enum_t->VpiEndLineNo(the_enum->getFileContent()->EndLine(type_declaration));
     enum_t->VpiEndColumnNo(
-        the_enum->getFileContent()->EndColumn(the_enum->getDefinitionId()));
+        the_enum->getFileContent()->EndColumn(type_declaration));
+
     // Enum basetype
     enum_t->Base_typespec(the_enum->getBaseTypespec());
     if (reduce && (valuedcomponenti_cast<Package*>(scope))) {
@@ -723,7 +721,6 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
         value->set(val, Value::Type::Integer, baseSize);
       }
       the_enum->addValue(enumName, fC->Line(enumNameId), value);
-      enum_name_declaration = fC->Sibling(enum_name_declaration);
       val++;
       if (scope) scope->setValue(enumName, value, m_exprBuilder);
       Variable* variable = new Variable(type, fC, enumValueId, 0, enumName);
@@ -731,11 +728,11 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
 
       enum_const* econst = s.MakeEnum_const();
       econst->VpiName(enumName);
-      econst->VpiFile(the_enum->getFileContent()->getFileName());
-      econst->VpiLineNo(fC->Line(enumNameId));
-      econst->VpiColumnNo(fC->Column(enumNameId));
-      econst->VpiEndLineNo(fC->EndLine(enumNameId));
-      econst->VpiEndColumnNo(fC->EndColumn(enumNameId));
+      econst->VpiFile(fC->getFileName());
+      econst->VpiLineNo(fC->Line(enum_name_declaration));
+      econst->VpiColumnNo(fC->Column(enum_name_declaration));
+      econst->VpiEndLineNo(fC->EndLine(enum_name_declaration));
+      econst->VpiEndColumnNo(fC->EndColumn(enum_name_declaration));
       econst->VpiValue(value->uhdmValue());
       if (enumValueId) {
         any* exp = compileExpression(scope, fC, enumValueId, compileDesign,
@@ -747,6 +744,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       }
       econst->VpiSize(value->getSize());
       econsts->push_back(econst);
+      enum_name_declaration = fC->Sibling(enum_name_declaration);
     }
 
     type->setDefinition(newTypeDef);
@@ -2178,6 +2176,11 @@ bool CompileHelper::compileInitialBlock(DesignComponent* component,
     processes = component->getProcesses();
   }
   processes->push_back(init);
+  init->VpiFile(fC->getFileName());
+  init->VpiLineNo(fC->Line(initial_construct));
+  init->VpiColumnNo(fC->Column(initial_construct));
+  init->VpiEndLineNo(fC->EndLine(initial_construct));
+  init->VpiEndColumnNo(fC->EndColumn(initial_construct));
   NodeId Statement_or_null = fC->Child(initial_construct);
   VectorOfany* stmts =
       compileStmt(component, fC, Statement_or_null, compileDesign, init);
@@ -2256,6 +2259,11 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(
           }
         }
         if (call) {
+          call->VpiFile(fC->getFileName());
+          call->VpiLineNo(fC->Line(fC->Child(unit)));
+          call->VpiColumnNo(fC->Column(fC->Child(unit)));
+          call->VpiEndLineNo(fC->EndLine(fC->Child(unit)));
+          call->VpiEndColumnNo(fC->EndColumn(fC->Child(unit)));
           dc->Stmt(call);
           call->VpiParent(dc);
         }
@@ -2619,10 +2627,10 @@ bool CompileHelper::compileParameterDeclaration(
       }
       param->VpiSigned(isSigned);
       param->VpiFile(fC->getFileName());
-      param->VpiLineNo(fC->Line(Param_assignment));
-      param->VpiColumnNo(fC->Column(Param_assignment));
-      param->VpiEndLineNo(fC->EndLine(Param_assignment));
-      param->VpiEndColumnNo(fC->EndColumn(Param_assignment));
+      param->VpiLineNo(fC->Line(name));
+      param->VpiColumnNo(fC->Column(name));
+      param->VpiEndLineNo(fC->EndLine(name));
+      param->VpiEndColumnNo(fC->EndColumn(name));
       param->VpiName(fC->SymName(name));
 
       if (localParam) {
@@ -2847,13 +2855,18 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
       method_func_call* fcall = s.MakeMethod_func_call();
       const std::string& mname = fC->SymName(tfNameNode);
       fcall->VpiFile(fC->getFileName());
-      fcall->VpiLineNo(fC->Line(Constant_bit_select));
-      fcall->VpiColumnNo(fC->Column(Constant_bit_select));
-      fcall->VpiEndLineNo(fC->EndLine(Constant_bit_select));
-      fcall->VpiEndColumnNo(fC->EndColumn(Constant_bit_select));
+      fcall->VpiLineNo(fC->Line(tfNameNode));
+      fcall->VpiColumnNo(fC->Column(tfNameNode));
+      fcall->VpiEndLineNo(fC->EndLine(tfNameNode));
+      fcall->VpiEndColumnNo(fC->EndColumn(tfNameNode));
       fcall->VpiName(mname);
       ref_obj* prefix = s.MakeRef_obj();
       prefix->VpiName(name);
+      prefix->VpiFile(fC->getFileName());
+      prefix->VpiLineNo(fC->Line(dollar_or_string));
+      prefix->VpiColumnNo(fC->Column(dollar_or_string));
+      prefix->VpiEndLineNo(fC->EndLine(dollar_or_string));
+      prefix->VpiEndColumnNo(fC->EndColumn(dollar_or_string));
       fcall->Prefix(prefix);
       call = fcall;
     }
@@ -2872,9 +2885,17 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
       }
     }
     if (call == nullptr) call = s.MakeFunc_call();
+    if (call->VpiLineNo() == 0) {
+      call->VpiFile(fC->getFileName());
+      call->VpiLineNo(fC->Line(tfNameNode));
+      call->VpiColumnNo(fC->Column(tfNameNode));
+      call->VpiEndLineNo(fC->EndLine(tfNameNode));
+      call->VpiEndColumnNo(fC->EndColumn(tfNameNode));
+    }
   }
   if (call->VpiName().empty()) call->VpiName(name);
   if (call->VpiLineNo() == 0) {
+    call->VpiFile(fC->getFileName());
     call->VpiLineNo(fC->Line(Tf_call_stmt));
     call->VpiColumnNo(fC->Column(Tf_call_stmt));
     call->VpiEndLineNo(fC->EndLine(Tf_call_stmt));

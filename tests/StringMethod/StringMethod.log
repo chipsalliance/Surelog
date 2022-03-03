@@ -770,32 +770,32 @@ design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
   |vpiNet:
-  \_logic_net: (work@top.s), line:2:11, parent:work@top
+  \_logic_net: (work@top.s), line:2:11, endln:2:12, parent:work@top
     |vpiName:s
     |vpiFullName:work@top.s
   |vpiNet:
-  \_logic_net: (work@top.t), line:3:11, parent:work@top
+  \_logic_net: (work@top.t), line:3:11, endln:3:12, parent:work@top
     |vpiName:t
     |vpiFullName:work@top.t
   |vpiNet:
-  \_logic_net: (work@top.a), line:7:9, parent:work@top
+  \_logic_net: (work@top.a), line:7:9, endln:7:10, parent:work@top
     |vpiName:a
     |vpiFullName:work@top.a
   |vpiNet:
-  \_logic_net: (work@top.b), line:8:9, parent:work@top
+  \_logic_net: (work@top.b), line:8:9, endln:8:10, parent:work@top
     |vpiName:b
     |vpiFullName:work@top.b
   |vpiNet:
-  \_logic_net: (work@top.c), line:9:9, parent:work@top
+  \_logic_net: (work@top.c), line:9:9, endln:9:10, parent:work@top
     |vpiName:c
     |vpiFullName:work@top.c
   |vpiProcess:
-  \_initial: , parent:work@top
+  \_initial: , line:4:4, endln:6:7, parent:work@top
     |vpiStmt:
     \_begin: (work@top), line:4:12, endln:6:7
       |vpiFullName:work@top
       |vpiStmt:
-      \_method_func_call: (putc), line:5:7, endln:5:22, parent:work@top
+      \_method_func_call: (putc), line:5:9, endln:5:13, parent:work@top
         |vpiArgument:
         \_constant: , line:5:14, endln:5:15, parent:putc
           |vpiDecompile:1
@@ -810,7 +810,7 @@ design: (work@top)
           |vpiConstType:6
         |vpiName:putc
         |vpiPrefix:
-        \_ref_obj: (s)
+        \_ref_obj: (s), line:5:7, endln:5:8
           |vpiName:s
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:10:10
@@ -837,12 +837,12 @@ design: (work@top)
     \_hier_path: (s.substr), line:3:15, endln:3:29
       |vpiName:s.substr
       |vpiActual:
-      \_ref_obj: (s), parent:s.substr
+      \_ref_obj: (s), line:3:15, endln:3:16, parent:s.substr
         |vpiName:s
         |vpiActual:
         \_string_var: (work@top.s), line:2:11, endln:2:12, parent:work@top
       |vpiActual:
-      \_method_func_call: (substr)
+      \_method_func_call: (substr), line:3:17, endln:3:23
         |vpiArgument:
         \_constant: , line:3:24, endln:3:25, parent:substr
           |vpiDecompile:1
@@ -868,12 +868,12 @@ design: (work@top)
     \_hier_path: (s.getc), line:7:13, endln:7:22
       |vpiName:s.getc
       |vpiActual:
-      \_ref_obj: (s), parent:s.getc
+      \_ref_obj: (s), line:7:13, endln:7:14, parent:s.getc
         |vpiName:s
         |vpiActual:
         \_string_var: (work@top.s), line:2:11, endln:2:12, parent:work@top
       |vpiActual:
-      \_method_func_call: (getc)
+      \_method_func_call: (getc), line:7:15, endln:7:19
         |vpiArgument:
         \_constant: , line:7:20, endln:7:21, parent:getc
           |vpiDecompile:1
@@ -893,12 +893,12 @@ design: (work@top)
     \_hier_path: (s.compare), line:8:13, endln:8:25
       |vpiName:s.compare
       |vpiActual:
-      \_ref_obj: (s), parent:s.compare
+      \_ref_obj: (s), line:8:13, endln:8:14, parent:s.compare
         |vpiName:s
         |vpiActual:
         \_string_var: (work@top.s), line:2:11, endln:2:12, parent:work@top
       |vpiActual:
-      \_method_func_call: (compare)
+      \_method_func_call: (compare), line:8:15, endln:8:22
         |vpiArgument:
         \_ref_obj: (t), line:8:23, endln:8:24, parent:compare
           |vpiName:t
@@ -917,12 +917,12 @@ design: (work@top)
     \_hier_path: (s.icompare), line:9:13, endln:9:26
       |vpiName:s.icompare
       |vpiActual:
-      \_ref_obj: (s), parent:s.icompare
+      \_ref_obj: (s), line:9:13, endln:9:14, parent:s.icompare
         |vpiName:s
         |vpiActual:
         \_string_var: (work@top.s), line:2:11, endln:2:12, parent:work@top
       |vpiActual:
-      \_method_func_call: (icompare)
+      \_method_func_call: (icompare), line:9:15, endln:9:23
         |vpiArgument:
         \_ref_obj: (t), line:9:24, endln:9:25, parent:icompare
           |vpiName:t
@@ -931,19 +931,19 @@ design: (work@top)
         |vpiName:icompare
   |vpiDefName:work@top
   |vpiProcess:
-  \_initial: , parent:work@top
+  \_initial: , line:4:4, endln:6:7, parent:work@top
     |vpiStmt:
     \_begin: (work@top), line:4:12, endln:6:7
       |vpiFullName:work@top
       |vpiStmt:
-      \_method_func_call: (putc), line:5:7, endln:5:22, parent:work@top
+      \_method_func_call: (putc), line:5:9, endln:5:13, parent:work@top
         |vpiArgument:
         \_constant: , line:5:14, endln:5:15, parent:putc
         |vpiArgument:
         \_constant: , line:5:17, endln:5:20, parent:putc
         |vpiName:putc
         |vpiPrefix:
-        \_ref_obj: (work@top.s), parent:putc
+        \_ref_obj: (work@top.s), line:5:7, endln:5:8, parent:putc
           |vpiName:s
           |vpiFullName:work@top.s
           |vpiActual:

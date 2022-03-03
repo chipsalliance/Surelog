@@ -1026,7 +1026,7 @@ design: (work@simple_package)
       |UINT:2
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (SIZE), line:8:13, endln:8:21
+    \_parameter: (SIZE), line:8:13, endln:8:17
       |vpiName:SIZE
   |vpiDefName:definesPkg
 |uhdmallPackages:
@@ -1064,7 +1064,7 @@ design: (work@simple_package)
   |vpiName:definesPkg
   |vpiFullName:definesPkg::
   |vpiParameter:
-  \_parameter: (definesPkg::SIZE), line:8:13, endln:8:21, parent:definesPkg::
+  \_parameter: (definesPkg::SIZE), line:8:13, endln:8:17, parent:definesPkg::
     |UINT:2
     |vpiName:SIZE
     |vpiFullName:definesPkg::SIZE
@@ -1077,9 +1077,9 @@ design: (work@simple_package)
       |UINT:2
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (definesPkg::SIZE), line:8:13, endln:8:21, parent:definesPkg::
+    \_parameter: (definesPkg::SIZE), line:8:13, endln:8:17, parent:definesPkg::
   |vpiTypedef:
-  \_enum_typespec: (definesPkg::bool), line:10:31, endln:10:35
+  \_enum_typespec: (definesPkg::bool), line:10:3, endln:10:36
     |vpiName:definesPkg::bool
     |vpiInstance:
     \_package: definesPkg (definesPkg::) definesPkg.pkg:4:1: , endln:17:11, parent:work@simple_package
@@ -1101,7 +1101,7 @@ design: (work@simple_package)
     |vpiInstance:
     \_package: definesPkg (definesPkg::) definesPkg.pkg:4:1: , endln:17:11, parent:work@simple_package
     |vpiTypespecMember:
-    \_typespec_member: (addr), line:12:20, endln:12:24
+    \_typespec_member: (addr), line:12:20, endln:12:24, parent:definesPkg::mem_s
       |vpiName:addr
       |vpiTypespec:
       \_bit_typespec: , line:12:6, endln:12:9
@@ -1122,7 +1122,7 @@ design: (work@simple_package)
             |UINT:0
             |vpiConstType:9
     |vpiTypespecMember:
-    \_typespec_member: (data), line:13:20, endln:13:24
+    \_typespec_member: (data), line:13:20, endln:13:24, parent:definesPkg::mem_s
       |vpiName:data
       |vpiTypespec:
       \_bit_typespec: , line:13:6, endln:13:9
@@ -1143,7 +1143,7 @@ design: (work@simple_package)
             |UINT:0
             |vpiConstType:9
     |vpiTypespecMember:
-    \_typespec_member: (wr), line:14:20, endln:14:22
+    \_typespec_member: (wr), line:14:20, endln:14:22, parent:definesPkg::mem_s
       |vpiName:wr
       |vpiTypespec:
       \_bit_typespec: , line:14:6, endln:14:9
@@ -1217,7 +1217,7 @@ design: (work@simple_package)
     |vpiFullName:msgPkg::initMsgPkg
     |vpiVisibility:1
     |vpiIODecl:
-    \_io_decl: (mName), parent:msgPkg::initMsgPkg
+    \_io_decl: (mName), line:12:27, endln:12:32, parent:msgPkg::initMsgPkg
       |vpiDirection:1
       |vpiName:mName
       |vpiTypedef:
@@ -1225,7 +1225,7 @@ design: (work@simple_package)
         |vpiInstance:
         \_package: msgPkg (msgPkg::) msgPkg.pkg:4:1: , endln:57:11, parent:work@simple_package
     |vpiIODecl:
-    \_io_decl: (term), parent:msgPkg::initMsgPkg
+    \_io_decl: (term), line:12:38, endln:12:42, parent:msgPkg::initMsgPkg
       |vpiDirection:1
       |vpiName:term
       |vpiTypedef:
@@ -1244,7 +1244,7 @@ design: (work@simple_package)
           |vpiName:term
           |vpiFullName:msgPkg::initMsgPkg::term
           |vpiActual:
-          \_io_decl: (term), parent:msgPkg::initMsgPkg
+          \_io_decl: (term), line:12:38, endln:12:42, parent:msgPkg::initMsgPkg
         |vpiLhs:
         \_ref_obj: (msgPkg::initMsgPkg::terminate_on_error), line:13:5, endln:13:23
           |vpiName:terminate_on_error
@@ -1260,7 +1260,7 @@ design: (work@simple_package)
           |vpiName:mName
           |vpiFullName:msgPkg::initMsgPkg::mName
           |vpiActual:
-          \_io_decl: (mName), parent:msgPkg::initMsgPkg
+          \_io_decl: (mName), line:12:27, endln:12:32, parent:msgPkg::initMsgPkg
         |vpiLhs:
         \_ref_obj: (msgPkg::initMsgPkg::msgName), line:14:5, endln:14:12
           |vpiName:msgName
@@ -1275,7 +1275,7 @@ design: (work@simple_package)
     |vpiFullName:msgPkg::msg_info
     |vpiVisibility:1
     |vpiIODecl:
-    \_io_decl: (msg), parent:msgPkg::msg_info
+    \_io_decl: (msg), line:19:26, endln:19:29, parent:msgPkg::msg_info
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
@@ -1283,7 +1283,7 @@ design: (work@simple_package)
         |vpiInstance:
         \_package: msgPkg (msgPkg::) msgPkg.pkg:4:1: , endln:57:11, parent:work@simple_package
     |vpiStmt:
-    \_sys_func_call: ($display), line:20:5, endln:20:56, parent:msgPkg::msg_info
+    \_sys_func_call: ($display), line:20:5, endln:20:55, parent:msgPkg::msg_info
       |vpiArgument:
       \_constant: , line:20:15, endln:20:36, parent:$display
         |vpiDecompile:@%0dns %s INFO : %s
@@ -1304,7 +1304,7 @@ design: (work@simple_package)
         |vpiName:msg
         |vpiFullName:msgPkg::msg_info::msg
         |vpiActual:
-        \_io_decl: (msg), parent:msgPkg::msg_info
+        \_io_decl: (msg), line:19:26, endln:19:29, parent:msgPkg::msg_info
       |vpiName:$display
     |vpiInstance:
     \_package: msgPkg (msgPkg::) msgPkg.pkg:4:1: , endln:57:11, parent:work@simple_package
@@ -1314,7 +1314,7 @@ design: (work@simple_package)
     |vpiFullName:msgPkg::msg_warn
     |vpiVisibility:1
     |vpiIODecl:
-    \_io_decl: (msg), parent:msgPkg::msg_warn
+    \_io_decl: (msg), line:25:26, endln:25:29, parent:msgPkg::msg_warn
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
@@ -1325,7 +1325,7 @@ design: (work@simple_package)
     \_begin: (msgPkg::msg_warn), parent:msgPkg::msg_warn
       |vpiFullName:msgPkg::msg_warn
       |vpiStmt:
-      \_sys_func_call: ($display), line:26:5, endln:26:56, parent:msgPkg::msg_warn
+      \_sys_func_call: ($display), line:26:5, endln:26:55, parent:msgPkg::msg_warn
         |vpiArgument:
         \_constant: , line:26:15, endln:26:36, parent:$display
           |vpiDecompile:@%0dns %s WARN : %s
@@ -1346,7 +1346,7 @@ design: (work@simple_package)
           |vpiName:msg
           |vpiFullName:msgPkg::msg_warn::msg
           |vpiActual:
-          \_io_decl: (msg), parent:msgPkg::msg_warn
+          \_io_decl: (msg), line:25:26, endln:25:29, parent:msgPkg::msg_warn
         |vpiName:$display
       |vpiStmt:
       \_operation: , line:27:5, endln:27:15, parent:msgPkg::msg_warn
@@ -1365,7 +1365,7 @@ design: (work@simple_package)
     |vpiFullName:msgPkg::msg_error
     |vpiVisibility:1
     |vpiIODecl:
-    \_io_decl: (msg), parent:msgPkg::msg_error
+    \_io_decl: (msg), line:32:27, endln:32:30, parent:msgPkg::msg_error
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
@@ -1376,7 +1376,7 @@ design: (work@simple_package)
     \_begin: (msgPkg::msg_error), parent:msgPkg::msg_error
       |vpiFullName:msgPkg::msg_error
       |vpiStmt:
-      \_sys_func_call: ($display), line:33:5, endln:33:57, parent:msgPkg::msg_error
+      \_sys_func_call: ($display), line:33:5, endln:33:56, parent:msgPkg::msg_error
         |vpiArgument:
         \_constant: , line:33:15, endln:33:37, parent:$display
           |vpiDecompile:@%0dns %s ERROR : %s
@@ -1397,7 +1397,7 @@ design: (work@simple_package)
           |vpiName:msg
           |vpiFullName:msgPkg::msg_error::msg
           |vpiActual:
-          \_io_decl: (msg), parent:msgPkg::msg_error
+          \_io_decl: (msg), line:32:27, endln:32:30, parent:msgPkg::msg_error
         |vpiName:$display
       |vpiStmt:
       \_operation: , line:34:5, endln:34:14, parent:msgPkg::msg_error
@@ -1417,7 +1417,7 @@ design: (work@simple_package)
           |vpiActual:
           \_bit_var: (msgPkg::terminate_on_error), line:7:12, endln:7:30, parent:msgPkg::
         |vpiStmt:
-        \_sys_func_call: ($finish), line:35:29, endln:35:37
+        \_sys_func_call: ($finish), line:35:29, endln:35:36
           |vpiName:$finish
     |vpiInstance:
     \_package: msgPkg (msgPkg::) msgPkg.pkg:4:1: , endln:57:11, parent:work@simple_package
@@ -1427,7 +1427,7 @@ design: (work@simple_package)
     |vpiFullName:msgPkg::msg_fatal
     |vpiVisibility:1
     |vpiIODecl:
-    \_io_decl: (msg), parent:msgPkg::msg_fatal
+    \_io_decl: (msg), line:40:27, endln:40:30, parent:msgPkg::msg_fatal
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
@@ -1438,7 +1438,7 @@ design: (work@simple_package)
     \_begin: (msgPkg::msg_fatal), parent:msgPkg::msg_fatal
       |vpiFullName:msgPkg::msg_fatal
       |vpiStmt:
-      \_sys_func_call: ($display), line:41:5, endln:41:57, parent:msgPkg::msg_fatal
+      \_sys_func_call: ($display), line:41:5, endln:41:56, parent:msgPkg::msg_fatal
         |vpiArgument:
         \_constant: , line:41:15, endln:41:37, parent:$display
           |vpiDecompile:@%0dns %s FATAL : %s
@@ -1459,10 +1459,10 @@ design: (work@simple_package)
           |vpiName:msg
           |vpiFullName:msgPkg::msg_fatal::msg
           |vpiActual:
-          \_io_decl: (msg), parent:msgPkg::msg_fatal
+          \_io_decl: (msg), line:40:27, endln:40:30, parent:msgPkg::msg_fatal
         |vpiName:$display
       |vpiStmt:
-      \_sys_func_call: ($finish), line:42:5, endln:42:13, parent:msgPkg::msg_fatal
+      \_sys_func_call: ($finish), line:42:5, endln:42:12, parent:msgPkg::msg_fatal
         |vpiName:$finish
     |vpiInstance:
     \_package: msgPkg (msgPkg::) msgPkg.pkg:4:1: , endln:57:11, parent:work@simple_package
@@ -1823,7 +1823,7 @@ design: (work@simple_package)
 \_module: work@simple_package (work@simple_package) simple_pkg.sv:11:1: , endln:30:10, parent:work@simple_package
   |vpiFullName:work@simple_package
   |vpiTypedef:
-  \_enum_typespec: (definesPkg::bool), line:10:31, endln:10:35
+  \_enum_typespec: (definesPkg::bool), line:10:3, endln:10:36
   |vpiDefName:work@simple_package
   |vpiTaskFunc:
   \_task: (msgPkg::initMsgPkg), line:12:3, endln:15:10, parent:msgPkg::
@@ -1831,13 +1831,13 @@ design: (work@simple_package)
     |vpiFullName:msgPkg::initMsgPkg
     |vpiVisibility:1
     |vpiIODecl:
-    \_io_decl: (mName)
+    \_io_decl: (mName), line:12:27, endln:12:32
       |vpiDirection:1
       |vpiName:mName
       |vpiTypedef:
       \_string_typespec: , line:12:20, endln:12:26
     |vpiIODecl:
-    \_io_decl: (term)
+    \_io_decl: (term), line:12:38, endln:12:42
       |vpiDirection:1
       |vpiName:term
       |vpiTypedef:
@@ -1854,7 +1854,7 @@ design: (work@simple_package)
           |vpiName:term
           |vpiFullName:msgPkg::initMsgPkg::term
           |vpiActual:
-          \_io_decl: (term)
+          \_io_decl: (term), line:12:38, endln:12:42
         |vpiLhs:
         \_ref_obj: (msgPkg::initMsgPkg::terminate_on_error), line:13:5, endln:13:23, parent:msgPkg::initMsgPkg
           |vpiName:terminate_on_error
@@ -1870,7 +1870,7 @@ design: (work@simple_package)
           |vpiName:mName
           |vpiFullName:msgPkg::initMsgPkg::mName
           |vpiActual:
-          \_io_decl: (mName)
+          \_io_decl: (mName), line:12:27, endln:12:32
         |vpiLhs:
         \_ref_obj: (msgPkg::initMsgPkg::msgName), line:14:5, endln:14:12, parent:msgPkg::initMsgPkg
           |vpiName:msgName
@@ -1885,13 +1885,13 @@ design: (work@simple_package)
     |vpiFullName:msgPkg::msg_info
     |vpiVisibility:1
     |vpiIODecl:
-    \_io_decl: (msg)
+    \_io_decl: (msg), line:19:26, endln:19:29
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
       \_string_typespec: , line:19:19, endln:19:25
     |vpiStmt:
-    \_sys_func_call: ($display), line:20:5, endln:20:56, parent:msgPkg::msg_info
+    \_sys_func_call: ($display), line:20:5, endln:20:55, parent:msgPkg::msg_info
       |vpiArgument:
       \_constant: , line:20:15, endln:20:36, parent:$display
       |vpiArgument:
@@ -1908,7 +1908,7 @@ design: (work@simple_package)
         |vpiName:msg
         |vpiFullName:msgPkg::msg_info::msg
         |vpiActual:
-        \_io_decl: (msg)
+        \_io_decl: (msg), line:19:26, endln:19:29
       |vpiName:$display
     |vpiInstance:
     \_package: msgPkg (msgPkg::) msgPkg.pkg:4:1: , endln:57:11, parent:work@simple_package
@@ -1918,7 +1918,7 @@ design: (work@simple_package)
     |vpiFullName:msgPkg::msg_warn
     |vpiVisibility:1
     |vpiIODecl:
-    \_io_decl: (msg)
+    \_io_decl: (msg), line:25:26, endln:25:29
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
@@ -1927,7 +1927,7 @@ design: (work@simple_package)
     \_begin: (msgPkg::msg_warn), parent:msgPkg::msg_warn
       |vpiFullName:msgPkg::msg_warn
       |vpiStmt:
-      \_sys_func_call: ($display), line:26:5, endln:26:56, parent:msgPkg::msg_warn
+      \_sys_func_call: ($display), line:26:5, endln:26:55, parent:msgPkg::msg_warn
         |vpiArgument:
         \_constant: , line:26:15, endln:26:36, parent:$display
         |vpiArgument:
@@ -1944,7 +1944,7 @@ design: (work@simple_package)
           |vpiName:msg
           |vpiFullName:msgPkg::msg_warn::msg
           |vpiActual:
-          \_io_decl: (msg)
+          \_io_decl: (msg), line:25:26, endln:25:29
         |vpiName:$display
       |vpiStmt:
       \_operation: , line:27:5, endln:27:15, parent:msgPkg::msg_warn
@@ -1963,7 +1963,7 @@ design: (work@simple_package)
     |vpiFullName:msgPkg::msg_error
     |vpiVisibility:1
     |vpiIODecl:
-    \_io_decl: (msg)
+    \_io_decl: (msg), line:32:27, endln:32:30
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
@@ -1972,7 +1972,7 @@ design: (work@simple_package)
     \_begin: (msgPkg::msg_error), parent:msgPkg::msg_error
       |vpiFullName:msgPkg::msg_error
       |vpiStmt:
-      \_sys_func_call: ($display), line:33:5, endln:33:57, parent:msgPkg::msg_error
+      \_sys_func_call: ($display), line:33:5, endln:33:56, parent:msgPkg::msg_error
         |vpiArgument:
         \_constant: , line:33:15, endln:33:37, parent:$display
         |vpiArgument:
@@ -1989,7 +1989,7 @@ design: (work@simple_package)
           |vpiName:msg
           |vpiFullName:msgPkg::msg_error::msg
           |vpiActual:
-          \_io_decl: (msg)
+          \_io_decl: (msg), line:32:27, endln:32:30
         |vpiName:$display
       |vpiStmt:
       \_operation: , line:34:5, endln:34:14, parent:msgPkg::msg_error
@@ -2009,7 +2009,7 @@ design: (work@simple_package)
           |vpiActual:
           \_bit_var: (msgPkg::terminate_on_error), line:7:12, endln:7:30, parent:msgPkg::
         |vpiStmt:
-        \_sys_func_call: ($finish), line:35:29, endln:35:37
+        \_sys_func_call: ($finish), line:35:29, endln:35:36
           |vpiName:$finish
     |vpiInstance:
     \_package: msgPkg (msgPkg::) msgPkg.pkg:4:1: , endln:57:11, parent:work@simple_package
@@ -2019,7 +2019,7 @@ design: (work@simple_package)
     |vpiFullName:msgPkg::msg_fatal
     |vpiVisibility:1
     |vpiIODecl:
-    \_io_decl: (msg)
+    \_io_decl: (msg), line:40:27, endln:40:30
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
@@ -2028,7 +2028,7 @@ design: (work@simple_package)
     \_begin: (msgPkg::msg_fatal), parent:msgPkg::msg_fatal
       |vpiFullName:msgPkg::msg_fatal
       |vpiStmt:
-      \_sys_func_call: ($display), line:41:5, endln:41:57, parent:msgPkg::msg_fatal
+      \_sys_func_call: ($display), line:41:5, endln:41:56, parent:msgPkg::msg_fatal
         |vpiArgument:
         \_constant: , line:41:15, endln:41:37, parent:$display
         |vpiArgument:
@@ -2045,10 +2045,10 @@ design: (work@simple_package)
           |vpiName:msg
           |vpiFullName:msgPkg::msg_fatal::msg
           |vpiActual:
-          \_io_decl: (msg)
+          \_io_decl: (msg), line:40:27, endln:40:30
         |vpiName:$display
       |vpiStmt:
-      \_sys_func_call: ($finish), line:42:5, endln:42:13, parent:msgPkg::msg_fatal
+      \_sys_func_call: ($finish), line:42:5, endln:42:12, parent:msgPkg::msg_fatal
         |vpiName:$finish
     |vpiInstance:
     \_package: msgPkg (msgPkg::) msgPkg.pkg:4:1: , endln:57:11, parent:work@simple_package
@@ -2105,32 +2105,32 @@ design: (work@simple_package)
     |vpiInstance:
     \_package: msgPkg (msgPkg::) msgPkg.pkg:4:1: , endln:57:11, parent:work@simple_package
   |vpiNet:
-  \_logic_net: (work@simple_package.errCnt), line:5:12, parent:work@simple_package
+  \_logic_net: (work@simple_package.errCnt), line:5:12, endln:5:18, parent:work@simple_package
     |vpiName:errCnt
     |vpiFullName:work@simple_package.errCnt
   |vpiNet:
-  \_logic_net: (work@simple_package.warnCnt), line:6:12, parent:work@simple_package
+  \_logic_net: (work@simple_package.warnCnt), line:6:12, endln:6:19, parent:work@simple_package
     |vpiName:warnCnt
     |vpiFullName:work@simple_package.warnCnt
   |vpiNet:
-  \_logic_net: (work@simple_package.terminate_on_error), line:7:12, parent:work@simple_package
+  \_logic_net: (work@simple_package.terminate_on_error), line:7:12, endln:7:30, parent:work@simple_package
     |vpiName:terminate_on_error
     |vpiFullName:work@simple_package.terminate_on_error
   |vpiNet:
-  \_logic_net: (work@simple_package.msgName), line:8:12, parent:work@simple_package
+  \_logic_net: (work@simple_package.msgName), line:8:12, endln:8:19, parent:work@simple_package
     |vpiName:msgName
     |vpiFullName:work@simple_package.msgName
   |vpiNet:
-  \_logic_net: (work@simple_package.value), line:13:8, parent:work@simple_package
+  \_logic_net: (work@simple_package.value), line:13:8, endln:13:13, parent:work@simple_package
     |vpiName:value
     |vpiFullName:work@simple_package.value
   |vpiProcess:
-  \_initial: , parent:work@simple_package
+  \_initial: , line:19:1, endln:28:4, parent:work@simple_package
     |vpiStmt:
     \_begin: (work@simple_package), line:19:9, endln:28:4
       |vpiFullName:work@simple_package
       |vpiStmt:
-      \_task_call: (msgPkg::initMsgPkg), line:20:3, endln:20:36, parent:work@simple_package
+      \_task_call: (msgPkg::initMsgPkg), line:20:3, endln:20:9, parent:work@simple_package
         |vpiArgument:
         \_constant: , line:20:22, endln:20:32, parent:msgPkg::initMsgPkg
           |vpiDecompile:PACKAGES
@@ -2147,7 +2147,7 @@ design: (work@simple_package)
         |vpiTask:
         \_task: (msgPkg::initMsgPkg), line:12:3, endln:15:10, parent:msgPkg::
       |vpiStmt:
-      \_task_call: (msgPkg::msg_info), line:21:3, endln:21:40, parent:work@simple_package
+      \_task_call: (msgPkg::msg_info), line:21:3, endln:21:9, parent:work@simple_package
         |vpiArgument:
         \_constant: , line:21:20, endln:21:38, parent:msgPkg::msg_info
           |vpiDecompile:Testing Packages
@@ -2161,7 +2161,7 @@ design: (work@simple_package)
       \_delay_control: , line:22:3, endln:22:44, parent:work@simple_package
         |#10
         |vpiStmt:
-        \_task_call: (msgPkg::msg_warn), line:22:7, endln:22:44
+        \_task_call: (msgPkg::msg_warn), line:22:7, endln:22:13
           |vpiArgument:
           \_constant: , line:22:24, endln:22:42, parent:msgPkg::msg_warn
             |vpiDecompile:Testing Packages
@@ -2175,7 +2175,7 @@ design: (work@simple_package)
       \_delay_control: , line:23:3, endln:23:45, parent:work@simple_package
         |#10
         |vpiStmt:
-        \_task_call: (msgPkg::msg_error), line:23:7, endln:23:45
+        \_task_call: (msgPkg::msg_error), line:23:7, endln:23:13
           |vpiArgument:
           \_constant: , line:23:25, endln:23:43, parent:msgPkg::msg_error
             |vpiDecompile:Testing Packages
@@ -2186,7 +2186,7 @@ design: (work@simple_package)
           |vpiTask:
           \_task: (msgPkg::msg_error), line:32:3, endln:36:10, parent:msgPkg::
       |vpiStmt:
-      \_task_call: (msgPkg::msg_info), line:24:3, endln:25:48, parent:work@simple_package
+      \_task_call: (msgPkg::msg_info), line:24:3, endln:24:9, parent:work@simple_package
         |vpiArgument:
         \_sys_func_call: ($psprintf), line:24:20, endln:25:46, parent:msgPkg::msg_info
           |vpiArgument:
@@ -2196,12 +2196,12 @@ design: (work@simple_package)
             |STRING:Warning Count %0d, Error Count %0d
             |vpiConstType:6
           |vpiArgument:
-          \_func_call: (msgPkg::getWarnCnt), line:25:4, endln:25:24, parent:$psprintf
+          \_func_call: (msgPkg::getWarnCnt), line:25:4, endln:25:10, parent:$psprintf
             |vpiName:msgPkg::getWarnCnt
             |vpiFunction:
             \_function: (msgPkg::getWarnCnt), line:53:3, endln:55:14, parent:msgPkg::
           |vpiArgument:
-          \_func_call: (msgPkg::getErrCnt), line:25:26, endln:25:45, parent:$psprintf
+          \_func_call: (msgPkg::getErrCnt), line:25:26, endln:25:32, parent:$psprintf
             |vpiName:msgPkg::getErrCnt
             |vpiFunction:
             \_function: (msgPkg::getErrCnt), line:47:3, endln:49:14, parent:msgPkg::
@@ -2221,7 +2221,7 @@ design: (work@simple_package)
             |vpiActual:
             \_enum_var: (work@simple_package.value), line:13:8, endln:13:13, parent:work@simple_package
               |vpiTypespec:
-              \_enum_typespec: (definesPkg::bool), line:10:31, endln:10:35
+              \_enum_typespec: (definesPkg::bool), line:10:3, endln:10:36
               |vpiName:value
               |vpiFullName:work@simple_package.value
               |vpiAutomatic:1
@@ -2241,7 +2241,7 @@ design: (work@simple_package)
         \_delay_control: , line:27:5, endln:27:45
           |#10
           |vpiStmt:
-          \_task_call: (msgPkg::msg_fatal), line:27:9, endln:27:45
+          \_task_call: (msgPkg::msg_fatal), line:27:9, endln:27:15
             |vpiArgument:
             \_constant: , line:27:27, endln:27:43, parent:msgPkg::msg_fatal
               |vpiDecompile:Value is FALSE
@@ -2311,7 +2311,7 @@ design: (work@simple_package)
   |vpiVariables:
   \_enum_var: (work@simple_package.value), line:13:8, endln:13:13, parent:work@simple_package
   |vpiTypedef:
-  \_enum_typespec: (definesPkg::bool), line:10:31, endln:10:35
+  \_enum_typespec: (definesPkg::bool), line:10:3, endln:10:36
   |vpiDefName:work@simple_package
   |vpiTaskFunc:
   \_task: (msgPkg::initMsgPkg), line:12:3, endln:15:10, parent:work@simple_package
@@ -2319,13 +2319,13 @@ design: (work@simple_package)
     |vpiFullName:msgPkg::initMsgPkg
     |vpiVisibility:1
     |vpiIODecl:
-    \_io_decl: (mName), parent:msgPkg::initMsgPkg
+    \_io_decl: (mName), line:12:27, endln:12:32, parent:msgPkg::initMsgPkg
       |vpiDirection:1
       |vpiName:mName
       |vpiTypedef:
       \_string_typespec: , line:12:20, endln:12:26
     |vpiIODecl:
-    \_io_decl: (term), parent:msgPkg::initMsgPkg
+    \_io_decl: (term), line:12:38, endln:12:42, parent:msgPkg::initMsgPkg
       |vpiDirection:1
       |vpiName:term
       |vpiTypedef:
@@ -2342,7 +2342,7 @@ design: (work@simple_package)
           |vpiName:term
           |vpiFullName:work@simple_package.initMsgPkg.term
           |vpiActual:
-          \_io_decl: (term), parent:msgPkg::initMsgPkg
+          \_io_decl: (term), line:12:38, endln:12:42, parent:msgPkg::initMsgPkg
         |vpiLhs:
         \_ref_obj: (work@simple_package.initMsgPkg.terminate_on_error), line:13:5, endln:13:23
           |vpiName:terminate_on_error
@@ -2358,7 +2358,7 @@ design: (work@simple_package)
           |vpiName:mName
           |vpiFullName:work@simple_package.initMsgPkg.mName
           |vpiActual:
-          \_io_decl: (mName), parent:msgPkg::initMsgPkg
+          \_io_decl: (mName), line:12:27, endln:12:32, parent:msgPkg::initMsgPkg
         |vpiLhs:
         \_ref_obj: (work@simple_package.initMsgPkg.msgName), line:14:5, endln:14:12
           |vpiName:msgName
@@ -2373,13 +2373,13 @@ design: (work@simple_package)
     |vpiFullName:msgPkg::msg_info
     |vpiVisibility:1
     |vpiIODecl:
-    \_io_decl: (msg), parent:msgPkg::msg_info
+    \_io_decl: (msg), line:19:26, endln:19:29, parent:msgPkg::msg_info
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
       \_string_typespec: , line:19:19, endln:19:25
     |vpiStmt:
-    \_sys_func_call: ($display), line:20:5, endln:20:56, parent:msgPkg::msg_info
+    \_sys_func_call: ($display), line:20:5, endln:20:55, parent:msgPkg::msg_info
       |vpiArgument:
       \_constant: , line:20:15, endln:20:36, parent:$display
       |vpiArgument:
@@ -2396,7 +2396,7 @@ design: (work@simple_package)
         |vpiName:msg
         |vpiFullName:work@simple_package.msg_info.msg
         |vpiActual:
-        \_io_decl: (msg), parent:msgPkg::msg_info
+        \_io_decl: (msg), line:19:26, endln:19:29, parent:msgPkg::msg_info
       |vpiName:$display
     |vpiInstance:
     \_module: work@simple_package (work@simple_package) simple_pkg.sv:11:1: , endln:30:10
@@ -2406,7 +2406,7 @@ design: (work@simple_package)
     |vpiFullName:msgPkg::msg_warn
     |vpiVisibility:1
     |vpiIODecl:
-    \_io_decl: (msg), parent:msgPkg::msg_warn
+    \_io_decl: (msg), line:25:26, endln:25:29, parent:msgPkg::msg_warn
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
@@ -2415,7 +2415,7 @@ design: (work@simple_package)
     \_begin: (work@simple_package.msg_warn), parent:msgPkg::msg_warn
       |vpiFullName:work@simple_package.msg_warn
       |vpiStmt:
-      \_sys_func_call: ($display), line:26:5, endln:26:56, parent:work@simple_package.msg_warn
+      \_sys_func_call: ($display), line:26:5, endln:26:55, parent:work@simple_package.msg_warn
         |vpiArgument:
         \_constant: , line:26:15, endln:26:36, parent:$display
         |vpiArgument:
@@ -2432,7 +2432,7 @@ design: (work@simple_package)
           |vpiName:msg
           |vpiFullName:work@simple_package.msg_warn.msg
           |vpiActual:
-          \_io_decl: (msg), parent:msgPkg::msg_warn
+          \_io_decl: (msg), line:25:26, endln:25:29, parent:msgPkg::msg_warn
         |vpiName:$display
       |vpiStmt:
       \_operation: , line:27:5, endln:27:15, parent:work@simple_package.msg_warn
@@ -2451,7 +2451,7 @@ design: (work@simple_package)
     |vpiFullName:msgPkg::msg_error
     |vpiVisibility:1
     |vpiIODecl:
-    \_io_decl: (msg), parent:msgPkg::msg_error
+    \_io_decl: (msg), line:32:27, endln:32:30, parent:msgPkg::msg_error
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
@@ -2460,7 +2460,7 @@ design: (work@simple_package)
     \_begin: (work@simple_package.msg_error), parent:msgPkg::msg_error
       |vpiFullName:work@simple_package.msg_error
       |vpiStmt:
-      \_sys_func_call: ($display), line:33:5, endln:33:57, parent:work@simple_package.msg_error
+      \_sys_func_call: ($display), line:33:5, endln:33:56, parent:work@simple_package.msg_error
         |vpiArgument:
         \_constant: , line:33:15, endln:33:37, parent:$display
         |vpiArgument:
@@ -2477,7 +2477,7 @@ design: (work@simple_package)
           |vpiName:msg
           |vpiFullName:work@simple_package.msg_error.msg
           |vpiActual:
-          \_io_decl: (msg), parent:msgPkg::msg_error
+          \_io_decl: (msg), line:32:27, endln:32:30, parent:msgPkg::msg_error
         |vpiName:$display
       |vpiStmt:
       \_operation: , line:34:5, endln:34:14, parent:work@simple_package.msg_error
@@ -2497,7 +2497,7 @@ design: (work@simple_package)
           |vpiActual:
           \_bit_var: (work@simple_package.terminate_on_error), line:7:12, endln:7:30, parent:work@simple_package
         |vpiStmt:
-        \_sys_func_call: ($finish), line:35:29, endln:35:37
+        \_sys_func_call: ($finish), line:35:29, endln:35:36
           |vpiName:$finish
     |vpiInstance:
     \_module: work@simple_package (work@simple_package) simple_pkg.sv:11:1: , endln:30:10
@@ -2507,7 +2507,7 @@ design: (work@simple_package)
     |vpiFullName:msgPkg::msg_fatal
     |vpiVisibility:1
     |vpiIODecl:
-    \_io_decl: (msg), parent:msgPkg::msg_fatal
+    \_io_decl: (msg), line:40:27, endln:40:30, parent:msgPkg::msg_fatal
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
@@ -2516,7 +2516,7 @@ design: (work@simple_package)
     \_begin: (work@simple_package.msg_fatal), parent:msgPkg::msg_fatal
       |vpiFullName:work@simple_package.msg_fatal
       |vpiStmt:
-      \_sys_func_call: ($display), line:41:5, endln:41:57, parent:work@simple_package.msg_fatal
+      \_sys_func_call: ($display), line:41:5, endln:41:56, parent:work@simple_package.msg_fatal
         |vpiArgument:
         \_constant: , line:41:15, endln:41:37, parent:$display
         |vpiArgument:
@@ -2533,10 +2533,10 @@ design: (work@simple_package)
           |vpiName:msg
           |vpiFullName:work@simple_package.msg_fatal.msg
           |vpiActual:
-          \_io_decl: (msg), parent:msgPkg::msg_fatal
+          \_io_decl: (msg), line:40:27, endln:40:30, parent:msgPkg::msg_fatal
         |vpiName:$display
       |vpiStmt:
-      \_sys_func_call: ($finish), line:42:5, endln:42:13, parent:work@simple_package.msg_fatal
+      \_sys_func_call: ($finish), line:42:5, endln:42:12, parent:work@simple_package.msg_fatal
         |vpiName:$finish
     |vpiInstance:
     \_module: work@simple_package (work@simple_package) simple_pkg.sv:11:1: , endln:30:10
@@ -2596,13 +2596,13 @@ design: (work@simple_package)
     |vpiFullName:msgPkg::initMsgPkg
     |vpiVisibility:1
     |vpiIODecl:
-    \_io_decl: (mName), parent:msgPkg::initMsgPkg
+    \_io_decl: (mName), line:12:27, endln:12:32, parent:msgPkg::initMsgPkg
       |vpiDirection:1
       |vpiName:mName
       |vpiTypedef:
       \_string_typespec: , line:12:20, endln:12:26
     |vpiIODecl:
-    \_io_decl: (term), parent:msgPkg::initMsgPkg
+    \_io_decl: (term), line:12:38, endln:12:42, parent:msgPkg::initMsgPkg
       |vpiDirection:1
       |vpiName:term
       |vpiTypedef:
@@ -2619,7 +2619,7 @@ design: (work@simple_package)
           |vpiName:term
           |vpiFullName:work@simple_package.initMsgPkg.term
           |vpiActual:
-          \_io_decl: (term), parent:msgPkg::initMsgPkg
+          \_io_decl: (term), line:12:38, endln:12:42, parent:msgPkg::initMsgPkg
         |vpiLhs:
         \_ref_obj: (work@simple_package.initMsgPkg.terminate_on_error), line:13:5, endln:13:23
           |vpiName:terminate_on_error
@@ -2635,7 +2635,7 @@ design: (work@simple_package)
           |vpiName:mName
           |vpiFullName:work@simple_package.initMsgPkg.mName
           |vpiActual:
-          \_io_decl: (mName), parent:msgPkg::initMsgPkg
+          \_io_decl: (mName), line:12:27, endln:12:32, parent:msgPkg::initMsgPkg
         |vpiLhs:
         \_ref_obj: (work@simple_package.initMsgPkg.msgName), line:14:5, endln:14:12
           |vpiName:msgName
@@ -2650,13 +2650,13 @@ design: (work@simple_package)
     |vpiFullName:msgPkg::msg_info
     |vpiVisibility:1
     |vpiIODecl:
-    \_io_decl: (msg), parent:msgPkg::msg_info
+    \_io_decl: (msg), line:19:26, endln:19:29, parent:msgPkg::msg_info
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
       \_string_typespec: , line:19:19, endln:19:25
     |vpiStmt:
-    \_sys_func_call: ($display), line:20:5, endln:20:56, parent:msgPkg::msg_info
+    \_sys_func_call: ($display), line:20:5, endln:20:55, parent:msgPkg::msg_info
       |vpiArgument:
       \_constant: , line:20:15, endln:20:36, parent:$display
       |vpiArgument:
@@ -2673,7 +2673,7 @@ design: (work@simple_package)
         |vpiName:msg
         |vpiFullName:work@simple_package.msg_info.msg
         |vpiActual:
-        \_io_decl: (msg), parent:msgPkg::msg_info
+        \_io_decl: (msg), line:19:26, endln:19:29, parent:msgPkg::msg_info
       |vpiName:$display
     |vpiInstance:
     \_module: work@simple_package (work@simple_package) simple_pkg.sv:11:1: , endln:30:10
@@ -2683,7 +2683,7 @@ design: (work@simple_package)
     |vpiFullName:msgPkg::msg_warn
     |vpiVisibility:1
     |vpiIODecl:
-    \_io_decl: (msg), parent:msgPkg::msg_warn
+    \_io_decl: (msg), line:25:26, endln:25:29, parent:msgPkg::msg_warn
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
@@ -2692,7 +2692,7 @@ design: (work@simple_package)
     \_begin: (work@simple_package.msg_warn), parent:msgPkg::msg_warn
       |vpiFullName:work@simple_package.msg_warn
       |vpiStmt:
-      \_sys_func_call: ($display), line:26:5, endln:26:56, parent:work@simple_package.msg_warn
+      \_sys_func_call: ($display), line:26:5, endln:26:55, parent:work@simple_package.msg_warn
         |vpiArgument:
         \_constant: , line:26:15, endln:26:36, parent:$display
         |vpiArgument:
@@ -2709,7 +2709,7 @@ design: (work@simple_package)
           |vpiName:msg
           |vpiFullName:work@simple_package.msg_warn.msg
           |vpiActual:
-          \_io_decl: (msg), parent:msgPkg::msg_warn
+          \_io_decl: (msg), line:25:26, endln:25:29, parent:msgPkg::msg_warn
         |vpiName:$display
       |vpiStmt:
       \_operation: , line:27:5, endln:27:15, parent:work@simple_package.msg_warn
@@ -2728,7 +2728,7 @@ design: (work@simple_package)
     |vpiFullName:msgPkg::msg_error
     |vpiVisibility:1
     |vpiIODecl:
-    \_io_decl: (msg), parent:msgPkg::msg_error
+    \_io_decl: (msg), line:32:27, endln:32:30, parent:msgPkg::msg_error
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
@@ -2737,7 +2737,7 @@ design: (work@simple_package)
     \_begin: (work@simple_package.msg_error), parent:msgPkg::msg_error
       |vpiFullName:work@simple_package.msg_error
       |vpiStmt:
-      \_sys_func_call: ($display), line:33:5, endln:33:57, parent:work@simple_package.msg_error
+      \_sys_func_call: ($display), line:33:5, endln:33:56, parent:work@simple_package.msg_error
         |vpiArgument:
         \_constant: , line:33:15, endln:33:37, parent:$display
         |vpiArgument:
@@ -2754,7 +2754,7 @@ design: (work@simple_package)
           |vpiName:msg
           |vpiFullName:work@simple_package.msg_error.msg
           |vpiActual:
-          \_io_decl: (msg), parent:msgPkg::msg_error
+          \_io_decl: (msg), line:32:27, endln:32:30, parent:msgPkg::msg_error
         |vpiName:$display
       |vpiStmt:
       \_operation: , line:34:5, endln:34:14, parent:work@simple_package.msg_error
@@ -2774,7 +2774,7 @@ design: (work@simple_package)
           |vpiActual:
           \_bit_var: (work@simple_package.terminate_on_error), line:7:12, endln:7:30, parent:work@simple_package
         |vpiStmt:
-        \_sys_func_call: ($finish), line:35:29, endln:35:37
+        \_sys_func_call: ($finish), line:35:29, endln:35:36
           |vpiName:$finish
     |vpiInstance:
     \_module: work@simple_package (work@simple_package) simple_pkg.sv:11:1: , endln:30:10
@@ -2784,7 +2784,7 @@ design: (work@simple_package)
     |vpiFullName:msgPkg::msg_fatal
     |vpiVisibility:1
     |vpiIODecl:
-    \_io_decl: (msg), parent:msgPkg::msg_fatal
+    \_io_decl: (msg), line:40:27, endln:40:30, parent:msgPkg::msg_fatal
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
@@ -2793,7 +2793,7 @@ design: (work@simple_package)
     \_begin: (work@simple_package.msg_fatal), parent:msgPkg::msg_fatal
       |vpiFullName:work@simple_package.msg_fatal
       |vpiStmt:
-      \_sys_func_call: ($display), line:41:5, endln:41:57, parent:work@simple_package.msg_fatal
+      \_sys_func_call: ($display), line:41:5, endln:41:56, parent:work@simple_package.msg_fatal
         |vpiArgument:
         \_constant: , line:41:15, endln:41:37, parent:$display
         |vpiArgument:
@@ -2810,10 +2810,10 @@ design: (work@simple_package)
           |vpiName:msg
           |vpiFullName:work@simple_package.msg_fatal.msg
           |vpiActual:
-          \_io_decl: (msg), parent:msgPkg::msg_fatal
+          \_io_decl: (msg), line:40:27, endln:40:30, parent:msgPkg::msg_fatal
         |vpiName:$display
       |vpiStmt:
-      \_sys_func_call: ($finish), line:42:5, endln:42:13, parent:work@simple_package.msg_fatal
+      \_sys_func_call: ($finish), line:42:5, endln:42:12, parent:work@simple_package.msg_fatal
         |vpiName:$finish
     |vpiInstance:
     \_module: work@simple_package (work@simple_package) simple_pkg.sv:11:1: , endln:30:10
@@ -2868,12 +2868,12 @@ design: (work@simple_package)
     |vpiInstance:
     \_module: work@simple_package (work@simple_package) simple_pkg.sv:11:1: , endln:30:10
   |vpiProcess:
-  \_initial: , parent:work@simple_package
+  \_initial: , line:19:1, endln:28:4, parent:work@simple_package
     |vpiStmt:
     \_begin: (work@simple_package), line:19:9, endln:28:4
       |vpiFullName:work@simple_package
       |vpiStmt:
-      \_task_call: (msgPkg::initMsgPkg), line:20:3, endln:20:36, parent:work@simple_package
+      \_task_call: (msgPkg::initMsgPkg), line:20:3, endln:20:9, parent:work@simple_package
         |vpiArgument:
         \_constant: , line:20:22, endln:20:32, parent:msgPkg::initMsgPkg
         |vpiArgument:
@@ -2882,7 +2882,7 @@ design: (work@simple_package)
         |vpiTask:
         \_task: (msgPkg::initMsgPkg), line:12:3, endln:15:10, parent:msgPkg::
       |vpiStmt:
-      \_task_call: (msgPkg::msg_info), line:21:3, endln:21:40, parent:work@simple_package
+      \_task_call: (msgPkg::msg_info), line:21:3, endln:21:9, parent:work@simple_package
         |vpiArgument:
         \_constant: , line:21:20, endln:21:38, parent:msgPkg::msg_info
         |vpiName:msgPkg::msg_info
@@ -2892,7 +2892,7 @@ design: (work@simple_package)
       \_delay_control: , line:22:3, endln:22:44, parent:work@simple_package
         |#10
         |vpiStmt:
-        \_task_call: (msgPkg::msg_warn), line:22:7, endln:22:44
+        \_task_call: (msgPkg::msg_warn), line:22:7, endln:22:13
           |vpiArgument:
           \_constant: , line:22:24, endln:22:42, parent:msgPkg::msg_warn
           |vpiName:msgPkg::msg_warn
@@ -2902,25 +2902,25 @@ design: (work@simple_package)
       \_delay_control: , line:23:3, endln:23:45, parent:work@simple_package
         |#10
         |vpiStmt:
-        \_task_call: (msgPkg::msg_error), line:23:7, endln:23:45
+        \_task_call: (msgPkg::msg_error), line:23:7, endln:23:13
           |vpiArgument:
           \_constant: , line:23:25, endln:23:43, parent:msgPkg::msg_error
           |vpiName:msgPkg::msg_error
           |vpiTask:
           \_task: (msgPkg::msg_error), line:32:3, endln:36:10, parent:msgPkg::
       |vpiStmt:
-      \_task_call: (msgPkg::msg_info), line:24:3, endln:25:48, parent:work@simple_package
+      \_task_call: (msgPkg::msg_info), line:24:3, endln:24:9, parent:work@simple_package
         |vpiArgument:
         \_sys_func_call: ($psprintf), line:24:20, endln:25:46, parent:msgPkg::msg_info
           |vpiArgument:
           \_constant: , line:24:30, endln:24:66, parent:$psprintf
           |vpiArgument:
-          \_func_call: (msgPkg::getWarnCnt), line:25:4, endln:25:24, parent:$psprintf
+          \_func_call: (msgPkg::getWarnCnt), line:25:4, endln:25:10, parent:$psprintf
             |vpiName:msgPkg::getWarnCnt
             |vpiFunction:
             \_function: (msgPkg::getWarnCnt), line:53:3, endln:55:14, parent:msgPkg::
           |vpiArgument:
-          \_func_call: (msgPkg::getErrCnt), line:25:26, endln:25:45, parent:$psprintf
+          \_func_call: (msgPkg::getErrCnt), line:25:26, endln:25:32, parent:$psprintf
             |vpiName:msgPkg::getErrCnt
             |vpiFunction:
             \_function: (msgPkg::getErrCnt), line:47:3, endln:49:14, parent:msgPkg::
@@ -2945,7 +2945,7 @@ design: (work@simple_package)
         \_delay_control: , line:27:5, endln:27:45
           |#10
           |vpiStmt:
-          \_task_call: (msgPkg::msg_fatal), line:27:9, endln:27:45
+          \_task_call: (msgPkg::msg_fatal), line:27:9, endln:27:15
             |vpiArgument:
             \_constant: , line:27:27, endln:27:43, parent:msgPkg::msg_fatal
             |vpiName:msgPkg::msg_fatal
@@ -2963,9 +2963,9 @@ design: (work@simple_package)
         |vpiName:SIZE
         |vpiFullName:work@simple_package.inst.u1.SIZE
       |vpiTypedef:
-      \_enum_typespec: (definesPkg::bool), line:10:31, endln:10:35
+      \_enum_typespec: (definesPkg::bool), line:10:3, endln:10:36
       |vpiModule:
-      \_module: work@simple_package.inst::M1 (work@simple_package.inst.u1) simple_pkg.sv:16: , parent:work@simple_package.inst
+      \_module: work@simple_package.inst::M1 (work@simple_package.inst.u1) simple_pkg.sv:16:4: , endln:16:12, parent:work@simple_package.inst
         |vpiName:u1
         |vpiFullName:work@simple_package.inst.u1
         |vpiParamAssign:

@@ -179,14 +179,14 @@ design: (work@top)
 \_module: work@submodule (work@submodule) dut.sv:1:1: , endln:6:10, parent:work@top
   |vpiFullName:work@submodule
   |vpiParameter:
-  \_parameter: (work@submodule.X), line:2:18, endln:2:24, parent:work@submodule
+  \_parameter: (work@submodule.X), line:2:18, endln:2:19, parent:work@submodule
     |UINT:20
     |vpiTypespec:
     \_int_typespec: , line:2:14, endln:2:17, parent:work@submodule.X
     |vpiName:X
     |vpiFullName:work@submodule.X
   |vpiParameter:
-  \_parameter: (work@submodule.Y), line:4:24, endln:4:30, parent:work@submodule
+  \_parameter: (work@submodule.Y), line:4:24, endln:4:25, parent:work@submodule
     |BIN:1
     |vpiTypespec:
     \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:work@submodule.Y
@@ -199,7 +199,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:3:19, endln:3:24
           |vpiLeftRange:
-          \_operation: , line:3:19, endln:3:20
+          \_operation: , line:3:19, endln:3:22
             |vpiOpType:11
             |vpiOperand:
             \_ref_obj: (X), line:3:19, endln:3:20
@@ -219,7 +219,7 @@ design: (work@top)
       |vpiRange:
       \_range: , line:3:19, endln:3:24, parent:my_type_t
         |vpiLeftRange:
-        \_operation: , line:3:19, endln:3:20
+        \_operation: , line:3:19, endln:3:22
           |vpiOpType:11
           |vpiOperand:
           \_ref_obj: (work@submodule.Y.my_type_t.X), line:3:19, endln:3:20
@@ -250,7 +250,7 @@ design: (work@top)
       \_int_typespec: , line:2:14, endln:2:17, parent:work@submodule.X
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@submodule.X), line:2:18, endln:2:24, parent:work@submodule
+    \_parameter: (work@submodule.X), line:2:18, endln:2:19, parent:work@submodule
   |vpiParamAssign:
   \_param_assign: , line:4:24, endln:4:30, parent:work@submodule
     |vpiRhs:
@@ -262,7 +262,7 @@ design: (work@top)
       \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:work@submodule.Y
       |vpiConstType:3
     |vpiLhs:
-    \_parameter: (work@submodule.Y), line:4:24, endln:4:30, parent:work@submodule
+    \_parameter: (work@submodule.Y), line:4:24, endln:4:25, parent:work@submodule
   |vpiTypedef:
   \_logic_typespec: (my_type_t), line:3:12, endln:3:17
   |vpiDefName:work@submodule
@@ -298,14 +298,14 @@ design: (work@top)
     |vpiName:u_sub_default
     |vpiFullName:work@top.u_sub_default
     |vpiParameter:
-    \_parameter: (work@top.u_sub_default.X), line:2:18, endln:2:24, parent:work@top.u_sub_default
+    \_parameter: (work@top.u_sub_default.X), line:2:18, endln:2:19, parent:work@top.u_sub_default
       |UINT:20
       |vpiTypespec:
       \_int_typespec: , line:2:14, endln:2:17, parent:work@top.u_sub_default.X
       |vpiName:X
       |vpiFullName:work@top.u_sub_default.X
     |vpiParameter:
-    \_parameter: (work@top.u_sub_default.Y), line:4:24, endln:4:30, parent:work@top.u_sub_default
+    \_parameter: (work@top.u_sub_default.Y), line:4:24, endln:4:25, parent:work@top.u_sub_default
       |BIN:1
       |vpiTypespec:
       \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:work@top.u_sub_default.Y
@@ -318,7 +318,7 @@ design: (work@top)
           |vpiRange:
           \_range: , line:3:19, endln:3:24, parent:my_type_t
             |vpiLeftRange:
-            \_operation: , line:3:19, endln:3:20
+            \_operation: , line:3:19, endln:3:22
               |vpiOpType:11
               |vpiOperand:
               \_ref_obj: (work@top.u_sub_default.Y.my_type_t.my_type_t.X), line:3:19, endln:3:20
@@ -347,7 +347,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:3:19, endln:3:24, parent:my_type_t
           |vpiLeftRange:
-          \_operation: , line:3:19, endln:3:20
+          \_operation: , line:3:19, endln:3:22
             |vpiOpType:11
             |vpiOperand:
             \_ref_obj: (work@top.u_sub_default.Y.my_type_t.X), line:3:19, endln:3:20
@@ -374,7 +374,7 @@ design: (work@top)
       |vpiRhs:
       \_constant: , line:2:22, endln:2:24
       |vpiLhs:
-      \_parameter: (work@top.u_sub_default.X), line:2:18, endln:2:24, parent:work@top.u_sub_default
+      \_parameter: (work@top.u_sub_default.X), line:2:18, endln:2:19, parent:work@top.u_sub_default
     |vpiParamAssign:
     \_param_assign: , line:4:24, endln:4:30, parent:work@top.u_sub_default
       |vpiRhs:
@@ -386,7 +386,7 @@ design: (work@top)
         \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:work@submodule.Y
         |vpiConstType:3
       |vpiLhs:
-      \_parameter: (work@top.u_sub_default.Y), line:4:24, endln:4:30, parent:work@top.u_sub_default
+      \_parameter: (work@top.u_sub_default.Y), line:4:24, endln:4:25, parent:work@top.u_sub_default
     |vpiTypedef:
     \_logic_typespec: (my_type_t), line:3:12, endln:3:17
     |vpiDefName:work@submodule
@@ -420,14 +420,14 @@ design: (work@top)
     |vpiName:u_sub_5
     |vpiFullName:work@top.u_sub_5
     |vpiParameter:
-    \_parameter: (work@top.u_sub_5.X), line:2:18, endln:2:24, parent:work@top.u_sub_5
+    \_parameter: (work@top.u_sub_5.X), line:2:18, endln:2:19, parent:work@top.u_sub_5
       |UINT:20
       |vpiTypespec:
       \_int_typespec: , line:2:14, endln:2:17, parent:work@top.u_sub_5.X
       |vpiName:X
       |vpiFullName:work@top.u_sub_5.X
     |vpiParameter:
-    \_parameter: (work@top.u_sub_5.Y), line:4:24, endln:4:30, parent:work@top.u_sub_5
+    \_parameter: (work@top.u_sub_5.Y), line:4:24, endln:4:25, parent:work@top.u_sub_5
       |BIN:1
       |vpiTypespec:
       \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:work@top.u_sub_5.Y
@@ -440,7 +440,7 @@ design: (work@top)
           |vpiRange:
           \_range: , line:3:19, endln:3:24, parent:my_type_t
             |vpiLeftRange:
-            \_operation: , line:3:19, endln:3:20
+            \_operation: , line:3:19, endln:3:22
               |vpiOpType:11
               |vpiOperand:
               \_ref_obj: (work@top.u_sub_5.Y.my_type_t.my_type_t.X), line:3:19, endln:3:20
@@ -469,7 +469,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:3:19, endln:3:24, parent:my_type_t
           |vpiLeftRange:
-          \_operation: , line:3:19, endln:3:20
+          \_operation: , line:3:19, endln:3:22
             |vpiOpType:11
             |vpiOperand:
             \_ref_obj: (work@top.u_sub_5.Y.my_type_t.X), line:3:19, endln:3:20
@@ -497,7 +497,7 @@ design: (work@top)
       |vpiRhs:
       \_constant: , line:2:22, endln:2:24
       |vpiLhs:
-      \_parameter: (work@top.u_sub_5.X), line:2:18, endln:2:24, parent:work@top.u_sub_5
+      \_parameter: (work@top.u_sub_5.X), line:2:18, endln:2:19, parent:work@top.u_sub_5
     |vpiParamAssign:
     \_param_assign: , line:4:24, endln:4:30, parent:work@top.u_sub_5
       |vpiOverriden:1
@@ -510,7 +510,7 @@ design: (work@top)
         \_logic_typespec: (my_type_t), line:3:12, endln:3:17, parent:work@submodule.Y
         |vpiConstType:3
       |vpiLhs:
-      \_parameter: (work@top.u_sub_5.Y), line:4:24, endln:4:30, parent:work@top.u_sub_5
+      \_parameter: (work@top.u_sub_5.Y), line:4:24, endln:4:25, parent:work@top.u_sub_5
     |vpiTypedef:
     \_logic_typespec: (my_type_t), line:3:12, endln:3:17
     |vpiDefName:work@submodule

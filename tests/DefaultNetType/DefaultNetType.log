@@ -435,17 +435,17 @@ design: (work@ok)
   |vpiFullName:work@M1
   |vpiDefName:work@M1
   |vpiNet:
-  \_logic_net: (work@M1.b), line:11:17, parent:work@M1
+  \_logic_net: (work@M1.b), line:11:17, endln:11:18, parent:work@M1
     |vpiName:b
     |vpiFullName:work@M1.b
   |vpiPort:
-  \_port: (b), line:11:17, parent:work@M1
+  \_port: (b), line:11:17, endln:11:18, parent:work@M1
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@M1.b), line:11:17, parent:work@M1
+      \_logic_net: (work@M1.b), line:11:17, endln:11:18, parent:work@M1
 |uhdmallModules:
 \_module: work@bad1 (work@bad1) dut.sv:14:1: , endln:22:10, parent:work@ok
   |vpiFullName:work@bad1
@@ -472,7 +472,7 @@ design: (work@ok)
           |UINT:0
           |vpiConstType:9
     |vpiIODecl:
-    \_io_decl: (i)
+    \_io_decl: (i), line:18:49, endln:18:50
       |vpiDirection:1
       |vpiName:i
       |vpiTypedef:
@@ -500,7 +500,7 @@ design: (work@ok)
         |vpiName:i
         |vpiFullName:work@bad1.__truncate_to_2_bits.i
         |vpiActual:
-        \_io_decl: (i)
+        \_io_decl: (i), line:18:49, endln:18:50
       |vpiLhs:
       \_ref_obj: (work@bad1.__truncate_to_2_bits.__truncate_to_2_bits), line:19:1, endln:19:21, parent:work@bad1.__truncate_to_2_bits
         |vpiName:__truncate_to_2_bits
@@ -525,7 +525,7 @@ design: (work@ok)
     |vpiInstance:
     \_module: work@bad1 (work@bad1) dut.sv:14:1: , endln:22:10, parent:work@ok
   |vpiNet:
-  \_logic_net: (work@bad1.a), line:15:5, parent:work@bad1
+  \_logic_net: (work@bad1.a), line:15:5, endln:15:6, parent:work@bad1
     |vpiName:a
     |vpiFullName:work@bad1.a
     |vpiNetType:48
@@ -549,11 +549,11 @@ design: (work@ok)
   |vpiFullName:work@bad2
   |vpiDefName:work@bad2
   |vpiNet:
-  \_logic_net: (work@bad2.currentState), line:30:22, parent:work@bad2
+  \_logic_net: (work@bad2.currentState), line:30:22, endln:30:34, parent:work@bad2
     |vpiName:currentState
     |vpiFullName:work@bad2.currentState
   |vpiNet:
-  \_logic_net: (work@bad2.nextState), line:30:36, parent:work@bad2
+  \_logic_net: (work@bad2.nextState), line:30:36, endln:30:45, parent:work@bad2
     |vpiName:nextState
     |vpiFullName:work@bad2.nextState
   |vpiProcess:
@@ -691,7 +691,7 @@ design: (work@ok)
               |vpiName:READ
               |vpiFullName:work@bad2.READ
               |vpiActual:
-              \_enum_const: (READ), line:26:27, endln:26:31
+              \_enum_const: (READ), line:26:27, endln:26:36
                 |vpiName:READ
                 |INT:1
                 |vpiDecompile:2'd1
@@ -721,7 +721,7 @@ design: (work@ok)
               |vpiName:WRITE
               |vpiFullName:work@bad2.WRITE
               |vpiActual:
-              \_enum_const: (WRITE), line:26:38, endln:26:43
+              \_enum_const: (WRITE), line:26:38, endln:26:48
                 |vpiName:WRITE
                 |INT:2
                 |vpiDecompile:2'd2
@@ -741,7 +741,7 @@ design: (work@ok)
               |vpiName:NONE
               |vpiFullName:work@bad2.NONE
               |vpiActual:
-              \_enum_const: (NONE), line:26:50, endln:26:54
+              \_enum_const: (NONE), line:26:50, endln:26:59
                 |vpiName:NONE
                 |INT:0
                 |vpiDecompile:2'd0
@@ -756,7 +756,7 @@ design: (work@ok)
   |vpiFullName:work@ok
   |vpiDefName:work@ok
   |vpiNet:
-  \_logic_net: (work@ok.a), line:4:5, parent:work@ok
+  \_logic_net: (work@ok.a), line:4:5, endln:4:6, parent:work@ok
     |vpiName:a
     |vpiFullName:work@ok.a
     |vpiNetType:48
@@ -813,7 +813,7 @@ design: (work@ok)
     |vpiReturn:
     \_logic_var: , line:18:11, endln:18:14
     |vpiIODecl:
-    \_io_decl: (i), parent:work@bad1.__truncate_to_2_bits
+    \_io_decl: (i), line:18:49, endln:18:50, parent:work@bad1.__truncate_to_2_bits
       |vpiDirection:1
       |vpiName:i
       |vpiTypedef:
@@ -827,7 +827,7 @@ design: (work@ok)
         |vpiName:i
         |vpiFullName:work@bad1.__truncate_to_2_bits.i
         |vpiActual:
-        \_io_decl: (i), parent:work@bad1.__truncate_to_2_bits
+        \_io_decl: (i), line:18:49, endln:18:50, parent:work@bad1.__truncate_to_2_bits
       |vpiLhs:
       \_ref_obj: (work@bad1.__truncate_to_2_bits.__truncate_to_2_bits), line:19:1, endln:19:21
         |vpiName:__truncate_to_2_bits
@@ -859,7 +859,7 @@ design: (work@ok)
   \_enum_var: (work@bad2.nextState), line:30:36, endln:30:45, parent:work@bad2
   |vpiDefName:work@bad2
   |vpiNet:
-  \_logic_net: (work@bad2.b), parent:work@bad2
+  \_logic_net: (work@bad2.b), line:47:7, endln:47:8, parent:work@bad2
     |vpiName:b
     |vpiFullName:work@bad2.b
   |vpiProcess:
@@ -945,7 +945,7 @@ design: (work@ok)
               |vpiName:READ
               |vpiFullName:work@bad2.READ
               |vpiActual:
-              \_enum_const: (READ), line:26:27, endln:26:31
+              \_enum_const: (READ), line:26:27, endln:26:36
             |vpiLhs:
             \_ref_obj: (work@bad2.operation), line:41:21, endln:41:30
               |vpiName:operation
@@ -967,7 +967,7 @@ design: (work@ok)
               |vpiName:WRITE
               |vpiFullName:work@bad2.WRITE
               |vpiActual:
-              \_enum_const: (WRITE), line:26:38, endln:26:43
+              \_enum_const: (WRITE), line:26:38, endln:26:48
             |vpiLhs:
             \_ref_obj: (work@bad2.operation), line:42:21, endln:42:30
               |vpiName:operation
@@ -983,7 +983,7 @@ design: (work@ok)
               |vpiName:NONE
               |vpiFullName:work@bad2.NONE
               |vpiActual:
-              \_enum_const: (NONE), line:26:50, endln:26:54
+              \_enum_const: (NONE), line:26:50, endln:26:59
             |vpiLhs:
             \_ref_obj: (work@bad2.operation), line:43:22, endln:43:31
               |vpiName:operation
@@ -1003,7 +1003,7 @@ design: (work@ok)
     |vpiInstance:
     \_module: work@bad2 (work@bad2) dut.sv:28:1: , endln:49:10
     |vpiPort:
-    \_port: (b), line:11:17, endln:11:18, parent:work@bad2.m1
+    \_port: (b), line:47:7, endln:47:8, parent:work@bad2.m1
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
@@ -1021,7 +1021,7 @@ design: (work@ok)
       |vpiInstance:
       \_module: work@M1 (work@bad2.m1) dut.sv:47:1: , endln:47:10, parent:work@bad2
 |vpiTypedef:
-\_enum_typespec: (Mode_t), line:24:31, endln:24:37
+\_enum_typespec: (Mode_t), line:24:1, endln:24:38
   |vpiName:Mode_t
   |vpiInstance:
   \_design: (work@ok)
@@ -1030,7 +1030,7 @@ design: (work@ok)
   |vpiEnumConst:
   \_enum_const: (MODE_B), line:24:23, endln:24:29
 |vpiTypedef:
-\_enum_typespec: (Operation_t), line:26:61, endln:26:72
+\_enum_typespec: (Operation_t), line:26:1, endln:26:73
   |vpiName:Operation_t
   |vpiInstance:
   \_design: (work@ok)
@@ -1051,11 +1051,11 @@ design: (work@ok)
         |UINT:0
         |vpiConstType:9
   |vpiEnumConst:
-  \_enum_const: (READ), line:26:27, endln:26:31
+  \_enum_const: (READ), line:26:27, endln:26:36
   |vpiEnumConst:
-  \_enum_const: (WRITE), line:26:38, endln:26:43
+  \_enum_const: (WRITE), line:26:38, endln:26:48
   |vpiEnumConst:
-  \_enum_const: (NONE), line:26:50, endln:26:54
+  \_enum_const: (NONE), line:26:50, endln:26:59
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

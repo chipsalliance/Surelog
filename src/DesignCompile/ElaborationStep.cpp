@@ -1632,6 +1632,12 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       ((variables*)obj)->VpiName("");
     }
     array_var->Expr(assignExp);
+    const FileContent* const fC = sig->getFileContent();
+    obj->VpiFile(fC->getFileName());
+    obj->VpiLineNo(fC->Line(sig->getNodeId()));
+    obj->VpiColumnNo(fC->Column(sig->getNodeId()));
+    obj->VpiEndLineNo(fC->EndLine(sig->getNodeId()));
+    obj->VpiEndColumnNo(fC->EndColumn(sig->getNodeId()));
     obj = array_var;
   } else {
     if (obj->UhdmType() == uhdmenum_var) {
