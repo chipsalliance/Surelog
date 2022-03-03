@@ -537,13 +537,6 @@ def _main():
 
   args = parser.parse_args()
 
-  if not os.path.isabs(args.workspace_dirpath):
-    args.workspace_dirpath = os.path.abspath(args.workspace_dirpath)
-
-  if not os.path.isabs(args.output_dirpath):
-    args.output_dirpath = os.path.join(args.workspace_dirpath, args.output_dirpath)
-  args.output_dirpath = os.path.abspath(args.output_dirpath)
-
   _generate_header(
     'Parser',
     os.path.join(args.output_dirpath, 'src', 'parser', 'SV3_1aParserBaseListener.h'),
