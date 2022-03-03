@@ -2919,6 +2919,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
           valuedcomponenti_cast<ModuleDefinition*>(component);
       const auto& itr = componentMap.find(mod);
       module* m = s.MakeModule();
+      //     m->VpiTopModule(true);
       module* def = (module*)itr->second;
       m->VpiDefName(def->VpiDefName());
       m->VpiName(def->VpiDefName());  // Top's instance name is module name
@@ -2952,8 +2953,26 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
     listen_designs(designs, listener);
   }
 
+  // Lint only the elaborated model
   UhdmLint* linter = new UhdmLint(&s);
   listen_designs(designs, linter);
+  /*
+  UHDM::VisitedContainer visited;
+  if (vpiHandle itr = vpi_iterate(uhdmtopPackages, designHandle)) {
+    while (vpiHandle obj = vpi_scan(itr)) {
+      listen_any(obj, linter, &visited);
+      vpi_free_object(obj);
+    }
+    vpi_free_object(itr);
+  }
+  if (vpiHandle itr = vpi_iterate(uhdmtopModules, designHandle)) {
+    while (vpiHandle obj = vpi_scan(itr)) {
+      listen_any(obj, linter, &visited);
+      vpi_free_object(obj);
+    }
+    vpi_free_object(itr);
+  }
+  */
   delete linter;
 
   if (m_compileDesign->getCompiler()

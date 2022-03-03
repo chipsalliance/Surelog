@@ -696,7 +696,12 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
     // Enum values
     VectorOfenum_const* econsts = s.MakeEnum_constVec();
     enum_t->Enum_consts(econsts);
-
+    uint64_t baseSize = 64;
+    if (const typespec* base = enum_t->Base_typespec()) {
+      bool invalidValue;
+      baseSize = Bits(base, invalidValue, scope, compileDesign, nullptr,
+                      fC->getFileName(), base->VpiLineNo(), reduce, true);
+    }
     while (enum_name_declaration) {
       NodeId enumNameId = fC->Child(enum_name_declaration);
       std::string enumName = fC->SymName(enumNameId);
@@ -715,7 +720,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       }
       if (value == nullptr) {
         value = m_exprBuilder.getValueFactory().newLValue();
-        value->set(val, Value::Type::Integer, 64);
+        value->set(val, Value::Type::Integer, baseSize);
       }
       the_enum->addValue(enumName, fC->Line(enumNameId), value);
       enum_name_declaration = fC->Sibling(enum_name_declaration);
