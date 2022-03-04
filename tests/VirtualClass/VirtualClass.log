@@ -343,7 +343,7 @@ design: (work@top)
       \_logic_typespec: (t_vector), line:2:13, endln:2:18
         |vpiName:t_vector
         |vpiTypedefAlias:
-        \_logic_typespec: (t_vector), line:2:13, endln:2:18
+        \_logic_typespec: (t_vector), line:2:13, endln:2:18, parent:work@C
           |vpiName:t_vector
           |vpiRange:
           \_range: , line:2:20, endln:2:28
@@ -394,7 +394,7 @@ design: (work@top)
     \_typespec_member: (m1), line:6:17, endln:6:19, parent:t_struct
       |vpiName:m1
       |vpiTypespec:
-      \_array_typespec: (t_array)
+      \_array_typespec: (t_array), parent:work@C
         |vpiName:t_array
         |vpiRange:
         \_range: , line:3:24, endln:3:32, parent:t_array
@@ -402,9 +402,9 @@ design: (work@top)
           \_operation: , line:3:24, endln:3:30
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (t_array.SIZE), line:3:24, endln:3:28
+            \_ref_obj: (work@C::t_array::SIZE), line:3:24, endln:3:28
               |vpiName:SIZE
-              |vpiFullName:t_array.SIZE
+              |vpiFullName:work@C::t_array::SIZE
               |vpiActual:
               \_parameter: (work@C::SIZE), line:1:54, endln:1:58
             |vpiOperand:
@@ -434,7 +434,7 @@ design: (work@top)
 \_module: work@top (work@top) dut.sv:11:1: , endln:15:10, parent:work@top
   |vpiFullName:work@top
   |vpiTypedef:
-  \_logic_typespec: (t_t0), line:12:13, endln:12:18
+  \_logic_typespec: (t_t0), line:12:13, endln:12:18, parent:work@top
     |vpiName:t_t0
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:11:1: , endln:15:10, parent:work@top
@@ -487,7 +487,7 @@ design: (work@top)
     |vpiAutomatic:1
     |vpiVisibility:1
   |vpiTypedef:
-  \_logic_typespec: (t_t0), line:12:13, endln:12:18
+  \_logic_typespec: (t_t0), line:12:13, endln:12:18, parent:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1

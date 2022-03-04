@@ -230,7 +230,7 @@ design: (work@dut)
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
-      \_enum_typespec: (state)
+      \_enum_typespec: (state), parent:work@process
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
@@ -441,7 +441,7 @@ design: (work@dut)
     |vpiLhs:
     \_parameter: (work@dut.LFSR_OUT_W), line:19:29, endln:19:39, parent:work@dut
   |vpiTypedef:
-  \_enum_typespec: (dummy_instr_e), line:6:5, endln:11:21
+  \_enum_typespec: (dummy_instr_e), line:6:5, endln:11:21, parent:work@dut
     |vpiName:dummy_instr_e
     |vpiInstance:
     \_module: work@dut (work@dut) dut.sv:1:1: , endln:21:10, parent:work@dut
@@ -486,7 +486,7 @@ design: (work@dut)
       |vpiDecompile:2'b11
       |vpiSize:2
   |vpiTypedef:
-  \_struct_typespec: (lfsr_data_t), line:13:13, endln:13:19
+  \_struct_typespec: (lfsr_data_t), line:13:13, endln:13:19, parent:work@dut
     |vpiName:lfsr_data_t
     |vpiInstance:
     \_module: work@dut (work@dut) dut.sv:1:1: , endln:21:10, parent:work@dut
@@ -495,7 +495,7 @@ design: (work@dut)
     \_typespec_member: (instr_type), line:14:33, endln:14:43, parent:lfsr_data_t
       |vpiName:instr_type
       |vpiTypespec:
-      \_enum_typespec: (dummy_instr_e), line:6:5, endln:11:21
+      \_enum_typespec: (dummy_instr_e), line:6:5, endln:11:21, parent:work@dut
       |vpiRefFile:dut.sv
       |vpiRefLineNo:14
       |vpiRefColumnNo:7
@@ -512,9 +512,9 @@ design: (work@dut)
           \_operation: , line:15:14, endln:15:20
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (lfsr_data_t.OP_W), line:15:14, endln:15:18, parent:lfsr_data_t
+            \_ref_obj: (work@dut.lfsr_data_t.OP_W), line:15:14, endln:15:18, parent:lfsr_data_t
               |vpiName:OP_W
-              |vpiFullName:lfsr_data_t.OP_W
+              |vpiFullName:work@dut.lfsr_data_t.OP_W
             |vpiOperand:
             \_constant: , line:15:19, endln:15:20
               |vpiDecompile:1
@@ -538,9 +538,9 @@ design: (work@dut)
           \_operation: , line:16:14, endln:16:20
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (lfsr_data_t.OP_W), line:16:14, endln:16:18, parent:lfsr_data_t
+            \_ref_obj: (work@dut.lfsr_data_t.OP_W), line:16:14, endln:16:18, parent:lfsr_data_t
               |vpiName:OP_W
-              |vpiFullName:lfsr_data_t.OP_W
+              |vpiFullName:work@dut.lfsr_data_t.OP_W
             |vpiOperand:
             \_constant: , line:16:19, endln:16:20
               |vpiDecompile:1
@@ -564,9 +564,9 @@ design: (work@dut)
           \_operation: , line:17:14, endln:17:29
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (lfsr_data_t.TIMEOUT_CNT_W), line:17:14, endln:17:27, parent:lfsr_data_t
+            \_ref_obj: (work@dut.lfsr_data_t.TIMEOUT_CNT_W), line:17:14, endln:17:27, parent:lfsr_data_t
               |vpiName:TIMEOUT_CNT_W
-              |vpiFullName:lfsr_data_t.TIMEOUT_CNT_W
+              |vpiFullName:work@dut.lfsr_data_t.TIMEOUT_CNT_W
             |vpiOperand:
             \_constant: , line:17:28, endln:17:29
               |vpiDecompile:1
@@ -643,9 +643,9 @@ design: (work@dut)
     |vpiLhs:
     \_parameter: (work@dut.LFSR_OUT_W), line:19:29, endln:19:39, parent:work@dut
   |vpiTypedef:
-  \_enum_typespec: (dummy_instr_e), line:6:5, endln:11:21
+  \_enum_typespec: (dummy_instr_e), line:6:5, endln:11:21, parent:work@dut
   |vpiTypedef:
-  \_struct_typespec: (lfsr_data_t), line:13:13, endln:13:19
+  \_struct_typespec: (lfsr_data_t), line:13:13, endln:13:19, parent:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiTopModule:1

@@ -262,7 +262,7 @@ design: (work@dut)
   |vpiName:pkg1
   |vpiFullName:pkg1::
   |vpiTypedef:
-  \_struct_typespec: (pkg1::struct1), line:2:13, endln:2:19
+  \_struct_typespec: (pkg1::struct1), line:2:13, endln:2:19, parent:pkg1::
     |vpiName:pkg1::struct1
     |vpiInstance:
     \_package: pkg1 (pkg1::) dut.sv:1:1: , endln:5:11, parent:work@dut
@@ -295,7 +295,7 @@ design: (work@dut)
   |vpiName:pkg2
   |vpiFullName:pkg2::
   |vpiTypedef:
-  \_struct_typespec: (pkg2::struct1), line:8:13, endln:8:19
+  \_struct_typespec: (pkg2::struct1), line:8:13, endln:8:19, parent:pkg2::
     |vpiName:pkg2::struct1
     |vpiInstance:
     \_package: pkg2 (pkg2::) dut.sv:7:1: , endln:11:11, parent:work@dut
@@ -327,7 +327,7 @@ design: (work@dut)
 \_module: work@dut (work@dut) dut.sv:13:1: , endln:25:10, parent:work@dut
   |vpiFullName:work@dut
   |vpiTypedef:
-  \_struct_typespec: (struct2), line:14:13, endln:14:19
+  \_struct_typespec: (struct2), line:14:13, endln:14:19, parent:work@dut
     |vpiName:struct2
     |vpiInstance:
     \_module: work@dut (work@dut) dut.sv:13:1: , endln:25:10, parent:work@dut
@@ -445,27 +445,27 @@ design: (work@dut)
 \_module: work@dut (work@dut) dut.sv:13:1: , endln:25:10
   |vpiName:work@dut
   |vpiTypedef:
-  \_struct_typespec: (struct2), line:14:13, endln:14:19
+  \_struct_typespec: (struct2), line:14:13, endln:14:19, parent:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiNet:
   \_struct_net: (work@dut.var1), line:13:12, endln:13:16, parent:work@dut
     |vpiTypespec:
-    \_struct_typespec: (pkg1::struct1), line:2:13, endln:2:19
+    \_struct_typespec: (pkg1::struct1), line:2:13, endln:2:19, parent:pkg1::
     |vpiName:var1
     |vpiFullName:work@dut.var1
     |vpiNetType:1
   |vpiNet:
   \_struct_net: (work@dut.var2), line:13:18, endln:13:22, parent:work@dut
     |vpiTypespec:
-    \_struct_typespec: (pkg2::struct1), line:8:13, endln:8:19
+    \_struct_typespec: (pkg2::struct1), line:8:13, endln:8:19, parent:pkg2::
     |vpiName:var2
     |vpiFullName:work@dut.var2
     |vpiNetType:1
   |vpiNet:
   \_struct_net: (work@dut.var3), line:13:24, endln:13:28, parent:work@dut
     |vpiTypespec:
-    \_struct_typespec: (struct2), line:14:13, endln:14:19
+    \_struct_typespec: (struct2), line:14:13, endln:14:19, parent:work@dut
     |vpiName:var3
     |vpiFullName:work@dut.var3
   |vpiTopModule:1
@@ -480,7 +480,7 @@ design: (work@dut)
       |vpiActual:
       \_struct_net: (work@dut.var1), line:13:12, endln:13:16, parent:work@dut
     |vpiTypedef:
-    \_struct_typespec: (pkg1::struct1), line:2:13, endln:2:19
+    \_struct_typespec: (pkg1::struct1), line:2:13, endln:2:19, parent:pkg1::
   |vpiPort:
   \_port: (var2), line:13:18, endln:13:22, parent:work@dut
     |vpiName:var2
@@ -492,7 +492,7 @@ design: (work@dut)
       |vpiActual:
       \_struct_net: (work@dut.var2), line:13:18, endln:13:22, parent:work@dut
     |vpiTypedef:
-    \_struct_typespec: (pkg2::struct1), line:8:13, endln:8:19
+    \_struct_typespec: (pkg2::struct1), line:8:13, endln:8:19, parent:pkg2::
   |vpiPort:
   \_port: (var3), line:13:24, endln:13:28, parent:work@dut
     |vpiName:var3
@@ -504,7 +504,7 @@ design: (work@dut)
       |vpiActual:
       \_struct_net: (work@dut.var3), line:13:24, endln:13:28, parent:work@dut
     |vpiTypedef:
-    \_struct_typespec: (struct2), line:14:13, endln:14:19
+    \_struct_typespec: (struct2), line:14:13, endln:14:19, parent:work@dut
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

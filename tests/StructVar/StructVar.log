@@ -56,7 +56,7 @@ design: (work@test)
 \_module: work@dut1 (work@dut1) dut.sv:1:1: , endln:31:10, parent:work@test
   |vpiFullName:work@dut1
   |vpiTypedef:
-  \_struct_typespec: (intf), line:13:11, endln:13:17
+  \_struct_typespec: (intf), line:13:11, endln:13:17, parent:work@dut1
     |vpiName:intf
     |vpiInstance:
     \_module: work@dut1 (work@dut1) dut.sv:1:1: , endln:31:10, parent:work@test
@@ -104,7 +104,7 @@ design: (work@test)
       |vpiTypespec:
       \_logic_typespec: , line:16:6, endln:16:11
   |vpiTypedef:
-  \_struct_typespec: (mem_s), line:3:11, endln:3:17
+  \_struct_typespec: (mem_s), line:3:11, endln:3:17, parent:work@dut1
     |vpiName:mem_s
     |vpiInstance:
     \_module: work@dut1 (work@dut1) dut.sv:1:1: , endln:31:10, parent:work@test
@@ -195,7 +195,7 @@ design: (work@test)
 \_module: work@dut2 (work@dut2) dut.sv:34:1: , endln:44:10, parent:work@test
   |vpiFullName:work@dut2
   |vpiTypedef:
-  \_struct_typespec: (mem_s), line:36:11, endln:36:17
+  \_struct_typespec: (mem_s), line:36:11, endln:36:17, parent:work@dut2
     |vpiName:mem_s
     |vpiInstance:
     \_module: work@dut2 (work@dut2) dut.sv:34:1: , endln:44:10, parent:work@test
@@ -255,7 +255,7 @@ design: (work@test)
 \_module: work@prim_generic_ram_1 (work@prim_generic_ram_1) dut.sv:47:1: , endln:66:10, parent:work@test
   |vpiFullName:work@prim_generic_ram_1
   |vpiTypedef:
-  \_enum_typespec: (pmp_cfg_mode_e), line:49:3, endln:51:20
+  \_enum_typespec: (pmp_cfg_mode_e), line:49:3, endln:51:20, parent:work@prim_generic_ram_1
     |vpiName:pmp_cfg_mode_e
     |vpiInstance:
     \_module: work@prim_generic_ram_1 (work@prim_generic_ram_1) dut.sv:47:1: , endln:66:10, parent:work@test
@@ -282,7 +282,7 @@ design: (work@test)
       |vpiDecompile:2'b01
       |vpiSize:2
   |vpiTypedef:
-  \_struct_typespec: (pmp_cfg_t), line:52:11, endln:52:17
+  \_struct_typespec: (pmp_cfg_t), line:52:11, endln:52:17, parent:work@prim_generic_ram_1
     |vpiName:pmp_cfg_t
     |vpiInstance:
     \_module: work@prim_generic_ram_1 (work@prim_generic_ram_1) dut.sv:47:1: , endln:66:10, parent:work@test
@@ -296,7 +296,7 @@ design: (work@test)
     \_typespec_member: (mode), line:54:20, endln:54:24, parent:pmp_cfg_t
       |vpiName:mode
       |vpiTypespec:
-      \_enum_typespec: (pmp_cfg_mode_e), line:49:3, endln:51:20
+      \_enum_typespec: (pmp_cfg_mode_e), line:49:3, endln:51:20, parent:work@prim_generic_ram_1
       |vpiRefFile:dut.sv
       |vpiRefLineNo:54
       |vpiRefColumnNo:5
@@ -350,7 +350,7 @@ design: (work@test)
     |vpiVariables:
     \_struct_var: (work@test.u1.mem1), line:9:9, endln:9:13, parent:work@test.u1
       |vpiTypespec:
-      \_struct_typespec: (mem_s), line:3:11, endln:3:17
+      \_struct_typespec: (mem_s), line:3:11, endln:3:17, parent:work@dut1
       |vpiName:mem1
       |vpiFullName:work@test.u1.mem1
       |vpiAutomatic:1
@@ -389,7 +389,7 @@ design: (work@test)
       |vpiReg:
       \_struct_var: (work@test.u1.mem2), line:11:9, endln:11:13, parent:work@test.u1.mem2
         |vpiTypespec:
-        \_struct_typespec: (mem_s), line:3:11, endln:3:17
+        \_struct_typespec: (mem_s), line:3:11, endln:3:17, parent:work@dut1
         |vpiFullName:work@test.u1.mem2
     |vpiVariables:
     \_array_var: (work@test.u1.csr_pmp_addr), line:26:16, endln:26:28, parent:work@test.u1
@@ -538,16 +538,16 @@ design: (work@test)
         \_logic_typespec: 
         |vpiFullName:work@test.u1.pmp_req_err1
     |vpiTypedef:
-    \_struct_typespec: (intf), line:13:11, endln:13:17
+    \_struct_typespec: (intf), line:13:11, endln:13:17, parent:work@dut1
     |vpiTypedef:
-    \_struct_typespec: (mem_s), line:3:11, endln:3:17
+    \_struct_typespec: (mem_s), line:3:11, endln:3:17, parent:work@dut1
     |vpiDefName:work@dut1
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
     |vpiNet:
     \_struct_net: (work@test.u1.intf1), line:19:13, endln:19:18, parent:work@test.u1
       |vpiTypespec:
-      \_struct_typespec: (intf), line:13:11, endln:13:17
+      \_struct_typespec: (intf), line:13:11, endln:13:17, parent:work@dut1
       |vpiName:intf1
       |vpiFullName:work@test.u1.intf1
       |vpiNetType:1
@@ -581,7 +581,7 @@ design: (work@test)
       |vpiNet:
       \_struct_net: (work@test.u1.intf2), line:21:13, endln:21:18, parent:work@test.u1.intf2
         |vpiTypespec:
-        \_struct_typespec: (intf), line:13:11, endln:13:17
+        \_struct_typespec: (intf), line:13:11, endln:13:17, parent:work@dut1
         |vpiFullName:work@test.u1.intf2
         |vpiNetType:1
     |vpiArrayNet:
@@ -636,7 +636,7 @@ design: (work@test)
       |vpiNet:
       \_struct_net: (work@test.u1.intf3), line:22:13, endln:22:18, parent:work@test.u1.intf3
         |vpiTypespec:
-        \_struct_typespec: (intf), line:13:11, endln:13:17
+        \_struct_typespec: (intf), line:13:11, endln:13:17, parent:work@dut1
         |vpiFullName:work@test.u1.intf3
         |vpiNetType:1
     |vpiInstance:
@@ -648,7 +648,7 @@ design: (work@test)
     |vpiVariables:
     \_struct_var: (work@test.u2.mem), line:41:9, endln:41:12, parent:work@test.u2
       |vpiTypespec:
-      \_struct_typespec: (mem_s), line:36:11, endln:36:17
+      \_struct_typespec: (mem_s), line:36:11, endln:36:17, parent:work@dut2
       |vpiName:mem
       |vpiFullName:work@test.u2.mem
       |vpiAutomatic:1
@@ -687,7 +687,7 @@ design: (work@test)
       |vpiReg:
       \_struct_var: (work@test.u2.memArr), line:42:9, endln:42:15, parent:work@test.u2.memArr
         |vpiTypespec:
-        \_struct_typespec: (mem_s), line:36:11, endln:36:17
+        \_struct_typespec: (mem_s), line:36:11, endln:36:17, parent:work@dut2
         |vpiFullName:work@test.u2.memArr
     |vpiVariables:
     \_array_var: (work@test.u2.memMulti), line:43:9, endln:43:17, parent:work@test.u2
@@ -745,10 +745,10 @@ design: (work@test)
       |vpiReg:
       \_struct_var: (work@test.u2.memMulti), line:43:9, endln:43:17, parent:work@test.u2.memMulti
         |vpiTypespec:
-        \_struct_typespec: (mem_s), line:36:11, endln:36:17
+        \_struct_typespec: (mem_s), line:36:11, endln:36:17, parent:work@dut2
         |vpiFullName:work@test.u2.memMulti
     |vpiTypedef:
-    \_struct_typespec: (mem_s), line:36:11, endln:36:17
+    \_struct_typespec: (mem_s), line:36:11, endln:36:17, parent:work@dut2
     |vpiDefName:work@dut2
     |vpiDefFile:dut.sv
     |vpiDefLineNo:34
@@ -792,12 +792,12 @@ design: (work@test)
       |vpiReg:
       \_struct_var: (work@test.u3.pmp_cfg), line:57:17, endln:57:24, parent:work@test.u3.pmp_cfg
         |vpiTypespec:
-        \_struct_typespec: (pmp_cfg_t), line:52:11, endln:52:17
+        \_struct_typespec: (pmp_cfg_t), line:52:11, endln:52:17, parent:work@prim_generic_ram_1
         |vpiFullName:work@test.u3.pmp_cfg
     |vpiTypedef:
-    \_enum_typespec: (pmp_cfg_mode_e), line:49:3, endln:51:20
+    \_enum_typespec: (pmp_cfg_mode_e), line:49:3, endln:51:20, parent:work@prim_generic_ram_1
     |vpiTypedef:
-    \_struct_typespec: (pmp_cfg_t), line:52:11, endln:52:17
+    \_struct_typespec: (pmp_cfg_t), line:52:11, endln:52:17, parent:work@prim_generic_ram_1
     |vpiDefName:work@prim_generic_ram_1
     |vpiDefFile:dut.sv
     |vpiDefLineNo:47
