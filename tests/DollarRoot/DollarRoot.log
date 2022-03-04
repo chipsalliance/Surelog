@@ -6877,7 +6877,7 @@ design: (work@top)
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
-      \_enum_typespec: (state)
+      \_enum_typespec: (state), parent:work@process
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
@@ -7193,7 +7193,7 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@test_program.MAX_DATA_IDLE), line:26:15, endln:26:28, parent:work@test_program
   |vpiTypedef:
-  \_logic_typespec: (Burstcount), line:31:12, endln:31:17
+  \_logic_typespec: (Burstcount), line:31:12, endln:31:17, parent:work@test_program
     |vpiName:Burstcount
     |vpiInstance:
     \_module: work@test_program (work@test_program) dut.sv:5:1: , endln:797:10, parent:work@top
@@ -7218,7 +7218,7 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
   |vpiTypedef:
-  \_enum_typespec: (Burstmode), line:39:4, endln:43:16
+  \_enum_typespec: (Burstmode), line:39:4, endln:43:16, parent:work@test_program
     |vpiName:Burstmode
     |vpiInstance:
     \_module: work@test_program (work@test_program) dut.sv:5:1: , endln:797:10, parent:work@top
@@ -7237,7 +7237,7 @@ design: (work@top)
       |vpiDecompile:1
       |vpiSize:64
   |vpiTypedef:
-  \_struct_typespec: (Command), line:45:12, endln:45:18
+  \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiName:Command
     |vpiInstance:
     \_module: work@test_program (work@test_program) dut.sv:5:1: , endln:797:10, parent:work@top
@@ -7245,7 +7245,7 @@ design: (work@top)
     \_typespec_member: (trans), line:47:37, endln:47:42, parent:Command
       |vpiName:trans
       |vpiTypespec:
-      \_enum_typespec: (Transaction), line:33:4, endln:37:18
+      \_enum_typespec: (Transaction), line:33:4, endln:37:18, parent:work@test_program
         |vpiName:Transaction
         |vpiInstance:
         \_module: work@test_program (work@test_program) dut.sv:5:1: , endln:797:10, parent:work@top
@@ -7275,7 +7275,7 @@ design: (work@top)
       \_logic_typespec: (Burstcount), line:31:12, endln:31:17
         |vpiName:Burstcount
         |vpiTypedefAlias:
-        \_logic_typespec: (Burstcount), line:31:12, endln:31:17
+        \_logic_typespec: (Burstcount), line:31:12, endln:31:17, parent:work@test_program
         |vpiRange:
         \_range: , line:31:19, endln:31:30, parent:Burstcount
           |vpiLeftRange:
@@ -7308,9 +7308,9 @@ design: (work@top)
           \_operation: , line:49:15, endln:49:23
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (Command.ADDR_W), line:49:15, endln:49:21, parent:Command
+            \_ref_obj: (work@test_program.Command.ADDR_W), line:49:15, endln:49:21, parent:Command
               |vpiName:ADDR_W
-              |vpiFullName:Command.ADDR_W
+              |vpiFullName:work@test_program.Command.ADDR_W
             |vpiOperand:
             \_constant: , line:49:22, endln:49:23
               |vpiDecompile:1
@@ -7334,9 +7334,9 @@ design: (work@top)
           \_operation: , line:50:15, endln:50:23
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (Command.DATA_W), line:50:15, endln:50:21, parent:Command
+            \_ref_obj: (work@test_program.Command.DATA_W), line:50:15, endln:50:21, parent:Command
               |vpiName:DATA_W
-              |vpiFullName:Command.DATA_W
+              |vpiFullName:work@test_program.Command.DATA_W
             |vpiOperand:
             \_constant: , line:50:22, endln:50:23
               |vpiDecompile:1
@@ -7360,9 +7360,9 @@ design: (work@top)
           \_operation: , line:51:15, endln:51:28
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (Command.NUM_SYMBOLS), line:51:15, endln:51:26, parent:Command
+            \_ref_obj: (work@test_program.Command.NUM_SYMBOLS), line:51:15, endln:51:26, parent:Command
               |vpiName:NUM_SYMBOLS
-              |vpiFullName:Command.NUM_SYMBOLS
+              |vpiFullName:work@test_program.Command.NUM_SYMBOLS
             |vpiOperand:
             \_constant: , line:51:27, endln:51:28
               |vpiDecompile:1
@@ -7414,7 +7414,7 @@ design: (work@top)
             |UINT:0
             |vpiConstType:9
   |vpiTypedef:
-  \_struct_typespec: (Response), line:56:12, endln:56:18
+  \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
     |vpiName:Response
     |vpiInstance:
     \_module: work@test_program (work@test_program) dut.sv:5:1: , endln:797:10, parent:work@top
@@ -7425,7 +7425,7 @@ design: (work@top)
       \_logic_typespec: (Burstcount), line:31:12, endln:31:17
         |vpiName:Burstcount
         |vpiTypedefAlias:
-        \_logic_typespec: (Burstcount), line:31:12, endln:31:17
+        \_logic_typespec: (Burstcount), line:31:12, endln:31:17, parent:work@test_program
         |vpiRange:
         \_range: , line:31:19, endln:31:30, parent:Burstcount
           |vpiLeftRange:
@@ -7458,9 +7458,9 @@ design: (work@top)
           \_operation: , line:59:14, endln:59:22
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (Response.DATA_W), line:59:14, endln:59:20, parent:Response
+            \_ref_obj: (work@test_program.Response.DATA_W), line:59:14, endln:59:20, parent:Response
               |vpiName:DATA_W
-              |vpiFullName:Response.DATA_W
+              |vpiFullName:work@test_program.Response.DATA_W
             |vpiOperand:
             \_constant: , line:59:21, endln:59:22
               |vpiDecompile:1
@@ -7493,7 +7493,7 @@ design: (work@top)
             |UINT:0
             |vpiConstType:9
   |vpiTypedef:
-  \_enum_typespec: (Transaction), line:33:4, endln:37:18
+  \_enum_typespec: (Transaction), line:33:4, endln:37:18, parent:work@test_program
   |vpiTypedef:
   \_import: (verbosity_pkg), line:7:11, endln:7:27
   |vpiTypedef:
@@ -7510,7 +7510,7 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:cmd
       |vpiTypedef:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.configure_and_push_command_to_master_0), parent:work@test_program.configure_and_push_command_to_master_0
       |vpiFullName:work@test_program.configure_and_push_command_to_master_0
@@ -7763,7 +7763,7 @@ design: (work@top)
     |vpiVariables:
     \_struct_var: (work@test_program.get_read_response_from_master_0.rsp), line:268:16, endln:268:19
       |vpiTypespec:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
       |vpiName:rsp
       |vpiFullName:work@test_program.get_read_response_from_master_0.rsp
     |vpiVisibility:1
@@ -7771,7 +7771,7 @@ design: (work@top)
     |vpiReturn:
     \_struct_var: , line:266:23, endln:266:31
       |vpiTypespec:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.get_read_response_from_master_0), parent:work@test_program.get_read_response_from_master_0
       |vpiFullName:work@test_program.get_read_response_from_master_0
@@ -7911,7 +7911,7 @@ design: (work@top)
     |vpiVariables:
     \_struct_var: (work@test_program.get_command_from_slave_0.cmd), line:311:15, endln:311:18
       |vpiTypespec:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
       |vpiName:cmd
       |vpiFullName:work@test_program.get_command_from_slave_0.cmd
     |vpiVisibility:1
@@ -7919,7 +7919,7 @@ design: (work@top)
     |vpiReturn:
     \_struct_var: , line:309:23, endln:309:30
       |vpiTypespec:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.get_command_from_slave_0), parent:work@test_program.get_command_from_slave_0
       |vpiFullName:work@test_program.get_command_from_slave_0
@@ -8212,7 +8212,7 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:rsp
       |vpiTypedef:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.configure_and_push_response_to_slave_0), parent:work@test_program.configure_and_push_response_to_slave_0
       |vpiFullName:work@test_program.configure_and_push_response_to_slave_0
@@ -8519,7 +8519,7 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:cmd
       |vpiTypedef:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.configure_and_push_command_to_master_1), parent:work@test_program.configure_and_push_command_to_master_1
       |vpiFullName:work@test_program.configure_and_push_command_to_master_1
@@ -8768,7 +8768,7 @@ design: (work@top)
     |vpiVariables:
     \_struct_var: (work@test_program.get_read_response_from_master_1.rsp), line:411:16, endln:411:19
       |vpiTypespec:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
       |vpiName:rsp
       |vpiFullName:work@test_program.get_read_response_from_master_1.rsp
     |vpiVisibility:1
@@ -8776,7 +8776,7 @@ design: (work@top)
     |vpiReturn:
     \_struct_var: , line:409:23, endln:409:31
       |vpiTypespec:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.get_read_response_from_master_1), parent:work@test_program.get_read_response_from_master_1
       |vpiFullName:work@test_program.get_read_response_from_master_1
@@ -8916,7 +8916,7 @@ design: (work@top)
     |vpiVariables:
     \_struct_var: (work@test_program.get_command_from_slave_1.cmd), line:454:15, endln:454:18
       |vpiTypespec:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
       |vpiName:cmd
       |vpiFullName:work@test_program.get_command_from_slave_1.cmd
     |vpiVisibility:1
@@ -8924,7 +8924,7 @@ design: (work@top)
     |vpiReturn:
     \_struct_var: , line:452:23, endln:452:30
       |vpiTypespec:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.get_command_from_slave_1), parent:work@test_program.get_command_from_slave_1
       |vpiFullName:work@test_program.get_command_from_slave_1
@@ -9217,7 +9217,7 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:rsp
       |vpiTypedef:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.configure_and_push_response_to_slave_1), parent:work@test_program.configure_and_push_response_to_slave_1
       |vpiFullName:work@test_program.configure_and_push_response_to_slave_1
@@ -9520,19 +9520,19 @@ design: (work@top)
     |vpiVariables:
     \_struct_var: (work@test_program.master_send_commands.cmd), line:550:19, endln:550:22
       |vpiTypespec:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
       |vpiName:cmd
       |vpiFullName:work@test_program.master_send_commands.cmd
     |vpiVariables:
     \_struct_var: (work@test_program.master_send_commands.rsp), line:551:19, endln:551:22
       |vpiTypespec:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
       |vpiName:rsp
       |vpiFullName:work@test_program.master_send_commands.rsp
     |vpiVariables:
     \_struct_var: (work@test_program.master_send_commands.exp_rsp), line:551:24, endln:551:31
       |vpiTypespec:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
       |vpiName:exp_rsp
       |vpiFullName:work@test_program.master_send_commands.exp_rsp
     |vpiVariables:
@@ -9556,13 +9556,13 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:trans
       |vpiTypedef:
-      \_enum_typespec: (Transaction), line:33:4, endln:37:18
+      \_enum_typespec: (Transaction), line:33:4, endln:37:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (burstmode), line:547:22, endln:547:31
       |vpiDirection:1
       |vpiName:burstmode
       |vpiTypedef:
-      \_enum_typespec: (Burstmode), line:39:4, endln:43:16
+      \_enum_typespec: (Burstmode), line:39:4, endln:43:16, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.master_send_commands), parent:work@test_program.master_send_commands
       |vpiFullName:work@test_program.master_send_commands
@@ -9741,7 +9741,7 @@ design: (work@top)
     |vpiVariables:
     \_struct_var: (work@test_program.create_command.cmd), line:576:15, endln:576:18
       |vpiTypespec:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
       |vpiName:cmd
       |vpiFullName:work@test_program.create_command.cmd
     |vpiVisibility:1
@@ -9749,19 +9749,19 @@ design: (work@top)
     |vpiReturn:
     \_struct_var: , line:570:23, endln:570:30
       |vpiTypespec:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (trans), line:571:22, endln:571:27
       |vpiDirection:1
       |vpiName:trans
       |vpiTypedef:
-      \_enum_typespec: (Transaction), line:33:4, endln:37:18
+      \_enum_typespec: (Transaction), line:33:4, endln:37:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (burstmode), line:572:22, endln:572:31
       |vpiDirection:1
       |vpiName:burstmode
       |vpiTypedef:
-      \_enum_typespec: (Burstmode), line:39:4, endln:43:16
+      \_enum_typespec: (Burstmode), line:39:4, endln:43:16, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (slave_id), line:573:22, endln:573:30
       |vpiDirection:1
@@ -10110,7 +10110,7 @@ design: (work@top)
     |vpiVariables:
     \_logic_var: (work@test_program.randomize_burstcount.burstcount), line:603:18, endln:603:28
       |vpiTypespec:
-      \_logic_typespec: (Burstcount), line:31:12, endln:31:17
+      \_logic_typespec: (Burstcount), line:31:12, endln:31:17, parent:work@test_program
       |vpiName:burstcount
       |vpiFullName:work@test_program.randomize_burstcount.burstcount
     |vpiVisibility:1
@@ -10118,7 +10118,7 @@ design: (work@top)
     |vpiReturn:
     \_logic_var: , line:601:23, endln:601:33
       |vpiTypespec:
-      \_logic_typespec: (Burstcount), line:31:12, endln:31:17
+      \_logic_typespec: (Burstcount), line:31:12, endln:31:17, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.randomize_burstcount), parent:work@test_program.randomize_burstcount
       |vpiFullName:work@test_program.randomize_burstcount
@@ -10329,7 +10329,7 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:cmd
       |vpiTypedef:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (master_id), line:622:16, endln:622:25
       |vpiDirection:1
@@ -10409,7 +10409,7 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:cmd
       |vpiTypedef:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (master_id), line:633:16, endln:633:25
       |vpiDirection:1
@@ -10479,7 +10479,7 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:cmd
       |vpiTypedef:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (slave_id), line:646:16, endln:646:24
       |vpiDirection:1
@@ -10772,7 +10772,7 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:cmd
       |vpiTypedef:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (master_id), line:672:16, endln:672:25
       |vpiDirection:1
@@ -10850,7 +10850,7 @@ design: (work@top)
     |vpiVariables:
     \_struct_var: (work@test_program.get_expected_command_for_slave.exp_cmd), line:687:15, endln:687:22
       |vpiTypespec:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
       |vpiName:exp_cmd
       |vpiFullName:work@test_program.get_expected_command_for_slave.exp_cmd
     |vpiVariables:
@@ -10862,13 +10862,13 @@ design: (work@top)
     |vpiReturn:
     \_struct_var: , line:682:23, endln:682:30
       |vpiTypespec:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (cmd), line:683:15, endln:683:18
       |vpiDirection:1
       |vpiName:cmd
       |vpiTypedef:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (slave_id), line:684:15, endln:684:23
       |vpiDirection:1
@@ -11219,13 +11219,13 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:actual_cmd
       |vpiTypedef:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (exp_cmd), line:720:27, endln:720:34
       |vpiDirection:1
       |vpiName:exp_cmd
       |vpiTypedef:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.verify_command), parent:work@test_program.verify_command
       |vpiFullName:work@test_program.verify_command
@@ -11615,7 +11615,7 @@ design: (work@top)
     |vpiVariables:
     \_struct_var: (work@test_program.create_response.rsp), line:763:16, endln:763:19
       |vpiTypespec:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
       |vpiName:rsp
       |vpiFullName:work@test_program.create_response.rsp
     |vpiVisibility:1
@@ -11623,7 +11623,7 @@ design: (work@top)
     |vpiReturn:
     \_struct_var: , line:759:23, endln:759:31
       |vpiTypespec:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (burstcount), line:760:18, endln:760:28
       |vpiDirection:1
@@ -11632,7 +11632,7 @@ design: (work@top)
       \_logic_typespec: (Burstcount), line:31:12, endln:31:17
         |vpiName:Burstcount
         |vpiTypedefAlias:
-        \_logic_typespec: (Burstcount), line:31:12, endln:31:17
+        \_logic_typespec: (Burstcount), line:31:12, endln:31:17, parent:work@test_program
         |vpiRange:
         \_range: , line:31:19, endln:31:30, parent:Burstcount
           |vpiLeftRange:
@@ -11791,7 +11791,7 @@ design: (work@top)
     |vpiVariables:
     \_struct_var: (work@test_program.get_expected_read_response.rsp), line:778:16, endln:778:19
       |vpiTypespec:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
       |vpiName:rsp
       |vpiFullName:work@test_program.get_expected_read_response.rsp
     |vpiVariables:
@@ -11803,13 +11803,13 @@ design: (work@top)
     |vpiReturn:
     \_struct_var: , line:774:23, endln:774:31
       |vpiTypespec:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (cmd), line:775:15, endln:775:18
       |vpiDirection:1
       |vpiName:cmd
       |vpiTypedef:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.get_expected_read_response), parent:work@test_program.get_expected_read_response
       |vpiFullName:work@test_program.get_expected_read_response
@@ -11879,13 +11879,13 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:actual_rsp
       |vpiTypedef:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (exp_rsp), line:787:28, endln:787:35
       |vpiDirection:1
       |vpiName:exp_rsp
       |vpiTypedef:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.verify_response), parent:work@test_program.verify_response
       |vpiFullName:work@test_program.verify_response
@@ -12071,19 +12071,19 @@ design: (work@top)
         |vpiVariables:
         \_struct_var: (work@test_program.cmd), line:251:16, endln:251:19, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Command), line:45:12, endln:45:18
+          \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
           |vpiName:cmd
           |vpiFullName:work@test_program.cmd
         |vpiVariables:
         \_struct_var: (work@test_program.actual_rsp), line:252:16, endln:252:26, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Response), line:56:12, endln:56:18
+          \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
           |vpiName:actual_rsp
           |vpiFullName:work@test_program.actual_rsp
         |vpiVariables:
         \_struct_var: (work@test_program.exp_rsp), line:252:28, endln:252:35, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Response), line:56:12, endln:56:18
+          \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
           |vpiName:exp_rsp
           |vpiFullName:work@test_program.exp_rsp
         |vpiStmt:
@@ -12224,19 +12224,19 @@ design: (work@top)
         |vpiVariables:
         \_struct_var: (work@test_program.actual_cmd), line:284:19, endln:284:29, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Command), line:45:12, endln:45:18
+          \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
           |vpiName:actual_cmd
           |vpiFullName:work@test_program.actual_cmd
         |vpiVariables:
         \_struct_var: (work@test_program.exp_cmd), line:284:31, endln:284:38, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Command), line:45:12, endln:45:18
+          \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
           |vpiName:exp_cmd
           |vpiFullName:work@test_program.exp_cmd
         |vpiVariables:
         \_struct_var: (work@test_program.rsp), line:285:19, endln:285:22, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Response), line:56:12, endln:56:18
+          \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
           |vpiName:rsp
           |vpiFullName:work@test_program.rsp
         |vpiVariables:
@@ -12536,19 +12536,19 @@ design: (work@top)
         |vpiVariables:
         \_struct_var: (work@test_program.cmd), line:394:16, endln:394:19, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Command), line:45:12, endln:45:18
+          \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
           |vpiName:cmd
           |vpiFullName:work@test_program.cmd
         |vpiVariables:
         \_struct_var: (work@test_program.actual_rsp), line:395:16, endln:395:26, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Response), line:56:12, endln:56:18
+          \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
           |vpiName:actual_rsp
           |vpiFullName:work@test_program.actual_rsp
         |vpiVariables:
         \_struct_var: (work@test_program.exp_rsp), line:395:28, endln:395:35, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Response), line:56:12, endln:56:18
+          \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
           |vpiName:exp_rsp
           |vpiFullName:work@test_program.exp_rsp
         |vpiStmt:
@@ -12689,19 +12689,19 @@ design: (work@top)
         |vpiVariables:
         \_struct_var: (work@test_program.actual_cmd), line:427:19, endln:427:29, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Command), line:45:12, endln:45:18
+          \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
           |vpiName:actual_cmd
           |vpiFullName:work@test_program.actual_cmd
         |vpiVariables:
         \_struct_var: (work@test_program.exp_cmd), line:427:31, endln:427:38, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Command), line:45:12, endln:45:18
+          \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
           |vpiName:exp_cmd
           |vpiFullName:work@test_program.exp_cmd
         |vpiVariables:
         \_struct_var: (work@test_program.rsp), line:428:19, endln:428:22, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Response), line:56:12, endln:56:18
+          \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
           |vpiName:rsp
           |vpiFullName:work@test_program.rsp
         |vpiVariables:
@@ -13686,15 +13686,15 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@test_program.MAX_DATA_IDLE), line:26:15, endln:26:28, parent:work@test_program
   |vpiTypedef:
-  \_logic_typespec: (Burstcount), line:31:12, endln:31:17
+  \_logic_typespec: (Burstcount), line:31:12, endln:31:17, parent:work@test_program
   |vpiTypedef:
-  \_enum_typespec: (Burstmode), line:39:4, endln:43:16
+  \_enum_typespec: (Burstmode), line:39:4, endln:43:16, parent:work@test_program
   |vpiTypedef:
-  \_struct_typespec: (Command), line:45:12, endln:45:18
+  \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
   |vpiTypedef:
-  \_struct_typespec: (Response), line:56:12, endln:56:18
+  \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
   |vpiTypedef:
-  \_enum_typespec: (Transaction), line:33:4, endln:37:18
+  \_enum_typespec: (Transaction), line:33:4, endln:37:18, parent:work@test_program
   |vpiTypedef:
   \_import: (verbosity_pkg), line:7:11, endln:7:27
   |vpiTypedef:
@@ -13712,7 +13712,7 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:cmd
       |vpiTypedef:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.configure_and_push_command_to_master_0), parent:work@test_program.configure_and_push_command_to_master_0
       |vpiFullName:work@test_program.configure_and_push_command_to_master_0
@@ -13969,7 +13969,7 @@ design: (work@top)
     |vpiVariables:
     \_struct_var: (work@test_program.get_read_response_from_master_0.rsp), line:268:16, endln:268:19, parent:work@test_program.get_read_response_from_master_0
       |vpiTypespec:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
       |vpiName:rsp
       |vpiFullName:work@test_program.get_read_response_from_master_0.rsp
     |vpiVisibility:1
@@ -14117,7 +14117,7 @@ design: (work@top)
     |vpiVariables:
     \_struct_var: (work@test_program.get_command_from_slave_0.cmd), line:311:15, endln:311:18, parent:work@test_program.get_command_from_slave_0
       |vpiTypespec:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
       |vpiName:cmd
       |vpiFullName:work@test_program.get_command_from_slave_0.cmd
     |vpiVisibility:1
@@ -14426,7 +14426,7 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:rsp
       |vpiTypedef:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.configure_and_push_response_to_slave_0), parent:work@test_program.configure_and_push_response_to_slave_0
       |vpiFullName:work@test_program.configure_and_push_response_to_slave_0
@@ -14725,7 +14725,7 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:cmd
       |vpiTypedef:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.configure_and_push_command_to_master_1), parent:work@test_program.configure_and_push_command_to_master_1
       |vpiFullName:work@test_program.configure_and_push_command_to_master_1
@@ -14982,7 +14982,7 @@ design: (work@top)
     |vpiVariables:
     \_struct_var: (work@test_program.get_read_response_from_master_1.rsp), line:411:16, endln:411:19, parent:work@test_program.get_read_response_from_master_1
       |vpiTypespec:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
       |vpiName:rsp
       |vpiFullName:work@test_program.get_read_response_from_master_1.rsp
     |vpiVisibility:1
@@ -15130,7 +15130,7 @@ design: (work@top)
     |vpiVariables:
     \_struct_var: (work@test_program.get_command_from_slave_1.cmd), line:454:15, endln:454:18, parent:work@test_program.get_command_from_slave_1
       |vpiTypespec:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
       |vpiName:cmd
       |vpiFullName:work@test_program.get_command_from_slave_1.cmd
     |vpiVisibility:1
@@ -15439,7 +15439,7 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:rsp
       |vpiTypedef:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.configure_and_push_response_to_slave_1), parent:work@test_program.configure_and_push_response_to_slave_1
       |vpiFullName:work@test_program.configure_and_push_response_to_slave_1
@@ -15734,19 +15734,19 @@ design: (work@top)
     |vpiVariables:
     \_struct_var: (work@test_program.master_send_commands.cmd), line:550:19, endln:550:22, parent:work@test_program.master_send_commands
       |vpiTypespec:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
       |vpiName:cmd
       |vpiFullName:work@test_program.master_send_commands.cmd
     |vpiVariables:
     \_struct_var: (work@test_program.master_send_commands.rsp), line:551:19, endln:551:22, parent:work@test_program.master_send_commands
       |vpiTypespec:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
       |vpiName:rsp
       |vpiFullName:work@test_program.master_send_commands.rsp
     |vpiVariables:
     \_struct_var: (work@test_program.master_send_commands.exp_rsp), line:551:24, endln:551:31, parent:work@test_program.master_send_commands
       |vpiTypespec:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
       |vpiName:exp_rsp
       |vpiFullName:work@test_program.master_send_commands.exp_rsp
     |vpiVariables:
@@ -15770,13 +15770,13 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:trans
       |vpiTypedef:
-      \_enum_typespec: (Transaction), line:33:4, endln:37:18
+      \_enum_typespec: (Transaction), line:33:4, endln:37:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (burstmode), line:547:22, endln:547:31, parent:work@test_program.master_send_commands
       |vpiDirection:1
       |vpiName:burstmode
       |vpiTypedef:
-      \_enum_typespec: (Burstmode), line:39:4, endln:43:16
+      \_enum_typespec: (Burstmode), line:39:4, endln:43:16, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.master_send_commands), parent:work@test_program.master_send_commands
       |vpiFullName:work@test_program.master_send_commands
@@ -15927,7 +15927,7 @@ design: (work@top)
     |vpiVariables:
     \_struct_var: (work@test_program.create_command.cmd), line:576:15, endln:576:18, parent:work@test_program.create_command
       |vpiTypespec:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
       |vpiName:cmd
       |vpiFullName:work@test_program.create_command.cmd
     |vpiVisibility:1
@@ -15939,13 +15939,13 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:trans
       |vpiTypedef:
-      \_enum_typespec: (Transaction), line:33:4, endln:37:18
+      \_enum_typespec: (Transaction), line:33:4, endln:37:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (burstmode), line:572:22, endln:572:31, parent:work@test_program.create_command
       |vpiDirection:1
       |vpiName:burstmode
       |vpiTypedef:
-      \_enum_typespec: (Burstmode), line:39:4, endln:43:16
+      \_enum_typespec: (Burstmode), line:39:4, endln:43:16, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (slave_id), line:573:22, endln:573:30, parent:work@test_program.create_command
       |vpiDirection:1
@@ -16296,7 +16296,7 @@ design: (work@top)
     |vpiVariables:
     \_logic_var: (work@test_program.randomize_burstcount.burstcount), line:603:18, endln:603:28, parent:work@test_program.randomize_burstcount
       |vpiTypespec:
-      \_logic_typespec: (Burstcount), line:31:12, endln:31:17
+      \_logic_typespec: (Burstcount), line:31:12, endln:31:17, parent:work@test_program
       |vpiName:burstcount
       |vpiFullName:work@test_program.randomize_burstcount.burstcount
     |vpiVisibility:1
@@ -16487,7 +16487,7 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:cmd
       |vpiTypedef:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (master_id), line:622:16, endln:622:25, parent:work@test_program.queue_command
       |vpiDirection:1
@@ -16567,7 +16567,7 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:cmd
       |vpiTypedef:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (master_id), line:633:16, endln:633:25, parent:work@test_program.save_command_master
       |vpiDirection:1
@@ -16645,7 +16645,7 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:cmd
       |vpiTypedef:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (slave_id), line:646:16, endln:646:24, parent:work@test_program.save_command_slave
       |vpiDirection:1
@@ -16906,7 +16906,7 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:cmd
       |vpiTypedef:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (master_id), line:672:16, endln:672:25, parent:work@test_program.configure_and_push_command_to_master
       |vpiDirection:1
@@ -16976,7 +16976,7 @@ design: (work@top)
     |vpiVariables:
     \_struct_var: (work@test_program.get_expected_command_for_slave.exp_cmd), line:687:15, endln:687:22, parent:work@test_program.get_expected_command_for_slave
       |vpiTypespec:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
       |vpiName:exp_cmd
       |vpiFullName:work@test_program.get_expected_command_for_slave.exp_cmd
     |vpiVariables:
@@ -16992,7 +16992,7 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:cmd
       |vpiTypedef:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (slave_id), line:684:15, endln:684:23, parent:work@test_program.get_expected_command_for_slave
       |vpiDirection:1
@@ -17347,13 +17347,13 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:actual_cmd
       |vpiTypedef:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (exp_cmd), line:720:27, endln:720:34, parent:work@test_program.verify_command
       |vpiDirection:1
       |vpiName:exp_cmd
       |vpiTypedef:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.verify_command), parent:work@test_program.verify_command
       |vpiFullName:work@test_program.verify_command
@@ -17693,7 +17693,7 @@ design: (work@top)
     |vpiVariables:
     \_struct_var: (work@test_program.create_response.rsp), line:763:16, endln:763:19, parent:work@test_program.create_response
       |vpiTypespec:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
       |vpiName:rsp
       |vpiFullName:work@test_program.create_response.rsp
     |vpiVisibility:1
@@ -17845,7 +17845,7 @@ design: (work@top)
     |vpiVariables:
     \_struct_var: (work@test_program.get_expected_read_response.rsp), line:778:16, endln:778:19, parent:work@test_program.get_expected_read_response
       |vpiTypespec:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
       |vpiName:rsp
       |vpiFullName:work@test_program.get_expected_read_response.rsp
     |vpiVariables:
@@ -17861,7 +17861,7 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:cmd
       |vpiTypedef:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
+      \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.get_expected_read_response), parent:work@test_program.get_expected_read_response
       |vpiFullName:work@test_program.get_expected_read_response
@@ -17937,13 +17937,13 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:actual_rsp
       |vpiTypedef:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
     |vpiIODecl:
     \_io_decl: (exp_rsp), line:787:28, endln:787:35, parent:work@test_program.verify_response
       |vpiDirection:1
       |vpiName:exp_rsp
       |vpiTypedef:
-      \_struct_typespec: (Response), line:56:12, endln:56:18
+      \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
     |vpiStmt:
     \_begin: (work@test_program.verify_response), parent:work@test_program.verify_response
       |vpiFullName:work@test_program.verify_response
@@ -18102,19 +18102,19 @@ design: (work@top)
         |vpiVariables:
         \_struct_var: (work@test_program.cmd), line:251:16, endln:251:19, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Command), line:45:12, endln:45:18
+          \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
           |vpiName:cmd
           |vpiFullName:work@test_program.cmd
         |vpiVariables:
         \_struct_var: (work@test_program.actual_rsp), line:252:16, endln:252:26, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Response), line:56:12, endln:56:18
+          \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
           |vpiName:actual_rsp
           |vpiFullName:work@test_program.actual_rsp
         |vpiVariables:
         \_struct_var: (work@test_program.exp_rsp), line:252:28, endln:252:35, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Response), line:56:12, endln:56:18
+          \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
           |vpiName:exp_rsp
           |vpiFullName:work@test_program.exp_rsp
         |vpiStmt:
@@ -18251,19 +18251,19 @@ design: (work@top)
         |vpiVariables:
         \_struct_var: (work@test_program.actual_cmd), line:284:19, endln:284:29, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Command), line:45:12, endln:45:18
+          \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
           |vpiName:actual_cmd
           |vpiFullName:work@test_program.actual_cmd
         |vpiVariables:
         \_struct_var: (work@test_program.exp_cmd), line:284:31, endln:284:38, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Command), line:45:12, endln:45:18
+          \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
           |vpiName:exp_cmd
           |vpiFullName:work@test_program.exp_cmd
         |vpiVariables:
         \_struct_var: (work@test_program.rsp), line:285:19, endln:285:22, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Response), line:56:12, endln:56:18
+          \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
           |vpiName:rsp
           |vpiFullName:work@test_program.rsp
         |vpiVariables:
@@ -18555,19 +18555,19 @@ design: (work@top)
         |vpiVariables:
         \_struct_var: (work@test_program.cmd), line:394:16, endln:394:19, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Command), line:45:12, endln:45:18
+          \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
           |vpiName:cmd
           |vpiFullName:work@test_program.cmd
         |vpiVariables:
         \_struct_var: (work@test_program.actual_rsp), line:395:16, endln:395:26, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Response), line:56:12, endln:56:18
+          \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
           |vpiName:actual_rsp
           |vpiFullName:work@test_program.actual_rsp
         |vpiVariables:
         \_struct_var: (work@test_program.exp_rsp), line:395:28, endln:395:35, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Response), line:56:12, endln:56:18
+          \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
           |vpiName:exp_rsp
           |vpiFullName:work@test_program.exp_rsp
         |vpiStmt:
@@ -18704,19 +18704,19 @@ design: (work@top)
         |vpiVariables:
         \_struct_var: (work@test_program.actual_cmd), line:427:19, endln:427:29, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Command), line:45:12, endln:45:18
+          \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
           |vpiName:actual_cmd
           |vpiFullName:work@test_program.actual_cmd
         |vpiVariables:
         \_struct_var: (work@test_program.exp_cmd), line:427:31, endln:427:38, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Command), line:45:12, endln:45:18
+          \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
           |vpiName:exp_cmd
           |vpiFullName:work@test_program.exp_cmd
         |vpiVariables:
         \_struct_var: (work@test_program.rsp), line:428:19, endln:428:22, parent:work@test_program
           |vpiTypespec:
-          \_struct_typespec: (Response), line:56:12, endln:56:18
+          \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
           |vpiName:rsp
           |vpiFullName:work@test_program.rsp
         |vpiVariables:

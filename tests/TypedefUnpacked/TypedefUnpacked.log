@@ -58,7 +58,7 @@ design: (work@dut)
   |vpiName:pkg
   |vpiFullName:pkg::
   |vpiTypedef:
-  \_struct_typespec: (pkg::a), line:2:12, endln:2:18
+  \_struct_typespec: (pkg::a), line:2:12, endln:2:18, parent:pkg::
     |vpiName:pkg::a
     |vpiInstance:
     \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
@@ -71,7 +71,7 @@ design: (work@dut)
         |vpiInstance:
         \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
   |vpiTypedef:
-  \_array_typespec: (pkg::b)
+  \_array_typespec: (pkg::b), parent:pkg::
     |vpiName:pkg::b
     |vpiInstance:
     \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
@@ -93,7 +93,7 @@ design: (work@dut)
     \_struct_typespec: (pkg::a), line:2:12, endln:2:18
       |vpiName:pkg::a
       |vpiTypedefAlias:
-      \_struct_typespec: (pkg::a), line:2:12, endln:2:18
+      \_struct_typespec: (pkg::a), line:2:12, endln:2:18, parent:pkg::
       |vpiInstance:
       \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@dut
       |vpiPacked:1
@@ -180,7 +180,7 @@ design: (work@dut)
   |vpiVariables:
   \_array_var: (work@dut.c), line:9:11, endln:9:12, parent:work@dut
     |vpiTypespec:
-    \_array_typespec: (pkg::b)
+    \_array_typespec: (pkg::b), parent:pkg::
     |vpiName:c
     |vpiFullName:work@dut.c
     |vpiAutomatic:1

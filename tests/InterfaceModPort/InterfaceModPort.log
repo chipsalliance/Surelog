@@ -1309,7 +1309,7 @@ design: (work@interface_modports)
 \_class_defn: (work@process), file:builtin.sv, parent:work@interface_modports
   |vpiName:work@process
   |vpiTypedef:
-  \_enum_typespec: (state)
+  \_enum_typespec: (state), parent:work@process
     |vpiName:state
     |vpiEnumConst:
     \_enum_const: (FINISHED)
@@ -1358,7 +1358,7 @@ design: (work@interface_modports)
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
-      \_enum_typespec: (state)
+      \_enum_typespec: (state), parent:work@process
   |vpiMethod:
   \_task: (work@process::kill), parent:work@process
     |vpiName:kill
@@ -1843,7 +1843,7 @@ design: (work@interface_modports)
 \_module: work@memory_ctrl (work@memory_ctrl) top.v:87:1: , endln:94:10, parent:work@interface_modports
   |vpiFullName:work@memory_ctrl
   |vpiTypedef:
-  \_enum_typespec: (fsm_t), line:89:1, endln:89:44
+  \_enum_typespec: (fsm_t), line:89:1, endln:89:44, parent:work@memory_ctrl
     |vpiName:fsm_t
     |vpiInstance:
     \_module: work@memory_ctrl (work@memory_ctrl) top.v:87:1: , endln:94:10, parent:work@interface_modports
@@ -2672,13 +2672,13 @@ design: (work@interface_modports)
     |vpiVariables:
     \_enum_var: (work@interface_modports.U_ctrl.state), line:91:7, endln:91:12, parent:work@interface_modports.U_ctrl
       |vpiTypespec:
-      \_enum_typespec: (fsm_t), line:89:1, endln:89:44
+      \_enum_typespec: (fsm_t), line:89:1, endln:89:44, parent:work@memory_ctrl
       |vpiName:state
       |vpiFullName:work@interface_modports.U_ctrl.state
       |vpiAutomatic:1
       |vpiVisibility:1
     |vpiTypedef:
-    \_enum_typespec: (fsm_t), line:89:1, endln:89:44
+    \_enum_typespec: (fsm_t), line:89:1, endln:89:44, parent:work@memory_ctrl
     |vpiDefName:work@memory_ctrl
     |vpiDefFile:top.v
     |vpiDefLineNo:87
