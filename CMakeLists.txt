@@ -192,7 +192,7 @@ add_custom_command(
 
   WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
   COMMAND echo "---------- VObjectTypes, Listener generation"
-  COMMAND ${Python3_EXECUTABLE} scripts/generate_parser_listener.py --output-dirpath ${GENDIR}
+  COMMAND ${Python3_EXECUTABLE} scripts/generate_parser_listener.py --input-dirpath ${PROJECT_SOURCE_DIR} --output-dirpath ${GENDIR}
 )
 
 if (SURELOG_WITH_PYTHON)

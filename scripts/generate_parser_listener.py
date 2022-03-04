@@ -3,9 +3,6 @@ import os
 import re
 import sys
 
-_this_filepath = os.path.realpath(__file__)
-_default_workspace_dirpath = os.path.dirname(os.path.dirname(_this_filepath))
-
 _type_names = set([
   'slNoType',
   'slComments',
@@ -528,32 +525,25 @@ def _main():
   parser = argparse.ArgumentParser()
 
   parser.add_argument(
-      '--workspace-dirpath', dest='workspace_dirpath', required=False, default=_default_workspace_dirpath, type=str,
-      help='Workspace root, either absolute or relative to current working directory.')
+      '--input-dirpath', dest='input_dirpath', required=False, type=str,
+      help='Path to the root of the repository')
 
   parser.add_argument(
       '--output-dirpath', dest='output_dirpath', required=True, type=str,
-      help='Output directory path, either absolute or relative to the workspace directory.')
+      help='Path to the root of the generated code directory.')
 
   args = parser.parse_args()
-
-  if not os.path.isabs(args.workspace_dirpath):
-    args.workspace_dirpath = os.path.abspath(args.workspace_dirpath)
-
-  if not os.path.isabs(args.output_dirpath):
-    args.output_dirpath = os.path.join(args.workspace_dirpath, args.output_dirpath)
-  args.output_dirpath = os.path.abspath(args.output_dirpath)
 
   _generate_header(
     'Parser',
     os.path.join(args.output_dirpath, 'src', 'parser', 'SV3_1aParserBaseListener.h'),
-    os.path.join(args.workspace_dirpath, 'src', 'SourceCompile', 'SV3_1aTreeShapeListener.cpp'),
+    os.path.join(args.input_dirpath, 'src', 'SourceCompile', 'SV3_1aTreeShapeListener.cpp'),
     os.path.join(args.output_dirpath, 'include', 'Surelog', 'SourceCompile', 'SV3_1aTreeShapeListener.h'))
 
   _generate_header(
     'PreProc',
     os.path.join(args.output_dirpath, 'src', 'parser', 'SV3_1aPpParserBaseListener.h'),
-    os.path.join(args.workspace_dirpath, 'src', 'SourceCompile', 'SV3_1aPpTreeShapeListener.cpp'),
+    os.path.join(args.input_dirpath, 'src', 'SourceCompile', 'SV3_1aPpTreeShapeListener.cpp'),
     os.path.join(args.output_dirpath, 'include', 'Surelog', 'SourceCompile', 'SV3_1aPpTreeShapeListener.h'))
 
   _generate_VObjectTypes_h(os.path.join(args.output_dirpath, 'include', 'Surelog', 'SourceCompile', 'VObjectTypes.h'))
