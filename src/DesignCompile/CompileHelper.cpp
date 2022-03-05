@@ -1346,7 +1346,8 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type,
 void setDirectionAndType(DesignComponent* component, const FileContent* fC,
                          NodeId signal, VObjectType type,
                          VObjectType signal_type, NodeId packed_dimension,
-                         bool is_signed, bool is_var, NodeId nodeType) {
+                         bool is_signed, bool is_var, NodeId nodeType,
+                         UHDM::VectorOfattribute* attributes) {
   ModuleDefinition* module =
       valuedcomponenti_cast<ModuleDefinition*>(component);
   VObjectType dir_type = slNoType;
@@ -1370,6 +1371,7 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
           if (fC->Type(unpacked_dimension) == slConstant_expression) {
             port->setDefaultValue(unpacked_dimension);
           }
+          if (attributes) port->attributes(attributes);
           port->setPackedDimension(packed_dimension);
           port->setDirection(dir_type);
           if (signal_type != VObjectType::slData_type_or_implicit) {
@@ -1386,6 +1388,7 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
         Signal* sig = new Signal(fC, signal, signal_type, dir_type,
                                  packed_dimension, is_signed);
         if (is_var) sig->setVar();
+        if (attributes) sig->attributes(attributes);
         component->getPorts().push_back(sig);
         component->getSignals().push_back(sig);
       }
@@ -1423,6 +1426,7 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
 
 bool CompileHelper::compilePortDeclaration(DesignComponent* component,
                                            const FileContent* fC, NodeId id,
+                                           CompileDesign* compileDesign,
                                            VObjectType& port_direction,
                                            bool hasNonNullPort) {
   VObjectType type = fC->Type(id);
@@ -1482,6 +1486,14 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
        */
       NodeId subNode = fC->Child(id);
       VObjectType subType = fC->Type(subNode);
+      UHDM::VectorOfattribute* attributes = nullptr;
+      if (subType == slAttribute_instance) {
+        attributes = compileAttributes(component, fC, subNode, compileDesign);
+        while (fC->Type(subNode) == slAttribute_instance) {
+          subNode = fC->Sibling(subNode);
+          subType = fC->Type(subNode);
+        }
+      }
       switch (subType) {
         case VObjectType::slInterface_port_declaration: {
           /*
@@ -1553,7 +1565,8 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
           }
           NodeId signal = fC->Child(list_of_port_identifiers);
           setDirectionAndType(component, fC, signal, subType, signal_type,
-                              Packed_dimension, is_signed, is_var, nodeType);
+                              Packed_dimension, is_signed, is_var, nodeType,
+                              attributes);
           break;
         }
         default:

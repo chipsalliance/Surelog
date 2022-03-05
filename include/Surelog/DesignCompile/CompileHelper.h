@@ -119,8 +119,8 @@ class CompileHelper final {
                              NodeId id, CompileDesign* compileDesign);
 
   bool compilePortDeclaration(DesignComponent* scope, const FileContent* fC,
-                              NodeId id, VObjectType& port_direction,
-                              bool hasNonNullPort);
+                              NodeId id, CompileDesign* compileDesign,
+                              VObjectType& port_direction, bool hasNonNullPort);
 
   bool compileAnsiPortDeclaration(DesignComponent* component,
                                   const FileContent* fC, NodeId id,
