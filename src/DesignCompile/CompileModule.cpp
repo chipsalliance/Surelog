@@ -586,7 +586,8 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           }
           if (collectType == CollectType::FUNCTION) m_nbPorts++;
           if (collectType != CollectType::DEFINITION) break;
-          m_helper.compilePortDeclaration(m_module, fC, id, port_direction,
+          m_helper.compilePortDeclaration(m_module, fC, id, m_compileDesign,
+                                          port_direction,
                                           m_hasNonNullPort || (m_nbPorts > 1));
           break;
         }
@@ -594,8 +595,8 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         case VObjectType::slOutput_declaration:
         case VObjectType::slInout_declaration: {
           if (collectType != CollectType::DEFINITION) break;
-          m_helper.compilePortDeclaration(m_module, fC, id, port_direction,
-                                          m_hasNonNullPort);
+          m_helper.compilePortDeclaration(m_module, fC, id, m_compileDesign,
+                                          port_direction, m_hasNonNullPort);
           break;
         }
         case VObjectType::slClocking_declaration: {
@@ -617,8 +618,8 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         }
         case VObjectType::slPort_declaration: {
           if (collectType != CollectType::DEFINITION) break;
-          m_helper.compilePortDeclaration(m_module, fC, id, port_direction,
-                                          m_hasNonNullPort);
+          m_helper.compilePortDeclaration(m_module, fC, id, m_compileDesign,
+                                          port_direction, m_hasNonNullPort);
           break;
         }
         case VObjectType::slContinuous_assign: {

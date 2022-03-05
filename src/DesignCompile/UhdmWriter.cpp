@@ -556,7 +556,7 @@ static void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
 
 void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
                     BaseClass* parent, VectorOftypespec* dest_typespecs,
-                    Serializer& s) {
+                    Serializer& s, bool setParent) {
   std::set<uint64_t> ids;
   for (const auto& entry : datatypeMap) {
     const DataType* dtype = entry.second;
@@ -579,7 +579,7 @@ void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
         if (parent->UhdmType() != uhdmclass_defn)
           tps->Instance((instance*)parent);
       }
-
+      if (setParent) tps->VpiParent(parent);
       if (ids.find(tps->UhdmId()) == ids.end()) {
         dest_typespecs->push_back(tps);
         ids.insert(tps->UhdmId());
@@ -683,7 +683,7 @@ void writeClass(ClassDefinition* classDef, VectorOfclass_defn* dest_classes,
     // Typepecs
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     c->Typespecs(typespecs);
-    writeDataTypes(classDef->getDataTypeMap(), c, typespecs, s);
+    writeDataTypes(classDef->getDataTypeMap(), c, typespecs, s, true);
 
     // Variables
     // Already bound in TestbenchElaboration
@@ -948,7 +948,7 @@ void writePackage(Package* pack, package* p, Serializer& s,
     // Typepecs
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     p->Typespecs(typespecs);
-    writeDataTypes(pack->getDataTypeMap(), p, typespecs, s);
+    writeDataTypes(pack->getDataTypeMap(), p, typespecs, s, top);
     for (auto item : pack->getImportedSymbols()) {
       typespecs->push_back(item);
     }
@@ -1034,7 +1034,7 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   // Typepecs
   VectorOftypespec* typespecs = s.MakeTypespecVec();
   m->Typespecs(typespecs);
-  writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
+  writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, true);
   for (auto item : mod->getImportedSymbols()) {
     typespecs->push_back(item);
   }
@@ -1154,7 +1154,7 @@ void UhdmWriter::writeInterface(ModuleDefinition* mod, interface* m,
   // Typepecs
   VectorOftypespec* typespecs = s.MakeTypespecVec();
   m->Typespecs(typespecs);
-  writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
+  writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, true);
   for (auto item : mod->getImportedSymbols()) {
     typespecs->push_back(item);
   }
@@ -1281,7 +1281,7 @@ void writeProgram(Program* mod, program* m, Serializer& s,
   // Typepecs
   VectorOftypespec* typespecs = s.MakeTypespecVec();
   m->Typespecs(typespecs);
-  writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
+  writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, true);
   for (auto item : mod->getImportedSymbols()) {
     typespecs->push_back(item);
   }
@@ -1368,7 +1368,7 @@ bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
   if (mod) {
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     m->Typespecs(typespecs);
-    writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
+    writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, false);
     for (auto item : mod->getImportedSymbols()) {
       typespecs->push_back(item);
     }
@@ -1456,7 +1456,7 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
   if (mod) {
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     m->Typespecs(typespecs);
-    writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
+    writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, true);
     for (auto item : mod->getImportedSymbols()) {
       typespecs->push_back(item);
     }
@@ -2089,7 +2089,7 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
   if (mod) {
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     m->Typespecs(typespecs);
-    writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
+    writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, false);
     for (auto item : mod->getImportedSymbols()) {
       typespecs->push_back(item);
     }
@@ -2182,7 +2182,7 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
   if (mod) {
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     m->Typespecs(typespecs);
-    writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
+    writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, false);
     for (auto item : mod->getImportedSymbols()) {
       typespecs->push_back(item);
     }
@@ -2705,7 +2705,8 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
     d->Typespecs(typespecs);
     for (auto& fileIdContent : m_design->getAllFileContents()) {
       // Typepecs
-      writeDataTypes(fileIdContent.second->getDataTypeMap(), d, typespecs, s);
+      writeDataTypes(fileIdContent.second->getDataTypeMap(), d, typespecs, s,
+                     true);
 
       // Function and tasks
       if (auto from = fileIdContent.second->getTask_funcs()) {

@@ -59,10 +59,10 @@ design: (work@test)
   |vpiName:package1
   |vpiFullName:package1::
   |vpiTypedef:
-  \_struct_typespec: (package1::type_alias), line:2:11, endln:2:17
+  \_struct_typespec: (package1::type_alias), line:2:11, endln:2:17, parent:package1::
     |vpiName:package1::type_alias
     |vpiTypedefAlias:
-    \_struct_typespec: (package1::type_t), line:2:11, endln:2:17
+    \_struct_typespec: (package1::type_t), line:2:11, endln:2:17, parent:package1::
       |vpiName:package1::type_t
       |vpiInstance:
       \_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
@@ -85,7 +85,7 @@ design: (work@test)
         |vpiInstance:
         \_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
   |vpiTypedef:
-  \_struct_typespec: (package1::type_t), line:2:11, endln:2:17
+  \_struct_typespec: (package1::type_t), line:2:11, endln:2:17, parent:package1::
   |vpiDefName:package1
   |vpiTop:1
 |uhdmtopPackages:
@@ -93,10 +93,10 @@ design: (work@test)
   |vpiName:package2
   |vpiFullName:package2::
   |vpiTypedef:
-  \_struct_typespec: (package2::type_alias), line:2:11, endln:2:17
+  \_struct_typespec: (package2::type_alias), line:2:11, endln:2:17, parent:package2::
     |vpiName:package2::type_alias
     |vpiTypedefAlias:
-    \_struct_typespec: (package1::type_t), line:2:11, endln:2:17
+    \_struct_typespec: (package1::type_t), line:2:11, endln:2:17, parent:package1::
     |vpiInstance:
     \_package: package2 (package2::) dut.sv:9:1: , endln:11:22, parent:work@test
     |vpiPacked:1
@@ -113,7 +113,7 @@ design: (work@test)
 \_module: work@test (work@test) dut.sv:15:1: , endln:20:10, parent:work@test
   |vpiFullName:work@test
   |vpiTypedef:
-  \_logic_typespec: (t_two_bits), line:16:13, endln:16:18
+  \_logic_typespec: (t_two_bits), line:16:13, endln:16:18, parent:work@test
     |vpiName:t_two_bits
     |vpiInstance:
     \_module: work@test (work@test) dut.sv:15:1: , endln:20:10, parent:work@test
@@ -132,10 +132,10 @@ design: (work@test)
         |UINT:0
         |vpiConstType:9
   |vpiTypedef:
-  \_logic_typespec: (t_two_bits_copy), line:16:13, endln:16:18
+  \_logic_typespec: (t_two_bits_copy), line:16:13, endln:16:18, parent:work@test
     |vpiName:t_two_bits_copy
     |vpiTypedefAlias:
-    \_logic_typespec: (t_two_bits), line:16:13, endln:16:18
+    \_logic_typespec: (t_two_bits), line:16:13, endln:16:18, parent:work@test
     |vpiInstance:
     \_module: work@test (work@test) dut.sv:15:1: , endln:20:10, parent:work@test
     |vpiRange:
@@ -213,9 +213,9 @@ design: (work@test)
     |vpiAutomatic:1
     |vpiVisibility:1
   |vpiTypedef:
-  \_logic_typespec: (t_two_bits), line:16:13, endln:16:18
+  \_logic_typespec: (t_two_bits), line:16:13, endln:16:18, parent:work@test
   |vpiTypedef:
-  \_logic_typespec: (t_two_bits_copy), line:16:13, endln:16:18
+  \_logic_typespec: (t_two_bits_copy), line:16:13, endln:16:18, parent:work@test
   |vpiDefName:work@test
   |vpiTop:1
   |vpiTopModule:1
