@@ -891,6 +891,14 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           index++;
           continue;
         }
+        UHDM::VectorOfattribute* attributes = nullptr;
+        if (fC->Type(formalId) == VObjectType::slAttribute_instance) {
+          attributes = m_helper.compileAttributes(parent_comp, fC, formalId,
+                                                  m_compileDesign);
+          while (fC->Type(formalId) == slAttribute_instance) {
+            formalId = fC->Sibling(formalId);
+          }
+        }
         if (fC->Type(formalId) == VObjectType::slDotStar) {
           // .* connection
           Named_port_connection = fC->Sibling(Named_port_connection);
@@ -962,7 +970,6 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         }
         NodeId sigId = formalId;
         expr* hexpr = nullptr;
-        UHDM::VectorOfattribute* attributes = nullptr;
         if (fC->Type(Expression) == slAttribute_instance) {
           attributes =
               m_helper.compileAttributes(comp, fC, Expression, m_compileDesign);
@@ -1514,6 +1521,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         UHDM::typespec* spec = en->getTypespec();
         if (spec->UhdmType() == uhdmlogic_typespec) {
           logic_net* logicn = s.MakeLogic_net();
+          logicn->Attributes(sig->attributes());
           logicn->VpiSigned(sig->isSigned());
           logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
           logicn->Ranges(packedDimensions);
@@ -1522,6 +1530,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           logicn->Typespec(spec);
         } else if (spec->UhdmType() == uhdmstruct_typespec) {
           struct_net* stv = s.MakeStruct_net();
+          stv->Attributes(sig->attributes());
           stv->Typespec(spec);
           obj = stv;
           if (packedDimensions) {
@@ -1533,6 +1542,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           }
         } else if (spec->UhdmType() == uhdmenum_typespec) {
           enum_net* stv = s.MakeEnum_net();
+          stv->Attributes(sig->attributes());
           stv->Typespec(spec);
           obj = stv;
           if (packedDimensions) {
@@ -1544,6 +1554,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           }
         } else if (spec->UhdmType() == uhdmbit_typespec) {
           bit_var* logicn = s.MakeBit_var();
+          logicn->Attributes(sig->attributes());
           logicn->VpiSigned(sig->isSigned());
           logicn->Ranges(packedDimensions);
           logicn->VpiName(signame);
@@ -1551,6 +1562,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           logicn->Typespec(spec);
         } else if (spec->UhdmType() == uhdmbyte_typespec) {
           byte_var* logicn = s.MakeByte_var();
+          logicn->Attributes(sig->attributes());
           logicn->VpiSigned(sig->isSigned());
           logicn->VpiName(signame);
           obj = logicn;
@@ -1558,6 +1570,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         } else {
           variables* var = m_helper.getSimpleVarFromTypespec(
               spec, packedDimensions, m_compileDesign);
+          var->Attributes(sig->attributes());
           var->Expr(exp);
           var->VpiConstantVariable(sig->isConst());
           var->VpiSigned(sig->isSigned());
@@ -1568,6 +1581,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       } else if (const Enum* en = datatype_cast<const Enum*>(dtype)) {
         enum_net* stv = s.MakeEnum_net();
         stv->Typespec(en->getTypespec());
+        stv->Attributes(sig->attributes());
         obj = stv;
         if (packedDimensions) {
           packed_array_net* pnets = s.MakePacked_array_net();
@@ -1581,6 +1595,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         }
       } else if (const Struct* st = datatype_cast<const Struct*>(dtype)) {
         struct_net* stv = s.MakeStruct_net();
+        stv->Attributes(sig->attributes());
         stv->Typespec(st->getTypespec());
         obj = stv;
         if (packedDimensions) {
@@ -1598,6 +1613,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         UHDM::typespec* spec = sit->getTypespec();
         if (spec->UhdmType() == uhdmlogic_typespec) {
           logic_net* logicn = s.MakeLogic_net();
+          logicn->Attributes(sig->attributes());
           logicn->VpiSigned(sig->isSigned());
           logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
           logicn->Ranges(packedDimensions);
@@ -1606,6 +1622,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           logicn->Typespec(spec);
         } else if (spec->UhdmType() == uhdmstruct_typespec) {
           struct_net* stv = s.MakeStruct_net();
+          stv->Attributes(sig->attributes());
           stv->Typespec(spec);
           obj = stv;
           if (packedDimensions) {
@@ -1620,6 +1637,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           }
         } else if (spec->UhdmType() == uhdmenum_typespec) {
           enum_net* stv = s.MakeEnum_net();
+          stv->Attributes(sig->attributes());
           stv->Typespec(spec);
           obj = stv;
           if (packedDimensions) {
@@ -1634,6 +1652,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           }
         } else if (spec->UhdmType() == uhdmbit_typespec) {
           bit_var* logicn = s.MakeBit_var();
+          logicn->Attributes(sig->attributes());
           logicn->VpiSigned(sig->isSigned());
           logicn->Ranges(packedDimensions);
           logicn->VpiName(signame);
@@ -1641,6 +1660,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           logicn->Typespec(spec);
         } else if (spec->UhdmType() == uhdmbyte_typespec) {
           byte_var* logicn = s.MakeByte_var();
+          logicn->Attributes(sig->attributes());
           logicn->VpiSigned(sig->isSigned());
           logicn->VpiName(signame);
           obj = logicn;
@@ -1648,6 +1668,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         } else {
           variables* var = m_helper.getSimpleVarFromTypespec(
               spec, packedDimensions, m_compileDesign);
+          var->Attributes(sig->attributes());
           var->Expr(exp);
           var->VpiConstantVariable(sig->isConst());
           var->VpiSigned(sig->isSigned());
@@ -1656,6 +1677,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         }
       } else {
         logic_net* logicn = s.MakeLogic_net();
+        logicn->Attributes(sig->attributes());
         logicn->VpiSigned(sig->isSigned());
         logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
         logicn->Ranges(packedDimensions);
@@ -1702,6 +1724,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
     } else if (subnettype == slStruct_union) {
       // Implicit type
       struct_net* stv = s.MakeStruct_net();
+      stv->Attributes(sig->attributes());
       stv->Typespec(tps);
       obj = stv;
       stv->VpiName(signame);
@@ -1752,6 +1775,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       logicn->VpiSigned(sig->isSigned());
       logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
       logicn->Ranges(packedDimensions);
+      logicn->Attributes(sig->attributes());
       if (unpackedDimensions) {
         logicn->VpiLineNo(fC->Line(id));
         logicn->VpiColumnNo(fC->Column(id));

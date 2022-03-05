@@ -27,6 +27,7 @@
 
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
+#include <uhdm/attribute.h>
 
 #include <string>
 
@@ -102,6 +103,8 @@ class Signal final {
   NodeId getDefaultValue() const { return m_default_value; }
   const DataType* getDataType() { return m_dataType; }
 
+  std::vector<UHDM::attribute*>* attributes() { return m_attributes; }
+  void attributes(std::vector<UHDM::attribute*>* attr) { m_attributes = attr; }
  private:
   const FileContent* m_fileContent = nullptr;
   NodeId m_nodeId = 0;
@@ -126,6 +129,7 @@ class Signal final {
   bool m_protected = false;
   bool m_rand = false;
   bool m_randc = false;
+  std::vector<UHDM::attribute*>* m_attributes = nullptr;
 };
 
 }  // namespace SURELOG
