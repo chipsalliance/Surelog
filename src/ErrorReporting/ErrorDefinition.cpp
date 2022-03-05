@@ -391,8 +391,7 @@ bool ErrorDefinition::init() {
   rec(ELAB_DIVIDE_BY_ZERO, ERROR, ELAB, "Division by zero in instance \"%s\"");
   rec(ELAB_ILLEGAL_IMPLICIT_NET, ERROR, ELAB, "Illegal implicit net \"%s\"");
   rec(ELAB_ILLEGAL_ZERO_VALUE, ERROR, ELAB, "Illegal Zero or negative size %s");
-  rec(ELAB_EMPTY_PARAM_OVERRIDE, ERROR, ELAB,
-      "Empty parameter override for %s");
+  rec(ELAB_EMPTY_PARAM_OVERRIDE, NOTE, ELAB, "Empty parameter override for %s");
   rec(ELAB_USE_INTERFACE_AS_SIGNAL_TYPE, ERROR, ELAB,
       "Illegal use of an interface as a signal type for \"%s\"");
   rec(ELAB_UNKNOWN_STRUCT_MEMBER, ERROR, ELAB, "Unknown struct member \"%s\"",
