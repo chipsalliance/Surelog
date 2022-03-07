@@ -863,7 +863,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
   return value;
 }
 
-Value* ExprBuilder::fromVpiValue(const std::string& s, unsigned short size) {
+Value* ExprBuilder::fromVpiValue(const std::string& s, int size) {
   Value* val = nullptr;
   size_t pos;
   if ((pos = s.find("UINT:")) != std::string::npos) {

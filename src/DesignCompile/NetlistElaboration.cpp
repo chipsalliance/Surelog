@@ -332,7 +332,8 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
         c->VpiEndColumnNo(
             assign->getFileContent()->EndColumn(assign->getAssignId()));
         inst_assign->Rhs(c);
-
+        m_helper.adjustSize(c->Typespec(), instance->getDefinition(),
+                            m_compileDesign, instance, c);
         if (en_replay && m_helper.errorOnNegativeConstant(
                              mod, c, m_compileDesign, instance)) {
           bool replay = false;

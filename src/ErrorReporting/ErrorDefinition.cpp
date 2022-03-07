@@ -434,6 +434,8 @@ bool ErrorDefinition::init() {
       "Enum const size does not match base type size \"%s\"",
       "%exloc base type");
   rec(UHDM_DIVIDE_BY_ZERO, ERROR, UHDM, "Division by zero in instance \"%s\"");
+  rec(UHDM_INTERNAL_ERROR_OUT_OF_BOUND, ERROR, UHDM,
+      "Internal out of bound error");
   return true;
 }
 
