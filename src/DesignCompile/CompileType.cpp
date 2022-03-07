@@ -990,7 +990,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
             compileTypespec(component, fC, fC->Child(type), compileDesign,
                             pstmt, instance, reduce, isVariable);
         type = fC->Sibling(type);
-        bool invalidValue;
+        bool invalidValue = false;
         baseSize =
             Bits(baseType, invalidValue, component, compileDesign, instance,
                  fC->getFileName(), baseType->VpiLineNo(), reduce, true);

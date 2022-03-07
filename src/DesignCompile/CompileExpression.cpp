@@ -142,6 +142,25 @@ expr *CompileHelper::reduceBitSelect(expr *op, unsigned int index_val,
           v += std::to_string(bitv - '0');
         }
       }
+      if (v.size() > UHDM_MAX_BIT_WIDTH) {
+        fs::path instanceName;
+        if (instance) {
+          if (ModuleInstance *inst =
+                  valuedcomponenti_cast<ModuleInstance *>(instance)) {
+            instanceName = inst->getFullPathName();
+          }
+        } else if (component) {
+          instanceName = component->getName();
+        }
+        ErrorContainer *errors =
+            compileDesign->getCompiler()->getErrorContainer();
+        SymbolTable *symbols = compileDesign->getCompiler()->getSymbolTable();
+        Location loc(symbols->registerSymbol(fileName.string()), lineNumber, 0,
+                     symbols->registerSymbol(instanceName.string()));
+        Error err(ErrorDefinition::UHDM_INTERNAL_ERROR_OUT_OF_BOUND, loc);
+        errors->addError(err);
+        v = "0";
+      }
       std::reverse(v.begin(), v.end());
       c->VpiValue("BIN:" + v);
       c->VpiDecompile(std::to_string(wordSize) + "'b" + v);
@@ -1798,6 +1817,28 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
                 for (unsigned int i = 0; i < n; i++) {
                   res += value;
                 }
+                if (res.size() > UHDM_MAX_BIT_WIDTH) {
+                  fs::path instanceName;
+                  if (instance) {
+                    if (ModuleInstance *inst =
+                            valuedcomponenti_cast<ModuleInstance *>(instance)) {
+                      instanceName = inst->getFullPathName();
+                    }
+                  } else if (component) {
+                    instanceName = component->getName();
+                  }
+                  ErrorContainer *errors =
+                      compileDesign->getCompiler()->getErrorContainer();
+                  SymbolTable *symbols =
+                      compileDesign->getCompiler()->getSymbolTable();
+                  Location loc(symbols->registerSymbol(fileName.string()),
+                               lineNumber, 0,
+                               symbols->registerSymbol(instanceName.string()));
+                  Error err(ErrorDefinition::UHDM_INTERNAL_ERROR_OUT_OF_BOUND,
+                            loc);
+                  errors->addError(err);
+                  res = "0";
+                }
                 c->VpiValue("BIN:" + res);
                 c->VpiDecompile(res);
               } else if (consttype == vpiHexConst) {
@@ -1872,15 +1913,22 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
               if (optype == uhdmconstant) {
                 constant *c2 = (constant *)op;
                 std::string v = c2->VpiValue();
-                unsigned int size = c2->VpiSize();
+                int size = c2->VpiSize();
+                if (size == -1) {
+                  size = 0;
+                }
                 csize += size;
                 int type = c2->VpiConstType();
                 switch (type) {
                   case vpiBinaryConst: {
+                    if (size == 0) {
+                      size = v.size() - std::string_view("BIN:").length();
+                      csize += size;
+                    }
                     std::string tmp =
                         v.c_str() + std::string_view("BIN:").length();
                     std::string value;
-                    if (size > tmp.size()) {
+                    if (((unsigned int)size) > tmp.size()) {
                       for (unsigned int i = 0; i < size - tmp.size(); i++) {
                         value += '0';
                       }
@@ -1890,6 +1938,10 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
                     break;
                   }
                   case vpiDecConst: {
+                    if (size == 0) {
+                      size = 32;
+                      csize += size;
+                    }
                     if (operands.size() == 1) {
                       long long iv = std::strtoll(
                           v.c_str() + std::string_view("DEC:").length(),
@@ -1901,10 +1953,14 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
                     break;
                   }
                   case vpiHexConst: {
+                    if (size == 0) {
+                      size = (v.size() - std::string_view("HEX:").length()) * 4;
+                      csize += size;
+                    }
                     std::string tmp = NumUtils::hexToBin(
                         v.c_str() + std::string_view("HEX:").length());
                     std::string value;
-                    if (size > tmp.size()) {
+                    if (((unsigned int)size) > tmp.size()) {
                       for (unsigned int i = 0; i < size - tmp.size(); i++) {
                         value += '0';
                       }
@@ -1914,6 +1970,10 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
                     break;
                   }
                   case vpiOctConst: {
+                    if (size == 0) {
+                      size = (v.size() - std::string_view("OCT:").length()) * 4;
+                      csize += size;
+                    }
                     long long iv = std::strtoll(
                         v.c_str() + std::string_view("OCT:").length(), nullptr,
                         8);
@@ -1922,6 +1982,10 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
                   }
                   case vpiIntConst: {
                     if (operands.size() == 1 || (size != 64)) {
+                      if (size == 0) {
+                        size = 32;
+                        csize += size;
+                      }
                       int64_t iv = std::strtoll(
                           v.c_str() + std::string_view("INT:").length(),
                           nullptr, 10);
@@ -1933,6 +1997,10 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
                   }
                   case vpiUIntConst: {
                     if (operands.size() == 1 || (size != 64)) {
+                      if (size == 0) {
+                        size = 32;
+                        csize += size;
+                      }
                       uint64_t iv = std::strtoull(
                           v.c_str() + std::string_view("UINT:").length(),
                           nullptr, 10);
@@ -1950,6 +2018,10 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
                     break;
                   }
                   default: {
+                    if (size == 0) {
+                      size = 32;
+                      csize += size;
+                    }
                     if (v.find("UINT:") != std::string::npos) {
                       uint64_t iv = std::strtoull(
                           v.c_str() + std::string_view("UINT:").length(),
@@ -1975,6 +2047,28 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
                 c1->VpiSize(cval.size() * 8);
                 c1->VpiConstType(vpiStringConst);
               } else {
+                if (cval.size() > UHDM_MAX_BIT_WIDTH) {
+                  fs::path instanceName;
+                  if (instance) {
+                    if (ModuleInstance *inst =
+                            valuedcomponenti_cast<ModuleInstance *>(instance)) {
+                      instanceName = inst->getFullPathName();
+                    }
+                  } else if (component) {
+                    instanceName = component->getName();
+                  }
+                  ErrorContainer *errors =
+                      compileDesign->getCompiler()->getErrorContainer();
+                  SymbolTable *symbols =
+                      compileDesign->getCompiler()->getSymbolTable();
+                  Location loc(symbols->registerSymbol(fileName.string()),
+                               lineNumber, 0,
+                               symbols->registerSymbol(instanceName.string()));
+                  Error err(ErrorDefinition::UHDM_INTERNAL_ERROR_OUT_OF_BOUND,
+                            loc);
+                  errors->addError(err);
+                  cval = "0";
+                }
                 c1->VpiValue("BIN:" + cval);
                 c1->VpiSize(csize);
                 c1->VpiConstType(vpiBinaryConst);
