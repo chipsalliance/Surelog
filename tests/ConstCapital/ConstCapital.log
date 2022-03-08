@@ -151,6 +151,42 @@ design: (work@test)
 \_module: work@test (work@test) dut.sv:8:1: , endln:19:10, parent:work@test
   |vpiFullName:work@test
   |vpiDefName:work@test
+|vpiParameter:
+\_parameter: (foo), line:1:15, endln:1:18, parent:work@test
+  |HEX:7fFF
+  |vpiTypespec:
+  \_int_typespec: , line:1:11, endln:1:14, parent:foo
+  |vpiName:foo
+|vpiParameter:
+\_parameter: (foo2), line:2:15, endln:2:19, parent:work@test
+  |DEC:1
+  |vpiTypespec:
+  \_int_typespec: , line:2:11, endln:2:14, parent:foo2
+  |vpiName:foo2
+|vpiParamAssign:
+\_param_assign: , line:1:15, endln:1:29, parent:work@test
+  |vpiRhs:
+  \_constant: , line:1:21, endln:1:29
+    |vpiDecompile:32'H7fFF
+    |vpiSize:32
+    |HEX:7fFF
+    |vpiTypespec:
+    \_int_typespec: , line:1:11, endln:1:14, parent:foo
+    |vpiConstType:5
+  |vpiLhs:
+  \_parameter: (foo), line:1:15, endln:1:18, parent:work@test
+|vpiParamAssign:
+\_param_assign: , line:2:15, endln:2:28, parent:work@test
+  |vpiRhs:
+  \_constant: , line:2:22, endln:2:28
+    |vpiDecompile:32'Sd1
+    |vpiSize:32
+    |DEC:1
+    |vpiTypespec:
+    \_int_typespec: , line:2:11, endln:2:14, parent:foo2
+    |vpiConstType:1
+  |vpiLhs:
+  \_parameter: (foo2), line:2:15, endln:2:19, parent:work@test
 |uhdmtopModules:
 \_module: work@test (work@test) dut.sv:8:1: , endln:19:10
   |vpiName:work@test
@@ -193,42 +229,6 @@ design: (work@test)
         |vpiDefName:work@GOOD
         |vpiDefFile:dut.sv
         |vpiDefLineNo:4
-|vpiParameter:
-\_parameter: (foo), line:1:15, endln:1:18, parent:work@test
-  |HEX:7fFF
-  |vpiTypespec:
-  \_int_typespec: , line:1:11, endln:1:14, parent:foo
-  |vpiName:foo
-|vpiParameter:
-\_parameter: (foo2), line:2:15, endln:2:19, parent:work@test
-  |DEC:1
-  |vpiTypespec:
-  \_int_typespec: , line:2:11, endln:2:14, parent:foo2
-  |vpiName:foo2
-|vpiParamAssign:
-\_param_assign: , line:1:15, endln:1:29, parent:work@test
-  |vpiRhs:
-  \_constant: , line:1:21, endln:1:29
-    |vpiDecompile:32'H7fFF
-    |vpiSize:32
-    |HEX:7fFF
-    |vpiTypespec:
-    \_int_typespec: , line:1:11, endln:1:14, parent:foo
-    |vpiConstType:5
-  |vpiLhs:
-  \_parameter: (foo), line:1:15, endln:1:18, parent:work@test
-|vpiParamAssign:
-\_param_assign: , line:2:15, endln:2:28, parent:work@test
-  |vpiRhs:
-  \_constant: , line:2:22, endln:2:28
-    |vpiDecompile:32'Sd1
-    |vpiSize:32
-    |DEC:1
-    |vpiTypespec:
-    \_int_typespec: , line:2:11, endln:2:14, parent:foo2
-    |vpiConstType:1
-  |vpiLhs:
-  \_parameter: (foo2), line:2:15, endln:2:19, parent:work@test
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
