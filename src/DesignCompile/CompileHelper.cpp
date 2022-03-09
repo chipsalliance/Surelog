@@ -2745,7 +2745,7 @@ void CompileHelper::adjustSize(const UHDM::typespec* ts,
     return;
   }
   int orig_size = c->VpiSize();
-  // if (orig_size == -1) return;
+
   bool invalidValue = false;
   int sizetmp = Bits(ts, invalidValue, component, compileDesign, instance,
                      c->VpiFile(), c->VpiLineNo(), true, true);
@@ -2761,6 +2761,7 @@ void CompileHelper::adjustSize(const UHDM::typespec* ts,
         uint64_t uval = (uint64_t)val;
         uval = uval & mask;
         c->VpiValue("UINT:" + std::to_string(uval));
+        c->VpiDecompile(std::to_string(uval));
         c->VpiConstType(vpiUIntConst);
       } else if (c->VpiConstType() == vpiBinaryConst) {
         if (orig_size == -1) {
@@ -2770,6 +2771,7 @@ void CompileHelper::adjustSize(const UHDM::typespec* ts,
             uint64_t mask = NumUtils::getMask(size);
             uval = mask;
             c->VpiValue("UINT:" + std::to_string(uval));
+            c->VpiDecompile(std::to_string(uval));
             c->VpiConstType(vpiUIntConst);
           }
         }

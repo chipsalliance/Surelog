@@ -1893,25 +1893,25 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
             int csize = 0;
             bool stringVal = false;
             for (unsigned int i = 0; i < operands.size(); i++) {
-              any *op = operands[i];
-              UHDM_OBJECT_TYPE optype = op->UhdmType();
+              any *oper = operands[i];
+              UHDM_OBJECT_TYPE optype = oper->UhdmType();
               int operType = 0;
               if (optype == uhdmoperation) {
-                operation *o = (operation *)op;
+                operation *o = (operation *)oper;
                 operType = o->VpiOpType();
               }
               if ((optype != uhdmconstant) && (operType != vpiConcatOp) &&
                   (operType != vpiMultiAssignmentPatternOp) &&
                   (operType != vpiAssignmentPatternOp)) {
                 if (expr *tmp =
-                        reduceExpr(op, invalidValue, component, compileDesign,
+                        reduceExpr(oper, invalidValue, component, compileDesign,
                                    instance, fileName, lineNumber, pexpr)) {
-                  op = tmp;
+                  oper = tmp;
                 }
-                optype = op->UhdmType();
+                optype = oper->UhdmType();
               }
               if (optype == uhdmconstant) {
-                constant *c2 = (constant *)op;
+                constant *c2 = (constant *)oper;
                 std::string v = c2->VpiValue();
                 int size = c2->VpiSize();
                 if (size == -1) {
@@ -1946,7 +1946,11 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
                       long long iv = std::strtoll(
                           v.c_str() + std::string_view("DEC:").length(),
                           nullptr, 10);
-                      cval += NumUtils::toBinary(size, iv);
+                      std::string bin = NumUtils::toBinary(size, iv);
+                      if (op->VpiReordered()) {
+                        std::reverse(bin.begin(), bin.end());
+                      }
+                      cval += bin;
                     } else {
                       c1 = nullptr;
                     }
@@ -1977,7 +1981,11 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
                     long long iv = std::strtoll(
                         v.c_str() + std::string_view("OCT:").length(), nullptr,
                         8);
-                    cval += NumUtils::toBinary(size, iv);
+                    std::string bin = NumUtils::toBinary(size, iv);
+                    if (op->VpiReordered()) {
+                      std::reverse(bin.begin(), bin.end());
+                    }
+                    cval += bin;
                     break;
                   }
                   case vpiIntConst: {
@@ -1989,7 +1997,11 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
                       int64_t iv = std::strtoll(
                           v.c_str() + std::string_view("INT:").length(),
                           nullptr, 10);
-                      cval += NumUtils::toBinary(size, iv);
+                      std::string bin = NumUtils::toBinary(size, iv);
+                      if (op->VpiReordered()) {
+                        std::reverse(bin.begin(), bin.end());
+                      }
+                      cval += bin;
                     } else {
                       c1 = nullptr;
                     }
@@ -2004,7 +2016,11 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
                       uint64_t iv = std::strtoull(
                           v.c_str() + std::string_view("UINT:").length(),
                           nullptr, 10);
-                      cval += NumUtils::toBinary(size, iv);
+                      std::string bin = NumUtils::toBinary(size, iv);
+                      if (op->VpiReordered()) {
+                        std::reverse(bin.begin(), bin.end());
+                      }
+                      cval += bin;
                     } else {
                       c1 = nullptr;
                     }
@@ -2047,6 +2063,9 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
                 c1->VpiSize(cval.size() * 8);
                 c1->VpiConstType(vpiStringConst);
               } else {
+                if (op->VpiReordered()) {
+                  std::reverse(cval.begin(), cval.end());
+                }
                 if (cval.size() > UHDM_MAX_BIT_WIDTH) {
                   fs::path instanceName;
                   if (instance) {
