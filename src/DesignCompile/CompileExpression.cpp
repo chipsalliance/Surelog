@@ -1933,6 +1933,9 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
                         value += '0';
                       }
                     }
+                    if (op->VpiReordered()) {
+                      std::reverse(tmp.begin(), tmp.end());
+                    }
                     value += tmp;
                     cval += value;
                     break;
@@ -1968,6 +1971,9 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
                       for (unsigned int i = 0; i < size - tmp.size(); i++) {
                         value += '0';
                       }
+                    }
+                    if (op->VpiReordered()) {
+                      std::reverse(tmp.begin(), tmp.end());
                     }
                     value += tmp;
                     cval += value;
