@@ -2042,12 +2042,20 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
                       uint64_t iv = std::strtoull(
                           v.c_str() + std::string_view("UINT:").length(),
                           nullptr, 10);
-                      cval += NumUtils::toBinary(size, iv);
+                      std::string bin = NumUtils::toBinary(size, iv);
+                      if (op->VpiReordered()) {
+                        std::reverse(bin.begin(), bin.end());
+                      }
+                      cval += bin;
                     } else {
                       int64_t iv = std::strtoll(
                           v.c_str() + std::string_view("INT:").length(),
                           nullptr, 10);
-                      cval += NumUtils::toBinary(size, iv);
+                      std::string bin = NumUtils::toBinary(size, iv);
+                      if (op->VpiReordered()) {
+                        std::reverse(bin.begin(), bin.end());
+                      }
+                      cval += bin;
                     }
                     break;
                   }
