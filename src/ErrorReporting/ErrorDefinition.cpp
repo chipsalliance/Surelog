@@ -436,6 +436,8 @@ bool ErrorDefinition::init() {
   rec(UHDM_DIVIDE_BY_ZERO, ERROR, UHDM, "Division by zero in instance \"%s\"");
   rec(UHDM_INTERNAL_ERROR_OUT_OF_BOUND, ERROR, UHDM,
       "Internal out of bound error");
+  rec(UHDM_UNDEFINED_USER_FUNCTION, ERROR, UHDM,
+      "Undefined user task/function \"%s\"");
   return true;
 }
 
