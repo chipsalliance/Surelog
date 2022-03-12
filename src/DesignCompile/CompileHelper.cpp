@@ -1284,59 +1284,58 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type,
       signal_type = the_type;
       data_type_or_implicit = fC->Sibling(data_type_or_implicit);
       Packed_dimension = fC->Child(data_type_or_implicit);
-    } else {
-      NodeId data_type = fC->Child(data_type_or_implicit);
-      if (data_type) {
-        VObjectType the_type = fC->Type(data_type);
-        if (the_type == VObjectType::slData_type) {
-          NodeId integer_vector_type = fC->Child(data_type);
-          the_type = fC->Type(integer_vector_type);
-          if (the_type == VObjectType::slIntVec_TypeBit ||
-              the_type == VObjectType::slIntVec_TypeLogic ||
-              the_type == VObjectType::slIntVec_TypeReg ||
-              the_type == VObjectType::slStringConst ||
-              the_type == VObjectType::slClass_scope ||
-              the_type == VObjectType::slIntegerAtomType_Int ||
-              the_type == VObjectType::slIntegerAtomType_Shortint ||
-              the_type == VObjectType::slIntegerAtomType_LongInt ||
-              the_type == VObjectType::slIntegerAtomType_Byte ||
-              the_type == VObjectType::slString_type) {
-            if (the_type == VObjectType::slStringConst) {
-              const std::string& tname = fC->SymName(integer_vector_type);
-              if (tname == "logic") {
-                the_type = VObjectType::slIntVec_TypeLogic;
-              } else if (tname == "bit") {
-                the_type = VObjectType::slIntVec_TypeBit;
-              } else if (tname == "byte") {
-                the_type = VObjectType::slIntegerAtomType_Byte;
-              }
+    }
+    NodeId data_type = fC->Child(data_type_or_implicit);
+    if (data_type) {
+      VObjectType the_type = fC->Type(data_type);
+      if (the_type == VObjectType::slData_type) {
+        NodeId integer_vector_type = fC->Child(data_type);
+        the_type = fC->Type(integer_vector_type);
+        if (the_type == VObjectType::slIntVec_TypeBit ||
+            the_type == VObjectType::slIntVec_TypeLogic ||
+            the_type == VObjectType::slIntVec_TypeReg ||
+            the_type == VObjectType::slStringConst ||
+            the_type == VObjectType::slClass_scope ||
+            the_type == VObjectType::slIntegerAtomType_Int ||
+            the_type == VObjectType::slIntegerAtomType_Shortint ||
+            the_type == VObjectType::slIntegerAtomType_LongInt ||
+            the_type == VObjectType::slIntegerAtomType_Byte ||
+            the_type == VObjectType::slString_type) {
+          if (the_type == VObjectType::slStringConst) {
+            const std::string& tname = fC->SymName(integer_vector_type);
+            if (tname == "logic") {
+              the_type = VObjectType::slIntVec_TypeLogic;
+            } else if (tname == "bit") {
+              the_type = VObjectType::slIntVec_TypeBit;
+            } else if (tname == "byte") {
+              the_type = VObjectType::slIntegerAtomType_Byte;
             }
-            signal_type = the_type;
-            nodeType = integer_vector_type;
-            if (the_type != VObjectType::slClass_scope)
-              Packed_dimension = fC->Sibling(integer_vector_type);
-            else
-              Packed_dimension = fC->Sibling(fC->Sibling(integer_vector_type));
           }
-        } else if (the_type == VObjectType::slSigning_Signed) {
-          Packed_dimension = fC->Sibling(data_type);
-          is_signed = true;
-        } else if (the_type == VObjectType::slSigning_Unsigned) {
-          Packed_dimension = fC->Sibling(data_type);
-          is_signed = false;
-        } else if (the_type == VObjectType::slPacked_dimension) {
-          Packed_dimension = data_type;
-        } else if (the_type == VObjectType::slVar_type) {
-          is_var = true;
+          signal_type = the_type;
+          nodeType = integer_vector_type;
+          if (the_type != VObjectType::slClass_scope)
+            Packed_dimension = fC->Sibling(integer_vector_type);
+          else
+            Packed_dimension = fC->Sibling(fC->Sibling(integer_vector_type));
         }
+      } else if (the_type == VObjectType::slSigning_Signed) {
+        Packed_dimension = fC->Sibling(data_type);
+        is_signed = true;
+      } else if (the_type == VObjectType::slSigning_Unsigned) {
+        Packed_dimension = fC->Sibling(data_type);
+        is_signed = false;
+      } else if (the_type == VObjectType::slPacked_dimension) {
+        Packed_dimension = data_type;
+      } else if (the_type == VObjectType::slVar_type) {
+        is_var = true;
+      }
 
-        if (fC->Type(Packed_dimension) == VObjectType::slSigning_Signed) {
-          Packed_dimension = fC->Sibling(Packed_dimension);
-          is_signed = true;
-        } else if (fC->Type(Packed_dimension) ==
-                   VObjectType::slSigning_Unsigned) {
-          Packed_dimension = fC->Sibling(Packed_dimension);
-        }
+      if (fC->Type(Packed_dimension) == VObjectType::slSigning_Signed) {
+        Packed_dimension = fC->Sibling(Packed_dimension);
+        is_signed = true;
+      } else if (fC->Type(Packed_dimension) ==
+                 VObjectType::slSigning_Unsigned) {
+        Packed_dimension = fC->Sibling(Packed_dimension);
       }
     }
   }
