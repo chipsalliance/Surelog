@@ -29,7 +29,7 @@
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <string>
-#include <map>
+#include <unordered_map>
 
 namespace antlr4 {
 class CommonTokenStream;
@@ -106,7 +106,7 @@ class CommonListenerHelper {
   FileContent* m_fileContent;
   antlr4::CommonTokenStream* const m_tokens;
 
-  typedef std::map<const antlr4::tree::ParseTree*, NodeId>
+  typedef std::unordered_map<const antlr4::tree::ParseTree*, NodeId>
       ContextToObjectMap;
   ContextToObjectMap m_contextToObjectMap;
 };
