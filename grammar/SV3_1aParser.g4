@@ -1930,9 +1930,18 @@ conditional_generate_construct
       | case_generate_construct 
       ; 
 
-if_generate_construct : 
-      IF OPEN_PARENS constant_expression CLOSE_PARENS generate_block ( ELSE generate_block )? ; 
+if_generate_construct :
+      IF OPEN_PARENS constant_expression CLOSE_PARENS generate_block else_if_statements
+      ;
 
+else_if_statements :
+    ( else_if_construct )*;
+
+else_if_construct
+      : ELSE ( identifier COLUMN )? BEGIN ( COLUMN identifier )? (generate_block)* END ( COLUMN identifier )?
+      | ELSE IF OPEN_PARENS constant_expression CLOSE_PARENS generate_block
+      ;
+      
 case_generate_construct : 
       CASE OPEN_PARENS constant_expression CLOSE_PARENS case_generate_item  case_generate_item* ENDCASE ; 
 
