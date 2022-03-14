@@ -42,6 +42,7 @@
 #include <fstream>
 #include <sstream>
 #include <stack>
+#include <iomanip>
 
 namespace SURELOG {
 
