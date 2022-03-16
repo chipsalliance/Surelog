@@ -44,7 +44,6 @@
 #include <sstream>
 #include <stack>
 
-
 namespace SURELOG {
 
 namespace fs = std::filesystem;
