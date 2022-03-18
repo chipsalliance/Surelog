@@ -58,8 +58,8 @@ target_include_directories(test_hellosureworld PRIVATE
   ${Python3_INCLUDE_DIRS}
 )
 target_link_directories(test_hellosureworld
-    PRIVATE ${CMAKE_INSTALL_LIBDIR}/surelog
-    PRIVATE ${CMAKE_INSTALL_LIBDIR}/uhdm
+    PRIVATE ${INSTALL_DIR}/lib/surelog
+    PRIVATE ${INSTALL_DIR}/lib/uhdm
 )
 
 if (SURELOG_WITH_PYTHON)
