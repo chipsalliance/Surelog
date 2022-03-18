@@ -42,6 +42,7 @@ std::tuple<Design*, FileContent*, CompileDesign*> ElaboratorHarness::elaborate(
   clp->setCompile(true);
   clp->setElabUhdm(true);
   clp->setWriteUhdm(false);
+  clp->fullSVMode(true);
   Compiler* compiler = new Compiler(clp, errors, symbols, content);
   compiler->compile();
   Design* design = compiler->getDesign();
