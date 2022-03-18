@@ -188,6 +188,7 @@ class CommandLineParser final {
   std::string getExeCommand() const { return m_exeCommand; }
   std::set<std::string>& getTopLevelModules() { return m_topLevelModules; }
   bool fullSVMode() const { return m_sverilog; }
+  void fullSVMode(bool sverilog) { m_sverilog = sverilog; }
   bool isSVFile(const std::filesystem::path& fileName) const;
   bool cleanCache();
 
