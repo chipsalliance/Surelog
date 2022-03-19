@@ -783,65 +783,38 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
                                    const fs::path &fileName, int lineNumber,
                                    any *pexpr, bool muteErrors,
                                    bool returnTypespec) {
-  Serializer &s = compileDesign->getSerializer();
-  std::string baseObject;
-  if (!path->Path_elems()->empty()) {
-    any *firstElem = path->Path_elems()->at(0);
-    baseObject = firstElem->VpiName();
+  UHDM::GetObjectFunctor getObjectFunctor =
+      [&](const std::string &name, const any *inst,
+          const any *pexpr) -> UHDM::any * {
+    return getObject(name, component, compileDesign, instance, pexpr);
+  };
+  UHDM::GetObjectFunctor getValueFunctor =
+      [&](const std::string &name, const any *inst,
+          const any *pexpr) -> UHDM::any * {
+    return (expr *)getValue(name, component, compileDesign, instance, fileName,
+                            lineNumber, (any *)pexpr, true, false);
+  };
+  UHDM::GetTaskFuncFunctor getTaskFuncFunctor =
+      [&](const std::string &name, const any *inst) -> UHDM::task_func * {
+    auto ret = getTaskFunc(name, component, compileDesign, instance, pexpr);
+    return ret.first;
+  };
+  UHDM::ExprEval eval;
+  eval.setGetObjectFunctor(getObjectFunctor);
+  eval.setGetValueFunctor(getValueFunctor);
+  eval.setGetTaskFuncFunctor(getTaskFuncFunctor);
+  if (m_exprEvalPlaceHolder == nullptr) {
+    m_exprEvalPlaceHolder = compileDesign->getSerializer().MakeModule();
+    m_exprEvalPlaceHolder->Param_assigns(
+        compileDesign->getSerializer().MakeParam_assignVec());
+  } else {
+    m_exprEvalPlaceHolder->Param_assigns()->erase(
+        m_exprEvalPlaceHolder->Param_assigns()->begin(),
+        m_exprEvalPlaceHolder->Param_assigns()->end());
   }
-  any *object =
-      getObject(baseObject, component, compileDesign, instance, pexpr);
-  if (object) {
-    if (UHDM::param_assign *passign = any_cast<param_assign *>(object)) {
-      object = (any *)passign->Rhs();
-    }
-  }
-  if (object == nullptr) {
-    object = getValue(baseObject, component, compileDesign, instance, fileName,
-                      lineNumber, pexpr, true, muteErrors);
-  }
-  if (object) {
-    // Substitution
-    if (param_assign *pass = any_cast<param_assign *>(object)) {
-      const any *rhs = pass->Rhs();
-      object = reduceExpr((any *)rhs, invalidValue, component, compileDesign,
-                          instance, fileName, lineNumber, pexpr, muteErrors);
-    } else if (bit_select *bts = any_cast<bit_select *>(object)) {
-      object = reduceExpr((any *)bts, invalidValue, component, compileDesign,
-                          instance, fileName, lineNumber, pexpr, muteErrors);
-    } else if (ref_obj *ref = any_cast<ref_obj *>(object)) {
-      object = reduceExpr((any *)ref, invalidValue, component, compileDesign,
-                          instance, fileName, lineNumber, pexpr, muteErrors);
-    } else if (constant *cons = any_cast<constant *>(object)) {
-      ElaboratorListener listener(&s);
-      object = UHDM::clone_tree((any *)cons, s, &listener);
-      cons = any_cast<constant *>(object);
-      if (cons->Typespec() == nullptr)
-        cons->Typespec((typespec *)path->Typespec());
-    }
-
-    std::vector<std::string> the_path;
-    for (auto elem : *path->Path_elems()) {
-      std::string elemName = elem->VpiName();
-      elemName = StringUtils::rtrim(elemName, '[');
-      the_path.push_back(elemName);
-      if (elem->UhdmType() == uhdmbit_select) {
-        bit_select *select = (bit_select *)elem;
-        UHDM::ExprEval eval;
-        uint64_t baseIndex = eval.get_value(
-            invalidValue, reduceExpr((any *)select->VpiIndex(), invalidValue,
-                                     component, compileDesign, instance,
-                                     fileName, lineNumber, pexpr, muteErrors));
-        the_path.push_back("[" + std::to_string(baseIndex) + "]");
-      }
-    }
-
-    expr *res = (expr *)hierarchicalSelector(
-        the_path, 0, object, invalidValue, component, compileDesign, instance,
-        pexpr, fileName, lineNumber, muteErrors, returnTypespec);
-    return res;
-  }
-  return nullptr;
+  any *res = eval.decodeHierPath(path, invalidValue, m_exprEvalPlaceHolder,
+                                 pexpr, returnTypespec);
+  return res;
 }
 
 expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
@@ -882,317 +855,6 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
   expr *res =
       eval.reduceExpr(result, invalidValue, m_exprEvalPlaceHolder, pexpr);
   return res;
-}
-
-any *CompileHelper::hierarchicalSelector(
-    std::vector<std::string> &select_path, unsigned int level,
-    UHDM::any *object, bool &invalidValue, DesignComponent *component,
-    CompileDesign *compileDesign, ValuedComponentI *instance, UHDM::any *pexpr,
-    const fs::path &fileName, int lineNumber, bool muteErrors,
-    bool returnTypespec) {
-  Serializer &s = compileDesign->getSerializer();
-  if (level >= select_path.size()) {
-    return (expr *)object;
-  }
-  std::string elemName = select_path[level];
-
-  if (variables *var = any_cast<variables *>(object)) {
-    UHDM_OBJECT_TYPE ttps = var->UhdmType();
-    if (ttps == uhdmstruct_var) {
-      struct_typespec *stpt =
-          (struct_typespec *)((struct_var *)var)->Typespec();
-      for (typespec_member *member : *stpt->Members()) {
-        if (member->VpiName() == elemName) {
-          if (returnTypespec)
-            return (expr *)member->Typespec();
-          else
-            return (expr *)member->Default_value();
-        }
-      }
-    }
-  } else if (typespec *var = any_cast<typespec *>(object)) {
-    UHDM_OBJECT_TYPE ttps = var->UhdmType();
-    if (ttps == uhdmstruct_typespec) {
-      struct_typespec *stpt = (struct_typespec *)(var);
-      for (typespec_member *member : *stpt->Members()) {
-        if (member->VpiName() == elemName) {
-          expr *res = nullptr;
-          if (returnTypespec)
-            res = (expr *)member->Typespec();
-          else
-            res = (expr *)member->Default_value();
-          if (level == select_path.size() - 1) {
-            return res;
-          } else {
-            any *ex = hierarchicalSelector(
-                select_path, level + 1, res, invalidValue, component,
-                compileDesign, instance, pexpr, fileName, lineNumber,
-                muteErrors, returnTypespec);
-            return ex;
-          }
-        }
-      }
-    }
-  } else if (io_decl *decl = any_cast<io_decl *>(object)) {
-    const any *exp = decl->Expr();
-    if (exp) {
-      UHDM_OBJECT_TYPE ttps = exp->UhdmType();
-      if (ttps == uhdmstruct_var) {
-        struct_typespec *stpt =
-            (struct_typespec *)((struct_var *)exp)->Typespec();
-        for (typespec_member *member : *stpt->Members()) {
-          if (member->VpiName() == elemName) {
-            if (returnTypespec)
-              return (expr *)member->Typespec();
-            else
-              return (expr *)member->Default_value();
-          }
-        }
-      }
-    }
-  } else if (nets *var = any_cast<nets *>(object)) {
-    UHDM_OBJECT_TYPE ttps = var->UhdmType();
-    if (ttps == uhdmstruct_net) {
-      struct_typespec *stpt =
-          (struct_typespec *)((struct_net *)var)->Typespec();
-      for (typespec_member *member : *stpt->Members()) {
-        if (member->VpiName() == elemName) {
-          if (returnTypespec)
-            return (expr *)member->Typespec();
-          else
-            return (expr *)member->Default_value();
-        }
-      }
-    }
-  } else if (constant *cons = any_cast<constant *>(object)) {
-    const typespec *ts = cons->Typespec();
-    if (ts) {
-      UHDM_OBJECT_TYPE ttps = ts->UhdmType();
-      if (ttps == uhdmstruct_typespec) {
-        struct_typespec *stpt = (struct_typespec *)ts;
-        uint64_t from = 0;
-        uint64_t width = 0;
-        for (typespec_member *member : *stpt->Members()) {
-          if (member->VpiName() == elemName) {
-            width = Bits(member, invalidValue, component, compileDesign,
-                         instance, fileName, lineNumber, true, false);
-            UHDM::ExprEval eval;
-            uint64_t iv = eval.get_value(invalidValue, cons);
-            uint64_t mask = 0;
-
-            for (uint64_t i = from; i < uint64_t(from + width); i++) {
-              mask |= ((uint64_t)1 << i);
-            }
-            uint64_t res = iv & mask;
-            res = res >> (from);
-            cons->VpiValue("UINT:" + std::to_string(res));
-            cons->VpiSize(width);
-            return cons;
-          } else {
-            from += Bits(member, invalidValue, component, compileDesign,
-                         instance, fileName, lineNumber, true, false);
-          }
-        }
-      }
-    }
-  }
-
-  int selectIndex = -1;
-  if (elemName.find('[') != std::string::npos) {
-    std::string indexName = StringUtils::ltrim(elemName, '[');
-    indexName = StringUtils::rtrim(elemName, ']');
-    selectIndex = std::strtoull(indexName.c_str(), nullptr, 10);
-    elemName = "";
-    if (operation *oper = any_cast<operation *>(object)) {
-      int opType = oper->VpiOpType();
-      if (opType == vpiAssignmentPatternOp) {
-        UHDM::VectorOfany *operands = oper->Operands();
-        int sInd = 0;
-        for (auto operand : *operands) {
-          if ((selectIndex >= 0) && (sInd == selectIndex)) {
-            any *ex = hierarchicalSelector(
-                select_path, level + 1, operand, invalidValue, component,
-                compileDesign, instance, pexpr, fileName, lineNumber,
-                muteErrors, returnTypespec);
-            return ex;
-          }
-          sInd++;
-        }
-      }
-    } else if (typespec *tps = any_cast<typespec *>(object)) {
-      if (tps->UhdmType() == uhdmlogic_typespec) {
-        logic_typespec *ltps = (logic_typespec *)tps;
-        VectorOfrange *ranges = ltps->Ranges();
-        if (ranges->size() >= 2) {
-          logic_typespec *tmp = s.MakeLogic_typespec();
-          VectorOfrange *tmpR = s.MakeRangeVec();
-          for (unsigned int i = 1; i < ranges->size(); i++) {
-            tmpR->push_back(ranges->at(i));
-          }
-          tmp->Ranges(tmpR);
-          return tmp;
-        }
-      }
-    } else if (constant *c = any_cast<constant *>(object)) {
-      expr *ex = reduceBitSelect(c, selectIndex, invalidValue, component,
-                                 compileDesign, instance, fileName, lineNumber,
-                                 pexpr, muteErrors);
-      return ex;
-    }
-
-  } else if (level == 0) {
-    any *ex = hierarchicalSelector(
-        select_path, level + 1, object, invalidValue, component, compileDesign,
-        instance, pexpr, fileName, lineNumber, muteErrors, returnTypespec);
-    return ex;
-  }
-
-  if (operation *oper = any_cast<operation *>(object)) {
-    int opType = oper->VpiOpType();
-
-    if (opType == vpiAssignmentPatternOp) {
-      UHDM::VectorOfany *operands = oper->Operands();
-      any *defaultPattern = nullptr;
-      int sInd = 0;
-
-      int bIndex = -1;
-      if (component) {
-        Parameter *baseP = component->getParameter(select_path[0]);
-        if (baseP) {
-          parameter *p = any_cast<parameter *>(baseP->getUhdmParam());
-          if (p) {
-            const typespec *tps = p->Typespec();
-            if (tps) {
-              if (tps->UhdmType() == uhdmpacked_array_typespec) {
-                packed_array_typespec *tmp = (packed_array_typespec *)tps;
-                tps = (typespec *)tmp->Elem_typespec();
-              }
-              if (tps->UhdmType() == uhdmstruct_typespec) {
-                struct_typespec *sts = (struct_typespec *)tps;
-                UHDM::VectorOftypespec_member *members = sts->Members();
-                if (members) {
-                  unsigned int i = 0;
-                  for (UHDM::typespec_member *member : *members) {
-                    if (member->VpiName() == elemName) {
-                      bIndex = i;
-                      break;
-                    }
-                    i++;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-      if (instance) {
-        ValuedComponentI *tmpInstance = instance;
-        while ((bIndex == -1) && tmpInstance) {
-          if (ModuleInstance *inst =
-                  valuedcomponenti_cast<ModuleInstance *>(tmpInstance)) {
-            Netlist *netlist = inst->getNetlist();
-            if (netlist) {
-              UHDM::VectorOfparam_assign *param_assigns =
-                  netlist->param_assigns();
-              if (param_assigns) {
-                for (param_assign *param : *param_assigns) {
-                  if (param && param->Lhs()) {
-                    const std::string &param_name = param->Lhs()->VpiName();
-                    if (param_name == select_path[0]) {
-                      parameter *p = any_cast<parameter *>((any *)param->Lhs());
-                      if (p) {
-                        const typespec *tps = p->Typespec();
-                        if (tps) {
-                          if (tps->UhdmType() == uhdmpacked_array_typespec) {
-                            packed_array_typespec *tmp =
-                                (packed_array_typespec *)tps;
-                            tps = (typespec *)tmp->Elem_typespec();
-                          }
-                          if (tps->UhdmType() == uhdmstruct_typespec) {
-                            struct_typespec *sts = (struct_typespec *)tps;
-                            UHDM::VectorOftypespec_member *members =
-                                sts->Members();
-                            if (members) {
-                              unsigned int i = 0;
-                              for (UHDM::typespec_member *member : *members) {
-                                if (member->VpiName() == elemName) {
-                                  bIndex = i;
-                                  break;
-                                }
-                                i++;
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-          if (ModuleInstance *inst =
-                  valuedcomponenti_cast<ModuleInstance *>(tmpInstance)) {
-            tmpInstance = (ValuedComponentI *)inst->getParentScope();
-          } else if (FScope *inst =
-                         valuedcomponenti_cast<FScope *>(tmpInstance)) {
-            tmpInstance = (ValuedComponentI *)inst->getParentScope();
-          } else {
-            tmpInstance = nullptr;
-          }
-        }
-      }
-      for (auto operand : *operands) {
-        UHDM_OBJECT_TYPE operandType = operand->UhdmType();
-        if (operandType == uhdmtagged_pattern) {
-          tagged_pattern *tpatt = (tagged_pattern *)operand;
-          const typespec *tps = tpatt->Typespec();
-          if (tps->VpiName() == "default") {
-            defaultPattern = (any *)tpatt->Pattern();
-          }
-          if (!elemName.empty() && (tps->VpiName() == elemName)) {
-            const any *patt = tpatt->Pattern();
-            UHDM_OBJECT_TYPE pattType = patt->UhdmType();
-            if (pattType == uhdmconstant) {
-              any *ex = reduceExpr((expr *)patt, invalidValue, component,
-                                   compileDesign, instance, fileName,
-                                   lineNumber, pexpr, muteErrors);
-              if (level < select_path.size()) {
-                ex = hierarchicalSelector(
-                    select_path, level + 1, ex, invalidValue, component,
-                    compileDesign, instance, pexpr, fileName, lineNumber,
-                    muteErrors, returnTypespec);
-              }
-              return ex;
-            } else if (pattType == uhdmoperation) {
-              any *ex = hierarchicalSelector(
-                  select_path, level + 1, (expr *)patt, invalidValue, component,
-                  compileDesign, instance, pexpr, fileName, lineNumber,
-                  muteErrors, returnTypespec);
-              return ex;
-            }
-          }
-        } else if (operandType == uhdmconstant) {
-          if ((bIndex >= 0) && (bIndex == sInd)) {
-            any *ex = hierarchicalSelector(
-                select_path, level + 1, (expr *)operand, invalidValue,
-                component, compileDesign, instance, pexpr, fileName, lineNumber,
-                muteErrors, returnTypespec);
-            return ex;
-          }
-        }
-        sInd++;
-      }
-      if (defaultPattern) {
-        expr *ex = any_cast<expr *>(defaultPattern);
-        if (ex)
-          ex = reduceExpr(ex, invalidValue, component, compileDesign, instance,
-                          fileName, lineNumber, pexpr, muteErrors);
-        return ex;
-      }
-    }
-  }
-  return nullptr;
 }
 
 any *CompileHelper::getValue(const std::string &name,
