@@ -2420,8 +2420,9 @@ bool CompileHelper::isDecreasingRange(UHDM::typespec* ts,
     }
     if (r) {
       bool invalidValue = false;
-      int64_t lv = get_value(invalidValue, r->Left_expr());
-      int64_t rv = get_value(invalidValue, r->Right_expr());
+      UHDM::ExprEval eval;
+      int64_t lv = eval.get_value(invalidValue, r->Left_expr());
+      int64_t rv = eval.get_value(invalidValue, r->Right_expr());
       if ((invalidValue == false) && (lv > rv)) return true;
     }
   }
@@ -2753,7 +2754,8 @@ void CompileHelper::adjustSize(const UHDM::typespec* ts,
   if (!invalidValue) size = sizetmp;
 
   if (size != orig_size) {
-    int64_t val = get_value(invalidValue, c);
+    UHDM::ExprEval eval;
+    int64_t val = eval.get_value(invalidValue, c);
     if (!invalidValue) {
       if (c->VpiConstType() == vpiUIntConst) {
         uint64_t mask = NumUtils::getMask(size);
@@ -3489,13 +3491,14 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
     const packed_array_typespec* atps = (const packed_array_typespec*)tps;
     if (atps->Ranges()) {
       for (auto range : *atps->Ranges()) {
+        UHDM::ExprEval eval;
         bool invalidValue = false;
-        uint64_t r1 = get_value(
+        uint64_t r1 = eval.get_value(
             invalidValue,
             reduceExpr((any*)range->Left_expr(), invalidValue, component,
                        compileDesign, instance, range->Left_expr()->VpiFile(),
                        range->Left_expr()->VpiLineNo(), nullptr));
-        uint64_t r2 = get_value(
+        uint64_t r2 = eval.get_value(
             invalidValue,
             reduceExpr((any*)range->Right_expr(), invalidValue, component,
                        compileDesign, instance, range->Right_expr()->VpiFile(),
@@ -3535,7 +3538,8 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
             const typespec* tps = tp->Typespec();
             if (tps->VpiName() == "default") {
               bool invalidValue = false;
-              int val = get_value(
+              UHDM::ExprEval eval;
+              int val = eval.get_value(
                   invalidValue,
                   reduceExpr((any*)tp->Pattern(), invalidValue, component,
                              compileDesign, instance, tp->Pattern()->VpiFile(),
@@ -3603,8 +3607,9 @@ bool CompileHelper::valueRange(Value* val, UHDM::typespec* ts,
                           compileDesign, instance, "", 0, nullptr, true);
     expr* rv = reduceExpr((any*)r->Right_expr(), invalidValue, component,
                           compileDesign, instance, "", 0, nullptr, true);
-    int64_t lvv = get_value(invalidValue, lv);
-    int64_t rvv = get_value(invalidValue, rv);
+    UHDM::ExprEval eval;
+    int64_t lvv = eval.get_value(invalidValue, lv);
+    int64_t rvv = eval.get_value(invalidValue, rv);
     if (invalidValue == false) {
       val->setRange(lvv, rvv);
     }
