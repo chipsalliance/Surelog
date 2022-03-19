@@ -102,7 +102,8 @@ expr *CompileHelper::reduceBitSelect(expr *op, unsigned int index_val,
       binary = binary.erase(0, 4);
       std::reverse(binary.begin(), binary.end());
     } else {
-      int64_t val = get_value(invalidValue, exp);
+      UHDM::ExprEval eval;
+      int64_t val = eval.get_value(invalidValue, exp);
       binary = NumUtils::toBinary(exp->VpiSize(), val);
     }
     uint64_t wordSize = 1;
@@ -124,8 +125,9 @@ expr *CompileHelper::reduceBitSelect(expr *op, unsigned int index_val,
         if (ranges) {
           range *r = ranges->at(0);
           bool invalidValue = false;
-          lr = get_value(invalidValue, r->Left_expr());
-          rr = get_value(invalidValue, r->Right_expr());
+          UHDM::ExprEval eval;
+          lr = eval.get_value(invalidValue, r->Left_expr());
+          rr = eval.get_value(invalidValue, r->Right_expr());
         }
       }
     }
@@ -825,7 +827,8 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
       the_path.push_back(elemName);
       if (elem->UhdmType() == uhdmbit_select) {
         bit_select *select = (bit_select *)elem;
-        uint64_t baseIndex = get_value(
+        UHDM::ExprEval eval;
+        uint64_t baseIndex = eval.get_value(
             invalidValue, reduceExpr((any *)select->VpiIndex(), invalidValue,
                                      component, compileDesign, instance,
                                      fileName, lineNumber, pexpr, muteErrors));
@@ -876,8 +879,9 @@ expr *CompileHelper::reduceCompOp(operation *op, bool &invalidValue,
         break;
     }
   } else {
-    int64_t v0 = get_value(invalidValueI, reduc0);
-    int64_t v1 = get_value(invalidValueI, reduc1);
+    UHDM::ExprEval eval;
+    int64_t v0 = eval.get_value(invalidValueI, reduc0);
+    int64_t v1 = eval.get_value(invalidValueI, reduc1);
     if ((invalidValue == false) && (invalidValueI == false)) {
       switch (optype) {
         case vpiEqOp:
@@ -903,8 +907,9 @@ expr *CompileHelper::reduceCompOp(operation *op, bool &invalidValue,
       }
     } else {
       invalidValueD = false;
-      long double v0 = get_double(invalidValueD, reduc0);
-      long double v1 = get_double(invalidValueD, reduc1);
+      UHDM::ExprEval eval;
+      long double v0 = eval.get_double(invalidValueD, reduc0);
+      long double v1 = eval.get_double(invalidValueD, reduc1);
       if ((invalidValue == false) && (invalidValueD == false)) {
         switch (optype) {
           case vpiEqOp:
@@ -1076,7 +1081,8 @@ any *CompileHelper::hierarchicalSelector(
           if (member->VpiName() == elemName) {
             width = Bits(member, invalidValue, component, compileDesign,
                          instance, fileName, lineNumber, true, false);
-            uint64_t iv = get_value(invalidValue, cons);
+            UHDM::ExprEval eval;
+            uint64_t iv = eval.get_value(invalidValue, cons);
             uint64_t mask = 0;
 
             for (uint64_t i = from; i < uint64_t(from + width); i++) {
@@ -1292,293 +1298,6 @@ any *CompileHelper::hierarchicalSelector(
     }
   }
   return nullptr;
-}
-
-long double CompileHelper::get_double(bool &invalidValue,
-                                      const UHDM::expr *expr) {
-  long double result = 0;
-  if (const UHDM::constant *c = any_cast<const UHDM::constant *>(expr)) {
-    int type = c->VpiConstType();
-    std::string v = c->VpiValue();
-    switch (type) {
-      case vpiRealConst: {
-        result = std::strtold(v.c_str() + std::string_view("REAL:").length(),
-                              nullptr);
-        break;
-      }
-      default: {
-        result = get_value(invalidValue, expr);
-        break;
-      }
-    }
-  } else {
-    invalidValue = true;
-  }
-  return result;
-}
-
-int64_t CompileHelper::get_value(bool &invalidValue, const UHDM::expr *expr) {
-  int64_t result = 0;
-  int type = 0;
-  std::string v;
-  if (const UHDM::constant *c = any_cast<const UHDM::constant *>(expr)) {
-    type = c->VpiConstType();
-    v = c->VpiValue();
-  } else if (const UHDM::variables *c =
-                 any_cast<const UHDM::variables *>(expr)) {
-    if (c->UhdmType() == uhdmenum_var) {
-      type = vpiUIntConst;
-      v = c->VpiValue();
-    }
-  } else {
-    invalidValue = true;
-  }
-  if (!invalidValue) {
-    switch (type) {
-      case vpiBinaryConst: {
-        if (expr->VpiSize() > 64) {
-          invalidValue = true;
-        } else {
-          StringUtils::ltrim(v, '\'');
-          StringUtils::ltrim(v, 's');
-          StringUtils::ltrim(v, 'b');
-          try {
-            result = std::strtoll(v.c_str() + std::string_view("BIN:").length(),
-                                  nullptr, 2);
-          } catch (...) {
-            invalidValue = true;
-          }
-        }
-        break;
-      }
-      case vpiDecConst: {
-        try {
-          result = std::strtoll(v.c_str() + std::string_view("DEC:").length(),
-                                nullptr, 10);
-        } catch (...) {
-          invalidValue = true;
-        }
-        break;
-      }
-      case vpiHexConst: {
-        if (expr->VpiSize() > 64) {
-          invalidValue = true;
-        } else {
-          StringUtils::ltrim(v, '\'');
-          StringUtils::ltrim(v, 's');
-          StringUtils::ltrim(v, 'h');
-          try {
-            result = std::strtoll(v.c_str() + std::string_view("HEX:").length(),
-                                  nullptr, 16);
-          } catch (...) {
-            invalidValue = true;
-          }
-        }
-        break;
-      }
-      case vpiOctConst: {
-        if (expr->VpiSize() > 64) {
-          invalidValue = true;
-        } else {
-          StringUtils::ltrim(v, '\'');
-          StringUtils::ltrim(v, 's');
-          StringUtils::ltrim(v, 'o');
-          try {
-            result = std::strtoll(v.c_str() + std::string_view("OCT:").length(),
-                                  nullptr, 8);
-          } catch (...) {
-            invalidValue = true;
-          }
-        }
-        break;
-      }
-      case vpiIntConst: {
-        try {
-          result = std::strtoll(v.c_str() + std::string_view("INT:").length(),
-                                nullptr, 10);
-        } catch (...) {
-          invalidValue = true;
-        }
-        break;
-      }
-      case vpiUIntConst: {
-        try {
-          result = std::strtoull(v.c_str() + std::string_view("UINT:").length(),
-                                 nullptr, 10);
-        } catch (...) {
-          invalidValue = true;
-        }
-        break;
-      }
-      case vpiScalar: {
-        try {
-          result = std::strtoll(v.c_str() + std::string_view("SCAL:").length(),
-                                nullptr, 2);
-        } catch (...) {
-          invalidValue = true;
-        }
-        break;
-      }
-      case vpiStringConst: {
-        result = 0;
-        break;
-      }
-      case vpiRealConst: {
-        // Don't do the double precision math, leave it to client tools
-        invalidValue = true;
-        break;
-      }
-      default: {
-        try {
-          if (v.find("UINT:") != std::string::npos) {
-            result = std::strtoull(
-                v.c_str() + std::string_view("UINT:").length(), nullptr, 10);
-          } else if (v.find("INT:") != std::string::npos) {
-            result = std::strtoll(v.c_str() + std::string_view("INT:").length(),
-                                  nullptr, 10);
-          } else {
-            invalidValue = true;
-          }
-        } catch (...) {
-          invalidValue = true;
-        }
-        break;
-      }
-    }
-  }
-  return result;
-}
-
-uint64_t CompileHelper::get_uvalue(bool &invalidValue, const UHDM::expr *expr) {
-  uint64_t result = 0;
-  int type = 0;
-  std::string v;
-  if (const UHDM::constant *c = any_cast<const UHDM::constant *>(expr)) {
-    type = c->VpiConstType();
-    v = c->VpiValue();
-  } else if (const UHDM::variables *c =
-                 any_cast<const UHDM::variables *>(expr)) {
-    if (c->UhdmType() == uhdmenum_var) {
-      type = vpiUIntConst;
-      v = c->VpiValue();
-    }
-  } else {
-    invalidValue = true;
-  }
-  if (!invalidValue) {
-    switch (type) {
-      case vpiBinaryConst: {
-        if (expr->VpiSize() > 64) {
-          invalidValue = true;
-        } else {
-          StringUtils::ltrim(v, '\'');
-          StringUtils::ltrim(v, 's');
-          StringUtils::ltrim(v, 'b');
-          try {
-            result = std::strtoll(v.c_str() + std::string_view("BIN:").length(),
-                                  nullptr, 2);
-          } catch (...) {
-            invalidValue = true;
-          }
-        }
-        break;
-      }
-      case vpiDecConst: {
-        try {
-          result = std::strtoll(v.c_str() + std::string_view("DEC:").length(),
-                                nullptr, 10);
-        } catch (...) {
-          invalidValue = true;
-        }
-        break;
-      }
-      case vpiHexConst: {
-        if (expr->VpiSize() > 64) {
-          invalidValue = true;
-        } else {
-          StringUtils::ltrim(v, '\'');
-          StringUtils::ltrim(v, 's');
-          StringUtils::ltrim(v, 'h');
-          try {
-            result = std::strtoll(v.c_str() + std::string_view("HEX:").length(),
-                                  nullptr, 16);
-          } catch (...) {
-            invalidValue = true;
-          }
-        }
-        break;
-      }
-      case vpiOctConst: {
-        if (expr->VpiSize() > 64) {
-          invalidValue = true;
-        } else {
-          StringUtils::ltrim(v, '\'');
-          StringUtils::ltrim(v, 's');
-          StringUtils::ltrim(v, 'o');
-          try {
-            result = std::strtoll(v.c_str() + std::string_view("OCT:").length(),
-                                  nullptr, 8);
-          } catch (...) {
-            invalidValue = true;
-          }
-        }
-        break;
-      }
-      case vpiIntConst: {
-        try {
-          result = std::strtoll(v.c_str() + std::string_view("INT:").length(),
-                                nullptr, 10);
-        } catch (...) {
-          invalidValue = true;
-        }
-        break;
-      }
-      case vpiUIntConst: {
-        try {
-          result = std::strtoull(v.c_str() + std::string_view("UINT:").length(),
-                                 nullptr, 10);
-        } catch (...) {
-          invalidValue = true;
-        }
-        break;
-      }
-      case vpiScalar: {
-        try {
-          result = std::strtoll(v.c_str() + std::string_view("SCAL:").length(),
-                                nullptr, 2);
-        } catch (...) {
-          invalidValue = true;
-        }
-        break;
-      }
-      case vpiStringConst: {
-        result = 0;
-        break;
-      }
-      case vpiRealConst: {
-        // Don't do the double precision math, leave it to client tools
-        invalidValue = true;
-        break;
-      }
-      default: {
-        try {
-          if (v.find("UINT:") != std::string::npos) {
-            result = std::strtoull(
-                v.c_str() + std::string_view("UINT:").length(), nullptr, 10);
-          } else if (v.find("INT:") != std::string::npos) {
-            result = std::strtoll(v.c_str() + std::string_view("INT:").length(),
-                                  nullptr, 10);
-          } else {
-            invalidValue = true;
-          }
-        } catch (...) {
-          invalidValue = true;
-        }
-        break;
-      }
-    }
-  }
-  return result;
 }
 
 any *CompileHelper::getValue(const std::string &name,
@@ -4676,14 +4395,15 @@ uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
       }
       expr *lexpr = (expr *)last_range->Left_expr();
       expr *rexpr = (expr *)last_range->Right_expr();
-      int64_t lv =
-          get_value(invalidValue,
-                    reduceExpr(lexpr, invalidValue, component, compileDesign,
-                               instance, fileName, lineNumber, nullptr));
-      int64_t rv =
-          get_value(invalidValue,
-                    reduceExpr(rexpr, invalidValue, component, compileDesign,
-                               instance, fileName, lineNumber, nullptr));
+      UHDM::ExprEval eval;
+      int64_t lv = eval.get_value(
+          invalidValue,
+          reduceExpr(lexpr, invalidValue, component, compileDesign, instance,
+                     fileName, lineNumber, nullptr));
+      int64_t rv = eval.get_value(
+          invalidValue,
+          reduceExpr(rexpr, invalidValue, component, compileDesign, instance,
+                     fileName, lineNumber, nullptr));
       if (lv > rv)
         bits = bits * (lv - rv + 1);
       else
@@ -4692,14 +4412,15 @@ uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
       for (UHDM::range *ran : *ranges) {
         expr *lexpr = (expr *)ran->Left_expr();
         expr *rexpr = (expr *)ran->Right_expr();
-        int64_t lv =
-            get_value(invalidValue,
-                      reduceExpr(lexpr, invalidValue, component, compileDesign,
-                                 instance, fileName, lineNumber, nullptr));
-        int64_t rv =
-            get_value(invalidValue,
-                      reduceExpr(rexpr, invalidValue, component, compileDesign,
-                                 instance, fileName, lineNumber, nullptr));
+        UHDM::ExprEval eval;
+        int64_t lv = eval.get_value(
+            invalidValue,
+            reduceExpr(lexpr, invalidValue, component, compileDesign, instance,
+                       fileName, lineNumber, nullptr));
+        int64_t rv = eval.get_value(
+            invalidValue,
+            reduceExpr(rexpr, invalidValue, component, compileDesign, instance,
+                       fileName, lineNumber, nullptr));
 
         if (lv > rv)
           bits = bits * (lv - rv + 1);
@@ -5234,10 +4955,11 @@ UHDM::any *CompileHelper::compileBound(
       bool invalidValue = false;
       lr = reduceExpr(lr, invalidValue, component, compileDesign, instance, "",
                       0, nullptr, true);
-      int64_t lrv = get_value(invalidValue, lr);
+      UHDM::ExprEval eval;
+      int64_t lrv = eval.get_value(invalidValue, lr);
       rr = reduceExpr(rr, invalidValue, component, compileDesign, instance, "",
                       0, nullptr, true);
-      int64_t rrv = get_value(invalidValue, rr);
+      int64_t rrv = eval.get_value(invalidValue, rr);
       if (name == "left") {
         return lr;
       } else if (name == "right") {
@@ -5282,11 +5004,13 @@ UHDM::any *CompileHelper::compileClog2(
                                 instance, reduce, muteErrors);
   bool invalidValue = false;
   int64_t val = 0;
-  if (reduce)
-    val = get_value(
+  if (reduce) {
+    UHDM::ExprEval eval;
+    val = eval.get_value(
         invalidValue,
         reduceExpr(operand, invalidValue, component, compileDesign, instance,
                    fC->getFileName(), fC->Line(Expression), pexpr, muteErrors));
+  }
   if (reduce && (invalidValue == false)) {
     val = val - 1;
     uint64_t clog2 = 0;
@@ -5890,7 +5614,8 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
                                                   instance, reduce, muteErrors);
           if (index && index->UhdmType() == uhdmconstant) {
             bool invalidValue = false;
-            uint64_t ind = (uint64_t)get_value(invalidValue, index);
+            UHDM::ExprEval eval;
+            uint64_t ind = (uint64_t)eval.get_value(invalidValue, index);
             if (invalidValue == false && type == uhdmoperation) {
               operation *op = (operation *)st;
               int opType = op->VpiOpType();
@@ -6089,12 +5814,13 @@ void CompileHelper::reorderAssignmentPattern(DesignComponent *mod,
           expr *lr = (expr *)r->Left_expr();
           expr *rr = (expr *)r->Right_expr();
           bool invalidValue = false;
+          UHDM::ExprEval eval;
           lr = reduceExpr(lr, invalidValue, mod, compileDesign, instance, "", 0,
                           nullptr, true);
-          int64_t lrv = get_value(invalidValue, lr);
+          int64_t lrv = eval.get_value(invalidValue, lr);
           rr = reduceExpr(rr, invalidValue, mod, compileDesign, instance, "", 0,
                           nullptr, true);
-          int64_t rrv = get_value(invalidValue, rr);
+          int64_t rrv = eval.get_value(invalidValue, rr);
           if (lrv > rrv) {
             op->VpiReordered(true);
             std::reverse(operands->begin(), operands->end());
