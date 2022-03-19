@@ -436,13 +436,6 @@ class CompileHelper final {
                          const std::filesystem::path& fileName, int lineNumber,
                          UHDM::any* pexpr, bool muteErrors = false);
 
-  UHDM::expr* reduceCompOp(UHDM::operation* op, bool& invalidValue,
-                           DesignComponent* component,
-                           CompileDesign* compileDesign,
-                           ValuedComponentI* instance,
-                           const std::filesystem::path& fileName,
-                           int lineNumber, UHDM::any* pexpr, bool muteErrors);
-
   UHDM::expr* reduceBitSelect(UHDM::expr* op, unsigned int index_val,
                               bool& invalidValue, DesignComponent* component,
                               CompileDesign* compileDesign,
