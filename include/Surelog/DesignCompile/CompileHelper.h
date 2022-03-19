@@ -514,13 +514,6 @@ class CompileHelper final {
                                const std::filesystem::path& fileName,
                                unsigned int lineNo, unsigned short columnNo);
 
-  UHDM::any* hierarchicalSelector(
-      std::vector<std::string>& select_path, unsigned int level,
-      UHDM::any* object, bool& invalidValue, DesignComponent* component,
-      CompileDesign* compileDesign, ValuedComponentI* instance,
-      UHDM::any* pexpr, const std::filesystem::path& fileName, int lineNumber,
-      bool muteErrors, bool returnTypespec);
-
   UHDM::any* decodeHierPath(UHDM::hier_path* path, bool& invalidValue,
                             DesignComponent* component,
                             CompileDesign* compileDesign,
