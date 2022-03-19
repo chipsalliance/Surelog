@@ -429,11 +429,6 @@ class CompileHelper final {
 
   bool isDecreasingRange(UHDM::typespec* ts, DesignComponent* component);
 
-  int64_t get_value(bool& invalidValue, const UHDM::expr* expr);
-  uint64_t get_uvalue(bool& invalidValue, const UHDM::expr* expr);
-
-  long double get_double(bool& invalidValue, const UHDM::expr* expr);
-
   UHDM::expr* reduceExpr(UHDM::any* expr, bool& invalidValue,
                          DesignComponent* component,
                          CompileDesign* compileDesign,
