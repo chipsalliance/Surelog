@@ -24,6 +24,7 @@
 #include <gtest/gtest.h>
 
 // UHDM
+#include <uhdm/ExprEval.h>
 #include <uhdm/expr.h>
 
 namespace SURELOG {
@@ -59,7 +60,8 @@ TEST(CompileExpression, ExprFromParseTree1) {
         true));
     EXPECT_EQ(exp->UhdmType(), UHDM::uhdmconstant);
     bool invalidValue = false;
-    EXPECT_EQ(helper.get_value(invalidValue, exp.get()), 16);
+    UHDM::ExprEval eval;
+    EXPECT_EQ(eval.get_value(invalidValue, exp.get()), 16);
   }
 }
 TEST(CompileExpression, ExprFromParseTree2) {
@@ -87,7 +89,8 @@ TEST(CompileExpression, ExprFromParseTree2) {
         true));
     EXPECT_EQ(exp->UhdmType(), UHDM::uhdmconstant);
     bool invalidValue = false;
-    EXPECT_EQ(helper.get_value(invalidValue, exp.get()), 1);
+    UHDM::ExprEval eval;
+    EXPECT_EQ(eval.get_value(invalidValue, exp.get()), 1);
   }
 }
 TEST(CompileExpression, ExprFromParseTree3) {
@@ -119,7 +122,8 @@ TEST(CompileExpression, ExprFromParseTree3) {
     if (name == "p1") {
       EXPECT_EQ(exp2->UhdmType(), UHDM::uhdmconstant);
       bool invalidValue = false;
-      EXPECT_EQ(helper.get_value(invalidValue, exp2.get()), 6);
+      UHDM::ExprEval eval;
+      EXPECT_EQ(eval.get_value(invalidValue, exp2.get()), 6);
     }
   }
 }
@@ -158,7 +162,8 @@ TEST(CompileExpression, ExprFromPpTree) {
     if (name == "p1") {
       EXPECT_EQ(exp2->UhdmType(), UHDM::uhdmconstant);
       bool invalidValue = false;
-      EXPECT_EQ(helper.get_value(invalidValue, exp2.get()), 6);
+      UHDM::ExprEval eval;
+      EXPECT_EQ(eval.get_value(invalidValue, exp2.get()), 6);
     }
   }
 }
