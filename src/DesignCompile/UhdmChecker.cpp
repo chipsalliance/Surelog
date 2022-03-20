@@ -38,7 +38,7 @@
 #include <uhdm/Serializer.h>
 #include <uhdm/uhdm.h>
 #include <uhdm/vpi_visitor.h>
-
+#include <iomanip>
 #include <fstream>
 #include <sstream>
 #include <stack>
