@@ -83,105 +83,6 @@ bool CompileHelper::substituteAssignedValue(const UHDM::any *oper,
   return substitute;
 }
 
-expr *CompileHelper::reduceBitSelect(expr *op, unsigned int index_val,
-                                     bool &invalidValue,
-                                     DesignComponent *component,
-                                     CompileDesign *compileDesign,
-                                     ValuedComponentI *instance,
-                                     const fs::path &fileName, int lineNumber,
-                                     any *pexpr, bool muteErrors) {
-  Serializer &s = compileDesign->getSerializer();
-  expr *result = nullptr;
-  expr *exp = reduceExpr(op, invalidValue, component, compileDesign, instance,
-                         fileName, lineNumber, pexpr, muteErrors);
-  if (exp && (exp->UhdmType() == uhdmconstant)) {
-    std::string binary;
-    constant *cexp = (constant *)exp;
-    if (cexp->VpiConstType() == vpiBinaryConst) {
-      binary = cexp->VpiValue();
-      binary = binary.erase(0, 4);
-      std::reverse(binary.begin(), binary.end());
-    } else {
-      UHDM::ExprEval eval;
-      int64_t val = eval.get_value(invalidValue, exp);
-      binary = NumUtils::toBinary(exp->VpiSize(), val);
-    }
-    uint64_t wordSize = 1;
-    if (typespec *cts = (typespec *)cexp->Typespec()) {
-      if (cts->UhdmType() == uhdmint_typespec) {
-        int_typespec *icts = (int_typespec *)cts;
-        wordSize = std::strtoull(
-            icts->VpiValue().c_str() + std::string_view("UINT:").length(),
-            nullptr, 10);
-      }
-    }
-    constant *c = s.MakeConstant();
-    unsigned short lr = 0;
-    unsigned short rr = 0;
-    if (const typespec *tps = exp->Typespec()) {
-      if (tps->UhdmType() == uhdmlogic_typespec) {
-        logic_typespec *lts = (logic_typespec *)tps;
-        VectorOfrange *ranges = lts->Ranges();
-        if (ranges) {
-          range *r = ranges->at(0);
-          bool invalidValue = false;
-          UHDM::ExprEval eval;
-          lr = eval.get_value(invalidValue, r->Left_expr());
-          rr = eval.get_value(invalidValue, r->Right_expr());
-        }
-      }
-    }
-    c->VpiSize(wordSize);
-    if (index_val < binary.size()) {
-      // TODO: If range does not start at 0
-      if (lr >= rr) {
-        index_val = binary.size() - ((index_val + 1) * wordSize);
-      }
-      std::string v;
-      for (unsigned int i = 0; i < wordSize; i++) {
-        if ((index_val + i) < binary.size()) {
-          char bitv = binary[index_val + i];
-          v += std::to_string(bitv - '0');
-        }
-      }
-      if (v.size() > UHDM_MAX_BIT_WIDTH) {
-        fs::path instanceName;
-        if (instance) {
-          if (ModuleInstance *inst =
-                  valuedcomponenti_cast<ModuleInstance *>(instance)) {
-            instanceName = inst->getFullPathName();
-          }
-        } else if (component) {
-          instanceName = component->getName();
-        }
-        ErrorContainer *errors =
-            compileDesign->getCompiler()->getErrorContainer();
-        SymbolTable *symbols = compileDesign->getCompiler()->getSymbolTable();
-        Location loc(symbols->registerSymbol(fileName.string()), lineNumber, 0,
-                     symbols->registerSymbol(instanceName.string()));
-        Error err(ErrorDefinition::UHDM_INTERNAL_ERROR_OUT_OF_BOUND, loc);
-        errors->addError(err);
-        v = "0";
-      }
-      std::reverse(v.begin(), v.end());
-      c->VpiValue("BIN:" + v);
-      c->VpiDecompile(std::to_string(wordSize) + "'b" + v);
-      c->VpiConstType(vpiBinaryConst);
-    } else {
-      c->VpiValue("BIN:0");
-      c->VpiDecompile("1'b0");
-      c->VpiConstType(vpiBinaryConst);
-    }
-    c->VpiFile(fileName);
-    c->VpiLineNo(lineNumber);
-    c->VpiColumnNo(op->VpiColumnNo());
-    c->VpiEndLineNo(lineNumber);
-    c->VpiEndColumnNo(op->VpiColumnNo() + 1);
-    result = c;
-  }
-  return result;
-}
-
 any *CompileHelper::getObject(const std::string &name,
                               DesignComponent *component,
                               CompileDesign *compileDesign,
@@ -3702,291 +3603,38 @@ uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
                              ValuedComponentI *instance,
                              const fs::path &fileName, int lineNumber,
                              bool reduce, bool sizeMode) {
-  uint64_t bits = 0;
-  if (typespec) {
-    const UHDM::typespec *tps = any_cast<const UHDM::typespec *>(typespec);
-    if (tps) {
-      if (const UHDM::instance *inst = tps->Instance()) {
-        if (Package *pack =
-                compileDesign->getCompiler()->getDesign()->getPackage(
-                    inst->VpiName())) {
-          component = pack;
-        }
-      }
-    }
+  UHDM::GetObjectFunctor getObjectFunctor =
+      [&](const std::string &name, const any *inst,
+          const any *pexpr) -> UHDM::any * {
+    return getObject(name, component, compileDesign, instance, pexpr);
+  };
+  UHDM::GetObjectFunctor getValueFunctor =
+      [&](const std::string &name, const any *inst,
+          const any *pexpr) -> UHDM::any * {
+    return (expr *)getValue(name, component, compileDesign, instance, fileName,
+                            lineNumber, (any *)pexpr, true, false);
+  };
+  UHDM::GetTaskFuncFunctor getTaskFuncFunctor =
+      [&](const std::string &name, const any *inst) -> UHDM::task_func * {
+    auto ret = getTaskFunc(name, component, compileDesign, instance, nullptr);
+    return ret.first;
+  };
+  UHDM::ExprEval eval;
+  eval.setGetObjectFunctor(getObjectFunctor);
+  eval.setGetValueFunctor(getValueFunctor);
+  eval.setGetTaskFuncFunctor(getTaskFuncFunctor);
+  if (m_exprEvalPlaceHolder == nullptr) {
+    m_exprEvalPlaceHolder = compileDesign->getSerializer().MakeModule();
+    m_exprEvalPlaceHolder->Param_assigns(
+        compileDesign->getSerializer().MakeParam_assignVec());
+  } else {
+    m_exprEvalPlaceHolder->Param_assigns()->erase(
+        m_exprEvalPlaceHolder->Param_assigns()->begin(),
+        m_exprEvalPlaceHolder->Param_assigns()->end());
   }
-  UHDM::VectorOfrange *ranges = nullptr;
-  if (typespec) {
-    UHDM_OBJECT_TYPE ttps = typespec->UhdmType();
-    switch (ttps) {
-      case UHDM::uhdmhier_path: {
-        typespec = decodeHierPath((hier_path *)typespec, invalidValue,
-                                  component, compileDesign, instance, fileName,
-                                  lineNumber, nullptr, true, true);
-        bits = Bits(typespec, invalidValue, component, compileDesign, instance,
-                    fileName, lineNumber, reduce, sizeMode);
-        break;
-      }
-      case UHDM::uhdmarray_typespec: {
-        array_typespec *lts = (array_typespec *)typespec;
-        ranges = lts->Ranges();
-        bits =
-            Bits(lts->Elem_typespec(), invalidValue, component, compileDesign,
-                 instance, fileName, lineNumber, reduce, sizeMode);
-        break;
-      }
-      case UHDM::uhdmshort_real_typespec: {
-        bits = 32;
-        break;
-      }
-      case UHDM::uhdmreal_typespec: {
-        bits = 32;
-        break;
-      }
-      case UHDM::uhdmbyte_typespec: {
-        bits = 8;
-        break;
-      }
-      case UHDM::uhdmshort_int_typespec: {
-        bits = 16;
-        break;
-      }
-      case UHDM::uhdmint_typespec: {
-        bits = 32;
-        break;
-      }
-      case UHDM::uhdmlong_int_typespec: {
-        bits = 64;
-        break;
-      }
-      case UHDM::uhdminteger_typespec: {
-        integer_typespec *itps = (integer_typespec *)typespec;
-        if (itps->VpiValue().find("UINT:") != std::string::npos) {
-          bits = std::strtoull(
-              itps->VpiValue().c_str() + std::string_view("UINT:").length(),
-              nullptr, 10);
-        } else {
-          bits = std::strtoll(
-              itps->VpiValue().c_str() + std::string_view("INT:").length(),
-              nullptr, 10);
-        }
-        break;
-      }
-      case UHDM::uhdmbit_typespec: {
-        bits = 1;
-        UHDM::bit_typespec *lts = (UHDM::bit_typespec *)typespec;
-        ranges = lts->Ranges();
-        break;
-      }
-      case UHDM::uhdmlogic_typespec: {
-        bits = 1;
-        UHDM::logic_typespec *lts = (UHDM::logic_typespec *)typespec;
-        ranges = lts->Ranges();
-        break;
-      }
-      case UHDM::uhdmlogic_net: {
-        bits = 1;
-        UHDM::logic_net *lts = (UHDM::logic_net *)typespec;
-        ranges = lts->Ranges();
-        break;
-      }
-      case UHDM::uhdmlogic_var: {
-        bits = 1;
-        UHDM::logic_var *lts = (UHDM::logic_var *)typespec;
-        ranges = lts->Ranges();
-        break;
-      }
-      case UHDM::uhdmbit_var: {
-        bits = 1;
-        UHDM::bit_var *lts = (UHDM::bit_var *)typespec;
-        ranges = lts->Ranges();
-        break;
-      }
-      case UHDM::uhdmbyte_var: {
-        bits = 8;
-        break;
-      }
-      case UHDM::uhdmstruct_var: {
-        const UHDM::typespec *tp = ((struct_var *)typespec)->Typespec();
-        bits += Bits(tp, invalidValue, component, compileDesign, instance,
-                     fileName, lineNumber, reduce, sizeMode);
-        break;
-      }
-      case UHDM::uhdmstruct_net: {
-        const UHDM::typespec *tp = ((struct_net *)typespec)->Typespec();
-        bits += Bits(tp, invalidValue, component, compileDesign, instance,
-                     fileName, lineNumber, reduce, sizeMode);
-        break;
-      }
-      case UHDM::uhdmstruct_typespec: {
-        UHDM::struct_typespec *sts = (UHDM::struct_typespec *)typespec;
-        UHDM::VectorOftypespec_member *members = sts->Members();
-        if (members) {
-          for (UHDM::typespec_member *member : *members) {
-            bits +=
-                Bits(member->Typespec(), invalidValue, component, compileDesign,
-                     instance, fileName, lineNumber, reduce, sizeMode);
-          }
-        }
-        break;
-      }
-      case UHDM::uhdmenum_typespec: {
-        const UHDM::enum_typespec *sts =
-            any_cast<const UHDM::enum_typespec *>(typespec);
-        if (sts)
-          bits =
-              Bits(sts->Base_typespec(), invalidValue, component, compileDesign,
-                   instance, fileName, lineNumber, reduce, sizeMode);
-        break;
-      }
-      case UHDM::uhdmunion_typespec: {
-        UHDM::union_typespec *sts = (UHDM::union_typespec *)typespec;
-        UHDM::VectorOftypespec_member *members = sts->Members();
-        if (members) {
-          for (UHDM::typespec_member *member : *members) {
-            unsigned int max =
-                Bits(member->Typespec(), invalidValue, component, compileDesign,
-                     instance, fileName, lineNumber, reduce, sizeMode);
-            if (max > bits) bits = max;
-          }
-        }
-        break;
-      }
-      case uhdmunsupported_typespec:
-        invalidValue = true;
-        break;
-      case uhdmconstant: {
-        constant *c = (constant *)typespec;
-        bits = c->VpiSize();
-        break;
-      }
-      case uhdmenum_const: {
-        enum_const *c = (enum_const *)typespec;
-        bits = c->VpiSize();
-        break;
-      }
-      case uhdmref_obj: {
-        ref_obj *ref = (ref_obj *)typespec;
-        if (const any *act = ref->Actual_group()) {
-          bits = Bits(act, invalidValue, component, compileDesign, instance,
-                      fileName, lineNumber, reduce, sizeMode);
-        } else {
-          any *object = getObject(ref->VpiName(), component, compileDesign,
-                                  instance, nullptr);
-          if (object) {
-            if (UHDM::param_assign *passign =
-                    any_cast<param_assign *>(object)) {
-              object = (any *)passign->Rhs();
-            }
-          }
-          if (object == nullptr) {
-            object =
-                getValue(ref->VpiName(), component, compileDesign, instance,
-                         fileName, lineNumber, nullptr, true, true);
-          }
-          if (object) {
-            // Substitution
-            if (param_assign *pass = any_cast<param_assign *>(object)) {
-              const any *rhs = pass->Rhs();
-              object =
-                  reduceExpr((any *)rhs, invalidValue, component, compileDesign,
-                             instance, fileName, lineNumber, nullptr, true);
-            } else if (bit_select *bts = any_cast<bit_select *>(object)) {
-              object =
-                  reduceExpr((any *)bts, invalidValue, component, compileDesign,
-                             instance, fileName, lineNumber, nullptr, true);
-            }
-            bits = Bits(object, invalidValue, component, compileDesign,
-                        instance, fileName, lineNumber, reduce, sizeMode);
-          } else {
-            invalidValue = true;
-          }
-        }
-        break;
-      }
-      case uhdmoperation: {
-        operation *op = (operation *)typespec;
-        if (op->VpiOpType() == vpiConcatOp) {
-          if (auto ops = op->Operands()) {
-            for (auto op : *ops) {
-              bits += Bits(op, invalidValue, component, compileDesign, instance,
-                           fileName, lineNumber, reduce, sizeMode);
-            }
-          }
-        } else {
-          invalidValue = true;
-        }
-        break;
-      }
-      case uhdmpacked_array_typespec: {
-        packed_array_typespec *tmp = (packed_array_typespec *)typespec;
-        const UHDM::typespec *tps = (UHDM::typespec *)tmp->Elem_typespec();
-        bits += Bits(tps, invalidValue, component, compileDesign, instance,
-                     fileName, lineNumber, reduce, sizeMode);
-        ranges = tmp->Ranges();
-        break;
-      }
-      case uhdmtypespec_member: {
-        typespec_member *tmp = (typespec_member *)typespec;
-        bits += Bits(tmp->Typespec(), invalidValue, component, compileDesign,
-                     instance, fileName, lineNumber, reduce, sizeMode);
-        break;
-      }
-      case uhdmio_decl: {
-        io_decl *decl = (io_decl *)typespec;
-        const UHDM::typespec *tps = decl->Typespec();
-        bits += Bits(tps, invalidValue, component, compileDesign, instance,
-                     fileName, lineNumber, reduce, sizeMode);
-        break;
-      }
-      default:
-        invalidValue = true;
-        break;
-    }
-  }
-  if (ranges) {
-    if (sizeMode) {
-      UHDM::range *last_range = nullptr;
-      for (UHDM::range *ran : *ranges) {
-        last_range = ran;
-      }
-      expr *lexpr = (expr *)last_range->Left_expr();
-      expr *rexpr = (expr *)last_range->Right_expr();
-      UHDM::ExprEval eval;
-      int64_t lv = eval.get_value(
-          invalidValue,
-          reduceExpr(lexpr, invalidValue, component, compileDesign, instance,
-                     fileName, lineNumber, nullptr));
-      int64_t rv = eval.get_value(
-          invalidValue,
-          reduceExpr(rexpr, invalidValue, component, compileDesign, instance,
-                     fileName, lineNumber, nullptr));
-      if (lv > rv)
-        bits = bits * (lv - rv + 1);
-      else
-        bits = bits * (rv - lv + 1);
-    } else {
-      for (UHDM::range *ran : *ranges) {
-        expr *lexpr = (expr *)ran->Left_expr();
-        expr *rexpr = (expr *)ran->Right_expr();
-        UHDM::ExprEval eval;
-        int64_t lv = eval.get_value(
-            invalidValue,
-            reduceExpr(lexpr, invalidValue, component, compileDesign, instance,
-                       fileName, lineNumber, nullptr));
-        int64_t rv = eval.get_value(
-            invalidValue,
-            reduceExpr(rexpr, invalidValue, component, compileDesign, instance,
-                       fileName, lineNumber, nullptr));
-
-        if (lv > rv)
-          bits = bits * (lv - rv + 1);
-        else
-          bits = bits * (rv - lv + 1);
-      }
-    }
-  }
-  return bits;
+  uint64_t size = eval.size(typespec, invalidValue, m_exprEvalPlaceHolder,
+                            nullptr, !sizeMode);
+  return size;
 }
 
 const typespec *getMemberTypespec(const typespec *tpss,
