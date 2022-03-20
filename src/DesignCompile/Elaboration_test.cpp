@@ -30,6 +30,7 @@
 #include <vector>
 
 // UHDM
+#include <uhdm/ExprEval.h>
 #include <uhdm/design.h>
 #include <uhdm/expr.h>
 #include <uhdm/module.h>
@@ -86,7 +87,8 @@ TEST(Elaboration, ExprFromPpTree) {
     if (name == "p1") {
       EXPECT_EQ(exp2->UhdmType(), UHDM::uhdmconstant);
       bool invalidValue = false;
-      EXPECT_EQ(helper.get_value(invalidValue, exp2), 6);
+      UHDM::ExprEval eval;
+      EXPECT_EQ(eval.get_value(invalidValue, exp2), 6);
     }
   }
 }
@@ -126,7 +128,8 @@ TEST(Elaboration, ExprFromText) {
         component, fC, rhs, compileDesign, nullptr, top, true, true);
     EXPECT_EQ(exp->UhdmType(), UHDM::uhdmconstant);
     bool invalidValue = false;
-    EXPECT_EQ(helper.get_value(invalidValue, exp), 16);
+    UHDM::ExprEval eval;
+    EXPECT_EQ(eval.get_value(invalidValue, exp), 16);
   }
 }
 
@@ -173,7 +176,8 @@ TEST(Elaboration, ExprUsePackage) {
         component, fC, rhs, compileDesign, nullptr, top, true, true);
     EXPECT_EQ(exp->UhdmType(), UHDM::uhdmconstant);
     bool invalidValue = false;
-    EXPECT_EQ(helper.get_value(invalidValue, exp), 16);
+    UHDM::ExprEval eval;
+    EXPECT_EQ(eval.get_value(invalidValue, exp), 16);
   }
 }
 
@@ -214,14 +218,16 @@ TEST(Elaboration, DollarBits) {
     for (auto passign : *topMod->Param_assigns()) {
       UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
       bool invalidValue = false;
-      EXPECT_EQ(helper.get_value(invalidValue, rhs), 17);
+      UHDM::ExprEval eval;
+      EXPECT_EQ(eval.get_value(invalidValue, rhs), 17);
     }
     for (auto sub : *topMod->Modules()) {
       const std::string& instName = sub->VpiName();
       for (auto passign : *sub->Param_assigns()) {
         UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
         bool invalidValue = false;
-        uint64_t val = helper.get_value(invalidValue, rhs);
+        UHDM::ExprEval eval;
+        uint64_t val = eval.get_value(invalidValue, rhs);
         if (instName == "dut1") {
           EXPECT_EQ(val, 8);
         } else if (instName == "dut2") {
@@ -264,7 +270,8 @@ TEST(Elaboration, DollarBitsHier) {
     for (auto passign : *topMod->Param_assigns()) {
       UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
       bool invalidValue = false;
-      EXPECT_EQ(helper.get_value(invalidValue, rhs), 16);
+      UHDM::ExprEval eval;
+      EXPECT_EQ(eval.get_value(invalidValue, rhs), 16);
     }
   }
 }
@@ -292,7 +299,8 @@ TEST(Elaboration, ConcatHexa) {
     for (auto passign : *topMod->Param_assigns()) {
       UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
       bool invalidValue = false;
-      EXPECT_EQ(helper.get_value(invalidValue, rhs), 83183693);
+      UHDM::ExprEval eval;
+      EXPECT_EQ(eval.get_value(invalidValue, rhs), 83183693);
     }
   }
 }
@@ -320,7 +328,8 @@ TEST(Elaboration, ParamSubstituteWhenConstant) {
       UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
       bool invalidValue = false;
       EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
-      EXPECT_EQ(helper.get_value(invalidValue, rhs), 43981);
+      UHDM::ExprEval eval;
+      EXPECT_EQ(eval.get_value(invalidValue, rhs), 43981);
     }
   }
 }
@@ -386,7 +395,8 @@ endmodule
         UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
         bool invalidValue = false;
         EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
-        EXPECT_EQ(helper.get_value(invalidValue, rhs), 1);
+        UHDM::ExprEval eval;
+        EXPECT_EQ(eval.get_value(invalidValue, rhs), 1);
       }
     }
   }
