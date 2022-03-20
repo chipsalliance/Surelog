@@ -40,6 +40,7 @@
 #include <uhdm/vpi_visitor.h>
 
 #include <fstream>
+#include <iomanip>
 #include <sstream>
 #include <stack>
 
