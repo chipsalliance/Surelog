@@ -511,7 +511,7 @@ class CompileHelper final {
                             CompileDesign* compileDesign,
                             ValuedComponentI* instance,
                             const std::filesystem::path& fileName,
-                            int lineNumber, UHDM::any* pexpr, bool muteErrors,
+                            int lineNumber, UHDM::any* pexpr, bool reduce, bool muteErrors,
                             bool returnTypespec);
 
   bool valueRange(Value* val, UHDM::typespec* tps, DesignComponent* component,
