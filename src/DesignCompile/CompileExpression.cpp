@@ -682,7 +682,7 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
                                    CompileDesign *compileDesign,
                                    ValuedComponentI *instance,
                                    const fs::path &fileName, int lineNumber,
-                                   any *pexpr, bool muteErrors,
+                                   any *pexpr, bool reduce, bool muteErrors,
                                    bool returnTypespec) {
   UHDM::GetObjectFunctor getObjectFunctor =
       [&](const std::string &name, const any *inst,
@@ -715,6 +715,21 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
   }
   any *res = eval.decodeHierPath(path, invalidValue, m_exprEvalPlaceHolder,
                                  pexpr, returnTypespec);
+
+  if (res == nullptr) {
+    if (reduce && (!muteErrors)) {
+      ErrorContainer *errors =
+          compileDesign->getCompiler()->getErrorContainer();
+      SymbolTable *symbols = compileDesign->getCompiler()->getSymbolTable();
+      std::string fileContent = FileUtils::getFileContent(fileName);
+      std::string lineText =
+          StringUtils::getLineInString(fileContent, lineNumber);
+      Location loc(symbols->registerSymbol(fileName.c_str()), lineNumber, 0,
+                   symbols->registerSymbol(lineText));
+      Error err(ErrorDefinition::UHDM_UNRESOLVED_HIER_PATH, loc);
+      errors->addError(err);
+    }
+  }
   return res;
 }
 
@@ -996,19 +1011,6 @@ any *CompileHelper::getValue(const std::string &name,
       setBreakpointHere++;
     }
   }
-
-  // if (result == nullptr) {
-  //   ErrorContainer* errors =
-  //   compileDesign->getCompiler()->getErrorContainer(); SymbolTable* symbols =
-  //   compileDesign->getCompiler()->getSymbolTable(); std::string fileContent =
-  //   FileUtils::getFileContent(fileName); std::string lineText =
-  //   StringUtils::getLineInString(fileContent, lineNumber); Location
-  //   loc(symbols->registerSymbol(fileName), lineNumber, 0,
-  //                symbols->registerSymbol(lineText));
-  //   Error err(ErrorDefinition::ELAB_UNDEF_VARIABLE, loc);
-  //   errors->addError(err);
-  // }
-
   return result;
 }
 
@@ -2181,17 +2183,7 @@ UHDM::any *CompileHelper::compileExpression(
                       instance, reduce, muteErrors);
               }
               if (result == nullptr) sval = pack->getValue(n);
-            } /*else {
-              ErrorContainer* errors =
-                  compileDesign->getCompiler()->getErrorContainer();
-              SymbolTable* symbols =
-                  compileDesign->getCompiler()->getSymbolTable();
-              Location loc(symbols->registerSymbol(fC->getFileName().string()),
-                           fC->Line(child), fC->Column(child),
-                           symbols->registerSymbol(packageName));
-              Error err(ErrorDefinition::COMP_UNDEFINED_PACKAGE, loc);
-              errors->addError(err);
-            }*/
+            }
           } else if (childType == VObjectType::slClass_type) {
             const std::string &packageName = fC->SymName(fC->Child(child));
             const std::string &n = fC->SymName(fC->Sibling(parent));
@@ -2922,24 +2914,6 @@ UHDM::any *CompileHelper::compileExpression(
     if (tmp && (invalidValue == false)) {
       result = tmp;
     }
-    /*
-    if (invalidValue) {
-      // Can't reduce an expression
-      ErrorContainer* errors =
-          compileDesign->getCompiler()->getErrorContainer();
-      SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
-      std::string fileContent = FileUtils::getFileContent(fC->getFileName());
-      std::string lineText =
-          StringUtils::getLineInString(fileContent, fC->Line(the_node));
-      Location loc(
-          symbols->registerSymbol(fC->getFileName(the_node)),
-          fC->Line(the_node), 0,
-          symbols->registerSymbol(std::string("<") + fC->printObject(the_node) +
-                                  std::string("> ") + lineText));
-      Error err(ErrorDefinition::UHDM_UNSUPPORTED_EXPR, loc);
-      errors->addError(err);
-    }
-    */
   }
 
   if (result && (result->VpiLineNo() == 0)) {
@@ -3708,7 +3682,8 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
           bool invalidValue = false;
           result = (typespec *)decodeHierPath(
               (hier_path *)exp, invalidValue, component, compileDesign,
-              instance, fC->getFileName(), fC->Line(id), nullptr, true, true);
+              instance, fC->getFileName(), fC->Line(id), nullptr, reduce, false,
+              true);
         } else if (exp->UhdmType() == uhdmbit_select) {
           bit_select *select = (bit_select *)exp;
           basename = select->VpiName();
