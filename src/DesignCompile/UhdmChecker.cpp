@@ -525,7 +525,7 @@ float UhdmChecker::reportCoverage(const fs::path& reportFile) {
 
 void UhdmChecker::annotate(CompileDesign* m_compileDesign) {
   Serializer& s = m_compileDesign->getSerializer();
-  std::unordered_map<const BaseClass*, unsigned long>& objects = s.AllObjects();
+  const std::unordered_map<const BaseClass*, unsigned long>& objects = s.AllObjects();
   for (auto& obj : objects) {
     const BaseClass* bc = obj.first;
     if (!bc) continue;
