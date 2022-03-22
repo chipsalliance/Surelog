@@ -724,7 +724,7 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
       std::string fileContent = FileUtils::getFileContent(fileName);
       std::string lineText =
           StringUtils::getLineInString(fileContent, lineNumber);
-      Location loc(symbols->registerSymbol(fileName.c_str()), lineNumber, 0,
+      Location loc(symbols->registerSymbol(fileName.string()), lineNumber, 0,
                    symbols->registerSymbol(lineText));
       Error err(ErrorDefinition::UHDM_UNRESOLVED_HIER_PATH, loc);
       errors->addError(err);
