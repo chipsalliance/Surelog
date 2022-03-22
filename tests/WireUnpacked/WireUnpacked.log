@@ -129,6 +129,8 @@ design: (work@dut)
       |vpiConstType:3
     |vpiLhs:
     \_var_select: (work@dut.read_buf), line:3:8, endln:3:25
+      |vpiParent:
+      \_cont_assign: , line:3:8, endln:3:32, parent:work@dut
       |vpiName:read_buf
       |vpiFullName:work@dut.read_buf
       |vpiIndex:
@@ -139,6 +141,8 @@ design: (work@dut)
         |vpiConstType:9
       |vpiIndex:
       \_indexed_part_select: , parent:work@dut.read_buf
+        |vpiParent:
+        \_var_select: (work@dut.read_buf), line:3:8, endln:3:25
         |vpiConstantSelect:1
         |vpiIndexedPartSelectType:2
         |vpiBaseExpr:
@@ -202,12 +206,20 @@ design: (work@dut)
     \_constant: , line:3:28, endln:3:32
     |vpiLhs:
     \_var_select: (work@dut.read_buf), line:3:8, endln:3:25
+      |vpiParent:
+      \_cont_assign: , line:3:8, endln:3:32, parent:work@dut
       |vpiName:read_buf
       |vpiFullName:work@dut.read_buf
       |vpiIndex:
       \_constant: , line:3:17, endln:3:18, parent:work@dut.read_buf
       |vpiIndex:
       \_indexed_part_select: , parent:work@dut.read_buf.read_buf
+        |vpiParent:
+        \_ref_obj: (work@dut.read_buf.read_buf), parent:work@dut.read_buf
+          |vpiName:read_buf
+          |vpiFullName:work@dut.read_buf.read_buf
+          |vpiActual:
+          \_array_net: (work@dut.read_buf), line:2:12, endln:2:20, parent:work@dut
         |vpiConstantSelect:1
         |vpiIndexedPartSelectType:2
         |vpiBaseExpr:

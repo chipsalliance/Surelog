@@ -855,6 +855,10 @@ design: (work@top)
               |vpiConstType:3
             |vpiLhs:
             \_bit_select: (work@top.test_net), line:9:3, endln:9:14, parent:work@top.test_net
+              |vpiParent:
+              \_ref_obj: (work@top.test_net)
+                |vpiName:test_net
+                |vpiFullName:work@top.test_net
               |vpiName:test_net
               |vpiFullName:work@top.test_net
               |vpiIndex:
@@ -875,6 +879,8 @@ design: (work@top)
               |vpiConstType:3
             |vpiLhs:
             \_var_select: (work@top.test_net), line:10:3, endln:10:17
+              |vpiParent:
+              \_assignment: , line:10:3, endln:10:24, parent:work@top
               |vpiName:test_net
               |vpiFullName:work@top.test_net
               |vpiIndex:
@@ -899,6 +905,8 @@ design: (work@top)
       |vpiConstType:3
     |vpiLhs:
     \_var_select: (work@top.a), line:4:9, endln:4:16
+      |vpiParent:
+      \_cont_assign: , line:4:9, endln:4:23, parent:work@top
       |vpiName:a
       |vpiFullName:work@top.a
       |vpiIndex:
@@ -1006,6 +1014,12 @@ design: (work@top)
             \_constant: , line:9:22, endln:9:24
             |vpiLhs:
             \_bit_select: (work@top.test_net), line:9:3, endln:9:14, parent:work@top.test_net
+              |vpiParent:
+              \_ref_obj: (work@top.test_net), parent:work@top.test_net
+                |vpiName:test_net
+                |vpiFullName:work@top.test_net
+                |vpiActual:
+                \_logic_var: (work@top.test_net), line:6:22, endln:6:30, parent:work@top
               |vpiName:test_net
               |vpiFullName:work@top.test_net
               |vpiIndex:
@@ -1022,6 +1036,8 @@ design: (work@top)
             \_constant: , line:10:20, endln:10:24
             |vpiLhs:
             \_var_select: (work@top.test_net), line:10:3, endln:10:17
+              |vpiParent:
+              \_assignment: , line:10:3, endln:10:24, parent:work@top
               |vpiName:test_net
               |vpiFullName:work@top.test_net
               |vpiIndex:
@@ -1042,6 +1058,8 @@ design: (work@top)
     \_constant: , line:4:19, endln:4:23
     |vpiLhs:
     \_var_select: (work@top.a), line:4:9, endln:4:16
+      |vpiParent:
+      \_cont_assign: , line:4:9, endln:4:23, parent:work@top
       |vpiName:a
       |vpiFullName:work@top.a
       |vpiIndex:

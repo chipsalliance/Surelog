@@ -601,6 +601,8 @@ design: (work@top)
                 |vpiName:keymgr_key_i
               |vpiActual:
               \_bit_select: (key), line:16:14, endln:16:26, parent:keymgr_key_i.key[0][31:0]
+                |vpiParent:
+                \_hier_path: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41, parent:work@top.key_sideload_get
                 |vpiName:key
                 |vpiIndex:
                 \_constant: , line:16:31, endln:16:32
@@ -786,6 +788,12 @@ design: (work@top)
                 \_struct_net: (work@top.keymgr_key_i), line:13:17, endln:13:29, parent:work@top
               |vpiActual:
               \_bit_select: (key), line:16:14, endln:16:26, parent:work@top.key_sideload_get.keymgr_key_i.key[0][31:0]
+                |vpiParent:
+                \_ref_obj: (work@top.key_sideload_get.keymgr_key_i.key[0][31:0]), parent:keymgr_key_i.key[0][31:0]
+                  |vpiName:keymgr_key_i.key[0][31:0]
+                  |vpiFullName:work@top.key_sideload_get.keymgr_key_i.key[0][31:0]
+                  |vpiActual:
+                  \_typespec_member: (key), line:7:40, endln:7:43, parent:my_pkg::hw_key_req_t
                 |vpiName:key
                 |vpiIndex:
                 \_constant: , line:16:31, endln:16:32
