@@ -436,6 +436,10 @@ design: (work@foo)
   \_cont_assign: , line:10:8, endln:10:18, parent:work@foo
     |vpiRhs:
     \_bit_select: (work@foo.a), line:10:14, endln:10:18, parent:work@foo.a
+      |vpiParent:
+      \_ref_obj: (work@foo.a)
+        |vpiName:a
+        |vpiFullName:work@foo.a
       |vpiName:a
       |vpiFullName:work@foo.a
       |vpiIndex:
@@ -574,6 +578,12 @@ design: (work@foo)
   \_cont_assign: , line:10:8, endln:10:18, parent:work@foo
     |vpiRhs:
     \_bit_select: (work@foo.a), line:10:14, endln:10:18, parent:work@foo.a
+      |vpiParent:
+      \_ref_obj: (work@foo.a), parent:work@foo.a
+        |vpiName:a
+        |vpiFullName:work@foo.a
+        |vpiActual:
+        \_logic_var: (work@foo.a), line:6:22, endln:6:23, parent:work@foo
       |vpiName:a
       |vpiFullName:work@foo.a
       |vpiIndex:

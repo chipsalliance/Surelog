@@ -1362,10 +1362,21 @@ design: (work@top)
             |vpiBlocking:1
             |vpiRhs:
             \_bit_select: (prim_cipher_pkg::sbox4_64bit::sbox4), line:12:29, endln:12:54, parent:prim_cipher_pkg::sbox4_64bit::sbox4
+              |vpiParent:
+              \_ref_obj: (prim_cipher_pkg::sbox4_64bit::sbox4), parent:prim_cipher_pkg::sbox4_64bit::sbox4
+                |vpiName:sbox4
+                |vpiFullName:prim_cipher_pkg::sbox4_64bit::sbox4
+                |vpiActual:
+                \_io_decl: (sbox4), line:8:88, endln:8:93, parent:prim_cipher_pkg::sbox4_64bit
               |vpiName:sbox4
               |vpiFullName:prim_cipher_pkg::sbox4_64bit::sbox4
               |vpiIndex:
               \_indexed_part_select: , line:12:35, endln:12:53, parent:state_in
+                |vpiParent:
+                \_ref_obj: (state_in), parent:state_in
+                  |vpiName:state_in
+                  |vpiActual:
+                  \_io_decl: (state_in), line:8:60, endln:8:68, parent:prim_cipher_pkg::sbox4_64bit
                 |vpiConstantSelect:1
                 |vpiIndexedPartSelectType:1
                 |vpiBaseExpr:
@@ -1389,6 +1400,12 @@ design: (work@top)
                   |vpiConstType:9
             |vpiLhs:
             \_indexed_part_select: , line:12:7, endln:12:26, parent:prim_cipher_pkg::sbox4_64bit::state_out
+              |vpiParent:
+              \_ref_obj: (prim_cipher_pkg::sbox4_64bit::state_out), parent:prim_cipher_pkg::sbox4_64bit::state_out
+                |vpiName:state_out
+                |vpiFullName:prim_cipher_pkg::sbox4_64bit::state_out
+                |vpiActual:
+                \_logic_var: (prim_cipher_pkg::sbox4_64bit::state_out), line:9:18, endln:9:27, parent:prim_cipher_pkg::sbox4_64bit
               |vpiConstantSelect:1
               |vpiIndexedPartSelectType:1
               |vpiBaseExpr:
@@ -1742,6 +1759,10 @@ design: (work@top)
           |vpiOpType:30
           |vpiOperand:
           \_bit_select: (work@top.p_post_round_xor.data_state), line:32:22, endln:32:51, parent:work@top.p_post_round_xor.data_state
+            |vpiParent:
+            \_ref_obj: (work@top.p_post_round_xor.data_state)
+              |vpiName:data_state
+              |vpiFullName:work@top.p_post_round_xor.data_state
             |vpiName:data_state
             |vpiFullName:work@top.p_post_round_xor.data_state
             |vpiIndex:
@@ -1772,6 +1793,8 @@ design: (work@top)
                 |vpiConstType:9
           |vpiOperand:
           \_var_select: (prim_cipher_pkg::PRINCE_ROUND_CONST), line:33:22, endln:35:37, parent:prim_cipher_pkg::PRINCE_ROUND_CONST
+            |vpiParent:
+            \_parameter: (prim_cipher_pkg::PRINCE_ROUND_CONST), line:18:32, endln:18:50, parent:prim_cipher_pkg::
             |vpiFullName:prim_cipher_pkg::PRINCE_ROUND_CONST
             |vpiIndex:
             \_constant: , line:34:23, endln:34:25, parent:prim_cipher_pkg::PRINCE_ROUND_CONST
@@ -1915,6 +1938,10 @@ design: (work@top)
           |vpiOpType:30
           |vpiOperand:
           \_bit_select: (work@top.p_post_round_xor.data_state), line:32:22, endln:32:51, parent:work@top.p_post_round_xor.data_state
+            |vpiParent:
+            \_ref_obj: (work@top.p_post_round_xor.data_state), parent:work@top.p_post_round_xor.data_state
+              |vpiName:data_state
+              |vpiFullName:work@top.p_post_round_xor.data_state
             |vpiName:data_state
             |vpiFullName:work@top.p_post_round_xor.data_state
             |vpiIndex:
@@ -1935,6 +1962,8 @@ design: (work@top)
               \_constant: , line:32:49, endln:32:50
           |vpiOperand:
           \_var_select: (work@top.p_post_round_xor), line:33:22, endln:35:37
+            |vpiParent:
+            \_operation: , line:32:22, endln:35:37
             |vpiFullName:work@top.p_post_round_xor
             |vpiIndex:
             \_constant: , line:34:23, endln:34:25, parent:prim_cipher_pkg::PRINCE_ROUND_CONST
@@ -1942,6 +1971,7 @@ design: (work@top)
             \_part_select: , parent:prim_cipher_pkg::PRINCE_ROUND_CONST
               |vpiParent:
               \_ref_obj: (prim_cipher_pkg::PRINCE_ROUND_CONST), parent:prim_cipher_pkg::PRINCE_ROUND_CONST
+                |vpiFullName:prim_cipher_pkg::PRINCE_ROUND_CONST
               |vpiConstantSelect:1
               |vpiLeftRange:
               \_operation: , line:35:23, endln:35:34

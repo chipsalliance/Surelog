@@ -273,6 +273,8 @@ design: (work@top)
                           |vpiName:keymgr_data_i
                         |vpiActual:
                         \_bit_select: (strb), line:23:36, endln:23:49, parent:keymgr_data_i.strb[i]
+                          |vpiParent:
+                          \_hier_path: (keymgr_data_i.strb[i]), line:23:36, endln:23:57, parent:work@top
                           |vpiName:strb
                           |vpiIndex:
                           \_ref_obj: (work@top.i), line:23:55, endln:23:56, parent:work@top
@@ -282,6 +284,11 @@ design: (work@top)
                             \_int_var: (work@top.i), line:22:14, endln:22:17
                   |vpiLhs:
                   \_indexed_part_select: , line:23:11, endln:23:30, parent:work@top.kmac_mask_o
+                    |vpiParent:
+                    \_ref_obj: kmac_mask_o (work@top.kmac_mask_o)
+                      |vpiName:kmac_mask_o
+                      |vpiFullName:work@top.kmac_mask_o
+                      |vpiDefName:kmac_mask_o
                     |vpiConstantSelect:1
                     |vpiIndexedPartSelectType:1
                     |vpiBaseExpr:
@@ -462,6 +469,12 @@ design: (work@top)
                           \_struct_net: (work@top.keymgr_data_i), line:16:48, endln:16:61, parent:work@top
                         |vpiActual:
                         \_bit_select: (strb), line:23:36, endln:23:49, parent:work@top.keymgr_data_i.strb[i]
+                          |vpiParent:
+                          \_ref_obj: (work@top.keymgr_data_i.strb[i]), parent:keymgr_data_i.strb[i]
+                            |vpiName:keymgr_data_i.strb[i]
+                            |vpiFullName:work@top.keymgr_data_i.strb[i]
+                            |vpiActual:
+                            \_typespec_member: (strb), line:8:35, endln:8:39, parent:keymgr_pkg::kmac_data_req_t
                           |vpiName:strb
                           |vpiIndex:
                           \_ref_obj: (work@top.keymgr_data_i.strb[i].i), line:23:55, endln:23:56, parent:strb
@@ -471,6 +484,12 @@ design: (work@top)
                             \_int_var: (work@top.i), line:22:14, endln:22:17
                   |vpiLhs:
                   \_indexed_part_select: , line:23:11, endln:23:30, parent:work@top.kmac_mask_o
+                    |vpiParent:
+                    \_ref_obj: (work@top.kmac_mask_o), parent:work@top.kmac_mask_o
+                      |vpiName:kmac_mask_o
+                      |vpiFullName:work@top.kmac_mask_o
+                      |vpiActual:
+                      \_logic_net: (work@top.kmac_mask_o), line:17:30, endln:17:41, parent:work@top
                     |vpiConstantSelect:1
                     |vpiIndexedPartSelectType:1
                     |vpiBaseExpr:

@@ -155,6 +155,8 @@ design: (work@dut2)
         |vpiName:read_buf
       |vpiActual:
       \_bit_select: (work@dut2.read_buf.q.q), line:8:17, endln:8:18, parent:read_buf.q
+        |vpiParent:
+        \_hier_path: (read_buf.q), line:8:8, endln:8:21
         |vpiName:q
         |vpiFullName:work@dut2.read_buf.q.q
         |vpiIndex:
@@ -191,6 +193,12 @@ design: (work@dut2)
         \_struct_net: (work@dut2.read_buf), line:6:16, endln:6:24, parent:work@dut2
       |vpiActual:
       \_bit_select: (work@dut2.read_buf.q), line:8:17, endln:8:18, parent:work@dut2.read_buf.q
+        |vpiParent:
+        \_ref_obj: (work@dut2.read_buf.q), parent:read_buf.q
+          |vpiName:read_buf.q
+          |vpiFullName:work@dut2.read_buf.q
+          |vpiActual:
+          \_typespec_member: (q), line:4:15, endln:4:16, parent:struct_typedef
         |vpiName:q
         |vpiFullName:work@dut2.read_buf.q
         |vpiIndex:

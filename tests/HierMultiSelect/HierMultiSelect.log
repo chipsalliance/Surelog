@@ -296,6 +296,8 @@ design: (work@dm_csrs)
             |vpiName:keymgr_data_i
           |vpiActual:
           \_bit_select: (strb), line:3:35, endln:3:48, parent:keymgr_data_i.strb[i]
+            |vpiParent:
+            \_hier_path: (keymgr_data_i.strb[i]), line:3:35, endln:3:56
             |vpiName:strb
             |vpiIndex:
             \_ref_obj: (i), line:3:54, endln:3:55
@@ -306,6 +308,11 @@ design: (work@dm_csrs)
                 |vpiNetType:1
     |vpiLhs:
     \_indexed_part_select: , line:3:10, endln:3:29, parent:work@dm_csrs.kmac_mask_o
+      |vpiParent:
+      \_ref_obj: kmac_mask_o (work@dm_csrs.kmac_mask_o)
+        |vpiName:kmac_mask_o
+        |vpiFullName:work@dm_csrs.kmac_mask_o
+        |vpiDefName:kmac_mask_o
       |vpiConstantSelect:1
       |vpiIndexedPartSelectType:1
       |vpiBaseExpr:
@@ -338,6 +345,8 @@ design: (work@dm_csrs)
         |vpiName:keymgr_key_i
       |vpiActual:
       \_bit_select: (key), line:4:14, endln:4:26, parent:keymgr_key_i.key[0][+:32]
+        |vpiParent:
+        \_hier_path: (keymgr_key_i.key[0][+:32]), line:4:14, endln:4:47
         |vpiName:key
         |vpiIndex:
         \_constant: , line:4:31, endln:4:32
@@ -404,6 +413,8 @@ design: (work@dm_csrs)
       |vpiName:sram_otp_key_o[...].nonce
       |vpiActual:
       \_bit_select: (sram_otp_key_o), line:5:10, endln:5:24, parent:sram_otp_key_o[...].nonce
+        |vpiParent:
+        \_hier_path: (sram_otp_key_o[...].nonce), line:5:10, endln:5:24
         |vpiName:sram_otp_key_o
         |vpiIndex:
         \_operation: , line:5:25, endln:5:28
@@ -439,6 +450,8 @@ design: (work@dm_csrs)
       |vpiName:a[0].source[6-:2]
       |vpiActual:
       \_bit_select: (a), line:6:13, endln:6:14, parent:a[0].source[6-:2]
+        |vpiParent:
+        \_hier_path: (a[0].source[6-:2]), line:6:13, endln:6:32
         |vpiName:a
         |vpiIndex:
         \_constant: , line:6:15, endln:6:16
@@ -448,6 +461,10 @@ design: (work@dm_csrs)
           |vpiConstType:9
       |vpiActual:
       \_indexed_part_select: , parent:source
+        |vpiParent:
+        \_ref_obj: source (source)
+          |vpiFullName:source
+          |vpiDefName:source
         |vpiConstantSelect:1
         |vpiIndexedPartSelectType:2
         |vpiBaseExpr:
@@ -507,6 +524,9 @@ design: (work@dm_csrs)
             |vpiName:keymgr_data_i
           |vpiActual:
           \_bit_select: (strb), line:3:35, endln:3:48, parent:keymgr_data_i.strb[i]
+            |vpiParent:
+            \_ref_obj: (keymgr_data_i.strb[i]), parent:keymgr_data_i.strb[i]
+              |vpiName:keymgr_data_i.strb[i]
             |vpiName:strb
             |vpiIndex:
             \_ref_obj: (keymgr_data_i.strb[i].i), line:3:54, endln:3:55, parent:strb
@@ -516,6 +536,10 @@ design: (work@dm_csrs)
               \_logic_net: (i)
     |vpiLhs:
     \_indexed_part_select: , line:3:10, endln:3:29, parent:work@dm_csrs.kmac_mask_o
+      |vpiParent:
+      \_ref_obj: (work@dm_csrs.kmac_mask_o), parent:work@dm_csrs.kmac_mask_o
+        |vpiName:kmac_mask_o
+        |vpiFullName:work@dm_csrs.kmac_mask_o
       |vpiConstantSelect:1
       |vpiIndexedPartSelectType:1
       |vpiBaseExpr:
@@ -541,6 +565,10 @@ design: (work@dm_csrs)
         |vpiName:keymgr_key_i
       |vpiActual:
       \_bit_select: (key), line:4:14, endln:4:26, parent:work@dm_csrs.keymgr_key_i.key[0][+:32]
+        |vpiParent:
+        \_ref_obj: (work@dm_csrs.keymgr_key_i.key[0][+:32]), parent:keymgr_key_i.key[0][+:32]
+          |vpiName:keymgr_key_i.key[0][+:32]
+          |vpiFullName:work@dm_csrs.keymgr_key_i.key[0][+:32]
         |vpiName:key
         |vpiIndex:
         \_constant: , line:4:31, endln:4:32
@@ -572,6 +600,10 @@ design: (work@dm_csrs)
       |vpiName:sram_otp_key_o[...].nonce
       |vpiActual:
       \_bit_select: (sram_otp_key_o), line:5:10, endln:5:24, parent:work@dm_csrs.sram_otp_key_o[...].nonce
+        |vpiParent:
+        \_ref_obj: (work@dm_csrs.sram_otp_key_o[...].nonce), parent:sram_otp_key_o[...].nonce
+          |vpiName:sram_otp_key_o[...].nonce
+          |vpiFullName:work@dm_csrs.sram_otp_key_o[...].nonce
         |vpiName:sram_otp_key_o
         |vpiIndex:
         \_operation: , line:5:25, endln:5:28, parent:sram_otp_key_o

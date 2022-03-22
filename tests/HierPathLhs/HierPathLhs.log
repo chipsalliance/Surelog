@@ -223,6 +223,8 @@ design: (work@alert_handler_reg_wrap)
       |vpiName:a[0][0].x[0]
       |vpiActual:
       \_bit_select: (a), line:15:10, endln:15:11, parent:a[0][0].x[0]
+        |vpiParent:
+        \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
         |vpiName:a
         |vpiIndex:
         \_constant: , line:15:12, endln:15:13
@@ -243,6 +245,8 @@ design: (work@alert_handler_reg_wrap)
         |vpiName:x
       |vpiActual:
       \_bit_select: 
+        |vpiParent:
+        \_ref_obj: 
         |vpiIndex:
         \_constant: , line:15:20, endln:15:21
           |vpiDecompile:0
@@ -286,6 +290,10 @@ design: (work@alert_handler_reg_wrap)
             |vpiName:hw2reg
           |vpiActual:
           \_bit_select: (alert_cause), line:3:19, endln:3:30, parent:work@alert_handler_reg_wrap.gen_alert_cause[0].hw2reg.alert_cause[k].d
+            |vpiParent:
+            \_ref_obj: (work@alert_handler_reg_wrap.gen_alert_cause[0].hw2reg.alert_cause[k].d), parent:hw2reg.alert_cause[k].d
+              |vpiName:hw2reg.alert_cause[k].d
+              |vpiFullName:work@alert_handler_reg_wrap.gen_alert_cause[0].hw2reg.alert_cause[k].d
             |vpiName:alert_cause
             |vpiIndex:
             \_ref_obj: (work@alert_handler_reg_wrap.gen_alert_cause[0].hw2reg.alert_cause[k].d.k), line:3:31, endln:3:32, parent:alert_cause
@@ -352,6 +360,10 @@ design: (work@alert_handler_reg_wrap)
       |vpiName:a[0][0].x[0]
       |vpiActual:
       \_bit_select: (a), line:15:10, endln:15:11, parent:work@top.a[0][0].x[0]
+        |vpiParent:
+        \_ref_obj: (work@top.a[0][0].x[0]), parent:a[0][0].x[0]
+          |vpiName:a[0][0].x[0]
+          |vpiFullName:work@top.a[0][0].x[0]
         |vpiName:a
         |vpiIndex:
         \_constant: , line:15:12, endln:15:13
@@ -364,6 +376,8 @@ design: (work@alert_handler_reg_wrap)
         |vpiName:x
       |vpiActual:
       \_bit_select: 
+        |vpiParent:
+        \_ref_obj: 
         |vpiIndex:
         \_constant: , line:15:20, endln:15:21
 ===================
