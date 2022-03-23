@@ -5,18 +5,18 @@ FILE: dut.sv
 n<> u<0> t<Null_rule> p<139> s<138> l<1:1> el<1:0>
 n<prim_util_pkg> u<1> t<StringConst> p<99> s<97> l<1:9> el<1:22>
 n<> u<2> t<Lifetime_Automatic> p<95> s<94> l<2:13> el<2:22>
-n<> u<3> t<IntegerAtomType_Int> p<4> l<2:23> el<2:30>
+n<> u<3> t<IntegerAtomType_Integer> p<4> l<2:23> el<2:30>
 n<> u<4> t<Data_type> p<5> c<3> l<2:23> el<2:30>
 n<> u<5> t<Function_data_type> p<6> c<4> l<2:23> el<2:30>
 n<> u<6> t<Function_data_type_or_implicit> p<94> c<5> s<7> l<2:23> el<2:30>
 n<_clog2> u<7> t<StringConst> p<94> s<13> l<2:31> el<2:37>
-n<> u<8> t<IntegerAtomType_Int> p<9> l<2:38> el<2:45>
+n<> u<8> t<IntegerAtomType_Integer> p<9> l<2:38> el<2:45>
 n<> u<9> t<Data_type> p<10> c<8> l<2:38> el<2:45>
 n<> u<10> t<Data_type_or_implicit> p<12> c<9> s<11> l<2:38> el<2:45>
 n<value> u<11> t<StringConst> p<12> l<2:46> el<2:51>
 n<> u<12> t<Tf_port_item> p<13> c<10> l<2:38> el<2:51>
 n<> u<13> t<Tf_port_list> p<94> c<12> s<21> l<2:38> el<2:51>
-n<> u<14> t<IntegerAtomType_Int> p<15> l<3:7> el<3:14>
+n<> u<14> t<IntegerAtomType_Integer> p<15> l<3:7> el<3:14>
 n<> u<15> t<Data_type> p<19> c<14> s<18> l<3:7> el<3:14>
 n<result> u<16> t<StringConst> p<17> l<3:15> el<3:21>
 n<> u<17> t<Variable_decl_assignment> p<18> c<16> l<3:15> el<3:21>
@@ -106,7 +106,7 @@ n<> u<100> t<Description> p<138> c<99> s<137> l<1:1> el<10:11>
 n<> u<101> t<Module_keyword> p<112> s<102> l<12:1> el<12:7>
 n<top> u<102> t<StringConst> p<112> s<111> l<12:8> el<12:11>
 n<> u<103> t<PortDir_Out> p<108> s<107> l<12:12> el<12:18>
-n<> u<104> t<IntegerAtomType_Int> p<105> l<12:19> el<12:26>
+n<> u<104> t<IntegerAtomType_Integer> p<105> l<12:19> el<12:26>
 n<> u<105> t<Data_type> p<106> c<104> l<12:19> el<12:26>
 n<> u<106> t<Data_type_or_implicit> p<107> c<105> l<12:19> el<12:26>
 n<> u<107> t<Net_port_type> p<108> c<106> l<12:19> el<12:26>
@@ -196,19 +196,19 @@ design: (work@top)
     |vpiName:_clog2
     |vpiFullName:prim_util_pkg::_clog2
     |vpiVariables:
-    \_int_var: (prim_util_pkg::_clog2::result), line:3:15, endln:3:21, parent:prim_util_pkg::_clog2
+    \_integer_var: (prim_util_pkg::_clog2::result), line:3:15, endln:3:21, parent:prim_util_pkg::_clog2
       |vpiName:result
       |vpiFullName:prim_util_pkg::_clog2::result
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_int_var: , line:2:23, endln:2:30
+    \_integer_var: , line:2:23, endln:2:30
     |vpiIODecl:
     \_io_decl: (value), line:2:46, endln:2:51, parent:prim_util_pkg::_clog2
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
-      \_int_typespec: , line:2:38, endln:2:45
+      \_integer_typespec: , line:2:38, endln:2:45
         |vpiInstance:
         \_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:10:11, parent:work@top
     |vpiStmt:
@@ -230,7 +230,7 @@ design: (work@top)
             |vpiName:result
             |vpiFullName:prim_util_pkg::_clog2::result
             |vpiActual:
-            \_int_var: (prim_util_pkg::_clog2::result), line:3:15, endln:3:21, parent:prim_util_pkg::_clog2
+            \_integer_var: (prim_util_pkg::_clog2::result), line:3:15, endln:3:21, parent:prim_util_pkg::_clog2
         |vpiForIncStmt:
         \_operation: , line:5:35, endln:5:43, parent:prim_util_pkg::_clog2
           |vpiOpType:62
@@ -239,7 +239,7 @@ design: (work@top)
             |vpiName:result
             |vpiFullName:prim_util_pkg::_clog2::result
             |vpiActual:
-            \_int_var: (prim_util_pkg::_clog2::result), line:3:15, endln:3:21, parent:prim_util_pkg::_clog2
+            \_integer_var: (prim_util_pkg::_clog2::result), line:3:15, endln:3:21, parent:prim_util_pkg::_clog2
         |vpiCondition:
         \_operation: , line:5:24, endln:5:33, parent:prim_util_pkg::_clog2
           |vpiOpType:18
@@ -290,7 +290,7 @@ design: (work@top)
           |vpiName:result
           |vpiFullName:prim_util_pkg::_clog2::result
           |vpiActual:
-          \_int_var: (prim_util_pkg::_clog2::result), line:3:15, endln:3:21, parent:prim_util_pkg::_clog2
+          \_integer_var: (prim_util_pkg::_clog2::result), line:3:15, endln:3:21, parent:prim_util_pkg::_clog2
     |vpiInstance:
     \_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:10:11, parent:work@top
 |uhdmallModules:
@@ -327,18 +327,19 @@ design: (work@top)
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_int_var: (work@top.o), line:12:27, endln:12:28, parent:work@top
+      \_integer_var: (work@top.o), line:12:27, endln:12:28, parent:work@top
         |vpiTypespec:
-        \_int_typespec: 
+        \_integer_typespec: 
         |vpiName:o
         |vpiFullName:work@top.o
+        |vpiSigned:1
         |vpiAutomatic:1
         |vpiVisibility:1
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:12:1: , endln:14:10
   |vpiName:work@top
   |vpiVariables:
-  \_int_var: (work@top.o), line:12:27, endln:12:28, parent:work@top
+  \_integer_var: (work@top.o), line:12:27, endln:12:28, parent:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
@@ -351,7 +352,7 @@ design: (work@top)
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_int_var: (work@top.o), line:12:27, endln:12:28, parent:work@top
+      \_integer_var: (work@top.o), line:12:27, endln:12:28, parent:work@top
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:12:1: , endln:14:10
   |vpiContAssign:
@@ -368,7 +369,7 @@ design: (work@top)
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_int_var: (work@top.o), line:12:27, endln:12:28, parent:work@top
+      \_integer_var: (work@top.o), line:12:27, endln:12:28, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -14,7 +14,7 @@ n<> u<8> t<List_of_param_assignments> p<10> c<7> l<2:25> el<2:39>
 n<> u<9> t<Type> p<10> s<8> l<2:15> el<2:19>
 n<> u<10> t<Parameter_declaration> p<11> c<9> l<2:5> el<2:39>
 n<> u<11> t<Parameter_port_declaration> p<39> c<10> s<26> l<2:5> el<2:39>
-n<> u<12> t<IntegerAtomType_Int> p<13> l<3:15> el<3:22>
+n<> u<12> t<IntegerAtomType_Integer> p<13> l<3:15> el<3:22>
 n<> u<13> t<Data_type> p<14> c<12> l<3:15> el<3:22>
 n<> u<14> t<Data_type_or_implicit> p<25> c<13> s<24> l<3:15> el<3:22>
 n<N_INP> u<15> t<StringConst> p<23> s<22> l<3:25> el<3:30>
@@ -65,7 +65,7 @@ n<> u<59> t<List_of_param_assignments> p<61> c<58> l<10:25> el<10:39>
 n<> u<60> t<Type> p<61> s<59> l<10:15> el<10:19>
 n<> u<61> t<Parameter_declaration> p<62> c<60> l<10:5> el<10:39>
 n<> u<62> t<Parameter_port_declaration> p<90> c<61> s<77> l<10:5> el<10:39>
-n<> u<63> t<IntegerAtomType_Int> p<64> l<11:15> el<11:22>
+n<> u<63> t<IntegerAtomType_Integer> p<64> l<11:15> el<11:22>
 n<> u<64> t<Data_type> p<65> c<63> l<11:15> el<11:22>
 n<> u<65> t<Data_type_or_implicit> p<76> c<64> s<75> l<11:15> el<11:22>
 n<N_INP> u<66> t<StringConst> p<74> s<73> l<11:25> el<11:30>
@@ -449,7 +449,8 @@ design: (work@axi_node_arbiter)
   |vpiParameter:
   \_parameter: (work@stream_arbiter.N_INP), line:11:25, endln:11:30, parent:work@stream_arbiter
     |vpiTypespec:
-    \_int_typespec: , line:11:15, endln:11:22, parent:work@stream_arbiter.N_INP
+    \_integer_typespec: , line:11:15, endln:11:22, parent:work@stream_arbiter.N_INP
+    |vpiSigned:1
     |vpiName:N_INP
     |vpiFullName:work@stream_arbiter.N_INP
   |vpiParameter:
@@ -493,7 +494,8 @@ design: (work@axi_node_arbiter)
   |vpiParameter:
   \_parameter: (work@stream_arbiter_flushable.N_INP), line:3:25, endln:3:30, parent:work@stream_arbiter_flushable
     |vpiTypespec:
-    \_int_typespec: , line:3:15, endln:3:22, parent:work@stream_arbiter_flushable.N_INP
+    \_integer_typespec: , line:3:15, endln:3:22, parent:work@stream_arbiter_flushable.N_INP
+    |vpiSigned:1
     |vpiName:N_INP
     |vpiFullName:work@stream_arbiter_flushable.N_INP
   |vpiParameter:
@@ -673,7 +675,8 @@ design: (work@axi_node_arbiter)
     |vpiParameter:
     \_parameter: (work@axi_node_arbiter.i_arb_inp.N_INP), line:11:25, endln:11:30, parent:work@axi_node_arbiter.i_arb_inp
       |vpiTypespec:
-      \_int_typespec: , line:11:15, endln:11:22, parent:work@axi_node_arbiter.i_arb_inp.N_INP
+      \_integer_typespec: , line:11:15, endln:11:22, parent:work@axi_node_arbiter.i_arb_inp.N_INP
+      |vpiSigned:1
       |vpiName:N_INP
       |vpiFullName:work@axi_node_arbiter.i_arb_inp.N_INP
     |vpiParameter:
@@ -690,7 +693,7 @@ design: (work@axi_node_arbiter)
         |vpiSize:32
         |UINT:10
         |vpiTypespec:
-        \_int_typespec: , line:11:15, endln:11:22, parent:work@stream_arbiter.N_INP
+        \_integer_typespec: , line:11:15, endln:11:22, parent:work@stream_arbiter.N_INP
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@axi_node_arbiter.i_arb_inp.N_INP), line:11:25, endln:11:30, parent:work@axi_node_arbiter.i_arb_inp
@@ -788,7 +791,8 @@ design: (work@axi_node_arbiter)
       |vpiParameter:
       \_parameter: (work@axi_node_arbiter.i_arb_inp.i_arb.N_INP), line:3:25, endln:3:30, parent:work@axi_node_arbiter.i_arb_inp.i_arb
         |vpiTypespec:
-        \_int_typespec: , line:3:15, endln:3:22, parent:work@axi_node_arbiter.i_arb_inp.i_arb.N_INP
+        \_integer_typespec: , line:3:15, endln:3:22, parent:work@axi_node_arbiter.i_arb_inp.i_arb.N_INP
+        |vpiSigned:1
         |vpiName:N_INP
         |vpiFullName:work@axi_node_arbiter.i_arb_inp.i_arb.N_INP
       |vpiParameter:
@@ -805,7 +809,7 @@ design: (work@axi_node_arbiter)
           |vpiSize:32
           |UINT:10
           |vpiTypespec:
-          \_int_typespec: , line:3:15, endln:3:22, parent:work@stream_arbiter_flushable.N_INP
+          \_integer_typespec: , line:3:15, endln:3:22, parent:work@stream_arbiter_flushable.N_INP
           |vpiConstType:9
         |vpiLhs:
         \_parameter: (work@axi_node_arbiter.i_arb_inp.i_arb.N_INP), line:3:25, endln:3:30, parent:work@axi_node_arbiter.i_arb_inp.i_arb
