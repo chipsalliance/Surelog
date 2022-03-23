@@ -41,10 +41,10 @@ bool DataType::isInteger_type(VObjectType type) {
 }
 
 bool DataType::isInteger_atom_type(VObjectType type) {
-  return (type == slIntegerAtomType_Byte ||
-          type == slIntegerAtomType_Shortint || type == slIntegerAtomType_Int ||
-          type == slIntegerAtomType_LongInt || type == slIntegerAtomType_Int ||
-          type == slIntegerAtomType_Time);
+  return (
+      type == slIntegerAtomType_Byte || type == slIntegerAtomType_Shortint ||
+      type == slIntegerAtomType_Integer || type == slIntegerAtomType_LongInt ||
+      type == slIntegerAtomType_Int || type == slIntegerAtomType_Time);
 }
 
 bool DataType::isInteger_vector_type(VObjectType type) {

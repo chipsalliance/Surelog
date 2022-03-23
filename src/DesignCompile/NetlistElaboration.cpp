@@ -1413,6 +1413,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
   if ((dtype && (subnettype == slNoType)) || sig->isConst() || sig->isVar() ||
       sig->isStatic() || (subnettype == slClass_scope) ||
       (subnettype == slStringConst) || (subnettype == slIntegerAtomType_Int) ||
+      (subnettype == slIntegerAtomType_Integer) ||
       (subnettype == slIntegerAtomType_Byte) ||
       (subnettype == slIntegerAtomType_LongInt) ||
       (subnettype == slIntegerAtomType_Shortint) ||

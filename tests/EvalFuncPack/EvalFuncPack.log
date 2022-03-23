@@ -5,18 +5,18 @@ FILE: dut.sv
 n<> u<0> t<Null_rule> p<458> s<457> l<2:1> el<1:2>
 n<prim_util_pkg> u<1> t<StringConst> p<181> s<128> l<2:9> el<2:22>
 n<> u<2> t<Lifetime_Automatic> p<126> s<125> l<6:12> el<6:21>
-n<> u<3> t<IntegerAtomType_Int> p<4> l<6:22> el<6:29>
+n<> u<3> t<IntegerAtomType_Integer> p<4> l<6:22> el<6:29>
 n<> u<4> t<Data_type> p<5> c<3> l<6:22> el<6:29>
 n<> u<5> t<Function_data_type> p<6> c<4> l<6:22> el<6:29>
 n<> u<6> t<Function_data_type_or_implicit> p<125> c<5> s<7> l<6:22> el<6:29>
 n<_clog2> u<7> t<StringConst> p<125> s<13> l<6:30> el<6:36>
-n<> u<8> t<IntegerAtomType_Int> p<9> l<6:37> el<6:44>
+n<> u<8> t<IntegerAtomType_Integer> p<9> l<6:37> el<6:44>
 n<> u<9> t<Data_type> p<10> c<8> l<6:37> el<6:44>
 n<> u<10> t<Data_type_or_implicit> p<12> c<9> s<11> l<6:37> el<6:44>
 n<value> u<11> t<StringConst> p<12> l<6:45> el<6:50>
 n<> u<12> t<Tf_port_item> p<13> c<10> l<6:37> el<6:50>
 n<> u<13> t<Tf_port_list> p<125> c<12> s<21> l<6:37> el<6:50>
-n<> u<14> t<IntegerAtomType_Int> p<15> l<7:5> el<7:12>
+n<> u<14> t<IntegerAtomType_Integer> p<15> l<7:5> el<7:12>
 n<> u<15> t<Data_type> p<19> c<14> s<18> l<7:5> el<7:12>
 n<result> u<16> t<StringConst> p<17> l<7:13> el<7:19>
 n<> u<17> t<Variable_decl_assignment> p<18> c<16> l<7:13> el<7:19>
@@ -132,12 +132,12 @@ n<> u<126> t<Function_declaration> p<127> c<2> l<6:3> el<13:14>
 n<> u<127> t<Package_or_generate_item_declaration> p<128> c<126> l<6:3> el<13:14>
 n<> u<128> t<Package_item> p<181> c<127> s<179> l<6:3> el<13:14>
 n<> u<129> t<Lifetime_Automatic> p<177> s<176> l<15:10> el<15:19>
-n<> u<130> t<IntegerAtomType_Int> p<131> l<15:20> el<15:27>
+n<> u<130> t<IntegerAtomType_Integer> p<131> l<15:20> el<15:27>
 n<> u<131> t<Data_type> p<132> c<130> l<15:20> el<15:27>
 n<> u<132> t<Function_data_type> p<133> c<131> l<15:20> el<15:27>
 n<> u<133> t<Function_data_type_or_implicit> p<176> c<132> s<134> l<15:20> el<15:27>
 n<vbits> u<134> t<StringConst> p<176> s<140> l<15:28> el<15:33>
-n<> u<135> t<IntegerAtomType_Int> p<136> l<15:34> el<15:41>
+n<> u<135> t<IntegerAtomType_Integer> p<136> l<15:34> el<15:41>
 n<> u<136> t<Data_type> p<137> c<135> l<15:34> el<15:41>
 n<> u<137> t<Data_type_or_implicit> p<139> c<136> s<138> l<15:34> el<15:41>
 n<value> u<138> t<StringConst> p<139> l<15:42> el<15:47>
@@ -257,7 +257,7 @@ n<> u<251> t<Parameter_declaration> p<252> c<233> l<33:2> el<33:68>
 n<> u<252> t<Package_or_generate_item_declaration> p<253> c<251> l<33:2> el<33:69>
 n<> u<253> t<Package_item> p<385> c<252> s<383> l<33:2> el<33:69>
 n<> u<254> t<Lifetime_Automatic> p<381> s<380> l<35:10> el<35:19>
-n<> u<255> t<IntegerAtomType_Int> p<256> l<35:20> el<35:27>
+n<> u<255> t<IntegerAtomType_Integer> p<256> l<35:20> el<35:27>
 n<> u<256> t<Data_type> p<257> c<255> l<35:20> el<35:27>
 n<> u<257> t<Function_data_type> p<258> c<256> l<35:20> el<35:27>
 n<> u<258> t<Function_data_type_or_implicit> p<380> c<257> s<259> l<35:20> el<35:27>
@@ -789,6 +789,7 @@ design: (work@flash_ctrl_info_cfg)
       \_int_typespec: , line:26:11, endln:26:14, parent:InfoTypes
         |vpiInstance:
         \_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:24:1: , endln:45:11, parent:work@flash_ctrl_info_cfg
+      |vpiSigned:1
       |vpiName:InfoTypes
   |vpiParamAssign:
   \_param_assign: , line:27:15, endln:31:5, parent:flash_ctrl_pkg::
@@ -824,6 +825,7 @@ design: (work@flash_ctrl_info_cfg)
       \_int_typespec: , line:27:11, endln:27:14, parent:InfosPerBank
         |vpiInstance:
         \_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:24:1: , endln:45:11, parent:work@flash_ctrl_info_cfg
+      |vpiSigned:1
       |vpiName:InfosPerBank
   |vpiParamAssign:
   \_param_assign: , line:33:16, endln:33:68, parent:flash_ctrl_pkg::
@@ -841,6 +843,7 @@ design: (work@flash_ctrl_info_cfg)
       \_int_typespec: , line:33:12, endln:33:15, parent:InfoPageW
         |vpiInstance:
         \_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:24:1: , endln:45:11, parent:work@flash_ctrl_info_cfg
+      |vpiSigned:1
       |vpiName:InfoPageW
   |vpiDefName:flash_ctrl_pkg
 |uhdmallPackages:
@@ -863,6 +866,7 @@ design: (work@flash_ctrl_info_cfg)
       \_int_typespec: , line:54:13, endln:54:16, parent:NumPartWidth
         |vpiInstance:
         \_package: otp_ctrl_pkg (otp_ctrl_pkg::) dut.sv:48:1: , endln:57:11, parent:work@flash_ctrl_info_cfg
+      |vpiSigned:1
       |vpiName:NumPartWidth
   |vpiDefName:otp_ctrl_pkg
 |uhdmtopPackages:
@@ -902,19 +906,19 @@ design: (work@flash_ctrl_info_cfg)
     |vpiName:_clog2
     |vpiFullName:prim_util_pkg::_clog2
     |vpiVariables:
-    \_int_var: (prim_util_pkg::_clog2::result), line:7:13, endln:7:19, parent:prim_util_pkg::_clog2
+    \_integer_var: (prim_util_pkg::_clog2::result), line:7:13, endln:7:19, parent:prim_util_pkg::_clog2
       |vpiName:result
       |vpiFullName:prim_util_pkg::_clog2::result
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_int_var: , line:6:22, endln:6:29
+    \_integer_var: , line:6:22, endln:6:29
     |vpiIODecl:
     \_io_decl: (value), line:6:45, endln:6:50, parent:prim_util_pkg::_clog2
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
-      \_int_typespec: , line:6:37, endln:6:44
+      \_integer_typespec: , line:6:37, endln:6:44
         |vpiInstance:
         \_package: prim_util_pkg (prim_util_pkg::) dut.sv:2:1: , endln:22:11, parent:work@flash_ctrl_info_cfg
     |vpiStmt:
@@ -961,7 +965,7 @@ design: (work@flash_ctrl_info_cfg)
             |vpiName:result
             |vpiFullName:prim_util_pkg::_clog2::result
             |vpiActual:
-            \_int_var: (prim_util_pkg::_clog2::result), line:7:13, endln:7:19, parent:prim_util_pkg::_clog2
+            \_integer_var: (prim_util_pkg::_clog2::result), line:7:13, endln:7:19, parent:prim_util_pkg::_clog2
         |vpiForIncStmt:
         \_assignment: , line:9:33, endln:9:52, parent:prim_util_pkg::_clog2
           |vpiOpType:82
@@ -974,7 +978,7 @@ design: (work@flash_ctrl_info_cfg)
               |vpiName:result
               |vpiFullName:prim_util_pkg::_clog2::result
               |vpiActual:
-              \_int_var: (prim_util_pkg::_clog2::result), line:7:13, endln:7:19, parent:prim_util_pkg::_clog2
+              \_integer_var: (prim_util_pkg::_clog2::result), line:7:13, endln:7:19, parent:prim_util_pkg::_clog2
             |vpiOperand:
             \_constant: , line:9:51, endln:9:52
               |vpiDecompile:1
@@ -986,7 +990,7 @@ design: (work@flash_ctrl_info_cfg)
             |vpiName:result
             |vpiFullName:prim_util_pkg::_clog2::result
             |vpiActual:
-            \_int_var: (prim_util_pkg::_clog2::result), line:7:13, endln:7:19, parent:prim_util_pkg::_clog2
+            \_integer_var: (prim_util_pkg::_clog2::result), line:7:13, endln:7:19, parent:prim_util_pkg::_clog2
         |vpiCondition:
         \_operation: , line:9:22, endln:9:31, parent:prim_util_pkg::_clog2
           |vpiOpType:18
@@ -1037,7 +1041,7 @@ design: (work@flash_ctrl_info_cfg)
           |vpiName:result
           |vpiFullName:prim_util_pkg::_clog2::result
           |vpiActual:
-          \_int_var: (prim_util_pkg::_clog2::result), line:7:13, endln:7:19, parent:prim_util_pkg::_clog2
+          \_integer_var: (prim_util_pkg::_clog2::result), line:7:13, endln:7:19, parent:prim_util_pkg::_clog2
     |vpiInstance:
     \_package: prim_util_pkg (prim_util_pkg::) dut.sv:2:1: , endln:22:11, parent:work@flash_ctrl_info_cfg
   |vpiTaskFunc:
@@ -1047,13 +1051,13 @@ design: (work@flash_ctrl_info_cfg)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_int_var: , line:15:20, endln:15:27
+    \_integer_var: , line:15:20, endln:15:27
     |vpiIODecl:
     \_io_decl: (value), line:15:42, endln:15:47, parent:prim_util_pkg::vbits
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
-      \_int_typespec: , line:15:34, endln:15:41
+      \_integer_typespec: , line:15:34, endln:15:41
         |vpiInstance:
         \_package: prim_util_pkg (prim_util_pkg::) dut.sv:2:1: , endln:22:11, parent:work@flash_ctrl_info_cfg
     |vpiStmt:
@@ -1106,6 +1110,7 @@ design: (work@flash_ctrl_info_cfg)
     \_int_typespec: , line:26:11, endln:26:14, parent:flash_ctrl_pkg::InfoTypes
       |vpiInstance:
       \_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:24:1: , endln:45:11, parent:work@flash_ctrl_info_cfg
+    |vpiSigned:1
     |vpiName:InfoTypes
     |vpiFullName:flash_ctrl_pkg::InfoTypes
   |vpiParameter:
@@ -1114,6 +1119,7 @@ design: (work@flash_ctrl_info_cfg)
     \_int_typespec: , line:27:11, endln:27:14, parent:flash_ctrl_pkg::InfosPerBank
       |vpiInstance:
       \_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:24:1: , endln:45:11, parent:work@flash_ctrl_info_cfg
+    |vpiSigned:1
     |vpiName:InfosPerBank
     |vpiFullName:flash_ctrl_pkg::InfosPerBank
   |vpiParameter:
@@ -1122,6 +1128,7 @@ design: (work@flash_ctrl_info_cfg)
     \_int_typespec: , line:33:12, endln:33:15, parent:flash_ctrl_pkg::InfoPageW
       |vpiInstance:
       \_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:24:1: , endln:45:11, parent:work@flash_ctrl_info_cfg
+    |vpiSigned:1
     |vpiName:InfoPageW
     |vpiFullName:flash_ctrl_pkg::InfoPageW
   |vpiParamAssign:
@@ -1169,7 +1176,7 @@ design: (work@flash_ctrl_info_cfg)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_int_var: , line:35:20, endln:35:27
+    \_integer_var: , line:35:20, endln:35:27
     |vpiIODecl:
     \_io_decl: (infos), line:35:47, endln:35:52, parent:flash_ctrl_pkg::max_info_pages
       |vpiDirection:1
@@ -1335,6 +1342,7 @@ design: (work@flash_ctrl_info_cfg)
     \_int_typespec: , line:54:13, endln:54:16, parent:otp_ctrl_pkg::NumPartWidth
       |vpiInstance:
       \_package: otp_ctrl_pkg (otp_ctrl_pkg::) dut.sv:48:1: , endln:57:11, parent:work@flash_ctrl_info_cfg
+    |vpiSigned:1
     |vpiName:NumPartWidth
     |vpiFullName:otp_ctrl_pkg::NumPartWidth
   |vpiParamAssign:
@@ -1360,13 +1368,13 @@ design: (work@flash_ctrl_info_cfg)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_int_var: , line:15:20, endln:15:27
+    \_integer_var: , line:15:20, endln:15:27
     |vpiIODecl:
     \_io_decl: (value), line:15:42, endln:15:47, parent:otp_ctrl_pkg::vbits
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
-      \_int_typespec: , line:15:34, endln:15:41, parent:value
+      \_integer_typespec: , line:15:34, endln:15:41, parent:value
         |vpiInstance:
         \_package: prim_util_pkg (prim_util_pkg::) dut.sv:2:1: , endln:22:11, parent:work@flash_ctrl_info_cfg
     |vpiStmt:
@@ -1720,6 +1728,7 @@ design: (work@flash_ctrl_info_cfg)
     \_int_typespec: , line:33:12, endln:33:15, parent:work@flash_ctrl_info_cfg.InfoPageW
       |vpiInstance:
       \_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:24:1: , endln:45:11, parent:work@flash_ctrl_info_cfg
+    |vpiSigned:1
     |vpiName:InfoPageW
     |vpiFullName:work@flash_ctrl_info_cfg.InfoPageW
     |vpiImported:flash_ctrl_pkg
@@ -1730,6 +1739,7 @@ design: (work@flash_ctrl_info_cfg)
     \_int_typespec: , line:26:11, endln:26:14, parent:work@flash_ctrl_info_cfg.InfoTypes
       |vpiInstance:
       \_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:24:1: , endln:45:11, parent:work@flash_ctrl_info_cfg
+    |vpiSigned:1
     |vpiName:InfoTypes
     |vpiFullName:work@flash_ctrl_info_cfg.InfoTypes
     |vpiImported:flash_ctrl_pkg
@@ -1739,6 +1749,7 @@ design: (work@flash_ctrl_info_cfg)
     \_int_typespec: , line:27:11, endln:27:14, parent:work@flash_ctrl_info_cfg.InfosPerBank
       |vpiInstance:
       \_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:24:1: , endln:45:11, parent:work@flash_ctrl_info_cfg
+    |vpiSigned:1
     |vpiName:InfosPerBank
     |vpiFullName:work@flash_ctrl_info_cfg.InfosPerBank
     |vpiImported:flash_ctrl_pkg
@@ -1761,6 +1772,7 @@ design: (work@flash_ctrl_info_cfg)
       \_int_typespec: , line:26:11, endln:26:14, parent:work@flash_ctrl_info_cfg.InfoTypes
         |vpiInstance:
         \_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:24:1: , endln:45:11, parent:work@flash_ctrl_info_cfg
+      |vpiSigned:1
       |vpiName:InfoTypes
       |vpiFullName:work@flash_ctrl_info_cfg.InfoTypes
       |vpiImported:flash_ctrl_pkg
@@ -1778,6 +1790,7 @@ design: (work@flash_ctrl_info_cfg)
       \_int_typespec: , line:27:11, endln:27:14, parent:work@flash_ctrl_info_cfg.InfosPerBank
         |vpiInstance:
         \_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:24:1: , endln:45:11, parent:work@flash_ctrl_info_cfg
+      |vpiSigned:1
       |vpiName:InfosPerBank
       |vpiFullName:work@flash_ctrl_info_cfg.InfosPerBank
       |vpiImported:flash_ctrl_pkg
@@ -1795,6 +1808,7 @@ design: (work@flash_ctrl_info_cfg)
       \_int_typespec: , line:33:12, endln:33:15, parent:work@flash_ctrl_info_cfg.InfoPageW
         |vpiInstance:
         \_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:24:1: , endln:45:11, parent:work@flash_ctrl_info_cfg
+      |vpiSigned:1
       |vpiName:InfoPageW
       |vpiFullName:work@flash_ctrl_info_cfg.InfoPageW
       |vpiImported:flash_ctrl_pkg
@@ -1812,7 +1826,7 @@ design: (work@flash_ctrl_info_cfg)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_int_var: , line:35:20, endln:35:27
+    \_integer_var: , line:35:20, endln:35:27
     |vpiIODecl:
     \_io_decl: (infos), line:35:47, endln:35:52
       |vpiDirection:1
@@ -1974,6 +1988,7 @@ design: (work@flash_ctrl_info_cfg)
     \_int_typespec: , line:33:12, endln:33:15, parent:work@flash_ctrl_info_cfg.InfoPageW
       |vpiInstance:
       \_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:24:1: , endln:45:11, parent:work@flash_ctrl_info_cfg
+    |vpiSigned:1
     |vpiName:InfoPageW
     |vpiFullName:work@flash_ctrl_info_cfg.InfoPageW
     |vpiImported:flash_ctrl_pkg
@@ -1984,6 +1999,7 @@ design: (work@flash_ctrl_info_cfg)
     \_int_typespec: , line:26:11, endln:26:14, parent:work@flash_ctrl_info_cfg.InfoTypes
       |vpiInstance:
       \_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:24:1: , endln:45:11, parent:work@flash_ctrl_info_cfg
+    |vpiSigned:1
     |vpiName:InfoTypes
     |vpiFullName:work@flash_ctrl_info_cfg.InfoTypes
     |vpiImported:flash_ctrl_pkg
@@ -1993,6 +2009,7 @@ design: (work@flash_ctrl_info_cfg)
     \_int_typespec: , line:27:11, endln:27:14, parent:work@flash_ctrl_info_cfg.InfosPerBank
       |vpiInstance:
       \_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:24:1: , endln:45:11, parent:work@flash_ctrl_info_cfg
+    |vpiSigned:1
     |vpiName:InfosPerBank
     |vpiFullName:work@flash_ctrl_info_cfg.InfosPerBank
     |vpiImported:flash_ctrl_pkg
@@ -2047,7 +2064,7 @@ design: (work@flash_ctrl_info_cfg)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_int_var: , line:35:20, endln:35:27
+    \_integer_var: , line:35:20, endln:35:27
     |vpiIODecl:
     \_io_decl: (infos), line:35:47, endln:35:52, parent:flash_ctrl_pkg::max_info_pages
       |vpiDirection:1

@@ -73,6 +73,11 @@ variables* CompileHelper::getSimpleVarFromTypespec(
       var = int_var;
       break;
     }
+    case uhdminteger_typespec: {
+      UHDM::integer_var* integer_var = s.MakeInteger_var();
+      var = integer_var;
+      break;
+    }
     case uhdmlong_int_typespec: {
       UHDM::long_int_var* int_var = s.MakeLong_int_var();
       var = int_var;
@@ -247,6 +252,11 @@ UHDM::any* CompileHelper::compileVariable(
     }
     case VObjectType::slIntegerAtomType_Int: {
       int_var* var = s.MakeInt_var();
+      result = var;
+      break;
+    }
+    case VObjectType::slIntegerAtomType_Integer: {
+      integer_var* var = s.MakeInteger_var();
       result = var;
       break;
     }
@@ -822,9 +832,22 @@ UHDM::typespec* CompileHelper::compileBuiltinTypespec(
       break;
     }
     case VObjectType::slIntegerAtomType_Int: {
-      int_typespec* var = buildIntTypespec(
-          compileDesign, fC->getFileName(), "", "", fC->Line(type),
-          fC->Column(type), fC->EndLine(type), fC->EndColumn(type));
+      int_typespec* var = s.MakeInt_typespec();
+      var->VpiFile(fC->getFileName());
+      var->VpiLineNo(fC->Line(type));
+      var->VpiColumnNo(fC->Column(type));
+      var->VpiEndLineNo(fC->EndLine(type));
+      var->VpiEndColumnNo(fC->EndColumn(type));
+      result = var;
+      break;
+    }
+    case VObjectType::slIntegerAtomType_Integer: {
+      integer_typespec* var = s.MakeInteger_typespec();
+      var->VpiFile(fC->getFileName());
+      var->VpiLineNo(fC->Line(type));
+      var->VpiColumnNo(fC->Column(type));
+      var->VpiEndLineNo(fC->EndLine(type));
+      var->VpiEndColumnNo(fC->EndColumn(type));
       result = var;
       break;
     }
@@ -1128,6 +1151,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
     case VObjectType::slIntVec_TypeLogic:
     case VObjectType::slIntVec_TypeReg:
     case VObjectType::slIntegerAtomType_Int:
+    case VObjectType::slIntegerAtomType_Integer:
     case VObjectType::slIntegerAtomType_Byte:
     case VObjectType::slIntegerAtomType_LongInt:
     case VObjectType::slIntegerAtomType_Shortint:

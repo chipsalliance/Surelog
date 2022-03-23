@@ -152,6 +152,7 @@ _type_names = set([
   'slIntegerAtomType_Int',
   'slIntegerAtomType_LongInt',
   'slIntegerAtomType_Int',
+  'slIntegerAtomType_Integer',
   'slIntegerAtomType_Time',
   'slIntVec_TypeBit',
   'slIntVec_TypeLogic',
