@@ -336,6 +336,7 @@ set TYPES(slIntegerAtomType_Shortint) 1
 set TYPES(slIntegerAtomType_Int) 1
 set TYPES(slIntegerAtomType_LongInt) 1
 set TYPES(slIntegerAtomType_Int) 1
+set TYPES(slIntegerAtomType_Integer) 1
 set TYPES(slIntegerAtomType_Time) 1
 set TYPES(slIntVec_TypeBit) 1
 set TYPES(slIntVec_TypeLogic) 1

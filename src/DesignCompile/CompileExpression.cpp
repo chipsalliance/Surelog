@@ -724,7 +724,7 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
       std::string fileContent = FileUtils::getFileContent(fileName);
       std::string lineText =
           StringUtils::getLineInString(fileContent, lineNumber);
-      Location loc(symbols->registerSymbol(fileName.c_str()), lineNumber, 0,
+      Location loc(symbols->registerSymbol(fileName.string()), lineNumber, 0,
                    symbols->registerSymbol(lineText));
       Error err(ErrorDefinition::UHDM_UNRESOLVED_HIER_PATH, loc);
       errors->addError(err);
@@ -1210,6 +1210,10 @@ UHDM::any *CompileHelper::compileExpression(
     }
     case VObjectType::slIntegerAtomType_Int: {
       result = s.MakeInt_var();
+      break;
+    }
+    case VObjectType::slIntegerAtomType_Integer: {
+      result = s.MakeInteger_var();
       break;
     }
     case VObjectType::slIntegerAtomType_LongInt: {
@@ -3652,6 +3656,10 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
       result = s.MakeInt_typespec();
       break;
     }
+    case slIntegerAtomType_Integer: {
+      result = s.MakeInteger_typespec();
+      break;
+    }
     case slIntegerAtomType_LongInt: {
       result = s.MakeLong_int_typespec();
       break;
@@ -3895,6 +3903,7 @@ UHDM::any *CompileHelper::compileBits(
   switch (fC->Type(Expression)) {
     case slIntegerAtomType_Byte:
     case slIntegerAtomType_Int:
+    case slIntegerAtomType_Integer:
     case slIntegerAtomType_LongInt:
     case slIntegerAtomType_Shortint:
     case slIntegerAtomType_Time:
@@ -4039,6 +4048,12 @@ UHDM::any *CompileHelper::compileTypename(
     case slIntegerAtomType_Int:
       c->VpiValue("STRING:int");
       c->VpiDecompile("int");
+      c->VpiConstType(vpiStringConst);
+      result = c;
+      break;
+    case slIntegerAtomType_Integer:
+      c->VpiValue("STRING:integer");
+      c->VpiDecompile("integer");
       c->VpiConstType(vpiStringConst);
       result = c;
       break;

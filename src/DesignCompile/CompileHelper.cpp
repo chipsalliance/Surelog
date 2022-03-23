@@ -1297,10 +1297,19 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type,
             the_type == VObjectType::slStringConst ||
             the_type == VObjectType::slClass_scope ||
             the_type == VObjectType::slIntegerAtomType_Int ||
+            the_type == VObjectType::slIntegerAtomType_Integer ||
             the_type == VObjectType::slIntegerAtomType_Shortint ||
             the_type == VObjectType::slIntegerAtomType_LongInt ||
             the_type == VObjectType::slIntegerAtomType_Byte ||
             the_type == VObjectType::slString_type) {
+          if (the_type == VObjectType::slIntegerAtomType_Int ||
+              the_type == VObjectType::slIntegerAtomType_Shortint ||
+              the_type == VObjectType::slIntegerAtomType_LongInt ||
+              the_type == VObjectType::slIntegerAtomType_Byte ||
+              the_type == VObjectType::slIntegerAtomType_Integer) {
+            is_signed = true;
+          }
+
           if (the_type == VObjectType::slStringConst) {
             const std::string& tname = fC->SymName(integer_vector_type);
             if (tname == "logic") {
@@ -1309,6 +1318,7 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type,
               the_type = VObjectType::slIntVec_TypeBit;
             } else if (tname == "byte") {
               the_type = VObjectType::slIntegerAtomType_Byte;
+              is_signed = true;
             }
           }
           signal_type = the_type;
@@ -1336,6 +1346,7 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type,
       } else if (fC->Type(Packed_dimension) ==
                  VObjectType::slSigning_Unsigned) {
         Packed_dimension = fC->Sibling(Packed_dimension);
+        is_signed = false;
       }
     }
   }
@@ -2535,7 +2546,15 @@ bool CompileHelper::compileParameterDeclaration(
       if (the_type == VObjectType::slData_type) {
         Data_type = fC->Child(Data_type);
         NodeId Signage = fC->Sibling(Data_type);
+        VObjectType type = fC->Type(Data_type);
+        if (type == slIntegerAtomType_Byte || type == slIntegerAtomType_Int ||
+            type == slIntegerAtomType_Integer ||
+            type == slIntegerAtomType_LongInt ||
+            type == slIntegerAtomType_Shortint) {
+          isSigned = true;
+        }
         if (fC->Type(Signage) == slSigning_Signed) isSigned = true;
+        if (fC->Type(Signage) == slSigning_Unsigned) isSigned = false;
       }
 
       bool isMultiDimension = isMultidimensional(ts, component);

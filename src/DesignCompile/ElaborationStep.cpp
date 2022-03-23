@@ -1335,6 +1335,14 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
         var = array_var;
       } else if (ttps == uhdmint_typespec) {
         var = s.MakeInt_var();
+      } else if (ttps == uhdminteger_typespec) {
+        var = s.MakeInteger_var();
+      } else if (ttps == uhdmbyte_typespec) {
+        var = s.MakeByte_var();
+      } else if (ttps == uhdmbit_typespec) {
+        var = s.MakeBit_var();
+      } else if (ttps == uhdmshort_int_typespec) {
+        var = s.MakeShort_int_var();
       } else if (ttps == uhdmlong_int_typespec) {
         var = s.MakeLong_int_var();
       } else if (ttps == uhdmstring_typespec) {
@@ -1445,6 +1453,11 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       UHDM::int_var* int_var = s.MakeInt_var();
       var = int_var;
       tps = s.MakeInt_typespec();
+      int_var->Typespec(tps);
+    } else if (subnettype == slIntegerAtomType_Integer) {
+      UHDM::integer_var* int_var = s.MakeInteger_var();
+      var = int_var;
+      tps = s.MakeInteger_typespec();
       int_var->Typespec(tps);
     } else if (subnettype == slIntegerAtomType_LongInt) {
       UHDM::long_int_var* int_var = s.MakeLong_int_var();
@@ -1585,6 +1598,11 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
               subtps->Elem_typespec(ts);
               break;
             }
+            case uhdminteger_var: {
+              integer_typespec* ts = s.MakeInteger_typespec();
+              subtps->Elem_typespec(ts);
+              break;
+            }
             case uhdmlogic_var: {
               logic_typespec* ts = s.MakeLogic_typespec();
               subtps->Elem_typespec(ts);
@@ -1592,6 +1610,21 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
             }
             case uhdmlong_int_var: {
               long_int_typespec* ts = s.MakeLong_int_typespec();
+              subtps->Elem_typespec(ts);
+              break;
+            }
+            case uhdmshort_int_var: {
+              short_int_typespec* ts = s.MakeShort_int_typespec();
+              subtps->Elem_typespec(ts);
+              break;
+            }
+            case uhdmbyte_var: {
+              byte_typespec* ts = s.MakeByte_typespec();
+              subtps->Elem_typespec(ts);
+              break;
+            }
+            case uhdmbit_var: {
+              bit_typespec* ts = s.MakeBit_typespec();
               subtps->Elem_typespec(ts);
               break;
             }

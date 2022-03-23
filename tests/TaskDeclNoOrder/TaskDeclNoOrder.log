@@ -117,7 +117,7 @@ n<> u<111> t<Data_declaration> p<112> c<110> l<8:5> el<8:26>
 n<> u<112> t<Block_item_declaration> p<113> c<111> l<8:5> el<8:26>
 n<> u<113> t<Tf_item_declaration> p<200> c<112> s<121> l<8:5> el<8:26>
 n<> u<114> t<TfPortDir_Inp> p<120> s<117> l<9:5> el<9:10>
-n<> u<115> t<IntegerAtomType_Int> p<116> l<9:12> el<9:19>
+n<> u<115> t<IntegerAtomType_Integer> p<116> l<9:12> el<9:19>
 n<> u<116> t<Data_type> p<117> c<115> l<9:12> el<9:19>
 n<> u<117> t<Data_type_or_implicit> p<120> c<116> s<119> l<9:12> el<9:19>
 n<pll_vco1_freq_MHz> u<118> t<StringConst> p<119> l<9:20> el<9:37>
@@ -125,7 +125,7 @@ n<> u<119> t<List_of_tf_variable_identifiers> p<120> c<118> l<9:20> el<9:37>
 n<> u<120> t<Tf_port_declaration> p<121> c<114> l<9:5> el<9:38>
 n<> u<121> t<Tf_item_declaration> p<200> c<120> s<129> l<9:5> el<9:38>
 n<> u<122> t<TfPortDir_Inp> p<128> s<125> l<10:5> el<10:10>
-n<> u<123> t<IntegerAtomType_Int> p<124> l<10:12> el<10:19>
+n<> u<123> t<IntegerAtomType_Integer> p<124> l<10:12> el<10:19>
 n<> u<124> t<Data_type> p<125> c<123> l<10:12> el<10:19>
 n<> u<125> t<Data_type_or_implicit> p<128> c<124> s<127> l<10:12> el<10:19>
 n<pll_vco2_freq_MHz> u<126> t<StringConst> p<127> l<10:20> el<10:37>
@@ -133,7 +133,7 @@ n<> u<127> t<List_of_tf_variable_identifiers> p<128> c<126> l<10:20> el<10:37>
 n<> u<128> t<Tf_port_declaration> p<129> c<122> l<10:5> el<10:38>
 n<> u<129> t<Tf_item_declaration> p<200> c<128> s<137> l<10:5> el<10:38>
 n<> u<130> t<TfPortDir_Inp> p<136> s<133> l<11:5> el<11:10>
-n<> u<131> t<IntegerAtomType_Int> p<132> l<11:12> el<11:19>
+n<> u<131> t<IntegerAtomType_Integer> p<132> l<11:12> el<11:19>
 n<> u<132> t<Data_type> p<133> c<131> l<11:12> el<11:19>
 n<> u<133> t<Data_type_or_implicit> p<136> c<132> s<135> l<11:12> el<11:19>
 n<vco_sel> u<134> t<StringConst> p<135> l<11:20> el<11:27>
@@ -167,7 +167,7 @@ n<> u<161> t<Variable_declaration> p<162> c<157> l<13:5> el<13:26>
 n<> u<162> t<Data_declaration> p<163> c<161> l<13:5> el<13:26>
 n<> u<163> t<Block_item_declaration> p<164> c<162> l<13:5> el<13:26>
 n<> u<164> t<Tf_item_declaration> p<200> c<163> s<173> l<13:5> el<13:26>
-n<> u<165> t<IntegerAtomType_Int> p<166> l<14:5> el<14:12>
+n<> u<165> t<IntegerAtomType_Integer> p<166> l<14:5> el<14:12>
 n<> u<166> t<Data_type> p<170> c<165> s<169> l<14:5> el<14:12>
 n<unused_2> u<167> t<StringConst> p<168> l<14:17> el<14:25>
 n<> u<168> t<Variable_decl_assignment> p<169> c<167> l<14:17> el<14:25>
@@ -350,7 +350,7 @@ design: (work@dut)
           |UINT:0
           |vpiConstType:9
     |vpiVariables:
-    \_int_var: (unused_2), line:14:5, endln:14:12
+    \_integer_var: (unused_2), line:14:5, endln:14:12
       |vpiName:unused_2
     |vpiVisibility:1
     |vpiAutomatic:1
@@ -359,19 +359,19 @@ design: (work@dut)
       |vpiDirection:1
       |vpiName:pll_vco1_freq_MHz
       |vpiTypedef:
-      \_int_typespec: , line:9:12, endln:9:19
+      \_integer_typespec: , line:9:12, endln:9:19
     |vpiIODecl:
     \_io_decl: (pll_vco2_freq_MHz), line:10:20, endln:10:37, parent:work@dut.set_pll_fast_run
       |vpiDirection:1
       |vpiName:pll_vco2_freq_MHz
       |vpiTypedef:
-      \_int_typespec: , line:10:12, endln:10:19
+      \_integer_typespec: , line:10:12, endln:10:19
     |vpiIODecl:
     \_io_decl: (vco_sel), line:11:20, endln:11:27, parent:work@dut.set_pll_fast_run
       |vpiDirection:1
       |vpiName:vco_sel
       |vpiTypedef:
-      \_int_typespec: , line:11:12, endln:11:19
+      \_integer_typespec: , line:11:12, endln:11:19
     |vpiIODecl:
     \_io_decl: (err), line:12:16, endln:12:19, parent:work@dut.set_pll_fast_run
       |vpiDirection:2
@@ -487,7 +487,7 @@ design: (work@dut)
         |vpiRightRange:
         \_constant: , line:13:14, endln:13:15
     |vpiVariables:
-    \_int_var: (work@dut.set_pll_fast_run.unused_2), line:14:5, endln:14:12, parent:work@dut.set_pll_fast_run
+    \_integer_var: (work@dut.set_pll_fast_run.unused_2), line:14:5, endln:14:12, parent:work@dut.set_pll_fast_run
       |vpiName:unused_2
       |vpiFullName:work@dut.set_pll_fast_run.unused_2
     |vpiVisibility:1
@@ -497,19 +497,19 @@ design: (work@dut)
       |vpiDirection:1
       |vpiName:pll_vco1_freq_MHz
       |vpiTypedef:
-      \_int_typespec: , line:9:12, endln:9:19
+      \_integer_typespec: , line:9:12, endln:9:19
     |vpiIODecl:
     \_io_decl: (pll_vco2_freq_MHz), line:10:20, endln:10:37, parent:work@dut.set_pll_fast_run
       |vpiDirection:1
       |vpiName:pll_vco2_freq_MHz
       |vpiTypedef:
-      \_int_typespec: , line:10:12, endln:10:19
+      \_integer_typespec: , line:10:12, endln:10:19
     |vpiIODecl:
     \_io_decl: (vco_sel), line:11:20, endln:11:27, parent:work@dut.set_pll_fast_run
       |vpiDirection:1
       |vpiName:vco_sel
       |vpiTypedef:
-      \_int_typespec: , line:11:12, endln:11:19
+      \_integer_typespec: , line:11:12, endln:11:19
     |vpiIODecl:
     \_io_decl: (err), line:12:16, endln:12:19, parent:work@dut.set_pll_fast_run
       |vpiDirection:2

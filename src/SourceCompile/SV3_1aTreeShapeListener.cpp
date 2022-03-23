@@ -1851,7 +1851,7 @@ void SV3_1aTreeShapeListener::exitInteger_atom_type(
   else if (ctx->LONGINT())
     addVObject(ctx, VObjectType::slIntegerAtomType_LongInt);
   else if (ctx->INTEGER())
-    addVObject(ctx, VObjectType::slIntegerAtomType_Int);
+    addVObject(ctx, VObjectType::slIntegerAtomType_Integer);
   else if (ctx->TIME())
     addVObject(ctx, VObjectType::slIntegerAtomType_Time);
 }
