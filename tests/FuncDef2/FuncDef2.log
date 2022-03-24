@@ -4149,19 +4149,19 @@ design: (work@tnoc_vc_splitter)
     |vpiEnumConst:
     \_enum_const: (TNOC_FIXED_BURST), line:188:5, endln:188:32
       |vpiName:TNOC_FIXED_BURST
-      |UINT:0
+      |BIN:00
       |vpiDecompile:2'b00
       |vpiSize:2
     |vpiEnumConst:
     \_enum_const: (TNOC_NORMAL_BURST), line:189:5, endln:189:32
       |vpiName:TNOC_NORMAL_BURST
-      |UINT:1
+      |BIN:01
       |vpiDecompile:2'b01
       |vpiSize:2
     |vpiEnumConst:
     \_enum_const: (TNOC_WRAPPING_BURST), line:190:5, endln:190:32
       |vpiName:TNOC_WRAPPING_BURST
-      |UINT:2
+      |BIN:10
       |vpiDecompile:2'b10
       |vpiSize:2
   |vpiTypedef:
@@ -4176,13 +4176,13 @@ design: (work@tnoc_vc_splitter)
     |vpiEnumConst:
     \_enum_const: (TNOC_HEADER_FLIT), line:310:5, endln:310:29
       |vpiName:TNOC_HEADER_FLIT
-      |UINT:0
+      |BIN:0
       |vpiDecompile:1'b0
       |vpiSize:1
     |vpiEnumConst:
     \_enum_const: (TNOC_PAYLOAD_FLIT), line:311:5, endln:311:29
       |vpiName:TNOC_PAYLOAD_FLIT
-      |UINT:1
+      |BIN:1
       |vpiDecompile:1'b1
       |vpiSize:1
   |vpiTypedef:
@@ -4213,37 +4213,37 @@ design: (work@tnoc_vc_splitter)
     |vpiEnumConst:
     \_enum_const: (TNOC_INVALID_PACKET), line:175:5, endln:175:42
       |vpiName:TNOC_INVALID_PACKET
-      |UINT:0
+      |BIN:00000000
       |vpiDecompile:'b000_00000
       |vpiSize:-1
     |vpiEnumConst:
     \_enum_const: (TNOC_READ), line:176:5, endln:176:42
       |vpiName:TNOC_READ
-      |UINT:32
+      |BIN:00100000
       |vpiDecompile:'b001_00000
       |vpiSize:-1
     |vpiEnumConst:
     \_enum_const: (TNOC_WRITE), line:177:5, endln:177:42
       |vpiName:TNOC_WRITE
-      |UINT:96
+      |BIN:01100000
       |vpiDecompile:'b011_00000
       |vpiSize:-1
     |vpiEnumConst:
     \_enum_const: (TNOC_POSTED_WRITE), line:178:5, endln:178:42
       |vpiName:TNOC_POSTED_WRITE
-      |UINT:64
+      |BIN:01000000
       |vpiDecompile:'b010_00000
       |vpiSize:-1
     |vpiEnumConst:
     \_enum_const: (TNOC_RESPONSE), line:179:5, endln:179:42
       |vpiName:TNOC_RESPONSE
-      |UINT:128
+      |BIN:10000000
       |vpiDecompile:'b100_00000
       |vpiSize:-1
     |vpiEnumConst:
     \_enum_const: (TNOC_RESPONSE_WITH_DATA), line:180:5, endln:180:42
       |vpiName:TNOC_RESPONSE_WITH_DATA
-      |UINT:192
+      |BIN:11000000
       |vpiDecompile:'b110_00000
       |vpiSize:-1
   |vpiTypedef:
@@ -4258,13 +4258,13 @@ design: (work@tnoc_vc_splitter)
     |vpiEnumConst:
     \_enum_const: (TNOC_LOCAL_PORT), line:374:5, endln:374:31
       |vpiName:TNOC_LOCAL_PORT
-      |UINT:0
+      |BIN:0
       |vpiDecompile:1'b0
       |vpiSize:1
     |vpiEnumConst:
     \_enum_const: (TNOC_INTERNAL_PORT), line:375:5, endln:375:31
       |vpiName:TNOC_INTERNAL_PORT
-      |UINT:1
+      |BIN:1
       |vpiDecompile:1'b1
       |vpiSize:1
   |vpiTypedef:
@@ -10724,13 +10724,13 @@ design: (work@tnoc_vc_splitter)
       |vpiEnumConst:
       \_enum_const: (TNOC_LOCAL_PORT), line:374:5, endln:374:31, parent:tnoc_pkg::tnoc_port_type
         |vpiName:TNOC_LOCAL_PORT
-        |UINT:0
+        |BIN:0
         |vpiDecompile:1'b0
         |vpiSize:1
       |vpiEnumConst:
       \_enum_const: (TNOC_INTERNAL_PORT), line:375:5, endln:375:31, parent:tnoc_pkg::tnoc_port_type
         |vpiName:TNOC_INTERNAL_PORT
-        |UINT:1
+        |BIN:1
         |vpiDecompile:1'b1
         |vpiSize:1
     |vpiName:PORT_TYPE
@@ -10880,12 +10880,12 @@ design: (work@tnoc_vc_splitter)
   \_param_assign: , line:408:35, endln:408:66, parent:work@tnoc_vc_splitter
     |vpiRhs:
     \_constant: , line:408:51, endln:408:66
-      |vpiDecompile:0
+      |vpiDecompile:1'b0
       |vpiSize:1
-      |UINT:0
+      |BIN:0
       |vpiTypespec:
       \_enum_typespec: (tnoc_pkg::tnoc_port_type), line:373:3, endln:376:20, parent:work@tnoc_vc_splitter
-      |vpiConstType:9
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@tnoc_vc_splitter.PORT_TYPE), line:408:35, endln:408:44, parent:work@tnoc_vc_splitter
   |vpiParamAssign:

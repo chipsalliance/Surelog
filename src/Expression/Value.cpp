@@ -23,6 +23,7 @@
 
 #include <Surelog/Expression/Value.h>
 #include <Surelog/Utils/StringUtils.h>
+#include <Surelog/Utils/NumUtils.h>
 
 #include <cmath>
 
@@ -292,16 +293,20 @@ std::string SValue::decompiledValue() {
   std::string result;
   switch (valueType) {
     case Value::Type::Scalar:
-      result += std::to_string(m_value.u_int);
+      result = std::to_string(m_value.u_int);
       break;
     case Value::Type::Double:
-      result += std::to_string(m_value.d_int);
+      result = std::to_string(m_value.d_int);
+      break;
+    case Value::Type::Binary:
+      result = (m_size ? std::to_string(m_size) : "") + std::string("'b") +
+               NumUtils::toBinary(m_size, m_value.d_int);
       break;
     case Value::Type::Integer:
-      result += std::to_string(m_value.s_int);
+      result = std::to_string(m_value.s_int);
       break;
     default:
-      result += std::to_string(m_value.u_int);
+      result = std::to_string(m_value.u_int);
       break;
   }
   return result;
@@ -310,6 +315,9 @@ std::string SValue::decompiledValue() {
 int SValue::vpiValType() {
   Value::Type valueType = getType();
   switch (valueType) {
+    case Value::Type::Binary:
+      return vpiBinaryConst;
+      break;
     case Value::Type::Scalar:
       return vpiIntConst;
       break;
@@ -923,8 +931,7 @@ int LValue::vpiValType() {
   // The value is encoded in int form for the most part.
   switch (m_type) {
     case Type::Binary:
-      // return vpiBinaryConst;
-      return vpiIntConst;
+      return vpiBinaryConst;
     case Type::Double:
       return vpiRealConst;
     case Type::Hexadecimal:
@@ -1844,7 +1851,18 @@ std::string StValue::uhdmValue() {
   return result;
 }
 
-std::string StValue::decompiledValue() { return m_value; }
+std::string StValue::decompiledValue() {
+  std::string result = m_value;
+  switch (m_type) {
+    case Type::Binary:
+      result =
+          (m_size ? std::to_string(m_size) : "") + std::string("'b") + m_value;
+      break;
+    default:
+      break;
+  }
+  return result;
+}
 
 void StValue::equiv(const Value* a, const Value* b) {
   const StValue* aval = (const StValue*)a;
