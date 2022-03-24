@@ -922,10 +922,10 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, int size) {
         break;
     }
   } else if ((pos = s.find("BIN:")) != std::string::npos) {
-      StValue* sval = (StValue*)m_valueFactory.newStValue();
-      sval->set(s.c_str() + pos + std::string_view("BIN:").length(),
-                Value::Type::Binary, (size ? size : s.size()));
-      val = sval;
+    StValue* sval = (StValue*)m_valueFactory.newStValue();
+    sval->set(s.c_str() + pos + std::string_view("BIN:").length(),
+              Value::Type::Binary, (size ? size : s.size()));
+    val = sval;
   } else if ((pos = s.find("HEX:")) != std::string::npos) {
     if (s.size() > 20) {  // HEX:FFFFFFFFFFFFFFFF
       StValue* sval = (StValue*)m_valueFactory.newStValue();
