@@ -443,9 +443,12 @@ class StValue : public Value {
 
   short getSize() const final { return m_size; }
   short getSize(unsigned int wordIndex) const final { return m_size; }
-  void setRange(unsigned short lrange, unsigned short rrange) final {}
-  unsigned short getLRange() const final { return 0; };
-  unsigned short getRRange() const final { return 0; };
+  void setRange(unsigned short lrange, unsigned short rrange) final {
+    m_lrange = lrange;
+    m_rrange = rrange;
+  }
+  unsigned short getLRange() const final { return m_lrange; };
+  unsigned short getRRange() const final { return m_rrange; };
   unsigned short getNbWords() const final { return 1; }
   bool isLValue() const final { return false; }
   Type getType() const final { return m_type; }
@@ -577,6 +580,8 @@ class StValue : public Value {
   std::string m_value;
   short m_size;
   unsigned short m_valid;
+  unsigned short m_lrange = 0;
+  unsigned short m_rrange = 0;
 };
 
 };  // namespace SURELOG
