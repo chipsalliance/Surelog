@@ -818,6 +818,12 @@ UHDM::typespec* CompileHelper::compileBuiltinTypespec(
     VObjectType the_type, CompileDesign* compileDesign, VectorOfrange* ranges) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   typespec* result = nullptr;
+  bool isSigned = true;
+  if (NodeId sib = fC->Sibling(type)) {
+    if (fC->Type(sib) == slSigning_Unsigned) {
+      isSigned = false;
+    }
+  }
   switch (the_type) {
     case VObjectType::slIntVec_TypeLogic:
     case VObjectType::slIntVec_TypeReg: {
@@ -833,6 +839,7 @@ UHDM::typespec* CompileHelper::compileBuiltinTypespec(
     }
     case VObjectType::slIntegerAtomType_Int: {
       int_typespec* var = s.MakeInt_typespec();
+      var->VpiSigned(isSigned);
       var->VpiFile(fC->getFileName());
       var->VpiLineNo(fC->Line(type));
       var->VpiColumnNo(fC->Column(type));
@@ -843,6 +850,7 @@ UHDM::typespec* CompileHelper::compileBuiltinTypespec(
     }
     case VObjectType::slIntegerAtomType_Integer: {
       integer_typespec* var = s.MakeInteger_typespec();
+      var->VpiSigned(isSigned);
       var->VpiFile(fC->getFileName());
       var->VpiLineNo(fC->Line(type));
       var->VpiColumnNo(fC->Column(type));
@@ -853,6 +861,7 @@ UHDM::typespec* CompileHelper::compileBuiltinTypespec(
     }
     case VObjectType::slIntegerAtomType_Byte: {
       byte_typespec* var = s.MakeByte_typespec();
+      var->VpiSigned(isSigned);
       var->VpiFile(fC->getFileName());
       var->VpiLineNo(fC->Line(type));
       var->VpiColumnNo(fC->Column(type));
@@ -863,6 +872,7 @@ UHDM::typespec* CompileHelper::compileBuiltinTypespec(
     }
     case VObjectType::slIntegerAtomType_LongInt: {
       long_int_typespec* var = s.MakeLong_int_typespec();
+      var->VpiSigned(isSigned);
       var->VpiFile(fC->getFileName());
       var->VpiLineNo(fC->Line(type));
       var->VpiColumnNo(fC->Column(type));
@@ -873,6 +883,7 @@ UHDM::typespec* CompileHelper::compileBuiltinTypespec(
     }
     case VObjectType::slIntegerAtomType_Shortint: {
       short_int_typespec* var = s.MakeShort_int_typespec();
+      var->VpiSigned(isSigned);
       var->VpiFile(fC->getFileName());
       var->VpiLineNo(fC->Line(type));
       var->VpiEndLineNo(fC->EndLine(type));
