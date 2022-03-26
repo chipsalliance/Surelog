@@ -927,20 +927,10 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, int size) {
               Value::Type::Binary, (size ? size : s.size()));
     val = sval;
   } else if ((pos = s.find("HEX:")) != std::string::npos) {
-    if (s.size() > 20) {  // HEX:FFFFFFFFFFFFFFFF
-      StValue* sval = (StValue*)m_valueFactory.newStValue();
-      sval->set(s.c_str() + pos + std::string_view("HEX:").length(),
-                Value::Type::Hexadecimal, (size ? size : (s.size() - 4) * 4));
-      val = sval;
-    } else {
-      val = m_valueFactory.newLValue();
-      uint64_t v = std::strtoull(
-          s.c_str() + pos + std::string_view("HEX:").length(), nullptr, 16);
-      if (size)
-        val->set(v, Value::Type::Unsigned, size);
-      else
-        val->set(v, Value::Type::Unsigned, (size ? size : (s.size() - 4) * 4));
-    }
+    StValue* sval = (StValue*)m_valueFactory.newStValue();
+    sval->set(s.c_str() + pos + std::string_view("HEX:").length(),
+              Value::Type::Hexadecimal, (size ? size : (s.size() - 4) * 4));
+    val = sval;
   } else if ((pos = s.find("OCT:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
     uint64_t v = std::strtoull(
