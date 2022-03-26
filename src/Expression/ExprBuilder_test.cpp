@@ -85,7 +85,7 @@ TEST(ExprBuilderTest, BuildFrom) {
     std::unique_ptr<Value> v6(builder.fromVpiValue("UINT:11", 0));
     LValue v0;
     v0.equiv(v1.get(), v2.get());
-    EXPECT_EQ(v1->uhdmValue(), "UINT:10");
+    EXPECT_EQ(v1->uhdmValue(), "HEX:A");
     EXPECT_EQ(v0.getValueL(), 1);
     EXPECT_EQ(v3->getValueL(), 3);
     EXPECT_EQ(v4->uhdmValue(), "HEX:FFFF");
