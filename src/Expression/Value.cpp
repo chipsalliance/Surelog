@@ -302,6 +302,10 @@ std::string SValue::decompiledValue() {
       result = (m_size ? std::to_string(m_size) : "") + std::string("'b") +
                NumUtils::toBinary(m_size, m_value.d_int);
       break;
+    case Value::Type::Hexadecimal:
+      result = (m_size ? std::to_string(m_size) : "") + std::string("'h") +
+               NumUtils::binToHex(NumUtils::toBinary(m_size, m_value.d_int));
+      break;
     case Value::Type::Integer:
       result = std::to_string(m_value.s_int);
       break;
@@ -317,6 +321,9 @@ int SValue::vpiValType() {
   switch (valueType) {
     case Value::Type::Binary:
       return vpiBinaryConst;
+      break;
+    case Value::Type::Hexadecimal:
+      return vpiHexConst;
       break;
     case Value::Type::Scalar:
       return vpiIntConst;
@@ -1857,6 +1864,10 @@ std::string StValue::decompiledValue() {
     case Type::Binary:
       result =
           (m_size ? std::to_string(m_size) : "") + std::string("'b") + m_value;
+      break;
+    case Type::Hexadecimal:
+      result =
+          (m_size ? std::to_string(m_size) : "") + std::string("'h") + m_value;
       break;
     default:
       break;
