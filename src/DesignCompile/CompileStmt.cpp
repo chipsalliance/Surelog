@@ -1358,6 +1358,13 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
         NodeId Data_declaration = fC->Child(Tf_port_declaration);
         if (fC->Type(Data_declaration) == slData_declaration) {
           NodeId Variable_declaration = fC->Child(Data_declaration);
+          bool is_static = false;
+          if (fC->Type(Variable_declaration) == slLifetime_Automatic) {
+            Variable_declaration = fC->Sibling(Variable_declaration);
+          } else if (fC->Type(Variable_declaration) == slLifetime_Static) {
+            is_static = true;
+            Variable_declaration = fC->Sibling(Variable_declaration);
+          }
           NodeId Data_type = fC->Child(Variable_declaration);
           UHDM::typespec* ts = compileTypespec(
               component, fC, Data_type, compileDesign, parent, nullptr, true);
@@ -1373,6 +1380,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
                   component, fC, Data_type, compileDesign, parent, nullptr,
                   true, false);
               if (var) {
+                var->VpiAutomatic(!is_static);
                 var->VpiName(name);
                 vars->push_back(var);
               }
