@@ -719,9 +719,10 @@ void writeClass(ClassDefinition* classDef, VectorOfclass_defn* dest_classes,
     if (fC) {
       // Builtin classes have no file
       c->VpiFile(fC->getFileName());
-      NodeId modId = classDef->getNodeIds()[0];
-      c->VpiLineNo(fC->Line(modId));
-      c->VpiColumnNo(fC->Column(modId));
+      const NodeId modId = classDef->getNodeIds()[0];
+      const NodeId startId = fC->sl_collect(modId, VObjectType::slClass);
+      c->VpiLineNo(fC->Line(startId));
+      c->VpiColumnNo(fC->Column(startId));
       c->VpiEndLineNo(fC->EndLine(modId));
       c->VpiEndColumnNo(fC->EndColumn(modId));
     }
@@ -1177,14 +1178,26 @@ void UhdmWriter::writeInterface(ModuleDefinition* mod, interface* m,
     modport* dest_modport = s.MakeModport();
     // dest_modport->Interface(m); // Loop in elaboration!
     dest_modport->VpiParent(m);
+    const FileContent* orig_fC = orig_modport.second.getFileContent();
+    const NodeId orig_nodeId = orig_modport.second.getNodeId();
+    dest_modport->VpiFile(orig_fC->getFileName());
+    dest_modport->VpiLineNo(orig_fC->Line(orig_nodeId));
+    dest_modport->VpiColumnNo(orig_fC->Column(orig_nodeId));
+    dest_modport->VpiEndLineNo(orig_fC->EndLine(orig_nodeId));
+    dest_modport->VpiEndColumnNo(orig_fC->EndColumn(orig_nodeId));
     modPortMap.insert(std::make_pair(&orig_modport.second, dest_modport));
     dest_modport->VpiName(orig_modport.first);
     VectorOfio_decl* ios = s.MakeIo_declVec();
     for (auto& sig : orig_modport.second.getPorts()) {
+      const FileContent* fC = sig.getFileContent();
       io_decl* io = s.MakeIo_decl();
       io->VpiName(sig.getName());
-      const FileContent* fC = sig.getFileContent();
       NodeId id = sig.getNodeId();
+      io->VpiFile(fC->getFileName());
+      io->VpiLineNo(fC->Line(id));
+      io->VpiColumnNo(fC->Column(id));
+      io->VpiEndLineNo(fC->EndLine(id));
+      io->VpiEndColumnNo(fC->EndColumn(id));
       if (NodeId Expression = fC->Sibling(id)) {
         any* exp =
             m_helper.compileExpression(mod, fC, Expression, m_compileDesign,
@@ -2277,12 +2290,24 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
     dest_modport->Interface(m);
     dest_modport->VpiName(orig_modport.first);
     dest_modport->VpiParent(m);
+    const FileContent* orig_fC = orig_modport.second.getFileContent();
+    const NodeId orig_nodeId = orig_modport.second.getNodeId();
+    dest_modport->VpiFile(orig_fC->getFileName());
+    dest_modport->VpiLineNo(orig_fC->Line(orig_nodeId));
+    dest_modport->VpiColumnNo(orig_fC->Column(orig_nodeId));
+    dest_modport->VpiEndLineNo(orig_fC->EndLine(orig_nodeId));
+    dest_modport->VpiEndColumnNo(orig_fC->EndColumn(orig_nodeId));
     VectorOfio_decl* ios = s.MakeIo_declVec();
     for (auto& sig : orig_modport.second.getPorts()) {
+      const FileContent* fC = sig.getFileContent();
       io_decl* io = s.MakeIo_decl();
       io->VpiName(sig.getName());
-      const FileContent* fC = sig.getFileContent();
       NodeId id = sig.getNodeId();
+      io->VpiFile(fC->getFileName());
+      io->VpiLineNo(fC->Line(id));
+      io->VpiColumnNo(fC->Column(id));
+      io->VpiEndLineNo(fC->EndLine(id));
+      io->VpiEndColumnNo(fC->EndColumn(id));
       if (NodeId Expression = fC->Sibling(id)) {
         any* exp =
             m_helper.compileExpression(mod, fC, Expression, m_compileDesign,
@@ -2338,6 +2363,8 @@ void writePrimTerms(ModuleInstance* instance, primitive* prim, int vpiGateType,
       term->VpiFile(port->VpiFile());
       term->VpiLineNo(port->VpiLineNo());
       term->VpiColumnNo(port->VpiColumnNo());
+      term->VpiEndLineNo(port->VpiEndLineNo());
+      term->VpiEndColumnNo(port->VpiEndColumnNo());
       term->VpiDirection(port->VpiDirection());
       term->VpiParent(prim);
       term->VpiTermIndex(index);
@@ -2562,6 +2589,13 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
           gate = s.MakeGate();
           if (UHDM::VectorOfrange* ranges = child->getNetlist()->ranges()) {
             gate_array = s.MakeGate_array();
+            gate_array->VpiName(child->getInstanceName());
+            gate_array->VpiFullName(child->getFullPathName());
+            gate_array->VpiFile(child->getFileName());
+            gate_array->VpiLineNo(child->getLineNb());
+            gate_array->VpiColumnNo(child->getColumnNb());
+            gate_array->VpiEndLineNo(child->getEndLineNb());
+            gate_array->VpiEndColumnNo(child->getEndColumnNb());
             VectorOfprimitive* prims = s.MakePrimitiveVec();
             gate_array->Primitives(prims);
             gate_array->Ranges(ranges);
@@ -2586,6 +2620,9 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
         gate->VpiFullName(child->getFullPathName());
         gate->VpiFile(child->getFileName());
         gate->VpiLineNo(child->getLineNb());
+        gate->VpiColumnNo(child->getColumnNb());
+        gate->VpiEndLineNo(child->getEndLineNb());
+        gate->VpiEndColumnNo(child->getEndColumnNb());
         UHDM_OBJECT_TYPE utype = m->UhdmType();
         if (utype == uhdmmodule) {
           ((module*)m)->Primitives(subPrimitives);
@@ -2774,9 +2811,10 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
         if (fC) {
           // Builtin package has no file
           p->VpiFile(fC->getFileName());
-          NodeId modId = pack->getNodeIds()[0];
-          p->VpiLineNo(fC->Line(modId));
-          p->VpiColumnNo(fC->Column(modId));
+          const NodeId modId = pack->getNodeIds()[0];
+          const NodeId startId = fC->sl_collect(modId, VObjectType::slPackage);
+          p->VpiLineNo(fC->Line(startId));
+          p->VpiColumnNo(fC->Column(startId));
           p->VpiEndLineNo(fC->EndLine(modId));
           p->VpiEndColumnNo(fC->EndColumn(modId));
         }
@@ -2802,9 +2840,10 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
         if (fC) {
           // Builtin package has no file
           p->VpiFile(fC->getFileName());
-          NodeId modId = pack->getNodeIds()[0];
-          p->VpiLineNo(fC->Line(modId));
-          p->VpiColumnNo(fC->Column(modId));
+          const NodeId modId = pack->getNodeIds()[0];
+          const NodeId startId = fC->sl_collect(modId, VObjectType::slPackage);
+          p->VpiLineNo(fC->Line(startId));
+          p->VpiColumnNo(fC->Column(startId));
           p->VpiEndLineNo(fC->EndLine(modId));
           p->VpiEndColumnNo(fC->EndColumn(modId));
         }
@@ -2824,9 +2863,10 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
         p->VpiParent(d);
         p->VpiDefName(prog->getName());
         p->VpiFile(fC->getFileName());
-        NodeId modId = prog->getNodeIds()[0];
-        p->VpiLineNo(fC->Line(modId));
-        p->VpiColumnNo(fC->Column(modId));
+        const NodeId modId = prog->getNodeIds()[0];
+        const NodeId startId = fC->sl_collect(modId, VObjectType::slProgram);
+        p->VpiLineNo(fC->Line(startId));
+        p->VpiColumnNo(fC->Column(startId));
         p->VpiEndLineNo(fC->EndLine(modId));
         p->VpiEndColumnNo(fC->EndColumn(modId));
         p->Attributes(prog->Attributes());
@@ -2850,9 +2890,10 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
         m->VpiParent(d);
         m->VpiDefName(mod->getName());
         m->VpiFile(fC->getFileName());
-        NodeId modId = mod->getNodeIds()[0];
-        m->VpiLineNo(fC->Line(modId));
-        m->VpiColumnNo(fC->Column(modId));
+        const NodeId modId = mod->getNodeIds()[0];
+        const NodeId startId = fC->sl_collect(modId, VObjectType::slInterface);
+        m->VpiLineNo(fC->Line(startId));
+        m->VpiColumnNo(fC->Column(startId));
         m->VpiEndLineNo(fC->EndLine(modId));
         m->VpiEndColumnNo(fC->EndColumn(modId));
         m->Attributes(mod->Attributes());
@@ -2882,9 +2923,11 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
         m->VpiDefName(mod->getName());
         m->Attributes(mod->Attributes());
         m->VpiFile(fC->getFileName());
-        NodeId modId = mod->getNodeIds()[0];
-        m->VpiLineNo(fC->Line(modId));
-        m->VpiColumnNo(fC->Column(modId));
+        const NodeId modId = mod->getNodeIds()[0];
+        const NodeId startId =
+            fC->sl_collect(modId, VObjectType::slModule_keyword);
+        m->VpiLineNo(fC->Line(startId));
+        m->VpiColumnNo(fC->Column(startId));
         m->VpiEndLineNo(fC->EndLine(modId));
         m->VpiEndColumnNo(fC->EndColumn(modId));
         uhdm_modules->push_back(m);
@@ -2896,8 +2939,13 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
           defn->VpiParent(d);
           defn->VpiDefName(mod->getName());
           defn->VpiFile(fC->getFileName());
-          defn->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
-          defn->VpiColumnNo(fC->Column(mod->getNodeIds()[0]));
+          const NodeId modId = mod->getNodeIds()[0];
+          const NodeId startId =
+              fC->sl_collect(modId, VObjectType::slPrimitive);
+          defn->VpiLineNo(fC->Line(startId));
+          defn->VpiColumnNo(fC->Column(startId));
+          defn->VpiEndLineNo(fC->EndLine(modId));
+          defn->VpiEndColumnNo(fC->EndColumn(modId));
           defn->Attributes(mod->Attributes());
           uhdm_udps->push_back(defn);
         }

@@ -334,9 +334,9 @@ bool CompileModule::collectUdpObjects_() {
         entry->VpiSize(nb);
         entry->VpiFile(fC->getFileName());
         entry->VpiLineNo(fC->Line(Level_input_list));
-        entry->VpiColumnNo(fC->Column(Level_symbol));
+        entry->VpiColumnNo(fC->Column(Level_input_list));
         entry->VpiEndLineNo(fC->EndLine(Level_input_list));
-        entry->VpiEndColumnNo(fC->EndColumn(Level_symbol));
+        entry->VpiEndColumnNo(fC->EndColumn(Level_input_list));
         entries->push_back(entry);
         break;
       }
@@ -435,9 +435,9 @@ bool CompileModule::collectUdpObjects_() {
         entry->VpiSize(nb);
         entry->VpiFile(fC->getFileName());
         entry->VpiLineNo(fC->Line(Level_input_list));
-        entry->VpiColumnNo(fC->Column(Level_symbol));
+        entry->VpiColumnNo(fC->Column(Level_input_list));
         entry->VpiEndLineNo(fC->EndLine(Level_input_list));
-        entry->VpiEndColumnNo(fC->EndColumn(Level_symbol));
+        entry->VpiEndColumnNo(fC->EndColumn(Level_input_list));
         entries->push_back(entry);
         break;
       }
@@ -1050,7 +1050,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
                   Signal signal(fC, simple_port_name,
                                 VObjectType::slData_type_or_implicit,
                                 port_direction_type, 0, false);
-                  m_module->insertModPort(modportsymb, signal);
+                  m_module->insertModPort(modportsymb, signal, modportname);
                   modport_simple_port = fC->Sibling(modport_simple_port);
                 }
               } else if (port_declaration_type ==

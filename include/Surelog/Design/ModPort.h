@@ -30,24 +30,31 @@
 #include <string_view>
 #include <vector>
 
+#include <Surelog/Common/SymbolId.h>
+
 namespace SURELOG {
 
 class ModuleDefinition;
+class FileContent;
 
 class ModPort final {
  public:
-  ModPort(ModuleDefinition* parent, const std::string_view name)
-      : m_parent(parent), m_name(name) {}
+  ModPort(ModuleDefinition* parent, std::string_view name, const FileContent *const fC, NodeId nodeId)
+      : m_parent(parent), m_name(name), m_fileContent(fC), m_nodeId(nodeId) {}
 
   const std::string& getName() const { return m_name; }
   void addSignal(const Signal& sig) { m_ports.push_back(sig); }
   const std::vector<Signal>& getPorts() const { return m_ports; }
   const Signal* getPort(const std::string& name) const;
-  ModuleDefinition* getParent() { return m_parent; }
+  ModuleDefinition* getParent() const { return m_parent; }
+  const FileContent* getFileContent() const { return m_fileContent; }
+  NodeId getNodeId() const { return m_nodeId; }
 
  private:
   ModuleDefinition* const m_parent;
   const std::string m_name;
+  const FileContent* const m_fileContent;
+  const NodeId m_nodeId;
 
   std::vector<Signal> m_ports;
 };

@@ -1287,7 +1287,8 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
   const DataType* dtype = sig->getDataType();
   VObjectType subnettype = sig->getType();
 
-  std::string signame = sig->getName();
+  const std::string& signame = sig->getName();
+  const FileContent* const fC = sig->getFileContent();
 
   variables* obj = nullptr;
 
@@ -1502,6 +1503,16 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       logicv->Ranges(packedDimensions);
       logic_typespec* ltps = s.MakeLogic_typespec();
       ltps->Ranges(packedDimensions);
+      ltps->VpiFile(fC->getFileName());
+      NodeId id = 0;
+      if (sig->getPackedDimension()) id = fC->Parent(sig->getPackedDimension());
+      if (!id) id = sig->getNodeId();
+      if (id) {
+        ltps->VpiLineNo(fC->Line(id));
+        ltps->VpiColumnNo(fC->Column(id));
+        ltps->VpiEndLineNo(fC->EndLine(id));
+        ltps->VpiEndColumnNo(fC->EndColumn(id));
+      }
       tps = ltps;
       logicv->Typespec(tps);
       var = logicv;
@@ -1666,7 +1677,6 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       ((variables*)obj)->VpiName("");
     }
     array_var->Expr(assignExp);
-    const FileContent* const fC = sig->getFileContent();
     obj->VpiFile(fC->getFileName());
     obj->VpiLineNo(fC->Line(sig->getNodeId()));
     obj->VpiColumnNo(fC->Column(sig->getNodeId()));

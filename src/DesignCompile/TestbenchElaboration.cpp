@@ -258,9 +258,14 @@ bool TestbenchElaboration::bindBaseClasses_() {
         extends->VpiEndLineNo(fCDef->EndLine(placeHolder->getNodeId()));
         extends->VpiEndColumnNo(fCDef->EndColumn(placeHolder->getNodeId()));
         UHDM::class_typespec* tps = s.MakeClass_typespec();
+        tps->VpiFile(fCDef->getFileName());
+        tps->VpiLineNo(fCDef->Line(placeHolder->getNodeId()));
+        tps->VpiColumnNo(fCDef->Column(placeHolder->getNodeId()));
+        tps->VpiEndLineNo(fCDef->EndLine(placeHolder->getNodeId()));
+        tps->VpiEndColumnNo(fCDef->EndColumn(placeHolder->getNodeId()));
         extends->Class_typespec(tps);
         tps->Class_defn(parent);
-        tps->VpiName(parent->VpiName());
+        tps->VpiName(placeHolder->getName());
         derived->Extends(extends);
         UHDM::VectorOfclass_defn* all_derived = parent->Deriveds();
         if (all_derived == nullptr) {

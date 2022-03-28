@@ -131,6 +131,8 @@ void SV3_1aTreeShapeListener::exitJump_statement(
 
 void SV3_1aTreeShapeListener::exitClass_declaration(
     SV3_1aParser::Class_declarationContext *ctx) {
+  if (ctx->CLASS())
+    addVObject((antlr4::ParserRuleContext *)ctx->CLASS(), VObjectType::slClass);
   if (ctx->VIRTUAL())
     addVObject((antlr4::ParserRuleContext *)ctx->VIRTUAL(),
                VObjectType::slVirtual);
@@ -148,6 +150,9 @@ void SV3_1aTreeShapeListener::exitClass_declaration(
 
 void SV3_1aTreeShapeListener::exitInterface_class_declaration(
     SV3_1aParser::Interface_class_declarationContext *ctx) {
+  if (ctx->INTERFACE())
+    addVObject((antlr4::ParserRuleContext *)ctx->INTERFACE(),
+               VObjectType::slInterface);
   if (ctx->EXTENDS())
     addVObject((antlr4::ParserRuleContext *)ctx->EXTENDS(),
                VObjectType::slExtends);
@@ -199,15 +204,29 @@ void SV3_1aTreeShapeListener::exitSlline(SV3_1aParser::SllineContext *ctx) {
 void SV3_1aTreeShapeListener::enterInterface_declaration(
     SV3_1aParser::Interface_declarationContext *ctx) {
   std::string ident;
-  if (ctx->interface_ansi_header())
+  if (ctx->interface_ansi_header()) {
     ident = ctx->interface_ansi_header()->interface_identifier()->getText();
-  else if (ctx->interface_nonansi_header())
+    if (ctx->interface_ansi_header()->INTERFACE()) {
+      addVObject((antlr4::ParserRuleContext *)ctx->interface_ansi_header()
+                     ->INTERFACE(),
+                 VObjectType::slInterface);
+    }
+  } else if (ctx->interface_nonansi_header()) {
     ident = ctx->interface_nonansi_header()->interface_identifier()->getText();
-  else {
+    if (ctx->interface_nonansi_header()->INTERFACE()) {
+      addVObject((antlr4::ParserRuleContext *)ctx->interface_nonansi_header()
+                     ->INTERFACE(),
+                 VObjectType::slInterface);
+    }
+  } else {
     if (ctx->interface_identifier(0))
       ident = ctx->interface_identifier(0)->getText();
     else
       ident = "INTERFACE NAME UNKNOWN";
+    if (ctx->INTERFACE()) {
+      addVObject((antlr4::ParserRuleContext *)ctx->INTERFACE(),
+                 VObjectType::slInterface);
+    }
   }
   ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
   addNestedDesignElement(ctx, ident, DesignElement::Interface,
@@ -546,15 +565,29 @@ void SV3_1aTreeShapeListener::exitPackage_declaration(
 void SV3_1aTreeShapeListener::enterProgram_declaration(
     SV3_1aParser::Program_declarationContext *ctx) {
   std::string ident;
-  if (ctx->program_ansi_header())
+  if (ctx->program_ansi_header()) {
     ident = ctx->program_ansi_header()->identifier()->getText();
-  else if (ctx->program_nonansi_header())
+    if (ctx->program_ansi_header()->PROGRAM()) {
+      addVObject(
+          (antlr4::ParserRuleContext *)ctx->program_ansi_header()->PROGRAM(),
+          VObjectType::slProgram);
+    }
+  } else if (ctx->program_nonansi_header()) {
     ident = ctx->program_nonansi_header()->identifier()->getText();
-  else {
+    if (ctx->program_nonansi_header()->PROGRAM()) {
+      addVObject(
+          (antlr4::ParserRuleContext *)ctx->program_nonansi_header()->PROGRAM(),
+          VObjectType::slProgram);
+    }
+  } else {
     if (ctx->identifier(0))
       ident = ctx->identifier(0)->getText();
     else
       ident = "PROGRAM NAME UNKNOWN";
+    if (ctx->PROGRAM()) {
+      addVObject((antlr4::ParserRuleContext *)ctx->PROGRAM(),
+                 VObjectType::slProgram);
+    }
   }
   ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
   addDesignElement(ctx, ident, DesignElement::Program, VObjectType::slProgram);
@@ -580,6 +613,10 @@ SV3_1aTreeShapeListener::~SV3_1aTreeShapeListener() {}
 
 void SV3_1aTreeShapeListener::enterPackage_declaration(
     SV3_1aParser::Package_declarationContext *ctx) {
+  if (ctx->PACKAGE()) {
+    addVObject((antlr4::ParserRuleContext *)ctx->PACKAGE(),
+               VObjectType::slPackage);
+  }
   std::string ident = ctx->identifier(0)->getText();
   ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
   addDesignElement(ctx, ident, DesignElement::Package, VObjectType::slPackage);
@@ -712,17 +749,34 @@ void SV3_1aTreeShapeListener::enterTimeUnitsDecl_TimePrecisionTimeUnit(
   }
 }
 
-void SV3_1aTreeShapeListener::enterUdp_nonansi_declaration(
-    SV3_1aParser::Udp_nonansi_declarationContext *ctx) {
-  std::string ident = ctx->identifier()->getText();
-  ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
-  addDesignElement(ctx, ident, DesignElement::Primitive,
-                   VObjectType::slPrimitive);
-}
-
-void SV3_1aTreeShapeListener::enterUdp_ansi_declaration(
-    SV3_1aParser::Udp_ansi_declarationContext *ctx) {
-  std::string ident = ctx->identifier()->getText();
+void SV3_1aTreeShapeListener::enterUdp_declaration(
+    SV3_1aParser::Udp_declarationContext *ctx) {
+  std::string ident;
+  if (ctx->udp_ansi_declaration()) {
+    ident = ctx->udp_ansi_declaration()->identifier()->getText();
+    if (ctx->udp_ansi_declaration()->PRIMITIVE()) {
+      addVObject(
+          (antlr4::ParserRuleContext *)ctx->udp_ansi_declaration()->PRIMITIVE(),
+          VObjectType::slPrimitive);
+    }
+  } else if (ctx->udp_nonansi_declaration()) {
+    ident = ctx->udp_nonansi_declaration()->identifier()->getText();
+    if (ctx->udp_nonansi_declaration()->PRIMITIVE()) {
+      addVObject((antlr4::ParserRuleContext *)ctx->udp_nonansi_declaration()
+                     ->PRIMITIVE(),
+                 VObjectType::slPrimitive);
+    }
+  } else {
+    if (ctx->identifier(0)) {
+      ident = ctx->identifier(0)->getText();
+    } else {
+      ident = "UDP NAME UNKNOWN";
+    }
+    if (ctx->PRIMITIVE()) {
+      addVObject((antlr4::ParserRuleContext *)ctx->PRIMITIVE(),
+                 VObjectType::slPrimitive);
+    }
+  }
   ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
   addDesignElement(ctx, ident, DesignElement::Primitive,
                    VObjectType::slPrimitive);

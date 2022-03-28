@@ -65,7 +65,7 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   ModPortClockingBlockMap& getModPortClockingBlockMap() {
     return m_modportClockingBlockMap;
   }
-  void insertModPort(const std::string& modport, Signal& signal);
+  void insertModPort(const std::string& modport, const Signal& signal, NodeId nodeId);
   void insertModPort(const std::string& modport, ClockingBlock& block);
   const Signal* getModPortSignal(const std::string& modport, NodeId port) const;
   ModPort* getModPort(const std::string& modport);

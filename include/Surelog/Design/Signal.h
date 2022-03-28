@@ -55,7 +55,7 @@ class Signal final {
   VObjectType getDirection() const { return m_direction; }
   const FileContent* getFileContent() const { return m_fileContent; }
   NodeId getNodeId() const { return m_nodeId; }
-  std::string getName() const;
+  const std::string& getName() const;
   std::string getInterfaceTypeName() const;
 
   ModuleDefinition* getInterfaceDef() { return m_interfaceDef; }
@@ -80,19 +80,19 @@ class Signal final {
   void setRand() { m_rand = true; }
   void setRandc() { m_randc = true; }
   void setSigned() { m_signed = true; }
-  bool isConst() { return m_const; }
-  bool isVar() { return m_var; }
-  bool isSigned() { return m_signed; }
-  bool isLocal() { return m_local; }
-  bool isStatic() { return m_static; }
-  bool isProtected() { return m_protected; }
-  bool isRand() { return m_rand; }
-  bool isRandc() { return m_randc; }
+  bool isConst() const { return m_const; }
+  bool isVar() const { return m_var; }
+  bool isSigned() const { return m_signed; }
+  bool isLocal() const { return m_local; }
+  bool isStatic() const { return m_static; }
+  bool isProtected() const { return m_protected; }
+  bool isRand() const { return m_rand; }
+  bool isRandc() const { return m_randc; }
   void setDelay(NodeId id) { m_delay = id; }
   void setDriveStrength(NodeId id) { m_drive_strength = id; }
   void setDefaultValue(NodeId id) { m_default_value = id; }
 
-  Signal* getLowConn() { return m_lowConn; }
+  Signal* getLowConn() const { return m_lowConn; }
   NodeId getPackedDimension() const { return m_packedDimension; }
   NodeId getUnpackedDimension() const { return m_unpackedDimension; }
   NodeId getModPortId() const;
@@ -101,7 +101,7 @@ class Signal final {
   NodeId getDelay() const { return m_delay; }
   NodeId getDriveStrength() const { return m_drive_strength; }
   NodeId getDefaultValue() const { return m_default_value; }
-  const DataType* getDataType() { return m_dataType; }
+  const DataType* getDataType() const { return m_dataType; }
 
   std::vector<UHDM::attribute*>* attributes() { return m_attributes; }
   void attributes(std::vector<UHDM::attribute*>* attr) { m_attributes = attr; }

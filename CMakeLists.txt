@@ -152,11 +152,19 @@ set(surelog_grammars
 )
 
 set(surelog_grammars-GENERATED_SRC
+  ${GENDIR}/src/parser/SV3_1aLexer.h
+  ${GENDIR}/src/parser/SV3_1aParserBaseListener.h
+  ${GENDIR}/src/parser/SV3_1aParser.h
+  ${GENDIR}/src/parser/SV3_1aParserListener.h
   ${GENDIR}/src/parser/SV3_1aLexer.cpp
   ${GENDIR}/src/parser/SV3_1aParserBaseListener.cpp
   ${GENDIR}/src/parser/SV3_1aParser.cpp
   ${GENDIR}/src/parser/SV3_1aParserListener.cpp
 
+  ${GENDIR}/src/parser/SV3_1aPpLexer.h
+  ${GENDIR}/src/parser/SV3_1aPpParserBaseListener.h
+  ${GENDIR}/src/parser/SV3_1aPpParser.h
+  ${GENDIR}/src/parser/SV3_1aPpParserListener.h
   ${GENDIR}/src/parser/SV3_1aPpLexer.cpp
   ${GENDIR}/src/parser/SV3_1aPpParserBaseListener.cpp
   ${GENDIR}/src/parser/SV3_1aPpParser.cpp
@@ -188,7 +196,11 @@ add_custom_command(
          ${GENDIR}/include/Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h
          ${GENDIR}/src/SourceCompile/VObjectTypes.cpp
   DEPENDS ${GENDIR}/src/parser/generated-parsers.tstamp
+          ${GENDIR}/src/parser/SV3_1aParserBaseListener.h
+          ${GENDIR}/src/parser/SV3_1aPpParserBaseListener.h
           ${PROJECT_SOURCE_DIR}/scripts/generate_parser_listener.py
+          ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aTreeShapeListener.cpp
+          ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.cpp
 
   WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
   COMMAND echo "---------- VObjectTypes, Listener generation"

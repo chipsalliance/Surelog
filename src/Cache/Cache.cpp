@@ -250,8 +250,8 @@ std::vector<CACHE::VObject> Cache::cacheVObjects(FileContent* fcontent,
     field4 |= 0x000000FFFFFF0000 & (((uint64_t)object.m_endLine)   << (16));
     field4 |= 0x000FFF0000000000 & (((uint64_t)object.m_endColumn) << (16 + 24));
     // clang-format on
-    SURELOG::CACHE::VObject vostruct(field1, field2, field3, field4);
-    object_vec.push_back(vostruct);
+
+    object_vec.emplace_back(field1, field2, field3, field4);
   }
   // std::cout << "SAVE: " << cacheFileName << " "
   //          << fileTable.getSymbol(fileId)
@@ -297,12 +297,12 @@ void Cache::restoreVObjects(
     unsigned int endLine =     (field4 & 0x000000FFFFFF0000) >> (16);
     unsigned short endColumn = (field4 & 0x000FFF0000000000) >> (16 + 24);
     // clang-format on
-    VObject object(fileTable.registerSymbol(canonicalSymbols.getSymbol(name)),
-                   fileTable.registerSymbol(canonicalSymbols.getSymbol(fileId)),
-                   (VObjectType)type, line, column, endLine, endColumn, parent,
-                   definition, child, sibling);
 
-    fileContent->getVObjects().push_back(object);
+    fileContent->getVObjects().emplace_back(
+        fileTable.registerSymbol(canonicalSymbols.getSymbol(name)),
+        fileTable.registerSymbol(canonicalSymbols.getSymbol(fileId)),
+        (VObjectType)type, line, column, endLine, endColumn, parent, definition,
+        child, sibling);
   }
 }
 }  // namespace SURELOG

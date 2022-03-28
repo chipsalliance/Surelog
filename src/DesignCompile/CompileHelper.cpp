@@ -87,7 +87,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
     auto& classSet = def->getObjects(VObjectType::slClass_declaration);
     for (unsigned int i = 0; i < classSet.size(); i++) {
       const FileContent* packageFile = classSet[i].fC;
-      NodeId classDef = classSet[i].nodeId;
+      NodeId classDef = packageFile->Sibling(classSet[i].nodeId);
       std::string name = packageFile->SymName(classDef);
       if (!object_name.empty()) {
         if (name != object_name) continue;
@@ -1884,6 +1884,7 @@ void CompileHelper::compileImportDeclaration(DesignComponent* component,
     import_stmt->VpiColumnNo(fC->Column(package_import_item_id));
     import_stmt->VpiEndLineNo(fC->EndLine(package_import_item_id));
     import_stmt->VpiEndColumnNo(fC->EndColumn(package_import_item_id));
+    import_stmt->VpiName(fC->SymName(package_import_item_id));
     NodeId package_name_id = fC->Child(package_import_item_id);
 
     NodeId item_name_id = fC->Sibling(package_name_id);
@@ -2281,6 +2282,11 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(
   std::string value = fC->SymName(IntConst);
   UHDM::delay_control* dc = s.MakeDelay_control();
   dc->VpiDelay(value);
+  dc->VpiFile(fC->getFileName());
+  dc->VpiLineNo(fC->Line(fC->Child(Delay_control)));
+  dc->VpiColumnNo(fC->Column(fC->Child(Delay_control)));
+  dc->VpiEndLineNo(fC->EndLine(fC->Child(Delay_control)));
+  dc->VpiEndColumnNo(fC->EndColumn(fC->Child(Delay_control)));
   NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
   if (Statement_or_null) {
     VectorOfany* st = compileStmt(component, fC, Statement_or_null,
@@ -2339,6 +2345,11 @@ UHDM::atomic_stmt* CompileHelper::compileDelayControl(
   std::string value = fC->SymName(IntConst);
   UHDM::delay_control* dc = s.MakeDelay_control();
   dc->VpiDelay(value);
+  dc->VpiFile(fC->getFileName());
+  dc->VpiLineNo(fC->Line(fC->Child(Delay_control)));
+  dc->VpiColumnNo(fC->Column(fC->Child(Delay_control)));
+  dc->VpiEndLineNo(fC->EndLine(fC->Child(Delay_control)));
+  dc->VpiEndColumnNo(fC->EndColumn(fC->Child(Delay_control)));
   return dc;
 }
 
@@ -3010,13 +3021,6 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
       }
     }
     if (call == nullptr) call = s.MakeFunc_call();
-    if (call->VpiLineNo() == 0) {
-      call->VpiFile(fC->getFileName());
-      call->VpiLineNo(fC->Line(tfNameNode));
-      call->VpiColumnNo(fC->Column(tfNameNode));
-      call->VpiEndLineNo(fC->EndLine(tfNameNode));
-      call->VpiEndColumnNo(fC->EndColumn(tfNameNode));
-    }
   }
   if (call->VpiName().empty()) call->VpiName(name);
   if (call->VpiLineNo() == 0) {
@@ -3043,12 +3047,12 @@ VectorOfany* CompileHelper::compileTfCallArguments(
     CompileDesign* compileDesign, UHDM::any* call, ValuedComponentI* instance,
     bool reduce, bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
-  VectorOfany* arguments = s.MakeAnyVec();
-  NodeId argumentNode = fC->Child(Arg_list_node);
   if (fC->Type(Arg_list_node) == VObjectType::slSelect) {
     // Task or func call with no argument, not even ()
-    return arguments;
+    return nullptr;
   }
+  NodeId argumentNode = fC->Child(Arg_list_node);
+  if (!argumentNode) return nullptr;
   VectorOfio_decl* io_decls = nullptr;
   if (const func_call* tf = any_cast<func_call*>(call)) {
     const function* func = tf->Function();
@@ -3057,6 +3061,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(
     const task* task = tf->Task();
     if (task) io_decls = task->Io_decls();
   }
+  VectorOfany* arguments = s.MakeAnyVec();
   std::map<std::string, any*> args;
   std::vector<any*> argOrder;
   while (argumentNode) {
@@ -3239,6 +3244,11 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
     NodeId IntConst = fC->Child(Delay_control);
     std::string value = fC->SymName(IntConst);
     delay_control->VpiDelay(value);
+    delay_control->VpiFile(fC->getFileName());
+    delay_control->VpiLineNo(fC->Line(fC->Child(Delay_control)));
+    delay_control->VpiColumnNo(fC->Column(fC->Child(Delay_control)));
+    delay_control->VpiEndLineNo(fC->EndLine(fC->Child(Delay_control)));
+    delay_control->VpiEndColumnNo(fC->EndColumn(fC->Child(Delay_control)));
   }
   if (AssignOp_Assign)
     assign->VpiOpType(UhdmWriter::getVpiOpType(fC->Type(AssignOp_Assign)));
@@ -3291,6 +3301,11 @@ std::vector<UHDM::attribute*>* CompileHelper::compileAttributes(
       NodeId Constant_expression = fC->Sibling(Attr_name);
       const std::string& name = fC->SymName(fC->Child(Attr_name));
       attribute->VpiName(name);
+      attribute->VpiFile(fC->getFileName());
+      attribute->VpiLineNo(fC->Line(Attr_spec));
+      attribute->VpiColumnNo(fC->Column(Attr_spec));
+      attribute->VpiEndLineNo(fC->EndLine(Attr_spec));
+      attribute->VpiEndColumnNo(fC->EndColumn(Attr_spec));
       results->push_back(attribute);
       if (Constant_expression) {
         UHDM::expr* expr = (UHDM::expr*)compileExpression(
@@ -3530,6 +3545,11 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(
           UHDM::clocking_io_decl* io = s.MakeClocking_io_decl();
           io->VpiInputEdge(inputEdge);
           io->VpiOutputEdge(outputEdge);
+          io->VpiFile(fC->getFileName());
+          io->VpiLineNo(fC->Line(Clocking_decl_assign));
+          io->VpiColumnNo(fC->Column(Clocking_decl_assign));
+          io->VpiEndLineNo(fC->EndLine(Clocking_decl_assign));
+          io->VpiEndColumnNo(fC->EndColumn(Clocking_decl_assign));
           if (Expr) {
             UHDM::expr* exp = (expr*)compileExpression(
                 component, fC, Expr, compileDesign, ctrl, instance);
@@ -3567,6 +3587,11 @@ UHDM::event_control* CompileHelper::compileClocking_event(
     ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   event_control* ctrl = s.MakeEvent_control();
+  ctrl->VpiFile(fC->getFileName());
+  ctrl->VpiLineNo(fC->Line(nodeId));
+  ctrl->VpiColumnNo(fC->Column(nodeId));
+  ctrl->VpiEndLineNo(fC->EndLine(nodeId));
+  ctrl->VpiEndColumnNo(fC->EndColumn(nodeId));
   NodeId identifier = fC->Child(nodeId);
   UHDM::any* exp = compileExpression(component, fC, identifier, compileDesign,
                                      pexpr, instance);

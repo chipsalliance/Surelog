@@ -125,7 +125,9 @@ std::string Signal::getInterfaceTypeName() const {
   return type_name;
 }
 
-std::string Signal::getName() const { return m_fileContent->SymName(m_nodeId); }
+const std::string& Signal::getName() const {
+  return m_fileContent->SymName(m_nodeId);
+}
 
 NodeId Signal::getModPortId() const {
   return m_fileContent->Sibling(m_interfaceTypeNameId);
