@@ -7038,18 +7038,24 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@test_program.ADDR_W), line:13:15, endln:13:21, parent:work@test_program
     |UINT:13
+    |vpiTypespec:
+    \_int_typespec: 
     |vpiLocalParam:1
     |vpiName:ADDR_W
     |vpiFullName:work@test_program.ADDR_W
   |vpiParameter:
   \_parameter: (work@test_program.SYMBOL_W), line:15:15, endln:15:23, parent:work@test_program
     |UINT:8
+    |vpiTypespec:
+    \_int_typespec: 
     |vpiLocalParam:1
     |vpiName:SYMBOL_W
     |vpiFullName:work@test_program.SYMBOL_W
   |vpiParameter:
   \_parameter: (work@test_program.NUM_SYMBOLS), line:16:15, endln:16:26, parent:work@test_program
     |UINT:4
+    |vpiTypespec:
+    \_int_typespec: 
     |vpiLocalParam:1
     |vpiName:NUM_SYMBOLS
     |vpiFullName:work@test_program.NUM_SYMBOLS
@@ -7061,36 +7067,56 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@test_program.BURST_W), line:19:15, endln:19:22, parent:work@test_program
     |UINT:4
+    |vpiTypespec:
+    \_int_typespec: 
     |vpiLocalParam:1
     |vpiName:BURST_W
     |vpiFullName:work@test_program.BURST_W
   |vpiParameter:
   \_parameter: (work@test_program.MAX_BURST), line:20:15, endln:20:24, parent:work@test_program
     |UINT:8
+    |vpiTypespec:
+    \_int_typespec: 
     |vpiLocalParam:1
     |vpiName:MAX_BURST
     |vpiFullName:work@test_program.MAX_BURST
   |vpiParameter:
   \_parameter: (work@test_program.SLAVE_SPAN), line:22:15, endln:22:25, parent:work@test_program
     |HEX:1000
+    |vpiTypespec:
+    \_int_typespec: 
+      |vpiRange:
+      \_range: 
+        |vpiLeftRange:
+        \_constant: 
+          |INT:31
+        |vpiRightRange:
+        \_constant: 
+          |INT:0
     |vpiLocalParam:1
     |vpiName:SLAVE_SPAN
     |vpiFullName:work@test_program.SLAVE_SPAN
   |vpiParameter:
   \_parameter: (work@test_program.MAX_COMMAND_IDLE), line:24:15, endln:24:31, parent:work@test_program
     |UINT:5
+    |vpiTypespec:
+    \_int_typespec: 
     |vpiLocalParam:1
     |vpiName:MAX_COMMAND_IDLE
     |vpiFullName:work@test_program.MAX_COMMAND_IDLE
   |vpiParameter:
   \_parameter: (work@test_program.MAX_COMMAND_BACKPRESSURE), line:25:15, endln:25:39, parent:work@test_program
     |UINT:2
+    |vpiTypespec:
+    \_int_typespec: 
     |vpiLocalParam:1
     |vpiName:MAX_COMMAND_BACKPRESSURE
     |vpiFullName:work@test_program.MAX_COMMAND_BACKPRESSURE
   |vpiParameter:
   \_parameter: (work@test_program.MAX_DATA_IDLE), line:26:15, endln:26:28, parent:work@test_program
     |UINT:3
+    |vpiTypespec:
+    \_int_typespec: 
     |vpiLocalParam:1
     |vpiName:MAX_DATA_IDLE
     |vpiFullName:work@test_program.MAX_DATA_IDLE
@@ -7099,8 +7125,10 @@ design: (work@top)
     |vpiRhs:
     \_constant: , line:13:42, endln:13:44
       |vpiDecompile:13
-      |vpiSize:64
+      |vpiSize:32
       |UINT:13
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test_program.ADDR_W), line:13:15, endln:13:21, parent:work@test_program
@@ -7109,8 +7137,10 @@ design: (work@top)
     |vpiRhs:
     \_constant: , line:15:42, endln:15:43
       |vpiDecompile:8
-      |vpiSize:64
+      |vpiSize:32
       |UINT:8
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test_program.SYMBOL_W), line:15:15, endln:15:23, parent:work@test_program
@@ -7119,8 +7149,10 @@ design: (work@top)
     |vpiRhs:
     \_constant: , line:16:42, endln:16:43
       |vpiDecompile:4
-      |vpiSize:64
+      |vpiSize:32
       |UINT:4
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test_program.NUM_SYMBOLS), line:16:15, endln:16:26, parent:work@test_program
@@ -7142,8 +7174,10 @@ design: (work@top)
     |vpiRhs:
     \_constant: , line:19:42, endln:19:43
       |vpiDecompile:4
-      |vpiSize:64
+      |vpiSize:32
       |UINT:4
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test_program.BURST_W), line:19:15, endln:19:22, parent:work@test_program
@@ -7152,8 +7186,10 @@ design: (work@top)
     |vpiRhs:
     \_constant: , line:20:42, endln:20:43
       |vpiDecompile:8
-      |vpiSize:64
+      |vpiSize:32
       |UINT:8
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test_program.MAX_BURST), line:20:15, endln:20:24, parent:work@test_program
@@ -7164,6 +7200,8 @@ design: (work@top)
       |vpiDecompile:32'h1000
       |vpiSize:32
       |HEX:1000
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test_program.SLAVE_SPAN), line:22:15, endln:22:25, parent:work@test_program
@@ -7172,8 +7210,10 @@ design: (work@top)
     |vpiRhs:
     \_constant: , line:24:42, endln:24:43
       |vpiDecompile:5
-      |vpiSize:64
+      |vpiSize:32
       |UINT:5
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test_program.MAX_COMMAND_IDLE), line:24:15, endln:24:31, parent:work@test_program
@@ -7182,8 +7222,10 @@ design: (work@top)
     |vpiRhs:
     \_constant: , line:25:42, endln:25:43
       |vpiDecompile:2
-      |vpiSize:64
+      |vpiSize:32
       |UINT:2
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test_program.MAX_COMMAND_BACKPRESSURE), line:25:15, endln:25:39, parent:work@test_program
@@ -7192,8 +7234,10 @@ design: (work@top)
     |vpiRhs:
     \_constant: , line:26:42, endln:26:43
       |vpiDecompile:3
-      |vpiSize:64
+      |vpiSize:32
       |UINT:3
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test_program.MAX_DATA_IDLE), line:26:15, endln:26:28, parent:work@test_program
@@ -13813,18 +13857,24 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@test_program.ADDR_W), line:13:15, endln:13:21, parent:work@test_program
     |UINT:13
+    |vpiTypespec:
+    \_int_typespec: , parent:work@test_program.ADDR_W
     |vpiLocalParam:1
     |vpiName:ADDR_W
     |vpiFullName:work@test_program.ADDR_W
   |vpiParameter:
   \_parameter: (work@test_program.SYMBOL_W), line:15:15, endln:15:23, parent:work@test_program
     |UINT:8
+    |vpiTypespec:
+    \_int_typespec: , parent:work@test_program.SYMBOL_W
     |vpiLocalParam:1
     |vpiName:SYMBOL_W
     |vpiFullName:work@test_program.SYMBOL_W
   |vpiParameter:
   \_parameter: (work@test_program.NUM_SYMBOLS), line:16:15, endln:16:26, parent:work@test_program
     |UINT:4
+    |vpiTypespec:
+    \_int_typespec: , parent:work@test_program.NUM_SYMBOLS
     |vpiLocalParam:1
     |vpiName:NUM_SYMBOLS
     |vpiFullName:work@test_program.NUM_SYMBOLS
@@ -13836,36 +13886,56 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@test_program.BURST_W), line:19:15, endln:19:22, parent:work@test_program
     |UINT:4
+    |vpiTypespec:
+    \_int_typespec: , parent:work@test_program.BURST_W
     |vpiLocalParam:1
     |vpiName:BURST_W
     |vpiFullName:work@test_program.BURST_W
   |vpiParameter:
   \_parameter: (work@test_program.MAX_BURST), line:20:15, endln:20:24, parent:work@test_program
     |UINT:8
+    |vpiTypespec:
+    \_int_typespec: , parent:work@test_program.MAX_BURST
     |vpiLocalParam:1
     |vpiName:MAX_BURST
     |vpiFullName:work@test_program.MAX_BURST
   |vpiParameter:
   \_parameter: (work@test_program.SLAVE_SPAN), line:22:15, endln:22:25, parent:work@test_program
     |HEX:1000
+    |vpiTypespec:
+    \_int_typespec: , parent:work@test_program.SLAVE_SPAN
+      |vpiRange:
+      \_range: 
+        |vpiLeftRange:
+        \_constant: 
+          |INT:31
+        |vpiRightRange:
+        \_constant: 
+          |INT:0
     |vpiLocalParam:1
     |vpiName:SLAVE_SPAN
     |vpiFullName:work@test_program.SLAVE_SPAN
   |vpiParameter:
   \_parameter: (work@test_program.MAX_COMMAND_IDLE), line:24:15, endln:24:31, parent:work@test_program
     |UINT:5
+    |vpiTypespec:
+    \_int_typespec: , parent:work@test_program.MAX_COMMAND_IDLE
     |vpiLocalParam:1
     |vpiName:MAX_COMMAND_IDLE
     |vpiFullName:work@test_program.MAX_COMMAND_IDLE
   |vpiParameter:
   \_parameter: (work@test_program.MAX_COMMAND_BACKPRESSURE), line:25:15, endln:25:39, parent:work@test_program
     |UINT:2
+    |vpiTypespec:
+    \_int_typespec: , parent:work@test_program.MAX_COMMAND_BACKPRESSURE
     |vpiLocalParam:1
     |vpiName:MAX_COMMAND_BACKPRESSURE
     |vpiFullName:work@test_program.MAX_COMMAND_BACKPRESSURE
   |vpiParameter:
   \_parameter: (work@test_program.MAX_DATA_IDLE), line:26:15, endln:26:28, parent:work@test_program
     |UINT:3
+    |vpiTypespec:
+    \_int_typespec: , parent:work@test_program.MAX_DATA_IDLE
     |vpiLocalParam:1
     |vpiName:MAX_DATA_IDLE
     |vpiFullName:work@test_program.MAX_DATA_IDLE
@@ -13874,8 +13944,10 @@ design: (work@top)
     |vpiRhs:
     \_constant: , line:13:42, endln:13:44
       |vpiDecompile:13
-      |vpiSize:64
+      |vpiSize:32
       |UINT:13
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test_program.ADDR_W), line:13:15, endln:13:21, parent:work@test_program
@@ -13884,8 +13956,10 @@ design: (work@top)
     |vpiRhs:
     \_constant: , line:15:42, endln:15:43
       |vpiDecompile:8
-      |vpiSize:64
+      |vpiSize:32
       |UINT:8
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test_program.SYMBOL_W), line:15:15, endln:15:23, parent:work@test_program
@@ -13894,8 +13968,10 @@ design: (work@top)
     |vpiRhs:
     \_constant: , line:16:42, endln:16:43
       |vpiDecompile:4
-      |vpiSize:64
+      |vpiSize:32
       |UINT:4
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test_program.NUM_SYMBOLS), line:16:15, endln:16:26, parent:work@test_program
@@ -13914,8 +13990,10 @@ design: (work@top)
     |vpiRhs:
     \_constant: , line:19:42, endln:19:43
       |vpiDecompile:4
-      |vpiSize:64
+      |vpiSize:32
       |UINT:4
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test_program.BURST_W), line:19:15, endln:19:22, parent:work@test_program
@@ -13924,8 +14002,10 @@ design: (work@top)
     |vpiRhs:
     \_constant: , line:20:42, endln:20:43
       |vpiDecompile:8
-      |vpiSize:64
+      |vpiSize:32
       |UINT:8
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test_program.MAX_BURST), line:20:15, endln:20:24, parent:work@test_program
@@ -13936,6 +14016,8 @@ design: (work@top)
       |vpiDecompile:32'h1000
       |vpiSize:32
       |HEX:1000
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test_program.SLAVE_SPAN), line:22:15, endln:22:25, parent:work@test_program
@@ -13944,8 +14026,10 @@ design: (work@top)
     |vpiRhs:
     \_constant: , line:24:42, endln:24:43
       |vpiDecompile:5
-      |vpiSize:64
+      |vpiSize:32
       |UINT:5
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test_program.MAX_COMMAND_IDLE), line:24:15, endln:24:31, parent:work@test_program
@@ -13954,8 +14038,10 @@ design: (work@top)
     |vpiRhs:
     \_constant: , line:25:42, endln:25:43
       |vpiDecompile:2
-      |vpiSize:64
+      |vpiSize:32
       |UINT:2
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test_program.MAX_COMMAND_BACKPRESSURE), line:25:15, endln:25:39, parent:work@test_program
@@ -13964,8 +14050,10 @@ design: (work@top)
     |vpiRhs:
     \_constant: , line:26:42, endln:26:43
       |vpiDecompile:3
-      |vpiSize:64
+      |vpiSize:32
       |UINT:3
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test_program.MAX_DATA_IDLE), line:26:15, endln:26:28, parent:work@test_program

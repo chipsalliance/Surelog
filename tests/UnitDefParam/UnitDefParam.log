@@ -1505,6 +1505,8 @@ design: (work@top_def)
   |vpiParameter:
   \_parameter: (work@def.SIZE1), line:3:11, endln:3:16, parent:work@def
     |UINT:2
+    |vpiTypespec:
+    \_int_typespec: 
     |vpiName:SIZE1
     |vpiFullName:work@def.SIZE1
   |vpiParamAssign:
@@ -1512,8 +1514,10 @@ design: (work@top_def)
     |vpiRhs:
     \_constant: , line:3:19, endln:3:20
       |vpiDecompile:2
-      |vpiSize:64
+      |vpiSize:32
       |UINT:2
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@def.SIZE1), line:3:11, endln:3:16, parent:work@def
@@ -1528,6 +1532,8 @@ design: (work@top_def)
   |vpiParameter:
   \_parameter: (work@secret_number.SIZE), line:3:12, endln:3:16, parent:work@secret_number
     |UINT:0
+    |vpiTypespec:
+    \_int_typespec: 
     |vpiName:SIZE
     |vpiFullName:work@secret_number.SIZE
   |vpiParamAssign:
@@ -1535,8 +1541,10 @@ design: (work@top_def)
     |vpiRhs:
     \_constant: , line:3:19, endln:3:20
       |vpiDecompile:0
-      |vpiSize:64
+      |vpiSize:32
       |UINT:0
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@secret_number.SIZE), line:3:12, endln:3:16, parent:work@secret_number
@@ -1548,7 +1556,8 @@ design: (work@top_def)
   \_parameter: (work@small_test.SIZE), line:14:27, endln:14:31, parent:work@small_test
     |REAL:t.ttts
     |vpiTypespec:
-    \_bit_typespec: , line:14:14, endln:14:20, parent:work@small_test.SIZE
+    \_int_typespec: , line:14:14, endln:14:20, parent:work@small_test.SIZE
+      |vpiSigned:1
       |vpiRange:
       \_range: , line:14:22, endln:14:25
         |vpiLeftRange:
@@ -1568,11 +1577,23 @@ design: (work@top_def)
   |vpiParameter:
   \_parameter: (work@small_test.dummy), line:15:14, endln:15:19, parent:work@small_test
     |UINT:5
+    |vpiTypespec:
+    \_int_typespec: 
     |vpiName:dummy
     |vpiFullName:work@small_test.dummy
   |vpiParameter:
   \_parameter: (work@small_test.p1), line:16:11, endln:16:13, parent:work@small_test
     |BIN:100
+    |vpiTypespec:
+    \_int_typespec: 
+      |vpiRange:
+      \_range: 
+        |vpiLeftRange:
+        \_constant: 
+          |INT:12
+        |vpiRightRange:
+        \_constant: 
+          |INT:0
     |vpiName:p1
     |vpiFullName:work@small_test.p1
   |vpiParamAssign:
@@ -1583,7 +1604,7 @@ design: (work@top_def)
       |vpiSize:4
       |REAL:t.ttts
       |vpiTypespec:
-      \_bit_typespec: , line:14:14, endln:14:20, parent:work@small_test.SIZE
+      \_int_typespec: , line:14:14, endln:14:20, parent:work@small_test.SIZE
       |vpiConstType:2
     |vpiLhs:
     \_parameter: (work@small_test.SIZE), line:14:27, endln:14:31, parent:work@small_test
@@ -1592,8 +1613,10 @@ design: (work@top_def)
     |vpiRhs:
     \_constant: , line:15:22, endln:15:23
       |vpiDecompile:5
-      |vpiSize:64
+      |vpiSize:32
       |UINT:5
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@small_test.dummy), line:15:14, endln:15:19, parent:work@small_test
@@ -1604,6 +1627,8 @@ design: (work@top_def)
       |vpiDecompile:13'b100
       |vpiSize:13
       |BIN:100
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@small_test.p1), line:16:11, endln:16:13, parent:work@small_test
@@ -1629,6 +1654,8 @@ design: (work@top_def)
     |vpiParameter:
     \_parameter: (work@top_def.u1.SIZE1), line:3:11, endln:3:16, parent:work@top_def.u1
       |UINT:2
+      |vpiTypespec:
+      \_int_typespec: , parent:work@top_def.u1.SIZE1
       |vpiName:SIZE1
       |vpiFullName:work@top_def.u1.SIZE1
     |vpiParamAssign:
@@ -1637,8 +1664,10 @@ design: (work@top_def)
       |vpiRhs:
       \_constant: , line:3:19, endln:3:20
         |vpiDecompile:3
-        |vpiSize:64
+        |vpiSize:32
         |UINT:3
+        |vpiTypespec:
+        \_int_typespec: 
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top_def.u1.SIZE1), line:3:11, endln:3:16, parent:work@top_def.u1
@@ -1661,7 +1690,8 @@ design: (work@top_def)
     \_parameter: (work@small_top.u1.SIZE), line:14:27, endln:14:31, parent:work@small_top.u1
       |REAL:t.ttts
       |vpiTypespec:
-      \_bit_typespec: , line:14:14, endln:14:20, parent:work@small_top.u1.SIZE
+      \_int_typespec: , line:14:14, endln:14:20, parent:work@small_top.u1.SIZE
+        |vpiSigned:1
         |vpiRange:
         \_range: , line:14:22, endln:14:25
           |vpiLeftRange:
@@ -1681,11 +1711,23 @@ design: (work@top_def)
     |vpiParameter:
     \_parameter: (work@small_top.u1.dummy), line:15:14, endln:15:19, parent:work@small_top.u1
       |UINT:5
+      |vpiTypespec:
+      \_int_typespec: , parent:work@small_top.u1.dummy
       |vpiName:dummy
       |vpiFullName:work@small_top.u1.dummy
     |vpiParameter:
     \_parameter: (work@small_top.u1.p1), line:16:11, endln:16:13, parent:work@small_top.u1
       |BIN:100
+      |vpiTypespec:
+      \_int_typespec: , parent:work@small_top.u1.p1
+        |vpiRange:
+        \_range: 
+          |vpiLeftRange:
+          \_constant: 
+            |INT:12
+          |vpiRightRange:
+          \_constant: 
+            |INT:0
       |vpiName:p1
       |vpiFullName:work@small_top.u1.p1
     |vpiParamAssign:
@@ -1697,7 +1739,7 @@ design: (work@top_def)
         |vpiSize:4
         |UINT:3
         |vpiTypespec:
-        \_bit_typespec: , line:14:14, endln:14:20, parent:work@small_test.SIZE
+        \_int_typespec: , line:14:14, endln:14:20, parent:work@small_test.SIZE
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@small_top.u1.SIZE), line:14:27, endln:14:31, parent:work@small_top.u1
@@ -1707,8 +1749,10 @@ design: (work@top_def)
       |vpiRhs:
       \_constant: , line:15:22, endln:15:23
         |vpiDecompile:4
-        |vpiSize:64
+        |vpiSize:32
         |UINT:4
+        |vpiTypespec:
+        \_int_typespec: 
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@small_top.u1.dummy), line:15:14, endln:15:19, parent:work@small_top.u1
@@ -1719,6 +1763,8 @@ design: (work@top_def)
         |vpiDecompile:13'b100
         |vpiSize:13
         |BIN:100
+        |vpiTypespec:
+        \_int_typespec: 
         |vpiConstType:3
       |vpiLhs:
       \_parameter: (work@small_top.u1.p1), line:16:11, endln:16:13, parent:work@small_top.u1
@@ -2654,6 +2700,8 @@ design: (work@top_def)
     |vpiParameter:
     \_parameter: (work@defparam_example.U0.SIZE), line:3:12, endln:3:16, parent:work@defparam_example.U0
       |UINT:0
+      |vpiTypespec:
+      \_int_typespec: , parent:work@defparam_example.U0.SIZE
       |vpiName:SIZE
       |vpiFullName:work@defparam_example.U0.SIZE
     |vpiParamAssign:
@@ -2661,8 +2709,10 @@ design: (work@top_def)
       |vpiRhs:
       \_constant: , line:3:19, endln:3:20
         |vpiDecompile:0
-        |vpiSize:64
+        |vpiSize:32
         |UINT:0
+        |vpiTypespec:
+        \_int_typespec: 
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@defparam_example.U0.SIZE), line:3:12, endln:3:16, parent:work@defparam_example.U0
@@ -2678,6 +2728,8 @@ design: (work@top_def)
     |vpiParameter:
     \_parameter: (work@defparam_example.U1.SIZE), line:3:12, endln:3:16, parent:work@defparam_example.U1
       |UINT:0
+      |vpiTypespec:
+      \_int_typespec: , parent:work@defparam_example.U1.SIZE
       |vpiName:SIZE
       |vpiFullName:work@defparam_example.U1.SIZE
     |vpiParamAssign:
@@ -2685,8 +2737,10 @@ design: (work@top_def)
       |vpiRhs:
       \_constant: , line:3:19, endln:3:20
         |vpiDecompile:1
-        |vpiSize:64
+        |vpiSize:32
         |UINT:1
+        |vpiTypespec:
+        \_int_typespec: 
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@defparam_example.U1.SIZE), line:3:12, endln:3:16, parent:work@defparam_example.U1
@@ -2722,6 +2776,8 @@ design: (work@top_def)
     |vpiParameter:
     \_parameter: (work@defparam_example.U2.SIZE), line:3:12, endln:3:16, parent:work@defparam_example.U2
       |UINT:0
+      |vpiTypespec:
+      \_int_typespec: , parent:work@defparam_example.U2.SIZE
       |vpiName:SIZE
       |vpiFullName:work@defparam_example.U2.SIZE
     |vpiParamAssign:
@@ -2729,8 +2785,10 @@ design: (work@top_def)
       |vpiRhs:
       \_constant: , line:3:19, endln:3:20
         |vpiDecompile:2
-        |vpiSize:64
+        |vpiSize:32
         |UINT:2
+        |vpiTypespec:
+        \_int_typespec: 
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@defparam_example.U2.SIZE), line:3:12, endln:3:16, parent:work@defparam_example.U2
@@ -2786,6 +2844,8 @@ design: (work@top_def)
     |vpiParameter:
     \_parameter: (work@defparam_example.U3.SIZE), line:3:12, endln:3:16, parent:work@defparam_example.U3
       |UINT:0
+      |vpiTypespec:
+      \_int_typespec: , parent:work@defparam_example.U3.SIZE
       |vpiName:SIZE
       |vpiFullName:work@defparam_example.U3.SIZE
     |vpiParamAssign:
@@ -2793,8 +2853,10 @@ design: (work@top_def)
       |vpiRhs:
       \_constant: , line:3:19, endln:3:20
         |vpiDecompile:3
-        |vpiSize:64
+        |vpiSize:32
         |UINT:3
+        |vpiTypespec:
+        \_int_typespec: 
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@defparam_example.U3.SIZE), line:3:12, endln:3:16, parent:work@defparam_example.U3

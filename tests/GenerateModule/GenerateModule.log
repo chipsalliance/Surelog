@@ -1085,7 +1085,8 @@ design: (work@small_test)
   \_parameter: (work@small_test.SIZE), line:3:26, endln:3:30, parent:work@small_test
     |UINT:5
     |vpiTypespec:
-    \_bit_typespec: , line:3:13, endln:3:19, parent:work@small_test.SIZE
+    \_int_typespec: , line:3:13, endln:3:19, parent:work@small_test.SIZE
+      |vpiSigned:1
       |vpiRange:
       \_range: , line:3:21, endln:3:24
         |vpiLeftRange:
@@ -1110,7 +1111,7 @@ design: (work@small_test)
       |vpiSize:4
       |UINT:5
       |vpiTypespec:
-      \_bit_typespec: , line:3:13, endln:3:19, parent:work@small_test.SIZE
+      \_int_typespec: , line:3:13, endln:3:19, parent:work@small_test.SIZE
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@small_test.SIZE), line:3:26, endln:3:30, parent:work@small_test
@@ -1121,6 +1122,16 @@ design: (work@small_test)
   |vpiParameter:
   \_parameter: (work@top.toto), line:22:13, endln:22:17, parent:work@top
     |BIN:1
+    |vpiTypespec:
+    \_int_typespec: 
+      |vpiRange:
+      \_range: 
+        |vpiLeftRange:
+        \_constant: 
+          |INT:0
+        |vpiRightRange:
+        \_constant: 
+          |INT:0
     |vpiName:toto
     |vpiFullName:work@top.toto
   |vpiParamAssign:
@@ -1130,6 +1141,8 @@ design: (work@small_test)
       |vpiDecompile:1'b1
       |vpiSize:1
       |BIN:1
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.toto), line:22:13, endln:22:17, parent:work@top
@@ -1165,7 +1178,8 @@ design: (work@small_test)
   \_parameter: (work@small_test.SIZE), line:3:26, endln:3:30, parent:work@small_test
     |UINT:5
     |vpiTypespec:
-    \_bit_typespec: , line:3:13, endln:3:19, parent:work@small_test.SIZE
+    \_int_typespec: , line:3:13, endln:3:19, parent:work@small_test.SIZE
+      |vpiSigned:1
       |vpiRange:
       \_range: , line:3:21, endln:3:24
         |vpiLeftRange:
@@ -1190,7 +1204,7 @@ design: (work@small_test)
       |vpiSize:4
       |UINT:5
       |vpiTypespec:
-      \_bit_typespec: , line:3:13, endln:3:19, parent:work@small_test.SIZE
+      \_int_typespec: , line:3:13, endln:3:19, parent:work@small_test.SIZE
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@small_test.SIZE), line:3:26, endln:3:30, parent:work@small_test
@@ -1531,6 +1545,16 @@ design: (work@small_test)
   |vpiParameter:
   \_parameter: (work@top.toto), line:22:13, endln:22:17, parent:work@top
     |BIN:1
+    |vpiTypespec:
+    \_int_typespec: , parent:work@top.toto
+      |vpiRange:
+      \_range: 
+        |vpiLeftRange:
+        \_constant: 
+          |INT:0
+        |vpiRightRange:
+        \_constant: 
+          |INT:0
     |vpiName:toto
     |vpiFullName:work@top.toto
   |vpiParamAssign:
@@ -1540,6 +1564,8 @@ design: (work@small_test)
       |vpiDecompile:1'b1
       |vpiSize:1
       |BIN:1
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.toto), line:22:13, endln:22:17, parent:work@top

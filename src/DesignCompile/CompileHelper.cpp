@@ -2667,7 +2667,6 @@ bool CompileHelper::compileParameterDeclaration(
           component->setValue(the_name, val, m_exprBuilder);
         }
       }
-
       p->setUhdmParam(param);
       p->setTypespec(ts);
       if (isMultiDimension) p->setMultidimension();
@@ -2752,6 +2751,69 @@ bool CompileHelper::compileParameterDeclaration(
         }
         if (rhs && (rhs->UhdmType() == uhdmconstant)) {
           constant* c = (constant*)rhs;
+          if (ts == nullptr) {
+            switch (c->VpiConstType()) {
+              case vpiRealConst: {
+                ts = s.MakeReal_typespec();
+                p->setTypespec(ts);
+                param->Typespec(ts);
+                break;
+              }
+              case vpiDecConst:
+              case vpiIntConst: {
+                int_typespec* its = s.MakeInt_typespec();
+                its->VpiSigned(false);
+                const std::string& v = c->VpiValue();
+                if (strstr(v.c_str(), "-")) {
+                  its->VpiSigned(true);
+                }
+                ts = its;
+                p->setTypespec(ts);
+                param->Typespec(ts);
+                break;
+              }
+              case vpiHexConst:
+              case vpiOctConst:
+              case vpiBinaryConst: {
+                int_typespec* its = s.MakeInt_typespec();
+                its->VpiSigned(false);
+                if (c->VpiSize() != -1) {  // Unsized
+                  range* r = s.MakeRange();
+                  constant* l = s.MakeConstant();
+                  l->VpiValue("INT:" + std::to_string(c->VpiSize() - 1));
+                  r->Left_expr(l);
+                  constant* rv = s.MakeConstant();
+                  rv->VpiValue(std::string("INT:0"));
+                  r->Right_expr(rv);
+                  VectorOfrange* ranges = s.MakeRangeVec();
+                  ranges->push_back(r);
+                  its->Ranges(ranges);
+
+                  ts = its;
+                  p->setTypespec(ts);
+                  param->Typespec(ts);
+                }
+                break;
+              }
+              case vpiUIntConst: {
+                int_typespec* its = s.MakeInt_typespec();
+                its->VpiSigned(false);
+                ts = its;
+                p->setTypespec(ts);
+                param->Typespec(ts);
+                break;
+              }
+              case vpiStringConst: {
+                ts = s.MakeString_typespec();
+                p->setTypespec(ts);
+                param->Typespec(ts);
+                break;
+              }
+              default:
+                break;
+            }
+          }
+
           c->Typespec(ts);
 
           int size = c->VpiSize();

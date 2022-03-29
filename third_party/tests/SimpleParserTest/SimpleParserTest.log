@@ -562,7 +562,7 @@ design: (work@dff_async_reset)
   \_parameter: (work@LFSR_TASK.Chain1), line:7:17, endln:7:23, parent:work@LFSR_TASK
     |BIN:10001110
     |vpiTypespec:
-    \_bit_typespec: , line:7:11, endln:7:16, parent:work@LFSR_TASK.Chain1
+    \_int_typespec: , line:7:11, endln:7:16, parent:work@LFSR_TASK.Chain1
       |vpiRange:
       \_range: , line:7:12, endln:7:15
         |vpiLeftRange:
@@ -583,7 +583,7 @@ design: (work@dff_async_reset)
   \_parameter: (work@LFSR_TASK.Chain2), line:8:17, endln:8:23, parent:work@LFSR_TASK
     |BIN:10101110
     |vpiTypespec:
-    \_bit_typespec: , line:8:11, endln:8:16, parent:work@LFSR_TASK.Chain2
+    \_int_typespec: , line:8:11, endln:8:16, parent:work@LFSR_TASK.Chain2
       |vpiRange:
       \_range: , line:8:12, endln:8:15
         |vpiLeftRange:
@@ -608,7 +608,7 @@ design: (work@dff_async_reset)
       |vpiSize:8
       |BIN:10001110
       |vpiTypespec:
-      \_bit_typespec: , line:7:11, endln:7:16, parent:work@LFSR_TASK.Chain1
+      \_int_typespec: , line:7:11, endln:7:16, parent:work@LFSR_TASK.Chain1
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@LFSR_TASK.Chain1), line:7:17, endln:7:23, parent:work@LFSR_TASK
@@ -620,7 +620,7 @@ design: (work@dff_async_reset)
       |vpiSize:8
       |BIN:10101110
       |vpiTypespec:
-      \_bit_typespec: , line:8:11, endln:8:16, parent:work@LFSR_TASK.Chain2
+      \_int_typespec: , line:8:11, endln:8:16, parent:work@LFSR_TASK.Chain2
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@LFSR_TASK.Chain2), line:8:17, endln:8:23, parent:work@LFSR_TASK
@@ -1238,11 +1238,15 @@ design: (work@dff_async_reset)
   |vpiParameter:
   \_parameter: (work@arbiter.NUMUNITS), line:7:12, endln:7:20, parent:work@arbiter
     |UINT:8
+    |vpiTypespec:
+    \_int_typespec: 
     |vpiName:NUMUNITS
     |vpiFullName:work@arbiter.NUMUNITS
   |vpiParameter:
   \_parameter: (work@arbiter.ADDRESSWIDTH), line:8:12, endln:8:24, parent:work@arbiter
     |UINT:3
+    |vpiTypespec:
+    \_int_typespec: 
     |vpiName:ADDRESSWIDTH
     |vpiFullName:work@arbiter.ADDRESSWIDTH
   |vpiParamAssign:
@@ -1250,8 +1254,10 @@ design: (work@dff_async_reset)
     |vpiRhs:
     \_constant: , line:7:23, endln:7:24
       |vpiDecompile:8
-      |vpiSize:64
+      |vpiSize:32
       |UINT:8
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@arbiter.NUMUNITS), line:7:12, endln:7:20, parent:work@arbiter
@@ -1260,8 +1266,10 @@ design: (work@dff_async_reset)
     |vpiRhs:
     \_constant: , line:8:27, endln:8:28
       |vpiDecompile:3
-      |vpiSize:64
+      |vpiSize:32
       |UINT:3
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@arbiter.ADDRESSWIDTH), line:8:12, endln:8:24, parent:work@arbiter
@@ -5952,11 +5960,15 @@ design: (work@dff_async_reset)
   |vpiParameter:
   \_parameter: (work@syn_fifo.DATA_WIDTH), line:22:11, endln:22:21, parent:work@syn_fifo
     |UINT:8
+    |vpiTypespec:
+    \_int_typespec: 
     |vpiName:DATA_WIDTH
     |vpiFullName:work@syn_fifo.DATA_WIDTH
   |vpiParameter:
   \_parameter: (work@syn_fifo.ADDR_WIDTH), line:23:11, endln:23:21, parent:work@syn_fifo
     |UINT:8
+    |vpiTypespec:
+    \_int_typespec: 
     |vpiName:ADDR_WIDTH
     |vpiFullName:work@syn_fifo.ADDR_WIDTH
   |vpiParameter:
@@ -5968,8 +5980,10 @@ design: (work@dff_async_reset)
     |vpiRhs:
     \_constant: , line:22:24, endln:22:25
       |vpiDecompile:8
-      |vpiSize:64
+      |vpiSize:32
       |UINT:8
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@syn_fifo.DATA_WIDTH), line:22:11, endln:22:21, parent:work@syn_fifo
@@ -5978,8 +5992,10 @@ design: (work@dff_async_reset)
     |vpiRhs:
     \_constant: , line:23:24, endln:23:25
       |vpiDecompile:8
-      |vpiSize:64
+      |vpiSize:32
       |UINT:8
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@syn_fifo.ADDR_WIDTH), line:23:11, endln:23:21, parent:work@syn_fifo
@@ -6567,7 +6583,7 @@ design: (work@dff_async_reset)
                     |vpiLeftRange:
                     \_constant: , line:40:6, endln:40:16
                       |vpiDecompile:8
-                      |vpiSize:64
+                      |vpiSize:32
                       |UINT:8
                       |vpiConstType:9
                     |vpiRightRange:
@@ -9113,11 +9129,15 @@ design: (work@dff_async_reset)
   |vpiParameter:
   \_parameter: (work@syn_fifo.DATA_WIDTH), line:22:11, endln:22:21, parent:work@syn_fifo
     |UINT:8
+    |vpiTypespec:
+    \_int_typespec: , parent:work@syn_fifo.DATA_WIDTH
     |vpiName:DATA_WIDTH
     |vpiFullName:work@syn_fifo.DATA_WIDTH
   |vpiParameter:
   \_parameter: (work@syn_fifo.ADDR_WIDTH), line:23:11, endln:23:21, parent:work@syn_fifo
     |UINT:8
+    |vpiTypespec:
+    \_int_typespec: , parent:work@syn_fifo.ADDR_WIDTH
     |vpiName:ADDR_WIDTH
     |vpiFullName:work@syn_fifo.ADDR_WIDTH
   |vpiParameter:
@@ -9129,8 +9149,10 @@ design: (work@dff_async_reset)
     |vpiRhs:
     \_constant: , line:22:24, endln:22:25
       |vpiDecompile:8
-      |vpiSize:64
+      |vpiSize:32
       |UINT:8
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@syn_fifo.DATA_WIDTH), line:22:11, endln:22:21, parent:work@syn_fifo
@@ -9139,8 +9161,10 @@ design: (work@dff_async_reset)
     |vpiRhs:
     \_constant: , line:23:24, endln:23:25
       |vpiDecompile:8
-      |vpiSize:64
+      |vpiSize:32
       |UINT:8
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@syn_fifo.ADDR_WIDTH), line:23:11, endln:23:21, parent:work@syn_fifo
@@ -9647,11 +9671,15 @@ design: (work@dff_async_reset)
     |vpiParameter:
     \_parameter: (work@top.U.NUMUNITS), line:7:12, endln:7:20, parent:work@top.U
       |UINT:8
+      |vpiTypespec:
+      \_int_typespec: , parent:work@top.U.NUMUNITS
       |vpiName:NUMUNITS
       |vpiFullName:work@top.U.NUMUNITS
     |vpiParameter:
     \_parameter: (work@top.U.ADDRESSWIDTH), line:8:12, endln:8:24, parent:work@top.U
       |UINT:3
+      |vpiTypespec:
+      \_int_typespec: , parent:work@top.U.ADDRESSWIDTH
       |vpiName:ADDRESSWIDTH
       |vpiFullName:work@top.U.ADDRESSWIDTH
     |vpiParamAssign:
@@ -9659,8 +9687,10 @@ design: (work@dff_async_reset)
       |vpiRhs:
       \_constant: , line:7:23, endln:7:24
         |vpiDecompile:8
-        |vpiSize:64
+        |vpiSize:32
         |UINT:8
+        |vpiTypespec:
+        \_int_typespec: 
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.U.NUMUNITS), line:7:12, endln:7:20, parent:work@top.U
@@ -9669,8 +9699,10 @@ design: (work@dff_async_reset)
       |vpiRhs:
       \_constant: , line:8:27, endln:8:28
         |vpiDecompile:3
-        |vpiSize:64
+        |vpiSize:32
         |UINT:3
+        |vpiTypespec:
+        \_int_typespec: 
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.U.ADDRESSWIDTH), line:8:12, endln:8:24, parent:work@top.U
@@ -10144,7 +10176,7 @@ design: (work@dff_async_reset)
   \_parameter: (work@LFSR_TASK.Chain1), line:7:17, endln:7:23, parent:work@LFSR_TASK
     |BIN:10001110
     |vpiTypespec:
-    \_bit_typespec: , line:7:11, endln:7:16, parent:work@LFSR_TASK.Chain1
+    \_int_typespec: , line:7:11, endln:7:16, parent:work@LFSR_TASK.Chain1
       |vpiRange:
       \_range: , line:7:12, endln:7:15
         |vpiLeftRange:
@@ -10165,7 +10197,7 @@ design: (work@dff_async_reset)
   \_parameter: (work@LFSR_TASK.Chain2), line:8:17, endln:8:23, parent:work@LFSR_TASK
     |BIN:10101110
     |vpiTypespec:
-    \_bit_typespec: , line:8:11, endln:8:16, parent:work@LFSR_TASK.Chain2
+    \_int_typespec: , line:8:11, endln:8:16, parent:work@LFSR_TASK.Chain2
       |vpiRange:
       \_range: , line:8:12, endln:8:15
         |vpiLeftRange:
@@ -10190,7 +10222,7 @@ design: (work@dff_async_reset)
       |vpiSize:8
       |BIN:10001110
       |vpiTypespec:
-      \_bit_typespec: , line:7:11, endln:7:16, parent:work@LFSR_TASK.Chain1
+      \_int_typespec: , line:7:11, endln:7:16, parent:work@LFSR_TASK.Chain1
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@LFSR_TASK.Chain1), line:7:17, endln:7:23, parent:work@LFSR_TASK
@@ -10202,7 +10234,7 @@ design: (work@dff_async_reset)
       |vpiSize:8
       |BIN:10101110
       |vpiTypespec:
-      \_bit_typespec: , line:8:11, endln:8:16, parent:work@LFSR_TASK.Chain2
+      \_int_typespec: , line:8:11, endln:8:16, parent:work@LFSR_TASK.Chain2
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@LFSR_TASK.Chain2), line:8:17, endln:8:23, parent:work@LFSR_TASK
