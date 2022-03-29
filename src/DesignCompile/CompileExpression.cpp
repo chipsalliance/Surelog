@@ -4124,6 +4124,11 @@ UHDM::any *CompileHelper::compileBound(
           ranges = bts->Ranges();
           break;
         }
+        case uhdmint_typespec: {
+          int_typespec *bts = (int_typespec *)ts;
+          ranges = bts->Ranges();
+          break;
+        }
         case uhdmlogic_typespec: {
           logic_typespec *bts = (logic_typespec *)ts;
           ranges = bts->Ranges();

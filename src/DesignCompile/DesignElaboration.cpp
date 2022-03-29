@@ -45,6 +45,8 @@
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
+#include <uhdm/RTTI.h>
+#include <uhdm/bit_typespec.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/constant.h>
 #include <uhdm/expr.h>
@@ -52,6 +54,7 @@
 #include <uhdm/operation.h>
 #include <uhdm/parameter.h>
 #include <uhdm/ref_obj.h>
+#include <uhdm/string_typespec.h>
 #include <uhdm/typespec.h>
 
 #include <fstream>
@@ -1917,6 +1920,18 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
       if (val) {
         instance->setValue(name, val, m_exprBuilder, 0);
         overridenParams.insert(name);
+      }
+      Parameter* p = module->getParameter(name);
+      if (p) {
+        p->setTypespec(nullptr);
+        if (UHDM::parameter* param =
+                any_cast<UHDM::parameter*>(p->getUhdmParam())) {
+          param->Typespec(nullptr);
+        }
+      } else {
+        Location loc(st->registerSymbol(name));
+        Error err(ErrorDefinition::ELAB_UNKNOWN_PARAMETER, loc);
+        m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
       }
     }
   }

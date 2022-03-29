@@ -1862,12 +1862,16 @@ std::string StValue::decompiledValue() {
   std::string result = m_value;
   switch (m_type) {
     case Type::Binary:
-      result =
-          (m_size ? std::to_string(m_size) : "") + std::string("'b") + m_value;
+      result = ((m_size && (m_size != -1)) ? std::to_string(m_size) : "") +
+               std::string("'b") + m_value;
       break;
     case Type::Hexadecimal:
-      result =
-          (m_size ? std::to_string(m_size) : "") + std::string("'h") + m_value;
+      result = ((m_size && (m_size != -1)) ? std::to_string(m_size) : "") +
+               std::string("'h") + m_value;
+      break;
+    case Type::Octal:
+      result = ((m_size && (m_size != -1)) ? std::to_string(m_size) : "") +
+               std::string("'o") + m_value;
       break;
     default:
       break;

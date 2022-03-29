@@ -1092,11 +1092,30 @@ UHDM::typespec* CompileHelper::compileTypespec(
       result = tps;
       break;
     }
-    case VObjectType::slSigning_Signed:
-    case VObjectType::slSigning_Unsigned: {
-      // Parameter implicit type is bit
+    case VObjectType::slSigning_Signed: {
+      // Parameter implicit type is int
       if (ranges) {
-        bit_typespec* tps = s.MakeBit_typespec();
+        int_typespec* tps = s.MakeInt_typespec();
+        tps->VpiSigned(true);
+        tps->Ranges(ranges);
+        result = tps;
+      } else {
+        int_typespec* tps = s.MakeInt_typespec();
+        tps->VpiSigned(true);
+        result = tps;
+      }
+
+      result->VpiFile(fC->getFileName());
+      result->VpiLineNo(fC->Line(type));
+      result->VpiColumnNo(fC->Column(type));
+      result->VpiEndLineNo(fC->EndLine(type));
+      result->VpiEndColumnNo(fC->EndColumn(type));
+      break;
+    }
+    case VObjectType::slSigning_Unsigned: {
+      // Parameter implicit type is int
+      if (ranges) {
+        int_typespec* tps = s.MakeInt_typespec();
         tps->Ranges(ranges);
         result = tps;
       } else {
@@ -1119,7 +1138,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
         result = tps;
       } else {
         // Parameter implicit type is bit
-        bit_typespec* tps = s.MakeBit_typespec();
+        int_typespec* tps = s.MakeInt_typespec();
         tps->Ranges(ranges);
         result = tps;
       }
