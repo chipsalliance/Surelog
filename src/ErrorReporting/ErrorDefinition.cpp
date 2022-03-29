@@ -399,6 +399,8 @@ bool ErrorDefinition::init() {
   rec(ELAB_UNKNOWN_INTERFACE_MEMBER, ERROR, ELAB,
       "Unknown interface member \"%s\"",
       "%exloc interface definition for \"%exobj\"");
+  rec(ELAB_UNKNOWN_PARAMETER, ERROR, ELAB,
+      "Unknown parameter in command line override \"%s\"");
   rec(LIB_FILE_MAPS_TO_MULTIPLE_LIBS, ERROR, LIB,
       "File \"%exobj\" maps to multiple libraries: \"%s\"");
   rec(UHDM_UNSUPPORTED_EXPR, ERROR, UHDM, "Unsupported expression \"%s\"");

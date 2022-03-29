@@ -180,11 +180,15 @@ design: (work@test)
   |vpiParameter:
   \_parameter: (my_package1::p1), line:3:12, endln:3:14, parent:my_package1::
     |UINT:1
+    |vpiTypespec:
+    \_int_typespec: 
     |vpiName:p1
     |vpiFullName:my_package1::p1
   |vpiParameter:
   \_parameter: (my_package1::p2), line:4:12, endln:4:14, parent:my_package1::
     |UINT:2
+    |vpiTypespec:
+    \_int_typespec: 
     |vpiLocalParam:1
     |vpiName:p2
     |vpiFullName:my_package1::p2
@@ -193,8 +197,10 @@ design: (work@test)
     |vpiRhs:
     \_constant: , line:3:17, endln:3:18
       |vpiDecompile:1
-      |vpiSize:64
+      |vpiSize:32
       |UINT:1
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (my_package1::p1), line:3:12, endln:3:14, parent:my_package1::
@@ -203,8 +209,10 @@ design: (work@test)
     |vpiRhs:
     \_constant: , line:4:17, endln:4:18
       |vpiDecompile:2
-      |vpiSize:64
+      |vpiSize:32
       |UINT:2
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (my_package1::p2), line:4:12, endln:4:14, parent:my_package1::
@@ -240,12 +248,16 @@ design: (work@test)
   |vpiParameter:
   \_parameter: (work@test.p1), line:3:12, endln:3:14, parent:work@test
     |UINT:1
+    |vpiTypespec:
+    \_int_typespec: , parent:work@test.p1
     |vpiName:p1
     |vpiFullName:work@test.p1
     |vpiImported:my_package1
   |vpiParameter:
   \_parameter: (work@test.p2), line:4:12, endln:4:14, parent:work@test
     |UINT:2
+    |vpiTypespec:
+    \_int_typespec: , parent:work@test.p2
     |vpiLocalParam:1
     |vpiName:p2
     |vpiFullName:work@test.p2
@@ -255,12 +267,16 @@ design: (work@test)
     |vpiRhs:
     \_constant: , line:3:17, endln:3:18
       |vpiDecompile:1
-      |vpiSize:64
+      |vpiSize:32
       |UINT:1
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.p1), line:3:12, endln:3:14
       |UINT:1
+      |vpiTypespec:
+      \_int_typespec: , parent:work@test.p1
       |vpiName:p1
       |vpiFullName:work@test.p1
       |vpiImported:my_package1
@@ -269,12 +285,16 @@ design: (work@test)
     |vpiRhs:
     \_constant: , line:4:17, endln:4:18
       |vpiDecompile:2
-      |vpiSize:64
+      |vpiSize:32
       |UINT:2
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.p2), line:4:12, endln:4:14
       |UINT:2
+      |vpiTypespec:
+      \_int_typespec: , parent:work@test.p2
       |vpiLocalParam:1
       |vpiName:p2
       |vpiFullName:work@test.p2
@@ -304,14 +324,18 @@ design: (work@test)
           |vpiOperand:
           \_constant: , line:18:7, endln:18:9
             |vpiDecompile:1
-            |vpiSize:64
+            |vpiSize:32
             |UINT:1
+            |vpiTypespec:
+            \_int_typespec: 
             |vpiConstType:9
           |vpiOperand:
           \_constant: , line:18:12, endln:18:14
             |vpiDecompile:2
-            |vpiSize:64
+            |vpiSize:32
             |UINT:2
+            |vpiTypespec:
+            \_int_typespec: 
             |vpiConstType:9
         |vpiLhs:
         \_ref_obj: (work@test.v), line:18:3, endln:18:4, parent:work@test
@@ -349,12 +373,16 @@ design: (work@test)
   |vpiParameter:
   \_parameter: (work@test.p1), line:3:12, endln:3:14, parent:work@test
     |UINT:1
+    |vpiTypespec:
+    \_int_typespec: , parent:work@test.p1
     |vpiName:p1
     |vpiFullName:work@test.p1
     |vpiImported:my_package1
   |vpiParameter:
   \_parameter: (work@test.p2), line:4:12, endln:4:14, parent:work@test
     |UINT:2
+    |vpiTypespec:
+    \_int_typespec: , parent:work@test.p2
     |vpiLocalParam:1
     |vpiName:p2
     |vpiFullName:work@test.p2
@@ -364,8 +392,10 @@ design: (work@test)
     |vpiRhs:
     \_constant: , line:3:17, endln:3:18
       |vpiDecompile:1
-      |vpiSize:64
+      |vpiSize:32
       |UINT:1
+      |vpiTypespec:
+      \_int_typespec: , parent:work@test.p1
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.p1), line:3:12, endln:3:14, parent:work@test
@@ -374,8 +404,10 @@ design: (work@test)
     |vpiRhs:
     \_constant: , line:4:17, endln:4:18
       |vpiDecompile:2
-      |vpiSize:64
+      |vpiSize:32
       |UINT:2
+      |vpiTypespec:
+      \_int_typespec: , parent:work@test.p2
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.p2), line:4:12, endln:4:14, parent:work@test

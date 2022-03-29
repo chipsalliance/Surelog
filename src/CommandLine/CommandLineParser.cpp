@@ -686,6 +686,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       std::string tmp = all_arguments[i];
       const size_t loc = tmp.find("=");
       if (loc == std::string::npos) {
+        def = tmp.substr(2, tmp.size() - 2);
         SymbolId id = m_symbolTable->registerSymbol(def);
         m_paramList.insert(std::make_pair(id, std::string()));
       } else {
