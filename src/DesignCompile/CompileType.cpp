@@ -1577,6 +1577,26 @@ UHDM::typespec* CompileHelper::compileTypespec(
       result = tps;
       break;
     }
+    case VObjectType::slEvent_type: {
+      UHDM::event_typespec* tps = s.MakeEvent_typespec();
+      tps->VpiFile(fC->getFileName());
+      tps->VpiLineNo(fC->Line(type));
+      tps->VpiColumnNo(fC->Column(type));
+      tps->VpiEndLineNo(fC->EndLine(type));
+      tps->VpiEndColumnNo(fC->EndColumn(type));
+      result = tps;
+      break;
+    }
+    case VObjectType::slNonIntType_RealTime: {
+      UHDM::time_typespec* tps = s.MakeTime_typespec();
+      tps->VpiFile(fC->getFileName());
+      tps->VpiLineNo(fC->Line(type));
+      tps->VpiColumnNo(fC->Column(type));
+      tps->VpiEndLineNo(fC->EndLine(type));
+      tps->VpiEndColumnNo(fC->EndColumn(type));
+      result = tps;
+      break;
+    }
     default:
       if (type != 0) {
         ErrorContainer* errors =
