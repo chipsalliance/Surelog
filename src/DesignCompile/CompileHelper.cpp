@@ -2037,6 +2037,11 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
           sig = new Signal(fC, signal, sigType, packedDimension,
                            VObjectType::slNoType, unpackedDimension, false);
         }
+
+        // sig = new Signal(fC, signal, sigType, packedDimension,
+        //                    VObjectType::slNoType, intVec_TypeReg,
+        //                    unpackedDimension, false);
+
         if (is_const) sig->setConst();
         if (var_type) sig->setVar();
         if (portRef) portRef->setLowConn(sig);

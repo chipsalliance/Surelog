@@ -3785,6 +3785,17 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
         result =
             compileTypespec(component, fC, sig->getTypeSpecId(), compileDesign,
                             nullptr, instance, reduce, true);
+        NodeId Unpacked_dimension = sig->getUnpackedDimension();
+        if (fC->Type(Unpacked_dimension) != VObjectType::slNull_rule) {
+          array_typespec *array = s.MakeArray_typespec();
+          int size;
+          VectorOfrange *ranges =
+              compileRanges(component, fC, Unpacked_dimension, compileDesign,
+                            nullptr, instance, reduce, size, false);
+          array->Ranges(ranges);
+          array->Elem_typespec((typespec *)result);
+          result = array;
+        }
       } else {
         NodeId Packed_dimension = sig->getPackedDimension();
         if (fC->Type(Packed_dimension) != VObjectType::slNull_rule) {
