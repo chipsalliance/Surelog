@@ -46,10 +46,12 @@ class NetlistElaboration : public TestbenchElaboration {
   bool elaborateInstance(ModuleInstance* instance);
 
   ~NetlistElaboration() override;
+
+  typedef std::map<NodeId, UHDM::typespec*> TypespecCache; 
   bool elabSignal(Signal* sig, ModuleInstance* instance, ModuleInstance* child,
                   Netlist* parentNetlist, Netlist* netlist,
                   DesignComponent* comp, const std::string& prefix,
-                  bool signalIsPort);
+                  bool signalIsPort, TypespecCache& cache);
 
  private:
   bool elaborate_(ModuleInstance* instance, bool recurse);
