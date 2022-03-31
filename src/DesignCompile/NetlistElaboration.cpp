@@ -82,9 +82,10 @@ bool NetlistElaboration::elaboratePackages() {
     pack->setNetlist(netlist);
     // Variables and nets in Packages
     std::set<Signal*> notSignals;
+    TypespecCache tscache;
     for (Signal* sig : pack->getSignals()) {
-      if (!elabSignal(sig, nullptr, nullptr, nullptr, netlist, pack, "",
-                      false)) {
+      if (!elabSignal(sig, nullptr, nullptr, nullptr, netlist, pack, "", false,
+                      tscache)) {
         notSignals.insert(sig);
       }
     }
@@ -1395,7 +1396,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
                                     Netlist* parentNetlist, Netlist* netlist,
                                     DesignComponent* comp,
                                     const std::string& prefix,
-                                    bool signalIsPort) {
+                                    bool signalIsPort, TypespecCache& tscache) {
   Serializer& s = m_compileDesign->getSerializer();
   std::vector<net*>* nets = netlist->nets();
   std::vector<variables*>* vars = netlist->variables();
@@ -1435,13 +1436,26 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
 
   NodeId typeSpecId = sig->getTypeSpecId();
   if (typeSpecId) {
-    tps = m_helper.compileTypespec(comp, fC, typeSpecId, m_compileDesign,
-                                   nullptr, instance, true);
+    auto itr = tscache.find(typeSpecId);
+    if (itr == tscache.end()) {
+      tps = m_helper.compileTypespec(comp, fC, typeSpecId, m_compileDesign,
+                                     nullptr, instance, true);
+      tscache.insert(std::make_pair(typeSpecId, tps));
+    } else {
+      tps = (*itr).second;
+    }
   }
   if (tps == nullptr) {
     if (sig->getInterfaceTypeNameId()) {
-      tps = m_helper.compileTypespec(comp, fC, sig->getInterfaceTypeNameId(),
+      auto itr = tscache.find(sig->getInterfaceTypeNameId());
+      if (itr == tscache.end()) {
+        tps =
+            m_helper.compileTypespec(comp, fC, sig->getInterfaceTypeNameId(),
                                      m_compileDesign, nullptr, instance, true);
+        tscache.insert(std::make_pair(sig->getInterfaceTypeNameId(), tps));
+      } else {
+        tps = (*itr).second;
+      }
     }
   }
   if (tps) {
@@ -1877,6 +1891,7 @@ bool NetlistElaboration::elab_ports_nets_(
   Serializer& s = m_compileDesign->getSerializer();
   VObjectType compType = comp->getType();
   std::vector<port*>* ports = netlist->ports();
+  TypespecCache tscache;
   std::set<std::string> portInterf;
   for (int pass = 0; pass < 3; pass++) {
     std::vector<Signal*>* signals = nullptr;
@@ -1941,8 +1956,16 @@ bool NetlistElaboration::elab_ports_nets_(
 
         NodeId typeSpecId = sig->getTypeSpecId();
         if (typeSpecId) {
-          UHDM::typespec* tps = m_helper.compileTypespec(
-              comp, fC, typeSpecId, m_compileDesign, dest_port, instance, true);
+          UHDM::typespec* tps = nullptr;
+          auto itr = tscache.find(typeSpecId);
+          if (itr == tscache.end()) {
+            tps =
+                m_helper.compileTypespec(comp, fC, typeSpecId, m_compileDesign,
+                                         dest_port, instance, true);
+            tscache.insert(std::make_pair(typeSpecId, tps));
+          } else {
+            tps = (*itr).second;
+          }
           if (tps) dest_port->Typespec(tps);
         }
 
@@ -2083,7 +2106,7 @@ bool NetlistElaboration::elab_ports_nets_(
               }
             }
             elabSignal(sig, instance, child, parentNetlist, netlist, comp,
-                       prefix, sigIsPort);
+                       prefix, sigIsPort, tscache);
           }
         }
 
