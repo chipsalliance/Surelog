@@ -84,8 +84,8 @@ bool NetlistElaboration::elaboratePackages() {
     std::set<Signal*> notSignals;
     TypespecCache tscache;
     for (Signal* sig : pack->getSignals()) {
-      if (!elabSignal(sig, nullptr, nullptr, nullptr, netlist, pack, "",
-                      false, tscache)) {
+      if (!elabSignal(sig, nullptr, nullptr, nullptr, netlist, pack, "", false,
+                      tscache)) {
         notSignals.insert(sig);
       }
     }
@@ -1439,7 +1439,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
     auto itr = tscache.find(typeSpecId);
     if (itr == tscache.end()) {
       tps = m_helper.compileTypespec(comp, fC, typeSpecId, m_compileDesign,
-                                   nullptr, instance, true);
+                                     nullptr, instance, true);
       tscache.insert(std::make_pair(typeSpecId, tps));
     } else {
       tps = (*itr).second;
