@@ -176,6 +176,8 @@ static const std::initializer_list<std::string_view> helpText = {
     "files, this option prevents it",
     "  -cache <dir>          Specifies the cache directory, default is "
     "slpp_all/cache or slpp_unit/cache",
+    "  -nohash               Don't use hash mechanism for cache file path, "
+    "always treat cache as valid (no timestamp/dependancy check)"
     "  -createcache          Create cache for precompiled packages",
     "  -filterdirectives     Filters out simple directives like",
     "                        `default_nettype in pre-processor's output",
@@ -336,7 +338,8 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_uhdmStats(false),
       m_lowMem(false),
       m_writeUhdm(true),
-      m_nonSynthesizable(false) {
+      m_nonSynthesizable(false),
+      m_noCacheHash(false) {
   m_errors->registerCmdLine(this);
   m_logFileId = m_symbolTable->registerSymbol(std::string(defaultLogFileName));
   m_compileUnitDirectory = m_symbolTable->registerSymbol("slpp_unit");
@@ -879,6 +882,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       i++;
       m_writePpOutputFileId = m_symbolTable->registerSymbol(
           FileUtils::getPreferredPath(all_arguments[i]).string());
+    } else if (all_arguments[i] == "-nohash") {
+      m_noCacheHash = true;
     } else if (all_arguments[i] == "-cache") {
       if (i == all_arguments.size() - 1) {
         Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));

@@ -90,6 +90,8 @@ class CommandLineParser final {
   bool writePpOutput() const { return m_writePpOutput; }
   void setwritePpOutput(bool value) { m_writePpOutput = value; }
   bool cacheAllowed() const { return m_cacheAllowed; }
+  void noCacheHash( bool noCachePath) { m_noCacheHash = noCachePath; }
+  bool noCacheHash() const { return m_noCacheHash; }
   void setCacheAllowed(bool val) { m_cacheAllowed = val; }
   bool lineOffsetsAsComments() const { return m_lineOffsetsAsComments; }
   SymbolId getCacheDir() const { return m_cacheDirId; }
@@ -291,6 +293,7 @@ class CommandLineParser final {
   bool m_lowMem;
   bool m_writeUhdm;
   bool m_nonSynthesizable;
+  bool m_noCacheHash; 
 };
 
 }  // namespace SURELOG
