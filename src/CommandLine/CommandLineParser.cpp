@@ -80,8 +80,8 @@ static const std::initializer_list<std::string_view> helpText = {
     "  -y <path>             Library directory",
     "  +incdir+<dir>[+<dir>...] Specifies include paths",
     "  -Idir                 Specifies include paths",
-    "  +libext+<extname>+... Specifies the library extensions, default is "
-    ".v+.sv",
+    "  +libext+<extname>+... Specifies the library extensions, "  // NOLINT
+    "default is .v+.sv",
     "  <file>.v              Verilog File",
     "  <file>.sv             SystemVerilog File",
     "  +liborder             Lib Order option (ignored)",
@@ -234,7 +234,7 @@ void CommandLineParser::withPython() {
 #endif
 }
 
-const std::string CommandLineParser::currentDateTime() {
+std::string CommandLineParser::currentDateTime() {
   time_t now = time(0);
   struct tm tstruct;
   char buf[80];
@@ -376,7 +376,7 @@ void CommandLineParser::splitPlusArg_(
     if (!tmp.empty() && (tmp != prefix)) {
       std::string def;
       std::string value;
-      const size_t loc = tmp.find("=");
+      const size_t loc = tmp.find('=');
       if (loc == std::string::npos) {
         SymbolId id = m_symbolTable->registerSymbol(tmp);
         container.insert(std::make_pair(id, std::string()));
@@ -545,9 +545,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
   cmd += "\n\n";
   std::cout << cmd;
   */
-  for (unsigned int i = 0; i < all_arguments.size(); i++) {
-    if (all_arguments[i] == "-help" || all_arguments[i] == "-h" ||
-        all_arguments[i] == "--help") {
+  for (const auto& argument : all_arguments) {
+    if (argument == "-help" || argument == "-h" || argument == "--help") {
       m_help = true;
       std::string help = printStringArray(helpText);
       m_errors->init();
@@ -555,26 +554,26 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       std::cout << help;
       return true;
     }
-    if (all_arguments[i] == "--version") {
+    if (argument == "--version") {
       std::string version = "VERSION: " + getVersionNumber() + "\n" +
                             "BUILT  : " + std::string(__DATE__) + "\n";
       std::cout << version << std::flush;
       m_help = true;
       return true;
     }
-    if (all_arguments[i] == "-nobuiltin") {
+    if (argument == "-nobuiltin") {
       m_parseBuiltIn = false;
     }
   }
-  for (unsigned int i = 0; i < all_arguments.size(); i++) {
-    if (all_arguments[i] == "-fileunit") {
+  for (const auto& argument : all_arguments) {
+    if (argument == "-fileunit") {
       if (m_diff_comp_mode == false)  // Controlled by constructor
         m_fileunit = true;
-    } else if (all_arguments[i] == "-mutestdout") {
+    } else if (argument == "-mutestdout") {
       m_muteStdout = true;
-    } else if (all_arguments[i] == "-nopython") {
+    } else if (argument == "-nopython") {
       m_pythonAllowed = false;
-    } else if (all_arguments[i] == "-withpython") {
+    } else if (argument == "-withpython") {
       withPython();
     }
   }
@@ -668,7 +667,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       std::string def;
       std::string value;
       std::string tmp = all_arguments[i];
-      const size_t loc = tmp.find("=");
+      const size_t loc = tmp.find('=');
       if (loc == std::string::npos) {
         StringUtils::registerEnvVar(def, "");
         SymbolId id = m_symbolTable->registerSymbol(def);
@@ -684,7 +683,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       std::string def;
       std::string value;
       std::string tmp = all_arguments[i];
-      const size_t loc = tmp.find("=");
+      const size_t loc = tmp.find('=');
       if (loc == std::string::npos) {
         def = tmp.substr(2, tmp.size() - 2);
         SymbolId id = m_symbolTable->registerSymbol(def);
@@ -699,7 +698,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       std::string def;
       std::string value;
       std::string tmp = all_arguments[i];
-      const size_t loc = tmp.find("=");
+      const size_t loc = tmp.find('=');
       if (loc == std::string::npos) {
         SymbolId id = m_symbolTable->registerSymbol(def);
         m_paramList.insert(std::make_pair(id, std::string()));

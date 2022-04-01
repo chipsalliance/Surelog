@@ -961,7 +961,7 @@ int LValue::vpiValType() {
   return 0;
 }
 
-LValue::LValue(const LValue& val)
+LValue::LValue(const LValue& val)  // NOLINT(bugprone-copy-constructor-init)
     : m_type(val.m_type),
       m_nbWords(val.m_nbWords),
       m_valueArray(new SValue[val.m_nbWords ? val.m_nbWords : 1]),

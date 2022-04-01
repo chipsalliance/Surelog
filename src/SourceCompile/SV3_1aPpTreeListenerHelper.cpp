@@ -35,7 +35,7 @@ SymbolTable* SV3_1aPpTreeListenerHelper::getSymbolTable() const {
   return m_pp->getCompileSourceFile()->getSymbolTable();
 }
 
-SymbolId SV3_1aPpTreeListenerHelper::registerSymbol(const std::string& symbol) {
+SymbolId SV3_1aPpTreeListenerHelper::registerSymbol(std::string_view symbol) {
   return m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(symbol);
 }
 
@@ -111,7 +111,7 @@ void SV3_1aPpTreeListenerHelper::init() {
 
 void SV3_1aPpTreeListenerHelper::logError(ErrorDefinition::ErrorType error,
                                           antlr4::ParserRuleContext* ctx,
-                                          std::string object,
+                                          std::string_view object,
                                           bool printColumn) {
   if (m_instructions.m_mute) return;
   std::pair<int, int> lineCol =

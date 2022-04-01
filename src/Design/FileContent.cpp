@@ -30,7 +30,6 @@
 #include <stack>
 
 namespace SURELOG {
-namespace fs = std::filesystem;
 
 const std::string& FileContent::getName() const {
   return m_symbolTable->getSymbol(m_fileId);
@@ -70,7 +69,7 @@ SymbolId* FileContent::getMutableFileId(NodeId id) {
   return &m_objects[id].m_fileId;
 }
 
-const fs::path FileContent::getFileName(NodeId id) const {
+std::filesystem::path FileContent::getFileName(NodeId id) const {
   SymbolId fileId = m_objects[id].m_fileId;
   return m_symbolTable->getSymbol(fileId);
 }
@@ -80,7 +79,7 @@ std::string FileContent::printObjects() const {
   NodeId index = 0;
 
   if (m_library) text += "LIB:  " + m_library->getName() + "\n";
-  fs::path fileName = m_symbolTable->getSymbol(m_fileId);
+  const std::filesystem::path fileName = m_symbolTable->getSymbol(m_fileId);
   text += "FILE: " + fileName.string() + "\n";
   for (auto& object : m_objects) {
     text +=
@@ -106,7 +105,7 @@ std::string FileContent::printSubTree(NodeId uniqueId) {
   return text;
 }
 
-void FileContent::insertObjectLookup(std::string name, NodeId id,
+void FileContent::insertObjectLookup(const std::string& name, NodeId id,
                                      ErrorContainer* errors) {
   NameIdMap::iterator itr = m_objectLookup.find(name);
   if (itr == m_objectLookup.end()) {
@@ -365,7 +364,8 @@ NodeId FileContent::sl_get(NodeId parent, VObjectType type) {
   return InvalidNodeId;
 }
 
-NodeId FileContent::sl_parent(NodeId parent, std::vector<VObjectType> types,
+NodeId FileContent::sl_parent(NodeId parent,
+                              const std::vector<VObjectType>& types,
                               VObjectType& actualType) {
   if (m_objects.empty()) return 0;
   if (parent > m_objects.size() - 1) return 0;
@@ -630,8 +630,8 @@ bool FileContent::diffTree(NodeId root, const FileContent* oFc, NodeId oroot,
     }
     std::string symb1;
     std::string symb2;
-    if (current1.m_name) symb1 = Name(id1);
-    if (current2.m_name) symb2 = oFc->Name(id2);
+    if (current1.m_name) symb1 = std::to_string(Name(id1));
+    if (current2.m_name) symb2 = std::to_string(oFc->Name(id2));
     if (current1.m_name || current2.m_name)
       if (symb1 != symb2) return true;
 

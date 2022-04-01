@@ -355,17 +355,16 @@ bool Compiler::createMultiProcessParser_() {
       // the size of the files
       std::vector<std::vector<CompileSourceFile*>> jobArray(nbProcesses);
       std::vector<unsigned long> jobSize(nbProcesses);
-      unsigned int largestJob = 0;
-      for (unsigned int i = 0; i < m_compilers.size(); i++) {
-        unsigned int size =
-            m_compilers[i]->getJobSize(CompileSourceFile::Action::Parse);
+      size_t largestJob = 0;
+      for (const auto& compiler : m_compilers) {
+        size_t size = compiler->getJobSize(CompileSourceFile::Action::Parse);
         if (size > largestJob) {
           largestJob = size;
         }
       }
       unsigned int bigJobThreashold = (largestJob / nbProcesses) * 3;
       std::vector<CompileSourceFile*> bigJobs;
-      for (unsigned short i = 0; i < nbProcesses; i++) jobSize[i] = 0;
+      for (size_t i = 0; i < nbProcesses; i++) jobSize[i] = 0;
       bool forcedSVMode = m_commandLineParser->fullSVMode();
       std::string sverilog = (forcedSVMode) ? " -sverilog " : "";
       Precompiled* prec = Precompiled::getSingleton();
@@ -373,29 +372,29 @@ bool Compiler::createMultiProcessParser_() {
       char path[10000];
       char* p = getcwd(path, 9999);
       fs::path outputPath = fs::path(p) / directory / ".." / "";
-      for (unsigned int i = 0; i < m_compilers.size(); i++) {
-        fs::path root = m_compilers[i]->getSymbolTable()->getSymbol(
-            m_compilers[i]->getFileId());
+      for (const auto& compiler : m_compilers) {
+        fs::path root =
+            compiler->getSymbolTable()->getSymbol(compiler->getFileId());
         root = FileUtils::basename(root);
         if (prec->isFilePrecompiled(root)) {
           continue;
         }
         unsigned int size =
-            m_compilers[i]->getJobSize(CompileSourceFile::Action::Parse);
+            compiler->getJobSize(CompileSourceFile::Action::Parse);
         if (size > bigJobThreashold) {
-          bigJobs.push_back(m_compilers[i]);
+          bigJobs.push_back(compiler);
           continue;
         }
         unsigned int newJobIndex = 0;
         uint64_t minJobQueue = ULLONG_MAX;
-        for (unsigned short ii = 0; ii < nbProcesses; ii++) {
+        for (size_t ii = 0; ii < nbProcesses; ii++) {
           if (jobSize[ii] < minJobQueue) {
             newJobIndex = ii;
             minJobQueue = jobSize[ii];
           }
         }
         jobSize[newJobIndex] += size;
-        jobArray[newJobIndex].push_back(m_compilers[i]);
+        jobArray[newJobIndex].push_back(compiler);
       }
 
       fs::path full_exe_path = m_commandLineParser->getExePath();
@@ -439,16 +438,15 @@ bool Compiler::createMultiProcessParser_() {
       }
 
       // Small jobs batch in clump processes
-      for (unsigned short i = 0; i < nbProcesses; i++) {
+      for (size_t i = 0; i < nbProcesses; i++) {
         std::string fileList;
         fs::path lastFile;
         absoluteIndex++;
-        for (unsigned int j = 0; j < jobArray[i].size(); j++) {
-          CompileSourceFile* compiler = jobArray[i][j];
+        for (const auto compiler : jobArray[i]) {
           fs::path fileName = compiler->getSymbolTable()->getSymbol(
               compiler->getPpOutputFileId());
-          std::string svFile;
           fs::path baseFileName = FileUtils::basename(fileName);
+          std::string svFile;
           if (m_commandLineParser->isSVFile(baseFileName)) {
             svFile = " -sv ";
           }
@@ -545,7 +543,7 @@ bool Compiler::createMultiProcessPreProcessor_() {
         full_exe_path += " -profile";
       }
 
-      std::string fileUnit = "";
+      std::string fileUnit;
       if (m_commandLineParser->fileunit()) fileUnit = " -fileunit ";
 
       std::string synth;

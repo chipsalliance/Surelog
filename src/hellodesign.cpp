@@ -69,7 +69,7 @@ class DesignListener final : public UHDM::VpiListener {
   bool m_flatTraversal = false;
 };
 
-bool Build(vpiHandle design_handle) {
+static bool Build(const vpiHandle &design_handle) {
   DesignListener listener;
   UHDM::listen_designs({design_handle}, &listener);
   std::cout << "End design traversal" << std::endl;

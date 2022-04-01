@@ -114,8 +114,7 @@ void ErrorContainer::appendErrors(ErrorContainer& rhs) {
   for (unsigned int i = 0; i < rhs.m_errors.size(); i++) {
     Error err = rhs.m_errors[i];
     // Translate IDs to master symbol table
-    for (unsigned int locItr = 0; locItr < err.m_locations.size(); locItr++) {
-      Location& loc = err.m_locations[locItr];
+    for (auto& loc : err.m_locations) {
       if (loc.m_fileId)
         loc.m_fileId = m_symbolTable->registerSymbol(
             rhs.m_symbolTable->getSymbol(loc.m_fileId));
@@ -175,7 +174,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
       /* Object */
       std::string text = info.m_errorText;
       const std::string& objectName = m_symbolTable->getSymbol(loc.m_object);
-      if (objectName != m_symbolTable->getBadSymbol()) {
+      if (objectName != SymbolTable::getBadSymbol()) {
         size_t objectOffset = text.find("%s");
         if (objectOffset != std::string::npos) {
           text = text.replace(objectOffset, 2, objectName);
@@ -264,8 +263,7 @@ bool ErrorContainer::hasFatalErrors() const {
   const std::map<ErrorDefinition::ErrorType, ErrorDefinition::ErrorInfo>&
       infoMap = ErrorDefinition::getErrorInfoMap();
   bool reportFatalError = false;
-  for (unsigned int i = 0; i < m_errors.size(); i++) {
-    const Error& msg = m_errors[i];
+  for (const Error& msg : m_errors) {
     ErrorDefinition::ErrorType type = msg.m_errorId;
     std::map<ErrorDefinition::ErrorType,
              ErrorDefinition::ErrorInfo>::const_iterator itr =
@@ -288,8 +286,7 @@ bool ErrorContainer::hasFatalErrors() const {
 std::pair<std::string, bool> ErrorContainer::createReport_() const {
   std::string report;
   bool reportFatalError = false;
-  for (unsigned int i = 0; i < m_errors.size(); i++) {
-    const Error& msg = m_errors[i];
+  for (const Error& msg : m_errors) {
     std::tuple<std::string, bool, bool> textStatus = createErrorMessage(msg);
     if (std::get<1>(textStatus)) reportFatalError = true;
     if (std::get<2>(textStatus))  // Filtered

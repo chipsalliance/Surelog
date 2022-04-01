@@ -43,7 +43,8 @@ UseClause* Config::getCellUseClause(const std::string& cell) {
   }
 }
 
-void Config::addInstanceUseClause(const std::string& instance, UseClause use) {
+void Config::addInstanceUseClause(const std::string& instance,
+                                  const UseClause& use) {
   auto itr = m_instanceUseClauses.find(instance);
   if (itr != m_instanceUseClauses.end()) {
     m_instanceUseClauses.erase(itr);
@@ -51,7 +52,7 @@ void Config::addInstanceUseClause(const std::string& instance, UseClause use) {
 
   m_instanceUseClauses.insert(std::make_pair(instance, use));
 }
-void Config::addCellUseClause(const std::string& cell, UseClause use) {
+void Config::addCellUseClause(const std::string& cell, const UseClause& use) {
   auto itr = m_cellUseClauses.find(cell);
   if (itr != m_cellUseClauses.end()) {
     m_instanceUseClauses.erase(itr);

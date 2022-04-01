@@ -69,7 +69,7 @@ uint8_t* Cache::openFlatBuffers(const fs::path& cacheFileName) {
 }
 
 bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
-                                std::string schemaVersion,
+                                std::string_view schemaVersion,
                                 const fs::path& cacheFileName) {
   /* Schema version */
   if (schemaVersion != header->flb_version()->c_str()) {
@@ -105,8 +105,8 @@ bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
   return true;
 }
 
-const flatbuffers::Offset<SURELOG::CACHE::Header> Cache::createHeader(
-    flatbuffers::FlatBufferBuilder& builder, std::string schemaVersion,
+flatbuffers::Offset<SURELOG::CACHE::Header> Cache::createHeader(
+    flatbuffers::FlatBufferBuilder& builder, std::string_view schemaVersion,
     const fs::path& origFileName) {
   auto fName = builder.CreateString(origFileName.string());
   auto sl_version = builder.CreateString(CommandLineParser::getVersionNumber());

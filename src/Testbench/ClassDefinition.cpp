@@ -20,7 +20,6 @@
  *
  * Created on June 1, 2018, 10:12 PM
  */
-
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/Design/Parameter.h>
 #include <Surelog/Testbench/ClassDefinition.h>
@@ -28,9 +27,11 @@
 #include <Surelog/Testbench/CoverGroupDefinition.h>
 #include <Surelog/Testbench/Property.h>
 
+#include <string_view>
+
 namespace SURELOG {
 
-ClassDefinition::ClassDefinition(std::string name, Library* library,
+ClassDefinition::ClassDefinition(std::string_view name, Library* library,
                                  DesignComponent* container,
                                  const FileContent* fC, NodeId nodeId,
                                  ClassDefinition* parent,

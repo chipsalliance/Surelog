@@ -204,7 +204,7 @@ void ResolveSymbols::createFastLookup() {
   }
 }
 
-const VObject ResolveSymbols::Object(NodeId index) const {
+VObject ResolveSymbols::Object(NodeId index) const {
   if (index == InvalidNodeId) return m_fileData->Object(0);
   return m_fileData->Object(index);
 }
@@ -292,8 +292,8 @@ std::vector<NodeId> ResolveSymbols::sl_collect_all(NodeId parent,
   return m_fileData->sl_collect_all(parent, type);
 }
 
-bool ResolveSymbols::bindDefinition_(unsigned int objIndex,
-                                     std::vector<VObjectType> bindTypes) {
+bool ResolveSymbols::bindDefinition_(
+    unsigned int objIndex, const std::vector<VObjectType>& bindTypes) {
   std::string modName =
       SymName(sl_collect(objIndex, VObjectType::slStringConst));
   std::string instName =
