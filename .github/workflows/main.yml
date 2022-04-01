@@ -202,6 +202,13 @@ jobs:
         rd /S /Q %GITHUB_WORKSPACE%
         mklink /D %GITHUB_WORKSPACE% C:\Surelog
 
+    - name: Configure Pagefile
+      uses: al-cheb/configure-pagefile-action@v1.2
+      with:
+        minimum-size: 8GB
+        maximum-size: 8GB
+        disk-root: "D:"
+
     - name: Git pull
       uses: actions/checkout@v2
       with:
@@ -323,6 +330,13 @@ jobs:
         cd /D C:\Surelog
         rd /S /Q %GITHUB_WORKSPACE%
         mklink /D %GITHUB_WORKSPACE% C:\Surelog
+
+    - name: Configure Pagefile
+      uses: al-cheb/configure-pagefile-action@v1.2
+      with:
+        minimum-size: 8GB
+        maximum-size: 8GB
+        disk-root: "D:"
 
     - uses: actions/checkout@v2
       with:
