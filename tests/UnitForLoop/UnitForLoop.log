@@ -4,8 +4,8 @@
 
 LIB:  work
 FILE: top.v
-n<> u<0> t<Null_rule> p<284> s<283> l<1:1> el<1:0>
-n<top> u<1> t<StringConst> p<279> s<19> l<1:7> el<1:10>
+n<> u<0> t<Null_rule> p<285> s<284> l<1:1> el<1:0>
+n<top> u<1> t<StringConst> p<280> s<19> l<1:7> el<1:10>
 n<> u<2> t<Function_data_type_or_implicit> p<16> s<3> l<3:10> el<3:10>
 n<f2> u<3> t<StringConst> p<16> s<14> l<3:10> el<3:12>
 n<> u<4> t<IntegerAtomType_Int> p<5> l<3:14> el<3:17>
@@ -23,7 +23,7 @@ n<> u<15> t<Endfunction> p<16> l<4:1> el<4:12>
 n<> u<16> t<Function_body_declaration> p<17> c<2> l<3:10> el<4:12>
 n<> u<17> t<Function_declaration> p<18> c<16> l<3:1> el<4:12>
 n<> u<18> t<Class_method> p<19> c<17> l<3:1> el<4:12>
-n<> u<19> t<Class_item> p<279> c<18> s<277> l<3:1> el<4:12>
+n<> u<19> t<Class_item> p<280> c<18> s<277> l<3:1> el<4:12>
 n<> u<20> t<Function_data_type_or_implicit> p<274> s<21> l<7:10> el<7:10>
 n<f1> u<21> t<StringConst> p<274> s<102> l<7:10> el<7:12>
 n<> u<22> t<IntegerAtomType_Int> p<23> l<8:10> el<8:13>
@@ -281,14 +281,15 @@ n<> u<273> t<Endfunction> p<274> l<27:1> el<27:12>
 n<> u<274> t<Function_body_declaration> p<275> c<20> l<7:10> el<27:12>
 n<> u<275> t<Function_declaration> p<276> c<274> l<7:1> el<27:12>
 n<> u<276> t<Class_method> p<277> c<275> l<7:1> el<27:12>
-n<> u<277> t<Class_item> p<279> c<276> s<278> l<7:1> el<27:12>
-n<> u<278> t<Endclass> p<279> l<29:1> el<29:9>
-n<> u<279> t<Class_declaration> p<280> c<1> l<1:1> el<29:9>
-n<> u<280> t<Package_or_generate_item_declaration> p<281> c<279> l<1:1> el<29:9>
-n<> u<281> t<Package_item> p<282> c<280> l<1:1> el<29:9>
-n<> u<282> t<Description> p<283> c<281> l<1:1> el<29:9>
-n<> u<283> t<Source_text> p<284> c<282> l<1:1> el<29:9>
-n<> u<284> t<Top_level_rule> l<1:1> el<29:9>
+n<> u<277> t<Class_item> p<280> c<276> s<279> l<7:1> el<27:12>
+n<> u<278> t<Class> p<280> s<1> l<1:1> el<1:6>
+n<> u<279> t<Endclass> p<280> l<29:1> el<29:9>
+n<> u<280> t<Class_declaration> p<281> c<278> l<1:1> el<29:9>
+n<> u<281> t<Package_or_generate_item_declaration> p<282> c<280> l<1:1> el<29:9>
+n<> u<282> t<Package_item> p<283> c<281> l<1:1> el<29:9>
+n<> u<283> t<Description> p<284> c<282> l<1:1> el<29:9>
+n<> u<284> t<Source_text> p<285> c<283> l<1:1> el<29:9>
+n<> u<285> t<Top_level_rule> l<1:1> el<29:9>
 [INF:CP0300] Compilation...
 
 [INF:CP0302] top.v:1: Compile class "work@top".
@@ -370,7 +371,7 @@ design: (unnamed)
       \_for_stmt: (work@top::f1), line:8:4, endln:8:7, parent:work@top::f1
         |vpiFullName:work@top::f1
         |vpiForInitStmt:
-        \_assign_stmt: , parent:work@top::f1
+        \_assign_stmt: , line:8:10, endln:8:21, parent:work@top::f1
           |vpiRhs:
           \_constant: , line:8:16, endln:8:17
             |vpiDecompile:0
@@ -412,7 +413,7 @@ design: (unnamed)
         \_begin: (work@top::f1), line:8:36, endln:11:7, parent:work@top::f1
           |vpiFullName:work@top::f1
           |vpiStmt:
-          \_func_call: (f2), line:9:7, endln:9:9, parent:work@top::f1
+          \_func_call: (f2), line:9:7, endln:9:14, parent:work@top::f1
             |vpiArgument:
             \_ref_obj: (work@top::f1::i), line:9:10, endln:9:11, parent:f2
               |vpiName:i
@@ -425,7 +426,7 @@ design: (unnamed)
             |vpiFunction:
             \_function: (work@top::f2), line:3:1, endln:4:12, parent:work@top
           |vpiStmt:
-          \_func_call: (f3), line:10:1, endln:10:3, parent:work@top::f1
+          \_func_call: (f3), line:10:1, endln:10:8, parent:work@top::f1
             |vpiArgument:
             \_ref_obj: (work@top::f1::i), line:10:4, endln:10:5, parent:f3
               |vpiName:i
@@ -439,7 +440,7 @@ design: (unnamed)
       \_for_stmt: (work@top::f1), line:12:3, endln:12:6, parent:work@top::f1
         |vpiFullName:work@top::f1
         |vpiForInitStmt:
-        \_assign_stmt: , parent:work@top::f1
+        \_assign_stmt: , line:12:9, endln:12:22, parent:work@top::f1
           |vpiRhs:
           \_constant: , line:12:15, endln:12:16
             |vpiDecompile:0
@@ -468,7 +469,7 @@ design: (unnamed)
         \_begin: (work@top::f1), line:12:36, endln:15:7, parent:work@top::f1
           |vpiFullName:work@top::f1
           |vpiStmt:
-          \_func_call: (f2), line:13:7, endln:13:9, parent:work@top::f1
+          \_func_call: (f2), line:13:7, endln:13:14, parent:work@top::f1
             |vpiArgument:
             \_ref_obj: (work@top::f1::i), line:13:10, endln:13:11, parent:f2
               |vpiName:i
@@ -481,7 +482,7 @@ design: (unnamed)
             |vpiFunction:
             \_function: (work@top::f2), line:3:1, endln:4:12, parent:work@top
           |vpiStmt:
-          \_func_call: (f4), line:14:1, endln:14:3, parent:work@top::f1
+          \_func_call: (f4), line:14:1, endln:14:8, parent:work@top::f1
             |vpiArgument:
             \_ref_obj: (work@top::f1::i), line:14:4, endln:14:5, parent:f4
               |vpiName:i
@@ -518,7 +519,7 @@ design: (unnamed)
         \_begin: (work@top::f1), line:16:24, endln:19:7, parent:work@top::f1
           |vpiFullName:work@top::f1
           |vpiStmt:
-          \_func_call: (f2), line:17:2, endln:17:4, parent:work@top::f1
+          \_func_call: (f2), line:17:2, endln:17:9, parent:work@top::f1
             |vpiArgument:
             \_ref_obj: (work@top::f1::i), line:17:5, endln:17:6, parent:f2
               |vpiName:i
@@ -531,7 +532,7 @@ design: (unnamed)
             |vpiFunction:
             \_function: (work@top::f2), line:3:1, endln:4:12, parent:work@top
           |vpiStmt:
-          \_func_call: (f5), line:18:1, endln:18:3, parent:work@top::f1
+          \_func_call: (f5), line:18:1, endln:18:8, parent:work@top::f1
             |vpiArgument:
             \_ref_obj: (work@top::f1::i), line:18:4, endln:18:5, parent:f5
               |vpiName:i
@@ -548,7 +549,7 @@ design: (unnamed)
         \_begin: (work@top::f1), line:21:16, endln:24:7, parent:work@top::f1
           |vpiFullName:work@top::f1
           |vpiStmt:
-          \_func_call: (f2), line:22:2, endln:22:4, parent:work@top::f1
+          \_func_call: (f2), line:22:2, endln:22:9, parent:work@top::f1
             |vpiArgument:
             \_ref_obj: (work@top::f1::i), line:22:5, endln:22:6, parent:f2
               |vpiName:i
@@ -561,7 +562,7 @@ design: (unnamed)
             |vpiFunction:
             \_function: (work@top::f2), line:3:1, endln:4:12, parent:work@top
           |vpiStmt:
-          \_func_call: (f6), line:23:2, endln:23:4, parent:work@top::f1
+          \_func_call: (f6), line:23:2, endln:23:9, parent:work@top::f1
             |vpiArgument:
             \_ref_obj: (work@top::f1::i), line:23:5, endln:23:6, parent:f6
               |vpiName:i

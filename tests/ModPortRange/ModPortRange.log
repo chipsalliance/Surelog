@@ -95,10 +95,10 @@ design: (work@range_itf_port)
     |vpiFullName:work@MyInterface.my_logic
     |vpiNetType:36
   |vpiModport:
-  \_modport: (MyModPort), parent:work@MyInterface
+  \_modport: (MyModPort), line:3:12, endln:3:21, parent:work@MyInterface
     |vpiName:MyModPort
     |vpiIODecl:
-    \_io_decl: (my_logic)
+    \_io_decl: (my_logic), line:5:19, endln:5:27
       |vpiDirection:2
       |vpiName:my_logic
 |uhdmallInterfaces:
@@ -111,17 +111,17 @@ design: (work@range_itf_port)
     |vpiFullName:work@mem_if.clk
     |vpiNetType:1
   |vpiModport:
-  \_modport: (memory), parent:work@mem_if
+  \_modport: (memory), line:20:12, endln:20:18, parent:work@mem_if
     |vpiName:memory
     |vpiIODecl:
-    \_io_decl: (clk)
+    \_io_decl: (clk), line:20:27, endln:20:30
       |vpiDirection:2
       |vpiName:clk
   |vpiModport:
-  \_modport: (system), parent:work@mem_if
+  \_modport: (system), line:19:12, endln:19:18, parent:work@mem_if
     |vpiName:system
     |vpiIODecl:
-    \_io_decl: (clk)
+    \_io_decl: (clk), line:19:26, endln:19:29
       |vpiDirection:1
       |vpiName:clk
   |vpiPort:
@@ -159,7 +159,7 @@ design: (work@range_itf_port)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_modport: (system), parent:work@mem_if
+      \_modport: (system), line:19:12, endln:19:18, parent:work@mem_if
 |uhdmallModules:
 \_module: work@middle (work@middle) dut.sv:35:1: , endln:36:10, parent:work@range_itf_port
   |vpiFullName:work@middle
@@ -196,7 +196,7 @@ design: (work@range_itf_port)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_modport: (MyModPort), parent:work@MyInterface
+      \_modport: (MyModPort), line:3:12, endln:3:21, parent:work@MyInterface
   |vpiPort:
   \_port: (my_port2), line:11:17, endln:11:25, parent:work@range_itf_port
     |vpiName:my_port2
@@ -232,7 +232,7 @@ design: (work@range_itf_port)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_modport: (MyModPort), parent:work@MyInterface
+      \_modport: (MyModPort), line:3:12, endln:3:21, parent:work@MyInterface
   |vpiPort:
   \_port: (my_port2), line:41:27, endln:41:35, parent:work@range_itf_port2
     |vpiName:my_port2
@@ -240,7 +240,7 @@ design: (work@range_itf_port)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_modport: (MyModPort), parent:work@MyInterface
+      \_modport: (MyModPort), line:3:12, endln:3:21, parent:work@MyInterface
   |vpiPort:
   \_port: (my_port3), line:42:18, endln:42:26, parent:work@range_itf_port2
     |vpiName:my_port3
@@ -291,7 +291,7 @@ design: (work@range_itf_port)
     |vpiName:my_port1
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@range_itf_port.my_port1), parent:my_port1
+    \_ref_obj: (work@range_itf_port.my_port1), line:10:27, endln:10:35, parent:my_port1
       |vpiFullName:work@range_itf_port.my_port1
       |vpiActual:
       \_interface_array: (my_port1)
@@ -316,16 +316,16 @@ design: (work@range_itf_port)
           |vpiName:my_port1
           |vpiDefName:work@MyInterface
           |vpiModport:
-          \_modport: (MyModPort), parent:my_port1
+          \_modport: (MyModPort), line:3:12, endln:3:21, parent:my_port1
             |vpiName:MyModPort
             |vpiIODecl:
-            \_io_decl: (my_logic)
+            \_io_decl: (my_logic), line:5:19, endln:5:27
               |vpiDirection:2
               |vpiName:my_logic
               |vpiExpr:
               \_logic_var: (my_logic), line:2:10, endln:2:18
                 |vpiTypespec:
-                \_logic_typespec: 
+                \_logic_typespec: , line:2:10, endln:2:18
                 |vpiName:my_logic
                 |vpiVisibility:1
             |vpiInterface:
@@ -337,7 +337,7 @@ design: (work@range_itf_port)
     |vpiName:my_port2
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@range_itf_port.my_port2), parent:my_port2
+    \_ref_obj: (work@range_itf_port.my_port2), line:11:17, endln:11:25, parent:my_port2
       |vpiName:my_port2
       |vpiFullName:work@range_itf_port.my_port2
       |vpiActual:
@@ -355,17 +355,17 @@ design: (work@range_itf_port)
     |vpiName:sif1
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@memory_ctrl1.sif1), parent:sif1
+    \_ref_obj: (work@memory_ctrl1.sif1), line:25:29, endln:25:33, parent:sif1
       |vpiFullName:work@memory_ctrl1.sif1
       |vpiActual:
       \_interface: work@mem_if (sif1) dut.sv:25: 
         |vpiName:sif1
         |vpiDefName:work@mem_if
         |vpiModport:
-        \_modport: (memory), parent:sif1
+        \_modport: (memory), line:20:12, endln:20:18, parent:sif1
           |vpiName:memory
           |vpiIODecl:
-          \_io_decl: (clk)
+          \_io_decl: (clk), line:20:27, endln:20:30
             |vpiDirection:2
             |vpiName:clk
             |vpiExpr:
@@ -375,10 +375,10 @@ design: (work@range_itf_port)
           |vpiInterface:
           \_interface: work@mem_if (sif1) dut.sv:25: 
         |vpiModport:
-        \_modport: (system), parent:sif1
+        \_modport: (system), line:19:12, endln:19:18, parent:sif1
           |vpiName:system
           |vpiIODecl:
-          \_io_decl: (clk)
+          \_io_decl: (clk), line:19:26, endln:19:29
             |vpiDirection:1
             |vpiName:clk
             |vpiExpr:
@@ -392,13 +392,13 @@ design: (work@range_itf_port)
     |vpiName:sif2
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@memory_ctrl1.sif2), parent:sif2
+    \_ref_obj: (work@memory_ctrl1.sif2), line:25:49, endln:25:53, parent:sif2
       |vpiFullName:work@memory_ctrl1.sif2
       |vpiActual:
-      \_modport: (system), parent:sif2
+      \_modport: (system), line:19:12, endln:19:18, parent:sif2
         |vpiName:system
         |vpiIODecl:
-        \_io_decl: (clk)
+        \_io_decl: (clk), line:19:26, endln:19:29
           |vpiDirection:1
           |vpiName:clk
           |vpiExpr:
@@ -420,7 +420,7 @@ design: (work@range_itf_port)
     |vpiName:conn1
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@middle.conn1), parent:conn1
+    \_ref_obj: (work@middle.conn1), line:35:26, endln:35:31, parent:conn1
       |vpiFullName:work@middle.conn1
       |vpiActual:
       \_interface_array: (conn1)
@@ -457,19 +457,19 @@ design: (work@range_itf_port)
     |vpiName:my_port1
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@range_itf_port2.my_port1), parent:my_port1
+    \_ref_obj: (work@range_itf_port2.my_port1), line:40:27, endln:40:35, parent:my_port1
       |vpiFullName:work@range_itf_port2.my_port1
       |vpiActual:
-      \_modport: (MyModPort), parent:my_port1
+      \_modport: (MyModPort), line:3:12, endln:3:21, parent:my_port1
         |vpiName:MyModPort
         |vpiIODecl:
-        \_io_decl: (my_logic)
+        \_io_decl: (my_logic), line:5:19, endln:5:27
           |vpiDirection:2
           |vpiName:my_logic
           |vpiExpr:
           \_logic_var: (my_logic), line:2:10, endln:2:18
             |vpiTypespec:
-            \_logic_typespec: 
+            \_logic_typespec: , line:2:10, endln:2:18
             |vpiName:my_logic
             |vpiVisibility:1
         |vpiInterface:
@@ -481,7 +481,7 @@ design: (work@range_itf_port)
     |vpiName:my_port2
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@range_itf_port2.my_port2), parent:my_port2
+    \_ref_obj: (work@range_itf_port2.my_port2), line:41:27, endln:41:35, parent:my_port2
       |vpiFullName:work@range_itf_port2.my_port2
       |vpiActual:
       \_interface_array: (my_port2)
@@ -506,16 +506,16 @@ design: (work@range_itf_port)
           |vpiName:my_port2
           |vpiDefName:work@MyInterface
           |vpiModport:
-          \_modport: (MyModPort), parent:my_port2
+          \_modport: (MyModPort), line:3:12, endln:3:21, parent:my_port2
             |vpiName:MyModPort
             |vpiIODecl:
-            \_io_decl: (my_logic)
+            \_io_decl: (my_logic), line:5:19, endln:5:27
               |vpiDirection:2
               |vpiName:my_logic
               |vpiExpr:
               \_logic_var: (my_logic), line:2:10, endln:2:18
                 |vpiTypespec:
-                \_logic_typespec: 
+                \_logic_typespec: , line:2:10, endln:2:18
                 |vpiName:my_logic
                 |vpiVisibility:1
             |vpiInterface:
@@ -527,23 +527,23 @@ design: (work@range_itf_port)
     |vpiName:my_port3
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@range_itf_port2.my_port3), parent:my_port3
+    \_ref_obj: (work@range_itf_port2.my_port3), line:42:18, endln:42:26, parent:my_port3
       |vpiFullName:work@range_itf_port2.my_port3
       |vpiActual:
       \_interface: work@MyInterface (my_port3) dut.sv:39: 
         |vpiName:my_port3
         |vpiDefName:work@MyInterface
         |vpiModport:
-        \_modport: (MyModPort), parent:my_port3
+        \_modport: (MyModPort), line:3:12, endln:3:21, parent:my_port3
           |vpiName:MyModPort
           |vpiIODecl:
-          \_io_decl: (my_logic)
+          \_io_decl: (my_logic), line:5:19, endln:5:27
             |vpiDirection:2
             |vpiName:my_logic
             |vpiExpr:
             \_logic_var: (my_logic), line:2:10, endln:2:18
               |vpiTypespec:
-              \_logic_typespec: 
+              \_logic_typespec: , line:2:10, endln:2:18
               |vpiName:my_logic
               |vpiVisibility:1
           |vpiInterface:
@@ -555,7 +555,7 @@ design: (work@range_itf_port)
     |vpiName:my_port4
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@range_itf_port2.my_port4), parent:my_port4
+    \_ref_obj: (work@range_itf_port2.my_port4), line:43:18, endln:43:26, parent:my_port4
       |vpiFullName:work@range_itf_port2.my_port4
       |vpiActual:
       \_interface_array: (my_port4)
@@ -580,16 +580,16 @@ design: (work@range_itf_port)
           |vpiName:my_port4
           |vpiDefName:work@MyInterface
           |vpiModport:
-          \_modport: (MyModPort), parent:my_port4
+          \_modport: (MyModPort), line:3:12, endln:3:21, parent:my_port4
             |vpiName:MyModPort
             |vpiIODecl:
-            \_io_decl: (my_logic)
+            \_io_decl: (my_logic), line:5:19, endln:5:27
               |vpiDirection:2
               |vpiName:my_logic
               |vpiExpr:
               \_logic_var: (my_logic), line:2:10, endln:2:18
                 |vpiTypespec:
-                \_logic_typespec: 
+                \_logic_typespec: , line:2:10, endln:2:18
                 |vpiName:my_logic
                 |vpiVisibility:1
             |vpiInterface:
