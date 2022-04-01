@@ -191,7 +191,7 @@ bool DesignElaboration::setupConfigurations_() {
   std::set<std::string> selectedConfigs;
   for (auto confId : selectedConfigIds) {
     std::string name = st->getSymbol(confId);
-    if (name.find(".") == std::string::npos) {
+    if (name.find('.') == std::string::npos) {
       name = "work@" + name;
     } else {
       name = StringUtils::replaceAll(name, ".", "@");
@@ -312,7 +312,8 @@ bool DesignElaboration::setupConfigurations_() {
 }
 
 void DesignElaboration::recurseBuildInstanceClause_(
-    std::string parentPath, Config* config, std::set<Config*>& configStack) {
+    const std::string& parentPath, Config* config,
+    std::set<Config*>& configStack) {
   if (configStack.find(config) != configStack.end()) {
     return;
   }
@@ -426,7 +427,7 @@ bool DesignElaboration::identifyTopModules_() {
   }
 
   // Check for multiple definition
-  std::string prevModuleName = "";
+  std::string prevModuleName;
   const DesignElement* prevModuleDefinition = nullptr;
   const FileContent* prevFileContent = nullptr;
   for (ModuleMultiMap::iterator itr = all_modules.begin();
@@ -584,7 +585,7 @@ bool DesignElaboration::elaborateAllModules_(bool onlyTopLevel) {
   return status;
 }
 
-Config* DesignElaboration::getInstConfig(std::string name) {
+Config* DesignElaboration::getInstConfig(const std::string& name) {
   Config* config = nullptr;
   auto itr = m_instConfig.find(name);
   if (itr != m_instConfig.end()) {
@@ -593,7 +594,7 @@ Config* DesignElaboration::getInstConfig(std::string name) {
   return config;
 }
 
-Config* DesignElaboration::getCellConfig(std::string name) {
+Config* DesignElaboration::getCellConfig(const std::string& name) {
   Config* config = nullptr;
   auto itr = m_cellConfig.find(name);
   if (itr != m_cellConfig.end()) {
@@ -627,7 +628,7 @@ bool DesignElaboration::bindAllInstances_(ModuleInstance* parent,
   return true;
 }
 
-bool DesignElaboration::elaborateModule_(std::string moduleName,
+bool DesignElaboration::elaborateModule_(const std::string& moduleName,
                                          const FileContent* fC,
                                          bool onlyTopLevel) {
   const FileContent::NameIdMap& nameIds = fC->getObjectLookup();
@@ -671,17 +672,17 @@ void DesignElaboration::recurseInstanceLoop_(
     unsigned int pos, DesignComponent* def, const FileContent* fC,
     NodeId subInstanceId, NodeId paramOverride, ModuleInstanceFactory* factory,
     ModuleInstance* parent, Config* config, std::string instanceName,
-    std::string modName, std::vector<ModuleInstance*>& allSubInstances) {
+    const std::string& modName, std::vector<ModuleInstance*>& allSubInstances) {
   if (pos == indexes.size()) {
     // This is where the real logic goes.
     // indexes[i] contain the value of the i-th index.
-    for (unsigned int i = 0; i < indexes.size(); i++) {
+    for (int index : indexes) {
       if (!instanceName.empty()) {
         if (instanceName[instanceName.size() - 1] == ' ') {
           instanceName.erase(instanceName.end() - 1);
         }
       }
-      instanceName = instanceName + "[" + std::to_string(indexes[i]) + "]";
+      instanceName = instanceName + "[" + std::to_string(index) + "]";
     }
     ModuleInstance* child = factory->newModuleInstance(
         def, fC, subInstanceId, parent, instanceName, modName);

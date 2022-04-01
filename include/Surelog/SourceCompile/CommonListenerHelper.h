@@ -50,7 +50,7 @@ class CommonListenerHelper {
  public:
   virtual ~CommonListenerHelper();
 
-  virtual SymbolId registerSymbol(const std::string& symbol) = 0;
+  virtual SymbolId registerSymbol(std::string_view symbol) = 0;
 
   int registerObject(VObject& object);
 

@@ -71,7 +71,7 @@ class SV3_1aPpTreeListenerHelper : public CommonListenerHelper {
   bool isPreviousBranchActive();
   // Helper function to log errors
   void logError(ErrorDefinition::ErrorType error,
-                antlr4::ParserRuleContext* ctx, std::string object,
+                antlr4::ParserRuleContext* ctx, std::string_view object,
                 bool printColumn = false);
   void logError(ErrorDefinition::ErrorType, Location& loc,
                 bool showDuplicates = false);
@@ -84,7 +84,7 @@ class SV3_1aPpTreeListenerHelper : public CommonListenerHelper {
   void addLineFiller(antlr4::ParserRuleContext* ctx);
 
   SymbolTable* getSymbolTable() const;
-  SymbolId registerSymbol(const std::string& symbol) final;
+  SymbolId registerSymbol(std::string_view symbol) final;
 
   std::tuple<unsigned int, unsigned short, unsigned int, unsigned short>
   getFileLine(antlr4::ParserRuleContext* ctx, SymbolId& fileId) override;

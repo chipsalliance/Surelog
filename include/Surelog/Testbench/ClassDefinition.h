@@ -25,6 +25,8 @@
 #define SURELOG_CLASSDEFINITION_H
 #pragma once
 
+#include <string_view>
+
 #include <Surelog/Design/DataType.h>
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Testbench/TaskMethod.h>
@@ -48,7 +50,7 @@ class ClassDefinition : public DesignComponent, public DataType {
   friend class CompileClass;
 
  public:
-  ClassDefinition(std::string name, Library* library,
+  ClassDefinition(std::string_view name, Library* library,
                   DesignComponent* container, const FileContent* fC,
                   NodeId nodeId, ClassDefinition* parent,
                   UHDM::class_defn* uhdm_definition);

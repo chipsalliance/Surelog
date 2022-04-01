@@ -26,9 +26,11 @@
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Testbench/Program.h>
 
+#include <string_view>
+
 namespace SURELOG {
 
-Program::Program(std::string name, Library* library, FileContent* fC,
+Program::Program(std::string_view name, Library* library, FileContent* fC,
                  NodeId nodeId)
     : DesignComponent(fC, nullptr), m_name(name), m_library(library) {
   addFileContent(fC, nodeId);

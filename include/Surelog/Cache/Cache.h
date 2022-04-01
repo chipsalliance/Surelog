@@ -62,11 +62,11 @@ class Cache {
                        const std::filesystem::path& cacheFileName);
 
   bool checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
-                           std::string schemaVersion,
+                           std::string_view schemaVersion,
                            const std::filesystem::path& cacheFileName);
 
-  const flatbuffers::Offset<SURELOG::CACHE::Header> createHeader(
-      flatbuffers::FlatBufferBuilder& builder, std::string schemaVersion,
+  flatbuffers::Offset<SURELOG::CACHE::Header> createHeader(
+      flatbuffers::FlatBufferBuilder& builder, std::string_view schemaVersion,
       const std::filesystem::path& origFileName);
 
   std::pair<flatbuffers::Offset<VectorOffsetError>,

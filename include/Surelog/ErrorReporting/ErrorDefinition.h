@@ -27,6 +27,7 @@
 
 #include <map>
 #include <string>
+#include <string_view>
 
 namespace SURELOG {
 
@@ -259,9 +260,9 @@ class ErrorDefinition {
   }
 
   static ErrorType getErrorType(std::string errorId);
-  static ErrorSeverity getErrorSeverity(std::string errorSeverity);
+  static ErrorSeverity getErrorSeverity(std::string_view errorSeverity);
   static std::string getCategoryName(ErrorCategory caterory);
-  static ErrorCategory getCategory(std::string);
+  static ErrorCategory getCategory(std::string_view category);
 
   static void setSeverity(ErrorType type, ErrorSeverity severity);
   static void rec(ErrorType type, ErrorSeverity severity,

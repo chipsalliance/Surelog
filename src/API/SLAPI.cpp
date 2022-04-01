@@ -247,6 +247,7 @@ std::vector<std::string> SLgetTokens(SV3_1aPythonListener* /*prog*/,
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
   std::vector<antlr4::Token*> tokens = ParseUtils::getFlatTokenList(ctx);
   std::vector<std::string> body_tokens;
+  body_tokens.reserve(tokens.size());
   for (auto token : tokens) {
     body_tokens.push_back(token->getText());
   }
@@ -336,9 +337,10 @@ std::vector<unsigned int> SLgetAll(FileContent* fC, NodeId parent,
 }
 
 std::vector<unsigned int> SLgetAll(FileContent* fC, NodeId parent,
-                                   std::vector<unsigned int> types) {
+                                   const std::vector<unsigned int>& types) {
   if (!fC) return {};
   std::vector<VObjectType> vtypes;
+  vtypes.reserve(types.size());
   for (auto type : types) vtypes.push_back((VObjectType)type);
   return fC->sl_get_all(parent, vtypes);
 }
@@ -357,22 +359,24 @@ std::vector<unsigned int> SLcollectAll(FileContent* fC, NodeId parent,
 }
 
 std::vector<unsigned int> SLcollectAll(FileContent* fC, NodeId parent,
-                                       std::vector<unsigned int> types,
+                                       const std::vector<unsigned int>& types,
                                        bool first) {
   if (!fC) return {};
   std::vector<VObjectType> vtypes;
+  vtypes.reserve(types.size());
   for (auto type : types) vtypes.push_back((VObjectType)type);
   return fC->sl_collect_all(parent, vtypes, first);
 }
 
-std::vector<unsigned int> SLcollectAll(FileContent* fC, NodeId parent,
-                                       std::vector<unsigned int> types,
-                                       std::vector<unsigned int> stopPoints,
-                                       bool first) {
+std::vector<unsigned int> SLcollectAll(
+    FileContent* fC, NodeId parent, const std::vector<unsigned int>& types,
+    const std::vector<unsigned int>& stopPoints, bool first) {
   if (!fC) return {};
   std::vector<VObjectType> vtypes;
+  vtypes.reserve(types.size());
   for (auto type : types) vtypes.push_back((VObjectType)type);
   std::vector<VObjectType> vstops;
+  vstops.reserve(stopPoints.size());
   for (auto type : stopPoints) vstops.push_back((VObjectType)type);
   return fC->sl_collect_all(parent, vtypes, vstops, first);
 }

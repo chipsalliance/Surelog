@@ -46,6 +46,7 @@ void ErrorDefinition::setSeverity(ErrorDefinition::ErrorType type,
 }
 
 ErrorDefinition::ErrorType ErrorDefinition::getErrorType(std::string errorId) {
+  // TODO: this needs to take std::string_view
   errorId = StringUtils::rtrim(errorId, ']');
   errorId = StringUtils::ltrim(errorId, '[');
   errorId = errorId.erase(0, 8);
@@ -54,7 +55,7 @@ ErrorDefinition::ErrorType ErrorDefinition::getErrorType(std::string errorId) {
 }
 
 ErrorDefinition::ErrorSeverity ErrorDefinition::getErrorSeverity(
-    std::string errorSeverity) {
+    const std::string_view errorSeverity) {
   if (errorSeverity == "FATAL")
     return FATAL;
   else if (errorSeverity == "ERROR")
@@ -115,7 +116,8 @@ std::string ErrorDefinition::getCategoryName(
   return cat;
 }
 
-ErrorDefinition::ErrorCategory ErrorDefinition::getCategory(std::string cat) {
+ErrorDefinition::ErrorCategory ErrorDefinition::getCategory(
+    std::string_view cat) {
   if (cat == "CM")
     return ErrorDefinition::CMD;
   else if (cat == "PP")

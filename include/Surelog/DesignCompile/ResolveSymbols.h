@@ -84,7 +84,7 @@ class ResolveSymbols : public CompileStep {
 
   bool resolve();
 
-  const VObject Object(NodeId index) const override;
+  VObject Object(NodeId index) const override;
   VObject* MutableObject(NodeId index);
 
   NodeId UniqueId(NodeId index) override;
@@ -137,7 +137,7 @@ class ResolveSymbols : public CompileStep {
 
  private:
   bool bindDefinition_(unsigned int objIndex,
-                       std::vector<VObjectType> bindTypes);
+                       const std::vector<VObjectType>& bindTypes);
 
   CompileDesign* const m_compileDesign;
   FileContent* const m_fileData;

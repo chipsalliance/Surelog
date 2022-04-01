@@ -143,11 +143,11 @@ ErrorContainer* ParseFile::getErrorContainer() {
   return m_errors ? m_errors : m_compileSourceFile->getErrorContainer();
 }
 
-SymbolId ParseFile::registerSymbol(const std::string symbol) {
+SymbolId ParseFile::registerSymbol(std::string_view symbol) {
   return getCompileSourceFile()->getSymbolTable()->registerSymbol(symbol);
 }
 
-SymbolId ParseFile::getId(const std::string symbol) {
+SymbolId ParseFile::getId(std::string_view symbol) {
   return getCompileSourceFile()->getSymbolTable()->getId(symbol);
 }
 
@@ -276,7 +276,8 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
   }
 }
 
-bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
+bool ParseFile::parseOneFile_(const std::string& fileName,
+                              unsigned int lineOffset) {
   CommandLineParser* clp = getCompileSourceFile()->getCommandLineParser();
   PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
   Timer tmr;

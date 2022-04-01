@@ -42,8 +42,8 @@ using UHDM::uhdmconstant;
 ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,
                                const FileContent* fileContent, NodeId nodeId,
                                ModuleInstance* parent,
-                               const std::string& instName,
-                               const std::string& modName)
+                               std::string_view instName,
+                               std::string_view modName)
     : ValuedComponentI(parent, moduleDefinition),
       m_definition(moduleDefinition),
       m_fileContent(fileContent),
@@ -52,7 +52,8 @@ ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,
       m_instName(instName),
       m_netlist(nullptr) {
   if (m_definition == nullptr) {
-    m_instName = modName + "&" + instName;
+    m_instName = modName;
+    m_instName.append("&").append(instName);
   }
 }
 
@@ -172,8 +173,8 @@ std::string ModuleInstance::decompile(char* valueName) {
 
 ModuleInstance::~ModuleInstance() {
   delete m_netlist;
-  for (unsigned int index = 0; index < m_allSubInstances.size(); index++) {
-    delete m_allSubInstances[index];
+  for (auto child : m_allSubInstances) {
+    delete child;
   }
 }
 
@@ -183,8 +184,8 @@ void ModuleInstance::addSubInstance(ModuleInstance* subInstance) {
 
 ModuleInstance* ModuleInstanceFactory::newModuleInstance(
     DesignComponent* moduleDefinition, const FileContent* fileContent,
-    NodeId nodeId, ModuleInstance* parent, std::string instName,
-    std::string modName) {
+    NodeId nodeId, ModuleInstance* parent, std::string_view instName,
+    std::string_view modName) {
   return new ModuleInstance(moduleDefinition, fileContent, nodeId, parent,
                             instName, modName);
 }

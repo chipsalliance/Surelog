@@ -107,13 +107,13 @@ class Config final {
     return m_defaultLibs;
   }
 
-  void addInstanceUseClause(const std::string& instance, UseClause use);
+  void addInstanceUseClause(const std::string& instance, const UseClause& use);
   const std::map<std::string, UseClause>& getInstanceUseClauses() const {
     return m_instanceUseClauses;
   }
   UseClause* getInstanceUseClause(const std::string& instance);
 
-  void addCellUseClause(const std::string& cell, UseClause use);
+  void addCellUseClause(const std::string& cell, const UseClause& use);
   const std::map<std::string, UseClause>& getCellUseClauses() const {
     return m_cellUseClauses;
   }

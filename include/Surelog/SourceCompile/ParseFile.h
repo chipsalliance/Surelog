@@ -102,8 +102,8 @@ class ParseFile final {
   }
 
   void addError(Error& error);
-  SymbolId registerSymbol(const std::string symbol);
-  SymbolId getId(const std::string symbol);
+  SymbolId registerSymbol(std::string_view symbol);
+  SymbolId getId(std::string_view symbol);
   std::string getSymbol(SymbolId id) const;
   bool usingCachedVersion() { return m_usingCachedVersion; }
   FileContent* getFileContent() { return m_fileContent; }
@@ -126,7 +126,7 @@ class ParseFile final {
   FileContent* m_fileContent = nullptr;
   bool debug_AstModel;
 
-  bool parseOneFile_(std::string fileName, unsigned int lineOffset);
+  bool parseOneFile_(const std::string& fileName, unsigned int lineOffset);
   void buildLineInfoCache_();
   // For file chunk:
   std::vector<ParseFile*> m_children;

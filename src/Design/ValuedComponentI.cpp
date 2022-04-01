@@ -75,7 +75,7 @@ void ValuedComponentI::forgetValue(const std::string& name) {
   }
 }
 
-void ValuedComponentI::setValue(const std::string& name, Value* val,
+void ValuedComponentI::setValue(const std::string& name, Value* val,  // NOLINT
                                 ExprBuilder& exprBuilder, int lineNb) {
   deleteValue(name, exprBuilder);
   m_paramMap.insert(

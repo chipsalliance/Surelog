@@ -60,7 +60,7 @@ SVLibShapeListener::SVLibShapeListener(ParseLibraryDef *parser,
 
 SVLibShapeListener::~SVLibShapeListener() {}
 
-SymbolId SVLibShapeListener::registerSymbol(const std::string &symbol) {
+SymbolId SVLibShapeListener::registerSymbol(std::string_view symbol) {
   return m_parser->getSymbolTable()->registerSymbol(symbol);
 }
 

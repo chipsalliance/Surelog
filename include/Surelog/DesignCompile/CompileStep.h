@@ -41,7 +41,7 @@ class CompileStep {
   CompileStep(const CompileStep& orig) = default;
   virtual ~CompileStep() = default;
 
-  virtual const VObject Object(NodeId index) const = 0;
+  virtual VObject Object(NodeId index) const = 0;
 
   virtual NodeId UniqueId(NodeId index) = 0;
 

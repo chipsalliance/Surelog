@@ -50,7 +50,7 @@ class ValuedComponentI : public RTTI {
   virtual Value* getValue(const std::string& name) const;
   virtual Value* getValue(const std::string& name,
                           ExprBuilder& exprBuilder) const;
-  virtual void setValue(const std::string& name, Value* val,
+  virtual void setValue(const std::string& name, Value* val,         // NOLINT
                         ExprBuilder& exprBuilder, int lineNb = 0);
   virtual void deleteValue(const std::string& name, ExprBuilder& exprBuilder);
   virtual void forgetValue(const std::string& name);

@@ -181,7 +181,7 @@ class CommandLineParser final {
   bool useTbb() const { return m_useTbb; }
   std::string getTimeScale() const { return m_timescale; }
   bool createCache() const { return m_createCache; }
-  const std::string currentDateTime();
+  std::string currentDateTime();
   bool parseBuiltIn();
   std::filesystem::path getBuiltInPath() const { return m_builtinPath; }
   std::filesystem::path getExePath() const { return m_exePath; }

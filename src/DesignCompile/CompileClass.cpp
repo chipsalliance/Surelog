@@ -494,7 +494,6 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
       NodeId Class_type = fC->Child(task_name);
       taskName = fC->SymName(fC->Child(Class_type));
       taskName += "::" + fC->SymName(fC->Sibling(task_name));
-      taskName = fC->Sibling(task_name);
     }
 
     m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, nullptr,
@@ -528,7 +527,6 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
         NodeId Class_type = fC->Child(task_name);
         taskName = fC->SymName(fC->Child(Class_type));
         taskName += "::" + fC->SymName(fC->Sibling(task_name));
-        taskName = fC->Sibling(task_name);
       }
 
       m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, nullptr,
