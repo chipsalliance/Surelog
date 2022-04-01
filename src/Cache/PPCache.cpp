@@ -46,17 +46,18 @@ static const char FlbSchemaVersion[] = "1.0";
 
 fs::path PPCache::getCacheFileName_(const fs::path& requested_file) {
   Precompiled* prec = Precompiled::getSingleton();
-  SymbolId cacheDirId =
-      m_pp->getCompileSourceFile()->getCommandLineParser()->getCacheDir();
+  CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
+  SymbolId cacheDirId = clp->getCacheDir();
 
   const fs::path svFileName =
       requested_file.empty() ? m_pp->getFileName(LINE1) : requested_file;
 
   const fs::path baseFileName = FileUtils::basename(svFileName);
   const fs::path filePath = FileUtils::getPathName(svFileName);
-  fs::path hashedPath = FileUtils::hashPath(filePath);
+  fs::path hashedPath =
+      clp->noCacheHash() ? filePath : fs::path(FileUtils::hashPath(filePath));
   fs::path fileName = hashedPath / baseFileName;
-  if (m_pp->getCompileSourceFile()->getCommandLineParser()->parseOnly()) {
+  if (clp->parseOnly()) {
     fileName = filePath / baseFileName;
   }
   if (prec->isFilePrecompiled(baseFileName)) {
@@ -76,7 +77,7 @@ fs::path PPCache::getCacheFileName_(const fs::path& requested_file) {
 
   Library* lib = m_pp->getLibrary();
   std::string libName = lib->getName();
-  if (m_pp->getCompileSourceFile()->getCommandLineParser()->parseOnly()) {
+  if (clp->parseOnly()) {
     libName = "";
   }
   fs::path cacheFileName =
@@ -217,6 +218,9 @@ bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName) {
     return true;
   }
   if (clp->lowMem()) {
+    return true;
+  }
+  if (clp->noCacheHash()) {
     return true;
   }
   uint8_t* buffer_pointer = openFlatBuffers(cacheFileName);
