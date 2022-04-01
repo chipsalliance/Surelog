@@ -61,7 +61,8 @@ SV3_1aTreeShapeHelper::~SV3_1aTreeShapeHelper() {}
 
 void SV3_1aTreeShapeHelper::logError(ErrorDefinition::ErrorType error,
                                      antlr4::ParserRuleContext* ctx,
-                                     std::string object, bool printColumn) {
+                                     std::string_view object,
+                                     bool printColumn) {
   std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
 
   Location loc(
@@ -98,12 +99,12 @@ NodeId SV3_1aTreeShapeHelper::generateNodeId() {
   return m_pf->getCompilationUnit()->generateUniqueNodeId();
 }
 
-SymbolId SV3_1aTreeShapeHelper::registerSymbol(const std::string& symbol) {
+SymbolId SV3_1aTreeShapeHelper::registerSymbol(std::string_view symbol) {
   return m_pf->getSymbolTable()->registerSymbol(symbol);
 }
 
 void SV3_1aTreeShapeHelper::addNestedDesignElement(
-    antlr4::ParserRuleContext* ctx, std::string name,
+    antlr4::ParserRuleContext* ctx, std::string_view name,
     DesignElement::ElemType elemtype, VObjectType objtype) {
   SymbolId fileId;
   auto [line, column, endLine, endColumn] = getFileLine(ctx, fileId);
@@ -119,14 +120,15 @@ void SV3_1aTreeShapeHelper::addNestedDesignElement(
     elem->m_timeInfo = m_nestedElements.top()->m_timeInfo;
     elem->m_parent = m_nestedElements.top()->m_uniqueId;
   }
-  m_fileContent->addDesignElement(m_pf->getLibrary()->getName() + "@" + name,
-                                  elem);
+  std::string design_element = m_pf->getLibrary()->getName() + "@";
+  design_element.append(name);
+  m_fileContent->addDesignElement(design_element, elem);
   m_currentElement = m_fileContent->getDesignElements().back();
   m_nestedElements.push(m_currentElement);
 }
 
 void SV3_1aTreeShapeHelper::addDesignElement(antlr4::ParserRuleContext* ctx,
-                                             std::string name,
+                                             std::string_view name,
                                              DesignElement::ElemType elemtype,
                                              VObjectType objtype) {
   SymbolId fileId;
@@ -139,8 +141,9 @@ void SV3_1aTreeShapeHelper::addDesignElement(antlr4::ParserRuleContext* ctx,
       m_pf->getCompilationUnit()->getTimeInfo(m_pf->getFileId(line), line);
   elem->m_defaultNetType =
       m_pf->getCompilationUnit()->getDefaultNetType(fileId, line);
-  m_fileContent->addDesignElement(m_pf->getLibrary()->getName() + "@" + name,
-                                  elem);
+  std::string design_element = m_pf->getLibrary()->getName() + "@";
+  design_element.append(name);
+  m_fileContent->addDesignElement(design_element, elem);
   m_currentElement = m_fileContent->getDesignElements().back();
 }
 

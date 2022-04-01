@@ -25,14 +25,15 @@
 #define SURELOG_SV3_1ATREESHAPEHELPER_H
 #pragma once
 
+#include <stack>
+#include <string_view>
+
 #include <Surelog/Design/DesignElement.h>
 #include <Surelog/ErrorReporting/ErrorDefinition.h>
 #include <Surelog/ErrorReporting/Location.h>
 #include <Surelog/SourceCompile/CommonListenerHelper.h>
 #include <Surelog/SourceCompile/IncludeFileInfo.h>
 #include <parser/SV3_1aParser.h>
-
-#include <stack>
 
 namespace antlr4 {
 class CommonTokenStream;
@@ -55,7 +56,7 @@ class SV3_1aTreeShapeHelper : public CommonListenerHelper {
   ~SV3_1aTreeShapeHelper() override;
 
   void logError(ErrorDefinition::ErrorType error,
-                antlr4::ParserRuleContext* ctx, std::string object,
+                antlr4::ParserRuleContext* ctx, std::string_view object,
                 bool printColumn = false);
 
   void logError(ErrorDefinition::ErrorType, Location& loc,
@@ -68,13 +69,14 @@ class SV3_1aTreeShapeHelper : public CommonListenerHelper {
 
   NodeId generateNodeId();
 
-  SymbolId registerSymbol(const std::string& symbol) override;
+  SymbolId registerSymbol(std::string_view symbol) override;
 
-  void addNestedDesignElement(antlr4::ParserRuleContext* ctx, std::string name,
+  void addNestedDesignElement(antlr4::ParserRuleContext* ctx,
+                              std::string_view name,
                               DesignElement::ElemType elemtype,
                               VObjectType objtype);
 
-  void addDesignElement(antlr4::ParserRuleContext* ctx, std::string name,
+  void addDesignElement(antlr4::ParserRuleContext* ctx, std::string_view name,
                         DesignElement::ElemType elemtype, VObjectType objtype);
 
   std::pair<double, TimeInfo::Unit> getTimeValue(

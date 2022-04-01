@@ -45,6 +45,8 @@
 #include <Surelog/Testbench/TypeDef.h>
 #include <Surelog/Utils/StringUtils.h>
 
+#include <algorithm>
+
 // UHDM
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/ExprEval.h>
@@ -113,10 +115,9 @@ bool NetlistElaboration::elaborate() {
   // Top level modules
   const std::vector<ModuleInstance*>& topModules =
       design->getTopLevelModuleInstances();
-  for (ModuleInstance* inst : topModules) {
-    if (!elaborate_(inst, true)) return false;
-  }
-  return true;
+  return std::all_of(
+      topModules.begin(), topModules.end(),
+      [this](ModuleInstance* inst) { return elaborate_(inst, true); });
 }
 
 bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,

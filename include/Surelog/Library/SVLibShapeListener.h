@@ -41,7 +41,7 @@ class SVLibShapeListener : public SV3_1aParserBaseListener,
   SVLibShapeListener(ParseLibraryDef* parser, antlr4::CommonTokenStream* tokens,
                      const std::filesystem::path& relativePath);
 
-  SymbolId registerSymbol(const std::string& symbol) final;
+  SymbolId registerSymbol(std::string_view symbol) final;
 
   antlr4::CommonTokenStream* getTokenStream() const { return m_tokens; }
   ~SVLibShapeListener() override;

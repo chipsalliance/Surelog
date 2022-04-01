@@ -1035,7 +1035,7 @@ bool CompileHelper::compileSeqBlock_stmt(Scope* parent, Statement* parentStmt,
                                          const FileContent* fC,
                                          NodeId seq_block) {
   NodeId item = fC->Child(seq_block);
-  std::string name = "";
+  std::string name;
   SeqBlock* block = new SeqBlock(name, parent, parentStmt, fC, seq_block);
   parent->addScope(block);
   parent->addStmt(block);

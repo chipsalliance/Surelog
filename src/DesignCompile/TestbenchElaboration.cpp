@@ -93,9 +93,9 @@ bool checkValidFunction(const DataType* dtype, const std::string& function,
   return validFunction;
 }
 
-bool checkValidBuiltinClass_(std::string classname, std::string function,
-                             Statement* stmt, Design* design,
-                             std::string& datatypeName) {
+bool checkValidBuiltinClass_(const std::string& classname,
+                             const std::string& function, Statement* stmt,
+                             Design* design, std::string& datatypeName) {
   bool validFunction = true;
   ClassDefinition* array = design->getClassDefinition("builtin::" + classname);
   if (array == nullptr) return false;
@@ -155,7 +155,7 @@ bool TestbenchElaboration::checkForMultipleDefinition_() {
   ClassNameClassDefinitionMultiMap classes = design->getClassDefinitions();
 
   // Check for multiple definition
-  std::string prevClassName = "";
+  std::string prevClassName;
   ClassDefinition* prevClassDefinition = nullptr;
   for (ClassNameClassDefinitionMultiMap::iterator itr = classes.begin();
        itr != classes.end(); itr++) {

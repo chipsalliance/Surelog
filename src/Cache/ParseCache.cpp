@@ -134,8 +134,13 @@ bool ParseCache::restore_(const fs::path& cacheFileName) {
 
 bool ParseCache::checkCacheIsValid_(const fs::path& cacheFileName) {
   uint8_t* buffer_pointer = openFlatBuffers(cacheFileName);
+  CommandLineParser* clp =
+      m_parse->getCompileSourceFile()->getCommandLineParser();
   if (buffer_pointer == nullptr) {
     return false;
+  }
+  if (clp->noCacheHash()) {
+    return true;
   }
   if (!PARSECACHE::ParseCacheBufferHasIdentifier(buffer_pointer)) {
     delete[] buffer_pointer;

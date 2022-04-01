@@ -29,6 +29,7 @@
 
 #include <cstdint>
 #include <string>
+#include <string_view>
 
 namespace SURELOG {
 
@@ -144,7 +145,7 @@ class Value : public RTTI {
 SURELOG_IMPLEMENT_RTTI_CAST_FUNCTIONS(value_cast, SURELOG::Value)
 
 namespace SURELOG {
-class SValue : public Value {
+class SValue final : public Value {
   SURELOG_IMPLEMENT_RTTI(SValue, Value)
   friend LValue;
 
@@ -316,27 +317,22 @@ class ValueFactory {
   LValue* m_headInUse;
 };
 
-class LValue : public Value {
+class LValue final : public Value {
   SURELOG_IMPLEMENT_RTTI(LValue, Value)
   friend ValueFactory;
 
  public:
   LValue(const LValue&);
-  LValue()
-      : m_type(Type::None),
-        m_nbWords(0),
-        m_valueArray(nullptr),
-        m_valid(0),
-        m_negative(0) {}
+  LValue() = default;
   LValue(Type type, SValue* values, unsigned short nbWords)
       : m_type(type),
         m_nbWords(nbWords),
         m_valueArray(values),
         m_valid(1),
         m_negative(0) {}
-  LValue(uint64_t val);
-  LValue(int64_t val);
-  LValue(double val);
+  explicit LValue(uint64_t val);
+  explicit LValue(int64_t val);
+  explicit LValue(double val);
   LValue(int64_t val, Type type, short size);
   ~LValue() final;
 
@@ -420,24 +416,24 @@ class LValue : public Value {
   void adjust(const Value* a);
 
  private:
-  Type m_type;
-  unsigned short m_nbWords;
-  SValue* m_valueArray;
-  unsigned short m_valid;
-  unsigned short m_negative;
+  Type m_type = Type::None;
+  unsigned short m_nbWords = 0;
+  SValue* m_valueArray = nullptr;
+  unsigned short m_valid = 0;
+  unsigned short m_negative = 0;
   unsigned short m_lrange = 0;
   unsigned short m_rrange = 0;
-  LValue* m_prev;
-  LValue* m_next;
+  LValue* m_prev = nullptr;
+  LValue* m_next = nullptr;
 };
 
-class StValue : public Value {
+class StValue final : public Value {
   SURELOG_IMPLEMENT_RTTI(StValue, Value)
   friend LValue;
 
  public:
   StValue() : m_type(Type::String), m_value(""), m_size(0), m_valid(false) {}
-  StValue(const std::string& val)
+  explicit StValue(std::string_view val)
       : m_type(Type::String), m_value(val), m_size(val.size()), m_valid(true) {}
   ~StValue() final;
 

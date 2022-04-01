@@ -1282,7 +1282,7 @@ bool CompileModule::checkModule_() {
                 *missingDirectionLoc);
       m_errors->addError(err);
     }
-    if (countMissingType && countMissingDirection) {
+    if (countMissingType) {
       Error err(ErrorDefinition::COMP_UNSPECIFIED_PORT, *missingDirectionLoc);
       m_errors->addError(err);
     }

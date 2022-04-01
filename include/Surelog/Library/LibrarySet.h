@@ -44,8 +44,8 @@ class LibrarySet final {
   std::vector<Library>& getLibraries() { return m_libraries; }
   Library* getLibrary(std::string_view libName);
   Library* getLibrary(SymbolId fileId);
-  void checkErrors(SymbolTable* symbols, ErrorContainer* errors);
-  std::string report(SymbolTable* symbols);
+  void checkErrors(SymbolTable* symbols, ErrorContainer* errors) const;
+  std::string report(SymbolTable* symbols) const;
 
  private:
   LibrarySet(const LibrarySet& orig) = default;

@@ -178,6 +178,7 @@ target_link_libraries(<your project name> surelog)
    -lineoffsetascomments Writes the preprocessor line offsets as comments as opposed as parser directives
    -nocache              Default allows to create a cache for include files, this option prevents it
    -cache <dir>          Specifies the cache directory, default is slpp_all/cache or slpp_unit/cache
+   -nohash               Don't use hash mechanism for cache file path, always treat cache as valid (no timestamp/dependancy check)
    -createcache          Create cache for precompiled packages
    -filterdirectives     Filters out simple directives like default_nettype in pre-processor's output
    -filterprotected      Filters out protected regions in pre-processor's output

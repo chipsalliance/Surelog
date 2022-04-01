@@ -770,7 +770,7 @@ void writeVariables(const DesignComponent::VariableMap& orig_vars,
 
 class ReInstanceTypespec : public VpiListener {
  public:
-  ReInstanceTypespec(package* p) : m_package(p) {}
+  explicit ReInstanceTypespec(package* p) : m_package(p) {}
   ~ReInstanceTypespec() override {}
 
   void leaveShort_real_typespec(const short_real_typespec* object,

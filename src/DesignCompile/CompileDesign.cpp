@@ -121,7 +121,7 @@ void CompileDesign::compileMT_(ObjectMapType& objects, int maxThreadCount) {
     // Optimize the load balance, try to even out the work in each thread by the
     // number of VObjects
     std::vector<unsigned long> jobSize(maxThreadCount);
-    for (unsigned short i = 0; i < maxThreadCount; i++) {
+    for (int i = 0; i < maxThreadCount; i++) {
       jobSize[i] = 0;
     }
     std::vector<std::vector<ObjectType*>> jobArray(maxThreadCount);
@@ -130,7 +130,7 @@ void CompileDesign::compileMT_(ObjectMapType& objects, int maxThreadCount) {
       if (size == 0) size = 100;
       unsigned int newJobIndex = 0;
       unsigned long long minJobQueue = ULLONG_MAX;
-      for (unsigned short ii = 0; ii < maxThreadCount; ii++) {
+      for (int ii = 0; ii < maxThreadCount; ii++) {
         if (jobSize[ii] < minJobQueue) {
           newJobIndex = ii;
           minJobQueue = jobSize[ii];
@@ -142,7 +142,7 @@ void CompileDesign::compileMT_(ObjectMapType& objects, int maxThreadCount) {
 
     if (getCompiler()->getCommandLineParser()->profile()) {
       std::cout << "Compilation Task\n";
-      for (unsigned short i = 0; i < maxThreadCount; i++) {
+      for (int i = 0; i < maxThreadCount; i++) {
         std::cout << "Thread " << i << " : \n";
         for (unsigned int j = 0; j < jobArray[i].size(); j++) {
           std::cout << jobArray[i][j]->getName() << "\n";
@@ -152,7 +152,7 @@ void CompileDesign::compileMT_(ObjectMapType& objects, int maxThreadCount) {
 
     // Create the threads with their respective workloads
     std::vector<std::thread*> threads;
-    for (unsigned short i = 0; i < maxThreadCount; i++) {
+    for (int i = 0; i < maxThreadCount; i++) {
       std::thread* th = new std::thread([=] {
         for (unsigned int j = 0; j < jobArray[i].size(); j++) {
           FunctorType funct(this, jobArray[i][j], m_compiler->getDesign(),
@@ -162,13 +162,11 @@ void CompileDesign::compileMT_(ObjectMapType& objects, int maxThreadCount) {
       });
       threads.push_back(th);
     }
-    // Sync the threads
-    for (unsigned int th = 0; th < threads.size(); th++) {
-      threads[th]->join();
+    for (auto* thread : threads) {  // sync
+      thread->join();
     }
-    // Delete the threads
-    for (unsigned int th = 0; th < threads.size(); th++) {
-      delete threads[th];
+    for (auto* thread : threads) {  // delete
+      delete thread;
     }
   }
 }

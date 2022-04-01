@@ -67,7 +67,7 @@ class ElaborationStep {
                                 const DesignComponent* parent,
                                 ErrorDefinition::ErrorType errtype);
 
-  Variable* bindVariable_(std::string var_name, Scope* scope,
+  Variable* bindVariable_(const std::string& var_name, Scope* scope,
                           const FileContent* fc, NodeId id,
                           const DesignComponent* parent,
                           ErrorDefinition::ErrorType errtype,

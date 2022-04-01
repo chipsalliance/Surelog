@@ -43,6 +43,7 @@
 
 #include <iostream>
 #include <regex>
+#include <string_view>
 
 namespace SURELOG {
 
@@ -119,7 +120,7 @@ void PreprocessFile::setDebug(int level) {
 
 class PreprocessFile::DescriptiveErrorListener : public ANTLRErrorListener {
  public:
-  DescriptiveErrorListener(PreprocessFile* pp, std::string filename)
+  DescriptiveErrorListener(PreprocessFile* pp, std::string_view filename)
       : m_pp(pp), m_fileName(filename) {}
 
   void syntaxError(Recognizer* recognizer, Token* offendingSymbol, size_t line,
@@ -209,8 +210,6 @@ PreprocessFile::PreprocessFile(SymbolId fileId, CompileSourceFile* csf,
                                CompilationUnit* comp_unit, Library* library)
     : m_fileId(fileId),
       m_library(library),
-      m_result(""),
-      m_macroBody(""),
       m_includer(nullptr),
       m_includerLine(0),
       m_compileSourceFile(csf),
@@ -246,7 +245,6 @@ PreprocessFile::PreprocessFile(SymbolId fileId, PreprocessFile* includedIn,
                                SymbolId embeddedMacroCallFile)
     : m_fileId(fileId),
       m_library(library),
-      m_result(""),
       m_macroBody(macroBody),
       m_compileSourceFile(csf),
       m_lineCount(0),
@@ -636,7 +634,7 @@ void PreprocessFile::checkMacroArguments_(
           (argSet.find(s2) == argSet.end())) {
         for (auto s : {s1, s2}) {
           if (argSet.find(s) == argSet.end()) {
-            if (s.find("`") != std::string::npos) continue;
+            if (s.find('`') != std::string::npos) continue;
             if (s.find("//") != std::string::npos) continue;
             if (!std::isalpha(s[0])) continue;
             Location loc(m_fileId, line, column, registerSymbol(s));

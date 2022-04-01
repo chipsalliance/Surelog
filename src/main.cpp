@@ -123,7 +123,8 @@ enum COMP_MODE {
   BATCH,
 };
 
-int batchCompilation(const char* argv0, std::string batchFile, bool nostdout) {
+int batchCompilation(const char* argv0, const std::string& batchFile,
+                     bool nostdout) {
   char path[10000];
   int returnCode = 0;
   SURELOG::ErrorContainer::Stats overallStats;

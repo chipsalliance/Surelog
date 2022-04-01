@@ -67,7 +67,7 @@ class FileContent : public DesignComponent {
   NodeId sl_parent(NodeId parent,
                    VObjectType type);  // Get first parent item of type
 
-  NodeId sl_parent(NodeId parent, std::vector<VObjectType> types,
+  NodeId sl_parent(NodeId parent, const std::vector<VObjectType>& types,
                    VObjectType& actualType);  // Get first parent item of type
 
   std::vector<NodeId> sl_get_all(
@@ -108,7 +108,7 @@ class FileContent : public DesignComponent {
   std::string printSubTree(NodeId parentIndex);  // Print subtree from parent
   std::string printObject(NodeId noedId) const;  // Only print that object
   std::vector<std::string> collectSubTree(NodeId uniqueId);  // Helper function
-  const std::filesystem::path getFileName(NodeId id) const;
+  std::filesystem::path getFileName(NodeId id) const;
   std::filesystem::path getChunkFileName() const;
   SymbolTable* getSymbolTable() { return m_symbolTable; }
   void setSymbolTable(SymbolTable* table) { m_symbolTable = table; }
@@ -120,7 +120,7 @@ class FileContent : public DesignComponent {
   const DesignElement* getDesignElement(const std::string& name) const;
   std::vector<VObject>& getVObjects() { return m_objects; }
   const NameIdMap& getObjectLookup() const { return m_objectLookup; }
-  void insertObjectLookup(std::string name, NodeId id, ErrorContainer* errors);
+  void insertObjectLookup(const std::string& name, NodeId id, ErrorContainer* errors);
   std::unordered_set<std::string>& getReferencedObjects() {
     return m_referencedObjects;
   }

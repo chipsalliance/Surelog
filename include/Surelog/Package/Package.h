@@ -25,6 +25,8 @@
 #define SURELOG_PACKAGE_H
 #pragma once
 
+#include <string_view>
+
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Expression/ExprBuilder.h>
@@ -44,7 +46,8 @@ class Package : public DesignComponent {
   friend CompilePackage;
 
  public:
-  Package(std::string name, Library* library, FileContent* fC, NodeId nodeId);
+  Package(std::string_view name, Library* library,
+          FileContent* fC, NodeId nodeId);
   void append(Package* package);
 
   ~Package() override = default;

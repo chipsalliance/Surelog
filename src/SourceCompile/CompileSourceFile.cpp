@@ -263,7 +263,9 @@ bool CompileSourceFile::postPreprocess_() {
     fs::path fullFileName = symbolTable->getSymbol(m_fileId);
     fs::path baseFileName = FileUtils::basename(fullFileName);
     fs::path filePath = FileUtils::getPathName(fullFileName);
-    fs::path hashedPath = FileUtils::hashPath(filePath);
+    fs::path hashedPath = m_commandLineParser->noCacheHash()
+                              ? filePath
+                              : fs::path(FileUtils::hashPath(filePath));
     fs::path fileName = hashedPath / baseFileName;
 
     const fs::path writePpOutputFileName =

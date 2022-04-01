@@ -44,7 +44,8 @@ class Program : public DesignComponent, public ClockingBlockHolder {
   friend class CompileProgram;
 
  public:
-  Program(std::string name, Library* library, FileContent* fC, NodeId nodeId);
+  Program(std::string_view name, Library* library,
+          FileContent* fC, NodeId nodeId);
   ~Program() override = default;
 
   unsigned int getSize() const override;
@@ -55,7 +56,7 @@ class Program : public DesignComponent, public ClockingBlockHolder {
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;
   }
-  void addClassDefinition(std::string className, ClassDefinition* classDef) {
+  void addClassDefinition(const std::string& className, ClassDefinition* classDef) {
     m_classDefinitions.insert(std::make_pair(className, classDef));
   }
   ClassDefinition* getClassDefinition(const std::string& name);

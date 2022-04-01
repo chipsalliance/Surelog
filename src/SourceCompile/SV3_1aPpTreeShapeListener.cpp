@@ -378,6 +378,7 @@ void SV3_1aPpTreeShapeListener::enterSimple_no_args_macro_definition(
                                  : ctx->Escaped_identifier());
     std::vector<antlr4::Token *> tokens = ParseUtils::getFlatTokenList(cBody);
     std::vector<std::string> body_tokens;
+    body_tokens.reserve(tokens.size());
     for (auto token : tokens) {
       body_tokens.push_back(token->getText());
     }
@@ -838,7 +839,7 @@ void SV3_1aPpTreeShapeListener::enterString(
   if (m_inActiveBranch &&
       (!(m_filterProtectedRegions && m_inProtectedRegion)) &&
       (!m_inMacroDefinitionParsing)) {
-    if (stringContent.find("`") != std::string::npos) {
+    if (stringContent.find('`') != std::string::npos) {
       std::string stringData = stringContent;
       stringData.erase(0, 1);
       stringData.erase(stringData.end() - 1, stringData.end());
@@ -1348,6 +1349,7 @@ void SV3_1aPpTreeShapeListener::enterMultiline_no_args_macro_definition(
         ctx->escaped_macro_definition_body();
     std::vector<antlr4::Token *> tokens = ParseUtils::getFlatTokenList(cBody);
     std::vector<std::string> body_tokens;
+    body_tokens.reserve(tokens.size());
     for (auto token : tokens) {
       body_tokens.push_back(token->getText());
     }
@@ -1391,6 +1393,7 @@ void SV3_1aPpTreeShapeListener::enterMultiline_args_macro_definition(
     std::string arguments = ctx->macro_arguments()->getText();
     std::vector<antlr4::Token *> tokens = ParseUtils::getFlatTokenList(cBody);
     std::vector<std::string> body_tokens;
+    body_tokens.reserve(tokens.size());
     for (auto token : tokens) {
       body_tokens.push_back(token->getText());
     }
@@ -1437,6 +1440,7 @@ void SV3_1aPpTreeShapeListener::enterSimple_args_macro_definition(
     std::string arguments = ctx->macro_arguments()->getText();
     std::vector<antlr4::Token *> tokens = ParseUtils::getFlatTokenList(cBody);
     std::vector<std::string> body_tokens;
+    body_tokens.reserve(tokens.size());
     for (auto token : tokens) {
       body_tokens.push_back(token->getText());
     }

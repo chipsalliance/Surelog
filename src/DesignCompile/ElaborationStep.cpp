@@ -630,8 +630,9 @@ const DataType* ElaborationStep::bindDataType_(
   return result;
 }
 
-Variable* ElaborationStep::bindVariable_(std::string var_name, Scope* scope,
-                                         const FileContent* fC, NodeId id,
+Variable* ElaborationStep::bindVariable_(const std::string& var_name,
+                                         Scope* scope, const FileContent* fC,
+                                         NodeId id,
                                          const DesignComponent* parent,
                                          ErrorDefinition::ErrorType errtype,
                                          bool returnClassParam) {

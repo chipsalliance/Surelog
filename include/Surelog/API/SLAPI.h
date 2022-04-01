@@ -128,7 +128,7 @@ UIntVector SLgetAll(FileContent* fC, NodeId parent,
                     unsigned int type);  // get all child items of type
 
 UIntVector SLgetAll(FileContent* fC, NodeId parent,
-                    UIntVector types);  // get all child items of types
+                    const UIntVector& types);  // get all child items of types
 
 NodeId SLcollect(
     FileContent* fC, NodeId parent,
@@ -139,11 +139,12 @@ UIntVector SLcollectAll(
     bool first);  // Recursively search for all items of type
 
 UIntVector SLcollectAll(
-    FileContent* fC, NodeId parent, UIntVector types,
+    FileContent* fC, NodeId parent, const UIntVector& types,
     bool first);  // Recursively search for all items of types
 
-UIntVector SLcollectAll(FileContent* fC, NodeId parent, UIntVector types,
-                        UIntVector stopPoints, bool first);
+UIntVector SLcollectAll(FileContent* fC, NodeId parent,
+                        const UIntVector& types,
+                        const UIntVector& stopPoints, bool first);
 // Recursively search for all items of types
 // and stops at types stopPoints
 /* Design API */

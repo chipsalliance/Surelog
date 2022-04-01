@@ -25,6 +25,8 @@
 #define SURELOG_MODULEINSTANCE_H
 #pragma once
 
+#include <string_view>
+
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
@@ -43,7 +45,7 @@ class ModuleInstance : public ValuedComponentI {
  public:
   ModuleInstance(DesignComponent* definition, const FileContent* fileContent,
                  NodeId nodeId, ModuleInstance* parent,
-                 const std::string& instName, const std::string& moduleName);
+                 std::string_view instName, std::string_view moduleName);
   ~ModuleInstance() override;
 
   void addSubInstance(ModuleInstance* subInstance);
@@ -125,8 +127,8 @@ class ModuleInstanceFactory {
   ModuleInstance* newModuleInstance(DesignComponent* definition,
                                     const FileContent* fileContent,
                                     NodeId nodeId, ModuleInstance* parent,
-                                    std::string instName,
-                                    std::string moduleName);
+                                    std::string_view instName,
+                                    std::string_view moduleName);
 };
 
 }  // namespace SURELOG

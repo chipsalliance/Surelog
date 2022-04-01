@@ -101,8 +101,8 @@ void ParseUtils::tokenizeAtComma(
   for (unsigned int j = 0; j < tmpArgs.size(); j++) {
     const std::string& s = tmpArgs[j];
     if (s != ",") {
-      for (unsigned int i = 0; i < s.size(); i++) {  // TODO: use std:: fun
-        if (s[i] != ' ') {
+      for (const char c : s) {  // TODO: use std:: fun
+        if (c != ' ') {
           notEmpty = true;
           break;
         }
@@ -153,9 +153,8 @@ void ParseUtils::inOrderTraversal(std::vector<antlr4::Token*>& tokens,
                                   antlr4::tree::ParseTree* parent) {
   if (!parent) return;
   // Iterate over all child nodes of `parent`.
-  for (unsigned int i = 0; i < parent->children.size(); i++) {
+  for (auto child : parent->children) {
     // Get the i-th child node of `parent`.
-    antlr4::tree::ParseTree* child = parent->children[i];
     antlr4::tree::TerminalNode* node =
         dynamic_cast<antlr4::tree::TerminalNode*>(child);
     if (node) {
