@@ -107,7 +107,7 @@ def _rmdir(dirpath, retries=10):
     count += 1
     time.sleep(0.1)
 
-  shutil.rmtree(current_output_dirpath)
+  shutil.rmtree(dirpath)
   return not os.path.exists(dirpath)
 
 

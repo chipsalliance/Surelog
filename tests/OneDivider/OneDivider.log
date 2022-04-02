@@ -83,12 +83,12 @@ design: (work@tb)
   |vpiProcess:
   \_always: , line:5:1, endln:9:23, parent:work@dut
     |vpiStmt:
-    \_event_control: , line:5:8, endln:9:23
+    \_event_control: , line:5:8, endln:5:39
       |vpiCondition:
-      \_operation: , line:5:11, endln:5:22
+      \_operation: , line:5:11, endln:5:38
         |vpiOpType:35
         |vpiOperand:
-        \_operation: , line:5:11, endln:5:18
+        \_operation: , line:5:11, endln:5:22
           |vpiOpType:39
           |vpiOperand:
           \_ref_obj: (clk), line:5:19, endln:5:22
@@ -99,7 +99,7 @@ design: (work@tb)
               |vpiFullName:work@tb.dut1.clk
               |vpiNetType:36
         |vpiOperand:
-        \_operation: , line:5:26, endln:5:33
+        \_operation: , line:5:26, endln:5:38
           |vpiOpType:40
           |vpiOperand:
           \_ref_obj: (rstn), line:5:34, endln:5:38
@@ -177,7 +177,7 @@ design: (work@tb)
     |vpiFullName:work@tb.rstn
     |vpiNetType:36
   |vpiAssertion:
-  \_assert_stmt: (work@tb.ap_div2), line:28:12, endln:28:112, parent:work@tb
+  \_assert_stmt: (work@tb.ap_div2), line:28:3, endln:28:112, parent:work@tb
     |vpiName:ap_div2
     |vpiFullName:work@tb.ap_div2
     |vpiStmt:
@@ -190,9 +190,9 @@ design: (work@tb)
         |vpiConstType:6
       |vpiName:$display
     |vpiProperty:
-    \_property_spec: 
+    \_property_spec: , line:28:28, endln:28:58
       |vpiPropertyExpr:
-      \_operation: , line:28:31, endln:28:38
+      \_operation: , line:28:31, endln:28:42
         |vpiOpType:39
         |vpiOperand:
         \_ref_obj: (clk), line:28:39, endln:28:42
@@ -258,13 +258,13 @@ design: (work@tb)
           |vpiActual:
           \_logic_var: (work@tb.div), line:3:9, endln:3:12, parent:work@tb
             |vpiTypespec:
-            \_logic_typespec: 
+            \_logic_typespec: , line:3:9, endln:3:12
             |vpiName:div
             |vpiFullName:work@tb.div
             |vpiVisibility:1
         |vpiName:$monitor
       |vpiStmt:
-      \_delay_control: , line:9:5, endln:9:20, parent:work@tb
+      \_delay_control: , line:9:5, endln:9:9, parent:work@tb
         |#100
         |vpiStmt:
         \_sys_func_call: ($finish), line:9:10, endln:9:19
@@ -291,7 +291,7 @@ design: (work@tb)
           |vpiActual:
           \_logic_var: (work@tb.rstn), line:4:9, endln:4:13, parent:work@tb
             |vpiTypespec:
-            \_logic_typespec: 
+            \_logic_typespec: , line:4:9, endln:4:13
             |vpiName:rstn
             |vpiFullName:work@tb.rstn
             |vpiVisibility:1
@@ -312,7 +312,7 @@ design: (work@tb)
           |vpiActual:
           \_logic_net: (work@tb.clk), line:2:7, endln:2:10, parent:work@tb
       |vpiStmt:
-      \_delay_control: , line:16:5, endln:16:17, parent:work@tb
+      \_delay_control: , line:16:5, endln:16:7, parent:work@tb
         |#2
         |vpiStmt:
         \_assignment: , line:16:8, endln:16:16
@@ -333,7 +333,7 @@ design: (work@tb)
   |vpiProcess:
   \_always: , line:19:3, endln:20:19, parent:work@tb
     |vpiStmt:
-    \_delay_control: , line:20:5, endln:20:19
+    \_delay_control: , line:20:5, endln:20:7
       |#5
       |vpiStmt:
       \_assignment: , line:20:8, endln:20:18
@@ -393,7 +393,7 @@ design: (work@tb)
         |vpiActual:
         \_logic_var: (work@tb.rstn), line:4:9, endln:4:13, parent:work@tb
       |vpiLowConn:
-      \_ref_obj: (work@tb.dut1.rstn)
+      \_ref_obj: (work@tb.dut1.rstn), line:1:24, endln:1:28
         |vpiName:rstn
         |vpiFullName:work@tb.dut1.rstn
         |vpiActual:
@@ -409,7 +409,7 @@ design: (work@tb)
         |vpiActual:
         \_logic_net: (work@tb.clk), line:2:7, endln:2:10, parent:work@tb
       |vpiLowConn:
-      \_ref_obj: (work@tb.dut1.clk)
+      \_ref_obj: (work@tb.dut1.clk), line:2:24, endln:2:27
         |vpiName:clk
         |vpiFullName:work@tb.dut1.clk
         |vpiActual:
@@ -425,7 +425,7 @@ design: (work@tb)
         |vpiActual:
         \_logic_var: (work@tb.div), line:3:9, endln:3:12, parent:work@tb
       |vpiLowConn:
-      \_ref_obj: (work@tb.dut1.div)
+      \_ref_obj: (work@tb.dut1.div), line:3:23, endln:3:26
         |vpiName:div
         |vpiFullName:work@tb.dut1.div
         |vpiActual:

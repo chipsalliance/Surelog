@@ -335,7 +335,8 @@ design: (work@fsm_class)
       |vpiExtends:
       \_extends: , line:26:29, endln:26:36, parent:work@fsm_class::specificFSM
         |vpiClassTypespec:
-        \_class_typespec: 
+        \_class_typespec: (baseFsm), line:26:29, endln:26:36
+          |vpiName:baseFsm
           |vpiClassDefn:
           \_class_defn: (work@fsm_class::baseFsm) dut.sv:3:3: , endln:24:11, parent:work@fsm_class
       |vpiMethod:
@@ -354,7 +355,7 @@ design: (work@fsm_class)
               |vpiName:x
               |vpiFullName:work@fsm_class::specificFSM::from_state_00::x
             |vpiStmt:
-            \_task_call: (next_state_transition), line:36:9, endln:36:30
+            \_task_call: (next_state_transition), line:36:9, endln:36:45
               |vpiArgument:
               \_ref_obj: (work@fsm_class::specificFSM::from_state_00::STATE_01_BIT), line:36:32, endln:36:44, parent:next_state_transition
                 |vpiName:STATE_01_BIT
@@ -365,7 +366,7 @@ design: (work@fsm_class)
               |vpiTask:
               \_task: (work@fsm_class::baseFsm::next_state_transition), line:8:5, endln:14:12, parent:work@fsm_class::baseFsm
             |vpiElseStmt:
-            \_task_call: (next_state_transition), line:38:9, endln:38:30
+            \_task_call: (next_state_transition), line:38:9, endln:38:45
               |vpiArgument:
               \_ref_obj: (work@fsm_class::specificFSM::from_state_00::STATE_00_BIT), line:38:32, endln:38:44, parent:next_state_transition
                 |vpiName:STATE_00_BIT
@@ -394,7 +395,7 @@ design: (work@fsm_class)
                 |vpiName:x
                 |vpiFullName:work@fsm_class::specificFSM::from_state_01::x
             |vpiStmt:
-            \_task_call: (next_state_transition), line:45:12, endln:45:33
+            \_task_call: (next_state_transition), line:45:12, endln:45:48
               |vpiArgument:
               \_ref_obj: (work@fsm_class::specificFSM::from_state_01::STATE_10_BIT), line:45:35, endln:45:47, parent:next_state_transition
                 |vpiName:STATE_10_BIT
@@ -405,7 +406,7 @@ design: (work@fsm_class)
               |vpiTask:
               \_task: (work@fsm_class::baseFsm::next_state_transition), line:8:5, endln:14:12, parent:work@fsm_class::baseFsm
             |vpiElseStmt:
-            \_task_call: (next_state_transition), line:47:12, endln:47:33
+            \_task_call: (next_state_transition), line:47:12, endln:47:48
               |vpiArgument:
               \_ref_obj: (work@fsm_class::specificFSM::from_state_01::STATE_01_BIT), line:47:35, endln:47:47, parent:next_state_transition
                 |vpiName:STATE_01_BIT
@@ -431,7 +432,7 @@ design: (work@fsm_class)
               |vpiName:x
               |vpiFullName:work@fsm_class::specificFSM::from_state_10::x
             |vpiStmt:
-            \_task_call: (next_state_transition), line:54:12, endln:54:33
+            \_task_call: (next_state_transition), line:54:12, endln:54:48
               |vpiArgument:
               \_ref_obj: (work@fsm_class::specificFSM::from_state_10::STATE_11_BIT), line:54:35, endln:54:47, parent:next_state_transition
                 |vpiName:STATE_11_BIT
@@ -442,7 +443,7 @@ design: (work@fsm_class)
               |vpiTask:
               \_task: (work@fsm_class::baseFsm::next_state_transition), line:8:5, endln:14:12, parent:work@fsm_class::baseFsm
             |vpiElseStmt:
-            \_task_call: (next_state_transition), line:56:12, endln:56:33
+            \_task_call: (next_state_transition), line:56:12, endln:56:48
               |vpiArgument:
               \_ref_obj: (work@fsm_class::specificFSM::from_state_10::STATE_10_BIT), line:56:35, endln:56:47, parent:next_state_transition
                 |vpiName:STATE_10_BIT
@@ -468,7 +469,7 @@ design: (work@fsm_class)
               |vpiName:x
               |vpiFullName:work@fsm_class::specificFSM::from_state_11::x
             |vpiStmt:
-            \_task_call: (next_state_transition), line:63:11, endln:63:32
+            \_task_call: (next_state_transition), line:63:11, endln:63:47
               |vpiArgument:
               \_ref_obj: (work@fsm_class::specificFSM::from_state_11::STATE_00_BIT), line:63:34, endln:63:46, parent:next_state_transition
                 |vpiName:STATE_00_BIT
@@ -479,7 +480,7 @@ design: (work@fsm_class)
               |vpiTask:
               \_task: (work@fsm_class::baseFsm::next_state_transition), line:8:5, endln:14:12, parent:work@fsm_class::baseFsm
             |vpiElseStmt:
-            \_task_call: (next_state_transition), line:65:11, endln:65:32
+            \_task_call: (next_state_transition), line:65:11, endln:65:47
               |vpiArgument:
               \_ref_obj: (work@fsm_class::specificFSM::from_state_11::STATE_11_BIT), line:65:34, endln:65:46, parent:next_state_transition
                 |vpiName:STATE_11_BIT
@@ -628,9 +629,9 @@ design: (work@fsm_class)
   |vpiProcess:
   \_always: , line:82:3, endln:84:6, parent:work@fsm_class
     |vpiStmt:
-    \_event_control: , line:82:10, endln:84:6
+    \_event_control: , line:82:10, endln:82:24
       |vpiCondition:
-      \_operation: , line:82:12, endln:82:19
+      \_operation: , line:82:12, endln:82:23
         |vpiOpType:39
         |vpiOperand:
         \_ref_obj: (work@fsm_class.clk), line:82:20, endln:82:23
@@ -659,7 +660,7 @@ design: (work@fsm_class)
   |vpiProcess:
   \_always: , line:85:3, endln:86:15, parent:work@fsm_class
     |vpiStmt:
-    \_event_control: , line:85:10, endln:86:15
+    \_event_control: , line:85:10, endln:85:12
       |vpiStmt:
       \_method_func_call: (main_comb), line:86:5, endln:86:14
         |vpiName:main_comb
@@ -912,7 +913,8 @@ design: (work@fsm_class)
     |vpiExtends:
     \_extends: , line:26:29, endln:26:36, parent:work@fsm_class::specificFSM
       |vpiClassTypespec:
-      \_class_typespec: 
+      \_class_typespec: (baseFsm), line:26:29, endln:26:36
+        |vpiName:baseFsm
         |vpiClassDefn:
         \_class_defn: (work@fsm_class::baseFsm) dut.sv:3:3: , endln:24:11, parent:work@fsm_class
     |vpiMethod:
@@ -933,7 +935,7 @@ design: (work@fsm_class)
             |vpiActual:
             \_logic_net: (work@fsm_class.x), line:1:49, endln:1:50, parent:work@fsm_class
           |vpiStmt:
-          \_task_call: (next_state_transition), line:36:9, endln:36:30
+          \_task_call: (next_state_transition), line:36:9, endln:36:45
             |vpiArgument:
             \_ref_obj: (work@fsm_class::specificFSM::from_state_00::STATE_01_BIT), line:36:32, endln:36:44, parent:next_state_transition
               |vpiName:STATE_01_BIT
@@ -944,7 +946,7 @@ design: (work@fsm_class)
             |vpiTask:
             \_task: (work@fsm_class::baseFsm::next_state_transition), line:8:5, endln:14:12, parent:work@fsm_class::baseFsm
           |vpiElseStmt:
-          \_task_call: (next_state_transition), line:38:9, endln:38:30
+          \_task_call: (next_state_transition), line:38:9, endln:38:45
             |vpiArgument:
             \_ref_obj: (work@fsm_class::specificFSM::from_state_00::STATE_00_BIT), line:38:32, endln:38:44, parent:next_state_transition
               |vpiName:STATE_00_BIT
@@ -975,7 +977,7 @@ design: (work@fsm_class)
               |vpiActual:
               \_logic_net: (work@fsm_class.x), line:1:49, endln:1:50, parent:work@fsm_class
           |vpiStmt:
-          \_task_call: (next_state_transition), line:45:12, endln:45:33
+          \_task_call: (next_state_transition), line:45:12, endln:45:48
             |vpiArgument:
             \_ref_obj: (work@fsm_class::specificFSM::from_state_01::STATE_10_BIT), line:45:35, endln:45:47, parent:next_state_transition
               |vpiName:STATE_10_BIT
@@ -986,7 +988,7 @@ design: (work@fsm_class)
             |vpiTask:
             \_task: (work@fsm_class::baseFsm::next_state_transition), line:8:5, endln:14:12, parent:work@fsm_class::baseFsm
           |vpiElseStmt:
-          \_task_call: (next_state_transition), line:47:12, endln:47:33
+          \_task_call: (next_state_transition), line:47:12, endln:47:48
             |vpiArgument:
             \_ref_obj: (work@fsm_class::specificFSM::from_state_01::STATE_01_BIT), line:47:35, endln:47:47, parent:next_state_transition
               |vpiName:STATE_01_BIT
@@ -1014,7 +1016,7 @@ design: (work@fsm_class)
             |vpiActual:
             \_logic_net: (work@fsm_class.x), line:1:49, endln:1:50, parent:work@fsm_class
           |vpiStmt:
-          \_task_call: (next_state_transition), line:54:12, endln:54:33
+          \_task_call: (next_state_transition), line:54:12, endln:54:48
             |vpiArgument:
             \_ref_obj: (work@fsm_class::specificFSM::from_state_10::STATE_11_BIT), line:54:35, endln:54:47, parent:next_state_transition
               |vpiName:STATE_11_BIT
@@ -1025,7 +1027,7 @@ design: (work@fsm_class)
             |vpiTask:
             \_task: (work@fsm_class::baseFsm::next_state_transition), line:8:5, endln:14:12, parent:work@fsm_class::baseFsm
           |vpiElseStmt:
-          \_task_call: (next_state_transition), line:56:12, endln:56:33
+          \_task_call: (next_state_transition), line:56:12, endln:56:48
             |vpiArgument:
             \_ref_obj: (work@fsm_class::specificFSM::from_state_10::STATE_10_BIT), line:56:35, endln:56:47, parent:next_state_transition
               |vpiName:STATE_10_BIT
@@ -1053,7 +1055,7 @@ design: (work@fsm_class)
             |vpiActual:
             \_logic_net: (work@fsm_class.x), line:1:49, endln:1:50, parent:work@fsm_class
           |vpiStmt:
-          \_task_call: (next_state_transition), line:63:11, endln:63:32
+          \_task_call: (next_state_transition), line:63:11, endln:63:47
             |vpiArgument:
             \_ref_obj: (work@fsm_class::specificFSM::from_state_11::STATE_00_BIT), line:63:34, endln:63:46, parent:next_state_transition
               |vpiName:STATE_00_BIT
@@ -1064,7 +1066,7 @@ design: (work@fsm_class)
             |vpiTask:
             \_task: (work@fsm_class::baseFsm::next_state_transition), line:8:5, endln:14:12, parent:work@fsm_class::baseFsm
           |vpiElseStmt:
-          \_task_call: (next_state_transition), line:65:11, endln:65:32
+          \_task_call: (next_state_transition), line:65:11, endln:65:47
             |vpiArgument:
             \_ref_obj: (work@fsm_class::specificFSM::from_state_11::STATE_11_BIT), line:65:34, endln:65:46, parent:next_state_transition
               |vpiName:STATE_11_BIT
@@ -1186,7 +1188,7 @@ design: (work@fsm_class)
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@fsm_class.clk), parent:clk
+    \_ref_obj: (work@fsm_class.clk), line:1:25, endln:1:28, parent:clk
       |vpiName:clk
       |vpiFullName:work@fsm_class.clk
       |vpiActual:
@@ -1198,7 +1200,7 @@ design: (work@fsm_class)
     |vpiName:reset
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@fsm_class.reset), parent:reset
+    \_ref_obj: (work@fsm_class.reset), line:1:36, endln:1:41, parent:reset
       |vpiName:reset
       |vpiFullName:work@fsm_class.reset
       |vpiActual:
@@ -1210,7 +1212,7 @@ design: (work@fsm_class)
     |vpiName:x
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@fsm_class.x), parent:x
+    \_ref_obj: (work@fsm_class.x), line:1:49, endln:1:50, parent:x
       |vpiName:x
       |vpiFullName:work@fsm_class.x
       |vpiActual:
@@ -1220,9 +1222,9 @@ design: (work@fsm_class)
   |vpiProcess:
   \_always: , line:82:3, endln:84:6, parent:work@fsm_class
     |vpiStmt:
-    \_event_control: , line:82:10, endln:84:6
+    \_event_control: , line:82:10, endln:82:24
       |vpiCondition:
-      \_operation: , line:82:12, endln:82:19
+      \_operation: , line:82:12, endln:82:23
         |vpiOpType:39
         |vpiOperand:
         \_ref_obj: (work@fsm_class.clk), line:82:20, endln:82:23
@@ -1250,7 +1252,7 @@ design: (work@fsm_class)
   |vpiProcess:
   \_always: , line:85:3, endln:86:15, parent:work@fsm_class
     |vpiStmt:
-    \_event_control: , line:85:10, endln:86:15
+    \_event_control: , line:85:10, endln:85:12
       |vpiStmt:
       \_method_task_call: (main_comb), line:86:5, endln:86:14
         |vpiName:main_comb

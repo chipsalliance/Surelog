@@ -1296,6 +1296,11 @@ UHDM::any *CompileHelper::compileExpression(
       operation->VpiParent(pexpr);
       operation->Operands(operands);
       operation->VpiOpType(vpiConcatOp);
+      result->VpiFile(fC->getFileName());
+      result->VpiLineNo(fC->Line(parent));
+      result->VpiColumnNo(fC->Column(parent));
+      result->VpiEndLineNo(fC->EndLine(parent));
+      result->VpiEndColumnNo(fC->EndColumn(parent));
       NodeId Expression = fC->Child(parent);
       while (Expression) {
         UHDM::any *exp =
@@ -1304,6 +1309,7 @@ UHDM::any *CompileHelper::compileExpression(
         if (exp) operands->push_back(exp);
         Expression = fC->Sibling(Expression);
       }
+      child = 0;  // Use parent for location info computation down below!
       break;
     }
     case VObjectType::slDelay2:
@@ -1534,11 +1540,11 @@ UHDM::any *CompileHelper::compileExpression(
               operands->push_back(operand);
             }
             op->Operands(operands);
-            op->VpiFile(fC->getFileName(child));
-            op->VpiLineNo(fC->Line(child));
-            op->VpiColumnNo(fC->Column(child));
-            op->VpiEndLineNo(fC->EndLine(var));
-            op->VpiEndColumnNo(fC->EndColumn(var));
+            op->VpiFile(fC->getFileName());
+            op->VpiLineNo(fC->Line(parent));
+            op->VpiColumnNo(fC->Column(parent));
+            op->VpiEndLineNo(fC->EndLine(parent));
+            op->VpiEndColumnNo(fC->EndColumn(parent));
             result = op;
           }
           break;
@@ -1548,12 +1554,18 @@ UHDM::any *CompileHelper::compileExpression(
           op->Attributes(attributes);
           op->VpiOpType(vpiPosedgeOp);
           op->VpiParent(pexpr);
-          UHDM::VectorOfany *operands = s.MakeAnyVec();
           if (UHDM::any *operand = compileExpression(
                   component, fC, fC->Sibling(child), compileDesign, op,
-                  instance, reduce, muteErrors))
+                  instance, reduce, muteErrors)) {
+            UHDM::VectorOfany *operands = s.MakeAnyVec();
             operands->push_back(operand);
-          op->Operands(operands);
+            op->Operands(operands);
+            op->VpiFile(fC->getFileName());
+            op->VpiLineNo(fC->Line(parent));
+            op->VpiColumnNo(fC->Column(parent));
+            op->VpiEndLineNo(fC->EndLine(parent));
+            op->VpiEndColumnNo(fC->EndColumn(parent));
+          }
           result = op;
           break;
         }
@@ -1562,12 +1574,18 @@ UHDM::any *CompileHelper::compileExpression(
           op->Attributes(attributes);
           op->VpiOpType(vpiAnyEdge);
           op->VpiParent(pexpr);
-          UHDM::VectorOfany *operands = s.MakeAnyVec();
           if (UHDM::any *operand = compileExpression(
                   component, fC, fC->Sibling(child), compileDesign, op,
-                  instance, reduce, muteErrors))
+                  instance, reduce, muteErrors)) {
+            UHDM::VectorOfany *operands = s.MakeAnyVec();
             operands->push_back(operand);
-          op->Operands(operands);
+            op->Operands(operands);
+            op->VpiFile(fC->getFileName());
+            op->VpiLineNo(fC->Line(parent));
+            op->VpiColumnNo(fC->Column(parent));
+            op->VpiEndLineNo(fC->EndLine(parent));
+            op->VpiEndColumnNo(fC->EndColumn(parent));
+          }
           result = op;
           break;
         }
@@ -1576,12 +1594,18 @@ UHDM::any *CompileHelper::compileExpression(
           op->Attributes(attributes);
           op->VpiOpType(vpiNegedgeOp);
           op->VpiParent(pexpr);
-          UHDM::VectorOfany *operands = s.MakeAnyVec();
           if (UHDM::any *operand = compileExpression(
                   component, fC, fC->Sibling(child), compileDesign, op,
-                  instance, reduce, muteErrors))
+                  instance, reduce, muteErrors)) {
+            UHDM::VectorOfany *operands = s.MakeAnyVec();
             operands->push_back(operand);
-          op->Operands(operands);
+            op->Operands(operands);
+            op->VpiFile(fC->getFileName());
+            op->VpiLineNo(fC->Line(parent));
+            op->VpiColumnNo(fC->Column(parent));
+            op->VpiEndLineNo(fC->EndLine(parent));
+            op->VpiEndColumnNo(fC->EndColumn(parent));
+          }
           result = op;
           break;
         }
@@ -1772,6 +1796,13 @@ UHDM::any *CompileHelper::compileExpression(
               operands->push_back(opR);
               op = fC->Sibling(subRExpr);
             }
+          }
+          if ((operation != nullptr) && (operation->VpiLineNo() == 0)) {
+            operation->VpiFile(fC->getFileName());
+            operation->VpiLineNo(fC->Line(parent));
+            operation->VpiColumnNo(fC->Column(parent));
+            operation->VpiEndLineNo(fC->EndLine(parent));
+            operation->VpiEndColumnNo(fC->EndColumn(parent));
           }
           break;
         }
@@ -2078,6 +2109,11 @@ UHDM::any *CompileHelper::compileExpression(
                   c->VpiDecompile(val);
                   c->VpiSize(64);
                   c->VpiConstType(vpiUIntConst);
+                  c->VpiFile(fC->getFileName());
+                  c->VpiLineNo(fC->Line(subOp1));
+                  c->VpiColumnNo(fC->Column(subOp1));
+                  c->VpiEndLineNo(fC->EndLine(subOp1));
+                  c->VpiEndColumnNo(fC->EndColumn(subOp1));
                   operands->push_back(c);
                 }
               }
@@ -2471,6 +2507,11 @@ UHDM::any *CompileHelper::compileExpression(
           UHDM::operation *operation = s.MakeOperation();
           UHDM::VectorOfany *operands = s.MakeAnyVec();
           operation->Attributes(attributes);
+          operation->VpiFile(fC->getFileName());
+          operation->VpiLineNo(fC->Line(Stream_concatenation));
+          operation->VpiColumnNo(fC->Column(Stream_concatenation));
+          operation->VpiEndLineNo(fC->EndLine(Stream_concatenation));
+          operation->VpiEndColumnNo(fC->EndColumn(Stream_concatenation));
           result = operation;
           operation->VpiParent(pexpr);
           operation->Operands(operands);
@@ -2486,6 +2527,11 @@ UHDM::any *CompileHelper::compileExpression(
           concat_op->VpiParent(operation);
           concat_op->Operands(concat_ops);
           concat_op->VpiOpType(vpiConcatOp);
+          concat_op->VpiFile(fC->getFileName());
+          concat_op->VpiLineNo(fC->Line(parent));
+          concat_op->VpiColumnNo(fC->Column(parent));
+          concat_op->VpiEndLineNo(fC->EndLine(parent));
+          concat_op->VpiEndColumnNo(fC->EndColumn(parent));
 
           NodeId Stream_expression = fC->Child(Stream_concatenation);
           while (Stream_expression) {
@@ -2524,6 +2570,11 @@ UHDM::any *CompileHelper::compileExpression(
           operation->VpiParent(pexpr);
           operation->Operands(operands);
           operation->VpiOpType(vpiConcatOp);
+          operation->VpiFile(fC->getFileName());
+          operation->VpiLineNo(fC->Line(parent));
+          operation->VpiColumnNo(fC->Column(parent));
+          operation->VpiEndLineNo(fC->EndLine(parent));
+          operation->VpiEndColumnNo(fC->EndColumn(parent));
           break;
         }
         case VObjectType::slConstant_multiple_concatenation:
@@ -2685,6 +2736,11 @@ UHDM::any *CompileHelper::compileExpression(
                 c->VpiDecompile(val);
                 c->VpiSize(64);
                 c->VpiConstType(vpiUIntConst);
+                c->VpiFile(fC->getFileName());
+                c->VpiLineNo(fC->Line(subOp1));
+                c->VpiColumnNo(fC->Column(subOp1));
+                c->VpiEndLineNo(fC->EndLine(subOp1));
+                c->VpiEndColumnNo(fC->EndColumn(subOp1));
                 operands->push_back(c);
               }
             }
@@ -2976,12 +3032,16 @@ UHDM::any *CompileHelper::compileAssignmentPattern(DesignComponent *component,
     NodeId Expression = Structure_pattern_key;
     if (any *exp = compileExpression(component, fC, Expression, compileDesign,
                                      operation, instance, reduce, false)) {
-      Structure_pattern_key = fC->Sibling(Structure_pattern_key);
+      Expression = fC->Sibling(Expression);
       operands->push_back(exp);
       operation->VpiOpType(vpiMultiAssignmentPatternOp);
-      Expression = Structure_pattern_key;
       UHDM::operation *concat = s.MakeOperation();
       concat->VpiOpType(vpiConcatOp);
+      concat->VpiFile(fC->getFileName());
+      concat->VpiLineNo(fC->Line(Expression));
+      concat->VpiColumnNo(fC->Column(Expression));
+      concat->VpiEndLineNo(fC->EndLine(Expression));
+      concat->VpiEndColumnNo(fC->EndColumn(Expression));
       operands->push_back(concat);
       concat->VpiParent(operation);
       UHDM::VectorOfany *suboperands = s.MakeAnyVec();
@@ -3441,8 +3501,8 @@ UHDM::any *CompileHelper::compilePartSelectRange(
     ValuedComponentI *instance, bool reduce, bool muteErrors) {
   UHDM::Serializer &s = compileDesign->getSerializer();
   UHDM::any *result = nullptr;
+  NodeId Constant_expression = fC->Child(Constant_range);
   if (fC->Type(Constant_range) == VObjectType::slConstant_range) {
-    NodeId Constant_expression = fC->Child(Constant_range);
     UHDM::expr *lexp = (expr *)compileExpression(
         component, fC, Constant_expression, compileDesign, pexpr, instance);
     UHDM::expr *rexp = (expr *)compileExpression(
@@ -3464,7 +3524,6 @@ UHDM::any *CompileHelper::compilePartSelectRange(
     result = part_select;
   } else {
     // constant_indexed_range
-    NodeId Constant_expression = fC->Child(Constant_range);
     UHDM::expr *lexp = (expr *)compileExpression(
         component, fC, Constant_expression, compileDesign, pexpr, instance,
         reduce, muteErrors);
@@ -3571,6 +3630,13 @@ UHDM::any *CompileHelper::compilePartSelectRange(
       part_select->VpiConstantSelect(true);
       result = part_select;
     }
+  }
+  if (result != nullptr) {
+    result->VpiFile(fC->getFileName());
+    result->VpiLineNo(fC->Line(Constant_range));
+    result->VpiColumnNo(fC->Column(Constant_range));
+    result->VpiEndLineNo(fC->EndLine(Constant_range));
+    result->VpiEndColumnNo(fC->EndColumn(Constant_range));
   }
   return result;
 }
@@ -4558,12 +4624,22 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
             select->VpiFullName(the_name);
             select->VpiName(fC->SymName(name));
             select->VpiParent(pexpr);
+            select->VpiFile(fC->getFileName());
+            select->VpiLineNo(fC->Line(name));
+            select->VpiColumnNo(fC->Column(name));
+            select->VpiEndLineNo(fC->EndLine(name));
+            select->VpiEndColumnNo(fC->EndColumn(name));
             result = select;
           } else {
             ref_obj *ref = s.MakeRef_obj();
             ref->VpiName(the_name);
             ref->VpiFullName(the_name);
             ref->VpiParent(pexpr);
+            ref->VpiFile(fC->getFileName());
+            ref->VpiLineNo(fC->Line(name));
+            ref->VpiColumnNo(fC->Column(name));
+            ref->VpiEndLineNo(fC->EndLine(name));
+            ref->VpiEndColumnNo(fC->EndColumn(name));
             result = ref;
           }
           result->VpiFile(fC->getFileName());
@@ -4605,7 +4681,6 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
       std::string tmpName = the_name;
       path->Path_elems(elems);
       bool is_hierarchical = false;
-      NodeId cachedDotedName = dotedName;
       while (dotedName) {
         VObjectType dtype = fC->Type(dotedName);
         NodeId BitSelect = fC->Child(dotedName);
@@ -4622,7 +4697,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
             ref->VpiColumnNo(fC->Column(name));
             ref->VpiEndLineNo(fC->EndLine(name));
             ref->VpiEndColumnNo(fC->EndColumn(name));
-            tmpName = "";
+            tmpName.clear();
             is_hierarchical = true;
           }
           tmpName = fC->SymName(dotedName);
@@ -4652,6 +4727,8 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
               expr *select = (expr *)compilePartSelectRange(
                   component, fC, Expression, "CREATE_UNNAMED_PARENT",
                   compileDesign, nullptr, instance, reduce, muteErrors);
+              // Fix start/end to include the name
+              select->VpiColumnNo(fC->Column(name));
               ref_obj *parent = (ref_obj *)select->VpiParent();
               if (parent) parent->VpiDefName(tmpName);
               if (tmpName.empty()) {
@@ -4665,6 +4742,8 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
               expr *select = (expr *)compilePartSelectRange(
                   component, fC, fC->Child(Expression), "CREATE_UNNAMED_PARENT",
                   compileDesign, nullptr, instance, reduce, muteErrors);
+              // Fix start/end to include the name
+              select->VpiColumnNo(fC->Column(name));
               ref_obj *parent = (ref_obj *)select->VpiParent();
               if (parent) parent->VpiDefName(tmpName);
               elems->push_back(select);
@@ -4693,12 +4772,12 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
               ref->VpiName(tmpName);
               ref->VpiFullName(tmpName);
               ref->VpiFile(fC->getFileName());
-              ref->VpiLineNo(fC->Line(cachedDotedName));
-              ref->VpiColumnNo(fC->Column(cachedDotedName));
-              ref->VpiEndLineNo(fC->EndLine(cachedDotedName));
-              ref->VpiEndColumnNo(fC->EndColumn(cachedDotedName));
+              ref->VpiLineNo(fC->Line(name));
+              ref->VpiColumnNo(fC->Column(name));
+              ref->VpiEndLineNo(fC->EndLine(name));
+              ref->VpiEndColumnNo(fC->EndColumn(name));
             }
-            tmpName = "";
+            tmpName.clear();
             if (dtype == VObjectType::slSelect)
               BitSelect = fC->Sibling(BitSelect);
             else
@@ -4784,7 +4863,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
             dotedName = fC->Sibling(dotedName);
           }
         }
-        cachedDotedName = dotedName;
+        name = dotedName;
         if (dotedName) dotedName = fC->Sibling(dotedName);
       }
       if (is_hierarchical) {
@@ -4794,7 +4873,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
           ref->VpiName(tmpName);
           ref->VpiFullName(tmpName);
           ref->VpiParent(path);
-          tmpName = "";
+          tmpName.clear();
         }
         path->VpiName(the_name);
         path->VpiFullName(the_name);
@@ -4809,7 +4888,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
         ref_obj *ref = s.MakeRef_obj();
         ref->VpiName(tmpName);
         ref->VpiParent(pexpr);
-        tmpName = "";
+        tmpName.clear();
         result = ref;
       }
     } else if (UHDM::any *st = getValue(

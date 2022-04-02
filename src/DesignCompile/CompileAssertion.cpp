@@ -127,6 +127,11 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
           component, fC, Property_expr, compileDesign, pstmt, instance, false);
       property_expr = createPropertyInst(property_expr, s);
       prop_spec->VpiPropertyExpr(property_expr);
+      prop_spec->VpiFile(fC->getFileName());
+      prop_spec->VpiLineNo(fC->Line(Property_spec));
+      prop_spec->VpiColumnNo(fC->Column(Property_spec));
+      prop_spec->VpiEndLineNo(fC->EndLine(Property_spec));
+      prop_spec->VpiEndColumnNo(fC->EndColumn(Property_spec));
       assert_stmt->VpiProperty(prop_spec);
       assert_stmt->Stmt(if_stmt);
       assert_stmt->Else_stmt(else_stmt);
@@ -149,6 +154,11 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
       property_expr = createPropertyInst(property_expr, s);
       prop_spec->VpiClockingEvent(clocking_event);
       prop_spec->VpiPropertyExpr(property_expr);
+      prop_spec->VpiFile(fC->getFileName());
+      prop_spec->VpiLineNo(fC->Line(Property_spec));
+      prop_spec->VpiColumnNo(fC->Column(Property_spec));
+      prop_spec->VpiEndLineNo(fC->EndLine(Property_spec));
+      prop_spec->VpiEndColumnNo(fC->EndColumn(Property_spec));
       assume_stmt->VpiProperty(prop_spec);
       if (if_stmt)
         assume_stmt->Stmt(if_stmt);
@@ -165,6 +175,11 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
           component, fC, Property_expr, compileDesign, pstmt, instance, false);
       property_expr = createPropertyInst(property_expr, s);
       prop_spec->VpiPropertyExpr(property_expr);
+      prop_spec->VpiFile(fC->getFileName());
+      prop_spec->VpiLineNo(fC->Line(Property_spec));
+      prop_spec->VpiColumnNo(fC->Column(Property_spec));
+      prop_spec->VpiEndLineNo(fC->EndLine(Property_spec));
+      prop_spec->VpiEndColumnNo(fC->EndColumn(Property_spec));
       cover_stmt->VpiProperty(prop_spec);
       cover_stmt->Stmt(if_stmt);
       stmt = cover_stmt;
@@ -179,6 +194,11 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
           component, fC, Property_expr, compileDesign, pstmt, instance, false);
       property_expr = createPropertyInst(property_expr, s);
       prop_spec->VpiPropertyExpr(property_expr);
+      prop_spec->VpiFile(fC->getFileName());
+      prop_spec->VpiLineNo(fC->Line(Property_expr));
+      prop_spec->VpiColumnNo(fC->Column(Property_expr));
+      prop_spec->VpiEndLineNo(fC->EndLine(Property_expr));
+      prop_spec->VpiEndColumnNo(fC->EndColumn(Property_expr));
       cover_stmt->VpiProperty(prop_spec);
       cover_stmt->Stmt(if_stmt);
       stmt = cover_stmt;
@@ -192,6 +212,11 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
           component, fC, Property_expr, compileDesign, pstmt, instance, false);
       property_expr = createPropertyInst(property_expr, s);
       prop_spec->VpiPropertyExpr(property_expr);
+      prop_spec->VpiFile(fC->getFileName());
+      prop_spec->VpiLineNo(fC->Line(Property_spec));
+      prop_spec->VpiColumnNo(fC->Column(Property_spec));
+      prop_spec->VpiEndLineNo(fC->EndLine(Property_spec));
+      prop_spec->VpiEndColumnNo(fC->EndColumn(Property_spec));
       restrict_stmt->VpiProperty(prop_spec);
       restrict_stmt->Stmt(if_stmt);
       stmt = restrict_stmt;

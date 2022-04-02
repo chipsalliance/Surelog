@@ -93,12 +93,12 @@ design: (work@tb)
   |vpiProcess:
   \_always: , line:7:3, endln:13:10, parent:work@dut
     |vpiStmt:
-    \_event_control: , line:7:10, endln:13:10
+    \_event_control: , line:7:10, endln:7:41
       |vpiCondition:
-      \_operation: , line:7:13, endln:7:24
+      \_operation: , line:7:13, endln:7:40
         |vpiOpType:35
         |vpiOperand:
-        \_operation: , line:7:13, endln:7:20
+        \_operation: , line:7:13, endln:7:24
           |vpiOpType:39
           |vpiOperand:
           \_ref_obj: (clk), line:7:21, endln:7:24
@@ -108,7 +108,7 @@ design: (work@tb)
               |vpiName:clk
               |vpiFullName:work@tb.dut1.clk
         |vpiOperand:
-        \_operation: , line:7:28, endln:7:35
+        \_operation: , line:7:28, endln:7:40
           |vpiOpType:40
           |vpiOperand:
           \_ref_obj: (rstn), line:7:36, endln:7:40
@@ -239,7 +239,7 @@ design: (work@tb)
             |vpiNetType:48
         |vpiName:$monitor
       |vpiStmt:
-      \_delay_control: , line:12:5, endln:12:20, parent:work@tb
+      \_delay_control: , line:12:5, endln:12:9, parent:work@tb
         |#100
         |vpiStmt:
         \_sys_func_call: ($finish), line:12:10, endln:12:19
@@ -266,7 +266,7 @@ design: (work@tb)
           |vpiActual:
           \_logic_var: (work@tb.rstn), line:4:9, endln:4:13, parent:work@tb
             |vpiTypespec:
-            \_logic_typespec: 
+            \_logic_typespec: , line:4:9, endln:4:13
             |vpiName:rstn
             |vpiFullName:work@tb.rstn
             |vpiVisibility:1
@@ -303,12 +303,12 @@ design: (work@tb)
           |vpiActual:
           \_logic_var: (work@tb.d), line:5:9, endln:5:10, parent:work@tb
             |vpiTypespec:
-            \_logic_typespec: 
+            \_logic_typespec: , line:5:9, endln:5:10
             |vpiName:d
             |vpiFullName:work@tb.d
             |vpiVisibility:1
       |vpiStmt:
-      \_delay_control: , line:20:5, endln:20:17, parent:work@tb
+      \_delay_control: , line:20:5, endln:20:7, parent:work@tb
         |#2
         |vpiStmt:
         \_assignment: , line:20:8, endln:20:16
@@ -368,7 +368,7 @@ design: (work@tb)
             |vpiConstType:6
           |vpiName:$fatal
       |vpiStmt:
-      \_delay_control: , line:22:5, endln:22:15, parent:work@tb
+      \_delay_control: , line:22:5, endln:22:8, parent:work@tb
         |#10
         |vpiStmt:
         \_assignment: , line:22:9, endln:22:14
@@ -387,7 +387,7 @@ design: (work@tb)
             |vpiActual:
             \_logic_var: (work@tb.d), line:5:9, endln:5:10, parent:work@tb
       |vpiStmt:
-      \_delay_control: , line:23:5, endln:23:75, parent:work@tb
+      \_delay_control: , line:23:5, endln:23:7, parent:work@tb
         |#5
         |vpiStmt:
         \_immediate_assert: , line:23:8, endln:23:75
@@ -431,7 +431,7 @@ design: (work@tb)
               |vpiConstType:6
             |vpiName:$fatal
       |vpiStmt:
-      \_delay_control: , line:24:5, endln:24:15, parent:work@tb
+      \_delay_control: , line:24:5, endln:24:8, parent:work@tb
         |#20
         |vpiStmt:
         \_assignment: , line:24:9, endln:24:14
@@ -450,7 +450,7 @@ design: (work@tb)
             |vpiActual:
             \_logic_var: (work@tb.d), line:5:9, endln:5:10, parent:work@tb
       |vpiStmt:
-      \_delay_control: , line:25:5, endln:25:76, parent:work@tb
+      \_delay_control: , line:25:5, endln:25:8, parent:work@tb
         |#10
         |vpiStmt:
         \_immediate_assert: , line:25:9, endln:25:76
@@ -496,7 +496,7 @@ design: (work@tb)
   |vpiProcess:
   \_always: , line:28:3, endln:29:19, parent:work@tb
     |vpiStmt:
-    \_delay_control: , line:29:5, endln:29:19
+    \_delay_control: , line:29:5, endln:29:7
       |#5
       |vpiStmt:
       \_assignment: , line:29:8, endln:29:18
@@ -560,7 +560,7 @@ design: (work@tb)
         |vpiActual:
         \_logic_var: (work@tb.d), line:5:9, endln:5:10, parent:work@tb
       |vpiLowConn:
-      \_ref_obj: (work@tb.dut1.d)
+      \_ref_obj: (work@tb.dut1.d), line:2:20, endln:2:21
         |vpiName:d
         |vpiFullName:work@tb.dut1.d
         |vpiActual:
@@ -576,7 +576,7 @@ design: (work@tb)
         |vpiActual:
         \_logic_var: (work@tb.rstn), line:4:9, endln:4:13, parent:work@tb
       |vpiLowConn:
-      \_ref_obj: (work@tb.dut1.rstn)
+      \_ref_obj: (work@tb.dut1.rstn), line:3:21, endln:3:25
         |vpiName:rstn
         |vpiFullName:work@tb.dut1.rstn
         |vpiActual:
@@ -592,7 +592,7 @@ design: (work@tb)
         |vpiActual:
         \_logic_net: (work@tb.clk), line:3:7, endln:3:10, parent:work@tb
       |vpiLowConn:
-      \_ref_obj: (work@tb.dut1.clk)
+      \_ref_obj: (work@tb.dut1.clk), line:4:21, endln:4:24
         |vpiName:clk
         |vpiFullName:work@tb.dut1.clk
         |vpiActual:
@@ -608,7 +608,7 @@ design: (work@tb)
         |vpiActual:
         \_logic_net: (work@tb.o), line:6:7, endln:6:8, parent:work@tb
       |vpiLowConn:
-      \_ref_obj: (work@tb.dut1.q)
+      \_ref_obj: (work@tb.dut1.q), line:5:26, endln:5:27
         |vpiName:q
         |vpiFullName:work@tb.dut1.q
         |vpiActual:

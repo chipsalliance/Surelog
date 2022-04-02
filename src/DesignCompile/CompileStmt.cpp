@@ -423,33 +423,34 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       break;
     }
     case VObjectType::slForeach: {
-      UHDM::foreach_stmt* foreach = s.MakeForeach_stmt();
+      UHDM::foreach_stmt* for_each = s.MakeForeach_stmt();
       NodeId Ps_or_hierarchical_array_identifier = fC->Sibling(the_stmt);
       UHDM::any* var = compileVariable(
           component, fC, fC->Child(Ps_or_hierarchical_array_identifier),
-          compileDesign, foreach, nullptr, true, false);
+          compileDesign, for_each, nullptr, true, false);
       NodeId Loop_variables = fC->Sibling(Ps_or_hierarchical_array_identifier);
       UHDM::any* loop_var =
           compileVariable(component, fC, fC->Child(Loop_variables),
-                          compileDesign, foreach, nullptr, true, false);
+                          compileDesign, for_each, nullptr, true, false);
       NodeId Statement = fC->Sibling(Loop_variables);
       VectorOfany* forev = compileStmt(component, fC, Statement, compileDesign,
-                                       foreach, instance);
+                                       for_each, instance);
       if (forev) {
         any* stmt = (*forev)[0];
-        stmt->VpiParent(foreach);
-        foreach
-          ->VpiStmt(stmt);
+        stmt->VpiParent(for_each);
+        for_each->VpiStmt(stmt);
       }
-      if (var) var->VpiParent(foreach);
-      if (loop_var) loop_var->VpiParent(foreach);
-      foreach
-        ->Variable((variables*)var);
-      VectorOfany* loop_vars = s.MakeAnyVec();
-      loop_vars->push_back(loop_var);
-      foreach
-        ->VpiLoopVars(loop_vars);
-      stmt = foreach;
+      if (var) {
+        var->VpiParent(for_each);
+        for_each->Variable((variables*)var);
+      }
+      if (loop_var) {
+        loop_var->VpiParent(for_each);
+        VectorOfany* loop_vars = s.MakeAnyVec();
+        loop_vars->push_back(loop_var);
+        for_each->VpiLoopVars(loop_vars);
+      }
+      stmt = for_each;
       break;
     }
     case VObjectType::slProcedural_continuous_assignment: {
@@ -562,6 +563,11 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
           compileExpression(component, fC, Condition, compileDesign);
       do_while->VpiCondition((UHDM::expr*)cond_exp);
       if (cond_exp) cond_exp->VpiParent(do_while);
+      do_while->VpiFile(fC->getFileName());
+      do_while->VpiLineNo(fC->Line(the_stmt));
+      do_while->VpiColumnNo(fC->Column(the_stmt));
+      do_while->VpiEndLineNo(fC->EndLine(Condition));
+      do_while->VpiEndColumnNo(fC->EndColumn(Condition));
       stmt = do_while;
       break;
     }
@@ -746,11 +752,16 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
                                        compileDesign, pstmt, instance);
       if (stmts) {
         for (any* st : *stmts) {
-          if (UHDM::atomic_stmt* stm = any_cast<atomic_stmt*>(st))
+          if (UHDM::atomic_stmt* stm = any_cast<atomic_stmt*>(st)) {
             stm->VpiName(label);
-          else if (UHDM::concurrent_assertions* stm =
-                       any_cast<concurrent_assertions*>(st))
+            stm->VpiLineNo(fC->Line(the_stmt));
+            stm->VpiColumnNo(fC->Column(the_stmt));
+          } else if (UHDM::concurrent_assertions* stm =
+                         any_cast<concurrent_assertions*>(st)) {
             stm->VpiName(label);
+            stm->VpiLineNo(fC->Line(the_stmt));
+            stm->VpiColumnNo(fC->Column(the_stmt));
+          }
         }
       }
       results = stmts;
@@ -798,6 +809,11 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
           compileExpression(component, fC, Clocking_event, compileDesign, pstmt,
                             instance, false));
       prop_spec->VpiPropertyExpr(property_expr);
+      prop_spec->VpiFile(fC->getFileName());
+      prop_spec->VpiLineNo(fC->Line(Property_expr));
+      prop_spec->VpiColumnNo(fC->Column(Property_expr));
+      prop_spec->VpiEndLineNo(fC->EndLine(Property_expr));
+      prop_spec->VpiEndColumnNo(fC->EndColumn(Property_expr));
       expect->Property_spec(prop_spec);
       expect->Stmt(if_stmt);
       expect->Else_stmt(else_stmt);
@@ -1061,6 +1077,11 @@ UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(
 
   NodeId Event_expression = fC->Child(Event_control);
   UHDM::event_control* event = s.MakeEvent_control();
+  event->VpiFile(fC->getFileName());
+  event->VpiLineNo(fC->Line(Event_control));
+  event->VpiColumnNo(fC->Column(Event_control));
+  event->VpiEndLineNo(fC->EndLine(Event_control));
+  event->VpiEndColumnNo(fC->EndColumn(Event_control));
   if (Event_expression) {
     UHDM::any* exp =
         compileExpression(component, fC, Event_expression, compileDesign);
@@ -1400,6 +1421,11 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
 std::vector<io_decl*>* CompileHelper::compileTfPortList(
     DesignComponent* component, UHDM::task_func* parent, const FileContent* fC,
     NodeId tf_port_list, CompileDesign* compileDesign) {
+  if ((tf_port_list == InvalidNodeId) ||
+      (fC->Type(tf_port_list) != VObjectType::slTf_port_list)) {
+    return nullptr;
+  }
+
   UHDM::Serializer& s = compileDesign->getSerializer();
   std::vector<io_decl*>* ios = s.MakeIo_declVec();
   /*
@@ -1434,65 +1460,63 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
    n<> u<52> t<Tf_port_item> p<53> c<49> l<18>
   */
   // Compile arguments
-  if (tf_port_list && (fC->Type(tf_port_list) == VObjectType::slTf_port_list)) {
-    NodeId tf_port_item = fC->Child(tf_port_list);
-    int previousDirection = vpiInput;
-    UHDM::typespec* ts = nullptr;
-    while (tf_port_item) {
-      io_decl* decl = s.MakeIo_decl();
-      ios->push_back(decl);
-      NodeId tf_data_type_or_implicit = fC->Child(tf_port_item);
-      NodeId tf_data_type = fC->Child(tf_data_type_or_implicit);
-      VObjectType tf_port_direction_type = fC->Type(tf_data_type_or_implicit);
-      if (tf_port_direction_type != slData_type_or_implicit)
-        previousDirection = UhdmWriter::getVpiDirection(tf_port_direction_type);
-      decl->VpiDirection(previousDirection);
-      NodeId tf_param_name = fC->Sibling(tf_data_type_or_implicit);
-      if (tf_port_direction_type == VObjectType::slTfPortDir_Ref ||
-          tf_port_direction_type == VObjectType::slTfPortDir_ConstRef ||
-          tf_port_direction_type == VObjectType::slTfPortDir_Inp ||
-          tf_port_direction_type == VObjectType::slTfPortDir_Out ||
-          tf_port_direction_type == VObjectType::slTfPortDir_Inout) {
-        tf_data_type = fC->Sibling(tf_data_type_or_implicit);
-        tf_param_name = fC->Sibling(tf_data_type);
-      }
-      decl->VpiFile(fC->getFileName());
-      decl->VpiLineNo(fC->Line(tf_param_name));
-      decl->VpiColumnNo(fC->Column(tf_param_name));
-      decl->VpiEndLineNo(fC->EndLine(tf_param_name));
-      decl->VpiEndColumnNo(fC->EndColumn(tf_param_name));
-      NodeId type = fC->Child(tf_data_type);
-
-      NodeId unpackedDimension =
-          fC->Sibling(fC->Sibling(fC->Child(tf_port_item)));
-      if (unpackedDimension &&
-          (fC->Type(unpackedDimension) != slVariable_dimension))
-        unpackedDimension = fC->Sibling(unpackedDimension);
-      int size;
-      std::vector<UHDM::range*>* unpackedDimensions =
-          compileRanges(component, fC, unpackedDimension, compileDesign,
-                        nullptr, nullptr, false, size, false);
-      if (UHDM::typespec* tempts =
-              compileTypespec(component, fC, type, compileDesign, nullptr,
-                              nullptr, false, true)) {
-        ts = tempts;
-      }
-      decl->Typespec(ts);
-      decl->Ranges(unpackedDimensions);
-      const std::string& name = fC->SymName(tf_param_name);
-      decl->VpiName(name);
-
-      NodeId expression = fC->Sibling(tf_param_name);
-      if (expression &&
-          (fC->Type(expression) != VObjectType::slVariable_dimension) &&
-          (fC->Type(type) != VObjectType::slStringConst)) {
-        any* defvalue = compileExpression(
-            component, fC, expression, compileDesign, parent, nullptr, false);
-        decl->Expr(defvalue);
-      }
-
-      tf_port_item = fC->Sibling(tf_port_item);
+  NodeId tf_port_item = fC->Child(tf_port_list);
+  int previousDirection = vpiInput;
+  UHDM::typespec* ts = nullptr;
+  while (tf_port_item) {
+    io_decl* decl = s.MakeIo_decl();
+    ios->push_back(decl);
+    NodeId tf_data_type_or_implicit = fC->Child(tf_port_item);
+    NodeId tf_data_type = fC->Child(tf_data_type_or_implicit);
+    VObjectType tf_port_direction_type = fC->Type(tf_data_type_or_implicit);
+    if (tf_port_direction_type != slData_type_or_implicit)
+      previousDirection = UhdmWriter::getVpiDirection(tf_port_direction_type);
+    decl->VpiDirection(previousDirection);
+    NodeId tf_param_name = fC->Sibling(tf_data_type_or_implicit);
+    if (tf_port_direction_type == VObjectType::slTfPortDir_Ref ||
+        tf_port_direction_type == VObjectType::slTfPortDir_ConstRef ||
+        tf_port_direction_type == VObjectType::slTfPortDir_Inp ||
+        tf_port_direction_type == VObjectType::slTfPortDir_Out ||
+        tf_port_direction_type == VObjectType::slTfPortDir_Inout) {
+      tf_data_type = fC->Sibling(tf_data_type_or_implicit);
+      tf_param_name = fC->Sibling(tf_data_type);
     }
+    decl->VpiFile(fC->getFileName());
+    decl->VpiLineNo(fC->Line(tf_param_name));
+    decl->VpiColumnNo(fC->Column(tf_param_name));
+    decl->VpiEndLineNo(fC->EndLine(tf_param_name));
+    decl->VpiEndColumnNo(fC->EndColumn(tf_param_name));
+    NodeId type = fC->Child(tf_data_type);
+
+    NodeId unpackedDimension =
+        fC->Sibling(fC->Sibling(fC->Child(tf_port_item)));
+    if (unpackedDimension &&
+        (fC->Type(unpackedDimension) != slVariable_dimension))
+      unpackedDimension = fC->Sibling(unpackedDimension);
+    int size;
+    std::vector<UHDM::range*>* unpackedDimensions =
+        compileRanges(component, fC, unpackedDimension, compileDesign, nullptr,
+                      nullptr, false, size, false);
+    if (UHDM::typespec* tempts =
+            compileTypespec(component, fC, type, compileDesign, nullptr,
+                            nullptr, false, true)) {
+      ts = tempts;
+    }
+    decl->Typespec(ts);
+    decl->Ranges(unpackedDimensions);
+    const std::string& name = fC->SymName(tf_param_name);
+    decl->VpiName(name);
+
+    NodeId expression = fC->Sibling(tf_param_name);
+    if (expression &&
+        (fC->Type(expression) != VObjectType::slVariable_dimension) &&
+        (fC->Type(type) != VObjectType::slStringConst)) {
+      any* defvalue = compileExpression(component, fC, expression,
+                                        compileDesign, parent, nullptr, false);
+      decl->Expr(defvalue);
+    }
+
+    tf_port_item = fC->Sibling(tf_port_item);
   }
 
   return ios;
@@ -1654,6 +1678,11 @@ bool CompileHelper::compileTask(DesignComponent* component,
     // make placeholder first
     task = s.MakeTask();
     task->VpiName(name);
+    task->VpiFile(fC->getFileName());
+    task->VpiLineNo(fC->Line(task_decl));
+    task->VpiColumnNo(fC->Column(task_decl));
+    task->VpiEndLineNo(fC->EndLine(task_decl));
+    task->VpiEndColumnNo(fC->EndColumn(task_decl));
     task_funcs->push_back(task);
     return true;
   }
@@ -1663,8 +1692,8 @@ bool CompileHelper::compileTask(DesignComponent* component,
   task->VpiFile(fC->getFileName());
   task->VpiLineNo(fC->Line(nodeId));
   task->VpiColumnNo(fC->Column(nodeId));
-  task->VpiEndLineNo(fC->EndLine(nodeId));
-  task->VpiEndColumnNo(fC->EndColumn(nodeId));
+  task->VpiEndLineNo(fC->EndLine(task_decl));
+  task->VpiEndColumnNo(fC->EndColumn(task_decl));
   NodeId Tf_port_list = fC->Sibling(task_name);
   NodeId Statement_or_null = 0;
   if (fC->Type(Tf_port_list) == slTf_port_list) {
@@ -2472,20 +2501,27 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component,
         NodeId Expression = fC->Sibling(Var);
         assign_stmt* assign_stmt = s.MakeAssign_stmt();
         assign_stmt->VpiParent(for_stmt);
+        assign_stmt->VpiFile(fC->getFileName());
+        assign_stmt->VpiLineNo(fC->Line(For_variable_declaration));
+        assign_stmt->VpiColumnNo(fC->Column(For_variable_declaration));
+        assign_stmt->VpiEndLineNo(fC->EndLine(For_variable_declaration));
+        assign_stmt->VpiEndColumnNo(fC->EndColumn(For_variable_declaration));
 
         variables* var =
             (variables*)compileVariable(component, fC, Data_type, compileDesign,
                                         assign_stmt, nullptr, true, false);
-        assign_stmt->Lhs(var);
         if (var) {
+          assign_stmt->Lhs(var);
           var->VpiParent(assign_stmt);
           var->VpiName(fC->SymName(Var));
         }
 
         expr* rhs =
             (expr*)compileExpression(component, fC, Expression, compileDesign);
-        if (rhs) rhs->VpiParent(assign_stmt);
-        assign_stmt->Rhs(rhs);
+        if (rhs) {
+          rhs->VpiParent(assign_stmt);
+          assign_stmt->Rhs(rhs);
+        }
         stmts->push_back(assign_stmt);
 
         For_variable_declaration = fC->Sibling(For_variable_declaration);
@@ -2514,12 +2550,17 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component,
 
         assign_stmt* assign_stmt = s.MakeAssign_stmt();
         assign_stmt->VpiParent(for_stmt);
+        assign_stmt->VpiFile(fC->getFileName());
+        assign_stmt->VpiLineNo(fC->Line(Variable_assignment));
+        assign_stmt->VpiColumnNo(fC->Column(Variable_assignment));
+        assign_stmt->VpiEndLineNo(fC->EndLine(Variable_assignment));
+        assign_stmt->VpiEndColumnNo(fC->EndColumn(Variable_assignment));
 
         variables* var = (variables*)compileVariable(
             component, fC, Hierarchical_identifier, compileDesign, assign_stmt,
             nullptr, true, false);
-        assign_stmt->Lhs(var);
         if (var) {
+          assign_stmt->Lhs(var);
           var->VpiParent(assign_stmt);
         }
 
@@ -2538,8 +2579,10 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component,
   if (Condition) {
     expr* cond =
         (expr*)compileExpression(component, fC, Condition, compileDesign);
-    if (cond) cond->VpiParent(for_stmt);
-    for_stmt->VpiCondition(cond);
+    if (cond) {
+      cond->VpiParent(for_stmt);
+      for_stmt->VpiCondition(cond);
+    }
   }
 
   // Increment

@@ -643,12 +643,9 @@ bool CompileClass::compile_class_constraint_(const FileContent* fC,
 bool CompileClass::compile_class_declaration_(const FileContent* fC,
                                               NodeId id) {
   UHDM::Serializer& s = m_compileDesign->getSerializer();
-  NodeId class_name_id = fC->Child(id);
-  bool virtualClass = false;
-  if (fC->Type(class_name_id) == VObjectType::slVirtual) {
-    class_name_id = fC->Sibling(class_name_id);
-    virtualClass = true;
-  }
+  const bool virtualClass =
+      fC->sl_collect(id, VObjectType::slVirtual) != InvalidNodeId;
+  const NodeId class_name_id = fC->sl_collect(id, VObjectType::slStringConst);
   std::string class_name = fC->SymName(class_name_id);
   std::string full_class_name =
       m_class->m_uhdm_definition->VpiFullName() + "::" + class_name;
@@ -658,7 +655,8 @@ bool CompileClass::compile_class_declaration_(const FileContent* fC,
         m_symbols->registerSymbol(fC->getFileName(class_name_id).string()),
         fC->Line(class_name_id), 0, m_symbols->registerSymbol(class_name));
     const FileContent* prevFile = prevDef->getFileContent();
-    NodeId prevNode = prevDef->getNodeId();
+    NodeId prevNode =
+        prevFile->sl_collect(prevDef->getNodeId(), VObjectType::slStringConst);
     Location loc2(
         m_symbols->registerSymbol(prevFile->getFileName(prevNode).string()),
         prevFile->Line(prevNode), 0, m_symbols->registerSymbol(class_name));
@@ -669,9 +667,9 @@ bool CompileClass::compile_class_declaration_(const FileContent* fC,
   defn->VpiVirtual(virtualClass);
   defn->VpiName(class_name);
   defn->VpiFullName(full_class_name);
-  ClassDefinition* the_class = new ClassDefinition(
-      class_name, m_class->getLibrary(), m_class->getContainer(), fC,
-      class_name_id, m_class, defn);
+  ClassDefinition* the_class =
+      new ClassDefinition(class_name, m_class->getLibrary(),
+                          m_class->getContainer(), fC, id, m_class, defn);
   m_class->insertClass(the_class);
   UHDM::class_defn* parent = m_class->getUhdmDefinition();
   defn->VpiParent(parent);
@@ -869,14 +867,12 @@ bool CompileClass::compile_class_parameters_(const FileContent* fC, NodeId id) {
   */
   UHDM::class_defn* defn = m_class->getUhdmDefinition();
 
-  NodeId className = fC->Child(id);
-  if (fC->Type(className) == slVirtual) {
-    className = fC->Sibling(className);
+  if (fC->sl_collect(id, VObjectType::slVirtual) != InvalidNodeId) {
     defn->VpiVirtual(true);
   }
-  NodeId paramList = fC->Sibling(className);
 
-  if (fC->Type(paramList) == VObjectType::slParameter_port_list) {
+  NodeId paramList = fC->sl_collect(id, VObjectType::slParameter_port_list);
+  if (paramList != InvalidNodeId) {
     NodeId parameter_port_declaration = fC->Child(paramList);
     while (parameter_port_declaration) {
       NodeId list_of_type_assignments = fC->Child(parameter_port_declaration);

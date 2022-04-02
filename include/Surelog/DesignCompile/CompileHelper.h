@@ -346,7 +346,8 @@ class CompileHelper final {
   UHDM::any* compileBound(DesignComponent* component, const FileContent* fC,
                           NodeId Expression, CompileDesign* compileDesign,
                           UHDM::any* pexpr, ValuedComponentI* instance,
-                          bool reduce, bool muteErrors, const std::string& name);
+                          bool reduce, bool muteErrors,
+                          const std::string& name);
 
   UHDM::any* compileTypename(DesignComponent* component, const FileContent* fC,
                              NodeId Expression, CompileDesign* compileDesign,
@@ -511,8 +512,8 @@ class CompileHelper final {
                             CompileDesign* compileDesign,
                             ValuedComponentI* instance,
                             const std::filesystem::path& fileName,
-                            int lineNumber, UHDM::any* pexpr, bool reduce, bool muteErrors,
-                            bool returnTypespec);
+                            int lineNumber, UHDM::any* pexpr, bool reduce,
+                            bool muteErrors, bool returnTypespec);
 
   bool valueRange(Value* val, UHDM::typespec* tps, DesignComponent* component,
                   CompileDesign* compileDesign, ValuedComponentI* instance);
