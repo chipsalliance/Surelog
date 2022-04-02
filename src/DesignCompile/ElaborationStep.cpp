@@ -1540,13 +1540,14 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
     var->VpiName(signame);
     var->Expr(assignExp);
     obj = var;
-  } else if (packedDimensions && (obj->UhdmType() != uhdmlogic_var)) {
+  } else if (packedDimensions && (obj->UhdmType() != uhdmlogic_var) &&
+             (obj->UhdmType() != uhdmbit_var)) {
     // packed struct array ...
     UHDM::packed_array_var* parray = s.MakePacked_array_var();
     parray->Ranges(packedDimensions);
     VectorOfany* elements = s.MakeAnyVec();
-    parray->Elements(elements);
     elements->push_back(obj);
+    parray->Elements(elements);
     obj->VpiParent(parray);
     parray->VpiName(signame);
     obj = parray;

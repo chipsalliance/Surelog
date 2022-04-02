@@ -173,6 +173,14 @@ n<> u<148> t<Top_level_rule> l<2:1> el<37:1>
 
 [NTE:EL0503] dut.sv:32: Top level module "work@testharness".
 
+[NTE:EL0531] dut.sv:9:10: Negative value in instance "work@testharness.i_peripherals"
+             text:   logic [ADDR_WIDTH-1:0]   addr;
+             value: INT:-2.
+
+[NTE:EL0531] dut.sv:9:10: Negative value in instance "work@testharness.i_peripherals.i_apb_to_reg"
+             text:   logic [ADDR_WIDTH-1:0]   addr;
+             value: INT:-2.
+
 [NTE:EL0508] Nb Top level modules: 1.
 
 [NTE:EL0509] Max instance depth: 3.
@@ -298,14 +306,14 @@ design: (work@testharness)
       |vpiVariables:
       \_logic_var: (work@testharness.i_peripherals.reg_bus.addr), line:9:28, endln:9:32, parent:work@testharness.i_peripherals.reg_bus
         |vpiTypespec:
-        \_logic_typespec: , line:9:3, endln:9:25
+        \_logic_typespec: , line:9:3, endln:9:8
           |vpiRange:
           \_range: , line:9:10, endln:9:24
             |vpiLeftRange:
             \_constant: , line:9:10, endln:9:20
-              |vpiDecompile:31
+              |vpiDecompile:-2
               |vpiSize:64
-              |INT:31
+              |INT:-2
               |vpiConstType:7
             |vpiRightRange:
             \_constant: , line:9:23, endln:9:24
@@ -318,6 +326,18 @@ design: (work@testharness)
         |vpiVisibility:1
         |vpiRange:
         \_range: , line:9:10, endln:9:24
+          |vpiLeftRange:
+          \_constant: , line:9:10, endln:9:20
+            |vpiDecompile:31
+            |vpiSize:64
+            |INT:31
+            |vpiConstType:7
+          |vpiRightRange:
+          \_constant: , line:9:23, endln:9:24
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
       |vpiParameter:
       \_parameter: (work@testharness.i_peripherals.reg_bus.ADDR_WIDTH), line:4:17, endln:4:27, parent:work@testharness.i_peripherals.reg_bus
         |vpiTypespec:
@@ -406,14 +426,14 @@ design: (work@testharness)
               |vpiExpr:
               \_logic_var: (addr), line:9:28, endln:9:32
                 |vpiTypespec:
-                \_logic_typespec: , line:9:3, endln:9:25
+                \_logic_typespec: , line:9:3, endln:9:8
                   |vpiRange:
                   \_range: , line:9:10, endln:9:24
                     |vpiLeftRange:
                     \_constant: , line:9:10, endln:9:20
-                      |vpiDecompile:31
+                      |vpiDecompile:-2
                       |vpiSize:64
-                      |INT:31
+                      |INT:-2
                       |vpiConstType:7
                     |vpiRightRange:
                     \_constant: , line:9:23, endln:9:24
@@ -425,6 +445,18 @@ design: (work@testharness)
                 |vpiVisibility:1
                 |vpiRange:
                 \_range: , line:9:10, endln:9:24
+                  |vpiLeftRange:
+                  \_constant: , line:9:10, endln:9:20
+                    |vpiDecompile:31
+                    |vpiSize:64
+                    |INT:31
+                    |vpiConstType:7
+                  |vpiRightRange:
+                  \_constant: , line:9:23, endln:9:24
+                    |vpiDecompile:0
+                    |vpiSize:64
+                    |UINT:0
+                    |vpiConstType:9
             |vpiInterface:
             \_interface: work@REG_BUS (reg_o) dut.sv:27: 
         |vpiInstance:
@@ -434,5 +466,5 @@ design: (work@testharness)
 [ SYNTAX] : 0
 [  ERROR] : 0
 [WARNING] : 4
-[   NOTE] : 5
+[   NOTE] : 7
 

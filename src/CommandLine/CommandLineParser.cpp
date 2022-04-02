@@ -1,5 +1,5 @@
 /*
- Copyright 2017-2021 Alain Dargelas
+ Copyright 2017-2022 Alain Dargelas
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -51,12 +51,12 @@ static std::string_view defaultLogFileName = "surelog.log";
 //         Or when the cache schema changes
 //        This will render the cache invalid
 const std::string& CommandLineParser::getVersionNumber() {
-  static const std::string m_versionNumber = "1.27";
+  static const std::string m_versionNumber = "1.28";
   return m_versionNumber;
 }
 
 static const std::initializer_list<std::string_view> copyright = {
-    "Copyright (c) 2017-2021 Alain Dargelas,",
+    "Copyright (c) 2017-2022 Alain Dargelas,",
     "http://www.apache.org/licenses/LICENSE-2.0"};
 
 static const std::initializer_list<std::string_view> banner = {
