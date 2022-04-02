@@ -1465,7 +1465,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
     auto itr = tscache.find(typeSpecId);
     if (itr == tscache.end()) {
       tps = m_helper.compileTypespec(comp, fC, typeSpecId, m_compileDesign,
-                                     nullptr, instance, true);
+                                     nullptr, child, true);
       tscache.insert(std::make_pair(typeSpecId, tps));
     } else {
       tps = (*itr).second;
@@ -1475,9 +1475,8 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
     if (sig->getInterfaceTypeNameId()) {
       auto itr = tscache.find(sig->getInterfaceTypeNameId());
       if (itr == tscache.end()) {
-        tps =
-            m_helper.compileTypespec(comp, fC, sig->getInterfaceTypeNameId(),
-                                     m_compileDesign, nullptr, instance, true);
+        tps = m_helper.compileTypespec(comp, fC, sig->getInterfaceTypeNameId(),
+                                       m_compileDesign, nullptr, child, true);
         tscache.insert(std::make_pair(sig->getInterfaceTypeNameId(), tps));
       } else {
         tps = (*itr).second;
@@ -1891,7 +1890,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
   } else {
     // Vars
     obj = makeVar_(comp, sig, packedDimensions, packedSize, unpackedDimensions,
-                   unpackedSize, instance, vars, exp, tps);
+                   unpackedSize, child, vars, exp, tps);
   }
 
   if (obj) {
