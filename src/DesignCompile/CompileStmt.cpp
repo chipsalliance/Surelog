@@ -1245,6 +1245,7 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(DesignComponent* component,
       NodeId Open_range_list = fC->Child(Case_item);
       if (fC->Type(Open_range_list) == VObjectType::slStatement_or_null) {
         isDefault = true;
+        Expression = Open_range_list;
       } else {
         NodeId Value_range = fC->Child(Open_range_list);
         VectorOfany* exprs = s.MakeAnyVec();
