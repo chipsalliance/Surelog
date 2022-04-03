@@ -105,8 +105,7 @@ n<> u<96> t<Top_level_rule> l<1:1> el<9:1>
 
 [INF:CP0303] dut.sv:1: Compile module "work@net_vars".
 
-[NTE:CP0309] dut.sv:1:111: Implicit port type (wire) for "o1",
-there are 1 more instances of this message.
+[NTE:CP0309] dut.sv:1:133: Implicit port type (wire) for "o2".
 
 [INF:EL0526] Design Elaboration...
 
@@ -144,6 +143,7 @@ design: (work@net_vars)
   \_logic_net: (work@net_vars.i1), line:1:34, endln:1:36, parent:work@net_vars
     |vpiName:i1
     |vpiFullName:work@net_vars.i1
+    |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@net_vars.i2), line:1:54, endln:1:56, parent:work@net_vars
     |vpiName:i2
@@ -157,6 +157,7 @@ design: (work@net_vars)
   \_logic_net: (work@net_vars.o1), line:1:111, endln:1:113, parent:work@net_vars
     |vpiName:o1
     |vpiFullName:work@net_vars.o1
+    |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@net_vars.o2), line:1:133, endln:1:135, parent:work@net_vars
     |vpiName:o2
@@ -225,11 +226,15 @@ design: (work@net_vars)
   |vpiName:work@net_vars
   |vpiVariables:
   \_logic_var: (work@net_vars.i1), line:1:34, endln:1:36, parent:work@net_vars
+    |vpiTypespec:
+    \_logic_typespec: , line:1:28, endln:1:33
     |vpiName:i1
     |vpiFullName:work@net_vars.i1
     |vpiVisibility:1
   |vpiVariables:
   \_logic_var: (work@net_vars.o1), line:1:111, endln:1:113, parent:work@net_vars
+    |vpiTypespec:
+    \_logic_typespec: , line:1:105, endln:1:110
     |vpiName:o1
     |vpiFullName:work@net_vars.o1
     |vpiVisibility:1
@@ -253,6 +258,8 @@ design: (work@net_vars)
     |vpiFullName:work@net_vars.i2
   |vpiNet:
   \_logic_net: (work@net_vars.i3), line:1:80, endln:1:82, parent:work@net_vars
+    |vpiTypespec:
+    \_logic_typespec: , line:1:74, endln:1:79
     |vpiName:i3
     |vpiFullName:work@net_vars.i3
     |vpiNetType:36
@@ -262,11 +269,15 @@ design: (work@net_vars)
     |vpiFullName:work@net_vars.o2
   |vpiNet:
   \_logic_net: (work@net_vars.a), line:3:6, endln:3:7, parent:work@net_vars
+    |vpiTypespec:
+    \_logic_typespec: , line:3:1, endln:3:5
     |vpiName:a
     |vpiFullName:work@net_vars.a
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@net_vars.b), line:4:12, endln:4:13, parent:work@net_vars
+    |vpiTypespec:
+    \_logic_typespec: , line:4:6, endln:4:11
     |vpiName:b
     |vpiFullName:work@net_vars.b
     |vpiNetType:1
@@ -281,6 +292,8 @@ design: (work@net_vars)
       |vpiFullName:work@net_vars.i1
       |vpiActual:
       \_logic_var: (work@net_vars.i1), line:1:34, endln:1:36, parent:work@net_vars
+    |vpiTypedef:
+    \_logic_typespec: , line:1:28, endln:1:33
     |vpiInstance:
     \_module: work@net_vars (work@net_vars) dut.sv:1:1: , endln:8:10
   |vpiPort:
@@ -305,6 +318,8 @@ design: (work@net_vars)
       |vpiFullName:work@net_vars.i3
       |vpiActual:
       \_logic_net: (work@net_vars.i3), line:1:80, endln:1:82, parent:work@net_vars
+    |vpiTypedef:
+    \_logic_typespec: , line:1:74, endln:1:79
     |vpiInstance:
     \_module: work@net_vars (work@net_vars) dut.sv:1:1: , endln:8:10
   |vpiPort:
@@ -317,6 +332,8 @@ design: (work@net_vars)
       |vpiFullName:work@net_vars.o1
       |vpiActual:
       \_logic_var: (work@net_vars.o1), line:1:111, endln:1:113, parent:work@net_vars
+    |vpiTypedef:
+    \_logic_typespec: , line:1:105, endln:1:110
     |vpiInstance:
     \_module: work@net_vars (work@net_vars) dut.sv:1:1: , endln:8:10
   |vpiPort:

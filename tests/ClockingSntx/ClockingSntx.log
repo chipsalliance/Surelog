@@ -378,23 +378,25 @@ design: (work@top)
         |vpiFullName:work@top.cmd_reg
         |vpiActual:
         \_logic_net: (work@top.cmd_reg), line:11:12, endln:11:19, parent:work@top
+          |vpiTypespec:
+          \_logic_typespec: , line:11:2, endln:11:5
+            |vpiRange:
+            \_range: , line:11:7, endln:11:10
+              |vpiLeftRange:
+              \_constant: , line:11:7, endln:11:8
+                |vpiDecompile:8
+                |vpiSize:64
+                |UINT:8
+                |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:11:9, endln:11:10
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+                |vpiConstType:9
           |vpiName:cmd_reg
           |vpiFullName:work@top.cmd_reg
           |vpiNetType:48
-          |vpiRange:
-          \_range: , line:11:7, endln:11:10
-            |vpiLeftRange:
-            \_constant: , line:11:7, endln:11:8
-              |vpiDecompile:8
-              |vpiSize:64
-              |UINT:8
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:11:9, endln:11:10
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
       |vpiOperand:
       \_constant: , line:25:33, endln:25:35
         |vpiDecompile:'X
@@ -407,22 +409,24 @@ design: (work@top)
       |vpiFullName:work@top.cmd
       |vpiActual:
       \_logic_net: (work@top.cmd), line:9:27, endln:9:30, parent:work@top
+        |vpiTypespec:
+        \_logic_typespec: , line:9:21, endln:9:26
+          |vpiRange:
+          \_range: , line:9:22, endln:9:25
+            |vpiLeftRange:
+            \_constant: , line:9:22, endln:9:23
+              |vpiDecompile:8
+              |vpiSize:64
+              |UINT:8
+              |vpiConstType:9
+            |vpiRightRange:
+            \_constant: , line:9:24, endln:9:25
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
         |vpiName:cmd
         |vpiFullName:work@top.cmd
-        |vpiRange:
-        \_range: , line:9:22, endln:9:25
-          |vpiLeftRange:
-          \_constant: , line:9:22, endln:9:23
-            |vpiDecompile:8
-            |vpiSize:64
-            |UINT:8
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:9:24, endln:9:25
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
   |vpiClockingBlock:
   \_clocking_block: (mem), line:2:2, endln:4:13
     |vpiName:mem
@@ -552,24 +556,28 @@ design: (work@top)
   \_logic_net: (work@top.phi1), line:8:9, endln:8:13, parent:work@top
   |vpiNet:
   \_logic_net: (work@top.data), line:8:28, endln:8:32, parent:work@top
+    |vpiTypespec:
+    \_logic_typespec: , line:8:21, endln:8:27
+      |vpiRange:
+      \_range: , line:8:22, endln:8:26
+        |vpiLeftRange:
+        \_constant: , line:8:22, endln:8:24
+          |vpiDecompile:15
+          |vpiSize:64
+          |UINT:15
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:8:25, endln:8:26
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:data
     |vpiFullName:work@top.data
-    |vpiRange:
-    \_range: , line:8:22, endln:8:26
-      |vpiLeftRange:
-      \_constant: , line:8:22, endln:8:24
-        |vpiDecompile:15
-        |vpiSize:64
-        |UINT:15
-        |vpiConstType:9
-      |vpiRightRange:
-      \_constant: , line:8:25, endln:8:26
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-        |vpiConstType:9
   |vpiNet:
   \_logic_net: (work@top.write), line:8:47, endln:8:52, parent:work@top
+    |vpiTypespec:
+    \_logic_typespec: , line:8:41, endln:8:46
     |vpiName:write
     |vpiFullName:work@top.write
     |vpiNetType:36
@@ -610,6 +618,22 @@ design: (work@top)
       |vpiFullName:work@top.data
       |vpiActual:
       \_logic_net: (work@top.data), line:8:28, endln:8:32, parent:work@top
+    |vpiTypedef:
+    \_logic_typespec: , line:8:21, endln:8:27
+      |vpiRange:
+      \_range: , line:8:22, endln:8:26, parent:data
+        |vpiLeftRange:
+        \_constant: , line:8:22, endln:8:24
+          |vpiDecompile:15
+          |vpiSize:64
+          |UINT:15
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:8:25, endln:8:26
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:27:10
   |vpiPort:
@@ -622,6 +646,8 @@ design: (work@top)
       |vpiFullName:work@top.write
       |vpiActual:
       \_logic_net: (work@top.write), line:8:47, endln:8:52, parent:work@top
+    |vpiTypedef:
+    \_logic_typespec: , line:8:41, endln:8:46
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:27:10
   |vpiPort:
@@ -646,6 +672,22 @@ design: (work@top)
       |vpiFullName:work@top.cmd
       |vpiActual:
       \_logic_net: (work@top.cmd), line:9:27, endln:9:30, parent:work@top
+    |vpiTypedef:
+    \_logic_typespec: , line:9:21, endln:9:26
+      |vpiRange:
+      \_range: , line:9:22, endln:9:25, parent:cmd
+        |vpiLeftRange:
+        \_constant: , line:9:22, endln:9:23
+          |vpiDecompile:8
+          |vpiSize:64
+          |UINT:8
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:9:24, endln:9:25
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:27:10
   |vpiPort:

@@ -895,6 +895,8 @@ design: (work@dut)
   |vpiTop:1
   |vpiNet:
   \_logic_net: (work@dut.rst_l), line:16:31, endln:16:36, parent:work@dut
+    |vpiTypespec:
+    \_logic_typespec: , line:16:7, endln:16:12
     |vpiName:rst_l
     |vpiFullName:work@dut.rst_l
     |vpiNetType:36
@@ -930,6 +932,8 @@ design: (work@dut)
       |vpiFullName:work@dut.rst_l
       |vpiActual:
       \_logic_net: (work@dut.rst_l), line:16:31, endln:16:36, parent:work@dut
+    |vpiTypedef:
+    \_logic_typespec: , line:16:7, endln:16:12
     |vpiInstance:
     \_module: work@dut (work@dut) dut.sv:15:1: , endln:21:10
   |vpiModule:
@@ -961,52 +965,60 @@ design: (work@dut)
     |vpiDefLineNo:3
     |vpiNet:
     \_logic_net: (work@dut.freezerfpc_ff.din), line:5:30, endln:5:33, parent:work@dut.freezerfpc_ff
+      |vpiTypespec:
+      \_logic_typespec: , line:5:12, endln:5:17
+        |vpiRange:
+        \_range: , line:5:19, endln:5:28
+          |vpiLeftRange:
+          \_constant: , line:5:19, endln:5:24
+            |vpiDecompile:1
+            |vpiSize:64
+            |INT:1
+            |vpiConstType:7
+          |vpiRightRange:
+          \_constant: , line:5:27, endln:5:28
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
       |vpiName:din
       |vpiFullName:work@dut.freezerfpc_ff.din
       |vpiNetType:36
-      |vpiRange:
-      \_range: , line:5:19, endln:5:28
-        |vpiLeftRange:
-        \_constant: , line:5:19, endln:5:24
-          |vpiDecompile:1
-          |vpiSize:64
-          |INT:1
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:5:27, endln:5:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
     |vpiNet:
     \_logic_net: (work@dut.freezerfpc_ff.clk), line:6:28, endln:6:31, parent:work@dut.freezerfpc_ff
+      |vpiTypespec:
+      \_logic_typespec: , line:6:12, endln:6:17
       |vpiName:clk
       |vpiFullName:work@dut.freezerfpc_ff.clk
       |vpiNetType:36
     |vpiNet:
     \_logic_net: (work@dut.freezerfpc_ff.rst_l), line:7:36, endln:7:41, parent:work@dut.freezerfpc_ff
+      |vpiTypespec:
+      \_logic_typespec: , line:7:12, endln:7:17
       |vpiName:rst_l
       |vpiFullName:work@dut.freezerfpc_ff.rst_l
       |vpiNetType:36
     |vpiNet:
     \_logic_net: (work@dut.freezerfpc_ff.dout), line:9:31, endln:9:35, parent:work@dut.freezerfpc_ff
+      |vpiTypespec:
+      \_logic_typespec: , line:9:13, endln:9:18
+        |vpiRange:
+        \_range: , line:9:20, endln:9:29
+          |vpiLeftRange:
+          \_constant: , line:9:20, endln:9:25
+            |vpiDecompile:1
+            |vpiSize:64
+            |INT:1
+            |vpiConstType:7
+          |vpiRightRange:
+          \_constant: , line:9:28, endln:9:29
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
       |vpiName:dout
       |vpiFullName:work@dut.freezerfpc_ff.dout
       |vpiNetType:36
-      |vpiRange:
-      \_range: , line:9:20, endln:9:29
-        |vpiLeftRange:
-        \_constant: , line:9:20, endln:9:25
-          |vpiDecompile:1
-          |vpiSize:64
-          |INT:1
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:9:28, endln:9:29
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
     |vpiInstance:
     \_module: work@dut (work@dut) dut.sv:15:1: , endln:21:10
     |vpiPort:
@@ -1034,6 +1046,22 @@ design: (work@dut)
         |vpiFullName:work@dut.freezerfpc_ff.din
         |vpiActual:
         \_logic_net: (work@dut.freezerfpc_ff.din), line:5:30, endln:5:33, parent:work@dut.freezerfpc_ff
+      |vpiTypedef:
+      \_logic_typespec: , line:5:12, endln:5:17
+        |vpiRange:
+        \_range: , line:5:19, endln:5:28, parent:din
+          |vpiLeftRange:
+          \_constant: , line:5:19, endln:5:24
+            |vpiDecompile:1
+            |vpiSize:64
+            |INT:1
+            |vpiConstType:7
+          |vpiRightRange:
+          \_constant: , line:5:27, endln:5:28
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
       |vpiInstance:
       \_module: work@rvdff (work@dut.freezerfpc_ff) dut.sv:17:3: , endln:19:77, parent:work@dut
     |vpiPort:
@@ -1052,6 +1080,8 @@ design: (work@dut)
         |vpiFullName:work@dut.freezerfpc_ff.clk
         |vpiActual:
         \_logic_net: (work@dut.freezerfpc_ff.clk), line:6:28, endln:6:31, parent:work@dut.freezerfpc_ff
+      |vpiTypedef:
+      \_logic_typespec: , line:6:12, endln:6:17
       |vpiInstance:
       \_module: work@rvdff (work@dut.freezerfpc_ff) dut.sv:17:3: , endln:19:77, parent:work@dut
     |vpiPort:
@@ -1070,6 +1100,8 @@ design: (work@dut)
         |vpiFullName:work@dut.freezerfpc_ff.rst_l
         |vpiActual:
         \_logic_net: (work@dut.freezerfpc_ff.rst_l), line:7:36, endln:7:41, parent:work@dut.freezerfpc_ff
+      |vpiTypedef:
+      \_logic_typespec: , line:7:12, endln:7:17
       |vpiInstance:
       \_module: work@rvdff (work@dut.freezerfpc_ff) dut.sv:17:3: , endln:19:77, parent:work@dut
     |vpiPort:
@@ -1097,6 +1129,22 @@ design: (work@dut)
         |vpiFullName:work@dut.freezerfpc_ff.dout
         |vpiActual:
         \_logic_net: (work@dut.freezerfpc_ff.dout), line:9:31, endln:9:35, parent:work@dut.freezerfpc_ff
+      |vpiTypedef:
+      \_logic_typespec: , line:9:13, endln:9:18
+        |vpiRange:
+        \_range: , line:9:20, endln:9:29, parent:dout
+          |vpiLeftRange:
+          \_constant: , line:9:20, endln:9:25
+            |vpiDecompile:1
+            |vpiSize:64
+            |INT:1
+            |vpiConstType:7
+          |vpiRightRange:
+          \_constant: , line:9:28, endln:9:29
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
       |vpiInstance:
       \_module: work@rvdff (work@dut.freezerfpc_ff) dut.sv:17:3: , endln:19:77, parent:work@dut
 ===================

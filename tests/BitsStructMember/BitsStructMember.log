@@ -351,33 +351,35 @@ design: (work@top)
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@top.kmac_mask_o), line:17:30, endln:17:41, parent:work@top
+    |vpiTypespec:
+    \_logic_typespec: , line:17:9, endln:17:14
+      |vpiRange:
+      \_range: , line:17:16, endln:17:28
+        |vpiLeftRange:
+        \_operation: , line:17:16, endln:17:26
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (MsgWidth), line:17:16, endln:17:24
+            |vpiName:MsgWidth
+            |vpiActual:
+            \_logic_net: (MsgWidth)
+              |vpiName:MsgWidth
+              |vpiNetType:1
+          |vpiOperand:
+          \_constant: , line:17:25, endln:17:26
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:17:27, endln:17:28
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:kmac_mask_o
     |vpiFullName:work@top.kmac_mask_o
     |vpiNetType:36
-    |vpiRange:
-    \_range: , line:17:16, endln:17:28
-      |vpiLeftRange:
-      \_operation: , line:17:16, endln:17:26
-        |vpiOpType:11
-        |vpiOperand:
-        \_ref_obj: (MsgWidth), line:17:16, endln:17:24
-          |vpiName:MsgWidth
-          |vpiActual:
-          \_logic_net: (MsgWidth)
-            |vpiName:MsgWidth
-            |vpiNetType:1
-        |vpiOperand:
-        \_constant: , line:17:25, endln:17:26
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-      |vpiRightRange:
-      \_constant: , line:17:27, endln:17:28
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-        |vpiConstType:9
   |vpiNet:
   \_logic_net: (mux_sel)
   |vpiNet:
@@ -409,6 +411,31 @@ design: (work@top)
       |vpiFullName:work@top.kmac_mask_o
       |vpiActual:
       \_logic_net: (work@top.kmac_mask_o), line:17:30, endln:17:41, parent:work@top
+    |vpiTypedef:
+    \_logic_typespec: , line:17:9, endln:17:14
+      |vpiRange:
+      \_range: , line:17:16, endln:17:28, parent:kmac_mask_o
+        |vpiLeftRange:
+        \_operation: , line:17:16, endln:17:26
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (work@top.kmac_mask_o.MsgWidth), line:17:16, endln:17:24, parent:kmac_mask_o
+            |vpiName:MsgWidth
+            |vpiFullName:work@top.kmac_mask_o.MsgWidth
+            |vpiActual:
+            \_logic_net: (MsgWidth)
+          |vpiOperand:
+          \_constant: , line:17:25, endln:17:26
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:17:27, endln:17:28
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:16:1: , endln:28:10
   |vpiProcess:

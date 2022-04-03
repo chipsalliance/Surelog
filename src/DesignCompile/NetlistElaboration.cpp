@@ -1465,7 +1465,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
     auto itr = tscache.find(typeSpecId);
     if (itr == tscache.end()) {
       tps = m_helper.compileTypespec(comp, fC, typeSpecId, m_compileDesign,
-                                     nullptr, child, true);
+                                     nullptr, child, true, true);
       tscache.insert(std::make_pair(typeSpecId, tps));
     } else {
       tps = (*itr).second;
@@ -1476,7 +1476,8 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       auto itr = tscache.find(sig->getInterfaceTypeNameId());
       if (itr == tscache.end()) {
         tps = m_helper.compileTypespec(comp, fC, sig->getInterfaceTypeNameId(),
-                                       m_compileDesign, nullptr, child, true);
+                                       m_compileDesign, nullptr, child, true,
+                                       true);
         tscache.insert(std::make_pair(sig->getInterfaceTypeNameId(), tps));
       } else {
         tps = (*itr).second;
@@ -1565,7 +1566,9 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           logicn->Attributes(sig->attributes());
           logicn->VpiSigned(sig->isSigned());
           logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
-          logicn->Ranges(packedDimensions);
+          // Move range to typespec for simple types
+          // logicn->Ranges(packedDimensions);
+          logicn->Typespec(tps);
           logicn->VpiName(signame);
           obj = logicn;
           logicn->Typespec(spec);
@@ -1597,7 +1600,9 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           bit_var* logicn = s.MakeBit_var();
           logicn->Attributes(sig->attributes());
           logicn->VpiSigned(sig->isSigned());
-          logicn->Ranges(packedDimensions);
+          // Move range to typespec for simple types
+          // logicn->Ranges(packedDimensions);
+          logicn->Typespec(tps);
           logicn->VpiName(signame);
           obj = logicn;
           logicn->Typespec(spec);
@@ -1659,7 +1664,9 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           logicn->Attributes(sig->attributes());
           logicn->VpiSigned(sig->isSigned());
           logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
-          logicn->Ranges(packedDimensions);
+          // Move range to typespec for simple types
+          // logicn->Ranges(packedDimensions);
+          logicn->Typespec(tps);
           logicn->VpiName(signame);
           obj = logicn;
           logicn->Typespec(spec);
@@ -1699,7 +1706,9 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           bit_var* logicn = s.MakeBit_var();
           logicn->Attributes(sig->attributes());
           logicn->VpiSigned(sig->isSigned());
-          logicn->Ranges(packedDimensions);
+          logicn->Typespec(tps);
+          // Move range to typespec for simple types
+          // logicn->Ranges(packedDimensions);
           logicn->VpiName(signame);
           obj = logicn;
           logicn->Typespec(spec);
@@ -1725,7 +1734,9 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         logicn->Attributes(sig->attributes());
         logicn->VpiSigned(sig->isSigned());
         logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
-        logicn->Ranges(packedDimensions);
+        logicn->Typespec(tps);
+        // Move range to typespec for simple types
+        // logicn->Ranges(packedDimensions);
         logicn->VpiName(signame);
         obj = logicn;
       }
@@ -1821,8 +1832,11 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       logic_net* logicn = s.MakeLogic_net();
       logicn->VpiSigned(sig->isSigned());
       logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
-      logicn->Ranges(packedDimensions);
+      // Move range to typespec for simple types
+      // logicn->Ranges(packedDimensions);
+      logicn->Typespec(tps);
       logicn->Attributes(sig->attributes());
+      logicn->Typespec(tps);
       if (unpackedDimensions) {
         logicn->VpiLineNo(fC->Line(id));
         logicn->VpiColumnNo(fC->Column(id));
@@ -1999,7 +2013,7 @@ bool NetlistElaboration::elab_ports_nets_(
           if (itr == tscache.end()) {
             tps =
                 m_helper.compileTypespec(comp, fC, typeSpecId, m_compileDesign,
-                                         dest_port, instance, true);
+                                         dest_port, instance, true, true);
             tscache.insert(std::make_pair(typeSpecId, tps));
           } else {
             tps = (*itr).second;

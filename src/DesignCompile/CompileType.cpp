@@ -948,6 +948,14 @@ UHDM::typespec* CompileHelper::compileBuiltinTypespec(
       break;
     }
     default:
+      logic_typespec* var = s.MakeLogic_typespec();
+      var->Ranges(ranges);
+      var->VpiFile(fC->getFileName());
+      var->VpiLineNo(fC->Line(type));
+      var->VpiColumnNo(fC->Column(type));
+      var->VpiEndLineNo(fC->EndLine(type));
+      var->VpiEndColumnNo(fC->EndColumn(type));
+      result = var;
       break;
   }
   return result;
@@ -974,6 +982,9 @@ UHDM::typespec* CompileHelper::compileTypespec(
     if (fC->Type(Packed_dimension) != slPacked_dimension) Packed_dimension = 0;
   } else {
     Packed_dimension = fC->Sibling(type);
+    if (fC->Type(Packed_dimension) == slData_type_or_implicit) {
+      Packed_dimension = fC->Child(Packed_dimension);
+    }
   }
   bool isPacked = false;
   if (fC->Type(Packed_dimension) == slPacked_keyword) {
@@ -981,6 +992,10 @@ UHDM::typespec* CompileHelper::compileTypespec(
     isPacked = true;
   }
   if (fC->Type(Packed_dimension) == slStruct_union_member) {
+    Packed_dimension = fC->Sibling(Packed_dimension);
+  }
+  if (fC->Type(Packed_dimension) == slSigning_Signed ||
+      fC->Type(Packed_dimension) == slSigning_Unsigned) {
     Packed_dimension = fC->Sibling(Packed_dimension);
   }
   int size;
@@ -1184,6 +1199,18 @@ UHDM::typespec* CompileHelper::compileTypespec(
       break;
     }
     case VObjectType::slIntVec_TypeLogic:
+    case VObjectType::slNetType_Wire:
+    case VObjectType::slNetType_Supply0:
+    case VObjectType::slNetType_Supply1:
+    case VObjectType::slNetType_Tri0:
+    case VObjectType::slNetType_Tri1:
+    case VObjectType::slNetType_Tri:
+    case VObjectType::slNetType_TriAnd:
+    case VObjectType::slNetType_TriOr:
+    case VObjectType::slNetType_TriReg:
+    case VObjectType::slNetType_Uwire:
+    case VObjectType::slNetType_Wand:
+    case VObjectType::slNetType_Wor:
     case VObjectType::slIntVec_TypeReg:
     case VObjectType::slIntegerAtomType_Int:
     case VObjectType::slIntegerAtomType_Integer:
