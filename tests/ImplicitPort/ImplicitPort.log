@@ -753,67 +753,60 @@ design: (work@add)
         |vpiFullName:work@add.a
         |vpiActual:
         \_logic_net: (work@add.a), line:2:16, endln:2:17, parent:work@add
+          |vpiTypespec:
+          \_logic_typespec: , line:2:9, endln:2:15
+            |vpiRange:
+            \_range: , line:2:10, endln:2:14
+              |vpiLeftRange:
+              \_constant: , line:2:10, endln:2:12
+                |vpiDecompile:31
+                |vpiSize:64
+                |UINT:31
+                |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:2:13, endln:2:14
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
           |vpiName:a
           |vpiFullName:work@add.a
-          |vpiRange:
-          \_range: , line:2:10, endln:2:14
-            |vpiLeftRange:
-            \_constant: , line:2:10, endln:2:12
-              |vpiDecompile:31
-              |vpiSize:64
-              |UINT:31
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:2:13, endln:2:14
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
       |vpiOperand:
       \_ref_obj: (work@add.b), line:5:18, endln:5:19
         |vpiName:b
         |vpiFullName:work@add.b
         |vpiActual:
         \_logic_net: (work@add.b), line:2:18, endln:2:19, parent:work@add
+          |vpiTypespec:
+          \_logic_typespec: , line:2:9, endln:2:15
           |vpiName:b
           |vpiFullName:work@add.b
-          |vpiRange:
-          \_range: , line:2:10, endln:2:14
-            |vpiLeftRange:
-            \_constant: , line:2:10, endln:2:12
-              |vpiDecompile:31
-              |vpiSize:64
-              |UINT:31
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:2:13, endln:2:14
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
     |vpiLhs:
     \_ref_obj: (work@add.sum), line:5:8, endln:5:11
       |vpiName:sum
       |vpiFullName:work@add.sum
       |vpiActual:
       \_logic_net: (work@add.sum), line:3:24, endln:3:27, parent:work@add
+        |vpiTypespec:
+        \_int_typespec: , line:3:10, endln:3:16
+          |vpiSigned:1
+          |vpiRange:
+          \_range: , line:3:18, endln:3:22
+            |vpiLeftRange:
+            \_constant: , line:3:18, endln:3:20
+              |vpiDecompile:31
+              |vpiSize:64
+              |UINT:31
+              |vpiConstType:9
+            |vpiRightRange:
+            \_constant: , line:3:21, endln:3:22
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
         |vpiName:sum
         |vpiFullName:work@add.sum
         |vpiSigned:1
-        |vpiRange:
-        \_range: , line:3:18, endln:3:22
-          |vpiLeftRange:
-          \_constant: , line:3:18, endln:3:20
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:3:21, endln:3:22
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
 |uhdmtopModules:
 \_module: work@add (work@add) dut.sv:1:1: , endln:6:10
   |vpiName:work@add
@@ -836,6 +829,22 @@ design: (work@add)
       |vpiFullName:work@add.a
       |vpiActual:
       \_logic_net: (work@add.a), line:2:16, endln:2:17, parent:work@add
+    |vpiTypedef:
+    \_logic_typespec: , line:2:9, endln:2:15
+      |vpiRange:
+      \_range: , line:2:10, endln:2:14, parent:a
+        |vpiLeftRange:
+        \_constant: , line:2:10, endln:2:12
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:2:13, endln:2:14
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiInstance:
     \_module: work@add (work@add) dut.sv:1:1: , endln:6:10
   |vpiPort:
@@ -848,6 +857,8 @@ design: (work@add)
       |vpiFullName:work@add.b
       |vpiActual:
       \_logic_net: (work@add.b), line:2:18, endln:2:19, parent:work@add
+    |vpiTypedef:
+    \_logic_typespec: , line:2:9, endln:2:15
     |vpiInstance:
     \_module: work@add (work@add) dut.sv:1:1: , endln:6:10
   |vpiPort:
@@ -860,6 +871,23 @@ design: (work@add)
       |vpiFullName:work@add.sum
       |vpiActual:
       \_logic_net: (work@add.sum), line:3:24, endln:3:27, parent:work@add
+    |vpiTypedef:
+    \_int_typespec: , line:3:10, endln:3:16
+      |vpiSigned:1
+      |vpiRange:
+      \_range: , line:3:18, endln:3:22, parent:sum
+        |vpiLeftRange:
+        \_constant: , line:3:18, endln:3:20
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:21, endln:3:22
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiInstance:
     \_module: work@add (work@add) dut.sv:1:1: , endln:6:10
   |vpiContAssign:

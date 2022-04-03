@@ -148,6 +148,8 @@ design: (work@test)
   |vpiTop:1
   |vpiNet:
   \_logic_net: (work@test.state), line:1:24, endln:1:29, parent:work@test
+    |vpiTypespec:
+    \_logic_typespec: , line:1:20, endln:1:23
     |vpiName:state
     |vpiFullName:work@test.state
     |vpiNetType:48
@@ -155,23 +157,25 @@ design: (work@test)
   \_logic_net: (work@test.clk), line:1:37, endln:1:40, parent:work@test
   |vpiNet:
   \_logic_net: (work@test.data), line:2:12, endln:2:16, parent:work@test
+    |vpiTypespec:
+    \_logic_typespec: , line:2:1, endln:2:4
+      |vpiRange:
+      \_range: , line:2:6, endln:2:10
+        |vpiLeftRange:
+        \_constant: , line:2:6, endln:2:8
+          |vpiDecompile:15
+          |vpiSize:64
+          |UINT:15
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:2:9, endln:2:10
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:data
     |vpiFullName:work@test.data
     |vpiNetType:48
-    |vpiRange:
-    \_range: , line:2:6, endln:2:10
-      |vpiLeftRange:
-      \_constant: , line:2:6, endln:2:8
-        |vpiDecompile:15
-        |vpiSize:64
-        |UINT:15
-        |vpiConstType:9
-      |vpiRightRange:
-      \_constant: , line:2:9, endln:2:10
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-        |vpiConstType:9
   |vpiTopModule:1
   |vpiPort:
   \_port: (state), line:1:24, endln:1:29, parent:work@test
@@ -183,6 +187,8 @@ design: (work@test)
       |vpiFullName:work@test.state
       |vpiActual:
       \_logic_net: (work@test.state), line:1:24, endln:1:29, parent:work@test
+    |vpiTypedef:
+    \_logic_typespec: , line:1:20, endln:1:23
     |vpiInstance:
     \_module: work@test (work@test) dut.sv:1:1: , endln:8:10
   |vpiPort:

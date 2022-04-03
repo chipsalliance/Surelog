@@ -1301,6 +1301,8 @@ design: (work@FSM)
             |vpiName:clock
             |vpiActual:
             \_logic_net: (work@FSM.clock), line:3:8, endln:3:13, parent:work@FSM
+              |vpiTypespec:
+              \_logic_typespec: , line:3:3, endln:3:7
               |vpiName:clock
               |vpiFullName:work@FSM.clock
               |vpiNetType:1
@@ -1312,6 +1314,8 @@ design: (work@FSM)
             |vpiName:keys
             |vpiActual:
             \_logic_net: (work@FSM.keys), line:3:15, endln:3:19, parent:work@FSM
+              |vpiTypespec:
+              \_logic_typespec: , line:3:3, endln:3:7
               |vpiName:keys
               |vpiFullName:work@FSM.keys
               |vpiNetType:1
@@ -1338,6 +1342,8 @@ design: (work@FSM)
                 |vpiFullName:work@FSM.FSM3.accelerate
                 |vpiActual:
                 \_logic_net: (work@FSM.accelerate), line:3:28, endln:3:38, parent:work@FSM
+                  |vpiTypespec:
+                  \_logic_typespec: , line:3:3, endln:3:7
                   |vpiName:accelerate
                   |vpiFullName:work@FSM.accelerate
                   |vpiNetType:1
@@ -1350,23 +1356,25 @@ design: (work@FSM)
                   |vpiFullName:work@FSM.FSM3.Speed
                   |vpiActual:
                   \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
+                    |vpiTypespec:
+                    \_logic_typespec: , line:5:3, endln:5:6
+                      |vpiRange:
+                      \_range: , line:5:8, endln:5:11
+                        |vpiLeftRange:
+                        \_constant: , line:5:8, endln:5:9
+                          |vpiDecompile:3
+                          |vpiSize:64
+                          |UINT:3
+                          |vpiConstType:9
+                        |vpiRightRange:
+                        \_constant: , line:5:10, endln:5:11
+                          |vpiDecompile:0
+                          |vpiSize:64
+                          |UINT:0
+                          |vpiConstType:9
                     |vpiName:Speed
                     |vpiFullName:work@FSM.Speed
                     |vpiNetType:48
-                    |vpiRange:
-                    \_range: , line:5:8, endln:5:11
-                      |vpiLeftRange:
-                      \_constant: , line:5:8, endln:5:9
-                        |vpiDecompile:3
-                        |vpiSize:64
-                        |UINT:3
-                        |vpiConstType:9
-                      |vpiRightRange:
-                      \_constant: , line:5:10, endln:5:11
-                        |vpiDecompile:0
-                        |vpiSize:64
-                        |UINT:0
-                        |vpiConstType:9
                 |vpiCaseItem:
                 \_case_item: , line:23:7, endln:23:29
                   |vpiExpr:
@@ -1418,6 +1426,8 @@ design: (work@FSM)
               |vpiFullName:work@FSM.FSM3.brake
               |vpiActual:
               \_logic_net: (work@FSM.brake), line:3:21, endln:3:26, parent:work@FSM
+                |vpiTypespec:
+                \_logic_typespec: , line:3:3, endln:3:7
                 |vpiName:brake
                 |vpiFullName:work@FSM.brake
                 |vpiNetType:1
@@ -1698,16 +1708,22 @@ design: (work@FSM)
   \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
   |vpiNet:
   \_logic_net: (work@FSM.Ctrl1), line:7:7, endln:7:12, parent:work@FSM
+    |vpiTypespec:
+    \_logic_typespec: , line:7:3, endln:7:6
     |vpiName:Ctrl1
     |vpiFullName:work@FSM.Ctrl1
     |vpiNetType:48
   |vpiNet:
   \_logic_net: (work@FSM.Ctrl2), line:7:14, endln:7:19, parent:work@FSM
+    |vpiTypespec:
+    \_logic_typespec: , line:7:3, endln:7:6
     |vpiName:Ctrl2
     |vpiFullName:work@FSM.Ctrl2
     |vpiNetType:48
   |vpiNet:
   \_logic_net: (work@FSM.Ctrl3), line:7:21, endln:7:26, parent:work@FSM
+    |vpiTypespec:
+    \_logic_typespec: , line:7:3, endln:7:6
     |vpiName:Ctrl3
     |vpiFullName:work@FSM.Ctrl3
     |vpiNetType:48
@@ -1770,6 +1786,22 @@ design: (work@FSM)
       |vpiFullName:work@FSM.Speed
       |vpiActual:
       \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
+    |vpiTypedef:
+    \_logic_typespec: , line:4:10, endln:4:15
+      |vpiRange:
+      \_range: , line:4:11, endln:4:14, parent:Speed
+        |vpiLeftRange:
+        \_constant: , line:4:11, endln:4:12
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:4:13, endln:4:14
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiInstance:
     \_module: work@FSM (work@FSM) top.sv:1:1: , endln:42:12
   |vpiProcess:
