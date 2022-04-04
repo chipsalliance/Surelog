@@ -1439,8 +1439,10 @@ sequence_formal_type
 sequence_instance : 
       ps_or_hierarchical_sequence_identifier ( OPEN_PARENS sequence_list_of_arguments CLOSE_PARENS )? ; 
 
+sequence_arg : sequence_actual_arg? ;
+
 sequence_list_of_arguments  
-    : sequence_actual_arg? ( COMMA sequence_actual_arg? )* 
+    : sequence_actual_arg? ( COMMA sequence_arg )* 
       ( COMMA DOT identifier OPEN_PARENS sequence_actual_arg? CLOSE_PARENS )* 
     | DOT identifier OPEN_PARENS sequence_actual_arg? CLOSE_PARENS 
       ( COMMA DOT identifier OPEN_PARENS sequence_actual_arg? CLOSE_PARENS )* 
@@ -2914,9 +2916,10 @@ subroutine_call : ( implicit_class_handle DOT | class_scope | package_scope | do
        | randomize_call;
 
 
+argument: ( expression )?;
 
 list_of_arguments 
-    : ( expression )? (COMMA ( expression )? )* ( COMMA DOT identifier OPEN_PARENS ( expression )? CLOSE_PARENS )*                                                         
+    : ( expression )? (COMMA argument )* ( COMMA DOT identifier OPEN_PARENS ( expression )? CLOSE_PARENS )*                                                         
     | DOT identifier OPEN_PARENS ( expression )? CLOSE_PARENS ( COMMA DOT identifier OPEN_PARENS ( expression )? CLOSE_PARENS )* 
                                                         
     ; 

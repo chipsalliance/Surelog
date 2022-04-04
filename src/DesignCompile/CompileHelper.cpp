@@ -3069,9 +3069,13 @@ VectorOfany* CompileHelper::compileTfCallArguments(
   std::map<std::string, any*> args;
   std::vector<any*> argOrder;
   while (argumentNode) {
-    NodeId sibling = fC->Sibling(argumentNode);
+    NodeId argument = argumentNode;
+    if (fC->Type(argument) == slArgument) {
+      argument = fC->Child(argument);
+    }
+    NodeId sibling = fC->Sibling(argument);
     NodeId Expression = 0;
-    if ((fC->Type(argumentNode) == slStringConst) &&
+    if ((fC->Type(argument) == slStringConst) &&
         (fC->Type(sibling) == slExpression)) {
       // arg by name
       Expression = sibling;
@@ -3080,15 +3084,15 @@ VectorOfany* CompileHelper::compileTfCallArguments(
                             instance, reduce, muteErrors);
       if (exp) {
         if (exp->VpiParent() == nullptr) exp->VpiParent(call);
-        args.insert(std::make_pair(fC->SymName(argumentNode), exp));
+        args.insert(std::make_pair(fC->SymName(argument), exp));
         argOrder.push_back(exp);
       }
       argumentNode = fC->Sibling(argumentNode);
-    } else if (((fC->Type(argumentNode) == slUnary_Tilda) ||
-                (fC->Type(argumentNode) == slUnary_Not)) &&
+    } else if (((fC->Type(argument) == slUnary_Tilda) ||
+                (fC->Type(argument) == slUnary_Not)) &&
                (fC->Type(sibling) == slExpression)) {
       // arg by position
-      Expression = argumentNode;
+      Expression = argument;
       UHDM::any* exp =
           compileExpression(component, fC, Expression, compileDesign, call,
                             instance, reduce, muteErrors);
@@ -3099,16 +3103,40 @@ VectorOfany* CompileHelper::compileTfCallArguments(
       argumentNode = fC->Sibling(argumentNode);
     } else {
       // arg by position
-      Expression = argumentNode;
-      UHDM::any* exp =
-          compileExpression(component, fC, Expression, compileDesign, call,
-                            instance, reduce, muteErrors);
+      Expression = argument;
+      if (Expression) {
+        UHDM::any* exp =
+            compileExpression(component, fC, Expression, compileDesign, call,
+                              instance, reduce, muteErrors);
+        if (exp) {
+          arguments->push_back(exp);
+          if (exp->VpiParent() == nullptr) exp->VpiParent(call);
+        }
+      } else {
+        constant* c = s.MakeConstant();
+        c->VpiValue("INT:0");
+        c->VpiDecompile("0");
+        c->VpiSize(64);
+        c->VpiConstType(vpiIntConst);
+        c->VpiFile(fC->getFileName());
+        c->VpiLineNo(fC->Line(argumentNode));
+        c->VpiColumnNo(fC->Column(argumentNode));
+        c->VpiEndLineNo(fC->EndLine(argumentNode));
+        c->VpiEndColumnNo(fC->EndColumn(argumentNode));
+        arguments->push_back(c);
+      }
+    }
+    argumentNode = fC->Sibling(argumentNode);
+  }
+  if (NodeId clocking = fC->Sibling(Arg_list_node)) {
+    if (fC->Type(clocking) == slClocking_event) {
+      UHDM::any* exp = compileExpression(component, fC, clocking, compileDesign,
+                                         call, instance, reduce, muteErrors);
       if (exp) {
         arguments->push_back(exp);
         if (exp->VpiParent() == nullptr) exp->VpiParent(call);
       }
     }
-    argumentNode = fC->Sibling(argumentNode);
   }
   if (!args.empty()) {
     if (io_decls) {
@@ -3119,6 +3147,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(
           arguments->push_back((*itr).second);
         } else {
           constant* c = s.MakeConstant();
+          c->VpiFile(fC->getFileName());
           c->VpiValue("INT:0");
           c->VpiDecompile("0");
           c->VpiSize(64);

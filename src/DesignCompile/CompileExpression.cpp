@@ -2059,12 +2059,30 @@ UHDM::any *CompileHelper::compileExpression(
           VectorOfany *args = s.MakeAnyVec();
           seqinst->Named_event_sequence_expr_groups(args);
           while (Sequence_actual_arg) {
-            NodeId Event_expression = fC->Child(Sequence_actual_arg);
-            any *exp = compileExpression(component, fC, Event_expression,
-                                         compileDesign, seqinst, instance,
-                                         reduce, muteErrors);
-            if (exp) {
-              args->push_back(exp);
+            NodeId arg = Sequence_actual_arg;
+            if (fC->Type(Sequence_actual_arg) == slSequence_arg) {
+              arg = fC->Child(Sequence_actual_arg);
+            }
+            if (arg) {
+              NodeId Event_expression = fC->Child(arg);
+              any *exp = compileExpression(component, fC, Event_expression,
+                                           compileDesign, seqinst, instance,
+                                           reduce, muteErrors);
+              if (exp) {
+                args->push_back(exp);
+              }
+            } else {
+              constant *c = s.MakeConstant();
+              c->VpiValue("INT:0");
+              c->VpiDecompile("0");
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
+              c->VpiFile(fC->getFileName());
+              c->VpiLineNo(fC->Line(Sequence_actual_arg));
+              c->VpiColumnNo(fC->Column(Sequence_actual_arg));
+              c->VpiEndLineNo(fC->EndLine(Sequence_actual_arg));
+              c->VpiEndColumnNo(fC->EndColumn(Sequence_actual_arg));
+              args->push_back(c);
             }
             Sequence_actual_arg = fC->Sibling(Sequence_actual_arg);
           }
