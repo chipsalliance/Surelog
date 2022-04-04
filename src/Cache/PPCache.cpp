@@ -220,9 +220,6 @@ bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName) {
   if (clp->lowMem()) {
     return true;
   }
-  if (clp->noCacheHash()) {
-    return true;
-  }
   uint8_t* buffer_pointer = openFlatBuffers(cacheFileName);
   if (buffer_pointer == nullptr) {
     delete[] buffer_pointer;
@@ -232,7 +229,9 @@ bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName) {
     delete[] buffer_pointer;
     return false;
   }
-
+  if (clp->noCacheHash()) {
+    return true;
+  }
   const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(buffer_pointer);
   auto header = ppcache->header();
 
