@@ -141,12 +141,12 @@ bool ParseCache::checkCacheIsValid_(const fs::path& cacheFileName) {
   if (buffer_pointer == nullptr) {
     return false;
   }
-  if (clp->noCacheHash()) {
-    return true;
-  }
   if (!PARSECACHE::ParseCacheBufferHasIdentifier(buffer_pointer)) {
     delete[] buffer_pointer;
     return false;
+  }
+  if (clp->noCacheHash()) {
+    return true;
   }
   const PARSECACHE::ParseCache* ppcache =
       PARSECACHE::GetParseCache(buffer_pointer);
