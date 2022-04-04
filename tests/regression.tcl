@@ -1,4 +1,4 @@
-#!/usr/bin/tclsh
+#!/usr/bin/env tclsh
 
 # Copyright 2017-2021 Alain Dargelas
 #

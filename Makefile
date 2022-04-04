@@ -1,5 +1,5 @@
 # Use bash as the default shell
-SHELL := /bin/bash
+SHELL := /usr/bin/env bash
 
 ifdef $(LC_ALL)
 	undefine LC_ALL
