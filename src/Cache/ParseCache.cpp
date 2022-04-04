@@ -119,7 +119,9 @@ bool ParseCache::restore_(const fs::path& cacheFileName) {
         (TimeInfo::Unit)elemc->time_info()->time_precision();
     elem->m_timeInfo.m_timePrecisionValue =
         elemc->time_info()->time_precision_value();
-    fileContent->addDesignElement(elemName, elem);
+    const std::string& fullName =
+        fileContent->getLibrary()->getName() + "@" + elemName;
+    fileContent->addDesignElement(fullName, elem);
   }
 
   /* Restore design objects */
@@ -233,6 +235,9 @@ bool ParseCache::save() {
     for (unsigned int i = 0; i < fcontent->getDesignElements().size(); i++) {
       const DesignElement* elem = fcontent->getDesignElements()[i];
       const TimeInfo& info = elem->m_timeInfo;
+      const std::string& elemName =
+          m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
+              elem->m_name);
       auto timeInfo = CACHE::CreateTimeInfo(
           builder, static_cast<uint16_t>(info.m_type),
           canonicalSymbols.getId(
@@ -242,10 +247,7 @@ bool ParseCache::save() {
           info.m_timeUnitValue, static_cast<uint16_t>(info.m_timePrecision),
           info.m_timePrecisionValue);
       element_vec.push_back(PARSECACHE::CreateDesignElement(
-          builder,
-          canonicalSymbols.getId(
-              m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
-                  elem->m_name)),
+          builder, canonicalSymbols.getId(elemName),
           canonicalSymbols.getId(
               m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
                   elem->m_fileId)),
