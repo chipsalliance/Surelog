@@ -30,6 +30,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(FLATBUFFERS_BUILD_TESTS OFF CACHE BOOL "Skip flatbuffers' tests")
 add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
+
+set(ANTLR_BUILD_CPP_TESTS OFF CACHE BOOL "Skip ANTLR tests")
 add_subdirectory(third_party/antlr4_fast/runtime/Cpp EXCLUDE_FROM_ALL)
 
 set(UHDM_BUILD_TESTS OFF CACHE BOOL "Skip UHDM tests")
