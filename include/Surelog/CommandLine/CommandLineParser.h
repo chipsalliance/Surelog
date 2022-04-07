@@ -124,6 +124,7 @@ class CommandLineParser final {
   bool getElabUhdm() const { return m_elabUhdm; }
   bool getCoverUhdm() const { return m_coverUhdm; }
   bool getParametersSubstitution() const { return m_parametersubstitution; }
+  bool getLetExprSubstitution() const { return m_letexprsubstitution; }
   bool showVpiIds() const { return m_showVpiIDs; }
   bool replay() const { return m_replay; }
   bool getDebugInstanceTree() const { return m_debugInstanceTree; }
@@ -151,6 +152,7 @@ class CommandLineParser final {
   }
   void setWriteUhdm(bool val) { m_writeUhdm = val; }
   void setParametersSubstitution(bool val) { m_parametersubstitution = val; }
+  void setLetExprSubstitution(bool val) { m_letexprsubstitution = val; }
   bool pythonListener() const { return m_pythonListener && m_pythonAllowed; }
   bool pythonAllowed() const { return m_pythonAllowed; }
   void noPython() { m_pythonAllowed = false; }
@@ -244,6 +246,7 @@ class CommandLineParser final {
   bool m_compile;
   bool m_elaborate;
   bool m_parametersubstitution;
+  bool m_letexprsubstitution;
   bool m_diff_comp_mode;
   bool m_help;
   bool m_cacheAllowed;

@@ -754,6 +754,11 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
                                    m_instance);
           break;
         }
+        case VObjectType::slLet_declaration: {
+          if (collectType != CollectType::FUNCTION) break;
+          m_helper.compileLetDeclaration(m_module, fC, id, m_compileDesign);
+          break;
+        }
         case VObjectType::slParam_assignment:
         case VObjectType::slHierarchical_instance:
         case VObjectType::slN_input_gate_instance:
@@ -1145,6 +1150,11 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
           if (collectType != CollectType::OTHER) break;
           FileCNodeId fnid(fC, id);
           m_module->addObject(type, fnid);
+          break;
+        }
+        case VObjectType::slLet_declaration: {
+          if (collectType != CollectType::FUNCTION) break;
+          m_helper.compileLetDeclaration(m_module, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slEndinterface: {

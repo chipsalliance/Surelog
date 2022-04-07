@@ -188,6 +188,11 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
           m_helper.compileFunction(m_package, fC, id, m_compileDesign, nullptr);
           break;
         }
+        case VObjectType::slLet_declaration: {
+          if (collectType != CollectType::FUNCTION) break;
+          m_helper.compileLetDeclaration(m_package, fC, id, m_compileDesign);
+          break;
+        }
         case VObjectType::slParam_assignment: {
           if (collectType != CollectType::DEFINITION) break;
           FileCNodeId fnid(fC, id);

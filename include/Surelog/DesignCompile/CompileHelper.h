@@ -421,6 +421,9 @@ class CompileHelper final {
                                     const FileContent* fC, NodeId nodeId,
                                     CompileDesign* compileDesign);
 
+  void compileLetDeclaration(DesignComponent* component, const FileContent* fC,
+                             NodeId nodeId, CompileDesign* compileDesign);
+
   /** Variable is either a bit select or a range */
   bool isSelected(const FileContent* fC, NodeId id);
 

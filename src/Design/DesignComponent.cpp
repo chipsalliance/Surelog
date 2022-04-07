@@ -202,4 +202,17 @@ void DesignComponent::insertParameter(Parameter* p) {
   m_parameterMap.insert(std::make_pair(p->getName(), p));
   m_orderedParameters.push_back(p);
 }
+
+void DesignComponent::insertLetStmt(const std::string& name, LetStmt* decl) {
+  m_letDecls.insert(std::pair(name, decl));
+}
+LetStmt* DesignComponent::getLetStmt(const std::string& name) {
+  auto itr = m_letDecls.find(name);
+  if (itr == m_letDecls.end()) {
+    return nullptr;
+  } else {
+    return (*itr).second;
+  }
+}
+
 }  // namespace SURELOG

@@ -1185,7 +1185,8 @@ block_item_declaration
     : ( attribute_instance )* ( data_declaration                 
                               | local_parameter_declaration SEMICOLUMN      
                               | parameter_declaration SEMICOLUMN 
-                              | overload_declaration )             
+                              | overload_declaration
+                              | let_declaration )             
                               ; 
 
 overload_declaration : BIND overload_operator FUNCTION data_type identifier  

@@ -1423,7 +1423,8 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
     DesignComponent* component, UHDM::task_func* parent, const FileContent* fC,
     NodeId tf_port_list, CompileDesign* compileDesign) {
   if ((tf_port_list == InvalidNodeId) ||
-      (fC->Type(tf_port_list) != VObjectType::slTf_port_list)) {
+      ((fC->Type(tf_port_list) != VObjectType::slTf_port_list) &&
+       (fC->Type(tf_port_list) != VObjectType::slLet_port_list))) {
     return nullptr;
   }
 
