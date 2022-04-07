@@ -173,10 +173,10 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
         break;
       }
       case VObjectType::slLet_declaration: {
-          if (collectType != CollectType::FUNCTION) break;
-          m_helper.compileLetDeclaration(m_program, fC, id, m_compileDesign);
-          break;
-        }
+        if (collectType != CollectType::FUNCTION) break;
+        m_helper.compileLetDeclaration(m_program, fC, id, m_compileDesign);
+        break;
+      }
       case VObjectType::slInput_declaration:
       case VObjectType::slOutput_declaration:
       case VObjectType::slInout_declaration: {

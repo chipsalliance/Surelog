@@ -21,6 +21,7 @@
  * Created on May 14, 2019, 8:03 PM
  */
 
+#include <Surelog/CommandLine/CommandLineParser.h>
 #include <Surelog/Design/DataType.h>
 #include <Surelog/Design/DummyType.h>
 #include <Surelog/Design/Enum.h>
@@ -41,14 +42,13 @@
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/ErrorReporting/Location.h>
 #include <Surelog/Package/Package.h>
+#include <Surelog/SourceCompile/Compiler.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Testbench/ClassDefinition.h>
 #include <Surelog/Testbench/Program.h>
 #include <Surelog/Testbench/TypeDef.h>
 #include <Surelog/Testbench/Variable.h>
 #include <Surelog/Utils/NumUtils.h>
-#include <Surelog/SourceCompile/Compiler.h>
-#include <Surelog/CommandLine/CommandLineParser.h>
 
 // UHDM
 #include <string.h>
@@ -57,6 +57,7 @@
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
 #include <uhdm/vpi_listener.h>
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -3069,7 +3070,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
           return (any*)cts->Rhs();
         } else {
           let_expr* let = s.MakeLet_expr();
-          let->Let_decl((let_decl*) stmt->Decl());
+          let->Let_decl((let_decl*)stmt->Decl());
           NodeId argListNode = fC->Sibling(tfNameNode);
           VectorOfany* arguments =
               compileTfCallArguments(component, fC, argListNode, compileDesign,
@@ -3880,10 +3881,11 @@ void CompileHelper::compileLetDeclaration(DesignComponent* component,
   } else {
     Expression = Let_port_list;
   }
-  auto ios = 
-        compileTfPortList(component, nullptr, fC, Let_port_list, compileDesign);
+  auto ios =
+      compileTfPortList(component, nullptr, fC, Let_port_list, compileDesign);
   component->lateBinding(false);
-  expr* exp = (expr*) compileExpression(component, fC, Expression, compileDesign, nullptr, nullptr, false, false);
+  expr* exp = (expr*)compileExpression(component, fC, Expression, compileDesign,
+                                       nullptr, nullptr, false, false);
   component->lateBinding(true);
   let_decl* decl = s.MakeLet_decl();
   decl->VpiName(name);

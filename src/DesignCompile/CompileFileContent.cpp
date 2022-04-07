@@ -112,9 +112,9 @@ bool CompileFileContent::collectObjects_() {
         break;
       }
       case VObjectType::slLet_declaration: {
-          m_helper.compileLetDeclaration(m_fileContent, fC, id, m_compileDesign);
-          break;
-        }
+        m_helper.compileLetDeclaration(m_fileContent, fC, id, m_compileDesign);
+        break;
+      }
       case VObjectType::slLocal_parameter_declaration: {
         NodeId list_of_type_assignments = fC->Child(id);
         if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||

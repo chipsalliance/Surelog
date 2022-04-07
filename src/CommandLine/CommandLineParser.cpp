@@ -128,8 +128,10 @@ static const std::initializer_list<std::string_view> helpText = {
     "line.",
     "  --enable-feature=<feature>",
     "  --disable-feature=<feature>",
-    "    Features: parametersubstitution Enables substitution of assignment patterns in parameters",
-    "              letexprsubstitution Enables Let expr substitution (Inlining)",
+    "    Features: parametersubstitution Enables substitution of assignment "
+    "patterns in parameters",
+    "              letexprsubstitution Enables Let expr substitution "
+    "(Inlining)",
 #ifdef SURELOG_WITH_PYTHON
     "  -pythonlistener       Enables the Parser Python Listener",
     "  -pythonlistenerfile <script.py> Specifies the AST python listener file",
