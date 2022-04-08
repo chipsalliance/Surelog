@@ -151,7 +151,6 @@ bool ParseCache::checkCacheIsValid_(const fs::path& cacheFileName) {
   const PARSECACHE::ParseCache* ppcache =
       PARSECACHE::GetParseCache(buffer_pointer);
   auto header = ppcache->header();
-
   if (!m_isPrecompiled) {
     if (!checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileName)) {
       delete[] buffer_pointer;
@@ -212,7 +211,10 @@ bool ParseCache::save() {
     origFileName = cacheDirName / ".." / origFileName;
   }
   fs::path cacheFileName = getCacheFileName_();
-
+  if (strstr(cacheFileName.string().c_str(), "@@BAD_SYMBOL@@")) {
+    // Any fake(virtual) file like builtin.sv
+    return true;
+  }
   flatbuffers::FlatBufferBuilder builder(1024);
   /* Create header section */
   auto header = createHeader(builder, FlbSchemaVersion, origFileName);
