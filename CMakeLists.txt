@@ -693,6 +693,7 @@ install(
         ${PROJECT_SOURCE_DIR}/include/Surelog/Design/FileCNodeId.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Design/ModuleInstance.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Design/Task.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/LetStmt.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Design/DesignComponent.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Design/FileContent.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Design/Parameter.h

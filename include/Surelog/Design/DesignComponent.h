@@ -178,7 +178,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   
   void insertLetStmt(const std::string& name, LetStmt* decl);
   LetStmt* getLetStmt(const std::string& name);
-
+  std::map<std::string, LetStmt*>& getLetStmts() { return m_letDecls; }
  protected:
   std::vector<const FileContent*> m_fileContents;
   std::vector<NodeId> m_nodeIds;

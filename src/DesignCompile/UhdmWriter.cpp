@@ -1032,6 +1032,16 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   UhdmWriter::SignalBaseClassMap signalBaseMap;
   UhdmWriter::SignalMap portMap;
   UhdmWriter::SignalMap netMap;
+
+  // Let decls
+  if (!mod->getLetStmts().empty()) {
+    VectorOflet_decl* decls = s.MakeLet_declVec();
+    m->Let_decls(decls);
+    for (auto stmt : mod->getLetStmts()) {
+      decls->push_back((let_decl*)stmt.second->Decl());
+    }
+  }
+
   // Typepecs
   VectorOftypespec* typespecs = s.MakeTypespecVec();
   m->Typespecs(typespecs);
@@ -1152,6 +1162,16 @@ void UhdmWriter::writeInterface(ModuleDefinition* mod, interface* m,
   SignalBaseClassMap signalBaseMap;
   SignalMap portMap;
   SignalMap netMap;
+
+  // Let decls
+  if (!mod->getLetStmts().empty()) {
+    VectorOflet_decl* decls = s.MakeLet_declVec();
+    m->Let_decls(decls);
+    for (auto stmt : mod->getLetStmts()) {
+      decls->push_back((let_decl*)stmt.second->Decl());
+    }
+  }
+
   // Typepecs
   VectorOftypespec* typespecs = s.MakeTypespecVec();
   m->Typespecs(typespecs);
@@ -1376,9 +1396,17 @@ bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
                                   program* m) {
   Netlist* netlist = instance->getNetlist();
 
-  // Typepecs
   DesignComponent* mod = instance->getDefinition();
   if (mod) {
+    // Let decls
+    if (!mod->getLetStmts().empty()) {
+      VectorOflet_decl* decls = s.MakeLet_declVec();
+      m->Let_decls(decls);
+      for (auto stmt : mod->getLetStmts()) {
+        decls->push_back((let_decl*)stmt.second->Decl());
+      }
+    }
+    // Typepecs
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     m->Typespecs(typespecs);
     writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, false);
@@ -1463,10 +1491,18 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
                                    gen_scope* m, ExprBuilder& exprBuilder) {
   Netlist* netlist = instance->getNetlist();
 
-  // Typepecs
   ModuleDefinition* mod =
       valuedcomponenti_cast<ModuleDefinition*>(instance->getDefinition());
   if (mod) {
+    // Let decls
+    if (!mod->getLetStmts().empty()) {
+      VectorOflet_decl* decls = s.MakeLet_declVec();
+      m->Let_decls(decls);
+      for (auto stmt : mod->getLetStmts()) {
+        decls->push_back((let_decl*)stmt.second->Decl());
+      }
+    }
+    // Typepecs
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     m->Typespecs(typespecs);
     writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, true);
@@ -2097,9 +2133,17 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
   if (netlist == nullptr) return true;
   m->Ports(netlist->ports());
 
-  // Typepecs
   DesignComponent* mod = instance->getDefinition();
   if (mod) {
+    // Let decls
+    if (!mod->getLetStmts().empty()) {
+      VectorOflet_decl* decls = s.MakeLet_declVec();
+      m->Let_decls(decls);
+      for (auto stmt : mod->getLetStmts()) {
+        decls->push_back((let_decl*)stmt.second->Decl());
+      }
+    }
+    // Typepecs
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     m->Typespecs(typespecs);
     writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, false);
@@ -2190,9 +2234,17 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
                                     interface* m, ExprBuilder& exprBuilder) {
   Netlist* netlist = instance->getNetlist();
 
-  // Typepecs
   DesignComponent* mod = instance->getDefinition();
   if (mod) {
+    // Let decls
+    if (!mod->getLetStmts().empty()) {
+      VectorOflet_decl* decls = s.MakeLet_declVec();
+      m->Let_decls(decls);
+      for (auto stmt : mod->getLetStmts()) {
+        decls->push_back((let_decl*)stmt.second->Decl());
+      }
+    }
+    // Typepecs
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     m->Typespecs(typespecs);
     writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, false);
@@ -3019,23 +3071,6 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
   // Lint only the elaborated model
   UhdmLint* linter = new UhdmLint(&s);
   listen_designs(designs, linter);
-  /*
-  UHDM::VisitedContainer visited;
-  if (vpiHandle itr = vpi_iterate(uhdmtopPackages, designHandle)) {
-    while (vpiHandle obj = vpi_scan(itr)) {
-      listen_any(obj, linter, &visited);
-      vpi_free_object(obj);
-    }
-    vpi_free_object(itr);
-  }
-  if (vpiHandle itr = vpi_iterate(uhdmtopModules, designHandle)) {
-    while (vpiHandle obj = vpi_scan(itr)) {
-      listen_any(obj, linter, &visited);
-      vpi_free_object(obj);
-    }
-    vpi_free_object(itr);
-  }
-  */
   delete linter;
 
   if (m_compileDesign->getCompiler()

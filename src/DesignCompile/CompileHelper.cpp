@@ -3044,14 +3044,18 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
           VectorOfparam_assign* passigns = s.MakeParam_assignVec();
           for (unsigned int i = 0; i < decls->size(); i++) {
             seq_formal_decl* decl = decls->at(i);
-            any* actual = arguments->at(i);
+            any* actual = nullptr;
+            if (i < arguments->size())
+              actual = arguments->at(i);
             parameter* p = s.MakeParameter();
             p->VpiName(decl->VpiName());
             param_assign* pass = s.MakeParam_assign();
             pass->Lhs(p);
-            if (actual->UhdmType() == uhdmref_obj)
-              component->needLateBinding((ref_obj*)actual);
-            pass->Rhs(actual);
+            if (actual) {
+              if (actual->UhdmType() == uhdmref_obj)
+                component->needLateBinding((ref_obj*)actual);
+              pass->Rhs(actual);
+            }
             passigns->push_back(pass);
           }
           modTmp->Param_assigns(passigns);
