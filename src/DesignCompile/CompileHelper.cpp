@@ -21,6 +21,7 @@
  * Created on May 14, 2019, 8:03 PM
  */
 
+#include <Surelog/CommandLine/CommandLineParser.h>
 #include <Surelog/Design/DataType.h>
 #include <Surelog/Design/DummyType.h>
 #include <Surelog/Design/Enum.h>
@@ -41,6 +42,7 @@
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/ErrorReporting/Location.h>
 #include <Surelog/Package/Package.h>
+#include <Surelog/SourceCompile/Compiler.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Testbench/ClassDefinition.h>
 #include <Surelog/Testbench/Program.h>
@@ -54,6 +56,7 @@
 #include <uhdm/ExprEval.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
+#include <uhdm/vpi_listener.h>
 
 #include <iostream>
 #include <string>
@@ -3024,6 +3027,67 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
         call = tcall;
       }
     }
+    if (call == nullptr) {
+      LetStmt* stmt = component->getLetStmt(name);
+      if (stmt) {
+        if (compileDesign->getCompiler()
+                ->getCommandLineParser()
+                ->getLetExprSubstitution()) {
+          // Inline the let declaration
+          NodeId argListNode = fC->Sibling(tfNameNode);
+          VectorOfany* arguments =
+              compileTfCallArguments(component, fC, argListNode, compileDesign,
+                                     call, nullptr, false, false);
+          module* modTmp = s.MakeModule();
+          modTmp->VpiName("tmp");
+          const VectorOfseq_formal_decl* decls = stmt->Ios();
+          VectorOfparam_assign* passigns = s.MakeParam_assignVec();
+          for (unsigned int i = 0; i < decls->size(); i++) {
+            seq_formal_decl* decl = decls->at(i);
+            any* actual = nullptr;
+            if (i < arguments->size()) actual = arguments->at(i);
+            parameter* p = s.MakeParameter();
+            p->VpiName(decl->VpiName());
+            param_assign* pass = s.MakeParam_assign();
+            pass->Lhs(p);
+            if (actual) {
+              if (actual->UhdmType() == uhdmref_obj)
+                component->needLateBinding((ref_obj*)actual);
+              pass->Rhs(actual);
+            }
+            passigns->push_back(pass);
+          }
+          modTmp->Param_assigns(passigns);
+          cont_assign* cts = s.MakeCont_assign();
+          VectorOfcont_assign* assigns = s.MakeCont_assignVec();
+          const expr* exp = stmt->Expr();
+          cts->Rhs((expr*)exp);
+          assigns->push_back(cts);
+          modTmp->Cont_assigns(assigns);
+
+          ElaboratorListener* listener = new ElaboratorListener(&s, false);
+          vpiHandle defModule = NewVpiHandle(modTmp);
+          VisitedContainer visited;
+          listen_module(defModule, listener, &visited);
+          vpi_free_object(defModule);
+          return (any*)cts->Rhs();
+        } else {
+          let_expr* let = s.MakeLet_expr();
+          let->Let_decl((let_decl*)stmt->Decl());
+          NodeId argListNode = fC->Sibling(tfNameNode);
+          VectorOfany* arguments =
+              compileTfCallArguments(component, fC, argListNode, compileDesign,
+                                     call, nullptr, false, false);
+          VectorOfexpr* exprs = s.MakeExprVec();
+          for (auto ex : (*arguments)) {
+            exprs->push_back((expr*)ex);
+          }
+          let->Arguments(exprs);
+          return let;
+        }
+      }
+    }
+
     if (call == nullptr) call = s.MakeFunc_call();
   }
   if (call->VpiName().empty()) call->VpiName(name);
@@ -3805,4 +3869,45 @@ void CompileHelper::setRange(UHDM::constant* c, Value* val,
     r->Right_expr(rc);
   }
 }
+
+void CompileHelper::compileLetDeclaration(DesignComponent* component,
+                                          const FileContent* fC,
+                                          NodeId Let_declaration,
+                                          CompileDesign* compileDesign) {
+  Serializer& s = compileDesign->getSerializer();
+  NodeId nameId = fC->Child(Let_declaration);
+  const std::string name = fC->SymName(nameId);
+  NodeId Let_port_list = fC->Sibling(nameId);
+  NodeId Expression = 0;
+  if (fC->Type(Let_port_list) == slLet_port_list) {
+    Expression = fC->Sibling(Let_port_list);
+  } else {
+    Expression = Let_port_list;
+  }
+  auto ios =
+      compileTfPortList(component, nullptr, fC, Let_port_list, compileDesign);
+  component->lateBinding(false);
+  expr* exp = (expr*)compileExpression(component, fC, Expression, compileDesign,
+                                       nullptr, nullptr, false, false);
+  component->lateBinding(true);
+  let_decl* decl = s.MakeLet_decl();
+  decl->VpiName(name);
+  decl->VpiFile(fC->getFileName());
+  decl->VpiLineNo(fC->Line(Let_declaration));
+  decl->VpiColumnNo(fC->Column(Let_declaration));
+  decl->VpiEndLineNo(fC->EndLine(Let_declaration));
+  decl->VpiEndColumnNo(fC->EndColumn(Let_declaration));
+  VectorOfexpr* exprs = s.MakeExprVec();
+  exprs->push_back(exp);
+  decl->Expressions(exprs);
+  VectorOfseq_formal_decl* args = s.MakeSeq_formal_declVec();
+  for (auto io : *ios) {
+    seq_formal_decl* formal = s.MakeSeq_formal_decl();
+    formal->VpiName(io->VpiName());
+    args->push_back(formal);
+  }
+  LetStmt* stmt = new LetStmt(decl, args, exp);
+  component->insertLetStmt(name, stmt);
+}
+
 }  // namespace SURELOG

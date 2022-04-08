@@ -218,6 +218,10 @@ bool CompileClass::compile() {
       case VObjectType::slClass_type:
         compile_class_type_(fC, id);
         break;
+      case VObjectType::slLet_declaration: {
+        m_helper.compileLetDeclaration(m_class, fC, id, m_compileDesign);
+        break;
+      }
       case VObjectType::slStringConst: {
         NodeId sibling = fC->Sibling(id);
         if (!sibling) {

@@ -29,6 +29,7 @@
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/FileCNodeId.h>
 #include <Surelog/Design/ValuedComponentI.h>
+#include <Surelog/Design/LetStmt.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 // UHDM
@@ -162,6 +163,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   const std::vector<UHDM::any*>& getLateTypedefBinding() const {
     return m_needLateTypedefBinding;
   }
+  void lateBinding(bool on) { m_lateBinding = on; }
 
   void setUhdmInstance(UHDM::instance* instance) { m_instance = instance; }
   UHDM::instance* getUhdmInstance() { return m_instance; }
@@ -173,7 +175,10 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   }
   void setDesignElement(const DesignElement* elem) { m_designElement = elem; }
   const DesignElement* getDesignElement() { return m_designElement; }
-
+  
+  void insertLetStmt(const std::string& name, LetStmt* decl);
+  LetStmt* getLetStmt(const std::string& name);
+  std::map<std::string, LetStmt*>& getLetStmts() { return m_letDecls; }
  protected:
   std::vector<const FileContent*> m_fileContents;
   std::vector<NodeId> m_nodeIds;
@@ -203,6 +208,8 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   UHDM::instance* m_instance;
   std::vector<std::pair<std::string, ExprEval>> m_scheduledParamExprEval;
   const DesignElement* m_designElement = nullptr;
+  std::map<std::string, LetStmt*> m_letDecls;
+  bool m_lateBinding = true;
 };
 
 };  // namespace SURELOG

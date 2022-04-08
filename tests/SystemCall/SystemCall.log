@@ -111,6 +111,38 @@ design: (work@m2)
 |uhdmallModules:
 \_module: work@m2 (work@m2) dut.sv:1:1: , endln:6:10, parent:work@m2
   |vpiFullName:work@m2
+  |vpiLetDecl:
+  \_let_decl: (p2), line:3:1, endln:3:30
+    |vpiExpr:
+    \_sys_func_call: ($past), line:3:13, endln:3:29
+      |vpiArgument:
+      \_ref_obj: (x), line:3:19, endln:3:20, parent:$past
+        |vpiName:x
+        |vpiActual:
+        \_logic_net: (x)
+          |vpiName:x
+          |vpiNetType:1
+      |vpiArgument:
+      \_constant: , line:3:21, endln:3:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |INT:0
+        |vpiConstType:7
+      |vpiArgument:
+      \_constant: , line:3:22, endln:3:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |INT:0
+        |vpiConstType:7
+      |vpiArgument:
+      \_ref_obj: (clock), line:3:23, endln:3:28, parent:$past
+        |vpiName:clock
+        |vpiActual:
+        \_logic_net: (clock)
+          |vpiName:clock
+          |vpiNetType:1
+      |vpiName:$past
+    |vpiName:p2
   |vpiDefName:work@m2
   |vpiContAssign:
   \_cont_assign: , line:4:8, endln:4:39, parent:work@m2
@@ -122,8 +154,6 @@ design: (work@m2)
         |vpiFullName:work@m2.x
         |vpiActual:
         \_logic_net: (x)
-          |vpiName:x
-          |vpiNetType:1
       |vpiArgument:
       \_constant: , line:4:20, endln:4:20
         |vpiDecompile:0
@@ -145,8 +175,6 @@ design: (work@m2)
           |vpiFullName:work@m2.clock
           |vpiActual:
           \_logic_net: (clock)
-            |vpiName:clock
-            |vpiNetType:1
       |vpiName:$past
     |vpiLhs:
     \_ref_obj: (work@m2.a), line:4:8, endln:4:9
@@ -159,14 +187,36 @@ design: (work@m2)
 |uhdmtopModules:
 \_module: work@m2 (work@m2) dut.sv:1:1: , endln:6:10
   |vpiName:work@m2
+  |vpiLetDecl:
+  \_let_decl: (p2), line:3:1, endln:3:30, parent:work@m2
+    |vpiExpr:
+    \_sys_func_call: ($past), line:3:13, endln:3:29, parent:p2
+      |vpiArgument:
+      \_ref_obj: (work@m2.p2.x), line:3:19, endln:3:20, parent:$past
+        |vpiName:x
+        |vpiFullName:work@m2.p2.x
+        |vpiActual:
+        \_logic_net: (x)
+      |vpiArgument:
+      \_constant: , line:3:21, endln:3:21
+      |vpiArgument:
+      \_constant: , line:3:22, endln:3:22
+      |vpiArgument:
+      \_ref_obj: (work@m2.p2.clock), line:3:23, endln:3:28, parent:$past
+        |vpiName:clock
+        |vpiFullName:work@m2.p2.clock
+        |vpiActual:
+        \_logic_net: (clock)
+      |vpiName:$past
+    |vpiName:p2
   |vpiDefName:work@m2
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (a)
   |vpiNet:
   \_logic_net: (x)
   |vpiNet:
   \_logic_net: (clock)
+  |vpiNet:
+  \_logic_net: (a)
   |vpiTopModule:1
   |vpiContAssign:
   \_cont_assign: , line:4:8, endln:4:39, parent:work@m2

@@ -126,8 +126,12 @@ static const std::initializer_list<std::string_view> helpText = {
     "mode",
     "                        Tests are expressed as one full command line per "
     "line.",
-    "  -parametersubstitution Enables substitution of assignment patterns in "
-    "parameters",
+    "  --enable-feature=<feature>",
+    "  --disable-feature=<feature>",
+    "    Features: parametersubstitution Enables substitution of assignment "
+    "patterns in parameters",
+    "              letexprsubstitution Enables Let expr substitution "
+    "(Inlining)",
 #ifdef SURELOG_WITH_PYTHON
     "  -pythonlistener       Enables the Parser Python Listener",
     "  -pythonlistenerfile <script.py> Specifies the AST python listener file",
@@ -297,6 +301,7 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_compile(false),
       m_elaborate(false),
       m_parametersubstitution(true),
+      m_letexprsubstitution(true),
       m_diff_comp_mode(diff_comp_mode),
       m_help(false),
       m_cacheAllowed(true),
@@ -641,6 +646,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       while (getline(f, tmp, ',')) {
         if (tmp == "parametersubstitution") {
           m_parametersubstitution = true;
+        } else if (tmp == "letexprsubstitution") {
+          m_letexprsubstitution = true;
         } else {
           std::cerr << "Feature: " << tmp << " ignored." << std::endl;
         }
@@ -652,6 +659,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       while (getline(f, tmp, ',')) {
         if (tmp == "parametersubstitution") {
           m_parametersubstitution = false;
+        } else if (tmp == "letexprsubstitution") {
+          m_letexprsubstitution = false;
         } else {
           std::cerr << "Feature: " << tmp << " ignored." << std::endl;
         }
