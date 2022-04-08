@@ -159,8 +159,8 @@ target_link_libraries(<your project name> surelog)
    ```
    Possible features:
    ```
-   parametersubstitution	Disables substitution of assignment patterns in parameters
-
+   parametersubstitution	Enables/Disables substitution of assignment patterns in parameters
+   letexprsubstitution          Enables/Disables Let expr substitution
    ```
  * TRACES OPTIONS:
  ```
