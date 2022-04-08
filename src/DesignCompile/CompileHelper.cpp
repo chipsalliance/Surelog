@@ -3045,8 +3045,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
           for (unsigned int i = 0; i < decls->size(); i++) {
             seq_formal_decl* decl = decls->at(i);
             any* actual = nullptr;
-            if (i < arguments->size())
-              actual = arguments->at(i);
+            if (i < arguments->size()) actual = arguments->at(i);
             parameter* p = s.MakeParameter();
             p->VpiName(decl->VpiName());
             param_assign* pass = s.MakeParam_assign();
