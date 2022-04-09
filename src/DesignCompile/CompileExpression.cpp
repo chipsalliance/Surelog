@@ -880,6 +880,20 @@ any *CompileHelper::getValue(const std::string &name,
             }
           }
         }
+        if (auto variables = netlist->variables()) {
+          for (auto var : *variables) {
+            if (var->VpiName() == name) {
+              if (const expr *exp = var->Expr()) {
+                UHDM_OBJECT_TYPE vartype = var->UhdmType();
+                if (vartype == uhdmint_var || vartype == uhdminteger_var ||
+                    vartype == uhdmreal_var || vartype == uhdmshort_int_var ||
+                    vartype == uhdmlong_int_var)
+                  result = (expr *)exp;
+                break;
+              }
+            }
+          }
+        }
       }
     }
     if (result) break;
