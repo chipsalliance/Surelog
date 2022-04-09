@@ -1510,6 +1510,8 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       isNet = false;
     } else if (ttmp == uhdmbyte_typespec) {
       isNet = false;
+    } else if (ttmp == uhdmreal_typespec) {
+      isNet = false;
     } else if (ttmp == uhdminterface_typespec) {
       if (!signalIsPort) {
         SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();

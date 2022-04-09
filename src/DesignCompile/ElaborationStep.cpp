@@ -1428,6 +1428,60 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       stv->VpiName(signame);
       obj = stv;
       stv->Expr(assignExp);
+    } else if (tpstype == uhdmreal_typespec) {
+      real_var* stv = s.MakeReal_var();
+      stv->Typespec(tps);
+      stv->VpiName(signame);
+      obj = stv;
+      stv->Expr(assignExp);
+    } else if (tpstype == uhdmint_typespec) {
+      int_var* stv = s.MakeInt_var();
+      stv->Typespec(tps);
+      stv->VpiName(signame);
+      obj = stv;
+      stv->Expr(assignExp);
+    } else if (tpstype == uhdminteger_typespec) {
+      integer_var* stv = s.MakeInteger_var();
+      stv->Typespec(tps);
+      stv->VpiName(signame);
+      obj = stv;
+      stv->Expr(assignExp);
+    } else if (tpstype == uhdmlong_int_typespec) {
+      long_int_var* stv = s.MakeLong_int_var();
+      stv->Typespec(tps);
+      stv->VpiName(signame);
+      obj = stv;
+      stv->Expr(assignExp);
+    } else if (tpstype == uhdmshort_int_typespec) {
+      short_int_var* stv = s.MakeShort_int_var();
+      stv->Typespec(tps);
+      stv->VpiName(signame);
+      obj = stv;
+      stv->Expr(assignExp);
+    } else if (tpstype == uhdmstring_typespec) {
+      string_var* stv = s.MakeString_var();
+      stv->Typespec(tps);
+      stv->VpiName(signame);
+      obj = stv;
+      stv->Expr(assignExp);
+    } else if (tpstype == uhdmbit_typespec) {
+      bit_var* stv = s.MakeBit_var();
+      stv->Typespec(tps);
+      stv->VpiName(signame);
+      obj = stv;
+      stv->Expr(assignExp);
+    } else if (tpstype == uhdmbyte_typespec) {
+      byte_var* stv = s.MakeByte_var();
+      stv->Typespec(tps);
+      stv->VpiName(signame);
+      obj = stv;
+      stv->Expr(assignExp);
+    } else if (tpstype == uhdmtime_typespec) {
+      time_var* stv = s.MakeTime_var();
+      stv->Typespec(tps);
+      stv->VpiName(signame);
+      obj = stv;
+      stv->Expr(assignExp);
     } else if (tpstype == uhdmunion_typespec) {
       union_var* stv = s.MakeUnion_var();
       stv->Typespec(tps);

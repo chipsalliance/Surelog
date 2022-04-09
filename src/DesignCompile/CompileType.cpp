@@ -1633,6 +1633,66 @@ UHDM::typespec* CompileHelper::compileTypespec(
       result = tps;
       break;
     }
+    case VObjectType::slType_reference: {
+      NodeId child = fC->Child(type);
+      if (fC->Type(child) == slExpression) {
+        expr* exp =
+            (expr*)compileExpression(component, fC, child, compileDesign,
+                                     nullptr, instance, reduce, reduce);
+        if (exp) {
+          UHDM_OBJECT_TYPE typ = exp->UhdmType();
+          if (type == uhdmref_obj) {
+            return compileTypespec(component, fC, child, compileDesign, result,
+                                   instance, reduce);
+          } else if (typ == uhdmconstant) {
+            constant* c = (constant*)exp;
+            int ctype = c->VpiConstType();
+            if (ctype == vpiIntConst || ctype == vpiDecConst) {
+              int_typespec* tps = s.MakeInt_typespec();
+              tps->VpiSigned(true);
+              result = tps;
+            } else if (ctype == vpiUIntConst || ctype == vpiBinaryConst ||
+                       ctype == vpiHexConst || ctype == vpiOctConst) {
+              int_typespec* tps = s.MakeInt_typespec();
+              result = tps;
+            } else if (ctype == vpiRealConst) {
+              real_typespec* tps = s.MakeReal_typespec();
+              result = tps;
+            } else if (ctype == vpiStringConst) {
+              string_typespec* tps = s.MakeString_typespec();
+              result = tps;
+            } else if (ctype == vpiTimeConst) {
+              time_typespec* tps = s.MakeTime_typespec();
+              result = tps;
+            }
+            result->VpiFile(fC->getFileName());
+            result->VpiLineNo(fC->Line(type));
+            result->VpiColumnNo(fC->Column(type));
+            result->VpiEndLineNo(fC->EndLine(type));
+            result->VpiEndColumnNo(fC->EndColumn(type));
+          }
+        } else {
+          ErrorContainer* errors =
+              compileDesign->getCompiler()->getErrorContainer();
+          SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
+          std::string fileContent =
+              FileUtils::getFileContent(fC->getFileName());
+          std::string lineText =
+              StringUtils::getLineInString(fileContent, fC->Line(type));
+          Location loc(
+              symbols->registerSymbol(fC->getFileName(type).string()),
+              fC->Line(type), fC->Column(type),
+              symbols->registerSymbol(std::string("<") + fC->printObject(type) +
+                                      std::string("> ") + lineText));
+          Error err(ErrorDefinition::UHDM_UNSUPPORTED_TYPE, loc);
+          errors->addError(err);
+        }
+      } else {
+        return compileTypespec(component, fC, child, compileDesign, result,
+                               instance, reduce);
+      }
+      break;
+    }
     default:
       if (type != 0) {
         ErrorContainer* errors =
@@ -1643,7 +1703,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
             StringUtils::getLineInString(fileContent, fC->Line(type));
         Location loc(
             symbols->registerSymbol(fC->getFileName(type).string()),
-            fC->Line(type), 0,
+            fC->Line(type), fC->Column(type),
             symbols->registerSymbol(std::string("<") + fC->printObject(type) +
                                     std::string("> ") + lineText));
         Error err(ErrorDefinition::UHDM_UNSUPPORTED_TYPE, loc);
