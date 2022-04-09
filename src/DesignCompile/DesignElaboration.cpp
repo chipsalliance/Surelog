@@ -965,6 +965,10 @@ void DesignElaboration::elaborateInstance_(
       }
 
       NodeId conditionId = fC->Child(subInstanceId);
+      if (fC->Type(conditionId) == slIf_generate_construct) {
+        NodeId IF = fC->Child(conditionId);
+        conditionId = fC->Sibling(IF);
+      }
       VObjectType conditionType = fC->Type(conditionId);
       if (conditionType == VObjectType::slGenvar_initialization ||
           conditionType ==
@@ -1114,16 +1118,9 @@ void DesignElaboration::elaborateInstance_(
             bool activeBranch = false;
             while (1) {
               if (tmp) {
-                tmp = fC->Sibling(tmp);
+                tmp = fC->Sibling(tmp);  // Else
                 if (tmp == 0) break;
-                /*
-                n<> u<388> t<If_generate_construct> p<389> c<340> l<54>
-                n<> u<389> t<Conditional_generate_construct> p<390> c<388> l<54>
-                n<> u<390> t<Module_common_item> p<391> c<389> l<54>
-                n<> u<391> t<Module_or_generate_item> p<392> c<390> l<54>
-                n<> u<392> t<Generate_item> p<393> c<391> l<54>
-                n<> u<393> t<Generate_block> p<394> c<392> l<54>
-                */
+                tmp = fC->Sibling(tmp);
                 int64_t condVal = 0;
 
                 NodeId Generate_block = tmp;
@@ -1138,6 +1135,9 @@ void DesignElaboration::elaborateInstance_(
                   NodeId If_generate_construct =
                       fC->Child(Conditional_generate_construct);
                   Cond = fC->Child(If_generate_construct);
+                  if (fC->Type(Cond) == VObjectType::slIF) {
+                    Cond = fC->Sibling(Cond);
+                  }
                   if (fC->Type(Cond) == VObjectType::slConstant_expression) {
                     bool validValue;
                     condVal = m_helper.getValue(validValue, parentDef, fC, Cond,
@@ -1150,6 +1150,9 @@ void DesignElaboration::elaborateInstance_(
                 } else if (fC->Type(Generate_item) ==
                            slGenerate_module_conditional_statement) {
                   Cond = fC->Child(Generate_item);
+                  if (fC->Type(Cond) == VObjectType::slIF) {
+                    Cond = fC->Sibling(Cond);
+                  }
                   if (fC->Type(Cond) == VObjectType::slConstant_expression) {
                     bool validValue;
                     condVal = m_helper.getValue(validValue, parentDef, fC, Cond,
@@ -1185,9 +1188,9 @@ void DesignElaboration::elaborateInstance_(
             NodeId blockNameId = fC->Child(tmp);
             if (fC->Type(blockNameId) == VObjectType::slStringConst ||
                 fC->Type(blockNameId) ==
-                    VObjectType::slGenerate_item) {  // if-else
-              if (fC->Type(blockNameId) == VObjectType::slGenerate_item) {
-                NodeId Generate_item = blockNameId;
+                    VObjectType::slGenerate_block) {  // if-else
+              if (fC->Type(blockNameId) == VObjectType::slGenerate_block) {
+                NodeId Generate_item = fC->Child(blockNameId);
                 NodeId Module_or_generate_item = fC->Child(Generate_item);
                 NodeId Module_common_item = fC->Child(Module_or_generate_item);
                 NodeId Conditional_generate_construct =
@@ -1196,6 +1199,8 @@ void DesignElaboration::elaborateInstance_(
                     fC->Child(Conditional_generate_construct);
                 if (fC->Type(If_generate_construct) ==
                     slIf_generate_construct) {
+                  if (fC->Type(childId) == slGenerate_block)
+                    childId = fC->Child(childId);
                   blockIds = fC->sl_collect_all(childId, btypes, true);
                   if (!blockIds.empty()) {
                     NodeId blockId = blockIds[0];
@@ -1271,7 +1276,12 @@ void DesignElaboration::elaborateInstance_(
         elaborateInstance_(def->getFileContents()[0], childId, paramOverride,
                            factory, child, config, allSubInstances);
         childId = fC->Sibling(childId);
-        if (fC->Type(childId) == slGenerate_block) break;
+        if (fC->Type(childId) == slGenerate_block) {
+          NodeId subChild = fC->Child(childId);
+          if (fC->Type(subChild) == slGenerate_block) {
+            break;
+          }
+        }
         if (fC->Type(childId) == slGenerate_module_item) {
           NodeId node = fC->Child(childId);
           if (fC->Type(node) == slGenerate_module_conditional_statement) {
@@ -1281,6 +1291,7 @@ void DesignElaboration::elaborateInstance_(
             break;
           }
         }
+        if (fC->Type(childId) == slElse) break;
         if (fC->Type(childId) == slEnd) break;
       }
       parent->addSubInstance(child);

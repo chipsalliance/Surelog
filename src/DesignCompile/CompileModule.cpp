@@ -517,15 +517,12 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
     if (m_module->getGenBlockId()) {
       id = m_module->getGenBlockId();
       NodeId tmp = id;
-      if (fC->Type(id) == VObjectType::slGenerate_block) {
-        tmp = fC->Child(tmp);
-      }
       endOfBlockId = tmp;
       while (endOfBlockId) {
         VObjectType type = fC->Type(endOfBlockId);
         if (type == VObjectType::slEnd) break;
+        if (type == VObjectType::slElse) break;
         endOfBlockId = fC->Sibling(endOfBlockId);
-        if (type == VObjectType::slGenerate_module_item) break;
       }
       if (endOfBlockId == 0)
         endOfBlockId = fC->Sibling(m_module->getGenBlockId());

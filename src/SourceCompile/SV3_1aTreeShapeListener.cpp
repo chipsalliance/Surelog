@@ -325,6 +325,15 @@ void SV3_1aTreeShapeListener::exitGenerate_module_case_statement(
   addVObject(ctx, VObjectType::slGenerate_module_case_statement);
 }
 
+void SV3_1aTreeShapeListener::exitIf_generate_construct(
+    SV3_1aParser::If_generate_constructContext *ctx) {
+  if (ctx->IF())
+    addVObject((antlr4::ParserRuleContext *)ctx->IF(), VObjectType::slIF);
+  if (ctx->ELSE())
+    addVObject((antlr4::ParserRuleContext *)ctx->ELSE(), VObjectType::slElse);
+  addVObject(ctx, VObjectType::slIf_generate_construct);
+}
+
 void SV3_1aTreeShapeListener::exitGenerate_interface_case_statement(
     SV3_1aParser::Generate_interface_case_statementContext *ctx) {
   if (ctx->ENDCASE())
