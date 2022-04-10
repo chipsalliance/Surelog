@@ -1247,15 +1247,21 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(DesignComponent* component,
         isDefault = true;
         Expression = Open_range_list;
       } else {
+        operation* insideOp = s.MakeOperation();
+        insideOp->VpiOpType(vpiInsideOp);
+        UHDM::VectorOfany* operands = s.MakeAnyVec();
+        insideOp->Operands(operands);
         NodeId Value_range = fC->Child(Open_range_list);
         VectorOfany* exprs = s.MakeAnyVec();
         case_item->VpiExprs(exprs);
+        exprs->push_back(insideOp);
+
         while (Value_range) {
           UHDM::expr* item_exp = (expr*)compileExpression(
               component, fC, Value_range, compileDesign);
           setParentNoOverride(item_exp, case_item);
           if (item_exp) {
-            exprs->push_back(item_exp);
+            operands->push_back(item_exp);
           }
           Value_range = fC->Sibling(Value_range);
         }
