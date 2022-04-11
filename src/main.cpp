@@ -29,6 +29,8 @@
 #include <unistd.h>
 #endif
 
+#include <string.h>
+
 #include <Surelog/API/PythonAPI.h>
 #include <Surelog/ErrorReporting/Report.h>
 #include <Surelog/Utils/StringUtils.h>
@@ -145,16 +147,14 @@ int batchCompilation(const char* argv0, const std::string& batchFile,
     SURELOG::StringUtils::tokenize(line, " ", args);
     int argc = args.size() + 1;
     char** argv = new char*[argc];
-    argv[0] = new char[strlen(argv0) + 1];
-    strcpy(argv[0], argv0);
+    argv[0] = strdup(argv0);
     for (int i = 0; i < argc - 1; i++) {
-      argv[i + 1] = new char[args[i].length() + 1];
-      strcpy(argv[i + 1], args[i].c_str());
+      argv[i + 1] = strdup(args[i].c_str());
     }
     returnCode |= executeCompilation(argc, (const char**)argv, false, false,
                                      &overallStats);
     for (int i = 0; i < argc; i++) {
-      delete[] argv[i];
+      free(argv[i]);
     }
     delete[] argv;
     count++;
