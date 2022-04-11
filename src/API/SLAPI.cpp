@@ -265,10 +265,9 @@ std::vector<antlr4::ParserRuleContext*> SLgetChildrenContext(
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
   std::vector<antlr4::ParserRuleContext*> children;
 
-  for (unsigned int i = 0; i < ctx->children.size(); i++) {
+  for (antlr4::tree::ParseTree* child : ctx->children) {
     // Get the i-th child node of `parent`.
-    antlr4::tree::ParseTree* child = ctx->children[i];
-    antlr4::tree::TerminalNode* node =
+     antlr4::tree::TerminalNode* node =
         dynamic_cast<antlr4::tree::TerminalNode*>(child);
     if (node) {
       // Terminal node
