@@ -45,8 +45,7 @@ class SV3_1aPpTreeListenerHelper : public CommonListenerHelper {
   bool m_inMacroDefinitionParsing;
   bool m_inProtectedRegion;
   bool m_filterProtectedRegions;
-  std::vector<std::string> m_reservedMacroNames;
-  std::set<std::string> m_reservedMacroNamesSet;
+  std::set<std::string_view> m_reservedMacroNamesSet;
   antlr4::ParserRuleContext* m_append_paused_context;
   PreprocessFile::SpecialInstructions m_instructions;
 

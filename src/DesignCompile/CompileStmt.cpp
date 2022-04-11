@@ -873,7 +873,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       ustmt->VpiEndLineNo(fC->EndLine(the_stmt));
       ustmt->VpiEndColumnNo(fC->EndColumn(the_stmt));
       ustmt->VpiParent(pstmt);
-      stmt = ustmt;
+      stmt = ustmt;  // NOLINT
       // std::cout << "UNSUPPORTED STATEMENT: " << fC->getFileName(the_stmt)
       // << ":" << fC->Line(the_stmt) << ":" << std::endl; std::cout << " -> "
       // << fC->printObject(the_stmt) << std::endl;
@@ -1928,7 +1928,7 @@ bool CompileHelper::compileClassConstructorDeclaration(
         VectorOfany* arguments = compileTfCallArguments(
             component, fC, Args, compileDesign, mcall, nullptr, false, false);
         mcall->Tf_call_args(arguments);
-        Stmt = fC->Sibling(Stmt);
+        Stmt = fC->Sibling(Stmt);  // NOLINT(*.DeadStores)
       }
       func->Stmt(mcall);
     } else {

@@ -621,7 +621,7 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
     }
     case VObjectType::slTime_literal: {
       NodeId intC = fC->Child(child);
-      std::string value = fC->SymName(intC);
+      const std::string& value = fC->SymName(intC);
       NodeId unitId = fC->Sibling(intC);
       TimeInfo::Unit unit = TimeInfo::unitFromString(fC->SymName(unitId));
       uint64_t val = std::strtoull(value.c_str(), nullptr, 10);
@@ -1198,6 +1198,8 @@ UHDM::any *CompileHelper::compileSelectExpression(
   return result;
 }
 
+// This is a a very large function and probably should be split into
+// smaller chunks.
 UHDM::any *CompileHelper::compileExpression(
     DesignComponent *component, const FileContent *fC, NodeId parent,
     CompileDesign *compileDesign, UHDM::any *pexpr, ValuedComponentI *instance,
@@ -5014,7 +5016,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
     result = compileExpression(component, fC, fC->Parent(name), compileDesign,
                                pexpr, instance, reduce, muteErrors);
   } else if (dotedName == 0) {
-    std::string the_name = fC->SymName(name);
+    const std::string& the_name = fC->SymName(name);
     ref_obj *ref = s.MakeRef_obj();
     ref->VpiName(the_name);
     ref->VpiFullName(the_name);

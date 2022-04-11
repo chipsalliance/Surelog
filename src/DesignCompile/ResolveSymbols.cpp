@@ -90,7 +90,7 @@ void ResolveSymbols::createFastLookup() {
       switch (type) {
         case VObjectType::slPackage_declaration: {
           // Package names are not prefixed by Library names!
-          std::string pkgname = name;
+          const std::string& pkgname = name;
           Package* pdef = new Package(pkgname, lib, m_fileData, object);
           UHDM::package* pack = s.MakePackage();
           pack->VpiName(pdef->getName());

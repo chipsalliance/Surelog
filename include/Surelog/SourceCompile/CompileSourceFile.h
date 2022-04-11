@@ -94,7 +94,8 @@ class CompileSourceFile {
   void setSymbolTable(SymbolTable* symbols);
   void setErrorContainer(ErrorContainer* errors) { m_errors = errors; }
 
-  unsigned int getJobSize(Action action);
+  // Get size of job approximated by size of file to process.
+  uint64_t getJobSize(Action action) const;
 
   SymbolId getFileId() const { return m_fileId; }
   SymbolId getPpOutputFileId() const { return m_ppResultFileId; }

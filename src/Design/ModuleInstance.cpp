@@ -290,13 +290,13 @@ void ModuleInstance::overrideParentChild(ModuleInstance* parent,
   child->m_parent = this;
   std::vector<ModuleInstance*> children;
 
-  for (unsigned int i = 0; i < m_allSubInstances.size(); i++) {
-    if (m_allSubInstances[i] == interm) {
-      for (unsigned int j = 0; j < interm->m_allSubInstances.size(); j++) {
-        children.push_back(interm->m_allSubInstances[j]);
+  for (ModuleInstance* sub_instance : m_allSubInstances) {
+    if (sub_instance == interm) {
+      for (ModuleInstance* interm_subinstance : interm->m_allSubInstances) {
+        children.push_back(interm_subinstance);
       }
     } else {
-      children.push_back(m_allSubInstances[i]);
+      children.push_back(sub_instance);
     }
   }
 

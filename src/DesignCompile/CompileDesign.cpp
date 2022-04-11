@@ -178,9 +178,8 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
   SymbolTable* symbols = m_compiler->getSymbolTable();
   ErrorContainer* errors = m_compiler->getErrorContainer();
   // Collect all packages and module definitions
-  for (Design::FileIdDesignContentMap::iterator itr = all_files.begin();
-       itr != all_files.end(); itr++) {
-    const FileContent* fC = (*itr).second;
+  for (const auto& file : all_files) {
+    const FileContent* fC = file.second;
     const fs::path fileName = fC->getFileName();
     Library* lib = fC->getLibrary();
     for (const auto& mod : fC->getModuleDefinitions()) {
@@ -280,11 +279,13 @@ bool CompileDesign::compilation_() {
 
   auto& all_files = design->getAllFileContents();
 
+#if 0
   int maxThreadCount = m_compiler->getCommandLineParser()->getNbMaxTreads();
-
-  // The Actual Module... Compilation is not Multithread safe anymore due to the
-  // UHDM model creation
-  maxThreadCount = 0;
+#else
+  // The Actual Module... Compilation is not Multithread safe anymore due to
+  // the UHDM model creation
+  int maxThreadCount = 0;
+#endif
 
   int index = 0;
   do {

@@ -323,9 +323,9 @@ bool PPCache::save() {
       return false;
     }
   }
-  fs::path svFileName = m_pp->getFileName(LINE1);
-  fs::path origFileName = svFileName;
-  fs::path cacheFileName = getCacheFileName_();
+  const fs::path& svFileName = m_pp->getFileName(LINE1);
+  const fs::path& origFileName = svFileName;
+  const fs::path& cacheFileName = getCacheFileName_();
 
   if (m_pp->isMacroBody()) return false;
 
@@ -336,11 +336,7 @@ bool PPCache::save() {
   /* Cache the macro definitions */
   const MacroStorage& macros = m_pp->getMacros();
   std::vector<flatbuffers::Offset<MACROCACHE::Macro>> macro_vec;
-  for (MacroStorage::const_iterator itr = macros.begin(); itr != macros.end();
-       itr++) {
-    std::string macroName = (*itr).first;
-    MacroInfo* info = (*itr).second;
-
+  for (const auto& [macroName, info] : macros) {
     auto name = builder.CreateString(macroName);
     MACROCACHE::MacroType type = (info->m_type == MacroInfo::WITH_ARGS)
                                      ? MACROCACHE::MacroType_WITH_ARGS

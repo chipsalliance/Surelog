@@ -445,9 +445,9 @@ void ParseFile::profileParser() {
 std::string ParseFile::getProfileInfo() {
   std::string profile;
   profile = m_profileInfo;
-  for (unsigned int i = 0; i < m_children.size(); i++)
-    profile += m_children[i]->m_profileInfo;
-
+  for (const ParseFile* child : m_children) {
+    profile += child->m_profileInfo;
+  }
   return profile;
 }
 
@@ -468,14 +468,14 @@ bool ParseFile::parse() {
     }
   } else {
     bool ok = true;
-    for (unsigned int i = 0; i < m_children.size(); i++) {
-      ParseCache cache(m_children[i]);
+    for (ParseFile* child : m_children) {
+      ParseCache cache(child);
 
       if (cache.restore()) {
-        m_children[i]->m_fileContent->setParent(m_fileContent);
+        child->m_fileContent->setParent(m_fileContent);
         m_usingCachedVersion = true;
         if (debug_AstModel && !precompiled)
-          std::cout << m_children[i]->m_fileContent->printObjects();
+          std::cout << child->m_fileContent->printObjects();
       } else {
         ok = false;
       }
@@ -535,31 +535,31 @@ bool ParseFile::parse() {
     }
 
     if (!m_children.empty()) {
-      for (unsigned int i = 0; i < m_children.size(); i++) {
-        if (m_children[i]->m_antlrParserHandler) {
+      for (ParseFile* child : m_children) {
+        if (child->m_antlrParserHandler) {
           // Only visit the chunks that got re-parsed
           // TODO: Incrementally regenerate the FileContent
-          m_children[i]->m_fileContent->setParent(m_fileContent);
-          m_children[i]->m_listener = new SV3_1aTreeShapeListener(
-              m_children[i], m_children[i]->m_antlrParserHandler->m_tokens,
-              m_children[i]->m_offsetLine);
+          child->m_fileContent->setParent(m_fileContent);
+          child->m_listener = new SV3_1aTreeShapeListener(
+              child, child->m_antlrParserHandler->m_tokens,
+              child->m_offsetLine);
 
           Timer tmr;
           antlr4::tree::ParseTreeWalker::DEFAULT.walk(
-              m_children[i]->m_listener,
-              m_children[i]->m_antlrParserHandler->m_tree);
+              child->m_listener,
+              child->m_antlrParserHandler->m_tree);
 
           if (getCompileSourceFile()->getCommandLineParser()->profile()) {
             // m_profileInfo += "For file " + getSymbol
-            // (m_children[i]->m_ppFileId) + ", AST Walking took" +
+            // (child->m_ppFileId) + ", AST Walking took" +
             // std::to_string (tmr.elapsed_rounded ()) + "\n";
             tmr.reset();
           }
 
           if (debug_AstModel && !precompiled)
-            std::cout << m_children[i]->m_fileContent->printObjects();
+            std::cout << child->m_fileContent->printObjects();
 
-          ParseCache cache(m_children[i]);
+          ParseCache cache(child);
           if (!cache.save()) {
             return false;
           }

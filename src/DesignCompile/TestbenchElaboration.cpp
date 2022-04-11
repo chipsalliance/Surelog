@@ -76,7 +76,7 @@ bool checkValidFunction(const DataType* dtype, const std::string& function,
         }
       }
     }
-  } else if (dtype->isString_type(type)) {
+  } else if (DataType::isString_type(type)) {
     ClassDefinition* array = design->getClassDefinition("builtin::string");
     if (array) {
       Function* func = array->getFunction(function);
@@ -225,10 +225,7 @@ bool TestbenchElaboration::bindBaseClasses_() {
   ClassNameClassDefinitionMultiMap classes = design->getClassDefinitions();
 
   // Bind base classes
-  for (ClassNameClassDefinitionMultiMap::iterator itr = classes.begin();
-       itr != classes.end(); itr++) {
-    std::string className = (*itr).first;
-    ClassDefinition* classDefinition = (*itr).second;
+  for (const auto& [className, classDefinition] : classes) {
     const FileContent* fCDef = classDefinition->getFileContent();
     for (auto& class_def : classDefinition->getMutableBaseClassMap()) {
       const DataType* placeHolder = class_def.second;
@@ -309,11 +306,7 @@ bool TestbenchElaboration::bindDataTypes_() {
   ClassNameClassDefinitionMultiMap classes = design->getClassDefinitions();
 
   // Bind data types
-  for (ClassNameClassDefinitionMultiMap::iterator itr = classes.begin();
-       itr != classes.end(); itr++) {
-    std::string className = (*itr).first;
-    ClassDefinition* classDefinition = (*itr).second;
-
+  for (const auto& [className, classDefinition] : classes) {
     for (auto& datatype : classDefinition->getUsedDataTypeMap()) {
       std::string dataTypeName = datatype.first;
       DataType* dtype = datatype.second;
@@ -362,10 +355,7 @@ bool TestbenchElaboration::bindFunctionReturnTypesAndParamaters_() {
   ClassNameClassDefinitionMultiMap classes = design->getClassDefinitions();
 
   // Bind Function return values, parameters and body
-  for (ClassNameClassDefinitionMultiMap::iterator itr = classes.begin();
-       itr != classes.end(); itr++) {
-    std::string className = (*itr).first;
-    ClassDefinition* classDefinition = (*itr).second;
+  for (const auto& [className, classDefinition] : classes) {
     for (auto& func : classDefinition->getFunctionMap()) {
       DataType* dtype = func.second->getReturnType();
       std::string dataTypeName = dtype->getName();
@@ -391,8 +381,8 @@ bool TestbenchElaboration::bindFunctionReturnTypesAndParamaters_() {
           Value* value = param->getDefault();
           if (value) {
             if (!dtype->isCompatible(value)) {
-              std::string name = param->getName();
-              std::string typeName = dtype->getName();
+              const std::string& name = param->getName();
+              const std::string& typeName = dtype->getName();
               NodeId p = param->getNodeId();
               const FileContent* fC = dtype->getFileContent();
               fs::path fileName = fC->getFileName(p);
@@ -448,8 +438,9 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
     if (type == VObjectType::slClass_declaration) {
       validFunction =
           checkValidFunction(dtype, function, stmt, design, datatypeName);
-    } else if (dtype->isNumber(type) || dtype->isInteger_type(type) ||
-               dtype->isNon_integer_type(type) || dtype->isString_type(type)) {
+    } else if (DataType::isNumber(type) || DataType::isInteger_type(type) ||
+               DataType::isNon_integer_type(type) ||
+               DataType::isString_type(type)) {
       if (def) {
         type = def->getType();
         dtype = def;
@@ -635,10 +626,7 @@ bool TestbenchElaboration::bindFunctionBodies_() {
   ClassNameClassDefinitionMultiMap classes = design->getClassDefinitions();
 
   // Bind Function return values, parameters and body
-  for (ClassNameClassDefinitionMultiMap::iterator itr = classes.begin();
-       itr != classes.end(); itr++) {
-    std::string className = (*itr).first;
-    ClassDefinition* classDefinition = (*itr).second;
+  for (const auto& [className, classDefinition] : classes) {
     for (auto& func : classDefinition->getFunctionMap()) {
       // Skip binding of parameterized classes
       if (!classDefinition->hasCompleteBaseSpecification()) continue;
@@ -688,11 +676,7 @@ bool TestbenchElaboration::bindTasks_() {
   ClassNameClassDefinitionMultiMap classes = design->getClassDefinitions();
 
   // Bind Tasks parameters and body
-  for (ClassNameClassDefinitionMultiMap::iterator itr = classes.begin();
-       itr != classes.end(); itr++) {
-    std::string className = (*itr).first;
-    ClassDefinition* classDefinition = (*itr).second;
-
+  for (const auto& [className, classDefinition] : classes) {
     // Bind Tasks parameters
     for (auto& func : classDefinition->getTaskMap()) {
       for (auto param : func.second->getParams()) {
@@ -719,10 +703,7 @@ bool TestbenchElaboration::bindProperties_() {
   ClassNameClassDefinitionMultiMap classes = design->getClassDefinitions();
 
   // Bind properties
-  for (ClassNameClassDefinitionMultiMap::iterator itr = classes.begin();
-       itr != classes.end(); itr++) {
-    std::string className = (*itr).first;
-    ClassDefinition* classDefinition = (*itr).second;
+  for (const auto& [className, classDefinition] : classes) {
     UHDM::class_defn* defn = classDefinition->getUhdmDefinition();
     UHDM::VectorOfvariables* vars = defn->Variables();
     UHDM::VectorOfnamed_event* events = defn->Named_events();

@@ -55,57 +55,57 @@ SV3_1aPpTreeListenerHelper::getFileLine(antlr4::ParserRuleContext* ctx,
 }
 
 void SV3_1aPpTreeListenerHelper::init() {
-  m_reservedMacroNames = {"define",
-                          "celldefine",
-                          "endcelldefine",
-                          "default_nettype",
-                          "undef",
-                          "ifdef",
-                          "ifndef",
-                          "else",
-                          "elsif",
-                          "endif",
-                          "include",
-                          "pragma",
-                          "begin_keywords",
-                          "end_keywords",
-                          "resetall",
-                          "timescale",
-                          "unconnected_drive",
-                          "nounconnected_drive",
-                          "line",
-                          "default_decay_time",
-                          "default_trireg_strength",
-                          "delay_mode_distributed",
-                          "delay_mode_path",
-                          "delay_mode_unit",
-                          "delay_mode_zero",
-                          "undefineall",
-                          "accelerate",
-                          "noaccelerate",
-                          "protect",
-                          "uselib",
-                          "disable_portfaults",
-                          "enable_portfaults",
-                          "nosuppress_faults",
-                          "suppress_faults",
-                          "signed",
-                          "unsigned",
-                          "endprotect",
-                          "protected",
-                          "endprotected",
-                          "expand_vectornets",
-                          "noexpand_vectornets",
-                          "autoexpand_vectornets",
-                          "remove_gatename",
-                          "noremove_gatenames",
-                          "remove_netname",
-                          "noremove_netnames"};
+  static constexpr std::string_view kReservedMacros[] = {
+      "define",
+      "celldefine",
+      "endcelldefine",
+      "default_nettype",
+      "undef",
+      "ifdef",
+      "ifndef",
+      "else",
+      "elsif",
+      "endif",
+      "include",
+      "pragma",
+      "begin_keywords",
+      "end_keywords",
+      "resetall",
+      "timescale",
+      "unconnected_drive",
+      "nounconnected_drive",
+      "line",
+      "default_decay_time",
+      "default_trireg_strength",
+      "delay_mode_distributed",
+      "delay_mode_path",
+      "delay_mode_unit",
+      "delay_mode_zero",
+      "undefineall",
+      "accelerate",
+      "noaccelerate",
+      "protect",
+      "uselib",
+      "disable_portfaults",
+      "enable_portfaults",
+      "nosuppress_faults",
+      "suppress_faults",
+      "signed",
+      "unsigned",
+      "endprotect",
+      "protected",
+      "endprotected",
+      "expand_vectornets",
+      "noexpand_vectornets",
+      "autoexpand_vectornets",
+      "remove_gatename",
+      "noremove_gatenames",
+      "remove_netname",
+      "noremove_netnames"};
 
-  for (std::vector<std::string>::iterator itr = m_reservedMacroNames.begin();
-       itr != m_reservedMacroNames.end(); itr++) {
-    m_reservedMacroNamesSet.insert(*itr);
-    getSymbolTable()->registerSymbol(*itr);
+  for (const std::string_view reserved_macro : kReservedMacros) {
+    m_reservedMacroNamesSet.insert(reserved_macro);
+    getSymbolTable()->registerSymbol(reserved_macro);
   }
 }
 
@@ -168,9 +168,8 @@ void SV3_1aPpTreeListenerHelper::forwardToParser(
 
 void SV3_1aPpTreeListenerHelper::addLineFiller(antlr4::ParserRuleContext* ctx) {
   if (m_pp->isMacroBody()) return;
-  const std::string& text = ctx->getText();
-  for (unsigned int i = 0; i < text.size(); i++) {
-    if (text[i] == '\n') m_pp->append("\n");
+  for (char c : ctx->getText()) {
+    if (c == '\n') m_pp->append("\n");
   }
 }
 

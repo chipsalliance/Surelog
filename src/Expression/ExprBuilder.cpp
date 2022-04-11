@@ -55,6 +55,13 @@ Value* ExprBuilder::clone(Value* val) {
   return clone;
 }
 
+// Often, there are assignments to muteErrors here, that are never read.
+// It seems like there is a (future?) intention here. So for now, disable
+// warnings from clang-tidy.
+// TODO(Alain): remove NOLINTBEGIN, run .github/bin/run-clang-tidy.sh
+//              and fix the intended places.
+//
+// NOLINTBEGIN(*.DeadStores)
 Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
                              ValuedComponentI* instance, bool muteErrors) {
   Value* value = m_valueFactory.newLValue();
@@ -661,8 +668,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             }
             svalue += v;
           } else {
-            std::string v = token;
-            svalue += v;
+            svalue += token;
             base = 'b';
           }
           Constant_expression = fC->Sibling(Constant_expression);
@@ -862,6 +868,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
   }
   return value;
 }
+// NOLINTEND(*.DeadStores)
 
 Value* ExprBuilder::fromVpiValue(const std::string& s, int size) {
   Value* val = nullptr;
