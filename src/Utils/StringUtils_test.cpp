@@ -159,10 +159,10 @@ TEST(StringUtilsTest, InPlaceRtrimEqual) {
 }
 
 TEST(StringUtilsTest, Leaf) {
-  EXPECT_EQ("baz", StringUtils::leaf("foo.bar.baz"));
-  EXPECT_EQ("", StringUtils::leaf("foo.bar."));
-  EXPECT_EQ("", StringUtils::leaf(""));
-  EXPECT_EQ("foo", StringUtils::leaf(".foo"));
+  EXPECT_EQ(StringUtils::leaf("foo.bar.baz"), "baz");
+  EXPECT_EQ(StringUtils::leaf("foo.bar."), "");
+  EXPECT_EQ(StringUtils::leaf(""), "");
+  EXPECT_EQ(StringUtils::leaf(".foo"), "foo");
 }
 
 TEST(StringUtilsTest, ReplaceAll) {

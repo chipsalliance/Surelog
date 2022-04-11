@@ -219,9 +219,8 @@ bool is_number(const std::string& s) {
 }
 
 static bool is_c_file(const std::string& s) {
-  std::string ext = StringUtils::leaf(s);
-  if (ext == "c" || ext == "cpp" || ext == "cc") return true;
-  return false;
+  const auto ext = StringUtils::leaf(s);
+  return (ext == "c" || ext == "cpp" || ext == "cc");
 }
 
 static std::string printStringArray(

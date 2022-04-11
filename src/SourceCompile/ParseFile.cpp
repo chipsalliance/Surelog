@@ -304,7 +304,7 @@ bool ParseFile::parseOneFile_(const std::string& fileName,
       new AntlrParserErrorListener(this, false, lineOffset, fileName);
   antlrParserHandler->m_lexer =
       new SV3_1aLexer(antlrParserHandler->m_inputStream);
-  std::string suffix = StringUtils::leaf(fileName);
+  const auto suffix = StringUtils::leaf(fileName);
   VerilogVersion version = VerilogVersion::SystemVerilog;
   if (pp) version = pp->getVerilogVersion();
   if (version != VerilogVersion::NoVersion) {
