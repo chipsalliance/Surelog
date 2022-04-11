@@ -29,8 +29,6 @@
 #include <unistd.h>
 #endif
 
-#include <string.h>
-
 #include <Surelog/API/PythonAPI.h>
 #include <Surelog/ErrorReporting/Report.h>
 #include <Surelog/Utils/StringUtils.h>

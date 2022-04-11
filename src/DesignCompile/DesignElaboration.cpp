@@ -1242,8 +1242,8 @@ void DesignElaboration::elaborateInstance_(
       }
 
       libName = fC->getLibrary()->getName();
-      //fullName = parent->getModuleName() + "." + instName;
-      //def = design->getComponentDefinition(fullName);
+      // fullName = parent->getModuleName() + "." + instName;
+      // def = design->getComponentDefinition(fullName);
 
       std::string indexedModName = parent->getFullPathName() + "." + modName;
       def = design->getComponentDefinition(indexedModName);
@@ -1922,8 +1922,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     const std::map<SymbolId, std::string>& useroverrides =
         cmdLine->getParamList();
     for (const auto& [nameId, value] : useroverrides) {
-      const std::string& name =
-          cmdLine->getSymbolTable().getSymbol(nameId);
+      const std::string& name = cmdLine->getSymbolTable().getSymbol(nameId);
       Value* val = m_exprBuilder.fromString(value);
       if (val) {
         instance->setValue(name, val, m_exprBuilder, 0);

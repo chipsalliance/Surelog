@@ -767,8 +767,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   for (std::string& actual_arg : actual_args) {
     if (actual_arg.find('`') != std::string::npos) {
       actual_arg = evaluateMacroInstance(
-          actual_arg, callingFile, callingLine,
-          SpecialInstructions::CheckLoop,
+          actual_arg, callingFile, callingLine, SpecialInstructions::CheckLoop,
           SpecialInstructions::AsIsUndefinedMacroInstr::ComplainUndefinedMacro);
     }
     actual_arg = StringUtils::trim(actual_arg);
@@ -906,7 +905,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   bool inString = false;
   char previous = '\0';
   for (char c : body) {
-     if (c == '"') {
+    if (c == '"') {
       inString = !inString;
     }
     if ((previous == '\\') && (c == '\n') && (!inString)) {
@@ -1017,7 +1016,7 @@ bool PreprocessFile::deleteMacro(const std::string& name,
   // Try in included files
   if (found == false) {
     for (PreprocessFile* pFile : m_includes) {
-       if (visited.find(pFile) == visited.end()) {
+      if (visited.find(pFile) == visited.end()) {
         visited.insert(pFile);
         bool tmp = pFile->deleteMacro(name, visited);
         if (tmp == true) {
@@ -1048,7 +1047,7 @@ void PreprocessFile::undefineAllMacros(std::set<PreprocessFile*>& visited) {
   m_compilationUnit->deleteAllMacros();
 
   for (PreprocessFile* pFile : m_includes) {
-     if (visited.find(pFile) == visited.end()) {
+    if (visited.find(pFile) == visited.end()) {
       visited.insert(pFile);
       pFile->undefineAllMacros(visited);
     }
@@ -1215,7 +1214,7 @@ void PreprocessFile::saveCache() {
       cache.save();
     }
   }
-  for (PreprocessFile *include : m_includes) {
+  for (PreprocessFile* include : m_includes) {
     include->saveCache();
   }
 }

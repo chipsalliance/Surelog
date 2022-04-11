@@ -2064,10 +2064,9 @@ bool NetlistElaboration::elab_ports_nets_(
             Netlist* netlistInterf = new Netlist(interfaceInstance);
             interfaceInstance->setNetlist(netlistInterf);
             if (interfaceRefInstance) {
-              for (auto & itr : interfaceRefInstance->getMappedValues()) {
+              for (auto& itr : interfaceRefInstance->getMappedValues()) {
                 interfaceInstance->setValue(itr.first, itr.second.first,
-                                            m_exprBuilder,
-                                            itr.second.second);
+                                            m_exprBuilder, itr.second.second);
               }
             }
 

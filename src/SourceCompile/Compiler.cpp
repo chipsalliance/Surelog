@@ -193,7 +193,7 @@ bool Compiler::ppinit_() {
   std::set<SymbolId> libFiles;
   // (-v <file>)
   for (SymbolId id : m_commandLineParser->getLibraryFiles()) {
-     const fs::path fileName =
+    const fs::path fileName =
         m_commandLineParser->getSymbolTable().getSymbol(id);
     const fs::path fullPath = FileUtils::getFullPath(fileName);
     if (sourceFileNames.find(fullPath) == sourceFileNames.end()) {
@@ -553,7 +553,7 @@ bool Compiler::createMultiProcessPreProcessor_() {
             m_commandLineParser->getSymbolTable().getSymbol(id_value.first);
         std::string val;
         for (char c : id_value.second) {
-           if (c == '#') {
+          if (c == '#') {
             val += '\\';
           }
           val += c;
@@ -856,12 +856,11 @@ bool Compiler::compileFileSet_(CompileSourceFile::Action action,
       for (unsigned short i = 0; i < maxThreadCount; i++) {
         std::cout << "Thread " << i << " : \n";
         int sum = 0;
-        for (const CompileSourceFile *job : jobArray[i]) {
+        for (const CompileSourceFile* job : jobArray[i]) {
           fs::path fileName;
           if (job->getPreprocessor())
             fileName = job->getPreprocessor()->getFileName(0);
-          if (job->getParser())
-            fileName = job->getParser()->getFileName(0);
+          if (job->getParser()) fileName = job->getParser()->getFileName(0);
           sum += job->getJobSize(action);
           std::cout << job->getJobSize(action) << " " << fileName << "\n";
         }

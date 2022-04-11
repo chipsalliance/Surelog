@@ -422,7 +422,7 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
 }
 
 void UhdmChecker::mergeColumnCoverage() {
-  for (auto & fileItr : fileNodeCoverMap) {
+  for (auto& fileItr : fileNodeCoverMap) {
     RangesMap& uhdmCover = fileItr.second;
     for (auto& cItr : uhdmCover) {
       Ranges& ranges = cItr.second;
@@ -444,7 +444,7 @@ float UhdmChecker::reportCoverage(const fs::path& reportFile) {
   if (report.bad()) return false;
   int overallUncovered = 0;
   int overallLineNb = 0;
-  for (auto &[fC, uhdmCover] : fileNodeCoverMap) {
+  for (auto& [fC, uhdmCover] : fileNodeCoverMap) {
     bool fileNamePrinted = false;
     int lineNb = 0;
     int uncovered = 0;

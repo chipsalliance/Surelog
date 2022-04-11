@@ -281,7 +281,7 @@ std::string StringUtils::removeComments(std::string_view text) {
   char c1 = '\0';
   bool inComment = 0;
   for (char c2 : text) {
-     if ((c2 == '/') && (c1 == '/')) {
+    if ((c2 == '/') && (c1 == '/')) {
       inComment = true;
       result.erase(result.end() - 1);
     }

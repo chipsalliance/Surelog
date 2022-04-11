@@ -52,7 +52,7 @@ bool CheckCompile::checkSyntaxErrors_() {
 bool CheckCompile::mergeSymbolTables_() {
   const Design::FileIdDesignContentMap& all_files =
       m_compiler->getDesign()->getAllFileContents();
-  for (const auto &sym_file : all_files) {
+  for (const auto& sym_file : all_files) {
     const auto fileContent = sym_file.second;
     m_compiler->getSymbolTable()->registerSymbol(
         fileContent->getFileName().string());

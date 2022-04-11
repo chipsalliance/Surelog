@@ -546,8 +546,7 @@ bool ParseFile::parse() {
 
           Timer tmr;
           antlr4::tree::ParseTreeWalker::DEFAULT.walk(
-              child->m_listener,
-              child->m_antlrParserHandler->m_tree);
+              child->m_listener, child->m_antlrParserHandler->m_tree);
 
           if (getCompileSourceFile()->getCommandLineParser()->profile()) {
             // m_profileInfo += "For file " + getSymbol

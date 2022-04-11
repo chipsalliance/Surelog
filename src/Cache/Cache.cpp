@@ -215,7 +215,7 @@ std::vector<CACHE::VObject> Cache::cacheVObjects(FileContent* fcontent,
     return object_vec;
   }
   for (const VObject& object : fcontent->getVObjects()) {
-     // Lets compress this struct into 20 and 16 bits fields:
+    // Lets compress this struct into 20 and 16 bits fields:
     //  object_vec.push_back(PARSECACHE::CreateVObject(builder,
     //                                              canonicalSymbols.getId(m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(object.m_name)),
     //                                              object.m_uniqueId,
