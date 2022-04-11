@@ -22,22 +22,22 @@ options { tokenVocab = SV3_1aSplitterLexer; }
 source_text : ( description ) *;
 
 description :
-	      module 
-	    | endmodule
-	    | sv_interface 
-	    | endinterface 
-	    | program 
-	    | endprogram 
-	    | primitive 
-	    | endprimitive 
-	    | sv_package 
-	    | endpackage
-	    | checker
-	    | endchecker 
-	    | config 
-	    | endconfig
-	    | ANY
-	    ;
+              module
+            | endmodule
+            | sv_interface
+            | endinterface
+            | program
+            | endprogram
+            | primitive
+            | endprimitive
+            | sv_package
+            | endpackage
+            | checker
+            | endchecker
+            | config
+            | endconfig
+            | ANY
+            ;
 
 
 module : MODULE ;

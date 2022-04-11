@@ -51,7 +51,7 @@ ENDCHECKER : 'endchecker' ;
 CONFIG : 'config' ;
 
 ENDCONFIG : 'endconfig' ;
- 
+
 String
  : '"'                          // a opening quote
    (                            // start group
