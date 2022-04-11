@@ -354,7 +354,21 @@ bool ParseFile::parseOneFile_(const std::string& fileName,
     tmr.reset();
   }
 
+  // Simulator options showed up in Antlr when also ANTLRCPP_VERSION was
+  // first defined, so testing with ifdef helps us to decide to use options.
+#ifdef ANTLRCPP_VERSION
+  antlr4::atn::ParserATNSimulatorOptions options;
+  options.setPredictionContextMergeCacheOptions(
+      antlr4::atn::PredictionContextMergeCacheOptions()
+          .setMaxSize(10000)
+          .setClearEveryN(100));
+
+  antlrParserHandler->m_parser =
+      new SV3_1aParser(antlrParserHandler->m_tokens, options);
+#else
   antlrParserHandler->m_parser = new SV3_1aParser(antlrParserHandler->m_tokens);
+#endif
+
   if (getCompileSourceFile()->getCommandLineParser()->profile()) {
     m_antlrParserHandler->m_parser->setProfile(true);
   }
