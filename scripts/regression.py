@@ -29,6 +29,7 @@ _default_workspace_dirpath = os.path.dirname(os.path.dirname(_this_filepath))
 # either to the workspace directory or the build directory
 _default_test_dirpaths = [ 'tests', os.path.join('third_party', 'tests') ]
 _default_build_dirpath = 'build'
+# _default_build_dirpath = os.path.join('out', 'build', 'Debug')
 _default_output_dirpath = 'regression'
 _default_surelog_filename = 'surelog.exe' if platform.system() == 'Windows' else 'surelog'
 _default_uhdm_dump_filename = 'uhdm-dump.exe' if platform.system() == 'Windows' else 'uhdm-dump'
@@ -183,7 +184,8 @@ def _restore_directory_state(dirpath, golden_snapshot, output_dirpath, current_s
 
 
 def _normalize_log(content, path_mappings):
-  # content = re.sub(r'\d+.\d+{3}s', 't.ttts', content)
+  content = re.sub(r'\d+\.\d{3}s', 't.ttts', content)
+  content = re.sub(r'\d+\.\d{6}s', 't.tttttts', content)
   for path, mapping in path_mappings.items():
     pattern = re.sub(r'(\\|\/)+', r'(\\\\|\/)+', path)
     content = re.sub(pattern, mapping, content)
@@ -344,12 +346,11 @@ def _run_surelog(
 
           for descendant in descendants:
             try:
-              with descendant.oneshot():
-                mem_info = descendant.memory_info()
-                cpu_time += descendant.cpu_times().user
+              cpu_time += descendant.cpu_times().user
 
-                rss_memory += mem_info.rss
-                vms_memory += mem_info.vms
+              mem_info = descendant.memory_info()
+              rss_memory += mem_info.rss
+              vms_memory += mem_info.vms
             except (psutil.NoSuchProcess, psutil.AccessDenied):
               # sometimes a subprocess descendant will have terminated between the time
               # we obtain a list of descendants, and the time we actually poll this
