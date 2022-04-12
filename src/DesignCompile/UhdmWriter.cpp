@@ -945,6 +945,7 @@ void reInstanceTypespec(Serializer& serializer, any* root, package* p) {
 void writePackage(Package* pack, package* p, Serializer& s,
                   UhdmWriter::ComponentMap& componentMap, bool top) {
   p->VpiFullName(pack->getName() + "::");
+  VectorOfclass_defn* dest_classes = nullptr;
   if (top) {
     // Typepecs
     VectorOftypespec* typespecs = s.MakeTypespecVec();
@@ -956,7 +957,7 @@ void writePackage(Package* pack, package* p, Serializer& s,
     // Classes
     ClassNameClassDefinitionMultiMap& orig_classes =
         pack->getClassDefinitions();
-    VectorOfclass_defn* dest_classes = s.MakeClass_defnVec();
+    dest_classes = s.MakeClass_defnVec();
     writeClasses(orig_classes, dest_classes, s, componentMap, p);
     p->Class_defns(dest_classes);
     // Parameters
@@ -992,12 +993,46 @@ void writePackage(Package* pack, package* p, Serializer& s,
   }
   if (top) {
     // Function and tasks
-    p->Task_funcs(pack->getTask_funcs());
-    if (p->Task_funcs()) {
-      for (auto tf : *p->Task_funcs()) {
-        tf->VpiParent(p);
-        tf->Instance(p);
-        ((task_func*)tf)->VpiFullName(pack->getName() + "::" + tf->VpiName());
+    if (pack->getTask_funcs()) {
+      p->Task_funcs(s.MakeTask_funcVec());
+      for (auto tf : *pack->getTask_funcs()) {
+        const std::string funcName = tf->VpiName();
+        if (funcName.find("::") != std::string::npos) {
+          std::vector<std::string> res;
+          StringUtils::tokenizeMulti(funcName, "::", res);
+          const std::string& className = res[0];
+          const std::string& funcName = res[1];
+          bool foundParentClass = false;
+          for (auto cl : *dest_classes) {
+            if (cl->VpiName() == className) {
+              tf->VpiParent(cl);
+              tf->Instance(p);
+              if (cl->Task_funcs() == nullptr) {
+                cl->Task_funcs(s.MakeTask_funcVec());
+              }
+              cl->Task_funcs()->push_back(tf);
+              foundParentClass = true;
+              break;
+            }
+          }
+          if (foundParentClass) {
+            tf->VpiName(funcName);
+            ((task_func*)tf)
+                ->VpiFullName(pack->getName() + "::" + className +
+                              "::" + tf->VpiName());
+          } else {
+            tf->VpiParent(p);
+            tf->Instance(p);
+            p->Task_funcs()->push_back(tf);
+            ((task_func*)tf)
+                ->VpiFullName(pack->getName() + "::" + tf->VpiName());
+          }
+        } else {
+          tf->VpiParent(p);
+          tf->Instance(p);
+          p->Task_funcs()->push_back(tf);
+          ((task_func*)tf)->VpiFullName(pack->getName() + "::" + tf->VpiName());
+        }
       }
     }
 
