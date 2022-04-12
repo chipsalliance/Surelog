@@ -409,7 +409,7 @@ void Design::checkDefParamUsage(DefParam* parent) {
   }
 }
 
-Package* Design::getPackage(const std::string& name) const {
+Package* Design::getPackage(std::string_view name) const {
   PackageNamePackageDefinitionMultiMap::const_iterator itr =
       m_packageDefinitions.find(name);
   if (itr == m_packageDefinitions.end()) {
@@ -419,7 +419,7 @@ Package* Design::getPackage(const std::string& name) const {
   }
 }
 
-Program* Design::getProgram(const std::string& name) const {
+Program* Design::getProgram(std::string_view name) const {
   ProgramNameProgramDefinitionMap::const_iterator itr =
       m_programDefinitions.find(name);
   if (itr == m_programDefinitions.end()) {

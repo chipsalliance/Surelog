@@ -26,7 +26,7 @@
 #include <Surelog/Expression/ExprBuilder.h>
 
 namespace SURELOG {
-Value* ValuedComponentI::getValue(const std::string& name) const {
+Value* ValuedComponentI::getValue(std::string_view name) const {
   auto itr = m_paramMap.find(name);
   if (itr == m_paramMap.end()) {
     if (m_definition) {
@@ -52,12 +52,12 @@ Value* ValuedComponentI::getValue(const std::string& name) const {
   return nullptr;
 }
 
-Value* ValuedComponentI::getValue(const std::string& name,
+Value* ValuedComponentI::getValue(std::string_view name,
                                   ExprBuilder& exprBuilder) const {
   return getValue(name);
 }
 
-void ValuedComponentI::deleteValue(const std::string& name,
+void ValuedComponentI::deleteValue(std::string_view name,
                                    ExprBuilder& exprBuilder) {
   std::map<std::string, std::pair<Value*, int>>::iterator itr =
       m_paramMap.find(name);
@@ -67,7 +67,7 @@ void ValuedComponentI::deleteValue(const std::string& name,
   }
 }
 
-void ValuedComponentI::forgetValue(const std::string& name) {
+void ValuedComponentI::forgetValue(std::string_view name) {
   std::map<std::string, std::pair<Value*, int>>::iterator itr =
       m_paramMap.find(name);
   if (itr != m_paramMap.end()) {
@@ -75,7 +75,7 @@ void ValuedComponentI::forgetValue(const std::string& name) {
   }
 }
 
-void ValuedComponentI::setValue(const std::string& name, Value* val,  // NOLINT
+void ValuedComponentI::setValue(std::string_view name, Value* val,  // NOLINT
                                 ExprBuilder& exprBuilder, int lineNb) {
   deleteValue(name, exprBuilder);
   m_paramMap.insert(
@@ -83,15 +83,14 @@ void ValuedComponentI::setValue(const std::string& name, Value* val,  // NOLINT
   forgetComplexValue(name);
 }
 
-void ValuedComponentI::setComplexValue(const std::string& name,
-                                       UHDM::expr* val) {
+void ValuedComponentI::setComplexValue(std::string_view name, UHDM::expr* val) {
   auto itr = m_complexValues.find(name);
   if (itr != m_complexValues.end()) m_complexValues.erase(itr);
   m_complexValues.insert(std::make_pair(name, val));
   forgetValue(name);
 }
 
-UHDM::expr* ValuedComponentI::getComplexValue(const std::string& name) const {
+UHDM::expr* ValuedComponentI::getComplexValue(std::string_view name) const {
   auto itr = m_complexValues.find(name);
   if (itr != m_complexValues.end()) {
     return (*itr).second;
@@ -99,7 +98,7 @@ UHDM::expr* ValuedComponentI::getComplexValue(const std::string& name) const {
   return nullptr;
 }
 
-void ValuedComponentI::forgetComplexValue(const std::string& name) {
+void ValuedComponentI::forgetComplexValue(std::string_view name) {
   auto itr = m_complexValues.find(name);
   if (itr != m_complexValues.end()) {
     m_complexValues.erase(itr);

@@ -55,7 +55,7 @@ unsigned int ClassDefinition::getSize() const {
   return size;
 }
 
-Property* ClassDefinition::getProperty(const std::string& name) const {
+Property* ClassDefinition::getProperty(std::string_view name) const {
   PropertyMap::const_iterator itr = m_properties.find(name);
   if (itr == m_properties.end()) {
     for (const auto& parent : getBaseClassMap()) {
@@ -75,10 +75,10 @@ Property* ClassDefinition::getProperty(const std::string& name) const {
 }
 
 void ClassDefinition::insertProperty(Property* p) {
-  m_properties.insert(std::make_pair(p->getName(), p));
+  m_properties.emplace(std::make_pair(p->getName(), p));
 }
 
-Function* ClassDefinition::getFunction(const std::string& name) const {
+Function* ClassDefinition::getFunction(std::string_view name) const {
   FunctionMap::const_iterator itr = m_functions.find(name);
   if (itr != m_functions.end()) {
     return (*itr).second;
@@ -102,7 +102,7 @@ Function* ClassDefinition::getFunction(const std::string& name) const {
   return nullptr;
 }
 
-TaskMethod* ClassDefinition::getTask(const std::string& name) const {
+TaskMethod* ClassDefinition::getTask(std::string_view name) const {
   TaskMap::const_iterator itr = m_tasks.find(name);
   if (itr == m_tasks.end()) {
     for (const auto& parent : getBaseClassMap()) {
@@ -122,10 +122,10 @@ TaskMethod* ClassDefinition::getTask(const std::string& name) const {
 }
 
 void ClassDefinition::insertTask(TaskMethod* p) {
-  m_tasks.insert(std::make_pair(p->getName(), p));
+  m_tasks.emplace(std::make_pair(p->getName(), p));
 }
 
-Constraint* ClassDefinition::getConstraint(const std::string& name) {
+Constraint* ClassDefinition::getConstraint(std::string_view name) {
   ConstraintMap::iterator itr = m_constraints.find(name);
   if (itr == m_constraints.end()) {
     return nullptr;
@@ -135,10 +135,10 @@ Constraint* ClassDefinition::getConstraint(const std::string& name) {
 }
 
 void ClassDefinition::insertConstraint(Constraint* p) {
-  m_constraints.insert(std::make_pair(p->getName(), p));
+  m_constraints.emplace(std::make_pair(p->getName(), p));
 }
 
-ClassDefinition* ClassDefinition::getClass(const std::string& name) {
+ClassDefinition* ClassDefinition::getClass(std::string_view name) {
   ClassMap::iterator itr = m_classes.find(name);
   if (itr == m_classes.end()) {
     return nullptr;
@@ -148,10 +148,10 @@ ClassDefinition* ClassDefinition::getClass(const std::string& name) {
 }
 
 void ClassDefinition::insertClass(ClassDefinition* p) {
-  m_classes.insert(std::make_pair(p->getName(), p));
+  m_classes.emplace(std::make_pair(p->getName(), p));
 }
 
-CoverGroupDefinition* ClassDefinition::getCoverGroup(const std::string& name) {
+CoverGroupDefinition* ClassDefinition::getCoverGroup(std::string_view name) {
   CoverGroupMap::iterator itr = m_covergroups.find(name);
   if (itr == m_covergroups.end()) {
     return nullptr;
@@ -161,10 +161,10 @@ CoverGroupDefinition* ClassDefinition::getCoverGroup(const std::string& name) {
 }
 
 void ClassDefinition::insertCoverGroup(CoverGroupDefinition* p) {
-  m_covergroups.insert(std::make_pair(p->getName(), p));
+  m_covergroups.emplace(std::make_pair(p->getName(), p));
 }
 
-const DataType* ClassDefinition::getBaseClass(const std::string& name) const {
+const DataType* ClassDefinition::getBaseClass(std::string_view name) const {
   BaseClassMap::const_iterator itr = m_baseclasses.find(name);
   if (itr == m_baseclasses.end()) {
     return nullptr;
@@ -174,11 +174,10 @@ const DataType* ClassDefinition::getBaseClass(const std::string& name) const {
 }
 
 void ClassDefinition::insertBaseClass(DataType* p) {
-  m_baseclasses.insert(std::make_pair(p->getName(), p));
+  m_baseclasses.emplace(std::make_pair(p->getName(), p));
 }
 
-const DataType* ClassDefinition::getBaseDataType(
-    const std::string& name) const {
+const DataType* ClassDefinition::getBaseDataType(std::string_view name) const {
   const DataTypeMap& dataTypes = getDataTypeMap();
   DataTypeMap::const_iterator itr = dataTypes.find(name);
   if (itr == dataTypes.end()) {

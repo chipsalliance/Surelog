@@ -147,9 +147,9 @@ class Design final {
   ModuleInstance* findInstance(const std::string& path,
                                ModuleInstance* scope = nullptr) const;
 
-  Package* getPackage(const std::string& name) const;
+  Package* getPackage(std::string_view name) const;
 
-  Program* getProgram(const std::string& name) const;
+  Program* getProgram(std::string_view name) const;
 
   ClassDefinition* getClassDefinition(const std::string& name) const;
 

@@ -3,6 +3,7 @@
 #pragma once
 
 #include <cstdint>
+#include <functional>
 #include <map>
 #include <string>
 #include <vector>
@@ -16,17 +17,18 @@ class Program;
 class MacroInfo;
 
 typedef std::map<std::string, ModuleDefinition*> ModuleNameModuleDefinitionMap;
-typedef std::multimap<std::string, Package*>
+typedef std::multimap<std::string, Package*, std::less<>>
     PackageNamePackageDefinitionMultiMap;
 typedef std::vector<Package*> PackageDefinitionVec;
-typedef std::map<std::string, Program*> ProgramNameProgramDefinitionMap;
+typedef std::map<std::string, Program*, std::less<>>
+    ProgramNameProgramDefinitionMap;
 
-typedef std::multimap<std::string, ClassDefinition*>
+typedef std::multimap<std::string, ClassDefinition*, std::less<>>
     ClassNameClassDefinitionMultiMap;
 typedef std::map<std::string, ClassDefinition*> ClassNameClassDefinitionMap;
 
-typedef std::map<std::string, MacroInfo*> MacroStorage;
-typedef std::map<std::string, MacroInfo*> MacroStorageRef;
+typedef std::map<std::string, MacroInfo*, std::less<>> MacroStorage;
+typedef std::map<std::string, MacroInfo*, std::less<>> MacroStorageRef;
 
 }  // namespace SURELOG
 

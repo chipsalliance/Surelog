@@ -57,6 +57,7 @@ class SymbolTable {
 
   // Get symbol string identified by given ID or BadSymbol if it doesn't exist
   // (see #getBadSymbol()).
+  //const std::string& getSymbol(SymbolId id) const;
   const std::string& getSymbol(SymbolId id) const;
 
   // Get a vector of all symbols. As a special property, the SymbolID can be
