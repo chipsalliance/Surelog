@@ -25,17 +25,17 @@
 #define SURELOG_DESIGNCOMPONENT_H
 #pragma once
 
+#include <Surelog/Common/Containers.h>
 #include <Surelog/Common/PortNetHolder.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/FileCNodeId.h>
-#include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/Design/LetStmt.h>
+#include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 // UHDM
 #include <uhdm/uhdm_forward_decl.h>
 
-#include <functional>
 #include <filesystem>
 
 namespace SURELOG {
@@ -81,18 +81,18 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   virtual const std::string& getName() const = 0;
   void append(DesignComponent*);
 
-  typedef std::map<std::string, DataType*, std::less<>> DataTypeMap;
-  typedef std::map<std::string, TypeDef*, std::less<>> TypeDefMap;
+  typedef std::map<std::string, DataType*, StringViewCompare> DataTypeMap;
+  typedef std::map<std::string, TypeDef*, StringViewCompare> TypeDefMap;
   typedef std::vector<DataType*> DataTypeVec;
   typedef std::vector<TypeDef*> TypeDefVec;
-  typedef std::map<std::string, Function*, std::less<>> FunctionMap;
-  typedef std::map<std::string, Task*, std::less<>> TaskMap;
-  typedef std::map<std::string, Variable*, std::less<>> VariableMap;
-  typedef std::map<std::string, Parameter*, std::less<>> ParameterMap;
+  typedef std::map<std::string, Function*, StringViewCompare> FunctionMap;
+  typedef std::map<std::string, Task*, StringViewCompare> TaskMap;
+  typedef std::map<std::string, Variable*, StringViewCompare> VariableMap;
+  typedef std::map<std::string, Parameter*, StringViewCompare> ParameterMap;
   typedef std::vector<Parameter*> ParameterVec;
   typedef std::vector<ParamAssign*> ParamAssignVec;
-  typedef std::map<std::string, LetStmt*, std::less<>> LetStmtMap;
-  typedef std::map<std::string, std::pair<FileCNodeId, DesignComponent*>, std::less<>> NamedObjectMap;
+  typedef std::map<std::string, LetStmt*, StringViewCompare> LetStmtMap;
+  typedef std::map<std::string, std::pair<FileCNodeId, DesignComponent*>, StringViewCompare> NamedObjectMap;
 
   void addFileContent(const FileContent* fileContent, NodeId nodeId);
   const std::vector<const FileContent*>& getFileContents() const {

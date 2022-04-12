@@ -25,11 +25,11 @@
 #define SURELOG_CLASSDEFINITION_H
 #pragma once
 
+#include <Surelog/Common/Containers.h>
 #include <Surelog/Design/DataType.h>
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Testbench/TaskMethod.h>
 
-#include <functional>
 #include <string_view>
 
 // UHDM
@@ -70,12 +70,12 @@ class ClassDefinition : public DesignComponent, public DataType {
   UHDM::class_defn* getUhdmDefinition() const { return m_uhdm_definition; }
 
   // Parameter definitions are stored DesignComponent maps
-  typedef std::map<std::string, Property*, std::less<>> PropertyMap;
-  typedef std::map<std::string, TaskMethod*, std::less<>> TaskMap;
-  typedef std::map<std::string, Constraint*, std::less<>> ConstraintMap;
-  typedef std::map<std::string, const DataType*, std::less<>> BaseClassMap;
-  typedef std::map<std::string, ClassDefinition*, std::less<>> ClassMap;
-  typedef std::map<std::string, CoverGroupDefinition*, std::less<>> CoverGroupMap;
+  typedef std::map<std::string, Property*, StringViewCompare> PropertyMap;
+  typedef std::map<std::string, TaskMethod*, StringViewCompare> TaskMap;
+  typedef std::map<std::string, Constraint*, StringViewCompare> ConstraintMap;
+  typedef std::map<std::string, const DataType*, StringViewCompare> BaseClassMap;
+  typedef std::map<std::string, ClassDefinition*, StringViewCompare> ClassMap;
+  typedef std::map<std::string, CoverGroupDefinition*, StringViewCompare> CoverGroupMap;
 
   const PropertyMap& getPropertyMap() const { return m_properties; }
   Property* getProperty(std::string_view name) const;

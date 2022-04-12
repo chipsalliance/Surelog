@@ -26,11 +26,11 @@
 #pragma once
 
 #include <Surelog/Common/RTTI.h>
+#include <Surelog/Common/Containers.h>
 
 // UHDM
 #include <uhdm/uhdm_forward_decl.h>
 
-#include <functional>
 #include <map>
 #include <string>
 #include <string_view>
@@ -43,8 +43,8 @@ class Value;
 class ValuedComponentI : public RTTI {
   SURELOG_IMPLEMENT_RTTI(ValuedComponentI, RTTI)
  public:
-  using ParamMap = std::map<std::string, std::pair<Value*, int>, std::less<>>;
-  using ComplexValueMap = std::map<std::string, UHDM::expr*, std::less<>>;
+  using ParamMap = std::map<std::string, std::pair<Value*, int>, StringViewCompare>;
+  using ComplexValueMap = std::map<std::string, UHDM::expr*, StringViewCompare>;
 
   ValuedComponentI(const ValuedComponentI* parentScope,
                    ValuedComponentI* definition)

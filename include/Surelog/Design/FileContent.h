@@ -29,7 +29,6 @@
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Design/VObject.h>
 
-#include <functional>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
@@ -207,7 +206,7 @@ class FileContent : public DesignComponent {
 
  protected:
   std::vector<DesignElement*> m_elements;
-  std::map<std::string, DesignElement*, std::less<>> m_elementMap;
+  std::map<std::string, DesignElement*, StringViewCompare> m_elementMap;
   std::vector<VObject> m_objects;
   std::unordered_map<NodeId, SymbolId> m_definitionFiles;
 

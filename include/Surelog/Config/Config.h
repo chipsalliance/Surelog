@@ -26,6 +26,7 @@
 #pragma once
 
 #include <Surelog/Common/SymbolId.h>
+#include <Surelog/Common/Containers.h>
 
 #include <map>
 #include <string>
@@ -79,7 +80,7 @@ class UseClause {
 
 class Config final {
  public:
-  using UseClauseMap = std::map<std::string, UseClause, std::less<>>;
+  using UseClauseMap = std::map<std::string, UseClause, StringViewCompare>;
   Config(std::string_view name, const FileContent* fC, NodeId nodeId)
       : m_name(name),
         m_fileContent(fC),

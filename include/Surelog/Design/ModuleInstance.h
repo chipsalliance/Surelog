@@ -26,10 +26,10 @@
 #pragma once
 
 #include <Surelog/Common/SymbolId.h>
+#include <Surelog/Common/Containers.h>
 #include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
-#include <functional>
 #include <string_view>
 
 namespace SURELOG {
@@ -120,7 +120,7 @@ class ModuleInstance : public ValuedComponentI {
   Netlist* m_netlist;
   ModuleInstance* m_boundInstance = nullptr;
   bool m_elaborated = false;
-  std::set<std::string, std::less<>> m_overridenParams;
+  std::set<std::string, StringViewCompare> m_overridenParams;
 };
 
 class ModuleInstanceFactory {
