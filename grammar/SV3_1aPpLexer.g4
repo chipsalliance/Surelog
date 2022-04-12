@@ -17,7 +17,7 @@
 lexer grammar SV3_1aPpLexer;
 
 Escaped_identifier
-    :	'\\' ~[WS\r\t\n]*? WS
+    :   '\\' ~[WS\r\t\n]*? WS
     ;
 
 // A.9.2 Comments
@@ -31,7 +31,7 @@ fragment Comment_text : .*? ;
 TICK_VARIABLE : '``' [a-zA-Z0-9_]+ '``' ;
 
 TICK_DEFINE : '`define' ;
-              
+
 TICK_CELLDEFINE : '`celldefine' ;
 
 TICK_ENDCELLDEFINE : '`endcelldefine' ;
@@ -56,7 +56,7 @@ TICK_INCLUDE : '`include' ;
 
 TICK_PRAGMA : '`pragma' ;
 
-TICK_BEGIN_KEYWORDS : '`begin_keywords' ; 
+TICK_BEGIN_KEYWORDS : '`begin_keywords' ;
 
 TICK_END_KEYWORDS : '`end_keywords' ;
 
@@ -66,20 +66,20 @@ TICK_TIMESCALE : '`timescale' ;
 
 TICK_UNCONNECTED_DRIVE : '`unconnected_drive' ;
 
-TICK_NOUNCONNECTED_DRIVE : '`nounconnected_drive' ; 
-            
-TICK_LINE : '`line' ; 
- 
+TICK_NOUNCONNECTED_DRIVE : '`nounconnected_drive' ;
+
+TICK_LINE : '`line' ;
+
 TICK_DEFAULT_DECAY_TIME : '`default_decay_time' ;
-       
+
 TICK_DEFAULT_TRIREG_STRENGTH : '`default_trireg_strength' ;
 
-TICK_DELAY_MODE_DISTRIBUTED : '`delay_mode_distributed' ;   
-  
-TICK_DELAY_MODE_PATH : '`delay_mode_path' ;          
-  
-TICK_DELAY_MODE_UNIT : '`delay_mode_unit' ;           
- 
+TICK_DELAY_MODE_DISTRIBUTED : '`delay_mode_distributed' ;
+
+TICK_DELAY_MODE_PATH : '`delay_mode_path' ;
+
+TICK_DELAY_MODE_UNIT : '`delay_mode_unit' ;
+
 TICK_DELAY_MODE_ZERO : '`delay_mode_zero' ;
 
 TICK_UNDEFINEALL : '`undefineall' ;
@@ -102,13 +102,13 @@ TICK_SUPPRESS_FAULTS : '`suppress_faults' ;
 
 TICK_SIGNED : '`signed' ;
 
-TICK_UNSIGNED : '`unsigned' ; 
+TICK_UNSIGNED : '`unsigned' ;
 
-TICK_ENDPROTECT : '`endprotect' ; 
+TICK_ENDPROTECT : '`endprotect' ;
 
 TICK_PROTECTED : '`protected' ;
 
-TICK_ENDPROTECTED : '`endprotected' ; 
+TICK_ENDPROTECTED : '`endprotected' ;
 
 TICK_EXPAND_VECTORNETS : '`expand_vectornets' ;
 
@@ -122,9 +122,9 @@ TICK_NOREMOVE_GATENAMES : '`noremove_gatenames' ;
 
 TICK_REMOVE_NETNAME : '`remove_netname' ;
 
-TICK_NOREMOVE_NETNAMES : '`noremove_netnames' ; 
+TICK_NOREMOVE_NETNAMES : '`noremove_netnames' ;
 
-TICK_FILE__ : '`__FILE__' ;   
+TICK_FILE__ : '`__FILE__' ;
 
 TICK_LINE__ : '`__LINE__' ;
 
@@ -159,7 +159,7 @@ ENDCONFIG : 'endconfig' ;
 Macro_identifier : '`' [a-zA-Z_] [a-zA-Z0-9_$]* ;
 
 Macro_Escaped_identifier
-    :	'`\\' ~[WS\r\t\n]*? WS
+    :   '`\\' ~[WS\r\t\n]*? WS
     ;
 
 String
@@ -208,11 +208,11 @@ Octal_number : ( Non_zero_unsigned_number WS* )? Octal_base WS* Octal_value ;
 fragment
 Hex_number : ( Non_zero_unsigned_number WS* )? Hex_base WS* Hex_value ;
 
-Number  
-    :   Decimal_number 
-    |   Octal_number   
-    |   Binary_number  
-    |   Hex_number     
+Number
+    :   Decimal_number
+    |   Octal_number
+    |   Binary_number
+    |   Hex_number
     ;
 
 /* unsigned_number <<1>> ::= decimal_digit { _ | decimal_digit } */
@@ -306,7 +306,7 @@ fragment TAB : [\t]+ ;
 
 TEXT_CR : '\\' [nr];
 
-ESCAPED_CR : '\\' [\r\n] ; 
+ESCAPED_CR : '\\' [\r\n] ;
 
 CR : [\r\n] ;
 
@@ -314,7 +314,7 @@ TICK_QUOTE : '`"' ;
 
 TICK_BACKSLASH_TICK_QUOTE : '`\\`"' ;
 
-TICK_TICK: '``' ; 
+TICK_TICK: '``' ;
 
 PARENS_OPEN : '(' ;
 

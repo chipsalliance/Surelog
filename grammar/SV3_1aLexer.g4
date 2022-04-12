@@ -34,9 +34,9 @@ QMARK : '?' ;
 
 TICK_b0 : '\'b0' ;
 
-TICK_b1 : '\'b1' ; 
+TICK_b1 : '\'b1' ;
 
-TICK_B0 : '\'B0' ; 
+TICK_B0 : '\'B0' ;
 
 TICK_B1 : '\'B1' ;
 
@@ -90,11 +90,11 @@ Octal_number : ( Non_zero_unsigned_number ' '* )? Octal_base ' '* Octal_value ;
 fragment
 Hex_number : ( Non_zero_unsigned_number ' '* )? Hex_base ' '* Hex_value ;
 
-Integral_number  
-    :   Decimal_number 
-    |   Octal_number   
-    |   Binary_number  
-    |   Hex_number     
+Integral_number
+    :   Decimal_number
+    |   Octal_number
+    |   Binary_number
+    |   Hex_number
     ;
 
 /* real_number ::=
@@ -204,7 +204,7 @@ String
 
 One_line_comment : '//' Comment_text '\r'? ('\n' | EOF) -> channel(COMMENTS);
 
-// block_comment ::= /* comment_text */ 
+// block_comment ::= /* comment_text */
 
 Block_comment : '/*' Comment_text '*/' -> channel(COMMENTS);
 
@@ -225,13 +225,13 @@ White_space : [ \t\n\r]+ -> channel(WHITESPACES) ;
 // ######################### LEXER RULES ################################
 
 INCLUDE : 'include';
-    
+
 LIBRARY : 'library' ;
 
 INCDIR : '-incdir' ;
- 
+
 COMMA : ',' ;
- 
+
 SEMICOLUMN : ';' ;
 
 COLUMNCOLUMN : '::' ;
@@ -255,7 +255,7 @@ USE : 'use' ;
 MODULE : 'module';
 
 ENDMODULE : 'endmodule' ;
-         
+
 OPEN_PARENS : '(' ;
 
 CLOSE_PARENS : ')' ;
@@ -274,9 +274,9 @@ PROGRAM : 'program' ;
 
 ENDPROGRAM : 'endprogram' ;
 
-VIRTUAL : 'virtual' ; 
+VIRTUAL : 'virtual' ;
 
-CLASS : 'class' ; 
+CLASS : 'class' ;
 
 ENDCLASS : 'endclass' ;
 
@@ -325,7 +325,7 @@ FUNCTION : 'function' ;
 NEW : 'new' { sverilog }?;
 
 STATIC : 'static' ;
-         
+
 PROTECTED : 'protected' ;
 
 LOCAL : 'local' ;
@@ -343,9 +343,9 @@ CONSTRAINT : 'constraint' ;
 OPEN_CURLY : '{' ;
 
 CLOSE_CURLY : '}' ;
- 
+
 SOLVE : 'solve' ;
- 
+
 BEFORE : 'before' ;
 
 IMPLY : '->' ;
@@ -368,7 +368,7 @@ PARAMETER : 'parameter' ;
 
 SPECPARAM : 'specparam' ;
 
-IMPORT : 'import' ; 
+IMPORT : 'import' ;
 
 GENVAR : 'genvar' ;
 
@@ -387,9 +387,9 @@ UNION : 'union' ;
 PACKED : 'packed' ;
 
 STRING : 'string' ;
- 
+
 CHANDLE : 'chandle' ;
- 
+
 EVENT : 'event' ;
 
 OPEN_BRACKET : '[' ;
@@ -398,7 +398,7 @@ CLOSE_BRACKET : ']' ;
 
 BYTE : 'byte' { sverilog }?;
 
-SHORTINT : 'shortint'; 
+SHORTINT : 'shortint';
 
 INT : 'int' ;
 
@@ -413,9 +413,9 @@ BIT : 'bit' { sverilog }?;
 LOGIC : 'logic' { sverilog }?;
 
 REG : 'reg' ;
-       
+
 SHORTREAL : 'shortreal' ;
- 
+
 REAL : 'real' ;
 
 REALTIME : 'realtime' ;
@@ -443,7 +443,7 @@ EVENTUALLY : 'eventually' ;
 S_EVENTUALLY : 's_eventually' ;
 
 SUPPLY0 : 'supply0' ;
- 
+
 SUPPLY1 : 'supply1' ;
 
 TRI : 'tri' ;
@@ -467,7 +467,7 @@ WOR : 'wor' ;
 TRIREG : 'trireg' ;
 
 SIGNED : 'signed';
- 
+
 UNSIGNED : 'unsigned';
 
 INTERCONNECT : 'interconnect' ;
@@ -477,7 +477,7 @@ VAR : 'var' { sverilog }?;
 VOID : 'void' ;
 
 HIGHZ0 : 'highz0' ;
-    
+
 HIGHZ1 : 'highz1' ;
 
 STRONG : 'strong' ;
@@ -538,7 +538,7 @@ NOTEQUAL : '!=' ;
 
 LESS : '<' ;
 
-LESS_EQUAL : '<=' ; 
+LESS_EQUAL : '<=' ;
 
 GREATER : '>' ;
 
@@ -554,7 +554,7 @@ OPEN_PARENS_STAR : '(*' ;
 
 STAR_CLOSE_PARENS : '*)' ;
 
-ASSERT : 'assert' ; 
+ASSERT : 'assert' ;
 
 PROPERTY : 'property' ;
 
@@ -570,12 +570,12 @@ DISABLE : 'disable' ;
 
 IFF : 'iff' ;
 
-OVERLAP_IMPLY : '|->' ;               
+OVERLAP_IMPLY : '|->' ;
 
 NON_OVERLAP_IMPLY : '|=>' ;
 
 NOT : 'not' ;
- 
+
 OR : 'or' ;
 
 AND : 'and' ;
@@ -587,7 +587,7 @@ ENDSEQUENCE : 'endsequence' ;
 INTERSECT : 'intersect' ;
 
 FIRST_MATCH : 'first_match' ;
- 
+
 THROUGHOUT : 'throughout' ;
 
 WITHIN : 'within' ;
@@ -609,11 +609,11 @@ GOTO_REP : '[->' ;
 DIST : 'dist' ;
 
 COVERGROUP : 'covergroup' ;
-    
+
 ENDGROUP : 'endgroup' ;
 
 OPTION_DOT : 'option' DOT;
- 
+
 TYPE_OPTION_DOT : 'type_option' DOT;
 
 ATAT : '@@' ;
@@ -657,18 +657,18 @@ CMOS : 'cmos' ;
 RCMOS : 'rcmos' ;
 
 BUFIF0 : 'bufif0' ;
-           
+
 BUFIF1 : 'bufif1' ;
 
 NOTIF0 : 'notif0' ;
 
 NOTIF1 : 'notif1' ;
 
-NMOS : 'nmos' ; 
+NMOS : 'nmos' ;
 
-PMOS : 'pmos' ; 
+PMOS : 'pmos' ;
 
-RNMOS : 'rnmos' ; 
+RNMOS : 'rnmos' ;
 
 RPMOS  : 'rpmos' ;
 
@@ -697,7 +697,7 @@ RTRAN : 'rtran' ;
 DOTSTAR : '.*' ;
 
 GENERATE : 'generate' ;
- 
+
 ENDGENERATE : 'endgenerate' ;
 
 CASE : 'case' ;
@@ -721,7 +721,7 @@ INITIAL : 'initial' ;
 ASSIGN : 'assign' ;
 
 ALIAS : 'alias' ;
- 
+
 ALWAYS : 'always' ;
 
 ALWAYS_COMB : 'always_comb' ;
@@ -729,7 +729,7 @@ ALWAYS_COMB : 'always_comb' ;
 ALWAYS_LATCH : 'always_latch' ;
 
 ALWAYS_FF : 'always_ff' ;
- 
+
 ADD_ASSIGN : '+=' ;
 
 SUB_ASSIGN : '-=' ;
@@ -778,9 +778,9 @@ WAIT : 'wait' ;
 
 WAIT_ORDER : 'wait_order' ;
 
-UNIQUE : 'unique' ; 
+UNIQUE : 'unique' ;
 
-UNIQUE0 : 'unique0' ; 
+UNIQUE0 : 'unique0' ;
 
 PRIORITY : 'priority' ;
 
@@ -825,7 +825,7 @@ INSIDE : 'inside' ;
 NULL_KEYWORD : 'null' ;
 
 THIS : 'this' { sverilog }?;
-          
+
 DOLLAR_ROOT : DOLLAR 'root' ;
 
 RANDOMIZE : 'randomize' { sverilog }?;
@@ -839,7 +839,7 @@ COVERPOINT : 'coverpoint' ;
 CROSS : 'cross' ;
 
 POSEDGE : 'posedge' ;
-            
+
 NEGEDGE : 'negedge' ;
 
 SPECIFY : 'specify' ;
@@ -871,7 +871,7 @@ ARITH_SHIFT_LEFT_ASSIGN : '<<<=' ;
 ARITH_SHIFT_RIGHT_ASSIGN : '>>>=' ;
 
 FOUR_STATE_LOGIC_EQUAL : '===' ;
-    
+
 FOUR_STATE_LOGIC_NOTEQUAL : '!==' ;
 
 BINARY_WILDCARD_EQUAL : '==?' ;
@@ -923,7 +923,7 @@ TICK_LINE : '`line' ;
 
 TICK_TIMESCALE : '`timescale' ;
 
-TICK_BEGIN_KEYWORDS : '`begin_keywords' ; 
+TICK_BEGIN_KEYWORDS : '`begin_keywords' ;
 
 TICK_END_KEYWORDS : '`end_keywords' ;
 
@@ -938,15 +938,15 @@ TICK_ENDCELLDEFINE : '`endcelldefine' ;
 TICK_DEFAULT_NETTYPE : '`default_nettype' ;
 
 TICK_DEFAULT_DECAY_TIME : '`default_decay_time' ;
-       
+
 TICK_DEFAULT_TRIREG_STRENGTH : '`default_trireg_strength' ;
 
-TICK_DELAY_MODE_DISTRIBUTED : '`delay_mode_distributed' ;   
-  
-TICK_DELAY_MODE_PATH : '`delay_mode_path' ;          
-  
-TICK_DELAY_MODE_UNIT : '`delay_mode_unit' ;           
- 
+TICK_DELAY_MODE_DISTRIBUTED : '`delay_mode_distributed' ;
+
+TICK_DELAY_MODE_PATH : '`delay_mode_path' ;
+
+TICK_DELAY_MODE_UNIT : '`delay_mode_unit' ;
+
 TICK_DELAY_MODE_ZERO : '`delay_mode_zero' ;
 
 TICK_ACCELERATE : '`accelerate';
@@ -965,13 +965,13 @@ TICK_SUPPRESS_FAULTS : '`suppress_faults' ;
 
 TICK_SIGNED : '`signed' ;
 
-TICK_UNSIGNED : '`unsigned' ; 
+TICK_UNSIGNED : '`unsigned' ;
 
-TICK_ENDPROTECT : '`endprotect' ; 
+TICK_ENDPROTECT : '`endprotect' ;
 
 TICK_PROTECTED : '`protected' ;
 
-TICK_ENDPROTECTED : '`endprotected' ; 
+TICK_ENDPROTECTED : '`endprotected' ;
 
 TICK_EXPAND_VECTORNETS : '`expand_vectornets' ;
 
@@ -985,7 +985,7 @@ TICK_NOREMOVE_GATENAMES : '`noremove_gatenames' ;
 
 TICK_REMOVE_NETNAME : '`remove_netname' ;
 
-TICK_NOREMOVE_NETNAMES : '`noremove_netnames' ; 
+TICK_NOREMOVE_NETNAMES : '`noremove_netnames' ;
 
 ONESTEP : '1step' ;
 
