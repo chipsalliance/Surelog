@@ -4,7 +4,7 @@
 
 [WRN:PP0103] sim/bench.v:5: Undefining an unknown macro "WRITE_FRAMES_PPM".
 
-[WRN:PA0205] rtl/front_rom.v:1: No timescale set for "font_rom".
+[WRN:PA0205] rtl/data.v:1: No timescale set for "font_rom".
 
 [WRN:PA0205] rtl/text_graph.v:1: No timescale set for "text_graph".
 
@@ -16,7 +16,7 @@
 
 [INF:CP0303] rtl/debounce.v:2: Compile module "work@debounce".
 
-[INF:CP0303] rtl/front_rom.v:1: Compile module "work@font_rom".
+[INF:CP0303] rtl/data.v:1: Compile module "work@font_rom".
 
 [INF:CP0303] rtl/pong_graph.v:2: Compile module "work@pong_graph".
 
@@ -32,8 +32,8 @@
 
 [NTE:EL0503] sim/bench.v:8: Top level module "work@testbench".
 
-[WRN:EL0505] rtl/data.v:1: Multiply defined module "work@font_rom",
-             rtl/front_rom.v:1: previous definition.
+[WRN:EL0505] rtl/front_rom.v:1: Multiply defined module "work@font_rom",
+             rtl/data.v:1: previous definition.
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -52,4 +52,13 @@
 [  ERROR] : 0
 [WARNING] : 6
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/verilog-pong/rtl/data.v       | ${SURELOG_DIR}/build/tests/YosysBigSimPong/roundtrip/data_000.v       | 972 | 2192 | 
+[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/verilog-pong/rtl/debounce.v   | ${SURELOG_DIR}/build/tests/YosysBigSimPong/roundtrip/debounce_000.v   | 6 | 32 | 
+[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/verilog-pong/rtl/pong_graph.v | ${SURELOG_DIR}/build/tests/YosysBigSimPong/roundtrip/pong_graph_000.v | 68 | 248 | 
+[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/verilog-pong/rtl/text_graph.v | ${SURELOG_DIR}/build/tests/YosysBigSimPong/roundtrip/text_graph_000.v | 24 | 51 | 
+[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/verilog-pong/rtl/top.v        | ${SURELOG_DIR}/build/tests/YosysBigSimPong/roundtrip/top_000.v        | 38 | 118 | 
+[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/verilog-pong/rtl/vga_sync.v   | ${SURELOG_DIR}/build/tests/YosysBigSimPong/roundtrip/vga_sync_000.v   | 29 | 84 | 
+[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/verilog-pong/sim/bench.v      | ${SURELOG_DIR}/build/tests/YosysBigSimPong/roundtrip/bench_000.v      | 32 | 122 | 
 
