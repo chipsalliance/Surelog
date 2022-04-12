@@ -141,7 +141,7 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
   fs::path diffFile = odir / unitdir / "diff.log";
 
   std::string diffCmd = "diff -r " + (odir / unitdir).string() + " " +
-                        odir.string() + alldir.string() +
+                        (odir / alldir).string() +
                         " --exclude cache --brief > " + diffFile.string();
   int retval = system(diffCmd.c_str());
 
