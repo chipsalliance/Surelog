@@ -67,8 +67,8 @@ const std::string& SymbolTable::getSymbol(SymbolId id) const {
   return *m_id2SymbolMap[id];
 }
 
-std::vector<std::string> SymbolTable::getSymbols() const {
-  std::vector<std::string> result;
+std::vector<std::string_view> SymbolTable::getSymbols() const {
+  std::vector<std::string_view> result;
   result.reserve(m_id2SymbolMap.size());
   for (const auto& s : m_id2SymbolMap) {
     result.push_back(*s);

@@ -334,11 +334,11 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     --line;
     content[line].reserve(content[line].size() + data.size());
 
-    for (char ch : data) {
-      if (ch == kOverwriteMarker) {
+    for (char c : data) {
+      if (c == kOverwriteMarker) {
         content[line].push_back(' ');
       } else {
-        content[line].push_back(ch);
+        content[line].push_back(c);
       }
     }
   }

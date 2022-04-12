@@ -61,12 +61,7 @@ class SymbolTable {
 
   // Get a vector of all symbols. As a special property, the SymbolID can be
   // used as an index into this  vector to get the corresponding text-symbol.
-  // This is an expensive operation as all strings are copied into the vector,
-  // but right now, this is only used in the Cache layer.
-  // TODO: fix cache layer to deal with vector of string_views; this needs
-  // to be upstream fixed in flatbuffers (CreateVectorOfStrings() needs to
-  // accept a vector of string_views).
-  std::vector<std::string> getSymbols() const;
+  std::vector<std::string_view> getSymbols() const;
 
   static const std::string& getBadSymbol();
   static SymbolId getBadId() { return 0; }
