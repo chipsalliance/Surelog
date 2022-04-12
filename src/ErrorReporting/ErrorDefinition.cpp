@@ -315,11 +315,11 @@ bool ErrorDefinition::init() {
       "Multiply defined parameter \"%s\"", "%exloc previous definition");
   rec(COMP_UNDEFINED_VARIABLE, ERROR, COMP, "Undefined variable \"%s\"");
   rec(COMP_UNDEFINED_BASE_CLASS, ERROR, COMP,
-      "Undefined base class \"%s\" extended by \"%exobj\"");
+      R"(Undefined base class "%s" extended by "%exobj")");
   rec(COMP_MULTIPLY_DEFINED_PACKAGE, ERROR, COMP,
       "Multiply defined package: \"%s\"", "%exloc previous definition");
   rec(COMP_INCOMPATIBLE_TYPES, ERROR, COMP,
-      "Incompatible types: \"%s\" is assigned \"%exobj\"");
+      R"(Incompatible types: "%s" is assigned "%exobj")");
   rec(COMP_MULTIPLY_DEFINED_VARIABLE, WARNING, COMP,
       "Multiply defined variable \"%s\"", "%exloc previous definition");
   rec(COMP_NO_METHOD_FOR_TYPE, ERROR, COMP,
@@ -404,7 +404,7 @@ bool ErrorDefinition::init() {
   rec(ELAB_UNKNOWN_PARAMETER, ERROR, ELAB,
       "Unknown parameter in command line override \"%s\"");
   rec(LIB_FILE_MAPS_TO_MULTIPLE_LIBS, ERROR, LIB,
-      "File \"%exobj\" maps to multiple libraries: \"%s\"");
+      R"(File "%exobj" maps to multiple libraries: "%s")");
   rec(UHDM_UNSUPPORTED_EXPR, ERROR, UHDM, "Unsupported expression \"%s\"");
   rec(UHDM_UNSUPPORTED_STMT, ERROR, UHDM, "Unsupported statement \"%s\"");
   rec(UHDM_UNSUPPORTED_SIGNAL, ERROR, UHDM, "Unsupported signal type \"%s\"");

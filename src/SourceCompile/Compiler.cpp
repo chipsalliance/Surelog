@@ -149,7 +149,6 @@ bool Compiler::ppinit_() {
   // Source files (.v, .sv on the command line)
   std::set<SymbolId> sourceFiles;
   std::set<fs::path> sourceFileNames;
-  unsigned int size = m_commandLineParser->getSourceFiles().size();
   for (const SymbolId source_file_id : m_commandLineParser->getSourceFiles()) {
     SymbolTable* symbols = m_symbolTable;
     if (m_commandLineParser->fileunit()) {
@@ -193,9 +192,7 @@ bool Compiler::ppinit_() {
   // Library files
   std::set<SymbolId> libFiles;
   // (-v <file>)
-  size = m_commandLineParser->getLibraryFiles().size();
-  for (unsigned int i = 0; i < size; i++) {
-    SymbolId id = m_commandLineParser->getLibraryFiles()[i];
+  for (SymbolId id : m_commandLineParser->getLibraryFiles()) {
     const fs::path fileName =
         m_commandLineParser->getSymbolTable().getSymbol(id);
     const fs::path fullPath = FileUtils::getFullPath(fileName);
@@ -551,12 +548,11 @@ bool Compiler::createMultiProcessPreProcessor_() {
 
       std::string fileList;
       // +define+
-      for (auto id_value : m_commandLineParser->getDefineList()) {
+      for (const auto& id_value : m_commandLineParser->getDefineList()) {
         const std::string defName =
             m_commandLineParser->getSymbolTable().getSymbol(id_value.first);
         std::string val;
-        for (unsigned int index = 0; index < id_value.second.size(); index++) {
-          char c = id_value.second[index];
+        for (char c : id_value.second) {
           if (c == '#') {
             val += '\\';
           }
@@ -567,10 +563,9 @@ bool Compiler::createMultiProcessPreProcessor_() {
       }
 
       // Source files (.v, .sv on the command line)
-      for (const SymbolId source_file_id :
-           m_commandLineParser->getSourceFiles()) {
+      for (const SymbolId id : m_commandLineParser->getSourceFiles()) {
         const fs::path fileName =
-            m_commandLineParser->getSymbolTable().getSymbol(source_file_id);
+            m_commandLineParser->getSymbolTable().getSymbol(id);
         std::string svFile;
         fs::path baseFileName = FileUtils::basename(fileName);
         if (m_commandLineParser->isSVFile(baseFileName)) {
@@ -861,15 +856,13 @@ bool Compiler::compileFileSet_(CompileSourceFile::Action action,
       for (unsigned short i = 0; i < maxThreadCount; i++) {
         std::cout << "Thread " << i << " : \n";
         int sum = 0;
-        for (unsigned int j = 0; j < jobArray[i].size(); j++) {
+        for (const CompileSourceFile* job : jobArray[i]) {
           fs::path fileName;
-          if (jobArray[i][j]->getPreprocessor())
-            fileName = jobArray[i][j]->getPreprocessor()->getFileName(0);
-          if (jobArray[i][j]->getParser())
-            fileName = jobArray[i][j]->getParser()->getFileName(0);
-          sum += jobArray[i][j]->getJobSize(action);
-          std::cout << jobArray[i][j]->getJobSize(action) << " " << fileName
-                    << "\n";
+          if (job->getPreprocessor())
+            fileName = job->getPreprocessor()->getFileName(0);
+          if (job->getParser()) fileName = job->getParser()->getFileName(0);
+          sum += job->getJobSize(action);
+          std::cout << job->getJobSize(action) << " " << fileName << "\n";
         }
         std::cout << ", Total: " << sum << std::endl << std::flush;
       }
@@ -879,19 +872,19 @@ bool Compiler::compileFileSet_(CompileSourceFile::Action action,
     std::vector<std::thread*> threads;
     for (unsigned short i = 0; i < maxThreadCount; i++) {
       std::thread* th = new std::thread([=] {
-        for (unsigned int j = 0; j < jobArray[i].size(); j++) {
+        for (CompileSourceFile* job : jobArray[i]) {
 #ifdef SURELOG_WITH_PYTHON
           if (getCommandLineParser()->pythonListener() ||
               getCommandLineParser()->pythonEvalScriptPerFile()) {
             PyThreadState* interpState = PythonAPI::initNewInterp();
-            jobArray[i][j]->setPythonInterp(interpState);
+            job->setPythonInterp(interpState);
           }
 #endif
-          jobArray[i][j]->compile(action);
+          job->compile(action);
 #ifdef SURELOG_WITH_PYTHON
           if (getCommandLineParser()->pythonListener() ||
               getCommandLineParser()->pythonEvalScriptPerFile()) {
-            jobArray[i][j]->shutdownPythonInterp();
+            job->shutdownPythonInterp();
           }
 #endif
         }
@@ -949,8 +942,8 @@ bool Compiler::compile() {
     std::string msg = "Preprocessing took " +
                       StringUtils::to_string(tmr.elapsed_rounded()) + "s\n";
     std::cout << msg << std::endl;
-    for (unsigned int i = 0; i < m_compilers.size(); i++) {
-      msg += m_compilers[i]->getPreprocessor()->getProfileInfo();
+    for (const CompileSourceFile* compiler : m_compilers) {
+      msg += compiler->getPreprocessor()->getProfileInfo();
     }
     std::cout << msg << std::endl;
     profile += msg;
@@ -978,11 +971,11 @@ bool Compiler::compile() {
   if (m_commandLineParser->profile()) {
     std::string msg =
         "Parsing took " + StringUtils::to_string(tmr.elapsed_rounded()) + "s\n";
-    for (unsigned int i = 0; i < m_compilersParentFiles.size(); i++) {
-      msg += m_compilersParentFiles[i]->getParser()->getProfileInfo();
+    for (const CompileSourceFile* compilerParent : m_compilersParentFiles) {
+      msg += compilerParent->getParser()->getProfileInfo();
     }
-    for (unsigned int i = 0; i < m_compilers.size(); i++) {
-      msg += m_compilers[i]->getParser()->getProfileInfo();
+    for (const CompileSourceFile* compiler : m_compilers) {
+      msg += compiler->getParser()->getProfileInfo();
     }
 
     std::cout << msg << std::endl;

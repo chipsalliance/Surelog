@@ -50,10 +50,10 @@ bool CheckCompile::checkSyntaxErrors_() {
 }
 
 bool CheckCompile::mergeSymbolTables_() {
-  Design::FileIdDesignContentMap& all_files =
+  const Design::FileIdDesignContentMap& all_files =
       m_compiler->getDesign()->getAllFileContents();
-  for (auto fitr = all_files.begin(); fitr != all_files.end(); fitr++) {
-    auto fileContent = (*fitr).second;
+  for (const auto& sym_file : all_files) {
+    const auto fileContent = sym_file.second;
     m_compiler->getSymbolTable()->registerSymbol(
         fileContent->getFileName().string());
     for (NodeId id : fileContent->getNodeIds()) {
@@ -91,8 +91,8 @@ bool CheckCompile::checkTimescale_() {
       m_compiler->getDesign()->getAllFileContents();
   std::unordered_set<SymbolId> reportedMissingTimescale;
   std::unordered_set<SymbolId> reportedMissingTimeunit;
-  for (auto fitr = all_files.begin(); fitr != all_files.end(); fitr++) {
-    auto fileContent = (*fitr).second;
+  for (const auto& sym_file : all_files) {
+    const auto fileContent = sym_file.second;
     for (auto elem : fileContent->getDesignElements()) {
       if (elem->m_type == DesignElement::Module ||
           elem->m_type == DesignElement::Interface ||

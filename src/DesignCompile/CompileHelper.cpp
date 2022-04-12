@@ -88,9 +88,9 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       return true;
     scope->addAccessPackage(def);
     auto& classSet = def->getObjects(VObjectType::slClass_declaration);
-    for (unsigned int i = 0; i < classSet.size(); i++) {
-      const FileContent* packageFile = classSet[i].fC;
-      NodeId classDef = packageFile->Sibling(classSet[i].nodeId);
+    for (const auto& cls : classSet) {
+      const FileContent* packageFile = cls.fC;
+      NodeId classDef = packageFile->Sibling(cls.nodeId);
       std::string name = packageFile->SymName(classDef);
       if (!object_name.empty()) {
         if (name != object_name) continue;
@@ -199,7 +199,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       UHDM::VectorOfany* parameters = scope->getParameters();
       if (parameters == nullptr) {
         scope->setParameters(s.MakeAnyVec());
-        parameters = scope->getParameters();
+        parameters = scope->getParameters();  // NOLINT(*.DeadStores)
       }
 
       ElaboratorListener listener(&s);
@@ -505,7 +505,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       newType = newTypeDef;
       return newType;
     }
-    type_name = fC->Sibling(data_type);
+    type_name = fC->Sibling(data_type);  // NOLINT
   } else if (dtype == VObjectType::slStringConst) {
     NodeId btype = data_type;
     NodeId Select = fC->Sibling(btype);
@@ -1915,7 +1915,7 @@ void CompileHelper::compileImportDeclaration(DesignComponent* component,
     m_exprBuilder.deleteValue(item_name);
     import_stmt->Item(imported_item);
 
-    std::string package_name(fC->SymName(package_name_id));
+    const std::string& package_name(fC->SymName(package_name_id));
     import_stmt->VpiName(package_name);
 
     package_import_item_id = fC->Sibling(package_import_item_id);
@@ -3339,7 +3339,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
     delay_control->VpiParent(assign);
     NodeId Delay_control = fC->Child(Delay_or_event_control);
     NodeId IntConst = fC->Child(Delay_control);
-    std::string value = fC->SymName(IntConst);
+    const std::string& value = fC->SymName(IntConst);
     delay_control->VpiDelay(value);
     delay_control->VpiFile(fC->getFileName());
     delay_control->VpiLineNo(fC->Line(fC->Child(Delay_control)));

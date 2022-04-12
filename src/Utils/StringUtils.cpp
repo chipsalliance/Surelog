@@ -241,12 +241,9 @@ std::string& StringUtils::ltrim(std::string& str, char c) {
   return str;
 }
 
-std::string StringUtils::leaf(std::string str) {
-  char c = '.';
-  auto it1 = std::find_if(str.rbegin(), str.rend(),
-                          [c](char ch) { return (ch == c); });
-  if (it1 != str.rend()) str.erase(str.begin(), it1.base());
-  return str;
+std::string_view StringUtils::leaf(std::string_view str) {
+  const auto found_dot = str.find_last_of('.');
+  return found_dot == std::string_view::npos ? str : str.substr(found_dot + 1);
 }
 
 std::string StringUtils::replaceAll(std::string_view str, std::string_view from,
@@ -283,8 +280,7 @@ std::string StringUtils::removeComments(std::string_view text) {
   std::string result;
   char c1 = '\0';
   bool inComment = 0;
-  for (unsigned int i = 0; i < text.size(); i++) {
-    char c2 = text[i];
+  for (char c2 : text) {
     if ((c2 == '/') && (c1 == '/')) {
       inComment = true;
       result.erase(result.end() - 1);
@@ -301,7 +297,7 @@ std::string StringUtils::removeComments(std::string_view text) {
 // Update the input string.
 
 void StringUtils::autoExpandEnvironmentVariables(std::string* text) {
-  static std::regex env("\\$\\{([^}]+)\\}");
+  static std::regex env(R"(\$\{([^}]+)\})");
   std::smatch match;
   while (std::regex_search(*text, match, env)) {
     std::string var;
@@ -329,7 +325,7 @@ void StringUtils::autoExpandEnvironmentVariables(std::string* text) {
 #endif
     text->replace(match.position(0), match.length(0), var);
   }
-  static std::regex env3("\\$\\(([^}]+)\\)");
+  static std::regex env3(R"(\$\(([^}]+)\))");
   while (std::regex_search(*text, match, env3)) {
     std::string var;
     const char* s = getenv(match[1].str().c_str());

@@ -915,7 +915,6 @@ void DesignElaboration::elaborateInstance_(
       VObjectType gatetype = fC->Type(fC->Child(subInstanceId));
       modName = builtinGateName(gatetype);
       def = design->getComponentDefinition(modName);
-      childId = 0;
       child = factory->newModuleInstance(def, fC, subInstanceId, parent,
                                          instName, modName);
       parent->addSubInstance(child);
@@ -1243,8 +1242,8 @@ void DesignElaboration::elaborateInstance_(
       }
 
       libName = fC->getLibrary()->getName();
-      fullName = parent->getModuleName() + "." + instName;
-      def = design->getComponentDefinition(fullName);
+      // fullName = parent->getModuleName() + "." + instName;
+      // def = design->getComponentDefinition(fullName);
 
       std::string indexedModName = parent->getFullPathName() + "." + modName;
       def = design->getComponentDefinition(indexedModName);
@@ -1607,15 +1606,15 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
       pack_imports.push_back(import);
     }
   }
-  for (auto pack_import : pack_imports) {
+  for (const auto& pack_import : pack_imports) {
     NodeId pack_id = pack_import.fC->Child(pack_import.nodeId);
     std::string pack_name = pack_import.fC->SymName(pack_id);
     Package* def = design->getPackage(pack_name);
     if (def) {
       auto& paramSet = def->getObjects(VObjectType::slParam_assignment);
-      for (unsigned int i = 0; i < paramSet.size(); i++) {
-        const FileContent* packageFile = paramSet[i].fC;
-        NodeId param = paramSet[i].nodeId;
+      for (const auto& element : paramSet) {
+        const FileContent* packageFile = element.fC;
+        NodeId param = element.nodeId;
 
         NodeId ident = packageFile->Child(param);
         const std::string& name = packageFile->SymName(ident);
@@ -1922,12 +1921,8 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         m_compileDesign->getCompiler()->getCommandLineParser();
     const std::map<SymbolId, std::string>& useroverrides =
         cmdLine->getParamList();
-    for (std::map<SymbolId, std::string>::const_iterator itr =
-             useroverrides.begin();
-         itr != useroverrides.end(); itr++) {
-      const std::string& name =
-          cmdLine->getSymbolTable().getSymbol((*itr).first);
-      const std::string& value = (*itr).second;
+    for (const auto& [nameId, value] : useroverrides) {
+      const std::string& name = cmdLine->getSymbolTable().getSymbol(nameId);
       Value* val = m_exprBuilder.fromString(value);
       if (val) {
         instance->setValue(name, val, m_exprBuilder, 0);
@@ -1986,9 +1981,9 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         fullPath += ".";
       }
     }
-    for (unsigned int i = 0; i < fullPath.size(); i++) {
-      if (fullPath[i] == '.') break;
-      path += fullPath[i];
+    for (char c : fullPath) {
+      if (c == '.') break;
+      path += c;
     }
     std::string pathRoot;
     pathRoot = fC->getLibrary()->getName() + "@";

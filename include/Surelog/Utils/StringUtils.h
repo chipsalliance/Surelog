@@ -97,7 +97,7 @@ class StringUtils final {
   static std::string& rtrimEqual(std::string& str);
 
   // Return the last element of a dot-separated path foo.bar.baz -> baz
-  static std::string leaf(std::string str);
+  static std::string_view leaf(std::string_view str);
 
   // In given string "str", replace all occurences of "from" with "to"
   static std::string replaceAll(std::string_view str, std::string_view from,

@@ -743,10 +743,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
           Location exloc(macroInfo->m_file, macroInfo->m_line, 0, getId(name));
           Error err(ErrorDefinition::PP_RECURSIVE_MACRO_DEFINITION, loc, exloc);
           addError(err);
-          return std::make_pair(false, getCompileSourceFile()
-                                           ->getCompiler()
-                                           ->getSymbolTable()
-                                           ->getBadSymbol());
+          return std::make_pair(false, SymbolTable::getBadSymbol());
         }
       }
     }
@@ -767,14 +764,13 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   StringUtils::replaceInTokenVector(body_tokens, "`\\`\"", "\\\"");
 
   // argument substitution
-  for (unsigned int i = 0; i < actual_args.size(); i++) {
-    if (actual_args[i].find('`') != std::string::npos) {
-      actual_args[i] = evaluateMacroInstance(
-          actual_args[i], callingFile, callingLine,
-          SpecialInstructions::CheckLoop,
+  for (std::string& actual_arg : actual_args) {
+    if (actual_arg.find('`') != std::string::npos) {
+      actual_arg = evaluateMacroInstance(
+          actual_arg, callingFile, callingLine, SpecialInstructions::CheckLoop,
           SpecialInstructions::AsIsUndefinedMacroInstr::ComplainUndefinedMacro);
     }
-    actual_args[i] = StringUtils::trim(actual_args[i]);
+    actual_arg = StringUtils::trim(actual_arg);
   }
 
   bool keyword = false;
@@ -819,8 +815,8 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
         std::regex_replace(formal_arg_default[0], ws_re, "");
     bool empty_actual = true;
     if (i < actual_args.size()) {
-      for (unsigned int ii = 0; ii < actual_args[i].size(); ii++) {
-        if (actual_args[i][ii] != ' ') {
+      for (char c : actual_args[i]) {
+        if (c != ' ') {
           empty_actual = false;
           break;
         }
@@ -907,20 +903,18 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   std::string body_short;
   // Replace \\n by \n
   bool inString = false;
-  char c1 = '\0';
-  char c2 = '\0';
-  for (unsigned int i = 0; i < body.size(); i++) {
-    c2 = body[i];
-    if (c2 == '"') {
+  char previous = '\0';
+  for (char c : body) {
+    if (c == '"') {
       inString = !inString;
     }
-    if ((c1 == '\\') && (c2 == '\n') && (!inString)) {
+    if ((previous == '\\') && (c == '\n') && (!inString)) {
       body_short.erase(body_short.end() - 1);
-      body_short.push_back(c2);
+      body_short.push_back(c);
     } else {
-      body_short.push_back(c2);
+      body_short.push_back(c);
     }
-    c1 = c2;
+    previous = c;
   }
   // Truncate trailing carriage returns (up to 2)
 
@@ -1021,9 +1015,7 @@ bool PreprocessFile::deleteMacro(const std::string& name,
   }
   // Try in included files
   if (found == false) {
-    for (std::vector<PreprocessFile*>::iterator iitr = m_includes.begin();
-         iitr != m_includes.end(); iitr++) {
-      PreprocessFile* pFile = *iitr;
+    for (PreprocessFile* pFile : m_includes) {
       if (visited.find(pFile) == visited.end()) {
         visited.insert(pFile);
         bool tmp = pFile->deleteMacro(name, visited);
@@ -1054,9 +1046,7 @@ void PreprocessFile::undefineAllMacros(std::set<PreprocessFile*>& visited) {
   m_macros.clear();
   m_compilationUnit->deleteAllMacros();
 
-  for (std::vector<PreprocessFile*>::iterator iitr = m_includes.begin();
-       iitr != m_includes.end(); iitr++) {
-    PreprocessFile* pFile = *iitr;
+  for (PreprocessFile* pFile : m_includes) {
     if (visited.find(pFile) == visited.end()) {
       visited.insert(pFile);
       pFile->undefineAllMacros(visited);
@@ -1207,12 +1197,11 @@ PreprocessFile::IfElseStack& PreprocessFile::getStack() {
 }
 
 void PreprocessFile::collectIncludedFiles(std::set<PreprocessFile*>& included) {
-  for (std::vector<PreprocessFile*>::iterator itr = m_includes.begin();
-       itr != m_includes.end(); itr++) {
-    if (!(*itr)->isMacroBody()) {
-      included.insert(*itr);
+  for (PreprocessFile* include : m_includes) {
+    if (!include->isMacroBody()) {
+      included.insert(include);
     }
-    (*itr)->collectIncludedFiles(included);
+    include->collectIncludedFiles(included);
   }
 }
 
@@ -1225,9 +1214,8 @@ void PreprocessFile::saveCache() {
       cache.save();
     }
   }
-  for (std::vector<PreprocessFile*>::iterator itr = m_includes.begin();
-       itr != m_includes.end(); itr++) {
-    (*itr)->saveCache();
+  for (PreprocessFile* include : m_includes) {
+    include->saveCache();
   }
 }
 }  // namespace SURELOG

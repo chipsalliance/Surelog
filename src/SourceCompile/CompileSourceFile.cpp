@@ -139,7 +139,7 @@ CompileSourceFile::~CompileSourceFile() {
   }
 }
 
-unsigned int CompileSourceFile::getJobSize(Action action) {
+uint64_t CompileSourceFile::getJobSize(Action action) const {
   switch (action) {
     case Preprocess:
     case PostPreprocess: {

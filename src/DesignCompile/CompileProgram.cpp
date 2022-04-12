@@ -301,7 +301,7 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
         NodeId sibling = fC->Sibling(id);
         if (!sibling) {
           if (fC->Type(fC->Parent(id)) != slProgram_declaration) break;
-          const std::string endLabel = fC->SymName(id);
+          const std::string& endLabel = fC->SymName(id);
           std::string moduleName = m_program->getName();
           moduleName = StringUtils::ltrim(moduleName, '@');
           if (endLabel != moduleName) {

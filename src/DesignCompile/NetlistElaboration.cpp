@@ -519,13 +519,12 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
                fC->Type(Udp_instance) == VObjectType::slDelay3) {
       Udp_instance = fC->Sibling(Udp_instance);
     }
-    NodeId Name_of_instance = fC->Child(Udp_instance);
     NodeId Net_lvalue = 0;
-    if (fC->Type(Name_of_instance) == slName_of_instance) {
+    if (const NodeId Name_of_instance = fC->Child(Udp_instance);
+        fC->Type(Name_of_instance) == slName_of_instance) {
       Net_lvalue = fC->Sibling(Name_of_instance);
     } else {
       Net_lvalue = Name_of_instance;
-      Name_of_instance = 0;
     }
     if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
       unsigned int index = 0;
@@ -695,9 +694,9 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       delays->push_back(delay_expr);
       Udp_instance = fC->Sibling(Udp_instance);
     }
-    NodeId Name_of_instance = fC->Child(Udp_instance);
     NodeId Net_lvalue = 0;
-    if (fC->Type(Name_of_instance) == slName_of_instance) {
+    if (const NodeId Name_of_instance = fC->Child(Udp_instance);
+        fC->Type(Name_of_instance) == slName_of_instance) {
       Net_lvalue = fC->Sibling(Name_of_instance);
       NodeId Name = fC->Child(Name_of_instance);
       NodeId Unpacked_dimension = fC->Sibling(Name);
@@ -710,7 +709,6 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       }
     } else {
       Net_lvalue = Name_of_instance;
-      Name_of_instance = 0;
     }
     if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
       unsigned int index = 0;
@@ -2066,13 +2064,9 @@ bool NetlistElaboration::elab_ports_nets_(
             Netlist* netlistInterf = new Netlist(interfaceInstance);
             interfaceInstance->setNetlist(netlistInterf);
             if (interfaceRefInstance) {
-              for (std::map<std::string, std::pair<Value*, int>>::iterator itr =
-                       interfaceRefInstance->getMappedValues().begin();
-                   itr != interfaceRefInstance->getMappedValues().end();
-                   itr++) {
-                interfaceInstance->setValue((*itr).first, (*itr).second.first,
-                                            m_exprBuilder,
-                                            (*itr).second.second);
+              for (auto& itr : interfaceRefInstance->getMappedValues()) {
+                interfaceInstance->setValue(itr.first, itr.second.first,
+                                            m_exprBuilder, itr.second.second);
               }
             }
 

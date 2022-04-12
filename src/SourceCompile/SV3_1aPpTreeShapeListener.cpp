@@ -231,11 +231,12 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
       std::cout << "PP INCLUDE DIRECTIVE " << fileName << std::endl;
 
     SymbolId fileId = getSymbolTable()->registerSymbol(fileName);
-    SymbolId locfileId = FileUtils::locateFile(fileId, getSymbolTable(),
-                                               m_pp->getCompileSourceFile()
-                                                   ->getCommandLineParser()
-                                                   ->getIncludePaths());
-    if (locfileId != getSymbolTable()->getBadId()) {
+    const SymbolId locfileId =
+        FileUtils::locateFile(fileId, getSymbolTable(),
+                              m_pp->getCompileSourceFile()
+                                  ->getCommandLineParser()
+                                  ->getIncludePaths());
+    if (locfileId != SymbolTable::getBadId()) {
       fileName = getSymbolTable()->getSymbol(locfileId);
       fileId = locfileId;
     }

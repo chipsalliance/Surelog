@@ -234,8 +234,7 @@ bool ParseCache::save() {
   /* Cache the design content */
   std::vector<flatbuffers::Offset<PARSECACHE::DesignElement>> element_vec;
   if (fcontent)
-    for (unsigned int i = 0; i < fcontent->getDesignElements().size(); i++) {
-      const DesignElement* elem = fcontent->getDesignElements()[i];
+    for (const DesignElement* elem : fcontent->getDesignElements()) {
       const TimeInfo& info = elem->m_timeInfo;
       const std::string& elemName =
           m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(

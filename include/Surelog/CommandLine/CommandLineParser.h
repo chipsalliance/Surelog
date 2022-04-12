@@ -133,7 +133,7 @@ class CommandLineParser final {
   bool help() const { return m_help; }
   void logBanner(int argc, const char** argv);
   void logFooter();
-  static const std::string& getVersionNumber();
+  static std::string_view getVersionNumber();
   /* Core functions options */
   bool parse() const { return m_parse; }
   bool parseOnly() const { return m_parseOnly; }
@@ -296,7 +296,7 @@ class CommandLineParser final {
   bool m_lowMem;
   bool m_writeUhdm;
   bool m_nonSynthesizable;
-  bool m_noCacheHash; 
+  bool m_noCacheHash;
 };
 
 }  // namespace SURELOG

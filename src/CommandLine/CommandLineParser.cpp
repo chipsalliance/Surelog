@@ -50,9 +50,9 @@ static std::string_view defaultLogFileName = "surelog.log";
 // !!! Update this number when the grammar changes !!!
 //         Or when the cache schema changes
 //        This will render the cache invalid
-const std::string& CommandLineParser::getVersionNumber() {
-  static const std::string m_versionNumber = "1.30";
-  return m_versionNumber;
+std::string_view CommandLineParser::getVersionNumber() {
+  static constexpr std::string_view kVersionNumber("1.30");
+  return kVersionNumber;
 }
 
 static const std::initializer_list<std::string_view> copyright = {
@@ -214,14 +214,13 @@ static const std::initializer_list<std::string_view> helpText = {
     "   0x2 - Syntax error(s)",
     "   0x4 - Error(s)"};
 
-bool is_number(const std::string& s) {
-  return (strspn(s.c_str(), "-.0123456789") == s.size());
+static bool is_number(const std::string_view s) {
+  return s.find_first_not_of("-.0123456789") == std::string_view::npos;
 }
 
-static bool is_c_file(const std::string& s) {
-  std::string ext = StringUtils::leaf(s);
-  if (ext == "c" || ext == "cpp" || ext == "cc") return true;
-  return false;
+static bool is_c_file(const std::string_view s) {
+  const std::string_view ext = StringUtils::leaf(s);
+  return (ext == "c" || ext == "cpp" || ext == "cc");
 }
 
 static std::string printStringArray(
@@ -252,14 +251,18 @@ std::string CommandLineParser::currentDateTime() {
   return buf;
 }
 
+static std::string BuildIdentifier() {
+  return "VERSION: " + std::string(CommandLineParser::getVersionNumber()) +
+         "\nBUILT  : " + std::string(__DATE__) + "\n";
+}
+
 void CommandLineParser::logBanner(int argc, const char** argv) {
   std::string banners = printStringArray(banner);
   std::string copyrights = printStringArray(copyright);
   m_errors->printToLogFile(banners);
   m_errors->printToLogFile(copyrights);
-  std::string version = "VERSION: " + getVersionNumber() + "\n" +
-                        "BUILT  : " + std::string(__DATE__) + "\n";
-  std::string date = "DATE   : " + currentDateTime() + "\n";
+  const std::string version = BuildIdentifier();
+  const std::string date = "DATE   : " + currentDateTime() + "\n";
   std::string cmd = "COMMAND:";
   for (int i = 1; i < argc; i++) {
     cmd += std::string(" ") + argv[i];
@@ -563,9 +566,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       return true;
     }
     if (argument == "--version") {
-      std::string version = "VERSION: " + getVersionNumber() + "\n" +
-                            "BUILT  : " + std::string(__DATE__) + "\n";
-      std::cout << version << std::flush;
+      std::cout << BuildIdentifier() << std::flush;
       m_help = true;
       return true;
     }
@@ -587,9 +588,10 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
   }
 
   for (unsigned int i = 0; i < all_arguments.size(); i++) {
+    const bool is_last_argument = (i == all_arguments.size() - 1);
     if (all_arguments[i] == "-odir" || all_arguments[i] == "-o" ||
         all_arguments[i] == "--Mdir") {
-      if (i == all_arguments.size() - 1) {
+      if (is_last_argument) {
         Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_PP_FILE_MISSING_ODIR, loc);
         m_errors->addError(err);
@@ -605,6 +607,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
 
   for (unsigned int i = 0; i < all_arguments.size(); i++) {
     if (plus_arguments_(all_arguments[i])) {
+      // handled by plus_arguments
     } else if (all_arguments[i] == "-d") {
       if (i == all_arguments.size() - 1) {
         Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));

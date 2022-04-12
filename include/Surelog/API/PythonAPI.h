@@ -53,7 +53,7 @@ class PythonAPI {
   static void shutdown(PyThreadState* interp);
 
   static void loadScripts();
-  static bool loadScript(std::string name, bool check = false);
+  static bool loadScript(const std::string& name, bool check = false);
   static std::string evalScript(const std::string& module,
                                 const std::string& function,
                                 const std::vector<std::string>& args,
@@ -76,7 +76,7 @@ class PythonAPI {
 
   static void initInterp_();
   static void loadScriptsInInterp_();
-  static bool loadScript_(std::string name, bool check = false);
+  static bool loadScript_(const std::string& name, bool check = false);
   static std::string m_invalidScriptResult;
   static PyThreadState* m_mainThreadState;
   static std::string m_programPath;

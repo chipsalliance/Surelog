@@ -79,7 +79,7 @@ void PythonAPI::shutdown() {
 #endif
 }
 
-bool PythonAPI::loadScript(std::string name, bool check) {
+bool PythonAPI::loadScript(const std::string& name, bool check) {
 #ifdef SURELOG_WITH_PYTHON
   PyEval_AcquireThread(m_mainThreadState);
   bool status = loadScript_(name, check);
@@ -90,7 +90,7 @@ bool PythonAPI::loadScript(std::string name, bool check) {
 #endif
 }
 
-bool PythonAPI::loadScript_(std::string name, bool check) {
+bool PythonAPI::loadScript_(const std::string& name, bool check) {
 #ifdef SURELOG_WITH_PYTHON
   if (FileUtils::fileExists(name)) {
     FILE* fp = fopen(name.c_str(), "r");

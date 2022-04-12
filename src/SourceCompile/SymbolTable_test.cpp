@@ -88,7 +88,7 @@ TEST(SymbolTableTest, SymbolStringsAreStableAfterTableCopy) {
   const char *before_data = table.getSymbol(foo_id).data();
 
   {
-    SymbolTable table_copy(table);
+    SymbolTable table_copy(table);  // NOLINT
     const char *after_data = table.getSymbol(foo_id).data();
     EXPECT_EQ(before_data, after_data);
   }

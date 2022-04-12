@@ -1239,7 +1239,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       std::string packageName = typeName;
       typeName += "::";
       NodeId symb_id = fC->Sibling(type);
-      std::string name = fC->SymName(symb_id);
+      const std::string& name = fC->SymName(symb_id);
       typeName += name;
       Package* pack =
           compileDesign->getCompiler()->getDesign()->getPackage(packageName);

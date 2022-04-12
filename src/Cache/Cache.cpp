@@ -214,9 +214,7 @@ std::vector<CACHE::VObject> Cache::cacheVObjects(FileContent* fcontent,
     std::cout << "INTERNAL ERROR: Cache is saturated, Use -nocache option\n";
     return object_vec;
   }
-  for (size_t i = 0; i < fcontent->getVObjects().size(); i++) {
-    VObject& object = fcontent->getVObjects()[i];
-
+  for (const VObject& object : fcontent->getVObjects()) {
     // Lets compress this struct into 20 and 16 bits fields:
     //  object_vec.push_back(PARSECACHE::CreateVObject(builder,
     //                                              canonicalSymbols.getId(m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(object.m_name)),

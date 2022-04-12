@@ -252,10 +252,7 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
   unsigned int fileIndex = 1;
   std::string allUncovered;
   static std::multimap<int, std::string> orderedCoverageMap;
-  for (FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.begin();
-       fileItr != fileNodeCoverMap.end(); fileItr++) {
-    const FileContent* fC = (*fileItr).first;
-
+  for (const auto& [fC, uhdmCover] : fileNodeCoverMap) {
     std::string fileContent = FileUtils::getFileContent(fC->getFileName());
     std::ofstream reportF;
     std::string fname = "chk" + std::to_string(fileIndex) + ".html";
@@ -271,7 +268,6 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
       if (str[i] == '\n') count++;
     }
 
-    RangesMap& uhdmCover = (*fileItr).second;
     float cov = 0.0f;
     std::map<fs::path, float>::iterator itr =
         fileCoverageMap.find(fC->getFileName());
@@ -279,26 +275,26 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
     std::stringstream strst;
     strst << std::setprecision(3) << cov;
 
-    std::string coverage = std::string(" Cov: ") + strst.str() + "% ";
-    std::string fileStatGreen =
+    const std::string coverage = std::string(" Cov: ") + strst.str() + "% ";
+    const std::string fileStatGreen =
         "<div style=\"overflow: hidden;\"> <h3 style=\"background-color: "
         "#82E0AA; margin:0; min-width: 110px; padding:10; float: left; \">" +
         coverage +
         "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" +
         fname + "> " + fC->getFileName().string() + "</a></h3></div>\n";
-    std::string fileStatPink =
+    const std::string fileStatPink =
         "<div style=\"overflow: hidden;\"> <h3 style=\"background-color: "
         "#FFB6C1; margin:0; min-width: 110px; padding:10; float: left; \">" +
         coverage +
         "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" +
         fname + "> " + fC->getFileName().string() + "</a></h3></div>\n";
-    std::string fileStatRed =
+    const std::string fileStatRed =
         "<div style=\"overflow: hidden;\"> <h3 style=\"background-color: "
         "#FF0000; margin:0; min-width: 110px; padding:10; float: left; \">" +
         coverage +
         "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" +
         fname + "> " + fC->getFileName().string() + "</a></h3></div>\n";
-    std::string fileStatWhite =
+    const std::string fileStatWhite =
         "<h3 style=\"margin:0; padding:0 \"> <a href=" + fname + ">" +
         fC->getFileName().string() + "</a> " + coverage + "</h3>\n";
 
@@ -310,18 +306,18 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
       std::string lineText = StringUtils::getLineInString(fileContent, line);
       lineText = StringUtils::replaceAll(lineText, "\r\n", "");
       lineText = StringUtils::replaceAll(lineText, "\n", "");
-      RangesMap::iterator cItr = uhdmCover.find(line);
+      RangesMap::const_iterator cItr = uhdmCover.find(line);
 
       if (cItr == uhdmCover.end()) {
         reportF << "<pre style=\"margin:0; padding:0 \">" << std::setw(4)
                 << std::to_string(line) << ": " << lineText
                 << "</pre>\n";  // white
       } else {
-        Ranges& ranges = (*cItr).second;
+        const Ranges& ranges = (*cItr).second;
         bool covered = false;
         bool exist = false;
         bool unsupported = false;
-        for (ColRange& crange : ranges) {
+        for (const ColRange& crange : ranges) {
           switch (crange.covered) {
             case EXIST:
               exist = true;
@@ -354,7 +350,7 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
         } else if (exist && (!unsupported)) {
           reportF
               << "<pre id=\"id" << line
-              << "\" style=\"background-color: #FFB6C1; margin:0; padding:0 \">"
+              << R"(" style="background-color: #FFB6C1; margin:0; padding:0 ">)"
               << std::setw(4) << std::to_string(line) << ": " << lineText
               << "</pre>\n";  // pink
           if (uncovered == false) {
@@ -372,7 +368,7 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
         } else if (unsupported) {
           reportF
               << "<pre id=\"id" << line
-              << "\" style=\"background-color: #FF0000; margin:0; padding:0 \">"
+              << R"(" style="background-color: #FF0000; margin:0; padding:0 ">)"
               << std::setw(4) << std::to_string(line) << ": " << lineText
               << "</pre>\n";  // red
           if (uncovered == false) {
@@ -426,20 +422,18 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
 }
 
 void UhdmChecker::mergeColumnCoverage() {
-  for (FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.begin();
-       fileItr != fileNodeCoverMap.end(); fileItr++) {
-    RangesMap& uhdmCover = (*fileItr).second;
-    for (RangesMap::iterator cItr = uhdmCover.begin(); cItr != uhdmCover.end();
-         cItr++) {
-      Ranges& ranges = (*cItr).second;
+  for (auto& fileItr : fileNodeCoverMap) {
+    RangesMap& uhdmCover = fileItr.second;
+    for (auto& cItr : uhdmCover) {
+      Ranges& ranges = cItr.second;
       Ranges merged;
-      for (ColRange& crange : ranges) {
+      for (const ColRange& crange : ranges) {
         if (crange.from >= crange.to) {
         } else {
           merged.push_back(crange);
         }
       }
-      (*cItr).second = merged;
+      cItr.second = merged;
     }
   }
 }
@@ -450,17 +444,13 @@ float UhdmChecker::reportCoverage(const fs::path& reportFile) {
   if (report.bad()) return false;
   int overallUncovered = 0;
   int overallLineNb = 0;
-  for (FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.begin();
-       fileItr != fileNodeCoverMap.end(); fileItr++) {
-    const FileContent* fC = (*fileItr).first;
-    RangesMap& uhdmCover = (*fileItr).second;
+  for (auto& [fC, uhdmCover] : fileNodeCoverMap) {
     bool fileNamePrinted = false;
     int lineNb = 0;
     int uncovered = 0;
     int firstUncoveredLine = 0;
-    for (RangesMap::iterator cItr = uhdmCover.begin(); cItr != uhdmCover.end();
-         cItr++) {
-      Ranges& ranges = (*cItr).second;
+    for (auto& cItr : uhdmCover) {
+      Ranges& ranges = cItr.second;
       bool exist = false;
       bool covered = false;
       bool unsupported = false;
@@ -482,13 +472,13 @@ float UhdmChecker::reportCoverage(const fs::path& reportFile) {
       overallLineNb++;
       if ((exist && (!covered)) || unsupported) {
         if (fileNamePrinted == false) {
-          firstUncoveredLine = (*cItr).first;
+          firstUncoveredLine = cItr.first;
           report << "\n\n"
-                 << fC->getFileName() << ":" << (*cItr).first << ": "
+                 << fC->getFileName() << ":" << cItr.first << ": "
                  << " Missing models\n";
           fileNamePrinted = true;
         }
-        report << "Line: " << (*cItr).first << "\n";
+        report << "Line: " << cItr.first << "\n";
         uncovered++;
         overallUncovered++;
       }
