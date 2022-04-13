@@ -45,23 +45,24 @@ static constexpr char FlbSchemaVersion[] = "1.0";
 
 fs::path ParseCache::getCacheFileName_(const fs::path& svFileNameIn) {
   fs::path svFileName = svFileNameIn;
+  CommandLineParser* clp =
+      m_parse->getCompileSourceFile()->getCommandLineParser();
   Precompiled* prec = Precompiled::getSingleton();
-  SymbolId cacheDirId =
-      m_parse->getCompileSourceFile()->getCommandLineParser()->getCacheDir();
+  SymbolId cacheDirId = clp->getCacheDir();
   if (svFileName.empty()) svFileName = m_parse->getPpFileName();
   fs::path baseFileName = FileUtils::basename(svFileName);
   if (prec->isFilePrecompiled(baseFileName)) {
-    fs::path packageRepDir = m_parse->getSymbol(m_parse->getCompileSourceFile()
-                                                    ->getCommandLineParser()
-                                                    ->getPrecompiledDir());
-    cacheDirId = m_parse->getCompileSourceFile()
-                     ->getCommandLineParser()
-                     ->mutableSymbolTable()
-                     ->registerSymbol(packageRepDir.string());
+    fs::path packageRepDir = m_parse->getSymbol(clp->getPrecompiledDir());
+    cacheDirId =
+        clp->mutableSymbolTable()->registerSymbol(packageRepDir.string());
     m_isPrecompiled = true;
     svFileName = baseFileName;
   } else {
-    svFileName = svFileName.parent_path().filename() / baseFileName;
+    if (clp->noCacheHash()) {
+      svFileName = baseFileName;
+    } else {
+      svFileName = svFileName.parent_path().filename() / baseFileName;
+    }
   }
 
   fs::path cacheDirName = m_parse->getSymbol(cacheDirId);
