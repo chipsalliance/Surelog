@@ -149,8 +149,8 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   void addParamAssign(ParamAssign* assign) { m_paramAssigns.push_back(assign); }
   const ParamAssignVec& getParamAssignVec() const { return m_paramAssigns; }
 
-  void addImportedSymbol(UHDM::import* i) { m_imported_symbols.push_back(i); }
-  const std::vector<UHDM::import*>& getImportedSymbols() const {
+  void addImportedSymbol(UHDM::import_typespec* i) { m_imported_symbols.push_back(i); }
+  const std::vector<UHDM::import_typespec*>& getImportedSymbols() const {
     return m_imported_symbols;
   }
 
@@ -201,7 +201,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   TypeDefMap m_typedefs;
   std::vector<Package*> m_packages;
   VariableMap m_variables;
-  std::vector<UHDM::import*> m_imported_symbols;
+  std::vector<UHDM::import_typespec*> m_imported_symbols;
   std::vector<UHDM::ref_obj*> m_needLateBinding;
   std::vector<UHDM::any*> m_needLateTypedefBinding;
   ParameterMap m_parameterMap;
