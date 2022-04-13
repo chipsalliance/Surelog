@@ -121,11 +121,17 @@ flatbuffers::Offset<SURELOG::CACHE::Header> Cache::createHeader(
 
 bool Cache::saveFlatbuffers(flatbuffers::FlatBufferBuilder& builder,
                             const fs::path& cacheFileName) {
-  const std::string filename = cacheFileName.string();
+  const std::string tmp_name = cacheFileName.string() + ".tmp";
   const unsigned char* buf = builder.GetBufferPointer();
-  int size = builder.GetSize();
-  bool status = flatbuffers::SaveFile(filename.c_str(), (char*)buf, size, true);
-  return status;
+  const int size = builder.GetSize();
+  bool success =
+      flatbuffers::SaveFile(tmp_name.c_str(), (const char*)buf, size, true);
+  if (success) {
+    std::filesystem::rename(tmp_name, cacheFileName);
+  } else {
+    std::filesystem::remove(tmp_name);
+  }
+  return success;
 }
 
 std::pair<flatbuffers::Offset<Cache::VectorOffsetError>,
