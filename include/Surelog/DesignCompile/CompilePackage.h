@@ -66,11 +66,11 @@ class CompilePackage final {
     m_helper.seterrorReporting(errors, symbols);
   }
 
-  bool compile();
+  bool compile(bool reduce);
 
  private:
   enum CollectType { FUNCTION, DEFINITION, OTHER };
-  bool collectObjects_(CollectType collectType);
+  bool collectObjects_(CollectType collectType, bool reduce);
 
   CompileDesign* const m_compileDesign;
   Package* const m_package;

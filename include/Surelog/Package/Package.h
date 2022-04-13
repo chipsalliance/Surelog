@@ -81,6 +81,7 @@ class Package : public DesignComponent {
   Netlist* getNetlist() { return m_netlist; }
   void setNetlist(Netlist* netlist) { m_netlist = netlist; }
 
+  Package* getUnElabPackage() { return m_unElabPackage; }
  private:
   std::string m_name;
   Library* m_library;
@@ -89,6 +90,7 @@ class Package : public DesignComponent {
 
   UHDM::VectorOfattribute* attributes_ = nullptr;
   Netlist* m_netlist = nullptr;
+  Package* m_unElabPackage = nullptr;
 };
 
 };  // namespace SURELOG
