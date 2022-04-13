@@ -105,7 +105,7 @@ class SubRoutineCallStmt : public Statement {
     m_function = nullptr;
   }
   std::vector<NodeId>& getVarChain() { return m_var_chain; }
-  std::string getVarName(NodeId base_name) const;
+  std::string_view getVarName(NodeId base_name) const;
   std::vector<std::string> getVarChainNames() const;
   const std::string& getFunc() const { return m_func; }
   bool isStatic() const { return m_static; }

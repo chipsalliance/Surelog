@@ -57,7 +57,7 @@ ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,
   }
 }
 
-UHDM::expr* ModuleInstance::getComplexValue(const std::string& name) const {
+UHDM::expr* ModuleInstance::getComplexValue(std::string_view name) const {
   ModuleInstance* instance = (ModuleInstance*)this;
   while (instance) {
     UHDM::expr* res = ValuedComponentI::getComplexValue(name);
@@ -89,7 +89,7 @@ UHDM::expr* ModuleInstance::getComplexValue(const std::string& name) const {
   return nullptr;
 }
 
-Value* ModuleInstance::getValue(const std::string& name,
+Value* ModuleInstance::getValue(std::string_view name,
                                 ExprBuilder& exprBuilder) const {
   Value* sval = nullptr;
 
@@ -151,7 +151,7 @@ Value* ModuleInstance::getValue(const std::string& name,
   return sval;
 }
 
-ModuleInstance* ModuleInstance::getChildByName(const std::string& name) {
+ModuleInstance* ModuleInstance::getChildByName(std::string_view name) {
   for (auto child : m_allSubInstances) {
     if (child->getInstanceName() == name) return child;
   }
@@ -303,11 +303,11 @@ void ModuleInstance::overrideParentChild(ModuleInstance* parent,
   m_allSubInstances = children;
 }
 
-void ModuleInstance::setOverridenParam(const std::string& name) {
-  m_overridenParams.insert(name);
+void ModuleInstance::setOverridenParam(std::string_view name) {
+  m_overridenParams.emplace(name);
 }
 
-bool ModuleInstance::isOverridenParam(const std::string& name) {
+bool ModuleInstance::isOverridenParam(std::string_view name) {
   if (m_overridenParams.find(name) == m_overridenParams.end()) return false;
   return true;
 }

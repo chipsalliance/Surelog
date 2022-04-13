@@ -650,7 +650,7 @@ void FileContent::addDesignElement(const std::string& name,
 }
 
 const DesignElement* FileContent::getDesignElement(
-    const std::string& name) const {
+    std::string_view name) const {
   auto itr = m_elementMap.find(name);
   if (itr != m_elementMap.end()) {
     return (*itr).second;

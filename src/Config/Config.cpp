@@ -24,38 +24,29 @@
 #include <Surelog/Config/Config.h>
 
 namespace SURELOG {
-UseClause* Config::getInstanceUseClause(const std::string& instance) {
-  std::map<std::string, UseClause>::iterator itr =
-      m_instanceUseClauses.find(instance);
-  if (itr == m_instanceUseClauses.end()) {
-    return nullptr;
-  } else {
-    return &(*itr).second;
-  }
+UseClause* Config::getInstanceUseClause(std::string_view instance) {
+  const auto found = m_instanceUseClauses.find(instance);
+  return (found == m_instanceUseClauses.end()) ? nullptr : &found->second;
 }
 
-UseClause* Config::getCellUseClause(const std::string& cell) {
-  std::map<std::string, UseClause>::iterator itr = m_cellUseClauses.find(cell);
-  if (itr == m_cellUseClauses.end()) {
-    return nullptr;
-  } else {
-    return &(*itr).second;
-  }
+UseClause* Config::getCellUseClause(std::string_view cell) {
+  const auto found = m_cellUseClauses.find(cell);
+  return (found == m_cellUseClauses.end()) ? nullptr : &found->second;
 }
 
-void Config::addInstanceUseClause(const std::string& instance,
+void Config::addInstanceUseClause(std::string_view instance,
                                   const UseClause& use) {
-  auto itr = m_instanceUseClauses.find(instance);
-  if (itr != m_instanceUseClauses.end()) {
-    m_instanceUseClauses.erase(itr);
+  auto previous = m_instanceUseClauses.find(instance);
+  if (previous != m_instanceUseClauses.end()) {
+    m_instanceUseClauses.erase(previous);
   }
 
   m_instanceUseClauses.insert(std::make_pair(instance, use));
 }
-void Config::addCellUseClause(const std::string& cell, const UseClause& use) {
-  auto itr = m_cellUseClauses.find(cell);
-  if (itr != m_cellUseClauses.end()) {
-    m_instanceUseClauses.erase(itr);
+void Config::addCellUseClause(std::string_view cell, const UseClause& use) {
+  auto previous = m_cellUseClauses.find(cell);
+  if (previous != m_cellUseClauses.end()) {
+    m_instanceUseClauses.erase(previous);
   }
   m_cellUseClauses.insert(std::make_pair(cell, use));
 }

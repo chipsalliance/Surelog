@@ -26,6 +26,7 @@
 #pragma once
 
 #include <Surelog/Common/SymbolId.h>
+#include <Surelog/Common/Containers.h>
 
 #include <map>
 #include <string>
@@ -47,14 +48,12 @@ class UseClause {
         m_used(false) {}
   UseClause(Type type, const FileContent* fC, NodeId id)
       : m_type(type),
-        m_name(""),
         m_fileContent(fC),
         m_node(id),
         m_used(false) {}
   UseClause(Type type, const std::vector<std::string>& libs,
             const FileContent* fC, NodeId id)
       : m_type(type),
-        m_name(""),
         m_libs(libs),
         m_fileContent(fC),
         m_node(id),
@@ -81,6 +80,7 @@ class UseClause {
 
 class Config final {
  public:
+  using UseClauseMap = std::map<std::string, UseClause, StringViewCompare>;
   Config(std::string_view name, const FileContent* fC, NodeId nodeId)
       : m_name(name),
         m_fileContent(fC),
@@ -96,28 +96,28 @@ class Config final {
   void setIsUsed() { m_used = true; }
   bool isUsed() const { return m_used; }
 
-  void setDesignTop(std::string top) { m_designTop = top; }
+  void setDesignTop(std::string_view top) { m_designTop = top; }
   const std::string& getDesignTop() const { return m_designTop; }
 
-  void setDesignLib(std::string lib) { m_designLib = lib; }
+  void setDesignLib(std::string_view lib) { m_designLib = lib; }
   const std::string& getDesignLib() const { return m_designLib; }
 
-  void addDefaultLib(const std::string& lib) { m_defaultLibs.push_back(lib); }
+  void addDefaultLib(std::string_view lib) { m_defaultLibs.emplace_back(lib); }
   const std::vector<std::string>& getDefaultLibs() const {
     return m_defaultLibs;
   }
 
-  void addInstanceUseClause(const std::string& instance, const UseClause& use);
-  const std::map<std::string, UseClause>& getInstanceUseClauses() const {
+  void addInstanceUseClause(std::string_view instance, const UseClause& use);
+  const UseClauseMap& getInstanceUseClauses() const {
     return m_instanceUseClauses;
   }
-  UseClause* getInstanceUseClause(const std::string& instance);
+  UseClause* getInstanceUseClause(std::string_view instance);
 
-  void addCellUseClause(const std::string& cell, const UseClause& use);
-  const std::map<std::string, UseClause>& getCellUseClauses() const {
+  void addCellUseClause(std::string_view cell, const UseClause& use);
+  const UseClauseMap& getCellUseClauses() const {
     return m_cellUseClauses;
   }
-  UseClause* getCellUseClause(const std::string& cell);
+  UseClause* getCellUseClause(std::string_view cell);
 
   bool isTopLevel() const { return m_isTopLevel; }
   void setTopLevel(bool top) { m_isTopLevel = top; }
@@ -132,8 +132,8 @@ class Config final {
   std::string m_designLib;
   std::string m_designTop;
   std::vector<std::string> m_defaultLibs;
-  std::map<std::string, UseClause> m_instanceUseClauses;
-  std::map<std::string, UseClause> m_cellUseClauses;
+  UseClauseMap m_instanceUseClauses;
+  UseClauseMap m_cellUseClauses;
 };
 
 };  // namespace SURELOG

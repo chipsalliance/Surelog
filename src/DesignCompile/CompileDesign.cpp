@@ -253,7 +253,7 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
         design->addPackageDefinition(pack.first, pack.second);
       }
     }
-    for (auto def : fC->getClassDefinitions()) {
+    for (const auto& def : fC->getClassDefinitions()) {
       design->addClassDefinition(def.first, def.second);
       for (const auto& def1 : def.second->getClassMap()) {
         design->addClassDefinition(def1.first, def1.second);

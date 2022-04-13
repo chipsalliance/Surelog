@@ -25,11 +25,12 @@
 #define SURELOG_MODULEINSTANCE_H
 #pragma once
 
-#include <string_view>
-
 #include <Surelog/Common/SymbolId.h>
+#include <Surelog/Common/Containers.h>
 #include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
+
+#include <string_view>
 
 namespace SURELOG {
 
@@ -91,21 +92,21 @@ class ModuleInstance : public ValuedComponentI {
 
   std::vector<Parameter*>& getTypeParams() { return m_typeParams; }
 
-  Value* getValue(const std::string& name,
+  Value* getValue(std::string_view name,
                   ExprBuilder& exprBuilder) const override;
-  UHDM::expr* getComplexValue(const std::string& name) const override;
+  UHDM::expr* getComplexValue(std::string_view name) const override;
 
   ModuleInstance* getInstanceBinding() { return m_boundInstance; }
   bool isElaborated() { return m_elaborated; }
   void setElaborated() { m_elaborated = true; }
 
-  void setOverridenParam(const std::string& name);
-  bool isOverridenParam(const std::string& name);
+  void setOverridenParam(std::string_view name);
+  bool isOverridenParam(std::string_view name);
 
   // DO NOT change the signature of this method, it is used in gdb for debug.
   std::string decompile(char* valueName) final;
 
-  ModuleInstance* getChildByName(const std::string& name);
+  ModuleInstance* getChildByName(std::string_view name);
 
  private:
   DesignComponent* m_definition;
@@ -119,7 +120,7 @@ class ModuleInstance : public ValuedComponentI {
   Netlist* m_netlist;
   ModuleInstance* m_boundInstance = nullptr;
   bool m_elaborated = false;
-  std::set<std::string> m_overridenParams;
+  std::set<std::string, StringViewCompare> m_overridenParams;
 };
 
 class ModuleInstanceFactory {

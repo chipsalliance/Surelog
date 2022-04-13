@@ -25,11 +25,12 @@
 #define SURELOG_CLASSDEFINITION_H
 #pragma once
 
-#include <string_view>
-
+#include <Surelog/Common/Containers.h>
 #include <Surelog/Design/DataType.h>
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Testbench/TaskMethod.h>
+
+#include <string_view>
 
 // UHDM
 #include <uhdm/containers.h>
@@ -69,43 +70,43 @@ class ClassDefinition : public DesignComponent, public DataType {
   UHDM::class_defn* getUhdmDefinition() const { return m_uhdm_definition; }
 
   // Parameter definitions are stored DesignComponent maps
-  typedef std::map<std::string, Property*> PropertyMap;
-  typedef std::map<std::string, TaskMethod*> TaskMap;
-  typedef std::map<std::string, Constraint*> ConstraintMap;
-  typedef std::map<std::string, const DataType*> BaseClassMap;
-  typedef std::map<std::string, ClassDefinition*> ClassMap;
-  typedef std::map<std::string, CoverGroupDefinition*> CoverGroupMap;
+  typedef std::map<std::string, Property*, StringViewCompare> PropertyMap;
+  typedef std::map<std::string, TaskMethod*, StringViewCompare> TaskMap;
+  typedef std::map<std::string, Constraint*, StringViewCompare> ConstraintMap;
+  typedef std::map<std::string, const DataType*, StringViewCompare> BaseClassMap;
+  typedef std::map<std::string, ClassDefinition*, StringViewCompare> ClassMap;
+  typedef std::map<std::string, CoverGroupDefinition*, StringViewCompare> CoverGroupMap;
 
-  PropertyMap& getPropertyMap() { return m_properties; }
-  Property* getProperty(const std::string& name) const;
+  const PropertyMap& getPropertyMap() const { return m_properties; }
+  Property* getProperty(std::string_view name) const;
   void insertProperty(Property* p);
 
-  Function* getFunction(const std::string& name) const override;
+  Function* getFunction(std::string_view name) const override;
 
   const TaskMap& getTaskMap() const { return m_tasks; }
   TaskMap& getMutableTaskMap() { return m_tasks; }
-  TaskMethod* getTask(const std::string& name) const override;
+  TaskMethod* getTask(std::string_view name) const override;
   void insertTask(TaskMethod* p);
 
-  ConstraintMap& getConstraintMap() { return m_constraints; }
-  Constraint* getConstraint(const std::string& name);
+  const ConstraintMap& getConstraintMap() const { return m_constraints; }
+  Constraint* getConstraint(std::string_view name);
   void insertConstraint(Constraint* p);
 
   // Nested classes
-  ClassMap& getClassMap() { return m_classes; }
-  ClassDefinition* getClass(const std::string& name);
+  const ClassMap& getClassMap() const { return m_classes; }
+  ClassDefinition* getClass(std::string_view name);
   void insertClass(ClassDefinition* p);
 
-  CoverGroupMap& getCoverGroupMap() { return m_covergroups; }
-  CoverGroupDefinition* getCoverGroup(const std::string& name);
+  const CoverGroupMap& getCoverGroupMap() const { return m_covergroups; }
+  CoverGroupDefinition* getCoverGroup(std::string_view name);
   void insertCoverGroup(CoverGroupDefinition* p);
 
   const BaseClassMap& getBaseClassMap() const { return m_baseclasses; }
   BaseClassMap& getMutableBaseClassMap() { return m_baseclasses; }
-  const DataType* getBaseClass(const std::string& name) const;
+  const DataType* getBaseClass(std::string_view name) const;
   void insertBaseClass(DataType* p);
 
-  const DataType* getBaseDataType(const std::string& type) const;
+  const DataType* getBaseDataType(std::string_view type) const;
 
   bool hasCompleteBaseSpecification() const;
 

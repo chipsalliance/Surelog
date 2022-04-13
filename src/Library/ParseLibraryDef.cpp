@@ -234,7 +234,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
         NodeId libList = fC->Child(instClause);
         std::vector<std::string> libs;
         while (libList) {
-          libs.push_back(fC->SymName(libList));
+          libs.emplace_back(fC->SymName(libList));
           libList = fC->Sibling(libList);
         }
 
