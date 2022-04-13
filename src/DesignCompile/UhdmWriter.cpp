@@ -2924,6 +2924,8 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
         p->Attributes(pack->Attributes());
         v3->push_back(p);
         writePackage(pack, p, s, componentMap, false);
+        // WIP: writePackage(pack->getUnElabPackage(), p, s, componentMap,
+        // false);
         if (fC) {
           // Builtin package has no file
           p->VpiFile(fC->getFileName());

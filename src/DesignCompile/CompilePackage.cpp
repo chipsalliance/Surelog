@@ -43,12 +43,18 @@ namespace SURELOG {
 int FunctorCompilePackage::operator()() const {
   CompilePackage* instance = new CompilePackage(m_compileDesign, m_package,
                                                 m_design, m_symbols, m_errors);
-  instance->compile();
+  instance->compile(true);
   delete instance;
+  /* WIP
+  instance = new CompilePackage(m_compileDesign, m_package->getUnElabPackage(),
+                                                m_design, m_symbols, m_errors);
+  instance->compile(false);
+  delete instance;
+  */
   return true;
 }
 
-bool CompilePackage::compile() {
+bool CompilePackage::compile(bool reduce) {
   if (!m_package) return false;
   UHDM::Serializer& s = m_compileDesign->getSerializer();
   UHDM::package* pack = any_cast<UHDM::package*>(m_package->getUhdmInstance());
@@ -62,24 +68,24 @@ bool CompilePackage::compile() {
       m_compileDesign->getCompiler()->getDesign());
   const FileContent* fC = m_package->m_fileContents[0];
   NodeId packId = m_package->m_nodeIds[0];
+  if (reduce) {
+    Location loc(m_symbols->registerSymbol(fC->getFileName(packId).string()),
+                 fC->Line(packId), 0, m_symbols->getId(m_package->getName()));
+    Error err(ErrorDefinition::COMP_COMPILE_PACKAGE, loc);
 
-  Location loc(m_symbols->registerSymbol(fC->getFileName(packId).string()),
-               fC->Line(packId), 0, m_symbols->getId(m_package->getName()));
-  Error err(ErrorDefinition::COMP_COMPILE_PACKAGE, loc);
-
-  ErrorContainer* errors = new ErrorContainer(m_symbols);
-  errors->registerCmdLine(
-      m_compileDesign->getCompiler()->getCommandLineParser());
-  errors->addError(err);
-  errors->printMessage(
-      err,
-      m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
-  delete errors;
-
-  collectObjects_(CollectType::FUNCTION);
-  collectObjects_(CollectType::DEFINITION);
+    ErrorContainer* errors = new ErrorContainer(m_symbols);
+    errors->registerCmdLine(
+        m_compileDesign->getCompiler()->getCommandLineParser());
+    errors->addError(err);
+    errors->printMessage(
+        err,
+        m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
+    delete errors;
+  }
+  collectObjects_(CollectType::FUNCTION, reduce);
+  collectObjects_(CollectType::DEFINITION, reduce);
   m_helper.evalScheduledExprs(m_package, m_compileDesign);
-  collectObjects_(CollectType::OTHER);
+  collectObjects_(CollectType::OTHER, reduce);
 
   do {
     VObject current = fC->Object(packId);
@@ -94,7 +100,7 @@ bool CompilePackage::compile() {
   return true;
 }
 
-bool CompilePackage::collectObjects_(CollectType collectType) {
+bool CompilePackage::collectObjects_(CollectType collectType, bool reduce) {
   std::vector<VObjectType> stopPoints = {
       VObjectType::slClass_declaration,
       VObjectType::slFunction_body_declaration,
@@ -149,12 +155,12 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_package, fC, list_of_type_assignments, m_compileDesign, false,
-                nullptr, false, true, false);
+                nullptr, false, reduce, false);
 
           } else {
             m_helper.compileParameterDeclaration(m_package, fC, id,
                                                  m_compileDesign, false,
-                                                 nullptr, false, true, false);
+                                                 nullptr, false, reduce, false);
           }
           break;
         }
@@ -167,12 +173,12 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_package, fC, list_of_type_assignments, m_compileDesign, true,
-                nullptr, false, true, false);
+                nullptr, false, reduce, false);
 
           } else {
             m_helper.compileParameterDeclaration(m_package, fC, id,
                                                  m_compileDesign, true, nullptr,
-                                                 false, true, false);
+                                                 false, reduce, false);
           }
           break;
         }
@@ -231,7 +237,7 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
         case VObjectType::slData_declaration: {
           if (collectType != CollectType::DEFINITION) break;
           m_helper.compileDataDeclaration(m_package, fC, id, false,
-                                          m_compileDesign, true);
+                                          m_compileDesign, reduce);
           break;
         }
         case VObjectType::slDpi_import_export: {
