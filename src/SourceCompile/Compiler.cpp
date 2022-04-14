@@ -421,8 +421,11 @@ bool Compiler::createMultiProcessParser_() {
         if (m_commandLineParser->isSVFile(baseFileName)) {
           svFile = " -sv ";
         }
-
-        std::string batchCmd = fileUnit + sverilog + synth +
+        std::string noHash;
+        if (m_commandLineParser->noCacheHash()) {
+          noHash = " -nohash ";
+        }
+        std::string batchCmd = fileUnit + sverilog + synth + noHash +
                                " -parseonly -nostdout -mt 0 -mp 0 -o " +
                                outputPath.string() + " -nobuiltin -l " +
                                FileUtils::basename(targetname).string() +
@@ -598,8 +601,11 @@ bool Compiler::createMultiProcessPreProcessor_() {
             m_commandLineParser->getSymbolTable().getSymbol(id);
         fileList += " -I" + fileName.string();
       }
-
-      std::string batchCmd = fileUnit + sverilog + synth +
+      std::string noHash;
+      if (m_commandLineParser->noCacheHash()) {
+        noHash = " -nohash ";
+      }
+      std::string batchCmd = fileUnit + sverilog + synth + noHash +
                              " -writepp -mt 0 -mp 0 -o " + outputPath.string() +
                              " -nobuiltin -noparse -nostdout -cd " +
                              std::string(p) + " -l " + directory.string() +
