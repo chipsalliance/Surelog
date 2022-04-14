@@ -466,6 +466,7 @@ std::string ParseFile::getProfileInfo() {
 }
 
 bool ParseFile::parse() {
+  CommandLineParser* clp = getCompileSourceFile()->getCommandLineParser();
   Precompiled* prec = Precompiled::getSingleton();
   fs::path root = FileUtils::basename(this->getPpFileName());
   bool precompiled = false;
@@ -478,6 +479,10 @@ bool ParseFile::parse() {
       m_usingCachedVersion = true;
       if (debug_AstModel && !precompiled)
         std::cout << m_fileContent->printObjects();
+      if (clp->debugCache()) {
+        std::cout << "PARSER CACHE USED FOR: " << this->getFileName(0)
+                  << std::endl;
+      }
       return true;
     }
   } else {
@@ -495,6 +500,10 @@ bool ParseFile::parse() {
       }
     }
     if (ok) {
+      if (clp->debugCache()) {
+        std::cout << "PARSER CACHE USED FOR: " << this->getFileName(0)
+                  << std::endl;
+      }
       return true;
     }
   }
@@ -527,7 +536,7 @@ bool ParseFile::parse() {
       if (debug_AstModel && !precompiled)
         std::cout << m_fileContent->printObjects();
 
-      if (getCompileSourceFile()->getCommandLineParser()->profile()) {
+      if (clp->profile()) {
         // m_profileInfo += "AST Walking: " + std::to_string
         // (tmr.elapsed_rounded ()) + "\n";
         tmr.reset();
@@ -538,7 +547,7 @@ bool ParseFile::parse() {
         return false;
       }
 
-      if (getCompileSourceFile()->getCommandLineParser()->profile()) {
+      if (clp->profile()) {
         m_profileInfo +=
             "Cache saving: " + std::to_string(tmr.elapsed_rounded()) + "s\n";
         std::cout << "Cache saving: " + std::to_string(tmr.elapsed_rounded()) +
@@ -562,7 +571,7 @@ bool ParseFile::parse() {
           antlr4::tree::ParseTreeWalker::DEFAULT.walk(
               child->m_listener, child->m_antlrParserHandler->m_tree);
 
-          if (getCompileSourceFile()->getCommandLineParser()->profile()) {
+          if (clp->profile()) {
             // m_profileInfo += "For file " + getSymbol
             // (child->m_ppFileId) + ", AST Walking took" +
             // std::to_string (tmr.elapsed_rounded ()) + "\n";
