@@ -159,6 +159,7 @@ static const std::initializer_list<std::string_view> helpText = {
     "",
     "TRACES OPTIONS:",
     "  -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm, "
+    "cache"
     "coveruhdm, vpi_ids",
     "  -nostdout             Mutes Standard output",
     "  -verbose              Gives verbose processing information",
@@ -308,6 +309,7 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_diff_comp_mode(diff_comp_mode),
       m_help(false),
       m_cacheAllowed(true),
+      m_debugCache(false),
       m_nbMaxTreads(0),
       m_nbMaxProcesses(0),
       m_fullCompileDir(0),
@@ -630,6 +632,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         m_uhdmStats = true;
       } else if (all_arguments[i] == "coveruhdm") {
         m_coverUhdm = true;
+      } else if (all_arguments[i] == "cache") {
+        m_debugCache = true;
       } else if (all_arguments[i] == "vpi_ids") {
         m_showVpiIDs = true;
       } else {

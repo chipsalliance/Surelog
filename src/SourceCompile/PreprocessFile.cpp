@@ -327,7 +327,14 @@ bool PreprocessFile::preprocess() {
     getCompilationUnit()->setCurrentTimeInfo(getFileId(0));
     if (m_debugAstModel && !precompiled)
       std::cout << m_fileContent->printObjects();
-    if (precompiled) return true;
+    if (precompiled || clp->noCacheHash()) {
+      if (clp->debugCache()) {
+        if (m_macroBody.empty()) {
+          std::cout << "PP CACHE USED FOR: " << fileName << std::endl;
+        }
+      }
+      return true;
+    }
   }
   if (clp->parseOnly() || clp->lowMem()) return true;
 

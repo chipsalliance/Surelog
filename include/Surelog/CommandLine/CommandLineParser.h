@@ -90,6 +90,8 @@ class CommandLineParser final {
   bool writePpOutput() const { return m_writePpOutput; }
   void setwritePpOutput(bool value) { m_writePpOutput = value; }
   bool cacheAllowed() const { return m_cacheAllowed; }
+  bool debugCache() const { return m_debugCache; }
+  void debugCache(bool on) { m_debugCache = on; }
   void noCacheHash( bool noCachePath) { m_noCacheHash = noCachePath; }
   bool noCacheHash() const { return m_noCacheHash; }
   void setCacheAllowed(bool val) { m_cacheAllowed = val; }
@@ -250,6 +252,7 @@ class CommandLineParser final {
   bool m_diff_comp_mode;
   bool m_help;
   bool m_cacheAllowed;
+  bool m_debugCache;
   unsigned short int m_nbMaxTreads;
   unsigned short int m_nbMaxProcesses;
   SymbolId m_compileUnitDirectory;
