@@ -28,7 +28,7 @@
 
 #include <Surelog/Common/SymbolId.h>
 
-#include <memory>
+#include <deque>
 #include <string>
 #include <string_view>
 #include <unordered_map>
@@ -44,7 +44,11 @@ class SymbolTable {
   ~SymbolTable();
 
   // Unfortunately, currently the copy constructor is used in a few places.
-  SymbolTable(const SymbolTable&) = default;
+  // Until that semantic is fixed, make it cheap to refer to higher symbol
+  // tables.
+  // A copy construction essentially works as a 'snapshot' of the copied table.
+  SymbolTable(const SymbolTable& parent)
+      : m_parent(&parent), m_idOffset(parent.m_idCounter + parent.m_idOffset) {}
 
   // Register given "symbol" string as a symbol and return its id.
   // If this is an existing symbol, its ID is returned, otherwise a new one
@@ -57,7 +61,6 @@ class SymbolTable {
 
   // Get symbol string identified by given ID or BadSymbol if it doesn't exist
   // (see #getBadSymbol()).
-  //const std::string& getSymbol(SymbolId id) const;
   const std::string& getSymbol(SymbolId id) const;
 
   // Get a vector of all symbols. As a special property, the SymbolID can be
@@ -69,20 +72,15 @@ class SymbolTable {
   static const std::string& getEmptyMacroMarker();
 
  private:
-  SymbolId m_idCounter;
+  void AppendSymbols(int64_t up_to, std::vector<std::string_view>* dest) const;
 
-  // Stable allocated strings that don't change with vector reallocations.
-  //
-  // Unfortunately, since we have a copy-constructor, we also need to keep
-  // track of number of references, so we use the undesirable std::shared_ptr
-  // here; luckily we only need to worry about reference counting peformance
-  // on copy or realloc.
-  //
-  // On the plus side, now symbol strings are even stable between copies of
-  // symbol tables.
-  // TODO: change the whole system to actually deal with absl::string_view
-  // being returned as symbols, then have a block backing buffer here.
-  std::vector<std::shared_ptr<std::string>> m_id2SymbolMap;
+  const SymbolTable *m_parent = nullptr;
+  SymbolId m_idOffset = 0;
+
+  SymbolId m_idCounter = 0;
+
+  // Stable strings whose address doesn't change with reallocations.
+  std::deque<std::string> m_id2SymbolMap;
 
   // The key string_views point to the stable backing buffer provided in
   // m_id2SymbolMap
