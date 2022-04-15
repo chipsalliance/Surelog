@@ -51,6 +51,7 @@ fs::path ParseCache::getCacheFileName_(const fs::path& svFileNameIn) {
   SymbolId cacheDirId = clp->getCacheDir();
   if (svFileName.empty()) svFileName = m_parse->getPpFileName();
   fs::path baseFileName = FileUtils::basename(svFileName);
+  fs::path cacheFileName;
   if (prec->isFilePrecompiled(baseFileName)) {
     fs::path packageRepDir = m_parse->getSymbol(clp->getPrecompiledDir());
     cacheDirId =
@@ -59,7 +60,7 @@ fs::path ParseCache::getCacheFileName_(const fs::path& svFileNameIn) {
     svFileName = baseFileName;
   } else {
     if (clp->noCacheHash()) {
-      svFileName = baseFileName;
+      cacheFileName = svFileName.string() + ".slpa";
     } else {
       svFileName = svFileName.parent_path().filename() / baseFileName;
     }
@@ -68,8 +69,10 @@ fs::path ParseCache::getCacheFileName_(const fs::path& svFileNameIn) {
   fs::path cacheDirName = m_parse->getSymbol(cacheDirId);
   Library* lib = m_parse->getLibrary();
   std::string libName = lib->getName();
-  fs::path cacheFileName =
-      cacheDirName / libName / (svFileName.string() + ".slpa");
+  if (cacheFileName.empty()) {
+    cacheFileName = cacheDirName / libName / (svFileName.string() + ".slpa");
+  }
+
   FileUtils::mkDirs(cacheDirName / libName);
   return cacheFileName;
 }
