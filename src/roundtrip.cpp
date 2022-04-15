@@ -192,7 +192,7 @@ static const typespec_names_t kTypespecNames = {
   { UHDM::uhdmclass_typespec, "" },
   { UHDM::uhdmenum_typespec, "" },
   { UHDM::uhdmevent_typespec, "" },
-  { UHDM::uhdmimport, "" },
+  { UHDM::uhdmimport_typespec, "import" },
   { UHDM::uhdmint_typespec, "int" },
   { UHDM::uhdminteger_typespec, "integer" },
   { UHDM::uhdminterface_typespec, "" },
@@ -3151,7 +3151,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     // tests\SimpleClass
   }
 
-  void enterImport(const UHDM::import *const object) final {
+  void enterImport_typespec(const UHDM::import_typespec *const object) final {
     if (visited.find(object) != visited.end()) return;
 
     constexpr std::string_view keyword1 = "import";

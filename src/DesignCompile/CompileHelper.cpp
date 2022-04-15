@@ -1895,7 +1895,7 @@ void CompileHelper::compileImportDeclaration(DesignComponent* component,
      */
   Serializer& s = compileDesign->getSerializer();
   while (package_import_item_id != 0) {
-    import* import_stmt = s.MakeImport();
+    import_typespec* import_stmt = s.MakeImport_typespec();
     import_stmt->VpiFile(fC->getFileName());
     import_stmt->VpiLineNo(fC->Line(package_import_item_id));
     import_stmt->VpiColumnNo(fC->Column(package_import_item_id));

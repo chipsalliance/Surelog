@@ -2051,7 +2051,7 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
       bool isTypespec = false;
       std::vector<std::string> importedPackages;
       for (auto n : *m->Typespecs()) {
-        if (n->UhdmType() == uhdmimport) {
+        if (n->UhdmType() == uhdmimport_typespec) {
           importedPackages.push_back(n->VpiName());
         }
       }
