@@ -29,20 +29,23 @@ enum MacroType :byte { NO_ARGS = 0, WITH_ARGS = 1 }
 table Macro {
   name:string;
   type:MacroType;
-  line:uint;
-  column:ushort;
+  start_line:uint;
+  start_column:ushort;
+  end_line:uint;
+  end_column:ushort;
   arguments:[string];
   tokens:[string];
 }
 
 table IncludeFileInfo {
+  context:uint;
   section_start_line:uint;
   section_file:string;
   original_start_line:uint;
   original_start_column:uint;
   original_end_line:uint;
   original_end_column:uint;
-  type:uint;  // 1 or 2, push or pop
+  action:uint;  // 1 or 2, push or pop
   index_opening:int;
   index_closing:int;
 }

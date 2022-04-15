@@ -91,12 +91,14 @@ class PreprocessFile {
   std::string getPreProcessedFileContent();
 
   /* Macro manipulations */
-  void recordMacro(const std::string& name, unsigned int line,
-                   unsigned short int column,
+  void recordMacro(const std::string& name, unsigned int startLine,
+                   unsigned short int startColumn, unsigned int endLine,
+                   unsigned short int endColumn,
                    const std::string& formal_arguments,
                    const std::vector<std::string>& body);
-  void recordMacro(const std::string& name, unsigned int line,
-                   unsigned short int column,
+  void recordMacro(const std::string& name, unsigned int startLine,
+                   unsigned short int startColumn, unsigned int endLine,
+                   unsigned short int endColumn,
                    const std::vector<std::string>& formal_arguments,
                    const std::vector<std::string>& body);
   std::string getMacro(const std::string& name,
@@ -147,7 +149,7 @@ class PreprocessFile {
     if (index >= 0 && index < ((int)m_includeFileInfo.size()))
       return m_includeFileInfo[index];
     else
-      return m_badIncludeFileInfo;
+      return s_badIncludeFileInfo;
   }
   unsigned int getEmbeddedMacroCallLine() const {
     return m_embeddedMacroCallLine;
@@ -169,7 +171,7 @@ class PreprocessFile {
   std::vector<PreprocessFile*> m_includes;
   CompileSourceFile* m_compileSourceFile;
   size_t m_lineCount = 0;
-  IncludeFileInfo m_badIncludeFileInfo;
+  static IncludeFileInfo s_badIncludeFileInfo;
 
  public:
   /* Instructions passed from calling scope */
@@ -191,19 +193,22 @@ class PreprocessFile {
           m_filterFileLine(DontFilter),
           m_check_macro_loop(DontCheckLoop),
           m_as_is_undefined_macro(ComplainUndefinedMacro),
-          m_evaluate(Evaluate), m_persist(DontPersist) {}
+          m_evaluate(Evaluate),
+          m_persist(DontPersist) {}
     SpecialInstructions(SpecialInstructions& rhs)
         : m_mute(rhs.m_mute),
           m_mark_empty_macro(rhs.m_mark_empty_macro),
           m_filterFileLine(rhs.m_filterFileLine),
           m_check_macro_loop(rhs.m_check_macro_loop),
           m_as_is_undefined_macro(rhs.m_as_is_undefined_macro),
-          m_evaluate(rhs.m_evaluate), m_persist(rhs.m_persist) {}
+          m_evaluate(rhs.m_evaluate),
+          m_persist(rhs.m_persist) {}
     SpecialInstructions(TraceInstr mute, EmptyMacroInstr mark_empty_macro,
                         FileLineInfoInstr filterFileLine,
                         CheckLoopInstr check_macro_loop,
                         AsIsUndefinedMacroInstr as_is_undefined_macro,
-                        EvaluateInstr evaluate = Evaluate, PersistMacroInstr persist = DontPersist)
+                        EvaluateInstr evaluate = Evaluate,
+                        PersistMacroInstr persist = DontPersist)
         : m_mute(mute),
           m_mark_empty_macro(mark_empty_macro),
           m_filterFileLine(filterFileLine),
@@ -298,7 +303,7 @@ class PreprocessFile {
   LoopCheck m_loopChecker;
 
   void setFileContent(FileContent* content) { m_fileContent = content; }
-  FileContent* getFileContent() { return m_fileContent; }
+  FileContent* getFileContent() const { return m_fileContent; }
 
   void setVerilogVersion(VerilogVersion version) { m_verilogVersion = version; }
   VerilogVersion getVerilogVersion() { return m_verilogVersion; }

@@ -111,8 +111,9 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
     for (unsigned int j = 0; j < macro->tokens()->size(); j++) {
       tokens.push_back(macro->tokens()->Get(j)->str());
     }
-    m_pp->recordMacro(macro->name()->str(), macro->line(), macro->column(),
-                      args, tokens);
+    m_pp->recordMacro(macro->name()->str(), macro->start_line(),
+                      macro->start_column(), macro->end_line(),
+                      macro->end_column(), args, tokens);
   }
 
   SymbolTable canonicalSymbols;
@@ -162,15 +163,15 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
       // std::cout << "read sectionFile: " << sectionFileName << " s:" <<
       // incinfo->m_sectionStartLine() << " o:" << incinfo->m_originalLine() <<
       // " t:" << incinfo->m_type() << "\n";
-      IncludeFileInfo inf(
+      m_pp->getIncludeFileInfo().emplace_back(
+          static_cast<IncludeFileInfo::Context>(incinfo->context()),
           incinfo->section_start_line(),
           m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(
               sectionFileName.string()),
           incinfo->original_start_line(), incinfo->original_start_column(),
           incinfo->original_end_line(), incinfo->original_end_column(),
-          (IncludeFileInfo::Action)incinfo->type(), incinfo->index_opening(),
-          incinfo->index_closing());
-      m_pp->getIncludeFileInfo().push_back(inf);
+          static_cast<IncludeFileInfo::Action>(incinfo->action()),
+          incinfo->index_opening(), incinfo->index_closing());
     }
   }
   // Includes
@@ -355,7 +356,8 @@ bool PPCache::save() {
     */
     auto tokens = builder.CreateVectorOfStrings(info->m_tokens);
     macro_vec.push_back(MACROCACHE::CreateMacro(
-        builder, name, type, info->m_line, info->m_column, args, tokens));
+        builder, name, type, info->m_startLine, info->m_startColumn,
+        info->m_endLine, info->m_endColumn, args, tokens));
   }
   auto macroList = builder.CreateVector(macro_vec);
 
@@ -442,11 +444,12 @@ bool PPCache::save() {
         m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
             info.m_sectionFile);
     auto incInfo = MACROCACHE::CreateIncludeFileInfo(
-        builder, info.m_sectionStartLine,
+        builder, static_cast<uint32_t>(info.m_context), info.m_sectionStartLine,
         builder.CreateString(sectionFileName.string()),
         info.m_originalStartLine, info.m_originalStartColumn,
-        info.m_originalEndLine, info.m_originalEndColumn, info.m_type,
-        info.m_indexOpening, info.m_indexClosing);
+        info.m_originalEndLine, info.m_originalEndColumn,
+        static_cast<uint32_t>(info.m_action), info.m_indexOpening,
+        info.m_indexClosing);
     // std::cout << "save sectionFile: " << sectionFileName << " s:" <<
     // info.m_sectionStartLine << " o:" << info.m_originalLine << " t:" <<
     // info.m_type << "\n";

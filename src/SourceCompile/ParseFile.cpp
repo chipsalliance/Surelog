@@ -181,7 +181,7 @@ void ParseFile::buildLineInfoCache_() {
       unsigned int index = infos.size() - 1;
       while (1) {
         if ((lineItr >= infos[index].m_originalStartLine) &&
-            (infos[index].m_type == IncludeFileInfo::POP)) {
+            (infos[index].m_action == IncludeFileInfo::Action::POP)) {
           SymbolId fileId = infos[index].m_sectionFile;
           fileInfoCache[lineItr] = fileId;
           unsigned int l = infos[index].m_sectionStartLine +
@@ -189,7 +189,7 @@ void ParseFile::buildLineInfoCache_() {
           lineInfoCache[lineItr] = l;
           break;
         }
-        if (infos[index].m_type == IncludeFileInfo::POP) {
+        if (infos[index].m_action == IncludeFileInfo::Action::POP) {
           if (!inRange) {
             inRange = true;
             indexOpeningRange = infos[index].m_indexOpening;
@@ -200,7 +200,7 @@ void ParseFile::buildLineInfoCache_() {
           }
         }
         if ((lineItr >= infos[index].m_originalStartLine) &&
-            (infos[index].m_type == IncludeFileInfo::PUSH) &&
+            (infos[index].m_action == IncludeFileInfo::Action::PUSH) &&
             (infos[index].m_indexClosing > -1) &&
             (lineItr <
              infos[infos[index].m_indexClosing].m_originalStartLine)) {
@@ -409,7 +409,7 @@ bool ParseFile::parseOneFile_(const std::string& fileName,
     if (getCompileSourceFile()->getCommandLineParser()->profile()) {
       m_profileInfo +=
           "LL  Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
-          " " + fileName + "\n";
+          "s " + fileName + "\n";
       tmr.reset();
       profileParser();
     }
