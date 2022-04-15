@@ -118,7 +118,7 @@ void SV3_1aPpTreeListenerHelper::logError(ErrorDefinition::ErrorType error,
       ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
   if (m_pp->getMacroInfo()) {
     Location loc(m_pp->getMacroInfo()->m_file,
-                 m_pp->getMacroInfo()->m_line + lineCol.first - 1,
+                 m_pp->getMacroInfo()->m_startLine + lineCol.first - 1,
                  lineCol.second, getSymbolTable()->registerSymbol(object));
     Location extraLoc(m_pp->getIncluderFileId(m_pp->getIncluderLine()),
                       m_pp->getIncluderLine(), 0, 0);
@@ -181,11 +181,12 @@ void SV3_1aPpTreeListenerHelper::checkMultiplyDefinedMacro(
     std::pair<int, int> lineCol =
         ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
     if ((macroInf->m_file == m_pp->getFileId(lineCol.first)) &&
-        (m_pp->getLineNb(lineCol.first) == macroInf->m_line))
+        (m_pp->getLineNb(lineCol.first) == macroInf->m_startLine))
       return;
     Location loc(m_pp->getFileId(lineCol.first), m_pp->getLineNb(lineCol.first),
                  0, getSymbolTable()->getId(macroName));
-    Location extraLoc(macroInf->m_file, macroInf->m_line, 0, 0);
+    Location extraLoc(macroInf->m_file, macroInf->m_startLine,
+                      macroInf->m_startColumn, 0);
     logError(ErrorDefinition::PP_MULTIPLY_DEFINED_MACRO, loc, extraLoc);
     visited.erase(visited.begin(), visited.end());
     // So we can store the latest declaration
