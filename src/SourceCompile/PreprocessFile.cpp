@@ -322,7 +322,7 @@ bool PreprocessFile::preprocess() {
   CommandLineParser* clp = getCompileSourceFile()->getCommandLineParser();
   Timer tmr;
   PPCache cache(this);
-  if (cache.restore(clp->lowMem())) {
+  if (cache.restore(clp->lowMem() || clp->noCacheHash())) {
     m_usingCachedVersion = true;
     getCompilationUnit()->setCurrentTimeInfo(getFileId(0));
     if (m_debugAstModel && !precompiled)
