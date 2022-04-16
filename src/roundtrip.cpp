@@ -3492,8 +3492,19 @@ static int run_in_uhdm_mode(int argc, const char **argv) {
   return run(restoredDesigns, baseDir, logDir);
 }
 
+static int usage(const char *progname) {
+  fprintf(stderr, "Usage:\n");
+  fprintf(stderr, "%s -uhdm-mode <uhdm-file> -base <base-dir> -log <log-dir>\n",
+          progname);
+  // TODO(hs-apotell) describe what base-dir and logdir do.
+  fprintf(stderr, "or\n");
+  fprintf(stderr, "%s -surelog-mode <uhdm-file> <surelog-arguments>\n",
+          progname);
+  return 1;
+}
+
 int main(int argc, const char **argv) {
-  if (argc < 2) return 0;
+  if (argc < 2) return usage(argv[0]);
 
 #if defined(_MSC_VER) && defined(_DEBUG)
   // Redirect cout to file
