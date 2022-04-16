@@ -254,5 +254,21 @@ TEST(StringUtilsTest, EvaluateEnvironmentVariables) {
             StringUtils::evaluateEnvVars("hello ${REGISTERED_EVAL_FOO} bar"));
 }
 
+TEST(StringUtilsTest, StrCat) {
+  EXPECT_EQ("hello world", StrCat("hello ", "world"));  // const char*
+  EXPECT_EQ("Answer 42", StrCat("Answer ", 42));        // Integer
+
+  // String view.
+  const std::string str_concat = "string";
+  const std::string_view str_view_concat = "string_view";
+  EXPECT_EQ("string string_view", StrCat(str_concat, " ", str_view_concat));
+}
+
+TEST(StringUtilsTest, StrAppend) {
+  std::string target("Base string ");
+  StrAppend(&target, "hello ", "world ", 42);
+  EXPECT_EQ("Base string hello world 42", target);
+}
+
 }  // namespace
 }  // namespace SURELOG
