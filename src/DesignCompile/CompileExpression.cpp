@@ -5025,6 +5025,57 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
   return result;
 }
 
+bool CompileHelper::parseConstant(const UHDM::constant &constant,
+                                  int64_t *value) {
+  char *endptr = nullptr;
+  const std::string &v = constant.VpiValue();
+  if (v.length() <= 4) return false;  // All prefices are at least this long.
+  errno = 0;
+  switch (constant.VpiConstType()) {
+    case vpiBinaryConst: {
+      *value = std::strtoull(v.c_str() + std::string_view("BIN:").length(),
+                             &endptr, 2);
+      break;
+    }
+    case vpiDecConst: {
+      *value = std::strtoll(v.c_str() + std::string_view("DEC:").length(),
+                            &endptr, 10);
+      break;
+    }
+    case vpiHexConst: {
+      *value = std::strtoull(v.c_str() + std::string_view("HEX:").length(),
+                             &endptr, 16);
+      break;
+    }
+    case vpiOctConst: {
+      *value = std::strtoull(v.c_str() + std::string_view("OCT:").length(),
+                             &endptr, 8);
+      break;
+    }
+    case vpiIntConst: {
+      *value = std::strtoll(v.c_str() + std::string_view("INT:").length(),
+                            &endptr, 10);
+      break;
+    }
+    case vpiUIntConst: {
+      *value = std::strtoull(v.c_str() + std::string_view("UINT:").length(),
+                             &endptr, 10);
+      break;
+    }
+    default: {
+      if (v.find("UINT:") != std::string::npos) {
+        *value = std::strtoull(v.c_str() + std::string_view("UINT:").length(),
+                               &endptr, 10);
+      } else {
+        *value = std::strtoll(v.c_str() + std::string_view("INT:").length(),
+                              &endptr, 10);
+      }
+      break;
+    }
+  }
+  return endptr && *endptr == '\0' && errno != ERANGE;
+}
+
 int64_t CompileHelper::getValue(bool &validValue, DesignComponent *component,
                                 const FileContent *fC, NodeId nodeId,
                                 CompileDesign *compileDesign, UHDM::any *pexpr,
@@ -5035,51 +5086,7 @@ int64_t CompileHelper::getValue(bool &validValue, DesignComponent *component,
   UHDM::any *expr = compileExpression(component, fC, nodeId, compileDesign,
                                       pexpr, instance, reduce, muteErrors);
   if (expr && expr->UhdmType() == UHDM::uhdmconstant) {
-    UHDM::constant *c = (UHDM::constant *)expr;
-    const std::string &v = c->VpiValue();
-    int type = c->VpiConstType();
-    switch (type) {
-      case vpiBinaryConst: {
-        result = std::strtoll(v.c_str() + std::string_view("BIN:").length(),
-                              nullptr, 2);
-        break;
-      }
-      case vpiDecConst: {
-        result = std::strtoll(v.c_str() + std::string_view("DEC:").length(),
-                              nullptr, 10);
-        break;
-      }
-      case vpiHexConst: {
-        result = std::strtoll(v.c_str() + std::string_view("HEX:").length(),
-                              nullptr, 16);
-        break;
-      }
-      case vpiOctConst: {
-        result = std::strtoll(v.c_str() + std::string_view("OCT:").length(),
-                              nullptr, 8);
-        break;
-      }
-      case vpiIntConst: {
-        result = std::strtoll(v.c_str() + std::string_view("INT:").length(),
-                              nullptr, 10);
-        break;
-      }
-      case vpiUIntConst: {
-        result = std::strtoull(v.c_str() + std::string_view("UINT:").length(),
-                               nullptr, 10);
-        break;
-      }
-      default: {
-        if (v.find("UINT:") != std::string::npos) {
-          result = std::strtoull(v.c_str() + std::string_view("UINT:").length(),
-                                 nullptr, 10);
-        } else {
-          result = std::strtoll(v.c_str() + std::string_view("INT:").length(),
-                                nullptr, 10);
-        }
-        break;
-      }
-    }
+    validValue = parseConstant(*(const UHDM::constant *)expr, &result);
   } else {
     validValue = false;
   }

@@ -519,6 +519,7 @@ register_gtests(
   src/SourceCompile/PreprocessFile_test.cpp
   src/SourceCompile/ParseFile_test.cpp
   src/DesignCompile/CompileExpression_test.cpp
+  src/DesignCompile/CompileHelper_test.cpp
   src/DesignCompile/Elaboration_test.cpp
   src/DesignCompile/Uhdm_test.cpp
 )

@@ -34,6 +34,7 @@
 
 // UHDM
 #include <uhdm/containers.h>
+#include <uhdm/constant.h>
 
 namespace SURELOG {
 
@@ -474,6 +475,9 @@ class CompileHelper final {
                       CompileDesign* compileDesign, ValuedComponentI* instance,
                       const std::filesystem::path& fileName, int lineNumber,
                       UHDM::any* pexpr, bool reduce, bool muteErrors = false);
+
+  // Parse numeric UHDM constant into int64_t. Returns if successful.
+  bool parseConstant(const UHDM::constant &constant, int64_t *value);
 
   int64_t getValue(bool& validValue, DesignComponent* component,
                    const FileContent* fC, NodeId nodeId,
