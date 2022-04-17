@@ -432,8 +432,10 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
             break;
           }
         }
+        // bool isSigned = false;
         if ((value.find_first_of('s') != std::string::npos) ||
             (value.find_first_of('S') != std::string::npos)) {
+          // isSigned = true;
           v = value.substr(i + 3);
         } else {
           v = value.substr(i + 2);
