@@ -23,6 +23,7 @@
 
 #include <Surelog/Design/VObject.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/StringUtils.h>
 
 namespace SURELOG {
 
@@ -31,48 +32,24 @@ std::string VObject::print(SymbolTable* symbols, unsigned int uniqueId,
   std::string text;
   const std::string& symbol = symbols->getSymbol(m_name);
   if (symbol == SymbolTable::getBadSymbol()) {
-    text += "n<>";
+    StrAppend(&text, "n<>");
   } else {
-    text = "n<" + symbols->getSymbol(m_name) + ">";
+    StrAppend(&text, "n<", symbol, ">");
   }
+  StrAppend(&text, " u<", uniqueId, "> ");
+  StrAppend(&text, "t<", getTypeName(m_type).substr(2), ">");
+  if (m_parent) StrAppend(&text, " p<", m_parent, ">");
+  if (m_definition) StrAppend(&text, " d<", m_definition, ">");
+  if (definitionFile) StrAppend(&text, " df<", definitionFile, ">");
+  if (m_child) StrAppend(&text, " c<", m_child, ">");
+  if (m_sibling) StrAppend(&text, " s<", m_sibling, ">");
 
-  text += " ";
-  text += "u<" + std::to_string(uniqueId) + ">";
-  text += " ";
-  std::string type = getTypeName(m_type);
-  type.erase(0, 2);
-  text += "t<" + type + ">";
-  if (m_parent) {
-    text += " ";
-    text += "p<" + std::to_string(m_parent) + ">";
-  }
-  if (m_definition) {
-    text += " ";
-    text += "d<" + std::to_string(m_definition) + ">";
-  }
-  if (definitionFile) {
-    text += " ";
-    text += "df<" + std::to_string(definitionFile) + ">";
-  }
-  if (m_child) {
-    text += " ";
-    text += "c<" + std::to_string(m_child) + ">";
-  }
-  if (m_sibling) {
-    text += " ";
-    text += "s<" + std::to_string(m_sibling) + ">";
-  }
-  text += " ";
-  if (printedFile != m_fileId) {
-    text += "f<" + std::to_string(m_fileId) + ">";
-    text += " ";
-  }
-  text += "l<" + std::to_string(m_line) + ":" + std::to_string(m_column) + ">";
-  if (m_endLine) {
-    text += " ";
-    text += "el<" + std::to_string(m_endLine) + ":" +
-            std::to_string(m_endColumn) + ">";
-  }
+  StrAppend(&text, " ");
+  if (printedFile != m_fileId) StrAppend(&text, "f<", m_fileId, "> ");
+
+  StrAppend(&text, "l<", m_line, ":", m_column, ">");
+  if (m_endLine) StrAppend(&text, " el<", m_endLine, ":", m_endColumn, ">");
+
   return text;
 }
 }  // namespace SURELOG

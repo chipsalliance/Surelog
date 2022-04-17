@@ -29,8 +29,33 @@
 #include <string>
 #include <string_view>
 #include <vector>
+#include <sstream>
 
 namespace SURELOG {
+
+// StrCat() and StrAppend() are fairly efficient (at least as good as +/+=)
+// but more optimal implementations are possible (see absl::StrCat()
+// absl::StrAppend(). So these are in the name and spirit of the absl version
+// while being the simplest possible for now until optimization is needed.
+
+// StrCat(): concatenate the string representations of each argument into
+// a string which is returned.
+template <typename... Ts>
+std::string StrCat(Ts&&... args) {
+  std::ostringstream out;
+  (out << ... << std::forward<Ts>(args));
+  return out.str();
+}
+
+// Similar to StrCat(), append arguments, converted to strings to "dest"
+// string.
+template <typename... Ts>
+void StrAppend(std::string *dest, Ts&&... args) {
+  std::ostringstream out;
+  out << *dest;
+  (out << ... << std::forward<Ts>(args));
+  *dest = out.str();
+}
 
 class StringUtils final {
  public:
