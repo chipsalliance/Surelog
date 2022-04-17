@@ -55,7 +55,7 @@ class CompileStep {
 
   virtual NodeId Parent(NodeId index) = 0;
 
-  virtual unsigned short Type(NodeId index) const = 0;
+  virtual VObjectType Type(NodeId index) const = 0;
 
   virtual unsigned int Line(NodeId index) = 0;
 

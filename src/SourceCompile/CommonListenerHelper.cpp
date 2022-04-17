@@ -76,7 +76,7 @@ NodeId& CommonListenerHelper::Parent(NodeId index) {
   return m_fileContent->getVObjects()[index].m_parent;
 }
 
-unsigned short& CommonListenerHelper::Type(NodeId index) {
+VObjectType& CommonListenerHelper::Type(NodeId index) {
   return m_fileContent->getVObjects()[index].m_type;
 }
 

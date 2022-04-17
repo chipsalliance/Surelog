@@ -39,17 +39,9 @@ class VObject final {
   VObject(SymbolId name, SymbolId fileId, VObjectType type, unsigned int line,
           unsigned short column, unsigned int endLine, unsigned short endColumn,
           NodeId parent = 0)
-      : m_name(name),
-        m_fileId(fileId),
-        m_type(type),
-        m_column(column),
-        m_endColumn(endColumn),
-        m_line(line),
-        m_endLine(endLine),
-        m_parent(parent),
-        m_definition(0),
-        m_child(0),
-        m_sibling(0) {}
+    : VObject(name, fileId, type, line, column, endLine, endColumn, parent,
+              0/*definition*/, 0/*child*/, 0/*sibling*/) {}
+
   VObject(SymbolId name, SymbolId fileId, VObjectType type, unsigned int line,
           unsigned short column, unsigned int endLine, unsigned short endColumn,
           NodeId parent, NodeId definition, NodeId child, NodeId sibling)
@@ -65,13 +57,14 @@ class VObject final {
         m_child(child),
         m_sibling(sibling) {}
 
-  static std::string getTypeName(unsigned short type);
+  static std::string_view getTypeName(VObjectType type);
 
   std::string print(SymbolTable* symbols, unsigned int uniqueId,
                     NodeId definitionFile, SymbolId printedFile) const;
+
   SymbolId m_name;
   SymbolId m_fileId;
-  unsigned short m_type;
+  VObjectType m_type;
   unsigned short m_column;
   unsigned short m_endColumn;
   unsigned int m_line;
