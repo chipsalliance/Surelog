@@ -24,8 +24,7 @@
 
 // UHDM
 #include <uhdm/design.h>
-#include <uhdm/module.h>
-#include <uhdm/port.h>
+#include <uhdm/uhdm.h>
 
 namespace SURELOG {
 
@@ -70,6 +69,52 @@ TEST(Uhdm, PortType) {
     }
   }
 }
+TEST(Uhdm, Unsigned) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
 
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  // Preprocess, Parse, Compile, Elaborate, Create UHDM model
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+  module top();
+    parameter logic [7:0] A = unsigned'(4); // A = 4
+    parameter logic [7:0] B = $unsigned(-4); // B = 8'b11111100
+    parameter logic [7:0] C = $unsigned(-4'sd4);// C = 8'b00001100
+    parameter logic signed [7:0] D =  signed'(4'b1100); // D = -4
+    parameter logic signed [7:0] E =  $signed(4'b1100); // E = -4
+    parameter logic signed [7:0] F =  signed'(-4'sd4); // D = -4
+  endmodule
+  )");
+  auto insts = design->getTopLevelModuleInstances();
+  EXPECT_EQ(insts.size(), 1);
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    EXPECT_EQ(topMod->Param_assigns()->size(), 6);
+    for (auto passign : *topMod->Param_assigns()) {
+      UHDM::parameter* p = (UHDM::parameter*)passign->Lhs();
+      const std::string_view pname = p->VpiName();
+      UHDM::constant* value = (UHDM::constant*)passign->Rhs();
+      if (pname == "A") {
+        EXPECT_EQ(value->VpiValue(), "UINT:4");
+      } else if (pname == "B") {
+        EXPECT_EQ(value->VpiValue(), "UINT:252");
+      } else if (pname == "C") {
+        EXPECT_EQ(value->VpiValue(), "UINT:12");
+      } else if (pname == "D") {
+        EXPECT_EQ(value->VpiValue(), "INT:-4");
+      } else if (pname == "E") {
+        EXPECT_EQ(value->VpiValue(), "INT:-4");
+      } else if (pname == "F") {
+        EXPECT_EQ(value->VpiValue(), "INT:-4");
+      } else {
+        FAIL();
+      }
+    }
+  }
+}
 }  // namespace
 }  // namespace SURELOG
