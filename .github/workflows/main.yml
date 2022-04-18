@@ -67,8 +67,7 @@ jobs:
         echo 'CXX=g++-9' >> $GITHUB_ENV
         echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
         echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
-        echo "ADDITIONAL_CMAKE_OPTIONS='-DPython3_ROOT_DIR=${pythonLocation} -DMY_CXX_WARNING_FLAGS="-W -Wall -Wextra -Wno-unused-parameter -Wno-unused-variable -Werror -UNDEBUG"'" >> $GITHUB_ENV
-        echo 'RULE_MESSAGES=off' >> $GITHUB_ENV
+        echo "ADDITIONAL_CMAKE_OPTIONS='-DPython3_ROOT_DIR=${pythonLocation} -DCMAKE_RULE_MESSAGES=off -DMY_CXX_WARNING_FLAGS="-W -Wall -Wextra -Wno-unused-parameter -Wno-unused-variable -Werror -UNDEBUG"'" >> $GITHUB_ENV
 
     - name: Show shell configuration
       run: |
@@ -633,7 +632,6 @@ jobs:
     - name: Configure shell
       run: |
         echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
-        echo 'RULE_MESSAGES=off' >> $GITHUB_ENV
 
     - name: Prepare source
       run: |
