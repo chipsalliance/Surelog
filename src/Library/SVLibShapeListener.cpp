@@ -47,7 +47,6 @@ SVLibShapeListener::SVLibShapeListener(ParseLibraryDef *parser,
           tokens, 0),
       m_parser(parser),
       m_tokens(tokens),
-      m_currentConfig(nullptr),
       m_relativePath(relativePath) {
   m_fileContent = new FileContent(m_parser->getFileId(), nullptr,
                                   m_parser->getSymbolTable(),

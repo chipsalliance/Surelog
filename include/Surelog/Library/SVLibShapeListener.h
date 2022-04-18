@@ -174,7 +174,6 @@ class SVLibShapeListener : public SV3_1aParserBaseListener,
  private:
   ParseLibraryDef* m_parser;
   antlr4::CommonTokenStream* m_tokens;
-  Config* m_currentConfig;
   const std::filesystem::path m_relativePath;
 };
 

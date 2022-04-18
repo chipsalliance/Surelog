@@ -40,11 +40,12 @@ class FileContent;
 class ClockingBlock final {
  public:
   enum Type { Global, Default, Regular };
-  ClockingBlock(const FileContent* fileContent, NodeId blockId,
-                NodeId clockingBlockId, Type type, UHDM::clocking_block* actual)
-      : m_fileContent(fileContent),
-        m_blockId(blockId),
-        m_clockingBlockId(clockingBlockId),
+  // TODO: some of these parameters are not used. Correct or oversight ?
+  ClockingBlock([[maybe_unused]] const FileContent* fileContent,
+                NodeId blockId,
+                [[maybe_unused]] NodeId clockingBlockId,
+                Type type, UHDM::clocking_block* actual)
+      : m_blockId(blockId),
         m_actual(actual),
         m_type(type) {}
 
@@ -55,9 +56,7 @@ class ClockingBlock final {
   Type getType() const { return m_type; }
 
  private:
-  const FileContent* m_fileContent;  // NOLINT: unused field (TODO: remove?)
   NodeId m_blockId;
-  NodeId m_clockingBlockId;  // NOLINT: unused field (TODO: remove?)
   std::vector<Signal> m_signals;
   UHDM::clocking_block* m_actual;
   Type m_type;

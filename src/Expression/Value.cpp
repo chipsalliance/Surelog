@@ -968,9 +968,7 @@ LValue::LValue(const LValue& val)  // NOLINT(bugprone-copy-constructor-init)
       m_valid(val.isValid()),
       m_negative(val.isNegative()),
       m_lrange(val.getLRange()),
-      m_rrange(val.getRRange()),
-      m_prev(nullptr),
-      m_next(nullptr) {
+      m_rrange(val.getRRange()) {
   m_valueArray[0].m_size = 0;
   m_valueArray[0].m_type = m_type;
   m_valueArray[0].m_value.u_int = 0;
@@ -988,9 +986,7 @@ LValue::LValue(uint64_t val)
     : m_type(Type::Unsigned),
       m_nbWords(1),
       m_valueArray(new SValue[1]),
-      m_valid(1),
-      m_prev(nullptr),
-      m_next(nullptr) {
+      m_valid(1) {
   m_valueArray[0].m_type = m_type;
   m_valueArray[0].m_value.u_int = val;
   m_valueArray[0].m_size = 64;
@@ -1007,9 +1003,7 @@ LValue::LValue(int64_t val)
     : m_type(Type::Integer),
       m_nbWords(1),
       m_valueArray(new SValue[1]),
-      m_valid(1),
-      m_prev(nullptr),
-      m_next(nullptr) {
+      m_valid(1) {
   m_valueArray[0].m_type = m_type;
   m_valueArray[0].m_value.s_int = val;
   m_valueArray[0].m_size = 64;
@@ -1026,9 +1020,7 @@ LValue::LValue(double val)
     : m_type(Type::Double),
       m_nbWords(1),
       m_valueArray(new SValue[1]),
-      m_valid(1),
-      m_prev(nullptr),
-      m_next(nullptr) {
+      m_valid(1) {
   m_valueArray[0].m_type = m_type;
   m_valueArray[0].m_value.d_int = val;
   m_valueArray[0].m_size = 64;
@@ -1042,12 +1034,7 @@ LValue::LValue(double val)
 }
 
 LValue::LValue(int64_t val, Type type, short size)
-    : m_type(type),
-      m_nbWords(1),
-      m_valueArray(new SValue[1]),
-      m_valid(1),
-      m_prev(nullptr),
-      m_next(nullptr) {
+    : m_type(type), m_nbWords(1), m_valueArray(new SValue[1]), m_valid(1) {
   m_valueArray[0].m_type = m_type;
   m_valueArray[0].m_value.s_int = val;
   m_valueArray[0].m_size = size;

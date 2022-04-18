@@ -56,13 +56,12 @@ struct FunctorCompileFileContent {
 
 class CompileFileContent final {
  public:
-  CompileFileContent(CompileDesign* compiler, FileContent* file, Design* design,
-                     SymbolTable* symbols, ErrorContainer* errors)
+  CompileFileContent(CompileDesign* compiler, FileContent* file,
+                     [[maybe_unused]] Design* design,
+                     [[maybe_unused]] SymbolTable* symbols,
+                     [[maybe_unused]] ErrorContainer* errors)
       : m_compileDesign(compiler),
-        m_fileContent(file),
-        m_design(design),
-        m_symbols(symbols),
-        m_errors(errors) {
+        m_fileContent(file) {
     m_helper.seterrorReporting(errors, symbols);
   }
 
@@ -74,9 +73,6 @@ class CompileFileContent final {
   bool collectObjects_();
   CompileDesign* const m_compileDesign;
   FileContent* const m_fileContent;
-  Design* const m_design;
-  SymbolTable* const m_symbols;
-  ErrorContainer* const m_errors;
 
   CompileHelper m_helper;
 };
