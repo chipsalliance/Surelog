@@ -72,7 +72,7 @@ class CommonListenerHelper {
 
   NodeId& Parent(NodeId index);
 
-  unsigned short& Type(NodeId index);
+  VObjectType& Type(NodeId index);
 
   unsigned short& Column(NodeId index);
 

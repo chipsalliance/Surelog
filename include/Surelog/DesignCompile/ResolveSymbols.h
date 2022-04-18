@@ -100,8 +100,8 @@ class ResolveSymbols : public CompileStep {
 
   NodeId Parent(NodeId index) override;
 
-  unsigned short Type(NodeId index) const override;
-  bool SetType(NodeId index, unsigned short type);
+  VObjectType Type(NodeId index) const override;
+  bool SetType(NodeId index, VObjectType type);
 
   unsigned int Line(NodeId index) override;
 

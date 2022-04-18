@@ -246,11 +246,11 @@ NodeId ResolveSymbols::Parent(NodeId index) {
   return Object(index).m_parent;
 }
 
-unsigned short ResolveSymbols::Type(NodeId index) const {
-  return (index == InvalidNodeId) ? 0 : Object(index).m_type;
+VObjectType ResolveSymbols::Type(NodeId index) const {
+  return (index == InvalidNodeId) ? sl_INVALID_ : Object(index).m_type;
 }
 
-bool ResolveSymbols::SetType(NodeId index, unsigned short type) {
+bool ResolveSymbols::SetType(NodeId index, VObjectType type) {
   if (index == InvalidNodeId) return false;
   MutableObject(index)->m_type = type;
   return true;
