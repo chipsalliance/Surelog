@@ -35,7 +35,9 @@ Checks: >
     bugprone-suspicious-string-compare,
     bugprone-too-small-loop-variable,
     clang-analyzer-security.insecureAPI.strcpy,
+    clang-diagnostic-ignored-qualifiers,
     clang-diagnostic-inconsistent-missing-override,
+    clang-diagnostic-overloaded-virtual
     clang-diagnostic-unused-private-field,
     google-default-arguments,
     google-explicit-constructor,
