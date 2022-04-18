@@ -174,7 +174,7 @@ if [regexp {exe_name=([A-Za-z0-9_/\.\-\:]+)} $argv tmp EXE_NAME] {
 
 set SURELOG_VERSION "$EXE_PATH/$EXE_NAME"
 set UHDM_DUMP_COMMAND "[pwd]/third_party/UHDM/bin/uhdm-dump"
-#This condition is not compatible across platforms. 
+#This condition is not compatible across platforms.
 #if ![file exist $SURELOG_VERSION] {
 #    puts "ERROR: Cannot find executable $SURELOG_VERSION!"
 #    exit 1
@@ -195,7 +195,7 @@ if { $tcl_platform(platform) == "windows" } {
 proc findFiles { basedir pattern {level 0}} {
 
     if {$level > 3} {
-      return
+        return
     }
     # Fix the directory name, this ensures the directory name is in the
     # native format for the platform and contains a final directory seperator
@@ -225,7 +225,7 @@ proc findFiles { basedir pattern {level 0}} {
 
 proc findDirs { basedir pattern {level 0}} {
     if {$level > 3} {
-      return
+        return
     }
     # Fix the directory name, this ensures the directory name is in the
     # native format for the platform and contains a final directory seperator
@@ -455,12 +455,12 @@ proc run_regression { } {
 
         cd $testdir
         if {$DIFF_MODE == 0} {
-	    foreach f [findDirs $REGRESSION_PATH/tests/$test slpp_*] {
-              file delete -force $f
-	    }
+            foreach f [findDirs $REGRESSION_PATH/tests/$test slpp_*] {
+                file delete -force $f
+            }
             foreach f [findDirs $testdir slpp_*] {
-              file delete -force $f
-	    }
+                file delete -force $f
+            }
         }
         set passstatus "PASS"
         if {$DIFF_MODE == 0} {
@@ -490,9 +490,9 @@ proc run_regression { } {
                 if {$MP_MAX > 0} {
                     regsub -all {\-nocache} $command "" command
                 }
-		if [regexp {\-lowmem} $command] {
-		    set MP_MAX 1
-		}
+                if [regexp {\-lowmem} $command] {
+                    set MP_MAX 1
+                }
                 set command "$command -mt $MT_MAX -mp $MP_MAX $output_path"
 
                 if {($ONETEST != "") && ($testname != $ONETEST)} {
@@ -523,8 +523,8 @@ proc run_regression { } {
             set fid [open "$REGRESSION_PATH/tests/$test/${testname}.log" "r"]
             set result [read $fid]
             close $fid
-	    regsub -all {[a-zA-Z_/-]*/Surelog/} $result {${SURELOG_DIR}/} result
-	    regsub -all {[0-9]+\.[0-9]{3}([0-9]{3})?s?} $result {t.ttts} result
+            regsub -all {[a-zA-Z_/-]*/Surelog/} $result {${SURELOG_DIR}/} result
+            regsub -all {[0-9]+\.[0-9]{3}([0-9]{3})?s?} $result {t.ttts} result
         } else {
             if [file exists "${testname}.log"] {
                 set fid [open "${testname}.log" "r"]
@@ -537,12 +537,12 @@ proc run_regression { } {
         if {$DIFF_MODE == 0} {
             if [regexp {Segmentation fault} $result] {
                 set segfault 1
-		foreach f [findDirs $REGRESSION_PATH/tests/$test slpp_*] {
-		    file delete -force $f
-		}
-		foreach f [findDirs $testdir slpp_*] {
-		    file delete -force $f
-		}
+                foreach f [findDirs $REGRESSION_PATH/tests/$test slpp_*] {
+                    file delete -force $f
+                }
+                foreach f [findDirs $testdir slpp_*] {
+                    file delete -force $f
+                }
                 if [regexp {\.sh} $command] {
                     catch {set time_result [exec $SHELL $SHELL_ARGS "$TIME $command [lindex $SURELOG_COMMAND 1] > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
                 } else {
@@ -730,18 +730,18 @@ proc run_regression { } {
             close $fid
         }
 
-	if {($DIFF_MODE == 0) && ($passstatus == "PASS")} {
-	    foreach f [findDirs $REGRESSION_PATH/tests/$test slpp_*] {
-		file delete -force $f
-	    }
-	    foreach f [findDirs $testdir slpp_*] {
-		file delete -force $f
-	    }
+        if {($DIFF_MODE == 0) && ($passstatus == "PASS")} {
+            foreach f [findDirs $REGRESSION_PATH/tests/$test slpp_*] {
+                file delete -force $f
+            }
+            foreach f [findDirs $testdir slpp_*] {
+                file delete -force $f
+            }
             file delete -force uhdm.dump
             file delete -force $REGRESSION_PATH/tests/$test/uhdm.dump
-	    file delete -force $testdir/uhdm.dump
+            file delete -force $testdir/uhdm.dump
         }
-	
+
         cd $REGRESSION_PATH/tests
     }
     log $sep
@@ -783,15 +783,15 @@ foreach testname [lsort -dictionary [array names DIFF_TESTS]] {
         log "============================== DIFF ======================================================"
         log "diff $testdir/${testname}.log $REGRESSION_PATH/tests/$DIFF_TESTS($testname)/${testname}.log"
         catch {exec $SHELL $SHELL_ARGS "diff -d $testdir/${testname}.log $REGRESSION_PATH/tests/$DIFF_TESTS($testname)/${testname}.log"} dummy
-	set lines [split $dummy "\n"]
+        set lines [split $dummy "\n"]
         set count 0
-	foreach line $lines {
-	    puts $line
+        foreach line $lines {
+            puts $line
             incr count
             if {$count > 100} {
-		puts "......"
-		break
-            } 
+                puts "......"
+                break
+            }
         }
     }
 }
