@@ -264,21 +264,62 @@ design: (work@dut)
 \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut
   |vpiName:my_pkg
   |vpiFullName:my_pkg::
+  |vpiParameter:
+  \_parameter: (my_pkg::PMP_CFG_W), line:7:24, endln:7:33, parent:my_pkg::
+    |UINT:2
+    |vpiTypespec:
+    \_int_typespec: , line:7:11, endln:7:23, parent:my_pkg::PMP_CFG_W
+      |vpiInstance:
+      \_package: (my_pkg), file:
+    |vpiName:PMP_CFG_W
+    |vpiFullName:my_pkg::PMP_CFG_W
   |vpiParamAssign:
   \_param_assign: , line:7:24, endln:7:37, parent:my_pkg::
     |vpiRhs:
     \_constant: , line:7:36, endln:7:37
       |vpiDecompile:2
-      |vpiSize:64
+      |vpiSize:32
       |UINT:2
+      |vpiTypespec:
+      \_int_typespec: , line:7:11, endln:7:23, parent:my_pkg::PMP_CFG_W
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (PMP_CFG_W), line:7:24, endln:7:33
-      |vpiTypespec:
-      \_int_typespec: , line:7:11, endln:7:23, parent:PMP_CFG_W
-        |vpiInstance:
-        \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut
-      |vpiName:PMP_CFG_W
+    \_parameter: (my_pkg::PMP_CFG_W), line:7:24, endln:7:33, parent:my_pkg::
+  |vpiTypedef:
+  \_enum_typespec: (my_pkg::opcode_e), line:2:3, endln:5:14, parent:my_pkg::
+    |vpiName:my_pkg::opcode_e
+    |vpiInstance:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut
+    |vpiBaseTypespec:
+    \_logic_typespec: , line:2:16, endln:2:21
+      |vpiInstance:
+      \_package: (my_pkg), file:
+      |vpiRange:
+      \_range: , line:2:23, endln:2:26
+        |vpiLeftRange:
+        \_constant: , line:2:23, endln:2:24
+          |vpiDecompile:5
+          |vpiSize:64
+          |UINT:5
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:2:25, endln:2:26
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiEnumConst:
+    \_enum_const: (OPCODE_LOAD), line:3:5, endln:3:28
+      |vpiName:OPCODE_LOAD
+      |HEX:03
+      |vpiDecompile:6'h03
+      |vpiSize:6
+    |vpiEnumConst:
+    \_enum_const: (OPCODE_STORE), line:4:5, endln:4:28
+      |vpiName:OPCODE_STORE
+      |HEX:13
+      |vpiDecompile:6'h13
+      |vpiSize:6
   |vpiDefName:my_pkg
 |uhdmtopPackages:
 \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut

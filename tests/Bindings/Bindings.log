@@ -1373,101 +1373,88 @@ design: (work@dut1)
 \_package: pack1 (pack1::) dut.sv:3:1: , endln:17:11, parent:work@dut1
   |vpiName:pack1
   |vpiFullName:pack1::
+  |vpiParameter:
+  \_parameter: (pack1::TxWidth), line:6:17, endln:6:24, parent:pack1::
+    |UINT:4
+    |vpiTypespec:
+    \_int_typespec: , line:6:13, endln:6:16, parent:pack1::TxWidth
+      |vpiInstance:
+      \_package: (pack1), file:
+      |vpiSigned:1
+    |vpiSigned:1
+    |vpiName:TxWidth
+    |vpiFullName:pack1::TxWidth
+  |vpiParameter:
+  \_parameter: (pack1::LC_TX_DEFAULT), line:15:22, endln:15:35, parent:pack1::
+    |vpiTypespec:
+    \_unsupported_typespec: (lc_tx_t), line:15:14, endln:15:21, parent:pack1::LC_TX_DEFAULT
+      |vpiName:lc_tx_t
+      |vpiInstance:
+      \_package: (pack1), file:
+    |vpiName:LC_TX_DEFAULT
+    |vpiFullName:pack1::LC_TX_DEFAULT
   |vpiParamAssign:
   \_param_assign: , line:6:17, endln:6:28, parent:pack1::
     |vpiRhs:
     \_constant: , line:6:27, endln:6:28
       |vpiDecompile:4
-      |vpiSize:64
+      |vpiSize:32
       |UINT:4
+      |vpiTypespec:
+      \_int_typespec: , line:6:13, endln:6:16, parent:pack1::TxWidth
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (TxWidth), line:6:17, endln:6:24
-      |vpiTypespec:
-      \_int_typespec: , line:6:13, endln:6:16, parent:TxWidth
-        |vpiInstance:
-        \_package: pack1 (pack1::) dut.sv:3:1: , endln:17:11, parent:work@dut1
-        |vpiSigned:1
-      |vpiSigned:1
-      |vpiName:TxWidth
+    \_parameter: (pack1::TxWidth), line:6:17, endln:6:24, parent:pack1::
   |vpiParamAssign:
   \_param_assign: , line:15:22, endln:15:41, parent:pack1::
     |vpiRhs:
     \_ref_obj: (Off), line:15:38, endln:15:41
       |vpiName:Off
     |vpiLhs:
-    \_parameter: (LC_TX_DEFAULT), line:15:22, endln:15:35
-      |vpiTypespec:
-      \_enum_typespec: (lc_tx_t), line:8:3, endln:11:15, parent:LC_TX_DEFAULT
-        |vpiName:lc_tx_t
-        |vpiTypedefAlias:
-        \_enum_typespec: (pack1::lc_tx_e), line:8:3, endln:11:15, parent:lc_tx_t
-          |vpiName:pack1::lc_tx_e
-          |vpiInstance:
-          \_package: pack1 (pack1::) dut.sv:3:1: , endln:17:11, parent:work@dut1
-          |vpiBaseTypespec:
-          \_logic_typespec: , line:8:16, endln:8:21, parent:pack1::lc_tx_e
-            |vpiInstance:
-            \_package: pack1 (pack1::) dut.sv:3:1: , endln:17:11, parent:work@dut1
-            |vpiRange:
-            \_range: , line:8:23, endln:8:34
-              |vpiLeftRange:
-              \_constant: , line:8:23, endln:8:30
-                |vpiDecompile:3
-                |vpiSize:64
-                |INT:3
-                |vpiConstType:7
-              |vpiRightRange:
-              \_constant: , line:8:33, endln:8:34
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
-          |vpiEnumConst:
-          \_enum_const: (On), line:9:7, endln:9:20, parent:pack1::lc_tx_e
-            |vpiName:On
-            |BIN:1010
-            |vpiDecompile:4'b1010
-            |vpiSize:4
-          |vpiEnumConst:
-          \_enum_const: (Off), line:10:7, endln:10:20, parent:pack1::lc_tx_e
-            |vpiName:Off
-            |BIN:0101
-            |vpiDecompile:4'b0101
-            |vpiSize:4
-        |vpiInstance:
-        \_package: pack1 (pack1::) dut.sv:3:1: , endln:17:11, parent:work@dut1
-        |vpiBaseTypespec:
-        \_logic_typespec: , line:8:16, endln:8:21, parent:lc_tx_t
-          |vpiInstance:
-          \_package: pack1 (pack1::) dut.sv:3:1: , endln:17:11, parent:work@dut1
-          |vpiRange:
-          \_range: , line:8:23, endln:8:34
-            |vpiLeftRange:
-            \_constant: , line:8:23, endln:8:30
-              |vpiDecompile:3
-              |vpiSize:64
-              |INT:3
-              |vpiConstType:7
-            |vpiRightRange:
-            \_constant: , line:8:33, endln:8:34
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiEnumConst:
-        \_enum_const: (On), line:9:7, endln:9:20, parent:lc_tx_t
-          |vpiName:On
-          |BIN:1010
-          |vpiDecompile:4'b1010
-          |vpiSize:4
-        |vpiEnumConst:
-        \_enum_const: (Off), line:10:7, endln:10:20, parent:lc_tx_t
-          |vpiName:Off
-          |BIN:0101
-          |vpiDecompile:4'b0101
-          |vpiSize:4
-      |vpiName:LC_TX_DEFAULT
+    \_parameter: (pack1::LC_TX_DEFAULT), line:15:22, endln:15:35, parent:pack1::
+  |vpiTypedef:
+  \_enum_typespec: (pack1::lc_tx_e), line:8:3, endln:11:15, parent:pack1::
+    |vpiName:pack1::lc_tx_e
+    |vpiInstance:
+    \_package: pack1 (pack1::) dut.sv:3:1: , endln:17:11, parent:work@dut1
+    |vpiBaseTypespec:
+    \_logic_typespec: , line:8:16, endln:8:21
+      |vpiInstance:
+      \_package: (pack1), file:
+      |vpiRange:
+      \_range: , line:8:23, endln:8:34
+        |vpiLeftRange:
+        \_operation: , line:8:23, endln:8:32
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (TxWidth), line:8:23, endln:8:30
+            |vpiName:TxWidth
+            |vpiActual:
+            \_parameter: (pack1::TxWidth), line:6:17, endln:6:24, parent:pack1::
+          |vpiOperand:
+          \_constant: , line:8:31, endln:8:32
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:8:33, endln:8:34
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiEnumConst:
+    \_enum_const: (On), line:9:7, endln:9:20
+      |vpiName:On
+      |BIN:1010
+      |vpiDecompile:4'b1010
+      |vpiSize:4
+    |vpiEnumConst:
+    \_enum_const: (Off), line:10:7, endln:10:20
+      |vpiName:Off
+      |BIN:0101
+      |vpiDecompile:4'b0101
+      |vpiSize:4
   |vpiDefName:pack1
 |uhdmtopPackages:
 \_package: builtin (builtin::), file:, parent:work@dut1

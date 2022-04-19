@@ -192,23 +192,56 @@ design: (work@top)
 \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:4:1: , endln:7:25, parent:work@top
   |vpiName:lc_ctrl_pkg
   |vpiFullName:lc_ctrl_pkg::
+  |vpiParameter:
+  \_parameter: (lc_ctrl_pkg::TxWidth), line:5:18, endln:5:25, parent:lc_ctrl_pkg::
+    |UINT:4
+    |vpiTypespec:
+    \_int_typespec: , line:5:14, endln:5:17, parent:lc_ctrl_pkg::TxWidth
+      |vpiInstance:
+      \_package: (lc_ctrl_pkg), file:
+      |vpiSigned:1
+    |vpiSigned:1
+    |vpiName:TxWidth
+    |vpiFullName:lc_ctrl_pkg::TxWidth
   |vpiParamAssign:
   \_param_assign: , line:5:18, endln:5:29, parent:lc_ctrl_pkg::
     |vpiRhs:
     \_constant: , line:5:28, endln:5:29
       |vpiDecompile:4
-      |vpiSize:64
+      |vpiSize:32
       |UINT:4
+      |vpiTypespec:
+      \_int_typespec: , line:5:14, endln:5:17, parent:lc_ctrl_pkg::TxWidth
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (TxWidth), line:5:18, endln:5:25
-      |vpiTypespec:
-      \_int_typespec: , line:5:14, endln:5:17, parent:TxWidth
-        |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:4:1: , endln:7:25, parent:work@top
-        |vpiSigned:1
-      |vpiSigned:1
-      |vpiName:TxWidth
+    \_parameter: (lc_ctrl_pkg::TxWidth), line:5:18, endln:5:25, parent:lc_ctrl_pkg::
+  |vpiTypedef:
+  \_logic_typespec: (lc_ctrl_pkg::unused_type_t), line:6:12, endln:6:17, parent:lc_ctrl_pkg::
+    |vpiName:lc_ctrl_pkg::unused_type_t
+    |vpiInstance:
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:4:1: , endln:7:25, parent:work@top
+    |vpiRange:
+    \_range: , line:6:19, endln:6:30
+      |vpiLeftRange:
+      \_operation: , line:6:19, endln:6:28
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (TxWidth), line:6:19, endln:6:26
+          |vpiName:TxWidth
+          |vpiActual:
+          \_parameter: (lc_ctrl_pkg::TxWidth), line:5:18, endln:5:25, parent:lc_ctrl_pkg::
+        |vpiOperand:
+        \_constant: , line:6:27, endln:6:28
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:6:29, endln:6:30
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
   |vpiDefName:lc_ctrl_pkg
 |uhdmtopPackages:
 \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:4:1: , endln:7:25, parent:work@top

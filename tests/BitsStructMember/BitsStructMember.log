@@ -42,23 +42,138 @@ design: (work@top)
 \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:14:11, parent:work@top
   |vpiName:keymgr_pkg
   |vpiFullName:keymgr_pkg::
+  |vpiParameter:
+  \_parameter: (keymgr_pkg::KmacDataIfWidth), line:3:17, endln:3:32, parent:keymgr_pkg::
+    |UINT:64
+    |vpiTypespec:
+    \_int_typespec: , line:3:13, endln:3:16, parent:keymgr_pkg::KmacDataIfWidth
+      |vpiInstance:
+      \_package: (keymgr_pkg), file:
+      |vpiSigned:1
+    |vpiSigned:1
+    |vpiName:KmacDataIfWidth
+    |vpiFullName:keymgr_pkg::KmacDataIfWidth
   |vpiParamAssign:
   \_param_assign: , line:3:17, endln:3:37, parent:keymgr_pkg::
     |vpiRhs:
     \_constant: , line:3:35, endln:3:37
       |vpiDecompile:64
-      |vpiSize:64
+      |vpiSize:32
       |UINT:64
+      |vpiTypespec:
+      \_int_typespec: , line:3:13, endln:3:16, parent:keymgr_pkg::KmacDataIfWidth
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (KmacDataIfWidth), line:3:17, endln:3:32
+    \_parameter: (keymgr_pkg::KmacDataIfWidth), line:3:17, endln:3:32, parent:keymgr_pkg::
+  |vpiTypedef:
+  \_struct_typespec: (keymgr_pkg::kmac_data_req_t), line:5:11, endln:5:17, parent:keymgr_pkg::
+    |vpiName:keymgr_pkg::kmac_data_req_t
+    |vpiInstance:
+    \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:14:11, parent:work@top
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (valid), line:6:11, endln:6:16, parent:keymgr_pkg::kmac_data_req_t
+      |vpiName:valid
       |vpiTypespec:
-      \_int_typespec: , line:3:13, endln:3:16, parent:KmacDataIfWidth
+      \_logic_typespec: , line:6:5, endln:6:10
         |vpiInstance:
-        \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:14:11, parent:work@top
-        |vpiSigned:1
-      |vpiSigned:1
-      |vpiName:KmacDataIfWidth
+        \_package: (keymgr_pkg), file:
+      |vpiRefFile:dut.sv
+      |vpiRefLineNo:6
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:6
+      |vpiRefEndColumnNo:10
+    |vpiTypespecMember:
+    \_typespec_member: (data), line:7:33, endln:7:37, parent:keymgr_pkg::kmac_data_req_t
+      |vpiName:data
+      |vpiTypespec:
+      \_logic_typespec: , line:7:5, endln:7:10
+        |vpiInstance:
+        \_package: (keymgr_pkg), file:
+        |vpiRange:
+        \_range: , line:7:12, endln:7:31, parent:keymgr_pkg::kmac_data_req_t
+          |vpiLeftRange:
+          \_operation: , line:7:12, endln:7:29
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (keymgr_pkg::keymgr_pkg::kmac_data_req_t::KmacDataIfWidth), line:7:12, endln:7:27, parent:keymgr_pkg::kmac_data_req_t
+              |vpiName:KmacDataIfWidth
+              |vpiFullName:keymgr_pkg::keymgr_pkg::kmac_data_req_t::KmacDataIfWidth
+              |vpiActual:
+              \_parameter: (keymgr_pkg::KmacDataIfWidth), line:3:17, endln:3:32, parent:keymgr_pkg::
+            |vpiOperand:
+            \_constant: , line:7:28, endln:7:29
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:7:30, endln:7:31
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+      |vpiRefFile:dut.sv
+      |vpiRefLineNo:7
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:7
+      |vpiRefEndColumnNo:32
+    |vpiTypespecMember:
+    \_typespec_member: (strb), line:8:35, endln:8:39, parent:keymgr_pkg::kmac_data_req_t
+      |vpiName:strb
+      |vpiTypespec:
+      \_logic_typespec: , line:8:5, endln:8:10
+        |vpiInstance:
+        \_package: (keymgr_pkg), file:
+        |vpiRange:
+        \_range: , line:8:12, endln:8:33, parent:keymgr_pkg::kmac_data_req_t
+          |vpiLeftRange:
+          \_operation: , line:8:12, endln:8:31
+            |vpiOpType:11
+            |vpiOperand:
+            \_operation: , line:8:12, endln:8:29, parent:keymgr_pkg::kmac_data_req_t
+              |vpiOpType:12
+              |vpiOperand:
+              \_ref_obj: (keymgr_pkg::keymgr_pkg::kmac_data_req_t::KmacDataIfWidth), line:8:12, endln:8:27, parent:keymgr_pkg::kmac_data_req_t
+                |vpiName:KmacDataIfWidth
+                |vpiFullName:keymgr_pkg::keymgr_pkg::kmac_data_req_t::KmacDataIfWidth
+                |vpiActual:
+                \_parameter: (keymgr_pkg::KmacDataIfWidth), line:3:17, endln:3:32, parent:keymgr_pkg::
+              |vpiOperand:
+              \_constant: , line:8:28, endln:8:29
+                |vpiDecompile:8
+                |vpiSize:64
+                |UINT:8
+                |vpiConstType:9
+            |vpiOperand:
+            \_constant: , line:8:30, endln:8:31
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:8:32, endln:8:33
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+      |vpiRefFile:dut.sv
+      |vpiRefLineNo:8
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:8
+      |vpiRefEndColumnNo:34
+    |vpiTypespecMember:
+    \_typespec_member: (last), line:11:11, endln:11:15, parent:keymgr_pkg::kmac_data_req_t
+      |vpiName:last
+      |vpiTypespec:
+      \_logic_typespec: , line:11:5, endln:11:10
+        |vpiInstance:
+        \_package: (keymgr_pkg), file:
+      |vpiRefFile:dut.sv
+      |vpiRefLineNo:11
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:11
+      |vpiRefEndColumnNo:10
   |vpiDefName:keymgr_pkg
 |uhdmtopPackages:
 \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:14:11, parent:work@top

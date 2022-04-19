@@ -135,21 +135,54 @@ design: (work@top)
 \_package: spi_device_pkg (spi_device_pkg::) dut.sv:1:1: , endln:4:11, parent:work@top
   |vpiName:spi_device_pkg
   |vpiFullName:spi_device_pkg::
+  |vpiParameter:
+  \_parameter: (spi_device_pkg::SramAw), line:2:27, endln:2:33, parent:spi_device_pkg::
+    |UINT:10
+    |vpiTypespec:
+    \_int_typespec: , line:2:14, endln:2:26, parent:spi_device_pkg::SramAw
+      |vpiInstance:
+      \_package: (spi_device_pkg), file:
+    |vpiName:SramAw
+    |vpiFullName:spi_device_pkg::SramAw
   |vpiParamAssign:
   \_param_assign: , line:2:27, endln:2:38, parent:spi_device_pkg::
     |vpiRhs:
     \_constant: , line:2:36, endln:2:38
       |vpiDecompile:10
-      |vpiSize:64
+      |vpiSize:32
       |UINT:10
+      |vpiTypespec:
+      \_int_typespec: , line:2:14, endln:2:26, parent:spi_device_pkg::SramAw
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (SramAw), line:2:27, endln:2:33
-      |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:26, parent:SramAw
-        |vpiInstance:
-        \_package: spi_device_pkg (spi_device_pkg::) dut.sv:1:1: , endln:4:11, parent:work@top
-      |vpiName:SramAw
+    \_parameter: (spi_device_pkg::SramAw), line:2:27, endln:2:33, parent:spi_device_pkg::
+  |vpiTypedef:
+  \_logic_typespec: (spi_device_pkg::sram_addr_t), line:3:12, endln:3:17, parent:spi_device_pkg::
+    |vpiName:spi_device_pkg::sram_addr_t
+    |vpiInstance:
+    \_package: spi_device_pkg (spi_device_pkg::) dut.sv:1:1: , endln:4:11, parent:work@top
+    |vpiRange:
+    \_range: , line:3:19, endln:3:29
+      |vpiLeftRange:
+      \_operation: , line:3:19, endln:3:27
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (SramAw), line:3:19, endln:3:25
+          |vpiName:SramAw
+          |vpiActual:
+          \_parameter: (spi_device_pkg::SramAw), line:2:27, endln:2:33, parent:spi_device_pkg::
+        |vpiOperand:
+        \_constant: , line:3:26, endln:3:27
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:3:28, endln:3:29
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
   |vpiDefName:spi_device_pkg
 |uhdmtopPackages:
 \_package: spi_device_pkg (spi_device_pkg::) dut.sv:1:1: , endln:4:11, parent:work@top

@@ -943,96 +943,87 @@ void reInstanceTypespec(Serializer& serializer, any* root, package* p) {
 }
 
 void writePackage(Package* pack, package* p, Serializer& s,
-                  UhdmWriter::ComponentMap& componentMap, bool top) {
+                  UhdmWriter::ComponentMap& componentMap) {
   p->VpiFullName(pack->getName() + "::");
   VectorOfclass_defn* dest_classes = nullptr;
-  if (top) {
-    // Typepecs
-    VectorOftypespec* typespecs = s.MakeTypespecVec();
-    p->Typespecs(typespecs);
-    writeDataTypes(pack->getDataTypeMap(), p, typespecs, s, top);
-    for (auto item : pack->getImportedSymbols()) {
-      typespecs->push_back(item);
-    }
-    // Classes
-    ClassNameClassDefinitionMultiMap& orig_classes =
-        pack->getClassDefinitions();
-    dest_classes = s.MakeClass_defnVec();
-    writeClasses(orig_classes, dest_classes, s, componentMap, p);
-    p->Class_defns(dest_classes);
-    // Parameters
-    if (pack->getParameters()) {
-      p->Parameters(pack->getParameters());
-      for (auto ps : *p->Parameters()) {
-        ps->VpiParent(p);
-        if (ps->UhdmType() == uhdmparameter) {
-          ((parameter*)ps)->VpiFullName(pack->getName() + "::" + ps->VpiName());
-        } else {
-          ((type_parameter*)ps)
-              ->VpiFullName(pack->getName() + "::" + ps->VpiName());
-        }
+
+  // Typepecs
+  VectorOftypespec* typespecs = s.MakeTypespecVec();
+  p->Typespecs(typespecs);
+  writeDataTypes(pack->getDataTypeMap(), p, typespecs, s, true);
+  for (auto tp : *typespecs) {
+    tp->Instance(p);
+  }
+  for (auto item : pack->getImportedSymbols()) {
+    typespecs->push_back(item);
+  }
+  // Classes
+  ClassNameClassDefinitionMultiMap& orig_classes = pack->getClassDefinitions();
+  dest_classes = s.MakeClass_defnVec();
+  writeClasses(orig_classes, dest_classes, s, componentMap, p);
+  p->Class_defns(dest_classes);
+  // Parameters
+  if (pack->getParameters()) {
+    p->Parameters(pack->getParameters());
+    for (auto ps : *p->Parameters()) {
+      ps->VpiParent(p);
+      if (ps->UhdmType() == uhdmparameter) {
+        ((parameter*)ps)->VpiFullName(pack->getName() + "::" + ps->VpiName());
+      } else {
+        ((type_parameter*)ps)
+            ->VpiFullName(pack->getName() + "::" + ps->VpiName());
       }
     }
   }
+
   // Param_assigns
-  if (top) {
-    if (pack->getParam_assigns()) {
-      p->Param_assigns(pack->getParam_assigns());
-      for (auto ps : *p->Param_assigns()) {
-        ps->VpiParent(p);
-      }
-    }
-  } else {
-    if (pack->getOrigParam_assigns()) {
-      p->Param_assigns(pack->getOrigParam_assigns());
-      for (auto ps : *p->Param_assigns()) {
-        ps->VpiParent(p);
-        reInstanceTypespec(s, ps, p);
-      }
+
+  if (pack->getParam_assigns()) {
+    p->Param_assigns(pack->getParam_assigns());
+    for (auto ps : *p->Param_assigns()) {
+      ps->VpiParent(p);
     }
   }
-  if (top) {
-    // Function and tasks
-    if (pack->getTask_funcs()) {
-      p->Task_funcs(s.MakeTask_funcVec());
-      for (auto tf : *pack->getTask_funcs()) {
-        const std::string funcName = tf->VpiName();
-        if (funcName.find("::") != std::string::npos) {
-          std::vector<std::string> res;
-          StringUtils::tokenizeMulti(funcName, "::", res);
-          const std::string& className = res[0];
-          const std::string& funcName = res[1];
-          bool foundParentClass = false;
-          for (auto cl : *dest_classes) {
-            if (cl->VpiName() == className) {
-              tf->VpiParent(cl);
-              tf->Instance(p);
-              if (cl->Task_funcs() == nullptr) {
-                cl->Task_funcs(s.MakeTask_funcVec());
-              }
-              cl->Task_funcs()->push_back(tf);
-              foundParentClass = true;
-              break;
-            }
-          }
-          if (foundParentClass) {
-            tf->VpiName(funcName);
-            ((task_func*)tf)
-                ->VpiFullName(pack->getName() + "::" + className +
-                              "::" + tf->VpiName());
-          } else {
-            tf->VpiParent(p);
+
+  // Function and tasks
+  if (pack->getTask_funcs()) {
+    p->Task_funcs(s.MakeTask_funcVec());
+    for (auto tf : *pack->getTask_funcs()) {
+      const std::string funcName = tf->VpiName();
+      if (funcName.find("::") != std::string::npos) {
+        std::vector<std::string> res;
+        StringUtils::tokenizeMulti(funcName, "::", res);
+        const std::string& className = res[0];
+        const std::string& funcName = res[1];
+        bool foundParentClass = false;
+        for (auto cl : *dest_classes) {
+          if (cl->VpiName() == className) {
+            tf->VpiParent(cl);
             tf->Instance(p);
-            p->Task_funcs()->push_back(tf);
-            ((task_func*)tf)
-                ->VpiFullName(pack->getName() + "::" + tf->VpiName());
+            if (cl->Task_funcs() == nullptr) {
+              cl->Task_funcs(s.MakeTask_funcVec());
+            }
+            cl->Task_funcs()->push_back(tf);
+            foundParentClass = true;
+            break;
           }
+        }
+        if (foundParentClass) {
+          tf->VpiName(funcName);
+          ((task_func*)tf)
+              ->VpiFullName(pack->getName() + "::" + className +
+                            "::" + tf->VpiName());
         } else {
           tf->VpiParent(p);
           tf->Instance(p);
           p->Task_funcs()->push_back(tf);
           ((task_func*)tf)->VpiFullName(pack->getName() + "::" + tf->VpiName());
         }
+      } else {
+        tf->VpiParent(p);
+        tf->Instance(p);
+        p->Task_funcs()->push_back(tf);
+        ((task_func*)tf)->VpiFullName(pack->getName() + "::" + tf->VpiName());
       }
     }
 
@@ -2810,8 +2801,9 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
 
   vpiHandle designHandle = 0;
   std::vector<vpiHandle> designs;
+  design* d = nullptr;
   if (m_design) {
-    design* d = s.MakeDesign();
+    d = s.MakeDesign();
     designHandle = reinterpret_cast<vpiHandle>(new uhdm_handle(uhdmdesign, d));
     std::string designName = "unnamed";
     auto topLevelModules = m_design->getTopLevelModuleInstances();
@@ -2894,7 +2886,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
         p->VpiTop(true);
         p->VpiDefName(pack->getName());
         p->Attributes(pack->Attributes());
-        writePackage(pack, p, s, componentMap, true);
+        writePackage(pack, p, s, componentMap);
         if (fC) {
           // Builtin package has no file
           p->VpiFile(fC->getFileName());
@@ -2923,9 +2915,8 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
         p->VpiDefName(pack->getName());
         p->Attributes(pack->Attributes());
         v3->push_back(p);
-        writePackage(pack, p, s, componentMap, false);
-        // WIP: writePackage(pack->getUnElabPackage(), p, s, componentMap,
-        // false);
+        // writePackage(pack, p, s, componentMap, false);
+        writePackage(pack->getUnElabPackage(), p, s, componentMap);
         if (fC) {
           // Builtin package has no file
           p->VpiFile(fC->getFileName());
@@ -3106,7 +3097,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
   }
 
   // Lint only the elaborated model
-  UhdmLint* linter = new UhdmLint(&s);
+  UhdmLint* linter = new UhdmLint(&s, d);
   listen_designs(designs, linter);
   delete linter;
 

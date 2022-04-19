@@ -678,22 +678,108 @@ design: (work@top)
 \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:41:11, parent:work@top
   |vpiName:fpnew_pkg
   |vpiFullName:fpnew_pkg::
+  |vpiParameter:
+  \_parameter: (fpnew_pkg::NUM_FP_FORMATS), line:3:27, endln:3:41, parent:fpnew_pkg::
+    |UINT:5
+    |vpiTypespec:
+    \_int_typespec: , line:3:14, endln:3:26, parent:fpnew_pkg::NUM_FP_FORMATS
+      |vpiInstance:
+      \_package: (fpnew_pkg), file:
+    |vpiLocalParam:1
+    |vpiName:NUM_FP_FORMATS
+    |vpiFullName:fpnew_pkg::NUM_FP_FORMATS
+  |vpiParameter:
+  \_parameter: (fpnew_pkg::FP_FORMAT_BITS), line:4:27, endln:4:41, parent:fpnew_pkg::
+    |vpiTypespec:
+    \_int_typespec: , line:4:14, endln:4:26, parent:fpnew_pkg::FP_FORMAT_BITS
+      |vpiInstance:
+      \_package: (fpnew_pkg), file:
+    |vpiLocalParam:1
+    |vpiName:FP_FORMAT_BITS
+    |vpiFullName:fpnew_pkg::FP_FORMAT_BITS
+  |vpiParameter:
+  \_parameter: (fpnew_pkg::FP_ENCODINGS), line:20:49, endln:20:61, parent:fpnew_pkg::
+    |vpiTypespec:
+    \_packed_array_typespec: , line:20:14, endln:20:27, parent:fpnew_pkg::FP_ENCODINGS
+      |vpiInstance:
+      \_package: (fpnew_pkg), file:
+      |vpiRange:
+      \_range: , line:20:29, endln:20:47
+        |vpiLeftRange:
+        \_constant: , line:20:29, endln:20:30
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+        |vpiRightRange:
+        \_operation: , line:20:31, endln:20:47
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (NUM_FP_FORMATS), line:20:31, endln:20:45
+            |vpiName:NUM_FP_FORMATS
+            |vpiActual:
+            \_parameter: (fpnew_pkg::NUM_FP_FORMATS), line:3:27, endln:3:41, parent:fpnew_pkg::
+          |vpiOperand:
+          \_constant: , line:20:46, endln:20:47
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+      |vpiElemTypespec:
+      \_struct_typespec: (fpnew_pkg::fp_encoding_t), line:6:10, endln:6:16, parent:fpnew_pkg::
+        |vpiName:fpnew_pkg::fp_encoding_t
+        |vpiInstance:
+        \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:41:11, parent:work@top
+        |vpiPacked:1
+        |vpiTypespecMember:
+        \_typespec_member: (exp_bits), line:7:18, endln:7:26, parent:fpnew_pkg::fp_encoding_t
+          |vpiName:exp_bits
+          |vpiTypespec:
+          \_int_typespec: , line:7:5, endln:7:17
+            |vpiInstance:
+            \_package: (fpnew_pkg), file:
+          |vpiRefFile:dut.sv
+          |vpiRefLineNo:7
+          |vpiRefColumnNo:5
+          |vpiRefEndLineNo:7
+          |vpiRefEndColumnNo:17
+        |vpiTypespecMember:
+        \_typespec_member: (man_bits), line:8:18, endln:8:26, parent:fpnew_pkg::fp_encoding_t
+          |vpiName:man_bits
+          |vpiTypespec:
+          \_int_typespec: , line:8:5, endln:8:17
+            |vpiInstance:
+            \_package: (fpnew_pkg), file:
+          |vpiRefFile:dut.sv
+          |vpiRefLineNo:8
+          |vpiRefColumnNo:5
+          |vpiRefEndLineNo:8
+          |vpiRefEndColumnNo:17
+    |vpiLocalParam:1
+    |vpiName:FP_ENCODINGS
+    |vpiFullName:fpnew_pkg::FP_ENCODINGS
+  |vpiParameter:
+  \_parameter: (fpnew_pkg::RV64D_Xsflt), line:29:29, endln:29:40, parent:fpnew_pkg::
+    |vpiTypespec:
+    \_unsupported_typespec: (fpu_features_t), line:29:14, endln:29:28, parent:fpnew_pkg::RV64D_Xsflt
+      |vpiName:fpu_features_t
+      |vpiInstance:
+      \_package: (fpnew_pkg), file:
+    |vpiLocalParam:1
+    |vpiName:RV64D_Xsflt
+    |vpiFullName:fpnew_pkg::RV64D_Xsflt
   |vpiParamAssign:
   \_param_assign: , line:3:27, endln:3:45, parent:fpnew_pkg::
     |vpiRhs:
     \_constant: , line:3:44, endln:3:45
       |vpiDecompile:5
-      |vpiSize:64
+      |vpiSize:32
       |UINT:5
+      |vpiTypespec:
+      \_int_typespec: , line:3:14, endln:3:26, parent:fpnew_pkg::NUM_FP_FORMATS
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (NUM_FP_FORMATS), line:3:27, endln:3:41
-      |vpiTypespec:
-      \_int_typespec: , line:3:14, endln:3:26, parent:NUM_FP_FORMATS
-        |vpiInstance:
-        \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:41:11, parent:work@top
-      |vpiLocalParam:1
-      |vpiName:NUM_FP_FORMATS
+    \_parameter: (fpnew_pkg::NUM_FP_FORMATS), line:3:27, endln:3:41, parent:fpnew_pkg::
   |vpiParamAssign:
   \_param_assign: , line:4:27, endln:4:66, parent:fpnew_pkg::
     |vpiRhs:
@@ -701,15 +787,11 @@ design: (work@top)
       |vpiArgument:
       \_ref_obj: (NUM_FP_FORMATS), line:4:51, endln:4:65, parent:$clog2
         |vpiName:NUM_FP_FORMATS
+        |vpiActual:
+        \_parameter: (fpnew_pkg::NUM_FP_FORMATS), line:3:27, endln:3:41, parent:fpnew_pkg::
       |vpiName:$clog2
     |vpiLhs:
-    \_parameter: (FP_FORMAT_BITS), line:4:27, endln:4:41
-      |vpiTypespec:
-      \_int_typespec: , line:4:14, endln:4:26, parent:FP_FORMAT_BITS
-        |vpiInstance:
-        \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:41:11, parent:work@top
-      |vpiLocalParam:1
-      |vpiName:FP_FORMAT_BITS
+    \_parameter: (fpnew_pkg::FP_FORMAT_BITS), line:4:27, endln:4:41, parent:fpnew_pkg::
   |vpiParamAssign:
   \_param_assign: , line:20:49, endln:27:4, parent:fpnew_pkg::
     |vpiRhs:
@@ -791,57 +873,7 @@ design: (work@top)
           |UINT:7
           |vpiConstType:9
     |vpiLhs:
-    \_parameter: (FP_ENCODINGS), line:20:49, endln:20:61
-      |vpiTypespec:
-      \_packed_array_typespec: , line:20:14, endln:20:27, parent:FP_ENCODINGS
-        |vpiInstance:
-        \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:41:11, parent:work@top
-        |vpiRange:
-        \_range: , line:20:29, endln:20:47
-          |vpiLeftRange:
-          \_constant: , line:20:29, endln:20:30
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:20:31, endln:20:45
-            |vpiDecompile:4
-            |vpiSize:64
-            |INT:4
-            |vpiConstType:7
-        |vpiElemTypespec:
-        \_struct_typespec: (fpnew_pkg::fp_encoding_t), line:6:10, endln:6:16
-          |vpiName:fpnew_pkg::fp_encoding_t
-          |vpiInstance:
-          \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:41:11, parent:work@top
-          |vpiPacked:1
-          |vpiTypespecMember:
-          \_typespec_member: (exp_bits), line:7:18, endln:7:26, parent:fpnew_pkg::fp_encoding_t
-            |vpiName:exp_bits
-            |vpiTypespec:
-            \_int_typespec: , line:7:5, endln:7:17, parent:exp_bits
-              |vpiInstance:
-              \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:41:11, parent:work@top
-            |vpiRefFile:dut.sv
-            |vpiRefLineNo:7
-            |vpiRefColumnNo:5
-            |vpiRefEndLineNo:7
-            |vpiRefEndColumnNo:17
-          |vpiTypespecMember:
-          \_typespec_member: (man_bits), line:8:18, endln:8:26, parent:fpnew_pkg::fp_encoding_t
-            |vpiName:man_bits
-            |vpiTypespec:
-            \_int_typespec: , line:8:5, endln:8:17, parent:man_bits
-              |vpiInstance:
-              \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:41:11, parent:work@top
-            |vpiRefFile:dut.sv
-            |vpiRefLineNo:8
-            |vpiRefColumnNo:5
-            |vpiRefEndLineNo:8
-            |vpiRefEndColumnNo:17
-      |vpiLocalParam:1
-      |vpiName:FP_ENCODINGS
+    \_parameter: (fpnew_pkg::FP_ENCODINGS), line:20:49, endln:20:61, parent:fpnew_pkg::
   |vpiParamAssign:
   \_param_assign: , line:29:29, endln:35:4, parent:fpnew_pkg::
     |vpiRhs:
@@ -903,15 +935,139 @@ design: (work@top)
         \_string_typespec: (IntFmtMask), line:34:5, endln:34:15
           |vpiName:IntFmtMask
     |vpiLhs:
-    \_parameter: (RV64D_Xsflt), line:29:29, endln:29:40
-      |vpiTypespec:
-      \_unsupported_typespec: (fpu_features_t), line:29:14, endln:29:28, parent:RV64D_Xsflt
-        |vpiName:fpu_features_t
-        |vpiInstance:
-        \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:41:11, parent:work@top
-      |vpiLocalParam:1
-      |vpiName:RV64D_Xsflt
+    \_parameter: (fpnew_pkg::RV64D_Xsflt), line:29:29, endln:29:40, parent:fpnew_pkg::
+  |vpiTypedef:
+  \_struct_typespec: (fpnew_pkg::fp_encoding_t), line:6:10, endln:6:16, parent:fpnew_pkg::
+  |vpiTypedef:
+  \_enum_typespec: (fpnew_pkg::fp_format_e), line:11:3, endln:18:17, parent:fpnew_pkg::
+    |vpiName:fpnew_pkg::fp_format_e
+    |vpiInstance:
+    \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:41:11, parent:work@top
+    |vpiBaseTypespec:
+    \_logic_typespec: , line:11:16, endln:11:21
+      |vpiInstance:
+      \_package: (fpnew_pkg), file:
+      |vpiRange:
+      \_range: , line:11:23, endln:11:41
+        |vpiLeftRange:
+        \_operation: , line:11:23, endln:11:39
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (FP_FORMAT_BITS), line:11:23, endln:11:37
+            |vpiName:FP_FORMAT_BITS
+            |vpiActual:
+            \_parameter: (fpnew_pkg::FP_FORMAT_BITS), line:4:27, endln:4:41, parent:fpnew_pkg::
+          |vpiOperand:
+          \_constant: , line:11:38, endln:11:39
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:11:40, endln:11:41
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiEnumConst:
+    \_enum_const: (FP32), line:12:5, endln:12:18
+      |vpiName:FP32
+      |INT:0
+      |vpiDecompile:'d0
+      |vpiSize:-1
+    |vpiEnumConst:
+    \_enum_const: (FP64), line:13:5, endln:13:18
+      |vpiName:FP64
+      |INT:1
+      |vpiDecompile:'d1
+      |vpiSize:-1
+    |vpiEnumConst:
+    \_enum_const: (FP16), line:14:5, endln:14:18
+      |vpiName:FP16
+      |INT:2
+      |vpiDecompile:'d2
+      |vpiSize:-1
+    |vpiEnumConst:
+    \_enum_const: (FP8), line:15:5, endln:15:18
+      |vpiName:FP8
+      |INT:3
+      |vpiDecompile:'d3
+      |vpiSize:-1
+    |vpiEnumConst:
+    \_enum_const: (FP16ALT), line:16:5, endln:16:18
+      |vpiName:FP16ALT
+      |INT:4
+      |vpiDecompile:'d4
+      |vpiSize:-1
   |vpiDefName:fpnew_pkg
+  |vpiTaskFunc:
+  \_function: (fpnew_pkg::fp_width), line:37:3, endln:39:14, parent:fpnew_pkg::
+    |vpiName:fp_width
+    |vpiFullName:fpnew_pkg::fp_width
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_int_var: , line:37:26, endln:37:34
+    |vpiIODecl:
+    \_io_decl: (fmt), line:37:56, endln:37:59, parent:fpnew_pkg::fp_width
+      |vpiDirection:1
+      |vpiName:fmt
+      |vpiTypedef:
+      \_enum_typespec: (fpnew_pkg::fp_format_e), line:11:3, endln:18:17, parent:fpnew_pkg::
+    |vpiStmt:
+    \_return_stmt: , line:38:5, endln:38:11, parent:fpnew_pkg::fp_width
+      |vpiCondition:
+      \_operation: , line:38:12, endln:38:71
+        |vpiOpType:24
+        |vpiOperand:
+        \_operation: , line:38:12, endln:38:67
+          |vpiOpType:24
+          |vpiOperand:
+          \_hier_path: (FP_ENCODINGS[fmt].exp_bits), line:38:12, endln:38:38
+            |vpiName:FP_ENCODINGS[fmt].exp_bits
+            |vpiActual:
+            \_bit_select: (FP_ENCODINGS), line:38:12, endln:38:24, parent:fpnew_pkg::fp_width::FP_ENCODINGS[fmt].exp_bits
+              |vpiParent:
+              \_ref_obj: (fpnew_pkg::fp_width::FP_ENCODINGS[fmt].exp_bits), parent:FP_ENCODINGS[fmt].exp_bits
+                |vpiName:FP_ENCODINGS[fmt].exp_bits
+                |vpiFullName:fpnew_pkg::fp_width::FP_ENCODINGS[fmt].exp_bits
+              |vpiName:FP_ENCODINGS
+              |vpiIndex:
+              \_ref_obj: (fpnew_pkg::fp_width::FP_ENCODINGS[fmt].exp_bits::fmt), line:38:25, endln:38:28, parent:FP_ENCODINGS
+                |vpiName:fmt
+                |vpiFullName:fpnew_pkg::fp_width::FP_ENCODINGS[fmt].exp_bits::fmt
+                |vpiActual:
+                \_io_decl: (fmt), line:37:56, endln:37:59, parent:fpnew_pkg::fp_width
+            |vpiActual:
+            \_ref_obj: (exp_bits), line:38:30, endln:38:38, parent:FP_ENCODINGS[fmt].exp_bits
+              |vpiName:exp_bits
+          |vpiOperand:
+          \_hier_path: (FP_ENCODINGS[fmt].man_bits), line:38:41, endln:38:67
+            |vpiName:FP_ENCODINGS[fmt].man_bits
+            |vpiActual:
+            \_bit_select: (FP_ENCODINGS), line:38:41, endln:38:53, parent:fpnew_pkg::fp_width::FP_ENCODINGS[fmt].man_bits
+              |vpiParent:
+              \_ref_obj: (fpnew_pkg::fp_width::FP_ENCODINGS[fmt].man_bits), parent:FP_ENCODINGS[fmt].man_bits
+                |vpiName:FP_ENCODINGS[fmt].man_bits
+                |vpiFullName:fpnew_pkg::fp_width::FP_ENCODINGS[fmt].man_bits
+              |vpiName:FP_ENCODINGS
+              |vpiIndex:
+              \_ref_obj: (fpnew_pkg::fp_width::FP_ENCODINGS[fmt].man_bits::fmt), line:38:54, endln:38:57, parent:FP_ENCODINGS
+                |vpiName:fmt
+                |vpiFullName:fpnew_pkg::fp_width::FP_ENCODINGS[fmt].man_bits::fmt
+                |vpiActual:
+                \_io_decl: (fmt), line:37:56, endln:37:59, parent:fpnew_pkg::fp_width
+            |vpiActual:
+            \_ref_obj: (man_bits), line:38:59, endln:38:67, parent:FP_ENCODINGS[fmt].man_bits
+              |vpiName:man_bits
+        |vpiOperand:
+        \_constant: , line:38:70, endln:38:71
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+    |vpiInstance:
+    \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:41:11, parent:work@top
 |uhdmtopPackages:
 \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:41:11, parent:work@top
   |vpiName:fpnew_pkg

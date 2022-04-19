@@ -253,11 +253,75 @@ design: (work@dut)
 \_package: pkg1 (pkg1::) dut.sv:1:1: , endln:5:11, parent:work@dut
   |vpiName:pkg1
   |vpiFullName:pkg1::
+  |vpiTypedef:
+  \_struct_typespec: (pkg1::struct1), line:2:13, endln:2:19, parent:pkg1::
+    |vpiName:pkg1::struct1
+    |vpiInstance:
+    \_package: pkg1 (pkg1::) dut.sv:1:1: , endln:5:11, parent:work@dut
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (first), line:3:21, endln:3:26, parent:pkg1::struct1
+      |vpiName:first
+      |vpiTypespec:
+      \_logic_typespec: , line:3:9, endln:3:14
+        |vpiInstance:
+        \_package: (pkg1), file:
+        |vpiRange:
+        \_range: , line:3:16, endln:3:19, parent:pkg1::struct1
+          |vpiLeftRange:
+          \_constant: , line:3:16, endln:3:17
+            |vpiDecompile:7
+            |vpiSize:64
+            |UINT:7
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:3:18, endln:3:19
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+      |vpiRefFile:dut.sv
+      |vpiRefLineNo:3
+      |vpiRefColumnNo:9
+      |vpiRefEndLineNo:3
+      |vpiRefEndColumnNo:20
   |vpiDefName:pkg1
 |uhdmallPackages:
 \_package: pkg2 (pkg2::) dut.sv:7:1: , endln:11:11, parent:work@dut
   |vpiName:pkg2
   |vpiFullName:pkg2::
+  |vpiTypedef:
+  \_struct_typespec: (pkg2::struct1), line:8:13, endln:8:19, parent:pkg2::
+    |vpiName:pkg2::struct1
+    |vpiInstance:
+    \_package: pkg2 (pkg2::) dut.sv:7:1: , endln:11:11, parent:work@dut
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (second), line:9:21, endln:9:27, parent:pkg2::struct1
+      |vpiName:second
+      |vpiTypespec:
+      \_logic_typespec: , line:9:9, endln:9:14
+        |vpiInstance:
+        \_package: (pkg2), file:
+        |vpiRange:
+        \_range: , line:9:16, endln:9:19, parent:pkg2::struct1
+          |vpiLeftRange:
+          \_constant: , line:9:16, endln:9:17
+            |vpiDecompile:6
+            |vpiSize:64
+            |UINT:6
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:9:18, endln:9:19
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+      |vpiRefFile:dut.sv
+      |vpiRefLineNo:9
+      |vpiRefColumnNo:9
+      |vpiRefEndLineNo:9
+      |vpiRefEndColumnNo:20
   |vpiDefName:pkg2
 |uhdmtopPackages:
 \_package: pkg1 (pkg1::) dut.sv:1:1: , endln:5:11, parent:work@dut

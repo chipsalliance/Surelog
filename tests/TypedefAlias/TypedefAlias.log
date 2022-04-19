@@ -48,6 +48,24 @@ design: (work@test)
 \_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
   |vpiName:package1
   |vpiFullName:package1::
+  |vpiTypedef:
+  \_struct_typespec: (package1::type_t), line:2:11, endln:2:17, parent:package1::
+    |vpiName:package1::type_t
+    |vpiInstance:
+    \_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (q), line:3:20, endln:3:21, parent:package1::type_t
+      |vpiName:q
+      |vpiTypespec:
+      \_logic_typespec: , line:3:7, endln:3:12
+        |vpiInstance:
+        \_package: (package1), file:
+      |vpiRefFile:dut.sv
+      |vpiRefLineNo:3
+      |vpiRefColumnNo:7
+      |vpiRefEndLineNo:3
+      |vpiRefEndColumnNo:12
   |vpiDefName:package1
 |uhdmallPackages:
 \_package: package2 (package2::) dut.sv:9:1: , endln:11:22, parent:work@test

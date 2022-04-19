@@ -45,12 +45,12 @@ int FunctorCompilePackage::operator()() const {
                                                 m_design, m_symbols, m_errors);
   instance->compile(true);
   delete instance;
-  /* WIP
+
   instance = new CompilePackage(m_compileDesign, m_package->getUnElabPackage(),
-                                                m_design, m_symbols, m_errors);
+                                m_design, m_symbols, m_errors);
   instance->compile(false);
   delete instance;
-  */
+
   return true;
 }
 

@@ -487,6 +487,50 @@ design: (work@top)
 \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
   |vpiName:pkg
   |vpiFullName:pkg::
+  |vpiTypedef:
+  \_struct_typespec: (pkg::complex_t), line:2:11, endln:2:17, parent:pkg::
+    |vpiName:pkg::complex_t
+    |vpiInstance:
+    \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (a), line:3:11, endln:3:12, parent:pkg::complex_t
+      |vpiName:a
+      |vpiTypespec:
+      \_logic_typespec: , line:3:5, endln:3:10
+        |vpiInstance:
+        \_package: (pkg), file:
+      |vpiRefFile:dut.sv
+      |vpiRefLineNo:3
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:3
+      |vpiRefEndColumnNo:10
+    |vpiTypespecMember:
+    \_typespec_member: (b), line:4:17, endln:4:18, parent:pkg::complex_t
+      |vpiName:b
+      |vpiTypespec:
+      \_logic_typespec: , line:4:5, endln:4:10
+        |vpiInstance:
+        \_package: (pkg), file:
+        |vpiRange:
+        \_range: , line:4:12, endln:4:15, parent:pkg::complex_t
+          |vpiLeftRange:
+          \_constant: , line:4:12, endln:4:13
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:4:14, endln:4:15
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+      |vpiRefFile:dut.sv
+      |vpiRefLineNo:4
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:4
+      |vpiRefEndColumnNo:16
   |vpiDefName:pkg
 |uhdmtopPackages:
 \_package: builtin (builtin::), file:, parent:work@top

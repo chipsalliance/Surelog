@@ -674,18 +674,101 @@ design: (work@top)
 \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:53:11, parent:work@top
   |vpiName:bp_common_aviary_pkg
   |vpiFullName:bp_common_aviary_pkg::
+  |vpiParameter:
+  \_parameter: (bp_common_aviary_pkg::max_cfgs), line:3:14, endln:3:22, parent:bp_common_aviary_pkg::
+    |UINT:1
+    |vpiTypespec:
+    \_int_typespec: 
+    |vpiLocalParam:1
+    |vpiName:max_cfgs
+    |vpiFullName:bp_common_aviary_pkg::max_cfgs
+  |vpiParameter:
+  \_parameter: (bp_common_aviary_pkg::bp_default_cfg_p), line:10:30, endln:10:46, parent:bp_common_aviary_pkg::
+    |vpiTypespec:
+    \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15, parent:bp_common_aviary_pkg::
+      |vpiName:bp_common_aviary_pkg::bp_proc_param_s
+      |vpiInstance:
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:53:11, parent:work@top
+      |vpiPacked:1
+      |vpiTypespecMember:
+      \_typespec_member: (cc_x_dim), line:7:13, endln:7:21, parent:bp_common_aviary_pkg::bp_proc_param_s
+        |vpiName:cc_x_dim
+        |vpiTypespec:
+        \_integer_typespec: , line:7:5, endln:7:12
+          |vpiInstance:
+          \_package: (bp_common_aviary_pkg), file:
+          |vpiSigned:1
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:7
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:7
+        |vpiRefEndColumnNo:12
+    |vpiLocalParam:1
+    |vpiName:bp_default_cfg_p
+    |vpiFullName:bp_common_aviary_pkg::bp_default_cfg_p
+  |vpiParameter:
+  \_parameter: (bp_common_aviary_pkg::bp_unicore_cfg_p), line:15:29, endln:15:45, parent:bp_common_aviary_pkg::
+    |vpiTypespec:
+    \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15, parent:bp_common_aviary_pkg::
+    |vpiLocalParam:1
+    |vpiName:bp_unicore_cfg_p
+    |vpiFullName:bp_common_aviary_pkg::bp_unicore_cfg_p
+  |vpiParameter:
+  \_parameter: (bp_common_aviary_pkg::bp_multicore_cce_ucode_half_override_p), line:17:30, endln:17:68, parent:bp_common_aviary_pkg::
+    |vpiTypespec:
+    \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15, parent:bp_common_aviary_pkg::
+    |vpiLocalParam:1
+    |vpiName:bp_multicore_cce_ucode_half_override_p
+    |vpiFullName:bp_common_aviary_pkg::bp_multicore_cce_ucode_half_override_p
+  |vpiParameter:
+  \_parameter: (bp_common_aviary_pkg::bp_multicore_1_cce_ucode_cfg_p), line:22:29, endln:22:59, parent:bp_common_aviary_pkg::
+    |vpiTypespec:
+    \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15, parent:bp_common_aviary_pkg::
+    |vpiLocalParam:1
+    |vpiName:bp_multicore_1_cce_ucode_cfg_p
+    |vpiFullName:bp_common_aviary_pkg::bp_multicore_1_cce_ucode_cfg_p
+  |vpiParameter:
+  \_parameter: (bp_common_aviary_pkg::bp_multicore_cce_ucode_half_cfg_p), line:32:28, endln:32:61, parent:bp_common_aviary_pkg::
+    |vpiTypespec:
+    \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15, parent:bp_common_aviary_pkg::
+    |vpiLocalParam:1
+    |vpiName:bp_multicore_cce_ucode_half_cfg_p
+    |vpiFullName:bp_common_aviary_pkg::bp_multicore_cce_ucode_half_cfg_p
+  |vpiParameter:
+  \_parameter: (bp_common_aviary_pkg::all_cfgs_gp), line:42:41, endln:42:52, parent:bp_common_aviary_pkg::
+    |vpiTypespec:
+    \_packed_array_typespec: , line:42:12, endln:42:27, parent:bp_common_aviary_pkg::all_cfgs_gp
+      |vpiInstance:
+      \_package: (bp_common_aviary_pkg), file:
+      |vpiRange:
+      \_range: , line:42:29, endln:42:39
+        |vpiLeftRange:
+        \_ref_obj: (max_cfgs), line:42:29, endln:42:37
+          |vpiName:max_cfgs
+          |vpiActual:
+          \_parameter: (bp_common_aviary_pkg::max_cfgs), line:3:14, endln:3:22, parent:bp_common_aviary_pkg::
+        |vpiRightRange:
+        \_constant: , line:42:38, endln:42:39
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiElemTypespec:
+      \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15, parent:bp_common_aviary_pkg::
+    |vpiName:all_cfgs_gp
+    |vpiFullName:bp_common_aviary_pkg::all_cfgs_gp
   |vpiParamAssign:
   \_param_assign: , line:3:14, endln:3:29, parent:bp_common_aviary_pkg::
     |vpiRhs:
     \_constant: , line:3:28, endln:3:29
       |vpiDecompile:1
-      |vpiSize:64
+      |vpiSize:32
       |UINT:1
+      |vpiTypespec:
+      \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (max_cfgs), line:3:14, endln:3:22
-      |vpiLocalParam:1
-      |vpiName:max_cfgs
+    \_parameter: (bp_common_aviary_pkg::max_cfgs), line:3:14, endln:3:22, parent:bp_common_aviary_pkg::
   |vpiParamAssign:
   \_param_assign: , line:10:30, endln:13:8, parent:bp_common_aviary_pkg::
     |vpiRhs:
@@ -703,56 +786,16 @@ design: (work@top)
         \_string_typespec: (cc_x_dim), line:12:7, endln:12:15
           |vpiName:cc_x_dim
     |vpiLhs:
-    \_parameter: (bp_default_cfg_p), line:10:30, endln:10:46
-      |vpiTypespec:
-      \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15, parent:bp_default_cfg_p
-        |vpiName:bp_common_aviary_pkg::bp_proc_param_s
-        |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:53:11, parent:work@top
-        |vpiPacked:1
-        |vpiTypespecMember:
-        \_typespec_member: (cc_x_dim), line:7:13, endln:7:21, parent:bp_common_aviary_pkg::bp_proc_param_s
-          |vpiName:cc_x_dim
-          |vpiTypespec:
-          \_integer_typespec: , line:7:5, endln:7:12, parent:cc_x_dim
-            |vpiInstance:
-            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:53:11, parent:work@top
-            |vpiSigned:1
-          |vpiRefFile:dut.sv
-          |vpiRefLineNo:7
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:7
-          |vpiRefEndColumnNo:12
-      |vpiLocalParam:1
-      |vpiName:bp_default_cfg_p
+    \_parameter: (bp_common_aviary_pkg::bp_default_cfg_p), line:10:30, endln:10:46, parent:bp_common_aviary_pkg::
   |vpiParamAssign:
   \_param_assign: , line:15:29, endln:15:64, parent:bp_common_aviary_pkg::
     |vpiRhs:
     \_ref_obj: (bp_default_cfg_p), line:15:48, endln:15:64
       |vpiName:bp_default_cfg_p
+      |vpiActual:
+      \_parameter: (bp_common_aviary_pkg::bp_default_cfg_p), line:10:30, endln:10:46, parent:bp_common_aviary_pkg::
     |vpiLhs:
-    \_parameter: (bp_unicore_cfg_p), line:15:29, endln:15:45
-      |vpiTypespec:
-      \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15, parent:bp_unicore_cfg_p
-        |vpiName:bp_common_aviary_pkg::bp_proc_param_s
-        |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:53:11, parent:work@top
-        |vpiPacked:1
-        |vpiTypespecMember:
-        \_typespec_member: (cc_x_dim), line:7:13, endln:7:21, parent:bp_common_aviary_pkg::bp_proc_param_s
-          |vpiName:cc_x_dim
-          |vpiTypespec:
-          \_integer_typespec: , line:7:5, endln:7:12, parent:cc_x_dim
-            |vpiInstance:
-            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:53:11, parent:work@top
-            |vpiSigned:1
-          |vpiRefFile:dut.sv
-          |vpiRefLineNo:7
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:7
-          |vpiRefEndColumnNo:12
-      |vpiLocalParam:1
-      |vpiName:bp_unicore_cfg_p
+    \_parameter: (bp_common_aviary_pkg::bp_unicore_cfg_p), line:15:29, endln:15:45, parent:bp_common_aviary_pkg::
   |vpiParamAssign:
   \_param_assign: , line:17:30, endln:20:8, parent:bp_common_aviary_pkg::
     |vpiRhs:
@@ -770,28 +813,7 @@ design: (work@top)
         \_string_typespec: (default), line:19:7, endln:19:14
           |vpiName:default
     |vpiLhs:
-    \_parameter: (bp_multicore_cce_ucode_half_override_p), line:17:30, endln:17:68
-      |vpiTypespec:
-      \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15, parent:bp_multicore_cce_ucode_half_override_p
-        |vpiName:bp_common_aviary_pkg::bp_proc_param_s
-        |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:53:11, parent:work@top
-        |vpiPacked:1
-        |vpiTypespecMember:
-        \_typespec_member: (cc_x_dim), line:7:13, endln:7:21, parent:bp_common_aviary_pkg::bp_proc_param_s
-          |vpiName:cc_x_dim
-          |vpiTypespec:
-          \_integer_typespec: , line:7:5, endln:7:12, parent:cc_x_dim
-            |vpiInstance:
-            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:53:11, parent:work@top
-            |vpiSigned:1
-          |vpiRefFile:dut.sv
-          |vpiRefLineNo:7
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:7
-          |vpiRefEndColumnNo:12
-      |vpiLocalParam:1
-      |vpiName:bp_multicore_cce_ucode_half_override_p
+    \_parameter: (bp_common_aviary_pkg::bp_multicore_cce_ucode_half_override_p), line:17:30, endln:17:68, parent:bp_common_aviary_pkg::
   |vpiParamAssign:
   \_param_assign: , line:22:29, endln:30:8, parent:bp_common_aviary_pkg::
     |vpiRhs:
@@ -809,28 +831,7 @@ design: (work@top)
         \_string_typespec: (cc_x_dim), line:24:5, endln:24:13
           |vpiName:cc_x_dim
     |vpiLhs:
-    \_parameter: (bp_multicore_1_cce_ucode_cfg_p), line:22:29, endln:22:59
-      |vpiTypespec:
-      \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15, parent:bp_multicore_1_cce_ucode_cfg_p
-        |vpiName:bp_common_aviary_pkg::bp_proc_param_s
-        |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:53:11, parent:work@top
-        |vpiPacked:1
-        |vpiTypespecMember:
-        \_typespec_member: (cc_x_dim), line:7:13, endln:7:21, parent:bp_common_aviary_pkg::bp_proc_param_s
-          |vpiName:cc_x_dim
-          |vpiTypespec:
-          \_integer_typespec: , line:7:5, endln:7:12, parent:cc_x_dim
-            |vpiInstance:
-            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:53:11, parent:work@top
-            |vpiSigned:1
-          |vpiRefFile:dut.sv
-          |vpiRefLineNo:7
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:7
-          |vpiRefEndColumnNo:12
-      |vpiLocalParam:1
-      |vpiName:bp_multicore_1_cce_ucode_cfg_p
+    \_parameter: (bp_common_aviary_pkg::bp_multicore_1_cce_ucode_cfg_p), line:22:29, endln:22:59, parent:bp_common_aviary_pkg::
   |vpiParamAssign:
   \_param_assign: , line:32:28, endln:40:10, parent:bp_common_aviary_pkg::
     |vpiRhs:
@@ -848,28 +849,7 @@ design: (work@top)
         \_string_typespec: (cc_x_dim), line:34:5, endln:34:13
           |vpiName:cc_x_dim
     |vpiLhs:
-    \_parameter: (bp_multicore_cce_ucode_half_cfg_p), line:32:28, endln:32:61
-      |vpiTypespec:
-      \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15, parent:bp_multicore_cce_ucode_half_cfg_p
-        |vpiName:bp_common_aviary_pkg::bp_proc_param_s
-        |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:53:11, parent:work@top
-        |vpiPacked:1
-        |vpiTypespecMember:
-        \_typespec_member: (cc_x_dim), line:7:13, endln:7:21, parent:bp_common_aviary_pkg::bp_proc_param_s
-          |vpiName:cc_x_dim
-          |vpiTypespec:
-          \_integer_typespec: , line:7:5, endln:7:12, parent:cc_x_dim
-            |vpiInstance:
-            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:53:11, parent:work@top
-            |vpiSigned:1
-          |vpiRefFile:dut.sv
-          |vpiRefLineNo:7
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:7
-          |vpiRefEndColumnNo:12
-      |vpiLocalParam:1
-      |vpiName:bp_multicore_cce_ucode_half_cfg_p
+    \_parameter: (bp_common_aviary_pkg::bp_multicore_cce_ucode_half_cfg_p), line:32:28, endln:32:61, parent:bp_common_aviary_pkg::
   |vpiParamAssign:
   \_param_assign: , line:42:41, endln:46:4, parent:bp_common_aviary_pkg::
     |vpiRhs:
@@ -878,48 +858,40 @@ design: (work@top)
       |vpiOperand:
       \_ref_obj: (bp_multicore_cce_ucode_half_cfg_p), line:45:5, endln:45:38
         |vpiName:bp_multicore_cce_ucode_half_cfg_p
+        |vpiActual:
+        \_parameter: (bp_common_aviary_pkg::bp_multicore_cce_ucode_half_cfg_p), line:32:28, endln:32:61, parent:bp_common_aviary_pkg::
     |vpiLhs:
-    \_parameter: (all_cfgs_gp), line:42:41, endln:42:52
-      |vpiTypespec:
-      \_packed_array_typespec: , line:42:12, endln:42:27, parent:all_cfgs_gp
-        |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:53:11, parent:work@top
-        |vpiRange:
-        \_range: , line:42:29, endln:42:39
-          |vpiLeftRange:
-          \_constant: , line:42:29, endln:42:37
-            |vpiDecompile:1
-            |vpiSize:32
-            |UINT:1
-            |vpiTypespec:
-            \_int_typespec: 
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:42:38, endln:42:39
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiElemTypespec:
-        \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
-          |vpiName:bp_common_aviary_pkg::bp_proc_param_s
-          |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:53:11, parent:work@top
-          |vpiPacked:1
-          |vpiTypespecMember:
-          \_typespec_member: (cc_x_dim), line:7:13, endln:7:21, parent:bp_common_aviary_pkg::bp_proc_param_s
-            |vpiName:cc_x_dim
-            |vpiTypespec:
-            \_integer_typespec: , line:7:5, endln:7:12, parent:cc_x_dim
-              |vpiInstance:
-              \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:53:11, parent:work@top
-              |vpiSigned:1
-            |vpiRefFile:dut.sv
-            |vpiRefLineNo:7
-            |vpiRefColumnNo:5
-            |vpiRefEndLineNo:7
-            |vpiRefEndColumnNo:12
-      |vpiName:all_cfgs_gp
+    \_parameter: (bp_common_aviary_pkg::all_cfgs_gp), line:42:41, endln:42:52, parent:bp_common_aviary_pkg::
+  |vpiTypedef:
+  \_enum_typespec: (bp_common_aviary_pkg::bp_params_e), line:48:2, endln:51:17, parent:bp_common_aviary_pkg::
+    |vpiName:bp_common_aviary_pkg::bp_params_e
+    |vpiInstance:
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1:1: , endln:53:11, parent:work@top
+    |vpiBaseTypespec:
+    \_bit_typespec: , line:48:15, endln:48:18
+      |vpiInstance:
+      \_package: (bp_common_aviary_pkg), file:
+      |vpiRange:
+      \_range: , line:48:20, endln:48:30
+        |vpiLeftRange:
+        \_ref_obj: (max_cfgs), line:48:20, endln:48:28
+          |vpiName:max_cfgs
+          |vpiActual:
+          \_parameter: (bp_common_aviary_pkg::max_cfgs), line:3:14, endln:3:22, parent:bp_common_aviary_pkg::
+        |vpiRightRange:
+        \_constant: , line:48:29, endln:48:30
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiEnumConst:
+    \_enum_const: (e_bp_default_cfg), line:50:5, endln:50:47
+      |vpiName:e_bp_default_cfg
+      |UINT:0
+      |vpiDecompile:0
+      |vpiSize:64
+  |vpiTypedef:
+  \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15, parent:bp_common_aviary_pkg::
   |vpiDefName:bp_common_aviary_pkg
 |uhdmtopPackages:
 \_package: builtin (builtin::), file:, parent:work@top

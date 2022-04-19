@@ -370,6 +370,25 @@
             ]
         },
         {
+            "name": "BlackParrotMuteErrors",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-f", "BlackParrotMuteErrors.sl", "-parse", "-d", "uhdm", "-nobuiltin", "-d", "ast", "-nocache"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/tests/BlackParrotMuteErrors",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "HelloDesign",
             "type": "cppdbg",
             "request": "launch",

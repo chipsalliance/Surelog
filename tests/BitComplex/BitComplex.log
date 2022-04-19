@@ -216,40 +216,116 @@ design: (work@top)
 \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:8:11, parent:work@top
   |vpiName:keymgr_pkg
   |vpiFullName:keymgr_pkg::
+  |vpiParameter:
+  \_parameter: (keymgr_pkg::Shares), line:2:18, endln:2:24, parent:keymgr_pkg::
+    |UINT:2
+    |vpiTypespec:
+    \_int_typespec: , line:2:14, endln:2:17, parent:keymgr_pkg::Shares
+      |vpiInstance:
+      \_package: (keymgr_pkg), file:
+      |vpiSigned:1
+    |vpiSigned:1
+    |vpiName:Shares
+    |vpiFullName:keymgr_pkg::Shares
+  |vpiParameter:
+  \_parameter: (keymgr_pkg::KeyWidth), line:3:18, endln:3:26, parent:keymgr_pkg::
+    |UINT:16
+    |vpiTypespec:
+    \_int_typespec: , line:3:14, endln:3:17, parent:keymgr_pkg::KeyWidth
+      |vpiInstance:
+      \_package: (keymgr_pkg), file:
+      |vpiSigned:1
+    |vpiSigned:1
+    |vpiName:KeyWidth
+    |vpiFullName:keymgr_pkg::KeyWidth
   |vpiParamAssign:
   \_param_assign: , line:2:18, endln:2:28, parent:keymgr_pkg::
     |vpiRhs:
     \_constant: , line:2:27, endln:2:28
       |vpiDecompile:2
-      |vpiSize:64
+      |vpiSize:32
       |UINT:2
+      |vpiTypespec:
+      \_int_typespec: , line:2:14, endln:2:17, parent:keymgr_pkg::Shares
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (Shares), line:2:18, endln:2:24
-      |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:17, parent:Shares
-        |vpiInstance:
-        \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:8:11, parent:work@top
-        |vpiSigned:1
-      |vpiSigned:1
-      |vpiName:Shares
+    \_parameter: (keymgr_pkg::Shares), line:2:18, endln:2:24, parent:keymgr_pkg::
   |vpiParamAssign:
   \_param_assign: , line:3:18, endln:3:31, parent:keymgr_pkg::
     |vpiRhs:
     \_constant: , line:3:29, endln:3:31
       |vpiDecompile:16
-      |vpiSize:64
+      |vpiSize:32
       |UINT:16
+      |vpiTypespec:
+      \_int_typespec: , line:3:14, endln:3:17, parent:keymgr_pkg::KeyWidth
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (KeyWidth), line:3:18, endln:3:26
+    \_parameter: (keymgr_pkg::KeyWidth), line:3:18, endln:3:26, parent:keymgr_pkg::
+  |vpiTypedef:
+  \_struct_typespec: (keymgr_pkg::hw_key_req_t), line:5:12, endln:5:18, parent:keymgr_pkg::
+    |vpiName:keymgr_pkg::hw_key_req_t
+    |vpiInstance:
+    \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:8:11, parent:work@top
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (key), line:6:40, endln:6:43, parent:keymgr_pkg::hw_key_req_t
+      |vpiName:key
       |vpiTypespec:
-      \_int_typespec: , line:3:14, endln:3:17, parent:KeyWidth
+      \_logic_typespec: , line:6:7, endln:6:12
         |vpiInstance:
-        \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:8:11, parent:work@top
-        |vpiSigned:1
-      |vpiSigned:1
-      |vpiName:KeyWidth
+        \_package: (keymgr_pkg), file:
+        |vpiRange:
+        \_range: , line:6:14, endln:6:24, parent:keymgr_pkg::hw_key_req_t
+          |vpiLeftRange:
+          \_operation: , line:6:14, endln:6:22
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (keymgr_pkg::keymgr_pkg::hw_key_req_t::Shares), line:6:14, endln:6:20, parent:keymgr_pkg::hw_key_req_t
+              |vpiName:Shares
+              |vpiFullName:keymgr_pkg::keymgr_pkg::hw_key_req_t::Shares
+              |vpiActual:
+              \_parameter: (keymgr_pkg::Shares), line:2:18, endln:2:24, parent:keymgr_pkg::
+            |vpiOperand:
+            \_constant: , line:6:21, endln:6:22
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:6:23, endln:6:24
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+        |vpiRange:
+        \_range: , line:6:26, endln:6:38, parent:keymgr_pkg::hw_key_req_t
+          |vpiLeftRange:
+          \_operation: , line:6:26, endln:6:36
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (keymgr_pkg::keymgr_pkg::hw_key_req_t::KeyWidth), line:6:26, endln:6:34, parent:keymgr_pkg::hw_key_req_t
+              |vpiName:KeyWidth
+              |vpiFullName:keymgr_pkg::keymgr_pkg::hw_key_req_t::KeyWidth
+              |vpiActual:
+              \_parameter: (keymgr_pkg::KeyWidth), line:3:18, endln:3:26, parent:keymgr_pkg::
+            |vpiOperand:
+            \_constant: , line:6:35, endln:6:36
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:6:37, endln:6:38
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+      |vpiRefFile:dut.sv
+      |vpiRefLineNo:6
+      |vpiRefColumnNo:7
+      |vpiRefEndLineNo:6
+      |vpiRefEndColumnNo:39
   |vpiDefName:keymgr_pkg
 |uhdmtopPackages:
 \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:8:11, parent:work@top

@@ -593,6 +593,262 @@ design: (unnamed)
   |vpiName:toto
   |vpiFullName:toto::
   |vpiDefName:toto
+  |vpiTaskFunc:
+  \_function: (toto::uvm_string_to_action), line:3:4, endln:5:16, parent:toto::
+    |vpiName:uvm_string_to_action
+    |vpiFullName:toto::uvm_string_to_action
+    |vpiVariables:
+    \_array_var: (toto::uvm_string_to_action::actions), parent:toto::uvm_string_to_action
+      |vpiName:actions
+      |vpiFullName:toto::uvm_string_to_action::actions
+      |vpiRange:
+      \_range: , line:4:22, endln:4:23, parent:toto::uvm_string_to_action::actions
+        |vpiLeftRange:
+        \_constant: , line:4:22, endln:4:23
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:4:22, endln:4:23
+          |vpiDecompile:$
+          |vpiSize:1
+          |STRING:$
+          |vpiConstType:10
+      |vpiReg:
+      \_string_var: (toto::uvm_string_to_action::actions), line:4:14, endln:4:21, parent:toto::uvm_string_to_action::actions
+        |vpiFullName:toto::uvm_string_to_action::actions
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_bit_var: , line:3:23, endln:3:26
+    |vpiIODecl:
+    \_io_decl: (action_str), line:3:56, endln:3:66, parent:toto::uvm_string_to_action
+      |vpiDirection:1
+      |vpiName:action_str
+      |vpiTypedef:
+      \_string_typespec: , line:3:49, endln:3:55
+        |vpiInstance:
+        \_package: (toto), file:
+    |vpiIODecl:
+    \_io_decl: (action), line:3:86, endln:3:92, parent:toto::uvm_string_to_action
+      |vpiDirection:2
+      |vpiName:action
+      |vpiTypedef:
+      \_unsupported_typespec: (uvm_action), line:3:75, endln:3:85
+        |vpiName:uvm_action
+        |vpiInstance:
+        \_package: (toto), file:
+    |vpiInstance:
+    \_package: toto (toto::) dut.sv:1:1: , endln:44:11, parent:unnamed
+  |vpiTaskFunc:
+  \_function: (toto::uvm_object::clone), line:7:5, endln:13:16, parent:toto::
+    |vpiName:uvm_object::clone
+    |vpiFullName:toto::uvm_object::clone
+    |vpiVisibility:1
+    |vpiReturn:
+    \_ref_var: , line:7:14, endln:7:24
+    |vpiStmt:
+    \_begin: (toto::uvm_object::clone), parent:toto::uvm_object::clone
+      |vpiFullName:toto::uvm_object::clone
+      |vpiStmt:
+      \_assignment: , line:9:7, endln:9:36, parent:toto::uvm_object::clone
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_method_func_call: (create), line:9:18, endln:9:24
+          |vpiArgument:
+          \_func_call: (get_name), line:9:25, endln:9:35, parent:create
+            |vpiName:get_name
+          |vpiName:create
+          |vpiPrefix:
+          \_constant: , line:9:13, endln:9:17
+            |vpiDecompile:this
+            |vpiSize:4
+            |STRING:this
+            |vpiConstType:6
+        |vpiLhs:
+        \_ref_obj: (toto::uvm_object::clone::tmp), line:9:7, endln:9:10
+          |vpiName:tmp
+          |vpiFullName:toto::uvm_object::clone::tmp
+      |vpiStmt:
+      \_method_func_call: (copy), line:11:11, endln:11:15, parent:toto::uvm_object::clone
+        |vpiArgument:
+        \_ref_obj: (toto::uvm_object::clone::this), line:11:16, endln:11:20, parent:copy
+          |vpiName:this
+          |vpiFullName:toto::uvm_object::clone::this
+        |vpiName:copy
+        |vpiPrefix:
+        \_ref_obj: (toto::uvm_object::clone::tmp), line:11:7, endln:11:10, parent:copy
+          |vpiName:tmp
+          |vpiFullName:toto::uvm_object::clone::tmp
+    |vpiInstance:
+    \_package: toto (toto::) dut.sv:1:1: , endln:44:11, parent:unnamed
+  |vpiTaskFunc:
+  \_function: (toto::m_initialize), line:16:1, endln:22:13, parent:toto::
+    |vpiName:m_initialize
+    |vpiFullName:toto::m_initialize
+    |vpiVisibility:1
+    |vpiReturn:
+    \_ref_var: , line:16:10, endln:16:19
+    |vpiStmt:
+    \_begin: (toto::m_initialize), parent:toto::m_initialize
+      |vpiFullName:toto::m_initialize
+      |vpiStmt:
+      \_if_stmt: , line:17:4, endln:20:7, parent:toto::m_initialize
+        |vpiCondition:
+        \_operation: , line:17:7, endln:17:23
+          |vpiOpType:14
+          |vpiOperand:
+          \_ref_obj: (toto::m_initialize::m_b_inst), line:17:7, endln:17:15
+            |vpiName:m_b_inst
+            |vpiFullName:toto::m_initialize::m_b_inst
+          |vpiOperand:
+          \_constant: , line:17:19, endln:17:23
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:11
+        |vpiStmt:
+        \_begin: (toto::m_initialize), line:17:25, endln:20:7
+          |vpiFullName:toto::m_initialize
+          |vpiStmt:
+          \_assignment: , line:18:6, endln:18:20, parent:toto::m_initialize
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiRhs:
+            \_method_func_call: (new)
+              |vpiName:new
+            |vpiLhs:
+            \_ref_obj: (m_b_inst), line:18:6, endln:18:14
+              |vpiName:m_b_inst
+          |vpiStmt:
+          \_assignment: , line:19:6, endln:19:22, parent:toto::m_initialize
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiRhs:
+            \_method_func_call: (new)
+              |vpiArgument:
+              \_constant: , line:19:20, endln:19:21, parent:new
+                |vpiDecompile:2
+                |vpiSize:64
+                |UINT:2
+                |vpiConstType:9
+              |vpiName:new
+            |vpiLhs:
+            \_ref_obj: (m_pool), line:19:6, endln:19:12
+              |vpiName:m_pool
+      |vpiStmt:
+      \_return_stmt: , line:21:4, endln:21:10, parent:toto::m_initialize
+        |vpiCondition:
+        \_ref_obj: (toto::m_initialize::m_b_inst), line:21:11, endln:21:19
+          |vpiName:m_b_inst
+          |vpiFullName:toto::m_initialize::m_b_inst
+    |vpiInstance:
+    \_package: toto (toto::) dut.sv:1:1: , endln:44:11, parent:unnamed
+  |vpiTaskFunc:
+  \_function: (toto::uvm_reg::add_field), line:25:1, endln:30:12, parent:toto::
+    |vpiName:uvm_reg::add_field
+    |vpiFullName:toto::uvm_reg::add_field
+    |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (field), line:25:48, endln:25:53, parent:toto::uvm_reg::add_field
+      |vpiDirection:1
+      |vpiName:field
+      |vpiTypedef:
+      \_unsupported_typespec: (uvm_reg_field), line:25:34, endln:25:47
+        |vpiName:uvm_reg_field
+        |vpiInstance:
+        \_package: (toto), file:
+    |vpiStmt:
+    \_if_stmt: , line:27:4, endln:28:7, parent:toto::uvm_reg::add_field
+      |vpiCondition:
+      \_hier_path: (fields.get_lsb_pos_in_register), line:1:1, endln:1:0
+        |vpiName:fields.get_lsb_pos_in_register
+        |vpiActual:
+        \_ref_obj: (fields), parent:fields.get_lsb_pos_in_register
+          |vpiName:fields
+        |vpiActual:
+        \_ref_obj: (get_lsb_pos_in_register), parent:fields.get_lsb_pos_in_register
+          |vpiName:get_lsb_pos_in_register
+      |vpiStmt:
+      \_begin: (toto::uvm_reg::add_field), line:27:54, endln:28:7
+        |vpiFullName:toto::uvm_reg::add_field
+    |vpiInstance:
+    \_package: toto (toto::) dut.sv:1:1: , endln:44:11, parent:unnamed
+  |vpiTaskFunc:
+  \_function: (toto::uvm_transaction::is_recording_enabled), line:32:1, endln:34:12, parent:toto::
+    |vpiName:uvm_transaction::is_recording_enabled
+    |vpiFullName:toto::uvm_transaction::is_recording_enabled
+    |vpiVisibility:1
+    |vpiReturn:
+    \_bit_var: , line:32:10, endln:32:13
+    |vpiStmt:
+    \_return_stmt: , line:33:3, endln:33:9, parent:toto::uvm_transaction::is_recording_enabled
+      |vpiCondition:
+      \_operation: , line:33:11, endln:33:37
+        |vpiOpType:15
+        |vpiOperand:
+        \_constant: , line:33:11, endln:33:29
+          |vpiDecompile:this
+        |vpiOperand:
+        \_constant: , line:33:33, endln:33:37
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:11
+    |vpiInstance:
+    \_package: toto (toto::) dut.sv:1:1: , endln:44:11, parent:unnamed
+  |vpiTaskFunc:
+  \_function: (toto::uvm_reg_backdoor::start_update_thread), line:36:1, endln:42:15, parent:toto::
+    |vpiName:uvm_reg_backdoor::start_update_thread
+    |vpiFullName:toto::uvm_reg_backdoor::start_update_thread
+    |vpiVariables:
+    \_ref_var: (toto::uvm_reg_backdoor::start_update_thread::rg), line:37:15, endln:37:17, parent:toto::uvm_reg_backdoor::start_update_thread
+      |vpiName:rg
+      |vpiFullName:toto::uvm_reg_backdoor::start_update_thread::rg
+      |vpiActual:
+      \_ref_var: (toto::uvm_reg_backdoor::start_update_thread::rg), line:37:15, endln:37:17
+        |vpiName:rg
+        |vpiFullName:toto::uvm_reg_backdoor::start_update_thread::rg
+    |vpiVisibility:1
+    |vpiIODecl:
+    \_io_decl: (element), line:36:64, endln:36:71, parent:toto::uvm_reg_backdoor::start_update_thread
+      |vpiDirection:1
+      |vpiName:element
+      |vpiTypedef:
+      \_unsupported_typespec: (uvm_object), line:36:53, endln:36:63
+        |vpiName:uvm_object
+        |vpiInstance:
+        \_package: (toto), file:
+    |vpiStmt:
+    \_begin: (toto::uvm_reg_backdoor::start_update_thread), parent:toto::uvm_reg_backdoor::start_update_thread
+      |vpiFullName:toto::uvm_reg_backdoor::start_update_thread
+      |vpiStmt:
+      \_if_stmt: , line:38:7, endln:40:10, parent:toto::uvm_reg_backdoor::start_update_thread
+        |vpiCondition:
+        \_constant: , line:38:11, endln:38:47
+          |vpiDecompile:this
+        |vpiStmt:
+        \_begin: (toto::uvm_reg_backdoor::start_update_thread), line:38:49, endln:40:10
+          |vpiFullName:toto::uvm_reg_backdoor::start_update_thread
+          |vpiStmt:
+          \_method_func_call: (kill_update_thread), line:39:15, endln:39:33, parent:toto::uvm_reg_backdoor::start_update_thread
+            |vpiArgument:
+            \_ref_obj: (toto::uvm_reg_backdoor::start_update_thread::element), line:39:34, endln:39:41, parent:kill_update_thread
+              |vpiName:element
+              |vpiFullName:toto::uvm_reg_backdoor::start_update_thread::element
+              |vpiActual:
+              \_io_decl: (element), line:36:64, endln:36:71, parent:toto::uvm_reg_backdoor::start_update_thread
+            |vpiName:kill_update_thread
+            |vpiPrefix:
+            \_constant: , line:39:10, endln:39:14
+              |vpiDecompile:this
+              |vpiSize:4
+              |STRING:this
+              |vpiConstType:6
+    |vpiInstance:
+    \_package: toto (toto::) dut.sv:1:1: , endln:44:11, parent:unnamed
 |uhdmtopPackages:
 \_package: builtin (builtin::), file:, parent:unnamed
   |vpiName:builtin
