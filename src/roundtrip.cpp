@@ -472,7 +472,10 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     return text;
   }
 
-  void enterVariables(const UHDM::variables *const object) {
+  // There is also an enterVariables() in the listener. To avoid
+  // this being mistaken as overriden listener method, give it a
+  // distinct name.
+  void roundtripEnterVariables(const UHDM::variables *const object) {
     if (visited.find(object) != visited.end()) return;
 
     const std::filesystem::path &filepath = object->VpiFile();
@@ -602,28 +605,6 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
   }
-
-  void enterConcurrent_assertions(
-      const UHDM::concurrent_assertions *const object) {}
-  void enterProcess_stmt(const UHDM::process_stmt *const object) {}
-  void enterAtomic_stmt(const UHDM::atomic_stmt *const object) {}
-  void enterScope(const UHDM::scope *const object) {}
-  void enterWaits(const UHDM::waits *const object) {}
-  void enterDisables(const UHDM::disables *const object) {}
-  void enterExpr(const UHDM::expr *const object) {}
-  void enterSimple_expr(const UHDM::simple_expr *const object) {}
-  void enterTask_func(const UHDM::task_func *const object) {}
-  void enterPorts(const UHDM::ports *const object) {}
-  void enterPrimitive(const UHDM::primitive *const object) {}
-  void enterInstance_array(const UHDM::instance_array *const object) {}
-  void enterPrimitive_array(const UHDM::primitive_array *const object) {}
-  void enterNet_drivers(const UHDM::net_drivers *const object) {}
-  void enterNet_loads(const UHDM::net_loads *const object) {}
-  void enterNets(const UHDM::nets *const object) {}
-  void enterNet(const UHDM::net *const object) {}
-  void enterInstance(const UHDM::instance *const object) {}
-  void enterTf_call(const UHDM::tf_call *const object) {}
-  void enterConstraint_expr(const UHDM::constraint_expr *const object) {}
 
  public:
   void enterAttribute(const UHDM::attribute *const object) final {
@@ -1659,45 +1640,45 @@ class RoundTripTracer final : public UHDM::UhdmListener {
   }
 
   void enterRef_var(const UHDM::ref_var *const object) final {
-    enterVariables(object);
+    roundtripEnterVariables(object);
   }
 
   void enterShort_real_var(const UHDM::short_real_var *const object) final {
-    enterVariables(object);
+    roundtripEnterVariables(object);
   }
 
   void enterReal_var(const UHDM::real_var *const object) final {
-    enterVariables(object);
+    roundtripEnterVariables(object);
   }
 
   void enterByte_var(const UHDM::byte_var *const object) final {
-    enterVariables(object);
+    roundtripEnterVariables(object);
   }
 
   void enterShort_int_var(const UHDM::short_int_var *const object) final {
-    enterVariables(object);
+    roundtripEnterVariables(object);
   }
 
   void enterInt_var(const UHDM::int_var *const object) final {
-    enterVariables(object);
+    roundtripEnterVariables(object);
   }
 
   void enterLong_int_var(const UHDM::long_int_var *const object) final {
-    enterVariables(object);
+    roundtripEnterVariables(object);
   }
 
   void enterInteger_var(const UHDM::integer_var *const object) final {
-    enterVariables(object);
+    roundtripEnterVariables(object);
   }
 
   void enterTime_var(const UHDM::time_var *const object) final {
-    enterVariables(object);
+    roundtripEnterVariables(object);
   }
 
   void enterArray_var(const UHDM::array_var *const object) final {
     if (visited.find(object) != visited.end()) return;
 
-    enterVariables(object);
+    roundtripEnterVariables(object);
 
     const std::filesystem::path &filepath = object->VpiFile();
 
@@ -1724,39 +1705,39 @@ class RoundTripTracer final : public UHDM::UhdmListener {
   }
 
   void enterPacked_array_var(const UHDM::packed_array_var *const object) final {
-    enterVariables(object);
+    roundtripEnterVariables(object);
   }
 
   void enterBit_var(const UHDM::bit_var *const object) final {
-    enterVariables(object);
+    roundtripEnterVariables(object);
   }
 
   void enterLogic_var(const UHDM::logic_var *const object) final {
-    enterVariables(object);
+    roundtripEnterVariables(object);
   }
 
   void enterStruct_var(const UHDM::struct_var *const object) final {
-    enterVariables(object);
+    roundtripEnterVariables(object);
   }
 
   void enterUnion_var(const UHDM::union_var *const object) final {
-    enterVariables(object);
+    roundtripEnterVariables(object);
   }
 
   void enterEnum_var(const UHDM::enum_var *const object) final {
-    enterVariables(object);
+    roundtripEnterVariables(object);
   }
 
   void enterString_var(const UHDM::string_var *const object) final {
-    enterVariables(object);
+    roundtripEnterVariables(object);
   }
 
   void enterChandle_var(const UHDM::chandle_var *const object) final {
-    enterVariables(object);
+    roundtripEnterVariables(object);
   }
 
   void enterVar_bit(const UHDM::var_bit *const object) final {
-    enterVariables(object);
+    roundtripEnterVariables(object);
   }
 
   void enterTask(const UHDM::task *const object) final {
@@ -1856,7 +1837,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     const UHDM::VectorOfio_decl *const io_decls = object->Io_decls();
     if (io_decls != nullptr) {
       for (size_t i = 0, ni = io_decls->size() - 1; i < ni; ++i) {
-        const UHDM::VectorOfio_decl::const_reference io_decl = io_decls->at(i);
+        UHDM::VectorOfio_decl::const_reference io_decl = io_decls->at(i);
         const UHDM::any *const expr = io_decl->Expr();
         if (expr == nullptr) {
           insert(filepath, io_decl->VpiEndLineNo(), io_decl->VpiEndColumnNo(),
@@ -1867,7 +1848,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
         }
       }
 
-      const UHDM::VectorOfio_decl::const_reference io_declN = io_decls->back();
+      UHDM::VectorOfio_decl::const_reference io_declN = io_decls->back();
       const UHDM::any *const exprN = io_declN->Expr();
       if (exprN == nullptr) {
         insert(filepath, io_declN->VpiEndLineNo(), io_declN->VpiEndColumnNo(),
@@ -2114,11 +2095,11 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     const UHDM::VectorOfio_decl *const io_decls = object->Io_decls();
     if (io_decls != nullptr) {
       for (size_t i = 0, ni = io_decls->size() - 1; i < ni; ++i) {
-        const UHDM::VectorOfio_decl::const_reference io_decl = io_decls->at(i);
+        UHDM::VectorOfio_decl::const_reference io_decl = io_decls->at(i);
         insert(filepath, io_decl->VpiEndLineNo(), io_decl->VpiEndColumnNo(),
                ",");
       }
-      const UHDM::VectorOfio_decl::const_reference io_declN = io_decls->back();
+      UHDM::VectorOfio_decl::const_reference io_declN = io_decls->back();
       insert(filepath, io_declN->VpiEndLineNo(), io_declN->VpiEndColumnNo(),
              ")");
     } else {
@@ -2584,7 +2565,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
   }
 
   void enterClass_var(const UHDM::class_var *const object) final {
-    enterVariables(object);
+    roundtripEnterVariables(object);
   }
 
   void enterInterface(const UHDM::interface *const object) final {
