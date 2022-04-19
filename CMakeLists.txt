@@ -15,8 +15,8 @@ endif(NOT CMAKE_BUILD_TYPE)
 
 option(
   WITH_LIBCXX
-  "Building with clang++ and libc++(in Linux). To enable with: -DWITH_LIBCXX=On"
-  On)
+  "If buildling with clang++ and libc++(in Linux). To enable with: -DWITH_LIBCXX=On"
+  Off)
 
 project(SURELOG)
 
@@ -27,6 +27,10 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+if(WITH_LIBCXX)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+endif()
 
 set(FLATBUFFERS_BUILD_TESTS OFF CACHE BOOL "Skip flatbuffers' tests")
 add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
