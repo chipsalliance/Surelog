@@ -391,7 +391,7 @@ proc run_regression { } {
     set MEM 0
     set sep +-[string repeat - $w1]-+-[string repeat - $w2]-+-[string repeat - $w6]-+-[string repeat - $w4]-+-[string repeat - $w2]-+-[string repeat - $w4]-+-[string repeat - $w7]-+-[string repeat - $w5]-+-[string repeat - $w5]-+
     log $sep
-    log [format "| %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |" $w1 "TESTNAME" $w2 "STATUS" $w6 "FATAL"  $w2 "SYNTAX" $w4 "ERROR" $w2 "WARNING"  $w7 "NOTE-UHDM"  $w5 "TIME" $w5 "MEM(Mb)"]
+    log [format "| %-*s | %-*s | %*s | %*s | %*s | %*s | %*s | %*s | %*s |" $w1 "TESTNAME" $w2 "STATUS" $w6 "FATAL"  $w2 "SYNTAX" $w4 "ERROR" $w2 "WARNING"  $w7 "NOTE-UHDM"  $w5 "TIME" $w5 "MEM(Mb)"]
     log $sep
 
     foreach testname [lsort -dictionary [array names TESTS]] {
@@ -625,15 +625,15 @@ proc run_regression { } {
                 set PRIOR_MAX_TIME $prior_elapsed
             }
             if {$DIFF_MODE == 1} {
-                set SPEED [format "%-*s " 4 "${prior_elapsed}s"]
+                set SPEED [format "%*s " 4 "${prior_elapsed}s"]
                 set FASTER_OR_SLOWER 1
             } elseif [expr ($elapsed > $prior_elapsed) && ($no_previous_time_content == 0)] {
-                set SPEED [format "%-*s %-*s " 3 "${elapsed}s" 3 "+[expr $elapsed - $prior_elapsed]"]
+                set SPEED [format "%*s %*s " 3 "${elapsed}s" 3 "+[expr $elapsed - $prior_elapsed]"]
                 set FASTER_OR_SLOWER 1
             } elseif [expr ($elapsed == $prior_elapsed) || ($no_previous_time_content)] {
-                set SPEED [format "%-*s " 4 "${elapsed}s"]
+                set SPEED [format "%*s " 4 "${elapsed}s"]
             } else {
-                set SPEED [format "%-*s %-*s " 3 "${elapsed}s" 3 "-[expr $prior_elapsed - $elapsed]"]
+                set SPEED [format "%*s %*s " 3 "${elapsed}s" 3 "-[expr $prior_elapsed - $elapsed]"]
                 set FASTER_OR_SLOWER 1
             }
 
@@ -644,14 +644,14 @@ proc run_regression { } {
                 set PRIOR_MAX_MEM $prior_mem
             }
             if {$DIFF_MODE == 1} {
-                set MEM [format "%-*s " 4 "${prior_mem}"]
+                set MEM [format "%*s " 4 "${prior_mem}"]
             } elseif [expr ($mem > $prior_mem) && ($no_previous_time_content == 0)] {
-                set MEM  [format "%-*s %-*s " 3 "${mem}" 3 "+[expr $mem - $prior_mem]"]
+                set MEM  [format "%*s %*s " 3 "${mem}" 3 "+[expr $mem - $prior_mem]"]
                 set DIFF_MEM 1
             } elseif  [expr ($mem == $prior_mem) || ($no_previous_time_content)] {
-                set MEM [format "%-*s " 4 "${mem}"]
+                set MEM [format "%*s " 4 "${mem}"]
             } else {
-                set MEM  [format "%-*s %-*s " 3 "${mem}" 3 "-[expr $prior_mem - $mem]"]
+                set MEM  [format "%*s %*s " 3 "${mem}" 3 "-[expr $prior_mem - $mem]"]
                 set DIFF_MEM 1
             }
 
@@ -701,7 +701,7 @@ proc run_regression { } {
             set fatals "SEGFAULT"
         }
 
-        log [format " %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |" $w2 $passstatus $w6 $fatals $w2 $syntax $w4 $errors $w2 $warnings $w7 $notes $w5 $SPEED $w5 $MEM ]
+        log [format " %-*s | %*s | %*s | %*s | %*s | %*s | %*s | %*s |" $w2 $passstatus $w6 $fatals $w2 $syntax $w4 $errors $w2 $warnings $w7 $notes $w5 $SPEED $w5 $MEM ]
         flush stdout
         if {$SHOW_DETAILS == 1} {
             log "Log:\n"
