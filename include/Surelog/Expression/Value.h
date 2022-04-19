@@ -423,8 +423,6 @@ class LValue final : public Value {
   unsigned short m_negative = 0;
   unsigned short m_lrange = 0;
   unsigned short m_rrange = 0;
-  LValue* m_prev = nullptr;
-  LValue* m_next = nullptr;
 };
 
 class StValue final : public Value {
