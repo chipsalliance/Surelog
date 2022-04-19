@@ -5,8 +5,8 @@ on:
   pull_request:
 
 jobs:
-  linux-gcc:
-    name: ${{ matrix.mode }}
+  linux-build-test:
+    name: "${{ matrix.mode }}-${{ matrix.compiler }} Linux"
 
     runs-on: ubuntu-latest
     defaults:
@@ -18,6 +18,118 @@ jobs:
         mode:
         - test
         - regression
+
+        compiler:
+        - gcc
+        - clang
+
+    env:
+      MODE: ${{ matrix.mode }}
+      COMPILER: ${{ matrix.compiler }}
+
+    steps:
+
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.9.1
+      with:
+        access_token: ${{ github.token }}
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update -qq
+        sudo apt install -y \
+          g++-9 clang \
+          default-jre \
+          cmake ninja-build \
+          build-essential \
+          google-perftools \
+          libgoogle-perftools-dev \
+          python3 python3-orderedmultidict python3-psutil python3-dev \
+          uuid-dev \
+          lcov
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - name: Use ccache
+      uses: hendrikmuhs/ccache-action@v1
+      with:
+        key: linux-${{ matrix.mode }}-${{ matrix.compiler }}
+
+    - name: Configure compiler
+      run: |
+        if [ "${{matrix.compiler}}" == "clang" ]; then
+          echo 'CC=clang' >> $GITHUB_ENV
+          echo 'CXX=clang++' >> $GITHUB_ENV
+        else
+          echo 'CC=gcc-9' >> $GITHUB_ENV
+          echo 'CXX=g++-9' >> $GITHUB_ENV
+        fi
+
+    - name: Configure shell
+      run: |
+        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
+        echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
+        echo "ADDITIONAL_CMAKE_OPTIONS='-DPython3_ROOT_DIR=${pythonLocation} -DMY_CXX_WARNING_FLAGS="-W -Wall -Wextra -Wno-unused-parameter -Wno-unused-variable -Werror -UNDEBUG"'" >> $GITHUB_ENV
+        echo "CMAKE_GENERATOR=Ninja" >> $GITHUB_ENV
+
+    - name: Show shell configuration
+      run: |
+        env
+        which cmake && cmake --version
+        which java && java -version
+        which python && python --version
+        which ninja && ninja --version
+        which $CC && $CC --version
+        which $CXX && $CXX --version
+
+    - name: Build
+      run: |
+        if [ "${{matrix.mode}}" == "test" ]; then
+           make debug
+        else
+           make release
+        fi
+
+    - name: Test
+      if: matrix.mode == 'test'
+      run: |
+        make test/unittest-d
+
+    - name: Regression
+      if: matrix.mode == 'regression'
+      run: |
+        make regression
+
+    - name: Prepare regression artifacts
+      if: matrix.mode == 'regression' && always()
+      run: |
+        cd build
+        mv regression surelog-linux-${{matrix.compiler}}-regression
+        find surelog-linux-${{matrix.compiler}}-regression -name "*.log" | tar czvfp surelog-linux-${{matrix.compiler}}-regression.tgz -T -
+
+    - name: Archive regression artifacts
+      if: matrix.mode == 'regression' && always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: surelog-linux-${{matrix.compiler}}-regression
+        path: ${{ github.workspace }}/build/surelog-linux-${{matrix.compiler}}-regression.tgz
+
+  # Various other builds where just one compiler is sufficient to test with.
+  linux-various:
+    name: "${{ matrix.mode }} Linux"
+
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
         - coverage
         - valgrind
         - install
@@ -38,7 +150,7 @@ jobs:
         sudo apt install -y \
           g++-9 \
           default-jre \
-          cmake \
+          cmake ninja-build \
           build-essential \
           google-perftools \
           libgoogle-perftools-dev \
@@ -67,32 +179,23 @@ jobs:
         echo 'CXX=g++-9' >> $GITHUB_ENV
         echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
         echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
-        echo "ADDITIONAL_CMAKE_OPTIONS='-DPython3_ROOT_DIR=${pythonLocation} -DCMAKE_RULE_MESSAGES=off -DMY_CXX_WARNING_FLAGS="-W -Wall -Wextra -Wno-unused-parameter -Wno-unused-variable -Werror -UNDEBUG"'" >> $GITHUB_ENV
+        echo "ADDITIONAL_CMAKE_OPTIONS='-DPython3_ROOT_DIR=${pythonLocation} -DMY_CXX_WARNING_FLAGS="-W -Wall -Wextra -Wno-unused-parameter -Wno-unused-variable -Werror -UNDEBUG"'" >> $GITHUB_ENV
+        echo "CMAKE_GENERATOR=Ninja" >> $GITHUB_ENV
 
     - name: Show shell configuration
       run: |
         env
         which cmake && cmake --version
-        which make && make --version
         which java && java -version
         which python && python --version
         which ninja && ninja --version
         which $CC && $CC --version
         which $CXX && $CXX --version
+
     - name: PythonAPI
       if: matrix.mode == 'pythonapi'
       run: |
         make ADDITIONAL_CMAKE_OPTIONS="-DSURELOG_WITH_PYTHON=1 -DCMAKE_CXX_FLAGS=-fpermissive"
-
-    - name: Test
-      if: matrix.mode == 'test'
-      run: |
-        make test/unittest-d
-
-    - name: Regression
-      if: matrix.mode == 'regression'
-      run: |
-        make test/regression
 
     - name: Coverage
       if: matrix.mode == 'coverage'
@@ -127,26 +230,12 @@ jobs:
         mkdir build
         tar czvfp build/surelog-linux-gcc.tgz surelog-linux-gcc
 
-    - name: Prepare regression artifacts
-      if: matrix.mode == 'regression' && always()
-      run: |
-        cd build
-        mv regression surelog-linux-gcc-regression
-        find surelog-linux-gcc-regression -name "*.log" | tar czvfp surelog-linux-gcc-regression.tgz -T -
-
     - name: Archive build artifacts
       if: matrix.mode == 'install'
       uses: actions/upload-artifact@v2
       with:
         name: surelog-linux-gcc
         path: ${{ github.workspace }}/build/surelog-linux-gcc.tgz
-
-    - name: Archive regression artifacts
-      if: matrix.mode == 'regression' && always()
-      uses: actions/upload-artifact@v2
-      with:
-        name: surelog-linux-gcc-regression
-        path: ${{ github.workspace }}/build/surelog-linux-gcc-regression.tgz
 
   msys2-gcc:
     runs-on: windows-2022
@@ -401,11 +490,17 @@ jobs:
         name: surelog-windows-cl-regression
         path: ${{ github.workspace }}/build/surelog-windows-cl-regression.tgz
 
-  macos-gcc:
+  macos:
+    name: macos-${{ matrix.compiler }}
     runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler:
+        - gcc
+        - clang
 
     steps:
-
     - name: Cancel previous
       uses: styfle/cancel-workflow-action@0.9.1
       with:
@@ -430,12 +525,20 @@ jobs:
     - name: Use ccache
       uses: hendrikmuhs/ccache-action@v1
       with:
-        key: macos-gcc
+        key: macos-${{ matrix.compiler }}
+
+    - name: Configure compiler
+      run: |
+        if [ "${{matrix.compiler}}" == "clang" ]; then
+          echo 'CC=clang' >> $GITHUB_ENV
+          echo 'CXX=clang++' >> $GITHUB_ENV
+        else
+          echo 'CC=gcc-9' >> $GITHUB_ENV
+          echo 'CXX=g++-9' >> $GITHUB_ENV
+        fi
 
     - name: Configure shell
       run: |
-        echo 'CC=gcc-9' >> $GITHUB_ENV
-        echo 'CXX=g++-9' >> $GITHUB_ENV
         echo "PATH=$(brew --prefix)/opt/ccache/libexec:$PATH" >> $GITHUB_ENV
         echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
         echo 'ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation}' >> $GITHUB_ENV
@@ -452,126 +555,46 @@ jobs:
 
     - name: Build
       run: |
+        make debug
         make release
+
+    - name: Install test
+      run: |
         make install
+        make test_install
 
     - name: Unit tests
       run: |
-        make test_install
-        make test/unittest
+        make test/unittest-d
 
     - name: Regression tests
       run: |
-        make test/regression
+        make regression
 
     - name: Prepare build artifacts
       run: |
-        mv install surelog-macos-gcc
-        tar czvfp build/surelog-macos-gcc.tgz surelog-macos-gcc
+        mv install surelog-macos-${{ matrix.compiler }}
+        tar czvfp build/surelog-macos-${{ matrix.compiler }}.tgz surelog-macos-${{ matrix.compiler }}
 
     - name: Prepare regression artifacts
       if: always()
       run: |
         cd build
-        mv regression surelog-macos-gcc-regression
-        find surelog-macos-gcc-regression -name "*.log" | tar czvfp surelog-macos-gcc-regression.tgz -T -
+        mv regression surelog-macos-${{ matrix.compiler }}-regression
+        find surelog-macos-${{ matrix.compiler }}-regression -name "*.log" | tar czvfp surelog-macos-${{ matrix.compiler }}-regression.tgz -T -
 
     - name: Archive build artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: surelog-macos-gcc
-        path: ${{ github.workspace }}/build/surelog-macos-gcc.tgz
+        name: surelog-macos-${{ matrix.compiler }}
+        path: ${{ github.workspace }}/build/surelog-macos-${{ matrix.compiler }}.tgz
 
     - name: Archive regression artifacts
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: surelog-macos-gcc-regression
-        path: ${{ github.workspace }}/build/surelog-macos-gcc-regression.tgz
-
-  macos-clang:
-    runs-on: macos-latest
-
-    steps:
-
-    - name: Cancel previous
-      uses: styfle/cancel-workflow-action@0.9.1
-      with:
-        access_token: ${{ github.token }}
-
-    - name: Setup Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-        architecture: x64
-
-    - name: Setup Python Packages
-      run: |
-        pip3 install orderedmultidict
-        pip3 install psutil
-
-    - uses: actions/checkout@v2
-      with:
-        submodules: recursive
-        fetch-depth: 0
-
-    - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1
-      with:
-        key: macos-clang
-
-    - name: Configure shell
-      run: |
-        echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
-        echo "PATH=$(brew --prefix)/opt/ccache/libexec:$PATH" >> $GITHUB_ENV
-        echo 'ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation}' >> $GITHUB_ENV
-
-    - name: Show shell configuration
-      run: |
-        env
-        which cmake && cmake --version
-        which make && make --version
-        which java && java -version
-        which python && python --version
-
-    - name: Build
-      run: |
-        make release
-        make install
-
-    - name: Unit tests
-      run: |
-        make test_install
-        make test/unittest
-
-    - name: Regression tests
-      run: |
-        make test/regression
-
-    - name: Prepare build artifacts
-      run: |
-        mv install surelog-macos-clang
-        tar czvfp build/surelog-macos-clang.tgz surelog-macos-clang
-
-    - name: Prepare regression artifacts
-      if: always()
-      run: |
-        cd build
-        mv regression surelog-macos-clang-regression
-        find surelog-macos-clang-regression -name "*.log" | tar czvfp surelog-macos-clang-regression.tgz -T -
-
-    - name: Archive build artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: surelog-macos-clang
-        path: ${{ github.workspace }}/build/surelog-macos-clang.tgz
-
-    - name: Archive regression artifacts
-      if: always()
-      uses: actions/upload-artifact@v2
-      with:
-        name: surelog-macos-clang-regression
-        path: ${{ github.workspace }}/build/surelog-macos-clang-regression.tgz
+        name: surelog-macos-${{ matrix.compiler }}-regression
+        path: ${{ github.workspace }}/build/surelog-macos-${{ matrix.compiler }}-regression.tgz
 
   CodeFormatting:
     runs-on: ubuntu-20.04
