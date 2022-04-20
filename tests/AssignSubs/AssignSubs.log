@@ -206,6 +206,35 @@ design: (work@dut)
 \_package: pkg (pkg::) dut.sv:1:1: , endln:5:11, parent:work@dut
   |vpiName:pkg
   |vpiFullName:pkg::
+  |vpiTypedef:
+  \_enum_typespec: (pkg::priv_lvl_e), line:2:2, endln:4:16, parent:pkg::
+    |vpiName:pkg::priv_lvl_e
+    |vpiInstance:
+    \_package: pkg (pkg::) dut.sv:1:1: , endln:5:11, parent:work@dut
+    |vpiBaseTypespec:
+    \_logic_typespec: , line:2:15, endln:2:20
+      |vpiInstance:
+      \_package: (pkg), file:
+      |vpiRange:
+      \_range: , line:2:22, endln:2:25
+        |vpiLeftRange:
+        \_constant: , line:2:22, endln:2:23
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:2:24, endln:2:25
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiEnumConst:
+    \_enum_const: (PRIV_LVL_M), line:3:3, endln:3:21
+      |vpiName:PRIV_LVL_M
+      |BIN:11
+      |vpiDecompile:4'b11
+      |vpiSize:4
   |vpiDefName:pkg
 |uhdmtopPackages:
 \_package: pkg (pkg::) dut.sv:1:1: , endln:5:11, parent:work@dut

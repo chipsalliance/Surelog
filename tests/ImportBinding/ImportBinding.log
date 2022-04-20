@@ -142,107 +142,88 @@ design: (work@top)
 \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:1:1: , endln:13:11, parent:work@top
   |vpiName:lc_ctrl_pkg
   |vpiFullName:lc_ctrl_pkg::
+  |vpiParameter:
+  \_parameter: (lc_ctrl_pkg::TxWidth), line:3:18, endln:3:25, parent:lc_ctrl_pkg::
+    |UINT:4
+    |vpiTypespec:
+    \_int_typespec: , line:3:14, endln:3:17, parent:lc_ctrl_pkg::TxWidth
+      |vpiInstance:
+      \_package: (lc_ctrl_pkg), file:
+      |vpiSigned:1
+    |vpiSigned:1
+    |vpiName:TxWidth
+    |vpiFullName:lc_ctrl_pkg::TxWidth
+  |vpiParameter:
+  \_parameter: (lc_ctrl_pkg::LC_TX_DEFAULT), line:11:23, endln:11:36, parent:lc_ctrl_pkg::
+    |vpiTypespec:
+    \_unsupported_typespec: (lc_tx_t), line:11:15, endln:11:22, parent:lc_ctrl_pkg::LC_TX_DEFAULT
+      |vpiName:lc_tx_t
+      |vpiInstance:
+      \_package: (lc_ctrl_pkg), file:
+    |vpiName:LC_TX_DEFAULT
+    |vpiFullName:lc_ctrl_pkg::LC_TX_DEFAULT
   |vpiParamAssign:
   \_param_assign: , line:3:18, endln:3:29, parent:lc_ctrl_pkg::
     |vpiRhs:
     \_constant: , line:3:28, endln:3:29
       |vpiDecompile:4
-      |vpiSize:64
+      |vpiSize:32
       |UINT:4
+      |vpiTypespec:
+      \_int_typespec: , line:3:14, endln:3:17, parent:lc_ctrl_pkg::TxWidth
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (TxWidth), line:3:18, endln:3:25
-      |vpiTypespec:
-      \_int_typespec: , line:3:14, endln:3:17, parent:TxWidth
-        |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:1:1: , endln:13:11, parent:work@top
-        |vpiSigned:1
-      |vpiSigned:1
-      |vpiName:TxWidth
+    \_parameter: (lc_ctrl_pkg::TxWidth), line:3:18, endln:3:25, parent:lc_ctrl_pkg::
   |vpiParamAssign:
   \_param_assign: , line:11:23, endln:11:42, parent:lc_ctrl_pkg::
     |vpiRhs:
     \_ref_obj: (Off), line:11:39, endln:11:42
       |vpiName:Off
-      |vpiActual:
-      \_enum_const: (Off), line:6:6, endln:6:19
-        |vpiName:Off
-        |BIN:0101
-        |vpiDecompile:4'b0101
-        |vpiSize:4
     |vpiLhs:
-    \_parameter: (LC_TX_DEFAULT), line:11:23, endln:11:36
-      |vpiTypespec:
-      \_enum_typespec: (lc_tx_t), line:4:4, endln:7:15, parent:LC_TX_DEFAULT
-        |vpiName:lc_tx_t
-        |vpiTypedefAlias:
-        \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:4:4, endln:7:15, parent:lc_tx_t
-          |vpiName:lc_ctrl_pkg::lc_tx_e
-          |vpiInstance:
-          \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:1:1: , endln:13:11, parent:work@top
-          |vpiBaseTypespec:
-          \_logic_typespec: , line:4:17, endln:4:22, parent:lc_ctrl_pkg::lc_tx_e
-            |vpiInstance:
-            \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:1:1: , endln:13:11, parent:work@top
-            |vpiRange:
-            \_range: , line:4:24, endln:4:35
-              |vpiLeftRange:
-              \_constant: , line:4:24, endln:4:31
-                |vpiDecompile:3
-                |vpiSize:64
-                |INT:3
-                |vpiConstType:7
-              |vpiRightRange:
-              \_constant: , line:4:34, endln:4:35
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
-          |vpiEnumConst:
-          \_enum_const: (On), line:5:7, endln:5:20, parent:lc_ctrl_pkg::lc_tx_e
-            |vpiName:On
-            |BIN:1010
-            |vpiDecompile:4'b1010
-            |vpiSize:4
-          |vpiEnumConst:
-          \_enum_const: (Off), line:6:6, endln:6:19, parent:lc_ctrl_pkg::lc_tx_e
-            |vpiName:Off
-            |BIN:0101
-            |vpiDecompile:4'b0101
-            |vpiSize:4
-        |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:1:1: , endln:13:11, parent:work@top
-        |vpiBaseTypespec:
-        \_logic_typespec: , line:4:17, endln:4:22, parent:lc_tx_t
-          |vpiInstance:
-          \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:1:1: , endln:13:11, parent:work@top
-          |vpiRange:
-          \_range: , line:4:24, endln:4:35
-            |vpiLeftRange:
-            \_constant: , line:4:24, endln:4:31
-              |vpiDecompile:3
-              |vpiSize:64
-              |INT:3
-              |vpiConstType:7
-            |vpiRightRange:
-            \_constant: , line:4:34, endln:4:35
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiEnumConst:
-        \_enum_const: (On), line:5:7, endln:5:20, parent:lc_tx_t
-          |vpiName:On
-          |BIN:1010
-          |vpiDecompile:4'b1010
-          |vpiSize:4
-        |vpiEnumConst:
-        \_enum_const: (Off), line:6:6, endln:6:19, parent:lc_tx_t
-          |vpiName:Off
-          |BIN:0101
-          |vpiDecompile:4'b0101
-          |vpiSize:4
-      |vpiName:LC_TX_DEFAULT
+    \_parameter: (lc_ctrl_pkg::LC_TX_DEFAULT), line:11:23, endln:11:36, parent:lc_ctrl_pkg::
+  |vpiTypedef:
+  \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:4:4, endln:7:15, parent:lc_ctrl_pkg::
+    |vpiName:lc_ctrl_pkg::lc_tx_e
+    |vpiInstance:
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:1:1: , endln:13:11, parent:work@top
+    |vpiBaseTypespec:
+    \_logic_typespec: , line:4:17, endln:4:22
+      |vpiInstance:
+      \_package: (lc_ctrl_pkg), file:
+      |vpiRange:
+      \_range: , line:4:24, endln:4:35
+        |vpiLeftRange:
+        \_operation: , line:4:24, endln:4:33
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (TxWidth), line:4:24, endln:4:31
+            |vpiName:TxWidth
+            |vpiActual:
+            \_parameter: (lc_ctrl_pkg::TxWidth), line:3:18, endln:3:25, parent:lc_ctrl_pkg::
+          |vpiOperand:
+          \_constant: , line:4:32, endln:4:33
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:4:34, endln:4:35
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiEnumConst:
+    \_enum_const: (On), line:5:7, endln:5:20
+      |vpiName:On
+      |BIN:1010
+      |vpiDecompile:4'b1010
+      |vpiSize:4
+    |vpiEnumConst:
+    \_enum_const: (Off), line:6:6, endln:6:19
+      |vpiName:Off
+      |BIN:0101
+      |vpiDecompile:4'b0101
+      |vpiSize:4
   |vpiDefName:lc_ctrl_pkg
 |uhdmtopPackages:
 \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:1:1: , endln:13:11, parent:work@top
@@ -296,6 +277,10 @@ design: (work@top)
           |vpiSize:4
         |vpiEnumConst:
         \_enum_const: (Off), line:6:6, endln:6:19
+          |vpiName:Off
+          |BIN:0101
+          |vpiDecompile:4'b0101
+          |vpiSize:4
       |vpiInstance:
       \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:1:1: , endln:13:11, parent:work@top
       |vpiBaseTypespec:

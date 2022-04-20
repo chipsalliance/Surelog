@@ -66,6 +66,49 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
                              ValuedComponentI* instance, bool muteErrors) {
   Value* value = m_valueFactory.newLValue();
   NodeId child = fC->Child(parent);
+  VObjectType type = fC->Type(parent);
+  switch (type) {
+    case VObjectType::slPackage_scope: {
+      Value* sval = nullptr;
+      const std::string& packageName = fC->SymName(child);
+      const std::string& name = fC->SymName(fC->Sibling(parent));
+      if (m_design) {
+        Package* pack = m_design->getPackage(packageName);
+        if (pack) {
+          if (pack->getComplexValue(name)) {
+            muteErrors = true;
+            value->setInvalid();
+            break;
+          } else {
+            sval = pack->getValue(name);
+          }
+        }
+      }
+      std::string fullName;
+      if (sval == nullptr) fullName = packageName + "::" + name;
+      if (sval == nullptr) {
+        if (muteErrors == false) {
+          Location loc(fC->getFileId(parent), fC->Line(parent), 0,
+                       m_symbols->registerSymbol(fullName));
+          Error err(ErrorDefinition::ELAB_UNDEF_VARIABLE, loc);
+          m_errors->addError(err);
+        }
+        value->setInvalid();
+        return value;
+      }
+      if (sval->getType() == Value::Type::String ||
+          sval->getType() == Value::Type::Hexadecimal) {
+        m_valueFactory.deleteValue(value);
+        value = clone(sval);
+      } else {
+        value->u_plus(sval);
+      }
+      return value;
+    }
+    default:
+      break;
+  }
+
   if (child) {
     VObjectType childType = fC->Type(child);
     switch (childType) {
@@ -695,29 +738,25 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
   } else {
     VObjectType type = fC->Type(parent);
     switch (type) {
-      case VObjectType::slPackage_scope:
       case VObjectType::slStringConst: {
-        std::string name;
-        if (type == VObjectType::slPackage_scope) {
-          name = fC->SymName(fC->Child(parent));
-          name += "::" + fC->SymName(fC->Sibling(parent));
-        } else {
-          name = fC->SymName(parent);
-        }
         Value* sval = nullptr;
+        std::string fullName;
+        const std::string& name = fC->SymName(parent);
         if (instance) {
           if (instance->getComplexValue(name)) {
             muteErrors = true;
             value->setInvalid();
             break;
           } else {
-            sval = instance->getValue(name);
+            sval = instance->getValue(name, *this);
           }
         }
+        if (sval == nullptr) fullName = name;
+
         if (sval == nullptr) {
           if (muteErrors == false) {
-            Location loc(fC->getFileId(child), fC->Line(child), 0,
-                         m_symbols->registerSymbol(name));
+            Location loc(fC->getFileId(parent), fC->Line(parent), 0,
+                         m_symbols->registerSymbol(fullName));
             Error err(ErrorDefinition::ELAB_UNDEF_VARIABLE, loc);
             m_errors->addError(err);
           }

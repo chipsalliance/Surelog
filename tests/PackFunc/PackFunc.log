@@ -169,16 +169,6 @@ design: (unnamed)
 \_package: b (b::) dut.sv:1:1: , endln:6:11, parent:unnamed
   |vpiName:b
   |vpiFullName:b::
-  |vpiDefName:b
-|uhdmallPackages:
-\_package: aa (aa::) dut.sv:8:1: , endln:22:11, parent:unnamed
-  |vpiName:aa
-  |vpiFullName:aa::
-  |vpiDefName:aa
-|uhdmtopPackages:
-\_package: b (b::) dut.sv:1:1: , endln:6:11, parent:unnamed
-  |vpiName:b
-  |vpiFullName:b::
   |vpiTypedef:
   \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17, parent:b::
     |vpiName:b::foo_bar_t
@@ -191,7 +181,7 @@ design: (unnamed)
       |vpiTypespec:
       \_logic_typespec: , line:3:5, endln:3:10
         |vpiInstance:
-        \_package: b (b::) dut.sv:1:1: , endln:6:11, parent:unnamed
+        \_package: (b), file:
         |vpiRange:
         \_range: , line:3:12, endln:3:16, parent:b::foo_bar_t
           |vpiLeftRange:
@@ -211,6 +201,111 @@ design: (unnamed)
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:3
       |vpiRefEndColumnNo:17
+  |vpiDefName:b
+|uhdmallPackages:
+\_package: aa (aa::) dut.sv:8:1: , endln:22:11, parent:unnamed
+  |vpiName:aa
+  |vpiFullName:aa::
+  |vpiDefName:aa
+  |vpiTaskFunc:
+  \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
+    |vpiName:foo_bar
+    |vpiFullName:aa::foo_bar
+    |vpiVariables:
+    \_struct_var: (aa::foo_bar::y), line:14:8, endln:14:17, parent:aa::foo_bar
+      |vpiTypespec:
+      \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17, parent:b::
+        |vpiName:b::foo_bar_t
+        |vpiInstance:
+        \_package: b (b::) dut.sv:1:1: , endln:6:11, parent:unnamed
+        |vpiPacked:1
+        |vpiTypespecMember:
+        \_typespec_member: (vc), line:3:26, endln:3:28, parent:b::foo_bar_t
+          |vpiName:vc
+          |vpiTypespec:
+          \_logic_typespec: , line:3:5, endln:3:10
+            |vpiInstance:
+            \_package: b (b::) dut.sv:1:1: , endln:6:11, parent:unnamed
+            |vpiRange:
+            \_range: , line:3:12, endln:3:16, parent:b::foo_bar_t
+              |vpiLeftRange:
+              \_constant: , line:3:12, endln:3:14
+                |vpiDecompile:10
+                |vpiSize:64
+                |UINT:10
+                |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:3:15, endln:3:16
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+          |vpiRefFile:dut.sv
+          |vpiRefLineNo:3
+          |vpiRefColumnNo:5
+          |vpiRefEndLineNo:3
+          |vpiRefEndColumnNo:17
+      |vpiName:y
+      |vpiFullName:aa::foo_bar::y
+      |vpiAutomatic:1
+    |vpiVariables:
+    \_logic_var: (aa::foo_bar::a_vec), line:15:5, endln:15:23, parent:aa::foo_bar
+      |vpiName:a_vec
+      |vpiFullName:aa::foo_bar::a_vec
+      |vpiAutomatic:1
+      |vpiRange:
+      \_range: , line:15:10, endln:15:22, parent:aa::foo_bar::a_vec
+        |vpiLeftRange:
+        \_constant: , line:15:10, endln:15:18
+          |vpiDecompile:10
+          |vpiSize:64
+          |INT:10
+          |vpiConstType:7
+        |vpiRightRange:
+        \_constant: , line:15:21, endln:15:22
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_struct_var: , line:10:25, endln:10:34
+      |vpiTypespec:
+      \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17, parent:b::
+    |vpiIODecl:
+    \_io_decl: (a), line:12:24, endln:12:25, parent:aa::foo_bar
+      |vpiDirection:1
+      |vpiName:a
+      |vpiTypedef:
+      \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17, parent:b::
+    |vpiStmt:
+    \_begin: (aa::foo_bar), line:17:5, endln:19:8, parent:aa::foo_bar
+      |vpiFullName:aa::foo_bar
+      |vpiStmt:
+      \_assignment: , line:18:7, endln:18:18, parent:aa::foo_bar
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_ref_obj: (aa::foo_bar::y), line:18:17, endln:18:18
+          |vpiName:y
+          |vpiFullName:aa::foo_bar::y
+          |vpiActual:
+          \_struct_var: (aa::foo_bar::y), line:14:8, endln:14:17, parent:aa::foo_bar
+        |vpiLhs:
+        \_ref_obj: (aa::foo_bar::foo_bar), line:18:7, endln:18:14
+          |vpiName:foo_bar
+          |vpiFullName:aa::foo_bar::foo_bar
+          |vpiActual:
+          \_struct_var: , line:10:25, endln:10:34
+    |vpiInstance:
+    \_package: aa (aa::) dut.sv:8:1: , endln:22:11, parent:unnamed
+|uhdmtopPackages:
+\_package: b (b::) dut.sv:1:1: , endln:6:11, parent:unnamed
+  |vpiName:b
+  |vpiFullName:b::
+  |vpiTypedef:
+  \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17, parent:b::
   |vpiDefName:b
   |vpiTop:1
 |uhdmtopPackages:

@@ -269,7 +269,178 @@ design: (work@dut)
 \_package: hmac_pkg (hmac_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut
   |vpiName:hmac_pkg
   |vpiFullName:hmac_pkg::
+  |vpiTypedef:
+  \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:14, parent:hmac_pkg::
+    |vpiName:hmac_pkg::sha_word_t
+    |vpiInstance:
+    \_package: hmac_pkg (hmac_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut
+    |vpiRange:
+    \_range: , line:2:16, endln:2:20
+      |vpiLeftRange:
+      \_constant: , line:2:16, endln:2:18
+        |vpiDecompile:31
+        |vpiSize:64
+        |UINT:31
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:2:19, endln:2:20
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
   |vpiDefName:hmac_pkg
+  |vpiTaskFunc:
+  \_function: (hmac_pkg::compress), line:3:1, endln:8:12, parent:hmac_pkg::
+    |vpiName:compress
+    |vpiFullName:hmac_pkg::compress
+    |vpiVariables:
+    \_logic_var: (hmac_pkg::compress::sigma_0), line:4:24, endln:4:31, parent:hmac_pkg::compress
+      |vpiTypespec:
+      \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:14, parent:hmac_pkg::
+      |vpiName:sigma_0
+      |vpiFullName:hmac_pkg::compress::sigma_0
+      |vpiAutomatic:1
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_logic_var: , line:3:31, endln:3:36
+      |vpiTypespec:
+      \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:14, parent:hmac_pkg::
+      |vpiRange:
+      \_range: , line:3:32, endln:3:35
+        |vpiLeftRange:
+        \_constant: , line:3:32, endln:3:33
+          |vpiDecompile:7
+          |vpiSize:64
+          |UINT:7
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:34, endln:3:35
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiIODecl:
+    \_io_decl: (w), line:3:64, endln:3:65, parent:hmac_pkg::compress
+      |vpiDirection:1
+      |vpiName:w
+      |vpiTypedef:
+      \_logic_typespec: (sha_word_t), line:2:9, endln:2:14
+        |vpiName:sha_word_t
+        |vpiTypedefAlias:
+        \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:14, parent:hmac_pkg::
+        |vpiInstance:
+        \_package: (hmac_pkg), file:
+        |vpiRange:
+        \_range: , line:2:16, endln:2:20, parent:sha_word_t
+          |vpiLeftRange:
+          \_constant: , line:2:16, endln:2:18
+            |vpiDecompile:31
+            |vpiSize:64
+            |UINT:31
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:2:19, endln:2:20
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+    |vpiIODecl:
+    \_io_decl: (h_i), line:3:90, endln:3:93, parent:hmac_pkg::compress
+      |vpiDirection:1
+      |vpiName:h_i
+      |vpiExpr:
+      \_constant: , line:3:96, endln:3:97
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiTypedef:
+      \_logic_typespec: , line:3:73, endln:3:83
+        |vpiInstance:
+        \_package: (hmac_pkg), file:
+        |vpiElemTypespec:
+        \_logic_typespec: (sha_word_t), line:2:9, endln:2:14
+          |vpiName:sha_word_t
+          |vpiTypedefAlias:
+          \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:14, parent:hmac_pkg::
+          |vpiInstance:
+          \_package: (hmac_pkg), file:
+          |vpiRange:
+          \_range: , line:2:16, endln:2:20, parent:sha_word_t
+            |vpiLeftRange:
+            \_constant: , line:2:16, endln:2:18
+              |vpiDecompile:31
+              |vpiSize:64
+              |UINT:31
+              |vpiConstType:9
+            |vpiRightRange:
+            \_constant: , line:2:19, endln:2:20
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
+        |vpiRange:
+        \_range: , line:3:85, endln:3:88
+          |vpiLeftRange:
+          \_constant: , line:3:85, endln:3:86
+            |vpiDecompile:7
+            |vpiSize:64
+            |UINT:7
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:3:87, endln:3:88
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+    |vpiStmt:
+    \_begin: (hmac_pkg::compress), parent:hmac_pkg::compress
+      |vpiFullName:hmac_pkg::compress
+      |vpiStmt:
+      \_assignment: , line:6:3, endln:6:25, parent:hmac_pkg::compress
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_constant: , line:6:13, endln:6:25
+          |vpiDecompile:32'h11111111
+          |vpiSize:32
+          |HEX:11111111
+          |vpiConstType:5
+        |vpiLhs:
+        \_ref_obj: (hmac_pkg::compress::sigma_0), line:6:3, endln:6:10
+          |vpiName:sigma_0
+          |vpiFullName:hmac_pkg::compress::sigma_0
+          |vpiActual:
+          \_logic_var: (hmac_pkg::compress::sigma_0), line:4:24, endln:4:31, parent:hmac_pkg::compress
+      |vpiStmt:
+      \_assignment: , line:7:3, endln:7:26, parent:hmac_pkg::compress
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_ref_obj: (hmac_pkg::compress::sigma_0), line:7:18, endln:7:25
+          |vpiName:sigma_0
+          |vpiFullName:hmac_pkg::compress::sigma_0
+          |vpiActual:
+          \_logic_var: (hmac_pkg::compress::sigma_0), line:4:24, endln:4:31, parent:hmac_pkg::compress
+        |vpiLhs:
+        \_bit_select: (hmac_pkg::compress::compress), line:7:3, endln:7:14, parent:hmac_pkg::compress::compress
+          |vpiParent:
+          \_ref_obj: (hmac_pkg::compress::compress), parent:hmac_pkg::compress::compress
+            |vpiName:compress
+            |vpiFullName:hmac_pkg::compress::compress
+            |vpiActual:
+            \_logic_var: , line:3:31, endln:3:36
+          |vpiName:compress
+          |vpiFullName:hmac_pkg::compress::compress
+          |vpiIndex:
+          \_constant: , line:7:12, endln:7:13, parent:hmac_pkg::compress::compress
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+    |vpiInstance:
+    \_package: hmac_pkg (hmac_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut
 |uhdmtopPackages:
 \_package: hmac_pkg (hmac_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut
   |vpiName:hmac_pkg

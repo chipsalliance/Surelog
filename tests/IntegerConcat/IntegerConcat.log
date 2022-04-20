@@ -269,38 +269,144 @@ design: (work@dut)
 \_package: pkg (pkg::) dut.sv:1:1: , endln:14:11, parent:work@dut
   |vpiName:pkg
   |vpiFullName:pkg::
+  |vpiParameter:
+  \_parameter: (pkg::FLASH_INFO_PER_BANK), line:2:16, endln:2:35, parent:pkg::
+    |UINT:4
+    |vpiTypespec:
+    \_int_typespec: , line:2:12, endln:2:15, parent:pkg::FLASH_INFO_PER_BANK
+      |vpiInstance:
+      \_package: (pkg), file:
+      |vpiSigned:1
+    |vpiSigned:1
+    |vpiLocalParam:1
+    |vpiName:FLASH_INFO_PER_BANK
+    |vpiFullName:pkg::FLASH_INFO_PER_BANK
+  |vpiParameter:
+  \_parameter: (pkg::InfosPerBank), line:3:15, endln:3:27, parent:pkg::
+    |vpiTypespec:
+    \_int_typespec: , line:3:11, endln:3:14, parent:pkg::InfosPerBank
+      |vpiInstance:
+      \_package: (pkg), file:
+      |vpiSigned:1
+    |vpiSigned:1
+    |vpiName:InfosPerBank
+    |vpiFullName:pkg::InfosPerBank
+  |vpiParameter:
+  \_parameter: (pkg::InfoPageW), line:4:15, endln:4:24, parent:pkg::
+    |vpiTypespec:
+    \_int_typespec: , line:4:11, endln:4:14, parent:pkg::InfoPageW
+      |vpiInstance:
+      \_package: (pkg), file:
+      |vpiSigned:1
+    |vpiSigned:1
+    |vpiName:InfoPageW
+    |vpiFullName:pkg::InfoPageW
+  |vpiParameter:
+  \_parameter: (pkg::NumSeeds), line:5:15, endln:5:23, parent:pkg::
+    |UINT:2
+    |vpiTypespec:
+    \_int_typespec: , line:5:11, endln:5:14, parent:pkg::NumSeeds
+      |vpiInstance:
+      \_package: (pkg), file:
+      |vpiSigned:1
+    |vpiSigned:1
+    |vpiName:NumSeeds
+    |vpiFullName:pkg::NumSeeds
+  |vpiParameter:
+  \_parameter: (pkg::CreatorInfoPage), line:6:15, endln:6:30, parent:pkg::
+    |UINT:1
+    |vpiTypespec:
+    \_int_typespec: , line:6:11, endln:6:14, parent:pkg::CreatorInfoPage
+      |vpiInstance:
+      \_package: (pkg), file:
+      |vpiSigned:1
+    |vpiSigned:1
+    |vpiName:CreatorInfoPage
+    |vpiFullName:pkg::CreatorInfoPage
+  |vpiParameter:
+  \_parameter: (pkg::OwnerInfoPage), line:7:15, endln:7:28, parent:pkg::
+    |UINT:2
+    |vpiTypespec:
+    \_int_typespec: , line:7:11, endln:7:14, parent:pkg::OwnerInfoPage
+      |vpiInstance:
+      \_package: (pkg), file:
+      |vpiSigned:1
+    |vpiSigned:1
+    |vpiName:OwnerInfoPage
+    |vpiFullName:pkg::OwnerInfoPage
+  |vpiParameter:
+  \_parameter: (pkg::SeedInfoPageSel), line:8:47, endln:8:62, parent:pkg::
+    |vpiTypespec:
+    \_logic_typespec: , line:8:11, endln:8:16, parent:pkg::SeedInfoPageSel
+      |vpiInstance:
+      \_package: (pkg), file:
+      |vpiRange:
+      \_range: , line:8:18, endln:8:30
+        |vpiLeftRange:
+        \_operation: , line:8:18, endln:8:28
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (NumSeeds), line:8:18, endln:8:26
+            |vpiName:NumSeeds
+            |vpiActual:
+            \_parameter: (pkg::NumSeeds), line:5:15, endln:5:23, parent:pkg::
+          |vpiOperand:
+          \_constant: , line:8:27, endln:8:28
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:8:29, endln:8:30
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiRange:
+      \_range: , line:8:32, endln:8:45
+        |vpiLeftRange:
+        \_operation: , line:8:32, endln:8:43
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (InfoPageW), line:8:32, endln:8:41
+            |vpiName:InfoPageW
+            |vpiActual:
+            \_parameter: (pkg::InfoPageW), line:4:15, endln:4:24, parent:pkg::
+          |vpiOperand:
+          \_constant: , line:8:42, endln:8:43
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:8:44, endln:8:45
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiName:SeedInfoPageSel
+    |vpiFullName:pkg::SeedInfoPageSel
   |vpiParamAssign:
   \_param_assign: , line:2:16, endln:2:37, parent:pkg::
     |vpiRhs:
     \_constant: , line:2:36, endln:2:37
       |vpiDecompile:4
-      |vpiSize:64
+      |vpiSize:32
       |UINT:4
+      |vpiTypespec:
+      \_int_typespec: , line:2:12, endln:2:15, parent:pkg::FLASH_INFO_PER_BANK
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (FLASH_INFO_PER_BANK), line:2:16, endln:2:35
-      |vpiTypespec:
-      \_int_typespec: , line:2:12, endln:2:15, parent:FLASH_INFO_PER_BANK
-        |vpiInstance:
-        \_package: pkg (pkg::) dut.sv:1:1: , endln:14:11, parent:work@dut
-        |vpiSigned:1
-      |vpiSigned:1
-      |vpiLocalParam:1
-      |vpiName:FLASH_INFO_PER_BANK
+    \_parameter: (pkg::FLASH_INFO_PER_BANK), line:2:16, endln:2:35, parent:pkg::
   |vpiParamAssign:
   \_param_assign: , line:3:15, endln:3:52, parent:pkg::
     |vpiRhs:
     \_ref_obj: (FLASH_INFO_PER_BANK), line:3:33, endln:3:52
       |vpiName:FLASH_INFO_PER_BANK
+      |vpiActual:
+      \_parameter: (pkg::FLASH_INFO_PER_BANK), line:2:16, endln:2:35, parent:pkg::
     |vpiLhs:
-    \_parameter: (InfosPerBank), line:3:15, endln:3:27
-      |vpiTypespec:
-      \_int_typespec: , line:3:11, endln:3:14, parent:InfosPerBank
-        |vpiInstance:
-        \_package: pkg (pkg::) dut.sv:1:1: , endln:14:11, parent:work@dut
-        |vpiSigned:1
-      |vpiSigned:1
-      |vpiName:InfosPerBank
+    \_parameter: (pkg::InfosPerBank), line:3:15, endln:3:27, parent:pkg::
   |vpiParamAssign:
   \_param_assign: , line:4:15, endln:4:53, parent:pkg::
     |vpiRhs:
@@ -308,67 +414,47 @@ design: (work@dut)
       |vpiArgument:
       \_ref_obj: (InfosPerBank), line:4:40, endln:4:52, parent:$clog2
         |vpiName:InfosPerBank
+        |vpiActual:
+        \_parameter: (pkg::InfosPerBank), line:3:15, endln:3:27, parent:pkg::
       |vpiName:$clog2
     |vpiLhs:
-    \_parameter: (InfoPageW), line:4:15, endln:4:24
-      |vpiTypespec:
-      \_int_typespec: , line:4:11, endln:4:14, parent:InfoPageW
-        |vpiInstance:
-        \_package: pkg (pkg::) dut.sv:1:1: , endln:14:11, parent:work@dut
-        |vpiSigned:1
-      |vpiSigned:1
-      |vpiName:InfoPageW
+    \_parameter: (pkg::InfoPageW), line:4:15, endln:4:24, parent:pkg::
   |vpiParamAssign:
   \_param_assign: , line:5:15, endln:5:27, parent:pkg::
     |vpiRhs:
     \_constant: , line:5:26, endln:5:27
       |vpiDecompile:2
-      |vpiSize:64
+      |vpiSize:32
       |UINT:2
+      |vpiTypespec:
+      \_int_typespec: , line:5:11, endln:5:14, parent:pkg::NumSeeds
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (NumSeeds), line:5:15, endln:5:23
-      |vpiTypespec:
-      \_int_typespec: , line:5:11, endln:5:14, parent:NumSeeds
-        |vpiInstance:
-        \_package: pkg (pkg::) dut.sv:1:1: , endln:14:11, parent:work@dut
-        |vpiSigned:1
-      |vpiSigned:1
-      |vpiName:NumSeeds
+    \_parameter: (pkg::NumSeeds), line:5:15, endln:5:23, parent:pkg::
   |vpiParamAssign:
   \_param_assign: , line:6:15, endln:6:34, parent:pkg::
     |vpiRhs:
     \_constant: , line:6:33, endln:6:34
       |vpiDecompile:1
-      |vpiSize:64
+      |vpiSize:32
       |UINT:1
+      |vpiTypespec:
+      \_int_typespec: , line:6:11, endln:6:14, parent:pkg::CreatorInfoPage
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (CreatorInfoPage), line:6:15, endln:6:30
-      |vpiTypespec:
-      \_int_typespec: , line:6:11, endln:6:14, parent:CreatorInfoPage
-        |vpiInstance:
-        \_package: pkg (pkg::) dut.sv:1:1: , endln:14:11, parent:work@dut
-        |vpiSigned:1
-      |vpiSigned:1
-      |vpiName:CreatorInfoPage
+    \_parameter: (pkg::CreatorInfoPage), line:6:15, endln:6:30, parent:pkg::
   |vpiParamAssign:
   \_param_assign: , line:7:15, endln:7:32, parent:pkg::
     |vpiRhs:
     \_constant: , line:7:31, endln:7:32
       |vpiDecompile:2
-      |vpiSize:64
+      |vpiSize:32
       |UINT:2
+      |vpiTypespec:
+      \_int_typespec: , line:7:11, endln:7:14, parent:pkg::OwnerInfoPage
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (OwnerInfoPage), line:7:15, endln:7:28
-      |vpiTypespec:
-      \_int_typespec: , line:7:11, endln:7:14, parent:OwnerInfoPage
-        |vpiInstance:
-        \_package: pkg (pkg::) dut.sv:1:1: , endln:14:11, parent:work@dut
-        |vpiSigned:1
-      |vpiSigned:1
-      |vpiName:OwnerInfoPage
+    \_parameter: (pkg::OwnerInfoPage), line:7:15, endln:7:28, parent:pkg::
   |vpiParamAssign:
   \_param_assign: , line:8:47, endln:12:2, parent:pkg::
     |vpiRhs:
@@ -377,44 +463,15 @@ design: (work@dut)
       |vpiOperand:
       \_ref_obj: (CreatorInfoPage), line:10:3, endln:10:18
         |vpiName:CreatorInfoPage
+        |vpiActual:
+        \_parameter: (pkg::CreatorInfoPage), line:6:15, endln:6:30, parent:pkg::
       |vpiOperand:
       \_ref_obj: (OwnerInfoPage), line:11:3, endln:11:16
         |vpiName:OwnerInfoPage
+        |vpiActual:
+        \_parameter: (pkg::OwnerInfoPage), line:7:15, endln:7:28, parent:pkg::
     |vpiLhs:
-    \_parameter: (SeedInfoPageSel), line:8:47, endln:8:62
-      |vpiTypespec:
-      \_logic_typespec: , line:8:11, endln:8:16, parent:SeedInfoPageSel
-        |vpiInstance:
-        \_package: pkg (pkg::) dut.sv:1:1: , endln:14:11, parent:work@dut
-        |vpiRange:
-        \_range: , line:8:18, endln:8:30
-          |vpiLeftRange:
-          \_constant: , line:8:18, endln:8:26
-            |vpiDecompile:1
-            |vpiSize:64
-            |INT:1
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:8:29, endln:8:30
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiRange:
-        \_range: , line:8:32, endln:8:45
-          |vpiLeftRange:
-          \_constant: , line:8:32, endln:8:41
-            |vpiDecompile:1
-            |vpiSize:64
-            |INT:1
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:8:44, endln:8:45
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-      |vpiName:SeedInfoPageSel
+    \_parameter: (pkg::SeedInfoPageSel), line:8:47, endln:8:62, parent:pkg::
   |vpiDefName:pkg
 |uhdmtopPackages:
 \_package: pkg (pkg::) dut.sv:1:1: , endln:14:11, parent:work@dut

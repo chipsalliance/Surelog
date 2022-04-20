@@ -14,6 +14,8 @@
 
 [NTE:PP0128] hw/vendor/pulp_riscv_dbg/src/dm_sba.sv:7:47: Non ASCII character detected, replaced by space "".
 
+[WRN:PA0205] hw/top_earlgrey/ip/alert_handler/rtl/autogen/alert_handler_reg_pkg.sv:7: No timescale set for "alert_handler_reg_pkg".
+
 [WRN:PA0205] hw/ip/alert_handler/rtl/alert_handler_esc_timer.sv:19: No timescale set for "alert_handler_esc_timer".
 
 [WRN:PA0205] hw/ip/alert_handler/rtl/alert_handler_accu.sv:13: No timescale set for "alert_handler_accu".
@@ -87,8 +89,6 @@
 [WRN:PA0205] hw/ip/flash_ctrl/rtl/flash_ctrl_pkg.sv:8: No timescale set for "flash_ctrl_pkg".
 
 [WRN:PA0205] hw/ip/prim_generic/rtl/prim_generic_pad_wrapper.sv:8: No timescale set for "prim_generic_pad_wrapper".
-
-[WRN:PA0205] hw/top_earlgrey/ip/alert_handler/rtl/autogen/alert_handler_reg_pkg.sv:7: No timescale set for "alert_handler_reg_pkg".
 
 [WRN:PA0205] hw/top_earlgrey/ip/alert_handler/rtl/autogen/alert_handler_reg_top.sv:7: No timescale set for "alert_handler_reg_top".
 
@@ -370,13 +370,13 @@
 
 [INF:CP0300] Compilation...
 
+[INF:CP0301] hw/top_earlgrey/ip/alert_handler/rtl/autogen/alert_handler_reg_pkg.sv:7: Compile package "alert_handler_reg_pkg".
+
 [INF:CP0301] hw/ip/alert_handler/rtl/alert_pkg.sv:6: Compile package "alert_pkg".
 
 [INF:CP0301] hw/vendor/lowrisc_ibex/rtl/ibex_pkg.sv:9: Compile package "ibex_pkg".
 
 [INF:CP0301] hw/ip/flash_ctrl/rtl/flash_ctrl_pkg.sv:8: Compile package "flash_ctrl_pkg".
-
-[INF:CP0301] hw/top_earlgrey/ip/alert_handler/rtl/autogen/alert_handler_reg_pkg.sv:7: Compile package "alert_handler_reg_pkg".
 
 [INF:CP0301] hw/top_earlgrey/ip/rv_plic/rtl/autogen/rv_plic_reg_pkg.sv:7: Compile package "rv_plic_reg_pkg".
 
@@ -729,8 +729,6 @@
 [INF:CP0302] Compile class "work@process".
 
 [INF:CP0302] Compile class "work@semaphore".
-
-[ERR:EL0514] hw/ip/alert_handler/rtl/alert_pkg.sv:13: Undefined variable: alert_handler_reg_pkg::LfsrSeed.
 
 [NTE:CP0309] hw/top_earlgrey/rtl/clkgen_xil7series.sv:8:10: Implicit port type (wire) for "clk_sys",
 there are 2 more instances of this message.
@@ -39281,7 +39279,7 @@ Instance tree:
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 0
 [WARNING] : 184
 [   NOTE] : 11070
 

@@ -177,23 +177,47 @@ design: (work@dut)
 \_package: pkg (pkg::) dut.sv:1:1: , endln:4:11, parent:work@dut
   |vpiName:pkg
   |vpiFullName:pkg::
+  |vpiParameter:
+  \_parameter: (pkg::N), line:2:17, endln:2:18, parent:pkg::
+    |UINT:32
+    |vpiTypespec:
+    \_int_typespec: , line:2:13, endln:2:16, parent:pkg::N
+      |vpiInstance:
+      \_package: (pkg), file:
+      |vpiSigned:1
+    |vpiSigned:1
+    |vpiName:N
+    |vpiFullName:pkg::N
   |vpiParamAssign:
   \_param_assign: , line:2:17, endln:2:21, parent:pkg::
     |vpiRhs:
     \_constant: , line:2:19, endln:2:21
       |vpiDecompile:32
-      |vpiSize:64
+      |vpiSize:32
       |UINT:32
+      |vpiTypespec:
+      \_int_typespec: , line:2:13, endln:2:16, parent:pkg::N
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (N), line:2:17, endln:2:18
+    \_parameter: (pkg::N), line:2:17, endln:2:18, parent:pkg::
+  |vpiTypedef:
+  \_struct_typespec: (pkg::Struct), line:3:12, endln:3:18, parent:pkg::
+    |vpiName:pkg::Struct
+    |vpiInstance:
+    \_package: pkg (pkg::) dut.sv:1:1: , endln:4:11, parent:work@dut
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (x), line:3:34, endln:3:35, parent:pkg::Struct
+      |vpiName:x
       |vpiTypespec:
-      \_int_typespec: , line:2:13, endln:2:16, parent:N
+      \_logic_typespec: , line:3:28, endln:3:33
         |vpiInstance:
-        \_package: pkg (pkg::) dut.sv:1:1: , endln:4:11, parent:work@dut
-        |vpiSigned:1
-      |vpiSigned:1
-      |vpiName:N
+        \_package: (pkg), file:
+      |vpiRefFile:dut.sv
+      |vpiRefLineNo:3
+      |vpiRefColumnNo:28
+      |vpiRefEndLineNo:3
+      |vpiRefEndColumnNo:33
   |vpiDefName:pkg
 |uhdmtopPackages:
 \_package: pkg (pkg::) dut.sv:1:1: , endln:4:11, parent:work@dut

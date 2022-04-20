@@ -394,28 +394,191 @@ design: (work@top)
 \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::) dut.sv:1:1: , endln:8:34, parent:work@top
   |vpiName:prim_pad_wrapper_pkg
   |vpiFullName:prim_pad_wrapper_pkg::
+  |vpiParameter:
+  \_parameter: (prim_pad_wrapper_pkg::NDioPads), line:2:18, endln:2:26, parent:prim_pad_wrapper_pkg::
+    |UINT:24
+    |vpiTypespec:
+    \_int_typespec: , line:2:14, endln:2:17, parent:prim_pad_wrapper_pkg::NDioPads
+      |vpiInstance:
+      \_package: (prim_pad_wrapper_pkg), file:
+      |vpiSigned:1
+    |vpiSigned:1
+    |vpiName:NDioPads
+    |vpiFullName:prim_pad_wrapper_pkg::NDioPads
   |vpiParamAssign:
   \_param_assign: , line:2:18, endln:2:31, parent:prim_pad_wrapper_pkg::
     |vpiRhs:
     \_constant: , line:2:29, endln:2:31
       |vpiDecompile:24
-      |vpiSize:64
+      |vpiSize:32
       |UINT:24
+      |vpiTypespec:
+      \_int_typespec: , line:2:14, endln:2:17, parent:prim_pad_wrapper_pkg::NDioPads
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (NDioPads), line:2:18, endln:2:26
-      |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:17, parent:NDioPads
-        |vpiInstance:
-        \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::) dut.sv:1:1: , endln:8:34, parent:work@top
-        |vpiSigned:1
-      |vpiSigned:1
-      |vpiName:NDioPads
+    \_parameter: (prim_pad_wrapper_pkg::NDioPads), line:2:18, endln:2:26, parent:prim_pad_wrapper_pkg::
+  |vpiTypedef:
+  \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:4:4, endln:7:17, parent:prim_pad_wrapper_pkg::
+    |vpiName:prim_pad_wrapper_pkg::pad_type_e
+    |vpiInstance:
+    \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::) dut.sv:1:1: , endln:8:34, parent:work@top
+    |vpiBaseTypespec:
+    \_logic_typespec: , line:4:18, endln:4:23
+      |vpiInstance:
+      \_package: (prim_pad_wrapper_pkg), file:
+      |vpiRange:
+      \_range: , line:4:25, endln:4:28
+        |vpiLeftRange:
+        \_constant: , line:4:25, endln:4:26
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:4:27, endln:4:28
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiEnumConst:
+    \_enum_const: (A), line:5:7, endln:5:15
+      |vpiName:A
+      |HEX:0
+      |vpiDecompile:3'h0
+      |vpiSize:3
+    |vpiEnumConst:
+    \_enum_const: (B), line:6:7, endln:6:15
+      |vpiName:B
+      |HEX:1
+      |vpiDecompile:3'h1
+      |vpiSize:3
   |vpiDefName:prim_pad_wrapper_pkg
 |uhdmallPackages:
 \_package: pinmux_pkg (pinmux_pkg::) dut.sv:10:1: , endln:20:24, parent:work@top
   |vpiName:pinmux_pkg
   |vpiFullName:pinmux_pkg::
+  |vpiParameter:
+  \_parameter: (pinmux_pkg::NDioPads), line:2:18, endln:2:26, parent:pinmux_pkg::
+    |UINT:24
+    |vpiTypespec:
+    \_int_typespec: , line:2:14, endln:2:17, parent:pinmux_pkg::NDioPads
+      |vpiInstance:
+      \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::) dut.sv:1:1: , endln:8:34, parent:work@top
+      |vpiSigned:1
+    |vpiSigned:1
+    |vpiName:NDioPads
+    |vpiFullName:pinmux_pkg::NDioPads
+    |vpiImported:prim_pad_wrapper_pkg
+  |vpiParameter:
+  \_parameter: (pinmux_pkg::DefaultTargetCfg), line:17:27, endln:17:43, parent:pinmux_pkg::
+    |vpiTypespec:
+    \_struct_typespec: (pinmux_pkg::target_cfg_t), line:13:12, endln:13:18, parent:pinmux_pkg::
+      |vpiName:pinmux_pkg::target_cfg_t
+      |vpiInstance:
+      \_package: pinmux_pkg (pinmux_pkg::) dut.sv:10:1: , endln:20:24, parent:work@top
+      |vpiPacked:1
+      |vpiTypespecMember:
+      \_typespec_member: (dio_pad_type), line:14:33, endln:14:45, parent:pinmux_pkg::target_cfg_t
+        |vpiName:dio_pad_type
+        |vpiTypespec:
+        \_packed_array_typespec: , line:14:7, endln:14:17
+          |vpiInstance:
+          \_package: (pinmux_pkg), file:
+          |vpiRange:
+          \_range: , line:14:19, endln:14:31, parent:pinmux_pkg::target_cfg_t
+            |vpiLeftRange:
+            \_operation: , line:14:19, endln:14:29
+              |vpiOpType:11
+              |vpiOperand:
+              \_constant: , line:14:19, endln:14:27
+                |vpiDecompile:24
+                |vpiSize:32
+                |UINT:24
+                |vpiTypespec:
+                \_int_typespec: , line:2:14, endln:2:17
+                  |vpiInstance:
+                  \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::) dut.sv:1:1: , endln:8:34, parent:work@top
+                  |vpiSigned:1
+                |vpiConstType:9
+              |vpiOperand:
+              \_constant: , line:14:28, endln:14:29
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+                |vpiConstType:9
+            |vpiRightRange:
+            \_constant: , line:14:30, endln:14:31
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
+          |vpiElemTypespec:
+          \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:4:4, endln:7:17, parent:work@top
+            |vpiName:prim_pad_wrapper_pkg::pad_type_e
+            |vpiInstance:
+            \_package: pinmux_pkg (pinmux_pkg::) dut.sv:10:1: , endln:20:24, parent:work@top
+            |vpiBaseTypespec:
+            \_logic_typespec: , line:4:18, endln:4:23
+              |vpiInstance:
+              \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::) dut.sv:1:1: , endln:8:34, parent:work@top
+              |vpiRange:
+              \_range: , line:4:25, endln:4:28
+                |vpiLeftRange:
+                \_constant: , line:4:25, endln:4:26
+                  |vpiDecompile:2
+                  |vpiSize:64
+                  |UINT:2
+                  |vpiConstType:9
+                |vpiRightRange:
+                \_constant: , line:4:27, endln:4:28
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
+            |vpiEnumConst:
+            \_enum_const: (A), line:5:7, endln:5:15
+              |vpiName:A
+              |HEX:0
+              |vpiDecompile:3'h0
+              |vpiSize:3
+            |vpiEnumConst:
+            \_enum_const: (B), line:6:7, endln:6:15
+              |vpiName:B
+              |HEX:1
+              |vpiDecompile:3'h1
+              |vpiSize:3
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:14
+        |vpiRefColumnNo:7
+        |vpiRefEndLineNo:14
+        |vpiRefEndColumnNo:32
+    |vpiName:DefaultTargetCfg
+    |vpiFullName:pinmux_pkg::DefaultTargetCfg
+  |vpiParamAssign:
+  \_param_assign: , line:2:18, endln:2:31, parent:pinmux_pkg::
+    |vpiRhs:
+    \_constant: , line:2:29, endln:2:31
+      |vpiDecompile:24
+      |vpiSize:32
+      |UINT:24
+      |vpiTypespec:
+      \_int_typespec: , line:2:14, endln:2:17
+        |vpiInstance:
+        \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::) dut.sv:1:1: , endln:8:34, parent:work@top
+        |vpiSigned:1
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (pinmux_pkg::NDioPads), line:2:18, endln:2:26
+      |UINT:24
+      |vpiTypespec:
+      \_int_typespec: , line:2:14, endln:2:17, parent:pinmux_pkg::NDioPads
+        |vpiInstance:
+        \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::) dut.sv:1:1: , endln:8:34, parent:work@top
+        |vpiSigned:1
+      |vpiSigned:1
+      |vpiName:NDioPads
+      |vpiFullName:pinmux_pkg::NDioPads
+      |vpiImported:prim_pad_wrapper_pkg
   |vpiParamAssign:
   \_param_assign: , line:17:27, endln:19:5, parent:pinmux_pkg::
     |vpiRhs:
@@ -436,75 +599,13 @@ design: (work@top)
         \_string_typespec: (dio_pad_type), line:18:7, endln:18:19
           |vpiName:dio_pad_type
     |vpiLhs:
-    \_parameter: (DefaultTargetCfg), line:17:27, endln:17:43
-      |vpiTypespec:
-      \_struct_typespec: (pinmux_pkg::target_cfg_t), line:13:12, endln:13:18, parent:DefaultTargetCfg
-        |vpiName:pinmux_pkg::target_cfg_t
-        |vpiInstance:
-        \_package: pinmux_pkg (pinmux_pkg::) dut.sv:10:1: , endln:20:24, parent:work@top
-        |vpiPacked:1
-        |vpiTypespecMember:
-        \_typespec_member: (dio_pad_type), line:14:33, endln:14:45, parent:pinmux_pkg::target_cfg_t
-          |vpiName:dio_pad_type
-          |vpiTypespec:
-          \_packed_array_typespec: , line:14:7, endln:14:17, parent:dio_pad_type
-            |vpiInstance:
-            \_package: pinmux_pkg (pinmux_pkg::) dut.sv:10:1: , endln:20:24, parent:work@top
-            |vpiRange:
-            \_range: , line:14:19, endln:14:31
-              |vpiLeftRange:
-              \_constant: , line:14:19, endln:14:27
-                |vpiDecompile:23
-                |vpiSize:64
-                |INT:23
-                |vpiConstType:7
-              |vpiRightRange:
-              \_constant: , line:14:30, endln:14:31
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
-            |vpiElemTypespec:
-            \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:4:4, endln:7:17
-              |vpiName:prim_pad_wrapper_pkg::pad_type_e
-              |vpiInstance:
-              \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::) dut.sv:1:1: , endln:8:34, parent:work@top
-              |vpiBaseTypespec:
-              \_logic_typespec: , line:4:18, endln:4:23, parent:prim_pad_wrapper_pkg::pad_type_e
-                |vpiInstance:
-                \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::) dut.sv:1:1: , endln:8:34, parent:work@top
-                |vpiRange:
-                \_range: , line:4:25, endln:4:28
-                  |vpiLeftRange:
-                  \_constant: , line:4:25, endln:4:26
-                    |vpiDecompile:2
-                    |vpiSize:64
-                    |UINT:2
-                    |vpiConstType:9
-                  |vpiRightRange:
-                  \_constant: , line:4:27, endln:4:28
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                    |vpiConstType:9
-              |vpiEnumConst:
-              \_enum_const: (A), line:5:7, endln:5:15, parent:prim_pad_wrapper_pkg::pad_type_e
-                |vpiName:A
-                |HEX:0
-                |vpiDecompile:3'h0
-                |vpiSize:3
-              |vpiEnumConst:
-              \_enum_const: (B), line:6:7, endln:6:15, parent:prim_pad_wrapper_pkg::pad_type_e
-                |vpiName:B
-                |HEX:1
-                |vpiDecompile:3'h1
-                |vpiSize:3
-          |vpiRefFile:dut.sv
-          |vpiRefLineNo:14
-          |vpiRefColumnNo:7
-          |vpiRefEndLineNo:14
-          |vpiRefEndColumnNo:32
-      |vpiName:DefaultTargetCfg
+    \_parameter: (pinmux_pkg::DefaultTargetCfg), line:17:27, endln:17:43, parent:pinmux_pkg::
+  |vpiTypedef:
+  \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:4:4, endln:7:17, parent:work@top
+  |vpiTypedef:
+  \_struct_typespec: (pinmux_pkg::target_cfg_t), line:13:12, endln:13:18, parent:pinmux_pkg::
+  |vpiTypedef:
+  \_import_typespec: (prim_pad_wrapper_pkg), line:11:11, endln:11:34
   |vpiDefName:pinmux_pkg
 |uhdmtopPackages:
 \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::) dut.sv:1:1: , endln:8:34, parent:work@top
@@ -535,39 +636,6 @@ design: (work@top)
     \_parameter: (prim_pad_wrapper_pkg::NDioPads), line:2:18, endln:2:26, parent:prim_pad_wrapper_pkg::
   |vpiTypedef:
   \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:4:4, endln:7:17, parent:work@top
-    |vpiName:prim_pad_wrapper_pkg::pad_type_e
-    |vpiInstance:
-    \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::) dut.sv:1:1: , endln:8:34, parent:work@top
-    |vpiBaseTypespec:
-    \_logic_typespec: , line:4:18, endln:4:23
-      |vpiInstance:
-      \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::) dut.sv:1:1: , endln:8:34, parent:work@top
-      |vpiRange:
-      \_range: , line:4:25, endln:4:28
-        |vpiLeftRange:
-        \_constant: , line:4:25, endln:4:26
-          |vpiDecompile:2
-          |vpiSize:64
-          |UINT:2
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:4:27, endln:4:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-    |vpiEnumConst:
-    \_enum_const: (A), line:5:7, endln:5:15
-      |vpiName:A
-      |HEX:0
-      |vpiDecompile:3'h0
-      |vpiSize:3
-    |vpiEnumConst:
-    \_enum_const: (B), line:6:7, endln:6:15
-      |vpiName:B
-      |HEX:1
-      |vpiDecompile:3'h1
-      |vpiSize:3
   |vpiDefName:prim_pad_wrapper_pkg
   |vpiTop:1
 |uhdmtopPackages:
@@ -1141,7 +1209,7 @@ design: (work@top)
           \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:4:4, endln:7:17
             |vpiName:prim_pad_wrapper_pkg::pad_type_e
             |vpiInstance:
-            \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::) dut.sv:1:1: , endln:8:34, parent:work@top
+            \_package: pinmux_pkg (pinmux_pkg::) dut.sv:10:1: , endln:20:24, parent:work@top
             |vpiBaseTypespec:
             \_logic_typespec: , line:4:18, endln:4:23, parent:prim_pad_wrapper_pkg::pad_type_e
               |vpiInstance:
@@ -1315,7 +1383,7 @@ design: (work@top)
       \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:4:4, endln:7:17, parent:work@top.u_prim_pad_attr.PadType
         |vpiName:prim_pad_wrapper_pkg::pad_type_e
         |vpiInstance:
-        \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::) dut.sv:1:1: , endln:8:34, parent:work@top
+        \_package: pinmux_pkg (pinmux_pkg::) dut.sv:10:1: , endln:20:24, parent:work@top
         |vpiBaseTypespec:
         \_logic_typespec: , line:4:18, endln:4:23, parent:prim_pad_wrapper_pkg::pad_type_e
           |vpiInstance:
@@ -1411,7 +1479,7 @@ design: (work@top)
             \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:4:4, endln:7:17, parent:work@top.u_prim_pad_attr.gen_generic.u_impl_generic.PadType
               |vpiName:prim_pad_wrapper_pkg::pad_type_e
               |vpiInstance:
-              \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::) dut.sv:1:1: , endln:8:34, parent:work@top
+              \_package: pinmux_pkg (pinmux_pkg::) dut.sv:10:1: , endln:20:24, parent:work@top
               |vpiBaseTypespec:
               \_logic_typespec: , line:4:18, endln:4:23, parent:prim_pad_wrapper_pkg::pad_type_e
                 |vpiInstance:

@@ -447,23 +447,60 @@ design: (work@test)
 \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
   |vpiName:alert_handler_reg_pkg
   |vpiFullName:alert_handler_reg_pkg::
+  |vpiParameter:
+  \_parameter: (alert_handler_reg_pkg::NAlerts), line:3:17, endln:3:24, parent:alert_handler_reg_pkg::
+    |UINT:35
+    |vpiTypespec:
+    \_int_typespec: , line:3:13, endln:3:16, parent:alert_handler_reg_pkg::NAlerts
+      |vpiInstance:
+      \_package: (alert_handler_reg_pkg), file:
+      |vpiSigned:1
+    |vpiSigned:1
+    |vpiName:NAlerts
+    |vpiFullName:alert_handler_reg_pkg::NAlerts
+  |vpiParameter:
+  \_parameter: (alert_handler_reg_pkg::AsyncOn), line:4:33, endln:4:40, parent:alert_handler_reg_pkg::
+    |BIN:11111111111111111100000000000000000
+    |vpiTypespec:
+    \_logic_typespec: , line:4:13, endln:4:18, parent:alert_handler_reg_pkg::AsyncOn
+      |vpiInstance:
+      \_package: (alert_handler_reg_pkg), file:
+      |vpiRange:
+      \_range: , line:4:20, endln:4:31
+        |vpiLeftRange:
+        \_operation: , line:4:20, endln:4:29
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (NAlerts), line:4:20, endln:4:27
+            |vpiName:NAlerts
+            |vpiActual:
+            \_parameter: (alert_handler_reg_pkg::NAlerts), line:3:17, endln:3:24, parent:alert_handler_reg_pkg::
+          |vpiOperand:
+          \_constant: , line:4:28, endln:4:29
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:4:30, endln:4:31
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiName:AsyncOn
+    |vpiFullName:alert_handler_reg_pkg::AsyncOn
   |vpiParamAssign:
   \_param_assign: , line:3:17, endln:3:29, parent:alert_handler_reg_pkg::
     |vpiRhs:
     \_constant: , line:3:27, endln:3:29
       |vpiDecompile:35
-      |vpiSize:64
+      |vpiSize:32
       |UINT:35
+      |vpiTypespec:
+      \_int_typespec: , line:3:13, endln:3:16, parent:alert_handler_reg_pkg::NAlerts
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (NAlerts), line:3:17, endln:3:24
-      |vpiTypespec:
-      \_int_typespec: , line:3:13, endln:3:16, parent:NAlerts
-        |vpiInstance:
-        \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
-        |vpiSigned:1
-      |vpiSigned:1
-      |vpiName:NAlerts
+    \_parameter: (alert_handler_reg_pkg::NAlerts), line:3:17, endln:3:24, parent:alert_handler_reg_pkg::
   |vpiParamAssign:
   \_param_assign: , line:4:33, endln:4:82, parent:alert_handler_reg_pkg::
     |vpiRhs:
@@ -471,28 +508,11 @@ design: (work@test)
       |vpiDecompile:35'b11111111111111111100000000000000000
       |vpiSize:35
       |BIN:11111111111111111100000000000000000
+      |vpiTypespec:
+      \_logic_typespec: , line:4:13, endln:4:18, parent:alert_handler_reg_pkg::AsyncOn
       |vpiConstType:3
     |vpiLhs:
-    \_parameter: (AsyncOn), line:4:33, endln:4:40
-      |vpiTypespec:
-      \_logic_typespec: , line:4:13, endln:4:18, parent:AsyncOn
-        |vpiInstance:
-        \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
-        |vpiRange:
-        \_range: , line:4:20, endln:4:31
-          |vpiLeftRange:
-          \_constant: , line:4:20, endln:4:27
-            |vpiDecompile:34
-            |vpiSize:64
-            |INT:34
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:4:30, endln:4:31
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-      |vpiName:AsyncOn
+    \_parameter: (alert_handler_reg_pkg::AsyncOn), line:4:33, endln:4:40, parent:alert_handler_reg_pkg::
   |vpiDefName:alert_handler_reg_pkg
 |uhdmtopPackages:
 \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test

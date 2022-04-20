@@ -177,6 +177,58 @@ design: (work@top)
 \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
   |vpiName:my_pkg
   |vpiFullName:my_pkg::
+  |vpiTypedef:
+  \_struct_typespec: (my_pkg::ast_alert_rsp_t), line:6:12, endln:6:18, parent:my_pkg::
+    |vpiName:my_pkg::ast_alert_rsp_t
+    |vpiInstance:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (alerts_ack), line:7:23, endln:7:33, parent:my_pkg::ast_alert_rsp_t
+      |vpiName:alerts_ack
+      |vpiTypespec:
+      \_packed_array_typespec: , line:7:7, endln:7:16
+        |vpiInstance:
+        \_package: (my_pkg), file:
+        |vpiRange:
+        \_range: , line:7:18, endln:7:21, parent:my_pkg::ast_alert_rsp_t
+          |vpiLeftRange:
+          \_constant: , line:7:18, endln:7:19
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:7:20, endln:7:21
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+        |vpiElemTypespec:
+        \_struct_typespec: (my_pkg::ast_dif_t), line:2:12, endln:2:18, parent:my_pkg::
+          |vpiName:my_pkg::ast_dif_t
+          |vpiInstance:
+          \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+          |vpiPacked:1
+          |vpiTypespecMember:
+          \_typespec_member: (p), line:3:13, endln:3:14, parent:my_pkg::ast_dif_t
+            |vpiName:p
+            |vpiTypespec:
+            \_logic_typespec: , line:3:7, endln:3:12
+              |vpiInstance:
+              \_package: (my_pkg), file:
+            |vpiRefFile:dut.sv
+            |vpiRefLineNo:3
+            |vpiRefColumnNo:7
+            |vpiRefEndLineNo:3
+            |vpiRefEndColumnNo:12
+      |vpiRefFile:dut.sv
+      |vpiRefLineNo:7
+      |vpiRefColumnNo:7
+      |vpiRefEndLineNo:7
+      |vpiRefEndColumnNo:22
+  |vpiTypedef:
+  \_struct_typespec: (my_pkg::ast_dif_t), line:2:12, endln:2:18, parent:my_pkg::
   |vpiDefName:my_pkg
 |uhdmtopPackages:
 \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top

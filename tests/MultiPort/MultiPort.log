@@ -107,6 +107,50 @@ design: (work@top)
 \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
   |vpiName:my_pkg
   |vpiFullName:my_pkg::
+  |vpiTypedef:
+  \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19, parent:my_pkg::
+    |vpiName:my_pkg::variable_type
+    |vpiInstance:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
+    |vpiTypespecMember:
+    \_typespec_member: (first), line:3:20, endln:3:25, parent:my_pkg::variable_type
+      |vpiName:first
+      |vpiTypespec:
+      \_logic_typespec: , line:3:9, endln:3:14
+        |vpiInstance:
+        \_package: (my_pkg), file:
+        |vpiRange:
+        \_range: , line:3:15, endln:3:18, parent:my_pkg::variable_type
+          |vpiLeftRange:
+          \_constant: , line:3:15, endln:3:16
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:3:17, endln:3:18
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+      |vpiRefFile:dut.sv
+      |vpiRefLineNo:3
+      |vpiRefColumnNo:9
+      |vpiRefEndLineNo:3
+      |vpiRefEndColumnNo:19
+    |vpiTypespecMember:
+    \_typespec_member: (second), line:4:13, endln:4:19, parent:my_pkg::variable_type
+      |vpiName:second
+      |vpiTypespec:
+      \_int_typespec: , line:4:9, endln:4:12
+        |vpiInstance:
+        \_package: (my_pkg), file:
+        |vpiSigned:1
+      |vpiRefFile:dut.sv
+      |vpiRefLineNo:4
+      |vpiRefColumnNo:9
+      |vpiRefEndLineNo:4
+      |vpiRefEndColumnNo:12
   |vpiDefName:my_pkg
 |uhdmtopPackages:
 \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
