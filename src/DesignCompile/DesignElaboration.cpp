@@ -1935,10 +1935,6 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                 any_cast<UHDM::parameter*>(p->getUhdmParam())) {
           param->Typespec(nullptr);
         }
-      } else {
-        Location loc(st->registerSymbol(name));
-        Error err(ErrorDefinition::ELAB_UNKNOWN_PARAMETER, loc);
-        m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
       }
     }
   }
@@ -2095,6 +2091,31 @@ void DesignElaboration::checkElaboration_() {
   Design* design = m_compileDesign->getCompiler()->getDesign();
   design->checkDefParamUsage();
   checkConfigurations_();
+
+  // Command line override
+  CommandLineParser* cmdLine =
+      m_compileDesign->getCompiler()->getCommandLineParser();
+  const std::map<SymbolId, std::string>& useroverrides =
+      cmdLine->getParamList();
+  for (const auto& [nameId, value] : useroverrides) {
+    bool found = false;
+    const std::string& name = cmdLine->getSymbolTable().getSymbol(nameId);
+    for (ModuleInstance* inst : design->getTopLevelModuleInstances()) {
+      DesignComponent* module = inst->getDefinition();
+      Parameter* p = module->getParameter(name);
+      if (p != nullptr) {
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      Location loc(
+          m_compileDesign->getCompiler()->getSymbolTable()->registerSymbol(
+              name));
+      Error err(ErrorDefinition::ELAB_UNKNOWN_PARAMETER, loc);
+      m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
+    }
+  }
 }
 
 void DesignElaboration::checkConfigurations_() {
