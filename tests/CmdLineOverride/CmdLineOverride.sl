@@ -1,0 +1,1 @@
+-parse -d uhdm -d coveruhdm -elabuhdm -d ast dut.sv -nobuiltin  -Pbar=1 -Pfoo=1
