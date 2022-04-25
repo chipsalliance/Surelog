@@ -16,7 +16,7 @@ endif(NOT CMAKE_BUILD_TYPE)
 option(
   WITH_LIBCXX
   "If buildling with clang++ and libc++(in Linux). To enable with: -DWITH_LIBCXX=On"
-  Off)
+  OFF)
 
 project(SURELOG)
 
@@ -35,8 +35,9 @@ endif()
 set(FLATBUFFERS_BUILD_TESTS OFF CACHE BOOL "Skip flatbuffers' tests")
 add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
 
+set(WITH_STATIC_CRT ON CACHE BOOL "Use Static CRT")
 set(ANTLR_BUILD_CPP_TESTS OFF CACHE BOOL "Skip ANTLR tests")
-add_subdirectory(third_party/antlr4_fast/runtime/Cpp EXCLUDE_FROM_ALL)
+add_subdirectory(third_party/antlr4/runtime/Cpp EXCLUDE_FROM_ALL)
 
 set(UHDM_BUILD_TESTS OFF CACHE BOOL "Skip UHDM tests")
 add_subdirectory(third_party/UHDM)
@@ -78,12 +79,7 @@ if(NOT NO_TCMALLOC)
   endif()
 endif()
 
-set(CMAKE_CXX_FLAGS
-    "${CMAKE_CXX_FLAGS} ${TCMALLOC_COMPILE_OPTIONS} ${MY_CXX_WARNING_FLAGS}")
-
-if(MSVC OR WIN32)
-  add_compile_definitions(ANTLR4CPP_STATIC)
-endif()
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TCMALLOC_COMPILE_OPTIONS} ${MY_CXX_WARNING_FLAGS}")
 
 if(MSVC)
   add_compile_definitions(_CRT_NONSTDC_NO_WARNINGS)
@@ -140,9 +136,10 @@ add_custom_command(
           ${FLATBUFFERS_FLATC_EXECUTABLE})
 
 # Java
-find_package(Java REQUIRED COMPONENTS Runtime)
+find_package(Java 11 REQUIRED COMPONENTS Runtime)
+message(STATUS "Java_JAVA_EXECUTABLE = ${Java_JAVA_EXECUTABLE}")
 set(ANTLR_JAR_LOCATION
-    ${PROJECT_SOURCE_DIR}/third_party/antlr4_fast/antlr4-4.9.3-complete.jar)
+    ${PROJECT_SOURCE_DIR}/third_party/antlr4_bin/antlr-4.10-complete.jar)
 
 add_custom_target(GenerateParser DEPENDS
   ${GENDIR}/src/parser/generated-parsers.tstamp
@@ -387,7 +384,7 @@ endforeach()
 add_library(surelog STATIC ${surelog_SRC} ${surelog_generated_SRC})
 set_target_properties(surelog PROPERTIES PUBLIC_HEADER include/Surelog/surelog.h)
 target_include_directories(surelog PRIVATE
-  third_party/antlr4_fast/runtime/Cpp/runtime/src
+  third_party/antlr4/runtime/Cpp/runtime/src
   third_party/flatbuffers/include
   third_party/googletest/googletest/include
   third_party/googletest/googlemock/include)
@@ -502,7 +499,7 @@ function(register_gtests)
     add_executable(${test_bin} EXCLUDE_FROM_ALL ${gtest_cc_file})
 
     target_include_directories(${test_bin} PRIVATE
-      ${PROJECT_SOURCE_DIR}/third_party/antlr4_fast/runtime/Cpp/runtime/src
+      ${PROJECT_SOURCE_DIR}/third_party/antlr4/runtime/Cpp/runtime/src
       ${PROJECT_SOURCE_DIR}/third_party/flatbuffers/include)
     # For simplicity, we link the test with libsurelog, but there is of
     # course a lot unnecessary churn if headers are modified.
@@ -745,7 +742,7 @@ install(
         ${PROJECT_SOURCE_DIR}/include/Surelog/Expression/Value.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/Expression)
 
-if (WIN32 AND $<CONFIG:Debug>)
+if (WIN32)
   if (SURELOG_WITH_PYTHON)
     install(
       FILES $<TARGET_PDB_FILE:surelog-bin>
@@ -756,16 +753,19 @@ if (WIN32 AND $<CONFIG:Debug>)
     FILES $<TARGET_PDB_FILE:surelog-bin>
           ${UHDM_BINARY_DIR}/bin/uhdm-dump.pdb
           ${UHDM_BINARY_DIR}/bin/uhdm-hier.pdb
+    CONFIGURATIONS Debug RelWithDebInfo
     DESTINATION ${CMAKE_INSTALL_BINDIR})
   install(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/surelog.dir/surelog.pdb
           ${FlatBuffers_BINARY_DIR}/CMakeFiles/flatbuffers.dir/flatbuffers.pdb
-          ${LIBANTLR4_BINARY_DIR}/runtime/CMakeFiles/antlr4_static.dir/antlr4_static.pdb
+          ${LIBANTLR4_BINARY_DIR}/runtime/$<TARGET_FILE_BASE_NAME:antlr4_static>.pdb
+    CONFIGURATIONS Debug RelWithDebInfo
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog)
   install(
     FILES ${UHDM_BINARY_DIR}/CMakeFiles/uhdm.dir/uhdm.pdb
           ${Cap\'n\ Proto_BINARY_DIR}/src/capnp/CMakeFiles/capnp.dir/capnp.pdb
           ${Cap\'n\ Proto_BINARY_DIR}/src/kj/CMakeFiles/kj.dir/kj.pdb
+    CONFIGURATIONS Debug RelWithDebInfo
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/uhdm)
 endif()
 
