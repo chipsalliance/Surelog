@@ -98,23 +98,23 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
   if (buffer_pointer == nullptr) return false;
 
   const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(buffer_pointer);
-  if (!errorsOnly) {
-    const flatbuffers::Vector<flatbuffers::Offset<MACROCACHE::Macro>>* macros =
-        ppcache->macros();
-    for (unsigned int i = 0; i < macros->size(); i++) {
-      const MACROCACHE::Macro* macro = macros->Get(i);
-      std::vector<std::string> args;
-      std::vector<std::string> tokens;
-      for (unsigned int j = 0; j < macro->arguments()->size(); j++) {
-        args.push_back(macro->arguments()->Get(j)->str());
-      }
-      for (unsigned int j = 0; j < macro->tokens()->size(); j++) {
-        tokens.push_back(macro->tokens()->Get(j)->str());
-      }
-      m_pp->recordMacro(macro->name()->str(), macro->line(), macro->column(),
-                        args, tokens);
+  // Always restore the macros
+  const flatbuffers::Vector<flatbuffers::Offset<MACROCACHE::Macro>>* macros =
+      ppcache->macros();
+  for (unsigned int i = 0; i < macros->size(); i++) {
+    const MACROCACHE::Macro* macro = macros->Get(i);
+    std::vector<std::string> args;
+    std::vector<std::string> tokens;
+    for (unsigned int j = 0; j < macro->arguments()->size(); j++) {
+      args.push_back(macro->arguments()->Get(j)->str());
     }
+    for (unsigned int j = 0; j < macro->tokens()->size(); j++) {
+      tokens.push_back(macro->tokens()->Get(j)->str());
+    }
+    m_pp->recordMacro(macro->name()->str(), macro->line(), macro->column(),
+                      args, tokens);
   }
+
   SymbolTable canonicalSymbols;
   restoreErrors(ppcache->errors(), ppcache->symbols(), canonicalSymbols,
                 m_pp->getCompileSourceFile()->getErrorContainer(),
