@@ -51,7 +51,7 @@ static std::string_view defaultLogFileName = "surelog.log";
 //         Or when the cache schema changes
 //        This will render the cache invalid
 std::string_view CommandLineParser::getVersionNumber() {
-  static constexpr std::string_view kVersionNumber("1.31");
+  static constexpr std::string_view kVersionNumber("1.32");
   return kVersionNumber;
 }
 

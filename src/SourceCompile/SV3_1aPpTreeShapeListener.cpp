@@ -1481,8 +1481,6 @@ void SV3_1aPpTreeShapeListener::exitText_blob(
     if (ctx->Simple_identifier()) {
       addVObject(ctx, ctx->Simple_identifier()->getText(),
                  VObjectType::slPs_identifier);
-    } else if (ctx->number()) {
-      addVObject(ctx, ctx->number()->getText(), VObjectType::slNumber);
     } else if (ctx->CR()) {
       addVObject(ctx, VObjectType::slCR);
     } else if (ctx->Spaces()) {
