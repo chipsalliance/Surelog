@@ -95,8 +95,6 @@ description :
             | config
             | endconfig
             | text_blob
-            | pound_delay
-            | pound_pound_delay
             ;
 
 escaped_identifier : Escaped_identifier;
@@ -436,7 +434,6 @@ paired_parens : ( PARENS_OPEN ( Simple_identifier | number
                  | DOUBLE_QUOTE | macro_instance | CR | paired_parens | escaped_identifier | comments | Special | ANY )* SQUARE_CLOSE ) ;
 
 text_blob :   Simple_identifier
-            | number
             | CR
             | Spaces
             | Fixed_point_number
