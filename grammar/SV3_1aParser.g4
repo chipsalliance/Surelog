@@ -2174,7 +2174,8 @@ statement_item
     | seq_block
     | wait_statement
     | procedural_assertion_statement
-    | clocking_drive SEMICOLUMN
+// This is covered by assignments (and created ambiguities) 
+//  | clocking_drive SEMICOLUMN
     | randsequence_statement
     | randcase_statement
     | expect_property_statement
