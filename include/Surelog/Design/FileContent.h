@@ -62,20 +62,21 @@ class FileContent : public DesignComponent {
   typedef std::unordered_map<std::string, NodeId> NameIdMap;
 
   NodeId sl_get(NodeId parent,
-                VObjectType type);  // Get first child item of type
+                VObjectType type) const;  // Get first child item of type
 
   NodeId sl_parent(NodeId parent,
-                   VObjectType type);  // Get first parent item of type
+                   VObjectType type) const;  // Get first parent item of type
 
-  NodeId sl_parent(NodeId parent, const std::vector<VObjectType>& types,
-                   VObjectType& actualType);  // Get first parent item of type
+  NodeId sl_parent(
+      NodeId parent, const std::vector<VObjectType>& types,
+      VObjectType& actualType) const;  // Get first parent item of type
 
   std::vector<NodeId> sl_get_all(
-      NodeId parent, VObjectType type);  // get all child items of type
+      NodeId parent, VObjectType type) const;  // get all child items of type
 
   std::vector<NodeId> sl_get_all(
       NodeId parent,
-      std::vector<VObjectType>& types);  // get all child items of types
+      std::vector<VObjectType>& types) const;  // get all child items of types
 
   NodeId sl_collect(
       NodeId parent,
@@ -103,14 +104,16 @@ class FileContent : public DesignComponent {
   VObjectType getType() const override { return VObjectType::slNoType; }
   bool isInstance() const override { return false; }
   const std::string& getName() const override;
-  NodeId getRootNode();
-  std::string printObjects() const;              // The whole file content
-  std::string printSubTree(NodeId parentIndex);  // Print subtree from parent
+  NodeId getRootNode() const;
+  std::string printObjects() const;  // The whole file content
+  std::string printSubTree(
+      NodeId parentIndex) const;                 // Print subtree from parent
   std::string printObject(NodeId noedId) const;  // Only print that object
-  std::vector<std::string> collectSubTree(NodeId uniqueId);  // Helper function
+  std::vector<std::string> collectSubTree(
+      NodeId uniqueId) const;  // Helper function
   std::filesystem::path getFileName(NodeId id) const;
   std::filesystem::path getChunkFileName() const;
-  SymbolTable* getSymbolTable() { return m_symbolTable; }
+  SymbolTable* getSymbolTable() const { return m_symbolTable; }
   void setSymbolTable(SymbolTable* table) { m_symbolTable = table; }
   SymbolId getFileId(NodeId id) const;
   SymbolId* getMutableFileId(NodeId id);
@@ -120,7 +123,8 @@ class FileContent : public DesignComponent {
   const DesignElement* getDesignElement(std::string_view name) const;
   std::vector<VObject>& getVObjects() { return m_objects; }
   const NameIdMap& getObjectLookup() const { return m_objectLookup; }
-  void insertObjectLookup(const std::string& name, NodeId id, ErrorContainer* errors);
+  void insertObjectLookup(const std::string& name, NodeId id,
+                          ErrorContainer* errors);
   std::unordered_set<std::string>& getReferencedObjects() {
     return m_referencedObjects;
   }
@@ -128,7 +132,7 @@ class FileContent : public DesignComponent {
   VObject Object(NodeId index) const;
   VObject* MutableObject(NodeId index);
 
-  NodeId UniqueId(NodeId index);
+  NodeId UniqueId(NodeId index) const;
 
   SymbolId Name(NodeId index) const;
 
@@ -186,7 +190,7 @@ class FileContent : public DesignComponent {
   DesignComponent* getComponentDefinition(
       const std::string& componentName) const;
 
-  Package* getPackage(const std::string& name);
+  Package* getPackage(const std::string& name) const;
 
   const Program* getProgram(const std::string& name) const;
 
@@ -201,7 +205,7 @@ class FileContent : public DesignComponent {
                 std::string* diff_out) const;
 
   SymbolId getSymbolId() const { return m_fileId; }
-  bool isLibraryCellFile() { return m_isLibraryCellFile; }
+  bool isLibraryCellFile() const { return m_isLibraryCellFile; }
   void setLibraryCellFile() { m_isLibraryCellFile = true; }
 
  protected:

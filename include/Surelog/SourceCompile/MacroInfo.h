@@ -35,15 +35,18 @@ namespace SURELOG {
 
 class MacroInfo {
  public:
-  MacroInfo(std::string_view name, int type, SymbolId file, unsigned int line,
-            unsigned short int column,
+  MacroInfo(std::string_view name, int type, SymbolId file,
+            unsigned int startLine, unsigned short int startColumn,
+            unsigned int endLine, unsigned short int endColumn,
             const std::vector<std::string>& arguments,
             const std::vector<std::string>& tokens)
       : m_name(name),
         m_type(type),
         m_file(file),
-        m_line(line),
-        m_column(column),
+        m_startLine(startLine),
+        m_startColumn(startColumn),
+        m_endLine(endLine),
+        m_endColumn(endColumn),
         m_arguments(arguments),
         m_tokens(tokens) {}
   enum Type {
@@ -54,8 +57,10 @@ class MacroInfo {
   const std::string m_name;
   const int m_type;
   const SymbolId m_file;
-  const unsigned int m_line;
-  const unsigned short int m_column;
+  const unsigned int m_startLine;
+  const unsigned short int m_startColumn;
+  const unsigned int m_endLine;
+  const unsigned short int m_endColumn;
   const std::vector<std::string> m_arguments;
   const std::vector<std::string> m_tokens;
 };
