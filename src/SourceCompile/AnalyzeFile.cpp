@@ -59,32 +59,29 @@ void AnalyzeFile::checkSLlineDirective_(const std::string& line,
   std::string keyword;
   ss >> keyword;
   if (keyword == "SLline") {
-    IncludeFileInfo info(IncludeFileInfo::Context::NONE, 0, 0, 0, 0, 0, 0,
-                         IncludeFileInfo::Action::NONE);
+    IncludeFileInfo info(0, 0, 0, 0, 0, 0, IncludeFileInfo::NONE);
     ss >> info.m_sectionStartLine;
     std::string file;
     ss >> file;
     file = StringUtils::unquoted(file);
     info.m_sectionFile = m_clp->mutableSymbolTable()->registerSymbol(file);
-    unsigned int action = 0;
-    ss >> action;
+    unsigned int type = 0;
+    ss >> type;
 
-    if (static_cast<IncludeFileInfo::Action>(action) ==
-        IncludeFileInfo::Action::PUSH) {
+    if (type == IncludeFileInfo::PUSH) {
       // Push
       info.m_originalStartLine = lineNb;
-      info.m_action = IncludeFileInfo::Action::PUSH;
+      info.m_type = IncludeFileInfo::PUSH;
       m_includeFileInfo.push(info);
-    } else if (static_cast<IncludeFileInfo::Action>(action) ==
-               IncludeFileInfo::Action::POP) {
+    } else if (type == IncludeFileInfo::POP) {
       // Pop
       if (!m_includeFileInfo.empty()) m_includeFileInfo.pop();
       if (!m_includeFileInfo.empty()) {
-        IncludeFileInfo& top = m_includeFileInfo.top();
-        top.m_sectionFile = info.m_sectionFile;
-        top.m_originalStartLine = lineNb;
-        top.m_sectionStartLine = info.m_sectionStartLine - 1;
-        top.m_action = IncludeFileInfo::Action::POP;
+        m_includeFileInfo.top().m_sectionFile = info.m_sectionFile;
+        m_includeFileInfo.top().m_originalStartLine = lineNb;
+        m_includeFileInfo.top().m_sectionStartLine =
+            info.m_sectionStartLine - 1;
+        m_includeFileInfo.top().m_type = IncludeFileInfo::POP;
       }
     }
   }
@@ -420,9 +417,8 @@ void AnalyzeFile::analyze() {
   unsigned int fromLine = 1;
   unsigned int toIndex = 0;
   m_includeFileInfo.emplace(
-      IncludeFileInfo::Context::INCLUDE, 1,
-      m_clp->mutableSymbolTable()->registerSymbol(m_fileName.string()), 1, 0, 1,
-      0, IncludeFileInfo::Action::PUSH);
+      1, m_clp->mutableSymbolTable()->registerSymbol(m_fileName.string()), 1, 0,
+      1, 0, IncludeFileInfo::PUSH);
   unsigned int linesWriten = 0;
   for (unsigned int i = 0; i < fileChunks.size(); i++) {
     DesignElement::ElemType chunkType = fileChunks[i].m_chunkType;

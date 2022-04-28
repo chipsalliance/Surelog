@@ -53,9 +53,6 @@ namespace fs = std::filesystem;
 const char* const PreprocessFile::MacroNotDefined = "SURELOG_MACRO_NOT_DEFINED";
 const char* const PreprocessFile::PP__Line__Marking = "SURELOG__LINE__MARKING";
 const char* const PreprocessFile::PP__File__Marking = "SURELOG__FILE__MARKING";
-IncludeFileInfo PreprocessFile::s_badIncludeFileInfo(
-    IncludeFileInfo::Context::NONE, 0, 0, 0, 0, 0, 0,
-    IncludeFileInfo::Action::NONE);
 
 void PreprocessFile::SpecialInstructions::print() {
   std::cout << "Trace:" << (m_mute ? "Mute" : "DontMute")
@@ -162,8 +159,8 @@ void PreprocessFile::DescriptiveErrorListener::syntaxError(
                 std::to_string(charPositionInLine) + ":";
     msgId = m_pp->registerSymbol(msg + "," + lineText);
     Location loc(m_pp->getMacroInfo()->m_file,
-                 m_pp->getMacroInfo()->m_startLine + line - 1,
-                 charPositionInLine, msgId);
+                 m_pp->getMacroInfo()->m_line + line - 1, charPositionInLine,
+                 msgId);
     Location extraLoc(m_pp->getIncluderFileId(m_pp->getIncluderLine()),
                       m_pp->getIncluderLine(), 0, 0);
     Error err(ErrorDefinition::PP_MACRO_SYNTAX_ERROR, loc, extraLoc);
@@ -231,9 +228,10 @@ PreprocessFile::PreprocessFile(SymbolId fileId, CompileSourceFile* csf,
   setDebug(m_compileSourceFile->m_commandLineParser->getDebugLevel());
   if ((!m_compileSourceFile->m_commandLineParser->parseOnly()) &&
       (!m_compileSourceFile->m_commandLineParser->lowMem())) {
-    getIncludeFileInfo().emplace_back(IncludeFileInfo::Context::NONE, 0,
-                                      m_fileId, 0, 0, 0, 0,
-                                      IncludeFileInfo::Action::POP, 0, 0);
+    IncludeFileInfo info(0, m_fileId, 0, 0, 0, 0, IncludeFileInfo::POP);
+    info.m_indexClosing = 0;
+    info.m_indexOpening = 0;
+    getIncludeFileInfo().push_back(info);
   }
 }
 
@@ -286,7 +284,7 @@ SymbolId PreprocessFile::getMacroSignature() {
   std::string macroSignature = getSymbol(m_fileId);
   if (m_macroInfo) {
     macroSignature += "|" + getSymbol(m_macroInfo->m_file);
-    macroSignature += "|" + std::to_string(m_macroInfo->m_startLine);
+    macroSignature += "|" + std::to_string(m_macroInfo->m_line);
   }
   macroSignature += "|" + m_macroBody;
   SymbolId sigId = registerSymbol(macroSignature);
@@ -535,11 +533,8 @@ void PreprocessFile::append(const std::string& s) {
   }
 }
 
-void PreprocessFile::recordMacro(const std::string& name,
-                                 unsigned int startLine,
-                                 unsigned short int startColumn,
-                                 unsigned int endLine,
-                                 unsigned short int endColumn,
+void PreprocessFile::recordMacro(const std::string& name, unsigned int line,
+                                 unsigned short int column,
                                  const std::string& arguments,
                                  const std::vector<std::string>& tokens) {
   // *** Argument processing
@@ -572,39 +567,32 @@ void PreprocessFile::recordMacro(const std::string& name,
 
   MacroInfo* macroInfo = new MacroInfo(
       name, arguments.empty() ? MacroInfo::NO_ARGS : MacroInfo::WITH_ARGS,
-      getFileId(startLine), startLine, startColumn, endLine, endColumn, args,
-      tokens);
+      getFileId(line), line, column, args, tokens);
   m_macros.insert(std::make_pair(name, macroInfo));
   m_compilationUnit->registerMacroInfo(name, macroInfo);
-  checkMacroArguments_(name, startLine, startColumn, args, tokens);
+  checkMacroArguments_(name, line, column, args, tokens);
 }
 
 std::string PreprocessFile::reportIncludeInfo() const {
   std::ostringstream strm;
   for (auto const& info : m_includeFileInfo) {
-    const char* const context =
-        (info.m_context == IncludeFileInfo::Context::INCLUDE) ? "inc" : "mac";
-    const char* const action =
-        (info.m_action == IncludeFileInfo::Action::PUSH) ? "in" : "out";
-    strm << context << " " << info.m_originalStartLine << ","
-         << info.m_originalStartColumn << ":" << info.m_originalEndLine << ","
-         << info.m_originalEndColumn << " " << getSymbol(info.m_sectionFile)
-         << " " << info.m_sectionStartLine << " " << action << std::endl;
+    const char* const type =
+        (info.m_type == IncludeFileInfo::PUSH) ? "in" : "out";
+    strm << info.m_originalStartLine << "," << info.m_originalStartColumn << ":"
+         << info.m_originalEndLine << "," << info.m_originalEndColumn << " "
+         << getSymbol(info.m_sectionFile) << " " << info.m_sectionStartLine
+         << " " << type << std::endl;
   }
   return strm.str();
 }
 
-void PreprocessFile::recordMacro(const std::string& name,
-                                 unsigned int startLine,
-                                 unsigned short int startColumn,
-                                 unsigned int endLine,
-                                 unsigned short int endColumn,
+void PreprocessFile::recordMacro(const std::string& name, unsigned int line,
+                                 unsigned short int column,
                                  const std::vector<std::string>& arguments,
                                  const std::vector<std::string>& tokens) {
   MacroInfo* macroInfo = new MacroInfo(
       name, arguments.empty() ? MacroInfo::NO_ARGS : MacroInfo::WITH_ARGS,
-      getFileId(startLine), startLine, startColumn, endLine, endColumn,
-      arguments, tokens);
+      getFileId(line), line, column, arguments, tokens);
   m_macros.insert(std::make_pair(name, macroInfo));
   m_compilationUnit->registerMacroInfo(name, macroInfo);
 }
@@ -758,10 +746,8 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
       for (auto id : loop) {
         MacroInfo* macroInfo2 = m_compilationUnit->getMacroInfo(getSymbol(id));
         if (macroInfo2) {
-          Location loc(macroInfo2->m_file, macroInfo2->m_startLine,
-                       macroInfo2->m_startColumn, id);
-          Location exloc(macroInfo->m_file, macroInfo->m_startLine,
-                         macroInfo->m_startColumn, getId(name));
+          Location loc(macroInfo2->m_file, macroInfo2->m_line, 0, id);
+          Location exloc(macroInfo->m_file, macroInfo->m_line, 0, getId(name));
           Error err(ErrorDefinition::PP_RECURSIVE_MACRO_DEFINITION, loc, exloc);
           addError(err);
           return std::make_pair(false, SymbolTable::getBadSymbol());
@@ -802,16 +788,15 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   if ((actual_args.size() > formal_args.size() && (!m_instructions.m_mute))) {
     if (formal_args.empty() &&
         (StringUtils::getFirstNonEmptyToken(body_tokens) == "(")) {
-      Location loc(macroInfo->m_file, macroInfo->m_startLine,
-                   macroInfo->m_startColumn + name.size() + 1, getId(name));
+      Location loc(macroInfo->m_file, macroInfo->m_line,
+                   macroInfo->m_column + name.size() + 1, getId(name));
       Error err(ErrorDefinition::PP_MACRO_HAS_SPACE_BEFORE_ARGS, loc);
       addError(err);
     } else if ((!Waiver::macroArgCheck(name)) && !formal_args.empty()) {
       Location loc(callingFile->getFileId(callingLine),
                    callingFile->getLineNb(callingLine), 0, getId(name));
       Location arg(0, 0, 0, registerSymbol(std::to_string(actual_args.size())));
-      Location def(macroInfo->m_file, macroInfo->m_startLine,
-                   macroInfo->m_startColumn,
+      Location def(macroInfo->m_file, macroInfo->m_line, 0,
                    registerSymbol(std::to_string(formal_args.size())));
       std::vector<Location> locs = {arg, def};
       Error err(ErrorDefinition::PP_TOO_MANY_ARGS_MACRO, loc, &locs);
@@ -821,8 +806,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
       Location loc(callingFile->getFileId(callingLine),
                    callingFile->getLineNb(callingLine), 0, getId(name));
       Location arg(0, 0, 0, registerSymbol(std::to_string(actual_args.size())));
-      Location def(macroInfo->m_file, macroInfo->m_startLine,
-                   macroInfo->m_startColumn,
+      Location def(macroInfo->m_file, macroInfo->m_line, 0,
                    registerSymbol(std::to_string(formal_args.size())));
       std::vector<Location> locs = {arg, def};
       Error err(ErrorDefinition::PP_TOO_MANY_ARGS_MACRO, loc, &locs);
@@ -900,8 +884,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
             SymbolId id =
                 registerSymbol(std::to_string(i + 1) + " (" + formal + ")");
             Location arg(0, 0, 0, id);
-            Location def(macroInfo->m_file, macroInfo->m_startLine,
-                         macroInfo->m_startColumn, id);
+            Location def(macroInfo->m_file, macroInfo->m_line, 0, id);
             std::vector<Location> locs = {arg, def};
             Error err(ErrorDefinition::PP_MACRO_NO_DEFAULT_VALUE, loc, &locs);
             addError(err);
@@ -1169,7 +1152,7 @@ SymbolId PreprocessFile::getFileId(unsigned int line) const {
 
 unsigned int PreprocessFile::getLineNb(unsigned int line) {
   if (isMacroBody() && m_macroInfo) {
-    return (m_macroInfo->m_startLine + line - 1);
+    return (m_macroInfo->m_line + line - 1);
   } else {
     if (!m_lineTranslationVec.empty()) {
       unsigned int index = m_lineTranslationVec.size() - 1;

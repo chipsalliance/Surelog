@@ -51,9 +51,9 @@ void SV3_1aTreeShapeListener::enterTop_level_rule(
   }
   CommandLineParser *clp = m_pf->getCompileSourceFile()->getCommandLineParser();
   if ((!clp->parseOnly()) && (!clp->lowMem())) {
-    m_includeFileInfo.emplace(IncludeFileInfo::Context::NONE, 1,
-                              m_pf->getFileId(0), 0, 0, 0, 0,
-                              IncludeFileInfo::Action::PUSH);
+    IncludeFileInfo info(1, m_pf->getFileId(0), 0, 0, 0, 0,
+                         IncludeFileInfo::PUSH);
+    m_includeFileInfo.push(info);
   }
 }
 
@@ -174,30 +174,29 @@ void SV3_1aTreeShapeListener::enterSlline(
     SV3_1aParser::SllineContext * /*ctx*/) {}
 
 void SV3_1aTreeShapeListener::exitSlline(SV3_1aParser::SllineContext *ctx) {
-  unsigned int startLine = std::stoi(ctx->Integral_number()[0]->getText());
-  IncludeFileInfo::Action action = static_cast<IncludeFileInfo::Action>(
-      std::stoi(ctx->Integral_number()[1]->getText()));
+  unsigned int startLine = atoi(ctx->Integral_number()[0]->getText().c_str());
+  int type = atoi(ctx->Integral_number()[1]->getText().c_str());
   std::string file = StringUtils::unquoted(ctx->String()->getText());
 
-  std::pair<int, int> startLineCol = ParseUtils::getLineColumn(m_tokens, ctx);
-  std::pair<int, int> endLineCol = ParseUtils::getEndLineColumn(m_tokens, ctx);
-  if (action == IncludeFileInfo::Action::PUSH) {
+  std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
+  if (type == IncludeFileInfo::PUSH) {
     // Push
-    m_includeFileInfo.emplace(IncludeFileInfo::Context::INCLUDE, startLine,
-                              m_pf->getSymbolTable()->registerSymbol(file),
-                              startLineCol.first, startLineCol.second,
-                              endLineCol.first, endLineCol.second,
-                              IncludeFileInfo::Action::PUSH);
-  } else if (action == IncludeFileInfo::Action::POP) {
+    IncludeFileInfo info(
+        startLine, m_pf->getSymbolTable()->registerSymbol(file), lineCol.first,
+        lineCol.second, 0, 0, IncludeFileInfo::PUSH);
+    m_includeFileInfo.push(info);
+  } else if (type == IncludeFileInfo::POP) {
     // Pop
     if (!m_includeFileInfo.empty()) m_includeFileInfo.pop();
     if (!m_includeFileInfo.empty()) {
-      IncludeFileInfo &info = m_includeFileInfo.top();
-      info.m_sectionFile = m_pf->getSymbolTable()->registerSymbol(file);
-      info.m_originalStartLine = startLineCol.first /*+ m_lineOffset */;
-      info.m_originalStartColumn = startLineCol.second /*+ m_lineOffset */;
-      info.m_sectionStartLine = startLine;
-      info.m_action = IncludeFileInfo::Action::POP;
+      m_includeFileInfo.top().m_sectionFile =
+          m_pf->getSymbolTable()->registerSymbol(file);
+      m_includeFileInfo.top().m_originalStartLine =
+          lineCol.first /*+ m_lineOffset*/;
+      m_includeFileInfo.top().m_originalStartColumn =
+          lineCol.second /*+ m_lineOffset*/;
+      m_includeFileInfo.top().m_sectionStartLine = startLine;
+      m_includeFileInfo.top().m_type = IncludeFileInfo::POP;
     }
   }
 }
@@ -656,7 +655,7 @@ void SV3_1aTreeShapeListener::enterTimescale_directive(
   if (std::regex_match(value, base_match, base_regex)) {
     std::ssub_match base1_sub_match = base_match[1];
     std::string base1 = base1_sub_match.str();
-    compUnitTimeInfo.m_timeUnitValue = std::stoi(base1);
+    compUnitTimeInfo.m_timeUnitValue = atoi(base1.c_str());
     if ((compUnitTimeInfo.m_timeUnitValue != 1) &&
         (compUnitTimeInfo.m_timeUnitValue != 10) &&
         (compUnitTimeInfo.m_timeUnitValue != 100)) {
@@ -665,7 +664,7 @@ void SV3_1aTreeShapeListener::enterTimescale_directive(
     compUnitTimeInfo.m_timeUnit = TimeInfo::unitFromString(base_match[2].str());
     std::ssub_match base2_sub_match = base_match[3];
     std::string base2 = base2_sub_match.str();
-    compUnitTimeInfo.m_timePrecisionValue = std::stoi(base2);
+    compUnitTimeInfo.m_timePrecisionValue = atoi(base2.c_str());
     if ((compUnitTimeInfo.m_timePrecisionValue != 1) &&
         (compUnitTimeInfo.m_timePrecisionValue != 10) &&
         (compUnitTimeInfo.m_timePrecisionValue != 100)) {
