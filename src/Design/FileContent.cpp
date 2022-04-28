@@ -54,7 +54,7 @@ std::filesystem::path FileContent::getFileName() const {
   return m_symbolTable->getSymbol(m_fileId);
 }
 
-NodeId FileContent::getRootNode() const {
+NodeId FileContent::getRootNode() {
   if (m_objects.empty()) {
     return 0;
   }
@@ -97,7 +97,7 @@ std::string FileContent::printObject(NodeId nodeId) const {
 
 unsigned int FileContent::getSize() const { return m_objects.size(); }
 
-std::string FileContent::printSubTree(NodeId uniqueId) const {
+std::string FileContent::printSubTree(NodeId uniqueId) {
   std::string text;
   for (const auto& s : collectSubTree(uniqueId)) {
     text += s + "\n";
@@ -143,8 +143,8 @@ DesignComponent* FileContent::getComponentDefinition(
   return nullptr;
 }
 
-Package* FileContent::getPackage(const std::string& name) const {
-  PackageNamePackageDefinitionMultiMap::const_iterator itr =
+Package* FileContent::getPackage(const std::string& name) {
+  PackageNamePackageDefinitionMultiMap::iterator itr =
       m_packageDefinitions.find(name);
   if (itr == m_packageDefinitions.end()) {
     return nullptr;
@@ -174,7 +174,7 @@ const ClassDefinition* FileContent::getClassDefinition(
   }
 }
 
-std::vector<std::string> FileContent::collectSubTree(NodeId index) const {
+std::vector<std::string> FileContent::collectSubTree(NodeId index) {
   std::vector<std::string> text;
 
   text.push_back(m_objects[index].print(m_symbolTable, index,
@@ -227,7 +227,7 @@ VObject* FileContent::MutableObject(NodeId index) {
   return &m_objects[index];
 }
 
-NodeId FileContent::UniqueId(NodeId index) const {
+NodeId FileContent::UniqueId(NodeId index) {
   if (index >= m_objects.size()) {
     Location loc(this->m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
@@ -348,7 +348,7 @@ unsigned short FileContent::EndColumn(NodeId index) const {
   return m_objects[index].m_endColumn;
 }
 
-NodeId FileContent::sl_get(NodeId parent, VObjectType type) const {
+NodeId FileContent::sl_get(NodeId parent, VObjectType type) {
   if (m_objects.empty()) return 0;
   if (parent > m_objects.size() - 1) return 0;
   VObject current = Object(parent);
@@ -366,7 +366,7 @@ NodeId FileContent::sl_get(NodeId parent, VObjectType type) const {
 
 NodeId FileContent::sl_parent(NodeId parent,
                               const std::vector<VObjectType>& types,
-                              VObjectType& actualType) const {
+                              VObjectType& actualType) {
   if (m_objects.empty()) return 0;
   if (parent > m_objects.size() - 1) return 0;
   VObject current = Object(parent);
@@ -388,7 +388,7 @@ NodeId FileContent::sl_parent(NodeId parent,
   return InvalidNodeId;
 }
 
-NodeId FileContent::sl_parent(NodeId parent, VObjectType type) const {
+NodeId FileContent::sl_parent(NodeId parent, VObjectType type) {
   if (m_objects.empty()) return 0;
   if (parent > m_objects.size() - 1) return 0;
   VObject current = Object(parent);
@@ -404,8 +404,7 @@ NodeId FileContent::sl_parent(NodeId parent, VObjectType type) const {
   return InvalidNodeId;
 }
 
-std::vector<NodeId> FileContent::sl_get_all(NodeId parent,
-                                            VObjectType type) const {
+std::vector<NodeId> FileContent::sl_get_all(NodeId parent, VObjectType type) {
   std::vector<NodeId> objects;
   if (m_objects.empty()) return objects;
   if (parent > m_objects.size() - 1) return objects;
@@ -422,8 +421,8 @@ std::vector<NodeId> FileContent::sl_get_all(NodeId parent,
   return objects;
 }
 
-std::vector<NodeId> FileContent::sl_get_all(
-    NodeId parent, std::vector<VObjectType>& types) const {
+std::vector<NodeId> FileContent::sl_get_all(NodeId parent,
+                                            std::vector<VObjectType>& types) {
   std::vector<NodeId> objects;
   if (m_objects.empty()) return objects;
   if (parent > m_objects.size() - 1) return objects;
