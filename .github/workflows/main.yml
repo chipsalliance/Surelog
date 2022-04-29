@@ -55,7 +55,7 @@ jobs:
         fetch-depth: 0
 
     - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1
+      uses: hendrikmuhs/ccache-action@v1.2
       with:
         key: linux-${{ matrix.mode }}-${{ matrix.compiler }}
 
@@ -169,7 +169,7 @@ jobs:
         fetch-depth: 0
 
     - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1
+      uses: hendrikmuhs/ccache-action@v1.2
       with:
         key: linux-${{ matrix.mode }}
 
@@ -304,12 +304,19 @@ jobs:
         submodules: recursive
         fetch-depth: 0
 
+    - name: Use ccache
+      uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: msys-cache
+
     - name: Configure shell environment variables
       run: |
         export JAVA_HOME=`cygpath -u $JAVA_HOME_11_X64`
         export CWD=`pwd`
         export Py3_ROOT_DIR=`cygpath -u $pythonLocation`
-
+        export CCACHE_BIN="C:\Users\runneradmin\.cargo\bin\ccache.exe"
+        echo "CMAKE_C_COMPILER_LAUNCHER=$CCACHE_BIN" >> $GITHUB_ENV
+        echo "CMAKE_CXX_COMPILER_LAUNCHER=$CCACHE_BIN" >> $GITHUB_ENV
         echo "JAVA_HOME=$JAVA_HOME" >> $GITHUB_ENV
         echo 'CMAKE_GENERATOR=Ninja' >> $GITHUB_ENV
         echo 'CC=gcc' >> $GITHUB_ENV
@@ -533,7 +540,7 @@ jobs:
         fetch-depth: 0
 
     - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1
+      uses: hendrikmuhs/ccache-action@v1.2
       with:
         key: macos-${{ matrix.compiler }}
 
@@ -658,7 +665,7 @@ jobs:
         fetch-depth: 0
 
     - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1
+      uses: hendrikmuhs/ccache-action@v1.2
       with:
         key: clang-tidy-codegen
 
