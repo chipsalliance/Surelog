@@ -398,7 +398,7 @@ design: (work@top)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@sub.I), line:9:23, endln:9:24, parent:work@sub
+      \_interface: work@I (work@I) dut.sv:1:1: , endln:7:13, parent:work@top
   |vpiProcess:
   \_initial: , line:11:3, endln:11:25, parent:work@sub
     |vpiStmt:
@@ -616,10 +616,6 @@ design: (work@top)
     |vpiDefName:work@sub
     |vpiDefFile:dut.sv
     |vpiDefLineNo:9
-    |vpiNet:
-    \_logic_net: (work@top.s.I), line:9:23, endln:9:24, parent:work@top.s
-      |vpiName:I
-      |vpiFullName:work@top.s.I
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:14:1: , endln:20:10
     |vpiPort:
@@ -637,12 +633,60 @@ design: (work@top)
         |vpiActual:
         \_ref_obj: (A), line:16:15, endln:16:16, parent:inst.A
           |vpiName:A
+          |vpiActual:
+          \_modport: (A), line:5:9, endln:5:10, parent:work@top.inst
       |vpiLowConn:
       \_ref_obj: (work@top.s.I), line:16:10, endln:16:16, parent:I
-        |vpiName:I
         |vpiFullName:work@top.s.I
         |vpiActual:
-        \_logic_net: (work@top.s.I), line:9:23, endln:9:24, parent:work@top.s
+        \_interface: work@I (I) dut.sv:16: 
+          |vpiName:I
+          |vpiDefName:work@I
+          |vpiModport:
+          \_modport: (A), line:5:9, endln:5:10, parent:I
+            |vpiName:A
+            |vpiIODecl:
+            \_io_decl: (P), line:5:20, endln:5:21
+              |vpiDirection:2
+              |vpiName:P
+            |vpiIODecl:
+            \_io_decl: (Q), line:5:38, endln:5:39
+              |vpiDirection:1
+              |vpiName:Q
+            |vpiIODecl:
+            \_io_decl: (R), line:5:44, endln:5:45
+              |vpiDirection:1
+              |vpiName:R
+              |vpiExpr:
+              \_bit_var: (R), line:4:5, endln:4:6
+                |vpiTypespec:
+                \_bit_typespec: , line:4:1, endln:4:4
+                |vpiName:R
+                |vpiVisibility:1
+            |vpiInterface:
+            \_interface: work@I (I) dut.sv:16: 
+          |vpiModport:
+          \_modport: (B), line:6:9, endln:6:10, parent:I
+            |vpiName:B
+            |vpiIODecl:
+            \_io_decl: (P), line:6:20, endln:6:21
+              |vpiDirection:2
+              |vpiName:P
+            |vpiIODecl:
+            \_io_decl: (Q), line:6:38, endln:6:39
+              |vpiDirection:1
+              |vpiName:Q
+            |vpiIODecl:
+            \_io_decl: (R), line:6:44, endln:6:45
+              |vpiDirection:1
+              |vpiName:R
+              |vpiExpr:
+              \_bit_var: (R), line:4:5, endln:4:6
+            |vpiInterface:
+            \_interface: work@I (I) dut.sv:16: 
+      |vpiTypedef:
+      \_interface_typespec: (I), line:9:23, endln:9:24
+        |vpiName:I
       |vpiInstance:
       \_module: work@sub (work@top.s) dut.sv:16:3: , endln:16:18, parent:work@top
     |vpiProcess:
@@ -660,10 +704,12 @@ design: (work@top)
           \_ref_obj: (I), parent:I.P
             |vpiName:I
             |vpiActual:
-            \_logic_net: (work@top.s.I), line:9:23, endln:9:24, parent:work@top.s
+            \_interface: work@I (I) dut.sv:16: 
           |vpiActual:
           \_ref_obj: (P), parent:I.P
             |vpiName:P
+            |vpiActual:
+            \_io_decl: (P), line:5:20, endln:5:21
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
