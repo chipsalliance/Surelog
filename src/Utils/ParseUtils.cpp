@@ -30,7 +30,7 @@ ParseUtils::LineColumn ParseUtils::getLineColumn(
     antlr4::tree::TerminalNode* node) {
   const antlr4::Token* token = node->getSymbol();
   const size_t lineNb = token->getLine();
-  const size_t columnNb = token->getCharPositionInLine();
+  const size_t columnNb = token->getCharPositionInLine() + 1;
   return std::make_pair(lineNb, columnNb);
 }
 
@@ -39,7 +39,8 @@ ParseUtils::LineColumn ParseUtils::getEndLineColumn(
   const antlr4::Token* token = node->getSymbol();
   const size_t lineNb = token->getLine();
   const size_t columnNb = token->getCharPositionInLine() +
-                          token->getStopIndex() - token->getStartIndex();
+                          token->getStopIndex() - token->getStartIndex() + 1 +
+                          1;
   return std::make_pair(lineNb, columnNb);
 }
 
@@ -58,10 +59,10 @@ ParseUtils::LineColumn ParseUtils::getEndLineColumn(
   const antlr4::misc::Interval sourceInterval = context->getSourceInterval();
   if (sourceInterval.b == -1) return std::make_pair(0, 0);
   antlr4::Token* firstToken = stream->get(sourceInterval.b);
-  size_t lineNb = firstToken->getLine();
-  size_t columnNb = firstToken->getCharPositionInLine() +
-                    firstToken->getStopIndex() - firstToken->getStartIndex() +
-                    1 + 1;
+  const size_t lineNb = firstToken->getLine();
+  const size_t columnNb = firstToken->getCharPositionInLine() +
+                          firstToken->getStopIndex() -
+                          firstToken->getStartIndex() + 1 + 1;
   return std::make_pair(lineNb, columnNb);
 }
 

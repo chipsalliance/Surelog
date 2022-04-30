@@ -59,29 +59,32 @@ void AnalyzeFile::checkSLlineDirective_(const std::string& line,
   std::string keyword;
   ss >> keyword;
   if (keyword == "SLline") {
-    IncludeFileInfo info(0, 0, 0, 0, 0, 0, IncludeFileInfo::NONE);
+    IncludeFileInfo info(IncludeFileInfo::Context::NONE, 0, 0, 0, 0, 0, 0,
+                         IncludeFileInfo::Action::NONE);
     ss >> info.m_sectionStartLine;
     std::string file;
     ss >> file;
     file = StringUtils::unquoted(file);
     info.m_sectionFile = m_clp->mutableSymbolTable()->registerSymbol(file);
-    unsigned int type = 0;
-    ss >> type;
+    unsigned int action = 0;
+    ss >> action;
 
-    if (type == IncludeFileInfo::PUSH) {
+    if (static_cast<IncludeFileInfo::Action>(action) ==
+        IncludeFileInfo::Action::PUSH) {
       // Push
       info.m_originalStartLine = lineNb;
-      info.m_type = IncludeFileInfo::PUSH;
+      info.m_action = IncludeFileInfo::Action::PUSH;
       m_includeFileInfo.push(info);
-    } else if (type == IncludeFileInfo::POP) {
+    } else if (static_cast<IncludeFileInfo::Action>(action) ==
+               IncludeFileInfo::Action::POP) {
       // Pop
       if (!m_includeFileInfo.empty()) m_includeFileInfo.pop();
       if (!m_includeFileInfo.empty()) {
-        m_includeFileInfo.top().m_sectionFile = info.m_sectionFile;
-        m_includeFileInfo.top().m_originalStartLine = lineNb;
-        m_includeFileInfo.top().m_sectionStartLine =
-            info.m_sectionStartLine - 1;
-        m_includeFileInfo.top().m_type = IncludeFileInfo::POP;
+        IncludeFileInfo& top = m_includeFileInfo.top();
+        top.m_sectionFile = info.m_sectionFile;
+        top.m_originalStartLine = lineNb;
+        top.m_sectionStartLine = info.m_sectionStartLine - 1;
+        top.m_action = IncludeFileInfo::Action::POP;
       }
     }
   }
@@ -417,8 +420,9 @@ void AnalyzeFile::analyze() {
   unsigned int fromLine = 1;
   unsigned int toIndex = 0;
   m_includeFileInfo.emplace(
-      1, m_clp->mutableSymbolTable()->registerSymbol(m_fileName.string()), 1, 0,
-      1, 0, IncludeFileInfo::PUSH);
+      IncludeFileInfo::Context::INCLUDE, 1,
+      m_clp->mutableSymbolTable()->registerSymbol(m_fileName.string()), 1, 0, 1,
+      0, IncludeFileInfo::Action::PUSH);
   unsigned int linesWriten = 0;
   for (unsigned int i = 0; i < fileChunks.size(); i++) {
     DesignElement::ElemType chunkType = fileChunks[i].m_chunkType;
