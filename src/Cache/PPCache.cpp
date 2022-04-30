@@ -42,7 +42,7 @@ namespace fs = std::filesystem;
 
 PPCache::PPCache(PreprocessFile* pp) : m_pp(pp), m_isPrecompiled(false) {}
 
-static const char FlbSchemaVersion[] = "1.0";
+static const char FlbSchemaVersion[] = "1.1";
 
 fs::path PPCache::getCacheFileName_(const fs::path& requested_file) {
   Precompiled* prec = Precompiled::getSingleton();

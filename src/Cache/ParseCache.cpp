@@ -41,7 +41,7 @@ namespace fs = std::filesystem;
 ParseCache::ParseCache(ParseFile* parser)
     : m_parse(parser), m_isPrecompiled(false) {}
 
-static constexpr char FlbSchemaVersion[] = "1.0";
+static constexpr char FlbSchemaVersion[] = "1.1";
 
 fs::path ParseCache::getCacheFileName_(const fs::path& svFileNameIn) {
   fs::path svFileName = svFileNameIn;
