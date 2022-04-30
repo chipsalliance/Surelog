@@ -1769,12 +1769,21 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
         signal->setStatic();
         component->getSignals().push_back(signal);
       } else {
+        if (fC->Type(net_port_header) == slInterface_port_header) {
+          dataType = slInterface_port_header;
+        }
         Signal* signal = new Signal(fC, identifier, dataType, port_direction,
                                     packed, is_signed);
+        if (fC->Type(net_port_header) == slInterface_port_header) {
+          signal->setTypespecId(identifier);
+        }
         signal->setStatic();
         component->getPorts().push_back(signal);
         signal = new Signal(fC, identifier, dataType, port_direction, packed,
                             is_signed);
+        if (fC->Type(net_port_header) == slInterface_port_header) {
+          signal->setTypespecId(identifier);
+        }
         signal->setStatic();
         component->getSignals().push_back(signal);
       }
