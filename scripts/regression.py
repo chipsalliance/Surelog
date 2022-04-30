@@ -774,6 +774,7 @@ def _print_report(results):
 
   rows = []
   summary = OrderedDict([(status.name, 0) for status in Status])
+  summary[''] = ''
   for result in results:
     current = result['current']
     golden = result['golden']
@@ -800,16 +801,19 @@ def _print_report(results):
       '{}/{}'.format(_get_cell_value("ROUNDTRIP_A"), _get_cell_value("ROUNDTRIP_B")),
     ])
 
-  longest_test = max(results, key=lambda result: result.get('WALL-TIME', 0))
-  summary['LONGEST TEST'] = longest_test['TESTNAME']
-  summary['MAX TIME'] = str(round(longest_test['WALL-TIME'].total_seconds()))
+  longest_cpu_test = max(results, key=lambda result: result.get('CPU-TIME', 0))
+  total_cpu_time = sum([result.get('CPU-TIME', 0) for result in results])
+  summary['MAX CPU TIME'] = f'{round(longest_cpu_test["CPU-TIME"])} ({longest_cpu_test["TESTNAME"]})'
+  summary['TOTAL CPU TIME'] = str(round(total_cpu_time))
+
+  longest_wall_test = max(results, key=lambda result: result.get('WALL-TIME', 0))
+  summary['MAX WALL TIME'] = f'{round(longest_wall_test["WALL-TIME"].total_seconds())} ({longest_wall_test["TESTNAME"]})'
 
   largest_test = max(results, key=lambda result: result.get('PHY-MEM', 0))
-  summary['LARGEST TEST'] = largest_test['TESTNAME']
-  summary['MAX MEMORY'] = str(round(largest_test['PHY-MEM'] / (1024 * 1024)))
+  summary['MAX MEMORY'] = f'{round(largest_test["PHY-MEM"] / (1024 * 1024))} ({largest_test["TESTNAME"]})'
 
   widths = [max([len(row[index]) for row in [columns] + rows]) for index in range(0, len(columns))]
-  row_format = '  | ' + ' | '.join([f'{{:{width}}}' for width in widths]) + ' |'
+  row_format = '  | ' + ' | '.join([f'{{:{"" if i < 2 else ">"}{widths[i]}}}' for i in range(0, len(widths))]) + ' |'
   separator = '  +-' + '-+-'.join(['-' * width for width in widths]) + '-+'
 
   print('Results: ')
