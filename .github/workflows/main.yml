@@ -102,7 +102,7 @@ jobs:
     - name: Regression
       if: matrix.mode == 'regression'
       run: |
-        make regression
+        make test/regression
 
     - name: Prepare regression artifacts
       if: matrix.mode == 'regression' && always()
@@ -579,7 +579,7 @@ jobs:
 
     - name: Regression tests
       run: |
-        make regression
+        make test/regression
 
     - name: Prepare build artifacts
       run: |
