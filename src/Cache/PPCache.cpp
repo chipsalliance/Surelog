@@ -138,42 +138,41 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
       m_pp->getCompilationUnit()->recordTimeInfo(timeInfo);
     }
   }
+
   /* Restore file line info */
-  if (!errorsOnly) {
-    const flatbuffers::Vector<
-        flatbuffers::Offset<MACROCACHE::LineTranslationInfo>>* lineinfos =
-        ppcache->line_translation_vec();
-    for (unsigned int i = 0; i < lineinfos->size(); i++) {
-      const MACROCACHE::LineTranslationInfo* lineinfo = lineinfos->Get(i);
-      const fs::path pretendFileName = lineinfo->pretend_file()->str();
-      PreprocessFile::LineTranslationInfo lineFileInfo(
-          m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(
-              pretendFileName.string()),
-          lineinfo->original_line(), lineinfo->pretend_line());
-      m_pp->addLineTranslationInfo(lineFileInfo);
-    }
+  const flatbuffers::Vector<
+      flatbuffers::Offset<MACROCACHE::LineTranslationInfo>>* lineinfos =
+      ppcache->line_translation_vec();
+  for (unsigned int i = 0; i < lineinfos->size(); i++) {
+    const MACROCACHE::LineTranslationInfo* lineinfo = lineinfos->Get(i);
+    const fs::path pretendFileName = lineinfo->pretend_file()->str();
+    PreprocessFile::LineTranslationInfo lineFileInfo(
+        m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(
+            pretendFileName.string()),
+        lineinfo->original_line(), lineinfo->pretend_line());
+    m_pp->addLineTranslationInfo(lineFileInfo);
   }
+
   /* Restore include file info */
-  if (!errorsOnly) {
-    const flatbuffers::Vector<flatbuffers::Offset<MACROCACHE::IncludeFileInfo>>*
-        incinfos = ppcache->include_file_info();
-    for (unsigned int i = 0; i < incinfos->size(); i++) {
-      const MACROCACHE::IncludeFileInfo* incinfo = incinfos->Get(i);
-      const fs::path sectionFileName = incinfo->section_file()->str();
-      // std::cout << "read sectionFile: " << sectionFileName << " s:" <<
-      // incinfo->m_sectionStartLine() << " o:" << incinfo->m_originalLine() <<
-      // " t:" << incinfo->m_type() << "\n";
-      m_pp->getIncludeFileInfo().emplace_back(
-          static_cast<IncludeFileInfo::Context>(incinfo->context()),
-          incinfo->section_start_line(),
-          m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(
-              sectionFileName.string()),
-          incinfo->original_start_line(), incinfo->original_start_column(),
-          incinfo->original_end_line(), incinfo->original_end_column(),
-          static_cast<IncludeFileInfo::Action>(incinfo->action()),
-          incinfo->index_opening(), incinfo->index_closing());
-    }
+  const flatbuffers::Vector<flatbuffers::Offset<MACROCACHE::IncludeFileInfo>>*
+      incinfos = ppcache->include_file_info();
+  for (unsigned int i = 0; i < incinfos->size(); i++) {
+    const MACROCACHE::IncludeFileInfo* incinfo = incinfos->Get(i);
+    const fs::path sectionFileName = incinfo->section_file()->str();
+    // std::cout << "read sectionFile: " << sectionFileName << " s:" <<
+    // incinfo->m_sectionStartLine() << " o:" << incinfo->m_originalLine() <<
+    // " t:" << incinfo->m_type() << "\n";
+    m_pp->getIncludeFileInfo().emplace_back(
+        static_cast<IncludeFileInfo::Context>(incinfo->context()),
+        incinfo->section_start_line(),
+        m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(
+            sectionFileName.string()),
+        incinfo->original_start_line(), incinfo->original_start_column(),
+        incinfo->original_end_line(), incinfo->original_end_column(),
+        static_cast<IncludeFileInfo::Action>(incinfo->action()),
+        incinfo->index_opening(), incinfo->index_closing());
   }
+
   // Includes
   auto includes = ppcache->includes();
   if (includes) {
@@ -189,20 +188,17 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
     }
   }
   // FileContent
+  FileContent* fileContent = m_pp->getFileContent();
+  if (fileContent == nullptr) {
+    fileContent = new FileContent(
+        m_pp->getFileId(0), m_pp->getLibrary(),
+        m_pp->getCompileSourceFile()->getSymbolTable(),
+        m_pp->getCompileSourceFile()->getErrorContainer(), nullptr, 0);
+    m_pp->setFileContent(fileContent);
+    m_pp->getCompileSourceFile()->getCompiler()->getDesign()->addPPFileContent(
+        m_pp->getFileId(0), fileContent);
+  }
   if (!errorsOnly) {
-    FileContent* fileContent = m_pp->getFileContent();
-    if (fileContent == nullptr) {
-      fileContent = new FileContent(
-          m_pp->getFileId(0), m_pp->getLibrary(),
-          m_pp->getCompileSourceFile()->getSymbolTable(),
-          m_pp->getCompileSourceFile()->getErrorContainer(), nullptr, 0);
-      m_pp->setFileContent(fileContent);
-      m_pp->getCompileSourceFile()
-          ->getCompiler()
-          ->getDesign()
-          ->addPPFileContent(m_pp->getFileId(0), fileContent);
-    }
-
     auto objects = ppcache->objects();
     restoreVObjects(objects, canonicalSymbols,
                     *m_pp->getCompileSourceFile()->getSymbolTable(),
