@@ -103,16 +103,15 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
   const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(buffer.get());
   // Always restore the macros
   const flatbuffers::Vector<flatbuffers::Offset<MACROCACHE::Macro>>* macros =
-      ppcache->macros();
-  for (unsigned int i = 0; i < macros->size(); i++) {
-    const MACROCACHE::Macro* macro = macros->Get(i);
+    ppcache->macros();
+  for (const MACROCACHE::Macro* macro : *macros) {
     std::vector<std::string> args;
-    std::vector<std::string> tokens;
-    for (unsigned int j = 0; j < macro->arguments()->size(); j++) {
-      args.push_back(macro->arguments()->Get(j)->str());
+    for (const auto* macro_arg : *macro->arguments()) {
+      args.push_back(macro_arg->str());
     }
-    for (unsigned int j = 0; j < macro->tokens()->size(); j++) {
-      tokens.push_back(macro->tokens()->Get(j)->str());
+    std::vector<std::string> tokens;
+    for (const auto* macro_token : *macro->tokens()) {
+      tokens.push_back(macro_token->str());
     }
     m_pp->recordMacro(macro->name()->str(), macro->start_line(),
                       macro->start_column(), macro->end_line(),
@@ -126,10 +125,7 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
 
   /* Restore `timescale directives */
   if (!errorsOnly) {
-    const flatbuffers::Vector<flatbuffers::Offset<CACHE::TimeInfo>>* timeinfos =
-        ppcache->time_info();
-    for (unsigned int i = 0; i < timeinfos->size(); i++) {
-      const CACHE::TimeInfo* fbtimeinfo = timeinfos->Get(i);
+    for (const CACHE::TimeInfo* fbtimeinfo : *ppcache->time_info()) {
       TimeInfo timeInfo;
       timeInfo.m_type = (TimeInfo::Type)fbtimeinfo->type();
       timeInfo.m_fileId = fbtimeinfo->file_id();
@@ -143,11 +139,8 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
   }
 
   /* Restore file line info */
-  const flatbuffers::Vector<
-      flatbuffers::Offset<MACROCACHE::LineTranslationInfo>>* lineinfos =
-      ppcache->line_translation_vec();
-  for (unsigned int i = 0; i < lineinfos->size(); i++) {
-    const MACROCACHE::LineTranslationInfo* lineinfo = lineinfos->Get(i);
+  const auto* lineinfos = ppcache->line_translation_vec();
+  for (const MACROCACHE::LineTranslationInfo* lineinfo : *lineinfos) {
     const fs::path pretendFileName = lineinfo->pretend_file()->str();
     PreprocessFile::LineTranslationInfo lineFileInfo(
         m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(
@@ -157,10 +150,7 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
   }
 
   /* Restore include file info */
-  const flatbuffers::Vector<flatbuffers::Offset<MACROCACHE::IncludeFileInfo>>*
-      incinfos = ppcache->include_file_info();
-  for (unsigned int i = 0; i < incinfos->size(); i++) {
-    const MACROCACHE::IncludeFileInfo* incinfo = incinfos->Get(i);
+  for (const auto* incinfo: *ppcache->include_file_info()) {
     const fs::path sectionFileName = incinfo->section_file()->str();
     // std::cout << "read sectionFile: " << sectionFileName << " s:" <<
     // incinfo->m_sectionStartLine() << " o:" << incinfo->m_originalLine() <<
@@ -179,8 +169,7 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
   // Includes
   auto includes = ppcache->includes();
   if (includes) {
-    for (unsigned int i = 0; i < includes->size(); i++) {
-      auto include = includes->Get(i);
+    for (const auto* include : *includes) {
       restore_(getCacheFileName_(include->str()), errorsOnly);
     }
   }
@@ -246,8 +235,8 @@ bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName) {
     }
 
     std::vector<fs::path> cache_include_path_vec;
-    for (unsigned int i = 0; i < ppcache->cmd_include_paths()->size(); i++) {
-      const fs::path path = ppcache->cmd_include_paths()->Get(i)->str();
+    for (const auto* include_path : *ppcache->cmd_include_paths()) {
+      const fs::path path = include_path->str();
       cache_include_path_vec.push_back(path);
     }
     if (!compareVectors(include_path_vec, cache_include_path_vec)) {
@@ -265,8 +254,8 @@ bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName) {
     }
 
     std::vector<std::string> cache_define_vec;
-    for (unsigned int i = 0; i < ppcache->cmd_define_options()->size(); i++) {
-      const std::string path = ppcache->cmd_define_options()->Get(i)->str();
+    for (const auto* cmd_define_option : *ppcache->cmd_define_options()) {
+      const std::string path = cmd_define_option->str();
       cache_define_vec.push_back(path);
     }
     if (!compareVectors(define_vec, cache_define_vec)) {
@@ -276,8 +265,7 @@ bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName) {
     /* All includes*/
     auto includes = ppcache->includes();
     if (includes)
-      for (unsigned int i = 0; i < includes->size(); i++) {
-        auto include = includes->Get(i);
+      for (const auto* include : *includes) {
         if (!checkCacheIsValid_(getCacheFileName_(include->str()))) {
           return false;
         }
