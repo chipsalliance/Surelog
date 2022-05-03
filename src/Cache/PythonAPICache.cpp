@@ -70,30 +70,28 @@ std::filesystem::path PythonAPICache::getCacheFileName_(
 }
 
 bool PythonAPICache::restore_(const std::filesystem::path& cacheFileName) {
-  uint8_t* buffer_pointer = openFlatBuffers(cacheFileName);
-  if (buffer_pointer == nullptr) return false;
+  auto buffer = openFlatBuffers(cacheFileName);
+  if (buffer == nullptr) return false;
 
   const PYTHONAPICACHE::PythonAPICache* ppcache =
-      PYTHONAPICACHE::GetPythonAPICache(buffer_pointer);
+      PYTHONAPICACHE::GetPythonAPICache(buffer.get());
   SymbolTable canonicalSymbols;
-  restoreErrors(ppcache->m_errors(), ppcache->m_symbols(), canonicalSymbols,
+  restoreErrors(ppcache->m_errors(), ppcache->m_symbols(), &canonicalSymbols,
                 m_listener->getCompileSourceFile()->getErrorContainer(),
                 m_listener->getCompileSourceFile()->getSymbolTable());
 
-  delete[] buffer_pointer;
   return true;
 }
 
 bool PythonAPICache::checkCacheIsValid_(
     const std::filesystem::path& cacheFileName) {
-  uint8_t* buffer_pointer = openFlatBuffers(cacheFileName);
-  if (buffer_pointer == nullptr) return false;
-  if (!PYTHONAPICACHE::PythonAPICacheBufferHasIdentifier(buffer_pointer)) {
-    delete[] buffer_pointer;
+  auto buffer = openFlatBuffers(cacheFileName);
+  if (buffer == nullptr) return false;
+  if (!PYTHONAPICACHE::PythonAPICacheBufferHasIdentifier(buffer.get())) {
     return false;
   }
   const PYTHONAPICACHE::PythonAPICache* ppcache =
-      PYTHONAPICACHE::GetPythonAPICache(buffer_pointer);
+      PYTHONAPICACHE::GetPythonAPICache(buffer.get());
   auto header = ppcache->m_header();
 
   auto scriptFile = ppcache->m_python_script_file()->c_str();
@@ -101,25 +99,20 @@ bool PythonAPICache::checkCacheIsValid_(
     time_t ct = get_mtime(cacheFileName.c_str());
     time_t ft = get_mtime(scriptFile);
     if (ft == -1) {
-      delete[] buffer_pointer;
       return false;
     }
     if (ct == -1) {
-      delete[] buffer_pointer;
       return false;
     }
     if (ct < ft) {
-      delete[] buffer_pointer;
       return false;
     }
   }
 
   if (!checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileName)) {
-    delete[] buffer_pointer;
     return false;
   }
 
-  delete[] buffer_pointer;
   return true;
 }
 
@@ -163,14 +156,15 @@ bool PythonAPICache::save() {
       m_listener->getCompileSourceFile()->getErrorContainer();
   SymbolId subjectFileId = m_listener->getParseFile()->getFileId(LINE1);
   SymbolTable canonicalSymbols;
-  auto errorSymbolPair = cacheErrors(
-      builder, canonicalSymbols, errorContainer,
-      m_listener->getCompileSourceFile()->getSymbolTable(), subjectFileId);
+  auto errorCache = cacheErrors(
+      builder, &canonicalSymbols, errorContainer,
+      *m_listener->getCompileSourceFile()->getSymbolTable(), subjectFileId);
 
+  auto symbolVec = createSymbolCache(builder, canonicalSymbols);
+  ;
   /* Create Flatbuffers */
   auto ppcache = PYTHONAPICACHE::CreatePythonAPICache(
-      builder, header, scriptFile, errorSymbolPair.first,
-      errorSymbolPair.second);
+      builder, header, scriptFile, errorCache, symbolVec);
   FinishPythonAPICacheBuffer(builder, ppcache);
 
   /* Save Flatbuffer */
