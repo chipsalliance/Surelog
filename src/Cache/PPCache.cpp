@@ -103,7 +103,7 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
   const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(buffer.get());
   // Always restore the macros
   const flatbuffers::Vector<flatbuffers::Offset<MACROCACHE::Macro>>* macros =
-    ppcache->macros();
+      ppcache->macros();
   for (const MACROCACHE::Macro* macro : *macros) {
     std::vector<std::string> args;
     for (const auto* macro_arg : *macro->arguments()) {
@@ -150,7 +150,7 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
   }
 
   /* Restore include file info */
-  for (const auto* incinfo: *ppcache->include_file_info()) {
+  for (const auto* incinfo : *ppcache->include_file_info()) {
     const fs::path sectionFileName = incinfo->section_file()->str();
     // std::cout << "read sectionFile: " << sectionFileName << " s:" <<
     // incinfo->m_sectionStartLine() << " o:" << incinfo->m_originalLine() <<
@@ -357,9 +357,9 @@ bool PPCache::save() {
       m_pp->getCompileSourceFile()->getErrorContainer();
   SymbolId subjectFileId = m_pp->getFileId(LINE1);
   SymbolTable cacheSymbols;
-  auto errorSymbolPair = cacheErrors(
-      builder, &cacheSymbols, errorContainer,
-      *m_pp->getCompileSourceFile()->getSymbolTable(), subjectFileId);
+  auto errorCache = cacheErrors(builder, &cacheSymbols, errorContainer,
+                                *m_pp->getCompileSourceFile()->getSymbolTable(),
+                                subjectFileId);
 
   /* Cache the include paths list */
   auto includePathList =
@@ -389,7 +389,7 @@ bool PPCache::save() {
     if (info.m_fileId != m_pp->getFileId(0)) continue;
     auto timeInfo = CACHE::CreateTimeInfo(
         builder, static_cast<uint16_t>(info.m_type),
-        cacheSymbols.getId(
+        cacheSymbols.registerSymbol(
             m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
                 info.m_fileId)),
         info.m_line, static_cast<uint16_t>(info.m_timeUnit),
@@ -437,15 +437,16 @@ bool PPCache::save() {
 
   /* Cache the design objects */
   std::vector<CACHE::VObject> object_vec = cacheVObjects(
-      fcontent, cacheSymbols,
-      *m_pp->getCompileSourceFile()->getSymbolTable(), m_pp->getFileId(0));
+      fcontent, &cacheSymbols, *m_pp->getCompileSourceFile()->getSymbolTable(),
+      m_pp->getFileId(0));
   auto objectList = builder.CreateVectorOfStructs(object_vec);
 
+  auto symbolVec = createSymbolCache(builder, cacheSymbols);
   /* Create Flatbuffers */
   auto ppcache = MACROCACHE::CreatePPCache(
-      builder, header, macroList, includeList, body, errorSymbolPair.first,
-      errorSymbolPair.second, incPaths, defines, timeinfoFBList, lineinfoFBList,
-      incinfoFBList, objectList);
+      builder, header, macroList, includeList, body, errorCache, symbolVec,
+      incPaths, defines, timeinfoFBList, lineinfoFBList, incinfoFBList,
+      objectList);
   FinishPPCacheBuffer(builder, ppcache);
 
   /* Save Flatbuffer */

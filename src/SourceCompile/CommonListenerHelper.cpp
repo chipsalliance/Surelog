@@ -102,10 +102,8 @@ int CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym,
   SymbolId fileId;
   auto [line, column, endLine, endColumn] = getFileLine(ctx, fileId);
 
-  VObject& inserted = m_fileContent->mutableVObjects()
-    .emplace_back(sym, fileId, objtype,
-                  line, column,
-                  endLine, endColumn, 0);
+  VObject& inserted = m_fileContent->mutableVObjects().emplace_back(
+      sym, fileId, objtype, line, column, endLine, endColumn, 0);
   const int objectIndex = m_fileContent->getVObjects().size() - 1;
   m_contextToObjectMap.insert(std::make_pair(ctx, objectIndex));
   addParentChildRelations(objectIndex, ctx);

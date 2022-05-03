@@ -86,7 +86,7 @@ bool ParseCache::restore_(const fs::path& cacheFileName) {
 
   /* Restore Errors */
   const PARSECACHE::ParseCache* ppcache =
-    PARSECACHE::GetParseCache(buffer_pointer.get());
+      PARSECACHE::GetParseCache(buffer_pointer.get());
   SymbolTable cacheSymbols;
   restoreErrors(ppcache->errors(), ppcache->symbols(), &cacheSymbols,
                 m_parse->getCompileSourceFile()->getErrorContainer(),
@@ -141,7 +141,7 @@ bool ParseCache::restore_(const fs::path& cacheFileName) {
 bool ParseCache::checkCacheIsValid_(const fs::path& cacheFileName) {
   auto buffer = openFlatBuffers(cacheFileName);
   CommandLineParser* clp =
-    m_parse->getCompileSourceFile()->getCommandLineParser();
+      m_parse->getCompileSourceFile()->getCommandLineParser();
   if (buffer == nullptr) {
     return false;
   }
@@ -152,7 +152,7 @@ bool ParseCache::checkCacheIsValid_(const fs::path& cacheFileName) {
     return true;
   }
   const PARSECACHE::ParseCache* ppcache =
-    PARSECACHE::GetParseCache(buffer.get());
+      PARSECACHE::GetParseCache(buffer.get());
   auto header = ppcache->header();
   if (!m_isPrecompiled) {
     if (!checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileName)) {
@@ -228,7 +228,7 @@ bool ParseCache::save() {
       m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
           subjectFile.string());
   SymbolTable cacheSymbols;
-  auto errorSymbolPair = cacheErrors(
+  auto errorCache = cacheErrors(
       builder, &cacheSymbols, errorContainer,
       *m_parse->getCompileSourceFile()->getSymbolTable(), subjectFileId);
 
@@ -242,15 +242,15 @@ bool ParseCache::save() {
               elem->m_name);
       auto timeInfo = CACHE::CreateTimeInfo(
           builder, static_cast<uint16_t>(info.m_type),
-          cacheSymbols.getId(
+          cacheSymbols.registerSymbol(
               m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
                   info.m_fileId)),
           info.m_line, static_cast<uint16_t>(info.m_timeUnit),
           info.m_timeUnitValue, static_cast<uint16_t>(info.m_timePrecision),
           info.m_timePrecisionValue);
       element_vec.push_back(PARSECACHE::CreateDesignElement(
-          builder, cacheSymbols.getId(elemName),
-          cacheSymbols.getId(
+          builder, cacheSymbols.registerSymbol(elemName),
+          cacheSymbols.registerSymbol(
               m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
                   elem->m_fileId)),
           elem->m_type, elem->m_uniqueId, elem->m_line, elem->m_column,
@@ -261,15 +261,15 @@ bool ParseCache::save() {
 
   /* Cache the design objects */
   std::vector<CACHE::VObject> object_vec =
-      cacheVObjects(fcontent, cacheSymbols,
+      cacheVObjects(fcontent, &cacheSymbols,
                     *m_parse->getCompileSourceFile()->getSymbolTable(),
                     m_parse->getFileId(0));
   auto objectList = builder.CreateVectorOfStructs(object_vec);
 
+  auto symbolVec = createSymbolCache(builder, cacheSymbols);
   /* Create Flatbuffers */
   auto ppcache = PARSECACHE::CreateParseCache(
-      builder, header, errorSymbolPair.first, errorSymbolPair.second,
-      elementList, objectList);
+      builder, header, errorCache, symbolVec, elementList, objectList);
   FinishParseCacheBuffer(builder, ppcache);
 
   /* Save Flatbuffer */

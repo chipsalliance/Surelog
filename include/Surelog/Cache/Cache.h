@@ -76,14 +76,18 @@ class Cache {
       flatbuffers::FlatBufferBuilder& builder, std::string_view schemaVersion,
       const std::filesystem::path& origFileName);
 
-  // Store errors and symbol tables in cache. Using a symbol table
-  // specifically for the cache, which is build and updating "cacheSymbols"
-  std::pair<flatbuffers::Offset<VectorOffsetError>,
-            flatbuffers::Offset<VectorOffsetString>>
+  // Store errors in cache. Canonicalize strings and store in "cacheSymbols".
+  flatbuffers::Offset<VectorOffsetError>
   cacheErrors(flatbuffers::FlatBufferBuilder& builder,
               SymbolTable* cacheSymbols,
               const ErrorContainer* errorContainer,
               const SymbolTable& localSymbols, SymbolId subjectId);
+
+  // Given the symbol table (that we've accumulated while emitting cached
+  // items), convert it to a flatbuffer cache vector.
+  flatbuffers::Offset<Cache::VectorOffsetString> createSymbolCache(
+    flatbuffers::FlatBufferBuilder& builder,
+    const SymbolTable &cacheSymbols);
 
   // Restores errors and the cache symbol table (to be used in other restore
   // operations).
@@ -98,8 +102,9 @@ class Cache {
   // Convert vobjects from "fcontent" into cachable VObjects.
   // Uses "localSymbols" and "cacheSymbols" to map symbols found in "fcontent"
   // to IDs used on the cache on disk.
+  // Updates "cacheSymbols" if new IDs are needed.
   std::vector<CACHE::VObject> cacheVObjects(const FileContent* fcontent,
-                                            const SymbolTable& cacheSymbols,
+                                            SymbolTable* cacheSymbols,
                                             const SymbolTable& localSymbols,
                                             SymbolId fileId);
 

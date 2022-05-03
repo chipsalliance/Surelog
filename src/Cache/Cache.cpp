@@ -50,7 +50,8 @@ time_t Cache::get_mtime(const fs::path& path) {
   return statbuf.st_mtime;
 }
 
-std::unique_ptr<uint8_t[]> Cache::openFlatBuffers(const fs::path& cacheFileName) {
+std::unique_ptr<uint8_t[]> Cache::openFlatBuffers(
+    const fs::path& cacheFileName) {
   const std::string filename = cacheFileName.string();
   FILE* file = fopen(filename.c_str(), "rb");
   if (file == nullptr) return nullptr;
@@ -129,13 +130,10 @@ bool Cache::saveFlatbuffers(flatbuffers::FlatBufferBuilder& builder,
   return success;
 }
 
-std::pair<flatbuffers::Offset<Cache::VectorOffsetError>,
-          flatbuffers::Offset<Cache::VectorOffsetString>>
-Cache::cacheErrors(flatbuffers::FlatBufferBuilder& builder,
-                   SymbolTable* cacheSymbols,
-                   const ErrorContainer* errorContainer,
-                   const SymbolTable& localSymbols,
-                   SymbolId subjectId) {
+flatbuffers::Offset<Cache::VectorOffsetError> Cache::cacheErrors(
+    flatbuffers::FlatBufferBuilder& builder, SymbolTable* cacheSymbols,
+    const ErrorContainer* errorContainer, const SymbolTable& localSymbols,
+    SymbolId subjectId) {
   const std::vector<Error>& errors = errorContainer->getErrors();
   std::vector<flatbuffers::Offset<SURELOG::CACHE::Error>> error_vec;
   for (const Error& error : errors) {
@@ -151,10 +149,10 @@ Cache::cacheErrors(flatbuffers::FlatBufferBuilder& builder,
       if (matchSubject) {
         std::vector<flatbuffers::Offset<SURELOG::CACHE::Location>> location_vec;
         for (const Location& loc : locs) {
-          SymbolId canonicalFileId =
-              cacheSymbols->registerSymbol(localSymbols.getSymbol(loc.m_fileId));
-          SymbolId canonicalObjectId =
-              cacheSymbols->registerSymbol(localSymbols.getSymbol(loc.m_object));
+          SymbolId canonicalFileId = cacheSymbols->registerSymbol(
+              localSymbols.getSymbol(loc.m_fileId));
+          SymbolId canonicalObjectId = cacheSymbols->registerSymbol(
+              localSymbols.getSymbol(loc.m_object));
           auto locflb =
               CACHE::CreateLocation(builder, canonicalFileId, loc.m_line,
                                     loc.m_column, canonicalObjectId);
@@ -167,14 +165,12 @@ Cache::cacheErrors(flatbuffers::FlatBufferBuilder& builder,
     }
   }
 
-  /* Cache all the symbols */
-  for (const auto& s : localSymbols.getSymbols()) {
-    cacheSymbols->registerSymbol(s);
-  }
+  return builder.CreateVector(error_vec);
+}
 
-  auto symbolVec = builder.CreateVectorOfStrings(cacheSymbols->getSymbols());
-  auto errvec = builder.CreateVector(error_vec);
-  return std::make_pair(errvec, symbolVec);
+flatbuffers::Offset<Cache::VectorOffsetString> Cache::createSymbolCache(
+    flatbuffers::FlatBufferBuilder& builder, const SymbolTable& cacheSymbols) {
+  return builder.CreateVectorOfStrings(cacheSymbols.getSymbols());
 }
 
 void Cache::restoreErrors(const VectorOffsetError* errorsBuf,
@@ -193,8 +189,8 @@ void Cache::restoreErrors(const VectorOffsetError* errorsBuf,
       auto locFlb = errorFlb->locations()->Get(j);
       SymbolId translFileId = localSymbols->registerSymbol(
           cacheSymbols->getSymbol(locFlb->file_id()));
-      SymbolId translObjectId =
-          localSymbols->registerSymbol(cacheSymbols->getSymbol(locFlb->object()));
+      SymbolId translObjectId = localSymbols->registerSymbol(
+          cacheSymbols->getSymbol(locFlb->object()));
       Location loc(translFileId, locFlb->line(), locFlb->column(),
                    translObjectId);
       locs.push_back(loc);
@@ -204,10 +200,9 @@ void Cache::restoreErrors(const VectorOffsetError* errorsBuf,
   }
 }
 
-std::vector<CACHE::VObject> Cache::cacheVObjects(const FileContent* fcontent,
-                                                 const SymbolTable& cacheSymbols,
-                                                 const SymbolTable& localSymbols,
-                                                 SymbolId fileId) {
+std::vector<CACHE::VObject> Cache::cacheVObjects(
+    const FileContent* fcontent, SymbolTable* cacheSymbols,
+    const SymbolTable& localSymbols, SymbolId fileId) {
   /* Cache the design objects */
   // std::vector<flatbuffers::Offset<PARSECACHE::VObject>> object_vec;
   std::vector<CACHE::VObject> object_vec;
@@ -216,10 +211,16 @@ std::vector<CACHE::VObject> Cache::cacheVObjects(const FileContent* fcontent,
     std::cout << "INTERNAL ERROR: Cache is saturated, Use -nocache option\n";
     return object_vec;
   }
+  // Convert a local symbol ID to a cache symbol ID to be stored.
+  std::function<uint64_t(SymbolId)> toCacheSym = [cacheSymbols,
+                                                  localSymbols](SymbolId id) {
+    return cacheSymbols->registerSymbol(localSymbols.getSymbol(id));
+  };
+
   for (const VObject& object : fcontent->getVObjects()) {
     // Lets compress this struct into 20 and 16 bits fields:
     //  object_vec.push_back(PARSECACHE::CreateVObject(builder,
-    //                                              canonicalSymbols.getId(m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(object.m_name)),
+    //                                              toCacheSym(object.m_name),
     //                                              object.m_uniqueId,
     //                                              object.m_type,
     //                                              object.m_column,
@@ -233,9 +234,9 @@ std::vector<CACHE::VObject> Cache::cacheVObjects(const FileContent* fcontent,
     uint64_t field2 = 0;
     uint64_t field3 = 0;
     uint64_t field4 = 0;
-    SymbolId name = cacheSymbols.getId(localSymbols.getSymbol(object.m_name));
+
     // clang-format off
-    field1 |= 0x0000000000FFFFFF & (name);
+    field1 |= 0x0000000000FFFFFF & toCacheSym(object.m_name);
     field1 |= 0x0000000FFF000000 & (((uint64_t)object.m_type)      << (24));
     field1 |= 0x0000FFF000000000 & (((uint64_t)object.m_column)    << (24 + 12));
     field1 |= 0xFFFF000000000000 & (((uint64_t)object.m_parent     << (24 + 12 + 12)));
@@ -244,7 +245,7 @@ std::vector<CACHE::VObject> Cache::cacheVObjects(const FileContent* fcontent,
     field2 |= 0xFFFFFF0000000000 & (((uint64_t)object.m_child)     << (12 + 28));
     field3 |= 0x000000000000000F & (((uint64_t)object.m_child)     >> (24));
     field3 |= 0x00000000FFFFFFF0 & (object.m_sibling               << (4));
-    field3 |= 0x00FFFFFF00000000 & (((uint64_t)object.m_fileId)    << (4 + 28));
+    field3 |= 0x00FFFFFF00000000 & (toCacheSym(object.m_fileId)    << (4 + 28));
     field3 |= 0xFF00000000000000 & (((uint64_t)object.m_line)      << (4 + 28 + 24));
     field4 |= 0x000000000000FFFF & (((uint64_t)object.m_line)      >> (8));
     field4 |= 0x000000FFFFFF0000 & (((uint64_t)object.m_endLine)   << (16));
