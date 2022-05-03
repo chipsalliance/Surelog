@@ -50,22 +50,20 @@ time_t Cache::get_mtime(const fs::path& path) {
   return statbuf.st_mtime;
 }
 
-uint8_t* Cache::openFlatBuffers(const fs::path& cacheFileName) {
+std::unique_ptr<uint8_t[]> Cache::openFlatBuffers(const fs::path& cacheFileName) {
   const std::string filename = cacheFileName.string();
   FILE* file = fopen(filename.c_str(), "rb");
   if (file == nullptr) return nullptr;
   fseek(file, 0L, SEEK_END);
   unsigned int length = ftell(file);
   fseek(file, 0L, SEEK_SET);
-  char* data = new char[length];
-  size_t l = fread(data, sizeof(char), length, file);
+  std::unique_ptr<uint8_t[]> data(new uint8_t[length]);
+  size_t l = fread(data.get(), sizeof(uint8_t), length, file);
   fclose(file);
   if (length != l) {
-    delete[] data;
     return nullptr;
   }
-  uint8_t* buffer_pointer = (uint8_t*)data;
-  return buffer_pointer;
+  return data;
 }
 
 bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
@@ -82,15 +80,14 @@ bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
   }
 
   /* Timestamp Tool that created Cache vs tool date */
-  std::string execDate = getExecutableTimeStamp();
-  if (execDate != header->sl_date_compiled()->c_str()) {
+  if (getExecutableTimeStamp() != header->sl_date_compiled()->c_str()) {
     return false;
   }
 
   /* Timestamp Cache vs Orig File */
   if (!cacheFileName.empty()) {
     time_t ct = get_mtime(cacheFileName);
-    std::string fileName = header->file()->c_str();
+    std::string fileName = header->file_deprecated()->c_str();
     time_t ft = get_mtime(fileName.c_str());
     if (ft == -1) {
       return false;
@@ -112,10 +109,8 @@ flatbuffers::Offset<SURELOG::CACHE::Header> Cache::createHeader(
   auto sl_version = builder.CreateString(CommandLineParser::getVersionNumber());
   auto sl_build_date = builder.CreateString(getExecutableTimeStamp());
   auto sl_flb_version = builder.CreateString(schemaVersion);
-  std::time_t t_result = std::time(nullptr);
-  auto file_creation_date = builder.CreateString(std::to_string(t_result));
   auto header = CACHE::CreateHeader(builder, sl_version, sl_flb_version,
-                                    sl_build_date, file_creation_date, fName);
+                                    sl_build_date, fName);
   return header;
 }
 
@@ -137,8 +132,9 @@ bool Cache::saveFlatbuffers(flatbuffers::FlatBufferBuilder& builder,
 std::pair<flatbuffers::Offset<Cache::VectorOffsetError>,
           flatbuffers::Offset<Cache::VectorOffsetString>>
 Cache::cacheErrors(flatbuffers::FlatBufferBuilder& builder,
-                   SymbolTable& canonicalSymbols,
-                   ErrorContainer* errorContainer, SymbolTable* symbols,
+                   SymbolTable* cacheSymbols,
+                   const ErrorContainer* errorContainer,
+                   const SymbolTable& localSymbols,
                    SymbolId subjectId) {
   const std::vector<Error>& errors = errorContainer->getErrors();
   std::vector<flatbuffers::Offset<SURELOG::CACHE::Error>> error_vec;
@@ -156,9 +152,9 @@ Cache::cacheErrors(flatbuffers::FlatBufferBuilder& builder,
         std::vector<flatbuffers::Offset<SURELOG::CACHE::Location>> location_vec;
         for (const Location& loc : locs) {
           SymbolId canonicalFileId =
-              canonicalSymbols.registerSymbol(symbols->getSymbol(loc.m_fileId));
+              cacheSymbols->registerSymbol(localSymbols.getSymbol(loc.m_fileId));
           SymbolId canonicalObjectId =
-              canonicalSymbols.registerSymbol(symbols->getSymbol(loc.m_object));
+              cacheSymbols->registerSymbol(localSymbols.getSymbol(loc.m_object));
           auto locflb =
               CACHE::CreateLocation(builder, canonicalFileId, loc.m_line,
                                     loc.m_column, canonicalObjectId);
@@ -172,33 +168,33 @@ Cache::cacheErrors(flatbuffers::FlatBufferBuilder& builder,
   }
 
   /* Cache all the symbols */
-  for (const auto& s : symbols->getSymbols()) {
-    canonicalSymbols.registerSymbol(s);
+  for (const auto& s : localSymbols.getSymbols()) {
+    cacheSymbols->registerSymbol(s);
   }
 
-  auto symbolVec = builder.CreateVectorOfStrings(canonicalSymbols.getSymbols());
+  auto symbolVec = builder.CreateVectorOfStrings(cacheSymbols->getSymbols());
   auto errvec = builder.CreateVector(error_vec);
   return std::make_pair(errvec, symbolVec);
 }
 
 void Cache::restoreErrors(const VectorOffsetError* errorsBuf,
                           const VectorOffsetString* symbolsBuf,
-                          SymbolTable& canonicalSymbols,
+                          SymbolTable* cacheSymbols,
                           ErrorContainer* errorContainer,
-                          SymbolTable* symbols) {
+                          SymbolTable* localSymbols) {
   for (unsigned int i = 0; i < symbolsBuf->size(); i++) {
     const std::string symbol = symbolsBuf->Get(i)->c_str();
-    canonicalSymbols.registerSymbol(symbol);
+    cacheSymbols->registerSymbol(symbol);
   }
   for (unsigned int i = 0; i < errorsBuf->size(); i++) {
     auto errorFlb = errorsBuf->Get(i);
     std::vector<Location> locs;
     for (unsigned int j = 0; j < errorFlb->locations()->size(); j++) {
       auto locFlb = errorFlb->locations()->Get(j);
-      SymbolId translFileId = symbols->registerSymbol(
-          canonicalSymbols.getSymbol(locFlb->file_id()));
+      SymbolId translFileId = localSymbols->registerSymbol(
+          cacheSymbols->getSymbol(locFlb->file_id()));
       SymbolId translObjectId =
-          symbols->registerSymbol(canonicalSymbols.getSymbol(locFlb->object()));
+          localSymbols->registerSymbol(cacheSymbols->getSymbol(locFlb->object()));
       Location loc(translFileId, locFlb->line(), locFlb->column(),
                    translObjectId);
       locs.push_back(loc);
@@ -208,9 +204,9 @@ void Cache::restoreErrors(const VectorOffsetError* errorsBuf,
   }
 }
 
-std::vector<CACHE::VObject> Cache::cacheVObjects(FileContent* fcontent,
-                                                 SymbolTable& canonicalSymbols,
-                                                 SymbolTable& fileTable,
+std::vector<CACHE::VObject> Cache::cacheVObjects(const FileContent* fcontent,
+                                                 const SymbolTable& cacheSymbols,
+                                                 const SymbolTable& localSymbols,
                                                  SymbolId fileId) {
   /* Cache the design objects */
   // std::vector<flatbuffers::Offset<PARSECACHE::VObject>> object_vec;
@@ -237,7 +233,7 @@ std::vector<CACHE::VObject> Cache::cacheVObjects(FileContent* fcontent,
     uint64_t field2 = 0;
     uint64_t field3 = 0;
     uint64_t field4 = 0;
-    SymbolId name = canonicalSymbols.getId(fileTable.getSymbol(object.m_name));
+    SymbolId name = cacheSymbols.getId(localSymbols.getSymbol(object.m_name));
     // clang-format off
     field1 |= 0x0000000000FFFFFF & (name);
     field1 |= 0x0000000FFF000000 & (((uint64_t)object.m_type)      << (24));
@@ -257,17 +253,13 @@ std::vector<CACHE::VObject> Cache::cacheVObjects(FileContent* fcontent,
 
     object_vec.emplace_back(field1, field2, field3, field4);
   }
-  // std::cout << "SAVE: " << cacheFileName << " "
-  //          << fileTable.getSymbol(fileId)
-  //          << " NB: " <<   fcontent->getVObjects().size()
-  //         << std::endl;
 
   return object_vec;
 }
 
 void Cache::restoreVObjects(
     const flatbuffers::Vector<const SURELOG::CACHE::VObject*>* objects,
-    SymbolTable& canonicalSymbols, SymbolTable& fileTable, SymbolId fileId,
+    const SymbolTable& cacheSymbols, SymbolTable* localSymbols, SymbolId fileId,
     FileContent* fileContent) {
   /* Restore design objects */
   for (unsigned int i = 0; i < objects->size(); i++) {
@@ -302,9 +294,9 @@ void Cache::restoreVObjects(
     unsigned short endColumn = (field4 & 0x000FFF0000000000) >> (16 + 24);
     // clang-format on
 
-    fileContent->getVObjects().emplace_back(
-        fileTable.registerSymbol(canonicalSymbols.getSymbol(name)),
-        fileTable.registerSymbol(canonicalSymbols.getSymbol(fileId)),
+    fileContent->mutableVObjects().emplace_back(
+        localSymbols->registerSymbol(cacheSymbols.getSymbol(name)),
+        localSymbols->registerSymbol(cacheSymbols.getSymbol(fileId)),
         (VObjectType)type, line, column, endLine, endColumn, parent, definition,
         child, sibling);
   }

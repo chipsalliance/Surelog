@@ -36,7 +36,7 @@ CommonListenerHelper::~CommonListenerHelper() {
 }
 
 int CommonListenerHelper::registerObject(VObject& object) {
-  m_fileContent->getVObjects().push_back(object);
+  m_fileContent->mutableVObjects().push_back(object);
   return LastObjIndex();
 }
 
@@ -50,41 +50,50 @@ int CommonListenerHelper::ObjectIndexFromContext(
   return (found == m_contextToObjectMap.end()) ? -1 : found->second;
 }
 
-VObject& CommonListenerHelper::Object(NodeId index) {
+const VObject& CommonListenerHelper::Object(NodeId index) {
   return m_fileContent->getVObjects()[index];
 }
 
-NodeId CommonListenerHelper::UniqueId(NodeId index) { return index; }
+NodeId CommonListenerHelper::UniqueId(NodeId index) const { return index; }
 
-SymbolId& CommonListenerHelper::Name(NodeId index) {
+SymbolId CommonListenerHelper::Name(NodeId index) const {
   return m_fileContent->getVObjects()[index].m_name;
 }
 
-NodeId& CommonListenerHelper::Child(NodeId index) {
+NodeId CommonListenerHelper::Child(NodeId index) const {
   return m_fileContent->getVObjects()[index].m_child;
 }
-
-NodeId& CommonListenerHelper::Sibling(NodeId index) {
-  return m_fileContent->getVObjects()[index].m_sibling;
+NodeId& CommonListenerHelper::MutableChild(NodeId index) {
+  return m_fileContent->mutableVObjects()[index].m_child;
 }
 
-NodeId& CommonListenerHelper::Definition(NodeId index) {
+NodeId CommonListenerHelper::Sibling(NodeId index) const {
+  return m_fileContent->getVObjects()[index].m_sibling;
+}
+NodeId& CommonListenerHelper::MutableSibling(NodeId index) {
+  return m_fileContent->mutableVObjects()[index].m_sibling;
+}
+
+NodeId CommonListenerHelper::Definition(NodeId index) const {
   return m_fileContent->getVObjects()[index].m_definition;
 }
 
-NodeId& CommonListenerHelper::Parent(NodeId index) {
+NodeId CommonListenerHelper::Parent(NodeId index) const {
   return m_fileContent->getVObjects()[index].m_parent;
 }
+NodeId& CommonListenerHelper::MutableParent(NodeId index) {
+  return m_fileContent->mutableVObjects()[index].m_parent;
+}
 
-VObjectType& CommonListenerHelper::Type(NodeId index) {
+VObjectType CommonListenerHelper::Type(NodeId index) const {
   return m_fileContent->getVObjects()[index].m_type;
 }
 
-unsigned short& CommonListenerHelper::Column(NodeId index) {
+unsigned short CommonListenerHelper::Column(NodeId index) const {
   return m_fileContent->getVObjects()[index].m_column;
 }
 
-unsigned int& CommonListenerHelper::Line(NodeId index) {
+unsigned int CommonListenerHelper::Line(NodeId index) const {
   return m_fileContent->getVObjects()[index].m_line;
 }
 
@@ -93,9 +102,11 @@ int CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym,
   SymbolId fileId;
   auto [line, column, endLine, endColumn] = getFileLine(ctx, fileId);
 
-  m_fileContent->getVObjects().emplace_back(sym, fileId, objtype, line, column,
-                                            endLine, endColumn, 0);
-  int objectIndex = m_fileContent->getVObjects().size() - 1;
+  VObject& inserted = m_fileContent->mutableVObjects()
+    .emplace_back(sym, fileId, objtype,
+                  line, column,
+                  endLine, endColumn, 0);
+  const int objectIndex = m_fileContent->getVObjects().size() - 1;
   m_contextToObjectMap.insert(std::make_pair(ctx, objectIndex));
   addParentChildRelations(objectIndex, ctx);
   std::vector<SURELOG::DesignElement*>& delements =
@@ -104,8 +115,8 @@ int CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym,
     if ((*it)->m_context == ctx) {
       // Use the file and line number of the design object (package, module),
       // true file/line when splitting
-      m_fileContent->getVObjects().back().m_fileId = (*it)->m_fileId;
-      m_fileContent->getVObjects().back().m_line = (*it)->m_line;
+      inserted.m_fileId = (*it)->m_fileId;
+      inserted.m_line = (*it)->m_line;
       (*it)->m_node = objectIndex;
       break;
     }
@@ -114,7 +125,7 @@ int CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym,
 }
 
 int CommonListenerHelper::addVObject(ParserRuleContext* ctx,
-                                     const std::string& name,
+                                     std::string_view name,
                                      VObjectType objtype) {
   return addVObject(ctx, registerSymbol(name), objtype);
 }
@@ -130,11 +141,11 @@ void CommonListenerHelper::addParentChildRelations(int indexParent,
   for (tree::ParseTree* child : ctx->children) {
     int childIndex = ObjectIndexFromContext(child);
     if (childIndex != -1) {
-      Parent(childIndex) = UniqueId(indexParent);
+      MutableParent(childIndex) = UniqueId(indexParent);
       if (currentIndex == indexParent) {
-        Child(indexParent) = UniqueId(childIndex);
+        MutableChild(indexParent) = UniqueId(childIndex);
       } else {
-        Sibling(currentIndex) = UniqueId(childIndex);
+        MutableSibling(currentIndex) = UniqueId(childIndex);
       }
       currentIndex = childIndex;
     }

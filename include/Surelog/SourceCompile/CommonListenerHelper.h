@@ -58,27 +58,20 @@ class CommonListenerHelper {
 
   int ObjectIndexFromContext(const antlr4::tree::ParseTree* ctx) const;
 
-  VObject& Object(NodeId index);
+  const VObject& Object(NodeId index);
 
-  NodeId UniqueId(NodeId index);
+  NodeId UniqueId(NodeId index) const;
 
-  SymbolId& Name(NodeId index);
+  SymbolId Name(NodeId index) const;
+  NodeId Child(NodeId index) const;
+  NodeId Sibling(NodeId index) const;
+  NodeId Parent(NodeId index) const;
+  NodeId Definition(NodeId index) const;
+  VObjectType Type(NodeId index) const;
+  unsigned short Column(NodeId index) const;
+  unsigned int Line(NodeId index) const;
 
-  NodeId& Child(NodeId index);
-
-  NodeId& Sibling(NodeId index);
-
-  NodeId& Definition(NodeId index);
-
-  NodeId& Parent(NodeId index);
-
-  VObjectType& Type(NodeId index);
-
-  unsigned short& Column(NodeId index);
-
-  unsigned int& Line(NodeId index);
-
-  int addVObject(antlr4::ParserRuleContext* ctx, const std::string& name,
+  int addVObject(antlr4::ParserRuleContext* ctx, std::string_view name,
                  VObjectType objtype);
 
   int addVObject(antlr4::ParserRuleContext* ctx, VObjectType objtype);
@@ -93,6 +86,10 @@ class CommonListenerHelper {
   getFileLine(antlr4::ParserRuleContext* ctx, SymbolId& fileId) = 0;
 
  private:
+  NodeId& MutableChild(NodeId index);
+  NodeId& MutableSibling(NodeId index);
+  NodeId& MutableParent(NodeId index);
+
   int addVObject(antlr4::ParserRuleContext* ctx, SymbolId sym,
                  VObjectType objtype);
 

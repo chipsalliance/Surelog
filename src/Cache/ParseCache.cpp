@@ -41,8 +41,11 @@ namespace fs = std::filesystem;
 ParseCache::ParseCache(ParseFile* parser)
     : m_parse(parser), m_isPrecompiled(false) {}
 
-static constexpr char FlbSchemaVersion[] = "1.1";
+static constexpr char FlbSchemaVersion[] = "1.2";
 
+// TODO(hzeller): this should come from a function cacheFileResolver() or
+// something that can be passed to the cache. That way, we can leave the
+// somewhat hard-coded notion of where cache files are.
 fs::path ParseCache::getCacheFileName_(const fs::path& svFileNameIn) {
   fs::path svFileName = svFileNameIn;
   CommandLineParser* clp =
@@ -78,14 +81,14 @@ fs::path ParseCache::getCacheFileName_(const fs::path& svFileNameIn) {
 }
 
 bool ParseCache::restore_(const fs::path& cacheFileName) {
-  uint8_t* buffer_pointer = openFlatBuffers(cacheFileName);
+  auto buffer_pointer = openFlatBuffers(cacheFileName);
   if (buffer_pointer == nullptr) return false;
 
   /* Restore Errors */
   const PARSECACHE::ParseCache* ppcache =
-      PARSECACHE::GetParseCache(buffer_pointer);
-  SymbolTable canonicalSymbols;
-  restoreErrors(ppcache->errors(), ppcache->symbols(), canonicalSymbols,
+    PARSECACHE::GetParseCache(buffer_pointer.get());
+  SymbolTable cacheSymbols;
+  restoreErrors(ppcache->errors(), ppcache->symbols(), &cacheSymbols,
                 m_parse->getCompileSourceFile()->getErrorContainer(),
                 m_parse->getCompileSourceFile()->getSymbolTable());
   /* Restore design content (Verilog Design Elements) */
@@ -102,12 +105,12 @@ bool ParseCache::restore_(const fs::path& cacheFileName) {
   auto content = ppcache->elements();
   for (unsigned int i = 0; i < content->size(); i++) {
     auto elemc = content->Get(i);
-    const std::string& elemName = canonicalSymbols.getSymbol(elemc->name());
+    const std::string& elemName = cacheSymbols.getSymbol(elemc->name());
     DesignElement* elem = new DesignElement(
         m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
-            canonicalSymbols.getSymbol(elemc->name())),
+            cacheSymbols.getSymbol(elemc->name())),
         m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
-            canonicalSymbols.getSymbol(elemc->file_id())),
+            cacheSymbols.getSymbol(elemc->file_id())),
         (DesignElement::ElemType)elemc->type(), elemc->unique_id(),
         elemc->line(), elemc->column(), elemc->end_line(), elemc->end_column(),
         elemc->parent());
@@ -130,39 +133,35 @@ bool ParseCache::restore_(const fs::path& cacheFileName) {
 
   /* Restore design objects */
   auto objects = ppcache->objects();
-  restoreVObjects(objects, canonicalSymbols,
-                  *m_parse->getCompileSourceFile()->getSymbolTable(),
+  restoreVObjects(objects, cacheSymbols,
+                  m_parse->getCompileSourceFile()->getSymbolTable(),
                   m_parse->getFileId(0), fileContent);
 
-  delete[] buffer_pointer;
   return true;
 }
 
 bool ParseCache::checkCacheIsValid_(const fs::path& cacheFileName) {
-  uint8_t* buffer_pointer = openFlatBuffers(cacheFileName);
+  auto buffer = openFlatBuffers(cacheFileName);
   CommandLineParser* clp =
-      m_parse->getCompileSourceFile()->getCommandLineParser();
-  if (buffer_pointer == nullptr) {
+    m_parse->getCompileSourceFile()->getCommandLineParser();
+  if (buffer == nullptr) {
     return false;
   }
-  if (!PARSECACHE::ParseCacheBufferHasIdentifier(buffer_pointer)) {
-    delete[] buffer_pointer;
+  if (!PARSECACHE::ParseCacheBufferHasIdentifier(buffer.get())) {
     return false;
   }
   if (clp->noCacheHash()) {
     return true;
   }
   const PARSECACHE::ParseCache* ppcache =
-      PARSECACHE::GetParseCache(buffer_pointer);
+    PARSECACHE::GetParseCache(buffer.get());
   auto header = ppcache->header();
   if (!m_isPrecompiled) {
     if (!checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileName)) {
-      delete[] buffer_pointer;
       return false;
     }
   }
 
-  delete[] buffer_pointer;
   return true;
 }
 
@@ -230,10 +229,10 @@ bool ParseCache::save() {
   SymbolId subjectFileId =
       m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
           subjectFile.string());
-  SymbolTable canonicalSymbols;
+  SymbolTable cacheSymbols;
   auto errorSymbolPair = cacheErrors(
-      builder, canonicalSymbols, errorContainer,
-      m_parse->getCompileSourceFile()->getSymbolTable(), subjectFileId);
+      builder, &cacheSymbols, errorContainer,
+      *m_parse->getCompileSourceFile()->getSymbolTable(), subjectFileId);
 
   /* Cache the design content */
   std::vector<flatbuffers::Offset<PARSECACHE::DesignElement>> element_vec;
@@ -245,15 +244,15 @@ bool ParseCache::save() {
               elem->m_name);
       auto timeInfo = CACHE::CreateTimeInfo(
           builder, static_cast<uint16_t>(info.m_type),
-          canonicalSymbols.getId(
+          cacheSymbols.getId(
               m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
                   info.m_fileId)),
           info.m_line, static_cast<uint16_t>(info.m_timeUnit),
           info.m_timeUnitValue, static_cast<uint16_t>(info.m_timePrecision),
           info.m_timePrecisionValue);
       element_vec.push_back(PARSECACHE::CreateDesignElement(
-          builder, canonicalSymbols.getId(elemName),
-          canonicalSymbols.getId(
+          builder, cacheSymbols.getId(elemName),
+          cacheSymbols.getId(
               m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
                   elem->m_fileId)),
           elem->m_type, elem->m_uniqueId, elem->m_line, elem->m_column,
@@ -264,7 +263,7 @@ bool ParseCache::save() {
 
   /* Cache the design objects */
   std::vector<CACHE::VObject> object_vec =
-      cacheVObjects(fcontent, canonicalSymbols,
+      cacheVObjects(fcontent, cacheSymbols,
                     *m_parse->getCompileSourceFile()->getSymbolTable(),
                     m_parse->getFileId(0));
   auto objectList = builder.CreateVectorOfStructs(object_vec);

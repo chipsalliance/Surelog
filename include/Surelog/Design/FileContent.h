@@ -121,7 +121,8 @@ class FileContent : public DesignComponent {
   std::vector<DesignElement*>& getDesignElements() { return m_elements; }
   void addDesignElement(const std::string& name, DesignElement* elem);
   const DesignElement* getDesignElement(std::string_view name) const;
-  std::vector<VObject>& getVObjects() { return m_objects; }
+  const std::vector<VObject>& getVObjects() const { return m_objects; }
+  std::vector<VObject>& mutableVObjects() { return m_objects; }
   const NameIdMap& getObjectLookup() const { return m_objectLookup; }
   void insertObjectLookup(const std::string& name, NodeId id,
                           ErrorContainer* errors);
