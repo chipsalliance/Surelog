@@ -209,6 +209,11 @@ bool ElaborationStep::bindTypedefs_() {
             std::string name = pack->getName() + "::" + typd->getName();
             specs.insert(std::make_pair(name, ts));
           }
+          if (ClassDefinition* pack =
+                  valuedcomponenti_cast<ClassDefinition*>(comp)) {
+            std::string name = pack->getName() + "::" + typd->getName();
+            specs.insert(std::make_pair(name, ts));
+          }
           if (ts->UhdmType() == uhdmunsupported_typespec) {
             Location loc1(symbols->registerSymbol(ts->VpiFile().string()),
                           ts->VpiLineNo(), ts->VpiColumnNo(),
