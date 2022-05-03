@@ -140,6 +140,12 @@ bool ElaborationStep::bindTypedefs_() {
               pack->getName() + "::" + prevDef->getTypespec()->VpiName();
           specs.insert(std::make_pair(name, prevDef->getTypespec()));
         }
+        if (ClassDefinition* pack =
+                valuedcomponenti_cast<ClassDefinition*>(comp)) {
+          std::string name =
+              pack->getName() + "::" + prevDef->getTypespec()->VpiName();
+          specs.insert(std::make_pair(name, prevDef->getTypespec()));
+        }
       }
     }
 
@@ -267,8 +273,10 @@ bool ElaborationStep::bindTypedefs_() {
           orig = ex->Typespec();
         } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
           orig = ex->Typespec();
+        } else if (io_decl* ex = any_cast<io_decl*>(var)) {
+          orig = ex->Typespec();
         }
-        if (orig->UhdmType() == uhdmunsupported_typespec) {
+        if (orig && (orig->UhdmType() == uhdmunsupported_typespec)) {
           const std::string& need = orig->VpiName();
           bool bound = false;
           if (need == tps->VpiName()) {
@@ -285,6 +293,9 @@ bool ElaborationStep::bindTypedefs_() {
             } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
               ex->Typespec(tps);
               bound = true;
+            } else if (io_decl* ex = any_cast<io_decl*>(var)) {
+              ex->Typespec(tps);
+              bound = true;
             }
           }
           if (!bound) {
@@ -299,45 +310,55 @@ bool ElaborationStep::bindTypedefs_() {
     }
   }
   for (const auto& module : design->getPackageDefinitions()) {
-    DesignComponent* comp = module.second;
-    for (any* var : comp->getLateTypedefBinding()) {
-      const typespec* orig = nullptr;
-      if (expr* ex = any_cast<expr*>(var)) {
-        orig = ex->Typespec();
-      } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
-        orig = ex->Typespec();
-      } else if (parameter* ex = any_cast<parameter*>(var)) {
-        orig = ex->Typespec();
-      } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
-        orig = ex->Typespec();
-      }
-      if (orig->UhdmType() == uhdmunsupported_typespec) {
-        const std::string& need = orig->VpiName();
-        std::map<std::string, typespec*>::iterator itr = specs.find(need);
-        bool bound = false;
-        if (itr != specs.end()) {
-          typespec* tps = (*itr).second;
-          s.unsupported_typespecMaker.Erase((unsupported_typespec*)orig);
-          if (expr* ex = any_cast<expr*>(var)) {
-            ex->Typespec(tps);
-            bound = true;
-          } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
-            ex->Typespec(tps);
-            bound = true;
-          } else if (parameter* ex = any_cast<parameter*>(var)) {
-            ex->Typespec(tps);
-            bound = true;
-          } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
-            ex->Typespec(tps);
-            bound = true;
-          }
+    Package* pack = module.second;
+    std::vector<Package*> packages;
+    packages.push_back(pack);
+    packages.push_back(pack->getUnElabPackage());
+    for (auto comp : packages) {
+      for (any* var : comp->getLateTypedefBinding()) {
+        const typespec* orig = nullptr;
+        if (expr* ex = any_cast<expr*>(var)) {
+          orig = ex->Typespec();
+        } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
+          orig = ex->Typespec();
+        } else if (parameter* ex = any_cast<parameter*>(var)) {
+          orig = ex->Typespec();
+        } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
+          orig = ex->Typespec();
+        } else if (io_decl* ex = any_cast<io_decl*>(var)) {
+          orig = ex->Typespec();
         }
-        if (!bound) {
-          Location loc1(symbols->registerSymbol(orig->VpiFile().string()),
-                        orig->VpiLineNo(), orig->VpiColumnNo(),
-                        symbols->registerSymbol(need));
-          Error err1(ErrorDefinition::COMP_UNDEFINED_TYPE, loc1);
-          // errors->addError(err1);
+        if (orig && (orig->UhdmType() == uhdmunsupported_typespec)) {
+          const std::string& need = orig->VpiName();
+          std::map<std::string, typespec*>::iterator itr = specs.find(need);
+          bool bound = false;
+          if (itr != specs.end()) {
+            typespec* tps = (*itr).second;
+            s.unsupported_typespecMaker.Erase((unsupported_typespec*)orig);
+            if (expr* ex = any_cast<expr*>(var)) {
+              ex->Typespec(tps);
+              bound = true;
+            } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
+              ex->Typespec(tps);
+              bound = true;
+            } else if (parameter* ex = any_cast<parameter*>(var)) {
+              ex->Typespec(tps);
+              bound = true;
+            } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
+              ex->Typespec(tps);
+              bound = true;
+            } else if (io_decl* ex = any_cast<io_decl*>(var)) {
+              ex->Typespec(tps);
+              bound = true;
+            }
+          }
+          if (!bound) {
+            Location loc1(symbols->registerSymbol(orig->VpiFile().string()),
+                          orig->VpiLineNo(), orig->VpiColumnNo(),
+                          symbols->registerSymbol(need));
+            Error err1(ErrorDefinition::COMP_UNDEFINED_TYPE, loc1);
+            // errors->addError(err1);
+          }
         }
       }
     }
@@ -354,8 +375,10 @@ bool ElaborationStep::bindTypedefs_() {
         orig = ex->Typespec();
       } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
         orig = ex->Typespec();
+      } else if (io_decl* ex = any_cast<io_decl*>(var)) {
+        orig = ex->Typespec();
       }
-      if (orig->UhdmType() == uhdmunsupported_typespec) {
+      if (orig && (orig->UhdmType() == uhdmunsupported_typespec)) {
         const std::string& need = orig->VpiName();
         std::map<std::string, typespec*>::iterator itr = specs.find(need);
         bool bound = false;
@@ -372,6 +395,58 @@ bool ElaborationStep::bindTypedefs_() {
             ex->Typespec(tps);
             bound = true;
           } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
+            ex->Typespec(tps);
+            bound = true;
+          } else if (io_decl* ex = any_cast<io_decl*>(var)) {
+            ex->Typespec(tps);
+            bound = true;
+          }
+        }
+        if (!bound) {
+          Location loc1(symbols->registerSymbol(orig->VpiFile().string()),
+                        orig->VpiLineNo(), orig->VpiColumnNo(),
+                        symbols->registerSymbol(need));
+          Error err1(ErrorDefinition::COMP_UNDEFINED_TYPE, loc1);
+          // errors->addError(err1);
+        }
+      }
+    }
+  }
+  for (const auto& module : design->getClassDefinitions()) {
+    DesignComponent* comp = module.second;
+    for (any* var : comp->getLateTypedefBinding()) {
+      const typespec* orig = nullptr;
+      if (expr* ex = any_cast<expr*>(var)) {
+        orig = ex->Typespec();
+      } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
+        orig = ex->Typespec();
+      } else if (parameter* ex = any_cast<parameter*>(var)) {
+        orig = ex->Typespec();
+      } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
+        orig = ex->Typespec();
+      } else if (io_decl* ex = any_cast<io_decl*>(var)) {
+        orig = ex->Typespec();
+      }
+      if (orig && (orig->UhdmType() == uhdmunsupported_typespec)) {
+        const std::string& need = orig->VpiName();
+        std::map<std::string, typespec*>::iterator itr = specs.find(need);
+        bool bound = false;
+        if (itr != specs.end()) {
+          typespec* tps = (*itr).second;
+          s.unsupported_typespecMaker.Erase((unsupported_typespec*)orig);
+          if (expr* ex = any_cast<expr*>(var)) {
+            ex->Typespec(tps);
+            bound = true;
+          } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
+            ex->Typespec(tps);
+            bound = true;
+          } else if (parameter* ex = any_cast<parameter*>(var)) {
+            ex->Typespec(tps);
+            bound = true;
+          } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
+            ex->Typespec(tps);
+            bound = true;
+          } else if (io_decl* ex = any_cast<io_decl*>(var)) {
             ex->Typespec(tps);
             bound = true;
           }

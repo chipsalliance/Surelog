@@ -1509,6 +1509,9 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
             compileTypespec(component, fC, type, compileDesign, nullptr,
                             nullptr, false, true)) {
       ts = tempts;
+      if (ts->UhdmType() == uhdmunsupported_typespec) {
+        component->needLateTypedefBinding(decl);
+      }
     }
     decl->Typespec(ts);
     decl->Ranges(unpackedDimensions);
