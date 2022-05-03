@@ -325,8 +325,38 @@ UHDM::any* CompileHelper::compileVariable(
           dtype = dtype->getDefinition();
         }
       }
+      if (var == nullptr) {
+        ClassDefinition* cl = design->getClassDefinition(packageName);
+        if (cl == nullptr) {
+          cl = design->getClassDefinition(component->getName() +
+                                          "::" + packageName);
+        }
+        if (cl == nullptr) {
+          if (const DesignComponent* p =
+                  valuedcomponenti_cast<const DesignComponent*>(
+                      component->getParentScope())) {
+            cl = design->getClassDefinition(p->getName() + "::" + packageName);
+          }
+        }
+        if (cl) {
+          const DataType* dtype = cl->getDataType(typeName);
+          while (dtype) {
+            typespec* tps = dtype->getTypespec();
+            if (tps) {
+              var = getSimpleVarFromTypespec(tps, ranges, compileDesign);
+              break;
+            }
+            dtype = dtype->getDefinition();
+          }
+        }
+      }
+
       const std::string completeName = packageName + "::" + typeName;
       if (var == nullptr) var = s.MakeClass_var();
+      unsupported_typespec* tp = s.MakeUnsupported_typespec();
+      tp->VpiName(completeName);
+      var->Typespec(tp);
+      component->needLateTypedefBinding(var);
       var->VpiName(completeName);
       result = var;
       break;
