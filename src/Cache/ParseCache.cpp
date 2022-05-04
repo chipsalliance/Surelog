@@ -34,6 +34,7 @@
 #include <Surelog/SourceCompile/ParseFile.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Utils/FileUtils.h>
+#include <Surelog/Utils/StringUtils.h>
 
 namespace SURELOG {
 namespace fs = std::filesystem;
@@ -55,6 +56,7 @@ fs::path ParseCache::getCacheFileName_(const fs::path& svFileNameIn) {
   if (svFileName.empty()) svFileName = m_parse->getPpFileName();
   fs::path baseFileName = FileUtils::basename(svFileName);
   fs::path cacheFileName;
+  fs::path cacheDirName = m_parse->getSymbol(cacheDirId);
   if (prec->isFilePrecompiled(baseFileName)) {
     fs::path packageRepDir = m_parse->getSymbol(clp->getPrecompiledDir());
     cacheDirId =
@@ -63,13 +65,15 @@ fs::path ParseCache::getCacheFileName_(const fs::path& svFileNameIn) {
     svFileName = baseFileName;
   } else {
     if (clp->noCacheHash()) {
-      cacheFileName = svFileName.string() + ".slpa";
+      std::string svFile = svFileName.string();
+      svFile = StringUtils::ltrim(svFile, '/');
+      svFile = StringUtils::ltrim(svFile, '/');
+      cacheFileName = cacheDirName / (svFile + ".slpa");
     } else {
       svFileName = svFileName.parent_path().filename() / baseFileName;
     }
   }
 
-  fs::path cacheDirName = m_parse->getSymbol(cacheDirId);
   Library* lib = m_parse->getLibrary();
   std::string libName = lib->getName();
   if (cacheFileName.empty()) {

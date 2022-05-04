@@ -159,7 +159,7 @@ static const std::initializer_list<std::string_view> helpText = {
     "",
     "TRACES OPTIONS:",
     "  -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm, "
-    "cache"
+    "cache, "
     "coveruhdm, vpi_ids",
     "  -nostdout             Mutes Standard output",
     "  -verbose              Gives verbose processing information",
@@ -182,7 +182,7 @@ static const std::initializer_list<std::string_view> helpText = {
     "  -cache <dir>          Specifies the cache directory, default is "
     "slpp_all/cache or slpp_unit/cache",
     "  -nohash               Don't use hash mechanism for cache file path, "
-    "always treat cache as valid (no timestamp/dependancy check)"
+    "always treat cache as valid (no timestamp/dependancy check)",
     "  -createcache          Create cache for precompiled packages",
     "  -filterdirectives     Filters out simple directives like",
     "                        `default_nettype in pre-processor's output",
