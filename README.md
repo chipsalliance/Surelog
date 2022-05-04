@@ -164,7 +164,7 @@ target_link_libraries(<your project name> surelog)
    ```
  * TRACES OPTIONS:
  ```
-   -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm, coveruhdm
+   -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm, coveruhdm, cache
    -nostdout             Mutes Standard output
    -verbose              Gives verbose processing information
    -profile              Gives Profiling information

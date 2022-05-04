@@ -25,6 +25,7 @@ _windows_black_list = set([name.lower() for name in [
     r'unitsimpleincludeandmacros',
     r'verilator',
     r'yosysopensparc',
+    r'testnohash'
 ]])
 
 _unix_black_list = set([name.lower() for name in [
