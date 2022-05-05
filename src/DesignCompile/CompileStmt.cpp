@@ -1903,25 +1903,30 @@ bool CompileHelper::compileClassConstructorDeclaration(
   func->Io_decls(
       compileTfPortList(component, func, fC, Tf_port_list, compileDesign));
 
-  NodeId Stmt = fC->Sibling(Tf_port_list);
+  NodeId Stmt = 0;
+  if (fC->Type(Tf_port_list) == slFunction_statement_or_null) {
+    Stmt = Tf_port_list;
+  } else {
+    Stmt = fC->Sibling(Tf_port_list);
+  }
   int nbStmts = 0;
-  while (Stmt) {
-    if (fC->Type(Stmt) == slBlock_item_declaration) {
+  NodeId StmtTmp = Stmt;
+  while (StmtTmp) {
+    if (fC->Type(StmtTmp) == slBlock_item_declaration) {
       nbStmts++;
-    } else if (fC->Type(Stmt) == slSuper_dot_new) {
+    } else if (fC->Type(StmtTmp) == slSuper_dot_new) {
       nbStmts++;
-      NodeId lookAhead = fC->Sibling(Stmt);
+      NodeId lookAhead = fC->Sibling(StmtTmp);
       if (fC->Type(lookAhead) == slList_of_arguments) {
-        Stmt = fC->Sibling(Stmt);
+        StmtTmp = fC->Sibling(StmtTmp);
       }
-    } else if (fC->Type(Stmt) == slFunction_statement_or_null) {
+    } else if (fC->Type(StmtTmp) == slFunction_statement_or_null) {
       nbStmts++;
     }
-    Stmt = fC->Sibling(Stmt);
+    StmtTmp = fC->Sibling(StmtTmp);
   }
 
   if (nbStmts == 1) {
-    Stmt = fC->Sibling(Tf_port_list);
     if (fC->Type(Stmt) == slSuper_dot_new) {
       UHDM::method_func_call* mcall = s.MakeMethod_func_call();
       mcall->VpiParent(func);
