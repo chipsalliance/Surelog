@@ -25,9 +25,9 @@
 
 namespace SURELOG {
 DesignElement::DesignElement(SymbolId name, SymbolId fileId, ElemType type,
-                             SymbolId uniqueId, unsigned int line,
+                             NodeId uniqueId, unsigned int line,
                              unsigned short column, unsigned int endLine,
-                             unsigned short endColumn, SymbolId parent)
+                             unsigned short endColumn, NodeId parent)
     : m_name(name),
       m_fileId(fileId),
       m_type(type),
@@ -39,4 +39,27 @@ DesignElement::DesignElement(SymbolId name, SymbolId fileId, ElemType type,
       m_parent(parent),
       m_node(0),
       m_context(nullptr) {}
+
+std::ostream& operator<<(std::ostream& os, DesignElement::ElemType type) {
+  switch (type) {
+#define CASE_TYPE_PRINT(e)         \
+  case DesignElement::ElemType::e: \
+    return os << #e
+    CASE_TYPE_PRINT(Module);
+    CASE_TYPE_PRINT(Primitive);
+    CASE_TYPE_PRINT(Interface);
+    CASE_TYPE_PRINT(Program);
+    CASE_TYPE_PRINT(Package);
+    CASE_TYPE_PRINT(Config);
+    CASE_TYPE_PRINT(Checker);
+    CASE_TYPE_PRINT(Class);
+    CASE_TYPE_PRINT(Function);
+    CASE_TYPE_PRINT(Task);
+    CASE_TYPE_PRINT(SLline);
+#undef CASE_TYPE_PRINT
+    // never add a default so that the compiler warns when new choices are added
+  }
+  return os;
+}
+
 }  // namespace SURELOG
