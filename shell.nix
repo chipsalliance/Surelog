@@ -21,7 +21,7 @@ pkgs.mkShell {
       diffutils
       git
       gperftools
-      jre8
+      jdk11
       lcov
       libuuid
       libunwind
