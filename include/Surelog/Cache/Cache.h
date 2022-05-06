@@ -28,6 +28,7 @@
 #include <Surelog/Cache/header_generated.h>
 #include <Surelog/Common/SymbolId.h>
 #include <flatbuffers/flatbuffers.h>
+#include <Surelog/Design/VObject.h>
 
 #include <filesystem>
 #include <memory>
@@ -116,6 +117,11 @@ class Cache {
       const SymbolTable& cacheSymbols,
       SymbolTable* localSymbols, SymbolId fileId,
       FileContent* fileContent);
+
+  void restoreVObjects(
+    const flatbuffers::Vector<const SURELOG::CACHE::VObject*>* objects,
+    const SymbolTable& cacheSymbols, SymbolTable* localSymbols, SymbolId fileId,
+    std::vector<SURELOG::VObject> *result);
 
  private:
   Cache(const Cache& orig) = delete;

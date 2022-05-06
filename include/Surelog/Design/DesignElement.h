@@ -27,6 +27,7 @@
 
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/TimeInfo.h>
+#include <ostream>
 
 namespace SURELOG {
 
@@ -49,19 +50,19 @@ class DesignElement final {
   };
 
   DesignElement(SymbolId name, SymbolId fileId, ElemType type,
-                SymbolId uniqueId, unsigned int line, unsigned short column,
+                NodeId uniqueId, unsigned int line, unsigned short column,
                 unsigned int endLine, unsigned short endColumn,
-                SymbolId parent);
+                NodeId parent);
 
   SymbolId m_name;
   SymbolId m_fileId;
   const ElemType m_type;
-  const SymbolId m_uniqueId;
+  const NodeId m_uniqueId;
   const unsigned int m_line;
   const unsigned short m_column;
   const unsigned int m_endLine;
   const unsigned short m_endColumn;
-  SymbolId m_parent;
+  NodeId m_parent;
 
   TimeInfo m_timeInfo;
   NodeId m_node;
@@ -69,6 +70,8 @@ class DesignElement final {
   void* m_context;  // Not persisted field, only used to build the DesignElement
                     // -> VNode relation
 };
+
+std::ostream& operator<<(std::ostream& os, DesignElement::ElemType type);
 
 }  // namespace SURELOG
 

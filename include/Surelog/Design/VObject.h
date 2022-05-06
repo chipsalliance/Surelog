@@ -28,6 +28,7 @@
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
+#include <ostream>
 #include <string>
 
 namespace SURELOG {
@@ -75,6 +76,9 @@ class VObject final {
   NodeId m_sibling;
 };
 
+inline std::ostream& operator<<(std::ostream& os, VObjectType type) {
+  return os << VObject::getTypeName(type);
+}
 }  // namespace SURELOG
 
 #endif /* SURELOG_VOBJECT_H */

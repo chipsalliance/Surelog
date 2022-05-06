@@ -262,6 +262,14 @@ void Cache::restoreVObjects(
     const flatbuffers::Vector<const SURELOG::CACHE::VObject*>* objects,
     const SymbolTable& cacheSymbols, SymbolTable* localSymbols, SymbolId fileId,
     FileContent* fileContent) {
+  restoreVObjects(objects, cacheSymbols, localSymbols, fileId,
+                  &fileContent->mutableVObjects());
+}
+
+void Cache::restoreVObjects(
+    const flatbuffers::Vector<const SURELOG::CACHE::VObject*>* objects,
+    const SymbolTable& cacheSymbols, SymbolTable* localSymbols, SymbolId fileId,
+    std::vector<VObject>* result) {
   /* Restore design objects */
   for (unsigned int i = 0; i < objects->size(); i++) {
     auto objectc = objects->Get(i);
@@ -295,7 +303,7 @@ void Cache::restoreVObjects(
     unsigned short endColumn = (field4 & 0x000FFF0000000000) >> (16 + 24);
     // clang-format on
 
-    fileContent->mutableVObjects().emplace_back(
+    result->emplace_back(
         localSymbols->registerSymbol(cacheSymbols.getSymbol(name)),
         localSymbols->registerSymbol(cacheSymbols.getSymbol(fileId)),
         (VObjectType)type, line, column, endLine, endColumn, parent, definition,
