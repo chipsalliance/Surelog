@@ -68,7 +68,7 @@ proc log_nonewline { text } {
 }
 
 set UPDATE 0
-set TIME "time"
+set TIME "/usr/bin/env time"
 set DEBUG_TOOL ""
 set PRIOR_USER 0
 set PRIOR_ELAPSED 0
@@ -423,7 +423,7 @@ proc run_regression { } {
         if {($ONETEST != "")} {
             log "\ncd $testdir"
             if [regexp {\.sh} $command] {
-                log "$command [lindex $SURELOG_COMMAND 1]\n"
+                log "$command [lindex $SURELOG_COMMAND end]\n"
             } else {
                 log "$SURELOG_COMMAND $command\n"
             }
@@ -473,7 +473,7 @@ proc run_regression { } {
             }
             set output_path "-o ${root}build/tests/$test/"
             if [regexp {\.sh} $command] {
-                catch {set time_result [exec $SHELL $SHELL_ARGS "$TIME $command [lindex $SURELOG_COMMAND 1] > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
+                catch {set time_result [exec $SHELL $SHELL_ARGS "$TIME $command [lindex $SURELOG_COMMAND end] > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
             } else {
                 if [regexp {\*/\*\.v} $command] {
                     regsub -all {[\*/]+\*\.v} $command "" command
@@ -500,7 +500,7 @@ proc run_regression { } {
                 }
                 set FINAL_COMMAND $SURELOG_COMMAND
                 if {$DEBUG == "valgrind"} {
-                    set surelog [lindex $SURELOG_COMMAND 1]
+                    set surelog [lindex $SURELOG_COMMAND end]
                     set FINAL_COMMAND "$TIME valgrind --tool=memcheck --log-file=$REGRESSION_PATH/tests/$test/valgrind.log $surelog"
                     puts "\n$FINAL_COMMAND\n"
                 }
@@ -544,7 +544,7 @@ proc run_regression { } {
                     file delete -force $f
                 }
                 if [regexp {\.sh} $command] {
-                    catch {set time_result [exec $SHELL $SHELL_ARGS "$TIME $command [lindex $SURELOG_COMMAND 1] > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
+                    catch {set time_result [exec $SHELL $SHELL_ARGS "$TIME $command [lindex $SURELOG_COMMAND end] > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
                 } else {
                     catch {set time_result [exec $SHELL $SHELL_ARGS "$SURELOG_COMMAND $command > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
                 }
