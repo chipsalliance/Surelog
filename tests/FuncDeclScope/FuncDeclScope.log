@@ -456,24 +456,6 @@ design: (work@top)
       \_constant: , line:26:17, endln:26:18
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:21:1: , endln:40:10
-  |vpiTaskFunc:
-  \_function: (work@top.get1), line:30:7, endln:32:18, parent:work@top
-    |vpiName:get1
-    |vpiFullName:work@top.get1
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiReturn:
-    \_int_var: , line:30:26, endln:30:29
-    |vpiStmt:
-    \_return_stmt: , line:31:10, endln:31:16, parent:work@top.get1
-      |vpiCondition:
-      \_constant: , line:31:17, endln:31:18
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:21:1: , endln:40:10
   |vpiTopModule:1
   |vpiInterface:
   \_interface: work@intf (work@top.interf) dut.sv:28:3: , endln:28:17, parent:work@top
@@ -511,22 +493,6 @@ design: (work@top)
     |vpiDefLineNo:1
     |vpiTaskFunc:
     \_function: (work@intf.get2), parent:work@intf
-    |vpiTaskFunc:
-    \_function: (work@top.interf.get3), line:10:7, endln:12:18, parent:work@top.interf
-      |vpiName:get3
-      |vpiFullName:work@top.interf.get3
-      |vpiVisibility:1
-      |vpiAutomatic:1
-      |vpiReturn:
-      \_int_var: , line:10:26, endln:10:29
-      |vpiStmt:
-      \_return_stmt: , line:11:10, endln:11:16, parent:work@top.interf.get3
-        |vpiCondition:
-        \_constant: , line:11:17, endln:11:18
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:21:1: , endln:40:10
     |vpiGenScopeArray:
@@ -542,13 +508,29 @@ design: (work@top)
           \_func_call: (get3), line:14:18, endln:14:24
             |vpiName:get3
             |vpiFunction:
-            \_function: (work@top.interf.get3), line:10:7, endln:12:18, parent:work@top.interf
+            \_function: (work@top.interf.gen_block.get3), line:10:7, endln:12:18, parent:work@top.interf.gen_block
           |vpiLhs:
           \_ref_obj: (work@top.interf.gen_block.o), line:14:14, endln:14:15
             |vpiName:o
             |vpiFullName:work@top.interf.gen_block.o
             |vpiActual:
             \_int_var: (work@top.interf.o), line:3:27, endln:3:28, parent:work@top.interf
+        |vpiTaskFunc:
+        \_function: (work@top.interf.gen_block.get3), line:10:7, endln:12:18, parent:work@top.interf.gen_block
+          |vpiName:get3
+          |vpiFullName:work@top.interf.gen_block.get3
+          |vpiVisibility:1
+          |vpiAutomatic:1
+          |vpiReturn:
+          \_int_var: , line:10:26, endln:10:29
+          |vpiStmt:
+          \_return_stmt: , line:11:10, endln:11:16, parent:work@top.interf.gen_block.get3
+            |vpiCondition:
+            \_constant: , line:11:17, endln:11:18
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.gen_block), line:29:4, endln:37:19, parent:work@top
     |vpiName:gen_block
@@ -562,13 +544,29 @@ design: (work@top)
         \_func_call: (get1), line:34:18, endln:34:24
           |vpiName:get1
           |vpiFunction:
-          \_function: (work@top.get1), line:30:7, endln:32:18, parent:work@top
+          \_function: (work@top.gen_block.get1), line:30:7, endln:32:18, parent:work@top.gen_block
         |vpiLhs:
         \_ref_obj: (work@top.gen_block.o), line:34:14, endln:34:15
           |vpiName:o
           |vpiFullName:work@top.gen_block.o
           |vpiActual:
           \_int_var: (work@top.o), line:23:27, endln:23:28, parent:work@top
+      |vpiTaskFunc:
+      \_function: (work@top.gen_block.get1), line:30:7, endln:32:18, parent:work@top.gen_block
+        |vpiName:get1
+        |vpiFullName:work@top.gen_block.get1
+        |vpiVisibility:1
+        |vpiAutomatic:1
+        |vpiReturn:
+        \_int_var: , line:30:26, endln:30:29
+        |vpiStmt:
+        \_return_stmt: , line:31:10, endln:31:16, parent:work@top.gen_block.get1
+          |vpiCondition:
+          \_constant: , line:31:17, endln:31:18
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
