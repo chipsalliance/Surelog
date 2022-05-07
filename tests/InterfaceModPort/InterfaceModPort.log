@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/InterfaceModPort/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/InterfaceModPort/slpp_all/surelog.log.
 
 [NTE:CM0009] Command line argument "+vcs+flush+all" ignored.
 
@@ -1169,11 +1169,11 @@ Instance tree:
 
 [INF:UH0706] Creating UHDM Model...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/InterfaceModPort/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/InterfaceModPort/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/InterfaceModPort/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/InterfaceModPort/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/InterfaceModPort/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/InterfaceModPort/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -1355,7 +1355,11 @@ design: (work@interface_modports)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_ref_var: 
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@interface_modports
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
     |vpiName:status
@@ -3316,4 +3320,7 @@ design: (work@interface_modports)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 15
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/InterfaceModPort/top.v | ${SURELOG_DIR}/build/regression/InterfaceModPort/roundtrip/top_000.v | 43 | 124 | 
 

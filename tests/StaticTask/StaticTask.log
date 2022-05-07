@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/StaticTask/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/StaticTask/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -102,11 +102,11 @@ n<> u<77> t<Top_level_rule> l<1:1> el<11:1>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/StaticTask/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/StaticTask/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/StaticTask/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/StaticTask/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/StaticTask/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/StaticTask/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -130,6 +130,8 @@ design: (work@tb)
     |vpiStmt:
     \_begin: (work@tb.display), parent:work@tb.display
       |vpiFullName:work@tb.display
+      |vpiVariables:
+      \_integer_var: (work@tb.display.i), line:6:10, endln:6:11
       |vpiStmt:
       \_assign_stmt: , line:6:10, endln:6:15, parent:work@tb.display
         |vpiRhs:
@@ -206,6 +208,10 @@ design: (work@tb)
     |vpiStmt:
     \_begin: (work@tb.display), parent:work@tb.display
       |vpiFullName:work@tb.display
+      |vpiVariables:
+      \_integer_var: (work@tb.display.i), line:6:10, endln:6:11, parent:work@tb.display
+        |vpiName:i
+        |vpiFullName:work@tb.display.i
       |vpiStmt:
       \_assign_stmt: , line:6:10, endln:6:15, parent:work@tb.display
         |vpiRhs:
@@ -262,4 +268,7 @@ design: (work@tb)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/StaticTask/dut.sv | ${SURELOG_DIR}/build/regression/StaticTask/roundtrip/dut_000.sv | 1 | 10 | 
 

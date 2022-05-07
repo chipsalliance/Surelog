@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/PackedEnumVar/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/PackedEnumVar/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -170,11 +170,11 @@ n<> u<145> t<Top_level_rule> l<1:1> el<19:1>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/PackedEnumVar/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/PackedEnumVar/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/PackedEnumVar/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/PackedEnumVar/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/PackedEnumVar/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/PackedEnumVar/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -274,6 +274,8 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@top.get_BA), parent:work@top.get_BA
       |vpiFullName:work@top.get_BA
+      |vpiVariables:
+      \_packed_array_var: (work@top.get_BA.out), line:10:20, endln:10:23
       |vpiStmt:
       \_assignment: , line:11:7, endln:11:17, parent:work@top.get_BA
         |vpiOpType:82
@@ -374,6 +376,23 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@top.get_BA), parent:work@top.get_BA
       |vpiFullName:work@top.get_BA
+      |vpiVariables:
+      \_packed_array_var: (work@top.get_BA.out), line:10:20, endln:10:23, parent:work@top.get_BA
+        |vpiTypespec:
+        \_enum_typespec: (sp2v_e), line:2:4, endln:5:13, parent:work@top
+        |vpiName:out
+        |vpiFullName:work@top.get_BA.out
+        |vpiRange:
+        \_range: , line:10:15, endln:10:18, parent:work@top.get_BA.out
+          |vpiLeftRange:
+          \_constant: , line:10:15, endln:10:16
+          |vpiRightRange:
+          \_constant: , line:10:17, endln:10:18
+        |vpiElement:
+        \_enum_var: (work@top.get_BA.out), parent:work@top.get_BA.out
+          |vpiTypespec:
+          \_enum_typespec: (sp2v_e), line:2:4, endln:5:13, parent:work@top
+          |vpiFullName:work@top.get_BA.out
       |vpiStmt:
       \_assignment: , line:11:7, endln:11:17, parent:work@top.get_BA
         |vpiOpType:82
@@ -431,4 +450,7 @@ design: (work@top)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/PackedEnumVar/dut.sv | ${SURELOG_DIR}/build/regression/PackedEnumVar/roundtrip/dut_000.sv | 3 | 18 | 
 

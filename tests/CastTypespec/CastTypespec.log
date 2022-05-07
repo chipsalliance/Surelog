@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/CastTypespec/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/CastTypespec/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -738,11 +738,11 @@ n<> u<248> t<Top_level_rule> f<0> l<0:11>
 
 [ERR:UH0718] dut.sv:38:7: Illegal lhs of type wire "resumereq_o".
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/CastTypespec/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/CastTypespec/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/CastTypespec/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/CastTypespec/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/CastTypespec/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/CastTypespec/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -1288,7 +1288,11 @@ design: (work@tlul_adapter_host)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_ref_var: 
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@tlul_adapter_host
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
     |vpiName:status
@@ -1606,6 +1610,8 @@ design: (work@tlul_adapter_host)
         \_struct_var: , line:31:12, endln:31:14
           |vpiTypespec:
           \_struct_typespec: (ab_t), line:27:13, endln:27:19, parent:work@top
+      |vpiVariables:
+      \_array_var: (work@top.v1), parent:work@top
       |vpiStmt:
       \_assignment: , line:32:7, endln:32:38, parent:work@top
         |vpiOpType:82
@@ -1907,6 +1913,27 @@ design: (work@tlul_adapter_host)
           |vpiTypespec:
           \_struct_typespec: (ab_t), line:27:13, endln:27:19, parent:work@top
           |vpiFullName:work@top.v1
+      |vpiVariables:
+      \_array_var: (work@top.v1), parent:work@top
+        |vpiName:v1
+        |vpiFullName:work@top.v1
+        |vpiRange:
+        \_range: , line:31:15, endln:31:18, parent:work@top.v1
+          |vpiLeftRange:
+          \_constant: , line:31:15, endln:31:16
+          |vpiRightRange:
+          \_constant: , line:31:17, endln:31:18
+        |vpiRange:
+        \_range: , line:31:21, endln:31:24, parent:work@top.v1
+          |vpiLeftRange:
+          \_constant: , line:31:21, endln:31:22
+          |vpiRightRange:
+          \_constant: , line:31:23, endln:31:24
+        |vpiReg:
+        \_struct_var: (work@top.v1), line:31:12, endln:31:14, parent:work@top.v1
+          |vpiTypespec:
+          \_struct_typespec: (ab_t), line:27:13, endln:27:19, parent:work@top
+          |vpiFullName:work@top.v1
       |vpiStmt:
       \_assignment: , line:32:7, endln:32:38, parent:work@top
         |vpiOpType:82
@@ -2019,4 +2046,7 @@ design: (work@tlul_adapter_host)
 [  ERROR] : 1
 [WARNING] : 3
 [   NOTE] : 7
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/CastTypespec/dut.sv | ${SURELOG_DIR}/build/regression/CastTypespec/roundtrip/dut_000.sv | 10 | 42 | 
 

@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/EvalFuncArray/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/EvalFuncArray/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -472,11 +472,11 @@ n<> u<248> t<Top_level_rule> f<0> l<0:11>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/EvalFuncArray/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/EvalFuncArray/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/EvalFuncArray/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/EvalFuncArray/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/EvalFuncArray/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/EvalFuncArray/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -615,6 +615,10 @@ design: (unnamed)
     |vpiStmt:
     \_begin: (earlgrey::max_info_pages), parent:earlgrey::max_info_pages
       |vpiFullName:earlgrey::max_info_pages
+      |vpiVariables:
+      \_int_var: (earlgrey::max_info_pages::current_max), line:14:9, endln:14:20, parent:earlgrey::max_info_pages
+        |vpiName:current_max
+        |vpiFullName:earlgrey::max_info_pages::current_max
       |vpiStmt:
       \_assign_stmt: , line:14:9, endln:14:24, parent:earlgrey::max_info_pages
         |vpiRhs:
@@ -848,6 +852,10 @@ design: (unnamed)
     |vpiStmt:
     \_begin: (earlgrey::max_info_pages), parent:earlgrey::max_info_pages
       |vpiFullName:earlgrey::max_info_pages
+      |vpiVariables:
+      \_int_var: (earlgrey::max_info_pages::current_max), line:14:9, endln:14:20, parent:earlgrey::max_info_pages
+        |vpiName:current_max
+        |vpiFullName:earlgrey::max_info_pages::current_max
       |vpiStmt:
       \_assign_stmt: , line:14:9, endln:14:24, parent:earlgrey::max_info_pages
         |vpiRhs:
@@ -1104,7 +1112,11 @@ design: (unnamed)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_ref_var: 
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@process), file:builtin.sv, parent:unnamed
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
     |vpiName:status
@@ -1274,4 +1286,7 @@ design: (unnamed)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 4
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/EvalFuncArray/dut.sv | ${SURELOG_DIR}/build/regression/EvalFuncArray/roundtrip/dut_000.sv | 4 | 24 | 
 

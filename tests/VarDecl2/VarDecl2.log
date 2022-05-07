@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/VarDecl2/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/VarDecl2/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -123,11 +123,11 @@ n<> u<98> t<Top_level_rule> l<1:1> el<12:1>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/VarDecl2/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/VarDecl2/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/VarDecl2/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/VarDecl2/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/VarDecl2/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/VarDecl2/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -200,6 +200,10 @@ design: (work@top)
           \_int_var: (work@top.theta.b), line:4:17, endln:4:18, parent:work@top.theta
             |vpiName:b
             |vpiFullName:work@top.theta.b
+          |vpiVariables:
+          \_int_var: (work@top.theta.a), line:4:14, endln:4:15, parent:work@top.theta
+          |vpiVariables:
+          \_int_var: (work@top.theta.b), line:4:17, endln:4:18, parent:work@top.theta
           |vpiStmt:
           \_return_stmt: , line:6:10, endln:6:16, parent:work@top.theta
             |vpiCondition:
@@ -297,6 +301,14 @@ design: (work@top)
           \_int_var: (work@top.theta.b), line:4:17, endln:4:18, parent:work@top.theta
             |vpiName:b
             |vpiFullName:work@top.theta.b
+          |vpiVariables:
+          \_int_var: (work@top.theta.a), line:4:14, endln:4:15, parent:work@top.theta
+            |vpiName:a
+            |vpiFullName:work@top.theta.a
+          |vpiVariables:
+          \_int_var: (work@top.theta.b), line:4:17, endln:4:18, parent:work@top.theta
+            |vpiName:b
+            |vpiFullName:work@top.theta.b
           |vpiStmt:
           \_return_stmt: , line:6:10, endln:6:16, parent:work@top.theta
             |vpiCondition:
@@ -329,4 +341,7 @@ design: (work@top)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/VarDecl2/dut.sv | ${SURELOG_DIR}/build/regression/VarDecl2/roundtrip/dut_000.sv | 6 | 11 | 
 

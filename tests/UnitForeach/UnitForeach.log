@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/UnitForeach/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/UnitForeach/slpp_all/surelog.log.
 
 LIB:  work
 FILE: top.v
@@ -733,11 +733,11 @@ Instance tree:
 
 [INF:UH0706] Creating UHDM Model...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/UnitForeach/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/UnitForeach/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/UnitForeach/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/UnitForeach/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/UnitForeach/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/UnitForeach/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -1203,7 +1203,11 @@ design: (unnamed)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_ref_var: 
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@process), file:builtin.sv, parent:unnamed
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
     |vpiName:status
@@ -1450,6 +1454,10 @@ design: (unnamed)
     |vpiStmt:
     \_begin: (work@uvm_reg_map::set_check_on_read), parent:work@uvm_reg_map::set_check_on_read
       |vpiFullName:work@uvm_reg_map::set_check_on_read
+      |vpiVariables:
+      \_array_var: (work@uvm_reg_map::set_check_on_read::sarray)
+      |vpiVariables:
+      \_ref_var: (work@uvm_reg_map::set_check_on_read::an_obj), line:51:14, endln:51:20
       |vpiStmt:
       \_method_func_call: (push_back), line:52:17, endln:52:26, parent:work@uvm_reg_map::set_check_on_read
         |vpiArgument:
@@ -1594,4 +1602,8 @@ design: (unnamed)
 [  ERROR] : 7
 [WARNING] : 1
 [   NOTE] : 4
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/UnitForeach/top.v  | ${SURELOG_DIR}/build/regression/UnitForeach/roundtrip/top_000.v  | 42 | 83 | 
+[roundtrip]: ${SURELOG_DIR}/tests/UnitForeach/top2.v | ${SURELOG_DIR}/build/regression/UnitForeach/roundtrip/top2_000.v | 4 | 14 | 
 

@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/VarDecl/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/VarDecl/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -103,11 +103,11 @@ n<> u<78> t<Top_level_rule> l<1:1> el<8:1>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/VarDecl/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/VarDecl/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/VarDecl/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/VarDecl/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/VarDecl/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/VarDecl/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -173,6 +173,8 @@ design: (work@top)
         \_int_var: (work@top.theta.a), line:4:12, endln:4:13, parent:work@top.theta
           |vpiName:a
           |vpiFullName:work@top.theta.a
+        |vpiVariables:
+        \_int_var: (work@top.theta.a), line:4:12, endln:4:13, parent:work@top.theta
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:7:16, parent:work@top
   |vpiNet:
@@ -239,6 +241,10 @@ design: (work@top)
         \_int_var: (work@top.theta.a), line:4:12, endln:4:13, parent:work@top.theta
           |vpiName:a
           |vpiFullName:work@top.theta.a
+        |vpiVariables:
+        \_int_var: (work@top.theta.a), line:4:12, endln:4:13, parent:work@top.theta
+          |vpiName:a
+          |vpiFullName:work@top.theta.a
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:7:16
   |vpiNet:
@@ -269,4 +275,7 @@ design: (work@top)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/VarDecl/dut.sv | ${SURELOG_DIR}/build/regression/VarDecl/roundtrip/dut_000.sv | 6 | 7 | 
 

@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/UnitElab/slpp_unit/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/UnitElab/slpp_unit/surelog.log.
 
 [INF:CM0020] Separate compilation-unit mode is on.
 
@@ -13561,11 +13561,11 @@ Instance tree:
 
 [INF:UH0706] Creating UHDM Model...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/UnitElab/slpp_unit/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/UnitElab/slpp_unit/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/UnitElab/slpp_unit/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/UnitElab/slpp_unit/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/UnitElab/slpp_unit/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/UnitElab/slpp_unit/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -13747,7 +13747,11 @@ design: (work@bottom1)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_ref_var: 
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@bottom1
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
     |vpiName:status
@@ -14066,7 +14070,7 @@ design: (work@bottom1)
   |vpiFullName:work@small_test
   |vpiParameter:
   \_parameter: (work@small_test.SIZE), line:8:27, endln:8:31, parent:work@small_test
-    |REAL:t.ttts
+    |REAL:10.000000
     |vpiTypespec:
     \_int_typespec: , line:8:14, endln:8:20, parent:work@small_test.SIZE
       |vpiSigned:1
@@ -14114,7 +14118,7 @@ design: (work@bottom1)
     \_constant: , line:8:34, endln:8:37
       |vpiDecompile:1e1
       |vpiSize:4
-      |REAL:t.ttts
+      |REAL:10.000000
       |vpiTypespec:
       \_int_typespec: , line:8:14, endln:8:20, parent:work@small_test.SIZE
       |vpiConstType:2
@@ -16524,7 +16528,7 @@ design: (work@bottom1)
     |vpiFullName:work@small_top.u1
     |vpiParameter:
     \_parameter: (work@small_top.u1.SIZE), line:8:27, endln:8:31, parent:work@small_top.u1
-      |REAL:t.ttts
+      |REAL:10.000000
       |vpiTypespec:
       \_int_typespec: , line:8:14, endln:8:20, parent:work@small_top.u1.SIZE
         |vpiSigned:1
@@ -40678,4 +40682,8 @@ design: (work@bottom1)
 [  ERROR] : 1
 [WARNING] : 1213
 [   NOTE] : 2465
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/UnitElab/small.v | ${SURELOG_DIR}/build/regression/UnitElab/roundtrip/small_000.v | 37 | 54 | 
+[roundtrip]: ${SURELOG_DIR}/tests/UnitElab/top.v   | ${SURELOG_DIR}/build/regression/UnitElab/roundtrip/top_000.v   | 37 | 76 | 
 

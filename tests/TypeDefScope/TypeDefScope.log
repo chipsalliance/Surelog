@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/TypeDefScope/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/TypeDefScope/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -380,11 +380,11 @@ there are 1 more instances of this message.
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/TypeDefScope/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/TypeDefScope/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/TypeDefScope/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/TypeDefScope/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/TypeDefScope/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/TypeDefScope/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -567,7 +567,11 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_ref_var: 
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@dut
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
     |vpiName:status
@@ -782,6 +786,10 @@ design: (work@dut)
     |vpiStmt:
     \_begin: (work@dut.UVMC_set_config_object), parent:work@dut.UVMC_set_config_object
       |vpiFullName:work@dut.UVMC_set_config_object
+      |vpiVariables:
+      \_ref_var: (work@dut.UVMC_set_config_object.obj), line:11:12, endln:11:15
+      |vpiVariables:
+      \_ref_var: (work@dut.UVMC_set_config_object.comp), line:12:15, endln:12:19
       |vpiTypedef:
       \_logic_typespec: (converter2), line:9:9, endln:9:14
         |vpiName:converter2
@@ -866,6 +874,18 @@ design: (work@dut)
     |vpiStmt:
     \_begin: (work@dut.UVMC_set_config_object), parent:work@dut.UVMC_set_config_object
       |vpiFullName:work@dut.UVMC_set_config_object
+      |vpiVariables:
+      \_ref_var: (work@dut.UVMC_set_config_object.obj), line:11:12, endln:11:15, parent:work@dut.UVMC_set_config_object
+        |vpiName:obj
+        |vpiFullName:work@dut.UVMC_set_config_object.obj
+        |vpiActual:
+        \_ref_var: (work@dut.UVMC_set_config_object.obj), line:11:12, endln:11:15, parent:work@dut.UVMC_set_config_object
+      |vpiVariables:
+      \_ref_var: (work@dut.UVMC_set_config_object.comp), line:12:15, endln:12:19, parent:work@dut.UVMC_set_config_object
+        |vpiName:comp
+        |vpiFullName:work@dut.UVMC_set_config_object.comp
+        |vpiActual:
+        \_ref_var: (work@dut.UVMC_set_config_object.comp), line:12:15, endln:12:19, parent:work@dut.UVMC_set_config_object
       |vpiTypedef:
       \_logic_typespec: (converter2), line:9:9, endln:9:14
     |vpiInstance:
@@ -909,4 +929,7 @@ design: (work@dut)
 [  ERROR] : 0
 [WARNING] : 2
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/TypeDefScope/dut.sv | ${SURELOG_DIR}/build/regression/TypeDefScope/roundtrip/dut_000.sv | 9 | 18 | 
 

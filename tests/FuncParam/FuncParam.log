@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/FuncParam/slpp_unit/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/FuncParam/slpp_unit/surelog.log.
 
 [INF:CM0020] Separate compilation-unit mode is on.
 
@@ -38,11 +38,11 @@
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/FuncParam/slpp_unit/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/FuncParam/slpp_unit/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/FuncParam/slpp_unit/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/FuncParam/slpp_unit/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/FuncParam/slpp_unit/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/FuncParam/slpp_unit/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -225,7 +225,11 @@ design: (work@aes_prng)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_ref_var: 
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@aes_prng
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
     |vpiName:status
@@ -472,6 +476,8 @@ design: (work@aes_prng)
     |vpiStmt:
     \_begin: (work@prim_lfsr.compute), parent:work@prim_lfsr.compute
       |vpiFullName:work@prim_lfsr.compute
+      |vpiVariables:
+      \_logic_var: (work@prim_lfsr.compute.next_state), line:4:26, endln:4:36
       |vpiStmt:
       \_return_stmt: , line:5:7, endln:5:13, parent:work@prim_lfsr.compute
         |vpiCondition:
@@ -545,6 +551,25 @@ design: (work@aes_prng)
       |vpiStmt:
       \_begin: (work@aes_prng.u_lfsr16.compute), parent:work@aes_prng.u_lfsr16.compute
         |vpiFullName:work@aes_prng.u_lfsr16.compute
+        |vpiVariables:
+        \_logic_var: (work@aes_prng.u_lfsr16.compute.next_state), line:4:26, endln:4:36, parent:work@aes_prng.u_lfsr16.compute
+          |vpiName:next_state
+          |vpiFullName:work@aes_prng.u_lfsr16.compute.next_state
+          |vpiRange:
+          \_range: , line:4:14, endln:4:24, parent:work@aes_prng.u_lfsr16.compute.next_state
+            |vpiLeftRange:
+            \_operation: , line:4:14, endln:4:22
+              |vpiOpType:11
+              |vpiOperand:
+              \_ref_obj: (work@aes_prng.u_lfsr16.compute.next_state.LfsrDw), line:4:14, endln:4:20
+                |vpiName:LfsrDw
+                |vpiFullName:work@aes_prng.u_lfsr16.compute.next_state.LfsrDw
+                |vpiActual:
+                \_constant: , line:2:36, endln:2:38
+              |vpiOperand:
+              \_constant: , line:4:21, endln:4:22
+            |vpiRightRange:
+            \_constant: , line:4:23, endln:4:24
         |vpiStmt:
         \_return_stmt: , line:5:7, endln:5:13, parent:work@aes_prng.u_lfsr16.compute
           |vpiCondition:
@@ -614,6 +639,25 @@ design: (work@aes_prng)
       |vpiStmt:
       \_begin: (work@aes_prng.u_lfsr18.compute), parent:work@aes_prng.u_lfsr18.compute
         |vpiFullName:work@aes_prng.u_lfsr18.compute
+        |vpiVariables:
+        \_logic_var: (work@aes_prng.u_lfsr18.compute.next_state), line:4:26, endln:4:36, parent:work@aes_prng.u_lfsr18.compute
+          |vpiName:next_state
+          |vpiFullName:work@aes_prng.u_lfsr18.compute.next_state
+          |vpiRange:
+          \_range: , line:4:14, endln:4:24, parent:work@aes_prng.u_lfsr18.compute.next_state
+            |vpiLeftRange:
+            \_operation: , line:4:14, endln:4:22
+              |vpiOpType:11
+              |vpiOperand:
+              \_ref_obj: (work@aes_prng.u_lfsr18.compute.next_state.LfsrDw), line:4:14, endln:4:20
+                |vpiName:LfsrDw
+                |vpiFullName:work@aes_prng.u_lfsr18.compute.next_state.LfsrDw
+                |vpiActual:
+                \_constant: , line:2:36, endln:2:38
+              |vpiOperand:
+              \_constant: , line:4:21, endln:4:22
+            |vpiRightRange:
+            \_constant: , line:4:23, endln:4:24
         |vpiStmt:
         \_return_stmt: , line:5:7, endln:5:13, parent:work@aes_prng.u_lfsr18.compute
           |vpiCondition:
@@ -632,4 +676,7 @@ design: (work@aes_prng)
 [  ERROR] : 0
 [WARNING] : 2
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/FuncParam/dut.sv | ${SURELOG_DIR}/build/regression/FuncParam/roundtrip/dut_000.sv | 8 | 19 | 
 

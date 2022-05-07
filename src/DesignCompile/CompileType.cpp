@@ -187,6 +187,7 @@ UHDM::any* CompileHelper::compileVariable(
     CompileDesign* compileDesign, UHDM::any* pstmt,
     SURELOG::ValuedComponentI* instance, bool reduce, bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
+  Design* design = compileDesign->getCompiler()->getDesign();
   UHDM::any* result = nullptr;
   NodeId variable = declarationId;
   if (fC->Type(variable) == VObjectType::slData_type) {
@@ -228,6 +229,32 @@ UHDM::any* CompileHelper::compileVariable(
         if (tps) {
           variables* var = getSimpleVarFromTypespec(tps, ranges, compileDesign);
           if (var) var->VpiName(fC->SymName(variable));
+          result = var;
+        }
+      }
+      if (result == nullptr) {
+        ClassDefinition* cl = design->getClassDefinition(typeName);
+        if (cl == nullptr) {
+          cl = design->getClassDefinition(component->getName() +
+                                          "::" + typeName);
+        }
+        if (cl == nullptr) {
+          if (const DesignComponent* p =
+                  valuedcomponenti_cast<const DesignComponent*>(
+                      component->getParentScope())) {
+            cl = design->getClassDefinition(p->getName() + "::" + typeName);
+          }
+        }
+        if (cl) {
+          class_var* var = s.MakeClass_var();
+          class_typespec* tps = s.MakeClass_typespec();
+          var->Typespec(tps);
+          tps->Class_defn(cl->getUhdmDefinition());
+          var->VpiFile(fC->getFileName());
+          var->VpiLineNo(fC->Line(declarationId));
+          var->VpiColumnNo(fC->Column(declarationId));
+          var->VpiEndLineNo(fC->EndLine(declarationId));
+          var->VpiEndColumnNo(fC->EndColumn(declarationId));
           result = var;
         }
       }

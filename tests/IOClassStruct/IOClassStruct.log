@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/IOClassStruct/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/IOClassStruct/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -126,11 +126,11 @@ n<> u<99> t<Top_level_rule> l<1:1> el<31:1>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/IOClassStruct/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/IOClassStruct/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/IOClassStruct/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/IOClassStruct/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/IOClassStruct/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/IOClassStruct/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -179,6 +179,12 @@ design: (unnamed)
       |vpiStmt:
       \_begin: (uvm_pkg::uvm_resource_base::record_read_access), parent:uvm_pkg::uvm_resource_base::record_read_access
         |vpiFullName:uvm_pkg::uvm_resource_base::record_read_access
+        |vpiVariables:
+        \_class_var: (uvm_pkg::uvm_resource_base::record_read_access::access_record), line:16:35, endln:16:48, parent:uvm_pkg::uvm_resource_base::record_read_access
+          |vpiTypespec:
+          \_struct_typespec: (access_t), line:5:11, endln:5:17, parent:uvm_pkg::uvm_resource_types
+          |vpiName:access_record
+          |vpiFullName:uvm_pkg::uvm_resource_base::record_read_access::access_record
         |vpiStmt:
         \_operation: , line:18:6, endln:18:32, parent:uvm_pkg::uvm_resource_base::record_read_access
           |vpiOpType:62
@@ -253,4 +259,7 @@ design: (unnamed)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 4
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/IOClassStruct/dut.sv | ${SURELOG_DIR}/build/regression/IOClassStruct/roundtrip/dut_000.sv | 6 | 30 | 
 

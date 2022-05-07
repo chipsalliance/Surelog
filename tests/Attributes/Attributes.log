@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/Attributes/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/Attributes/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -918,11 +918,11 @@ n<> u<248> t<Top_level_rule> f<0> l<0:11>
 
 [ERR:UH0718] dut.sv:35:9: Illegal lhs of type wire "b".
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/Attributes/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/Attributes/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/Attributes/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/Attributes/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/Attributes/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/Attributes/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -1121,7 +1121,11 @@ design: (work@foo)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_ref_var: 
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@foo
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
     |vpiName:status
@@ -2160,4 +2164,8 @@ design: (work@foo)
 [  ERROR] : 3
 [WARNING] : 8
 [   NOTE] : 7
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/Attributes/dut.sv             | ${SURELOG_DIR}/build/regression/Attributes/roundtrip/dut_000.sv             | 9 | 41 | 
+[roundtrip]: ${SURELOG_DIR}/tests/Attributes/test_attributes.sv | ${SURELOG_DIR}/build/regression/Attributes/roundtrip/test_attributes_000.sv | 5 | 57 | 
 

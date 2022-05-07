@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/Cell/slpp_unit/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/Cell/slpp_unit/surelog.log.
 
 [INF:CM0020] Separate compilation-unit mode is on.
 
@@ -48,11 +48,11 @@
 
 [INF:UH0706] Creating UHDM Model...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/Cell/slpp_unit/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/Cell/slpp_unit/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/Cell/slpp_unit/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/Cell/slpp_unit/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/Cell/slpp_unit/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/Cell/slpp_unit/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -234,7 +234,11 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_ref_var: 
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@top
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
     |vpiName:status
@@ -588,4 +592,8 @@ design: (work@top)
 [  ERROR] : 0
 [WARNING] : 3
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/Cell/dut.sv | ${SURELOG_DIR}/build/regression/Cell/roundtrip/dut_000.sv | 2 | 4 | 
+[roundtrip]: ${SURELOG_DIR}/tests/Cell/cell.v | ${SURELOG_DIR}/build/regression/Cell/roundtrip/cell_000.v | 5 | 10 | 
 
