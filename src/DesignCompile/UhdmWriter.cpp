@@ -1624,21 +1624,15 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
 
   DesignComponent* def = instance->getDefinition();
   if (def->getTask_funcs()) {
-    const any* tmp = m;
-    while ((tmp->UhdmType() != uhdmmodule) &&
-           (tmp->UhdmType() != uhdminterface)) {
-      tmp = tmp->VpiParent();
-    }
-    UHDM::instance* mm = (UHDM::instance*)tmp;
     // Function and tasks
-    UHDM::VectorOftask_func* target = mm->Task_funcs();
+    UHDM::VectorOftask_func* target = m->Task_funcs();
     if (target == nullptr) {
-      mm->Task_funcs(s.MakeTask_funcVec());
-      target = mm->Task_funcs();
+      m->Task_funcs(s.MakeTask_funcVec());
+      target = m->Task_funcs();
     }
     for (auto tf : *def->getTask_funcs()) {
       target->push_back(tf);
-      if (tf->VpiParent() == 0) tf->VpiParent(mm);
+      if (tf->VpiParent() == 0) tf->VpiParent(m);
     }
   }
 
