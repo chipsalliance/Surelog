@@ -34,7 +34,6 @@
 #include <Surelog/SourceCompile/ParseFile.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Utils/FileUtils.h>
-#include <Surelog/Utils/StringUtils.h>
 
 namespace SURELOG {
 namespace fs = std::filesystem;
@@ -56,7 +55,6 @@ fs::path ParseCache::getCacheFileName_(const fs::path& svFileNameIn) {
   if (svFileName.empty()) svFileName = m_parse->getPpFileName();
   fs::path baseFileName = FileUtils::basename(svFileName);
   fs::path cacheFileName;
-  fs::path cacheDirName = m_parse->getSymbol(cacheDirId);
   if (prec->isFilePrecompiled(baseFileName)) {
     fs::path packageRepDir = m_parse->getSymbol(clp->getPrecompiledDir());
     cacheDirId =
@@ -65,15 +63,27 @@ fs::path ParseCache::getCacheFileName_(const fs::path& svFileNameIn) {
     svFileName = baseFileName;
   } else {
     if (clp->noCacheHash()) {
-      std::string svFile = svFileName.string();
-      svFile = StringUtils::ltrim(svFile, '/');
-      svFile = StringUtils::ltrim(svFile, '/');
+      fs::path cacheDirName = m_parse->getSymbol(cacheDirId);
+      const std::string& svFileTemp = svFileName.string();
+      std::string svFile;
+      int nbSlash = 0;
+      // Bring back the .slpa file in the cache dir instead of alongside the
+      // writepp source file
+      for (unsigned int i = 0; i < svFileTemp.size(); i++) {
+        char c = svFileTemp[i];
+        if (nbSlash >= 2) {
+          svFile += c;
+        }
+        if (c == '/') {
+          nbSlash++;
+        }
+      }
       cacheFileName = cacheDirName / (svFile + ".slpa");
     } else {
       svFileName = svFileName.parent_path().filename() / baseFileName;
     }
   }
-
+  fs::path cacheDirName = m_parse->getSymbol(cacheDirId);
   Library* lib = m_parse->getLibrary();
   std::string libName = lib->getName();
   if (cacheFileName.empty()) {
