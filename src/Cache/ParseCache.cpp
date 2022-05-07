@@ -35,7 +35,6 @@
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Utils/FileUtils.h>
 
-
 namespace SURELOG {
 namespace fs = std::filesystem;
 
@@ -68,7 +67,8 @@ fs::path ParseCache::getCacheFileName_(const fs::path& svFileNameIn) {
       const std::string& svFileTemp = svFileName.string();
       std::string svFile;
       int nbSlash = 0;
-      // Bring back the .slpa file in the cache dir instead of alongside the writepp source file
+      // Bring back the .slpa file in the cache dir instead of alongside the
+      // writepp source file
       for (unsigned int i = 0; i < svFileTemp.size(); i++) {
         char c = svFileTemp[i];
         if (nbSlash >= 2) {
