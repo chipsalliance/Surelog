@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/FuncArgDirection/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/FuncArgDirection/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -490,11 +490,11 @@ n<> u<248> t<Top_level_rule> f<0> l<0:11>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/FuncArgDirection/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/FuncArgDirection/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/FuncArgDirection/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/FuncArgDirection/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/FuncArgDirection/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/FuncArgDirection/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -677,7 +677,11 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_ref_var: 
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@dut
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
     |vpiName:status
@@ -908,6 +912,8 @@ design: (work@dut)
     |vpiStmt:
     \_begin: (work@dut.aes_rev_order_bit), parent:work@dut.aes_rev_order_bit
       |vpiFullName:work@dut.aes_rev_order_bit
+      |vpiVariables:
+      \_logic_var: (work@dut.aes_rev_order_bit.out), line:3:15, endln:3:18
       |vpiStmt:
       \_for_stmt: (work@dut.aes_rev_order_bit), line:4:3, endln:4:6, parent:work@dut.aes_rev_order_bit
         |vpiFullName:work@dut.aes_rev_order_bit
@@ -1132,6 +1138,16 @@ design: (work@dut)
     |vpiStmt:
     \_begin: (work@dut.aes_rev_order_bit), parent:work@dut.aes_rev_order_bit
       |vpiFullName:work@dut.aes_rev_order_bit
+      |vpiVariables:
+      \_logic_var: (work@dut.aes_rev_order_bit.out), line:3:15, endln:3:18, parent:work@dut.aes_rev_order_bit
+        |vpiName:out
+        |vpiFullName:work@dut.aes_rev_order_bit.out
+        |vpiRange:
+        \_range: , line:3:10, endln:3:13, parent:work@dut.aes_rev_order_bit.out
+          |vpiLeftRange:
+          \_constant: , line:3:10, endln:3:11
+          |vpiRightRange:
+          \_constant: , line:3:12, endln:3:13
       |vpiStmt:
       \_for_stmt: (work@dut.aes_rev_order_bit), line:4:3, endln:4:6, parent:work@dut.aes_rev_order_bit
         |vpiFullName:work@dut.aes_rev_order_bit
@@ -1253,4 +1269,7 @@ design: (work@dut)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/FuncArgDirection/dut.sv | ${SURELOG_DIR}/build/regression/FuncArgDirection/roundtrip/dut_000.sv | 4 | 15 | 
 

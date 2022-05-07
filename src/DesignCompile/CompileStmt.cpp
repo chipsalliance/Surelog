@@ -979,8 +979,22 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
         if (Expression) {
           expr* rhs = (expr*)compileExpression(
               component, fC, Expression, compileDesign, nullptr, instance);
-          if (rhs) rhs->VpiParent(assign_stmt);
+          if (rhs) {
+            if (rhs->VpiParent()) {
+              ((any*)rhs->VpiParent())->VpiParent(assign_stmt);
+            } else {
+              rhs->VpiParent(assign_stmt);
+            }
+          }
           assign_stmt->Rhs(rhs);
+        }
+        if (scope* sco = any_cast<scope*>(pstmt)) {
+          VectorOfvariables* vars = sco->Variables();
+          if (vars == nullptr) {
+            vars = s.MakeVariablesVec();
+            sco->Variables(vars);
+          }
+          vars->push_back(var);
         }
 
         Variable_decl_assignment = fC->Sibling(Variable_decl_assignment);

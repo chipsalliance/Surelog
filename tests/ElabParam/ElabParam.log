@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/ElabParam/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/ElabParam/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -486,11 +486,11 @@ n<> u<248> t<Top_level_rule> f<0> l<0:11>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/ElabParam/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/ElabParam/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/ElabParam/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ElabParam/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/ElabParam/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/ElabParam/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -796,7 +796,11 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_ref_var: 
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@dut
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
     |vpiName:status
@@ -1178,4 +1182,7 @@ design: (work@dut)
 [  ERROR] : 0
 [WARNING] : 2
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/ElabParam/dut.sv | ${SURELOG_DIR}/build/regression/ElabParam/roundtrip/dut_000.sv | 6 | 18 | 
 

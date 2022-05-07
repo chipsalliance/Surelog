@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/ClassFuncProto/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/ClassFuncProto/slpp_all/surelog.log.
 
 LIB:  work
 FILE: top.v
@@ -503,11 +503,11 @@ Instance tree:
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/ClassFuncProto/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/ClassFuncProto/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/ClassFuncProto/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ClassFuncProto/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/ClassFuncProto/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/ClassFuncProto/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -690,7 +690,11 @@ design: (work@toto)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_ref_var: 
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@toto
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
     |vpiName:status
@@ -916,6 +920,10 @@ design: (work@toto)
     \_function: (work@toto::c1::get_current_item), line:30:1, endln:33:14, parent:work@toto::c1
       |vpiName:get_current_item
       |vpiFullName:work@toto::c1::get_current_item
+      |vpiVariables:
+      \_ref_var: (work@toto::c1::get_current_item::t), line:31:9, endln:31:10, parent:work@toto::c1::get_current_item
+        |vpiName:t
+        |vpiFullName:work@toto::c1::get_current_item::t
       |vpiVariables:
       \_ref_var: (work@toto::c1::get_current_item::t), line:31:9, endln:31:10, parent:work@toto::c1::get_current_item
         |vpiName:t
@@ -1153,6 +1161,10 @@ design: (work@toto)
       \_ref_var: (work@toto::c1::get_current_item::t), line:31:9, endln:31:10, parent:work@toto::c1::get_current_item
         |vpiName:t
         |vpiFullName:work@toto::c1::get_current_item::t
+      |vpiVariables:
+      \_ref_var: (work@toto::c1::get_current_item::t), line:31:9, endln:31:10, parent:work@toto::c1::get_current_item
+        |vpiName:t
+        |vpiFullName:work@toto::c1::get_current_item::t
       |vpiMethod:1
       |vpiVisibility:1
       |vpiReturn:
@@ -1278,4 +1290,7 @@ design: (work@toto)
 [  ERROR] : 5
 [WARNING] : 1
 [   NOTE] : 6
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/ClassFuncProto/top.v | ${SURELOG_DIR}/build/regression/ClassFuncProto/roundtrip/top_000.v | 10 | 52 | 
 

@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/ArrayVarName/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/ArrayVarName/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -112,11 +112,11 @@ n<> u<87> t<Top_level_rule> l<1:1> el<9:1>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/ArrayVarName/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/ArrayVarName/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/ArrayVarName/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ArrayVarName/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/ArrayVarName/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/ArrayVarName/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -167,6 +167,8 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@top.get_a1), parent:work@top.get_a1
       |vpiFullName:work@top.get_a1
+      |vpiVariables:
+      \_array_var: (work@top.get_a1.a)
       |vpiStmt:
       \_assign_stmt: , line:5:11, endln:5:26, parent:work@top.get_a1
         |vpiRhs:
@@ -270,6 +272,24 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@top.get_a1), parent:work@top.get_a1
       |vpiFullName:work@top.get_a1
+      |vpiVariables:
+      \_array_var: (work@top.get_a1.a), parent:work@top.get_a1
+        |vpiName:a
+        |vpiFullName:work@top.get_a1.a
+        |vpiRange:
+        \_range: , line:5:14, endln:5:15, parent:work@top.get_a1.a
+          |vpiLeftRange:
+          \_constant: , line:5:14, endln:5:15
+          |vpiRightRange:
+          \_operation: 
+            |vpiOpType:11
+            |vpiOperand:
+            \_constant: , line:5:14, endln:5:15
+            |vpiOperand:
+            \_constant: 
+        |vpiReg:
+        \_int_var: (work@top.get_a1.a), line:5:11, endln:5:12, parent:work@top.get_a1.a
+          |vpiFullName:work@top.get_a1.a
       |vpiStmt:
       \_assign_stmt: , line:5:11, endln:5:26, parent:work@top.get_a1
         |vpiRhs:
@@ -345,4 +365,7 @@ design: (work@top)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/ArrayVarName/dut.sv | ${SURELOG_DIR}/build/regression/ArrayVarName/roundtrip/dut_000.sv | 3 | 8 | 
 

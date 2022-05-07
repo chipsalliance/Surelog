@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/DollarRoot/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/DollarRoot/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -6745,11 +6745,11 @@ n<> u<248> t<Top_level_rule> f<0> l<0:11>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/DollarRoot/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/DollarRoot/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/DollarRoot/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/DollarRoot/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/DollarRoot/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/DollarRoot/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -6932,7 +6932,11 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_ref_var: 
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@top
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
     |vpiName:status
@@ -7961,6 +7965,8 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.get_read_response_from_master_0), parent:work@test_program.get_read_response_from_master_0
       |vpiFullName:work@test_program.get_read_response_from_master_0
+      |vpiVariables:
+      \_struct_var: (work@test_program.get_read_response_from_master_0.rsp), line:268:16, endln:268:19
       |vpiStmt:
       \_func_call: ($root.tb.dut.master_0.pop_response), line:270:7, endln:270:43, parent:work@test_program.get_read_response_from_master_0
         |vpiName:$root.tb.dut.master_0.pop_response
@@ -8117,6 +8123,8 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.get_command_from_slave_0), parent:work@test_program.get_command_from_slave_0
       |vpiFullName:work@test_program.get_command_from_slave_0
+      |vpiVariables:
+      \_struct_var: (work@test_program.get_command_from_slave_0.cmd), line:311:15, endln:311:18
       |vpiStmt:
       \_func_call: ($root.tb.dut.slave_0.pop_command), line:313:7, endln:313:41, parent:work@test_program.get_command_from_slave_0
         |vpiName:$root.tb.dut.slave_0.pop_command
@@ -8428,6 +8436,8 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.configure_and_push_response_to_slave_0), parent:work@test_program.configure_and_push_response_to_slave_0
       |vpiFullName:work@test_program.configure_and_push_response_to_slave_0
+      |vpiVariables:
+      \_int_var: (work@test_program.configure_and_push_response_to_slave_0.read_response_latency), line:344:11, endln:344:32
       |vpiStmt:
       \_func_call: ($root.tb.dut.slave_0.set_response_request), line:346:7, endln:346:58, parent:work@test_program.configure_and_push_response_to_slave_0
         |vpiArgument:
@@ -9046,6 +9056,8 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.get_read_response_from_master_1), parent:work@test_program.get_read_response_from_master_1
       |vpiFullName:work@test_program.get_read_response_from_master_1
+      |vpiVariables:
+      \_struct_var: (work@test_program.get_read_response_from_master_1.rsp), line:411:16, endln:411:19
       |vpiStmt:
       \_func_call: ($root.tb.dut.master_1.pop_response), line:413:7, endln:413:43, parent:work@test_program.get_read_response_from_master_1
         |vpiName:$root.tb.dut.master_1.pop_response
@@ -9202,6 +9214,8 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.get_command_from_slave_1), parent:work@test_program.get_command_from_slave_1
       |vpiFullName:work@test_program.get_command_from_slave_1
+      |vpiVariables:
+      \_struct_var: (work@test_program.get_command_from_slave_1.cmd), line:454:15, endln:454:18
       |vpiStmt:
       \_func_call: ($root.tb.dut.slave_1.pop_command), line:456:7, endln:456:41, parent:work@test_program.get_command_from_slave_1
         |vpiName:$root.tb.dut.slave_1.pop_command
@@ -9513,6 +9527,8 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.configure_and_push_response_to_slave_1), parent:work@test_program.configure_and_push_response_to_slave_1
       |vpiFullName:work@test_program.configure_and_push_response_to_slave_1
+      |vpiVariables:
+      \_int_var: (work@test_program.configure_and_push_response_to_slave_1.read_response_latency), line:487:11, endln:487:32
       |vpiStmt:
       \_func_call: ($root.tb.dut.slave_1.set_response_request), line:489:7, endln:489:58, parent:work@test_program.configure_and_push_response_to_slave_1
         |vpiArgument:
@@ -9885,6 +9901,16 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.master_send_commands), parent:work@test_program.master_send_commands
       |vpiFullName:work@test_program.master_send_commands
+      |vpiVariables:
+      \_struct_var: (work@test_program.master_send_commands.cmd), line:550:19, endln:550:22
+      |vpiVariables:
+      \_struct_var: (work@test_program.master_send_commands.rsp), line:551:19, endln:551:22
+      |vpiVariables:
+      \_struct_var: (work@test_program.master_send_commands.exp_rsp), line:551:24, endln:551:31
+      |vpiVariables:
+      \_int_var: (work@test_program.master_send_commands.master_id), line:552:19, endln:552:28
+      |vpiVariables:
+      \_int_var: (work@test_program.master_send_commands.slave_id), line:552:30, endln:552:38
       |vpiStmt:
       \_for_stmt: (work@test_program.master_send_commands), line:554:7, endln:554:10, parent:work@test_program.master_send_commands
         |vpiFullName:work@test_program.master_send_commands
@@ -10091,6 +10117,8 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.create_command), parent:work@test_program.create_command
       |vpiFullName:work@test_program.create_command
+      |vpiVariables:
+      \_struct_var: (work@test_program.create_command.cmd), line:576:15, endln:576:18
       |vpiStmt:
       \_if_else: , line:578:7, endln:582:10, parent:work@test_program.create_command
         |vpiCondition:
@@ -10472,6 +10500,8 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.randomize_burstcount), parent:work@test_program.randomize_burstcount
       |vpiFullName:work@test_program.randomize_burstcount
+      |vpiVariables:
+      \_logic_var: (work@test_program.randomize_burstcount.burstcount), line:603:18, endln:603:28
       |vpiStmt:
       \_assignment: , line:605:7, endln:605:48, parent:work@test_program.randomize_burstcount
         |vpiOpType:82
@@ -10593,6 +10623,10 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.generate_random_aligned_address), parent:work@test_program.generate_random_aligned_address
       |vpiFullName:work@test_program.generate_random_aligned_address
+      |vpiVariables:
+      \_logic_var: (work@test_program.generate_random_aligned_address.base_addr), line:612:26, endln:612:35
+      |vpiVariables:
+      \_logic_var: (work@test_program.generate_random_aligned_address.addr), line:612:37, endln:612:41
       |vpiStmt:
       \_assignment: , line:614:7, endln:614:40, parent:work@test_program.generate_random_aligned_address
         |vpiOpType:82
@@ -11042,6 +11076,12 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.translate_master_to_slave_address), parent:work@test_program.translate_master_to_slave_address
       |vpiFullName:work@test_program.translate_master_to_slave_address
+      |vpiVariables:
+      \_int_var: (work@test_program.translate_master_to_slave_address.slave_id), line:661:11, endln:661:19
+      |vpiVariables:
+      \_logic_var: (work@test_program.translate_master_to_slave_address.base_addr), line:662:26, endln:662:35
+      |vpiVariables:
+      \_logic_var: (work@test_program.translate_master_to_slave_address.offset), line:662:37, endln:662:43
       |vpiStmt:
       \_assign_stmt: , line:661:11, endln:661:39, parent:work@test_program.translate_master_to_slave_address
         |vpiRhs:
@@ -11243,6 +11283,10 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.get_expected_command_for_slave), parent:work@test_program.get_expected_command_for_slave
       |vpiFullName:work@test_program.get_expected_command_for_slave
+      |vpiVariables:
+      \_struct_var: (work@test_program.get_expected_command_for_slave.exp_cmd), line:687:15, endln:687:22
+      |vpiVariables:
+      \_int_var: (work@test_program.get_expected_command_for_slave.found), line:688:11, endln:688:16
       |vpiStmt:
       \_assign_stmt: , line:688:11, endln:688:20, parent:work@test_program.get_expected_command_for_slave
         |vpiRhs:
@@ -11909,6 +11953,8 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.assert_equals), parent:work@test_program.assert_equals
       |vpiFullName:work@test_program.assert_equals
+      |vpiVariables:
+      \_string_var: (work@test_program.assert_equals.data_comparison_msg), line:740:14, endln:740:33
       |vpiStmt:
       \_begin: (work@test_program.assert_equals), line:742:7, endln:756:10, parent:work@test_program.assert_equals
         |vpiFullName:work@test_program.assert_equals
@@ -12067,6 +12113,8 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.create_response), parent:work@test_program.create_response
       |vpiFullName:work@test_program.create_response
+      |vpiVariables:
+      \_struct_var: (work@test_program.create_response.rsp), line:763:16, endln:763:19
       |vpiStmt:
       \_assignment: , line:765:7, endln:765:40, parent:work@test_program.create_response
         |vpiOpType:82
@@ -12235,6 +12283,10 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.get_expected_read_response), parent:work@test_program.get_expected_read_response
       |vpiFullName:work@test_program.get_expected_read_response
+      |vpiVariables:
+      \_struct_var: (work@test_program.get_expected_read_response.rsp), line:778:16, endln:778:19
+      |vpiVariables:
+      \_int_var: (work@test_program.get_expected_read_response.slave_id), line:779:16, endln:779:24
       |vpiStmt:
       \_assign_stmt: , line:779:16, endln:779:48, parent:work@test_program.get_expected_read_response
         |vpiRhs:
@@ -12515,6 +12567,8 @@ design: (work@top)
           |vpiName:cmd
           |vpiFullName:work@test_program.cmd
         |vpiVariables:
+        \_struct_var: (work@test_program.cmd), line:251:16, endln:251:19, parent:work@test_program
+        |vpiVariables:
         \_struct_var: (work@test_program.actual_rsp), line:252:16, endln:252:26, parent:work@test_program
           |vpiTypespec:
           \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
@@ -12526,6 +12580,10 @@ design: (work@top)
           \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
           |vpiName:exp_rsp
           |vpiFullName:work@test_program.exp_rsp
+        |vpiVariables:
+        \_struct_var: (work@test_program.actual_rsp), line:252:16, endln:252:26, parent:work@test_program
+        |vpiVariables:
+        \_struct_var: (work@test_program.exp_rsp), line:252:28, endln:252:35, parent:work@test_program
         |vpiStmt:
         \_assignment: , line:254:7, endln:254:53, parent:work@test_program
           |vpiOpType:82
@@ -12676,16 +12734,24 @@ design: (work@top)
           |vpiName:exp_cmd
           |vpiFullName:work@test_program.exp_cmd
         |vpiVariables:
+        \_struct_var: (work@test_program.actual_cmd), line:284:19, endln:284:29, parent:work@test_program
+        |vpiVariables:
+        \_struct_var: (work@test_program.exp_cmd), line:284:31, endln:284:38, parent:work@test_program
+        |vpiVariables:
         \_struct_var: (work@test_program.rsp), line:285:19, endln:285:22, parent:work@test_program
           |vpiTypespec:
           \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
           |vpiName:rsp
           |vpiFullName:work@test_program.rsp
         |vpiVariables:
+        \_struct_var: (work@test_program.rsp), line:285:19, endln:285:22, parent:work@test_program
+        |vpiVariables:
         \_int_var: (work@test_program.backpressure_cycles), line:287:21, endln:287:40, parent:work@test_program
           |vpiName:backpressure_cycles
           |vpiFullName:work@test_program.backpressure_cycles
           |vpiAutomatic:1
+        |vpiVariables:
+        \_int_var: (work@test_program.backpressure_cycles), line:287:21, endln:287:40, parent:work@test_program
         |vpiStmt:
         \_for_stmt: (work@test_program), line:290:7, endln:290:10, parent:work@test_program
           |vpiFullName:work@test_program
@@ -12982,6 +13048,8 @@ design: (work@top)
           |vpiName:cmd
           |vpiFullName:work@test_program.cmd
         |vpiVariables:
+        \_struct_var: (work@test_program.cmd), line:394:16, endln:394:19, parent:work@test_program
+        |vpiVariables:
         \_struct_var: (work@test_program.actual_rsp), line:395:16, endln:395:26, parent:work@test_program
           |vpiTypespec:
           \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
@@ -12993,6 +13061,10 @@ design: (work@top)
           \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
           |vpiName:exp_rsp
           |vpiFullName:work@test_program.exp_rsp
+        |vpiVariables:
+        \_struct_var: (work@test_program.actual_rsp), line:395:16, endln:395:26, parent:work@test_program
+        |vpiVariables:
+        \_struct_var: (work@test_program.exp_rsp), line:395:28, endln:395:35, parent:work@test_program
         |vpiStmt:
         \_assignment: , line:397:7, endln:397:53, parent:work@test_program
           |vpiOpType:82
@@ -13143,16 +13215,24 @@ design: (work@top)
           |vpiName:exp_cmd
           |vpiFullName:work@test_program.exp_cmd
         |vpiVariables:
+        \_struct_var: (work@test_program.actual_cmd), line:427:19, endln:427:29, parent:work@test_program
+        |vpiVariables:
+        \_struct_var: (work@test_program.exp_cmd), line:427:31, endln:427:38, parent:work@test_program
+        |vpiVariables:
         \_struct_var: (work@test_program.rsp), line:428:19, endln:428:22, parent:work@test_program
           |vpiTypespec:
           \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
           |vpiName:rsp
           |vpiFullName:work@test_program.rsp
         |vpiVariables:
+        \_struct_var: (work@test_program.rsp), line:428:19, endln:428:22, parent:work@test_program
+        |vpiVariables:
         \_int_var: (work@test_program.backpressure_cycles), line:430:21, endln:430:40, parent:work@test_program
           |vpiName:backpressure_cycles
           |vpiFullName:work@test_program.backpressure_cycles
           |vpiAutomatic:1
+        |vpiVariables:
+        \_int_var: (work@test_program.backpressure_cycles), line:430:21, endln:430:40, parent:work@test_program
         |vpiStmt:
         \_for_stmt: (work@test_program), line:433:7, endln:433:10, parent:work@test_program
           |vpiFullName:work@test_program
@@ -14506,6 +14586,12 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.get_read_response_from_master_0), parent:work@test_program.get_read_response_from_master_0
       |vpiFullName:work@test_program.get_read_response_from_master_0
+      |vpiVariables:
+      \_struct_var: (work@test_program.get_read_response_from_master_0.rsp), line:268:16, endln:268:19, parent:work@test_program.get_read_response_from_master_0
+        |vpiTypespec:
+        \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
+        |vpiName:rsp
+        |vpiFullName:work@test_program.get_read_response_from_master_0.rsp
       |vpiStmt:
       \_func_call: ($root.tb.dut.master_0.pop_response), line:270:7, endln:270:43, parent:work@test_program.get_read_response_from_master_0
         |vpiName:$root.tb.dut.master_0.pop_response
@@ -14664,6 +14750,12 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.get_command_from_slave_0), parent:work@test_program.get_command_from_slave_0
       |vpiFullName:work@test_program.get_command_from_slave_0
+      |vpiVariables:
+      \_struct_var: (work@test_program.get_command_from_slave_0.cmd), line:311:15, endln:311:18, parent:work@test_program.get_command_from_slave_0
+        |vpiTypespec:
+        \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
+        |vpiName:cmd
+        |vpiFullName:work@test_program.get_command_from_slave_0.cmd
       |vpiStmt:
       \_func_call: ($root.tb.dut.slave_0.pop_command), line:313:7, endln:313:41, parent:work@test_program.get_command_from_slave_0
         |vpiName:$root.tb.dut.slave_0.pop_command
@@ -14989,6 +15081,10 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.configure_and_push_response_to_slave_0), parent:work@test_program.configure_and_push_response_to_slave_0
       |vpiFullName:work@test_program.configure_and_push_response_to_slave_0
+      |vpiVariables:
+      \_int_var: (work@test_program.configure_and_push_response_to_slave_0.read_response_latency), line:344:11, endln:344:32, parent:work@test_program.configure_and_push_response_to_slave_0
+        |vpiName:read_response_latency
+        |vpiFullName:work@test_program.configure_and_push_response_to_slave_0.read_response_latency
       |vpiStmt:
       \_func_call: ($root.tb.dut.slave_0.set_response_request), line:346:7, endln:346:58, parent:work@test_program.configure_and_push_response_to_slave_0
         |vpiArgument:
@@ -15623,6 +15719,12 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.get_read_response_from_master_1), parent:work@test_program.get_read_response_from_master_1
       |vpiFullName:work@test_program.get_read_response_from_master_1
+      |vpiVariables:
+      \_struct_var: (work@test_program.get_read_response_from_master_1.rsp), line:411:16, endln:411:19, parent:work@test_program.get_read_response_from_master_1
+        |vpiTypespec:
+        \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
+        |vpiName:rsp
+        |vpiFullName:work@test_program.get_read_response_from_master_1.rsp
       |vpiStmt:
       \_func_call: ($root.tb.dut.master_1.pop_response), line:413:7, endln:413:43, parent:work@test_program.get_read_response_from_master_1
         |vpiName:$root.tb.dut.master_1.pop_response
@@ -15781,6 +15883,12 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.get_command_from_slave_1), parent:work@test_program.get_command_from_slave_1
       |vpiFullName:work@test_program.get_command_from_slave_1
+      |vpiVariables:
+      \_struct_var: (work@test_program.get_command_from_slave_1.cmd), line:454:15, endln:454:18, parent:work@test_program.get_command_from_slave_1
+        |vpiTypespec:
+        \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
+        |vpiName:cmd
+        |vpiFullName:work@test_program.get_command_from_slave_1.cmd
       |vpiStmt:
       \_func_call: ($root.tb.dut.slave_1.pop_command), line:456:7, endln:456:41, parent:work@test_program.get_command_from_slave_1
         |vpiName:$root.tb.dut.slave_1.pop_command
@@ -16106,6 +16214,10 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.configure_and_push_response_to_slave_1), parent:work@test_program.configure_and_push_response_to_slave_1
       |vpiFullName:work@test_program.configure_and_push_response_to_slave_1
+      |vpiVariables:
+      \_int_var: (work@test_program.configure_and_push_response_to_slave_1.read_response_latency), line:487:11, endln:487:32, parent:work@test_program.configure_and_push_response_to_slave_1
+        |vpiName:read_response_latency
+        |vpiFullName:work@test_program.configure_and_push_response_to_slave_1.read_response_latency
       |vpiStmt:
       \_func_call: ($root.tb.dut.slave_1.set_response_request), line:489:7, endln:489:58, parent:work@test_program.configure_and_push_response_to_slave_1
         |vpiArgument:
@@ -16479,6 +16591,32 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.master_send_commands), parent:work@test_program.master_send_commands
       |vpiFullName:work@test_program.master_send_commands
+      |vpiVariables:
+      \_struct_var: (work@test_program.master_send_commands.cmd), line:550:19, endln:550:22, parent:work@test_program.master_send_commands
+        |vpiTypespec:
+        \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
+        |vpiName:cmd
+        |vpiFullName:work@test_program.master_send_commands.cmd
+      |vpiVariables:
+      \_struct_var: (work@test_program.master_send_commands.rsp), line:551:19, endln:551:22, parent:work@test_program.master_send_commands
+        |vpiTypespec:
+        \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
+        |vpiName:rsp
+        |vpiFullName:work@test_program.master_send_commands.rsp
+      |vpiVariables:
+      \_struct_var: (work@test_program.master_send_commands.exp_rsp), line:551:24, endln:551:31, parent:work@test_program.master_send_commands
+        |vpiTypespec:
+        \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
+        |vpiName:exp_rsp
+        |vpiFullName:work@test_program.master_send_commands.exp_rsp
+      |vpiVariables:
+      \_int_var: (work@test_program.master_send_commands.master_id), line:552:19, endln:552:28, parent:work@test_program.master_send_commands
+        |vpiName:master_id
+        |vpiFullName:work@test_program.master_send_commands.master_id
+      |vpiVariables:
+      \_int_var: (work@test_program.master_send_commands.slave_id), line:552:30, endln:552:38, parent:work@test_program.master_send_commands
+        |vpiName:slave_id
+        |vpiFullName:work@test_program.master_send_commands.slave_id
       |vpiStmt:
       \_for_stmt: (work@test_program.master_send_commands), line:554:7, endln:554:10, parent:work@test_program.master_send_commands
         |vpiFullName:work@test_program.master_send_commands
@@ -16654,6 +16792,12 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.create_command), parent:work@test_program.create_command
       |vpiFullName:work@test_program.create_command
+      |vpiVariables:
+      \_struct_var: (work@test_program.create_command.cmd), line:576:15, endln:576:18, parent:work@test_program.create_command
+        |vpiTypespec:
+        \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
+        |vpiName:cmd
+        |vpiFullName:work@test_program.create_command.cmd
       |vpiStmt:
       \_if_else: , line:578:7, endln:582:10, parent:work@test_program.create_command
         |vpiCondition:
@@ -17039,6 +17183,12 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.randomize_burstcount), parent:work@test_program.randomize_burstcount
       |vpiFullName:work@test_program.randomize_burstcount
+      |vpiVariables:
+      \_logic_var: (work@test_program.randomize_burstcount.burstcount), line:603:18, endln:603:28, parent:work@test_program.randomize_burstcount
+        |vpiTypespec:
+        \_logic_typespec: (Burstcount), line:31:12, endln:31:17, parent:work@test_program
+        |vpiName:burstcount
+        |vpiFullName:work@test_program.randomize_burstcount.burstcount
       |vpiStmt:
       \_assignment: , line:605:7, endln:605:48, parent:work@test_program.randomize_burstcount
         |vpiOpType:82
@@ -17125,6 +17275,44 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.generate_random_aligned_address), parent:work@test_program.generate_random_aligned_address
       |vpiFullName:work@test_program.generate_random_aligned_address
+      |vpiVariables:
+      \_logic_var: (work@test_program.generate_random_aligned_address.base_addr), line:612:26, endln:612:35, parent:work@test_program.generate_random_aligned_address
+        |vpiName:base_addr
+        |vpiFullName:work@test_program.generate_random_aligned_address.base_addr
+        |vpiRange:
+        \_range: , line:612:14, endln:612:24, parent:work@test_program.generate_random_aligned_address.base_addr
+          |vpiLeftRange:
+          \_operation: , line:612:14, endln:612:22
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (work@test_program.generate_random_aligned_address.base_addr.ADDR_W), line:612:14, endln:612:20
+              |vpiName:ADDR_W
+              |vpiFullName:work@test_program.generate_random_aligned_address.base_addr.ADDR_W
+              |vpiActual:
+              \_constant: , line:13:42, endln:13:44
+            |vpiOperand:
+            \_constant: , line:612:21, endln:612:22
+          |vpiRightRange:
+          \_constant: , line:612:23, endln:612:24
+      |vpiVariables:
+      \_logic_var: (work@test_program.generate_random_aligned_address.addr), line:612:37, endln:612:41, parent:work@test_program.generate_random_aligned_address
+        |vpiName:addr
+        |vpiFullName:work@test_program.generate_random_aligned_address.addr
+        |vpiRange:
+        \_range: , line:612:14, endln:612:24, parent:work@test_program.generate_random_aligned_address.addr
+          |vpiLeftRange:
+          \_operation: , line:612:14, endln:612:22
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (work@test_program.generate_random_aligned_address.addr.ADDR_W), line:612:14, endln:612:20
+              |vpiName:ADDR_W
+              |vpiFullName:work@test_program.generate_random_aligned_address.addr.ADDR_W
+              |vpiActual:
+              \_constant: , line:13:42, endln:13:44
+            |vpiOperand:
+            \_constant: , line:612:21, endln:612:22
+          |vpiRightRange:
+          \_constant: , line:612:23, endln:612:24
       |vpiStmt:
       \_assignment: , line:614:7, endln:614:40, parent:work@test_program.generate_random_aligned_address
         |vpiOpType:82
@@ -17546,6 +17734,48 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.translate_master_to_slave_address), parent:work@test_program.translate_master_to_slave_address
       |vpiFullName:work@test_program.translate_master_to_slave_address
+      |vpiVariables:
+      \_int_var: (work@test_program.translate_master_to_slave_address.slave_id), line:661:11, endln:661:19, parent:work@test_program.translate_master_to_slave_address
+        |vpiName:slave_id
+        |vpiFullName:work@test_program.translate_master_to_slave_address.slave_id
+      |vpiVariables:
+      \_logic_var: (work@test_program.translate_master_to_slave_address.base_addr), line:662:26, endln:662:35, parent:work@test_program.translate_master_to_slave_address
+        |vpiName:base_addr
+        |vpiFullName:work@test_program.translate_master_to_slave_address.base_addr
+        |vpiRange:
+        \_range: , line:662:14, endln:662:24, parent:work@test_program.translate_master_to_slave_address.base_addr
+          |vpiLeftRange:
+          \_operation: , line:662:14, endln:662:22
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (work@test_program.translate_master_to_slave_address.base_addr.ADDR_W), line:662:14, endln:662:20
+              |vpiName:ADDR_W
+              |vpiFullName:work@test_program.translate_master_to_slave_address.base_addr.ADDR_W
+              |vpiActual:
+              \_constant: , line:13:42, endln:13:44
+            |vpiOperand:
+            \_constant: , line:662:21, endln:662:22
+          |vpiRightRange:
+          \_constant: , line:662:23, endln:662:24
+      |vpiVariables:
+      \_logic_var: (work@test_program.translate_master_to_slave_address.offset), line:662:37, endln:662:43, parent:work@test_program.translate_master_to_slave_address
+        |vpiName:offset
+        |vpiFullName:work@test_program.translate_master_to_slave_address.offset
+        |vpiRange:
+        \_range: , line:662:14, endln:662:24, parent:work@test_program.translate_master_to_slave_address.offset
+          |vpiLeftRange:
+          \_operation: , line:662:14, endln:662:22
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (work@test_program.translate_master_to_slave_address.offset.ADDR_W), line:662:14, endln:662:20
+              |vpiName:ADDR_W
+              |vpiFullName:work@test_program.translate_master_to_slave_address.offset.ADDR_W
+              |vpiActual:
+              \_constant: , line:13:42, endln:13:44
+            |vpiOperand:
+            \_constant: , line:662:21, endln:662:22
+          |vpiRightRange:
+          \_constant: , line:662:23, endln:662:24
       |vpiStmt:
       \_assign_stmt: , line:661:11, endln:661:39, parent:work@test_program.translate_master_to_slave_address
         |vpiRhs:
@@ -17743,6 +17973,16 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.get_expected_command_for_slave), parent:work@test_program.get_expected_command_for_slave
       |vpiFullName:work@test_program.get_expected_command_for_slave
+      |vpiVariables:
+      \_struct_var: (work@test_program.get_expected_command_for_slave.exp_cmd), line:687:15, endln:687:22, parent:work@test_program.get_expected_command_for_slave
+        |vpiTypespec:
+        \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
+        |vpiName:exp_cmd
+        |vpiFullName:work@test_program.get_expected_command_for_slave.exp_cmd
+      |vpiVariables:
+      \_int_var: (work@test_program.get_expected_command_for_slave.found), line:688:11, endln:688:16, parent:work@test_program.get_expected_command_for_slave
+        |vpiName:found
+        |vpiFullName:work@test_program.get_expected_command_for_slave.found
       |vpiStmt:
       \_assign_stmt: , line:688:11, endln:688:20, parent:work@test_program.get_expected_command_for_slave
         |vpiRhs:
@@ -18397,6 +18637,10 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.assert_equals), parent:work@test_program.assert_equals
       |vpiFullName:work@test_program.assert_equals
+      |vpiVariables:
+      \_string_var: (work@test_program.assert_equals.data_comparison_msg), line:740:14, endln:740:33, parent:work@test_program.assert_equals
+        |vpiName:data_comparison_msg
+        |vpiFullName:work@test_program.assert_equals.data_comparison_msg
       |vpiStmt:
       \_begin: (work@test_program.assert_equals), line:742:7, endln:756:10, parent:work@test_program.assert_equals
         |vpiFullName:work@test_program.assert_equals
@@ -18508,6 +18752,12 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.create_response), parent:work@test_program.create_response
       |vpiFullName:work@test_program.create_response
+      |vpiVariables:
+      \_struct_var: (work@test_program.create_response.rsp), line:763:16, endln:763:19, parent:work@test_program.create_response
+        |vpiTypespec:
+        \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
+        |vpiName:rsp
+        |vpiFullName:work@test_program.create_response.rsp
       |vpiStmt:
       \_assignment: , line:765:7, endln:765:40, parent:work@test_program.create_response
         |vpiOpType:82
@@ -18676,6 +18926,16 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@test_program.get_expected_read_response), parent:work@test_program.get_expected_read_response
       |vpiFullName:work@test_program.get_expected_read_response
+      |vpiVariables:
+      \_struct_var: (work@test_program.get_expected_read_response.rsp), line:778:16, endln:778:19, parent:work@test_program.get_expected_read_response
+        |vpiTypespec:
+        \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
+        |vpiName:rsp
+        |vpiFullName:work@test_program.get_expected_read_response.rsp
+      |vpiVariables:
+      \_int_var: (work@test_program.get_expected_read_response.slave_id), line:779:16, endln:779:24, parent:work@test_program.get_expected_read_response
+        |vpiName:slave_id
+        |vpiFullName:work@test_program.get_expected_read_response.slave_id
       |vpiStmt:
       \_assign_stmt: , line:779:16, endln:779:48, parent:work@test_program.get_expected_read_response
         |vpiRhs:
@@ -18941,6 +19201,24 @@ design: (work@top)
           |vpiName:cmd
           |vpiFullName:work@test_program.cmd
         |vpiVariables:
+        \_struct_var: (work@test_program.cmd), line:251:16, endln:251:19, parent:work@test_program
+          |vpiTypespec:
+          \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
+          |vpiName:cmd
+          |vpiFullName:work@test_program.cmd
+        |vpiVariables:
+        \_struct_var: (work@test_program.actual_rsp), line:252:16, endln:252:26, parent:work@test_program
+          |vpiTypespec:
+          \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
+          |vpiName:actual_rsp
+          |vpiFullName:work@test_program.actual_rsp
+        |vpiVariables:
+        \_struct_var: (work@test_program.exp_rsp), line:252:28, endln:252:35, parent:work@test_program
+          |vpiTypespec:
+          \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
+          |vpiName:exp_rsp
+          |vpiFullName:work@test_program.exp_rsp
+        |vpiVariables:
         \_struct_var: (work@test_program.actual_rsp), line:252:16, endln:252:26, parent:work@test_program
           |vpiTypespec:
           \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
@@ -19100,11 +19378,34 @@ design: (work@top)
           |vpiName:exp_cmd
           |vpiFullName:work@test_program.exp_cmd
         |vpiVariables:
+        \_struct_var: (work@test_program.actual_cmd), line:284:19, endln:284:29, parent:work@test_program
+          |vpiTypespec:
+          \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
+          |vpiName:actual_cmd
+          |vpiFullName:work@test_program.actual_cmd
+        |vpiVariables:
+        \_struct_var: (work@test_program.exp_cmd), line:284:31, endln:284:38, parent:work@test_program
+          |vpiTypespec:
+          \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
+          |vpiName:exp_cmd
+          |vpiFullName:work@test_program.exp_cmd
+        |vpiVariables:
         \_struct_var: (work@test_program.rsp), line:285:19, endln:285:22, parent:work@test_program
           |vpiTypespec:
           \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
           |vpiName:rsp
           |vpiFullName:work@test_program.rsp
+        |vpiVariables:
+        \_struct_var: (work@test_program.rsp), line:285:19, endln:285:22, parent:work@test_program
+          |vpiTypespec:
+          \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
+          |vpiName:rsp
+          |vpiFullName:work@test_program.rsp
+        |vpiVariables:
+        \_int_var: (work@test_program.backpressure_cycles), line:287:21, endln:287:40, parent:work@test_program
+          |vpiName:backpressure_cycles
+          |vpiFullName:work@test_program.backpressure_cycles
+          |vpiAutomatic:1
         |vpiVariables:
         \_int_var: (work@test_program.backpressure_cycles), line:287:21, endln:287:40, parent:work@test_program
           |vpiName:backpressure_cycles
@@ -19398,6 +19699,24 @@ design: (work@top)
           |vpiName:cmd
           |vpiFullName:work@test_program.cmd
         |vpiVariables:
+        \_struct_var: (work@test_program.cmd), line:394:16, endln:394:19, parent:work@test_program
+          |vpiTypespec:
+          \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
+          |vpiName:cmd
+          |vpiFullName:work@test_program.cmd
+        |vpiVariables:
+        \_struct_var: (work@test_program.actual_rsp), line:395:16, endln:395:26, parent:work@test_program
+          |vpiTypespec:
+          \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
+          |vpiName:actual_rsp
+          |vpiFullName:work@test_program.actual_rsp
+        |vpiVariables:
+        \_struct_var: (work@test_program.exp_rsp), line:395:28, endln:395:35, parent:work@test_program
+          |vpiTypespec:
+          \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
+          |vpiName:exp_rsp
+          |vpiFullName:work@test_program.exp_rsp
+        |vpiVariables:
         \_struct_var: (work@test_program.actual_rsp), line:395:16, endln:395:26, parent:work@test_program
           |vpiTypespec:
           \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
@@ -19557,11 +19876,34 @@ design: (work@top)
           |vpiName:exp_cmd
           |vpiFullName:work@test_program.exp_cmd
         |vpiVariables:
+        \_struct_var: (work@test_program.actual_cmd), line:427:19, endln:427:29, parent:work@test_program
+          |vpiTypespec:
+          \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
+          |vpiName:actual_cmd
+          |vpiFullName:work@test_program.actual_cmd
+        |vpiVariables:
+        \_struct_var: (work@test_program.exp_cmd), line:427:31, endln:427:38, parent:work@test_program
+          |vpiTypespec:
+          \_struct_typespec: (Command), line:45:12, endln:45:18, parent:work@test_program
+          |vpiName:exp_cmd
+          |vpiFullName:work@test_program.exp_cmd
+        |vpiVariables:
         \_struct_var: (work@test_program.rsp), line:428:19, endln:428:22, parent:work@test_program
           |vpiTypespec:
           \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
           |vpiName:rsp
           |vpiFullName:work@test_program.rsp
+        |vpiVariables:
+        \_struct_var: (work@test_program.rsp), line:428:19, endln:428:22, parent:work@test_program
+          |vpiTypespec:
+          \_struct_typespec: (Response), line:56:12, endln:56:18, parent:work@test_program
+          |vpiName:rsp
+          |vpiFullName:work@test_program.rsp
+        |vpiVariables:
+        \_int_var: (work@test_program.backpressure_cycles), line:430:21, endln:430:40, parent:work@test_program
+          |vpiName:backpressure_cycles
+          |vpiFullName:work@test_program.backpressure_cycles
+          |vpiAutomatic:1
         |vpiVariables:
         \_int_var: (work@test_program.backpressure_cycles), line:430:21, endln:430:40, parent:work@test_program
           |vpiName:backpressure_cycles
@@ -20013,4 +20355,7 @@ design: (work@top)
 [  ERROR] : 4
 [WARNING] : 3
 [   NOTE] : 8
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/DollarRoot/dut.sv | ${SURELOG_DIR}/build/regression/DollarRoot/roundtrip/dut_000.sv | 200 | 806 | 
 

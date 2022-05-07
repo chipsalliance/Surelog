@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/FuncStatic/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/FuncStatic/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -251,11 +251,11 @@ n<> u<226> t<Top_level_rule> l<1:1> el<21:1>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/FuncStatic/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/FuncStatic/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/FuncStatic/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/FuncStatic/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/FuncStatic/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/FuncStatic/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -368,6 +368,8 @@ design: (work@test)
     |vpiStmt:
     \_begin: (work@test.accumulate1), parent:work@test.accumulate1
       |vpiFullName:work@test.accumulate1
+      |vpiVariables:
+      \_int_var: (work@test.accumulate1.acc), line:4:14, endln:4:17
       |vpiStmt:
       \_assign_stmt: , line:4:14, endln:4:21, parent:work@test.accumulate1
         |vpiRhs:
@@ -434,6 +436,8 @@ design: (work@test)
     |vpiStmt:
     \_begin: (work@test.accumulate2), parent:work@test.accumulate2
       |vpiFullName:work@test.accumulate2
+      |vpiVariables:
+      \_int_var: (work@test.accumulate2.acc), line:10:7, endln:10:10
       |vpiStmt:
       \_assign_stmt: , line:10:7, endln:10:14, parent:work@test.accumulate2
         |vpiRhs:
@@ -564,6 +568,10 @@ design: (work@test)
     |vpiStmt:
     \_begin: (work@test.accumulate1), parent:work@test.accumulate1
       |vpiFullName:work@test.accumulate1
+      |vpiVariables:
+      \_int_var: (work@test.accumulate1.acc), line:4:14, endln:4:17, parent:work@test.accumulate1
+        |vpiName:acc
+        |vpiFullName:work@test.accumulate1.acc
       |vpiStmt:
       \_assign_stmt: , line:4:14, endln:4:21, parent:work@test.accumulate1
         |vpiRhs:
@@ -627,6 +635,10 @@ design: (work@test)
     |vpiStmt:
     \_begin: (work@test.accumulate2), parent:work@test.accumulate2
       |vpiFullName:work@test.accumulate2
+      |vpiVariables:
+      \_int_var: (work@test.accumulate2.acc), line:10:7, endln:10:10, parent:work@test.accumulate2
+        |vpiName:acc
+        |vpiFullName:work@test.accumulate2.acc
       |vpiStmt:
       \_assign_stmt: , line:10:7, endln:10:14, parent:work@test.accumulate2
         |vpiRhs:
@@ -677,4 +689,7 @@ design: (work@test)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/FuncStatic/dut.sv | ${SURELOG_DIR}/build/regression/FuncStatic/roundtrip/dut_000.sv | 5 | 20 | 
 

@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/FuncBindGen/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/FuncBindGen/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -197,11 +197,11 @@ n<> u<170> t<Top_level_rule> l<1:1> el<15:1>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/FuncBindGen/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/FuncBindGen/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/FuncBindGen/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/FuncBindGen/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/FuncBindGen/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/FuncBindGen/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -382,6 +382,21 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@top.get_casted_param), parent:work@top.get_casted_param
       |vpiFullName:work@top.get_casted_param
+      |vpiVariables:
+      \_logic_var: (work@top.get_casted_param.dec_tmp_sub), line:7:32, endln:7:43, parent:work@top.get_casted_param
+        |vpiName:dec_tmp_sub
+        |vpiFullName:work@top.get_casted_param.dec_tmp_sub
+        |vpiRange:
+        \_range: , line:7:17, endln:7:30, parent:work@top.get_casted_param.dec_tmp_sub
+          |vpiLeftRange:
+          \_operation: , line:7:17, endln:7:28
+            |vpiOpType:11
+            |vpiOperand:
+            \_constant: , line:7:17, endln:7:26
+            |vpiOperand:
+            \_constant: , line:7:27, endln:7:28
+          |vpiRightRange:
+          \_constant: , line:7:29, endln:7:30
       |vpiStmt:
       \_assign_stmt: , line:7:32, endln:7:65, parent:work@top.get_casted_param
         |vpiRhs:
@@ -471,4 +486,7 @@ design: (work@top)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/FuncBindGen/dut.sv | ${SURELOG_DIR}/build/regression/FuncBindGen/roundtrip/dut_000.sv | 6 | 14 | 
 

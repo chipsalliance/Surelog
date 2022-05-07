@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/VarInFunc/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/VarInFunc/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -397,11 +397,11 @@ n<> u<248> t<Top_level_rule> f<0> l<0:11>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/VarInFunc/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/VarInFunc/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/VarInFunc/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/VarInFunc/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/VarInFunc/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/VarInFunc/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -584,7 +584,11 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_ref_var: 
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@top
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
     |vpiName:status
@@ -795,6 +799,8 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@top.compute_next_state), parent:work@top.compute_next_state
       |vpiFullName:work@top.compute_next_state
+      |vpiVariables:
+      \_logic_var: (work@top.compute_next_state.function_variable), line:3:17, endln:3:34
       |vpiStmt:
       \_assign_stmt: , line:4:5, endln:4:36, parent:work@top.compute_next_state
         |vpiRhs:
@@ -900,6 +906,16 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@top.compute_next_state), parent:work@top.compute_next_state
       |vpiFullName:work@top.compute_next_state
+      |vpiVariables:
+      \_logic_var: (work@top.compute_next_state.function_variable), line:3:17, endln:3:34, parent:work@top.compute_next_state
+        |vpiName:function_variable
+        |vpiFullName:work@top.compute_next_state.function_variable
+        |vpiRange:
+        \_range: , line:3:12, endln:3:15, parent:work@top.compute_next_state.function_variable
+          |vpiLeftRange:
+          \_constant: , line:3:12, endln:3:13
+          |vpiRightRange:
+          \_constant: , line:3:14, endln:3:15
       |vpiStmt:
       \_assign_stmt: , line:4:5, endln:4:36, parent:work@top.compute_next_state
         |vpiRhs:
@@ -986,4 +1002,7 @@ design: (work@top)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 6
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/VarInFunc/dut.sv | ${SURELOG_DIR}/build/regression/VarInFunc/roundtrip/dut_000.sv | 5 | 9 | 
 

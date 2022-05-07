@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/PackageFuncCall/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/PackageFuncCall/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -777,11 +777,11 @@ n<> u<248> t<Top_level_rule> f<0> l<0:11>
 
 [ERR:UH0718] dut.sv:37:12: Illegal lhs of type wire "data_o".
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/PackageFuncCall/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/PackageFuncCall/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/PackageFuncCall/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/PackageFuncCall/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/PackageFuncCall/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/PackageFuncCall/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -1094,6 +1094,16 @@ design: (work@top)
     |vpiStmt:
     \_begin: (prim_cipher_pkg::sbox4_64bit), parent:prim_cipher_pkg::sbox4_64bit
       |vpiFullName:prim_cipher_pkg::sbox4_64bit
+      |vpiVariables:
+      \_logic_var: (prim_cipher_pkg::sbox4_64bit::state_out), line:9:18, endln:9:27, parent:prim_cipher_pkg::sbox4_64bit
+        |vpiName:state_out
+        |vpiFullName:prim_cipher_pkg::sbox4_64bit::state_out
+        |vpiRange:
+        \_range: , line:9:12, endln:9:16, parent:prim_cipher_pkg::sbox4_64bit::state_out
+          |vpiLeftRange:
+          \_constant: , line:9:12, endln:9:14
+          |vpiRightRange:
+          \_constant: , line:9:15, endln:9:16
       |vpiStmt:
       \_for_stmt: (prim_cipher_pkg::sbox4_64bit), line:11:5, endln:11:8, parent:prim_cipher_pkg::sbox4_64bit
         |vpiFullName:prim_cipher_pkg::sbox4_64bit
@@ -1549,6 +1559,16 @@ design: (work@top)
     |vpiStmt:
     \_begin: (prim_cipher_pkg::sbox4_64bit), parent:prim_cipher_pkg::sbox4_64bit
       |vpiFullName:prim_cipher_pkg::sbox4_64bit
+      |vpiVariables:
+      \_logic_var: (prim_cipher_pkg::sbox4_64bit::state_out), line:9:18, endln:9:27, parent:prim_cipher_pkg::sbox4_64bit
+        |vpiName:state_out
+        |vpiFullName:prim_cipher_pkg::sbox4_64bit::state_out
+        |vpiRange:
+        \_range: , line:9:12, endln:9:16, parent:prim_cipher_pkg::sbox4_64bit::state_out
+          |vpiLeftRange:
+          \_constant: , line:9:12, endln:9:14
+          |vpiRightRange:
+          \_constant: , line:9:15, endln:9:16
       |vpiStmt:
       \_for_stmt: (prim_cipher_pkg::sbox4_64bit), line:11:5, endln:11:8, parent:prim_cipher_pkg::sbox4_64bit
         |vpiFullName:prim_cipher_pkg::sbox4_64bit
@@ -1821,7 +1841,11 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_ref_var: 
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@top
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
     |vpiName:status
@@ -2300,4 +2324,7 @@ design: (work@top)
 [  ERROR] : 3
 [WARNING] : 2
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/PackageFuncCall/dut.sv | ${SURELOG_DIR}/build/regression/PackageFuncCall/roundtrip/dut_000.sv | 16 | 42 | 
 

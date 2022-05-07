@@ -1,12 +1,12 @@
-[INF:CM0023] Creating log file ../../build/tests/LowMemPkg/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/LowMemPkg/slpp_all/surelog.log.
 
 [INF:CM0024] Executing with 8 threads.
 
 [INF:CM0024] Executing with 1 threads.
 
-Running: cd ../../build/tests/LowMemPkg/slpp_all;${SURELOG_DIR}/build/bin/surelog -nostdout -batch pp_batch.txt
+Running: cd ../../build/regression/LowMemPkg/slpp_all;${SURELOG_DIR}/build/bin/surelog -nostdout -batch pp_batch.txt
 Surelog preproc status: 0
-Running: cd ../../build/tests/LowMemPkg/slpp_all;${SURELOG_DIR}/build/bin/surelog -nostdout -batch parser_batch.txt
+Running: cd ../../build/regression/LowMemPkg/slpp_all;${SURELOG_DIR}/build/bin/surelog -nostdout -batch parser_batch.txt
 Surelog parsing status: 0
 LIB:  work
 FILE: wddr_pkg.sv
@@ -91,11 +91,11 @@ n<> u<37> t<Top_level_rule> f<20> l<3:1> el<9:1>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/LowMemPkg/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/LowMemPkg/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/LowMemPkg/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/LowMemPkg/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/LowMemPkg/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/LowMemPkg/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -171,4 +171,8 @@ design: (work@top)
 [  ERROR] : 0
 [WARNING] : 2
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/LowMemPkg/dut.sv      | ${SURELOG_DIR}/build/regression/LowMemPkg/roundtrip/dut_000.sv      | 2 | 8 | 
+[roundtrip]: ${SURELOG_DIR}/tests/LowMemPkg/wddr_pkg.sv | ${SURELOG_DIR}/build/regression/LowMemPkg/roundtrip/wddr_pkg_000.sv | 14 | 22 | 
 

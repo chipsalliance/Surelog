@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/FuncStruct/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/FuncStruct/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -253,11 +253,11 @@ n<> u<224> t<Top_level_rule> l<1:1> el<20:1>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/FuncStruct/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/FuncStruct/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/FuncStruct/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/FuncStruct/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/FuncStruct/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/FuncStruct/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -397,6 +397,13 @@ design: (work@dut)
     |vpiStmt:
     \_begin: (hmac_pkg::compress), parent:hmac_pkg::compress
       |vpiFullName:hmac_pkg::compress
+      |vpiVariables:
+      \_logic_var: (hmac_pkg::compress::sigma_0), line:4:24, endln:4:31, parent:hmac_pkg::compress
+        |vpiTypespec:
+        \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:14, parent:hmac_pkg::
+        |vpiName:sigma_0
+        |vpiFullName:hmac_pkg::compress::sigma_0
+        |vpiAutomatic:1
       |vpiStmt:
       \_assignment: , line:6:3, endln:6:25, parent:hmac_pkg::compress
         |vpiOpType:82
@@ -574,6 +581,13 @@ design: (work@dut)
     |vpiStmt:
     \_begin: (hmac_pkg::compress), parent:hmac_pkg::compress
       |vpiFullName:hmac_pkg::compress
+      |vpiVariables:
+      \_logic_var: (hmac_pkg::compress::sigma_0), line:4:24, endln:4:31, parent:hmac_pkg::compress
+        |vpiTypespec:
+        \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:14, parent:work@dut
+        |vpiName:sigma_0
+        |vpiFullName:hmac_pkg::compress::sigma_0
+        |vpiAutomatic:1
       |vpiStmt:
       \_assignment: , line:6:3, endln:6:25, parent:hmac_pkg::compress
         |vpiOpType:82
@@ -658,6 +672,8 @@ design: (work@dut)
     |vpiStmt:
     \_begin: (hmac_pkg::compress), parent:hmac_pkg::compress
       |vpiFullName:hmac_pkg::compress
+      |vpiVariables:
+      \_logic_var: (hmac_pkg::compress::sigma_0), line:4:24, endln:4:31
       |vpiStmt:
       \_assignment: , line:6:3, endln:6:25, parent:hmac_pkg::compress
         |vpiOpType:82
@@ -874,6 +890,13 @@ design: (work@dut)
     |vpiStmt:
     \_begin: (work@dut.compress), parent:hmac_pkg::compress
       |vpiFullName:work@dut.compress
+      |vpiVariables:
+      \_logic_var: (work@dut.compress.sigma_0), line:4:24, endln:4:31, parent:work@dut.compress
+        |vpiTypespec:
+        \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:14, parent:work@dut
+        |vpiName:sigma_0
+        |vpiFullName:work@dut.compress.sigma_0
+        |vpiAutomatic:1
       |vpiStmt:
       \_assignment: , line:6:3, endln:6:25, parent:work@dut.compress
         |vpiOpType:82
@@ -964,4 +987,7 @@ design: (work@dut)
 [  ERROR] : 0
 [WARNING] : 2
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/FuncStruct/dut.sv | ${SURELOG_DIR}/build/regression/FuncStruct/roundtrip/dut_000.sv | 8 | 19 | 
 
