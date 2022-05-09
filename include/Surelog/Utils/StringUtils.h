@@ -128,9 +128,9 @@ class StringUtils final {
   static std::string replaceAll(std::string_view str, std::string_view from,
                                 std::string_view to);
 
-  // Given a large input, return the content of line number "line". Lines
-  // are 1 indexed.
-  static std::string getLineInString(std::string_view bulk, unsigned int line);
+  // Given a large input, return the content of line number "line".
+  // Lines are 1 indexed.
+  static std::string getLineInString(std::string_view bulk, int line);
 
   // Convert double number with given amount of precision.
   static std::string to_string(double a_value, const int n = 3);

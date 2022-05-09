@@ -179,17 +179,33 @@ TEST(StringUtilsTest, ReplaceAll) {
 }
 
 TEST(StringUtilsTest, GetLineInString) {
-  constexpr std::string_view input_text = "one\ntwo\nthree\nno-newline";
-  // Lines are one-indexed
-  EXPECT_EQ("one\n", StringUtils::getLineInString(input_text, 1));
-  EXPECT_EQ("two\n", StringUtils::getLineInString(input_text, 2));
-  EXPECT_EQ("three\n", StringUtils::getLineInString(input_text, 3));
-  // If bulk ends without newline, the line is still valid.
-  EXPECT_EQ("no-newline", StringUtils::getLineInString(input_text, 4));
+  {
+    constexpr std::string_view input_text = "one\ntwo\nthree\nno-newline";
+    // Lines are one-indexed
+    EXPECT_EQ("one\n", StringUtils::getLineInString(input_text, 1));
+    EXPECT_EQ("two\n", StringUtils::getLineInString(input_text, 2));
+    EXPECT_EQ("three\n", StringUtils::getLineInString(input_text, 3));
+    // If bulk ends without newline, the line is still valid.
+    EXPECT_EQ("no-newline", StringUtils::getLineInString(input_text, 4));
 
-  // Out-of-range accesses.
-  EXPECT_EQ("", StringUtils::getLineInString(input_text, 0));
-  EXPECT_EQ("", StringUtils::getLineInString(input_text, 5));
+    // Out-of-range accesses.
+    EXPECT_TRUE(StringUtils::getLineInString(input_text, -1).empty());
+    EXPECT_TRUE(StringUtils::getLineInString(input_text, 0).empty());
+    auto foo = StringUtils::getLineInString(input_text, 5);
+    EXPECT_TRUE(foo.empty()) << "'" << foo << "'";
+    // EXPECT_TRUE(StringUtils::getLineInString(input_text, 5).empty());
+    EXPECT_TRUE(StringUtils::getLineInString(input_text, 42).empty());
+  }
+  {
+    constexpr std::string_view empty_text;
+    EXPECT_TRUE(StringUtils::getLineInString(empty_text, 0).empty());
+    EXPECT_TRUE(StringUtils::getLineInString(empty_text, 1).empty());
+  }
+  {
+    constexpr std::string_view just_newline = "\n";
+    EXPECT_EQ("\n", StringUtils::getLineInString(just_newline, 1));
+    EXPECT_TRUE(StringUtils::getLineInString(just_newline, 2).empty());
+  }
 }
 
 TEST(StringUtilsTest, RemoveComments) {
