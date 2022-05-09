@@ -69,8 +69,7 @@ fs::path ParseCache::getCacheFileName_(const fs::path& svFileNameIn) {
       int nbSlash = 0;
       // Bring back the .slpa file in the cache dir instead of alongside the
       // writepp source file
-      for (unsigned int i = 0; i < svFileTemp.size(); i++) {
-        char c = svFileTemp[i];
+      for (char c : svFileTemp) {
         if (nbSlash >= 2) {
           svFile += c;
         }
