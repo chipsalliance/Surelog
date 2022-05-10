@@ -208,6 +208,13 @@ TEST(StringUtilsTest, GetLineInString) {
   }
 }
 
+TEST(StringUtilsTest, SplitLines) {
+  EXPECT_THAT(StringUtils::splitLines(""), ElementsAre());
+  EXPECT_THAT(StringUtils::splitLines("\n"), ElementsAre("\n"));
+  EXPECT_THAT(StringUtils::splitLines("foo\nbar"), ElementsAre("foo\n", "bar"));
+  EXPECT_THAT(StringUtils::splitLines("\nfoo\n"), ElementsAre("\n", "foo\n"));
+}
+
 TEST(StringUtilsTest, RemoveComments) {
   EXPECT_EQ("hello ", StringUtils::removeComments("hello // world"));
   EXPECT_EQ("hello ", StringUtils::removeComments("hello # world"));

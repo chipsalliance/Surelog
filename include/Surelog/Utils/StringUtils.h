@@ -130,7 +130,12 @@ class StringUtils final {
 
   // Given a large input, return the content of line number "line".
   // Lines are 1 indexed.
-  static std::string getLineInString(std::string_view bulk, int line);
+  static std::string_view getLineInString(std::string_view text, int line);
+
+  // Split input text into lines at '\n'. This separator is included in the
+  // returned lines; the last line in text might not have a newline so might
+  // not be included.
+  static std::vector<std::string_view> splitLines(std::string_view text);
 
   // Convert double number with given amount of precision.
   static std::string to_string(double a_value, const int n = 3);

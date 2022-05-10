@@ -265,27 +265,33 @@ static std::string_view SplitNext(std::string_view* src, char separator) {
 
   std::string_view result;
   if (auto pos = src->find_first_of(separator); pos != std::string_view::npos) {
-    size_t element_len = pos + 1;
+    const size_t element_len = pos + 1;
     result = src->substr(0, element_len);
     *src = src->substr(element_len);
   } else {
-    result = *src;                    // Remainder
+    result = *src;                    // Remainder.
     *src = src->substr(src->size());  // Empty string, placed at end.
   }
   return result;
 }
 
-// TODO: have this return std::string_view to avoid copying the string,
-// but first we need a unit test.
-std::string StringUtils::getLineInString(std::string_view bulk, int line) {
+std::string_view StringUtils::getLineInString(std::string_view text, int line) {
   if (line < 1) return "";
 
   std::string_view s;
-  while (line && (s = SplitNext(&bulk, '\n'), s.data()) != nullptr) {
+  while (line && (s = SplitNext(&text, '\n'), s.data()) != nullptr) {
     --line;
   }
-  if (!s.data()) return "";
-  return std::string(s);
+  return s;
+}
+
+std::vector<std::string_view> StringUtils::splitLines(std::string_view text) {
+  std::vector<std::string_view> result;
+  std::string_view s;
+  while ((s = SplitNext(&text, '\n'), s.data()) != nullptr) {
+    result.push_back(s);
+  }
+  return result;
 }
 
 std::string StringUtils::removeComments(std::string_view text) {
