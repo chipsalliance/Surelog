@@ -42,23 +42,60 @@ design: (unnamed)
 \_package: pack (pack::) dut.sv:1:1: , endln:27:11, parent:unnamed
   |vpiName:pack
   |vpiFullName:pack::
+  |vpiVariables:
+  \_string_var: (pack::uvm_aa_string_key), line:5:8, endln:5:25, parent:pack::
+    |vpiTypespec:
+    \_string_typespec: , line:5:1, endln:5:7
+      |vpiInstance:
+      \_package: (pack), file:
+    |vpiName:uvm_aa_string_key
+    |vpiFullName:pack::uvm_aa_string_key
+    |vpiAutomatic:1
+    |vpiVisibility:1
+  |vpiVariables:
+  \_enum_var: (pack::m_uvm_core_state), line:14:16, endln:14:32, parent:pack::
+    |vpiTypespec:
+    \_enum_typespec: (pack::uvm_core_state), line:7:1, endln:12:18, parent:pack::
+      |vpiName:pack::uvm_core_state
+      |vpiInstance:
+      \_package: pack (pack::) dut.sv:1:1: , endln:27:11, parent:unnamed
+      |vpiEnumConst:
+      \_enum_const: (UVM_CORE_UNINITIALIZED), line:9:1, endln:9:23
+        |vpiName:UVM_CORE_UNINITIALIZED
+        |INT:0
+        |vpiDecompile:0
+        |vpiSize:64
+      |vpiEnumConst:
+      \_enum_const: (UVM_CORE_PRE_INIT), line:10:1, endln:10:18
+        |vpiName:UVM_CORE_PRE_INIT
+        |INT:1
+        |vpiDecompile:1
+        |vpiSize:64
+    |vpiName:m_uvm_core_state
+    |vpiFullName:pack::m_uvm_core_state
+    |vpiVisibility:1
+    |vpiExpr:
+    \_ref_obj: (UVM_CORE_UNINITIALIZED), line:14:35, endln:14:57
+      |vpiName:UVM_CORE_UNINITIALIZED
+  |vpiVariables:
+  \_int_var: (pack::DO_NOT_CATCH_2), line:24:18, endln:24:40, parent:pack::
+    |vpiTypespec:
+    \_int_typespec: , line:24:14, endln:24:17
+      |vpiInstance:
+      \_package: (pack), file:
+      |vpiSigned:1
+    |vpiName:DO_NOT_CATCH_2
+    |vpiFullName:pack::DO_NOT_CATCH_2
+    |vpiConstantVariable:1
+    |vpiVisibility:1
+    |vpiExpr:
+    \_constant: , line:24:39, endln:24:40
+      |vpiDecompile:1
+      |vpiSize:32
+      |UINT:1
+      |vpiConstType:9
   |vpiTypedef:
   \_enum_typespec: (pack::uvm_core_state), line:7:1, endln:12:18, parent:pack::
-    |vpiName:pack::uvm_core_state
-    |vpiInstance:
-    \_package: pack (pack::) dut.sv:1:1: , endln:27:11, parent:unnamed
-    |vpiEnumConst:
-    \_enum_const: (UVM_CORE_UNINITIALIZED), line:9:1, endln:9:23
-      |vpiName:UVM_CORE_UNINITIALIZED
-      |INT:0
-      |vpiDecompile:0
-      |vpiSize:64
-    |vpiEnumConst:
-    \_enum_const: (UVM_CORE_PRE_INIT), line:10:1, endln:10:18
-      |vpiName:UVM_CORE_PRE_INIT
-      |INT:1
-      |vpiDecompile:1
-      |vpiSize:64
   |vpiDefName:pack
   |vpiTaskFunc:
   \_function: (pack::uvm_hdl_check_path), line:3:1, endln:3:69, parent:pack::
@@ -81,21 +118,9 @@ design: (unnamed)
     |vpiInstance:
     \_package: pack (pack::) dut.sv:1:1: , endln:27:11, parent:unnamed
   |vpiNet:
-  \_logic_net: (pack::uvm_aa_string_key), line:5:8, endln:5:25, parent:pack::
-    |vpiName:uvm_aa_string_key
-    |vpiFullName:pack::uvm_aa_string_key
-  |vpiNet:
-  \_logic_net: (pack::m_uvm_core_state), line:14:16, endln:14:32, parent:pack::
-    |vpiName:m_uvm_core_state
-    |vpiFullName:pack::m_uvm_core_state
-  |vpiNet:
   \_logic_net: (pack::uvm_deferred_init), line:17:20, endln:17:37, parent:pack::
     |vpiName:uvm_deferred_init
     |vpiFullName:pack::uvm_deferred_init
-  |vpiNet:
-  \_logic_net: (pack::DO_NOT_CATCH_2), line:24:18, endln:24:32, parent:pack::
-    |vpiName:DO_NOT_CATCH_2
-    |vpiFullName:pack::DO_NOT_CATCH_2
 |uhdmtopPackages:
 \_package: pack (pack::) dut.sv:1:1: , endln:27:11, parent:unnamed
   |vpiName:pack
@@ -207,5 +232,5 @@ design: (unnamed)
 [   NOTE] : 4
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/PackageDpi/dut.sv | ${SURELOG_DIR}/build/regression/PackageDpi/roundtrip/dut_000.sv | 4 | 27 | 
+[roundtrip]: ${SURELOG_DIR}/tests/PackageDpi/dut.sv | ${SURELOG_DIR}/build/regression/PackageDpi/roundtrip/dut_000.sv | 5 | 27 | 
 

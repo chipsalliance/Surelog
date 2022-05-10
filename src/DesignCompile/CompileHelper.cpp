@@ -259,7 +259,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
         }
         if (!duplicate) {
           if (inPackage) {
-            ElaboratorListener listener(&s);
+            ElaboratorListener listener(&s, false, /*mute errors */ true);
             task_func* clone =
                 (task_func*)UHDM::clone_tree((any*)func, s, &listener);
             sfuncs->push_back(clone);

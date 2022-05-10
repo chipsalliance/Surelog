@@ -1026,29 +1026,27 @@ void writePackage(Package* pack, package* p, Serializer& s,
         ((task_func*)tf)->VpiFullName(pack->getName() + "::" + tf->VpiName());
       }
     }
-
-    // Variables
-    Netlist* netlist = pack->getNetlist();
-    if (netlist) {
-      p->Variables(netlist->variables());
-      if (netlist->variables()) {
-        for (auto obj : *netlist->variables()) {
-          obj->VpiParent(p);
-          ((variables*)obj)
-              ->VpiFullName(pack->getName() + "::" + obj->VpiName());
-        }
+  }
+  // Variables
+  Netlist* netlist = pack->getNetlist();
+  if (netlist) {
+    p->Variables(netlist->variables());
+    if (netlist->variables()) {
+      for (auto obj : *netlist->variables()) {
+        obj->VpiParent(p);
+        ((variables*)obj)->VpiFullName(pack->getName() + "::" + obj->VpiName());
       }
     }
-    // Nets
-    UhdmWriter::SignalBaseClassMap signalBaseMap;
-    UhdmWriter::SignalMap portMap;
-    UhdmWriter::SignalMap netMap;
-    std::vector<Signal*> orig_nets = pack->getSignals();
-    VectorOfnet* dest_nets = s.MakeNetVec();
-    writeNets(orig_nets, p, dest_nets, s, signalBaseMap, netMap, portMap,
-              nullptr);
-    p->Nets(dest_nets);
   }
+  // Nets
+  UhdmWriter::SignalBaseClassMap signalBaseMap;
+  UhdmWriter::SignalMap portMap;
+  UhdmWriter::SignalMap netMap;
+  std::vector<Signal*> orig_nets = pack->getSignals();
+  VectorOfnet* dest_nets = s.MakeNetVec();
+  writeNets(orig_nets, p, dest_nets, s, signalBaseMap, netMap, portMap,
+            nullptr);
+  p->Nets(dest_nets);
 }
 
 void UhdmWriter::writeModule(ModuleDefinition* mod, module* m, Serializer& s,
