@@ -79,24 +79,29 @@ bool NetlistElaboration::elaboratePackages() {
   // Packages
   auto& packageDefs = design->getPackageDefinitions();
   for (auto& packageDef : packageDefs) {
-    Package* pack = packageDef.second;
-    Netlist* netlist = new Netlist(nullptr);
-    pack->setNetlist(netlist);
-    // Variables and nets in Packages
-    std::set<Signal*> notSignals;
-    TypespecCache tscache;
-    for (Signal* sig : pack->getSignals()) {
-      if (!elabSignal(sig, nullptr, nullptr, nullptr, netlist, pack, "", false,
-                      tscache)) {
-        notSignals.insert(sig);
+    Package* p = packageDef.second;
+    for (Package* pack : {p->getUnElabPackage(), p}) {
+      if (pack->getNetlist() == nullptr) {
+        Netlist* netlist = new Netlist(nullptr);
+        pack->setNetlist(netlist);
       }
-    }
-    for (auto sig : notSignals) {
-      for (std::vector<Signal*>::iterator itr = pack->getSignals().begin();
-           itr != pack->getSignals().end(); itr++) {
-        if ((*itr) == sig) {
-          pack->getSignals().erase(itr);
-          break;
+      Netlist* netlist = pack->getNetlist();
+      // Variables and nets in Packages
+      std::set<Signal*> notSignals;
+      TypespecCache tscache;
+      for (Signal* sig : pack->getSignals()) {
+        if (!elabSignal(sig, nullptr, nullptr, nullptr, netlist, pack, "",
+                        false, tscache)) {
+          notSignals.insert(sig);
+        }
+      }
+      for (auto sig : notSignals) {
+        for (std::vector<Signal*>::iterator itr = pack->getSignals().begin();
+             itr != pack->getSignals().end(); itr++) {
+          if ((*itr) == sig) {
+            pack->getSignals().erase(itr);
+            break;
+          }
         }
       }
     }
@@ -1509,6 +1514,8 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
     } else if (ttmp == uhdmbyte_typespec) {
       isNet = false;
     } else if (ttmp == uhdmreal_typespec) {
+      isNet = false;
+    } else if (ttmp == uhdmclass_typespec) {
       isNet = false;
     } else if (ttmp == uhdminterface_typespec) {
       if (!signalIsPort) {
