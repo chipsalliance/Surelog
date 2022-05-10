@@ -208,13 +208,22 @@ std::vector<SymbolId> FileUtils::collectFiles(const fs::path& pathSpec,
 
 std::string FileUtils::getFileContent(const fs::path& filename) {
   std::ifstream in(filename, std::ios::in | std::ios::binary);
+  std::string result;
+
   if (in) {
-    std::string result;
-    result.assign(std::istreambuf_iterator<char>(in),
-                  std::istreambuf_iterator<char>());
-    return result;
+    std::error_code err;
+    const size_t prealloc = fs::file_size(filename, err);
+    if (err.value() == 0) result.reserve(prealloc);
+
+    char buffer[4096];
+    while (in.good() && !in.eof()) {
+      in.read(buffer, sizeof(buffer));
+      result.append(buffer, in.gcount());
+    }
+  } else {
+    result = "FAILED_TO_LOAD_CONTENT";
   }
-  return "FAILED_TO_LOAD_CONTENT";
+  return result;
 }
 
 fs::path FileUtils::getPathName(const fs::path& path) {
