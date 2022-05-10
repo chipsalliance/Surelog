@@ -724,7 +724,7 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
           compileDesign->getCompiler()->getErrorContainer();
       SymbolTable *symbols = compileDesign->getCompiler()->getSymbolTable();
       std::string fileContent = FileUtils::getFileContent(fileName);
-      std::string lineText =
+      std::string_view lineText =
           StringUtils::getLineInString(fileContent, lineNumber);
       Location loc(symbols->registerSymbol(fileName.string()), lineNumber, 0,
                    symbols->registerSymbol(lineText));
@@ -2981,16 +2981,15 @@ UHDM::any *CompileHelper::compileExpression(
       SymbolTable *symbols = compileDesign->getCompiler()->getSymbolTable();
       unsupported_expr *exp = s.MakeUnsupported_expr();
       std::string fileContent = FileUtils::getFileContent(fC->getFileName());
-      std::string lineText =
+      std::string_view lineText =
           StringUtils::getLineInString(fileContent, fC->Line(the_node));
-      Location loc(
-          symbols->registerSymbol(fC->getFileName(the_node).string()),
-          fC->Line(the_node), 0,
-          symbols->registerSymbol(std::string("<") + fC->printObject(the_node) +
-                                  std::string("> ") + lineText));
+      Location loc(symbols->registerSymbol(fC->getFileName(the_node).string()),
+                   fC->Line(the_node), 0,
+                   symbols->registerSymbol(
+                       StrCat("<", fC->printObject(the_node), "> ", lineText)));
       Error err(ErrorDefinition::UHDM_UNSUPPORTED_EXPR, loc);
       errors->addError(err);
-      exp->VpiValue("STRING:" + lineText);
+      exp->VpiValue(StrCat("STRING:", lineText));
       exp->VpiFile(fC->getFileName(the_node));
       exp->VpiLineNo(fC->Line(the_node));
       exp->VpiColumnNo(fC->Column(the_node));
@@ -3224,11 +3223,11 @@ bool CompileHelper::errorOnNegativeConstant(
       instanceName = component->getName();
     }
     std::string message;
-    message += "\"" + instanceName + "\"\n";
-    std::string fileContent = FileUtils::getFileContent(fileName);
-    std::string lineText = StringUtils::getLineInString(fileContent, lineNo);
-    message += "             text: " + lineText;
-    message += "             value: " + val;
+    StrAppend(&message, '"', instanceName, "\"\n");
+    const std::string &fileContent = FileUtils::getFileContent(fileName);
+    auto lineText = StringUtils::getLineInString(fileContent, lineNo);
+    StrAppend(&message, "             text: ", lineText);
+    StrAppend(&message, "             value: ", val);
     ErrorContainer *errors = compileDesign->getCompiler()->getErrorContainer();
     SymbolTable *symbols = compileDesign->getCompiler()->getSymbolTable();
     Location loc(symbols->registerSymbol(fileName.string()), lineNo, columnNo,
@@ -3408,13 +3407,13 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
               instanceName = component->getName();
             }
             std::string message;
-            message += "\"" + instanceName + "\"\n";
+            StrAppend(&message, '"', instanceName, "\"\n");
             std::string fileContent =
                 FileUtils::getFileContent(fC->getFileName().string());
-            std::string lineText =
+            std::string_view lineText =
                 StringUtils::getLineInString(fileContent, fC->Line(rexpr));
-            message += "             text: " + lineText;
-            message += "             value: " + val;
+            StrAppend(&message, "             text: ", lineText);
+            StrAppend(&message, "             value: ", val);
 
             Location loc(symbols->registerSymbol(fC->getFileName().string()),
                          fC->Line(rexpr), fC->Column(rexpr),

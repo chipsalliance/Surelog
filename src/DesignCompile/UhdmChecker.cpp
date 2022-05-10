@@ -254,6 +254,7 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
   static std::multimap<int, std::string> orderedCoverageMap;
   for (const auto& [fC, uhdmCover] : fileNodeCoverMap) {
     std::string fileContent = FileUtils::getFileContent(fC->getFileName());
+    auto fileContentLines = StringUtils::splitLines(fileContent);
     std::ofstream reportF;
     std::string fname = "chk" + std::to_string(fileIndex) + ".html";
     fs::path f = FileUtils::getPathName(reportFile) / fname;
@@ -261,12 +262,6 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
     if (reportF.bad()) return false;
     reportF << "\n<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody {\n\n}\np "
                "{\nfont-size: 14px;\n}</style>\n";
-    unsigned int size = fileContent.size();
-    const char* str = fileContent.c_str();
-    unsigned int count = 1;
-    for (unsigned int i = 0; i < size; i++) {
-      if (str[i] == '\n') count++;
-    }
 
     float cov = 0.0f;
     std::map<fs::path, float>::iterator itr =
@@ -302,16 +297,18 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
     bool uncovered = false;
     std::string pinkCoverage;
     std::string redCoverage;
-    for (unsigned int line = 1; line <= count; line++) {
-      std::string lineText = StringUtils::getLineInString(fileContent, line);
-      lineText = StringUtils::replaceAll(lineText, "\r\n", "");
-      lineText = StringUtils::replaceAll(lineText, "\n", "");
+    int line = 0;
+    for (auto lineText : fileContentLines) {
+      while (!lineText.empty() &&
+             (lineText.back() == '\n' || lineText.back() == '\r')) {
+        lineText = lineText.substr(0, lineText.size() - 1);
+      }
+      ++line;
       RangesMap::const_iterator cItr = uhdmCover.find(line);
 
       if (cItr == uhdmCover.end()) {
         reportF << "<pre style=\"margin:0; padding:0 \">" << std::setw(4)
-                << std::to_string(line) << ": " << lineText
-                << "</pre>\n";  // white
+                << line << ": " << lineText << "</pre>\n";  // white
       } else {
         const Ranges& ranges = (*cItr).second;
         bool covered = false;
@@ -354,17 +351,17 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
               << std::setw(4) << std::to_string(line) << ": " << lineText
               << "</pre>\n";  // pink
           if (uncovered == false) {
-            allUncovered += "<pre></pre>\n";
-            allUncovered += fileStatWhite;
-            allUncovered += "<pre></pre>\n";
+            StrAppend(&allUncovered, "<pre></pre>\n");
+            StrAppend(&allUncovered, fileStatWhite);
+            StrAppend(&allUncovered, "<pre></pre>\n");
             uncovered = true;
           }
           pinkCoverage = fileStatPink;
-          allUncovered +=
+          StrAppend(
+              &allUncovered,
               "<pre style=\"background-color: #FFB6C1; margin:0; padding:0 \"> "
-              "<a href=" +
-              fname + "#id" + std::to_string(line) + ">" + lineText +
-              "</a></pre>\n";
+              "<a href=",
+              fname, "#id", line, ">", lineText, "</a></pre>\n");
         } else if (unsupported) {
           reportF
               << "<pre id=\"id" << line
@@ -372,17 +369,17 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
               << std::setw(4) << std::to_string(line) << ": " << lineText
               << "</pre>\n";  // red
           if (uncovered == false) {
-            allUncovered += "<pre></pre>\n";
-            allUncovered += fileStatWhite;
-            allUncovered += "<pre></pre>\n";
+            StrAppend(&allUncovered, "<pre></pre>\n");
+            StrAppend(&allUncovered, fileStatWhite);
+            StrAppend(&allUncovered, "<pre></pre>\n");
             uncovered = true;
           }
           redCoverage = fileStatRed;
-          allUncovered +=
+          StrAppend(
+              &allUncovered,
               "<pre style=\"background-color: #FF0000; margin:0; padding:0 \"> "
-              "<a href=" +
-              fname + "#id" + std::to_string(line) + ">" + lineText +
-              "</a></pre>\n";
+              "<a href=",
+              fname, "#id", line, ">", lineText, "</a></pre>\n");
         } else {
           reportF << "<pre style=\"background-color: #C0C0C0; margin:0; "
                      "padding:0 \">"

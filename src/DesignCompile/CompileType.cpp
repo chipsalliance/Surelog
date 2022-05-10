@@ -1734,13 +1734,12 @@ UHDM::typespec* CompileHelper::compileTypespec(
           SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
           std::string fileContent =
               FileUtils::getFileContent(fC->getFileName());
-          std::string lineText =
+          std::string_view lineText =
               StringUtils::getLineInString(fileContent, fC->Line(type));
-          Location loc(
-              symbols->registerSymbol(fC->getFileName(type).string()),
-              fC->Line(type), fC->Column(type),
-              symbols->registerSymbol(std::string("<") + fC->printObject(type) +
-                                      std::string("> ") + lineText));
+          Location loc(symbols->registerSymbol(fC->getFileName(type).string()),
+                       fC->Line(type), fC->Column(type),
+                       symbols->registerSymbol(
+                           StrCat("<", fC->printObject(type), "> ", lineText)));
           Error err(ErrorDefinition::UHDM_UNSUPPORTED_TYPE, loc);
           errors->addError(err);
         }
@@ -1756,13 +1755,12 @@ UHDM::typespec* CompileHelper::compileTypespec(
             compileDesign->getCompiler()->getErrorContainer();
         SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
         std::string fileContent = FileUtils::getFileContent(fC->getFileName());
-        std::string lineText =
+        std::string_view lineText =
             StringUtils::getLineInString(fileContent, fC->Line(type));
-        Location loc(
-            symbols->registerSymbol(fC->getFileName(type).string()),
-            fC->Line(type), fC->Column(type),
-            symbols->registerSymbol(std::string("<") + fC->printObject(type) +
-                                    std::string("> ") + lineText));
+        Location loc(symbols->registerSymbol(fC->getFileName(type).string()),
+                     fC->Line(type), fC->Column(type),
+                     symbols->registerSymbol(
+                         StrCat("<", fC->printObject(type), "> ", lineText)));
         Error err(ErrorDefinition::UHDM_UNSUPPORTED_TYPE, loc);
         errors->addError(err);
       }

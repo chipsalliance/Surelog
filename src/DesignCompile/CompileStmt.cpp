@@ -857,16 +857,15 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
       unsupported_stmt* ustmt = s.MakeUnsupported_stmt();
       std::string fileContent = FileUtils::getFileContent(fC->getFileName());
-      std::string lineText =
+      std::string_view lineText =
           StringUtils::getLineInString(fileContent, fC->Line(the_stmt));
-      Location loc(
-          symbols->registerSymbol(fC->getFileName(the_stmt).string()),
-          fC->Line(the_stmt), 0,
-          symbols->registerSymbol(std::string("<") + fC->printObject(the_stmt) +
-                                  std::string("> ") + lineText));
+      Location loc(symbols->registerSymbol(fC->getFileName(the_stmt).string()),
+                   fC->Line(the_stmt), 0,
+                   symbols->registerSymbol(
+                       StrCat("<", fC->printObject(the_stmt), "> ", lineText)));
       Error err(ErrorDefinition::UHDM_UNSUPPORTED_STMT, loc);
       errors->addError(err);
-      ustmt->VpiValue("STRING:" + lineText);
+      ustmt->VpiValue(StrCat("STRING:", lineText));
       ustmt->VpiFile(fC->getFileName(the_stmt));
       ustmt->VpiLineNo(fC->Line(the_stmt));
       ustmt->VpiColumnNo(fC->Column(the_stmt));

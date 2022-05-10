@@ -257,23 +257,41 @@ std::string StringUtils::replaceAll(std::string_view str, std::string_view from,
   return result;
 }
 
-// TODO: have this return std::string_view to avoid copying the string,
-// but first we need a unit test.
-std::string StringUtils::getLineInString(std::string_view bulk,
-                                         unsigned int line) {
+// Split off the next view split with "separator" character.
+// Modifies "src" to contain the remaining string.
+// If "src" is exhausted, returned string-view will have data() == nullptr.
+static std::string_view SplitNext(std::string_view* src, char separator) {
+  if (src->empty()) return {nullptr, 0};  // Done.
+
+  std::string_view result;
+  if (auto pos = src->find_first_of(separator); pos != std::string_view::npos) {
+    const size_t element_len = pos + 1;
+    result = src->substr(0, element_len);
+    *src = src->substr(element_len);
+  } else {
+    result = *src;                    // Remainder.
+    *src = src->substr(src->size());  // Empty string, placed at end.
+  }
+  return result;
+}
+
+std::string_view StringUtils::getLineInString(std::string_view text, int line) {
   if (line < 1) return "";
 
-  std::stringstream strm;
-  strm << bulk;
-
-  std::string lineText;
-  while ((line > 0) && std::getline(strm, lineText, '\n')) {
+  std::string_view s;
+  while (line && (s = SplitNext(&text, '\n'), s.data()) != nullptr) {
     --line;
   }
+  return s;
+}
 
-  if ((line == 0) && strm.good()) lineText += '\n';
-  if (line > 0) lineText.clear();
-  return lineText;
+std::vector<std::string_view> StringUtils::splitLines(std::string_view text) {
+  std::vector<std::string_view> result;
+  std::string_view s;
+  while ((s = SplitNext(&text, '\n'), s.data()) != nullptr) {
+    result.push_back(s);
+  }
+  return result;
 }
 
 std::string StringUtils::removeComments(std::string_view text) {
