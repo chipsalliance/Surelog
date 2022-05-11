@@ -110,6 +110,7 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
       args.push_back(macro_arg->str());
     }
     std::vector<std::string> tokens;
+    tokens.reserve(macro->tokens()->size());
     for (const auto* macro_token : *macro->tokens()) {
       tokens.push_back(macro_token->str());
     }
@@ -226,15 +227,17 @@ bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName) {
     }
 
     /* Cache the include paths list */
-    auto includePathList =
+    const auto& includePathList =
         m_pp->getCompileSourceFile()->getCommandLineParser()->getIncludePaths();
     std::vector<fs::path> include_path_vec;
-    for (auto path : includePathList) {
+    include_path_vec.reserve(includePathList.size());
+    for (const auto& path : includePathList) {
       fs::path spath = m_pp->getSymbol(path);
       include_path_vec.push_back(spath);
     }
 
     std::vector<fs::path> cache_include_path_vec;
+    cache_include_path_vec.reserve(ppcache->cmd_include_paths()->size());
     for (const auto* include_path : *ppcache->cmd_include_paths()) {
       const fs::path path = include_path->str();
       cache_include_path_vec.push_back(path);
@@ -244,9 +247,10 @@ bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName) {
     }
 
     /* Cache the defines on the command line */
-    auto defineList =
+    const auto& defineList =
         m_pp->getCompileSourceFile()->getCommandLineParser()->getDefineList();
     std::vector<std::string> define_vec;
+    define_vec.reserve(defineList.size());
     for (const auto& definePair : defineList) {
       std::string spath =
           m_pp->getSymbol(definePair.first) + "=" + definePair.second;
@@ -254,6 +258,7 @@ bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName) {
     }
 
     std::vector<std::string> cache_define_vec;
+    cache_define_vec.reserve(ppcache->cmd_define_options()->size());
     for (const auto* cmd_define_option : *ppcache->cmd_define_options()) {
       const std::string path = cmd_define_option->str();
       cache_define_vec.push_back(path);

@@ -271,9 +271,8 @@ void Cache::restoreVObjects(
     const SymbolTable& cacheSymbols, SymbolTable* localSymbols, SymbolId fileId,
     std::vector<VObject>* result) {
   /* Restore design objects */
-  for (unsigned int i = 0; i < objects->size(); i++) {
-    auto objectc = objects->Get(i);
-
+  result->reserve(objects->size());
+  for (const auto* objectc : *objects) {
     // VObject object
     // (m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(canonicalSymbols.getSymbol(objectc->m_name())),
     //                (VObjectType) objectc->m_type(), objectc->m_uniqueId(),
