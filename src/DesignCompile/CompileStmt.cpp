@@ -266,13 +266,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
             if (cstmt->UhdmType() == uhdmassign_stmt) {
               assign_stmt* assign = (assign_stmt*)cstmt;
               if (assign->Rhs() == nullptr) {
-                VectorOfvariables* vars = scope->Variables();
-                if (vars == nullptr) {
-                  vars = s.MakeVariablesVec();
-                  scope->Variables(vars);
-                }
                 isDecl = true;
-                vars->push_back((UHDM::variables*)assign->Lhs());
                 ((variables*)assign->Lhs())->VpiParent(stmt);
               }
             } else if (cstmt->UhdmType() == uhdmsequence_decl) {
