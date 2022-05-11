@@ -301,7 +301,7 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
     for (auto lineText : fileContentLines) {
       while (!lineText.empty() &&
              (lineText.back() == '\n' || lineText.back() == '\r')) {
-        lineText = lineText.substr(0, lineText.size() - 1);
+        lineText.remove_suffix(1);
       }
       ++line;
       RangesMap::const_iterator cItr = uhdmCover.find(line);
