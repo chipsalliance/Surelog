@@ -263,15 +263,10 @@ std::string StringUtils::replaceAll(std::string_view str, std::string_view from,
 static std::string_view SplitNext(std::string_view* src, char separator) {
   if (src->empty()) return {nullptr, 0};  // Done.
 
-  std::string_view result;
-  if (auto pos = src->find_first_of(separator); pos != std::string_view::npos) {
-    const size_t element_len = pos + 1;
-    result = src->substr(0, element_len);
-    *src = src->substr(element_len);
-  } else {
-    result = *src;                    // Remainder.
-    *src = src->substr(src->size());  // Empty string, placed at end.
-  }
+  const auto pos = src->find_first_of(separator);
+  const auto part_len = (pos != std::string_view::npos) ? pos + 1 : src->size();
+  std::string_view result = src->substr(0, part_len);
+  src->remove_prefix(part_len);
   return result;
 }
 
