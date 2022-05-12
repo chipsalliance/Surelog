@@ -113,4 +113,4 @@ test_install:
 uninstall:
 	$(RM) -r $(PREFIX)/bin/surelog
 	$(RM) -r $(PREFIX)/lib/surelog
-	$(RM) -r $(PREFIX)/include/surelog
+	$(RM) -r $(PREFIX)/include/Surelog

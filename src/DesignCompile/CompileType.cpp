@@ -1051,6 +1051,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
   if (fC->Type(Packed_dimension) == slStruct_union_member) {
     Packed_dimension = fC->Sibling(Packed_dimension);
   }
+
   if (fC->Type(Packed_dimension) == slSigning_Signed ||
       fC->Type(Packed_dimension) == slSigning_Unsigned) {
     Packed_dimension = fC->Sibling(Packed_dimension);
