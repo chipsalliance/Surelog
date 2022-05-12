@@ -1418,6 +1418,9 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
                 var->VpiAutomatic(!is_static);
                 var->VpiName(name);
                 vars->push_back(var);
+                if (ts) {
+                  var->Typespec(ts);
+                }
               }
             } else {
               (*itr).second->Typespec(ts);
