@@ -364,7 +364,7 @@ def _run_surelog(
         max_vms_memory = max(max_vms_memory, vms_memory)
         max_rss_memory = max(max_rss_memory, rss_memory)
 
-        time.sleep(0.5)
+        time.sleep(0.05)
 
       returncode = process.poll()
       surelog_timedelta = datetime.now() - surelog_start_dt
@@ -770,7 +770,7 @@ def _update_one(params):
 
 
 def _print_report(results):
-  columns = ['TESTNAME', 'STATUS', 'FATAL', 'SYNTAX', 'ERROR', 'WARNING', 'NOTE', 'WALL-TIME', 'CPU-TIME', 'VTL-MEM', 'PHY-MEM', 'ROUNDTRIP']
+  columns = ['TESTNAME', 'STATUS', 'FATAL', 'SYNTAX', 'ERROR', 'WARNING', 'NOTE', 'CPU-TIME', 'VTL-MEM', 'PHY-MEM', 'ROUNDTRIP']
 
   rows = []
   summary = OrderedDict([(status.name, 0) for status in Status])
@@ -794,17 +794,16 @@ def _print_report(results):
       _get_cell_value(columns[4]),
       _get_cell_value(columns[5]),
       _get_cell_value(columns[6]),
-      str(round(result.get(columns[7], timedelta(seconds=0)).total_seconds())),
-      str(round(result.get(columns[8], 0))),
+      str(round(result.get(columns[7], 0), 2)),
+      str(round(result.get(columns[8], 0) / (1024 * 1024))),
       str(round(result.get(columns[9], 0) / (1024 * 1024))),
-      str(round(result.get(columns[10], 0) / (1024 * 1024))),
       '{}/{}'.format(_get_cell_value("ROUNDTRIP_A"), _get_cell_value("ROUNDTRIP_B")),
     ])
 
   longest_cpu_test = max(results, key=lambda result: result.get('CPU-TIME', 0))
   total_cpu_time = sum([result.get('CPU-TIME', 0) for result in results])
-  summary['MAX CPU TIME'] = f'{round(longest_cpu_test["CPU-TIME"])} ({longest_cpu_test["TESTNAME"]})'
-  summary['TOTAL CPU TIME'] = str(round(total_cpu_time))
+  summary['MAX CPU TIME'] = f'{round(longest_cpu_test["CPU-TIME"], 2)} ({longest_cpu_test["TESTNAME"]})'
+  summary['TOTAL CPU TIME'] = str(round(total_cpu_time, 2))
 
   longest_wall_test = max(results, key=lambda result: result.get('WALL-TIME', 0))
   summary['MAX WALL TIME'] = f'{round(longest_wall_test["WALL-TIME"].total_seconds())} ({longest_wall_test["TESTNAME"]})'
