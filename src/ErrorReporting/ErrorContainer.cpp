@@ -183,8 +183,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
 
       /* Location */
       std::string location;
-      if (loc.m_fileId == 0) {
-      } else {
+      if (loc.m_fileId) {
         location = m_symbolTable->getSymbol(loc.m_fileId);
         if (loc.m_line > 0) {
           location += ":" + std::to_string(loc.m_line) + ":";
@@ -218,7 +217,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
           }
         } else {
           if (!info.m_extraText.empty()) {
-            if ((nbExtraLoc == 2) && (extraLoc.m_fileId == 0))
+            if ((nbExtraLoc == 2) && !extraLoc.m_fileId)
               text += ",\n" + info.m_extraText;
             else
               text += ",\n             " + info.m_extraText;

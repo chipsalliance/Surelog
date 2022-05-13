@@ -47,7 +47,7 @@ class NetlistElaboration : public TestbenchElaboration {
 
   ~NetlistElaboration() override;
 
-  typedef std::map<NodeId, UHDM::typespec*> TypespecCache; 
+  typedef std::map<NodeId, UHDM::typespec*> TypespecCache;
   bool elabSignal(Signal* sig, ModuleInstance* instance, ModuleInstance* child,
                   Netlist* parentNetlist, Netlist* netlist,
                   DesignComponent* comp, const std::string& prefix,

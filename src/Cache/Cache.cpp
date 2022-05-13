@@ -153,9 +153,9 @@ flatbuffers::Offset<Cache::VectorOffsetError> Cache::cacheErrors(
               localSymbols.getSymbol(loc.m_fileId));
           SymbolId canonicalObjectId = cacheSymbols->registerSymbol(
               localSymbols.getSymbol(loc.m_object));
-          auto locflb =
-              CACHE::CreateLocation(builder, canonicalFileId, loc.m_line,
-                                    loc.m_column, canonicalObjectId);
+          auto locflb = CACHE::CreateLocation(
+              builder, (RawSymbolId)canonicalFileId, loc.m_line, loc.m_column,
+              (RawSymbolId)canonicalObjectId);
           location_vec.push_back(locflb);
         }
         auto locvec = builder.CreateVector(location_vec);
@@ -188,9 +188,9 @@ void Cache::restoreErrors(const VectorOffsetError* errorsBuf,
     for (unsigned int j = 0; j < errorFlb->locations()->size(); j++) {
       auto locFlb = errorFlb->locations()->Get(j);
       SymbolId translFileId = localSymbols->registerSymbol(
-          cacheSymbols->getSymbol(locFlb->file_id()));
+          cacheSymbols->getSymbol(SymbolId(locFlb->file_id(), "<unknown>")));
       SymbolId translObjectId = localSymbols->registerSymbol(
-          cacheSymbols->getSymbol(locFlb->object()));
+          cacheSymbols->getSymbol(SymbolId(locFlb->object(), "<unknown>")));
       Location loc(translFileId, locFlb->line(), locFlb->column(),
                    translObjectId);
       locs.push_back(loc);
@@ -214,7 +214,8 @@ std::vector<CACHE::VObject> Cache::cacheVObjects(
   // Convert a local symbol ID to a cache symbol ID to be stored.
   std::function<uint64_t(SymbolId)> toCacheSym = [cacheSymbols,
                                                   localSymbols](SymbolId id) {
-    return cacheSymbols->registerSymbol(localSymbols.getSymbol(id));
+    return (RawSymbolId)cacheSymbols->registerSymbol(
+        localSymbols.getSymbol(id));
   };
 
   for (const VObject& object : fcontent->getVObjects()) {
@@ -237,19 +238,19 @@ std::vector<CACHE::VObject> Cache::cacheVObjects(
 
     // clang-format off
     field1 |= 0x0000000000FFFFFF & toCacheSym(object.m_name);
-    field1 |= 0x0000000FFF000000 & (((uint64_t)object.m_type)      << (24));
-    field1 |= 0x0000FFF000000000 & (((uint64_t)object.m_column)    << (24 + 12));
-    field1 |= 0xFFFF000000000000 & (((uint64_t)object.m_parent     << (24 + 12 + 12)));
-    field2 |= 0x0000000000000FFF & (object.m_parent                >> (16));
-    field2 |= 0x000000FFFFFFF000 & (((uint64_t)object.m_definition) << (12));
-    field2 |= 0xFFFFFF0000000000 & (((uint64_t)object.m_child)     << (12 + 28));
-    field3 |= 0x000000000000000F & (((uint64_t)object.m_child)     >> (24));
-    field3 |= 0x00000000FFFFFFF0 & (object.m_sibling               << (4));
-    field3 |= 0x00FFFFFF00000000 & (toCacheSym(object.m_fileId)    << (4 + 28));
-    field3 |= 0xFF00000000000000 & (((uint64_t)object.m_line)      << (4 + 28 + 24));
-    field4 |= 0x000000000000FFFF & (((uint64_t)object.m_line)      >> (8));
-    field4 |= 0x000000FFFFFF0000 & (((uint64_t)object.m_endLine)   << (16));
-    field4 |= 0x000FFF0000000000 & (((uint64_t)object.m_endColumn) << (16 + 24));
+    field1 |= 0x0000000FFF000000 & (((uint64_t)object.m_type)                  << (24));
+    field1 |= 0x0000FFF000000000 & (((uint64_t)object.m_column)                << (24 + 12));
+    field1 |= 0xFFFF000000000000 & (((uint64_t)(RawNodeId)object.m_parent)     << (24 + 12 + 12));
+    field2 |= 0x0000000000000FFF & (((uint64_t)(RawNodeId)object.m_parent)     >> (16));
+    field2 |= 0x000000FFFFFFF000 & (((uint64_t)(RawNodeId)object.m_definition) << (12));
+    field2 |= 0xFFFFFF0000000000 & (((uint64_t)(RawNodeId)object.m_child)      << (12 + 28));
+    field3 |= 0x000000000000000F & (((uint64_t)(RawNodeId)object.m_child)      >> (24));
+    field3 |= 0x00000000FFFFFFF0 & (((uint64_t)(RawNodeId)object.m_sibling)    << (4));
+    field3 |= 0x00FFFFFF00000000 & (toCacheSym(object.m_fileId)                << (4 + 28));
+    field3 |= 0xFF00000000000000 & (((uint64_t)object.m_line)                  << (4 + 28 + 24));
+    field4 |= 0x000000000000FFFF & (((uint64_t)object.m_line)                  >> (8));
+    field4 |= 0x000000FFFFFF0000 & (((uint64_t)object.m_endLine)               << (16));
+    field4 |= 0x000FFF0000000000 & (((uint64_t)object.m_endColumn)             << (16 + 24));
     // clang-format on
 
     object_vec.emplace_back(field1, field2, field3, field4);
@@ -263,7 +264,7 @@ void Cache::restoreVObjects(
     const SymbolTable& cacheSymbols, SymbolTable* localSymbols, SymbolId fileId,
     FileContent* fileContent) {
   restoreVObjects(objects, cacheSymbols, localSymbols, fileId,
-                  &fileContent->mutableVObjects());
+                  fileContent->mutableVObjects());
 }
 
 void Cache::restoreVObjects(
@@ -271,6 +272,7 @@ void Cache::restoreVObjects(
     const SymbolTable& cacheSymbols, SymbolTable* localSymbols, SymbolId fileId,
     std::vector<VObject>* result) {
   /* Restore design objects */
+  result->clear();
   result->reserve(objects->size());
   for (const auto* objectc : *objects) {
     // VObject object
@@ -286,16 +288,16 @@ void Cache::restoreVObjects(
     uint64_t field4 = objectc->field4();
     // Decode compression done when saving cache (see below)
     // clang-format off
-    SymbolId name =            (field1 & 0x0000000000FFFFFF);
+    RawSymbolId name =         (field1 & 0x0000000000FFFFFF);
     unsigned short type =      (field1 & 0x0000000FFF000000) >> (24);
     unsigned short column =    (field1 & 0x0000FFF000000000) >> (24 + 12);
-    NodeId parent         =    (field1 & 0xFFFF000000000000) >> (24 + 12 + 12);
+    RawNodeId parent =         (field1 & 0xFFFF000000000000) >> (24 + 12 + 12);
     parent |=                  (field2 & 0x0000000000000FFF) << (16);
-    NodeId definition =        (field2 & 0x000000FFFFFFF000) >> (12);
-    NodeId child =             (field2 & 0xFFFFFF0000000000) >> (12 + 28);
-    child  |=                  (field3 & 0x000000000000000F) << (24);
-    NodeId sibling =           (field3 & 0x00000000FFFFFFF0) >> (4);
-    SymbolId fileId =          (field3 & 0x00FFFFFF00000000) >> (4 + 28);
+    RawNodeId definition =     (field2 & 0x000000FFFFFFF000) >> (12);
+    RawNodeId child =          (field2 & 0xFFFFFF0000000000) >> (12 + 28);
+    child |=                   (field3 & 0x000000000000000F) << (24);
+    RawNodeId sibling =        (field3 & 0x00000000FFFFFFF0) >> (4);
+    RawSymbolId fileId =       (field3 & 0x00FFFFFF00000000) >> (4 + 28);
     unsigned int line =        (field3 & 0xFF00000000000000) >> (4 + 28 + 24);
     line |=                    (field4 & 0x000000000000FFFF) << (8);
     unsigned int endLine =     (field4 & 0x000000FFFFFF0000) >> (16);
@@ -303,10 +305,12 @@ void Cache::restoreVObjects(
     // clang-format on
 
     result->emplace_back(
-        localSymbols->registerSymbol(cacheSymbols.getSymbol(name)),
-        localSymbols->registerSymbol(cacheSymbols.getSymbol(fileId)),
-        (VObjectType)type, line, column, endLine, endColumn, parent, definition,
-        child, sibling);
+        localSymbols->registerSymbol(
+            cacheSymbols.getSymbol(SymbolId(name, "<unknown>"))),
+        localSymbols->registerSymbol(
+            cacheSymbols.getSymbol(SymbolId(fileId, "<unknown>"))),
+        (VObjectType)type, line, column, endLine, endColumn, NodeId(parent),
+        NodeId(definition), NodeId(child), NodeId(sibling));
   }
 }
 }  // namespace SURELOG

@@ -37,7 +37,6 @@ DesignElement::DesignElement(SymbolId name, SymbolId fileId, ElemType type,
       m_endLine(endLine),
       m_endColumn(endColumn),
       m_parent(parent),
-      m_node(0),
       m_context(nullptr) {}
 
 std::ostream& operator<<(std::ostream& os, DesignElement::ElemType type) {

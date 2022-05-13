@@ -34,10 +34,11 @@ bool Location::operator==(const Location& rhs) const {
 }
 
 bool Location::operator<(const Location& rhs) const {
-  if (m_fileId < rhs.m_fileId) return true;
+  static SymbolIdLessThanComparer comparer;
+  if (comparer(m_fileId, rhs.m_fileId)) return true;
   if (m_line < rhs.m_line) return true;
   if (m_column < rhs.m_column) return true;
-  if (m_object < rhs.m_object) return true;
+  if (comparer(m_object, rhs.m_object)) return true;
   return false;
 }
 

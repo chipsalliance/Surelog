@@ -59,8 +59,8 @@ void AnalyzeFile::checkSLlineDirective_(const std::string& line,
   std::string keyword;
   ss >> keyword;
   if (keyword == "SLline") {
-    IncludeFileInfo info(IncludeFileInfo::Context::NONE, 0, 0, 0, 0, 0, 0,
-                         IncludeFileInfo::Action::NONE);
+    IncludeFileInfo info(IncludeFileInfo::Context::NONE, 0, BadSymbolId, 0, 0,
+                         0, 0, IncludeFileInfo::Action::NONE);
     ss >> info.m_sectionStartLine;
     std::string file;
     ss >> file;

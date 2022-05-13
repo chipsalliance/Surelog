@@ -129,7 +129,10 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
     for (const CACHE::TimeInfo* fbtimeinfo : *ppcache->time_info()) {
       TimeInfo timeInfo;
       timeInfo.m_type = (TimeInfo::Type)fbtimeinfo->type();
-      timeInfo.m_fileId = fbtimeinfo->file_id();
+      timeInfo.m_fileId =
+          m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(
+              cacheSymbols.getSymbol(
+                  SymbolId(fbtimeinfo->file_id(), "<unknown>")));
       timeInfo.m_line = fbtimeinfo->line();
       timeInfo.m_timeUnit = (TimeInfo::Unit)fbtimeinfo->time_unit();
       timeInfo.m_timeUnitValue = fbtimeinfo->time_unit_value();
@@ -183,10 +186,11 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
   // FileContent
   FileContent* fileContent = m_pp->getFileContent();
   if (fileContent == nullptr) {
-    fileContent = new FileContent(
-        m_pp->getFileId(0), m_pp->getLibrary(),
-        m_pp->getCompileSourceFile()->getSymbolTable(),
-        m_pp->getCompileSourceFile()->getErrorContainer(), nullptr, 0);
+    fileContent =
+        new FileContent(m_pp->getFileId(0), m_pp->getLibrary(),
+                        m_pp->getCompileSourceFile()->getSymbolTable(),
+                        m_pp->getCompileSourceFile()->getErrorContainer(),
+                        nullptr, BadSymbolId);
     m_pp->setFileContent(fileContent);
     m_pp->getCompileSourceFile()->getCompiler()->getDesign()->addPPFileContent(
         m_pp->getFileId(0), fileContent);
@@ -301,7 +305,7 @@ bool PPCache::save() {
     if (fcontent->getVObjects().size() > Cache::Capacity) {
       m_pp->getCompileSourceFile()->getCommandLineParser()->setCacheAllowed(
           false);
-      Location loc(0);
+      Location loc(BadSymbolId);
       Error err(ErrorDefinition::CMD_CACHE_CAPACITY_EXCEEDED, loc);
       m_pp->getCompileSourceFile()->getErrorContainer()->addError(err);
       return false;
@@ -370,7 +374,7 @@ bool PPCache::save() {
   auto includePathList =
       m_pp->getCompileSourceFile()->getCommandLineParser()->getIncludePaths();
   std::vector<std::string> include_path_vec;
-  for (auto path : includePathList) {
+  for (const auto& path : includePathList) {
     std::string spath = m_pp->getSymbol(path);
     include_path_vec.push_back(spath);
   }
@@ -394,7 +398,7 @@ bool PPCache::save() {
     if (info.m_fileId != m_pp->getFileId(0)) continue;
     auto timeInfo = CACHE::CreateTimeInfo(
         builder, static_cast<uint16_t>(info.m_type),
-        cacheSymbols.registerSymbol(
+        (RawSymbolId)cacheSymbols.registerSymbol(
             m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
                 info.m_fileId)),
         info.m_line, static_cast<uint16_t>(info.m_timeUnit),
@@ -408,7 +412,7 @@ bool PPCache::save() {
   auto lineTranslationVec = m_pp->getLineTranslationInfo();
   std::vector<flatbuffers::Offset<MACROCACHE::LineTranslationInfo>>
       linetrans_vec;
-  for (auto info : lineTranslationVec) {
+  for (const auto& info : lineTranslationVec) {
     fs::path pretendFileName =
         m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
             info.m_pretendFileId);

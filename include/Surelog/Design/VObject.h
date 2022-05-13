@@ -39,9 +39,10 @@ class VObject final {
  public:
   VObject(SymbolId name, SymbolId fileId, VObjectType type, unsigned int line,
           unsigned short column, unsigned int endLine, unsigned short endColumn,
-          NodeId parent = 0)
-    : VObject(name, fileId, type, line, column, endLine, endColumn, parent,
-              0/*definition*/, 0/*child*/, 0/*sibling*/) {}
+          NodeId parent = InvalidNodeId)
+      : VObject(name, fileId, type, line, column, endLine, endColumn, parent,
+                InvalidNodeId /* definition */, InvalidNodeId /* child */,
+                InvalidNodeId /* sibling */) {}
 
   VObject(SymbolId name, SymbolId fileId, VObjectType type, unsigned int line,
           unsigned short column, unsigned int endLine, unsigned short endColumn,
@@ -60,16 +61,16 @@ class VObject final {
 
   static std::string_view getTypeName(VObjectType type);
 
-  std::string print(SymbolTable* symbols, unsigned int uniqueId,
-                    NodeId definitionFile, SymbolId printedFile) const;
+  std::string print(SymbolTable* symbols, NodeId uniqueId,
+                    SymbolId definitionFile, SymbolId printedFile) const;
 
   SymbolId m_name;
   SymbolId m_fileId;
   VObjectType m_type;
-  unsigned short m_column;
-  unsigned short m_endColumn;
-  unsigned int m_line;
-  unsigned int m_endLine;
+  unsigned short m_column = 0;
+  unsigned short m_endColumn = 0;
+  unsigned int m_line = 0;
+  unsigned int m_endLine = 0;
   NodeId m_parent;
   NodeId m_definition;
   NodeId m_child;

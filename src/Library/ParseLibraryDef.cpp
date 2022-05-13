@@ -48,7 +48,7 @@ ParseLibraryDef::ParseLibraryDef(CommandLineParser* commandLineParser,
                                  ErrorContainer* errors,
                                  SymbolTable* symbolTable,
                                  LibrarySet* librarySet, ConfigSet* configSet)
-    : m_fileId(0),
+    : m_fileId(BadSymbolId),
       m_commandLineParser(commandLineParser),
       m_errors(errors),
       m_symbolTable(symbolTable),
@@ -74,15 +74,15 @@ bool ParseLibraryDef::parseLibrariesDefinition() {
 
   // Config files are parsed using the library top rule
   std::vector<SymbolId> cfgFiles = m_commandLineParser->getConfigFiles();
-  for (auto file : cfgFiles) {
+  for (const auto& file : cfgFiles) {
     libraryMapFiles.push_back(file);
   }
 
-  for (auto fileId : libraryMapFiles) {
+  for (const auto& fileId : libraryMapFiles) {
     parseLibraryDefinition(fileId);
   }
 
-  for (auto file : cfgFiles) {
+  for (const auto& file : cfgFiles) {
     fs::path fullPath = FileUtils::getFullPath(m_symbolTable->getSymbol(file));
     m_librarySet->getLibrary(m_symbolTable->registerSymbol(
         fullPath.string()));  // Register configuration files in "work" library
@@ -170,7 +170,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
   FileContent* fC = m_fileContent;
   if (!fC) return false;
 
-  std::unordered_set<VObjectType> types = {VObjectType::slConfig_declaration};
+  VObjectTypeUnorderedSet types = {VObjectType::slConfig_declaration};
   std::vector<NodeId> configs = fC->sl_collect_all(fC->getRootNode(), types);
   for (auto config : configs) {
     NodeId ident = fC->Child(config);
@@ -179,8 +179,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
     Config conf(name, fC, config);
 
     // Design clause
-    std::unordered_set<VObjectType> designStmt = {
-        VObjectType::slDesign_statement};
+    VObjectTypeUnorderedSet designStmt = {VObjectType::slDesign_statement};
     std::vector<NodeId> designs = fC->sl_collect_all(config, designStmt);
     if (designs.empty()) {
       // TODO: Error
@@ -190,7 +189,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
       NodeId design = designs[0];
       NodeId libName = fC->Child(design);
       NodeId topName = fC->Sibling(libName);
-      if (topName == 0) {
+      if (!topName) {
         conf.setDesignLib(fC->getLibrary()->getName());
         conf.setDesignTop(fC->SymName(libName));
       } else {
@@ -200,8 +199,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
     }
 
     // Default clause
-    std::unordered_set<VObjectType> defaultStmt = {
-        VObjectType::slDefault_clause};
+    VObjectTypeUnorderedSet defaultStmt = {VObjectType::slDefault_clause};
     std::vector<NodeId> defaults = fC->sl_collect_all(config, defaultStmt);
     if (!defaults.empty()) {
       NodeId defaultClause = defaults[0];
@@ -216,8 +214,8 @@ bool ParseLibraryDef::parseConfigDefinition() {
     }
 
     // Instance and Cell clauses
-    std::unordered_set<VObjectType> instanceStmt = {VObjectType::slInst_clause,
-                                                    VObjectType::slCell_clause};
+    VObjectTypeUnorderedSet instanceStmt = {VObjectType::slInst_clause,
+                                            VObjectType::slCell_clause};
     std::vector<NodeId> instances = fC->sl_collect_all(config, instanceStmt);
     for (auto inst : instances) {
       VObjectType type = fC->Type(inst);

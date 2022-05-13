@@ -24,6 +24,7 @@
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/SourceCompile/AntlrParserErrorListener.h>
 #include <Surelog/SourceCompile/ParseFile.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Utils/FileUtils.h>
 #include <Surelog/Utils/StringUtils.h>
 

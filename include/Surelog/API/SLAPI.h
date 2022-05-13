@@ -102,47 +102,47 @@ std::vector<antlr4::ParserRuleContext*> SLgetChildrenContext(
     SV3_1aPythonListener* prog, antlr4::ParserRuleContext* context);
 
 /* Parser API */
-NodeId SLgetRootNode(FileContent* fC);
+RawNodeId SLgetRootNode(FileContent* fC);
 
-std::string SLgetFile(FileContent* fC, NodeId id);
+std::string SLgetFile(FileContent* fC, RawNodeId id);
 
-NodeId SLgetChild(FileContent* fC, NodeId index);
+RawNodeId SLgetChild(FileContent* fC, RawNodeId index);
 
-NodeId SLgetSibling(FileContent* fC, NodeId index);
+RawNodeId SLgetSibling(FileContent* fC, RawNodeId index);
 
-NodeId SLgetParent(FileContent* fC, NodeId index);
+RawNodeId SLgetParent(FileContent* fC, RawNodeId index);
 
-unsigned int SLgetLine(FileContent* fC, NodeId index);
+unsigned int SLgetLine(FileContent* fC, RawNodeId index);
 
-std::string SLgetName(FileContent* fC, NodeId index);
+std::string SLgetName(FileContent* fC, RawNodeId index);
 
-unsigned int SLgetType(FileContent* fC, NodeId index);
+unsigned int SLgetType(FileContent* fC, RawNodeId index);
 
-NodeId SLgetChild(FileContent* fC, NodeId parent,
+RawNodeId SLgetChild(FileContent* fC, RawNodeId parent,
                   unsigned int type);  // Get first child item of type
 
-NodeId SLgetParent(FileContent* fC, NodeId parent,
+RawNodeId SLgetParent(FileContent* fC, RawNodeId parent,
                    unsigned int type);  // Get first parent item of type
 
-UIntVector SLgetAll(FileContent* fC, NodeId parent,
+UIntVector SLgetAll(FileContent* fC, RawNodeId parent,
                     unsigned int type);  // get all child items of type
 
-UIntVector SLgetAll(FileContent* fC, NodeId parent,
+UIntVector SLgetAll(FileContent* fC, RawNodeId parent,
                     const UIntVector& types);  // get all child items of types
 
-NodeId SLcollect(
-    FileContent* fC, NodeId parent,
+RawNodeId SLcollect(
+    FileContent* fC, RawNodeId parent,
     unsigned int type);  // Recursively search for first item of type
 
 UIntVector SLcollectAll(
-    FileContent* fC, NodeId parent, unsigned int type,
+    FileContent* fC, RawNodeId parent, unsigned int type,
     bool first);  // Recursively search for all items of type
 
 UIntVector SLcollectAll(
-    FileContent* fC, NodeId parent, const UIntVector& types,
+    FileContent* fC, RawNodeId parent, const UIntVector& types,
     bool first);  // Recursively search for all items of types
 
-UIntVector SLcollectAll(FileContent* fC, NodeId parent,
+UIntVector SLcollectAll(FileContent* fC, RawNodeId parent,
                         const UIntVector& types,
                         const UIntVector& stopPoints, bool first);
 // Recursively search for all items of types
@@ -178,7 +178,7 @@ unsigned int SLgetModuleLine(ModuleDefinition* module);
 
 FileContent* SLgetModuleFileContent(ModuleDefinition* module);
 
-NodeId SLgetModuleRootNode(ModuleDefinition* module);
+RawNodeId SLgetModuleRootNode(ModuleDefinition* module);
 
 std::string SLgetClassName(ClassDefinition* def);
 
@@ -190,7 +190,7 @@ unsigned int SLgetClassLine(ClassDefinition* def);
 
 FileContent* SLgetClassFileContent(ClassDefinition* def);
 
-NodeId SLgetClassRootNode(ClassDefinition* def);
+RawNodeId SLgetClassRootNode(ClassDefinition* def);
 
 std::string SLgetPackageName(Package* def);
 
@@ -202,7 +202,7 @@ unsigned int SLgetPackageLine(Package* def);
 
 FileContent* SLgetPackageFileContent(Package* def);
 
-NodeId SLgetPackageRootNode(Package* def);
+RawNodeId SLgetPackageRootNode(Package* def);
 
 std::string SLgetProgramName(Program* def);
 
@@ -214,7 +214,7 @@ unsigned int SLgetProgramLine(Program* def);
 
 FileContent* SLgetProgramFileContent(Program* def);
 
-NodeId SLgetProgramRootNode(Program* def);
+RawNodeId SLgetProgramRootNode(Program* def);
 
 VObjectType SLgetInstanceType(ModuleInstance* instance);
 
@@ -232,7 +232,7 @@ std::string SLgetInstanceFileName(ModuleInstance* instance);
 
 FileContent* SLgetInstanceFileContent(ModuleInstance* instance);
 
-NodeId SLgetInstanceNodeId(ModuleInstance* instance);
+RawNodeId SLgetInstanceNodeId(ModuleInstance* instance);
 
 unsigned int SLgetInstanceLine(ModuleInstance* instance);
 

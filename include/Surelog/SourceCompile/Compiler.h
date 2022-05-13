@@ -71,7 +71,8 @@ class Compiler {
   std::vector<CompileSourceFile*>& getCompileSourceFiles() {
     return m_compilers;
   }
-  const std::map<SymbolId, PreprocessFile::AntlrParserHandler*>&
+  const std::map<SymbolId, PreprocessFile::AntlrParserHandler*,
+                 SymbolIdLessThanComparer>&
   getPpAntlrHandlerMap() const {
     return m_antlrPpMap;
   }
@@ -119,7 +120,9 @@ class Compiler {
   ErrorContainer* const m_errors;
   SymbolTable* const m_symbolTable;
   CompilationUnit* m_commonCompilationUnit;
-  std::map<SymbolId, PreprocessFile::AntlrParserHandler*> m_antlrPpMap;
+  std::map<SymbolId, PreprocessFile::AntlrParserHandler*,
+           SymbolIdLessThanComparer>
+      m_antlrPpMap;
   std::vector<CompileSourceFile*> m_compilers;
   std::vector<CompileSourceFile*> m_compilersChunkFiles;
   std::vector<CompileSourceFile*> m_compilersParentFiles;
@@ -130,8 +133,8 @@ class Compiler {
   ConfigSet* const m_configSet;
   Design* const m_design;
   vpiHandle m_uhdmDesign;
-  std::set<SymbolId> m_libraryFiles;  // -v <file>
-  std::string m_text;                 // unit tests
+  SymbolIdSet m_libraryFiles;  // -v <file>
+  std::string m_text;          // unit tests
   CompileDesign* m_compileDesign;
   std::map<std::filesystem::path, std::vector<std::filesystem::path>> ppFileMap;
 #ifdef USETBB

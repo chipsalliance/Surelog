@@ -115,14 +115,14 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
     }
   }
 
-  NodeId ParameterPortListId = 0;
+  NodeId ParameterPortListId;
   std::stack<NodeId> stack;
   stack.push(id);
   VObjectType port_direction = VObjectType::slNoType;
   while (!stack.empty()) {
     id = stack.top();
     if (ParameterPortListId && (id == ParameterPortListId)) {
-      ParameterPortListId = 0;
+      ParameterPortListId = InvalidNodeId;
     }
     stack.pop();
     current = fC->Object(id);
@@ -205,12 +205,12 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
           // Type param
           m_helper.compileParameterDeclaration(
               m_program, fC, list_of_type_assignments, m_compileDesign, false,
-              nullptr, ParameterPortListId != 0, false, false);
+              nullptr, ParameterPortListId, false, false);
 
         } else {
           m_helper.compileParameterDeclaration(
               m_program, fC, id, m_compileDesign, false, nullptr,
-              ParameterPortListId != 0, false, false);
+              ParameterPortListId, false, false);
         }
         break;
       }
@@ -222,12 +222,12 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
           // Type param
           m_helper.compileParameterDeclaration(
               m_program, fC, list_of_type_assignments, m_compileDesign, true,
-              nullptr, ParameterPortListId != 0, false, false);
+              nullptr, ParameterPortListId, false, false);
 
         } else {
           m_helper.compileParameterDeclaration(
               m_program, fC, id, m_compileDesign, true, nullptr,
-              ParameterPortListId != 0, false, false);
+              ParameterPortListId, false, false);
         }
         break;
       }
@@ -280,7 +280,7 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
         NodeId Import = fC->Child(id);
         NodeId StringLiteral = fC->Sibling(Import);
         NodeId Context_keyword = fC->Sibling(StringLiteral);
-        NodeId Task_prototype = 0;
+        NodeId Task_prototype;
         if (fC->Type(Context_keyword) == slContext_keyword)
           Task_prototype = fC->Sibling(Context_keyword);
         else

@@ -73,9 +73,11 @@ class ClassDefinition : public DesignComponent, public DataType {
   typedef std::map<std::string, Property*, StringViewCompare> PropertyMap;
   typedef std::map<std::string, TaskMethod*, StringViewCompare> TaskMap;
   typedef std::map<std::string, Constraint*, StringViewCompare> ConstraintMap;
-  typedef std::map<std::string, const DataType*, StringViewCompare> BaseClassMap;
+  typedef std::map<std::string, const DataType*, StringViewCompare>
+      BaseClassMap;
   typedef std::map<std::string, ClassDefinition*, StringViewCompare> ClassMap;
-  typedef std::map<std::string, CoverGroupDefinition*, StringViewCompare> CoverGroupMap;
+  typedef std::map<std::string, CoverGroupDefinition*, StringViewCompare>
+      CoverGroupMap;
 
   const PropertyMap& getPropertyMap() const { return m_properties; }
   Property* getProperty(std::string_view name) const;

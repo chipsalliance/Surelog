@@ -30,7 +30,7 @@ TEST(SymbolTableTest, SymbolTableAccess) {
   SymbolTable table;
 
   const SymbolId foo_id = table.registerSymbol("foo");
-  EXPECT_NE(foo_id, SymbolTable::getBadId());
+  EXPECT_NE(foo_id, BadSymbolId);
 
   const SymbolId bar_id = table.registerSymbol("bar");
   EXPECT_NE(foo_id, bar_id);
@@ -42,12 +42,13 @@ TEST(SymbolTableTest, SymbolTableAccess) {
   // Retrieve symbol-ID by text string
   EXPECT_EQ(table.getId("foo"), foo_id);
   EXPECT_EQ(table.getId("bar"), bar_id);
-  EXPECT_EQ(table.getId("baz"), SymbolTable::getBadId());  // no-exist
+  EXPECT_EQ(table.getId("baz"), BadSymbolId);  // no-exist
 
   // Retrieve text symbol by ID
   EXPECT_EQ(table.getSymbol(foo_id), "foo");
   EXPECT_EQ(table.getSymbol(bar_id), "bar");
-  EXPECT_EQ(table.getSymbol(42), SymbolTable::getBadSymbol());  // no-exist
+  EXPECT_EQ(table.getSymbol(SymbolId(42, BadRawSymbol)),
+            SymbolTable::getBadSymbol());  // no-exist
 
   // For now, symbols returned in getSymbols() always contain bad symbol as
   // first element (though this is an implementation detail and might change).
@@ -99,22 +100,22 @@ TEST(SymbolTableTest, SequenceOfStackedSymbolTablesPreserved) {
   SymbolTable parent;
   const SymbolId foo_id = parent.registerSymbol("foo");
   const SymbolId bar_id = parent.registerSymbol("bar");
-  EXPECT_GT(bar_id, foo_id);
-  EXPECT_EQ(bar_id, 2);
+  EXPECT_TRUE(SymbolIdLessThanComparer()(foo_id, bar_id));
+  EXPECT_EQ(bar_id, SymbolId(2, "bar"));
 
   SymbolTable child(parent);
   const SymbolId baz_id = child.registerSymbol("baz");
-  EXPECT_GT(baz_id, bar_id);
+  EXPECT_TRUE(SymbolIdLessThanComparer()(bar_id, baz_id));
   const SymbolId quux_id = child.registerSymbol("quux");
-  EXPECT_GT(quux_id, baz_id);
-  EXPECT_EQ(quux_id, 4);
+  EXPECT_TRUE(SymbolIdLessThanComparer()(baz_id, quux_id));
+  EXPECT_EQ(quux_id, SymbolId(4, "quux"));
 
   SymbolTable grandchild(child);
   const SymbolId foobar_id = grandchild.registerSymbol("foobar");
-  EXPECT_GT(foobar_id, quux_id);
+  EXPECT_TRUE(SymbolIdLessThanComparer()(quux_id, foobar_id));
   const SymbolId flip_id = grandchild.registerSymbol("flip");
-  EXPECT_GT(flip_id, foobar_id);
-  EXPECT_EQ(flip_id, 6);
+  EXPECT_TRUE(SymbolIdLessThanComparer()(foobar_id, flip_id));
+  EXPECT_EQ(flip_id, SymbolId(6, "flip"));
 
   // Attempting to re-register symbols will return the existing id.
   EXPECT_EQ(foo_id, grandchild.registerSymbol("foo"));
@@ -138,21 +139,22 @@ TEST(SymbolTableTest, SequenceOfStackedSymbolTablesPreserved) {
 
     for (size_t i = 0; i < all_symbols.size(); ++i) {
       const std::string_view symbol = all_symbols[i];
-      EXPECT_EQ(symbol, testsym.getSymbol(i)) << i;
-      EXPECT_EQ(testsym.getId(symbol), i);
-      EXPECT_EQ(testsym.registerSymbol(symbol), i);  // re-register attempt.
+      EXPECT_EQ(symbol, testsym.getSymbol(SymbolId(i, BadRawSymbol))) << i;
+      EXPECT_EQ(testsym.getId(symbol), SymbolId(i, symbol));
+      EXPECT_EQ(testsym.registerSymbol(symbol),
+                SymbolId(i, symbol));  // re-register attempt.
     }
 
     // Request value out of range will return bad symbol.
     EXPECT_EQ(SymbolTable::getBadSymbol(),
-              testsym.getSymbol(all_symbols.size()));
+              testsym.getSymbol(SymbolId(all_symbols.size(), BadRawSymbol)));
   }
 
   // A new symbol introduced in the parent should not be visible
   // in any child that had been snapshotted before that time.
   const SymbolId hello_id = parent.registerSymbol("hello");  // new in parent
-  EXPECT_EQ(child.getId("hello"), SymbolTable::getBadId());  // not in child
-  EXPECT_EQ(grandchild.getId("hello"), SymbolTable::getBadId());
+  EXPECT_EQ(child.getId("hello"), BadSymbolId);              // not in child
+  EXPECT_EQ(grandchild.getId("hello"), BadSymbolId);
 
   // We can register our own version of the same name in the child and get
   // a local id.

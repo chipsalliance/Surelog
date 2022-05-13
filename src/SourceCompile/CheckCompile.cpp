@@ -88,8 +88,8 @@ bool CheckCompile::checkTimescale_() {
   std::vector<Location> noTimeUnitLocs;
   Design::FileIdDesignContentMap& all_files =
       m_compiler->getDesign()->getAllFileContents();
-  std::unordered_set<SymbolId> reportedMissingTimescale;
-  std::unordered_set<SymbolId> reportedMissingTimeunit;
+  SymbolIdUnorderedSet reportedMissingTimescale;
+  SymbolIdUnorderedSet reportedMissingTimeunit;
   for (const auto& sym_file : all_files) {
     const auto fileContent = sym_file.second;
     for (auto elem : fileContent->getDesignElements()) {

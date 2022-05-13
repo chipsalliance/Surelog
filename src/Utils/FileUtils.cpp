@@ -66,14 +66,14 @@ SymbolId FileUtils::locateFile(SymbolId file, SymbolTable* symbols,
   if (fileExists(fileName)) {
     return file;
   }
-  for (auto id : paths) {
+  for (const auto& id : paths) {
     const fs::path path = symbols->getSymbol(id);
     fs::path filePath = path / fileName;
     if (fileExists(filePath)) {
       return symbols->registerSymbol(filePath.string());
     }
   }
-  return SymbolTable::getBadId();
+  return BadSymbolId;
 }
 
 bool FileUtils::mkDirs(const fs::path& path) {

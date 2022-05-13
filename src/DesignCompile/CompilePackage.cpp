@@ -247,7 +247,7 @@ bool CompilePackage::collectObjects_(CollectType collectType, bool reduce) {
           NodeId Import = fC->Child(id);
           NodeId StringLiteral = fC->Sibling(Import);
           NodeId Context_keyword = fC->Sibling(StringLiteral);
-          NodeId Task_prototype = 0;
+          NodeId Task_prototype;
           if (fC->Type(Context_keyword) == slContext_keyword)
             Task_prototype = fC->Sibling(Context_keyword);
           else

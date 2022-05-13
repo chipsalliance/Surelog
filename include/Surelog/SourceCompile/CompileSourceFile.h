@@ -77,7 +77,8 @@ class CompileSourceFile {
   void registerPP(PreprocessFile* pp) { m_ppIncludeVec.push_back(pp); }
   bool initParser();
 
-  const std::map<SymbolId, PreprocessFile::AntlrParserHandler*>&
+  const std::map<SymbolId, PreprocessFile::AntlrParserHandler*,
+                 SymbolIdLessThanComparer>&
   getPpAntlrHandlerMap() const {
     return m_antlrPpMap;
   }
@@ -125,7 +126,8 @@ class CompileSourceFile {
   CompilationUnit* m_compilationUnit;
   Action m_action;
   SymbolId m_ppResultFileId;
-  std::map<SymbolId, PreprocessFile::AntlrParserHandler*>
+  std::map<SymbolId, PreprocessFile::AntlrParserHandler*,
+           SymbolIdLessThanComparer>
       m_antlrPpMap;  // Preprocessor Antlr Handlers (One per included file)
 #ifdef SURELOG_WITH_PYTHON
   PyThreadState* m_interpState = nullptr;

@@ -47,17 +47,11 @@ class FileContent : public DesignComponent {
   SURELOG_IMPLEMENT_RTTI(FileContent, DesignComponent)
  public:
   FileContent(SymbolId fileId, Library* library, SymbolTable* symbolTable,
-              ErrorContainer* errors, FileContent* parent, SymbolId fileChunkId)
-      : DesignComponent(nullptr, nullptr),
-        m_fileId(fileId),
-        m_fileChunkId(fileChunkId),
-        m_errors(errors),
-        m_library(library),
-        m_symbolTable(symbolTable),
-        m_parentFile(parent) {}
+              ErrorContainer* errors, FileContent* parent,
+              SymbolId fileChunkId);
+  ~FileContent() override = default;
 
   void setLibrary(Library* lib) { m_library = lib; }
-  ~FileContent() override = default;
 
   typedef std::unordered_map<std::string, NodeId> NameIdMap;
 
@@ -68,14 +62,14 @@ class FileContent : public DesignComponent {
                    VObjectType type) const;  // Get first parent item of type
 
   NodeId sl_parent(
-      NodeId parent, const std::unordered_set<VObjectType>& types,
+      NodeId parent, const VObjectTypeUnorderedSet& types,
       VObjectType& actualType) const;  // Get first parent item of type
 
   std::vector<NodeId> sl_get_all(
       NodeId parent, VObjectType type) const;  // get all child items of type
 
   std::vector<NodeId> sl_get_all(NodeId parent,
-                                 const std::unordered_set<VObjectType>& types)
+                                 const VObjectTypeUnorderedSet& types)
       const;  // get all child items of types
 
   NodeId sl_collect(
@@ -91,13 +85,13 @@ class FileContent : public DesignComponent {
       bool first = false) const;  // Recursively search for all items of type
 
   std::vector<NodeId> sl_collect_all(
-      NodeId parent, const std::unordered_set<VObjectType>& types,
+      NodeId parent, const VObjectTypeUnorderedSet& types,
       bool first = false) const;  // Recursively search for all items of types
 
-  std::vector<NodeId> sl_collect_all(
-      NodeId parent, const std::unordered_set<VObjectType>& types,
-      const std::unordered_set<VObjectType>& stopPoints,
-      bool first = false) const;
+  std::vector<NodeId> sl_collect_all(NodeId parent,
+                                     const VObjectTypeUnorderedSet& types,
+                                     const VObjectTypeUnorderedSet& stopPoints,
+                                     bool first = false) const;
   // Recursively search for all items of types
   // and stops at types stopPoints
   unsigned int getSize() const override { return m_objects.size(); }
@@ -121,8 +115,16 @@ class FileContent : public DesignComponent {
   std::vector<DesignElement*>& getDesignElements() { return m_elements; }
   void addDesignElement(const std::string& name, DesignElement* elem);
   const DesignElement* getDesignElement(std::string_view name) const;
+  using DesignComponent::addObject;
+  NodeId addObject(SymbolId name, SymbolId fileId, VObjectType type,
+                   unsigned int line, unsigned short column,
+                   unsigned int endLine, unsigned short endColumn,
+                   NodeId parent = InvalidNodeId,
+                   NodeId definition = InvalidNodeId,
+                   NodeId child = InvalidNodeId,
+                   NodeId sibling = InvalidNodeId);
   const std::vector<VObject>& getVObjects() const { return m_objects; }
-  std::vector<VObject>& mutableVObjects() { return m_objects; }
+  std::vector<VObject>* mutableVObjects() { return &m_objects; }
   const NameIdMap& getObjectLookup() const { return m_objectLookup; }
   void insertObjectLookup(const std::string& name, NodeId id,
                           ErrorContainer* errors);
@@ -172,16 +174,18 @@ class FileContent : public DesignComponent {
   const ClassNameClassDefinitionMultiMap& getClassDefinitions() const {
     return m_classDefinitions;
   }
-  void addModuleDefinition(std::string moduleName, ModuleDefinition* def) {
+  void addModuleDefinition(const std::string& moduleName,
+                           ModuleDefinition* def) {
     m_moduleDefinitions.insert(std::make_pair(moduleName, def));
   }
-  void addPackageDefinition(std::string packageName, Package* package) {
+  void addPackageDefinition(const std::string& packageName, Package* package) {
     m_packageDefinitions.insert(std::make_pair(packageName, package));
   }
-  void addProgramDefinition(std::string programName, Program* program) {
+  void addProgramDefinition(const std::string& programName, Program* program) {
     m_programDefinitions.insert(std::make_pair(programName, program));
   }
-  void addClassDefinition(std::string className, ClassDefinition* classDef) {
+  void addClassDefinition(const std::string& className,
+                          ClassDefinition* classDef) {
     m_classDefinitions.insert(std::make_pair(className, classDef));
   }
 
@@ -213,7 +217,8 @@ class FileContent : public DesignComponent {
   std::vector<DesignElement*> m_elements;
   std::map<std::string, DesignElement*, StringViewCompare> m_elementMap;
   std::vector<VObject> m_objects;
-  std::unordered_map<NodeId, SymbolId> m_definitionFiles;
+  std::unordered_map<NodeId, SymbolId, NodeIdHasher, NodeIdEqualityComparer>
+      m_definitionFiles;
 
   NameIdMap m_objectLookup;  // Populated at ResolveSymbol stage
   std::unordered_set<std::string> m_referencedObjects;

@@ -129,7 +129,6 @@ class ForLoopStmt : public Scope, public Statement {
               const FileContent* fileContent, NodeId node, VObjectType type)
       : Scope(name, scope),
         Statement(scope, parentStmt, fileContent, node, type),
-        m_conditionId(0),
         m_iteratorType(VObjectType::slNoType) {}
 
   void addIteratorId(NodeId itrId, NodeId init_expression) {

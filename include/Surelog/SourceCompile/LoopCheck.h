@@ -56,7 +56,7 @@ class LoopCheck {
     bool m_visited;
   };
 
-  std::map<SymbolId, Node*> m_nodes;
+  std::map<SymbolId, Node*, SymbolIdLessThanComparer> m_nodes;
 };
 }  // namespace SURELOG
 

@@ -25,12 +25,11 @@
 #define SURELOG_MODPORT_H
 #pragma once
 
+#include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/Signal.h>
 
 #include <string_view>
 #include <vector>
-
-#include <Surelog/Common/SymbolId.h>
 
 namespace SURELOG {
 
@@ -39,7 +38,8 @@ class FileContent;
 
 class ModPort final {
  public:
-  ModPort(ModuleDefinition* parent, std::string_view name, const FileContent *const fC, NodeId nodeId)
+  ModPort(ModuleDefinition* parent, std::string_view name,
+          const FileContent* const fC, NodeId nodeId)
       : m_parent(parent), m_name(name), m_fileContent(fC), m_nodeId(nodeId) {}
 
   const std::string& getName() const { return m_name; }

@@ -48,9 +48,9 @@ SVLibShapeListener::SVLibShapeListener(ParseLibraryDef *parser,
       m_parser(parser),
       m_tokens(tokens),
       m_relativePath(relativePath) {
-  m_fileContent = new FileContent(m_parser->getFileId(), nullptr,
-                                  m_parser->getSymbolTable(),
-                                  m_parser->getErrorContainer(), nullptr, 0);
+  m_fileContent = new FileContent(
+      m_parser->getFileId(), nullptr, m_parser->getSymbolTable(),
+      m_parser->getErrorContainer(), nullptr, BadSymbolId);
   m_pf->setFileContent(m_fileContent);
   m_includeFileInfo.emplace(IncludeFileInfo::Context::NONE, 1,
                             m_pf->getFileId(0), 0, 0, 0, 0,
@@ -74,8 +74,9 @@ void SVLibShapeListener::enterLibrary_declaration(
   lib = m_parser->getLibrarySet()->getLibrary(name);
 
   for (auto pathSpec : ctx->file_path_spec()) {
-    for (auto id : FileUtils::collectFiles(m_relativePath / pathSpec->getText(),
-                                           m_parser->getSymbolTable())) {
+    for (const auto &id :
+         FileUtils::collectFiles(m_relativePath / pathSpec->getText(),
+                                 m_parser->getSymbolTable())) {
       lib->addFileId(id);
       fs::path fileName = m_parser->getSymbolTable()->getSymbol(id);
       if ((fileName.extension() == ".cfg") ||

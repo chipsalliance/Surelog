@@ -24,6 +24,7 @@
 #include <Surelog/Design/DesignElement.h>
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/SourceCompile/CommonListenerHelper.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
 #include <antlr4-runtime.h>
 
 namespace SURELOG {
@@ -35,66 +36,57 @@ CommonListenerHelper::~CommonListenerHelper() {
   // delete m_fileContent;
 }
 
-int CommonListenerHelper::registerObject(VObject& object) {
-  m_fileContent->mutableVObjects().push_back(object);
-  return LastObjIndex();
-}
-
-int CommonListenerHelper::LastObjIndex() {
-  return m_fileContent->getVObjects().size() - 1;
-}
-
-int CommonListenerHelper::ObjectIndexFromContext(
+NodeId CommonListenerHelper::NodeIdFromContext(
     const antlr4::tree::ParseTree* ctx) const {
   auto found = m_contextToObjectMap.find(ctx);
-  return (found == m_contextToObjectMap.end()) ? -1 : found->second;
+  return (found == m_contextToObjectMap.end()) ? InvalidNodeId : found->second;
 }
 
 const VObject& CommonListenerHelper::Object(NodeId index) {
-  return m_fileContent->getVObjects()[index];
+  return m_fileContent->Object(index);
 }
 
 NodeId CommonListenerHelper::UniqueId(NodeId index) const { return index; }
 
 SymbolId CommonListenerHelper::Name(NodeId index) const {
-  return m_fileContent->getVObjects()[index].m_name;
+  return m_fileContent->Name(index);
 }
 
 NodeId CommonListenerHelper::Child(NodeId index) const {
-  return m_fileContent->getVObjects()[index].m_child;
+  return m_fileContent->Child(index);
 }
 NodeId& CommonListenerHelper::MutableChild(NodeId index) {
-  return m_fileContent->mutableVObjects()[index].m_child;
+  return m_fileContent->MutableObject(index)->m_child;
 }
 
 NodeId CommonListenerHelper::Sibling(NodeId index) const {
-  return m_fileContent->getVObjects()[index].m_sibling;
+  return m_fileContent->Sibling(index);
 }
 NodeId& CommonListenerHelper::MutableSibling(NodeId index) {
-  return m_fileContent->mutableVObjects()[index].m_sibling;
+  return m_fileContent->MutableObject(index)->m_sibling;
 }
 
 NodeId CommonListenerHelper::Definition(NodeId index) const {
-  return m_fileContent->getVObjects()[index].m_definition;
+  return m_fileContent->Definition(index);
 }
 
 NodeId CommonListenerHelper::Parent(NodeId index) const {
-  return m_fileContent->getVObjects()[index].m_parent;
+  return m_fileContent->Parent(index);
 }
 NodeId& CommonListenerHelper::MutableParent(NodeId index) {
-  return m_fileContent->mutableVObjects()[index].m_parent;
+  return m_fileContent->MutableObject(index)->m_parent;
 }
 
 VObjectType CommonListenerHelper::Type(NodeId index) const {
-  return m_fileContent->getVObjects()[index].m_type;
+  return m_fileContent->Type(index);
 }
 
 unsigned short CommonListenerHelper::Column(NodeId index) const {
-  return m_fileContent->getVObjects()[index].m_column;
+  return m_fileContent->Column(index);
 }
 
 unsigned int CommonListenerHelper::Line(NodeId index) const {
-  return m_fileContent->getVObjects()[index].m_line;
+  return m_fileContent->Line(index);
 }
 
 int CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym,
@@ -102,9 +94,9 @@ int CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym,
   SymbolId fileId;
   auto [line, column, endLine, endColumn] = getFileLine(ctx, fileId);
 
-  VObject& inserted = m_fileContent->mutableVObjects().emplace_back(
-      sym, fileId, objtype, line, column, endLine, endColumn, 0);
-  const int objectIndex = m_fileContent->getVObjects().size() - 1;
+  NodeId objectIndex = m_fileContent->addObject(sym, fileId, objtype, line,
+                                                column, endLine, endColumn);
+  VObject* inserted = m_fileContent->MutableObject(objectIndex);
   m_contextToObjectMap.insert(std::make_pair(ctx, objectIndex));
   addParentChildRelations(objectIndex, ctx);
   std::vector<SURELOG::DesignElement*>& delements =
@@ -113,9 +105,9 @@ int CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym,
     if ((*it)->m_context == ctx) {
       // Use the file and line number of the design object (package, module),
       // true file/line when splitting
-      inserted.m_fileId = (*it)->m_fileId;
-      inserted.m_line = (*it)->m_line;
-      (*it)->m_node = objectIndex;
+      inserted->m_fileId = (*it)->m_fileId;
+      inserted->m_line = (*it)->m_line;
+      (*it)->m_node = NodeId(objectIndex);
       break;
     }
   }
@@ -130,17 +122,17 @@ int CommonListenerHelper::addVObject(ParserRuleContext* ctx,
 
 int CommonListenerHelper::addVObject(ParserRuleContext* ctx,
                                      VObjectType objtype) {
-  return addVObject(ctx, 0, objtype);
+  return addVObject(ctx, BadSymbolId, objtype);
 }
 
-void CommonListenerHelper::addParentChildRelations(int indexParent,
+void CommonListenerHelper::addParentChildRelations(NodeId indexParent,
                                                    ParserRuleContext* ctx) {
-  int currentIndex = indexParent;
+  NodeId currentIndex = indexParent;
   for (tree::ParseTree* child : ctx->children) {
-    int childIndex = ObjectIndexFromContext(child);
-    if (childIndex != -1) {
+    NodeId childIndex = NodeIdFromContext(child);
+    if (childIndex) {
       MutableParent(childIndex) = UniqueId(indexParent);
-      if (currentIndex == indexParent) {
+      if (indexParent == currentIndex) {
         MutableChild(indexParent) = UniqueId(childIndex);
       } else {
         MutableSibling(currentIndex) = UniqueId(childIndex);
@@ -150,10 +142,10 @@ void CommonListenerHelper::addParentChildRelations(int indexParent,
   }
 }
 
-NodeId CommonListenerHelper::getObjectId(ParserRuleContext* ctx) {
-  ContextToObjectMap::iterator itr = m_contextToObjectMap.find(ctx);
+NodeId CommonListenerHelper::getObjectId(ParserRuleContext* ctx) const {
+  auto itr = m_contextToObjectMap.find(ctx);
   if (itr == m_contextToObjectMap.end()) {
-    return 0;
+    return InvalidNodeId;
   } else {
     return (*itr).second;
   }

@@ -56,8 +56,8 @@ class DesignElaboration : public TestbenchElaboration {
   bool identifyTopModules_();
   bool elaborateAllModules_(bool onlyTopLevel);
   void reportElaboration_();
-  bool elaborateModule_(const std::string& moduleName, const FileContent* fileContent,
-                        bool onlyTopLevel);
+  bool elaborateModule_(const std::string& moduleName,
+                        const FileContent* fileContent, bool onlyTopLevel);
   void checkElaboration_();
   void collectParams_(std::vector<std::string>& params, const FileContent* fC,
                       NodeId nodeId, ModuleInstance* instance,
@@ -73,10 +73,11 @@ class DesignElaboration : public TestbenchElaboration {
                             NodeId subInstanceId, NodeId paramOverride,
                             ModuleInstanceFactory* factory,
                             ModuleInstance* parent, Config* config,
-                            std::string instanceName, const std::string& modName,
+                            std::string instanceName,
+                            const std::string& modName,
                             std::vector<ModuleInstance*>& allSubInstances);
-  void recurseBuildInstanceClause_(const std::string& parentPath, Config* config,
-                                   std::set<Config*>& stack);
+  void recurseBuildInstanceClause_(const std::string& parentPath,
+                                   Config* config, std::set<Config*>& stack);
   ModuleInstance* createBindInstance_(BindStmt* bind, ModuleInstance* parent,
                                       ModuleInstanceFactory* factory,
                                       Config* config);

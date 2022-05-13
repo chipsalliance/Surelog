@@ -51,7 +51,7 @@ bool CompileFileContent::collectObjects_() {
 
   FileContent* fC = m_fileContent;
   if (fC->getSize() == 0) return true;
-  VObject current = fC->Object(fC->getSize() - 2);
+  const VObject& current = fC->Object(NodeId(fC->getSize() - 2));
   NodeId id = current.m_child;
   if (!id) id = current.m_sibling;
   if (!id) return false;
@@ -60,7 +60,7 @@ bool CompileFileContent::collectObjects_() {
   while (!stack.empty()) {
     id = stack.top();
     stack.pop();
-    current = fC->Object(id);
+    const VObject& current = fC->Object(id);
     VObjectType type = fC->Type(id);
     switch (type) {
       case VObjectType::slPackage_import_item: {

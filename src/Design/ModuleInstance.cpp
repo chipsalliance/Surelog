@@ -194,7 +194,7 @@ VObjectType ModuleInstance::getType() const {
   return m_fileContent->Type(m_nodeId);
 }
 
-VObjectType ModuleInstance::getModuleType() {
+VObjectType ModuleInstance::getModuleType() const {
   VObjectType type = (VObjectType)0;
   if (m_definition) {
     type = m_definition->getType();
@@ -210,36 +210,36 @@ std::filesystem::path ModuleInstance::getFileName() const {
   return m_fileContent->getFileName(m_nodeId);
 }
 
-unsigned int ModuleInstance::getLineNb() {
+unsigned int ModuleInstance::getLineNb() const {
   return m_fileContent->Line(m_nodeId);
 }
 
-unsigned short ModuleInstance::getColumnNb() {
+unsigned short ModuleInstance::getColumnNb() const {
   return m_fileContent->Column(m_nodeId);
 }
 
-unsigned int ModuleInstance::getEndLineNb() {
+unsigned int ModuleInstance::getEndLineNb() const {
   return m_fileContent->EndLine(m_nodeId);
 }
 
-unsigned short ModuleInstance::getEndColumnNb() {
+unsigned short ModuleInstance::getEndColumnNb() const {
   return m_fileContent->EndColumn(m_nodeId);
 }
 
-SymbolId ModuleInstance::getFullPathId(SymbolTable* symbols) {
+SymbolId ModuleInstance::getFullPathId(SymbolTable* symbols) const {
   return symbols->registerSymbol(getFullPathName());
 }
 
-SymbolId ModuleInstance::getInstanceId(SymbolTable* symbols) {
+SymbolId ModuleInstance::getInstanceId(SymbolTable* symbols) const {
   return symbols->registerSymbol(getInstanceName());
 }
-SymbolId ModuleInstance::getModuleNameId(SymbolTable* symbols) {
+SymbolId ModuleInstance::getModuleNameId(SymbolTable* symbols) const {
   return symbols->registerSymbol(getModuleName());
 }
 
-std::string ModuleInstance::getFullPathName() {
+std::string ModuleInstance::getFullPathName() const {
   std::string path;
-  ModuleInstance* tmp = this;
+  const ModuleInstance* tmp = this;
   std::vector<std::string> nibbles;
   while (tmp) {
     nibbles.push_back(tmp->getInstanceName());
@@ -254,9 +254,9 @@ std::string ModuleInstance::getFullPathName() {
   return path;
 }
 
-unsigned int ModuleInstance::getDepth() {
+unsigned int ModuleInstance::getDepth() const {
   unsigned int depth = 0;
-  ModuleInstance* tmp = this;
+  const ModuleInstance* tmp = this;
   while (tmp) {
     tmp = tmp->getParent();
     depth++;
@@ -264,7 +264,7 @@ unsigned int ModuleInstance::getDepth() {
   return depth;
 }
 
-std::string ModuleInstance::getInstanceName() {
+std::string ModuleInstance::getInstanceName() const {
   if (m_definition == nullptr) {
     std::string name =
         m_instName.substr(m_instName.find("&", 0, 1) + 1, m_instName.size());
@@ -274,7 +274,7 @@ std::string ModuleInstance::getInstanceName() {
   }
 }
 
-std::string ModuleInstance::getModuleName() {
+std::string ModuleInstance::getModuleName() const {
   if (m_definition == nullptr) {
     std::string name = m_instName.substr(0, m_instName.find("&", 0, 1));
     return name;
@@ -307,7 +307,7 @@ void ModuleInstance::setOverridenParam(std::string_view name) {
   m_overridenParams.emplace(name);
 }
 
-bool ModuleInstance::isOverridenParam(std::string_view name) {
+bool ModuleInstance::isOverridenParam(std::string_view name) const {
   if (m_overridenParams.find(name) == m_overridenParams.end()) return false;
   return true;
 }

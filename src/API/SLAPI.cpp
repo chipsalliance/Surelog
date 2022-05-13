@@ -87,9 +87,10 @@ void SLaddError(ErrorContainer* errors, const char* messageId,
   if (errors == nullptr) return;
   SymbolTable* symbolTable = errors->getSymbolTable();
   const SymbolId fileId =
-      IsEmpty(fileName) ? 0 : symbolTable->registerSymbol(fileName);
-  const SymbolId objectId =
-      IsEmpty(objectName) ? 0 : symbolTable->registerSymbol(objectName);
+      IsEmpty(fileName) ? BadSymbolId : symbolTable->registerSymbol(fileName);
+  const SymbolId objectId = IsEmpty(objectName)
+                                ? BadSymbolId
+                                : symbolTable->registerSymbol(objectName);
   Location loc(fileId, line, col, objectId);
 
   ErrorDefinition::ErrorType type = ErrorDefinition::getErrorType(messageId);
@@ -105,14 +106,15 @@ void SLaddMLError(ErrorContainer* errors, const char* messageId,
   if (errors == nullptr) return;
   SymbolTable* symbolTable = errors->getSymbolTable();
   const SymbolId fileId1 =
-      IsEmpty(fileName1) ? 0 : symbolTable->registerSymbol(fileName1);
-  const SymbolId objectId1 =
-      IsEmpty(objectName1) ? 0 : symbolTable->registerSymbol(objectName1);
+      IsEmpty(fileName1) ? BadSymbolId : symbolTable->registerSymbol(fileName1);
+  const SymbolId objectId1 = IsEmpty(objectName1)
+                                 ? BadSymbolId
+                                 : symbolTable->registerSymbol(objectName1);
   Location loc1(fileId1, line1, col1, objectId1);
 
-  SymbolId fileId2 = 0;
+  SymbolId fileId2;
   if (!IsEmpty(fileName2)) fileId2 = symbolTable->registerSymbol(fileName2);
-  SymbolId objectId2 = 0;
+  SymbolId objectId2;
   if (!IsEmpty(objectName2))
     objectId2 = symbolTable->registerSymbol(objectName2);
   Location loc2(fileId2, line2, col2, objectId2);
@@ -279,105 +281,115 @@ std::vector<antlr4::ParserRuleContext*> SLgetChildrenContext(
   return children;
 }
 
-NodeId SLgetRootNode(FileContent* fC) {
-  if (!fC) return 0;
+RawNodeId SLgetRootNode(FileContent* fC) {
+  if (!fC) return InvalidNodeId;
   return fC->getRootNode();
 }
 
-std::string SLgetFile(FileContent* fC, NodeId id) {
+std::string SLgetFile(FileContent* fC, RawNodeId id) {
   if (!fC) return "";
-  return fC->getSymbolTable()->getSymbol(fC->getFileId(id));
+  return fC->getSymbolTable()->getSymbol(fC->getFileId(NodeId(id)));
 }
 
-unsigned int SLgetType(FileContent* fC, NodeId id) {
+unsigned int SLgetType(FileContent* fC, RawNodeId id) {
   if (!fC) return 0;
-  return fC->Type(id);
+  return fC->Type(NodeId(id));
 }
 
-NodeId SLgetChild(FileContent* fC, NodeId index) {
+RawNodeId SLgetChild(FileContent* fC, RawNodeId index) {
+  if (!fC) return InvalidNodeId;
+  return fC->Child(NodeId(index));
+}
+
+RawNodeId SLgetSibling(FileContent* fC, RawNodeId index) {
+  if (!fC) return InvalidNodeId;
+  return fC->Sibling(NodeId(index));
+}
+
+RawNodeId SLgetParent(FileContent* fC, RawNodeId index) {
+  if (!fC) return InvalidNodeId;
+  return fC->Parent(NodeId(index));
+}
+
+unsigned int SLgetLine(FileContent* fC, RawNodeId index) {
   if (!fC) return 0;
-  return fC->Child(index);
+  return fC->Line(NodeId(index));
 }
 
-NodeId SLgetSibling(FileContent* fC, NodeId index) {
-  if (!fC) return 0;
-  return fC->Sibling(index);
-}
-
-NodeId SLgetParent(FileContent* fC, NodeId index) {
-  if (!fC) return 0;
-  return fC->Parent(index);
-}
-
-unsigned int SLgetLine(FileContent* fC, NodeId index) {
-  if (!fC) return 0;
-  return fC->Line(index);
-}
-
-std::string SLgetName(FileContent* fC, NodeId index) {
+std::string SLgetName(FileContent* fC, RawNodeId index) {
   if (!fC) return "";
-  return fC->SymName(index);
+  return fC->SymName(NodeId(index));
 }
 
-NodeId SLgetChild(FileContent* fC, NodeId parent, unsigned int type) {
-  if (!fC) return 0;
-  return fC->sl_get(parent, (VObjectType)type);
+RawNodeId SLgetChild(FileContent* fC, RawNodeId parent, unsigned int type) {
+  if (!fC) return InvalidNodeId;
+  return fC->sl_get(NodeId(parent), (VObjectType)type);
 }
 
-NodeId SLgetParent(FileContent* fC, NodeId parent, unsigned int type) {
-  if (!fC) return 0;
-  return fC->sl_parent(parent, (VObjectType)type);
+RawNodeId SLgetParent(FileContent* fC, RawNodeId parent, unsigned int type) {
+  if (!fC) return InvalidNodeId;
+  return fC->sl_parent(NodeId(parent), (VObjectType)type);
 }
 
-std::vector<unsigned int> SLgetAll(FileContent* fC, NodeId parent,
-                                   unsigned int type) {
+static std::vector<RawNodeId> transform(const std::vector<NodeId>& input) {
+  std::vector<RawNodeId> output;
+  output.reserve(input.size());
+  std::transform(input.begin(), input.end(), std::back_inserter(output),
+                 [](NodeId id) { return (RawNodeId)id; });
+  return output;
+}
+
+std::vector<RawNodeId> SLgetAll(FileContent* fC, RawNodeId parent,
+                                unsigned int type) {
   if (!fC) return {};
-  return fC->sl_get_all(parent, (VObjectType)type);
+  return transform(fC->sl_get_all(NodeId(parent), (VObjectType)type));
 }
 
-std::vector<unsigned int> SLgetAll(FileContent* fC, NodeId parent,
-                                   const std::vector<unsigned int>& types) {
+std::vector<RawNodeId> SLgetAll(FileContent* fC, RawNodeId parent,
+                                const std::vector<unsigned int>& types) {
   if (!fC) return {};
-  std::unordered_set<VObjectType> vtypes;
+  VObjectTypeUnorderedSet vtypes;
   vtypes.reserve(types.size());
-  for (auto type : types) vtypes.insert((VObjectType)type);
-  return fC->sl_get_all(parent, vtypes);
+  for (auto type : types) vtypes.emplace((VObjectType)type);
+  return transform(fC->sl_get_all(NodeId(parent), vtypes));
 }
 
-NodeId SLcollect(FileContent* fC, NodeId parent, unsigned int type) {
+RawNodeId SLcollect(FileContent* fC, RawNodeId parent, unsigned int type) {
   if (!fC) return {};
-  return fC->sl_collect(parent, (VObjectType)type);
+  return fC->sl_collect(NodeId(parent), (VObjectType)type);
 }
 
-std::vector<unsigned int> SLcollectAll(FileContent* fC, NodeId parent,
-                                       unsigned int type, bool first) {
+std::vector<RawNodeId> SLcollectAll(FileContent* fC, RawNodeId parent,
+                                    unsigned int type, bool first) {
   if (fC)
-    return fC->sl_collect_all(parent, (VObjectType)type, first);
+    return transform(
+        fC->sl_collect_all(NodeId(parent), (VObjectType)type, first));
   else
     return {};
 }
 
-std::vector<unsigned int> SLcollectAll(FileContent* fC, NodeId parent,
-                                       const std::vector<unsigned int>& types,
-                                       bool first) {
+std::vector<RawNodeId> SLcollectAll(FileContent* fC, RawNodeId parent,
+                                    const std::vector<unsigned int>& types,
+                                    bool first) {
   if (!fC) return {};
-  std::unordered_set<VObjectType> vtypes;
+  VObjectTypeUnorderedSet vtypes;
   vtypes.reserve(types.size());
-  for (auto type : types) vtypes.insert((VObjectType)type);
-  return fC->sl_collect_all(parent, vtypes, first);
+  for (auto type : types) vtypes.emplace((VObjectType)type);
+  return transform(fC->sl_collect_all(NodeId(parent), vtypes, first));
 }
 
-std::vector<unsigned int> SLcollectAll(
-    FileContent* fC, NodeId parent, const std::vector<unsigned int>& types,
-    const std::vector<unsigned int>& stopPoints, bool first) {
+std::vector<RawNodeId> SLcollectAll(FileContent* fC, RawNodeId parent,
+                                    const std::vector<unsigned int>& types,
+                                    const std::vector<unsigned int>& stopPoints,
+                                    bool first) {
   if (!fC) return {};
-  std::unordered_set<VObjectType> vtypes;
+  VObjectTypeUnorderedSet vtypes;
   vtypes.reserve(types.size());
-  for (auto type : types) vtypes.insert((VObjectType)type);
-  std::unordered_set<VObjectType> vstops;
+  for (auto type : types) vtypes.emplace((VObjectType)type);
+  VObjectTypeUnorderedSet vstops;
   vstops.reserve(stopPoints.size());
-  for (auto type : stopPoints) vstops.insert((VObjectType)type);
-  return fC->sl_collect_all(parent, vtypes, vstops, first);
+  for (auto type : stopPoints) vstops.emplace((VObjectType)type);
+  return transform(fC->sl_collect_all(NodeId(parent), vtypes, vstops, first));
 }
 
 unsigned int SLgetnModuleDefinition(Design* design) {
@@ -477,8 +489,8 @@ FileContent* SLgetModuleFileContent(ModuleDefinition* module) {
   return const_cast<FileContent*>(module->getFileContents()[0]);
 }
 
-NodeId SLgetModuleRootNode(ModuleDefinition* module) {
-  if (!module || module->getNodeIds().empty()) return 0;
+RawNodeId SLgetModuleRootNode(ModuleDefinition* module) {
+  if (!module || module->getNodeIds().empty()) return InvalidNodeId;
   return module->getNodeIds()[0];
 }
 
@@ -510,8 +522,8 @@ FileContent* SLgetClassFileContent(ClassDefinition* module) {
   return const_cast<FileContent*>(module->getFileContents()[0]);
 }
 
-NodeId SLgetClassRootNode(ClassDefinition* module) {
-  if (!module || module->getNodeIds().empty()) return 0;
+RawNodeId SLgetClassRootNode(ClassDefinition* module) {
+  if (!module || module->getNodeIds().empty()) return InvalidNodeId;
   return module->getNodeIds()[0];
 }
 
@@ -542,8 +554,8 @@ FileContent* SLgetPackageFileContent(Package* module) {
   return const_cast<FileContent*>(module->getFileContents()[0]);
 }
 
-NodeId SLgetPackageRootNode(Package* module) {
-  if (!module || module->getNodeIds().empty()) return 0;
+RawNodeId SLgetPackageRootNode(Package* module) {
+  if (!module || module->getNodeIds().empty()) return InvalidNodeId;
   return module->getNodeIds()[0];
 }
 
@@ -574,8 +586,8 @@ FileContent* SLgetProgramFileContent(Program* module) {
   return const_cast<FileContent*>(module->getFileContents()[0]);
 }
 
-NodeId SLgetProgramRootNode(Program* module) {
-  if (!module || module->getNodeIds().empty()) return 0;
+RawNodeId SLgetProgramRootNode(Program* module) {
+  if (!module || module->getNodeIds().empty()) return InvalidNodeId;
   return module->getNodeIds()[0];
 }
 
@@ -622,8 +634,8 @@ FileContent* SLgetInstanceFileContent(ModuleInstance* instance) {
   return const_cast<FileContent*>(instance->getFileContent());
 }
 
-NodeId SLgetInstanceNodeId(ModuleInstance* instance) {
-  if (!instance) return 0;
+RawNodeId SLgetInstanceNodeId(ModuleInstance* instance) {
+  if (!instance) return InvalidNodeId;
   return instance->getNodeId();
 }
 

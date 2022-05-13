@@ -163,7 +163,7 @@ TEST(Elaboration, ExprUsePackage) {
   EXPECT_NE(top, nullptr);
   NodeId root = fC->getRootNode();
   NodeId moduleRoot = fC->sl_collect(root, slModule_declaration);
-  EXPECT_NE(moduleRoot, 0);
+  EXPECT_TRUE(moduleRoot);
 
   std::vector<NodeId> assigns =
       fC->sl_collect_all(moduleRoot, slParam_assignment);

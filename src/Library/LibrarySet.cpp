@@ -64,7 +64,7 @@ std::string LibrarySet::report(SymbolTable* symbols) const {
 
 void LibrarySet::checkErrors(SymbolTable* symbols,
                              ErrorContainer* errors) const {
-  std::map<SymbolId, std::string> fileSet;
+  std::map<SymbolId, std::string, SymbolIdLessThanComparer> fileSet;
   for (const auto& library : m_libraries) {
     for (const auto& file : library.getFiles()) {
       std::map<SymbolId, std::string>::iterator itr = fileSet.find(file);

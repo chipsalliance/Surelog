@@ -32,7 +32,7 @@ SymbolTable::SymbolTable() { registerSymbol(getBadSymbol()); }
 SymbolTable::~SymbolTable() {}
 
 const std::string& SymbolTable::getBadSymbol() {
-  static const std::string k_badSymbol("@@BAD_SYMBOL@@");
+  static const std::string k_badSymbol(BadRawSymbol);
   return k_badSymbol;
 }
 
@@ -51,14 +51,14 @@ SymbolId SymbolTable::registerSymbol(std::string_view symbol) {
   assert(symbol.data());
   auto found = m_symbol2IdMap.find(symbol);
   if (found != m_symbol2IdMap.end()) {
-    return found->second + m_idOffset;
+    return SymbolId(found->second + m_idOffset, found->first);
   }
   m_id2SymbolMap.emplace_back(symbol);
   const std::string_view normalized_symbol = m_id2SymbolMap.back();
   const auto inserted = m_symbol2IdMap.insert({normalized_symbol, m_idCounter});
   assert(inserted.second);  // This new insert must succeed.
   m_idCounter++;
-  return inserted.first->second + m_idOffset;
+  return SymbolId(inserted.first->second + m_idOffset, inserted.first->first);
 }
 
 SymbolId SymbolTable::getId(std::string_view symbol) const {
@@ -70,18 +70,20 @@ SymbolId SymbolTable::getId(std::string_view symbol) const {
   }
 
   auto found = m_symbol2IdMap.find(symbol);
-  return (found == m_symbol2IdMap.end()) ? getBadId()
-                                         : found->second + m_idOffset;
+  return (found == m_symbol2IdMap.end())
+             ? getBadId()
+             : SymbolId(found->second + m_idOffset, found->first);
 }
 
 const std::string& SymbolTable::getSymbol(SymbolId id) const {
+  RawSymbolId rid = (RawSymbolId)id;
   if (id < m_idOffset) {
     assert(m_parent);  // If we have a non-0 idOffset, we must have parent
     return m_parent->getSymbol(id);
   }
-  id -= m_idOffset;
-  if (id >= m_id2SymbolMap.size()) return getBadSymbol();
-  return m_id2SymbolMap[id];
+  rid -= m_idOffset;
+  if (rid >= m_id2SymbolMap.size()) return getBadSymbol();
+  return m_id2SymbolMap[rid];
 }
 
 void SymbolTable::AppendSymbols(int64_t up_to,

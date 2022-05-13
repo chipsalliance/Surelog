@@ -28,13 +28,13 @@
 namespace SURELOG {
 
 LoopCheck::~LoopCheck() {
-  for (auto itr : m_nodes) {
+  for (const auto& itr : m_nodes) {
     delete itr.second;
   }
 }
 
 void LoopCheck::clear() {
-  for (auto itr : m_nodes) {
+  for (const auto& itr : m_nodes) {
     delete itr.second;
   }
   m_nodes.clear();

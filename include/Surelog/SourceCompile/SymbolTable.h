@@ -36,7 +36,7 @@
 
 namespace SURELOG {
 
-class SymbolTable {
+class SymbolTable final {
  public:
   SymbolTable();
   ~SymbolTable();
@@ -66,23 +66,22 @@ class SymbolTable {
   std::vector<std::string_view> getSymbols() const;
 
   static const std::string& getBadSymbol();
-  static SymbolId getBadId() { return 0; }
+  static SymbolId getBadId() { return BadSymbolId; }
   static const std::string& getEmptyMacroMarker();
 
  private:
   void AppendSymbols(int64_t up_to, std::vector<std::string_view>* dest) const;
 
   const SymbolTable *m_parent = nullptr;
-  SymbolId m_idOffset = 0;
-
-  SymbolId m_idCounter = 0;
+  RawSymbolId m_idOffset = 0;
+  RawSymbolId m_idCounter = 0;
 
   // Stable strings whose address doesn't change with reallocations.
   std::deque<std::string> m_id2SymbolMap;
 
   // The key string_views point to the stable backing buffer provided in
   // m_id2SymbolMap
-  std::unordered_map<std::string_view, SymbolId> m_symbol2IdMap;
+  std::unordered_map<std::string_view, RawSymbolId> m_symbol2IdMap;
 };
 
 };  // namespace SURELOG

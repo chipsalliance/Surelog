@@ -45,7 +45,7 @@ class TimeInfo final {
   };
 
   Type m_type = Type::None;
-  SymbolId m_fileId = 0;
+  SymbolId m_fileId = BadSymbolId;
   unsigned int m_line = 0;
   Unit m_timeUnit = Unit::Second;
   double m_timeUnitValue = 0.0;
@@ -59,7 +59,7 @@ class TimeInfo final {
 class NetTypeInfo final {
  public:
   VObjectType m_type = slNoType;
-  SymbolId m_fileId = 0;
+  SymbolId m_fileId = BadSymbolId;
   unsigned int m_line = 0;
 };
 

@@ -107,28 +107,33 @@ bool ParseCache::restore_(const fs::path& cacheFileName) {
   /* Restore design content (Verilog Design Elements) */
   FileContent* fileContent = m_parse->getFileContent();
   if (fileContent == nullptr) {
-    fileContent = new FileContent(
-        m_parse->getFileId(0), m_parse->getLibrary(),
-        m_parse->getCompileSourceFile()->getSymbolTable(),
-        m_parse->getCompileSourceFile()->getErrorContainer(), nullptr, 0);
+    fileContent =
+        new FileContent(m_parse->getFileId(0), m_parse->getLibrary(),
+                        m_parse->getCompileSourceFile()->getSymbolTable(),
+                        m_parse->getCompileSourceFile()->getErrorContainer(),
+                        nullptr, BadSymbolId);
     m_parse->setFileContent(fileContent);
     m_parse->getCompileSourceFile()->getCompiler()->getDesign()->addFileContent(
         m_parse->getFileId(0), fileContent);
   }
   for (const auto* elemc : *ppcache->elements()) {
-    const std::string& elemName = cacheSymbols.getSymbol(elemc->name());
+    const std::string& elemName =
+        cacheSymbols.getSymbol(SymbolId(elemc->name(), "<unknown>"));
     DesignElement* elem = new DesignElement(
         m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
-            cacheSymbols.getSymbol(elemc->name())),
+            elemName),
         m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
-            cacheSymbols.getSymbol(elemc->file_id())),
-        (DesignElement::ElemType)elemc->type(), elemc->unique_id(),
+            cacheSymbols.getSymbol(SymbolId(elemc->file_id(), "<unknown>"))),
+        (DesignElement::ElemType)elemc->type(), NodeId(elemc->unique_id()),
         elemc->line(), elemc->column(), elemc->end_line(), elemc->end_column(),
-        elemc->parent());
-    elem->m_node = elemc->node();
+        NodeId(elemc->parent()));
+    elem->m_node = NodeId(elemc->node());
     elem->m_defaultNetType = (VObjectType)elemc->default_net_type();
     elem->m_timeInfo.m_type = (TimeInfo::Type)elemc->time_info()->type();
-    elem->m_timeInfo.m_fileId = elemc->time_info()->file_id();
+    elem->m_timeInfo.m_fileId =
+        m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
+            cacheSymbols.getSymbol(
+                SymbolId(elemc->time_info()->file_id(), "<unknown>")));
     elem->m_timeInfo.m_line = elemc->time_info()->line();
     elem->m_timeInfo.m_timeUnit =
         (TimeInfo::Unit)elemc->time_info()->time_unit();
@@ -211,7 +216,7 @@ bool ParseCache::save() {
   if (fcontent) {
     if (fcontent->getVObjects().size() > Cache::Capacity) {
       clp->setCacheAllowed(false);
-      Location loc(0);
+      Location loc(BadSymbolId);
       Error err(ErrorDefinition::CMD_CACHE_CAPACITY_EXCEEDED, loc);
       m_parse->getCompileSourceFile()->getErrorContainer()->addError(err);
       return false;
@@ -255,20 +260,21 @@ bool ParseCache::save() {
               elem->m_name);
       auto timeInfo = CACHE::CreateTimeInfo(
           builder, static_cast<uint16_t>(info.m_type),
-          cacheSymbols.registerSymbol(
+          (RawSymbolId)cacheSymbols.registerSymbol(
               m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
                   info.m_fileId)),
           info.m_line, static_cast<uint16_t>(info.m_timeUnit),
           info.m_timeUnitValue, static_cast<uint16_t>(info.m_timePrecision),
           info.m_timePrecisionValue);
       element_vec.push_back(PARSECACHE::CreateDesignElement(
-          builder, cacheSymbols.registerSymbol(elemName),
-          cacheSymbols.registerSymbol(
+          builder, (RawSymbolId)cacheSymbols.registerSymbol(elemName),
+          (RawSymbolId)cacheSymbols.registerSymbol(
               m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
                   elem->m_fileId)),
-          elem->m_type, elem->m_uniqueId, elem->m_line, elem->m_column,
-          elem->m_endLine, elem->m_endColumn, timeInfo, elem->m_parent,
-          elem->m_node, elem->m_defaultNetType));
+          elem->m_type, (RawNodeId)elem->m_uniqueId, elem->m_line,
+          elem->m_column, elem->m_endLine, elem->m_endColumn, timeInfo,
+          (RawNodeId)elem->m_parent, (RawNodeId)elem->m_node,
+          elem->m_defaultNetType));
     }
   auto elementList = builder.CreateVector(element_vec);
 

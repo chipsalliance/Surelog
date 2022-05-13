@@ -58,12 +58,13 @@ std::unique_ptr<FileContent> ParserHarness::parse(const std::string& content) {
   m_h->compiler = std::make_unique<Compiler>(m_h->clp.get(), m_h->errors.get(),
                                              m_h->symbols.get());
   m_h->csf = std::make_unique<CompileSourceFile>(
-      0, m_h->clp.get(), m_h->errors.get(), m_h->compiler.get(),
+      BadSymbolId, m_h->clp.get(), m_h->errors.get(), m_h->compiler.get(),
       m_h->symbols.get(), m_h->unit.get(), m_h->lib.get());
   m_h->pf.reset(
       new ParseFile(content, m_h->csf.get(), m_h->unit.get(), m_h->lib.get()));
-  std::unique_ptr<FileContent> file_content_result(new FileContent(
-      0, m_h->lib.get(), m_h->symbols.get(), m_h->errors.get(), nullptr, 0));
+  std::unique_ptr<FileContent> file_content_result(
+      new FileContent(BadSymbolId, m_h->lib.get(), m_h->symbols.get(),
+                      m_h->errors.get(), nullptr, BadSymbolId));
   m_h->pf->setFileContent(file_content_result.get());
   if (!m_h->pf->parse()) file_content_result.reset(nullptr);
   return file_content_result;
@@ -77,15 +78,15 @@ FileContent* ParserHarness::parse(const std::string& content,
   ErrorContainer* errors = compiler->getErrorContainer();
   CommandLineParser* clp = compiler->getCommandLineParser();
   Library* lib = new Library("work", symbols);
-  CompileSourceFile* csf =
-      new CompileSourceFile(0, clp, errors, compiler, symbols, unit, lib);
+  CompileSourceFile* csf = new CompileSourceFile(BadSymbolId, clp, errors,
+                                                 compiler, symbols, unit, lib);
   ParseFile* pf = new ParseFile(content, csf, unit, lib);
-  NodeId fileId = 0;
+  SymbolId fileId;
   if (!fileName.empty()) {
     fileId = symbols->registerSymbol(fileName);
   }
   FileContent* file_content_result =
-      new FileContent(fileId, lib, symbols, errors, nullptr, 0);
+      new FileContent(fileId, lib, symbols, errors, nullptr, BadSymbolId);
   pf->setFileContent(file_content_result);
   if (!pf->parse()) file_content_result = nullptr;
   return file_content_result;

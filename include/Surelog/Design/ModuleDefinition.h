@@ -29,6 +29,7 @@
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/DesignComponent.h>
+#include <Surelog/Design/ModPort.h>
 
 // UHDM
 #include <uhdm/containers.h>
@@ -49,7 +50,7 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   ModuleDefinition(const FileContent* fileContent, NodeId nodeId,
                    std::string_view name);
 
-  ~ModuleDefinition() override;
+  ~ModuleDefinition() override = default;
 
   const std::string& getName() const override { return m_name; }
   VObjectType getType() const override;
@@ -65,13 +66,14 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   ModPortClockingBlockMap& getModPortClockingBlockMap() {
     return m_modportClockingBlockMap;
   }
-  void insertModPort(const std::string& modport, const Signal& signal, NodeId nodeId);
+  void insertModPort(const std::string& modport, const Signal& signal,
+                     NodeId nodeId);
   void insertModPort(const std::string& modport, ClockingBlock& block);
   const Signal* getModPortSignal(const std::string& modport, NodeId port) const;
   ModPort* getModPort(const std::string& modport);
 
-  ClockingBlock* getModPortClockingBlock(const std::string& modport,
-                                         NodeId port);
+  const ClockingBlock* getModPortClockingBlock(const std::string& modport,
+                                               NodeId port) const;
 
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;

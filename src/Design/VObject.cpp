@@ -27,8 +27,9 @@
 
 namespace SURELOG {
 
-std::string VObject::print(SymbolTable* symbols, unsigned int uniqueId,
-                           NodeId definitionFile, SymbolId printedFile) const {
+std::string VObject::print(SymbolTable* symbols, NodeId uniqueId,
+                           SymbolId definitionFile,
+                           SymbolId printedFile) const {
   std::string text;
   const std::string& symbol = symbols->getSymbol(m_name);
   if (symbol == SymbolTable::getBadSymbol()) {

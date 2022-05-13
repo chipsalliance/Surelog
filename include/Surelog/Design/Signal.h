@@ -70,7 +70,7 @@ class Signal final {
   void setPackedDimension(NodeId id) { m_packedDimension = id; }
   void setUnpackedDimension(NodeId id) { m_unpackedDimension = id; }
   void setTypespecId(NodeId id) { m_typeSpecId = id; }
-  bool isInterface() { return (m_interfaceTypeNameId != 0); }
+  bool isInterface() const { return (bool)m_interfaceTypeNameId; }
   void setLowConn(Signal* sig) { m_lowConn = sig; }
   void setConst() { m_const = true; }
   void setVar() { m_var = true; }
@@ -105,22 +105,23 @@ class Signal final {
 
   std::vector<UHDM::attribute*>* attributes() { return m_attributes; }
   void attributes(std::vector<UHDM::attribute*>* attr) { m_attributes = attr; }
+
  private:
   const FileContent* m_fileContent = nullptr;
-  NodeId m_nodeId = 0;
+  NodeId m_nodeId;
   VObjectType m_type = VObjectType::slNoType;
   VObjectType m_direction = VObjectType::slNoType;
   ModuleDefinition* m_interfaceDef = nullptr;
   ModPort* m_modPort = nullptr;
   const DataType* m_dataType = nullptr;
   Signal* m_lowConn = nullptr;  // for ports
-  NodeId m_interfaceTypeNameId = 0;
-  NodeId m_packedDimension = 0;
-  NodeId m_typeSpecId = 0;
-  NodeId m_unpackedDimension = 0;
-  NodeId m_delay = 0;
-  NodeId m_drive_strength = 0;
-  NodeId m_default_value = 0;
+  NodeId m_interfaceTypeNameId;
+  NodeId m_packedDimension;
+  NodeId m_typeSpecId;
+  NodeId m_unpackedDimension;
+  NodeId m_delay;
+  NodeId m_drive_strength;
+  NodeId m_default_value;
   bool m_const = false;
   bool m_var = false;
   bool m_signed = false;

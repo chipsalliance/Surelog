@@ -40,10 +40,10 @@
 namespace SURELOG {
 
 Design::~Design() {
-  for (auto elem : m_ppFileContents) {
+  for (const auto& elem : m_ppFileContents) {
     delete elem.second;
   }
-  for (auto elem : m_fileContents) {
+  for (const auto& elem : m_fileContents) {
     delete elem.second;
   }
   for (const auto& elem : m_moduleDefinitions) {

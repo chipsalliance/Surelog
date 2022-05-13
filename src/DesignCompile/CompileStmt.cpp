@@ -117,7 +117,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
   switch (type) {
     case VObjectType::slStatement_or_null: {
       NodeId child = fC->Child(the_stmt);
-      if (child == 0) {
+      if (!child) {
         // That is the null statement (no statement)
         return nullptr;
       }
@@ -208,7 +208,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       VectorOfany* stmts = s.MakeAnyVec();
       UHDM::scope* scope = nullptr;
       std::string label;
-      NodeId labelId = 0;
+      NodeId labelId;
       if (fC->Type(item) == VObjectType::slStringConst) {
         labelId = item;
         item = fC->Sibling(item);
@@ -293,7 +293,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       VectorOfany* stmts = s.MakeAnyVec();
       UHDM::scope* scope = nullptr;
       std::string label;
-      NodeId labelId = 0;
+      NodeId labelId;
       if (fC->Type(item) == VObjectType::slStringConst) {
         labelId = item;
         item = fC->Sibling(item);
@@ -567,7 +567,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
     }
     case VObjectType::slWait_statement: {
       NodeId Expression = fC->Child(the_stmt);
-      if (Expression == 0) {
+      if (!Expression) {
         // wait fork
         UHDM::wait_fork* waitst = s.MakeWait_fork();
         stmt = waitst;
@@ -769,10 +769,10 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       UHDM::any* else_stmt = nullptr;
       if (fC->Type(If_block) == slAction_block) {
         NodeId if_stmt_id = fC->Child(If_block);
-        NodeId else_stmt_id = 0;
+        NodeId else_stmt_id;
         if (fC->Type(if_stmt_id) == slElse) {
           else_stmt_id = fC->Sibling(if_stmt_id);
-          if_stmt_id = 0;
+          if_stmt_id = InvalidNodeId;
         } else {
           NodeId else_keyword = fC->Sibling(if_stmt_id);
           if (else_keyword) else_stmt_id = fC->Sibling(else_keyword);
@@ -1036,7 +1036,7 @@ UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(
   NodeId If_branch_stmt = fC->Sibling(Cond_predicate);
   NodeId Else_branch_stmt = fC->Sibling(If_branch_stmt);
   UHDM::atomic_stmt* result_stmt = nullptr;
-  if (Else_branch_stmt != 0) {
+  if (Else_branch_stmt) {
     UHDM::if_else* cond_stmt = s.MakeIf_else();
     cond_stmt->VpiQualifier(qualifier);
     cond_stmt->VpiCondition((UHDM::expr*)cond_exp);
@@ -1155,7 +1155,7 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(DesignComponent* component,
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::atomic_stmt* result = nullptr;
   NodeId Case_keyword = fC->Child(nodeId);
-  NodeId Unique = 0;
+  NodeId Unique;
   if (fC->Type(Case_keyword) == VObjectType::slUnique_priority) {
     Unique = fC->Child(Case_keyword);
     Case_keyword = fC->Sibling(Case_keyword);
@@ -1216,7 +1216,7 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(DesignComponent* component,
       case_item->VpiParent(case_stmt);
     }
     bool isDefault = false;
-    NodeId Expression = 0;
+    NodeId Expression;
     if (fC->Type(Case_item) == VObjectType::slCase_item) {
       Expression = fC->Child(Case_item);
       if (fC->Type(Expression) == VObjectType::slExpression) {
@@ -1673,7 +1673,7 @@ bool CompileHelper::compileTask(DesignComponent* component,
   }
   std::string name;
   NodeId task_decl = setFuncTaskQualifiers(fC, nodeId, nullptr);
-  NodeId Task_body_declaration = 0;
+  NodeId Task_body_declaration;
   if (fC->Type(task_decl) == slTask_body_declaration)
     Task_body_declaration = task_decl;
   else
@@ -1716,7 +1716,7 @@ bool CompileHelper::compileTask(DesignComponent* component,
   task->VpiEndLineNo(fC->EndLine(task_decl));
   task->VpiEndColumnNo(fC->EndColumn(task_decl));
   NodeId Tf_port_list = fC->Sibling(task_name);
-  NodeId Statement_or_null = 0;
+  NodeId Statement_or_null;
   if (fC->Type(Tf_port_list) == slTf_port_list) {
     Statement_or_null = fC->Sibling(Tf_port_list);
     task->Io_decls(
@@ -1745,11 +1745,10 @@ bool CompileHelper::compileTask(DesignComponent* component,
       Statement_or_null = Tf_port_list;
   }
 
-  NodeId MoreStatement_or_null = 0;
-  if (Statement_or_null) MoreStatement_or_null = fC->Sibling(Statement_or_null);
+  NodeId MoreStatement_or_null = fC->Sibling(Statement_or_null);
   if (MoreStatement_or_null &&
       (fC->Type(MoreStatement_or_null) == VObjectType::slEndtask)) {
-    MoreStatement_or_null = 0;
+    MoreStatement_or_null = InvalidNodeId;
   }
   if (MoreStatement_or_null) {
     // Page 983, 2017 Standard: More than 1 Stmts
@@ -1879,7 +1878,7 @@ bool CompileHelper::compileClassConstructorDeclaration(
   func->VpiEndColumnNo(fC->EndColumn(nodeId));
   std::string name = "new";
   std::string className;
-  NodeId Tf_port_list = 0;
+  NodeId Tf_port_list;
   Tf_port_list = fC->Child(nodeId);
   if (fC->Type(Tf_port_list) == slClass_scope) {
     NodeId Class_scope = Tf_port_list;
@@ -1915,7 +1914,7 @@ bool CompileHelper::compileClassConstructorDeclaration(
   func->Io_decls(
       compileTfPortList(component, func, fC, Tf_port_list, compileDesign));
 
-  NodeId Stmt = 0;
+  NodeId Stmt;
   if (fC->Type(Tf_port_list) == slFunction_statement_or_null) {
     Stmt = Tf_port_list;
   } else {
@@ -2021,12 +2020,12 @@ bool CompileHelper::compileFunction(DesignComponent* component,
       func_decl_type == slClass_constructor_prototype) {
     constructor = true;
   }
-  NodeId Tf_port_list = 0;
+  NodeId Tf_port_list;
   if (constructor) {
     Tf_port_list = fC->Child(func_decl);
     name = "new";
   } else {
-    NodeId Function_body_declaration = 0;
+    NodeId Function_body_declaration;
     if (fC->Type(func_decl) == slFunction_body_declaration)
       Function_body_declaration = func_decl;
     else
@@ -2076,7 +2075,7 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     tps->Class_defn(cdef->getUhdmDefinition());
     tps->VpiName(cdef->getUhdmDefinition()->VpiFullName());
   } else {
-    NodeId Function_body_declaration = 0;
+    NodeId Function_body_declaration;
     if (fC->Type(func_decl) == slFunction_body_declaration)
       Function_body_declaration = func_decl;
     else
@@ -2121,7 +2120,8 @@ bool CompileHelper::compileFunction(DesignComponent* component,
       NodeId Parameter_declaration = fC->Child(Block_item_declaration);
       if ((fC->Type(Parameter_declaration) == slParameter_declaration) ||
           (fC->Type(Parameter_declaration) == slLocal_parameter_declaration)) {
-        DesignComponent* tmp = new ModuleDefinition(nullptr, 0, "fake");
+        DesignComponent* tmp =
+            new ModuleDefinition(nullptr, InvalidNodeId, "fake");
         compileParameterDeclaration(
             tmp, fC, Parameter_declaration, compileDesign,
             (fC->Type(Parameter_declaration) == slLocal_parameter_declaration),
@@ -2154,13 +2154,12 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     Function_statement_or_null = Tf_port_list;
   }
 
-  NodeId MoreFunction_statement_or_null = 0;
-  if (Function_statement_or_null)
-    MoreFunction_statement_or_null = fC->Sibling(Function_statement_or_null);
+  NodeId MoreFunction_statement_or_null =
+      fC->Sibling(Function_statement_or_null);
   if (MoreFunction_statement_or_null &&
       (fC->Type(MoreFunction_statement_or_null) ==
        VObjectType::slEndfunction)) {
-    MoreFunction_statement_or_null = 0;
+    MoreFunction_statement_or_null = InvalidNodeId;
   }
   if (MoreFunction_statement_or_null) {
     // Page 983, 2017 Standard: More than 1 Stmts
@@ -2274,7 +2273,7 @@ Task* CompileHelper::compileTaskPrototype(DesignComponent* scope,
   task->VpiColumnNo(fC->Column(id));
   task->VpiEndLineNo(fC->EndLine(id));
   task->VpiEndColumnNo(fC->EndColumn(id));
-  NodeId Tf_port_list = 0;
+  NodeId Tf_port_list;
   if (fC->Type(task_name) == VObjectType::slStringConst) {
     Tf_port_list = fC->Sibling(task_name);
   } else if (fC->Type(task_name) == VObjectType::slClass_scope) {
@@ -2305,7 +2304,7 @@ Function* CompileHelper::compileFunctionPrototype(
     DesignComponent* scope, const FileContent* fC, NodeId id,
     CompileDesign* compileDesign) {
   std::string funcName;
-  NodeId function_name = 0;
+  NodeId function_name;
   UHDM::Serializer& s = compileDesign->getSerializer();
   std::vector<UHDM::task_func*>* task_funcs = scope->getTask_funcs();
   if (task_funcs == nullptr) {
@@ -2365,7 +2364,7 @@ Function* CompileHelper::compileFunctionPrototype(
   func->VpiEndColumnNo(fC->EndColumn(id));
   func->Return(any_cast<variables*>(compileVariable(
       scope, fC, type, compileDesign, nullptr, nullptr, true, false)));
-  NodeId Tf_port_list = 0;
+  NodeId Tf_port_list;
   if (fC->Type(function_name) == VObjectType::slStringConst) {
     Tf_port_list = fC->Sibling(function_name);
   } else if (fC->Type(function_name) == VObjectType::slClass_scope) {
@@ -2390,7 +2389,8 @@ Function* CompileHelper::compileFunctionPrototype(
   DataType* returnType = new DataType();
   returnType->init(fC, type, typeName, fC->Type(type));
   Function* result = new Function(scope, fC, id, funcName, returnType);
-  Variable* variable = new Variable(returnType, fC, id, 0, funcName);
+  Variable* variable =
+      new Variable(returnType, fC, id, InvalidNodeId, funcName);
   result->addVariable(variable);
   result->compile(*this);
   return result;
@@ -2501,10 +2501,10 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component,
                                          CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   for_stmt* for_stmt = s.MakeFor_stmt();
-  NodeId For_initialization = 0;
-  NodeId Condition = 0;
-  NodeId For_step = 0;
-  NodeId Statement_or_null = 0;
+  NodeId For_initialization;
+  NodeId Condition;
+  NodeId For_step;
+  NodeId Statement_or_null;
   NodeId tmp = fC->Sibling(nodeId);
   while (tmp) {
     if (fC->Type(tmp) == slFor_initialization) {
@@ -2829,7 +2829,7 @@ UHDM::method_func_call* CompileHelper::compileRandomizeCall(
   method_func_call* func_call = s.MakeMethod_func_call();
   method_func_call* result = func_call;
   func_call->VpiName("randomize");
-  NodeId With = 0;
+  NodeId With;
   if (fC->Type(Identifier_list) == slIdentifier_list) {
     With = fC->Sibling(Identifier_list);
   } else if (fC->Type(Identifier_list) == slWith) {
@@ -2897,7 +2897,7 @@ void CompileHelper::compileBindStmt(DesignComponent* component,
   NodeId Target_scope = fC->Child(Bind_directive);
   const std::string& targetName = fC->SymName(Target_scope);
   NodeId Bind_instantiation = fC->Sibling(Target_scope);
-  NodeId Instance_target = 0;
+  NodeId Instance_target;
   if (fC->Type(Bind_instantiation) == slStringConst) {
     Instance_target = Bind_instantiation;
     NodeId Constant_bit_select = fC->Sibling(Bind_instantiation);

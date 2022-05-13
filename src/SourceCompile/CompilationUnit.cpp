@@ -25,12 +25,7 @@
 namespace SURELOG {
 
 CompilationUnit::CompilationUnit(bool fileunit)
-    : m_fileunit(fileunit),
-      m_inDesignElement(false),
-      m_uniqueIdGenerator(0),
-      m_uniqueNodeIdGenerator(0) {}
-
-CompilationUnit::~CompilationUnit() {}
+    : m_fileunit(fileunit), m_inDesignElement(false) {}
 
 MacroInfo* CompilationUnit::getMacroInfo(const std::string& macroName) {
   MacroStorageRef::iterator itr = m_macros.find(macroName);

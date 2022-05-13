@@ -57,7 +57,7 @@ CompileSourceFile::CompileSourceFile(SymbolId fileId, CommandLineParser* clp,
       m_symbolTable(symbols),
       m_compilationUnit(compilationUnit),
       m_action(Preprocess),
-      m_ppResultFileId(0),
+      m_ppResultFileId(BadSymbolId),
       m_library(library),
       m_text(text) {}
 
@@ -219,9 +219,9 @@ bool CompileSourceFile::preprocess_() {
     m_pp = new PreprocessFile(m_fileId, this, instructions, m_compilationUnit,
                               m_library);
   } else {
-    m_pp =
-        new PreprocessFile(0, nullptr, 0, this, instructions, m_compilationUnit,
-                           m_library, m_text, nullptr, 0, 0);
+    m_pp = new PreprocessFile(BadSymbolId, nullptr, 0, this, instructions,
+                              m_compilationUnit, m_library, m_text, nullptr, 0,
+                              BadSymbolId);
   }
   registerPP(m_pp);
 
@@ -256,7 +256,7 @@ bool CompileSourceFile::postPreprocess_() {
                              m_library);  // unit test
   }
   if (m_commandLineParser->writePpOutput() ||
-      (m_commandLineParser->writePpOutputFileId() != 0)) {
+      m_commandLineParser->writePpOutputFileId()) {
     const fs::path directory =
         symbolTable->getSymbol(m_commandLineParser->getFullCompileDir());
     fs::path fullFileName = symbolTable->getSymbol(m_fileId);

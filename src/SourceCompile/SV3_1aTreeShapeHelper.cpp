@@ -110,9 +110,9 @@ void SV3_1aTreeShapeHelper::addNestedDesignElement(
   auto [line, column, endLine, endColumn] = getFileLine(ctx, fileId);
   std::string design_element = m_pf->getLibrary()->getName() + "@";
   design_element.append(name);
-  DesignElement* elem = new DesignElement(registerSymbol(name), fileId,
-                                          elemtype, generateDesignElemId(),
-                                          line, column, endLine, endColumn, 0);
+  DesignElement* elem = new DesignElement(
+      registerSymbol(name), fileId, elemtype, generateDesignElemId(), line,
+      column, endLine, endColumn, InvalidNodeId);
   elem->m_context = ctx;
   elem->m_timeInfo = m_pf->getCompilationUnit()->getTimeInfo(fileId, line);
   elem->m_defaultNetType =
@@ -134,9 +134,9 @@ void SV3_1aTreeShapeHelper::addDesignElement(antlr4::ParserRuleContext* ctx,
   auto [line, column, endLine, endColumn] = getFileLine(ctx, fileId);
   std::string design_element = m_pf->getLibrary()->getName() + "@";
   design_element.append(name);
-  DesignElement* elem = new DesignElement(registerSymbol(name), fileId,
-                                          elemtype, generateDesignElemId(),
-                                          line, column, endLine, endColumn, 0);
+  DesignElement* elem = new DesignElement(
+      registerSymbol(name), fileId, elemtype, generateDesignElemId(), line,
+      column, endLine, endColumn, InvalidNodeId);
   elem->m_context = ctx;
   elem->m_timeInfo =
       m_pf->getCompilationUnit()->getTimeInfo(m_pf->getFileId(line), line);

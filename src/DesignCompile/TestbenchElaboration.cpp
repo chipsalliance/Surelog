@@ -242,9 +242,10 @@ bool TestbenchElaboration::bindBaseClasses_() {
             class_def.second->getFileContent(), class_def.second->getNodeId(),
             class_def.second->getName(), VObjectType::slClass_declaration);
         thisdt->setDefinition(class_def.second);
-        Property* prop = new Property(thisdt, classDefinition->getFileContent(),
-                                      classDefinition->getNodeId(), 0, "super",
-                                      false, false, false, false, false);
+        Property* prop =
+            new Property(thisdt, classDefinition->getFileContent(),
+                         classDefinition->getNodeId(), InvalidNodeId, "super",
+                         false, false, false, false, false);
         UHDM::class_defn* derived = classDefinition->getUhdmDefinition();
         UHDM::class_defn* parent = bdef->getUhdmDefinition();
         classDefinition->insertProperty(prop);
@@ -280,8 +281,8 @@ bool TestbenchElaboration::bindBaseClasses_() {
           thisdt->setDefinition(class_def.second);
           Property* prop =
               new Property(thisdt, classDefinition->getFileContent(),
-                           classDefinition->getNodeId(), 0, "super", false,
-                           false, false, false, false);
+                           classDefinition->getNodeId(), InvalidNodeId, "super",
+                           false, false, false, false, false);
           classDefinition->insertProperty(prop);
           UHDM::extends* extends = s.MakeExtends();
           extends->VpiFile(fCDef->getFileName());
@@ -569,8 +570,8 @@ bool TestbenchElaboration::bindForLoop_(ClassDefinition* classDefinition,
   NodeId fid = st->getNodeId();
   VObjectType itr_type = st->getIteratorType();
   DataType* itrDataType = new DataType(sfC, fid, "integer", itr_type);
-  for (auto itrId : st->getIteratorIds()) {
-    Variable* var = new Variable(itrDataType, sfC, itrId.first, 0,
+  for (const auto& itrId : st->getIteratorIds()) {
+    Variable* var = new Variable(itrDataType, sfC, itrId.first, InvalidNodeId,
                                  sfC->SymName(itrId.first));
     st->getParentScope()->addVariable(var);
   }
@@ -609,8 +610,8 @@ bool TestbenchElaboration::bindForeachLoop_(ClassDefinition* classDefinition,
     }
 
     for (auto itrId : st->getIteratorIds()) {
-      Variable* var =
-          new Variable(itrDataType, sfC, itrId, 0, sfC->SymName(itrId));
+      Variable* var = new Variable(itrDataType, sfC, itrId, InvalidNodeId,
+                                   sfC->SymName(itrId));
       st->getParentScope()->addVariable(var);
     }
   }

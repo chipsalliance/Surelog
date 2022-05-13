@@ -78,7 +78,7 @@ class IncludeFileInfo {
 
   const Context m_context;
   unsigned int m_sectionStartLine = 0;
-  SymbolId m_sectionFile = 0;
+  SymbolId m_sectionFile = BadSymbolId;
   unsigned int m_originalStartLine = 0;
   unsigned int m_originalStartColumn = 0;
   const unsigned int m_originalEndLine = 0;
