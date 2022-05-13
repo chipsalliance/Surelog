@@ -786,7 +786,7 @@ lifetime
 casting_type
     : simple_type
     | primary_literal
-//    | ( package_scope | class_scope )? identifier constant_select ( OPEN_BRACKET constant_range_expression CLOSE_BRACKET )?
+    | ( package_scope | class_scope )? identifier constant_select ( OPEN_BRACKET constant_range_expression CLOSE_BRACKET )?
 //    | constant_concatenation ( OPEN_BRACKET constant_range_expression CLOSE_BRACKET )?
 //    | constant_multiple_concatenation ( OPEN_BRACKET constant_range_expression CLOSE_BRACKET )?
 //    | subroutine_call
