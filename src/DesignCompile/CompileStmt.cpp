@@ -1745,8 +1745,10 @@ bool CompileHelper::compileTask(DesignComponent* component,
       Statement_or_null = Tf_port_list;
   }
 
-  NodeId MoreStatement_or_null = fC->Sibling(Statement_or_null);
-  if (fC->Type(MoreStatement_or_null) == VObjectType::slEndtask) {
+  NodeId MoreStatement_or_null = 0;
+  if (Statement_or_null) MoreStatement_or_null = fC->Sibling(Statement_or_null);
+  if (MoreStatement_or_null &&
+      (fC->Type(MoreStatement_or_null) == VObjectType::slEndtask)) {
     MoreStatement_or_null = 0;
   }
   if (MoreStatement_or_null) {
@@ -2149,9 +2151,12 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     Function_statement_or_null = Tf_port_list;
   }
 
-  NodeId MoreFunction_statement_or_null =
-      fC->Sibling(Function_statement_or_null);
-  if (fC->Type(MoreFunction_statement_or_null) == VObjectType::slEndfunction) {
+  NodeId MoreFunction_statement_or_null = 0;
+  if (Function_statement_or_null)
+    MoreFunction_statement_or_null = fC->Sibling(Function_statement_or_null);
+  if (MoreFunction_statement_or_null &&
+      (fC->Type(MoreFunction_statement_or_null) ==
+       VObjectType::slEndfunction)) {
     MoreFunction_statement_or_null = 0;
   }
   if (MoreFunction_statement_or_null) {
