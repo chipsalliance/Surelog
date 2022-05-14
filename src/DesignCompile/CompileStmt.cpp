@@ -1402,7 +1402,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
           }
           NodeId Data_type = fC->Child(Variable_declaration);
           UHDM::typespec* ts = compileTypespec(
-              component, fC, Data_type, compileDesign, parent, nullptr, true);
+              component, fC, Data_type, compileDesign, parent, nullptr, false);
           NodeId List_of_variable_decl_assignments = fC->Sibling(Data_type);
           NodeId Variable_decl_assignment =
               fC->Child(List_of_variable_decl_assignments);
@@ -1413,7 +1413,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
             if (itr == ioMap.end()) {
               variables* var = (variables*)compileVariable(
                   component, fC, Data_type, compileDesign, parent, nullptr,
-                  true, false);
+                  false, false);
               if (var) {
                 var->VpiAutomatic(!is_static);
                 var->VpiName(name);
