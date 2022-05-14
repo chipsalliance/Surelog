@@ -1344,7 +1344,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
           int size;
           VectorOfrange* ranges =
               compileRanges(component, fC, Data_type, compileDesign, parent,
-                            nullptr, true, size, false);
+                            nullptr, false, size, false);
           packed_array_typespec* pts = s.MakePacked_array_typespec();
           pts->VpiFile(fC->getFileName());
           pts->VpiLineNo(fC->Line(Data_type));
@@ -1367,7 +1367,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
             int size;
             ranges =
                 compileRanges(component, fC, Variable_dimension, compileDesign,
-                              parent, nullptr, true, size, false);
+                              parent, nullptr, false, size, false);
           }
           const std::string& name = fC->SymName(nameId);
           io_decl* decl = s.MakeIo_decl();
