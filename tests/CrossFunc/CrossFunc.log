@@ -378,6 +378,9 @@ design: (work@mod_m)
     |vpiVisibility:1
     |vpiReturn:
     \_ref_var: , line:9:12, endln:9:26
+      |vpiTypespec:
+      \_unsupported_typespec: (CrossQueueType), line:9:12, endln:9:26
+        |vpiName:CrossQueueType
     |vpiIODecl:
     \_io_decl: (f_lim), line:9:39, endln:9:44
       |vpiDirection:1
@@ -398,6 +401,9 @@ design: (work@mod_m)
           |vpiConstType:9
         |vpiLhs:
         \_int_var: (work@mod_m.myFunc1.i), line:10:9, endln:10:12
+          |vpiTypespec:
+          \_int_typespec: , line:10:9, endln:10:12
+            |vpiSigned:1
           |vpiName:i
           |vpiFullName:work@mod_m.myFunc1.i
       |vpiForIncStmt:
@@ -453,6 +459,9 @@ design: (work@mod_m)
     |vpiVisibility:1
     |vpiReturn:
     \_ref_var: , line:17:12, endln:17:26
+      |vpiTypespec:
+      \_unsupported_typespec: (CrossQueueType), line:17:12, endln:17:26
+        |vpiName:CrossQueueType
     |vpiIODecl:
     \_io_decl: (f_lim), line:17:48, endln:17:53
       |vpiDirection:1
@@ -486,22 +495,24 @@ design: (work@mod_m)
           |vpiConstType:9
         |vpiLhs:
         \_logic_var: (work@mod_m.myFunc2.i), line:18:9, endln:18:21
+          |vpiTypespec:
+          \_logic_typespec: , line:18:9, endln:18:14
+            |vpiRange:
+            \_range: , line:18:16, endln:18:20
+              |vpiLeftRange:
+              \_constant: , line:18:16, endln:18:18
+                |vpiDecompile:31
+                |vpiSize:64
+                |UINT:31
+                |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:18:19, endln:18:20
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
           |vpiName:i
           |vpiFullName:work@mod_m.myFunc2.i
-          |vpiRange:
-          \_range: , line:18:16, endln:18:20
-            |vpiLeftRange:
-            \_constant: , line:18:16, endln:18:18
-              |vpiDecompile:31
-              |vpiSize:64
-              |UINT:31
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:18:19, endln:18:20
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
       |vpiForIncStmt:
       \_operation: , line:18:40, endln:18:43, parent:work@mod_m.myFunc2
         |vpiOpType:62
@@ -677,6 +688,8 @@ design: (work@mod_m)
         \_constant: , line:10:17, endln:10:18
         |vpiLhs:
         \_int_var: (work@mod_m.myFunc1.i), line:10:9, endln:10:12
+          |vpiTypespec:
+          \_int_typespec: , line:10:9, endln:10:12
           |vpiName:i
           |vpiFullName:work@mod_m.myFunc1.i
       |vpiForIncStmt:
@@ -747,14 +760,10 @@ design: (work@mod_m)
         \_constant: , line:18:26, endln:18:27
         |vpiLhs:
         \_logic_var: (work@mod_m.myFunc2.i), line:18:9, endln:18:21
+          |vpiTypespec:
+          \_logic_typespec: , line:18:9, endln:18:14
           |vpiName:i
           |vpiFullName:work@mod_m.myFunc2.i
-          |vpiRange:
-          \_range: , line:18:16, endln:18:20, parent:work@mod_m.myFunc2.i
-            |vpiLeftRange:
-            \_constant: , line:18:16, endln:18:18
-            |vpiRightRange:
-            \_constant: , line:18:19, endln:18:20
       |vpiForIncStmt:
       \_operation: , line:18:40, endln:18:43, parent:work@mod_m.myFunc2
         |vpiOpType:62

@@ -498,6 +498,9 @@ design: (work@top)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
     |vpiName:put
@@ -538,6 +541,9 @@ design: (work@top)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
       |vpiDirection:6
@@ -560,6 +566,9 @@ design: (work@top)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
       |vpiDirection:6
@@ -750,6 +759,9 @@ design: (work@top)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiDirection:1
@@ -790,6 +802,9 @@ design: (work@top)
             |vpiConstType:9
           |vpiLhs:
           \_int_var: (work@top.foo.i), line:3:13, endln:3:16
+            |vpiTypespec:
+            \_int_typespec: , line:3:13, endln:3:16
+              |vpiSigned:1
             |vpiName:i
             |vpiFullName:work@top.foo.i
         |vpiForIncStmt:
@@ -863,6 +878,9 @@ design: (work@top)
             |vpiConstType:9
           |vpiLhs:
           \_int_var: (work@top.foo.j), line:6:13, endln:6:16
+            |vpiTypespec:
+            \_int_typespec: , line:6:13, endln:6:16
+              |vpiSigned:1
             |vpiName:j
             |vpiFullName:work@top.foo.j
         |vpiForIncStmt:
@@ -933,6 +951,8 @@ design: (work@top)
           \_constant: , line:3:19, endln:3:20
           |vpiLhs:
           \_int_var: (work@top.foo.i), line:3:13, endln:3:16
+            |vpiTypespec:
+            \_int_typespec: , line:3:13, endln:3:16
             |vpiName:i
             |vpiFullName:work@top.foo.i
         |vpiForIncStmt:
@@ -990,6 +1010,8 @@ design: (work@top)
           \_constant: , line:6:20, endln:6:21
           |vpiLhs:
           \_int_var: (work@top.foo.j), line:6:13, endln:6:16
+            |vpiTypespec:
+            \_int_typespec: , line:6:13, endln:6:16
             |vpiName:j
             |vpiFullName:work@top.foo.j
         |vpiForIncStmt:

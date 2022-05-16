@@ -115,7 +115,6 @@ variables* CompileHelper::getSimpleVarFromTypespec(
     }
     case uhdmbit_typespec: {
       UHDM::bit_var* int_var = s.MakeBit_var();
-      int_var->Ranges(packedDimensions);
       var = int_var;
       break;
     }
@@ -136,7 +135,6 @@ variables* CompileHelper::getSimpleVarFromTypespec(
     case uhdmlogic_typespec:
     case uhdmvoid_typespec: {
       logic_var* logicv = s.MakeLogic_var();
-      logicv->Ranges(packedDimensions);
       var = logicv;
       break;
     }
@@ -218,6 +216,13 @@ UHDM::any* CompileHelper::compileVariable(
   VectorOfrange* ranges =
       compileRanges(component, fC, Packed_dimension, compileDesign, pstmt,
                     instance, reduce, size, muteErrors);
+  typespec* ts = nullptr;
+  VObjectType decl_type = fC->Type(declarationId);
+  if (decl_type != slPs_or_hierarchical_identifier &&
+      decl_type != slImplicit_class_handle) {
+    ts = compileTypespec(component, fC, declarationId, compileDesign, pstmt,
+                         instance, reduce, true);
+  }
   switch (the_type) {
     case VObjectType::slStringConst:
     case VObjectType::slChandle_type: {
@@ -228,7 +233,10 @@ UHDM::any* CompileHelper::compileVariable(
         typespec* tps = dt->getTypespec();
         if (tps) {
           variables* var = getSimpleVarFromTypespec(tps, ranges, compileDesign);
-          if (var) var->VpiName(fC->SymName(variable));
+          if (var) {
+            var->VpiName(fC->SymName(variable));
+            if (ts) var->Typespec(ts);
+          }
           result = var;
         }
       }
@@ -260,9 +268,12 @@ UHDM::any* CompileHelper::compileVariable(
       }
       if (result == nullptr) {
         if (the_type == slChandle_type) {
-          result = s.MakeChandle_var();
+          chandle_var* var = s.MakeChandle_var();
+          var->Typespec(ts);
+          result = var;
         } else {
           ref_var* ref = s.MakeRef_var();
+          ref->Typespec(ts);
           ref->VpiName(typeName);
           result = ref;
         }
@@ -272,7 +283,7 @@ UHDM::any* CompileHelper::compileVariable(
     case VObjectType::slIntVec_TypeLogic:
     case VObjectType::slIntVec_TypeReg: {
       logic_var* var = s.MakeLogic_var();
-      var->Ranges(ranges);
+      var->Typespec(ts);
       var->VpiFile(fC->getFileName());
       var->VpiLineNo(fC->Line(declarationId));
       var->VpiColumnNo(fC->Column(declarationId));
@@ -283,52 +294,61 @@ UHDM::any* CompileHelper::compileVariable(
     }
     case VObjectType::slIntegerAtomType_Int: {
       int_var* var = s.MakeInt_var();
+      var->Typespec(ts);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_Integer: {
       integer_var* var = s.MakeInteger_var();
+      var->Typespec(ts);
       result = var;
       break;
     }
     case VObjectType::slSigning_Unsigned: {
       int_var* var = s.MakeInt_var();
+      var->Typespec(ts);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_Byte: {
       byte_var* var = s.MakeByte_var();
+      var->Typespec(ts);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_LongInt: {
       long_int_var* var = s.MakeLong_int_var();
+      var->Typespec(ts);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_Shortint: {
       short_int_var* var = s.MakeShort_int_var();
+      var->Typespec(ts);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_Time: {
       time_var* var = s.MakeTime_var();
+      var->Typespec(ts);
       result = var;
       break;
     }
     case VObjectType::slIntVec_TypeBit: {
       bit_var* var = s.MakeBit_var();
-      var->Ranges(ranges);
+      var->Typespec(ts);
       result = var;
       break;
     }
     case VObjectType::slNonIntType_ShortReal: {
       short_real_var* var = s.MakeShort_real_var();
+      var->Typespec(ts);
       result = var;
       break;
     }
     case VObjectType::slNonIntType_Real: {
       real_var* var = s.MakeReal_var();
+      var->Typespec(ts);
       result = var;
       break;
     }
@@ -347,6 +367,7 @@ UHDM::any* CompileHelper::compileVariable(
           typespec* tps = dtype->getTypespec();
           if (tps) {
             var = getSimpleVarFromTypespec(tps, ranges, compileDesign);
+            if (ts) var->Typespec(ts);
             break;
           }
           dtype = dtype->getDefinition();
@@ -371,6 +392,7 @@ UHDM::any* CompileHelper::compileVariable(
             typespec* tps = dtype->getTypespec();
             if (tps) {
               var = getSimpleVarFromTypespec(tps, ranges, compileDesign);
+              if (ts) var->Typespec(ts);
               break;
             }
             dtype = dtype->getDefinition();
@@ -385,6 +407,7 @@ UHDM::any* CompileHelper::compileVariable(
       var->Typespec(tp);
       component->needLateTypedefBinding(var);
       var->VpiName(completeName);
+      var->Typespec(ts);
       result = var;
       break;
     }
@@ -398,14 +421,15 @@ UHDM::any* CompileHelper::compileVariable(
       NodeId nameid = fC->Child(hier_ident);
       int_var* var = s.MakeInt_var();
       var->VpiName(fC->SymName(nameid));
+      var->Typespec(ts);
       result = var;
       break;
     }
     default: {
       // Implicit type
       logic_var* var = s.MakeLogic_var();
-      var->Ranges(ranges);
       result = var;
+      var->Typespec(ts);
       break;
     }
   }

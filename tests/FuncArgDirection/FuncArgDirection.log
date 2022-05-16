@@ -568,6 +568,9 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
     |vpiName:put
@@ -608,6 +611,9 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
       |vpiDirection:6
@@ -630,6 +636,9 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
       |vpiDirection:6
@@ -820,6 +829,9 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiDirection:1
@@ -843,40 +855,44 @@ design: (work@dut)
     |vpiFullName:work@dut.aes_rev_order_bit
     |vpiVariables:
     \_logic_var: (work@dut.aes_rev_order_bit.out), line:3:15, endln:3:18
+      |vpiTypespec:
+      \_logic_typespec: , line:3:3, endln:3:8
+        |vpiRange:
+        \_range: , line:3:10, endln:3:13, parent:work@dut.aes_rev_order_bit
+          |vpiLeftRange:
+          \_constant: , line:3:10, endln:3:11
+            |vpiDecompile:7
+            |vpiSize:64
+            |UINT:7
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:3:12, endln:3:13
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
       |vpiName:out
       |vpiFullName:work@dut.aes_rev_order_bit.out
-      |vpiRange:
-      \_range: , line:3:10, endln:3:13, parent:work@dut.aes_rev_order_bit
-        |vpiLeftRange:
-        \_constant: , line:3:10, endln:3:11
-          |vpiDecompile:7
-          |vpiSize:64
-          |UINT:7
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:12, endln:3:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
     \_logic_var: , line:2:20, endln:2:31
-      |vpiRange:
-      \_range: , line:2:27, endln:2:30
-        |vpiLeftRange:
-        \_constant: , line:2:27, endln:2:28
-          |vpiDecompile:7
-          |vpiSize:64
-          |UINT:7
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:29, endln:2:30
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiTypespec:
+      \_logic_typespec: , line:2:20, endln:2:25
+        |vpiRange:
+        \_range: , line:2:27, endln:2:30
+          |vpiLeftRange:
+          \_constant: , line:2:27, endln:2:28
+            |vpiDecompile:7
+            |vpiSize:64
+            |UINT:7
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:2:29, endln:2:30
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
     |vpiIODecl:
     \_io_decl: (in), line:2:62, endln:2:64
       |vpiDirection:1
@@ -915,6 +931,9 @@ design: (work@dut)
             |vpiConstType:9
           |vpiLhs:
           \_int_var: (work@dut.aes_rev_order_bit.i), line:4:8, endln:4:11
+            |vpiTypespec:
+            \_int_typespec: , line:4:8, endln:4:11
+              |vpiSigned:1
             |vpiName:i
             |vpiFullName:work@dut.aes_rev_order_bit.i
         |vpiForIncStmt:
@@ -1105,14 +1124,10 @@ design: (work@dut)
     |vpiFullName:work@dut.aes_rev_order_bit
     |vpiVariables:
     \_logic_var: (work@dut.aes_rev_order_bit.out), line:3:15, endln:3:18, parent:work@dut.aes_rev_order_bit
+      |vpiTypespec:
+      \_logic_typespec: , line:3:3, endln:3:8
       |vpiName:out
       |vpiFullName:work@dut.aes_rev_order_bit.out
-      |vpiRange:
-      \_range: , line:3:10, endln:3:13, parent:work@dut.aes_rev_order_bit.out
-        |vpiLeftRange:
-        \_constant: , line:3:10, endln:3:11
-        |vpiRightRange:
-        \_constant: , line:3:12, endln:3:13
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
@@ -1128,14 +1143,10 @@ design: (work@dut)
       |vpiFullName:work@dut.aes_rev_order_bit
       |vpiVariables:
       \_logic_var: (work@dut.aes_rev_order_bit.out), line:3:15, endln:3:18, parent:work@dut.aes_rev_order_bit
+        |vpiTypespec:
+        \_logic_typespec: , line:3:3, endln:3:8
         |vpiName:out
         |vpiFullName:work@dut.aes_rev_order_bit.out
-        |vpiRange:
-        \_range: , line:3:10, endln:3:13, parent:work@dut.aes_rev_order_bit.out
-          |vpiLeftRange:
-          \_constant: , line:3:10, endln:3:11
-          |vpiRightRange:
-          \_constant: , line:3:12, endln:3:13
       |vpiStmt:
       \_for_stmt: (work@dut.aes_rev_order_bit), line:4:3, endln:4:6, parent:work@dut.aes_rev_order_bit
         |vpiFullName:work@dut.aes_rev_order_bit
@@ -1145,6 +1156,8 @@ design: (work@dut)
           \_constant: , line:4:14, endln:4:15
           |vpiLhs:
           \_int_var: (work@dut.aes_rev_order_bit.i), line:4:8, endln:4:11
+            |vpiTypespec:
+            \_int_typespec: , line:4:8, endln:4:11
             |vpiName:i
             |vpiFullName:work@dut.aes_rev_order_bit.i
         |vpiForIncStmt:

@@ -475,6 +475,9 @@ design: (work@top)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
     |vpiName:put
@@ -515,6 +518,9 @@ design: (work@top)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
       |vpiDirection:6
@@ -537,6 +543,9 @@ design: (work@top)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
       |vpiDirection:6
@@ -727,6 +736,9 @@ design: (work@top)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiDirection:1
@@ -750,40 +762,44 @@ design: (work@top)
     |vpiFullName:work@top.compute_next_state
     |vpiVariables:
     \_logic_var: (work@top.compute_next_state.function_variable), line:3:17, endln:3:34
+      |vpiTypespec:
+      \_logic_typespec: , line:3:5, endln:3:10
+        |vpiRange:
+        \_range: , line:3:12, endln:3:15, parent:work@top.compute_next_state
+          |vpiLeftRange:
+          \_constant: , line:3:12, endln:3:13
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:3:14, endln:3:15
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
       |vpiName:function_variable
       |vpiFullName:work@top.compute_next_state.function_variable
-      |vpiRange:
-      \_range: , line:3:12, endln:3:15, parent:work@top.compute_next_state
-        |vpiLeftRange:
-        \_constant: , line:3:12, endln:3:13
-          |vpiDecompile:2
-          |vpiSize:64
-          |UINT:2
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:14, endln:3:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
     \_logic_var: , line:2:22, endln:2:33
-      |vpiRange:
-      \_range: , line:2:29, endln:2:32
-        |vpiLeftRange:
-        \_constant: , line:2:29, endln:2:30
-          |vpiDecompile:2
-          |vpiSize:64
-          |UINT:2
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:31, endln:2:32
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiTypespec:
+      \_logic_typespec: , line:2:22, endln:2:27
+        |vpiRange:
+        \_range: , line:2:29, endln:2:32
+          |vpiLeftRange:
+          \_constant: , line:2:29, endln:2:30
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:2:31, endln:2:32
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
     |vpiStmt:
     \_begin: (work@top.compute_next_state), parent:work@top.compute_next_state
       |vpiFullName:work@top.compute_next_state
@@ -879,14 +895,10 @@ design: (work@top)
     |vpiFullName:work@top.compute_next_state
     |vpiVariables:
     \_logic_var: (work@top.compute_next_state.function_variable), line:3:17, endln:3:34, parent:work@top.compute_next_state
+      |vpiTypespec:
+      \_logic_typespec: , line:3:5, endln:3:10
       |vpiName:function_variable
       |vpiFullName:work@top.compute_next_state.function_variable
-      |vpiRange:
-      \_range: , line:3:12, endln:3:15, parent:work@top.compute_next_state.function_variable
-        |vpiLeftRange:
-        \_constant: , line:3:12, endln:3:13
-        |vpiRightRange:
-        \_constant: , line:3:14, endln:3:15
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
@@ -896,14 +908,10 @@ design: (work@top)
       |vpiFullName:work@top.compute_next_state
       |vpiVariables:
       \_logic_var: (work@top.compute_next_state.function_variable), line:3:17, endln:3:34, parent:work@top.compute_next_state
+        |vpiTypespec:
+        \_logic_typespec: , line:3:5, endln:3:10
         |vpiName:function_variable
         |vpiFullName:work@top.compute_next_state.function_variable
-        |vpiRange:
-        \_range: , line:3:12, endln:3:15, parent:work@top.compute_next_state.function_variable
-          |vpiLeftRange:
-          \_constant: , line:3:12, endln:3:13
-          |vpiRightRange:
-          \_constant: , line:3:14, endln:3:15
       |vpiStmt:
       \_assign_stmt: , line:4:5, endln:4:36, parent:work@top.compute_next_state
         |vpiRhs:

@@ -680,6 +680,9 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
     |vpiName:put
@@ -720,6 +723,9 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
       |vpiDirection:6
@@ -742,6 +748,9 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
       |vpiDirection:6
@@ -932,6 +941,9 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiDirection:1
@@ -1111,6 +1123,9 @@ design: (work@dut)
             |vpiConstType:9
           |vpiLhs:
           \_int_var: (work@dut.uvm_packer::get_packed_bits.i), line:10:10, endln:10:13
+            |vpiTypespec:
+            \_int_typespec: , line:10:10, endln:10:13
+              |vpiSigned:1
             |vpiName:i
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.i
         |vpiForIncStmt:
@@ -1456,6 +1471,8 @@ design: (work@dut)
           \_constant: , line:10:16, endln:10:17
           |vpiLhs:
           \_int_var: (work@dut.uvm_packer::get_packed_bits.i), line:10:10, endln:10:13
+            |vpiTypespec:
+            \_int_typespec: , line:10:10, endln:10:13
             |vpiName:i
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.i
         |vpiForIncStmt:

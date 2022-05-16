@@ -1239,6 +1239,9 @@ design: (work@fsm_using_function)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
     |vpiName:put
@@ -1279,6 +1282,9 @@ design: (work@fsm_using_function)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
       |vpiDirection:6
@@ -1301,6 +1307,9 @@ design: (work@fsm_using_function)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
       |vpiDirection:6
@@ -1491,6 +1500,9 @@ design: (work@fsm_using_function)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiDirection:1
@@ -1614,27 +1626,29 @@ design: (work@fsm_using_function)
     |vpiFullName:work@fsm_using_function.fsm_function
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: , line:31:11, endln:31:19
-      |vpiRange:
-      \_range: , line:31:11, endln:31:19
-        |vpiLeftRange:
-        \_operation: , line:31:11, endln:31:17
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (SIZE), line:31:11, endln:31:15
-            |vpiName:SIZE
-          |vpiOperand:
-          \_constant: , line:31:16, endln:31:17
-            |vpiDecompile:1
+    \_logic_var: , line:31:10, endln:31:20
+      |vpiTypespec:
+      \_logic_typespec: , line:31:10, endln:31:20
+        |vpiRange:
+        \_range: , line:31:11, endln:31:19
+          |vpiLeftRange:
+          \_operation: , line:31:11, endln:31:17
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (SIZE), line:31:11, endln:31:15
+              |vpiName:SIZE
+            |vpiOperand:
+            \_constant: , line:31:16, endln:31:17
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:31:18, endln:31:19
+            |vpiDecompile:0
             |vpiSize:64
-            |UINT:1
+            |UINT:0
             |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:31:18, endln:31:19
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
     |vpiIODecl:
     \_io_decl: (state), line:32:22, endln:32:27, parent:work@fsm_using_function.fsm_function
       |vpiDirection:1
@@ -1720,29 +1734,31 @@ design: (work@fsm_using_function)
                 |vpiName:fsm_function
                 |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiActual:
-                \_logic_var: (fsm_function), line:31:11, endln:31:19
-                  |vpiName:fsm_function
-                  |vpiRange:
-                  \_range: , line:31:11, endln:31:19, parent:fsm_function
-                    |vpiLeftRange:
-                    \_operation: , line:31:11, endln:31:17
-                      |vpiOpType:11
-                      |vpiOperand:
-                      \_ref_obj: (fsm_function.SIZE), line:31:11, endln:31:15
-                        |vpiName:SIZE
-                        |vpiFullName:fsm_function.SIZE
-                      |vpiOperand:
-                      \_constant: , line:31:16, endln:31:17
-                        |vpiDecompile:1
+                \_logic_var: (fsm_function), line:31:10, endln:31:20
+                  |vpiTypespec:
+                  \_logic_typespec: , line:31:10, endln:31:20, parent:fsm_function
+                    |vpiRange:
+                    \_range: , line:31:11, endln:31:19
+                      |vpiLeftRange:
+                      \_operation: , line:31:11, endln:31:17
+                        |vpiOpType:11
+                        |vpiOperand:
+                        \_ref_obj: (fsm_function.SIZE), line:31:11, endln:31:15
+                          |vpiName:SIZE
+                          |vpiFullName:fsm_function.SIZE
+                        |vpiOperand:
+                        \_constant: , line:31:16, endln:31:17
+                          |vpiDecompile:1
+                          |vpiSize:64
+                          |UINT:1
+                          |vpiConstType:9
+                      |vpiRightRange:
+                      \_constant: , line:31:18, endln:31:19
+                        |vpiDecompile:0
                         |vpiSize:64
-                        |UINT:1
+                        |UINT:0
                         |vpiConstType:9
-                    |vpiRightRange:
-                    \_constant: , line:31:18, endln:31:19
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                      |vpiConstType:9
+                  |vpiName:fsm_function
           |vpiElseStmt:
           \_if_else: , line:38:24, endln:42:18
             |vpiCondition:
@@ -1776,29 +1792,31 @@ design: (work@fsm_using_function)
                   |vpiName:fsm_function
                   |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                   |vpiActual:
-                  \_logic_var: (fsm_function), line:31:11, endln:31:19
-                    |vpiName:fsm_function
-                    |vpiRange:
-                    \_range: , line:31:11, endln:31:19, parent:fsm_function
-                      |vpiLeftRange:
-                      \_operation: , line:31:11, endln:31:17
-                        |vpiOpType:11
-                        |vpiOperand:
-                        \_ref_obj: (fsm_function.SIZE), line:31:11, endln:31:15
-                          |vpiName:SIZE
-                          |vpiFullName:fsm_function.SIZE
-                        |vpiOperand:
-                        \_constant: , line:31:16, endln:31:17
-                          |vpiDecompile:1
+                  \_logic_var: (fsm_function), line:31:10, endln:31:20
+                    |vpiTypespec:
+                    \_logic_typespec: , line:31:10, endln:31:20, parent:fsm_function
+                      |vpiRange:
+                      \_range: , line:31:11, endln:31:19
+                        |vpiLeftRange:
+                        \_operation: , line:31:11, endln:31:17
+                          |vpiOpType:11
+                          |vpiOperand:
+                          \_ref_obj: (fsm_function.SIZE), line:31:11, endln:31:15
+                            |vpiName:SIZE
+                            |vpiFullName:fsm_function.SIZE
+                          |vpiOperand:
+                          \_constant: , line:31:16, endln:31:17
+                            |vpiDecompile:1
+                            |vpiSize:64
+                            |UINT:1
+                            |vpiConstType:9
+                        |vpiRightRange:
+                        \_constant: , line:31:18, endln:31:19
+                          |vpiDecompile:0
                           |vpiSize:64
-                          |UINT:1
+                          |UINT:0
                           |vpiConstType:9
-                      |vpiRightRange:
-                      \_constant: , line:31:18, endln:31:19
-                        |vpiDecompile:0
-                        |vpiSize:64
-                        |UINT:0
-                        |vpiConstType:9
+                    |vpiName:fsm_function
             |vpiElseStmt:
             \_begin: (work@fsm_using_function.fsm_function), line:40:24, endln:42:18
               |vpiFullName:work@fsm_using_function.fsm_function
@@ -1815,29 +1833,31 @@ design: (work@fsm_using_function)
                   |vpiName:fsm_function
                   |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                   |vpiActual:
-                  \_logic_var: (fsm_function), line:31:11, endln:31:19
-                    |vpiName:fsm_function
-                    |vpiRange:
-                    \_range: , line:31:11, endln:31:19, parent:fsm_function
-                      |vpiLeftRange:
-                      \_operation: , line:31:11, endln:31:17
-                        |vpiOpType:11
-                        |vpiOperand:
-                        \_ref_obj: (fsm_function.SIZE), line:31:11, endln:31:15
-                          |vpiName:SIZE
-                          |vpiFullName:fsm_function.SIZE
-                        |vpiOperand:
-                        \_constant: , line:31:16, endln:31:17
-                          |vpiDecompile:1
+                  \_logic_var: (fsm_function), line:31:10, endln:31:20
+                    |vpiTypespec:
+                    \_logic_typespec: , line:31:10, endln:31:20, parent:fsm_function
+                      |vpiRange:
+                      \_range: , line:31:11, endln:31:19
+                        |vpiLeftRange:
+                        \_operation: , line:31:11, endln:31:17
+                          |vpiOpType:11
+                          |vpiOperand:
+                          \_ref_obj: (fsm_function.SIZE), line:31:11, endln:31:15
+                            |vpiName:SIZE
+                            |vpiFullName:fsm_function.SIZE
+                          |vpiOperand:
+                          \_constant: , line:31:16, endln:31:17
+                            |vpiDecompile:1
+                            |vpiSize:64
+                            |UINT:1
+                            |vpiConstType:9
+                        |vpiRightRange:
+                        \_constant: , line:31:18, endln:31:19
+                          |vpiDecompile:0
                           |vpiSize:64
-                          |UINT:1
+                          |UINT:0
                           |vpiConstType:9
-                      |vpiRightRange:
-                      \_constant: , line:31:18, endln:31:19
-                        |vpiDecompile:0
-                        |vpiSize:64
-                        |UINT:0
-                        |vpiConstType:9
+                    |vpiName:fsm_function
       |vpiCaseItem:
       \_case_item: , line:43:4, endln:47:18
         |vpiExpr:
@@ -1877,29 +1897,31 @@ design: (work@fsm_using_function)
                 |vpiName:fsm_function
                 |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiActual:
-                \_logic_var: (fsm_function), line:31:11, endln:31:19
-                  |vpiName:fsm_function
-                  |vpiRange:
-                  \_range: , line:31:11, endln:31:19, parent:fsm_function
-                    |vpiLeftRange:
-                    \_operation: , line:31:11, endln:31:17
-                      |vpiOpType:11
-                      |vpiOperand:
-                      \_ref_obj: (fsm_function.SIZE), line:31:11, endln:31:15
-                        |vpiName:SIZE
-                        |vpiFullName:fsm_function.SIZE
-                      |vpiOperand:
-                      \_constant: , line:31:16, endln:31:17
-                        |vpiDecompile:1
+                \_logic_var: (fsm_function), line:31:10, endln:31:20
+                  |vpiTypespec:
+                  \_logic_typespec: , line:31:10, endln:31:20, parent:fsm_function
+                    |vpiRange:
+                    \_range: , line:31:11, endln:31:19
+                      |vpiLeftRange:
+                      \_operation: , line:31:11, endln:31:17
+                        |vpiOpType:11
+                        |vpiOperand:
+                        \_ref_obj: (fsm_function.SIZE), line:31:11, endln:31:15
+                          |vpiName:SIZE
+                          |vpiFullName:fsm_function.SIZE
+                        |vpiOperand:
+                        \_constant: , line:31:16, endln:31:17
+                          |vpiDecompile:1
+                          |vpiSize:64
+                          |UINT:1
+                          |vpiConstType:9
+                      |vpiRightRange:
+                      \_constant: , line:31:18, endln:31:19
+                        |vpiDecompile:0
                         |vpiSize:64
-                        |UINT:1
+                        |UINT:0
                         |vpiConstType:9
-                    |vpiRightRange:
-                    \_constant: , line:31:18, endln:31:19
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                      |vpiConstType:9
+                  |vpiName:fsm_function
           |vpiElseStmt:
           \_begin: (work@fsm_using_function.fsm_function), line:45:24, endln:47:18
             |vpiFullName:work@fsm_using_function.fsm_function
@@ -1916,29 +1938,31 @@ design: (work@fsm_using_function)
                 |vpiName:fsm_function
                 |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiActual:
-                \_logic_var: (fsm_function), line:31:11, endln:31:19
-                  |vpiName:fsm_function
-                  |vpiRange:
-                  \_range: , line:31:11, endln:31:19, parent:fsm_function
-                    |vpiLeftRange:
-                    \_operation: , line:31:11, endln:31:17
-                      |vpiOpType:11
-                      |vpiOperand:
-                      \_ref_obj: (fsm_function.SIZE), line:31:11, endln:31:15
-                        |vpiName:SIZE
-                        |vpiFullName:fsm_function.SIZE
-                      |vpiOperand:
-                      \_constant: , line:31:16, endln:31:17
-                        |vpiDecompile:1
+                \_logic_var: (fsm_function), line:31:10, endln:31:20
+                  |vpiTypespec:
+                  \_logic_typespec: , line:31:10, endln:31:20, parent:fsm_function
+                    |vpiRange:
+                    \_range: , line:31:11, endln:31:19
+                      |vpiLeftRange:
+                      \_operation: , line:31:11, endln:31:17
+                        |vpiOpType:11
+                        |vpiOperand:
+                        \_ref_obj: (fsm_function.SIZE), line:31:11, endln:31:15
+                          |vpiName:SIZE
+                          |vpiFullName:fsm_function.SIZE
+                        |vpiOperand:
+                        \_constant: , line:31:16, endln:31:17
+                          |vpiDecompile:1
+                          |vpiSize:64
+                          |UINT:1
+                          |vpiConstType:9
+                      |vpiRightRange:
+                      \_constant: , line:31:18, endln:31:19
+                        |vpiDecompile:0
                         |vpiSize:64
-                        |UINT:1
+                        |UINT:0
                         |vpiConstType:9
-                    |vpiRightRange:
-                    \_constant: , line:31:18, endln:31:19
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                      |vpiConstType:9
+                  |vpiName:fsm_function
       |vpiCaseItem:
       \_case_item: , line:48:4, endln:52:18
         |vpiExpr:
@@ -1978,29 +2002,31 @@ design: (work@fsm_using_function)
                 |vpiName:fsm_function
                 |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiActual:
-                \_logic_var: (fsm_function), line:31:11, endln:31:19
-                  |vpiName:fsm_function
-                  |vpiRange:
-                  \_range: , line:31:11, endln:31:19, parent:fsm_function
-                    |vpiLeftRange:
-                    \_operation: , line:31:11, endln:31:17
-                      |vpiOpType:11
-                      |vpiOperand:
-                      \_ref_obj: (fsm_function.SIZE), line:31:11, endln:31:15
-                        |vpiName:SIZE
-                        |vpiFullName:fsm_function.SIZE
-                      |vpiOperand:
-                      \_constant: , line:31:16, endln:31:17
-                        |vpiDecompile:1
+                \_logic_var: (fsm_function), line:31:10, endln:31:20
+                  |vpiTypespec:
+                  \_logic_typespec: , line:31:10, endln:31:20, parent:fsm_function
+                    |vpiRange:
+                    \_range: , line:31:11, endln:31:19
+                      |vpiLeftRange:
+                      \_operation: , line:31:11, endln:31:17
+                        |vpiOpType:11
+                        |vpiOperand:
+                        \_ref_obj: (fsm_function.SIZE), line:31:11, endln:31:15
+                          |vpiName:SIZE
+                          |vpiFullName:fsm_function.SIZE
+                        |vpiOperand:
+                        \_constant: , line:31:16, endln:31:17
+                          |vpiDecompile:1
+                          |vpiSize:64
+                          |UINT:1
+                          |vpiConstType:9
+                      |vpiRightRange:
+                      \_constant: , line:31:18, endln:31:19
+                        |vpiDecompile:0
                         |vpiSize:64
-                        |UINT:1
+                        |UINT:0
                         |vpiConstType:9
-                    |vpiRightRange:
-                    \_constant: , line:31:18, endln:31:19
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                      |vpiConstType:9
+                  |vpiName:fsm_function
           |vpiElseStmt:
           \_begin: (work@fsm_using_function.fsm_function), line:50:20, endln:52:18
             |vpiFullName:work@fsm_using_function.fsm_function
@@ -2017,29 +2043,31 @@ design: (work@fsm_using_function)
                 |vpiName:fsm_function
                 |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiActual:
-                \_logic_var: (fsm_function), line:31:11, endln:31:19
-                  |vpiName:fsm_function
-                  |vpiRange:
-                  \_range: , line:31:11, endln:31:19, parent:fsm_function
-                    |vpiLeftRange:
-                    \_operation: , line:31:11, endln:31:17
-                      |vpiOpType:11
-                      |vpiOperand:
-                      \_ref_obj: (fsm_function.SIZE), line:31:11, endln:31:15
-                        |vpiName:SIZE
-                        |vpiFullName:fsm_function.SIZE
-                      |vpiOperand:
-                      \_constant: , line:31:16, endln:31:17
-                        |vpiDecompile:1
+                \_logic_var: (fsm_function), line:31:10, endln:31:20
+                  |vpiTypespec:
+                  \_logic_typespec: , line:31:10, endln:31:20, parent:fsm_function
+                    |vpiRange:
+                    \_range: , line:31:11, endln:31:19
+                      |vpiLeftRange:
+                      \_operation: , line:31:11, endln:31:17
+                        |vpiOpType:11
+                        |vpiOperand:
+                        \_ref_obj: (fsm_function.SIZE), line:31:11, endln:31:15
+                          |vpiName:SIZE
+                          |vpiFullName:fsm_function.SIZE
+                        |vpiOperand:
+                        \_constant: , line:31:16, endln:31:17
+                          |vpiDecompile:1
+                          |vpiSize:64
+                          |UINT:1
+                          |vpiConstType:9
+                      |vpiRightRange:
+                      \_constant: , line:31:18, endln:31:19
+                        |vpiDecompile:0
                         |vpiSize:64
-                        |UINT:1
+                        |UINT:0
                         |vpiConstType:9
-                    |vpiRightRange:
-                    \_constant: , line:31:18, endln:31:19
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                      |vpiConstType:9
+                  |vpiName:fsm_function
       |vpiCaseItem:
       \_case_item: , line:53:4, endln:53:34
         |vpiStmt:
@@ -2055,29 +2083,31 @@ design: (work@fsm_using_function)
             |vpiName:fsm_function
             |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
             |vpiActual:
-            \_logic_var: (fsm_function), line:31:11, endln:31:19
-              |vpiName:fsm_function
-              |vpiRange:
-              \_range: , line:31:11, endln:31:19, parent:fsm_function
-                |vpiLeftRange:
-                \_operation: , line:31:11, endln:31:17
-                  |vpiOpType:11
-                  |vpiOperand:
-                  \_ref_obj: (fsm_function.SIZE), line:31:11, endln:31:15
-                    |vpiName:SIZE
-                    |vpiFullName:fsm_function.SIZE
-                  |vpiOperand:
-                  \_constant: , line:31:16, endln:31:17
-                    |vpiDecompile:1
+            \_logic_var: (fsm_function), line:31:10, endln:31:20
+              |vpiTypespec:
+              \_logic_typespec: , line:31:10, endln:31:20, parent:fsm_function
+                |vpiRange:
+                \_range: , line:31:11, endln:31:19
+                  |vpiLeftRange:
+                  \_operation: , line:31:11, endln:31:17
+                    |vpiOpType:11
+                    |vpiOperand:
+                    \_ref_obj: (fsm_function.SIZE), line:31:11, endln:31:15
+                      |vpiName:SIZE
+                      |vpiFullName:fsm_function.SIZE
+                    |vpiOperand:
+                    \_constant: , line:31:16, endln:31:17
+                      |vpiDecompile:1
+                      |vpiSize:64
+                      |UINT:1
+                      |vpiConstType:9
+                  |vpiRightRange:
+                  \_constant: , line:31:18, endln:31:19
+                    |vpiDecompile:0
                     |vpiSize:64
-                    |UINT:1
+                    |UINT:0
                     |vpiConstType:9
-                |vpiRightRange:
-                \_constant: , line:31:18, endln:31:19
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-                  |vpiConstType:9
+              |vpiName:fsm_function
     |vpiInstance:
     \_module: work@fsm_using_function (work@fsm_using_function) top.sv:6:1: , endln:94:10, parent:work@fsm_using_function
   |vpiNet:
@@ -2715,7 +2745,7 @@ design: (work@fsm_using_function)
     |vpiFullName:work@fsm_using_function.fsm_function
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: , line:31:11, endln:31:19
+    \_logic_var: , line:31:10, endln:31:20
     |vpiIODecl:
     \_io_decl: (state), line:32:22, endln:32:27, parent:work@fsm_using_function.fsm_function
       |vpiDirection:1
@@ -2778,7 +2808,7 @@ design: (work@fsm_using_function)
                 |vpiName:fsm_function
                 |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiActual:
-                \_logic_var: , line:31:11, endln:31:19
+                \_logic_var: , line:31:10, endln:31:20
           |vpiElseStmt:
           \_if_else: , line:38:24, endln:42:18
             |vpiCondition:
@@ -2810,7 +2840,7 @@ design: (work@fsm_using_function)
                   |vpiName:fsm_function
                   |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                   |vpiActual:
-                  \_logic_var: , line:31:11, endln:31:19
+                  \_logic_var: , line:31:10, endln:31:20
             |vpiElseStmt:
             \_begin: (work@fsm_using_function.fsm_function), line:40:24, endln:42:18
               |vpiFullName:work@fsm_using_function.fsm_function
@@ -2829,7 +2859,7 @@ design: (work@fsm_using_function)
                   |vpiName:fsm_function
                   |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                   |vpiActual:
-                  \_logic_var: , line:31:11, endln:31:19
+                  \_logic_var: , line:31:10, endln:31:20
       |vpiCaseItem:
       \_case_item: , line:43:4, endln:47:18
         |vpiExpr:
@@ -2869,7 +2899,7 @@ design: (work@fsm_using_function)
                 |vpiName:fsm_function
                 |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiActual:
-                \_logic_var: , line:31:11, endln:31:19
+                \_logic_var: , line:31:10, endln:31:20
           |vpiElseStmt:
           \_begin: (work@fsm_using_function.fsm_function), line:45:24, endln:47:18
             |vpiFullName:work@fsm_using_function.fsm_function
@@ -2888,7 +2918,7 @@ design: (work@fsm_using_function)
                 |vpiName:fsm_function
                 |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiActual:
-                \_logic_var: , line:31:11, endln:31:19
+                \_logic_var: , line:31:10, endln:31:20
       |vpiCaseItem:
       \_case_item: , line:48:4, endln:52:18
         |vpiExpr:
@@ -2928,7 +2958,7 @@ design: (work@fsm_using_function)
                 |vpiName:fsm_function
                 |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiActual:
-                \_logic_var: , line:31:11, endln:31:19
+                \_logic_var: , line:31:10, endln:31:20
           |vpiElseStmt:
           \_begin: (work@fsm_using_function.fsm_function), line:50:20, endln:52:18
             |vpiFullName:work@fsm_using_function.fsm_function
@@ -2947,7 +2977,7 @@ design: (work@fsm_using_function)
                 |vpiName:fsm_function
                 |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiActual:
-                \_logic_var: , line:31:11, endln:31:19
+                \_logic_var: , line:31:10, endln:31:20
       |vpiCaseItem:
       \_case_item: , line:53:4, endln:53:34
         |vpiStmt:
@@ -2965,7 +2995,7 @@ design: (work@fsm_using_function)
             |vpiName:fsm_function
             |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
             |vpiActual:
-            \_logic_var: , line:31:11, endln:31:19
+            \_logic_var: , line:31:10, endln:31:20
     |vpiInstance:
     \_module: work@fsm_using_function (work@fsm_using_function) top.sv:6:1: , endln:94:10
   |vpiNet:

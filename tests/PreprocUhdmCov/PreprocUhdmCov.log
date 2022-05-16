@@ -606,6 +606,9 @@ design: (work@top)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
     |vpiName:put
@@ -646,6 +649,9 @@ design: (work@top)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
       |vpiDirection:6
@@ -668,6 +674,9 @@ design: (work@top)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
       |vpiDirection:6
@@ -858,6 +867,9 @@ design: (work@top)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiDirection:1
@@ -910,20 +922,22 @@ design: (work@top)
     |vpiAutomatic:1
     |vpiReturn:
     \_logic_var: , line:45:23, endln:45:35
-      |vpiRange:
-      \_range: , line:45:30, endln:45:34
-        |vpiLeftRange:
-        \_constant: , line:45:30, endln:45:32
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:45:33, endln:45:34
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiTypespec:
+      \_logic_typespec: , line:45:23, endln:45:28
+        |vpiRange:
+        \_range: , line:45:30, endln:45:34
+          |vpiLeftRange:
+          \_constant: , line:45:30, endln:45:32
+            |vpiDecompile:31
+            |vpiSize:64
+            |UINT:31
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:45:33, endln:45:34
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
     |vpiIODecl:
     \_io_decl: (state_in), line:45:77, endln:45:85
       |vpiDirection:1

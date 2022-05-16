@@ -731,6 +731,9 @@ design: (work@asym_ram)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
     |vpiName:put
@@ -771,6 +774,9 @@ design: (work@asym_ram)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
       |vpiDirection:6
@@ -793,6 +799,9 @@ design: (work@asym_ram)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
       |vpiDirection:6
@@ -983,6 +992,9 @@ design: (work@asym_ram)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiDirection:1
@@ -1157,20 +1169,6 @@ design: (work@asym_ram)
             |vpiConstType:9
       |vpiName:shifted
       |vpiAutomatic:1
-      |vpiRange:
-      \_range: , line:15:6, endln:15:10, parent:work@asym_ram.log2
-        |vpiLeftRange:
-        \_constant: , line:15:6, endln:15:8
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:15:9, endln:15:10
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
     |vpiVariables:
     \_integer_var: (res), line:16:1, endln:16:8
       |vpiTypespec:
@@ -1181,6 +1179,9 @@ design: (work@asym_ram)
     |vpiVisibility:1
     |vpiReturn:
     \_integer_var: , line:13:10, endln:13:17
+      |vpiTypespec:
+      \_integer_typespec: , line:13:10, endln:13:17
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (value), line:14:15, endln:14:20, parent:work@asym_ram.log2
       |vpiDirection:1
@@ -1224,6 +1225,9 @@ design: (work@asym_ram)
             |vpiFullName:work@asym_ram.log2.log2
             |vpiActual:
             \_integer_var: (log2), line:13:10, endln:13:17
+              |vpiTypespec:
+              \_integer_typespec: , line:13:10, endln:13:17, parent:log2
+                |vpiSigned:1
               |vpiName:log2
         |vpiElseStmt:
         \_begin: (work@asym_ram.log2), line:21:2, endln:26:5
@@ -1349,6 +1353,9 @@ design: (work@asym_ram)
               |vpiFullName:work@asym_ram.log2.log2
               |vpiActual:
               \_integer_var: (log2), line:13:10, endln:13:17
+                |vpiTypespec:
+                \_integer_typespec: , line:13:10, endln:13:17, parent:log2
+                  |vpiSigned:1
                 |vpiName:log2
     |vpiInstance:
     \_module: work@asym_ram (work@asym_ram) dut.sv:5:1: , endln:45:10, parent:work@asym_ram
@@ -1466,12 +1473,6 @@ design: (work@asym_ram)
       |vpiName:shifted
       |vpiFullName:work@asym_ram.log2.shifted
       |vpiAutomatic:1
-      |vpiRange:
-      \_range: , line:15:6, endln:15:10, parent:work@asym_ram.log2.shifted
-        |vpiLeftRange:
-        \_constant: , line:15:6, endln:15:8
-        |vpiRightRange:
-        \_constant: , line:15:9, endln:15:10
     |vpiVariables:
     \_integer_var: (work@asym_ram.log2.res), line:16:1, endln:16:8, parent:work@asym_ram.log2
       |vpiTypespec:
