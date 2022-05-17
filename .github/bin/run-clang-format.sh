@@ -15,20 +15,8 @@
 
 FORMAT_OUT=${TMPDIR:-/tmp}/clang-format-diff.out
 
-# Run on all files except the ones that are generated.
-# TODO: have generator scripts run clang-format on their
-#   output as well as last step, then we can exclude less
-#   files here.
-find src -name "*.h" -o -name "*.cpp"  \
-    | grep -v "src/parser/" \
-    | grep -v "src/API/slapi_scripts.h" \
-    | grep -v "src/API/SV3_1aPythonListener.h" \
-    | grep -v "src/SourceCompile/VObjectTypes\." \
-    | grep -v "src/API/vobjecttypes_py.h" \
-    | grep -v "src/SourceCompile/SV3_1aTreeShapeListener.h" \
-    | grep -v "src/SourceCompile/SV3_1aPpTreeShapeListener.h" \
-    | grep -v "src/API/vpi_user.h" \
-    | xargs clang-format --style=Google -i
+# Run on all c++ files.
+find src -name "*.h" -o -name "*.cpp" | xargs clang-format --style=Google -i
 
 # Check if we got any diff, then print it out in in the CI.
 # TODO: make these suggested diffs in the pull request.
