@@ -458,6 +458,9 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
     |vpiName:put
@@ -498,6 +501,9 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
       |vpiDirection:6
@@ -520,6 +526,9 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
       |vpiDirection:6
@@ -710,6 +719,9 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiDirection:1
@@ -733,10 +745,16 @@ design: (work@dut)
     |vpiFullName:work@dut.UVMC_set_config_object
     |vpiVariables:
     \_ref_var: (work@dut.UVMC_set_config_object.obj), line:11:12, endln:11:15
+      |vpiTypespec:
+      \_unsupported_typespec: (uvm_object), line:11:1, endln:11:11
+        |vpiName:uvm_object
       |vpiName:obj
       |vpiFullName:work@dut.UVMC_set_config_object.obj
     |vpiVariables:
     \_ref_var: (work@dut.UVMC_set_config_object.comp), line:12:15, endln:12:19
+      |vpiTypespec:
+      \_unsupported_typespec: (uvm_component), line:12:1, endln:12:14
+        |vpiName:uvm_component
       |vpiName:comp
       |vpiFullName:work@dut.UVMC_set_config_object.comp
     |vpiVisibility:1
@@ -818,12 +836,16 @@ design: (work@dut)
     |vpiFullName:work@dut.UVMC_set_config_object
     |vpiVariables:
     \_ref_var: (work@dut.UVMC_set_config_object.obj), line:11:12, endln:11:15, parent:work@dut.UVMC_set_config_object
+      |vpiTypespec:
+      \_unsupported_typespec: (uvm_object), line:11:1, endln:11:11
       |vpiName:obj
       |vpiFullName:work@dut.UVMC_set_config_object.obj
       |vpiActual:
       \_ref_var: (work@dut.UVMC_set_config_object.obj), line:11:12, endln:11:15
     |vpiVariables:
     \_ref_var: (work@dut.UVMC_set_config_object.comp), line:12:15, endln:12:19, parent:work@dut.UVMC_set_config_object
+      |vpiTypespec:
+      \_unsupported_typespec: (uvm_component), line:12:1, endln:12:14
       |vpiName:comp
       |vpiFullName:work@dut.UVMC_set_config_object.comp
       |vpiActual:
@@ -864,12 +886,16 @@ design: (work@dut)
       |vpiFullName:work@dut.UVMC_set_config_object
       |vpiVariables:
       \_ref_var: (work@dut.UVMC_set_config_object.obj), line:11:12, endln:11:15, parent:work@dut.UVMC_set_config_object
+        |vpiTypespec:
+        \_unsupported_typespec: (uvm_object), line:11:1, endln:11:11
         |vpiName:obj
         |vpiFullName:work@dut.UVMC_set_config_object.obj
         |vpiActual:
         \_ref_var: (work@dut.UVMC_set_config_object.obj), line:11:12, endln:11:15
       |vpiVariables:
       \_ref_var: (work@dut.UVMC_set_config_object.comp), line:12:15, endln:12:19, parent:work@dut.UVMC_set_config_object
+        |vpiTypespec:
+        \_unsupported_typespec: (uvm_component), line:12:1, endln:12:14
         |vpiName:comp
         |vpiFullName:work@dut.UVMC_set_config_object.comp
         |vpiActual:
@@ -919,5 +945,5 @@ design: (work@dut)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/TypeDefScope/dut.sv | ${SURELOG_DIR}/build/regression/TypeDefScope/roundtrip/dut_000.sv | 9 | 18 | 
+[roundtrip]: ${SURELOG_DIR}/tests/TypeDefScope/dut.sv | ${SURELOG_DIR}/build/regression/TypeDefScope/roundtrip/dut_000.sv | 7 | 18 | 
 

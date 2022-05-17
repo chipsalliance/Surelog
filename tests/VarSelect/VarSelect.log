@@ -522,6 +522,9 @@ design: (work@top)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
     |vpiName:put
@@ -562,6 +565,9 @@ design: (work@top)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
       |vpiDirection:6
@@ -584,6 +590,9 @@ design: (work@top)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
       |vpiDirection:6
@@ -774,6 +783,9 @@ design: (work@top)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiDirection:1
@@ -814,6 +826,9 @@ design: (work@top)
             |vpiConstType:9
           |vpiLhs:
           \_int_var: (work@top.i), line:8:10, endln:8:13
+            |vpiTypespec:
+            \_int_typespec: , line:8:10, endln:8:13
+              |vpiSigned:1
             |vpiName:i
             |vpiFullName:work@top.i
         |vpiForIncStmt:
@@ -1004,6 +1019,8 @@ design: (work@top)
           \_constant: , line:8:16, endln:8:17
           |vpiLhs:
           \_int_var: (work@top.i), line:8:10, endln:8:13
+            |vpiTypespec:
+            \_int_typespec: , line:8:10, endln:8:13
             |vpiName:i
             |vpiFullName:work@top.i
         |vpiForIncStmt:

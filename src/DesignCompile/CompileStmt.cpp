@@ -2085,6 +2085,9 @@ bool CompileHelper::compileFunction(DesignComponent* component,
         fC->Child(Function_body_declaration);
     NodeId Function_data_type = fC->Child(Function_data_type_or_implicit);
     NodeId Return_data_type = fC->Child(Function_data_type);
+    if (fC->Type(Function_data_type) == slPacked_dimension) {
+      Return_data_type = Function_data_type;
+    }
     if ((!Return_data_type) &&
         (fC->Type(Function_data_type) == slSigning_Unsigned)) {
       Return_data_type = Function_data_type;

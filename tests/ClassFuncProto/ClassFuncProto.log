@@ -581,6 +581,9 @@ design: (work@toto)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
     |vpiName:put
@@ -621,6 +624,9 @@ design: (work@toto)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
       |vpiDirection:6
@@ -643,6 +649,9 @@ design: (work@toto)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
       |vpiDirection:6
@@ -833,6 +842,9 @@ design: (work@toto)
     |vpiVisibility:1
     |vpiReturn:
     \_int_var: 
+      |vpiTypespec:
+      \_int_typespec: 
+        |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiDirection:1
@@ -910,16 +922,24 @@ design: (work@toto)
       |vpiFullName:work@toto::c1::get_current_item
       |vpiVariables:
       \_ref_var: (work@toto::c1::get_current_item::t), line:31:9, endln:31:10, parent:work@toto::c1::get_current_item
+        |vpiTypespec:
+        \_unsupported_typespec: (REQ), line:31:5, endln:31:8
+          |vpiName:REQ
         |vpiName:t
         |vpiFullName:work@toto::c1::get_current_item::t
       |vpiVariables:
       \_ref_var: (work@toto::c1::get_current_item::t), line:31:9, endln:31:10, parent:work@toto::c1::get_current_item
+        |vpiTypespec:
+        \_unsupported_typespec: (REQ), line:31:5, endln:31:8
         |vpiName:t
         |vpiFullName:work@toto::c1::get_current_item::t
       |vpiMethod:1
       |vpiVisibility:1
       |vpiReturn:
       \_ref_var: , line:30:10, endln:30:13
+        |vpiTypespec:
+        \_unsupported_typespec: (REQ), line:30:10, endln:30:13
+          |vpiName:REQ
     |vpiMethod:
     \_function: (work@toto::c1::connect), line:35:2, endln:36:12, parent:work@toto::c1
       |vpiName:connect
@@ -942,6 +962,9 @@ design: (work@toto)
       |vpiVisibility:1
       |vpiReturn:
       \_int_var: , line:38:13, endln:38:16
+        |vpiTypespec:
+        \_int_typespec: , line:38:13, endln:38:16
+          |vpiSigned:1
       |vpiIODecl:
       \_io_decl: (severity), line:38:50, endln:38:58, parent:work@toto::c1::get_verbosity_level
         |vpiDirection:1
@@ -1009,6 +1032,9 @@ design: (work@toto)
       |vpiVisibility:1
       |vpiReturn:
       \_int_var: , line:41:11, endln:41:14
+        |vpiTypespec:
+        \_int_typespec: , line:41:11, endln:41:14
+          |vpiSigned:1
       |vpiIODecl:
       \_io_decl: (severity), line:41:48, endln:41:56, parent:work@toto::c1::set_verbosity_level
         |vpiDirection:1
@@ -1147,10 +1173,14 @@ design: (work@toto)
       |vpiFullName:work@toto::c1::get_current_item
       |vpiVariables:
       \_ref_var: (work@toto::c1::get_current_item::t), line:31:9, endln:31:10, parent:work@toto::c1::get_current_item
+        |vpiTypespec:
+        \_unsupported_typespec: (REQ), line:31:5, endln:31:8
         |vpiName:t
         |vpiFullName:work@toto::c1::get_current_item::t
       |vpiVariables:
       \_ref_var: (work@toto::c1::get_current_item::t), line:31:9, endln:31:10, parent:work@toto::c1::get_current_item
+        |vpiTypespec:
+        \_unsupported_typespec: (REQ), line:31:5, endln:31:8
         |vpiName:t
         |vpiFullName:work@toto::c1::get_current_item::t
       |vpiMethod:1
@@ -1280,5 +1310,5 @@ design: (work@toto)
 [   NOTE] : 6
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/ClassFuncProto/top.v | ${SURELOG_DIR}/build/regression/ClassFuncProto/roundtrip/top_000.v | 10 | 52 | 
+[roundtrip]: ${SURELOG_DIR}/tests/ClassFuncProto/top.v | ${SURELOG_DIR}/build/regression/ClassFuncProto/roundtrip/top_000.v | 9 | 52 | 
 
