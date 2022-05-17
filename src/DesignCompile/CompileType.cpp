@@ -1554,6 +1554,58 @@ UHDM::typespec* CompileHelper::compileTypespec(
         }
       }
       if (!result) {
+        while (instance) {
+          if (ModuleInstance* inst =
+                  valuedcomponenti_cast<ModuleInstance*>(instance)) {
+            if (inst->getNetlist()) {
+              UHDM::VectorOfparam_assign* param_assigns =
+                  inst->getNetlist()->param_assigns();
+              if (param_assigns) {
+                for (param_assign* param : *param_assigns) {
+                  const std::string& param_name = param->Lhs()->VpiName();
+                  if (param_name == typeName) {
+                    const any* rhs = param->Rhs();
+                    if (const constant* exp = any_cast<const constant*>(rhs)) {
+                      int_typespec* its = buildIntTypespec(
+                          compileDesign, param->VpiFile(), typeName,
+                          exp->VpiValue(), param->VpiLineNo(),
+                          param->VpiColumnNo(), param->VpiLineNo(),
+                          param->VpiColumnNo());
+                      result = its;
+                    } else {
+                      any* ex =
+                          compileExpression(component, fC, type, compileDesign,
+                                            pstmt, instance, false, false);
+                      if (ex) {
+                        hier_path* path = nullptr;
+                        if (ex->UhdmType() == uhdmhier_path) {
+                          path = (hier_path*)ex;
+                        } else if (ex->UhdmType() == uhdmref_obj) {
+                          path = s.MakeHier_path();
+                          path->Path_elems(s.MakeAnyVec());
+                          ref_obj* ref = s.MakeRef_obj();
+                          ref->VpiName(typeName);
+                          path->Path_elems()->push_back(ref);
+                        }
+                        if (path) {
+                          bool invalidValue = false;
+                          result = (typespec*)decodeHierPath(
+                              path, invalidValue, component, compileDesign,
+                              instance, fC->getFileName(), fC->Line(type),
+                              nullptr, reduce, false, true);
+                        }
+                      }
+                    }
+                    break;
+                  }
+                }
+              }
+            }
+          }
+          instance = (ValuedComponentI*)instance->getParentScope();
+        }
+      }
+      if (!result) {
         if (component) {
           UHDM::VectorOfparam_assign* param_assigns =
               component->getParam_assigns();
@@ -1562,51 +1614,19 @@ UHDM::typespec* CompileHelper::compileTypespec(
               const std::string& param_name = param->Lhs()->VpiName();
               if (param_name == typeName) {
                 const any* rhs = param->Rhs();
-                if (const expr* exp = any_cast<const expr*>(rhs)) {
+                if (const constant* exp = any_cast<const constant*>(rhs)) {
                   int_typespec* its = buildIntTypespec(
                       compileDesign, param->VpiFile(), typeName,
                       exp->VpiValue(), param->VpiLineNo(), param->VpiColumnNo(),
                       param->VpiLineNo(), param->VpiColumnNo());
-                  // its->VpiParent((any*) param->Lhs());
                   result = its;
-                } else {
-                  result = (UHDM::typespec*)rhs;
+                } else if (const operation* exp =
+                               any_cast<const operation*>(rhs)) {
+                  result = (typespec*)exp->Typespec();
                 }
                 break;
               }
             }
-          }
-        }
-        if (!result) {
-          while (instance) {
-            if (ModuleInstance* inst =
-                    valuedcomponenti_cast<ModuleInstance*>(instance)) {
-              if (inst->getNetlist()) {
-                UHDM::VectorOfparam_assign* param_assigns =
-                    inst->getNetlist()->param_assigns();
-                if (param_assigns) {
-                  for (param_assign* param : *param_assigns) {
-                    const std::string& param_name = param->Lhs()->VpiName();
-                    if (param_name == typeName) {
-                      const any* rhs = param->Rhs();
-                      if (const expr* exp = any_cast<const expr*>(rhs)) {
-                        int_typespec* its = buildIntTypespec(
-                            compileDesign, param->VpiFile(), typeName,
-                            exp->VpiValue(), param->VpiLineNo(),
-                            param->VpiColumnNo(), param->VpiLineNo(),
-                            param->VpiColumnNo());
-                        // its->VpiParent((any*) param->Lhs());
-                        result = its;
-                      } else {
-                        result = (UHDM::typespec*)rhs;
-                      }
-                      break;
-                    }
-                  }
-                }
-              }
-            }
-            instance = (ValuedComponentI*)instance->getParentScope();
           }
         }
       }
