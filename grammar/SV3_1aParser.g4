@@ -1907,7 +1907,7 @@ generate_interface_block :
     ( generate_interface_item )*
     END ( COLUMN identifier )? ;
 
-// This grammar diffiers from the spec. The spec states that a generate_region
+// This grammar differs from the spec. The spec states that a generate_region
 // is simply a repeated generate_item. This is probably wrong though. The spec
 // states that a generate block can have a labeled begin end block. Which means
 // that there should be a generate_block somwwhere in the generate_region.
@@ -1950,10 +1950,17 @@ generate_block
       ( COLUMN identifier )?
     ;
 
+//generate_item
+//     : {isModuleGenerator($ctx)}? module_or_generate_item
+//     | {isInterfaceGenerator($ctx)}? interface_or_generate_item
+//     | {isCheckerGenerator($ctx)}? (checker_or_generate_item_declaration | generate_region)
+//     ;
+
 generate_item
-     : {isModuleGenerator($ctx)}? module_or_generate_item
-     | {isInterfaceGenerator($ctx)}? interface_or_generate_item
-     | {isCheckerGenerator($ctx)}? checker_or_generate_item
+     : module_or_generate_item
+     | ( attribute_instance )* ( MODPORT modport_item ( COMMA modport_item )* SEMICOLUMN | extern_tf_declaration )
+     | checker_or_generate_item_declaration
+     | generate_region
      ;
 
 udp_nonansi_declaration : ( attribute_instance )* PRIMITIVE identifier
