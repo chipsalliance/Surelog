@@ -403,6 +403,7 @@ bool ErrorDefinition::init() {
       "%exloc interface definition for \"%exobj\"");
   rec(ELAB_UNKNOWN_PARAMETER, ERROR, ELAB,
       "Unknown parameter in command line override \"%s\"");
+  rec(ELAB_EXPRESSION_LOOP, ERROR, ELAB, "Expression loop in instance \"%s\"");
   rec(LIB_FILE_MAPS_TO_MULTIPLE_LIBS, ERROR, LIB,
       R"(File "%exobj" maps to multiple libraries: "%s")");
   rec(UHDM_UNSUPPORTED_EXPR, ERROR, UHDM, "Unsupported expression \"%s\"");

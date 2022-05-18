@@ -270,9 +270,11 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
         if (ModuleInstance* pinst = instance->getParent()) {
           ModuleDefinition* pmod =
               valuedcomponenti_cast<ModuleDefinition*>(pinst->getDefinition());
+          m_helper.checkForLoops(true);
           expr* rhs = (expr*)m_helper.compileExpression(
               pmod, tpm->getFileContent(), tpm->getNodeId(), m_compileDesign,
               nullptr, pinst, !isMultidimensional);
+          m_helper.checkForLoops(false);
           if (en_replay && m_helper.errorOnNegativeConstant(
                                pmod, rhs, m_compileDesign, pinst)) {
             bool replay = false;
@@ -288,9 +290,11 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
           if ((!rhs) || (rhs && (rhs->UhdmType() != uhdmconstant))) {
             // But if this value can be reduced to a constant then take the
             // constant
+            m_helper.checkForLoops(true);
             expr* crhs = (expr*)m_helper.compileExpression(
                 mod, assign->getFileContent(), assign->getAssignId(),
                 m_compileDesign, nullptr, instance, true);
+            m_helper.checkForLoops(false);
             if (crhs && crhs->UhdmType() == uhdmconstant) {
               if (en_replay && m_helper.errorOnNegativeConstant(
                                    mod, crhs, m_compileDesign, instance)) {
@@ -358,9 +362,11 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
       if (exp) {
         if (!isMultidimensional) {
           bool invalidValue = false;
+          m_helper.checkForLoops(true);
           expr* tmp = m_helper.reduceExpr(
               exp, invalidValue, mod, m_compileDesign, instance, exp->VpiFile(),
               exp->VpiLineNo(), nullptr, true);
+          m_helper.checkForLoops(false);
           if (tmp && (invalidValue == false)) exp = tmp;
         }
         inst_assign->Rhs(exp);
@@ -374,9 +380,11 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
             if (exp) {
               if (!isMultidimensional) {
                 bool invalidValue = false;
+                m_helper.checkForLoops(true);
                 expr* tmp = m_helper.reduceExpr(
                     exp, invalidValue, mod, m_compileDesign, instance,
                     exp->VpiFile(), exp->VpiLineNo(), nullptr, true);
+                m_helper.checkForLoops(false);
                 if (tmp && (invalidValue == false)) exp = tmp;
               }
             }
@@ -414,9 +422,11 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
     if (overriden == false) {
       // Default
       if (assign->getAssignId()) {
+        m_helper.checkForLoops(true);
         expr* rhs = (expr*)m_helper.compileExpression(
             mod, assign->getFileContent(), assign->getAssignId(),
             m_compileDesign, nullptr, instance, !isMultidimensional);
+        m_helper.checkForLoops(false);
         inst_assign->Rhs(rhs);
       }
     }
@@ -691,9 +701,11 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       Udp_instance = fC->Sibling(Udp_instance);
     } else if (fC->Type(Udp_instance) == VObjectType::slDelay2 ||
                fC->Type(Udp_instance) == VObjectType::slDelay3) {
+      m_helper.checkForLoops(true);
       expr* delay_expr = (expr*)m_helper.compileExpression(
           parent_comp, fC, Udp_instance, m_compileDesign, nullptr, parent,
           true);
+      m_helper.checkForLoops(false);
       VectorOfexpr* delays = s.MakeExprVec();
       netlist->delays(delays);
       delays->push_back(delay_expr);
@@ -707,9 +719,11 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       NodeId Unpacked_dimension = fC->Sibling(Name);
       if (Unpacked_dimension) {
         int size;
+        m_helper.checkForLoops(true);
         VectorOfrange* ranges = m_helper.compileRanges(
             comp, fC, Unpacked_dimension, m_compileDesign, nullptr, parent,
             true, size, false);
+        m_helper.checkForLoops(false);
         netlist->ranges(ranges);
       }
     } else {
@@ -777,13 +791,17 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                            slPs_or_hierarchical_identifier) {
                   Hierarchical_identifier = Net_lvalue;
                 }
+                m_helper.checkForLoops(true);
                 exp = m_helper.compileExpression(
                     parent_comp, fC, Hierarchical_identifier, m_compileDesign,
                     nullptr, parent, true);
+                m_helper.checkForLoops(false);
               } else {
+                m_helper.checkForLoops(true);
                 exp = m_helper.compileExpression(parent_comp, fC, Net_lvalue,
                                                  m_compileDesign, nullptr,
                                                  parent, true);
+                m_helper.checkForLoops(false);
               }
               p->High_conn(exp);
             }
@@ -825,10 +843,11 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                        slPs_or_hierarchical_identifier) {
               Hierarchical_identifier = Net_lvalue;
             }
-
+            m_helper.checkForLoops(true);
             any* exp = m_helper.compileExpression(
                 parent_comp, fC, Hierarchical_identifier, m_compileDesign,
                 nullptr, parent, true);
+            m_helper.checkForLoops(false);
             p->High_conn(exp);
             if (exp->UhdmType() == uhdmref_obj) {
               ref_obj* ref = (ref_obj*)exp;
@@ -983,9 +1002,11 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             Expression = fC->Sibling(Expression);
         }
         if (Expression) {
+          m_helper.checkForLoops(true);
           hexpr = (expr*)m_helper.compileExpression(parent_comp, fC, Expression,
                                                     m_compileDesign, nullptr,
                                                     parent, true);
+          m_helper.checkForLoops(false);
           NodeId Primary = fC->Child(Expression);
           NodeId Primary_literal = fC->Child(Primary);
           sigId = fC->Child(Primary_literal);
@@ -1467,8 +1488,10 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
   if (typeSpecId) {
     auto itr = tscache.find(typeSpecId);
     if (itr == tscache.end()) {
+      m_helper.checkForLoops(true);
       tps = m_helper.compileTypespec(comp, fC, typeSpecId, m_compileDesign,
                                      nullptr, child, true, true);
+      m_helper.checkForLoops(false);
       tscache.insert(std::make_pair(typeSpecId, tps));
     } else {
       tps = (*itr).second;
@@ -1478,9 +1501,11 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
     if (sig->getInterfaceTypeNameId()) {
       auto itr = tscache.find(sig->getInterfaceTypeNameId());
       if (itr == tscache.end()) {
+        m_helper.checkForLoops(true);
         tps = m_helper.compileTypespec(comp, fC, sig->getInterfaceTypeNameId(),
                                        m_compileDesign, nullptr, child, true,
                                        true);
+        m_helper.checkForLoops(false);
         tscache.insert(std::make_pair(sig->getInterfaceTypeNameId(), tps));
       } else {
         tps = (*itr).second;
@@ -1546,21 +1571,26 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
   // Packed and unpacked ranges
   int packedSize;
   int unpackedSize;
+  m_helper.checkForLoops(true);
   std::vector<UHDM::range*>* packedDimensions =
       m_helper.compileRanges(comp, fC, packedDimension, m_compileDesign,
                              nullptr, child, true, packedSize, false);
+  m_helper.checkForLoops(false);
+  m_helper.checkForLoops(true);
   std::vector<UHDM::range*>* unpackedDimensions =
       m_helper.compileRanges(comp, fC, unpackedDimension, m_compileDesign,
                              nullptr, child, true, unpackedSize, false);
-
+  m_helper.checkForLoops(false);
   any* obj = nullptr;
 
   // Assignment to a default value
   expr* exp = exprFromAssign_(comp, fC, id, unpackedDimension, child);
   if ((exp == nullptr) && sig->getDefaultValue()) {
+    m_helper.checkForLoops(true);
     exp = (expr*)m_helper.compileExpression(comp, fC, sig->getDefaultValue(),
                                             m_compileDesign, nullptr, child,
                                             true);
+    m_helper.checkForLoops(false);
   }
   if (isNet) {
     // Nets
@@ -1897,8 +1927,10 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       m_helper.setParentNoOverride((expr*)obj, assign);
       m_helper.setParentNoOverride(exp, assign);
       if (sig->getDelay()) {
+        m_helper.checkForLoops(true);
         expr* delay_expr = (expr*)m_helper.compileExpression(
             comp, fC, sig->getDelay(), m_compileDesign, nullptr, child, true);
+        m_helper.checkForLoops(false);
         assign->Delay(delay_expr);
       }
       std::vector<cont_assign*>* assigns = netlist->cont_assigns();
@@ -2009,18 +2041,21 @@ bool NetlistElaboration::elab_ports_nets_(
 
         NodeId unpackedDimension = sig->getUnpackedDimension();
         int unpackedSize;
+        m_helper.checkForLoops(true);
         std::vector<UHDM::range*>* unpackedDimensions =
             m_helper.compileRanges(comp, fC, unpackedDimension, m_compileDesign,
                                    nullptr, child, true, unpackedSize, false);
-
+        m_helper.checkForLoops(false);
         NodeId typeSpecId = sig->getTypeSpecId();
         if (typeSpecId) {
           UHDM::typespec* tps = nullptr;
           auto itr = tscache.find(typeSpecId);
           if (itr == tscache.end()) {
+            m_helper.checkForLoops(true);
             tps =
                 m_helper.compileTypespec(comp, fC, typeSpecId, m_compileDesign,
                                          dest_port, instance, true, true);
+            m_helper.checkForLoops(false);
             tscache.insert(std::make_pair(typeSpecId, tps));
           } else {
             tps = (*itr).second;
@@ -2277,9 +2312,10 @@ UHDM::any* NetlistElaboration::bind_net_(const FileContent* origfC, NodeId id,
         }
       }
     }
-
+    m_helper.checkForLoops(true);
     result = m_helper.getValue(name, instance->getDefinition(), m_compileDesign,
                                instance, "", 0, nullptr, true, true);
+    m_helper.checkForLoops(false);
   }
   if ((instance != nullptr) && (result == nullptr)) {
     if (Netlist* netlist = instance->getNetlist()) {

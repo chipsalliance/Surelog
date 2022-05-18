@@ -471,6 +471,10 @@ class CompileHelper final {
   void evalScheduledExprs(DesignComponent* component,
                           CompileDesign* compileDesign);
 
+  void checkForLoops(bool on);
+  bool loopDetected(const std::filesystem::path& fileName, int lineNumber,
+                    ValuedComponentI* instance);
+
   UHDM::any* getValue(const std::string& name, DesignComponent* component,
                       CompileDesign* compileDesign, ValuedComponentI* instance,
                       const std::filesystem::path& fileName, int lineNumber,
@@ -560,6 +564,8 @@ class CompileHelper final {
   std::unordered_map<std::string, UHDM::int_typespec*> m_cache_int_typespec;
   std::unordered_map<std::string, UHDM::typespec_member*>
       m_cache_typespec_member;
+  bool m_checkForLoops = false;
+  int m_stackLevel = 0;
 };
 
 }  // namespace SURELOG

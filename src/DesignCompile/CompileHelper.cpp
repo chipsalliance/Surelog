@@ -27,6 +27,7 @@
 #include <Surelog/Design/Enum.h>
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/Design/ModuleDefinition.h>
+#include <Surelog/Design/ModuleInstance.h>
 #include <Surelog/Design/Netlist.h>
 #include <Surelog/Design/ParamAssign.h>
 #include <Surelog/Design/Parameter.h>
@@ -65,6 +66,30 @@
 namespace SURELOG {
 
 using namespace UHDM;  // NOLINT (we use a good chunk of these here)
+
+void CompileHelper::checkForLoops(bool on) {
+  m_checkForLoops = on;
+  m_stackLevel = 0;
+}
+
+bool CompileHelper::loopDetected(const std::filesystem::path& fileName,
+                                 int lineNumber, ValuedComponentI* instance) {
+  if (m_checkForLoops) {
+    if (m_stackLevel > 1000) {
+      std::string instName;
+      if (ModuleInstance* inst =
+              valuedcomponenti_cast<ModuleInstance*>(instance)) {
+        instName = inst->getFullPathName();
+      }
+      Location loc(m_symbols->registerSymbol(fileName.string()), lineNumber, 0,
+                   m_symbols->registerSymbol(instName));
+      Error err(ErrorDefinition::ELAB_EXPRESSION_LOOP, loc);
+      m_errors->addError(err);
+      return true;
+    }
+  }
+  return false;
+}
 
 bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
                                   const FileContent* fC, NodeId id,
