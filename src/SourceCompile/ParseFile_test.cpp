@@ -31,7 +31,7 @@ TEST(ParserTest, BasicParse) {
     auto fC = harness.parse("module top(); assign a = b; endmodule");
     NodeId root = fC->getRootNode();
     NodeId assign = fC->sl_collect(root, slContinuous_assign);
-    EXPECT_NE(assign, InvalidNodeId);
+    EXPECT_NE(assign, 0);
   }
   {
     auto fC = harness.parse("module top(); assign a = !b; endmodule");

@@ -197,7 +197,7 @@ UHDM::any* CompileHelper::compileVariable(
       the_type == VObjectType::slPs_or_hierarchical_identifier) {
     variable = fC->Child(variable);
     the_type = fC->Type(variable);
-  } else if (the_type == VObjectType::slNull_rule) {
+  } else if (the_type == VObjectType::sl_INVALID_) {
     return nullptr;
   }
   if (the_type == VObjectType::slComplex_func_call) {

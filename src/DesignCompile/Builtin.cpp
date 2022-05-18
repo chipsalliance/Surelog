@@ -355,7 +355,7 @@ void Builtin::addBuiltinClasses() {
     NodeId stId = fC1->sl_collect(classId, VObjectType::slStringConst,
                                   VObjectType::slAttr_spec);
     const std::string& libName = fC1->getLibrary()->getName();
-    if (stId != InvalidNodeId) {
+    if (stId) {
       std::string name = fC1->SymName(stId);
       fC1->insertObjectLookup(name, classId,
                               m_compiler->getCompiler()->getErrorContainer());

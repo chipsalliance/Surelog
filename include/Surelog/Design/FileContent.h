@@ -68,15 +68,15 @@ class FileContent : public DesignComponent {
                    VObjectType type) const;  // Get first parent item of type
 
   NodeId sl_parent(
-      NodeId parent, const std::vector<VObjectType>& types,
+      NodeId parent, const std::unordered_set<VObjectType>& types,
       VObjectType& actualType) const;  // Get first parent item of type
 
   std::vector<NodeId> sl_get_all(
       NodeId parent, VObjectType type) const;  // get all child items of type
 
-  std::vector<NodeId> sl_get_all(
-      NodeId parent,
-      std::vector<VObjectType>& types) const;  // get all child items of types
+  std::vector<NodeId> sl_get_all(NodeId parent,
+                                 const std::unordered_set<VObjectType>& types)
+      const;  // get all child items of types
 
   NodeId sl_collect(
       NodeId parent,
@@ -91,16 +91,16 @@ class FileContent : public DesignComponent {
       bool first = false) const;  // Recursively search for all items of type
 
   std::vector<NodeId> sl_collect_all(
-      NodeId parent, std::vector<VObjectType>& types,
+      NodeId parent, const std::unordered_set<VObjectType>& types,
       bool first = false) const;  // Recursively search for all items of types
 
-  std::vector<NodeId> sl_collect_all(NodeId parent,
-                                     std::vector<VObjectType>& types,
-                                     std::vector<VObjectType>& stopPoints,
-                                     bool first = false) const;
+  std::vector<NodeId> sl_collect_all(
+      NodeId parent, const std::unordered_set<VObjectType>& types,
+      const std::unordered_set<VObjectType>& stopPoints,
+      bool first = false) const;
   // Recursively search for all items of types
   // and stops at types stopPoints
-  unsigned int getSize() const override;
+  unsigned int getSize() const override { return m_objects.size(); }
   VObjectType getType() const override { return VObjectType::slNoType; }
   bool isInstance() const override { return false; }
   const std::string& getName() const override;
@@ -130,7 +130,7 @@ class FileContent : public DesignComponent {
     return m_referencedObjects;
   }
 
-  VObject Object(NodeId index) const;
+  const VObject& Object(NodeId index) const;
   VObject* MutableObject(NodeId index);
 
   NodeId UniqueId(NodeId index) const;

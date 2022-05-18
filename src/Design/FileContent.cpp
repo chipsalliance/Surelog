@@ -41,11 +41,11 @@ std::filesystem::path FileContent::getChunkFileName() const {
 
 const std::string& FileContent::SymName(NodeId index) const {
   if (index >= m_objects.size()) {
-    Location loc(this->m_fileId);
+    Location loc(m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
-    return m_symbolTable->getSymbol(Name(0));
+    return SymbolTable::getBadSymbol();
   }
   return m_symbolTable->getSymbol(Name(index));
 }
@@ -55,10 +55,7 @@ std::filesystem::path FileContent::getFileName() const {
 }
 
 NodeId FileContent::getRootNode() const {
-  if (m_objects.empty()) {
-    return 0;
-  }
-  return m_objects[0].m_sibling;
+  return m_objects.empty() ? 0 : m_objects[0].m_sibling;
 }
 
 SymbolId FileContent::getFileId(NodeId id) const {
@@ -91,15 +88,15 @@ std::string FileContent::printObjects() const {
 }
 
 std::string FileContent::printObject(NodeId nodeId) const {
+  if (!nodeId || (nodeId >= m_objects.size())) return "";
   return m_objects[nodeId].print(m_symbolTable, nodeId,
                                  GetDefinitionFile(nodeId), m_fileId);
 }
 
-unsigned int FileContent::getSize() const { return m_objects.size(); }
-
-std::string FileContent::printSubTree(NodeId uniqueId) const {
+std::string FileContent::printSubTree(NodeId nodeId) const {
+  if (!nodeId || (nodeId >= m_objects.size())) return "";
   std::string text;
-  for (const auto& s : collectSubTree(uniqueId)) {
+  for (const auto& s : collectSubTree(nodeId)) {
     text += s + "\n";
   }
   return text;
@@ -202,12 +199,13 @@ void FileContent::SetDefinitionFile(NodeId index, SymbolId def) {
 SymbolId FileContent::GetDefinitionFile(NodeId index) const {
   auto itr = m_definitionFiles.find(index);
   if (itr != m_definitionFiles.end()) return (*itr).second;
-  return 0;
+  return SymbolTable::getBadId();
 }
 
-VObject FileContent::Object(NodeId index) const {
+const VObject& FileContent::Object(NodeId index) const {
+  if (!index) return m_objects[0];
   if (index >= m_objects.size()) {
-    Location loc(this->m_fileId);
+    Location loc(m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
@@ -217,8 +215,9 @@ VObject FileContent::Object(NodeId index) const {
 }
 
 VObject* FileContent::MutableObject(NodeId index) {
+  if (!index) return &m_objects[0];
   if (index >= m_objects.size()) {
-    Location loc(this->m_fileId);
+    Location loc(m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
@@ -228,8 +227,9 @@ VObject* FileContent::MutableObject(NodeId index) {
 }
 
 NodeId FileContent::UniqueId(NodeId index) const {
+  if (!index) return 0;
   if (index >= m_objects.size()) {
-    Location loc(this->m_fileId);
+    Location loc(m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
@@ -239,63 +239,69 @@ NodeId FileContent::UniqueId(NodeId index) const {
 }
 
 SymbolId FileContent::Name(NodeId index) const {
+  if (!index) return SymbolTable::getBadId();
   if (index >= m_objects.size()) {
-    Location loc(this->m_fileId);
+    Location loc(m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
-    return (VObjectType)m_objects[0].m_type;
+    return SymbolTable::getBadId();
   }
   return m_objects[index].m_name;
 }
 
 NodeId FileContent::Child(NodeId index) const {
+  if (!index) return 0;
   if (index >= m_objects.size()) {
-    Location loc(this->m_fileId);
+    Location loc(m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
-    return (VObjectType)m_objects[0].m_type;
+    return 0;
   }
   return m_objects[index].m_child;
 }
 
 NodeId FileContent::Sibling(NodeId index) const {
+  if (!index) return 0;
   if (index >= m_objects.size()) {
-    Location loc(this->m_fileId);
+    Location loc(m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
     std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";
-    return (VObjectType)m_objects[0].m_type;
+    return 0;
   }
   return m_objects[index].m_sibling;
 }
 
 NodeId FileContent::Definition(NodeId index) const {
+  if (!index) return 0;
   if (index >= m_objects.size()) {
-    Location loc(this->m_fileId);
+    Location loc(m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
-    return (VObjectType)m_objects[0].m_type;
+    return 0;
   }
   return m_objects[index].m_definition;
 }
 
 NodeId FileContent::Parent(NodeId index) const {
+  if (!index) return 0;
   if (index >= m_objects.size()) {
-    Location loc(this->m_fileId);
+    Location loc(m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
-    return (VObjectType)m_objects[0].m_type;
+    return 0;
   }
   return m_objects[index].m_parent;
 }
 
 VObjectType FileContent::Type(NodeId index) const {
+  if (!index) return VObjectType::sl_INVALID_;
   if (index >= m_objects.size()) {
-    Location loc(this->m_fileId);
+    Location loc(m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
@@ -305,8 +311,9 @@ VObjectType FileContent::Type(NodeId index) const {
 }
 
 unsigned int FileContent::Line(NodeId index) const {
+  if (!index) return 0;
   if (index >= m_objects.size()) {
-    Location loc(this->m_fileId);
+    Location loc(m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
@@ -316,8 +323,9 @@ unsigned int FileContent::Line(NodeId index) const {
 }
 
 unsigned short FileContent::Column(NodeId index) const {
+  if (!index) return 0;
   if (index >= m_objects.size()) {
-    Location loc(this->m_fileId);
+    Location loc(m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
@@ -327,8 +335,9 @@ unsigned short FileContent::Column(NodeId index) const {
 }
 
 unsigned int FileContent::EndLine(NodeId index) const {
+  if (!index) return 0;
   if (index >= m_objects.size()) {
-    Location loc(this->m_fileId);
+    Location loc(m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
@@ -338,8 +347,9 @@ unsigned int FileContent::EndLine(NodeId index) const {
 }
 
 unsigned short FileContent::EndColumn(NodeId index) const {
+  if (!index) return 0;
   if (index >= m_objects.size()) {
-    Location loc(this->m_fileId);
+    Location loc(m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
@@ -349,71 +359,66 @@ unsigned short FileContent::EndColumn(NodeId index) const {
 }
 
 NodeId FileContent::sl_get(NodeId parent, VObjectType type) const {
+  if (!parent) return 0;
   if (m_objects.empty()) return 0;
-  if (parent > m_objects.size() - 1) return 0;
-  VObject current = Object(parent);
+  if (parent >= m_objects.size()) return 0;
+  const VObject& current = Object(parent);
   if (current.m_type == type) return parent;
   NodeId id = current.m_child;
   while (id) {
-    current = Object(id);
+    const VObject& current = Object(id);
     if (current.m_type == type) {
       return id;
     }
     id = current.m_sibling;
   }
-  return InvalidNodeId;
+  return 0;
 }
 
 NodeId FileContent::sl_parent(NodeId parent,
-                              const std::vector<VObjectType>& types,
+                              const std::unordered_set<VObjectType>& types,
                               VObjectType& actualType) const {
+  if (!parent) return 0;
   if (m_objects.empty()) return 0;
-  if (parent > m_objects.size() - 1) return 0;
-  VObject current = Object(parent);
-  for (auto type : types)
-    if (current.m_type == type) {
-      actualType = type;
-      return parent;
-    }
-  NodeId id = current.m_parent;
+  if (parent >= m_objects.size()) return 0;
+  NodeId id = parent;
   while (id) {
-    current = Object(id);
-    for (auto type : types)
-      if (current.m_type == type) {
-        actualType = type;
-        return id;
-      }
+    const VObject& current = Object(id);
+    if (types.find(current.m_type) != types.end()) {
+      actualType = current.m_type;
+      return id;
+    }
     id = current.m_parent;
   }
-  return InvalidNodeId;
+  return 0;
 }
 
 NodeId FileContent::sl_parent(NodeId parent, VObjectType type) const {
+  if (!parent) return 0;
   if (m_objects.empty()) return 0;
-  if (parent > m_objects.size() - 1) return 0;
-  VObject current = Object(parent);
-  if (current.m_type == type) return parent;
-  NodeId id = current.m_parent;
+  if (parent >= m_objects.size()) return 0;
+  NodeId id = parent;
   while (id) {
-    current = Object(id);
+    const VObject& current = Object(id);
     if (current.m_type == type) {
       return id;
     }
     id = current.m_parent;
   }
-  return InvalidNodeId;
+  return 0;
 }
 
 std::vector<NodeId> FileContent::sl_get_all(NodeId parent,
                                             VObjectType type) const {
   std::vector<NodeId> objects;
+  if (!parent) return objects;
   if (m_objects.empty()) return objects;
-  if (parent > m_objects.size() - 1) return objects;
-  VObject current = Object(parent);
+  if (parent >= m_objects.size()) return objects;
+  const VObject& current = Object(parent);
   if (current.m_type == type) objects.push_back(parent);
   NodeId id = current.m_child;
   while (id) {
-    current = Object(id);
+    const VObject& current = Object(id);
     if (current.m_type == type) {
       objects.push_back(id);
     }
@@ -423,26 +428,21 @@ std::vector<NodeId> FileContent::sl_get_all(NodeId parent,
 }
 
 std::vector<NodeId> FileContent::sl_get_all(
-    NodeId parent, std::vector<VObjectType>& types) const {
+    NodeId parent, const std::unordered_set<VObjectType>& types) const {
   std::vector<NodeId> objects;
+  if (!parent) return objects;
   if (m_objects.empty()) return objects;
-  if (parent > m_objects.size() - 1) return objects;
-  VObject current = Object(parent);
-  for (auto type : types) {
-    if (current.m_type == type) {
-      objects.push_back(parent);
-      break;
-    }
+  if (parent >= m_objects.size()) return objects;
+  const VObject& current = Object(parent);
+  if (types.find(current.m_type) != types.end()) {
+    objects.push_back(parent);
   }
 
   NodeId id = current.m_child;
   while (id) {
-    current = Object(id);
-    for (auto type : types) {
-      if (current.m_type == type) {
-        objects.push_back(id);
-        break;
-      }
+    const VObject& current = Object(id);
+    if (types.find(current.m_type) != types.end()) {
+      objects.push_back(id);
     }
     id = current.m_sibling;
   }
@@ -450,31 +450,32 @@ std::vector<NodeId> FileContent::sl_get_all(
 }
 
 NodeId FileContent::sl_collect(NodeId parent, VObjectType type) const {
+  if (!parent) return 0;
   if (m_objects.empty()) return 0;
-  if (parent > m_objects.size() - 1) return 0;
-  VObject current = Object(parent);
+  if (parent >= m_objects.size()) return 0;
+  const VObject& current = Object(parent);
   if (current.m_type == type) return parent;
   NodeId id = current.m_child;
   while (id) {
     NodeId idsub = sl_collect(id, type);
-    if (idsub != InvalidNodeId) {
-      return idsub;
-    }
-    current = Object(id);
+    if (idsub) return idsub;
+
+    const VObject& current = Object(id);
     if (current.m_type == type) {
       return id;
     }
     id = current.m_sibling;
   }
-  return InvalidNodeId;
+  return 0;
 }
 
 std::vector<NodeId> FileContent::sl_collect_all(NodeId parent, VObjectType type,
                                                 bool first) const {
   std::vector<NodeId> objects;
+  if (!parent) return objects;
   if (m_objects.empty()) return objects;
-  if (parent > m_objects.size() - 1) return objects;
-  VObject current = Object(parent);
+  if (parent >= m_objects.size()) return objects;
+  const VObject& current = Object(parent);
   NodeId id = current.m_child;
   if (!id) id = current.m_sibling;
   if (!id) return objects;
@@ -483,7 +484,7 @@ std::vector<NodeId> FileContent::sl_collect_all(NodeId parent, VObjectType type,
   while (!stack.empty()) {
     id = stack.top();
     stack.pop();
-    current = Object(id);
+    const VObject& current = Object(id);
     if (current.m_type == type) {
       objects.push_back(id);
       if (first) return objects;
@@ -494,13 +495,14 @@ std::vector<NodeId> FileContent::sl_collect_all(NodeId parent, VObjectType type,
   return objects;
 }
 
-std::vector<NodeId> FileContent::sl_collect_all(NodeId parent,
-                                                std::vector<VObjectType>& types,
-                                                bool first) const {
+std::vector<NodeId> FileContent::sl_collect_all(
+    NodeId parent, const std::unordered_set<VObjectType>& types,
+    bool first) const {
   std::vector<NodeId> objects;
+  if (!parent) return objects;
   if (m_objects.empty()) return objects;
-  if (parent > m_objects.size() - 1) return objects;
-  VObject current = Object(parent);
+  if (parent >= m_objects.size()) return objects;
+  const VObject& current = Object(parent);
   NodeId id = current.m_child;
   if (!id) id = current.m_sibling;
   if (!id) return objects;
@@ -509,15 +511,12 @@ std::vector<NodeId> FileContent::sl_collect_all(NodeId parent,
   while (!stack.empty()) {
     id = stack.top();
     stack.pop();
-    current = Object(id);
+    const VObject& current = Object(id);
     // std::cout << "COLLECT:" << current.print (m_symbolTable, id,
     // GetDefinitionFile(id)) << std::endl;
-    for (auto type : types) {
-      if (current.m_type == type) {
-        objects.push_back(id);
-        if (first) return objects;
-        break;
-      }
+    if (types.find(current.m_type) != types.end()) {
+      objects.push_back(id);
+      if (first) return objects;
     }
     if (current.m_sibling) stack.push(current.m_sibling);
     if (current.m_child) stack.push(current.m_child);
@@ -527,40 +526,37 @@ std::vector<NodeId> FileContent::sl_collect_all(NodeId parent,
 
 NodeId FileContent::sl_collect(NodeId parent, VObjectType type,
                                VObjectType stopPoint) const {
-  NodeId result = InvalidNodeId;
-  if (m_objects.empty()) return result;
-  if (parent > m_objects.size() - 1) return result;
-  VObject current = Object(parent);
+  if (!parent) return 0;
+  if (m_objects.empty()) return 0;
+  if (parent >= m_objects.size()) return 0;
+  const VObject& current = Object(parent);
   NodeId id = current.m_child;
   if (!id) id = current.m_sibling;
-  if (!id) return result;
+  if (!id) return 0;
   std::stack<NodeId> stack;
   stack.push(id);
   while (!stack.empty()) {
     id = stack.top();
     stack.pop();
-    current = Object(id);
-    if (current.m_type == type) {
-      return id;
-    }
-
+    const VObject& current = Object(id);
+    if (current.m_type == type) return id;
     if (current.m_sibling) stack.push(current.m_sibling);
 
-    if (current.m_child) {
-      if (stopPoint != current.m_type)
-        if (current.m_child) stack.push(current.m_child);
+    if (current.m_child && (stopPoint != current.m_type)) {
+      stack.push(current.m_child);
     }
   }
-  return result;
+  return 0;
 }
 
 std::vector<NodeId> FileContent::sl_collect_all(
-    NodeId parent, std::vector<VObjectType>& types,
-    std::vector<VObjectType>& stopPoints, bool first) const {
+    NodeId parent, const std::unordered_set<VObjectType>& types,
+    const std::unordered_set<VObjectType>& stopPoints, bool first) const {
   std::vector<NodeId> objects;
+  if (!parent) return objects;
   if (m_objects.empty()) return objects;
-  if (parent > m_objects.size() - 1) return objects;
-  VObject current = Object(parent);
+  if (parent >= m_objects.size()) return objects;
+  const VObject& current = Object(parent);
   NodeId id = current.m_child;
   if (!id) id = current.m_sibling;
   if (!id) return objects;
@@ -569,32 +565,17 @@ std::vector<NodeId> FileContent::sl_collect_all(
   while (!stack.empty()) {
     id = stack.top();
     stack.pop();
-    current = Object(id);
+    const VObject& current = Object(id);
     // std::cout << "COLLECT:" << current.print (m_symbolTable, id,
     // GetDefinitionFile(id)) << std::endl;
-    for (auto type : types) {
-      if (current.m_type == type) {
-        objects.push_back(id);
-        if (first) return objects;
-        break;
-      }
+    if (types.find(current.m_type) != types.end()) {
+      objects.push_back(id);
+      if (first) return objects;
     }
     if (current.m_sibling) stack.push(current.m_sibling);
-
-    if (current.m_child) {
-      if (!stopPoints.empty()) {
-        bool stop = false;
-        for (auto t : stopPoints) {
-          if (t == current.m_type) {
-            stop = true;
-            break;
-          }
-        }
-        if (!stop)
-          if (current.m_child) stack.push(current.m_child);
-      } else {
-        if (current.m_child) stack.push(current.m_child);
-      }
+    if (current.m_child &&
+        (stopPoints.find(current.m_type) == stopPoints.end())) {
+      stack.push(current.m_child);
     }
   }
   return objects;
@@ -604,11 +585,11 @@ bool FileContent::diffTree(NodeId root, const FileContent* oFc, NodeId oroot,
                            std::string* diff_out) const {
   diff_out->clear();
 
-  VObject current1 = Object(root);
+  const VObject& current1 = Object(root);
   NodeId id1 = current1.m_child;
   if (!id1) id1 = current1.m_sibling;
 
-  VObject current2 = oFc->Object(oroot);
+  const VObject& current2 = oFc->Object(oroot);
   NodeId id2 = current2.m_child;
   if (!id2) id2 = current2.m_sibling;
 
@@ -624,17 +605,13 @@ bool FileContent::diffTree(NodeId root, const FileContent* oFc, NodeId oroot,
     id2 = stack2.top();
     stack1.pop();
     stack2.pop();
-    current1 = Object(id1);
-    current2 = oFc->Object(id2);
-    if (current1.m_type != current2.m_type) {
+
+    const VObject& current1 = Object(id1);
+    const VObject& current2 = oFc->Object(id2);
+    if (current1.m_type != current2.m_type) return true;
+    if ((current1.m_name || current2.m_name) && (Name(id1) != oFc->Name(id2))) {
       return true;
     }
-    std::string symb1;
-    std::string symb2;
-    if (current1.m_name) symb1 = std::to_string(Name(id1));
-    if (current2.m_name) symb2 = std::to_string(oFc->Name(id2));
-    if (current1.m_name || current2.m_name)
-      if (symb1 != symb2) return true;
 
     if (current1.m_sibling) stack1.push(current1.m_sibling);
     if (current1.m_child) stack1.push(current1.m_child);

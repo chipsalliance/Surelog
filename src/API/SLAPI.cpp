@@ -338,9 +338,9 @@ std::vector<unsigned int> SLgetAll(FileContent* fC, NodeId parent,
 std::vector<unsigned int> SLgetAll(FileContent* fC, NodeId parent,
                                    const std::vector<unsigned int>& types) {
   if (!fC) return {};
-  std::vector<VObjectType> vtypes;
+  std::unordered_set<VObjectType> vtypes;
   vtypes.reserve(types.size());
-  for (auto type : types) vtypes.push_back((VObjectType)type);
+  for (auto type : types) vtypes.insert((VObjectType)type);
   return fC->sl_get_all(parent, vtypes);
 }
 
@@ -361,9 +361,9 @@ std::vector<unsigned int> SLcollectAll(FileContent* fC, NodeId parent,
                                        const std::vector<unsigned int>& types,
                                        bool first) {
   if (!fC) return {};
-  std::vector<VObjectType> vtypes;
+  std::unordered_set<VObjectType> vtypes;
   vtypes.reserve(types.size());
-  for (auto type : types) vtypes.push_back((VObjectType)type);
+  for (auto type : types) vtypes.insert((VObjectType)type);
   return fC->sl_collect_all(parent, vtypes, first);
 }
 
@@ -371,12 +371,12 @@ std::vector<unsigned int> SLcollectAll(
     FileContent* fC, NodeId parent, const std::vector<unsigned int>& types,
     const std::vector<unsigned int>& stopPoints, bool first) {
   if (!fC) return {};
-  std::vector<VObjectType> vtypes;
+  std::unordered_set<VObjectType> vtypes;
   vtypes.reserve(types.size());
-  for (auto type : types) vtypes.push_back((VObjectType)type);
-  std::vector<VObjectType> vstops;
+  for (auto type : types) vtypes.insert((VObjectType)type);
+  std::unordered_set<VObjectType> vstops;
   vstops.reserve(stopPoints.size());
-  for (auto type : stopPoints) vstops.push_back((VObjectType)type);
+  for (auto type : stopPoints) vstops.insert((VObjectType)type);
   return fC->sl_collect_all(parent, vtypes, vstops, first);
 }
 

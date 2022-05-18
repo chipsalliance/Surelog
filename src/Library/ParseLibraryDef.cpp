@@ -170,8 +170,8 @@ bool ParseLibraryDef::parseConfigDefinition() {
   FileContent* fC = m_fileContent;
   if (!fC) return false;
 
-  std::vector<VObjectType> types = {VObjectType::slConfig_declaration};
-  std::vector<NodeId> configs = fC->sl_collect_all(0, types);
+  std::unordered_set<VObjectType> types = {VObjectType::slConfig_declaration};
+  std::vector<NodeId> configs = fC->sl_collect_all(fC->getRootNode(), types);
   for (auto config : configs) {
     NodeId ident = fC->Child(config);
     std::string name = fC->getLibrary()->getName() + "@" + fC->SymName(ident);
@@ -179,7 +179,8 @@ bool ParseLibraryDef::parseConfigDefinition() {
     Config conf(name, fC, config);
 
     // Design clause
-    std::vector<VObjectType> designStmt = {VObjectType::slDesign_statement};
+    std::unordered_set<VObjectType> designStmt = {
+        VObjectType::slDesign_statement};
     std::vector<NodeId> designs = fC->sl_collect_all(config, designStmt);
     if (designs.empty()) {
       // TODO: Error
@@ -199,7 +200,8 @@ bool ParseLibraryDef::parseConfigDefinition() {
     }
 
     // Default clause
-    std::vector<VObjectType> defaultStmt = {VObjectType::slDefault_clause};
+    std::unordered_set<VObjectType> defaultStmt = {
+        VObjectType::slDefault_clause};
     std::vector<NodeId> defaults = fC->sl_collect_all(config, defaultStmt);
     if (!defaults.empty()) {
       NodeId defaultClause = defaults[0];
@@ -214,8 +216,8 @@ bool ParseLibraryDef::parseConfigDefinition() {
     }
 
     // Instance and Cell clauses
-    std::vector<VObjectType> instanceStmt = {VObjectType::slInst_clause,
-                                             VObjectType::slCell_clause};
+    std::unordered_set<VObjectType> instanceStmt = {VObjectType::slInst_clause,
+                                                    VObjectType::slCell_clause};
     std::vector<NodeId> instances = fC->sl_collect_all(config, instanceStmt);
     for (auto inst : instances) {
       VObjectType type = fC->Type(inst);

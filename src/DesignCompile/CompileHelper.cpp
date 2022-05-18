@@ -428,7 +428,7 @@ bool CompileHelper::compileTfPortList(Procedure* parent, const FileContent* fC,
         tf_data_type = fC->Sibling(tf_data_type_or_implicit);
         tf_param_name = fC->Sibling(tf_data_type);
       } else {
-        tf_port_direction_type = VObjectType::slNull_rule;
+        tf_port_direction_type = VObjectType::sl_INVALID_;
       }
       NodeId type = fC->Child(tf_data_type);
       VObjectType the_type = fC->Type(type);
@@ -602,7 +602,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
                       nullptr, reduce, size, false);
     packed_array_tps->Ranges(ranges);
   }
-  NodeId enum_name_declaration = VObjectType::slNull_rule;
+  NodeId enum_name_declaration = 0;
   if (fC->Type(enum_base_type) == VObjectType::slEnum_base_type) {
     enum_name_declaration = fC->Sibling(enum_base_type);
     enumType = true;
@@ -2951,7 +2951,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
 
   NodeId dollar_or_string = fC->Child(Tf_call_stmt);
   VObjectType leaf_type = fC->Type(dollar_or_string);
-  NodeId tfNameNode = InvalidNodeId;
+  NodeId tfNameNode = 0;
   UHDM::tf_call* call = nullptr;
   std::string name;
   if (leaf_type == slDollar_keyword) {

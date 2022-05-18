@@ -93,7 +93,7 @@ bool UhdmChecker::registerFile(const FileContent* fC,
     if (type == VObjectType::slModule_declaration) {
       NodeId stId = fC->sl_collect(id, VObjectType::slStringConst,
                                    VObjectType::slAttr_spec);
-      if (stId != InvalidNodeId) {
+      if (stId) {
         std::string name =
             fC->getLibrary()->getName() + "@" + fC->SymName(stId);
         if (moduleNames.find(name) == moduleNames.end()) {
