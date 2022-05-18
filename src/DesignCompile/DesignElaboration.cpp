@@ -978,9 +978,11 @@ void DesignElaboration::elaborateInstance_(
         NodeId constExpr = fC->Sibling(varId);
 
         bool validValue;
+        m_helper.checkForLoops(true);
         uint64_t initVal = (uint64_t)m_helper.getValue(
             validValue, parentDef, fC, constExpr, m_compileDesign, nullptr,
             parent, true, false);
+        m_helper.checkForLoops(false);
         Value* initValue = m_exprBuilder.getValueFactory().newLValue();
         initValue->set(initVal);
 
@@ -1003,10 +1005,11 @@ void DesignElaboration::elaborateInstance_(
         }
         // Generate block
         NodeId genBlock = fC->Sibling(iteration);
-
+        m_helper.checkForLoops(true);
         int64_t condVal =
             m_helper.getValue(validValue, parentDef, fC, endLoopTest,
                               m_compileDesign, nullptr, parent, true, false);
+        m_helper.checkForLoops(false);
         bool cont = (validValue && (condVal > 0));
 
         while (cont) {
@@ -1044,10 +1047,11 @@ void DesignElaboration::elaborateInstance_(
 
           Value* newVal = m_exprBuilder.evalExpr(fC, expr, parent);
           parent->setValue(name, newVal, m_exprBuilder, fC->Line(varId));
-
+          m_helper.checkForLoops(true);
           condVal =
               m_helper.getValue(validValue, parentDef, fC, endLoopTest,
                                 m_compileDesign, nullptr, parent, true, false);
+          m_helper.checkForLoops(false);
           cont = (validValue && (condVal > 0));
 
           if (!newVal->isValid()) {
@@ -1062,10 +1066,11 @@ void DesignElaboration::elaborateInstance_(
           conditionId = fC->Child(conditionId);
         }
         bool validValue;
+        m_helper.checkForLoops(true);
         int64_t condVal =
             m_helper.getValue(validValue, parentDef, fC, conditionId,
                               m_compileDesign, nullptr, parent, true, false);
-
+        m_helper.checkForLoops(false);
         NodeId tmp = fC->Sibling(conditionId);
 
         if (fC->Type(tmp) == VObjectType::slCase_generate_item) {  // Case stmt
@@ -1080,10 +1085,11 @@ void DesignElaboration::elaborateInstance_(
               // Find if one of the case expr matches the case expr
               if (fC->Type(exprItem) == VObjectType::slConstant_expression) {
                 bool validValue;
+                m_helper.checkForLoops(true);
                 int64_t caseVal = m_helper.getValue(
                     validValue, parentDef, fC, exprItem, m_compileDesign,
                     nullptr, parent, true, false);
-
+                m_helper.checkForLoops(false);
                 if (condVal == caseVal) {
                   nomatch = false;
                   break;
@@ -1139,9 +1145,11 @@ void DesignElaboration::elaborateInstance_(
                   }
                   if (fC->Type(Cond) == VObjectType::slConstant_expression) {
                     bool validValue;
+                    m_helper.checkForLoops(true);
                     condVal = m_helper.getValue(validValue, parentDef, fC, Cond,
                                                 m_compileDesign, nullptr,
                                                 parent, true, false);
+                    m_helper.checkForLoops(false);
                   } else {
                     // It is not an else-if
                     condVal = true;
@@ -1154,9 +1162,11 @@ void DesignElaboration::elaborateInstance_(
                   }
                   if (fC->Type(Cond) == VObjectType::slConstant_expression) {
                     bool validValue;
+                    m_helper.checkForLoops(true);
                     condVal = m_helper.getValue(validValue, parentDef, fC, Cond,
                                                 m_compileDesign, nullptr,
                                                 parent, true, false);
+                    m_helper.checkForLoops(false);
                   } else {
                     // It is not an else-if
                     condVal = true;
@@ -1475,14 +1485,19 @@ void DesignElaboration::elaborateInstance_(
               NodeId leftNode = fC->Child(constantRangeId);
               NodeId rightNode = fC->Sibling(leftNode);
               bool validValue;
+              m_helper.checkForLoops(true);
               int64_t left = m_helper.getValue(validValue, parentDef, fC,
                                                leftNode, m_compileDesign,
                                                nullptr, parent, true, false);
+              m_helper.checkForLoops(false);
               int64_t right = 0;
-              if (rightNode && (fC->Type(rightNode) == slConstant_expression))
+              if (rightNode && (fC->Type(rightNode) == slConstant_expression)) {
+                m_helper.checkForLoops(true);
                 right = m_helper.getValue(validValue, parentDef, fC, rightNode,
                                           m_compileDesign, nullptr, parent,
                                           true, false);
+                m_helper.checkForLoops(false);
+              }
               if (left < right) {
                 from.push_back(left);
                 to.push_back(right);
@@ -1699,10 +1714,11 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
           errors->addError(err);
           continue;
         }
+        m_helper.checkForLoops(true);
         UHDM::expr* complexV = (UHDM::expr*)m_helper.compileExpression(
             parentDefinition, parentFile, expr, m_compileDesign, nullptr,
             parentInstance, true, false);
-
+        m_helper.checkForLoops(false);
         Value* value = nullptr;
         bool complex = false;
         if (complexV) {
@@ -1735,9 +1751,11 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                 instance->setComplexValue(name, complexV);
                 instance->setOverridenParam(name);
               } else {
+                m_helper.checkForLoops(true);
                 complexV = (UHDM::expr*)m_helper.compileExpression(
                     parentDefinition, parentFile, expr, m_compileDesign,
                     nullptr, parentInstance, false, false);
+                m_helper.checkForLoops(false);
                 if (complexV->UhdmType() == UHDM::uhdmref_obj) {
                   UHDM::ref_obj* ref = (UHDM::ref_obj*)complexV;
                   if (ref->Actual_group() == nullptr) {
@@ -1859,11 +1877,11 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
           p = params.at(index);
           isTypeParam = p->isTypeParam();
         }
-
+        m_helper.checkForLoops(true);
         UHDM::expr* complexV = (UHDM::expr*)m_helper.compileExpression(
             parentDefinition, parentFile, expr, m_compileDesign, nullptr,
             parentInstance, true, false);
-
+        m_helper.checkForLoops(false);
         Value* value = nullptr;
         bool complex = false;
 
@@ -2022,9 +2040,11 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
             isMultidimension = p->isMultidimension();
           }
           if (exprId) {
+            m_helper.checkForLoops(true);
             UHDM::expr* expr = (UHDM::expr*)m_helper.compileExpression(
                 instance->getDefinition(), param.fC, exprId, m_compileDesign,
                 nullptr, instance, !isMultidimension, false);
+            m_helper.checkForLoops(false);
             Value* value = nullptr;
             bool complex = false;
             UHDM::typespec* ts = nullptr;

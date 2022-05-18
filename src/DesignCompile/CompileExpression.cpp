@@ -784,7 +784,12 @@ any *CompileHelper::getValue(const std::string &name,
   Serializer &s = compileDesign->getSerializer();
   Value *sval = nullptr;
   any *result = nullptr;
-
+  if (loopDetected(fileName, lineNumber, instance)) {
+    return nullptr;
+  }
+  if (m_checkForLoops) {
+    m_stackLevel++;
+  }
   if (name.find("::") != std::string::npos) {
     std::vector<std::string> res;
     StringUtils::tokenizeMulti(name, "::", res);
@@ -1026,6 +1031,9 @@ any *CompileHelper::getValue(const std::string &name,
       int setBreakpointHere = 1;
       setBreakpointHere++;
     }
+  }
+  if (m_checkForLoops) {
+    m_stackLevel--;
   }
   return result;
 }

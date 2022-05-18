@@ -1243,9 +1243,11 @@ void UhdmWriter::writeInterface(ModuleDefinition* mod, interface* m,
       io->VpiEndLineNo(fC->EndLine(id));
       io->VpiEndColumnNo(fC->EndColumn(id));
       if (NodeId Expression = fC->Sibling(id)) {
+        m_helper.checkForLoops(true);
         any* exp =
             m_helper.compileExpression(mod, fC, Expression, m_compileDesign,
                                        nullptr, instance, true, true);
+        m_helper.checkForLoops(false);
         io->Expr(exp);
       }
       unsigned int direction = UhdmWriter::getVpiDirection(sig.getDirection());
@@ -2379,9 +2381,11 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
       io->VpiEndLineNo(fC->EndLine(id));
       io->VpiEndColumnNo(fC->EndColumn(id));
       if (NodeId Expression = fC->Sibling(id)) {
+        m_helper.checkForLoops(true);
         any* exp =
             m_helper.compileExpression(mod, fC, Expression, m_compileDesign,
                                        nullptr, instance, true, true);
+        m_helper.checkForLoops(false);
         io->Expr(exp);
       }
       unsigned int direction = UhdmWriter::getVpiDirection(sig.getDirection());
