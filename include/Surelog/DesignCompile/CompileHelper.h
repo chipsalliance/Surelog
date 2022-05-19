@@ -566,6 +566,7 @@ class CompileHelper final {
       m_cache_typespec_member;
   bool m_checkForLoops = false;
   int m_stackLevel = 0;
+  bool m_unwind = false;
 };
 
 }  // namespace SURELOG
