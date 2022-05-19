@@ -70,12 +70,13 @@ using namespace UHDM;  // NOLINT (we use a good chunk of these here)
 void CompileHelper::checkForLoops(bool on) {
   m_checkForLoops = on;
   m_stackLevel = 0;
+  m_unwind = false;
 }
 
 bool CompileHelper::loopDetected(const std::filesystem::path& fileName,
                                  int lineNumber, ValuedComponentI* instance) {
   if (m_checkForLoops) {
-    if (m_stackLevel > 1000) {
+    if ((m_stackLevel > 1000) || (m_unwind)) {
       std::string instName;
       if (ModuleInstance* inst =
               valuedcomponenti_cast<ModuleInstance*>(instance)) {
@@ -85,6 +86,7 @@ bool CompileHelper::loopDetected(const std::filesystem::path& fileName,
                    m_symbols->registerSymbol(instName));
       Error err(ErrorDefinition::ELAB_EXPRESSION_LOOP, loc);
       m_errors->addError(err);
+      m_unwind = true;
       return true;
     }
   }
