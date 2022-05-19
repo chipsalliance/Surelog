@@ -632,10 +632,6 @@ bool DesignElaboration::elaborateModule_(const std::string& moduleName,
                                          const FileContent* fC,
                                          bool onlyTopLevel) {
   const FileContent::NameIdMap& nameIds = fC->getObjectLookup();
-  std::vector<VObjectType> types = {VObjectType::slUdp_instantiation,
-                                    VObjectType::slModule_instantiation,
-                                    VObjectType::slInterface_instantiation,
-                                    VObjectType::slProgram_instantiation};
   std::string libName = fC->getLibrary()->getName();
   Config* config = getInstConfig(moduleName);
   if (config == nullptr) config = getCellConfig(moduleName);
@@ -771,7 +767,6 @@ void DesignElaboration::elaborateInstance_(
   unsigned int genBlkIndex = 1;
   bool reuseInstance = false;
   std::string mname;
-  std::vector<VObjectType> types;
   std::vector<std::string> params;
 
   // Scan for parameters, including DefParams
@@ -848,7 +843,7 @@ void DesignElaboration::elaborateInstance_(
   delete nelab;
 
   // Scan for regular instances and generate blocks
-  types = {
+  std::unordered_set<VObjectType> types = {
       VObjectType::slUdp_instantiation, VObjectType::slModule_instantiation,
       VObjectType::slInterface_instantiation,
       VObjectType::slProgram_instantiation, VObjectType::slGate_instantiation,
@@ -861,7 +856,7 @@ void DesignElaboration::elaborateInstance_(
       VObjectType::slGenerate_interface_loop_statement,
       VObjectType::slPar_block, VObjectType::slSeq_block};
 
-  std::vector<VObjectType> stopPoints = {
+  std::unordered_set<VObjectType> stopPoints = {
       VObjectType::slConditional_generate_construct,
       VObjectType::slGenerate_module_conditional_statement,
       VObjectType::slGenerate_interface_conditional_statement,
@@ -904,7 +899,7 @@ void DesignElaboration::elaborateInstance_(
     } else {
       NodeId instId = fC->sl_collect(subInstanceId, slName_of_instance);
       NodeId identifierId = 0;
-      if (instId != InvalidNodeId) {
+      if (instId) {
         identifierId = fC->Child(instId);
         instName = fC->SymName(identifierId);
       }
@@ -936,7 +931,7 @@ void DesignElaboration::elaborateInstance_(
         modName = genBlkBaseName + append + std::to_string(genBlkIndex);
         append += "0";
       }
-      std::vector<VObjectType> btypes = {
+      std::unordered_set<VObjectType> btypes = {
           VObjectType::slGenerate_module_block,
           VObjectType::slGenerate_interface_block,
           VObjectType::slGenerate_block,
@@ -1395,7 +1390,7 @@ void DesignElaboration::elaborateInstance_(
       std::vector<int> to;
       std::vector<int> index;
 
-      std::vector<VObjectType> insttypes = {
+      std::unordered_set<VObjectType> insttypes = {
           VObjectType::slHierarchical_instance,
           VObjectType::slN_input_gate_instance,
           VObjectType::slN_output_gate_instance,
@@ -1404,15 +1399,15 @@ void DesignElaboration::elaborateInstance_(
       std::vector<NodeId> hierInstIds =
           fC->sl_collect_all(subInstanceId, insttypes, true);
 
-      NodeId hierInstId = InvalidNodeId;
+      NodeId hierInstId = 0;
       if (!hierInstIds.empty()) hierInstId = hierInstIds[0];
 
-      if (hierInstId == InvalidNodeId) continue;
+      if (!hierInstId) continue;
 
       while (hierInstId) {
         NodeId instId = fC->sl_collect(hierInstId, slName_of_instance);
         NodeId identifierId = 0;
-        if (instId != InvalidNodeId) {
+        if (instId) {
           identifierId = fC->Child(instId);
           instName = fC->SymName(identifierId);
         }
@@ -1666,7 +1661,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     }
   }
   std::set<std::string> overridenParams;
-  std::vector<VObjectType> types;
+  std::unordered_set<VObjectType> types;
   // Param overrides
   if (parentParamOverride) {
     ModuleInstance* parentInstance = instance->getParent();
@@ -1959,7 +1954,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
 
   // Defparams
   types = {VObjectType::slDefparam_assignment};
-  std::vector<VObjectType> stopPoints = {
+  std::unordered_set<VObjectType> stopPoints = {
       VObjectType::slConditional_generate_construct,
       VObjectType::slGenerate_module_conditional_statement,
       VObjectType::slGenerate_interface_conditional_statement,

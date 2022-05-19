@@ -36,8 +36,6 @@
 
 namespace SURELOG {
 
-static constexpr NodeId InvalidNodeId = 969696;
-
 class SymbolTable {
  public:
   SymbolTable();

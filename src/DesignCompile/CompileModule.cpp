@@ -983,7 +983,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
         case VObjectType::slGenerate_interface_item: {
           if (collectType != CollectType::OTHER) break;
           // TODO: rewrite this rough implementation
-          std::vector<VObjectType> types = {VObjectType::slModport_item};
+          std::unordered_set<VObjectType> types = {VObjectType::slModport_item};
           std::vector<NodeId> items = fC->sl_collect_all(id, types);
           for (auto nodeId : items) {
             Location loc(

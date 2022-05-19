@@ -29,6 +29,7 @@
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 namespace SURELOG {
@@ -67,7 +68,7 @@ class CompileStep {
   virtual NodeId sl_parent(
       NodeId parent, VObjectType type) = 0;  // Get first parent item of type
 
-  virtual NodeId sl_parent(NodeId parent, std::vector<VObjectType> types,
+  virtual NodeId sl_parent(NodeId parent, std::unordered_set<VObjectType> types,
                            VObjectType& actualType) = 0;
 
   virtual std::vector<NodeId> sl_get_all(

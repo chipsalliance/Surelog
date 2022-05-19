@@ -28,6 +28,8 @@
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/DesignCompile/CompileStep.h>
 
+#include <unordered_set>
+
 namespace SURELOG {
 
 class Compiler;
@@ -115,7 +117,7 @@ class ResolveSymbols : public CompileStep {
   NodeId sl_parent(NodeId parent,
                    VObjectType type) override;  // Get first parent item of type
 
-  NodeId sl_parent(NodeId parent, std::vector<VObjectType> types,
+  NodeId sl_parent(NodeId parent, std::unordered_set<VObjectType> types,
                    VObjectType& actualType) override;
 
   std::vector<NodeId> sl_get_all(
@@ -137,7 +139,7 @@ class ResolveSymbols : public CompileStep {
 
  private:
   bool bindDefinition_(unsigned int objIndex,
-                       const std::vector<VObjectType>& bindTypes);
+                       const std::unordered_set<VObjectType>& bindTypes);
 
   CompileDesign* const m_compileDesign;
   FileContent* const m_fileData;

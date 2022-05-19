@@ -1225,7 +1225,7 @@ UHDM::any *CompileHelper::compileExpression(
   }
   parentType = fC->Type(parent);
   NodeId child = fC->Child(parent);
-  VObjectType childType = slNull_rule;
+  VObjectType childType = sl_INVALID_;
   if (child) {
     childType = fC->Type(child);
   }
@@ -3895,7 +3895,7 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
             compileTypespec(component, fC, sig->getTypeSpecId(), compileDesign,
                             nullptr, instance, reduce, true);
         NodeId Unpacked_dimension = sig->getUnpackedDimension();
-        if (fC->Type(Unpacked_dimension) != VObjectType::slNull_rule) {
+        if (fC->Type(Unpacked_dimension) != VObjectType::sl_INVALID_) {
           array_typespec *array = s.MakeArray_typespec();
           int size;
           VectorOfrange *ranges =
@@ -3907,13 +3907,13 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
         }
       } else {
         NodeId Packed_dimension = sig->getPackedDimension();
-        if (fC->Type(Packed_dimension) != VObjectType::slNull_rule) {
+        if (fC->Type(Packed_dimension) != VObjectType::sl_INVALID_) {
           NodeId DataType = fC->Parent(Packed_dimension);
           result = compileTypespec(component, fC, DataType, compileDesign,
                                    nullptr, instance, reduce);
         }
         NodeId Unpacked_dimension = sig->getUnpackedDimension();
-        if (fC->Type(Unpacked_dimension) != VObjectType::slNull_rule) {
+        if (fC->Type(Unpacked_dimension) != VObjectType::sl_INVALID_) {
           array_typespec *array = s.MakeArray_typespec();
           int size;
           VectorOfrange *ranges =

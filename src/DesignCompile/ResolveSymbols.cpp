@@ -65,13 +65,13 @@ void ResolveSymbols::createFastLookup() {
   // std::string fileName =  "FILE: " + m_fileData->getFileName() + " " +
   // m_fileData->getChunkFileName () + "\n"; std::cout << fileName;
 
-  std::vector<VObjectType> types = {
+  std::unordered_set<VObjectType> types = {
       VObjectType::slModule_declaration,    VObjectType::slPackage_declaration,
       VObjectType::slConfig_declaration,    VObjectType::slUdp_declaration,
       VObjectType::slInterface_declaration, VObjectType::slProgram_declaration,
       VObjectType::slClass_declaration};
 
-  std::vector<VObjectType> stopPoints = {
+  std::unordered_set<VObjectType> stopPoints = {
       VObjectType::slModule_declaration, VObjectType::slPackage_declaration,
       VObjectType::slProgram_declaration, VObjectType::slClass_declaration};
 
@@ -82,7 +82,7 @@ void ResolveSymbols::createFastLookup() {
     VObjectType type = m_fileData->Type(object);
     NodeId stId = m_fileData->sl_collect(object, VObjectType::slStringConst,
                                          VObjectType::slAttr_spec);
-    if (stId != InvalidNodeId) {
+    if (stId) {
       std::string name = SymName(stId);
       m_fileData->insertObjectLookup(name, object, m_errorContainer);
       std::string fullName = libName + "@" + name;
@@ -98,7 +98,7 @@ void ResolveSymbols::createFastLookup() {
 
           m_fileData->addPackageDefinition(pkgname, pdef);
 
-          std::vector<VObjectType> subtypes = {
+          std::unordered_set<VObjectType> subtypes = {
               VObjectType::slClass_declaration};
           std::vector<NodeId> subobjects =
               m_fileData->sl_collect_all(object, subtypes, subtypes);
@@ -106,7 +106,7 @@ void ResolveSymbols::createFastLookup() {
             NodeId stId =
                 m_fileData->sl_collect(subobject, VObjectType::slStringConst,
                                        VObjectType::slAttr_spec);
-            if (stId != InvalidNodeId) {
+            if (stId) {
               std::string name = SymName(stId);
               std::string fullSubName = pkgname + "::" + name;
               m_fileData->insertObjectLookup(fullSubName, subobject,
@@ -125,7 +125,7 @@ void ResolveSymbols::createFastLookup() {
           Program* mdef = new Program(fullName, lib, m_fileData, object);
           m_fileData->addProgramDefinition(fullName, mdef);
 
-          std::vector<VObjectType> subtypes = {
+          std::unordered_set<VObjectType> subtypes = {
               VObjectType::slClass_declaration};
           std::vector<NodeId> subobjects =
               m_fileData->sl_collect_all(object, subtypes, subtypes);
@@ -133,7 +133,7 @@ void ResolveSymbols::createFastLookup() {
             NodeId stId =
                 m_fileData->sl_collect(subobject, VObjectType::slStringConst,
                                        VObjectType::slAttr_spec);
-            if (stId != InvalidNodeId) {
+            if (stId) {
               std::string name = SymName(stId);
               std::string fullSubName = fullName + "::" + name;
               m_fileData->insertObjectLookup(fullSubName, subobject,
@@ -159,7 +159,7 @@ void ResolveSymbols::createFastLookup() {
               new ModuleDefinition(m_fileData, object, fullName);
           m_fileData->addModuleDefinition(fullName, mdef);
 
-          std::vector<VObjectType> subtypes = {
+          std::unordered_set<VObjectType> subtypes = {
               VObjectType::slClass_declaration,
               VObjectType::slModule_declaration};
           std::vector<NodeId> subobjects =
@@ -168,7 +168,7 @@ void ResolveSymbols::createFastLookup() {
             NodeId stId =
                 m_fileData->sl_collect(subobject, VObjectType::slStringConst,
                                        VObjectType::slAttr_spec);
-            if (stId != InvalidNodeId) {
+            if (stId) {
               std::string name = SymName(stId);
               std::string fullSubName = fullName + "::" + name;
               m_fileData->insertObjectLookup(fullSubName, subobject,
@@ -205,60 +205,49 @@ void ResolveSymbols::createFastLookup() {
 }
 
 VObject ResolveSymbols::Object(NodeId index) const {
-  if (index == InvalidNodeId) return m_fileData->Object(0);
   return m_fileData->Object(index);
 }
 
 VObject* ResolveSymbols::MutableObject(NodeId index) {
-  if (index == InvalidNodeId) return m_fileData->MutableObject(0);
   return m_fileData->MutableObject(index);
 }
 
 NodeId ResolveSymbols::UniqueId(NodeId index) { return index; }
 
-SymbolId ResolveSymbols::Name(NodeId index) {
-  if (index == InvalidNodeId) return 0;
-  return Object(index).m_name;
-}
+SymbolId ResolveSymbols::Name(NodeId index) { return m_fileData->Name(index); }
 
-NodeId ResolveSymbols::Child(NodeId index) {
-  if (index == InvalidNodeId) return 0;
-  return Object(index).m_child;
-}
+NodeId ResolveSymbols::Child(NodeId index) { return m_fileData->Child(index); }
 
 NodeId ResolveSymbols::Sibling(NodeId index) {
-  if (index == InvalidNodeId) return 0;
-  return Object(index).m_sibling;
+  return m_fileData->Sibling(index);
 }
 
 NodeId ResolveSymbols::Definition(NodeId index) const {
-  return (index == InvalidNodeId) ? 0 : Object(index).m_definition;
+  return m_fileData->Definition(index);
 }
 
 bool ResolveSymbols::SetDefinition(NodeId index, NodeId def) {
-  if (index == InvalidNodeId) return false;
+  if (!index) return false;
   MutableObject(index)->m_definition = def;
   return true;
 }
 
 NodeId ResolveSymbols::Parent(NodeId index) {
-  if (index == InvalidNodeId) return 0;
-  return Object(index).m_parent;
+  return m_fileData->Parent(index);
 }
 
 VObjectType ResolveSymbols::Type(NodeId index) const {
-  return (index == InvalidNodeId) ? sl_INVALID_ : Object(index).m_type;
+  return m_fileData->Type(index);
 }
 
 bool ResolveSymbols::SetType(NodeId index, VObjectType type) {
-  if (index == InvalidNodeId) return false;
+  if (!index) return false;
   MutableObject(index)->m_type = type;
   return true;
 }
 
 unsigned int ResolveSymbols::Line(NodeId index) {
-  if (index == InvalidNodeId) return 0;
-  return Object(index).m_line;
+  return m_fileData->Line(index);
 }
 
 std::string ResolveSymbols::Symbol(SymbolId id) {
@@ -273,7 +262,8 @@ NodeId ResolveSymbols::sl_parent(NodeId parent, VObjectType type) {
   return m_fileData->sl_parent(parent, type);
 }
 
-NodeId ResolveSymbols::sl_parent(NodeId parent, std::vector<VObjectType> types,
+NodeId ResolveSymbols::sl_parent(NodeId parent,
+                                 std::unordered_set<VObjectType> types,
                                  VObjectType& actualType) {
   return m_fileData->sl_parent(parent, types, actualType);
 }
@@ -293,7 +283,7 @@ std::vector<NodeId> ResolveSymbols::sl_collect_all(NodeId parent,
 }
 
 bool ResolveSymbols::bindDefinition_(
-    unsigned int objIndex, const std::vector<VObjectType>& bindTypes) {
+    unsigned int objIndex, const std::unordered_set<VObjectType>& bindTypes) {
   std::string modName =
       SymName(sl_collect(objIndex, VObjectType::slStringConst));
   std::string instName =
@@ -311,7 +301,7 @@ bool ResolveSymbols::bindDefinition_(
       VObjectType actualType;
       NodeId index = (*itr).second;
       NodeId mod = fcontent->sl_parent(index, bindTypes, actualType);
-      if (mod != InvalidNodeId) {
+      if (mod) {
         SetDefinition(objIndex, mod);
         if (!m_fileData->isLibraryCellFile())
           fcontent->getReferencedObjects().insert(modName);

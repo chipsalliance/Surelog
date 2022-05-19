@@ -647,8 +647,7 @@ bool CompileClass::compile_class_constraint_(const FileContent* fC,
 bool CompileClass::compile_class_declaration_(const FileContent* fC,
                                               NodeId id) {
   UHDM::Serializer& s = m_compileDesign->getSerializer();
-  const bool virtualClass =
-      fC->sl_collect(id, VObjectType::slVirtual) != InvalidNodeId;
+  const bool virtualClass = fC->sl_collect(id, VObjectType::slVirtual) != 0;
   const NodeId class_name_id = fC->sl_collect(id, VObjectType::slStringConst);
   std::string class_name = fC->SymName(class_name_id);
   std::string full_class_name =
@@ -871,12 +870,12 @@ bool CompileClass::compile_class_parameters_(const FileContent* fC, NodeId id) {
   */
   UHDM::class_defn* defn = m_class->getUhdmDefinition();
 
-  if (fC->sl_collect(id, VObjectType::slVirtual) != InvalidNodeId) {
+  if (fC->sl_collect(id, VObjectType::slVirtual)) {
     defn->VpiVirtual(true);
   }
 
   NodeId paramList = fC->sl_collect(id, VObjectType::slParameter_port_list);
-  if (paramList != InvalidNodeId) {
+  if (paramList) {
     NodeId parameter_port_declaration = fC->Child(paramList);
     while (parameter_port_declaration) {
       NodeId list_of_type_assignments = fC->Child(parameter_port_declaration);
