@@ -31,6 +31,7 @@
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <string>
+#include <unordered_map>
 
 // UHDM
 #include <uhdm/containers.h>
