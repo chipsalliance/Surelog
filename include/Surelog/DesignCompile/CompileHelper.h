@@ -544,7 +544,8 @@ class CompileHelper final {
                     ValuedComponentI* instance);
 
   std::string decompileHelper(const UHDM::any* sel);
-
+  
+  void setUnElabMode(bool on) { m_unElabMode = on; }
  private:
   CompileHelper(const CompileHelper&) = delete;
 
@@ -567,6 +568,7 @@ class CompileHelper final {
   bool m_checkForLoops = false;
   int m_stackLevel = 0;
   bool m_unwind = false;
+  bool m_unElabMode = false;
 };
 
 }  // namespace SURELOG

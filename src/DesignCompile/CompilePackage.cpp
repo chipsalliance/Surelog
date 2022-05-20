@@ -58,6 +58,7 @@ bool CompilePackage::compile(bool reduce) {
   if (!m_package) return false;
   UHDM::Serializer& s = m_compileDesign->getSerializer();
   UHDM::package* pack = any_cast<UHDM::package*>(m_package->getUhdmInstance());
+  m_helper.setUnElabMode(!reduce);
   if (pack == nullptr) {
     pack = s.MakePackage();
     pack->VpiName(m_package->getName());

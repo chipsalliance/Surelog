@@ -2670,6 +2670,10 @@ bool CompileHelper::compileParameterDeclaration(
         isMultiDimension = true;
       }
 
+      if (m_unElabMode) {
+        isMultiDimension = true;  // Will force no reduction
+      }
+
       const std::string& the_name = fC->SymName(name);
       NodeId actual_value = value;
 

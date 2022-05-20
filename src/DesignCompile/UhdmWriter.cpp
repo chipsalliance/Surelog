@@ -942,8 +942,8 @@ void reInstanceTypespec(Serializer& serializer, any* root, package* p) {
   vpi_release_handle(handle);
 }
 
-void writePackage(Package* pack, package* p, Serializer& s,
-                  UhdmWriter::ComponentMap& componentMap) {
+void UhdmWriter::writePackage(Package* pack, package* p, Serializer& s,
+                              UhdmWriter::ComponentMap& componentMap) {
   p->VpiFullName(pack->getName() + "::");
   VectorOfclass_defn* dest_classes = nullptr;
 
@@ -1047,6 +1047,8 @@ void writePackage(Package* pack, package* p, Serializer& s,
   writeNets(orig_nets, p, dest_nets, s, signalBaseMap, netMap, portMap,
             nullptr);
   p->Nets(dest_nets);
+
+  lateBinding(s, pack, p, componentMap);
 }
 
 void UhdmWriter::writeModule(ModuleDefinition* mod, module* m, Serializer& s,
@@ -1421,7 +1423,7 @@ void writeProgram(Program* mod, program* m, Serializer& s,
 bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
                                   program* m) {
   Netlist* netlist = instance->getNetlist();
-
+  ComponentMap componentMap;
   DesignComponent* mod = instance->getDefinition();
   if (mod) {
     // Let decls
@@ -1507,7 +1509,7 @@ bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
   }
 
   if (mod) {
-    lateBinding(s, mod, m);
+    lateBinding(s, mod, m, componentMap);
   }
 
   return true;
@@ -1516,7 +1518,7 @@ bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
 bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
                                    gen_scope* m, ExprBuilder& exprBuilder) {
   Netlist* netlist = instance->getNetlist();
-
+  ComponentMap componentMap;
   ModuleDefinition* mod =
       valuedcomponenti_cast<ModuleDefinition*>(instance->getDefinition());
   if (mod) {
@@ -1672,19 +1674,70 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
   }
 
   if (mod) {
-    lateBinding(s, mod, m);
+    lateBinding(s, mod, m, componentMap);
   }
 
   return true;
 }
 
 void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
-                             scope* m) {
+                             scope* m, ComponentMap& componentMap) {
   for (UHDM::ref_obj* ref : mod->getLateBinding()) {
     if (ref->Actual_group()) continue;
     std::string name = ref->VpiName();
     name = StringUtils::trim(name);
     if (name.find("::") != std::string::npos) {
+      std::vector<std::string> res;
+      StringUtils::tokenizeMulti(name, "::", res);
+      if (res.size() > 1) {
+        const std::string& packName = res[0];
+        const std::string& typeName = res[1];
+        Package* pack =
+            m_compileDesign->getCompiler()->getDesign()->getPackage(packName);
+        if (pack) {
+          const auto& itr = componentMap.find(pack);
+          if (itr != componentMap.end()) {
+            package* p = (package*)itr->second;
+            if (p->Parameters()) {
+              for (auto n : *p->Parameters()) {
+                if (n->VpiName() == typeName) {
+                  if (n->UhdmType() == uhdmref_var) continue;
+                  if (n->UhdmType() == uhdmref_obj) continue;
+                  ref->Actual_group(n);
+                  break;
+                }
+                const std::string pname =
+                    std::string(m->VpiName() + "::" + typeName);
+                if (n->VpiName() == pname) {
+                  if (n->UhdmType() == uhdmref_var) continue;
+                  if (n->UhdmType() == uhdmref_obj) continue;
+                  ref->Actual_group(n);
+                  break;
+                }
+              }
+            }
+            if (p->Variables()) {
+              for (auto n : *p->Variables()) {
+                if (n->VpiName() == typeName) {
+                  if (n->UhdmType() == uhdmref_var) continue;
+                  if (n->UhdmType() == uhdmref_obj) continue;
+                  ref->Actual_group(n);
+                  break;
+                }
+                const std::string pname =
+                    std::string(m->VpiName() + "::" + typeName);
+                if (n->VpiName() == pname) {
+                  if (n->UhdmType() == uhdmref_var) continue;
+                  if (n->UhdmType() == uhdmref_obj) continue;
+                  ref->Actual_group(n);
+                  break;
+                }
+              }
+            }
+          }
+        }
+      }
+
       continue;
     }
 
@@ -2152,7 +2205,7 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
   Netlist* netlist = instance->getNetlist();
   if (netlist == nullptr) return true;
   m->Ports(netlist->ports());
-
+  ComponentMap componentMap;
   DesignComponent* mod = instance->getDefinition();
   if (mod) {
     // Let decls
@@ -2244,7 +2297,7 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
   }
 
   if (mod) {
-    lateBinding(s, mod, m);
+    lateBinding(s, mod, m, componentMap);
   }
 
   return true;
@@ -2253,7 +2306,7 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
 bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
                                     interface* m, ExprBuilder& exprBuilder) {
   Netlist* netlist = instance->getNetlist();
-
+  ComponentMap componentMap;
   DesignComponent* mod = instance->getDefinition();
   if (mod) {
     // Let decls
@@ -2414,7 +2467,7 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
   }
 
   if (mod) {
-    lateBinding(s, mod, m);
+    lateBinding(s, mod, m, componentMap);
   }
 
   return true;
