@@ -58,6 +58,7 @@ jobs:
     - name: Build binaries
       run: |
         cd yosys-uhdm-plugin-integration
+        pip install cmake==3.22.4
         echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
         ./build_binaries.sh
 
