@@ -2230,43 +2230,47 @@ UHDM::any *CompileHelper::compileExpression(
             NodeId selectId = fC->Sibling(paramId);
             const std::string &n = fC->SymName(paramId);
             name = packageName + "::" + n;
-            Package *pack =
-                compileDesign->getCompiler()->getDesign()->getPackage(
-                    packageName);
-            if (pack) {
-              UHDM::VectorOfparam_assign *param_assigns =
-                  pack->getParam_assigns();
-              if (param_assigns) {
-                for (param_assign *param : *param_assigns) {
-                  if (param && param->Lhs()) {
-                    const std::string &param_name = param->Lhs()->VpiName();
-                    if (param_name == n) {
-                      if (substituteAssignedValue(param->Rhs(),
-                                                  compileDesign)) {
-                        ElaboratorListener listener(&s);
-                        result =
-                            UHDM::clone_tree((any *)param->Rhs(), s, &listener);
-                        result->VpiFile(fC->getFileName(child));
-                        result->VpiLineNo(fC->Line(child));
-                        result->VpiColumnNo(fC->Column(child));
-                        result->VpiEndLineNo(fC->EndLine(child));
-                        result->VpiEndColumnNo(fC->EndColumn(child));
+            if (m_unElabMode) {
+              // create ref_obj down below
+            } else {
+              Package *pack =
+                  compileDesign->getCompiler()->getDesign()->getPackage(
+                      packageName);
+              if (pack) {
+                UHDM::VectorOfparam_assign *param_assigns =
+                    pack->getParam_assigns();
+                if (param_assigns) {
+                  for (param_assign *param : *param_assigns) {
+                    if (param && param->Lhs()) {
+                      const std::string &param_name = param->Lhs()->VpiName();
+                      if (param_name == n) {
+                        if (substituteAssignedValue(param->Rhs(),
+                                                    compileDesign)) {
+                          ElaboratorListener listener(&s);
+                          result = UHDM::clone_tree((any *)param->Rhs(), s,
+                                                    &listener);
+                          result->VpiFile(fC->getFileName(child));
+                          result->VpiLineNo(fC->Line(child));
+                          result->VpiColumnNo(fC->Column(child));
+                          result->VpiEndLineNo(fC->EndLine(child));
+                          result->VpiEndColumnNo(fC->EndColumn(child));
+                        }
+                        break;
                       }
-                      break;
                     }
                   }
                 }
-              }
-              if (result && selectId) {
-                if (fC->Type(selectId) == slConstant_select) {
-                  selectId = fC->Child(selectId);
+                if (result && selectId) {
+                  if (fC->Type(selectId) == slConstant_select) {
+                    selectId = fC->Child(selectId);
+                  }
+                  if (fC->Child(selectId) || fC->Sibling(selectId))
+                    result = compileSelectExpression(
+                        component, fC, selectId, name, compileDesign, pexpr,
+                        instance, reduce, muteErrors);
                 }
-                if (fC->Child(selectId) || fC->Sibling(selectId))
-                  result = compileSelectExpression(
-                      component, fC, selectId, name, compileDesign, pexpr,
-                      instance, reduce, muteErrors);
+                if (result == nullptr) sval = pack->getValue(n);
               }
-              if (result == nullptr) sval = pack->getValue(n);
             }
           } else if (childType == VObjectType::slClass_type) {
             const std::string &packageName = fC->SymName(fC->Child(child));
@@ -2275,31 +2279,35 @@ UHDM::any *CompileHelper::compileExpression(
             Package *pack =
                 compileDesign->getCompiler()->getDesign()->getPackage(
                     packageName);
-            if (pack) {
-              UHDM::VectorOfparam_assign *param_assigns =
-                  pack->getParam_assigns();
-              if (param_assigns) {
-                for (param_assign *param : *param_assigns) {
-                  if (param && param->Lhs()) {
-                    const std::string &param_name = param->Lhs()->VpiName();
-                    if (param_name == n) {
-                      if (substituteAssignedValue(param->Rhs(),
-                                                  compileDesign)) {
-                        ElaboratorListener listener(&s);
-                        result =
-                            UHDM::clone_tree((any *)param->Rhs(), s, &listener);
-                        result->VpiFile(fC->getFileName(child));
-                        result->VpiLineNo(fC->Line(child));
-                        result->VpiColumnNo(fC->Column(child));
-                        result->VpiEndLineNo(fC->EndLine(child));
-                        result->VpiEndColumnNo(fC->EndColumn(child));
+            if (m_unElabMode) {
+              // create ref_obj down below
+            } else {
+              if (pack) {
+                UHDM::VectorOfparam_assign *param_assigns =
+                    pack->getParam_assigns();
+                if (param_assigns) {
+                  for (param_assign *param : *param_assigns) {
+                    if (param && param->Lhs()) {
+                      const std::string &param_name = param->Lhs()->VpiName();
+                      if (param_name == n) {
+                        if (substituteAssignedValue(param->Rhs(),
+                                                    compileDesign)) {
+                          ElaboratorListener listener(&s);
+                          result = UHDM::clone_tree((any *)param->Rhs(), s,
+                                                    &listener);
+                          result->VpiFile(fC->getFileName(child));
+                          result->VpiLineNo(fC->Line(child));
+                          result->VpiColumnNo(fC->Column(child));
+                          result->VpiEndLineNo(fC->EndLine(child));
+                          result->VpiEndColumnNo(fC->EndColumn(child));
+                        }
+                        break;
                       }
-                      break;
                     }
                   }
                 }
+                if (result == nullptr) sval = pack->getValue(n);
               }
-              if (result == nullptr) sval = pack->getValue(n);
             }
           } else {
             NodeId rhs = 0;
@@ -2321,7 +2329,11 @@ UHDM::any *CompileHelper::compileExpression(
             NodeId rhsbackup = rhs;
             while ((rhs = fC->Sibling(rhs))) {
               if (fC->Type(rhs) == VObjectType::slStringConst) {
-                name += "." + fC->SymName(rhs);
+                if (fC->Type(rhsbackup) == slPackage_scope) {
+                  name += "::" + fC->SymName(rhs);
+                } else {
+                  name += "." + fC->SymName(rhs);
+                }
               } else if (fC->Type(rhs) == VObjectType::slSelect ||
                          fC->Type(rhs) == VObjectType::slConstant_select) {
                 NodeId Bit_select = fC->Child(rhs);

@@ -85,7 +85,10 @@ class UhdmWriter final {
                         UHDM::program* m);
   bool writeElabGenScope(UHDM::Serializer& s, ModuleInstance* instance,
                          UHDM::gen_scope* m, ExprBuilder& exprBuilder);
-  void lateBinding(UHDM::Serializer& s, DesignComponent* mod, UHDM::scope* m);
+  void writePackage(Package* pack, UHDM::package* p, UHDM::Serializer& s,
+                  UhdmWriter::ComponentMap& componentMap);
+
+  void lateBinding(UHDM::Serializer& s, DesignComponent* mod, UHDM::scope* m, UhdmWriter::ComponentMap& componentMap);
 
   CompileDesign* const m_compileDesign;
   Design* const m_design;
