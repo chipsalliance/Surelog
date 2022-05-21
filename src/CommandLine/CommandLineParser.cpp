@@ -117,6 +117,9 @@ static const std::initializer_list<std::string_view> helpText = {
     "  -nocomp               Turns off Compilation & Elaboration",
     "  -noelab               Turns off Elaboration",
     "  -parseonly            Only Parses, reloads Preprocessor saved db",
+    "  -sepcomp              Separate compilation, each invocation creates a "
+    "compilation unit",
+    "  -link                 Link and elaborate the separately compiled files",
     "  -elabuhdm             Forces UHDM/VPI Full Elaboration, default is the "
     "Folded Model",
     "  -nouhdm               No UHDM db write",
@@ -977,6 +980,21 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_compile = false;
       m_elaborate = false;
       m_parseOnly = true;
+    } else if (all_arguments[i] == "-sepcomp") {
+      m_writePpOutput = true;
+      m_parse = true;
+      m_compile = false;
+      m_elaborate = false;
+      m_elabUhdm = false;
+      m_writeUhdm = false;
+      m_parseBuiltIn = false;
+      m_noCacheHash = true;
+    } else if (all_arguments[i] == "-link") {
+      m_writePpOutput = false;
+      m_parse = true;
+      m_compile = true;
+      m_elaborate = true;
+      m_noCacheHash = true;
     } else if (all_arguments[i] == "-noparse") {
       m_parse = false;
       m_compile = false;
