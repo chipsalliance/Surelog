@@ -1442,54 +1442,55 @@ bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
       typespecs->push_back(item);
     }
   }
+  if (netlist) {
+    m->Ports(netlist->ports());
+    if (netlist->ports()) {
+      for (auto obj : *netlist->ports()) {
+        obj->VpiParent(m);
+      }
+    }
+    m->Nets(netlist->nets());
+    if (netlist->nets()) {
+      for (auto obj : *netlist->nets()) {
+        obj->VpiParent(m);
+      }
+    }
+    m->Gen_scope_arrays(netlist->gen_scopes());
+    m->Variables(netlist->variables());
+    if (netlist->variables()) {
+      for (auto obj : *netlist->variables()) {
+        obj->VpiParent(m);
+      }
+    }
+    m->Array_vars(netlist->array_vars());
+    if (netlist->array_vars()) {
+      for (auto obj : *netlist->array_vars()) {
+        obj->VpiParent(m);
+      }
+    }
+    m->Named_events(netlist->named_events());
+    if (netlist->named_events()) {
+      for (auto obj : *netlist->named_events()) {
+        obj->VpiParent(m);
+      }
+    }
+    m->Array_nets(netlist->array_nets());
+    if (netlist->array_nets()) {
+      for (auto obj : *netlist->array_nets()) {
+        obj->VpiParent(m);
+      }
+    }
 
-  m->Ports(netlist->ports());
-  if (netlist->ports()) {
-    for (auto obj : *netlist->ports()) {
-      obj->VpiParent(m);
-    }
-  }
-  m->Nets(netlist->nets());
-  if (netlist->nets()) {
-    for (auto obj : *netlist->nets()) {
-      obj->VpiParent(m);
-    }
-  }
-  m->Gen_scope_arrays(netlist->gen_scopes());
-  m->Variables(netlist->variables());
-  if (netlist->variables()) {
-    for (auto obj : *netlist->variables()) {
-      obj->VpiParent(m);
-    }
-  }
-  m->Array_vars(netlist->array_vars());
-  if (netlist->array_vars()) {
-    for (auto obj : *netlist->array_vars()) {
-      obj->VpiParent(m);
-    }
-  }
-  m->Named_events(netlist->named_events());
-  if (netlist->named_events()) {
-    for (auto obj : *netlist->named_events()) {
-      obj->VpiParent(m);
-    }
-  }
-  m->Array_nets(netlist->array_nets());
-  if (netlist->array_nets()) {
-    for (auto obj : *netlist->array_nets()) {
-      obj->VpiParent(m);
-    }
-  }
-
-  if (netlist->cont_assigns()) {
-    std::vector<cont_assign*>* assigns = m->Cont_assigns();
-    if (assigns == nullptr) {
-      m->Cont_assigns(s.MakeCont_assignVec());
-      assigns = m->Cont_assigns();
-    }
-    for (auto obj : *netlist->cont_assigns()) {
-      obj->VpiParent(m);
-      assigns->push_back(obj);
+    if (netlist->cont_assigns()) {
+      std::vector<cont_assign*>* assigns = m->Cont_assigns();
+      if (assigns == nullptr) {
+        m->Cont_assigns(s.MakeCont_assignVec());
+        assigns = m->Cont_assigns();
+      }
+      for (auto obj : *netlist->cont_assigns()) {
+        obj->VpiParent(m);
+        assigns->push_back(obj);
+      }
     }
   }
 
@@ -1538,89 +1539,90 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
       typespecs->push_back(item);
     }
   }
-
-  m->Nets(netlist->nets());
-  if (netlist->nets()) {
-    for (auto obj : *netlist->nets()) {
-      obj->VpiParent(m);
+  if (netlist) {
+    m->Nets(netlist->nets());
+    if (netlist->nets()) {
+      for (auto obj : *netlist->nets()) {
+        obj->VpiParent(m);
+      }
     }
-  }
 
-  std::vector<gen_scope_array*>* gen_scope_arrays = netlist->gen_scopes();
-  if (gen_scope_arrays) {
-    for (gen_scope_array* scope_arr : *gen_scope_arrays) {
-      for (gen_scope* scope : *scope_arr->Gen_scopes()) {
-        m->Cont_assigns(scope->Cont_assigns());
-        if (m->Cont_assigns()) {
-          for (auto ps : *m->Cont_assigns()) {
-            ps->VpiParent(m);
-          }
-        }
-        m->Process(scope->Process());
-        if (m->Process()) {
-          for (auto ps : *m->Process()) {
-            ps->VpiParent(m);
-          }
-        }
-
-        writeElabParameters(s, instance, m, exprBuilder);
-
-        // Loop indexes
-        for (auto& param : instance->getMappedValues()) {
-          const std::string& name = param.first;
-          Value* val = param.second.first;
-          VectorOfany* params = nullptr;
-          params = m->Parameters();
-          if (params == nullptr) {
-            params = s.MakeAnyVec();
-          }
-          m->Parameters(params);
-          bool found = false;
-          for (auto p : *params) {
-            if (p->VpiName() == name) {
-              found = true;
-              break;
+    std::vector<gen_scope_array*>* gen_scope_arrays = netlist->gen_scopes();
+    if (gen_scope_arrays) {
+      for (gen_scope_array* scope_arr : *gen_scope_arrays) {
+        for (gen_scope* scope : *scope_arr->Gen_scopes()) {
+          m->Cont_assigns(scope->Cont_assigns());
+          if (m->Cont_assigns()) {
+            for (auto ps : *m->Cont_assigns()) {
+              ps->VpiParent(m);
             }
           }
-          if (!found) {
-            parameter* p = s.MakeParameter();
-            p->VpiName(name);
-            if (val && val->isValid()) p->VpiValue(val->uhdmValue());
-            p->VpiFile(instance->getFileName());
-            p->VpiLineNo(param.second.second);
-            p->VpiParent(m);
-            p->VpiLocalParam(true);
-            int_typespec* ts = s.MakeInt_typespec();
-            p->Typespec(ts);
-            params->push_back(p);
+          m->Process(scope->Process());
+          if (m->Process()) {
+            for (auto ps : *m->Process()) {
+              ps->VpiParent(m);
+            }
+          }
+
+          writeElabParameters(s, instance, m, exprBuilder);
+
+          // Loop indexes
+          for (auto& param : instance->getMappedValues()) {
+            const std::string& name = param.first;
+            Value* val = param.second.first;
+            VectorOfany* params = nullptr;
+            params = m->Parameters();
+            if (params == nullptr) {
+              params = s.MakeAnyVec();
+            }
+            m->Parameters(params);
+            bool found = false;
+            for (auto p : *params) {
+              if (p->VpiName() == name) {
+                found = true;
+                break;
+              }
+            }
+            if (!found) {
+              parameter* p = s.MakeParameter();
+              p->VpiName(name);
+              if (val && val->isValid()) p->VpiValue(val->uhdmValue());
+              p->VpiFile(instance->getFileName());
+              p->VpiLineNo(param.second.second);
+              p->VpiParent(m);
+              p->VpiLocalParam(true);
+              int_typespec* ts = s.MakeInt_typespec();
+              p->Typespec(ts);
+              params->push_back(p);
+            }
           }
         }
       }
     }
-  }
 
-  m->Variables(netlist->variables());
-  if (netlist->variables()) {
-    for (auto obj : *netlist->variables()) {
-      obj->VpiParent(m);
+    m->Variables(netlist->variables());
+    if (netlist->variables()) {
+      for (auto obj : *netlist->variables()) {
+        obj->VpiParent(m);
+      }
     }
-  }
-  m->Array_vars(netlist->array_vars());
-  if (netlist->array_vars()) {
-    for (auto obj : *netlist->array_vars()) {
-      obj->VpiParent(m);
+    m->Array_vars(netlist->array_vars());
+    if (netlist->array_vars()) {
+      for (auto obj : *netlist->array_vars()) {
+        obj->VpiParent(m);
+      }
     }
-  }
-  m->Named_events(netlist->named_events());
-  if (netlist->named_events()) {
-    for (auto obj : *netlist->named_events()) {
-      obj->VpiParent(m);
+    m->Named_events(netlist->named_events());
+    if (netlist->named_events()) {
+      for (auto obj : *netlist->named_events()) {
+        obj->VpiParent(m);
+      }
     }
-  }
-  m->Array_nets(netlist->array_nets());
-  if (netlist->array_nets()) {
-    for (auto obj : *netlist->array_nets()) {
-      obj->VpiParent(m);
+    m->Array_nets(netlist->array_nets());
+    if (netlist->array_nets()) {
+      for (auto obj : *netlist->array_nets()) {
+        obj->VpiParent(m);
+      }
     }
   }
 
@@ -1638,15 +1640,17 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
     }
   }
 
-  if (netlist->cont_assigns()) {
-    std::vector<cont_assign*>* assigns = m->Cont_assigns();
-    if (assigns == nullptr) {
-      m->Cont_assigns(s.MakeCont_assignVec());
-      assigns = m->Cont_assigns();
-    }
-    for (auto obj : *netlist->cont_assigns()) {
-      obj->VpiParent(m);
-      assigns->push_back(obj);
+  if (netlist) {
+    if (netlist->cont_assigns()) {
+      std::vector<cont_assign*>* assigns = m->Cont_assigns();
+      if (assigns == nullptr) {
+        m->Cont_assigns(s.MakeCont_assignVec());
+        assigns = m->Cont_assigns();
+      }
+      for (auto obj : *netlist->cont_assigns()) {
+        obj->VpiParent(m);
+        assigns->push_back(obj);
+      }
     }
   }
 
@@ -2226,61 +2230,61 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
   }
 
   writeElabParameters(s, instance, m, exprBuilder);
+  if (netlist) {
+    if (netlist->ports()) {
+      for (auto obj : *netlist->ports()) {
+        obj->VpiParent(m);
+      }
+    }
+    m->Nets(netlist->nets());
+    if (netlist->nets()) {
+      for (auto obj : *netlist->nets()) {
+        obj->VpiParent(m);
+      }
+    }
+    m->Gen_scope_arrays(netlist->gen_scopes());
+    if (netlist->gen_scopes()) {
+      for (auto obj : *netlist->gen_scopes()) {
+        obj->VpiParent(m);
+      }
+    }
+    m->Variables(netlist->variables());
+    if (netlist->variables()) {
+      for (auto obj : *netlist->variables()) {
+        obj->VpiParent(m);
+      }
+    }
+    m->Array_vars(netlist->array_vars());
+    if (netlist->array_vars()) {
+      for (auto obj : *netlist->array_vars()) {
+        obj->VpiParent(m);
+      }
+    }
+    m->Named_events(netlist->named_events());
+    if (netlist->named_events()) {
+      for (auto obj : *netlist->named_events()) {
+        obj->VpiParent(m);
+      }
+    }
+    m->Array_nets(netlist->array_nets());
+    if (netlist->array_nets()) {
+      for (auto obj : *netlist->array_nets()) {
+        obj->VpiParent(m);
+      }
+    }
 
-  if (netlist->ports()) {
-    for (auto obj : *netlist->ports()) {
-      obj->VpiParent(m);
+    if (netlist->cont_assigns()) {
+      std::vector<cont_assign*>* assigns = m->Cont_assigns();
+      if (assigns == nullptr) {
+        m->Cont_assigns(s.MakeCont_assignVec());
+        assigns = m->Cont_assigns();
+      }
+      for (auto obj : *netlist->cont_assigns()) {
+        obj->VpiParent(m);
+        assigns->push_back(obj);
+      }
     }
   }
-  m->Nets(netlist->nets());
-  if (netlist->nets()) {
-    for (auto obj : *netlist->nets()) {
-      obj->VpiParent(m);
-    }
-  }
-  m->Gen_scope_arrays(netlist->gen_scopes());
-  if (netlist->gen_scopes()) {
-    for (auto obj : *netlist->gen_scopes()) {
-      obj->VpiParent(m);
-    }
-  }
-  m->Variables(netlist->variables());
-  if (netlist->variables()) {
-    for (auto obj : *netlist->variables()) {
-      obj->VpiParent(m);
-    }
-  }
-  m->Array_vars(netlist->array_vars());
-  if (netlist->array_vars()) {
-    for (auto obj : *netlist->array_vars()) {
-      obj->VpiParent(m);
-    }
-  }
-  m->Named_events(netlist->named_events());
-  if (netlist->named_events()) {
-    for (auto obj : *netlist->named_events()) {
-      obj->VpiParent(m);
-    }
-  }
-  m->Array_nets(netlist->array_nets());
-  if (netlist->array_nets()) {
-    for (auto obj : *netlist->array_nets()) {
-      obj->VpiParent(m);
-    }
-  }
-
-  if (netlist->cont_assigns()) {
-    std::vector<cont_assign*>* assigns = m->Cont_assigns();
-    if (assigns == nullptr) {
-      m->Cont_assigns(s.MakeCont_assignVec());
-      assigns = m->Cont_assigns();
-    }
-    for (auto obj : *netlist->cont_assigns()) {
-      obj->VpiParent(m);
-      assigns->push_back(obj);
-    }
-  }
-
   if (mod) {
     if (auto from = mod->getTask_funcs()) {
       UHDM::VectorOftask_func* target = m->Task_funcs();
@@ -2327,50 +2331,50 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
   }
 
   writeElabParameters(s, instance, m, exprBuilder);
-
-  m->Ports(netlist->ports());
-  if (netlist->ports()) {
-    for (auto obj : *netlist->ports()) {
-      obj->VpiParent(m);
+  if (netlist) {
+    m->Ports(netlist->ports());
+    if (netlist->ports()) {
+      for (auto obj : *netlist->ports()) {
+        obj->VpiParent(m);
+      }
+    }
+    m->Nets(netlist->nets());
+    if (netlist->nets()) {
+      for (auto obj : *netlist->nets()) {
+        obj->VpiParent(m);
+      }
+    }
+    m->Gen_scope_arrays(netlist->gen_scopes());
+    if (netlist->gen_scopes()) {
+      for (auto obj : *netlist->gen_scopes()) {
+        obj->VpiParent(m);
+      }
+    }
+    m->Variables(netlist->variables());
+    if (netlist->variables()) {
+      for (auto obj : *netlist->variables()) {
+        obj->VpiParent(m);
+      }
+    }
+    m->Array_vars(netlist->array_vars());
+    if (netlist->array_vars()) {
+      for (auto obj : *netlist->array_vars()) {
+        obj->VpiParent(m);
+      }
+    }
+    m->Named_events(netlist->named_events());
+    if (netlist->named_events()) {
+      for (auto obj : *netlist->named_events()) {
+        obj->VpiParent(m);
+      }
+    }
+    m->Array_nets(netlist->array_nets());
+    if (netlist->array_nets()) {
+      for (auto obj : *netlist->array_nets()) {
+        obj->VpiParent(m);
+      }
     }
   }
-  m->Nets(netlist->nets());
-  if (netlist->nets()) {
-    for (auto obj : *netlist->nets()) {
-      obj->VpiParent(m);
-    }
-  }
-  m->Gen_scope_arrays(netlist->gen_scopes());
-  if (netlist->gen_scopes()) {
-    for (auto obj : *netlist->gen_scopes()) {
-      obj->VpiParent(m);
-    }
-  }
-  m->Variables(netlist->variables());
-  if (netlist->variables()) {
-    for (auto obj : *netlist->variables()) {
-      obj->VpiParent(m);
-    }
-  }
-  m->Array_vars(netlist->array_vars());
-  if (netlist->array_vars()) {
-    for (auto obj : *netlist->array_vars()) {
-      obj->VpiParent(m);
-    }
-  }
-  m->Named_events(netlist->named_events());
-  if (netlist->named_events()) {
-    for (auto obj : *netlist->named_events()) {
-      obj->VpiParent(m);
-    }
-  }
-  m->Array_nets(netlist->array_nets());
-  if (netlist->array_nets()) {
-    for (auto obj : *netlist->array_nets()) {
-      obj->VpiParent(m);
-    }
-  }
-
   // Cont assigns
   std::vector<cont_assign*>* orig_cont_assigns = mod->getContAssigns();
   if (orig_cont_assigns) {
@@ -2393,15 +2397,17 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
     }
   }
 
-  if (netlist->cont_assigns()) {
-    std::vector<cont_assign*>* assigns = m->Cont_assigns();
-    if (assigns == nullptr) {
-      m->Cont_assigns(s.MakeCont_assignVec());
-      assigns = m->Cont_assigns();
-    }
-    for (auto obj : *netlist->cont_assigns()) {
-      obj->VpiParent(m);
-      assigns->push_back(obj);
+  if (netlist) {
+    if (netlist->cont_assigns()) {
+      std::vector<cont_assign*>* assigns = m->Cont_assigns();
+      if (assigns == nullptr) {
+        m->Cont_assigns(s.MakeCont_assignVec());
+        assigns = m->Cont_assigns();
+      }
+      for (auto obj : *netlist->cont_assigns()) {
+        obj->VpiParent(m);
+        assigns->push_back(obj);
+      }
     }
   }
 
