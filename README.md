@@ -147,12 +147,11 @@ target_link_libraries(<your project name> surelog)
    -timescale=<timescale> Specifies the overall timescale
    -nobuiltin            Do not parse SV builtin classes (array...)
 ```
- * SEPARATE COMPILATION FLOWS OPTIONS:
+ * SEPARATE COMPILATION FLOW OPTIONS:
  ```
   -init                  Initializes cache for separate compile flow
   -sepcomp               Separate compilation, each invocation of surelog creates a compilation unit (Optional -nohash)
   -link                  Links and elaborates the separately compiled files (Optional -nohash and -elabuhdm)
-  -nohash 
 ``` 
 
  * YOSYS AND VERILATOR FEATURES:
