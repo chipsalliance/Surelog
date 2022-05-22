@@ -1677,7 +1677,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
                                result, instance, reduce);
       } else {
         integer_typespec* var = s.MakeInteger_typespec();
-        if (exp->UhdmType() == uhdmconstant) {
+        if (exp && exp->UhdmType() == uhdmconstant) {
           var->VpiValue(exp->VpiValue());
         } else {
           var->Expr(exp);
