@@ -117,6 +117,8 @@ static const std::initializer_list<std::string_view> helpText = {
     "  -nocomp               Turns off Compilation & Elaboration",
     "  -noelab               Turns off Elaboration",
     "  -parseonly            Only Parses, reloads Preprocessor saved db",
+    "  -init                 Initialize cache for separate compile flow "
+    "(-sepcomp, -link)",
     "  -sepcomp              Separate compilation, each invocation creates a "
     "compilation unit",
     "  -link                 Link and elaborate the separately compiled files",
@@ -352,7 +354,9 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_lowMem(false),
       m_writeUhdm(true),
       m_nonSynthesizable(false),
-      m_noCacheHash(false) {
+      m_noCacheHash(false),
+      m_sepComp(false),
+      m_link(false) {
   m_errors->registerCmdLine(this);
   m_logFileId = m_symbolTable->registerSymbol(std::string(defaultLogFileName));
   m_compileUnitDirectory = m_symbolTable->registerSymbol("slpp_unit");
@@ -452,6 +456,42 @@ void CommandLineParser::processArgs_(std::vector<std::string>& args,
         std::vector<std::string> argsInFile;
         StringUtils::tokenize(fileContent, " \n\t\r", argsInFile);
         processArgs_(argsInFile, container);
+      }
+    } else if (arg == "-link") {
+      m_parse = true;
+      m_compile = true;
+      m_elaborate = true;
+      m_writePpOutput = true;
+      m_link = true;
+      fs::path odir = m_symbolTable->getSymbol(m_outputDir);
+      odir /= m_symbolTable->getSymbol(
+          (fileunit() ? m_compileUnitDirectory : m_compileAllDirectory));
+      odir = FileUtils::getPreferredPath(odir);
+      if (FileUtils::fileExists(odir)) {
+        for (const auto& entry : fs::directory_iterator(odir)) {
+          fs::path flist = entry.path();
+          const std::string ext = flist.extension();
+          if (ext == ".sep_lst") {
+            std::string f = StringUtils::unquoted(flist.string());
+            SymbolId fId = m_symbolTable->registerSymbol(StringUtils::trim(f));
+            std::ifstream ifs(f);
+            if (!ifs) {
+              Location loc(fId);
+              Error err(ErrorDefinition::CMD_DASH_F_FILE_DOES_NOT_EXIST, loc);
+              m_errors->addError(err);
+            } else {
+              std::stringstream ss;
+              ss << ifs.rdbuf();
+              ifs.close();
+              std::string fileContent = ss.str();
+              fileContent = StringUtils::removeComments(fileContent);
+              fileContent = StringUtils::evaluateEnvVars(fileContent);
+              std::vector<std::string> argsInFile;
+              StringUtils::tokenize(fileContent, " \n\t\r", argsInFile);
+              processArgs_(argsInFile, container);
+            }
+          }
+        }
       }
     } else {
       container.push_back(arg);
@@ -980,7 +1020,11 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_compile = false;
       m_elaborate = false;
       m_parseOnly = true;
+    } else if (all_arguments[i] == "-init") {
+      m_cacheAllowed = false;
+      cleanCache();
     } else if (all_arguments[i] == "-sepcomp") {
+      m_sepComp = true;
       m_writePpOutput = true;
       m_parse = true;
       m_compile = false;
@@ -988,13 +1032,6 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_elabUhdm = false;
       m_writeUhdm = false;
       m_parseBuiltIn = false;
-      m_noCacheHash = true;
-    } else if (all_arguments[i] == "-link") {
-      m_writePpOutput = false;
-      m_parse = true;
-      m_compile = true;
-      m_elaborate = true;
-      m_noCacheHash = true;
     } else if (all_arguments[i] == "-noparse") {
       m_parse = false;
       m_compile = false;

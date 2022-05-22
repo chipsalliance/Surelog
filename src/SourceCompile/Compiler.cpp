@@ -326,6 +326,35 @@ bool Compiler::createFileList_() {
         std::cout << "Could not create filelist: " << fileList << std::endl;
       }
     }
+    {
+      if (m_commandLineParser->sepComp()) {
+        std::string concatFiles;
+        unsigned int size = m_compilers.size();
+        for (unsigned int i = 0; i < size; i++) {
+          fs::path fileName = m_compilers[i]->getSymbolTable()->getSymbol(
+              m_compilers[i]->getFileId());
+          concatFiles += fileName.string() + "|";
+        }
+        std::size_t val = std::hash<std::string>{}(concatFiles);
+        std::string hashedName = std::to_string(val);
+        hashedName += ".sep_lst";
+        std::ofstream ofs;
+        fs::path fileList = directory / hashedName;
+        ofs.open(fileList);
+        if (ofs.good()) {
+          unsigned int size = m_compilers.size();
+          for (unsigned int i = 0; i < size; i++) {
+            fs::path fileName = m_compilers[i]->getSymbolTable()->getSymbol(
+                m_compilers[i]->getFileId());
+            if (i > 0) ofs << " ";
+            ofs << fileName.string();
+          }
+          ofs.close();
+        } else {
+          std::cout << "Could not create filelist: " << fileList << std::endl;
+        }
+      }
+    }
   }
   return true;
 }

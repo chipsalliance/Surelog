@@ -543,6 +543,7 @@ bool ParseFile::parse() {
       }
 
       ParseCache cache(this);
+      if (clp->link()) return true;
       if (!cache.save()) {
         return false;
       }
@@ -582,6 +583,7 @@ bool ParseFile::parse() {
             std::cout << child->m_fileContent->printObjects();
 
           ParseCache cache(child);
+          if (clp->link()) return true;
           if (!cache.save()) {
             return false;
           }

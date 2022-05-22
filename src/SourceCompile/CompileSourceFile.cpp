@@ -278,7 +278,7 @@ bool CompileSourceFile::postPreprocess_() {
     SymbolId ppOutId = symbolTable->registerSymbol(ppFileName.string());
     m_ppResultFileId = m_symbolTable->registerSymbol(ppFileName.string());
     SymbolId ppDirId = symbolTable->registerSymbol(dirPpFile.string());
-    if (m_commandLineParser->lowMem()) {
+    if (m_commandLineParser->lowMem() || m_commandLineParser->link()) {
       return true;
     }
     if (!FileUtils::mkDirs(dirPpFile)) {
