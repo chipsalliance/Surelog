@@ -143,11 +143,30 @@ class CommandLineParser final {
   bool compile() const { return m_compile; }
   bool elaborate() const { return m_elaborate; }
   bool writeUhdm() const { return m_writeUhdm; }
+  bool sepComp() const { return m_sepComp; }
+  bool link() const { return m_link; } 
   void setParse(bool val) { m_parse = val; }
   void setParseOnly(bool val) { m_parseOnly = val; }
   void setLowMem(bool val) { m_lowMem = val; }
   void setCompile(bool val) { m_compile = val; }
   void setElaborate(bool val) { m_elaborate = val; }
+  void setSepComp(bool val) {
+    m_sepComp = val;
+    m_writePpOutput = val;
+    m_parse = val;
+    m_compile = false;
+    m_elaborate = false;
+    m_elabUhdm = false;
+    m_writeUhdm = false;
+    m_parseBuiltIn = false;
+  }
+  void setLink(bool val) {
+    m_link = val;
+    m_parse = val;
+    m_compile = val;
+    m_elaborate = val;
+    m_writePpOutput = val;
+  }
   void setElabUhdm(bool val) {
     m_elaborate = val;
     m_elabUhdm = val;
@@ -300,6 +319,8 @@ class CommandLineParser final {
   bool m_writeUhdm;
   bool m_nonSynthesizable;
   bool m_noCacheHash;
+  bool m_sepComp;
+  bool m_link;
 };
 
 }  // namespace SURELOG

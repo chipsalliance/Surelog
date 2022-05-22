@@ -325,20 +325,20 @@ bool PreprocessFile::preprocess() {
   Timer tmr;
   PPCache cache(this);
   if (cache.restore(clp->lowMem() || clp->noCacheHash())) {
+    if (clp->debugCache()) {
+      if (m_macroBody.empty()) {
+        std::cout << "PP CACHE USED FOR: " << fileName << std::endl;
+      }
+    }
     m_usingCachedVersion = true;
     getCompilationUnit()->setCurrentTimeInfo(getFileId(0));
     if (m_debugAstModel && !precompiled)
       std::cout << m_fileContent->printObjects();
     if (precompiled || clp->noCacheHash()) {
-      if (clp->debugCache()) {
-        if (m_macroBody.empty()) {
-          std::cout << "PP CACHE USED FOR: " << fileName << std::endl;
-        }
-      }
       return true;
     }
   }
-  if (clp->parseOnly() || clp->lowMem()) return true;
+  if (clp->parseOnly() || clp->lowMem() || clp->link()) return true;
 
   m_antlrParserHandler = getCompileSourceFile()->getAntlrPpHandlerForId(
       (m_macroBody.empty()) ? m_fileId : getMacroSignature());
@@ -1231,7 +1231,7 @@ void PreprocessFile::collectIncludedFiles(std::set<PreprocessFile*>& included) {
 
 void PreprocessFile::saveCache() {
   CommandLineParser* clp = getCompileSourceFile()->getCommandLineParser();
-  if (clp->parseOnly() || clp->lowMem()) return;
+  if (clp->parseOnly() || clp->lowMem() || clp->link()) return;
   if (m_macroBody.empty()) {
     if (!m_usingCachedVersion) {
       PPCache cache(this);
