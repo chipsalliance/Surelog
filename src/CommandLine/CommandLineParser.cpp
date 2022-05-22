@@ -469,8 +469,8 @@ void CommandLineParser::processArgs_(std::vector<std::string>& args,
       odir = FileUtils::getPreferredPath(odir);
       if (FileUtils::fileExists(odir)) {
         for (const auto& entry : fs::directory_iterator(odir)) {
-          fs::path flist = entry.path();
-          const std::string ext = flist.extension();
+          const fs::path& flist = entry.path();
+          const std::string ext = flist.extension().string();
           if (ext == ".sep_lst") {
             std::string f = StringUtils::unquoted(flist.string());
             SymbolId fId = m_symbolTable->registerSymbol(StringUtils::trim(f));
