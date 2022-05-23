@@ -20,6 +20,7 @@ _windows_black_list = set([name.lower() for name in [
     r'simpleincludeandmacros',
     r'simpleparsertestcache', # race condition
     r'testfilesplit',
+    r'testsepcompnohash',     # Uses shell script to run
     r'unitelabexternnested',
     r'unitpython',
     r'unitsimpleincludeandmacros',
