@@ -3102,7 +3102,6 @@ expression
     | <assoc=right> expression ( IMPLY | EQUIVALENCE ) ( attribute_instance )* expression
     | expression MATCHES pattern ( LOGICAL_AND expression )* QMARK ( attribute_instance )*  expression COLUMN expression
     | expression INSIDE OPEN_CURLY open_range_list CLOSE_CURLY
-    | type_reference
     ;
 
 
