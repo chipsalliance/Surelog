@@ -97,6 +97,8 @@ test/regression: release
 test/valgrind: debug
 	python3 scripts/regression.py run --tool valgrind --filters TypeParamElab --build-dirpath ${PWD}/dbuild
 	python3 scripts/regression.py run --tool valgrind --filters ArianeElab --build-dirpath ${PWD}/dbuild
+	python3 scripts/regression.py run --tool valgrind --filters ArianeElab2 --build-dirpath ${PWD}/dbuild
+	python3 scripts/regression.py run --tool valgrind --filters BlackParrotMuteErrors --build-dirpath ${PWD}/dbuild
 
 test: release test/unittest test/regression
 
