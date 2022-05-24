@@ -85,8 +85,7 @@ bool CompileSourceFile::compile(Action action) {
   m_action = action;
   fs::path fileName = m_symbolTable->getSymbol(m_fileId);
   if (m_commandLineParser->verbose()) {
-    SymbolId fileId = m_fileId;
-    Location loc(fileId);
+    Location loc(m_fileId);
     ErrorDefinition::ErrorType type =
         ErrorDefinition::PP_PROCESSING_SOURCE_FILE;
     switch (m_action) {

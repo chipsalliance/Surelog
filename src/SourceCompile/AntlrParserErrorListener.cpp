@@ -57,7 +57,7 @@ void AntlrParserErrorListener::syntaxError(
     int adjustedLine = m_parser->getLineNb(line + m_lineOffset);
     Location loc(m_parser->getFileId(line + m_lineOffset), adjustedLine,
                  charPositionInLine, msgId);
-    Location loc2(0, 0, 0, m_parser->registerSymbol(lineText));
+    Location loc2(m_parser->registerSymbol(lineText));
     Error err(ErrorDefinition::PA_SYNTAX_ERROR, loc, loc2);
     m_parser->addError(err);
     m_reportedSyntaxError = true;

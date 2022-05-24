@@ -227,7 +227,7 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
                                                 ctx->macro_instance());
     } else {
       Location loc(m_pp->getFileId(startLineCol.first),
-                   m_pp->getLineNb(startLineCol.first), 0, 0);
+                   m_pp->getLineNb(startLineCol.first), startLineCol.second);
       logError(ErrorDefinition::PP_INVALID_INCLUDE_FILENAME, loc);
       return;
     }
@@ -782,7 +782,7 @@ void SV3_1aPpTreeShapeListener::enterLine_directive(
     int newType = atoi(type.c_str());
     if (newType < 0 || newType > 2) {
       Location loc(m_pp->getFileId(lineCol.first),
-                   m_pp->getLineNb(lineCol.first), 0,
+                   m_pp->getLineNb(lineCol.first), lineCol.second,
                    getSymbolTable()->registerSymbol(type));
       logError(ErrorDefinition::PP_ILLEGAL_TICK_LINE_VALUE, loc);
     }

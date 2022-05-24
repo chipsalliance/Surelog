@@ -88,8 +88,8 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
       if (sval == nullptr) fullName = packageName + "::" + name;
       if (sval == nullptr) {
         if (muteErrors == false) {
-          Location loc(fC->getFileId(parent), fC->Line(parent), 0,
-                       m_symbols->registerSymbol(fullName));
+          Location loc(fC->getFileId(parent), fC->Line(parent),
+                       fC->Column(parent), m_symbols->registerSymbol(fullName));
           Error err(ErrorDefinition::ELAB_UNDEF_VARIABLE, loc);
           m_errors->addError(err);
         }
@@ -546,7 +546,8 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
 
         if (sval == nullptr) {
           if (muteErrors == false) {
-            Location loc(fC->getFileId(child), fC->Line(child), 0,
+            Location loc(fC->getFileId(child), fC->Line(child),
+                         fC->Column(child),
                          m_symbols->registerSymbol(fullName));
             Error err(ErrorDefinition::ELAB_UNDEF_VARIABLE, loc);
             m_errors->addError(err);
@@ -755,7 +756,8 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
 
         if (sval == nullptr) {
           if (muteErrors == false) {
-            Location loc(fC->getFileId(parent), fC->Line(parent), 0,
+            Location loc(fC->getFileId(parent), fC->Line(parent),
+                         fC->Column(parent),
                          m_symbols->registerSymbol(fullName));
             Error err(ErrorDefinition::ELAB_UNDEF_VARIABLE, loc);
             m_errors->addError(err);

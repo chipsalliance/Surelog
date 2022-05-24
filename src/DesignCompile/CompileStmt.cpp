@@ -854,7 +854,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       std::string_view lineText =
           StringUtils::getLineInString(fileContent, fC->Line(the_stmt));
       Location loc(symbols->registerSymbol(fC->getFileName(the_stmt).string()),
-                   fC->Line(the_stmt), 0,
+                   fC->Line(the_stmt), fC->Column(the_stmt),
                    symbols->registerSymbol(
                        StrCat("<", fC->printObject(the_stmt), "> ", lineText)));
       Error err(ErrorDefinition::UHDM_UNSUPPORTED_STMT, loc);

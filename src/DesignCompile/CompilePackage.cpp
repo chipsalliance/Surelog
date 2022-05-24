@@ -71,7 +71,8 @@ bool CompilePackage::compile(bool reduce) {
   NodeId packId = m_package->m_nodeIds[0];
   if (reduce) {
     Location loc(m_symbols->registerSymbol(fC->getFileName(packId).string()),
-                 fC->Line(packId), 0, m_symbols->getId(m_package->getName()));
+                 fC->Line(packId), fC->Column(packId),
+                 m_symbols->getId(m_package->getName()));
     Error err(ErrorDefinition::COMP_COMPILE_PACKAGE, loc);
 
     ErrorContainer* errors = new ErrorContainer(m_symbols);

@@ -121,7 +121,8 @@ std::string Design::reportInstanceTree() const {
     }
     std::string type_s;
     Location loc(symbols->registerSymbol(tmp->getFileName().string()),
-                 tmp->getLineNb(), 0, tmp->getFullPathId(symbols));
+                 tmp->getLineNb(), tmp->getColumnNb(),
+                 tmp->getFullPathId(symbols));
     if (type == slUdp_instantiation) {
       type_s = "[UDP]";
       Error err(ErrorDefinition::ELAB_INSTANCE_PATH, loc);
@@ -357,12 +358,13 @@ void Design::addDefParam_(std::vector<std::string>& path, const FileContent* fC,
            previous->getLocation()->getFileId(previous->getNodeId())) ||
           (fC->Line(nodeId) !=
            previous->getLocation()->Line(previous->getNodeId()))) {
-        Location loc1(fC->getFileId(nodeId), fC->Line(nodeId), 0,
+        Location loc1(fC->getFileId(nodeId), fC->Line(nodeId),
+                      fC->Column(nodeId),
                       m_errors->getSymbolTable()->registerSymbol(
                           previous->getFullName()));
         Location loc2(previous->getLocation()->getFileId(previous->getNodeId()),
-                      previous->getLocation()->Line(previous->getNodeId()), 0,
-                      0);
+                      previous->getLocation()->Line(previous->getNodeId()),
+                      previous->getLocation()->Column(previous->getNodeId()));
         Error err(ErrorDefinition::ELAB_MULTI_DEFPARAM_ON_OBJECT, loc1, loc2);
         m_errors->addError(err);
       }
@@ -397,9 +399,9 @@ void Design::checkDefParamUsage(DefParam* parent) {
 
       Location loc(
           parent->getLocation()->getFileId(parent->getNodeId()),
-          parent->getLocation()->Line(parent->getNodeId()), 0,
+          parent->getLocation()->Line(parent->getNodeId()),
+          parent->getLocation()->Column(parent->getNodeId()),
           m_errors->getSymbolTable()->registerSymbol(parent->getFullName()));
-
       Error err(ErrorDefinition::ELAB_UNMATCHED_DEFPARAM, loc);
       m_errors->addError(err);
     }

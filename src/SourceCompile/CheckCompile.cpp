@@ -77,8 +77,7 @@ bool CheckCompile::checkTimescale_() {
   std::string globaltimescale =
       m_compiler->getCommandLineParser()->getTimeScale();
   if (!globaltimescale.empty()) {
-    Location loc(0, 0, 0,
-                 m_compiler->getSymbolTable()->registerSymbol(globaltimescale));
+    Location loc(m_compiler->getSymbolTable()->registerSymbol(globaltimescale));
     Error err(ErrorDefinition::CMD_USING_GLOBAL_TIMESCALE, loc);
     m_compiler->getErrorContainer()->addError(err);
     return true;
@@ -106,13 +105,13 @@ bool CheckCompile::checkTimescale_() {
           Location loc(m_compiler->getSymbolTable()->registerSymbol(
                            fileContent->getSymbolTable()->getSymbol(
                                fileContent->getFileId(elem->m_node))),
-                       elem->m_line, 0, elem->m_name);
+                       elem->m_line, elem->m_column, elem->m_name);
           noTimeUnitLocs.push_back(loc);
         } else {
           Location loc(m_compiler->getSymbolTable()->registerSymbol(
                            fileContent->getSymbolTable()->getSymbol(
                                fileContent->getFileId(elem->m_node))),
-                       elem->m_line, 0, elem->m_name);
+                       elem->m_line, elem->m_column, elem->m_name);
           noTimeUnitLocs.push_back(loc);
           if (reportedMissingTimescale.find(elem->m_name) ==
               reportedMissingTimescale.end()) {

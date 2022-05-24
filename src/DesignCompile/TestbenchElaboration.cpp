@@ -167,8 +167,8 @@ bool TestbenchElaboration::checkForMultipleDefinition_() {
       NodeId nodeId1 = classDefinition->getNodeIds()[0];
       fs::path fileName1 = fC1->getFileName(nodeId1);
       unsigned int line1 = fC1->Line(nodeId1);
-      Location loc1(symbols->registerSymbol(fileName1.string()), line1, 0,
-                    symbols->registerSymbol(className));
+      Location loc1(symbols->registerSymbol(fileName1.string()), line1,
+                    fC1->Column(nodeId1), symbols->registerSymbol(className));
 
       std::vector<Location> locations;
 
@@ -177,8 +177,8 @@ bool TestbenchElaboration::checkForMultipleDefinition_() {
         NodeId nodeId2 = prevClassDefinition->getNodeIds()[0];
         fs::path fileName2 = fC2->getFileName(nodeId2);
         unsigned int line2 = fC2->Line(nodeId2);
-        Location loc2(symbols->registerSymbol(fileName2.string()), line2, 0,
-                      symbols->registerSymbol(className));
+        Location loc2(symbols->registerSymbol(fileName2.string()), line2,
+                      fC2->Column(nodeId2), symbols->registerSymbol(className));
 
         if ((fileName1 != fileName2) || (line1 != line2)) {
           std::string diff;
@@ -386,9 +386,9 @@ bool TestbenchElaboration::bindFunctionReturnTypesAndParamaters_() {
               NodeId p = param->getNodeId();
               const FileContent* fC = dtype->getFileContent();
               fs::path fileName = fC->getFileName(p);
-              unsigned int line = fC->Line(p);
               Location loc1(
-                  symbols->registerSymbol(fileName.string()), line, 0,
+                  symbols->registerSymbol(fileName.string()), fC->Line(p),
+                  fC->Column(p),
                   symbols->registerSymbol(name + " of type " + typeName));
               std::string exp;
               if (value->getType() == Value::Type::String)
@@ -397,7 +397,7 @@ bool TestbenchElaboration::bindFunctionReturnTypesAndParamaters_() {
                 exp = std::to_string(value->getValueD(0));
               else
                 exp = std::to_string(value->getValueL(0));
-              Location loc2(0, 0, 0, symbols->registerSymbol(exp));
+              Location loc2(symbols->registerSymbol(exp));
               Error err1(ErrorDefinition::COMP_INCOMPATIBLE_TYPES, loc1, loc2);
               errors->addError(err1);
             }
@@ -506,9 +506,8 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
         const FileContent* fC = st->getFileContent();
         NodeId p = st->getNodeId();
         fs::path fileName = fC->getFileName(p);
-        unsigned int line = fC->Line(p);
-        Location loc1(symbols->registerSymbol(fileName.string()), line, 0,
-                      symbols->registerSymbol(function));
+        Location loc1(symbols->registerSymbol(fileName.string()), fC->Line(p),
+                      fC->Column(p), symbols->registerSymbol(function));
         Error err1(ErrorDefinition::COMP_UNDEFINED_SYSTEM_FUNCTION, loc1);
         errors->addError(err1);
         return true;
@@ -549,14 +548,14 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
     NodeId p = st->getNodeId();
     const FileContent* fC = st->getFileContent();
     fs::path fileName = fC->getFileName(p);
-    unsigned int line = fC->Line(p);
     Location loc1(
-        symbols->registerSymbol(fileName.string()), line, 0,
+        symbols->registerSymbol(fileName.string()), fC->Line(p), fC->Column(p),
         symbols->registerSymbol("\"" + name + "\"" + " of type " + typeName));
     const FileContent* fC2 = dtype->getFileContent();
     fs::path fileName2 = fC2->getFileName(dtype->getNodeId());
-    unsigned int line2 = fC2->Line(dtype->getNodeId());
-    Location loc2(symbols->registerSymbol(fileName2.string()), line2, 0,
+    Location loc2(symbols->registerSymbol(fileName2.string()),
+                  fC2->Line(dtype->getNodeId()),
+                  fC2->Column(dtype->getNodeId()),
                   symbols->registerSymbol(function));
     Error err1(ErrorDefinition::COMP_NO_METHOD_FOR_TYPE, loc1, loc2);
     errors->addError(err1);
@@ -775,7 +774,8 @@ bool TestbenchElaboration::bindProperties_() {
             m_compileDesign->getCompiler()->getErrorContainer();
         SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
         Location loc(symbols->registerSymbol(fC->getFileName().string()),
-                     fC->Line(id), 0, symbols->registerSymbol(signame));
+                     fC->Line(id), fC->Column(id),
+                     symbols->registerSymbol(signame));
         Error err(ErrorDefinition::UHDM_UNSUPPORTED_SIGNAL, loc);
         errors->addError(err);
       }

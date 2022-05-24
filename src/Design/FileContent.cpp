@@ -110,10 +110,10 @@ void FileContent::insertObjectLookup(const std::string& name, NodeId id,
   } else {
     Location loc(
         errors->getSymbolTable()->registerSymbol(getFileName(id).string()),
-        Line(id), 0, errors->getSymbolTable()->registerSymbol(name));
+        Line(id), Column(id), errors->getSymbolTable()->registerSymbol(name));
     Location loc2(errors->getSymbolTable()->registerSymbol(
                       getFileName((*itr).second).string()),
-                  Line((*itr).second), 0);
+                  Line(itr->second), Column(itr->second));
     Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_DESIGN_UNIT, loc, loc2);
     errors->addError(err);
   }

@@ -85,7 +85,7 @@ bool CompileClass::compile() {
   if (m_class->m_uhdm_definition->VpiFullName().empty())
     m_class->m_uhdm_definition->VpiFullName(fullName);
   Location loc(m_symbols->registerSymbol(fileName.string()), fC->Line(nodeId),
-               0, m_symbols->registerSymbol(fullName));
+               fC->Column(nodeId), m_symbols->registerSymbol(fullName));
 
   Error err1(ErrorDefinition::COMP_COMPILE_CLASS, loc);
   ErrorContainer* errors = new ErrorContainer(m_symbols);
@@ -356,12 +356,13 @@ bool CompileClass::compile_class_property_(const FileContent* fC, NodeId id) {
         if (previous) {
           Location loc1(
               m_symbols->registerSymbol(fC->getFileName(var).string()),
-              fC->Line(var), 0, m_symbols->registerSymbol(varName));
+              fC->Line(var), fC->Column(var),
+              m_symbols->registerSymbol(varName));
           const FileContent* prevFile = previous->getFileContent();
           NodeId prevNode = previous->getNodeId();
           Location loc2(m_symbols->registerSymbol(
                             prevFile->getFileName(prevNode).string()),
-                        prevFile->Line(prevNode), 0,
+                        prevFile->Line(prevNode), prevFile->Column(prevNode),
                         m_symbols->registerSymbol(varName));
           Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_PROPERTY, loc1,
                     loc2);
@@ -583,12 +584,14 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     TaskMethod* prevDef = m_class->getTask(taskName);
     if (prevDef) {
       Location loc1(m_symbols->registerSymbol(fC->getFileName(id).string()),
-                    fC->Line(id), 0, m_symbols->registerSymbol(taskName));
+                    fC->Line(id), fC->Column(id),
+                    m_symbols->registerSymbol(taskName));
       const FileContent* prevFile = prevDef->getFileContent();
       NodeId prevNode = prevDef->getNodeId();
       Location loc2(
           m_symbols->registerSymbol(prevFile->getFileName(prevNode).string()),
-          prevFile->Line(prevNode), 0, m_symbols->registerSymbol(taskName));
+          prevFile->Line(prevNode), prevFile->Column(prevNode),
+          m_symbols->registerSymbol(taskName));
       Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_TASK, loc1, loc2);
       m_errors->addError(err);
     }
@@ -604,12 +607,12 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     if (prevDef) {
       SymbolId funcSymbol = m_symbols->registerSymbol(funcName);
       Location loc1(m_symbols->registerSymbol(fC->getFileName(id).string()),
-                    fC->Line(id), 0, funcSymbol);
+                    fC->Line(id), fC->Column(id), funcSymbol);
       const FileContent* prevFile = prevDef->getFileContent();
       NodeId prevNode = prevDef->getNodeId();
       Location loc2(
           m_symbols->registerSymbol(prevFile->getFileName(prevNode).string()),
-          prevFile->Line(prevNode), 0, funcSymbol);
+          prevFile->Line(prevNode), prevFile->Column(prevNode), funcSymbol);
       if (funcSymbol != 0) {
         Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_FUNCTION, loc1, loc2);
         m_errors->addError(err);
@@ -629,12 +632,14 @@ bool CompileClass::compile_class_constraint_(const FileContent* fC,
   if (prevDef) {
     Location loc1(
         m_symbols->registerSymbol(fC->getFileName(class_constraint).string()),
-        fC->Line(class_constraint), 0, m_symbols->registerSymbol(constName));
+        fC->Line(class_constraint), fC->Column(class_constraint),
+        m_symbols->registerSymbol(constName));
     const FileContent* prevFile = prevDef->getFileContent();
     NodeId prevNode = prevDef->getNodeId();
     Location loc2(
         m_symbols->registerSymbol(prevFile->getFileName(prevNode).string()),
-        prevFile->Line(prevNode), 0, m_symbols->registerSymbol(constName));
+        prevFile->Line(prevNode), prevFile->Column(prevNode),
+        m_symbols->registerSymbol(constName));
     Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_CONSTRAINT, loc1, loc2);
     m_errors->addError(err);
   }
@@ -656,13 +661,15 @@ bool CompileClass::compile_class_declaration_(const FileContent* fC,
   if (prevDef) {
     Location loc1(
         m_symbols->registerSymbol(fC->getFileName(class_name_id).string()),
-        fC->Line(class_name_id), 0, m_symbols->registerSymbol(class_name));
+        fC->Line(class_name_id), fC->Column(class_name_id),
+        m_symbols->registerSymbol(class_name));
     const FileContent* prevFile = prevDef->getFileContent();
     NodeId prevNode =
         prevFile->sl_collect(prevDef->getNodeId(), VObjectType::slStringConst);
     Location loc2(
         m_symbols->registerSymbol(prevFile->getFileName(prevNode).string()),
-        prevFile->Line(prevNode), 0, m_symbols->registerSymbol(class_name));
+        prevFile->Line(prevNode), prevFile->Column(prevNode),
+        m_symbols->registerSymbol(class_name));
     Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_INNER_CLASS, loc1, loc2);
     m_errors->addError(err);
   }
@@ -699,13 +706,14 @@ bool CompileClass::compile_covergroup_declaration_(const FileContent* fC,
   if (prevDef) {
     Location loc1(
         m_symbols->registerSymbol(fC->getFileName(covergroup_name).string()),
-        fC->Line(covergroup_name), 0,
+        fC->Line(covergroup_name), fC->Column(covergroup_name),
         m_symbols->registerSymbol(covergroupName));
     const FileContent* prevFile = prevDef->getFileContent();
     NodeId prevNode = prevDef->getNodeId();
     Location loc2(
         m_symbols->registerSymbol(prevFile->getFileName(prevNode).string()),
-        prevFile->Line(prevNode), 0, m_symbols->registerSymbol(covergroupName));
+        prevFile->Line(prevNode), prevFile->Column(prevNode),
+        m_symbols->registerSymbol(covergroupName));
     Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_COVERGROUP, loc1, loc2);
     m_errors->addError(err);
   }
@@ -755,12 +763,14 @@ bool CompileClass::compile_local_parameter_declaration_(const FileContent* fC,
         m_class->getNamedObject(name);
     if (prevDef) {
       Location loc1(m_symbols->registerSymbol(fC->getFileName(var).string()),
-                    fC->Line(var), 0, m_symbols->registerSymbol(name));
+                    fC->Line(var), fC->Column(var),
+                    m_symbols->registerSymbol(name));
       const FileContent* prevFile = prevDef->first.fC;
       NodeId prevNode = prevDef->first.nodeId;
       Location loc2(
           m_symbols->registerSymbol(prevFile->getFileName(prevNode).string()),
-          prevFile->Line(prevNode), 0, m_symbols->registerSymbol(name));
+          prevFile->Line(prevNode), prevFile->Column(prevNode),
+          m_symbols->registerSymbol(name));
       Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_PARAMETER, loc1, loc2);
       m_errors->addError(err);
     }
@@ -799,12 +809,14 @@ bool CompileClass::compile_parameter_declaration_(const FileContent* fC,
         m_class->getNamedObject(name);
     if (prevDef) {
       Location loc1(m_symbols->registerSymbol(fC->getFileName(var).string()),
-                    fC->Line(var), 0, m_symbols->registerSymbol(name));
+                    fC->Line(var), fC->Column(var),
+                    m_symbols->registerSymbol(name));
       const FileContent* prevFile = prevDef->first.fC;
       NodeId prevNode = prevDef->first.nodeId;
       Location loc2(
           m_symbols->registerSymbol(prevFile->getFileName(prevNode).string()),
-          prevFile->Line(prevNode), 0, m_symbols->registerSymbol(name));
+          prevFile->Line(prevNode), prevFile->Column(prevNode),
+          m_symbols->registerSymbol(name));
       Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_PARAMETER, loc1, loc2);
       m_errors->addError(err);
     }
