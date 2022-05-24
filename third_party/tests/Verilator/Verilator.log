@@ -429,9 +429,9 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_interface_gen.v -l t_interface_gen.v.log
-[ERR:CP0313] t_interface_gen.v:77: Illegal modport in generate statement.
+[ERR:CP0313] t_interface_gen.v:77:15: Illegal modport in generate statement.
 
-[ERR:CP0313] t_interface_gen.v:82: Illegal modport in generate statement.
+[ERR:CP0313] t_interface_gen.v:82:15: Illegal modport in generate statement.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -1440,7 +1440,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_typedef.v -l t_typedef.v.log
-[WRN:CP0314] t_typedef.v:6: Using programs is discouraged "work@t", programs are obsoleted by UVM.
+[WRN:CP0314] t_typedef.v:6:1: Using programs is discouraged "work@t", programs are obsoleted by UVM.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -1466,9 +1466,9 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_interface_param1.v -l t_interface_param1.v.log
-[ERR:CP0311] t_interface_param1.v:49: Undefined net used in modport: "a".
+[ERR:CP0311] t_interface_param1.v:49:26: Undefined net used in modport: "a".
 
-[ERR:CP0311] t_interface_param1.v:49: Undefined net used in modport: "b".
+[ERR:CP0311] t_interface_param1.v:49:36: Undefined net used in modport: "b".
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -1476,7 +1476,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_program.v -l t_program.v.log
-[WRN:CP0314] t_program.v:6: Using programs is discouraged "work@t", programs are obsoleted by UVM.
+[WRN:CP0314] t_program.v:6:1: Using programs is discouraged "work@t", programs are obsoleted by UVM.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -1616,9 +1616,9 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_bind.v -l t_bind.v.log
-[WRN:CP0314] t_bind.v:44: Using programs is discouraged "work@Prog", programs are obsoleted by UVM.
+[WRN:CP0314] t_bind.v:44:1: Using programs is discouraged "work@Prog", programs are obsoleted by UVM.
 
-[WRN:CP0314] t_bind.v:75: Using programs is discouraged "work@Prog2", programs are obsoleted by UVM.
+[WRN:CP0314] t_bind.v:75:1: Using programs is discouraged "work@Prog2", programs are obsoleted by UVM.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -2255,8 +2255,8 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_enum_bad_hide.v -l t_enum_bad_hide.v.log
-[WRN:CP0323] t_enum_bad_hide.v:10: Multiply defined typedef "hide_enum_t",
-             t_enum_bad_hide.v:6: previous definition.
+[WRN:CP0323] t_enum_bad_hide.v:10:12: Multiply defined typedef "hide_enum_t",
+             t_enum_bad_hide.v:6:1: previous definition.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -2608,8 +2608,8 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_mod_dup_ign.v -l t_mod_dup_ign.v.log
-[WRN:CP0334] t_mod_dup_ign.v:18: Colliding compilation unit name: "sub",
-             t_mod_dup_ign.v:10: previous usage.
+[WRN:CP0334] t_mod_dup_ign.v:18:1: Colliding compilation unit name: "sub",
+             t_mod_dup_ign.v:10:1: previous usage.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -3548,8 +3548,8 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_mod_dup_bad.v -l t_mod_dup_bad.v.log
-[WRN:CP0334] t_mod_dup_bad.v:13: Colliding compilation unit name: "a",
-             t_mod_dup_bad.v:6: previous usage.
+[WRN:CP0334] t_mod_dup_bad.v:13:1: Colliding compilation unit name: "a",
+             t_mod_dup_bad.v:6:1: previous usage.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -5652,9 +5652,9 @@ Processing: -cd t_sv_cpu_code +incdir+. -parse -noelab -nocache -nobuiltin -nono
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd t_sv_bus_mux_demux +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns sv_bus_mux_demux_demux.sv -l sv_bus_mux_demux_demux.sv.log
-[ERR:CP0316] sv_bus_mux_demux_demux.sv:8: Undefined package "package_bus".
+[ERR:CP0316] sv_bus_mux_demux_demux.sv:8:8: Undefined package "package_bus".
 
-[ERR:CP0316] sv_bus_mux_demux_demux.sv:9: Undefined package "package_str".
+[ERR:CP0316] sv_bus_mux_demux_demux.sv:9:8: Undefined package "package_str".
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -5662,11 +5662,11 @@ Processing: -cd t_sv_bus_mux_demux +incdir+. -parse -noelab -nocache -nobuiltin 
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd t_sv_bus_mux_demux +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns sv_bus_mux_demux_mux.sv -l sv_bus_mux_demux_mux.sv.log
-[ERR:CP0316] sv_bus_mux_demux_mux.sv:8: Undefined package "package_bus".
+[ERR:CP0316] sv_bus_mux_demux_mux.sv:8:8: Undefined package "package_bus".
 
-[ERR:CP0316] sv_bus_mux_demux_mux.sv:9: Undefined package "package_str".
+[ERR:CP0316] sv_bus_mux_demux_mux.sv:9:8: Undefined package "package_str".
 
-[ERR:CP0316] sv_bus_mux_demux_mux.sv:10: Undefined package "package_uni".
+[ERR:CP0316] sv_bus_mux_demux_mux.sv:10:8: Undefined package "package_uni".
 
 [  FATAL] : 0
 [ SYNTAX] : 0
