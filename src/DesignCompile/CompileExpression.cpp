@@ -3004,7 +3004,7 @@ UHDM::any *CompileHelper::compileExpression(
       std::string_view lineText =
           StringUtils::getLineInString(fileContent, fC->Line(the_node));
       Location loc(symbols->registerSymbol(fC->getFileName(the_node).string()),
-                   fC->Line(the_node), 0,
+                   fC->Line(the_node), fC->Column(the_node),
                    symbols->registerSymbol(
                        StrCat("<", fC->printObject(the_node), "> ", lineText)));
       Error err(ErrorDefinition::UHDM_UNSUPPORTED_EXPR, loc);

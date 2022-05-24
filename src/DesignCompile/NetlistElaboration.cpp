@@ -1968,7 +1968,8 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         m_compileDesign->getCompiler()->getErrorContainer();
     SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
     Location loc(symbols->registerSymbol(fC->getFileName().string()),
-                 fC->Line(id), 0, symbols->registerSymbol(signame));
+                 fC->Line(id), fC->Column(id),
+                 symbols->registerSymbol(signame));
     Error err(ErrorDefinition::UHDM_UNSUPPORTED_SIGNAL, loc);
     errors->addError(err);
   }

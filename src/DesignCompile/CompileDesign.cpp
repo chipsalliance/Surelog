@@ -83,7 +83,7 @@ bool CompileDesign::compile() {
                         symbols->registerSymbol(msg));
           if (object2) {
             Location loc2(symbols->registerSymbol(object2->VpiFile().string()),
-                          object2->VpiLineNo(), object2->VpiColumnNo(), 0);
+                          object2->VpiLineNo(), object2->VpiColumnNo());
             Error err((ErrorDefinition::ErrorType)errType, loc1, loc2);
             errors->addError(err);
           } else {
@@ -231,9 +231,11 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
                (oldParentFile == nullptr && newParentFile == nullptr)) &&
               ((oldFileName != newFileName) || (oldLine != newLine))) {
             Location loc1(symbols->registerSymbol(oldFileName.string()),
-                          oldLine, 0, symbols->registerSymbol(pack.first));
+                          oldLine, oldFC->Column(oldNodeId),
+                          symbols->registerSymbol(pack.first));
             Location loc2(symbols->registerSymbol(newFileName.string()),
-                          newLine, 0, symbols->registerSymbol(pack.first));
+                          newLine, newFC->Column(newNodeId),
+                          symbols->registerSymbol(pack.first));
             Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_PACKAGE, loc1,
                       loc2);
             errors->addError(err);

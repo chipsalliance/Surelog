@@ -97,7 +97,7 @@ void SVLibShapeListener::enterInclude_statement(
 
   std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
   if (!FileUtils::fileExists(filePath)) {
-    Location loc(m_parser->getFileId(), lineCol.first, 0,
+    Location loc(m_parser->getFileId(), lineCol.first, lineCol.second,
                  m_parser->getSymbolTable()->registerSymbol(filePath.string()));
     Error err(ErrorDefinition::PP_CANNOT_OPEN_INCLUDE_FILE, loc);
     m_parser->getErrorContainer()->addError(err);

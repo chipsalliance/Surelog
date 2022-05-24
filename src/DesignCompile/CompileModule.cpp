@@ -58,7 +58,7 @@ bool CompileModule::compile() {
   const FileContent* const fC = m_module->m_fileContents[0];
   NodeId nodeId = m_module->m_nodeIds[0];
   Location loc(m_symbols->registerSymbol(fC->getFileName(nodeId).string()),
-               fC->Line(nodeId), 0,
+               fC->Line(nodeId), fC->Column(nodeId),
                m_symbols->registerSymbol(m_module->getName()));
   VObjectType moduleType = fC->Type(nodeId);
   ErrorDefinition::ErrorType errType = ErrorDefinition::COMP_COMPILE_MODULE;
@@ -988,7 +988,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
           for (auto nodeId : items) {
             Location loc(
                 m_symbols->registerSymbol(fC->getFileName(nodeId).string()),
-                fC->Line(nodeId), 0, 0);
+                fC->Line(nodeId), fC->Column(nodeId));
             Error err(ErrorDefinition::COMP_NO_MODPORT_IN_GENERATE, loc);
             m_errors->addError(err);
           }
@@ -1041,7 +1041,8 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
                       Location loc(
                           m_symbols->registerSymbol(
                               fC->getFileName(simple_port_name).string()),
-                          fC->Line(simple_port_name), 0,
+                          fC->Line(simple_port_name),
+                          fC->Column(simple_port_name),
                           m_symbols->registerSymbol(
                               fC->SymName(simple_port_name)));
                       Error err(ErrorDefinition::COMP_MODPORT_UNDEFINED_PORT,
@@ -1071,7 +1072,8 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
                   Location loc(
                       m_symbols->registerSymbol(
                           fC->getFileName(clocking_block_name).string()),
-                      fC->Line(clocking_block_name), 0, clocking_block_symbol);
+                      fC->Line(clocking_block_name),
+                      fC->Column(clocking_block_name), clocking_block_symbol);
                   Error err(
                       ErrorDefinition::COMP_MODPORT_UNDEFINED_CLOCKING_BLOCK,
                       loc);
@@ -1264,7 +1266,6 @@ bool CompileModule::checkModule_() {
   }
   if (countMissingType) {
     Location countLoc(
-        0, 0, 0,
         m_symbols->registerSymbol(std::to_string(countMissingType - 1)));
     if (countMissingType - 1 > 0) {
       Error err(ErrorDefinition::COMP_PORT_MISSING_TYPE, *missingTypeLoc,
@@ -1278,7 +1279,6 @@ bool CompileModule::checkModule_() {
   }
   if (countMissingDirection) {
     Location countLoc(
-        0, 0, 0,
         m_symbols->registerSymbol(std::to_string(countMissingDirection - 1)));
     if (countMissingDirection - 1 > 0) {
       Error err(ErrorDefinition::COMP_PORT_MISSING_DIRECTION,
@@ -1319,7 +1319,6 @@ bool CompileModule::checkInterface_() {
   }
   if (countMissingType) {
     Location countLoc(
-        0, 0, 0,
         m_symbols->registerSymbol(std::to_string(countMissingType - 1)));
     if (countMissingType - 1 > 0) {
       Error err(ErrorDefinition::COMP_PORT_MISSING_TYPE, *missingTypeLoc,

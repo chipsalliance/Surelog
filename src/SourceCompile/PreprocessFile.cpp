@@ -165,7 +165,7 @@ void PreprocessFile::DescriptiveErrorListener::syntaxError(
                  m_pp->getMacroInfo()->m_startLine + line - 1,
                  charPositionInLine, msgId);
     Location extraLoc(m_pp->getIncluderFileId(m_pp->getIncluderLine()),
-                      m_pp->getIncluderLine(), 0, 0);
+                      m_pp->getIncluderLine(), 0);
     Error err(ErrorDefinition::PP_MACRO_SYNTAX_ERROR, loc, extraLoc);
     m_pp->addError(err);
   } else {
@@ -186,7 +186,7 @@ void PreprocessFile::DescriptiveErrorListener::syntaxError(
       }
     }
 
-    Location loc2(0, 0, 0, m_pp->registerSymbol(lineText));
+    Location loc2(m_pp->registerSymbol(lineText));
 
     Location loc(m_pp->getFileId(line), line, charPositionInLine, msgId);
     Error err(ErrorDefinition::PP_SYNTAX_ERROR, loc, loc2);
@@ -408,7 +408,7 @@ bool PreprocessFile::preprocess() {
           addError(err);
         } else {
           Location loc(m_fileId, lineNonAscii, 0, registerSymbol(symbol));
-          Location includeFile(m_includer->m_fileId, m_includerLine, 0, 0);
+          Location includeFile(m_includer->m_fileId, m_includerLine, 0);
           Error err(ErrorDefinition::PP_NON_ASCII_CONTENT, loc, includeFile);
           addError(err);
         }

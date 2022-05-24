@@ -404,7 +404,6 @@ void AnalyzeFile::analyze() {
     m_splitFiles.clear();
     m_lineOffsets.clear();
     Location loc(
-        0, 0, 0,
         m_clp->mutableSymbolTable()->registerSymbol(m_fileName.string()));
     Error err(ErrorDefinition::PA_CANNOT_SPLIT_FILE, loc);
     m_clp->getErrorContainer()->addError(err);
@@ -558,9 +557,8 @@ void AnalyzeFile::analyze() {
           if (chunkNb > 1000) {
             m_splitFiles.clear();
             m_lineOffsets.clear();
-            Location loc(0, 0, 0,
-                         m_clp->mutableSymbolTable()->registerSymbol(
-                             m_fileName.string()));
+            Location loc(m_clp->mutableSymbolTable()->registerSymbol(
+                m_fileName.string()));
             Error err(ErrorDefinition::PA_CANNOT_SPLIT_FILE, loc);
             m_clp->getErrorContainer()->addError(err);
             m_clp->getErrorContainer()->printMessages();
@@ -597,7 +595,6 @@ void AnalyzeFile::analyze() {
           m_splitFiles.clear();
           m_lineOffsets.clear();
           Location loc(
-              0, 0, 0,
               m_clp->mutableSymbolTable()->registerSymbol(m_fileName.string()));
           Error err(ErrorDefinition::PA_CANNOT_SPLIT_FILE, loc);
           m_clp->getErrorContainer()->addError(err);
@@ -630,7 +627,6 @@ void AnalyzeFile::analyze() {
           m_splitFiles.clear();
           m_lineOffsets.clear();
           Location loc(
-              0, 0, 0,
               m_clp->mutableSymbolTable()->registerSymbol(m_fileName.string()));
           Error err(ErrorDefinition::PA_CANNOT_SPLIT_FILE, loc);
           m_clp->getErrorContainer()->addError(err);
@@ -703,7 +699,6 @@ void AnalyzeFile::analyze() {
         m_splitFiles.clear();
         m_lineOffsets.clear();
         Location loc(
-            0, 0, 0,
             m_clp->mutableSymbolTable()->registerSymbol(m_fileName.string()));
         Error err(ErrorDefinition::PA_CANNOT_SPLIT_FILE, loc);
         m_clp->getErrorContainer()->addError(err);

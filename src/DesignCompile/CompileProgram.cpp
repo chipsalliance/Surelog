@@ -51,7 +51,7 @@ bool CompileProgram::compile() {
   NodeId nodeId = m_program->m_nodeIds[0];
 
   Location loc(m_symbols->registerSymbol(fC->getFileName(nodeId).string()),
-               fC->Line(nodeId), 0,
+               fC->Line(nodeId), fC->Column(nodeId),
                m_symbols->registerSymbol(m_program->getName()));
 
   Error err1(ErrorDefinition::COMP_COMPILE_PROGRAM, loc);

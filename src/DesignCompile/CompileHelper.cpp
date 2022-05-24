@@ -299,7 +299,8 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
     }
   } else {
     Location loc(m_symbols->registerSymbol(fC->getFileName(id).string()),
-                 fC->Line(id), 0, m_symbols->registerSymbol(pack_name));
+                 fC->Line(id), fC->Column(id),
+                 m_symbols->registerSymbol(pack_name));
     Error err(ErrorDefinition::COMP_UNDEFINED_PACKAGE, loc);
     m_errors->addError(err);
   }
@@ -575,12 +576,14 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
     if (prevDef && !prevDef->isForwardDeclaration()) {
       Location loc1(
           m_symbols->registerSymbol(fC->getFileName(data_type).string()),
-          fC->Line(data_type), 0, m_symbols->registerSymbol(name));
+          fC->Line(data_type), fC->Column(data_type),
+          m_symbols->registerSymbol(name));
       const FileContent* prevFile = prevDef->getFileContent();
       NodeId prevNode = prevDef->getNodeId();
       Location loc2(
           m_symbols->registerSymbol(prevFile->getFileName(prevNode).string()),
-          prevFile->Line(prevNode), 0, m_symbols->registerSymbol(name));
+          prevFile->Line(prevNode), prevFile->Column(prevNode),
+          m_symbols->registerSymbol(name));
       Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_TYPEDEF, loc1, loc2);
       m_errors->addError(err);
     }
@@ -1263,12 +1266,13 @@ bool CompileHelper::compileScopeVariable(Scope* parent, const FileContent* fC,
           if (previous) {
             Location loc1(
                 m_symbols->registerSymbol(fC->getFileName(var).string()),
-                fC->Line(var), 0, m_symbols->registerSymbol(varName));
+                fC->Line(var), fC->Column(var),
+                m_symbols->registerSymbol(varName));
             const FileContent* prevFile = previous->getFileContent();
             NodeId prevNode = previous->getNodeId();
             Location loc2(m_symbols->registerSymbol(
                               prevFile->getFileName(prevNode).string()),
-                          prevFile->Line(prevNode), 0,
+                          prevFile->Line(prevNode), prevFile->Column(prevNode),
                           m_symbols->registerSymbol(varName));
             Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_VARIABLE, loc1,
                       loc2);

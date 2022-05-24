@@ -330,7 +330,7 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign,
 
         if (lineText.empty()) {
           Location loc(symbols->registerSymbol(fC->getFileName().string()),
-                       line, 0, 0);
+                       line, 1);
           Error err(ErrorDefinition::UHDM_WRONG_COVERAGE_LINE, loc);
           errors->addError(err);
         }
