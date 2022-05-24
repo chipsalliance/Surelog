@@ -676,15 +676,15 @@ n<> u<664> t<Module_declaration> p<665> c<335> l<60:1> el<115:10>
 n<> u<665> t<Description> p<666> c<664> l<60:1> el<115:10>
 n<> u<666> t<Source_text> p<667> c<332> l<1:1> el<115:10>
 n<> u<667> t<Top_level_rule> l<1:1> el<118:1>
-[WRN:PA0205] top.v:1: No timescale set for "test1".
+[WRN:PA0205] top.v:1:1: No timescale set for "test1".
 
-[WRN:PA0205] top.v:60: No timescale set for "test2".
+[WRN:PA0205] top.v:60:1: No timescale set for "test2".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] top.v:1: Compile module "work@test1".
+[INF:CP0303] top.v:1:1: Compile module "work@test1".
 
-[INF:CP0303] top.v:60: Compile module "work@test2".
+[INF:CP0303] top.v:60:1: Compile module "work@test2".
 
 LIB:  work
 FILE: builtin.sv
@@ -945,23 +945,23 @@ n<> u<248> t<Top_level_rule> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] top.v:29: Compile generate block "work@test1.genblk1".
+[INF:CP0335] top.v:29:8: Compile generate block "work@test1.genblk1".
 
-[INF:CP0335] top.v:29: Compile generate block "work@test1.genblk1.genblk1".
+[INF:CP0335] top.v:29:8: Compile generate block "work@test1.genblk1.genblk1".
 
-[INF:CP0335] top.v:30: Compile generate block "work@test1.genblk1.genblk1.u1".
+[INF:CP0335] top.v:30:5: Compile generate block "work@test1.genblk1.genblk1.u1".
 
-[INF:CP0335] top.v:43: Compile generate block "work@test1.genblk1.genblk1.genblk2".
+[INF:CP0335] top.v:43:5: Compile generate block "work@test1.genblk1.genblk1.genblk2".
 
-[INF:CP0335] top.v:49: Compile generate block "work@test1.genblk1.genblk1.n5".
+[INF:CP0335] top.v:49:5: Compile generate block "work@test1.genblk1.genblk1.n5".
 
-[INF:CP0335] top.v:89: Compile generate block "work@test2.pp2".
+[INF:CP0335] top.v:89:5: Compile generate block "work@test2.pp2".
 
-[INF:CP0335] top.v:89: Compile generate block "work@test2.pp2.u1".
+[INF:CP0335] top.v:89:5: Compile generate block "work@test2.pp2.u1".
 
-[INF:CP0335] top.v:102: Compile generate block "work@test2.pp2.genblk1".
+[INF:CP0335] top.v:102:5: Compile generate block "work@test2.pp2.genblk1".
 
-[INF:CP0335] top.v:108: Compile generate block "work@test2.pp2.n5".
+[INF:CP0335] top.v:108:5: Compile generate block "work@test2.pp2.n5".
 
 Instance tree:
 [TOP] work@test1 work@test1
@@ -983,9 +983,9 @@ Instance tree:
 [GAT] work@xnor work@test2.pp2.genblk1.g4
 [GAT] work@xnor work@test2.pp2.n5.g5
 
-[NTE:EL0503] top.v:1: Top level module "work@test1".
+[NTE:EL0503] top.v:1:1: Top level module "work@test1".
 
-[NTE:EL0503] top.v:60: Top level module "work@test2".
+[NTE:EL0503] top.v:60:1: Top level module "work@test2".
 
 [NTE:EL0504] Multiple top level modules in design.
 
@@ -997,41 +997,41 @@ Instance tree:
 
 [NTE:EL0511] Nb leaf instances: 8.
 
-[NTE:EL0523] top.v:1: Instance "work@test1".
+[NTE:EL0523] top.v:1:1: Instance "work@test1".
 
-[NTE:EL0523] top.v:60: Instance "work@test2".
+[NTE:EL0523] top.v:60:1: Instance "work@test2".
 
-[NTE:EL0523] top.v:11: Instance "work@test1.sg1".
+[NTE:EL0523] top.v:11:3: Instance "work@test1.sg1".
 
-[NTE:EL0522] top.v:29: Scope "work@test1.genblk1".
+[NTE:EL0522] top.v:29:8: Scope "work@test1.genblk1".
 
-[NTE:EL0523] top.v:70: Instance "work@test2.sg1".
+[NTE:EL0523] top.v:70:3: Instance "work@test2.sg1".
 
-[NTE:EL0522] top.v:89: Scope "work@test2.pp2".
+[NTE:EL0522] top.v:89:5: Scope "work@test2.pp2".
 
-[NTE:EL0522] top.v:30: Scope "work@test1.genblk1.u1".
+[NTE:EL0522] top.v:30:5: Scope "work@test1.genblk1.u1".
 
-[NTE:EL0522] top.v:43: Scope "work@test1.genblk1.genblk1.genblk2".
+[NTE:EL0522] top.v:43:5: Scope "work@test1.genblk1.genblk1.genblk2".
 
-[NTE:EL0522] top.v:49: Scope "work@test1.genblk1.n5".
+[NTE:EL0522] top.v:49:5: Scope "work@test1.genblk1.n5".
 
-[NTE:EL0522] top.v:89: Scope "work@test2.pp2.u1".
+[NTE:EL0522] top.v:89:5: Scope "work@test2.pp2.u1".
 
-[NTE:EL0522] top.v:102: Scope "work@test2.pp2.genblk1".
+[NTE:EL0522] top.v:102:5: Scope "work@test2.pp2.genblk1".
 
-[NTE:EL0522] top.v:108: Scope "work@test2.pp2.n5".
+[NTE:EL0522] top.v:108:5: Scope "work@test2.pp2.n5".
 
-[NTE:EL0523] top.v:39: Instance "work@test1.genblk1.u1.g3".
+[NTE:EL0523] top.v:39:11: Instance "work@test1.genblk1.u1.g3".
 
-[NTE:EL0523] top.v:45: Instance "work@test1.genblk1.genblk1.genblk2.g4".
+[NTE:EL0523] top.v:45:9: Instance "work@test1.genblk1.genblk1.genblk2.g4".
 
-[NTE:EL0523] top.v:51: Instance "work@test1.genblk1.n5.g5".
+[NTE:EL0523] top.v:51:9: Instance "work@test1.genblk1.n5.g5".
 
-[NTE:EL0523] top.v:98: Instance "work@test2.pp2.u1.g3".
+[NTE:EL0523] top.v:98:11: Instance "work@test2.pp2.u1.g3".
 
-[NTE:EL0523] top.v:104: Instance "work@test2.pp2.genblk1.g4".
+[NTE:EL0523] top.v:104:9: Instance "work@test2.pp2.genblk1.g4".
 
-[NTE:EL0523] top.v:110: Instance "work@test2.pp2.n5.g5".
+[NTE:EL0523] top.v:110:9: Instance "work@test2.pp2.n5.g5".
 
 [INF:UH0706] Creating UHDM Model...
 

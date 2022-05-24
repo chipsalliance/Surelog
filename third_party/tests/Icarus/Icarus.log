@@ -1634,11 +1634,11 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns param_test3.v -l param_test3.v.log
-[ERR:EL0530] param_test3.v:25: Out of range parameter index: "0".
+[ERR:EL0530] param_test3.v:25:5: Out of range parameter index: "0".
 
-[ERR:EL0530] param_test3.v:25: Out of range parameter index: "1".
+[ERR:EL0530] param_test3.v:25:7: Out of range parameter index: "1".
 
-[ERR:EL0530] param_test3.v:25: Out of range parameter index: "2".
+[ERR:EL0530] param_test3.v:25:9: Out of range parameter index: "2".
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -2181,8 +2181,8 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns scope3.v -l scope3.v.log
-[ERR:EL0507] scope3.v:29: Instantiation loop for "work@a",
-             scope3.v:13: previous instantiation.
+[ERR:EL0507] scope3.v:29:5: Instantiation loop for "work@a",
+             scope3.v:13:5: previous instantiation.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -2328,7 +2328,7 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns contrib8.3.v -l contrib8.3.v.log
-[WRN:EL0500] contrib8.3.v:22: Cannot find a module definition for "work@test::MUX_REG_8x8".
+[WRN:EL0500] contrib8.3.v:22:1: Cannot find a module definition for "work@test::MUX_REG_8x8".
 
 [WRN:EL0512] Nb undefined modules: 1.
 
@@ -3342,7 +3342,7 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns pr498.v -l pr498.v.log
-[WRN:EL0515] pr498.v:23: Defparam does not match any design object: "work@main.foo".
+[WRN:EL0515] pr498.v:23:13: Defparam does not match any design object: "work@main.foo".
 
 [  FATAL] : 0
 [ SYNTAX] : 0
