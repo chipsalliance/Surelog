@@ -115,11 +115,11 @@ def _rmdir(dirpath, retries=10):
   return not os.path.exists(dirpath)
 
 
-def _remove_dirs(dirpath, patterns):
+def _rmdir_recursively(dirpath, patterns):
   for pattern in patterns:
     for path in Path(dirpath).rglob(pattern):
       if os.isdir(path):
-        shutil.rmtree(path)
+        _rmdir(path)
 
 
 def _scan(dirpaths, filters):
@@ -508,6 +508,7 @@ def _run_one(params):
   roundtrip_output_dirpath = os.path.join(output_dirpath, 'roundtrip')
   roundtrip_log_filepath = os.path.join(roundtrip_output_dirpath, 'roundtrip.log')
 
+  _rmdir_recursively(dirpath, ['slpp_all', 'slpp_unit'])
   _rmdir(output_dirpath)
   _mkdir(output_dirpath)
   _mkdir(roundtrip_output_dirpath)
