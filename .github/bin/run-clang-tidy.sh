@@ -59,6 +59,14 @@ Checks: >
     readability-static-definition-in-anonymous-namespace,
     readability-string-compare,
     readability-use-anyofallof,
+
+CheckOptions:
+    - key: performance-unnecessary-value-param.AllowedTypes
+      value: ::SURELOG::SymbolId;SURELOG::SymbolId;SymbolId;::SURELOG::NodeId;SURELOG::NodeId;NodeId
+    - key: performance-for-range-copy.AllowedTypes
+      value: ::SURELOG::SymbolId;SURELOG::SymbolId;SymbolId;::SURELOG::NodeId;SURELOG::NodeId;NodeId
+    - key: performance-unnecessary-copy-initialization.AllowedTypes
+      value: ::SURELOG::SymbolId;SURELOG::SymbolId;SymbolId;::SURELOG::NodeId;SURELOG::NodeId;NodeId
 EOF
     CLANG_TIDY_OPTS="--config-file=${LOCAL_TMP}/clang-tidy"
 fi

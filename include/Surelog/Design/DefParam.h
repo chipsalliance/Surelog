@@ -42,8 +42,7 @@ class DefParam final {
         m_value(nullptr),
         m_used(false),
         m_parent(parent),
-        m_fileContent(nullptr),
-        m_nodeId(0) {}
+        m_fileContent(nullptr) {}
 
   DefParam(const DefParam& orig) = delete;
 

@@ -39,7 +39,7 @@ Program::Program(std::string_view name, Library* library, FileContent* fC,
 unsigned int Program::getSize() const {
   NodeId end = m_nodeIds[0];
   NodeId begin = m_fileContents[0]->Child(end);
-  unsigned int size = end - begin;
+  unsigned int size = (RawNodeId)(end - begin);
   return size;
 }
 
@@ -48,8 +48,7 @@ VObjectType Program::getType() const {
 }
 
 ClassDefinition* Program::getClassDefinition(const std::string& name) {
-  ClassNameClassDefinitionMultiMap::iterator itr =
-      m_classDefinitions.find(name);
+  auto itr = m_classDefinitions.find(name);
   if (itr == m_classDefinitions.end()) {
     return nullptr;
   } else {

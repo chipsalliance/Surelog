@@ -37,7 +37,7 @@ class CompilationUnit {
  public:
   CompilationUnit(bool fileunit);
   CompilationUnit(const CompilationUnit& orig) = delete;
-  virtual ~CompilationUnit();
+  virtual ~CompilationUnit() = default;
 
   void setInDesignElement() { m_inDesignElement = true; }
   void unsetInDesignElement() { m_inDesignElement = false; }

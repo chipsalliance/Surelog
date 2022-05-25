@@ -54,7 +54,7 @@ const char* const PreprocessFile::MacroNotDefined = "SURELOG_MACRO_NOT_DEFINED";
 const char* const PreprocessFile::PP__Line__Marking = "SURELOG__LINE__MARKING";
 const char* const PreprocessFile::PP__File__Marking = "SURELOG__FILE__MARKING";
 IncludeFileInfo PreprocessFile::s_badIncludeFileInfo(
-    IncludeFileInfo::Context::NONE, 0, 0, 0, 0, 0, 0,
+    IncludeFileInfo::Context::NONE, 0, BadSymbolId, 0, 0, 0, 0,
     IncludeFileInfo::Action::NONE);
 
 void PreprocessFile::SpecialInstructions::print() {
@@ -225,7 +225,7 @@ PreprocessFile::PreprocessFile(SymbolId fileId, CompileSourceFile* csf,
       m_pauseAppend(false),
       m_usingCachedVersion(false),
       m_embeddedMacroCallLine(0),
-      m_embeddedMacroCallFile(0),
+      m_embeddedMacroCallFile(BadSymbolId),
       m_fileContent(nullptr),
       m_verilogVersion(VerilogVersion::NoVersion) {
   setDebug(m_compileSourceFile->m_commandLineParser->getDebugLevel());
@@ -417,7 +417,7 @@ bool PreprocessFile::preprocess() {
       try {
         m_antlrParserHandler->m_inputStream = new ANTLRInputStream(text);
       } catch (...) {
-        Location loc(0);
+        Location loc(BadSymbolId);
         if (m_includer == nullptr) {
           Location file(m_fileId);
           loc = file;
@@ -712,8 +712,8 @@ std::string PreprocessFile::evaluateMacroInstance(
       SpecialInstructions::Mute, SpecialInstructions::Mark,
       SpecialInstructions::Filter, checkMacroLoop, asisUndefMacro);
   PreprocessFile* pp = new PreprocessFile(
-      0, /*macroArgs,*/ nullptr,
-      0 /*m_includer ? m_includer : callingFile, callingLine*/,
+      BadSymbolId, /* macroArgs */ nullptr,
+      0 /* m_includer ? m_includer : callingFile, callingLine */,
       m_compileSourceFile, instructions,
       m_includer ? m_includer->m_compilationUnit
                  : callingFile->m_compilationUnit,
@@ -755,7 +755,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
     bool loop = loopChecker.addEdge(callingFile->m_fileId, getId(name));
     if (loop) {
       std::vector<SymbolId> loop = loopChecker.reportLoop();
-      for (auto id : loop) {
+      for (const auto& id : loop) {
         MacroInfo* macroInfo2 = m_compilationUnit->getMacroInfo(getSymbol(id));
         if (macroInfo2) {
           Location loc(macroInfo2->m_file, macroInfo2->m_startLine,
@@ -809,7 +809,8 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
     } else if ((!Waiver::macroArgCheck(name)) && !formal_args.empty()) {
       Location loc(callingFile->getFileId(callingLine),
                    callingFile->getLineNb(callingLine), 0, getId(name));
-      Location arg(0, 0, 0, registerSymbol(std::to_string(actual_args.size())));
+      Location arg(BadSymbolId, 0, 0,
+                   registerSymbol(std::to_string(actual_args.size())));
       Location def(macroInfo->m_file, macroInfo->m_startLine,
                    macroInfo->m_startColumn,
                    registerSymbol(std::to_string(formal_args.size())));
@@ -820,7 +821,8 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
     } else if ((!keyword) && formal_args.empty() && !actual_args.empty()) {
       Location loc(callingFile->getFileId(callingLine),
                    callingFile->getLineNb(callingLine), 0, getId(name));
-      Location arg(0, 0, 0, registerSymbol(std::to_string(actual_args.size())));
+      Location arg(BadSymbolId, 0, 0,
+                   registerSymbol(std::to_string(actual_args.size())));
       Location def(macroInfo->m_file, macroInfo->m_startLine,
                    macroInfo->m_startColumn,
                    registerSymbol(std::to_string(formal_args.size())));
@@ -899,7 +901,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
                          callingFile->getLineNb(callingLine), 0, getId(name));
             SymbolId id =
                 registerSymbol(std::to_string(i + 1) + " (" + formal + ")");
-            Location arg(0, 0, 0, id);
+            Location arg(BadSymbolId, 0, 0, id);
             Location def(macroInfo->m_file, macroInfo->m_startLine,
                          macroInfo->m_startColumn, id);
             std::vector<Location> locs = {arg, def};
@@ -1101,9 +1103,9 @@ std::string PreprocessFile::getMacro(
   std::string result;
   bool found = false;
   // Try CommandLine overrides
-  const std::map<SymbolId, std::string>& defines =
+  const auto& defines =
       m_compileSourceFile->m_commandLineParser->getDefineList();
-  std::map<SymbolId, std::string>::const_iterator itMap = defines.find(macroId);
+  auto itMap = defines.find(macroId);
   if (itMap != defines.end()) {
     result = (*itMap).second;
     found = true;

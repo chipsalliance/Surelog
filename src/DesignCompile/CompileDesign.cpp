@@ -98,7 +98,7 @@ bool CompileDesign::compile() {
       };
   m_serializer.SetErrorHandler(errHandler);
 
-  Location loc(0);
+  Location loc(BadSymbolId);
   Error err1(ErrorDefinition::COMP_COMPILE, loc);
   ErrorContainer* errors = new ErrorContainer(getCompiler()->getSymbolTable());
   errors->registerCmdLine(getCompiler()->getCommandLineParser());
@@ -265,7 +265,7 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
 }
 
 bool CompileDesign::elaborate() {
-  Location loc(0);
+  Location loc(BadSymbolId);
   Error err2(ErrorDefinition::ELAB_ELABORATING_DESIGN, loc);
   ErrorContainer* errors = new ErrorContainer(getCompiler()->getSymbolTable());
   errors->registerCmdLine(getCompiler()->getCommandLineParser());

@@ -28,8 +28,8 @@
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
-#include <string>
 #include <map>
+#include <string>
 
 namespace antlr4 {
 class CommonTokenStream;
@@ -52,11 +52,7 @@ class CommonListenerHelper {
 
   virtual SymbolId registerSymbol(std::string_view symbol) = 0;
 
-  int registerObject(VObject& object);
-
-  int LastObjIndex();
-
-  int ObjectIndexFromContext(const antlr4::tree::ParseTree* ctx) const;
+  NodeId NodeIdFromContext(const antlr4::tree::ParseTree* ctx) const;
 
   const VObject& Object(NodeId index);
 
@@ -76,9 +72,10 @@ class CommonListenerHelper {
 
   int addVObject(antlr4::ParserRuleContext* ctx, VObjectType objtype);
 
-  void addParentChildRelations(int indexParent, antlr4::ParserRuleContext* ctx);
+  void addParentChildRelations(NodeId indexParent,
+                               antlr4::ParserRuleContext* ctx);
 
-  NodeId getObjectId(antlr4::ParserRuleContext* ctx);
+  NodeId getObjectId(antlr4::ParserRuleContext* ctx) const;
 
   FileContent* getFileContent() { return m_fileContent; }
 
@@ -103,8 +100,7 @@ class CommonListenerHelper {
   FileContent* m_fileContent;
   antlr4::CommonTokenStream* const m_tokens;
 
-  typedef std::map<const antlr4::tree::ParseTree*, NodeId>
-      ContextToObjectMap;
+  typedef std::map<const antlr4::tree::ParseTree*, NodeId> ContextToObjectMap;
   ContextToObjectMap m_contextToObjectMap;
 };
 

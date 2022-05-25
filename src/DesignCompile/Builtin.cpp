@@ -220,7 +220,7 @@ void Builtin::addBuiltinTypes() {
     const std::string& functionName = function[3];
     Package* package = m_design->getPackage(packageName);
     if (package == nullptr) {
-      package = new Package(packageName, nullptr, nullptr, 0);
+      package = new Package(packageName, nullptr, nullptr, InvalidNodeId);
       UHDM::package* pack = s.MakePackage();
       pack->VpiName(package->getName());
       package->setUhdmInstance(pack);
@@ -229,17 +229,18 @@ void Builtin::addBuiltinTypes() {
     const std::string fullClassName = packageName + "::" + className;
     ClassDefinition* classDef = m_design->getClassDefinition(fullClassName);
     if (classDef == nullptr) {
-      classDef = new ClassDefinition(className, nullptr, package, nullptr, 0,
-                                     nullptr, s.MakeClass_defn());
+      classDef =
+          new ClassDefinition(className, nullptr, package, nullptr,
+                              InvalidNodeId, nullptr, s.MakeClass_defn());
       m_design->addClassDefinition(fullClassName, classDef);
       package->addClassDefinition(className, classDef);
     }
 
-    DataType* dtype =
-        new DataType(nullptr, 0, returnTypeName, convert(returnTypeName));
+    DataType* dtype = new DataType(nullptr, InvalidNodeId, returnTypeName,
+                                   convert(returnTypeName));
     FunctionMethod* method =
-        new FunctionMethod(classDef, nullptr, 0, functionName, dtype, false,
-                           false, false, false, false, false);
+        new FunctionMethod(classDef, nullptr, InvalidNodeId, functionName,
+                           dtype, false, false, false, false, false, false);
     classDef->insertFunction(method);
   }
 }
@@ -347,10 +348,10 @@ void Builtin::addBuiltinClasses() {
         )",
       m_compiler->getCompiler(), "builtin.sv");
 
-  NodeId root = fC1->getRootNode();
-  std::vector<NodeId> classes = fC1->sl_collect_all(root, slClass_declaration);
-  m_compiler->getCompiler()->getDesign()->addFileContent(fC1->getFileId(0),
-                                                         fC1);
+  std::vector<NodeId> classes =
+      fC1->sl_collect_all(fC1->getRootNode(), slClass_declaration);
+  m_compiler->getCompiler()->getDesign()->addFileContent(
+      fC1->getFileId(NodeId(0)), fC1);
   for (auto classId : classes) {
     NodeId stId = fC1->sl_collect(classId, VObjectType::slStringConst,
                                   VObjectType::slAttr_spec);

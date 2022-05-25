@@ -61,7 +61,7 @@ class Library final {
  private:
   std::string m_name;
   std::vector<SymbolId> m_fileIds;
-  std::set<SymbolId> m_fileIdsSet;
+  SymbolIdSet m_fileIdsSet;
   std::map<std::string, ModuleDefinition*> m_modules;
   SymbolTable* const m_symbols;
 };

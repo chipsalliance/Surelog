@@ -692,7 +692,7 @@ void writeClass(ClassDefinition* classDef, VectorOfclass_defn* dest_classes,
     c->Task_funcs(classDef->getTask_funcs());
     if (c->Task_funcs()) {
       for (auto tf : *c->Task_funcs()) {
-        if (tf->VpiParent() == 0) tf->VpiParent(c);
+        if (tf->VpiParent() == nullptr) tf->VpiParent(c);
       }
     }
     // Parameters
@@ -1143,8 +1143,8 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module* m, Serializer& s,
     }
     for (auto tf : *from) {
       target->push_back(tf);
-      if (tf->VpiParent() == 0) tf->VpiParent(m);
-      if (tf->Instance() == 0) tf->Instance(m);
+      if (tf->VpiParent() == nullptr) tf->VpiParent(m);
+      if (tf->Instance() == nullptr) tf->Instance(m);
     }
   }
 
@@ -1302,8 +1302,8 @@ void UhdmWriter::writeInterface(ModuleDefinition* mod, interface* m,
   m->Task_funcs(mod->getTask_funcs());
   if (m->Task_funcs()) {
     for (auto tf : *m->Task_funcs()) {
-      if (tf->VpiParent() == 0) tf->VpiParent(m);
-      if (tf->Instance() == 0) tf->Instance(m);
+      if (tf->VpiParent() == nullptr) tf->VpiParent(m);
+      if (tf->Instance() == nullptr) tf->Instance(m);
     }
   }
 
@@ -1503,8 +1503,8 @@ bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
       }
       for (auto tf : *from) {
         target->push_back(tf);
-        if (tf->VpiParent() == 0) tf->VpiParent(m);
-        if (tf->Instance() == 0) tf->Instance(m);
+        if (tf->VpiParent() == nullptr) tf->VpiParent(m);
+        if (tf->Instance() == nullptr) tf->Instance(m);
       }
     }
   }
@@ -1636,7 +1636,7 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
     }
     for (auto tf : *def->getTask_funcs()) {
       target->push_back(tf);
-      if (tf->VpiParent() == 0) tf->VpiParent(m);
+      if (tf->VpiParent() == nullptr) tf->VpiParent(m);
     }
   }
 
@@ -2294,8 +2294,8 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
       }
       for (auto tf : *from) {
         target->push_back(tf);
-        if (tf->VpiParent() == 0) tf->VpiParent(m);
-        if (tf->Instance() == 0) tf->Instance(m);
+        if (tf->VpiParent() == nullptr) tf->VpiParent(m);
+        if (tf->Instance() == nullptr) tf->Instance(m);
       }
     }
   }
@@ -2466,8 +2466,8 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
       }
       for (auto tf : *from) {
         target->push_back(tf);
-        if (tf->VpiParent() == 0) tf->VpiParent(m);
-        if (tf->Instance() == 0) tf->Instance(m);
+        if (tf->VpiParent() == nullptr) tf->VpiParent(m);
+        if (tf->Instance() == nullptr) tf->Instance(m);
       }
     }
   }
@@ -2913,7 +2913,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
         }
         for (auto tf : *from) {
           target->push_back(tf);
-          if (tf->VpiParent() == 0) tf->VpiParent(d);
+          if (tf->VpiParent() == nullptr) tf->VpiParent(d);
         }
       }
 
@@ -2926,7 +2926,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
         }
         for (auto tf : *from) {
           target->push_back(tf);
-          if (tf->VpiParent() == 0) tf->VpiParent(d);
+          if (tf->VpiParent() == nullptr) tf->VpiParent(d);
         }
       }
 
@@ -2939,7 +2939,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
         }
         for (auto tf : *from) {
           target->push_back(tf);
-          if (tf->VpiParent() == 0) tf->VpiParent(d);
+          if (tf->VpiParent() == nullptr) tf->VpiParent(d);
         }
       }
     }

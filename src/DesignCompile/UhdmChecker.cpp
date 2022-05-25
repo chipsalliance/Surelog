@@ -58,7 +58,7 @@ using UHDM::uhdmunsupported_typespec;
 
 bool UhdmChecker::registerFile(const FileContent* fC,
                                std::set<std::string>& moduleNames) {
-  VObject current = fC->Object(fC->getSize() - 2);
+  const VObject& current = fC->Object(NodeId(fC->getSize() - 2));
   NodeId id = current.m_child;
   SymbolId fileId = fC->getSymbolId();
   if (!id) id = current.m_sibling;
@@ -74,13 +74,13 @@ bool UhdmChecker::registerFile(const FileContent* fC,
   }
   RangesMap& uhdmCover = (*fileItr).second;
   bool skipModule = false;
-  NodeId endModuleNode = 0;
+  NodeId endModuleNode;
   while (!stack.empty()) {
     id = stack.top();
     stack.pop();
-    current = fC->Object(id);
+    const VObject& current = fC->Object(id);
     bool skip = false;
-    VObjectType type = (VObjectType)current.m_type;
+    VObjectType type = current.m_type;
     if (type == VObjectType::slEnd) skip = true;
 
     // Skip macro expansion which resides in another file (header)
@@ -130,7 +130,7 @@ bool UhdmChecker::registerFile(const FileContent* fC,
         type == VObjectType::slGenerate_module_loop_statement ||
         type == VObjectType::slGenerate_interface_loop_statement ||
         ((type == VObjectType::slPackage_or_generate_item_declaration) &&
-         (current.m_child == 0)) ||  // SEMICOLUMN ALONE ;
+         !current.m_child) ||  // SEMICOLUMN ALONE ;
         type == VObjectType::slGenerate_block) {
       RangesMap::iterator lineItr = uhdmCover.find(current.m_line);
       if (lineItr != uhdmCover.end()) {

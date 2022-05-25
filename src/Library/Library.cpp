@@ -44,7 +44,7 @@ ModuleDefinition* Library::getModule(const std::string& name) const {
 std::string Library::report(SymbolTable* symbols) const {
   std::string report;
   report = "LIB: " + m_name + "\n";
-  for (auto id : m_fileIds) {
+  for (const auto& id : m_fileIds) {
     report += "     " + symbols->getSymbol(id) + "\n";
   }
   return report;

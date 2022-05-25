@@ -447,7 +447,10 @@ def _generate_VObjectTypes_h(filepath):
     '#ifndef SURELOG_VOBJECTTYPES_H',
     '#define SURELOG_VOBJECTTYPES_H',
     '#pragma once',
-    '#include <cstdint>'
+    '',
+    '#include <cstdint>',
+    '#include <set>',
+    '#include <unordered_set>',
     '',
     'enum /* class */ VObjectType : uint16_t {  // TODO: convert to enum class',
   ]
@@ -459,6 +462,9 @@ def _generate_VObjectTypes_h(filepath):
 
   content.extend([
     '};',
+    '',
+    'typedef std::set<VObjectType> VObjectTypeSet;',
+    'typedef std::unordered_set<VObjectType> VObjectTypeUnorderedSet;',
     '',
     '#endif // SURELOG_VOBJECTTYPES_H',
     ''

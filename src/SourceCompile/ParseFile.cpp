@@ -49,7 +49,7 @@ namespace fs = std::filesystem;
 ParseFile::ParseFile(SymbolId fileId, SymbolTable* symbolTable,
                      ErrorContainer* errors)
     : m_fileId(fileId),
-      m_ppFileId(0),
+      m_ppFileId(BadSymbolId),
       m_compileSourceFile(nullptr),
       m_compilationUnit(nullptr),
       m_library(nullptr),
@@ -110,8 +110,8 @@ ParseFile::ParseFile(CompileSourceFile* compileSourceFile, ParseFile* parent,
 
 ParseFile::ParseFile(const std::string& text, CompileSourceFile* csf,
                      CompilationUnit* compilationUnit, Library* library)
-    : m_fileId(0),
-      m_ppFileId(0),
+    : m_fileId(BadSymbolId),
+      m_ppFileId(BadSymbolId),
       m_compileSourceFile(csf),
       m_compilationUnit(compilationUnit),
       m_library(library),
@@ -147,7 +147,7 @@ SymbolId ParseFile::registerSymbol(std::string_view symbol) {
   return getCompileSourceFile()->getSymbolTable()->registerSymbol(symbol);
 }
 
-SymbolId ParseFile::getId(std::string_view symbol) {
+SymbolId ParseFile::getId(std::string_view symbol) const {
   return getCompileSourceFile()->getSymbolTable()->getId(symbol);
 }
 
@@ -223,7 +223,7 @@ SymbolId ParseFile::getFileId(unsigned int line) {
     return m_fileId;
   }
   PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
-  if (!pp) return 0;
+  if (!pp) return BadSymbolId;
   auto& infos = pp->getIncludeFileInfo();
   if (!infos.empty()) {
     if (!fileInfoCache.empty()) {
@@ -456,7 +456,7 @@ void ParseFile::profileParser() {
   */
 }
 
-std::string ParseFile::getProfileInfo() {
+std::string ParseFile::getProfileInfo() const {
   std::string profile;
   profile = m_profileInfo;
   for (const ParseFile* child : m_children) {

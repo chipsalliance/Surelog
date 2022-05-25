@@ -34,10 +34,7 @@ VObjectType ModuleDefinition::getType() const {
 
 ModuleDefinition::ModuleDefinition(const FileContent* fileContent,
                                    NodeId nodeId, const std::string_view name)
-    : DesignComponent(fileContent, nullptr),
-      m_name(name),
-      m_gen_block_id(0),
-      m_udpDefn(nullptr) {
+    : DesignComponent(fileContent, nullptr), m_name(name), m_udpDefn(nullptr) {
   if (fileContent) {
     addFileContent(fileContent, nodeId);
   }
@@ -50,8 +47,6 @@ bool ModuleDefinition::isInstance() const {
           (type == VObjectType::slUdp_declaration));
 }
 
-ModuleDefinition::~ModuleDefinition() {}
-
 ModuleDefinition* ModuleDefinitionFactory::newModuleDefinition(
     const FileContent* fileContent, NodeId nodeId, std::string_view name) {
   return new ModuleDefinition(fileContent, nodeId, name);
@@ -62,7 +57,7 @@ unsigned int ModuleDefinition::getSize() const {
   for (unsigned int i = 0; i < m_fileContents.size(); i++) {
     NodeId end = m_nodeIds[i];
     NodeId begin = m_fileContents[i]->Child(end);
-    size += (end - begin);
+    size += (RawNodeId)(end - begin);
   }
   return size;
 }
@@ -116,10 +111,9 @@ void ModuleDefinition::insertModPort(const std::string& modport,
   }
 }
 
-ClockingBlock* ModuleDefinition::getModPortClockingBlock(
-    const std::string& modport, NodeId port) {
-  ModPortClockingBlockMap::iterator itr =
-      m_modportClockingBlockMap.find(modport);
+const ClockingBlock* ModuleDefinition::getModPortClockingBlock(
+    const std::string& modport, NodeId port) const {
+  auto itr = m_modportClockingBlockMap.find(modport);
   if (itr == m_modportClockingBlockMap.end()) {
     return nullptr;
   } else {
@@ -133,8 +127,7 @@ ClockingBlock* ModuleDefinition::getModPortClockingBlock(
 }
 
 ClassDefinition* ModuleDefinition::getClassDefinition(const std::string& name) {
-  ClassNameClassDefinitionMultiMap::iterator itr =
-      m_classDefinitions.find(name);
+  auto itr = m_classDefinitions.find(name);
   if (itr == m_classDefinitions.end()) {
     return nullptr;
   } else {

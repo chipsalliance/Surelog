@@ -25,8 +25,8 @@
 #define SURELOG_MODULEINSTANCE_H
 #pragma once
 
-#include <Surelog/Common/SymbolId.h>
 #include <Surelog/Common/Containers.h>
+#include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
@@ -57,7 +57,7 @@ class ModuleInstance : public ValuedComponentI {
     m_boundInstance = boundToInstance;
   }
   DesignComponent* getDefinition() { return m_definition; }
-  unsigned int getNbChildren() { return m_allSubInstances.size(); }
+  unsigned int getNbChildren() const { return m_allSubInstances.size(); }
   ModuleInstance* getChildren(unsigned int i) {
     if (i < m_allSubInstances.size()) {
       return m_allSubInstances[i];
@@ -70,19 +70,19 @@ class ModuleInstance : public ValuedComponentI {
   SymbolId getFileId() const;
   std::filesystem::path getFileName() const;
   NodeId getNodeId() const { return m_nodeId; }
-  unsigned int getLineNb();
-  unsigned short getColumnNb();
-  unsigned int getEndLineNb();
-  unsigned short getEndColumnNb();
+  unsigned int getLineNb() const;
+  unsigned short getColumnNb() const;
+  unsigned int getEndLineNb() const;
+  unsigned short getEndColumnNb() const;
   VObjectType getType() const;
-  VObjectType getModuleType();
-  SymbolId getFullPathId(SymbolTable* symbols);
-  SymbolId getInstanceId(SymbolTable* symbols);
-  SymbolId getModuleNameId(SymbolTable* symbols);
-  std::string getInstanceName();
-  std::string getFullPathName();
-  std::string getModuleName();
-  unsigned int getDepth();
+  VObjectType getModuleType() const;
+  SymbolId getFullPathId(SymbolTable* symbols) const;
+  SymbolId getInstanceId(SymbolTable* symbols) const;
+  SymbolId getModuleNameId(SymbolTable* symbols) const;
+  std::string getInstanceName() const;
+  std::string getFullPathName() const;
+  std::string getModuleName() const;
+  unsigned int getDepth() const;
 
   void setNodeId(NodeId id) { m_nodeId = id; }  // Used for generate stmt
   void overrideParentChild(ModuleInstance* parent, ModuleInstance* interm,
@@ -97,11 +97,11 @@ class ModuleInstance : public ValuedComponentI {
   UHDM::expr* getComplexValue(std::string_view name) const override;
 
   ModuleInstance* getInstanceBinding() { return m_boundInstance; }
-  bool isElaborated() { return m_elaborated; }
+  bool isElaborated() const { return m_elaborated; }
   void setElaborated() { m_elaborated = true; }
 
   void setOverridenParam(std::string_view name);
-  bool isOverridenParam(std::string_view name);
+  bool isOverridenParam(std::string_view name) const;
 
   // DO NOT change the signature of this method, it is used in gdb for debug.
   std::string decompile(char* valueName) final;

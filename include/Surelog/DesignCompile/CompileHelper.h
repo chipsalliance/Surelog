@@ -34,8 +34,8 @@
 #include <unordered_map>
 
 // UHDM
-#include <uhdm/containers.h>
 #include <uhdm/constant.h>
+#include <uhdm/containers.h>
 
 namespace SURELOG {
 
@@ -482,7 +482,7 @@ class CompileHelper final {
                       UHDM::any* pexpr, bool reduce, bool muteErrors = false);
 
   // Parse numeric UHDM constant into int64_t. Returns if successful.
-  bool parseConstant(const UHDM::constant &constant, int64_t *value);
+  bool parseConstant(const UHDM::constant& constant, int64_t* value);
 
   int64_t getValue(bool& validValue, DesignComponent* component,
                    const FileContent* fC, NodeId nodeId,

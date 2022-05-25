@@ -205,7 +205,7 @@ UHDM::any* CompileHelper::compileVariable(
     the_type = fC->Type(variable);
   }
   NodeId Packed_dimension = fC->Sibling(variable);
-  if (Packed_dimension == 0) {
+  if (!Packed_dimension) {
     // Implicit return value:
     // function [1:0] fct();
     if (fC->Type(variable) == slConstant_range) {
@@ -564,7 +564,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
               if (fC->Type(sig->getInterfaceTypeNameId()) == slStringConst) {
                 typeName = fC->SymName(sig->getInterfaceTypeNameId());
               }
-              NodeId suffixNode = 0;
+              NodeId suffixNode;
               if ((suffixNode = fC->Sibling(type))) {
                 if (fC->Type(suffixNode) == slStringConst) {
                   suffixname = fC->SymName(suffixNode);
@@ -613,7 +613,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
     }
     if (dt == nullptr) {
       if (!compileDesign->getCompiler()->getCommandLineParser()->fileunit()) {
-        for (auto fC :
+        for (const auto& fC :
              compileDesign->getCompiler()->getDesign()->getAllFileContents()) {
           if (const DataType* dt1 = fC.second->getDataType(typeName)) {
             dt = dt1;
@@ -1054,13 +1054,14 @@ UHDM::typespec* CompileHelper::compileTypespec(
     type = fC->Child(type);
     the_type = fC->Type(type);
   }
-  NodeId Packed_dimension = 0;
+  NodeId Packed_dimension;
   if (the_type == VObjectType::slPacked_dimension) {
     Packed_dimension = type;
   } else if (the_type == VObjectType::slStringConst) {
     // Class parameter or struct reference
     Packed_dimension = fC->Sibling(type);
-    if (fC->Type(Packed_dimension) != slPacked_dimension) Packed_dimension = 0;
+    if (fC->Type(Packed_dimension) != slPacked_dimension)
+      Packed_dimension = InvalidNodeId;
   } else {
     Packed_dimension = fC->Sibling(type);
     if (fC->Type(Packed_dimension) == slData_type_or_implicit) {
@@ -1154,7 +1155,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
         val++;
         if (component) component->setValue(enumName, value, m_exprBuilder);
         Variable* variable =
-            new Variable(nullptr, fC, enumValueId, 0, enumName);
+            new Variable(nullptr, fC, enumValueId, InvalidNodeId, enumName);
         if (component) component->addVariable(variable);
 
         enum_const* econst = s.MakeEnum_const();
@@ -1312,7 +1313,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
     case VObjectType::slClass_scope: {
       std::string typeName;
       NodeId class_type = fC->Child(type);
-      NodeId class_name = 0;
+      NodeId class_name;
       if (the_type == slClass_scope)
         class_name = fC->Child(class_type);
       else
@@ -1743,7 +1744,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
                                      nullptr, instance, reduce, reduce);
         if (exp) {
           UHDM_OBJECT_TYPE typ = exp->UhdmType();
-          if (type == uhdmref_obj) {
+          if (typ == uhdmref_obj) {
             return compileTypespec(component, fC, child, compileDesign, result,
                                    instance, reduce);
           } else if (typ == uhdmconstant) {
@@ -1795,7 +1796,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       break;
     }
     default:
-      if (type != 0) {
+      if (type) {
         ErrorContainer* errors =
             compileDesign->getCompiler()->getErrorContainer();
         SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();

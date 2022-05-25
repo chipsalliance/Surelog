@@ -87,13 +87,13 @@ TEST(FileUtilsTest, LocateFile) {
 
   // At this point, the file does not exist yet.
   SymbolId non_exist = FileUtils::locateFile(search_file_id, &sym, paths);
-  EXPECT_EQ(non_exist, SymbolTable::getBadId());
+  EXPECT_EQ(non_exist, BadSymbolId);
 
   const fs::path actual_loc = actual_dir / search_file;
   std::ofstream(actual_loc).close();
 
   SymbolId now_exists = FileUtils::locateFile(search_file_id, &sym, paths);
-  EXPECT_NE(now_exists, SymbolTable::getBadId());
+  EXPECT_NE(now_exists, BadSymbolId);
   EXPECT_EQ(sym.getSymbol(now_exists), actual_loc);
 
   SymbolId already_found = FileUtils::locateFile(now_exists, &sym, paths);

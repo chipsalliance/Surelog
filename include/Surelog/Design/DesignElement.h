@@ -27,6 +27,7 @@
 
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/TimeInfo.h>
+
 #include <ostream>
 
 namespace SURELOG {
@@ -49,10 +50,9 @@ class DesignElement final {
     SLline  // Used to split files with correct file info
   };
 
-  DesignElement(SymbolId name, SymbolId fileId, ElemType type,
-                NodeId uniqueId, unsigned int line, unsigned short column,
-                unsigned int endLine, unsigned short endColumn,
-                NodeId parent);
+  DesignElement(SymbolId name, SymbolId fileId, ElemType type, NodeId uniqueId,
+                unsigned int line, unsigned short column, unsigned int endLine,
+                unsigned short endColumn, NodeId parent);
 
   SymbolId m_name;
   SymbolId m_fileId;

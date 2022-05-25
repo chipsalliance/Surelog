@@ -82,7 +82,7 @@ class PreprocessFile {
                  CompilationUnit* compilationUnit, Library* library,
                  std::string_view macroBody = "", MacroInfo* = nullptr,
                  unsigned int embeddedMacroCallLine = 0,
-                 SymbolId embeddedMacroCallFile = 0);
+                 SymbolId embeddedMacroCallFile = BadSymbolId);
   PreprocessFile(const PreprocessFile& orig);
   virtual ~PreprocessFile();
 
@@ -107,7 +107,7 @@ class PreprocessFile {
                        LoopCheck& loopChecker,
                        SpecialInstructions& instructions,
                        unsigned int embeddedMacroCallLine = 0,
-                       SymbolId embeddedMacroCallFile = 0);
+                       SymbolId embeddedMacroCallFile = BadSymbolId);
   bool deleteMacro(const std::string& name, std::set<PreprocessFile*>& visited);
   void undefineAllMacros(std::set<PreprocessFile*>& visited);
   bool isMacroBody() const { return !m_macroBody.empty(); }

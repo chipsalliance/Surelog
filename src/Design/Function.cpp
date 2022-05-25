@@ -41,8 +41,8 @@ bool Function::compile(CompileHelper& compile_helper) {
   const FileContent* const fC = m_fileContent;
   NodeId function_declaration = fC->Child(m_nodeId);
   VObjectType function_type = fC->Type(function_declaration);
-  NodeId tf_port_list = 0;
-  NodeId function_statement_or_null = 0;
+  NodeId tf_port_list;
+  NodeId function_statement_or_null;
   switch (function_type) {
     case VObjectType::slClass_constructor_declaration: {
       tf_port_list = fC->Sibling(function_declaration);

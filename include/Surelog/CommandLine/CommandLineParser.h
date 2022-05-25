@@ -66,10 +66,12 @@ class CommandLineParser final {
   }
   const std::vector<SymbolId>& getConfigFiles() const { return m_configFiles; }
   const std::vector<SymbolId>& getUseConfigs() const { return m_useConfigs; }
-  const std::map<SymbolId, std::string>& getDefineList() const {
+  const std::map<SymbolId, std::string, SymbolIdLessThanComparer>&
+  getDefineList() const {
     return m_defineList;
   }
-  const std::map<SymbolId, std::string>& getParamList() const {
+  const std::map<SymbolId, std::string, SymbolIdLessThanComparer>&
+  getParamList() const {
     return m_paramList;
   }
   bool fileunit() const {
@@ -92,7 +94,7 @@ class CommandLineParser final {
   bool cacheAllowed() const { return m_cacheAllowed; }
   bool debugCache() const { return m_debugCache; }
   void debugCache(bool on) { m_debugCache = on; }
-  void noCacheHash( bool noCachePath) { m_noCacheHash = noCachePath; }
+  void noCacheHash(bool noCachePath) { m_noCacheHash = noCachePath; }
   bool noCacheHash() const { return m_noCacheHash; }
   void setCacheAllowed(bool val) { m_cacheAllowed = val; }
   bool lineOffsetsAsComments() const { return m_lineOffsetsAsComments; }
@@ -225,8 +227,9 @@ class CommandLineParser final {
                     std::vector<std::string>& container);
   void splitPlusArg_(const std::string& s, const std::string& prefix,
                      std::vector<SymbolId>& container);
-  void splitPlusArg_(const std::string& s, const std::string& prefix,
-                     std::map<SymbolId, std::string>& container);
+  void splitPlusArg_(
+      const std::string& s, const std::string& prefix,
+      std::map<SymbolId, std::string, SymbolIdLessThanComparer>& container);
   bool checkCommandLine_();
   bool prepareCompilation_(int argc, const char** argv);
   bool setupCache_();
@@ -236,14 +239,16 @@ class CommandLineParser final {
   std::set<std::filesystem::path> m_svSourceFiles;  // user forced sv files
   std::vector<SymbolId> m_libraryFiles;             // -v
   std::vector<SymbolId> m_includePaths;             // +incdir+
-  std::set<SymbolId> m_includePathSet;
-  std::vector<SymbolId> m_libraryExtensions;     // +libext+
-  std::vector<SymbolId> m_orderedLibraries;      // -L <libName>
-  std::vector<SymbolId> m_libraryMapFiles;       // -map
-  std::vector<SymbolId> m_configFiles;           // -cfgFile <config file>
-  std::vector<SymbolId> m_useConfigs;            // -cfg <configName>
-  std::map<SymbolId, std::string> m_defineList;  // +define+
-  std::map<SymbolId, std::string> m_paramList;   // -Pparameter=value
+  SymbolIdSet m_includePathSet;
+  std::vector<SymbolId> m_libraryExtensions;  // +libext+
+  std::vector<SymbolId> m_orderedLibraries;   // -L <libName>
+  std::vector<SymbolId> m_libraryMapFiles;    // -map
+  std::vector<SymbolId> m_configFiles;        // -cfgFile <config file>
+  std::vector<SymbolId> m_useConfigs;         // -cfg <configName>
+  std::map<SymbolId, std::string, SymbolIdLessThanComparer>
+      m_defineList;  // +define+
+  std::map<SymbolId, std::string, SymbolIdLessThanComparer>
+      m_paramList;  // -Pparameter=value
   SymbolId m_writePpOutputFileId;
   bool m_writePpOutput;
   bool m_filterFileLine;

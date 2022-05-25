@@ -288,7 +288,7 @@ void CommandLineParser::logFooter() {
 CommandLineParser::CommandLineParser(ErrorContainer* errors,
                                      SymbolTable* symbolTable,
                                      bool diff_comp_mode, bool fileUnit)
-    : m_writePpOutputFileId(0),
+    : m_writePpOutputFileId(BadSymbolId),
       m_writePpOutput(false),
       m_filterFileLine(true),
       m_debugLevel(0),
@@ -317,8 +317,8 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_debugCache(false),
       m_nbMaxTreads(0),
       m_nbMaxProcesses(0),
-      m_fullCompileDir(0),
-      m_cacheDirId(0),
+      m_fullCompileDir(BadSymbolId),
+      m_cacheDirId(BadSymbolId),
       m_note(true),
       m_info(true),
       m_warning(true),
@@ -335,9 +335,9 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_nbLinesForFileSplitting(10000000),
       m_pythonEvalScriptPerFile(false),
       m_pythonEvalScript(false),
-      m_pythonEvalScriptPerFileId(0),
-      m_pythonEvalScriptId(0),
-      m_pythonListenerFileId(0),
+      m_pythonEvalScriptPerFileId(BadSymbolId),
+      m_pythonEvalScriptId(BadSymbolId),
+      m_pythonListenerFileId(BadSymbolId),
       m_debugIncludeFileInfo(false),
       m_createCache(false),
       m_profile(false),
@@ -389,7 +389,7 @@ void CommandLineParser::splitPlusArg_(const std::string& s,
 
 void CommandLineParser::splitPlusArg_(
     const std::string& s, const std::string& prefix,
-    std::map<SymbolId, std::string>& container) {
+    std::map<SymbolId, std::string, SymbolIdLessThanComparer>& container) {
   std::istringstream f(s);
   std::string tmp;
   while (getline(f, tmp, '+')) {
@@ -1181,7 +1181,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
 
 bool CommandLineParser::checkCommandLine_() {
   bool noError = true;
-  for (auto fid : m_sourceFiles) {
+  for (const auto& fid : m_sourceFiles) {
     if (!FileUtils::fileExists(m_symbolTable->getSymbol(fid))) {
       Location loc(fid);
       Error err(ErrorDefinition::CMD_VERILOG_FILE_DOES_NOT_EXIST, loc);
@@ -1189,14 +1189,14 @@ bool CommandLineParser::checkCommandLine_() {
       noError = false;
     }
   }
-  for (auto fid : m_libraryPaths) {
+  for (const auto& fid : m_libraryPaths) {
     if (!FileUtils::fileExists(m_symbolTable->getSymbol(fid))) {
       Location loc(fid);
       Error err(ErrorDefinition::CMD_LIBRARY_PATH_DOES_NOT_EXIST, loc);
       m_errors->addError(err);
     }
   }
-  for (auto fid : m_libraryFiles) {
+  for (const auto& fid : m_libraryFiles) {
     if (!FileUtils::fileExists(m_symbolTable->getSymbol(fid))) {
       Location loc(fid);
       Error err(ErrorDefinition::CMD_LIBRARY_FILE_DOES_NOT_EXIST, loc);
@@ -1204,7 +1204,7 @@ bool CommandLineParser::checkCommandLine_() {
       noError = false;
     }
   }
-  for (auto fid : m_includePaths) {
+  for (const auto& fid : m_includePaths) {
     if (!FileUtils::fileExists(m_symbolTable->getSymbol(fid))) {
       Location loc(fid);
       Error err(ErrorDefinition::CMD_INCLUDE_PATH_DOES_NOT_EXIST, loc);
@@ -1265,12 +1265,12 @@ bool CommandLineParser::setupCache_() {
   fs::path odir = m_symbolTable->getSymbol(m_outputDir);
   odir /= m_symbolTable->getSymbol(
       (fileunit() ? m_compileUnitDirectory : m_compileAllDirectory));
-  if (m_cacheDirId == 0) {
+  if (m_cacheDirId) {
+    cachedir = m_symbolTable->getSymbol(m_cacheDirId);
+  } else {
     cachedir = odir / m_symbolTable->getSymbol(m_defaultCacheDirId);
     m_cacheDirId = m_symbolTable->registerSymbol(
         FileUtils::getPreferredPath(cachedir).string());
-  } else {
-    cachedir = m_symbolTable->getSymbol(m_cacheDirId);
   }
 
   if (m_cacheAllowed) {
@@ -1293,12 +1293,12 @@ bool CommandLineParser::cleanCache() {
   fs::path odir = m_symbolTable->getSymbol(m_outputDir);
   odir /= m_symbolTable->getSymbol(
       (fileunit() ? m_compileUnitDirectory : m_compileAllDirectory));
-  if (m_cacheDirId == 0) {
+  if (m_cacheDirId) {
+    cachedir = m_symbolTable->getSymbol(m_cacheDirId);
+  } else {
     cachedir = odir / m_symbolTable->getSymbol(m_defaultCacheDirId);
     m_cacheDirId = m_symbolTable->registerSymbol(
         FileUtils::getPreferredPath(cachedir).string());
-  } else {
-    cachedir = m_symbolTable->getSymbol(m_cacheDirId);
   }
 
   if (!m_cacheAllowed) {

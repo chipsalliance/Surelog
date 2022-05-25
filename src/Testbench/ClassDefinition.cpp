@@ -51,7 +51,7 @@ ClassDefinition::ClassDefinition(std::string_view name, Library* library,
 unsigned int ClassDefinition::getSize() const {
   NodeId end = m_nodeIds[0];
   NodeId begin = m_fileContents[0]->Child(end);
-  unsigned int size = end - begin;
+  unsigned int size = (RawNodeId)(end - begin);
   return size;
 }
 

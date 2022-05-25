@@ -39,10 +39,11 @@ namespace SURELOG {
 void SV3_1aTreeShapeListener::enterTop_level_rule(
     SV3_1aParser::Top_level_ruleContext * /*ctx*/) {
   if (m_pf->getFileContent() == nullptr) {
-    m_fileContent = new FileContent(
-        m_pf->getFileId(0), m_pf->getLibrary(),
-        m_pf->getCompileSourceFile()->getSymbolTable(),
-        m_pf->getCompileSourceFile()->getErrorContainer(), nullptr, 0);
+    m_fileContent =
+        new FileContent(m_pf->getFileId(0), m_pf->getLibrary(),
+                        m_pf->getCompileSourceFile()->getSymbolTable(),
+                        m_pf->getCompileSourceFile()->getErrorContainer(),
+                        nullptr, BadSymbolId);
     m_pf->setFileContent(m_fileContent);
     m_pf->getCompileSourceFile()->getCompiler()->getDesign()->addFileContent(
         m_pf->getFileId(0), m_fileContent);
@@ -60,9 +61,9 @@ void SV3_1aTreeShapeListener::enterTop_level_rule(
 void SV3_1aTreeShapeListener::enterTop_level_library_rule(
     SV3_1aParser::Top_level_library_ruleContext * /*ctx*/) {
   // Visited from Library/SVLibShapeListener.h
-  m_fileContent = new FileContent(m_pf->getFileId(0), m_pf->getLibrary(),
-                                  m_pf->getSymbolTable(),
-                                  m_pf->getErrorContainer(), nullptr, 0);
+  m_fileContent = new FileContent(
+      m_pf->getFileId(0), m_pf->getLibrary(), m_pf->getSymbolTable(),
+      m_pf->getErrorContainer(), nullptr, BadSymbolId);
   m_pf->setFileContent(m_fileContent);
 }
 

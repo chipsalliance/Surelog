@@ -63,7 +63,7 @@ unsigned int executeCompilation(
       SURELOG::PythonAPI::loadScripts();
 
       if (!SURELOG::PythonAPI::isListenerLoaded()) {
-        SURELOG::Location loc(0);
+        SURELOG::Location loc(SURELOG::BadSymbolId);
         SURELOG::Error err(
             SURELOG::ErrorDefinition::PY_NO_PYTHON_LISTENER_FOUND, loc);
         errors->addError(err);

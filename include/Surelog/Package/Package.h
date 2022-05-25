@@ -46,8 +46,8 @@ class Package : public DesignComponent {
   friend CompilePackage;
 
  public:
-  Package(std::string_view name, Library* library,
-          FileContent* fC, NodeId nodeId);
+  Package(std::string_view name, Library* library, FileContent* fC,
+          NodeId nodeId);
   void append(Package* package);
 
   ~Package() override = default;

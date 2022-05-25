@@ -513,19 +513,17 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
     VObject current = fC->Object(m_module->m_nodeIds[i]);
     NodeId id = current.m_child;
 
-    NodeId endOfBlockId = 0;
+    NodeId endOfBlockId;
     if (m_module->getGenBlockId()) {
       id = m_module->getGenBlockId();
-      NodeId tmp = id;
-      endOfBlockId = tmp;
+      endOfBlockId = id;
       while (endOfBlockId) {
         VObjectType type = fC->Type(endOfBlockId);
         if (type == VObjectType::slEnd) break;
         if (type == VObjectType::slElse) break;
         endOfBlockId = fC->Sibling(endOfBlockId);
       }
-      if (endOfBlockId == 0)
-        endOfBlockId = fC->Sibling(m_module->getGenBlockId());
+      if (!endOfBlockId) endOfBlockId = fC->Sibling(m_module->getGenBlockId());
       if (fC->Type(id) == VObjectType::slGenerate_item) {
         id = fC->Parent(id);
       }
@@ -548,7 +546,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
                                m_compileDesign);
       }
     }
-    NodeId ParameterPortListId = 0;
+    NodeId ParameterPortListId;
     std::stack<NodeId> stack;
     stack.push(id);
     VObjectType port_direction = VObjectType::slNoType;
@@ -559,7 +557,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         break;
       }
       if (ParameterPortListId && (id == ParameterPortListId)) {
-        ParameterPortListId = 0;
+        ParameterPortListId = InvalidNodeId;
       }
       stack.pop();
       current = fC->Object(id);
@@ -653,13 +651,12 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_module, fC, list_of_type_assignments, m_compileDesign, false,
-                m_instance, ParameterPortListId != 0, m_instance != nullptr,
-                false);
+                m_instance, ParameterPortListId, m_instance != nullptr, false);
 
           } else {
             m_helper.compileParameterDeclaration(
                 m_module, fC, id, m_compileDesign, false, m_instance,
-                ParameterPortListId != 0, m_instance != nullptr, false);
+                ParameterPortListId, m_instance != nullptr, false);
           }
           break;
         }
@@ -672,13 +669,12 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_module, fC, list_of_type_assignments, m_compileDesign, true,
-                m_instance, ParameterPortListId != 0, m_instance != nullptr,
-                false);
+                m_instance, ParameterPortListId, m_instance != nullptr, false);
 
           } else {
             m_helper.compileParameterDeclaration(
                 m_module, fC, id, m_compileDesign, true, m_instance,
-                ParameterPortListId != 0, m_instance != nullptr, false);
+                ParameterPortListId, m_instance != nullptr, false);
           }
           break;
         }
@@ -700,7 +696,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           NodeId Import = fC->Child(id);
           NodeId StringLiteral = fC->Sibling(Import);
           NodeId Context_keyword = fC->Sibling(StringLiteral);
-          NodeId Task_prototype = 0;
+          NodeId Task_prototype;
           if (fC->Type(Context_keyword) == slContext_keyword)
             Task_prototype = fC->Sibling(Context_keyword);
           else
@@ -898,14 +894,14 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
                                m_compileDesign);
       }
     }
-    NodeId ParameterPortListId = 0;
+    NodeId ParameterPortListId;
     std::stack<NodeId> stack;
     stack.push(id);
     VObjectType port_direction = VObjectType::slNoType;
     while (!stack.empty()) {
       id = stack.top();
       if (ParameterPortListId && (id == ParameterPortListId)) {
-        ParameterPortListId = 0;
+        ParameterPortListId = InvalidNodeId;
       }
       stack.pop();
       current = fC->Object(id);
@@ -983,7 +979,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
         case VObjectType::slGenerate_interface_item: {
           if (collectType != CollectType::OTHER) break;
           // TODO: rewrite this rough implementation
-          std::unordered_set<VObjectType> types = {VObjectType::slModport_item};
+          VObjectTypeUnorderedSet types = {VObjectType::slModport_item};
           std::vector<NodeId> items = fC->sl_collect_all(id, types);
           for (auto nodeId : items) {
             Location loc(
@@ -1035,7 +1031,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
                     }
                   }
                   NodeId Expression = fC->Sibling(simple_port_name);
-                  if (Expression == 0) {
+                  if (!Expression) {
                     // If expression is not null, we cannot conclude here
                     if (!port_exists) {
                       Location loc(
@@ -1052,7 +1048,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
                   }
                   Signal signal(fC, simple_port_name,
                                 VObjectType::slData_type_or_implicit,
-                                port_direction_type, 0, false);
+                                port_direction_type, InvalidNodeId, false);
                   m_module->insertModPort(modportsymb, signal, modportname);
                   modport_simple_port = fC->Sibling(modport_simple_port);
                 }
@@ -1105,13 +1101,12 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_module, fC, list_of_type_assignments, m_compileDesign, false,
-                m_instance, ParameterPortListId != 0, m_instance != nullptr,
-                false);
+                m_instance, ParameterPortListId, m_instance != nullptr, false);
 
           } else {
             m_helper.compileParameterDeclaration(
                 m_module, fC, id, m_compileDesign, false, m_instance,
-                ParameterPortListId != 0, m_instance != nullptr, false);
+                ParameterPortListId, m_instance != nullptr, false);
           }
           break;
         }
@@ -1124,13 +1119,12 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_module, fC, list_of_type_assignments, m_compileDesign, true,
-                m_instance, ParameterPortListId != 0, m_instance != nullptr,
-                false);
+                m_instance, ParameterPortListId, m_instance != nullptr, false);
 
           } else {
             m_helper.compileParameterDeclaration(
                 m_module, fC, id, m_compileDesign, true, m_instance,
-                ParameterPortListId != 0, m_instance != nullptr, false);
+                ParameterPortListId, m_instance != nullptr, false);
           }
           break;
         }
@@ -1348,8 +1342,8 @@ void CompileModule::compileClockingBlock_(const FileContent* fC, NodeId id) {
    */
 
   NodeId clocking_block_type = fC->Child(id);
-  NodeId clocking_block_name = 0;
-  SymbolId clocking_block_symbol = 0;
+  NodeId clocking_block_name;
+  SymbolId clocking_block_symbol;
   ClockingBlock::Type type = ClockingBlock::Regular;
   if (fC->Type(clocking_block_type) == slDefault)
     type = ClockingBlock::Default;

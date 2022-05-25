@@ -120,7 +120,7 @@ class DataType : public RTTI {
 
  protected:
   const FileContent* m_fileContent = nullptr;
-  NodeId m_id = 0;
+  NodeId m_id;
   std::string m_name;
   mutable const DataType* m_definition = nullptr;
   VObjectType m_type;

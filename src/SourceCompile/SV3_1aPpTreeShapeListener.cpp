@@ -43,10 +43,11 @@ void SV3_1aPpTreeShapeListener::enterTop_level_rule(
   // TODO: setting m_fileContent should happen at construction time.
   // This also makes it hard to know who the owner is.
   if (m_pp->getFileContent() == nullptr) {
-    m_fileContent = new FileContent(
-        m_pp->getFileId(0), m_pp->getLibrary(),
-        m_pp->getCompileSourceFile()->getSymbolTable(),
-        m_pp->getCompileSourceFile()->getErrorContainer(), nullptr, 0);
+    m_fileContent =
+        new FileContent(m_pp->getFileId(0), m_pp->getLibrary(),
+                        m_pp->getCompileSourceFile()->getSymbolTable(),
+                        m_pp->getCompileSourceFile()->getErrorContainer(),
+                        nullptr, BadSymbolId);
     m_pp->setFileContent(m_fileContent);
     m_pp->getCompileSourceFile()->getCompiler()->getDesign()->addPPFileContent(
         m_pp->getFileId(0), m_fileContent);
@@ -242,7 +243,7 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
                               m_pp->getCompileSourceFile()
                                   ->getCommandLineParser()
                                   ->getIncludePaths());
-    if (locfileId != SymbolTable::getBadId()) {
+    if (locfileId) {
       fileName = getSymbolTable()->getSymbol(locfileId);
       fileId = locfileId;
     }
@@ -514,7 +515,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
     }
 
     if (openingIndex >= 0) {
-      SymbolId fileId = 0;
+      SymbolId fileId;
       unsigned int line = 0;
       if (m_pp->getEmbeddedMacroCallFile()) {
         fileId = m_pp->getEmbeddedMacroCallFile();
@@ -663,7 +664,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceNoArgs(
     m_pp->append(pre + macroBody + post);
 
     if (openingIndex >= 0) {
-      SymbolId fileId = 0;
+      SymbolId fileId;
       unsigned int line = 0;
       if (m_pp->getEmbeddedMacroCallFile()) {
         fileId = m_pp->getEmbeddedMacroCallFile();

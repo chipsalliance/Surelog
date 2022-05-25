@@ -145,11 +145,10 @@ bool CompileClass::compile() {
   DataType* thisdt =
       new DataType(fC, nodeId, "this", VObjectType::slClass_declaration);
   thisdt->setDefinition(m_class);
-  Property* prop = new Property(thisdt, fC, nodeId, 0, "this", false, false,
-                                false, false, false);
+  Property* prop = new Property(thisdt, fC, nodeId, InvalidNodeId, "this",
+                                false, false, false, false, false);
   m_class->insertProperty(prop);
 
-  VObject current = fC->Object(fC->getSize() - 2);
   NodeId id = nodeId;
   if (!id) return false;
   std::stack<NodeId> stack;
@@ -160,7 +159,7 @@ bool CompileClass::compile() {
     bool skipGuts = false;
     id = stack.top();
     stack.pop();
-    current = fC->Object(id);
+    const VObject& current = fC->Object(id);
     VObjectType type = fC->Type(id);
     switch (type) {
       case VObjectType::slPackage_import_item: {
@@ -462,13 +461,15 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     }
     returnType->init(fC, type, typeName, fC->Type(type));
     NodeId function_name = fC->Sibling(function_data_type_or_implicit);
-    funcName = fC->SymName(function_name);
-    if (builtins_.find(funcName) != builtins_.end()) {
-      Location loc(m_symbols->registerSymbol(fC->getFileName().string()),
-                   fC->Line(function_name), fC->Column(function_name),
-                   m_symbols->registerSymbol(funcName));
-      Error err(ErrorDefinition::COMP_CANNOT_REDEFINE_BUILTIN_METHOD, loc);
-      m_errors->addError(err);
+    if (function_name) {
+      funcName = fC->SymName(function_name);
+      if (builtins_.find(funcName) != builtins_.end()) {
+        Location loc(m_symbols->registerSymbol(fC->getFileName().string()),
+                     fC->Line(function_name), fC->Column(function_name),
+                     m_symbols->registerSymbol(funcName));
+        Error err(ErrorDefinition::COMP_CANNOT_REDEFINE_BUILTIN_METHOD, loc);
+        m_errors->addError(err);
+      }
     }
     m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign,
                              nullptr, true);
@@ -487,7 +488,7 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
 
     NodeId task_decl =
         m_helper.setFuncTaskQualifiers(fC, fC->Child(id), nullptr);
-    NodeId Task_body_declaration = 0;
+    NodeId Task_body_declaration;
     if (fC->Type(task_decl) == slTask_body_declaration)
       Task_body_declaration = task_decl;
     else
@@ -520,7 +521,7 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     if (fC->Type(func_prototype) == VObjectType::slTask_prototype) {
       NodeId task_decl =
           m_helper.setFuncTaskQualifiers(fC, fC->Child(id), nullptr);
-      NodeId Task_body_declaration = 0;
+      NodeId Task_body_declaration;
       if (fC->Type(task_decl) == slTask_body_declaration)
         Task_body_declaration = task_decl;
       else
@@ -562,7 +563,7 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     is_extern = true;
   } else if (func_type == VObjectType::slClass_constructor_declaration) {
     funcName = "new";
-    returnType->init(fC, 0, "void", VObjectType::slNoType);
+    returnType->init(fC, InvalidNodeId, "void", VObjectType::slNoType);
 
     m_helper.compileClassConstructorDeclaration(m_class, fC, fC->Child(id),
                                                 m_compileDesign);
@@ -600,7 +601,8 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     FunctionMethod* method = new FunctionMethod(
         m_class, fC, id, funcName, returnType, is_virtual, is_extern, is_static,
         is_local, is_protected, is_pure);
-    Variable* variable = new Variable(returnType, fC, id, 0, funcName);
+    Variable* variable =
+        new Variable(returnType, fC, id, InvalidNodeId, funcName);
     method->addVariable(variable);
     method->compile(m_helper);
     Function* prevDef = m_class->getFunction(funcName);
@@ -613,7 +615,7 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
       Location loc2(
           m_symbols->registerSymbol(prevFile->getFileName(prevNode).string()),
           prevFile->Line(prevNode), prevFile->Column(prevNode), funcSymbol);
-      if (funcSymbol != 0) {
+      if (funcSymbol) {
         Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_FUNCTION, loc1, loc2);
         m_errors->addError(err);
       }
@@ -652,7 +654,7 @@ bool CompileClass::compile_class_constraint_(const FileContent* fC,
 bool CompileClass::compile_class_declaration_(const FileContent* fC,
                                               NodeId id) {
   UHDM::Serializer& s = m_compileDesign->getSerializer();
-  const bool virtualClass = fC->sl_collect(id, VObjectType::slVirtual) != 0;
+  const bool virtualClass = fC->sl_collect(id, VObjectType::slVirtual);
   const NodeId class_name_id = fC->sl_collect(id, VObjectType::slStringConst);
   std::string class_name = fC->SymName(class_name_id);
   std::string full_class_name =

@@ -44,45 +44,46 @@ class CompileStep {
 
   virtual VObject Object(NodeId index) const = 0;
 
-  virtual NodeId UniqueId(NodeId index) = 0;
+  virtual NodeId UniqueId(NodeId index) const = 0;
 
-  virtual SymbolId Name(NodeId index) = 0;
+  virtual SymbolId Name(NodeId index) const = 0;
 
-  virtual NodeId Child(NodeId index) = 0;
+  virtual NodeId Child(NodeId index) const = 0;
 
-  virtual NodeId Sibling(NodeId index) = 0;
+  virtual NodeId Sibling(NodeId index) const = 0;
 
   virtual NodeId Definition(NodeId index) const = 0;
 
-  virtual NodeId Parent(NodeId index) = 0;
+  virtual NodeId Parent(NodeId index) const = 0;
 
   virtual VObjectType Type(NodeId index) const = 0;
 
-  virtual unsigned int Line(NodeId index) = 0;
+  virtual unsigned int Line(NodeId index) const = 0;
 
-  virtual std::string Symbol(SymbolId id) = 0;
+  virtual std::string Symbol(SymbolId id) const = 0;
 
   virtual NodeId sl_get(NodeId parent,
-                        VObjectType type) = 0;  // Get first item of type
+                        VObjectType type) const = 0;  // Get first item of type
 
   virtual NodeId sl_parent(
-      NodeId parent, VObjectType type) = 0;  // Get first parent item of type
+      NodeId parent,
+      VObjectType type) const = 0;  // Get first parent item of type
 
-  virtual NodeId sl_parent(NodeId parent, std::unordered_set<VObjectType> types,
-                           VObjectType& actualType) = 0;
+  virtual NodeId sl_parent(NodeId parent, const VObjectTypeUnorderedSet& types,
+                           VObjectType& actualType) const = 0;
 
   virtual std::vector<NodeId> sl_get_all(
-      NodeId parent, VObjectType type) = 0;  // get all items of type
+      NodeId parent, VObjectType type) const = 0;  // get all items of type
 
   virtual NodeId sl_collect(
       NodeId parent,
-      VObjectType type) = 0;  // Recursively search for first item of type
+      VObjectType type) const = 0;  // Recursively search for first item of type
 
   virtual std::vector<NodeId> sl_collect_all(
       NodeId parent,
-      VObjectType type) = 0;  // Recursively search for all items of type
+      VObjectType type) const = 0;  // Recursively search for all items of type
 
-  virtual std::string SymName(NodeId index) = 0;
+  virtual std::string SymName(NodeId index) const = 0;
 
  private:
 };

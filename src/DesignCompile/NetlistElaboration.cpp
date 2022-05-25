@@ -534,7 +534,7 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
                fC->Type(Udp_instance) == VObjectType::slDelay3) {
       Udp_instance = fC->Sibling(Udp_instance);
     }
-    NodeId Net_lvalue = 0;
+    NodeId Net_lvalue;
     if (const NodeId Name_of_instance = fC->Child(Udp_instance);
         fC->Type(Name_of_instance) == slName_of_instance) {
       Net_lvalue = fC->Sibling(Name_of_instance);
@@ -545,7 +545,7 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
       unsigned int index = 0;
       while (Net_lvalue) {
         std::string sigName;
-        NodeId sigId = 0;
+        NodeId sigId;
         if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
           NodeId Hierarchical_identifier = fC->Child(Net_lvalue);
           if (fC->Type(fC->Child(Hierarchical_identifier)) ==
@@ -593,7 +593,7 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
       Named_port_connection = MemNamed_port_connection;
       while (Named_port_connection) {
         NodeId formalId = fC->Child(Named_port_connection);
-        if (formalId == 0) break;
+        if (!formalId) break;
         if (fC->Type(formalId) == VObjectType::slDotStar) {
           // .* connection
           Named_port_connection = fC->Sibling(Named_port_connection);
@@ -634,7 +634,7 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
           sigId = fC->Child(Primary_literal);
         }
         std::string sigName;
-        if (fC->Name(sigId)) sigName = fC->SymName(sigId);
+        if (sigId && fC->Name(sigId)) sigName = fC->SymName(sigId);
         std::string baseName = sigName;
         std::string selectName;
         if (NodeId subId = fC->Sibling(sigId)) {
@@ -711,7 +711,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       delays->push_back(delay_expr);
       Udp_instance = fC->Sibling(Udp_instance);
     }
-    NodeId Net_lvalue = 0;
+    NodeId Net_lvalue;
     if (const NodeId Name_of_instance = fC->Child(Udp_instance);
         fC->Type(Name_of_instance) == slName_of_instance) {
       Net_lvalue = fC->Sibling(Name_of_instance);
@@ -733,7 +733,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       unsigned int index = 0;
       while (Net_lvalue) {
         std::string sigName;
-        NodeId sigId = 0;
+        NodeId sigId;
         bool bit_or_part_select = false;
         if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
           NodeId Hierarchical_identifier = fC->Child(Net_lvalue);
@@ -911,7 +911,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       Named_port_connection = MemNamed_port_connection;
       while (Named_port_connection) {
         NodeId formalId = fC->Child(Named_port_connection);
-        if (formalId == 0) {
+        if (!formalId) {
           Named_port_connection = fC->Sibling(Named_port_connection);
           index++;
           continue;
@@ -1212,8 +1212,9 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               if (parent) {
                 ref->VpiFullName(parent->getFullPathName() + "." + sigName);
                 pp->High_conn(ref);
-                UHDM::any* net = bind_net_(
-                    fC, 0, parent, instance->getInstanceBinding(), sigName);
+                UHDM::any* net =
+                    bind_net_(fC, InvalidNodeId, parent,
+                              instance->getInstanceBinding(), sigName);
                 ref->Actual_group(net);
               }
             }

@@ -83,7 +83,7 @@ bool ElaborationStep::bindTypedefs_() {
   Serializer& s = m_compileDesign->getSerializer();
   std::vector<std::pair<TypeDef*, DesignComponent*>> defs;
   std::map<std::string, typespec*> specs;
-  for (auto file : design->getAllFileContents()) {
+  for (const auto& file : design->getAllFileContents()) {
     FileContent* fC = file.second;
     for (const auto& typed : fC->getTypeDefMap()) {
       TypeDef* typd = typed.second;
@@ -843,9 +843,10 @@ Variable* ElaborationStep::locateStaticVariable_(
             package->getClassDefinition(var_chain[1]);
         if (classDefinition) {
           if (var_chain.size() == 2) {
-            result = new Variable(
-                classDefinition, classDefinition->getFileContent(),
-                classDefinition->getNodeId(), 0, classDefinition->getName());
+            result =
+                new Variable(classDefinition, classDefinition->getFileContent(),
+                             classDefinition->getNodeId(), InvalidNodeId,
+                             classDefinition->getName());
           }
           if (var_chain.size() == 3) {
             std::vector<std::string> tmp;
@@ -871,9 +872,10 @@ Variable* ElaborationStep::locateStaticVariable_(
       }
       if (classDefinition) {
         if (var_chain.size() == 1)
-          result = new Variable(
-              classDefinition, classDefinition->getFileContent(),
-              classDefinition->getNodeId(), 0, classDefinition->getName());
+          result =
+              new Variable(classDefinition, classDefinition->getFileContent(),
+                           classDefinition->getNodeId(), InvalidNodeId,
+                           classDefinition->getName());
         if (var_chain.size() == 2) {
           std::vector<std::string> tmp;
           tmp.push_back(var_chain[1]);
@@ -882,8 +884,9 @@ Variable* ElaborationStep::locateStaticVariable_(
               bindDataType_(var_chain[1], fC, id, classDefinition,
                             ErrorDefinition::NO_ERROR_MESSAGE);
           if (dtype) {
-            result = new Variable(dtype, dtype->getFileContent(),
-                                  dtype->getNodeId(), 0, dtype->getName());
+            result =
+                new Variable(dtype, dtype->getFileContent(), dtype->getNodeId(),
+                             InvalidNodeId, dtype->getName());
           } else
             result =
                 locateVariable_(tmp, fC, id, scope, classDefinition, errtype);
@@ -896,8 +899,9 @@ Variable* ElaborationStep::locateStaticVariable_(
       const DataType* dtype =
           bindDataType_(var_chain[0], fC, id, parentComponent, errtype);
       if (dtype) {
-        result = new Variable(dtype, dtype->getFileContent(),
-                              dtype->getNodeId(), 0, dtype->getName());
+        result =
+            new Variable(dtype, dtype->getFileContent(), dtype->getNodeId(),
+                         InvalidNodeId, dtype->getName());
       }
     }
   }
@@ -1148,8 +1152,8 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
         def = design->getComponentDefinition(libName + "@" + baseName);
         ClassDefinition* c = valuedcomponenti_cast<ClassDefinition*>(def);
         if (c) {
-          Variable* var =
-              new Variable(c, fC, signal->getNodeId(), 0, signal->getName());
+          Variable* var = new Variable(c, fC, signal->getNodeId(),
+                                       InvalidNodeId, signal->getName());
           parentComponent->addVariable(var);
           return false;
         } else {
@@ -1162,9 +1166,9 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
           if (!m_compileDesign->getCompiler()
                    ->getCommandLineParser()
                    ->fileunit()) {
-            for (auto fC : m_compileDesign->getCompiler()
-                               ->getDesign()
-                               ->getAllFileContents()) {
+            for (const auto& fC : m_compileDesign->getCompiler()
+                                      ->getDesign()
+                                      ->getAllFileContents()) {
               if (const DataType* dt1 = fC.second->getDataType(interfName)) {
                 type = dt1;
                 break;
@@ -1253,7 +1257,7 @@ UHDM::expr* ElaborationStep::exprFromAssign_(DesignComponent* component,
                                              NodeId unpackedDimension,
                                              ModuleInstance* instance) {
   // Assignment section
-  NodeId assignment = 0;
+  NodeId assignment;
   NodeId Assign = fC->Sibling(id);
   if (Assign && (fC->Type(Assign) == slExpression)) {
     assignment = Assign;
@@ -1270,7 +1274,7 @@ UHDM::expr* ElaborationStep::exprFromAssign_(DesignComponent* component,
     }
   }
 
-  NodeId expression = 0;
+  NodeId expression;
   if (assignment) {
     if (fC->Type(assignment) == slClass_new) {
       expression = assignment;
@@ -1285,7 +1289,7 @@ UHDM::expr* ElaborationStep::exprFromAssign_(DesignComponent* component,
     expression = fC->Sibling(id);
     if ((fC->Type(expression) != VObjectType::slExpression) &&
         (fC->Type(expression) != VObjectType::slConstant_expression))
-      expression = 0;
+      expression = InvalidNodeId;
   }
 
   expr* exp = nullptr;
@@ -1638,7 +1642,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       logic_typespec* ltps = s.MakeLogic_typespec();
       ltps->Ranges(packedDimensions);
       ltps->VpiFile(fC->getFileName());
-      NodeId id = 0;
+      NodeId id;
       if (sig->getPackedDimension()) id = fC->Parent(sig->getPackedDimension());
       if (!id) id = sig->getNodeId();
       if (id) {

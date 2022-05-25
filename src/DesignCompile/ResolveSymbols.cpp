@@ -53,7 +53,7 @@ int FunctorResolve::operator()() const {
   return true;
 }
 
-std::string ResolveSymbols::SymName(NodeId index) {
+std::string ResolveSymbols::SymName(NodeId index) const {
   return m_fileData->getSymbolTable()->getSymbol(Name(index));
 }
 
@@ -65,13 +65,13 @@ void ResolveSymbols::createFastLookup() {
   // std::string fileName =  "FILE: " + m_fileData->getFileName() + " " +
   // m_fileData->getChunkFileName () + "\n"; std::cout << fileName;
 
-  std::unordered_set<VObjectType> types = {
+  VObjectTypeUnorderedSet types = {
       VObjectType::slModule_declaration,    VObjectType::slPackage_declaration,
       VObjectType::slConfig_declaration,    VObjectType::slUdp_declaration,
       VObjectType::slInterface_declaration, VObjectType::slProgram_declaration,
       VObjectType::slClass_declaration};
 
-  std::unordered_set<VObjectType> stopPoints = {
+  VObjectTypeUnorderedSet stopPoints = {
       VObjectType::slModule_declaration, VObjectType::slPackage_declaration,
       VObjectType::slProgram_declaration, VObjectType::slClass_declaration};
 
@@ -98,8 +98,7 @@ void ResolveSymbols::createFastLookup() {
 
           m_fileData->addPackageDefinition(pkgname, pdef);
 
-          std::unordered_set<VObjectType> subtypes = {
-              VObjectType::slClass_declaration};
+          VObjectTypeUnorderedSet subtypes = {VObjectType::slClass_declaration};
           std::vector<NodeId> subobjects =
               m_fileData->sl_collect_all(object, subtypes, subtypes);
           for (auto subobject : subobjects) {
@@ -125,8 +124,7 @@ void ResolveSymbols::createFastLookup() {
           Program* mdef = new Program(fullName, lib, m_fileData, object);
           m_fileData->addProgramDefinition(fullName, mdef);
 
-          std::unordered_set<VObjectType> subtypes = {
-              VObjectType::slClass_declaration};
+          VObjectTypeUnorderedSet subtypes = {VObjectType::slClass_declaration};
           std::vector<NodeId> subobjects =
               m_fileData->sl_collect_all(object, subtypes, subtypes);
           for (auto subobject : subobjects) {
@@ -159,7 +157,7 @@ void ResolveSymbols::createFastLookup() {
               new ModuleDefinition(m_fileData, object, fullName);
           m_fileData->addModuleDefinition(fullName, mdef);
 
-          std::unordered_set<VObjectType> subtypes = {
+          VObjectTypeUnorderedSet subtypes = {
               VObjectType::slClass_declaration,
               VObjectType::slModule_declaration};
           std::vector<NodeId> subobjects =
@@ -212,13 +210,19 @@ VObject* ResolveSymbols::MutableObject(NodeId index) {
   return m_fileData->MutableObject(index);
 }
 
-NodeId ResolveSymbols::UniqueId(NodeId index) { return index; }
+NodeId ResolveSymbols::UniqueId(NodeId index) const {
+  return m_fileData->UniqueId(index);
+}
 
-SymbolId ResolveSymbols::Name(NodeId index) { return m_fileData->Name(index); }
+SymbolId ResolveSymbols::Name(NodeId index) const {
+  return m_fileData->Name(index);
+}
 
-NodeId ResolveSymbols::Child(NodeId index) { return m_fileData->Child(index); }
+NodeId ResolveSymbols::Child(NodeId index) const {
+  return m_fileData->Child(index);
+}
 
-NodeId ResolveSymbols::Sibling(NodeId index) {
+NodeId ResolveSymbols::Sibling(NodeId index) const {
   return m_fileData->Sibling(index);
 }
 
@@ -232,7 +236,7 @@ bool ResolveSymbols::SetDefinition(NodeId index, NodeId def) {
   return true;
 }
 
-NodeId ResolveSymbols::Parent(NodeId index) {
+NodeId ResolveSymbols::Parent(NodeId index) const {
   return m_fileData->Parent(index);
 }
 
@@ -246,53 +250,54 @@ bool ResolveSymbols::SetType(NodeId index, VObjectType type) {
   return true;
 }
 
-unsigned int ResolveSymbols::Line(NodeId index) {
+unsigned int ResolveSymbols::Line(NodeId index) const {
   return m_fileData->Line(index);
 }
 
-std::string ResolveSymbols::Symbol(SymbolId id) {
+std::string ResolveSymbols::Symbol(SymbolId id) const {
   return m_fileData->getSymbolTable()->getSymbol(id);
 }
 
-NodeId ResolveSymbols::sl_get(NodeId parent, VObjectType type) {
+NodeId ResolveSymbols::sl_get(NodeId parent, VObjectType type) const {
   return m_fileData->sl_get(parent, type);
 }
 
-NodeId ResolveSymbols::sl_parent(NodeId parent, VObjectType type) {
+NodeId ResolveSymbols::sl_parent(NodeId parent, VObjectType type) const {
   return m_fileData->sl_parent(parent, type);
 }
 
 NodeId ResolveSymbols::sl_parent(NodeId parent,
-                                 std::unordered_set<VObjectType> types,
-                                 VObjectType& actualType) {
+                                 const VObjectTypeUnorderedSet& types,
+                                 VObjectType& actualType) const {
   return m_fileData->sl_parent(parent, types, actualType);
 }
 
 std::vector<NodeId> ResolveSymbols::sl_get_all(NodeId parent,
-                                               VObjectType type) {
+                                               VObjectType type) const {
   return m_fileData->sl_get_all(parent, type);
 }
 
-NodeId ResolveSymbols::sl_collect(NodeId parent, VObjectType type) {
+NodeId ResolveSymbols::sl_collect(NodeId parent, VObjectType type) const {
   return m_fileData->sl_collect(parent, type);
 }
 
 std::vector<NodeId> ResolveSymbols::sl_collect_all(NodeId parent,
-                                                   VObjectType type) {
+                                                   VObjectType type) const {
   return m_fileData->sl_collect_all(parent, type);
 }
 
-bool ResolveSymbols::bindDefinition_(
-    unsigned int objIndex, const std::unordered_set<VObjectType>& bindTypes) {
+bool ResolveSymbols::bindDefinition_(NodeId objIndex,
+                                     const VObjectTypeUnorderedSet& bindTypes) {
   std::string modName =
       SymName(sl_collect(objIndex, VObjectType::slStringConst));
-  std::string instName =
-      SymName(Child(sl_collect(objIndex, slName_of_instance)));
+  NodeId nameId = Child(sl_collect(objIndex, slName_of_instance));
+  std::string instName(BadRawSymbol);
+  if (nameId) instName = SymName(nameId);
   Design::FileIdDesignContentMap& all_files =
       this->m_compileDesign->getCompiler()->getDesign()->getAllFileContents();
 
   bool found = false;
-  for (auto file : all_files) {
+  for (const auto& file : all_files) {
     SymbolId fileId = file.first;
     FileContent* fcontent = file.second;
 
@@ -335,7 +340,7 @@ bool ResolveSymbols::bindDefinition_(
 
 bool ResolveSymbols::resolve() {
   unsigned int size = m_fileData->getVObjects().size();
-  for (unsigned int objIndex = 0; objIndex < size; objIndex++) {
+  for (NodeId objIndex(0); objIndex < size; ++objIndex) {
     // ErrorDefinition::ErrorType errorType;
     bool bind = false;
     if (Type(objIndex) == VObjectType::slUdp_instantiation) {

@@ -98,10 +98,10 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
   UHDM::any* else_stmt = nullptr;
   if (fC->Type(Action_block) == slAction_block) {
     NodeId if_stmt_id = fC->Child(Action_block);
-    NodeId else_stmt_id = 0;
+    NodeId else_stmt_id;
     if (fC->Type(if_stmt_id) == slElse) {
       else_stmt_id = fC->Sibling(if_stmt_id);
-      if_stmt_id = 0;
+      if_stmt_id = InvalidNodeId;
     } else {
       NodeId else_keyword = fC->Sibling(if_stmt_id);
       if (else_keyword) else_stmt_id = fC->Sibling(else_keyword);
@@ -237,10 +237,10 @@ UHDM::any* CompileHelper::compileSimpleImmediateAssertion(
   NodeId Expression = fC->Child(the_stmt);
   NodeId Action_block = fC->Sibling(Expression);
   NodeId if_stmt_id = fC->Child(Action_block);
-  NodeId else_stmt_id = 0;
+  NodeId else_stmt_id;
   if (fC->Type(if_stmt_id) == slElse) {
     else_stmt_id = fC->Sibling(if_stmt_id);
-    if_stmt_id = 0;
+    if_stmt_id = InvalidNodeId;
   } else {
     NodeId else_keyword = fC->Sibling(if_stmt_id);
     if (else_keyword) else_stmt_id = fC->Sibling(else_keyword);
@@ -325,10 +325,10 @@ UHDM::any* CompileHelper::compileDeferredImmediateAssertion(
   NodeId Expression = isFinal ? the_stmt_child : fC->Sibling(the_stmt_child);
   NodeId Action_block = fC->Sibling(Expression);
   NodeId if_stmt_id = fC->Child(Action_block);
-  NodeId else_stmt_id = 0;
+  NodeId else_stmt_id;
   if (fC->Type(if_stmt_id) == slElse) {
     else_stmt_id = fC->Sibling(if_stmt_id);
-    if_stmt_id = 0;
+    if_stmt_id = InvalidNodeId;
   } else {
     NodeId else_keyword = fC->Sibling(if_stmt_id);
     if (else_keyword) else_stmt_id = fC->Sibling(else_keyword);

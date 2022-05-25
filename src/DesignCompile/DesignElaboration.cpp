@@ -189,7 +189,7 @@ bool DesignElaboration::setupConfigurations_() {
   std::vector<SymbolId> selectedConfigIds =
       m_compileDesign->getCompiler()->getCommandLineParser()->getUseConfigs();
   std::set<std::string> selectedConfigs;
-  for (auto confId : selectedConfigIds) {
+  for (const auto& confId : selectedConfigIds) {
     std::string name = st->getSymbol(confId);
     if (name.find('.') == std::string::npos) {
       name = "work@" + name;
@@ -492,7 +492,7 @@ bool DesignElaboration::identifyTopModules_() {
   }
 
   if (m_topLevelModules.size() > 1) {
-    Location loc(0);
+    Location loc(BadSymbolId);
     Error err(ErrorDefinition::ELAB_MULTIPLE_TOP_LEVEL_MODULES, loc);
     m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
   }
@@ -545,7 +545,7 @@ bool DesignElaboration::identifyTopModules_() {
   }
 
   if (modulePresent && (!toplevelModuleFound)) {
-    Location loc(0);
+    Location loc(BadSymbolId);
     Error err(ErrorDefinition::ELAB_NO_TOP_LEVEL_MODULE, loc);
     m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
   }
@@ -568,9 +568,9 @@ bool DesignElaboration::createBuiltinPrimitives_() {
                     "rtranif1", "tran",     "rtran",
                     "pullup",   "pulldown", "UnsupportedPrimitive"}) {
     std::string name = std::string("work@") + type;
-    design->addModuleDefinition(name,
-                                m_moduleDefFactory->newModuleDefinition(
-                                    nullptr, 0, std::string("work@") + type));
+    design->addModuleDefinition(
+        name, m_moduleDefFactory->newModuleDefinition(
+                  nullptr, InvalidNodeId, std::string("work@") + type));
   }
 
   return true;
@@ -651,7 +651,7 @@ bool DesignElaboration::elaborateModule_(const std::string& moduleName,
         for (unsigned int i = 0; i < def->getFileContents().size(); i++) {
           std::vector<ModuleInstance*> parentSubInstances;
           NodeId id = def->getNodeIds()[i];
-          elaborateInstance_(def->getFileContents()[i], id, 0,
+          elaborateInstance_(def->getFileContents()[i], id, InvalidNodeId,
                              m_moduleInstFactory, instance, config,
                              parentSubInstances);
           if (instance)
@@ -749,7 +749,7 @@ ModuleInstance* DesignElaboration::createBindInstance_(
     instance->setInstanceBinding(parent);
     NodeId parameterOverloading = fC->Sibling(bindNodeId);
     if (fC->Type(parameterOverloading) == slHierarchical_instance) {
-      parameterOverloading = 0;
+      parameterOverloading = InvalidNodeId;
     }
     elaborateInstance_(targetDef->getFileContents()[0],
                        targetDef->getNodeIds()[0], parameterOverloading,
@@ -846,7 +846,7 @@ void DesignElaboration::elaborateInstance_(
   delete nelab;
 
   // Scan for regular instances and generate blocks
-  std::unordered_set<VObjectType> types = {
+  VObjectTypeUnorderedSet types = {
       VObjectType::slUdp_instantiation, VObjectType::slModule_instantiation,
       VObjectType::slInterface_instantiation,
       VObjectType::slProgram_instantiation, VObjectType::slGate_instantiation,
@@ -859,7 +859,7 @@ void DesignElaboration::elaborateInstance_(
       VObjectType::slGenerate_interface_loop_statement,
       VObjectType::slPar_block, VObjectType::slSeq_block};
 
-  std::unordered_set<VObjectType> stopPoints = {
+  VObjectTypeUnorderedSet stopPoints = {
       VObjectType::slConditional_generate_construct,
       VObjectType::slGenerate_module_conditional_statement,
       VObjectType::slGenerate_interface_conditional_statement,
@@ -875,12 +875,12 @@ void DesignElaboration::elaborateInstance_(
       fC->sl_collect_all(nodeId, types, stopPoints);
 
   for (auto subInstanceId : subInstances) {
-    NodeId childId = 0;
+    NodeId childId;
     std::string instName;
     std::string modName;
     DesignComponent* def = nullptr;
     ModuleInstance* child = nullptr;
-    NodeId paramOverride = 0;
+    NodeId paramOverride;
     Config* subConfig = config;
     VObjectType type = fC->Type(subInstanceId);
 
@@ -901,7 +901,7 @@ void DesignElaboration::elaborateInstance_(
         instName = "UNNAMED";
     } else {
       NodeId instId = fC->sl_collect(subInstanceId, slName_of_instance);
-      NodeId identifierId = 0;
+      NodeId identifierId;
       if (instId) {
         identifierId = fC->Child(instId);
         instName = fC->SymName(identifierId);
@@ -934,7 +934,7 @@ void DesignElaboration::elaborateInstance_(
         modName = genBlkBaseName + append + std::to_string(genBlkIndex);
         append += "0";
       }
-      std::unordered_set<VObjectType> btypes = {
+      VObjectTypeUnorderedSet btypes = {
           VObjectType::slGenerate_module_block,
           VObjectType::slGenerate_interface_block,
           VObjectType::slGenerate_block,
@@ -995,7 +995,7 @@ void DesignElaboration::elaborateInstance_(
         NodeId var = fC->Child(iteration);
         NodeId assignOp = fC->Sibling(var);
         NodeId expr = fC->Sibling(assignOp);
-        if (expr == 0) {  // Unary operator like i++
+        if (!expr) {  // Unary operator like i++
           expr = var;
         } else if (fC->Type(assignOp) !=
                    slAssignOp_Assign) {  // Operators like +=
@@ -1039,8 +1039,8 @@ void DesignElaboration::elaborateInstance_(
                                              instName, indexedModName);
           child->setValue(name, m_exprBuilder.clone(currentIndexValue),
                           m_exprBuilder, fC->Line(varId));
-          elaborateInstance_(def->getFileContents()[0], genBlock, 0, factory,
-                             child, config, allSubInstances);
+          elaborateInstance_(def->getFileContents()[0], genBlock, InvalidNodeId,
+                             factory, child, config, allSubInstances);
           parent->addSubInstance(child);
 
           Value* newVal = m_exprBuilder.evalExpr(fC, expr, parent);
@@ -1117,18 +1117,18 @@ void DesignElaboration::elaborateInstance_(
             else  // There is no If stmt
               continue;
           } else {  // Else branch
-            if (tmp == 0) continue;
+            if (!tmp) continue;
             bool activeBranch = false;
             while (1) {
               if (tmp) {
                 tmp = fC->Sibling(tmp);  // Else
-                if (tmp == 0) break;
+                if (!tmp) break;
                 tmp = fC->Sibling(tmp);
                 int64_t condVal = 0;
 
                 NodeId Generate_block = tmp;
                 NodeId Generate_item = fC->Child(Generate_block);
-                NodeId Cond = 0;
+                NodeId Cond;
                 if (fC->Type(Generate_item) == slGenerate_item) {
                   NodeId Module_or_generate_item = fC->Child(Generate_item);
                   NodeId Module_common_item =
@@ -1393,7 +1393,7 @@ void DesignElaboration::elaborateInstance_(
       std::vector<int> to;
       std::vector<int> index;
 
-      std::unordered_set<VObjectType> insttypes = {
+      VObjectTypeUnorderedSet insttypes = {
           VObjectType::slHierarchical_instance,
           VObjectType::slN_input_gate_instance,
           VObjectType::slN_output_gate_instance,
@@ -1402,14 +1402,14 @@ void DesignElaboration::elaborateInstance_(
       std::vector<NodeId> hierInstIds =
           fC->sl_collect_all(subInstanceId, insttypes, true);
 
-      NodeId hierInstId = 0;
+      NodeId hierInstId;
       if (!hierInstIds.empty()) hierInstId = hierInstIds[0];
 
       if (!hierInstId) continue;
 
       while (hierInstId) {
         NodeId instId = fC->sl_collect(hierInstId, slName_of_instance);
-        NodeId identifierId = 0;
+        NodeId identifierId;
         if (instId) {
           identifierId = fC->Child(instId);
           instName = fC->SymName(identifierId);
@@ -1472,7 +1472,7 @@ void DesignElaboration::elaborateInstance_(
               err, false, false);
         }
 
-        NodeId unpackedDimId = 0;
+        NodeId unpackedDimId;
 
         if (identifierId) unpackedDimId = fC->Sibling(identifierId);
 
@@ -1666,7 +1666,6 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     }
   }
   std::set<std::string> overridenParams;
-  std::unordered_set<VObjectType> types;
   // Param overrides
   if (parentParamOverride) {
     ModuleInstance* parentInstance = instance->getParent();
@@ -1679,8 +1678,9 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     }
     const FileContent* parentFile =
         instance->getParent()->getDefinition()->getFileContents()[0];
-    types = {VObjectType::slOrdered_parameter_assignment,
-             VObjectType::slNamed_parameter_assignment};
+    VObjectTypeUnorderedSet types = {
+        VObjectType::slOrdered_parameter_assignment,
+        VObjectType::slNamed_parameter_assignment};
     std::vector<NodeId> overrideParams =
         parentFile->sl_collect_all(parentParamOverride, types);
     if (parentFile->Type(parentParamOverride) == slDelay2) {
@@ -1705,7 +1705,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         std::string name = parentFile->SymName(child);
         overridenParams.insert(name);
         NodeId expr = parentFile->Sibling(child);
-        if (expr == 0) {
+        if (!expr) {
           Location loc(
               st->registerSymbol(parentFile->getFileName(paramAssign).string()),
               parentFile->Line(paramAssign), parentFile->Column(paramAssign),
@@ -1938,8 +1938,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
   if (instance->getParent() == nullptr) {  // Top level only
     CommandLineParser* cmdLine =
         m_compileDesign->getCompiler()->getCommandLineParser();
-    const std::map<SymbolId, std::string>& useroverrides =
-        cmdLine->getParamList();
+    const auto& useroverrides = cmdLine->getParamList();
     for (const auto& [nameId, value] : useroverrides) {
       const std::string& name = cmdLine->getSymbolTable().getSymbol(nameId);
       Value* val = m_exprBuilder.fromString(value);
@@ -1959,8 +1958,8 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
   }
 
   // Defparams
-  types = {VObjectType::slDefparam_assignment};
-  std::unordered_set<VObjectType> stopPoints = {
+  VObjectTypeUnorderedSet types = {VObjectType::slDefparam_assignment};
+  VObjectTypeUnorderedSet stopPoints = {
       VObjectType::slConditional_generate_construct,
       VObjectType::slGenerate_module_conditional_statement,
       VObjectType::slGenerate_interface_conditional_statement,
@@ -1974,7 +1973,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
   std::vector<NodeId> defParams = fC->sl_collect_all(nodeId, types, stopPoints);
   for (auto defParam : defParams) {
     NodeId hIdent = fC->Child(defParam);
-    NodeId var = 0;
+    NodeId var;
     fC->Child(hIdent);
     if (fC->Type(hIdent) == slHierarchical_identifier)
       var = fC->Child(hIdent);
@@ -2116,8 +2115,7 @@ void DesignElaboration::checkElaboration_() {
   // Command line override
   CommandLineParser* cmdLine =
       m_compileDesign->getCompiler()->getCommandLineParser();
-  const std::map<SymbolId, std::string>& useroverrides =
-      cmdLine->getParamList();
+  const auto& useroverrides = cmdLine->getParamList();
   for (const auto& [nameId, value] : useroverrides) {
     bool found = false;
     const std::string& name = cmdLine->getSymbolTable().getSymbol(nameId);
@@ -2352,7 +2350,7 @@ void DesignElaboration::createFileList_() {
   CommandLineParser* cmdLine =
       m_compileDesign->getCompiler()->getCommandLineParser();
 
-  if (cmdLine->writePpOutput() || (cmdLine->writePpOutputFileId() != 0)) {
+  if (cmdLine->writePpOutput() || cmdLine->writePpOutputFileId()) {
     const fs::path directory =
         cmdLine->getSymbolTable().getSymbol(cmdLine->getFullCompileDir());
     std::ofstream ofs;
