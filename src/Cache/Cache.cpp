@@ -213,7 +213,7 @@ std::vector<CACHE::VObject> Cache::cacheVObjects(
   }
   // Convert a local symbol ID to a cache symbol ID to be stored.
   std::function<uint64_t(SymbolId)> toCacheSym = [cacheSymbols,
-                                                  localSymbols](SymbolId id) {
+                                                  &localSymbols](SymbolId id) {
     return (RawSymbolId)cacheSymbols->registerSymbol(
         localSymbols.getSymbol(id));
   };
