@@ -48,7 +48,7 @@
 #undef interface
 #endif
 
-static constexpr char kOverwriteMarker = 0;
+static constexpr char kOverwriteMarker = '\0';
 
 typedef std::vector<std::string> file_content_t;
 typedef std::map<std::filesystem::path, file_content_t> design_content_t;
@@ -272,7 +272,6 @@ class RoundTripTracer final : public UHDM::UhdmListener {
  public:
   const UHDM::design *const design = nullptr;
   design_content_t contents;
-  bool walkingElaboratedTree = false;
 
  private:
   inline static std::string &strReplaceAll(std::string &arg,
@@ -394,7 +393,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     return arg;
   }
 
-  inline std::string getTypespecName(const UHDM::typespec *const object) const {
+  inline std::string getTypespecName(const UHDM::typespec *const object) {
     constexpr std::string_view keyword = "unsigned";
 
     const UHDM::typespec *const alias = object->Typedef_alias();
@@ -409,7 +408,10 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     typespec_names_t::const_iterator it =
         kTypespecNames.find(object->UhdmType());
     if (it != kTypespecNames.end()) {
-      text.append(it->second).append(" ");
+      text.append(it->second);
+      if (object->UhdmType() != UHDM::uhdmlogic_typespec) {
+        text.append(1, kOverwriteMarker);
+      }
     }
 
     switch (object->UhdmType()) {
@@ -450,19 +452,8 @@ class RoundTripTracer final : public UHDM::UhdmListener {
         const UHDM::VectorOfrange *const ranges =
             static_cast<const UHDM::logic_typespec *>(object)->Ranges();
         if ((ranges != nullptr) && !ranges->empty()) {
-          for (UHDM::VectorOfrange::const_reference range : *ranges) {
-            const UHDM::expr *const lr = range->Left_expr();
-            const UHDM::expr *const rr = range->Right_expr();
-
-            if ((lr != nullptr) && (rr != nullptr)) {
-              text.append("[")
-                  .append(lr->VpiDecompile())
-                  .append(":")
-                  .append(rr->VpiDecompile())
-                  .append("]");
-            }
-          }
-          text.append(" ");
+          text.resize(object->VpiEndColumnNo() - object->VpiColumnNo(),
+                      kOverwriteMarker);
         }
       } break;
 
@@ -473,25 +464,19 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     return text;
   }
 
-  // There is also an enterVariables() in the listener. To avoid
-  // this being mistaken as overriden listener method, give it a
-  // distinct name.
-  void roundtripEnterVariables(const UHDM::variables *const object) {
+  void enterVariables_(const UHDM::variables *const object) {
     if (visited.find(object) != visited.end()) return;
 
+    constexpr std::string_view keyword1 = "automatic";
+    constexpr std::string_view keyword2 = "unsigned";
     const std::filesystem::path &filepath = object->VpiFile();
 
     std::string prefix;
-    // NOTE(HS): Doesn't really work in all places!!
-    // if (object->VpiAutomatic()) {
-    //   constexpr std::string_view keyword = "automatic";
-    //   if (!prefix.empty()) prefix.append(" ");
-    //   prefix.append(keyword);
-    // }
+    const std::string name = formatName(object->VpiName());
 
     const UHDM::typespec *const typespec = object->Typespec();
     if (typespec != nullptr) {
-      prefix.append(getTypespecName(typespec)).append(" ");
+      prefix.append(getTypespecName(typespec)).append(1, kOverwriteMarker);
     } else if (object->UhdmType() == UHDM::uhdmarray_var) {
       const UHDM::VectorOfvariables *const variables =
           static_cast<const UHDM::array_var *>(object)->Variables();
@@ -499,15 +484,50 @@ class RoundTripTracer final : public UHDM::UhdmListener {
         const UHDM::variables *const variable = variables->at(0);
         const UHDM::typespec *const typespec = variable->Typespec();
         if (typespec != nullptr) {
-          prefix.append(getTypespecName(typespec)).append(" ");
+          prefix.append(getTypespecName(typespec)).append(1, kOverwriteMarker);
+        }
+      }
+    } else {
+      if (object->VpiAutomatic()) {
+        prefix.append(keyword1).append(1, kOverwriteMarker);
+      }
+
+      variable_type_names_t::const_iterator it =
+          kVariableTypeNames.find(object->UhdmType());
+      if (it != kVariableTypeNames.end()) {
+        prefix.append(it->second);
+      }
+
+      if (object->UhdmType() == UHDM::uhdmlogic_var) {
+        const UHDM::VectorOfrange *const ranges =
+            static_cast<const UHDM::logic_var *>(object)->Ranges();
+        if ((ranges != nullptr) && !ranges->empty()) {
+          const UHDM::range *const range0 = ranges->front();
+          const UHDM::range *const rangeN = ranges->back();
+          prefix.append(rangeN->VpiEndColumnNo() - range0->VpiColumnNo(),
+                        kOverwriteMarker);
+        }
+      } else if (!object->VpiSigned()) {
+        switch (object->UhdmType()) {
+          case UHDM::uhdmbyte_var:
+          case UHDM::uhdmint_var:
+          case UHDM::uhdminteger_var:
+          case UHDM::uhdmlong_int_var:
+          case UHDM::uhdmshort_int_var: {
+            prefix.append(keyword2);
+          } break;
+          default:
+            break;
         }
       }
     }
 
-    std::string text = prefix;
+    if (!prefix.empty()) prefix.append(1, kOverwriteMarker);
 
-    const std::string name = formatName(object->VpiName());
-    if (!name.empty()) {
+    std::string text = prefix;
+    if (name.empty()) {
+      prefix.clear();
+    } else {
       text.append(name);
     }
 
@@ -565,21 +585,21 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
       case UHDM::uhdmbyte_typespec: {
         if (!static_cast<const UHDM::byte_typespec *>(object)->VpiSigned()) {
-          if (!text.empty()) text.append(" ");
+          if (!text.empty()) text.append(1, kOverwriteMarker);
           text.append(keyword);
         }
       } break;
 
       case UHDM::uhdmint_typespec: {
         if (!static_cast<const UHDM::int_typespec *>(object)->VpiSigned()) {
-          if (!text.empty()) text.append(" ");
+          if (!text.empty()) text.append(1, kOverwriteMarker);
           text.append(keyword);
         }
       } break;
 
       case UHDM::uhdminteger_typespec: {
         if (!static_cast<const UHDM::integer_typespec *>(object)->VpiSigned()) {
-          if (!text.empty()) text.append(" ");
+          if (!text.empty()) text.append(1, kOverwriteMarker);
           text.append(keyword);
         }
       } break;
@@ -587,7 +607,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       case UHDM::uhdmlong_int_typespec: {
         if (!static_cast<const UHDM::long_int_typespec *>(object)
                  ->VpiSigned()) {
-          if (!text.empty()) text.append(" ");
+          if (!text.empty()) text.append(1, kOverwriteMarker);
           text.append(keyword);
         }
       } break;
@@ -595,7 +615,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       case UHDM::uhdmshort_int_typespec: {
         if (!static_cast<const UHDM::short_int_typespec *>(object)
                  ->VpiSigned()) {
-          if (!text.empty()) text.append(" ");
+          if (!text.empty()) text.append(1, kOverwriteMarker);
           text.append(keyword);
         }
       } break;
@@ -608,6 +628,32 @@ class RoundTripTracer final : public UHDM::UhdmListener {
   }
 
  public:
+  void enterAny(const UHDM::any *const object) override {
+    if ((object->UhdmType() == UHDM::uhdmpackage) &&
+        (static_cast<const UHDM::package *>(object)->VpiName() == "builtin")) {
+      // Ignore the built-in package
+      visited.insert(object);
+      return;
+    }
+
+    const UHDM::any *parent = object->VpiParent();
+    while (parent != nullptr) {
+      if ((parent->UhdmType() == UHDM::uhdmpackage) &&
+          static_cast<const UHDM::package *>(parent)->VpiTop()) {
+        visited.insert(object);
+        return;
+      }
+
+      if ((parent->UhdmType() == UHDM::uhdmmodule) &&
+          static_cast<const UHDM::module *>(parent)->VpiTop()) {
+        visited.insert(object);
+        return;
+      }
+
+      parent = parent->VpiParent();
+    }
+  }
+
   void enterAttribute(const UHDM::attribute *const object) final {
     if (visited.find(object) != visited.end()) return;
 
@@ -820,7 +866,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     std::string text;
     text.append(keyword)
-        .append(" ")
+        .append(1, kOverwriteMarker)
         .append(formatName(object->VpiName()))
         .append(";");
     insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
@@ -868,7 +914,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     const UHDM::any *const any = object->VpiExpr();
 
     std::string text;
-    text.append(keyword1).append(" ");
+    text.append(keyword1).append(1, kOverwriteMarker);
 
     const UHDM::expr *const expr = any_cast<const UHDM::expr *>(any);
     const UHDM::scope *const scope = any_cast<const UHDM::scope *>(any);
@@ -994,6 +1040,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     if (visited.find(object) != visited.end()) return;
 
     constexpr std::string_view keyword1 = "endcase";
+    // constexpr std::string_view keyword2 = "inside";
 
     const std::filesystem::path &filepath = object->VpiFile();
 
@@ -1001,7 +1048,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     case_qualifier_names_t::const_iterator it1 =
         kCaseQualifierNames.find(object->VpiQualifier());
     if (it1 != kCaseQualifierNames.end()) {
-      text.append(it1->second).append(" ");
+      text.append(it1->second).append(1, kOverwriteMarker);
     }
 
     case_type_names_t::const_iterator it2 =
@@ -1039,10 +1086,16 @@ class RoundTripTracer final : public UHDM::UhdmListener {
   void enterAssign_stmt(const UHDM::assign_stmt *const object) final {
     if (visited.find(object) != visited.end()) return;
 
-    constexpr std::string_view keyword1 = "assign";
+    // constexpr std::string_view keyword1 = "assign";
 
     const std::filesystem::path &filepath = object->VpiFile();
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword1);
+
+    // TODO(HS): This should basically be a check for implicit vs. explicit
+    // but, unfortunately, there is nothing in the model to identify that.
+    // if ((object->VpiParent() == nullptr) ||
+    //     (object->VpiParent()->UhdmType() != UHDM::uhdmfor_stmt)) {
+    //   insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword1);
+    // }
 
     const UHDM::any *const lhs = object->Lhs();
     const UHDM::any *const rhs = object->Rhs();
@@ -1424,6 +1477,11 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       }
     }
     insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
+
+    const UHDM::typespec *const typespec = object->Typespec();
+    if (typespec != nullptr) {
+      visited.insert(typespec);
+    }
   }
 
   void enterLet_expr(const UHDM::let_expr *const object) final {
@@ -1452,7 +1510,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       } break;
 
       case vpiConcatOp: {
-        insert(filepath, object->VpiLineNo(), object->VpiColumnNo() - 1, "{");
+        insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), "{");
         UHDM::VectorOfany ordered(operands->begin(), operands->end());
         if (object->VpiReordered()) {
           std::stable_sort(
@@ -1467,7 +1525,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
                 r = lhs->VpiEndLineNo() - rhs->VpiEndLineNo();
                 if (r != 0) return r < 0;
 
-                r = lhs->VpiColumnNo() - rhs->VpiEndColumnNo();
+                r = lhs->VpiEndColumnNo() - rhs->VpiEndColumnNo();
                 return r < 0;
               });
         }
@@ -1477,7 +1535,8 @@ class RoundTripTracer final : public UHDM::UhdmListener {
           insert(filepath, operand->VpiEndLineNo(), operand->VpiEndColumnNo(),
                  ",");
         }
-        insert(filepath, object->VpiEndLineNo(), object->VpiEndColumnNo(), "}");
+        insert(filepath, object->VpiEndLineNo(), object->VpiEndColumnNo() - 1,
+               "}");
       } break;
 
       case vpiMultiConcatOp: {
@@ -1544,6 +1603,12 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     if (visited.find(object) != visited.end()) return;
 
     const std::filesystem::path &filepath = object->VpiFile();
+
+    const UHDM::any *const parent = object->VpiParent();
+    if (parent != nullptr) {
+      insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
+             formatName(parent->VpiName()));
+    }
 
     const UHDM::expr *const lr = object->Left_range();
     const UHDM::expr *const rr = object->Right_range();
@@ -1641,45 +1706,45 @@ class RoundTripTracer final : public UHDM::UhdmListener {
   }
 
   void enterRef_var(const UHDM::ref_var *const object) final {
-    roundtripEnterVariables(object);
+    enterVariables_(object);
   }
 
   void enterShort_real_var(const UHDM::short_real_var *const object) final {
-    roundtripEnterVariables(object);
+    enterVariables_(object);
   }
 
   void enterReal_var(const UHDM::real_var *const object) final {
-    roundtripEnterVariables(object);
+    enterVariables_(object);
   }
 
   void enterByte_var(const UHDM::byte_var *const object) final {
-    roundtripEnterVariables(object);
+    enterVariables_(object);
   }
 
   void enterShort_int_var(const UHDM::short_int_var *const object) final {
-    roundtripEnterVariables(object);
+    enterVariables_(object);
   }
 
   void enterInt_var(const UHDM::int_var *const object) final {
-    roundtripEnterVariables(object);
+    enterVariables_(object);
   }
 
   void enterLong_int_var(const UHDM::long_int_var *const object) final {
-    roundtripEnterVariables(object);
+    enterVariables_(object);
   }
 
   void enterInteger_var(const UHDM::integer_var *const object) final {
-    roundtripEnterVariables(object);
+    enterVariables_(object);
   }
 
   void enterTime_var(const UHDM::time_var *const object) final {
-    roundtripEnterVariables(object);
+    enterVariables_(object);
   }
 
   void enterArray_var(const UHDM::array_var *const object) final {
     if (visited.find(object) != visited.end()) return;
 
-    roundtripEnterVariables(object);
+    enterVariables_(object);
 
     const std::filesystem::path &filepath = object->VpiFile();
 
@@ -1706,39 +1771,39 @@ class RoundTripTracer final : public UHDM::UhdmListener {
   }
 
   void enterPacked_array_var(const UHDM::packed_array_var *const object) final {
-    roundtripEnterVariables(object);
+    enterVariables_(object);
   }
 
   void enterBit_var(const UHDM::bit_var *const object) final {
-    roundtripEnterVariables(object);
+    enterVariables_(object);
   }
 
   void enterLogic_var(const UHDM::logic_var *const object) final {
-    roundtripEnterVariables(object);
+    enterVariables_(object);
   }
 
   void enterStruct_var(const UHDM::struct_var *const object) final {
-    roundtripEnterVariables(object);
+    enterVariables_(object);
   }
 
   void enterUnion_var(const UHDM::union_var *const object) final {
-    roundtripEnterVariables(object);
+    enterVariables_(object);
   }
 
   void enterEnum_var(const UHDM::enum_var *const object) final {
-    roundtripEnterVariables(object);
+    enterVariables_(object);
   }
 
   void enterString_var(const UHDM::string_var *const object) final {
-    roundtripEnterVariables(object);
+    enterVariables_(object);
   }
 
   void enterChandle_var(const UHDM::chandle_var *const object) final {
-    roundtripEnterVariables(object);
+    enterVariables_(object);
   }
 
   void enterVar_bit(const UHDM::var_bit *const object) final {
-    roundtripEnterVariables(object);
+    enterVariables_(object);
   }
 
   void enterTask(const UHDM::task *const object) final {
@@ -1754,13 +1819,13 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     std::string text;
     if (isPureVirtual) {
-      text.append(keyword4).append(" ");
+      text.append(keyword4).append(1, kOverwriteMarker);
     }
     if (object->VpiVirtual()) {
-      text.append(keyword3).append(" ");
+      text.append(keyword3).append(1, kOverwriteMarker);
     }
     text.append(keyword1)
-        .append(" ")
+        .append(1, kOverwriteMarker)
         .append(formatName(object->VpiName()))
         .append("(");
 
@@ -1813,7 +1878,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     std::string text(keyword1);
     if (object->VpiAutomatic()) {
-      text.append(" ").append(keyword2);
+      text.append(1, kOverwriteMarker).append(keyword2);
     }
 
     insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
@@ -1862,8 +1927,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       insert(filepath, object->VpiLineNo(), end_column + 1, ");");
     }
 
-    insert(filepath, object->VpiEndLineNo(),
-           object->VpiEndColumnNo() - keyword3.length(), keyword3);
+    insert(filepath, object->VpiEndLineNo(), object->VpiColumnNo(), keyword3);
   }
 
   void enterModport(const UHDM::modport *const object) final {
@@ -1874,7 +1938,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     const std::filesystem::path &filepath = object->VpiFile();
 
     std::string prefix(keyword);
-    prefix.append(" ");
+    prefix.append(1, kOverwriteMarker);
 
     std::string text = prefix;
     text.append(formatName(object->VpiName()));
@@ -1975,7 +2039,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     std::string text;
     text.append(formatName(object->VpiDefName()))
-        .append(" ")
+        .append(1, kOverwriteMarker)
         .append(formatName(object->VpiName()))
         .append("(");
     insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
@@ -1999,7 +2063,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     std::string text;
     text.append(formatName(object->VpiDefName()))
-        .append(" ")
+        .append(1, kOverwriteMarker)
         .append(formatName(object->VpiName()))
         .append("(");
     insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
@@ -2024,7 +2088,9 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     const std::filesystem::path &filepath = object->VpiFile();
 
     std::string text;
-    text.append(keyword1).append(" ").append(formatName(object->VpiDefName()));
+    text.append(keyword1)
+        .append(1, kOverwriteMarker)
+        .append(formatName(object->VpiDefName()));
 
     insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
     insert(filepath, object->VpiEndLineNo(),
@@ -2043,7 +2109,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     if (visited.find(object) != visited.end()) return;
 
     const std::filesystem::path &filepath = object->VpiFile();
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo() - 1, "[");
+    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), "[");
 
     const UHDM::expr *const lexpr = object->Left_expr();
     const UHDM::expr *const rexpr = object->Right_expr();
@@ -2059,21 +2125,21 @@ class RoundTripTracer final : public UHDM::UhdmListener {
         insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), loperand);
       }
     } else {  // double-range
-      std::string loperand, roperand;
-      if (lexpr->UhdmType() == UHDM::uhdmconstant) {
-        loperand = static_cast<const UHDM::constant *>(lexpr)->VpiDecompile();
-      }
-      if (rexpr->UhdmType() == UHDM::uhdmconstant) {
-        roperand = static_cast<const UHDM::constant *>(rexpr)->VpiDecompile();
-      }
 
-      std::string text;
-      text.append(loperand).append(":").append(roperand);
+      //   loperand = static_cast<const UHDM::constant
+      //   *>(lexpr)->VpiDecompile();
+      // }
+      // if (rexpr->UhdmType() == UHDM::uhdmconstant) {
+      //   roperand = static_cast<const UHDM::constant
+      //   *>(rexpr)->VpiDecompile();
+      // }
+      //
+      // std::string text;
+      // text.append(loperand).append(":").append(roperand);
 
-      insert(filepath, object->VpiLineNo(), lexpr->VpiColumnNo(), text);
+      insert(filepath, rexpr->VpiLineNo(), rexpr->VpiColumnNo() - 1, ":");
     }
-    insert(filepath, object->VpiLineNo(), object->VpiEndColumnNo(), "]");
-    visited.insert(object);  // Don't step in!
+    insert(filepath, object->VpiEndLineNo(), object->VpiEndColumnNo() - 1, "]");
   }
 
   void enterUdp_defn(const UHDM::udp_defn *const object) final {
@@ -2085,7 +2151,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     std::string text;
     text.append(keyword1)
-        .append(" ")
+        .append(1, kOverwriteMarker)
         .append(formatName(object->VpiDefName()))
         .append("(");
 
@@ -2142,10 +2208,12 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     }
 
     std::string prefix;
-    direction_names_t::const_iterator it =
-        kDirectionNames.find(object->VpiDirection());
-    if (it != kDirectionNames.end()) {
-      prefix.append(it->second).append(" ");
+    if (object->VpiDirection() != vpiInput) {
+      direction_names_t::const_iterator it =
+          kDirectionNames.find(object->VpiDirection());
+      if (it != kDirectionNames.end()) {
+        prefix.append(it->second).append(1, kOverwriteMarker);
+      }
     }
 
     std::string text = prefix;
@@ -2180,14 +2248,14 @@ class RoundTripTracer final : public UHDM::UhdmListener {
         static_cast<const UHDM::module *>(parent);
     std::string text;
     if (module->Global_clocking() == object) {
-      text.append(keyword3).append(" ");
+      text.append(keyword3).append(1, kOverwriteMarker);
     } else if (module->Default_clocking() == object) {
-      text.append(keyword2).append(" ");
+      text.append(keyword2).append(1, kOverwriteMarker);
     }
     text.append(keyword4);
 
     if (name != keyword1) {
-      text.append(" ").append(name);
+      text.append(1, kOverwriteMarker).append(name);
     }
 
     insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
@@ -2207,7 +2275,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       edge_names_t::const_iterator it =
           kEdgeNames.find(object->VpiOutputEdge());
       if (it != kEdgeNames.end()) {
-        text.assign(keyword7).append(" ").append(it->second);
+        text.assign(keyword7).append(1, kOverwriteMarker).append(it->second);
         insert(filepath, inputSkew->VpiEndLineNo(),
                inputSkew->VpiEndColumnNo() + 1, text);
       }
@@ -2239,21 +2307,21 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     direction_names_t::const_iterator it1 =
         kDirectionNames.find(object->VpiDirection());
     if (it1 != kDirectionNames.end()) {
-      text.append(it1->second).append(" ");
+      text.append(it1->second).append(1, kOverwriteMarker);
     }
     if ((object->VpiDirection() == vpiInput) &&
         (object->VpiInputEdge() != vpiNoEdge)) {
       edge_names_t::const_iterator it2 =
           kEdgeNames.find(object->VpiInputEdge());
       if (it2 != kEdgeNames.end()) {
-        text.append(it2->second).append(" ");
+        text.append(it2->second).append(1, kOverwriteMarker);
       }
     } else if ((object->VpiDirection() == vpiOutput) &&
                (object->VpiOutputEdge() != vpiNoEdge)) {
       edge_names_t::const_iterator it2 =
           kEdgeNames.find(object->VpiOutputEdge());
       if (it2 != kEdgeNames.end()) {
-        text.append(it2->second).append(" ");
+        text.append(it2->second).append(1, kOverwriteMarker);
       }
     }
 
@@ -2278,11 +2346,6 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
   void enterParam_assign(const UHDM::param_assign *const object) final {
     if (visited.find(object) != visited.end()) return;
-
-    if (walkingElaboratedTree) {
-      visited.insert(object);
-      return;
-    }
 
     const std::filesystem::path &filepath = object->VpiFile();
 
@@ -2357,12 +2420,12 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     net_type_names_t::const_iterator it =
         kNetTypeNames.find(object->VpiNetType());
     if (it != kNetTypeNames.end()) {
-      prefix.append(it->second).append(" ");
+      prefix.append(it->second).append(1, kOverwriteMarker);
     }
 
     const UHDM::typespec *const typespec = object->Typespec();
     if (typespec != nullptr) {
-      prefix.append(getTypespecName(typespec)).append(" ");
+      prefix.append(getTypespecName(typespec)).append(1, kOverwriteMarker);
     }
 
     std::string text = prefix;
@@ -2381,12 +2444,12 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     net_type_names_t::const_iterator it =
         kNetTypeNames.find(object->VpiNetType());
     if (it != kNetTypeNames.end()) {
-      prefix.append(it->second).append(" ");
+      prefix.append(it->second).append(1, kOverwriteMarker);
     }
 
     const UHDM::typespec *const typespec = object->Typespec();
     if (typespec != nullptr) {
-      prefix.append(getTypespecName(typespec)).append(" ");
+      prefix.append(getTypespecName(typespec)).append(1, kOverwriteMarker);
     }
 
     std::string text = prefix;
@@ -2405,12 +2468,12 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     net_type_names_t::const_iterator it =
         kNetTypeNames.find(object->VpiNetType());
     if (it != kNetTypeNames.end()) {
-      prefix.append(it->second).append(" ");
+      prefix.append(it->second).append(1, kOverwriteMarker);
     }
 
     const UHDM::typespec *const typespec = object->Typespec();
     if (typespec != nullptr) {
-      prefix.append(getTypespecName(typespec)).append(" ");
+      prefix.append(getTypespecName(typespec)).append(1, kOverwriteMarker);
     }
 
     std::string text = prefix;
@@ -2434,10 +2497,10 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     const UHDM::VectorOfrange *const ranges = object->Ranges();
     if (ranges != nullptr) {
-      const UHDM::range *const range0 = ranges->at(0);
       net_type_names_t::const_iterator it =
           kNetTypeNames.find(object->VpiNetType());
       if (it != kNetTypeNames.end()) {
+        const UHDM::range *const range0 = ranges->at(0);
         insert(filepath, range0->VpiLineNo(),
                range0->VpiColumnNo() - it->second.length() - 2, it->second);
       }
@@ -2468,7 +2531,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     std::string text;
     text.append(keyword)
-        .append(" ")
+        .append(1, kOverwriteMarker)
         .append(formatName(object->VpiName()))
         .append(";");
     insert(filepath, object->VpiLineNo(),
@@ -2497,7 +2560,8 @@ class RoundTripTracer final : public UHDM::UhdmListener {
         const std::string name = getTypespecName(typespec);
         column = object->VpiColumnNo() - name.length() - 1;
         insert(filepath, line, column, name);
-      } else {
+      } else if (typespec->VpiColumnNo() != 0) {
+        // TODO(HS): This check needs to go!
         column = typespec->VpiColumnNo();
       }
     }
@@ -2549,7 +2613,9 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     const std::string name = formatName(object->VpiName());
 
     std::string text;
-    text.append(keyword1).append(" ").append(formatName(object->VpiName()));
+    text.append(keyword1)
+        .append(1, kOverwriteMarker)
+        .append(formatName(object->VpiName()));
 
     insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
     insert(filepath, object->VpiEndLineNo(),
@@ -2566,7 +2632,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
   }
 
   void enterClass_var(const UHDM::class_var *const object) final {
-    roundtripEnterVariables(object);
+    enterVariables_(object);
   }
 
   void enterInterface(const UHDM::interface *const object) final {
@@ -2578,7 +2644,9 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     const std::filesystem::path &filepath = object->VpiFile();
 
     std::string text;
-    text.append(keyword1).append(" ").append(formatName(object->VpiDefName()));
+    text.append(keyword1)
+        .append(1, kOverwriteMarker)
+        .append(formatName(object->VpiDefName()));
 
     insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
     insert(filepath, object->VpiEndLineNo(),
@@ -2596,8 +2664,9 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     std::string text;
     if (name.empty()) {
-      text.append(keyword1).append(" ").append(
-          formatName(object->VpiDefName()));
+      text.append(keyword1)
+          .append(1, kOverwriteMarker)
+          .append(formatName(object->VpiDefName()));
 
       insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
       insert(filepath, object->VpiEndLineNo(),
@@ -2622,7 +2691,9 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     const std::filesystem::path &filepath = object->VpiFile();
 
     std::string text;
-    text.append(keyword1).append(" ").append(formatName(object->VpiName()));
+    text.append(keyword1)
+        .append(1, kOverwriteMarker)
+        .append(formatName(object->VpiName()));
 
     insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
     insert(filepath, object->VpiEndLineNo(),
@@ -2640,8 +2711,9 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       constexpr std::string_view keyword2("endmodule");
 
       std::string text;
-      text.append(keyword1).append(" ").append(
-          formatName(object->VpiDefName()));
+      text.append(keyword1)
+          .append(1, kOverwriteMarker)
+          .append(formatName(object->VpiDefName()));
 
       insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
       insert(filepath, object->VpiEndLineNo(),
@@ -2669,7 +2741,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     } else if (object->Instance() != nullptr) {
       std::string text;
       text.append(formatName(object->VpiDefName()))
-          .append(" ")
+          .append(1, kOverwriteMarker)
           .append(formatName(object->VpiName()));
 
       insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
@@ -2698,7 +2770,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     const UHDM::VectorOfparam_assign *const param_assigns =
         object->Param_assigns();
-    if (!walkingElaboratedTree && (param_assigns != nullptr)) {
+    if (param_assigns != nullptr) {
       UHDM::VectorOfparam_assign ordered(*param_assigns);
       std::stable_sort(ordered.begin(), ordered.end(),
                        [](UHDM::VectorOfparam_assign::const_reference lhs,
@@ -2725,6 +2797,10 @@ class RoundTripTracer final : public UHDM::UhdmListener {
           const UHDM::typespec *const jtypespec =
               static_cast<const UHDM::parameter *>(jlhs)->Typespec();
           if ((itypespec != nullptr) && (jtypespec != nullptr) &&
+              (itypespec->VpiLineNo() != 0) &&
+              (itypespec->VpiColumnNo() != 0) &&
+              (itypespec->VpiEndLineNo() != 0) &&
+              (itypespec->VpiEndColumnNo() != 0) &&
               (itypespec->UhdmType() == jtypespec->UhdmType()) &&
               (itypespec->VpiLineNo() == jtypespec->VpiLineNo()) &&
               (itypespec->VpiColumnNo() == jtypespec->VpiColumnNo()) &&
@@ -2755,7 +2831,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     std::string text;
     text.append(formatName(object->VpiDefName()))
-        .append(" ")
+        .append(1, kOverwriteMarker)
         .append(formatName(object->VpiName()))
         .append("(");
 
@@ -2807,7 +2883,28 @@ class RoundTripTracer final : public UHDM::UhdmListener {
   }
 
   void enterLogic_typespec(const UHDM::logic_typespec *const object) final {
-    enterTypespec(object);
+    if (visited.find(object) != visited.end()) return;
+
+    const UHDM::any *const parent = object->VpiParent();
+    if ((parent != nullptr) && (parent->UhdmType() != UHDM::uhdmparameter) &&
+        (parent->UhdmType() != UHDM::uhdmparam_assign) &&
+        (parent->UhdmType() != UHDM::uhdmtypespec_member)) {
+      constexpr std::string_view keyword = "typedef";
+      const std::filesystem::path &filepath = object->VpiFile();
+
+      std::string prefix(keyword);
+      prefix.append(1, kOverwriteMarker);
+
+      std::string text(prefix);
+      text.append("logic");
+      insert(filepath, object->VpiLineNo(),
+             object->VpiColumnNo() - prefix.length(), text);
+
+      insert(filepath, object->VpiEndLineNo(), object->VpiEndColumnNo() + 1,
+             formatName(object->VpiName()));
+    } else if (object->VpiName().empty()) {
+      enterTypespec(object);
+    }
   }
 
   void enterPacked_array_typespec(
@@ -2847,8 +2944,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     const UHDM::typespec *const base_typespec = object->Base_typespec();
     if (base_typespec != nullptr) {
-      text.append(getTypespecName(base_typespec)).append(" ");
-      visited.insert(base_typespec);
+      text.append(getTypespecName(base_typespec)).append(1, kOverwriteMarker);
     }
 
     text.append("{");
@@ -2880,10 +2976,10 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       const std::filesystem::path &filepath = object->VpiFile();
 
       std::string prefix;
-      if (callstack.empty() ||
-          (callstack.back()->UhdmType() != UHDM::uhdmtypespec_member)) {
-        prefix.append(keyword1).append(" ");
-      }
+      //      if (callstack.empty() ||
+      //          (callstack.back()->UhdmType() != UHDM::uhdmtypespec_member)) {
+      prefix.append(keyword1).append(1, kOverwriteMarker);
+      //      }
 
       std::string text = prefix;
       text.append(keyword2);
@@ -2912,7 +3008,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       constexpr std::string_view keyword = "typedef";
 
       std::string text;
-      text.append(keyword).append(" ").append("union");
+      text.append(keyword).append(1, kOverwriteMarker).append("union");
       if (object->VpiPacked()) {
         text.append(" packed");
       }
@@ -2971,7 +3067,6 @@ class RoundTripTracer final : public UHDM::UhdmListener {
            getTypespecName(typespec));
     insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
            formatName(object->VpiName()));
-    visited.insert(typespec);
   }
 
   void enterEnum_const(const UHDM::enum_const *const object) final {
@@ -3020,7 +3115,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
       for (size_t i = 0, n = call_args->size() - 1; i < n; ++i) {
         UHDM::VectorOfany::const_reference call_arg = call_args->at(i);
-        insert(filepath, call_arg->VpiLineNo(), call_arg->VpiEndColumnNo(),
+        insert(filepath, call_arg->VpiEndLineNo(), call_arg->VpiEndColumnNo(),
                ",");
       }
     }
@@ -3150,7 +3245,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     std::string text;
     text.append(keyword1)
-        .append(" ")
+        .append(1, kOverwriteMarker)
         .append(object->VpiName())
         .append("::")
         .append(value)
@@ -3188,56 +3283,63 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     // Test file not available.
   }
 
-  void enterDesign(const UHDM::design *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterDesign(const UHDM::design *const object) final {}
 
-    UHDM::VectorOfmodule *const allModules = object->AllModules();
-    if (allModules != nullptr) {
-      for (UHDM::VectorOfmodule::reference module : *allModules) {
-        module->VpiTop(false);
-      }
-    }
-
-    UHDM::VectorOfmodule *const topModules = object->TopModules();
-    if (topModules != nullptr) {
-      std::function<void(UHDM::module *const)> recurse =
-          [&recurse](UHDM::module *const module) {
-            module->VpiTop(true);
-            UHDM::VectorOfmodule *const subModules = module->Modules();
-            if (subModules != nullptr) {
-              for (UHDM::VectorOfmodule::reference subModule : *subModules) {
-                recurse(subModule);
-              }
-            }
-          };
-      for (UHDM::VectorOfmodule::reference module : *topModules) {
-        recurse(module);
-      }
-    }
-
-    UHDM::VectorOfpackage *const allPackages = object->AllPackages();
-    if (allPackages != nullptr) {
-      for (UHDM::VectorOfpackage::reference package : *allPackages) {
-        package->VpiTop(false);
-      }
-    }
-
-    UHDM::VectorOfpackage *const topPackages = object->TopPackages();
-    if (topPackages != nullptr) {
-      for (UHDM::VectorOfpackage::reference package : *topPackages) {
-        package->VpiTop(true);
-      }
+  void enterAllPackages(const UHDM::any *const object,
+                        const UHDM::VectorOfpackage &objects) final {
+    for (UHDM::VectorOfpackage::const_reference package : objects) {
+      package->VpiTop(false);
     }
   }
+
+  void enterTopPackages(const UHDM::any *const object,
+                        const UHDM::VectorOfpackage &objects) final {
+    for (UHDM::VectorOfpackage::const_reference package : objects) {
+      package->VpiTop(true);
+      visited.insert(package);
+    }
+  }
+
+  void enterAllClasses(const UHDM::any *const object,
+                       const UHDM::VectorOfclass_defn &objects) final {}
+
+  void enterAllInterfaces(const UHDM::any *const object,
+                          const UHDM::VectorOfinterface &objects) final {}
+
+  void enterAllUdps(const UHDM::any *const object,
+                    const UHDM::VectorOfudp_defn &objects) final {}
+
+  void enterAllPrograms(const UHDM::any *const object,
+                        const UHDM::VectorOfprogram &objects) final {}
+
+  void enterAllModules(const UHDM::any *const object,
+                       const UHDM::VectorOfmodule &objects) final {
+    for (UHDM::VectorOfmodule::const_reference module : objects) {
+      module->VpiTop(false);
+    }
+  }
+
+  void enterTypespecs(const UHDM::any *const object,
+                      const UHDM::VectorOftypespec &objects) final {}
+
+  void enterLet_decls(const UHDM::any *const object,
+                      const UHDM::VectorOflet_decl &objects) final {}
+
+  void enterTask_funcs(const UHDM::any *const object,
+                       const UHDM::VectorOftask_func &objects) final {}
+
+  void enterParameters(const UHDM::any *const object,
+                       const UHDM::VectorOfany &objects) final {}
+
+  void enterParam_assigns(const UHDM::any *const object,
+                          const UHDM::VectorOfparam_assign &objects) final {}
 
   void enterTopModules(const UHDM::any *const object,
                        const UHDM::VectorOfmodule &objects) final {
-    walkingElaboratedTree = true;
-  }
-
-  void leaveTopModules(const UHDM::any *const object,
-                       const UHDM::VectorOfmodule &objects) final {
-    walkingElaboratedTree = false;
+    for (UHDM::VectorOfmodule::const_reference module : objects) {
+      module->VpiTop(true);
+      visited.insert(module);
+    }
   }
 
   void enterTable_entrys(const UHDM::any *const object,
@@ -3452,14 +3554,17 @@ static int run_in_uhdm_mode(int argc, const char **argv) {
     return -2;
   }
 
-  for (const vpiHandle &handle : restoredDesigns) {
-    const UHDM::design *const design =
-        (const UHDM::design *)((const uhdm_handle *)handle)->object;
-    if (!design->VpiElaborated()) {
-      UHDM::ElaboratorListener listener(&serializer, false);
-      listener.listenDesigns(restoredDesigns);
-    }
-  }
+  // Do NOT elaborate explicitly since multiple designs are incomplete and
+  // an elaboration process for them doesn't end up well.
+  //
+  // for (const vpiHandle &handle : restoredDesigns) {
+  //   const UHDM::design *const design =
+  //       (const UHDM::design *)((const uhdm_handle *)handle)->object;
+  //   if (!design->VpiElaborated()) {
+  //     UHDM::ElaboratorListener listener(&serializer, false);
+  //     listener.listenDesigns(restoredDesigns);
+  //   }
+  // }
 
   if (baseDir.is_relative()) {
     baseDir = std::filesystem::current_path() / baseDir;
@@ -3478,10 +3583,11 @@ static int usage(const char *progname) {
   fprintf(stderr, "Usage:\n");
   fprintf(stderr, "%s -uhdm-mode <uhdm-file> -base <base-dir> -log <log-dir>\n",
           progname);
-  // TODO(hs-apotell) describe what base-dir and logdir do.
+  fprintf(stderr, "  uhdm-file - UHDM file path\n");
+  fprintf(stderr,
+          "  log-dir   - Directory path where logs will be generated\n");
   fprintf(stderr, "or\n");
-  fprintf(stderr, "%s -surelog-mode <uhdm-file> <surelog-arguments>\n",
-          progname);
+  fprintf(stderr, "%s -surelog-mode <surelog-arguments>\n", progname);
   return 1;
 }
 
