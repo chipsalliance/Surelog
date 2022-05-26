@@ -44,13 +44,11 @@ SV3_1aPpTreeListenerHelper::getFileLine(antlr4::ParserRuleContext* ctx,
                                         SymbolId& fileId) {
   std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
   std::pair<int, int> endLineCol = ParseUtils::getEndLineColumn(m_tokens, ctx);
-  unsigned int line = 0;
+  unsigned int line = m_pp->getLineNb(lineCol.first);
   unsigned short column = lineCol.second;
-  unsigned int endLine = 0;
+  unsigned int endLine = m_pp->getLineNb(endLineCol.first);
   unsigned short endColumn = endLineCol.second;
   fileId = m_pp->getFileId(lineCol.first);
-  line = m_pp->getLineNb(lineCol.first);
-  endLine = m_pp->getLineNb(endLineCol.first);
   return std::make_tuple(line, column, endLine, endColumn);
 }
 

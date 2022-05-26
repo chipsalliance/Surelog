@@ -231,9 +231,8 @@ PreprocessFile::PreprocessFile(SymbolId fileId, CompileSourceFile* csf,
   setDebug(m_compileSourceFile->m_commandLineParser->getDebugLevel());
   if ((!m_compileSourceFile->m_commandLineParser->parseOnly()) &&
       (!m_compileSourceFile->m_commandLineParser->lowMem())) {
-    getIncludeFileInfo().emplace_back(IncludeFileInfo::Context::NONE, 0,
-                                      m_fileId, 0, 0, 0, 0,
-                                      IncludeFileInfo::Action::POP, 0, 0);
+    addIncludeFileInfo(IncludeFileInfo::Context::NONE, 0, m_fileId, 0, 0, 0, 0,
+                       IncludeFileInfo::Action::POP, 0, 0);
   }
 }
 
@@ -526,6 +525,20 @@ unsigned int PreprocessFile::getSumLineCount() {
   unsigned int total = m_lineCount;
   if (m_includer) total += m_includer->getSumLineCount();
   return total;
+}
+
+int PreprocessFile::addIncludeFileInfo(
+    IncludeFileInfo::Context context, unsigned int sectionStartLine,
+    SymbolId sectionFile, unsigned int originalStartLine,
+    unsigned int originalStartColumn, unsigned int originalEndLine,
+    unsigned int originalEndColumn, IncludeFileInfo::Action action,
+    int indexOpening /* = 0 */, int indexClosing /* = 0 */) {
+  int index = m_includeFileInfo.size();
+  m_includeFileInfo.emplace_back(context, sectionStartLine, sectionFile,
+                                 originalStartLine, originalStartColumn,
+                                 originalEndLine, originalEndColumn, action,
+                                 indexOpening, indexClosing);
+  return index;
 }
 
 void PreprocessFile::append(const std::string& s) {
@@ -981,7 +994,8 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
         callingFile ? callingFile->m_compilationUnit
                     : m_includer->m_compilationUnit,
         callingFile ? callingFile->m_library : m_includer->m_library,
-        body_short, macroInfo, embeddedMacroCallLine, embeddedMacroCallFile);
+        body_short, macroInfo, embeddedMacroCallLine - 1,
+        embeddedMacroCallFile);
     getCompileSourceFile()->registerPP(pp);
     if (!pp->preprocess()) {
       result = MacroNotDefined;
@@ -1172,22 +1186,18 @@ SymbolId PreprocessFile::getFileId(unsigned int line) const {
 unsigned int PreprocessFile::getLineNb(unsigned int line) {
   if (isMacroBody() && m_macroInfo) {
     return (m_macroInfo->m_startLine + line - 1);
-  } else {
-    if (!m_lineTranslationVec.empty()) {
-      unsigned int index = m_lineTranslationVec.size() - 1;
-      while (1) {
-        if (line >= m_lineTranslationVec[index].m_originalLine) {
-          return (m_lineTranslationVec[index].m_pretendLine +
-                  (line - m_lineTranslationVec[index].m_originalLine));
-        }
-        if (index == 0) break;
-        index--;
+  } else if (!m_lineTranslationVec.empty()) {
+    unsigned int index = m_lineTranslationVec.size() - 1;
+    while (1) {
+      if (line >= m_lineTranslationVec[index].m_originalLine) {
+        return (m_lineTranslationVec[index].m_pretendLine +
+                (line - m_lineTranslationVec[index].m_originalLine));
       }
-      return line;
-    } else {
-      return line;
+      if (index == 0) break;
+      index--;
     }
   }
+  return line;
 }
 
 std::string PreprocessFile::getPreProcessedFileContent() {
