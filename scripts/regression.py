@@ -118,7 +118,7 @@ def _rmdir(dirpath, retries=10):
 def _rmdir_recursively(dirpath, patterns):
   for pattern in patterns:
     for path in Path(dirpath).rglob(pattern):
-      if os.isdir(path):
+      if os.path.isdir(path):
         _rmdir(path)
 
 
