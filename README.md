@@ -152,6 +152,13 @@ target_link_libraries(<your project name> surelog)
   -init                  Initializes cache for separate compile flow
   -sepcomp               Separate compilation, each invocation of surelog creates a compilation unit (Optional -nohash)
   -link                  Links and elaborates the separately compiled files (Optional -nohash and -elabuhdm)
+
+  Example:
+    surelog -init
+    surelog pkg1.sv pkg2.sv -sepcomp 
+    surelog top.sv -sepcomp 
+    surelog -link 
+
 ``` 
 
  * YOSYS AND VERILATOR FEATURES:
