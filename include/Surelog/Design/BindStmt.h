@@ -25,7 +25,7 @@
 #define SURELOG_BINDSTMT_H
 #pragma once
 
-#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Common/NodeId.h>
 
 // UHDM
 #include <uhdm/uhdm_forward_decl.h>

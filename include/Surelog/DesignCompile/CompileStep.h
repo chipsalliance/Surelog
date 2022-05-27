@@ -25,7 +25,7 @@
 #define SURELOG_COMPILESTEP_H
 #pragma once
 
-#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Common/NodeId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <string>
@@ -34,6 +34,7 @@
 
 namespace SURELOG {
 
+class SymbolId;
 class VObject;
 
 class CompileStep {

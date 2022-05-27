@@ -25,12 +25,11 @@
 #define SURELOG_COMPILETOOLBOX_H
 #pragma once
 
-#include <Surelog/Common/SymbolId.h>
-
 namespace SURELOG {
 
 class DesignComponent;
 class FileContent;
+class NodeId;
 
 // TODO: this looks like not really used or at least should be provided
 // as standalone function ?

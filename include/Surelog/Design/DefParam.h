@@ -25,7 +25,7 @@
 #define SURELOG_DEFPARAM_H
 #pragma once
 
-#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Common/NodeId.h>
 
 #include <map>
 #include <string>

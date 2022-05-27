@@ -26,7 +26,7 @@
 #pragma once
 
 #include <Surelog/Common/Containers.h>
-#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Common/NodeId.h>
 #include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
@@ -39,6 +39,7 @@ class FileContent;
 class ModuleInstance;
 class Netlist;
 class Parameter;
+class SymbolId;
 class SymbolTable;
 
 class ModuleInstance : public ValuedComponentI {

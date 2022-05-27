@@ -25,7 +25,7 @@
 #define SURELOG_FILECNODEID_H
 #pragma once
 
-#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Common/NodeId.h>
 
 namespace SURELOG {
 

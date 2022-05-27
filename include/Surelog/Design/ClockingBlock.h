@@ -25,7 +25,7 @@
 #define SURELOG_CLOCKINGBLOCK_H
 #pragma once
 
-#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Common/NodeId.h>
 #include <Surelog/Design/Signal.h>
 
 // UHDM

@@ -25,7 +25,6 @@
 #define SURELOG_EXPRBUILDER_H
 #pragma once
 
-#include <Surelog/Common/SymbolId.h>
 #include <Surelog/Expression/Value.h>
 
 namespace SURELOG {
@@ -33,6 +32,7 @@ namespace SURELOG {
 class Design;
 class ErrorContainer;
 class FileContent;
+class NodeId;
 class SymbolTable;
 class ValuedComponentI;
 

@@ -25,7 +25,7 @@
 #define SURELOG_SIGNAL_H
 #pragma once
 
-#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Common/NodeId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 #include <uhdm/attribute.h>
 

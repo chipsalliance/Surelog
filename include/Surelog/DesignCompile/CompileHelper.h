@@ -25,7 +25,6 @@
 #define SURELOG_COMPILEHELPER_H
 #pragma once
 
-#include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/Expression/ExprBuilder.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
@@ -46,6 +45,7 @@ class DesignComponent;
 class ErrorContainer;
 class FileContent;
 class Function;
+class NodeId;
 class Procedure;
 class Scope;
 class Statement;

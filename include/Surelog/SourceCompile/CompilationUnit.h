@@ -26,12 +26,13 @@
 #pragma once
 
 #include <Surelog/Common/Containers.h>
-#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Common/NodeId.h>
 #include <Surelog/Design/TimeInfo.h>
 
 namespace SURELOG {
 
 class MacroInfo;
+class SymbolId;
 
 class CompilationUnit {
  public:

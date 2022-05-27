@@ -675,6 +675,7 @@ install(
 install(
   FILES ${PROJECT_SOURCE_DIR}/include/Surelog/Common/ClockingBlockHolder.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/Containers.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Common/NodeId.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/PortNetHolder.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/RTTI.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/SymbolId.h
