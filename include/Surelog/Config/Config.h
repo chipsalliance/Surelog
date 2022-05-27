@@ -25,8 +25,8 @@
 #define SURELOG_CONFIG_H
 #pragma once
 
-#include <Surelog/Common/SymbolId.h>
 #include <Surelog/Common/Containers.h>
+#include <Surelog/Common/NodeId.h>
 
 #include <map>
 #include <string>

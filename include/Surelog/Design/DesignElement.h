@@ -25,6 +25,7 @@
 #define SURELOG_DESIGNELEMENT_H
 #pragma once
 
+#include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/TimeInfo.h>
 

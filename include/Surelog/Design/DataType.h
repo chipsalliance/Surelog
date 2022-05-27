@@ -25,8 +25,8 @@
 #define SURELOG_DATATYPE_H
 #pragma once
 
+#include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/RTTI.h>
-#include <Surelog/Common/SymbolId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <string>

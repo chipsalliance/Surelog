@@ -44,7 +44,8 @@ const std::string& SymbolTable::getEmptyMacroMarker() {
 SymbolId SymbolTable::registerSymbol(std::string_view symbol) {
   if (m_parent) {
     if (SymbolId id = m_parent->getId(symbol);
-        (id != getBadId() || symbol == getBadSymbol()) && id < m_idOffset) {
+        (id != getBadId() || symbol == getBadSymbol()) &&
+        (RawSymbolId)id < m_idOffset) {
       return id;
     }
   }
@@ -64,7 +65,7 @@ SymbolId SymbolTable::registerSymbol(std::string_view symbol) {
 SymbolId SymbolTable::getId(std::string_view symbol) const {
   if (m_parent) {
     if (SymbolId id = m_parent->getId(symbol);
-        id != getBadId() && id < m_idOffset) {
+        id != getBadId() && (RawSymbolId)id < m_idOffset) {
       return id;
     }
   }
@@ -77,7 +78,7 @@ SymbolId SymbolTable::getId(std::string_view symbol) const {
 
 const std::string& SymbolTable::getSymbol(SymbolId id) const {
   RawSymbolId rid = (RawSymbolId)id;
-  if (id < m_idOffset) {
+  if (rid < m_idOffset) {
     assert(m_parent);  // If we have a non-0 idOffset, we must have parent
     return m_parent->getSymbol(id);
   }

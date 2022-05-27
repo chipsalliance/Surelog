@@ -25,6 +25,7 @@
 #define SURELOG_VOBJECT_H
 #pragma once
 
+#include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 

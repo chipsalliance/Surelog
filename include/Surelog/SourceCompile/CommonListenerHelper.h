@@ -25,7 +25,7 @@
 #define SURELOG_COMMONLISTENERHELPER_H
 #pragma once
 
-#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Common/NodeId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <map>
@@ -42,6 +42,7 @@ class ParseTree;
 namespace SURELOG {
 
 class FileContent;
+class SymbolId;
 class VObject;
 
 static constexpr char EscapeSequence[] = "#~@";

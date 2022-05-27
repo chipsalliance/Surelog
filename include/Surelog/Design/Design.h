@@ -26,7 +26,7 @@
 #pragma once
 
 #include <Surelog/Common/Containers.h>
-#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Common/NodeId.h>
 
 #include <map>
 #include <mutex>
@@ -51,6 +51,7 @@ class ParseCache;
 class ParseFile;
 class PPCache;
 class PreprocessFile;
+class SymbolId;
 class SV3_1aPpTreeShapeListener;
 class SV3_1aTreeShapeListener;
 class SVLibShapeListener;
