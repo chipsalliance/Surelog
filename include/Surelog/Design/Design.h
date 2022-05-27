@@ -27,6 +27,7 @@
 
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/NodeId.h>
+#include <Surelog/Common/SymbolId.h>
 
 #include <map>
 #include <mutex>

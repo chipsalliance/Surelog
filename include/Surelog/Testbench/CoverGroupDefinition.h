@@ -25,7 +25,7 @@
 #define SURELOG_COVERGROUPDEFINITION_H
 #pragma once
 
-#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Common/NodeId.h>
 
 #include <string>
 #include <string_view>
