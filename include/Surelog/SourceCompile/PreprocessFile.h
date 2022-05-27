@@ -142,9 +142,14 @@ class PreprocessFile {
   const std::vector<IncludeFileInfo>& getIncludeFileInfo() const {
     return m_includeFileInfo;
   }
-  std::vector<IncludeFileInfo>& getIncludeFileInfo() {
-    return m_includeFileInfo;
-  }
+  int addIncludeFileInfo(IncludeFileInfo::Context context,
+                         unsigned int sectionStartLine, SymbolId sectionFile,
+                         unsigned int originalStartLine,
+                         unsigned int originalStartColumn,
+                         unsigned int originalEndLine,
+                         unsigned int originalEndColumn,
+                         IncludeFileInfo::Action type, int indexOpening = 0,
+                         int indexClosing = 0);
   IncludeFileInfo& getIncludeFileInfo(int index) {
     if (index >= 0 && index < ((int)m_includeFileInfo.size()))
       return m_includeFileInfo[index];
