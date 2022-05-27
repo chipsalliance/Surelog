@@ -727,7 +727,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
     enum_t->Enum_consts(econsts);
     uint64_t baseSize = 64;
     if (const typespec* base = enum_t->Base_typespec()) {
-      bool invalidValue;
+      bool invalidValue = false;
       baseSize = Bits(base, invalidValue, scope, compileDesign, nullptr,
                       fC->getFileName(), base->VpiLineNo(), reduce, true);
     }
