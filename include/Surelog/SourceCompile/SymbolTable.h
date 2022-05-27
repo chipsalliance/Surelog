@@ -41,12 +41,11 @@ class SymbolTable final {
   SymbolTable();
   ~SymbolTable();
 
-  // Unfortunately, currently the copy constructor is used in a few places.
-  // Until that semantic is fixed, make it cheap to refer to higher symbol
-  // tables.
-  // A copy construction essentially works as a 'snapshot' of the copied table.
-  SymbolTable(const SymbolTable& parent)
-      : m_parent(&parent), m_idOffset(parent.m_idCounter + parent.m_idOffset) {}
+  // Create a snapshot of this symbol table. The returned SymbolTable contains
+  // all the symbols this table has and allows to then continue using the new
+  // copy without changing the original. Essentially a fork.
+  // TODO: at some point, return std::unique_ptr<>
+  SymbolTable* CreateSnapshot() const;
 
   // Register given "symbol" string as a symbol and return its id.
   // If this is an existing symbol, its ID is returned, otherwise a new one
@@ -70,10 +69,16 @@ class SymbolTable final {
   static const std::string& getEmptyMacroMarker();
 
  private:
+  // Create a snapshot of the current symbol table. Private, as this
+  // functionality should be explicitly accessed through CreateSnapshot().
+  SymbolTable(const SymbolTable& parent)
+      : m_parent(&parent), m_idOffset(parent.m_idCounter + parent.m_idOffset) {}
+
   void AppendSymbols(int64_t up_to, std::vector<std::string_view>* dest) const;
 
-  const SymbolTable *m_parent = nullptr;
-  RawSymbolId m_idOffset = 0;
+  const SymbolTable *const m_parent;
+  const RawSymbolId m_idOffset;
+
   RawSymbolId m_idCounter = 0;
 
   // Stable strings whose address doesn't change with reallocations.

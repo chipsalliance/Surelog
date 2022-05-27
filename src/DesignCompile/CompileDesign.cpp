@@ -292,7 +292,7 @@ bool CompileDesign::compilation_() {
   int index = 0;
   do {
     SymbolTable* symbols =
-        new SymbolTable(m_compiler->getCommandLineParser()->getSymbolTable());
+        m_compiler->getCommandLineParser()->getSymbolTable().CreateSnapshot();
     m_symbolTables.push_back(symbols);
     ErrorContainer* errors = new ErrorContainer(symbols);
     errors->registerCmdLine(m_compiler->getCommandLineParser());

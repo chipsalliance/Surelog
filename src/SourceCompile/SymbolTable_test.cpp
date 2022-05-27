@@ -89,8 +89,8 @@ TEST(SymbolTableTest, SymbolStringsAreStableAfterTableCopy) {
   const char *before_data = table.getSymbol(foo_id).data();
 
   {
-    SymbolTable table_copy(table);  // NOLINT
-    const char *after_data = table.getSymbol(foo_id).data();
+    std::unique_ptr<SymbolTable> table_copy(table.CreateSnapshot());
+    const char *after_data = table_copy->getSymbol(foo_id).data();
     EXPECT_EQ(before_data, after_data);
   }
 }
@@ -103,32 +103,32 @@ TEST(SymbolTableTest, SequenceOfStackedSymbolTablesPreserved) {
   EXPECT_TRUE(SymbolIdLessThanComparer()(foo_id, bar_id));
   EXPECT_EQ(bar_id, SymbolId(2, "bar"));
 
-  SymbolTable child(parent);
-  const SymbolId baz_id = child.registerSymbol("baz");
+  std::unique_ptr<SymbolTable> child(parent.CreateSnapshot());
+  const SymbolId baz_id = child->registerSymbol("baz");
   EXPECT_TRUE(SymbolIdLessThanComparer()(bar_id, baz_id));
-  const SymbolId quux_id = child.registerSymbol("quux");
+  const SymbolId quux_id = child->registerSymbol("quux");
   EXPECT_TRUE(SymbolIdLessThanComparer()(baz_id, quux_id));
   EXPECT_EQ(quux_id, SymbolId(4, "quux"));
 
-  SymbolTable grandchild(child);
-  const SymbolId foobar_id = grandchild.registerSymbol("foobar");
+  std::unique_ptr<SymbolTable> grandchild(child->CreateSnapshot());
+  const SymbolId foobar_id = grandchild->registerSymbol("foobar");
   EXPECT_TRUE(SymbolIdLessThanComparer()(quux_id, foobar_id));
-  const SymbolId flip_id = grandchild.registerSymbol("flip");
+  const SymbolId flip_id = grandchild->registerSymbol("flip");
   EXPECT_TRUE(SymbolIdLessThanComparer()(foobar_id, flip_id));
   EXPECT_EQ(flip_id, SymbolId(6, "flip"));
 
   // Attempting to re-register symbols will return the existing id.
-  EXPECT_EQ(foo_id, grandchild.registerSymbol("foo"));
-  EXPECT_EQ(baz_id, grandchild.registerSymbol("baz"));
-  EXPECT_EQ(foobar_id, grandchild.registerSymbol("foobar"));
+  EXPECT_EQ(foo_id, grandchild->registerSymbol("foo"));
+  EXPECT_EQ(baz_id, grandchild->registerSymbol("baz"));
+  EXPECT_EQ(foobar_id, grandchild->registerSymbol("foobar"));
 
   struct {
     SymbolTable *testsym;
     std::vector<std::string_view> expected_symbols;
   } kTests[] = {
       {&parent, {"@@BAD_SYMBOL@@", "foo", "bar"}},
-      {&child, {"@@BAD_SYMBOL@@", "foo", "bar", "baz", "quux"}},
-      {&grandchild,
+      {child.get(), {"@@BAD_SYMBOL@@", "foo", "bar", "baz", "quux"}},
+      {grandchild.get(),
        {"@@BAD_SYMBOL@@", "foo", "bar", "baz", "quux", "foobar", "flip"}},
   };
 
@@ -153,21 +153,21 @@ TEST(SymbolTableTest, SequenceOfStackedSymbolTablesPreserved) {
   // A new symbol introduced in the parent should not be visible
   // in any child that had been snapshotted before that time.
   const SymbolId hello_id = parent.registerSymbol("hello");  // new in parent
-  EXPECT_EQ(child.getId("hello"), BadSymbolId);              // not in child
-  EXPECT_EQ(grandchild.getId("hello"), BadSymbolId);
+  EXPECT_EQ(child->getId("hello"), BadSymbolId);             // not in child
+  EXPECT_EQ(grandchild->getId("hello"), BadSymbolId);
 
   // We can register our own version of the same name in the child and get
   // a local id.
-  const SymbolId hello_child_id = child.registerSymbol("hello");
+  const SymbolId hello_child_id = child->registerSymbol("hello");
   EXPECT_NE(hello_id, hello_child_id);
-  EXPECT_EQ(child.getId("hello"), hello_child_id);
-  EXPECT_EQ(child.getSymbol(hello_child_id), "hello");
+  EXPECT_EQ(child->getId("hello"), hello_child_id);
+  EXPECT_EQ(child->getSymbol(hello_child_id), "hello");
 
-  const SymbolId hello_grandchild_id = grandchild.registerSymbol("hello");
+  const SymbolId hello_grandchild_id = grandchild->registerSymbol("hello");
   EXPECT_NE(hello_id, hello_grandchild_id);
   EXPECT_NE(hello_child_id, hello_grandchild_id);
-  EXPECT_EQ(grandchild.getId("hello"), hello_grandchild_id);
-  EXPECT_EQ(grandchild.getSymbol(hello_grandchild_id), "hello");
+  EXPECT_EQ(grandchild->getId("hello"), hello_grandchild_id);
+  EXPECT_EQ(grandchild->getSymbol(hello_grandchild_id), "hello");
 
   // Likewise, looking at 'all symbols', parent symbols only should be
   // included up to the point the snapshot happened.
@@ -177,11 +177,11 @@ TEST(SymbolTableTest, SequenceOfStackedSymbolTablesPreserved) {
 
   std::vector<std::string_view> expected_child{
       "@@BAD_SYMBOL@@", "foo", "bar", "baz", "quux", "hello"};
-  EXPECT_EQ(child.getSymbols(), expected_child);
+  EXPECT_EQ(child->getSymbols(), expected_child);
 
   std::vector<std::string_view> expected_grandchild{
       "@@BAD_SYMBOL@@", "foo", "bar", "baz", "quux", "foobar", "flip", "hello"};
-  EXPECT_EQ(grandchild.getSymbols(), expected_grandchild);
+  EXPECT_EQ(grandchild->getSymbols(), expected_grandchild);
 }
 }  // namespace
 }  // namespace SURELOG

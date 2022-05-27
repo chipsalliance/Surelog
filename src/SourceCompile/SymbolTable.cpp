@@ -27,9 +27,15 @@
 
 namespace SURELOG {
 
-SymbolTable::SymbolTable() { registerSymbol(getBadSymbol()); }
+SymbolTable::SymbolTable() : m_parent(nullptr), m_idOffset(0) {
+  registerSymbol(getBadSymbol());
+}
 
 SymbolTable::~SymbolTable() {}
+
+SymbolTable* SymbolTable::CreateSnapshot() const {
+  return new SymbolTable(*this);
+}
 
 const std::string& SymbolTable::getBadSymbol() {
   static const std::string k_badSymbol(BadRawSymbol);

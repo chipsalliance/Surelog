@@ -158,7 +158,7 @@ bool Compiler::ppinit_() {
         builtin->addBuiltinMacros(comp_unit);
       }
       m_compilationUnits.push_back(comp_unit);
-      symbols = new SymbolTable(m_commandLineParser->getSymbolTable());
+      symbols = m_commandLineParser->getSymbolTable().CreateSnapshot();
       m_symbolTables.push_back(symbols);
     }
     ErrorContainer* errors = new ErrorContainer(symbols);
@@ -220,7 +220,7 @@ bool Compiler::ppinit_() {
     if (m_commandLineParser->fileunit()) {
       comp_unit = new CompilationUnit(true);
       m_compilationUnits.push_back(comp_unit);
-      symbols = new SymbolTable(m_commandLineParser->getSymbolTable());
+      symbols = m_commandLineParser->getSymbolTable().CreateSnapshot();
       m_symbolTables.push_back(symbols);
     }
     ErrorContainer* errors = new ErrorContainer(symbols);
@@ -264,7 +264,7 @@ bool Compiler::ppinit_() {
       if (m_commandLineParser->fileunit()) {
         comp_unit = new CompilationUnit(true);
         m_compilationUnits.push_back(comp_unit);
-        symbols = new SymbolTable(m_commandLineParser->getSymbolTable());
+        symbols = m_commandLineParser->getSymbolTable().CreateSnapshot();
         m_symbolTables.push_back(symbols);
       }
       ErrorContainer* errors = new ErrorContainer(symbols);
@@ -720,7 +720,7 @@ bool Compiler::parseinit_() {
 
       if (!m_commandLineParser->fileunit()) {
         SymbolTable* symbols =
-            new SymbolTable(m_commandLineParser->getSymbolTable());
+            m_commandLineParser->getSymbolTable().CreateSnapshot();
         m_symbolTables.push_back(symbols);
         compiler->setSymbolTable(symbols);
         // fileContent->setSymbolTable(symbols);
@@ -738,7 +738,7 @@ bool Compiler::parseinit_() {
       int j = 0;
       for (auto& chunk : fileAnalyzer->getSplitFiles()) {
         SymbolTable* symbols =
-            new SymbolTable(m_commandLineParser->getSymbolTable());
+            m_commandLineParser->getSymbolTable().CreateSnapshot();
         m_symbolTables.push_back(symbols);
         SymbolId ppId = symbols->registerSymbol(chunk.string());
         symbols->registerSymbol(
@@ -768,7 +768,7 @@ bool Compiler::parseinit_() {
     } else {
       if ((!m_commandLineParser->fileunit()) && m_text.empty()) {
         SymbolTable* symbols =
-            new SymbolTable(m_commandLineParser->getSymbolTable());
+            m_commandLineParser->getSymbolTable().CreateSnapshot();
         m_symbolTables.push_back(symbols);
         compiler->setSymbolTable(symbols);
         ErrorContainer* errors = new ErrorContainer(symbols);
