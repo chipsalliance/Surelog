@@ -63,7 +63,7 @@ TEST(SymbolTableTest, SymbolStringsAreStable) {
 
   // Deliberately using .data() here so that API change to getSymbol() returning
   // std::string_view later will keep this test source-code compatible.
-  const char *before_data = table.getSymbol(foo_id).data();
+  const void *before_data = table.getSymbol(foo_id).data();
 
   // We want to make sure that even after reallocing the underlying
   // data structure, the symbol reference does not change. Let's enforce
@@ -72,7 +72,7 @@ TEST(SymbolTableTest, SymbolStringsAreStable) {
     table.registerSymbol("bar" + std::to_string(i));
   }
 
-  const char *after_data = table.getSymbol(foo_id).data();
+  const void *after_data = table.getSymbol(foo_id).data();
 
   EXPECT_EQ(before_data, after_data);
 }
@@ -86,11 +86,11 @@ TEST(SymbolTableTest, SymbolStringsAreStableAfterTableCopy) {
 
   const SymbolId foo_id = table.registerSymbol("foo");
 
-  const char *before_data = table.getSymbol(foo_id).data();
+  const void *before_data = table.getSymbol(foo_id).data();
 
   {
     std::unique_ptr<SymbolTable> table_copy(table.CreateSnapshot());
-    const char *after_data = table_copy->getSymbol(foo_id).data();
+    const void *after_data = table_copy->getSymbol(foo_id).data();
     EXPECT_EQ(before_data, after_data);
   }
 }
