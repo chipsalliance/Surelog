@@ -118,7 +118,7 @@ def _rmdir(dirpath, retries=10):
 def _rmdir_recursively(dirpath, patterns):
   for pattern in patterns:
     for path in Path(dirpath).rglob(pattern):
-      if os.isdir(path):
+      if os.path.isdir(path):
         _rmdir(path)
 
 
@@ -364,7 +364,7 @@ def _run_surelog(
         max_vms_memory = max(max_vms_memory, vms_memory)
         max_rss_memory = max(max_rss_memory, rss_memory)
 
-        time.sleep(0.05)
+        time.sleep(0.25)
 
       returncode = process.poll()
       surelog_timedelta = datetime.now() - surelog_start_dt
@@ -646,6 +646,7 @@ def _run_one(params):
 
     regression_log_strm.flush()
 
+  log(f'... {name} Completed.')
   return result
 
 
