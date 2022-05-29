@@ -211,6 +211,8 @@ design: (work@m)
 |vpiName:work@m
 |uhdmallModules:
 \_module: work@m (work@m) dut.sv:2:1: , endln:16:14, parent:work@m
+  |vpiParent:
+  \_design: (work@m)
   |vpiFullName:work@m
   |vpiLetDecl:
   \_let_decl: (p1), line:4:1, endln:4:22
@@ -218,6 +220,12 @@ design: (work@m)
     \_sys_func_call: ($past), line:4:13, endln:4:21
       |vpiArgument:
       \_ref_obj: (x), line:4:19, endln:4:20, parent:$past
+        |vpiParent:
+        \_sys_func_call: ($past), line:4:13, endln:4:21
+        |vpiParent:
+        \_sys_func_call: ($past), line:4:13, endln:4:21
+        |vpiParent:
+        \_sys_func_call: ($past), line:4:13, endln:4:21
         |vpiName:x
         |vpiActual:
         \_logic_net: (x)
@@ -231,6 +239,12 @@ design: (work@m)
     \_sys_func_call: ($past), line:6:13, endln:6:18
       |vpiArgument:
       \_ref_obj: (x), line:6:19, endln:6:20, parent:$past
+        |vpiParent:
+        \_sys_func_call: ($past), line:6:13, endln:6:18
+        |vpiParent:
+        \_sys_func_call: ($past), line:6:13, endln:6:18
+        |vpiParent:
+        \_sys_func_call: ($past), line:6:13, endln:6:18
         |vpiName:x
         |vpiActual:
         \_logic_net: (x)
@@ -248,9 +262,19 @@ design: (work@m)
         |vpiConstType:7
       |vpiArgument:
       \_operation: , line:6:25, endln:6:38, parent:$past
+        |vpiParent:
+        \_sys_func_call: ($past), line:6:13, endln:6:18
+        |vpiParent:
+        \_sys_func_call: ($past), line:6:13, endln:6:18
         |vpiOpType:39
         |vpiOperand:
         \_ref_obj: (clock), line:6:33, endln:6:38
+          |vpiParent:
+          \_operation: , line:6:25, endln:6:38, parent:$past
+          |vpiParent:
+          \_operation: , line:6:25, endln:6:38, parent:$past
+          |vpiParent:
+          \_operation: , line:6:25, endln:6:38, parent:$past
           |vpiName:clock
           |vpiActual:
           \_logic_net: (clock)
@@ -264,44 +288,94 @@ design: (work@m)
     \_sys_func_call: ($sampled), line:7:12, endln:7:23
       |vpiArgument:
       \_ref_obj: (x), line:7:21, endln:7:22, parent:$sampled
+        |vpiParent:
+        \_sys_func_call: ($sampled), line:7:12, endln:7:23
+        |vpiParent:
+        \_sys_func_call: ($sampled), line:7:12, endln:7:23
+        |vpiParent:
+        \_sys_func_call: ($sampled), line:7:12, endln:7:23
         |vpiName:x
         |vpiActual:
         \_logic_net: (x)
       |vpiName:$sampled
     |vpiName:s
+  |vpiParent:
+  \_design: (work@m)
   |vpiDefName:work@m
   |vpiNet:
   \_logic_net: (work@m.a), line:3:7, endln:3:8, parent:work@m
+    |vpiParent:
+    \_module: work@m (work@m) dut.sv:2:1: , endln:16:14, parent:work@m
+    |vpiParent:
+    \_module: work@m (work@m) dut.sv:2:1: , endln:16:14, parent:work@m
+    |vpiParent:
+    \_module: work@m (work@m) dut.sv:2:1: , endln:16:14, parent:work@m
     |vpiName:a
     |vpiFullName:work@m.a
     |vpiNetType:36
+    |vpiParent:
+    \_module: work@m (work@m) dut.sv:2:1: , endln:16:14, parent:work@m
+    |vpiParent:
+    \_module: work@m (work@m) dut.sv:2:1: , endln:16:14, parent:work@m
+  |vpiParent:
+  \_design: (work@m)
   |vpiProcess:
   \_always: , line:9:1, endln:13:4, parent:work@m
+    |vpiParent:
+    \_module: work@m (work@m) dut.sv:2:1: , endln:16:14, parent:work@m
     |vpiStmt:
     \_begin: (work@m), line:9:13, endln:13:4
+      |vpiParent:
+      \_always: , line:9:1, endln:13:4, parent:work@m
       |vpiFullName:work@m
+      |vpiParent:
+      \_always: , line:9:1, endln:13:4, parent:work@m
       |vpiStmt:
       \_immediate_assert: (a1), line:10:1, endln:10:19, parent:work@m
+        |vpiParent:
+        \_begin: (work@m), line:9:13, endln:13:4
         |vpiName:a1
+        |vpiParent:
+        \_begin: (work@m), line:9:13, endln:13:4
         |vpiExpr:
         \_let_expr: , line:10:12, endln:10:17, parent:a1
+          |vpiParent:
+          \_immediate_assert: (a1), line:10:1, endln:10:19, parent:work@m
+          |vpiParent:
+          \_immediate_assert: (a1), line:10:1, endln:10:19, parent:work@m
           |vpiArgument:
           \_ref_obj: (a), line:10:15, endln:10:16
             |vpiName:a
             |vpiActual:
             \_logic_var: (work@m.a), line:3:7, endln:3:8, parent:work@m
+              |vpiParent:
+              \_module: work@m (work@m) dut.sv:2:1: , endln:16:14
               |vpiTypespec:
               \_logic_typespec: , line:3:1, endln:3:6
+              |vpiParent:
+              \_module: work@m (work@m) dut.sv:2:1: , endln:16:14
+              |vpiParent:
+              \_module: work@m (work@m) dut.sv:2:1: , endln:16:14
               |vpiName:a
               |vpiFullName:work@m.a
               |vpiVisibility:1
+              |vpiParent:
+              \_module: work@m (work@m) dut.sv:2:1: , endln:16:14
           |vpiLetDecl:
           \_let_decl: (p1), line:4:1, endln:4:22
       |vpiStmt:
       \_immediate_assert: (a2), line:11:1, endln:11:19, parent:work@m
+        |vpiParent:
+        \_begin: (work@m), line:9:13, endln:13:4
         |vpiName:a2
+        |vpiParent:
+        \_begin: (work@m), line:9:13, endln:13:4
         |vpiExpr:
         \_let_expr: , line:11:12, endln:11:17, parent:a2
+          |vpiParent:
+          \_immediate_assert: (a2), line:11:1, endln:11:19, parent:work@m
+          |vpiParent:
+          \_immediate_assert: (a2), line:11:1, endln:11:19, parent:work@m
           |vpiArgument:
           \_ref_obj: (a), line:11:15, endln:11:16
             |vpiName:a
@@ -311,9 +385,17 @@ design: (work@m)
           \_let_decl: (p2), line:6:1, endln:6:41
       |vpiStmt:
       \_immediate_assert: (a3), line:12:1, endln:12:18, parent:work@m
+        |vpiParent:
+        \_begin: (work@m), line:9:13, endln:13:4
         |vpiName:a3
+        |vpiParent:
+        \_begin: (work@m), line:9:13, endln:13:4
         |vpiExpr:
         \_let_expr: , line:12:12, endln:12:16, parent:a3
+          |vpiParent:
+          \_immediate_assert: (a3), line:12:1, endln:12:18, parent:work@m
+          |vpiParent:
+          \_immediate_assert: (a3), line:12:1, endln:12:18, parent:work@m
           |vpiArgument:
           \_ref_obj: (a), line:12:14, endln:12:15
             |vpiName:a
@@ -321,6 +403,8 @@ design: (work@m)
             \_logic_var: (work@m.a), line:3:7, endln:3:8, parent:work@m
           |vpiLetDecl:
           \_let_decl: (s), line:7:1, endln:7:24
+    |vpiParent:
+    \_module: work@m (work@m) dut.sv:2:1: , endln:16:14, parent:work@m
     |vpiAlwaysType:2
 |uhdmtopModules:
 \_module: work@m (work@m) dut.sv:2:1: , endln:16:14
@@ -329,22 +413,48 @@ design: (work@m)
   \_logic_var: (work@m.a), line:3:7, endln:3:8, parent:work@m
   |vpiLetDecl:
   \_let_decl: (p1), line:4:1, endln:4:22, parent:work@m
+    |vpiParent:
+    \_module: work@m (work@m) dut.sv:2:1: , endln:16:14
     |vpiExpr:
     \_sys_func_call: ($past), line:4:13, endln:4:21, parent:p1
+      |vpiParent:
+      \_let_decl: (p1), line:4:1, endln:4:22, parent:work@m
+      |vpiParent:
+      \_let_decl: (p1), line:4:1, endln:4:22, parent:work@m
       |vpiArgument:
       \_ref_obj: (work@m.p1.x), line:4:19, endln:4:20, parent:$past
+        |vpiParent:
+        \_sys_func_call: ($past), line:4:13, endln:4:21, parent:p1
+        |vpiParent:
+        \_sys_func_call: ($past), line:4:13, endln:4:21, parent:p1
+        |vpiParent:
+        \_sys_func_call: ($past), line:4:13, endln:4:21, parent:p1
         |vpiName:x
         |vpiFullName:work@m.p1.x
         |vpiActual:
         \_logic_net: (x)
       |vpiName:$past
+      |vpiParent:
+      \_let_decl: (p1), line:4:1, endln:4:22, parent:work@m
     |vpiName:p1
   |vpiLetDecl:
   \_let_decl: (p2), line:6:1, endln:6:41, parent:work@m
+    |vpiParent:
+    \_module: work@m (work@m) dut.sv:2:1: , endln:16:14
     |vpiExpr:
     \_sys_func_call: ($past), line:6:13, endln:6:18, parent:p2
+      |vpiParent:
+      \_let_decl: (p2), line:6:1, endln:6:41, parent:work@m
+      |vpiParent:
+      \_let_decl: (p2), line:6:1, endln:6:41, parent:work@m
       |vpiArgument:
       \_ref_obj: (work@m.p2.x), line:6:19, endln:6:20, parent:$past
+        |vpiParent:
+        \_sys_func_call: ($past), line:6:13, endln:6:18, parent:p2
+        |vpiParent:
+        \_sys_func_call: ($past), line:6:13, endln:6:18, parent:p2
+        |vpiParent:
+        \_sys_func_call: ($past), line:6:13, endln:6:18, parent:p2
         |vpiName:x
         |vpiFullName:work@m.p2.x
         |vpiActual:
@@ -355,26 +465,52 @@ design: (work@m)
       \_constant: , line:6:22, endln:6:22
       |vpiArgument:
       \_operation: , line:6:25, endln:6:38, parent:$past
+        |vpiParent:
+        \_sys_func_call: ($past), line:6:13, endln:6:18, parent:p2
+        |vpiParent:
+        \_sys_func_call: ($past), line:6:13, endln:6:18, parent:p2
         |vpiOpType:39
         |vpiOperand:
         \_ref_obj: (work@m.p2.clock), line:6:33, endln:6:38
+          |vpiParent:
+          \_operation: , line:6:25, endln:6:38, parent:$past
+          |vpiParent:
+          \_operation: , line:6:25, endln:6:38, parent:$past
+          |vpiParent:
+          \_operation: , line:6:25, endln:6:38, parent:$past
           |vpiName:clock
           |vpiFullName:work@m.p2.clock
           |vpiActual:
           \_logic_net: (clock)
       |vpiName:$past
+      |vpiParent:
+      \_let_decl: (p2), line:6:1, endln:6:41, parent:work@m
     |vpiName:p2
   |vpiLetDecl:
   \_let_decl: (s), line:7:1, endln:7:24, parent:work@m
+    |vpiParent:
+    \_module: work@m (work@m) dut.sv:2:1: , endln:16:14
     |vpiExpr:
     \_sys_func_call: ($sampled), line:7:12, endln:7:23, parent:s
+      |vpiParent:
+      \_let_decl: (s), line:7:1, endln:7:24, parent:work@m
+      |vpiParent:
+      \_let_decl: (s), line:7:1, endln:7:24, parent:work@m
       |vpiArgument:
       \_ref_obj: (work@m.s.x), line:7:21, endln:7:22, parent:$sampled
+        |vpiParent:
+        \_sys_func_call: ($sampled), line:7:12, endln:7:23, parent:s
+        |vpiParent:
+        \_sys_func_call: ($sampled), line:7:12, endln:7:23, parent:s
+        |vpiParent:
+        \_sys_func_call: ($sampled), line:7:12, endln:7:23, parent:s
         |vpiName:x
         |vpiFullName:work@m.s.x
         |vpiActual:
         \_logic_net: (x)
       |vpiName:$sampled
+      |vpiParent:
+      \_let_decl: (s), line:7:1, endln:7:24, parent:work@m
     |vpiName:s
   |vpiDefName:work@m
   |vpiTop:1
@@ -385,49 +521,109 @@ design: (work@m)
   |vpiTopModule:1
   |vpiProcess:
   \_always: , line:9:1, endln:13:4, parent:work@m
+    |vpiParent:
+    \_module: work@m (work@m) dut.sv:2:1: , endln:16:14
     |vpiStmt:
     \_begin: (work@m), line:9:13, endln:13:4
+      |vpiParent:
+      \_always: , line:9:1, endln:13:4, parent:work@m
       |vpiFullName:work@m
+      |vpiParent:
+      \_always: , line:9:1, endln:13:4, parent:work@m
       |vpiStmt:
       \_immediate_assert: (a1), line:10:1, endln:10:19, parent:work@m
+        |vpiParent:
+        \_begin: (work@m), line:9:13, endln:13:4
         |vpiName:a1
+        |vpiParent:
+        \_begin: (work@m), line:9:13, endln:13:4
         |vpiExpr:
         \_let_expr: , line:10:12, endln:10:17, parent:a1
+          |vpiParent:
+          \_immediate_assert: (a1), line:10:1, endln:10:19, parent:work@m
+          |vpiParent:
+          \_immediate_assert: (a1), line:10:1, endln:10:19, parent:work@m
           |vpiArgument:
           \_ref_obj: (work@m.a1.a), line:10:15, endln:10:16
+            |vpiParent:
+            \_let_expr: , line:10:12, endln:10:17, parent:a1
+            |vpiParent:
+            \_let_expr: , line:10:12, endln:10:17, parent:a1
+            |vpiParent:
+            \_let_expr: , line:10:12, endln:10:17, parent:a1
             |vpiName:a
             |vpiFullName:work@m.a1.a
             |vpiActual:
             \_logic_var: (work@m.a), line:3:7, endln:3:8, parent:work@m
           |vpiLetDecl:
           \_let_decl: (p1), line:4:1, endln:4:22
+            |vpiParent:
+            \_let_expr: , line:10:12, endln:10:17, parent:a1
             |vpiExpr:
             \_sys_func_call: ($past), line:4:13, endln:4:21, parent:p1
+              |vpiParent:
+              \_let_decl: (p1), line:4:1, endln:4:22
+              |vpiParent:
+              \_let_decl: (p1), line:4:1, endln:4:22
               |vpiArgument:
               \_ref_obj: (work@m.a1.p1.x), line:4:19, endln:4:20, parent:$past
+                |vpiParent:
+                \_sys_func_call: ($past), line:4:13, endln:4:21, parent:p1
+                |vpiParent:
+                \_sys_func_call: ($past), line:4:13, endln:4:21, parent:p1
+                |vpiParent:
+                \_sys_func_call: ($past), line:4:13, endln:4:21, parent:p1
                 |vpiName:x
                 |vpiFullName:work@m.a1.p1.x
                 |vpiActual:
                 \_logic_net: (x)
               |vpiName:$past
+              |vpiParent:
+              \_let_decl: (p1), line:4:1, endln:4:22
             |vpiName:p1
       |vpiStmt:
       \_immediate_assert: (a2), line:11:1, endln:11:19, parent:work@m
+        |vpiParent:
+        \_begin: (work@m), line:9:13, endln:13:4
         |vpiName:a2
+        |vpiParent:
+        \_begin: (work@m), line:9:13, endln:13:4
         |vpiExpr:
         \_let_expr: , line:11:12, endln:11:17, parent:a2
+          |vpiParent:
+          \_immediate_assert: (a2), line:11:1, endln:11:19, parent:work@m
+          |vpiParent:
+          \_immediate_assert: (a2), line:11:1, endln:11:19, parent:work@m
           |vpiArgument:
           \_ref_obj: (work@m.a2.a), line:11:15, endln:11:16
+            |vpiParent:
+            \_let_expr: , line:11:12, endln:11:17, parent:a2
+            |vpiParent:
+            \_let_expr: , line:11:12, endln:11:17, parent:a2
+            |vpiParent:
+            \_let_expr: , line:11:12, endln:11:17, parent:a2
             |vpiName:a
             |vpiFullName:work@m.a2.a
             |vpiActual:
             \_logic_var: (work@m.a), line:3:7, endln:3:8, parent:work@m
           |vpiLetDecl:
           \_let_decl: (p2), line:6:1, endln:6:41
+            |vpiParent:
+            \_let_expr: , line:11:12, endln:11:17, parent:a2
             |vpiExpr:
             \_sys_func_call: ($past), line:6:13, endln:6:18, parent:p2
+              |vpiParent:
+              \_let_decl: (p2), line:6:1, endln:6:41
+              |vpiParent:
+              \_let_decl: (p2), line:6:1, endln:6:41
               |vpiArgument:
               \_ref_obj: (work@m.a2.p2.x), line:6:19, endln:6:20, parent:$past
+                |vpiParent:
+                \_sys_func_call: ($past), line:6:13, endln:6:18, parent:p2
+                |vpiParent:
+                \_sys_func_call: ($past), line:6:13, endln:6:18, parent:p2
+                |vpiParent:
+                \_sys_func_call: ($past), line:6:13, endln:6:18, parent:p2
                 |vpiName:x
                 |vpiFullName:work@m.a2.p2.x
                 |vpiActual:
@@ -438,38 +634,80 @@ design: (work@m)
               \_constant: , line:6:22, endln:6:22
               |vpiArgument:
               \_operation: , line:6:25, endln:6:38, parent:$past
+                |vpiParent:
+                \_sys_func_call: ($past), line:6:13, endln:6:18, parent:p2
+                |vpiParent:
+                \_sys_func_call: ($past), line:6:13, endln:6:18, parent:p2
                 |vpiOpType:39
                 |vpiOperand:
                 \_ref_obj: (work@m.a2.p2.clock), line:6:33, endln:6:38
+                  |vpiParent:
+                  \_operation: , line:6:25, endln:6:38, parent:$past
+                  |vpiParent:
+                  \_operation: , line:6:25, endln:6:38, parent:$past
+                  |vpiParent:
+                  \_operation: , line:6:25, endln:6:38, parent:$past
                   |vpiName:clock
                   |vpiFullName:work@m.a2.p2.clock
                   |vpiActual:
                   \_logic_net: (clock)
               |vpiName:$past
+              |vpiParent:
+              \_let_decl: (p2), line:6:1, endln:6:41
             |vpiName:p2
       |vpiStmt:
       \_immediate_assert: (a3), line:12:1, endln:12:18, parent:work@m
+        |vpiParent:
+        \_begin: (work@m), line:9:13, endln:13:4
         |vpiName:a3
+        |vpiParent:
+        \_begin: (work@m), line:9:13, endln:13:4
         |vpiExpr:
         \_let_expr: , line:12:12, endln:12:16, parent:a3
+          |vpiParent:
+          \_immediate_assert: (a3), line:12:1, endln:12:18, parent:work@m
+          |vpiParent:
+          \_immediate_assert: (a3), line:12:1, endln:12:18, parent:work@m
           |vpiArgument:
           \_ref_obj: (work@m.a3.a), line:12:14, endln:12:15
+            |vpiParent:
+            \_let_expr: , line:12:12, endln:12:16, parent:a3
+            |vpiParent:
+            \_let_expr: , line:12:12, endln:12:16, parent:a3
+            |vpiParent:
+            \_let_expr: , line:12:12, endln:12:16, parent:a3
             |vpiName:a
             |vpiFullName:work@m.a3.a
             |vpiActual:
             \_logic_var: (work@m.a), line:3:7, endln:3:8, parent:work@m
           |vpiLetDecl:
           \_let_decl: (s), line:7:1, endln:7:24
+            |vpiParent:
+            \_let_expr: , line:12:12, endln:12:16, parent:a3
             |vpiExpr:
             \_sys_func_call: ($sampled), line:7:12, endln:7:23, parent:s
+              |vpiParent:
+              \_let_decl: (s), line:7:1, endln:7:24
+              |vpiParent:
+              \_let_decl: (s), line:7:1, endln:7:24
               |vpiArgument:
               \_ref_obj: (work@m.a3.s.x), line:7:21, endln:7:22, parent:$sampled
+                |vpiParent:
+                \_sys_func_call: ($sampled), line:7:12, endln:7:23, parent:s
+                |vpiParent:
+                \_sys_func_call: ($sampled), line:7:12, endln:7:23, parent:s
+                |vpiParent:
+                \_sys_func_call: ($sampled), line:7:12, endln:7:23, parent:s
                 |vpiName:x
                 |vpiFullName:work@m.a3.s.x
                 |vpiActual:
                 \_logic_net: (x)
               |vpiName:$sampled
+              |vpiParent:
+              \_let_decl: (s), line:7:1, endln:7:24
             |vpiName:s
+    |vpiParent:
+    \_module: work@m (work@m) dut.sv:2:1: , endln:16:14
     |vpiAlwaysType:2
 ===================
 [  FATAL] : 0

@@ -168,16 +168,24 @@ design: (unnamed)
 |vpiName:unnamed
 |uhdmallPackages:
 \_package: b (b::) dut.sv:1:1: , endln:6:11, parent:unnamed
+  |vpiParent:
+  \_design: (unnamed)
   |vpiName:b
   |vpiFullName:b::
   |vpiTypedef:
   \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17, parent:b::
+    |vpiParent:
+    \_package: b (b::) dut.sv:1:1: , endln:6:11, parent:unnamed
     |vpiName:b::foo_bar_t
     |vpiInstance:
+    \_package: b (b::) dut.sv:1:1: , endln:6:11, parent:unnamed
+    |vpiParent:
     \_package: b (b::) dut.sv:1:1: , endln:6:11, parent:unnamed
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (vc), line:3:26, endln:3:28, parent:b::foo_bar_t
+      |vpiParent:
+      \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17, parent:b::
       |vpiName:vc
       |vpiTypespec:
       \_logic_typespec: , line:3:5, endln:3:10
@@ -185,43 +193,71 @@ design: (unnamed)
         \_package: (b), file:
         |vpiRange:
         \_range: , line:3:12, endln:3:16, parent:b::foo_bar_t
+          |vpiParent:
+          \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17, parent:b::
           |vpiLeftRange:
           \_constant: , line:3:12, endln:3:14
+            |vpiParent:
+            \_range: , line:3:12, endln:3:16, parent:b::foo_bar_t
             |vpiDecompile:10
             |vpiSize:64
             |UINT:10
+            |vpiParent:
+            \_range: , line:3:12, endln:3:16, parent:b::foo_bar_t
             |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:3:15, endln:3:16
+            |vpiParent:
+            \_range: , line:3:12, endln:3:16, parent:b::foo_bar_t
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiParent:
+            \_range: , line:3:12, endln:3:16, parent:b::foo_bar_t
             |vpiConstType:9
       |vpiRefFile:dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:3
       |vpiRefEndColumnNo:17
+  |vpiParent:
+  \_design: (unnamed)
   |vpiDefName:b
+  |vpiParent:
+  \_design: (unnamed)
 |uhdmallPackages:
 \_package: aa (aa::) dut.sv:8:1: , endln:22:11, parent:unnamed
+  |vpiParent:
+  \_design: (unnamed)
   |vpiName:aa
   |vpiFullName:aa::
+  |vpiParent:
+  \_design: (unnamed)
   |vpiDefName:aa
   |vpiTaskFunc:
   \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
+    |vpiParent:
+    \_package: aa (aa::) dut.sv:8:1: , endln:22:11, parent:unnamed
     |vpiName:foo_bar
     |vpiFullName:aa::foo_bar
     |vpiVariables:
     \_struct_var: (aa::foo_bar::y), line:14:8, endln:14:17, parent:aa::foo_bar
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
       |vpiTypespec:
       \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17, parent:b::
+        |vpiParent:
+        \_package: b (b::) dut.sv:1:1: , endln:6:11, parent:unnamed
         |vpiName:b::foo_bar_t
         |vpiInstance:
+        \_package: b (b::) dut.sv:1:1: , endln:6:11, parent:unnamed
+        |vpiParent:
         \_package: b (b::) dut.sv:1:1: , endln:6:11, parent:unnamed
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (vc), line:3:26, endln:3:28, parent:b::foo_bar_t
+          |vpiParent:
+          \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17, parent:b::
           |vpiName:vc
           |vpiTypespec:
           \_logic_typespec: , line:3:5, endln:3:10
@@ -229,195 +265,363 @@ design: (unnamed)
             \_package: b (b::) dut.sv:1:1: , endln:6:11, parent:unnamed
             |vpiRange:
             \_range: , line:3:12, endln:3:16, parent:b::foo_bar_t
+              |vpiParent:
+              \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17, parent:b::
               |vpiLeftRange:
               \_constant: , line:3:12, endln:3:14
+                |vpiParent:
+                \_range: , line:3:12, endln:3:16, parent:b::foo_bar_t
                 |vpiDecompile:10
                 |vpiSize:64
                 |UINT:10
+                |vpiParent:
+                \_range: , line:3:12, endln:3:16, parent:b::foo_bar_t
                 |vpiConstType:9
               |vpiRightRange:
               \_constant: , line:3:15, endln:3:16
+                |vpiParent:
+                \_range: , line:3:12, endln:3:16, parent:b::foo_bar_t
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
+                |vpiParent:
+                \_range: , line:3:12, endln:3:16, parent:b::foo_bar_t
                 |vpiConstType:9
           |vpiRefFile:dut.sv
           |vpiRefLineNo:3
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:3
           |vpiRefEndColumnNo:17
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
       |vpiName:y
       |vpiFullName:aa::foo_bar::y
       |vpiAutomatic:1
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
     |vpiVariables:
     \_logic_var: (aa::foo_bar::a_vec), line:15:5, endln:15:23, parent:aa::foo_bar
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
       |vpiTypespec:
       \_logic_typespec: , line:15:5, endln:15:8
         |vpiInstance:
         \_package: (aa), file:
         |vpiRange:
         \_range: , line:15:10, endln:15:22, parent:aa::foo_bar
+          |vpiParent:
+          \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
           |vpiLeftRange:
           \_operation: , line:15:10, endln:15:20
+            |vpiParent:
+            \_range: , line:15:10, endln:15:22, parent:aa::foo_bar
+            |vpiParent:
+            \_range: , line:15:10, endln:15:22, parent:aa::foo_bar
             |vpiOpType:11
             |vpiOperand:
             \_sys_func_call: ($bits), line:15:10, endln:15:18
+              |vpiParent:
+              \_operation: , line:15:10, endln:15:20
+              |vpiParent:
+              \_operation: , line:15:10, endln:15:20
               |vpiArgument:
               \_ref_obj: (aa::foo_bar::a), line:15:16, endln:15:17, parent:$bits
+                |vpiParent:
+                \_sys_func_call: ($bits), line:15:10, endln:15:18
+                |vpiParent:
+                \_sys_func_call: ($bits), line:15:10, endln:15:18
+                |vpiParent:
+                \_sys_func_call: ($bits), line:15:10, endln:15:18
                 |vpiName:a
                 |vpiFullName:aa::foo_bar::a
                 |vpiActual:
                 \_io_decl: (a), line:12:24, endln:12:25, parent:aa::foo_bar
+                  |vpiParent:
+                  \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
                   |vpiDirection:1
                   |vpiName:a
                   |vpiTypedef:
                   \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17, parent:b::
               |vpiName:$bits
+              |vpiParent:
+              \_operation: , line:15:10, endln:15:20
             |vpiOperand:
             \_constant: , line:15:19, endln:15:20
+              |vpiParent:
+              \_operation: , line:15:10, endln:15:20
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
+              |vpiParent:
+              \_operation: , line:15:10, endln:15:20
               |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:15:21, endln:15:22
+            |vpiParent:
+            \_range: , line:15:10, endln:15:22, parent:aa::foo_bar
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiParent:
+            \_range: , line:15:10, endln:15:22, parent:aa::foo_bar
             |vpiConstType:9
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
       |vpiName:a_vec
       |vpiFullName:aa::foo_bar::a_vec
       |vpiAutomatic:1
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
+    |vpiParent:
+    \_package: aa (aa::) dut.sv:8:1: , endln:22:11, parent:unnamed
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
     \_struct_var: , line:10:25, endln:10:34
       |vpiTypespec:
       \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17, parent:b::
+    |vpiParent:
+    \_package: aa (aa::) dut.sv:8:1: , endln:22:11, parent:unnamed
     |vpiIODecl:
     \_io_decl: (a), line:12:24, endln:12:25, parent:aa::foo_bar
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
       |vpiDirection:1
       |vpiName:a
       |vpiTypedef:
       \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17, parent:b::
     |vpiStmt:
     \_begin: (aa::foo_bar), line:17:5, endln:19:8, parent:aa::foo_bar
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
       |vpiFullName:aa::foo_bar
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
       |vpiStmt:
       \_assignment: , line:18:7, endln:18:18, parent:aa::foo_bar
+        |vpiParent:
+        \_begin: (aa::foo_bar), line:17:5, endln:19:8, parent:aa::foo_bar
+        |vpiParent:
+        \_begin: (aa::foo_bar), line:17:5, endln:19:8, parent:aa::foo_bar
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_ref_obj: (aa::foo_bar::y), line:18:17, endln:18:18
+          |vpiParent:
+          \_assignment: , line:18:7, endln:18:18, parent:aa::foo_bar
+          |vpiParent:
+          \_assignment: , line:18:7, endln:18:18, parent:aa::foo_bar
+          |vpiParent:
+          \_assignment: , line:18:7, endln:18:18, parent:aa::foo_bar
           |vpiName:y
           |vpiFullName:aa::foo_bar::y
           |vpiActual:
           \_struct_var: (aa::foo_bar::y), line:14:8, endln:14:17, parent:aa::foo_bar
         |vpiLhs:
         \_ref_obj: (aa::foo_bar::foo_bar), line:18:7, endln:18:14
+          |vpiParent:
+          \_assignment: , line:18:7, endln:18:18, parent:aa::foo_bar
+          |vpiParent:
+          \_assignment: , line:18:7, endln:18:18, parent:aa::foo_bar
+          |vpiParent:
+          \_assignment: , line:18:7, endln:18:18, parent:aa::foo_bar
           |vpiName:foo_bar
           |vpiFullName:aa::foo_bar::foo_bar
           |vpiActual:
           \_struct_var: , line:10:25, endln:10:34
     |vpiInstance:
     \_package: aa (aa::) dut.sv:8:1: , endln:22:11, parent:unnamed
+    |vpiParent:
+    \_package: aa (aa::) dut.sv:8:1: , endln:22:11, parent:unnamed
+  |vpiParent:
+  \_design: (unnamed)
 |uhdmtopPackages:
 \_package: b (b::) dut.sv:1:1: , endln:6:11, parent:unnamed
+  |vpiParent:
+  \_design: (unnamed)
   |vpiName:b
   |vpiFullName:b::
   |vpiTypedef:
   \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17, parent:b::
+  |vpiParent:
+  \_design: (unnamed)
   |vpiDefName:b
   |vpiTop:1
+  |vpiParent:
+  \_design: (unnamed)
 |uhdmtopPackages:
 \_package: aa (aa::) dut.sv:8:1: , endln:22:11, parent:unnamed
+  |vpiParent:
+  \_design: (unnamed)
   |vpiName:aa
   |vpiFullName:aa::
+  |vpiParent:
+  \_design: (unnamed)
   |vpiDefName:aa
   |vpiTop:1
   |vpiTaskFunc:
   \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
+    |vpiParent:
+    \_package: aa (aa::) dut.sv:8:1: , endln:22:11, parent:unnamed
     |vpiName:foo_bar
     |vpiFullName:aa::foo_bar
     |vpiVariables:
     \_struct_var: (aa::foo_bar::y), line:14:8, endln:14:17, parent:aa::foo_bar
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
       |vpiTypespec:
       \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17, parent:b::
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
       |vpiName:y
       |vpiFullName:aa::foo_bar::y
       |vpiAutomatic:1
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
     |vpiVariables:
     \_logic_var: (aa::foo_bar::a_vec), line:15:5, endln:15:23, parent:aa::foo_bar
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
       |vpiTypespec:
       \_logic_typespec: , line:15:5, endln:15:8
         |vpiInstance:
         \_package: aa (aa::) dut.sv:8:1: , endln:22:11, parent:unnamed
         |vpiRange:
         \_range: , line:15:10, endln:15:22, parent:aa::foo_bar
+          |vpiParent:
+          \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
           |vpiLeftRange:
           \_operation: , line:15:10, endln:15:20
+            |vpiParent:
+            \_range: , line:15:10, endln:15:22, parent:aa::foo_bar
+            |vpiParent:
+            \_range: , line:15:10, endln:15:22, parent:aa::foo_bar
             |vpiOpType:11
             |vpiOperand:
             \_sys_func_call: ($bits), line:15:10, endln:15:18
+              |vpiParent:
+              \_operation: , line:15:10, endln:15:20
+              |vpiParent:
+              \_operation: , line:15:10, endln:15:20
               |vpiArgument:
               \_ref_obj: (aa::foo_bar::a), line:15:16, endln:15:17, parent:$bits
+                |vpiParent:
+                \_sys_func_call: ($bits), line:15:10, endln:15:18
+                |vpiParent:
+                \_sys_func_call: ($bits), line:15:10, endln:15:18
+                |vpiParent:
+                \_sys_func_call: ($bits), line:15:10, endln:15:18
                 |vpiName:a
                 |vpiFullName:aa::foo_bar::a
                 |vpiActual:
                 \_io_decl: (a), line:12:24, endln:12:25, parent:aa::foo_bar
+                  |vpiParent:
+                  \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
                   |vpiDirection:1
                   |vpiName:a
                   |vpiTypedef:
                   \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17, parent:b::
               |vpiName:$bits
+              |vpiParent:
+              \_operation: , line:15:10, endln:15:20
             |vpiOperand:
             \_constant: , line:15:19, endln:15:20
+              |vpiParent:
+              \_operation: , line:15:10, endln:15:20
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
+              |vpiParent:
+              \_operation: , line:15:10, endln:15:20
               |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:15:21, endln:15:22
+            |vpiParent:
+            \_range: , line:15:10, endln:15:22, parent:aa::foo_bar
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiParent:
+            \_range: , line:15:10, endln:15:22, parent:aa::foo_bar
             |vpiConstType:9
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
       |vpiName:a_vec
       |vpiFullName:aa::foo_bar::a_vec
       |vpiAutomatic:1
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
+    |vpiParent:
+    \_package: aa (aa::) dut.sv:8:1: , endln:22:11, parent:unnamed
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
     \_struct_var: , line:10:25, endln:10:34
       |vpiTypespec:
       \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17, parent:b::
+    |vpiParent:
+    \_package: aa (aa::) dut.sv:8:1: , endln:22:11, parent:unnamed
     |vpiIODecl:
     \_io_decl: (a), line:12:24, endln:12:25, parent:aa::foo_bar
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
       |vpiDirection:1
       |vpiName:a
       |vpiTypedef:
       \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17, parent:b::
     |vpiStmt:
     \_begin: (aa::foo_bar), line:17:5, endln:19:8, parent:aa::foo_bar
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
       |vpiFullName:aa::foo_bar
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14, parent:aa::
       |vpiStmt:
       \_assignment: , line:18:7, endln:18:18, parent:aa::foo_bar
+        |vpiParent:
+        \_begin: (aa::foo_bar), line:17:5, endln:19:8, parent:aa::foo_bar
+        |vpiParent:
+        \_begin: (aa::foo_bar), line:17:5, endln:19:8, parent:aa::foo_bar
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_ref_obj: (aa::foo_bar::y), line:18:17, endln:18:18
+          |vpiParent:
+          \_assignment: , line:18:7, endln:18:18, parent:aa::foo_bar
+          |vpiParent:
+          \_assignment: , line:18:7, endln:18:18, parent:aa::foo_bar
+          |vpiParent:
+          \_assignment: , line:18:7, endln:18:18, parent:aa::foo_bar
           |vpiName:y
           |vpiFullName:aa::foo_bar::y
           |vpiActual:
           \_struct_var: (aa::foo_bar::y), line:14:8, endln:14:17, parent:aa::foo_bar
         |vpiLhs:
         \_ref_obj: (aa::foo_bar::foo_bar), line:18:7, endln:18:14
+          |vpiParent:
+          \_assignment: , line:18:7, endln:18:18, parent:aa::foo_bar
+          |vpiParent:
+          \_assignment: , line:18:7, endln:18:18, parent:aa::foo_bar
+          |vpiParent:
+          \_assignment: , line:18:7, endln:18:18, parent:aa::foo_bar
           |vpiName:foo_bar
           |vpiFullName:aa::foo_bar::foo_bar
           |vpiActual:
           \_struct_var: , line:10:25, endln:10:34
     |vpiInstance:
     \_package: aa (aa::) dut.sv:8:1: , endln:22:11, parent:unnamed
+    |vpiParent:
+    \_package: aa (aa::) dut.sv:8:1: , endln:22:11, parent:unnamed
+  |vpiParent:
+  \_design: (unnamed)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

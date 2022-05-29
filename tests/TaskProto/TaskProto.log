@@ -93,15 +93,25 @@ design: (work@top)
 |vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiFullName:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiDefName:work@top
   |vpiTaskFunc:
   \_task: (work@top.test_output_argument), line:2:4, endln:2:59, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
     |vpiName:test_output_argument
     |vpiFullName:work@top.test_output_argument
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
     |vpiAccessType:4
     |vpiVisibility:1
     |vpiDPICStr:2
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
     |vpiIODecl:
     \_io_decl: (o), line:2:56, endln:2:57
       |vpiDirection:2
@@ -111,41 +121,87 @@ design: (work@top)
         |vpiSigned:1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
   |vpiNet:
   \_logic_net: (work@top.a), line:1:23, endln:1:24, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
     |vpiName:a
     |vpiFullName:work@top.a
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiPort:
   \_port: (a), line:1:23, endln:1:24, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
     |vpiName:a
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.a), line:1:23, endln:1:24, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
   |vpiProcess:
   \_initial: , line:4:4, endln:6:7, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
     |vpiStmt:
     \_begin: (work@top), line:4:12, endln:6:7
+      |vpiParent:
+      \_initial: , line:4:4, endln:6:7, parent:work@top
       |vpiFullName:work@top
+      |vpiParent:
+      \_initial: , line:4:4, endln:6:7, parent:work@top
       |vpiStmt:
       \_task_call: (test_output_argument), line:5:7, endln:5:30, parent:work@top
+        |vpiParent:
+        \_begin: (work@top), line:4:12, endln:6:7
+        |vpiParent:
+        \_begin: (work@top), line:4:12, endln:6:7
         |vpiArgument:
         \_ref_obj: (work@top.a), line:5:28, endln:5:29, parent:test_output_argument
+          |vpiParent:
+          \_task_call: (test_output_argument), line:5:7, endln:5:30, parent:work@top
+          |vpiParent:
+          \_task_call: (test_output_argument), line:5:7, endln:5:30, parent:work@top
+          |vpiParent:
+          \_task_call: (test_output_argument), line:5:7, endln:5:30, parent:work@top
           |vpiName:a
           |vpiFullName:work@top.a
           |vpiActual:
           \_int_var: (work@top.a), line:1:23, endln:1:24, parent:work@top
+            |vpiParent:
+            \_module: work@top (work@top) dut.sv:1:1: , endln:7:10
             |vpiTypespec:
             \_int_typespec: , line:1:19, endln:1:22
               |vpiSigned:1
+            |vpiParent:
+            \_module: work@top (work@top) dut.sv:1:1: , endln:7:10
+            |vpiParent:
+            \_module: work@top (work@top) dut.sv:1:1: , endln:7:10
             |vpiName:a
             |vpiFullName:work@top.a
             |vpiSigned:1
             |vpiVisibility:1
+            |vpiParent:
+            \_module: work@top (work@top) dut.sv:1:1: , endln:7:10
         |vpiName:test_output_argument
+        |vpiParent:
+        \_begin: (work@top), line:4:12, endln:6:7
         |vpiTask:
         \_task: (work@top.test_output_argument), line:2:4, endln:2:59, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:7:10
   |vpiName:work@top
@@ -155,26 +211,44 @@ design: (work@top)
   |vpiTop:1
   |vpiTaskFunc:
   \_task: (work@top.test_output_argument), line:2:4, endln:2:59, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10
     |vpiName:test_output_argument
     |vpiFullName:work@top.test_output_argument
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10
     |vpiAccessType:4
     |vpiVisibility:1
     |vpiDPICStr:2
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10
     |vpiIODecl:
     \_io_decl: (o), line:2:56, endln:2:57, parent:work@top.test_output_argument
+      |vpiParent:
+      \_task: (work@top.test_output_argument), line:2:4, endln:2:59, parent:work@top
       |vpiDirection:2
       |vpiName:o
       |vpiTypedef:
       \_int_typespec: , line:2:52, endln:2:55
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:7:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10
   |vpiTopModule:1
   |vpiPort:
   \_port: (a), line:1:23, endln:1:24, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10
     |vpiName:a
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: (work@top.a), line:1:23, endln:1:24, parent:a
+      |vpiParent:
+      \_port: (a), line:1:23, endln:1:24, parent:work@top
+      |vpiParent:
+      \_port: (a), line:1:23, endln:1:24, parent:work@top
+      |vpiParent:
+      \_port: (a), line:1:23, endln:1:24, parent:work@top
       |vpiName:a
       |vpiFullName:work@top.a
       |vpiActual:
@@ -184,22 +258,44 @@ design: (work@top)
       |vpiSigned:1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:7:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10
   |vpiProcess:
   \_initial: , line:4:4, endln:6:7, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10
     |vpiStmt:
     \_begin: (work@top), line:4:12, endln:6:7
+      |vpiParent:
+      \_initial: , line:4:4, endln:6:7, parent:work@top
       |vpiFullName:work@top
+      |vpiParent:
+      \_initial: , line:4:4, endln:6:7, parent:work@top
       |vpiStmt:
       \_task_call: (test_output_argument), line:5:7, endln:5:30, parent:work@top
+        |vpiParent:
+        \_begin: (work@top), line:4:12, endln:6:7
+        |vpiParent:
+        \_begin: (work@top), line:4:12, endln:6:7
         |vpiArgument:
         \_ref_obj: (work@top.a), line:5:28, endln:5:29, parent:test_output_argument
+          |vpiParent:
+          \_task_call: (test_output_argument), line:5:7, endln:5:30, parent:work@top
+          |vpiParent:
+          \_task_call: (test_output_argument), line:5:7, endln:5:30, parent:work@top
+          |vpiParent:
+          \_task_call: (test_output_argument), line:5:7, endln:5:30, parent:work@top
           |vpiName:a
           |vpiFullName:work@top.a
           |vpiActual:
           \_int_var: (work@top.a), line:1:23, endln:1:24, parent:work@top
         |vpiName:test_output_argument
+        |vpiParent:
+        \_begin: (work@top), line:4:12, endln:6:7
         |vpiTask:
         \_task: (work@top.test_output_argument), line:2:4, endln:2:59, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

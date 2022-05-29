@@ -39,16 +39,24 @@ design: (unnamed)
 |vpiName:unnamed
 |uhdmallPackages:
 \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:unnamed
+  |vpiParent:
+  \_design: (unnamed)
   |vpiName:pkg
   |vpiFullName:pkg::
   |vpiTypedef:
   \_struct_typespec: (pkg::a), line:2:12, endln:2:18, parent:pkg::
+    |vpiParent:
+    \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:unnamed
     |vpiName:pkg::a
     |vpiInstance:
+    \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:unnamed
+    |vpiParent:
     \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:unnamed
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (x), line:3:16, endln:3:17, parent:pkg::a
+      |vpiParent:
+      \_struct_typespec: (pkg::a), line:2:12, endln:2:18, parent:pkg::
       |vpiName:x
       |vpiTypespec:
       \_logic_typespec: , line:3:7, endln:3:12
@@ -59,19 +67,31 @@ design: (unnamed)
       |vpiRefColumnNo:7
       |vpiRefEndLineNo:3
       |vpiRefEndColumnNo:12
+  |vpiParent:
+  \_design: (unnamed)
   |vpiDefName:pkg
+  |vpiParent:
+  \_design: (unnamed)
 |uhdmtopPackages:
 \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:unnamed
+  |vpiParent:
+  \_design: (unnamed)
   |vpiName:pkg
   |vpiFullName:pkg::
   |vpiTypedef:
   \_struct_typespec: (pkg::a), line:2:12, endln:2:18, parent:pkg::
+    |vpiParent:
+    \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:unnamed
     |vpiName:pkg::a
     |vpiInstance:
+    \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:unnamed
+    |vpiParent:
     \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:unnamed
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (x), line:3:16, endln:3:17, parent:pkg::a
+      |vpiParent:
+      \_struct_typespec: (pkg::a), line:2:12, endln:2:18, parent:pkg::
       |vpiName:x
       |vpiTypespec:
       \_logic_typespec: , line:3:7, endln:3:12
@@ -84,6 +104,8 @@ design: (unnamed)
       |vpiRefEndColumnNo:12
   |vpiTypedef:
   \_packed_array_typespec: (pkg::b), line:5:12, endln:5:13, parent:pkg::
+    |vpiParent:
+    \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:unnamed
     |vpiName:pkg::b
     |vpiTypedefAlias:
     \_packed_array_typespec: , line:5:12, endln:5:13
@@ -93,54 +115,88 @@ design: (unnamed)
       \_range: , line:5:14, endln:5:17
         |vpiLeftRange:
         \_constant: , line:5:14, endln:5:15
+          |vpiParent:
+          \_range: , line:5:14, endln:5:17
           |vpiDecompile:5
           |vpiSize:64
           |UINT:5
+          |vpiParent:
+          \_range: , line:5:14, endln:5:17
           |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:5:16, endln:5:17
+          |vpiParent:
+          \_range: , line:5:14, endln:5:17
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiParent:
+          \_range: , line:5:14, endln:5:17
           |vpiConstType:9
       |vpiElemTypespec:
       \_struct_typespec: (pkg::a), line:2:12, endln:2:18, parent:pkg::
     |vpiInstance:
     \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:unnamed
+    |vpiParent:
+    \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:unnamed
     |vpiRange:
     \_range: , line:5:14, endln:5:17, parent:pkg::b
+      |vpiParent:
+      \_packed_array_typespec: (pkg::b), line:5:12, endln:5:13, parent:pkg::
       |vpiLeftRange:
       \_constant: , line:5:14, endln:5:15
+        |vpiParent:
+        \_range: , line:5:14, endln:5:17, parent:pkg::b
         |vpiDecompile:5
         |vpiSize:64
         |UINT:5
+        |vpiParent:
+        \_range: , line:5:14, endln:5:17, parent:pkg::b
         |vpiConstType:9
       |vpiRightRange:
       \_constant: , line:5:16, endln:5:17
+        |vpiParent:
+        \_range: , line:5:14, endln:5:17, parent:pkg::b
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiParent:
+        \_range: , line:5:14, endln:5:17, parent:pkg::b
         |vpiConstType:9
     |vpiElemTypespec:
     \_struct_typespec: (pkg::a), line:2:12, endln:2:18, parent:pkg::b
+      |vpiParent:
+      \_packed_array_typespec: (pkg::b), line:5:12, endln:5:13, parent:pkg::
       |vpiName:pkg::a
       |vpiInstance:
       \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:unnamed
+      |vpiParent:
+      \_packed_array_typespec: (pkg::b), line:5:12, endln:5:13, parent:pkg::
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (x), line:3:16, endln:3:17, parent:pkg::a
+        |vpiParent:
+        \_struct_typespec: (pkg::a), line:2:12, endln:2:18, parent:pkg::b
         |vpiName:x
         |vpiTypespec:
         \_logic_typespec: , line:3:7, endln:3:12, parent:x
+          |vpiParent:
+          \_typespec_member: (x), line:3:16, endln:3:17, parent:pkg::a
           |vpiInstance:
           \_package: pkg (pkg::) dut.sv:1:1: , endln:6:11, parent:unnamed
+          |vpiParent:
+          \_typespec_member: (x), line:3:16, endln:3:17, parent:pkg::a
         |vpiRefFile:dut.sv
         |vpiRefLineNo:3
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:3
         |vpiRefEndColumnNo:12
+  |vpiParent:
+  \_design: (unnamed)
   |vpiDefName:pkg
   |vpiTop:1
+  |vpiParent:
+  \_design: (unnamed)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -487,26 +487,46 @@ design: (work@kmac_keymgr)
 |vpiName:work@kmac_keymgr
 |uhdmallPackages:
 \_package: builtin (builtin::), file:, parent:work@kmac_keymgr
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
   |vpiName:builtin
   |vpiFullName:builtin::
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
   |vpiDefName:builtin
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
 |uhdmallPackages:
 \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:11:11, parent:work@kmac_keymgr
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
   |vpiName:keymgr_pkg
   |vpiFullName:keymgr_pkg::
   |vpiParameter:
   \_parameter: (keymgr_pkg::KeyWidth), line:3:16, endln:3:24, parent:keymgr_pkg::
+    |vpiParent:
+    \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:11:11, parent:work@kmac_keymgr
     |UINT:256
     |vpiTypespec:
     \_int_typespec: , line:3:12, endln:3:15, parent:keymgr_pkg::KeyWidth
+      |vpiParent:
+      \_parameter: (keymgr_pkg::KeyWidth), line:3:16, endln:3:24, parent:keymgr_pkg::
       |vpiInstance:
       \_package: (keymgr_pkg), file:
+      |vpiParent:
+      \_parameter: (keymgr_pkg::KeyWidth), line:3:16, endln:3:24, parent:keymgr_pkg::
       |vpiSigned:1
+    |vpiParent:
+    \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:11:11, parent:work@kmac_keymgr
+    |vpiParent:
+    \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:11:11, parent:work@kmac_keymgr
     |vpiSigned:1
     |vpiName:KeyWidth
     |vpiFullName:keymgr_pkg::KeyWidth
   |vpiParamAssign:
   \_param_assign: , line:3:16, endln:3:30, parent:keymgr_pkg::
+    |vpiParent:
+    \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:11:11, parent:work@kmac_keymgr
     |vpiRhs:
     \_constant: , line:3:27, endln:3:30
       |vpiDecompile:256
@@ -519,12 +539,18 @@ design: (work@kmac_keymgr)
     \_parameter: (keymgr_pkg::KeyWidth), line:3:16, endln:3:24, parent:keymgr_pkg::
   |vpiTypedef:
   \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16, parent:keymgr_pkg::
+    |vpiParent:
+    \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:11:11, parent:work@kmac_keymgr
     |vpiName:keymgr_pkg::kmac_data_rsp_t
     |vpiInstance:
+    \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:11:11, parent:work@kmac_keymgr
+    |vpiParent:
     \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:11:11, parent:work@kmac_keymgr
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (ready), line:6:11, endln:6:16, parent:keymgr_pkg::kmac_data_rsp_t
+      |vpiParent:
+      \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16, parent:keymgr_pkg::
       |vpiName:ready
       |vpiTypespec:
       \_logic_typespec: , line:6:5, endln:6:10
@@ -537,6 +563,8 @@ design: (work@kmac_keymgr)
       |vpiRefEndColumnNo:10
     |vpiTypespecMember:
     \_typespec_member: (done), line:7:11, endln:7:15, parent:keymgr_pkg::kmac_data_rsp_t
+      |vpiParent:
+      \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16, parent:keymgr_pkg::
       |vpiName:done
       |vpiTypespec:
       \_logic_typespec: , line:7:5, endln:7:10
@@ -549,6 +577,8 @@ design: (work@kmac_keymgr)
       |vpiRefEndColumnNo:10
     |vpiTypespecMember:
     \_typespec_member: (digest_share0), line:8:27, endln:8:40, parent:keymgr_pkg::kmac_data_rsp_t
+      |vpiParent:
+      \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16, parent:keymgr_pkg::
       |vpiName:digest_share0
       |vpiTypespec:
       \_logic_typespec: , line:8:5, endln:8:10
@@ -556,76 +586,140 @@ design: (work@kmac_keymgr)
         \_package: (keymgr_pkg), file:
         |vpiRange:
         \_range: , line:8:12, endln:8:25, parent:keymgr_pkg::kmac_data_rsp_t
+          |vpiParent:
+          \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16, parent:keymgr_pkg::
           |vpiLeftRange:
           \_operation: , line:8:12, endln:8:23
+            |vpiParent:
+            \_range: , line:8:12, endln:8:25, parent:keymgr_pkg::kmac_data_rsp_t
+            |vpiParent:
+            \_range: , line:8:12, endln:8:25, parent:keymgr_pkg::kmac_data_rsp_t
             |vpiOpType:11
             |vpiOperand:
             \_ref_obj: (keymgr_pkg::keymgr_pkg::kmac_data_rsp_t::KeyWidth), line:8:12, endln:8:20, parent:keymgr_pkg::kmac_data_rsp_t
+              |vpiParent:
+              \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16, parent:keymgr_pkg::
+              |vpiParent:
+              \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16, parent:keymgr_pkg::
+              |vpiParent:
+              \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16, parent:keymgr_pkg::
               |vpiName:KeyWidth
               |vpiFullName:keymgr_pkg::keymgr_pkg::kmac_data_rsp_t::KeyWidth
               |vpiActual:
               \_parameter: (keymgr_pkg::KeyWidth), line:3:16, endln:3:24, parent:keymgr_pkg::
             |vpiOperand:
             \_constant: , line:8:21, endln:8:23
+              |vpiParent:
+              \_operation: , line:8:12, endln:8:23
               |vpiDecompile:10
               |vpiSize:64
               |UINT:10
+              |vpiParent:
+              \_operation: , line:8:12, endln:8:23
               |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:8:24, endln:8:25
+            |vpiParent:
+            \_range: , line:8:12, endln:8:25, parent:keymgr_pkg::kmac_data_rsp_t
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiParent:
+            \_range: , line:8:12, endln:8:25, parent:keymgr_pkg::kmac_data_rsp_t
             |vpiConstType:9
       |vpiRefFile:dut.sv
       |vpiRefLineNo:8
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:8
       |vpiRefEndColumnNo:26
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
   |vpiDefName:keymgr_pkg
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
 |uhdmtopPackages:
 \_package: builtin (builtin::), file:, parent:work@kmac_keymgr
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
   |vpiName:builtin
   |vpiFullName:builtin::
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
   |vpiDefName:builtin
   |vpiTop:1
   |vpiClassDefn:
   \_class_defn: (builtin::any_sverilog_class), file:, parent:builtin::
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@kmac_keymgr
     |vpiName:any_sverilog_class
     |vpiFullName:builtin::any_sverilog_class
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@kmac_keymgr
   |vpiClassDefn:
   \_class_defn: (builtin::array), file:, parent:builtin::
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@kmac_keymgr
     |vpiName:array
     |vpiFullName:builtin::array
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@kmac_keymgr
   |vpiClassDefn:
   \_class_defn: (builtin::queue), file:, parent:builtin::
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@kmac_keymgr
     |vpiName:queue
     |vpiFullName:builtin::queue
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@kmac_keymgr
   |vpiClassDefn:
   \_class_defn: (builtin::string), file:, parent:builtin::
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@kmac_keymgr
     |vpiName:string
     |vpiFullName:builtin::string
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@kmac_keymgr
   |vpiClassDefn:
   \_class_defn: (builtin::system), file:, parent:builtin::
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@kmac_keymgr
     |vpiName:system
     |vpiFullName:builtin::system
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@kmac_keymgr
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
 |uhdmtopPackages:
 \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:11:11, parent:work@kmac_keymgr
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
   |vpiName:keymgr_pkg
   |vpiFullName:keymgr_pkg::
   |vpiParameter:
   \_parameter: (keymgr_pkg::KeyWidth), line:3:16, endln:3:24, parent:keymgr_pkg::
+    |vpiParent:
+    \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:11:11, parent:work@kmac_keymgr
     |UINT:256
     |vpiTypespec:
     \_int_typespec: , line:3:12, endln:3:15, parent:keymgr_pkg::KeyWidth
+      |vpiParent:
+      \_parameter: (keymgr_pkg::KeyWidth), line:3:16, endln:3:24, parent:keymgr_pkg::
       |vpiInstance:
       \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:11:11, parent:work@kmac_keymgr
+      |vpiParent:
+      \_parameter: (keymgr_pkg::KeyWidth), line:3:16, endln:3:24, parent:keymgr_pkg::
       |vpiSigned:1
+    |vpiParent:
+    \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:11:11, parent:work@kmac_keymgr
+    |vpiParent:
+    \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:11:11, parent:work@kmac_keymgr
     |vpiSigned:1
     |vpiName:KeyWidth
     |vpiFullName:keymgr_pkg::KeyWidth
   |vpiParamAssign:
   \_param_assign: , line:3:16, endln:3:30, parent:keymgr_pkg::
+    |vpiParent:
+    \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:11:11, parent:work@kmac_keymgr
     |vpiRhs:
     \_constant: , line:3:27, endln:3:30
       |vpiDecompile:256
@@ -638,12 +732,18 @@ design: (work@kmac_keymgr)
     \_parameter: (keymgr_pkg::KeyWidth), line:3:16, endln:3:24, parent:keymgr_pkg::
   |vpiTypedef:
   \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16, parent:keymgr_pkg::
+    |vpiParent:
+    \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:11:11, parent:work@kmac_keymgr
     |vpiName:keymgr_pkg::kmac_data_rsp_t
     |vpiInstance:
+    \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:11:11, parent:work@kmac_keymgr
+    |vpiParent:
     \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:11:11, parent:work@kmac_keymgr
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (ready), line:6:11, endln:6:16, parent:keymgr_pkg::kmac_data_rsp_t
+      |vpiParent:
+      \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16, parent:keymgr_pkg::
       |vpiName:ready
       |vpiTypespec:
       \_logic_typespec: , line:6:5, endln:6:10
@@ -656,6 +756,8 @@ design: (work@kmac_keymgr)
       |vpiRefEndColumnNo:10
     |vpiTypespecMember:
     \_typespec_member: (done), line:7:11, endln:7:15, parent:keymgr_pkg::kmac_data_rsp_t
+      |vpiParent:
+      \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16, parent:keymgr_pkg::
       |vpiName:done
       |vpiTypespec:
       \_logic_typespec: , line:7:5, endln:7:10
@@ -668,6 +770,8 @@ design: (work@kmac_keymgr)
       |vpiRefEndColumnNo:10
     |vpiTypespecMember:
     \_typespec_member: (digest_share0), line:8:27, endln:8:40, parent:keymgr_pkg::kmac_data_rsp_t
+      |vpiParent:
+      \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16, parent:keymgr_pkg::
       |vpiName:digest_share0
       |vpiTypespec:
       \_logic_typespec: , line:8:5, endln:8:10
@@ -675,32 +779,54 @@ design: (work@kmac_keymgr)
         \_package: keymgr_pkg (keymgr_pkg::) dut.sv:1:1: , endln:11:11, parent:work@kmac_keymgr
         |vpiRange:
         \_range: , line:8:12, endln:8:25, parent:keymgr_pkg::kmac_data_rsp_t
+          |vpiParent:
+          \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16, parent:keymgr_pkg::
           |vpiLeftRange:
           \_constant: , line:8:12, endln:8:20
+            |vpiParent:
+            \_range: , line:8:12, endln:8:25, parent:keymgr_pkg::kmac_data_rsp_t
             |vpiDecompile:246
             |vpiSize:64
             |INT:246
+            |vpiParent:
+            \_range: , line:8:12, endln:8:25, parent:keymgr_pkg::kmac_data_rsp_t
             |vpiConstType:7
           |vpiRightRange:
           \_constant: , line:8:24, endln:8:25
+            |vpiParent:
+            \_range: , line:8:12, endln:8:25, parent:keymgr_pkg::kmac_data_rsp_t
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiParent:
+            \_range: , line:8:12, endln:8:25, parent:keymgr_pkg::kmac_data_rsp_t
             |vpiConstType:9
       |vpiRefFile:dut.sv
       |vpiRefLineNo:8
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:8
       |vpiRefEndColumnNo:26
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
   |vpiDefName:keymgr_pkg
   |vpiTop:1
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
 |uhdmallClasses:
 \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
   |vpiName:work@mailbox
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
   |vpiMethod:
   \_function: (work@mailbox::new), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiName:new
     |vpiFullName:work@mailbox::new
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiMethod:1
     |vpiReturn:
     \_class_var: 
@@ -708,8 +834,12 @@ design: (work@kmac_keymgr)
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiIODecl:
     \_io_decl: (bound), parent:work@mailbox::new
+      |vpiParent:
+      \_function: (work@mailbox::new), parent:work@mailbox
       |vpiDirection:1
       |vpiName:bound
       |vpiExpr:
@@ -721,10 +851,16 @@ design: (work@kmac_keymgr)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
   |vpiMethod:
   \_function: (work@mailbox::num), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiName:num
     |vpiFullName:work@mailbox::num
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
@@ -732,42 +868,80 @@ design: (work@kmac_keymgr)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiName:put
     |vpiFullName:work@mailbox::put
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::put
+      |vpiParent:
+      \_task: (work@mailbox::put), parent:work@mailbox
       |vpiDirection:1
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
   |vpiMethod:
   \_function: (work@mailbox::try_put), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
     \_logic_var: 
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_put
+      |vpiParent:
+      \_function: (work@mailbox::try_put), parent:work@mailbox
       |vpiDirection:1
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
   |vpiMethod:
   \_task: (work@mailbox::get), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiName:get
     |vpiFullName:work@mailbox::get
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::get
+      |vpiParent:
+      \_task: (work@mailbox::get), parent:work@mailbox
       |vpiDirection:6
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
   |vpiMethod:
   \_function: (work@mailbox::try_get), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
@@ -775,24 +949,44 @@ design: (work@kmac_keymgr)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
+      |vpiParent:
+      \_function: (work@mailbox::try_get), parent:work@mailbox
       |vpiDirection:6
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
   |vpiMethod:
   \_task: (work@mailbox::peek), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::peek
+      |vpiParent:
+      \_task: (work@mailbox::peek), parent:work@mailbox
       |vpiDirection:6
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
   |vpiMethod:
   \_function: (work@mailbox::try_peek), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
@@ -800,50 +994,78 @@ design: (work@kmac_keymgr)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
+      |vpiParent:
+      \_function: (work@mailbox::try_peek), parent:work@mailbox
       |vpiDirection:6
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_keymgr
 |uhdmallClasses:
 \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
   |vpiName:work@process
   |vpiTypedef:
   \_enum_typespec: (state), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
     |vpiName:state
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
     |vpiEnumConst:
     \_enum_const: (FINISHED), parent:state
+      |vpiParent:
+      \_enum_typespec: (state), parent:work@process
       |vpiName:FINISHED
       |INT:0
       |vpiDecompile:0
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (RUNNING), parent:state
+      |vpiParent:
+      \_enum_typespec: (state), parent:work@process
       |vpiName:RUNNING
       |INT:1
       |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (WAITING), parent:state
+      |vpiParent:
+      \_enum_typespec: (state), parent:work@process
       |vpiName:WAITING
       |INT:2
       |vpiDecompile:2
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (SUSPENDED), parent:state
+      |vpiParent:
+      \_enum_typespec: (state), parent:work@process
       |vpiName:SUSPENDED
       |INT:3
       |vpiDecompile:3
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (KILLED), parent:state
+      |vpiParent:
+      \_enum_typespec: (state), parent:work@process
       |vpiName:KILLED
       |INT:4
       |vpiDecompile:4
       |vpiSize:64
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
   |vpiMethod:
   \_function: (work@process::self), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
     |vpiName:self
     |vpiFullName:work@process::self
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
@@ -852,17 +1074,29 @@ design: (work@kmac_keymgr)
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
     |vpiName:status
     |vpiFullName:work@process::status
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
       \_enum_typespec: (state), parent:work@process
+        |vpiParent:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
         |vpiName:state
+        |vpiParent:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
         |vpiEnumConst:
         \_enum_const: (FINISHED)
           |vpiName:FINISHED
@@ -893,37 +1127,81 @@ design: (work@kmac_keymgr)
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
   |vpiMethod:
   \_task: (work@process::kill), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
     |vpiName:kill
     |vpiFullName:work@process::kill
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
   |vpiMethod:
   \_task: (work@process::await), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
     |vpiName:await
     |vpiFullName:work@process::await
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
   |vpiMethod:
   \_task: (work@process::suspend), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
     |vpiName:suspend
     |vpiFullName:work@process::suspend
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
   |vpiMethod:
   \_task: (work@process::resume), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
     |vpiName:resume
     |vpiFullName:work@process::resume
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_keymgr
 |uhdmallClasses:
 \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_keymgr
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
   |vpiName:work@semaphore
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
   |vpiMethod:
   \_function: (work@semaphore::new), parent:work@semaphore
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_keymgr
     |vpiName:new
     |vpiFullName:work@semaphore::new
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_keymgr
     |vpiMethod:1
     |vpiReturn:
     \_class_var: 
@@ -931,8 +1209,12 @@ design: (work@kmac_keymgr)
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_keymgr
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_keymgr
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::new
+      |vpiParent:
+      \_function: (work@semaphore::new), parent:work@semaphore
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -944,14 +1226,24 @@ design: (work@kmac_keymgr)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_keymgr
   |vpiMethod:
   \_task: (work@semaphore::put), parent:work@semaphore
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_keymgr
     |vpiName:put
     |vpiFullName:work@semaphore::put
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_keymgr
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_keymgr
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::put
+      |vpiParent:
+      \_task: (work@semaphore::put), parent:work@semaphore
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -963,14 +1255,24 @@ design: (work@kmac_keymgr)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_keymgr
   |vpiMethod:
   \_task: (work@semaphore::get), parent:work@semaphore
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_keymgr
     |vpiName:get
     |vpiFullName:work@semaphore::get
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_keymgr
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_keymgr
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::get
+      |vpiParent:
+      \_task: (work@semaphore::get), parent:work@semaphore
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -982,10 +1284,16 @@ design: (work@kmac_keymgr)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_keymgr
   |vpiMethod:
   \_function: (work@semaphore::try_get), parent:work@semaphore
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_keymgr
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_keymgr
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
@@ -993,8 +1301,12 @@ design: (work@kmac_keymgr)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_keymgr
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
+      |vpiParent:
+      \_function: (work@semaphore::try_get), parent:work@semaphore
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -1006,25 +1318,47 @@ design: (work@kmac_keymgr)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_keymgr
 |uhdmallModules:
 \_module: work@OK (work@OK) dut.sv:13:1: , endln:14:10, parent:work@kmac_keymgr
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
   |vpiFullName:work@OK
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
   |vpiDefName:work@OK
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
 |uhdmallModules:
 \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10, parent:work@kmac_keymgr
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
   |vpiFullName:work@kmac_keymgr
   |vpiParameter:
   \_parameter: (work@kmac_keymgr.KeyMgrDigestW), line:18:17, endln:18:30, parent:work@kmac_keymgr
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10, parent:work@kmac_keymgr
     |UINT:247
     |vpiTypespec:
     \_int_typespec: , line:18:13, endln:18:16, parent:work@kmac_keymgr.KeyMgrDigestW
+      |vpiParent:
+      \_parameter: (work@kmac_keymgr.KeyMgrDigestW), line:18:17, endln:18:30, parent:work@kmac_keymgr
+      |vpiParent:
+      \_parameter: (work@kmac_keymgr.KeyMgrDigestW), line:18:17, endln:18:30, parent:work@kmac_keymgr
       |vpiSigned:1
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10, parent:work@kmac_keymgr
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10, parent:work@kmac_keymgr
     |vpiSigned:1
     |vpiLocalParam:1
     |vpiName:KeyMgrDigestW
     |vpiFullName:work@kmac_keymgr.KeyMgrDigestW
   |vpiParamAssign:
   \_param_assign: , line:18:17, endln:18:67, parent:work@kmac_keymgr
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10, parent:work@kmac_keymgr
     |vpiRhs:
     \_constant: , line:18:33, endln:18:67
       |vpiDecompile:247
@@ -1035,46 +1369,90 @@ design: (work@kmac_keymgr)
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@kmac_keymgr.KeyMgrDigestW), line:18:17, endln:18:30, parent:work@kmac_keymgr
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
   |vpiDefName:work@kmac_keymgr
   |vpiNet:
   \_logic_net: (work@kmac_keymgr.keymgr_data_o), line:16:55, endln:16:68, parent:work@kmac_keymgr
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10, parent:work@kmac_keymgr
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10, parent:work@kmac_keymgr
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10, parent:work@kmac_keymgr
     |vpiName:keymgr_data_o
     |vpiFullName:work@kmac_keymgr.keymgr_data_o
     |vpiNetType:1
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10, parent:work@kmac_keymgr
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10, parent:work@kmac_keymgr
   |vpiNet:
   \_logic_net: (work@kmac_keymgr.keymgr_digest), line:22:28, endln:22:41, parent:work@kmac_keymgr
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10, parent:work@kmac_keymgr
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10, parent:work@kmac_keymgr
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10, parent:work@kmac_keymgr
     |vpiName:keymgr_digest
     |vpiFullName:work@kmac_keymgr.keymgr_digest
     |vpiNetType:36
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10, parent:work@kmac_keymgr
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10, parent:work@kmac_keymgr
+  |vpiParent:
+  \_design: (work@kmac_keymgr)
   |vpiPort:
   \_port: (keymgr_data_o), line:16:55, endln:16:68, parent:work@kmac_keymgr
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10, parent:work@kmac_keymgr
     |vpiName:keymgr_data_o
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@kmac_keymgr.keymgr_data_o), line:16:55, endln:16:68, parent:work@kmac_keymgr
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10, parent:work@kmac_keymgr
 |uhdmtopModules:
 \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10
   |vpiName:work@kmac_keymgr
   |vpiVariables:
   \_array_var: (work@kmac_keymgr.keymgr_digest), line:22:28, endln:22:45, parent:work@kmac_keymgr
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10
     |vpiSize:2
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10
     |vpiName:keymgr_digest
     |vpiFullName:work@kmac_keymgr.keymgr_digest
     |vpiRandType:1
     |vpiVisibility:1
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10
     |vpiArrayType:1
     |vpiRange:
     \_range: , line:22:43, endln:22:44
       |vpiLeftRange:
       \_constant: , line:22:43, endln:22:44
+        |vpiParent:
+        \_range: , line:22:43, endln:22:44
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiParent:
+        \_range: , line:22:43, endln:22:44
         |vpiConstType:9
       |vpiRightRange:
       \_operation: 
+        |vpiParent:
+        \_range: , line:22:43, endln:22:44
+        |vpiParent:
+        \_range: , line:22:43, endln:22:44
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:22:43, endln:22:44
@@ -1089,49 +1467,85 @@ design: (work@kmac_keymgr)
           |vpiConstType:7
     |vpiReg:
     \_logic_var: (work@kmac_keymgr.keymgr_digest), line:22:28, endln:22:41, parent:work@kmac_keymgr.keymgr_digest
+      |vpiParent:
+      \_array_var: (work@kmac_keymgr.keymgr_digest), line:22:28, endln:22:45, parent:work@kmac_keymgr
       |vpiTypespec:
       \_logic_typespec: , line:22:2, endln:22:7
         |vpiRange:
         \_range: , line:22:9, endln:22:26
           |vpiLeftRange:
           \_constant: , line:22:9, endln:22:22
+            |vpiParent:
+            \_range: , line:22:9, endln:22:26
             |vpiDecompile:246
             |vpiSize:64
             |INT:246
+            |vpiParent:
+            \_range: , line:22:9, endln:22:26
             |vpiConstType:7
           |vpiRightRange:
           \_constant: , line:22:25, endln:22:26
+            |vpiParent:
+            \_range: , line:22:9, endln:22:26
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiParent:
+            \_range: , line:22:9, endln:22:26
             |vpiConstType:9
+      |vpiParent:
+      \_array_var: (work@kmac_keymgr.keymgr_digest), line:22:28, endln:22:45, parent:work@kmac_keymgr
+      |vpiParent:
+      \_array_var: (work@kmac_keymgr.keymgr_digest), line:22:28, endln:22:45, parent:work@kmac_keymgr
       |vpiFullName:work@kmac_keymgr.keymgr_digest
+      |vpiParent:
+      \_array_var: (work@kmac_keymgr.keymgr_digest), line:22:28, endln:22:45, parent:work@kmac_keymgr
       |vpiRange:
       \_range: , line:22:9, endln:22:26
         |vpiLeftRange:
         \_constant: , line:22:9, endln:22:22
+          |vpiParent:
+          \_range: , line:22:9, endln:22:26
           |vpiDecompile:246
           |vpiSize:64
           |INT:246
+          |vpiParent:
+          \_range: , line:22:9, endln:22:26
           |vpiConstType:7
         |vpiRightRange:
         \_constant: , line:22:25, endln:22:26
+          |vpiParent:
+          \_range: , line:22:9, endln:22:26
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiParent:
+          \_range: , line:22:9, endln:22:26
           |vpiConstType:9
   |vpiParameter:
   \_parameter: (work@kmac_keymgr.KeyMgrDigestW), line:18:17, endln:18:30, parent:work@kmac_keymgr
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10
     |UINT:247
     |vpiTypespec:
     \_int_typespec: , line:18:13, endln:18:16, parent:work@kmac_keymgr.KeyMgrDigestW
+      |vpiParent:
+      \_parameter: (work@kmac_keymgr.KeyMgrDigestW), line:18:17, endln:18:30, parent:work@kmac_keymgr
+      |vpiParent:
+      \_parameter: (work@kmac_keymgr.KeyMgrDigestW), line:18:17, endln:18:30, parent:work@kmac_keymgr
       |vpiSigned:1
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10
     |vpiSigned:1
     |vpiLocalParam:1
     |vpiName:KeyMgrDigestW
     |vpiFullName:work@kmac_keymgr.KeyMgrDigestW
   |vpiParamAssign:
   \_param_assign: , line:18:17, endln:18:67, parent:work@kmac_keymgr
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10
     |vpiRhs:
     \_constant: , line:18:33, endln:18:67
       |vpiDecompile:247
@@ -1146,18 +1560,36 @@ design: (work@kmac_keymgr)
   |vpiTop:1
   |vpiNet:
   \_struct_net: (work@kmac_keymgr.keymgr_data_o), line:16:55, endln:16:68, parent:work@kmac_keymgr
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10
     |vpiTypespec:
     \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16, parent:keymgr_pkg::
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10
     |vpiName:keymgr_data_o
     |vpiFullName:work@kmac_keymgr.keymgr_data_o
     |vpiNetType:1
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10
   |vpiTopModule:1
   |vpiPort:
   \_port: (keymgr_data_o), line:16:55, endln:16:68, parent:work@kmac_keymgr
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10
     |vpiName:keymgr_data_o
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: (work@kmac_keymgr.keymgr_data_o), line:16:55, endln:16:68, parent:keymgr_data_o
+      |vpiParent:
+      \_port: (keymgr_data_o), line:16:55, endln:16:68, parent:work@kmac_keymgr
+      |vpiParent:
+      \_port: (keymgr_data_o), line:16:55, endln:16:68, parent:work@kmac_keymgr
+      |vpiParent:
+      \_port: (keymgr_data_o), line:16:55, endln:16:68, parent:work@kmac_keymgr
       |vpiName:keymgr_data_o
       |vpiFullName:work@kmac_keymgr.keymgr_data_o
       |vpiActual:
@@ -1166,20 +1598,34 @@ design: (work@kmac_keymgr)
     \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16, parent:keymgr_pkg::
     |vpiInstance:
     \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10
   |vpiGenScopeArray:
   \_gen_scope_array: (work@kmac_keymgr.genblk1), line:19:2, endln:20:12, parent:work@kmac_keymgr
+    |vpiParent:
+    \_module: work@kmac_keymgr (work@kmac_keymgr) dut.sv:16:1: , endln:24:10
     |vpiName:genblk1
     |vpiFullName:work@kmac_keymgr.genblk1
     |vpiGenScope:
     \_gen_scope: (work@kmac_keymgr.genblk1), parent:work@kmac_keymgr.genblk1
+      |vpiParent:
+      \_gen_scope_array: (work@kmac_keymgr.genblk1), line:19:2, endln:20:12, parent:work@kmac_keymgr
       |vpiFullName:work@kmac_keymgr.genblk1
+      |vpiParent:
+      \_gen_scope_array: (work@kmac_keymgr.genblk1), line:19:2, endln:20:12, parent:work@kmac_keymgr
       |vpiModule:
       \_module: work@OK (work@kmac_keymgr.genblk1.ok) dut.sv:20:4: , endln:20:12, parent:work@kmac_keymgr.genblk1
+        |vpiParent:
+        \_gen_scope: (work@kmac_keymgr.genblk1), parent:work@kmac_keymgr.genblk1
         |vpiName:ok
         |vpiFullName:work@kmac_keymgr.genblk1.ok
+        |vpiParent:
+        \_gen_scope: (work@kmac_keymgr.genblk1), parent:work@kmac_keymgr.genblk1
         |vpiDefName:work@OK
         |vpiDefFile:dut.sv
         |vpiDefLineNo:13
+        |vpiParent:
+        \_gen_scope: (work@kmac_keymgr.genblk1), parent:work@kmac_keymgr.genblk1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

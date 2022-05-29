@@ -126,21 +126,45 @@ design: (work@top)
 |vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:16:1: , endln:25:10, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiFullName:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiDefName:work@top
   |vpiTaskFunc:
   \_task: (work@top.set_refgen_en), line:18:3, endln:22:8, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:16:1: , endln:25:10, parent:work@top
     |vpiName:set_refgen_en
     |vpiFullName:work@top.set_refgen_en
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:16:1: , endln:25:10, parent:work@top
     |vpiVisibility:1
     |vpiAutomatic:1
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:16:1: , endln:25:10, parent:work@top
     |vpiStmt:
     \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
+      |vpiParent:
+      \_task: (work@top.set_refgen_en), line:18:3, endln:22:8, parent:work@top
       |vpiFullName:work@top.set_refgen_en
+      |vpiParent:
+      \_task: (work@top.set_refgen_en), line:18:3, endln:22:8, parent:work@top
       |vpiStmt:
       \_func_call: (csr_read), line:11:36, endln:11:80, parent:work@top.set_refgen_en
+        |vpiParent:
+        \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
+        |vpiParent:
+        \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
         |vpiArgument:
         \_ref_obj: (work@top.set_refgen_en.DDR_CMN_OFFSET), line:11:45, endln:11:59, parent:csr_read
+          |vpiParent:
+          \_func_call: (csr_read), line:11:36, endln:11:80, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_func_call: (csr_read), line:11:36, endln:11:80, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_func_call: (csr_read), line:11:36, endln:11:80, parent:work@top.set_refgen_en
           |vpiName:DDR_CMN_OFFSET
           |vpiFullName:work@top.set_refgen_en.DDR_CMN_OFFSET
           |vpiActual:
@@ -149,12 +173,22 @@ design: (work@top)
             |vpiNetType:1
         |vpiArgument:
         \_constant: , line:11:60, endln:11:72, parent:csr_read
+          |vpiParent:
+          \_func_call: (csr_read), line:11:36, endln:11:80, parent:work@top.set_refgen_en
           |vpiDecompile:32'h00000008
           |vpiSize:32
           |HEX:00000008
+          |vpiParent:
+          \_func_call: (csr_read), line:11:36, endln:11:80, parent:work@top.set_refgen_en
           |vpiConstType:5
         |vpiArgument:
         \_ref_obj: (work@top.set_refgen_en.wdata), line:11:74, endln:11:79, parent:csr_read
+          |vpiParent:
+          \_func_call: (csr_read), line:11:36, endln:11:80, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_func_call: (csr_read), line:11:36, endln:11:80, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_func_call: (csr_read), line:11:36, endln:11:80, parent:work@top.set_refgen_en
           |vpiName:wdata
           |vpiFullName:work@top.set_refgen_en.wdata
           |vpiActual:
@@ -162,12 +196,24 @@ design: (work@top)
             |vpiName:wdata
             |vpiNetType:1
         |vpiName:csr_read
+        |vpiParent:
+        \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
       |vpiStmt:
       \_assignment: , line:12:36, endln:12:51, parent:work@top.set_refgen_en
+        |vpiParent:
+        \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
+        |vpiParent:
+        \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_ref_obj: (work@top.set_refgen_en.en), line:12:49, endln:12:51, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
           |vpiName:en
           |vpiFullName:work@top.set_refgen_en.en
           |vpiActual:
@@ -178,39 +224,71 @@ design: (work@top)
         \_bit_select: (work@top.set_refgen_en.wdata), line:12:36, endln:12:46, parent:work@top.set_refgen_en.wdata
           |vpiParent:
           \_ref_obj: (work@top.set_refgen_en.wdata)
-            |vpiName:wdata
-            |vpiFullName:work@top.set_refgen_en.wdata
+          |vpiParent:
+          \_ref_obj: (work@top.set_refgen_en.wdata)
+          |vpiParent:
+          \_ref_obj: (work@top.set_refgen_en.wdata)
           |vpiName:wdata
           |vpiFullName:work@top.set_refgen_en.wdata
           |vpiIndex:
           \_constant: , line:12:42, endln:12:43, parent:work@top.set_refgen_en.wdata
+            |vpiParent:
+            \_bit_select: (work@top.set_refgen_en.wdata), line:12:36, endln:12:46, parent:work@top.set_refgen_en.wdata
             |vpiDecompile:9
             |vpiSize:64
             |UINT:9
+            |vpiParent:
+            \_bit_select: (work@top.set_refgen_en.wdata), line:12:36, endln:12:46, parent:work@top.set_refgen_en.wdata
             |vpiConstType:9
       |vpiStmt:
       \_func_call: (csr_write), line:13:36, endln:13:81, parent:work@top.set_refgen_en
+        |vpiParent:
+        \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
+        |vpiParent:
+        \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
         |vpiArgument:
         \_ref_obj: (work@top.set_refgen_en.DDR_CMN_OFFSET), line:13:46, endln:13:60, parent:csr_write
+          |vpiParent:
+          \_func_call: (csr_write), line:13:36, endln:13:81, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_func_call: (csr_write), line:13:36, endln:13:81, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_func_call: (csr_write), line:13:36, endln:13:81, parent:work@top.set_refgen_en
           |vpiName:DDR_CMN_OFFSET
           |vpiFullName:work@top.set_refgen_en.DDR_CMN_OFFSET
           |vpiActual:
           \_logic_net: (DDR_CMN_OFFSET)
         |vpiArgument:
         \_constant: , line:13:61, endln:13:73, parent:csr_write
+          |vpiParent:
+          \_func_call: (csr_write), line:13:36, endln:13:81, parent:work@top.set_refgen_en
           |vpiDecompile:32'h00000008
           |vpiSize:32
           |HEX:00000008
+          |vpiParent:
+          \_func_call: (csr_write), line:13:36, endln:13:81, parent:work@top.set_refgen_en
           |vpiConstType:5
         |vpiArgument:
         \_ref_obj: (work@top.set_refgen_en.wdata), line:13:75, endln:13:80, parent:csr_write
+          |vpiParent:
+          \_func_call: (csr_write), line:13:36, endln:13:81, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_func_call: (csr_write), line:13:36, endln:13:81, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_func_call: (csr_write), line:13:36, endln:13:81, parent:work@top.set_refgen_en
           |vpiName:wdata
           |vpiFullName:work@top.set_refgen_en.wdata
           |vpiActual:
           \_logic_net: (wdata)
         |vpiName:csr_write
+        |vpiParent:
+        \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:16:1: , endln:25:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:16:1: , endln:25:10, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:16:1: , endln:25:10
   |vpiName:work@top
@@ -218,17 +296,37 @@ design: (work@top)
   |vpiTop:1
   |vpiTaskFunc:
   \_task: (work@top.set_refgen_en), line:18:3, endln:22:8, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:16:1: , endln:25:10
     |vpiName:set_refgen_en
     |vpiFullName:work@top.set_refgen_en
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:16:1: , endln:25:10
     |vpiVisibility:1
     |vpiAutomatic:1
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:16:1: , endln:25:10
     |vpiStmt:
     \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
+      |vpiParent:
+      \_task: (work@top.set_refgen_en), line:18:3, endln:22:8, parent:work@top
       |vpiFullName:work@top.set_refgen_en
+      |vpiParent:
+      \_task: (work@top.set_refgen_en), line:18:3, endln:22:8, parent:work@top
       |vpiStmt:
       \_func_call: (csr_read), line:11:36, endln:11:80, parent:work@top.set_refgen_en
+        |vpiParent:
+        \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
+        |vpiParent:
+        \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
         |vpiArgument:
         \_ref_obj: (work@top.set_refgen_en.DDR_CMN_OFFSET), line:11:45, endln:11:59, parent:csr_read
+          |vpiParent:
+          \_func_call: (csr_read), line:11:36, endln:11:80, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_func_call: (csr_read), line:11:36, endln:11:80, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_func_call: (csr_read), line:11:36, endln:11:80, parent:work@top.set_refgen_en
           |vpiName:DDR_CMN_OFFSET
           |vpiFullName:work@top.set_refgen_en.DDR_CMN_OFFSET
           |vpiActual:
@@ -237,17 +335,35 @@ design: (work@top)
         \_constant: , line:11:60, endln:11:72, parent:csr_read
         |vpiArgument:
         \_ref_obj: (work@top.set_refgen_en.wdata), line:11:74, endln:11:79, parent:csr_read
+          |vpiParent:
+          \_func_call: (csr_read), line:11:36, endln:11:80, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_func_call: (csr_read), line:11:36, endln:11:80, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_func_call: (csr_read), line:11:36, endln:11:80, parent:work@top.set_refgen_en
           |vpiName:wdata
           |vpiFullName:work@top.set_refgen_en.wdata
           |vpiActual:
           \_logic_net: (wdata)
         |vpiName:csr_read
+        |vpiParent:
+        \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
       |vpiStmt:
       \_assignment: , line:12:36, endln:12:51, parent:work@top.set_refgen_en
+        |vpiParent:
+        \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
+        |vpiParent:
+        \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_ref_obj: (work@top.set_refgen_en.en), line:12:49, endln:12:51
+          |vpiParent:
+          \_assignment: , line:12:36, endln:12:51, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_assignment: , line:12:36, endln:12:51, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_assignment: , line:12:36, endln:12:51, parent:work@top.set_refgen_en
           |vpiName:en
           |vpiFullName:work@top.set_refgen_en.en
           |vpiActual:
@@ -255,18 +371,28 @@ design: (work@top)
         |vpiLhs:
         \_bit_select: (wdata), line:12:36, endln:12:46, parent:work@top.set_refgen_en.wdata
           |vpiParent:
-          \_ref_obj: (work@top.set_refgen_en.wdata), parent:work@top.set_refgen_en.wdata
-            |vpiName:wdata
-            |vpiFullName:work@top.set_refgen_en.wdata
-            |vpiActual:
-            \_logic_net: (wdata)
+          \_ref_obj: (work@top.set_refgen_en.wdata)
+          |vpiParent:
+          \_ref_obj: (work@top.set_refgen_en.wdata)
+          |vpiParent:
+          \_ref_obj: (work@top.set_refgen_en.wdata)
           |vpiName:wdata
           |vpiIndex:
           \_constant: , line:12:42, endln:12:43, parent:work@top.set_refgen_en.wdata
       |vpiStmt:
       \_func_call: (csr_write), line:13:36, endln:13:81, parent:work@top.set_refgen_en
+        |vpiParent:
+        \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
+        |vpiParent:
+        \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
         |vpiArgument:
         \_ref_obj: (work@top.set_refgen_en.DDR_CMN_OFFSET), line:13:46, endln:13:60, parent:csr_write
+          |vpiParent:
+          \_func_call: (csr_write), line:13:36, endln:13:81, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_func_call: (csr_write), line:13:36, endln:13:81, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_func_call: (csr_write), line:13:36, endln:13:81, parent:work@top.set_refgen_en
           |vpiName:DDR_CMN_OFFSET
           |vpiFullName:work@top.set_refgen_en.DDR_CMN_OFFSET
           |vpiActual:
@@ -275,12 +401,22 @@ design: (work@top)
         \_constant: , line:13:61, endln:13:73, parent:csr_write
         |vpiArgument:
         \_ref_obj: (work@top.set_refgen_en.wdata), line:13:75, endln:13:80, parent:csr_write
+          |vpiParent:
+          \_func_call: (csr_write), line:13:36, endln:13:81, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_func_call: (csr_write), line:13:36, endln:13:81, parent:work@top.set_refgen_en
+          |vpiParent:
+          \_func_call: (csr_write), line:13:36, endln:13:81, parent:work@top.set_refgen_en
           |vpiName:wdata
           |vpiFullName:work@top.set_refgen_en.wdata
           |vpiActual:
           \_logic_net: (wdata)
         |vpiName:csr_write
+        |vpiParent:
+        \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8, parent:work@top.set_refgen_en
     |vpiInstance:
+    \_module: work@top (work@top) dut.sv:16:1: , endln:25:10
+    |vpiParent:
     \_module: work@top (work@top) dut.sv:16:1: , endln:25:10
   |vpiNet:
   \_logic_net: (DDR_CMN_OFFSET)

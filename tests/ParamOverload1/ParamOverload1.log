@@ -215,22 +215,40 @@ design: (work@top)
 |vpiName:work@top
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:4:10, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiFullName:work@dut
   |vpiParameter:
   \_parameter: (work@dut.P), line:2:18, endln:2:19, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:4:10, parent:work@top
     |vpiSize:1
     |vpiTypespec:
     \_array_typespec: , parent:work@dut.P
+      |vpiParent:
+      \_parameter: (work@dut.P), line:2:18, endln:2:19, parent:work@dut
+      |vpiParent:
+      \_parameter: (work@dut.P), line:2:18, endln:2:19, parent:work@dut
       |vpiRange:
       \_range: , line:2:21, endln:2:22, parent:work@dut.P
+        |vpiParent:
+        \_parameter: (work@dut.P), line:2:18, endln:2:19, parent:work@dut
         |vpiLeftRange:
         \_constant: , line:2:21, endln:2:22
+          |vpiParent:
+          \_range: , line:2:21, endln:2:22, parent:work@dut.P
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiParent:
+          \_range: , line:2:21, endln:2:22, parent:work@dut.P
           |vpiConstType:9
         |vpiRightRange:
         \_operation: 
+          |vpiParent:
+          \_range: , line:2:21, endln:2:22, parent:work@dut.P
+          |vpiParent:
+          \_range: , line:2:21, endln:2:22, parent:work@dut.P
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:2:21, endln:2:22
@@ -246,6 +264,10 @@ design: (work@top)
       |vpiElemTypespec:
       \_int_typespec: , line:2:14, endln:2:17
         |vpiSigned:1
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:4:10, parent:work@top
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:4:10, parent:work@top
     |vpiSigned:1
     |vpiRange:
     \_range: , line:2:21, endln:2:22, parent:work@dut.P
@@ -253,6 +275,8 @@ design: (work@top)
     |vpiFullName:work@dut.P
   |vpiParamAssign:
   \_param_assign: , line:2:18, endln:2:42, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:4:10, parent:work@top
     |vpiRhs:
     \_operation: , line:2:26, endln:2:42
       |vpiOpType:75
@@ -288,85 +312,161 @@ design: (work@top)
         |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.P), line:2:18, endln:2:19, parent:work@dut
+  |vpiParent:
+  \_design: (work@top)
   |vpiDefName:work@dut
   |vpiNet:
   \_logic_net: (work@dut.x), line:1:23, endln:1:24, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:4:10, parent:work@top
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:4:10, parent:work@top
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:4:10, parent:work@top
     |vpiName:x
     |vpiFullName:work@dut.x
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:4:10, parent:work@top
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:4:10, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiPort:
   \_port: (x), line:1:23, endln:1:24, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:4:10, parent:work@top
     |vpiName:x
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@dut.x), line:1:23, endln:1:24, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:4:10, parent:work@top
   |vpiContAssign:
   \_cont_assign: , line:3:11, endln:3:19, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:4:10, parent:work@top
     |vpiRhs:
     \_bit_select: (work@dut.P), line:3:15, endln:3:19, parent:work@dut.P
       |vpiParent:
       \_ref_obj: (work@dut.P)
-        |vpiName:P
-        |vpiFullName:work@dut.P
+      |vpiParent:
+      \_ref_obj: (work@dut.P)
+      |vpiParent:
+      \_ref_obj: (work@dut.P)
       |vpiName:P
       |vpiFullName:work@dut.P
       |vpiIndex:
       \_constant: , line:3:17, endln:3:18, parent:work@dut.P
+        |vpiParent:
+        \_bit_select: (work@dut.P), line:3:15, endln:3:19, parent:work@dut.P
         |vpiDecompile:2
         |vpiSize:64
         |UINT:2
+        |vpiParent:
+        \_bit_select: (work@dut.P), line:3:15, endln:3:19, parent:work@dut.P
         |vpiConstType:9
     |vpiLhs:
     \_ref_obj: (work@dut.x), line:3:11, endln:3:12
+      |vpiParent:
+      \_cont_assign: , line:3:11, endln:3:19, parent:work@dut
+      |vpiParent:
+      \_cont_assign: , line:3:11, endln:3:19, parent:work@dut
+      |vpiParent:
+      \_cont_assign: , line:3:11, endln:3:19, parent:work@dut
       |vpiName:x
       |vpiFullName:work@dut.x
       |vpiActual:
       \_int_var: (work@top.u_dut1.x), line:1:23, endln:1:24, parent:work@top.u_dut1
+        |vpiParent:
+        \_module: work@dut (work@top.u_dut1) dut.sv:7:4: , endln:7:43, parent:work@top
         |vpiTypespec:
         \_int_typespec: , line:1:19, endln:1:22
           |vpiSigned:1
+        |vpiParent:
+        \_module: work@dut (work@top.u_dut1) dut.sv:7:4: , endln:7:43, parent:work@top
+        |vpiParent:
+        \_module: work@dut (work@top.u_dut1) dut.sv:7:4: , endln:7:43, parent:work@top
         |vpiName:x
         |vpiFullName:work@top.u_dut1.x
         |vpiSigned:1
         |vpiVisibility:1
+        |vpiParent:
+        \_module: work@dut (work@top.u_dut1) dut.sv:7:4: , endln:7:43, parent:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:6:1: , endln:10:10, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiFullName:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiDefName:work@top
   |vpiNet:
   \_logic_net: (work@top.o), line:6:23, endln:6:24, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10, parent:work@top
     |vpiName:o
     |vpiFullName:work@top.o
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiPort:
   \_port: (o), line:6:23, endln:6:24, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10, parent:work@top
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.o), line:6:23, endln:6:24, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:6:1: , endln:10:10
   |vpiName:work@top
   |vpiVariables:
   \_int_var: (work@top.o), line:6:23, endln:6:24, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10
     |vpiTypespec:
     \_int_typespec: , line:6:19, endln:6:22
       |vpiSigned:1
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiSigned:1
     |vpiVisibility:1
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
   |vpiPort:
   \_port: (o), line:6:23, endln:6:24, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: (work@top.o), line:6:23, endln:6:24, parent:o
+      |vpiParent:
+      \_port: (o), line:6:23, endln:6:24, parent:work@top
+      |vpiParent:
+      \_port: (o), line:6:23, endln:6:24, parent:work@top
+      |vpiParent:
+      \_port: (o), line:6:23, endln:6:24, parent:work@top
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
@@ -376,104 +476,190 @@ design: (work@top)
       |vpiSigned:1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:6:1: , endln:10:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10
   |vpiModule:
   \_module: work@dut (work@top.u_dut1) dut.sv:7:4: , endln:7:43, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10
     |vpiName:u_dut1
     |vpiFullName:work@top.u_dut1
     |vpiVariables:
     \_int_var: (work@top.u_dut1.x), line:1:23, endln:1:24, parent:work@top.u_dut1
     |vpiParameter:
     \_parameter: (work@top.u_dut1.P), line:2:18, endln:2:19, parent:work@top.u_dut1
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut1) dut.sv:7:4: , endln:7:43, parent:work@top
       |vpiSize:1
       |vpiTypespec:
       \_array_typespec: , parent:work@top.u_dut1.P
+        |vpiParent:
+        \_parameter: (work@top.u_dut1.P), line:2:18, endln:2:19, parent:work@top.u_dut1
+        |vpiParent:
+        \_parameter: (work@top.u_dut1.P), line:2:18, endln:2:19, parent:work@top.u_dut1
         |vpiRange:
         \_range: , line:2:21, endln:2:22
+          |vpiParent:
+          \_array_typespec: , parent:work@top.u_dut1.P
           |vpiLeftRange:
           \_constant: , line:2:21, endln:2:22
+            |vpiParent:
+            \_range: , line:2:21, endln:2:22
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiParent:
+            \_range: , line:2:21, endln:2:22
             |vpiConstType:9
           |vpiRightRange:
           \_operation: 
+            |vpiParent:
+            \_range: , line:2:21, endln:2:22
+            |vpiParent:
+            \_range: , line:2:21, endln:2:22
             |vpiOpType:11
             |vpiOperand:
             \_constant: , line:2:21, endln:2:22
+              |vpiParent:
+              \_operation: 
               |vpiDecompile:5
               |vpiSize:64
               |UINT:5
+              |vpiParent:
+              \_operation: 
               |vpiConstType:9
             |vpiOperand:
             \_constant: 
+              |vpiParent:
+              \_operation: 
               |vpiSize:64
               |INT:1
+              |vpiParent:
+              \_operation: 
               |vpiConstType:7
         |vpiElemTypespec:
         \_int_typespec: , line:2:14, endln:2:17
+          |vpiParent:
+          \_array_typespec: , parent:work@top.u_dut1.P
+          |vpiParent:
+          \_array_typespec: , parent:work@top.u_dut1.P
           |vpiSigned:1
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut1) dut.sv:7:4: , endln:7:43, parent:work@top
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut1) dut.sv:7:4: , endln:7:43, parent:work@top
       |vpiSigned:1
       |vpiRange:
       \_range: , line:2:21, endln:2:22, parent:work@top.u_dut1.P
+        |vpiParent:
+        \_parameter: (work@top.u_dut1.P), line:2:18, endln:2:19, parent:work@top.u_dut1
         |vpiLeftRange:
         \_constant: , line:2:21, endln:2:22
+          |vpiParent:
+          \_range: , line:2:21, endln:2:22, parent:work@top.u_dut1.P
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiParent:
+          \_range: , line:2:21, endln:2:22, parent:work@top.u_dut1.P
           |vpiConstType:9
         |vpiRightRange:
         \_operation: 
+          |vpiParent:
+          \_range: , line:2:21, endln:2:22, parent:work@top.u_dut1.P
+          |vpiParent:
+          \_range: , line:2:21, endln:2:22, parent:work@top.u_dut1.P
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:2:21, endln:2:22
+            |vpiParent:
+            \_operation: 
             |vpiDecompile:5
             |vpiSize:64
             |UINT:5
+            |vpiParent:
+            \_operation: 
             |vpiConstType:9
           |vpiOperand:
           \_constant: 
+            |vpiParent:
+            \_operation: 
             |vpiSize:64
             |INT:1
+            |vpiParent:
+            \_operation: 
             |vpiConstType:7
       |vpiName:P
       |vpiFullName:work@top.u_dut1.P
     |vpiParamAssign:
     \_param_assign: , line:2:18, endln:2:42, parent:work@top.u_dut1
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut1) dut.sv:7:4: , endln:7:43, parent:work@top
       |vpiOverriden:1
       |vpiRhs:
       \_operation: , line:7:13, endln:7:26
+        |vpiParent:
+        \_param_assign: , line:2:18, endln:2:42, parent:work@top.u_dut1
+        |vpiParent:
+        \_param_assign: , line:2:18, endln:2:42, parent:work@top.u_dut1
         |vpiOpType:75
         |vpiOperand:
         \_constant: , line:7:15, endln:7:19
+          |vpiParent:
+          \_operation: , line:7:13, endln:7:26
           |vpiDecompile:1000
           |vpiSize:64
           |UINT:1000
+          |vpiParent:
+          \_operation: , line:7:13, endln:7:26
           |vpiConstType:9
         |vpiOperand:
         \_constant: , line:7:21, endln:7:25
+          |vpiParent:
+          \_operation: , line:7:13, endln:7:26
           |vpiDecompile:2000
           |vpiSize:64
           |UINT:2000
+          |vpiParent:
+          \_operation: , line:7:13, endln:7:26
           |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.u_dut1.P), line:2:18, endln:2:19, parent:work@top.u_dut1
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10
     |vpiDefName:work@dut
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:6:1: , endln:10:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10
     |vpiPort:
     \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut1
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut1) dut.sv:7:4: , endln:7:43, parent:work@top
       |vpiName:x
       |vpiDirection:2
       |vpiHighConn:
       \_ref_obj: (work@top.o), line:7:39, endln:7:40, parent:x
+        |vpiParent:
+        \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut1
+        |vpiParent:
+        \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut1
+        |vpiParent:
+        \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut1
         |vpiName:o
         |vpiFullName:work@top.o
         |vpiActual:
         \_int_var: (work@top.o), line:6:23, endln:6:24, parent:work@top
       |vpiLowConn:
       \_ref_obj: (work@top.u_dut1.x), line:7:37, endln:7:38, parent:x
+        |vpiParent:
+        \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut1
+        |vpiParent:
+        \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut1
+        |vpiParent:
+        \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut1
         |vpiName:x
         |vpiFullName:work@top.u_dut1.x
         |vpiActual:
@@ -483,175 +669,315 @@ design: (work@top)
         |vpiSigned:1
       |vpiInstance:
       \_module: work@dut (work@top.u_dut1) dut.sv:7:4: , endln:7:43, parent:work@top
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut1) dut.sv:7:4: , endln:7:43, parent:work@top
     |vpiContAssign:
     \_cont_assign: , line:3:11, endln:3:19, parent:work@top.u_dut1
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut1) dut.sv:7:4: , endln:7:43, parent:work@top
       |vpiRhs:
-      \_bit_select: (work@dut.P), line:3:15, endln:3:19, parent:work@dut.P
+      \_bit_select: (work@top.u_dut1.P), line:3:15, endln:3:19, parent:work@top.u_dut1.P
         |vpiParent:
-        \_ref_obj: (work@dut.P), parent:work@dut.P
-          |vpiName:P
-          |vpiFullName:work@dut.P
-          |vpiActual:
-          \_operation: , line:7:13, endln:7:26
+        \_ref_obj: (work@top.u_dut1.P)
+        |vpiParent:
+        \_ref_obj: (work@top.u_dut1.P)
+        |vpiParent:
+        \_ref_obj: (work@top.u_dut1.P)
         |vpiName:P
-        |vpiFullName:work@dut.P
+        |vpiFullName:work@top.u_dut1.P
         |vpiIndex:
         \_constant: , line:3:17, endln:3:18, parent:work@dut.P
       |vpiLhs:
       \_ref_obj: (work@top.u_dut1.x), line:3:11, endln:3:12
+        |vpiParent:
+        \_cont_assign: , line:3:11, endln:3:19, parent:work@top.u_dut1
+        |vpiParent:
+        \_cont_assign: , line:3:11, endln:3:19, parent:work@top.u_dut1
+        |vpiParent:
+        \_cont_assign: , line:3:11, endln:3:19, parent:work@top.u_dut1
         |vpiName:x
         |vpiFullName:work@top.u_dut1.x
         |vpiActual:
         \_int_var: (work@top.u_dut1.x), line:1:23, endln:1:24, parent:work@top.u_dut1
   |vpiModule:
   \_module: work@dut (work@top.u_dut2) dut.sv:8:4: , endln:8:22, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10
     |vpiName:u_dut2
     |vpiFullName:work@top.u_dut2
     |vpiVariables:
     \_int_var: (work@top.u_dut2.x), line:1:23, endln:1:24, parent:work@top.u_dut2
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut2) dut.sv:8:4: , endln:8:22, parent:work@top
       |vpiTypespec:
       \_int_typespec: , line:1:19, endln:1:22
         |vpiSigned:1
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut2) dut.sv:8:4: , endln:8:22, parent:work@top
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut2) dut.sv:8:4: , endln:8:22, parent:work@top
       |vpiName:x
       |vpiFullName:work@top.u_dut2.x
       |vpiSigned:1
       |vpiVisibility:1
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut2) dut.sv:8:4: , endln:8:22, parent:work@top
     |vpiParameter:
     \_parameter: (work@top.u_dut2.P), line:2:18, endln:2:19, parent:work@top.u_dut2
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut2) dut.sv:8:4: , endln:8:22, parent:work@top
       |vpiSize:1
       |vpiTypespec:
       \_array_typespec: , parent:work@top.u_dut2.P
+        |vpiParent:
+        \_parameter: (work@top.u_dut2.P), line:2:18, endln:2:19, parent:work@top.u_dut2
+        |vpiParent:
+        \_parameter: (work@top.u_dut2.P), line:2:18, endln:2:19, parent:work@top.u_dut2
         |vpiRange:
         \_range: , line:2:21, endln:2:22
+          |vpiParent:
+          \_array_typespec: , parent:work@top.u_dut2.P
           |vpiLeftRange:
           \_constant: , line:2:21, endln:2:22
+            |vpiParent:
+            \_range: , line:2:21, endln:2:22
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiParent:
+            \_range: , line:2:21, endln:2:22
             |vpiConstType:9
           |vpiRightRange:
           \_operation: 
+            |vpiParent:
+            \_range: , line:2:21, endln:2:22
+            |vpiParent:
+            \_range: , line:2:21, endln:2:22
             |vpiOpType:11
             |vpiOperand:
             \_constant: , line:2:21, endln:2:22
+              |vpiParent:
+              \_operation: 
               |vpiDecompile:5
               |vpiSize:64
               |UINT:5
+              |vpiParent:
+              \_operation: 
               |vpiConstType:9
             |vpiOperand:
             \_constant: 
+              |vpiParent:
+              \_operation: 
               |vpiSize:64
               |INT:1
+              |vpiParent:
+              \_operation: 
               |vpiConstType:7
         |vpiElemTypespec:
         \_int_typespec: , line:2:14, endln:2:17
+          |vpiParent:
+          \_array_typespec: , parent:work@top.u_dut2.P
+          |vpiParent:
+          \_array_typespec: , parent:work@top.u_dut2.P
           |vpiSigned:1
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut2) dut.sv:8:4: , endln:8:22, parent:work@top
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut2) dut.sv:8:4: , endln:8:22, parent:work@top
       |vpiSigned:1
       |vpiRange:
       \_range: , line:2:21, endln:2:22, parent:work@top.u_dut2.P
+        |vpiParent:
+        \_parameter: (work@top.u_dut2.P), line:2:18, endln:2:19, parent:work@top.u_dut2
         |vpiLeftRange:
         \_constant: , line:2:21, endln:2:22
+          |vpiParent:
+          \_range: , line:2:21, endln:2:22, parent:work@top.u_dut2.P
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiParent:
+          \_range: , line:2:21, endln:2:22, parent:work@top.u_dut2.P
           |vpiConstType:9
         |vpiRightRange:
         \_operation: 
+          |vpiParent:
+          \_range: , line:2:21, endln:2:22, parent:work@top.u_dut2.P
+          |vpiParent:
+          \_range: , line:2:21, endln:2:22, parent:work@top.u_dut2.P
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:2:21, endln:2:22
+            |vpiParent:
+            \_operation: 
             |vpiDecompile:5
             |vpiSize:64
             |UINT:5
+            |vpiParent:
+            \_operation: 
             |vpiConstType:9
           |vpiOperand:
           \_constant: 
+            |vpiParent:
+            \_operation: 
             |vpiSize:64
             |INT:1
+            |vpiParent:
+            \_operation: 
             |vpiConstType:7
       |vpiName:P
       |vpiFullName:work@top.u_dut2.P
     |vpiParamAssign:
     \_param_assign: , line:2:18, endln:2:42, parent:work@top.u_dut2
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut2) dut.sv:8:4: , endln:8:22, parent:work@top
       |vpiRhs:
       \_operation: , line:2:26, endln:2:42
+        |vpiParent:
+        \_param_assign: , line:2:18, endln:2:42, parent:work@top.u_dut2
         |vpiTypespec:
         \_array_typespec: 
+          |vpiParent:
+          \_operation: , line:2:26, endln:2:42
+          |vpiParent:
+          \_operation: , line:2:26, endln:2:42
           |vpiRange:
           \_range: , line:2:21, endln:2:22
+            |vpiParent:
+            \_array_typespec: 
             |vpiLeftRange:
             \_constant: , line:2:21, endln:2:22
+              |vpiParent:
+              \_range: , line:2:21, endln:2:22
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+              |vpiParent:
+              \_range: , line:2:21, endln:2:22
               |vpiConstType:9
             |vpiRightRange:
             \_operation: 
+              |vpiParent:
+              \_range: , line:2:21, endln:2:22
+              |vpiParent:
+              \_range: , line:2:21, endln:2:22
               |vpiOpType:11
               |vpiOperand:
               \_constant: , line:2:21, endln:2:22
+                |vpiParent:
+                \_operation: 
                 |vpiDecompile:5
                 |vpiSize:64
                 |UINT:5
+                |vpiParent:
+                \_operation: 
                 |vpiConstType:9
               |vpiOperand:
               \_constant: 
+                |vpiParent:
+                \_operation: 
                 |vpiSize:64
                 |INT:1
+                |vpiParent:
+                \_operation: 
                 |vpiConstType:7
           |vpiElemTypespec:
           \_int_typespec: , line:2:14, endln:2:17
+            |vpiParent:
+            \_array_typespec: 
+            |vpiParent:
+            \_array_typespec: 
             |vpiSigned:1
+        |vpiParent:
+        \_param_assign: , line:2:18, endln:2:42, parent:work@top.u_dut2
         |vpiOpType:75
         |vpiOperand:
         \_constant: , line:2:28, endln:2:29
+          |vpiParent:
+          \_operation: , line:2:26, endln:2:42
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiParent:
+          \_operation: , line:2:26, endln:2:42
           |vpiConstType:9
         |vpiOperand:
         \_constant: , line:2:31, endln:2:32
+          |vpiParent:
+          \_operation: , line:2:26, endln:2:42
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
+          |vpiParent:
+          \_operation: , line:2:26, endln:2:42
           |vpiConstType:9
         |vpiOperand:
         \_constant: , line:2:34, endln:2:35
+          |vpiParent:
+          \_operation: , line:2:26, endln:2:42
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
+          |vpiParent:
+          \_operation: , line:2:26, endln:2:42
           |vpiConstType:9
         |vpiOperand:
         \_constant: , line:2:37, endln:2:38
+          |vpiParent:
+          \_operation: , line:2:26, endln:2:42
           |vpiDecompile:4
           |vpiSize:64
           |UINT:4
+          |vpiParent:
+          \_operation: , line:2:26, endln:2:42
           |vpiConstType:9
         |vpiOperand:
         \_constant: , line:2:40, endln:2:41
+          |vpiParent:
+          \_operation: , line:2:26, endln:2:42
           |vpiDecompile:5
           |vpiSize:64
           |UINT:5
+          |vpiParent:
+          \_operation: , line:2:26, endln:2:42
           |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.u_dut2.P), line:2:18, endln:2:19, parent:work@top.u_dut2
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10
     |vpiDefName:work@dut
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:6:1: , endln:10:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10
     |vpiPort:
     \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut2
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut2) dut.sv:8:4: , endln:8:22, parent:work@top
       |vpiName:x
       |vpiDirection:2
       |vpiHighConn:
       \_ref_obj: (work@top.o), line:8:18, endln:8:19, parent:x
+        |vpiParent:
+        \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut2
+        |vpiParent:
+        \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut2
+        |vpiParent:
+        \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut2
         |vpiName:o
         |vpiFullName:work@top.o
         |vpiActual:
         \_int_var: (work@top.o), line:6:23, endln:6:24, parent:work@top
       |vpiLowConn:
       \_ref_obj: (work@top.u_dut2.x), line:8:16, endln:8:17, parent:x
+        |vpiParent:
+        \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut2
+        |vpiParent:
+        \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut2
+        |vpiParent:
+        \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut2
         |vpiName:x
         |vpiFullName:work@top.u_dut2.x
         |vpiActual:
@@ -661,96 +987,168 @@ design: (work@top)
         |vpiSigned:1
       |vpiInstance:
       \_module: work@dut (work@top.u_dut2) dut.sv:8:4: , endln:8:22, parent:work@top
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut2) dut.sv:8:4: , endln:8:22, parent:work@top
     |vpiContAssign:
     \_cont_assign: , line:3:11, endln:3:19, parent:work@top.u_dut2
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut2) dut.sv:8:4: , endln:8:22, parent:work@top
       |vpiRhs:
-      \_bit_select: (work@dut.P), line:3:15, endln:3:19, parent:work@dut.P
+      \_bit_select: (work@top.u_dut2.P), line:3:15, endln:3:19, parent:work@top.u_dut2.P
         |vpiParent:
-        \_ref_obj: (work@dut.P), parent:work@dut.P
-          |vpiName:P
-          |vpiFullName:work@dut.P
-          |vpiActual:
-          \_operation: , line:2:26, endln:2:42
+        \_ref_obj: (work@top.u_dut2.P)
+        |vpiParent:
+        \_ref_obj: (work@top.u_dut2.P)
+        |vpiParent:
+        \_ref_obj: (work@top.u_dut2.P)
         |vpiName:P
-        |vpiFullName:work@dut.P
+        |vpiFullName:work@top.u_dut2.P
         |vpiIndex:
         \_constant: , line:3:17, endln:3:18, parent:work@dut.P
       |vpiLhs:
       \_ref_obj: (work@top.u_dut2.x), line:3:11, endln:3:12
+        |vpiParent:
+        \_cont_assign: , line:3:11, endln:3:19, parent:work@top.u_dut2
+        |vpiParent:
+        \_cont_assign: , line:3:11, endln:3:19, parent:work@top.u_dut2
+        |vpiParent:
+        \_cont_assign: , line:3:11, endln:3:19, parent:work@top.u_dut2
         |vpiName:x
         |vpiFullName:work@top.u_dut2.x
         |vpiActual:
         \_int_var: (work@top.u_dut2.x), line:1:23, endln:1:24, parent:work@top.u_dut2
   |vpiModule:
   \_module: work@dut (work@top.u_dut3) dut.sv:9:4: , endln:9:34, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10
     |vpiName:u_dut3
     |vpiFullName:work@top.u_dut3
     |vpiVariables:
     \_int_var: (work@top.u_dut3.x), line:1:23, endln:1:24, parent:work@top.u_dut3
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut3) dut.sv:9:4: , endln:9:34, parent:work@top
       |vpiTypespec:
       \_int_typespec: , line:1:19, endln:1:22
         |vpiSigned:1
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut3) dut.sv:9:4: , endln:9:34, parent:work@top
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut3) dut.sv:9:4: , endln:9:34, parent:work@top
       |vpiName:x
       |vpiFullName:work@top.u_dut3.x
       |vpiSigned:1
       |vpiVisibility:1
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut3) dut.sv:9:4: , endln:9:34, parent:work@top
     |vpiParameter:
     \_parameter: (work@top.u_dut3.P), line:2:18, endln:2:19, parent:work@top.u_dut3
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut3) dut.sv:9:4: , endln:9:34, parent:work@top
       |vpiSize:1
       |vpiTypespec:
       \_array_typespec: , parent:work@top.u_dut3.P
+        |vpiParent:
+        \_parameter: (work@top.u_dut3.P), line:2:18, endln:2:19, parent:work@top.u_dut3
+        |vpiParent:
+        \_parameter: (work@top.u_dut3.P), line:2:18, endln:2:19, parent:work@top.u_dut3
         |vpiRange:
         \_range: , line:2:21, endln:2:22
+          |vpiParent:
+          \_array_typespec: , parent:work@top.u_dut3.P
           |vpiLeftRange:
           \_constant: , line:2:21, endln:2:22
+            |vpiParent:
+            \_range: , line:2:21, endln:2:22
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiParent:
+            \_range: , line:2:21, endln:2:22
             |vpiConstType:9
           |vpiRightRange:
           \_operation: 
+            |vpiParent:
+            \_range: , line:2:21, endln:2:22
+            |vpiParent:
+            \_range: , line:2:21, endln:2:22
             |vpiOpType:11
             |vpiOperand:
             \_constant: , line:2:21, endln:2:22
+              |vpiParent:
+              \_operation: 
               |vpiDecompile:5
               |vpiSize:64
               |UINT:5
+              |vpiParent:
+              \_operation: 
               |vpiConstType:9
             |vpiOperand:
             \_constant: 
+              |vpiParent:
+              \_operation: 
               |vpiSize:64
               |INT:1
+              |vpiParent:
+              \_operation: 
               |vpiConstType:7
         |vpiElemTypespec:
         \_int_typespec: , line:2:14, endln:2:17
+          |vpiParent:
+          \_array_typespec: , parent:work@top.u_dut3.P
+          |vpiParent:
+          \_array_typespec: , parent:work@top.u_dut3.P
           |vpiSigned:1
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut3) dut.sv:9:4: , endln:9:34, parent:work@top
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut3) dut.sv:9:4: , endln:9:34, parent:work@top
       |vpiSigned:1
       |vpiRange:
       \_range: , line:2:21, endln:2:22, parent:work@top.u_dut3.P
+        |vpiParent:
+        \_parameter: (work@top.u_dut3.P), line:2:18, endln:2:19, parent:work@top.u_dut3
         |vpiLeftRange:
         \_constant: , line:2:21, endln:2:22
+          |vpiParent:
+          \_range: , line:2:21, endln:2:22, parent:work@top.u_dut3.P
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiParent:
+          \_range: , line:2:21, endln:2:22, parent:work@top.u_dut3.P
           |vpiConstType:9
         |vpiRightRange:
         \_operation: 
+          |vpiParent:
+          \_range: , line:2:21, endln:2:22, parent:work@top.u_dut3.P
+          |vpiParent:
+          \_range: , line:2:21, endln:2:22, parent:work@top.u_dut3.P
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:2:21, endln:2:22
+            |vpiParent:
+            \_operation: 
             |vpiDecompile:5
             |vpiSize:64
             |UINT:5
+            |vpiParent:
+            \_operation: 
             |vpiConstType:9
           |vpiOperand:
           \_constant: 
+            |vpiParent:
+            \_operation: 
             |vpiSize:64
             |INT:1
+            |vpiParent:
+            \_operation: 
             |vpiConstType:7
       |vpiName:P
       |vpiFullName:work@top.u_dut3.P
     |vpiParamAssign:
     \_param_assign: , line:2:18, endln:2:42, parent:work@top.u_dut3
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut3) dut.sv:9:4: , endln:9:34, parent:work@top
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:2:26, endln:2:42
@@ -762,23 +1160,41 @@ design: (work@top)
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.u_dut3.P), line:2:18, endln:2:19, parent:work@top.u_dut3
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10
     |vpiDefName:work@dut
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:6:1: , endln:10:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:6:1: , endln:10:10
     |vpiPort:
     \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut3
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut3) dut.sv:9:4: , endln:9:34, parent:work@top
       |vpiName:x
       |vpiDirection:2
       |vpiHighConn:
       \_ref_obj: (work@top.o), line:9:30, endln:9:31, parent:x
+        |vpiParent:
+        \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut3
+        |vpiParent:
+        \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut3
+        |vpiParent:
+        \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut3
         |vpiName:o
         |vpiFullName:work@top.o
         |vpiActual:
         \_int_var: (work@top.o), line:6:23, endln:6:24, parent:work@top
       |vpiLowConn:
       \_ref_obj: (work@top.u_dut3.x), line:9:28, endln:9:29, parent:x
+        |vpiParent:
+        \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut3
+        |vpiParent:
+        \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut3
+        |vpiParent:
+        \_port: (x), line:1:23, endln:1:24, parent:work@top.u_dut3
         |vpiName:x
         |vpiFullName:work@top.u_dut3.x
         |vpiActual:
@@ -788,22 +1204,32 @@ design: (work@top)
         |vpiSigned:1
       |vpiInstance:
       \_module: work@dut (work@top.u_dut3) dut.sv:9:4: , endln:9:34, parent:work@top
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut3) dut.sv:9:4: , endln:9:34, parent:work@top
     |vpiContAssign:
     \_cont_assign: , line:3:11, endln:3:19, parent:work@top.u_dut3
+      |vpiParent:
+      \_module: work@dut (work@top.u_dut3) dut.sv:9:4: , endln:9:34, parent:work@top
       |vpiRhs:
-      \_bit_select: (work@dut.P), line:3:15, endln:3:19, parent:work@dut.P
+      \_bit_select: (work@top.u_dut3.P), line:3:15, endln:3:19, parent:work@top.u_dut3.P
         |vpiParent:
-        \_ref_obj: (work@dut.P), parent:work@dut.P
-          |vpiName:P
-          |vpiFullName:work@dut.P
-          |vpiActual:
-          \_constant: , line:2:26, endln:2:42
+        \_ref_obj: (work@top.u_dut3.P)
+        |vpiParent:
+        \_ref_obj: (work@top.u_dut3.P)
+        |vpiParent:
+        \_ref_obj: (work@top.u_dut3.P)
         |vpiName:P
-        |vpiFullName:work@dut.P
+        |vpiFullName:work@top.u_dut3.P
         |vpiIndex:
         \_constant: , line:3:17, endln:3:18, parent:work@dut.P
       |vpiLhs:
       \_ref_obj: (work@top.u_dut3.x), line:3:11, endln:3:12
+        |vpiParent:
+        \_cont_assign: , line:3:11, endln:3:19, parent:work@top.u_dut3
+        |vpiParent:
+        \_cont_assign: , line:3:11, endln:3:19, parent:work@top.u_dut3
+        |vpiParent:
+        \_cont_assign: , line:3:11, endln:3:19, parent:work@top.u_dut3
         |vpiName:x
         |vpiFullName:work@top.u_dut3.x
         |vpiActual:

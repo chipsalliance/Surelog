@@ -217,30 +217,52 @@ design: (work@Mod2)
 |vpiName:work@Mod2
 |uhdmallModules:
 \_module: work@Mod1 (work@Mod1) dut.sv:1:1: , endln:3:10, parent:work@Mod2
+  |vpiParent:
+  \_design: (work@Mod2)
   |vpiFullName:work@Mod1
   |vpiParameter:
   \_parameter: (work@Mod1.PARAM), line:1:38, endln:1:43, parent:work@Mod1
+    |vpiParent:
+    \_module: work@Mod1 (work@Mod1) dut.sv:1:1: , endln:3:10, parent:work@Mod2
     |BIN:0
     |vpiTypespec:
     \_logic_typespec: , line:1:25, endln:1:30, parent:work@Mod1.PARAM
+      |vpiParent:
+      \_parameter: (work@Mod1.PARAM), line:1:38, endln:1:43, parent:work@Mod1
+      |vpiParent:
+      \_parameter: (work@Mod1.PARAM), line:1:38, endln:1:43, parent:work@Mod1
       |vpiRange:
       \_range: , line:1:32, endln:1:36
         |vpiLeftRange:
         \_constant: , line:1:32, endln:1:34
+          |vpiParent:
+          \_range: , line:1:32, endln:1:36
           |vpiDecompile:31
           |vpiSize:64
           |UINT:31
+          |vpiParent:
+          \_range: , line:1:32, endln:1:36
           |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:1:35, endln:1:36
+          |vpiParent:
+          \_range: , line:1:32, endln:1:36
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiParent:
+          \_range: , line:1:32, endln:1:36
           |vpiConstType:9
+    |vpiParent:
+    \_module: work@Mod1 (work@Mod1) dut.sv:1:1: , endln:3:10, parent:work@Mod2
+    |vpiParent:
+    \_module: work@Mod1 (work@Mod1) dut.sv:1:1: , endln:3:10, parent:work@Mod2
     |vpiName:PARAM
     |vpiFullName:work@Mod1.PARAM
   |vpiParamAssign:
   \_param_assign: , line:1:38, endln:1:48, parent:work@Mod1
+    |vpiParent:
+    \_module: work@Mod1 (work@Mod1) dut.sv:1:1: , endln:3:10, parent:work@Mod2
     |vpiRhs:
     \_constant: , line:1:46, endln:1:48
       |vpiDecompile:'0
@@ -251,90 +273,166 @@ design: (work@Mod2)
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@Mod1.PARAM), line:1:38, endln:1:43, parent:work@Mod1
+  |vpiParent:
+  \_design: (work@Mod2)
   |vpiDefName:work@Mod1
   |vpiNet:
   \_logic_net: (work@Mod1.x), line:1:71, endln:1:72, parent:work@Mod1
+    |vpiParent:
+    \_module: work@Mod1 (work@Mod1) dut.sv:1:1: , endln:3:10, parent:work@Mod2
+    |vpiParent:
+    \_module: work@Mod1 (work@Mod1) dut.sv:1:1: , endln:3:10, parent:work@Mod2
+    |vpiParent:
+    \_module: work@Mod1 (work@Mod1) dut.sv:1:1: , endln:3:10, parent:work@Mod2
     |vpiName:x
     |vpiFullName:work@Mod1.x
     |vpiNetType:36
+    |vpiParent:
+    \_module: work@Mod1 (work@Mod1) dut.sv:1:1: , endln:3:10, parent:work@Mod2
+    |vpiParent:
+    \_module: work@Mod1 (work@Mod1) dut.sv:1:1: , endln:3:10, parent:work@Mod2
+  |vpiParent:
+  \_design: (work@Mod2)
   |vpiPort:
   \_port: (x), line:1:71, endln:1:72, parent:work@Mod1
+    |vpiParent:
+    \_module: work@Mod1 (work@Mod1) dut.sv:1:1: , endln:3:10, parent:work@Mod2
     |vpiName:x
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@Mod1.x), line:1:71, endln:1:72, parent:work@Mod1
+    |vpiParent:
+    \_module: work@Mod1 (work@Mod1) dut.sv:1:1: , endln:3:10, parent:work@Mod2
   |vpiContAssign:
   \_cont_assign: , line:2:11, endln:2:20, parent:work@Mod1
+    |vpiParent:
+    \_module: work@Mod1 (work@Mod1) dut.sv:1:1: , endln:3:10, parent:work@Mod2
     |vpiRhs:
     \_ref_obj: (work@Mod1.PARAM), line:2:15, endln:2:20
+      |vpiParent:
+      \_cont_assign: , line:2:11, endln:2:20, parent:work@Mod1
+      |vpiParent:
+      \_cont_assign: , line:2:11, endln:2:20, parent:work@Mod1
+      |vpiParent:
+      \_cont_assign: , line:2:11, endln:2:20, parent:work@Mod1
       |vpiName:PARAM
       |vpiFullName:work@Mod1.PARAM
     |vpiLhs:
     \_ref_obj: (work@Mod1.x), line:2:11, endln:2:12
+      |vpiParent:
+      \_cont_assign: , line:2:11, endln:2:20, parent:work@Mod1
+      |vpiParent:
+      \_cont_assign: , line:2:11, endln:2:20, parent:work@Mod1
+      |vpiParent:
+      \_cont_assign: , line:2:11, endln:2:20, parent:work@Mod1
       |vpiName:x
       |vpiFullName:work@Mod1.x
       |vpiActual:
       \_logic_net: (work@Mod2.mod1.x), line:1:71, endln:1:72, parent:work@Mod2.mod1
+        |vpiParent:
+        \_module: work@Mod1 (work@Mod2.mod1) dut.sv:9:4: , endln:9:39, parent:work@Mod2
         |vpiTypespec:
         \_logic_typespec: , line:1:58, endln:1:63
           |vpiRange:
           \_range: , line:1:65, endln:1:69
             |vpiLeftRange:
             \_constant: , line:1:65, endln:1:67
+              |vpiParent:
+              \_range: , line:1:65, endln:1:69
               |vpiDecompile:31
               |vpiSize:64
               |UINT:31
+              |vpiParent:
+              \_range: , line:1:65, endln:1:69
               |vpiConstType:9
             |vpiRightRange:
             \_constant: , line:1:68, endln:1:69
+              |vpiParent:
+              \_range: , line:1:65, endln:1:69
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+              |vpiParent:
+              \_range: , line:1:65, endln:1:69
               |vpiConstType:9
+        |vpiParent:
+        \_module: work@Mod1 (work@Mod2.mod1) dut.sv:9:4: , endln:9:39, parent:work@Mod2
+        |vpiParent:
+        \_module: work@Mod1 (work@Mod2.mod1) dut.sv:9:4: , endln:9:39, parent:work@Mod2
         |vpiName:x
         |vpiFullName:work@Mod2.mod1.x
         |vpiNetType:36
+        |vpiParent:
+        \_module: work@Mod1 (work@Mod2.mod1) dut.sv:9:4: , endln:9:39, parent:work@Mod2
+        |vpiParent:
+        \_module: work@Mod1 (work@Mod2.mod1) dut.sv:9:4: , endln:9:39, parent:work@Mod2
 |uhdmallModules:
 \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10, parent:work@Mod2
+  |vpiParent:
+  \_design: (work@Mod2)
   |vpiFullName:work@Mod2
   |vpiParameter:
   \_parameter: (work@Mod2.STRUCT), line:7:21, endln:7:27, parent:work@Mod2
+    |vpiParent:
+    \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10, parent:work@Mod2
     |vpiTypespec:
     \_struct_typespec: (Struct), line:6:12, endln:6:18, parent:work@Mod2
+      |vpiParent:
+      \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10, parent:work@Mod2
       |vpiName:Struct
       |vpiInstance:
+      \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10, parent:work@Mod2
+      |vpiParent:
       \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10, parent:work@Mod2
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (x), line:6:40, endln:6:41, parent:Struct
+        |vpiParent:
+        \_struct_typespec: (Struct), line:6:12, endln:6:18, parent:work@Mod2
         |vpiName:x
         |vpiTypespec:
         \_logic_typespec: , line:6:28, endln:6:33
           |vpiRange:
           \_range: , line:6:34, endln:6:38, parent:Struct
+            |vpiParent:
+            \_struct_typespec: (Struct), line:6:12, endln:6:18, parent:work@Mod2
             |vpiLeftRange:
             \_constant: , line:6:34, endln:6:36
+              |vpiParent:
+              \_range: , line:6:34, endln:6:38, parent:Struct
               |vpiDecompile:31
               |vpiSize:64
               |UINT:31
+              |vpiParent:
+              \_range: , line:6:34, endln:6:38, parent:Struct
               |vpiConstType:9
             |vpiRightRange:
             \_constant: , line:6:37, endln:6:38
+              |vpiParent:
+              \_range: , line:6:34, endln:6:38, parent:Struct
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+              |vpiParent:
+              \_range: , line:6:34, endln:6:38, parent:Struct
               |vpiConstType:9
         |vpiRefFile:dut.sv
         |vpiRefLineNo:6
         |vpiRefColumnNo:28
         |vpiRefEndLineNo:6
         |vpiRefEndColumnNo:39
+    |vpiParent:
+    \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10, parent:work@Mod2
+    |vpiParent:
+    \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10, parent:work@Mod2
     |vpiName:STRUCT
     |vpiFullName:work@Mod2.STRUCT
   |vpiParamAssign:
   \_param_assign: , line:7:21, endln:7:40, parent:work@Mod2
+    |vpiParent:
+    \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10, parent:work@Mod2
     |vpiRhs:
     \_operation: , line:7:30, endln:7:40
       |vpiOpType:75
@@ -353,123 +451,217 @@ design: (work@Mod2)
     \_parameter: (work@Mod2.STRUCT), line:7:21, endln:7:27, parent:work@Mod2
   |vpiTypedef:
   \_struct_typespec: (Struct), line:6:12, endln:6:18, parent:work@Mod2
+  |vpiParent:
+  \_design: (work@Mod2)
   |vpiDefName:work@Mod2
   |vpiNet:
   \_logic_net: (work@Mod2.x), line:8:16, endln:8:17, parent:work@Mod2
+    |vpiParent:
+    \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10, parent:work@Mod2
+    |vpiParent:
+    \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10, parent:work@Mod2
+    |vpiParent:
+    \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10, parent:work@Mod2
     |vpiName:x
     |vpiFullName:work@Mod2.x
     |vpiNetType:36
+    |vpiParent:
+    \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10, parent:work@Mod2
+    |vpiParent:
+    \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10, parent:work@Mod2
+  |vpiParent:
+  \_design: (work@Mod2)
 |uhdmtopModules:
 \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10
   |vpiName:work@Mod2
   |vpiVariables:
   \_logic_var: (work@Mod2.x), line:8:16, endln:8:17, parent:work@Mod2
+    |vpiParent:
+    \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10
     |vpiTypespec:
     \_logic_typespec: , line:8:4, endln:8:9
       |vpiRange:
       \_range: , line:8:10, endln:8:14
         |vpiLeftRange:
         \_constant: , line:8:10, endln:8:12
+          |vpiParent:
+          \_range: , line:8:10, endln:8:14
           |vpiDecompile:31
           |vpiSize:64
           |UINT:31
+          |vpiParent:
+          \_range: , line:8:10, endln:8:14
           |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:8:13, endln:8:14
+          |vpiParent:
+          \_range: , line:8:10, endln:8:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiParent:
+          \_range: , line:8:10, endln:8:14
           |vpiConstType:9
+    |vpiParent:
+    \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10
+    |vpiParent:
+    \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10
     |vpiName:x
     |vpiFullName:work@Mod2.x
     |vpiVisibility:1
+    |vpiParent:
+    \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10
     |vpiRange:
     \_range: , line:8:10, endln:8:14
       |vpiLeftRange:
       \_constant: , line:8:10, endln:8:12
+        |vpiParent:
+        \_range: , line:8:10, endln:8:14
         |vpiDecompile:31
         |vpiSize:64
         |UINT:31
+        |vpiParent:
+        \_range: , line:8:10, endln:8:14
         |vpiConstType:9
       |vpiRightRange:
       \_constant: , line:8:13, endln:8:14
+        |vpiParent:
+        \_range: , line:8:10, endln:8:14
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+        |vpiParent:
+        \_range: , line:8:10, endln:8:14
         |vpiConstType:9
   |vpiParameter:
   \_parameter: (work@Mod2.STRUCT), line:7:21, endln:7:27, parent:work@Mod2
+    |vpiParent:
+    \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10
     |vpiTypespec:
     \_struct_typespec: (Struct), line:6:12, endln:6:18, parent:work@Mod2.STRUCT
+      |vpiParent:
+      \_parameter: (work@Mod2.STRUCT), line:7:21, endln:7:27, parent:work@Mod2
       |vpiName:Struct
       |vpiInstance:
       \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10, parent:work@Mod2
+      |vpiParent:
+      \_parameter: (work@Mod2.STRUCT), line:7:21, endln:7:27, parent:work@Mod2
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (x), line:6:40, endln:6:41, parent:Struct
+        |vpiParent:
+        \_struct_typespec: (Struct), line:6:12, endln:6:18, parent:work@Mod2.STRUCT
         |vpiName:x
         |vpiTypespec:
         \_logic_typespec: , line:6:28, endln:6:33, parent:x
+          |vpiParent:
+          \_typespec_member: (x), line:6:40, endln:6:41, parent:Struct
+          |vpiParent:
+          \_typespec_member: (x), line:6:40, endln:6:41, parent:Struct
           |vpiRange:
           \_range: , line:6:34, endln:6:38
+            |vpiParent:
+            \_logic_typespec: , line:6:28, endln:6:33, parent:x
             |vpiLeftRange:
             \_constant: , line:6:34, endln:6:36
+              |vpiParent:
+              \_range: , line:6:34, endln:6:38
               |vpiDecompile:31
               |vpiSize:64
               |UINT:31
+              |vpiParent:
+              \_range: , line:6:34, endln:6:38
               |vpiConstType:9
             |vpiRightRange:
             \_constant: , line:6:37, endln:6:38
+              |vpiParent:
+              \_range: , line:6:34, endln:6:38
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+              |vpiParent:
+              \_range: , line:6:34, endln:6:38
               |vpiConstType:9
         |vpiRefFile:dut.sv
         |vpiRefLineNo:6
         |vpiRefColumnNo:28
         |vpiRefEndLineNo:6
         |vpiRefEndColumnNo:39
+    |vpiParent:
+    \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10
+    |vpiParent:
+    \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10
     |vpiName:STRUCT
     |vpiFullName:work@Mod2.STRUCT
   |vpiParamAssign:
   \_param_assign: , line:7:21, endln:7:40, parent:work@Mod2
+    |vpiParent:
+    \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10
     |vpiRhs:
     \_operation: , line:7:30, endln:7:40
+      |vpiParent:
+      \_param_assign: , line:7:21, endln:7:40, parent:work@Mod2
       |vpiTypespec:
       \_struct_typespec: (Struct), line:6:12, endln:6:18
+        |vpiParent:
+        \_operation: , line:7:30, endln:7:40
         |vpiName:Struct
+        |vpiParent:
+        \_operation: , line:7:30, endln:7:40
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (x), line:6:40, endln:6:41, parent:Struct
+          |vpiParent:
+          \_struct_typespec: (Struct), line:6:12, endln:6:18
           |vpiName:x
           |vpiTypespec:
           \_logic_typespec: , line:6:28, endln:6:33, parent:x
+            |vpiParent:
+            \_typespec_member: (x), line:6:40, endln:6:41, parent:Struct
+            |vpiParent:
+            \_typespec_member: (x), line:6:40, endln:6:41, parent:Struct
             |vpiRange:
             \_range: , line:6:34, endln:6:38
+              |vpiParent:
+              \_logic_typespec: , line:6:28, endln:6:33, parent:x
               |vpiLeftRange:
               \_constant: , line:6:34, endln:6:36
+                |vpiParent:
+                \_range: , line:6:34, endln:6:38
                 |vpiDecompile:31
                 |vpiSize:64
                 |UINT:31
+                |vpiParent:
+                \_range: , line:6:34, endln:6:38
                 |vpiConstType:9
               |vpiRightRange:
               \_constant: , line:6:37, endln:6:38
+                |vpiParent:
+                \_range: , line:6:34, endln:6:38
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
+                |vpiParent:
+                \_range: , line:6:34, endln:6:38
                 |vpiConstType:9
           |vpiRefFile:dut.sv
           |vpiRefLineNo:6
           |vpiRefColumnNo:28
           |vpiRefEndLineNo:6
           |vpiRefEndColumnNo:39
+      |vpiParent:
+      \_param_assign: , line:7:21, endln:7:40, parent:work@Mod2
       |vpiOpType:75
       |vpiFlattened:1
       |vpiOperand:
       \_constant: , line:7:36, endln:7:38
+        |vpiParent:
+        \_tagged_pattern: , line:7:36, endln:7:38
         |vpiDecompile:'0
         |vpiSize:-1
         |BIN:0
+        |vpiParent:
+        \_tagged_pattern: , line:7:36, endln:7:38
         |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@Mod2.STRUCT), line:7:21, endln:7:27, parent:work@Mod2
@@ -480,73 +672,127 @@ design: (work@Mod2)
   |vpiTopModule:1
   |vpiModule:
   \_module: work@Mod1 (work@Mod2.mod1) dut.sv:9:4: , endln:9:39, parent:work@Mod2
+    |vpiParent:
+    \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10
     |vpiName:mod1
     |vpiFullName:work@Mod2.mod1
     |vpiParameter:
     \_parameter: (work@Mod2.mod1.PARAM), line:1:38, endln:1:43, parent:work@Mod2.mod1
+      |vpiParent:
+      \_module: work@Mod1 (work@Mod2.mod1) dut.sv:9:4: , endln:9:39, parent:work@Mod2
       |BIN:0
       |vpiTypespec:
       \_logic_typespec: , line:1:25, endln:1:30, parent:work@Mod2.mod1.PARAM
+        |vpiParent:
+        \_parameter: (work@Mod2.mod1.PARAM), line:1:38, endln:1:43, parent:work@Mod2.mod1
+        |vpiParent:
+        \_parameter: (work@Mod2.mod1.PARAM), line:1:38, endln:1:43, parent:work@Mod2.mod1
         |vpiRange:
         \_range: , line:1:32, endln:1:36
+          |vpiParent:
+          \_logic_typespec: , line:1:25, endln:1:30, parent:work@Mod2.mod1.PARAM
           |vpiLeftRange:
           \_constant: , line:1:32, endln:1:34
+            |vpiParent:
+            \_range: , line:1:32, endln:1:36
             |vpiDecompile:31
             |vpiSize:64
             |UINT:31
+            |vpiParent:
+            \_range: , line:1:32, endln:1:36
             |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:1:35, endln:1:36
+            |vpiParent:
+            \_range: , line:1:32, endln:1:36
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiParent:
+            \_range: , line:1:32, endln:1:36
             |vpiConstType:9
+      |vpiParent:
+      \_module: work@Mod1 (work@Mod2.mod1) dut.sv:9:4: , endln:9:39, parent:work@Mod2
+      |vpiParent:
+      \_module: work@Mod1 (work@Mod2.mod1) dut.sv:9:4: , endln:9:39, parent:work@Mod2
       |vpiName:PARAM
       |vpiFullName:work@Mod2.mod1.PARAM
     |vpiParamAssign:
     \_param_assign: , line:1:38, endln:1:48, parent:work@Mod2.mod1
+      |vpiParent:
+      \_module: work@Mod1 (work@Mod2.mod1) dut.sv:9:4: , endln:9:39, parent:work@Mod2
       |vpiOverriden:1
       |vpiRhs:
       \_operation: , line:9:18, endln:9:24
+        |vpiParent:
+        \_param_assign: , line:1:38, endln:1:48, parent:work@Mod2.mod1
         |vpiTypespec:
         \_struct_typespec: (Struct), line:6:12, endln:6:18
+          |vpiParent:
+          \_operation: , line:9:18, endln:9:24
           |vpiName:Struct
+          |vpiParent:
+          \_operation: , line:9:18, endln:9:24
           |vpiPacked:1
           |vpiTypespecMember:
           \_typespec_member: (x), line:6:40, endln:6:41, parent:Struct
+            |vpiParent:
+            \_struct_typespec: (Struct), line:6:12, endln:6:18
             |vpiName:x
             |vpiTypespec:
             \_logic_typespec: , line:6:28, endln:6:33, parent:x
+              |vpiParent:
+              \_typespec_member: (x), line:6:40, endln:6:41, parent:Struct
+              |vpiParent:
+              \_typespec_member: (x), line:6:40, endln:6:41, parent:Struct
               |vpiRange:
               \_range: , line:6:34, endln:6:38
+                |vpiParent:
+                \_logic_typespec: , line:6:28, endln:6:33, parent:x
                 |vpiLeftRange:
                 \_constant: , line:6:34, endln:6:36
+                  |vpiParent:
+                  \_range: , line:6:34, endln:6:38
                   |vpiDecompile:31
                   |vpiSize:64
                   |UINT:31
+                  |vpiParent:
+                  \_range: , line:6:34, endln:6:38
                   |vpiConstType:9
                 |vpiRightRange:
                 \_constant: , line:6:37, endln:6:38
+                  |vpiParent:
+                  \_range: , line:6:34, endln:6:38
                   |vpiDecompile:0
                   |vpiSize:64
                   |UINT:0
+                  |vpiParent:
+                  \_range: , line:6:34, endln:6:38
                   |vpiConstType:9
             |vpiRefFile:dut.sv
             |vpiRefLineNo:6
             |vpiRefColumnNo:28
             |vpiRefEndLineNo:6
             |vpiRefEndColumnNo:39
+        |vpiParent:
+        \_param_assign: , line:1:38, endln:1:48, parent:work@Mod2.mod1
         |vpiOpType:75
         |vpiReordered:1
         |vpiFlattened:1
         |vpiOperand:
         \_constant: , line:7:36, endln:7:38
+          |vpiParent:
+          \_operation: , line:9:18, endln:9:24
           |vpiDecompile:'0
           |vpiSize:-1
           |BIN:0
+          |vpiParent:
+          \_operation: , line:9:18, endln:9:24
           |vpiConstType:3
       |vpiLhs:
       \_parameter: (work@Mod2.mod1.PARAM), line:1:38, endln:1:43, parent:work@Mod2.mod1
+    |vpiParent:
+    \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10
     |vpiDefName:work@Mod1
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
@@ -554,18 +800,34 @@ design: (work@Mod2)
     \_logic_net: (work@Mod2.mod1.x), line:1:71, endln:1:72, parent:work@Mod2.mod1
     |vpiInstance:
     \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10
+    |vpiParent:
+    \_module: work@Mod2 (work@Mod2) dut.sv:5:1: , endln:10:10
     |vpiPort:
     \_port: (x), line:1:71, endln:1:72, parent:work@Mod2.mod1
+      |vpiParent:
+      \_module: work@Mod1 (work@Mod2.mod1) dut.sv:9:4: , endln:9:39, parent:work@Mod2
       |vpiName:x
       |vpiDirection:2
       |vpiHighConn:
       \_ref_obj: (work@Mod2.x), line:9:35, endln:9:36, parent:x
+        |vpiParent:
+        \_port: (x), line:1:71, endln:1:72, parent:work@Mod2.mod1
+        |vpiParent:
+        \_port: (x), line:1:71, endln:1:72, parent:work@Mod2.mod1
+        |vpiParent:
+        \_port: (x), line:1:71, endln:1:72, parent:work@Mod2.mod1
         |vpiName:x
         |vpiFullName:work@Mod2.x
         |vpiActual:
         \_logic_net: (work@Mod2.mod1.x), line:1:71, endln:1:72, parent:work@Mod2.mod1
       |vpiLowConn:
       \_ref_obj: (work@Mod2.mod1.x), line:9:33, endln:9:34, parent:x
+        |vpiParent:
+        \_port: (x), line:1:71, endln:1:72, parent:work@Mod2.mod1
+        |vpiParent:
+        \_port: (x), line:1:71, endln:1:72, parent:work@Mod2.mod1
+        |vpiParent:
+        \_port: (x), line:1:71, endln:1:72, parent:work@Mod2.mod1
         |vpiName:x
         |vpiFullName:work@Mod2.mod1.x
         |vpiActual:
@@ -574,30 +836,56 @@ design: (work@Mod2)
       \_logic_typespec: , line:1:58, endln:1:63
         |vpiRange:
         \_range: , line:1:65, endln:1:69, parent:x
+          |vpiParent:
+          \_port: (x), line:1:71, endln:1:72, parent:work@Mod2.mod1
           |vpiLeftRange:
           \_constant: , line:1:65, endln:1:67
+            |vpiParent:
+            \_range: , line:1:65, endln:1:69, parent:x
             |vpiDecompile:31
             |vpiSize:64
             |UINT:31
+            |vpiParent:
+            \_range: , line:1:65, endln:1:69, parent:x
             |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:1:68, endln:1:69
+            |vpiParent:
+            \_range: , line:1:65, endln:1:69, parent:x
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiParent:
+            \_range: , line:1:65, endln:1:69, parent:x
             |vpiConstType:9
       |vpiInstance:
       \_module: work@Mod1 (work@Mod2.mod1) dut.sv:9:4: , endln:9:39, parent:work@Mod2
+      |vpiParent:
+      \_module: work@Mod1 (work@Mod2.mod1) dut.sv:9:4: , endln:9:39, parent:work@Mod2
     |vpiContAssign:
     \_cont_assign: , line:2:11, endln:2:20, parent:work@Mod2.mod1
+      |vpiParent:
+      \_module: work@Mod1 (work@Mod2.mod1) dut.sv:9:4: , endln:9:39, parent:work@Mod2
       |vpiRhs:
       \_ref_obj: (work@Mod2.mod1.PARAM), line:2:15, endln:2:20
+        |vpiParent:
+        \_cont_assign: , line:2:11, endln:2:20, parent:work@Mod2.mod1
+        |vpiParent:
+        \_cont_assign: , line:2:11, endln:2:20, parent:work@Mod2.mod1
+        |vpiParent:
+        \_cont_assign: , line:2:11, endln:2:20, parent:work@Mod2.mod1
         |vpiName:PARAM
         |vpiFullName:work@Mod2.mod1.PARAM
         |vpiActual:
         \_operation: , line:9:18, endln:9:24
       |vpiLhs:
       \_ref_obj: (work@Mod2.mod1.x), line:2:11, endln:2:12
+        |vpiParent:
+        \_cont_assign: , line:2:11, endln:2:20, parent:work@Mod2.mod1
+        |vpiParent:
+        \_cont_assign: , line:2:11, endln:2:20, parent:work@Mod2.mod1
+        |vpiParent:
+        \_cont_assign: , line:2:11, endln:2:20, parent:work@Mod2.mod1
         |vpiName:x
         |vpiFullName:work@Mod2.mod1.x
         |vpiActual:

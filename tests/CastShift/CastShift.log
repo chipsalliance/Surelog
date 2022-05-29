@@ -627,42 +627,82 @@ design: (work@dut)
 |vpiName:work@dut
 |uhdmallPackages:
 \_package: builtin (builtin::), file:, parent:work@dut
+  |vpiParent:
+  \_design: (work@dut)
   |vpiName:builtin
   |vpiFullName:builtin::
+  |vpiParent:
+  \_design: (work@dut)
   |vpiDefName:builtin
+  |vpiParent:
+  \_design: (work@dut)
 |uhdmtopPackages:
 \_package: builtin (builtin::), file:, parent:work@dut
+  |vpiParent:
+  \_design: (work@dut)
   |vpiName:builtin
   |vpiFullName:builtin::
+  |vpiParent:
+  \_design: (work@dut)
   |vpiDefName:builtin
   |vpiTop:1
   |vpiClassDefn:
   \_class_defn: (builtin::any_sverilog_class), file:, parent:builtin::
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@dut
     |vpiName:any_sverilog_class
     |vpiFullName:builtin::any_sverilog_class
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@dut
   |vpiClassDefn:
   \_class_defn: (builtin::array), file:, parent:builtin::
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@dut
     |vpiName:array
     |vpiFullName:builtin::array
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@dut
   |vpiClassDefn:
   \_class_defn: (builtin::queue), file:, parent:builtin::
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@dut
     |vpiName:queue
     |vpiFullName:builtin::queue
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@dut
   |vpiClassDefn:
   \_class_defn: (builtin::string), file:, parent:builtin::
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@dut
     |vpiName:string
     |vpiFullName:builtin::string
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@dut
   |vpiClassDefn:
   \_class_defn: (builtin::system), file:, parent:builtin::
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@dut
     |vpiName:system
     |vpiFullName:builtin::system
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@dut
+  |vpiParent:
+  \_design: (work@dut)
 |uhdmallClasses:
 \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
+  |vpiParent:
+  \_design: (work@dut)
   |vpiName:work@mailbox
+  |vpiParent:
+  \_design: (work@dut)
   |vpiMethod:
   \_function: (work@mailbox::new), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiName:new
     |vpiFullName:work@mailbox::new
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiMethod:1
     |vpiReturn:
     \_class_var: 
@@ -670,8 +710,12 @@ design: (work@dut)
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiIODecl:
     \_io_decl: (bound), parent:work@mailbox::new
+      |vpiParent:
+      \_function: (work@mailbox::new), parent:work@mailbox
       |vpiDirection:1
       |vpiName:bound
       |vpiExpr:
@@ -683,10 +727,16 @@ design: (work@dut)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
   |vpiMethod:
   \_function: (work@mailbox::num), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiName:num
     |vpiFullName:work@mailbox::num
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
@@ -694,42 +744,80 @@ design: (work@dut)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiName:put
     |vpiFullName:work@mailbox::put
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::put
+      |vpiParent:
+      \_task: (work@mailbox::put), parent:work@mailbox
       |vpiDirection:1
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
   |vpiMethod:
   \_function: (work@mailbox::try_put), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
     \_logic_var: 
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_put
+      |vpiParent:
+      \_function: (work@mailbox::try_put), parent:work@mailbox
       |vpiDirection:1
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
   |vpiMethod:
   \_task: (work@mailbox::get), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiName:get
     |vpiFullName:work@mailbox::get
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::get
+      |vpiParent:
+      \_task: (work@mailbox::get), parent:work@mailbox
       |vpiDirection:6
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
   |vpiMethod:
   \_function: (work@mailbox::try_get), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
@@ -737,24 +825,44 @@ design: (work@dut)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
+      |vpiParent:
+      \_function: (work@mailbox::try_get), parent:work@mailbox
       |vpiDirection:6
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
   |vpiMethod:
   \_task: (work@mailbox::peek), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::peek
+      |vpiParent:
+      \_task: (work@mailbox::peek), parent:work@mailbox
       |vpiDirection:6
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
   |vpiMethod:
   \_function: (work@mailbox::try_peek), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
@@ -762,50 +870,78 @@ design: (work@dut)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
+      |vpiParent:
+      \_function: (work@mailbox::try_peek), parent:work@mailbox
       |vpiDirection:6
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
 |uhdmallClasses:
 \_class_defn: (work@process), file:builtin.sv, parent:work@dut
+  |vpiParent:
+  \_design: (work@dut)
   |vpiName:work@process
   |vpiTypedef:
   \_enum_typespec: (state), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
     |vpiName:state
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
     |vpiEnumConst:
     \_enum_const: (FINISHED), parent:state
+      |vpiParent:
+      \_enum_typespec: (state), parent:work@process
       |vpiName:FINISHED
       |INT:0
       |vpiDecompile:0
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (RUNNING), parent:state
+      |vpiParent:
+      \_enum_typespec: (state), parent:work@process
       |vpiName:RUNNING
       |INT:1
       |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (WAITING), parent:state
+      |vpiParent:
+      \_enum_typespec: (state), parent:work@process
       |vpiName:WAITING
       |INT:2
       |vpiDecompile:2
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (SUSPENDED), parent:state
+      |vpiParent:
+      \_enum_typespec: (state), parent:work@process
       |vpiName:SUSPENDED
       |INT:3
       |vpiDecompile:3
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (KILLED), parent:state
+      |vpiParent:
+      \_enum_typespec: (state), parent:work@process
       |vpiName:KILLED
       |INT:4
       |vpiDecompile:4
       |vpiSize:64
+  |vpiParent:
+  \_design: (work@dut)
   |vpiMethod:
   \_function: (work@process::self), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
     |vpiName:self
     |vpiFullName:work@process::self
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
@@ -814,17 +950,29 @@ design: (work@dut)
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:builtin.sv, parent:work@dut
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
     |vpiName:status
     |vpiFullName:work@process::status
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
       \_enum_typespec: (state), parent:work@process
+        |vpiParent:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@dut
         |vpiName:state
+        |vpiParent:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@dut
         |vpiEnumConst:
         \_enum_const: (FINISHED)
           |vpiName:FINISHED
@@ -855,37 +1003,81 @@ design: (work@dut)
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
   |vpiMethod:
   \_task: (work@process::kill), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
     |vpiName:kill
     |vpiFullName:work@process::kill
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
   |vpiMethod:
   \_task: (work@process::await), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
     |vpiName:await
     |vpiFullName:work@process::await
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
   |vpiMethod:
   \_task: (work@process::suspend), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
     |vpiName:suspend
     |vpiFullName:work@process::suspend
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
   |vpiMethod:
   \_task: (work@process::resume), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
     |vpiName:resume
     |vpiFullName:work@process::resume
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
 |uhdmallClasses:
 \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
+  |vpiParent:
+  \_design: (work@dut)
   |vpiName:work@semaphore
+  |vpiParent:
+  \_design: (work@dut)
   |vpiMethod:
   \_function: (work@semaphore::new), parent:work@semaphore
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
     |vpiName:new
     |vpiFullName:work@semaphore::new
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
     |vpiMethod:1
     |vpiReturn:
     \_class_var: 
@@ -893,8 +1085,12 @@ design: (work@dut)
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::new
+      |vpiParent:
+      \_function: (work@semaphore::new), parent:work@semaphore
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -906,14 +1102,24 @@ design: (work@dut)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
   |vpiMethod:
   \_task: (work@semaphore::put), parent:work@semaphore
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
     |vpiName:put
     |vpiFullName:work@semaphore::put
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::put
+      |vpiParent:
+      \_task: (work@semaphore::put), parent:work@semaphore
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -925,14 +1131,24 @@ design: (work@dut)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
   |vpiMethod:
   \_task: (work@semaphore::get), parent:work@semaphore
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
     |vpiName:get
     |vpiFullName:work@semaphore::get
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::get
+      |vpiParent:
+      \_task: (work@semaphore::get), parent:work@semaphore
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -944,10 +1160,16 @@ design: (work@dut)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
   |vpiMethod:
   \_function: (work@semaphore::try_get), parent:work@semaphore
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
@@ -955,8 +1177,12 @@ design: (work@dut)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
+      |vpiParent:
+      \_function: (work@semaphore::try_get), parent:work@semaphore
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -968,67 +1194,129 @@ design: (work@dut)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10, parent:work@dut
+  |vpiParent:
+  \_design: (work@dut)
   |vpiFullName:work@dut
   |vpiParameter:
   \_parameter: (work@dut.CSR_MISA_MXL), line:2:24, endln:2:36, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10, parent:work@dut
     |DEC:1
     |vpiTypespec:
     \_logic_typespec: , line:2:11, endln:2:16, parent:work@dut.CSR_MISA_MXL
+      |vpiParent:
+      \_parameter: (work@dut.CSR_MISA_MXL), line:2:24, endln:2:36, parent:work@dut
+      |vpiParent:
+      \_parameter: (work@dut.CSR_MISA_MXL), line:2:24, endln:2:36, parent:work@dut
       |vpiRange:
       \_range: , line:2:18, endln:2:21
         |vpiLeftRange:
         \_constant: , line:2:18, endln:2:19
+          |vpiParent:
+          \_range: , line:2:18, endln:2:21
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiParent:
+          \_range: , line:2:18, endln:2:21
           |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:2:20, endln:2:21
+          |vpiParent:
+          \_range: , line:2:18, endln:2:21
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiParent:
+          \_range: , line:2:18, endln:2:21
           |vpiConstType:9
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10, parent:work@dut
     |vpiName:CSR_MISA_MXL
     |vpiFullName:work@dut.CSR_MISA_MXL
   |vpiParameter:
   \_parameter: (work@dut.RV32M), line:3:15, endln:3:20, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10, parent:work@dut
     |UINT:1
     |vpiTypespec:
     \_bit_typespec: , line:3:11, endln:3:14, parent:work@dut.RV32M
+      |vpiParent:
+      \_parameter: (work@dut.RV32M), line:3:15, endln:3:20, parent:work@dut
+      |vpiParent:
+      \_parameter: (work@dut.RV32M), line:3:15, endln:3:20, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10, parent:work@dut
     |vpiName:RV32M
     |vpiFullName:work@dut.RV32M
   |vpiParameter:
   \_parameter: (work@dut.RV32E), line:4:15, endln:4:20, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10, parent:work@dut
     |UINT:0
     |vpiTypespec:
     \_bit_typespec: , line:4:11, endln:4:14, parent:work@dut.RV32E
+      |vpiParent:
+      \_parameter: (work@dut.RV32E), line:4:15, endln:4:20, parent:work@dut
+      |vpiParent:
+      \_parameter: (work@dut.RV32E), line:4:15, endln:4:20, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10, parent:work@dut
     |vpiName:RV32E
     |vpiFullName:work@dut.RV32E
   |vpiParameter:
   \_parameter: (work@dut.MISA_VALUE), line:5:25, endln:5:35, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10, parent:work@dut
     |vpiTypespec:
     \_logic_typespec: , line:5:12, endln:5:17, parent:work@dut.MISA_VALUE
+      |vpiParent:
+      \_parameter: (work@dut.MISA_VALUE), line:5:25, endln:5:35, parent:work@dut
+      |vpiParent:
+      \_parameter: (work@dut.MISA_VALUE), line:5:25, endln:5:35, parent:work@dut
       |vpiRange:
       \_range: , line:5:19, endln:5:23
         |vpiLeftRange:
         \_constant: , line:5:19, endln:5:21
+          |vpiParent:
+          \_range: , line:5:19, endln:5:23
           |vpiDecompile:31
           |vpiSize:64
           |UINT:31
+          |vpiParent:
+          \_range: , line:5:19, endln:5:23
           |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:5:22, endln:5:23
+          |vpiParent:
+          \_range: , line:5:19, endln:5:23
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiParent:
+          \_range: , line:5:19, endln:5:23
           |vpiConstType:9
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10, parent:work@dut
     |vpiLocalParam:1
     |vpiName:MISA_VALUE
     |vpiFullName:work@dut.MISA_VALUE
   |vpiParamAssign:
   \_param_assign: , line:2:24, endln:2:43, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10, parent:work@dut
     |vpiRhs:
     \_constant: , line:2:39, endln:2:43
       |vpiDecompile:2'd1
@@ -1041,6 +1329,8 @@ design: (work@dut)
     \_parameter: (work@dut.CSR_MISA_MXL), line:2:24, endln:2:36, parent:work@dut
   |vpiParamAssign:
   \_param_assign: , line:3:15, endln:3:31, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10, parent:work@dut
     |vpiRhs:
     \_constant: , line:3:30, endln:3:31
       |vpiDecompile:1
@@ -1053,6 +1343,8 @@ design: (work@dut)
     \_parameter: (work@dut.RV32M), line:3:15, endln:3:20, parent:work@dut
   |vpiParamAssign:
   \_param_assign: , line:4:15, endln:4:31, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10, parent:work@dut
     |vpiRhs:
     \_constant: , line:4:30, endln:4:31
       |vpiDecompile:0
@@ -1065,298 +1357,578 @@ design: (work@dut)
     \_parameter: (work@dut.RV32E), line:4:15, endln:4:20, parent:work@dut
   |vpiParamAssign:
   \_param_assign: , line:5:25, endln:17:28, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10, parent:work@dut
     |vpiRhs:
     \_operation: , line:6:3, endln:17:28
       |vpiOpType:29
       |vpiOperand:
       \_operation: , line:6:3, endln:16:12
+        |vpiParent:
+        \_operation: , line:6:3, endln:17:28
+        |vpiParent:
+        \_operation: , line:6:3, endln:17:28
         |vpiOpType:29
         |vpiOperand:
         \_operation: , line:6:3, endln:15:12
+          |vpiParent:
+          \_operation: , line:6:3, endln:16:12
+          |vpiParent:
+          \_operation: , line:6:3, endln:16:12
           |vpiOpType:29
           |vpiOperand:
           \_operation: , line:6:3, endln:14:12
+            |vpiParent:
+            \_operation: , line:6:3, endln:15:12
+            |vpiParent:
+            \_operation: , line:6:3, endln:15:12
             |vpiOpType:29
             |vpiOperand:
             \_operation: , line:6:3, endln:13:12
+              |vpiParent:
+              \_operation: , line:6:3, endln:14:12
+              |vpiParent:
+              \_operation: , line:6:3, endln:14:12
               |vpiOpType:29
               |vpiOperand:
               \_operation: , line:6:3, endln:12:28
+                |vpiParent:
+                \_operation: , line:6:3, endln:13:12
+                |vpiParent:
+                \_operation: , line:6:3, endln:13:12
                 |vpiOpType:29
                 |vpiOperand:
                 \_operation: , line:6:3, endln:11:28
+                  |vpiParent:
+                  \_operation: , line:6:3, endln:12:28
+                  |vpiParent:
+                  \_operation: , line:6:3, endln:12:28
                   |vpiOpType:29
                   |vpiOperand:
                   \_operation: , line:6:3, endln:10:12
+                    |vpiParent:
+                    \_operation: , line:6:3, endln:11:28
+                    |vpiParent:
+                    \_operation: , line:6:3, endln:11:28
                     |vpiOpType:29
                     |vpiOperand:
                     \_operation: , line:6:3, endln:9:28
+                      |vpiParent:
+                      \_operation: , line:6:3, endln:10:12
+                      |vpiParent:
+                      \_operation: , line:6:3, endln:10:12
                       |vpiOpType:29
                       |vpiOperand:
                       \_operation: , line:6:3, endln:8:12
+                        |vpiParent:
+                        \_operation: , line:6:3, endln:9:28
+                        |vpiParent:
+                        \_operation: , line:6:3, endln:9:28
                         |vpiOpType:29
                         |vpiOperand:
                         \_operation: , line:6:3, endln:7:12
+                          |vpiParent:
+                          \_operation: , line:6:3, endln:8:12
+                          |vpiParent:
+                          \_operation: , line:6:3, endln:8:12
                           |vpiOpType:29
                           |vpiOperand:
                           \_operation: , line:6:4, endln:6:11
+                            |vpiParent:
+                            \_operation: , line:6:3, endln:7:12
+                            |vpiParent:
+                            \_operation: , line:6:3, endln:7:12
                             |vpiOpType:22
                             |vpiOperand:
                             \_constant: , line:6:4, endln:6:5
+                              |vpiParent:
+                              \_operation: , line:6:4, endln:6:11
                               |vpiDecompile:0
                               |vpiSize:64
                               |UINT:0
+                              |vpiParent:
+                              \_operation: , line:6:4, endln:6:11
                               |vpiConstType:9
                             |vpiOperand:
                             \_constant: , line:6:10, endln:6:11
+                              |vpiParent:
+                              \_operation: , line:6:4, endln:6:11
                               |vpiDecompile:0
                               |vpiSize:64
                               |UINT:0
+                              |vpiParent:
+                              \_operation: , line:6:4, endln:6:11
                               |vpiConstType:9
                           |vpiOperand:
                           \_operation: , line:7:4, endln:7:11
+                            |vpiParent:
+                            \_operation: , line:6:3, endln:7:12
+                            |vpiParent:
+                            \_operation: , line:6:3, endln:7:12
                             |vpiOpType:22
                             |vpiOperand:
                             \_constant: , line:7:4, endln:7:5
+                              |vpiParent:
+                              \_operation: , line:7:4, endln:7:11
                               |vpiDecompile:1
                               |vpiSize:64
                               |UINT:1
+                              |vpiParent:
+                              \_operation: , line:7:4, endln:7:11
                               |vpiConstType:9
                             |vpiOperand:
                             \_constant: , line:7:10, endln:7:11
+                              |vpiParent:
+                              \_operation: , line:7:4, endln:7:11
                               |vpiDecompile:2
                               |vpiSize:64
                               |UINT:2
+                              |vpiParent:
+                              \_operation: , line:7:4, endln:7:11
                               |vpiConstType:9
                         |vpiOperand:
                         \_operation: , line:8:4, endln:8:11
+                          |vpiParent:
+                          \_operation: , line:6:3, endln:8:12
+                          |vpiParent:
+                          \_operation: , line:6:3, endln:8:12
                           |vpiOpType:22
                           |vpiOperand:
                           \_constant: , line:8:4, endln:8:5
+                            |vpiParent:
+                            \_operation: , line:8:4, endln:8:11
                             |vpiDecompile:0
                             |vpiSize:64
                             |UINT:0
+                            |vpiParent:
+                            \_operation: , line:8:4, endln:8:11
                             |vpiConstType:9
                           |vpiOperand:
                           \_constant: , line:8:10, endln:8:11
+                            |vpiParent:
+                            \_operation: , line:8:4, endln:8:11
                             |vpiDecompile:3
                             |vpiSize:64
                             |UINT:3
+                            |vpiParent:
+                            \_operation: , line:8:4, endln:8:11
                             |vpiConstType:9
                       |vpiOperand:
                       \_operation: , line:9:4, endln:9:27
+                        |vpiParent:
+                        \_operation: , line:6:3, endln:9:28
+                        |vpiParent:
+                        \_operation: , line:6:3, endln:9:28
                         |vpiOpType:22
                         |vpiOperand:
                         \_operation: , line:9:4, endln:9:14
+                          |vpiParent:
+                          \_operation: , line:9:4, endln:9:27
                           |vpiTypespec:
                           \_integer_typespec: , line:9:4, endln:9:6
                             |INT:32
+                          |vpiParent:
+                          \_operation: , line:9:4, endln:9:27
                           |vpiOpType:67
                           |vpiOperand:
                           \_ref_obj: (RV32E), line:9:8, endln:9:13
+                            |vpiParent:
+                            \_operation: , line:9:4, endln:9:14
+                            |vpiParent:
+                            \_operation: , line:9:4, endln:9:14
+                            |vpiParent:
+                            \_operation: , line:9:4, endln:9:14
                             |vpiName:RV32E
                         |vpiOperand:
                         \_constant: , line:9:26, endln:9:27
+                          |vpiParent:
+                          \_operation: , line:9:4, endln:9:27
                           |vpiDecompile:4
                           |vpiSize:64
                           |UINT:4
+                          |vpiParent:
+                          \_operation: , line:9:4, endln:9:27
                           |vpiConstType:9
                     |vpiOperand:
                     \_operation: , line:10:4, endln:10:11
+                      |vpiParent:
+                      \_operation: , line:6:3, endln:10:12
+                      |vpiParent:
+                      \_operation: , line:6:3, endln:10:12
                       |vpiOpType:22
                       |vpiOperand:
                       \_constant: , line:10:4, endln:10:5
+                        |vpiParent:
+                        \_operation: , line:10:4, endln:10:11
                         |vpiDecompile:0
                         |vpiSize:64
                         |UINT:0
+                        |vpiParent:
+                        \_operation: , line:10:4, endln:10:11
                         |vpiConstType:9
                       |vpiOperand:
                       \_constant: , line:10:10, endln:10:11
+                        |vpiParent:
+                        \_operation: , line:10:4, endln:10:11
                         |vpiDecompile:5
                         |vpiSize:64
                         |UINT:5
+                        |vpiParent:
+                        \_operation: , line:10:4, endln:10:11
                         |vpiConstType:9
                   |vpiOperand:
                   \_operation: , line:11:4, endln:11:27
+                    |vpiParent:
+                    \_operation: , line:6:3, endln:11:28
+                    |vpiParent:
+                    \_operation: , line:6:3, endln:11:28
                     |vpiOpType:22
                     |vpiOperand:
                     \_operation: , line:11:4, endln:11:15
+                      |vpiParent:
+                      \_operation: , line:11:4, endln:11:27
                       |vpiTypespec:
                       \_integer_typespec: , line:11:4, endln:11:6
                         |INT:32
+                      |vpiParent:
+                      \_operation: , line:11:4, endln:11:27
                       |vpiOpType:67
                       |vpiOperand:
                       \_operation: , line:11:8, endln:11:14
+                        |vpiParent:
+                        \_operation: , line:11:4, endln:11:15
+                        |vpiParent:
+                        \_operation: , line:11:4, endln:11:15
                         |vpiOpType:3
                         |vpiOperand:
                         \_ref_obj: (RV32E), line:11:9, endln:11:14
+                          |vpiParent:
+                          \_operation: , line:11:8, endln:11:14
+                          |vpiParent:
+                          \_operation: , line:11:8, endln:11:14
+                          |vpiParent:
+                          \_operation: , line:11:8, endln:11:14
                           |vpiName:RV32E
                     |vpiOperand:
                     \_constant: , line:11:26, endln:11:27
+                      |vpiParent:
+                      \_operation: , line:11:4, endln:11:27
                       |vpiDecompile:8
                       |vpiSize:64
                       |UINT:8
+                      |vpiParent:
+                      \_operation: , line:11:4, endln:11:27
                       |vpiConstType:9
                 |vpiOperand:
                 \_operation: , line:12:4, endln:12:27
+                  |vpiParent:
+                  \_operation: , line:6:3, endln:12:28
+                  |vpiParent:
+                  \_operation: , line:6:3, endln:12:28
                   |vpiOpType:22
                   |vpiOperand:
                   \_operation: , line:12:4, endln:12:14
+                    |vpiParent:
+                    \_operation: , line:12:4, endln:12:27
                     |vpiTypespec:
                     \_integer_typespec: , line:12:4, endln:12:6
                       |INT:32
+                    |vpiParent:
+                    \_operation: , line:12:4, endln:12:27
                     |vpiOpType:67
                     |vpiOperand:
                     \_ref_obj: (RV32M), line:12:8, endln:12:13
+                      |vpiParent:
+                      \_operation: , line:12:4, endln:12:14
+                      |vpiParent:
+                      \_operation: , line:12:4, endln:12:14
+                      |vpiParent:
+                      \_operation: , line:12:4, endln:12:14
                       |vpiName:RV32M
                   |vpiOperand:
                   \_constant: , line:12:25, endln:12:27
+                    |vpiParent:
+                    \_operation: , line:12:4, endln:12:27
                     |vpiDecompile:12
                     |vpiSize:64
                     |UINT:12
+                    |vpiParent:
+                    \_operation: , line:12:4, endln:12:27
                     |vpiConstType:9
               |vpiOperand:
               \_operation: , line:13:4, endln:13:11
+                |vpiParent:
+                \_operation: , line:6:3, endln:13:12
+                |vpiParent:
+                \_operation: , line:6:3, endln:13:12
                 |vpiOpType:22
                 |vpiOperand:
                 \_constant: , line:13:4, endln:13:5
+                  |vpiParent:
+                  \_operation: , line:13:4, endln:13:11
                   |vpiDecompile:0
                   |vpiSize:64
                   |UINT:0
+                  |vpiParent:
+                  \_operation: , line:13:4, endln:13:11
                   |vpiConstType:9
                 |vpiOperand:
                 \_constant: , line:13:9, endln:13:11
+                  |vpiParent:
+                  \_operation: , line:13:4, endln:13:11
                   |vpiDecompile:13
                   |vpiSize:64
                   |UINT:13
+                  |vpiParent:
+                  \_operation: , line:13:4, endln:13:11
                   |vpiConstType:9
             |vpiOperand:
             \_operation: , line:14:4, endln:14:11
+              |vpiParent:
+              \_operation: , line:6:3, endln:14:12
+              |vpiParent:
+              \_operation: , line:6:3, endln:14:12
               |vpiOpType:22
               |vpiOperand:
               \_constant: , line:14:4, endln:14:5
+                |vpiParent:
+                \_operation: , line:14:4, endln:14:11
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
+                |vpiParent:
+                \_operation: , line:14:4, endln:14:11
                 |vpiConstType:9
               |vpiOperand:
               \_constant: , line:14:9, endln:14:11
+                |vpiParent:
+                \_operation: , line:14:4, endln:14:11
                 |vpiDecompile:18
                 |vpiSize:64
                 |UINT:18
+                |vpiParent:
+                \_operation: , line:14:4, endln:14:11
                 |vpiConstType:9
           |vpiOperand:
           \_operation: , line:15:4, endln:15:11
+            |vpiParent:
+            \_operation: , line:6:3, endln:15:12
+            |vpiParent:
+            \_operation: , line:6:3, endln:15:12
             |vpiOpType:22
             |vpiOperand:
             \_constant: , line:15:4, endln:15:5
+              |vpiParent:
+              \_operation: , line:15:4, endln:15:11
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
+              |vpiParent:
+              \_operation: , line:15:4, endln:15:11
               |vpiConstType:9
             |vpiOperand:
             \_constant: , line:15:9, endln:15:11
+              |vpiParent:
+              \_operation: , line:15:4, endln:15:11
               |vpiDecompile:20
               |vpiSize:64
               |UINT:20
+              |vpiParent:
+              \_operation: , line:15:4, endln:15:11
               |vpiConstType:9
         |vpiOperand:
         \_operation: , line:16:4, endln:16:11
+          |vpiParent:
+          \_operation: , line:6:3, endln:16:12
+          |vpiParent:
+          \_operation: , line:6:3, endln:16:12
           |vpiOpType:22
           |vpiOperand:
           \_constant: , line:16:4, endln:16:5
+            |vpiParent:
+            \_operation: , line:16:4, endln:16:11
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiParent:
+            \_operation: , line:16:4, endln:16:11
             |vpiConstType:9
           |vpiOperand:
           \_constant: , line:16:9, endln:16:11
+            |vpiParent:
+            \_operation: , line:16:4, endln:16:11
             |vpiDecompile:23
             |vpiSize:64
             |UINT:23
+            |vpiParent:
+            \_operation: , line:16:4, endln:16:11
             |vpiConstType:9
       |vpiOperand:
       \_operation: , line:17:4, endln:17:27
+        |vpiParent:
+        \_operation: , line:6:3, endln:17:28
+        |vpiParent:
+        \_operation: , line:6:3, endln:17:28
         |vpiOpType:22
         |vpiOperand:
         \_operation: , line:17:4, endln:17:21
+          |vpiParent:
+          \_operation: , line:17:4, endln:17:27
           |vpiTypespec:
           \_integer_typespec: , line:17:4, endln:17:6
             |INT:32
+          |vpiParent:
+          \_operation: , line:17:4, endln:17:27
           |vpiOpType:67
           |vpiOperand:
           \_ref_obj: (CSR_MISA_MXL), line:17:8, endln:17:20
+            |vpiParent:
+            \_operation: , line:17:4, endln:17:21
+            |vpiParent:
+            \_operation: , line:17:4, endln:17:21
+            |vpiParent:
+            \_operation: , line:17:4, endln:17:21
             |vpiName:CSR_MISA_MXL
         |vpiOperand:
         \_constant: , line:17:25, endln:17:27
+          |vpiParent:
+          \_operation: , line:17:4, endln:17:27
           |vpiDecompile:30
           |vpiSize:64
           |UINT:30
+          |vpiParent:
+          \_operation: , line:17:4, endln:17:27
           |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.MISA_VALUE), line:5:25, endln:5:35, parent:work@dut
+  |vpiParent:
+  \_design: (work@dut)
   |vpiDefName:work@dut
+  |vpiParent:
+  \_design: (work@dut)
 |uhdmtopModules:
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10
   |vpiName:work@dut
   |vpiParameter:
   \_parameter: (work@dut.CSR_MISA_MXL), line:2:24, endln:2:36, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10
     |DEC:1
     |vpiTypespec:
     \_logic_typespec: , line:2:11, endln:2:16, parent:work@dut.CSR_MISA_MXL
+      |vpiParent:
+      \_parameter: (work@dut.CSR_MISA_MXL), line:2:24, endln:2:36, parent:work@dut
+      |vpiParent:
+      \_parameter: (work@dut.CSR_MISA_MXL), line:2:24, endln:2:36, parent:work@dut
       |vpiRange:
       \_range: , line:2:18, endln:2:21
+        |vpiParent:
+        \_logic_typespec: , line:2:11, endln:2:16, parent:work@dut.CSR_MISA_MXL
         |vpiLeftRange:
         \_constant: , line:2:18, endln:2:19
+          |vpiParent:
+          \_range: , line:2:18, endln:2:21
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiParent:
+          \_range: , line:2:18, endln:2:21
           |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:2:20, endln:2:21
+          |vpiParent:
+          \_range: , line:2:18, endln:2:21
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiParent:
+          \_range: , line:2:18, endln:2:21
           |vpiConstType:9
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10
     |vpiName:CSR_MISA_MXL
     |vpiFullName:work@dut.CSR_MISA_MXL
   |vpiParameter:
   \_parameter: (work@dut.RV32M), line:3:15, endln:3:20, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10
     |UINT:1
     |vpiTypespec:
     \_bit_typespec: , line:3:11, endln:3:14, parent:work@dut.RV32M
+      |vpiParent:
+      \_parameter: (work@dut.RV32M), line:3:15, endln:3:20, parent:work@dut
+      |vpiParent:
+      \_parameter: (work@dut.RV32M), line:3:15, endln:3:20, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10
     |vpiName:RV32M
     |vpiFullName:work@dut.RV32M
   |vpiParameter:
   \_parameter: (work@dut.RV32E), line:4:15, endln:4:20, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10
     |UINT:0
     |vpiTypespec:
     \_bit_typespec: , line:4:11, endln:4:14, parent:work@dut.RV32E
+      |vpiParent:
+      \_parameter: (work@dut.RV32E), line:4:15, endln:4:20, parent:work@dut
+      |vpiParent:
+      \_parameter: (work@dut.RV32E), line:4:15, endln:4:20, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10
     |vpiName:RV32E
     |vpiFullName:work@dut.RV32E
   |vpiParameter:
   \_parameter: (work@dut.MISA_VALUE), line:5:25, endln:5:35, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10
     |vpiTypespec:
     \_logic_typespec: , line:5:12, endln:5:17, parent:work@dut.MISA_VALUE
+      |vpiParent:
+      \_parameter: (work@dut.MISA_VALUE), line:5:25, endln:5:35, parent:work@dut
+      |vpiParent:
+      \_parameter: (work@dut.MISA_VALUE), line:5:25, endln:5:35, parent:work@dut
       |vpiRange:
       \_range: , line:5:19, endln:5:23
+        |vpiParent:
+        \_logic_typespec: , line:5:12, endln:5:17, parent:work@dut.MISA_VALUE
         |vpiLeftRange:
         \_constant: , line:5:19, endln:5:21
+          |vpiParent:
+          \_range: , line:5:19, endln:5:23
           |vpiDecompile:31
           |vpiSize:64
           |UINT:31
+          |vpiParent:
+          \_range: , line:5:19, endln:5:23
           |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:5:22, endln:5:23
+          |vpiParent:
+          \_range: , line:5:19, endln:5:23
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiParent:
+          \_range: , line:5:19, endln:5:23
           |vpiConstType:9
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10
     |vpiLocalParam:1
     |vpiName:MISA_VALUE
     |vpiFullName:work@dut.MISA_VALUE
   |vpiParamAssign:
   \_param_assign: , line:2:24, endln:2:43, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10
     |vpiRhs:
     \_constant: , line:2:39, endln:2:43
       |vpiDecompile:1
@@ -1369,6 +1941,8 @@ design: (work@dut)
     \_parameter: (work@dut.CSR_MISA_MXL), line:2:24, endln:2:36, parent:work@dut
   |vpiParamAssign:
   \_param_assign: , line:3:15, endln:3:31, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10
     |vpiRhs:
     \_constant: , line:3:30, endln:3:31
       |vpiDecompile:1
@@ -1381,6 +1955,8 @@ design: (work@dut)
     \_parameter: (work@dut.RV32M), line:3:15, endln:3:20, parent:work@dut
   |vpiParamAssign:
   \_param_assign: , line:4:15, endln:4:31, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10
     |vpiRhs:
     \_constant: , line:4:30, endln:4:31
       |vpiDecompile:0
@@ -1393,6 +1969,8 @@ design: (work@dut)
     \_parameter: (work@dut.RV32E), line:4:15, endln:4:20, parent:work@dut
   |vpiParamAssign:
   \_param_assign: , line:5:25, endln:17:28, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10
     |vpiRhs:
     \_constant: , line:6:3, endln:17:28
       |vpiDecompile:1074794756
@@ -1408,16 +1986,28 @@ design: (work@dut)
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.genblk1), line:19:1, endln:21:4, parent:work@dut
+    |vpiParent:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:23:10
     |vpiName:genblk1
     |vpiFullName:work@dut.genblk1
     |vpiGenScope:
     \_gen_scope: (work@dut.genblk1), parent:work@dut.genblk1
+      |vpiParent:
+      \_gen_scope_array: (work@dut.genblk1), line:19:1, endln:21:4, parent:work@dut
       |vpiFullName:work@dut.genblk1
+      |vpiParent:
+      \_gen_scope_array: (work@dut.genblk1), line:19:1, endln:21:4, parent:work@dut
       |vpiModule:
       \_module: work@dut.genblk1::OK (work@dut.genblk1.ok) dut.sv:20:3: , endln:20:11, parent:work@dut.genblk1
+        |vpiParent:
+        \_gen_scope: (work@dut.genblk1), parent:work@dut.genblk1
         |vpiName:ok
         |vpiFullName:work@dut.genblk1.ok
+        |vpiParent:
+        \_gen_scope: (work@dut.genblk1), parent:work@dut.genblk1
         |vpiDefName:work@dut.genblk1::OK
+        |vpiParent:
+        \_gen_scope: (work@dut.genblk1), parent:work@dut.genblk1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

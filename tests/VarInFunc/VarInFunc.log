@@ -413,42 +413,82 @@ design: (work@top)
 |vpiName:work@top
 |uhdmallPackages:
 \_package: builtin (builtin::), file:, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiName:builtin
   |vpiFullName:builtin::
+  |vpiParent:
+  \_design: (work@top)
   |vpiDefName:builtin
+  |vpiParent:
+  \_design: (work@top)
 |uhdmtopPackages:
 \_package: builtin (builtin::), file:, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiName:builtin
   |vpiFullName:builtin::
+  |vpiParent:
+  \_design: (work@top)
   |vpiDefName:builtin
   |vpiTop:1
   |vpiClassDefn:
   \_class_defn: (builtin::any_sverilog_class), file:, parent:builtin::
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@top
     |vpiName:any_sverilog_class
     |vpiFullName:builtin::any_sverilog_class
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@top
   |vpiClassDefn:
   \_class_defn: (builtin::array), file:, parent:builtin::
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@top
     |vpiName:array
     |vpiFullName:builtin::array
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@top
   |vpiClassDefn:
   \_class_defn: (builtin::queue), file:, parent:builtin::
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@top
     |vpiName:queue
     |vpiFullName:builtin::queue
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@top
   |vpiClassDefn:
   \_class_defn: (builtin::string), file:, parent:builtin::
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@top
     |vpiName:string
     |vpiFullName:builtin::string
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@top
   |vpiClassDefn:
   \_class_defn: (builtin::system), file:, parent:builtin::
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@top
     |vpiName:system
     |vpiFullName:builtin::system
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
 |uhdmallClasses:
 \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiName:work@mailbox
+  |vpiParent:
+  \_design: (work@top)
   |vpiMethod:
   \_function: (work@mailbox::new), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiName:new
     |vpiFullName:work@mailbox::new
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiMethod:1
     |vpiReturn:
     \_class_var: 
@@ -456,8 +496,12 @@ design: (work@top)
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiIODecl:
     \_io_decl: (bound), parent:work@mailbox::new
+      |vpiParent:
+      \_function: (work@mailbox::new), parent:work@mailbox
       |vpiDirection:1
       |vpiName:bound
       |vpiExpr:
@@ -469,10 +513,16 @@ design: (work@top)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
   |vpiMethod:
   \_function: (work@mailbox::num), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiName:num
     |vpiFullName:work@mailbox::num
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
@@ -480,42 +530,80 @@ design: (work@top)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiName:put
     |vpiFullName:work@mailbox::put
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::put
+      |vpiParent:
+      \_task: (work@mailbox::put), parent:work@mailbox
       |vpiDirection:1
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
   |vpiMethod:
   \_function: (work@mailbox::try_put), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
     \_logic_var: 
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_put
+      |vpiParent:
+      \_function: (work@mailbox::try_put), parent:work@mailbox
       |vpiDirection:1
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
   |vpiMethod:
   \_task: (work@mailbox::get), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiName:get
     |vpiFullName:work@mailbox::get
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::get
+      |vpiParent:
+      \_task: (work@mailbox::get), parent:work@mailbox
       |vpiDirection:6
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
   |vpiMethod:
   \_function: (work@mailbox::try_get), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
@@ -523,24 +611,44 @@ design: (work@top)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
+      |vpiParent:
+      \_function: (work@mailbox::try_get), parent:work@mailbox
       |vpiDirection:6
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
   |vpiMethod:
   \_task: (work@mailbox::peek), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::peek
+      |vpiParent:
+      \_task: (work@mailbox::peek), parent:work@mailbox
       |vpiDirection:6
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
   |vpiMethod:
   \_function: (work@mailbox::try_peek), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
@@ -548,50 +656,78 @@ design: (work@top)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
+      |vpiParent:
+      \_function: (work@mailbox::try_peek), parent:work@mailbox
       |vpiDirection:6
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
 |uhdmallClasses:
 \_class_defn: (work@process), file:builtin.sv, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiName:work@process
   |vpiTypedef:
   \_enum_typespec: (state), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
     |vpiName:state
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
     |vpiEnumConst:
     \_enum_const: (FINISHED), parent:state
+      |vpiParent:
+      \_enum_typespec: (state), parent:work@process
       |vpiName:FINISHED
       |INT:0
       |vpiDecompile:0
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (RUNNING), parent:state
+      |vpiParent:
+      \_enum_typespec: (state), parent:work@process
       |vpiName:RUNNING
       |INT:1
       |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (WAITING), parent:state
+      |vpiParent:
+      \_enum_typespec: (state), parent:work@process
       |vpiName:WAITING
       |INT:2
       |vpiDecompile:2
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (SUSPENDED), parent:state
+      |vpiParent:
+      \_enum_typespec: (state), parent:work@process
       |vpiName:SUSPENDED
       |INT:3
       |vpiDecompile:3
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (KILLED), parent:state
+      |vpiParent:
+      \_enum_typespec: (state), parent:work@process
       |vpiName:KILLED
       |INT:4
       |vpiDecompile:4
       |vpiSize:64
+  |vpiParent:
+  \_design: (work@top)
   |vpiMethod:
   \_function: (work@process::self), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
     |vpiName:self
     |vpiFullName:work@process::self
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
@@ -600,17 +736,29 @@ design: (work@top)
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:builtin.sv, parent:work@top
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
     |vpiName:status
     |vpiFullName:work@process::status
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
       \_enum_typespec: (state), parent:work@process
+        |vpiParent:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@top
         |vpiName:state
+        |vpiParent:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@top
         |vpiEnumConst:
         \_enum_const: (FINISHED)
           |vpiName:FINISHED
@@ -641,37 +789,81 @@ design: (work@top)
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
   |vpiMethod:
   \_task: (work@process::kill), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
     |vpiName:kill
     |vpiFullName:work@process::kill
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
   |vpiMethod:
   \_task: (work@process::await), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
     |vpiName:await
     |vpiFullName:work@process::await
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
   |vpiMethod:
   \_task: (work@process::suspend), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
     |vpiName:suspend
     |vpiFullName:work@process::suspend
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
   |vpiMethod:
   \_task: (work@process::resume), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
     |vpiName:resume
     |vpiFullName:work@process::resume
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@top
 |uhdmallClasses:
 \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiName:work@semaphore
+  |vpiParent:
+  \_design: (work@top)
   |vpiMethod:
   \_function: (work@semaphore::new), parent:work@semaphore
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
     |vpiName:new
     |vpiFullName:work@semaphore::new
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
     |vpiMethod:1
     |vpiReturn:
     \_class_var: 
@@ -679,8 +871,12 @@ design: (work@top)
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::new
+      |vpiParent:
+      \_function: (work@semaphore::new), parent:work@semaphore
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -692,14 +888,24 @@ design: (work@top)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
   |vpiMethod:
   \_task: (work@semaphore::put), parent:work@semaphore
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
     |vpiName:put
     |vpiFullName:work@semaphore::put
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::put
+      |vpiParent:
+      \_task: (work@semaphore::put), parent:work@semaphore
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -711,14 +917,24 @@ design: (work@top)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
   |vpiMethod:
   \_task: (work@semaphore::get), parent:work@semaphore
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
     |vpiName:get
     |vpiFullName:work@semaphore::get
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::get
+      |vpiParent:
+      \_task: (work@semaphore::get), parent:work@semaphore
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -730,10 +946,16 @@ design: (work@top)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
   |vpiMethod:
   \_function: (work@semaphore::try_get), parent:work@semaphore
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
@@ -741,8 +963,12 @@ design: (work@top)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
+      |vpiParent:
+      \_function: (work@semaphore::try_get), parent:work@semaphore
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -754,34 +980,62 @@ design: (work@top)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiFullName:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiDefName:work@top
   |vpiTaskFunc:
   \_function: (work@top.compute_next_state), line:2:3, endln:6:35, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
     |vpiName:compute_next_state
     |vpiFullName:work@top.compute_next_state
     |vpiVariables:
     \_logic_var: (work@top.compute_next_state.function_variable), line:3:17, endln:3:34
+      |vpiParent:
+      \_assign_stmt: , line:3:17, endln:3:34, parent:work@top.compute_next_state
       |vpiTypespec:
       \_logic_typespec: , line:3:5, endln:3:10
         |vpiRange:
         \_range: , line:3:12, endln:3:15, parent:work@top.compute_next_state
+          |vpiParent:
+          \_begin: (work@top.compute_next_state), parent:work@top.compute_next_state
           |vpiLeftRange:
           \_constant: , line:3:12, endln:3:13
+            |vpiParent:
+            \_range: , line:3:12, endln:3:15, parent:work@top.compute_next_state
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
+            |vpiParent:
+            \_range: , line:3:12, endln:3:15, parent:work@top.compute_next_state
             |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:3:14, endln:3:15
+            |vpiParent:
+            \_range: , line:3:12, endln:3:15, parent:work@top.compute_next_state
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiParent:
+            \_range: , line:3:12, endln:3:15, parent:work@top.compute_next_state
             |vpiConstType:9
+      |vpiParent:
+      \_assign_stmt: , line:3:17, endln:3:34, parent:work@top.compute_next_state
+      |vpiParent:
+      \_assign_stmt: , line:3:17, endln:3:34, parent:work@top.compute_next_state
       |vpiName:function_variable
       |vpiFullName:work@top.compute_next_state.function_variable
+      |vpiParent:
+      \_assign_stmt: , line:3:17, endln:3:34, parent:work@top.compute_next_state
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
@@ -792,100 +1046,202 @@ design: (work@top)
         \_range: , line:2:29, endln:2:32
           |vpiLeftRange:
           \_constant: , line:2:29, endln:2:30
+            |vpiParent:
+            \_range: , line:2:29, endln:2:32
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
+            |vpiParent:
+            \_range: , line:2:29, endln:2:32
             |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:2:31, endln:2:32
+            |vpiParent:
+            \_range: , line:2:29, endln:2:32
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiParent:
+            \_range: , line:2:29, endln:2:32
             |vpiConstType:9
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
     |vpiStmt:
     \_begin: (work@top.compute_next_state), parent:work@top.compute_next_state
+      |vpiParent:
+      \_function: (work@top.compute_next_state), line:2:3, endln:6:35, parent:work@top
       |vpiFullName:work@top.compute_next_state
       |vpiVariables:
       \_logic_var: (work@top.compute_next_state.function_variable), line:3:17, endln:3:34
+      |vpiParent:
+      \_function: (work@top.compute_next_state), line:2:3, endln:6:35, parent:work@top
       |vpiStmt:
       \_assign_stmt: , line:4:5, endln:4:36, parent:work@top.compute_next_state
+        |vpiParent:
+        \_begin: (work@top.compute_next_state), parent:work@top.compute_next_state
+        |vpiParent:
+        \_begin: (work@top.compute_next_state), parent:work@top.compute_next_state
         |vpiRhs:
         \_constant: , line:4:32, endln:4:36
+          |vpiParent:
+          \_assign_stmt: , line:4:5, endln:4:36, parent:work@top.compute_next_state
           |vpiDecompile:3'b1
           |vpiSize:3
           |BIN:1
+          |vpiParent:
+          \_assign_stmt: , line:4:5, endln:4:36, parent:work@top.compute_next_state
           |vpiConstType:3
         |vpiLhs:
         \_ref_obj: (work@top.compute_next_state.function_variable), line:4:12, endln:4:29
+          |vpiParent:
+          \_assign_stmt: , line:4:5, endln:4:36, parent:work@top.compute_next_state
+          |vpiParent:
+          \_assign_stmt: , line:4:5, endln:4:36, parent:work@top.compute_next_state
+          |vpiParent:
+          \_assign_stmt: , line:4:5, endln:4:36, parent:work@top.compute_next_state
           |vpiName:function_variable
           |vpiFullName:work@top.compute_next_state.function_variable
           |vpiActual:
           \_logic_var: (work@top.compute_next_state.function_variable), line:3:17, endln:3:34
       |vpiStmt:
       \_return_stmt: , line:5:5, endln:5:11, parent:work@top.compute_next_state
+        |vpiParent:
+        \_begin: (work@top.compute_next_state), parent:work@top.compute_next_state
+        |vpiParent:
+        \_begin: (work@top.compute_next_state), parent:work@top.compute_next_state
         |vpiCondition:
         \_ref_obj: (work@top.compute_next_state.function_variable), line:5:12, endln:5:29
+          |vpiParent:
+          \_return_stmt: , line:5:5, endln:5:11, parent:work@top.compute_next_state
+          |vpiParent:
+          \_return_stmt: , line:5:5, endln:5:11, parent:work@top.compute_next_state
+          |vpiParent:
+          \_return_stmt: , line:5:5, endln:5:11, parent:work@top.compute_next_state
           |vpiName:function_variable
           |vpiFullName:work@top.compute_next_state.function_variable
           |vpiActual:
           \_logic_var: (work@top.compute_next_state.function_variable), line:3:17, endln:3:34
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
   |vpiNet:
   \_logic_net: (work@top.a), line:1:18, endln:1:19, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
     |vpiName:a
     |vpiFullName:work@top.a
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
   |vpiNet:
   \_logic_net: (work@top.b), line:1:34, endln:1:35, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
     |vpiName:b
     |vpiFullName:work@top.b
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiPort:
   \_port: (a), line:1:18, endln:1:19, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.a), line:1:18, endln:1:19, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
   |vpiPort:
   \_port: (b), line:1:34, endln:1:35, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.b), line:1:34, endln:1:35, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
   |vpiContAssign:
   \_cont_assign: , line:7:10, endln:7:34, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10, parent:work@top
     |vpiRhs:
     \_func_call: (compute_next_state), line:7:14, endln:7:34
+      |vpiParent:
+      \_cont_assign: , line:7:10, endln:7:34, parent:work@top
+      |vpiParent:
+      \_cont_assign: , line:7:10, endln:7:34, parent:work@top
       |vpiName:compute_next_state
+      |vpiParent:
+      \_cont_assign: , line:7:10, endln:7:34, parent:work@top
       |vpiFunction:
       \_function: (work@top.compute_next_state), line:2:3, endln:6:35, parent:work@top
     |vpiLhs:
     \_ref_obj: (work@top.b), line:7:10, endln:7:11
+      |vpiParent:
+      \_cont_assign: , line:7:10, endln:7:34, parent:work@top
+      |vpiParent:
+      \_cont_assign: , line:7:10, endln:7:34, parent:work@top
+      |vpiParent:
+      \_cont_assign: , line:7:10, endln:7:34, parent:work@top
       |vpiName:b
       |vpiFullName:work@top.b
       |vpiActual:
       \_logic_net: (work@top.b), line:1:34, endln:1:35, parent:work@top
+        |vpiParent:
+        \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
         |vpiTypespec:
         \_logic_typespec: , line:1:28, endln:1:33
           |vpiRange:
           \_range: , line:1:29, endln:1:32
             |vpiLeftRange:
             \_constant: , line:1:29, endln:1:30
+              |vpiParent:
+              \_range: , line:1:29, endln:1:32
               |vpiDecompile:2
               |vpiSize:64
               |UINT:2
+              |vpiParent:
+              \_range: , line:1:29, endln:1:32
               |vpiConstType:9
             |vpiRightRange:
             \_constant: , line:1:31, endln:1:32
+              |vpiParent:
+              \_range: , line:1:29, endln:1:32
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+              |vpiParent:
+              \_range: , line:1:29, endln:1:32
               |vpiConstType:9
+        |vpiParent:
+        \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
+        |vpiParent:
+        \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
         |vpiName:b
         |vpiFullName:work@top.b
+        |vpiParent:
+        \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
+        |vpiParent:
+        \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
   |vpiName:work@top
@@ -893,72 +1249,148 @@ design: (work@top)
   |vpiTop:1
   |vpiTaskFunc:
   \_function: (work@top.compute_next_state), line:2:3, endln:6:35, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
     |vpiName:compute_next_state
     |vpiFullName:work@top.compute_next_state
     |vpiVariables:
     \_logic_var: (work@top.compute_next_state.function_variable), line:3:17, endln:3:34, parent:work@top.compute_next_state
+      |vpiParent:
+      \_function: (work@top.compute_next_state), line:2:3, endln:6:35, parent:work@top
       |vpiTypespec:
       \_logic_typespec: , line:3:5, endln:3:10
+      |vpiParent:
+      \_function: (work@top.compute_next_state), line:2:3, endln:6:35, parent:work@top
+      |vpiParent:
+      \_function: (work@top.compute_next_state), line:2:3, endln:6:35, parent:work@top
       |vpiName:function_variable
       |vpiFullName:work@top.compute_next_state.function_variable
+      |vpiParent:
+      \_function: (work@top.compute_next_state), line:2:3, endln:6:35, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
     \_logic_var: , line:2:22, endln:2:33
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
     |vpiStmt:
     \_begin: (work@top.compute_next_state), parent:work@top.compute_next_state
+      |vpiParent:
+      \_function: (work@top.compute_next_state), line:2:3, endln:6:35, parent:work@top
       |vpiFullName:work@top.compute_next_state
       |vpiVariables:
       \_logic_var: (work@top.compute_next_state.function_variable), line:3:17, endln:3:34, parent:work@top.compute_next_state
+        |vpiParent:
+        \_begin: (work@top.compute_next_state), parent:work@top.compute_next_state
         |vpiTypespec:
         \_logic_typespec: , line:3:5, endln:3:10
+        |vpiParent:
+        \_begin: (work@top.compute_next_state), parent:work@top.compute_next_state
+        |vpiParent:
+        \_begin: (work@top.compute_next_state), parent:work@top.compute_next_state
         |vpiName:function_variable
         |vpiFullName:work@top.compute_next_state.function_variable
+        |vpiParent:
+        \_begin: (work@top.compute_next_state), parent:work@top.compute_next_state
+      |vpiParent:
+      \_function: (work@top.compute_next_state), line:2:3, endln:6:35, parent:work@top
       |vpiStmt:
       \_assign_stmt: , line:4:5, endln:4:36, parent:work@top.compute_next_state
+        |vpiParent:
+        \_begin: (work@top.compute_next_state), parent:work@top.compute_next_state
+        |vpiParent:
+        \_begin: (work@top.compute_next_state), parent:work@top.compute_next_state
         |vpiRhs:
         \_constant: , line:4:32, endln:4:36
         |vpiLhs:
         \_ref_obj: (work@top.compute_next_state.function_variable), line:4:12, endln:4:29
+          |vpiParent:
+          \_assign_stmt: , line:4:5, endln:4:36, parent:work@top.compute_next_state
+          |vpiParent:
+          \_assign_stmt: , line:4:5, endln:4:36, parent:work@top.compute_next_state
+          |vpiParent:
+          \_assign_stmt: , line:4:5, endln:4:36, parent:work@top.compute_next_state
           |vpiName:function_variable
           |vpiFullName:work@top.compute_next_state.function_variable
           |vpiActual:
           \_logic_var: (work@top.compute_next_state.function_variable), line:3:17, endln:3:34
       |vpiStmt:
       \_return_stmt: , line:5:5, endln:5:11, parent:work@top.compute_next_state
+        |vpiParent:
+        \_begin: (work@top.compute_next_state), parent:work@top.compute_next_state
+        |vpiParent:
+        \_begin: (work@top.compute_next_state), parent:work@top.compute_next_state
         |vpiCondition:
         \_ref_obj: (work@top.compute_next_state.function_variable), line:5:12, endln:5:29
+          |vpiParent:
+          \_return_stmt: , line:5:5, endln:5:11, parent:work@top.compute_next_state
+          |vpiParent:
+          \_return_stmt: , line:5:5, endln:5:11, parent:work@top.compute_next_state
+          |vpiParent:
+          \_return_stmt: , line:5:5, endln:5:11, parent:work@top.compute_next_state
           |vpiName:function_variable
           |vpiFullName:work@top.compute_next_state.function_variable
           |vpiActual:
           \_logic_var: (work@top.compute_next_state.function_variable), line:3:17, endln:3:34
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
   |vpiNet:
   \_logic_net: (work@top.a), line:1:18, endln:1:19, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
     |vpiName:a
     |vpiFullName:work@top.a
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
   |vpiNet:
   \_logic_net: (work@top.b), line:1:34, endln:1:35, parent:work@top
   |vpiTopModule:1
   |vpiPort:
   \_port: (a), line:1:18, endln:1:19, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: (work@top.a), line:1:18, endln:1:19, parent:a
+      |vpiParent:
+      \_port: (a), line:1:18, endln:1:19, parent:work@top
+      |vpiParent:
+      \_port: (a), line:1:18, endln:1:19, parent:work@top
+      |vpiParent:
+      \_port: (a), line:1:18, endln:1:19, parent:work@top
       |vpiName:a
       |vpiFullName:work@top.a
       |vpiActual:
       \_logic_net: (work@top.a), line:1:18, endln:1:19, parent:work@top
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
   |vpiPort:
   \_port: (b), line:1:34, endln:1:35, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: (work@top.b), line:1:34, endln:1:35, parent:b
+      |vpiParent:
+      \_port: (b), line:1:34, endln:1:35, parent:work@top
+      |vpiParent:
+      \_port: (b), line:1:34, endln:1:35, parent:work@top
+      |vpiParent:
+      \_port: (b), line:1:34, endln:1:35, parent:work@top
       |vpiName:b
       |vpiFullName:work@top.b
       |vpiActual:
@@ -967,29 +1399,55 @@ design: (work@top)
     \_logic_typespec: , line:1:28, endln:1:33
       |vpiRange:
       \_range: , line:1:29, endln:1:32, parent:b
+        |vpiParent:
+        \_port: (b), line:1:34, endln:1:35, parent:work@top
         |vpiLeftRange:
         \_constant: , line:1:29, endln:1:30
+          |vpiParent:
+          \_range: , line:1:29, endln:1:32, parent:b
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
+          |vpiParent:
+          \_range: , line:1:29, endln:1:32, parent:b
           |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:1:31, endln:1:32
+          |vpiParent:
+          \_range: , line:1:29, endln:1:32, parent:b
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiParent:
+          \_range: , line:1:29, endln:1:32, parent:b
           |vpiConstType:9
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
   |vpiContAssign:
   \_cont_assign: , line:7:10, endln:7:34, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:9:10
     |vpiRhs:
     \_func_call: (compute_next_state), line:7:14, endln:7:34
+      |vpiParent:
+      \_cont_assign: , line:7:10, endln:7:34, parent:work@top
+      |vpiParent:
+      \_cont_assign: , line:7:10, endln:7:34, parent:work@top
       |vpiName:compute_next_state
+      |vpiParent:
+      \_cont_assign: , line:7:10, endln:7:34, parent:work@top
       |vpiFunction:
       \_function: (work@top.compute_next_state), line:2:3, endln:6:35, parent:work@top
     |vpiLhs:
     \_ref_obj: (work@top.b), line:7:10, endln:7:11
+      |vpiParent:
+      \_cont_assign: , line:7:10, endln:7:34, parent:work@top
+      |vpiParent:
+      \_cont_assign: , line:7:10, endln:7:34, parent:work@top
+      |vpiParent:
+      \_cont_assign: , line:7:10, endln:7:34, parent:work@top
       |vpiName:b
       |vpiFullName:work@top.b
       |vpiActual:
