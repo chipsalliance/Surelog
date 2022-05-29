@@ -304,6 +304,7 @@ def _run_surelog(
       rel_output_dirpath = rel_output_dirpath.replace('\\', '/')
 
     cmdline = ' '.join([part for part in parts if part] + [
+      '-d', 'vpi_ids',
       '-mt', str(mt),
       '-mp', '1' if '-lowmem' in cmdline else str(mp),
       '-o', rel_output_dirpath
@@ -745,24 +746,13 @@ def _update_one(params):
 
       shutil.copy(surelog_log_filepath, golden_log_filepath)
 
-      # lines = []
-      # with open(surelog_log_filepath, 'rt', encoding='cp850') as istrm:
-      #   for line in istrm:
-      #     line = line.rstrip('\n')
-      #     line = line.replace('/regression/', '/tests/')
-      #     lines.append(line)
-      #   istrm.close()
-      #
-      # while not lines[-1]:
-      #   lines = lines[:-1]
-      # lines.append('')
-      #
-      # with open(golden_log_filepath, 'wt', encoding='cp850') as ostrm:
-      #   for line in lines:
-      #     ostrm.write(line)
-      #     ostrm.write('\n')
-      #   ostrm.flush()
-      #   ostrm.close()
+      # On Windows, fixup the line endings
+      if platform.system() == 'Windows':
+        with open(golden_log_filepath, 'rt', encoding='cp850') as istrm:
+          lines = istrm.readlines()
+        with open(golden_log_filepath, 'wt', encoding='cp850') as ostrm:
+          ostrm.writelines(lines)
+          ostrm.flush()
     except:
       print(f'Failed to overwrite \"{golden_log_filepath}\" with \"{surelog_log_filepath}\"')
       traceback.print_exc()
