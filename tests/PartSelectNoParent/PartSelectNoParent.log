@@ -261,43 +261,77 @@ design: (work@top)
 |vpiName:work@top
 |uhdmallPackages:
 \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiName:my_pkg
   |vpiFullName:my_pkg::
   |vpiParameter:
   \_parameter: (my_pkg::Shares), line:2:18, endln:2:24, parent:my_pkg::
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:2:14, endln:2:17, parent:my_pkg::Shares
+      |vpiParent:
+      \_parameter: (my_pkg::Shares), line:2:18, endln:2:24, parent:my_pkg::
       |vpiInstance:
       \_package: (my_pkg), file:
+      |vpiParent:
+      \_parameter: (my_pkg::Shares), line:2:18, endln:2:24, parent:my_pkg::
       |vpiSigned:1
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |vpiSigned:1
     |vpiName:Shares
     |vpiFullName:my_pkg::Shares
   |vpiParameter:
   \_parameter: (my_pkg::KeyWidth), line:3:18, endln:3:26, parent:my_pkg::
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |UINT:256
     |vpiTypespec:
     \_int_typespec: , line:3:14, endln:3:17, parent:my_pkg::KeyWidth
+      |vpiParent:
+      \_parameter: (my_pkg::KeyWidth), line:3:18, endln:3:26, parent:my_pkg::
       |vpiInstance:
       \_package: (my_pkg), file:
+      |vpiParent:
+      \_parameter: (my_pkg::KeyWidth), line:3:18, endln:3:26, parent:my_pkg::
       |vpiSigned:1
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |vpiSigned:1
     |vpiName:KeyWidth
     |vpiFullName:my_pkg::KeyWidth
   |vpiParameter:
   \_parameter: (my_pkg::NumRegsKey), line:4:18, endln:4:28, parent:my_pkg::
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |UINT:8
     |vpiTypespec:
     \_int_typespec: , line:4:14, endln:4:17, parent:my_pkg::NumRegsKey
+      |vpiParent:
+      \_parameter: (my_pkg::NumRegsKey), line:4:18, endln:4:28, parent:my_pkg::
       |vpiInstance:
       \_package: (my_pkg), file:
+      |vpiParent:
+      \_parameter: (my_pkg::NumRegsKey), line:4:18, endln:4:28, parent:my_pkg::
       |vpiSigned:1
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |vpiSigned:1
     |vpiName:NumRegsKey
     |vpiFullName:my_pkg::NumRegsKey
   |vpiParamAssign:
   \_param_assign: , line:2:18, endln:2:28, parent:my_pkg::
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |vpiRhs:
     \_constant: , line:2:27, endln:2:28
       |vpiDecompile:2
@@ -310,6 +344,8 @@ design: (work@top)
     \_parameter: (my_pkg::Shares), line:2:18, endln:2:24, parent:my_pkg::
   |vpiParamAssign:
   \_param_assign: , line:3:18, endln:3:32, parent:my_pkg::
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |vpiRhs:
     \_constant: , line:3:29, endln:3:32
       |vpiDecompile:256
@@ -322,6 +358,8 @@ design: (work@top)
     \_parameter: (my_pkg::KeyWidth), line:3:18, endln:3:26, parent:my_pkg::
   |vpiParamAssign:
   \_param_assign: , line:4:18, endln:4:32, parent:my_pkg::
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |vpiRhs:
     \_constant: , line:4:31, endln:4:32
       |vpiDecompile:8
@@ -334,12 +372,18 @@ design: (work@top)
     \_parameter: (my_pkg::NumRegsKey), line:4:18, endln:4:28, parent:my_pkg::
   |vpiTypedef:
   \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18, parent:my_pkg::
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |vpiName:my_pkg::hw_key_req_t
     |vpiInstance:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+    |vpiParent:
     \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (key), line:7:40, endln:7:43, parent:my_pkg::hw_key_req_t
+      |vpiParent:
+      \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18, parent:my_pkg::
       |vpiName:key
       |vpiTypespec:
       \_logic_typespec: , line:7:7, endln:7:12
@@ -347,95 +391,173 @@ design: (work@top)
         \_package: (my_pkg), file:
         |vpiRange:
         \_range: , line:7:14, endln:7:24, parent:my_pkg::hw_key_req_t
+          |vpiParent:
+          \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18, parent:my_pkg::
           |vpiLeftRange:
           \_operation: , line:7:14, endln:7:22
+            |vpiParent:
+            \_range: , line:7:14, endln:7:24, parent:my_pkg::hw_key_req_t
+            |vpiParent:
+            \_range: , line:7:14, endln:7:24, parent:my_pkg::hw_key_req_t
             |vpiOpType:11
             |vpiOperand:
             \_ref_obj: (my_pkg::my_pkg::hw_key_req_t::Shares), line:7:14, endln:7:20, parent:my_pkg::hw_key_req_t
+              |vpiParent:
+              \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18, parent:my_pkg::
+              |vpiParent:
+              \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18, parent:my_pkg::
+              |vpiParent:
+              \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18, parent:my_pkg::
               |vpiName:Shares
               |vpiFullName:my_pkg::my_pkg::hw_key_req_t::Shares
               |vpiActual:
               \_parameter: (my_pkg::Shares), line:2:18, endln:2:24, parent:my_pkg::
             |vpiOperand:
             \_constant: , line:7:21, endln:7:22
+              |vpiParent:
+              \_operation: , line:7:14, endln:7:22
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
+              |vpiParent:
+              \_operation: , line:7:14, endln:7:22
               |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:7:23, endln:7:24
+            |vpiParent:
+            \_range: , line:7:14, endln:7:24, parent:my_pkg::hw_key_req_t
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiParent:
+            \_range: , line:7:14, endln:7:24, parent:my_pkg::hw_key_req_t
             |vpiConstType:9
         |vpiRange:
         \_range: , line:7:26, endln:7:38, parent:my_pkg::hw_key_req_t
+          |vpiParent:
+          \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18, parent:my_pkg::
           |vpiLeftRange:
           \_operation: , line:7:26, endln:7:36
+            |vpiParent:
+            \_range: , line:7:26, endln:7:38, parent:my_pkg::hw_key_req_t
+            |vpiParent:
+            \_range: , line:7:26, endln:7:38, parent:my_pkg::hw_key_req_t
             |vpiOpType:11
             |vpiOperand:
             \_ref_obj: (my_pkg::my_pkg::hw_key_req_t::KeyWidth), line:7:26, endln:7:34, parent:my_pkg::hw_key_req_t
+              |vpiParent:
+              \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18, parent:my_pkg::
+              |vpiParent:
+              \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18, parent:my_pkg::
+              |vpiParent:
+              \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18, parent:my_pkg::
               |vpiName:KeyWidth
               |vpiFullName:my_pkg::my_pkg::hw_key_req_t::KeyWidth
               |vpiActual:
               \_parameter: (my_pkg::KeyWidth), line:3:18, endln:3:26, parent:my_pkg::
             |vpiOperand:
             \_constant: , line:7:35, endln:7:36
+              |vpiParent:
+              \_operation: , line:7:26, endln:7:36
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
+              |vpiParent:
+              \_operation: , line:7:26, endln:7:36
               |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:7:37, endln:7:38
+            |vpiParent:
+            \_range: , line:7:26, endln:7:38, parent:my_pkg::hw_key_req_t
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiParent:
+            \_range: , line:7:26, endln:7:38, parent:my_pkg::hw_key_req_t
             |vpiConstType:9
       |vpiRefFile:dut.sv
       |vpiRefLineNo:7
       |vpiRefColumnNo:7
       |vpiRefEndLineNo:7
       |vpiRefEndColumnNo:39
+  |vpiParent:
+  \_design: (work@top)
   |vpiDefName:my_pkg
+  |vpiParent:
+  \_design: (work@top)
 |uhdmtopPackages:
 \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiName:my_pkg
   |vpiFullName:my_pkg::
   |vpiParameter:
   \_parameter: (my_pkg::Shares), line:2:18, endln:2:24, parent:my_pkg::
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:2:14, endln:2:17, parent:my_pkg::Shares
+      |vpiParent:
+      \_parameter: (my_pkg::Shares), line:2:18, endln:2:24, parent:my_pkg::
       |vpiInstance:
       \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+      |vpiParent:
+      \_parameter: (my_pkg::Shares), line:2:18, endln:2:24, parent:my_pkg::
       |vpiSigned:1
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |vpiSigned:1
     |vpiName:Shares
     |vpiFullName:my_pkg::Shares
   |vpiParameter:
   \_parameter: (my_pkg::KeyWidth), line:3:18, endln:3:26, parent:my_pkg::
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |UINT:256
     |vpiTypespec:
     \_int_typespec: , line:3:14, endln:3:17, parent:my_pkg::KeyWidth
+      |vpiParent:
+      \_parameter: (my_pkg::KeyWidth), line:3:18, endln:3:26, parent:my_pkg::
       |vpiInstance:
       \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+      |vpiParent:
+      \_parameter: (my_pkg::KeyWidth), line:3:18, endln:3:26, parent:my_pkg::
       |vpiSigned:1
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |vpiSigned:1
     |vpiName:KeyWidth
     |vpiFullName:my_pkg::KeyWidth
   |vpiParameter:
   \_parameter: (my_pkg::NumRegsKey), line:4:18, endln:4:28, parent:my_pkg::
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |UINT:8
     |vpiTypespec:
     \_int_typespec: , line:4:14, endln:4:17, parent:my_pkg::NumRegsKey
+      |vpiParent:
+      \_parameter: (my_pkg::NumRegsKey), line:4:18, endln:4:28, parent:my_pkg::
       |vpiInstance:
       \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+      |vpiParent:
+      \_parameter: (my_pkg::NumRegsKey), line:4:18, endln:4:28, parent:my_pkg::
       |vpiSigned:1
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |vpiSigned:1
     |vpiName:NumRegsKey
     |vpiFullName:my_pkg::NumRegsKey
   |vpiParamAssign:
   \_param_assign: , line:2:18, endln:2:28, parent:my_pkg::
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |vpiRhs:
     \_constant: , line:2:27, endln:2:28
       |vpiDecompile:2
@@ -448,6 +570,8 @@ design: (work@top)
     \_parameter: (my_pkg::Shares), line:2:18, endln:2:24, parent:my_pkg::
   |vpiParamAssign:
   \_param_assign: , line:3:18, endln:3:32, parent:my_pkg::
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |vpiRhs:
     \_constant: , line:3:29, endln:3:32
       |vpiDecompile:256
@@ -460,6 +584,8 @@ design: (work@top)
     \_parameter: (my_pkg::KeyWidth), line:3:18, endln:3:26, parent:my_pkg::
   |vpiParamAssign:
   \_param_assign: , line:4:18, endln:4:32, parent:my_pkg::
+    |vpiParent:
+    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
     |vpiRhs:
     \_constant: , line:4:31, endln:4:32
       |vpiDecompile:8
@@ -472,12 +598,18 @@ design: (work@top)
     \_parameter: (my_pkg::NumRegsKey), line:4:18, endln:4:28, parent:my_pkg::
   |vpiTypedef:
   \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
     |vpiName:my_pkg::hw_key_req_t
     |vpiInstance:
     \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (key), line:7:40, endln:7:43, parent:my_pkg::hw_key_req_t
+      |vpiParent:
+      \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18, parent:work@top
       |vpiName:key
       |vpiTypespec:
       \_logic_typespec: , line:7:7, endln:7:12
@@ -485,149 +617,265 @@ design: (work@top)
         \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
         |vpiRange:
         \_range: , line:7:14, endln:7:24, parent:my_pkg::hw_key_req_t
+          |vpiParent:
+          \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18, parent:work@top
           |vpiLeftRange:
           \_constant: , line:7:14, endln:7:20
+            |vpiParent:
+            \_range: , line:7:14, endln:7:24, parent:my_pkg::hw_key_req_t
             |vpiDecompile:1
             |vpiSize:64
             |INT:1
+            |vpiParent:
+            \_range: , line:7:14, endln:7:24, parent:my_pkg::hw_key_req_t
             |vpiConstType:7
           |vpiRightRange:
           \_constant: , line:7:23, endln:7:24
+            |vpiParent:
+            \_range: , line:7:14, endln:7:24, parent:my_pkg::hw_key_req_t
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiParent:
+            \_range: , line:7:14, endln:7:24, parent:my_pkg::hw_key_req_t
             |vpiConstType:9
         |vpiRange:
         \_range: , line:7:26, endln:7:38, parent:my_pkg::hw_key_req_t
+          |vpiParent:
+          \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18, parent:work@top
           |vpiLeftRange:
           \_constant: , line:7:26, endln:7:34
+            |vpiParent:
+            \_range: , line:7:26, endln:7:38, parent:my_pkg::hw_key_req_t
             |vpiDecompile:255
             |vpiSize:64
             |INT:255
+            |vpiParent:
+            \_range: , line:7:26, endln:7:38, parent:my_pkg::hw_key_req_t
             |vpiConstType:7
           |vpiRightRange:
           \_constant: , line:7:37, endln:7:38
+            |vpiParent:
+            \_range: , line:7:26, endln:7:38, parent:my_pkg::hw_key_req_t
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiParent:
+            \_range: , line:7:26, endln:7:38, parent:my_pkg::hw_key_req_t
             |vpiConstType:9
       |vpiRefFile:dut.sv
       |vpiRefLineNo:7
       |vpiRefColumnNo:7
       |vpiRefEndLineNo:7
       |vpiRefEndColumnNo:39
+  |vpiParent:
+  \_design: (work@top)
   |vpiDefName:my_pkg
   |vpiTop:1
+  |vpiParent:
+  \_design: (work@top)
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.KeyWidth), line:3:18, endln:3:26, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
     |UINT:256
     |vpiTypespec:
     \_int_typespec: , line:3:14, endln:3:17, parent:work@top.KeyWidth
+      |vpiParent:
+      \_parameter: (work@top.KeyWidth), line:3:18, endln:3:26, parent:work@top
       |vpiInstance:
       \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+      |vpiParent:
+      \_parameter: (work@top.KeyWidth), line:3:18, endln:3:26, parent:work@top
       |vpiSigned:1
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
     |vpiSigned:1
     |vpiName:KeyWidth
     |vpiFullName:work@top.KeyWidth
     |vpiImported:my_pkg
   |vpiParameter:
   \_parameter: (work@top.NumRegsKey), line:4:18, endln:4:28, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
     |UINT:8
     |vpiTypespec:
     \_int_typespec: , line:4:14, endln:4:17, parent:work@top.NumRegsKey
+      |vpiParent:
+      \_parameter: (work@top.NumRegsKey), line:4:18, endln:4:28, parent:work@top
       |vpiInstance:
       \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+      |vpiParent:
+      \_parameter: (work@top.NumRegsKey), line:4:18, endln:4:28, parent:work@top
       |vpiSigned:1
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
     |vpiSigned:1
     |vpiName:NumRegsKey
     |vpiFullName:work@top.NumRegsKey
     |vpiImported:my_pkg
   |vpiParameter:
   \_parameter: (work@top.Shares), line:2:18, endln:2:24, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:2:14, endln:2:17, parent:work@top.Shares
+      |vpiParent:
+      \_parameter: (work@top.Shares), line:2:18, endln:2:24, parent:work@top
       |vpiInstance:
       \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+      |vpiParent:
+      \_parameter: (work@top.Shares), line:2:18, endln:2:24, parent:work@top
       |vpiSigned:1
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
     |vpiSigned:1
     |vpiName:Shares
     |vpiFullName:work@top.Shares
     |vpiImported:my_pkg
   |vpiParamAssign:
   \_param_assign: , line:2:18, endln:2:28, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
     |vpiRhs:
     \_constant: , line:2:27, endln:2:28
+      |vpiParent:
+      \_param_assign: , line:2:18, endln:2:28, parent:work@top
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
       \_int_typespec: , line:2:14, endln:2:17
+        |vpiParent:
+        \_constant: , line:2:27, endln:2:28
         |vpiInstance:
         \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+        |vpiParent:
+        \_constant: , line:2:27, endln:2:28
         |vpiSigned:1
+      |vpiParent:
+      \_param_assign: , line:2:18, endln:2:28, parent:work@top
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.Shares), line:2:18, endln:2:24
+      |vpiParent:
+      \_param_assign: , line:2:18, endln:2:28, parent:work@top
       |UINT:2
       |vpiTypespec:
       \_int_typespec: , line:2:14, endln:2:17, parent:work@top.Shares
+        |vpiParent:
+        \_parameter: (work@top.Shares), line:2:18, endln:2:24
         |vpiInstance:
         \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+        |vpiParent:
+        \_parameter: (work@top.Shares), line:2:18, endln:2:24
         |vpiSigned:1
+      |vpiParent:
+      \_param_assign: , line:2:18, endln:2:28, parent:work@top
+      |vpiParent:
+      \_param_assign: , line:2:18, endln:2:28, parent:work@top
       |vpiSigned:1
       |vpiName:Shares
       |vpiFullName:work@top.Shares
       |vpiImported:my_pkg
   |vpiParamAssign:
   \_param_assign: , line:3:18, endln:3:32, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
     |vpiRhs:
     \_constant: , line:3:29, endln:3:32
+      |vpiParent:
+      \_param_assign: , line:3:18, endln:3:32, parent:work@top
       |vpiDecompile:256
       |vpiSize:32
       |UINT:256
       |vpiTypespec:
       \_int_typespec: , line:3:14, endln:3:17
+        |vpiParent:
+        \_constant: , line:3:29, endln:3:32
         |vpiInstance:
         \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+        |vpiParent:
+        \_constant: , line:3:29, endln:3:32
         |vpiSigned:1
+      |vpiParent:
+      \_param_assign: , line:3:18, endln:3:32, parent:work@top
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.KeyWidth), line:3:18, endln:3:26
+      |vpiParent:
+      \_param_assign: , line:3:18, endln:3:32, parent:work@top
       |UINT:256
       |vpiTypespec:
       \_int_typespec: , line:3:14, endln:3:17, parent:work@top.KeyWidth
+        |vpiParent:
+        \_parameter: (work@top.KeyWidth), line:3:18, endln:3:26
         |vpiInstance:
         \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+        |vpiParent:
+        \_parameter: (work@top.KeyWidth), line:3:18, endln:3:26
         |vpiSigned:1
+      |vpiParent:
+      \_param_assign: , line:3:18, endln:3:32, parent:work@top
+      |vpiParent:
+      \_param_assign: , line:3:18, endln:3:32, parent:work@top
       |vpiSigned:1
       |vpiName:KeyWidth
       |vpiFullName:work@top.KeyWidth
       |vpiImported:my_pkg
   |vpiParamAssign:
   \_param_assign: , line:4:18, endln:4:32, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
     |vpiRhs:
     \_constant: , line:4:31, endln:4:32
+      |vpiParent:
+      \_param_assign: , line:4:18, endln:4:32, parent:work@top
       |vpiDecompile:8
       |vpiSize:32
       |UINT:8
       |vpiTypespec:
       \_int_typespec: , line:4:14, endln:4:17
+        |vpiParent:
+        \_constant: , line:4:31, endln:4:32
         |vpiInstance:
         \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+        |vpiParent:
+        \_constant: , line:4:31, endln:4:32
         |vpiSigned:1
+      |vpiParent:
+      \_param_assign: , line:4:18, endln:4:32, parent:work@top
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.NumRegsKey), line:4:18, endln:4:28
+      |vpiParent:
+      \_param_assign: , line:4:18, endln:4:32, parent:work@top
       |UINT:8
       |vpiTypespec:
       \_int_typespec: , line:4:14, endln:4:17, parent:work@top.NumRegsKey
+        |vpiParent:
+        \_parameter: (work@top.NumRegsKey), line:4:18, endln:4:28
         |vpiInstance:
         \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+        |vpiParent:
+        \_parameter: (work@top.NumRegsKey), line:4:18, endln:4:28
         |vpiSigned:1
+      |vpiParent:
+      \_param_assign: , line:4:18, endln:4:32, parent:work@top
+      |vpiParent:
+      \_param_assign: , line:4:18, endln:4:32, parent:work@top
       |vpiSigned:1
       |vpiName:NumRegsKey
       |vpiFullName:work@top.NumRegsKey
@@ -636,91 +884,197 @@ design: (work@top)
   \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18, parent:work@top
   |vpiTypedef:
   \_import_typespec: (my_pkg), line:12:11, endln:12:20
+  |vpiParent:
+  \_design: (work@top)
   |vpiDefName:work@top
   |vpiNet:
   \_logic_net: (work@top.o), line:11:23, endln:11:24, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
     |vpiName:o
     |vpiFullName:work@top.o
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
   |vpiNet:
   \_logic_net: (work@top.keymgr_key_i), line:13:17, endln:13:29, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
     |vpiName:keymgr_key_i
     |vpiFullName:work@top.keymgr_key_i
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiPort:
   \_port: (o), line:11:23, endln:11:24, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.o), line:11:23, endln:11:24, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
   |vpiProcess:
   \_always: , line:14:4, endln:18:7, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
     |vpiStmt:
     \_named_begin: (work@top.key_sideload_get), line:14:16, endln:18:7
+      |vpiParent:
+      \_always: , line:14:4, endln:18:7, parent:work@top
       |vpiName:key_sideload_get
       |vpiFullName:work@top.key_sideload_get
+      |vpiParent:
+      \_always: , line:14:4, endln:18:7, parent:work@top
       |vpiStmt:
       \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10, parent:work@top.key_sideload_get
+        |vpiParent:
+        \_named_begin: (work@top.key_sideload_get), line:14:16, endln:18:7
         |vpiFullName:work@top.key_sideload_get
+        |vpiParent:
+        \_named_begin: (work@top.key_sideload_get), line:14:16, endln:18:7
         |vpiForInitStmt:
         \_assign_stmt: , line:15:12, endln:15:21, parent:work@top.key_sideload_get
+          |vpiParent:
+          \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10, parent:work@top.key_sideload_get
+          |vpiParent:
+          \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10, parent:work@top.key_sideload_get
           |vpiRhs:
           \_constant: , line:15:20, endln:15:21
+            |vpiParent:
+            \_assign_stmt: , line:15:12, endln:15:21, parent:work@top.key_sideload_get
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiParent:
+            \_assign_stmt: , line:15:12, endln:15:21, parent:work@top.key_sideload_get
             |vpiConstType:9
           |vpiLhs:
           \_int_var: (work@top.key_sideload_get.i), line:15:12, endln:15:15
+            |vpiParent:
+            \_assign_stmt: , line:15:12, endln:15:21, parent:work@top.key_sideload_get
             |vpiTypespec:
             \_int_typespec: , line:15:12, endln:15:15
               |vpiSigned:1
+            |vpiParent:
+            \_assign_stmt: , line:15:12, endln:15:21, parent:work@top.key_sideload_get
+            |vpiParent:
+            \_assign_stmt: , line:15:12, endln:15:21, parent:work@top.key_sideload_get
             |vpiName:i
             |vpiFullName:work@top.key_sideload_get.i
+            |vpiParent:
+            \_assign_stmt: , line:15:12, endln:15:21, parent:work@top.key_sideload_get
         |vpiForIncStmt:
         \_operation: , line:15:39, endln:15:42, parent:work@top.key_sideload_get
+          |vpiParent:
+          \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10, parent:work@top.key_sideload_get
+          |vpiParent:
+          \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10, parent:work@top.key_sideload_get
           |vpiOpType:62
           |vpiOperand:
           \_ref_obj: (work@top.key_sideload_get.i), line:15:39, endln:15:40
+            |vpiParent:
+            \_operation: , line:15:39, endln:15:42, parent:work@top.key_sideload_get
+            |vpiParent:
+            \_operation: , line:15:39, endln:15:42, parent:work@top.key_sideload_get
+            |vpiParent:
+            \_operation: , line:15:39, endln:15:42, parent:work@top.key_sideload_get
             |vpiName:i
             |vpiFullName:work@top.key_sideload_get.i
             |vpiActual:
             \_int_var: (work@top.key_sideload_get.i), line:15:12, endln:15:15
         |vpiCondition:
         \_operation: , line:15:23, endln:15:37, parent:work@top.key_sideload_get
+          |vpiParent:
+          \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10, parent:work@top.key_sideload_get
+          |vpiParent:
+          \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10, parent:work@top.key_sideload_get
           |vpiOpType:20
           |vpiOperand:
           \_ref_obj: (work@top.key_sideload_get.i), line:15:23, endln:15:24
+            |vpiParent:
+            \_operation: , line:15:23, endln:15:37, parent:work@top.key_sideload_get
+            |vpiParent:
+            \_operation: , line:15:23, endln:15:37, parent:work@top.key_sideload_get
+            |vpiParent:
+            \_operation: , line:15:23, endln:15:37, parent:work@top.key_sideload_get
             |vpiName:i
             |vpiFullName:work@top.key_sideload_get.i
             |vpiActual:
             \_int_var: (work@top.key_sideload_get.i), line:15:12, endln:15:15
           |vpiOperand:
           \_constant: , line:15:27, endln:15:37
+            |vpiParent:
+            \_operation: , line:15:23, endln:15:37, parent:work@top.key_sideload_get
             |vpiDecompile:8
             |vpiSize:32
             |UINT:8
             |vpiTypespec:
             \_int_typespec: , line:4:14, endln:4:17
+              |vpiParent:
+              \_constant: , line:15:27, endln:15:37
               |vpiInstance:
               \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+              |vpiParent:
+              \_constant: , line:15:27, endln:15:37
               |vpiSigned:1
+            |vpiParent:
+            \_operation: , line:15:23, endln:15:37, parent:work@top.key_sideload_get
             |vpiConstType:9
         |vpiStmt:
         \_begin: (work@top.key_sideload_get), line:15:44, endln:17:10, parent:work@top.key_sideload_get
+          |vpiParent:
+          \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10, parent:work@top.key_sideload_get
           |vpiFullName:work@top.key_sideload_get
+          |vpiParent:
+          \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10, parent:work@top.key_sideload_get
           |vpiStmt:
           \_assignment: , line:16:10, endln:16:41, parent:work@top.key_sideload_get
+            |vpiParent:
+            \_begin: (work@top.key_sideload_get), line:15:44, endln:17:10, parent:work@top.key_sideload_get
+            |vpiParent:
+            \_begin: (work@top.key_sideload_get), line:15:44, endln:17:10, parent:work@top.key_sideload_get
             |vpiOpType:82
             |vpiBlocking:1
             |vpiRhs:
             \_hier_path: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41, parent:work@top.key_sideload_get
+              |vpiParent:
+              \_begin: (work@top.key_sideload_get), line:15:44, endln:17:10, parent:work@top.key_sideload_get
+              |vpiParent:
+              \_begin: (work@top.key_sideload_get), line:15:44, endln:17:10, parent:work@top.key_sideload_get
+              |vpiParent:
+              \_begin: (work@top.key_sideload_get), line:15:44, endln:17:10, parent:work@top.key_sideload_get
               |vpiName:keymgr_key_i.key[0][31:0]
               |vpiActual:
               \_ref_obj: (keymgr_key_i), line:16:14, endln:16:26, parent:keymgr_key_i.key[0][31:0]
+                |vpiParent:
+                \_hier_path: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41, parent:work@top.key_sideload_get
+                |vpiParent:
+                \_hier_path: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41, parent:work@top.key_sideload_get
+                |vpiParent:
+                \_hier_path: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41, parent:work@top.key_sideload_get
                 |vpiName:keymgr_key_i
               |vpiActual:
               \_bit_select: (key), line:16:27, endln:16:30, parent:keymgr_key_i.key[0][31:0]
+                |vpiParent:
+                \_hier_path: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41, parent:work@top.key_sideload_get
+                |vpiParent:
+                \_hier_path: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41, parent:work@top.key_sideload_get
                 |vpiParent:
                 \_hier_path: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41, parent:work@top.key_sideload_get
                 |vpiName:key
@@ -747,17 +1101,33 @@ design: (work@top)
                   |vpiConstType:9
             |vpiLhs:
             \_ref_obj: (work@top.key_sideload_get.o), line:16:10, endln:16:11, parent:work@top.key_sideload_get
+              |vpiParent:
+              \_begin: (work@top.key_sideload_get), line:15:44, endln:17:10, parent:work@top.key_sideload_get
+              |vpiParent:
+              \_begin: (work@top.key_sideload_get), line:15:44, endln:17:10, parent:work@top.key_sideload_get
+              |vpiParent:
+              \_begin: (work@top.key_sideload_get), line:15:44, endln:17:10, parent:work@top.key_sideload_get
               |vpiName:o
               |vpiFullName:work@top.key_sideload_get.o
               |vpiActual:
               \_int_var: (work@top.o), line:11:23, endln:11:24, parent:work@top
+                |vpiParent:
+                \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
                 |vpiTypespec:
                 \_int_typespec: , line:11:19, endln:11:22
                   |vpiSigned:1
+                |vpiParent:
+                \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
+                |vpiParent:
+                \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
                 |vpiName:o
                 |vpiFullName:work@top.o
                 |vpiSigned:1
                 |vpiVisibility:1
+                |vpiParent:
+                \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10, parent:work@top
     |vpiAlwaysType:2
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
@@ -766,42 +1136,74 @@ design: (work@top)
   \_int_var: (work@top.o), line:11:23, endln:11:24, parent:work@top
   |vpiParameter:
   \_parameter: (work@top.KeyWidth), line:3:18, endln:3:26, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
     |UINT:256
     |vpiTypespec:
     \_int_typespec: , line:3:14, endln:3:17, parent:work@top.KeyWidth
+      |vpiParent:
+      \_parameter: (work@top.KeyWidth), line:3:18, endln:3:26, parent:work@top
       |vpiInstance:
       \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+      |vpiParent:
+      \_parameter: (work@top.KeyWidth), line:3:18, endln:3:26, parent:work@top
       |vpiSigned:1
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
     |vpiSigned:1
     |vpiName:KeyWidth
     |vpiFullName:work@top.KeyWidth
     |vpiImported:my_pkg
   |vpiParameter:
   \_parameter: (work@top.NumRegsKey), line:4:18, endln:4:28, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
     |UINT:8
     |vpiTypespec:
     \_int_typespec: , line:4:14, endln:4:17, parent:work@top.NumRegsKey
+      |vpiParent:
+      \_parameter: (work@top.NumRegsKey), line:4:18, endln:4:28, parent:work@top
       |vpiInstance:
       \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+      |vpiParent:
+      \_parameter: (work@top.NumRegsKey), line:4:18, endln:4:28, parent:work@top
       |vpiSigned:1
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
     |vpiSigned:1
     |vpiName:NumRegsKey
     |vpiFullName:work@top.NumRegsKey
     |vpiImported:my_pkg
   |vpiParameter:
   \_parameter: (work@top.Shares), line:2:18, endln:2:24, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:2:14, endln:2:17, parent:work@top.Shares
+      |vpiParent:
+      \_parameter: (work@top.Shares), line:2:18, endln:2:24, parent:work@top
       |vpiInstance:
       \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:9:11, parent:work@top
+      |vpiParent:
+      \_parameter: (work@top.Shares), line:2:18, endln:2:24, parent:work@top
       |vpiSigned:1
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
     |vpiSigned:1
     |vpiName:Shares
     |vpiFullName:work@top.Shares
     |vpiImported:my_pkg
   |vpiParamAssign:
   \_param_assign: , line:2:18, endln:2:28, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
     |vpiRhs:
     \_constant: , line:2:27, endln:2:28
       |vpiDecompile:2
@@ -814,6 +1216,8 @@ design: (work@top)
     \_parameter: (work@top.Shares), line:2:18, endln:2:24, parent:work@top
   |vpiParamAssign:
   \_param_assign: , line:3:18, endln:3:32, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
     |vpiRhs:
     \_constant: , line:3:29, endln:3:32
       |vpiDecompile:256
@@ -826,6 +1230,8 @@ design: (work@top)
     \_parameter: (work@top.KeyWidth), line:3:18, endln:3:26, parent:work@top
   |vpiParamAssign:
   \_param_assign: , line:4:18, endln:4:32, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
     |vpiRhs:
     \_constant: , line:4:31, endln:4:32
       |vpiDecompile:8
@@ -844,17 +1250,35 @@ design: (work@top)
   |vpiTop:1
   |vpiNet:
   \_struct_net: (work@top.keymgr_key_i), line:13:17, endln:13:29, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
     |vpiTypespec:
     \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
     |vpiName:keymgr_key_i
     |vpiFullName:work@top.keymgr_key_i
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
   |vpiTopModule:1
   |vpiPort:
   \_port: (o), line:11:23, endln:11:24, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: (work@top.o), line:11:23, endln:11:24, parent:o
+      |vpiParent:
+      \_port: (o), line:11:23, endln:11:24, parent:work@top
+      |vpiParent:
+      \_port: (o), line:11:23, endln:11:24, parent:work@top
+      |vpiParent:
+      \_port: (o), line:11:23, endln:11:24, parent:work@top
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
@@ -864,39 +1288,83 @@ design: (work@top)
       |vpiSigned:1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
   |vpiProcess:
   \_always: , line:14:4, endln:18:7, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
     |vpiStmt:
     \_named_begin: (work@top.key_sideload_get), line:14:16, endln:18:7
+      |vpiParent:
+      \_always: , line:14:4, endln:18:7, parent:work@top
       |vpiName:key_sideload_get
       |vpiFullName:work@top.key_sideload_get
+      |vpiParent:
+      \_always: , line:14:4, endln:18:7, parent:work@top
       |vpiStmt:
       \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10, parent:work@top.key_sideload_get
+        |vpiParent:
+        \_named_begin: (work@top.key_sideload_get), line:14:16, endln:18:7
         |vpiFullName:work@top.key_sideload_get
+        |vpiParent:
+        \_named_begin: (work@top.key_sideload_get), line:14:16, endln:18:7
         |vpiForInitStmt:
         \_assign_stmt: , line:15:12, endln:15:21, parent:work@top.key_sideload_get
+          |vpiParent:
+          \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10, parent:work@top.key_sideload_get
+          |vpiParent:
+          \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10, parent:work@top.key_sideload_get
           |vpiRhs:
           \_constant: , line:15:20, endln:15:21
           |vpiLhs:
           \_int_var: (work@top.key_sideload_get.i), line:15:12, endln:15:15
+            |vpiParent:
+            \_assign_stmt: , line:15:12, endln:15:21, parent:work@top.key_sideload_get
             |vpiTypespec:
             \_int_typespec: , line:15:12, endln:15:15
+            |vpiParent:
+            \_assign_stmt: , line:15:12, endln:15:21, parent:work@top.key_sideload_get
+            |vpiParent:
+            \_assign_stmt: , line:15:12, endln:15:21, parent:work@top.key_sideload_get
             |vpiName:i
             |vpiFullName:work@top.key_sideload_get.i
+            |vpiParent:
+            \_assign_stmt: , line:15:12, endln:15:21, parent:work@top.key_sideload_get
         |vpiForIncStmt:
         \_operation: , line:15:39, endln:15:42, parent:work@top.key_sideload_get
+          |vpiParent:
+          \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10, parent:work@top.key_sideload_get
+          |vpiParent:
+          \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10, parent:work@top.key_sideload_get
           |vpiOpType:62
           |vpiOperand:
           \_ref_obj: (work@top.key_sideload_get.i), line:15:39, endln:15:40
+            |vpiParent:
+            \_operation: , line:15:39, endln:15:42, parent:work@top.key_sideload_get
+            |vpiParent:
+            \_operation: , line:15:39, endln:15:42, parent:work@top.key_sideload_get
+            |vpiParent:
+            \_operation: , line:15:39, endln:15:42, parent:work@top.key_sideload_get
             |vpiName:i
             |vpiFullName:work@top.key_sideload_get.i
             |vpiActual:
             \_int_var: (work@top.key_sideload_get.i), line:15:12, endln:15:15
         |vpiCondition:
         \_operation: , line:15:23, endln:15:37, parent:work@top.key_sideload_get
+          |vpiParent:
+          \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10, parent:work@top.key_sideload_get
+          |vpiParent:
+          \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10, parent:work@top.key_sideload_get
           |vpiOpType:20
           |vpiOperand:
           \_ref_obj: (work@top.key_sideload_get.i), line:15:23, endln:15:24
+            |vpiParent:
+            \_operation: , line:15:23, endln:15:37, parent:work@top.key_sideload_get
+            |vpiParent:
+            \_operation: , line:15:23, endln:15:37, parent:work@top.key_sideload_get
+            |vpiParent:
+            \_operation: , line:15:23, endln:15:37, parent:work@top.key_sideload_get
             |vpiName:i
             |vpiFullName:work@top.key_sideload_get.i
             |vpiActual:
@@ -905,16 +1373,36 @@ design: (work@top)
           \_constant: , line:15:27, endln:15:37
         |vpiStmt:
         \_begin: (work@top.key_sideload_get), line:15:44, endln:17:10, parent:work@top.key_sideload_get
+          |vpiParent:
+          \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10, parent:work@top.key_sideload_get
           |vpiFullName:work@top.key_sideload_get
+          |vpiParent:
+          \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10, parent:work@top.key_sideload_get
           |vpiStmt:
           \_assignment: , line:16:10, endln:16:41, parent:work@top.key_sideload_get
+            |vpiParent:
+            \_begin: (work@top.key_sideload_get), line:15:44, endln:17:10, parent:work@top.key_sideload_get
+            |vpiParent:
+            \_begin: (work@top.key_sideload_get), line:15:44, endln:17:10, parent:work@top.key_sideload_get
             |vpiOpType:82
             |vpiBlocking:1
             |vpiRhs:
             \_hier_path: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41
+              |vpiParent:
+              \_assignment: , line:16:10, endln:16:41, parent:work@top.key_sideload_get
+              |vpiParent:
+              \_assignment: , line:16:10, endln:16:41, parent:work@top.key_sideload_get
+              |vpiParent:
+              \_assignment: , line:16:10, endln:16:41, parent:work@top.key_sideload_get
               |vpiName:keymgr_key_i.key[0][31:0]
               |vpiActual:
               \_ref_obj: (keymgr_key_i), line:16:14, endln:16:26, parent:keymgr_key_i.key[0][31:0]
+                |vpiParent:
+                \_hier_path: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41
+                |vpiParent:
+                \_hier_path: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41
+                |vpiParent:
+                \_hier_path: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41
                 |vpiName:keymgr_key_i
                 |vpiActual:
                 \_struct_net: (work@top.keymgr_key_i), line:13:17, endln:13:29, parent:work@top
@@ -922,10 +1410,10 @@ design: (work@top)
               \_bit_select: (key), line:16:27, endln:16:30, parent:work@top.key_sideload_get.keymgr_key_i.key[0][31:0]
                 |vpiParent:
                 \_ref_obj: (work@top.key_sideload_get.keymgr_key_i.key[0][31:0]), parent:keymgr_key_i.key[0][31:0]
-                  |vpiName:keymgr_key_i.key[0][31:0]
-                  |vpiFullName:work@top.key_sideload_get.keymgr_key_i.key[0][31:0]
-                  |vpiActual:
-                  \_typespec_member: (key), line:7:40, endln:7:43, parent:my_pkg::hw_key_req_t
+                |vpiParent:
+                \_ref_obj: (work@top.key_sideload_get.keymgr_key_i.key[0][31:0]), parent:keymgr_key_i.key[0][31:0]
+                |vpiParent:
+                \_ref_obj: (work@top.key_sideload_get.keymgr_key_i.key[0][31:0]), parent:keymgr_key_i.key[0][31:0]
                 |vpiName:key
                 |vpiIndex:
                 \_constant: , line:16:31, endln:16:32
@@ -938,19 +1426,33 @@ design: (work@top)
                 \_constant: , line:16:39, endln:16:40
             |vpiLhs:
             \_ref_obj: (work@top.key_sideload_get.o), line:16:10, endln:16:11
+              |vpiParent:
+              \_assignment: , line:16:10, endln:16:41, parent:work@top.key_sideload_get
+              |vpiParent:
+              \_assignment: , line:16:10, endln:16:41, parent:work@top.key_sideload_get
+              |vpiParent:
+              \_assignment: , line:16:10, endln:16:41, parent:work@top.key_sideload_get
               |vpiName:o
               |vpiFullName:work@top.key_sideload_get.o
               |vpiActual:
               \_int_var: (work@top.o), line:11:23, endln:11:24, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
     |vpiAlwaysType:2
   |vpiContAssign:
   \_cont_assign: , line:13:17, endln:13:29, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:11:1: , endln:19:10
     |vpiNetDeclAssign:1
     |vpiRhs:
     \_constant: , line:13:32, endln:13:34
+      |vpiParent:
+      \_cont_assign: , line:13:17, endln:13:29, parent:work@top
       |vpiDecompile:'1
       |vpiSize:-1
       |BIN:1
+      |vpiParent:
+      \_cont_assign: , line:13:17, endln:13:29, parent:work@top
       |vpiConstType:3
     |vpiLhs:
     \_struct_net: (work@top.keymgr_key_i), line:13:17, endln:13:29, parent:work@top

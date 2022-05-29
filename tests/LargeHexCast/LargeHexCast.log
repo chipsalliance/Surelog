@@ -401,23 +401,39 @@ design: (work@kmac_entropy)
 |vpiName:work@kmac_entropy
 |uhdmallPackages:
 \_package: builtin (builtin::), file:, parent:work@kmac_entropy
+  |vpiParent:
+  \_design: (work@kmac_entropy)
   |vpiName:builtin
   |vpiFullName:builtin::
+  |vpiParent:
+  \_design: (work@kmac_entropy)
   |vpiDefName:builtin
+  |vpiParent:
+  \_design: (work@kmac_entropy)
 |uhdmallPackages:
 \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+  |vpiParent:
+  \_design: (work@kmac_entropy)
   |vpiName:kmac_pkg
   |vpiFullName:kmac_pkg::
   |vpiParameter:
   \_parameter: (kmac_pkg::A), line:6:27, endln:6:28, parent:kmac_pkg::
+    |vpiParent:
+    \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
     |vpiTypespec:
     \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:kmac_pkg::
+      |vpiParent:
+      \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
       |vpiName:kmac_pkg::app_config_t
       |vpiInstance:
+      \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+      |vpiParent:
       \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
+        |vpiParent:
+        \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:kmac_pkg::
         |vpiName:Prefix
         |vpiTypespec:
         \_logic_typespec: , line:3:7, endln:3:12
@@ -425,33 +441,55 @@ design: (work@kmac_entropy)
           \_package: (kmac_pkg), file:
           |vpiRange:
           \_range: , line:3:14, endln:3:18, parent:kmac_pkg::app_config_t
+            |vpiParent:
+            \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:kmac_pkg::
             |vpiLeftRange:
             \_constant: , line:3:14, endln:3:16
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18, parent:kmac_pkg::app_config_t
               |vpiDecompile:95
               |vpiSize:64
               |UINT:95
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18, parent:kmac_pkg::app_config_t
               |vpiConstType:9
             |vpiRightRange:
             \_constant: , line:3:17, endln:3:18
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18, parent:kmac_pkg::app_config_t
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18, parent:kmac_pkg::app_config_t
               |vpiConstType:9
         |vpiRefFile:dut.sv
         |vpiRefLineNo:3
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:3
         |vpiRefEndColumnNo:19
+    |vpiParent:
+    \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+    |vpiParent:
+    \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
     |vpiName:A
     |vpiFullName:kmac_pkg::A
   |vpiParameter:
   \_parameter: (kmac_pkg::B), line:10:27, endln:10:28, parent:kmac_pkg::
+    |vpiParent:
+    \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
     |vpiTypespec:
     \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:kmac_pkg::
+    |vpiParent:
+    \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+    |vpiParent:
+    \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
     |vpiName:B
     |vpiFullName:kmac_pkg::B
   |vpiParamAssign:
   \_param_assign: , line:6:27, endln:8:5, parent:kmac_pkg::
+    |vpiParent:
+    \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
     |vpiRhs:
     \_operation: , line:6:31, endln:8:5
       |vpiOpType:75
@@ -467,9 +505,13 @@ design: (work@kmac_entropy)
           |vpiOpType:67
           |vpiOperand:
           \_constant: , line:7:19, endln:7:52
+            |vpiParent:
+            \_operation: , line:7:15, endln:7:53
             |vpiDecompile:96'h4c52_5443_5f4d_4f52_4001_0001
             |vpiSize:96
             |HEX:4c5254435f4d4f5240010001
+            |vpiParent:
+            \_operation: , line:7:15, endln:7:53
             |vpiConstType:5
         |vpiTypespec:
         \_string_typespec: (Prefix), line:7:7, endln:7:13
@@ -478,6 +520,8 @@ design: (work@kmac_entropy)
     \_parameter: (kmac_pkg::A), line:6:27, endln:6:28, parent:kmac_pkg::
   |vpiParamAssign:
   \_param_assign: , line:10:27, endln:12:5, parent:kmac_pkg::
+    |vpiParent:
+    \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
     |vpiRhs:
     \_operation: , line:10:31, endln:12:5
       |vpiOpType:75
@@ -496,47 +540,87 @@ design: (work@kmac_entropy)
     \_parameter: (kmac_pkg::B), line:10:27, endln:10:28, parent:kmac_pkg::
   |vpiTypedef:
   \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:kmac_pkg::
+  |vpiParent:
+  \_design: (work@kmac_entropy)
   |vpiDefName:kmac_pkg
+  |vpiParent:
+  \_design: (work@kmac_entropy)
 |uhdmtopPackages:
 \_package: builtin (builtin::), file:, parent:work@kmac_entropy
+  |vpiParent:
+  \_design: (work@kmac_entropy)
   |vpiName:builtin
   |vpiFullName:builtin::
+  |vpiParent:
+  \_design: (work@kmac_entropy)
   |vpiDefName:builtin
   |vpiTop:1
   |vpiClassDefn:
   \_class_defn: (builtin::any_sverilog_class), file:, parent:builtin::
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@kmac_entropy
     |vpiName:any_sverilog_class
     |vpiFullName:builtin::any_sverilog_class
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@kmac_entropy
   |vpiClassDefn:
   \_class_defn: (builtin::array), file:, parent:builtin::
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@kmac_entropy
     |vpiName:array
     |vpiFullName:builtin::array
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@kmac_entropy
   |vpiClassDefn:
   \_class_defn: (builtin::queue), file:, parent:builtin::
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@kmac_entropy
     |vpiName:queue
     |vpiFullName:builtin::queue
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@kmac_entropy
   |vpiClassDefn:
   \_class_defn: (builtin::string), file:, parent:builtin::
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@kmac_entropy
     |vpiName:string
     |vpiFullName:builtin::string
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@kmac_entropy
   |vpiClassDefn:
   \_class_defn: (builtin::system), file:, parent:builtin::
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@kmac_entropy
     |vpiName:system
     |vpiFullName:builtin::system
+    |vpiParent:
+    \_package: builtin (builtin::), file:, parent:work@kmac_entropy
+  |vpiParent:
+  \_design: (work@kmac_entropy)
 |uhdmtopPackages:
 \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+  |vpiParent:
+  \_design: (work@kmac_entropy)
   |vpiName:kmac_pkg
   |vpiFullName:kmac_pkg::
   |vpiParameter:
   \_parameter: (kmac_pkg::A), line:6:27, endln:6:28, parent:kmac_pkg::
+    |vpiParent:
+    \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
     |vpiTypespec:
     \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:work@kmac_entropy
+      |vpiParent:
+      \_module: work@kmac_entropy (work@kmac_entropy) dut.sv:15:1: , endln:17:25, parent:work@kmac_entropy
       |vpiName:kmac_pkg::app_config_t
       |vpiInstance:
       \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+      |vpiParent:
+      \_module: work@kmac_entropy (work@kmac_entropy) dut.sv:15:1: , endln:17:25, parent:work@kmac_entropy
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
+        |vpiParent:
+        \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:work@kmac_entropy
         |vpiName:Prefix
         |vpiTypespec:
         \_logic_typespec: , line:3:7, endln:3:12
@@ -544,33 +628,55 @@ design: (work@kmac_entropy)
           \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
           |vpiRange:
           \_range: , line:3:14, endln:3:18, parent:kmac_pkg::app_config_t
+            |vpiParent:
+            \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:work@kmac_entropy
             |vpiLeftRange:
             \_constant: , line:3:14, endln:3:16
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18, parent:kmac_pkg::app_config_t
               |vpiDecompile:95
               |vpiSize:64
               |UINT:95
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18, parent:kmac_pkg::app_config_t
               |vpiConstType:9
             |vpiRightRange:
             \_constant: , line:3:17, endln:3:18
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18, parent:kmac_pkg::app_config_t
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18, parent:kmac_pkg::app_config_t
               |vpiConstType:9
         |vpiRefFile:dut.sv
         |vpiRefLineNo:3
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:3
         |vpiRefEndColumnNo:19
+    |vpiParent:
+    \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+    |vpiParent:
+    \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
     |vpiName:A
     |vpiFullName:kmac_pkg::A
   |vpiParameter:
   \_parameter: (kmac_pkg::B), line:10:27, endln:10:28, parent:kmac_pkg::
+    |vpiParent:
+    \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
     |vpiTypespec:
     \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:work@kmac_entropy
+    |vpiParent:
+    \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+    |vpiParent:
+    \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
     |vpiName:B
     |vpiFullName:kmac_pkg::B
   |vpiParamAssign:
   \_param_assign: , line:6:27, endln:8:5, parent:kmac_pkg::
+    |vpiParent:
+    \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
     |vpiRhs:
     \_operation: , line:6:31, endln:8:5
       |vpiOpType:75
@@ -586,9 +692,13 @@ design: (work@kmac_entropy)
           |vpiOpType:67
           |vpiOperand:
           \_constant: , line:7:19, endln:7:52
+            |vpiParent:
+            \_operation: , line:7:15, endln:7:53
             |vpiDecompile:96'h4c52_5443_5f4d_4f52_4001_0001
             |vpiSize:96
             |HEX:4c5254435f4d4f5240010001
+            |vpiParent:
+            \_operation: , line:7:15, endln:7:53
             |vpiConstType:5
         |vpiTypespec:
         \_string_typespec: (Prefix), line:7:7, endln:7:13
@@ -597,6 +707,8 @@ design: (work@kmac_entropy)
     \_parameter: (kmac_pkg::A), line:6:27, endln:6:28, parent:kmac_pkg::
   |vpiParamAssign:
   \_param_assign: , line:10:27, endln:12:5, parent:kmac_pkg::
+    |vpiParent:
+    \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
     |vpiRhs:
     \_operation: , line:10:31, endln:12:5
       |vpiOpType:75
@@ -615,15 +727,27 @@ design: (work@kmac_entropy)
     \_parameter: (kmac_pkg::B), line:10:27, endln:10:28, parent:kmac_pkg::
   |vpiTypedef:
   \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:work@kmac_entropy
+  |vpiParent:
+  \_design: (work@kmac_entropy)
   |vpiDefName:kmac_pkg
   |vpiTop:1
+  |vpiParent:
+  \_design: (work@kmac_entropy)
 |uhdmallClasses:
 \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
+  |vpiParent:
+  \_design: (work@kmac_entropy)
   |vpiName:work@mailbox
+  |vpiParent:
+  \_design: (work@kmac_entropy)
   |vpiMethod:
   \_function: (work@mailbox::new), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiName:new
     |vpiFullName:work@mailbox::new
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiMethod:1
     |vpiReturn:
     \_class_var: 
@@ -631,8 +755,12 @@ design: (work@kmac_entropy)
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiIODecl:
     \_io_decl: (bound), parent:work@mailbox::new
+      |vpiParent:
+      \_function: (work@mailbox::new), parent:work@mailbox
       |vpiDirection:1
       |vpiName:bound
       |vpiExpr:
@@ -644,10 +772,16 @@ design: (work@kmac_entropy)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
   |vpiMethod:
   \_function: (work@mailbox::num), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiName:num
     |vpiFullName:work@mailbox::num
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
@@ -655,42 +789,80 @@ design: (work@kmac_entropy)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
   |vpiMethod:
   \_task: (work@mailbox::put), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiName:put
     |vpiFullName:work@mailbox::put
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::put
+      |vpiParent:
+      \_task: (work@mailbox::put), parent:work@mailbox
       |vpiDirection:1
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
   |vpiMethod:
   \_function: (work@mailbox::try_put), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
     \_logic_var: 
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_put
+      |vpiParent:
+      \_function: (work@mailbox::try_put), parent:work@mailbox
       |vpiDirection:1
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
   |vpiMethod:
   \_task: (work@mailbox::get), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiName:get
     |vpiFullName:work@mailbox::get
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::get
+      |vpiParent:
+      \_task: (work@mailbox::get), parent:work@mailbox
       |vpiDirection:6
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
   |vpiMethod:
   \_function: (work@mailbox::try_get), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
@@ -698,24 +870,44 @@ design: (work@kmac_entropy)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
+      |vpiParent:
+      \_function: (work@mailbox::try_get), parent:work@mailbox
       |vpiDirection:6
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
   |vpiMethod:
   \_task: (work@mailbox::peek), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::peek
+      |vpiParent:
+      \_task: (work@mailbox::peek), parent:work@mailbox
       |vpiDirection:6
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
   |vpiMethod:
   \_function: (work@mailbox::try_peek), parent:work@mailbox
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
@@ -723,50 +915,78 @@ design: (work@kmac_entropy)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
+      |vpiParent:
+      \_function: (work@mailbox::try_peek), parent:work@mailbox
       |vpiDirection:6
       |vpiName:message
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@kmac_entropy
 |uhdmallClasses:
 \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
+  |vpiParent:
+  \_design: (work@kmac_entropy)
   |vpiName:work@process
   |vpiTypedef:
   \_enum_typespec: (state), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
     |vpiName:state
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
     |vpiEnumConst:
     \_enum_const: (FINISHED), parent:state
+      |vpiParent:
+      \_enum_typespec: (state), parent:work@process
       |vpiName:FINISHED
       |INT:0
       |vpiDecompile:0
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (RUNNING), parent:state
+      |vpiParent:
+      \_enum_typespec: (state), parent:work@process
       |vpiName:RUNNING
       |INT:1
       |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (WAITING), parent:state
+      |vpiParent:
+      \_enum_typespec: (state), parent:work@process
       |vpiName:WAITING
       |INT:2
       |vpiDecompile:2
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (SUSPENDED), parent:state
+      |vpiParent:
+      \_enum_typespec: (state), parent:work@process
       |vpiName:SUSPENDED
       |INT:3
       |vpiDecompile:3
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (KILLED), parent:state
+      |vpiParent:
+      \_enum_typespec: (state), parent:work@process
       |vpiName:KILLED
       |INT:4
       |vpiDecompile:4
       |vpiSize:64
+  |vpiParent:
+  \_design: (work@kmac_entropy)
   |vpiMethod:
   \_function: (work@process::self), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
     |vpiName:self
     |vpiFullName:work@process::self
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
@@ -775,17 +995,29 @@ design: (work@kmac_entropy)
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
   |vpiMethod:
   \_function: (work@process::status), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
     |vpiName:status
     |vpiFullName:work@process::status
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
       \_enum_typespec: (state), parent:work@process
+        |vpiParent:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
         |vpiName:state
+        |vpiParent:
+        \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
         |vpiEnumConst:
         \_enum_const: (FINISHED)
           |vpiName:FINISHED
@@ -816,37 +1048,81 @@ design: (work@kmac_entropy)
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
   |vpiMethod:
   \_task: (work@process::kill), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
     |vpiName:kill
     |vpiFullName:work@process::kill
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
   |vpiMethod:
   \_task: (work@process::await), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
     |vpiName:await
     |vpiFullName:work@process::await
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
   |vpiMethod:
   \_task: (work@process::suspend), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
     |vpiName:suspend
     |vpiFullName:work@process::suspend
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
   |vpiMethod:
   \_task: (work@process::resume), parent:work@process
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
     |vpiName:resume
     |vpiFullName:work@process::resume
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv, parent:work@kmac_entropy
 |uhdmallClasses:
 \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_entropy
+  |vpiParent:
+  \_design: (work@kmac_entropy)
   |vpiName:work@semaphore
+  |vpiParent:
+  \_design: (work@kmac_entropy)
   |vpiMethod:
   \_function: (work@semaphore::new), parent:work@semaphore
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_entropy
     |vpiName:new
     |vpiFullName:work@semaphore::new
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_entropy
     |vpiMethod:1
     |vpiReturn:
     \_class_var: 
@@ -854,8 +1130,12 @@ design: (work@kmac_entropy)
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_entropy
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_entropy
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::new
+      |vpiParent:
+      \_function: (work@semaphore::new), parent:work@semaphore
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -867,14 +1147,24 @@ design: (work@kmac_entropy)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_entropy
   |vpiMethod:
   \_task: (work@semaphore::put), parent:work@semaphore
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_entropy
     |vpiName:put
     |vpiFullName:work@semaphore::put
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_entropy
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_entropy
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::put
+      |vpiParent:
+      \_task: (work@semaphore::put), parent:work@semaphore
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -886,14 +1176,24 @@ design: (work@kmac_entropy)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_entropy
   |vpiMethod:
   \_task: (work@semaphore::get), parent:work@semaphore
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_entropy
     |vpiName:get
     |vpiFullName:work@semaphore::get
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_entropy
     |vpiMethod:1
     |vpiVisibility:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_entropy
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::get
+      |vpiParent:
+      \_task: (work@semaphore::get), parent:work@semaphore
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -905,10 +1205,16 @@ design: (work@kmac_entropy)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_entropy
   |vpiMethod:
   \_function: (work@semaphore::try_get), parent:work@semaphore
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_entropy
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_entropy
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
@@ -916,8 +1222,12 @@ design: (work@kmac_entropy)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_entropy
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
+      |vpiParent:
+      \_function: (work@semaphore::try_get), parent:work@semaphore
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -929,194 +1239,342 @@ design: (work@kmac_entropy)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@kmac_entropy
 |uhdmallModules:
 \_module: work@kmac_entropy (work@kmac_entropy) dut.sv:15:1: , endln:17:25, parent:work@kmac_entropy
+  |vpiParent:
+  \_design: (work@kmac_entropy)
   |vpiFullName:work@kmac_entropy
   |vpiParameter:
   \_parameter: (work@kmac_entropy.A), line:6:27, endln:6:28, parent:work@kmac_entropy
+    |vpiParent:
+    \_module: work@kmac_entropy (work@kmac_entropy) dut.sv:15:1: , endln:17:25, parent:work@kmac_entropy
     |vpiTypespec:
     \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:work@kmac_entropy.A
+      |vpiParent:
+      \_parameter: (work@kmac_entropy.A), line:6:27, endln:6:28, parent:work@kmac_entropy
       |vpiName:kmac_pkg::app_config_t
       |vpiInstance:
       \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+      |vpiParent:
+      \_parameter: (work@kmac_entropy.A), line:6:27, endln:6:28, parent:work@kmac_entropy
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
+        |vpiParent:
+        \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:work@kmac_entropy.A
         |vpiName:Prefix
         |vpiTypespec:
         \_logic_typespec: , line:3:7, endln:3:12, parent:Prefix
+          |vpiParent:
+          \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
           |vpiInstance:
           \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+          |vpiParent:
+          \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
           |vpiRange:
           \_range: , line:3:14, endln:3:18
+            |vpiParent:
+            \_logic_typespec: , line:3:7, endln:3:12, parent:Prefix
             |vpiLeftRange:
             \_constant: , line:3:14, endln:3:16
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18
               |vpiDecompile:95
               |vpiSize:64
               |UINT:95
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18
               |vpiConstType:9
             |vpiRightRange:
             \_constant: , line:3:17, endln:3:18
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18
               |vpiConstType:9
         |vpiRefFile:dut.sv
         |vpiRefLineNo:3
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:3
         |vpiRefEndColumnNo:19
+    |vpiParent:
+    \_module: work@kmac_entropy (work@kmac_entropy) dut.sv:15:1: , endln:17:25, parent:work@kmac_entropy
+    |vpiParent:
+    \_module: work@kmac_entropy (work@kmac_entropy) dut.sv:15:1: , endln:17:25, parent:work@kmac_entropy
     |vpiName:A
     |vpiFullName:work@kmac_entropy.A
     |vpiImported:kmac_pkg
   |vpiParameter:
   \_parameter: (work@kmac_entropy.B), line:10:27, endln:10:28, parent:work@kmac_entropy
+    |vpiParent:
+    \_module: work@kmac_entropy (work@kmac_entropy) dut.sv:15:1: , endln:17:25, parent:work@kmac_entropy
     |vpiTypespec:
     \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:work@kmac_entropy.B
+      |vpiParent:
+      \_parameter: (work@kmac_entropy.B), line:10:27, endln:10:28, parent:work@kmac_entropy
       |vpiName:kmac_pkg::app_config_t
       |vpiInstance:
       \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+      |vpiParent:
+      \_parameter: (work@kmac_entropy.B), line:10:27, endln:10:28, parent:work@kmac_entropy
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
+        |vpiParent:
+        \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:work@kmac_entropy.B
         |vpiName:Prefix
         |vpiTypespec:
         \_logic_typespec: , line:3:7, endln:3:12, parent:Prefix
+          |vpiParent:
+          \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
           |vpiInstance:
           \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+          |vpiParent:
+          \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
           |vpiRange:
           \_range: , line:3:14, endln:3:18
+            |vpiParent:
+            \_logic_typespec: , line:3:7, endln:3:12, parent:Prefix
             |vpiLeftRange:
             \_constant: , line:3:14, endln:3:16
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18
               |vpiDecompile:95
               |vpiSize:64
               |UINT:95
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18
               |vpiConstType:9
             |vpiRightRange:
             \_constant: , line:3:17, endln:3:18
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18
               |vpiConstType:9
         |vpiRefFile:dut.sv
         |vpiRefLineNo:3
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:3
         |vpiRefEndColumnNo:19
+    |vpiParent:
+    \_module: work@kmac_entropy (work@kmac_entropy) dut.sv:15:1: , endln:17:25, parent:work@kmac_entropy
+    |vpiParent:
+    \_module: work@kmac_entropy (work@kmac_entropy) dut.sv:15:1: , endln:17:25, parent:work@kmac_entropy
     |vpiName:B
     |vpiFullName:work@kmac_entropy.B
     |vpiImported:kmac_pkg
   |vpiParamAssign:
   \_param_assign: , line:6:27, endln:8:5, parent:work@kmac_entropy
+    |vpiParent:
+    \_module: work@kmac_entropy (work@kmac_entropy) dut.sv:15:1: , endln:17:25, parent:work@kmac_entropy
     |vpiRhs:
     \_operation: , line:6:31, endln:8:5
+      |vpiParent:
+      \_param_assign: , line:6:27, endln:8:5, parent:work@kmac_entropy
+      |vpiParent:
+      \_param_assign: , line:6:27, endln:8:5, parent:work@kmac_entropy
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:7:15, endln:7:53
+        |vpiParent:
+        \_operation: , line:6:31, endln:8:5
         |vpiPattern:
         \_operation: , line:7:15, endln:7:53
+          |vpiParent:
+          \_tagged_pattern: , line:7:15, endln:7:53
           |vpiTypespec:
           \_integer_typespec: , line:7:15, endln:7:17
+            |vpiParent:
+            \_operation: , line:7:15, endln:7:53
             |vpiInstance:
             \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+            |vpiParent:
+            \_operation: , line:7:15, endln:7:53
             |INT:96
+          |vpiParent:
+          \_tagged_pattern: , line:7:15, endln:7:53
           |vpiOpType:67
           |vpiOperand:
           \_constant: , line:7:19, endln:7:52
+            |vpiParent:
+            \_operation: , line:7:15, endln:7:53
             |vpiDecompile:96'h4c52_5443_5f4d_4f52_4001_0001
             |vpiSize:96
             |HEX:4c5254435f4d4f5240010001
+            |vpiParent:
+            \_operation: , line:7:15, endln:7:53
             |vpiConstType:5
         |vpiTypespec:
         \_string_typespec: (Prefix), line:7:7, endln:7:13
+          |vpiParent:
+          \_tagged_pattern: , line:7:15, endln:7:53
           |vpiName:Prefix
+          |vpiParent:
+          \_tagged_pattern: , line:7:15, endln:7:53
     |vpiLhs:
     \_parameter: (work@kmac_entropy.A), line:6:27, endln:6:28
+      |vpiParent:
+      \_param_assign: , line:6:27, endln:8:5, parent:work@kmac_entropy
       |vpiTypespec:
       \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:work@kmac_entropy.A
+        |vpiParent:
+        \_parameter: (work@kmac_entropy.A), line:6:27, endln:6:28
         |vpiName:kmac_pkg::app_config_t
         |vpiInstance:
         \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+        |vpiParent:
+        \_parameter: (work@kmac_entropy.A), line:6:27, endln:6:28
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
+          |vpiParent:
+          \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:work@kmac_entropy.A
           |vpiName:Prefix
           |vpiTypespec:
           \_logic_typespec: , line:3:7, endln:3:12, parent:Prefix
+            |vpiParent:
+            \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
             |vpiInstance:
             \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+            |vpiParent:
+            \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
             |vpiRange:
             \_range: , line:3:14, endln:3:18
+              |vpiParent:
+              \_logic_typespec: , line:3:7, endln:3:12, parent:Prefix
               |vpiLeftRange:
               \_constant: , line:3:14, endln:3:16
+                |vpiParent:
+                \_range: , line:3:14, endln:3:18
                 |vpiDecompile:95
                 |vpiSize:64
                 |UINT:95
+                |vpiParent:
+                \_range: , line:3:14, endln:3:18
                 |vpiConstType:9
               |vpiRightRange:
               \_constant: , line:3:17, endln:3:18
+                |vpiParent:
+                \_range: , line:3:14, endln:3:18
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
+                |vpiParent:
+                \_range: , line:3:14, endln:3:18
                 |vpiConstType:9
           |vpiRefFile:dut.sv
           |vpiRefLineNo:3
           |vpiRefColumnNo:7
           |vpiRefEndLineNo:3
           |vpiRefEndColumnNo:19
+      |vpiParent:
+      \_param_assign: , line:6:27, endln:8:5, parent:work@kmac_entropy
+      |vpiParent:
+      \_param_assign: , line:6:27, endln:8:5, parent:work@kmac_entropy
       |vpiName:A
       |vpiFullName:work@kmac_entropy.A
       |vpiImported:kmac_pkg
   |vpiParamAssign:
   \_param_assign: , line:10:27, endln:12:5, parent:work@kmac_entropy
+    |vpiParent:
+    \_module: work@kmac_entropy (work@kmac_entropy) dut.sv:15:1: , endln:17:25, parent:work@kmac_entropy
     |vpiRhs:
     \_operation: , line:10:31, endln:12:5
+      |vpiParent:
+      \_param_assign: , line:10:27, endln:12:5, parent:work@kmac_entropy
+      |vpiParent:
+      \_param_assign: , line:10:27, endln:12:5, parent:work@kmac_entropy
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:11:15, endln:11:48
+        |vpiParent:
+        \_operation: , line:10:31, endln:12:5
         |vpiPattern:
         \_constant: , line:11:15, endln:11:48
+          |vpiParent:
+          \_tagged_pattern: , line:11:15, endln:11:48
           |vpiDecompile:96'h4c52_5443_5f4d_4f52_4001_0001
           |vpiSize:96
           |HEX:4c5254435f4d4f5240010001
+          |vpiParent:
+          \_tagged_pattern: , line:11:15, endln:11:48
           |vpiConstType:5
         |vpiTypespec:
         \_string_typespec: (Prefix), line:11:7, endln:11:13
+          |vpiParent:
+          \_tagged_pattern: , line:11:15, endln:11:48
           |vpiName:Prefix
+          |vpiParent:
+          \_tagged_pattern: , line:11:15, endln:11:48
     |vpiLhs:
     \_parameter: (work@kmac_entropy.B), line:10:27, endln:10:28
+      |vpiParent:
+      \_param_assign: , line:10:27, endln:12:5, parent:work@kmac_entropy
       |vpiTypespec:
       \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:work@kmac_entropy.B
+        |vpiParent:
+        \_parameter: (work@kmac_entropy.B), line:10:27, endln:10:28
         |vpiName:kmac_pkg::app_config_t
         |vpiInstance:
         \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+        |vpiParent:
+        \_parameter: (work@kmac_entropy.B), line:10:27, endln:10:28
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
+          |vpiParent:
+          \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:work@kmac_entropy.B
           |vpiName:Prefix
           |vpiTypespec:
           \_logic_typespec: , line:3:7, endln:3:12, parent:Prefix
+            |vpiParent:
+            \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
             |vpiInstance:
             \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+            |vpiParent:
+            \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
             |vpiRange:
             \_range: , line:3:14, endln:3:18
+              |vpiParent:
+              \_logic_typespec: , line:3:7, endln:3:12, parent:Prefix
               |vpiLeftRange:
               \_constant: , line:3:14, endln:3:16
+                |vpiParent:
+                \_range: , line:3:14, endln:3:18
                 |vpiDecompile:95
                 |vpiSize:64
                 |UINT:95
+                |vpiParent:
+                \_range: , line:3:14, endln:3:18
                 |vpiConstType:9
               |vpiRightRange:
               \_constant: , line:3:17, endln:3:18
+                |vpiParent:
+                \_range: , line:3:14, endln:3:18
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
+                |vpiParent:
+                \_range: , line:3:14, endln:3:18
                 |vpiConstType:9
           |vpiRefFile:dut.sv
           |vpiRefLineNo:3
           |vpiRefColumnNo:7
           |vpiRefEndLineNo:3
           |vpiRefEndColumnNo:19
+      |vpiParent:
+      \_param_assign: , line:10:27, endln:12:5, parent:work@kmac_entropy
+      |vpiParent:
+      \_param_assign: , line:10:27, endln:12:5, parent:work@kmac_entropy
       |vpiName:B
       |vpiFullName:work@kmac_entropy.B
       |vpiImported:kmac_pkg
@@ -1124,181 +1582,305 @@ design: (work@kmac_entropy)
   \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:work@kmac_entropy
   |vpiTypedef:
   \_import_typespec: (kmac_pkg), line:16:11, endln:16:22
+  |vpiParent:
+  \_design: (work@kmac_entropy)
   |vpiDefName:work@kmac_entropy
+  |vpiParent:
+  \_design: (work@kmac_entropy)
 |uhdmtopModules:
 \_module: work@kmac_entropy (work@kmac_entropy) dut.sv:15:1: , endln:17:25
   |vpiName:work@kmac_entropy
   |vpiParameter:
   \_parameter: (work@kmac_entropy.A), line:6:27, endln:6:28, parent:work@kmac_entropy
+    |vpiParent:
+    \_module: work@kmac_entropy (work@kmac_entropy) dut.sv:15:1: , endln:17:25
     |vpiTypespec:
     \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:work@kmac_entropy.A
+      |vpiParent:
+      \_parameter: (work@kmac_entropy.A), line:6:27, endln:6:28, parent:work@kmac_entropy
       |vpiName:kmac_pkg::app_config_t
       |vpiInstance:
       \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+      |vpiParent:
+      \_parameter: (work@kmac_entropy.A), line:6:27, endln:6:28, parent:work@kmac_entropy
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
+        |vpiParent:
+        \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:work@kmac_entropy.A
         |vpiName:Prefix
         |vpiTypespec:
         \_logic_typespec: , line:3:7, endln:3:12, parent:Prefix
+          |vpiParent:
+          \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
           |vpiInstance:
           \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+          |vpiParent:
+          \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
           |vpiRange:
           \_range: , line:3:14, endln:3:18
+            |vpiParent:
+            \_logic_typespec: , line:3:7, endln:3:12, parent:Prefix
             |vpiLeftRange:
             \_constant: , line:3:14, endln:3:16
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18
               |vpiDecompile:95
               |vpiSize:64
               |UINT:95
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18
               |vpiConstType:9
             |vpiRightRange:
             \_constant: , line:3:17, endln:3:18
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18
               |vpiConstType:9
         |vpiRefFile:dut.sv
         |vpiRefLineNo:3
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:3
         |vpiRefEndColumnNo:19
+    |vpiParent:
+    \_module: work@kmac_entropy (work@kmac_entropy) dut.sv:15:1: , endln:17:25
+    |vpiParent:
+    \_module: work@kmac_entropy (work@kmac_entropy) dut.sv:15:1: , endln:17:25
     |vpiName:A
     |vpiFullName:work@kmac_entropy.A
     |vpiImported:kmac_pkg
   |vpiParameter:
   \_parameter: (work@kmac_entropy.B), line:10:27, endln:10:28, parent:work@kmac_entropy
+    |vpiParent:
+    \_module: work@kmac_entropy (work@kmac_entropy) dut.sv:15:1: , endln:17:25
     |vpiTypespec:
     \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:work@kmac_entropy.B
+      |vpiParent:
+      \_parameter: (work@kmac_entropy.B), line:10:27, endln:10:28, parent:work@kmac_entropy
       |vpiName:kmac_pkg::app_config_t
       |vpiInstance:
       \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+      |vpiParent:
+      \_parameter: (work@kmac_entropy.B), line:10:27, endln:10:28, parent:work@kmac_entropy
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
+        |vpiParent:
+        \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18, parent:work@kmac_entropy.B
         |vpiName:Prefix
         |vpiTypespec:
         \_logic_typespec: , line:3:7, endln:3:12, parent:Prefix
+          |vpiParent:
+          \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
           |vpiInstance:
           \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+          |vpiParent:
+          \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
           |vpiRange:
           \_range: , line:3:14, endln:3:18
+            |vpiParent:
+            \_logic_typespec: , line:3:7, endln:3:12, parent:Prefix
             |vpiLeftRange:
             \_constant: , line:3:14, endln:3:16
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18
               |vpiDecompile:95
               |vpiSize:64
               |UINT:95
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18
               |vpiConstType:9
             |vpiRightRange:
             \_constant: , line:3:17, endln:3:18
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+              |vpiParent:
+              \_range: , line:3:14, endln:3:18
               |vpiConstType:9
         |vpiRefFile:dut.sv
         |vpiRefLineNo:3
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:3
         |vpiRefEndColumnNo:19
+    |vpiParent:
+    \_module: work@kmac_entropy (work@kmac_entropy) dut.sv:15:1: , endln:17:25
+    |vpiParent:
+    \_module: work@kmac_entropy (work@kmac_entropy) dut.sv:15:1: , endln:17:25
     |vpiName:B
     |vpiFullName:work@kmac_entropy.B
     |vpiImported:kmac_pkg
   |vpiParamAssign:
   \_param_assign: , line:6:27, endln:8:5, parent:work@kmac_entropy
+    |vpiParent:
+    \_module: work@kmac_entropy (work@kmac_entropy) dut.sv:15:1: , endln:17:25
     |vpiRhs:
     \_operation: , line:6:31, endln:8:5
+      |vpiParent:
+      \_param_assign: , line:6:27, endln:8:5, parent:work@kmac_entropy
       |vpiTypespec:
       \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18
+        |vpiParent:
+        \_operation: , line:6:31, endln:8:5
         |vpiName:kmac_pkg::app_config_t
         |vpiInstance:
         \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+        |vpiParent:
+        \_operation: , line:6:31, endln:8:5
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
+          |vpiParent:
+          \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18
           |vpiName:Prefix
           |vpiTypespec:
           \_logic_typespec: , line:3:7, endln:3:12, parent:Prefix
+            |vpiParent:
+            \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
             |vpiInstance:
             \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+            |vpiParent:
+            \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
             |vpiRange:
             \_range: , line:3:14, endln:3:18
+              |vpiParent:
+              \_logic_typespec: , line:3:7, endln:3:12, parent:Prefix
               |vpiLeftRange:
               \_constant: , line:3:14, endln:3:16
+                |vpiParent:
+                \_range: , line:3:14, endln:3:18
                 |vpiDecompile:95
                 |vpiSize:64
                 |UINT:95
+                |vpiParent:
+                \_range: , line:3:14, endln:3:18
                 |vpiConstType:9
               |vpiRightRange:
               \_constant: , line:3:17, endln:3:18
+                |vpiParent:
+                \_range: , line:3:14, endln:3:18
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
+                |vpiParent:
+                \_range: , line:3:14, endln:3:18
                 |vpiConstType:9
           |vpiRefFile:dut.sv
           |vpiRefLineNo:3
           |vpiRefColumnNo:7
           |vpiRefEndLineNo:3
           |vpiRefEndColumnNo:19
+      |vpiParent:
+      \_param_assign: , line:6:27, endln:8:5, parent:work@kmac_entropy
       |vpiOpType:75
       |vpiFlattened:1
       |vpiOperand:
       \_operation: , line:7:15, endln:7:53
+        |vpiParent:
+        \_tagged_pattern: , line:7:15, endln:7:53
         |vpiTypespec:
         \_integer_typespec: , line:7:15, endln:7:17
+          |vpiParent:
+          \_operation: , line:7:15, endln:7:53
           |vpiInstance:
           \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+          |vpiParent:
+          \_operation: , line:7:15, endln:7:53
           |INT:96
+        |vpiParent:
+        \_tagged_pattern: , line:7:15, endln:7:53
         |vpiOpType:67
         |vpiOperand:
         \_constant: , line:7:19, endln:7:52
+          |vpiParent:
+          \_operation: , line:7:15, endln:7:53
           |vpiDecompile:96'h4c52_5443_5f4d_4f52_4001_0001
           |vpiSize:96
           |HEX:4c5254435f4d4f5240010001
+          |vpiParent:
+          \_operation: , line:7:15, endln:7:53
           |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@kmac_entropy.A), line:6:27, endln:6:28, parent:work@kmac_entropy
   |vpiParamAssign:
   \_param_assign: , line:10:27, endln:12:5, parent:work@kmac_entropy
+    |vpiParent:
+    \_module: work@kmac_entropy (work@kmac_entropy) dut.sv:15:1: , endln:17:25
     |vpiRhs:
     \_operation: , line:10:31, endln:12:5
+      |vpiParent:
+      \_param_assign: , line:10:27, endln:12:5, parent:work@kmac_entropy
       |vpiTypespec:
       \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18
+        |vpiParent:
+        \_operation: , line:10:31, endln:12:5
         |vpiName:kmac_pkg::app_config_t
         |vpiInstance:
         \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+        |vpiParent:
+        \_operation: , line:10:31, endln:12:5
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
+          |vpiParent:
+          \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:2:18
           |vpiName:Prefix
           |vpiTypespec:
           \_logic_typespec: , line:3:7, endln:3:12, parent:Prefix
+            |vpiParent:
+            \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
             |vpiInstance:
             \_package: kmac_pkg (kmac_pkg::) dut.sv:1:1: , endln:13:22, parent:work@kmac_entropy
+            |vpiParent:
+            \_typespec_member: (Prefix), line:3:20, endln:3:26, parent:kmac_pkg::app_config_t
             |vpiRange:
             \_range: , line:3:14, endln:3:18
+              |vpiParent:
+              \_logic_typespec: , line:3:7, endln:3:12, parent:Prefix
               |vpiLeftRange:
               \_constant: , line:3:14, endln:3:16
+                |vpiParent:
+                \_range: , line:3:14, endln:3:18
                 |vpiDecompile:95
                 |vpiSize:64
                 |UINT:95
+                |vpiParent:
+                \_range: , line:3:14, endln:3:18
                 |vpiConstType:9
               |vpiRightRange:
               \_constant: , line:3:17, endln:3:18
+                |vpiParent:
+                \_range: , line:3:14, endln:3:18
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
+                |vpiParent:
+                \_range: , line:3:14, endln:3:18
                 |vpiConstType:9
           |vpiRefFile:dut.sv
           |vpiRefLineNo:3
           |vpiRefColumnNo:7
           |vpiRefEndLineNo:3
           |vpiRefEndColumnNo:19
+      |vpiParent:
+      \_param_assign: , line:10:27, endln:12:5, parent:work@kmac_entropy
       |vpiOpType:75
       |vpiFlattened:1
       |vpiOperand:
       \_constant: , line:11:15, endln:11:48
+        |vpiParent:
+        \_tagged_pattern: , line:11:15, endln:11:48
         |vpiDecompile:96'h4c52_5443_5f4d_4f52_4001_0001
         |vpiSize:96
         |HEX:4c5254435f4d4f5240010001
+        |vpiParent:
+        \_tagged_pattern: , line:11:15, endln:11:48
         |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@kmac_entropy.B), line:10:27, endln:10:28, parent:work@kmac_entropy

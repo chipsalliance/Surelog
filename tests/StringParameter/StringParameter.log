@@ -42,23 +42,39 @@ design: (work@top)
 |vpiName:work@top
 |uhdmallModules:
 \_module: work@parameter_module (work@parameter_module) dut.sv:8:1: , endln:11:10, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiFullName:work@parameter_module
   |vpiParameter:
   \_parameter: (work@parameter_module.FIRSTPARAMETER), line:9:11, endln:9:25, parent:work@parameter_module
+    |vpiParent:
+    \_module: work@parameter_module (work@parameter_module) dut.sv:8:1: , endln:11:10, parent:work@top
     |STRING:FIRSTVALUE
     |vpiTypespec:
     \_string_typespec: 
+    |vpiParent:
+    \_module: work@parameter_module (work@parameter_module) dut.sv:8:1: , endln:11:10, parent:work@top
+    |vpiParent:
+    \_module: work@parameter_module (work@parameter_module) dut.sv:8:1: , endln:11:10, parent:work@top
     |vpiName:FIRSTPARAMETER
     |vpiFullName:work@parameter_module.FIRSTPARAMETER
   |vpiParameter:
   \_parameter: (work@parameter_module.SECONDPARAMETER), line:10:11, endln:10:26, parent:work@parameter_module
+    |vpiParent:
+    \_module: work@parameter_module (work@parameter_module) dut.sv:8:1: , endln:11:10, parent:work@top
     |STRING:SECONDVALUE
     |vpiTypespec:
     \_string_typespec: 
+    |vpiParent:
+    \_module: work@parameter_module (work@parameter_module) dut.sv:8:1: , endln:11:10, parent:work@top
+    |vpiParent:
+    \_module: work@parameter_module (work@parameter_module) dut.sv:8:1: , endln:11:10, parent:work@top
     |vpiName:SECONDPARAMETER
     |vpiFullName:work@parameter_module.SECONDPARAMETER
   |vpiParamAssign:
   \_param_assign: , line:9:11, endln:9:40, parent:work@parameter_module
+    |vpiParent:
+    \_module: work@parameter_module (work@parameter_module) dut.sv:8:1: , endln:11:10, parent:work@top
     |vpiRhs:
     \_constant: , line:9:28, endln:9:40
       |vpiDecompile:FIRSTVALUE
@@ -71,6 +87,8 @@ design: (work@top)
     \_parameter: (work@parameter_module.FIRSTPARAMETER), line:9:11, endln:9:25, parent:work@parameter_module
   |vpiParamAssign:
   \_param_assign: , line:10:11, endln:10:42, parent:work@parameter_module
+    |vpiParent:
+    \_module: work@parameter_module (work@parameter_module) dut.sv:8:1: , endln:11:10, parent:work@top
     |vpiRhs:
     \_constant: , line:10:29, endln:10:42
       |vpiDecompile:SECONDVALUE
@@ -81,11 +99,21 @@ design: (work@top)
       |vpiConstType:6
     |vpiLhs:
     \_parameter: (work@parameter_module.SECONDPARAMETER), line:10:11, endln:10:26, parent:work@parameter_module
+  |vpiParent:
+  \_design: (work@top)
   |vpiDefName:work@parameter_module
+  |vpiParent:
+  \_design: (work@top)
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:6:10, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiFullName:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiDefName:work@top
+  |vpiParent:
+  \_design: (work@top)
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:6:10
   |vpiName:work@top
@@ -94,24 +122,48 @@ design: (work@top)
   |vpiTopModule:1
   |vpiModule:
   \_module: work@parameter_module (work@top.test_module) dut.sv:2:9: , endln:5:26, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:6:10
     |vpiName:test_module
     |vpiFullName:work@top.test_module
     |vpiParameter:
     \_parameter: (work@top.test_module.FIRSTPARAMETER), line:9:11, endln:9:25, parent:work@top.test_module
+      |vpiParent:
+      \_module: work@parameter_module (work@top.test_module) dut.sv:2:9: , endln:5:26, parent:work@top
       |STRING:FIRSTVALUE
       |vpiTypespec:
       \_string_typespec: , parent:work@top.test_module.FIRSTPARAMETER
+        |vpiParent:
+        \_parameter: (work@top.test_module.FIRSTPARAMETER), line:9:11, endln:9:25, parent:work@top.test_module
+        |vpiParent:
+        \_parameter: (work@top.test_module.FIRSTPARAMETER), line:9:11, endln:9:25, parent:work@top.test_module
+      |vpiParent:
+      \_module: work@parameter_module (work@top.test_module) dut.sv:2:9: , endln:5:26, parent:work@top
+      |vpiParent:
+      \_module: work@parameter_module (work@top.test_module) dut.sv:2:9: , endln:5:26, parent:work@top
       |vpiName:FIRSTPARAMETER
       |vpiFullName:work@top.test_module.FIRSTPARAMETER
     |vpiParameter:
     \_parameter: (work@top.test_module.SECONDPARAMETER), line:10:11, endln:10:26, parent:work@top.test_module
+      |vpiParent:
+      \_module: work@parameter_module (work@top.test_module) dut.sv:2:9: , endln:5:26, parent:work@top
       |STRING:SECONDVALUE
       |vpiTypespec:
       \_string_typespec: , parent:work@top.test_module.SECONDPARAMETER
+        |vpiParent:
+        \_parameter: (work@top.test_module.SECONDPARAMETER), line:10:11, endln:10:26, parent:work@top.test_module
+        |vpiParent:
+        \_parameter: (work@top.test_module.SECONDPARAMETER), line:10:11, endln:10:26, parent:work@top.test_module
+      |vpiParent:
+      \_module: work@parameter_module (work@top.test_module) dut.sv:2:9: , endln:5:26, parent:work@top
+      |vpiParent:
+      \_module: work@parameter_module (work@top.test_module) dut.sv:2:9: , endln:5:26, parent:work@top
       |vpiName:SECONDPARAMETER
       |vpiFullName:work@top.test_module.SECONDPARAMETER
     |vpiParamAssign:
     \_param_assign: , line:9:11, endln:9:40, parent:work@top.test_module
+      |vpiParent:
+      \_module: work@parameter_module (work@top.test_module) dut.sv:2:9: , endln:5:26, parent:work@top
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:9:28, endln:9:40
@@ -125,6 +177,8 @@ design: (work@top)
       \_parameter: (work@top.test_module.FIRSTPARAMETER), line:9:11, endln:9:25, parent:work@top.test_module
     |vpiParamAssign:
     \_param_assign: , line:10:11, endln:10:42, parent:work@top.test_module
+      |vpiParent:
+      \_module: work@parameter_module (work@top.test_module) dut.sv:2:9: , endln:5:26, parent:work@top
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:10:29, endln:10:42
@@ -136,10 +190,14 @@ design: (work@top)
         |vpiConstType:6
       |vpiLhs:
       \_parameter: (work@top.test_module.SECONDPARAMETER), line:10:11, endln:10:26, parent:work@top.test_module
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:6:10
     |vpiDefName:work@parameter_module
     |vpiDefFile:dut.sv
     |vpiDefLineNo:8
     |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:6:10
+    |vpiParent:
     \_module: work@top (work@top) dut.sv:1:1: , endln:6:10
 ===================
 [  FATAL] : 0

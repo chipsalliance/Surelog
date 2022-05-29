@@ -150,30 +150,64 @@ design: (work@test)
 |vpiName:work@test
 |uhdmallModules:
 \_module: work@GOOD (work@GOOD) dut.sv:4:1: , endln:5:10, parent:work@test
+  |vpiParent:
+  \_design: (work@test)
   |vpiFullName:work@GOOD
+  |vpiParent:
+  \_design: (work@test)
   |vpiDefName:work@GOOD
+  |vpiParent:
+  \_design: (work@test)
 |uhdmallModules:
 \_module: work@test (work@test) dut.sv:8:1: , endln:19:10, parent:work@test
+  |vpiParent:
+  \_design: (work@test)
   |vpiFullName:work@test
+  |vpiParent:
+  \_design: (work@test)
   |vpiDefName:work@test
+  |vpiParent:
+  \_design: (work@test)
 |vpiParameter:
 \_parameter: (foo), line:1:15, endln:1:18, parent:work@test
+  |vpiParent:
+  \_design: (work@test)
   |HEX:7fFF
   |vpiTypespec:
   \_int_typespec: , line:1:11, endln:1:14, parent:foo
+    |vpiParent:
+    \_parameter: (foo), line:1:15, endln:1:18, parent:work@test
+    |vpiParent:
+    \_parameter: (foo), line:1:15, endln:1:18, parent:work@test
     |vpiSigned:1
+  |vpiParent:
+  \_design: (work@test)
+  |vpiParent:
+  \_design: (work@test)
   |vpiSigned:1
   |vpiName:foo
 |vpiParameter:
 \_parameter: (foo2), line:2:15, endln:2:19, parent:work@test
+  |vpiParent:
+  \_design: (work@test)
   |DEC:1
   |vpiTypespec:
   \_int_typespec: , line:2:11, endln:2:14, parent:foo2
+    |vpiParent:
+    \_parameter: (foo2), line:2:15, endln:2:19, parent:work@test
+    |vpiParent:
+    \_parameter: (foo2), line:2:15, endln:2:19, parent:work@test
     |vpiSigned:1
+  |vpiParent:
+  \_design: (work@test)
+  |vpiParent:
+  \_design: (work@test)
   |vpiSigned:1
   |vpiName:foo2
 |vpiParamAssign:
 \_param_assign: , line:1:15, endln:1:29, parent:work@test
+  |vpiParent:
+  \_design: (work@test)
   |vpiRhs:
   \_constant: , line:1:21, endln:1:29
     |vpiDecompile:32'H7fFF
@@ -186,6 +220,8 @@ design: (work@test)
   \_parameter: (foo), line:1:15, endln:1:18, parent:work@test
 |vpiParamAssign:
 \_param_assign: , line:2:15, endln:2:28, parent:work@test
+  |vpiParent:
+  \_design: (work@test)
   |vpiRhs:
   \_constant: , line:2:22, endln:2:28
     |vpiDecompile:32'Sd1
@@ -212,32 +248,56 @@ design: (work@test)
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@test.genblk1), line:10:1, endln:12:4, parent:work@test
+    |vpiParent:
+    \_module: work@test (work@test) dut.sv:8:1: , endln:19:10
     |vpiName:genblk1
     |vpiFullName:work@test.genblk1
     |vpiGenScope:
     \_gen_scope: (work@test.genblk1), parent:work@test.genblk1
+      |vpiParent:
+      \_gen_scope_array: (work@test.genblk1), line:10:1, endln:12:4, parent:work@test
       |vpiFullName:work@test.genblk1
+      |vpiParent:
+      \_gen_scope_array: (work@test.genblk1), line:10:1, endln:12:4, parent:work@test
       |vpiModule:
       \_module: work@GOOD (work@test.genblk1.good1) dut.sv:11:9: , endln:11:22, parent:work@test.genblk1
+        |vpiParent:
+        \_gen_scope: (work@test.genblk1), parent:work@test.genblk1
         |vpiName:good1
         |vpiFullName:work@test.genblk1.good1
+        |vpiParent:
+        \_gen_scope: (work@test.genblk1), parent:work@test.genblk1
         |vpiDefName:work@GOOD
         |vpiDefFile:dut.sv
         |vpiDefLineNo:4
+        |vpiParent:
+        \_gen_scope: (work@test.genblk1), parent:work@test.genblk1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@test.genblk2), line:15:1, endln:17:4, parent:work@test
+    |vpiParent:
+    \_module: work@test (work@test) dut.sv:8:1: , endln:19:10
     |vpiName:genblk2
     |vpiFullName:work@test.genblk2
     |vpiGenScope:
     \_gen_scope: (work@test.genblk2), parent:work@test.genblk2
+      |vpiParent:
+      \_gen_scope_array: (work@test.genblk2), line:15:1, endln:17:4, parent:work@test
       |vpiFullName:work@test.genblk2
+      |vpiParent:
+      \_gen_scope_array: (work@test.genblk2), line:15:1, endln:17:4, parent:work@test
       |vpiModule:
       \_module: work@GOOD (work@test.genblk2.good2) dut.sv:16:9: , endln:16:22, parent:work@test.genblk2
+        |vpiParent:
+        \_gen_scope: (work@test.genblk2), parent:work@test.genblk2
         |vpiName:good2
         |vpiFullName:work@test.genblk2.good2
+        |vpiParent:
+        \_gen_scope: (work@test.genblk2), parent:work@test.genblk2
         |vpiDefName:work@GOOD
         |vpiDefFile:dut.sv
         |vpiDefLineNo:4
+        |vpiParent:
+        \_gen_scope: (work@test.genblk2), parent:work@test.genblk2
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

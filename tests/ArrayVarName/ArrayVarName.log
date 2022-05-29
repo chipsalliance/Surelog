@@ -127,26 +127,48 @@ design: (work@top)
 |vpiName:work@top
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:8:10, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiFullName:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiDefName:work@top
   |vpiTaskFunc:
   \_function: (work@top.get_a1), line:4:4, endln:7:15, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10, parent:work@top
     |vpiName:get_a1
     |vpiFullName:work@top.get_a1
     |vpiVariables:
     \_array_var: (work@top.get_a1.a)
+      |vpiParent:
+      \_assign_stmt: , line:5:11, endln:5:26, parent:work@top.get_a1
+      |vpiParent:
+      \_assign_stmt: , line:5:11, endln:5:26, parent:work@top.get_a1
+      |vpiParent:
+      \_assign_stmt: , line:5:11, endln:5:26, parent:work@top.get_a1
       |vpiName:a
       |vpiFullName:work@top.get_a1.a
+      |vpiParent:
+      \_assign_stmt: , line:5:11, endln:5:26, parent:work@top.get_a1
       |vpiRange:
       \_range: , line:5:14, endln:5:15
         |vpiLeftRange:
         \_constant: , line:5:14, endln:5:15
+          |vpiParent:
+          \_range: , line:5:14, endln:5:15
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiParent:
+          \_range: , line:5:14, endln:5:15
           |vpiConstType:9
         |vpiRightRange:
         \_operation: 
+          |vpiParent:
+          \_range: , line:5:14, endln:5:15
+          |vpiParent:
+          \_range: , line:5:14, endln:5:15
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:5:14, endln:5:15
@@ -164,6 +186,8 @@ design: (work@top)
         |vpiTypespec:
         \_int_typespec: , line:5:7, endln:5:10
           |vpiSigned:1
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10, parent:work@top
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
@@ -171,15 +195,29 @@ design: (work@top)
       |vpiTypespec:
       \_int_typespec: , line:4:23, endln:4:26
         |vpiSigned:1
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10, parent:work@top
     |vpiStmt:
     \_begin: (work@top.get_a1), parent:work@top.get_a1
+      |vpiParent:
+      \_function: (work@top.get_a1), line:4:4, endln:7:15, parent:work@top
       |vpiFullName:work@top.get_a1
       |vpiVariables:
       \_array_var: (work@top.get_a1.a)
+      |vpiParent:
+      \_function: (work@top.get_a1), line:4:4, endln:7:15, parent:work@top
       |vpiStmt:
       \_assign_stmt: , line:5:11, endln:5:26, parent:work@top.get_a1
+        |vpiParent:
+        \_begin: (work@top.get_a1), parent:work@top.get_a1
+        |vpiParent:
+        \_begin: (work@top.get_a1), parent:work@top.get_a1
         |vpiRhs:
         \_operation: , line:5:19, endln:5:26
+          |vpiParent:
+          \_assign_stmt: , line:5:11, endln:5:26, parent:work@top.get_a1
+          |vpiParent:
+          \_assign_stmt: , line:5:11, endln:5:26, parent:work@top.get_a1
           |vpiOpType:75
           |vpiOperand:
           \_constant: , line:5:21, endln:5:22
@@ -197,52 +235,104 @@ design: (work@top)
         \_array_var: (work@top.get_a1.a)
       |vpiStmt:
       \_return_stmt: , line:6:7, endln:6:13, parent:work@top.get_a1
+        |vpiParent:
+        \_begin: (work@top.get_a1), parent:work@top.get_a1
+        |vpiParent:
+        \_begin: (work@top.get_a1), parent:work@top.get_a1
         |vpiCondition:
         \_bit_select: (work@top.get_a1.a), line:6:14, endln:6:18
+          |vpiParent:
+          \_return_stmt: , line:6:7, endln:6:13, parent:work@top.get_a1
+          |vpiParent:
+          \_return_stmt: , line:6:7, endln:6:13, parent:work@top.get_a1
           |vpiParent:
           \_return_stmt: , line:6:7, endln:6:13, parent:work@top.get_a1
           |vpiName:a
           |vpiFullName:work@top.get_a1.a
           |vpiIndex:
           \_constant: , line:6:16, endln:6:17, parent:work@top.get_a1.a
+            |vpiParent:
+            \_bit_select: (work@top.get_a1.a), line:6:14, endln:6:18
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiParent:
+            \_bit_select: (work@top.get_a1.a), line:6:14, endln:6:18
             |vpiConstType:9
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:8:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10, parent:work@top
   |vpiNet:
   \_logic_net: (work@top.o), line:1:23, endln:1:24, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10, parent:work@top
     |vpiName:o
     |vpiFullName:work@top.o
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10, parent:work@top
+  |vpiParent:
+  \_design: (work@top)
   |vpiPort:
   \_port: (o), line:1:23, endln:1:24, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10, parent:work@top
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@top.o), line:1:23, endln:1:24, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10, parent:work@top
   |vpiContAssign:
   \_cont_assign: , line:2:11, endln:2:23, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10, parent:work@top
     |vpiRhs:
     \_func_call: (get_a1), line:2:15, endln:2:23
+      |vpiParent:
+      \_cont_assign: , line:2:11, endln:2:23, parent:work@top
+      |vpiParent:
+      \_cont_assign: , line:2:11, endln:2:23, parent:work@top
       |vpiName:get_a1
+      |vpiParent:
+      \_cont_assign: , line:2:11, endln:2:23, parent:work@top
       |vpiFunction:
       \_function: (work@top.get_a1), line:4:4, endln:7:15, parent:work@top
     |vpiLhs:
     \_ref_obj: (work@top.o), line:2:11, endln:2:12
+      |vpiParent:
+      \_cont_assign: , line:2:11, endln:2:23, parent:work@top
+      |vpiParent:
+      \_cont_assign: , line:2:11, endln:2:23, parent:work@top
+      |vpiParent:
+      \_cont_assign: , line:2:11, endln:2:23, parent:work@top
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
       \_int_var: (work@top.o), line:1:23, endln:1:24, parent:work@top
+        |vpiParent:
+        \_module: work@top (work@top) dut.sv:1:1: , endln:8:10
         |vpiTypespec:
         \_int_typespec: , line:1:19, endln:1:22
           |vpiSigned:1
+        |vpiParent:
+        \_module: work@top (work@top) dut.sv:1:1: , endln:8:10
+        |vpiParent:
+        \_module: work@top (work@top) dut.sv:1:1: , endln:8:10
         |vpiName:o
         |vpiFullName:work@top.o
         |vpiSigned:1
         |vpiVisibility:1
+        |vpiParent:
+        \_module: work@top (work@top) dut.sv:1:1: , endln:8:10
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:8:10
   |vpiName:work@top
@@ -252,18 +342,34 @@ design: (work@top)
   |vpiTop:1
   |vpiTaskFunc:
   \_function: (work@top.get_a1), line:4:4, endln:7:15, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10
     |vpiName:get_a1
     |vpiFullName:work@top.get_a1
     |vpiVariables:
     \_array_var: (work@top.get_a1.a), parent:work@top.get_a1
+      |vpiParent:
+      \_function: (work@top.get_a1), line:4:4, endln:7:15, parent:work@top
+      |vpiParent:
+      \_function: (work@top.get_a1), line:4:4, endln:7:15, parent:work@top
+      |vpiParent:
+      \_function: (work@top.get_a1), line:4:4, endln:7:15, parent:work@top
       |vpiName:a
       |vpiFullName:work@top.get_a1.a
+      |vpiParent:
+      \_function: (work@top.get_a1), line:4:4, endln:7:15, parent:work@top
       |vpiRange:
       \_range: , line:5:14, endln:5:15, parent:work@top.get_a1.a
+        |vpiParent:
+        \_array_var: (work@top.get_a1.a), parent:work@top.get_a1
         |vpiLeftRange:
         \_constant: , line:5:14, endln:5:15
         |vpiRightRange:
         \_operation: 
+          |vpiParent:
+          \_range: , line:5:14, endln:5:15, parent:work@top.get_a1.a
+          |vpiParent:
+          \_range: , line:5:14, endln:5:15, parent:work@top.get_a1.a
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:5:14, endln:5:15
@@ -271,26 +377,54 @@ design: (work@top)
           \_constant: 
       |vpiReg:
       \_int_var: (work@top.get_a1.a), line:5:11, endln:5:12, parent:work@top.get_a1.a
+        |vpiParent:
+        \_array_var: (work@top.get_a1.a), parent:work@top.get_a1
         |vpiTypespec:
         \_int_typespec: , line:5:7, endln:5:10
+        |vpiParent:
+        \_array_var: (work@top.get_a1.a), parent:work@top.get_a1
+        |vpiParent:
+        \_array_var: (work@top.get_a1.a), parent:work@top.get_a1
         |vpiFullName:work@top.get_a1.a
+        |vpiParent:
+        \_array_var: (work@top.get_a1.a), parent:work@top.get_a1
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
     \_int_var: , line:4:23, endln:4:26
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10
     |vpiStmt:
     \_begin: (work@top.get_a1), parent:work@top.get_a1
+      |vpiParent:
+      \_function: (work@top.get_a1), line:4:4, endln:7:15, parent:work@top
       |vpiFullName:work@top.get_a1
       |vpiVariables:
       \_array_var: (work@top.get_a1.a), parent:work@top.get_a1
+        |vpiParent:
+        \_begin: (work@top.get_a1), parent:work@top.get_a1
+        |vpiParent:
+        \_begin: (work@top.get_a1), parent:work@top.get_a1
+        |vpiParent:
+        \_begin: (work@top.get_a1), parent:work@top.get_a1
         |vpiName:a
         |vpiFullName:work@top.get_a1.a
+        |vpiParent:
+        \_begin: (work@top.get_a1), parent:work@top.get_a1
         |vpiRange:
         \_range: , line:5:14, endln:5:15, parent:work@top.get_a1.a
+          |vpiParent:
+          \_array_var: (work@top.get_a1.a), parent:work@top.get_a1
           |vpiLeftRange:
           \_constant: , line:5:14, endln:5:15
           |vpiRightRange:
           \_operation: 
+            |vpiParent:
+            \_range: , line:5:14, endln:5:15, parent:work@top.get_a1.a
+            |vpiParent:
+            \_range: , line:5:14, endln:5:15, parent:work@top.get_a1.a
             |vpiOpType:11
             |vpiOperand:
             \_constant: , line:5:14, endln:5:15
@@ -298,13 +432,31 @@ design: (work@top)
             \_constant: 
         |vpiReg:
         \_int_var: (work@top.get_a1.a), line:5:11, endln:5:12, parent:work@top.get_a1.a
+          |vpiParent:
+          \_array_var: (work@top.get_a1.a), parent:work@top.get_a1
           |vpiTypespec:
           \_int_typespec: , line:5:7, endln:5:10
+          |vpiParent:
+          \_array_var: (work@top.get_a1.a), parent:work@top.get_a1
+          |vpiParent:
+          \_array_var: (work@top.get_a1.a), parent:work@top.get_a1
           |vpiFullName:work@top.get_a1.a
+          |vpiParent:
+          \_array_var: (work@top.get_a1.a), parent:work@top.get_a1
+      |vpiParent:
+      \_function: (work@top.get_a1), line:4:4, endln:7:15, parent:work@top
       |vpiStmt:
       \_assign_stmt: , line:5:11, endln:5:26, parent:work@top.get_a1
+        |vpiParent:
+        \_begin: (work@top.get_a1), parent:work@top.get_a1
+        |vpiParent:
+        \_begin: (work@top.get_a1), parent:work@top.get_a1
         |vpiRhs:
         \_operation: , line:5:19, endln:5:26
+          |vpiParent:
+          \_assign_stmt: , line:5:11, endln:5:26, parent:work@top.get_a1
+          |vpiParent:
+          \_assign_stmt: , line:5:11, endln:5:26, parent:work@top.get_a1
           |vpiOpType:75
           |vpiOperand:
           \_constant: , line:5:21, endln:5:22
@@ -312,14 +464,28 @@ design: (work@top)
           \_constant: , line:5:24, endln:5:25
         |vpiLhs:
         \_array_var: (work@top.get_a1.a)
+          |vpiParent:
+          \_assign_stmt: , line:5:11, endln:5:26, parent:work@top.get_a1
+          |vpiParent:
+          \_assign_stmt: , line:5:11, endln:5:26, parent:work@top.get_a1
+          |vpiParent:
+          \_assign_stmt: , line:5:11, endln:5:26, parent:work@top.get_a1
           |vpiName:a
           |vpiFullName:work@top.get_a1.a
+          |vpiParent:
+          \_assign_stmt: , line:5:11, endln:5:26, parent:work@top.get_a1
           |vpiRange:
           \_range: , line:5:14, endln:5:15, parent:work@top.get_a1.a
+            |vpiParent:
+            \_array_var: (work@top.get_a1.a)
             |vpiLeftRange:
             \_constant: , line:5:14, endln:5:15
             |vpiRightRange:
             \_operation: 
+              |vpiParent:
+              \_range: , line:5:14, endln:5:15, parent:work@top.get_a1.a
+              |vpiParent:
+              \_range: , line:5:14, endln:5:15, parent:work@top.get_a1.a
               |vpiOpType:11
               |vpiOperand:
               \_constant: , line:5:14, endln:5:15
@@ -327,29 +493,54 @@ design: (work@top)
               \_constant: 
           |vpiReg:
           \_int_var: (work@top.get_a1.a), line:5:11, endln:5:12, parent:work@top.get_a1.a
+            |vpiParent:
+            \_array_var: (work@top.get_a1.a)
             |vpiTypespec:
             \_int_typespec: , line:5:7, endln:5:10
+            |vpiParent:
+            \_array_var: (work@top.get_a1.a)
+            |vpiParent:
+            \_array_var: (work@top.get_a1.a)
             |vpiFullName:work@top.get_a1.a
+            |vpiParent:
+            \_array_var: (work@top.get_a1.a)
       |vpiStmt:
       \_return_stmt: , line:6:7, endln:6:13, parent:work@top.get_a1
+        |vpiParent:
+        \_begin: (work@top.get_a1), parent:work@top.get_a1
+        |vpiParent:
+        \_begin: (work@top.get_a1), parent:work@top.get_a1
         |vpiCondition:
         \_bit_select: (work@top.get_a1), line:6:14, endln:6:18, parent:work@top.get_a1
           |vpiParent:
           \_ref_obj: (work@top.get_a1)
-            |vpiFullName:work@top.get_a1
+          |vpiParent:
+          \_ref_obj: (work@top.get_a1)
+          |vpiParent:
+          \_ref_obj: (work@top.get_a1)
           |vpiName:a
           |vpiFullName:work@top.get_a1
           |vpiIndex:
           \_constant: , line:6:16, endln:6:17, parent:work@top.get_a1.a
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:8:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10
   |vpiTopModule:1
   |vpiPort:
   \_port: (o), line:1:23, endln:1:24, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: (work@top.o), line:1:23, endln:1:24, parent:o
+      |vpiParent:
+      \_port: (o), line:1:23, endln:1:24, parent:work@top
+      |vpiParent:
+      \_port: (o), line:1:23, endln:1:24, parent:work@top
+      |vpiParent:
+      \_port: (o), line:1:23, endln:1:24, parent:work@top
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
@@ -359,15 +550,31 @@ design: (work@top)
       |vpiSigned:1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:8:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10
   |vpiContAssign:
   \_cont_assign: , line:2:11, endln:2:23, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:8:10
     |vpiRhs:
     \_func_call: (get_a1), line:2:15, endln:2:23
+      |vpiParent:
+      \_cont_assign: , line:2:11, endln:2:23, parent:work@top
+      |vpiParent:
+      \_cont_assign: , line:2:11, endln:2:23, parent:work@top
       |vpiName:get_a1
+      |vpiParent:
+      \_cont_assign: , line:2:11, endln:2:23, parent:work@top
       |vpiFunction:
       \_function: (work@top.get_a1), line:4:4, endln:7:15, parent:work@top
     |vpiLhs:
     \_ref_obj: (work@top.o), line:2:11, endln:2:12
+      |vpiParent:
+      \_cont_assign: , line:2:11, endln:2:23, parent:work@top
+      |vpiParent:
+      \_cont_assign: , line:2:11, endln:2:23, parent:work@top
+      |vpiParent:
+      \_cont_assign: , line:2:11, endln:2:23, parent:work@top
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:

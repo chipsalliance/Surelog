@@ -446,52 +446,94 @@ design: (work@test)
 |vpiName:work@test
 |uhdmallPackages:
 \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
+  |vpiParent:
+  \_design: (work@test)
   |vpiName:alert_handler_reg_pkg
   |vpiFullName:alert_handler_reg_pkg::
   |vpiParameter:
   \_parameter: (alert_handler_reg_pkg::NAlerts), line:3:17, endln:3:24, parent:alert_handler_reg_pkg::
+    |vpiParent:
+    \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
     |UINT:35
     |vpiTypespec:
     \_int_typespec: , line:3:13, endln:3:16, parent:alert_handler_reg_pkg::NAlerts
+      |vpiParent:
+      \_parameter: (alert_handler_reg_pkg::NAlerts), line:3:17, endln:3:24, parent:alert_handler_reg_pkg::
       |vpiInstance:
       \_package: (alert_handler_reg_pkg), file:
+      |vpiParent:
+      \_parameter: (alert_handler_reg_pkg::NAlerts), line:3:17, endln:3:24, parent:alert_handler_reg_pkg::
       |vpiSigned:1
+    |vpiParent:
+    \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
+    |vpiParent:
+    \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
     |vpiSigned:1
     |vpiName:NAlerts
     |vpiFullName:alert_handler_reg_pkg::NAlerts
   |vpiParameter:
   \_parameter: (alert_handler_reg_pkg::AsyncOn), line:4:33, endln:4:40, parent:alert_handler_reg_pkg::
+    |vpiParent:
+    \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
     |BIN:11111111111111111100000000000000000
     |vpiTypespec:
     \_logic_typespec: , line:4:13, endln:4:18, parent:alert_handler_reg_pkg::AsyncOn
+      |vpiParent:
+      \_parameter: (alert_handler_reg_pkg::AsyncOn), line:4:33, endln:4:40, parent:alert_handler_reg_pkg::
       |vpiInstance:
       \_package: (alert_handler_reg_pkg), file:
+      |vpiParent:
+      \_parameter: (alert_handler_reg_pkg::AsyncOn), line:4:33, endln:4:40, parent:alert_handler_reg_pkg::
       |vpiRange:
       \_range: , line:4:20, endln:4:31
         |vpiLeftRange:
         \_operation: , line:4:20, endln:4:29
+          |vpiParent:
+          \_range: , line:4:20, endln:4:31
+          |vpiParent:
+          \_range: , line:4:20, endln:4:31
           |vpiOpType:11
           |vpiOperand:
           \_ref_obj: (NAlerts), line:4:20, endln:4:27
+            |vpiParent:
+            \_operation: , line:4:20, endln:4:29
+            |vpiParent:
+            \_operation: , line:4:20, endln:4:29
+            |vpiParent:
+            \_operation: , line:4:20, endln:4:29
             |vpiName:NAlerts
             |vpiActual:
             \_parameter: (alert_handler_reg_pkg::NAlerts), line:3:17, endln:3:24, parent:alert_handler_reg_pkg::
           |vpiOperand:
           \_constant: , line:4:28, endln:4:29
+            |vpiParent:
+            \_operation: , line:4:20, endln:4:29
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiParent:
+            \_operation: , line:4:20, endln:4:29
             |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:4:30, endln:4:31
+          |vpiParent:
+          \_range: , line:4:20, endln:4:31
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiParent:
+          \_range: , line:4:20, endln:4:31
           |vpiConstType:9
+    |vpiParent:
+    \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
+    |vpiParent:
+    \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
     |vpiName:AsyncOn
     |vpiFullName:alert_handler_reg_pkg::AsyncOn
   |vpiParamAssign:
   \_param_assign: , line:3:17, endln:3:29, parent:alert_handler_reg_pkg::
+    |vpiParent:
+    \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
     |vpiRhs:
     \_constant: , line:3:27, endln:3:29
       |vpiDecompile:35
@@ -504,6 +546,8 @@ design: (work@test)
     \_parameter: (alert_handler_reg_pkg::NAlerts), line:3:17, endln:3:24, parent:alert_handler_reg_pkg::
   |vpiParamAssign:
   \_param_assign: , line:4:33, endln:4:82, parent:alert_handler_reg_pkg::
+    |vpiParent:
+    \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
     |vpiRhs:
     \_constant: , line:4:43, endln:4:82
       |vpiDecompile:35'b11111111111111111100000000000000000
@@ -514,47 +558,83 @@ design: (work@test)
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (alert_handler_reg_pkg::AsyncOn), line:4:33, endln:4:40, parent:alert_handler_reg_pkg::
+  |vpiParent:
+  \_design: (work@test)
   |vpiDefName:alert_handler_reg_pkg
+  |vpiParent:
+  \_design: (work@test)
 |uhdmtopPackages:
 \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
+  |vpiParent:
+  \_design: (work@test)
   |vpiName:alert_handler_reg_pkg
   |vpiFullName:alert_handler_reg_pkg::
   |vpiParameter:
   \_parameter: (alert_handler_reg_pkg::NAlerts), line:3:17, endln:3:24, parent:alert_handler_reg_pkg::
+    |vpiParent:
+    \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
     |UINT:35
     |vpiTypespec:
     \_int_typespec: , line:3:13, endln:3:16, parent:alert_handler_reg_pkg::NAlerts
+      |vpiParent:
+      \_parameter: (alert_handler_reg_pkg::NAlerts), line:3:17, endln:3:24, parent:alert_handler_reg_pkg::
       |vpiInstance:
       \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
+      |vpiParent:
+      \_parameter: (alert_handler_reg_pkg::NAlerts), line:3:17, endln:3:24, parent:alert_handler_reg_pkg::
       |vpiSigned:1
+    |vpiParent:
+    \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
+    |vpiParent:
+    \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
     |vpiSigned:1
     |vpiName:NAlerts
     |vpiFullName:alert_handler_reg_pkg::NAlerts
   |vpiParameter:
   \_parameter: (alert_handler_reg_pkg::AsyncOn), line:4:33, endln:4:40, parent:alert_handler_reg_pkg::
+    |vpiParent:
+    \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
     |BIN:11111111111111111100000000000000000
     |vpiTypespec:
     \_logic_typespec: , line:4:13, endln:4:18, parent:alert_handler_reg_pkg::AsyncOn
+      |vpiParent:
+      \_parameter: (alert_handler_reg_pkg::AsyncOn), line:4:33, endln:4:40, parent:alert_handler_reg_pkg::
       |vpiInstance:
       \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
+      |vpiParent:
+      \_parameter: (alert_handler_reg_pkg::AsyncOn), line:4:33, endln:4:40, parent:alert_handler_reg_pkg::
       |vpiRange:
       \_range: , line:4:20, endln:4:31
         |vpiLeftRange:
         \_constant: , line:4:20, endln:4:27
+          |vpiParent:
+          \_range: , line:4:20, endln:4:31
           |vpiDecompile:34
           |vpiSize:64
           |INT:34
+          |vpiParent:
+          \_range: , line:4:20, endln:4:31
           |vpiConstType:7
         |vpiRightRange:
         \_constant: , line:4:30, endln:4:31
+          |vpiParent:
+          \_range: , line:4:20, endln:4:31
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiParent:
+          \_range: , line:4:20, endln:4:31
           |vpiConstType:9
+    |vpiParent:
+    \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
+    |vpiParent:
+    \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
     |vpiName:AsyncOn
     |vpiFullName:alert_handler_reg_pkg::AsyncOn
   |vpiParamAssign:
   \_param_assign: , line:3:17, endln:3:29, parent:alert_handler_reg_pkg::
+    |vpiParent:
+    \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
     |vpiRhs:
     \_constant: , line:3:27, endln:3:29
       |vpiDecompile:35
@@ -567,6 +647,8 @@ design: (work@test)
     \_parameter: (alert_handler_reg_pkg::NAlerts), line:3:17, endln:3:24, parent:alert_handler_reg_pkg::
   |vpiParamAssign:
   \_param_assign: , line:4:33, endln:4:82, parent:alert_handler_reg_pkg::
+    |vpiParent:
+    \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::) dut.sv:2:1: , endln:5:11, parent:work@test
     |vpiRhs:
     \_constant: , line:4:43, endln:4:82
       |vpiDecompile:35'b11111111111111111100000000000000000
@@ -577,57 +659,105 @@ design: (work@test)
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (alert_handler_reg_pkg::AsyncOn), line:4:33, endln:4:40, parent:alert_handler_reg_pkg::
+  |vpiParent:
+  \_design: (work@test)
   |vpiDefName:alert_handler_reg_pkg
   |vpiTop:1
+  |vpiParent:
+  \_design: (work@test)
 |uhdmallModules:
 \_module: work@GOOD (work@GOOD) dut.sv:28:1: , endln:29:10, parent:work@test
+  |vpiParent:
+  \_design: (work@test)
   |vpiFullName:work@GOOD
+  |vpiParent:
+  \_design: (work@test)
   |vpiDefName:work@GOOD
+  |vpiParent:
+  \_design: (work@test)
 |uhdmallModules:
 \_module: work@aes (work@aes) dut.sv:49:1: , endln:60:10, parent:work@test
+  |vpiParent:
+  \_design: (work@test)
   |vpiFullName:work@aes
   |vpiParameter:
   \_parameter: (work@aes.AlertAsyncOn), line:50:28, endln:50:40, parent:work@aes
+    |vpiParent:
+    \_module: work@aes (work@aes) dut.sv:49:1: , endln:60:10, parent:work@test
     |vpiTypespec:
     \_logic_typespec: , line:50:14, endln:50:19, parent:work@aes.AlertAsyncOn
+      |vpiParent:
+      \_parameter: (work@aes.AlertAsyncOn), line:50:28, endln:50:40, parent:work@aes
+      |vpiParent:
+      \_parameter: (work@aes.AlertAsyncOn), line:50:28, endln:50:40, parent:work@aes
       |vpiRange:
       \_range: , line:50:21, endln:50:26
         |vpiLeftRange:
         \_operation: , line:50:21, endln:50:24
+          |vpiParent:
+          \_range: , line:50:21, endln:50:26
+          |vpiParent:
+          \_range: , line:50:21, endln:50:26
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:50:21, endln:50:22
+            |vpiParent:
+            \_operation: , line:50:21, endln:50:24
             |vpiDecompile:4
             |vpiSize:64
             |UINT:4
+            |vpiParent:
+            \_operation: , line:50:21, endln:50:24
             |vpiConstType:9
           |vpiOperand:
           \_constant: , line:50:23, endln:50:24
+            |vpiParent:
+            \_operation: , line:50:21, endln:50:24
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiParent:
+            \_operation: , line:50:21, endln:50:24
             |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:50:25, endln:50:26
+          |vpiParent:
+          \_range: , line:50:21, endln:50:26
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiParent:
+          \_range: , line:50:21, endln:50:26
           |vpiConstType:9
+    |vpiParent:
+    \_module: work@aes (work@aes) dut.sv:49:1: , endln:60:10, parent:work@test
+    |vpiParent:
+    \_module: work@aes (work@aes) dut.sv:49:1: , endln:60:10, parent:work@test
     |vpiName:AlertAsyncOn
     |vpiFullName:work@aes.AlertAsyncOn
   |vpiParamAssign:
   \_param_assign: , line:50:28, endln:50:52, parent:work@aes
+    |vpiParent:
+    \_module: work@aes (work@aes) dut.sv:49:1: , endln:60:10, parent:work@test
     |vpiRhs:
     \_operation: , line:50:43, endln:50:52
       |vpiOpType:34
       |vpiOperand:
       \_constant: , line:50:44, endln:50:45
+        |vpiParent:
+        \_operation: , line:50:43, endln:50:52
         |vpiDecompile:4
         |vpiSize:64
         |UINT:4
+        |vpiParent:
+        \_operation: , line:50:43, endln:50:52
         |vpiConstType:9
       |vpiOperand:
       \_operation: , line:50:45, endln:50:51
+        |vpiParent:
+        \_operation: , line:50:43, endln:50:52
+        |vpiParent:
+        \_operation: , line:50:43, endln:50:52
         |vpiOpType:33
         |vpiOperand:
         \_constant: , line:50:46, endln:50:50
@@ -637,26 +767,54 @@ design: (work@test)
           |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@aes.AlertAsyncOn), line:50:28, endln:50:40, parent:work@aes
+  |vpiParent:
+  \_design: (work@test)
   |vpiDefName:work@aes
+  |vpiParent:
+  \_design: (work@test)
 |uhdmallModules:
 \_module: work@prim_alert_sender (work@prim_alert_sender) dut.sv:13:1: , endln:26:11, parent:work@test
+  |vpiParent:
+  \_design: (work@test)
   |vpiFullName:work@prim_alert_sender
   |vpiParameter:
   \_parameter: (work@prim_alert_sender.AsyncOn), line:15:17, endln:15:24, parent:work@prim_alert_sender
+    |vpiParent:
+    \_module: work@prim_alert_sender (work@prim_alert_sender) dut.sv:13:1: , endln:26:11, parent:work@test
     |BIN:1
     |vpiTypespec:
     \_bit_typespec: , line:15:13, endln:15:16, parent:work@prim_alert_sender.AsyncOn
+      |vpiParent:
+      \_parameter: (work@prim_alert_sender.AsyncOn), line:15:17, endln:15:24, parent:work@prim_alert_sender
+      |vpiParent:
+      \_parameter: (work@prim_alert_sender.AsyncOn), line:15:17, endln:15:24, parent:work@prim_alert_sender
+    |vpiParent:
+    \_module: work@prim_alert_sender (work@prim_alert_sender) dut.sv:13:1: , endln:26:11, parent:work@test
+    |vpiParent:
+    \_module: work@prim_alert_sender (work@prim_alert_sender) dut.sv:13:1: , endln:26:11, parent:work@test
     |vpiName:AsyncOn
     |vpiFullName:work@prim_alert_sender.AsyncOn
   |vpiParameter:
   \_parameter: (work@prim_alert_sender.IsFatal), line:16:17, endln:16:24, parent:work@prim_alert_sender
+    |vpiParent:
+    \_module: work@prim_alert_sender (work@prim_alert_sender) dut.sv:13:1: , endln:26:11, parent:work@test
     |BIN:0
     |vpiTypespec:
     \_bit_typespec: , line:16:13, endln:16:16, parent:work@prim_alert_sender.IsFatal
+      |vpiParent:
+      \_parameter: (work@prim_alert_sender.IsFatal), line:16:17, endln:16:24, parent:work@prim_alert_sender
+      |vpiParent:
+      \_parameter: (work@prim_alert_sender.IsFatal), line:16:17, endln:16:24, parent:work@prim_alert_sender
+    |vpiParent:
+    \_module: work@prim_alert_sender (work@prim_alert_sender) dut.sv:13:1: , endln:26:11, parent:work@test
+    |vpiParent:
+    \_module: work@prim_alert_sender (work@prim_alert_sender) dut.sv:13:1: , endln:26:11, parent:work@test
     |vpiName:IsFatal
     |vpiFullName:work@prim_alert_sender.IsFatal
   |vpiParamAssign:
   \_param_assign: , line:15:17, endln:15:31, parent:work@prim_alert_sender
+    |vpiParent:
+    \_module: work@prim_alert_sender (work@prim_alert_sender) dut.sv:13:1: , endln:26:11, parent:work@test
     |vpiRhs:
     \_constant: , line:15:27, endln:15:31
       |vpiDecompile:1'b1
@@ -669,6 +827,8 @@ design: (work@test)
     \_parameter: (work@prim_alert_sender.AsyncOn), line:15:17, endln:15:24, parent:work@prim_alert_sender
   |vpiParamAssign:
   \_param_assign: , line:16:17, endln:16:31, parent:work@prim_alert_sender
+    |vpiParent:
+    \_module: work@prim_alert_sender (work@prim_alert_sender) dut.sv:13:1: , endln:26:11, parent:work@test
     |vpiRhs:
     \_constant: , line:16:27, endln:16:31
       |vpiDecompile:1'b0
@@ -679,19 +839,37 @@ design: (work@test)
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@prim_alert_sender.IsFatal), line:16:17, endln:16:24, parent:work@prim_alert_sender
+  |vpiParent:
+  \_design: (work@test)
   |vpiDefName:work@prim_alert_sender
+  |vpiParent:
+  \_design: (work@test)
 |uhdmallModules:
 \_module: work@prim_diff_decode (work@prim_diff_decode) dut.sv:31:1: , endln:39:10, parent:work@test
+  |vpiParent:
+  \_design: (work@test)
   |vpiFullName:work@prim_diff_decode
   |vpiParameter:
   \_parameter: (work@prim_diff_decode.AsyncOn), line:32:17, endln:32:24, parent:work@prim_diff_decode
+    |vpiParent:
+    \_module: work@prim_diff_decode (work@prim_diff_decode) dut.sv:31:1: , endln:39:10, parent:work@test
     |BIN:0
     |vpiTypespec:
     \_bit_typespec: , line:32:13, endln:32:16, parent:work@prim_diff_decode.AsyncOn
+      |vpiParent:
+      \_parameter: (work@prim_diff_decode.AsyncOn), line:32:17, endln:32:24, parent:work@prim_diff_decode
+      |vpiParent:
+      \_parameter: (work@prim_diff_decode.AsyncOn), line:32:17, endln:32:24, parent:work@prim_diff_decode
+    |vpiParent:
+    \_module: work@prim_diff_decode (work@prim_diff_decode) dut.sv:31:1: , endln:39:10, parent:work@test
+    |vpiParent:
+    \_module: work@prim_diff_decode (work@prim_diff_decode) dut.sv:31:1: , endln:39:10, parent:work@test
     |vpiName:AsyncOn
     |vpiFullName:work@prim_diff_decode.AsyncOn
   |vpiParamAssign:
   \_param_assign: , line:32:17, endln:32:31, parent:work@prim_diff_decode
+    |vpiParent:
+    \_module: work@prim_diff_decode (work@prim_diff_decode) dut.sv:31:1: , endln:39:10, parent:work@test
     |vpiRhs:
     \_constant: , line:32:27, endln:32:31
       |vpiDecompile:1'b0
@@ -702,22 +880,36 @@ design: (work@test)
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@prim_diff_decode.AsyncOn), line:32:17, endln:32:24, parent:work@prim_diff_decode
+  |vpiParent:
+  \_design: (work@test)
   |vpiDefName:work@prim_diff_decode
+  |vpiParent:
+  \_design: (work@test)
 |uhdmallModules:
 \_module: work@test (work@test) dut.sv:7:1: , endln:10:10, parent:work@test
+  |vpiParent:
+  \_design: (work@test)
   |vpiFullName:work@test
   |vpiParameter:
   \_parameter: (work@test.Toto), line:9:12, endln:9:16, parent:work@test
+    |vpiParent:
+    \_module: work@test (work@test) dut.sv:7:1: , endln:10:10, parent:work@test
+    |vpiParent:
+    \_module: work@test (work@test) dut.sv:7:1: , endln:10:10, parent:work@test
+    |vpiParent:
+    \_module: work@test (work@test) dut.sv:7:1: , endln:10:10, parent:work@test
     |vpiName:Toto
     |vpiFullName:work@test.Toto
   |vpiParamAssign:
   \_param_assign: , line:9:12, endln:9:56, parent:work@test
+    |vpiParent:
+    \_module: work@test (work@test) dut.sv:7:1: , endln:10:10, parent:work@test
     |vpiRhs:
     \_part_select: , line:9:50, endln:9:55, parent:alert_handler_reg_pkg::AsyncOn
       |vpiParent:
       \_ref_obj: alert_handler_reg_pkg::AsyncOn (alert_handler_reg_pkg::AsyncOn)
-        |vpiName:alert_handler_reg_pkg::AsyncOn
-        |vpiDefName:alert_handler_reg_pkg::AsyncOn
+      |vpiParent:
+      \_ref_obj: alert_handler_reg_pkg::AsyncOn (alert_handler_reg_pkg::AsyncOn)
       |vpiConstantSelect:1
       |vpiLeftRange:
       \_constant: , line:9:50, endln:9:52
@@ -733,20 +925,38 @@ design: (work@test)
         |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.Toto), line:9:12, endln:9:16, parent:work@test
+  |vpiParent:
+  \_design: (work@test)
   |vpiDefName:work@test
+  |vpiParent:
+  \_design: (work@test)
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:41:1: , endln:47:10, parent:work@test
+  |vpiParent:
+  \_design: (work@test)
   |vpiFullName:work@top
+  |vpiParent:
+  \_design: (work@test)
   |vpiDefName:work@top
+  |vpiParent:
+  \_design: (work@test)
 |uhdmtopModules:
 \_module: work@test (work@test) dut.sv:7:1: , endln:10:10
   |vpiName:work@test
   |vpiParameter:
   \_parameter: (work@test.Toto), line:9:12, endln:9:16, parent:work@test
+    |vpiParent:
+    \_module: work@test (work@test) dut.sv:7:1: , endln:10:10
+    |vpiParent:
+    \_module: work@test (work@test) dut.sv:7:1: , endln:10:10
+    |vpiParent:
+    \_module: work@test (work@test) dut.sv:7:1: , endln:10:10
     |vpiName:Toto
     |vpiFullName:work@test.Toto
   |vpiParamAssign:
   \_param_assign: , line:9:12, endln:9:56, parent:work@test
+    |vpiParent:
+    \_module: work@test (work@test) dut.sv:7:1: , endln:10:10
     |vpiRhs:
     \_constant: , line:9:19, endln:9:56
       |vpiDecompile:2'b11
@@ -766,39 +976,71 @@ design: (work@test)
   |vpiTopModule:1
   |vpiModule:
   \_module: work@aes (work@top.u_aes) dut.sv:43:3: , endln:45:13, parent:work@top
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:41:1: , endln:47:10
     |vpiName:u_aes
     |vpiFullName:work@top.u_aes
     |vpiParameter:
     \_parameter: (work@top.u_aes.AlertAsyncOn), line:50:28, endln:50:40, parent:work@top.u_aes
+      |vpiParent:
+      \_module: work@aes (work@top.u_aes) dut.sv:43:3: , endln:45:13, parent:work@top
       |vpiTypespec:
       \_logic_typespec: , line:50:14, endln:50:19, parent:work@top.u_aes.AlertAsyncOn
+        |vpiParent:
+        \_parameter: (work@top.u_aes.AlertAsyncOn), line:50:28, endln:50:40, parent:work@top.u_aes
+        |vpiParent:
+        \_parameter: (work@top.u_aes.AlertAsyncOn), line:50:28, endln:50:40, parent:work@top.u_aes
         |vpiRange:
         \_range: , line:50:21, endln:50:26
+          |vpiParent:
+          \_logic_typespec: , line:50:14, endln:50:19, parent:work@top.u_aes.AlertAsyncOn
           |vpiLeftRange:
           \_operation: , line:50:21, endln:50:24
+            |vpiParent:
+            \_range: , line:50:21, endln:50:26
+            |vpiParent:
+            \_range: , line:50:21, endln:50:26
             |vpiOpType:11
             |vpiOperand:
             \_constant: , line:50:21, endln:50:22
+              |vpiParent:
+              \_operation: , line:50:21, endln:50:24
               |vpiDecompile:4
               |vpiSize:64
               |UINT:4
+              |vpiParent:
+              \_operation: , line:50:21, endln:50:24
               |vpiConstType:9
             |vpiOperand:
             \_constant: , line:50:23, endln:50:24
+              |vpiParent:
+              \_operation: , line:50:21, endln:50:24
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
+              |vpiParent:
+              \_operation: , line:50:21, endln:50:24
               |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:50:25, endln:50:26
+            |vpiParent:
+            \_range: , line:50:21, endln:50:26
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiParent:
+            \_range: , line:50:21, endln:50:26
             |vpiConstType:9
+      |vpiParent:
+      \_module: work@aes (work@top.u_aes) dut.sv:43:3: , endln:45:13, parent:work@top
+      |vpiParent:
+      \_module: work@aes (work@top.u_aes) dut.sv:43:3: , endln:45:13, parent:work@top
       |vpiName:AlertAsyncOn
       |vpiFullName:work@top.u_aes.AlertAsyncOn
     |vpiParamAssign:
     \_param_assign: , line:50:28, endln:50:52, parent:work@top.u_aes
+      |vpiParent:
+      \_module: work@aes (work@top.u_aes) dut.sv:43:3: , endln:45:13, parent:work@top
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:50:43, endln:50:52
@@ -810,46 +1052,86 @@ design: (work@test)
         |vpiConstType:3
       |vpiLhs:
       \_parameter: (work@top.u_aes.AlertAsyncOn), line:50:28, endln:50:40, parent:work@top.u_aes
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:41:1: , endln:47:10
     |vpiDefName:work@aes
     |vpiDefFile:dut.sv
     |vpiDefLineNo:49
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:41:1: , endln:47:10
+    |vpiParent:
+    \_module: work@top (work@top) dut.sv:41:1: , endln:47:10
     |vpiGenScopeArray:
     \_gen_scope_array: (work@top.u_aes.gen_alert_tx[0]), line:52:35, endln:58:6, parent:work@top.u_aes
+      |vpiParent:
+      \_module: work@aes (work@top.u_aes) dut.sv:43:3: , endln:45:13, parent:work@top
       |vpiName:gen_alert_tx[0]
       |vpiFullName:work@top.u_aes.gen_alert_tx[0]
       |vpiGenScope:
       \_gen_scope: (work@top.u_aes.gen_alert_tx[0]), parent:work@top.u_aes.gen_alert_tx[0]
+        |vpiParent:
+        \_gen_scope_array: (work@top.u_aes.gen_alert_tx[0]), line:52:35, endln:58:6, parent:work@top.u_aes
         |vpiFullName:work@top.u_aes.gen_alert_tx[0]
         |vpiParameter:
         \_parameter: (work@top.u_aes.gen_alert_tx[0].i), line:52, parent:work@top.u_aes.gen_alert_tx[0]
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[0]), parent:work@top.u_aes.gen_alert_tx[0]
           |UINT:0
           |vpiTypespec:
           \_int_typespec: 
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[0]), parent:work@top.u_aes.gen_alert_tx[0]
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[0]), parent:work@top.u_aes.gen_alert_tx[0]
           |vpiLocalParam:1
           |vpiName:i
           |vpiFullName:work@top.u_aes.gen_alert_tx[0].i
+        |vpiParent:
+        \_gen_scope_array: (work@top.u_aes.gen_alert_tx[0]), line:52:35, endln:58:6, parent:work@top.u_aes
         |vpiModule:
         \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[0].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[0]
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[0]), parent:work@top.u_aes.gen_alert_tx[0]
           |vpiName:alert_sender
           |vpiFullName:work@top.u_aes.gen_alert_tx[0].alert_sender
           |vpiParameter:
           \_parameter: (work@top.u_aes.gen_alert_tx[0].alert_sender.AsyncOn), line:15:17, endln:15:24, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[0].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[0]
             |BIN:1
             |vpiTypespec:
             \_bit_typespec: , line:15:13, endln:15:16, parent:work@top.u_aes.gen_alert_tx[0].alert_sender.AsyncOn
+              |vpiParent:
+              \_parameter: (work@top.u_aes.gen_alert_tx[0].alert_sender.AsyncOn), line:15:17, endln:15:24, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
+              |vpiParent:
+              \_parameter: (work@top.u_aes.gen_alert_tx[0].alert_sender.AsyncOn), line:15:17, endln:15:24, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[0].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[0]
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[0].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[0]
             |vpiName:AsyncOn
             |vpiFullName:work@top.u_aes.gen_alert_tx[0].alert_sender.AsyncOn
           |vpiParameter:
           \_parameter: (work@top.u_aes.gen_alert_tx[0].alert_sender.IsFatal), line:16:17, endln:16:24, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[0].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[0]
             |BIN:0
             |vpiTypespec:
             \_bit_typespec: , line:16:13, endln:16:16, parent:work@top.u_aes.gen_alert_tx[0].alert_sender.IsFatal
+              |vpiParent:
+              \_parameter: (work@top.u_aes.gen_alert_tx[0].alert_sender.IsFatal), line:16:17, endln:16:24, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
+              |vpiParent:
+              \_parameter: (work@top.u_aes.gen_alert_tx[0].alert_sender.IsFatal), line:16:17, endln:16:24, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[0].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[0]
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[0].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[0]
             |vpiName:IsFatal
             |vpiFullName:work@top.u_aes.gen_alert_tx[0].alert_sender.IsFatal
           |vpiParamAssign:
           \_param_assign: , line:15:17, endln:15:31, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[0].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[0]
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:15:27, endln:15:31
@@ -861,13 +1143,21 @@ design: (work@test)
               |vpiConstType:3
             |vpiLhs:
             \_parameter: (work@top.u_aes.gen_alert_tx[0].alert_sender.AsyncOn), line:15:17, endln:15:24
+              |vpiParent:
+              \_param_assign: , line:15:17, endln:15:31, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
               |BIN:1
               |vpiTypespec:
               \_bit_typespec: , line:15:13, endln:15:16, parent:work@top.u_aes.gen_alert_tx[0].alert_sender.AsyncOn
+              |vpiParent:
+              \_param_assign: , line:15:17, endln:15:31, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
+              |vpiParent:
+              \_param_assign: , line:15:17, endln:15:31, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
               |vpiName:AsyncOn
               |vpiFullName:work@top.u_aes.gen_alert_tx[0].alert_sender.AsyncOn
           |vpiParamAssign:
           \_param_assign: , line:16:17, endln:16:31, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[0].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[0]
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:16:27, endln:16:31
@@ -879,27 +1169,51 @@ design: (work@test)
               |vpiConstType:9
             |vpiLhs:
             \_parameter: (work@top.u_aes.gen_alert_tx[0].alert_sender.IsFatal), line:16:17, endln:16:24
+              |vpiParent:
+              \_param_assign: , line:16:17, endln:16:31, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
               |BIN:0
               |vpiTypespec:
               \_bit_typespec: , line:16:13, endln:16:16, parent:work@top.u_aes.gen_alert_tx[0].alert_sender.IsFatal
+              |vpiParent:
+              \_param_assign: , line:16:17, endln:16:31, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
+              |vpiParent:
+              \_param_assign: , line:16:17, endln:16:31, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
               |vpiName:IsFatal
               |vpiFullName:work@top.u_aes.gen_alert_tx[0].alert_sender.IsFatal
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[0]), parent:work@top.u_aes.gen_alert_tx[0]
           |vpiDefName:work@prim_alert_sender
           |vpiDefFile:dut.sv
           |vpiDefLineNo:13
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[0]), parent:work@top.u_aes.gen_alert_tx[0]
           |vpiModule:
           \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[0].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[0]
             |vpiName:dec_ack
             |vpiFullName:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack
             |vpiParameter:
             \_parameter: (work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.AsyncOn), line:32:17, endln:32:24, parent:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack
+              |vpiParent:
+              \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
               |BIN:0
               |vpiTypespec:
               \_bit_typespec: , line:32:13, endln:32:16, parent:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.AsyncOn
+                |vpiParent:
+                \_parameter: (work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.AsyncOn), line:32:17, endln:32:24, parent:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack
+                |vpiParent:
+                \_parameter: (work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.AsyncOn), line:32:17, endln:32:24, parent:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack
+              |vpiParent:
+              \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
+              |vpiParent:
+              \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
               |vpiName:AsyncOn
               |vpiFullName:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.AsyncOn
             |vpiParamAssign:
             \_param_assign: , line:32:17, endln:32:31, parent:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack
+              |vpiParent:
+              \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
               |vpiOverriden:1
               |vpiRhs:
               \_constant: , line:32:27, endln:32:31
@@ -911,72 +1225,136 @@ design: (work@test)
                 |vpiConstType:3
               |vpiLhs:
               \_parameter: (work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.AsyncOn), line:32:17, endln:32:24
+                |vpiParent:
+                \_param_assign: , line:32:17, endln:32:31, parent:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack
                 |BIN:0
                 |vpiTypespec:
                 \_bit_typespec: , line:32:13, endln:32:16, parent:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.AsyncOn
+                |vpiParent:
+                \_param_assign: , line:32:17, endln:32:31, parent:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack
+                |vpiParent:
+                \_param_assign: , line:32:17, endln:32:31, parent:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack
                 |vpiName:AsyncOn
                 |vpiFullName:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.AsyncOn
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[0].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[0]
             |vpiDefName:work@prim_diff_decode
             |vpiDefFile:dut.sv
             |vpiDefLineNo:31
             |vpiInstance:
             \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[0].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[0]
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[0].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[0]
             |vpiGenScopeArray:
             \_gen_scope_array: (work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.gen_async), line:35:3, endln:37:6, parent:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack
+              |vpiParent:
+              \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
               |vpiName:gen_async
               |vpiFullName:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.gen_async
               |vpiGenScope:
               \_gen_scope: (work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.gen_async), parent:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.gen_async
+                |vpiParent:
+                \_gen_scope_array: (work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.gen_async), line:35:3, endln:37:6, parent:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack
                 |vpiFullName:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.gen_async
+                |vpiParent:
+                \_gen_scope_array: (work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.gen_async), line:35:3, endln:37:6, parent:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack
                 |vpiModule:
                 \_module: work@GOOD (work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.gen_async.good) dut.sv:36:6: , endln:36:18, parent:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.gen_async
+                  |vpiParent:
+                  \_gen_scope: (work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.gen_async), parent:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.gen_async
                   |vpiName:good
                   |vpiFullName:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.gen_async.good
+                  |vpiParent:
+                  \_gen_scope: (work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.gen_async), parent:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.gen_async
                   |vpiDefName:work@GOOD
                   |vpiDefFile:dut.sv
                   |vpiDefLineNo:28
+                  |vpiParent:
+                  \_gen_scope: (work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.gen_async), parent:work@top.u_aes.gen_alert_tx[0].alert_sender.dec_ack.gen_async
           |vpiGenScopeArray:
           \_gen_scope_array: (work@top.u_aes.gen_alert_tx[0].alert_sender.gen_async_assert), line:23:5, endln:24:8, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[0].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[0]
             |vpiName:gen_async_assert
             |vpiFullName:work@top.u_aes.gen_alert_tx[0].alert_sender.gen_async_assert
             |vpiGenScope:
             \_gen_scope: (work@top.u_aes.gen_alert_tx[0].alert_sender.gen_async_assert), parent:work@top.u_aes.gen_alert_tx[0].alert_sender.gen_async_assert
+              |vpiParent:
+              \_gen_scope_array: (work@top.u_aes.gen_alert_tx[0].alert_sender.gen_async_assert), line:23:5, endln:24:8, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
               |vpiFullName:work@top.u_aes.gen_alert_tx[0].alert_sender.gen_async_assert
+              |vpiParent:
+              \_gen_scope_array: (work@top.u_aes.gen_alert_tx[0].alert_sender.gen_async_assert), line:23:5, endln:24:8, parent:work@top.u_aes.gen_alert_tx[0].alert_sender
     |vpiGenScopeArray:
     \_gen_scope_array: (work@top.u_aes.gen_alert_tx[1]), line:52:35, endln:58:6, parent:work@top.u_aes
+      |vpiParent:
+      \_module: work@aes (work@top.u_aes) dut.sv:43:3: , endln:45:13, parent:work@top
       |vpiName:gen_alert_tx[1]
       |vpiFullName:work@top.u_aes.gen_alert_tx[1]
       |vpiGenScope:
       \_gen_scope: (work@top.u_aes.gen_alert_tx[1]), parent:work@top.u_aes.gen_alert_tx[1]
+        |vpiParent:
+        \_gen_scope_array: (work@top.u_aes.gen_alert_tx[1]), line:52:35, endln:58:6, parent:work@top.u_aes
         |vpiFullName:work@top.u_aes.gen_alert_tx[1]
         |vpiParameter:
         \_parameter: (work@top.u_aes.gen_alert_tx[1].i), line:52, parent:work@top.u_aes.gen_alert_tx[1]
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[1]), parent:work@top.u_aes.gen_alert_tx[1]
           |UINT:1
           |vpiTypespec:
           \_int_typespec: 
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[1]), parent:work@top.u_aes.gen_alert_tx[1]
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[1]), parent:work@top.u_aes.gen_alert_tx[1]
           |vpiLocalParam:1
           |vpiName:i
           |vpiFullName:work@top.u_aes.gen_alert_tx[1].i
+        |vpiParent:
+        \_gen_scope_array: (work@top.u_aes.gen_alert_tx[1]), line:52:35, endln:58:6, parent:work@top.u_aes
         |vpiModule:
         \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[1].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[1]
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[1]), parent:work@top.u_aes.gen_alert_tx[1]
           |vpiName:alert_sender
           |vpiFullName:work@top.u_aes.gen_alert_tx[1].alert_sender
           |vpiParameter:
           \_parameter: (work@top.u_aes.gen_alert_tx[1].alert_sender.AsyncOn), line:15:17, endln:15:24, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[1].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[1]
             |BIN:1
             |vpiTypespec:
             \_bit_typespec: , line:15:13, endln:15:16, parent:work@top.u_aes.gen_alert_tx[1].alert_sender.AsyncOn
+              |vpiParent:
+              \_parameter: (work@top.u_aes.gen_alert_tx[1].alert_sender.AsyncOn), line:15:17, endln:15:24, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
+              |vpiParent:
+              \_parameter: (work@top.u_aes.gen_alert_tx[1].alert_sender.AsyncOn), line:15:17, endln:15:24, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[1].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[1]
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[1].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[1]
             |vpiName:AsyncOn
             |vpiFullName:work@top.u_aes.gen_alert_tx[1].alert_sender.AsyncOn
           |vpiParameter:
           \_parameter: (work@top.u_aes.gen_alert_tx[1].alert_sender.IsFatal), line:16:17, endln:16:24, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[1].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[1]
             |BIN:0
             |vpiTypespec:
             \_bit_typespec: , line:16:13, endln:16:16, parent:work@top.u_aes.gen_alert_tx[1].alert_sender.IsFatal
+              |vpiParent:
+              \_parameter: (work@top.u_aes.gen_alert_tx[1].alert_sender.IsFatal), line:16:17, endln:16:24, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
+              |vpiParent:
+              \_parameter: (work@top.u_aes.gen_alert_tx[1].alert_sender.IsFatal), line:16:17, endln:16:24, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[1].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[1]
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[1].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[1]
             |vpiName:IsFatal
             |vpiFullName:work@top.u_aes.gen_alert_tx[1].alert_sender.IsFatal
           |vpiParamAssign:
           \_param_assign: , line:15:17, endln:15:31, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[1].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[1]
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:15:27, endln:15:31
@@ -988,13 +1366,21 @@ design: (work@test)
               |vpiConstType:3
             |vpiLhs:
             \_parameter: (work@top.u_aes.gen_alert_tx[1].alert_sender.AsyncOn), line:15:17, endln:15:24
+              |vpiParent:
+              \_param_assign: , line:15:17, endln:15:31, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
               |BIN:1
               |vpiTypespec:
               \_bit_typespec: , line:15:13, endln:15:16, parent:work@top.u_aes.gen_alert_tx[1].alert_sender.AsyncOn
+              |vpiParent:
+              \_param_assign: , line:15:17, endln:15:31, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
+              |vpiParent:
+              \_param_assign: , line:15:17, endln:15:31, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
               |vpiName:AsyncOn
               |vpiFullName:work@top.u_aes.gen_alert_tx[1].alert_sender.AsyncOn
           |vpiParamAssign:
           \_param_assign: , line:16:17, endln:16:31, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[1].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[1]
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:16:27, endln:16:31
@@ -1006,27 +1392,51 @@ design: (work@test)
               |vpiConstType:9
             |vpiLhs:
             \_parameter: (work@top.u_aes.gen_alert_tx[1].alert_sender.IsFatal), line:16:17, endln:16:24
+              |vpiParent:
+              \_param_assign: , line:16:17, endln:16:31, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
               |BIN:0
               |vpiTypespec:
               \_bit_typespec: , line:16:13, endln:16:16, parent:work@top.u_aes.gen_alert_tx[1].alert_sender.IsFatal
+              |vpiParent:
+              \_param_assign: , line:16:17, endln:16:31, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
+              |vpiParent:
+              \_param_assign: , line:16:17, endln:16:31, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
               |vpiName:IsFatal
               |vpiFullName:work@top.u_aes.gen_alert_tx[1].alert_sender.IsFatal
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[1]), parent:work@top.u_aes.gen_alert_tx[1]
           |vpiDefName:work@prim_alert_sender
           |vpiDefFile:dut.sv
           |vpiDefLineNo:13
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[1]), parent:work@top.u_aes.gen_alert_tx[1]
           |vpiModule:
           \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[1].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[1]
             |vpiName:dec_ack
             |vpiFullName:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack
             |vpiParameter:
             \_parameter: (work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.AsyncOn), line:32:17, endln:32:24, parent:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack
+              |vpiParent:
+              \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
               |BIN:0
               |vpiTypespec:
               \_bit_typespec: , line:32:13, endln:32:16, parent:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.AsyncOn
+                |vpiParent:
+                \_parameter: (work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.AsyncOn), line:32:17, endln:32:24, parent:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack
+                |vpiParent:
+                \_parameter: (work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.AsyncOn), line:32:17, endln:32:24, parent:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack
+              |vpiParent:
+              \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
+              |vpiParent:
+              \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
               |vpiName:AsyncOn
               |vpiFullName:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.AsyncOn
             |vpiParamAssign:
             \_param_assign: , line:32:17, endln:32:31, parent:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack
+              |vpiParent:
+              \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
               |vpiOverriden:1
               |vpiRhs:
               \_constant: , line:32:27, endln:32:31
@@ -1038,72 +1448,136 @@ design: (work@test)
                 |vpiConstType:3
               |vpiLhs:
               \_parameter: (work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.AsyncOn), line:32:17, endln:32:24
+                |vpiParent:
+                \_param_assign: , line:32:17, endln:32:31, parent:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack
                 |BIN:0
                 |vpiTypespec:
                 \_bit_typespec: , line:32:13, endln:32:16, parent:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.AsyncOn
+                |vpiParent:
+                \_param_assign: , line:32:17, endln:32:31, parent:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack
+                |vpiParent:
+                \_param_assign: , line:32:17, endln:32:31, parent:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack
                 |vpiName:AsyncOn
                 |vpiFullName:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.AsyncOn
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[1].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[1]
             |vpiDefName:work@prim_diff_decode
             |vpiDefFile:dut.sv
             |vpiDefLineNo:31
             |vpiInstance:
             \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[1].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[1]
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[1].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[1]
             |vpiGenScopeArray:
             \_gen_scope_array: (work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.gen_async), line:35:3, endln:37:6, parent:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack
+              |vpiParent:
+              \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
               |vpiName:gen_async
               |vpiFullName:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.gen_async
               |vpiGenScope:
               \_gen_scope: (work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.gen_async), parent:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.gen_async
+                |vpiParent:
+                \_gen_scope_array: (work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.gen_async), line:35:3, endln:37:6, parent:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack
                 |vpiFullName:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.gen_async
+                |vpiParent:
+                \_gen_scope_array: (work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.gen_async), line:35:3, endln:37:6, parent:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack
                 |vpiModule:
                 \_module: work@GOOD (work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.gen_async.good) dut.sv:36:6: , endln:36:18, parent:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.gen_async
+                  |vpiParent:
+                  \_gen_scope: (work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.gen_async), parent:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.gen_async
                   |vpiName:good
                   |vpiFullName:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.gen_async.good
+                  |vpiParent:
+                  \_gen_scope: (work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.gen_async), parent:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.gen_async
                   |vpiDefName:work@GOOD
                   |vpiDefFile:dut.sv
                   |vpiDefLineNo:28
+                  |vpiParent:
+                  \_gen_scope: (work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.gen_async), parent:work@top.u_aes.gen_alert_tx[1].alert_sender.dec_ack.gen_async
           |vpiGenScopeArray:
           \_gen_scope_array: (work@top.u_aes.gen_alert_tx[1].alert_sender.gen_async_assert), line:23:5, endln:24:8, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[1].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[1]
             |vpiName:gen_async_assert
             |vpiFullName:work@top.u_aes.gen_alert_tx[1].alert_sender.gen_async_assert
             |vpiGenScope:
             \_gen_scope: (work@top.u_aes.gen_alert_tx[1].alert_sender.gen_async_assert), parent:work@top.u_aes.gen_alert_tx[1].alert_sender.gen_async_assert
+              |vpiParent:
+              \_gen_scope_array: (work@top.u_aes.gen_alert_tx[1].alert_sender.gen_async_assert), line:23:5, endln:24:8, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
               |vpiFullName:work@top.u_aes.gen_alert_tx[1].alert_sender.gen_async_assert
+              |vpiParent:
+              \_gen_scope_array: (work@top.u_aes.gen_alert_tx[1].alert_sender.gen_async_assert), line:23:5, endln:24:8, parent:work@top.u_aes.gen_alert_tx[1].alert_sender
     |vpiGenScopeArray:
     \_gen_scope_array: (work@top.u_aes.gen_alert_tx[2]), line:52:35, endln:58:6, parent:work@top.u_aes
+      |vpiParent:
+      \_module: work@aes (work@top.u_aes) dut.sv:43:3: , endln:45:13, parent:work@top
       |vpiName:gen_alert_tx[2]
       |vpiFullName:work@top.u_aes.gen_alert_tx[2]
       |vpiGenScope:
       \_gen_scope: (work@top.u_aes.gen_alert_tx[2]), parent:work@top.u_aes.gen_alert_tx[2]
+        |vpiParent:
+        \_gen_scope_array: (work@top.u_aes.gen_alert_tx[2]), line:52:35, endln:58:6, parent:work@top.u_aes
         |vpiFullName:work@top.u_aes.gen_alert_tx[2]
         |vpiParameter:
         \_parameter: (work@top.u_aes.gen_alert_tx[2].i), line:52, parent:work@top.u_aes.gen_alert_tx[2]
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[2]), parent:work@top.u_aes.gen_alert_tx[2]
           |UINT:2
           |vpiTypespec:
           \_int_typespec: 
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[2]), parent:work@top.u_aes.gen_alert_tx[2]
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[2]), parent:work@top.u_aes.gen_alert_tx[2]
           |vpiLocalParam:1
           |vpiName:i
           |vpiFullName:work@top.u_aes.gen_alert_tx[2].i
+        |vpiParent:
+        \_gen_scope_array: (work@top.u_aes.gen_alert_tx[2]), line:52:35, endln:58:6, parent:work@top.u_aes
         |vpiModule:
         \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[2].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[2]
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[2]), parent:work@top.u_aes.gen_alert_tx[2]
           |vpiName:alert_sender
           |vpiFullName:work@top.u_aes.gen_alert_tx[2].alert_sender
           |vpiParameter:
           \_parameter: (work@top.u_aes.gen_alert_tx[2].alert_sender.AsyncOn), line:15:17, endln:15:24, parent:work@top.u_aes.gen_alert_tx[2].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[2].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[2]
             |BIN:1
             |vpiTypespec:
             \_bit_typespec: , line:15:13, endln:15:16, parent:work@top.u_aes.gen_alert_tx[2].alert_sender.AsyncOn
+              |vpiParent:
+              \_parameter: (work@top.u_aes.gen_alert_tx[2].alert_sender.AsyncOn), line:15:17, endln:15:24, parent:work@top.u_aes.gen_alert_tx[2].alert_sender
+              |vpiParent:
+              \_parameter: (work@top.u_aes.gen_alert_tx[2].alert_sender.AsyncOn), line:15:17, endln:15:24, parent:work@top.u_aes.gen_alert_tx[2].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[2].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[2]
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[2].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[2]
             |vpiName:AsyncOn
             |vpiFullName:work@top.u_aes.gen_alert_tx[2].alert_sender.AsyncOn
           |vpiParameter:
           \_parameter: (work@top.u_aes.gen_alert_tx[2].alert_sender.IsFatal), line:16:17, endln:16:24, parent:work@top.u_aes.gen_alert_tx[2].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[2].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[2]
             |BIN:0
             |vpiTypespec:
             \_bit_typespec: , line:16:13, endln:16:16, parent:work@top.u_aes.gen_alert_tx[2].alert_sender.IsFatal
+              |vpiParent:
+              \_parameter: (work@top.u_aes.gen_alert_tx[2].alert_sender.IsFatal), line:16:17, endln:16:24, parent:work@top.u_aes.gen_alert_tx[2].alert_sender
+              |vpiParent:
+              \_parameter: (work@top.u_aes.gen_alert_tx[2].alert_sender.IsFatal), line:16:17, endln:16:24, parent:work@top.u_aes.gen_alert_tx[2].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[2].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[2]
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[2].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[2]
             |vpiName:IsFatal
             |vpiFullName:work@top.u_aes.gen_alert_tx[2].alert_sender.IsFatal
           |vpiParamAssign:
           \_param_assign: , line:15:17, endln:15:31, parent:work@top.u_aes.gen_alert_tx[2].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[2].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[2]
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:15:27, endln:15:31
@@ -1115,13 +1589,21 @@ design: (work@test)
               |vpiConstType:3
             |vpiLhs:
             \_parameter: (work@top.u_aes.gen_alert_tx[2].alert_sender.AsyncOn), line:15:17, endln:15:24
+              |vpiParent:
+              \_param_assign: , line:15:17, endln:15:31, parent:work@top.u_aes.gen_alert_tx[2].alert_sender
               |BIN:1
               |vpiTypespec:
               \_bit_typespec: , line:15:13, endln:15:16, parent:work@top.u_aes.gen_alert_tx[2].alert_sender.AsyncOn
+              |vpiParent:
+              \_param_assign: , line:15:17, endln:15:31, parent:work@top.u_aes.gen_alert_tx[2].alert_sender
+              |vpiParent:
+              \_param_assign: , line:15:17, endln:15:31, parent:work@top.u_aes.gen_alert_tx[2].alert_sender
               |vpiName:AsyncOn
               |vpiFullName:work@top.u_aes.gen_alert_tx[2].alert_sender.AsyncOn
           |vpiParamAssign:
           \_param_assign: , line:16:17, endln:16:31, parent:work@top.u_aes.gen_alert_tx[2].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[2].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[2]
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:16:27, endln:16:31
@@ -1133,27 +1615,51 @@ design: (work@test)
               |vpiConstType:9
             |vpiLhs:
             \_parameter: (work@top.u_aes.gen_alert_tx[2].alert_sender.IsFatal), line:16:17, endln:16:24
+              |vpiParent:
+              \_param_assign: , line:16:17, endln:16:31, parent:work@top.u_aes.gen_alert_tx[2].alert_sender
               |BIN:0
               |vpiTypespec:
               \_bit_typespec: , line:16:13, endln:16:16, parent:work@top.u_aes.gen_alert_tx[2].alert_sender.IsFatal
+              |vpiParent:
+              \_param_assign: , line:16:17, endln:16:31, parent:work@top.u_aes.gen_alert_tx[2].alert_sender
+              |vpiParent:
+              \_param_assign: , line:16:17, endln:16:31, parent:work@top.u_aes.gen_alert_tx[2].alert_sender
               |vpiName:IsFatal
               |vpiFullName:work@top.u_aes.gen_alert_tx[2].alert_sender.IsFatal
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[2]), parent:work@top.u_aes.gen_alert_tx[2]
           |vpiDefName:work@prim_alert_sender
           |vpiDefFile:dut.sv
           |vpiDefLineNo:13
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[2]), parent:work@top.u_aes.gen_alert_tx[2]
           |vpiModule:
           \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[2].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[2].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[2]
             |vpiName:dec_ack
             |vpiFullName:work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack
             |vpiParameter:
             \_parameter: (work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack.AsyncOn), line:32:17, endln:32:24, parent:work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack
+              |vpiParent:
+              \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[2].alert_sender
               |BIN:0
               |vpiTypespec:
               \_bit_typespec: , line:32:13, endln:32:16, parent:work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack.AsyncOn
+                |vpiParent:
+                \_parameter: (work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack.AsyncOn), line:32:17, endln:32:24, parent:work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack
+                |vpiParent:
+                \_parameter: (work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack.AsyncOn), line:32:17, endln:32:24, parent:work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack
+              |vpiParent:
+              \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[2].alert_sender
+              |vpiParent:
+              \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[2].alert_sender
               |vpiName:AsyncOn
               |vpiFullName:work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack.AsyncOn
             |vpiParamAssign:
             \_param_assign: , line:32:17, endln:32:31, parent:work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack
+              |vpiParent:
+              \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[2].alert_sender
               |vpiOverriden:1
               |vpiRhs:
               \_constant: , line:32:27, endln:32:31
@@ -1165,51 +1671,97 @@ design: (work@test)
                 |vpiConstType:3
               |vpiLhs:
               \_parameter: (work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack.AsyncOn), line:32:17, endln:32:24
+                |vpiParent:
+                \_param_assign: , line:32:17, endln:32:31, parent:work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack
                 |BIN:0
                 |vpiTypespec:
                 \_bit_typespec: , line:32:13, endln:32:16, parent:work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack.AsyncOn
+                |vpiParent:
+                \_param_assign: , line:32:17, endln:32:31, parent:work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack
+                |vpiParent:
+                \_param_assign: , line:32:17, endln:32:31, parent:work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack
                 |vpiName:AsyncOn
                 |vpiFullName:work@top.u_aes.gen_alert_tx[2].alert_sender.dec_ack.AsyncOn
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[2].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[2]
             |vpiDefName:work@prim_diff_decode
             |vpiDefFile:dut.sv
             |vpiDefLineNo:31
             |vpiInstance:
             \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[2].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[2]
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[2].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[2]
     |vpiGenScopeArray:
     \_gen_scope_array: (work@top.u_aes.gen_alert_tx[3]), line:52:35, endln:58:6, parent:work@top.u_aes
+      |vpiParent:
+      \_module: work@aes (work@top.u_aes) dut.sv:43:3: , endln:45:13, parent:work@top
       |vpiName:gen_alert_tx[3]
       |vpiFullName:work@top.u_aes.gen_alert_tx[3]
       |vpiGenScope:
       \_gen_scope: (work@top.u_aes.gen_alert_tx[3]), parent:work@top.u_aes.gen_alert_tx[3]
+        |vpiParent:
+        \_gen_scope_array: (work@top.u_aes.gen_alert_tx[3]), line:52:35, endln:58:6, parent:work@top.u_aes
         |vpiFullName:work@top.u_aes.gen_alert_tx[3]
         |vpiParameter:
         \_parameter: (work@top.u_aes.gen_alert_tx[3].i), line:52, parent:work@top.u_aes.gen_alert_tx[3]
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[3]), parent:work@top.u_aes.gen_alert_tx[3]
           |UINT:3
           |vpiTypespec:
           \_int_typespec: 
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[3]), parent:work@top.u_aes.gen_alert_tx[3]
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[3]), parent:work@top.u_aes.gen_alert_tx[3]
           |vpiLocalParam:1
           |vpiName:i
           |vpiFullName:work@top.u_aes.gen_alert_tx[3].i
+        |vpiParent:
+        \_gen_scope_array: (work@top.u_aes.gen_alert_tx[3]), line:52:35, endln:58:6, parent:work@top.u_aes
         |vpiModule:
         \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[3].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[3]
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[3]), parent:work@top.u_aes.gen_alert_tx[3]
           |vpiName:alert_sender
           |vpiFullName:work@top.u_aes.gen_alert_tx[3].alert_sender
           |vpiParameter:
           \_parameter: (work@top.u_aes.gen_alert_tx[3].alert_sender.AsyncOn), line:15:17, endln:15:24, parent:work@top.u_aes.gen_alert_tx[3].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[3].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[3]
             |BIN:1
             |vpiTypespec:
             \_bit_typespec: , line:15:13, endln:15:16, parent:work@top.u_aes.gen_alert_tx[3].alert_sender.AsyncOn
+              |vpiParent:
+              \_parameter: (work@top.u_aes.gen_alert_tx[3].alert_sender.AsyncOn), line:15:17, endln:15:24, parent:work@top.u_aes.gen_alert_tx[3].alert_sender
+              |vpiParent:
+              \_parameter: (work@top.u_aes.gen_alert_tx[3].alert_sender.AsyncOn), line:15:17, endln:15:24, parent:work@top.u_aes.gen_alert_tx[3].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[3].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[3]
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[3].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[3]
             |vpiName:AsyncOn
             |vpiFullName:work@top.u_aes.gen_alert_tx[3].alert_sender.AsyncOn
           |vpiParameter:
           \_parameter: (work@top.u_aes.gen_alert_tx[3].alert_sender.IsFatal), line:16:17, endln:16:24, parent:work@top.u_aes.gen_alert_tx[3].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[3].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[3]
             |BIN:0
             |vpiTypespec:
             \_bit_typespec: , line:16:13, endln:16:16, parent:work@top.u_aes.gen_alert_tx[3].alert_sender.IsFatal
+              |vpiParent:
+              \_parameter: (work@top.u_aes.gen_alert_tx[3].alert_sender.IsFatal), line:16:17, endln:16:24, parent:work@top.u_aes.gen_alert_tx[3].alert_sender
+              |vpiParent:
+              \_parameter: (work@top.u_aes.gen_alert_tx[3].alert_sender.IsFatal), line:16:17, endln:16:24, parent:work@top.u_aes.gen_alert_tx[3].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[3].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[3]
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[3].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[3]
             |vpiName:IsFatal
             |vpiFullName:work@top.u_aes.gen_alert_tx[3].alert_sender.IsFatal
           |vpiParamAssign:
           \_param_assign: , line:15:17, endln:15:31, parent:work@top.u_aes.gen_alert_tx[3].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[3].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[3]
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:15:27, endln:15:31
@@ -1221,13 +1773,21 @@ design: (work@test)
               |vpiConstType:3
             |vpiLhs:
             \_parameter: (work@top.u_aes.gen_alert_tx[3].alert_sender.AsyncOn), line:15:17, endln:15:24
+              |vpiParent:
+              \_param_assign: , line:15:17, endln:15:31, parent:work@top.u_aes.gen_alert_tx[3].alert_sender
               |BIN:1
               |vpiTypespec:
               \_bit_typespec: , line:15:13, endln:15:16, parent:work@top.u_aes.gen_alert_tx[3].alert_sender.AsyncOn
+              |vpiParent:
+              \_param_assign: , line:15:17, endln:15:31, parent:work@top.u_aes.gen_alert_tx[3].alert_sender
+              |vpiParent:
+              \_param_assign: , line:15:17, endln:15:31, parent:work@top.u_aes.gen_alert_tx[3].alert_sender
               |vpiName:AsyncOn
               |vpiFullName:work@top.u_aes.gen_alert_tx[3].alert_sender.AsyncOn
           |vpiParamAssign:
           \_param_assign: , line:16:17, endln:16:31, parent:work@top.u_aes.gen_alert_tx[3].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[3].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[3]
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:16:27, endln:16:31
@@ -1239,27 +1799,51 @@ design: (work@test)
               |vpiConstType:9
             |vpiLhs:
             \_parameter: (work@top.u_aes.gen_alert_tx[3].alert_sender.IsFatal), line:16:17, endln:16:24
+              |vpiParent:
+              \_param_assign: , line:16:17, endln:16:31, parent:work@top.u_aes.gen_alert_tx[3].alert_sender
               |BIN:0
               |vpiTypespec:
               \_bit_typespec: , line:16:13, endln:16:16, parent:work@top.u_aes.gen_alert_tx[3].alert_sender.IsFatal
+              |vpiParent:
+              \_param_assign: , line:16:17, endln:16:31, parent:work@top.u_aes.gen_alert_tx[3].alert_sender
+              |vpiParent:
+              \_param_assign: , line:16:17, endln:16:31, parent:work@top.u_aes.gen_alert_tx[3].alert_sender
               |vpiName:IsFatal
               |vpiFullName:work@top.u_aes.gen_alert_tx[3].alert_sender.IsFatal
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[3]), parent:work@top.u_aes.gen_alert_tx[3]
           |vpiDefName:work@prim_alert_sender
           |vpiDefFile:dut.sv
           |vpiDefLineNo:13
+          |vpiParent:
+          \_gen_scope: (work@top.u_aes.gen_alert_tx[3]), parent:work@top.u_aes.gen_alert_tx[3]
           |vpiModule:
           \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[3].alert_sender
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[3].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[3]
             |vpiName:dec_ack
             |vpiFullName:work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack
             |vpiParameter:
             \_parameter: (work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack.AsyncOn), line:32:17, endln:32:24, parent:work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack
+              |vpiParent:
+              \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[3].alert_sender
               |BIN:0
               |vpiTypespec:
               \_bit_typespec: , line:32:13, endln:32:16, parent:work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack.AsyncOn
+                |vpiParent:
+                \_parameter: (work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack.AsyncOn), line:32:17, endln:32:24, parent:work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack
+                |vpiParent:
+                \_parameter: (work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack.AsyncOn), line:32:17, endln:32:24, parent:work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack
+              |vpiParent:
+              \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[3].alert_sender
+              |vpiParent:
+              \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[3].alert_sender
               |vpiName:AsyncOn
               |vpiFullName:work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack.AsyncOn
             |vpiParamAssign:
             \_param_assign: , line:32:17, endln:32:31, parent:work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack
+              |vpiParent:
+              \_module: work@prim_diff_decode (work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack) dut.sv:19:3: , endln:21:16, parent:work@top.u_aes.gen_alert_tx[3].alert_sender
               |vpiOverriden:1
               |vpiRhs:
               \_constant: , line:32:27, endln:32:31
@@ -1271,15 +1855,25 @@ design: (work@test)
                 |vpiConstType:3
               |vpiLhs:
               \_parameter: (work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack.AsyncOn), line:32:17, endln:32:24
+                |vpiParent:
+                \_param_assign: , line:32:17, endln:32:31, parent:work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack
                 |BIN:0
                 |vpiTypespec:
                 \_bit_typespec: , line:32:13, endln:32:16, parent:work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack.AsyncOn
+                |vpiParent:
+                \_param_assign: , line:32:17, endln:32:31, parent:work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack
+                |vpiParent:
+                \_param_assign: , line:32:17, endln:32:31, parent:work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack
                 |vpiName:AsyncOn
                 |vpiFullName:work@top.u_aes.gen_alert_tx[3].alert_sender.dec_ack.AsyncOn
+            |vpiParent:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[3].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[3]
             |vpiDefName:work@prim_diff_decode
             |vpiDefFile:dut.sv
             |vpiDefLineNo:31
             |vpiInstance:
+            \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[3].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[3]
+            |vpiParent:
             \_module: work@prim_alert_sender (work@top.u_aes.gen_alert_tx[3].alert_sender) dut.sv:53:5: , endln:57:7, parent:work@top.u_aes.gen_alert_tx[3]
 ===================
 [  FATAL] : 0
