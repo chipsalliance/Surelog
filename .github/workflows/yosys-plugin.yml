@@ -81,3 +81,10 @@ jobs:
       with:
         name: top_artya7.bit
         path: ./yosys-uhdm-plugin-integration/UHDM-integration-tests/build/lowrisc_ibex_top_artya7_surelog_0.1/synth-symbiflow/top_artya7.bit
+
+    - name: Upload load graphs
+      uses: actions/upload-artifact@v2
+      with:
+        name: plots
+        path: |
+          **/plot_*.svg
