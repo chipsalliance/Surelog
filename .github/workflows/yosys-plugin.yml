@@ -52,6 +52,12 @@ jobs:
         fetch-depth: 0
         path: 'yosys-uhdm-plugin-integration/Surelog'
 
+    - name: Create Cache Timestamp
+      id: cache_timestamp
+      uses: nanzm/get-time-action@v1.1
+      with:
+        format: 'YYYY-MM-DD-HH-mm-ss'
+
     - name: Setup cache
       uses: actions/cache@v2
       with:
