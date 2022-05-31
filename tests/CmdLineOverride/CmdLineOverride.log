@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/regression/CmdLineOverride/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/tests/CmdLineOverride/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -66,11 +66,11 @@ n<> u<31> t<Top_level_rule> c<1> l<1:1> el<8:1>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/regression/CmdLineOverride/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/tests/CmdLineOverride/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/CmdLineOverride/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/CmdLineOverride/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/CmdLineOverride/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/tests/CmdLineOverride/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -80,26 +80,16 @@ design: (work@foo)
 |vpiName:work@foo
 |uhdmallModules:
 \_module: work@baz (work@baz) dut.sv:5:1: , endln:6:10, parent:work@foo
-  |vpiParent:
-  \_design: (work@foo)
   |vpiFullName:work@baz
-  |vpiParent:
-  \_design: (work@foo)
   |vpiDefName:work@baz
   |vpiParent:
   \_design: (work@foo)
 |uhdmallModules:
 \_module: work@foo (work@foo) dut.sv:1:1: , endln:3:10, parent:work@foo
-  |vpiParent:
-  \_design: (work@foo)
   |vpiFullName:work@foo
   |vpiParameter:
   \_parameter: (work@foo.bar), line:2:17, endln:2:20, parent:work@foo
-    |vpiParent:
-    \_module: work@foo (work@foo) dut.sv:1:1: , endln:3:10, parent:work@foo
     |UINT:0
-    |vpiParent:
-    \_module: work@foo (work@foo) dut.sv:1:1: , endln:3:10, parent:work@foo
     |vpiParent:
     \_module: work@foo (work@foo) dut.sv:1:1: , endln:3:10, parent:work@foo
     |vpiSigned:1
@@ -118,14 +108,10 @@ design: (work@foo)
       \_int_typespec: , line:2:13, endln:2:16, parent:work@foo.bar
         |vpiParent:
         \_parameter: (work@foo.bar), line:2:17, endln:2:20, parent:work@foo
-        |vpiParent:
-        \_parameter: (work@foo.bar), line:2:17, endln:2:20, parent:work@foo
         |vpiSigned:1
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@foo.bar), line:2:17, endln:2:20, parent:work@foo
-  |vpiParent:
-  \_design: (work@foo)
   |vpiDefName:work@foo
   |vpiParent:
   \_design: (work@foo)
@@ -134,11 +120,7 @@ design: (work@foo)
   |vpiName:work@foo
   |vpiParameter:
   \_parameter: (work@foo.bar), line:2:17, endln:2:20, parent:work@foo
-    |vpiParent:
-    \_module: work@foo (work@foo) dut.sv:1:1: , endln:3:10
     |UINT:0
-    |vpiParent:
-    \_module: work@foo (work@foo) dut.sv:1:1: , endln:3:10
     |vpiParent:
     \_module: work@foo (work@foo) dut.sv:1:1: , endln:3:10
     |vpiSigned:1
@@ -171,7 +153,4 @@ design: (work@foo)
 [  ERROR] : 1
 [WARNING] : 2
 [   NOTE] : 7
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/CmdLineOverride/dut.sv | ${SURELOG_DIR}/build/regression/CmdLineOverride/roundtrip/dut_000.sv | 1 | 6 | 
 

@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/regression/TypedefAlias/slpp_unit/surelog.log.
+[INF:CM0023] Creating log file ../../build/tests/TypedefAlias/slpp_unit/surelog.log.
 
 [INF:CM0020] Separate compilation-unit mode is on.
 
@@ -32,11 +32,11 @@
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/regression/TypedefAlias/slpp_unit/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/tests/TypedefAlias/slpp_unit/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/TypedefAlias/slpp_unit/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/TypedefAlias/slpp_unit/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/TypedefAlias/slpp_unit/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/tests/TypedefAlias/slpp_unit/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -46,14 +46,10 @@ design: (work@test)
 |vpiName:work@test
 |uhdmallPackages:
 \_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
-  |vpiParent:
-  \_design: (work@test)
   |vpiName:package1
   |vpiFullName:package1::
   |vpiTypedef:
   \_struct_typespec: (package1::type_t), line:2:11, endln:2:17, parent:package1::
-    |vpiParent:
-    \_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
     |vpiName:package1::type_t
     |vpiInstance:
     \_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
@@ -74,37 +70,25 @@ design: (work@test)
       |vpiRefColumnNo:7
       |vpiRefEndLineNo:3
       |vpiRefEndColumnNo:12
-  |vpiParent:
-  \_design: (work@test)
   |vpiDefName:package1
   |vpiParent:
   \_design: (work@test)
 |uhdmallPackages:
 \_package: package2 (package2::) dut.sv:9:1: , endln:11:22, parent:work@test
-  |vpiParent:
-  \_design: (work@test)
   |vpiName:package2
   |vpiFullName:package2::
-  |vpiParent:
-  \_design: (work@test)
   |vpiDefName:package2
   |vpiParent:
   \_design: (work@test)
 |uhdmtopPackages:
 \_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
-  |vpiParent:
-  \_design: (work@test)
   |vpiName:package1
   |vpiFullName:package1::
   |vpiTypedef:
   \_struct_typespec: (package1::type_alias), line:2:11, endln:2:17, parent:package1::
-    |vpiParent:
-    \_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
     |vpiName:package1::type_alias
     |vpiTypedefAlias:
     \_struct_typespec: (package1::type_t), line:2:11, endln:2:17, parent:package1::
-      |vpiParent:
-      \_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
       |vpiName:package1::type_t
       |vpiInstance:
       \_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
@@ -137,8 +121,6 @@ design: (work@test)
       |vpiName:q
       |vpiTypespec:
       \_logic_typespec: , line:3:7, endln:3:12, parent:q
-        |vpiParent:
-        \_typespec_member: (q), line:3:20, endln:3:21, parent:package1::type_alias
         |vpiInstance:
         \_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
         |vpiParent:
@@ -150,22 +132,16 @@ design: (work@test)
       |vpiRefEndColumnNo:12
   |vpiTypedef:
   \_struct_typespec: (package1::type_t), line:2:11, endln:2:17, parent:package1::
-  |vpiParent:
-  \_design: (work@test)
   |vpiDefName:package1
   |vpiTop:1
   |vpiParent:
   \_design: (work@test)
 |uhdmtopPackages:
 \_package: package2 (package2::) dut.sv:9:1: , endln:11:22, parent:work@test
-  |vpiParent:
-  \_design: (work@test)
   |vpiName:package2
   |vpiFullName:package2::
   |vpiTypedef:
   \_struct_typespec: (package2::type_alias), line:2:11, endln:2:17, parent:package2::
-    |vpiParent:
-    \_package: package2 (package2::) dut.sv:9:1: , endln:11:22, parent:work@test
     |vpiName:package2::type_alias
     |vpiTypedefAlias:
     \_struct_typespec: (package1::type_t), line:2:11, endln:2:17, parent:package1::
@@ -181,8 +157,6 @@ design: (work@test)
       |vpiName:q
       |vpiTypespec:
       \_logic_typespec: , line:3:7, endln:3:12, parent:q
-        |vpiParent:
-        \_typespec_member: (q), line:3:20, endln:3:21, parent:package2::type_alias
         |vpiInstance:
         \_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
         |vpiParent:
@@ -192,21 +166,15 @@ design: (work@test)
       |vpiRefColumnNo:7
       |vpiRefEndLineNo:3
       |vpiRefEndColumnNo:12
-  |vpiParent:
-  \_design: (work@test)
   |vpiDefName:package2
   |vpiTop:1
   |vpiParent:
   \_design: (work@test)
 |uhdmallModules:
 \_module: work@test (work@test) dut.sv:15:1: , endln:20:10, parent:work@test
-  |vpiParent:
-  \_design: (work@test)
   |vpiFullName:work@test
   |vpiTypedef:
   \_logic_typespec: (t_two_bits), line:16:13, endln:16:18, parent:work@test
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:15:1: , endln:20:10, parent:work@test
     |vpiName:t_two_bits
     |vpiInstance:
     \_module: work@test (work@test) dut.sv:15:1: , endln:20:10, parent:work@test
@@ -216,8 +184,6 @@ design: (work@test)
     \_range: , line:16:20, endln:16:23
       |vpiLeftRange:
       \_constant: , line:16:20, endln:16:21
-        |vpiParent:
-        \_range: , line:16:20, endln:16:23
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
@@ -226,8 +192,6 @@ design: (work@test)
         |vpiConstType:9
       |vpiRightRange:
       \_constant: , line:16:22, endln:16:23
-        |vpiParent:
-        \_range: , line:16:20, endln:16:23
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -236,8 +200,6 @@ design: (work@test)
         |vpiConstType:9
   |vpiTypedef:
   \_logic_typespec: (t_two_bits_copy), line:16:13, endln:16:18, parent:work@test
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:15:1: , endln:20:10, parent:work@test
     |vpiName:t_two_bits_copy
     |vpiTypedefAlias:
     \_logic_typespec: (t_two_bits), line:16:13, endln:16:18, parent:work@test
@@ -251,8 +213,6 @@ design: (work@test)
       \_logic_typespec: (t_two_bits_copy), line:16:13, endln:16:18, parent:work@test
       |vpiLeftRange:
       \_constant: , line:16:20, endln:16:21
-        |vpiParent:
-        \_range: , line:16:20, endln:16:23, parent:t_two_bits_copy
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
@@ -261,45 +221,25 @@ design: (work@test)
         |vpiConstType:9
       |vpiRightRange:
       \_constant: , line:16:22, endln:16:23
-        |vpiParent:
-        \_range: , line:16:20, endln:16:23, parent:t_two_bits_copy
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
         |vpiParent:
         \_range: , line:16:20, endln:16:23, parent:t_two_bits_copy
         |vpiConstType:9
-  |vpiParent:
-  \_design: (work@test)
   |vpiDefName:work@test
   |vpiNet:
   \_logic_net: (work@test.kkkk), line:18:16, endln:18:20, parent:work@test
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:15:1: , endln:20:10, parent:work@test
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:15:1: , endln:20:10, parent:work@test
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:15:1: , endln:20:10, parent:work@test
     |vpiName:kkkk
     |vpiFullName:work@test.kkkk
     |vpiNetType:36
     |vpiParent:
     \_module: work@test (work@test) dut.sv:15:1: , endln:20:10, parent:work@test
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:15:1: , endln:20:10, parent:work@test
   |vpiNet:
   \_logic_net: (work@test.zzzz), line:19:21, endln:19:25, parent:work@test
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:15:1: , endln:20:10, parent:work@test
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:15:1: , endln:20:10, parent:work@test
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:15:1: , endln:20:10, parent:work@test
     |vpiName:zzzz
     |vpiFullName:work@test.zzzz
     |vpiNetType:36
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:15:1: , endln:20:10, parent:work@test
     |vpiParent:
     \_module: work@test (work@test) dut.sv:15:1: , endln:20:10, parent:work@test
   |vpiParent:
@@ -309,8 +249,6 @@ design: (work@test)
   |vpiName:work@test
   |vpiVariables:
   \_logic_var: (work@test.kkkk), line:18:16, endln:18:20, parent:work@test
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:15:1: , endln:20:10
     |vpiTypespec:
     \_logic_typespec: (t_two_bits), line:16:13, endln:16:18
       |vpiName:t_two_bits
@@ -320,8 +258,6 @@ design: (work@test)
         \_logic_typespec: (t_two_bits), line:16:13, endln:16:18
         |vpiLeftRange:
         \_constant: , line:16:20, endln:16:21
-          |vpiParent:
-          \_range: , line:16:20, endln:16:23, parent:t_two_bits
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -330,18 +266,12 @@ design: (work@test)
           |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:16:22, endln:16:23
-          |vpiParent:
-          \_range: , line:16:20, endln:16:23, parent:t_two_bits
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiParent:
           \_range: , line:16:20, endln:16:23, parent:t_two_bits
           |vpiConstType:9
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:15:1: , endln:20:10
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:15:1: , endln:20:10
     |vpiName:kkkk
     |vpiFullName:work@test.kkkk
     |vpiVisibility:1
@@ -349,8 +279,6 @@ design: (work@test)
     \_module: work@test (work@test) dut.sv:15:1: , endln:20:10
   |vpiVariables:
   \_logic_var: (work@test.zzzz), line:19:21, endln:19:25, parent:work@test
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:15:1: , endln:20:10
     |vpiTypespec:
     \_logic_typespec: (t_two_bits), line:16:13, endln:16:18
       |vpiName:t_two_bits
@@ -360,8 +288,6 @@ design: (work@test)
         \_logic_typespec: (t_two_bits), line:16:13, endln:16:18
         |vpiLeftRange:
         \_constant: , line:16:20, endln:16:21
-          |vpiParent:
-          \_range: , line:16:20, endln:16:23, parent:t_two_bits
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -370,18 +296,12 @@ design: (work@test)
           |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:16:22, endln:16:23
-          |vpiParent:
-          \_range: , line:16:20, endln:16:23, parent:t_two_bits
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiParent:
           \_range: , line:16:20, endln:16:23, parent:t_two_bits
           |vpiConstType:9
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:15:1: , endln:20:10
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:15:1: , endln:20:10
     |vpiName:zzzz
     |vpiFullName:work@test.zzzz
     |vpiVisibility:1
@@ -400,7 +320,4 @@ design: (work@test)
 [  ERROR] : 0
 [WARNING] : 3
 [   NOTE] : 5
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/TypedefAlias/dut.sv | ${SURELOG_DIR}/build/regression/TypedefAlias/roundtrip/dut_000.sv | 8 | 20 | 
 
