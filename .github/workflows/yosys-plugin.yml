@@ -1,0 +1,96 @@
+name: 'yosys-systemverilog-plugin'
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+
+  test-plugin:
+    runs-on: [self-hosted, Linux, X64]
+    container: ubuntu:bionic
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      fail-fast: true
+    env:
+      CC: gcc-9
+      CXX: g++-9
+      CCACHE_DIR: "/root/Surelog/Surelog/.cache/"
+      DEBIAN_FRONTEND: noninteractive
+
+    steps:
+
+    - name: Install dependencies
+      run: |
+        apt-get update -qq
+        apt install -y software-properties-common
+        add-apt-repository ppa:ubuntu-toolchain-r/test
+        apt-get update -qq
+        apt install -y gcc-9 g++-9 build-essential cmake tclsh ant default-jre swig google-perftools libgoogle-perftools-dev python3 python3-dev python3-pip uuid uuid-dev tcl-dev flex libfl-dev git pkg-config libreadline-dev bison libffi-dev wget
+        update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+        update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
+        pip install orderedmultidict
+
+    - name: Setup integration repository
+      run: |
+        # Github dropped support for unauthorized git: https://github.blog/2021-09-01-improving-git-protocol-security-github/
+        # Make sure we always use https:// instead of git://
+        git config --global url.https://github.com/.insteadOf git://github.com/
+        # Use current main of the integration repository...
+        git clone https://github.com/antmicro/yosys-uhdm-plugin-integration.git
+        cd yosys-uhdm-plugin-integration
+        git submodule update --init --recursive .
+
+    - name: Setup Surelog
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+        fetch-depth: 0
+        path: 'yosys-uhdm-plugin-integration/Surelog'
+
+    - name: Create Cache Timestamp
+      id: cache_timestamp
+      uses: nanzm/get-time-action@v1.1
+      with:
+        format: 'YYYY-MM-DD-HH-mm-ss'
+
+    - name: Setup cache
+      uses: actions/cache@v2
+      with:
+        path: ${{ env.CCACHE_DIR }}
+        key: cache_${{ steps.cache_timestamp.outputs.time }}
+        restore-keys: cache_
+
+    - name: Build binaries
+      run: |
+        cd yosys-uhdm-plugin-integration
+        # ubuntu bionic have too old cmake, install one from pip
+        pip install cmake
+        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
+        ./build_binaries.sh
+
+    - name: Build & Test Ibex
+      run: |
+        cd yosys-uhdm-plugin-integration
+        pip install virtualenv
+        make -C UHDM-integration-tests TEST=tests/ibex env
+        ./UHDM-integration-tests/.github/ci.sh
+      env:
+        TARGET: uhdm/yosys/synth-ibex-symbiflow
+        TEST_CASE: tests/ibex
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: top_artya7.bit
+        path: ./yosys-uhdm-plugin-integration/UHDM-integration-tests/build/lowrisc_ibex_top_artya7_surelog_0.1/synth-symbiflow/top_artya7.bit
+
+    - name: Upload load graphs
+      uses: actions/upload-artifact@v2
+      with:
+        name: plots
+        path: |
+          **/plot_*.svg
