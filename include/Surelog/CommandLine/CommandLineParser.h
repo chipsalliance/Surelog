@@ -221,6 +221,7 @@ class CommandLineParser final {
   CommandLineParser(const CommandLineParser& orig) = delete;
 
   bool plus_arguments_(const std::string& s);
+  void processOutputDirectory_(std::vector<std::string>& args);
   void processArgs_(std::vector<std::string>& args,
                     std::vector<std::string>& container);
   void splitPlusArg_(const std::string& s, const std::string& prefix,
