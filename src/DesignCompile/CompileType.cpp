@@ -188,10 +188,6 @@ UHDM::any* CompileHelper::compileVariable(
   Design* design = compileDesign->getCompiler()->getDesign();
   UHDM::any* result = nullptr;
   NodeId variable = declarationId;
-  if (fC->Type(variable) == VObjectType::slData_type) {
-    variable = fC->Child(variable);
-  }
-  NodeId nameId = fC->Sibling(variable);
   VObjectType the_type = fC->Type(variable);
   if (the_type == VObjectType::slData_type ||
       the_type == VObjectType::slPs_or_hierarchical_identifier) {
@@ -222,6 +218,11 @@ UHDM::any* CompileHelper::compileVariable(
       decl_type != slImplicit_class_handle) {
     ts = compileTypespec(component, fC, declarationId, compileDesign, pstmt,
                          instance, reduce, true);
+  }
+  bool isSigned = true;
+  const NodeId signId = fC->Sibling(variable);
+  if (signId && (fC->Type(signId) == slSigning_Unsigned)) {
+    isSigned = false;
   }
   switch (the_type) {
     case VObjectType::slStringConst:
@@ -295,36 +296,42 @@ UHDM::any* CompileHelper::compileVariable(
     case VObjectType::slIntegerAtomType_Int: {
       int_var* var = s.MakeInt_var();
       var->Typespec(ts);
+      var->VpiSigned(isSigned);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_Integer: {
       integer_var* var = s.MakeInteger_var();
       var->Typespec(ts);
+      var->VpiSigned(isSigned);
       result = var;
       break;
     }
     case VObjectType::slSigning_Unsigned: {
       int_var* var = s.MakeInt_var();
       var->Typespec(ts);
+      var->VpiSigned(isSigned);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_Byte: {
       byte_var* var = s.MakeByte_var();
       var->Typespec(ts);
+      var->VpiSigned(isSigned);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_LongInt: {
       long_int_var* var = s.MakeLong_int_var();
       var->Typespec(ts);
+      var->VpiSigned(isSigned);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_Shortint: {
       short_int_var* var = s.MakeShort_int_var();
       var->Typespec(ts);
+      var->VpiSigned(isSigned);
       result = var;
       break;
     }
@@ -434,12 +441,11 @@ UHDM::any* CompileHelper::compileVariable(
     }
   }
   if (result && (result->VpiLineNo() == 0)) {
-    NodeId id = nameId ? nameId : variable;
     result->VpiFile(fC->getFileName());
-    result->VpiLineNo(fC->Line(id));
-    result->VpiColumnNo(fC->Column(id));
-    result->VpiEndLineNo(fC->EndLine(id));
-    result->VpiEndColumnNo(fC->EndColumn(id));
+    result->VpiLineNo(fC->Line(declarationId));
+    result->VpiColumnNo(fC->Column(declarationId));
+    result->VpiEndLineNo(fC->EndLine(declarationId));
+    result->VpiEndColumnNo(fC->EndColumn(declarationId));
   }
   return result;
 }
@@ -1307,6 +1313,16 @@ UHDM::typespec* CompileHelper::compileTypespec(
     case VObjectType::slString_type: {
       result = compileBuiltinTypespec(component, fC, type, the_type,
                                       compileDesign, ranges);
+      if ((result != nullptr) && (ranges != nullptr)) {
+        // Include the ranges in the location information
+        NodeId last_Packed_dimension = Packed_dimension;
+        NodeId next_Packed_dimension = Packed_dimension;
+        while (next_Packed_dimension = fC->Sibling(next_Packed_dimension)) {
+          last_Packed_dimension = next_Packed_dimension;
+        }
+        result->VpiEndLineNo(fC->EndLine(last_Packed_dimension));
+        result->VpiEndColumnNo(fC->EndColumn(last_Packed_dimension));
+      }
       break;
     }
     case VObjectType::slPackage_scope:
@@ -1478,6 +1494,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
           m->VpiRefEndColumnNo(fC->EndColumn(Data_type));
           m->VpiParent(result);
           m->Typespec(member_ts);
+          member_ts->VpiParent(m);
           if (Expression && (fC->Type(Expression) != slVariable_dimension)) {
             any* ex =
                 compileExpression(component, fC, Expression, compileDesign,

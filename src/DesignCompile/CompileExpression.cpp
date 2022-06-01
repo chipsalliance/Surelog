@@ -1161,21 +1161,46 @@ UHDM::any *CompileHelper::compileSelectExpression(
                 hier_path *p = (hier_path *)sel;
                 for (auto el : *p->Path_elems()) {
                   elems->push_back(el);
-                  el->VpiParent(path);
                   std::string n = el->VpiName();
                   if (el->UhdmType() == uhdmbit_select) {
-                    bit_select *s = (bit_select *)el;
-                    const expr *index = s->VpiIndex();
+                    bit_select *bs = (bit_select *)el;
+                    const expr *index = bs->VpiIndex();
                     std::string ind = index->VpiDecompile();
                     if (ind.empty()) ind = index->VpiName();
                     n += "[" + ind + "]";
+                    hname += "." + n;
+                    ref_obj *r = nullptr;
+                    if ((bs->VpiParent() != nullptr) &&
+                        (bs->VpiParent()->UhdmType() == uhdmref_obj)) {
+                      r = (ref_obj *)bs->VpiParent();
+                    } else {
+                      r = s.MakeRef_obj();
+                      bs->VpiParent(r);
+                    }
+                    r->VpiName(hname);
+                    r->VpiParent(path);
+                  } else {
+                    hname += "." + n;
+                    el->VpiParent(path);
                   }
-                  hname += "." + n;
                 }
                 break;
               } else {
+                if (sel->UhdmType() == uhdmbit_select) {
+                  ref_obj *r = nullptr;
+                  if ((sel->VpiParent() != nullptr) &&
+                      (sel->VpiParent()->UhdmType() == uhdmref_obj)) {
+                    r = (ref_obj *)sel->VpiParent();
+                  } else {
+                    r = s.MakeRef_obj();
+                    sel->VpiParent(r);
+                  }
+                  r->VpiName(sel->VpiName());
+                  r->VpiParent(path);
+                } else {
+                  sel->VpiParent(path);
+                }
                 elems->push_back(sel);
-                sel->VpiParent(path);
                 hname += "." + sel->VpiName();
               }
             }
@@ -3375,10 +3400,10 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
         if (rexp) rexp->VpiParent(range);
         range->Right_expr(rexp);
         range->VpiFile(fC->getFileName());
-        range->VpiLineNo(fC->Line(Constant_range));
-        range->VpiColumnNo(fC->Column(Constant_range));
-        range->VpiEndLineNo(fC->EndLine(Constant_range));
-        range->VpiEndColumnNo(fC->EndColumn(Constant_range));
+        range->VpiLineNo(fC->Line(Packed_dimension));
+        range->VpiColumnNo(fC->Column(Packed_dimension));
+        range->VpiEndLineNo(fC->EndLine(Packed_dimension));
+        range->VpiEndColumnNo(fC->EndColumn(Packed_dimension));
         ranges->push_back(range);
         range->VpiParent(pexpr);
       } else if (fC->Type(Constant_range) ==
@@ -4665,6 +4690,20 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
           result = compileSelectExpression(component, fC, Bit_select, sval,
                                            compileDesign, pexpr, instance,
                                            reduce, muteErrors);
+          if (result && (result->UhdmType() == UHDM::uhdmpart_select)) {
+            result->VpiLineNo(fC->Line(name));
+            result->VpiColumnNo(fC->Column(name));
+            result->VpiEndLineNo(fC->EndLine(dotedName));
+            result->VpiEndColumnNo(fC->EndColumn(dotedName));
+            if ((result->VpiParent() != nullptr) &&
+                (result->VpiParent()->UhdmType() == UHDM::uhdmref_obj)) {
+              ref_obj *const parent = (ref_obj *)result->VpiParent();
+              parent->VpiLineNo(fC->Line(name));
+              parent->VpiColumnNo(fC->Column(name));
+              parent->VpiEndLineNo(fC->EndLine(name));
+              parent->VpiEndColumnNo(fC->EndColumn(name));
+            }
+          }
           return result;
         } else if ((!selectName) &&
                    (dtype == VObjectType::slSelect ||
@@ -4684,22 +4723,12 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
             select->VpiFullName(the_name);
             select->VpiName(fC->SymName(name));
             select->VpiParent(pexpr);
-            select->VpiFile(fC->getFileName());
-            select->VpiLineNo(fC->Line(name));
-            select->VpiColumnNo(fC->Column(name));
-            select->VpiEndLineNo(fC->EndLine(name));
-            select->VpiEndColumnNo(fC->EndColumn(name));
             result = select;
           } else {
             ref_obj *ref = s.MakeRef_obj();
             ref->VpiName(the_name);
             ref->VpiFullName(the_name);
             ref->VpiParent(pexpr);
-            ref->VpiFile(fC->getFileName());
-            ref->VpiLineNo(fC->Line(name));
-            ref->VpiColumnNo(fC->Column(name));
-            ref->VpiEndLineNo(fC->EndLine(name));
-            ref->VpiEndColumnNo(fC->EndColumn(name));
             result = ref;
           }
           result->VpiFile(fC->getFileName());
@@ -4790,7 +4819,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
               // Fix start/end to include the name
               select->VpiColumnNo(fC->Column(name));
               ref_obj *parent = (ref_obj *)select->VpiParent();
-              if (parent) parent->VpiDefName(tmpName);
+              if (parent) parent->VpiName(tmpName);
               if (tmpName.empty()) {
                 select->VpiParent(nullptr);
               }

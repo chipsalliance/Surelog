@@ -671,8 +671,17 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       if (cond) {
         expr* exp =
             (expr*)compileExpression(component, fC, cond, compileDesign);
-        if (exp) exp->VpiParent(return_stmt);
-        return_stmt->VpiCondition(exp);
+        if (exp) {
+          if ((exp->VpiParent() != nullptr) &&
+              (exp->VpiParent()->UhdmType() == UHDM::uhdmref_obj) &&
+              ((exp->UhdmType() == UHDM::uhdmbit_select) ||
+               (exp->UhdmType() == UHDM::uhdmpart_select))) {
+            ((ref_obj*)exp->VpiParent())->VpiParent(return_stmt);
+          } else {
+            exp->VpiParent(return_stmt);
+          }
+          return_stmt->VpiCondition(exp);
+        }
       }
       stmt = return_stmt;
       break;
@@ -2091,18 +2100,22 @@ bool CompileHelper::compileFunction(DesignComponent* component,
         (fC->Type(Function_data_type) == slSigning_Unsigned)) {
       Return_data_type = Function_data_type;
     }
-    variables* var = any_cast<variables*>(
-        compileVariable(component, fC, Return_data_type, compileDesign, nullptr,
-                        instance, false, false));
-    if (var) {
-      // Explicit return type
-      var->VpiName("");
-    }
-    if (!Function_data_type) {
+    variables* var = nullptr;
+    if (Return_data_type) {
+      var = any_cast<variables*>(
+          compileVariable(component, fC, Return_data_type, compileDesign,
+                          nullptr, instance, false, false));
+      if (var) {
+        // Explicit return type
+        var->VpiName("");
+      }
+    } else if (!Function_data_type) {
       // Implicit return type
       var = s.MakeLogic_var();
     }  // else void return type
-    func->Return(var);
+    if (var != nullptr) {
+      func->Return(var);
+    }
   }
 
   NodeId Function_statement_or_null = Tf_port_list;
@@ -2548,6 +2561,11 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component,
           assign_stmt->Lhs(var);
           var->VpiParent(assign_stmt);
           var->VpiName(fC->SymName(Var));
+          var->VpiFile(fC->getFileName());
+          var->VpiLineNo(fC->Line(Var));
+          var->VpiColumnNo(fC->Column(Var));
+          var->VpiEndLineNo(fC->EndLine(Var));
+          var->VpiEndColumnNo(fC->EndColumn(Var));
         }
 
         expr* rhs =
