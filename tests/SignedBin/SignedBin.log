@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/SignedBin/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/SignedBin/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -78,104 +78,107 @@ n<> u<49> t<Top_level_rule> c<1> l<1:1> el<12:1>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/SignedBin/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/SignedBin/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/SignedBin/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/SignedBin/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/SignedBin/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/SignedBin/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
 ====== UHDM =======
-design: (work@dut)
+design: (work@dut), id:13
 |vpiElaborated:1
 |vpiName:work@dut
 |uhdmallModules:
-\_module: work@dut (work@dut) dut.sv:7:1: , endln:10:10, parent:work@dut
+\_module: work@dut (work@dut), id:14 dut.sv:7:1: , endln:10:10, parent:work@dut, parID:13
   |vpiFullName:work@dut
   |vpiDefName:work@dut
   |vpiParent:
-  \_design: (work@dut)
+  \_design: (work@dut), id:13
 |uhdmallModules:
-\_module: work@prim_subreg (work@prim_subreg) dut.sv:1:1: , endln:5:10, parent:work@dut
+\_module: work@prim_subreg (work@prim_subreg), id:15 dut.sv:1:1: , endln:5:10, parent:work@dut, parID:13
   |vpiFullName:work@prim_subreg
   |vpiDefName:work@prim_subreg
   |vpiNet:
-  \_logic_net: (work@prim_subreg.test), line:2:13, endln:2:17, parent:work@prim_subreg
+  \_logic_net: (work@prim_subreg.test), id:17, line:2:13, endln:2:17, parent:work@prim_subreg, parID:15
     |vpiName:test
     |vpiFullName:work@prim_subreg.test
     |vpiNetType:36
     |vpiParent:
-    \_module: work@prim_subreg (work@prim_subreg) dut.sv:1:1: , endln:5:10, parent:work@dut
+    \_module: work@prim_subreg (work@prim_subreg), id:15 dut.sv:1:1: , endln:5:10, parent:work@dut, parID:13
   |vpiParent:
-  \_design: (work@dut)
+  \_design: (work@dut), id:13
   |vpiPort:
-  \_port: (test), line:2:13, endln:2:17, parent:work@prim_subreg
+  \_port: (test), id:16, line:2:13, endln:2:17, parent:work@prim_subreg, parID:15
     |vpiName:test
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: , id:18
       |vpiActual:
-      \_logic_net: (work@prim_subreg.test), line:2:13, endln:2:17, parent:work@prim_subreg
+      \_logic_net: (work@prim_subreg.test), id:17, line:2:13, endln:2:17, parent:work@prim_subreg, parID:15
     |vpiParent:
-    \_module: work@prim_subreg (work@prim_subreg) dut.sv:1:1: , endln:5:10, parent:work@dut
+    \_module: work@prim_subreg (work@prim_subreg), id:15 dut.sv:1:1: , endln:5:10, parent:work@dut, parID:13
 |uhdmtopModules:
-\_module: work@dut (work@dut) dut.sv:7:1: , endln:10:10
+\_module: work@dut (work@dut), id:19 dut.sv:7:1: , endln:10:10
   |vpiName:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@prim_subreg (work@dut.s) dut.sv:9:1: , endln:9:36, parent:work@dut
+  \_module: work@prim_subreg (work@dut.s), id:20 dut.sv:9:1: , endln:9:36, parent:work@dut, parID:19
     |vpiName:s
     |vpiFullName:work@dut.s
     |vpiDefName:work@prim_subreg
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
     |vpiNet:
-    \_logic_net: (work@dut.s.test), line:2:13, endln:2:17, parent:work@dut.s
+    \_logic_net: (work@dut.s.test), id:3, line:2:13, endln:2:17, parent:work@dut.s, parID:20
       |vpiTypespec:
-      \_logic_typespec: , line:2:7, endln:2:12
+      \_logic_typespec: , id:2, line:2:7, endln:2:12
       |vpiName:test
       |vpiFullName:work@dut.s.test
       |vpiNetType:36
       |vpiParent:
-      \_module: work@prim_subreg (work@dut.s) dut.sv:9:1: , endln:9:36, parent:work@dut
+      \_module: work@prim_subreg (work@dut.s), id:20 dut.sv:9:1: , endln:9:36, parent:work@dut, parID:19
     |vpiInstance:
-    \_module: work@dut (work@dut) dut.sv:7:1: , endln:10:10
+    \_module: work@dut (work@dut), id:19 dut.sv:7:1: , endln:10:10
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:7:1: , endln:10:10
+    \_module: work@dut (work@dut), id:19 dut.sv:7:1: , endln:10:10
     |vpiPort:
-    \_port: (test), line:2:13, endln:2:17, parent:work@dut.s
+    \_port: (test), id:21, line:2:13, endln:2:17, parent:work@dut.s, parID:20
       |vpiName:test
       |vpiDirection:1
       |vpiHighConn:
-      \_constant: , line:9:21, endln:9:33
+      \_constant: , id:11, line:9:21, endln:9:33
         |vpiDecompile:000000000000000000000000
         |vpiSize:24
         |BIN:000000000000000000000000
         |vpiTypespec:
-        \_int_typespec: 
+        \_int_typespec: , id:12
           |UINT:1
         |vpiConstType:3
       |vpiLowConn:
-      \_ref_obj: (work@dut.s.test), line:9:16, endln:9:20, parent:test
+      \_ref_obj: (work@dut.s.test), id:22, line:9:16, endln:9:20, parent:test, parID:21
         |vpiParent:
-        \_port: (test), line:2:13, endln:2:17, parent:work@dut.s
+        \_port: (test), id:21, line:2:13, endln:2:17, parent:work@dut.s, parID:20
         |vpiName:test
         |vpiFullName:work@dut.s.test
         |vpiActual:
-        \_logic_net: (work@dut.s.test), line:2:13, endln:2:17, parent:work@dut.s
+        \_logic_net: (work@dut.s.test), id:3, line:2:13, endln:2:17, parent:work@dut.s, parID:20
       |vpiTypedef:
-      \_logic_typespec: , line:2:7, endln:2:12
+      \_logic_typespec: , id:1, line:2:7, endln:2:12
       |vpiInstance:
-      \_module: work@prim_subreg (work@dut.s) dut.sv:9:1: , endln:9:36, parent:work@dut
+      \_module: work@prim_subreg (work@dut.s), id:20 dut.sv:9:1: , endln:9:36, parent:work@dut, parID:19
       |vpiParent:
-      \_module: work@prim_subreg (work@dut.s) dut.sv:9:1: , endln:9:36, parent:work@dut
+      \_module: work@prim_subreg (work@dut.s), id:20 dut.sv:9:1: , endln:9:36, parent:work@dut, parID:19
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
 [WARNING] : 2
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/SignedBin/dut.sv | ${SURELOG_DIR}/build/regression/SignedBin/roundtrip/dut_000.sv | 3 | 10 | 
 

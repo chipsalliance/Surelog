@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/EnumConst/slpp_unit/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/EnumConst/slpp_unit/surelog.log.
 
 [INF:CM0020] Separate compilation-unit mode is on.
 
@@ -83,67 +83,67 @@ n<> u<58> t<Top_level_rule> c<1> l<1:1> el<9:1>
 
 [INF:UH0706] Creating UHDM Model...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/EnumConst/slpp_unit/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/EnumConst/slpp_unit/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/EnumConst/slpp_unit/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/EnumConst/slpp_unit/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/EnumConst/slpp_unit/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/EnumConst/slpp_unit/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
 ====== UHDM =======
-design: (work@dut)
+design: (work@dut), id:20
 |vpiName:work@dut
 |uhdmallModules:
-\_module: work@dut (work@dut) dut.sv:1:1: , endln:7:10, parent:work@dut
+\_module: work@dut (work@dut), id:21 dut.sv:1:1: , endln:7:10, parent:work@dut, parID:20
   |vpiFullName:work@dut
   |vpiTypedef:
-  \_enum_typespec: (exc_cause_e), line:2:1, endln:5:15, parent:work@dut
+  \_enum_typespec: (exc_cause_e), id:4, line:2:1, endln:5:15, parent:work@dut, parID:21
     |vpiName:exc_cause_e
     |vpiInstance:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:7:10, parent:work@dut
+    \_module: work@dut (work@dut), id:21 dut.sv:1:1: , endln:7:10, parent:work@dut, parID:20
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:7:10, parent:work@dut
+    \_module: work@dut (work@dut), id:21 dut.sv:1:1: , endln:7:10, parent:work@dut, parID:20
     |vpiBaseTypespec:
-    \_logic_typespec: , line:2:14, endln:2:19
+    \_logic_typespec: , id:3, line:2:14, endln:2:19
       |vpiRange:
-      \_range: , line:2:21, endln:2:24
+      \_range: , id:0, line:2:21, endln:2:24
         |vpiLeftRange:
-        \_constant: , line:2:21, endln:2:22
+        \_constant: , id:1, line:2:21, endln:2:22, parID:0
           |vpiDecompile:5
           |vpiSize:64
           |UINT:5
           |vpiParent:
-          \_range: , line:2:21, endln:2:24
+          \_range: , id:0, line:2:21, endln:2:24
           |vpiConstType:9
         |vpiRightRange:
-        \_constant: , line:2:23, endln:2:24
+        \_constant: , id:2, line:2:23, endln:2:24, parID:0
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiParent:
-          \_range: , line:2:21, endln:2:24
+          \_range: , id:0, line:2:21, endln:2:24
           |vpiConstType:9
     |vpiEnumConst:
-    \_enum_const: (EXC_CAUSE_IRQ_SOFTWARE_M), line:3:3, endln:3:47
+    \_enum_const: (EXC_CAUSE_IRQ_SOFTWARE_M), id:9, line:3:3, endln:3:47
       |vpiName:EXC_CAUSE_IRQ_SOFTWARE_M
       |BIN:100011
       |vpiDecompile:{1'b1,5'd03}
       |vpiSize:6
     |vpiEnumConst:
-    \_enum_const: (EXC_CAUSE_IRQ_TIMER_M), line:4:3, endln:4:47
+    \_enum_const: (EXC_CAUSE_IRQ_TIMER_M), id:16, line:4:3, endln:4:47
       |vpiName:EXC_CAUSE_IRQ_TIMER_M
       |BIN:100111
       |vpiDecompile:{1'b1,5'd07}
       |vpiSize:6
   |vpiDefName:work@dut
   |vpiParent:
-  \_design: (work@dut)
+  \_design: (work@dut), id:20
 |uhdmtopModules:
-\_module: work@dut (work@dut) dut.sv:1:1: , endln:7:10
+\_module: work@dut (work@dut), id:22 dut.sv:1:1: , endln:7:10
   |vpiName:work@dut
   |vpiTypedef:
-  \_enum_typespec: (exc_cause_e), line:2:1, endln:5:15, parent:work@dut
+  \_enum_typespec: (exc_cause_e), id:4, line:2:1, endln:5:15, parent:work@dut, parID:21
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiTopModule:1
@@ -153,4 +153,7 @@ design: (work@dut)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/EnumConst/dut.sv | ${SURELOG_DIR}/build/regression/EnumConst/roundtrip/dut_000.sv | 0 | 7 | 
 

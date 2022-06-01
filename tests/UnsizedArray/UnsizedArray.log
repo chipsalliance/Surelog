@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/UnsizedArray/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/UnsizedArray/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -62,80 +62,80 @@ n<> u<37> t<Top_level_rule> c<1> l<1:1> el<5:1>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/UnsizedArray/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/UnsizedArray/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/UnsizedArray/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/UnsizedArray/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/UnsizedArray/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/UnsizedArray/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
 ====== UHDM =======
-design: (work@top)
+design: (work@top), id:11
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top) dut.sv:1:1: , endln:4:10, parent:work@top
+\_module: work@top (work@top), id:12 dut.sv:1:1: , endln:4:10, parent:work@top, parID:11
   |vpiFullName:work@top
   |vpiDefName:work@top
   |vpiNet:
-  \_logic_net: (work@top.b), line:2:9, endln:2:10, parent:work@top
+  \_logic_net: (work@top.b), id:13, line:2:9, endln:2:10, parent:work@top, parID:12
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:4:10, parent:work@top
+    \_module: work@top (work@top), id:12 dut.sv:1:1: , endln:4:10, parent:work@top, parID:11
   |vpiParent:
-  \_design: (work@top)
+  \_design: (work@top), id:11
 |uhdmtopModules:
-\_module: work@top (work@top) dut.sv:1:1: , endln:4:10
+\_module: work@top (work@top), id:14 dut.sv:1:1: , endln:4:10
   |vpiName:work@top
   |vpiVariables:
-  \_array_var: (work@top.b), line:2:9, endln:2:12, parent:work@top
+  \_array_var: (work@top.b), id:9, line:2:9, endln:2:12, parent:work@top, parID:14
     |vpiSize:1
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiRandType:1
     |vpiVisibility:1
     |vpiExpr:
-    \_operation: , line:2:15, endln:2:24
+    \_operation: , id:4, line:2:15, endln:2:24
       |vpiOpType:33
       |vpiOperand:
-      \_constant: , line:2:16, endln:2:17
+      \_constant: , id:5, line:2:16, endln:2:17, parID:4
         |vpiDecompile:1
         |vpiSize:8
         |UINT:1
         |vpiParent:
-        \_operation: , line:2:15, endln:2:24
+        \_operation: , id:4, line:2:15, endln:2:24
         |vpiConstType:9
       |vpiOperand:
-      \_constant: , line:2:19, endln:2:20
+      \_constant: , id:6, line:2:19, endln:2:20, parID:4
         |vpiDecompile:1
         |vpiSize:8
         |UINT:1
         |vpiParent:
-        \_operation: , line:2:15, endln:2:24
+        \_operation: , id:4, line:2:15, endln:2:24
         |vpiConstType:9
       |vpiOperand:
-      \_constant: , line:2:22, endln:2:23
+      \_constant: , id:7, line:2:22, endln:2:23, parID:4
         |vpiDecompile:1
         |vpiSize:8
         |UINT:1
         |vpiParent:
-        \_operation: , line:2:15, endln:2:24
+        \_operation: , id:4, line:2:15, endln:2:24
         |vpiConstType:9
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:4:10
+    \_module: work@top (work@top), id:14 dut.sv:1:1: , endln:4:10
     |vpiArrayType:2
     |vpiReg:
-    \_byte_var: (work@top.b), line:2:9, endln:2:10, parent:work@top.b
+    \_byte_var: (work@top.b), id:8, line:2:9, endln:2:10, parent:work@top.b, parID:9
       |vpiTypespec:
-      \_byte_typespec: , line:2:4, endln:2:8
+      \_byte_typespec: , id:0, line:2:4, endln:2:8
         |vpiSigned:1
       |vpiFullName:work@top.b
       |vpiExpr:
-      \_operation: , line:2:15, endln:2:24
+      \_operation: , id:4, line:2:15, endln:2:24
       |vpiParent:
-      \_array_var: (work@top.b), line:2:9, endln:2:12, parent:work@top
+      \_array_var: (work@top.b), id:9, line:2:9, endln:2:12, parent:work@top, parID:14
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
@@ -145,4 +145,7 @@ design: (work@top)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/UnsizedArray/dut.sv | ${SURELOG_DIR}/build/regression/UnsizedArray/roundtrip/dut_000.sv | 1 | 4 | 
 

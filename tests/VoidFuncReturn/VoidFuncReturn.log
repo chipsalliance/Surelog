@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/VoidFuncReturn/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/VoidFuncReturn/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -129,260 +129,263 @@ n<> u<102> t<Top_level_rule> c<1> l<1:1> el<12:1>
 
 [ERR:UH0715] dut.sv:5:8: Void function "add" returns a value.
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/VoidFuncReturn/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/VoidFuncReturn/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/VoidFuncReturn/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/VoidFuncReturn/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/VoidFuncReturn/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/VoidFuncReturn/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
 ====== UHDM =======
-design: (work@top)
+design: (work@top), id:20
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top) dut.sv:1:1: , endln:11:10, parent:work@top
+\_module: work@top (work@top), id:21 dut.sv:1:1: , endln:11:10, parent:work@top, parID:20
   |vpiFullName:work@top
   |vpiDefName:work@top
   |vpiTaskFunc:
-  \_function: (work@top.add), line:3:1, endln:6:12, parent:work@top
+  \_function: (work@top.add), id:0, line:3:1, endln:6:12, parent:work@top, parID:21
     |vpiName:add
     |vpiFullName:work@top.add
     |vpiVisibility:1
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:11:10, parent:work@top
+    \_module: work@top (work@top), id:21 dut.sv:1:1: , endln:11:10, parent:work@top, parID:20
     |vpiIODecl:
-    \_io_decl: (a), line:3:23, endln:3:24
+    \_io_decl: (a), id:1, line:3:23, endln:3:24
       |vpiDirection:1
       |vpiName:a
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
+      \_int_typespec: , id:2, line:3:19, endln:3:22
         |vpiSigned:1
     |vpiIODecl:
-    \_io_decl: (b), line:3:30, endln:3:31
+    \_io_decl: (b), id:3, line:3:30, endln:3:31
       |vpiDirection:1
       |vpiName:b
       |vpiTypedef:
-      \_int_typespec: , line:3:26, endln:3:29
+      \_int_typespec: , id:4, line:3:26, endln:3:29
         |vpiSigned:1
     |vpiStmt:
-    \_begin: (work@top.add), parent:work@top.add
+    \_begin: (work@top.add), id:5, parent:work@top.add, parID:0
       |vpiFullName:work@top.add
       |vpiParent:
-      \_function: (work@top.add), line:3:1, endln:6:12, parent:work@top
+      \_function: (work@top.add), id:0, line:3:1, endln:6:12, parent:work@top, parID:21
       |vpiStmt:
-      \_sys_func_call: ($display), line:4:1, endln:4:25, parent:work@top.add
+      \_sys_func_call: ($display), id:6, line:4:1, endln:4:25, parent:work@top.add, parID:5
         |vpiArgument:
-        \_constant: , line:4:10, endln:4:18, parent:$display
+        \_constant: , id:7, line:4:10, endln:4:18, parent:$display, parID:6
           |vpiDecompile:%d+%d=
           |vpiSize:6
           |STRING:%d+%d=
           |vpiParent:
-          \_sys_func_call: ($display), line:4:1, endln:4:25, parent:work@top.add
+          \_sys_func_call: ($display), id:6, line:4:1, endln:4:25, parent:work@top.add, parID:5
           |vpiConstType:6
         |vpiArgument:
-        \_ref_obj: (work@top.add.a), line:4:20, endln:4:21, parent:$display
+        \_ref_obj: (work@top.add.a), id:8, line:4:20, endln:4:21, parent:$display, parID:6
           |vpiParent:
-          \_sys_func_call: ($display), line:4:1, endln:4:25, parent:work@top.add
+          \_sys_func_call: ($display), id:6, line:4:1, endln:4:25, parent:work@top.add, parID:5
           |vpiName:a
           |vpiFullName:work@top.add.a
           |vpiActual:
-          \_io_decl: (a), line:3:23, endln:3:24
+          \_io_decl: (a), id:1, line:3:23, endln:3:24
         |vpiArgument:
-        \_ref_obj: (work@top.add.b), line:4:23, endln:4:24, parent:$display
+        \_ref_obj: (work@top.add.b), id:9, line:4:23, endln:4:24, parent:$display, parID:6
           |vpiParent:
-          \_sys_func_call: ($display), line:4:1, endln:4:25, parent:work@top.add
+          \_sys_func_call: ($display), id:6, line:4:1, endln:4:25, parent:work@top.add, parID:5
           |vpiName:b
           |vpiFullName:work@top.add.b
           |vpiActual:
-          \_io_decl: (b), line:3:30, endln:3:31
+          \_io_decl: (b), id:3, line:3:30, endln:3:31
         |vpiName:$display
         |vpiParent:
-        \_begin: (work@top.add), parent:work@top.add
+        \_begin: (work@top.add), id:5, parent:work@top.add, parID:0
       |vpiStmt:
-      \_return_stmt: , line:5:1, endln:5:7, parent:work@top.add
+      \_return_stmt: , id:10, line:5:1, endln:5:7, parent:work@top.add, parID:5
         |vpiParent:
-        \_begin: (work@top.add), parent:work@top.add
+        \_begin: (work@top.add), id:5, parent:work@top.add, parID:0
         |vpiCondition:
-        \_operation: , line:5:8, endln:5:13
+        \_operation: , id:12, line:5:8, endln:5:13, parID:10
           |vpiParent:
-          \_return_stmt: , line:5:1, endln:5:7, parent:work@top.add
+          \_return_stmt: , id:10, line:5:1, endln:5:7, parent:work@top.add, parID:5
           |vpiOpType:24
           |vpiOperand:
-          \_ref_obj: (work@top.add.a), line:5:8, endln:5:9
+          \_ref_obj: (work@top.add.a), id:11, line:5:8, endln:5:9, parID:12
             |vpiParent:
-            \_operation: , line:5:8, endln:5:13
+            \_operation: , id:12, line:5:8, endln:5:13, parID:10
             |vpiName:a
             |vpiFullName:work@top.add.a
             |vpiActual:
-            \_io_decl: (a), line:3:23, endln:3:24
+            \_io_decl: (a), id:1, line:3:23, endln:3:24
           |vpiOperand:
-          \_ref_obj: (work@top.add.b), line:5:12, endln:5:13
+          \_ref_obj: (work@top.add.b), id:13, line:5:12, endln:5:13, parID:12
             |vpiParent:
-            \_operation: , line:5:8, endln:5:13
+            \_operation: , id:12, line:5:8, endln:5:13, parID:10
             |vpiName:b
             |vpiFullName:work@top.add.b
             |vpiActual:
-            \_io_decl: (b), line:3:30, endln:3:31
+            \_io_decl: (b), id:3, line:3:30, endln:3:31
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:11:10, parent:work@top
+    \_module: work@top (work@top), id:21 dut.sv:1:1: , endln:11:10, parent:work@top, parID:20
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:11:10, parent:work@top
+    \_module: work@top (work@top), id:21 dut.sv:1:1: , endln:11:10, parent:work@top, parID:20
   |vpiParent:
-  \_design: (work@top)
+  \_design: (work@top), id:20
   |vpiProcess:
-  \_initial: , line:8:1, endln:9:29, parent:work@top
+  \_initial: , id:14, line:8:1, endln:9:29, parent:work@top, parID:21
     |vpiStmt:
-    \_sys_func_call: ($display), line:9:1, endln:9:28
+    \_sys_func_call: ($display), id:15, line:9:1, endln:9:28, parID:14
       |vpiArgument:
-      \_constant: , line:9:10, endln:9:14, parent:$display
+      \_constant: , id:16, line:9:10, endln:9:14, parent:$display, parID:15
         |vpiDecompile:%d
         |vpiSize:2
         |STRING:%d
         |vpiParent:
-        \_sys_func_call: ($display), line:9:1, endln:9:28
+        \_sys_func_call: ($display), id:15, line:9:1, endln:9:28, parID:14
         |vpiConstType:6
       |vpiArgument:
-      \_func_call: (add), line:9:16, endln:9:27, parent:$display
+      \_func_call: (add), id:17, line:9:16, endln:9:27, parent:$display, parID:15
         |vpiArgument:
-        \_constant: , line:9:20, endln:9:22, parent:add
+        \_constant: , id:18, line:9:20, endln:9:22, parent:add, parID:17
           |vpiDecompile:45
           |vpiSize:64
           |UINT:45
           |vpiParent:
-          \_func_call: (add), line:9:16, endln:9:27, parent:$display
+          \_func_call: (add), id:17, line:9:16, endln:9:27, parent:$display, parID:15
           |vpiConstType:9
         |vpiArgument:
-        \_constant: , line:9:24, endln:9:26, parent:add
+        \_constant: , id:19, line:9:24, endln:9:26, parent:add, parID:17
           |vpiDecompile:90
           |vpiSize:64
           |UINT:90
           |vpiParent:
-          \_func_call: (add), line:9:16, endln:9:27, parent:$display
+          \_func_call: (add), id:17, line:9:16, endln:9:27, parent:$display, parID:15
           |vpiConstType:9
         |vpiName:add
         |vpiParent:
-        \_sys_func_call: ($display), line:9:1, endln:9:28
+        \_sys_func_call: ($display), id:15, line:9:1, endln:9:28, parID:14
         |vpiFunction:
-        \_function: (work@top.add), line:3:1, endln:6:12, parent:work@top
+        \_function: (work@top.add), id:0, line:3:1, endln:6:12, parent:work@top, parID:21
       |vpiName:$display
       |vpiParent:
-      \_initial: , line:8:1, endln:9:29, parent:work@top
+      \_initial: , id:14, line:8:1, endln:9:29, parent:work@top, parID:21
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:11:10, parent:work@top
+    \_module: work@top (work@top), id:21 dut.sv:1:1: , endln:11:10, parent:work@top, parID:20
 |uhdmtopModules:
-\_module: work@top (work@top) dut.sv:1:1: , endln:11:10
+\_module: work@top (work@top), id:22 dut.sv:1:1: , endln:11:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTaskFunc:
-  \_function: (work@top.add), line:3:1, endln:6:12, parent:work@top
+  \_function: (work@top.add), id:26, line:3:1, endln:6:12, parent:work@top, parID:22
     |vpiName:add
     |vpiFullName:work@top.add
     |vpiVisibility:1
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:11:10
+    \_module: work@top (work@top), id:22 dut.sv:1:1: , endln:11:10
     |vpiIODecl:
-    \_io_decl: (a), line:3:23, endln:3:24, parent:work@top.add
+    \_io_decl: (a), id:27, line:3:23, endln:3:24, parent:work@top.add, parID:26
       |vpiParent:
-      \_function: (work@top.add), line:3:1, endln:6:12, parent:work@top
+      \_function: (work@top.add), id:26, line:3:1, endln:6:12, parent:work@top, parID:22
       |vpiDirection:1
       |vpiName:a
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
+      \_int_typespec: , id:2, line:3:19, endln:3:22
     |vpiIODecl:
-    \_io_decl: (b), line:3:30, endln:3:31, parent:work@top.add
+    \_io_decl: (b), id:28, line:3:30, endln:3:31, parent:work@top.add, parID:26
       |vpiParent:
-      \_function: (work@top.add), line:3:1, endln:6:12, parent:work@top
+      \_function: (work@top.add), id:26, line:3:1, endln:6:12, parent:work@top, parID:22
       |vpiDirection:1
       |vpiName:b
       |vpiTypedef:
-      \_int_typespec: , line:3:26, endln:3:29
+      \_int_typespec: , id:4, line:3:26, endln:3:29
     |vpiStmt:
-    \_begin: (work@top.add), parent:work@top.add
+    \_begin: (work@top.add), id:29, parent:work@top.add, parID:26
       |vpiFullName:work@top.add
       |vpiParent:
-      \_function: (work@top.add), line:3:1, endln:6:12, parent:work@top
+      \_function: (work@top.add), id:26, line:3:1, endln:6:12, parent:work@top, parID:22
       |vpiStmt:
-      \_sys_func_call: ($display), line:4:1, endln:4:25, parent:work@top.add
+      \_sys_func_call: ($display), id:30, line:4:1, endln:4:25, parent:work@top.add, parID:29
         |vpiArgument:
-        \_constant: , line:4:10, endln:4:18, parent:$display
+        \_constant: , id:7, line:4:10, endln:4:18, parent:$display, parID:6
         |vpiArgument:
-        \_ref_obj: (work@top.add.a), line:4:20, endln:4:21, parent:$display
+        \_ref_obj: (work@top.add.a), id:31, line:4:20, endln:4:21, parent:$display, parID:30
           |vpiParent:
-          \_sys_func_call: ($display), line:4:1, endln:4:25, parent:work@top.add
+          \_sys_func_call: ($display), id:30, line:4:1, endln:4:25, parent:work@top.add, parID:29
           |vpiName:a
           |vpiFullName:work@top.add.a
           |vpiActual:
-          \_io_decl: (a), line:3:23, endln:3:24, parent:work@top.add
+          \_io_decl: (a), id:27, line:3:23, endln:3:24, parent:work@top.add, parID:26
         |vpiArgument:
-        \_ref_obj: (work@top.add.b), line:4:23, endln:4:24, parent:$display
+        \_ref_obj: (work@top.add.b), id:32, line:4:23, endln:4:24, parent:$display, parID:30
           |vpiParent:
-          \_sys_func_call: ($display), line:4:1, endln:4:25, parent:work@top.add
+          \_sys_func_call: ($display), id:30, line:4:1, endln:4:25, parent:work@top.add, parID:29
           |vpiName:b
           |vpiFullName:work@top.add.b
           |vpiActual:
-          \_io_decl: (b), line:3:30, endln:3:31, parent:work@top.add
+          \_io_decl: (b), id:28, line:3:30, endln:3:31, parent:work@top.add, parID:26
         |vpiName:$display
         |vpiParent:
-        \_begin: (work@top.add), parent:work@top.add
+        \_begin: (work@top.add), id:29, parent:work@top.add, parID:26
       |vpiStmt:
-      \_return_stmt: , line:5:1, endln:5:7, parent:work@top.add
+      \_return_stmt: , id:33, line:5:1, endln:5:7, parent:work@top.add, parID:29
         |vpiParent:
-        \_begin: (work@top.add), parent:work@top.add
+        \_begin: (work@top.add), id:29, parent:work@top.add, parID:26
         |vpiCondition:
-        \_operation: , line:5:8, endln:5:13
+        \_operation: , id:34, line:5:8, endln:5:13, parID:33
           |vpiParent:
-          \_return_stmt: , line:5:1, endln:5:7, parent:work@top.add
+          \_return_stmt: , id:33, line:5:1, endln:5:7, parent:work@top.add, parID:29
           |vpiOpType:24
           |vpiOperand:
-          \_ref_obj: (work@top.add.a), line:5:8, endln:5:9
+          \_ref_obj: (work@top.add.a), id:35, line:5:8, endln:5:9, parID:34
             |vpiParent:
-            \_operation: , line:5:8, endln:5:13
+            \_operation: , id:34, line:5:8, endln:5:13, parID:33
             |vpiName:a
             |vpiFullName:work@top.add.a
             |vpiActual:
-            \_io_decl: (a), line:3:23, endln:3:24, parent:work@top.add
+            \_io_decl: (a), id:27, line:3:23, endln:3:24, parent:work@top.add, parID:26
           |vpiOperand:
-          \_ref_obj: (work@top.add.b), line:5:12, endln:5:13
+          \_ref_obj: (work@top.add.b), id:36, line:5:12, endln:5:13, parID:34
             |vpiParent:
-            \_operation: , line:5:8, endln:5:13
+            \_operation: , id:34, line:5:8, endln:5:13, parID:33
             |vpiName:b
             |vpiFullName:work@top.add.b
             |vpiActual:
-            \_io_decl: (b), line:3:30, endln:3:31, parent:work@top.add
+            \_io_decl: (b), id:28, line:3:30, endln:3:31, parent:work@top.add, parID:26
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:11:10
+    \_module: work@top (work@top), id:22 dut.sv:1:1: , endln:11:10
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:11:10
+    \_module: work@top (work@top), id:22 dut.sv:1:1: , endln:11:10
   |vpiTopModule:1
   |vpiProcess:
-  \_initial: , line:8:1, endln:9:29, parent:work@top
+  \_initial: , id:23, line:8:1, endln:9:29, parent:work@top, parID:22
     |vpiStmt:
-    \_sys_func_call: ($display), line:9:1, endln:9:28
+    \_sys_func_call: ($display), id:24, line:9:1, endln:9:28, parID:23
       |vpiArgument:
-      \_constant: , line:9:10, endln:9:14, parent:$display
+      \_constant: , id:16, line:9:10, endln:9:14, parent:$display, parID:15
       |vpiArgument:
-      \_func_call: (add), line:9:16, endln:9:27, parent:$display
+      \_func_call: (add), id:25, line:9:16, endln:9:27, parent:$display, parID:24
         |vpiArgument:
-        \_constant: , line:9:20, endln:9:22, parent:add
+        \_constant: , id:18, line:9:20, endln:9:22, parent:add, parID:17
         |vpiArgument:
-        \_constant: , line:9:24, endln:9:26, parent:add
+        \_constant: , id:19, line:9:24, endln:9:26, parent:add, parID:17
         |vpiName:add
         |vpiParent:
-        \_sys_func_call: ($display), line:9:1, endln:9:28
+        \_sys_func_call: ($display), id:24, line:9:1, endln:9:28, parID:23
         |vpiFunction:
-        \_function: (work@top.add), line:3:1, endln:6:12, parent:work@top
+        \_function: (work@top.add), id:26, line:3:1, endln:6:12, parent:work@top, parID:22
       |vpiName:$display
       |vpiParent:
-      \_initial: , line:8:1, endln:9:29, parent:work@top
+      \_initial: , id:23, line:8:1, endln:9:29, parent:work@top, parID:22
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:11:10
+    \_module: work@top (work@top), id:22 dut.sv:1:1: , endln:11:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 1
 [WARNING] : 1
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/VoidFuncReturn/dut.sv | ${SURELOG_DIR}/build/regression/VoidFuncReturn/roundtrip/dut_000.sv | 1 | 11 | 
 

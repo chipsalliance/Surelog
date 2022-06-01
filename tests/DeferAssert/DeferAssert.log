@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/DeferAssert/slpp_unit/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/DeferAssert/slpp_unit/surelog.log.
 
 [INF:CM0020] Separate compilation-unit mode is on.
 
@@ -24,110 +24,113 @@
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/DeferAssert/slpp_unit/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/DeferAssert/slpp_unit/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/DeferAssert/slpp_unit/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/DeferAssert/slpp_unit/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/DeferAssert/slpp_unit/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/DeferAssert/slpp_unit/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
 ====== UHDM =======
-design: (work@top)
+design: (work@top), id:9
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top) dut.sv:1:1: , endln:4:10, parent:work@top
+\_module: work@top (work@top), id:10 dut.sv:1:1: , endln:4:10, parent:work@top, parID:9
   |vpiFullName:work@top
   |vpiDefName:work@top
   |vpiNet:
-  \_logic_net: (work@top.a), line:2:9, endln:2:10, parent:work@top
+  \_logic_net: (work@top.a), id:11, line:2:9, endln:2:10, parent:work@top, parID:10
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiNetType:36
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:4:10, parent:work@top
+    \_module: work@top (work@top), id:10 dut.sv:1:1: , endln:4:10, parent:work@top, parID:9
   |vpiParent:
-  \_design: (work@top)
+  \_design: (work@top), id:9
   |vpiProcess:
-  \_initial: , line:3:3, endln:3:31, parent:work@top
+  \_initial: , id:0, line:3:3, endln:3:31, parent:work@top, parID:10
     |vpiStmt:
-    \_immediate_assert: , line:3:11, endln:3:31
+    \_immediate_assert: , id:4, line:3:11, endln:3:31, parID:0
       |vpiParent:
-      \_initial: , line:3:3, endln:3:31, parent:work@top
+      \_initial: , id:0, line:3:3, endln:3:31, parent:work@top, parID:10
       |vpiIsDeferred:1
       |vpiExpr:
-      \_operation: , line:3:23, endln:3:29
+      \_operation: , id:2, line:3:23, endln:3:29, parID:4
         |vpiParent:
-        \_immediate_assert: , line:3:11, endln:3:31
+        \_immediate_assert: , id:4, line:3:11, endln:3:31, parID:0
         |vpiOpType:15
         |vpiOperand:
-        \_ref_obj: (work@top.a), line:3:23, endln:3:24
+        \_ref_obj: (work@top.a), id:1, line:3:23, endln:3:24, parID:0
           |vpiParent:
-          \_initial: , line:3:3, endln:3:31, parent:work@top
+          \_initial: , id:0, line:3:3, endln:3:31, parent:work@top, parID:10
           |vpiName:a
           |vpiFullName:work@top.a
           |vpiActual:
-          \_logic_var: (work@top.a), line:2:9, endln:2:14, parent:work@top
+          \_logic_var: (work@top.a), id:7, line:2:9, endln:2:14, parent:work@top, parID:12
             |vpiTypespec:
-            \_logic_typespec: , line:2:3, endln:2:8
+            \_logic_typespec: , id:5, line:2:3, endln:2:8
             |vpiName:a
             |vpiFullName:work@top.a
             |vpiVisibility:1
             |vpiExpr:
-            \_constant: , line:2:13, endln:2:14
+            \_constant: , id:6, line:2:13, endln:2:14
               |vpiDecompile:1
               |vpiSize:1
               |UINT:1
               |vpiConstType:9
             |vpiParent:
-            \_module: work@top (work@top) dut.sv:1:1: , endln:4:10
+            \_module: work@top (work@top), id:12 dut.sv:1:1: , endln:4:10
         |vpiOperand:
-        \_constant: , line:3:28, endln:3:29
+        \_constant: , id:3, line:3:28, endln:3:29, parID:2
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiParent:
-          \_operation: , line:3:23, endln:3:29
+          \_operation: , id:2, line:3:23, endln:3:29, parID:4
           |vpiConstType:9
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:4:10, parent:work@top
+    \_module: work@top (work@top), id:10 dut.sv:1:1: , endln:4:10, parent:work@top, parID:9
 |uhdmtopModules:
-\_module: work@top (work@top) dut.sv:1:1: , endln:4:10
+\_module: work@top (work@top), id:12 dut.sv:1:1: , endln:4:10
   |vpiName:work@top
   |vpiVariables:
-  \_logic_var: (work@top.a), line:2:9, endln:2:14, parent:work@top
+  \_logic_var: (work@top.a), id:7, line:2:9, endln:2:14, parent:work@top, parID:12
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
   |vpiProcess:
-  \_initial: , line:3:3, endln:3:31, parent:work@top
+  \_initial: , id:13, line:3:3, endln:3:31, parent:work@top, parID:12
     |vpiStmt:
-    \_immediate_assert: , line:3:11, endln:3:31
+    \_immediate_assert: , id:14, line:3:11, endln:3:31, parID:13
       |vpiParent:
-      \_initial: , line:3:3, endln:3:31, parent:work@top
+      \_initial: , id:13, line:3:3, endln:3:31, parent:work@top, parID:12
       |vpiIsDeferred:1
       |vpiExpr:
-      \_operation: , line:3:23, endln:3:29
+      \_operation: , id:15, line:3:23, endln:3:29, parID:14
         |vpiParent:
-        \_immediate_assert: , line:3:11, endln:3:31
+        \_immediate_assert: , id:14, line:3:11, endln:3:31, parID:13
         |vpiOpType:15
         |vpiOperand:
-        \_ref_obj: (work@top.a), line:3:23, endln:3:24
+        \_ref_obj: (work@top.a), id:16, line:3:23, endln:3:24, parID:15
           |vpiParent:
-          \_operation: , line:3:23, endln:3:29
+          \_operation: , id:15, line:3:23, endln:3:29, parID:14
           |vpiName:a
           |vpiFullName:work@top.a
           |vpiActual:
-          \_logic_var: (work@top.a), line:2:9, endln:2:14, parent:work@top
+          \_logic_var: (work@top.a), id:7, line:2:9, endln:2:14, parent:work@top, parID:12
         |vpiOperand:
-        \_constant: , line:3:28, endln:3:29
+        \_constant: , id:3, line:3:28, endln:3:29, parID:2
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:4:10
+    \_module: work@top (work@top), id:12 dut.sv:1:1: , endln:4:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/DeferAssert/dut.sv | ${SURELOG_DIR}/build/regression/DeferAssert/roundtrip/dut_000.sv | 2 | 4 | 
 
