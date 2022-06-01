@@ -1220,20 +1220,24 @@ design: (work@dut)
       |vpiName:din
       |vpiDirection:1
       |vpiHighConn:
-      \_operation: , line:18:38, endln:18:74
+      \_operation: , line:18:38, endln:18:74, parent:din
+        |vpiParent:
+        \_port: (din), line:5:30, endln:5:33, parent:work@dut.freezerfpc_ff
         |vpiOpType:33
         |vpiOperand:
-        \_ref_obj: (rfpc_postsync_in), line:18:39, endln:18:55
+        \_ref_obj: (work@dut.freezerfpc_ff.din.rfpc_postsync_in), line:18:39, endln:18:55
           |vpiParent:
-          \_operation: , line:18:38, endln:18:74
+          \_operation: , line:18:38, endln:18:74, parent:din
           |vpiName:rfpc_postsync_in
+          |vpiFullName:work@dut.freezerfpc_ff.din.rfpc_postsync_in
           |vpiActual:
           \_logic_net: (rfpc_postsync_in)
         |vpiOperand:
-        \_ref_obj: (dma_mem_dccm_req), line:18:57, endln:18:73
+        \_ref_obj: (work@dut.freezerfpc_ff.din.dma_mem_dccm_req), line:18:57, endln:18:73
           |vpiParent:
-          \_operation: , line:18:38, endln:18:74
+          \_operation: , line:18:38, endln:18:74, parent:din
           |vpiName:dma_mem_dccm_req
+          |vpiFullName:work@dut.freezerfpc_ff.din.dma_mem_dccm_req
           |vpiActual:
           \_logic_net: (dma_mem_dccm_req)
       |vpiLowConn:
@@ -1275,7 +1279,9 @@ design: (work@dut)
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@dut.free_clk), line:17:40, endln:17:48
+      \_ref_obj: (work@dut.free_clk), line:17:40, endln:17:48, parent:clk
+        |vpiParent:
+        \_port: (clk), line:6:28, endln:6:31, parent:work@dut.freezerfpc_ff
         |vpiName:free_clk
         |vpiFullName:work@dut.free_clk
         |vpiActual:
@@ -1299,11 +1305,13 @@ design: (work@dut)
       |vpiName:rst_l
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@dut.rst_l), line:17:30, endln:17:31
+      \_ref_obj: (work@dut.rst_l), line:17:30, endln:17:31, parent:rst_l
+        |vpiParent:
+        \_port: (rst_l), line:7:36, endln:7:41, parent:work@dut.freezerfpc_ff
         |vpiName:rst_l
         |vpiFullName:work@dut.rst_l
         |vpiActual:
-        \_logic_net: (work@dut.rst_l), line:16:31, endln:16:36, parent:work@dut
+        \_logic_net: (work@dut.freezerfpc_ff.rst_l), line:7:36, endln:7:41, parent:work@dut.freezerfpc_ff
       |vpiLowConn:
       \_ref_obj: (work@dut.freezerfpc_ff.rst_l), line:7:36, endln:7:41, parent:rst_l
         |vpiParent:
@@ -1323,20 +1331,24 @@ design: (work@dut)
       |vpiName:dout
       |vpiDirection:2
       |vpiHighConn:
-      \_operation: , line:19:39, endln:19:74
+      \_operation: , line:19:39, endln:19:74, parent:dout
+        |vpiParent:
+        \_port: (dout), line:9:31, endln:9:35, parent:work@dut.freezerfpc_ff
         |vpiOpType:33
         |vpiOperand:
-        \_ref_obj: (rfpc_postsync), line:19:40, endln:19:53
+        \_ref_obj: (work@dut.freezerfpc_ff.dout.rfpc_postsync), line:19:40, endln:19:53
           |vpiParent:
-          \_operation: , line:19:39, endln:19:74
+          \_operation: , line:19:39, endln:19:74, parent:dout
           |vpiName:rfpc_postsync
+          |vpiFullName:work@dut.freezerfpc_ff.dout.rfpc_postsync
           |vpiActual:
           \_logic_net: (rfpc_postsync)
         |vpiOperand:
-        \_ref_obj: (dma_mem_dccm_req_f), line:19:55, endln:19:73
+        \_ref_obj: (work@dut.freezerfpc_ff.dout.dma_mem_dccm_req_f), line:19:55, endln:19:73
           |vpiParent:
-          \_operation: , line:19:39, endln:19:74
+          \_operation: , line:19:39, endln:19:74, parent:dout
           |vpiName:dma_mem_dccm_req_f
+          |vpiFullName:work@dut.freezerfpc_ff.dout.dma_mem_dccm_req_f
           |vpiActual:
           \_logic_net: (dma_mem_dccm_req_f)
       |vpiLowConn:

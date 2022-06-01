@@ -2419,7 +2419,9 @@ design: (work@top)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@top.clk_i), line:4:6, endln:4:11
+      \_ref_obj: (work@top.clk_i), line:4:6, endln:4:11, parent:a
+        |vpiParent:
+        \_port: (a), line:10:10, endln:10:11, parent:work@top.d
         |vpiName:clk_i
         |vpiFullName:work@top.clk_i
         |vpiActual:
@@ -2441,11 +2443,13 @@ design: (work@top)
       |vpiName:b
       |vpiDirection:2
       |vpiHighConn:
-      \_ref_obj: (work@top.b), line:5:6, endln:5:7
+      \_ref_obj: (work@top.b), line:5:6, endln:5:7, parent:b
+        |vpiParent:
+        \_port: (b), line:10:20, endln:10:21, parent:work@top.d
         |vpiName:b
         |vpiFullName:work@top.b
         |vpiActual:
-        \_logic_net: (work@top.b), line:1:32, endln:1:33, parent:work@top
+        \_logic_net: (work@top.d.b), line:10:20, endln:10:21, parent:work@top.d
       |vpiLowConn:
       \_ref_obj: (work@top.d.b), line:5:4, endln:5:5, parent:b
         |vpiParent:

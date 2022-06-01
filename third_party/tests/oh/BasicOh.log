@@ -42887,7 +42887,9 @@ design: (work@oh_fifo_async)
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.wr_clk), line:75:18, endln:75:24
+      \_ref_obj: (work@oh_fifo_async.wr_clk), line:75:18, endln:75:24, parent:clk
+        |vpiParent:
+        \_port: (clk), line:14:12, endln:14:15, parent:work@oh_fifo_async.wr_rsync
         |vpiName:wr_clk
         |vpiFullName:work@oh_fifo_async.wr_clk
         |vpiActual:
@@ -42909,7 +42911,9 @@ design: (work@oh_fifo_async)
       |vpiName:nrst_in
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.nreset), line:76:18, endln:76:24
+      \_ref_obj: (work@oh_fifo_async.nreset), line:76:18, endln:76:24, parent:nrst_in
+        |vpiParent:
+        \_port: (nrst_in), line:15:12, endln:15:19, parent:work@oh_fifo_async.wr_rsync
         |vpiName:nreset
         |vpiFullName:work@oh_fifo_async.nreset
         |vpiActual:
@@ -42931,7 +42935,9 @@ design: (work@oh_fifo_async)
       |vpiName:nrst_out
       |vpiDirection:2
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.wr_nreset), line:74:25, endln:74:34
+      \_ref_obj: (work@oh_fifo_async.wr_nreset), line:74:25, endln:74:34, parent:nrst_out
+        |vpiParent:
+        \_port: (nrst_out), line:16:12, endln:16:20, parent:work@oh_fifo_async.wr_rsync
         |vpiName:wr_nreset
         |vpiFullName:work@oh_fifo_async.wr_nreset
         |vpiActual:
@@ -43363,7 +43369,9 @@ design: (work@oh_fifo_async)
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.rd_clk), line:81:18, endln:81:24
+      \_ref_obj: (work@oh_fifo_async.rd_clk), line:81:18, endln:81:24, parent:clk
+        |vpiParent:
+        \_port: (clk), line:14:12, endln:14:15, parent:work@oh_fifo_async.rd_rsync
         |vpiName:rd_clk
         |vpiFullName:work@oh_fifo_async.rd_clk
         |vpiActual:
@@ -43385,7 +43393,9 @@ design: (work@oh_fifo_async)
       |vpiName:nrst_in
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.nreset), line:82:18, endln:82:24
+      \_ref_obj: (work@oh_fifo_async.nreset), line:82:18, endln:82:24, parent:nrst_in
+        |vpiParent:
+        \_port: (nrst_in), line:15:12, endln:15:19, parent:work@oh_fifo_async.rd_rsync
         |vpiName:nreset
         |vpiFullName:work@oh_fifo_async.nreset
         |vpiActual:
@@ -43407,7 +43417,9 @@ design: (work@oh_fifo_async)
       |vpiName:nrst_out
       |vpiDirection:2
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.rd_nreset), line:80:25, endln:80:34
+      \_ref_obj: (work@oh_fifo_async.rd_nreset), line:80:25, endln:80:34, parent:nrst_out
+        |vpiParent:
+        \_port: (nrst_out), line:16:12, endln:16:20, parent:work@oh_fifo_async.rd_rsync
         |vpiName:rd_nreset
         |vpiFullName:work@oh_fifo_async.rd_nreset
         |vpiActual:
@@ -43878,11 +43890,16 @@ design: (work@oh_fifo_async)
       |vpiName:in
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:116:16, endln:116:20, parent:wr_addr
+      \_part_select: , line:116:16, endln:116:20, parent:work@oh_fifo_async.wr_bin2gray.in.wr_addr
         |vpiParent:
-        \_ref_obj: wr_addr (wr_addr)
+        \_ref_obj: wr_addr (work@oh_fifo_async.wr_bin2gray.in.wr_addr), parent:in
+          |vpiParent:
+          \_port: (in), line:12:20, endln:12:22, parent:work@oh_fifo_async.wr_bin2gray
           |vpiName:wr_addr
+          |vpiFullName:work@oh_fifo_async.wr_bin2gray.in.wr_addr
           |vpiDefName:wr_addr
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.wr_addr), line:55:17, endln:55:24, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:116:16, endln:116:18
@@ -43935,11 +43952,16 @@ design: (work@oh_fifo_async)
       |vpiName:out
       |vpiDirection:2
       |vpiHighConn:
-      \_part_select: , line:115:39, endln:115:43, parent:wr_addr_gray
+      \_part_select: , line:115:39, endln:115:43, parent:work@oh_fifo_async.wr_bin2gray.out.wr_addr_gray
         |vpiParent:
-        \_ref_obj: wr_addr_gray (wr_addr_gray)
+        \_ref_obj: wr_addr_gray (work@oh_fifo_async.wr_bin2gray.out.wr_addr_gray), parent:out
+          |vpiParent:
+          \_port: (out), line:13:20, endln:13:23, parent:work@oh_fifo_async.wr_bin2gray
           |vpiName:wr_addr_gray
+          |vpiFullName:work@oh_fifo_async.wr_bin2gray.out.wr_addr_gray
           |vpiDefName:wr_addr_gray
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.wr_addr_gray), line:57:18, endln:57:30, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:115:39, endln:115:41
@@ -44482,7 +44504,9 @@ design: (work@oh_fifo_async)
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.rd_clk), line:122:14, endln:122:20
+      \_ref_obj: (work@oh_fifo_async.rd_clk), line:122:14, endln:122:20, parent:clk
+        |vpiParent:
+        \_port: (clk), line:15:12, endln:15:15, parent:work@oh_fifo_async.wr_sync[0]
         |vpiName:rd_clk
         |vpiFullName:work@oh_fifo_async.rd_clk
         |vpiActual:
@@ -44504,7 +44528,9 @@ design: (work@oh_fifo_async)
       |vpiName:nreset
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.rd_nreset), line:123:14, endln:123:23
+      \_ref_obj: (work@oh_fifo_async.rd_nreset), line:123:14, endln:123:23, parent:nreset
+        |vpiParent:
+        \_port: (nreset), line:16:12, endln:16:18, parent:work@oh_fifo_async.wr_sync[0]
         |vpiName:rd_nreset
         |vpiFullName:work@oh_fifo_async.rd_nreset
         |vpiActual:
@@ -44526,11 +44552,16 @@ design: (work@oh_fifo_async)
       |vpiName:din
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:124:27, endln:124:31, parent:wr_addr_gray
+      \_part_select: , line:124:27, endln:124:31, parent:work@oh_fifo_async.wr_sync[0].din.wr_addr_gray
         |vpiParent:
-        \_ref_obj: wr_addr_gray (wr_addr_gray)
+        \_ref_obj: wr_addr_gray (work@oh_fifo_async.wr_sync[0].din.wr_addr_gray), parent:din
+          |vpiParent:
+          \_port: (din), line:17:12, endln:17:15, parent:work@oh_fifo_async.wr_sync[0]
           |vpiName:wr_addr_gray
+          |vpiFullName:work@oh_fifo_async.wr_sync[0].din.wr_addr_gray
           |vpiDefName:wr_addr_gray
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.wr_addr_gray), line:57:18, endln:57:30, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:124:27, endln:124:29
@@ -44561,11 +44592,16 @@ design: (work@oh_fifo_async)
       |vpiName:dout
       |vpiDirection:2
       |vpiHighConn:
-      \_part_select: , line:121:46, endln:121:50, parent:wr_addr_gray_sync
+      \_part_select: , line:121:46, endln:121:50, parent:work@oh_fifo_async.wr_sync[0].dout.wr_addr_gray_sync
         |vpiParent:
-        \_ref_obj: wr_addr_gray_sync (wr_addr_gray_sync)
+        \_ref_obj: wr_addr_gray_sync (work@oh_fifo_async.wr_sync[0].dout.wr_addr_gray_sync), parent:dout
+          |vpiParent:
+          \_port: (dout), line:18:12, endln:18:16, parent:work@oh_fifo_async.wr_sync[0]
           |vpiName:wr_addr_gray_sync
+          |vpiFullName:work@oh_fifo_async.wr_sync[0].dout.wr_addr_gray_sync
           |vpiDefName:wr_addr_gray_sync
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.wr_addr_gray_sync), line:58:18, endln:58:35, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:121:46, endln:121:48
@@ -45073,7 +45109,9 @@ design: (work@oh_fifo_async)
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.rd_clk), line:122:14, endln:122:20
+      \_ref_obj: (work@oh_fifo_async.rd_clk), line:122:14, endln:122:20, parent:clk
+        |vpiParent:
+        \_port: (clk), line:15:12, endln:15:15, parent:work@oh_fifo_async.wr_sync[1]
         |vpiName:rd_clk
         |vpiFullName:work@oh_fifo_async.rd_clk
         |vpiActual:
@@ -45095,7 +45133,9 @@ design: (work@oh_fifo_async)
       |vpiName:nreset
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.rd_nreset), line:123:14, endln:123:23
+      \_ref_obj: (work@oh_fifo_async.rd_nreset), line:123:14, endln:123:23, parent:nreset
+        |vpiParent:
+        \_port: (nreset), line:16:12, endln:16:18, parent:work@oh_fifo_async.wr_sync[1]
         |vpiName:rd_nreset
         |vpiFullName:work@oh_fifo_async.rd_nreset
         |vpiActual:
@@ -45117,11 +45157,16 @@ design: (work@oh_fifo_async)
       |vpiName:din
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:124:27, endln:124:31, parent:wr_addr_gray
+      \_part_select: , line:124:27, endln:124:31, parent:work@oh_fifo_async.wr_sync[1].din.wr_addr_gray
         |vpiParent:
-        \_ref_obj: wr_addr_gray (wr_addr_gray)
+        \_ref_obj: wr_addr_gray (work@oh_fifo_async.wr_sync[1].din.wr_addr_gray), parent:din
+          |vpiParent:
+          \_port: (din), line:17:12, endln:17:15, parent:work@oh_fifo_async.wr_sync[1]
           |vpiName:wr_addr_gray
+          |vpiFullName:work@oh_fifo_async.wr_sync[1].din.wr_addr_gray
           |vpiDefName:wr_addr_gray
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.wr_addr_gray), line:57:18, endln:57:30, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:124:27, endln:124:29
@@ -45152,11 +45197,16 @@ design: (work@oh_fifo_async)
       |vpiName:dout
       |vpiDirection:2
       |vpiHighConn:
-      \_part_select: , line:121:46, endln:121:50, parent:wr_addr_gray_sync
+      \_part_select: , line:121:46, endln:121:50, parent:work@oh_fifo_async.wr_sync[1].dout.wr_addr_gray_sync
         |vpiParent:
-        \_ref_obj: wr_addr_gray_sync (wr_addr_gray_sync)
+        \_ref_obj: wr_addr_gray_sync (work@oh_fifo_async.wr_sync[1].dout.wr_addr_gray_sync), parent:dout
+          |vpiParent:
+          \_port: (dout), line:18:12, endln:18:16, parent:work@oh_fifo_async.wr_sync[1]
           |vpiName:wr_addr_gray_sync
+          |vpiFullName:work@oh_fifo_async.wr_sync[1].dout.wr_addr_gray_sync
           |vpiDefName:wr_addr_gray_sync
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.wr_addr_gray_sync), line:58:18, endln:58:35, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:121:46, endln:121:48
@@ -45664,7 +45714,9 @@ design: (work@oh_fifo_async)
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.rd_clk), line:122:14, endln:122:20
+      \_ref_obj: (work@oh_fifo_async.rd_clk), line:122:14, endln:122:20, parent:clk
+        |vpiParent:
+        \_port: (clk), line:15:12, endln:15:15, parent:work@oh_fifo_async.wr_sync[2]
         |vpiName:rd_clk
         |vpiFullName:work@oh_fifo_async.rd_clk
         |vpiActual:
@@ -45686,7 +45738,9 @@ design: (work@oh_fifo_async)
       |vpiName:nreset
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.rd_nreset), line:123:14, endln:123:23
+      \_ref_obj: (work@oh_fifo_async.rd_nreset), line:123:14, endln:123:23, parent:nreset
+        |vpiParent:
+        \_port: (nreset), line:16:12, endln:16:18, parent:work@oh_fifo_async.wr_sync[2]
         |vpiName:rd_nreset
         |vpiFullName:work@oh_fifo_async.rd_nreset
         |vpiActual:
@@ -45708,11 +45762,16 @@ design: (work@oh_fifo_async)
       |vpiName:din
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:124:27, endln:124:31, parent:wr_addr_gray
+      \_part_select: , line:124:27, endln:124:31, parent:work@oh_fifo_async.wr_sync[2].din.wr_addr_gray
         |vpiParent:
-        \_ref_obj: wr_addr_gray (wr_addr_gray)
+        \_ref_obj: wr_addr_gray (work@oh_fifo_async.wr_sync[2].din.wr_addr_gray), parent:din
+          |vpiParent:
+          \_port: (din), line:17:12, endln:17:15, parent:work@oh_fifo_async.wr_sync[2]
           |vpiName:wr_addr_gray
+          |vpiFullName:work@oh_fifo_async.wr_sync[2].din.wr_addr_gray
           |vpiDefName:wr_addr_gray
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.wr_addr_gray), line:57:18, endln:57:30, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:124:27, endln:124:29
@@ -45743,11 +45802,16 @@ design: (work@oh_fifo_async)
       |vpiName:dout
       |vpiDirection:2
       |vpiHighConn:
-      \_part_select: , line:121:46, endln:121:50, parent:wr_addr_gray_sync
+      \_part_select: , line:121:46, endln:121:50, parent:work@oh_fifo_async.wr_sync[2].dout.wr_addr_gray_sync
         |vpiParent:
-        \_ref_obj: wr_addr_gray_sync (wr_addr_gray_sync)
+        \_ref_obj: wr_addr_gray_sync (work@oh_fifo_async.wr_sync[2].dout.wr_addr_gray_sync), parent:dout
+          |vpiParent:
+          \_port: (dout), line:18:12, endln:18:16, parent:work@oh_fifo_async.wr_sync[2]
           |vpiName:wr_addr_gray_sync
+          |vpiFullName:work@oh_fifo_async.wr_sync[2].dout.wr_addr_gray_sync
           |vpiDefName:wr_addr_gray_sync
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.wr_addr_gray_sync), line:58:18, endln:58:35, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:121:46, endln:121:48
@@ -46255,7 +46319,9 @@ design: (work@oh_fifo_async)
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.rd_clk), line:122:14, endln:122:20
+      \_ref_obj: (work@oh_fifo_async.rd_clk), line:122:14, endln:122:20, parent:clk
+        |vpiParent:
+        \_port: (clk), line:15:12, endln:15:15, parent:work@oh_fifo_async.wr_sync[3]
         |vpiName:rd_clk
         |vpiFullName:work@oh_fifo_async.rd_clk
         |vpiActual:
@@ -46277,7 +46343,9 @@ design: (work@oh_fifo_async)
       |vpiName:nreset
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.rd_nreset), line:123:14, endln:123:23
+      \_ref_obj: (work@oh_fifo_async.rd_nreset), line:123:14, endln:123:23, parent:nreset
+        |vpiParent:
+        \_port: (nreset), line:16:12, endln:16:18, parent:work@oh_fifo_async.wr_sync[3]
         |vpiName:rd_nreset
         |vpiFullName:work@oh_fifo_async.rd_nreset
         |vpiActual:
@@ -46299,11 +46367,16 @@ design: (work@oh_fifo_async)
       |vpiName:din
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:124:27, endln:124:31, parent:wr_addr_gray
+      \_part_select: , line:124:27, endln:124:31, parent:work@oh_fifo_async.wr_sync[3].din.wr_addr_gray
         |vpiParent:
-        \_ref_obj: wr_addr_gray (wr_addr_gray)
+        \_ref_obj: wr_addr_gray (work@oh_fifo_async.wr_sync[3].din.wr_addr_gray), parent:din
+          |vpiParent:
+          \_port: (din), line:17:12, endln:17:15, parent:work@oh_fifo_async.wr_sync[3]
           |vpiName:wr_addr_gray
+          |vpiFullName:work@oh_fifo_async.wr_sync[3].din.wr_addr_gray
           |vpiDefName:wr_addr_gray
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.wr_addr_gray), line:57:18, endln:57:30, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:124:27, endln:124:29
@@ -46334,11 +46407,16 @@ design: (work@oh_fifo_async)
       |vpiName:dout
       |vpiDirection:2
       |vpiHighConn:
-      \_part_select: , line:121:46, endln:121:50, parent:wr_addr_gray_sync
+      \_part_select: , line:121:46, endln:121:50, parent:work@oh_fifo_async.wr_sync[3].dout.wr_addr_gray_sync
         |vpiParent:
-        \_ref_obj: wr_addr_gray_sync (wr_addr_gray_sync)
+        \_ref_obj: wr_addr_gray_sync (work@oh_fifo_async.wr_sync[3].dout.wr_addr_gray_sync), parent:dout
+          |vpiParent:
+          \_port: (dout), line:18:12, endln:18:16, parent:work@oh_fifo_async.wr_sync[3]
           |vpiName:wr_addr_gray_sync
+          |vpiFullName:work@oh_fifo_async.wr_sync[3].dout.wr_addr_gray_sync
           |vpiDefName:wr_addr_gray_sync
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.wr_addr_gray_sync), line:58:18, endln:58:35, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:121:46, endln:121:48
@@ -46846,7 +46924,9 @@ design: (work@oh_fifo_async)
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.rd_clk), line:122:14, endln:122:20
+      \_ref_obj: (work@oh_fifo_async.rd_clk), line:122:14, endln:122:20, parent:clk
+        |vpiParent:
+        \_port: (clk), line:15:12, endln:15:15, parent:work@oh_fifo_async.wr_sync[4]
         |vpiName:rd_clk
         |vpiFullName:work@oh_fifo_async.rd_clk
         |vpiActual:
@@ -46868,7 +46948,9 @@ design: (work@oh_fifo_async)
       |vpiName:nreset
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.rd_nreset), line:123:14, endln:123:23
+      \_ref_obj: (work@oh_fifo_async.rd_nreset), line:123:14, endln:123:23, parent:nreset
+        |vpiParent:
+        \_port: (nreset), line:16:12, endln:16:18, parent:work@oh_fifo_async.wr_sync[4]
         |vpiName:rd_nreset
         |vpiFullName:work@oh_fifo_async.rd_nreset
         |vpiActual:
@@ -46890,11 +46972,16 @@ design: (work@oh_fifo_async)
       |vpiName:din
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:124:27, endln:124:31, parent:wr_addr_gray
+      \_part_select: , line:124:27, endln:124:31, parent:work@oh_fifo_async.wr_sync[4].din.wr_addr_gray
         |vpiParent:
-        \_ref_obj: wr_addr_gray (wr_addr_gray)
+        \_ref_obj: wr_addr_gray (work@oh_fifo_async.wr_sync[4].din.wr_addr_gray), parent:din
+          |vpiParent:
+          \_port: (din), line:17:12, endln:17:15, parent:work@oh_fifo_async.wr_sync[4]
           |vpiName:wr_addr_gray
+          |vpiFullName:work@oh_fifo_async.wr_sync[4].din.wr_addr_gray
           |vpiDefName:wr_addr_gray
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.wr_addr_gray), line:57:18, endln:57:30, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:124:27, endln:124:29
@@ -46925,11 +47012,16 @@ design: (work@oh_fifo_async)
       |vpiName:dout
       |vpiDirection:2
       |vpiHighConn:
-      \_part_select: , line:121:46, endln:121:50, parent:wr_addr_gray_sync
+      \_part_select: , line:121:46, endln:121:50, parent:work@oh_fifo_async.wr_sync[4].dout.wr_addr_gray_sync
         |vpiParent:
-        \_ref_obj: wr_addr_gray_sync (wr_addr_gray_sync)
+        \_ref_obj: wr_addr_gray_sync (work@oh_fifo_async.wr_sync[4].dout.wr_addr_gray_sync), parent:dout
+          |vpiParent:
+          \_port: (dout), line:18:12, endln:18:16, parent:work@oh_fifo_async.wr_sync[4]
           |vpiName:wr_addr_gray_sync
+          |vpiFullName:work@oh_fifo_async.wr_sync[4].dout.wr_addr_gray_sync
           |vpiDefName:wr_addr_gray_sync
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.wr_addr_gray_sync), line:58:18, endln:58:35, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:121:46, endln:121:48
@@ -47437,7 +47529,9 @@ design: (work@oh_fifo_async)
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.rd_clk), line:122:14, endln:122:20
+      \_ref_obj: (work@oh_fifo_async.rd_clk), line:122:14, endln:122:20, parent:clk
+        |vpiParent:
+        \_port: (clk), line:15:12, endln:15:15, parent:work@oh_fifo_async.wr_sync[5]
         |vpiName:rd_clk
         |vpiFullName:work@oh_fifo_async.rd_clk
         |vpiActual:
@@ -47459,7 +47553,9 @@ design: (work@oh_fifo_async)
       |vpiName:nreset
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.rd_nreset), line:123:14, endln:123:23
+      \_ref_obj: (work@oh_fifo_async.rd_nreset), line:123:14, endln:123:23, parent:nreset
+        |vpiParent:
+        \_port: (nreset), line:16:12, endln:16:18, parent:work@oh_fifo_async.wr_sync[5]
         |vpiName:rd_nreset
         |vpiFullName:work@oh_fifo_async.rd_nreset
         |vpiActual:
@@ -47481,11 +47577,16 @@ design: (work@oh_fifo_async)
       |vpiName:din
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:124:27, endln:124:31, parent:wr_addr_gray
+      \_part_select: , line:124:27, endln:124:31, parent:work@oh_fifo_async.wr_sync[5].din.wr_addr_gray
         |vpiParent:
-        \_ref_obj: wr_addr_gray (wr_addr_gray)
+        \_ref_obj: wr_addr_gray (work@oh_fifo_async.wr_sync[5].din.wr_addr_gray), parent:din
+          |vpiParent:
+          \_port: (din), line:17:12, endln:17:15, parent:work@oh_fifo_async.wr_sync[5]
           |vpiName:wr_addr_gray
+          |vpiFullName:work@oh_fifo_async.wr_sync[5].din.wr_addr_gray
           |vpiDefName:wr_addr_gray
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.wr_addr_gray), line:57:18, endln:57:30, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:124:27, endln:124:29
@@ -47516,11 +47617,16 @@ design: (work@oh_fifo_async)
       |vpiName:dout
       |vpiDirection:2
       |vpiHighConn:
-      \_part_select: , line:121:46, endln:121:50, parent:wr_addr_gray_sync
+      \_part_select: , line:121:46, endln:121:50, parent:work@oh_fifo_async.wr_sync[5].dout.wr_addr_gray_sync
         |vpiParent:
-        \_ref_obj: wr_addr_gray_sync (wr_addr_gray_sync)
+        \_ref_obj: wr_addr_gray_sync (work@oh_fifo_async.wr_sync[5].dout.wr_addr_gray_sync), parent:dout
+          |vpiParent:
+          \_port: (dout), line:18:12, endln:18:16, parent:work@oh_fifo_async.wr_sync[5]
           |vpiName:wr_addr_gray_sync
+          |vpiFullName:work@oh_fifo_async.wr_sync[5].dout.wr_addr_gray_sync
           |vpiDefName:wr_addr_gray_sync
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.wr_addr_gray_sync), line:58:18, endln:58:35, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:121:46, endln:121:48
@@ -48044,11 +48150,16 @@ design: (work@oh_fifo_async)
       |vpiName:in
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:132:19, endln:132:23, parent:rd_addr
+      \_part_select: , line:132:19, endln:132:23, parent:work@oh_fifo_async.rd_bin2gray.in.rd_addr
         |vpiParent:
-        \_ref_obj: rd_addr (rd_addr)
+        \_ref_obj: rd_addr (work@oh_fifo_async.rd_bin2gray.in.rd_addr), parent:in
+          |vpiParent:
+          \_port: (in), line:12:20, endln:12:22, parent:work@oh_fifo_async.rd_bin2gray
           |vpiName:rd_addr
+          |vpiFullName:work@oh_fifo_async.rd_bin2gray.in.rd_addr
           |vpiDefName:rd_addr
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.rd_addr), line:56:17, endln:56:24, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:132:19, endln:132:21
@@ -48101,11 +48212,16 @@ design: (work@oh_fifo_async)
       |vpiName:out
       |vpiDirection:2
       |vpiHighConn:
-      \_part_select: , line:131:38, endln:131:42, parent:rd_addr_gray
+      \_part_select: , line:131:38, endln:131:42, parent:work@oh_fifo_async.rd_bin2gray.out.rd_addr_gray
         |vpiParent:
-        \_ref_obj: rd_addr_gray (rd_addr_gray)
+        \_ref_obj: rd_addr_gray (work@oh_fifo_async.rd_bin2gray.out.rd_addr_gray), parent:out
+          |vpiParent:
+          \_port: (out), line:13:20, endln:13:23, parent:work@oh_fifo_async.rd_bin2gray
           |vpiName:rd_addr_gray
+          |vpiFullName:work@oh_fifo_async.rd_bin2gray.out.rd_addr_gray
           |vpiDefName:rd_addr_gray
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.rd_addr_gray), line:59:18, endln:59:30, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:131:38, endln:131:40
@@ -48648,7 +48764,9 @@ design: (work@oh_fifo_async)
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.wr_clk), line:138:14, endln:138:20
+      \_ref_obj: (work@oh_fifo_async.wr_clk), line:138:14, endln:138:20, parent:clk
+        |vpiParent:
+        \_port: (clk), line:15:12, endln:15:15, parent:work@oh_fifo_async.rd_sync[0]
         |vpiName:wr_clk
         |vpiFullName:work@oh_fifo_async.wr_clk
         |vpiActual:
@@ -48670,7 +48788,9 @@ design: (work@oh_fifo_async)
       |vpiName:nreset
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.wr_nreset), line:139:14, endln:139:23
+      \_ref_obj: (work@oh_fifo_async.wr_nreset), line:139:14, endln:139:23, parent:nreset
+        |vpiParent:
+        \_port: (nreset), line:16:12, endln:16:18, parent:work@oh_fifo_async.rd_sync[0]
         |vpiName:wr_nreset
         |vpiFullName:work@oh_fifo_async.wr_nreset
         |vpiActual:
@@ -48692,11 +48812,16 @@ design: (work@oh_fifo_async)
       |vpiName:din
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:140:27, endln:140:31, parent:rd_addr_gray
+      \_part_select: , line:140:27, endln:140:31, parent:work@oh_fifo_async.rd_sync[0].din.rd_addr_gray
         |vpiParent:
-        \_ref_obj: rd_addr_gray (rd_addr_gray)
+        \_ref_obj: rd_addr_gray (work@oh_fifo_async.rd_sync[0].din.rd_addr_gray), parent:din
+          |vpiParent:
+          \_port: (din), line:17:12, endln:17:15, parent:work@oh_fifo_async.rd_sync[0]
           |vpiName:rd_addr_gray
+          |vpiFullName:work@oh_fifo_async.rd_sync[0].din.rd_addr_gray
           |vpiDefName:rd_addr_gray
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.rd_addr_gray), line:59:18, endln:59:30, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:140:27, endln:140:29
@@ -48727,11 +48852,16 @@ design: (work@oh_fifo_async)
       |vpiName:dout
       |vpiDirection:2
       |vpiHighConn:
-      \_part_select: , line:137:46, endln:137:50, parent:rd_addr_gray_sync
+      \_part_select: , line:137:46, endln:137:50, parent:work@oh_fifo_async.rd_sync[0].dout.rd_addr_gray_sync
         |vpiParent:
-        \_ref_obj: rd_addr_gray_sync (rd_addr_gray_sync)
+        \_ref_obj: rd_addr_gray_sync (work@oh_fifo_async.rd_sync[0].dout.rd_addr_gray_sync), parent:dout
+          |vpiParent:
+          \_port: (dout), line:18:12, endln:18:16, parent:work@oh_fifo_async.rd_sync[0]
           |vpiName:rd_addr_gray_sync
+          |vpiFullName:work@oh_fifo_async.rd_sync[0].dout.rd_addr_gray_sync
           |vpiDefName:rd_addr_gray_sync
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.rd_addr_gray_sync), line:60:18, endln:60:35, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:137:46, endln:137:48
@@ -49239,7 +49369,9 @@ design: (work@oh_fifo_async)
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.wr_clk), line:138:14, endln:138:20
+      \_ref_obj: (work@oh_fifo_async.wr_clk), line:138:14, endln:138:20, parent:clk
+        |vpiParent:
+        \_port: (clk), line:15:12, endln:15:15, parent:work@oh_fifo_async.rd_sync[1]
         |vpiName:wr_clk
         |vpiFullName:work@oh_fifo_async.wr_clk
         |vpiActual:
@@ -49261,7 +49393,9 @@ design: (work@oh_fifo_async)
       |vpiName:nreset
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.wr_nreset), line:139:14, endln:139:23
+      \_ref_obj: (work@oh_fifo_async.wr_nreset), line:139:14, endln:139:23, parent:nreset
+        |vpiParent:
+        \_port: (nreset), line:16:12, endln:16:18, parent:work@oh_fifo_async.rd_sync[1]
         |vpiName:wr_nreset
         |vpiFullName:work@oh_fifo_async.wr_nreset
         |vpiActual:
@@ -49283,11 +49417,16 @@ design: (work@oh_fifo_async)
       |vpiName:din
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:140:27, endln:140:31, parent:rd_addr_gray
+      \_part_select: , line:140:27, endln:140:31, parent:work@oh_fifo_async.rd_sync[1].din.rd_addr_gray
         |vpiParent:
-        \_ref_obj: rd_addr_gray (rd_addr_gray)
+        \_ref_obj: rd_addr_gray (work@oh_fifo_async.rd_sync[1].din.rd_addr_gray), parent:din
+          |vpiParent:
+          \_port: (din), line:17:12, endln:17:15, parent:work@oh_fifo_async.rd_sync[1]
           |vpiName:rd_addr_gray
+          |vpiFullName:work@oh_fifo_async.rd_sync[1].din.rd_addr_gray
           |vpiDefName:rd_addr_gray
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.rd_addr_gray), line:59:18, endln:59:30, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:140:27, endln:140:29
@@ -49318,11 +49457,16 @@ design: (work@oh_fifo_async)
       |vpiName:dout
       |vpiDirection:2
       |vpiHighConn:
-      \_part_select: , line:137:46, endln:137:50, parent:rd_addr_gray_sync
+      \_part_select: , line:137:46, endln:137:50, parent:work@oh_fifo_async.rd_sync[1].dout.rd_addr_gray_sync
         |vpiParent:
-        \_ref_obj: rd_addr_gray_sync (rd_addr_gray_sync)
+        \_ref_obj: rd_addr_gray_sync (work@oh_fifo_async.rd_sync[1].dout.rd_addr_gray_sync), parent:dout
+          |vpiParent:
+          \_port: (dout), line:18:12, endln:18:16, parent:work@oh_fifo_async.rd_sync[1]
           |vpiName:rd_addr_gray_sync
+          |vpiFullName:work@oh_fifo_async.rd_sync[1].dout.rd_addr_gray_sync
           |vpiDefName:rd_addr_gray_sync
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.rd_addr_gray_sync), line:60:18, endln:60:35, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:137:46, endln:137:48
@@ -49830,7 +49974,9 @@ design: (work@oh_fifo_async)
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.wr_clk), line:138:14, endln:138:20
+      \_ref_obj: (work@oh_fifo_async.wr_clk), line:138:14, endln:138:20, parent:clk
+        |vpiParent:
+        \_port: (clk), line:15:12, endln:15:15, parent:work@oh_fifo_async.rd_sync[2]
         |vpiName:wr_clk
         |vpiFullName:work@oh_fifo_async.wr_clk
         |vpiActual:
@@ -49852,7 +49998,9 @@ design: (work@oh_fifo_async)
       |vpiName:nreset
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.wr_nreset), line:139:14, endln:139:23
+      \_ref_obj: (work@oh_fifo_async.wr_nreset), line:139:14, endln:139:23, parent:nreset
+        |vpiParent:
+        \_port: (nreset), line:16:12, endln:16:18, parent:work@oh_fifo_async.rd_sync[2]
         |vpiName:wr_nreset
         |vpiFullName:work@oh_fifo_async.wr_nreset
         |vpiActual:
@@ -49874,11 +50022,16 @@ design: (work@oh_fifo_async)
       |vpiName:din
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:140:27, endln:140:31, parent:rd_addr_gray
+      \_part_select: , line:140:27, endln:140:31, parent:work@oh_fifo_async.rd_sync[2].din.rd_addr_gray
         |vpiParent:
-        \_ref_obj: rd_addr_gray (rd_addr_gray)
+        \_ref_obj: rd_addr_gray (work@oh_fifo_async.rd_sync[2].din.rd_addr_gray), parent:din
+          |vpiParent:
+          \_port: (din), line:17:12, endln:17:15, parent:work@oh_fifo_async.rd_sync[2]
           |vpiName:rd_addr_gray
+          |vpiFullName:work@oh_fifo_async.rd_sync[2].din.rd_addr_gray
           |vpiDefName:rd_addr_gray
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.rd_addr_gray), line:59:18, endln:59:30, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:140:27, endln:140:29
@@ -49909,11 +50062,16 @@ design: (work@oh_fifo_async)
       |vpiName:dout
       |vpiDirection:2
       |vpiHighConn:
-      \_part_select: , line:137:46, endln:137:50, parent:rd_addr_gray_sync
+      \_part_select: , line:137:46, endln:137:50, parent:work@oh_fifo_async.rd_sync[2].dout.rd_addr_gray_sync
         |vpiParent:
-        \_ref_obj: rd_addr_gray_sync (rd_addr_gray_sync)
+        \_ref_obj: rd_addr_gray_sync (work@oh_fifo_async.rd_sync[2].dout.rd_addr_gray_sync), parent:dout
+          |vpiParent:
+          \_port: (dout), line:18:12, endln:18:16, parent:work@oh_fifo_async.rd_sync[2]
           |vpiName:rd_addr_gray_sync
+          |vpiFullName:work@oh_fifo_async.rd_sync[2].dout.rd_addr_gray_sync
           |vpiDefName:rd_addr_gray_sync
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.rd_addr_gray_sync), line:60:18, endln:60:35, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:137:46, endln:137:48
@@ -50421,7 +50579,9 @@ design: (work@oh_fifo_async)
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.wr_clk), line:138:14, endln:138:20
+      \_ref_obj: (work@oh_fifo_async.wr_clk), line:138:14, endln:138:20, parent:clk
+        |vpiParent:
+        \_port: (clk), line:15:12, endln:15:15, parent:work@oh_fifo_async.rd_sync[3]
         |vpiName:wr_clk
         |vpiFullName:work@oh_fifo_async.wr_clk
         |vpiActual:
@@ -50443,7 +50603,9 @@ design: (work@oh_fifo_async)
       |vpiName:nreset
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.wr_nreset), line:139:14, endln:139:23
+      \_ref_obj: (work@oh_fifo_async.wr_nreset), line:139:14, endln:139:23, parent:nreset
+        |vpiParent:
+        \_port: (nreset), line:16:12, endln:16:18, parent:work@oh_fifo_async.rd_sync[3]
         |vpiName:wr_nreset
         |vpiFullName:work@oh_fifo_async.wr_nreset
         |vpiActual:
@@ -50465,11 +50627,16 @@ design: (work@oh_fifo_async)
       |vpiName:din
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:140:27, endln:140:31, parent:rd_addr_gray
+      \_part_select: , line:140:27, endln:140:31, parent:work@oh_fifo_async.rd_sync[3].din.rd_addr_gray
         |vpiParent:
-        \_ref_obj: rd_addr_gray (rd_addr_gray)
+        \_ref_obj: rd_addr_gray (work@oh_fifo_async.rd_sync[3].din.rd_addr_gray), parent:din
+          |vpiParent:
+          \_port: (din), line:17:12, endln:17:15, parent:work@oh_fifo_async.rd_sync[3]
           |vpiName:rd_addr_gray
+          |vpiFullName:work@oh_fifo_async.rd_sync[3].din.rd_addr_gray
           |vpiDefName:rd_addr_gray
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.rd_addr_gray), line:59:18, endln:59:30, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:140:27, endln:140:29
@@ -50500,11 +50667,16 @@ design: (work@oh_fifo_async)
       |vpiName:dout
       |vpiDirection:2
       |vpiHighConn:
-      \_part_select: , line:137:46, endln:137:50, parent:rd_addr_gray_sync
+      \_part_select: , line:137:46, endln:137:50, parent:work@oh_fifo_async.rd_sync[3].dout.rd_addr_gray_sync
         |vpiParent:
-        \_ref_obj: rd_addr_gray_sync (rd_addr_gray_sync)
+        \_ref_obj: rd_addr_gray_sync (work@oh_fifo_async.rd_sync[3].dout.rd_addr_gray_sync), parent:dout
+          |vpiParent:
+          \_port: (dout), line:18:12, endln:18:16, parent:work@oh_fifo_async.rd_sync[3]
           |vpiName:rd_addr_gray_sync
+          |vpiFullName:work@oh_fifo_async.rd_sync[3].dout.rd_addr_gray_sync
           |vpiDefName:rd_addr_gray_sync
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.rd_addr_gray_sync), line:60:18, endln:60:35, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:137:46, endln:137:48
@@ -51012,7 +51184,9 @@ design: (work@oh_fifo_async)
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.wr_clk), line:138:14, endln:138:20
+      \_ref_obj: (work@oh_fifo_async.wr_clk), line:138:14, endln:138:20, parent:clk
+        |vpiParent:
+        \_port: (clk), line:15:12, endln:15:15, parent:work@oh_fifo_async.rd_sync[4]
         |vpiName:wr_clk
         |vpiFullName:work@oh_fifo_async.wr_clk
         |vpiActual:
@@ -51034,7 +51208,9 @@ design: (work@oh_fifo_async)
       |vpiName:nreset
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.wr_nreset), line:139:14, endln:139:23
+      \_ref_obj: (work@oh_fifo_async.wr_nreset), line:139:14, endln:139:23, parent:nreset
+        |vpiParent:
+        \_port: (nreset), line:16:12, endln:16:18, parent:work@oh_fifo_async.rd_sync[4]
         |vpiName:wr_nreset
         |vpiFullName:work@oh_fifo_async.wr_nreset
         |vpiActual:
@@ -51056,11 +51232,16 @@ design: (work@oh_fifo_async)
       |vpiName:din
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:140:27, endln:140:31, parent:rd_addr_gray
+      \_part_select: , line:140:27, endln:140:31, parent:work@oh_fifo_async.rd_sync[4].din.rd_addr_gray
         |vpiParent:
-        \_ref_obj: rd_addr_gray (rd_addr_gray)
+        \_ref_obj: rd_addr_gray (work@oh_fifo_async.rd_sync[4].din.rd_addr_gray), parent:din
+          |vpiParent:
+          \_port: (din), line:17:12, endln:17:15, parent:work@oh_fifo_async.rd_sync[4]
           |vpiName:rd_addr_gray
+          |vpiFullName:work@oh_fifo_async.rd_sync[4].din.rd_addr_gray
           |vpiDefName:rd_addr_gray
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.rd_addr_gray), line:59:18, endln:59:30, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:140:27, endln:140:29
@@ -51091,11 +51272,16 @@ design: (work@oh_fifo_async)
       |vpiName:dout
       |vpiDirection:2
       |vpiHighConn:
-      \_part_select: , line:137:46, endln:137:50, parent:rd_addr_gray_sync
+      \_part_select: , line:137:46, endln:137:50, parent:work@oh_fifo_async.rd_sync[4].dout.rd_addr_gray_sync
         |vpiParent:
-        \_ref_obj: rd_addr_gray_sync (rd_addr_gray_sync)
+        \_ref_obj: rd_addr_gray_sync (work@oh_fifo_async.rd_sync[4].dout.rd_addr_gray_sync), parent:dout
+          |vpiParent:
+          \_port: (dout), line:18:12, endln:18:16, parent:work@oh_fifo_async.rd_sync[4]
           |vpiName:rd_addr_gray_sync
+          |vpiFullName:work@oh_fifo_async.rd_sync[4].dout.rd_addr_gray_sync
           |vpiDefName:rd_addr_gray_sync
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.rd_addr_gray_sync), line:60:18, endln:60:35, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:137:46, endln:137:48
@@ -51603,7 +51789,9 @@ design: (work@oh_fifo_async)
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.wr_clk), line:138:14, endln:138:20
+      \_ref_obj: (work@oh_fifo_async.wr_clk), line:138:14, endln:138:20, parent:clk
+        |vpiParent:
+        \_port: (clk), line:15:12, endln:15:15, parent:work@oh_fifo_async.rd_sync[5]
         |vpiName:wr_clk
         |vpiFullName:work@oh_fifo_async.wr_clk
         |vpiActual:
@@ -51625,7 +51813,9 @@ design: (work@oh_fifo_async)
       |vpiName:nreset
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.wr_nreset), line:139:14, endln:139:23
+      \_ref_obj: (work@oh_fifo_async.wr_nreset), line:139:14, endln:139:23, parent:nreset
+        |vpiParent:
+        \_port: (nreset), line:16:12, endln:16:18, parent:work@oh_fifo_async.rd_sync[5]
         |vpiName:wr_nreset
         |vpiFullName:work@oh_fifo_async.wr_nreset
         |vpiActual:
@@ -51647,11 +51837,16 @@ design: (work@oh_fifo_async)
       |vpiName:din
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:140:27, endln:140:31, parent:rd_addr_gray
+      \_part_select: , line:140:27, endln:140:31, parent:work@oh_fifo_async.rd_sync[5].din.rd_addr_gray
         |vpiParent:
-        \_ref_obj: rd_addr_gray (rd_addr_gray)
+        \_ref_obj: rd_addr_gray (work@oh_fifo_async.rd_sync[5].din.rd_addr_gray), parent:din
+          |vpiParent:
+          \_port: (din), line:17:12, endln:17:15, parent:work@oh_fifo_async.rd_sync[5]
           |vpiName:rd_addr_gray
+          |vpiFullName:work@oh_fifo_async.rd_sync[5].din.rd_addr_gray
           |vpiDefName:rd_addr_gray
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.rd_addr_gray), line:59:18, endln:59:30, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:140:27, endln:140:29
@@ -51682,11 +51877,16 @@ design: (work@oh_fifo_async)
       |vpiName:dout
       |vpiDirection:2
       |vpiHighConn:
-      \_part_select: , line:137:46, endln:137:50, parent:rd_addr_gray_sync
+      \_part_select: , line:137:46, endln:137:50, parent:work@oh_fifo_async.rd_sync[5].dout.rd_addr_gray_sync
         |vpiParent:
-        \_ref_obj: rd_addr_gray_sync (rd_addr_gray_sync)
+        \_ref_obj: rd_addr_gray_sync (work@oh_fifo_async.rd_sync[5].dout.rd_addr_gray_sync), parent:dout
+          |vpiParent:
+          \_port: (dout), line:18:12, endln:18:16, parent:work@oh_fifo_async.rd_sync[5]
           |vpiName:rd_addr_gray_sync
+          |vpiFullName:work@oh_fifo_async.rd_sync[5].dout.rd_addr_gray_sync
           |vpiDefName:rd_addr_gray_sync
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.rd_addr_gray_sync), line:60:18, endln:60:35, parent:work@oh_fifo_async
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:137:46, endln:137:48
@@ -52561,11 +52761,13 @@ design: (work@oh_fifo_async)
       |vpiName:wr_clk
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.wr_clk), line:168:14, endln:168:20
+      \_ref_obj: (work@oh_fifo_async.wr_clk), line:168:14, endln:168:20, parent:wr_clk
+        |vpiParent:
+        \_port: (wr_clk), line:18:16, endln:18:22, parent:work@oh_fifo_async.oh_memory_dp
         |vpiName:wr_clk
         |vpiFullName:work@oh_fifo_async.wr_clk
         |vpiActual:
-        \_logic_net: (work@oh_fifo_async.wr_clk), line:25:16, endln:25:22, parent:work@oh_fifo_async
+        \_logic_net: (work@oh_fifo_async.oh_memory_dp.wr_clk), line:18:16, endln:18:22, parent:work@oh_fifo_async.oh_memory_dp
       |vpiLowConn:
       \_ref_obj: (work@oh_fifo_async.oh_memory_dp.wr_clk), line:168:4, endln:168:10, parent:wr_clk
         |vpiParent:
@@ -52583,7 +52785,9 @@ design: (work@oh_fifo_async)
       |vpiName:wr_en
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.fifo_write), line:163:28, endln:163:38
+      \_ref_obj: (work@oh_fifo_async.fifo_write), line:163:28, endln:163:38, parent:wr_en
+        |vpiParent:
+        \_port: (wr_en), line:19:16, endln:19:21, parent:work@oh_fifo_async.oh_memory_dp
         |vpiName:fifo_write
         |vpiFullName:work@oh_fifo_async.fifo_write
         |vpiActual:
@@ -52652,14 +52856,21 @@ design: (work@oh_fifo_async)
       |vpiName:wr_addr
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:169:22, endln:169:28, parent:wr_addr
+      \_part_select: , line:169:22, endln:169:28, parent:work@oh_fifo_async.oh_memory_dp.wr_addr.wr_addr
         |vpiParent:
-        \_ref_obj: wr_addr (wr_addr)
+        \_ref_obj: wr_addr (work@oh_fifo_async.oh_memory_dp.wr_addr.wr_addr), parent:wr_addr
+          |vpiParent:
+          \_port: (wr_addr), line:21:21, endln:21:28, parent:work@oh_fifo_async.oh_memory_dp
           |vpiName:wr_addr
+          |vpiFullName:work@oh_fifo_async.oh_memory_dp.wr_addr.wr_addr
           |vpiDefName:wr_addr
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.oh_memory_dp.wr_addr), line:21:21, endln:21:28, parent:work@oh_fifo_async.oh_memory_dp
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_operation: , line:169:22, endln:169:26
+          |vpiParent:
+          \_part_select: , line:169:22, endln:169:28, parent:work@oh_fifo_async.oh_memory_dp.wr_addr.wr_addr
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:169:22, endln:169:24
@@ -52722,14 +52933,21 @@ design: (work@oh_fifo_async)
       |vpiName:wr_din
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:170:21, endln:170:26, parent:wr_din
+      \_part_select: , line:170:21, endln:170:26, parent:work@oh_fifo_async.oh_memory_dp.wr_din.wr_din
         |vpiParent:
-        \_ref_obj: wr_din (wr_din)
+        \_ref_obj: wr_din (work@oh_fifo_async.oh_memory_dp.wr_din.wr_din), parent:wr_din
+          |vpiParent:
+          \_port: (wr_din), line:22:20, endln:22:26, parent:work@oh_fifo_async.oh_memory_dp
           |vpiName:wr_din
+          |vpiFullName:work@oh_fifo_async.oh_memory_dp.wr_din.wr_din
           |vpiDefName:wr_din
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.oh_memory_dp.wr_din), line:22:20, endln:22:26, parent:work@oh_fifo_async.oh_memory_dp
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_operation: , line:170:21, endln:170:24
+          |vpiParent:
+          \_part_select: , line:170:21, endln:170:26, parent:work@oh_fifo_async.oh_memory_dp.wr_din.wr_din
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:170:21, endln:170:22
@@ -52796,11 +53014,13 @@ design: (work@oh_fifo_async)
       |vpiName:rd_clk
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.rd_clk), line:171:14, endln:171:20
+      \_ref_obj: (work@oh_fifo_async.rd_clk), line:171:14, endln:171:20, parent:rd_clk
+        |vpiParent:
+        \_port: (rd_clk), line:23:16, endln:23:22, parent:work@oh_fifo_async.oh_memory_dp
         |vpiName:rd_clk
         |vpiFullName:work@oh_fifo_async.rd_clk
         |vpiActual:
-        \_logic_net: (work@oh_fifo_async.rd_clk), line:33:16, endln:33:22, parent:work@oh_fifo_async
+        \_logic_net: (work@oh_fifo_async.oh_memory_dp.rd_clk), line:23:16, endln:23:22, parent:work@oh_fifo_async.oh_memory_dp
       |vpiLowConn:
       \_ref_obj: (work@oh_fifo_async.oh_memory_dp.rd_clk), line:171:4, endln:171:10, parent:rd_clk
         |vpiParent:
@@ -52818,11 +53038,13 @@ design: (work@oh_fifo_async)
       |vpiName:rd_en
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.rd_en), line:172:13, endln:172:18
+      \_ref_obj: (work@oh_fifo_async.rd_en), line:172:13, endln:172:18, parent:rd_en
+        |vpiParent:
+        \_port: (rd_en), line:24:16, endln:24:21, parent:work@oh_fifo_async.oh_memory_dp
         |vpiName:rd_en
         |vpiFullName:work@oh_fifo_async.rd_en
         |vpiActual:
-        \_logic_net: (work@oh_fifo_async.rd_en), line:35:16, endln:35:21, parent:work@oh_fifo_async
+        \_logic_net: (work@oh_fifo_async.oh_memory_dp.rd_en), line:24:16, endln:24:21, parent:work@oh_fifo_async.oh_memory_dp
       |vpiLowConn:
       \_ref_obj: (work@oh_fifo_async.oh_memory_dp.rd_en), line:172:4, endln:172:9, parent:rd_en
         |vpiParent:
@@ -52840,14 +53062,21 @@ design: (work@oh_fifo_async)
       |vpiName:rd_addr
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:173:22, endln:173:28, parent:rd_addr
+      \_part_select: , line:173:22, endln:173:28, parent:work@oh_fifo_async.oh_memory_dp.rd_addr.rd_addr
         |vpiParent:
-        \_ref_obj: rd_addr (rd_addr)
+        \_ref_obj: rd_addr (work@oh_fifo_async.oh_memory_dp.rd_addr.rd_addr), parent:rd_addr
+          |vpiParent:
+          \_port: (rd_addr), line:25:21, endln:25:28, parent:work@oh_fifo_async.oh_memory_dp
           |vpiName:rd_addr
+          |vpiFullName:work@oh_fifo_async.oh_memory_dp.rd_addr.rd_addr
           |vpiDefName:rd_addr
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.oh_memory_dp.rd_addr), line:25:21, endln:25:28, parent:work@oh_fifo_async.oh_memory_dp
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_operation: , line:173:22, endln:173:26
+          |vpiParent:
+          \_part_select: , line:173:22, endln:173:28, parent:work@oh_fifo_async.oh_memory_dp.rd_addr.rd_addr
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:173:22, endln:173:24
@@ -52910,14 +53139,21 @@ design: (work@oh_fifo_async)
       |vpiName:rd_dout
       |vpiDirection:2
       |vpiHighConn:
-      \_part_select: , line:166:22, endln:166:27, parent:rd_dout
+      \_part_select: , line:166:22, endln:166:27, parent:work@oh_fifo_async.oh_memory_dp.rd_dout.rd_dout
         |vpiParent:
-        \_ref_obj: rd_dout (rd_dout)
+        \_ref_obj: rd_dout (work@oh_fifo_async.oh_memory_dp.rd_dout.rd_dout), parent:rd_dout
+          |vpiParent:
+          \_port: (rd_dout), line:26:20, endln:26:27, parent:work@oh_fifo_async.oh_memory_dp
           |vpiName:rd_dout
+          |vpiFullName:work@oh_fifo_async.oh_memory_dp.rd_dout.rd_dout
           |vpiDefName:rd_dout
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.oh_memory_dp.rd_dout), line:26:20, endln:26:27, parent:work@oh_fifo_async.oh_memory_dp
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_operation: , line:166:22, endln:166:25
+          |vpiParent:
+          \_part_select: , line:166:22, endln:166:27, parent:work@oh_fifo_async.oh_memory_dp.rd_dout.rd_dout
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:166:22, endln:166:23
@@ -52984,11 +53220,13 @@ design: (work@oh_fifo_async)
       |vpiName:bist_en
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.bist_en), line:174:14, endln:174:21
+      \_ref_obj: (work@oh_fifo_async.bist_en), line:174:14, endln:174:21, parent:bist_en
+        |vpiParent:
+        \_port: (bist_en), line:28:16, endln:28:23, parent:work@oh_fifo_async.oh_memory_dp
         |vpiName:bist_en
         |vpiFullName:work@oh_fifo_async.bist_en
         |vpiActual:
-        \_logic_net: (work@oh_fifo_async.bist_en), line:39:16, endln:39:23, parent:work@oh_fifo_async
+        \_logic_net: (work@oh_fifo_async.oh_memory_dp.bist_en), line:28:16, endln:28:23, parent:work@oh_fifo_async.oh_memory_dp
       |vpiLowConn:
       \_ref_obj: (work@oh_fifo_async.oh_memory_dp.bist_en), line:174:4, endln:174:11, parent:bist_en
         |vpiParent:
@@ -53006,11 +53244,13 @@ design: (work@oh_fifo_async)
       |vpiName:bist_we
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.bist_we), line:175:14, endln:175:21
+      \_ref_obj: (work@oh_fifo_async.bist_we), line:175:14, endln:175:21, parent:bist_we
+        |vpiParent:
+        \_port: (bist_we), line:29:16, endln:29:23, parent:work@oh_fifo_async.oh_memory_dp
         |vpiName:bist_we
         |vpiFullName:work@oh_fifo_async.bist_we
         |vpiActual:
-        \_logic_net: (work@oh_fifo_async.bist_we), line:40:16, endln:40:23, parent:work@oh_fifo_async
+        \_logic_net: (work@oh_fifo_async.oh_memory_dp.bist_we), line:29:16, endln:29:23, parent:work@oh_fifo_async.oh_memory_dp
       |vpiLowConn:
       \_ref_obj: (work@oh_fifo_async.oh_memory_dp.bist_we), line:175:4, endln:175:11, parent:bist_we
         |vpiParent:
@@ -53028,14 +53268,21 @@ design: (work@oh_fifo_async)
       |vpiName:bist_wem
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:176:24, endln:176:29, parent:bist_wem
+      \_part_select: , line:176:24, endln:176:29, parent:work@oh_fifo_async.oh_memory_dp.bist_wem.bist_wem
         |vpiParent:
-        \_ref_obj: bist_wem (bist_wem)
+        \_ref_obj: bist_wem (work@oh_fifo_async.oh_memory_dp.bist_wem.bist_wem), parent:bist_wem
+          |vpiParent:
+          \_port: (bist_wem), line:30:20, endln:30:28, parent:work@oh_fifo_async.oh_memory_dp
           |vpiName:bist_wem
+          |vpiFullName:work@oh_fifo_async.oh_memory_dp.bist_wem.bist_wem
           |vpiDefName:bist_wem
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.oh_memory_dp.bist_wem), line:30:20, endln:30:28, parent:work@oh_fifo_async.oh_memory_dp
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_operation: , line:176:24, endln:176:27
+          |vpiParent:
+          \_part_select: , line:176:24, endln:176:29, parent:work@oh_fifo_async.oh_memory_dp.bist_wem.bist_wem
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:176:24, endln:176:25
@@ -53102,14 +53349,21 @@ design: (work@oh_fifo_async)
       |vpiName:bist_addr
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:177:26, endln:177:32, parent:bist_addr
+      \_part_select: , line:177:26, endln:177:32, parent:work@oh_fifo_async.oh_memory_dp.bist_addr.bist_addr
         |vpiParent:
-        \_ref_obj: bist_addr (bist_addr)
+        \_ref_obj: bist_addr (work@oh_fifo_async.oh_memory_dp.bist_addr.bist_addr), parent:bist_addr
+          |vpiParent:
+          \_port: (bist_addr), line:31:21, endln:31:30, parent:work@oh_fifo_async.oh_memory_dp
           |vpiName:bist_addr
+          |vpiFullName:work@oh_fifo_async.oh_memory_dp.bist_addr.bist_addr
           |vpiDefName:bist_addr
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.oh_memory_dp.bist_addr), line:31:21, endln:31:30, parent:work@oh_fifo_async.oh_memory_dp
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_operation: , line:177:26, endln:177:30
+          |vpiParent:
+          \_part_select: , line:177:26, endln:177:32, parent:work@oh_fifo_async.oh_memory_dp.bist_addr.bist_addr
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:177:26, endln:177:28
@@ -53172,14 +53426,21 @@ design: (work@oh_fifo_async)
       |vpiName:bist_din
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:178:24, endln:178:29, parent:bist_din
+      \_part_select: , line:178:24, endln:178:29, parent:work@oh_fifo_async.oh_memory_dp.bist_din.bist_din
         |vpiParent:
-        \_ref_obj: bist_din (bist_din)
+        \_ref_obj: bist_din (work@oh_fifo_async.oh_memory_dp.bist_din.bist_din), parent:bist_din
+          |vpiParent:
+          \_port: (bist_din), line:32:20, endln:32:28, parent:work@oh_fifo_async.oh_memory_dp
           |vpiName:bist_din
+          |vpiFullName:work@oh_fifo_async.oh_memory_dp.bist_din.bist_din
           |vpiDefName:bist_din
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.oh_memory_dp.bist_din), line:32:20, endln:32:28, parent:work@oh_fifo_async.oh_memory_dp
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_operation: , line:178:24, endln:178:27
+          |vpiParent:
+          \_part_select: , line:178:24, endln:178:29, parent:work@oh_fifo_async.oh_memory_dp.bist_din.bist_din
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:178:24, endln:178:25
@@ -53246,11 +53507,13 @@ design: (work@oh_fifo_async)
       |vpiName:shutdown
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.shutdown), line:179:15, endln:179:23
+      \_ref_obj: (work@oh_fifo_async.shutdown), line:179:15, endln:179:23, parent:shutdown
+        |vpiParent:
+        \_port: (shutdown), line:34:16, endln:34:24, parent:work@oh_fifo_async.oh_memory_dp
         |vpiName:shutdown
         |vpiFullName:work@oh_fifo_async.shutdown
         |vpiActual:
-        \_logic_net: (work@oh_fifo_async.shutdown), line:46:16, endln:46:24, parent:work@oh_fifo_async
+        \_logic_net: (work@oh_fifo_async.oh_memory_dp.shutdown), line:34:16, endln:34:24, parent:work@oh_fifo_async.oh_memory_dp
       |vpiLowConn:
       \_ref_obj: (work@oh_fifo_async.oh_memory_dp.shutdown), line:179:4, endln:179:12, parent:shutdown
         |vpiParent:
@@ -53268,11 +53531,13 @@ design: (work@oh_fifo_async)
       |vpiName:vss
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.vss), line:180:11, endln:180:14
+      \_ref_obj: (work@oh_fifo_async.vss), line:180:11, endln:180:14, parent:vss
+        |vpiParent:
+        \_port: (vss), line:35:16, endln:35:19, parent:work@oh_fifo_async.oh_memory_dp
         |vpiName:vss
         |vpiFullName:work@oh_fifo_async.vss
         |vpiActual:
-        \_logic_net: (work@oh_fifo_async.vss), line:47:16, endln:47:19, parent:work@oh_fifo_async
+        \_logic_net: (work@oh_fifo_async.oh_memory_dp.vss), line:35:16, endln:35:19, parent:work@oh_fifo_async.oh_memory_dp
       |vpiLowConn:
       \_ref_obj: (work@oh_fifo_async.oh_memory_dp.vss), line:180:4, endln:180:7, parent:vss
         |vpiParent:
@@ -53290,11 +53555,13 @@ design: (work@oh_fifo_async)
       |vpiName:vdd
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.vdd), line:181:11, endln:181:14
+      \_ref_obj: (work@oh_fifo_async.vdd), line:181:11, endln:181:14, parent:vdd
+        |vpiParent:
+        \_port: (vdd), line:36:16, endln:36:19, parent:work@oh_fifo_async.oh_memory_dp
         |vpiName:vdd
         |vpiFullName:work@oh_fifo_async.vdd
         |vpiActual:
-        \_logic_net: (work@oh_fifo_async.vdd), line:48:16, endln:48:19, parent:work@oh_fifo_async
+        \_logic_net: (work@oh_fifo_async.oh_memory_dp.vdd), line:36:16, endln:36:19, parent:work@oh_fifo_async.oh_memory_dp
       |vpiLowConn:
       \_ref_obj: (work@oh_fifo_async.oh_memory_dp.vdd), line:181:4, endln:181:7, parent:vdd
         |vpiParent:
@@ -53312,11 +53579,13 @@ design: (work@oh_fifo_async)
       |vpiName:vddio
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@oh_fifo_async.vddio), line:182:13, endln:182:18
+      \_ref_obj: (work@oh_fifo_async.vddio), line:182:13, endln:182:18, parent:vddio
+        |vpiParent:
+        \_port: (vddio), line:37:16, endln:37:21, parent:work@oh_fifo_async.oh_memory_dp
         |vpiName:vddio
         |vpiFullName:work@oh_fifo_async.vddio
         |vpiActual:
-        \_logic_net: (work@oh_fifo_async.vddio), line:49:16, endln:49:21, parent:work@oh_fifo_async
+        \_logic_net: (work@oh_fifo_async.oh_memory_dp.vddio), line:37:16, endln:37:21, parent:work@oh_fifo_async.oh_memory_dp
       |vpiLowConn:
       \_ref_obj: (work@oh_fifo_async.oh_memory_dp.vddio), line:182:4, endln:182:9, parent:vddio
         |vpiParent:
@@ -53334,11 +53603,16 @@ design: (work@oh_fifo_async)
       |vpiName:memconfig
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:183:26, endln:183:29, parent:memconfig
+      \_part_select: , line:183:26, endln:183:29, parent:work@oh_fifo_async.oh_memory_dp.memconfig.memconfig
         |vpiParent:
-        \_ref_obj: memconfig (memconfig)
+        \_ref_obj: memconfig (work@oh_fifo_async.oh_memory_dp.memconfig.memconfig), parent:memconfig
+          |vpiParent:
+          \_port: (memconfig), line:38:21, endln:38:30, parent:work@oh_fifo_async.oh_memory_dp
           |vpiName:memconfig
+          |vpiFullName:work@oh_fifo_async.oh_memory_dp.memconfig.memconfig
           |vpiDefName:memconfig
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.oh_memory_dp.memconfig), line:38:21, endln:38:30, parent:work@oh_fifo_async.oh_memory_dp
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:183:26, endln:183:27
@@ -53391,11 +53665,16 @@ design: (work@oh_fifo_async)
       |vpiName:memrepair
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:184:26, endln:184:29, parent:memrepair
+      \_part_select: , line:184:26, endln:184:29, parent:work@oh_fifo_async.oh_memory_dp.memrepair.memrepair
         |vpiParent:
-        \_ref_obj: memrepair (memrepair)
+        \_ref_obj: memrepair (work@oh_fifo_async.oh_memory_dp.memrepair.memrepair), parent:memrepair
+          |vpiParent:
+          \_port: (memrepair), line:39:21, endln:39:30, parent:work@oh_fifo_async.oh_memory_dp
           |vpiName:memrepair
+          |vpiFullName:work@oh_fifo_async.oh_memory_dp.memrepair.memrepair
           |vpiDefName:memrepair
+          |vpiActual:
+          \_logic_net: (work@oh_fifo_async.oh_memory_dp.memrepair), line:39:21, endln:39:30, parent:work@oh_fifo_async.oh_memory_dp
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:184:26, endln:184:27

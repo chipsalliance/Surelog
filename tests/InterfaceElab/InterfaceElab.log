@@ -463,26 +463,13 @@ design: (work@testharness)
         |vpiName:reg_o
         |vpiDirection:3
         |vpiHighConn:
-        \_ref_obj: (work@testharness.i_peripherals.reg_bus), line:27:34, endln:27:41
+        \_ref_obj: (work@testharness.i_peripherals.reg_bus), line:27:34, endln:27:41, parent:reg_o
+          |vpiParent:
+          \_port: (reg_o), line:16:16, endln:16:21, parent:work@testharness.i_peripherals.i_apb_to_reg
           |vpiName:reg_bus
           |vpiFullName:work@testharness.i_peripherals.reg_bus
           |vpiActual:
-          \_interface: work@REG_BUS (reg_bus) dut.sv:23: 
-            |vpiName:reg_bus
-            |vpiDefName:work@REG_BUS
-            |vpiModport:
-            \_modport: (out), line:11:11, endln:11:14, parent:reg_bus
-              |vpiParent:
-              \_interface: work@REG_BUS (reg_bus) dut.sv:23: 
-              |vpiName:out
-              |vpiIODecl:
-              \_io_decl: (addr), line:11:23, endln:11:27
-                |vpiDirection:2
-                |vpiName:addr
-                |vpiExpr:
-                \_logic_var: (work@testharness.i_peripherals.reg_bus.addr), line:9:28, endln:9:32, parent:work@testharness.i_peripherals.reg_bus
-              |vpiInterface:
-              \_interface: work@REG_BUS (reg_bus) dut.sv:23: 
+          \_interface: work@REG_BUS (work@testharness.i_peripherals.reg_bus) dut.sv:23:4: , endln:25:23, parent:work@testharness.i_peripherals
         |vpiLowConn:
         \_ref_obj: (work@testharness.i_peripherals.i_apb_to_reg.reg_o), line:27:27, endln:27:32, parent:reg_o
           |vpiParent:

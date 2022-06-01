@@ -712,18 +712,24 @@ design: (work@top)
       |vpiName:I
       |vpiDirection:3
       |vpiHighConn:
-      \_hier_path: (inst.A), line:16:10, endln:16:16
+      \_hier_path: (inst.A), line:16:10, endln:16:16, parent:I
+        |vpiParent:
+        \_port: (I), line:9:23, endln:9:24, parent:work@top.s
         |vpiName:inst.A
         |vpiActual:
         \_ref_obj: (inst), line:16:10, endln:16:14, parent:inst.A
           |vpiParent:
-          \_hier_path: (inst.A), line:16:10, endln:16:16
+          \_hier_path: (inst.A), line:16:10, endln:16:16, parent:I
           |vpiName:inst
           |vpiActual:
           \_interface: work@I (work@top.inst) dut.sv:15:3: , endln:15:12, parent:work@top
         |vpiActual:
-        \_ref_obj: (A), line:16:15, endln:16:16
+        \_ref_obj: (A), line:16:15, endln:16:16, parent:inst.A
+          |vpiParent:
+          \_hier_path: (inst.A), line:16:10, endln:16:16, parent:I
           |vpiName:A
+          |vpiActual:
+          \_modport: (A), line:5:9, endln:5:10, parent:work@top.inst
       |vpiLowConn:
       \_ref_obj: (work@top.s.I), line:16:10, endln:16:16, parent:I
         |vpiParent:

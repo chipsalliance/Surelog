@@ -945,11 +945,13 @@ design: (work@foo)
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@foo.clk), line:11:49, endln:11:52
+      \_ref_obj: (work@foo.clk), line:11:49, endln:11:52, parent:clk
+        |vpiParent:
+        \_port: (clk), line:2:12, endln:2:15, parent:work@foo.bar_instance_1
         |vpiName:clk
         |vpiFullName:work@foo.clk
         |vpiActual:
-        \_logic_net: (work@foo.clk), line:8:12, endln:8:15, parent:work@foo
+        \_logic_net: (work@foo.bar_instance_1.clk), line:2:12, endln:2:15, parent:work@foo.bar_instance_1
       |vpiLowConn:
       \_ref_obj: (work@foo.bar_instance_1.clk), line:11:45, endln:11:48, parent:clk
         |vpiParent:
