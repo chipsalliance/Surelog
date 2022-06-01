@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/ComplexEscaped/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/ComplexEscaped/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -110,133 +110,136 @@ n<> u<79> t<Top_level_rule> c<1> l<1:1> el<13:1>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/ComplexEscaped/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/ComplexEscaped/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/ComplexEscaped/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ComplexEscaped/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/ComplexEscaped/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/ComplexEscaped/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
 ====== UHDM =======
-design: (work@top)
+design: (work@top), id:10
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top) dut.sv:1:1: , endln:5:10, parent:work@top
+\_module: work@top (work@top), id:11 dut.sv:1:1: , endln:5:10, parent:work@top, parID:10
   |vpiFullName:work@top
   |vpiDefName:work@top
   |vpiNet:
-  \_logic_net: (work@top.o), line:1:26, endln:1:27, parent:work@top
+  \_logic_net: (work@top.o), id:13, line:1:26, endln:1:27, parent:work@top, parID:11
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:5:10, parent:work@top
+    \_module: work@top (work@top), id:11 dut.sv:1:1: , endln:5:10, parent:work@top, parID:10
   |vpiParent:
-  \_design: (work@top)
+  \_design: (work@top), id:10
   |vpiPort:
-  \_port: (o), line:1:26, endln:1:27, parent:work@top
+  \_port: (o), id:12, line:1:26, endln:1:27, parent:work@top, parID:11
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: , id:14
       |vpiActual:
-      \_logic_net: (work@top.o), line:1:26, endln:1:27, parent:work@top
+      \_logic_net: (work@top.o), id:13, line:1:26, endln:1:27, parent:work@top, parID:11
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:5:10, parent:work@top
+    \_module: work@top (work@top), id:11 dut.sv:1:1: , endln:5:10, parent:work@top, parID:10
   |vpiProcess:
-  \_initial: , line:2:4, endln:4:7, parent:work@top
+  \_initial: , id:0, line:2:4, endln:4:7, parent:work@top, parID:11
     |vpiStmt:
-    \_begin: (work@top), line:2:12, endln:4:7
+    \_begin: (work@top), id:1, line:2:12, endln:4:7, parID:0
       |vpiFullName:work@top
       |vpiParent:
-      \_initial: , line:2:4, endln:4:7, parent:work@top
+      \_initial: , id:0, line:2:4, endln:4:7, parent:work@top, parID:11
       |vpiStmt:
-      \_assignment: , line:3:7, endln:3:47, parent:work@top
+      \_assignment: , id:4, line:3:7, endln:3:47, parent:work@top, parID:1
         |vpiParent:
-        \_begin: (work@top), line:2:12, endln:4:7
+        \_begin: (work@top), id:1, line:2:12, endln:4:7, parID:0
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
-        \_constant: , line:3:11, endln:3:47
+        \_constant: , id:3, line:3:11, endln:3:47, parID:4
           |vpiDecompile:\\/ _| __| | '_ \\ / _` / 
           |vpiSize:26
           |STRING:\\/ _| __| | '_ \\ / _` / 
           |vpiParent:
-          \_assignment: , line:3:7, endln:3:47, parent:work@top
+          \_assignment: , id:4, line:3:7, endln:3:47, parent:work@top, parID:1
           |vpiConstType:6
         |vpiLhs:
-        \_ref_obj: (work@top.o), line:3:7, endln:3:8, parent:work@top
+        \_ref_obj: (work@top.o), id:2, line:3:7, endln:3:8, parent:work@top, parID:1
           |vpiParent:
-          \_begin: (work@top), line:2:12, endln:4:7
+          \_begin: (work@top), id:1, line:2:12, endln:4:7, parID:0
           |vpiName:o
           |vpiFullName:work@top.o
           |vpiActual:
-          \_string_var: (work@top.o), line:1:26, endln:1:27, parent:work@top
+          \_string_var: (work@top.o), id:8, line:1:26, endln:1:27, parent:work@top, parID:15
             |vpiTypespec:
-            \_string_typespec: , line:1:19, endln:1:25
+            \_string_typespec: , id:7, line:1:19, endln:1:25
             |vpiName:o
             |vpiFullName:work@top.o
             |vpiVisibility:1
             |vpiParent:
-            \_module: work@top (work@top) dut.sv:1:1: , endln:5:10
+            \_module: work@top (work@top), id:15 dut.sv:1:1: , endln:5:10
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:5:10, parent:work@top
+    \_module: work@top (work@top), id:11 dut.sv:1:1: , endln:5:10, parent:work@top, parID:10
 |uhdmtopModules:
-\_module: work@top (work@top) dut.sv:1:1: , endln:5:10
+\_module: work@top (work@top), id:15 dut.sv:1:1: , endln:5:10
   |vpiName:work@top
   |vpiVariables:
-  \_string_var: (work@top.o), line:1:26, endln:1:27, parent:work@top
+  \_string_var: (work@top.o), id:8, line:1:26, endln:1:27, parent:work@top, parID:15
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
   |vpiPort:
-  \_port: (o), line:1:26, endln:1:27, parent:work@top
+  \_port: (o), id:16, line:1:26, endln:1:27, parent:work@top, parID:15
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@top.o), line:1:26, endln:1:27, parent:o
+    \_ref_obj: (work@top.o), id:17, line:1:26, endln:1:27, parent:o, parID:16
       |vpiParent:
-      \_port: (o), line:1:26, endln:1:27, parent:work@top
+      \_port: (o), id:16, line:1:26, endln:1:27, parent:work@top, parID:15
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_string_var: (work@top.o), line:1:26, endln:1:27, parent:work@top
+      \_string_var: (work@top.o), id:8, line:1:26, endln:1:27, parent:work@top, parID:15
     |vpiTypedef:
-    \_string_typespec: , line:1:19, endln:1:25
+    \_string_typespec: , id:6, line:1:19, endln:1:25
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:5:10
+    \_module: work@top (work@top), id:15 dut.sv:1:1: , endln:5:10
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:5:10
+    \_module: work@top (work@top), id:15 dut.sv:1:1: , endln:5:10
   |vpiProcess:
-  \_initial: , line:2:4, endln:4:7, parent:work@top
+  \_initial: , id:18, line:2:4, endln:4:7, parent:work@top, parID:15
     |vpiStmt:
-    \_begin: (work@top), line:2:12, endln:4:7
+    \_begin: (work@top), id:19, line:2:12, endln:4:7, parID:18
       |vpiFullName:work@top
       |vpiParent:
-      \_initial: , line:2:4, endln:4:7, parent:work@top
+      \_initial: , id:18, line:2:4, endln:4:7, parent:work@top, parID:15
       |vpiStmt:
-      \_assignment: , line:3:7, endln:3:47, parent:work@top
+      \_assignment: , id:20, line:3:7, endln:3:47, parent:work@top, parID:19
         |vpiParent:
-        \_begin: (work@top), line:2:12, endln:4:7
+        \_begin: (work@top), id:19, line:2:12, endln:4:7, parID:18
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
-        \_constant: , line:3:11, endln:3:47
+        \_constant: , id:3, line:3:11, endln:3:47, parID:4
         |vpiLhs:
-        \_ref_obj: (work@top.o), line:3:7, endln:3:8
+        \_ref_obj: (work@top.o), id:21, line:3:7, endln:3:8, parID:20
           |vpiParent:
-          \_assignment: , line:3:7, endln:3:47, parent:work@top
+          \_assignment: , id:20, line:3:7, endln:3:47, parent:work@top, parID:19
           |vpiName:o
           |vpiFullName:work@top.o
           |vpiActual:
-          \_string_var: (work@top.o), line:1:26, endln:1:27, parent:work@top
+          \_string_var: (work@top.o), id:8, line:1:26, endln:1:27, parent:work@top, parID:15
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:5:10
+    \_module: work@top (work@top), id:15 dut.sv:1:1: , endln:5:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
 [WARNING] : 3
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/ComplexEscaped/dut.sv | ${SURELOG_DIR}/build/regression/ComplexEscaped/roundtrip/dut_000.sv | 1 | 5 | 
 

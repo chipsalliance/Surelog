@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/Assert/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/Assert/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -75,72 +75,72 @@ n<> u<50> t<Top_level_rule> c<1> l<1:1> el<8:1>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/Assert/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/Assert/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/Assert/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/Assert/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/Assert/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/Assert/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
 ====== UHDM =======
-design: (work@dut)
+design: (work@dut), id:4
 |vpiElaborated:1
 |vpiName:work@dut
 |uhdmallModules:
-\_module: work@dut (work@dut) dut.sv:1:1: , endln:7:10, parent:work@dut
+\_module: work@dut (work@dut), id:5 dut.sv:1:1: , endln:7:10, parent:work@dut, parID:4
   |vpiFullName:work@dut
   |vpiDefName:work@dut
   |vpiAssertion:
-  \_assert_stmt: (work@dut), line:4:1, endln:4:73, parent:work@dut
+  \_assert_stmt: (work@dut), id:0, line:4:1, endln:4:73, parent:work@dut, parID:5
     |vpiFullName:work@dut
     |vpiProperty:
-    \_property_spec: , line:4:19, endln:4:71
+    \_property_spec: , id:1, line:4:19, endln:4:71
       |vpiPropertyExpr:
-      \_operation: , line:4:21, endln:4:34
+      \_operation: , id:2, line:4:21, endln:4:34
         |vpiOpType:39
         |vpiOperand:
-        \_ref_obj: (Clock), line:4:29, endln:4:34
+        \_ref_obj: (Clock), id:3, line:4:29, endln:4:34, parID:2
           |vpiParent:
-          \_operation: , line:4:21, endln:4:34
+          \_operation: , id:2, line:4:21, endln:4:34
           |vpiName:Clock
           |vpiActual:
-          \_logic_net: (Clock)
+          \_logic_net: (Clock), id:7
             |vpiName:Clock
             |vpiNetType:1
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:7:10, parent:work@dut
+    \_module: work@dut (work@dut), id:5 dut.sv:1:1: , endln:7:10, parent:work@dut, parID:4
   |vpiParent:
-  \_design: (work@dut)
+  \_design: (work@dut), id:4
 |uhdmtopModules:
-\_module: work@dut (work@dut) dut.sv:1:1: , endln:7:10
+\_module: work@dut (work@dut), id:6 dut.sv:1:1: , endln:7:10
   |vpiName:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiNet:
-  \_logic_net: (Clock)
+  \_logic_net: (Clock), id:7
   |vpiAssertion:
-  \_assert_stmt: (work@dut), line:4:1, endln:4:73, parent:work@dut
+  \_assert_stmt: (work@dut), id:8, line:4:1, endln:4:73, parent:work@dut, parID:6
     |vpiFullName:work@dut
     |vpiProperty:
-    \_property_spec: , line:4:19, endln:4:71, parent:work@dut
+    \_property_spec: , id:9, line:4:19, endln:4:71, parent:work@dut, parID:8
       |vpiParent:
-      \_assert_stmt: (work@dut), line:4:1, endln:4:73, parent:work@dut
+      \_assert_stmt: (work@dut), id:8, line:4:1, endln:4:73, parent:work@dut, parID:6
       |vpiPropertyExpr:
-      \_operation: , line:4:21, endln:4:34
+      \_operation: , id:10, line:4:21, endln:4:34, parID:9
         |vpiParent:
-        \_property_spec: , line:4:19, endln:4:71, parent:work@dut
+        \_property_spec: , id:9, line:4:19, endln:4:71, parent:work@dut, parID:8
         |vpiOpType:39
         |vpiOperand:
-        \_ref_obj: (work@dut.Clock), line:4:29, endln:4:34
+        \_ref_obj: (work@dut.Clock), id:11, line:4:29, endln:4:34, parID:10
           |vpiParent:
-          \_operation: , line:4:21, endln:4:34
+          \_operation: , id:10, line:4:21, endln:4:34, parID:9
           |vpiName:Clock
           |vpiFullName:work@dut.Clock
           |vpiActual:
-          \_logic_net: (Clock)
+          \_logic_net: (Clock), id:7
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:7:10
+    \_module: work@dut (work@dut), id:6 dut.sv:1:1: , endln:7:10
   |vpiTopModule:1
 ===================
 [  FATAL] : 0
@@ -148,4 +148,7 @@ design: (work@dut)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/Assert/dut.sv | ${SURELOG_DIR}/build/regression/Assert/roundtrip/dut_000.sv | 1 | 7 | 
 

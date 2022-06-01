@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/EnumVarNoTypedef/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/EnumVarNoTypedef/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -68,61 +68,61 @@ n<> u<40> t<Top_level_rule> c<1> l<1:1> el<8:1>
 [ERR:UH0721] dut.sv:4:4: Enum const size does not match base type size "Global",
              dut.sv:3:7: base type.
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/EnumVarNoTypedef/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/EnumVarNoTypedef/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/EnumVarNoTypedef/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/EnumVarNoTypedef/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/EnumVarNoTypedef/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/EnumVarNoTypedef/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
 ====== UHDM =======
-design: (work@top)
+design: (work@top), id:9
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
+\_module: work@top (work@top), id:10 dut.sv:1:1: , endln:7:10, parent:work@top, parID:9
   |vpiFullName:work@top
   |vpiDefName:work@top
   |vpiNet:
-  \_logic_net: (work@top.myenum), line:5:4, endln:5:10, parent:work@top
+  \_logic_net: (work@top.myenum), id:11, line:5:4, endln:5:10, parent:work@top, parID:10
     |vpiName:myenum
     |vpiFullName:work@top.myenum
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10, parent:work@top
+    \_module: work@top (work@top), id:10 dut.sv:1:1: , endln:7:10, parent:work@top, parID:9
   |vpiParent:
-  \_design: (work@top)
+  \_design: (work@top), id:9
 |uhdmtopModules:
-\_module: work@top (work@top) dut.sv:1:1: , endln:7:10
+\_module: work@top (work@top), id:12 dut.sv:1:1: , endln:7:10
   |vpiName:work@top
   |vpiVariables:
-  \_enum_var: (work@top.myenum), line:5:4, endln:5:10, parent:work@top
+  \_enum_var: (work@top.myenum), id:8, line:5:4, endln:5:10, parent:work@top, parID:12
     |vpiTypespec:
-    \_enum_typespec: 
+    \_enum_typespec: , id:5
       |vpiBaseTypespec:
-      \_logic_typespec: , line:3:7, endln:3:12
+      \_logic_typespec: , id:4, line:3:7, endln:3:12
         |vpiRange:
-        \_range: , line:3:14, endln:3:17
+        \_range: , id:0, line:3:14, endln:3:17
           |vpiLeftRange:
-          \_constant: , line:3:14, endln:3:15
+          \_constant: , id:1, line:3:14, endln:3:15, parID:0
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
             |vpiParent:
-            \_range: , line:3:14, endln:3:17
+            \_range: , id:0, line:3:14, endln:3:17
             |vpiConstType:9
           |vpiRightRange:
-          \_constant: , line:3:16, endln:3:17
+          \_constant: , id:3, line:3:16, endln:3:17, parID:0
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
             |vpiParent:
-            \_range: , line:3:14, endln:3:17
+            \_range: , id:0, line:3:14, endln:3:17
             |vpiConstType:9
       |vpiEnumConst:
-      \_enum_const: (Global), line:4:4, endln:4:17
+      \_enum_const: (Global), id:6, line:4:4, endln:4:17, parID:5
         |vpiParent:
-        \_enum_typespec: 
+        \_enum_typespec: , id:5
         |vpiName:Global
         |UINT:2
         |vpiDecompile:4'h2
@@ -131,7 +131,7 @@ design: (work@top)
     |vpiFullName:work@top.myenum
     |vpiVisibility:1
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:7:10
+    \_module: work@top (work@top), id:12 dut.sv:1:1: , endln:7:10
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
@@ -141,4 +141,7 @@ design: (work@top)
 [  ERROR] : 1
 [WARNING] : 1
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/EnumVarNoTypedef/dut.sv | ${SURELOG_DIR}/build/regression/EnumVarNoTypedef/roundtrip/dut_000.sv | 2 | 7 | 
 

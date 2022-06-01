@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/UnsizedPacked/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/UnsizedPacked/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -66,101 +66,101 @@ n<> u<39> t<Top_level_rule> c<1> l<1:1> el<8:1>
 
 [ERR:UH0719] dut.sv:5:5: Illegal dynamic packed dimension "illegal".
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/UnsizedPacked/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/UnsizedPacked/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/UnsizedPacked/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/UnsizedPacked/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/UnsizedPacked/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/UnsizedPacked/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
 ====== UHDM =======
-design: (work@test)
+design: (work@test), id:14
 |vpiElaborated:1
 |vpiName:work@test
 |uhdmallModules:
-\_module: work@test (work@test) dut.sv:1:1: , endln:7:10, parent:work@test
+\_module: work@test (work@test), id:15 dut.sv:1:1: , endln:7:10, parent:work@test, parID:14
   |vpiFullName:work@test
   |vpiDefName:work@test
   |vpiNet:
-  \_logic_net: (work@test.legal), line:3:5, endln:3:10, parent:work@test
+  \_logic_net: (work@test.legal), id:16, line:3:5, endln:3:10, parent:work@test, parID:15
     |vpiName:legal
     |vpiFullName:work@test.legal
     |vpiNetType:48
     |vpiParent:
-    \_module: work@test (work@test) dut.sv:1:1: , endln:7:10, parent:work@test
+    \_module: work@test (work@test), id:15 dut.sv:1:1: , endln:7:10, parent:work@test, parID:14
   |vpiNet:
-  \_logic_net: (work@test.illegal), line:5:8, endln:5:15, parent:work@test
+  \_logic_net: (work@test.illegal), id:17, line:5:8, endln:5:15, parent:work@test, parID:15
     |vpiName:illegal
     |vpiFullName:work@test.illegal
     |vpiNetType:48
     |vpiParent:
-    \_module: work@test (work@test) dut.sv:1:1: , endln:7:10, parent:work@test
+    \_module: work@test (work@test), id:15 dut.sv:1:1: , endln:7:10, parent:work@test, parID:14
   |vpiParent:
-  \_design: (work@test)
+  \_design: (work@test), id:14
 |uhdmtopModules:
-\_module: work@test (work@test) dut.sv:1:1: , endln:7:10
+\_module: work@test (work@test), id:18 dut.sv:1:1: , endln:7:10
   |vpiName:work@test
   |vpiDefName:work@test
   |vpiTop:1
   |vpiNet:
-  \_logic_net: (work@test.illegal), line:5:8, endln:5:15, parent:work@test
+  \_logic_net: (work@test.illegal), id:13, line:5:8, endln:5:15, parent:work@test, parID:18
     |vpiTypespec:
-    \_logic_typespec: , line:5:1, endln:5:4
+    \_logic_typespec: , id:9, line:5:1, endln:5:4
       |vpiRange:
-      \_range: 
+      \_range: , id:6
         |vpiLeftRange:
-        \_constant: , line:5:5, endln:5:6
+        \_constant: , id:7, line:5:5, endln:5:6, parID:6
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiParent:
-          \_range: 
+          \_range: , id:6
           |vpiConstType:9
         |vpiRightRange:
-        \_constant: , line:5:5, endln:5:6
+        \_constant: , id:8, line:5:5, endln:5:6, parID:6
           |vpiDecompile:unsized
           |STRING:unsized
           |vpiParent:
-          \_range: 
+          \_range: , id:6
           |vpiConstType:6
     |vpiName:illegal
     |vpiFullName:work@test.illegal
     |vpiNetType:48
     |vpiParent:
-    \_module: work@test (work@test) dut.sv:1:1: , endln:7:10
+    \_module: work@test (work@test), id:18 dut.sv:1:1: , endln:7:10
   |vpiArrayNet:
-  \_array_net: (work@test.legal), line:3:5, endln:3:10, parent:work@test
+  \_array_net: (work@test.legal), id:5, line:3:5, endln:3:10, parent:work@test, parID:18
     |vpiSize:1
     |vpiName:legal
     |vpiFullName:work@test.legal
     |vpiParent:
-    \_module: work@test (work@test) dut.sv:1:1: , endln:7:10
+    \_module: work@test (work@test), id:18 dut.sv:1:1: , endln:7:10
     |vpiRange:
-    \_range: 
+    \_range: , id:1
       |vpiLeftRange:
-      \_constant: , line:3:11, endln:3:12
+      \_constant: , id:2, line:3:11, endln:3:12, parID:1
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
         |vpiParent:
-        \_range: 
+        \_range: , id:1
         |vpiConstType:9
       |vpiRightRange:
-      \_constant: , line:3:11, endln:3:12
+      \_constant: , id:3, line:3:11, endln:3:12, parID:1
         |vpiDecompile:unsized
         |STRING:unsized
         |vpiParent:
-        \_range: 
+        \_range: , id:1
         |vpiConstType:6
     |vpiNet:
-    \_logic_net: (work@test.legal), line:3:5, endln:3:10, parent:work@test.legal
+    \_logic_net: (work@test.legal), id:4, line:3:5, endln:3:10, parent:work@test.legal, parID:5
       |vpiTypespec:
-      \_logic_typespec: , line:3:1, endln:3:4
+      \_logic_typespec: , id:0, line:3:1, endln:3:4
       |vpiFullName:work@test.legal
       |vpiNetType:48
       |vpiParent:
-      \_array_net: (work@test.legal), line:3:5, endln:3:10, parent:work@test
+      \_array_net: (work@test.legal), id:5, line:3:5, endln:3:10, parent:work@test, parID:18
   |vpiTopModule:1
 ===================
 [  FATAL] : 0
@@ -168,4 +168,7 @@ design: (work@test)
 [  ERROR] : 1
 [WARNING] : 1
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/UnsizedPacked/dut.sv | ${SURELOG_DIR}/build/regression/UnsizedPacked/roundtrip/dut_000.sv | 2 | 7 | 
 

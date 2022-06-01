@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/PreprocString/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/PreprocString/slpp_all/surelog.log.
 
 [WRN:PP0113] dut.sv:3:9: Unused macro argument "TOTO".
 
@@ -59,72 +59,75 @@ n<> u<32> t<Top_level_rule> c<1> l<1:1> el<10:1>
 
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/PreprocString/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ../../build/regression/PreprocString/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/PreprocString/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/PreprocString/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/PreprocString/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/PreprocString/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
 ====== UHDM =======
-design: (work@test)
+design: (work@test), id:4
 |vpiElaborated:1
 |vpiName:work@test
 |uhdmallModules:
-\_module: work@test (work@test) dut.sv:1:1: , endln:9:10, parent:work@test
+\_module: work@test (work@test), id:5 dut.sv:1:1: , endln:9:10, parent:work@test, parID:4
   |vpiFullName:work@test
   |vpiDefName:work@test
   |vpiParent:
-  \_design: (work@test)
+  \_design: (work@test), id:4
   |vpiProcess:
-  \_initial: , line:6:1, endln:8:8, parent:work@test
+  \_initial: , id:0, line:6:1, endln:8:8, parent:work@test, parID:5
     |vpiStmt:
-    \_begin: (work@test), line:6:9, endln:8:8
+    \_begin: (work@test), id:1, line:6:9, endln:8:8, parID:0
       |vpiFullName:work@test
       |vpiParent:
-      \_initial: , line:6:1, endln:8:8, parent:work@test
+      \_initial: , id:0, line:6:1, endln:8:8, parent:work@test, parID:5
       |vpiStmt:
-      \_sys_func_call: ($display), line:5:5, endln:7:2, parent:work@test
+      \_sys_func_call: ($display), id:2, line:5:5, endln:7:2, parent:work@test, parID:1
         |vpiArgument:
-        \_constant: , line:5:14, endln:5:36, parent:$display
+        \_constant: , id:3, line:5:14, endln:5:36, parent:$display, parID:2
           |vpiDecompile:test/rom.mem`message
           |vpiSize:20
           |STRING:test/rom.mem`message
           |vpiParent:
-          \_sys_func_call: ($display), line:5:5, endln:7:2, parent:work@test
+          \_sys_func_call: ($display), id:2, line:5:5, endln:7:2, parent:work@test, parID:1
           |vpiConstType:6
         |vpiName:$display
         |vpiParent:
-        \_begin: (work@test), line:6:9, endln:8:8
+        \_begin: (work@test), id:1, line:6:9, endln:8:8, parID:0
     |vpiParent:
-    \_module: work@test (work@test) dut.sv:1:1: , endln:9:10, parent:work@test
+    \_module: work@test (work@test), id:5 dut.sv:1:1: , endln:9:10, parent:work@test, parID:4
 |uhdmtopModules:
-\_module: work@test (work@test) dut.sv:1:1: , endln:9:10
+\_module: work@test (work@test), id:6 dut.sv:1:1: , endln:9:10
   |vpiName:work@test
   |vpiDefName:work@test
   |vpiTop:1
   |vpiTopModule:1
   |vpiProcess:
-  \_initial: , line:6:1, endln:8:8, parent:work@test
+  \_initial: , id:7, line:6:1, endln:8:8, parent:work@test, parID:6
     |vpiStmt:
-    \_begin: (work@test), line:6:9, endln:8:8
+    \_begin: (work@test), id:8, line:6:9, endln:8:8, parID:7
       |vpiFullName:work@test
       |vpiParent:
-      \_initial: , line:6:1, endln:8:8, parent:work@test
+      \_initial: , id:7, line:6:1, endln:8:8, parent:work@test, parID:6
       |vpiStmt:
-      \_sys_func_call: ($display), line:5:5, endln:7:2, parent:work@test
+      \_sys_func_call: ($display), id:9, line:5:5, endln:7:2, parent:work@test, parID:8
         |vpiArgument:
-        \_constant: , line:5:14, endln:5:36, parent:$display
+        \_constant: , id:3, line:5:14, endln:5:36, parent:$display, parID:2
         |vpiName:$display
         |vpiParent:
-        \_begin: (work@test), line:6:9, endln:8:8
+        \_begin: (work@test), id:8, line:6:9, endln:8:8, parID:7
     |vpiParent:
-    \_module: work@test (work@test) dut.sv:1:1: , endln:9:10
+    \_module: work@test (work@test), id:6 dut.sv:1:1: , endln:9:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
 [WARNING] : 2
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/PreprocString/dut.sv | ${SURELOG_DIR}/build/regression/PreprocString/roundtrip/dut_000.sv | 3 | 9 | 
 
