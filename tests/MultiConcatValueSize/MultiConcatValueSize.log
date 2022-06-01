@@ -2830,7 +2830,9 @@ design: (work@top)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_ref_obj: (work@top.o), line:59:15, endln:59:16
+      \_ref_obj: (work@top.o), line:59:15, endln:59:16, parent:c
+        |vpiParent:
+        \_port: (c), line:41:27, endln:41:28, parent:work@top.u_sub
         |vpiName:o
         |vpiFullName:work@top.o
         |vpiActual:
@@ -2978,7 +2980,9 @@ design: (work@top)
             |vpiName:b
             |vpiDirection:2
             |vpiHighConn:
-            \_ref_obj: (work@top.u_sub.gen_dio_attr[0].c), line:48:27, endln:48:28
+            \_ref_obj: (work@top.u_sub.gen_dio_attr[0].c), line:48:27, endln:48:28, parent:b
+              |vpiParent:
+              \_port: (b), line:30:33, endln:30:34, parent:work@top.u_sub.gen_dio_attr[0].u_prim_pad_attr
               |vpiName:c
               |vpiFullName:work@top.u_sub.gen_dio_attr[0].c
               |vpiActual:
@@ -3116,19 +3120,13 @@ design: (work@top)
                   |vpiName:a
                   |vpiDirection:2
                   |vpiHighConn:
-                  \_ref_obj: (work@top.u_sub.gen_dio_attr[0].u_prim_pad_attr.gen_generic.b), line:37:27, endln:37:28
+                  \_ref_obj: (work@top.u_sub.gen_dio_attr[0].u_prim_pad_attr.gen_generic.b), line:37:27, endln:37:28, parent:a
+                    |vpiParent:
+                    \_port: (a), line:22:41, endln:22:42, parent:work@top.u_sub.gen_dio_attr[0].u_prim_pad_attr.gen_generic.u_impl_generic
                     |vpiName:b
                     |vpiFullName:work@top.u_sub.gen_dio_attr[0].u_prim_pad_attr.gen_generic.b
                     |vpiActual:
                     \_int_var: (work@top.u_sub.gen_dio_attr[0].u_prim_pad_attr.b), line:30:33, endln:30:34, parent:work@top.u_sub.gen_dio_attr[0].u_prim_pad_attr
-                      |vpiTypespec:
-                      \_int_typespec: , line:30:29, endln:30:32
-                      |vpiName:b
-                      |vpiFullName:work@top.u_sub.gen_dio_attr[0].u_prim_pad_attr.b
-                      |vpiSigned:1
-                      |vpiVisibility:1
-                      |vpiParent:
-                      \_module: work@prim_pad_attr (work@top.u_sub.gen_dio_attr[0].u_prim_pad_attr) dut.sv:46:6: , endln:48:31, parent:work@top.u_sub.gen_dio_attr[0]
                   |vpiLowConn:
                   \_ref_obj: (work@top.u_sub.gen_dio_attr[0].u_prim_pad_attr.gen_generic.u_impl_generic.a), line:37:25, endln:37:26, parent:a
                     |vpiParent:

@@ -434,17 +434,23 @@ design: (work@dut)
       |vpiName:struct_i
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (struct_array), line:12:20, endln:12:37, parent:struct_array
+      \_bit_select: (work@dut.struct_array), line:12:20, endln:12:37, parent:work@dut.m.struct_i.struct_array
         |vpiParent:
-        \_ref_obj: (struct_array)
-          |vpiName:struct_array
-        |vpiName:struct_array
-        |vpiIndex:
-        \_ref_obj: (struct_array.sel), line:12:33, endln:12:36, parent:struct_array
+        \_ref_obj: (work@dut.m.struct_i.struct_array), parent:struct_i
           |vpiParent:
-          \_bit_select: (struct_array), line:12:20, endln:12:37, parent:struct_array
+          \_port: (struct_i), line:6:30, endln:6:38, parent:work@dut.m
+          |vpiName:struct_array
+          |vpiFullName:work@dut.m.struct_i.struct_array
+          |vpiActual:
+          \_packed_array_net: (work@dut.struct_array), line:10:32, endln:10:44, parent:work@dut
+        |vpiName:struct_array
+        |vpiFullName:work@dut.struct_array
+        |vpiIndex:
+        \_ref_obj: (work@dut.m.struct_i.struct_array.sel), line:12:33, endln:12:36, parent:work@dut.struct_array
+          |vpiParent:
+          \_bit_select: (work@dut.struct_array), line:12:20, endln:12:37, parent:work@dut.m.struct_i.struct_array
           |vpiName:sel
-          |vpiFullName:struct_array.sel
+          |vpiFullName:work@dut.m.struct_i.struct_array.sel
           |vpiActual:
           \_int_var: (work@dut.sel), line:9:22, endln:9:25, parent:work@dut
       |vpiLowConn:

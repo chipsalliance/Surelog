@@ -2418,11 +2418,13 @@ design: (work@foo)
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@foo.clk), line:19:52, endln:19:55
+      \_ref_obj: (work@foo.clk), line:19:52, endln:19:55, parent:clk
+        |vpiParent:
+        \_port: (clk), line:1:12, endln:1:15, parent:work@foo.bar_instance
         |vpiName:clk
         |vpiFullName:work@foo.clk
         |vpiActual:
-        \_logic_net: (work@foo.clk), line:13:12, endln:13:15, parent:work@foo
+        \_logic_net: (work@foo.bar_instance.clk), line:1:12, endln:1:15, parent:work@foo.bar_instance
       |vpiLowConn:
       \_ref_obj: (work@foo.bar_instance.clk), line:19:52, endln:19:55, parent:clk
         |vpiParent:
@@ -2448,11 +2450,13 @@ design: (work@foo)
       |vpiName:rst
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@foo.rst), line:19:57, endln:19:60
+      \_ref_obj: (work@foo.rst), line:19:57, endln:19:60, parent:rst
+        |vpiParent:
+        \_port: (rst), line:1:17, endln:1:20, parent:work@foo.bar_instance
         |vpiName:rst
         |vpiFullName:work@foo.rst
         |vpiActual:
-        \_logic_net: (work@foo.rst), line:13:17, endln:13:20, parent:work@foo
+        \_logic_net: (work@foo.bar_instance.rst), line:1:17, endln:1:20, parent:work@foo.bar_instance
       |vpiLowConn:
       \_ref_obj: (work@foo.bar_instance.rst), line:19:57, endln:19:60, parent:rst
         |vpiParent:
@@ -2472,11 +2476,13 @@ design: (work@foo)
       |vpiName:inp
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@foo.inp), line:19:95, endln:19:98
+      \_ref_obj: (work@foo.inp), line:19:95, endln:19:98, parent:inp
+        |vpiParent:
+        \_port: (inp), line:1:22, endln:1:25, parent:work@foo.bar_instance
         |vpiName:inp
         |vpiFullName:work@foo.inp
         |vpiActual:
-        \_logic_net: (work@foo.inp), line:13:22, endln:13:25, parent:work@foo
+        \_logic_net: (work@foo.bar_instance.inp), line:1:22, endln:1:25, parent:work@foo.bar_instance
       |vpiLowConn:
       \_ref_obj: (work@foo.bar_instance.inp), line:19:95, endln:19:98, parent:inp
         |vpiParent:
@@ -2502,11 +2508,13 @@ design: (work@foo)
       |vpiName:out
       |vpiDirection:2
       |vpiHighConn:
-      \_ref_obj: (work@foo.out), line:19:100, endln:19:103
+      \_ref_obj: (work@foo.out), line:19:100, endln:19:103, parent:out
+        |vpiParent:
+        \_port: (out), line:1:27, endln:1:30, parent:work@foo.bar_instance
         |vpiName:out
         |vpiFullName:work@foo.out
         |vpiActual:
-        \_logic_net: (work@foo.out), line:13:27, endln:13:30, parent:work@foo
+        \_logic_net: (work@foo.bar_instance.out), line:1:27, endln:1:30, parent:work@foo.bar_instance
       |vpiLowConn:
       \_ref_obj: (work@foo.bar_instance.out), line:19:100, endln:19:103, parent:out
         |vpiParent:

@@ -821,7 +821,9 @@ design: (work@top)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_operation: , line:23:10, endln:23:43
+      \_operation: , line:23:10, endln:23:43, parent:a
+        |vpiParent:
+        \_port: (a), line:15:25, endln:15:26, parent:work@top.u_nmi_gen
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:23:11, endln:23:12
@@ -834,12 +836,14 @@ design: (work@top)
         |vpiOperand:
         \_operation: , line:23:12, endln:23:42
           |vpiParent:
-          \_operation: , line:23:10, endln:23:43
+          \_operation: , line:23:10, endln:23:43, parent:a
           |vpiOpType:33
           |vpiOperand:
           \_operation: , line:7:39, endln:8:54
             |vpiTypespec:
             \_struct_typespec: (prim_esc_pkg::esc_tx_t), line:2:11, endln:2:17, parent:work@nmi_gen
+            |vpiParent:
+            \_operation: , line:23:12, endln:23:42
             |vpiOpType:75
             |vpiFlattened:1
             |vpiOperand:
@@ -895,7 +899,9 @@ design: (work@top)
       |vpiName:x
       |vpiDirection:2
       |vpiHighConn:
-      \_ref_obj: (work@top.o), line:24:10, endln:24:11
+      \_ref_obj: (work@top.o), line:24:10, endln:24:11, parent:x
+        |vpiParent:
+        \_port: (x), line:16:15, endln:16:16, parent:work@top.u_nmi_gen
         |vpiName:o
         |vpiFullName:work@top.o
         |vpiActual:

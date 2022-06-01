@@ -369,20 +369,26 @@ design: (work@top)
       |vpiName:o
       |vpiDirection:2
       |vpiHighConn:
-      \_hier_path: (alert_rx_i.ping_p), line:12:13, endln:12:30
+      \_hier_path: (alert_rx_i.ping_p), line:12:13, endln:12:30, parent:o
         |vpiTypespec:
         \_struct_typespec: (alert_rx_t), line:6:12, endln:6:18, parent:work@top
+        |vpiParent:
+        \_port: (o), line:1:26, endln:1:27, parent:work@top.d
         |vpiName:alert_rx_i.ping_p
         |vpiActual:
         \_ref_obj: (alert_rx_i), line:12:13, endln:12:23, parent:alert_rx_i.ping_p
           |vpiParent:
-          \_hier_path: (alert_rx_i.ping_p), line:12:13, endln:12:30
+          \_hier_path: (alert_rx_i.ping_p), line:12:13, endln:12:30, parent:o
           |vpiName:alert_rx_i
           |vpiActual:
           \_struct_net: (work@top.alert_rx_i), line:10:16, endln:10:26, parent:work@top
         |vpiActual:
-        \_ref_obj: (ping_p), line:12:24, endln:12:30
+        \_ref_obj: (ping_p), line:12:24, endln:12:30, parent:alert_rx_i.ping_p
+          |vpiParent:
+          \_hier_path: (alert_rx_i.ping_p), line:12:13, endln:12:30, parent:o
           |vpiName:ping_p
+          |vpiActual:
+          \_typespec_member: (ping_p), line:7:16, endln:7:22, parent:alert_rx_t
         |vpiExpr:
         \_struct_net: (work@top.alert_rx_i), line:10:16, endln:10:26, parent:work@top
       |vpiLowConn:

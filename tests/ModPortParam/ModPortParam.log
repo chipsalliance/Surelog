@@ -201,24 +201,13 @@ design: (work@Core)
       |vpiName:perfCounter
       |vpiDirection:3
       |vpiHighConn:
-      \_ref_obj: (work@Core.perfCounterIF), line:16:19, endln:16:32
+      \_ref_obj: (work@Core.perfCounterIF), line:16:19, endln:16:32, parent:perfCounter
+        |vpiParent:
+        \_port: (perfCounter), line:9:30, endln:9:41, parent:work@Core.csrUnit
         |vpiName:perfCounterIF
         |vpiFullName:work@Core.perfCounterIF
         |vpiActual:
-        \_interface: work@PerformanceCounterIF (perfCounterIF) dut.sv:14: 
-          |vpiName:perfCounterIF
-          |vpiDefName:work@PerformanceCounterIF
-          |vpiModport:
-          \_modport: (CSR), line:2:13, endln:2:16, parent:perfCounterIF
-            |vpiParent:
-            \_interface: work@PerformanceCounterIF (perfCounterIF) dut.sv:14: 
-            |vpiName:CSR
-            |vpiIODecl:
-            \_io_decl: (perfCounter), line:4:9, endln:4:20
-              |vpiDirection:1
-              |vpiName:perfCounter
-            |vpiInterface:
-            \_interface: work@PerformanceCounterIF (perfCounterIF) dut.sv:14: 
+        \_interface: work@PerformanceCounterIF (work@Core.perfCounterIF) dut.sv:14:2: , endln:14:40, parent:work@Core
       |vpiLowConn:
       \_ref_obj: (work@Core.csrUnit.perfCounter), line:16:19, endln:16:32, parent:perfCounter
         |vpiParent:

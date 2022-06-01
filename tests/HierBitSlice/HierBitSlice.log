@@ -14546,22 +14546,26 @@ design: (work@int_execute_stage)
         \_port: (significand), line:215:18, endln:215:29, parent:work@int_execute_stage.lane_alu_gen[0].rom
           |vpiName:significand
           |vpiHighConn:
-          \_hier_path: (fp_operand.significand[22:17]), line:215:30, endln:215:59
+          \_hier_path: (fp_operand.significand[22:17]), line:215:30, endln:215:59, parent:significand
             |vpiTypespec:
             \_struct_typespec: (float32_t), line:2:9, endln:2:15, parent:work@int_execute_stage
+            |vpiParent:
+            \_port: (significand), line:215:18, endln:215:29, parent:work@int_execute_stage.lane_alu_gen[0].rom
             |vpiName:fp_operand.significand[22:17]
             |vpiActual:
             \_ref_obj: (fp_operand), line:215:30, endln:215:40, parent:fp_operand.significand[22:17]
               |vpiParent:
-              \_hier_path: (fp_operand.significand[22:17]), line:215:30, endln:215:59
+              \_hier_path: (fp_operand.significand[22:17]), line:215:30, endln:215:59, parent:significand
               |vpiName:fp_operand
               |vpiActual:
               \_struct_net: (work@int_execute_stage.lane_alu_gen[0].fp_operand), line:113:23, endln:113:33, parent:work@int_execute_stage.lane_alu_gen[0]
             |vpiActual:
-            \_part_select: , line:215:41, endln:215:58, parent:significand
+            \_part_select: , line:215:41, endln:215:58, parent:work@int_execute_stage.lane_alu_gen[0].rom.significand.significand
               |vpiParent:
-              \_ref_obj: significand (significand)
-                |vpiFullName:significand
+              \_ref_obj: significand (work@int_execute_stage.lane_alu_gen[0].rom.significand.significand), parent:fp_operand.significand[22:17]
+                |vpiParent:
+                \_hier_path: (fp_operand.significand[22:17]), line:215:30, endln:215:59, parent:significand
+                |vpiFullName:work@int_execute_stage.lane_alu_gen[0].rom.significand.significand
                 |vpiDefName:significand
               |vpiConstantSelect:1
               |vpiLeftRange:
@@ -14586,7 +14590,9 @@ design: (work@int_execute_stage)
         \_port: (reciprocal_estimate), line:216:18, endln:216:37, parent:work@int_execute_stage.lane_alu_gen[0].rom
           |vpiName:reciprocal_estimate
           |vpiHighConn:
-          \_ref_obj: (work@int_execute_stage.lane_alu_gen[0].reciprocal_estimate), line:216:18, endln:216:37
+          \_ref_obj: (work@int_execute_stage.lane_alu_gen[0].reciprocal_estimate), line:216:18, endln:216:37, parent:reciprocal_estimate
+            |vpiParent:
+            \_port: (reciprocal_estimate), line:216:18, endln:216:37, parent:work@int_execute_stage.lane_alu_gen[0].rom
             |vpiName:reciprocal_estimate
             |vpiFullName:work@int_execute_stage.lane_alu_gen[0].reciprocal_estimate
             |vpiActual:
@@ -20028,22 +20034,26 @@ design: (work@int_execute_stage)
         \_port: (significand), line:215:18, endln:215:29, parent:work@int_execute_stage.lane_alu_gen[1].rom
           |vpiName:significand
           |vpiHighConn:
-          \_hier_path: (fp_operand.significand[22:17]), line:215:30, endln:215:59
+          \_hier_path: (fp_operand.significand[22:17]), line:215:30, endln:215:59, parent:significand
             |vpiTypespec:
             \_struct_typespec: (float32_t), line:2:9, endln:2:15, parent:work@int_execute_stage
+            |vpiParent:
+            \_port: (significand), line:215:18, endln:215:29, parent:work@int_execute_stage.lane_alu_gen[1].rom
             |vpiName:fp_operand.significand[22:17]
             |vpiActual:
             \_ref_obj: (fp_operand), line:215:30, endln:215:40, parent:fp_operand.significand[22:17]
               |vpiParent:
-              \_hier_path: (fp_operand.significand[22:17]), line:215:30, endln:215:59
+              \_hier_path: (fp_operand.significand[22:17]), line:215:30, endln:215:59, parent:significand
               |vpiName:fp_operand
               |vpiActual:
               \_struct_net: (work@int_execute_stage.lane_alu_gen[1].fp_operand), line:113:23, endln:113:33, parent:work@int_execute_stage.lane_alu_gen[1]
             |vpiActual:
-            \_part_select: , line:215:41, endln:215:58, parent:significand
+            \_part_select: , line:215:41, endln:215:58, parent:work@int_execute_stage.lane_alu_gen[1].rom.significand.significand
               |vpiParent:
-              \_ref_obj: significand (significand)
-                |vpiFullName:significand
+              \_ref_obj: significand (work@int_execute_stage.lane_alu_gen[1].rom.significand.significand), parent:fp_operand.significand[22:17]
+                |vpiParent:
+                \_hier_path: (fp_operand.significand[22:17]), line:215:30, endln:215:59, parent:significand
+                |vpiFullName:work@int_execute_stage.lane_alu_gen[1].rom.significand.significand
                 |vpiDefName:significand
               |vpiConstantSelect:1
               |vpiLeftRange:
@@ -20068,7 +20078,9 @@ design: (work@int_execute_stage)
         \_port: (reciprocal_estimate), line:216:18, endln:216:37, parent:work@int_execute_stage.lane_alu_gen[1].rom
           |vpiName:reciprocal_estimate
           |vpiHighConn:
-          \_ref_obj: (work@int_execute_stage.lane_alu_gen[1].reciprocal_estimate), line:216:18, endln:216:37
+          \_ref_obj: (work@int_execute_stage.lane_alu_gen[1].reciprocal_estimate), line:216:18, endln:216:37, parent:reciprocal_estimate
+            |vpiParent:
+            \_port: (reciprocal_estimate), line:216:18, endln:216:37, parent:work@int_execute_stage.lane_alu_gen[1].rom
             |vpiName:reciprocal_estimate
             |vpiFullName:work@int_execute_stage.lane_alu_gen[1].reciprocal_estimate
             |vpiActual:
