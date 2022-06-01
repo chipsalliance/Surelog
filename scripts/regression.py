@@ -304,7 +304,6 @@ def _run_surelog(
       rel_output_dirpath = rel_output_dirpath.replace('\\', '/')
 
     cmdline = ' '.join([part for part in parts if part] + [
-      '-d', 'vpi_ids',
       '-mt', str(mt),
       '-mp', '1' if '-lowmem' in cmdline else str(mp),
       '-o', rel_output_dirpath
