@@ -208,16 +208,20 @@ design: (work@dut)
 |vpiElaborated:1
 |vpiName:work@dut
 |uhdmallModules:
-\_module: work@GOOD (work@GOOD) dut.sv:1:1: , endln:3:10, parent:work@dut
-  |vpiFullName:work@GOOD
-  |vpiDefName:work@GOOD
+\_module: work@GOOD (work@GOOD), file:dut.sv, line:1:1, endln:3:10
   |vpiParent:
   \_design: (work@dut)
+  |vpiFullName:work@GOOD
+  |vpiDefName:work@GOOD
 |uhdmallModules:
-\_module: work@dut (work@dut) dut.sv:5:1: , endln:21:10, parent:work@dut
+\_module: work@dut (work@dut), file:dut.sv, line:5:1, endln:21:10
+  |vpiParent:
+  \_design: (work@dut)
   |vpiFullName:work@dut
   |vpiParameter:
-  \_parameter: (work@dut.test), line:7:11, endln:7:15, parent:work@dut
+  \_parameter: (work@dut.test), line:7:11, endln:7:15
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:5:1, endln:21:10
     |BIN:0011
     |vpiTypespec:
     \_int_typespec: 
@@ -229,14 +233,12 @@ design: (work@dut)
         |vpiRightRange:
         \_constant: 
           |INT:0
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:5:1: , endln:21:10, parent:work@dut
     |vpiName:test
     |vpiFullName:work@dut.test
   |vpiParamAssign:
-  \_param_assign: , line:7:11, endln:7:25, parent:work@dut
+  \_param_assign: , line:7:11, endln:7:25
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:5:1: , endln:21:10, parent:work@dut
+    \_module: work@dut (work@dut), file:dut.sv, line:5:1, endln:21:10
     |vpiRhs:
     \_constant: , line:7:18, endln:7:25
       |vpiDecompile:4'b0011
@@ -246,42 +248,40 @@ design: (work@dut)
       \_int_typespec: 
       |vpiConstType:3
     |vpiLhs:
-    \_parameter: (work@dut.test), line:7:11, endln:7:15, parent:work@dut
+    \_parameter: (work@dut.test), line:7:11, endln:7:15
   |vpiDefName:work@dut
-  |vpiParent:
-  \_design: (work@dut)
 |uhdmtopModules:
-\_module: work@dut (work@dut) dut.sv:5:1: , endln:21:10
+\_module: work@dut (work@dut), file:dut.sv, line:5:1, endln:21:10
   |vpiName:work@dut
   |vpiParameter:
-  \_parameter: (work@dut.test), line:7:11, endln:7:15, parent:work@dut
+  \_parameter: (work@dut.test), line:7:11, endln:7:15
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:5:1, endln:21:10
     |BIN:0011
     |vpiTypespec:
-    \_int_typespec: , parent:work@dut.test
+    \_int_typespec: 
       |vpiParent:
-      \_parameter: (work@dut.test), line:7:11, endln:7:15, parent:work@dut
+      \_parameter: (work@dut.test), line:7:11, endln:7:15
       |vpiRange:
       \_range: 
         |vpiParent:
-        \_int_typespec: , parent:work@dut.test
+        \_int_typespec: 
         |vpiLeftRange:
         \_constant: 
-          |INT:3
           |vpiParent:
           \_range: 
+          |INT:3
         |vpiRightRange:
         \_constant: 
-          |INT:0
           |vpiParent:
           \_range: 
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:5:1: , endln:21:10
+          |INT:0
     |vpiName:test
     |vpiFullName:work@dut.test
   |vpiParamAssign:
-  \_param_assign: , line:7:11, endln:7:25, parent:work@dut
+  \_param_assign: , line:7:11, endln:7:25
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:5:1: , endln:21:10
+    \_module: work@dut (work@dut), file:dut.sv, line:5:1, endln:21:10
     |vpiRhs:
     \_constant: , line:7:18, endln:7:25
       |vpiDecompile:4'b0011
@@ -291,148 +291,148 @@ design: (work@dut)
       \_int_typespec: 
       |vpiConstType:3
     |vpiLhs:
-    \_parameter: (work@dut.test), line:7:11, endln:7:15, parent:work@dut
+    \_parameter: (work@dut.test), line:7:11, endln:7:15
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiTopModule:1
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@dut.genblk1[0]), line:9:32, endln:19:4, parent:work@dut
+  \_gen_scope_array: (work@dut.genblk1[0]), line:9:32, endln:19:4
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:5:1: , endln:21:10
+    \_module: work@dut (work@dut), file:dut.sv, line:5:1, endln:21:10
     |vpiName:genblk1[0]
     |vpiFullName:work@dut.genblk1[0]
     |vpiGenScope:
-    \_gen_scope: (work@dut.genblk1[0]), parent:work@dut.genblk1[0]
+    \_gen_scope: (work@dut.genblk1[0])
+      |vpiParent:
+      \_gen_scope_array: (work@dut.genblk1[0]), line:9:32, endln:19:4
       |vpiFullName:work@dut.genblk1[0]
       |vpiParameter:
-      \_parameter: (work@dut.genblk1[0].k), line:9, parent:work@dut.genblk1[0]
+      \_parameter: (work@dut.genblk1[0].k), line:9:0
+        |vpiParent:
+        \_gen_scope: (work@dut.genblk1[0])
         |UINT:0
         |vpiTypespec:
         \_int_typespec: 
-        |vpiParent:
-        \_gen_scope: (work@dut.genblk1[0]), parent:work@dut.genblk1[0]
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.genblk1[0].k
-      |vpiParent:
-      \_gen_scope_array: (work@dut.genblk1[0]), line:9:32, endln:19:4, parent:work@dut
       |vpiModule:
-      \_module: work@dut.genblk1[0].genblk1::MOD (work@dut.genblk1[0].genblk1.m) dut.sv:11:5: , endln:11:14, parent:work@dut.genblk1[0]
+      \_module: work@dut.genblk1[0].genblk1::MOD (work@dut.genblk1[0].genblk1.m), file:dut.sv, line:11:5, endln:11:14
+        |vpiParent:
+        \_gen_scope: (work@dut.genblk1[0])
         |vpiName:m
         |vpiFullName:work@dut.genblk1[0].genblk1.m
         |vpiDefName:work@dut.genblk1[0].genblk1::MOD
-        |vpiParent:
-        \_gen_scope: (work@dut.genblk1[0]), parent:work@dut.genblk1[0]
       |vpiGenScopeArray:
-      \_gen_scope_array: (work@dut.genblk1[0].genblk1), line:12:5, endln:16:8, parent:work@dut.genblk1[0]
+      \_gen_scope_array: (work@dut.genblk1[0].genblk1), line:12:5, endln:16:8
         |vpiParent:
-        \_gen_scope: (work@dut.genblk1[0]), parent:work@dut.genblk1[0]
+        \_gen_scope: (work@dut.genblk1[0])
         |vpiName:genblk1
         |vpiFullName:work@dut.genblk1[0].genblk1
         |vpiGenScope:
-        \_gen_scope: (work@dut.genblk1[0].genblk1), parent:work@dut.genblk1[0].genblk1
-          |vpiFullName:work@dut.genblk1[0].genblk1
+        \_gen_scope: (work@dut.genblk1[0].genblk1)
           |vpiParent:
-          \_gen_scope_array: (work@dut.genblk1[0].genblk1), line:12:5, endln:16:8, parent:work@dut.genblk1[0]
+          \_gen_scope_array: (work@dut.genblk1[0].genblk1), line:12:5, endln:16:8
+          |vpiFullName:work@dut.genblk1[0].genblk1
           |vpiModule:
-          \_module: work@GOOD (work@dut.genblk1[0].genblk1.good) dut.sv:13:8: , endln:13:20, parent:work@dut.genblk1[0].genblk1
+          \_module: work@GOOD (work@dut.genblk1[0].genblk1.good), file:dut.sv, line:13:8, endln:13:20
+            |vpiParent:
+            \_gen_scope: (work@dut.genblk1[0].genblk1)
             |vpiName:good
             |vpiFullName:work@dut.genblk1[0].genblk1.good
             |vpiDefName:work@GOOD
             |vpiDefFile:dut.sv
             |vpiDefLineNo:1
-            |vpiParent:
-            \_gen_scope: (work@dut.genblk1[0].genblk1), parent:work@dut.genblk1[0].genblk1
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@dut.genblk1[1]), line:9:32, endln:19:4, parent:work@dut
+  \_gen_scope_array: (work@dut.genblk1[1]), line:9:32, endln:19:4
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:5:1: , endln:21:10
+    \_module: work@dut (work@dut), file:dut.sv, line:5:1, endln:21:10
     |vpiName:genblk1[1]
     |vpiFullName:work@dut.genblk1[1]
     |vpiGenScope:
-    \_gen_scope: (work@dut.genblk1[1]), parent:work@dut.genblk1[1]
+    \_gen_scope: (work@dut.genblk1[1])
+      |vpiParent:
+      \_gen_scope_array: (work@dut.genblk1[1]), line:9:32, endln:19:4
       |vpiFullName:work@dut.genblk1[1]
       |vpiParameter:
-      \_parameter: (work@dut.genblk1[1].k), line:9, parent:work@dut.genblk1[1]
+      \_parameter: (work@dut.genblk1[1].k), line:9:0
+        |vpiParent:
+        \_gen_scope: (work@dut.genblk1[1])
         |UINT:1
         |vpiTypespec:
         \_int_typespec: 
-        |vpiParent:
-        \_gen_scope: (work@dut.genblk1[1]), parent:work@dut.genblk1[1]
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.genblk1[1].k
-      |vpiParent:
-      \_gen_scope_array: (work@dut.genblk1[1]), line:9:32, endln:19:4, parent:work@dut
       |vpiModule:
-      \_module: work@dut.genblk1[1].genblk1::MOD (work@dut.genblk1[1].genblk1.m) dut.sv:11:5: , endln:11:14, parent:work@dut.genblk1[1]
+      \_module: work@dut.genblk1[1].genblk1::MOD (work@dut.genblk1[1].genblk1.m), file:dut.sv, line:11:5, endln:11:14
+        |vpiParent:
+        \_gen_scope: (work@dut.genblk1[1])
         |vpiName:m
         |vpiFullName:work@dut.genblk1[1].genblk1.m
         |vpiDefName:work@dut.genblk1[1].genblk1::MOD
-        |vpiParent:
-        \_gen_scope: (work@dut.genblk1[1]), parent:work@dut.genblk1[1]
       |vpiGenScopeArray:
-      \_gen_scope_array: (work@dut.genblk1[1].genblk1), line:12:5, endln:16:8, parent:work@dut.genblk1[1]
+      \_gen_scope_array: (work@dut.genblk1[1].genblk1), line:12:5, endln:16:8
         |vpiParent:
-        \_gen_scope: (work@dut.genblk1[1]), parent:work@dut.genblk1[1]
+        \_gen_scope: (work@dut.genblk1[1])
         |vpiName:genblk1
         |vpiFullName:work@dut.genblk1[1].genblk1
         |vpiGenScope:
-        \_gen_scope: (work@dut.genblk1[1].genblk1), parent:work@dut.genblk1[1].genblk1
-          |vpiFullName:work@dut.genblk1[1].genblk1
+        \_gen_scope: (work@dut.genblk1[1].genblk1)
           |vpiParent:
-          \_gen_scope_array: (work@dut.genblk1[1].genblk1), line:12:5, endln:16:8, parent:work@dut.genblk1[1]
+          \_gen_scope_array: (work@dut.genblk1[1].genblk1), line:12:5, endln:16:8
+          |vpiFullName:work@dut.genblk1[1].genblk1
           |vpiModule:
-          \_module: work@GOOD (work@dut.genblk1[1].genblk1.good) dut.sv:13:8: , endln:13:20, parent:work@dut.genblk1[1].genblk1
+          \_module: work@GOOD (work@dut.genblk1[1].genblk1.good), file:dut.sv, line:13:8, endln:13:20
+            |vpiParent:
+            \_gen_scope: (work@dut.genblk1[1].genblk1)
             |vpiName:good
             |vpiFullName:work@dut.genblk1[1].genblk1.good
             |vpiDefName:work@GOOD
             |vpiDefFile:dut.sv
             |vpiDefLineNo:1
-            |vpiParent:
-            \_gen_scope: (work@dut.genblk1[1].genblk1), parent:work@dut.genblk1[1].genblk1
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@dut.genblk1[2]), line:9:32, endln:19:4, parent:work@dut
+  \_gen_scope_array: (work@dut.genblk1[2]), line:9:32, endln:19:4
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:5:1: , endln:21:10
+    \_module: work@dut (work@dut), file:dut.sv, line:5:1, endln:21:10
     |vpiName:genblk1[2]
     |vpiFullName:work@dut.genblk1[2]
     |vpiGenScope:
-    \_gen_scope: (work@dut.genblk1[2]), parent:work@dut.genblk1[2]
+    \_gen_scope: (work@dut.genblk1[2])
+      |vpiParent:
+      \_gen_scope_array: (work@dut.genblk1[2]), line:9:32, endln:19:4
       |vpiFullName:work@dut.genblk1[2]
       |vpiParameter:
-      \_parameter: (work@dut.genblk1[2].k), line:9, parent:work@dut.genblk1[2]
+      \_parameter: (work@dut.genblk1[2].k), line:9:0
+        |vpiParent:
+        \_gen_scope: (work@dut.genblk1[2])
         |UINT:2
         |vpiTypespec:
         \_int_typespec: 
-        |vpiParent:
-        \_gen_scope: (work@dut.genblk1[2]), parent:work@dut.genblk1[2]
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.genblk1[2].k
-      |vpiParent:
-      \_gen_scope_array: (work@dut.genblk1[2]), line:9:32, endln:19:4, parent:work@dut
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@dut.genblk1[3]), line:9:32, endln:19:4, parent:work@dut
+  \_gen_scope_array: (work@dut.genblk1[3]), line:9:32, endln:19:4
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:5:1: , endln:21:10
+    \_module: work@dut (work@dut), file:dut.sv, line:5:1, endln:21:10
     |vpiName:genblk1[3]
     |vpiFullName:work@dut.genblk1[3]
     |vpiGenScope:
-    \_gen_scope: (work@dut.genblk1[3]), parent:work@dut.genblk1[3]
+    \_gen_scope: (work@dut.genblk1[3])
+      |vpiParent:
+      \_gen_scope_array: (work@dut.genblk1[3]), line:9:32, endln:19:4
       |vpiFullName:work@dut.genblk1[3]
       |vpiParameter:
-      \_parameter: (work@dut.genblk1[3].k), line:9, parent:work@dut.genblk1[3]
+      \_parameter: (work@dut.genblk1[3].k), line:9:0
+        |vpiParent:
+        \_gen_scope: (work@dut.genblk1[3])
         |UINT:3
         |vpiTypespec:
         \_int_typespec: 
-        |vpiParent:
-        \_gen_scope: (work@dut.genblk1[3]), parent:work@dut.genblk1[3]
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.genblk1[3].k
-      |vpiParent:
-      \_gen_scope_array: (work@dut.genblk1[3]), line:9:32, endln:19:4, parent:work@dut
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

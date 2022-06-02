@@ -79,57 +79,57 @@ design: (work@foo)
 |vpiElaborated:1
 |vpiName:work@foo
 |uhdmallModules:
-\_module: work@baz (work@baz) dut.sv:5:1: , endln:6:10, parent:work@foo
-  |vpiFullName:work@baz
-  |vpiDefName:work@baz
+\_module: work@baz (work@baz), file:dut.sv, line:5:1, endln:6:10
   |vpiParent:
   \_design: (work@foo)
+  |vpiFullName:work@baz
+  |vpiDefName:work@baz
 |uhdmallModules:
-\_module: work@foo (work@foo) dut.sv:1:1: , endln:3:10, parent:work@foo
+\_module: work@foo (work@foo), file:dut.sv, line:1:1, endln:3:10
+  |vpiParent:
+  \_design: (work@foo)
   |vpiFullName:work@foo
   |vpiParameter:
-  \_parameter: (work@foo.bar), line:2:17, endln:2:20, parent:work@foo
-    |UINT:0
+  \_parameter: (work@foo.bar), line:2:17, endln:2:20
     |vpiParent:
-    \_module: work@foo (work@foo) dut.sv:1:1: , endln:3:10, parent:work@foo
+    \_module: work@foo (work@foo), file:dut.sv, line:1:1, endln:3:10
+    |UINT:0
     |vpiSigned:1
     |vpiName:bar
     |vpiFullName:work@foo.bar
   |vpiParamAssign:
-  \_param_assign: , line:2:17, endln:2:24, parent:work@foo
+  \_param_assign: , line:2:17, endln:2:24
     |vpiParent:
-    \_module: work@foo (work@foo) dut.sv:1:1: , endln:3:10, parent:work@foo
+    \_module: work@foo (work@foo), file:dut.sv, line:1:1, endln:3:10
     |vpiRhs:
     \_constant: , line:2:23, endln:2:24
       |vpiDecompile:0
       |vpiSize:32
       |UINT:0
       |vpiTypespec:
-      \_int_typespec: , line:2:13, endln:2:16, parent:work@foo.bar
+      \_int_typespec: , line:2:13, endln:2:16
         |vpiParent:
-        \_parameter: (work@foo.bar), line:2:17, endln:2:20, parent:work@foo
+        \_parameter: (work@foo.bar), line:2:17, endln:2:20
         |vpiSigned:1
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@foo.bar), line:2:17, endln:2:20, parent:work@foo
+    \_parameter: (work@foo.bar), line:2:17, endln:2:20
   |vpiDefName:work@foo
-  |vpiParent:
-  \_design: (work@foo)
 |uhdmtopModules:
-\_module: work@foo (work@foo) dut.sv:1:1: , endln:3:10
+\_module: work@foo (work@foo), file:dut.sv, line:1:1, endln:3:10
   |vpiName:work@foo
   |vpiParameter:
-  \_parameter: (work@foo.bar), line:2:17, endln:2:20, parent:work@foo
-    |UINT:0
+  \_parameter: (work@foo.bar), line:2:17, endln:2:20
     |vpiParent:
-    \_module: work@foo (work@foo) dut.sv:1:1: , endln:3:10
+    \_module: work@foo (work@foo), file:dut.sv, line:1:1, endln:3:10
+    |UINT:0
     |vpiSigned:1
     |vpiName:bar
     |vpiFullName:work@foo.bar
   |vpiParamAssign:
-  \_param_assign: , line:2:17, endln:2:24, parent:work@foo
+  \_param_assign: , line:2:17, endln:2:24
     |vpiParent:
-    \_module: work@foo (work@foo) dut.sv:1:1: , endln:3:10
+    \_module: work@foo (work@foo), file:dut.sv, line:1:1, endln:3:10
     |vpiRhs:
     \_constant: , line:2:23, endln:2:24
       |vpiDecompile:1
@@ -137,12 +137,12 @@ design: (work@foo)
       |UINT:1
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@foo.bar), line:2:17, endln:2:20, parent:work@foo
+    \_parameter: (work@foo.bar), line:2:17, endln:2:20
   |vpiDefName:work@foo
   |vpiTop:1
   |vpiTopModule:1
 |uhdmtopModules:
-\_module: work@baz (work@baz) dut.sv:5:1: , endln:6:10
+\_module: work@baz (work@baz), file:dut.sv, line:5:1, endln:6:10
   |vpiName:work@baz
   |vpiDefName:work@baz
   |vpiTop:1

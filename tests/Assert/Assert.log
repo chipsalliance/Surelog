@@ -88,11 +88,15 @@ design: (work@dut)
 |vpiElaborated:1
 |vpiName:work@dut
 |uhdmallModules:
-\_module: work@dut (work@dut) dut.sv:1:1: , endln:7:10, parent:work@dut
+\_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:7:10
+  |vpiParent:
+  \_design: (work@dut)
   |vpiFullName:work@dut
   |vpiDefName:work@dut
   |vpiAssertion:
-  \_assert_stmt: (work@dut), line:4:1, endln:4:73, parent:work@dut
+  \_assert_stmt: (work@dut), line:4:1, endln:4:73
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:7:10
     |vpiFullName:work@dut
     |vpiProperty:
     \_property_spec: , line:4:19, endln:4:71
@@ -108,28 +112,26 @@ design: (work@dut)
           \_logic_net: (Clock)
             |vpiName:Clock
             |vpiNetType:1
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:7:10, parent:work@dut
-  |vpiParent:
-  \_design: (work@dut)
 |uhdmtopModules:
-\_module: work@dut (work@dut) dut.sv:1:1: , endln:7:10
+\_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:7:10
   |vpiName:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiNet:
   \_logic_net: (Clock)
   |vpiAssertion:
-  \_assert_stmt: (work@dut), line:4:1, endln:4:73, parent:work@dut
+  \_assert_stmt: (work@dut), line:4:1, endln:4:73
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:7:10
     |vpiFullName:work@dut
     |vpiProperty:
-    \_property_spec: , line:4:19, endln:4:71, parent:work@dut
+    \_property_spec: , line:4:19, endln:4:71
       |vpiParent:
-      \_assert_stmt: (work@dut), line:4:1, endln:4:73, parent:work@dut
+      \_assert_stmt: (work@dut), line:4:1, endln:4:73
       |vpiPropertyExpr:
       \_operation: , line:4:21, endln:4:34
         |vpiParent:
-        \_property_spec: , line:4:19, endln:4:71, parent:work@dut
+        \_property_spec: , line:4:19, endln:4:71
         |vpiOpType:39
         |vpiOperand:
         \_ref_obj: (work@dut.Clock), line:4:29, endln:4:34
@@ -139,8 +141,6 @@ design: (work@dut)
           |vpiFullName:work@dut.Clock
           |vpiActual:
           \_logic_net: (Clock)
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:7:10
   |vpiTopModule:1
 ===================
 [  FATAL] : 0

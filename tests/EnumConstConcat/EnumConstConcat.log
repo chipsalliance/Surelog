@@ -196,45 +196,47 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallPackages:
-\_package: prim_mubi_pkg (prim_mubi_pkg::) dut.sv:2:1: , endln:9:11, parent:work@top
+\_package: prim_mubi_pkg (prim_mubi_pkg::), file:dut.sv, line:2:1, endln:9:11
+  |vpiParent:
+  \_design: (work@top)
   |vpiName:prim_mubi_pkg
   |vpiFullName:prim_mubi_pkg::
   |vpiParameter:
-  \_parameter: (prim_mubi_pkg::MuBi4Width), line:3:15, endln:3:25, parent:prim_mubi_pkg::
+  \_parameter: (prim_mubi_pkg::MuBi4Width), line:3:15, endln:3:25
+    |vpiParent:
+    \_package: prim_mubi_pkg (prim_mubi_pkg::), file:dut.sv, line:2:1, endln:9:11
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:3:11, endln:3:14, parent:prim_mubi_pkg::MuBi4Width
+    \_int_typespec: , line:3:11, endln:3:14
+      |vpiParent:
+      \_parameter: (prim_mubi_pkg::MuBi4Width), line:3:15, endln:3:25
       |vpiInstance:
       \_package: (prim_mubi_pkg), file:
-      |vpiParent:
-      \_parameter: (prim_mubi_pkg::MuBi4Width), line:3:15, endln:3:25, parent:prim_mubi_pkg::
       |vpiSigned:1
-    |vpiParent:
-    \_package: prim_mubi_pkg (prim_mubi_pkg::) dut.sv:2:1: , endln:9:11, parent:work@top
     |vpiSigned:1
     |vpiName:MuBi4Width
     |vpiFullName:prim_mubi_pkg::MuBi4Width
   |vpiParamAssign:
-  \_param_assign: , line:3:15, endln:3:29, parent:prim_mubi_pkg::
+  \_param_assign: , line:3:15, endln:3:29
     |vpiParent:
-    \_package: prim_mubi_pkg (prim_mubi_pkg::) dut.sv:2:1: , endln:9:11, parent:work@top
+    \_package: prim_mubi_pkg (prim_mubi_pkg::), file:dut.sv, line:2:1, endln:9:11
     |vpiRhs:
     \_constant: , line:3:28, endln:3:29
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:3:11, endln:3:14, parent:prim_mubi_pkg::MuBi4Width
+      \_int_typespec: , line:3:11, endln:3:14
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (prim_mubi_pkg::MuBi4Width), line:3:15, endln:3:25, parent:prim_mubi_pkg::
+    \_parameter: (prim_mubi_pkg::MuBi4Width), line:3:15, endln:3:25
   |vpiTypedef:
-  \_enum_typespec: (prim_mubi_pkg::mubi4_t), line:4:1, endln:7:11, parent:prim_mubi_pkg::
+  \_enum_typespec: (prim_mubi_pkg::mubi4_t), line:4:1, endln:7:11
+    |vpiParent:
+    \_package: prim_mubi_pkg (prim_mubi_pkg::), file:dut.sv, line:2:1, endln:9:11
     |vpiName:prim_mubi_pkg::mubi4_t
     |vpiInstance:
-    \_package: prim_mubi_pkg (prim_mubi_pkg::) dut.sv:2:1: , endln:9:11, parent:work@top
-    |vpiParent:
-    \_package: prim_mubi_pkg (prim_mubi_pkg::) dut.sv:2:1: , endln:9:11, parent:work@top
+    \_package: prim_mubi_pkg (prim_mubi_pkg::), file:dut.sv, line:2:1, endln:9:11
     |vpiBaseTypespec:
     \_logic_typespec: , line:4:14, endln:4:19
       |vpiInstance:
@@ -252,22 +254,22 @@ design: (work@top)
             \_operation: , line:4:21, endln:4:33
             |vpiName:MuBi4Width
             |vpiActual:
-            \_parameter: (prim_mubi_pkg::MuBi4Width), line:3:15, endln:3:25, parent:prim_mubi_pkg::
+            \_parameter: (prim_mubi_pkg::MuBi4Width), line:3:15, endln:3:25
           |vpiOperand:
           \_constant: , line:4:32, endln:4:33
+            |vpiParent:
+            \_operation: , line:4:21, endln:4:33
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
-            |vpiParent:
-            \_operation: , line:4:21, endln:4:33
             |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:4:34, endln:4:35
+          |vpiParent:
+          \_range: , line:4:21, endln:4:35
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:4:21, endln:4:35
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (MuBi4True), line:5:3, endln:5:19
@@ -282,19 +284,19 @@ design: (work@top)
       |vpiDecompile:4'h5
       |vpiSize:4
   |vpiDefName:prim_mubi_pkg
+|uhdmallPackages:
+\_package: pkg (pkg::), file:dut.sv, line:11:1, endln:17:11
   |vpiParent:
   \_design: (work@top)
-|uhdmallPackages:
-\_package: pkg (pkg::) dut.sv:11:1: , endln:17:11, parent:work@top
   |vpiName:pkg
   |vpiFullName:pkg::
   |vpiTypedef:
-  \_enum_typespec: (pkg::fsm_state_e), line:13:1, endln:15:15, parent:pkg::
+  \_enum_typespec: (pkg::fsm_state_e), line:13:1, endln:15:15
+    |vpiParent:
+    \_package: pkg (pkg::), file:dut.sv, line:11:1, endln:17:11
     |vpiName:pkg::fsm_state_e
     |vpiInstance:
-    \_package: pkg (pkg::) dut.sv:11:1: , endln:17:11, parent:work@top
-    |vpiParent:
-    \_package: pkg (pkg::) dut.sv:11:1: , endln:17:11, parent:work@top
+    \_package: pkg (pkg::), file:dut.sv, line:11:1, endln:17:11
     |vpiBaseTypespec:
     \_logic_typespec: , line:13:14, endln:13:19
       |vpiInstance:
@@ -303,19 +305,19 @@ design: (work@top)
       \_range: , line:13:21, endln:13:24
         |vpiLeftRange:
         \_constant: , line:13:21, endln:13:22
+          |vpiParent:
+          \_range: , line:13:21, endln:13:24
           |vpiDecompile:9
           |vpiSize:64
           |UINT:9
-          |vpiParent:
-          \_range: , line:13:21, endln:13:24
           |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:13:23, endln:13:24
+          |vpiParent:
+          \_range: , line:13:21, endln:13:24
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:13:21, endln:13:24
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (ReadingLow), line:14:3, endln:14:55
@@ -324,69 +326,69 @@ design: (work@top)
       |vpiDecompile:{6'b001100,prim_mubi_pkg::MuBi4False}
       |vpiSize:10
   |vpiDefName:pkg
+|uhdmtopPackages:
+\_package: prim_mubi_pkg (prim_mubi_pkg::), file:dut.sv, line:2:1, endln:9:11
   |vpiParent:
   \_design: (work@top)
-|uhdmtopPackages:
-\_package: prim_mubi_pkg (prim_mubi_pkg::) dut.sv:2:1: , endln:9:11, parent:work@top
   |vpiName:prim_mubi_pkg
   |vpiFullName:prim_mubi_pkg::
   |vpiParameter:
-  \_parameter: (prim_mubi_pkg::MuBi4Width), line:3:15, endln:3:25, parent:prim_mubi_pkg::
+  \_parameter: (prim_mubi_pkg::MuBi4Width), line:3:15, endln:3:25
+    |vpiParent:
+    \_package: prim_mubi_pkg (prim_mubi_pkg::), file:dut.sv, line:2:1, endln:9:11
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:3:11, endln:3:14, parent:prim_mubi_pkg::MuBi4Width
-      |vpiInstance:
-      \_package: prim_mubi_pkg (prim_mubi_pkg::) dut.sv:2:1: , endln:9:11, parent:work@top
+    \_int_typespec: , line:3:11, endln:3:14
       |vpiParent:
-      \_parameter: (prim_mubi_pkg::MuBi4Width), line:3:15, endln:3:25, parent:prim_mubi_pkg::
+      \_parameter: (prim_mubi_pkg::MuBi4Width), line:3:15, endln:3:25
+      |vpiInstance:
+      \_package: prim_mubi_pkg (prim_mubi_pkg::), file:dut.sv, line:2:1, endln:9:11
       |vpiSigned:1
-    |vpiParent:
-    \_package: prim_mubi_pkg (prim_mubi_pkg::) dut.sv:2:1: , endln:9:11, parent:work@top
     |vpiSigned:1
     |vpiName:MuBi4Width
     |vpiFullName:prim_mubi_pkg::MuBi4Width
   |vpiParamAssign:
-  \_param_assign: , line:3:15, endln:3:29, parent:prim_mubi_pkg::
+  \_param_assign: , line:3:15, endln:3:29
     |vpiParent:
-    \_package: prim_mubi_pkg (prim_mubi_pkg::) dut.sv:2:1: , endln:9:11, parent:work@top
+    \_package: prim_mubi_pkg (prim_mubi_pkg::), file:dut.sv, line:2:1, endln:9:11
     |vpiRhs:
     \_constant: , line:3:28, endln:3:29
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:3:11, endln:3:14, parent:prim_mubi_pkg::MuBi4Width
+      \_int_typespec: , line:3:11, endln:3:14
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (prim_mubi_pkg::MuBi4Width), line:3:15, endln:3:25, parent:prim_mubi_pkg::
+    \_parameter: (prim_mubi_pkg::MuBi4Width), line:3:15, endln:3:25
   |vpiTypedef:
-  \_enum_typespec: (prim_mubi_pkg::mubi4_t), line:4:1, endln:7:11, parent:prim_mubi_pkg::
+  \_enum_typespec: (prim_mubi_pkg::mubi4_t), line:4:1, endln:7:11
+    |vpiParent:
+    \_package: prim_mubi_pkg (prim_mubi_pkg::), file:dut.sv, line:2:1, endln:9:11
     |vpiName:prim_mubi_pkg::mubi4_t
     |vpiInstance:
-    \_package: prim_mubi_pkg (prim_mubi_pkg::) dut.sv:2:1: , endln:9:11, parent:work@top
-    |vpiParent:
-    \_package: prim_mubi_pkg (prim_mubi_pkg::) dut.sv:2:1: , endln:9:11, parent:work@top
+    \_package: prim_mubi_pkg (prim_mubi_pkg::), file:dut.sv, line:2:1, endln:9:11
     |vpiBaseTypespec:
     \_logic_typespec: , line:4:14, endln:4:19
       |vpiInstance:
-      \_package: prim_mubi_pkg (prim_mubi_pkg::) dut.sv:2:1: , endln:9:11, parent:work@top
+      \_package: prim_mubi_pkg (prim_mubi_pkg::), file:dut.sv, line:2:1, endln:9:11
       |vpiRange:
       \_range: , line:4:21, endln:4:35
         |vpiLeftRange:
         \_constant: , line:4:21, endln:4:31
+          |vpiParent:
+          \_range: , line:4:21, endln:4:35
           |vpiDecompile:3
           |vpiSize:64
           |INT:3
-          |vpiParent:
-          \_range: , line:4:21, endln:4:35
           |vpiConstType:7
         |vpiRightRange:
         \_constant: , line:4:34, endln:4:35
+          |vpiParent:
+          \_range: , line:4:21, endln:4:35
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:4:21, endln:4:35
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (MuBi4True), line:5:3, endln:5:19
@@ -402,40 +404,40 @@ design: (work@top)
       |vpiSize:4
   |vpiDefName:prim_mubi_pkg
   |vpiTop:1
+|uhdmtopPackages:
+\_package: pkg (pkg::), file:dut.sv, line:11:1, endln:17:11
   |vpiParent:
   \_design: (work@top)
-|uhdmtopPackages:
-\_package: pkg (pkg::) dut.sv:11:1: , endln:17:11, parent:work@top
   |vpiName:pkg
   |vpiFullName:pkg::
   |vpiTypedef:
-  \_enum_typespec: (pkg::fsm_state_e), line:13:1, endln:15:15, parent:pkg::
+  \_enum_typespec: (pkg::fsm_state_e), line:13:1, endln:15:15
+    |vpiParent:
+    \_package: pkg (pkg::), file:dut.sv, line:11:1, endln:17:11
     |vpiName:pkg::fsm_state_e
     |vpiInstance:
-    \_package: pkg (pkg::) dut.sv:11:1: , endln:17:11, parent:work@top
-    |vpiParent:
-    \_package: pkg (pkg::) dut.sv:11:1: , endln:17:11, parent:work@top
+    \_package: pkg (pkg::), file:dut.sv, line:11:1, endln:17:11
     |vpiBaseTypespec:
     \_logic_typespec: , line:13:14, endln:13:19
       |vpiInstance:
-      \_package: pkg (pkg::) dut.sv:11:1: , endln:17:11, parent:work@top
+      \_package: pkg (pkg::), file:dut.sv, line:11:1, endln:17:11
       |vpiRange:
       \_range: , line:13:21, endln:13:24
         |vpiLeftRange:
         \_constant: , line:13:21, endln:13:22
+          |vpiParent:
+          \_range: , line:13:21, endln:13:24
           |vpiDecompile:9
           |vpiSize:64
           |UINT:9
-          |vpiParent:
-          \_range: , line:13:21, endln:13:24
           |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:13:23, endln:13:24
+          |vpiParent:
+          \_range: , line:13:21, endln:13:24
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:13:21, endln:13:24
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (ReadingLow), line:14:3, endln:14:55
@@ -444,46 +446,44 @@ design: (work@top)
       |vpiSize:10
   |vpiDefName:pkg
   |vpiTop:1
+|uhdmallModules:
+\_module: work@GOOD (work@GOOD), file:dut.sv, line:19:1, endln:20:10
   |vpiParent:
   \_design: (work@top)
-|uhdmallModules:
-\_module: work@GOOD (work@GOOD) dut.sv:19:1: , endln:20:10, parent:work@top
   |vpiFullName:work@GOOD
   |vpiDefName:work@GOOD
+|uhdmallModules:
+\_module: work@top (work@top), file:dut.sv, line:22:1, endln:28:10
   |vpiParent:
   \_design: (work@top)
-|uhdmallModules:
-\_module: work@top (work@top) dut.sv:22:1: , endln:28:10, parent:work@top
   |vpiFullName:work@top
   |vpiDefName:work@top
-  |vpiParent:
-  \_design: (work@top)
 |uhdmtopModules:
-\_module: work@top (work@top) dut.sv:22:1: , endln:28:10
+\_module: work@top (work@top), file:dut.sv, line:22:1, endln:28:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@top.genblk1), line:24:4, endln:26:7, parent:work@top
+  \_gen_scope_array: (work@top.genblk1), line:24:4, endln:26:7
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:22:1: , endln:28:10
+    \_module: work@top (work@top), file:dut.sv, line:22:1, endln:28:10
     |vpiName:genblk1
     |vpiFullName:work@top.genblk1
     |vpiGenScope:
-    \_gen_scope: (work@top.genblk1), parent:work@top.genblk1
-      |vpiFullName:work@top.genblk1
+    \_gen_scope: (work@top.genblk1)
       |vpiParent:
-      \_gen_scope_array: (work@top.genblk1), line:24:4, endln:26:7, parent:work@top
+      \_gen_scope_array: (work@top.genblk1), line:24:4, endln:26:7
+      |vpiFullName:work@top.genblk1
       |vpiModule:
-      \_module: work@GOOD (work@top.genblk1.good) dut.sv:25:7: , endln:25:19, parent:work@top.genblk1
+      \_module: work@GOOD (work@top.genblk1.good), file:dut.sv, line:25:7, endln:25:19
+        |vpiParent:
+        \_gen_scope: (work@top.genblk1)
         |vpiName:good
         |vpiFullName:work@top.genblk1.good
         |vpiDefName:work@GOOD
         |vpiDefFile:dut.sv
         |vpiDefLineNo:19
-        |vpiParent:
-        \_gen_scope: (work@top.genblk1), parent:work@top.genblk1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -39,42 +39,46 @@ design: (unnamed)
 |vpiElaborated:1
 |vpiName:unnamed
 |uhdmallPackages:
-\_package: pack (pack::) dut.sv:1:1: , endln:14:11, parent:unnamed
+\_package: pack (pack::), file:dut.sv, line:1:1, endln:14:11
+  |vpiParent:
+  \_design: (unnamed)
   |vpiName:pack
   |vpiFullName:pack::
   |vpiDefName:pack
+|uhdmtopPackages:
+\_package: pack (pack::), file:dut.sv, line:1:1, endln:14:11
   |vpiParent:
   \_design: (unnamed)
-|uhdmtopPackages:
-\_package: pack (pack::) dut.sv:1:1: , endln:14:11, parent:unnamed
   |vpiName:pack
   |vpiFullName:pack::
   |vpiDefName:pack
   |vpiTop:1
   |vpiClassDefn:
-  \_class_defn: (pack::uvm_port_base) dut.sv:3:1: , endln:12:9, parent:pack::
+  \_class_defn: (pack::uvm_port_base), file:dut.sv, line:3:1, endln:12:9
+    |vpiParent:
+    \_package: pack (pack::), file:dut.sv, line:1:1, endln:14:11
     |vpiName:uvm_port_base
     |vpiFullName:pack::uvm_port_base
     |vpiParameter:
     \_parameter: (pack::uvm_port_base::p1), line:4:11, endln:4:13
+      |vpiParent:
+      \_param_assign: , line:4:11, endln:4:18
       |UINT:10
       |vpiTypespec:
       \_int_typespec: 
-      |vpiParent:
-      \_param_assign: , line:4:11, endln:4:18, parent:pack::uvm_port_base
       |vpiName:p1
       |vpiFullName:pack::uvm_port_base::p1
     |vpiParameter:
     \_parameter: (pack::uvm_port_base::p2), line:5:12, endln:5:14
       |vpiParent:
-      \_param_assign: , line:5:12, endln:5:23, parent:pack::uvm_port_base
+      \_param_assign: , line:5:12, endln:5:23
       |vpiLocalParam:1
       |vpiName:p2
       |vpiFullName:pack::uvm_port_base::p2
     |vpiParamAssign:
-    \_param_assign: , line:4:11, endln:4:18, parent:pack::uvm_port_base
+    \_param_assign: , line:4:11, endln:4:18
       |vpiParent:
-      \_class_defn: (pack::uvm_port_base) dut.sv:3:1: , endln:12:9, parent:pack::
+      \_class_defn: (pack::uvm_port_base), file:dut.sv, line:3:1, endln:12:9
       |vpiRhs:
       \_constant: , line:4:16, endln:4:18
         |vpiDecompile:10
@@ -86,21 +90,21 @@ design: (unnamed)
       |vpiLhs:
       \_parameter: (pack::uvm_port_base::p1), line:4:11, endln:4:13
     |vpiParamAssign:
-    \_param_assign: , line:5:12, endln:5:23, parent:pack::uvm_port_base
+    \_param_assign: , line:5:12, endln:5:23
       |vpiParent:
-      \_class_defn: (pack::uvm_port_base) dut.sv:3:1: , endln:12:9, parent:pack::
+      \_class_defn: (pack::uvm_port_base), file:dut.sv, line:3:1, endln:12:9
       |vpiRhs:
       \_operation: , line:5:17, endln:5:23
         |vpiParent:
-        \_param_assign: , line:5:12, endln:5:23, parent:pack::uvm_port_base
+        \_param_assign: , line:5:12, endln:5:23
         |vpiOpType:25
         |vpiOperand:
         \_constant: , line:5:17, endln:5:18
+          |vpiParent:
+          \_operation: , line:5:17, endln:5:23
           |vpiDecompile:5
           |vpiSize:64
           |UINT:5
-          |vpiParent:
-          \_operation: , line:5:17, endln:5:23
           |vpiConstType:9
         |vpiOperand:
         \_ref_obj: (pack::uvm_port_base::p1), line:5:21, endln:5:23
@@ -113,13 +117,15 @@ design: (unnamed)
       |vpiLhs:
       \_parameter: (pack::uvm_port_base::p2), line:5:12, endln:5:14
     |vpiInternalScope:
-    \_class_defn: (pack::uvm_port_base::embedded) dut.sv:7:4: , endln:10:12, parent:pack::uvm_port_base
+    \_class_defn: (pack::uvm_port_base::embedded), file:dut.sv, line:7:4, endln:10:12
+      |vpiParent:
+      \_class_defn: (pack::uvm_port_base), file:dut.sv, line:3:1, endln:12:9
       |vpiName:embedded
       |vpiFullName:pack::uvm_port_base::embedded
-      |vpiParent:
-      \_class_defn: (pack::uvm_port_base) dut.sv:3:1: , endln:12:9, parent:pack::
       |vpiMethod:
-      \_function: (pack::uvm_port_base::embedded::new), line:8:6, endln:9:17, parent:pack::uvm_port_base::embedded
+      \_function: (pack::uvm_port_base::embedded::new), line:8:6, endln:9:17
+        |vpiParent:
+        \_class_defn: (pack::uvm_port_base::embedded), file:dut.sv, line:7:4, endln:10:12
         |vpiName:new
         |vpiFullName:pack::uvm_port_base::embedded::new
         |vpiMethod:1
@@ -129,13 +135,13 @@ design: (unnamed)
           \_class_typespec: (embedded)
             |vpiName:embedded
             |vpiClassDefn:
-            \_class_defn: (pack::uvm_port_base::embedded) dut.sv:7:4: , endln:10:12, parent:pack::uvm_port_base
+            \_class_defn: (pack::uvm_port_base::embedded), file:dut.sv, line:7:4, endln:10:12
         |vpiParent:
-        \_class_defn: (pack::uvm_port_base::embedded) dut.sv:7:4: , endln:10:12, parent:pack::uvm_port_base
+        \_class_defn: (pack::uvm_port_base::embedded), file:dut.sv, line:7:4, endln:10:12
         |vpiIODecl:
-        \_io_decl: (bound), line:8:24, endln:8:29, parent:pack::uvm_port_base::embedded::new
+        \_io_decl: (bound), line:8:24, endln:8:29
           |vpiParent:
-          \_function: (pack::uvm_port_base::embedded::new), line:8:6, endln:9:17, parent:pack::uvm_port_base::embedded
+          \_function: (pack::uvm_port_base::embedded::new), line:8:6, endln:9:17
           |vpiDirection:1
           |vpiName:bound
           |vpiExpr:
@@ -147,12 +153,6 @@ design: (unnamed)
           |vpiTypedef:
           \_int_typespec: , line:8:20, endln:8:23
             |vpiSigned:1
-        |vpiParent:
-        \_class_defn: (pack::uvm_port_base::embedded) dut.sv:7:4: , endln:10:12, parent:pack::uvm_port_base
-    |vpiParent:
-    \_package: pack (pack::) dut.sv:1:1: , endln:14:11, parent:unnamed
-  |vpiParent:
-  \_design: (unnamed)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -172,40 +172,42 @@ design: (work@axi)
 |vpiElaborated:1
 |vpiName:work@axi
 |uhdmallModules:
-\_module: work@GOOD (work@GOOD) dut.sv:1:1: , endln:2:10, parent:work@axi
-  |vpiFullName:work@GOOD
-  |vpiDefName:work@GOOD
+\_module: work@GOOD (work@GOOD), file:dut.sv, line:1:1, endln:2:10
   |vpiParent:
   \_design: (work@axi)
+  |vpiFullName:work@GOOD
+  |vpiDefName:work@GOOD
 |uhdmallModules:
-\_module: work@axi (work@axi) dut.sv:4:1: , endln:22:10, parent:work@axi
+\_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:22:10
+  |vpiParent:
+  \_design: (work@axi)
   |vpiFullName:work@axi
   |vpiParameter:
-  \_parameter: (work@axi.N_MASTER), line:6:15, endln:6:23, parent:work@axi
+  \_parameter: (work@axi.N_MASTER), line:6:15, endln:6:23
+    |vpiParent:
+    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:22:10
     |UINT:8
     |vpiTypespec:
     \_int_typespec: 
-    |vpiParent:
-    \_module: work@axi (work@axi) dut.sv:4:1: , endln:22:10, parent:work@axi
     |vpiName:N_MASTER
     |vpiFullName:work@axi.N_MASTER
   |vpiParameter:
-  \_parameter: (work@axi.LOG_MASTER), line:7:15, endln:7:25, parent:work@axi
+  \_parameter: (work@axi.LOG_MASTER), line:7:15, endln:7:25
     |vpiParent:
-    \_module: work@axi (work@axi) dut.sv:4:1: , endln:22:10, parent:work@axi
+    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:22:10
     |vpiName:LOG_MASTER
     |vpiFullName:work@axi.LOG_MASTER
   |vpiParameter:
-  \_parameter: (work@axi.TOTAL_N_MASTER), line:8:16, endln:8:30, parent:work@axi
+  \_parameter: (work@axi.TOTAL_N_MASTER), line:8:16, endln:8:30
     |vpiParent:
-    \_module: work@axi (work@axi) dut.sv:4:1: , endln:22:10, parent:work@axi
+    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:22:10
     |vpiLocalParam:1
     |vpiName:TOTAL_N_MASTER
     |vpiFullName:work@axi.TOTAL_N_MASTER
   |vpiParamAssign:
-  \_param_assign: , line:6:15, endln:6:34, parent:work@axi
+  \_param_assign: , line:6:15, endln:6:34
     |vpiParent:
-    \_module: work@axi (work@axi) dut.sv:4:1: , endln:22:10, parent:work@axi
+    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:22:10
     |vpiRhs:
     \_constant: , line:6:33, endln:6:34
       |vpiDecompile:8
@@ -215,35 +217,35 @@ design: (work@axi)
       \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@axi.N_MASTER), line:6:15, endln:6:23, parent:work@axi
+    \_parameter: (work@axi.N_MASTER), line:6:15, endln:6:23
   |vpiParamAssign:
-  \_param_assign: , line:7:15, endln:7:49, parent:work@axi
+  \_param_assign: , line:7:15, endln:7:49
     |vpiParent:
-    \_module: work@axi (work@axi) dut.sv:4:1: , endln:22:10, parent:work@axi
+    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:22:10
     |vpiRhs:
     \_sys_func_call: ($clog2), line:7:33, endln:7:49
       |vpiArgument:
-      \_ref_obj: (N_MASTER), line:7:40, endln:7:48, parent:$clog2
+      \_ref_obj: (N_MASTER), line:7:40, endln:7:48
         |vpiParent:
         \_sys_func_call: ($clog2), line:7:33, endln:7:49
         |vpiName:N_MASTER
       |vpiName:$clog2
     |vpiLhs:
-    \_parameter: (work@axi.LOG_MASTER), line:7:15, endln:7:25, parent:work@axi
+    \_parameter: (work@axi.LOG_MASTER), line:7:15, endln:7:25
   |vpiParamAssign:
-  \_param_assign: , line:8:16, endln:8:49, parent:work@axi
+  \_param_assign: , line:8:16, endln:8:49
     |vpiParent:
-    \_module: work@axi (work@axi) dut.sv:4:1: , endln:22:10, parent:work@axi
+    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:22:10
     |vpiRhs:
     \_operation: , line:8:36, endln:8:49
       |vpiOpType:43
       |vpiOperand:
       \_constant: , line:8:36, endln:8:37
+        |vpiParent:
+        \_operation: , line:8:36, endln:8:49
         |vpiDecompile:2
         |vpiSize:64
         |UINT:2
-        |vpiParent:
-        \_operation: , line:8:36, endln:8:49
         |vpiConstType:9
       |vpiOperand:
       \_ref_obj: (LOG_MASTER), line:8:39, endln:8:49
@@ -251,41 +253,39 @@ design: (work@axi)
         \_operation: , line:8:36, endln:8:49
         |vpiName:LOG_MASTER
     |vpiLhs:
-    \_parameter: (work@axi.TOTAL_N_MASTER), line:8:16, endln:8:30, parent:work@axi
+    \_parameter: (work@axi.TOTAL_N_MASTER), line:8:16, endln:8:30
   |vpiDefName:work@axi
-  |vpiParent:
-  \_design: (work@axi)
 |uhdmtopModules:
-\_module: work@axi (work@axi) dut.sv:4:1: , endln:22:10
+\_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:22:10
   |vpiName:work@axi
   |vpiParameter:
-  \_parameter: (work@axi.N_MASTER), line:6:15, endln:6:23, parent:work@axi
+  \_parameter: (work@axi.N_MASTER), line:6:15, endln:6:23
+    |vpiParent:
+    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:22:10
     |UINT:8
     |vpiTypespec:
-    \_int_typespec: , parent:work@axi.N_MASTER
+    \_int_typespec: 
       |vpiParent:
-      \_parameter: (work@axi.N_MASTER), line:6:15, endln:6:23, parent:work@axi
-    |vpiParent:
-    \_module: work@axi (work@axi) dut.sv:4:1: , endln:22:10
+      \_parameter: (work@axi.N_MASTER), line:6:15, endln:6:23
     |vpiName:N_MASTER
     |vpiFullName:work@axi.N_MASTER
   |vpiParameter:
-  \_parameter: (work@axi.LOG_MASTER), line:7:15, endln:7:25, parent:work@axi
+  \_parameter: (work@axi.LOG_MASTER), line:7:15, endln:7:25
     |vpiParent:
-    \_module: work@axi (work@axi) dut.sv:4:1: , endln:22:10
+    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:22:10
     |vpiName:LOG_MASTER
     |vpiFullName:work@axi.LOG_MASTER
   |vpiParameter:
-  \_parameter: (work@axi.TOTAL_N_MASTER), line:8:16, endln:8:30, parent:work@axi
+  \_parameter: (work@axi.TOTAL_N_MASTER), line:8:16, endln:8:30
     |vpiParent:
-    \_module: work@axi (work@axi) dut.sv:4:1: , endln:22:10
+    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:22:10
     |vpiLocalParam:1
     |vpiName:TOTAL_N_MASTER
     |vpiFullName:work@axi.TOTAL_N_MASTER
   |vpiParamAssign:
-  \_param_assign: , line:6:15, endln:6:34, parent:work@axi
+  \_param_assign: , line:6:15, endln:6:34
     |vpiParent:
-    \_module: work@axi (work@axi) dut.sv:4:1: , endln:22:10
+    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:22:10
     |vpiRhs:
     \_constant: , line:6:33, endln:6:34
       |vpiDecompile:8
@@ -295,11 +295,11 @@ design: (work@axi)
       \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@axi.N_MASTER), line:6:15, endln:6:23, parent:work@axi
+    \_parameter: (work@axi.N_MASTER), line:6:15, endln:6:23
   |vpiParamAssign:
-  \_param_assign: , line:7:15, endln:7:49, parent:work@axi
+  \_param_assign: , line:7:15, endln:7:49
     |vpiParent:
-    \_module: work@axi (work@axi) dut.sv:4:1: , endln:22:10
+    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:22:10
     |vpiRhs:
     \_constant: , line:7:33, endln:7:49
       |vpiDecompile:3
@@ -307,11 +307,11 @@ design: (work@axi)
       |UINT:3
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@axi.LOG_MASTER), line:7:15, endln:7:25, parent:work@axi
+    \_parameter: (work@axi.LOG_MASTER), line:7:15, endln:7:25
   |vpiParamAssign:
-  \_param_assign: , line:8:16, endln:8:49, parent:work@axi
+  \_param_assign: , line:8:16, endln:8:49
     |vpiParent:
-    \_module: work@axi (work@axi) dut.sv:4:1: , endln:22:10
+    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:22:10
     |vpiRhs:
     \_constant: , line:8:36, endln:8:49
       |vpiDecompile:8
@@ -319,30 +319,30 @@ design: (work@axi)
       |INT:8
       |vpiConstType:7
     |vpiLhs:
-    \_parameter: (work@axi.TOTAL_N_MASTER), line:8:16, endln:8:30, parent:work@axi
+    \_parameter: (work@axi.TOTAL_N_MASTER), line:8:16, endln:8:30
   |vpiDefName:work@axi
   |vpiTop:1
   |vpiTopModule:1
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@axi.ARRAY_INT), line:17:7, endln:19:10, parent:work@axi
+  \_gen_scope_array: (work@axi.ARRAY_INT), line:17:7, endln:19:10
     |vpiParent:
-    \_module: work@axi (work@axi) dut.sv:4:1: , endln:22:10
+    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:22:10
     |vpiName:ARRAY_INT
     |vpiFullName:work@axi.ARRAY_INT
     |vpiGenScope:
-    \_gen_scope: (work@axi.ARRAY_INT), parent:work@axi.ARRAY_INT
-      |vpiFullName:work@axi.ARRAY_INT
+    \_gen_scope: (work@axi.ARRAY_INT)
       |vpiParent:
-      \_gen_scope_array: (work@axi.ARRAY_INT), line:17:7, endln:19:10, parent:work@axi
+      \_gen_scope_array: (work@axi.ARRAY_INT), line:17:7, endln:19:10
+      |vpiFullName:work@axi.ARRAY_INT
       |vpiModule:
-      \_module: work@GOOD (work@axi.ARRAY_INT.good) dut.sv:18:9: , endln:18:21, parent:work@axi.ARRAY_INT
+      \_module: work@GOOD (work@axi.ARRAY_INT.good), file:dut.sv, line:18:9, endln:18:21
+        |vpiParent:
+        \_gen_scope: (work@axi.ARRAY_INT)
         |vpiName:good
         |vpiFullName:work@axi.ARRAY_INT.good
         |vpiDefName:work@GOOD
         |vpiDefFile:dut.sv
         |vpiDefLineNo:1
-        |vpiParent:
-        \_gen_scope: (work@axi.ARRAY_INT), parent:work@axi.ARRAY_INT
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

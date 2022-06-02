@@ -105,44 +105,46 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallPackages:
-\_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
+\_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:6:11
+  |vpiParent:
+  \_design: (work@top)
   |vpiName:my_pkg
   |vpiFullName:my_pkg::
   |vpiTypedef:
-  \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19, parent:my_pkg::
+  \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19
+    |vpiParent:
+    \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:6:11
     |vpiName:my_pkg::variable_type
     |vpiInstance:
-    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
-    |vpiParent:
-    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
+    \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:6:11
     |vpiTypespecMember:
-    \_typespec_member: (first), line:3:20, endln:3:25, parent:my_pkg::variable_type
+    \_typespec_member: (first), line:3:20, endln:3:25
       |vpiParent:
-      \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19, parent:my_pkg::
+      \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19
       |vpiName:first
       |vpiTypespec:
       \_logic_typespec: , line:3:9, endln:3:14
         |vpiInstance:
         \_package: (my_pkg), file:
         |vpiRange:
-        \_range: , line:3:15, endln:3:18, parent:my_pkg::variable_type
+        \_range: , line:3:15, endln:3:18
           |vpiParent:
-          \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19, parent:my_pkg::
+          \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19
           |vpiLeftRange:
           \_constant: , line:3:15, endln:3:16
+            |vpiParent:
+            \_range: , line:3:15, endln:3:18
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
-            |vpiParent:
-            \_range: , line:3:15, endln:3:18, parent:my_pkg::variable_type
             |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:3:17, endln:3:18
+            |vpiParent:
+            \_range: , line:3:15, endln:3:18
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-            |vpiParent:
-            \_range: , line:3:15, endln:3:18, parent:my_pkg::variable_type
             |vpiConstType:9
       |vpiRefFile:dut.sv
       |vpiRefLineNo:3
@@ -150,9 +152,9 @@ design: (work@top)
       |vpiRefEndLineNo:3
       |vpiRefEndColumnNo:19
     |vpiTypespecMember:
-    \_typespec_member: (second), line:4:13, endln:4:19, parent:my_pkg::variable_type
+    \_typespec_member: (second), line:4:13, endln:4:19
       |vpiParent:
-      \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19, parent:my_pkg::
+      \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19
       |vpiName:second
       |vpiTypespec:
       \_int_typespec: , line:4:9, endln:4:12
@@ -165,47 +167,47 @@ design: (work@top)
       |vpiRefEndLineNo:4
       |vpiRefEndColumnNo:12
   |vpiDefName:my_pkg
+|uhdmtopPackages:
+\_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:6:11
   |vpiParent:
   \_design: (work@top)
-|uhdmtopPackages:
-\_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
   |vpiName:my_pkg
   |vpiFullName:my_pkg::
   |vpiTypedef:
-  \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19, parent:work@top
+  \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:11:10
     |vpiName:my_pkg::variable_type
     |vpiInstance:
-    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:11:10, parent:work@top
+    \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:6:11
     |vpiTypespecMember:
-    \_typespec_member: (first), line:3:20, endln:3:25, parent:my_pkg::variable_type
+    \_typespec_member: (first), line:3:20, endln:3:25
       |vpiParent:
-      \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19, parent:work@top
+      \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19
       |vpiName:first
       |vpiTypespec:
       \_logic_typespec: , line:3:9, endln:3:14
         |vpiInstance:
-        \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
+        \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:6:11
         |vpiRange:
-        \_range: , line:3:15, endln:3:18, parent:my_pkg::variable_type
+        \_range: , line:3:15, endln:3:18
           |vpiParent:
-          \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19, parent:work@top
+          \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19
           |vpiLeftRange:
           \_constant: , line:3:15, endln:3:16
+            |vpiParent:
+            \_range: , line:3:15, endln:3:18
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
-            |vpiParent:
-            \_range: , line:3:15, endln:3:18, parent:my_pkg::variable_type
             |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:3:17, endln:3:18
+            |vpiParent:
+            \_range: , line:3:15, endln:3:18
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-            |vpiParent:
-            \_range: , line:3:15, endln:3:18, parent:my_pkg::variable_type
             |vpiConstType:9
       |vpiRefFile:dut.sv
       |vpiRefLineNo:3
@@ -213,14 +215,14 @@ design: (work@top)
       |vpiRefEndLineNo:3
       |vpiRefEndColumnNo:19
     |vpiTypespecMember:
-    \_typespec_member: (second), line:4:13, endln:4:19, parent:my_pkg::variable_type
+    \_typespec_member: (second), line:4:13, endln:4:19
       |vpiParent:
-      \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19, parent:work@top
+      \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19
       |vpiName:second
       |vpiTypespec:
       \_int_typespec: , line:4:9, endln:4:12
         |vpiInstance:
-        \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
+        \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:6:11
         |vpiSigned:1
       |vpiRefFile:dut.sv
       |vpiRefLineNo:4
@@ -229,114 +231,112 @@ design: (work@top)
       |vpiRefEndColumnNo:12
   |vpiDefName:my_pkg
   |vpiTop:1
+|uhdmallModules:
+\_module: work@top (work@top), file:dut.sv, line:7:1, endln:11:10
   |vpiParent:
   \_design: (work@top)
-|uhdmallModules:
-\_module: work@top (work@top) dut.sv:7:1: , endln:11:10, parent:work@top
   |vpiFullName:work@top
   |vpiTypedef:
-  \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19, parent:work@top
+  \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19
   |vpiTypedef:
   \_import_typespec: (my_pkg), line:7:19, endln:7:40
   |vpiDefName:work@top
   |vpiNet:
-  \_logic_net: (work@top.a), line:9:25, endln:9:26, parent:work@top
+  \_logic_net: (work@top.a), line:9:25, endln:9:26
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:11:10
     |vpiName:a
     |vpiFullName:work@top.a
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:11:10, parent:work@top
   |vpiNet:
-  \_logic_net: (work@top.b), line:9:28, endln:9:29, parent:work@top
+  \_logic_net: (work@top.b), line:9:28, endln:9:29
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:11:10
     |vpiName:b
     |vpiFullName:work@top.b
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:11:10, parent:work@top
-  |vpiParent:
-  \_design: (work@top)
   |vpiPort:
-  \_port: (a), line:9:25, endln:9:26, parent:work@top
+  \_port: (a), line:9:25, endln:9:26
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:11:10
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@top.a), line:9:25, endln:9:26, parent:work@top
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:11:10, parent:work@top
+      \_logic_net: (work@top.a), line:9:25, endln:9:26
   |vpiPort:
-  \_port: (b), line:9:28, endln:9:29, parent:work@top
+  \_port: (b), line:9:28, endln:9:29
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:11:10
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@top.b), line:9:28, endln:9:29, parent:work@top
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:11:10, parent:work@top
+      \_logic_net: (work@top.b), line:9:28, endln:9:29
 |uhdmtopModules:
-\_module: work@top (work@top) dut.sv:7:1: , endln:11:10
+\_module: work@top (work@top), file:dut.sv, line:7:1, endln:11:10
   |vpiName:work@top
   |vpiVariables:
-  \_struct_var: (work@top.a), line:9:25, endln:9:26, parent:work@top
+  \_struct_var: (work@top.a), line:9:25, endln:9:26
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:11:10
     |vpiTypespec:
-    \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19, parent:work@top
+    \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiVisibility:1
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:11:10
   |vpiVariables:
-  \_struct_var: (work@top.b), line:9:28, endln:9:29, parent:work@top
+  \_struct_var: (work@top.b), line:9:28, endln:9:29
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:11:10
     |vpiTypespec:
-    \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19, parent:work@top
+    \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiVisibility:1
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:11:10
   |vpiTypedef:
-  \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19, parent:work@top
+  \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19
   |vpiTypedef:
   \_import_typespec: (my_pkg), line:7:19, endln:7:40
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
   |vpiPort:
-  \_port: (a), line:9:25, endln:9:26, parent:work@top
+  \_port: (a), line:9:25, endln:9:26
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:11:10
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@top.a), line:9:25, endln:9:26, parent:a
+    \_ref_obj: (work@top.a), line:9:25, endln:9:26
       |vpiParent:
-      \_port: (a), line:9:25, endln:9:26, parent:work@top
+      \_port: (a), line:9:25, endln:9:26
       |vpiName:a
       |vpiFullName:work@top.a
       |vpiActual:
-      \_struct_var: (work@top.a), line:9:25, endln:9:26, parent:work@top
+      \_struct_var: (work@top.a), line:9:25, endln:9:26
     |vpiTypedef:
-    \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19, parent:work@top
+    \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:11:10
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:11:10
+    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:11:10
   |vpiPort:
-  \_port: (b), line:9:28, endln:9:29, parent:work@top
+  \_port: (b), line:9:28, endln:9:29
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:11:10
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@top.b), line:9:28, endln:9:29, parent:b
+    \_ref_obj: (work@top.b), line:9:28, endln:9:29
       |vpiParent:
-      \_port: (b), line:9:28, endln:9:29, parent:work@top
+      \_port: (b), line:9:28, endln:9:29
       |vpiName:b
       |vpiFullName:work@top.b
       |vpiActual:
-      \_struct_var: (work@top.b), line:9:28, endln:9:29, parent:work@top
+      \_struct_var: (work@top.b), line:9:28, endln:9:29
     |vpiTypedef:
-    \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19, parent:work@top
+    \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:11:10
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:11:10
+    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:11:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

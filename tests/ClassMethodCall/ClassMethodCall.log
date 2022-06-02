@@ -51,24 +51,30 @@ design: (work@door_mod)
 |vpiElaborated:1
 |vpiName:work@door_mod
 |uhdmallPackages:
-\_package: pack (pack::) dut.sv:2:1: , endln:40:11, parent:work@door_mod
+\_package: pack (pack::), file:dut.sv, line:2:1, endln:40:11
+  |vpiParent:
+  \_design: (work@door_mod)
   |vpiName:pack
   |vpiFullName:pack::
   |vpiDefName:pack
+|uhdmtopPackages:
+\_package: pack (pack::), file:dut.sv, line:2:1, endln:40:11
   |vpiParent:
   \_design: (work@door_mod)
-|uhdmtopPackages:
-\_package: pack (pack::) dut.sv:2:1: , endln:40:11, parent:work@door_mod
   |vpiName:pack
   |vpiFullName:pack::
   |vpiDefName:pack
   |vpiTop:1
   |vpiClassDefn:
-  \_class_defn: (pack::door) dut.sv:4:9: , endln:18:9, parent:pack::
+  \_class_defn: (pack::door), file:dut.sv, line:4:9, endln:18:9
+    |vpiParent:
+    \_package: pack (pack::), file:dut.sv, line:2:1, endln:40:11
     |vpiName:door
     |vpiFullName:pack::door
     |vpiVariables:
-    \_int_var: (pack::door::state), line:6:9, endln:6:14, parent:pack::door
+    \_int_var: (pack::door::state), line:6:9, endln:6:14
+      |vpiParent:
+      \_class_defn: (pack::door), file:dut.sv, line:4:9, endln:18:9
       |vpiTypespec:
       \_int_typespec: , line:6:5, endln:6:8
         |vpiSigned:1
@@ -76,10 +82,10 @@ design: (work@door_mod)
       |vpiFullName:pack::door::state
       |vpiAutomatic:1
       |vpiVisibility:1
-      |vpiParent:
-      \_class_defn: (pack::door) dut.sv:4:9: , endln:18:9, parent:pack::
     |vpiVariables:
-    \_int_var: (pack::door::timer), line:7:9, endln:7:14, parent:pack::door
+    \_int_var: (pack::door::timer), line:7:9, endln:7:14
+      |vpiParent:
+      \_class_defn: (pack::door), file:dut.sv, line:4:9, endln:18:9
       |vpiTypespec:
       \_int_typespec: , line:7:5, endln:7:8
         |vpiSigned:1
@@ -87,40 +93,40 @@ design: (work@door_mod)
       |vpiFullName:pack::door::timer
       |vpiAutomatic:1
       |vpiVisibility:1
-      |vpiParent:
-      \_class_defn: (pack::door) dut.sv:4:9: , endln:18:9, parent:pack::
     |vpiVariables:
-    \_logic_var: (pack::door::open), line:8:11, endln:8:15, parent:pack::door
+    \_logic_var: (pack::door::open), line:8:11, endln:8:15
+      |vpiParent:
+      \_class_defn: (pack::door), file:dut.sv, line:4:9, endln:18:9
       |vpiTypespec:
       \_logic_typespec: , line:8:5, endln:8:10
       |vpiName:open
       |vpiFullName:pack::door::open
       |vpiAutomatic:1
       |vpiVisibility:1
-      |vpiParent:
-      \_class_defn: (pack::door) dut.sv:4:9: , endln:18:9, parent:pack::
     |vpiVariables:
-    \_logic_var: (pack::door::lock), line:8:16, endln:8:20, parent:pack::door
+    \_logic_var: (pack::door::lock), line:8:16, endln:8:20
+      |vpiParent:
+      \_class_defn: (pack::door), file:dut.sv, line:4:9, endln:18:9
       |vpiTypespec:
       \_logic_typespec: , line:8:5, endln:8:10
       |vpiName:lock
       |vpiFullName:pack::door::lock
       |vpiAutomatic:1
       |vpiVisibility:1
-      |vpiParent:
-      \_class_defn: (pack::door) dut.sv:4:9: , endln:18:9, parent:pack::
     |vpiVariables:
-    \_logic_var: (pack::door::clock), line:8:21, endln:8:26, parent:pack::door
+    \_logic_var: (pack::door::clock), line:8:21, endln:8:26
+      |vpiParent:
+      \_class_defn: (pack::door), file:dut.sv, line:4:9, endln:18:9
       |vpiTypespec:
       \_logic_typespec: , line:8:5, endln:8:10
       |vpiName:clock
       |vpiFullName:pack::door::clock
       |vpiAutomatic:1
       |vpiVisibility:1
-      |vpiParent:
-      \_class_defn: (pack::door) dut.sv:4:9: , endln:18:9, parent:pack::
     |vpiParameter:
     \_parameter: (pack::door::OPENED), line:9:15, endln:9:21
+      |vpiParent:
+      \_param_assign: , line:9:15, endln:9:32
       |BIN:00
       |vpiTypespec:
       \_int_typespec: 
@@ -132,12 +138,12 @@ design: (work@door_mod)
           |vpiRightRange:
           \_constant: 
             |INT:0
-      |vpiParent:
-      \_param_assign: , line:9:15, endln:9:32, parent:pack::door
       |vpiName:OPENED
       |vpiFullName:pack::door::OPENED
     |vpiParameter:
     \_parameter: (pack::door::CLOSED), line:10:8, endln:10:14
+      |vpiParent:
+      \_param_assign: , line:10:8, endln:10:25
       |BIN:01
       |vpiTypespec:
       \_int_typespec: 
@@ -149,12 +155,12 @@ design: (work@door_mod)
           |vpiRightRange:
           \_constant: 
             |INT:0
-      |vpiParent:
-      \_param_assign: , line:10:8, endln:10:25, parent:pack::door
       |vpiName:CLOSED
       |vpiFullName:pack::door::CLOSED
     |vpiParameter:
     \_parameter: (pack::door::LOCKED), line:11:8, endln:11:14
+      |vpiParent:
+      \_param_assign: , line:11:8, endln:11:25
       |BIN:10
       |vpiTypespec:
       \_int_typespec: 
@@ -166,14 +172,12 @@ design: (work@door_mod)
           |vpiRightRange:
           \_constant: 
             |INT:0
-      |vpiParent:
-      \_param_assign: , line:11:8, endln:11:25, parent:pack::door
       |vpiName:LOCKED
       |vpiFullName:pack::door::LOCKED
     |vpiParamAssign:
-    \_param_assign: , line:9:15, endln:9:32, parent:pack::door
+    \_param_assign: , line:9:15, endln:9:32
       |vpiParent:
-      \_class_defn: (pack::door) dut.sv:4:9: , endln:18:9, parent:pack::
+      \_class_defn: (pack::door), file:dut.sv, line:4:9, endln:18:9
       |vpiRhs:
       \_constant: , line:9:27, endln:9:32
         |vpiDecompile:2'b00
@@ -185,9 +189,9 @@ design: (work@door_mod)
       |vpiLhs:
       \_parameter: (pack::door::OPENED), line:9:15, endln:9:21
     |vpiParamAssign:
-    \_param_assign: , line:10:8, endln:10:25, parent:pack::door
+    \_param_assign: , line:10:8, endln:10:25
       |vpiParent:
-      \_class_defn: (pack::door) dut.sv:4:9: , endln:18:9, parent:pack::
+      \_class_defn: (pack::door), file:dut.sv, line:4:9, endln:18:9
       |vpiRhs:
       \_constant: , line:10:20, endln:10:25
         |vpiDecompile:2'b01
@@ -199,9 +203,9 @@ design: (work@door_mod)
       |vpiLhs:
       \_parameter: (pack::door::CLOSED), line:10:8, endln:10:14
     |vpiParamAssign:
-    \_param_assign: , line:11:8, endln:11:25, parent:pack::door
+    \_param_assign: , line:11:8, endln:11:25
       |vpiParent:
-      \_class_defn: (pack::door) dut.sv:4:9: , endln:18:9, parent:pack::
+      \_class_defn: (pack::door), file:dut.sv, line:4:9, endln:18:9
       |vpiRhs:
       \_constant: , line:11:20, endln:11:25
         |vpiDecompile:2'b10
@@ -212,11 +216,11 @@ design: (work@door_mod)
         |vpiConstType:3
       |vpiLhs:
       \_parameter: (pack::door::LOCKED), line:11:8, endln:11:14
-    |vpiParent:
-    \_package: pack (pack::) dut.sv:2:1: , endln:40:11, parent:work@door_mod
     |vpiVirtual:1
     |vpiMethod:
-    \_task: (pack::door::door_fsm), line:12:3, endln:12:31, parent:pack::door
+    \_task: (pack::door::door_fsm), line:12:3, endln:12:31
+      |vpiParent:
+      \_class_defn: (pack::door), file:dut.sv, line:4:9, endln:18:9
       |vpiName:door_fsm
       |vpiFullName:pack::door::door_fsm
       |vpiMethod:1
@@ -224,11 +228,11 @@ design: (work@door_mod)
       |vpiVirtual:1
       |vpiDPIPure:1
       |vpiParent:
-      \_class_defn: (pack::door) dut.sv:4:9: , endln:18:9, parent:pack::
-      |vpiParent:
-      \_class_defn: (pack::door) dut.sv:4:9: , endln:18:9, parent:pack::
+      \_class_defn: (pack::door), file:dut.sv, line:4:9, endln:18:9
     |vpiMethod:
-    \_function: (pack::door::f1), line:14:3, endln:16:14, parent:pack::door
+    \_function: (pack::door::f1), line:14:3, endln:16:14
+      |vpiParent:
+      \_class_defn: (pack::door), file:dut.sv, line:4:9, endln:18:9
       |vpiName:f1
       |vpiFullName:pack::door::f1
       |vpiMethod:1
@@ -236,35 +240,35 @@ design: (work@door_mod)
       |vpiReturn:
       \_logic_var: 
       |vpiParent:
-      \_class_defn: (pack::door) dut.sv:4:9: , endln:18:9, parent:pack::
+      \_class_defn: (pack::door), file:dut.sv, line:4:9, endln:18:9
       |vpiStmt:
-      \_func_call: (f2), line:15:5, endln:15:9, parent:pack::door::f1
-        |vpiName:f2
+      \_func_call: (f2), line:15:5, endln:15:9
         |vpiParent:
-        \_function: (pack::door::f1), line:14:3, endln:16:14, parent:pack::door
+        \_function: (pack::door::f1), line:14:3, endln:16:14
+        |vpiName:f2
         |vpiFunction:
-        \_function: (pack::doorOpen::f2), line:25:5, endln:27:16, parent:pack::doorOpen
-      |vpiParent:
-      \_class_defn: (pack::door) dut.sv:4:9: , endln:18:9, parent:pack::
+        \_function: (pack::doorOpen::f2), line:25:5, endln:27:16
     |vpiDerivedClasses:
-    \_class_defn: (pack::doorOpen) dut.sv:21:1: , endln:38:9, parent:pack::
+    \_class_defn: (pack::doorOpen), file:dut.sv, line:21:1, endln:38:9
+      |vpiParent:
+      \_package: pack (pack::), file:dut.sv, line:2:1, endln:40:11
       |vpiName:doorOpen
       |vpiFullName:pack::doorOpen
-      |vpiParent:
-      \_package: pack (pack::) dut.sv:2:1: , endln:40:11, parent:work@door_mod
       |vpiExtends:
-      \_extends: , line:21:24, endln:21:28, parent:pack::doorOpen
+      \_extends: , line:21:24, endln:21:28
         |vpiParent:
-        \_class_defn: (pack::doorOpen) dut.sv:21:1: , endln:38:9, parent:pack::
+        \_class_defn: (pack::doorOpen), file:dut.sv, line:21:1, endln:38:9
         |vpiClassTypespec:
         \_class_typespec: (door), line:21:24, endln:21:28
-          |vpiName:door
           |vpiParent:
-          \_extends: , line:21:24, endln:21:28, parent:pack::doorOpen
+          \_extends: , line:21:24, endln:21:28
+          |vpiName:door
           |vpiClassDefn:
-          \_class_defn: (pack::door) dut.sv:4:9: , endln:18:9, parent:pack::
+          \_class_defn: (pack::door), file:dut.sv, line:4:9, endln:18:9
       |vpiMethod:
-      \_function: (pack::doorOpen::new), line:23:5, endln:23:11, parent:pack::doorOpen
+      \_function: (pack::doorOpen::new), line:23:5, endln:23:11
+        |vpiParent:
+        \_class_defn: (pack::doorOpen), file:dut.sv, line:21:1, endln:38:9
         |vpiName:new
         |vpiFullName:pack::doorOpen::new
         |vpiMethod:1
@@ -276,22 +280,22 @@ design: (work@door_mod)
           \_class_typespec: (pack::doorOpen)
             |vpiName:pack::doorOpen
             |vpiClassDefn:
-            \_class_defn: (pack::doorOpen) dut.sv:21:1: , endln:38:9, parent:pack::
+            \_class_defn: (pack::doorOpen), file:dut.sv, line:21:1, endln:38:9
         |vpiParent:
-        \_class_defn: (pack::doorOpen) dut.sv:21:1: , endln:38:9, parent:pack::
+        \_class_defn: (pack::doorOpen), file:dut.sv, line:21:1, endln:38:9
         |vpiIODecl:
-        \_io_decl: (a), line:23:30, endln:23:31, parent:pack::doorOpen::new
+        \_io_decl: (a), line:23:30, endln:23:31
           |vpiParent:
-          \_function: (pack::doorOpen::new), line:23:5, endln:23:11, parent:pack::doorOpen
+          \_function: (pack::doorOpen::new), line:23:5, endln:23:11
           |vpiDirection:1
           |vpiName:a
           |vpiTypedef:
           \_int_typespec: , line:23:26, endln:23:29
             |vpiSigned:1
-        |vpiParent:
-        \_class_defn: (pack::doorOpen) dut.sv:21:1: , endln:38:9, parent:pack::
       |vpiMethod:
-      \_function: (pack::doorOpen::f2), line:25:5, endln:27:16, parent:pack::doorOpen
+      \_function: (pack::doorOpen::f2), line:25:5, endln:27:16
+        |vpiParent:
+        \_class_defn: (pack::doorOpen), file:dut.sv, line:21:1, endln:38:9
         |vpiName:f2
         |vpiFullName:pack::doorOpen::f2
         |vpiMethod:1
@@ -299,18 +303,18 @@ design: (work@door_mod)
         |vpiReturn:
         \_logic_var: 
         |vpiParent:
-        \_class_defn: (pack::doorOpen) dut.sv:21:1: , endln:38:9, parent:pack::
+        \_class_defn: (pack::doorOpen), file:dut.sv, line:21:1, endln:38:9
         |vpiStmt:
-        \_func_call: (f1), line:26:7, endln:26:11, parent:pack::doorOpen::f2
-          |vpiName:f1
+        \_func_call: (f1), line:26:7, endln:26:11
           |vpiParent:
-          \_function: (pack::doorOpen::f2), line:25:5, endln:27:16, parent:pack::doorOpen
+          \_function: (pack::doorOpen::f2), line:25:5, endln:27:16
+          |vpiName:f1
           |vpiFunction:
-          \_function: (pack::door::f1), line:14:3, endln:16:14, parent:pack::door
-        |vpiParent:
-        \_class_defn: (pack::doorOpen) dut.sv:21:1: , endln:38:9, parent:pack::
+          \_function: (pack::door::f1), line:14:3, endln:16:14
       |vpiMethod:
-      \_function: (pack::doorOpen::new), line:29:5, endln:32:16, parent:pack::doorOpen
+      \_function: (pack::doorOpen::new), line:29:5, endln:32:16
+        |vpiParent:
+        \_class_defn: (pack::doorOpen), file:dut.sv, line:21:1, endln:38:9
         |vpiName:new
         |vpiFullName:pack::doorOpen::new
         |vpiMethod:1
@@ -319,72 +323,72 @@ design: (work@door_mod)
           |vpiTypespec:
           \_class_typespec: 
             |vpiClassDefn:
-            \_class_defn: (pack::doorOpen) dut.sv:21:1: , endln:38:9, parent:pack::
+            \_class_defn: (pack::doorOpen), file:dut.sv, line:21:1, endln:38:9
         |vpiParent:
-        \_class_defn: (pack::doorOpen) dut.sv:21:1: , endln:38:9, parent:pack::
+        \_class_defn: (pack::doorOpen), file:dut.sv, line:21:1, endln:38:9
         |vpiIODecl:
-        \_io_decl: (b), line:29:23, endln:29:24, parent:pack::doorOpen::new
+        \_io_decl: (b), line:29:23, endln:29:24
           |vpiParent:
-          \_function: (pack::doorOpen::new), line:29:5, endln:32:16, parent:pack::doorOpen
+          \_function: (pack::doorOpen::new), line:29:5, endln:32:16
           |vpiDirection:1
           |vpiName:b
           |vpiTypedef:
           \_int_typespec: , line:29:19, endln:29:22
             |vpiSigned:1
         |vpiStmt:
-        \_begin: (pack::doorOpen::new), parent:pack::doorOpen::new
-          |vpiFullName:pack::doorOpen::new
+        \_begin: (pack::doorOpen::new)
           |vpiParent:
-          \_function: (pack::doorOpen::new), line:29:5, endln:32:16, parent:pack::doorOpen
+          \_function: (pack::doorOpen::new), line:29:5, endln:32:16
+          |vpiFullName:pack::doorOpen::new
           |vpiStmt:
-          \_func_call: (f1), line:30:5, endln:30:9, parent:pack::doorOpen::new
+          \_func_call: (f1), line:30:5, endln:30:9
+            |vpiParent:
+            \_begin: (pack::doorOpen::new)
             |vpiName:f1
-            |vpiParent:
-            \_begin: (pack::doorOpen::new), parent:pack::doorOpen::new
             |vpiFunction:
-            \_function: (pack::door::f1), line:14:3, endln:16:14, parent:pack::door
+            \_function: (pack::door::f1), line:14:3, endln:16:14
           |vpiStmt:
-          \_func_call: (f2), line:31:5, endln:31:9, parent:pack::doorOpen::new
-            |vpiName:f2
+          \_func_call: (f2), line:31:5, endln:31:9
             |vpiParent:
-            \_begin: (pack::doorOpen::new), parent:pack::doorOpen::new
+            \_begin: (pack::doorOpen::new)
+            |vpiName:f2
             |vpiFunction:
-            \_function: (pack::doorOpen::f2), line:25:5, endln:27:16, parent:pack::doorOpen
-        |vpiParent:
-        \_class_defn: (pack::doorOpen) dut.sv:21:1: , endln:38:9, parent:pack::
+            \_function: (pack::doorOpen::f2), line:25:5, endln:27:16
       |vpiMethod:
-      \_task: (pack::doorOpen::door_fsm), line:34:5, endln:36:12, parent:pack::doorOpen
+      \_task: (pack::doorOpen::door_fsm), line:34:5, endln:36:12
+        |vpiParent:
+        \_class_defn: (pack::doorOpen), file:dut.sv, line:21:1, endln:38:9
         |vpiName:door_fsm
         |vpiFullName:pack::doorOpen::door_fsm
         |vpiMethod:1
         |vpiVisibility:1
         |vpiVirtual:1
         |vpiParent:
-        \_class_defn: (pack::doorOpen) dut.sv:21:1: , endln:38:9, parent:pack::
+        \_class_defn: (pack::doorOpen), file:dut.sv, line:21:1, endln:38:9
         |vpiStmt:
-        \_if_stmt: , line:35:9, endln:35:35, parent:pack::doorOpen::door_fsm
+        \_if_stmt: , line:35:9, endln:35:35
           |vpiParent:
-          \_task: (pack::doorOpen::door_fsm), line:34:5, endln:36:12, parent:pack::doorOpen
+          \_task: (pack::doorOpen::door_fsm), line:34:5, endln:36:12
           |vpiCondition:
           \_ref_obj: (pack::doorOpen::door_fsm::open), line:35:13, endln:35:17
             |vpiParent:
-            \_if_stmt: , line:35:9, endln:35:35, parent:pack::doorOpen::door_fsm
+            \_if_stmt: , line:35:9, endln:35:35
             |vpiName:open
             |vpiFullName:pack::doorOpen::door_fsm::open
             |vpiActual:
-            \_logic_var: (pack::door::open), line:8:11, endln:8:15, parent:pack::door
+            \_logic_var: (pack::door::open), line:8:11, endln:8:15
+              |vpiParent:
+              \_class_defn: (pack::door), file:dut.sv, line:4:9, endln:18:9
               |vpiTypespec:
               \_logic_typespec: , line:8:5, endln:8:10
               |vpiName:open
               |vpiFullName:pack::door::open
               |vpiAutomatic:1
               |vpiVisibility:1
-              |vpiParent:
-              \_class_defn: (pack::door) dut.sv:4:9: , endln:18:9, parent:pack::
           |vpiStmt:
           \_assignment: , line:35:20, endln:35:34
             |vpiParent:
-            \_if_stmt: , line:35:9, endln:35:35, parent:pack::doorOpen::door_fsm
+            \_if_stmt: , line:35:9, endln:35:35
             |vpiOpType:82
             |vpiBlocking:1
             |vpiRhs:
@@ -402,151 +406,147 @@ design: (work@door_mod)
               |vpiName:state
               |vpiFullName:pack::doorOpen::door_fsm::state
               |vpiActual:
-              \_int_var: (pack::door::state), line:6:9, endln:6:14, parent:pack::door
+              \_int_var: (pack::door::state), line:6:9, endln:6:14
+                |vpiParent:
+                \_class_defn: (pack::door), file:dut.sv, line:4:9, endln:18:9
                 |vpiTypespec:
                 \_int_typespec: , line:6:5, endln:6:8
                 |vpiName:state
                 |vpiFullName:pack::door::state
                 |vpiAutomatic:1
                 |vpiVisibility:1
-                |vpiParent:
-                \_class_defn: (pack::door) dut.sv:4:9: , endln:18:9, parent:pack::
-        |vpiParent:
-        \_class_defn: (pack::doorOpen) dut.sv:21:1: , endln:38:9, parent:pack::
   |vpiClassDefn:
-  \_class_defn: (pack::doorOpen) dut.sv:21:1: , endln:38:9, parent:pack::
+  \_class_defn: (pack::doorOpen), file:dut.sv, line:21:1, endln:38:9
+|uhdmallModules:
+\_module: work@door_mod (work@door_mod), file:dut.sv, line:43:1, endln:51:10
   |vpiParent:
   \_design: (work@door_mod)
-|uhdmallModules:
-\_module: work@door_mod (work@door_mod) dut.sv:43:1: , endln:51:10, parent:work@door_mod
   |vpiFullName:work@door_mod
   |vpiDefName:work@door_mod
   |vpiNet:
-  \_logic_net: (work@door_mod.open), line:45:20, endln:45:24, parent:work@door_mod
+  \_logic_net: (work@door_mod.open), line:45:20, endln:45:24
+    |vpiParent:
+    \_module: work@door_mod (work@door_mod), file:dut.sv, line:43:1, endln:51:10
     |vpiName:open
     |vpiFullName:work@door_mod.open
-    |vpiParent:
-    \_module: work@door_mod (work@door_mod) dut.sv:43:1: , endln:51:10, parent:work@door_mod
-  |vpiParent:
-  \_design: (work@door_mod)
   |vpiProcess:
-  \_initial: , line:46:5, endln:50:8, parent:work@door_mod
+  \_initial: , line:46:5, endln:50:8
+    |vpiParent:
+    \_module: work@door_mod (work@door_mod), file:dut.sv, line:43:1, endln:51:10
     |vpiStmt:
     \_begin: (work@door_mod), line:46:13, endln:50:8
+      |vpiParent:
+      \_initial: , line:46:5, endln:50:8
       |vpiFullName:work@door_mod
-      |vpiParent:
-      \_initial: , line:46:5, endln:50:8, parent:work@door_mod
       |vpiStmt:
-      \_assignment: , line:47:9, endln:47:21, parent:work@door_mod
-        |vpiParent:
-        \_begin: (work@door_mod), line:46:13, endln:50:8
-        |vpiOpType:82
-        |vpiBlocking:1
-        |vpiRhs:
-        \_method_func_call: (new), parent:work@door_mod
-          |vpiName:new
-          |vpiParent:
-          \_begin: (work@door_mod), line:46:13, endln:50:8
-        |vpiLhs:
-        \_ref_obj: (open), line:47:9, endln:47:13
-          |vpiParent:
-          \_assignment: , line:47:9, endln:47:21, parent:work@door_mod
-          |vpiName:open
-      |vpiStmt:
-      \_method_func_call: (door_fsm), line:48:14, endln:48:22, parent:work@door_mod
-        |vpiName:door_fsm
-        |vpiParent:
-        \_begin: (work@door_mod), line:46:13, endln:50:8
-        |vpiPrefix:
-        \_ref_obj: (open), line:48:9, endln:48:13
-          |vpiName:open
-      |vpiStmt:
-      \_method_func_call: (f1), line:49:14, endln:49:16, parent:work@door_mod
-        |vpiName:f1
-        |vpiParent:
-        \_begin: (work@door_mod), line:46:13, endln:50:8
-        |vpiPrefix:
-        \_ref_obj: (open), line:49:9, endln:49:13
-          |vpiName:open
-    |vpiParent:
-    \_module: work@door_mod (work@door_mod) dut.sv:43:1: , endln:51:10, parent:work@door_mod
-|uhdmtopModules:
-\_module: work@door_mod (work@door_mod) dut.sv:43:1: , endln:51:10
-  |vpiName:work@door_mod
-  |vpiVariables:
-  \_class_var: (work@door_mod.open), line:45:20, endln:45:24, parent:work@door_mod
-    |vpiTypespec:
-    \_class_typespec: (pack::doorOpen), line:45:5, endln:45:11, parent:work@door_mod.open
-      |vpiName:pack::doorOpen
-      |vpiParent:
-      \_class_var: (work@door_mod.open), line:45:20, endln:45:24, parent:work@door_mod
-      |vpiClassDefn:
-      \_class_defn: (pack::doorOpen) dut.sv:21:1: , endln:38:9, parent:pack::
-    |vpiName:open
-    |vpiFullName:work@door_mod.open
-    |vpiVisibility:1
-    |vpiParent:
-    \_module: work@door_mod (work@door_mod) dut.sv:43:1: , endln:51:10
-  |vpiDefName:work@door_mod
-  |vpiTop:1
-  |vpiTopModule:1
-  |vpiProcess:
-  \_initial: , line:46:5, endln:50:8, parent:work@door_mod
-    |vpiStmt:
-    \_begin: (work@door_mod), line:46:13, endln:50:8
-      |vpiFullName:work@door_mod
-      |vpiParent:
-      \_initial: , line:46:5, endln:50:8, parent:work@door_mod
-      |vpiStmt:
-      \_assignment: , line:47:9, endln:47:21, parent:work@door_mod
+      \_assignment: , line:47:9, endln:47:21
         |vpiParent:
         \_begin: (work@door_mod), line:46:13, endln:50:8
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_method_func_call: (new)
-          |vpiName:new
           |vpiParent:
-          \_assignment: , line:47:9, endln:47:21, parent:work@door_mod
+          \_begin: (work@door_mod), line:46:13, endln:50:8
+          |vpiName:new
         |vpiLhs:
         \_ref_obj: (open), line:47:9, endln:47:13
           |vpiParent:
-          \_assignment: , line:47:9, endln:47:21, parent:work@door_mod
+          \_assignment: , line:47:9, endln:47:21
           |vpiName:open
-          |vpiActual:
-          \_class_var: (work@door_mod.open), line:45:20, endln:45:24, parent:work@door_mod
       |vpiStmt:
-      \_method_task_call: (door_fsm), line:48:14, endln:48:22, parent:work@door_mod
+      \_method_func_call: (door_fsm), line:48:14, endln:48:22
+        |vpiParent:
+        \_begin: (work@door_mod), line:46:13, endln:50:8
         |vpiName:door_fsm
-        |vpiParent:
-        \_begin: (work@door_mod), line:46:13, endln:50:8
         |vpiPrefix:
-        \_ref_obj: (work@door_mod.open), line:48:9, endln:48:13, parent:door_fsm
-          |vpiParent:
-          \_method_task_call: (door_fsm), line:48:14, endln:48:22, parent:work@door_mod
+        \_ref_obj: (open), line:48:9, endln:48:13
           |vpiName:open
-          |vpiFullName:work@door_mod.open
-          |vpiActual:
-          \_class_var: (work@door_mod.open), line:45:20, endln:45:24, parent:work@door_mod
-        |vpiTask:
-        \_task: (pack::doorOpen::door_fsm), line:34:5, endln:36:12, parent:pack::doorOpen
       |vpiStmt:
-      \_method_func_call: (f1), line:49:14, endln:49:16, parent:work@door_mod
-        |vpiName:f1
+      \_method_func_call: (f1), line:49:14, endln:49:16
         |vpiParent:
         \_begin: (work@door_mod), line:46:13, endln:50:8
+        |vpiName:f1
         |vpiPrefix:
-        \_ref_obj: (work@door_mod.open), line:49:9, endln:49:13, parent:f1
+        \_ref_obj: (open), line:49:9, endln:49:13
+          |vpiName:open
+|uhdmtopModules:
+\_module: work@door_mod (work@door_mod), file:dut.sv, line:43:1, endln:51:10
+  |vpiName:work@door_mod
+  |vpiVariables:
+  \_class_var: (work@door_mod.open), line:45:20, endln:45:24
+    |vpiParent:
+    \_module: work@door_mod (work@door_mod), file:dut.sv, line:43:1, endln:51:10
+    |vpiTypespec:
+    \_class_typespec: (pack::doorOpen), line:45:5, endln:45:11
+      |vpiParent:
+      \_class_var: (work@door_mod.open), line:45:20, endln:45:24
+      |vpiName:pack::doorOpen
+      |vpiClassDefn:
+      \_class_defn: (pack::doorOpen), file:dut.sv, line:21:1, endln:38:9
+    |vpiName:open
+    |vpiFullName:work@door_mod.open
+    |vpiVisibility:1
+  |vpiDefName:work@door_mod
+  |vpiTop:1
+  |vpiTopModule:1
+  |vpiProcess:
+  \_initial: , line:46:5, endln:50:8
+    |vpiParent:
+    \_module: work@door_mod (work@door_mod), file:dut.sv, line:43:1, endln:51:10
+    |vpiStmt:
+    \_begin: (work@door_mod), line:46:13, endln:50:8
+      |vpiParent:
+      \_initial: , line:46:5, endln:50:8
+      |vpiFullName:work@door_mod
+      |vpiStmt:
+      \_assignment: , line:47:9, endln:47:21
+        |vpiParent:
+        \_begin: (work@door_mod), line:46:13, endln:50:8
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_method_func_call: (new)
           |vpiParent:
-          \_method_func_call: (f1), line:49:14, endln:49:16, parent:work@door_mod
+          \_assignment: , line:47:9, endln:47:21
+          |vpiName:new
+        |vpiLhs:
+        \_ref_obj: (open), line:47:9, endln:47:13
+          |vpiParent:
+          \_assignment: , line:47:9, endln:47:21
+          |vpiName:open
+          |vpiActual:
+          \_class_var: (work@door_mod.open), line:45:20, endln:45:24
+      |vpiStmt:
+      \_method_task_call: (door_fsm), line:48:14, endln:48:22
+        |vpiParent:
+        \_begin: (work@door_mod), line:46:13, endln:50:8
+        |vpiName:door_fsm
+        |vpiPrefix:
+        \_ref_obj: (work@door_mod.open), line:48:9, endln:48:13
+          |vpiParent:
+          \_method_task_call: (door_fsm), line:48:14, endln:48:22
           |vpiName:open
           |vpiFullName:work@door_mod.open
           |vpiActual:
-          \_class_var: (work@door_mod.open), line:45:20, endln:45:24, parent:work@door_mod
+          \_class_var: (work@door_mod.open), line:45:20, endln:45:24
+        |vpiTask:
+        \_task: (pack::doorOpen::door_fsm), line:34:5, endln:36:12
+      |vpiStmt:
+      \_method_func_call: (f1), line:49:14, endln:49:16
+        |vpiParent:
+        \_begin: (work@door_mod), line:46:13, endln:50:8
+        |vpiName:f1
+        |vpiPrefix:
+        \_ref_obj: (work@door_mod.open), line:49:9, endln:49:13
+          |vpiParent:
+          \_method_func_call: (f1), line:49:14, endln:49:16
+          |vpiName:open
+          |vpiFullName:work@door_mod.open
+          |vpiActual:
+          \_class_var: (work@door_mod.open), line:45:20, endln:45:24
         |vpiFunction:
-        \_function: (pack::door::f1), line:14:3, endln:16:14, parent:pack::door
-    |vpiParent:
-    \_module: work@door_mod (work@door_mod) dut.sv:43:1: , endln:51:10
+        \_function: (pack::door::f1), line:14:3, endln:16:14
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

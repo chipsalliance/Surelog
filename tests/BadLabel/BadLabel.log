@@ -368,138 +368,140 @@ design: (work@test)
 |vpiElaborated:1
 |vpiName:work@test
 |uhdmallPackages:
-\_package: pack (pack::) dut.sv:1:1: , endln:2:22, parent:work@test
+\_package: pack (pack::), file:dut.sv, line:1:1, endln:2:22
+  |vpiParent:
+  \_design: (work@test)
   |vpiName:pack
   |vpiFullName:pack::
   |vpiDefName:pack
+|uhdmtopPackages:
+\_package: pack (pack::), file:dut.sv, line:1:1, endln:2:22
   |vpiParent:
   \_design: (work@test)
-|uhdmtopPackages:
-\_package: pack (pack::) dut.sv:1:1: , endln:2:22, parent:work@test
   |vpiName:pack
   |vpiFullName:pack::
   |vpiDefName:pack
   |vpiTop:1
-  |vpiParent:
-  \_design: (work@test)
 |uhdmallClasses:
-\_class_defn: (work@c) dut.sv:4:1: , endln:5:17, parent:work@test
-  |vpiName:work@c
+\_class_defn: (work@c), file:dut.sv, line:4:1, endln:5:17
   |vpiParent:
   \_design: (work@test)
+  |vpiName:work@c
 |uhdmallInterfaces:
-\_interface: work@intf (work@intf) dut.sv:7:1: , endln:8:23, parent:work@test
+\_interface: work@intf (work@intf), file:dut.sv, line:7:1, endln:8:23
+  |vpiParent:
+  \_design: (work@test)
   |vpiFullName:work@intf
   |vpiDefName:work@intf
+|uhdmallInterfaces:
+\_interface: work@itf (work@itf), file:dut.sv, line:12:22, endln:20:13
   |vpiParent:
   \_design: (work@test)
-|uhdmallInterfaces:
-\_interface: work@itf (work@itf) dut.sv:12:22: , endln:20:13, parent:work@test
   |vpiFullName:work@itf
   |vpiAttribute:
   \_attribute: (test_interface), line:12:4, endln:12:18
     |vpiName:test_interface
   |vpiDefName:work@itf
+|uhdmallInterfaces:
+\_interface: work@itf2 (work@itf2), file:dut.sv, line:14:25, endln:15:22
   |vpiParent:
   \_design: (work@test)
-|uhdmallInterfaces:
-\_interface: work@itf2 (work@itf2) dut.sv:14:25: , endln:15:22, parent:work@test
   |vpiFullName:work@itf2
   |vpiAttribute:
   \_attribute: (test_interface2), line:14:6, endln:14:21
     |vpiName:test_interface2
   |vpiDefName:work@itf2
+|uhdmallInterfaces:
+\_interface: work@itf3 (work@itf3), file:dut.sv, line:17:25, endln:18:26
   |vpiParent:
   \_design: (work@test)
-|uhdmallInterfaces:
-\_interface: work@itf3 (work@itf3) dut.sv:17:25: , endln:18:26, parent:work@test
   |vpiFullName:work@itf3
   |vpiAttribute:
   \_attribute: (test_interface2), line:17:6, endln:17:21
     |vpiName:test_interface2
   |vpiDefName:work@itf3
+|uhdmallModules:
+\_module: work@block_tb (work@block_tb), file:dut.sv, line:60:1, endln:66:10
   |vpiParent:
   \_design: (work@test)
-|uhdmallModules:
-\_module: work@block_tb (work@block_tb) dut.sv:60:1: , endln:66:10, parent:work@test
   |vpiFullName:work@block_tb
   |vpiDefName:work@block_tb
   |vpiNet:
-  \_logic_net: (work@block_tb.a), line:61:6, endln:61:7, parent:work@block_tb
+  \_logic_net: (work@block_tb.a), line:61:6, endln:61:7
+    |vpiParent:
+    \_module: work@block_tb (work@block_tb), file:dut.sv, line:60:1, endln:66:10
     |vpiName:a
     |vpiFullName:work@block_tb.a
     |vpiNetType:48
-    |vpiParent:
-    \_module: work@block_tb (work@block_tb) dut.sv:60:1: , endln:66:10, parent:work@test
-  |vpiParent:
-  \_design: (work@test)
   |vpiProcess:
-  \_initial: , line:62:2, endln:65:14, parent:work@block_tb
+  \_initial: , line:62:2, endln:65:14
+    |vpiParent:
+    \_module: work@block_tb (work@block_tb), file:dut.sv, line:60:1, endln:66:10
     |vpiStmt:
     \_named_fork: (work@block_tb.name1), line:63:17, endln:65:14
+      |vpiParent:
+      \_initial: , line:62:2, endln:65:14
       |vpiName:name1
       |vpiFullName:work@block_tb.name1
-      |vpiParent:
-      \_initial: , line:62:2, endln:65:14, parent:work@block_tb
       |vpiStmt:
-      \_assignment: , line:64:4, endln:64:9, parent:work@block_tb.name1
+      \_assignment: , line:64:4, endln:64:9
         |vpiParent:
         \_named_fork: (work@block_tb.name1), line:63:17, endln:65:14
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:64:8, endln:64:9
+          |vpiParent:
+          \_assignment: , line:64:4, endln:64:9
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
-          |vpiParent:
-          \_assignment: , line:64:4, endln:64:9, parent:work@block_tb.name1
           |vpiConstType:9
         |vpiLhs:
-        \_ref_obj: (work@block_tb.name1.a), line:64:4, endln:64:5, parent:work@block_tb.name1
+        \_ref_obj: (work@block_tb.name1.a), line:64:4, endln:64:5
           |vpiParent:
           \_named_fork: (work@block_tb.name1), line:63:17, endln:65:14
           |vpiName:a
           |vpiFullName:work@block_tb.name1.a
           |vpiActual:
-          \_logic_net: (work@block_tb.a), line:61:6, endln:61:11, parent:work@block_tb
+          \_logic_net: (work@block_tb.a), line:61:6, endln:61:11
+            |vpiParent:
+            \_module: work@block_tb (work@block_tb), file:dut.sv, line:60:1, endln:66:10
             |vpiTypespec:
             \_logic_typespec: , line:61:2, endln:61:5
             |vpiName:a
             |vpiFullName:work@block_tb.a
             |vpiNetType:48
-            |vpiParent:
-            \_module: work@block_tb (work@block_tb) dut.sv:60:1: , endln:66:10
-    |vpiParent:
-    \_module: work@block_tb (work@block_tb) dut.sv:60:1: , endln:66:10, parent:work@test
 |uhdmallModules:
-\_module: work@test (work@test) dut.sv:23:1: , endln:57:21, parent:work@test
+\_module: work@test (work@test), file:dut.sv, line:23:1, endln:57:21
+  |vpiParent:
+  \_design: (work@test)
   |vpiFullName:work@test
   |vpiDefName:work@test
   |vpiNet:
-  \_logic_net: (work@test.err), line:27:8, endln:27:11, parent:work@test
+  \_logic_net: (work@test.err), line:27:8, endln:27:11
+    |vpiParent:
+    \_module: work@test (work@test), file:dut.sv, line:23:1, endln:57:21
     |vpiName:err
     |vpiFullName:work@test.err
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:23:1: , endln:57:21, parent:work@test
-  |vpiParent:
-  \_design: (work@test)
   |vpiProcess:
-  \_initial: , line:29:4, endln:32:25, parent:work@test
+  \_initial: , line:29:4, endln:32:25
+    |vpiParent:
+    \_module: work@test (work@test), file:dut.sv, line:23:1, endln:57:21
     |vpiStmt:
     \_named_begin: (work@test.dummy_label), line:30:4, endln:32:25
+      |vpiParent:
+      \_initial: , line:29:4, endln:32:25
       |vpiName:dummy_label
       |vpiFullName:work@test.dummy_label
-      |vpiParent:
-      \_initial: , line:29:4, endln:32:25, parent:work@test
       |vpiStmt:
-      \_if_stmt: , line:31:7, endln:31:36, parent:work@test.dummy_label
+      \_if_stmt: , line:31:7, endln:31:36
         |vpiParent:
         \_named_begin: (work@test.dummy_label), line:30:4, endln:32:25
         |vpiCondition:
         \_operation: , line:31:11, endln:31:15
           |vpiParent:
-          \_if_stmt: , line:31:7, endln:31:36, parent:work@test.dummy_label
+          \_if_stmt: , line:31:7, endln:31:36
           |vpiOpType:3
           |vpiOperand:
           \_ref_obj: (work@test.dummy_label.err), line:31:12, endln:31:15
@@ -508,7 +510,9 @@ design: (work@test)
             |vpiName:err
             |vpiFullName:work@test.dummy_label.err
             |vpiActual:
-            \_bit_var: (work@test.err), line:27:8, endln:27:15, parent:work@test
+            \_bit_var: (work@test.err), line:27:8, endln:27:15
+              |vpiParent:
+              \_module: work@test (work@test), file:dut.sv, line:23:1, endln:57:21
               |vpiTypespec:
               \_bit_typespec: , line:27:4, endln:27:7
               |vpiName:err
@@ -520,118 +524,116 @@ design: (work@test)
                 |vpiSize:1
                 |UINT:0
                 |vpiConstType:9
-              |vpiParent:
-              \_module: work@test (work@test) dut.sv:23:1: , endln:57:21
         |vpiStmt:
         \_sys_func_call: ($display), line:31:17, endln:31:35
+          |vpiParent:
+          \_if_stmt: , line:31:7, endln:31:36
           |vpiArgument:
-          \_constant: , line:31:26, endln:31:34, parent:$display
+          \_constant: , line:31:26, endln:31:34
+            |vpiParent:
+            \_sys_func_call: ($display), line:31:17, endln:31:35
             |vpiDecompile:PASSED
             |vpiSize:6
             |STRING:PASSED
-            |vpiParent:
-            \_sys_func_call: ($display), line:31:17, endln:31:35
             |vpiConstType:6
           |vpiName:$display
-          |vpiParent:
-          \_if_stmt: , line:31:7, endln:31:36, parent:work@test.dummy_label
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:23:1: , endln:57:21, parent:work@test
   |vpiProcess:
-  \_initial: , line:40:1, endln:54:6, parent:work@test
+  \_initial: , line:40:1, endln:54:6
+    |vpiParent:
+    \_module: work@test (work@test), file:dut.sv, line:23:1, endln:57:21
     |vpiStmt:
     \_begin: (work@test), line:40:9, endln:54:6
-      |vpiFullName:work@test
       |vpiParent:
-      \_initial: , line:40:1, endln:54:6, parent:work@test
+      \_initial: , line:40:1, endln:54:6
+      |vpiFullName:work@test
       |vpiStmt:
-      \_named_fork: (work@test.n1), line:42:4, endln:44:13, parent:work@test
-        |vpiName:n1
-        |vpiFullName:work@test.n1
+      \_named_fork: (work@test.n1), line:42:4, endln:44:13
         |vpiParent:
         \_begin: (work@test), line:40:9, endln:54:6
+        |vpiName:n1
+        |vpiFullName:work@test.n1
         |vpiStmt:
-        \_func_call: (print), line:43:6, endln:43:15, parent:work@test.n1
+        \_func_call: (print), line:43:6, endln:43:15
+          |vpiParent:
+          \_named_fork: (work@test.n1), line:42:4, endln:44:13
           |vpiArgument:
-          \_constant: , line:43:12, endln:43:14, parent:print
-            |STRING:
+          \_constant: , line:43:12, endln:43:14
             |vpiParent:
-            \_func_call: (print), line:43:6, endln:43:15, parent:work@test.n1
+            \_func_call: (print), line:43:6, endln:43:15
+            |STRING:
             |vpiConstType:6
           |vpiName:print
-          |vpiParent:
-          \_named_fork: (work@test.n1), line:42:4, endln:44:13, parent:work@test
       |vpiStmt:
-      \_fork_stmt: (work@test), line:46:4, endln:48:13, parent:work@test
+      \_fork_stmt: (work@test), line:46:4, endln:48:13
+        |vpiParent:
+        \_begin: (work@test), line:40:9, endln:54:6
         |vpiFullName:work@test
-        |vpiParent:
-        \_begin: (work@test), line:40:9, endln:54:6
         |vpiStmt:
-        \_func_call: (print), line:47:6, endln:47:15, parent:work@test
+        \_func_call: (print), line:47:6, endln:47:15
+          |vpiParent:
+          \_fork_stmt: (work@test), line:46:4, endln:48:13
           |vpiArgument:
-          \_constant: , line:47:12, endln:47:14, parent:print
-            |STRING:
+          \_constant: , line:47:12, endln:47:14
             |vpiParent:
-            \_func_call: (print), line:47:6, endln:47:15, parent:work@test
+            \_func_call: (print), line:47:6, endln:47:15
+            |STRING:
             |vpiConstType:6
           |vpiName:print
-          |vpiParent:
-          \_fork_stmt: (work@test), line:46:4, endln:48:13, parent:work@test
       |vpiStmt:
-      \_named_fork: (work@test.n1), line:50:3, endln:52:7, parent:work@test
+      \_named_fork: (work@test.n1), line:50:3, endln:52:7
+        |vpiParent:
+        \_begin: (work@test), line:40:9, endln:54:6
         |vpiName:n1
         |vpiFullName:work@test.n1
-        |vpiParent:
-        \_begin: (work@test), line:40:9, endln:54:6
         |vpiStmt:
-        \_func_call: (print), line:51:5, endln:51:14, parent:work@test.n1
+        \_func_call: (print), line:51:5, endln:51:14
+          |vpiParent:
+          \_named_fork: (work@test.n1), line:50:3, endln:52:7
           |vpiArgument:
-          \_constant: , line:51:11, endln:51:13, parent:print
-            |STRING:
+          \_constant: , line:51:11, endln:51:13
             |vpiParent:
-            \_func_call: (print), line:51:5, endln:51:14, parent:work@test.n1
+            \_func_call: (print), line:51:5, endln:51:14
+            |STRING:
             |vpiConstType:6
           |vpiName:print
-          |vpiParent:
-          \_named_fork: (work@test.n1), line:50:3, endln:52:7, parent:work@test
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:23:1: , endln:57:21, parent:work@test
 |uhdmallModules:
-\_module: work@test::sub (work@test::sub) dut.sv:34:4: , endln:35:19, parent:work@test
+\_module: work@test::sub (work@test::sub), file:dut.sv, line:34:4, endln:35:19
+  |vpiParent:
+  \_design: (work@test)
   |vpiFullName:work@test::sub
   |vpiDefName:work@test::sub
+|uhdmallModules:
+\_module: work@test::sub2 (work@test::sub2), file:dut.sv, line:37:4, endln:38:24
   |vpiParent:
   \_design: (work@test)
-|uhdmallModules:
-\_module: work@test::sub2 (work@test::sub2) dut.sv:37:4: , endln:38:24, parent:work@test
   |vpiFullName:work@test::sub2
   |vpiDefName:work@test::sub2
-  |vpiParent:
-  \_design: (work@test)
 |uhdmtopModules:
-\_module: work@test (work@test) dut.sv:23:1: , endln:57:21
+\_module: work@test (work@test), file:dut.sv, line:23:1, endln:57:21
   |vpiName:work@test
   |vpiVariables:
-  \_bit_var: (work@test.err), line:27:8, endln:27:15, parent:work@test
+  \_bit_var: (work@test.err), line:27:8, endln:27:15
   |vpiDefName:work@test
   |vpiTop:1
   |vpiTopModule:1
   |vpiProcess:
-  \_initial: , line:29:4, endln:32:25, parent:work@test
+  \_initial: , line:29:4, endln:32:25
+    |vpiParent:
+    \_module: work@test (work@test), file:dut.sv, line:23:1, endln:57:21
     |vpiStmt:
     \_named_begin: (work@test.dummy_label), line:30:4, endln:32:25
+      |vpiParent:
+      \_initial: , line:29:4, endln:32:25
       |vpiName:dummy_label
       |vpiFullName:work@test.dummy_label
-      |vpiParent:
-      \_initial: , line:29:4, endln:32:25, parent:work@test
       |vpiStmt:
-      \_if_stmt: , line:31:7, endln:31:36, parent:work@test.dummy_label
+      \_if_stmt: , line:31:7, endln:31:36
         |vpiParent:
         \_named_begin: (work@test.dummy_label), line:30:4, endln:32:25
         |vpiCondition:
         \_operation: , line:31:11, endln:31:15
           |vpiParent:
-          \_if_stmt: , line:31:7, endln:31:36, parent:work@test.dummy_label
+          \_if_stmt: , line:31:7, endln:31:36
           |vpiOpType:3
           |vpiOperand:
           \_ref_obj: (work@test.dummy_label.err), line:31:12, endln:31:15
@@ -640,81 +642,81 @@ design: (work@test)
             |vpiName:err
             |vpiFullName:work@test.dummy_label.err
             |vpiActual:
-            \_bit_var: (work@test.err), line:27:8, endln:27:15, parent:work@test
+            \_bit_var: (work@test.err), line:27:8, endln:27:15
         |vpiStmt:
         \_sys_func_call: ($display), line:31:17, endln:31:35
-          |vpiArgument:
-          \_constant: , line:31:26, endln:31:34, parent:$display
-          |vpiName:$display
           |vpiParent:
-          \_if_stmt: , line:31:7, endln:31:36, parent:work@test.dummy_label
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:23:1: , endln:57:21
+          \_if_stmt: , line:31:7, endln:31:36
+          |vpiArgument:
+          \_constant: , line:31:26, endln:31:34
+          |vpiName:$display
   |vpiProcess:
-  \_initial: , line:40:1, endln:54:6, parent:work@test
+  \_initial: , line:40:1, endln:54:6
+    |vpiParent:
+    \_module: work@test (work@test), file:dut.sv, line:23:1, endln:57:21
     |vpiStmt:
     \_begin: (work@test), line:40:9, endln:54:6
-      |vpiFullName:work@test
       |vpiParent:
-      \_initial: , line:40:1, endln:54:6, parent:work@test
+      \_initial: , line:40:1, endln:54:6
+      |vpiFullName:work@test
       |vpiStmt:
-      \_named_fork: (work@test.n1), line:42:4, endln:44:13, parent:work@test
-        |vpiName:n1
-        |vpiFullName:work@test.n1
+      \_named_fork: (work@test.n1), line:42:4, endln:44:13
         |vpiParent:
         \_begin: (work@test), line:40:9, endln:54:6
+        |vpiName:n1
+        |vpiFullName:work@test.n1
         |vpiStmt:
-        \_func_call: (print), line:43:6, endln:43:15, parent:work@test.n1
-          |vpiArgument:
-          \_constant: , line:43:12, endln:43:14, parent:print
-          |vpiName:print
+        \_func_call: (print), line:43:6, endln:43:15
           |vpiParent:
-          \_named_fork: (work@test.n1), line:42:4, endln:44:13, parent:work@test
+          \_named_fork: (work@test.n1), line:42:4, endln:44:13
+          |vpiArgument:
+          \_constant: , line:43:12, endln:43:14
+          |vpiName:print
       |vpiStmt:
-      \_fork_stmt: (work@test), line:46:4, endln:48:13, parent:work@test
+      \_fork_stmt: (work@test), line:46:4, endln:48:13
+        |vpiParent:
+        \_begin: (work@test), line:40:9, endln:54:6
         |vpiFullName:work@test
+        |vpiStmt:
+        \_func_call: (print), line:47:6, endln:47:15
+          |vpiParent:
+          \_fork_stmt: (work@test), line:46:4, endln:48:13
+          |vpiArgument:
+          \_constant: , line:47:12, endln:47:14
+          |vpiName:print
+      |vpiStmt:
+      \_named_fork: (work@test.n1), line:50:3, endln:52:7
         |vpiParent:
         \_begin: (work@test), line:40:9, endln:54:6
-        |vpiStmt:
-        \_func_call: (print), line:47:6, endln:47:15, parent:work@test
-          |vpiArgument:
-          \_constant: , line:47:12, endln:47:14, parent:print
-          |vpiName:print
-          |vpiParent:
-          \_fork_stmt: (work@test), line:46:4, endln:48:13, parent:work@test
-      |vpiStmt:
-      \_named_fork: (work@test.n1), line:50:3, endln:52:7, parent:work@test
         |vpiName:n1
         |vpiFullName:work@test.n1
-        |vpiParent:
-        \_begin: (work@test), line:40:9, endln:54:6
         |vpiStmt:
-        \_func_call: (print), line:51:5, endln:51:14, parent:work@test.n1
-          |vpiArgument:
-          \_constant: , line:51:11, endln:51:13, parent:print
-          |vpiName:print
+        \_func_call: (print), line:51:5, endln:51:14
           |vpiParent:
-          \_named_fork: (work@test.n1), line:50:3, endln:52:7, parent:work@test
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:23:1: , endln:57:21
+          \_named_fork: (work@test.n1), line:50:3, endln:52:7
+          |vpiArgument:
+          \_constant: , line:51:11, endln:51:13
+          |vpiName:print
 |uhdmtopModules:
-\_module: work@block_tb (work@block_tb) dut.sv:60:1: , endln:66:10
+\_module: work@block_tb (work@block_tb), file:dut.sv, line:60:1, endln:66:10
   |vpiName:work@block_tb
   |vpiDefName:work@block_tb
   |vpiTop:1
   |vpiNet:
-  \_logic_net: (work@block_tb.a), line:61:6, endln:61:11, parent:work@block_tb
+  \_logic_net: (work@block_tb.a), line:61:6, endln:61:11
   |vpiTopModule:1
   |vpiProcess:
-  \_initial: , line:62:2, endln:65:14, parent:work@block_tb
+  \_initial: , line:62:2, endln:65:14
+    |vpiParent:
+    \_module: work@block_tb (work@block_tb), file:dut.sv, line:60:1, endln:66:10
     |vpiStmt:
     \_named_fork: (work@block_tb.name1), line:63:17, endln:65:14
+      |vpiParent:
+      \_initial: , line:62:2, endln:65:14
       |vpiName:name1
       |vpiFullName:work@block_tb.name1
-      |vpiParent:
-      \_initial: , line:62:2, endln:65:14, parent:work@block_tb
       |vpiStmt:
-      \_assignment: , line:64:4, endln:64:9, parent:work@block_tb.name1
+      \_assignment: , line:64:4, endln:64:9
         |vpiParent:
         \_named_fork: (work@block_tb.name1), line:63:17, endln:65:14
         |vpiOpType:82
@@ -724,28 +726,26 @@ design: (work@test)
         |vpiLhs:
         \_ref_obj: (work@block_tb.name1.a), line:64:4, endln:64:5
           |vpiParent:
-          \_assignment: , line:64:4, endln:64:9, parent:work@block_tb.name1
+          \_assignment: , line:64:4, endln:64:9
           |vpiName:a
           |vpiFullName:work@block_tb.name1.a
           |vpiActual:
-          \_logic_net: (work@block_tb.a), line:61:6, endln:61:11, parent:work@block_tb
-    |vpiParent:
-    \_module: work@block_tb (work@block_tb) dut.sv:60:1: , endln:66:10
+          \_logic_net: (work@block_tb.a), line:61:6, endln:61:11
   |vpiContAssign:
-  \_cont_assign: , line:61:6, endln:61:7, parent:work@block_tb
+  \_cont_assign: , line:61:6, endln:61:7
     |vpiParent:
-    \_module: work@block_tb (work@block_tb) dut.sv:60:1: , endln:66:10
+    \_module: work@block_tb (work@block_tb), file:dut.sv, line:60:1, endln:66:10
     |vpiNetDeclAssign:1
     |vpiRhs:
     \_constant: , line:61:10, endln:61:11
+      |vpiParent:
+      \_cont_assign: , line:61:6, endln:61:7
       |vpiDecompile:0
       |vpiSize:64
       |UINT:0
-      |vpiParent:
-      \_cont_assign: , line:61:6, endln:61:7, parent:work@block_tb
       |vpiConstType:9
     |vpiLhs:
-    \_logic_net: (work@block_tb.a), line:61:6, endln:61:11, parent:work@block_tb
+    \_logic_net: (work@block_tb.a), line:61:6, endln:61:11
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

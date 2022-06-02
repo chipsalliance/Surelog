@@ -75,22 +75,24 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top) dut.sv:1:1: , endln:4:10, parent:work@top
+\_module: work@top (work@top), file:dut.sv, line:1:1, endln:4:10
+  |vpiParent:
+  \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
   |vpiNet:
-  \_logic_net: (work@top.b), line:2:9, endln:2:10, parent:work@top
+  \_logic_net: (work@top.b), line:2:9, endln:2:10
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:4:10
     |vpiName:b
     |vpiFullName:work@top.b
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:4:10, parent:work@top
-  |vpiParent:
-  \_design: (work@top)
 |uhdmtopModules:
-\_module: work@top (work@top) dut.sv:1:1: , endln:4:10
+\_module: work@top (work@top), file:dut.sv, line:1:1, endln:4:10
   |vpiName:work@top
   |vpiVariables:
-  \_array_var: (work@top.b), line:2:9, endln:2:12, parent:work@top
+  \_array_var: (work@top.b), line:2:9, endln:2:12
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:4:10
     |vpiSize:1
     |vpiName:b
     |vpiFullName:work@top.b
@@ -101,41 +103,39 @@ design: (work@top)
       |vpiOpType:33
       |vpiOperand:
       \_constant: , line:2:16, endln:2:17
+        |vpiParent:
+        \_operation: , line:2:15, endln:2:24
         |vpiDecompile:1
         |vpiSize:8
         |UINT:1
-        |vpiParent:
-        \_operation: , line:2:15, endln:2:24
         |vpiConstType:9
       |vpiOperand:
       \_constant: , line:2:19, endln:2:20
+        |vpiParent:
+        \_operation: , line:2:15, endln:2:24
         |vpiDecompile:1
         |vpiSize:8
         |UINT:1
-        |vpiParent:
-        \_operation: , line:2:15, endln:2:24
         |vpiConstType:9
       |vpiOperand:
       \_constant: , line:2:22, endln:2:23
+        |vpiParent:
+        \_operation: , line:2:15, endln:2:24
         |vpiDecompile:1
         |vpiSize:8
         |UINT:1
-        |vpiParent:
-        \_operation: , line:2:15, endln:2:24
         |vpiConstType:9
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:4:10
     |vpiArrayType:2
     |vpiReg:
-    \_byte_var: (work@top.b), line:2:9, endln:2:10, parent:work@top.b
+    \_byte_var: (work@top.b), line:2:9, endln:2:10
+      |vpiParent:
+      \_array_var: (work@top.b), line:2:9, endln:2:12
       |vpiTypespec:
       \_byte_typespec: , line:2:4, endln:2:8
         |vpiSigned:1
       |vpiFullName:work@top.b
       |vpiExpr:
       \_operation: , line:2:15, endln:2:24
-      |vpiParent:
-      \_array_var: (work@top.b), line:2:9, endln:2:12, parent:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1

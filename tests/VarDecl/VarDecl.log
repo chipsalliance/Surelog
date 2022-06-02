@@ -117,11 +117,15 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top) dut.sv:1:1: , endln:7:16, parent:work@top
+\_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
+  |vpiParent:
+  \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
   |vpiTaskFunc:
-  \_function: (work@top.theta), line:2:4, endln:6:23, parent:work@top
+  \_function: (work@top.theta), line:2:4, endln:6:23
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
     |vpiName:theta
     |vpiFullName:work@top.theta
     |vpiVisibility:1
@@ -131,111 +135,109 @@ design: (work@top)
       |vpiTypespec:
       \_logic_typespec: , line:2:23, endln:2:28
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:7:16, parent:work@top
+    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
     |vpiStmt:
-    \_for_stmt: (work@top.theta), line:3:7, endln:3:10, parent:work@top.theta
-      |vpiFullName:work@top.theta
+    \_for_stmt: (work@top.theta), line:3:7, endln:3:10
       |vpiParent:
-      \_function: (work@top.theta), line:2:4, endln:6:23, parent:work@top
+      \_function: (work@top.theta), line:2:4, endln:6:23
+      |vpiFullName:work@top.theta
       |vpiForInitStmt:
-      \_assign_stmt: , line:3:12, endln:3:21, parent:work@top.theta
+      \_assign_stmt: , line:3:12, endln:3:21
         |vpiParent:
-        \_for_stmt: (work@top.theta), line:3:7, endln:3:10, parent:work@top.theta
+        \_for_stmt: (work@top.theta), line:3:7, endln:3:10
         |vpiRhs:
         \_constant: , line:3:20, endln:3:21
+          |vpiParent:
+          \_assign_stmt: , line:3:12, endln:3:21
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_assign_stmt: , line:3:12, endln:3:21, parent:work@top.theta
           |vpiConstType:9
         |vpiLhs:
         \_int_var: (work@top.theta.x), line:3:12, endln:3:15
+          |vpiParent:
+          \_assign_stmt: , line:3:12, endln:3:21
           |vpiTypespec:
           \_int_typespec: , line:3:12, endln:3:15
             |vpiSigned:1
           |vpiName:x
           |vpiFullName:work@top.theta.x
-          |vpiParent:
-          \_assign_stmt: , line:3:12, endln:3:21, parent:work@top.theta
       |vpiForIncStmt:
-      \_operation: , line:3:32, endln:3:35, parent:work@top.theta
+      \_operation: , line:3:32, endln:3:35
         |vpiParent:
-        \_for_stmt: (work@top.theta), line:3:7, endln:3:10, parent:work@top.theta
+        \_for_stmt: (work@top.theta), line:3:7, endln:3:10
         |vpiOpType:62
         |vpiOperand:
         \_ref_obj: (work@top.theta.x), line:3:32, endln:3:33
           |vpiParent:
-          \_operation: , line:3:32, endln:3:35, parent:work@top.theta
+          \_operation: , line:3:32, endln:3:35
           |vpiName:x
           |vpiFullName:work@top.theta.x
           |vpiActual:
           \_int_var: (work@top.theta.x), line:3:12, endln:3:15
       |vpiCondition:
-      \_operation: , line:3:24, endln:3:29, parent:work@top.theta
+      \_operation: , line:3:24, endln:3:29
         |vpiParent:
-        \_for_stmt: (work@top.theta), line:3:7, endln:3:10, parent:work@top.theta
+        \_for_stmt: (work@top.theta), line:3:7, endln:3:10
         |vpiOpType:20
         |vpiOperand:
         \_ref_obj: (work@top.theta.x), line:3:24, endln:3:25
           |vpiParent:
-          \_operation: , line:3:24, endln:3:29, parent:work@top.theta
+          \_operation: , line:3:24, endln:3:29
           |vpiName:x
           |vpiFullName:work@top.theta.x
           |vpiActual:
           \_int_var: (work@top.theta.x), line:3:12, endln:3:15
         |vpiOperand:
         \_constant: , line:3:28, endln:3:29
+          |vpiParent:
+          \_operation: , line:3:24, endln:3:29
           |vpiDecompile:5
           |vpiSize:64
           |UINT:5
-          |vpiParent:
-          \_operation: , line:3:24, endln:3:29, parent:work@top.theta
           |vpiConstType:9
       |vpiStmt:
-      \_begin: (work@top.theta), line:3:37, endln:5:10, parent:work@top.theta
+      \_begin: (work@top.theta), line:3:37, endln:5:10
+        |vpiParent:
+        \_for_stmt: (work@top.theta), line:3:7, endln:3:10
         |vpiFullName:work@top.theta
         |vpiVariables:
-        \_int_var: (work@top.theta.a), line:4:12, endln:4:13, parent:work@top.theta
+        \_int_var: (work@top.theta.a), line:4:12, endln:4:13
+          |vpiParent:
+          \_begin: (work@top.theta), line:3:37, endln:5:10
           |vpiTypespec:
           \_int_typespec: , line:4:8, endln:4:11
             |vpiSigned:1
           |vpiName:a
           |vpiFullName:work@top.theta.a
-          |vpiParent:
-          \_begin: (work@top.theta), line:3:37, endln:5:10, parent:work@top.theta
-        |vpiParent:
-        \_for_stmt: (work@top.theta), line:3:7, endln:3:10, parent:work@top.theta
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:7:16, parent:work@top
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:7:16, parent:work@top
+    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
   |vpiNet:
-  \_logic_net: (work@top.o), line:1:25, endln:1:26, parent:work@top
+  \_logic_net: (work@top.o), line:1:25, endln:1:26
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:36
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:7:16, parent:work@top
-  |vpiParent:
-  \_design: (work@top)
   |vpiPort:
-  \_port: (o), line:1:25, endln:1:26, parent:work@top
+  \_port: (o), line:1:25, endln:1:26
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@top.o), line:1:25, endln:1:26, parent:work@top
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:7:16, parent:work@top
+      \_logic_net: (work@top.o), line:1:25, endln:1:26
 |uhdmtopModules:
-\_module: work@top (work@top) dut.sv:1:1: , endln:7:16
+\_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTaskFunc:
-  \_function: (work@top.theta), line:2:4, endln:6:23, parent:work@top
+  \_function: (work@top.theta), line:2:4, endln:6:23
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
     |vpiName:theta
     |vpiFullName:work@top.theta
     |vpiVisibility:1
@@ -243,48 +245,48 @@ design: (work@top)
     |vpiReturn:
     \_logic_var: , line:2:23, endln:2:28
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:7:16
+    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
     |vpiStmt:
-    \_for_stmt: (work@top.theta), line:3:7, endln:3:10, parent:work@top.theta
-      |vpiFullName:work@top.theta
+    \_for_stmt: (work@top.theta), line:3:7, endln:3:10
       |vpiParent:
-      \_function: (work@top.theta), line:2:4, endln:6:23, parent:work@top
+      \_function: (work@top.theta), line:2:4, endln:6:23
+      |vpiFullName:work@top.theta
       |vpiForInitStmt:
-      \_assign_stmt: , line:3:12, endln:3:21, parent:work@top.theta
+      \_assign_stmt: , line:3:12, endln:3:21
         |vpiParent:
-        \_for_stmt: (work@top.theta), line:3:7, endln:3:10, parent:work@top.theta
+        \_for_stmt: (work@top.theta), line:3:7, endln:3:10
         |vpiRhs:
         \_constant: , line:3:20, endln:3:21
         |vpiLhs:
         \_int_var: (work@top.theta.x), line:3:12, endln:3:15
+          |vpiParent:
+          \_assign_stmt: , line:3:12, endln:3:21
           |vpiTypespec:
           \_int_typespec: , line:3:12, endln:3:15
           |vpiName:x
           |vpiFullName:work@top.theta.x
-          |vpiParent:
-          \_assign_stmt: , line:3:12, endln:3:21, parent:work@top.theta
       |vpiForIncStmt:
-      \_operation: , line:3:32, endln:3:35, parent:work@top.theta
+      \_operation: , line:3:32, endln:3:35
         |vpiParent:
-        \_for_stmt: (work@top.theta), line:3:7, endln:3:10, parent:work@top.theta
+        \_for_stmt: (work@top.theta), line:3:7, endln:3:10
         |vpiOpType:62
         |vpiOperand:
         \_ref_obj: (work@top.theta.x), line:3:32, endln:3:33
           |vpiParent:
-          \_operation: , line:3:32, endln:3:35, parent:work@top.theta
+          \_operation: , line:3:32, endln:3:35
           |vpiName:x
           |vpiFullName:work@top.theta.x
           |vpiActual:
           \_int_var: (work@top.theta.x), line:3:12, endln:3:15
       |vpiCondition:
-      \_operation: , line:3:24, endln:3:29, parent:work@top.theta
+      \_operation: , line:3:24, endln:3:29
         |vpiParent:
-        \_for_stmt: (work@top.theta), line:3:7, endln:3:10, parent:work@top.theta
+        \_for_stmt: (work@top.theta), line:3:7, endln:3:10
         |vpiOpType:20
         |vpiOperand:
         \_ref_obj: (work@top.theta.x), line:3:24, endln:3:25
           |vpiParent:
-          \_operation: , line:3:24, endln:3:29, parent:work@top.theta
+          \_operation: , line:3:24, endln:3:29
           |vpiName:x
           |vpiFullName:work@top.theta.x
           |vpiActual:
@@ -292,50 +294,48 @@ design: (work@top)
         |vpiOperand:
         \_constant: , line:3:28, endln:3:29
       |vpiStmt:
-      \_begin: (work@top.theta), line:3:37, endln:5:10, parent:work@top.theta
+      \_begin: (work@top.theta), line:3:37, endln:5:10
+        |vpiParent:
+        \_for_stmt: (work@top.theta), line:3:7, endln:3:10
         |vpiFullName:work@top.theta
         |vpiVariables:
-        \_int_var: (work@top.theta.a), line:4:12, endln:4:13, parent:work@top.theta
+        \_int_var: (work@top.theta.a), line:4:12, endln:4:13
+          |vpiParent:
+          \_begin: (work@top.theta), line:3:37, endln:5:10
           |vpiTypespec:
           \_int_typespec: , line:4:8, endln:4:11
           |vpiName:a
           |vpiFullName:work@top.theta.a
-          |vpiParent:
-          \_begin: (work@top.theta), line:3:37, endln:5:10, parent:work@top.theta
-        |vpiParent:
-        \_for_stmt: (work@top.theta), line:3:7, endln:3:10, parent:work@top.theta
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:7:16
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:7:16
+    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
   |vpiNet:
-  \_logic_net: (work@top.o), line:1:25, endln:1:26, parent:work@top
+  \_logic_net: (work@top.o), line:1:25, endln:1:26
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
     |vpiTypespec:
     \_logic_typespec: , line:1:19, endln:1:24
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:36
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:7:16
   |vpiTopModule:1
   |vpiPort:
-  \_port: (o), line:1:25, endln:1:26, parent:work@top
+  \_port: (o), line:1:25, endln:1:26
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@top.o), line:1:25, endln:1:26, parent:o
+    \_ref_obj: (work@top.o), line:1:25, endln:1:26
       |vpiParent:
-      \_port: (o), line:1:25, endln:1:26, parent:work@top
+      \_port: (o), line:1:25, endln:1:26
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_logic_net: (work@top.o), line:1:25, endln:1:26, parent:work@top
+      \_logic_net: (work@top.o), line:1:25, endln:1:26
     |vpiTypedef:
     \_logic_typespec: , line:1:19, endln:1:24
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:7:16
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:7:16
+    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

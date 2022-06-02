@@ -791,57 +791,59 @@ Instance tree:
 design: (work@top)
 |vpiName:work@top
 |uhdmallPackages:
-\_package: builtin (builtin::), file:, parent:work@top
+\_package: builtin (builtin::), file:
+  |vpiParent:
+  \_design: (work@top)
   |vpiName:builtin
   |vpiFullName:builtin::
   |vpiDefName:builtin
+|uhdmtopPackages:
+\_package: builtin (builtin::), file:
   |vpiParent:
   \_design: (work@top)
-|uhdmtopPackages:
-\_package: builtin (builtin::), file:, parent:work@top
   |vpiName:builtin
   |vpiFullName:builtin::
   |vpiDefName:builtin
   |vpiTop:1
   |vpiClassDefn:
-  \_class_defn: (builtin::any_sverilog_class), file:, parent:builtin::
+  \_class_defn: (builtin::any_sverilog_class), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:any_sverilog_class
     |vpiFullName:builtin::any_sverilog_class
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@top
   |vpiClassDefn:
-  \_class_defn: (builtin::array), file:, parent:builtin::
+  \_class_defn: (builtin::array), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:array
     |vpiFullName:builtin::array
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@top
   |vpiClassDefn:
-  \_class_defn: (builtin::queue), file:, parent:builtin::
+  \_class_defn: (builtin::queue), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:queue
     |vpiFullName:builtin::queue
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@top
   |vpiClassDefn:
-  \_class_defn: (builtin::string), file:, parent:builtin::
+  \_class_defn: (builtin::string), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:string
     |vpiFullName:builtin::string
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@top
   |vpiClassDefn:
-  \_class_defn: (builtin::system), file:, parent:builtin::
+  \_class_defn: (builtin::system), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:system
     |vpiFullName:builtin::system
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@top
-  |vpiParent:
-  \_design: (work@top)
 |uhdmallClasses:
-\_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
-  |vpiName:work@mailbox
+\_class_defn: (work@mailbox), file:builtin.sv
   |vpiParent:
   \_design: (work@top)
+  |vpiName:work@mailbox
   |vpiMethod:
-  \_function: (work@mailbox::new), parent:work@mailbox
+  \_function: (work@mailbox::new)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:new
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
@@ -850,9 +852,9 @@ design: (work@top)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
+        \_class_defn: (work@mailbox), file:builtin.sv
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiDirection:1
@@ -866,10 +868,10 @@ design: (work@top)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
   |vpiMethod:
-  \_function: (work@mailbox::num), parent:work@mailbox
+  \_function: (work@mailbox::num)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:num
     |vpiFullName:work@mailbox::num
     |vpiMethod:1
@@ -880,25 +882,25 @@ design: (work@top)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
+    \_class_defn: (work@mailbox), file:builtin.sv
   |vpiMethod:
-  \_task: (work@mailbox::put), parent:work@mailbox
+  \_task: (work@mailbox::put)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:put
     |vpiFullName:work@mailbox::put
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (message)
       |vpiDirection:1
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
   |vpiMethod:
-  \_function: (work@mailbox::try_put), parent:work@mailbox
+  \_function: (work@mailbox::try_put)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
     |vpiMethod:1
@@ -906,29 +908,29 @@ design: (work@top)
     |vpiReturn:
     \_logic_var: 
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (message)
       |vpiDirection:1
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
   |vpiMethod:
-  \_task: (work@mailbox::get), parent:work@mailbox
+  \_task: (work@mailbox::get)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:get
     |vpiFullName:work@mailbox::get
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (message)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
   |vpiMethod:
-  \_function: (work@mailbox::try_get), parent:work@mailbox
+  \_function: (work@mailbox::try_get)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
     |vpiMethod:1
@@ -939,29 +941,29 @@ design: (work@top)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (message)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
   |vpiMethod:
-  \_task: (work@mailbox::peek), parent:work@mailbox
+  \_task: (work@mailbox::peek)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (message)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
   |vpiMethod:
-  \_function: (work@mailbox::try_peek), parent:work@mailbox
+  \_function: (work@mailbox::try_peek)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
     |vpiMethod:1
@@ -972,21 +974,21 @@ design: (work@top)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (message)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@top
 |uhdmallClasses:
-\_class_defn: (work@process), file:builtin.sv, parent:work@top
+\_class_defn: (work@process), file:builtin.sv
+  |vpiParent:
+  \_design: (work@top)
   |vpiName:work@process
   |vpiTypedef:
-  \_enum_typespec: (state), parent:work@process
-    |vpiName:state
+  \_enum_typespec: (state)
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@top
+    \_class_defn: (work@process), file:builtin.sv
+    |vpiName:state
     |vpiEnumConst:
     \_enum_const: (FINISHED)
       |vpiName:FINISHED
@@ -1017,10 +1019,10 @@ design: (work@top)
       |INT:4
       |vpiDecompile:4
       |vpiSize:64
-  |vpiParent:
-  \_design: (work@top)
   |vpiMethod:
-  \_function: (work@process::self), parent:work@process
+  \_function: (work@process::self)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiMethod:1
@@ -1030,13 +1032,13 @@ design: (work@top)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@process), file:builtin.sv, parent:work@top
+        \_class_defn: (work@process), file:builtin.sv
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@top
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@top
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_function: (work@process::status), parent:work@process
+  \_function: (work@process::status)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiMethod:1
@@ -1044,58 +1046,58 @@ design: (work@top)
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@top
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@top
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::kill), parent:work@process
+  \_task: (work@process::kill)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:kill
     |vpiFullName:work@process::kill
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@top
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@top
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::await), parent:work@process
+  \_task: (work@process::await)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:await
     |vpiFullName:work@process::await
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@top
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@top
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::suspend), parent:work@process
+  \_task: (work@process::suspend)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:suspend
     |vpiFullName:work@process::suspend
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@top
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@top
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::resume), parent:work@process
+  \_task: (work@process::resume)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:resume
     |vpiFullName:work@process::resume
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@top
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@top
+    \_class_defn: (work@process), file:builtin.sv
 |uhdmallClasses:
-\_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
-  |vpiName:work@semaphore
+\_class_defn: (work@semaphore), file:builtin.sv
   |vpiParent:
   \_design: (work@top)
+  |vpiName:work@semaphore
   |vpiMethod:
-  \_function: (work@semaphore::new), parent:work@semaphore
+  \_function: (work@semaphore::new)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:new
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
@@ -1104,9 +1106,9 @@ design: (work@top)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
+        \_class_defn: (work@semaphore), file:builtin.sv
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiDirection:1
@@ -1120,16 +1122,16 @@ design: (work@top)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
   |vpiMethod:
-  \_task: (work@semaphore::put), parent:work@semaphore
+  \_task: (work@semaphore::put)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:put
     |vpiFullName:work@semaphore::put
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiDirection:1
@@ -1143,16 +1145,16 @@ design: (work@top)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
   |vpiMethod:
-  \_task: (work@semaphore::get), parent:work@semaphore
+  \_task: (work@semaphore::get)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:get
     |vpiFullName:work@semaphore::get
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiDirection:1
@@ -1166,10 +1168,10 @@ design: (work@top)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
   |vpiMethod:
-  \_function: (work@semaphore::try_get), parent:work@semaphore
+  \_function: (work@semaphore::try_get)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
     |vpiMethod:1
@@ -1180,7 +1182,7 @@ design: (work@top)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiDirection:1
@@ -1194,319 +1196,317 @@ design: (work@top)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@top
 |uhdmallInterfaces:
-\_interface: work@abc_if (work@abc_if) top.sv:1:1: , endln:13:13, parent:work@top
+\_interface: work@abc_if (work@abc_if), file:top.sv, line:1:1, endln:13:13
+  |vpiParent:
+  \_design: (work@top)
   |vpiFullName:work@abc_if
   |vpiParameter:
-  \_parameter: (work@abc_if.NO_Input), line:1:24, endln:1:32, parent:work@abc_if
+  \_parameter: (work@abc_if.NO_Input), line:1:24, endln:1:32
+    |vpiParent:
+    \_interface: work@abc_if (work@abc_if), file:top.sv, line:1:1, endln:13:13
     |UINT:3
     |vpiTypespec:
-    \_int_typespec: , line:1:20, endln:1:23, parent:work@abc_if.NO_Input
+    \_int_typespec: , line:1:20, endln:1:23
       |vpiParent:
-      \_parameter: (work@abc_if.NO_Input), line:1:24, endln:1:32, parent:work@abc_if
+      \_parameter: (work@abc_if.NO_Input), line:1:24, endln:1:32
       |vpiSigned:1
-    |vpiParent:
-    \_interface: work@abc_if (work@abc_if) top.sv:1:1: , endln:13:13, parent:work@top
     |vpiName:NO_Input
     |vpiFullName:work@abc_if.NO_Input
   |vpiParamAssign:
-  \_param_assign: , line:1:24, endln:1:34, parent:work@abc_if
+  \_param_assign: , line:1:24, endln:1:34
     |vpiParent:
-    \_interface: work@abc_if (work@abc_if) top.sv:1:1: , endln:13:13, parent:work@top
+    \_interface: work@abc_if (work@abc_if), file:top.sv, line:1:1, endln:13:13
     |vpiRhs:
     \_constant: , line:1:33, endln:1:34
       |vpiDecompile:3
       |vpiSize:32
       |UINT:3
       |vpiTypespec:
-      \_int_typespec: , line:1:20, endln:1:23, parent:work@abc_if.NO_Input
+      \_int_typespec: , line:1:20, endln:1:23
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@abc_if.NO_Input), line:1:24, endln:1:32, parent:work@abc_if
+    \_parameter: (work@abc_if.NO_Input), line:1:24, endln:1:32
   |vpiDefName:work@abc_if
   |vpiNet:
-  \_logic_net: (work@abc_if.xyz_o), line:3:26, endln:3:31, parent:work@abc_if
+  \_logic_net: (work@abc_if.xyz_o), line:3:26, endln:3:31
+    |vpiParent:
+    \_interface: work@abc_if (work@abc_if), file:top.sv, line:1:1, endln:13:13
     |vpiName:xyz_o
     |vpiFullName:work@abc_if.xyz_o
     |vpiNetType:36
-    |vpiParent:
-    \_interface: work@abc_if (work@abc_if) top.sv:1:1: , endln:13:13, parent:work@top
   |vpiNet:
-  \_logic_net: (work@abc_if.clk_i), line:4:26, endln:4:31, parent:work@abc_if
+  \_logic_net: (work@abc_if.clk_i), line:4:26, endln:4:31
+    |vpiParent:
+    \_interface: work@abc_if (work@abc_if), file:top.sv, line:1:1, endln:13:13
     |vpiName:clk_i
     |vpiFullName:work@abc_if.clk_i
     |vpiNetType:36
-    |vpiParent:
-    \_interface: work@abc_if (work@abc_if) top.sv:1:1: , endln:13:13, parent:work@top
+|uhdmallInterfaces:
+\_interface: work@pins_if (work@pins_if), file:top.sv, line:22:1, endln:32:13
   |vpiParent:
   \_design: (work@top)
-|uhdmallInterfaces:
-\_interface: work@pins_if (work@pins_if) top.sv:22:1: , endln:32:13, parent:work@top
   |vpiFullName:work@pins_if
   |vpiParameter:
-  \_parameter: (work@pins_if.Width), line:22:36, endln:22:41, parent:work@pins_if
+  \_parameter: (work@pins_if.Width), line:22:36, endln:22:41
+    |vpiParent:
+    \_interface: work@pins_if (work@pins_if), file:top.sv, line:22:1, endln:32:13
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:22:32, endln:22:35, parent:work@pins_if.Width
+    \_int_typespec: , line:22:32, endln:22:35
       |vpiParent:
-      \_parameter: (work@pins_if.Width), line:22:36, endln:22:41, parent:work@pins_if
+      \_parameter: (work@pins_if.Width), line:22:36, endln:22:41
       |vpiSigned:1
-    |vpiParent:
-    \_interface: work@pins_if (work@pins_if) top.sv:22:1: , endln:32:13, parent:work@top
     |vpiSigned:1
     |vpiName:Width
     |vpiFullName:work@pins_if.Width
   |vpiParamAssign:
-  \_param_assign: , line:22:36, endln:22:45, parent:work@pins_if
+  \_param_assign: , line:22:36, endln:22:45
     |vpiParent:
-    \_interface: work@pins_if (work@pins_if) top.sv:22:1: , endln:32:13, parent:work@top
+    \_interface: work@pins_if (work@pins_if), file:top.sv, line:22:1, endln:32:13
     |vpiRhs:
     \_constant: , line:22:44, endln:22:45
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:22:32, endln:22:35, parent:work@pins_if.Width
+      \_int_typespec: , line:22:32, endln:22:35
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@pins_if.Width), line:22:36, endln:22:41, parent:work@pins_if
+    \_parameter: (work@pins_if.Width), line:22:36, endln:22:41
   |vpiDefName:work@pins_if
   |vpiNet:
-  \_logic_net: (work@pins_if.pins), line:23:21, endln:23:25, parent:work@pins_if
+  \_logic_net: (work@pins_if.pins), line:23:21, endln:23:25
+    |vpiParent:
+    \_interface: work@pins_if (work@pins_if), file:top.sv, line:22:1, endln:32:13
     |vpiName:pins
     |vpiFullName:work@pins_if.pins
-    |vpiParent:
-    \_interface: work@pins_if (work@pins_if) top.sv:22:1: , endln:32:13, parent:work@top
   |vpiNet:
-  \_logic_net: (work@pins_if.pins_o), line:25:21, endln:25:27, parent:work@pins_if
+  \_logic_net: (work@pins_if.pins_o), line:25:21, endln:25:27
+    |vpiParent:
+    \_interface: work@pins_if (work@pins_if), file:top.sv, line:22:1, endln:32:13
     |vpiName:pins_o
     |vpiFullName:work@pins_if.pins_o
     |vpiNetType:36
-    |vpiParent:
-    \_interface: work@pins_if (work@pins_if) top.sv:22:1: , endln:32:13, parent:work@top
-  |vpiParent:
-  \_design: (work@top)
   |vpiPort:
-  \_port: (pins), line:23:21, endln:23:25, parent:work@pins_if
+  \_port: (pins), line:23:21, endln:23:25
+    |vpiParent:
+    \_interface: work@pins_if (work@pins_if), file:top.sv, line:22:1, endln:32:13
     |vpiName:pins
     |vpiDirection:3
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@pins_if.pins), line:23:21, endln:23:25, parent:work@pins_if
-    |vpiParent:
-    \_interface: work@pins_if (work@pins_if) top.sv:22:1: , endln:32:13, parent:work@top
+      \_logic_net: (work@pins_if.pins), line:23:21, endln:23:25
 |uhdmallModules:
-\_module: work@top (work@top) top.sv:16:1: , endln:19:10, parent:work@top
-  |vpiFullName:work@top
-  |vpiDefName:work@top
+\_module: work@top (work@top), file:top.sv, line:16:1, endln:19:10
   |vpiParent:
   \_design: (work@top)
+  |vpiFullName:work@top
+  |vpiDefName:work@top
 |uhdmallModules:
-\_module: work@top2 (work@top2) top.sv:34:1: , endln:43:10, parent:work@top
+\_module: work@top2 (work@top2), file:top.sv, line:34:1, endln:43:10
+  |vpiParent:
+  \_design: (work@top)
   |vpiFullName:work@top2
   |vpiParameter:
-  \_parameter: (work@top2.Width), line:34:30, endln:34:35, parent:work@top2
+  \_parameter: (work@top2.Width), line:34:30, endln:34:35
+    |vpiParent:
+    \_module: work@top2 (work@top2), file:top.sv, line:34:1, endln:43:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:34:26, endln:34:29, parent:work@top2.Width
+    \_int_typespec: , line:34:26, endln:34:29
       |vpiParent:
-      \_parameter: (work@top2.Width), line:34:30, endln:34:35, parent:work@top2
+      \_parameter: (work@top2.Width), line:34:30, endln:34:35
       |vpiSigned:1
-    |vpiParent:
-    \_module: work@top2 (work@top2) top.sv:34:1: , endln:43:10, parent:work@top
     |vpiSigned:1
     |vpiName:Width
     |vpiFullName:work@top2.Width
   |vpiParamAssign:
-  \_param_assign: , line:34:30, endln:34:39, parent:work@top2
+  \_param_assign: , line:34:30, endln:34:39
     |vpiParent:
-    \_module: work@top2 (work@top2) top.sv:34:1: , endln:43:10, parent:work@top
+    \_module: work@top2 (work@top2), file:top.sv, line:34:1, endln:43:10
     |vpiRhs:
     \_constant: , line:34:38, endln:34:39
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:34:26, endln:34:29, parent:work@top2.Width
+      \_int_typespec: , line:34:26, endln:34:29
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@top2.Width), line:34:30, endln:34:35, parent:work@top2
+    \_parameter: (work@top2.Width), line:34:30, endln:34:35
   |vpiDefName:work@top2
   |vpiNet:
-  \_logic_net: (work@top2.pins), line:34:61, endln:34:65, parent:work@top2
+  \_logic_net: (work@top2.pins), line:34:61, endln:34:65
+    |vpiParent:
+    \_module: work@top2 (work@top2), file:top.sv, line:34:1, endln:43:10
     |vpiName:pins
     |vpiFullName:work@top2.pins
-    |vpiParent:
-    \_module: work@top2 (work@top2) top.sv:34:1: , endln:43:10, parent:work@top
-  |vpiParent:
-  \_design: (work@top)
   |vpiPort:
-  \_port: (pins), line:34:61, endln:34:65, parent:work@top2
+  \_port: (pins), line:34:61, endln:34:65
+    |vpiParent:
+    \_module: work@top2 (work@top2), file:top.sv, line:34:1, endln:43:10
     |vpiName:pins
     |vpiDirection:3
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@top2.pins), line:34:61, endln:34:65, parent:work@top2
-    |vpiParent:
-    \_module: work@top2 (work@top2) top.sv:34:1: , endln:43:10, parent:work@top
+      \_logic_net: (work@top2.pins), line:34:61, endln:34:65
 |uhdmtopModules:
-\_module: work@top (work@top) top.sv:16:1: , endln:19:10
+\_module: work@top (work@top), file:top.sv, line:16:1, endln:19:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
   |vpiInterface:
-  \_interface: work@abc_if (work@top.intf) top.sv:17:3: , endln:17:17, parent:work@top
+  \_interface: work@abc_if (work@top.intf), file:top.sv, line:17:3, endln:17:17
+    |vpiParent:
+    \_module: work@top (work@top), file:top.sv, line:16:1, endln:19:10
     |vpiName:intf
     |vpiFullName:work@top.intf
     |vpiVariables:
-    \_logic_var: (work@top.intf.xyz_o), line:3:26, endln:3:31, parent:work@top.intf
+    \_logic_var: (work@top.intf.xyz_o), line:3:26, endln:3:31
+      |vpiParent:
+      \_interface: work@abc_if (work@top.intf), file:top.sv, line:17:3, endln:17:17
       |vpiTypespec:
       \_logic_typespec: , line:3:3, endln:3:8
         |vpiRange:
         \_range: , line:3:10, endln:3:23
           |vpiLeftRange:
           \_constant: , line:3:10, endln:3:18
+            |vpiParent:
+            \_range: , line:3:10, endln:3:23
             |vpiDecompile:2
             |vpiSize:64
             |INT:2
-            |vpiParent:
-            \_range: , line:3:10, endln:3:23
             |vpiConstType:7
           |vpiRightRange:
           \_constant: , line:3:22, endln:3:23
+            |vpiParent:
+            \_range: , line:3:10, endln:3:23
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-            |vpiParent:
-            \_range: , line:3:10, endln:3:23
             |vpiConstType:9
       |vpiName:xyz_o
       |vpiFullName:work@top.intf.xyz_o
       |vpiVisibility:1
-      |vpiParent:
-      \_interface: work@abc_if (work@top.intf) top.sv:17:3: , endln:17:17, parent:work@top
       |vpiRange:
       \_range: , line:3:10, endln:3:23
         |vpiLeftRange:
         \_constant: , line:3:10, endln:3:18
+          |vpiParent:
+          \_range: , line:3:10, endln:3:23
           |vpiDecompile:2
           |vpiSize:64
           |INT:2
-          |vpiParent:
-          \_range: , line:3:10, endln:3:23
           |vpiConstType:7
         |vpiRightRange:
         \_constant: , line:3:22, endln:3:23
+          |vpiParent:
+          \_range: , line:3:10, endln:3:23
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:3:10, endln:3:23
           |vpiConstType:9
     |vpiVariables:
-    \_logic_var: (work@top.intf.clk_i), line:4:26, endln:4:31, parent:work@top.intf
+    \_logic_var: (work@top.intf.clk_i), line:4:26, endln:4:31
+      |vpiParent:
+      \_interface: work@abc_if (work@top.intf), file:top.sv, line:17:3, endln:17:17
       |vpiTypespec:
       \_logic_typespec: , line:4:3, endln:4:8
         |vpiRange:
         \_range: , line:4:10, endln:4:23
           |vpiLeftRange:
           \_constant: , line:4:10, endln:4:18
+            |vpiParent:
+            \_range: , line:4:10, endln:4:23
             |vpiDecompile:2
             |vpiSize:64
             |INT:2
-            |vpiParent:
-            \_range: , line:4:10, endln:4:23
             |vpiConstType:7
           |vpiRightRange:
           \_constant: , line:4:22, endln:4:23
+            |vpiParent:
+            \_range: , line:4:10, endln:4:23
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-            |vpiParent:
-            \_range: , line:4:10, endln:4:23
             |vpiConstType:9
       |vpiName:clk_i
       |vpiFullName:work@top.intf.clk_i
       |vpiVisibility:1
-      |vpiParent:
-      \_interface: work@abc_if (work@top.intf) top.sv:17:3: , endln:17:17, parent:work@top
       |vpiRange:
       \_range: , line:4:10, endln:4:23
         |vpiLeftRange:
         \_constant: , line:4:10, endln:4:18
+          |vpiParent:
+          \_range: , line:4:10, endln:4:23
           |vpiDecompile:2
           |vpiSize:64
           |INT:2
-          |vpiParent:
-          \_range: , line:4:10, endln:4:23
           |vpiConstType:7
         |vpiRightRange:
         \_constant: , line:4:22, endln:4:23
+          |vpiParent:
+          \_range: , line:4:10, endln:4:23
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:4:10, endln:4:23
           |vpiConstType:9
     |vpiParameter:
-    \_parameter: (work@top.intf.NO_Input), line:1:24, endln:1:32, parent:work@top.intf
+    \_parameter: (work@top.intf.NO_Input), line:1:24, endln:1:32
+      |vpiParent:
+      \_interface: work@abc_if (work@top.intf), file:top.sv, line:17:3, endln:17:17
       |UINT:3
       |vpiTypespec:
-      \_int_typespec: , line:1:20, endln:1:23, parent:work@top.intf.NO_Input
+      \_int_typespec: , line:1:20, endln:1:23
         |vpiParent:
-        \_parameter: (work@top.intf.NO_Input), line:1:24, endln:1:32, parent:work@top.intf
+        \_parameter: (work@top.intf.NO_Input), line:1:24, endln:1:32
         |vpiSigned:1
-      |vpiParent:
-      \_interface: work@abc_if (work@top.intf) top.sv:17:3: , endln:17:17, parent:work@top
       |vpiName:NO_Input
       |vpiFullName:work@top.intf.NO_Input
     |vpiParamAssign:
-    \_param_assign: , line:1:24, endln:1:34, parent:work@top.intf
+    \_param_assign: , line:1:24, endln:1:34
       |vpiParent:
-      \_interface: work@abc_if (work@top.intf) top.sv:17:3: , endln:17:17, parent:work@top
+      \_interface: work@abc_if (work@top.intf), file:top.sv, line:17:3, endln:17:17
       |vpiRhs:
       \_constant: , line:1:33, endln:1:34
         |vpiDecompile:3
         |vpiSize:32
         |UINT:3
         |vpiTypespec:
-        \_int_typespec: , line:1:20, endln:1:23, parent:work@abc_if.NO_Input
+        \_int_typespec: , line:1:20, endln:1:23
         |vpiConstType:9
       |vpiLhs:
-      \_parameter: (work@top.intf.NO_Input), line:1:24, endln:1:32, parent:work@top.intf
+      \_parameter: (work@top.intf.NO_Input), line:1:24, endln:1:32
     |vpiDefName:work@abc_if
     |vpiDefFile:top.sv
     |vpiDefLineNo:1
     |vpiInstance:
-    \_module: work@top (work@top) top.sv:16:1: , endln:19:10
-    |vpiParent:
-    \_module: work@top (work@top) top.sv:16:1: , endln:19:10
+    \_module: work@top (work@top), file:top.sv, line:16:1, endln:19:10
     |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.intf.block[0]), line:6:34, endln:10:15, parent:work@top.intf
+    \_gen_scope_array: (work@top.intf.block[0]), line:6:34, endln:10:15
       |vpiParent:
-      \_interface: work@abc_if (work@top.intf) top.sv:17:3: , endln:17:17, parent:work@top
+      \_interface: work@abc_if (work@top.intf), file:top.sv, line:17:3, endln:17:17
       |vpiName:block[0]
       |vpiFullName:work@top.intf.block[0]
       |vpiGenScope:
-      \_gen_scope: (work@top.intf.block[0]), parent:work@top.intf.block[0]
+      \_gen_scope: (work@top.intf.block[0])
+        |vpiParent:
+        \_gen_scope_array: (work@top.intf.block[0]), line:6:34, endln:10:15
         |vpiFullName:work@top.intf.block[0]
         |vpiParameter:
-        \_parameter: (work@top.intf.block[0].i), line:6, parent:work@top.intf.block[0]
+        \_parameter: (work@top.intf.block[0].i), line:6:0
+          |vpiParent:
+          \_gen_scope: (work@top.intf.block[0])
           |UINT:0
           |vpiTypespec:
           \_int_typespec: 
-          |vpiParent:
-          \_gen_scope: (work@top.intf.block[0]), parent:work@top.intf.block[0]
           |vpiLocalParam:1
           |vpiName:i
           |vpiFullName:work@top.intf.block[0].i
-        |vpiParent:
-        \_gen_scope_array: (work@top.intf.block[0]), line:6:34, endln:10:15, parent:work@top.intf
         |vpiClockingBlock:
         \_clocking_block: (abc_cb), line:7:7, endln:9:15
           |vpiName:abc_cb
@@ -1518,7 +1518,7 @@ design: (work@top)
               \_event_control: , line:7:23, endln:7:42
               |vpiOpType:39
               |vpiOperand:
-              \_bit_select: (clk_i), line:7:33, endln:7:41, parent:clk_i
+              \_bit_select: (clk_i), line:7:33, endln:7:41
                 |vpiParent:
                 \_ref_obj: (clk_i)
                   |vpiParent:
@@ -1531,26 +1531,26 @@ design: (work@top)
                   \_operation: , line:7:25, endln:7:41
                   |vpiName:i
     |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.intf.block[1]), line:6:34, endln:10:15, parent:work@top.intf
+    \_gen_scope_array: (work@top.intf.block[1]), line:6:34, endln:10:15
       |vpiParent:
-      \_interface: work@abc_if (work@top.intf) top.sv:17:3: , endln:17:17, parent:work@top
+      \_interface: work@abc_if (work@top.intf), file:top.sv, line:17:3, endln:17:17
       |vpiName:block[1]
       |vpiFullName:work@top.intf.block[1]
       |vpiGenScope:
-      \_gen_scope: (work@top.intf.block[1]), parent:work@top.intf.block[1]
+      \_gen_scope: (work@top.intf.block[1])
+        |vpiParent:
+        \_gen_scope_array: (work@top.intf.block[1]), line:6:34, endln:10:15
         |vpiFullName:work@top.intf.block[1]
         |vpiParameter:
-        \_parameter: (work@top.intf.block[1].i), line:6, parent:work@top.intf.block[1]
+        \_parameter: (work@top.intf.block[1].i), line:6:0
+          |vpiParent:
+          \_gen_scope: (work@top.intf.block[1])
           |UINT:1
           |vpiTypespec:
           \_int_typespec: 
-          |vpiParent:
-          \_gen_scope: (work@top.intf.block[1]), parent:work@top.intf.block[1]
           |vpiLocalParam:1
           |vpiName:i
           |vpiFullName:work@top.intf.block[1].i
-        |vpiParent:
-        \_gen_scope_array: (work@top.intf.block[1]), line:6:34, endln:10:15, parent:work@top.intf
         |vpiClockingBlock:
         \_clocking_block: (abc_cb), line:7:7, endln:9:15
           |vpiName:abc_cb
@@ -1562,7 +1562,7 @@ design: (work@top)
               \_event_control: , line:7:23, endln:7:42
               |vpiOpType:39
               |vpiOperand:
-              \_bit_select: (clk_i), line:7:33, endln:7:41, parent:clk_i
+              \_bit_select: (clk_i), line:7:33, endln:7:41
                 |vpiParent:
                 \_ref_obj: (clk_i)
                   |vpiParent:
@@ -1575,26 +1575,26 @@ design: (work@top)
                   \_operation: , line:7:25, endln:7:41
                   |vpiName:i
     |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.intf.block[2]), line:6:34, endln:10:15, parent:work@top.intf
+    \_gen_scope_array: (work@top.intf.block[2]), line:6:34, endln:10:15
       |vpiParent:
-      \_interface: work@abc_if (work@top.intf) top.sv:17:3: , endln:17:17, parent:work@top
+      \_interface: work@abc_if (work@top.intf), file:top.sv, line:17:3, endln:17:17
       |vpiName:block[2]
       |vpiFullName:work@top.intf.block[2]
       |vpiGenScope:
-      \_gen_scope: (work@top.intf.block[2]), parent:work@top.intf.block[2]
+      \_gen_scope: (work@top.intf.block[2])
+        |vpiParent:
+        \_gen_scope_array: (work@top.intf.block[2]), line:6:34, endln:10:15
         |vpiFullName:work@top.intf.block[2]
         |vpiParameter:
-        \_parameter: (work@top.intf.block[2].i), line:6, parent:work@top.intf.block[2]
+        \_parameter: (work@top.intf.block[2].i), line:6:0
+          |vpiParent:
+          \_gen_scope: (work@top.intf.block[2])
           |UINT:2
           |vpiTypespec:
           \_int_typespec: 
-          |vpiParent:
-          \_gen_scope: (work@top.intf.block[2]), parent:work@top.intf.block[2]
           |vpiLocalParam:1
           |vpiName:i
           |vpiFullName:work@top.intf.block[2].i
-        |vpiParent:
-        \_gen_scope_array: (work@top.intf.block[2]), line:6:34, endln:10:15, parent:work@top.intf
         |vpiClockingBlock:
         \_clocking_block: (abc_cb), line:7:7, endln:9:15
           |vpiName:abc_cb
@@ -1606,7 +1606,7 @@ design: (work@top)
               \_event_control: , line:7:23, endln:7:42
               |vpiOpType:39
               |vpiOperand:
-              \_bit_select: (clk_i), line:7:33, endln:7:41, parent:clk_i
+              \_bit_select: (clk_i), line:7:33, endln:7:41
                 |vpiParent:
                 \_ref_obj: (clk_i)
                   |vpiParent:
@@ -1619,66 +1619,68 @@ design: (work@top)
                   \_operation: , line:7:25, endln:7:41
                   |vpiName:i
 |uhdmtopModules:
-\_module: work@top2 (work@top2) top.sv:34:1: , endln:43:10
+\_module: work@top2 (work@top2), file:top.sv, line:34:1, endln:43:10
   |vpiName:work@top2
   |vpiParameter:
-  \_parameter: (work@top2.Width), line:34:30, endln:34:35, parent:work@top2
+  \_parameter: (work@top2.Width), line:34:30, endln:34:35
+    |vpiParent:
+    \_module: work@top2 (work@top2), file:top.sv, line:34:1, endln:43:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:34:26, endln:34:29, parent:work@top2.Width
+    \_int_typespec: , line:34:26, endln:34:29
       |vpiParent:
-      \_parameter: (work@top2.Width), line:34:30, endln:34:35, parent:work@top2
+      \_parameter: (work@top2.Width), line:34:30, endln:34:35
       |vpiSigned:1
-    |vpiParent:
-    \_module: work@top2 (work@top2) top.sv:34:1: , endln:43:10
     |vpiSigned:1
     |vpiName:Width
     |vpiFullName:work@top2.Width
   |vpiParamAssign:
-  \_param_assign: , line:34:30, endln:34:39, parent:work@top2
+  \_param_assign: , line:34:30, endln:34:39
     |vpiParent:
-    \_module: work@top2 (work@top2) top.sv:34:1: , endln:43:10
+    \_module: work@top2 (work@top2), file:top.sv, line:34:1, endln:43:10
     |vpiRhs:
     \_constant: , line:34:38, endln:34:39
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:34:26, endln:34:29, parent:work@top2.Width
+      \_int_typespec: , line:34:26, endln:34:29
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@top2.Width), line:34:30, endln:34:35, parent:work@top2
+    \_parameter: (work@top2.Width), line:34:30, endln:34:35
   |vpiDefName:work@top2
   |vpiTop:1
   |vpiNet:
-  \_logic_net: (work@top2.pins), line:34:61, endln:34:65, parent:work@top2
+  \_logic_net: (work@top2.pins), line:34:61, endln:34:65
+    |vpiParent:
+    \_module: work@top2 (work@top2), file:top.sv, line:34:1, endln:43:10
     |vpiTypespec:
     \_logic_typespec: , line:34:49, endln:34:60
       |vpiRange:
       \_range: , line:34:50, endln:34:59
         |vpiLeftRange:
         \_constant: , line:34:50, endln:34:55
+          |vpiParent:
+          \_range: , line:34:50, endln:34:59
           |vpiDecompile:1
           |vpiSize:64
           |INT:1
-          |vpiParent:
-          \_range: , line:34:50, endln:34:59
           |vpiConstType:7
         |vpiRightRange:
         \_constant: , line:34:58, endln:34:59
+          |vpiParent:
+          \_range: , line:34:50, endln:34:59
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:34:50, endln:34:59
           |vpiConstType:9
     |vpiName:pins
     |vpiFullName:work@top2.pins
-    |vpiParent:
-    \_module: work@top2 (work@top2) top.sv:34:1: , endln:43:10
   |vpiTopModule:1
   |vpiPort:
-  \_port: (pins), line:34:61, endln:34:65, parent:work@top2
+  \_port: (pins), line:34:61, endln:34:65
+    |vpiParent:
+    \_module: work@top2 (work@top2), file:top.sv, line:34:1, endln:43:10
     |vpiName:pins
     |vpiDirection:3
     |vpiLowConn:
@@ -1686,97 +1688,97 @@ design: (work@top)
       |vpiName:pins
       |vpiFullName:work@top2.pins
       |vpiActual:
-      \_logic_net: (work@top2.pins), line:34:61, endln:34:65, parent:work@top2
+      \_logic_net: (work@top2.pins), line:34:61, endln:34:65
     |vpiTypedef:
     \_logic_typespec: , line:34:49, endln:34:60
       |vpiRange:
-      \_range: , line:34:50, endln:34:59, parent:pins
+      \_range: , line:34:50, endln:34:59
         |vpiParent:
-        \_port: (pins), line:34:61, endln:34:65, parent:work@top2
+        \_port: (pins), line:34:61, endln:34:65
         |vpiLeftRange:
         \_constant: , line:34:50, endln:34:55
+          |vpiParent:
+          \_range: , line:34:50, endln:34:59
           |vpiDecompile:1
           |vpiSize:64
           |INT:1
-          |vpiParent:
-          \_range: , line:34:50, endln:34:59, parent:pins
           |vpiConstType:7
         |vpiRightRange:
         \_constant: , line:34:58, endln:34:59
+          |vpiParent:
+          \_range: , line:34:50, endln:34:59
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:34:50, endln:34:59, parent:pins
           |vpiConstType:9
-    |vpiParent:
-    \_module: work@top2 (work@top2) top.sv:34:1: , endln:43:10
   |vpiInterface:
-  \_interface: work@pins_if (work@top2.intf) top.sv:35:1: , endln:35:39, parent:work@top2
+  \_interface: work@pins_if (work@top2.intf), file:top.sv, line:35:1, endln:35:39
+    |vpiParent:
+    \_module: work@top2 (work@top2), file:top.sv, line:34:1, endln:43:10
     |vpiName:intf
     |vpiFullName:work@top2.intf
     |vpiVariables:
-    \_logic_var: (work@top2.intf.pins_o), line:25:21, endln:25:27, parent:work@top2.intf
+    \_logic_var: (work@top2.intf.pins_o), line:25:21, endln:25:27
+      |vpiParent:
+      \_interface: work@pins_if (work@top2.intf), file:top.sv, line:35:1, endln:35:39
       |vpiTypespec:
       \_logic_typespec: , line:25:3, endln:25:8
         |vpiRange:
         \_range: , line:25:10, endln:25:19
           |vpiLeftRange:
           \_constant: , line:25:10, endln:25:15
+            |vpiParent:
+            \_range: , line:25:10, endln:25:19
             |vpiDecompile:1
             |vpiSize:64
             |INT:1
-            |vpiParent:
-            \_range: , line:25:10, endln:25:19
             |vpiConstType:7
           |vpiRightRange:
           \_constant: , line:25:18, endln:25:19
+            |vpiParent:
+            \_range: , line:25:10, endln:25:19
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-            |vpiParent:
-            \_range: , line:25:10, endln:25:19
             |vpiConstType:9
       |vpiName:pins_o
       |vpiFullName:work@top2.intf.pins_o
       |vpiVisibility:1
-      |vpiParent:
-      \_interface: work@pins_if (work@top2.intf) top.sv:35:1: , endln:35:39, parent:work@top2
       |vpiRange:
       \_range: , line:25:10, endln:25:19
         |vpiLeftRange:
         \_constant: , line:25:10, endln:25:15
+          |vpiParent:
+          \_range: , line:25:10, endln:25:19
           |vpiDecompile:1
           |vpiSize:64
           |INT:1
-          |vpiParent:
-          \_range: , line:25:10, endln:25:19
           |vpiConstType:7
         |vpiRightRange:
         \_constant: , line:25:18, endln:25:19
+          |vpiParent:
+          \_range: , line:25:10, endln:25:19
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:25:10, endln:25:19
           |vpiConstType:9
     |vpiParameter:
-    \_parameter: (work@top2.intf.Width), line:22:36, endln:22:41, parent:work@top2.intf
+    \_parameter: (work@top2.intf.Width), line:22:36, endln:22:41
+      |vpiParent:
+      \_interface: work@pins_if (work@top2.intf), file:top.sv, line:35:1, endln:35:39
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:22:32, endln:22:35, parent:work@top2.intf.Width
+      \_int_typespec: , line:22:32, endln:22:35
         |vpiParent:
-        \_parameter: (work@top2.intf.Width), line:22:36, endln:22:41, parent:work@top2.intf
+        \_parameter: (work@top2.intf.Width), line:22:36, endln:22:41
         |vpiSigned:1
-      |vpiParent:
-      \_interface: work@pins_if (work@top2.intf) top.sv:35:1: , endln:35:39, parent:work@top2
       |vpiSigned:1
       |vpiName:Width
       |vpiFullName:work@top2.intf.Width
     |vpiParamAssign:
-    \_param_assign: , line:22:36, endln:22:45, parent:work@top2.intf
+    \_param_assign: , line:22:36, endln:22:45
       |vpiParent:
-      \_interface: work@pins_if (work@top2.intf) top.sv:35:1: , endln:35:39, parent:work@top2
+      \_interface: work@pins_if (work@top2.intf), file:top.sv, line:35:1, endln:35:39
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:22:44, endln:22:45
@@ -1784,45 +1786,45 @@ design: (work@top)
         |vpiSize:32
         |UINT:2
         |vpiTypespec:
-        \_int_typespec: , line:22:32, endln:22:35, parent:work@pins_if.Width
+        \_int_typespec: , line:22:32, endln:22:35
         |vpiConstType:9
       |vpiLhs:
-      \_parameter: (work@top2.intf.Width), line:22:36, endln:22:41, parent:work@top2.intf
+      \_parameter: (work@top2.intf.Width), line:22:36, endln:22:41
     |vpiDefName:work@pins_if
     |vpiDefFile:top.sv
     |vpiDefLineNo:22
     |vpiNet:
-    \_logic_net: (work@top2.intf.pins), line:23:21, endln:23:25, parent:work@top2.intf
+    \_logic_net: (work@top2.intf.pins), line:23:21, endln:23:25
+      |vpiParent:
+      \_interface: work@pins_if (work@top2.intf), file:top.sv, line:35:1, endln:35:39
       |vpiTypespec:
       \_logic_typespec: , line:23:9, endln:23:20
         |vpiRange:
         \_range: , line:23:10, endln:23:19
           |vpiLeftRange:
           \_constant: , line:23:10, endln:23:15
+            |vpiParent:
+            \_range: , line:23:10, endln:23:19
             |vpiDecompile:1
             |vpiSize:64
             |INT:1
-            |vpiParent:
-            \_range: , line:23:10, endln:23:19
             |vpiConstType:7
           |vpiRightRange:
           \_constant: , line:23:18, endln:23:19
+            |vpiParent:
+            \_range: , line:23:10, endln:23:19
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-            |vpiParent:
-            \_range: , line:23:10, endln:23:19
             |vpiConstType:9
       |vpiName:pins
       |vpiFullName:work@top2.intf.pins
-      |vpiParent:
-      \_interface: work@pins_if (work@top2.intf) top.sv:35:1: , endln:35:39, parent:work@top2
     |vpiInstance:
-    \_module: work@top2 (work@top2) top.sv:34:1: , endln:43:10
-    |vpiParent:
-    \_module: work@top2 (work@top2) top.sv:34:1: , endln:43:10
+    \_module: work@top2 (work@top2), file:top.sv, line:34:1, endln:43:10
     |vpiPort:
-    \_port: (pins), line:23:21, endln:23:25, parent:work@top2.intf
+    \_port: (pins), line:23:21, endln:23:25
+      |vpiParent:
+      \_interface: work@pins_if (work@top2.intf), file:top.sv, line:35:1, endln:35:39
       |vpiName:pins
       |vpiDirection:3
       |vpiHighConn:
@@ -1830,69 +1832,67 @@ design: (work@top)
         |vpiName:pins
         |vpiFullName:work@top2.pins
         |vpiActual:
-        \_logic_net: (work@top2.pins), line:34:61, endln:34:65, parent:work@top2
+        \_logic_net: (work@top2.pins), line:34:61, endln:34:65
       |vpiLowConn:
       \_ref_obj: (work@top2.intf.pins), line:35:33, endln:35:37
         |vpiName:pins
         |vpiFullName:work@top2.intf.pins
         |vpiActual:
-        \_logic_net: (work@top2.intf.pins), line:23:21, endln:23:25, parent:work@top2.intf
+        \_logic_net: (work@top2.intf.pins), line:23:21, endln:23:25
       |vpiTypedef:
       \_logic_typespec: , line:23:9, endln:23:20
         |vpiRange:
-        \_range: , line:23:10, endln:23:19, parent:pins
+        \_range: , line:23:10, endln:23:19
           |vpiParent:
-          \_port: (pins), line:23:21, endln:23:25, parent:work@top2.intf
+          \_port: (pins), line:23:21, endln:23:25
           |vpiLeftRange:
           \_constant: , line:23:10, endln:23:15
+            |vpiParent:
+            \_range: , line:23:10, endln:23:19
             |vpiDecompile:1
             |vpiSize:64
             |INT:1
-            |vpiParent:
-            \_range: , line:23:10, endln:23:19, parent:pins
             |vpiConstType:7
           |vpiRightRange:
           \_constant: , line:23:18, endln:23:19
+            |vpiParent:
+            \_range: , line:23:10, endln:23:19
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-            |vpiParent:
-            \_range: , line:23:10, endln:23:19, parent:pins
             |vpiConstType:9
-      |vpiParent:
-      \_interface: work@pins_if (work@top2.intf) top.sv:35:1: , endln:35:39, parent:work@top2
     |vpiGenScopeArray:
-    \_gen_scope_array: (work@top2.intf.each_pin_intf[0]), line:28:40, endln:30:8, parent:work@top2.intf
+    \_gen_scope_array: (work@top2.intf.each_pin_intf[0]), line:28:40, endln:30:8
       |vpiParent:
-      \_interface: work@pins_if (work@top2.intf) top.sv:35:1: , endln:35:39, parent:work@top2
+      \_interface: work@pins_if (work@top2.intf), file:top.sv, line:35:1, endln:35:39
       |vpiName:each_pin_intf[0]
       |vpiFullName:work@top2.intf.each_pin_intf[0]
       |vpiGenScope:
-      \_gen_scope: (work@top2.intf.each_pin_intf[0]), parent:work@top2.intf.each_pin_intf[0]
+      \_gen_scope: (work@top2.intf.each_pin_intf[0])
+        |vpiParent:
+        \_gen_scope_array: (work@top2.intf.each_pin_intf[0]), line:28:40, endln:30:8
         |vpiFullName:work@top2.intf.each_pin_intf[0]
         |vpiParameter:
-        \_parameter: (work@top2.intf.each_pin_intf[0].i), line:28, parent:work@top2.intf.each_pin_intf[0]
+        \_parameter: (work@top2.intf.each_pin_intf[0].i), line:28:0
+          |vpiParent:
+          \_gen_scope: (work@top2.intf.each_pin_intf[0])
           |UINT:0
           |vpiTypespec:
           \_int_typespec: 
-          |vpiParent:
-          \_gen_scope: (work@top2.intf.each_pin_intf[0]), parent:work@top2.intf.each_pin_intf[0]
           |vpiLocalParam:1
           |vpiName:i
           |vpiFullName:work@top2.intf.each_pin_intf[0].i
-        |vpiParent:
-        \_gen_scope_array: (work@top2.intf.each_pin_intf[0]), line:28:40, endln:30:8, parent:work@top2.intf
         |vpiContAssign:
-        \_cont_assign: , line:29:14, endln:29:53, parent:work@top2.intf.each_pin_intf[0]
+        \_cont_assign: , line:29:14, endln:29:53
           |vpiParent:
-          \_gen_scope: (work@top2.intf.each_pin_intf[0]), parent:work@top2.intf.each_pin_intf[0]
+          \_gen_scope: (work@top2.intf.each_pin_intf[0])
           |vpiRhs:
           \_operation: , line:29:24, endln:29:53
             |vpiParent:
-            \_cont_assign: , line:29:14, endln:29:53, parent:work@top2.intf.each_pin_intf[0]
+            \_cont_assign: , line:29:14, endln:29:53
             |vpiOpType:32
             |vpiOperand:
-            \_bit_select: (work@top2.intf.each_pin_intf[0].pins_oe), line:29:24, endln:29:34, parent:work@top2.intf.each_pin_intf[0].pins_oe
+            \_bit_select: (work@top2.intf.each_pin_intf[0].pins_oe), line:29:24, endln:29:34
               |vpiParent:
               \_ref_obj: (work@top2.intf.each_pin_intf[0].pins_oe)
                 |vpiParent:
@@ -1902,13 +1902,13 @@ design: (work@top)
               |vpiName:pins_oe
               |vpiFullName:work@top2.intf.each_pin_intf[0].pins_oe
               |vpiIndex:
-              \_ref_obj: (work@top2.intf.each_pin_intf[0].pins_oe.i), line:29:32, endln:29:33, parent:work@top2.intf.each_pin_intf[0].pins_oe
+              \_ref_obj: (work@top2.intf.each_pin_intf[0].pins_oe.i), line:29:32, endln:29:33
                 |vpiParent:
-                \_bit_select: (work@top2.intf.each_pin_intf[0].pins_oe), line:29:24, endln:29:34, parent:work@top2.intf.each_pin_intf[0].pins_oe
+                \_bit_select: (work@top2.intf.each_pin_intf[0].pins_oe), line:29:24, endln:29:34
                 |vpiName:i
                 |vpiFullName:work@top2.intf.each_pin_intf[0].pins_oe.i
             |vpiOperand:
-            \_bit_select: (work@top2.intf.each_pin_intf[0].pins_o), line:29:37, endln:29:46, parent:work@top2.intf.each_pin_intf[0].pins_o
+            \_bit_select: (work@top2.intf.each_pin_intf[0].pins_o), line:29:37, endln:29:46
               |vpiParent:
               \_ref_obj: (work@top2.intf.each_pin_intf[0].pins_o)
                 |vpiParent:
@@ -1925,60 +1925,60 @@ design: (work@top)
                 |vpiFullName:work@top2.intf.each_pin_intf[0].i
             |vpiOperand:
             \_constant: , line:29:49, endln:29:53
+              |vpiParent:
+              \_operation: , line:29:24, endln:29:53
               |vpiDecompile:1'bz
               |vpiSize:1
               |BIN:z
-              |vpiParent:
-              \_operation: , line:29:24, endln:29:53
               |vpiConstType:3
           |vpiLhs:
-          \_bit_select: (work@top2.intf.each_pin_intf[0].pins), line:29:14, endln:29:21, parent:work@top2.intf.each_pin_intf[0].pins
+          \_bit_select: (work@top2.intf.each_pin_intf[0].pins), line:29:14, endln:29:21
             |vpiParent:
             \_ref_obj: (work@top2.intf.each_pin_intf[0].pins)
               |vpiParent:
-              \_cont_assign: , line:29:14, endln:29:53, parent:work@top2.intf.each_pin_intf[0]
+              \_cont_assign: , line:29:14, endln:29:53
               |vpiName:pins
               |vpiFullName:work@top2.intf.each_pin_intf[0].pins
             |vpiName:pins
             |vpiFullName:work@top2.intf.each_pin_intf[0].pins
             |vpiIndex:
-            \_ref_obj: (work@top2.intf.each_pin_intf[0].pins.i), line:29:19, endln:29:20, parent:work@top2.intf.each_pin_intf[0].pins
+            \_ref_obj: (work@top2.intf.each_pin_intf[0].pins.i), line:29:19, endln:29:20
               |vpiParent:
-              \_bit_select: (work@top2.intf.each_pin_intf[0].pins), line:29:14, endln:29:21, parent:work@top2.intf.each_pin_intf[0].pins
+              \_bit_select: (work@top2.intf.each_pin_intf[0].pins), line:29:14, endln:29:21
               |vpiName:i
               |vpiFullName:work@top2.intf.each_pin_intf[0].pins.i
     |vpiGenScopeArray:
-    \_gen_scope_array: (work@top2.intf.each_pin_intf[1]), line:28:40, endln:30:8, parent:work@top2.intf
+    \_gen_scope_array: (work@top2.intf.each_pin_intf[1]), line:28:40, endln:30:8
       |vpiParent:
-      \_interface: work@pins_if (work@top2.intf) top.sv:35:1: , endln:35:39, parent:work@top2
+      \_interface: work@pins_if (work@top2.intf), file:top.sv, line:35:1, endln:35:39
       |vpiName:each_pin_intf[1]
       |vpiFullName:work@top2.intf.each_pin_intf[1]
       |vpiGenScope:
-      \_gen_scope: (work@top2.intf.each_pin_intf[1]), parent:work@top2.intf.each_pin_intf[1]
+      \_gen_scope: (work@top2.intf.each_pin_intf[1])
+        |vpiParent:
+        \_gen_scope_array: (work@top2.intf.each_pin_intf[1]), line:28:40, endln:30:8
         |vpiFullName:work@top2.intf.each_pin_intf[1]
         |vpiParameter:
-        \_parameter: (work@top2.intf.each_pin_intf[1].i), line:28, parent:work@top2.intf.each_pin_intf[1]
+        \_parameter: (work@top2.intf.each_pin_intf[1].i), line:28:0
+          |vpiParent:
+          \_gen_scope: (work@top2.intf.each_pin_intf[1])
           |UINT:1
           |vpiTypespec:
           \_int_typespec: 
-          |vpiParent:
-          \_gen_scope: (work@top2.intf.each_pin_intf[1]), parent:work@top2.intf.each_pin_intf[1]
           |vpiLocalParam:1
           |vpiName:i
           |vpiFullName:work@top2.intf.each_pin_intf[1].i
-        |vpiParent:
-        \_gen_scope_array: (work@top2.intf.each_pin_intf[1]), line:28:40, endln:30:8, parent:work@top2.intf
         |vpiContAssign:
-        \_cont_assign: , line:29:14, endln:29:53, parent:work@top2.intf.each_pin_intf[1]
+        \_cont_assign: , line:29:14, endln:29:53
           |vpiParent:
-          \_gen_scope: (work@top2.intf.each_pin_intf[1]), parent:work@top2.intf.each_pin_intf[1]
+          \_gen_scope: (work@top2.intf.each_pin_intf[1])
           |vpiRhs:
           \_operation: , line:29:24, endln:29:53
             |vpiParent:
-            \_cont_assign: , line:29:14, endln:29:53, parent:work@top2.intf.each_pin_intf[1]
+            \_cont_assign: , line:29:14, endln:29:53
             |vpiOpType:32
             |vpiOperand:
-            \_bit_select: (work@top2.intf.each_pin_intf[1].pins_oe), line:29:24, endln:29:34, parent:work@top2.intf.each_pin_intf[1].pins_oe
+            \_bit_select: (work@top2.intf.each_pin_intf[1].pins_oe), line:29:24, endln:29:34
               |vpiParent:
               \_ref_obj: (work@top2.intf.each_pin_intf[1].pins_oe)
                 |vpiParent:
@@ -1988,13 +1988,13 @@ design: (work@top)
               |vpiName:pins_oe
               |vpiFullName:work@top2.intf.each_pin_intf[1].pins_oe
               |vpiIndex:
-              \_ref_obj: (work@top2.intf.each_pin_intf[1].pins_oe.i), line:29:32, endln:29:33, parent:work@top2.intf.each_pin_intf[1].pins_oe
+              \_ref_obj: (work@top2.intf.each_pin_intf[1].pins_oe.i), line:29:32, endln:29:33
                 |vpiParent:
-                \_bit_select: (work@top2.intf.each_pin_intf[1].pins_oe), line:29:24, endln:29:34, parent:work@top2.intf.each_pin_intf[1].pins_oe
+                \_bit_select: (work@top2.intf.each_pin_intf[1].pins_oe), line:29:24, endln:29:34
                 |vpiName:i
                 |vpiFullName:work@top2.intf.each_pin_intf[1].pins_oe.i
             |vpiOperand:
-            \_bit_select: (work@top2.intf.each_pin_intf[1].pins_o), line:29:37, endln:29:46, parent:work@top2.intf.each_pin_intf[1].pins_o
+            \_bit_select: (work@top2.intf.each_pin_intf[1].pins_o), line:29:37, endln:29:46
               |vpiParent:
               \_ref_obj: (work@top2.intf.each_pin_intf[1].pins_o)
                 |vpiParent:
@@ -2011,60 +2011,60 @@ design: (work@top)
                 |vpiFullName:work@top2.intf.each_pin_intf[1].i
             |vpiOperand:
             \_constant: , line:29:49, endln:29:53
+              |vpiParent:
+              \_operation: , line:29:24, endln:29:53
               |vpiDecompile:1'bz
               |vpiSize:1
               |BIN:z
-              |vpiParent:
-              \_operation: , line:29:24, endln:29:53
               |vpiConstType:3
           |vpiLhs:
-          \_bit_select: (work@top2.intf.each_pin_intf[1].pins), line:29:14, endln:29:21, parent:work@top2.intf.each_pin_intf[1].pins
+          \_bit_select: (work@top2.intf.each_pin_intf[1].pins), line:29:14, endln:29:21
             |vpiParent:
             \_ref_obj: (work@top2.intf.each_pin_intf[1].pins)
               |vpiParent:
-              \_cont_assign: , line:29:14, endln:29:53, parent:work@top2.intf.each_pin_intf[1]
+              \_cont_assign: , line:29:14, endln:29:53
               |vpiName:pins
               |vpiFullName:work@top2.intf.each_pin_intf[1].pins
             |vpiName:pins
             |vpiFullName:work@top2.intf.each_pin_intf[1].pins
             |vpiIndex:
-            \_ref_obj: (work@top2.intf.each_pin_intf[1].pins.i), line:29:19, endln:29:20, parent:work@top2.intf.each_pin_intf[1].pins
+            \_ref_obj: (work@top2.intf.each_pin_intf[1].pins.i), line:29:19, endln:29:20
               |vpiParent:
-              \_bit_select: (work@top2.intf.each_pin_intf[1].pins), line:29:14, endln:29:21, parent:work@top2.intf.each_pin_intf[1].pins
+              \_bit_select: (work@top2.intf.each_pin_intf[1].pins), line:29:14, endln:29:21
               |vpiName:i
               |vpiFullName:work@top2.intf.each_pin_intf[1].pins.i
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@top2.each_pin[0]), line:38:40, endln:40:8, parent:work@top2
+  \_gen_scope_array: (work@top2.each_pin[0]), line:38:40, endln:40:8
     |vpiParent:
-    \_module: work@top2 (work@top2) top.sv:34:1: , endln:43:10
+    \_module: work@top2 (work@top2), file:top.sv, line:34:1, endln:43:10
     |vpiName:each_pin[0]
     |vpiFullName:work@top2.each_pin[0]
     |vpiGenScope:
-    \_gen_scope: (work@top2.each_pin[0]), parent:work@top2.each_pin[0]
+    \_gen_scope: (work@top2.each_pin[0])
+      |vpiParent:
+      \_gen_scope_array: (work@top2.each_pin[0]), line:38:40, endln:40:8
       |vpiFullName:work@top2.each_pin[0]
       |vpiParameter:
-      \_parameter: (work@top2.each_pin[0].i), line:38, parent:work@top2.each_pin[0]
+      \_parameter: (work@top2.each_pin[0].i), line:38:0
+        |vpiParent:
+        \_gen_scope: (work@top2.each_pin[0])
         |UINT:0
         |vpiTypespec:
         \_int_typespec: 
-        |vpiParent:
-        \_gen_scope: (work@top2.each_pin[0]), parent:work@top2.each_pin[0]
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@top2.each_pin[0].i
-      |vpiParent:
-      \_gen_scope_array: (work@top2.each_pin[0]), line:38:40, endln:40:8, parent:work@top2
       |vpiContAssign:
-      \_cont_assign: , line:39:14, endln:39:53, parent:work@top2.each_pin[0]
+      \_cont_assign: , line:39:14, endln:39:53
         |vpiParent:
-        \_gen_scope: (work@top2.each_pin[0]), parent:work@top2.each_pin[0]
+        \_gen_scope: (work@top2.each_pin[0])
         |vpiRhs:
         \_operation: , line:39:24, endln:39:53
           |vpiParent:
-          \_cont_assign: , line:39:14, endln:39:53, parent:work@top2.each_pin[0]
+          \_cont_assign: , line:39:14, endln:39:53
           |vpiOpType:32
           |vpiOperand:
-          \_bit_select: (work@top2.each_pin[0].pins_oe), line:39:24, endln:39:34, parent:work@top2.each_pin[0].pins_oe
+          \_bit_select: (work@top2.each_pin[0].pins_oe), line:39:24, endln:39:34
             |vpiParent:
             \_ref_obj: (work@top2.each_pin[0].pins_oe)
               |vpiParent:
@@ -2074,13 +2074,13 @@ design: (work@top)
             |vpiName:pins_oe
             |vpiFullName:work@top2.each_pin[0].pins_oe
             |vpiIndex:
-            \_ref_obj: (work@top2.each_pin[0].pins_oe.i), line:39:32, endln:39:33, parent:work@top2.each_pin[0].pins_oe
+            \_ref_obj: (work@top2.each_pin[0].pins_oe.i), line:39:32, endln:39:33
               |vpiParent:
-              \_bit_select: (work@top2.each_pin[0].pins_oe), line:39:24, endln:39:34, parent:work@top2.each_pin[0].pins_oe
+              \_bit_select: (work@top2.each_pin[0].pins_oe), line:39:24, endln:39:34
               |vpiName:i
               |vpiFullName:work@top2.each_pin[0].pins_oe.i
           |vpiOperand:
-          \_bit_select: (work@top2.each_pin[0].pins_o), line:39:37, endln:39:46, parent:work@top2.each_pin[0].pins_o
+          \_bit_select: (work@top2.each_pin[0].pins_o), line:39:37, endln:39:46
             |vpiParent:
             \_ref_obj: (work@top2.each_pin[0].pins_o)
               |vpiParent:
@@ -2097,60 +2097,60 @@ design: (work@top)
               |vpiFullName:work@top2.each_pin[0].i
           |vpiOperand:
           \_constant: , line:39:49, endln:39:53
+            |vpiParent:
+            \_operation: , line:39:24, endln:39:53
             |vpiDecompile:1'bz
             |vpiSize:1
             |BIN:z
-            |vpiParent:
-            \_operation: , line:39:24, endln:39:53
             |vpiConstType:3
         |vpiLhs:
-        \_bit_select: (work@top2.each_pin[0].pins), line:39:14, endln:39:21, parent:work@top2.each_pin[0].pins
+        \_bit_select: (work@top2.each_pin[0].pins), line:39:14, endln:39:21
           |vpiParent:
           \_ref_obj: (work@top2.each_pin[0].pins)
             |vpiParent:
-            \_cont_assign: , line:39:14, endln:39:53, parent:work@top2.each_pin[0]
+            \_cont_assign: , line:39:14, endln:39:53
             |vpiName:pins
             |vpiFullName:work@top2.each_pin[0].pins
           |vpiName:pins
           |vpiFullName:work@top2.each_pin[0].pins
           |vpiIndex:
-          \_ref_obj: (work@top2.each_pin[0].pins.i), line:39:19, endln:39:20, parent:work@top2.each_pin[0].pins
+          \_ref_obj: (work@top2.each_pin[0].pins.i), line:39:19, endln:39:20
             |vpiParent:
-            \_bit_select: (work@top2.each_pin[0].pins), line:39:14, endln:39:21, parent:work@top2.each_pin[0].pins
+            \_bit_select: (work@top2.each_pin[0].pins), line:39:14, endln:39:21
             |vpiName:i
             |vpiFullName:work@top2.each_pin[0].pins.i
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@top2.each_pin[1]), line:38:40, endln:40:8, parent:work@top2
+  \_gen_scope_array: (work@top2.each_pin[1]), line:38:40, endln:40:8
     |vpiParent:
-    \_module: work@top2 (work@top2) top.sv:34:1: , endln:43:10
+    \_module: work@top2 (work@top2), file:top.sv, line:34:1, endln:43:10
     |vpiName:each_pin[1]
     |vpiFullName:work@top2.each_pin[1]
     |vpiGenScope:
-    \_gen_scope: (work@top2.each_pin[1]), parent:work@top2.each_pin[1]
+    \_gen_scope: (work@top2.each_pin[1])
+      |vpiParent:
+      \_gen_scope_array: (work@top2.each_pin[1]), line:38:40, endln:40:8
       |vpiFullName:work@top2.each_pin[1]
       |vpiParameter:
-      \_parameter: (work@top2.each_pin[1].i), line:38, parent:work@top2.each_pin[1]
+      \_parameter: (work@top2.each_pin[1].i), line:38:0
+        |vpiParent:
+        \_gen_scope: (work@top2.each_pin[1])
         |UINT:1
         |vpiTypespec:
         \_int_typespec: 
-        |vpiParent:
-        \_gen_scope: (work@top2.each_pin[1]), parent:work@top2.each_pin[1]
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@top2.each_pin[1].i
-      |vpiParent:
-      \_gen_scope_array: (work@top2.each_pin[1]), line:38:40, endln:40:8, parent:work@top2
       |vpiContAssign:
-      \_cont_assign: , line:39:14, endln:39:53, parent:work@top2.each_pin[1]
+      \_cont_assign: , line:39:14, endln:39:53
         |vpiParent:
-        \_gen_scope: (work@top2.each_pin[1]), parent:work@top2.each_pin[1]
+        \_gen_scope: (work@top2.each_pin[1])
         |vpiRhs:
         \_operation: , line:39:24, endln:39:53
           |vpiParent:
-          \_cont_assign: , line:39:14, endln:39:53, parent:work@top2.each_pin[1]
+          \_cont_assign: , line:39:14, endln:39:53
           |vpiOpType:32
           |vpiOperand:
-          \_bit_select: (work@top2.each_pin[1].pins_oe), line:39:24, endln:39:34, parent:work@top2.each_pin[1].pins_oe
+          \_bit_select: (work@top2.each_pin[1].pins_oe), line:39:24, endln:39:34
             |vpiParent:
             \_ref_obj: (work@top2.each_pin[1].pins_oe)
               |vpiParent:
@@ -2160,13 +2160,13 @@ design: (work@top)
             |vpiName:pins_oe
             |vpiFullName:work@top2.each_pin[1].pins_oe
             |vpiIndex:
-            \_ref_obj: (work@top2.each_pin[1].pins_oe.i), line:39:32, endln:39:33, parent:work@top2.each_pin[1].pins_oe
+            \_ref_obj: (work@top2.each_pin[1].pins_oe.i), line:39:32, endln:39:33
               |vpiParent:
-              \_bit_select: (work@top2.each_pin[1].pins_oe), line:39:24, endln:39:34, parent:work@top2.each_pin[1].pins_oe
+              \_bit_select: (work@top2.each_pin[1].pins_oe), line:39:24, endln:39:34
               |vpiName:i
               |vpiFullName:work@top2.each_pin[1].pins_oe.i
           |vpiOperand:
-          \_bit_select: (work@top2.each_pin[1].pins_o), line:39:37, endln:39:46, parent:work@top2.each_pin[1].pins_o
+          \_bit_select: (work@top2.each_pin[1].pins_o), line:39:37, endln:39:46
             |vpiParent:
             \_ref_obj: (work@top2.each_pin[1].pins_o)
               |vpiParent:
@@ -2183,26 +2183,26 @@ design: (work@top)
               |vpiFullName:work@top2.each_pin[1].i
           |vpiOperand:
           \_constant: , line:39:49, endln:39:53
+            |vpiParent:
+            \_operation: , line:39:24, endln:39:53
             |vpiDecompile:1'bz
             |vpiSize:1
             |BIN:z
-            |vpiParent:
-            \_operation: , line:39:24, endln:39:53
             |vpiConstType:3
         |vpiLhs:
-        \_bit_select: (work@top2.each_pin[1].pins), line:39:14, endln:39:21, parent:work@top2.each_pin[1].pins
+        \_bit_select: (work@top2.each_pin[1].pins), line:39:14, endln:39:21
           |vpiParent:
           \_ref_obj: (work@top2.each_pin[1].pins)
             |vpiParent:
-            \_cont_assign: , line:39:14, endln:39:53, parent:work@top2.each_pin[1]
+            \_cont_assign: , line:39:14, endln:39:53
             |vpiName:pins
             |vpiFullName:work@top2.each_pin[1].pins
           |vpiName:pins
           |vpiFullName:work@top2.each_pin[1].pins
           |vpiIndex:
-          \_ref_obj: (work@top2.each_pin[1].pins.i), line:39:19, endln:39:20, parent:work@top2.each_pin[1].pins
+          \_ref_obj: (work@top2.each_pin[1].pins.i), line:39:19, endln:39:20
             |vpiParent:
-            \_bit_select: (work@top2.each_pin[1].pins), line:39:14, endln:39:21, parent:work@top2.each_pin[1].pins
+            \_bit_select: (work@top2.each_pin[1].pins), line:39:14, endln:39:21
             |vpiName:i
             |vpiFullName:work@top2.each_pin[1].pins.i
 ===================

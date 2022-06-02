@@ -368,62 +368,66 @@ design: (unnamed)
 |vpiElaborated:1
 |vpiName:unnamed
 |uhdmallPackages:
-\_package: builtin (builtin::), file:, parent:unnamed
+\_package: builtin (builtin::), file:
+  |vpiParent:
+  \_design: (unnamed)
   |vpiName:builtin
   |vpiFullName:builtin::
   |vpiDefName:builtin
+|uhdmallPackages:
+\_package: toto (toto::), file:dut.sv, line:1:1, endln:14:11
   |vpiParent:
   \_design: (unnamed)
-|uhdmallPackages:
-\_package: toto (toto::) dut.sv:1:1: , endln:14:11, parent:unnamed
   |vpiName:toto
   |vpiFullName:toto::
   |vpiDefName:toto
   |vpiTaskFunc:
-  \_function: (toto::uvm_default_factory::print), line:4:1, endln:12:12, parent:toto::
+  \_function: (toto::uvm_default_factory::print), line:4:1, endln:12:12
+    |vpiParent:
+    \_package: toto (toto::), file:dut.sv, line:1:1, endln:14:11
     |vpiName:uvm_default_factory::print
     |vpiFullName:toto::uvm_default_factory::print
     |vpiVisibility:1
     |vpiParent:
-    \_package: toto (toto::) dut.sv:1:1: , endln:14:11, parent:unnamed
+    \_package: toto (toto::), file:dut.sv, line:1:1, endln:14:11
     |vpiStmt:
-    \_do_while: , line:6:3, endln:10:36, parent:toto::uvm_default_factory::print
+    \_do_while: , line:6:3, endln:10:36
       |vpiParent:
-      \_function: (toto::uvm_default_factory::print), line:4:1, endln:12:12, parent:toto::
+      \_function: (toto::uvm_default_factory::print), line:4:1, endln:12:12
       |vpiCondition:
       \_hier_path: (m_type_names.next), line:10:14, endln:10:36
         |vpiParent:
-        \_do_while: , line:6:3, endln:10:36, parent:toto::uvm_default_factory::print
+        \_do_while: , line:6:3, endln:10:36
         |vpiName:m_type_names.next
         |vpiActual:
-        \_ref_obj: (m_type_names), line:10:14, endln:10:26, parent:m_type_names.next
+        \_ref_obj: (m_type_names), line:10:14, endln:10:26
           |vpiParent:
           \_hier_path: (m_type_names.next), line:10:14, endln:10:36
           |vpiName:m_type_names
         |vpiActual:
-        \_method_func_call: (next), line:10:27, endln:10:31, parent:m_type_names.next
+        \_method_func_call: (next), line:10:27, endln:10:31
+          |vpiParent:
+          \_hier_path: (m_type_names.next), line:10:14, endln:10:36
           |vpiArgument:
-          \_ref_obj: (toto::uvm_default_factory::print::m_type_names.next::key), line:10:32, endln:10:35, parent:next
+          \_ref_obj: (toto::uvm_default_factory::print::m_type_names.next::key), line:10:32, endln:10:35
             |vpiParent:
-            \_method_func_call: (next), line:10:27, endln:10:31, parent:m_type_names.next
+            \_method_func_call: (next), line:10:27, endln:10:31
             |vpiName:key
             |vpiFullName:toto::uvm_default_factory::print::m_type_names.next::key
           |vpiName:next
-          |vpiParent:
-          \_hier_path: (m_type_names.next), line:10:14, endln:10:36
       |vpiStmt:
       \_begin: (toto::uvm_default_factory::print), line:6:6, endln:10:7
-        |vpiFullName:toto::uvm_default_factory::print
         |vpiParent:
-        \_do_while: , line:6:3, endln:10:36, parent:toto::uvm_default_factory::print
+        \_do_while: , line:6:3, endln:10:36
+        |vpiFullName:toto::uvm_default_factory::print
         |vpiStmt:
-        \_wait_stmt: , line:7:5, endln:7:51, parent:toto::uvm_default_factory::print
+        \_wait_stmt: , line:7:5, endln:7:51
           |vpiParent:
           \_begin: (toto::uvm_default_factory::print), line:6:6, endln:10:7
           |vpiCondition:
           \_operation: , line:7:11, endln:7:49
             |vpiParent:
-            \_wait_stmt: , line:7:5, endln:7:51, parent:toto::uvm_default_factory::print
+            \_wait_stmt: , line:7:5, endln:7:51
             |vpiOpType:19
             |vpiOperand:
             \_hier_path: (m_sync[i].m_state), line:7:11, endln:7:28
@@ -431,22 +435,22 @@ design: (unnamed)
               \_operation: , line:7:11, endln:7:49
               |vpiName:m_sync[i].m_state
               |vpiActual:
-              \_bit_select: (m_sync), line:7:11, endln:7:17, parent:toto::uvm_default_factory::print::m_sync[i].m_state
+              \_bit_select: (m_sync), line:7:11, endln:7:17
                 |vpiParent:
-                \_ref_obj: (toto::uvm_default_factory::print::m_sync[i].m_state), parent:m_sync[i].m_state
+                \_ref_obj: (toto::uvm_default_factory::print::m_sync[i].m_state)
                   |vpiParent:
                   \_hier_path: (m_sync[i].m_state), line:7:11, endln:7:28
                   |vpiName:m_sync[i].m_state
                   |vpiFullName:toto::uvm_default_factory::print::m_sync[i].m_state
                 |vpiName:m_sync
                 |vpiIndex:
-                \_ref_obj: (toto::uvm_default_factory::print::m_sync[i].m_state::i), line:7:18, endln:7:19, parent:m_sync
+                \_ref_obj: (toto::uvm_default_factory::print::m_sync[i].m_state::i), line:7:18, endln:7:19
                   |vpiParent:
-                  \_bit_select: (m_sync), line:7:11, endln:7:17, parent:toto::uvm_default_factory::print::m_sync[i].m_state
+                  \_bit_select: (m_sync), line:7:11, endln:7:17
                   |vpiName:i
                   |vpiFullName:toto::uvm_default_factory::print::m_sync[i].m_state::i
               |vpiActual:
-              \_ref_obj: (m_state), line:7:21, endln:7:28, parent:m_sync[i].m_state
+              \_ref_obj: (m_state), line:7:21, endln:7:28
                 |vpiParent:
                 \_hier_path: (m_sync[i].m_state), line:7:11, endln:7:28
                 |vpiName:m_state
@@ -457,119 +461,119 @@ design: (unnamed)
               |vpiName:UVM_PHASE_SYNCING
               |vpiFullName:toto::uvm_default_factory::print::UVM_PHASE_SYNCING
         |vpiStmt:
-        \_method_func_call: (push_back), line:8:8, endln:8:17, parent:toto::uvm_default_factory::print
+        \_method_func_call: (push_back), line:8:8, endln:8:17
+          |vpiParent:
+          \_begin: (toto::uvm_default_factory::print), line:6:6, endln:10:7
           |vpiArgument:
-          \_constant: , line:8:18, endln:8:33, parent:push_back
+          \_constant: , line:8:18, endln:8:33
+            |vpiParent:
+            \_method_func_call: (push_back), line:8:8, endln:8:17
             |vpiDecompile:  Type Name\n
             |vpiSize:13
             |STRING:  Type Name\n
-            |vpiParent:
-            \_method_func_call: (push_back), line:8:8, endln:8:17, parent:toto::uvm_default_factory::print
             |vpiConstType:6
           |vpiName:push_back
-          |vpiParent:
-          \_begin: (toto::uvm_default_factory::print), line:6:6, endln:10:7
           |vpiPrefix:
-          \_ref_obj: (toto::uvm_default_factory::print::qs), line:8:5, endln:8:7, parent:push_back
+          \_ref_obj: (toto::uvm_default_factory::print::qs), line:8:5, endln:8:7
             |vpiParent:
-            \_method_func_call: (push_back), line:8:8, endln:8:17, parent:toto::uvm_default_factory::print
+            \_method_func_call: (push_back), line:8:8, endln:8:17
             |vpiName:qs
             |vpiFullName:toto::uvm_default_factory::print::qs
     |vpiInstance:
-    \_package: toto (toto::) dut.sv:1:1: , endln:14:11, parent:unnamed
-    |vpiParent:
-    \_package: toto (toto::) dut.sv:1:1: , endln:14:11, parent:unnamed
+    \_package: toto (toto::), file:dut.sv, line:1:1, endln:14:11
+|uhdmtopPackages:
+\_package: builtin (builtin::), file:
   |vpiParent:
   \_design: (unnamed)
-|uhdmtopPackages:
-\_package: builtin (builtin::), file:, parent:unnamed
   |vpiName:builtin
   |vpiFullName:builtin::
   |vpiDefName:builtin
   |vpiTop:1
   |vpiClassDefn:
-  \_class_defn: (builtin::any_sverilog_class), file:, parent:builtin::
+  \_class_defn: (builtin::any_sverilog_class), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:any_sverilog_class
     |vpiFullName:builtin::any_sverilog_class
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:unnamed
   |vpiClassDefn:
-  \_class_defn: (builtin::array), file:, parent:builtin::
+  \_class_defn: (builtin::array), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:array
     |vpiFullName:builtin::array
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:unnamed
   |vpiClassDefn:
-  \_class_defn: (builtin::queue), file:, parent:builtin::
+  \_class_defn: (builtin::queue), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:queue
     |vpiFullName:builtin::queue
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:unnamed
   |vpiClassDefn:
-  \_class_defn: (builtin::string), file:, parent:builtin::
+  \_class_defn: (builtin::string), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:string
     |vpiFullName:builtin::string
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:unnamed
   |vpiClassDefn:
-  \_class_defn: (builtin::system), file:, parent:builtin::
+  \_class_defn: (builtin::system), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:system
     |vpiFullName:builtin::system
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:unnamed
+|uhdmtopPackages:
+\_package: toto (toto::), file:dut.sv, line:1:1, endln:14:11
   |vpiParent:
   \_design: (unnamed)
-|uhdmtopPackages:
-\_package: toto (toto::) dut.sv:1:1: , endln:14:11, parent:unnamed
   |vpiName:toto
   |vpiFullName:toto::
   |vpiDefName:toto
   |vpiTop:1
   |vpiTaskFunc:
-  \_function: (toto::uvm_default_factory::print), line:4:1, endln:12:12, parent:toto::
+  \_function: (toto::uvm_default_factory::print), line:4:1, endln:12:12
+    |vpiParent:
+    \_package: toto (toto::), file:dut.sv, line:1:1, endln:14:11
     |vpiName:uvm_default_factory::print
     |vpiFullName:toto::uvm_default_factory::print
     |vpiVisibility:1
     |vpiParent:
-    \_package: toto (toto::) dut.sv:1:1: , endln:14:11, parent:unnamed
+    \_package: toto (toto::), file:dut.sv, line:1:1, endln:14:11
     |vpiStmt:
-    \_do_while: , line:6:3, endln:10:36, parent:toto::uvm_default_factory::print
+    \_do_while: , line:6:3, endln:10:36
       |vpiParent:
-      \_function: (toto::uvm_default_factory::print), line:4:1, endln:12:12, parent:toto::
+      \_function: (toto::uvm_default_factory::print), line:4:1, endln:12:12
       |vpiCondition:
       \_hier_path: (m_type_names.next), line:10:14, endln:10:36
         |vpiParent:
-        \_do_while: , line:6:3, endln:10:36, parent:toto::uvm_default_factory::print
+        \_do_while: , line:6:3, endln:10:36
         |vpiName:m_type_names.next
         |vpiActual:
-        \_ref_obj: (m_type_names), line:10:14, endln:10:26, parent:m_type_names.next
+        \_ref_obj: (m_type_names), line:10:14, endln:10:26
           |vpiParent:
           \_hier_path: (m_type_names.next), line:10:14, endln:10:36
           |vpiName:m_type_names
         |vpiActual:
-        \_method_func_call: (next), line:10:27, endln:10:31, parent:m_type_names.next
+        \_method_func_call: (next), line:10:27, endln:10:31
+          |vpiParent:
+          \_hier_path: (m_type_names.next), line:10:14, endln:10:36
           |vpiArgument:
-          \_ref_obj: (toto::uvm_default_factory::print::m_type_names.next::key), line:10:32, endln:10:35, parent:next
+          \_ref_obj: (toto::uvm_default_factory::print::m_type_names.next::key), line:10:32, endln:10:35
             |vpiParent:
-            \_method_func_call: (next), line:10:27, endln:10:31, parent:m_type_names.next
+            \_method_func_call: (next), line:10:27, endln:10:31
             |vpiName:key
             |vpiFullName:toto::uvm_default_factory::print::m_type_names.next::key
           |vpiName:next
-          |vpiParent:
-          \_hier_path: (m_type_names.next), line:10:14, endln:10:36
       |vpiStmt:
       \_begin: (toto::uvm_default_factory::print), line:6:6, endln:10:7
-        |vpiFullName:toto::uvm_default_factory::print
         |vpiParent:
-        \_do_while: , line:6:3, endln:10:36, parent:toto::uvm_default_factory::print
+        \_do_while: , line:6:3, endln:10:36
+        |vpiFullName:toto::uvm_default_factory::print
         |vpiStmt:
-        \_wait_stmt: , line:7:5, endln:7:51, parent:toto::uvm_default_factory::print
+        \_wait_stmt: , line:7:5, endln:7:51
           |vpiParent:
           \_begin: (toto::uvm_default_factory::print), line:6:6, endln:10:7
           |vpiCondition:
           \_operation: , line:7:11, endln:7:49
             |vpiParent:
-            \_wait_stmt: , line:7:5, endln:7:51, parent:toto::uvm_default_factory::print
+            \_wait_stmt: , line:7:5, endln:7:51
             |vpiOpType:19
             |vpiOperand:
             \_hier_path: (m_sync[i].m_state), line:7:11, endln:7:28
@@ -577,22 +581,22 @@ design: (unnamed)
               \_operation: , line:7:11, endln:7:49
               |vpiName:m_sync[i].m_state
               |vpiActual:
-              \_bit_select: (m_sync), line:7:11, endln:7:17, parent:toto::uvm_default_factory::print::m_sync[i].m_state
+              \_bit_select: (m_sync), line:7:11, endln:7:17
                 |vpiParent:
-                \_ref_obj: (toto::uvm_default_factory::print::m_sync[i].m_state), parent:m_sync[i].m_state
+                \_ref_obj: (toto::uvm_default_factory::print::m_sync[i].m_state)
                   |vpiParent:
                   \_hier_path: (m_sync[i].m_state), line:7:11, endln:7:28
                   |vpiName:m_sync[i].m_state
                   |vpiFullName:toto::uvm_default_factory::print::m_sync[i].m_state
                 |vpiName:m_sync
                 |vpiIndex:
-                \_ref_obj: (toto::uvm_default_factory::print::m_sync[i].m_state::i), line:7:18, endln:7:19, parent:m_sync
+                \_ref_obj: (toto::uvm_default_factory::print::m_sync[i].m_state::i), line:7:18, endln:7:19
                   |vpiParent:
-                  \_bit_select: (m_sync), line:7:11, endln:7:17, parent:toto::uvm_default_factory::print::m_sync[i].m_state
+                  \_bit_select: (m_sync), line:7:11, endln:7:17
                   |vpiName:i
                   |vpiFullName:toto::uvm_default_factory::print::m_sync[i].m_state::i
               |vpiActual:
-              \_ref_obj: (m_state), line:7:21, endln:7:28, parent:m_sync[i].m_state
+              \_ref_obj: (m_state), line:7:21, endln:7:28
                 |vpiParent:
                 \_hier_path: (m_sync[i].m_state), line:7:11, endln:7:28
                 |vpiName:m_state
@@ -603,37 +607,35 @@ design: (unnamed)
               |vpiName:UVM_PHASE_SYNCING
               |vpiFullName:toto::uvm_default_factory::print::UVM_PHASE_SYNCING
         |vpiStmt:
-        \_method_func_call: (push_back), line:8:8, endln:8:17, parent:toto::uvm_default_factory::print
+        \_method_func_call: (push_back), line:8:8, endln:8:17
+          |vpiParent:
+          \_begin: (toto::uvm_default_factory::print), line:6:6, endln:10:7
           |vpiArgument:
-          \_constant: , line:8:18, endln:8:33, parent:push_back
+          \_constant: , line:8:18, endln:8:33
+            |vpiParent:
+            \_method_func_call: (push_back), line:8:8, endln:8:17
             |vpiDecompile:  Type Name\n
             |vpiSize:13
             |STRING:  Type Name\n
-            |vpiParent:
-            \_method_func_call: (push_back), line:8:8, endln:8:17, parent:toto::uvm_default_factory::print
             |vpiConstType:6
           |vpiName:push_back
-          |vpiParent:
-          \_begin: (toto::uvm_default_factory::print), line:6:6, endln:10:7
           |vpiPrefix:
-          \_ref_obj: (toto::uvm_default_factory::print::qs), line:8:5, endln:8:7, parent:push_back
+          \_ref_obj: (toto::uvm_default_factory::print::qs), line:8:5, endln:8:7
             |vpiParent:
-            \_method_func_call: (push_back), line:8:8, endln:8:17, parent:toto::uvm_default_factory::print
+            \_method_func_call: (push_back), line:8:8, endln:8:17
             |vpiName:qs
             |vpiFullName:toto::uvm_default_factory::print::qs
     |vpiInstance:
-    \_package: toto (toto::) dut.sv:1:1: , endln:14:11, parent:unnamed
-    |vpiParent:
-    \_package: toto (toto::) dut.sv:1:1: , endln:14:11, parent:unnamed
-  |vpiParent:
-  \_design: (unnamed)
+    \_package: toto (toto::), file:dut.sv, line:1:1, endln:14:11
 |uhdmallClasses:
-\_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
-  |vpiName:work@mailbox
+\_class_defn: (work@mailbox), file:builtin.sv
   |vpiParent:
   \_design: (unnamed)
+  |vpiName:work@mailbox
   |vpiMethod:
-  \_function: (work@mailbox::new), parent:work@mailbox
+  \_function: (work@mailbox::new)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:new
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
@@ -642,13 +644,13 @@ design: (unnamed)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
+        \_class_defn: (work@mailbox), file:builtin.sv
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (bound), parent:work@mailbox::new
+    \_io_decl: (bound)
       |vpiParent:
-      \_function: (work@mailbox::new), parent:work@mailbox
+      \_function: (work@mailbox::new)
       |vpiDirection:1
       |vpiName:bound
       |vpiExpr:
@@ -660,10 +662,10 @@ design: (unnamed)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
   |vpiMethod:
-  \_function: (work@mailbox::num), parent:work@mailbox
+  \_function: (work@mailbox::num)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:num
     |vpiFullName:work@mailbox::num
     |vpiMethod:1
@@ -674,27 +676,27 @@ design: (unnamed)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
+    \_class_defn: (work@mailbox), file:builtin.sv
   |vpiMethod:
-  \_task: (work@mailbox::put), parent:work@mailbox
+  \_task: (work@mailbox::put)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:put
     |vpiFullName:work@mailbox::put
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::put
+    \_io_decl: (message)
       |vpiParent:
-      \_task: (work@mailbox::put), parent:work@mailbox
+      \_task: (work@mailbox::put)
       |vpiDirection:1
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
   |vpiMethod:
-  \_function: (work@mailbox::try_put), parent:work@mailbox
+  \_function: (work@mailbox::try_put)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
     |vpiMethod:1
@@ -702,33 +704,33 @@ design: (unnamed)
     |vpiReturn:
     \_logic_var: 
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_put
+    \_io_decl: (message)
       |vpiParent:
-      \_function: (work@mailbox::try_put), parent:work@mailbox
+      \_function: (work@mailbox::try_put)
       |vpiDirection:1
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
   |vpiMethod:
-  \_task: (work@mailbox::get), parent:work@mailbox
+  \_task: (work@mailbox::get)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:get
     |vpiFullName:work@mailbox::get
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::get
+    \_io_decl: (message)
       |vpiParent:
-      \_task: (work@mailbox::get), parent:work@mailbox
+      \_task: (work@mailbox::get)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
   |vpiMethod:
-  \_function: (work@mailbox::try_get), parent:work@mailbox
+  \_function: (work@mailbox::try_get)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
     |vpiMethod:1
@@ -739,33 +741,33 @@ design: (unnamed)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_get
+    \_io_decl: (message)
       |vpiParent:
-      \_function: (work@mailbox::try_get), parent:work@mailbox
+      \_function: (work@mailbox::try_get)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
   |vpiMethod:
-  \_task: (work@mailbox::peek), parent:work@mailbox
+  \_task: (work@mailbox::peek)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::peek
+    \_io_decl: (message)
       |vpiParent:
-      \_task: (work@mailbox::peek), parent:work@mailbox
+      \_task: (work@mailbox::peek)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
   |vpiMethod:
-  \_function: (work@mailbox::try_peek), parent:work@mailbox
+  \_function: (work@mailbox::try_peek)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
     |vpiMethod:1
@@ -776,67 +778,67 @@ design: (unnamed)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_peek
+    \_io_decl: (message)
       |vpiParent:
-      \_function: (work@mailbox::try_peek), parent:work@mailbox
+      \_function: (work@mailbox::try_peek)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:unnamed
 |uhdmallClasses:
-\_class_defn: (work@process), file:builtin.sv, parent:unnamed
+\_class_defn: (work@process), file:builtin.sv
+  |vpiParent:
+  \_design: (unnamed)
   |vpiName:work@process
   |vpiTypedef:
-  \_enum_typespec: (state), parent:work@process
-    |vpiName:state
+  \_enum_typespec: (state)
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:unnamed
+    \_class_defn: (work@process), file:builtin.sv
+    |vpiName:state
     |vpiEnumConst:
-    \_enum_const: (FINISHED), parent:state
+    \_enum_const: (FINISHED)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:FINISHED
       |INT:0
       |vpiDecompile:0
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (RUNNING), parent:state
+    \_enum_const: (RUNNING)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:RUNNING
       |INT:1
       |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (WAITING), parent:state
+    \_enum_const: (WAITING)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:WAITING
       |INT:2
       |vpiDecompile:2
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (SUSPENDED), parent:state
+    \_enum_const: (SUSPENDED)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:SUSPENDED
       |INT:3
       |vpiDecompile:3
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (KILLED), parent:state
+    \_enum_const: (KILLED)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:KILLED
       |INT:4
       |vpiDecompile:4
       |vpiSize:64
-  |vpiParent:
-  \_design: (unnamed)
   |vpiMethod:
-  \_function: (work@process::self), parent:work@process
+  \_function: (work@process::self)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiMethod:1
@@ -846,13 +848,13 @@ design: (unnamed)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@process), file:builtin.sv, parent:unnamed
+        \_class_defn: (work@process), file:builtin.sv
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:unnamed
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:unnamed
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_function: (work@process::status), parent:work@process
+  \_function: (work@process::status)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiMethod:1
@@ -860,10 +862,10 @@ design: (unnamed)
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
-      \_enum_typespec: (state), parent:work@process
-        |vpiName:state
+      \_enum_typespec: (state)
         |vpiParent:
-        \_class_defn: (work@process), file:builtin.sv, parent:unnamed
+        \_class_defn: (work@process), file:builtin.sv
+        |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
           |vpiName:FINISHED
@@ -895,56 +897,56 @@ design: (unnamed)
           |vpiDecompile:4
           |vpiSize:64
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:unnamed
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:unnamed
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::kill), parent:work@process
+  \_task: (work@process::kill)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:kill
     |vpiFullName:work@process::kill
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:unnamed
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:unnamed
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::await), parent:work@process
+  \_task: (work@process::await)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:await
     |vpiFullName:work@process::await
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:unnamed
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:unnamed
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::suspend), parent:work@process
+  \_task: (work@process::suspend)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:suspend
     |vpiFullName:work@process::suspend
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:unnamed
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:unnamed
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::resume), parent:work@process
+  \_task: (work@process::resume)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:resume
     |vpiFullName:work@process::resume
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:unnamed
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:unnamed
+    \_class_defn: (work@process), file:builtin.sv
 |uhdmallClasses:
-\_class_defn: (work@semaphore), file:builtin.sv, parent:unnamed
-  |vpiName:work@semaphore
+\_class_defn: (work@semaphore), file:builtin.sv
   |vpiParent:
   \_design: (unnamed)
+  |vpiName:work@semaphore
   |vpiMethod:
-  \_function: (work@semaphore::new), parent:work@semaphore
+  \_function: (work@semaphore::new)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:new
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
@@ -953,13 +955,13 @@ design: (unnamed)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:builtin.sv, parent:unnamed
+        \_class_defn: (work@semaphore), file:builtin.sv
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:unnamed
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::new
+    \_io_decl: (keyCount)
       |vpiParent:
-      \_function: (work@semaphore::new), parent:work@semaphore
+      \_function: (work@semaphore::new)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -971,20 +973,20 @@ design: (unnamed)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:unnamed
   |vpiMethod:
-  \_task: (work@semaphore::put), parent:work@semaphore
+  \_task: (work@semaphore::put)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:put
     |vpiFullName:work@semaphore::put
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:unnamed
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::put
+    \_io_decl: (keyCount)
       |vpiParent:
-      \_task: (work@semaphore::put), parent:work@semaphore
+      \_task: (work@semaphore::put)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -996,20 +998,20 @@ design: (unnamed)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:unnamed
   |vpiMethod:
-  \_task: (work@semaphore::get), parent:work@semaphore
+  \_task: (work@semaphore::get)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:get
     |vpiFullName:work@semaphore::get
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:unnamed
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::get
+    \_io_decl: (keyCount)
       |vpiParent:
-      \_task: (work@semaphore::get), parent:work@semaphore
+      \_task: (work@semaphore::get)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -1021,10 +1023,10 @@ design: (unnamed)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:unnamed
   |vpiMethod:
-  \_function: (work@semaphore::try_get), parent:work@semaphore
+  \_function: (work@semaphore::try_get)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
     |vpiMethod:1
@@ -1035,11 +1037,11 @@ design: (unnamed)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:unnamed
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::try_get
+    \_io_decl: (keyCount)
       |vpiParent:
-      \_function: (work@semaphore::try_get), parent:work@semaphore
+      \_function: (work@semaphore::try_get)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -1051,8 +1053,6 @@ design: (unnamed)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:unnamed
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

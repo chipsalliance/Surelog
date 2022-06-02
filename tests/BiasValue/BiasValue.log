@@ -438,57 +438,59 @@ design: (work@bp_be_rec_to_fp)
 |vpiElaborated:1
 |vpiName:work@bp_be_rec_to_fp
 |uhdmallPackages:
-\_package: builtin (builtin::), file:, parent:work@bp_be_rec_to_fp
+\_package: builtin (builtin::), file:
+  |vpiParent:
+  \_design: (work@bp_be_rec_to_fp)
   |vpiName:builtin
   |vpiFullName:builtin::
   |vpiDefName:builtin
+|uhdmtopPackages:
+\_package: builtin (builtin::), file:
   |vpiParent:
   \_design: (work@bp_be_rec_to_fp)
-|uhdmtopPackages:
-\_package: builtin (builtin::), file:, parent:work@bp_be_rec_to_fp
   |vpiName:builtin
   |vpiFullName:builtin::
   |vpiDefName:builtin
   |vpiTop:1
   |vpiClassDefn:
-  \_class_defn: (builtin::any_sverilog_class), file:, parent:builtin::
+  \_class_defn: (builtin::any_sverilog_class), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:any_sverilog_class
     |vpiFullName:builtin::any_sverilog_class
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@bp_be_rec_to_fp
   |vpiClassDefn:
-  \_class_defn: (builtin::array), file:, parent:builtin::
+  \_class_defn: (builtin::array), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:array
     |vpiFullName:builtin::array
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@bp_be_rec_to_fp
   |vpiClassDefn:
-  \_class_defn: (builtin::queue), file:, parent:builtin::
+  \_class_defn: (builtin::queue), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:queue
     |vpiFullName:builtin::queue
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@bp_be_rec_to_fp
   |vpiClassDefn:
-  \_class_defn: (builtin::string), file:, parent:builtin::
+  \_class_defn: (builtin::string), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:string
     |vpiFullName:builtin::string
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@bp_be_rec_to_fp
   |vpiClassDefn:
-  \_class_defn: (builtin::system), file:, parent:builtin::
+  \_class_defn: (builtin::system), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:system
     |vpiFullName:builtin::system
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@bp_be_rec_to_fp
-  |vpiParent:
-  \_design: (work@bp_be_rec_to_fp)
 |uhdmallClasses:
-\_class_defn: (work@mailbox), file:builtin.sv, parent:work@bp_be_rec_to_fp
-  |vpiName:work@mailbox
+\_class_defn: (work@mailbox), file:builtin.sv
   |vpiParent:
   \_design: (work@bp_be_rec_to_fp)
+  |vpiName:work@mailbox
   |vpiMethod:
-  \_function: (work@mailbox::new), parent:work@mailbox
+  \_function: (work@mailbox::new)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:new
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
@@ -497,13 +499,13 @@ design: (work@bp_be_rec_to_fp)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:builtin.sv, parent:work@bp_be_rec_to_fp
+        \_class_defn: (work@mailbox), file:builtin.sv
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@bp_be_rec_to_fp
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (bound), parent:work@mailbox::new
+    \_io_decl: (bound)
       |vpiParent:
-      \_function: (work@mailbox::new), parent:work@mailbox
+      \_function: (work@mailbox::new)
       |vpiDirection:1
       |vpiName:bound
       |vpiExpr:
@@ -515,10 +517,10 @@ design: (work@bp_be_rec_to_fp)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@bp_be_rec_to_fp
   |vpiMethod:
-  \_function: (work@mailbox::num), parent:work@mailbox
+  \_function: (work@mailbox::num)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:num
     |vpiFullName:work@mailbox::num
     |vpiMethod:1
@@ -529,27 +531,27 @@ design: (work@bp_be_rec_to_fp)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@bp_be_rec_to_fp
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@bp_be_rec_to_fp
+    \_class_defn: (work@mailbox), file:builtin.sv
   |vpiMethod:
-  \_task: (work@mailbox::put), parent:work@mailbox
+  \_task: (work@mailbox::put)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:put
     |vpiFullName:work@mailbox::put
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@bp_be_rec_to_fp
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::put
+    \_io_decl: (message)
       |vpiParent:
-      \_task: (work@mailbox::put), parent:work@mailbox
+      \_task: (work@mailbox::put)
       |vpiDirection:1
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@bp_be_rec_to_fp
   |vpiMethod:
-  \_function: (work@mailbox::try_put), parent:work@mailbox
+  \_function: (work@mailbox::try_put)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
     |vpiMethod:1
@@ -557,33 +559,33 @@ design: (work@bp_be_rec_to_fp)
     |vpiReturn:
     \_logic_var: 
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@bp_be_rec_to_fp
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_put
+    \_io_decl: (message)
       |vpiParent:
-      \_function: (work@mailbox::try_put), parent:work@mailbox
+      \_function: (work@mailbox::try_put)
       |vpiDirection:1
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@bp_be_rec_to_fp
   |vpiMethod:
-  \_task: (work@mailbox::get), parent:work@mailbox
+  \_task: (work@mailbox::get)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:get
     |vpiFullName:work@mailbox::get
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@bp_be_rec_to_fp
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::get
+    \_io_decl: (message)
       |vpiParent:
-      \_task: (work@mailbox::get), parent:work@mailbox
+      \_task: (work@mailbox::get)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@bp_be_rec_to_fp
   |vpiMethod:
-  \_function: (work@mailbox::try_get), parent:work@mailbox
+  \_function: (work@mailbox::try_get)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
     |vpiMethod:1
@@ -594,33 +596,33 @@ design: (work@bp_be_rec_to_fp)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@bp_be_rec_to_fp
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_get
+    \_io_decl: (message)
       |vpiParent:
-      \_function: (work@mailbox::try_get), parent:work@mailbox
+      \_function: (work@mailbox::try_get)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@bp_be_rec_to_fp
   |vpiMethod:
-  \_task: (work@mailbox::peek), parent:work@mailbox
+  \_task: (work@mailbox::peek)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@bp_be_rec_to_fp
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::peek
+    \_io_decl: (message)
       |vpiParent:
-      \_task: (work@mailbox::peek), parent:work@mailbox
+      \_task: (work@mailbox::peek)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@bp_be_rec_to_fp
   |vpiMethod:
-  \_function: (work@mailbox::try_peek), parent:work@mailbox
+  \_function: (work@mailbox::try_peek)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
     |vpiMethod:1
@@ -631,67 +633,67 @@ design: (work@bp_be_rec_to_fp)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@bp_be_rec_to_fp
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_peek
+    \_io_decl: (message)
       |vpiParent:
-      \_function: (work@mailbox::try_peek), parent:work@mailbox
+      \_function: (work@mailbox::try_peek)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@bp_be_rec_to_fp
 |uhdmallClasses:
-\_class_defn: (work@process), file:builtin.sv, parent:work@bp_be_rec_to_fp
+\_class_defn: (work@process), file:builtin.sv
+  |vpiParent:
+  \_design: (work@bp_be_rec_to_fp)
   |vpiName:work@process
   |vpiTypedef:
-  \_enum_typespec: (state), parent:work@process
-    |vpiName:state
+  \_enum_typespec: (state)
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@bp_be_rec_to_fp
+    \_class_defn: (work@process), file:builtin.sv
+    |vpiName:state
     |vpiEnumConst:
-    \_enum_const: (FINISHED), parent:state
+    \_enum_const: (FINISHED)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:FINISHED
       |INT:0
       |vpiDecompile:0
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (RUNNING), parent:state
+    \_enum_const: (RUNNING)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:RUNNING
       |INT:1
       |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (WAITING), parent:state
+    \_enum_const: (WAITING)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:WAITING
       |INT:2
       |vpiDecompile:2
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (SUSPENDED), parent:state
+    \_enum_const: (SUSPENDED)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:SUSPENDED
       |INT:3
       |vpiDecompile:3
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (KILLED), parent:state
+    \_enum_const: (KILLED)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:KILLED
       |INT:4
       |vpiDecompile:4
       |vpiSize:64
-  |vpiParent:
-  \_design: (work@bp_be_rec_to_fp)
   |vpiMethod:
-  \_function: (work@process::self), parent:work@process
+  \_function: (work@process::self)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiMethod:1
@@ -701,13 +703,13 @@ design: (work@bp_be_rec_to_fp)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@process), file:builtin.sv, parent:work@bp_be_rec_to_fp
+        \_class_defn: (work@process), file:builtin.sv
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@bp_be_rec_to_fp
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@bp_be_rec_to_fp
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_function: (work@process::status), parent:work@process
+  \_function: (work@process::status)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiMethod:1
@@ -715,10 +717,10 @@ design: (work@bp_be_rec_to_fp)
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
-      \_enum_typespec: (state), parent:work@process
-        |vpiName:state
+      \_enum_typespec: (state)
         |vpiParent:
-        \_class_defn: (work@process), file:builtin.sv, parent:work@bp_be_rec_to_fp
+        \_class_defn: (work@process), file:builtin.sv
+        |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
           |vpiName:FINISHED
@@ -750,56 +752,56 @@ design: (work@bp_be_rec_to_fp)
           |vpiDecompile:4
           |vpiSize:64
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@bp_be_rec_to_fp
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@bp_be_rec_to_fp
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::kill), parent:work@process
+  \_task: (work@process::kill)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:kill
     |vpiFullName:work@process::kill
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@bp_be_rec_to_fp
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@bp_be_rec_to_fp
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::await), parent:work@process
+  \_task: (work@process::await)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:await
     |vpiFullName:work@process::await
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@bp_be_rec_to_fp
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@bp_be_rec_to_fp
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::suspend), parent:work@process
+  \_task: (work@process::suspend)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:suspend
     |vpiFullName:work@process::suspend
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@bp_be_rec_to_fp
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@bp_be_rec_to_fp
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::resume), parent:work@process
+  \_task: (work@process::resume)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:resume
     |vpiFullName:work@process::resume
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@bp_be_rec_to_fp
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@bp_be_rec_to_fp
+    \_class_defn: (work@process), file:builtin.sv
 |uhdmallClasses:
-\_class_defn: (work@semaphore), file:builtin.sv, parent:work@bp_be_rec_to_fp
-  |vpiName:work@semaphore
+\_class_defn: (work@semaphore), file:builtin.sv
   |vpiParent:
   \_design: (work@bp_be_rec_to_fp)
+  |vpiName:work@semaphore
   |vpiMethod:
-  \_function: (work@semaphore::new), parent:work@semaphore
+  \_function: (work@semaphore::new)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:new
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
@@ -808,13 +810,13 @@ design: (work@bp_be_rec_to_fp)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:builtin.sv, parent:work@bp_be_rec_to_fp
+        \_class_defn: (work@semaphore), file:builtin.sv
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@bp_be_rec_to_fp
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::new
+    \_io_decl: (keyCount)
       |vpiParent:
-      \_function: (work@semaphore::new), parent:work@semaphore
+      \_function: (work@semaphore::new)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -826,20 +828,20 @@ design: (work@bp_be_rec_to_fp)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@bp_be_rec_to_fp
   |vpiMethod:
-  \_task: (work@semaphore::put), parent:work@semaphore
+  \_task: (work@semaphore::put)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:put
     |vpiFullName:work@semaphore::put
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@bp_be_rec_to_fp
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::put
+    \_io_decl: (keyCount)
       |vpiParent:
-      \_task: (work@semaphore::put), parent:work@semaphore
+      \_task: (work@semaphore::put)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -851,20 +853,20 @@ design: (work@bp_be_rec_to_fp)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@bp_be_rec_to_fp
   |vpiMethod:
-  \_task: (work@semaphore::get), parent:work@semaphore
+  \_task: (work@semaphore::get)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:get
     |vpiFullName:work@semaphore::get
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@bp_be_rec_to_fp
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::get
+    \_io_decl: (keyCount)
       |vpiParent:
-      \_task: (work@semaphore::get), parent:work@semaphore
+      \_task: (work@semaphore::get)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -876,10 +878,10 @@ design: (work@bp_be_rec_to_fp)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@bp_be_rec_to_fp
   |vpiMethod:
-  \_function: (work@semaphore::try_get), parent:work@semaphore
+  \_function: (work@semaphore::try_get)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
     |vpiMethod:1
@@ -890,11 +892,11 @@ design: (work@bp_be_rec_to_fp)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@bp_be_rec_to_fp
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::try_get
+    \_io_decl: (keyCount)
       |vpiParent:
-      \_function: (work@semaphore::try_get), parent:work@semaphore
+      \_function: (work@semaphore::try_get)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -906,42 +908,42 @@ design: (work@bp_be_rec_to_fp)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@bp_be_rec_to_fp
 |uhdmallModules:
-\_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10, parent:work@bp_be_rec_to_fp
+\_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:dut.sv, line:1:1, endln:10:10
+  |vpiParent:
+  \_design: (work@bp_be_rec_to_fp)
   |vpiFullName:work@bp_be_rec_to_fp
   |vpiParameter:
-  \_parameter: (work@bp_be_rec_to_fp.sp_exp_width_gp), line:2:14, endln:2:29, parent:work@bp_be_rec_to_fp
+  \_parameter: (work@bp_be_rec_to_fp.sp_exp_width_gp), line:2:14, endln:2:29
+    |vpiParent:
+    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:dut.sv, line:1:1, endln:10:10
     |UINT:8
     |vpiTypespec:
     \_int_typespec: 
-    |vpiParent:
-    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10, parent:work@bp_be_rec_to_fp
     |vpiLocalParam:1
     |vpiName:sp_exp_width_gp
     |vpiFullName:work@bp_be_rec_to_fp.sp_exp_width_gp
   |vpiParameter:
-  \_parameter: (work@bp_be_rec_to_fp.dp_exp_width_gp), line:3:14, endln:3:29, parent:work@bp_be_rec_to_fp
+  \_parameter: (work@bp_be_rec_to_fp.dp_exp_width_gp), line:3:14, endln:3:29
+    |vpiParent:
+    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:dut.sv, line:1:1, endln:10:10
     |UINT:11
     |vpiTypespec:
     \_int_typespec: 
-    |vpiParent:
-    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10, parent:work@bp_be_rec_to_fp
     |vpiLocalParam:1
     |vpiName:dp_exp_width_gp
     |vpiFullName:work@bp_be_rec_to_fp.dp_exp_width_gp
   |vpiParameter:
-  \_parameter: (work@bp_be_rec_to_fp.bias_adj_lp), line:4:14, endln:4:25, parent:work@bp_be_rec_to_fp
+  \_parameter: (work@bp_be_rec_to_fp.bias_adj_lp), line:4:14, endln:4:25
     |vpiParent:
-    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10, parent:work@bp_be_rec_to_fp
+    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:dut.sv, line:1:1, endln:10:10
     |vpiLocalParam:1
     |vpiName:bias_adj_lp
     |vpiFullName:work@bp_be_rec_to_fp.bias_adj_lp
   |vpiParamAssign:
-  \_param_assign: , line:2:14, endln:2:35, parent:work@bp_be_rec_to_fp
+  \_param_assign: , line:2:14, endln:2:35
     |vpiParent:
-    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10, parent:work@bp_be_rec_to_fp
+    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:dut.sv, line:1:1, endln:10:10
     |vpiRhs:
     \_constant: , line:2:34, endln:2:35
       |vpiDecompile:8
@@ -951,11 +953,11 @@ design: (work@bp_be_rec_to_fp)
       \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@bp_be_rec_to_fp.sp_exp_width_gp), line:2:14, endln:2:29, parent:work@bp_be_rec_to_fp
+    \_parameter: (work@bp_be_rec_to_fp.sp_exp_width_gp), line:2:14, endln:2:29
   |vpiParamAssign:
-  \_param_assign: , line:3:14, endln:3:36, parent:work@bp_be_rec_to_fp
+  \_param_assign: , line:3:14, endln:3:36
     |vpiParent:
-    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10, parent:work@bp_be_rec_to_fp
+    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:dut.sv, line:1:1, endln:10:10
     |vpiRhs:
     \_constant: , line:3:34, endln:3:36
       |vpiDecompile:11
@@ -965,11 +967,11 @@ design: (work@bp_be_rec_to_fp)
       \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@bp_be_rec_to_fp.dp_exp_width_gp), line:3:14, endln:3:29, parent:work@bp_be_rec_to_fp
+    \_parameter: (work@bp_be_rec_to_fp.dp_exp_width_gp), line:3:14, endln:3:29
   |vpiParamAssign:
-  \_param_assign: , line:4:14, endln:4:75, parent:work@bp_be_rec_to_fp
+  \_param_assign: , line:4:14, endln:4:75
     |vpiParent:
-    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10, parent:work@bp_be_rec_to_fp
+    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:dut.sv, line:1:1, endln:10:10
     |vpiRhs:
     \_operation: , line:4:28, endln:4:75
       |vpiOpType:11
@@ -980,11 +982,11 @@ design: (work@bp_be_rec_to_fp)
         |vpiOpType:22
         |vpiOperand:
         \_constant: , line:4:29, endln:4:30
+          |vpiParent:
+          \_operation: , line:4:29, endln:4:49
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
-          |vpiParent:
-          \_operation: , line:4:29, endln:4:49
           |vpiConstType:9
         |vpiOperand:
         \_ref_obj: (sp_exp_width_gp), line:4:34, endln:4:49
@@ -998,11 +1000,11 @@ design: (work@bp_be_rec_to_fp)
         |vpiOpType:22
         |vpiOperand:
         \_constant: , line:4:54, endln:4:55
+          |vpiParent:
+          \_operation: , line:4:54, endln:4:74
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
-          |vpiParent:
-          \_operation: , line:4:54, endln:4:74
           |vpiConstType:9
         |vpiOperand:
         \_ref_obj: (dp_exp_width_gp), line:4:59, endln:4:74
@@ -1010,107 +1012,105 @@ design: (work@bp_be_rec_to_fp)
           \_operation: , line:4:54, endln:4:74
           |vpiName:dp_exp_width_gp
     |vpiLhs:
-    \_parameter: (work@bp_be_rec_to_fp.bias_adj_lp), line:4:14, endln:4:25, parent:work@bp_be_rec_to_fp
+    \_parameter: (work@bp_be_rec_to_fp.bias_adj_lp), line:4:14, endln:4:25
   |vpiDefName:work@bp_be_rec_to_fp
   |vpiNet:
-  \_logic_net: (work@bp_be_rec_to_fp.adjusted_exp), line:6:28, endln:6:40, parent:work@bp_be_rec_to_fp
+  \_logic_net: (work@bp_be_rec_to_fp.adjusted_exp), line:6:28, endln:6:40
+    |vpiParent:
+    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:dut.sv, line:1:1, endln:10:10
     |vpiName:adjusted_exp
     |vpiFullName:work@bp_be_rec_to_fp.adjusted_exp
     |vpiNetType:1
-    |vpiParent:
-    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10, parent:work@bp_be_rec_to_fp
   |vpiNet:
-  \_logic_net: (work@bp_be_rec_to_fp.wrong_range), line:8:26, endln:8:37, parent:work@bp_be_rec_to_fp
+  \_logic_net: (work@bp_be_rec_to_fp.wrong_range), line:8:26, endln:8:37
+    |vpiParent:
+    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:dut.sv, line:1:1, endln:10:10
     |vpiName:wrong_range
     |vpiFullName:work@bp_be_rec_to_fp.wrong_range
     |vpiNetType:36
-    |vpiParent:
-    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10, parent:work@bp_be_rec_to_fp
-  |vpiParent:
-  \_design: (work@bp_be_rec_to_fp)
 |uhdmtopModules:
-\_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10
+\_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:dut.sv, line:1:1, endln:10:10
   |vpiName:work@bp_be_rec_to_fp
   |vpiVariables:
-  \_logic_var: (work@bp_be_rec_to_fp.wrong_range), line:8:26, endln:8:37, parent:work@bp_be_rec_to_fp
+  \_logic_var: (work@bp_be_rec_to_fp.wrong_range), line:8:26, endln:8:37
+    |vpiParent:
+    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
     \_logic_typespec: , line:8:3, endln:8:8
       |vpiRange:
       \_range: , line:8:10, endln:8:24
         |vpiLeftRange:
         \_constant: , line:8:10, endln:8:21
+          |vpiParent:
+          \_range: , line:8:10, endln:8:24
           |vpiDecompile:-1792
           |vpiSize:64
           |INT:-1792
-          |vpiParent:
-          \_range: , line:8:10, endln:8:24
           |vpiConstType:7
         |vpiRightRange:
         \_constant: , line:8:23, endln:8:24
+          |vpiParent:
+          \_range: , line:8:10, endln:8:24
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:8:10, endln:8:24
           |vpiConstType:9
     |vpiName:wrong_range
     |vpiFullName:work@bp_be_rec_to_fp.wrong_range
     |vpiVisibility:1
-    |vpiParent:
-    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10
     |vpiRange:
     \_range: , line:8:10, endln:8:24
       |vpiLeftRange:
       \_constant: , line:8:10, endln:8:21
+        |vpiParent:
+        \_range: , line:8:10, endln:8:24
         |vpiDecompile:-1792
         |vpiSize:64
         |INT:-1792
-        |vpiParent:
-        \_range: , line:8:10, endln:8:24
         |vpiConstType:7
       |vpiRightRange:
       \_constant: , line:8:23, endln:8:24
+        |vpiParent:
+        \_range: , line:8:10, endln:8:24
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
-        |vpiParent:
-        \_range: , line:8:10, endln:8:24
         |vpiConstType:9
   |vpiParameter:
-  \_parameter: (work@bp_be_rec_to_fp.sp_exp_width_gp), line:2:14, endln:2:29, parent:work@bp_be_rec_to_fp
+  \_parameter: (work@bp_be_rec_to_fp.sp_exp_width_gp), line:2:14, endln:2:29
+    |vpiParent:
+    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:dut.sv, line:1:1, endln:10:10
     |UINT:8
     |vpiTypespec:
-    \_int_typespec: , parent:work@bp_be_rec_to_fp.sp_exp_width_gp
+    \_int_typespec: 
       |vpiParent:
-      \_parameter: (work@bp_be_rec_to_fp.sp_exp_width_gp), line:2:14, endln:2:29, parent:work@bp_be_rec_to_fp
-    |vpiParent:
-    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10
+      \_parameter: (work@bp_be_rec_to_fp.sp_exp_width_gp), line:2:14, endln:2:29
     |vpiLocalParam:1
     |vpiName:sp_exp_width_gp
     |vpiFullName:work@bp_be_rec_to_fp.sp_exp_width_gp
   |vpiParameter:
-  \_parameter: (work@bp_be_rec_to_fp.dp_exp_width_gp), line:3:14, endln:3:29, parent:work@bp_be_rec_to_fp
+  \_parameter: (work@bp_be_rec_to_fp.dp_exp_width_gp), line:3:14, endln:3:29
+    |vpiParent:
+    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:dut.sv, line:1:1, endln:10:10
     |UINT:11
     |vpiTypespec:
-    \_int_typespec: , parent:work@bp_be_rec_to_fp.dp_exp_width_gp
+    \_int_typespec: 
       |vpiParent:
-      \_parameter: (work@bp_be_rec_to_fp.dp_exp_width_gp), line:3:14, endln:3:29, parent:work@bp_be_rec_to_fp
-    |vpiParent:
-    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10
+      \_parameter: (work@bp_be_rec_to_fp.dp_exp_width_gp), line:3:14, endln:3:29
     |vpiLocalParam:1
     |vpiName:dp_exp_width_gp
     |vpiFullName:work@bp_be_rec_to_fp.dp_exp_width_gp
   |vpiParameter:
-  \_parameter: (work@bp_be_rec_to_fp.bias_adj_lp), line:4:14, endln:4:25, parent:work@bp_be_rec_to_fp
+  \_parameter: (work@bp_be_rec_to_fp.bias_adj_lp), line:4:14, endln:4:25
     |vpiParent:
-    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10
+    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:dut.sv, line:1:1, endln:10:10
     |vpiLocalParam:1
     |vpiName:bias_adj_lp
     |vpiFullName:work@bp_be_rec_to_fp.bias_adj_lp
   |vpiParamAssign:
-  \_param_assign: , line:2:14, endln:2:35, parent:work@bp_be_rec_to_fp
+  \_param_assign: , line:2:14, endln:2:35
     |vpiParent:
-    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10
+    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:dut.sv, line:1:1, endln:10:10
     |vpiRhs:
     \_constant: , line:2:34, endln:2:35
       |vpiDecompile:8
@@ -1120,11 +1120,11 @@ design: (work@bp_be_rec_to_fp)
       \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@bp_be_rec_to_fp.sp_exp_width_gp), line:2:14, endln:2:29, parent:work@bp_be_rec_to_fp
+    \_parameter: (work@bp_be_rec_to_fp.sp_exp_width_gp), line:2:14, endln:2:29
   |vpiParamAssign:
-  \_param_assign: , line:3:14, endln:3:36, parent:work@bp_be_rec_to_fp
+  \_param_assign: , line:3:14, endln:3:36
     |vpiParent:
-    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10
+    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:dut.sv, line:1:1, endln:10:10
     |vpiRhs:
     \_constant: , line:3:34, endln:3:36
       |vpiDecompile:11
@@ -1134,11 +1134,11 @@ design: (work@bp_be_rec_to_fp)
       \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@bp_be_rec_to_fp.dp_exp_width_gp), line:3:14, endln:3:29, parent:work@bp_be_rec_to_fp
+    \_parameter: (work@bp_be_rec_to_fp.dp_exp_width_gp), line:3:14, endln:3:29
   |vpiParamAssign:
-  \_param_assign: , line:4:14, endln:4:75, parent:work@bp_be_rec_to_fp
+  \_param_assign: , line:4:14, endln:4:75
     |vpiParent:
-    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10
+    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:dut.sv, line:1:1, endln:10:10
     |vpiRhs:
     \_constant: , line:4:28, endln:4:75
       |vpiDecompile:-1792
@@ -1146,65 +1146,65 @@ design: (work@bp_be_rec_to_fp)
       |INT:-1792
       |vpiConstType:7
     |vpiLhs:
-    \_parameter: (work@bp_be_rec_to_fp.bias_adj_lp), line:4:14, endln:4:25, parent:work@bp_be_rec_to_fp
+    \_parameter: (work@bp_be_rec_to_fp.bias_adj_lp), line:4:14, endln:4:25
   |vpiDefName:work@bp_be_rec_to_fp
   |vpiTop:1
   |vpiNet:
-  \_logic_net: (work@bp_be_rec_to_fp.adjusted_exp), line:6:28, endln:6:40, parent:work@bp_be_rec_to_fp
+  \_logic_net: (work@bp_be_rec_to_fp.adjusted_exp), line:6:28, endln:6:40
+    |vpiParent:
+    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
     \_logic_typespec: , line:6:3, endln:6:7
       |vpiRange:
       \_range: , line:6:9, endln:6:26
         |vpiLeftRange:
         \_constant: , line:6:9, endln:6:24
+          |vpiParent:
+          \_range: , line:6:9, endln:6:26
           |vpiDecompile:8
           |vpiSize:32
           |UINT:8
-          |vpiParent:
-          \_range: , line:6:9, endln:6:26
           |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:6:25, endln:6:26
+          |vpiParent:
+          \_range: , line:6:9, endln:6:26
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:6:9, endln:6:26
           |vpiConstType:9
     |vpiName:adjusted_exp
     |vpiFullName:work@bp_be_rec_to_fp.adjusted_exp
     |vpiNetType:1
-    |vpiParent:
-    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10
   |vpiTopModule:1
   |vpiContAssign:
-  \_cont_assign: , line:6:28, endln:6:40, parent:work@bp_be_rec_to_fp
+  \_cont_assign: , line:6:28, endln:6:40
     |vpiParent:
-    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10
+    \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:dut.sv, line:1:1, endln:10:10
     |vpiNetDeclAssign:1
     |vpiRhs:
     \_operation: , line:6:43, endln:6:61
       |vpiParent:
-      \_cont_assign: , line:6:28, endln:6:40, parent:work@bp_be_rec_to_fp
+      \_cont_assign: , line:6:28, endln:6:40
       |vpiOpType:24
       |vpiOperand:
       \_constant: , line:6:43, endln:6:47
+        |vpiParent:
+        \_operation: , line:6:43, endln:6:61
         |vpiDecompile:2000
         |vpiSize:64
         |UINT:2000
-        |vpiParent:
-        \_operation: , line:6:43, endln:6:61
         |vpiConstType:9
       |vpiOperand:
       \_constant: , line:6:50, endln:6:61
+        |vpiParent:
+        \_operation: , line:6:43, endln:6:61
         |vpiDecompile:-1792
         |vpiSize:64
         |INT:-1792
-        |vpiParent:
-        \_operation: , line:6:43, endln:6:61
         |vpiConstType:7
     |vpiLhs:
-    \_logic_net: (work@bp_be_rec_to_fp.adjusted_exp), line:6:28, endln:6:40, parent:work@bp_be_rec_to_fp
+    \_logic_net: (work@bp_be_rec_to_fp.adjusted_exp), line:6:28, endln:6:40
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

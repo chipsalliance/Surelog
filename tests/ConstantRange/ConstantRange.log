@@ -268,34 +268,38 @@ design: (work@dut)
 |vpiElaborated:1
 |vpiName:work@dut
 |uhdmallModules:
-\_module: work@GOOD (work@GOOD) dut.sv:1:1: , endln:3:10, parent:work@dut
-  |vpiFullName:work@GOOD
-  |vpiDefName:work@GOOD
+\_module: work@GOOD (work@GOOD), file:dut.sv, line:1:1, endln:3:10
   |vpiParent:
   \_design: (work@dut)
+  |vpiFullName:work@GOOD
+  |vpiDefName:work@GOOD
 |uhdmallModules:
-\_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10, parent:work@dut
+\_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
+  |vpiParent:
+  \_design: (work@dut)
   |vpiFullName:work@dut
   |vpiParameter:
-  \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23, parent:work@dut
+  \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
     |UINT:8
     |vpiTypespec:
-    \_int_typespec: , line:7:11, endln:7:14, parent:work@dut.NMioPads
+    \_int_typespec: , line:7:11, endln:7:14
       |vpiParent:
-      \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23, parent:work@dut
+      \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23
       |vpiSigned:1
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10, parent:work@dut
     |vpiSigned:1
     |vpiName:NMioPads
     |vpiFullName:work@dut.NMioPads
   |vpiParameter:
-  \_parameter: (work@dut.ConnectDioIn), line:8:34, endln:8:46, parent:work@dut
+  \_parameter: (work@dut.ConnectDioIn), line:8:34, endln:8:46
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
     |BIN:11110000
     |vpiTypespec:
-    \_logic_typespec: , line:8:11, endln:8:16, parent:work@dut.ConnectDioIn
+    \_logic_typespec: , line:8:11, endln:8:16
       |vpiParent:
-      \_parameter: (work@dut.ConnectDioIn), line:8:34, endln:8:46, parent:work@dut
+      \_parameter: (work@dut.ConnectDioIn), line:8:34, endln:8:46
       |vpiRange:
       \_range: , line:8:18, endln:8:32
         |vpiLeftRange:
@@ -310,31 +314,31 @@ design: (work@dut)
             |vpiName:NMioPads
           |vpiOperand:
           \_constant: , line:8:29, endln:8:30
+            |vpiParent:
+            \_operation: , line:8:18, endln:8:30
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
-            |vpiParent:
-            \_operation: , line:8:18, endln:8:30
             |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:8:31, endln:8:32
+          |vpiParent:
+          \_range: , line:8:18, endln:8:32
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:8:18, endln:8:32
           |vpiConstType:9
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10, parent:work@dut
     |vpiName:ConnectDioIn
     |vpiFullName:work@dut.ConnectDioIn
   |vpiParameter:
-  \_parameter: (work@dut.ConnectDioOut), line:9:34, endln:9:47, parent:work@dut
+  \_parameter: (work@dut.ConnectDioOut), line:9:34, endln:9:47
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
     |BIN:11110000
     |vpiTypespec:
-    \_logic_typespec: , line:9:11, endln:9:16, parent:work@dut.ConnectDioOut
+    \_logic_typespec: , line:9:11, endln:9:16
       |vpiParent:
-      \_parameter: (work@dut.ConnectDioOut), line:9:34, endln:9:47, parent:work@dut
+      \_parameter: (work@dut.ConnectDioOut), line:9:34, endln:9:47
       |vpiRange:
       \_range: , line:9:18, endln:9:32
         |vpiLeftRange:
@@ -349,96 +353,94 @@ design: (work@dut)
             |vpiName:NMioPads
           |vpiOperand:
           \_constant: , line:9:29, endln:9:30
+            |vpiParent:
+            \_operation: , line:9:18, endln:9:30
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
-            |vpiParent:
-            \_operation: , line:9:18, endln:9:30
             |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:9:31, endln:9:32
+          |vpiParent:
+          \_range: , line:9:18, endln:9:32
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:9:18, endln:9:32
           |vpiConstType:9
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10, parent:work@dut
     |vpiName:ConnectDioOut
     |vpiFullName:work@dut.ConnectDioOut
   |vpiParamAssign:
-  \_param_assign: , line:7:15, endln:7:27, parent:work@dut
+  \_param_assign: , line:7:15, endln:7:27
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10, parent:work@dut
+    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
     |vpiRhs:
     \_constant: , line:7:26, endln:7:27
       |vpiDecompile:8
       |vpiSize:32
       |UINT:8
       |vpiTypespec:
-      \_int_typespec: , line:7:11, endln:7:14, parent:work@dut.NMioPads
+      \_int_typespec: , line:7:11, endln:7:14
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23, parent:work@dut
+    \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23
   |vpiParamAssign:
-  \_param_assign: , line:8:34, endln:8:60, parent:work@dut
+  \_param_assign: , line:8:34, endln:8:60
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10, parent:work@dut
+    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
     |vpiRhs:
     \_constant: , line:8:49, endln:8:60
       |vpiDecompile:8'b11110000
       |vpiSize:8
       |BIN:11110000
       |vpiTypespec:
-      \_logic_typespec: , line:8:11, endln:8:16, parent:work@dut.ConnectDioIn
+      \_logic_typespec: , line:8:11, endln:8:16
       |vpiConstType:3
     |vpiLhs:
-    \_parameter: (work@dut.ConnectDioIn), line:8:34, endln:8:46, parent:work@dut
+    \_parameter: (work@dut.ConnectDioIn), line:8:34, endln:8:46
   |vpiParamAssign:
-  \_param_assign: , line:9:34, endln:9:61, parent:work@dut
+  \_param_assign: , line:9:34, endln:9:61
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10, parent:work@dut
+    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
     |vpiRhs:
     \_constant: , line:9:50, endln:9:61
       |vpiDecompile:8'b11110000
       |vpiSize:8
       |BIN:11110000
       |vpiTypespec:
-      \_logic_typespec: , line:9:11, endln:9:16, parent:work@dut.ConnectDioOut
+      \_logic_typespec: , line:9:11, endln:9:16
       |vpiConstType:3
     |vpiLhs:
-    \_parameter: (work@dut.ConnectDioOut), line:9:34, endln:9:47, parent:work@dut
+    \_parameter: (work@dut.ConnectDioOut), line:9:34, endln:9:47
   |vpiDefName:work@dut
-  |vpiParent:
-  \_design: (work@dut)
 |uhdmtopModules:
-\_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10
+\_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
   |vpiName:work@dut
   |vpiParameter:
-  \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23, parent:work@dut
+  \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
     |UINT:8
     |vpiTypespec:
-    \_int_typespec: , line:7:11, endln:7:14, parent:work@dut.NMioPads
+    \_int_typespec: , line:7:11, endln:7:14
       |vpiParent:
-      \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23, parent:work@dut
+      \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23
       |vpiSigned:1
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10
     |vpiSigned:1
     |vpiName:NMioPads
     |vpiFullName:work@dut.NMioPads
   |vpiParameter:
-  \_parameter: (work@dut.ConnectDioIn), line:8:34, endln:8:46, parent:work@dut
+  \_parameter: (work@dut.ConnectDioIn), line:8:34, endln:8:46
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
     |BIN:11110000
     |vpiTypespec:
-    \_logic_typespec: , line:8:11, endln:8:16, parent:work@dut.ConnectDioIn
+    \_logic_typespec: , line:8:11, endln:8:16
       |vpiParent:
-      \_parameter: (work@dut.ConnectDioIn), line:8:34, endln:8:46, parent:work@dut
+      \_parameter: (work@dut.ConnectDioIn), line:8:34, endln:8:46
       |vpiRange:
       \_range: , line:8:18, endln:8:32
         |vpiParent:
-        \_logic_typespec: , line:8:11, endln:8:16, parent:work@dut.ConnectDioIn
+        \_logic_typespec: , line:8:11, endln:8:16
         |vpiLeftRange:
         \_operation: , line:8:18, endln:8:30
           |vpiParent:
@@ -456,39 +458,39 @@ design: (work@dut)
               |vpiSize:32
               |UINT:8
               |vpiTypespec:
-              \_int_typespec: , line:7:11, endln:7:14, parent:work@dut.NMioPads
+              \_int_typespec: , line:7:11, endln:7:14
               |vpiConstType:9
           |vpiOperand:
           \_constant: , line:8:29, endln:8:30
+            |vpiParent:
+            \_operation: , line:8:18, endln:8:30
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
-            |vpiParent:
-            \_operation: , line:8:18, endln:8:30
             |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:8:31, endln:8:32
+          |vpiParent:
+          \_range: , line:8:18, endln:8:32
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:8:18, endln:8:32
           |vpiConstType:9
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10
     |vpiName:ConnectDioIn
     |vpiFullName:work@dut.ConnectDioIn
   |vpiParameter:
-  \_parameter: (work@dut.ConnectDioOut), line:9:34, endln:9:47, parent:work@dut
+  \_parameter: (work@dut.ConnectDioOut), line:9:34, endln:9:47
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
     |BIN:11110000
     |vpiTypespec:
-    \_logic_typespec: , line:9:11, endln:9:16, parent:work@dut.ConnectDioOut
+    \_logic_typespec: , line:9:11, endln:9:16
       |vpiParent:
-      \_parameter: (work@dut.ConnectDioOut), line:9:34, endln:9:47, parent:work@dut
+      \_parameter: (work@dut.ConnectDioOut), line:9:34, endln:9:47
       |vpiRange:
       \_range: , line:9:18, endln:9:32
         |vpiParent:
-        \_logic_typespec: , line:9:11, endln:9:16, parent:work@dut.ConnectDioOut
+        \_logic_typespec: , line:9:11, endln:9:16
         |vpiLeftRange:
         \_operation: , line:9:18, endln:9:30
           |vpiParent:
@@ -504,36 +506,34 @@ design: (work@dut)
             \_constant: , line:7:26, endln:7:27
           |vpiOperand:
           \_constant: , line:9:29, endln:9:30
+            |vpiParent:
+            \_operation: , line:9:18, endln:9:30
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
-            |vpiParent:
-            \_operation: , line:9:18, endln:9:30
             |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:9:31, endln:9:32
+          |vpiParent:
+          \_range: , line:9:18, endln:9:32
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:9:18, endln:9:32
           |vpiConstType:9
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10
     |vpiName:ConnectDioOut
     |vpiFullName:work@dut.ConnectDioOut
   |vpiParamAssign:
-  \_param_assign: , line:7:15, endln:7:27, parent:work@dut
+  \_param_assign: , line:7:15, endln:7:27
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10
+    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
     |vpiRhs:
     \_constant: , line:7:26, endln:7:27
     |vpiLhs:
-    \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23, parent:work@dut
+    \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23
   |vpiParamAssign:
-  \_param_assign: , line:8:34, endln:8:60, parent:work@dut
+  \_param_assign: , line:8:34, endln:8:60
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10
+    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
     |vpiRhs:
     \_constant: , line:8:49, endln:8:60
       |vpiDecompile:8'b11110000
@@ -551,11 +551,11 @@ design: (work@dut)
             |UINT:0
       |vpiConstType:3
     |vpiLhs:
-    \_parameter: (work@dut.ConnectDioIn), line:8:34, endln:8:46, parent:work@dut
+    \_parameter: (work@dut.ConnectDioIn), line:8:34, endln:8:46
   |vpiParamAssign:
-  \_param_assign: , line:9:34, endln:9:61, parent:work@dut
+  \_param_assign: , line:9:34, endln:9:61
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10
+    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
     |vpiRhs:
     \_constant: , line:9:50, endln:9:61
       |vpiDecompile:8'b11110000
@@ -573,258 +573,258 @@ design: (work@dut)
             |UINT:0
       |vpiConstType:3
     |vpiLhs:
-    \_parameter: (work@dut.ConnectDioOut), line:9:34, endln:9:47, parent:work@dut
+    \_parameter: (work@dut.ConnectDioOut), line:9:34, endln:9:47
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiTopModule:1
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@dut.gen_mio_pads[0]), line:11:39, endln:15:4, parent:work@dut
+  \_gen_scope_array: (work@dut.gen_mio_pads[0]), line:11:39, endln:15:4
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10
+    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
     |vpiName:gen_mio_pads[0]
     |vpiFullName:work@dut.gen_mio_pads[0]
     |vpiGenScope:
-    \_gen_scope: (work@dut.gen_mio_pads[0]), parent:work@dut.gen_mio_pads[0]
+    \_gen_scope: (work@dut.gen_mio_pads[0])
+      |vpiParent:
+      \_gen_scope_array: (work@dut.gen_mio_pads[0]), line:11:39, endln:15:4
       |vpiFullName:work@dut.gen_mio_pads[0]
       |vpiParameter:
-      \_parameter: (work@dut.gen_mio_pads[0].k), line:11, parent:work@dut.gen_mio_pads[0]
+      \_parameter: (work@dut.gen_mio_pads[0].k), line:11:0
+        |vpiParent:
+        \_gen_scope: (work@dut.gen_mio_pads[0])
         |UINT:0
         |vpiTypespec:
         \_int_typespec: 
-        |vpiParent:
-        \_gen_scope: (work@dut.gen_mio_pads[0]), parent:work@dut.gen_mio_pads[0]
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.gen_mio_pads[0].k
-      |vpiParent:
-      \_gen_scope_array: (work@dut.gen_mio_pads[0]), line:11:39, endln:15:4, parent:work@dut
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@dut.gen_mio_pads[1]), line:11:39, endln:15:4, parent:work@dut
+  \_gen_scope_array: (work@dut.gen_mio_pads[1]), line:11:39, endln:15:4
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10
+    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
     |vpiName:gen_mio_pads[1]
     |vpiFullName:work@dut.gen_mio_pads[1]
     |vpiGenScope:
-    \_gen_scope: (work@dut.gen_mio_pads[1]), parent:work@dut.gen_mio_pads[1]
+    \_gen_scope: (work@dut.gen_mio_pads[1])
+      |vpiParent:
+      \_gen_scope_array: (work@dut.gen_mio_pads[1]), line:11:39, endln:15:4
       |vpiFullName:work@dut.gen_mio_pads[1]
       |vpiParameter:
-      \_parameter: (work@dut.gen_mio_pads[1].k), line:11, parent:work@dut.gen_mio_pads[1]
+      \_parameter: (work@dut.gen_mio_pads[1].k), line:11:0
+        |vpiParent:
+        \_gen_scope: (work@dut.gen_mio_pads[1])
         |UINT:1
         |vpiTypespec:
         \_int_typespec: 
-        |vpiParent:
-        \_gen_scope: (work@dut.gen_mio_pads[1]), parent:work@dut.gen_mio_pads[1]
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.gen_mio_pads[1].k
-      |vpiParent:
-      \_gen_scope_array: (work@dut.gen_mio_pads[1]), line:11:39, endln:15:4, parent:work@dut
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@dut.gen_mio_pads[2]), line:11:39, endln:15:4, parent:work@dut
+  \_gen_scope_array: (work@dut.gen_mio_pads[2]), line:11:39, endln:15:4
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10
+    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
     |vpiName:gen_mio_pads[2]
     |vpiFullName:work@dut.gen_mio_pads[2]
     |vpiGenScope:
-    \_gen_scope: (work@dut.gen_mio_pads[2]), parent:work@dut.gen_mio_pads[2]
+    \_gen_scope: (work@dut.gen_mio_pads[2])
+      |vpiParent:
+      \_gen_scope_array: (work@dut.gen_mio_pads[2]), line:11:39, endln:15:4
       |vpiFullName:work@dut.gen_mio_pads[2]
       |vpiParameter:
-      \_parameter: (work@dut.gen_mio_pads[2].k), line:11, parent:work@dut.gen_mio_pads[2]
+      \_parameter: (work@dut.gen_mio_pads[2].k), line:11:0
+        |vpiParent:
+        \_gen_scope: (work@dut.gen_mio_pads[2])
         |UINT:2
         |vpiTypespec:
         \_int_typespec: 
-        |vpiParent:
-        \_gen_scope: (work@dut.gen_mio_pads[2]), parent:work@dut.gen_mio_pads[2]
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.gen_mio_pads[2].k
-      |vpiParent:
-      \_gen_scope_array: (work@dut.gen_mio_pads[2]), line:11:39, endln:15:4, parent:work@dut
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@dut.gen_mio_pads[3]), line:11:39, endln:15:4, parent:work@dut
+  \_gen_scope_array: (work@dut.gen_mio_pads[3]), line:11:39, endln:15:4
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10
+    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
     |vpiName:gen_mio_pads[3]
     |vpiFullName:work@dut.gen_mio_pads[3]
     |vpiGenScope:
-    \_gen_scope: (work@dut.gen_mio_pads[3]), parent:work@dut.gen_mio_pads[3]
+    \_gen_scope: (work@dut.gen_mio_pads[3])
+      |vpiParent:
+      \_gen_scope_array: (work@dut.gen_mio_pads[3]), line:11:39, endln:15:4
       |vpiFullName:work@dut.gen_mio_pads[3]
       |vpiParameter:
-      \_parameter: (work@dut.gen_mio_pads[3].k), line:11, parent:work@dut.gen_mio_pads[3]
+      \_parameter: (work@dut.gen_mio_pads[3].k), line:11:0
+        |vpiParent:
+        \_gen_scope: (work@dut.gen_mio_pads[3])
         |UINT:3
         |vpiTypespec:
         \_int_typespec: 
-        |vpiParent:
-        \_gen_scope: (work@dut.gen_mio_pads[3]), parent:work@dut.gen_mio_pads[3]
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.gen_mio_pads[3].k
-      |vpiParent:
-      \_gen_scope_array: (work@dut.gen_mio_pads[3]), line:11:39, endln:15:4, parent:work@dut
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@dut.gen_mio_pads[4]), line:11:39, endln:15:4, parent:work@dut
+  \_gen_scope_array: (work@dut.gen_mio_pads[4]), line:11:39, endln:15:4
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10
+    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
     |vpiName:gen_mio_pads[4]
     |vpiFullName:work@dut.gen_mio_pads[4]
     |vpiGenScope:
-    \_gen_scope: (work@dut.gen_mio_pads[4]), parent:work@dut.gen_mio_pads[4]
+    \_gen_scope: (work@dut.gen_mio_pads[4])
+      |vpiParent:
+      \_gen_scope_array: (work@dut.gen_mio_pads[4]), line:11:39, endln:15:4
       |vpiFullName:work@dut.gen_mio_pads[4]
       |vpiParameter:
-      \_parameter: (work@dut.gen_mio_pads[4].k), line:11, parent:work@dut.gen_mio_pads[4]
+      \_parameter: (work@dut.gen_mio_pads[4].k), line:11:0
+        |vpiParent:
+        \_gen_scope: (work@dut.gen_mio_pads[4])
         |UINT:4
         |vpiTypespec:
         \_int_typespec: 
-        |vpiParent:
-        \_gen_scope: (work@dut.gen_mio_pads[4]), parent:work@dut.gen_mio_pads[4]
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.gen_mio_pads[4].k
-      |vpiParent:
-      \_gen_scope_array: (work@dut.gen_mio_pads[4]), line:11:39, endln:15:4, parent:work@dut
       |vpiGenScopeArray:
-      \_gen_scope_array: (work@dut.gen_mio_pads[4].gen_mio_inout), line:12:6, endln:14:9, parent:work@dut.gen_mio_pads[4]
+      \_gen_scope_array: (work@dut.gen_mio_pads[4].gen_mio_inout), line:12:6, endln:14:9
         |vpiParent:
-        \_gen_scope: (work@dut.gen_mio_pads[4]), parent:work@dut.gen_mio_pads[4]
+        \_gen_scope: (work@dut.gen_mio_pads[4])
         |vpiName:gen_mio_inout
         |vpiFullName:work@dut.gen_mio_pads[4].gen_mio_inout
         |vpiGenScope:
-        \_gen_scope: (work@dut.gen_mio_pads[4].gen_mio_inout), parent:work@dut.gen_mio_pads[4].gen_mio_inout
-          |vpiFullName:work@dut.gen_mio_pads[4].gen_mio_inout
+        \_gen_scope: (work@dut.gen_mio_pads[4].gen_mio_inout)
           |vpiParent:
-          \_gen_scope_array: (work@dut.gen_mio_pads[4].gen_mio_inout), line:12:6, endln:14:9, parent:work@dut.gen_mio_pads[4]
+          \_gen_scope_array: (work@dut.gen_mio_pads[4].gen_mio_inout), line:12:6, endln:14:9
+          |vpiFullName:work@dut.gen_mio_pads[4].gen_mio_inout
           |vpiModule:
-          \_module: work@GOOD (work@dut.gen_mio_pads[4].gen_mio_inout.good) dut.sv:13:14: , endln:13:26, parent:work@dut.gen_mio_pads[4].gen_mio_inout
+          \_module: work@GOOD (work@dut.gen_mio_pads[4].gen_mio_inout.good), file:dut.sv, line:13:14, endln:13:26
+            |vpiParent:
+            \_gen_scope: (work@dut.gen_mio_pads[4].gen_mio_inout)
             |vpiName:good
             |vpiFullName:work@dut.gen_mio_pads[4].gen_mio_inout.good
             |vpiDefName:work@GOOD
             |vpiDefFile:dut.sv
             |vpiDefLineNo:1
-            |vpiParent:
-            \_gen_scope: (work@dut.gen_mio_pads[4].gen_mio_inout), parent:work@dut.gen_mio_pads[4].gen_mio_inout
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@dut.gen_mio_pads[5]), line:11:39, endln:15:4, parent:work@dut
+  \_gen_scope_array: (work@dut.gen_mio_pads[5]), line:11:39, endln:15:4
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10
+    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
     |vpiName:gen_mio_pads[5]
     |vpiFullName:work@dut.gen_mio_pads[5]
     |vpiGenScope:
-    \_gen_scope: (work@dut.gen_mio_pads[5]), parent:work@dut.gen_mio_pads[5]
+    \_gen_scope: (work@dut.gen_mio_pads[5])
+      |vpiParent:
+      \_gen_scope_array: (work@dut.gen_mio_pads[5]), line:11:39, endln:15:4
       |vpiFullName:work@dut.gen_mio_pads[5]
       |vpiParameter:
-      \_parameter: (work@dut.gen_mio_pads[5].k), line:11, parent:work@dut.gen_mio_pads[5]
+      \_parameter: (work@dut.gen_mio_pads[5].k), line:11:0
+        |vpiParent:
+        \_gen_scope: (work@dut.gen_mio_pads[5])
         |UINT:5
         |vpiTypespec:
         \_int_typespec: 
-        |vpiParent:
-        \_gen_scope: (work@dut.gen_mio_pads[5]), parent:work@dut.gen_mio_pads[5]
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.gen_mio_pads[5].k
-      |vpiParent:
-      \_gen_scope_array: (work@dut.gen_mio_pads[5]), line:11:39, endln:15:4, parent:work@dut
       |vpiGenScopeArray:
-      \_gen_scope_array: (work@dut.gen_mio_pads[5].gen_mio_inout), line:12:6, endln:14:9, parent:work@dut.gen_mio_pads[5]
+      \_gen_scope_array: (work@dut.gen_mio_pads[5].gen_mio_inout), line:12:6, endln:14:9
         |vpiParent:
-        \_gen_scope: (work@dut.gen_mio_pads[5]), parent:work@dut.gen_mio_pads[5]
+        \_gen_scope: (work@dut.gen_mio_pads[5])
         |vpiName:gen_mio_inout
         |vpiFullName:work@dut.gen_mio_pads[5].gen_mio_inout
         |vpiGenScope:
-        \_gen_scope: (work@dut.gen_mio_pads[5].gen_mio_inout), parent:work@dut.gen_mio_pads[5].gen_mio_inout
-          |vpiFullName:work@dut.gen_mio_pads[5].gen_mio_inout
+        \_gen_scope: (work@dut.gen_mio_pads[5].gen_mio_inout)
           |vpiParent:
-          \_gen_scope_array: (work@dut.gen_mio_pads[5].gen_mio_inout), line:12:6, endln:14:9, parent:work@dut.gen_mio_pads[5]
+          \_gen_scope_array: (work@dut.gen_mio_pads[5].gen_mio_inout), line:12:6, endln:14:9
+          |vpiFullName:work@dut.gen_mio_pads[5].gen_mio_inout
           |vpiModule:
-          \_module: work@GOOD (work@dut.gen_mio_pads[5].gen_mio_inout.good) dut.sv:13:14: , endln:13:26, parent:work@dut.gen_mio_pads[5].gen_mio_inout
+          \_module: work@GOOD (work@dut.gen_mio_pads[5].gen_mio_inout.good), file:dut.sv, line:13:14, endln:13:26
+            |vpiParent:
+            \_gen_scope: (work@dut.gen_mio_pads[5].gen_mio_inout)
             |vpiName:good
             |vpiFullName:work@dut.gen_mio_pads[5].gen_mio_inout.good
             |vpiDefName:work@GOOD
             |vpiDefFile:dut.sv
             |vpiDefLineNo:1
-            |vpiParent:
-            \_gen_scope: (work@dut.gen_mio_pads[5].gen_mio_inout), parent:work@dut.gen_mio_pads[5].gen_mio_inout
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@dut.gen_mio_pads[6]), line:11:39, endln:15:4, parent:work@dut
+  \_gen_scope_array: (work@dut.gen_mio_pads[6]), line:11:39, endln:15:4
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10
+    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
     |vpiName:gen_mio_pads[6]
     |vpiFullName:work@dut.gen_mio_pads[6]
     |vpiGenScope:
-    \_gen_scope: (work@dut.gen_mio_pads[6]), parent:work@dut.gen_mio_pads[6]
+    \_gen_scope: (work@dut.gen_mio_pads[6])
+      |vpiParent:
+      \_gen_scope_array: (work@dut.gen_mio_pads[6]), line:11:39, endln:15:4
       |vpiFullName:work@dut.gen_mio_pads[6]
       |vpiParameter:
-      \_parameter: (work@dut.gen_mio_pads[6].k), line:11, parent:work@dut.gen_mio_pads[6]
+      \_parameter: (work@dut.gen_mio_pads[6].k), line:11:0
+        |vpiParent:
+        \_gen_scope: (work@dut.gen_mio_pads[6])
         |UINT:6
         |vpiTypespec:
         \_int_typespec: 
-        |vpiParent:
-        \_gen_scope: (work@dut.gen_mio_pads[6]), parent:work@dut.gen_mio_pads[6]
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.gen_mio_pads[6].k
-      |vpiParent:
-      \_gen_scope_array: (work@dut.gen_mio_pads[6]), line:11:39, endln:15:4, parent:work@dut
       |vpiGenScopeArray:
-      \_gen_scope_array: (work@dut.gen_mio_pads[6].gen_mio_inout), line:12:6, endln:14:9, parent:work@dut.gen_mio_pads[6]
+      \_gen_scope_array: (work@dut.gen_mio_pads[6].gen_mio_inout), line:12:6, endln:14:9
         |vpiParent:
-        \_gen_scope: (work@dut.gen_mio_pads[6]), parent:work@dut.gen_mio_pads[6]
+        \_gen_scope: (work@dut.gen_mio_pads[6])
         |vpiName:gen_mio_inout
         |vpiFullName:work@dut.gen_mio_pads[6].gen_mio_inout
         |vpiGenScope:
-        \_gen_scope: (work@dut.gen_mio_pads[6].gen_mio_inout), parent:work@dut.gen_mio_pads[6].gen_mio_inout
-          |vpiFullName:work@dut.gen_mio_pads[6].gen_mio_inout
+        \_gen_scope: (work@dut.gen_mio_pads[6].gen_mio_inout)
           |vpiParent:
-          \_gen_scope_array: (work@dut.gen_mio_pads[6].gen_mio_inout), line:12:6, endln:14:9, parent:work@dut.gen_mio_pads[6]
+          \_gen_scope_array: (work@dut.gen_mio_pads[6].gen_mio_inout), line:12:6, endln:14:9
+          |vpiFullName:work@dut.gen_mio_pads[6].gen_mio_inout
           |vpiModule:
-          \_module: work@GOOD (work@dut.gen_mio_pads[6].gen_mio_inout.good) dut.sv:13:14: , endln:13:26, parent:work@dut.gen_mio_pads[6].gen_mio_inout
+          \_module: work@GOOD (work@dut.gen_mio_pads[6].gen_mio_inout.good), file:dut.sv, line:13:14, endln:13:26
+            |vpiParent:
+            \_gen_scope: (work@dut.gen_mio_pads[6].gen_mio_inout)
             |vpiName:good
             |vpiFullName:work@dut.gen_mio_pads[6].gen_mio_inout.good
             |vpiDefName:work@GOOD
             |vpiDefFile:dut.sv
             |vpiDefLineNo:1
-            |vpiParent:
-            \_gen_scope: (work@dut.gen_mio_pads[6].gen_mio_inout), parent:work@dut.gen_mio_pads[6].gen_mio_inout
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@dut.gen_mio_pads[7]), line:11:39, endln:15:4, parent:work@dut
+  \_gen_scope_array: (work@dut.gen_mio_pads[7]), line:11:39, endln:15:4
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:6:1: , endln:21:10
+    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:21:10
     |vpiName:gen_mio_pads[7]
     |vpiFullName:work@dut.gen_mio_pads[7]
     |vpiGenScope:
-    \_gen_scope: (work@dut.gen_mio_pads[7]), parent:work@dut.gen_mio_pads[7]
+    \_gen_scope: (work@dut.gen_mio_pads[7])
+      |vpiParent:
+      \_gen_scope_array: (work@dut.gen_mio_pads[7]), line:11:39, endln:15:4
       |vpiFullName:work@dut.gen_mio_pads[7]
       |vpiParameter:
-      \_parameter: (work@dut.gen_mio_pads[7].k), line:11, parent:work@dut.gen_mio_pads[7]
+      \_parameter: (work@dut.gen_mio_pads[7].k), line:11:0
+        |vpiParent:
+        \_gen_scope: (work@dut.gen_mio_pads[7])
         |UINT:7
         |vpiTypespec:
         \_int_typespec: 
-        |vpiParent:
-        \_gen_scope: (work@dut.gen_mio_pads[7]), parent:work@dut.gen_mio_pads[7]
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.gen_mio_pads[7].k
-      |vpiParent:
-      \_gen_scope_array: (work@dut.gen_mio_pads[7]), line:11:39, endln:15:4, parent:work@dut
       |vpiGenScopeArray:
-      \_gen_scope_array: (work@dut.gen_mio_pads[7].gen_mio_inout), line:12:6, endln:14:9, parent:work@dut.gen_mio_pads[7]
+      \_gen_scope_array: (work@dut.gen_mio_pads[7].gen_mio_inout), line:12:6, endln:14:9
         |vpiParent:
-        \_gen_scope: (work@dut.gen_mio_pads[7]), parent:work@dut.gen_mio_pads[7]
+        \_gen_scope: (work@dut.gen_mio_pads[7])
         |vpiName:gen_mio_inout
         |vpiFullName:work@dut.gen_mio_pads[7].gen_mio_inout
         |vpiGenScope:
-        \_gen_scope: (work@dut.gen_mio_pads[7].gen_mio_inout), parent:work@dut.gen_mio_pads[7].gen_mio_inout
-          |vpiFullName:work@dut.gen_mio_pads[7].gen_mio_inout
+        \_gen_scope: (work@dut.gen_mio_pads[7].gen_mio_inout)
           |vpiParent:
-          \_gen_scope_array: (work@dut.gen_mio_pads[7].gen_mio_inout), line:12:6, endln:14:9, parent:work@dut.gen_mio_pads[7]
+          \_gen_scope_array: (work@dut.gen_mio_pads[7].gen_mio_inout), line:12:6, endln:14:9
+          |vpiFullName:work@dut.gen_mio_pads[7].gen_mio_inout
           |vpiModule:
-          \_module: work@GOOD (work@dut.gen_mio_pads[7].gen_mio_inout.good) dut.sv:13:14: , endln:13:26, parent:work@dut.gen_mio_pads[7].gen_mio_inout
+          \_module: work@GOOD (work@dut.gen_mio_pads[7].gen_mio_inout.good), file:dut.sv, line:13:14, endln:13:26
+            |vpiParent:
+            \_gen_scope: (work@dut.gen_mio_pads[7].gen_mio_inout)
             |vpiName:good
             |vpiFullName:work@dut.gen_mio_pads[7].gen_mio_inout.good
             |vpiDefName:work@GOOD
             |vpiDefFile:dut.sv
             |vpiDefLineNo:1
-            |vpiParent:
-            \_gen_scope: (work@dut.gen_mio_pads[7].gen_mio_inout), parent:work@dut.gen_mio_pads[7].gen_mio_inout
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

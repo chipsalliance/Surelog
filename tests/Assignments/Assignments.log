@@ -617,57 +617,59 @@ design: (work@dut)
 |vpiElaborated:1
 |vpiName:work@dut
 |uhdmallPackages:
-\_package: builtin (builtin::), file:, parent:work@dut
+\_package: builtin (builtin::), file:
+  |vpiParent:
+  \_design: (work@dut)
   |vpiName:builtin
   |vpiFullName:builtin::
   |vpiDefName:builtin
+|uhdmtopPackages:
+\_package: builtin (builtin::), file:
   |vpiParent:
   \_design: (work@dut)
-|uhdmtopPackages:
-\_package: builtin (builtin::), file:, parent:work@dut
   |vpiName:builtin
   |vpiFullName:builtin::
   |vpiDefName:builtin
   |vpiTop:1
   |vpiClassDefn:
-  \_class_defn: (builtin::any_sverilog_class), file:, parent:builtin::
+  \_class_defn: (builtin::any_sverilog_class), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:any_sverilog_class
     |vpiFullName:builtin::any_sverilog_class
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@dut
   |vpiClassDefn:
-  \_class_defn: (builtin::array), file:, parent:builtin::
+  \_class_defn: (builtin::array), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:array
     |vpiFullName:builtin::array
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@dut
   |vpiClassDefn:
-  \_class_defn: (builtin::queue), file:, parent:builtin::
+  \_class_defn: (builtin::queue), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:queue
     |vpiFullName:builtin::queue
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@dut
   |vpiClassDefn:
-  \_class_defn: (builtin::string), file:, parent:builtin::
+  \_class_defn: (builtin::string), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:string
     |vpiFullName:builtin::string
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@dut
   |vpiClassDefn:
-  \_class_defn: (builtin::system), file:, parent:builtin::
+  \_class_defn: (builtin::system), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:system
     |vpiFullName:builtin::system
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@dut
-  |vpiParent:
-  \_design: (work@dut)
 |uhdmallClasses:
-\_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
-  |vpiName:work@mailbox
+\_class_defn: (work@mailbox), file:builtin.sv
   |vpiParent:
   \_design: (work@dut)
+  |vpiName:work@mailbox
   |vpiMethod:
-  \_function: (work@mailbox::new), parent:work@mailbox
+  \_function: (work@mailbox::new)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:new
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
@@ -676,13 +678,13 @@ design: (work@dut)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
+        \_class_defn: (work@mailbox), file:builtin.sv
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (bound), parent:work@mailbox::new
+    \_io_decl: (bound)
       |vpiParent:
-      \_function: (work@mailbox::new), parent:work@mailbox
+      \_function: (work@mailbox::new)
       |vpiDirection:1
       |vpiName:bound
       |vpiExpr:
@@ -694,10 +696,10 @@ design: (work@dut)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
   |vpiMethod:
-  \_function: (work@mailbox::num), parent:work@mailbox
+  \_function: (work@mailbox::num)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:num
     |vpiFullName:work@mailbox::num
     |vpiMethod:1
@@ -708,27 +710,27 @@ design: (work@dut)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
+    \_class_defn: (work@mailbox), file:builtin.sv
   |vpiMethod:
-  \_task: (work@mailbox::put), parent:work@mailbox
+  \_task: (work@mailbox::put)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:put
     |vpiFullName:work@mailbox::put
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::put
+    \_io_decl: (message)
       |vpiParent:
-      \_task: (work@mailbox::put), parent:work@mailbox
+      \_task: (work@mailbox::put)
       |vpiDirection:1
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
   |vpiMethod:
-  \_function: (work@mailbox::try_put), parent:work@mailbox
+  \_function: (work@mailbox::try_put)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
     |vpiMethod:1
@@ -736,33 +738,33 @@ design: (work@dut)
     |vpiReturn:
     \_logic_var: 
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_put
+    \_io_decl: (message)
       |vpiParent:
-      \_function: (work@mailbox::try_put), parent:work@mailbox
+      \_function: (work@mailbox::try_put)
       |vpiDirection:1
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
   |vpiMethod:
-  \_task: (work@mailbox::get), parent:work@mailbox
+  \_task: (work@mailbox::get)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:get
     |vpiFullName:work@mailbox::get
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::get
+    \_io_decl: (message)
       |vpiParent:
-      \_task: (work@mailbox::get), parent:work@mailbox
+      \_task: (work@mailbox::get)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
   |vpiMethod:
-  \_function: (work@mailbox::try_get), parent:work@mailbox
+  \_function: (work@mailbox::try_get)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
     |vpiMethod:1
@@ -773,33 +775,33 @@ design: (work@dut)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_get
+    \_io_decl: (message)
       |vpiParent:
-      \_function: (work@mailbox::try_get), parent:work@mailbox
+      \_function: (work@mailbox::try_get)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
   |vpiMethod:
-  \_task: (work@mailbox::peek), parent:work@mailbox
+  \_task: (work@mailbox::peek)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::peek
+    \_io_decl: (message)
       |vpiParent:
-      \_task: (work@mailbox::peek), parent:work@mailbox
+      \_task: (work@mailbox::peek)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
   |vpiMethod:
-  \_function: (work@mailbox::try_peek), parent:work@mailbox
+  \_function: (work@mailbox::try_peek)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
     |vpiMethod:1
@@ -810,67 +812,67 @@ design: (work@dut)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_peek
+    \_io_decl: (message)
       |vpiParent:
-      \_function: (work@mailbox::try_peek), parent:work@mailbox
+      \_function: (work@mailbox::try_peek)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dut
 |uhdmallClasses:
-\_class_defn: (work@process), file:builtin.sv, parent:work@dut
+\_class_defn: (work@process), file:builtin.sv
+  |vpiParent:
+  \_design: (work@dut)
   |vpiName:work@process
   |vpiTypedef:
-  \_enum_typespec: (state), parent:work@process
-    |vpiName:state
+  \_enum_typespec: (state)
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
+    \_class_defn: (work@process), file:builtin.sv
+    |vpiName:state
     |vpiEnumConst:
-    \_enum_const: (FINISHED), parent:state
+    \_enum_const: (FINISHED)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:FINISHED
       |INT:0
       |vpiDecompile:0
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (RUNNING), parent:state
+    \_enum_const: (RUNNING)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:RUNNING
       |INT:1
       |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (WAITING), parent:state
+    \_enum_const: (WAITING)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:WAITING
       |INT:2
       |vpiDecompile:2
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (SUSPENDED), parent:state
+    \_enum_const: (SUSPENDED)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:SUSPENDED
       |INT:3
       |vpiDecompile:3
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (KILLED), parent:state
+    \_enum_const: (KILLED)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:KILLED
       |INT:4
       |vpiDecompile:4
       |vpiSize:64
-  |vpiParent:
-  \_design: (work@dut)
   |vpiMethod:
-  \_function: (work@process::self), parent:work@process
+  \_function: (work@process::self)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiMethod:1
@@ -880,13 +882,13 @@ design: (work@dut)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@process), file:builtin.sv, parent:work@dut
+        \_class_defn: (work@process), file:builtin.sv
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_function: (work@process::status), parent:work@process
+  \_function: (work@process::status)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiMethod:1
@@ -894,10 +896,10 @@ design: (work@dut)
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
-      \_enum_typespec: (state), parent:work@process
-        |vpiName:state
+      \_enum_typespec: (state)
         |vpiParent:
-        \_class_defn: (work@process), file:builtin.sv, parent:work@dut
+        \_class_defn: (work@process), file:builtin.sv
+        |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
           |vpiName:FINISHED
@@ -929,56 +931,56 @@ design: (work@dut)
           |vpiDecompile:4
           |vpiSize:64
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::kill), parent:work@process
+  \_task: (work@process::kill)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:kill
     |vpiFullName:work@process::kill
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::await), parent:work@process
+  \_task: (work@process::await)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:await
     |vpiFullName:work@process::await
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::suspend), parent:work@process
+  \_task: (work@process::suspend)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:suspend
     |vpiFullName:work@process::suspend
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::resume), parent:work@process
+  \_task: (work@process::resume)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:resume
     |vpiFullName:work@process::resume
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dut
+    \_class_defn: (work@process), file:builtin.sv
 |uhdmallClasses:
-\_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
-  |vpiName:work@semaphore
+\_class_defn: (work@semaphore), file:builtin.sv
   |vpiParent:
   \_design: (work@dut)
+  |vpiName:work@semaphore
   |vpiMethod:
-  \_function: (work@semaphore::new), parent:work@semaphore
+  \_function: (work@semaphore::new)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:new
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
@@ -987,13 +989,13 @@ design: (work@dut)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
+        \_class_defn: (work@semaphore), file:builtin.sv
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::new
+    \_io_decl: (keyCount)
       |vpiParent:
-      \_function: (work@semaphore::new), parent:work@semaphore
+      \_function: (work@semaphore::new)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -1005,20 +1007,20 @@ design: (work@dut)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
   |vpiMethod:
-  \_task: (work@semaphore::put), parent:work@semaphore
+  \_task: (work@semaphore::put)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:put
     |vpiFullName:work@semaphore::put
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::put
+    \_io_decl: (keyCount)
       |vpiParent:
-      \_task: (work@semaphore::put), parent:work@semaphore
+      \_task: (work@semaphore::put)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -1030,20 +1032,20 @@ design: (work@dut)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
   |vpiMethod:
-  \_task: (work@semaphore::get), parent:work@semaphore
+  \_task: (work@semaphore::get)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:get
     |vpiFullName:work@semaphore::get
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::get
+    \_io_decl: (keyCount)
       |vpiParent:
-      \_task: (work@semaphore::get), parent:work@semaphore
+      \_task: (work@semaphore::get)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -1055,10 +1057,10 @@ design: (work@dut)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
   |vpiMethod:
-  \_function: (work@semaphore::try_get), parent:work@semaphore
+  \_function: (work@semaphore::try_get)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
     |vpiMethod:1
@@ -1069,11 +1071,11 @@ design: (work@dut)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::try_get
+    \_io_decl: (keyCount)
       |vpiParent:
-      \_function: (work@semaphore::try_get), parent:work@semaphore
+      \_function: (work@semaphore::try_get)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -1085,19 +1087,21 @@ design: (work@dut)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dut
 |uhdmallModules:
-\_module: work@dut (work@dut) dut.sv:1:1: , endln:22:10, parent:work@dut
+\_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+  |vpiParent:
+  \_design: (work@dut)
   |vpiFullName:work@dut
   |vpiDefName:work@dut
   |vpiTaskFunc:
-  \_function: (work@dut.uvm_packer::get_packed_bits), line:5:3, endln:12:14, parent:work@dut
+  \_function: (work@dut.uvm_packer::get_packed_bits), line:5:3, endln:12:14
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
     |vpiName:uvm_packer::get_packed_bits
     |vpiFullName:work@dut.uvm_packer::get_packed_bits
     |vpiVisibility:1
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:22:10, parent:work@dut
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
     |vpiIODecl:
     \_io_decl: (stream), line:5:62, endln:5:68
       |vpiDirection:6
@@ -1106,62 +1110,64 @@ design: (work@dut)
       \_range: 
         |vpiLeftRange:
         \_constant: , line:5:68, endln:5:69
+          |vpiParent:
+          \_range: 
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: 
           |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:5:68, endln:5:69
-          |vpiDecompile:unsized
-          |STRING:unsized
           |vpiParent:
           \_range: 
+          |vpiDecompile:unsized
+          |STRING:unsized
           |vpiConstType:6
       |vpiTypedef:
       \_bit_typespec: , line:5:49, endln:5:52
     |vpiStmt:
-    \_begin: (work@dut.uvm_packer::get_packed_bits), parent:work@dut.uvm_packer::get_packed_bits
-      |vpiFullName:work@dut.uvm_packer::get_packed_bits
+    \_begin: (work@dut.uvm_packer::get_packed_bits)
       |vpiParent:
-      \_function: (work@dut.uvm_packer::get_packed_bits), line:5:3, endln:12:14, parent:work@dut
+      \_function: (work@dut.uvm_packer::get_packed_bits), line:5:3, endln:12:14
+      |vpiFullName:work@dut.uvm_packer::get_packed_bits
       |vpiStmt:
-      \_assignment: , line:6:5, endln:6:57, parent:work@dut.uvm_packer::get_packed_bits
+      \_assignment: , line:6:5, endln:6:57
         |vpiParent:
-        \_begin: (work@dut.uvm_packer::get_packed_bits), parent:work@dut.uvm_packer::get_packed_bits
+        \_begin: (work@dut.uvm_packer::get_packed_bits)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_method_func_call: (new), line:6:18, endln:6:57
+          |vpiParent:
+          \_assignment: , line:6:5, endln:6:57
           |vpiArgument:
-          \_operation: , line:6:22, endln:6:43, parent:new
+          \_operation: , line:6:22, endln:6:43
             |vpiParent:
             \_method_func_call: (new), line:6:18, endln:6:57
             |vpiOpType:24
             |vpiOperand:
-            \_hier_path: (cover_info.size), line:6:22, endln:6:39, parent:new
+            \_hier_path: (cover_info.size), line:6:22, endln:6:39
               |vpiParent:
               \_method_func_call: (new), line:6:18, endln:6:57
               |vpiName:cover_info.size
               |vpiActual:
-              \_ref_obj: (cover_info), line:6:22, endln:6:32, parent:cover_info.size
+              \_ref_obj: (cover_info), line:6:22, endln:6:32
                 |vpiParent:
-                \_hier_path: (cover_info.size), line:6:22, endln:6:39, parent:new
+                \_hier_path: (cover_info.size), line:6:22, endln:6:39
                 |vpiName:cover_info
               |vpiActual:
               \_method_func_call: (size), line:6:33, endln:6:37
                 |vpiName:size
             |vpiOperand:
             \_constant: , line:6:42, endln:6:43
+              |vpiParent:
+              \_operation: , line:6:22, endln:6:43
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
-              |vpiParent:
-              \_operation: , line:6:22, endln:6:43, parent:new
               |vpiConstType:9
           |vpiArgument:
-          \_ref_obj: (work@dut.uvm_packer::get_packed_bits.cover_info), line:6:46, endln:6:56, parent:new
+          \_ref_obj: (work@dut.uvm_packer::get_packed_bits.cover_info), line:6:46, endln:6:56
             |vpiParent:
             \_method_func_call: (new), line:6:18, endln:6:57
             |vpiName:cover_info
@@ -1171,26 +1177,26 @@ design: (work@dut)
               |vpiName:cover_info
               |vpiNetType:1
           |vpiName:new
-          |vpiParent:
-          \_assignment: , line:6:5, endln:6:57, parent:work@dut.uvm_packer::get_packed_bits
         |vpiLhs:
-        \_ref_obj: (work@dut.uvm_packer::get_packed_bits.cover_info), line:6:5, endln:6:15, parent:work@dut.uvm_packer::get_packed_bits
+        \_ref_obj: (work@dut.uvm_packer::get_packed_bits.cover_info), line:6:5, endln:6:15
           |vpiParent:
-          \_begin: (work@dut.uvm_packer::get_packed_bits), parent:work@dut.uvm_packer::get_packed_bits
+          \_begin: (work@dut.uvm_packer::get_packed_bits)
           |vpiName:cover_info
           |vpiFullName:work@dut.uvm_packer::get_packed_bits.cover_info
           |vpiActual:
           \_logic_net: (cover_info)
       |vpiStmt:
-      \_assignment: , line:7:5, endln:7:37, parent:work@dut.uvm_packer::get_packed_bits
+      \_assignment: , line:7:5, endln:7:37
         |vpiParent:
-        \_begin: (work@dut.uvm_packer::get_packed_bits), parent:work@dut.uvm_packer::get_packed_bits
+        \_begin: (work@dut.uvm_packer::get_packed_bits)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_method_func_call: (new), line:7:21, endln:7:37
+          |vpiParent:
+          \_assignment: , line:7:5, endln:7:37
           |vpiArgument:
-          \_ref_obj: (work@dut.uvm_packer::get_packed_bits.m_pack_iter), line:7:25, endln:7:36, parent:new
+          \_ref_obj: (work@dut.uvm_packer::get_packed_bits.m_pack_iter), line:7:25, endln:7:36
             |vpiParent:
             \_method_func_call: (new), line:7:21, endln:7:37
             |vpiName:m_pack_iter
@@ -1200,36 +1206,34 @@ design: (work@dut)
               |vpiName:m_pack_iter
               |vpiNetType:1
           |vpiName:new
-          |vpiParent:
-          \_assignment: , line:7:5, endln:7:37, parent:work@dut.uvm_packer::get_packed_bits
         |vpiLhs:
-        \_ref_obj: (work@dut.uvm_packer::get_packed_bits.stream), line:7:5, endln:7:11, parent:work@dut.uvm_packer::get_packed_bits
+        \_ref_obj: (work@dut.uvm_packer::get_packed_bits.stream), line:7:5, endln:7:11
           |vpiParent:
-          \_begin: (work@dut.uvm_packer::get_packed_bits), parent:work@dut.uvm_packer::get_packed_bits
+          \_begin: (work@dut.uvm_packer::get_packed_bits)
           |vpiName:stream
           |vpiFullName:work@dut.uvm_packer::get_packed_bits.stream
           |vpiActual:
           \_io_decl: (stream), line:5:62, endln:5:68
       |vpiStmt:
-      \_assignment: , line:8:5, endln:8:32, parent:work@dut.uvm_packer::get_packed_bits
+      \_assignment: , line:8:5, endln:8:32
         |vpiParent:
-        \_begin: (work@dut.uvm_packer::get_packed_bits), parent:work@dut.uvm_packer::get_packed_bits
+        \_begin: (work@dut.uvm_packer::get_packed_bits)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
-        \_ref_obj: (work@dut.uvm_packer::get_packed_bits.m_pack_iter), line:8:21, endln:8:32, parent:work@dut.uvm_packer::get_packed_bits
+        \_ref_obj: (work@dut.uvm_packer::get_packed_bits.m_pack_iter), line:8:21, endln:8:32
           |vpiParent:
-          \_begin: (work@dut.uvm_packer::get_packed_bits), parent:work@dut.uvm_packer::get_packed_bits
+          \_begin: (work@dut.uvm_packer::get_packed_bits)
           |vpiName:m_pack_iter
           |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_pack_iter
           |vpiActual:
           \_logic_net: (m_pack_iter)
         |vpiLhs:
-        \_part_select: , line:8:5, endln:8:17, parent:work@dut.uvm_packer::get_packed_bits.m_bits
+        \_part_select: , line:8:5, endln:8:17
           |vpiParent:
           \_ref_obj: m_bits (work@dut.uvm_packer::get_packed_bits.m_bits)
             |vpiParent:
-            \_assignment: , line:8:5, endln:8:32, parent:work@dut.uvm_packer::get_packed_bits
+            \_assignment: , line:8:5, endln:8:32
             |vpiName:m_bits
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_bits
             |vpiDefName:m_bits
@@ -1247,15 +1251,15 @@ design: (work@dut)
             |UINT:0
             |vpiConstType:9
       |vpiStmt:
-      \_assignment: , line:9:5, endln:9:34, parent:work@dut.uvm_packer::get_packed_bits
+      \_assignment: , line:9:5, endln:9:34
         |vpiParent:
-        \_begin: (work@dut.uvm_packer::get_packed_bits), parent:work@dut.uvm_packer::get_packed_bits
+        \_begin: (work@dut.uvm_packer::get_packed_bits)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
-        \_ref_obj: (work@dut.uvm_packer::get_packed_bits.m_unpack_iter), line:9:21, endln:9:34, parent:work@dut.uvm_packer::get_packed_bits
+        \_ref_obj: (work@dut.uvm_packer::get_packed_bits.m_unpack_iter), line:9:21, endln:9:34
           |vpiParent:
-          \_begin: (work@dut.uvm_packer::get_packed_bits), parent:work@dut.uvm_packer::get_packed_bits
+          \_begin: (work@dut.uvm_packer::get_packed_bits)
           |vpiName:m_unpack_iter
           |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_unpack_iter
           |vpiActual:
@@ -1263,11 +1267,11 @@ design: (work@dut)
             |vpiName:m_unpack_iter
             |vpiNetType:1
         |vpiLhs:
-        \_part_select: , line:9:5, endln:9:18, parent:work@dut.uvm_packer::get_packed_bits.m_bits
+        \_part_select: , line:9:5, endln:9:18
           |vpiParent:
           \_ref_obj: m_bits (work@dut.uvm_packer::get_packed_bits.m_bits)
             |vpiParent:
-            \_assignment: , line:9:5, endln:9:34, parent:work@dut.uvm_packer::get_packed_bits
+            \_assignment: , line:9:5, endln:9:34
             |vpiName:m_bits
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_bits
             |vpiDefName:m_bits
@@ -1285,53 +1289,53 @@ design: (work@dut)
             |UINT:32
             |vpiConstType:9
       |vpiStmt:
-      \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8, parent:work@dut.uvm_packer::get_packed_bits
-        |vpiFullName:work@dut.uvm_packer::get_packed_bits
+      \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8
         |vpiParent:
-        \_begin: (work@dut.uvm_packer::get_packed_bits), parent:work@dut.uvm_packer::get_packed_bits
+        \_begin: (work@dut.uvm_packer::get_packed_bits)
+        |vpiFullName:work@dut.uvm_packer::get_packed_bits
         |vpiForInitStmt:
-        \_assign_stmt: , line:10:10, endln:10:17, parent:work@dut.uvm_packer::get_packed_bits
+        \_assign_stmt: , line:10:10, endln:10:17
           |vpiParent:
-          \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8, parent:work@dut.uvm_packer::get_packed_bits
+          \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8
           |vpiRhs:
           \_constant: , line:10:16, endln:10:17
+            |vpiParent:
+            \_assign_stmt: , line:10:10, endln:10:17
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-            |vpiParent:
-            \_assign_stmt: , line:10:10, endln:10:17, parent:work@dut.uvm_packer::get_packed_bits
             |vpiConstType:9
           |vpiLhs:
           \_int_var: (work@dut.uvm_packer::get_packed_bits.i), line:10:10, endln:10:13
+            |vpiParent:
+            \_assign_stmt: , line:10:10, endln:10:17
             |vpiTypespec:
             \_int_typespec: , line:10:10, endln:10:13
               |vpiSigned:1
             |vpiName:i
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.i
-            |vpiParent:
-            \_assign_stmt: , line:10:10, endln:10:17, parent:work@dut.uvm_packer::get_packed_bits
         |vpiForIncStmt:
-        \_operation: , line:10:32, endln:10:35, parent:work@dut.uvm_packer::get_packed_bits
+        \_operation: , line:10:32, endln:10:35
           |vpiParent:
-          \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8, parent:work@dut.uvm_packer::get_packed_bits
+          \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8
           |vpiOpType:62
           |vpiOperand:
           \_ref_obj: (work@dut.uvm_packer::get_packed_bits.i), line:10:32, endln:10:33
             |vpiParent:
-            \_operation: , line:10:32, endln:10:35, parent:work@dut.uvm_packer::get_packed_bits
+            \_operation: , line:10:32, endln:10:35
             |vpiName:i
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.i
             |vpiActual:
             \_int_var: (work@dut.uvm_packer::get_packed_bits.i), line:10:10, endln:10:13
         |vpiCondition:
-        \_operation: , line:10:18, endln:10:31, parent:work@dut.uvm_packer::get_packed_bits
+        \_operation: , line:10:18, endln:10:31
           |vpiParent:
-          \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8, parent:work@dut.uvm_packer::get_packed_bits
+          \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8
           |vpiOpType:20
           |vpiOperand:
           \_ref_obj: (work@dut.uvm_packer::get_packed_bits.i), line:10:18, endln:10:19
             |vpiParent:
-            \_operation: , line:10:18, endln:10:31, parent:work@dut.uvm_packer::get_packed_bits
+            \_operation: , line:10:18, endln:10:31
             |vpiName:i
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.i
             |vpiActual:
@@ -1339,97 +1343,95 @@ design: (work@dut)
           |vpiOperand:
           \_ref_obj: (work@dut.uvm_packer::get_packed_bits.m_pack_iter), line:10:20, endln:10:31
             |vpiParent:
-            \_operation: , line:10:18, endln:10:31, parent:work@dut.uvm_packer::get_packed_bits
+            \_operation: , line:10:18, endln:10:31
             |vpiName:m_pack_iter
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_pack_iter
             |vpiActual:
             \_logic_net: (m_pack_iter)
         |vpiStmt:
-        \_assignment: , line:11:7, endln:11:28, parent:work@dut.uvm_packer::get_packed_bits
+        \_assignment: , line:11:7, endln:11:28
           |vpiParent:
-          \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8, parent:work@dut.uvm_packer::get_packed_bits
+          \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8
           |vpiOpType:82
           |vpiBlocking:1
           |vpiRhs:
-          \_bit_select: (work@dut.uvm_packer::get_packed_bits.m_bits), line:11:19, endln:11:28, parent:work@dut.uvm_packer::get_packed_bits.m_bits
+          \_bit_select: (work@dut.uvm_packer::get_packed_bits.m_bits), line:11:19, endln:11:28
             |vpiParent:
             \_ref_obj: (work@dut.uvm_packer::get_packed_bits.m_bits)
               |vpiParent:
-              \_assignment: , line:11:7, endln:11:28, parent:work@dut.uvm_packer::get_packed_bits
+              \_assignment: , line:11:7, endln:11:28
               |vpiName:m_bits
               |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_bits
             |vpiName:m_bits
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_bits
             |vpiIndex:
-            \_ref_obj: (work@dut.uvm_packer::get_packed_bits.i), line:11:26, endln:11:27, parent:work@dut.uvm_packer::get_packed_bits
+            \_ref_obj: (work@dut.uvm_packer::get_packed_bits.i), line:11:26, endln:11:27
               |vpiParent:
-              \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8, parent:work@dut.uvm_packer::get_packed_bits
+              \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8
               |vpiName:i
               |vpiFullName:work@dut.uvm_packer::get_packed_bits.i
               |vpiActual:
               \_int_var: (work@dut.uvm_packer::get_packed_bits.i), line:10:10, endln:10:13
           |vpiLhs:
-          \_bit_select: (work@dut.uvm_packer::get_packed_bits.stream), line:11:7, endln:11:16, parent:work@dut.uvm_packer::get_packed_bits.stream
+          \_bit_select: (work@dut.uvm_packer::get_packed_bits.stream), line:11:7, endln:11:16
             |vpiParent:
             \_ref_obj: (work@dut.uvm_packer::get_packed_bits.stream)
               |vpiParent:
-              \_assignment: , line:11:7, endln:11:28, parent:work@dut.uvm_packer::get_packed_bits
+              \_assignment: , line:11:7, endln:11:28
               |vpiName:stream
               |vpiFullName:work@dut.uvm_packer::get_packed_bits.stream
             |vpiName:stream
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.stream
             |vpiIndex:
-            \_ref_obj: (work@dut.uvm_packer::get_packed_bits.i), line:11:14, endln:11:15, parent:work@dut.uvm_packer::get_packed_bits
+            \_ref_obj: (work@dut.uvm_packer::get_packed_bits.i), line:11:14, endln:11:15
               |vpiParent:
-              \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8, parent:work@dut.uvm_packer::get_packed_bits
+              \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8
               |vpiName:i
               |vpiFullName:work@dut.uvm_packer::get_packed_bits.i
               |vpiActual:
               \_int_var: (work@dut.uvm_packer::get_packed_bits.i), line:10:10, endln:10:13
     |vpiInstance:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:22:10, parent:work@dut
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:22:10, parent:work@dut
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
   |vpiNet:
-  \_logic_net: (work@dut.clk), line:1:12, endln:1:15, parent:work@dut
+  \_logic_net: (work@dut.clk), line:1:12, endln:1:15
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
     |vpiName:clk
     |vpiFullName:work@dut.clk
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:22:10, parent:work@dut
   |vpiNet:
-  \_logic_net: (work@dut.o), line:1:17, endln:1:18, parent:work@dut
+  \_logic_net: (work@dut.o), line:1:17, endln:1:18
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
     |vpiName:o
     |vpiFullName:work@dut.o
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:22:10, parent:work@dut
-  |vpiParent:
-  \_design: (work@dut)
   |vpiPort:
-  \_port: (clk), line:1:12, endln:1:15, parent:work@dut
+  \_port: (clk), line:1:12, endln:1:15
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@dut.clk), line:1:12, endln:1:15, parent:work@dut
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:22:10, parent:work@dut
+      \_logic_net: (work@dut.clk), line:1:12, endln:1:15
   |vpiPort:
-  \_port: (o), line:1:17, endln:1:18, parent:work@dut
+  \_port: (o), line:1:17, endln:1:18
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@dut.o), line:1:17, endln:1:18, parent:work@dut
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:22:10, parent:work@dut
+      \_logic_net: (work@dut.o), line:1:17, endln:1:18
   |vpiProcess:
-  \_always: , line:14:3, endln:20:6, parent:work@dut
+  \_always: , line:14:3, endln:20:6
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
     |vpiStmt:
     \_event_control: , line:14:10, endln:14:24
       |vpiParent:
-      \_always: , line:14:3, endln:20:6, parent:work@dut
+      \_always: , line:14:3, endln:20:6
       |vpiCondition:
       \_operation: , line:14:12, endln:14:23
         |vpiParent:
@@ -1442,24 +1444,24 @@ design: (work@dut)
           |vpiName:clk
           |vpiFullName:work@dut.clk
           |vpiActual:
-          \_logic_net: (work@dut.clk), line:1:12, endln:1:15, parent:work@dut
+          \_logic_net: (work@dut.clk), line:1:12, endln:1:15
+            |vpiParent:
+            \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
             |vpiName:clk
             |vpiFullName:work@dut.clk
-            |vpiParent:
-            \_module: work@dut (work@dut) dut.sv:1:1: , endln:22:10
       |vpiStmt:
       \_begin: (work@dut), line:14:25, endln:20:6
-        |vpiFullName:work@dut
         |vpiParent:
         \_event_control: , line:14:10, endln:14:24
+        |vpiFullName:work@dut
         |vpiStmt:
-        \_assignment: , line:15:5, endln:15:32, parent:work@dut
+        \_assignment: , line:15:5, endln:15:32
           |vpiParent:
           \_begin: (work@dut), line:14:25, endln:20:6
           |vpiOpType:82
           |vpiBlocking:1
           |vpiRhs:
-          \_ref_obj: (work@dut.m_pack_iter), line:15:21, endln:15:32, parent:work@dut
+          \_ref_obj: (work@dut.m_pack_iter), line:15:21, endln:15:32
             |vpiParent:
             \_begin: (work@dut), line:14:25, endln:20:6
             |vpiName:m_pack_iter
@@ -1467,11 +1469,11 @@ design: (work@dut)
             |vpiActual:
             \_logic_net: (m_pack_iter)
           |vpiLhs:
-          \_part_select: , line:15:5, endln:15:17, parent:work@dut.m_bits
+          \_part_select: , line:15:5, endln:15:17
             |vpiParent:
             \_ref_obj: m_bits (work@dut.m_bits)
               |vpiParent:
-              \_assignment: , line:15:5, endln:15:32, parent:work@dut
+              \_assignment: , line:15:5, endln:15:32
               |vpiName:m_bits
               |vpiFullName:work@dut.m_bits
               |vpiDefName:m_bits
@@ -1489,38 +1491,38 @@ design: (work@dut)
               |UINT:0
               |vpiConstType:9
         |vpiStmt:
-        \_assignment: , line:16:5, endln:16:11, parent:work@dut
+        \_assignment: , line:16:5, endln:16:11
           |vpiParent:
           \_begin: (work@dut), line:14:25, endln:20:6
           |vpiOpType:24
           |vpiBlocking:1
           |vpiRhs:
           \_constant: , line:16:10, endln:16:11
+            |vpiParent:
+            \_assignment: , line:16:5, endln:16:11
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
-            |vpiParent:
-            \_assignment: , line:16:5, endln:16:11, parent:work@dut
             |vpiConstType:9
           |vpiLhs:
-          \_ref_obj: (work@dut.o), line:16:5, endln:16:6, parent:work@dut
+          \_ref_obj: (work@dut.o), line:16:5, endln:16:6
             |vpiParent:
             \_begin: (work@dut), line:14:25, endln:20:6
             |vpiName:o
             |vpiFullName:work@dut.o
             |vpiActual:
-            \_logic_net: (work@dut.o), line:1:17, endln:1:18, parent:work@dut
+            \_logic_net: (work@dut.o), line:1:17, endln:1:18
+              |vpiParent:
+              \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
               |vpiName:o
               |vpiFullName:work@dut.o
-              |vpiParent:
-              \_module: work@dut (work@dut) dut.sv:1:1: , endln:22:10
         |vpiStmt:
-        \_assignment: , line:17:5, endln:17:17, parent:work@dut
+        \_assignment: , line:17:5, endln:17:17
           |vpiParent:
           \_begin: (work@dut), line:14:25, endln:20:6
           |vpiOpType:82
           |vpiRhs:
-          \_ref_obj: (work@dut.idle), line:17:13, endln:17:17, parent:work@dut
+          \_ref_obj: (work@dut.idle), line:17:13, endln:17:17
             |vpiParent:
             \_begin: (work@dut), line:14:25, endln:20:6
             |vpiName:idle
@@ -1530,7 +1532,7 @@ design: (work@dut)
               |vpiName:idle
               |vpiNetType:1
           |vpiLhs:
-          \_ref_obj: (work@dut.a), line:17:5, endln:17:6, parent:work@dut
+          \_ref_obj: (work@dut.a), line:17:5, endln:17:6
             |vpiParent:
             \_begin: (work@dut), line:14:25, endln:20:6
             |vpiName:a
@@ -1542,15 +1544,15 @@ design: (work@dut)
           |vpiDelayControl:
           \_delay_control: , line:17:10, endln:17:12
             |vpiParent:
-            \_assignment: , line:17:5, endln:17:17, parent:work@dut
+            \_assignment: , line:17:5, endln:17:17
             |#1
         |vpiStmt:
-        \_assignment: , line:18:5, endln:18:20, parent:work@dut
+        \_assignment: , line:18:5, endln:18:20
           |vpiParent:
           \_begin: (work@dut), line:14:25, endln:20:6
           |vpiOpType:82
           |vpiRhs:
-          \_ref_obj: (work@dut.next_nba), line:18:12, endln:18:20, parent:work@dut
+          \_ref_obj: (work@dut.next_nba), line:18:12, endln:18:20
             |vpiParent:
             \_begin: (work@dut), line:14:25, endln:20:6
             |vpiName:next_nba
@@ -1560,7 +1562,7 @@ design: (work@dut)
               |vpiName:next_nba
               |vpiNetType:1
           |vpiLhs:
-          \_ref_obj: (work@dut.nba), line:18:5, endln:18:8, parent:work@dut
+          \_ref_obj: (work@dut.nba), line:18:5, endln:18:8
             |vpiParent:
             \_begin: (work@dut), line:14:25, endln:20:6
             |vpiName:nba
@@ -1570,13 +1572,13 @@ design: (work@dut)
               |vpiName:nba
               |vpiNetType:1
         |vpiStmt:
-        \_assignment: , line:19:5, endln:19:17, parent:work@dut
+        \_assignment: , line:19:5, endln:19:17
           |vpiParent:
           \_begin: (work@dut), line:14:25, endln:20:6
           |vpiOpType:82
           |vpiBlocking:1
           |vpiRhs:
-          \_ref_obj: (work@dut.toto), line:19:13, endln:19:17, parent:work@dut
+          \_ref_obj: (work@dut.toto), line:19:13, endln:19:17
             |vpiParent:
             \_begin: (work@dut), line:14:25, endln:20:6
             |vpiName:toto
@@ -1586,7 +1588,7 @@ design: (work@dut)
               |vpiName:toto
               |vpiNetType:1
           |vpiLhs:
-          \_ref_obj: (work@dut.bb), line:19:5, endln:19:7, parent:work@dut
+          \_ref_obj: (work@dut.bb), line:19:5, endln:19:7
             |vpiParent:
             \_begin: (work@dut), line:14:25, endln:20:6
             |vpiName:bb
@@ -1598,33 +1600,33 @@ design: (work@dut)
           |vpiDelayControl:
           \_delay_control: , line:19:10, endln:19:12
             |vpiParent:
-            \_assignment: , line:19:5, endln:19:17, parent:work@dut
+            \_assignment: , line:19:5, endln:19:17
             |#1
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:22:10, parent:work@dut
     |vpiAlwaysType:1
 |uhdmtopModules:
-\_module: work@dut (work@dut) dut.sv:1:1: , endln:22:10
+\_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
   |vpiName:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiTaskFunc:
-  \_function: (work@dut.uvm_packer::get_packed_bits), line:5:3, endln:12:14, parent:work@dut
+  \_function: (work@dut.uvm_packer::get_packed_bits), line:5:3, endln:12:14
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
     |vpiName:uvm_packer::get_packed_bits
     |vpiFullName:work@dut.uvm_packer::get_packed_bits
     |vpiVisibility:1
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:22:10
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
     |vpiIODecl:
-    \_io_decl: (stream), line:5:62, endln:5:68, parent:work@dut.uvm_packer::get_packed_bits
+    \_io_decl: (stream), line:5:62, endln:5:68
       |vpiParent:
-      \_function: (work@dut.uvm_packer::get_packed_bits), line:5:3, endln:12:14, parent:work@dut
+      \_function: (work@dut.uvm_packer::get_packed_bits), line:5:3, endln:12:14
       |vpiDirection:6
       |vpiName:stream
       |vpiRange:
-      \_range: , parent:stream
+      \_range: 
         |vpiParent:
-        \_io_decl: (stream), line:5:62, endln:5:68, parent:work@dut.uvm_packer::get_packed_bits
+        \_io_decl: (stream), line:5:62, endln:5:68
         |vpiLeftRange:
         \_constant: , line:5:68, endln:5:69
         |vpiRightRange:
@@ -1632,44 +1634,46 @@ design: (work@dut)
       |vpiTypedef:
       \_bit_typespec: , line:5:49, endln:5:52
     |vpiStmt:
-    \_begin: (work@dut.uvm_packer::get_packed_bits), parent:work@dut.uvm_packer::get_packed_bits
-      |vpiFullName:work@dut.uvm_packer::get_packed_bits
+    \_begin: (work@dut.uvm_packer::get_packed_bits)
       |vpiParent:
-      \_function: (work@dut.uvm_packer::get_packed_bits), line:5:3, endln:12:14, parent:work@dut
+      \_function: (work@dut.uvm_packer::get_packed_bits), line:5:3, endln:12:14
+      |vpiFullName:work@dut.uvm_packer::get_packed_bits
       |vpiStmt:
-      \_assignment: , line:6:5, endln:6:57, parent:work@dut.uvm_packer::get_packed_bits
+      \_assignment: , line:6:5, endln:6:57
         |vpiParent:
-        \_begin: (work@dut.uvm_packer::get_packed_bits), parent:work@dut.uvm_packer::get_packed_bits
+        \_begin: (work@dut.uvm_packer::get_packed_bits)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_method_func_call: (new), line:6:18, endln:6:57
+          |vpiParent:
+          \_assignment: , line:6:5, endln:6:57
           |vpiArgument:
-          \_operation: , line:6:22, endln:6:43, parent:new
+          \_operation: , line:6:22, endln:6:43
             |vpiParent:
             \_method_func_call: (new), line:6:18, endln:6:57
             |vpiOpType:24
             |vpiOperand:
             \_hier_path: (cover_info.size), line:6:22, endln:6:39
               |vpiParent:
-              \_operation: , line:6:22, endln:6:43, parent:new
+              \_operation: , line:6:22, endln:6:43
               |vpiName:cover_info.size
               |vpiActual:
-              \_ref_obj: (cover_info), line:6:22, endln:6:32, parent:cover_info.size
+              \_ref_obj: (cover_info), line:6:22, endln:6:32
                 |vpiParent:
                 \_hier_path: (cover_info.size), line:6:22, endln:6:39
                 |vpiName:cover_info
                 |vpiActual:
                 \_logic_net: (cover_info)
               |vpiActual:
-              \_method_func_call: (size), line:6:33, endln:6:37, parent:cover_info.size
-                |vpiName:size
+              \_method_func_call: (size), line:6:33, endln:6:37
                 |vpiParent:
                 \_hier_path: (cover_info.size), line:6:22, endln:6:39
+                |vpiName:size
             |vpiOperand:
             \_constant: , line:6:42, endln:6:43
           |vpiArgument:
-          \_ref_obj: (work@dut.uvm_packer::get_packed_bits.cover_info), line:6:46, endln:6:56, parent:new
+          \_ref_obj: (work@dut.uvm_packer::get_packed_bits.cover_info), line:6:46, endln:6:56
             |vpiParent:
             \_method_func_call: (new), line:6:18, endln:6:57
             |vpiName:cover_info
@@ -1677,26 +1681,26 @@ design: (work@dut)
             |vpiActual:
             \_logic_net: (cover_info)
           |vpiName:new
-          |vpiParent:
-          \_assignment: , line:6:5, endln:6:57, parent:work@dut.uvm_packer::get_packed_bits
         |vpiLhs:
         \_ref_obj: (work@dut.uvm_packer::get_packed_bits.cover_info), line:6:5, endln:6:15
           |vpiParent:
-          \_assignment: , line:6:5, endln:6:57, parent:work@dut.uvm_packer::get_packed_bits
+          \_assignment: , line:6:5, endln:6:57
           |vpiName:cover_info
           |vpiFullName:work@dut.uvm_packer::get_packed_bits.cover_info
           |vpiActual:
           \_logic_net: (cover_info)
       |vpiStmt:
-      \_assignment: , line:7:5, endln:7:37, parent:work@dut.uvm_packer::get_packed_bits
+      \_assignment: , line:7:5, endln:7:37
         |vpiParent:
-        \_begin: (work@dut.uvm_packer::get_packed_bits), parent:work@dut.uvm_packer::get_packed_bits
+        \_begin: (work@dut.uvm_packer::get_packed_bits)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_method_func_call: (new), line:7:21, endln:7:37
+          |vpiParent:
+          \_assignment: , line:7:5, endln:7:37
           |vpiArgument:
-          \_ref_obj: (work@dut.uvm_packer::get_packed_bits.m_pack_iter), line:7:25, endln:7:36, parent:new
+          \_ref_obj: (work@dut.uvm_packer::get_packed_bits.m_pack_iter), line:7:25, endln:7:36
             |vpiParent:
             \_method_func_call: (new), line:7:21, endln:7:37
             |vpiName:m_pack_iter
@@ -1704,36 +1708,34 @@ design: (work@dut)
             |vpiActual:
             \_logic_net: (m_pack_iter)
           |vpiName:new
-          |vpiParent:
-          \_assignment: , line:7:5, endln:7:37, parent:work@dut.uvm_packer::get_packed_bits
         |vpiLhs:
         \_ref_obj: (work@dut.uvm_packer::get_packed_bits.stream), line:7:5, endln:7:11
           |vpiParent:
-          \_assignment: , line:7:5, endln:7:37, parent:work@dut.uvm_packer::get_packed_bits
+          \_assignment: , line:7:5, endln:7:37
           |vpiName:stream
           |vpiFullName:work@dut.uvm_packer::get_packed_bits.stream
           |vpiActual:
-          \_io_decl: (stream), line:5:62, endln:5:68, parent:work@dut.uvm_packer::get_packed_bits
+          \_io_decl: (stream), line:5:62, endln:5:68
       |vpiStmt:
-      \_assignment: , line:8:5, endln:8:32, parent:work@dut.uvm_packer::get_packed_bits
+      \_assignment: , line:8:5, endln:8:32
         |vpiParent:
-        \_begin: (work@dut.uvm_packer::get_packed_bits), parent:work@dut.uvm_packer::get_packed_bits
+        \_begin: (work@dut.uvm_packer::get_packed_bits)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_ref_obj: (work@dut.uvm_packer::get_packed_bits.m_pack_iter), line:8:21, endln:8:32
           |vpiParent:
-          \_assignment: , line:8:5, endln:8:32, parent:work@dut.uvm_packer::get_packed_bits
+          \_assignment: , line:8:5, endln:8:32
           |vpiName:m_pack_iter
           |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_pack_iter
           |vpiActual:
           \_logic_net: (m_pack_iter)
         |vpiLhs:
-        \_part_select: , line:8:5, endln:8:17, parent:work@dut.uvm_packer::get_packed_bits.m_bits
+        \_part_select: , line:8:5, endln:8:17
           |vpiParent:
           \_ref_obj: m_bits (work@dut.uvm_packer::get_packed_bits.m_bits)
             |vpiParent:
-            \_assignment: , line:8:5, endln:8:32, parent:work@dut.uvm_packer::get_packed_bits
+            \_assignment: , line:8:5, endln:8:32
             |vpiName:m_bits
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_bits
             |vpiDefName:m_bits
@@ -1743,25 +1745,25 @@ design: (work@dut)
           |vpiRightRange:
           \_constant: , line:8:15, endln:8:16
       |vpiStmt:
-      \_assignment: , line:9:5, endln:9:34, parent:work@dut.uvm_packer::get_packed_bits
+      \_assignment: , line:9:5, endln:9:34
         |vpiParent:
-        \_begin: (work@dut.uvm_packer::get_packed_bits), parent:work@dut.uvm_packer::get_packed_bits
+        \_begin: (work@dut.uvm_packer::get_packed_bits)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_ref_obj: (work@dut.uvm_packer::get_packed_bits.m_unpack_iter), line:9:21, endln:9:34
           |vpiParent:
-          \_assignment: , line:9:5, endln:9:34, parent:work@dut.uvm_packer::get_packed_bits
+          \_assignment: , line:9:5, endln:9:34
           |vpiName:m_unpack_iter
           |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_unpack_iter
           |vpiActual:
           \_logic_net: (m_unpack_iter)
         |vpiLhs:
-        \_part_select: , line:9:5, endln:9:18, parent:work@dut.uvm_packer::get_packed_bits.m_bits
+        \_part_select: , line:9:5, endln:9:18
           |vpiParent:
           \_ref_obj: m_bits (work@dut.uvm_packer::get_packed_bits.m_bits)
             |vpiParent:
-            \_assignment: , line:9:5, endln:9:34, parent:work@dut.uvm_packer::get_packed_bits
+            \_assignment: , line:9:5, endln:9:34
             |vpiName:m_bits
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_bits
             |vpiDefName:m_bits
@@ -1771,46 +1773,46 @@ design: (work@dut)
           |vpiRightRange:
           \_constant: , line:9:15, endln:9:17
       |vpiStmt:
-      \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8, parent:work@dut.uvm_packer::get_packed_bits
-        |vpiFullName:work@dut.uvm_packer::get_packed_bits
+      \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8
         |vpiParent:
-        \_begin: (work@dut.uvm_packer::get_packed_bits), parent:work@dut.uvm_packer::get_packed_bits
+        \_begin: (work@dut.uvm_packer::get_packed_bits)
+        |vpiFullName:work@dut.uvm_packer::get_packed_bits
         |vpiForInitStmt:
-        \_assign_stmt: , line:10:10, endln:10:17, parent:work@dut.uvm_packer::get_packed_bits
+        \_assign_stmt: , line:10:10, endln:10:17
           |vpiParent:
-          \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8, parent:work@dut.uvm_packer::get_packed_bits
+          \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8
           |vpiRhs:
           \_constant: , line:10:16, endln:10:17
           |vpiLhs:
           \_int_var: (work@dut.uvm_packer::get_packed_bits.i), line:10:10, endln:10:13
+            |vpiParent:
+            \_assign_stmt: , line:10:10, endln:10:17
             |vpiTypespec:
             \_int_typespec: , line:10:10, endln:10:13
             |vpiName:i
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.i
-            |vpiParent:
-            \_assign_stmt: , line:10:10, endln:10:17, parent:work@dut.uvm_packer::get_packed_bits
         |vpiForIncStmt:
-        \_operation: , line:10:32, endln:10:35, parent:work@dut.uvm_packer::get_packed_bits
+        \_operation: , line:10:32, endln:10:35
           |vpiParent:
-          \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8, parent:work@dut.uvm_packer::get_packed_bits
+          \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8
           |vpiOpType:62
           |vpiOperand:
           \_ref_obj: (work@dut.uvm_packer::get_packed_bits.i), line:10:32, endln:10:33
             |vpiParent:
-            \_operation: , line:10:32, endln:10:35, parent:work@dut.uvm_packer::get_packed_bits
+            \_operation: , line:10:32, endln:10:35
             |vpiName:i
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.i
             |vpiActual:
             \_int_var: (work@dut.uvm_packer::get_packed_bits.i), line:10:10, endln:10:13
         |vpiCondition:
-        \_operation: , line:10:18, endln:10:31, parent:work@dut.uvm_packer::get_packed_bits
+        \_operation: , line:10:18, endln:10:31
           |vpiParent:
-          \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8, parent:work@dut.uvm_packer::get_packed_bits
+          \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8
           |vpiOpType:20
           |vpiOperand:
           \_ref_obj: (work@dut.uvm_packer::get_packed_bits.i), line:10:18, endln:10:19
             |vpiParent:
-            \_operation: , line:10:18, endln:10:31, parent:work@dut.uvm_packer::get_packed_bits
+            \_operation: , line:10:18, endln:10:31
             |vpiName:i
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.i
             |vpiActual:
@@ -1818,63 +1820,61 @@ design: (work@dut)
           |vpiOperand:
           \_ref_obj: (work@dut.uvm_packer::get_packed_bits.m_pack_iter), line:10:20, endln:10:31
             |vpiParent:
-            \_operation: , line:10:18, endln:10:31, parent:work@dut.uvm_packer::get_packed_bits
+            \_operation: , line:10:18, endln:10:31
             |vpiName:m_pack_iter
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_pack_iter
             |vpiActual:
             \_logic_net: (m_pack_iter)
         |vpiStmt:
-        \_assignment: , line:11:7, endln:11:28, parent:work@dut.uvm_packer::get_packed_bits
+        \_assignment: , line:11:7, endln:11:28
           |vpiParent:
-          \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8, parent:work@dut.uvm_packer::get_packed_bits
+          \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8
           |vpiOpType:82
           |vpiBlocking:1
           |vpiRhs:
-          \_bit_select: (work@dut.uvm_packer::get_packed_bits.m_bits), line:11:19, endln:11:28, parent:work@dut.uvm_packer::get_packed_bits.m_bits
+          \_bit_select: (work@dut.uvm_packer::get_packed_bits.m_bits), line:11:19, endln:11:28
             |vpiParent:
             \_ref_obj: (work@dut.uvm_packer::get_packed_bits.m_bits)
               |vpiParent:
-              \_assignment: , line:11:7, endln:11:28, parent:work@dut.uvm_packer::get_packed_bits
+              \_assignment: , line:11:7, endln:11:28
               |vpiName:m_bits
               |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_bits
             |vpiName:m_bits
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_bits
             |vpiIndex:
-            \_ref_obj: (work@dut.uvm_packer::get_packed_bits.m_bits.i), line:11:26, endln:11:27, parent:work@dut.uvm_packer::get_packed_bits.m_bits
+            \_ref_obj: (work@dut.uvm_packer::get_packed_bits.m_bits.i), line:11:26, endln:11:27
               |vpiParent:
-              \_bit_select: (work@dut.uvm_packer::get_packed_bits.m_bits), line:11:19, endln:11:28, parent:work@dut.uvm_packer::get_packed_bits.m_bits
+              \_bit_select: (work@dut.uvm_packer::get_packed_bits.m_bits), line:11:19, endln:11:28
               |vpiName:i
               |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_bits.i
               |vpiActual:
               \_int_var: (work@dut.uvm_packer::get_packed_bits.i), line:10:10, endln:10:13
           |vpiLhs:
-          \_bit_select: (work@dut.uvm_packer::get_packed_bits.stream), line:11:7, endln:11:16, parent:work@dut.uvm_packer::get_packed_bits.stream
+          \_bit_select: (work@dut.uvm_packer::get_packed_bits.stream), line:11:7, endln:11:16
             |vpiParent:
             \_ref_obj: (work@dut.uvm_packer::get_packed_bits.stream)
               |vpiParent:
-              \_assignment: , line:11:7, endln:11:28, parent:work@dut.uvm_packer::get_packed_bits
+              \_assignment: , line:11:7, endln:11:28
               |vpiName:stream
               |vpiFullName:work@dut.uvm_packer::get_packed_bits.stream
               |vpiActual:
-              \_io_decl: (stream), line:5:62, endln:5:68, parent:work@dut.uvm_packer::get_packed_bits
+              \_io_decl: (stream), line:5:62, endln:5:68
             |vpiName:stream
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.stream
             |vpiIndex:
-            \_ref_obj: (work@dut.uvm_packer::get_packed_bits.stream.i), line:11:14, endln:11:15, parent:work@dut.uvm_packer::get_packed_bits.stream
+            \_ref_obj: (work@dut.uvm_packer::get_packed_bits.stream.i), line:11:14, endln:11:15
               |vpiParent:
-              \_bit_select: (work@dut.uvm_packer::get_packed_bits.stream), line:11:7, endln:11:16, parent:work@dut.uvm_packer::get_packed_bits.stream
+              \_bit_select: (work@dut.uvm_packer::get_packed_bits.stream), line:11:7, endln:11:16
               |vpiName:i
               |vpiFullName:work@dut.uvm_packer::get_packed_bits.stream.i
               |vpiActual:
               \_int_var: (work@dut.uvm_packer::get_packed_bits.i), line:10:10, endln:10:13
     |vpiInstance:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:22:10
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:22:10
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
   |vpiNet:
-  \_logic_net: (work@dut.clk), line:1:12, endln:1:15, parent:work@dut
+  \_logic_net: (work@dut.clk), line:1:12, endln:1:15
   |vpiNet:
-  \_logic_net: (work@dut.o), line:1:17, endln:1:18, parent:work@dut
+  \_logic_net: (work@dut.o), line:1:17, endln:1:18
   |vpiNet:
   \_logic_net: (cover_info)
   |vpiNet:
@@ -1895,43 +1895,45 @@ design: (work@dut)
   \_logic_net: (toto)
   |vpiTopModule:1
   |vpiPort:
-  \_port: (clk), line:1:12, endln:1:15, parent:work@dut
+  \_port: (clk), line:1:12, endln:1:15
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@dut.clk), line:1:12, endln:1:15, parent:clk
+    \_ref_obj: (work@dut.clk), line:1:12, endln:1:15
       |vpiParent:
-      \_port: (clk), line:1:12, endln:1:15, parent:work@dut
+      \_port: (clk), line:1:12, endln:1:15
       |vpiName:clk
       |vpiFullName:work@dut.clk
       |vpiActual:
-      \_logic_net: (work@dut.clk), line:1:12, endln:1:15, parent:work@dut
+      \_logic_net: (work@dut.clk), line:1:12, endln:1:15
     |vpiInstance:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:22:10
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:22:10
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
   |vpiPort:
-  \_port: (o), line:1:17, endln:1:18, parent:work@dut
+  \_port: (o), line:1:17, endln:1:18
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@dut.o), line:1:17, endln:1:18, parent:o
+    \_ref_obj: (work@dut.o), line:1:17, endln:1:18
       |vpiParent:
-      \_port: (o), line:1:17, endln:1:18, parent:work@dut
+      \_port: (o), line:1:17, endln:1:18
       |vpiName:o
       |vpiFullName:work@dut.o
       |vpiActual:
-      \_logic_net: (work@dut.o), line:1:17, endln:1:18, parent:work@dut
+      \_logic_net: (work@dut.o), line:1:17, endln:1:18
     |vpiInstance:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:22:10
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:22:10
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
   |vpiProcess:
-  \_always: , line:14:3, endln:20:6, parent:work@dut
+  \_always: , line:14:3, endln:20:6
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
     |vpiStmt:
     \_event_control: , line:14:10, endln:14:24
       |vpiParent:
-      \_always: , line:14:3, endln:20:6, parent:work@dut
+      \_always: , line:14:3, endln:20:6
       |vpiCondition:
       \_operation: , line:14:12, endln:14:23
         |vpiParent:
@@ -1944,14 +1946,14 @@ design: (work@dut)
           |vpiName:clk
           |vpiFullName:work@dut.clk
           |vpiActual:
-          \_logic_net: (work@dut.clk), line:1:12, endln:1:15, parent:work@dut
+          \_logic_net: (work@dut.clk), line:1:12, endln:1:15
       |vpiStmt:
       \_begin: (work@dut), line:14:25, endln:20:6
-        |vpiFullName:work@dut
         |vpiParent:
         \_event_control: , line:14:10, endln:14:24
+        |vpiFullName:work@dut
         |vpiStmt:
-        \_assignment: , line:15:5, endln:15:32, parent:work@dut
+        \_assignment: , line:15:5, endln:15:32
           |vpiParent:
           \_begin: (work@dut), line:14:25, endln:20:6
           |vpiOpType:82
@@ -1959,17 +1961,17 @@ design: (work@dut)
           |vpiRhs:
           \_ref_obj: (work@dut.m_pack_iter), line:15:21, endln:15:32
             |vpiParent:
-            \_assignment: , line:15:5, endln:15:32, parent:work@dut
+            \_assignment: , line:15:5, endln:15:32
             |vpiName:m_pack_iter
             |vpiFullName:work@dut.m_pack_iter
             |vpiActual:
             \_logic_net: (m_pack_iter)
           |vpiLhs:
-          \_part_select: , line:15:5, endln:15:17, parent:work@dut.m_bits
+          \_part_select: , line:15:5, endln:15:17
             |vpiParent:
             \_ref_obj: m_bits (work@dut.m_bits)
               |vpiParent:
-              \_assignment: , line:15:5, endln:15:32, parent:work@dut
+              \_assignment: , line:15:5, endln:15:32
               |vpiName:m_bits
               |vpiFullName:work@dut.m_bits
               |vpiDefName:m_bits
@@ -1979,7 +1981,7 @@ design: (work@dut)
             |vpiRightRange:
             \_constant: , line:15:15, endln:15:16
         |vpiStmt:
-        \_assignment: , line:16:5, endln:16:11, parent:work@dut
+        \_assignment: , line:16:5, endln:16:11
           |vpiParent:
           \_begin: (work@dut), line:14:25, endln:20:6
           |vpiOpType:24
@@ -1989,20 +1991,20 @@ design: (work@dut)
           |vpiLhs:
           \_ref_obj: (work@dut.o), line:16:5, endln:16:6
             |vpiParent:
-            \_assignment: , line:16:5, endln:16:11, parent:work@dut
+            \_assignment: , line:16:5, endln:16:11
             |vpiName:o
             |vpiFullName:work@dut.o
             |vpiActual:
-            \_logic_net: (work@dut.o), line:1:17, endln:1:18, parent:work@dut
+            \_logic_net: (work@dut.o), line:1:17, endln:1:18
         |vpiStmt:
-        \_assignment: , line:17:5, endln:17:17, parent:work@dut
+        \_assignment: , line:17:5, endln:17:17
           |vpiParent:
           \_begin: (work@dut), line:14:25, endln:20:6
           |vpiOpType:82
           |vpiRhs:
           \_ref_obj: (work@dut.idle), line:17:13, endln:17:17
             |vpiParent:
-            \_assignment: , line:17:5, endln:17:17, parent:work@dut
+            \_assignment: , line:17:5, endln:17:17
             |vpiName:idle
             |vpiFullName:work@dut.idle
             |vpiActual:
@@ -2010,7 +2012,7 @@ design: (work@dut)
           |vpiLhs:
           \_ref_obj: (work@dut.a), line:17:5, endln:17:6
             |vpiParent:
-            \_assignment: , line:17:5, endln:17:17, parent:work@dut
+            \_assignment: , line:17:5, endln:17:17
             |vpiName:a
             |vpiFullName:work@dut.a
             |vpiActual:
@@ -2018,17 +2020,17 @@ design: (work@dut)
           |vpiDelayControl:
           \_delay_control: , line:17:10, endln:17:12
             |vpiParent:
-            \_assignment: , line:17:5, endln:17:17, parent:work@dut
+            \_assignment: , line:17:5, endln:17:17
             |#1
         |vpiStmt:
-        \_assignment: , line:18:5, endln:18:20, parent:work@dut
+        \_assignment: , line:18:5, endln:18:20
           |vpiParent:
           \_begin: (work@dut), line:14:25, endln:20:6
           |vpiOpType:82
           |vpiRhs:
           \_ref_obj: (work@dut.next_nba), line:18:12, endln:18:20
             |vpiParent:
-            \_assignment: , line:18:5, endln:18:20, parent:work@dut
+            \_assignment: , line:18:5, endln:18:20
             |vpiName:next_nba
             |vpiFullName:work@dut.next_nba
             |vpiActual:
@@ -2036,13 +2038,13 @@ design: (work@dut)
           |vpiLhs:
           \_ref_obj: (work@dut.nba), line:18:5, endln:18:8
             |vpiParent:
-            \_assignment: , line:18:5, endln:18:20, parent:work@dut
+            \_assignment: , line:18:5, endln:18:20
             |vpiName:nba
             |vpiFullName:work@dut.nba
             |vpiActual:
             \_logic_net: (nba)
         |vpiStmt:
-        \_assignment: , line:19:5, endln:19:17, parent:work@dut
+        \_assignment: , line:19:5, endln:19:17
           |vpiParent:
           \_begin: (work@dut), line:14:25, endln:20:6
           |vpiOpType:82
@@ -2050,7 +2052,7 @@ design: (work@dut)
           |vpiRhs:
           \_ref_obj: (work@dut.toto), line:19:13, endln:19:17
             |vpiParent:
-            \_assignment: , line:19:5, endln:19:17, parent:work@dut
+            \_assignment: , line:19:5, endln:19:17
             |vpiName:toto
             |vpiFullName:work@dut.toto
             |vpiActual:
@@ -2058,7 +2060,7 @@ design: (work@dut)
           |vpiLhs:
           \_ref_obj: (work@dut.bb), line:19:5, endln:19:7
             |vpiParent:
-            \_assignment: , line:19:5, endln:19:17, parent:work@dut
+            \_assignment: , line:19:5, endln:19:17
             |vpiName:bb
             |vpiFullName:work@dut.bb
             |vpiActual:
@@ -2066,10 +2068,8 @@ design: (work@dut)
           |vpiDelayControl:
           \_delay_control: , line:19:10, endln:19:12
             |vpiParent:
-            \_assignment: , line:19:5, endln:19:17, parent:work@dut
+            \_assignment: , line:19:5, endln:19:17
             |#1
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:22:10
     |vpiAlwaysType:1
 ===================
 [  FATAL] : 0

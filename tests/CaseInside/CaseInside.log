@@ -465,23 +465,25 @@ design: (work@dm_csrs)
 |vpiElaborated:1
 |vpiName:work@dm_csrs
 |uhdmallPackages:
-\_package: builtin (builtin::), file:, parent:work@dm_csrs
+\_package: builtin (builtin::), file:
+  |vpiParent:
+  \_design: (work@dm_csrs)
   |vpiName:builtin
   |vpiFullName:builtin::
   |vpiDefName:builtin
+|uhdmallPackages:
+\_package: dm (dm::), file:top.sv, line:1:1, endln:10:16
   |vpiParent:
   \_design: (work@dm_csrs)
-|uhdmallPackages:
-\_package: dm (dm::) top.sv:1:1: , endln:10:16, parent:work@dm_csrs
   |vpiName:dm
   |vpiFullName:dm::
   |vpiTypedef:
-  \_enum_typespec: (dm::dm_csr_e), line:4:3, endln:8:14, parent:dm::
+  \_enum_typespec: (dm::dm_csr_e), line:4:3, endln:8:14
+    |vpiParent:
+    \_package: dm (dm::), file:top.sv, line:1:1, endln:10:16
     |vpiName:dm::dm_csr_e
     |vpiInstance:
-    \_package: dm (dm::) top.sv:1:1: , endln:10:16, parent:work@dm_csrs
-    |vpiParent:
-    \_package: dm (dm::) top.sv:1:1: , endln:10:16, parent:work@dm_csrs
+    \_package: dm (dm::), file:top.sv, line:1:1, endln:10:16
     |vpiBaseTypespec:
     \_logic_typespec: , line:4:16, endln:4:21
       |vpiInstance:
@@ -490,19 +492,19 @@ design: (work@dm_csrs)
       \_range: , line:4:23, endln:4:26
         |vpiLeftRange:
         \_constant: , line:4:23, endln:4:24
+          |vpiParent:
+          \_range: , line:4:23, endln:4:26
           |vpiDecompile:7
           |vpiSize:64
           |UINT:7
-          |vpiParent:
-          \_range: , line:4:23, endln:4:26
           |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:4:25, endln:4:26
+          |vpiParent:
+          \_range: , line:4:23, endln:4:26
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:4:23, endln:4:26
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (DMControl), line:5:5, endln:5:25
@@ -523,78 +525,78 @@ design: (work@dm_csrs)
       |vpiDecompile:8'h12
       |vpiSize:8
   |vpiDefName:dm
+|uhdmtopPackages:
+\_package: builtin (builtin::), file:
   |vpiParent:
   \_design: (work@dm_csrs)
-|uhdmtopPackages:
-\_package: builtin (builtin::), file:, parent:work@dm_csrs
   |vpiName:builtin
   |vpiFullName:builtin::
   |vpiDefName:builtin
   |vpiTop:1
   |vpiClassDefn:
-  \_class_defn: (builtin::any_sverilog_class), file:, parent:builtin::
+  \_class_defn: (builtin::any_sverilog_class), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:any_sverilog_class
     |vpiFullName:builtin::any_sverilog_class
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@dm_csrs
   |vpiClassDefn:
-  \_class_defn: (builtin::array), file:, parent:builtin::
+  \_class_defn: (builtin::array), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:array
     |vpiFullName:builtin::array
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@dm_csrs
   |vpiClassDefn:
-  \_class_defn: (builtin::queue), file:, parent:builtin::
+  \_class_defn: (builtin::queue), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:queue
     |vpiFullName:builtin::queue
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@dm_csrs
   |vpiClassDefn:
-  \_class_defn: (builtin::string), file:, parent:builtin::
+  \_class_defn: (builtin::string), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:string
     |vpiFullName:builtin::string
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@dm_csrs
   |vpiClassDefn:
-  \_class_defn: (builtin::system), file:, parent:builtin::
+  \_class_defn: (builtin::system), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:system
     |vpiFullName:builtin::system
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@dm_csrs
+|uhdmtopPackages:
+\_package: dm (dm::), file:top.sv, line:1:1, endln:10:16
   |vpiParent:
   \_design: (work@dm_csrs)
-|uhdmtopPackages:
-\_package: dm (dm::) top.sv:1:1: , endln:10:16, parent:work@dm_csrs
   |vpiName:dm
   |vpiFullName:dm::
   |vpiTypedef:
-  \_enum_typespec: (dm::dm_csr_e), line:4:3, endln:8:14, parent:dm::
+  \_enum_typespec: (dm::dm_csr_e), line:4:3, endln:8:14
+    |vpiParent:
+    \_package: dm (dm::), file:top.sv, line:1:1, endln:10:16
     |vpiName:dm::dm_csr_e
     |vpiInstance:
-    \_package: dm (dm::) top.sv:1:1: , endln:10:16, parent:work@dm_csrs
-    |vpiParent:
-    \_package: dm (dm::) top.sv:1:1: , endln:10:16, parent:work@dm_csrs
+    \_package: dm (dm::), file:top.sv, line:1:1, endln:10:16
     |vpiBaseTypespec:
     \_logic_typespec: , line:4:16, endln:4:21
       |vpiInstance:
-      \_package: dm (dm::) top.sv:1:1: , endln:10:16, parent:work@dm_csrs
+      \_package: dm (dm::), file:top.sv, line:1:1, endln:10:16
       |vpiRange:
       \_range: , line:4:23, endln:4:26
         |vpiLeftRange:
         \_constant: , line:4:23, endln:4:24
+          |vpiParent:
+          \_range: , line:4:23, endln:4:26
           |vpiDecompile:7
           |vpiSize:64
           |UINT:7
-          |vpiParent:
-          \_range: , line:4:23, endln:4:26
           |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:4:25, endln:4:26
+          |vpiParent:
+          \_range: , line:4:23, endln:4:26
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:4:23, endln:4:26
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (DMControl), line:5:5, endln:5:25
@@ -616,15 +618,15 @@ design: (work@dm_csrs)
       |vpiSize:8
   |vpiDefName:dm
   |vpiTop:1
-  |vpiParent:
-  \_design: (work@dm_csrs)
 |uhdmallClasses:
-\_class_defn: (work@mailbox), file:builtin.sv, parent:work@dm_csrs
-  |vpiName:work@mailbox
+\_class_defn: (work@mailbox), file:builtin.sv
   |vpiParent:
   \_design: (work@dm_csrs)
+  |vpiName:work@mailbox
   |vpiMethod:
-  \_function: (work@mailbox::new), parent:work@mailbox
+  \_function: (work@mailbox::new)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:new
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
@@ -633,13 +635,13 @@ design: (work@dm_csrs)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dm_csrs
+        \_class_defn: (work@mailbox), file:builtin.sv
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dm_csrs
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (bound), parent:work@mailbox::new
+    \_io_decl: (bound)
       |vpiParent:
-      \_function: (work@mailbox::new), parent:work@mailbox
+      \_function: (work@mailbox::new)
       |vpiDirection:1
       |vpiName:bound
       |vpiExpr:
@@ -651,10 +653,10 @@ design: (work@dm_csrs)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dm_csrs
   |vpiMethod:
-  \_function: (work@mailbox::num), parent:work@mailbox
+  \_function: (work@mailbox::num)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:num
     |vpiFullName:work@mailbox::num
     |vpiMethod:1
@@ -665,27 +667,27 @@ design: (work@dm_csrs)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dm_csrs
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dm_csrs
+    \_class_defn: (work@mailbox), file:builtin.sv
   |vpiMethod:
-  \_task: (work@mailbox::put), parent:work@mailbox
+  \_task: (work@mailbox::put)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:put
     |vpiFullName:work@mailbox::put
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dm_csrs
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::put
+    \_io_decl: (message)
       |vpiParent:
-      \_task: (work@mailbox::put), parent:work@mailbox
+      \_task: (work@mailbox::put)
       |vpiDirection:1
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dm_csrs
   |vpiMethod:
-  \_function: (work@mailbox::try_put), parent:work@mailbox
+  \_function: (work@mailbox::try_put)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
     |vpiMethod:1
@@ -693,33 +695,33 @@ design: (work@dm_csrs)
     |vpiReturn:
     \_logic_var: 
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dm_csrs
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_put
+    \_io_decl: (message)
       |vpiParent:
-      \_function: (work@mailbox::try_put), parent:work@mailbox
+      \_function: (work@mailbox::try_put)
       |vpiDirection:1
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dm_csrs
   |vpiMethod:
-  \_task: (work@mailbox::get), parent:work@mailbox
+  \_task: (work@mailbox::get)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:get
     |vpiFullName:work@mailbox::get
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dm_csrs
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::get
+    \_io_decl: (message)
       |vpiParent:
-      \_task: (work@mailbox::get), parent:work@mailbox
+      \_task: (work@mailbox::get)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dm_csrs
   |vpiMethod:
-  \_function: (work@mailbox::try_get), parent:work@mailbox
+  \_function: (work@mailbox::try_get)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
     |vpiMethod:1
@@ -730,33 +732,33 @@ design: (work@dm_csrs)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dm_csrs
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_get
+    \_io_decl: (message)
       |vpiParent:
-      \_function: (work@mailbox::try_get), parent:work@mailbox
+      \_function: (work@mailbox::try_get)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dm_csrs
   |vpiMethod:
-  \_task: (work@mailbox::peek), parent:work@mailbox
+  \_task: (work@mailbox::peek)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dm_csrs
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::peek
+    \_io_decl: (message)
       |vpiParent:
-      \_task: (work@mailbox::peek), parent:work@mailbox
+      \_task: (work@mailbox::peek)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dm_csrs
   |vpiMethod:
-  \_function: (work@mailbox::try_peek), parent:work@mailbox
+  \_function: (work@mailbox::try_peek)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
     |vpiMethod:1
@@ -767,67 +769,67 @@ design: (work@dm_csrs)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dm_csrs
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_peek
+    \_io_decl: (message)
       |vpiParent:
-      \_function: (work@mailbox::try_peek), parent:work@mailbox
+      \_function: (work@mailbox::try_peek)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@dm_csrs
 |uhdmallClasses:
-\_class_defn: (work@process), file:builtin.sv, parent:work@dm_csrs
+\_class_defn: (work@process), file:builtin.sv
+  |vpiParent:
+  \_design: (work@dm_csrs)
   |vpiName:work@process
   |vpiTypedef:
-  \_enum_typespec: (state), parent:work@process
-    |vpiName:state
+  \_enum_typespec: (state)
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dm_csrs
+    \_class_defn: (work@process), file:builtin.sv
+    |vpiName:state
     |vpiEnumConst:
-    \_enum_const: (FINISHED), parent:state
+    \_enum_const: (FINISHED)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:FINISHED
       |INT:0
       |vpiDecompile:0
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (RUNNING), parent:state
+    \_enum_const: (RUNNING)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:RUNNING
       |INT:1
       |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (WAITING), parent:state
+    \_enum_const: (WAITING)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:WAITING
       |INT:2
       |vpiDecompile:2
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (SUSPENDED), parent:state
+    \_enum_const: (SUSPENDED)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:SUSPENDED
       |INT:3
       |vpiDecompile:3
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (KILLED), parent:state
+    \_enum_const: (KILLED)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:KILLED
       |INT:4
       |vpiDecompile:4
       |vpiSize:64
-  |vpiParent:
-  \_design: (work@dm_csrs)
   |vpiMethod:
-  \_function: (work@process::self), parent:work@process
+  \_function: (work@process::self)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiMethod:1
@@ -837,13 +839,13 @@ design: (work@dm_csrs)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@process), file:builtin.sv, parent:work@dm_csrs
+        \_class_defn: (work@process), file:builtin.sv
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dm_csrs
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dm_csrs
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_function: (work@process::status), parent:work@process
+  \_function: (work@process::status)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiMethod:1
@@ -851,10 +853,10 @@ design: (work@dm_csrs)
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
-      \_enum_typespec: (state), parent:work@process
-        |vpiName:state
+      \_enum_typespec: (state)
         |vpiParent:
-        \_class_defn: (work@process), file:builtin.sv, parent:work@dm_csrs
+        \_class_defn: (work@process), file:builtin.sv
+        |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
           |vpiName:FINISHED
@@ -886,56 +888,56 @@ design: (work@dm_csrs)
           |vpiDecompile:4
           |vpiSize:64
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dm_csrs
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dm_csrs
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::kill), parent:work@process
+  \_task: (work@process::kill)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:kill
     |vpiFullName:work@process::kill
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dm_csrs
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dm_csrs
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::await), parent:work@process
+  \_task: (work@process::await)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:await
     |vpiFullName:work@process::await
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dm_csrs
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dm_csrs
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::suspend), parent:work@process
+  \_task: (work@process::suspend)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:suspend
     |vpiFullName:work@process::suspend
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dm_csrs
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dm_csrs
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::resume), parent:work@process
+  \_task: (work@process::resume)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:resume
     |vpiFullName:work@process::resume
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dm_csrs
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@dm_csrs
+    \_class_defn: (work@process), file:builtin.sv
 |uhdmallClasses:
-\_class_defn: (work@semaphore), file:builtin.sv, parent:work@dm_csrs
-  |vpiName:work@semaphore
+\_class_defn: (work@semaphore), file:builtin.sv
   |vpiParent:
   \_design: (work@dm_csrs)
+  |vpiName:work@semaphore
   |vpiMethod:
-  \_function: (work@semaphore::new), parent:work@semaphore
+  \_function: (work@semaphore::new)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:new
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
@@ -944,13 +946,13 @@ design: (work@dm_csrs)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dm_csrs
+        \_class_defn: (work@semaphore), file:builtin.sv
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dm_csrs
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::new
+    \_io_decl: (keyCount)
       |vpiParent:
-      \_function: (work@semaphore::new), parent:work@semaphore
+      \_function: (work@semaphore::new)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -962,20 +964,20 @@ design: (work@dm_csrs)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dm_csrs
   |vpiMethod:
-  \_task: (work@semaphore::put), parent:work@semaphore
+  \_task: (work@semaphore::put)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:put
     |vpiFullName:work@semaphore::put
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dm_csrs
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::put
+    \_io_decl: (keyCount)
       |vpiParent:
-      \_task: (work@semaphore::put), parent:work@semaphore
+      \_task: (work@semaphore::put)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -987,20 +989,20 @@ design: (work@dm_csrs)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dm_csrs
   |vpiMethod:
-  \_task: (work@semaphore::get), parent:work@semaphore
+  \_task: (work@semaphore::get)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:get
     |vpiFullName:work@semaphore::get
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dm_csrs
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::get
+    \_io_decl: (keyCount)
       |vpiParent:
-      \_task: (work@semaphore::get), parent:work@semaphore
+      \_task: (work@semaphore::get)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -1012,10 +1014,10 @@ design: (work@dm_csrs)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dm_csrs
   |vpiMethod:
-  \_function: (work@semaphore::try_get), parent:work@semaphore
+  \_function: (work@semaphore::try_get)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
     |vpiMethod:1
@@ -1026,11 +1028,11 @@ design: (work@dm_csrs)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dm_csrs
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::try_get
+    \_io_decl: (keyCount)
       |vpiParent:
-      \_function: (work@semaphore::try_get), parent:work@semaphore
+      \_function: (work@semaphore::try_get)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -1042,50 +1044,50 @@ design: (work@dm_csrs)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@dm_csrs
 |uhdmallModules:
-\_module: work@dm_csrs (work@dm_csrs) top.sv:12:1: , endln:29:20, parent:work@dm_csrs
-  |vpiFullName:work@dm_csrs
-  |vpiDefName:work@dm_csrs
+\_module: work@dm_csrs (work@dm_csrs), file:top.sv, line:12:1, endln:29:20
   |vpiParent:
   \_design: (work@dm_csrs)
+  |vpiFullName:work@dm_csrs
+  |vpiDefName:work@dm_csrs
   |vpiProcess:
-  \_always: , line:13:3, endln:28:6, parent:work@dm_csrs
+  \_always: , line:13:3, endln:28:6
+    |vpiParent:
+    \_module: work@dm_csrs (work@dm_csrs), file:top.sv, line:12:1, endln:29:20
     |vpiStmt:
     \_named_begin: (work@dm_csrs.csr_read_write), line:13:15, endln:28:6
+      |vpiParent:
+      \_always: , line:13:3, endln:28:6
       |vpiName:csr_read_write
       |vpiFullName:work@dm_csrs.csr_read_write
-      |vpiParent:
-      \_always: , line:13:3, endln:28:6, parent:work@dm_csrs
       |vpiStmt:
-      \_case_stmt: , line:15:7, endln:26:14, parent:work@dm_csrs.csr_read_write
+      \_case_stmt: , line:15:7, endln:26:14
         |vpiParent:
         \_named_begin: (work@dm_csrs.csr_read_write), line:13:15, endln:28:6
         |vpiCaseType:1
         |vpiQualifier:1
         |vpiCondition:
-        \_operation: , line:15:20, endln:15:42, parent:work@dm_csrs.csr_read_write
+        \_operation: , line:15:20, endln:15:42
           |vpiParent:
           \_named_begin: (work@dm_csrs.csr_read_write), line:13:15, endln:28:6
           |vpiOpType:33
           |vpiOperand:
           \_constant: , line:15:21, endln:15:25
+            |vpiParent:
+            \_operation: , line:15:20, endln:15:42
             |vpiDecompile:1'b0
             |vpiSize:1
             |BIN:0
-            |vpiParent:
-            \_operation: , line:15:20, endln:15:42, parent:work@dm_csrs.csr_read_write
             |vpiConstType:3
           |vpiOperand:
-          \_hier_path: (dmi_req_i.addr), line:15:27, endln:15:41, parent:work@dm_csrs.csr_read_write
+          \_hier_path: (dmi_req_i.addr), line:15:27, endln:15:41
             |vpiParent:
             \_named_begin: (work@dm_csrs.csr_read_write), line:13:15, endln:28:6
             |vpiName:dmi_req_i.addr
             |vpiActual:
-            \_ref_obj: (dmi_req_i), line:15:27, endln:15:36, parent:dmi_req_i.addr
+            \_ref_obj: (dmi_req_i), line:15:27, endln:15:36
               |vpiParent:
-              \_hier_path: (dmi_req_i.addr), line:15:27, endln:15:41, parent:work@dm_csrs.csr_read_write
+              \_hier_path: (dmi_req_i.addr), line:15:27, endln:15:41
               |vpiName:dmi_req_i
             |vpiActual:
             \_ref_obj: (addr), line:15:37, endln:15:41
@@ -1093,7 +1095,7 @@ design: (work@dm_csrs)
         |vpiCaseItem:
         \_case_item: , line:17:9, endln:21:12
           |vpiParent:
-          \_case_stmt: , line:15:7, endln:26:14, parent:work@dm_csrs.csr_read_write
+          \_case_stmt: , line:15:7, endln:26:14
           |vpiExpr:
           \_operation: 
             |vpiOpType:95
@@ -1116,25 +1118,25 @@ design: (work@dm_csrs)
                 |vpiConstType:5
           |vpiStmt:
           \_begin: (work@dm_csrs.csr_read_write), line:17:36, endln:21:12
-            |vpiFullName:work@dm_csrs.csr_read_write
             |vpiParent:
             \_case_item: , line:17:9, endln:21:12
+            |vpiFullName:work@dm_csrs.csr_read_write
             |vpiStmt:
-            \_assignment: , line:19:11, endln:19:33, parent:work@dm_csrs.csr_read_write
+            \_assignment: , line:19:11, endln:19:33
               |vpiParent:
               \_begin: (work@dm_csrs.csr_read_write), line:17:36, endln:21:12
               |vpiOpType:82
               |vpiBlocking:1
               |vpiRhs:
               \_constant: , line:19:29, endln:19:33
+                |vpiParent:
+                \_assignment: , line:19:11, endln:19:33
                 |vpiDecompile:1'b0
                 |vpiSize:1
                 |BIN:0
-                |vpiParent:
-                \_assignment: , line:19:11, endln:19:33, parent:work@dm_csrs.csr_read_write
                 |vpiConstType:3
               |vpiLhs:
-              \_ref_obj: (work@dm_csrs.csr_read_write.resp_queue_data), line:19:11, endln:19:26, parent:work@dm_csrs.csr_read_write
+              \_ref_obj: (work@dm_csrs.csr_read_write.resp_queue_data), line:19:11, endln:19:26
                 |vpiParent:
                 \_begin: (work@dm_csrs.csr_read_write), line:17:36, endln:21:12
                 |vpiName:resp_queue_data
@@ -1146,7 +1148,7 @@ design: (work@dm_csrs)
         |vpiCaseItem:
         \_case_item: , line:23:9, endln:23:57
           |vpiParent:
-          \_case_stmt: , line:15:7, endln:26:14, parent:work@dm_csrs.csr_read_write
+          \_case_stmt: , line:15:7, endln:26:14
           |vpiExpr:
           \_operation: 
             |vpiOpType:95
@@ -1188,12 +1190,10 @@ design: (work@dm_csrs)
         |vpiCaseItem:
         \_case_item: , line:25:9, endln:25:18
           |vpiParent:
-          \_case_stmt: , line:15:7, endln:26:14, parent:work@dm_csrs.csr_read_write
-    |vpiParent:
-    \_module: work@dm_csrs (work@dm_csrs) top.sv:12:1: , endln:29:20, parent:work@dm_csrs
+          \_case_stmt: , line:15:7, endln:26:14
     |vpiAlwaysType:2
 |uhdmtopModules:
-\_module: work@dm_csrs (work@dm_csrs) top.sv:12:1: , endln:29:20
+\_module: work@dm_csrs (work@dm_csrs), file:top.sv, line:12:1, endln:29:20
   |vpiName:work@dm_csrs
   |vpiDefName:work@dm_csrs
   |vpiTop:1
@@ -1203,15 +1203,17 @@ design: (work@dm_csrs)
   \_logic_net: (dmcontrol_q)
   |vpiTopModule:1
   |vpiProcess:
-  \_always: , line:13:3, endln:28:6, parent:work@dm_csrs
+  \_always: , line:13:3, endln:28:6
+    |vpiParent:
+    \_module: work@dm_csrs (work@dm_csrs), file:top.sv, line:12:1, endln:29:20
     |vpiStmt:
     \_named_begin: (work@dm_csrs.csr_read_write), line:13:15, endln:28:6
+      |vpiParent:
+      \_always: , line:13:3, endln:28:6
       |vpiName:csr_read_write
       |vpiFullName:work@dm_csrs.csr_read_write
-      |vpiParent:
-      \_always: , line:13:3, endln:28:6, parent:work@dm_csrs
       |vpiStmt:
-      \_case_stmt: , line:15:7, endln:26:14, parent:work@dm_csrs.csr_read_write
+      \_case_stmt: , line:15:7, endln:26:14
         |vpiParent:
         \_named_begin: (work@dm_csrs.csr_read_write), line:13:15, endln:28:6
         |vpiCaseType:1
@@ -1219,7 +1221,7 @@ design: (work@dm_csrs)
         |vpiCondition:
         \_operation: , line:15:20, endln:15:42
           |vpiParent:
-          \_case_stmt: , line:15:7, endln:26:14, parent:work@dm_csrs.csr_read_write
+          \_case_stmt: , line:15:7, endln:26:14
           |vpiOpType:33
           |vpiOperand:
           \_constant: , line:15:21, endln:15:25
@@ -1229,19 +1231,19 @@ design: (work@dm_csrs)
             \_operation: , line:15:20, endln:15:42
             |vpiName:dmi_req_i.addr
             |vpiActual:
-            \_ref_obj: (dmi_req_i), line:15:27, endln:15:36, parent:dmi_req_i.addr
+            \_ref_obj: (dmi_req_i), line:15:27, endln:15:36
               |vpiParent:
               \_hier_path: (dmi_req_i.addr), line:15:27, endln:15:41
               |vpiName:dmi_req_i
             |vpiActual:
-            \_ref_obj: (addr), line:15:37, endln:15:41, parent:dmi_req_i.addr
+            \_ref_obj: (addr), line:15:37, endln:15:41
               |vpiParent:
               \_hier_path: (dmi_req_i.addr), line:15:27, endln:15:41
               |vpiName:addr
         |vpiCaseItem:
         \_case_item: , line:17:9, endln:21:12
           |vpiParent:
-          \_case_stmt: , line:15:7, endln:26:14, parent:work@dm_csrs.csr_read_write
+          \_case_stmt: , line:15:7, endln:26:14
           |vpiExpr:
           \_operation: 
             |vpiParent:
@@ -1258,11 +1260,11 @@ design: (work@dm_csrs)
               \_constant: , line:17:23, endln:17:32
           |vpiStmt:
           \_begin: (work@dm_csrs.csr_read_write), line:17:36, endln:21:12
-            |vpiFullName:work@dm_csrs.csr_read_write
             |vpiParent:
             \_case_item: , line:17:9, endln:21:12
+            |vpiFullName:work@dm_csrs.csr_read_write
             |vpiStmt:
-            \_assignment: , line:19:11, endln:19:33, parent:work@dm_csrs.csr_read_write
+            \_assignment: , line:19:11, endln:19:33
               |vpiParent:
               \_begin: (work@dm_csrs.csr_read_write), line:17:36, endln:21:12
               |vpiOpType:82
@@ -1272,7 +1274,7 @@ design: (work@dm_csrs)
               |vpiLhs:
               \_ref_obj: (work@dm_csrs.csr_read_write.resp_queue_data), line:19:11, endln:19:26
                 |vpiParent:
-                \_assignment: , line:19:11, endln:19:33, parent:work@dm_csrs.csr_read_write
+                \_assignment: , line:19:11, endln:19:33
                 |vpiName:resp_queue_data
                 |vpiFullName:work@dm_csrs.csr_read_write.resp_queue_data
                 |vpiActual:
@@ -1280,7 +1282,7 @@ design: (work@dm_csrs)
         |vpiCaseItem:
         \_case_item: , line:23:9, endln:23:57
           |vpiParent:
-          \_case_stmt: , line:15:7, endln:26:14, parent:work@dm_csrs.csr_read_write
+          \_case_stmt: , line:15:7, endln:26:14
           |vpiExpr:
           \_operation: 
             |vpiParent:
@@ -1318,9 +1320,7 @@ design: (work@dm_csrs)
         |vpiCaseItem:
         \_case_item: , line:25:9, endln:25:18
           |vpiParent:
-          \_case_stmt: , line:15:7, endln:26:14, parent:work@dm_csrs.csr_read_write
-    |vpiParent:
-    \_module: work@dm_csrs (work@dm_csrs) top.sv:12:1: , endln:29:20
+          \_case_stmt: , line:15:7, endln:26:14
     |vpiAlwaysType:2
 ===================
 [  FATAL] : 0

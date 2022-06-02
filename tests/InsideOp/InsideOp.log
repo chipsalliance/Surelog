@@ -329,16 +329,18 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallPackages:
-\_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:12:11, parent:work@top
+\_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:12:11
+  |vpiParent:
+  \_design: (work@top)
   |vpiName:my_pkg
   |vpiFullName:my_pkg::
   |vpiTypedef:
-  \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11, parent:my_pkg::
+  \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
+    |vpiParent:
+    \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:12:11
     |vpiName:my_pkg::get_e
     |vpiInstance:
-    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:12:11, parent:work@top
-    |vpiParent:
-    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:12:11, parent:work@top
+    \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:12:11
     |vpiBaseTypespec:
     \_int_typespec: , line:3:16, endln:3:19
       |vpiInstance:
@@ -381,23 +383,23 @@ design: (work@top)
       |vpiDecompile:100
       |vpiSize:64
   |vpiDefName:my_pkg
+|uhdmtopPackages:
+\_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:12:11
   |vpiParent:
   \_design: (work@top)
-|uhdmtopPackages:
-\_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:12:11, parent:work@top
   |vpiName:my_pkg
   |vpiFullName:my_pkg::
   |vpiTypedef:
-  \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11, parent:work@top
+  \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:17:1, endln:38:10
     |vpiName:my_pkg::get_e
     |vpiInstance:
-    \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:12:11, parent:work@top
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:17:1: , endln:38:10, parent:work@top
+    \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:12:11
     |vpiBaseTypespec:
     \_int_typespec: , line:3:16, endln:3:19
       |vpiInstance:
-      \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:12:11, parent:work@top
+      \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:12:11
       |vpiSigned:1
     |vpiEnumConst:
     \_enum_const: (Get0), line:4:5, endln:4:13
@@ -437,64 +439,64 @@ design: (work@top)
       |vpiSize:64
   |vpiDefName:my_pkg
   |vpiTop:1
+|uhdmallModules:
+\_module: work@GOOD (work@GOOD), file:dut.sv, line:14:1, endln:15:10
   |vpiParent:
   \_design: (work@top)
-|uhdmallModules:
-\_module: work@GOOD (work@GOOD) dut.sv:14:1: , endln:15:10, parent:work@top
   |vpiFullName:work@GOOD
   |vpiDefName:work@GOOD
+|uhdmallModules:
+\_module: work@top (work@top), file:dut.sv, line:17:1, endln:38:10
   |vpiParent:
   \_design: (work@top)
-|uhdmallModules:
-\_module: work@top (work@top) dut.sv:17:1: , endln:38:10, parent:work@top
   |vpiFullName:work@top
   |vpiParameter:
-  \_parameter: (work@top.GetWhat), line:20:21, endln:20:28, parent:work@top
-    |vpiTypespec:
-    \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11, parent:work@top
+  \_parameter: (work@top.GetWhat), line:20:21, endln:20:28
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:17:1: , endln:38:10, parent:work@top
+    \_module: work@top (work@top), file:dut.sv, line:17:1, endln:38:10
+    |vpiTypespec:
+    \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
     |vpiName:GetWhat
     |vpiFullName:work@top.GetWhat
   |vpiParamAssign:
-  \_param_assign: , line:20:21, endln:20:35, parent:work@top
+  \_param_assign: , line:20:21, endln:20:35
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:17:1: , endln:38:10, parent:work@top
+    \_module: work@top (work@top), file:dut.sv, line:17:1, endln:38:10
     |vpiRhs:
     \_ref_obj: (Get3), line:20:31, endln:20:35
       |vpiName:Get3
       |vpiActual:
       \_enum_const: (Get3), line:7:5, endln:7:13
     |vpiLhs:
-    \_parameter: (work@top.GetWhat), line:20:21, endln:20:28, parent:work@top
+    \_parameter: (work@top.GetWhat), line:20:21, endln:20:28
   |vpiTypedef:
-  \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11, parent:work@top
+  \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
   |vpiTypedef:
   \_import_typespec: (my_pkg), line:18:8, endln:18:17
   |vpiDefName:work@top
   |vpiNet:
-  \_logic_net: (work@top.out), line:22:16, endln:22:19, parent:work@top
+  \_logic_net: (work@top.out), line:22:16, endln:22:19
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:17:1, endln:38:10
     |vpiName:out
     |vpiFullName:work@top.out
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:17:1: , endln:38:10, parent:work@top
-  |vpiParent:
-  \_design: (work@top)
   |vpiPort:
-  \_port: (out), line:22:16, endln:22:19, parent:work@top
+  \_port: (out), line:22:16, endln:22:19
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:17:1, endln:38:10
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@top.out), line:22:16, endln:22:19, parent:work@top
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:17:1: , endln:38:10, parent:work@top
+      \_logic_net: (work@top.out), line:22:16, endln:22:19
 |uhdmtopModules:
-\_module: work@top (work@top) dut.sv:17:1: , endln:38:10
+\_module: work@top (work@top), file:dut.sv, line:17:1, endln:38:10
   |vpiName:work@top
   |vpiVariables:
-  \_int_var: (work@top.out), line:22:16, endln:22:19, parent:work@top
+  \_int_var: (work@top.out), line:22:16, endln:22:19
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:17:1, endln:38:10
     |vpiTypespec:
     \_int_typespec: , line:22:12, endln:22:15
       |vpiSigned:1
@@ -502,156 +504,154 @@ design: (work@top)
     |vpiFullName:work@top.out
     |vpiSigned:1
     |vpiVisibility:1
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:17:1: , endln:38:10
   |vpiParameter:
-  \_parameter: (work@top.GetWhat), line:20:21, endln:20:28, parent:work@top
+  \_parameter: (work@top.GetWhat), line:20:21, endln:20:28
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:17:1, endln:38:10
     |vpiTypespec:
-    \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11, parent:work@top.GetWhat
+    \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
+      |vpiParent:
+      \_parameter: (work@top.GetWhat), line:20:21, endln:20:28
       |vpiName:my_pkg::get_e
       |vpiInstance:
-      \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:12:11, parent:work@top
-      |vpiParent:
-      \_parameter: (work@top.GetWhat), line:20:21, endln:20:28, parent:work@top
+      \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:12:11
       |vpiBaseTypespec:
-      \_int_typespec: , line:3:16, endln:3:19, parent:my_pkg::get_e
-        |vpiInstance:
-        \_package: my_pkg (my_pkg::) dut.sv:1:1: , endln:12:11, parent:work@top
+      \_int_typespec: , line:3:16, endln:3:19
         |vpiParent:
-        \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11, parent:work@top.GetWhat
+        \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
+        |vpiInstance:
+        \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:12:11
         |vpiSigned:1
       |vpiEnumConst:
-      \_enum_const: (Get0), line:4:5, endln:4:13, parent:my_pkg::get_e
+      \_enum_const: (Get0), line:4:5, endln:4:13
         |vpiParent:
-        \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11, parent:work@top.GetWhat
+        \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
         |vpiName:Get0
         |UINT:0
         |vpiDecompile:0
         |vpiSize:64
       |vpiEnumConst:
-      \_enum_const: (Get1), line:5:5, endln:5:13, parent:my_pkg::get_e
+      \_enum_const: (Get1), line:5:5, endln:5:13
         |vpiParent:
-        \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11, parent:work@top.GetWhat
+        \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
         |vpiName:Get1
         |UINT:1
         |vpiDecompile:1
         |vpiSize:64
       |vpiEnumConst:
-      \_enum_const: (Get2), line:6:5, endln:6:13, parent:my_pkg::get_e
+      \_enum_const: (Get2), line:6:5, endln:6:13
         |vpiParent:
-        \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11, parent:work@top.GetWhat
+        \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
         |vpiName:Get2
         |UINT:2
         |vpiDecompile:2
         |vpiSize:64
       |vpiEnumConst:
-      \_enum_const: (Get3), line:7:5, endln:7:13, parent:my_pkg::get_e
+      \_enum_const: (Get3), line:7:5, endln:7:13
         |vpiParent:
-        \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11, parent:work@top.GetWhat
+        \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
         |vpiName:Get3
         |UINT:3
         |vpiDecompile:3
         |vpiSize:64
       |vpiEnumConst:
-      \_enum_const: (Get4), line:8:5, endln:8:13, parent:my_pkg::get_e
+      \_enum_const: (Get4), line:8:5, endln:8:13
         |vpiParent:
-        \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11, parent:work@top.GetWhat
+        \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
         |vpiName:Get4
         |UINT:4
         |vpiDecompile:4
         |vpiSize:64
       |vpiEnumConst:
-      \_enum_const: (GetDefault), line:9:5, endln:9:21, parent:my_pkg::get_e
+      \_enum_const: (GetDefault), line:9:5, endln:9:21
         |vpiParent:
-        \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11, parent:work@top.GetWhat
+        \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
         |vpiName:GetDefault
         |UINT:100
         |vpiDecompile:100
         |vpiSize:64
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:17:1: , endln:38:10
     |vpiName:GetWhat
     |vpiFullName:work@top.GetWhat
   |vpiParamAssign:
-  \_param_assign: , line:20:21, endln:20:35, parent:work@top
+  \_param_assign: , line:20:21, endln:20:35
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:17:1: , endln:38:10
+    \_module: work@top (work@top), file:dut.sv, line:17:1, endln:38:10
     |vpiRhs:
     \_constant: , line:20:31, endln:20:35
       |vpiDecompile:3
       |vpiSize:32
       |UINT:3
       |vpiTypespec:
-      \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11, parent:work@top
+      \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@top.GetWhat), line:20:21, endln:20:28, parent:work@top
+    \_parameter: (work@top.GetWhat), line:20:21, endln:20:28
   |vpiTypedef:
-  \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11, parent:work@top
+  \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
   |vpiTypedef:
   \_import_typespec: (my_pkg), line:18:8, endln:18:17
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
   |vpiPort:
-  \_port: (out), line:22:16, endln:22:19, parent:work@top
+  \_port: (out), line:22:16, endln:22:19
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:17:1, endln:38:10
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@top.out), line:22:16, endln:22:19, parent:out
+    \_ref_obj: (work@top.out), line:22:16, endln:22:19
       |vpiParent:
-      \_port: (out), line:22:16, endln:22:19, parent:work@top
+      \_port: (out), line:22:16, endln:22:19
       |vpiName:out
       |vpiFullName:work@top.out
       |vpiActual:
-      \_int_var: (work@top.out), line:22:16, endln:22:19, parent:work@top
+      \_int_var: (work@top.out), line:22:16, endln:22:19
     |vpiTypedef:
     \_int_typespec: , line:22:12, endln:22:15
       |vpiSigned:1
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:17:1: , endln:38:10
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:17:1: , endln:38:10
+    \_module: work@top (work@top), file:dut.sv, line:17:1, endln:38:10
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@top.gen_two), line:30:5, endln:30:20, parent:work@top
+  \_gen_scope_array: (work@top.gen_two), line:30:5, endln:30:20
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:17:1: , endln:38:10
+    \_module: work@top (work@top), file:dut.sv, line:17:1, endln:38:10
     |vpiName:gen_two
     |vpiFullName:work@top.gen_two
     |vpiGenScope:
-    \_gen_scope: (work@top.gen_two), parent:work@top.gen_two
-      |vpiFullName:work@top.gen_two
+    \_gen_scope: (work@top.gen_two)
       |vpiParent:
-      \_gen_scope_array: (work@top.gen_two), line:30:5, endln:30:20, parent:work@top
+      \_gen_scope_array: (work@top.gen_two), line:30:5, endln:30:20
+      |vpiFullName:work@top.gen_two
       |vpiContAssign:
-      \_cont_assign: , line:30:12, endln:30:19, parent:work@top.gen_two
+      \_cont_assign: , line:30:12, endln:30:19
         |vpiParent:
-        \_gen_scope: (work@top.gen_two), parent:work@top.gen_two
+        \_gen_scope: (work@top.gen_two)
         |vpiRhs:
         \_constant: , line:30:18, endln:30:19
+          |vpiParent:
+          \_cont_assign: , line:30:12, endln:30:19
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
-          |vpiParent:
-          \_cont_assign: , line:30:12, endln:30:19, parent:work@top.gen_two
           |vpiConstType:9
         |vpiLhs:
         \_ref_obj: (work@top.gen_two.out), line:30:12, endln:30:15
           |vpiParent:
-          \_cont_assign: , line:30:12, endln:30:19, parent:work@top.gen_two
+          \_cont_assign: , line:30:12, endln:30:19
           |vpiName:out
           |vpiFullName:work@top.gen_two.out
           |vpiActual:
-          \_int_var: (work@top.out), line:22:16, endln:22:19, parent:work@top
+          \_int_var: (work@top.out), line:22:16, endln:22:19
       |vpiModule:
-      \_module: work@GOOD (work@top.gen_two.good) dut.sv:31:5: , endln:31:17, parent:work@top.gen_two
+      \_module: work@GOOD (work@top.gen_two.good), file:dut.sv, line:31:5, endln:31:17
+        |vpiParent:
+        \_gen_scope: (work@top.gen_two)
         |vpiName:good
         |vpiFullName:work@top.gen_two.good
         |vpiDefName:work@GOOD
         |vpiDefFile:dut.sv
         |vpiDefLineNo:14
-        |vpiParent:
-        \_gen_scope: (work@top.gen_two), parent:work@top.gen_two
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
