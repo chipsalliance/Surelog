@@ -91,62 +91,64 @@ design: (work@dut)
 |vpiElaborated:1
 |vpiName:work@dut
 |uhdmallModules:
-\_module: work@dut (work@dut) dut.sv:7:1: , endln:10:10, parent:work@dut
-  |vpiFullName:work@dut
-  |vpiDefName:work@dut
+\_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:10:10
   |vpiParent:
   \_design: (work@dut)
+  |vpiFullName:work@dut
+  |vpiDefName:work@dut
 |uhdmallModules:
-\_module: work@prim_subreg (work@prim_subreg) dut.sv:1:1: , endln:5:10, parent:work@dut
+\_module: work@prim_subreg (work@prim_subreg), file:dut.sv, line:1:1, endln:5:10
+  |vpiParent:
+  \_design: (work@dut)
   |vpiFullName:work@prim_subreg
   |vpiDefName:work@prim_subreg
   |vpiNet:
-  \_logic_net: (work@prim_subreg.test), line:2:13, endln:2:17, parent:work@prim_subreg
+  \_logic_net: (work@prim_subreg.test), line:2:13, endln:2:17
+    |vpiParent:
+    \_module: work@prim_subreg (work@prim_subreg), file:dut.sv, line:1:1, endln:5:10
     |vpiName:test
     |vpiFullName:work@prim_subreg.test
     |vpiNetType:36
-    |vpiParent:
-    \_module: work@prim_subreg (work@prim_subreg) dut.sv:1:1: , endln:5:10, parent:work@dut
-  |vpiParent:
-  \_design: (work@dut)
   |vpiPort:
-  \_port: (test), line:2:13, endln:2:17, parent:work@prim_subreg
+  \_port: (test), line:2:13, endln:2:17
+    |vpiParent:
+    \_module: work@prim_subreg (work@prim_subreg), file:dut.sv, line:1:1, endln:5:10
     |vpiName:test
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@prim_subreg.test), line:2:13, endln:2:17, parent:work@prim_subreg
-    |vpiParent:
-    \_module: work@prim_subreg (work@prim_subreg) dut.sv:1:1: , endln:5:10, parent:work@dut
+      \_logic_net: (work@prim_subreg.test), line:2:13, endln:2:17
 |uhdmtopModules:
-\_module: work@dut (work@dut) dut.sv:7:1: , endln:10:10
+\_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:10:10
   |vpiName:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@prim_subreg (work@dut.s) dut.sv:9:1: , endln:9:36, parent:work@dut
+  \_module: work@prim_subreg (work@dut.s), file:dut.sv, line:9:1, endln:9:36
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:10:10
     |vpiName:s
     |vpiFullName:work@dut.s
     |vpiDefName:work@prim_subreg
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
     |vpiNet:
-    \_logic_net: (work@dut.s.test), line:2:13, endln:2:17, parent:work@dut.s
+    \_logic_net: (work@dut.s.test), line:2:13, endln:2:17
+      |vpiParent:
+      \_module: work@prim_subreg (work@dut.s), file:dut.sv, line:9:1, endln:9:36
       |vpiTypespec:
       \_logic_typespec: , line:2:7, endln:2:12
       |vpiName:test
       |vpiFullName:work@dut.s.test
       |vpiNetType:36
-      |vpiParent:
-      \_module: work@prim_subreg (work@dut.s) dut.sv:9:1: , endln:9:36, parent:work@dut
     |vpiInstance:
-    \_module: work@dut (work@dut) dut.sv:7:1: , endln:10:10
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:7:1: , endln:10:10
+    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:10:10
     |vpiPort:
-    \_port: (test), line:2:13, endln:2:17, parent:work@dut.s
+    \_port: (test), line:2:13, endln:2:17
+      |vpiParent:
+      \_module: work@prim_subreg (work@dut.s), file:dut.sv, line:9:1, endln:9:36
       |vpiName:test
       |vpiDirection:1
       |vpiHighConn:
@@ -159,19 +161,17 @@ design: (work@dut)
           |UINT:1
         |vpiConstType:3
       |vpiLowConn:
-      \_ref_obj: (work@dut.s.test), line:9:16, endln:9:20, parent:test
+      \_ref_obj: (work@dut.s.test), line:9:16, endln:9:20
         |vpiParent:
-        \_port: (test), line:2:13, endln:2:17, parent:work@dut.s
+        \_port: (test), line:2:13, endln:2:17
         |vpiName:test
         |vpiFullName:work@dut.s.test
         |vpiActual:
-        \_logic_net: (work@dut.s.test), line:2:13, endln:2:17, parent:work@dut.s
+        \_logic_net: (work@dut.s.test), line:2:13, endln:2:17
       |vpiTypedef:
       \_logic_typespec: , line:2:7, endln:2:12
       |vpiInstance:
-      \_module: work@prim_subreg (work@dut.s) dut.sv:9:1: , endln:9:36, parent:work@dut
-      |vpiParent:
-      \_module: work@prim_subreg (work@dut.s) dut.sv:9:1: , endln:9:36, parent:work@dut
+      \_module: work@prim_subreg (work@dut.s), file:dut.sv, line:9:1, endln:9:36
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -134,16 +134,22 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallPackages:
-\_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
+\_package: prim_util_pkg (prim_util_pkg::), file:dut.sv, line:1:1, endln:6:11
+  |vpiParent:
+  \_design: (work@top)
   |vpiName:prim_util_pkg
   |vpiFullName:prim_util_pkg::
   |vpiDefName:prim_util_pkg
   |vpiTaskFunc:
-  \_function: (prim_util_pkg::get_5), line:2:4, endln:5:15, parent:prim_util_pkg::
+  \_function: (prim_util_pkg::get_5), line:2:4, endln:5:15
+    |vpiParent:
+    \_package: prim_util_pkg (prim_util_pkg::), file:dut.sv, line:1:1, endln:6:11
     |vpiName:get_5
     |vpiFullName:prim_util_pkg::get_5
     |vpiVariables:
-    \_int_var: (prim_util_pkg::get_5::result), line:3:11, endln:3:17, parent:prim_util_pkg::get_5
+    \_int_var: (prim_util_pkg::get_5::result), line:3:11, endln:3:17
+      |vpiParent:
+      \_function: (prim_util_pkg::get_5), line:2:4, endln:5:15
       |vpiTypespec:
       \_int_typespec: , line:3:7, endln:3:10
         |vpiInstance:
@@ -151,8 +157,6 @@ design: (work@top)
         |vpiSigned:1
       |vpiName:result
       |vpiFullName:prim_util_pkg::get_5::result
-      |vpiParent:
-      \_function: (prim_util_pkg::get_5), line:2:4, endln:5:15, parent:prim_util_pkg::
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
@@ -163,88 +167,88 @@ design: (work@top)
         \_package: (prim_util_pkg), file:
         |vpiSigned:1
     |vpiParent:
-    \_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
+    \_package: prim_util_pkg (prim_util_pkg::), file:dut.sv, line:1:1, endln:6:11
     |vpiStmt:
-    \_begin: (prim_util_pkg::get_5), parent:prim_util_pkg::get_5
+    \_begin: (prim_util_pkg::get_5)
+      |vpiParent:
+      \_function: (prim_util_pkg::get_5), line:2:4, endln:5:15
       |vpiFullName:prim_util_pkg::get_5
       |vpiVariables:
-      \_int_var: (prim_util_pkg::get_5::result), line:3:11, endln:3:17, parent:prim_util_pkg::get_5
+      \_int_var: (prim_util_pkg::get_5::result), line:3:11, endln:3:17
+        |vpiParent:
+        \_begin: (prim_util_pkg::get_5)
         |vpiTypespec:
         \_int_typespec: , line:3:7, endln:3:10
         |vpiName:result
         |vpiFullName:prim_util_pkg::get_5::result
-        |vpiParent:
-        \_begin: (prim_util_pkg::get_5), parent:prim_util_pkg::get_5
-      |vpiParent:
-      \_function: (prim_util_pkg::get_5), line:2:4, endln:5:15, parent:prim_util_pkg::
       |vpiStmt:
-      \_assign_stmt: , line:3:11, endln:3:21, parent:prim_util_pkg::get_5
+      \_assign_stmt: , line:3:11, endln:3:21
         |vpiParent:
-        \_begin: (prim_util_pkg::get_5), parent:prim_util_pkg::get_5
+        \_begin: (prim_util_pkg::get_5)
         |vpiRhs:
         \_constant: , line:3:20, endln:3:21
+          |vpiParent:
+          \_assign_stmt: , line:3:11, endln:3:21
           |vpiDecompile:5
           |vpiSize:64
           |UINT:5
-          |vpiParent:
-          \_assign_stmt: , line:3:11, endln:3:21, parent:prim_util_pkg::get_5
           |vpiConstType:9
         |vpiLhs:
         \_int_var: (prim_util_pkg::get_5::result), line:3:11, endln:3:17
+          |vpiParent:
+          \_assign_stmt: , line:3:11, endln:3:21
           |vpiTypespec:
           \_int_typespec: , line:3:7, endln:3:10
           |vpiName:result
           |vpiFullName:prim_util_pkg::get_5::result
-          |vpiParent:
-          \_assign_stmt: , line:3:11, endln:3:21, parent:prim_util_pkg::get_5
       |vpiStmt:
-      \_return_stmt: , line:4:7, endln:4:13, parent:prim_util_pkg::get_5
+      \_return_stmt: , line:4:7, endln:4:13
         |vpiParent:
-        \_begin: (prim_util_pkg::get_5), parent:prim_util_pkg::get_5
+        \_begin: (prim_util_pkg::get_5)
         |vpiCondition:
         \_ref_obj: (prim_util_pkg::get_5::result), line:4:14, endln:4:20
           |vpiParent:
-          \_return_stmt: , line:4:7, endln:4:13, parent:prim_util_pkg::get_5
+          \_return_stmt: , line:4:7, endln:4:13
           |vpiName:result
           |vpiFullName:prim_util_pkg::get_5::result
           |vpiActual:
           \_int_var: (prim_util_pkg::get_5::result), line:3:11, endln:3:17
+            |vpiParent:
+            \_assign_stmt: , line:3:11, endln:3:21
             |vpiTypespec:
             \_int_typespec: , line:3:7, endln:3:10
             |vpiName:result
             |vpiFullName:prim_util_pkg::get_5::result
-            |vpiParent:
-            \_assign_stmt: , line:3:11, endln:3:21, parent:prim_util_pkg::get_5
     |vpiInstance:
-    \_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
-    |vpiParent:
-    \_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
-  |vpiParent:
-  \_design: (work@top)
+    \_package: prim_util_pkg (prim_util_pkg::), file:dut.sv, line:1:1, endln:6:11
 |uhdmallPackages:
-\_package: lc_ctrl_state_pkg (lc_ctrl_state_pkg::) dut.sv:8:1: , endln:10:11, parent:work@top
+\_package: lc_ctrl_state_pkg (lc_ctrl_state_pkg::), file:dut.sv, line:8:1, endln:10:11
+  |vpiParent:
+  \_design: (work@top)
   |vpiName:lc_ctrl_state_pkg
   |vpiFullName:lc_ctrl_state_pkg::
   |vpiTypedef:
   \_import_typespec: (prim_util_pkg), line:9:11, endln:9:31
   |vpiDefName:lc_ctrl_state_pkg
   |vpiTaskFunc:
-  \_function: (lc_ctrl_state_pkg::get_5), line:2:4, endln:5:15, parent:lc_ctrl_state_pkg::
+  \_function: (lc_ctrl_state_pkg::get_5), line:2:4, endln:5:15
+    |vpiParent:
+    \_package: lc_ctrl_state_pkg (lc_ctrl_state_pkg::), file:dut.sv, line:8:1, endln:10:11
     |vpiName:get_5
     |vpiFullName:lc_ctrl_state_pkg::get_5
     |vpiVariables:
-    \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17, parent:lc_ctrl_state_pkg::get_5
+    \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
+      |vpiParent:
+      \_function: (lc_ctrl_state_pkg::get_5), line:2:4, endln:5:15
       |vpiTypespec:
-      \_int_typespec: , line:3:7, endln:3:10, parent:lc_ctrl_state_pkg::get_5::result
-        |vpiInstance:
-        \_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
+      \_int_typespec: , line:3:7, endln:3:10
         |vpiParent:
-        \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17, parent:lc_ctrl_state_pkg::get_5
+        \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
+        |vpiInstance:
+        \_package: prim_util_pkg (prim_util_pkg::), file:dut.sv, line:1:1, endln:6:11
         |vpiSigned:1
       |vpiName:result
       |vpiFullName:lc_ctrl_state_pkg::get_5::result
-      |vpiParent:
-      \_function: (lc_ctrl_state_pkg::get_5), line:2:4, endln:5:15, parent:lc_ctrl_state_pkg::
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
@@ -252,163 +256,161 @@ design: (work@top)
       |vpiTypespec:
       \_int_typespec: , line:2:23, endln:2:26
         |vpiInstance:
-        \_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
+        \_package: prim_util_pkg (prim_util_pkg::), file:dut.sv, line:1:1, endln:6:11
         |vpiSigned:1
     |vpiParent:
-    \_package: lc_ctrl_state_pkg (lc_ctrl_state_pkg::) dut.sv:8:1: , endln:10:11, parent:work@top
+    \_package: lc_ctrl_state_pkg (lc_ctrl_state_pkg::), file:dut.sv, line:8:1, endln:10:11
     |vpiStmt:
-    \_begin: (lc_ctrl_state_pkg::get_5), parent:lc_ctrl_state_pkg::get_5
+    \_begin: (lc_ctrl_state_pkg::get_5)
+      |vpiParent:
+      \_function: (lc_ctrl_state_pkg::get_5), line:2:4, endln:5:15
       |vpiFullName:lc_ctrl_state_pkg::get_5
       |vpiVariables:
-      \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17, parent:lc_ctrl_state_pkg::get_5
+      \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
+        |vpiParent:
+        \_begin: (lc_ctrl_state_pkg::get_5)
         |vpiTypespec:
-        \_int_typespec: , line:3:7, endln:3:10, parent:lc_ctrl_state_pkg::get_5::result
-          |vpiInstance:
-          \_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
+        \_int_typespec: , line:3:7, endln:3:10
           |vpiParent:
-          \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17, parent:lc_ctrl_state_pkg::get_5
+          \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
+          |vpiInstance:
+          \_package: prim_util_pkg (prim_util_pkg::), file:dut.sv, line:1:1, endln:6:11
           |vpiSigned:1
         |vpiName:result
         |vpiFullName:lc_ctrl_state_pkg::get_5::result
-        |vpiParent:
-        \_begin: (lc_ctrl_state_pkg::get_5), parent:lc_ctrl_state_pkg::get_5
-      |vpiParent:
-      \_function: (lc_ctrl_state_pkg::get_5), line:2:4, endln:5:15, parent:lc_ctrl_state_pkg::
       |vpiStmt:
-      \_assign_stmt: , line:3:11, endln:3:21, parent:lc_ctrl_state_pkg::get_5
+      \_assign_stmt: , line:3:11, endln:3:21
         |vpiParent:
-        \_begin: (lc_ctrl_state_pkg::get_5), parent:lc_ctrl_state_pkg::get_5
+        \_begin: (lc_ctrl_state_pkg::get_5)
         |vpiRhs:
         \_constant: , line:3:20, endln:3:21
+          |vpiParent:
+          \_assign_stmt: , line:3:11, endln:3:21
           |vpiDecompile:5
           |vpiSize:64
           |UINT:5
-          |vpiParent:
-          \_assign_stmt: , line:3:11, endln:3:21, parent:lc_ctrl_state_pkg::get_5
           |vpiConstType:9
         |vpiLhs:
         \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
+          |vpiParent:
+          \_assign_stmt: , line:3:11, endln:3:21
           |vpiTypespec:
-          \_int_typespec: , line:3:7, endln:3:10, parent:lc_ctrl_state_pkg::get_5::result
-            |vpiInstance:
-            \_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
+          \_int_typespec: , line:3:7, endln:3:10
             |vpiParent:
             \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
+            |vpiInstance:
+            \_package: prim_util_pkg (prim_util_pkg::), file:dut.sv, line:1:1, endln:6:11
             |vpiSigned:1
           |vpiName:result
           |vpiFullName:lc_ctrl_state_pkg::get_5::result
-          |vpiParent:
-          \_assign_stmt: , line:3:11, endln:3:21, parent:lc_ctrl_state_pkg::get_5
       |vpiStmt:
-      \_return_stmt: , line:4:7, endln:4:13, parent:lc_ctrl_state_pkg::get_5
+      \_return_stmt: , line:4:7, endln:4:13
         |vpiParent:
-        \_begin: (lc_ctrl_state_pkg::get_5), parent:lc_ctrl_state_pkg::get_5
+        \_begin: (lc_ctrl_state_pkg::get_5)
         |vpiCondition:
         \_ref_obj: (lc_ctrl_state_pkg::get_5::result), line:4:14, endln:4:20
           |vpiParent:
-          \_return_stmt: , line:4:7, endln:4:13, parent:lc_ctrl_state_pkg::get_5
+          \_return_stmt: , line:4:7, endln:4:13
           |vpiName:result
           |vpiFullName:lc_ctrl_state_pkg::get_5::result
           |vpiActual:
-          \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17, parent:lc_ctrl_state_pkg::get_5
+          \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
+            |vpiParent:
+            \_begin: (lc_ctrl_state_pkg::get_5)
             |vpiTypespec:
-            \_int_typespec: , line:3:7, endln:3:10, parent:lc_ctrl_state_pkg::get_5::result
+            \_int_typespec: , line:3:7, endln:3:10
             |vpiName:result
             |vpiFullName:lc_ctrl_state_pkg::get_5::result
-            |vpiParent:
-            \_begin: (lc_ctrl_state_pkg::get_5), parent:lc_ctrl_state_pkg::get_5
     |vpiInstance:
-    \_package: lc_ctrl_state_pkg (lc_ctrl_state_pkg::) dut.sv:8:1: , endln:10:11, parent:work@top
-    |vpiParent:
-    \_package: lc_ctrl_state_pkg (lc_ctrl_state_pkg::) dut.sv:8:1: , endln:10:11, parent:work@top
+    \_package: lc_ctrl_state_pkg (lc_ctrl_state_pkg::), file:dut.sv, line:8:1, endln:10:11
+|uhdmtopPackages:
+\_package: prim_util_pkg (prim_util_pkg::), file:dut.sv, line:1:1, endln:6:11
   |vpiParent:
   \_design: (work@top)
-|uhdmtopPackages:
-\_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
   |vpiName:prim_util_pkg
   |vpiFullName:prim_util_pkg::
   |vpiDefName:prim_util_pkg
   |vpiTop:1
   |vpiTaskFunc:
-  \_function: (prim_util_pkg::get_5), line:2:4, endln:5:15, parent:prim_util_pkg::
+  \_function: (prim_util_pkg::get_5), line:2:4, endln:5:15
+    |vpiParent:
+    \_package: prim_util_pkg (prim_util_pkg::), file:dut.sv, line:1:1, endln:6:11
     |vpiName:get_5
     |vpiFullName:prim_util_pkg::get_5
     |vpiVariables:
-    \_int_var: (prim_util_pkg::get_5::result), line:3:11, endln:3:17, parent:prim_util_pkg::get_5
+    \_int_var: (prim_util_pkg::get_5::result), line:3:11, endln:3:17
+      |vpiParent:
+      \_function: (prim_util_pkg::get_5), line:2:4, endln:5:15
       |vpiTypespec:
       \_int_typespec: , line:3:7, endln:3:10
         |vpiInstance:
-        \_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
+        \_package: prim_util_pkg (prim_util_pkg::), file:dut.sv, line:1:1, endln:6:11
         |vpiSigned:1
       |vpiName:result
       |vpiFullName:prim_util_pkg::get_5::result
-      |vpiParent:
-      \_function: (prim_util_pkg::get_5), line:2:4, endln:5:15, parent:prim_util_pkg::
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
     \_int_var: , line:2:23, endln:2:26
     |vpiParent:
-    \_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
+    \_package: prim_util_pkg (prim_util_pkg::), file:dut.sv, line:1:1, endln:6:11
     |vpiStmt:
-    \_begin: (prim_util_pkg::get_5), parent:prim_util_pkg::get_5
+    \_begin: (prim_util_pkg::get_5)
+      |vpiParent:
+      \_function: (prim_util_pkg::get_5), line:2:4, endln:5:15
       |vpiFullName:prim_util_pkg::get_5
       |vpiVariables:
-      \_int_var: (prim_util_pkg::get_5::result), line:3:11, endln:3:17, parent:prim_util_pkg::get_5
+      \_int_var: (prim_util_pkg::get_5::result), line:3:11, endln:3:17
+        |vpiParent:
+        \_begin: (prim_util_pkg::get_5)
         |vpiTypespec:
         \_int_typespec: , line:3:7, endln:3:10
         |vpiName:result
         |vpiFullName:prim_util_pkg::get_5::result
-        |vpiParent:
-        \_begin: (prim_util_pkg::get_5), parent:prim_util_pkg::get_5
-      |vpiParent:
-      \_function: (prim_util_pkg::get_5), line:2:4, endln:5:15, parent:prim_util_pkg::
       |vpiStmt:
-      \_assign_stmt: , line:3:11, endln:3:21, parent:prim_util_pkg::get_5
+      \_assign_stmt: , line:3:11, endln:3:21
         |vpiParent:
-        \_begin: (prim_util_pkg::get_5), parent:prim_util_pkg::get_5
+        \_begin: (prim_util_pkg::get_5)
         |vpiRhs:
         \_constant: , line:3:20, endln:3:21
+          |vpiParent:
+          \_assign_stmt: , line:3:11, endln:3:21
           |vpiDecompile:5
           |vpiSize:64
           |UINT:5
-          |vpiParent:
-          \_assign_stmt: , line:3:11, endln:3:21, parent:prim_util_pkg::get_5
           |vpiConstType:9
         |vpiLhs:
         \_int_var: (prim_util_pkg::get_5::result), line:3:11, endln:3:17
+          |vpiParent:
+          \_assign_stmt: , line:3:11, endln:3:21
           |vpiTypespec:
           \_int_typespec: , line:3:7, endln:3:10
           |vpiName:result
           |vpiFullName:prim_util_pkg::get_5::result
-          |vpiParent:
-          \_assign_stmt: , line:3:11, endln:3:21, parent:prim_util_pkg::get_5
       |vpiStmt:
-      \_return_stmt: , line:4:7, endln:4:13, parent:prim_util_pkg::get_5
+      \_return_stmt: , line:4:7, endln:4:13
         |vpiParent:
-        \_begin: (prim_util_pkg::get_5), parent:prim_util_pkg::get_5
+        \_begin: (prim_util_pkg::get_5)
         |vpiCondition:
         \_ref_obj: (prim_util_pkg::get_5::result), line:4:14, endln:4:20
           |vpiParent:
-          \_return_stmt: , line:4:7, endln:4:13, parent:prim_util_pkg::get_5
+          \_return_stmt: , line:4:7, endln:4:13
           |vpiName:result
           |vpiFullName:prim_util_pkg::get_5::result
           |vpiActual:
           \_int_var: (prim_util_pkg::get_5::result), line:3:11, endln:3:17
+            |vpiParent:
+            \_assign_stmt: , line:3:11, endln:3:21
             |vpiTypespec:
             \_int_typespec: , line:3:7, endln:3:10
             |vpiName:result
             |vpiFullName:prim_util_pkg::get_5::result
-            |vpiParent:
-            \_assign_stmt: , line:3:11, endln:3:21, parent:prim_util_pkg::get_5
     |vpiInstance:
-    \_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
-    |vpiParent:
-    \_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
+    \_package: prim_util_pkg (prim_util_pkg::), file:dut.sv, line:1:1, endln:6:11
+|uhdmtopPackages:
+\_package: lc_ctrl_state_pkg (lc_ctrl_state_pkg::), file:dut.sv, line:8:1, endln:10:11
   |vpiParent:
   \_design: (work@top)
-|uhdmtopPackages:
-\_package: lc_ctrl_state_pkg (lc_ctrl_state_pkg::) dut.sv:8:1: , endln:10:11, parent:work@top
   |vpiName:lc_ctrl_state_pkg
   |vpiFullName:lc_ctrl_state_pkg::
   |vpiTypedef:
@@ -416,136 +418,136 @@ design: (work@top)
   |vpiDefName:lc_ctrl_state_pkg
   |vpiTop:1
   |vpiTaskFunc:
-  \_function: (lc_ctrl_state_pkg::get_5), line:2:4, endln:5:15, parent:lc_ctrl_state_pkg::
+  \_function: (lc_ctrl_state_pkg::get_5), line:2:4, endln:5:15
+    |vpiParent:
+    \_package: lc_ctrl_state_pkg (lc_ctrl_state_pkg::), file:dut.sv, line:8:1, endln:10:11
     |vpiName:get_5
     |vpiFullName:lc_ctrl_state_pkg::get_5
     |vpiVariables:
-    \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17, parent:lc_ctrl_state_pkg::get_5
+    \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
+      |vpiParent:
+      \_function: (lc_ctrl_state_pkg::get_5), line:2:4, endln:5:15
       |vpiTypespec:
-      \_int_typespec: , line:3:7, endln:3:10, parent:lc_ctrl_state_pkg::get_5::result
-        |vpiInstance:
-        \_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
+      \_int_typespec: , line:3:7, endln:3:10
         |vpiParent:
-        \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17, parent:lc_ctrl_state_pkg::get_5
+        \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
+        |vpiInstance:
+        \_package: prim_util_pkg (prim_util_pkg::), file:dut.sv, line:1:1, endln:6:11
         |vpiSigned:1
       |vpiName:result
       |vpiFullName:lc_ctrl_state_pkg::get_5::result
-      |vpiParent:
-      \_function: (lc_ctrl_state_pkg::get_5), line:2:4, endln:5:15, parent:lc_ctrl_state_pkg::
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
     \_int_var: , line:2:23, endln:2:26
     |vpiParent:
-    \_package: lc_ctrl_state_pkg (lc_ctrl_state_pkg::) dut.sv:8:1: , endln:10:11, parent:work@top
+    \_package: lc_ctrl_state_pkg (lc_ctrl_state_pkg::), file:dut.sv, line:8:1, endln:10:11
     |vpiStmt:
-    \_begin: (lc_ctrl_state_pkg::get_5), parent:lc_ctrl_state_pkg::get_5
+    \_begin: (lc_ctrl_state_pkg::get_5)
+      |vpiParent:
+      \_function: (lc_ctrl_state_pkg::get_5), line:2:4, endln:5:15
       |vpiFullName:lc_ctrl_state_pkg::get_5
       |vpiVariables:
-      \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17, parent:lc_ctrl_state_pkg::get_5
+      \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
+        |vpiParent:
+        \_begin: (lc_ctrl_state_pkg::get_5)
         |vpiTypespec:
-        \_int_typespec: , line:3:7, endln:3:10, parent:lc_ctrl_state_pkg::get_5::result
-          |vpiInstance:
-          \_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
+        \_int_typespec: , line:3:7, endln:3:10
           |vpiParent:
-          \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17, parent:lc_ctrl_state_pkg::get_5
+          \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
+          |vpiInstance:
+          \_package: prim_util_pkg (prim_util_pkg::), file:dut.sv, line:1:1, endln:6:11
           |vpiSigned:1
         |vpiName:result
         |vpiFullName:lc_ctrl_state_pkg::get_5::result
-        |vpiParent:
-        \_begin: (lc_ctrl_state_pkg::get_5), parent:lc_ctrl_state_pkg::get_5
-      |vpiParent:
-      \_function: (lc_ctrl_state_pkg::get_5), line:2:4, endln:5:15, parent:lc_ctrl_state_pkg::
       |vpiStmt:
-      \_assign_stmt: , line:3:11, endln:3:21, parent:lc_ctrl_state_pkg::get_5
+      \_assign_stmt: , line:3:11, endln:3:21
         |vpiParent:
-        \_begin: (lc_ctrl_state_pkg::get_5), parent:lc_ctrl_state_pkg::get_5
+        \_begin: (lc_ctrl_state_pkg::get_5)
         |vpiRhs:
         \_constant: , line:3:20, endln:3:21
+          |vpiParent:
+          \_assign_stmt: , line:3:11, endln:3:21
           |vpiDecompile:5
           |vpiSize:64
           |UINT:5
-          |vpiParent:
-          \_assign_stmt: , line:3:11, endln:3:21, parent:lc_ctrl_state_pkg::get_5
           |vpiConstType:9
         |vpiLhs:
         \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
+          |vpiParent:
+          \_assign_stmt: , line:3:11, endln:3:21
           |vpiTypespec:
-          \_int_typespec: , line:3:7, endln:3:10, parent:lc_ctrl_state_pkg::get_5::result
-            |vpiInstance:
-            \_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:6:11, parent:work@top
+          \_int_typespec: , line:3:7, endln:3:10
             |vpiParent:
             \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
+            |vpiInstance:
+            \_package: prim_util_pkg (prim_util_pkg::), file:dut.sv, line:1:1, endln:6:11
             |vpiSigned:1
           |vpiName:result
           |vpiFullName:lc_ctrl_state_pkg::get_5::result
-          |vpiParent:
-          \_assign_stmt: , line:3:11, endln:3:21, parent:lc_ctrl_state_pkg::get_5
       |vpiStmt:
-      \_return_stmt: , line:4:7, endln:4:13, parent:lc_ctrl_state_pkg::get_5
+      \_return_stmt: , line:4:7, endln:4:13
         |vpiParent:
-        \_begin: (lc_ctrl_state_pkg::get_5), parent:lc_ctrl_state_pkg::get_5
+        \_begin: (lc_ctrl_state_pkg::get_5)
         |vpiCondition:
         \_ref_obj: (lc_ctrl_state_pkg::get_5::result), line:4:14, endln:4:20
           |vpiParent:
-          \_return_stmt: , line:4:7, endln:4:13, parent:lc_ctrl_state_pkg::get_5
+          \_return_stmt: , line:4:7, endln:4:13
           |vpiName:result
           |vpiFullName:lc_ctrl_state_pkg::get_5::result
           |vpiActual:
-          \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17, parent:lc_ctrl_state_pkg::get_5
+          \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
+            |vpiParent:
+            \_begin: (lc_ctrl_state_pkg::get_5)
             |vpiTypespec:
-            \_int_typespec: , line:3:7, endln:3:10, parent:lc_ctrl_state_pkg::get_5::result
+            \_int_typespec: , line:3:7, endln:3:10
             |vpiName:result
             |vpiFullName:lc_ctrl_state_pkg::get_5::result
-            |vpiParent:
-            \_begin: (lc_ctrl_state_pkg::get_5), parent:lc_ctrl_state_pkg::get_5
     |vpiInstance:
-    \_package: lc_ctrl_state_pkg (lc_ctrl_state_pkg::) dut.sv:8:1: , endln:10:11, parent:work@top
-    |vpiParent:
-    \_package: lc_ctrl_state_pkg (lc_ctrl_state_pkg::) dut.sv:8:1: , endln:10:11, parent:work@top
+    \_package: lc_ctrl_state_pkg (lc_ctrl_state_pkg::), file:dut.sv, line:8:1, endln:10:11
+|uhdmallModules:
+\_module: work@top (work@top), file:dut.sv, line:12:1, endln:14:10
   |vpiParent:
   \_design: (work@top)
-|uhdmallModules:
-\_module: work@top (work@top) dut.sv:12:1: , endln:14:10, parent:work@top
   |vpiFullName:work@top
   |vpiDefName:work@top
   |vpiNet:
-  \_logic_net: (work@top.o), line:12:23, endln:12:24, parent:work@top
+  \_logic_net: (work@top.o), line:12:23, endln:12:24
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:12:1, endln:14:10
     |vpiName:o
     |vpiFullName:work@top.o
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:12:1: , endln:14:10, parent:work@top
-  |vpiParent:
-  \_design: (work@top)
   |vpiPort:
-  \_port: (o), line:12:23, endln:12:24, parent:work@top
+  \_port: (o), line:12:23, endln:12:24
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:12:1, endln:14:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@top.o), line:12:23, endln:12:24, parent:work@top
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:12:1: , endln:14:10, parent:work@top
+      \_logic_net: (work@top.o), line:12:23, endln:12:24
   |vpiContAssign:
-  \_cont_assign: , line:13:11, endln:13:41, parent:work@top
+  \_cont_assign: , line:13:11, endln:13:41
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:12:1: , endln:14:10, parent:work@top
+    \_module: work@top (work@top), file:dut.sv, line:12:1, endln:14:10
     |vpiRhs:
     \_func_call: (lc_ctrl_state_pkg::get_5), line:13:15, endln:13:32
-      |vpiName:lc_ctrl_state_pkg::get_5
       |vpiParent:
-      \_cont_assign: , line:13:11, endln:13:41, parent:work@top
+      \_cont_assign: , line:13:11, endln:13:41
+      |vpiName:lc_ctrl_state_pkg::get_5
       |vpiFunction:
-      \_function: (lc_ctrl_state_pkg::get_5), line:2:4, endln:5:15, parent:lc_ctrl_state_pkg::
+      \_function: (lc_ctrl_state_pkg::get_5), line:2:4, endln:5:15
     |vpiLhs:
     \_ref_obj: (work@top.o), line:13:11, endln:13:12
       |vpiParent:
-      \_cont_assign: , line:13:11, endln:13:41, parent:work@top
+      \_cont_assign: , line:13:11, endln:13:41
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_int_var: (work@top.o), line:12:23, endln:12:24, parent:work@top
+      \_int_var: (work@top.o), line:12:23, endln:12:24
+        |vpiParent:
+        \_module: work@top (work@top), file:dut.sv, line:12:1, endln:14:10
         |vpiTypespec:
         \_int_typespec: , line:12:19, endln:12:22
           |vpiSigned:1
@@ -553,54 +555,52 @@ design: (work@top)
         |vpiFullName:work@top.o
         |vpiSigned:1
         |vpiVisibility:1
-        |vpiParent:
-        \_module: work@top (work@top) dut.sv:12:1: , endln:14:10
 |uhdmtopModules:
-\_module: work@top (work@top) dut.sv:12:1: , endln:14:10
+\_module: work@top (work@top), file:dut.sv, line:12:1, endln:14:10
   |vpiName:work@top
   |vpiVariables:
-  \_int_var: (work@top.o), line:12:23, endln:12:24, parent:work@top
+  \_int_var: (work@top.o), line:12:23, endln:12:24
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
   |vpiPort:
-  \_port: (o), line:12:23, endln:12:24, parent:work@top
+  \_port: (o), line:12:23, endln:12:24
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:12:1, endln:14:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@top.o), line:12:23, endln:12:24, parent:o
+    \_ref_obj: (work@top.o), line:12:23, endln:12:24
       |vpiParent:
-      \_port: (o), line:12:23, endln:12:24, parent:work@top
+      \_port: (o), line:12:23, endln:12:24
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_int_var: (work@top.o), line:12:23, endln:12:24, parent:work@top
+      \_int_var: (work@top.o), line:12:23, endln:12:24
     |vpiTypedef:
     \_int_typespec: , line:12:19, endln:12:22
       |vpiSigned:1
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:12:1: , endln:14:10
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:12:1: , endln:14:10
+    \_module: work@top (work@top), file:dut.sv, line:12:1, endln:14:10
   |vpiContAssign:
-  \_cont_assign: , line:13:11, endln:13:41, parent:work@top
+  \_cont_assign: , line:13:11, endln:13:41
     |vpiParent:
-    \_module: work@top (work@top) dut.sv:12:1: , endln:14:10
+    \_module: work@top (work@top), file:dut.sv, line:12:1, endln:14:10
     |vpiRhs:
     \_func_call: (lc_ctrl_state_pkg::get_5), line:13:15, endln:13:32
-      |vpiName:lc_ctrl_state_pkg::get_5
       |vpiParent:
-      \_cont_assign: , line:13:11, endln:13:41, parent:work@top
+      \_cont_assign: , line:13:11, endln:13:41
+      |vpiName:lc_ctrl_state_pkg::get_5
       |vpiFunction:
-      \_function: (lc_ctrl_state_pkg::get_5), line:2:4, endln:5:15, parent:lc_ctrl_state_pkg::
+      \_function: (lc_ctrl_state_pkg::get_5), line:2:4, endln:5:15
     |vpiLhs:
     \_ref_obj: (work@top.o), line:13:11, endln:13:12
       |vpiParent:
-      \_cont_assign: , line:13:11, endln:13:41, parent:work@top
+      \_cont_assign: , line:13:11, endln:13:41
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_int_var: (work@top.o), line:12:23, endln:12:24, parent:work@top
+      \_int_var: (work@top.o), line:12:23, endln:12:24
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

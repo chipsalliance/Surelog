@@ -390,34 +390,36 @@ design: (work@otp_ctrl)
 |vpiElaborated:1
 |vpiName:work@otp_ctrl
 |uhdmallPackages:
-\_package: builtin (builtin::), file:, parent:work@otp_ctrl
+\_package: builtin (builtin::), file:
+  |vpiParent:
+  \_design: (work@otp_ctrl)
   |vpiName:builtin
   |vpiFullName:builtin::
   |vpiDefName:builtin
+|uhdmallPackages:
+\_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
   |vpiParent:
   \_design: (work@otp_ctrl)
-|uhdmallPackages:
-\_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::) dut.sv:1:1: , endln:12:11, parent:work@otp_ctrl
   |vpiName:otp_ctrl_part_pkg
   |vpiFullName:otp_ctrl_part_pkg::
   |vpiParameter:
-  \_parameter: (otp_ctrl_part_pkg::NumAgents), line:10:16, endln:10:25, parent:otp_ctrl_part_pkg::
+  \_parameter: (otp_ctrl_part_pkg::NumAgents), line:10:16, endln:10:25
+    |vpiParent:
+    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
     |vpiTypespec:
-    \_int_typespec: , line:10:12, endln:10:15, parent:otp_ctrl_part_pkg::NumAgents
+    \_int_typespec: , line:10:12, endln:10:15
+      |vpiParent:
+      \_parameter: (otp_ctrl_part_pkg::NumAgents), line:10:16, endln:10:25
       |vpiInstance:
       \_package: (otp_ctrl_part_pkg), file:
-      |vpiParent:
-      \_parameter: (otp_ctrl_part_pkg::NumAgents), line:10:16, endln:10:25, parent:otp_ctrl_part_pkg::
       |vpiSigned:1
-    |vpiParent:
-    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::) dut.sv:1:1: , endln:12:11, parent:work@otp_ctrl
     |vpiSigned:1
     |vpiName:NumAgents
     |vpiFullName:otp_ctrl_part_pkg::NumAgents
   |vpiParamAssign:
-  \_param_assign: , line:10:16, endln:10:46, parent:otp_ctrl_part_pkg::
+  \_param_assign: , line:10:16, endln:10:46
     |vpiParent:
-    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::) dut.sv:1:1: , endln:12:11, parent:work@otp_ctrl
+    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
     |vpiRhs:
     \_operation: , line:10:28, endln:10:46
       |vpiTypespec:
@@ -438,14 +440,14 @@ design: (work@otp_ctrl)
           |vpiDecompile:3
           |vpiSize:64
     |vpiLhs:
-    \_parameter: (otp_ctrl_part_pkg::NumAgents), line:10:16, endln:10:25, parent:otp_ctrl_part_pkg::
+    \_parameter: (otp_ctrl_part_pkg::NumAgents), line:10:16, endln:10:25
   |vpiTypedef:
-  \_enum_typespec: (otp_ctrl_part_pkg::part_idx_e), line:3:1, endln:8:16, parent:otp_ctrl_part_pkg::
+  \_enum_typespec: (otp_ctrl_part_pkg::part_idx_e), line:3:1, endln:8:16
+    |vpiParent:
+    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
     |vpiName:otp_ctrl_part_pkg::part_idx_e
     |vpiInstance:
-    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::) dut.sv:1:1: , endln:12:11, parent:work@otp_ctrl
-    |vpiParent:
-    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::) dut.sv:1:1: , endln:12:11, parent:work@otp_ctrl
+    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
     |vpiEnumConst:
     \_enum_const: (CreatorSwCfgIdx), line:4:5, endln:4:20
       |vpiName:CreatorSwCfgIdx
@@ -467,85 +469,85 @@ design: (work@otp_ctrl)
     |vpiEnumConst:
     \_enum_const: (NumAgentsIdx), line:7:5, endln:7:17
   |vpiDefName:otp_ctrl_part_pkg
+|uhdmtopPackages:
+\_package: builtin (builtin::), file:
   |vpiParent:
   \_design: (work@otp_ctrl)
-|uhdmtopPackages:
-\_package: builtin (builtin::), file:, parent:work@otp_ctrl
   |vpiName:builtin
   |vpiFullName:builtin::
   |vpiDefName:builtin
   |vpiTop:1
   |vpiClassDefn:
-  \_class_defn: (builtin::any_sverilog_class), file:, parent:builtin::
+  \_class_defn: (builtin::any_sverilog_class), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:any_sverilog_class
     |vpiFullName:builtin::any_sverilog_class
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@otp_ctrl
   |vpiClassDefn:
-  \_class_defn: (builtin::array), file:, parent:builtin::
+  \_class_defn: (builtin::array), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:array
     |vpiFullName:builtin::array
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@otp_ctrl
   |vpiClassDefn:
-  \_class_defn: (builtin::queue), file:, parent:builtin::
+  \_class_defn: (builtin::queue), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:queue
     |vpiFullName:builtin::queue
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@otp_ctrl
   |vpiClassDefn:
-  \_class_defn: (builtin::string), file:, parent:builtin::
+  \_class_defn: (builtin::string), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:string
     |vpiFullName:builtin::string
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@otp_ctrl
   |vpiClassDefn:
-  \_class_defn: (builtin::system), file:, parent:builtin::
+  \_class_defn: (builtin::system), file:
+    |vpiParent:
+    \_package: builtin (builtin::), file:
     |vpiName:system
     |vpiFullName:builtin::system
-    |vpiParent:
-    \_package: builtin (builtin::), file:, parent:work@otp_ctrl
+|uhdmtopPackages:
+\_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
   |vpiParent:
   \_design: (work@otp_ctrl)
-|uhdmtopPackages:
-\_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::) dut.sv:1:1: , endln:12:11, parent:work@otp_ctrl
   |vpiName:otp_ctrl_part_pkg
   |vpiFullName:otp_ctrl_part_pkg::
   |vpiParameter:
-  \_parameter: (otp_ctrl_part_pkg::NumAgents), line:10:16, endln:10:25, parent:otp_ctrl_part_pkg::
+  \_parameter: (otp_ctrl_part_pkg::NumAgents), line:10:16, endln:10:25
+    |vpiParent:
+    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
     |UINT:3
     |vpiTypespec:
-    \_int_typespec: , line:10:12, endln:10:15, parent:otp_ctrl_part_pkg::NumAgents
-      |vpiInstance:
-      \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::) dut.sv:1:1: , endln:12:11, parent:work@otp_ctrl
+    \_int_typespec: , line:10:12, endln:10:15
       |vpiParent:
-      \_parameter: (otp_ctrl_part_pkg::NumAgents), line:10:16, endln:10:25, parent:otp_ctrl_part_pkg::
+      \_parameter: (otp_ctrl_part_pkg::NumAgents), line:10:16, endln:10:25
+      |vpiInstance:
+      \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
       |vpiSigned:1
-    |vpiParent:
-    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::) dut.sv:1:1: , endln:12:11, parent:work@otp_ctrl
     |vpiSigned:1
     |vpiName:NumAgents
     |vpiFullName:otp_ctrl_part_pkg::NumAgents
   |vpiParamAssign:
-  \_param_assign: , line:10:16, endln:10:46, parent:otp_ctrl_part_pkg::
+  \_param_assign: , line:10:16, endln:10:46
     |vpiParent:
-    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::) dut.sv:1:1: , endln:12:11, parent:work@otp_ctrl
+    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
     |vpiRhs:
     \_constant: , line:10:28, endln:10:46
       |vpiSize:32
       |UINT:3
       |vpiTypespec:
-      \_int_typespec: , line:10:12, endln:10:15, parent:otp_ctrl_part_pkg::NumAgents
+      \_int_typespec: , line:10:12, endln:10:15
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (otp_ctrl_part_pkg::NumAgents), line:10:16, endln:10:25, parent:otp_ctrl_part_pkg::
+    \_parameter: (otp_ctrl_part_pkg::NumAgents), line:10:16, endln:10:25
   |vpiTypedef:
-  \_enum_typespec: (otp_ctrl_part_pkg::part_idx_e), line:3:1, endln:8:16, parent:work@otp_ctrl
+  \_enum_typespec: (otp_ctrl_part_pkg::part_idx_e), line:3:1, endln:8:16
+    |vpiParent:
+    \_module: work@otp_ctrl (work@otp_ctrl), file:dut.sv, line:15:1, endln:18:10
     |vpiName:otp_ctrl_part_pkg::part_idx_e
     |vpiInstance:
-    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::) dut.sv:1:1: , endln:12:11, parent:work@otp_ctrl
-    |vpiParent:
-    \_module: work@otp_ctrl (work@otp_ctrl) dut.sv:15:1: , endln:18:10, parent:work@otp_ctrl
+    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
     |vpiEnumConst:
     \_enum_const: (CreatorSwCfgIdx), line:4:5, endln:4:20
       |vpiName:CreatorSwCfgIdx
@@ -572,15 +574,15 @@ design: (work@otp_ctrl)
       |vpiSize:64
   |vpiDefName:otp_ctrl_part_pkg
   |vpiTop:1
-  |vpiParent:
-  \_design: (work@otp_ctrl)
 |uhdmallClasses:
-\_class_defn: (work@mailbox), file:builtin.sv, parent:work@otp_ctrl
-  |vpiName:work@mailbox
+\_class_defn: (work@mailbox), file:builtin.sv
   |vpiParent:
   \_design: (work@otp_ctrl)
+  |vpiName:work@mailbox
   |vpiMethod:
-  \_function: (work@mailbox::new), parent:work@mailbox
+  \_function: (work@mailbox::new)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:new
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
@@ -589,13 +591,13 @@ design: (work@otp_ctrl)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:builtin.sv, parent:work@otp_ctrl
+        \_class_defn: (work@mailbox), file:builtin.sv
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@otp_ctrl
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (bound), parent:work@mailbox::new
+    \_io_decl: (bound)
       |vpiParent:
-      \_function: (work@mailbox::new), parent:work@mailbox
+      \_function: (work@mailbox::new)
       |vpiDirection:1
       |vpiName:bound
       |vpiExpr:
@@ -607,10 +609,10 @@ design: (work@otp_ctrl)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@otp_ctrl
   |vpiMethod:
-  \_function: (work@mailbox::num), parent:work@mailbox
+  \_function: (work@mailbox::num)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:num
     |vpiFullName:work@mailbox::num
     |vpiMethod:1
@@ -621,27 +623,27 @@ design: (work@otp_ctrl)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@otp_ctrl
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@otp_ctrl
+    \_class_defn: (work@mailbox), file:builtin.sv
   |vpiMethod:
-  \_task: (work@mailbox::put), parent:work@mailbox
+  \_task: (work@mailbox::put)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:put
     |vpiFullName:work@mailbox::put
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@otp_ctrl
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::put
+    \_io_decl: (message)
       |vpiParent:
-      \_task: (work@mailbox::put), parent:work@mailbox
+      \_task: (work@mailbox::put)
       |vpiDirection:1
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@otp_ctrl
   |vpiMethod:
-  \_function: (work@mailbox::try_put), parent:work@mailbox
+  \_function: (work@mailbox::try_put)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
     |vpiMethod:1
@@ -649,33 +651,33 @@ design: (work@otp_ctrl)
     |vpiReturn:
     \_logic_var: 
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@otp_ctrl
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_put
+    \_io_decl: (message)
       |vpiParent:
-      \_function: (work@mailbox::try_put), parent:work@mailbox
+      \_function: (work@mailbox::try_put)
       |vpiDirection:1
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@otp_ctrl
   |vpiMethod:
-  \_task: (work@mailbox::get), parent:work@mailbox
+  \_task: (work@mailbox::get)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:get
     |vpiFullName:work@mailbox::get
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@otp_ctrl
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::get
+    \_io_decl: (message)
       |vpiParent:
-      \_task: (work@mailbox::get), parent:work@mailbox
+      \_task: (work@mailbox::get)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@otp_ctrl
   |vpiMethod:
-  \_function: (work@mailbox::try_get), parent:work@mailbox
+  \_function: (work@mailbox::try_get)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
     |vpiMethod:1
@@ -686,33 +688,33 @@ design: (work@otp_ctrl)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@otp_ctrl
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_get
+    \_io_decl: (message)
       |vpiParent:
-      \_function: (work@mailbox::try_get), parent:work@mailbox
+      \_function: (work@mailbox::try_get)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@otp_ctrl
   |vpiMethod:
-  \_task: (work@mailbox::peek), parent:work@mailbox
+  \_task: (work@mailbox::peek)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@otp_ctrl
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::peek
+    \_io_decl: (message)
       |vpiParent:
-      \_task: (work@mailbox::peek), parent:work@mailbox
+      \_task: (work@mailbox::peek)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@otp_ctrl
   |vpiMethod:
-  \_function: (work@mailbox::try_peek), parent:work@mailbox
+  \_function: (work@mailbox::try_peek)
+    |vpiParent:
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
     |vpiMethod:1
@@ -723,67 +725,67 @@ design: (work@otp_ctrl)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@otp_ctrl
+    \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_peek
+    \_io_decl: (message)
       |vpiParent:
-      \_function: (work@mailbox::try_peek), parent:work@mailbox
+      \_function: (work@mailbox::try_peek)
       |vpiDirection:6
       |vpiName:message
-    |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv, parent:work@otp_ctrl
 |uhdmallClasses:
-\_class_defn: (work@process), file:builtin.sv, parent:work@otp_ctrl
+\_class_defn: (work@process), file:builtin.sv
+  |vpiParent:
+  \_design: (work@otp_ctrl)
   |vpiName:work@process
   |vpiTypedef:
-  \_enum_typespec: (state), parent:work@process
-    |vpiName:state
+  \_enum_typespec: (state)
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@otp_ctrl
+    \_class_defn: (work@process), file:builtin.sv
+    |vpiName:state
     |vpiEnumConst:
-    \_enum_const: (FINISHED), parent:state
+    \_enum_const: (FINISHED)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:FINISHED
       |INT:0
       |vpiDecompile:0
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (RUNNING), parent:state
+    \_enum_const: (RUNNING)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:RUNNING
       |INT:1
       |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (WAITING), parent:state
+    \_enum_const: (WAITING)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:WAITING
       |INT:2
       |vpiDecompile:2
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (SUSPENDED), parent:state
+    \_enum_const: (SUSPENDED)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:SUSPENDED
       |INT:3
       |vpiDecompile:3
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (KILLED), parent:state
+    \_enum_const: (KILLED)
       |vpiParent:
-      \_enum_typespec: (state), parent:work@process
+      \_enum_typespec: (state)
       |vpiName:KILLED
       |INT:4
       |vpiDecompile:4
       |vpiSize:64
-  |vpiParent:
-  \_design: (work@otp_ctrl)
   |vpiMethod:
-  \_function: (work@process::self), parent:work@process
+  \_function: (work@process::self)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiMethod:1
@@ -793,13 +795,13 @@ design: (work@otp_ctrl)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@process), file:builtin.sv, parent:work@otp_ctrl
+        \_class_defn: (work@process), file:builtin.sv
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@otp_ctrl
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@otp_ctrl
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_function: (work@process::status), parent:work@process
+  \_function: (work@process::status)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiMethod:1
@@ -807,10 +809,10 @@ design: (work@otp_ctrl)
     |vpiReturn:
     \_enum_var: 
       |vpiTypespec:
-      \_enum_typespec: (state), parent:work@process
-        |vpiName:state
+      \_enum_typespec: (state)
         |vpiParent:
-        \_class_defn: (work@process), file:builtin.sv, parent:work@otp_ctrl
+        \_class_defn: (work@process), file:builtin.sv
+        |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
           |vpiName:FINISHED
@@ -842,56 +844,56 @@ design: (work@otp_ctrl)
           |vpiDecompile:4
           |vpiSize:64
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@otp_ctrl
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@otp_ctrl
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::kill), parent:work@process
+  \_task: (work@process::kill)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:kill
     |vpiFullName:work@process::kill
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@otp_ctrl
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@otp_ctrl
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::await), parent:work@process
+  \_task: (work@process::await)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:await
     |vpiFullName:work@process::await
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@otp_ctrl
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@otp_ctrl
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::suspend), parent:work@process
+  \_task: (work@process::suspend)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:suspend
     |vpiFullName:work@process::suspend
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@otp_ctrl
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@otp_ctrl
+    \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
-  \_task: (work@process::resume), parent:work@process
+  \_task: (work@process::resume)
+    |vpiParent:
+    \_class_defn: (work@process), file:builtin.sv
     |vpiName:resume
     |vpiFullName:work@process::resume
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@otp_ctrl
-    |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv, parent:work@otp_ctrl
+    \_class_defn: (work@process), file:builtin.sv
 |uhdmallClasses:
-\_class_defn: (work@semaphore), file:builtin.sv, parent:work@otp_ctrl
-  |vpiName:work@semaphore
+\_class_defn: (work@semaphore), file:builtin.sv
   |vpiParent:
   \_design: (work@otp_ctrl)
+  |vpiName:work@semaphore
   |vpiMethod:
-  \_function: (work@semaphore::new), parent:work@semaphore
+  \_function: (work@semaphore::new)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:new
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
@@ -900,13 +902,13 @@ design: (work@otp_ctrl)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:builtin.sv, parent:work@otp_ctrl
+        \_class_defn: (work@semaphore), file:builtin.sv
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@otp_ctrl
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::new
+    \_io_decl: (keyCount)
       |vpiParent:
-      \_function: (work@semaphore::new), parent:work@semaphore
+      \_function: (work@semaphore::new)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -918,20 +920,20 @@ design: (work@otp_ctrl)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@otp_ctrl
   |vpiMethod:
-  \_task: (work@semaphore::put), parent:work@semaphore
+  \_task: (work@semaphore::put)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:put
     |vpiFullName:work@semaphore::put
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@otp_ctrl
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::put
+    \_io_decl: (keyCount)
       |vpiParent:
-      \_task: (work@semaphore::put), parent:work@semaphore
+      \_task: (work@semaphore::put)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -943,20 +945,20 @@ design: (work@otp_ctrl)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@otp_ctrl
   |vpiMethod:
-  \_task: (work@semaphore::get), parent:work@semaphore
+  \_task: (work@semaphore::get)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:get
     |vpiFullName:work@semaphore::get
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@otp_ctrl
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::get
+    \_io_decl: (keyCount)
       |vpiParent:
-      \_task: (work@semaphore::get), parent:work@semaphore
+      \_task: (work@semaphore::get)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -968,10 +970,10 @@ design: (work@otp_ctrl)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@otp_ctrl
   |vpiMethod:
-  \_function: (work@semaphore::try_get), parent:work@semaphore
+  \_function: (work@semaphore::try_get)
+    |vpiParent:
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
     |vpiMethod:1
@@ -982,11 +984,11 @@ design: (work@otp_ctrl)
       \_int_typespec: 
         |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@otp_ctrl
+    \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::try_get
+    \_io_decl: (keyCount)
       |vpiParent:
-      \_function: (work@semaphore::try_get), parent:work@semaphore
+      \_function: (work@semaphore::try_get)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -998,155 +1000,153 @@ design: (work@otp_ctrl)
       |vpiTypedef:
       \_int_typespec: 
         |vpiSigned:1
-    |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv, parent:work@otp_ctrl
 |uhdmallModules:
-\_module: work@otp_ctrl (work@otp_ctrl) dut.sv:15:1: , endln:18:10, parent:work@otp_ctrl
+\_module: work@otp_ctrl (work@otp_ctrl), file:dut.sv, line:15:1, endln:18:10
+  |vpiParent:
+  \_design: (work@otp_ctrl)
   |vpiFullName:work@otp_ctrl
   |vpiParameter:
-  \_parameter: (work@otp_ctrl.NumAgents), line:10:16, endln:10:25, parent:work@otp_ctrl
+  \_parameter: (work@otp_ctrl.NumAgents), line:10:16, endln:10:25
+    |vpiParent:
+    \_module: work@otp_ctrl (work@otp_ctrl), file:dut.sv, line:15:1, endln:18:10
     |UINT:3
     |vpiTypespec:
-    \_int_typespec: , line:10:12, endln:10:15, parent:work@otp_ctrl.NumAgents
-      |vpiInstance:
-      \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::) dut.sv:1:1: , endln:12:11, parent:work@otp_ctrl
+    \_int_typespec: , line:10:12, endln:10:15
       |vpiParent:
-      \_parameter: (work@otp_ctrl.NumAgents), line:10:16, endln:10:25, parent:work@otp_ctrl
+      \_parameter: (work@otp_ctrl.NumAgents), line:10:16, endln:10:25
+      |vpiInstance:
+      \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
       |vpiSigned:1
-    |vpiParent:
-    \_module: work@otp_ctrl (work@otp_ctrl) dut.sv:15:1: , endln:18:10, parent:work@otp_ctrl
     |vpiSigned:1
     |vpiName:NumAgents
     |vpiFullName:work@otp_ctrl.NumAgents
     |vpiImported:otp_ctrl_part_pkg
   |vpiParamAssign:
-  \_param_assign: , line:10:16, endln:10:46, parent:work@otp_ctrl
+  \_param_assign: , line:10:16, endln:10:46
     |vpiParent:
-    \_module: work@otp_ctrl (work@otp_ctrl) dut.sv:15:1: , endln:18:10, parent:work@otp_ctrl
+    \_module: work@otp_ctrl (work@otp_ctrl), file:dut.sv, line:15:1, endln:18:10
     |vpiRhs:
     \_constant: , line:10:28, endln:10:46
+      |vpiParent:
+      \_param_assign: , line:10:16, endln:10:46
       |vpiSize:32
       |UINT:3
       |vpiTypespec:
       \_int_typespec: , line:10:12, endln:10:15
-        |vpiInstance:
-        \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::) dut.sv:1:1: , endln:12:11, parent:work@otp_ctrl
         |vpiParent:
         \_constant: , line:10:28, endln:10:46
+        |vpiInstance:
+        \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
         |vpiSigned:1
-      |vpiParent:
-      \_param_assign: , line:10:16, endln:10:46, parent:work@otp_ctrl
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@otp_ctrl.NumAgents), line:10:16, endln:10:25
+      |vpiParent:
+      \_param_assign: , line:10:16, endln:10:46
       |UINT:3
       |vpiTypespec:
-      \_int_typespec: , line:10:12, endln:10:15, parent:work@otp_ctrl.NumAgents
-        |vpiInstance:
-        \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::) dut.sv:1:1: , endln:12:11, parent:work@otp_ctrl
+      \_int_typespec: , line:10:12, endln:10:15
         |vpiParent:
         \_parameter: (work@otp_ctrl.NumAgents), line:10:16, endln:10:25
+        |vpiInstance:
+        \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
         |vpiSigned:1
-      |vpiParent:
-      \_param_assign: , line:10:16, endln:10:46, parent:work@otp_ctrl
       |vpiSigned:1
       |vpiName:NumAgents
       |vpiFullName:work@otp_ctrl.NumAgents
       |vpiImported:otp_ctrl_part_pkg
   |vpiTypedef:
-  \_enum_typespec: (otp_ctrl_part_pkg::part_idx_e), line:3:1, endln:8:16, parent:work@otp_ctrl
+  \_enum_typespec: (otp_ctrl_part_pkg::part_idx_e), line:3:1, endln:8:16
   |vpiTypedef:
   \_import_typespec: (otp_ctrl_part_pkg), line:16:10, endln:16:30
   |vpiDefName:work@otp_ctrl
   |vpiNet:
-  \_logic_net: (work@otp_ctrl.part_otp_arb_req), line:17:28, endln:17:44, parent:work@otp_ctrl
+  \_logic_net: (work@otp_ctrl.part_otp_arb_req), line:17:28, endln:17:44
+    |vpiParent:
+    \_module: work@otp_ctrl (work@otp_ctrl), file:dut.sv, line:15:1, endln:18:10
     |vpiName:part_otp_arb_req
     |vpiFullName:work@otp_ctrl.part_otp_arb_req
     |vpiNetType:36
-    |vpiParent:
-    \_module: work@otp_ctrl (work@otp_ctrl) dut.sv:15:1: , endln:18:10, parent:work@otp_ctrl
-  |vpiParent:
-  \_design: (work@otp_ctrl)
 |uhdmtopModules:
-\_module: work@otp_ctrl (work@otp_ctrl) dut.sv:15:1: , endln:18:10
+\_module: work@otp_ctrl (work@otp_ctrl), file:dut.sv, line:15:1, endln:18:10
   |vpiName:work@otp_ctrl
   |vpiVariables:
-  \_logic_var: (work@otp_ctrl.part_otp_arb_req), line:17:28, endln:17:44, parent:work@otp_ctrl
+  \_logic_var: (work@otp_ctrl.part_otp_arb_req), line:17:28, endln:17:44
+    |vpiParent:
+    \_module: work@otp_ctrl (work@otp_ctrl), file:dut.sv, line:15:1, endln:18:10
     |vpiTypespec:
     \_logic_typespec: , line:17:3, endln:17:8
       |vpiRange:
       \_range: , line:17:10, endln:17:23
         |vpiLeftRange:
         \_constant: , line:17:10, endln:17:19
+          |vpiParent:
+          \_range: , line:17:10, endln:17:23
           |vpiDecompile:2
           |vpiSize:64
           |INT:2
-          |vpiParent:
-          \_range: , line:17:10, endln:17:23
           |vpiConstType:7
         |vpiRightRange:
         \_constant: , line:17:22, endln:17:23
+          |vpiParent:
+          \_range: , line:17:10, endln:17:23
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:17:10, endln:17:23
           |vpiConstType:9
     |vpiName:part_otp_arb_req
     |vpiFullName:work@otp_ctrl.part_otp_arb_req
     |vpiVisibility:1
-    |vpiParent:
-    \_module: work@otp_ctrl (work@otp_ctrl) dut.sv:15:1: , endln:18:10
     |vpiRange:
     \_range: , line:17:10, endln:17:23
       |vpiLeftRange:
       \_constant: , line:17:10, endln:17:19
+        |vpiParent:
+        \_range: , line:17:10, endln:17:23
         |vpiDecompile:2
         |vpiSize:64
         |INT:2
-        |vpiParent:
-        \_range: , line:17:10, endln:17:23
         |vpiConstType:7
       |vpiRightRange:
       \_constant: , line:17:22, endln:17:23
+        |vpiParent:
+        \_range: , line:17:10, endln:17:23
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
-        |vpiParent:
-        \_range: , line:17:10, endln:17:23
         |vpiConstType:9
   |vpiParameter:
-  \_parameter: (work@otp_ctrl.NumAgents), line:10:16, endln:10:25, parent:work@otp_ctrl
+  \_parameter: (work@otp_ctrl.NumAgents), line:10:16, endln:10:25
+    |vpiParent:
+    \_module: work@otp_ctrl (work@otp_ctrl), file:dut.sv, line:15:1, endln:18:10
     |UINT:3
     |vpiTypespec:
-    \_int_typespec: , line:10:12, endln:10:15, parent:work@otp_ctrl.NumAgents
-      |vpiInstance:
-      \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::) dut.sv:1:1: , endln:12:11, parent:work@otp_ctrl
+    \_int_typespec: , line:10:12, endln:10:15
       |vpiParent:
-      \_parameter: (work@otp_ctrl.NumAgents), line:10:16, endln:10:25, parent:work@otp_ctrl
+      \_parameter: (work@otp_ctrl.NumAgents), line:10:16, endln:10:25
+      |vpiInstance:
+      \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
       |vpiSigned:1
-    |vpiParent:
-    \_module: work@otp_ctrl (work@otp_ctrl) dut.sv:15:1: , endln:18:10
     |vpiSigned:1
     |vpiName:NumAgents
     |vpiFullName:work@otp_ctrl.NumAgents
     |vpiImported:otp_ctrl_part_pkg
   |vpiParamAssign:
-  \_param_assign: , line:10:16, endln:10:46, parent:work@otp_ctrl
+  \_param_assign: , line:10:16, endln:10:46
     |vpiParent:
-    \_module: work@otp_ctrl (work@otp_ctrl) dut.sv:15:1: , endln:18:10
+    \_module: work@otp_ctrl (work@otp_ctrl), file:dut.sv, line:15:1, endln:18:10
     |vpiRhs:
     \_constant: , line:10:28, endln:10:46
       |vpiDecompile:3
       |vpiSize:32
       |UINT:3
       |vpiTypespec:
-      \_int_typespec: , line:10:12, endln:10:15, parent:work@otp_ctrl.NumAgents
+      \_int_typespec: , line:10:12, endln:10:15
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@otp_ctrl.NumAgents), line:10:16, endln:10:25, parent:work@otp_ctrl
+    \_parameter: (work@otp_ctrl.NumAgents), line:10:16, endln:10:25
   |vpiTypedef:
-  \_enum_typespec: (otp_ctrl_part_pkg::part_idx_e), line:3:1, endln:8:16, parent:work@otp_ctrl
+  \_enum_typespec: (otp_ctrl_part_pkg::part_idx_e), line:3:1, endln:8:16
   |vpiTypedef:
   \_import_typespec: (otp_ctrl_part_pkg), line:16:10, endln:16:30
   |vpiDefName:work@otp_ctrl

@@ -276,41 +276,41 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallInterfaces:
-\_interface: work@I (work@I) dut.sv:1:1: , endln:7:13, parent:work@top
+\_interface: work@I (work@I), file:dut.sv, line:1:1, endln:7:13
+  |vpiParent:
+  \_design: (work@top)
   |vpiFullName:work@I
   |vpiDefName:work@I
   |vpiNet:
-  \_logic_net: (work@I.r), line:2:13, endln:2:14, parent:work@I
+  \_logic_net: (work@I.r), line:2:13, endln:2:14
+    |vpiParent:
+    \_interface: work@I (work@I), file:dut.sv, line:1:1, endln:7:13
     |vpiName:r
     |vpiFullName:work@I.r
     |vpiNetType:36
-    |vpiParent:
-    \_interface: work@I (work@I) dut.sv:1:1: , endln:7:13, parent:work@top
   |vpiNet:
-  \_logic_net: (work@I.x), line:3:11, endln:3:12, parent:work@I
+  \_logic_net: (work@I.x), line:3:11, endln:3:12
+    |vpiParent:
+    \_interface: work@I (work@I), file:dut.sv, line:1:1, endln:7:13
     |vpiName:x
     |vpiFullName:work@I.x
-    |vpiParent:
-    \_interface: work@I (work@I) dut.sv:1:1: , endln:7:13, parent:work@top
   |vpiNet:
-  \_logic_net: (work@I.R), line:4:5, endln:4:6, parent:work@I
+  \_logic_net: (work@I.R), line:4:5, endln:4:6
+    |vpiParent:
+    \_interface: work@I (work@I), file:dut.sv, line:1:1, endln:7:13
     |vpiName:R
     |vpiFullName:work@I.R
-    |vpiParent:
-    \_interface: work@I (work@I) dut.sv:1:1: , endln:7:13, parent:work@top
-  |vpiParent:
-  \_design: (work@top)
   |vpiModport:
-  \_modport: (A), line:5:9, endln:5:10, parent:work@I
+  \_modport: (A), line:5:9, endln:5:10
     |vpiParent:
-    \_interface: work@I (work@I) dut.sv:1:1: , endln:7:13, parent:work@top
+    \_interface: work@I (work@I), file:dut.sv, line:1:1, endln:7:13
     |vpiName:A
     |vpiIODecl:
     \_io_decl: (P), line:5:20, endln:5:21
       |vpiDirection:2
       |vpiName:P
       |vpiExpr:
-      \_part_select: , line:5:24, endln:5:27, parent:r
+      \_part_select: , line:5:24, endln:5:27
         |vpiParent:
         \_ref_obj: r (r)
           |vpiName:r
@@ -336,7 +336,9 @@ design: (work@top)
       \_ref_obj: (x), line:5:40, endln:5:41
         |vpiName:x
         |vpiActual:
-        \_int_var: (work@top.inst.x), line:3:11, endln:3:14, parent:work@top.inst
+        \_int_var: (work@top.inst.x), line:3:11, endln:3:14
+          |vpiParent:
+          \_interface: work@I (work@top.inst), file:dut.sv, line:15:3, endln:15:12
           |vpiTypespec:
           \_int_typespec: , line:3:7, endln:3:10
             |vpiSigned:1
@@ -350,23 +352,21 @@ design: (work@top)
             |vpiSize:32
             |UINT:1
             |vpiConstType:9
-          |vpiParent:
-          \_interface: work@I (work@top.inst) dut.sv:15:3: , endln:15:12, parent:work@top
     |vpiIODecl:
     \_io_decl: (R), line:5:44, endln:5:45
       |vpiDirection:1
       |vpiName:R
   |vpiModport:
-  \_modport: (B), line:6:9, endln:6:10, parent:work@I
+  \_modport: (B), line:6:9, endln:6:10
     |vpiParent:
-    \_interface: work@I (work@I) dut.sv:1:1: , endln:7:13, parent:work@top
+    \_interface: work@I (work@I), file:dut.sv, line:1:1, endln:7:13
     |vpiName:B
     |vpiIODecl:
     \_io_decl: (P), line:6:20, endln:6:21
       |vpiDirection:2
       |vpiName:P
       |vpiExpr:
-      \_part_select: , line:6:24, endln:6:27, parent:r
+      \_part_select: , line:6:24, endln:6:27
         |vpiParent:
         \_ref_obj: r (r)
           |vpiName:r
@@ -399,185 +399,185 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:R
 |uhdmallModules:
-\_module: work@sub (work@sub) dut.sv:9:1: , endln:12:10, parent:work@top
+\_module: work@sub (work@sub), file:dut.sv, line:9:1, endln:12:10
+  |vpiParent:
+  \_design: (work@top)
   |vpiFullName:work@sub
   |vpiDefName:work@sub
   |vpiNet:
-  \_logic_net: (work@sub.I), line:9:23, endln:9:24, parent:work@sub
+  \_logic_net: (work@sub.I), line:9:23, endln:9:24
+    |vpiParent:
+    \_module: work@sub (work@sub), file:dut.sv, line:9:1, endln:12:10
     |vpiName:I
     |vpiFullName:work@sub.I
-    |vpiParent:
-    \_module: work@sub (work@sub) dut.sv:9:1: , endln:12:10, parent:work@top
-  |vpiParent:
-  \_design: (work@top)
   |vpiPort:
-  \_port: (I), line:9:23, endln:9:24, parent:work@sub
+  \_port: (I), line:9:23, endln:9:24
+    |vpiParent:
+    \_module: work@sub (work@sub), file:dut.sv, line:9:1, endln:12:10
     |vpiName:I
     |vpiDirection:3
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_interface: work@I (work@I) dut.sv:1:1: , endln:7:13, parent:work@top
-    |vpiParent:
-    \_module: work@sub (work@sub) dut.sv:9:1: , endln:12:10, parent:work@top
+      \_interface: work@I (work@I), file:dut.sv, line:1:1, endln:7:13
   |vpiProcess:
-  \_initial: , line:11:3, endln:11:25, parent:work@sub
+  \_initial: , line:11:3, endln:11:25
+    |vpiParent:
+    \_module: work@sub (work@sub), file:dut.sv, line:9:1, endln:12:10
     |vpiStmt:
     \_assignment: , line:11:11, endln:11:24
       |vpiParent:
-      \_initial: , line:11:3, endln:11:25, parent:work@sub
+      \_initial: , line:11:3, endln:11:25
       |vpiOpType:82
       |vpiBlocking:1
       |vpiRhs:
       \_constant: , line:11:17, endln:11:24
+        |vpiParent:
+        \_assignment: , line:11:11, endln:11:24
         |vpiDecompile:4'b1010
         |vpiSize:4
         |BIN:1010
-        |vpiParent:
-        \_assignment: , line:11:11, endln:11:24
         |vpiConstType:3
       |vpiLhs:
       \_hier_path: (I.P), line:11:11, endln:11:14
         |vpiParent:
-        \_initial: , line:11:3, endln:11:25, parent:work@sub
+        \_initial: , line:11:3, endln:11:25
         |vpiName:I.P
         |vpiActual:
-        \_ref_obj: (I), parent:I.P
+        \_ref_obj: (I)
           |vpiParent:
           \_hier_path: (I.P), line:11:11, endln:11:14
           |vpiName:I
         |vpiActual:
         \_ref_obj: (P)
           |vpiName:P
-    |vpiParent:
-    \_module: work@sub (work@sub) dut.sv:9:1: , endln:12:10, parent:work@top
 |uhdmallModules:
-\_module: work@top (work@top) dut.sv:14:1: , endln:20:10, parent:work@top
-  |vpiFullName:work@top
-  |vpiDefName:work@top
+\_module: work@top (work@top), file:dut.sv, line:14:1, endln:20:10
   |vpiParent:
   \_design: (work@top)
+  |vpiFullName:work@top
+  |vpiDefName:work@top
   |vpiProcess:
-  \_initial: , line:18:3, endln:18:40, parent:work@top
+  \_initial: , line:18:3, endln:18:40
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:14:1, endln:20:10
     |vpiStmt:
     \_delay_control: , line:18:11, endln:18:13
       |vpiParent:
-      \_initial: , line:18:3, endln:18:40, parent:work@top
+      \_initial: , line:18:3, endln:18:40
       |#1
       |vpiStmt:
       \_sys_func_call: ($display), line:18:14, endln:18:39
+        |vpiParent:
+        \_delay_control: , line:18:11, endln:18:13
         |vpiArgument:
-        \_constant: , line:18:23, endln:18:30, parent:$display
+        \_constant: , line:18:23, endln:18:30
+          |vpiParent:
+          \_sys_func_call: ($display), line:18:14, endln:18:39
           |vpiDecompile:0x%0b
           |vpiSize:5
           |STRING:0x%0b
-          |vpiParent:
-          \_sys_func_call: ($display), line:18:14, endln:18:39
           |vpiConstType:6
         |vpiArgument:
-        \_hier_path: (inst.r), line:18:32, endln:18:38, parent:$display
+        \_hier_path: (inst.r), line:18:32, endln:18:38
           |vpiParent:
           \_sys_func_call: ($display), line:18:14, endln:18:39
           |vpiName:inst.r
           |vpiActual:
-          \_ref_obj: (inst), line:18:32, endln:18:36, parent:inst.r
+          \_ref_obj: (inst), line:18:32, endln:18:36
             |vpiParent:
-            \_hier_path: (inst.r), line:18:32, endln:18:38, parent:$display
+            \_hier_path: (inst.r), line:18:32, endln:18:38
             |vpiName:inst
           |vpiActual:
           \_ref_obj: (r), line:18:37, endln:18:38
             |vpiName:r
         |vpiName:$display
-        |vpiParent:
-        \_delay_control: , line:18:11, endln:18:13
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:14:1: , endln:20:10, parent:work@top
 |uhdmtopModules:
-\_module: work@top (work@top) dut.sv:14:1: , endln:20:10
+\_module: work@top (work@top), file:dut.sv, line:14:1, endln:20:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
   |vpiInterface:
-  \_interface: work@I (work@top.inst) dut.sv:15:3: , endln:15:12, parent:work@top
+  \_interface: work@I (work@top.inst), file:dut.sv, line:15:3, endln:15:12
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:14:1, endln:20:10
     |vpiName:inst
     |vpiFullName:work@top.inst
     |vpiVariables:
-    \_logic_var: (work@top.inst.r), line:2:13, endln:2:14, parent:work@top.inst
+    \_logic_var: (work@top.inst.r), line:2:13, endln:2:14
+      |vpiParent:
+      \_interface: work@I (work@top.inst), file:dut.sv, line:15:3, endln:15:12
       |vpiTypespec:
       \_logic_typespec: , line:2:1, endln:2:6
         |vpiRange:
         \_range: , line:2:8, endln:2:11
           |vpiLeftRange:
           \_constant: , line:2:8, endln:2:9
+            |vpiParent:
+            \_range: , line:2:8, endln:2:11
             |vpiDecompile:7
             |vpiSize:64
             |UINT:7
-            |vpiParent:
-            \_range: , line:2:8, endln:2:11
             |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:2:10, endln:2:11
+            |vpiParent:
+            \_range: , line:2:8, endln:2:11
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-            |vpiParent:
-            \_range: , line:2:8, endln:2:11
             |vpiConstType:9
       |vpiName:r
       |vpiFullName:work@top.inst.r
       |vpiVisibility:1
-      |vpiParent:
-      \_interface: work@I (work@top.inst) dut.sv:15:3: , endln:15:12, parent:work@top
       |vpiRange:
       \_range: , line:2:8, endln:2:11
         |vpiLeftRange:
         \_constant: , line:2:8, endln:2:9
+          |vpiParent:
+          \_range: , line:2:8, endln:2:11
           |vpiDecompile:7
           |vpiSize:64
           |UINT:7
-          |vpiParent:
-          \_range: , line:2:8, endln:2:11
           |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:2:10, endln:2:11
+          |vpiParent:
+          \_range: , line:2:8, endln:2:11
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:2:8, endln:2:11
           |vpiConstType:9
     |vpiVariables:
-    \_int_var: (work@top.inst.x), line:3:11, endln:3:14, parent:work@top.inst
+    \_int_var: (work@top.inst.x), line:3:11, endln:3:14
     |vpiVariables:
-    \_bit_var: (work@top.inst.R), line:4:5, endln:4:6, parent:work@top.inst
+    \_bit_var: (work@top.inst.R), line:4:5, endln:4:6
+      |vpiParent:
+      \_interface: work@I (work@top.inst), file:dut.sv, line:15:3, endln:15:12
       |vpiTypespec:
       \_bit_typespec: , line:4:1, endln:4:4
       |vpiName:R
       |vpiFullName:work@top.inst.R
       |vpiVisibility:1
-      |vpiParent:
-      \_interface: work@I (work@top.inst) dut.sv:15:3: , endln:15:12, parent:work@top
     |vpiDefName:work@I
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:14:1: , endln:20:10
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:14:1: , endln:20:10
+    \_module: work@top (work@top), file:dut.sv, line:14:1, endln:20:10
     |vpiModport:
-    \_modport: (A), line:5:9, endln:5:10, parent:work@top.inst
+    \_modport: (A), line:5:9, endln:5:10
       |vpiParent:
-      \_interface: work@I (work@top.inst) dut.sv:15:3: , endln:15:12, parent:work@top
+      \_interface: work@I (work@top.inst), file:dut.sv, line:15:3, endln:15:12
       |vpiName:A
       |vpiIODecl:
-      \_io_decl: (P), line:5:20, endln:5:21, parent:A
+      \_io_decl: (P), line:5:20, endln:5:21
         |vpiParent:
-        \_modport: (A), line:5:9, endln:5:10, parent:work@top.inst
+        \_modport: (A), line:5:9, endln:5:10
         |vpiDirection:2
         |vpiName:P
         |vpiExpr:
-        \_part_select: , line:5:24, endln:5:27, parent:r
+        \_part_select: , line:5:24, endln:5:27
           |vpiParent:
           \_ref_obj: r (r)
             |vpiName:r
@@ -596,34 +596,34 @@ design: (work@top)
             |UINT:0
             |vpiConstType:9
       |vpiIODecl:
-      \_io_decl: (Q), line:5:38, endln:5:39, parent:A
+      \_io_decl: (Q), line:5:38, endln:5:39
         |vpiParent:
-        \_modport: (A), line:5:9, endln:5:10, parent:work@top.inst
+        \_modport: (A), line:5:9, endln:5:10
         |vpiDirection:1
         |vpiName:Q
         |vpiExpr:
         \_constant: , line:3:13, endln:3:14
       |vpiIODecl:
-      \_io_decl: (R), line:5:44, endln:5:45, parent:A
+      \_io_decl: (R), line:5:44, endln:5:45
         |vpiParent:
-        \_modport: (A), line:5:9, endln:5:10, parent:work@top.inst
+        \_modport: (A), line:5:9, endln:5:10
         |vpiDirection:1
         |vpiName:R
       |vpiInterface:
-      \_interface: work@I (work@top.inst) dut.sv:15:3: , endln:15:12, parent:work@top
+      \_interface: work@I (work@top.inst), file:dut.sv, line:15:3, endln:15:12
     |vpiModport:
-    \_modport: (B), line:6:9, endln:6:10, parent:work@top.inst
+    \_modport: (B), line:6:9, endln:6:10
       |vpiParent:
-      \_interface: work@I (work@top.inst) dut.sv:15:3: , endln:15:12, parent:work@top
+      \_interface: work@I (work@top.inst), file:dut.sv, line:15:3, endln:15:12
       |vpiName:B
       |vpiIODecl:
-      \_io_decl: (P), line:6:20, endln:6:21, parent:B
+      \_io_decl: (P), line:6:20, endln:6:21
         |vpiParent:
-        \_modport: (B), line:6:9, endln:6:10, parent:work@top.inst
+        \_modport: (B), line:6:9, endln:6:10
         |vpiDirection:2
         |vpiName:P
         |vpiExpr:
-        \_part_select: , line:6:24, endln:6:27, parent:r
+        \_part_select: , line:6:24, endln:6:27
           |vpiParent:
           \_ref_obj: r (r)
             |vpiName:r
@@ -642,9 +642,9 @@ design: (work@top)
             |UINT:4
             |vpiConstType:9
       |vpiIODecl:
-      \_io_decl: (Q), line:6:38, endln:6:39, parent:B
+      \_io_decl: (Q), line:6:38, endln:6:39
         |vpiParent:
-        \_modport: (B), line:6:9, endln:6:10, parent:work@top.inst
+        \_modport: (B), line:6:9, endln:6:10
         |vpiDirection:1
         |vpiName:Q
         |vpiExpr:
@@ -654,95 +654,97 @@ design: (work@top)
           |UINT:2
           |vpiConstType:9
       |vpiIODecl:
-      \_io_decl: (R), line:6:44, endln:6:45, parent:B
+      \_io_decl: (R), line:6:44, endln:6:45
         |vpiParent:
-        \_modport: (B), line:6:9, endln:6:10, parent:work@top.inst
+        \_modport: (B), line:6:9, endln:6:10
         |vpiDirection:1
         |vpiName:R
       |vpiInterface:
-      \_interface: work@I (work@top.inst) dut.sv:15:3: , endln:15:12, parent:work@top
+      \_interface: work@I (work@top.inst), file:dut.sv, line:15:3, endln:15:12
   |vpiProcess:
-  \_initial: , line:18:3, endln:18:40, parent:work@top
+  \_initial: , line:18:3, endln:18:40
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:14:1, endln:20:10
     |vpiStmt:
     \_delay_control: , line:18:11, endln:18:13
       |vpiParent:
-      \_initial: , line:18:3, endln:18:40, parent:work@top
+      \_initial: , line:18:3, endln:18:40
       |#1
       |vpiStmt:
       \_sys_func_call: ($display), line:18:14, endln:18:39
+        |vpiParent:
+        \_delay_control: , line:18:11, endln:18:13
         |vpiArgument:
-        \_constant: , line:18:23, endln:18:30, parent:$display
+        \_constant: , line:18:23, endln:18:30
         |vpiArgument:
-        \_hier_path: (inst.r), line:18:32, endln:18:38, parent:$display
+        \_hier_path: (inst.r), line:18:32, endln:18:38
           |vpiParent:
           \_sys_func_call: ($display), line:18:14, endln:18:39
           |vpiName:inst.r
           |vpiActual:
-          \_ref_obj: (inst), line:18:32, endln:18:36, parent:inst.r
+          \_ref_obj: (inst), line:18:32, endln:18:36
             |vpiParent:
-            \_hier_path: (inst.r), line:18:32, endln:18:38, parent:$display
+            \_hier_path: (inst.r), line:18:32, endln:18:38
             |vpiName:inst
             |vpiActual:
-            \_interface: work@I (work@top.inst) dut.sv:15:3: , endln:15:12, parent:work@top
+            \_interface: work@I (work@top.inst), file:dut.sv, line:15:3, endln:15:12
           |vpiActual:
-          \_ref_obj: (r), line:18:37, endln:18:38, parent:inst.r
+          \_ref_obj: (r), line:18:37, endln:18:38
             |vpiParent:
-            \_hier_path: (inst.r), line:18:32, endln:18:38, parent:$display
+            \_hier_path: (inst.r), line:18:32, endln:18:38
             |vpiName:r
             |vpiActual:
-            \_logic_var: (work@top.inst.r), line:2:13, endln:2:14, parent:work@top.inst
+            \_logic_var: (work@top.inst.r), line:2:13, endln:2:14
         |vpiName:$display
-        |vpiParent:
-        \_delay_control: , line:18:11, endln:18:13
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:14:1: , endln:20:10
   |vpiModule:
-  \_module: work@sub (work@top.s) dut.sv:16:3: , endln:16:18, parent:work@top
+  \_module: work@sub (work@top.s), file:dut.sv, line:16:3, endln:16:18
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:14:1, endln:20:10
     |vpiName:s
     |vpiFullName:work@top.s
     |vpiDefName:work@sub
     |vpiDefFile:dut.sv
     |vpiDefLineNo:9
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:14:1: , endln:20:10
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:14:1: , endln:20:10
+    \_module: work@top (work@top), file:dut.sv, line:14:1, endln:20:10
     |vpiPort:
-    \_port: (I), line:9:23, endln:9:24, parent:work@top.s
+    \_port: (I), line:9:23, endln:9:24
+      |vpiParent:
+      \_module: work@sub (work@top.s), file:dut.sv, line:16:3, endln:16:18
       |vpiName:I
       |vpiDirection:3
       |vpiHighConn:
-      \_hier_path: (inst.A), line:16:10, endln:16:16, parent:I
+      \_hier_path: (inst.A), line:16:10, endln:16:16
         |vpiParent:
-        \_port: (I), line:9:23, endln:9:24, parent:work@top.s
+        \_port: (I), line:9:23, endln:9:24
         |vpiName:inst.A
         |vpiActual:
-        \_ref_obj: (inst), line:16:10, endln:16:14, parent:inst.A
+        \_ref_obj: (inst), line:16:10, endln:16:14
           |vpiParent:
-          \_hier_path: (inst.A), line:16:10, endln:16:16, parent:I
+          \_hier_path: (inst.A), line:16:10, endln:16:16
           |vpiName:inst
           |vpiActual:
-          \_interface: work@I (work@top.inst) dut.sv:15:3: , endln:15:12, parent:work@top
+          \_interface: work@I (work@top.inst), file:dut.sv, line:15:3, endln:15:12
         |vpiActual:
-        \_ref_obj: (A), line:16:15, endln:16:16, parent:inst.A
+        \_ref_obj: (A), line:16:15, endln:16:16
           |vpiParent:
-          \_hier_path: (inst.A), line:16:10, endln:16:16, parent:I
+          \_hier_path: (inst.A), line:16:10, endln:16:16
           |vpiName:A
           |vpiActual:
-          \_modport: (A), line:5:9, endln:5:10, parent:work@top.inst
+          \_modport: (A), line:5:9, endln:5:10
       |vpiLowConn:
-      \_ref_obj: (work@top.s.I), line:16:10, endln:16:16, parent:I
+      \_ref_obj: (work@top.s.I), line:16:10, endln:16:16
         |vpiParent:
-        \_port: (I), line:9:23, endln:9:24, parent:work@top.s
+        \_port: (I), line:9:23, endln:9:24
         |vpiFullName:work@top.s.I
         |vpiActual:
-        \_interface: work@I (I) dut.sv:16: 
+        \_interface: work@I (I), file:dut.sv, line:16:0
           |vpiName:I
           |vpiDefName:work@I
           |vpiModport:
-          \_modport: (A), line:5:9, endln:5:10, parent:I
+          \_modport: (A), line:5:9, endln:5:10
             |vpiParent:
-            \_interface: work@I (I) dut.sv:16: 
+            \_interface: work@I (I), file:dut.sv, line:16:0
             |vpiName:A
             |vpiIODecl:
             \_io_decl: (P), line:5:20, endln:5:21
@@ -763,11 +765,11 @@ design: (work@top)
                 |vpiName:R
                 |vpiVisibility:1
             |vpiInterface:
-            \_interface: work@I (I) dut.sv:16: 
+            \_interface: work@I (I), file:dut.sv, line:16:0
           |vpiModport:
-          \_modport: (B), line:6:9, endln:6:10, parent:I
+          \_modport: (B), line:6:9, endln:6:10
             |vpiParent:
-            \_interface: work@I (I) dut.sv:16: 
+            \_interface: work@I (I), file:dut.sv, line:16:0
             |vpiName:B
             |vpiIODecl:
             \_io_decl: (P), line:6:20, endln:6:21
@@ -784,20 +786,20 @@ design: (work@top)
               |vpiExpr:
               \_bit_var: (R), line:4:5, endln:4:6
             |vpiInterface:
-            \_interface: work@I (I) dut.sv:16: 
+            \_interface: work@I (I), file:dut.sv, line:16:0
       |vpiTypedef:
       \_interface_typespec: (I), line:9:23, endln:9:24
         |vpiName:I
       |vpiInstance:
-      \_module: work@sub (work@top.s) dut.sv:16:3: , endln:16:18, parent:work@top
-      |vpiParent:
-      \_module: work@sub (work@top.s) dut.sv:16:3: , endln:16:18, parent:work@top
+      \_module: work@sub (work@top.s), file:dut.sv, line:16:3, endln:16:18
     |vpiProcess:
-    \_initial: , line:11:3, endln:11:25, parent:work@top.s
+    \_initial: , line:11:3, endln:11:25
+      |vpiParent:
+      \_module: work@sub (work@top.s), file:dut.sv, line:16:3, endln:16:18
       |vpiStmt:
       \_assignment: , line:11:11, endln:11:24
         |vpiParent:
-        \_initial: , line:11:3, endln:11:25, parent:work@top.s
+        \_initial: , line:11:3, endln:11:25
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -808,21 +810,19 @@ design: (work@top)
           \_assignment: , line:11:11, endln:11:24
           |vpiName:I.P
           |vpiActual:
-          \_ref_obj: (I), parent:I.P
+          \_ref_obj: (I)
             |vpiParent:
             \_hier_path: (I.P), line:11:11, endln:11:14
             |vpiName:I
             |vpiActual:
-            \_interface: work@I (I) dut.sv:16: 
+            \_interface: work@I (I), file:dut.sv, line:16:0
           |vpiActual:
-          \_ref_obj: (P), parent:I.P
+          \_ref_obj: (P)
             |vpiParent:
             \_hier_path: (I.P), line:11:11, endln:11:14
             |vpiName:P
             |vpiActual:
             \_io_decl: (P), line:5:20, endln:5:21
-      |vpiParent:
-      \_module: work@sub (work@top.s) dut.sv:16:3: , endln:16:18, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

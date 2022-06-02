@@ -204,43 +204,47 @@ design: (work@constfunc11)
 |vpiElaborated:1
 |vpiName:work@constfunc11
 |uhdmallModules:
-\_module: work@GOOD (work@GOOD) dut.sv:1:1: , endln:2:10, parent:work@constfunc11
-  |vpiFullName:work@GOOD
-  |vpiDefName:work@GOOD
+\_module: work@GOOD (work@GOOD), file:dut.sv, line:1:1, endln:2:10
   |vpiParent:
   \_design: (work@constfunc11)
+  |vpiFullName:work@GOOD
+  |vpiDefName:work@GOOD
 |uhdmallModules:
-\_module: work@constfunc11 (work@constfunc11) dut.sv:4:1: , endln:23:10, parent:work@constfunc11
+\_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
+  |vpiParent:
+  \_design: (work@constfunc11)
   |vpiFullName:work@constfunc11
   |vpiParameter:
-  \_parameter: (work@constfunc11.val0), line:17:12, endln:17:16, parent:work@constfunc11
+  \_parameter: (work@constfunc11.val0), line:17:12, endln:17:16
     |vpiParent:
-    \_module: work@constfunc11 (work@constfunc11) dut.sv:4:1: , endln:23:10, parent:work@constfunc11
+    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
     |vpiLocalParam:1
     |vpiName:val0
     |vpiFullName:work@constfunc11.val0
   |vpiParamAssign:
-  \_param_assign: , line:17:12, endln:17:26, parent:work@constfunc11
+  \_param_assign: , line:17:12, endln:17:26
     |vpiParent:
-    \_module: work@constfunc11 (work@constfunc11) dut.sv:4:1: , endln:23:10, parent:work@constfunc11
+    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
     |vpiRhs:
     \_func_call: (pow2), line:17:19, endln:17:23
       |vpiArgument:
-      \_constant: , line:17:24, endln:17:25, parent:pow2
+      \_constant: , line:17:24, endln:17:25
+        |vpiParent:
+        \_func_call: (pow2), line:17:19, endln:17:23
         |vpiDecompile:4
         |vpiSize:64
         |UINT:4
-        |vpiParent:
-        \_func_call: (pow2), line:17:19, endln:17:23
         |vpiConstType:9
       |vpiName:pow2
       |vpiFunction:
-      \_function: (work@constfunc11.pow2), line:6:1, endln:15:12, parent:work@constfunc11
+      \_function: (work@constfunc11.pow2), line:6:1, endln:15:12
     |vpiLhs:
-    \_parameter: (work@constfunc11.val0), line:17:12, endln:17:16, parent:work@constfunc11
+    \_parameter: (work@constfunc11.val0), line:17:12, endln:17:16
   |vpiDefName:work@constfunc11
   |vpiTaskFunc:
-  \_function: (work@constfunc11.pow2), line:6:1, endln:15:12, parent:work@constfunc11
+  \_function: (work@constfunc11.pow2), line:6:1, endln:15:12
+    |vpiParent:
+    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
     |vpiName:pow2
     |vpiFullName:work@constfunc11.pow2
     |vpiVisibility:1
@@ -252,22 +256,22 @@ design: (work@constfunc11)
         \_range: , line:6:11, endln:6:15
           |vpiLeftRange:
           \_constant: , line:6:11, endln:6:13
+            |vpiParent:
+            \_range: , line:6:11, endln:6:15
             |vpiDecompile:31
             |vpiSize:64
             |UINT:31
-            |vpiParent:
-            \_range: , line:6:11, endln:6:15
             |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:6:14, endln:6:15
+            |vpiParent:
+            \_range: , line:6:11, endln:6:15
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-            |vpiParent:
-            \_range: , line:6:11, endln:6:15
             |vpiConstType:9
     |vpiParent:
-    \_module: work@constfunc11 (work@constfunc11) dut.sv:4:1: , endln:23:10, parent:work@constfunc11
+    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
     |vpiIODecl:
     \_io_decl: (x), line:6:34, endln:6:35
       |vpiDirection:1
@@ -278,263 +282,92 @@ design: (work@constfunc11)
         \_range: , line:6:29, endln:6:32
           |vpiLeftRange:
           \_constant: , line:6:29, endln:6:30
+            |vpiParent:
+            \_range: , line:6:29, endln:6:32
             |vpiDecompile:5
             |vpiSize:64
             |UINT:5
-            |vpiParent:
-            \_range: , line:6:29, endln:6:32
             |vpiConstType:9
           |vpiRightRange:
           \_constant: , line:6:31, endln:6:32
+            |vpiParent:
+            \_range: , line:6:29, endln:6:32
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-            |vpiParent:
-            \_range: , line:6:29, endln:6:32
             |vpiConstType:9
     |vpiStmt:
-    \_named_begin: (work@constfunc11.pow2.body), line:8:1, endln:13:4, parent:work@constfunc11.pow2
+    \_named_begin: (work@constfunc11.pow2.body), line:8:1, endln:13:4
+      |vpiParent:
+      \_function: (work@constfunc11.pow2), line:6:1, endln:15:12
       |vpiName:body
       |vpiFullName:work@constfunc11.pow2.body
-      |vpiParent:
-      \_function: (work@constfunc11.pow2), line:6:1, endln:15:12, parent:work@constfunc11
       |vpiStmt:
-      \_assignment: , line:9:3, endln:9:11, parent:work@constfunc11.pow2.body
+      \_assignment: , line:9:3, endln:9:11
         |vpiParent:
-        \_named_begin: (work@constfunc11.pow2.body), line:8:1, endln:13:4, parent:work@constfunc11.pow2
+        \_named_begin: (work@constfunc11.pow2.body), line:8:1, endln:13:4
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:9:10, endln:9:11
+          |vpiParent:
+          \_assignment: , line:9:3, endln:9:11
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
-          |vpiParent:
-          \_assignment: , line:9:3, endln:9:11, parent:work@constfunc11.pow2.body
           |vpiConstType:9
         |vpiLhs:
-        \_ref_obj: (work@constfunc11.pow2.body.pow2), line:9:3, endln:9:7, parent:work@constfunc11.pow2.body
+        \_ref_obj: (work@constfunc11.pow2.body.pow2), line:9:3, endln:9:7
           |vpiParent:
-          \_named_begin: (work@constfunc11.pow2.body), line:8:1, endln:13:4, parent:work@constfunc11.pow2
+          \_named_begin: (work@constfunc11.pow2.body), line:8:1, endln:13:4
           |vpiName:pow2
           |vpiFullName:work@constfunc11.pow2.body.pow2
           |vpiActual:
           \_logic_var: (pow2), line:6:10, endln:6:16
             |vpiTypespec:
-            \_logic_typespec: , line:6:10, endln:6:16, parent:pow2
+            \_logic_typespec: , line:6:10, endln:6:16
               |vpiParent:
               \_logic_var: (pow2), line:6:10, endln:6:16
               |vpiRange:
               \_range: , line:6:11, endln:6:15
                 |vpiParent:
-                \_logic_typespec: , line:6:10, endln:6:16, parent:pow2
+                \_logic_typespec: , line:6:10, endln:6:16
                 |vpiLeftRange:
                 \_constant: , line:6:11, endln:6:13
+                  |vpiParent:
+                  \_range: , line:6:11, endln:6:15
                   |vpiDecompile:31
                   |vpiSize:64
                   |UINT:31
-                  |vpiParent:
-                  \_range: , line:6:11, endln:6:15
                   |vpiConstType:9
                 |vpiRightRange:
                 \_constant: , line:6:14, endln:6:15
+                  |vpiParent:
+                  \_range: , line:6:11, endln:6:15
                   |vpiDecompile:0
                   |vpiSize:64
                   |UINT:0
-                  |vpiParent:
-                  \_range: , line:6:11, endln:6:15
                   |vpiConstType:9
             |vpiName:pow2
       |vpiStmt:
-      \_repeat: , line:10:3, endln:10:9, parent:work@constfunc11.pow2.body
+      \_repeat: , line:10:3, endln:10:9
         |vpiParent:
-        \_named_begin: (work@constfunc11.pow2.body), line:8:1, endln:13:4, parent:work@constfunc11.pow2
+        \_named_begin: (work@constfunc11.pow2.body), line:8:1, endln:13:4
         |vpiCondition:
         \_ref_obj: (work@constfunc11.pow2.body.x), line:10:11, endln:10:12
           |vpiParent:
-          \_repeat: , line:10:3, endln:10:9, parent:work@constfunc11.pow2.body
+          \_repeat: , line:10:3, endln:10:9
           |vpiName:x
           |vpiFullName:work@constfunc11.pow2.body.x
           |vpiActual:
           \_io_decl: (x), line:6:34, endln:6:35
         |vpiStmt:
         \_begin: (work@constfunc11.pow2.body), line:10:14, endln:12:6
+          |vpiParent:
+          \_repeat: , line:10:3, endln:10:9
           |vpiFullName:work@constfunc11.pow2.body
-          |vpiParent:
-          \_repeat: , line:10:3, endln:10:9, parent:work@constfunc11.pow2.body
           |vpiStmt:
-          \_assignment: , line:11:5, endln:11:20, parent:work@constfunc11.pow2.body
-            |vpiParent:
-            \_begin: (work@constfunc11.pow2.body), line:10:14, endln:12:6
-            |vpiOpType:82
-            |vpiBlocking:1
-            |vpiRhs:
-            \_operation: , line:11:12, endln:11:20, parent:work@constfunc11.pow2.body
-              |vpiParent:
-              \_begin: (work@constfunc11.pow2.body), line:10:14, endln:12:6
-              |vpiOpType:25
-              |vpiOperand:
-              \_constant: , line:11:12, endln:11:13
-                |vpiDecompile:2
-                |vpiSize:64
-                |UINT:2
-                |vpiParent:
-                \_operation: , line:11:12, endln:11:20, parent:work@constfunc11.pow2.body
-                |vpiConstType:9
-              |vpiOperand:
-              \_ref_obj: (work@constfunc11.pow2.body.pow2), line:11:16, endln:11:20
-                |vpiParent:
-                \_operation: , line:11:12, endln:11:20, parent:work@constfunc11.pow2.body
-                |vpiName:pow2
-                |vpiFullName:work@constfunc11.pow2.body.pow2
-                |vpiActual:
-                \_logic_var: (pow2), line:6:10, endln:6:16
-                  |vpiTypespec:
-                  \_logic_typespec: , line:6:10, endln:6:16, parent:pow2
-                    |vpiParent:
-                    \_logic_var: (pow2), line:6:10, endln:6:16
-                    |vpiRange:
-                    \_range: , line:6:11, endln:6:15
-                      |vpiParent:
-                      \_logic_typespec: , line:6:10, endln:6:16, parent:pow2
-                      |vpiLeftRange:
-                      \_constant: , line:6:11, endln:6:13
-                        |vpiDecompile:31
-                        |vpiSize:64
-                        |UINT:31
-                        |vpiParent:
-                        \_range: , line:6:11, endln:6:15
-                        |vpiConstType:9
-                      |vpiRightRange:
-                      \_constant: , line:6:14, endln:6:15
-                        |vpiDecompile:0
-                        |vpiSize:64
-                        |UINT:0
-                        |vpiParent:
-                        \_range: , line:6:11, endln:6:15
-                        |vpiConstType:9
-                  |vpiName:pow2
-            |vpiLhs:
-            \_ref_obj: (work@constfunc11.pow2.body.pow2), line:11:5, endln:11:9, parent:work@constfunc11.pow2.body
-              |vpiParent:
-              \_begin: (work@constfunc11.pow2.body), line:10:14, endln:12:6
-              |vpiName:pow2
-              |vpiFullName:work@constfunc11.pow2.body.pow2
-              |vpiActual:
-              \_logic_var: (pow2), line:6:10, endln:6:16
-                |vpiTypespec:
-                \_logic_typespec: , line:6:10, endln:6:16, parent:pow2
-                  |vpiParent:
-                  \_logic_var: (pow2), line:6:10, endln:6:16
-                  |vpiRange:
-                  \_range: , line:6:11, endln:6:15
-                    |vpiParent:
-                    \_logic_typespec: , line:6:10, endln:6:16, parent:pow2
-                    |vpiLeftRange:
-                    \_constant: , line:6:11, endln:6:13
-                      |vpiDecompile:31
-                      |vpiSize:64
-                      |UINT:31
-                      |vpiParent:
-                      \_range: , line:6:11, endln:6:15
-                      |vpiConstType:9
-                    |vpiRightRange:
-                    \_constant: , line:6:14, endln:6:15
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                      |vpiParent:
-                      \_range: , line:6:11, endln:6:15
-                      |vpiConstType:9
-                |vpiName:pow2
-    |vpiInstance:
-    \_module: work@constfunc11 (work@constfunc11) dut.sv:4:1: , endln:23:10, parent:work@constfunc11
-    |vpiParent:
-    \_module: work@constfunc11 (work@constfunc11) dut.sv:4:1: , endln:23:10, parent:work@constfunc11
-  |vpiParent:
-  \_design: (work@constfunc11)
-|uhdmtopModules:
-\_module: work@constfunc11 (work@constfunc11) dut.sv:4:1: , endln:23:10
-  |vpiName:work@constfunc11
-  |vpiParameter:
-  \_parameter: (work@constfunc11.val0), line:17:12, endln:17:16, parent:work@constfunc11
-    |vpiParent:
-    \_module: work@constfunc11 (work@constfunc11) dut.sv:4:1: , endln:23:10
-    |vpiLocalParam:1
-    |vpiName:val0
-    |vpiFullName:work@constfunc11.val0
-  |vpiParamAssign:
-  \_param_assign: , line:17:12, endln:17:26, parent:work@constfunc11
-    |vpiParent:
-    \_module: work@constfunc11 (work@constfunc11) dut.sv:4:1: , endln:23:10
-    |vpiRhs:
-    \_constant: , line:17:19, endln:17:26
-      |vpiDecompile:16
-      |vpiSize:32
-      |INT:16
-      |vpiConstType:7
-    |vpiLhs:
-    \_parameter: (work@constfunc11.val0), line:17:12, endln:17:16, parent:work@constfunc11
-  |vpiDefName:work@constfunc11
-  |vpiTop:1
-  |vpiTaskFunc:
-  \_function: (work@constfunc11.pow2), line:6:1, endln:15:12, parent:work@constfunc11
-    |vpiName:pow2
-    |vpiFullName:work@constfunc11.pow2
-    |vpiVisibility:1
-    |vpiReturn:
-    \_logic_var: , line:6:10, endln:6:16
-    |vpiParent:
-    \_module: work@constfunc11 (work@constfunc11) dut.sv:4:1: , endln:23:10
-    |vpiIODecl:
-    \_io_decl: (x), line:6:34, endln:6:35, parent:work@constfunc11.pow2
-      |vpiParent:
-      \_function: (work@constfunc11.pow2), line:6:1, endln:15:12, parent:work@constfunc11
-      |vpiDirection:1
-      |vpiName:x
-      |vpiTypedef:
-      \_logic_typespec: , line:6:28, endln:6:33
-    |vpiStmt:
-    \_named_begin: (work@constfunc11.pow2.body), line:8:1, endln:13:4, parent:work@constfunc11.pow2
-      |vpiName:body
-      |vpiFullName:work@constfunc11.pow2.body
-      |vpiParent:
-      \_function: (work@constfunc11.pow2), line:6:1, endln:15:12, parent:work@constfunc11
-      |vpiStmt:
-      \_assignment: , line:9:3, endln:9:11, parent:work@constfunc11.pow2.body
-        |vpiParent:
-        \_named_begin: (work@constfunc11.pow2.body), line:8:1, endln:13:4, parent:work@constfunc11.pow2
-        |vpiOpType:82
-        |vpiBlocking:1
-        |vpiRhs:
-        \_constant: , line:9:10, endln:9:11
-        |vpiLhs:
-        \_ref_obj: (work@constfunc11.pow2.body.pow2), line:9:3, endln:9:7
-          |vpiParent:
-          \_assignment: , line:9:3, endln:9:11, parent:work@constfunc11.pow2.body
-          |vpiName:pow2
-          |vpiFullName:work@constfunc11.pow2.body.pow2
-          |vpiActual:
-          \_logic_var: , line:6:10, endln:6:16
-      |vpiStmt:
-      \_repeat: , line:10:3, endln:10:9, parent:work@constfunc11.pow2.body
-        |vpiParent:
-        \_named_begin: (work@constfunc11.pow2.body), line:8:1, endln:13:4, parent:work@constfunc11.pow2
-        |vpiCondition:
-        \_ref_obj: (work@constfunc11.pow2.body.x), line:10:11, endln:10:12
-          |vpiParent:
-          \_repeat: , line:10:3, endln:10:9, parent:work@constfunc11.pow2.body
-          |vpiName:x
-          |vpiFullName:work@constfunc11.pow2.body.x
-          |vpiActual:
-          \_io_decl: (x), line:6:34, endln:6:35, parent:work@constfunc11.pow2
-        |vpiStmt:
-        \_begin: (work@constfunc11.pow2.body), line:10:14, endln:12:6
-          |vpiFullName:work@constfunc11.pow2.body
-          |vpiParent:
-          \_repeat: , line:10:3, endln:10:9, parent:work@constfunc11.pow2.body
-          |vpiStmt:
-          \_assignment: , line:11:5, endln:11:20, parent:work@constfunc11.pow2.body
+          \_assignment: , line:11:5, endln:11:20
             |vpiParent:
             \_begin: (work@constfunc11.pow2.body), line:10:14, endln:12:6
             |vpiOpType:82
@@ -542,7 +375,176 @@ design: (work@constfunc11)
             |vpiRhs:
             \_operation: , line:11:12, endln:11:20
               |vpiParent:
-              \_assignment: , line:11:5, endln:11:20, parent:work@constfunc11.pow2.body
+              \_begin: (work@constfunc11.pow2.body), line:10:14, endln:12:6
+              |vpiOpType:25
+              |vpiOperand:
+              \_constant: , line:11:12, endln:11:13
+                |vpiParent:
+                \_operation: , line:11:12, endln:11:20
+                |vpiDecompile:2
+                |vpiSize:64
+                |UINT:2
+                |vpiConstType:9
+              |vpiOperand:
+              \_ref_obj: (work@constfunc11.pow2.body.pow2), line:11:16, endln:11:20
+                |vpiParent:
+                \_operation: , line:11:12, endln:11:20
+                |vpiName:pow2
+                |vpiFullName:work@constfunc11.pow2.body.pow2
+                |vpiActual:
+                \_logic_var: (pow2), line:6:10, endln:6:16
+                  |vpiTypespec:
+                  \_logic_typespec: , line:6:10, endln:6:16
+                    |vpiParent:
+                    \_logic_var: (pow2), line:6:10, endln:6:16
+                    |vpiRange:
+                    \_range: , line:6:11, endln:6:15
+                      |vpiParent:
+                      \_logic_typespec: , line:6:10, endln:6:16
+                      |vpiLeftRange:
+                      \_constant: , line:6:11, endln:6:13
+                        |vpiParent:
+                        \_range: , line:6:11, endln:6:15
+                        |vpiDecompile:31
+                        |vpiSize:64
+                        |UINT:31
+                        |vpiConstType:9
+                      |vpiRightRange:
+                      \_constant: , line:6:14, endln:6:15
+                        |vpiParent:
+                        \_range: , line:6:11, endln:6:15
+                        |vpiDecompile:0
+                        |vpiSize:64
+                        |UINT:0
+                        |vpiConstType:9
+                  |vpiName:pow2
+            |vpiLhs:
+            \_ref_obj: (work@constfunc11.pow2.body.pow2), line:11:5, endln:11:9
+              |vpiParent:
+              \_begin: (work@constfunc11.pow2.body), line:10:14, endln:12:6
+              |vpiName:pow2
+              |vpiFullName:work@constfunc11.pow2.body.pow2
+              |vpiActual:
+              \_logic_var: (pow2), line:6:10, endln:6:16
+                |vpiTypespec:
+                \_logic_typespec: , line:6:10, endln:6:16
+                  |vpiParent:
+                  \_logic_var: (pow2), line:6:10, endln:6:16
+                  |vpiRange:
+                  \_range: , line:6:11, endln:6:15
+                    |vpiParent:
+                    \_logic_typespec: , line:6:10, endln:6:16
+                    |vpiLeftRange:
+                    \_constant: , line:6:11, endln:6:13
+                      |vpiParent:
+                      \_range: , line:6:11, endln:6:15
+                      |vpiDecompile:31
+                      |vpiSize:64
+                      |UINT:31
+                      |vpiConstType:9
+                    |vpiRightRange:
+                    \_constant: , line:6:14, endln:6:15
+                      |vpiParent:
+                      \_range: , line:6:11, endln:6:15
+                      |vpiDecompile:0
+                      |vpiSize:64
+                      |UINT:0
+                      |vpiConstType:9
+                |vpiName:pow2
+    |vpiInstance:
+    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
+|uhdmtopModules:
+\_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
+  |vpiName:work@constfunc11
+  |vpiParameter:
+  \_parameter: (work@constfunc11.val0), line:17:12, endln:17:16
+    |vpiParent:
+    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
+    |vpiLocalParam:1
+    |vpiName:val0
+    |vpiFullName:work@constfunc11.val0
+  |vpiParamAssign:
+  \_param_assign: , line:17:12, endln:17:26
+    |vpiParent:
+    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
+    |vpiRhs:
+    \_constant: , line:17:19, endln:17:26
+      |vpiDecompile:16
+      |vpiSize:32
+      |INT:16
+      |vpiConstType:7
+    |vpiLhs:
+    \_parameter: (work@constfunc11.val0), line:17:12, endln:17:16
+  |vpiDefName:work@constfunc11
+  |vpiTop:1
+  |vpiTaskFunc:
+  \_function: (work@constfunc11.pow2), line:6:1, endln:15:12
+    |vpiParent:
+    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
+    |vpiName:pow2
+    |vpiFullName:work@constfunc11.pow2
+    |vpiVisibility:1
+    |vpiReturn:
+    \_logic_var: , line:6:10, endln:6:16
+    |vpiParent:
+    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
+    |vpiIODecl:
+    \_io_decl: (x), line:6:34, endln:6:35
+      |vpiParent:
+      \_function: (work@constfunc11.pow2), line:6:1, endln:15:12
+      |vpiDirection:1
+      |vpiName:x
+      |vpiTypedef:
+      \_logic_typespec: , line:6:28, endln:6:33
+    |vpiStmt:
+    \_named_begin: (work@constfunc11.pow2.body), line:8:1, endln:13:4
+      |vpiParent:
+      \_function: (work@constfunc11.pow2), line:6:1, endln:15:12
+      |vpiName:body
+      |vpiFullName:work@constfunc11.pow2.body
+      |vpiStmt:
+      \_assignment: , line:9:3, endln:9:11
+        |vpiParent:
+        \_named_begin: (work@constfunc11.pow2.body), line:8:1, endln:13:4
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_constant: , line:9:10, endln:9:11
+        |vpiLhs:
+        \_ref_obj: (work@constfunc11.pow2.body.pow2), line:9:3, endln:9:7
+          |vpiParent:
+          \_assignment: , line:9:3, endln:9:11
+          |vpiName:pow2
+          |vpiFullName:work@constfunc11.pow2.body.pow2
+          |vpiActual:
+          \_logic_var: , line:6:10, endln:6:16
+      |vpiStmt:
+      \_repeat: , line:10:3, endln:10:9
+        |vpiParent:
+        \_named_begin: (work@constfunc11.pow2.body), line:8:1, endln:13:4
+        |vpiCondition:
+        \_ref_obj: (work@constfunc11.pow2.body.x), line:10:11, endln:10:12
+          |vpiParent:
+          \_repeat: , line:10:3, endln:10:9
+          |vpiName:x
+          |vpiFullName:work@constfunc11.pow2.body.x
+          |vpiActual:
+          \_io_decl: (x), line:6:34, endln:6:35
+        |vpiStmt:
+        \_begin: (work@constfunc11.pow2.body), line:10:14, endln:12:6
+          |vpiParent:
+          \_repeat: , line:10:3, endln:10:9
+          |vpiFullName:work@constfunc11.pow2.body
+          |vpiStmt:
+          \_assignment: , line:11:5, endln:11:20
+            |vpiParent:
+            \_begin: (work@constfunc11.pow2.body), line:10:14, endln:12:6
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiRhs:
+            \_operation: , line:11:12, endln:11:20
+              |vpiParent:
+              \_assignment: , line:11:5, endln:11:20
               |vpiOpType:25
               |vpiOperand:
               \_constant: , line:11:12, endln:11:13
@@ -557,36 +559,34 @@ design: (work@constfunc11)
             |vpiLhs:
             \_ref_obj: (work@constfunc11.pow2.body.pow2), line:11:5, endln:11:9
               |vpiParent:
-              \_assignment: , line:11:5, endln:11:20, parent:work@constfunc11.pow2.body
+              \_assignment: , line:11:5, endln:11:20
               |vpiName:pow2
               |vpiFullName:work@constfunc11.pow2.body.pow2
               |vpiActual:
               \_logic_var: , line:6:10, endln:6:16
     |vpiInstance:
-    \_module: work@constfunc11 (work@constfunc11) dut.sv:4:1: , endln:23:10
-    |vpiParent:
-    \_module: work@constfunc11 (work@constfunc11) dut.sv:4:1: , endln:23:10
+    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
   |vpiTopModule:1
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@constfunc11.genblk1), line:19:1, endln:21:4, parent:work@constfunc11
+  \_gen_scope_array: (work@constfunc11.genblk1), line:19:1, endln:21:4
     |vpiParent:
-    \_module: work@constfunc11 (work@constfunc11) dut.sv:4:1: , endln:23:10
+    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
     |vpiName:genblk1
     |vpiFullName:work@constfunc11.genblk1
     |vpiGenScope:
-    \_gen_scope: (work@constfunc11.genblk1), parent:work@constfunc11.genblk1
-      |vpiFullName:work@constfunc11.genblk1
+    \_gen_scope: (work@constfunc11.genblk1)
       |vpiParent:
-      \_gen_scope_array: (work@constfunc11.genblk1), line:19:1, endln:21:4, parent:work@constfunc11
+      \_gen_scope_array: (work@constfunc11.genblk1), line:19:1, endln:21:4
+      |vpiFullName:work@constfunc11.genblk1
       |vpiModule:
-      \_module: work@GOOD (work@constfunc11.genblk1.good) dut.sv:20:4: , endln:20:16, parent:work@constfunc11.genblk1
+      \_module: work@GOOD (work@constfunc11.genblk1.good), file:dut.sv, line:20:4, endln:20:16
+        |vpiParent:
+        \_gen_scope: (work@constfunc11.genblk1)
         |vpiName:good
         |vpiFullName:work@constfunc11.genblk1.good
         |vpiDefName:work@GOOD
         |vpiDefFile:dut.sv
         |vpiDefLineNo:1
-        |vpiParent:
-        \_gen_scope: (work@constfunc11.genblk1), parent:work@constfunc11.genblk1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

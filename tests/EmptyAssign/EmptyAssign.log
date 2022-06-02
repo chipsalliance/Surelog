@@ -197,39 +197,41 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@dut (work@dut) dut.sv:1:1: , endln:11:10, parent:work@top
+\_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:11:10
+  |vpiParent:
+  \_design: (work@top)
   |vpiFullName:work@dut
   |vpiParameter:
-  \_parameter: (work@dut.a), line:1:24, endln:1:25, parent:work@dut
+  \_parameter: (work@dut.a), line:1:24, endln:1:25
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:11:10
     |UINT:1
     |vpiTypespec:
     \_int_typespec: 
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:11:10, parent:work@top
     |vpiName:a
     |vpiFullName:work@dut.a
   |vpiParameter:
-  \_parameter: (work@dut.b), line:1:31, endln:1:32, parent:work@dut
+  \_parameter: (work@dut.b), line:1:31, endln:1:32
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:11:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: 
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:11:10, parent:work@top
     |vpiName:b
     |vpiFullName:work@dut.b
   |vpiParameter:
-  \_parameter: (work@dut.c), line:1:38, endln:1:39, parent:work@dut
+  \_parameter: (work@dut.c), line:1:38, endln:1:39
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:11:10
     |UINT:3
     |vpiTypespec:
     \_int_typespec: 
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:11:10, parent:work@top
     |vpiName:c
     |vpiFullName:work@dut.c
   |vpiParamAssign:
-  \_param_assign: , line:1:24, endln:1:29, parent:work@dut
+  \_param_assign: , line:1:24, endln:1:29
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:11:10, parent:work@top
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:11:10
     |vpiRhs:
     \_constant: , line:1:28, endln:1:29
       |vpiDecompile:1
@@ -239,11 +241,11 @@ design: (work@top)
       \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@dut.a), line:1:24, endln:1:25, parent:work@dut
+    \_parameter: (work@dut.a), line:1:24, endln:1:25
   |vpiParamAssign:
-  \_param_assign: , line:1:31, endln:1:36, parent:work@dut
+  \_param_assign: , line:1:31, endln:1:36
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:11:10, parent:work@top
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:11:10
     |vpiRhs:
     \_constant: , line:1:35, endln:1:36
       |vpiDecompile:2
@@ -253,11 +255,11 @@ design: (work@top)
       \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@dut.b), line:1:31, endln:1:32, parent:work@dut
+    \_parameter: (work@dut.b), line:1:31, endln:1:32
   |vpiParamAssign:
-  \_param_assign: , line:1:38, endln:1:43, parent:work@dut
+  \_param_assign: , line:1:38, endln:1:43
     |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:11:10, parent:work@top
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:11:10
     |vpiRhs:
     \_constant: , line:1:42, endln:1:43
       |vpiDecompile:3
@@ -267,152 +269,152 @@ design: (work@top)
       \_int_typespec: 
       |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@dut.c), line:1:38, endln:1:39, parent:work@dut
+    \_parameter: (work@dut.c), line:1:38, endln:1:39
   |vpiDefName:work@dut
-  |vpiParent:
-  \_design: (work@top)
   |vpiProcess:
-  \_initial: , line:3:1, endln:9:4, parent:work@dut
+  \_initial: , line:3:1, endln:9:4
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:11:10
     |vpiStmt:
     \_begin: (work@dut), line:3:9, endln:9:4
-      |vpiFullName:work@dut
       |vpiParent:
-      \_initial: , line:3:1, endln:9:4, parent:work@dut
+      \_initial: , line:3:1, endln:9:4
+      |vpiFullName:work@dut
       |vpiStmt:
-      \_sys_func_call: ($display), line:4:3, endln:4:35, parent:work@dut
+      \_sys_func_call: ($display), line:4:3, endln:4:35
+        |vpiParent:
+        \_begin: (work@dut), line:3:9, endln:9:4
         |vpiArgument:
-        \_constant: , line:4:12, endln:4:25, parent:$display
+        \_constant: , line:4:12, endln:4:25
+          |vpiParent:
+          \_sys_func_call: ($display), line:4:3, endln:4:35
           |vpiDecompile:%0d %0d %0d
           |vpiSize:11
           |STRING:%0d %0d %0d
-          |vpiParent:
-          \_sys_func_call: ($display), line:4:3, endln:4:35, parent:work@dut
           |vpiConstType:6
         |vpiArgument:
-        \_ref_obj: (work@dut.a), line:4:27, endln:4:28, parent:$display
+        \_ref_obj: (work@dut.a), line:4:27, endln:4:28
           |vpiParent:
-          \_sys_func_call: ($display), line:4:3, endln:4:35, parent:work@dut
+          \_sys_func_call: ($display), line:4:3, endln:4:35
           |vpiName:a
           |vpiFullName:work@dut.a
         |vpiArgument:
-        \_ref_obj: (work@dut.b), line:4:30, endln:4:31, parent:$display
+        \_ref_obj: (work@dut.b), line:4:30, endln:4:31
           |vpiParent:
-          \_sys_func_call: ($display), line:4:3, endln:4:35, parent:work@dut
+          \_sys_func_call: ($display), line:4:3, endln:4:35
           |vpiName:b
           |vpiFullName:work@dut.b
         |vpiArgument:
-        \_ref_obj: (work@dut.c), line:4:33, endln:4:34, parent:$display
+        \_ref_obj: (work@dut.c), line:4:33, endln:4:34
           |vpiParent:
-          \_sys_func_call: ($display), line:4:3, endln:4:35, parent:work@dut
+          \_sys_func_call: ($display), line:4:3, endln:4:35
           |vpiName:c
           |vpiFullName:work@dut.c
         |vpiName:$display
-        |vpiParent:
-        \_begin: (work@dut), line:3:9, endln:9:4
       |vpiStmt:
-      \_if_else: , line:5:3, endln:8:24, parent:work@dut
+      \_if_else: , line:5:3, endln:8:24
         |vpiParent:
         \_begin: (work@dut), line:3:9, endln:9:4
         |vpiCondition:
         \_operation: , line:5:7, endln:5:14
           |vpiParent:
-          \_if_else: , line:5:3, endln:8:24, parent:work@dut
+          \_if_else: , line:5:3, endln:8:24
           |vpiOpType:16
           |vpiOperand:
-          \_ref_obj: (work@dut.b), line:5:7, endln:5:8, parent:work@dut
+          \_ref_obj: (work@dut.b), line:5:7, endln:5:8
             |vpiParent:
             \_begin: (work@dut), line:3:9, endln:9:4
             |vpiName:b
             |vpiFullName:work@dut.b
           |vpiOperand:
           \_constant: , line:5:13, endln:5:14
+            |vpiParent:
+            \_operation: , line:5:7, endln:5:14
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
-            |vpiParent:
-            \_operation: , line:5:7, endln:5:14
             |vpiConstType:9
         |vpiStmt:
         \_sys_func_call: ($display), line:6:5, endln:6:23
+          |vpiParent:
+          \_if_else: , line:5:3, endln:8:24
           |vpiArgument:
-          \_constant: , line:6:14, endln:6:22, parent:$display
+          \_constant: , line:6:14, endln:6:22
+            |vpiParent:
+            \_sys_func_call: ($display), line:6:5, endln:6:23
             |vpiDecompile:PASSED
             |vpiSize:6
             |STRING:PASSED
-            |vpiParent:
-            \_sys_func_call: ($display), line:6:5, endln:6:23
             |vpiConstType:6
           |vpiName:$display
-          |vpiParent:
-          \_if_else: , line:5:3, endln:8:24, parent:work@dut
         |vpiElseStmt:
         \_sys_func_call: ($display), line:8:5, endln:8:23
+          |vpiParent:
+          \_if_else: , line:5:3, endln:8:24
           |vpiArgument:
-          \_constant: , line:8:14, endln:8:22, parent:$display
+          \_constant: , line:8:14, endln:8:22
+            |vpiParent:
+            \_sys_func_call: ($display), line:8:5, endln:8:23
             |vpiDecompile:FAILED
             |vpiSize:6
             |STRING:FAILED
-            |vpiParent:
-            \_sys_func_call: ($display), line:8:5, endln:8:23
             |vpiConstType:6
           |vpiName:$display
-          |vpiParent:
-          \_if_else: , line:5:3, endln:8:24, parent:work@dut
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:11:10, parent:work@top
 |uhdmallModules:
-\_module: work@top (work@top) dut.sv:13:1: , endln:17:10, parent:work@top
-  |vpiFullName:work@top
-  |vpiDefName:work@top
+\_module: work@top (work@top), file:dut.sv, line:13:1, endln:17:10
   |vpiParent:
   \_design: (work@top)
+  |vpiFullName:work@top
+  |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top) dut.sv:13:1: , endln:17:10
+\_module: work@top (work@top), file:dut.sv, line:13:1, endln:17:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@dut (work@top.dut) dut.sv:15:1: , endln:15:33, parent:work@top
+  \_module: work@dut (work@top.dut), file:dut.sv, line:15:1, endln:15:33
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:13:1, endln:17:10
     |vpiName:dut
     |vpiFullName:work@top.dut
     |vpiParameter:
-    \_parameter: (work@top.dut.a), line:1:24, endln:1:25, parent:work@top.dut
+    \_parameter: (work@top.dut.a), line:1:24, endln:1:25
+      |vpiParent:
+      \_module: work@dut (work@top.dut), file:dut.sv, line:15:1, endln:15:33
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , parent:work@top.dut.a
+      \_int_typespec: 
         |vpiParent:
-        \_parameter: (work@top.dut.a), line:1:24, endln:1:25, parent:work@top.dut
-      |vpiParent:
-      \_module: work@dut (work@top.dut) dut.sv:15:1: , endln:15:33, parent:work@top
+        \_parameter: (work@top.dut.a), line:1:24, endln:1:25
       |vpiName:a
       |vpiFullName:work@top.dut.a
     |vpiParameter:
-    \_parameter: (work@top.dut.b), line:1:31, endln:1:32, parent:work@top.dut
+    \_parameter: (work@top.dut.b), line:1:31, endln:1:32
+      |vpiParent:
+      \_module: work@dut (work@top.dut), file:dut.sv, line:15:1, endln:15:33
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , parent:work@top.dut.b
+      \_int_typespec: 
         |vpiParent:
-        \_parameter: (work@top.dut.b), line:1:31, endln:1:32, parent:work@top.dut
-      |vpiParent:
-      \_module: work@dut (work@top.dut) dut.sv:15:1: , endln:15:33, parent:work@top
+        \_parameter: (work@top.dut.b), line:1:31, endln:1:32
       |vpiName:b
       |vpiFullName:work@top.dut.b
     |vpiParameter:
-    \_parameter: (work@top.dut.c), line:1:38, endln:1:39, parent:work@top.dut
+    \_parameter: (work@top.dut.c), line:1:38, endln:1:39
+      |vpiParent:
+      \_module: work@dut (work@top.dut), file:dut.sv, line:15:1, endln:15:33
       |UINT:3
       |vpiTypespec:
-      \_int_typespec: , parent:work@top.dut.c
+      \_int_typespec: 
         |vpiParent:
-        \_parameter: (work@top.dut.c), line:1:38, endln:1:39, parent:work@top.dut
-      |vpiParent:
-      \_module: work@dut (work@top.dut) dut.sv:15:1: , endln:15:33, parent:work@top
+        \_parameter: (work@top.dut.c), line:1:38, endln:1:39
       |vpiName:c
       |vpiFullName:work@top.dut.c
     |vpiParamAssign:
-    \_param_assign: , line:1:24, endln:1:29, parent:work@top.dut
+    \_param_assign: , line:1:24, endln:1:29
       |vpiParent:
-      \_module: work@dut (work@top.dut) dut.sv:15:1: , endln:15:33, parent:work@top
+      \_module: work@dut (work@top.dut), file:dut.sv, line:15:1, endln:15:33
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:1:28, endln:1:29
@@ -423,11 +425,11 @@ design: (work@top)
         \_int_typespec: 
         |vpiConstType:9
       |vpiLhs:
-      \_parameter: (work@top.dut.a), line:1:24, endln:1:25, parent:work@top.dut
+      \_parameter: (work@top.dut.a), line:1:24, endln:1:25
     |vpiParamAssign:
-    \_param_assign: , line:1:31, endln:1:36, parent:work@top.dut
+    \_param_assign: , line:1:31, endln:1:36
       |vpiParent:
-      \_module: work@dut (work@top.dut) dut.sv:15:1: , endln:15:33, parent:work@top
+      \_module: work@dut (work@top.dut), file:dut.sv, line:15:1, endln:15:33
       |vpiRhs:
       \_constant: , line:1:35, endln:1:36
         |vpiDecompile:2
@@ -437,11 +439,11 @@ design: (work@top)
         \_int_typespec: 
         |vpiConstType:9
       |vpiLhs:
-      \_parameter: (work@top.dut.b), line:1:31, endln:1:32, parent:work@top.dut
+      \_parameter: (work@top.dut.b), line:1:31, endln:1:32
     |vpiParamAssign:
-    \_param_assign: , line:1:38, endln:1:43, parent:work@top.dut
+    \_param_assign: , line:1:38, endln:1:43
       |vpiParent:
-      \_module: work@dut (work@top.dut) dut.sv:15:1: , endln:15:33, parent:work@top
+      \_module: work@dut (work@top.dut), file:dut.sv, line:15:1, endln:15:33
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:1:42, endln:1:43
@@ -452,60 +454,60 @@ design: (work@top)
         \_int_typespec: 
         |vpiConstType:9
       |vpiLhs:
-      \_parameter: (work@top.dut.c), line:1:38, endln:1:39, parent:work@top.dut
+      \_parameter: (work@top.dut.c), line:1:38, endln:1:39
     |vpiDefName:work@dut
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:13:1: , endln:17:10
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:13:1: , endln:17:10
+    \_module: work@top (work@top), file:dut.sv, line:13:1, endln:17:10
     |vpiProcess:
-    \_initial: , line:3:1, endln:9:4, parent:work@top.dut
+    \_initial: , line:3:1, endln:9:4
+      |vpiParent:
+      \_module: work@dut (work@top.dut), file:dut.sv, line:15:1, endln:15:33
       |vpiStmt:
       \_begin: (work@top.dut), line:3:9, endln:9:4
-        |vpiFullName:work@top.dut
         |vpiParent:
-        \_initial: , line:3:1, endln:9:4, parent:work@top.dut
+        \_initial: , line:3:1, endln:9:4
+        |vpiFullName:work@top.dut
         |vpiStmt:
-        \_sys_func_call: ($display), line:4:3, endln:4:35, parent:work@top.dut
+        \_sys_func_call: ($display), line:4:3, endln:4:35
+          |vpiParent:
+          \_begin: (work@top.dut), line:3:9, endln:9:4
           |vpiArgument:
-          \_constant: , line:4:12, endln:4:25, parent:$display
+          \_constant: , line:4:12, endln:4:25
           |vpiArgument:
-          \_ref_obj: (work@top.dut.a), line:4:27, endln:4:28, parent:$display
+          \_ref_obj: (work@top.dut.a), line:4:27, endln:4:28
             |vpiParent:
-            \_sys_func_call: ($display), line:4:3, endln:4:35, parent:work@top.dut
+            \_sys_func_call: ($display), line:4:3, endln:4:35
             |vpiName:a
             |vpiFullName:work@top.dut.a
             |vpiActual:
             \_constant: , line:1:28, endln:1:29
           |vpiArgument:
-          \_ref_obj: (work@top.dut.b), line:4:30, endln:4:31, parent:$display
+          \_ref_obj: (work@top.dut.b), line:4:30, endln:4:31
             |vpiParent:
-            \_sys_func_call: ($display), line:4:3, endln:4:35, parent:work@top.dut
+            \_sys_func_call: ($display), line:4:3, endln:4:35
             |vpiName:b
             |vpiFullName:work@top.dut.b
             |vpiActual:
             \_constant: , line:1:35, endln:1:36
           |vpiArgument:
-          \_ref_obj: (work@top.dut.c), line:4:33, endln:4:34, parent:$display
+          \_ref_obj: (work@top.dut.c), line:4:33, endln:4:34
             |vpiParent:
-            \_sys_func_call: ($display), line:4:3, endln:4:35, parent:work@top.dut
+            \_sys_func_call: ($display), line:4:3, endln:4:35
             |vpiName:c
             |vpiFullName:work@top.dut.c
             |vpiActual:
             \_constant: , line:1:42, endln:1:43
           |vpiName:$display
-          |vpiParent:
-          \_begin: (work@top.dut), line:3:9, endln:9:4
         |vpiStmt:
-        \_if_else: , line:5:3, endln:8:24, parent:work@top.dut
+        \_if_else: , line:5:3, endln:8:24
           |vpiParent:
           \_begin: (work@top.dut), line:3:9, endln:9:4
           |vpiCondition:
           \_operation: , line:5:7, endln:5:14
             |vpiParent:
-            \_if_else: , line:5:3, endln:8:24, parent:work@top.dut
+            \_if_else: , line:5:3, endln:8:24
             |vpiOpType:16
             |vpiOperand:
             \_ref_obj: (work@top.dut.b), line:5:7, endln:5:8
@@ -519,20 +521,18 @@ design: (work@top)
             \_constant: , line:5:13, endln:5:14
           |vpiStmt:
           \_sys_func_call: ($display), line:6:5, endln:6:23
-            |vpiArgument:
-            \_constant: , line:6:14, endln:6:22, parent:$display
-            |vpiName:$display
             |vpiParent:
-            \_if_else: , line:5:3, endln:8:24, parent:work@top.dut
+            \_if_else: , line:5:3, endln:8:24
+            |vpiArgument:
+            \_constant: , line:6:14, endln:6:22
+            |vpiName:$display
           |vpiElseStmt:
           \_sys_func_call: ($display), line:8:5, endln:8:23
-            |vpiArgument:
-            \_constant: , line:8:14, endln:8:22, parent:$display
-            |vpiName:$display
             |vpiParent:
-            \_if_else: , line:5:3, endln:8:24, parent:work@top.dut
-      |vpiParent:
-      \_module: work@dut (work@top.dut) dut.sv:15:1: , endln:15:33, parent:work@top
+            \_if_else: , line:5:3, endln:8:24
+            |vpiArgument:
+            \_constant: , line:8:14, endln:8:22
+            |vpiName:$display
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

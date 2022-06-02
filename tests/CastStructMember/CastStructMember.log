@@ -158,21 +158,25 @@ design: (work@Foo)
 |vpiElaborated:1
 |vpiName:work@Foo
 |uhdmallModules:
-\_module: work@Foo (work@Foo) dut.sv:6:1: , endln:10:10, parent:work@Foo
+\_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
+  |vpiParent:
+  \_design: (work@Foo)
   |vpiFullName:work@Foo
   |vpiParameter:
-  \_parameter: (work@Foo.w), line:7:22, endln:7:23, parent:work@Foo
+  \_parameter: (work@Foo.w), line:7:22, endln:7:23
+    |vpiParent:
+    \_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
     |vpiTypespec:
-    \_struct_typespec: (width_t), line:2:9, endln:2:15, parent:work@Foo
+    \_struct_typespec: (width_t), line:2:9, endln:2:15
+      |vpiParent:
+      \_design: (work@Foo)
       |vpiName:width_t
       |vpiInstance:
       \_design: (work@Foo)
-      |vpiParent:
-      \_design: (work@Foo)
       |vpiTypespecMember:
-      \_typespec_member: (WIDTH), line:3:7, endln:3:12, parent:width_t
+      \_typespec_member: (WIDTH), line:3:7, endln:3:12
         |vpiParent:
-        \_struct_typespec: (width_t), line:2:9, endln:2:15, parent:work@Foo
+        \_struct_typespec: (width_t), line:2:9, endln:2:15
         |vpiName:WIDTH
         |vpiTypespec:
         \_int_typespec: , line:3:3, endln:3:6
@@ -182,19 +186,17 @@ design: (work@Foo)
         |vpiRefColumnNo:3
         |vpiRefEndLineNo:3
         |vpiRefEndColumnNo:6
-    |vpiParent:
-    \_module: work@Foo (work@Foo) dut.sv:6:1: , endln:10:10, parent:work@Foo
     |vpiLocalParam:1
     |vpiName:w
     |vpiFullName:work@Foo.w
   |vpiParamAssign:
-  \_param_assign: , line:7:22, endln:7:38, parent:work@Foo
+  \_param_assign: , line:7:22, endln:7:38
     |vpiParent:
-    \_module: work@Foo (work@Foo) dut.sv:6:1: , endln:10:10, parent:work@Foo
+    \_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
     |vpiRhs:
     \_operation: , line:7:26, endln:7:38
       |vpiTypespec:
-      \_struct_typespec: (width_t), line:2:9, endln:2:15, parent:work@Foo
+      \_struct_typespec: (width_t), line:2:9, endln:2:15
       |vpiOpType:67
       |vpiOperand:
       \_operation: , line:7:34, endln:7:38
@@ -208,66 +210,64 @@ design: (work@Foo)
           |UINT:32
           |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@Foo.w), line:7:22, endln:7:23, parent:work@Foo
+    \_parameter: (work@Foo.w), line:7:22, endln:7:23
   |vpiDefName:work@Foo
   |vpiNet:
-  \_logic_net: (work@Foo.t1), line:8:15, endln:8:17, parent:work@Foo
+  \_logic_net: (work@Foo.t1), line:8:15, endln:8:17
+    |vpiParent:
+    \_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
     |vpiName:t1
     |vpiFullName:work@Foo.t1
     |vpiNetType:1
-    |vpiParent:
-    \_module: work@Foo (work@Foo) dut.sv:6:1: , endln:10:10, parent:work@Foo
   |vpiNet:
-  \_logic_net: (work@Foo.t2), line:9:15, endln:9:17, parent:work@Foo
+  \_logic_net: (work@Foo.t2), line:9:15, endln:9:17
+    |vpiParent:
+    \_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
     |vpiName:t2
     |vpiFullName:work@Foo.t2
     |vpiNetType:1
-    |vpiParent:
-    \_module: work@Foo (work@Foo) dut.sv:6:1: , endln:10:10, parent:work@Foo
-  |vpiParent:
-  \_design: (work@Foo)
 |vpiTypedef:
-\_struct_typespec: (width_t), line:2:9, endln:2:15, parent:work@Foo
+\_struct_typespec: (width_t), line:2:9, endln:2:15
 |uhdmtopModules:
-\_module: work@Foo (work@Foo) dut.sv:6:1: , endln:10:10
+\_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
   |vpiName:work@Foo
   |vpiParameter:
-  \_parameter: (work@Foo.w), line:7:22, endln:7:23, parent:work@Foo
+  \_parameter: (work@Foo.w), line:7:22, endln:7:23
+    |vpiParent:
+    \_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
     |vpiTypespec:
-    \_struct_typespec: (width_t), line:2:9, endln:2:15, parent:work@Foo.w
+    \_struct_typespec: (width_t), line:2:9, endln:2:15
+      |vpiParent:
+      \_parameter: (work@Foo.w), line:7:22, endln:7:23
       |vpiName:width_t
       |vpiInstance:
       \_design: (work@Foo)
-      |vpiParent:
-      \_parameter: (work@Foo.w), line:7:22, endln:7:23, parent:work@Foo
       |vpiTypespecMember:
-      \_typespec_member: (WIDTH), line:3:7, endln:3:12, parent:width_t
+      \_typespec_member: (WIDTH), line:3:7, endln:3:12
         |vpiParent:
-        \_struct_typespec: (width_t), line:2:9, endln:2:15, parent:work@Foo.w
+        \_struct_typespec: (width_t), line:2:9, endln:2:15
         |vpiName:WIDTH
         |vpiTypespec:
-        \_int_typespec: , line:3:3, endln:3:6, parent:WIDTH
+        \_int_typespec: , line:3:3, endln:3:6
           |vpiParent:
-          \_typespec_member: (WIDTH), line:3:7, endln:3:12, parent:width_t
+          \_typespec_member: (WIDTH), line:3:7, endln:3:12
           |vpiSigned:1
         |vpiRefFile:dut.sv
         |vpiRefLineNo:3
         |vpiRefColumnNo:3
         |vpiRefEndLineNo:3
         |vpiRefEndColumnNo:6
-    |vpiParent:
-    \_module: work@Foo (work@Foo) dut.sv:6:1: , endln:10:10
     |vpiLocalParam:1
     |vpiName:w
     |vpiFullName:work@Foo.w
   |vpiParamAssign:
-  \_param_assign: , line:7:22, endln:7:38, parent:work@Foo
+  \_param_assign: , line:7:22, endln:7:38
     |vpiParent:
-    \_module: work@Foo (work@Foo) dut.sv:6:1: , endln:10:10
+    \_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
     |vpiRhs:
     \_operation: , line:7:26, endln:7:38
       |vpiTypespec:
-      \_struct_typespec: (width_t), line:2:9, endln:2:15, parent:work@Foo
+      \_struct_typespec: (width_t), line:2:9, endln:2:15
       |vpiOpType:67
       |vpiOperand:
       \_operation: , line:7:34, endln:7:38
@@ -281,108 +281,108 @@ design: (work@Foo)
           |UINT:32
           |vpiConstType:9
     |vpiLhs:
-    \_parameter: (work@Foo.w), line:7:22, endln:7:23, parent:work@Foo
+    \_parameter: (work@Foo.w), line:7:22, endln:7:23
   |vpiDefName:work@Foo
   |vpiTop:1
   |vpiNet:
-  \_logic_net: (work@Foo.t1), line:8:15, endln:8:17, parent:work@Foo
+  \_logic_net: (work@Foo.t1), line:8:15, endln:8:17
+    |vpiParent:
+    \_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
     |vpiTypespec:
     \_logic_typespec: , line:8:3, endln:8:7
       |vpiRange:
       \_range: , line:8:9, endln:8:13
         |vpiLeftRange:
         \_constant: , line:8:9, endln:8:11
+          |vpiParent:
+          \_range: , line:8:9, endln:8:13
           |vpiDecompile:31
           |vpiSize:64
           |UINT:31
-          |vpiParent:
-          \_range: , line:8:9, endln:8:13
           |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:8:12, endln:8:13
+          |vpiParent:
+          \_range: , line:8:9, endln:8:13
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:8:9, endln:8:13
           |vpiConstType:9
     |vpiName:t1
     |vpiFullName:work@Foo.t1
     |vpiNetType:1
-    |vpiParent:
-    \_module: work@Foo (work@Foo) dut.sv:6:1: , endln:10:10
   |vpiNet:
-  \_logic_net: (work@Foo.t2), line:9:15, endln:9:17, parent:work@Foo
+  \_logic_net: (work@Foo.t2), line:9:15, endln:9:17
+    |vpiParent:
+    \_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
     |vpiTypespec:
     \_logic_typespec: , line:9:3, endln:9:7
       |vpiRange:
       \_range: , line:9:9, endln:9:13
         |vpiLeftRange:
         \_constant: , line:9:9, endln:9:11
+          |vpiParent:
+          \_range: , line:9:9, endln:9:13
           |vpiDecompile:31
           |vpiSize:64
           |UINT:31
-          |vpiParent:
-          \_range: , line:9:9, endln:9:13
           |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:9:12, endln:9:13
+          |vpiParent:
+          \_range: , line:9:9, endln:9:13
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: , line:9:9, endln:9:13
           |vpiConstType:9
     |vpiName:t2
     |vpiFullName:work@Foo.t2
     |vpiNetType:1
-    |vpiParent:
-    \_module: work@Foo (work@Foo) dut.sv:6:1: , endln:10:10
   |vpiTopModule:1
   |vpiContAssign:
-  \_cont_assign: , line:8:15, endln:8:17, parent:work@Foo
+  \_cont_assign: , line:8:15, endln:8:17
     |vpiParent:
-    \_module: work@Foo (work@Foo) dut.sv:6:1: , endln:10:10
+    \_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
     |vpiNetDeclAssign:1
     |vpiRhs:
     \_operation: , line:8:20, endln:8:31
+      |vpiParent:
+      \_cont_assign: , line:8:15, endln:8:17
       |vpiTypespec:
       \_int_typespec: , line:3:3, endln:3:6
-      |vpiParent:
-      \_cont_assign: , line:8:15, endln:8:17, parent:work@Foo
       |vpiOpType:67
       |vpiOperand:
       \_constant: , line:8:29, endln:8:30
+        |vpiParent:
+        \_operation: , line:8:20, endln:8:31
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
-        |vpiParent:
-        \_operation: , line:8:20, endln:8:31
         |vpiConstType:9
     |vpiLhs:
-    \_logic_net: (work@Foo.t1), line:8:15, endln:8:17, parent:work@Foo
+    \_logic_net: (work@Foo.t1), line:8:15, endln:8:17
   |vpiContAssign:
-  \_cont_assign: , line:9:15, endln:9:17, parent:work@Foo
+  \_cont_assign: , line:9:15, endln:9:17
     |vpiParent:
-    \_module: work@Foo (work@Foo) dut.sv:6:1: , endln:10:10
+    \_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
     |vpiNetDeclAssign:1
     |vpiRhs:
     \_operation: , line:9:20, endln:9:25
-      |vpiTypespec:
-      \_struct_typespec: (width_t), line:2:9, endln:2:15, parent:work@Foo
       |vpiParent:
-      \_cont_assign: , line:9:15, endln:9:17, parent:work@Foo
+      \_cont_assign: , line:9:15, endln:9:17
+      |vpiTypespec:
+      \_struct_typespec: (width_t), line:2:9, endln:2:15
       |vpiOpType:67
       |vpiOperand:
       \_constant: , line:9:23, endln:9:24
+        |vpiParent:
+        \_operation: , line:9:20, endln:9:25
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
-        |vpiParent:
-        \_operation: , line:9:20, endln:9:25
         |vpiConstType:9
     |vpiLhs:
-    \_logic_net: (work@Foo.t2), line:9:15, endln:9:17, parent:work@Foo
+    \_logic_net: (work@Foo.t2), line:9:15, endln:9:17
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -152,29 +152,29 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@mod (work@mod) dut.sv:1:1: , endln:12:10, parent:work@top
-  |vpiFullName:work@mod
-  |vpiDefName:work@mod
+\_module: work@mod (work@mod), file:dut.sv, line:1:1, endln:12:10
   |vpiParent:
   \_design: (work@top)
+  |vpiFullName:work@mod
+  |vpiDefName:work@mod
   |vpiContAssign:
-  \_cont_assign: , line:11:10, endln:11:46, parent:work@mod
+  \_cont_assign: , line:11:10, endln:11:46
     |vpiParent:
-    \_module: work@mod (work@mod) dut.sv:1:1: , endln:12:10, parent:work@top
+    \_module: work@mod (work@mod), file:dut.sv, line:1:1, endln:12:10
     |vpiRhs:
     \_hier_path: (cscope.local_function), line:11:16, endln:11:46
       |vpiParent:
-      \_cont_assign: , line:11:10, endln:11:46, parent:work@mod
+      \_cont_assign: , line:11:10, endln:11:46
       |vpiName:cscope.local_function
       |vpiActual:
-      \_ref_obj: (cscope), line:11:16, endln:11:22, parent:cscope.local_function
+      \_ref_obj: (cscope), line:11:16, endln:11:22
         |vpiParent:
         \_hier_path: (cscope.local_function), line:11:16, endln:11:46
         |vpiName:cscope
       |vpiActual:
       \_method_func_call: (local_function), line:11:23, endln:11:37
         |vpiArgument:
-        \_ref_obj: (counter), line:11:38, endln:11:45, parent:local_function
+        \_ref_obj: (counter), line:11:38, endln:11:45
           |vpiParent:
           \_method_func_call: (local_function), line:11:23, endln:11:37
           |vpiName:counter
@@ -186,7 +186,7 @@ design: (work@top)
     |vpiLhs:
     \_ref_obj: (work@mod.foo), line:11:10, endln:11:13
       |vpiParent:
-      \_cont_assign: , line:11:10, endln:11:46, parent:work@mod
+      \_cont_assign: , line:11:10, endln:11:46
       |vpiName:foo
       |vpiFullName:work@mod.foo
       |vpiActual:
@@ -194,19 +194,21 @@ design: (work@top)
         |vpiName:foo
         |vpiNetType:1
 |uhdmallModules:
-\_module: work@top (work@top) dut.sv:14:1: , endln:16:10, parent:work@top
-  |vpiFullName:work@top
-  |vpiDefName:work@top
+\_module: work@top (work@top), file:dut.sv, line:14:1, endln:16:10
   |vpiParent:
   \_design: (work@top)
+  |vpiFullName:work@top
+  |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top) dut.sv:14:1: , endln:16:10
+\_module: work@top (work@top), file:dut.sv, line:14:1, endln:16:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@mod (work@top.c) dut.sv:15:3: , endln:15:13, parent:work@top
+  \_module: work@mod (work@top.c), file:dut.sv, line:15:3, endln:15:13
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:14:1, endln:16:10
     |vpiName:c
     |vpiFullName:work@top.c
     |vpiDefName:work@mod
@@ -217,30 +219,30 @@ design: (work@top)
     |vpiNet:
     \_logic_net: (counter)
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:14:1: , endln:16:10
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:14:1: , endln:16:10
+    \_module: work@top (work@top), file:dut.sv, line:14:1, endln:16:10
     |vpiContAssign:
-    \_cont_assign: , line:11:10, endln:11:46, parent:work@top.c
+    \_cont_assign: , line:11:10, endln:11:46
       |vpiParent:
-      \_module: work@mod (work@top.c) dut.sv:15:3: , endln:15:13, parent:work@top
+      \_module: work@mod (work@top.c), file:dut.sv, line:15:3, endln:15:13
       |vpiRhs:
       \_hier_path: (cscope.local_function), line:11:16, endln:11:46
         |vpiParent:
-        \_cont_assign: , line:11:10, endln:11:46, parent:work@top.c
+        \_cont_assign: , line:11:10, endln:11:46
         |vpiName:cscope.local_function
         |vpiActual:
-        \_ref_obj: (cscope), line:11:16, endln:11:22, parent:cscope.local_function
+        \_ref_obj: (cscope), line:11:16, endln:11:22
           |vpiParent:
           \_hier_path: (cscope.local_function), line:11:16, endln:11:46
           |vpiName:cscope
           |vpiActual:
-          \_gen_scope: (work@top.c.cscope), parent:work@top.c.cscope
-            |vpiFullName:work@top.c.cscope
+          \_gen_scope: (work@top.c.cscope)
             |vpiParent:
-            \_gen_scope_array: (work@top.c.cscope), line:4:5, endln:8:8, parent:work@top.c
+            \_gen_scope_array: (work@top.c.cscope), line:4:5, endln:8:8
+            |vpiFullName:work@top.c.cscope
             |vpiTaskFunc:
-            \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18, parent:work@top.c.cscope
+            \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
+              |vpiParent:
+              \_gen_scope: (work@top.c.cscope)
               |vpiName:local_function
               |vpiFullName:work@top.c.cscope.local_function
               |vpiVisibility:1
@@ -250,89 +252,89 @@ design: (work@top)
                 |vpiTypespec:
                 \_logic_typespec: , line:5:26, endln:5:31
               |vpiParent:
-              \_gen_scope: (work@top.c.cscope), parent:work@top.c.cscope
+              \_gen_scope: (work@top.c.cscope)
               |vpiIODecl:
               \_io_decl: (x), line:5:54, endln:5:55
                 |vpiDirection:1
                 |vpiName:x
               |vpiStmt:
-              \_assignment: , line:6:9, endln:6:31, parent:work@top.c.cscope.local_function
+              \_assignment: , line:6:9, endln:6:31
                 |vpiParent:
-                \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18, parent:work@top.c.cscope
+                \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
                 |vpiOpType:82
                 |vpiBlocking:1
                 |vpiRhs:
-                \_operation: , line:6:26, endln:6:31, parent:work@top.c.cscope.local_function
+                \_operation: , line:6:26, endln:6:31
                   |vpiParent:
-                  \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18, parent:work@top.c.cscope
+                  \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
                   |vpiOpType:24
                   |vpiOperand:
-                  \_ref_obj: (work@top.c.cscope.local_function.x), line:6:26, endln:6:27, parent:work@top.c.cscope.local_function
+                  \_ref_obj: (work@top.c.cscope.local_function.x), line:6:26, endln:6:27
                     |vpiParent:
-                    \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18, parent:work@top.c.cscope
+                    \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
                     |vpiName:x
                     |vpiFullName:work@top.c.cscope.local_function.x
                     |vpiActual:
                     \_io_decl: (x), line:5:54, endln:5:55
                   |vpiOperand:
                   \_constant: , line:6:30, endln:6:31
+                    |vpiParent:
+                    \_operation: , line:6:26, endln:6:31
                     |vpiDecompile:1
                     |vpiSize:64
                     |UINT:1
-                    |vpiParent:
-                    \_operation: , line:6:26, endln:6:31, parent:work@top.c.cscope.local_function
                     |vpiConstType:9
                 |vpiLhs:
-                \_ref_obj: (work@top.c.cscope.local_function.local_function), line:6:9, endln:6:23, parent:work@top.c.cscope.local_function
+                \_ref_obj: (work@top.c.cscope.local_function.local_function), line:6:9, endln:6:23
                   |vpiParent:
-                  \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18, parent:work@top.c.cscope
+                  \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
                   |vpiName:local_function
                   |vpiFullName:work@top.c.cscope.local_function.local_function
                   |vpiActual:
                   \_logic_var: (local_function), line:5:26, endln:5:31
                     |vpiTypespec:
-                    \_logic_typespec: , line:5:26, endln:5:31, parent:local_function
+                    \_logic_typespec: , line:5:26, endln:5:31
                       |vpiParent:
                       \_logic_var: (local_function), line:5:26, endln:5:31
                     |vpiName:local_function
-              |vpiParent:
-              \_gen_scope: (work@top.c.cscope), parent:work@top.c.cscope
         |vpiActual:
-        \_method_func_call: (local_function), line:11:23, endln:11:37, parent:cscope.local_function
+        \_method_func_call: (local_function), line:11:23, endln:11:37
+          |vpiParent:
+          \_hier_path: (cscope.local_function), line:11:16, endln:11:46
           |vpiArgument:
-          \_ref_obj: (work@top.c.cscope.local_function.counter), line:11:38, endln:11:45, parent:local_function
+          \_ref_obj: (work@top.c.cscope.local_function.counter), line:11:38, endln:11:45
             |vpiParent:
-            \_method_func_call: (local_function), line:11:23, endln:11:37, parent:cscope.local_function
+            \_method_func_call: (local_function), line:11:23, endln:11:37
             |vpiName:counter
             |vpiFullName:work@top.c.cscope.local_function.counter
             |vpiActual:
             \_logic_net: (counter)
           |vpiName:local_function
-          |vpiParent:
-          \_hier_path: (cscope.local_function), line:11:16, endln:11:46
           |vpiFunction:
-          \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18, parent:work@top.c.cscope
+          \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
       |vpiLhs:
       \_ref_obj: (work@top.c.foo), line:11:10, endln:11:13
         |vpiParent:
-        \_cont_assign: , line:11:10, endln:11:46, parent:work@top.c
+        \_cont_assign: , line:11:10, endln:11:46
         |vpiName:foo
         |vpiFullName:work@top.c.foo
         |vpiActual:
         \_logic_net: (foo)
     |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.c.cscope), line:4:5, endln:8:8, parent:work@top.c
+    \_gen_scope_array: (work@top.c.cscope), line:4:5, endln:8:8
       |vpiParent:
-      \_module: work@mod (work@top.c) dut.sv:15:3: , endln:15:13, parent:work@top
+      \_module: work@mod (work@top.c), file:dut.sv, line:15:3, endln:15:13
       |vpiName:cscope
       |vpiFullName:work@top.c.cscope
       |vpiGenScope:
-      \_gen_scope: (work@top.c.cscope), parent:work@top.c.cscope
-        |vpiFullName:work@top.c.cscope
+      \_gen_scope: (work@top.c.cscope)
         |vpiParent:
-        \_gen_scope_array: (work@top.c.cscope), line:4:5, endln:8:8, parent:work@top.c
+        \_gen_scope_array: (work@top.c.cscope), line:4:5, endln:8:8
+        |vpiFullName:work@top.c.cscope
         |vpiTaskFunc:
-        \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18, parent:work@top.c.cscope
+        \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
+          |vpiParent:
+          \_gen_scope: (work@top.c.cscope)
           |vpiName:local_function
           |vpiFullName:work@top.c.cscope.local_function
           |vpiVisibility:1
@@ -340,23 +342,23 @@ design: (work@top)
           |vpiReturn:
           \_logic_var: , line:5:26, endln:5:31
           |vpiParent:
-          \_gen_scope: (work@top.c.cscope), parent:work@top.c.cscope
+          \_gen_scope: (work@top.c.cscope)
           |vpiIODecl:
-          \_io_decl: (x), line:5:54, endln:5:55, parent:work@top.c.cscope.local_function
+          \_io_decl: (x), line:5:54, endln:5:55
             |vpiParent:
-            \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18, parent:work@top.c.cscope
+            \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
             |vpiDirection:1
             |vpiName:x
           |vpiStmt:
-          \_assignment: , line:6:9, endln:6:31, parent:work@top.c.cscope.local_function
+          \_assignment: , line:6:9, endln:6:31
             |vpiParent:
-            \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18, parent:work@top.c.cscope
+            \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
             |vpiOpType:82
             |vpiBlocking:1
             |vpiRhs:
             \_operation: , line:6:26, endln:6:31
               |vpiParent:
-              \_assignment: , line:6:9, endln:6:31, parent:work@top.c.cscope.local_function
+              \_assignment: , line:6:9, endln:6:31
               |vpiOpType:24
               |vpiOperand:
               \_ref_obj: (work@top.c.cscope.local_function.x), line:6:26, endln:6:27
@@ -365,19 +367,17 @@ design: (work@top)
                 |vpiName:x
                 |vpiFullName:work@top.c.cscope.local_function.x
                 |vpiActual:
-                \_io_decl: (x), line:5:54, endln:5:55, parent:work@top.c.cscope.local_function
+                \_io_decl: (x), line:5:54, endln:5:55
               |vpiOperand:
               \_constant: , line:6:30, endln:6:31
             |vpiLhs:
             \_ref_obj: (work@top.c.cscope.local_function.local_function), line:6:9, endln:6:23
               |vpiParent:
-              \_assignment: , line:6:9, endln:6:31, parent:work@top.c.cscope.local_function
+              \_assignment: , line:6:9, endln:6:31
               |vpiName:local_function
               |vpiFullName:work@top.c.cscope.local_function.local_function
               |vpiActual:
               \_logic_var: , line:5:26, endln:5:31
-          |vpiParent:
-          \_gen_scope: (work@top.c.cscope), parent:work@top.c.cscope
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

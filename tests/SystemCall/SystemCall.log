@@ -110,14 +110,16 @@ design: (work@m2)
 |vpiElaborated:1
 |vpiName:work@m2
 |uhdmallModules:
-\_module: work@m2 (work@m2) dut.sv:1:1: , endln:6:10, parent:work@m2
+\_module: work@m2 (work@m2), file:dut.sv, line:1:1, endln:6:10
+  |vpiParent:
+  \_design: (work@m2)
   |vpiFullName:work@m2
   |vpiLetDecl:
   \_let_decl: (p2), line:3:1, endln:3:30
     |vpiExpr:
     \_sys_func_call: ($past), line:3:13, endln:3:29
       |vpiArgument:
-      \_ref_obj: (x), line:3:19, endln:3:20, parent:$past
+      \_ref_obj: (x), line:3:19, endln:3:20
         |vpiParent:
         \_sys_func_call: ($past), line:3:13, endln:3:29
         |vpiName:x
@@ -138,7 +140,7 @@ design: (work@m2)
         |INT:0
         |vpiConstType:7
       |vpiArgument:
-      \_ref_obj: (clock), line:3:23, endln:3:28, parent:$past
+      \_ref_obj: (clock), line:3:23, endln:3:28
         |vpiParent:
         \_sys_func_call: ($past), line:3:13, endln:3:29
         |vpiName:clock
@@ -149,16 +151,16 @@ design: (work@m2)
       |vpiName:$past
     |vpiName:p2
   |vpiDefName:work@m2
-  |vpiParent:
-  \_design: (work@m2)
   |vpiContAssign:
-  \_cont_assign: , line:4:8, endln:4:39, parent:work@m2
+  \_cont_assign: , line:4:8, endln:4:39
     |vpiParent:
-    \_module: work@m2 (work@m2) dut.sv:1:1: , endln:6:10, parent:work@m2
+    \_module: work@m2 (work@m2), file:dut.sv, line:1:1, endln:6:10
     |vpiRhs:
     \_sys_func_call: ($past), line:4:12, endln:4:17
+      |vpiParent:
+      \_cont_assign: , line:4:8, endln:4:39
       |vpiArgument:
-      \_ref_obj: (work@m2.x), line:4:18, endln:4:19, parent:$past
+      \_ref_obj: (work@m2.x), line:4:18, endln:4:19
         |vpiParent:
         \_sys_func_call: ($past), line:4:12, endln:4:17
         |vpiName:x
@@ -178,25 +180,23 @@ design: (work@m2)
         |INT:0
         |vpiConstType:7
       |vpiArgument:
-      \_operation: , line:4:24, endln:4:37, parent:$past
+      \_operation: , line:4:24, endln:4:37
         |vpiParent:
         \_sys_func_call: ($past), line:4:12, endln:4:17
         |vpiOpType:39
         |vpiOperand:
         \_ref_obj: (work@m2.clock), line:4:32, endln:4:37
           |vpiParent:
-          \_operation: , line:4:24, endln:4:37, parent:$past
+          \_operation: , line:4:24, endln:4:37
           |vpiName:clock
           |vpiFullName:work@m2.clock
           |vpiActual:
           \_logic_net: (clock)
       |vpiName:$past
-      |vpiParent:
-      \_cont_assign: , line:4:8, endln:4:39, parent:work@m2
     |vpiLhs:
     \_ref_obj: (work@m2.a), line:4:8, endln:4:9
       |vpiParent:
-      \_cont_assign: , line:4:8, endln:4:39, parent:work@m2
+      \_cont_assign: , line:4:8, endln:4:39
       |vpiName:a
       |vpiFullName:work@m2.a
       |vpiActual:
@@ -204,18 +204,20 @@ design: (work@m2)
         |vpiName:a
         |vpiNetType:1
 |uhdmtopModules:
-\_module: work@m2 (work@m2) dut.sv:1:1: , endln:6:10
+\_module: work@m2 (work@m2), file:dut.sv, line:1:1, endln:6:10
   |vpiName:work@m2
   |vpiLetDecl:
-  \_let_decl: (p2), line:3:1, endln:3:30, parent:work@m2
+  \_let_decl: (p2), line:3:1, endln:3:30
     |vpiParent:
-    \_module: work@m2 (work@m2) dut.sv:1:1: , endln:6:10
+    \_module: work@m2 (work@m2), file:dut.sv, line:1:1, endln:6:10
     |vpiExpr:
-    \_sys_func_call: ($past), line:3:13, endln:3:29, parent:p2
+    \_sys_func_call: ($past), line:3:13, endln:3:29
+      |vpiParent:
+      \_let_decl: (p2), line:3:1, endln:3:30
       |vpiArgument:
-      \_ref_obj: (work@m2.p2.x), line:3:19, endln:3:20, parent:$past
+      \_ref_obj: (work@m2.p2.x), line:3:19, endln:3:20
         |vpiParent:
-        \_sys_func_call: ($past), line:3:13, endln:3:29, parent:p2
+        \_sys_func_call: ($past), line:3:13, endln:3:29
         |vpiName:x
         |vpiFullName:work@m2.p2.x
         |vpiActual:
@@ -225,16 +227,14 @@ design: (work@m2)
       |vpiArgument:
       \_constant: , line:3:22, endln:3:22
       |vpiArgument:
-      \_ref_obj: (work@m2.p2.clock), line:3:23, endln:3:28, parent:$past
+      \_ref_obj: (work@m2.p2.clock), line:3:23, endln:3:28
         |vpiParent:
-        \_sys_func_call: ($past), line:3:13, endln:3:29, parent:p2
+        \_sys_func_call: ($past), line:3:13, endln:3:29
         |vpiName:clock
         |vpiFullName:work@m2.p2.clock
         |vpiActual:
         \_logic_net: (clock)
       |vpiName:$past
-      |vpiParent:
-      \_let_decl: (p2), line:3:1, endln:3:30, parent:work@m2
     |vpiName:p2
   |vpiDefName:work@m2
   |vpiTop:1
@@ -246,13 +246,15 @@ design: (work@m2)
   \_logic_net: (a)
   |vpiTopModule:1
   |vpiContAssign:
-  \_cont_assign: , line:4:8, endln:4:39, parent:work@m2
+  \_cont_assign: , line:4:8, endln:4:39
     |vpiParent:
-    \_module: work@m2 (work@m2) dut.sv:1:1: , endln:6:10
+    \_module: work@m2 (work@m2), file:dut.sv, line:1:1, endln:6:10
     |vpiRhs:
     \_sys_func_call: ($past), line:4:12, endln:4:17
+      |vpiParent:
+      \_cont_assign: , line:4:8, endln:4:39
       |vpiArgument:
-      \_ref_obj: (work@m2.x), line:4:18, endln:4:19, parent:$past
+      \_ref_obj: (work@m2.x), line:4:18, endln:4:19
         |vpiParent:
         \_sys_func_call: ($past), line:4:12, endln:4:17
         |vpiName:x
@@ -264,25 +266,23 @@ design: (work@m2)
       |vpiArgument:
       \_constant: , line:4:21, endln:4:21
       |vpiArgument:
-      \_operation: , line:4:24, endln:4:37, parent:$past
+      \_operation: , line:4:24, endln:4:37
         |vpiParent:
         \_sys_func_call: ($past), line:4:12, endln:4:17
         |vpiOpType:39
         |vpiOperand:
         \_ref_obj: (work@m2.clock), line:4:32, endln:4:37
           |vpiParent:
-          \_operation: , line:4:24, endln:4:37, parent:$past
+          \_operation: , line:4:24, endln:4:37
           |vpiName:clock
           |vpiFullName:work@m2.clock
           |vpiActual:
           \_logic_net: (clock)
       |vpiName:$past
-      |vpiParent:
-      \_cont_assign: , line:4:8, endln:4:39, parent:work@m2
     |vpiLhs:
     \_ref_obj: (work@m2.a), line:4:8, endln:4:9
       |vpiParent:
-      \_cont_assign: , line:4:8, endln:4:39, parent:work@m2
+      \_cont_assign: , line:4:8, endln:4:39
       |vpiName:a
       |vpiFullName:work@m2.a
       |vpiActual:

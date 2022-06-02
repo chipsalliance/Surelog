@@ -72,55 +72,55 @@ design: (work@test)
 |vpiElaborated:1
 |vpiName:work@test
 |uhdmallModules:
-\_module: work@test (work@test) dut.sv:1:1: , endln:9:10, parent:work@test
-  |vpiFullName:work@test
-  |vpiDefName:work@test
+\_module: work@test (work@test), file:dut.sv, line:1:1, endln:9:10
   |vpiParent:
   \_design: (work@test)
+  |vpiFullName:work@test
+  |vpiDefName:work@test
   |vpiProcess:
-  \_initial: , line:6:1, endln:8:8, parent:work@test
+  \_initial: , line:6:1, endln:8:8
+    |vpiParent:
+    \_module: work@test (work@test), file:dut.sv, line:1:1, endln:9:10
     |vpiStmt:
     \_begin: (work@test), line:6:9, endln:8:8
-      |vpiFullName:work@test
       |vpiParent:
-      \_initial: , line:6:1, endln:8:8, parent:work@test
+      \_initial: , line:6:1, endln:8:8
+      |vpiFullName:work@test
       |vpiStmt:
-      \_sys_func_call: ($display), line:5:5, endln:7:2, parent:work@test
+      \_sys_func_call: ($display), line:5:5, endln:7:2
+        |vpiParent:
+        \_begin: (work@test), line:6:9, endln:8:8
         |vpiArgument:
-        \_constant: , line:5:14, endln:5:36, parent:$display
+        \_constant: , line:5:14, endln:5:36
+          |vpiParent:
+          \_sys_func_call: ($display), line:5:5, endln:7:2
           |vpiDecompile:test/rom.mem`message
           |vpiSize:20
           |STRING:test/rom.mem`message
-          |vpiParent:
-          \_sys_func_call: ($display), line:5:5, endln:7:2, parent:work@test
           |vpiConstType:6
         |vpiName:$display
-        |vpiParent:
-        \_begin: (work@test), line:6:9, endln:8:8
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:1:1: , endln:9:10, parent:work@test
 |uhdmtopModules:
-\_module: work@test (work@test) dut.sv:1:1: , endln:9:10
+\_module: work@test (work@test), file:dut.sv, line:1:1, endln:9:10
   |vpiName:work@test
   |vpiDefName:work@test
   |vpiTop:1
   |vpiTopModule:1
   |vpiProcess:
-  \_initial: , line:6:1, endln:8:8, parent:work@test
+  \_initial: , line:6:1, endln:8:8
+    |vpiParent:
+    \_module: work@test (work@test), file:dut.sv, line:1:1, endln:9:10
     |vpiStmt:
     \_begin: (work@test), line:6:9, endln:8:8
-      |vpiFullName:work@test
       |vpiParent:
-      \_initial: , line:6:1, endln:8:8, parent:work@test
+      \_initial: , line:6:1, endln:8:8
+      |vpiFullName:work@test
       |vpiStmt:
-      \_sys_func_call: ($display), line:5:5, endln:7:2, parent:work@test
-        |vpiArgument:
-        \_constant: , line:5:14, endln:5:36, parent:$display
-        |vpiName:$display
+      \_sys_func_call: ($display), line:5:5, endln:7:2
         |vpiParent:
         \_begin: (work@test), line:6:9, endln:8:8
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:1:1: , endln:9:10
+        |vpiArgument:
+        \_constant: , line:5:14, endln:5:36
+        |vpiName:$display
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

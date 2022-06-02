@@ -190,21 +190,25 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallPackages:
-\_package: pkg (pkg::) dut.sv:1:1: , endln:20:11, parent:work@top
+\_package: pkg (pkg::), file:dut.sv, line:1:1, endln:20:11
+  |vpiParent:
+  \_design: (work@top)
   |vpiName:pkg
   |vpiFullName:pkg::
   |vpiDefName:pkg
   |vpiTaskFunc:
-  \_function: (pkg::uvm_printer::set_name_enabled), line:16:1, endln:18:12, parent:pkg::
+  \_function: (pkg::uvm_printer::set_name_enabled), line:16:1, endln:18:12
+    |vpiParent:
+    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:20:11
     |vpiName:uvm_printer::set_name_enabled
     |vpiFullName:pkg::uvm_printer::set_name_enabled
     |vpiVisibility:1
     |vpiParent:
-    \_package: pkg (pkg::) dut.sv:1:1: , endln:20:11, parent:work@top
+    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:20:11
     |vpiIODecl:
-    \_io_decl: (enabled), line:16:50, endln:16:57, parent:pkg::uvm_printer::set_name_enabled
+    \_io_decl: (enabled), line:16:50, endln:16:57
       |vpiParent:
-      \_function: (pkg::uvm_printer::set_name_enabled), line:16:1, endln:18:12, parent:pkg::
+      \_function: (pkg::uvm_printer::set_name_enabled), line:16:1, endln:18:12
       |vpiDirection:1
       |vpiName:enabled
       |vpiTypedef:
@@ -212,52 +216,54 @@ design: (work@top)
         |vpiInstance:
         \_package: (pkg), file:
     |vpiStmt:
-    \_assignment: , line:17:1, endln:17:27, parent:pkg::uvm_printer::set_name_enabled
+    \_assignment: , line:17:1, endln:17:27
       |vpiParent:
-      \_function: (pkg::uvm_printer::set_name_enabled), line:16:1, endln:18:12, parent:pkg::
+      \_function: (pkg::uvm_printer::set_name_enabled), line:16:1, endln:18:12
       |vpiOpType:82
       |vpiBlocking:1
       |vpiRhs:
       \_ref_obj: (pkg::uvm_printer::set_name_enabled::enabled), line:17:20, endln:17:27
         |vpiParent:
-        \_assignment: , line:17:1, endln:17:27, parent:pkg::uvm_printer::set_name_enabled
+        \_assignment: , line:17:1, endln:17:27
         |vpiName:enabled
         |vpiFullName:pkg::uvm_printer::set_name_enabled::enabled
         |vpiActual:
-        \_io_decl: (enabled), line:16:50, endln:16:57, parent:pkg::uvm_printer::set_name_enabled
+        \_io_decl: (enabled), line:16:50, endln:16:57
       |vpiLhs:
       \_hier_path: (knobs.identifier), line:17:1, endln:17:17
         |vpiParent:
-        \_assignment: , line:17:1, endln:17:27, parent:pkg::uvm_printer::set_name_enabled
+        \_assignment: , line:17:1, endln:17:27
         |vpiName:knobs.identifier
         |vpiActual:
-        \_ref_obj: (knobs), parent:knobs.identifier
+        \_ref_obj: (knobs)
           |vpiParent:
           \_hier_path: (knobs.identifier), line:17:1, endln:17:17
           |vpiName:knobs
         |vpiActual:
-        \_ref_obj: (identifier), parent:knobs.identifier
+        \_ref_obj: (identifier)
           |vpiParent:
           \_hier_path: (knobs.identifier), line:17:1, endln:17:17
           |vpiName:identifier
     |vpiInstance:
-    \_package: pkg (pkg::) dut.sv:1:1: , endln:20:11, parent:work@top
-    |vpiParent:
-    \_package: pkg (pkg::) dut.sv:1:1: , endln:20:11, parent:work@top
+    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:20:11
+|uhdmtopPackages:
+\_package: pkg (pkg::), file:dut.sv, line:1:1, endln:20:11
   |vpiParent:
   \_design: (work@top)
-|uhdmtopPackages:
-\_package: pkg (pkg::) dut.sv:1:1: , endln:20:11, parent:work@top
   |vpiName:pkg
   |vpiFullName:pkg::
   |vpiDefName:pkg
   |vpiTop:1
   |vpiClassDefn:
-  \_class_defn: (pkg::m_uvm_printer_knobs) dut.sv:3:1: , endln:7:9, parent:pkg::
+  \_class_defn: (pkg::m_uvm_printer_knobs), file:dut.sv, line:3:1, endln:7:9
+    |vpiParent:
+    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:20:11
     |vpiName:m_uvm_printer_knobs
     |vpiFullName:pkg::m_uvm_printer_knobs
     |vpiVariables:
-    \_bit_var: (pkg::m_uvm_printer_knobs::identifier), line:5:7, endln:5:17, parent:pkg::m_uvm_printer_knobs
+    \_bit_var: (pkg::m_uvm_printer_knobs::identifier), line:5:7, endln:5:17
+      |vpiParent:
+      \_class_defn: (pkg::m_uvm_printer_knobs), file:dut.sv, line:3:1, endln:7:9
       |vpiTypespec:
       \_bit_typespec: , line:5:3, endln:5:6
       |vpiName:identifier
@@ -270,33 +276,31 @@ design: (work@top)
         |vpiSize:1
         |UINT:1
         |vpiConstType:9
-      |vpiParent:
-      \_class_defn: (pkg::m_uvm_printer_knobs) dut.sv:3:1: , endln:7:9, parent:pkg::
-    |vpiParent:
-    \_package: pkg (pkg::) dut.sv:1:1: , endln:20:11, parent:work@top
   |vpiClassDefn:
-  \_class_defn: (pkg::uvm_printer) dut.sv:9:1: , endln:14:9, parent:pkg::
+  \_class_defn: (pkg::uvm_printer), file:dut.sv, line:9:1, endln:14:9
+    |vpiParent:
+    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:20:11
     |vpiName:uvm_printer
     |vpiFullName:pkg::uvm_printer
     |vpiVariables:
-    \_class_var: (pkg::uvm_printer::knobs), line:12:23, endln:12:28, parent:pkg::uvm_printer
+    \_class_var: (pkg::uvm_printer::knobs), line:12:23, endln:12:28
+      |vpiParent:
+      \_class_defn: (pkg::uvm_printer), file:dut.sv, line:9:1, endln:14:9
       |vpiTypespec:
-      \_class_typespec: (m_uvm_printer_knobs), line:12:3, endln:12:22, parent:pkg::uvm_printer::knobs
-        |vpiName:m_uvm_printer_knobs
+      \_class_typespec: (m_uvm_printer_knobs), line:12:3, endln:12:22
         |vpiParent:
-        \_class_var: (pkg::uvm_printer::knobs), line:12:23, endln:12:28, parent:pkg::uvm_printer
+        \_class_var: (pkg::uvm_printer::knobs), line:12:23, endln:12:28
+        |vpiName:m_uvm_printer_knobs
         |vpiClassDefn:
-        \_class_defn: (pkg::m_uvm_printer_knobs) dut.sv:3:1: , endln:7:9, parent:pkg::
+        \_class_defn: (pkg::m_uvm_printer_knobs), file:dut.sv, line:3:1, endln:7:9
       |vpiName:knobs
       |vpiFullName:pkg::uvm_printer::knobs
       |vpiAutomatic:1
       |vpiVisibility:1
-      |vpiParent:
-      \_class_defn: (pkg::uvm_printer) dut.sv:9:1: , endln:14:9, parent:pkg::
-    |vpiParent:
-    \_package: pkg (pkg::) dut.sv:1:1: , endln:20:11, parent:work@top
     |vpiMethod:
-    \_function: (pkg::uvm_printer::set_name_enabled), line:11:3, endln:11:9, parent:pkg::uvm_printer
+    \_function: (pkg::uvm_printer::set_name_enabled), line:11:3, endln:11:9
+      |vpiParent:
+      \_class_defn: (pkg::uvm_printer), file:dut.sv, line:9:1, endln:14:9
       |vpiName:set_name_enabled
       |vpiFullName:pkg::uvm_printer::set_name_enabled
       |vpiMethod:1
@@ -304,122 +308,122 @@ design: (work@top)
       |vpiVisibility:1
       |vpiVirtual:1
       |vpiParent:
-      \_class_defn: (pkg::uvm_printer) dut.sv:9:1: , endln:14:9, parent:pkg::
+      \_class_defn: (pkg::uvm_printer), file:dut.sv, line:9:1, endln:14:9
       |vpiIODecl:
-      \_io_decl: (enabled), line:11:54, endln:11:61, parent:pkg::uvm_printer::set_name_enabled
+      \_io_decl: (enabled), line:11:54, endln:11:61
         |vpiParent:
-        \_function: (pkg::uvm_printer::set_name_enabled), line:11:3, endln:11:9, parent:pkg::uvm_printer
+        \_function: (pkg::uvm_printer::set_name_enabled), line:11:3, endln:11:9
         |vpiDirection:1
         |vpiName:enabled
         |vpiTypedef:
         \_bit_typespec: , line:11:50, endln:11:53
-      |vpiParent:
-      \_class_defn: (pkg::uvm_printer) dut.sv:9:1: , endln:14:9, parent:pkg::
     |vpiMethod:
-    \_function: (pkg::uvm_printer::set_name_enabled), line:16:1, endln:18:12, parent:pkg::uvm_printer
+    \_function: (pkg::uvm_printer::set_name_enabled), line:16:1, endln:18:12
+      |vpiParent:
+      \_class_defn: (pkg::uvm_printer), file:dut.sv, line:9:1, endln:14:9
       |vpiName:set_name_enabled
       |vpiFullName:pkg::uvm_printer::set_name_enabled
       |vpiVisibility:1
       |vpiParent:
-      \_class_defn: (pkg::uvm_printer) dut.sv:9:1: , endln:14:9, parent:pkg::
+      \_class_defn: (pkg::uvm_printer), file:dut.sv, line:9:1, endln:14:9
       |vpiIODecl:
-      \_io_decl: (enabled), line:16:50, endln:16:57, parent:pkg::uvm_printer::set_name_enabled
+      \_io_decl: (enabled), line:16:50, endln:16:57
         |vpiParent:
-        \_function: (pkg::uvm_printer::set_name_enabled), line:16:1, endln:18:12, parent:pkg::uvm_printer
+        \_function: (pkg::uvm_printer::set_name_enabled), line:16:1, endln:18:12
         |vpiDirection:1
         |vpiName:enabled
         |vpiTypedef:
         \_bit_typespec: , line:16:46, endln:16:49
           |vpiInstance:
-          \_package: pkg (pkg::) dut.sv:1:1: , endln:20:11, parent:work@top
+          \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:20:11
       |vpiStmt:
-      \_assignment: , line:17:1, endln:17:27, parent:pkg::uvm_printer::set_name_enabled
+      \_assignment: , line:17:1, endln:17:27
         |vpiParent:
-        \_function: (pkg::uvm_printer::set_name_enabled), line:16:1, endln:18:12, parent:pkg::uvm_printer
+        \_function: (pkg::uvm_printer::set_name_enabled), line:16:1, endln:18:12
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_ref_obj: (pkg::uvm_printer::set_name_enabled::enabled), line:17:20, endln:17:27
           |vpiParent:
-          \_assignment: , line:17:1, endln:17:27, parent:pkg::uvm_printer::set_name_enabled
+          \_assignment: , line:17:1, endln:17:27
           |vpiName:enabled
           |vpiFullName:pkg::uvm_printer::set_name_enabled::enabled
           |vpiActual:
-          \_io_decl: (enabled), line:16:50, endln:16:57, parent:pkg::uvm_printer::set_name_enabled
+          \_io_decl: (enabled), line:16:50, endln:16:57
         |vpiLhs:
         \_hier_path: (knobs.identifier), line:17:1, endln:17:17
           |vpiParent:
-          \_assignment: , line:17:1, endln:17:27, parent:pkg::uvm_printer::set_name_enabled
+          \_assignment: , line:17:1, endln:17:27
           |vpiName:knobs.identifier
           |vpiActual:
-          \_ref_obj: (knobs), parent:knobs.identifier
+          \_ref_obj: (knobs)
             |vpiParent:
             \_hier_path: (knobs.identifier), line:17:1, endln:17:17
             |vpiName:knobs
             |vpiActual:
-            \_class_var: (pkg::uvm_printer::knobs), line:12:23, endln:12:28, parent:pkg::uvm_printer
+            \_class_var: (pkg::uvm_printer::knobs), line:12:23, endln:12:28
+              |vpiParent:
+              \_class_defn: (pkg::uvm_printer), file:dut.sv, line:9:1, endln:14:9
               |vpiTypespec:
-              \_class_typespec: (m_uvm_printer_knobs), line:12:3, endln:12:22, parent:pkg::uvm_printer::knobs
+              \_class_typespec: (m_uvm_printer_knobs), line:12:3, endln:12:22
               |vpiName:knobs
               |vpiFullName:pkg::uvm_printer::knobs
               |vpiAutomatic:1
               |vpiVisibility:1
-              |vpiParent:
-              \_class_defn: (pkg::uvm_printer) dut.sv:9:1: , endln:14:9, parent:pkg::
           |vpiActual:
-          \_ref_obj: (identifier), parent:knobs.identifier
+          \_ref_obj: (identifier)
             |vpiParent:
             \_hier_path: (knobs.identifier), line:17:1, endln:17:17
             |vpiName:identifier
             |vpiActual:
-            \_bit_var: (pkg::m_uvm_printer_knobs::identifier), line:5:7, endln:5:17, parent:pkg::m_uvm_printer_knobs
+            \_bit_var: (pkg::m_uvm_printer_knobs::identifier), line:5:7, endln:5:17
       |vpiInstance:
-      \_package: pkg (pkg::) dut.sv:1:1: , endln:20:11, parent:work@top
-      |vpiParent:
-      \_class_defn: (pkg::uvm_printer) dut.sv:9:1: , endln:14:9, parent:pkg::
+      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:20:11
+|uhdmallModules:
+\_module: work@top (work@top), file:dut.sv, line:22:1, endln:29:10
   |vpiParent:
   \_design: (work@top)
-|uhdmallModules:
-\_module: work@top (work@top) dut.sv:22:1: , endln:29:10, parent:work@top
   |vpiFullName:work@top
   |vpiDefName:work@top
   |vpiNet:
-  \_logic_net: (work@top.printer), line:24:18, endln:24:25, parent:work@top
+  \_logic_net: (work@top.printer), line:24:18, endln:24:25
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:22:1, endln:29:10
     |vpiName:printer
     |vpiFullName:work@top.printer
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:22:1: , endln:29:10, parent:work@top
-  |vpiParent:
-  \_design: (work@top)
   |vpiProcess:
-  \_initial: , line:25:1, endln:28:4, parent:work@top
+  \_initial: , line:25:1, endln:28:4
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:22:1, endln:29:10
     |vpiStmt:
     \_begin: (work@top), line:25:9, endln:28:4
-      |vpiFullName:work@top
       |vpiParent:
-      \_initial: , line:25:1, endln:28:4, parent:work@top
+      \_initial: , line:25:1, endln:28:4
+      |vpiFullName:work@top
       |vpiStmt:
-      \_assignment: , line:26:5, endln:26:18, parent:work@top
+      \_assignment: , line:26:5, endln:26:18
         |vpiParent:
         \_begin: (work@top), line:25:9, endln:28:4
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
-        \_method_func_call: (new), parent:work@top
-          |vpiName:new
+        \_method_func_call: (new)
           |vpiParent:
           \_begin: (work@top), line:25:9, endln:28:4
+          |vpiName:new
         |vpiLhs:
         \_ref_obj: (printer), line:26:5, endln:26:12
           |vpiParent:
-          \_assignment: , line:26:5, endln:26:18, parent:work@top
+          \_assignment: , line:26:5, endln:26:18
           |vpiName:printer
       |vpiStmt:
-      \_method_func_call: (set_name_enabled), line:27:9, endln:27:25, parent:work@top
+      \_method_func_call: (set_name_enabled), line:27:9, endln:27:25
+        |vpiParent:
+        \_begin: (work@top), line:25:9, endln:28:4
         |vpiArgument:
-        \_ref_obj: (work@top.en), line:27:27, endln:27:29, parent:set_name_enabled
+        \_ref_obj: (work@top.en), line:27:27, endln:27:29
           |vpiParent:
-          \_method_func_call: (set_name_enabled), line:27:9, endln:27:25, parent:work@top
+          \_method_func_call: (set_name_enabled), line:27:9, endln:27:25
           |vpiName:en
           |vpiFullName:work@top.en
           |vpiActual:
@@ -427,85 +431,81 @@ design: (work@top)
             |vpiName:en
             |vpiNetType:1
         |vpiName:set_name_enabled
-        |vpiParent:
-        \_begin: (work@top), line:25:9, endln:28:4
         |vpiPrefix:
         \_ref_obj: (printer), line:27:1, endln:27:8
           |vpiName:printer
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:22:1: , endln:29:10, parent:work@top
 |uhdmtopModules:
-\_module: work@top (work@top) dut.sv:22:1: , endln:29:10
+\_module: work@top (work@top), file:dut.sv, line:22:1, endln:29:10
   |vpiName:work@top
   |vpiVariables:
-  \_class_var: (work@top.printer), line:24:18, endln:24:25, parent:work@top
+  \_class_var: (work@top.printer), line:24:18, endln:24:25
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:22:1, endln:29:10
     |vpiTypespec:
-    \_class_typespec: (pkg::uvm_printer), line:24:1, endln:24:6, parent:work@top.printer
-      |vpiName:pkg::uvm_printer
+    \_class_typespec: (pkg::uvm_printer), line:24:1, endln:24:6
       |vpiParent:
-      \_class_var: (work@top.printer), line:24:18, endln:24:25, parent:work@top
+      \_class_var: (work@top.printer), line:24:18, endln:24:25
+      |vpiName:pkg::uvm_printer
       |vpiClassDefn:
-      \_class_defn: (pkg::uvm_printer) dut.sv:9:1: , endln:14:9, parent:pkg::
+      \_class_defn: (pkg::uvm_printer), file:dut.sv, line:9:1, endln:14:9
     |vpiName:printer
     |vpiFullName:work@top.printer
     |vpiVisibility:1
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:22:1: , endln:29:10
   |vpiDefName:work@top
   |vpiTop:1
   |vpiNet:
   \_logic_net: (en)
   |vpiTopModule:1
   |vpiProcess:
-  \_initial: , line:25:1, endln:28:4, parent:work@top
+  \_initial: , line:25:1, endln:28:4
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:22:1, endln:29:10
     |vpiStmt:
     \_begin: (work@top), line:25:9, endln:28:4
-      |vpiFullName:work@top
       |vpiParent:
-      \_initial: , line:25:1, endln:28:4, parent:work@top
+      \_initial: , line:25:1, endln:28:4
+      |vpiFullName:work@top
       |vpiStmt:
-      \_assignment: , line:26:5, endln:26:18, parent:work@top
+      \_assignment: , line:26:5, endln:26:18
         |vpiParent:
         \_begin: (work@top), line:25:9, endln:28:4
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_method_func_call: (new)
-          |vpiName:new
           |vpiParent:
-          \_assignment: , line:26:5, endln:26:18, parent:work@top
+          \_assignment: , line:26:5, endln:26:18
+          |vpiName:new
         |vpiLhs:
         \_ref_obj: (printer), line:26:5, endln:26:12
           |vpiParent:
-          \_assignment: , line:26:5, endln:26:18, parent:work@top
+          \_assignment: , line:26:5, endln:26:18
           |vpiName:printer
           |vpiActual:
-          \_class_var: (work@top.printer), line:24:18, endln:24:25, parent:work@top
+          \_class_var: (work@top.printer), line:24:18, endln:24:25
       |vpiStmt:
-      \_method_func_call: (set_name_enabled), line:27:9, endln:27:25, parent:work@top
+      \_method_func_call: (set_name_enabled), line:27:9, endln:27:25
+        |vpiParent:
+        \_begin: (work@top), line:25:9, endln:28:4
         |vpiArgument:
-        \_ref_obj: (work@top.en), line:27:27, endln:27:29, parent:set_name_enabled
+        \_ref_obj: (work@top.en), line:27:27, endln:27:29
           |vpiParent:
-          \_method_func_call: (set_name_enabled), line:27:9, endln:27:25, parent:work@top
+          \_method_func_call: (set_name_enabled), line:27:9, endln:27:25
           |vpiName:en
           |vpiFullName:work@top.en
           |vpiActual:
           \_logic_net: (en)
         |vpiName:set_name_enabled
-        |vpiParent:
-        \_begin: (work@top), line:25:9, endln:28:4
         |vpiPrefix:
-        \_ref_obj: (work@top.printer), line:27:1, endln:27:8, parent:set_name_enabled
+        \_ref_obj: (work@top.printer), line:27:1, endln:27:8
           |vpiParent:
-          \_method_func_call: (set_name_enabled), line:27:9, endln:27:25, parent:work@top
+          \_method_func_call: (set_name_enabled), line:27:9, endln:27:25
           |vpiName:printer
           |vpiFullName:work@top.printer
           |vpiActual:
-          \_class_var: (work@top.printer), line:24:18, endln:24:25, parent:work@top
+          \_class_var: (work@top.printer), line:24:18, endln:24:25
         |vpiFunction:
-        \_function: (pkg::uvm_printer::set_name_enabled), line:11:3, endln:11:9, parent:pkg::uvm_printer
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:22:1: , endln:29:10
+        \_function: (pkg::uvm_printer::set_name_enabled), line:11:3, endln:11:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

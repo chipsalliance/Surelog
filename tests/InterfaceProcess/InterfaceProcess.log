@@ -129,120 +129,120 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallInterfaces:
-\_interface: work@sw_test_status_if (work@sw_test_status_if) dut.sv:1:1: , endln:11:13, parent:work@top
+\_interface: work@sw_test_status_if (work@sw_test_status_if), file:dut.sv, line:1:1, endln:11:13
+  |vpiParent:
+  \_design: (work@top)
   |vpiFullName:work@sw_test_status_if
   |vpiDefName:work@sw_test_status_if
   |vpiNet:
-  \_logic_net: (work@sw_test_status_if.data_valid), line:2:9, endln:2:19, parent:work@sw_test_status_if
+  \_logic_net: (work@sw_test_status_if.data_valid), line:2:9, endln:2:19
+    |vpiParent:
+    \_interface: work@sw_test_status_if (work@sw_test_status_if), file:dut.sv, line:1:1, endln:11:13
     |vpiName:data_valid
     |vpiFullName:work@sw_test_status_if.data_valid
     |vpiNetType:36
-    |vpiParent:
-    \_interface: work@sw_test_status_if (work@sw_test_status_if) dut.sv:1:1: , endln:11:13, parent:work@top
   |vpiNet:
-  \_logic_net: (work@sw_test_status_if.sw_test_done), line:5:7, endln:5:19, parent:work@sw_test_status_if
+  \_logic_net: (work@sw_test_status_if.sw_test_done), line:5:7, endln:5:19
+    |vpiParent:
+    \_interface: work@sw_test_status_if (work@sw_test_status_if), file:dut.sv, line:1:1, endln:11:13
     |vpiName:sw_test_done
     |vpiFullName:work@sw_test_status_if.sw_test_done
-    |vpiParent:
-    \_interface: work@sw_test_status_if (work@sw_test_status_if) dut.sv:1:1: , endln:11:13, parent:work@top
-  |vpiParent:
-  \_design: (work@top)
   |vpiContAssign:
-  \_cont_assign: , line:3:10, endln:3:27, parent:work@top.u_sw
+  \_cont_assign: , line:3:10, endln:3:27
     |vpiParent:
-    \_interface: work@sw_test_status_if (work@top.u_sw) dut.sv:14:4: , endln:14:29, parent:work@top
+    \_interface: work@sw_test_status_if (work@top.u_sw), file:dut.sv, line:14:4, endln:14:29
     |vpiRhs:
     \_constant: , line:3:23, endln:3:27
+      |vpiParent:
+      \_cont_assign: , line:3:10, endln:3:27
       |vpiDecompile:1'b1
       |vpiSize:1
       |BIN:1
-      |vpiParent:
-      \_cont_assign: , line:3:10, endln:3:27, parent:work@top.u_sw
       |vpiConstType:3
     |vpiLhs:
     \_ref_obj: (work@top.u_sw.data_valid), line:3:10, endln:3:20
       |vpiParent:
-      \_cont_assign: , line:3:10, endln:3:27, parent:work@top.u_sw
+      \_cont_assign: , line:3:10, endln:3:27
       |vpiName:data_valid
       |vpiFullName:work@top.u_sw.data_valid
       |vpiActual:
-      \_logic_var: (work@top.u_sw.data_valid), line:2:9, endln:2:19, parent:work@top.u_sw
+      \_logic_var: (work@top.u_sw.data_valid), line:2:9, endln:2:19
+        |vpiParent:
+        \_interface: work@sw_test_status_if (work@top.u_sw), file:dut.sv, line:14:4, endln:14:29
         |vpiTypespec:
         \_logic_typespec: , line:2:3, endln:2:8
         |vpiName:data_valid
         |vpiFullName:work@top.u_sw.data_valid
         |vpiVisibility:1
-        |vpiParent:
-        \_interface: work@sw_test_status_if (work@top.u_sw) dut.sv:14:4: , endln:14:29, parent:work@top
   |vpiProcess:
-  \_initial: , line:6:3, endln:8:6, parent:work@top.u_sw
+  \_initial: , line:6:3, endln:8:6
+    |vpiParent:
+    \_interface: work@sw_test_status_if (work@top.u_sw), file:dut.sv, line:14:4, endln:14:29
     |vpiStmt:
     \_begin: (work@top.u_sw), line:6:11, endln:8:6
-      |vpiFullName:work@top.u_sw
       |vpiParent:
-      \_initial: , line:6:3, endln:8:6, parent:work@top.u_sw
+      \_initial: , line:6:3, endln:8:6
+      |vpiFullName:work@top.u_sw
       |vpiStmt:
-      \_assignment: , line:7:6, endln:7:25, parent:work@top.u_sw
+      \_assignment: , line:7:6, endln:7:25
         |vpiParent:
         \_begin: (work@top.u_sw), line:6:11, endln:8:6
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:7:21, endln:7:25
+          |vpiParent:
+          \_assignment: , line:7:6, endln:7:25
           |vpiDecompile:1'b1
           |vpiSize:1
           |BIN:1
-          |vpiParent:
-          \_assignment: , line:7:6, endln:7:25, parent:work@top.u_sw
           |vpiConstType:3
         |vpiLhs:
-        \_ref_obj: (work@top.u_sw.sw_test_done), line:7:6, endln:7:18, parent:work@top.u_sw
+        \_ref_obj: (work@top.u_sw.sw_test_done), line:7:6, endln:7:18
           |vpiParent:
           \_begin: (work@top.u_sw), line:6:11, endln:8:6
           |vpiName:sw_test_done
           |vpiFullName:work@top.u_sw.sw_test_done
           |vpiActual:
-          \_bit_var: (work@top.u_sw.sw_test_done), line:5:7, endln:5:19, parent:work@top.u_sw
+          \_bit_var: (work@top.u_sw.sw_test_done), line:5:7, endln:5:19
+            |vpiParent:
+            \_interface: work@sw_test_status_if (work@top.u_sw), file:dut.sv, line:14:4, endln:14:29
             |vpiTypespec:
             \_bit_typespec: , line:5:3, endln:5:6
             |vpiName:sw_test_done
             |vpiFullName:work@top.u_sw.sw_test_done
             |vpiVisibility:1
-            |vpiParent:
-            \_interface: work@sw_test_status_if (work@top.u_sw) dut.sv:14:4: , endln:14:29, parent:work@top
-    |vpiParent:
-    \_interface: work@sw_test_status_if (work@top.u_sw) dut.sv:14:4: , endln:14:29, parent:work@top
 |uhdmallModules:
-\_module: work@top (work@top) dut.sv:13:1: , endln:15:10, parent:work@top
-  |vpiFullName:work@top
-  |vpiDefName:work@top
+\_module: work@top (work@top), file:dut.sv, line:13:1, endln:15:10
   |vpiParent:
   \_design: (work@top)
+  |vpiFullName:work@top
+  |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top) dut.sv:13:1: , endln:15:10
+\_module: work@top (work@top), file:dut.sv, line:13:1, endln:15:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
   |vpiInterface:
-  \_interface: work@sw_test_status_if (work@top.u_sw) dut.sv:14:4: , endln:14:29, parent:work@top
+  \_interface: work@sw_test_status_if (work@top.u_sw), file:dut.sv, line:14:4, endln:14:29
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:13:1, endln:15:10
     |vpiName:u_sw
     |vpiFullName:work@top.u_sw
     |vpiVariables:
-    \_logic_var: (work@top.u_sw.data_valid), line:2:9, endln:2:19, parent:work@top.u_sw
+    \_logic_var: (work@top.u_sw.data_valid), line:2:9, endln:2:19
     |vpiVariables:
-    \_bit_var: (work@top.u_sw.sw_test_done), line:5:7, endln:5:19, parent:work@top.u_sw
+    \_bit_var: (work@top.u_sw.sw_test_done), line:5:7, endln:5:19
     |vpiDefName:work@sw_test_status_if
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:13:1: , endln:15:10
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:13:1: , endln:15:10
+    \_module: work@top (work@top), file:dut.sv, line:13:1, endln:15:10
     |vpiContAssign:
-    \_cont_assign: , line:3:10, endln:3:27, parent:work@top.u_sw
+    \_cont_assign: , line:3:10, endln:3:27
     |vpiProcess:
-    \_initial: , line:6:3, endln:8:6, parent:work@top.u_sw
+    \_initial: , line:6:3, endln:8:6
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

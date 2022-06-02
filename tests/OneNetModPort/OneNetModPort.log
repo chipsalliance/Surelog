@@ -56,29 +56,29 @@
 design: (work@TOP)
 |vpiName:work@TOP
 |uhdmallInterfaces:
-\_interface: work@ConnectTB (work@ConnectTB) dut.v:9:1: , endln:20:13, parent:work@TOP
+\_interface: work@ConnectTB (work@ConnectTB), file:dut.v, line:9:1, endln:20:13
+  |vpiParent:
+  \_design: (work@TOP)
   |vpiFullName:work@ConnectTB
   |vpiDefName:work@ConnectTB
   |vpiNet:
-  \_logic_net: (work@ConnectTB.drive), line:10:9, endln:10:14, parent:work@ConnectTB
+  \_logic_net: (work@ConnectTB.drive), line:10:9, endln:10:14
+    |vpiParent:
+    \_interface: work@ConnectTB (work@ConnectTB), file:dut.v, line:9:1, endln:20:13
     |vpiName:drive
     |vpiFullName:work@ConnectTB.drive
     |vpiNetType:36
-    |vpiParent:
-    \_interface: work@ConnectTB (work@ConnectTB) dut.v:9:1: , endln:20:13, parent:work@TOP
   |vpiNet:
-  \_logic_net: (work@ConnectTB.observe), line:11:9, endln:11:16, parent:work@ConnectTB
+  \_logic_net: (work@ConnectTB.observe), line:11:9, endln:11:16
+    |vpiParent:
+    \_interface: work@ConnectTB (work@ConnectTB), file:dut.v, line:9:1, endln:20:13
     |vpiName:observe
     |vpiFullName:work@ConnectTB.observe
     |vpiNetType:36
-    |vpiParent:
-    \_interface: work@ConnectTB (work@ConnectTB) dut.v:9:1: , endln:20:13, parent:work@TOP
-  |vpiParent:
-  \_design: (work@TOP)
   |vpiModport:
-  \_modport: (dut), line:12:11, endln:12:14, parent:work@ConnectTB
+  \_modport: (dut), line:12:11, endln:12:14
     |vpiParent:
-    \_interface: work@ConnectTB (work@ConnectTB) dut.v:9:1: , endln:20:13, parent:work@TOP
+    \_interface: work@ConnectTB (work@ConnectTB), file:dut.v, line:9:1, endln:20:13
     |vpiName:dut
     |vpiIODecl:
     \_io_decl: (drive), line:13:11, endln:13:16
@@ -89,9 +89,9 @@ design: (work@TOP)
       |vpiDirection:2
       |vpiName:observe
   |vpiModport:
-  \_modport: (tb), line:16:11, endln:16:13, parent:work@ConnectTB
+  \_modport: (tb), line:16:11, endln:16:13
     |vpiParent:
-    \_interface: work@ConnectTB (work@ConnectTB) dut.v:9:1: , endln:20:13, parent:work@TOP
+    \_interface: work@ConnectTB (work@ConnectTB), file:dut.v, line:9:1, endln:20:13
     |vpiName:tb
     |vpiIODecl:
     \_io_decl: (drive), line:17:12, endln:17:17
@@ -102,116 +102,118 @@ design: (work@TOP)
       |vpiDirection:1
       |vpiName:observe
 |uhdmallPrograms:
-\_program: work@TESTBENCH (work@TESTBENCH) tb.v:1:1: , endln:12:11, parent:work@TOP
-  |vpiFullName:work@TESTBENCH
-  |vpiDefName:work@TESTBENCH
+\_program: work@TESTBENCH (work@TESTBENCH), file:tb.v, line:1:1, endln:12:11
   |vpiParent:
   \_design: (work@TOP)
+  |vpiFullName:work@TESTBENCH
+  |vpiDefName:work@TESTBENCH
   |vpiProcess:
-  \_initial: , line:2:3, endln:11:6, parent:work@TESTBENCH
+  \_initial: , line:2:3, endln:11:6
+    |vpiParent:
+    \_program: work@TESTBENCH (work@TESTBENCH), file:tb.v, line:1:1, endln:12:11
     |vpiStmt:
     \_begin: (work@TESTBENCH), line:2:11, endln:11:6
-      |vpiFullName:work@TESTBENCH
       |vpiParent:
-      \_initial: , line:2:3, endln:11:6, parent:work@TESTBENCH
+      \_initial: , line:2:3, endln:11:6
+      |vpiFullName:work@TESTBENCH
       |vpiStmt:
-      \_sys_func_call: ($dumpfile), line:3:5, endln:3:26, parent:work@TESTBENCH
+      \_sys_func_call: ($dumpfile), line:3:5, endln:3:26
+        |vpiParent:
+        \_begin: (work@TESTBENCH), line:2:11, endln:11:6
         |vpiArgument:
-        \_constant: , line:3:15, endln:3:25, parent:$dumpfile
+        \_constant: , line:3:15, endln:3:25
+          |vpiParent:
+          \_sys_func_call: ($dumpfile), line:3:5, endln:3:26
           |vpiDecompile:test.vcd
           |vpiSize:8
           |STRING:test.vcd
-          |vpiParent:
-          \_sys_func_call: ($dumpfile), line:3:5, endln:3:26, parent:work@TESTBENCH
           |vpiConstType:6
         |vpiName:$dumpfile
+      |vpiStmt:
+      \_sys_func_call: ($dumpvars), line:4:5, endln:4:14
         |vpiParent:
         \_begin: (work@TESTBENCH), line:2:11, endln:11:6
-      |vpiStmt:
-      \_sys_func_call: ($dumpvars), line:4:5, endln:4:14, parent:work@TESTBENCH
         |vpiName:$dumpvars
+      |vpiStmt:
+      \_sys_func_call: ($monitor), line:5:5, endln:5:71
         |vpiParent:
         \_begin: (work@TESTBENCH), line:2:11, endln:11:6
-      |vpiStmt:
-      \_sys_func_call: ($monitor), line:5:5, endln:5:71, parent:work@TESTBENCH
         |vpiArgument:
-        \_constant: , line:5:14, endln:5:39, parent:$monitor
+        \_constant: , line:5:14, endln:5:39
+          |vpiParent:
+          \_sys_func_call: ($monitor), line:5:5, endln:5:71
           |vpiDecompile:@%0dns i = %0d, o = %0d
           |vpiSize:23
           |STRING:@%0dns i = %0d, o = %0d
-          |vpiParent:
-          \_sys_func_call: ($monitor), line:5:5, endln:5:71, parent:work@TESTBENCH
           |vpiConstType:6
         |vpiArgument:
-        \_sys_func_call: ($time), line:5:40, endln:5:45, parent:$monitor
+        \_sys_func_call: ($time), line:5:40, endln:5:45
+          |vpiParent:
+          \_sys_func_call: ($monitor), line:5:5, endln:5:71
           |vpiName:$time
-          |vpiParent:
-          \_sys_func_call: ($monitor), line:5:5, endln:5:71, parent:work@TESTBENCH
         |vpiArgument:
-        \_hier_path: (intf.drive), line:5:46, endln:5:56, parent:$monitor
+        \_hier_path: (intf.drive), line:5:46, endln:5:56
           |vpiParent:
-          \_sys_func_call: ($monitor), line:5:5, endln:5:71, parent:work@TESTBENCH
+          \_sys_func_call: ($monitor), line:5:5, endln:5:71
           |vpiName:intf.drive
           |vpiActual:
-          \_ref_obj: (intf), line:5:46, endln:5:50, parent:intf.drive
+          \_ref_obj: (intf), line:5:46, endln:5:50
             |vpiParent:
-            \_hier_path: (intf.drive), line:5:46, endln:5:56, parent:$monitor
+            \_hier_path: (intf.drive), line:5:46, endln:5:56
             |vpiName:intf
           |vpiActual:
           \_ref_obj: (drive), line:5:51, endln:5:56
             |vpiName:drive
         |vpiArgument:
-        \_hier_path: (intf.observe), line:5:58, endln:5:70, parent:$monitor
+        \_hier_path: (intf.observe), line:5:58, endln:5:70
           |vpiParent:
-          \_sys_func_call: ($monitor), line:5:5, endln:5:71, parent:work@TESTBENCH
+          \_sys_func_call: ($monitor), line:5:5, endln:5:71
           |vpiName:intf.observe
           |vpiActual:
-          \_ref_obj: (intf), line:5:58, endln:5:62, parent:intf.observe
+          \_ref_obj: (intf), line:5:58, endln:5:62
             |vpiParent:
-            \_hier_path: (intf.observe), line:5:58, endln:5:70, parent:$monitor
+            \_hier_path: (intf.observe), line:5:58, endln:5:70
             |vpiName:intf
           |vpiActual:
           \_ref_obj: (observe), line:5:63, endln:5:70
             |vpiName:observe
         |vpiName:$monitor
-        |vpiParent:
-        \_begin: (work@TESTBENCH), line:2:11, endln:11:6
       |vpiStmt:
-      \_assignment: , line:6:5, endln:6:19, parent:work@TESTBENCH
+      \_assignment: , line:6:5, endln:6:19
         |vpiParent:
         \_begin: (work@TESTBENCH), line:2:11, endln:11:6
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:6:18, endln:6:19
+          |vpiParent:
+          \_assignment: , line:6:5, endln:6:19
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_assignment: , line:6:5, endln:6:19, parent:work@TESTBENCH
           |vpiConstType:9
         |vpiLhs:
-        \_hier_path: (intf.drive), line:6:5, endln:6:15, parent:work@TESTBENCH
+        \_hier_path: (intf.drive), line:6:5, endln:6:15
           |vpiParent:
           \_begin: (work@TESTBENCH), line:2:11, endln:11:6
           |vpiName:intf.drive
           |vpiActual:
-          \_ref_obj: (intf), parent:intf.drive
+          \_ref_obj: (intf)
             |vpiParent:
-            \_hier_path: (intf.drive), line:6:5, endln:6:15, parent:work@TESTBENCH
+            \_hier_path: (intf.drive), line:6:5, endln:6:15
             |vpiName:intf
           |vpiActual:
           \_ref_obj: (drive)
             |vpiName:drive
       |vpiStmt:
-      \_delay_control: , line:7:5, endln:7:7, parent:work@TESTBENCH
+      \_delay_control: , line:7:5, endln:7:7
         |vpiParent:
         \_begin: (work@TESTBENCH), line:2:11, endln:11:6
         |#1
         |vpiStmt:
         \_immediate_assert: , line:7:8, endln:7:106
           |vpiParent:
-          \_delay_control: , line:7:5, endln:7:7, parent:work@TESTBENCH
+          \_delay_control: , line:7:5, endln:7:7
           |vpiExpr:
           \_operation: , line:7:15, endln:7:41
             |vpiParent:
@@ -220,10 +222,10 @@ design: (work@TOP)
             |vpiOperand:
             \_hier_path: (intf.drive), line:7:15, endln:7:25
               |vpiParent:
-              \_delay_control: , line:7:5, endln:7:7, parent:work@TESTBENCH
+              \_delay_control: , line:7:5, endln:7:7
               |vpiName:intf.drive
               |vpiActual:
-              \_ref_obj: (intf), line:7:15, endln:7:19, parent:intf.drive
+              \_ref_obj: (intf), line:7:15, endln:7:19
                 |vpiParent:
                 \_hier_path: (intf.drive), line:7:15, endln:7:25
                 |vpiName:intf
@@ -236,7 +238,7 @@ design: (work@TOP)
               \_operation: , line:7:15, endln:7:41
               |vpiName:intf.observe
               |vpiActual:
-              \_ref_obj: (intf), line:7:29, endln:7:33, parent:intf.observe
+              \_ref_obj: (intf), line:7:29, endln:7:33
                 |vpiParent:
                 \_hier_path: (intf.observe), line:7:29, endln:7:41
                 |vpiName:intf
@@ -245,64 +247,64 @@ design: (work@TOP)
                 |vpiName:observe
           |vpiStmt:
           \_sys_func_call: ($display), line:7:43, endln:7:58
+            |vpiParent:
+            \_immediate_assert: , line:7:8, endln:7:106
             |vpiArgument:
-            \_constant: , line:7:52, endln:7:57, parent:$display
+            \_constant: , line:7:52, endln:7:57
+              |vpiParent:
+              \_sys_func_call: ($display), line:7:43, endln:7:58
               |vpiDecompile:OK!
               |vpiSize:3
               |STRING:OK!
-              |vpiParent:
-              \_sys_func_call: ($display), line:7:43, endln:7:58
               |vpiConstType:6
             |vpiName:$display
-            |vpiParent:
-            \_immediate_assert: , line:7:8, endln:7:106
           |vpiElseStmt:
           \_sys_func_call: ($fatal), line:7:65, endln:7:105
+            |vpiParent:
+            \_immediate_assert: , line:7:8, endln:7:106
             |vpiArgument:
-            \_constant: , line:7:72, endln:7:73, parent:$fatal
+            \_constant: , line:7:72, endln:7:73
+              |vpiParent:
+              \_sys_func_call: ($fatal), line:7:65, endln:7:105
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
-              |vpiParent:
-              \_sys_func_call: ($fatal), line:7:65, endln:7:105
               |vpiConstType:9
             |vpiArgument:
-            \_constant: , line:7:75, endln:7:104, parent:$fatal
+            \_constant: , line:7:75, endln:7:104
+              |vpiParent:
+              \_sys_func_call: ($fatal), line:7:65, endln:7:105
               |vpiDecompile:intf.drive != intf.observe!
               |vpiSize:27
               |STRING:intf.drive != intf.observe!
-              |vpiParent:
-              \_sys_func_call: ($fatal), line:7:65, endln:7:105
               |vpiConstType:6
             |vpiName:$fatal
-            |vpiParent:
-            \_immediate_assert: , line:7:8, endln:7:106
       |vpiStmt:
-      \_delay_control: , line:8:5, endln:8:9, parent:work@TESTBENCH
+      \_delay_control: , line:8:5, endln:8:9
         |vpiParent:
         \_begin: (work@TESTBENCH), line:2:11, endln:11:6
         |#100
         |vpiStmt:
         \_assignment: , line:8:10, endln:8:24
           |vpiParent:
-          \_delay_control: , line:8:5, endln:8:9, parent:work@TESTBENCH
+          \_delay_control: , line:8:5, endln:8:9
           |vpiOpType:82
           |vpiBlocking:1
           |vpiRhs:
           \_constant: , line:8:23, endln:8:24
+            |vpiParent:
+            \_assignment: , line:8:10, endln:8:24
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
-            |vpiParent:
-            \_assignment: , line:8:10, endln:8:24
             |vpiConstType:9
           |vpiLhs:
           \_hier_path: (intf.drive), line:8:10, endln:8:20
             |vpiParent:
-            \_delay_control: , line:8:5, endln:8:9, parent:work@TESTBENCH
+            \_delay_control: , line:8:5, endln:8:9
             |vpiName:intf.drive
             |vpiActual:
-            \_ref_obj: (intf), parent:intf.drive
+            \_ref_obj: (intf)
               |vpiParent:
               \_hier_path: (intf.drive), line:8:10, endln:8:20
               |vpiName:intf
@@ -310,14 +312,14 @@ design: (work@TOP)
             \_ref_obj: (drive)
               |vpiName:drive
       |vpiStmt:
-      \_delay_control: , line:9:5, endln:9:7, parent:work@TESTBENCH
+      \_delay_control: , line:9:5, endln:9:7
         |vpiParent:
         \_begin: (work@TESTBENCH), line:2:11, endln:11:6
         |#1
         |vpiStmt:
         \_immediate_assert: , line:9:8, endln:9:106
           |vpiParent:
-          \_delay_control: , line:9:5, endln:9:7, parent:work@TESTBENCH
+          \_delay_control: , line:9:5, endln:9:7
           |vpiExpr:
           \_operation: , line:9:15, endln:9:41
             |vpiParent:
@@ -326,10 +328,10 @@ design: (work@TOP)
             |vpiOperand:
             \_hier_path: (intf.drive), line:9:15, endln:9:25
               |vpiParent:
-              \_delay_control: , line:9:5, endln:9:7, parent:work@TESTBENCH
+              \_delay_control: , line:9:5, endln:9:7
               |vpiName:intf.drive
               |vpiActual:
-              \_ref_obj: (intf), line:9:15, endln:9:19, parent:intf.drive
+              \_ref_obj: (intf), line:9:15, endln:9:19
                 |vpiParent:
                 \_hier_path: (intf.drive), line:9:15, endln:9:25
                 |vpiName:intf
@@ -342,7 +344,7 @@ design: (work@TOP)
               \_operation: , line:9:15, endln:9:41
               |vpiName:intf.observe
               |vpiActual:
-              \_ref_obj: (intf), line:9:29, endln:9:33, parent:intf.observe
+              \_ref_obj: (intf), line:9:29, endln:9:33
                 |vpiParent:
                 \_hier_path: (intf.observe), line:9:29, endln:9:41
                 |vpiName:intf
@@ -351,204 +353,202 @@ design: (work@TOP)
                 |vpiName:observe
           |vpiStmt:
           \_sys_func_call: ($display), line:9:43, endln:9:58
+            |vpiParent:
+            \_immediate_assert: , line:9:8, endln:9:106
             |vpiArgument:
-            \_constant: , line:9:52, endln:9:57, parent:$display
+            \_constant: , line:9:52, endln:9:57
+              |vpiParent:
+              \_sys_func_call: ($display), line:9:43, endln:9:58
               |vpiDecompile:OK!
               |vpiSize:3
               |STRING:OK!
-              |vpiParent:
-              \_sys_func_call: ($display), line:9:43, endln:9:58
               |vpiConstType:6
             |vpiName:$display
-            |vpiParent:
-            \_immediate_assert: , line:9:8, endln:9:106
           |vpiElseStmt:
           \_sys_func_call: ($fatal), line:9:65, endln:9:105
+            |vpiParent:
+            \_immediate_assert: , line:9:8, endln:9:106
             |vpiArgument:
-            \_constant: , line:9:72, endln:9:73, parent:$fatal
+            \_constant: , line:9:72, endln:9:73
+              |vpiParent:
+              \_sys_func_call: ($fatal), line:9:65, endln:9:105
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
-              |vpiParent:
-              \_sys_func_call: ($fatal), line:9:65, endln:9:105
               |vpiConstType:9
             |vpiArgument:
-            \_constant: , line:9:75, endln:9:104, parent:$fatal
+            \_constant: , line:9:75, endln:9:104
+              |vpiParent:
+              \_sys_func_call: ($fatal), line:9:65, endln:9:105
               |vpiDecompile:intf.drive != intf.observe!
               |vpiSize:27
               |STRING:intf.drive != intf.observe!
-              |vpiParent:
-              \_sys_func_call: ($fatal), line:9:65, endln:9:105
               |vpiConstType:6
             |vpiName:$fatal
-            |vpiParent:
-            \_immediate_assert: , line:9:8, endln:9:106
       |vpiStmt:
-      \_delay_control: , line:10:5, endln:10:9, parent:work@TESTBENCH
+      \_delay_control: , line:10:5, endln:10:9
         |vpiParent:
         \_begin: (work@TESTBENCH), line:2:11, endln:11:6
         |#100
         |vpiStmt:
         \_sys_func_call: ($finish), line:10:10, endln:10:19
-          |vpiName:$finish
           |vpiParent:
-          \_delay_control: , line:10:5, endln:10:9, parent:work@TESTBENCH
-    |vpiParent:
-    \_program: work@TESTBENCH (work@TESTBENCH) tb.v:1:1: , endln:12:11, parent:work@TOP
+          \_delay_control: , line:10:5, endln:10:9
+          |vpiName:$finish
   |vpiPort:
-  \_port: (intf), line:1:34, endln:1:38, parent:work@TESTBENCH
+  \_port: (intf), line:1:34, endln:1:38
+    |vpiParent:
+    \_program: work@TESTBENCH (work@TESTBENCH), file:tb.v, line:1:1, endln:12:11
     |vpiName:intf
     |vpiDirection:3
     |vpiLowConn:
     \_ref_obj: 
-    |vpiParent:
-    \_program: work@TESTBENCH (work@TESTBENCH) tb.v:1:1: , endln:12:11, parent:work@TOP
 |uhdmallModules:
-\_module: work@SUB (work@SUB) dut.v:26:1: , endln:28:10, parent:work@TOP
+\_module: work@SUB (work@SUB), file:dut.v, line:26:1, endln:28:10
+  |vpiParent:
+  \_design: (work@TOP)
   |vpiFullName:work@SUB
   |vpiDefName:work@SUB
   |vpiNet:
-  \_logic_net: (work@SUB.inp), line:26:24, endln:26:27, parent:work@SUB
+  \_logic_net: (work@SUB.inp), line:26:24, endln:26:27
+    |vpiParent:
+    \_module: work@SUB (work@SUB), file:dut.v, line:26:1, endln:28:10
     |vpiName:inp
     |vpiFullName:work@SUB.inp
     |vpiNetType:1
-    |vpiParent:
-    \_module: work@SUB (work@SUB) dut.v:26:1: , endln:28:10, parent:work@TOP
   |vpiNet:
-  \_logic_net: (work@SUB.out), line:26:40, endln:26:43, parent:work@SUB
+  \_logic_net: (work@SUB.out), line:26:40, endln:26:43
+    |vpiParent:
+    \_module: work@SUB (work@SUB), file:dut.v, line:26:1, endln:28:10
     |vpiName:out
     |vpiFullName:work@SUB.out
     |vpiNetType:48
-    |vpiParent:
-    \_module: work@SUB (work@SUB) dut.v:26:1: , endln:28:10, parent:work@TOP
-  |vpiParent:
-  \_design: (work@TOP)
   |vpiPort:
-  \_port: (inp), line:26:24, endln:26:27, parent:work@SUB
+  \_port: (inp), line:26:24, endln:26:27
+    |vpiParent:
+    \_module: work@SUB (work@SUB), file:dut.v, line:26:1, endln:28:10
     |vpiName:inp
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@SUB.inp), line:26:24, endln:26:27, parent:work@SUB
-    |vpiParent:
-    \_module: work@SUB (work@SUB) dut.v:26:1: , endln:28:10, parent:work@TOP
+      \_logic_net: (work@SUB.inp), line:26:24, endln:26:27
   |vpiPort:
-  \_port: (out), line:26:40, endln:26:43, parent:work@SUB
+  \_port: (out), line:26:40, endln:26:43
+    |vpiParent:
+    \_module: work@SUB (work@SUB), file:dut.v, line:26:1, endln:28:10
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@SUB.out), line:26:40, endln:26:43, parent:work@SUB
-    |vpiParent:
-    \_module: work@SUB (work@SUB) dut.v:26:1: , endln:28:10, parent:work@TOP
+      \_logic_net: (work@SUB.out), line:26:40, endln:26:43
   |vpiContAssign:
-  \_cont_assign: , line:27:10, endln:27:19, parent:work@SUB
+  \_cont_assign: , line:27:10, endln:27:19
     |vpiParent:
-    \_module: work@SUB (work@SUB) dut.v:26:1: , endln:28:10, parent:work@TOP
+    \_module: work@SUB (work@SUB), file:dut.v, line:26:1, endln:28:10
     |vpiRhs:
     \_ref_obj: (work@SUB.inp), line:27:16, endln:27:19
       |vpiParent:
-      \_cont_assign: , line:27:10, endln:27:19, parent:work@SUB
+      \_cont_assign: , line:27:10, endln:27:19
       |vpiName:inp
       |vpiFullName:work@SUB.inp
       |vpiActual:
-      \_logic_net: (work@TOP.dut1.middle1.sub1.inp), line:26:24, endln:26:27, parent:work@TOP.dut1.middle1.sub1
+      \_logic_net: (work@TOP.dut1.middle1.sub1.inp), line:26:24, endln:26:27
+        |vpiParent:
+        \_module: work@SUB (work@TOP.dut1.middle1.sub1), file:dut.v, line:23:3, endln:23:50
         |vpiTypespec:
         \_logic_typespec: , line:26:19, endln:26:23
         |vpiName:inp
         |vpiFullName:work@TOP.dut1.middle1.sub1.inp
         |vpiNetType:1
-        |vpiParent:
-        \_module: work@SUB (work@TOP.dut1.middle1.sub1) dut.v:23:3: , endln:23:50, parent:work@TOP.dut1.middle1
     |vpiLhs:
     \_ref_obj: (work@SUB.out), line:27:10, endln:27:13
       |vpiParent:
-      \_cont_assign: , line:27:10, endln:27:19, parent:work@SUB
+      \_cont_assign: , line:27:10, endln:27:19
       |vpiName:out
       |vpiFullName:work@SUB.out
       |vpiActual:
-      \_logic_net: (work@TOP.dut1.middle1.sub1.out), line:26:40, endln:26:43, parent:work@TOP.dut1.middle1.sub1
+      \_logic_net: (work@TOP.dut1.middle1.sub1.out), line:26:40, endln:26:43
+        |vpiParent:
+        \_module: work@SUB (work@TOP.dut1.middle1.sub1), file:dut.v, line:23:3, endln:23:50
         |vpiTypespec:
         \_logic_typespec: , line:26:36, endln:26:39
         |vpiName:out
         |vpiFullName:work@TOP.dut1.middle1.sub1.out
         |vpiNetType:48
-        |vpiParent:
-        \_module: work@SUB (work@TOP.dut1.middle1.sub1) dut.v:23:3: , endln:23:50, parent:work@TOP.dut1.middle1
 |uhdmallModules:
-\_module: work@TOP (work@TOP) tb.v:15:1: , endln:19:10, parent:work@TOP
-  |vpiFullName:work@TOP
-  |vpiDefName:work@TOP
+\_module: work@TOP (work@TOP), file:tb.v, line:15:1, endln:19:10
   |vpiParent:
   \_design: (work@TOP)
+  |vpiFullName:work@TOP
+  |vpiDefName:work@TOP
 |uhdmallModules:
-\_module: work@dut (work@dut) dut.v:2:1: , endln:7:10, parent:work@TOP
+\_module: work@dut (work@dut), file:dut.v, line:2:1, endln:7:10
+  |vpiParent:
+  \_design: (work@TOP)
   |vpiFullName:work@dut
   |vpiDefName:work@dut
   |vpiNet:
-  \_logic_net: (work@dut.i), line:2:24, endln:2:25, parent:work@dut
+  \_logic_net: (work@dut.i), line:2:24, endln:2:25
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.v, line:2:1, endln:7:10
     |vpiName:i
     |vpiFullName:work@dut.i
     |vpiNetType:1
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.v:2:1: , endln:7:10, parent:work@TOP
   |vpiNet:
-  \_logic_net: (work@dut.o), line:2:38, endln:2:39, parent:work@dut
+  \_logic_net: (work@dut.o), line:2:38, endln:2:39
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.v, line:2:1, endln:7:10
     |vpiName:o
     |vpiFullName:work@dut.o
     |vpiNetType:48
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.v:2:1: , endln:7:10, parent:work@TOP
-  |vpiParent:
-  \_design: (work@TOP)
   |vpiPort:
-  \_port: (i), line:2:24, endln:2:25, parent:work@dut
+  \_port: (i), line:2:24, endln:2:25
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.v, line:2:1, endln:7:10
     |vpiName:i
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@dut.i), line:2:24, endln:2:25, parent:work@dut
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.v:2:1: , endln:7:10, parent:work@TOP
+      \_logic_net: (work@dut.i), line:2:24, endln:2:25
   |vpiPort:
-  \_port: (o), line:2:38, endln:2:39, parent:work@dut
+  \_port: (o), line:2:38, endln:2:39
+    |vpiParent:
+    \_module: work@dut (work@dut), file:dut.v, line:2:1, endln:7:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@dut.o), line:2:38, endln:2:39, parent:work@dut
-    |vpiParent:
-    \_module: work@dut (work@dut) dut.v:2:1: , endln:7:10, parent:work@TOP
+      \_logic_net: (work@dut.o), line:2:38, endln:2:39
   |vpiContAssign:
-  \_cont_assign: , line:3:10, endln:3:26, parent:work@dut
+  \_cont_assign: , line:3:10, endln:3:26
     |vpiParent:
-    \_module: work@dut (work@dut) dut.v:2:1: , endln:7:10, parent:work@TOP
+    \_module: work@dut (work@dut), file:dut.v, line:2:1, endln:7:10
     |vpiRhs:
     \_ref_obj: (work@dut.i), line:3:25, endln:3:26
       |vpiParent:
-      \_cont_assign: , line:3:10, endln:3:26, parent:work@dut
+      \_cont_assign: , line:3:10, endln:3:26
       |vpiName:i
       |vpiFullName:work@dut.i
       |vpiActual:
-      \_logic_net: (work@TOP.dut1.i), line:2:24, endln:2:25, parent:work@TOP.dut1
+      \_logic_net: (work@TOP.dut1.i), line:2:24, endln:2:25
+        |vpiParent:
+        \_module: work@dut (work@TOP.dut1), file:tb.v, line:17:3, endln:17:42
         |vpiTypespec:
         \_logic_typespec: , line:2:19, endln:2:23
         |vpiName:i
         |vpiFullName:work@TOP.dut1.i
         |vpiNetType:1
-        |vpiParent:
-        \_module: work@dut (work@TOP.dut1) tb.v:17:3: , endln:17:42, parent:work@TOP
     |vpiLhs:
     \_hier_path: (conntb.drive), line:3:10, endln:3:22
       |vpiParent:
-      \_cont_assign: , line:3:10, endln:3:26, parent:work@dut
+      \_cont_assign: , line:3:10, endln:3:26
       |vpiName:conntb.drive
       |vpiActual:
-      \_ref_obj: (conntb), parent:conntb.drive
+      \_ref_obj: (conntb)
         |vpiParent:
         \_hier_path: (conntb.drive), line:3:10, endln:3:22
         |vpiName:conntb
@@ -556,16 +556,16 @@ design: (work@TOP)
       \_ref_obj: (drive)
         |vpiName:drive
   |vpiContAssign:
-  \_cont_assign: , line:4:10, endln:4:28, parent:work@dut
+  \_cont_assign: , line:4:10, endln:4:28
     |vpiParent:
-    \_module: work@dut (work@dut) dut.v:2:1: , endln:7:10, parent:work@TOP
+    \_module: work@dut (work@dut), file:dut.v, line:2:1, endln:7:10
     |vpiRhs:
     \_hier_path: (conntb.observe), line:4:14, endln:4:28
       |vpiParent:
-      \_cont_assign: , line:4:10, endln:4:28, parent:work@dut
+      \_cont_assign: , line:4:10, endln:4:28
       |vpiName:conntb.observe
       |vpiActual:
-      \_ref_obj: (conntb), line:4:14, endln:4:20, parent:conntb.observe
+      \_ref_obj: (conntb), line:4:14, endln:4:20
         |vpiParent:
         \_hier_path: (conntb.observe), line:4:14, endln:4:28
         |vpiName:conntb
@@ -575,58 +575,60 @@ design: (work@TOP)
     |vpiLhs:
     \_ref_obj: (work@dut.o), line:4:10, endln:4:11
       |vpiParent:
-      \_cont_assign: , line:4:10, endln:4:28, parent:work@dut
+      \_cont_assign: , line:4:10, endln:4:28
       |vpiName:o
       |vpiFullName:work@dut.o
       |vpiActual:
-      \_logic_net: (work@TOP.dut1.o), line:2:38, endln:2:39, parent:work@TOP.dut1
+      \_logic_net: (work@TOP.dut1.o), line:2:38, endln:2:39
+        |vpiParent:
+        \_module: work@dut (work@TOP.dut1), file:tb.v, line:17:3, endln:17:42
         |vpiTypespec:
         \_logic_typespec: , line:2:34, endln:2:37
         |vpiName:o
         |vpiFullName:work@TOP.dut1.o
         |vpiNetType:48
-        |vpiParent:
-        \_module: work@dut (work@TOP.dut1) tb.v:17:3: , endln:17:42, parent:work@TOP
 |uhdmallModules:
-\_module: work@middle (work@middle) dut.v:22:1: , endln:24:10, parent:work@TOP
+\_module: work@middle (work@middle), file:dut.v, line:22:1, endln:24:10
+  |vpiParent:
+  \_design: (work@TOP)
   |vpiFullName:work@middle
   |vpiDefName:work@middle
   |vpiNet:
-  \_logic_net: (work@middle.intf), line:22:30, endln:22:34, parent:work@middle
+  \_logic_net: (work@middle.intf), line:22:30, endln:22:34
+    |vpiParent:
+    \_module: work@middle (work@middle), file:dut.v, line:22:1, endln:24:10
     |vpiName:intf
     |vpiFullName:work@middle.intf
-    |vpiParent:
-    \_module: work@middle (work@middle) dut.v:22:1: , endln:24:10, parent:work@TOP
-  |vpiParent:
-  \_design: (work@TOP)
   |vpiPort:
-  \_port: (intf), line:22:30, endln:22:34, parent:work@middle
+  \_port: (intf), line:22:30, endln:22:34
+    |vpiParent:
+    \_module: work@middle (work@middle), file:dut.v, line:22:1, endln:24:10
     |vpiName:intf
     |vpiDirection:3
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_modport: (dut), line:12:11, endln:12:14, parent:work@ConnectTB
-    |vpiParent:
-    \_module: work@middle (work@middle) dut.v:22:1: , endln:24:10, parent:work@TOP
+      \_modport: (dut), line:12:11, endln:12:14
 |uhdmtopModules:
-\_module: work@TOP (work@TOP) tb.v:15:1: , endln:19:10
+\_module: work@TOP (work@TOP), file:tb.v, line:15:1, endln:19:10
   |vpiName:work@TOP
   |vpiDefName:work@TOP
   |vpiTop:1
   |vpiProgram:
-  \_program: work@TESTBENCH (work@TOP.tb) tb.v:18:3: , endln:18:24, parent:work@TOP
+  \_program: work@TESTBENCH (work@TOP.tb), file:tb.v, line:18:3, endln:18:24
+    |vpiParent:
+    \_module: work@TOP (work@TOP), file:tb.v, line:15:1, endln:19:10
     |vpiName:tb
     |vpiFullName:work@TOP.tb
     |vpiDefName:work@TESTBENCH
     |vpiDefFile:tb.v
     |vpiDefLineNo:1
     |vpiInstance:
-    \_module: work@TOP (work@TOP) tb.v:15:1: , endln:19:10
-    |vpiParent:
-    \_module: work@TOP (work@TOP) tb.v:15:1: , endln:19:10
+    \_module: work@TOP (work@TOP), file:tb.v, line:15:1, endln:19:10
     |vpiPort:
-    \_port: (intf), line:1:34, endln:1:38, parent:work@TOP.tb
+    \_port: (intf), line:1:34, endln:1:38
+      |vpiParent:
+      \_program: work@TESTBENCH (work@TOP.tb), file:tb.v, line:18:3, endln:18:24
       |vpiName:intf
       |vpiDirection:3
       |vpiHighConn:
@@ -634,68 +636,68 @@ design: (work@TOP)
         |vpiName:conntb
         |vpiFullName:work@TOP.conntb
         |vpiActual:
-        \_interface: work@ConnectTB (conntb) tb.v:16: 
+        \_interface: work@ConnectTB (conntb), file:tb.v, line:16:0
           |vpiName:conntb
           |vpiDefName:work@ConnectTB
           |vpiModport:
-          \_modport: (dut), line:12:11, endln:12:14, parent:conntb
+          \_modport: (dut), line:12:11, endln:12:14
             |vpiParent:
-            \_interface: work@ConnectTB (conntb) tb.v:16: 
+            \_interface: work@ConnectTB (conntb), file:tb.v, line:16:0
             |vpiName:dut
             |vpiIODecl:
             \_io_decl: (drive), line:13:11, endln:13:16
               |vpiDirection:1
               |vpiName:drive
               |vpiExpr:
-              \_logic_var: (work@TOP.conntb.drive), line:10:9, endln:10:14, parent:work@TOP.conntb
+              \_logic_var: (work@TOP.conntb.drive), line:10:9, endln:10:14
+                |vpiParent:
+                \_interface: work@ConnectTB (work@TOP.conntb), file:tb.v, line:16:3, endln:16:22
                 |vpiTypespec:
                 \_logic_typespec: , line:10:3, endln:10:8
                 |vpiName:drive
                 |vpiFullName:work@TOP.conntb.drive
                 |vpiVisibility:1
-                |vpiParent:
-                \_interface: work@ConnectTB (work@TOP.conntb) tb.v:16:3: , endln:16:22, parent:work@TOP
             |vpiIODecl:
             \_io_decl: (observe), line:14:12, endln:14:19
               |vpiDirection:2
               |vpiName:observe
               |vpiExpr:
-              \_logic_var: (work@TOP.conntb.observe), line:11:9, endln:11:16, parent:work@TOP.conntb
+              \_logic_var: (work@TOP.conntb.observe), line:11:9, endln:11:16
+                |vpiParent:
+                \_interface: work@ConnectTB (work@TOP.conntb), file:tb.v, line:16:3, endln:16:22
                 |vpiTypespec:
                 \_logic_typespec: , line:11:3, endln:11:8
                 |vpiName:observe
                 |vpiFullName:work@TOP.conntb.observe
                 |vpiVisibility:1
-                |vpiParent:
-                \_interface: work@ConnectTB (work@TOP.conntb) tb.v:16:3: , endln:16:22, parent:work@TOP
             |vpiInterface:
-            \_interface: work@ConnectTB (conntb) tb.v:16: 
+            \_interface: work@ConnectTB (conntb), file:tb.v, line:16:0
           |vpiModport:
-          \_modport: (tb), line:16:11, endln:16:13, parent:conntb
+          \_modport: (tb), line:16:11, endln:16:13
             |vpiParent:
-            \_interface: work@ConnectTB (conntb) tb.v:16: 
+            \_interface: work@ConnectTB (conntb), file:tb.v, line:16:0
             |vpiName:tb
             |vpiIODecl:
             \_io_decl: (drive), line:17:12, endln:17:17
               |vpiDirection:2
               |vpiName:drive
               |vpiExpr:
-              \_logic_var: (work@TOP.conntb.drive), line:10:9, endln:10:14, parent:work@TOP.conntb
+              \_logic_var: (work@TOP.conntb.drive), line:10:9, endln:10:14
             |vpiIODecl:
             \_io_decl: (observe), line:18:11, endln:18:18
               |vpiDirection:1
               |vpiName:observe
               |vpiExpr:
-              \_logic_var: (work@TOP.conntb.observe), line:11:9, endln:11:16, parent:work@TOP.conntb
+              \_logic_var: (work@TOP.conntb.observe), line:11:9, endln:11:16
             |vpiInterface:
-            \_interface: work@ConnectTB (conntb) tb.v:16: 
+            \_interface: work@ConnectTB (conntb), file:tb.v, line:16:0
       |vpiLowConn:
       \_ref_obj: (work@TOP.tb.intf), line:18:16, endln:18:22
         |vpiFullName:work@TOP.tb.intf
         |vpiActual:
-        \_modport: (tb), line:16:11, endln:16:13, parent:intf
+        \_modport: (tb), line:16:11, endln:16:13
           |vpiParent:
-          \_interface: work@ConnectTB (intf) tb.v:18: 
+          \_interface: work@ConnectTB (intf), file:tb.v, line:18:0
           |vpiName:tb
           |vpiIODecl:
           \_io_decl: (drive), line:17:12, endln:17:17
@@ -718,80 +720,80 @@ design: (work@TOP)
               |vpiName:observe
               |vpiVisibility:1
           |vpiInterface:
-          \_interface: work@ConnectTB (intf) tb.v:18: 
-      |vpiParent:
-      \_program: work@TESTBENCH (work@TOP.tb) tb.v:18:3: , endln:18:24, parent:work@TOP
+          \_interface: work@ConnectTB (intf), file:tb.v, line:18:0
   |vpiTopModule:1
   |vpiInterface:
-  \_interface: work@ConnectTB (work@TOP.conntb) tb.v:16:3: , endln:16:22, parent:work@TOP
+  \_interface: work@ConnectTB (work@TOP.conntb), file:tb.v, line:16:3, endln:16:22
+    |vpiParent:
+    \_module: work@TOP (work@TOP), file:tb.v, line:15:1, endln:19:10
     |vpiName:conntb
     |vpiFullName:work@TOP.conntb
     |vpiVariables:
-    \_logic_var: (work@TOP.conntb.drive), line:10:9, endln:10:14, parent:work@TOP.conntb
+    \_logic_var: (work@TOP.conntb.drive), line:10:9, endln:10:14
     |vpiVariables:
-    \_logic_var: (work@TOP.conntb.observe), line:11:9, endln:11:16, parent:work@TOP.conntb
+    \_logic_var: (work@TOP.conntb.observe), line:11:9, endln:11:16
     |vpiDefName:work@ConnectTB
     |vpiDefFile:dut.v
     |vpiDefLineNo:9
     |vpiInstance:
-    \_module: work@TOP (work@TOP) tb.v:15:1: , endln:19:10
-    |vpiParent:
-    \_module: work@TOP (work@TOP) tb.v:15:1: , endln:19:10
+    \_module: work@TOP (work@TOP), file:tb.v, line:15:1, endln:19:10
     |vpiModport:
-    \_modport: (dut), line:12:11, endln:12:14, parent:work@TOP.conntb
+    \_modport: (dut), line:12:11, endln:12:14
       |vpiParent:
-      \_interface: work@ConnectTB (work@TOP.conntb) tb.v:16:3: , endln:16:22, parent:work@TOP
+      \_interface: work@ConnectTB (work@TOP.conntb), file:tb.v, line:16:3, endln:16:22
       |vpiName:dut
       |vpiIODecl:
-      \_io_decl: (drive), line:13:11, endln:13:16, parent:dut
+      \_io_decl: (drive), line:13:11, endln:13:16
         |vpiParent:
-        \_modport: (dut), line:12:11, endln:12:14, parent:work@TOP.conntb
+        \_modport: (dut), line:12:11, endln:12:14
         |vpiDirection:1
         |vpiName:drive
       |vpiIODecl:
-      \_io_decl: (observe), line:14:12, endln:14:19, parent:dut
+      \_io_decl: (observe), line:14:12, endln:14:19
         |vpiParent:
-        \_modport: (dut), line:12:11, endln:12:14, parent:work@TOP.conntb
+        \_modport: (dut), line:12:11, endln:12:14
         |vpiDirection:2
         |vpiName:observe
       |vpiInterface:
-      \_interface: work@ConnectTB (work@TOP.conntb) tb.v:16:3: , endln:16:22, parent:work@TOP
+      \_interface: work@ConnectTB (work@TOP.conntb), file:tb.v, line:16:3, endln:16:22
     |vpiModport:
-    \_modport: (tb), line:16:11, endln:16:13, parent:work@TOP.conntb
+    \_modport: (tb), line:16:11, endln:16:13
       |vpiParent:
-      \_interface: work@ConnectTB (work@TOP.conntb) tb.v:16:3: , endln:16:22, parent:work@TOP
+      \_interface: work@ConnectTB (work@TOP.conntb), file:tb.v, line:16:3, endln:16:22
       |vpiName:tb
       |vpiIODecl:
-      \_io_decl: (drive), line:17:12, endln:17:17, parent:tb
+      \_io_decl: (drive), line:17:12, endln:17:17
         |vpiParent:
-        \_modport: (tb), line:16:11, endln:16:13, parent:work@TOP.conntb
+        \_modport: (tb), line:16:11, endln:16:13
         |vpiDirection:2
         |vpiName:drive
       |vpiIODecl:
-      \_io_decl: (observe), line:18:11, endln:18:18, parent:tb
+      \_io_decl: (observe), line:18:11, endln:18:18
         |vpiParent:
-        \_modport: (tb), line:16:11, endln:16:13, parent:work@TOP.conntb
+        \_modport: (tb), line:16:11, endln:16:13
         |vpiDirection:1
         |vpiName:observe
       |vpiInterface:
-      \_interface: work@ConnectTB (work@TOP.conntb) tb.v:16:3: , endln:16:22, parent:work@TOP
+      \_interface: work@ConnectTB (work@TOP.conntb), file:tb.v, line:16:3, endln:16:22
   |vpiModule:
-  \_module: work@dut (work@TOP.dut1) tb.v:17:3: , endln:17:42, parent:work@TOP
+  \_module: work@dut (work@TOP.dut1), file:tb.v, line:17:3, endln:17:42
+    |vpiParent:
+    \_module: work@TOP (work@TOP), file:tb.v, line:15:1, endln:19:10
     |vpiName:dut1
     |vpiFullName:work@TOP.dut1
     |vpiDefName:work@dut
     |vpiDefFile:dut.v
     |vpiDefLineNo:2
     |vpiNet:
-    \_logic_net: (work@TOP.dut1.i), line:2:24, endln:2:25, parent:work@TOP.dut1
+    \_logic_net: (work@TOP.dut1.i), line:2:24, endln:2:25
     |vpiNet:
-    \_logic_net: (work@TOP.dut1.o), line:2:38, endln:2:39, parent:work@TOP.dut1
+    \_logic_net: (work@TOP.dut1.o), line:2:38, endln:2:39
     |vpiInstance:
-    \_module: work@TOP (work@TOP) tb.v:15:1: , endln:19:10
-    |vpiParent:
-    \_module: work@TOP (work@TOP) tb.v:15:1: , endln:19:10
+    \_module: work@TOP (work@TOP), file:tb.v, line:15:1, endln:19:10
     |vpiPort:
-    \_port: (i), line:2:24, endln:2:25, parent:work@TOP.dut1
+    \_port: (i), line:2:24, endln:2:25
+      |vpiParent:
+      \_module: work@dut (work@TOP.dut1), file:tb.v, line:17:3, endln:17:42
       |vpiName:i
       |vpiDirection:1
       |vpiHighConn:
@@ -799,26 +801,26 @@ design: (work@TOP)
         |vpiName:conntb
         |vpiFullName:work@TOP.conntb
         |vpiActual:
-        \_interface: work@ConnectTB (conntb) tb.v:16: 
+        \_interface: work@ConnectTB (conntb), file:tb.v, line:16:0
       |vpiLowConn:
       \_ref_obj: (work@TOP.dut1.i), line:2:24, endln:2:25
         |vpiName:i
         |vpiFullName:work@TOP.dut1.i
         |vpiActual:
-        \_logic_net: (work@TOP.dut1.i), line:2:24, endln:2:25, parent:work@TOP.dut1
+        \_logic_net: (work@TOP.dut1.i), line:2:24, endln:2:25
       |vpiTypedef:
       \_logic_typespec: , line:2:19, endln:2:23
-      |vpiParent:
-      \_module: work@dut (work@TOP.dut1) tb.v:17:3: , endln:17:42, parent:work@TOP
     |vpiPort:
-    \_port: (o), line:2:38, endln:2:39, parent:work@TOP.dut1
+    \_port: (o), line:2:38, endln:2:39
+      |vpiParent:
+      \_module: work@dut (work@TOP.dut1), file:tb.v, line:17:3, endln:17:42
       |vpiName:o
       |vpiDirection:2
       |vpiHighConn:
       \_hier_path: (conntb.observe), line:17:26, endln:17:40
         |vpiName:conntb.observe
         |vpiActual:
-        \_ref_obj: (conntb), line:17:26, endln:17:32, parent:conntb.observe
+        \_ref_obj: (conntb), line:17:26, endln:17:32
           |vpiParent:
           \_hier_path: (conntb.observe), line:17:26, endln:17:40
           |vpiName:conntb
@@ -830,91 +832,91 @@ design: (work@TOP)
         |vpiName:o
         |vpiFullName:work@TOP.dut1.o
         |vpiActual:
-        \_logic_net: (work@TOP.dut1.o), line:2:38, endln:2:39, parent:work@TOP.dut1
+        \_logic_net: (work@TOP.dut1.o), line:2:38, endln:2:39
       |vpiTypedef:
       \_logic_typespec: , line:2:34, endln:2:37
-      |vpiParent:
-      \_module: work@dut (work@TOP.dut1) tb.v:17:3: , endln:17:42, parent:work@TOP
     |vpiInterface:
-    \_interface: work@ConnectTB (work@TOP.dut1.conntb) dut.v:5:3: , endln:5:22, parent:work@TOP.dut1
+    \_interface: work@ConnectTB (work@TOP.dut1.conntb), file:dut.v, line:5:3, endln:5:22
+      |vpiParent:
+      \_module: work@dut (work@TOP.dut1), file:tb.v, line:17:3, endln:17:42
       |vpiName:conntb
       |vpiFullName:work@TOP.dut1.conntb
       |vpiVariables:
-      \_logic_var: (work@TOP.dut1.conntb.drive), line:10:9, endln:10:14, parent:work@TOP.dut1.conntb
+      \_logic_var: (work@TOP.dut1.conntb.drive), line:10:9, endln:10:14
+        |vpiParent:
+        \_interface: work@ConnectTB (work@TOP.dut1.conntb), file:dut.v, line:5:3, endln:5:22
         |vpiTypespec:
         \_logic_typespec: , line:10:3, endln:10:8
         |vpiName:drive
         |vpiFullName:work@TOP.dut1.conntb.drive
         |vpiVisibility:1
-        |vpiParent:
-        \_interface: work@ConnectTB (work@TOP.dut1.conntb) dut.v:5:3: , endln:5:22, parent:work@TOP.dut1
       |vpiVariables:
-      \_logic_var: (work@TOP.dut1.conntb.observe), line:11:9, endln:11:16, parent:work@TOP.dut1.conntb
+      \_logic_var: (work@TOP.dut1.conntb.observe), line:11:9, endln:11:16
+        |vpiParent:
+        \_interface: work@ConnectTB (work@TOP.dut1.conntb), file:dut.v, line:5:3, endln:5:22
         |vpiTypespec:
         \_logic_typespec: , line:11:3, endln:11:8
         |vpiName:observe
         |vpiFullName:work@TOP.dut1.conntb.observe
         |vpiVisibility:1
-        |vpiParent:
-        \_interface: work@ConnectTB (work@TOP.dut1.conntb) dut.v:5:3: , endln:5:22, parent:work@TOP.dut1
       |vpiDefName:work@ConnectTB
       |vpiDefFile:dut.v
       |vpiDefLineNo:9
       |vpiInstance:
-      \_module: work@dut (work@TOP.dut1) tb.v:17:3: , endln:17:42, parent:work@TOP
-      |vpiParent:
-      \_module: work@dut (work@TOP.dut1) tb.v:17:3: , endln:17:42, parent:work@TOP
+      \_module: work@dut (work@TOP.dut1), file:tb.v, line:17:3, endln:17:42
       |vpiModport:
-      \_modport: (dut), line:12:11, endln:12:14, parent:work@TOP.dut1.conntb
+      \_modport: (dut), line:12:11, endln:12:14
         |vpiParent:
-        \_interface: work@ConnectTB (work@TOP.dut1.conntb) dut.v:5:3: , endln:5:22, parent:work@TOP.dut1
+        \_interface: work@ConnectTB (work@TOP.dut1.conntb), file:dut.v, line:5:3, endln:5:22
         |vpiName:dut
         |vpiIODecl:
-        \_io_decl: (drive), line:13:11, endln:13:16, parent:dut
+        \_io_decl: (drive), line:13:11, endln:13:16
           |vpiParent:
-          \_modport: (dut), line:12:11, endln:12:14, parent:work@TOP.dut1.conntb
+          \_modport: (dut), line:12:11, endln:12:14
           |vpiDirection:1
           |vpiName:drive
         |vpiIODecl:
-        \_io_decl: (observe), line:14:12, endln:14:19, parent:dut
+        \_io_decl: (observe), line:14:12, endln:14:19
           |vpiParent:
-          \_modport: (dut), line:12:11, endln:12:14, parent:work@TOP.dut1.conntb
+          \_modport: (dut), line:12:11, endln:12:14
           |vpiDirection:2
           |vpiName:observe
         |vpiInterface:
-        \_interface: work@ConnectTB (work@TOP.dut1.conntb) dut.v:5:3: , endln:5:22, parent:work@TOP.dut1
+        \_interface: work@ConnectTB (work@TOP.dut1.conntb), file:dut.v, line:5:3, endln:5:22
       |vpiModport:
-      \_modport: (tb), line:16:11, endln:16:13, parent:work@TOP.dut1.conntb
+      \_modport: (tb), line:16:11, endln:16:13
         |vpiParent:
-        \_interface: work@ConnectTB (work@TOP.dut1.conntb) dut.v:5:3: , endln:5:22, parent:work@TOP.dut1
+        \_interface: work@ConnectTB (work@TOP.dut1.conntb), file:dut.v, line:5:3, endln:5:22
         |vpiName:tb
         |vpiIODecl:
-        \_io_decl: (drive), line:17:12, endln:17:17, parent:tb
+        \_io_decl: (drive), line:17:12, endln:17:17
           |vpiParent:
-          \_modport: (tb), line:16:11, endln:16:13, parent:work@TOP.dut1.conntb
+          \_modport: (tb), line:16:11, endln:16:13
           |vpiDirection:2
           |vpiName:drive
         |vpiIODecl:
-        \_io_decl: (observe), line:18:11, endln:18:18, parent:tb
+        \_io_decl: (observe), line:18:11, endln:18:18
           |vpiParent:
-          \_modport: (tb), line:16:11, endln:16:13, parent:work@TOP.dut1.conntb
+          \_modport: (tb), line:16:11, endln:16:13
           |vpiDirection:1
           |vpiName:observe
         |vpiInterface:
-        \_interface: work@ConnectTB (work@TOP.dut1.conntb) dut.v:5:3: , endln:5:22, parent:work@TOP.dut1
+        \_interface: work@ConnectTB (work@TOP.dut1.conntb), file:dut.v, line:5:3, endln:5:22
     |vpiModule:
-    \_module: work@middle (work@TOP.dut1.middle1) dut.v:6:3: , endln:6:26, parent:work@TOP.dut1
+    \_module: work@middle (work@TOP.dut1.middle1), file:dut.v, line:6:3, endln:6:26
+      |vpiParent:
+      \_module: work@dut (work@TOP.dut1), file:tb.v, line:17:3, endln:17:42
       |vpiName:middle1
       |vpiFullName:work@TOP.dut1.middle1
       |vpiDefName:work@middle
       |vpiDefFile:dut.v
       |vpiDefLineNo:22
       |vpiInstance:
-      \_module: work@dut (work@TOP.dut1) tb.v:17:3: , endln:17:42, parent:work@TOP
-      |vpiParent:
-      \_module: work@dut (work@TOP.dut1) tb.v:17:3: , endln:17:42, parent:work@TOP
+      \_module: work@dut (work@TOP.dut1), file:tb.v, line:17:3, endln:17:42
       |vpiPort:
-      \_port: (intf), line:22:30, endln:22:34, parent:work@TOP.dut1.middle1
+      \_port: (intf), line:22:30, endln:22:34
+        |vpiParent:
+        \_module: work@middle (work@TOP.dut1.middle1), file:dut.v, line:6:3, endln:6:26
         |vpiName:intf
         |vpiDirection:3
         |vpiHighConn:
@@ -922,54 +924,54 @@ design: (work@TOP)
           |vpiName:conntb
           |vpiFullName:work@TOP.dut1.conntb
           |vpiActual:
-          \_interface: work@ConnectTB (conntb) dut.v:5: 
+          \_interface: work@ConnectTB (conntb), file:dut.v, line:5:0
             |vpiName:conntb
             |vpiDefName:work@ConnectTB
             |vpiModport:
-            \_modport: (dut), line:12:11, endln:12:14, parent:conntb
+            \_modport: (dut), line:12:11, endln:12:14
               |vpiParent:
-              \_interface: work@ConnectTB (conntb) dut.v:5: 
+              \_interface: work@ConnectTB (conntb), file:dut.v, line:5:0
               |vpiName:dut
               |vpiIODecl:
               \_io_decl: (drive), line:13:11, endln:13:16
                 |vpiDirection:1
                 |vpiName:drive
                 |vpiExpr:
-                \_logic_var: (work@TOP.dut1.conntb.drive), line:10:9, endln:10:14, parent:work@TOP.dut1.conntb
+                \_logic_var: (work@TOP.dut1.conntb.drive), line:10:9, endln:10:14
               |vpiIODecl:
               \_io_decl: (observe), line:14:12, endln:14:19
                 |vpiDirection:2
                 |vpiName:observe
                 |vpiExpr:
-                \_logic_var: (work@TOP.dut1.conntb.observe), line:11:9, endln:11:16, parent:work@TOP.dut1.conntb
+                \_logic_var: (work@TOP.dut1.conntb.observe), line:11:9, endln:11:16
               |vpiInterface:
-              \_interface: work@ConnectTB (conntb) dut.v:5: 
+              \_interface: work@ConnectTB (conntb), file:dut.v, line:5:0
             |vpiModport:
-            \_modport: (tb), line:16:11, endln:16:13, parent:conntb
+            \_modport: (tb), line:16:11, endln:16:13
               |vpiParent:
-              \_interface: work@ConnectTB (conntb) dut.v:5: 
+              \_interface: work@ConnectTB (conntb), file:dut.v, line:5:0
               |vpiName:tb
               |vpiIODecl:
               \_io_decl: (drive), line:17:12, endln:17:17
                 |vpiDirection:2
                 |vpiName:drive
                 |vpiExpr:
-                \_logic_var: (work@TOP.dut1.conntb.drive), line:10:9, endln:10:14, parent:work@TOP.dut1.conntb
+                \_logic_var: (work@TOP.dut1.conntb.drive), line:10:9, endln:10:14
               |vpiIODecl:
               \_io_decl: (observe), line:18:11, endln:18:18
                 |vpiDirection:1
                 |vpiName:observe
                 |vpiExpr:
-                \_logic_var: (work@TOP.dut1.conntb.observe), line:11:9, endln:11:16, parent:work@TOP.dut1.conntb
+                \_logic_var: (work@TOP.dut1.conntb.observe), line:11:9, endln:11:16
               |vpiInterface:
-              \_interface: work@ConnectTB (conntb) dut.v:5: 
+              \_interface: work@ConnectTB (conntb), file:dut.v, line:5:0
         |vpiLowConn:
         \_ref_obj: (work@TOP.dut1.middle1.intf), line:6:18, endln:6:24
           |vpiFullName:work@TOP.dut1.middle1.intf
           |vpiActual:
-          \_modport: (dut), line:12:11, endln:12:14, parent:intf
+          \_modport: (dut), line:12:11, endln:12:14
             |vpiParent:
-            \_interface: work@ConnectTB (intf) dut.v:6: 
+            \_interface: work@ConnectTB (intf), file:dut.v, line:6:0
             |vpiName:dut
             |vpiIODecl:
             \_io_decl: (drive), line:13:11, endln:13:16
@@ -992,33 +994,33 @@ design: (work@TOP)
                 |vpiName:observe
                 |vpiVisibility:1
             |vpiInterface:
-            \_interface: work@ConnectTB (intf) dut.v:6: 
-        |vpiParent:
-        \_module: work@middle (work@TOP.dut1.middle1) dut.v:6:3: , endln:6:26, parent:work@TOP.dut1
+            \_interface: work@ConnectTB (intf), file:dut.v, line:6:0
       |vpiModule:
-      \_module: work@SUB (work@TOP.dut1.middle1.sub1) dut.v:23:3: , endln:23:50, parent:work@TOP.dut1.middle1
+      \_module: work@SUB (work@TOP.dut1.middle1.sub1), file:dut.v, line:23:3, endln:23:50
+        |vpiParent:
+        \_module: work@middle (work@TOP.dut1.middle1), file:dut.v, line:6:3, endln:6:26
         |vpiName:sub1
         |vpiFullName:work@TOP.dut1.middle1.sub1
         |vpiDefName:work@SUB
         |vpiDefFile:dut.v
         |vpiDefLineNo:26
         |vpiNet:
-        \_logic_net: (work@TOP.dut1.middle1.sub1.inp), line:26:24, endln:26:27, parent:work@TOP.dut1.middle1.sub1
+        \_logic_net: (work@TOP.dut1.middle1.sub1.inp), line:26:24, endln:26:27
         |vpiNet:
-        \_logic_net: (work@TOP.dut1.middle1.sub1.out), line:26:40, endln:26:43, parent:work@TOP.dut1.middle1.sub1
+        \_logic_net: (work@TOP.dut1.middle1.sub1.out), line:26:40, endln:26:43
         |vpiInstance:
-        \_module: work@middle (work@TOP.dut1.middle1) dut.v:6:3: , endln:6:26, parent:work@TOP.dut1
-        |vpiParent:
-        \_module: work@middle (work@TOP.dut1.middle1) dut.v:6:3: , endln:6:26, parent:work@TOP.dut1
+        \_module: work@middle (work@TOP.dut1.middle1), file:dut.v, line:6:3, endln:6:26
         |vpiPort:
-        \_port: (inp), line:26:24, endln:26:27, parent:work@TOP.dut1.middle1.sub1
+        \_port: (inp), line:26:24, endln:26:27
+          |vpiParent:
+          \_module: work@SUB (work@TOP.dut1.middle1.sub1), file:dut.v, line:23:3, endln:23:50
           |vpiName:inp
           |vpiDirection:1
           |vpiHighConn:
           \_hier_path: (intf.drive), line:23:17, endln:23:27
             |vpiName:intf.drive
             |vpiActual:
-            \_ref_obj: (intf), line:23:17, endln:23:21, parent:intf.drive
+            \_ref_obj: (intf), line:23:17, endln:23:21
               |vpiParent:
               \_hier_path: (intf.drive), line:23:17, endln:23:27
               |vpiName:intf
@@ -1032,20 +1034,20 @@ design: (work@TOP)
             |vpiName:inp
             |vpiFullName:work@TOP.dut1.middle1.sub1.inp
             |vpiActual:
-            \_logic_net: (work@TOP.dut1.middle1.sub1.inp), line:26:24, endln:26:27, parent:work@TOP.dut1.middle1.sub1
+            \_logic_net: (work@TOP.dut1.middle1.sub1.inp), line:26:24, endln:26:27
           |vpiTypedef:
           \_logic_typespec: , line:26:19, endln:26:23
-          |vpiParent:
-          \_module: work@SUB (work@TOP.dut1.middle1.sub1) dut.v:23:3: , endln:23:50, parent:work@TOP.dut1.middle1
         |vpiPort:
-        \_port: (out), line:26:40, endln:26:43, parent:work@TOP.dut1.middle1.sub1
+        \_port: (out), line:26:40, endln:26:43
+          |vpiParent:
+          \_module: work@SUB (work@TOP.dut1.middle1.sub1), file:dut.v, line:23:3, endln:23:50
           |vpiName:out
           |vpiDirection:2
           |vpiHighConn:
           \_hier_path: (intf.observe), line:23:35, endln:23:47
             |vpiName:intf.observe
             |vpiActual:
-            \_ref_obj: (intf), line:23:35, endln:23:39, parent:intf.observe
+            \_ref_obj: (intf), line:23:35, endln:23:39
               |vpiParent:
               \_hier_path: (intf.observe), line:23:35, endln:23:47
               |vpiName:intf
@@ -1059,11 +1061,9 @@ design: (work@TOP)
             |vpiName:out
             |vpiFullName:work@TOP.dut1.middle1.sub1.out
             |vpiActual:
-            \_logic_net: (work@TOP.dut1.middle1.sub1.out), line:26:40, endln:26:43, parent:work@TOP.dut1.middle1.sub1
+            \_logic_net: (work@TOP.dut1.middle1.sub1.out), line:26:40, endln:26:43
           |vpiTypedef:
           \_logic_typespec: , line:26:36, endln:26:39
-          |vpiParent:
-          \_module: work@SUB (work@TOP.dut1.middle1.sub1) dut.v:23:3: , endln:23:50, parent:work@TOP.dut1.middle1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

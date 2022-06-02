@@ -79,88 +79,88 @@ design: (work@test)
 |vpiElaborated:1
 |vpiName:work@test
 |uhdmallModules:
-\_module: work@test (work@test) dut.sv:1:1: , endln:7:10, parent:work@test
+\_module: work@test (work@test), file:dut.sv, line:1:1, endln:7:10
+  |vpiParent:
+  \_design: (work@test)
   |vpiFullName:work@test
   |vpiDefName:work@test
   |vpiNet:
-  \_logic_net: (work@test.legal), line:3:5, endln:3:10, parent:work@test
+  \_logic_net: (work@test.legal), line:3:5, endln:3:10
+    |vpiParent:
+    \_module: work@test (work@test), file:dut.sv, line:1:1, endln:7:10
     |vpiName:legal
     |vpiFullName:work@test.legal
     |vpiNetType:48
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:1:1: , endln:7:10, parent:work@test
   |vpiNet:
-  \_logic_net: (work@test.illegal), line:5:8, endln:5:15, parent:work@test
+  \_logic_net: (work@test.illegal), line:5:8, endln:5:15
+    |vpiParent:
+    \_module: work@test (work@test), file:dut.sv, line:1:1, endln:7:10
     |vpiName:illegal
     |vpiFullName:work@test.illegal
     |vpiNetType:48
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:1:1: , endln:7:10, parent:work@test
-  |vpiParent:
-  \_design: (work@test)
 |uhdmtopModules:
-\_module: work@test (work@test) dut.sv:1:1: , endln:7:10
+\_module: work@test (work@test), file:dut.sv, line:1:1, endln:7:10
   |vpiName:work@test
   |vpiDefName:work@test
   |vpiTop:1
   |vpiNet:
-  \_logic_net: (work@test.illegal), line:5:8, endln:5:15, parent:work@test
+  \_logic_net: (work@test.illegal), line:5:8, endln:5:15
+    |vpiParent:
+    \_module: work@test (work@test), file:dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
     \_logic_typespec: , line:5:1, endln:5:4
       |vpiRange:
       \_range: 
         |vpiLeftRange:
         \_constant: , line:5:5, endln:5:6
+          |vpiParent:
+          \_range: 
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-          |vpiParent:
-          \_range: 
           |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:5:5, endln:5:6
-          |vpiDecompile:unsized
-          |STRING:unsized
           |vpiParent:
           \_range: 
+          |vpiDecompile:unsized
+          |STRING:unsized
           |vpiConstType:6
     |vpiName:illegal
     |vpiFullName:work@test.illegal
     |vpiNetType:48
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:1:1: , endln:7:10
   |vpiArrayNet:
-  \_array_net: (work@test.legal), line:3:5, endln:3:10, parent:work@test
+  \_array_net: (work@test.legal), line:3:5, endln:3:10
+    |vpiParent:
+    \_module: work@test (work@test), file:dut.sv, line:1:1, endln:7:10
     |vpiSize:1
     |vpiName:legal
     |vpiFullName:work@test.legal
-    |vpiParent:
-    \_module: work@test (work@test) dut.sv:1:1: , endln:7:10
     |vpiRange:
     \_range: 
       |vpiLeftRange:
       \_constant: , line:3:11, endln:3:12
+        |vpiParent:
+        \_range: 
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
-        |vpiParent:
-        \_range: 
         |vpiConstType:9
       |vpiRightRange:
       \_constant: , line:3:11, endln:3:12
-        |vpiDecompile:unsized
-        |STRING:unsized
         |vpiParent:
         \_range: 
+        |vpiDecompile:unsized
+        |STRING:unsized
         |vpiConstType:6
     |vpiNet:
-    \_logic_net: (work@test.legal), line:3:5, endln:3:10, parent:work@test.legal
+    \_logic_net: (work@test.legal), line:3:5, endln:3:10
+      |vpiParent:
+      \_array_net: (work@test.legal), line:3:5, endln:3:10
       |vpiTypespec:
       \_logic_typespec: , line:3:1, endln:3:4
       |vpiFullName:work@test.legal
       |vpiNetType:48
-      |vpiParent:
-      \_array_net: (work@test.legal), line:3:5, endln:3:10, parent:work@test
   |vpiTopModule:1
 ===================
 [  FATAL] : 0

@@ -115,46 +115,50 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallInterfaces:
-\_interface: work@sw_test_status_if (work@sw_test_status_if) dut.sv:1:1: , endln:5:13, parent:work@top
+\_interface: work@sw_test_status_if (work@sw_test_status_if), file:dut.sv, line:1:1, endln:5:13
+  |vpiParent:
+  \_design: (work@top)
   |vpiFullName:work@sw_test_status_if
   |vpiDefName:work@sw_test_status_if
   |vpiNet:
-  \_logic_net: (work@sw_test_status_if.x), line:1:40, endln:1:41, parent:work@sw_test_status_if
+  \_logic_net: (work@sw_test_status_if.x), line:1:40, endln:1:41
+    |vpiParent:
+    \_interface: work@sw_test_status_if (work@sw_test_status_if), file:dut.sv, line:1:1, endln:5:13
     |vpiName:x
     |vpiFullName:work@sw_test_status_if.x
-    |vpiParent:
-    \_interface: work@sw_test_status_if (work@sw_test_status_if) dut.sv:1:1: , endln:5:13, parent:work@top
-  |vpiParent:
-  \_design: (work@top)
   |vpiProcess:
-  \_always: , line:2:4, endln:4:7, parent:work@top.u_sw
+  \_always: , line:2:4, endln:4:7
+    |vpiParent:
+    \_interface: work@sw_test_status_if (work@top.u_sw), file:dut.sv, line:8:4, endln:8:34
     |vpiStmt:
     \_begin: (work@top.u_sw), line:2:11, endln:4:7
-      |vpiFullName:work@top.u_sw
       |vpiParent:
-      \_always: , line:2:4, endln:4:7, parent:work@top.u_sw
+      \_always: , line:2:4, endln:4:7
+      |vpiFullName:work@top.u_sw
       |vpiStmt:
-      \_assignment: , line:3:7, endln:3:13, parent:work@top.u_sw
+      \_assignment: , line:3:7, endln:3:13
         |vpiParent:
         \_begin: (work@top.u_sw), line:2:11, endln:4:7
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:3:11, endln:3:13
+          |vpiParent:
+          \_assignment: , line:3:7, endln:3:13
           |vpiDecompile:10
           |vpiSize:64
           |UINT:10
-          |vpiParent:
-          \_assignment: , line:3:7, endln:3:13, parent:work@top.u_sw
           |vpiConstType:9
         |vpiLhs:
-        \_ref_obj: (work@top.u_sw.x), line:3:7, endln:3:8, parent:work@top.u_sw
+        \_ref_obj: (work@top.u_sw.x), line:3:7, endln:3:8
           |vpiParent:
           \_begin: (work@top.u_sw), line:2:11, endln:4:7
           |vpiName:x
           |vpiFullName:work@top.u_sw.x
           |vpiActual:
-          \_int_var: (work@top.u_sw.x), line:1:40, endln:1:41, parent:work@top.u_sw
+          \_int_var: (work@top.u_sw.x), line:1:40, endln:1:41
+            |vpiParent:
+            \_interface: work@sw_test_status_if (work@top.u_sw), file:dut.sv, line:8:4, endln:8:34
             |vpiTypespec:
             \_int_typespec: , line:1:36, endln:1:39
               |vpiSigned:1
@@ -162,48 +166,46 @@ design: (work@top)
             |vpiFullName:work@top.u_sw.x
             |vpiSigned:1
             |vpiVisibility:1
-            |vpiParent:
-            \_interface: work@sw_test_status_if (work@top.u_sw) dut.sv:8:4: , endln:8:34, parent:work@top
-    |vpiParent:
-    \_interface: work@sw_test_status_if (work@top.u_sw) dut.sv:8:4: , endln:8:34, parent:work@top
     |vpiAlwaysType:1
   |vpiPort:
-  \_port: (x), line:1:40, endln:1:41, parent:work@sw_test_status_if
+  \_port: (x), line:1:40, endln:1:41
+    |vpiParent:
+    \_interface: work@sw_test_status_if (work@sw_test_status_if), file:dut.sv, line:1:1, endln:5:13
     |vpiName:x
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@sw_test_status_if.x), line:1:40, endln:1:41, parent:work@sw_test_status_if
-    |vpiParent:
-    \_interface: work@sw_test_status_if (work@sw_test_status_if) dut.sv:1:1: , endln:5:13, parent:work@top
+      \_logic_net: (work@sw_test_status_if.x), line:1:40, endln:1:41
 |uhdmallModules:
-\_module: work@top (work@top) dut.sv:7:1: , endln:9:10, parent:work@top
+\_module: work@top (work@top), file:dut.sv, line:7:1, endln:9:10
+  |vpiParent:
+  \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
   |vpiNet:
-  \_logic_net: (work@top.o), line:7:23, endln:7:24, parent:work@top
+  \_logic_net: (work@top.o), line:7:23, endln:7:24
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:9:10
     |vpiName:o
     |vpiFullName:work@top.o
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:9:10, parent:work@top
-  |vpiParent:
-  \_design: (work@top)
   |vpiPort:
-  \_port: (o), line:7:23, endln:7:24, parent:work@top
+  \_port: (o), line:7:23, endln:7:24
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:9:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@top.o), line:7:23, endln:7:24, parent:work@top
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:9:10, parent:work@top
+      \_logic_net: (work@top.o), line:7:23, endln:7:24
 |uhdmtopModules:
-\_module: work@top (work@top) dut.sv:7:1: , endln:9:10
+\_module: work@top (work@top), file:dut.sv, line:7:1, endln:9:10
   |vpiName:work@top
   |vpiVariables:
-  \_int_var: (work@top.o), line:7:23, endln:7:24, parent:work@top
+  \_int_var: (work@top.o), line:7:23, endln:7:24
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:9:10
     |vpiTypespec:
     \_int_typespec: , line:7:19, endln:7:22
       |vpiSigned:1
@@ -211,47 +213,47 @@ design: (work@top)
     |vpiFullName:work@top.o
     |vpiSigned:1
     |vpiVisibility:1
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:9:10
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
   |vpiPort:
-  \_port: (o), line:7:23, endln:7:24, parent:work@top
+  \_port: (o), line:7:23, endln:7:24
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:9:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@top.o), line:7:23, endln:7:24, parent:o
+    \_ref_obj: (work@top.o), line:7:23, endln:7:24
       |vpiParent:
-      \_port: (o), line:7:23, endln:7:24, parent:work@top
+      \_port: (o), line:7:23, endln:7:24
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_int_var: (work@top.o), line:7:23, endln:7:24, parent:work@top
+      \_int_var: (work@top.o), line:7:23, endln:7:24
     |vpiTypedef:
     \_int_typespec: , line:7:19, endln:7:22
       |vpiSigned:1
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:9:10
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:9:10
+    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:9:10
   |vpiInterface:
-  \_interface: work@sw_test_status_if (work@top.u_sw) dut.sv:8:4: , endln:8:34, parent:work@top
+  \_interface: work@sw_test_status_if (work@top.u_sw), file:dut.sv, line:8:4, endln:8:34
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:9:10
     |vpiName:u_sw
     |vpiFullName:work@top.u_sw
     |vpiVariables:
-    \_int_var: (work@top.u_sw.x), line:1:40, endln:1:41, parent:work@top.u_sw
+    \_int_var: (work@top.u_sw.x), line:1:40, endln:1:41
     |vpiDefName:work@sw_test_status_if
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:9:10
-    |vpiParent:
-    \_module: work@top (work@top) dut.sv:7:1: , endln:9:10
+    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:9:10
     |vpiProcess:
-    \_always: , line:2:4, endln:4:7, parent:work@top.u_sw
+    \_always: , line:2:4, endln:4:7
     |vpiPort:
-    \_port: (x), line:1:40, endln:1:41, parent:work@top.u_sw
+    \_port: (x), line:1:40, endln:1:41
+      |vpiParent:
+      \_interface: work@sw_test_status_if (work@top.u_sw), file:dut.sv, line:8:4, endln:8:34
       |vpiName:x
       |vpiDirection:2
       |vpiHighConn:
@@ -259,18 +261,16 @@ design: (work@top)
         |vpiName:o
         |vpiFullName:work@top.o
         |vpiActual:
-        \_int_var: (work@top.o), line:7:23, endln:7:24, parent:work@top
+        \_int_var: (work@top.o), line:7:23, endln:7:24
       |vpiLowConn:
       \_ref_obj: (work@top.u_sw.x), line:8:28, endln:8:29
         |vpiName:x
         |vpiFullName:work@top.u_sw.x
         |vpiActual:
-        \_int_var: (work@top.u_sw.x), line:1:40, endln:1:41, parent:work@top.u_sw
+        \_int_var: (work@top.u_sw.x), line:1:40, endln:1:41
       |vpiTypedef:
       \_int_typespec: , line:1:36, endln:1:39
         |vpiSigned:1
-      |vpiParent:
-      \_interface: work@sw_test_status_if (work@top.u_sw) dut.sv:8:4: , endln:8:34, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

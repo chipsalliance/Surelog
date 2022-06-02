@@ -73,16 +73,18 @@ PARSER CACHE USED FOR: "pkg2.sv"
 design: (work@top)
 |vpiName:work@top
 |uhdmallPackages:
-\_package: pkg1 (pkg1::) pkg1.sv:1:1: , endln:7:11, parent:work@top
+\_package: pkg1 (pkg1::), file:pkg1.sv, line:1:1, endln:7:11
+  |vpiParent:
+  \_design: (work@top)
   |vpiName:pkg1
   |vpiFullName:pkg1::
   |vpiTypedef:
-  \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11, parent:pkg1::
+  \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+    |vpiParent:
+    \_package: pkg1 (pkg1::), file:pkg1.sv, line:1:1, endln:7:11
     |vpiName:pkg1::enum1
     |vpiInstance:
-    \_package: pkg1 (pkg1::) pkg1.sv:1:1: , endln:7:11, parent:work@top
-    |vpiParent:
-    \_package: pkg1 (pkg1::) pkg1.sv:1:1: , endln:7:11, parent:work@top
+    \_package: pkg1 (pkg1::), file:pkg1.sv, line:1:1, endln:7:11
     |vpiEnumConst:
     \_enum_const: (HERE), line:4:5, endln:4:9
       |vpiName:HERE
@@ -90,24 +92,28 @@ design: (work@top)
       |vpiDecompile:0
       |vpiSize:64
   |vpiDefName:pkg1
+|uhdmallPackages:
+\_package: pkg2 (pkg2::), file:pkg2.sv, line:1:1, endln:16:11
   |vpiParent:
   \_design: (work@top)
-|uhdmallPackages:
-\_package: pkg2 (pkg2::) pkg2.sv:1:1: , endln:16:11, parent:work@top
   |vpiName:pkg2
   |vpiFullName:pkg2::
   |vpiParameter:
-  \_parameter: (pkg2::P1), line:4:18, endln:4:20, parent:pkg2::
+  \_parameter: (pkg2::P1), line:4:18, endln:4:20
+    |vpiParent:
+    \_package: pkg2 (pkg2::), file:pkg2.sv, line:1:1, endln:16:11
     |vpiTypespec:
-    \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11, parent:work@top
+    \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
+      |vpiParent:
+      \_module: work@top (work@top), file:top.sv, line:1:1, endln:4:10
       |vpiName:pkg2::enum2
       |vpiTypedefAlias:
-      \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11, parent:pkg1::
+      \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+        |vpiParent:
+        \_package: pkg1 (pkg1::), file:pkg1.sv, line:1:1, endln:7:11
         |vpiName:pkg1::enum1
         |vpiInstance:
-        \_package: pkg1 (pkg1::) pkg1.sv:1:1: , endln:7:11, parent:work@top
-        |vpiParent:
-        \_package: pkg1 (pkg1::) pkg1.sv:1:1: , endln:7:11, parent:work@top
+        \_package: pkg1 (pkg1::), file:pkg1.sv, line:1:1, endln:7:11
         |vpiEnumConst:
         \_enum_const: (HERE), line:4:5, endln:4:9
           |vpiName:HERE
@@ -115,258 +121,252 @@ design: (work@top)
           |vpiDecompile:0
           |vpiSize:64
       |vpiInstance:
-      \_package: pkg2 (pkg2::) pkg2.sv:1:1: , endln:16:11, parent:work@top
-      |vpiParent:
-      \_module: work@top (work@top) top.sv:1:1: , endln:4:10, parent:work@top
+      \_package: pkg2 (pkg2::), file:pkg2.sv, line:1:1, endln:16:11
       |vpiEnumConst:
-      \_enum_const: (HERE), line:4:5, endln:4:9, parent:pkg2::enum2
+      \_enum_const: (HERE), line:4:5, endln:4:9
         |vpiParent:
-        \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11, parent:work@top
+        \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
         |vpiName:HERE
         |INT:0
         |vpiDecompile:0
         |vpiSize:64
-    |vpiParent:
-    \_package: pkg2 (pkg2::) pkg2.sv:1:1: , endln:16:11, parent:work@top
     |vpiName:P1
     |vpiFullName:pkg2::P1
   |vpiParamAssign:
-  \_param_assign: , line:4:18, endln:4:33, parent:pkg2::
+  \_param_assign: , line:4:18, endln:4:33
     |vpiParent:
-    \_package: pkg2 (pkg2::) pkg2.sv:1:1: , endln:16:11, parent:work@top
+    \_package: pkg2 (pkg2::), file:pkg2.sv, line:1:1, endln:16:11
     |vpiRhs:
     \_ref_obj: (pkg1::HERE), line:4:23, endln:4:29
       |vpiName:pkg1::HERE
     |vpiLhs:
-    \_parameter: (pkg2::P1), line:4:18, endln:4:20, parent:pkg2::
+    \_parameter: (pkg2::P1), line:4:18, endln:4:20
   |vpiDefName:pkg2
+|uhdmtopPackages:
+\_package: pkg1 (pkg1::), file:pkg1.sv, line:1:1, endln:7:11
   |vpiParent:
   \_design: (work@top)
-|uhdmtopPackages:
-\_package: pkg1 (pkg1::) pkg1.sv:1:1: , endln:7:11, parent:work@top
   |vpiName:pkg1
   |vpiFullName:pkg1::
   |vpiTypedef:
-  \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11, parent:pkg1::
+  \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
   |vpiDefName:pkg1
   |vpiTop:1
+|uhdmtopPackages:
+\_package: pkg2 (pkg2::), file:pkg2.sv, line:1:1, endln:16:11
   |vpiParent:
   \_design: (work@top)
-|uhdmtopPackages:
-\_package: pkg2 (pkg2::) pkg2.sv:1:1: , endln:16:11, parent:work@top
   |vpiName:pkg2
   |vpiFullName:pkg2::
   |vpiParameter:
-  \_parameter: (pkg2::P1), line:4:18, endln:4:20, parent:pkg2::
+  \_parameter: (pkg2::P1), line:4:18, endln:4:20
+    |vpiParent:
+    \_package: pkg2 (pkg2::), file:pkg2.sv, line:1:1, endln:16:11
     |INT:0
     |vpiTypespec:
-    \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11, parent:work@top
-    |vpiParent:
-    \_package: pkg2 (pkg2::) pkg2.sv:1:1: , endln:16:11, parent:work@top
+    \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
     |vpiName:P1
     |vpiFullName:pkg2::P1
   |vpiParamAssign:
-  \_param_assign: , line:4:18, endln:4:33, parent:pkg2::
+  \_param_assign: , line:4:18, endln:4:33
     |vpiParent:
-    \_package: pkg2 (pkg2::) pkg2.sv:1:1: , endln:16:11, parent:work@top
+    \_package: pkg2 (pkg2::), file:pkg2.sv, line:1:1, endln:16:11
     |vpiRhs:
     \_constant: , line:4:23, endln:4:29
       |vpiDecompile:0
       |INT:0
       |vpiTypespec:
-      \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11, parent:work@top
+      \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
       |vpiConstType:7
     |vpiLhs:
-    \_parameter: (pkg2::P1), line:4:18, endln:4:20, parent:pkg2::
+    \_parameter: (pkg2::P1), line:4:18, endln:4:20
   |vpiTypedef:
-  \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11, parent:work@top
+  \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
   |vpiDefName:pkg2
   |vpiTop:1
+|uhdmallModules:
+\_module: work@top (work@top), file:top.sv, line:1:1, endln:4:10
   |vpiParent:
   \_design: (work@top)
-|uhdmallModules:
-\_module: work@top (work@top) top.sv:1:1: , endln:4:10, parent:work@top
   |vpiFullName:work@top
   |vpiParameter:
-  \_parameter: (work@top.P1), line:4:18, endln:4:20, parent:work@top
+  \_parameter: (work@top.P1), line:4:18, endln:4:20
+    |vpiParent:
+    \_module: work@top (work@top), file:top.sv, line:1:1, endln:4:10
     |INT:0
     |vpiTypespec:
-    \_enum_typespec: (enum2), line:3:3, endln:5:11, parent:work@top.P1
+    \_enum_typespec: (enum2), line:3:3, endln:5:11
+      |vpiParent:
+      \_parameter: (work@top.P1), line:4:18, endln:4:20
       |vpiName:enum2
       |vpiTypedefAlias:
-      \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11, parent:enum2
+      \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+        |vpiParent:
+        \_enum_typespec: (enum2), line:3:3, endln:5:11
         |vpiName:pkg1::enum1
         |vpiInstance:
-        \_package: pkg1 (pkg1::) pkg1.sv:1:1: , endln:7:11, parent:work@top
-        |vpiParent:
-        \_enum_typespec: (enum2), line:3:3, endln:5:11, parent:work@top.P1
+        \_package: pkg1 (pkg1::), file:pkg1.sv, line:1:1, endln:7:11
         |vpiEnumConst:
-        \_enum_const: (HERE), line:4:5, endln:4:9, parent:pkg1::enum1
+        \_enum_const: (HERE), line:4:5, endln:4:9
           |vpiParent:
-          \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11, parent:enum2
+          \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
           |vpiName:HERE
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
       |vpiInstance:
-      \_package: pkg2 (pkg2::) pkg2.sv:1:1: , endln:16:11, parent:work@top
-      |vpiParent:
-      \_parameter: (work@top.P1), line:4:18, endln:4:20, parent:work@top
+      \_package: pkg2 (pkg2::), file:pkg2.sv, line:1:1, endln:16:11
       |vpiEnumConst:
-      \_enum_const: (HERE), line:4:5, endln:4:9, parent:enum2
+      \_enum_const: (HERE), line:4:5, endln:4:9
         |vpiParent:
-        \_enum_typespec: (enum2), line:3:3, endln:5:11, parent:work@top.P1
+        \_enum_typespec: (enum2), line:3:3, endln:5:11
         |vpiName:HERE
         |INT:0
         |vpiDecompile:0
         |vpiSize:64
-    |vpiParent:
-    \_module: work@top (work@top) top.sv:1:1: , endln:4:10, parent:work@top
     |vpiName:P1
     |vpiFullName:work@top.P1
     |vpiImported:pkg2
   |vpiParamAssign:
-  \_param_assign: , line:4:18, endln:4:33, parent:work@top
+  \_param_assign: , line:4:18, endln:4:33
     |vpiParent:
-    \_module: work@top (work@top) top.sv:1:1: , endln:4:10, parent:work@top
+    \_module: work@top (work@top), file:top.sv, line:1:1, endln:4:10
     |vpiRhs:
     \_constant: , line:4:23, endln:4:29
+      |vpiParent:
+      \_param_assign: , line:4:18, endln:4:33
       |vpiDecompile:0
       |INT:0
       |vpiTypespec:
       \_enum_typespec: (enum2), line:3:3, endln:5:11
+        |vpiParent:
+        \_constant: , line:4:23, endln:4:29
         |vpiName:enum2
         |vpiTypedefAlias:
-        \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11, parent:enum2
-          |vpiName:pkg1::enum1
-          |vpiInstance:
-          \_package: pkg1 (pkg1::) pkg1.sv:1:1: , endln:7:11, parent:work@top
+        \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
           |vpiParent:
           \_enum_typespec: (enum2), line:3:3, endln:5:11
+          |vpiName:pkg1::enum1
+          |vpiInstance:
+          \_package: pkg1 (pkg1::), file:pkg1.sv, line:1:1, endln:7:11
           |vpiEnumConst:
-          \_enum_const: (HERE), line:4:5, endln:4:9, parent:pkg1::enum1
+          \_enum_const: (HERE), line:4:5, endln:4:9
             |vpiParent:
-            \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11, parent:enum2
+            \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
             |vpiName:HERE
             |INT:0
             |vpiDecompile:0
             |vpiSize:64
         |vpiInstance:
-        \_package: pkg2 (pkg2::) pkg2.sv:1:1: , endln:16:11, parent:work@top
-        |vpiParent:
-        \_constant: , line:4:23, endln:4:29
+        \_package: pkg2 (pkg2::), file:pkg2.sv, line:1:1, endln:16:11
         |vpiEnumConst:
-        \_enum_const: (HERE), line:4:5, endln:4:9, parent:enum2
+        \_enum_const: (HERE), line:4:5, endln:4:9
           |vpiParent:
           \_enum_typespec: (enum2), line:3:3, endln:5:11
           |vpiName:HERE
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
-      |vpiParent:
-      \_param_assign: , line:4:18, endln:4:33, parent:work@top
       |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@top.P1), line:4:18, endln:4:20
+      |vpiParent:
+      \_param_assign: , line:4:18, endln:4:33
       |INT:0
       |vpiTypespec:
-      \_enum_typespec: (enum2), line:3:3, endln:5:11, parent:work@top.P1
+      \_enum_typespec: (enum2), line:3:3, endln:5:11
+        |vpiParent:
+        \_parameter: (work@top.P1), line:4:18, endln:4:20
         |vpiName:enum2
         |vpiTypedefAlias:
-        \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11, parent:enum2
+        \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+          |vpiParent:
+          \_enum_typespec: (enum2), line:3:3, endln:5:11
           |vpiName:pkg1::enum1
           |vpiInstance:
-          \_package: pkg1 (pkg1::) pkg1.sv:1:1: , endln:7:11, parent:work@top
-          |vpiParent:
-          \_enum_typespec: (enum2), line:3:3, endln:5:11, parent:work@top.P1
+          \_package: pkg1 (pkg1::), file:pkg1.sv, line:1:1, endln:7:11
           |vpiEnumConst:
-          \_enum_const: (HERE), line:4:5, endln:4:9, parent:pkg1::enum1
+          \_enum_const: (HERE), line:4:5, endln:4:9
             |vpiParent:
-            \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11, parent:enum2
+            \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
             |vpiName:HERE
             |INT:0
             |vpiDecompile:0
             |vpiSize:64
         |vpiInstance:
-        \_package: pkg2 (pkg2::) pkg2.sv:1:1: , endln:16:11, parent:work@top
-        |vpiParent:
-        \_parameter: (work@top.P1), line:4:18, endln:4:20
+        \_package: pkg2 (pkg2::), file:pkg2.sv, line:1:1, endln:16:11
         |vpiEnumConst:
-        \_enum_const: (HERE), line:4:5, endln:4:9, parent:enum2
+        \_enum_const: (HERE), line:4:5, endln:4:9
           |vpiParent:
-          \_enum_typespec: (enum2), line:3:3, endln:5:11, parent:work@top.P1
+          \_enum_typespec: (enum2), line:3:3, endln:5:11
           |vpiName:HERE
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
-      |vpiParent:
-      \_param_assign: , line:4:18, endln:4:33, parent:work@top
       |vpiName:P1
       |vpiFullName:work@top.P1
       |vpiImported:pkg2
   |vpiTypedef:
-  \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11, parent:work@top
+  \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
   |vpiTypedef:
   \_import_typespec: (pkg2), line:2:11, endln:2:18
   |vpiDefName:work@top
-  |vpiParent:
-  \_design: (work@top)
 |uhdmtopModules:
-\_module: work@top (work@top) top.sv:1:1: , endln:4:10
+\_module: work@top (work@top), file:top.sv, line:1:1, endln:4:10
   |vpiName:work@top
   |vpiParameter:
-  \_parameter: (work@top.P1), line:4:18, endln:4:20, parent:work@top
+  \_parameter: (work@top.P1), line:4:18, endln:4:20
+    |vpiParent:
+    \_module: work@top (work@top), file:top.sv, line:1:1, endln:4:10
     |INT:0
     |vpiTypespec:
-    \_enum_typespec: (enum2), line:3:3, endln:5:11, parent:work@top.P1
+    \_enum_typespec: (enum2), line:3:3, endln:5:11
+      |vpiParent:
+      \_parameter: (work@top.P1), line:4:18, endln:4:20
       |vpiName:enum2
       |vpiTypedefAlias:
-      \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11, parent:enum2
+      \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+        |vpiParent:
+        \_enum_typespec: (enum2), line:3:3, endln:5:11
         |vpiName:pkg1::enum1
         |vpiInstance:
-        \_package: pkg1 (pkg1::) pkg1.sv:1:1: , endln:7:11, parent:work@top
-        |vpiParent:
-        \_enum_typespec: (enum2), line:3:3, endln:5:11, parent:work@top.P1
+        \_package: pkg1 (pkg1::), file:pkg1.sv, line:1:1, endln:7:11
         |vpiEnumConst:
-        \_enum_const: (HERE), line:4:5, endln:4:9, parent:pkg1::enum1
+        \_enum_const: (HERE), line:4:5, endln:4:9
           |vpiParent:
-          \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11, parent:enum2
+          \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
           |vpiName:HERE
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
       |vpiInstance:
-      \_package: pkg2 (pkg2::) pkg2.sv:1:1: , endln:16:11, parent:work@top
-      |vpiParent:
-      \_parameter: (work@top.P1), line:4:18, endln:4:20, parent:work@top
+      \_package: pkg2 (pkg2::), file:pkg2.sv, line:1:1, endln:16:11
       |vpiEnumConst:
-      \_enum_const: (HERE), line:4:5, endln:4:9, parent:enum2
+      \_enum_const: (HERE), line:4:5, endln:4:9
         |vpiParent:
-        \_enum_typespec: (enum2), line:3:3, endln:5:11, parent:work@top.P1
+        \_enum_typespec: (enum2), line:3:3, endln:5:11
         |vpiName:HERE
         |INT:0
         |vpiDecompile:0
         |vpiSize:64
-    |vpiParent:
-    \_module: work@top (work@top) top.sv:1:1: , endln:4:10
     |vpiName:P1
     |vpiFullName:work@top.P1
     |vpiImported:pkg2
   |vpiParamAssign:
-  \_param_assign: , line:4:18, endln:4:33, parent:work@top
+  \_param_assign: , line:4:18, endln:4:33
     |vpiParent:
-    \_module: work@top (work@top) top.sv:1:1: , endln:4:10
+    \_module: work@top (work@top), file:top.sv, line:1:1, endln:4:10
     |vpiRhs:
     \_constant: , line:4:23, endln:4:33
       |vpiDecompile:0
       |INT:0
       |vpiTypespec:
-      \_enum_typespec: (enum2), line:3:3, endln:5:11, parent:work@top.P1
+      \_enum_typespec: (enum2), line:3:3, endln:5:11
       |vpiConstType:7
     |vpiLhs:
-    \_parameter: (work@top.P1), line:4:18, endln:4:20, parent:work@top
+    \_parameter: (work@top.P1), line:4:18, endln:4:20
   |vpiTypedef:
-  \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11, parent:work@top
+  \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
   |vpiTypedef:
   \_import_typespec: (pkg2), line:2:11, endln:2:18
   |vpiDefName:work@top

@@ -113,110 +113,112 @@ design: (work@Core)
 |vpiElaborated:1
 |vpiName:work@Core
 |uhdmallInterfaces:
-\_interface: work@PerformanceCounterIF (work@PerformanceCounterIF) dut.sv:1:1: , endln:6:13, parent:work@Core
-  |vpiFullName:work@PerformanceCounterIF
-  |vpiDefName:work@PerformanceCounterIF
+\_interface: work@PerformanceCounterIF (work@PerformanceCounterIF), file:dut.sv, line:1:1, endln:6:13
   |vpiParent:
   \_design: (work@Core)
+  |vpiFullName:work@PerformanceCounterIF
+  |vpiDefName:work@PerformanceCounterIF
   |vpiModport:
-  \_modport: (CSR), line:2:13, endln:2:16, parent:work@PerformanceCounterIF
+  \_modport: (CSR), line:2:13, endln:2:16
     |vpiParent:
-    \_interface: work@PerformanceCounterIF (work@PerformanceCounterIF) dut.sv:1:1: , endln:6:13, parent:work@Core
+    \_interface: work@PerformanceCounterIF (work@PerformanceCounterIF), file:dut.sv, line:1:1, endln:6:13
     |vpiName:CSR
     |vpiIODecl:
     \_io_decl: (perfCounter), line:4:9, endln:4:20
       |vpiDirection:1
       |vpiName:perfCounter
 |uhdmallModules:
-\_module: work@CSR_Unit (work@CSR_Unit) dut.sv:8:1: , endln:11:10, parent:work@Core
+\_module: work@CSR_Unit (work@CSR_Unit), file:dut.sv, line:8:1, endln:11:10
+  |vpiParent:
+  \_design: (work@Core)
   |vpiFullName:work@CSR_Unit
   |vpiDefName:work@CSR_Unit
   |vpiNet:
-  \_logic_net: (work@CSR_Unit.perfCounter), line:9:30, endln:9:41, parent:work@CSR_Unit
+  \_logic_net: (work@CSR_Unit.perfCounter), line:9:30, endln:9:41
+    |vpiParent:
+    \_module: work@CSR_Unit (work@CSR_Unit), file:dut.sv, line:8:1, endln:11:10
     |vpiName:perfCounter
     |vpiFullName:work@CSR_Unit.perfCounter
-    |vpiParent:
-    \_module: work@CSR_Unit (work@CSR_Unit) dut.sv:8:1: , endln:11:10, parent:work@Core
-  |vpiParent:
-  \_design: (work@Core)
   |vpiPort:
-  \_port: (perfCounter), line:9:30, endln:9:41, parent:work@CSR_Unit
+  \_port: (perfCounter), line:9:30, endln:9:41
+    |vpiParent:
+    \_module: work@CSR_Unit (work@CSR_Unit), file:dut.sv, line:8:1, endln:11:10
     |vpiName:perfCounter
     |vpiDirection:3
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_modport: (CSR), line:2:13, endln:2:16, parent:work@PerformanceCounterIF
-    |vpiParent:
-    \_module: work@CSR_Unit (work@CSR_Unit) dut.sv:8:1: , endln:11:10, parent:work@Core
+      \_modport: (CSR), line:2:13, endln:2:16
 |uhdmallModules:
-\_module: work@Core (work@Core) dut.sv:13:1: , endln:17:10, parent:work@Core
-  |vpiFullName:work@Core
-  |vpiDefName:work@Core
+\_module: work@Core (work@Core), file:dut.sv, line:13:1, endln:17:10
   |vpiParent:
   \_design: (work@Core)
+  |vpiFullName:work@Core
+  |vpiDefName:work@Core
 |uhdmtopModules:
-\_module: work@Core (work@Core) dut.sv:13:1: , endln:17:10
+\_module: work@Core (work@Core), file:dut.sv, line:13:1, endln:17:10
   |vpiName:work@Core
   |vpiDefName:work@Core
   |vpiTop:1
   |vpiTopModule:1
   |vpiInterface:
-  \_interface: work@PerformanceCounterIF (work@Core.perfCounterIF) dut.sv:14:2: , endln:14:40, parent:work@Core
+  \_interface: work@PerformanceCounterIF (work@Core.perfCounterIF), file:dut.sv, line:14:2, endln:14:40
+    |vpiParent:
+    \_module: work@Core (work@Core), file:dut.sv, line:13:1, endln:17:10
     |vpiName:perfCounterIF
     |vpiFullName:work@Core.perfCounterIF
     |vpiDefName:work@PerformanceCounterIF
     |vpiDefFile:dut.sv
     |vpiDefLineNo:1
     |vpiInstance:
-    \_module: work@Core (work@Core) dut.sv:13:1: , endln:17:10
-    |vpiParent:
-    \_module: work@Core (work@Core) dut.sv:13:1: , endln:17:10
+    \_module: work@Core (work@Core), file:dut.sv, line:13:1, endln:17:10
     |vpiModport:
-    \_modport: (CSR), line:2:13, endln:2:16, parent:work@Core.perfCounterIF
+    \_modport: (CSR), line:2:13, endln:2:16
       |vpiParent:
-      \_interface: work@PerformanceCounterIF (work@Core.perfCounterIF) dut.sv:14:2: , endln:14:40, parent:work@Core
+      \_interface: work@PerformanceCounterIF (work@Core.perfCounterIF), file:dut.sv, line:14:2, endln:14:40
       |vpiName:CSR
       |vpiIODecl:
-      \_io_decl: (perfCounter), line:4:9, endln:4:20, parent:CSR
+      \_io_decl: (perfCounter), line:4:9, endln:4:20
         |vpiParent:
-        \_modport: (CSR), line:2:13, endln:2:16, parent:work@Core.perfCounterIF
+        \_modport: (CSR), line:2:13, endln:2:16
         |vpiDirection:1
         |vpiName:perfCounter
       |vpiInterface:
-      \_interface: work@PerformanceCounterIF (work@Core.perfCounterIF) dut.sv:14:2: , endln:14:40, parent:work@Core
+      \_interface: work@PerformanceCounterIF (work@Core.perfCounterIF), file:dut.sv, line:14:2, endln:14:40
   |vpiModule:
-  \_module: work@CSR_Unit (work@Core.csrUnit) dut.sv:16:2: , endln:16:34, parent:work@Core
+  \_module: work@CSR_Unit (work@Core.csrUnit), file:dut.sv, line:16:2, endln:16:34
+    |vpiParent:
+    \_module: work@Core (work@Core), file:dut.sv, line:13:1, endln:17:10
     |vpiName:csrUnit
     |vpiFullName:work@Core.csrUnit
     |vpiDefName:work@CSR_Unit
     |vpiDefFile:dut.sv
     |vpiDefLineNo:8
     |vpiInstance:
-    \_module: work@Core (work@Core) dut.sv:13:1: , endln:17:10
-    |vpiParent:
-    \_module: work@Core (work@Core) dut.sv:13:1: , endln:17:10
+    \_module: work@Core (work@Core), file:dut.sv, line:13:1, endln:17:10
     |vpiPort:
-    \_port: (perfCounter), line:9:30, endln:9:41, parent:work@Core.csrUnit
+    \_port: (perfCounter), line:9:30, endln:9:41
+      |vpiParent:
+      \_module: work@CSR_Unit (work@Core.csrUnit), file:dut.sv, line:16:2, endln:16:34
       |vpiName:perfCounter
       |vpiDirection:3
       |vpiHighConn:
-      \_ref_obj: (work@Core.perfCounterIF), line:16:19, endln:16:32, parent:perfCounter
+      \_ref_obj: (work@Core.perfCounterIF), line:16:19, endln:16:32
         |vpiParent:
-        \_port: (perfCounter), line:9:30, endln:9:41, parent:work@Core.csrUnit
+        \_port: (perfCounter), line:9:30, endln:9:41
         |vpiName:perfCounterIF
         |vpiFullName:work@Core.perfCounterIF
         |vpiActual:
-        \_interface: work@PerformanceCounterIF (work@Core.perfCounterIF) dut.sv:14:2: , endln:14:40, parent:work@Core
+        \_interface: work@PerformanceCounterIF (work@Core.perfCounterIF), file:dut.sv, line:14:2, endln:14:40
       |vpiLowConn:
-      \_ref_obj: (work@Core.csrUnit.perfCounter), line:16:19, endln:16:32, parent:perfCounter
+      \_ref_obj: (work@Core.csrUnit.perfCounter), line:16:19, endln:16:32
         |vpiParent:
-        \_port: (perfCounter), line:9:30, endln:9:41, parent:work@Core.csrUnit
+        \_port: (perfCounter), line:9:30, endln:9:41
         |vpiFullName:work@Core.csrUnit.perfCounter
         |vpiActual:
-        \_modport: (CSR), line:2:13, endln:2:16, parent:perfCounter
+        \_modport: (CSR), line:2:13, endln:2:16
           |vpiParent:
-          \_interface: work@PerformanceCounterIF (perfCounter) dut.sv:16: 
+          \_interface: work@PerformanceCounterIF (perfCounter), file:dut.sv, line:16:0
           |vpiName:CSR
           |vpiIODecl:
           \_io_decl: (perfCounter), line:4:9, endln:4:20
@@ -227,13 +229,11 @@ design: (work@Core)
               |vpiName:perfCounter
               |vpiFullName:work@Core.csrUnit.perfCounter
               |vpiActual:
-              \_modport: (CSR), line:2:13, endln:2:16, parent:perfCounter
+              \_modport: (CSR), line:2:13, endln:2:16
           |vpiInterface:
-          \_interface: work@PerformanceCounterIF (perfCounter) dut.sv:16: 
+          \_interface: work@PerformanceCounterIF (perfCounter), file:dut.sv, line:16:0
       |vpiInstance:
-      \_module: work@CSR_Unit (work@Core.csrUnit) dut.sv:16:2: , endln:16:34, parent:work@Core
-      |vpiParent:
-      \_module: work@CSR_Unit (work@Core.csrUnit) dut.sv:16:2: , endln:16:34, parent:work@Core
+      \_module: work@CSR_Unit (work@Core.csrUnit), file:dut.sv, line:16:2, endln:16:34
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
