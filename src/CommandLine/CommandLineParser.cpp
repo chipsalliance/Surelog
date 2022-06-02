@@ -499,6 +499,26 @@ void CommandLineParser::processArgs_(std::vector<std::string>& args,
   }
 }
 
+void CommandLineParser::processOutputDirectory_(
+    std::vector<std::string>& args) {
+  for (unsigned int i = 0; i < args.size(); i++) {
+    std::string arg = StringUtils::unquoted(args[i]);
+    StringUtils::trim(arg);
+    const bool is_last_argument = (i == args.size() - 1);
+    if (args[i] == "-odir" || args[i] == "-o" || args[i] == "--Mdir") {
+      if (is_last_argument) {
+        Location loc(mutableSymbolTable()->registerSymbol(args[i]));
+        Error err(ErrorDefinition::CMD_PP_FILE_MISSING_ODIR, loc);
+        m_errors->addError(err);
+        break;
+      }
+      i++;
+      fs::path path = FileUtils::getPreferredPath(args[i]);
+      m_outputDir = m_symbolTable->registerSymbol(path.string());
+    }
+  }
+}
+
 // Try to find the full absolute path of the program currently running.
 static fs::path GetProgramNameAbsolutePath(const char* progname) {
 #if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)
@@ -592,6 +612,9 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     }
   }
   std::vector<std::string> all_arguments;
+
+  processOutputDirectory_(cmd_line);
+
   processArgs_(cmd_line, all_arguments);
   /*
   std::string cmd = "EXPANDED CMD:";
@@ -629,22 +652,6 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_pythonAllowed = false;
     } else if (argument == "-withpython") {
       withPython();
-    }
-  }
-
-  for (unsigned int i = 0; i < all_arguments.size(); i++) {
-    const bool is_last_argument = (i == all_arguments.size() - 1);
-    if (all_arguments[i] == "-odir" || all_arguments[i] == "-o" ||
-        all_arguments[i] == "--Mdir") {
-      if (is_last_argument) {
-        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
-        Error err(ErrorDefinition::CMD_PP_FILE_MISSING_ODIR, loc);
-        m_errors->addError(err);
-        break;
-      }
-      i++;
-      fs::path path = FileUtils::getPreferredPath(all_arguments[i]);
-      m_outputDir = m_symbolTable->registerSymbol(path.string());
     }
   }
   bool status = prepareCompilation_(argc, argv);
