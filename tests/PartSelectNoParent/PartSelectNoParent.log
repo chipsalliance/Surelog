@@ -366,17 +366,19 @@ design: (work@top)
       \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18
       |vpiName:key
       |vpiTypespec:
-      \_logic_typespec: , line:7:7, endln:7:12
+      \_logic_typespec: , line:7:7, endln:7:39
+        |vpiParent:
+        \_typespec_member: (key), line:7:40, endln:7:43
         |vpiInstance:
         \_package: (my_pkg), file:
         |vpiRange:
-        \_range: , line:7:14, endln:7:24
+        \_range: , line:7:13, endln:7:25
           |vpiParent:
           \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18
           |vpiLeftRange:
           \_operation: , line:7:14, endln:7:22
             |vpiParent:
-            \_range: , line:7:14, endln:7:24
+            \_range: , line:7:13, endln:7:25
             |vpiOpType:11
             |vpiOperand:
             \_ref_obj: (my_pkg::my_pkg::hw_key_req_t::Shares), line:7:14, endln:7:20
@@ -397,19 +399,19 @@ design: (work@top)
           |vpiRightRange:
           \_constant: , line:7:23, endln:7:24
             |vpiParent:
-            \_range: , line:7:14, endln:7:24
+            \_range: , line:7:13, endln:7:25
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
         |vpiRange:
-        \_range: , line:7:26, endln:7:38
+        \_range: , line:7:25, endln:7:39
           |vpiParent:
           \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18
           |vpiLeftRange:
           \_operation: , line:7:26, endln:7:36
             |vpiParent:
-            \_range: , line:7:26, endln:7:38
+            \_range: , line:7:25, endln:7:39
             |vpiOpType:11
             |vpiOperand:
             \_ref_obj: (my_pkg::my_pkg::hw_key_req_t::KeyWidth), line:7:26, endln:7:34
@@ -430,7 +432,7 @@ design: (work@top)
           |vpiRightRange:
           \_constant: , line:7:37, endln:7:38
             |vpiParent:
-            \_range: , line:7:26, endln:7:38
+            \_range: , line:7:25, endln:7:39
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -548,17 +550,19 @@ design: (work@top)
       \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18
       |vpiName:key
       |vpiTypespec:
-      \_logic_typespec: , line:7:7, endln:7:12
+      \_logic_typespec: , line:7:7, endln:7:39
+        |vpiParent:
+        \_typespec_member: (key), line:7:40, endln:7:43
         |vpiInstance:
         \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:9:11
         |vpiRange:
-        \_range: , line:7:14, endln:7:24
+        \_range: , line:7:13, endln:7:25
           |vpiParent:
           \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18
           |vpiLeftRange:
           \_constant: , line:7:14, endln:7:20
             |vpiParent:
-            \_range: , line:7:14, endln:7:24
+            \_range: , line:7:13, endln:7:25
             |vpiDecompile:1
             |vpiSize:64
             |INT:1
@@ -566,19 +570,19 @@ design: (work@top)
           |vpiRightRange:
           \_constant: , line:7:23, endln:7:24
             |vpiParent:
-            \_range: , line:7:14, endln:7:24
+            \_range: , line:7:13, endln:7:25
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
         |vpiRange:
-        \_range: , line:7:26, endln:7:38
+        \_range: , line:7:25, endln:7:39
           |vpiParent:
           \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18
           |vpiLeftRange:
           \_constant: , line:7:26, endln:7:34
             |vpiParent:
-            \_range: , line:7:26, endln:7:38
+            \_range: , line:7:25, endln:7:39
             |vpiDecompile:255
             |vpiSize:64
             |INT:255
@@ -586,7 +590,7 @@ design: (work@top)
           |vpiRightRange:
           \_constant: , line:7:37, endln:7:38
             |vpiParent:
-            \_range: , line:7:26, endln:7:38
+            \_range: , line:7:25, endln:7:39
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -811,7 +815,7 @@ design: (work@top)
             |UINT:0
             |vpiConstType:9
           |vpiLhs:
-          \_int_var: (work@top.key_sideload_get.i), line:15:12, endln:15:15
+          \_int_var: (work@top.key_sideload_get.i), line:15:16, endln:15:17
             |vpiParent:
             \_assign_stmt: , line:15:12, endln:15:21
             |vpiTypespec:
@@ -819,6 +823,7 @@ design: (work@top)
               |vpiSigned:1
             |vpiName:i
             |vpiFullName:work@top.key_sideload_get.i
+            |vpiSigned:1
         |vpiForIncStmt:
         \_operation: , line:15:39, endln:15:42
           |vpiParent:
@@ -831,7 +836,7 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@top.key_sideload_get.i
             |vpiActual:
-            \_int_var: (work@top.key_sideload_get.i), line:15:12, endln:15:15
+            \_int_var: (work@top.key_sideload_get.i), line:15:16, endln:15:17
         |vpiCondition:
         \_operation: , line:15:23, endln:15:37
           |vpiParent:
@@ -844,7 +849,7 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@top.key_sideload_get.i
             |vpiActual:
-            \_int_var: (work@top.key_sideload_get.i), line:15:12, endln:15:15
+            \_int_var: (work@top.key_sideload_get.i), line:15:16, endln:15:17
           |vpiOperand:
           \_constant: , line:15:27, endln:15:37
             |vpiParent:
@@ -1076,13 +1081,14 @@ design: (work@top)
           |vpiRhs:
           \_constant: , line:15:20, endln:15:21
           |vpiLhs:
-          \_int_var: (work@top.key_sideload_get.i), line:15:12, endln:15:15
+          \_int_var: (work@top.key_sideload_get.i), line:15:16, endln:15:17
             |vpiParent:
             \_assign_stmt: , line:15:12, endln:15:21
             |vpiTypespec:
             \_int_typespec: , line:15:12, endln:15:15
             |vpiName:i
             |vpiFullName:work@top.key_sideload_get.i
+            |vpiSigned:1
         |vpiForIncStmt:
         \_operation: , line:15:39, endln:15:42
           |vpiParent:
@@ -1095,7 +1101,7 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@top.key_sideload_get.i
             |vpiActual:
-            \_int_var: (work@top.key_sideload_get.i), line:15:12, endln:15:15
+            \_int_var: (work@top.key_sideload_get.i), line:15:16, endln:15:17
         |vpiCondition:
         \_operation: , line:15:23, endln:15:37
           |vpiParent:
@@ -1108,7 +1114,7 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@top.key_sideload_get.i
             |vpiActual:
-            \_int_var: (work@top.key_sideload_get.i), line:15:12, endln:15:15
+            \_int_var: (work@top.key_sideload_get.i), line:15:16, endln:15:17
           |vpiOperand:
           \_constant: , line:15:27, endln:15:37
         |vpiStmt:

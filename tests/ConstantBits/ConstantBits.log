@@ -195,15 +195,17 @@ design: (work@dut)
       \_struct_typespec: (cpu_ctrl_t), line:3:17, endln:3:23
       |vpiName:dummy_instr_mask
       |vpiTypespec:
-      \_logic_typespec: , line:4:11, endln:4:16
+      \_logic_typespec: , line:4:11, endln:4:22
+        |vpiParent:
+        \_typespec_member: (dummy_instr_mask), line:4:24, endln:4:40
         |vpiRange:
-        \_range: , line:4:18, endln:4:21
+        \_range: , line:4:17, endln:4:22
           |vpiParent:
           \_struct_typespec: (cpu_ctrl_t), line:3:17, endln:3:23
           |vpiLeftRange:
           \_constant: , line:4:18, endln:4:19
             |vpiParent:
-            \_range: , line:4:18, endln:4:21
+            \_range: , line:4:17, endln:4:22
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
@@ -211,7 +213,7 @@ design: (work@dut)
           |vpiRightRange:
           \_constant: , line:4:20, endln:4:21
             |vpiParent:
-            \_range: , line:4:18, endln:4:21
+            \_range: , line:4:17, endln:4:22
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -228,6 +230,8 @@ design: (work@dut)
       |vpiName:dummy_instr_en
       |vpiTypespec:
       \_logic_typespec: , line:5:11, endln:5:16
+        |vpiParent:
+        \_typespec_member: (dummy_instr_en), line:5:24, endln:5:38
       |vpiRefFile:dut.sv
       |vpiRefLineNo:5
       |vpiRefColumnNo:11
@@ -240,6 +244,8 @@ design: (work@dut)
       |vpiName:data_ind_timing
       |vpiTypespec:
       \_logic_typespec: , line:6:11, endln:6:16
+        |vpiParent:
+        \_typespec_member: (data_ind_timing), line:6:24, endln:6:39
       |vpiRefFile:dut.sv
       |vpiRefLineNo:6
       |vpiRefColumnNo:11
@@ -252,6 +258,8 @@ design: (work@dut)
       |vpiName:icache_enable
       |vpiTypespec:
       \_logic_typespec: , line:7:11, endln:7:16
+        |vpiParent:
+        \_typespec_member: (icache_enable), line:7:24, endln:7:37
       |vpiRefFile:dut.sv
       |vpiRefLineNo:7
       |vpiRefColumnNo:11
@@ -283,9 +291,9 @@ design: (work@dut)
       \_struct_typespec: (cpu_ctrl_t), line:3:17, endln:3:23
       |vpiOpType:67
       |vpiOperand:
-      \_part_select: , line:11:58, endln:11:79
+      \_part_select: , line:11:44, endln:11:80
         |vpiParent:
-        \_ref_obj: csr_wdata_int (work@dut.csr_wdata_int)
+        \_ref_obj: csr_wdata_int (work@dut.csr_wdata_int), line:11:44, endln:11:57
           |vpiParent:
           \_operation: , line:11:32, endln:11:81
           |vpiName:csr_wdata_int
@@ -339,13 +347,13 @@ design: (work@dut)
     |vpiParent:
     \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
-    \_logic_typespec: , line:10:9, endln:10:14
+    \_logic_typespec: , line:10:9, endln:10:21
       |vpiRange:
-      \_range: , line:10:16, endln:10:20
+      \_range: , line:10:15, endln:10:21
         |vpiLeftRange:
         \_constant: , line:10:16, endln:10:18
           |vpiParent:
-          \_range: , line:10:16, endln:10:20
+          \_range: , line:10:15, endln:10:21
           |vpiDecompile:31
           |vpiSize:64
           |UINT:31
@@ -353,7 +361,7 @@ design: (work@dut)
         |vpiRightRange:
         \_constant: , line:10:19, endln:10:20
           |vpiParent:
-          \_range: , line:10:16, endln:10:20
+          \_range: , line:10:15, endln:10:21
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -362,11 +370,11 @@ design: (work@dut)
     |vpiFullName:work@dut.csr_wdata_int
     |vpiVisibility:1
     |vpiRange:
-    \_range: , line:10:16, endln:10:20
+    \_range: , line:10:15, endln:10:21
       |vpiLeftRange:
       \_constant: , line:10:16, endln:10:18
         |vpiParent:
-        \_range: , line:10:16, endln:10:20
+        \_range: , line:10:15, endln:10:21
         |vpiDecompile:31
         |vpiSize:64
         |UINT:31
@@ -374,7 +382,7 @@ design: (work@dut)
       |vpiRightRange:
       \_constant: , line:10:19, endln:10:20
         |vpiParent:
-        \_range: , line:10:16, endln:10:20
+        \_range: , line:10:15, endln:10:21
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -398,9 +406,9 @@ design: (work@dut)
       \_struct_typespec: (cpu_ctrl_t), line:3:17, endln:3:23
       |vpiOpType:67
       |vpiOperand:
-      \_part_select: , line:11:58, endln:11:79
+      \_part_select: , line:11:44, endln:11:80
         |vpiParent:
-        \_ref_obj: csr_wdata_int (work@dut.csr_wdata_int)
+        \_ref_obj: csr_wdata_int (work@dut.csr_wdata_int), line:11:44, endln:11:57
           |vpiParent:
           \_operation: , line:11:32, endln:11:81
           |vpiName:csr_wdata_int
@@ -412,7 +420,7 @@ design: (work@dut)
         |vpiLeftRange:
         \_operation: , line:11:58, endln:11:77
           |vpiParent:
-          \_part_select: , line:11:58, endln:11:79
+          \_part_select: , line:11:44, endln:11:80
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:11:58, endln:11:75

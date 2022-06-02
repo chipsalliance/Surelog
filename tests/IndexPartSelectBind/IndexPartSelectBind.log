@@ -193,6 +193,8 @@ design: (unnamed)
       |vpiName:data
       |vpiTypespec:
       \_unsupported_typespec: (uvm_reg_data_t), line:5:3, endln:5:17
+        |vpiParent:
+        \_typespec_member: (data), line:5:18, endln:5:22
         |vpiName:uvm_reg_data_t
         |vpiInstance:
         \_package: (pkg), file:
@@ -222,6 +224,8 @@ design: (unnamed)
       |vpiName:data
       |vpiTypespec:
       \_unsupported_typespec: (uvm_reg_data_t), line:5:3, endln:5:17
+        |vpiParent:
+        \_typespec_member: (data), line:5:18, endln:5:22
         |vpiName:uvm_reg_data_t
         |vpiInstance:
         \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:23:11
@@ -285,7 +289,7 @@ design: (unnamed)
               |UINT:0
               |vpiConstType:9
             |vpiLhs:
-            \_int_var: (pkg::tt::reg2bus::i), line:12:6, endln:12:9
+            \_int_var: (pkg::tt::reg2bus::i), line:12:10, endln:12:11
               |vpiParent:
               \_assign_stmt: , line:12:6, endln:12:15
               |vpiTypespec:
@@ -293,6 +297,7 @@ design: (unnamed)
                 |vpiSigned:1
               |vpiName:i
               |vpiFullName:pkg::tt::reg2bus::i
+              |vpiSigned:1
           |vpiForIncStmt:
           \_operation: , line:12:29, endln:12:32
             |vpiParent:
@@ -347,11 +352,11 @@ design: (unnamed)
                 |vpiActual:
                 \_indexed_part_select: , line:13:20, endln:13:31
                   |vpiParent:
-                  \_ref_obj: data (pkg::tt::reg2bus::data)
+                  \_ref_obj: (pkg::tt::reg2bus::data)
                     |vpiParent:
                     \_hier_path: (rw.data[+:8]), line:13:17, endln:13:32
+                    |vpiName:data
                     |vpiFullName:pkg::tt::reg2bus::data
-                    |vpiDefName:data
                   |vpiConstantSelect:1
                   |vpiIndexedPartSelectType:1
                   |vpiBaseExpr:
@@ -392,23 +397,23 @@ design: (unnamed)
                   |vpiActual:
                   \_io_decl: (rw), line:10:69, endln:10:71
                 |vpiActual:
-                \_bit_select: (pkg::tt::reg2bus::rw.data), line:13:7, endln:13:11
+                \_bit_select: (pkg::tt::reg2bus::data), line:13:7, endln:13:11
                   |vpiParent:
-                  \_ref_obj: (pkg::tt::reg2bus::rw.data)
+                  \_ref_obj: (pkg::tt::reg2bus::data)
                     |vpiParent:
                     \_hier_path: (rw.data), line:13:4, endln:13:14
-                    |vpiName:rw.data
-                    |vpiFullName:pkg::tt::reg2bus::rw.data
+                    |vpiName:data
+                    |vpiFullName:pkg::tt::reg2bus::data
                     |vpiActual:
                     \_typespec_member: (data), line:5:18, endln:5:22
                   |vpiName:data
-                  |vpiFullName:pkg::tt::reg2bus::rw.data
+                  |vpiFullName:pkg::tt::reg2bus::data
                   |vpiIndex:
-                  \_ref_obj: (pkg::tt::reg2bus::rw.data::i), line:13:12, endln:13:13
+                  \_ref_obj: (pkg::tt::reg2bus::data::i), line:13:12, endln:13:13
                     |vpiParent:
-                    \_bit_select: (pkg::tt::reg2bus::rw.data), line:13:7, endln:13:11
+                    \_bit_select: (pkg::tt::reg2bus::data), line:13:7, endln:13:11
                     |vpiName:i
-                    |vpiFullName:pkg::tt::reg2bus::rw.data::i
+                    |vpiFullName:pkg::tt::reg2bus::data::i
         |vpiStmt:
         \_return_stmt: , line:17:1, endln:17:7
           |vpiParent:

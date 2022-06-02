@@ -508,6 +508,8 @@ design: (work@top)
       |vpiName:a
       |vpiTypespec:
       \_logic_typespec: , line:3:5, endln:3:10
+        |vpiParent:
+        \_typespec_member: (a), line:3:11, endln:3:12
         |vpiInstance:
         \_package: (pkg), file:
       |vpiRefFile:dut.sv
@@ -521,17 +523,19 @@ design: (work@top)
       \_struct_typespec: (pkg::complex_t), line:2:11, endln:2:17
       |vpiName:b
       |vpiTypespec:
-      \_logic_typespec: , line:4:5, endln:4:10
+      \_logic_typespec: , line:4:5, endln:4:16
+        |vpiParent:
+        \_typespec_member: (b), line:4:17, endln:4:18
         |vpiInstance:
         \_package: (pkg), file:
         |vpiRange:
-        \_range: , line:4:12, endln:4:15
+        \_range: , line:4:11, endln:4:16
           |vpiParent:
           \_struct_typespec: (pkg::complex_t), line:2:11, endln:2:17
           |vpiLeftRange:
           \_constant: , line:4:12, endln:4:13
             |vpiParent:
-            \_range: , line:4:12, endln:4:15
+            \_range: , line:4:11, endln:4:16
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
@@ -539,7 +543,7 @@ design: (work@top)
           |vpiRightRange:
           \_constant: , line:4:14, endln:4:15
             |vpiParent:
-            \_range: , line:4:12, endln:4:15
+            \_range: , line:4:11, endln:4:16
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -609,6 +613,8 @@ design: (work@top)
       |vpiName:a
       |vpiTypespec:
       \_logic_typespec: , line:3:5, endln:3:10
+        |vpiParent:
+        \_typespec_member: (a), line:3:11, endln:3:12
         |vpiInstance:
         \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
       |vpiRefFile:dut.sv
@@ -622,17 +628,19 @@ design: (work@top)
       \_struct_typespec: (pkg::complex_t), line:2:11, endln:2:17
       |vpiName:b
       |vpiTypespec:
-      \_logic_typespec: , line:4:5, endln:4:10
+      \_logic_typespec: , line:4:5, endln:4:16
+        |vpiParent:
+        \_typespec_member: (b), line:4:17, endln:4:18
         |vpiInstance:
         \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
         |vpiRange:
-        \_range: , line:4:12, endln:4:15
+        \_range: , line:4:11, endln:4:16
           |vpiParent:
           \_struct_typespec: (pkg::complex_t), line:2:11, endln:2:17
           |vpiLeftRange:
           \_constant: , line:4:12, endln:4:13
             |vpiParent:
-            \_range: , line:4:12, endln:4:15
+            \_range: , line:4:11, endln:4:16
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
@@ -640,7 +648,7 @@ design: (work@top)
           |vpiRightRange:
           \_constant: , line:4:14, endln:4:15
             |vpiParent:
-            \_range: , line:4:12, endln:4:15
+            \_range: , line:4:11, endln:4:16
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -700,6 +708,7 @@ design: (work@top)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiSigned:1
     |vpiParent:
     \_class_defn: (work@mailbox), file:builtin.sv
   |vpiMethod:
@@ -765,6 +774,7 @@ design: (work@top)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiSigned:1
     |vpiParent:
     \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
@@ -802,6 +812,7 @@ design: (work@top)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiSigned:1
     |vpiParent:
     \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
@@ -1061,6 +1072,7 @@ design: (work@top)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiSigned:1
     |vpiParent:
     \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
@@ -1102,15 +1114,15 @@ design: (work@top)
     \_module: work@dut (work@dut), file:dut.sv, line:17:1, endln:22:10
     |BIN:0
     |vpiTypespec:
-    \_bit_typespec: , line:19:15, endln:19:18
+    \_bit_typespec: , line:19:15, endln:19:29
       |vpiParent:
       \_parameter: (work@dut.init), line:19:30, endln:19:34
       |vpiRange:
-      \_range: , line:19:20, endln:19:28
+      \_range: , line:19:19, endln:19:29
         |vpiLeftRange:
         \_operation: , line:19:20, endln:19:26
           |vpiParent:
-          \_range: , line:19:20, endln:19:28
+          \_range: , line:19:19, endln:19:29
           |vpiOpType:11
           |vpiOperand:
           \_ref_obj: (size), line:19:20, endln:19:24
@@ -1128,7 +1140,7 @@ design: (work@top)
         |vpiRightRange:
         \_constant: , line:19:27, endln:19:28
           |vpiParent:
-          \_range: , line:19:20, endln:19:28
+          \_range: , line:19:19, endln:19:29
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -1159,7 +1171,7 @@ design: (work@top)
       |vpiSize:2
       |BIN:0
       |vpiTypespec:
-      \_bit_typespec: , line:19:15, endln:19:18
+      \_bit_typespec: , line:19:15, endln:19:29
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@dut.init), line:19:30, endln:19:34
@@ -1247,19 +1259,19 @@ design: (work@top)
         \_struct_typespec: (pkg::complex_t), line:2:11, endln:2:17
         |vpiName:b
         |vpiTypespec:
-        \_logic_typespec: , line:4:5, endln:4:10
+        \_logic_typespec: , line:4:5, endln:4:16
           |vpiParent:
           \_typespec_member: (b), line:4:17, endln:4:18
           |vpiInstance:
           \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
           |vpiRange:
-          \_range: , line:4:12, endln:4:15
+          \_range: , line:4:11, endln:4:16
             |vpiParent:
-            \_logic_typespec: , line:4:5, endln:4:10
+            \_logic_typespec: , line:4:5, endln:4:16
             |vpiLeftRange:
             \_constant: , line:4:12, endln:4:13
               |vpiParent:
-              \_range: , line:4:12, endln:4:15
+              \_range: , line:4:11, endln:4:16
               |vpiDecompile:2
               |vpiSize:64
               |UINT:2
@@ -1267,7 +1279,7 @@ design: (work@top)
             |vpiRightRange:
             \_constant: , line:4:14, endln:4:15
               |vpiParent:
-              \_range: , line:4:12, endln:4:15
+              \_range: , line:4:11, endln:4:16
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -1318,19 +1330,19 @@ design: (work@top)
           \_struct_typespec: (pkg::complex_t), line:2:11, endln:2:17
           |vpiName:b
           |vpiTypespec:
-          \_logic_typespec: , line:4:5, endln:4:10
+          \_logic_typespec: , line:4:5, endln:4:16
             |vpiParent:
             \_typespec_member: (b), line:4:17, endln:4:18
             |vpiInstance:
             \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
             |vpiRange:
-            \_range: , line:4:12, endln:4:15
+            \_range: , line:4:11, endln:4:16
               |vpiParent:
-              \_logic_typespec: , line:4:5, endln:4:10
+              \_logic_typespec: , line:4:5, endln:4:16
               |vpiLeftRange:
               \_constant: , line:4:12, endln:4:13
                 |vpiParent:
-                \_range: , line:4:12, endln:4:15
+                \_range: , line:4:11, endln:4:16
                 |vpiDecompile:2
                 |vpiSize:64
                 |UINT:2
@@ -1338,7 +1350,7 @@ design: (work@top)
               |vpiRightRange:
               \_constant: , line:4:14, endln:4:15
                 |vpiParent:
-                \_range: , line:4:12, endln:4:15
+                \_range: , line:4:11, endln:4:16
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
@@ -1396,17 +1408,17 @@ design: (work@top)
       \_module: work@dut (work@top.asgn0), file:dut.sv, line:11:4, endln:14:16
       |BIN:0
       |vpiTypespec:
-      \_bit_typespec: , line:19:15, endln:19:18
+      \_bit_typespec: , line:19:15, endln:19:29
         |vpiParent:
         \_parameter: (work@top.asgn0.init), line:19:30, endln:19:34
         |vpiRange:
-        \_range: , line:19:20, endln:19:28
+        \_range: , line:19:19, endln:19:29
           |vpiParent:
-          \_bit_typespec: , line:19:15, endln:19:18
+          \_bit_typespec: , line:19:15, endln:19:29
           |vpiLeftRange:
           \_operation: , line:19:20, endln:19:26
             |vpiParent:
-            \_range: , line:19:20, endln:19:28
+            \_range: , line:19:19, endln:19:29
             |vpiOpType:11
             |vpiOperand:
             \_ref_obj: (work@top.asgn0.init.size), line:19:20, endln:19:24
@@ -1433,7 +1445,7 @@ design: (work@top)
           |vpiRightRange:
           \_constant: , line:19:27, endln:19:28
             |vpiParent:
-            \_range: , line:19:20, endln:19:28
+            \_range: , line:19:19, endln:19:29
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -1491,19 +1503,19 @@ design: (work@top)
               \_struct_typespec: (pkg::complex_t), line:2:11, endln:2:17
               |vpiName:b
               |vpiTypespec:
-              \_logic_typespec: , line:4:5, endln:4:10
+              \_logic_typespec: , line:4:5, endln:4:16
                 |vpiParent:
                 \_typespec_member: (b), line:4:17, endln:4:18
                 |vpiInstance:
                 \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
                 |vpiRange:
-                \_range: , line:4:12, endln:4:15
+                \_range: , line:4:11, endln:4:16
                   |vpiParent:
-                  \_logic_typespec: , line:4:5, endln:4:10
+                  \_logic_typespec: , line:4:5, endln:4:16
                   |vpiLeftRange:
                   \_constant: , line:4:12, endln:4:13
                     |vpiParent:
-                    \_range: , line:4:12, endln:4:15
+                    \_range: , line:4:11, endln:4:16
                     |vpiDecompile:2
                     |vpiSize:64
                     |UINT:2
@@ -1511,7 +1523,7 @@ design: (work@top)
                   |vpiRightRange:
                   \_constant: , line:4:14, endln:4:15
                     |vpiParent:
-                    \_range: , line:4:12, endln:4:15
+                    \_range: , line:4:11, endln:4:16
                     |vpiDecompile:0
                     |vpiSize:64
                     |UINT:0
