@@ -534,92 +534,64 @@ target_link_libraries(roundtrip surelog)
 endif()
 
 # Creation of the distribution directory, Precompiled package creation
-add_custom_command(
-  TARGET surelog-bin
-  POST_BUILD
-  COMMAND echo "       Creating platform independent staging for precompiled packages"
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python
-  COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/slpp_all
-  COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/slpp_unit
-  COMMAND echo "       Platform independent staging completed"
-  WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
-)
-
 if (SURELOG_WITH_PYTHON)
   add_custom_command(
     TARGET surelog-bin
     POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${GENDIR}/src/API/slSV3_1aPythonListener.py
             ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python/slSV3_1aPythonListener.py
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/src/API/slformatmsg.py
             ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python/slformatmsg.py
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/src/API/slwaivers.py
             ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python/slwaivers.py
-  )
-endif()
+    WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
-if (WIN32)
-  if (SURELOG_WITH_PYTHON)
+  if (WIN32)
     add_custom_command(
       TARGET surelog-bin
       POST_BUILD
-      COMMAND echo "       Creating platform depdendent 'WIN32' staging for precompiled packages"
-      COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/third_party/UVM/ovm-2.1.2 ovm-2.1.2
-      COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/third_party/UVM/1800.2-2017-1.0 1800.2-2017-1.0
-      COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/third_party/UVM/vmm-1.1.1a vmm-1.1.1a
       COMMAND ${CMAKE_COMMAND} -E copy_if_different
               ${Python3_RUNTIME_LIBRARY_DIRS}/python3${Python3_VERSION_MINOR}$<$<CONFIG:Debug>:_d>.dll
               ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
-      COMMAND echo "       Platform depdendent staging completed"
-      WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
-  else()
-    add_custom_command(
-      TARGET surelog-bin
-      POST_BUILD
-      COMMAND echo "       Creating platform depdendent 'WIN32' staging for precompiled packages"
-      COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/third_party/UVM/ovm-2.1.2 ovm-2.1.2
-      COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/third_party/UVM/1800.2-2017-1.0 1800.2-2017-1.0
-      COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/third_party/UVM/vmm-1.1.1a vmm-1.1.1a
-      COMMAND echo "       Platform depdendent staging completed"
       WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
   endif()
-else()
-  add_custom_command(
-    TARGET surelog-bin
-    POST_BUILD
-    COMMAND echo "       Creating platform depdendent 'non-WIN32' staging for precompiled packages"
-    COMMAND ln -fs ${PROJECT_SOURCE_DIR}/third_party/UVM/ovm-2.1.2
-    COMMAND ln -fs ${PROJECT_SOURCE_DIR}/third_party/UVM/1800.2-2017-1.0
-    COMMAND ln -fs ${PROJECT_SOURCE_DIR}/third_party/UVM/vmm-1.1.1a
-    COMMAND echo "       Platform depdendent staging completed"
-    WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 endif()
+
+add_custom_command(
+  TARGET surelog-bin
+  POST_BUILD
+  COMMAND echo "       Staging for precompiled packages ..."
+  COMMAND ${CMAKE_COMMAND} -E create_symlink ${PROJECT_SOURCE_DIR}/third_party/UVM/ovm-2.1.2 ovm-2.1.2
+  COMMAND ${CMAKE_COMMAND} -E create_symlink ${PROJECT_SOURCE_DIR}/third_party/UVM/1800.2-2017-1.0 1800.2-2017-1.0
+  COMMAND ${CMAKE_COMMAND} -E create_symlink ${PROJECT_SOURCE_DIR}/third_party/UVM/vmm-1.1.1a vmm-1.1.1a
+  COMMAND echo "       ... staging completed."
+  WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
 add_custom_target(PrecompileOVM DEPENDS ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/pkg/work/ovm_pkg.sv.slpa)
 add_custom_command(
-  #TARGET surelog-bin
-  #POST_BUILD
   OUTPUT  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/pkg/work/ovm_pkg.sv.slpa
   COMMAND echo "       Creating OVM precompiled package..."
   DEPENDS surelog-bin
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/PrecompileOVM
   COMMAND
-    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/surelog -nobuiltin -createcache
+    $<TARGET_FILE:surelog-bin> -nobuiltin -createcache
     +incdir+ovm-2.1.2/src/ +incdir+vmm-1.1.1a/sv ovm-2.1.2/src/ovm_pkg.sv
-    -writepp -mt 0 -parse -nocomp -noelab -nostdout >> ovm_pkg.log
+    -writepp -mt 0 -parse -nocomp -noelab
+    -o ${CMAKE_BINARY_DIR}/PrecompileOVM > ${CMAKE_BINARY_DIR}/PrecompileOVM/PrecompileOVM.log 2>&1
   COMMAND echo "       Package OVM created"
   WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
 add_custom_target(PrecompileUVM DEPENDS ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/pkg/work/uvm_pkg.sv.slpa)
 add_custom_command(
-  #TARGET surelog-bin
-  #POST_BUILD
   OUTPUT  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/pkg/work/uvm_pkg.sv.slpa
   COMMAND echo "       Creating UVM precompiled package..."
   DEPENDS surelog-bin
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/PrecompileUVM
   COMMAND
-    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/surelog -nobuiltin -createcache
+    $<TARGET_FILE:surelog-bin> -nobuiltin -createcache -parse -nocomp -noelab
     +incdir+.+1800.2-2017-1.0/src/ 1800.2-2017-1.0/src/uvm_pkg.sv -writepp -mt 0
-    -parse -nocomp -noelab -nostdout  >> uvm_pkg.log
+    -o ${CMAKE_BINARY_DIR}/PrecompileUVM > ${CMAKE_BINARY_DIR}/PrecompileUVM/PrecompileUVM.log 2>&1
   COMMAND echo "       Package UVM created"
   WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
