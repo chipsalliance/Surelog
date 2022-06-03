@@ -219,6 +219,11 @@ UHDM::any* CompileHelper::compileVariable(
     ts = compileTypespec(component, fC, declarationId, compileDesign, pstmt,
                          instance, reduce, true);
   }
+  bool isSigned = true;
+  const NodeId signId = fC->Sibling(variable);
+  if (signId && (fC->Type(signId) == slSigning_Unsigned)) {
+    isSigned = false;
+  }
   switch (the_type) {
     case VObjectType::slStringConst:
     case VObjectType::slChandle_type: {
@@ -291,36 +296,42 @@ UHDM::any* CompileHelper::compileVariable(
     case VObjectType::slIntegerAtomType_Int: {
       int_var* var = s.MakeInt_var();
       var->Typespec(ts);
+      var->VpiSigned(isSigned);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_Integer: {
       integer_var* var = s.MakeInteger_var();
       var->Typespec(ts);
+      var->VpiSigned(isSigned);
       result = var;
       break;
     }
     case VObjectType::slSigning_Unsigned: {
       int_var* var = s.MakeInt_var();
       var->Typespec(ts);
+      var->VpiSigned(isSigned);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_Byte: {
       byte_var* var = s.MakeByte_var();
       var->Typespec(ts);
+      var->VpiSigned(isSigned);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_LongInt: {
       long_int_var* var = s.MakeLong_int_var();
       var->Typespec(ts);
+      var->VpiSigned(isSigned);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_Shortint: {
       short_int_var* var = s.MakeShort_int_var();
       var->Typespec(ts);
+      var->VpiSigned(isSigned);
       result = var;
       break;
     }
