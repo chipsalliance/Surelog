@@ -2561,6 +2561,11 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component,
           assign_stmt->Lhs(var);
           var->VpiParent(assign_stmt);
           var->VpiName(fC->SymName(Var));
+          var->VpiFile(fC->getFileName());
+          var->VpiLineNo(fC->Line(Var));
+          var->VpiColumnNo(fC->Column(Var));
+          var->VpiEndLineNo(fC->EndLine(Var));
+          var->VpiEndColumnNo(fC->EndColumn(Var));
         }
 
         expr* rhs =
