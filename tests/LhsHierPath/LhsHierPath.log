@@ -195,6 +195,8 @@ design: (work@top)
       |vpiName:alerts_ack
       |vpiTypespec:
       \_packed_array_typespec: , line:7:7, endln:7:16
+        |vpiParent:
+        \_typespec_member: (alerts_ack), line:7:23, endln:7:33
         |vpiInstance:
         \_package: (my_pkg), file:
         |vpiRange:
@@ -232,6 +234,8 @@ design: (work@top)
             |vpiName:p
             |vpiTypespec:
             \_logic_typespec: , line:3:7, endln:3:12
+              |vpiParent:
+              \_typespec_member: (p), line:3:13, endln:3:14
               |vpiInstance:
               \_package: (my_pkg), file:
             |vpiRefFile:dut.sv
@@ -268,6 +272,8 @@ design: (work@top)
       |vpiName:alerts_ack
       |vpiTypespec:
       \_packed_array_typespec: , line:7:7, endln:7:16
+        |vpiParent:
+        \_typespec_member: (alerts_ack), line:7:23, endln:7:33
         |vpiInstance:
         \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:9:11
         |vpiRange:
@@ -305,6 +311,8 @@ design: (work@top)
             |vpiName:p
             |vpiTypespec:
             \_logic_typespec: , line:3:7, endln:3:12
+              |vpiParent:
+              \_typespec_member: (p), line:3:13, endln:3:14
               |vpiInstance:
               \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:9:11
             |vpiRefFile:dut.sv
@@ -385,7 +393,11 @@ design: (work@top)
           |vpiActual:
           \_bit_select: (alerts_ack), line:14:19, endln:14:29
             |vpiParent:
-            \_hier_path: (ast_alert_o.alerts_ack[0].p), line:14:7, endln:14:34
+            \_ref_obj: (work@top.ast_alert_o.alerts_ack[0])
+              |vpiParent:
+              \_hier_path: (ast_alert_o.alerts_ack[0].p), line:14:7, endln:14:34
+              |vpiName:ast_alert_o.alerts_ack[0]
+              |vpiFullName:work@top.ast_alert_o.alerts_ack[0]
             |vpiName:alerts_ack
             |vpiIndex:
             \_constant: , line:14:30, endln:14:31
@@ -504,11 +516,11 @@ design: (work@top)
           |vpiActual:
           \_bit_select: (alerts_ack), line:14:19, endln:14:29
             |vpiParent:
-            \_ref_obj: (work@top.ast_alert_o.alerts_ack[0].p)
+            \_ref_obj: (work@top.ast_alert_o.alerts_ack[0])
               |vpiParent:
               \_hier_path: (ast_alert_o.alerts_ack[0].p), line:14:7, endln:14:34
-              |vpiName:ast_alert_o.alerts_ack[0].p
-              |vpiFullName:work@top.ast_alert_o.alerts_ack[0].p
+              |vpiName:ast_alert_o.alerts_ack[0]
+              |vpiFullName:work@top.ast_alert_o.alerts_ack[0]
               |vpiActual:
               \_typespec_member: (alerts_ack), line:7:23, endln:7:33
             |vpiName:alerts_ack

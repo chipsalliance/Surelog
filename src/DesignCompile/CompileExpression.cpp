@@ -1161,22 +1161,47 @@ UHDM::any *CompileHelper::compileSelectExpression(
                 hier_path *p = (hier_path *)sel;
                 for (auto el : *p->Path_elems()) {
                   elems->push_back(el);
-                  el->VpiParent(path);
                   std::string n = el->VpiName();
                   if (el->UhdmType() == uhdmbit_select) {
-                    bit_select *s = (bit_select *)el;
-                    const expr *index = s->VpiIndex();
+                    bit_select *bs = (bit_select *)el;
+                    const expr *index = bs->VpiIndex();
                     std::string ind = index->VpiDecompile();
                     if (ind.empty()) ind = index->VpiName();
                     n += "[" + ind + "]";
+                    hname += "." + n;
+                    ref_obj *r = nullptr;
+                    if ((bs->VpiParent() != nullptr) &&
+                        (bs->VpiParent()->UhdmType() == uhdmref_obj)) {
+                      r = (ref_obj *)bs->VpiParent();
+                    } else {
+                      r = s.MakeRef_obj();
+                      bs->VpiParent(r);
+                    }
+                    r->VpiName(hname);
+                    r->VpiParent(path);
+                  } else {
+                    hname += "." + n;
+                    el->VpiParent(path);
                   }
-                  hname += "." + n;
                 }
                 break;
               } else {
-                elems->push_back(sel);
-                sel->VpiParent(path);
                 hname += "." + sel->VpiName();
+                if (sel->UhdmType() == uhdmbit_select) {
+                  ref_obj *r = nullptr;
+                  if ((sel->VpiParent() != nullptr) &&
+                      (sel->VpiParent()->UhdmType() == uhdmref_obj)) {
+                    r = (ref_obj *)sel->VpiParent();
+                  } else {
+                    r = s.MakeRef_obj();
+                    sel->VpiParent(r);
+                  }
+                  r->VpiName(hname);
+                  r->VpiParent(path);
+                } else {
+                  sel->VpiParent(path);
+                }
+                elems->push_back(sel);
               }
             }
           } else {
@@ -4790,7 +4815,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
               // Fix start/end to include the name
               select->VpiColumnNo(fC->Column(name));
               ref_obj *parent = (ref_obj *)select->VpiParent();
-              if (parent) parent->VpiDefName(tmpName);
+              if (parent) parent->VpiName(tmpName);
               if (tmpName.empty()) {
                 select->VpiParent(nullptr);
               }

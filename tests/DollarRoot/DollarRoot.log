@@ -7586,6 +7586,8 @@ design: (work@top)
       |vpiName:burstcount
       |vpiTypespec:
       \_logic_typespec: (Burstcount), line:31:12, endln:31:17
+        |vpiParent:
+        \_typespec_member: (burstcount), line:48:37, endln:48:47
         |vpiName:Burstcount
         |vpiTypedefAlias:
         \_logic_typespec: (Burstcount), line:31:12, endln:31:17
@@ -7599,11 +7601,11 @@ design: (work@top)
             \_range: , line:31:19, endln:31:30
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (Burstcount.BURST_W), line:31:19, endln:31:26
+            \_ref_obj: (work@test_program.Command.burstcount.Burstcount.BURST_W), line:31:19, endln:31:26
               |vpiParent:
               \_operation: , line:31:19, endln:31:28
               |vpiName:BURST_W
-              |vpiFullName:Burstcount.BURST_W
+              |vpiFullName:work@test_program.Command.burstcount.Burstcount.BURST_W
             |vpiOperand:
             \_constant: , line:31:27, endln:31:28
               |vpiParent:
@@ -7632,6 +7634,8 @@ design: (work@top)
       |vpiName:addr
       |vpiTypespec:
       \_logic_typespec: , line:49:8, endln:49:13
+        |vpiParent:
+        \_typespec_member: (addr), line:49:37, endln:49:41
         |vpiRange:
         \_range: , line:49:15, endln:49:26
           |vpiParent:
@@ -7675,6 +7679,8 @@ design: (work@top)
       |vpiName:data
       |vpiTypespec:
       \_logic_typespec: , line:50:8, endln:50:13
+        |vpiParent:
+        \_typespec_member: (data), line:50:37, endln:50:63
         |vpiRange:
         \_range: , line:50:15, endln:50:25
           |vpiParent:
@@ -7718,6 +7724,8 @@ design: (work@top)
       |vpiName:byteenable
       |vpiTypespec:
       \_logic_typespec: , line:51:8, endln:51:13
+        |vpiParent:
+        \_typespec_member: (byteenable), line:51:37, endln:51:63
         |vpiRange:
         \_range: , line:51:15, endln:51:30
           |vpiParent:
@@ -7761,6 +7769,8 @@ design: (work@top)
       |vpiName:cmd_delay
       |vpiTypespec:
       \_bit_typespec: , line:52:8, endln:52:11
+        |vpiParent:
+        \_typespec_member: (cmd_delay), line:52:37, endln:52:46
         |vpiRange:
         \_range: , line:52:13, endln:52:17
           |vpiParent:
@@ -7793,6 +7803,8 @@ design: (work@top)
       |vpiName:data_idles
       |vpiTypespec:
       \_bit_typespec: , line:53:8, endln:53:11
+        |vpiParent:
+        \_typespec_member: (data_idles), line:53:37, endln:53:63
         |vpiRange:
         \_range: , line:53:13, endln:53:17
           |vpiParent:
@@ -7832,6 +7844,8 @@ design: (work@top)
       |vpiName:burstcount
       |vpiTypespec:
       \_logic_typespec: (Burstcount), line:31:12, endln:31:17
+        |vpiParent:
+        \_typespec_member: (burstcount), line:58:37, endln:58:47
         |vpiName:Burstcount
         |vpiTypedefAlias:
         \_logic_typespec: (Burstcount), line:31:12, endln:31:17
@@ -7845,11 +7859,11 @@ design: (work@top)
             \_range: , line:31:19, endln:31:30
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (Burstcount.BURST_W), line:31:19, endln:31:26
+            \_ref_obj: (work@test_program.Response.burstcount.Burstcount.BURST_W), line:31:19, endln:31:26
               |vpiParent:
               \_operation: , line:31:19, endln:31:28
               |vpiName:BURST_W
-              |vpiFullName:Burstcount.BURST_W
+              |vpiFullName:work@test_program.Response.burstcount.Burstcount.BURST_W
             |vpiOperand:
             \_constant: , line:31:27, endln:31:28
               |vpiParent:
@@ -7878,6 +7892,8 @@ design: (work@top)
       |vpiName:data
       |vpiTypespec:
       \_logic_typespec: , line:59:7, endln:59:12
+        |vpiParent:
+        \_typespec_member: (data), line:59:37, endln:59:61
         |vpiRange:
         \_range: , line:59:14, endln:59:24
           |vpiParent:
@@ -7921,6 +7937,8 @@ design: (work@top)
       |vpiName:latency
       |vpiTypespec:
       \_bit_typespec: , line:60:7, endln:60:10
+        |vpiParent:
+        \_typespec_member: (latency), line:60:37, endln:60:61
         |vpiRange:
         \_range: , line:60:12, endln:60:16
           |vpiParent:
@@ -8543,11 +8561,15 @@ design: (work@top)
                 |vpiActual:
                 \_struct_var: (work@test_program.get_read_response_from_master_0.rsp), line:268:16, endln:268:19
               |vpiActual:
-              \_bit_select: (work@test_program.get_read_response_from_master_0.rsp.data.data), line:273:14, endln:273:18
+              \_bit_select: (work@test_program.get_read_response_from_master_0.rsp.data), line:273:14, endln:273:18
                 |vpiParent:
-                \_hier_path: (rsp.data), line:273:10, endln:273:21
+                \_ref_obj: (work@test_program.get_read_response_from_master_0.rsp.data)
+                  |vpiParent:
+                  \_hier_path: (rsp.data), line:273:10, endln:273:21
+                  |vpiName:rsp.data
+                  |vpiFullName:work@test_program.get_read_response_from_master_0.rsp.data
                 |vpiName:data
-                |vpiFullName:work@test_program.get_read_response_from_master_0.rsp.data.data
+                |vpiFullName:work@test_program.get_read_response_from_master_0.rsp.data
                 |vpiIndex:
                 \_ref_obj: (work@test_program.get_read_response_from_master_0.i), line:273:19, endln:273:20
                   |vpiParent:
@@ -8872,11 +8894,15 @@ design: (work@top)
                     |vpiActual:
                     \_struct_var: (work@test_program.get_command_from_slave_0.cmd), line:311:15, endln:311:18
                   |vpiActual:
-                  \_bit_select: (work@test_program.get_command_from_slave_0.cmd.data.data), line:320:17, endln:320:21
+                  \_bit_select: (work@test_program.get_command_from_slave_0.cmd.data), line:320:17, endln:320:21
                     |vpiParent:
-                    \_hier_path: (cmd.data), line:320:13, endln:320:24
+                    \_ref_obj: (work@test_program.get_command_from_slave_0.cmd.data)
+                      |vpiParent:
+                      \_hier_path: (cmd.data), line:320:13, endln:320:24
+                      |vpiName:cmd.data
+                      |vpiFullName:work@test_program.get_command_from_slave_0.cmd.data
                     |vpiName:data
-                    |vpiFullName:work@test_program.get_command_from_slave_0.cmd.data.data
+                    |vpiFullName:work@test_program.get_command_from_slave_0.cmd.data
                     |vpiIndex:
                     \_ref_obj: (work@test_program.get_command_from_slave_0.i), line:320:22, endln:320:23
                       |vpiParent:
@@ -8925,11 +8951,15 @@ design: (work@top)
                     |vpiActual:
                     \_struct_var: (work@test_program.get_command_from_slave_0.cmd), line:311:15, endln:311:18
                   |vpiActual:
-                  \_bit_select: (work@test_program.get_command_from_slave_0.cmd.byteenable.byteenable), line:321:17, endln:321:27
+                  \_bit_select: (work@test_program.get_command_from_slave_0.cmd.byteenable), line:321:17, endln:321:27
                     |vpiParent:
-                    \_hier_path: (cmd.byteenable), line:321:13, endln:321:30
+                    \_ref_obj: (work@test_program.get_command_from_slave_0.cmd.byteenable)
+                      |vpiParent:
+                      \_hier_path: (cmd.byteenable), line:321:13, endln:321:30
+                      |vpiName:cmd.byteenable
+                      |vpiFullName:work@test_program.get_command_from_slave_0.cmd.byteenable
                     |vpiName:byteenable
-                    |vpiFullName:work@test_program.get_command_from_slave_0.cmd.byteenable.byteenable
+                    |vpiFullName:work@test_program.get_command_from_slave_0.cmd.byteenable
                     |vpiIndex:
                     \_ref_obj: (work@test_program.get_command_from_slave_0.i), line:321:28, endln:321:29
                       |vpiParent:
@@ -10051,11 +10081,15 @@ design: (work@top)
                 |vpiActual:
                 \_struct_var: (work@test_program.get_read_response_from_master_1.rsp), line:411:16, endln:411:19
               |vpiActual:
-              \_bit_select: (work@test_program.get_read_response_from_master_1.rsp.data.data), line:416:14, endln:416:18
+              \_bit_select: (work@test_program.get_read_response_from_master_1.rsp.data), line:416:14, endln:416:18
                 |vpiParent:
-                \_hier_path: (rsp.data), line:416:10, endln:416:21
+                \_ref_obj: (work@test_program.get_read_response_from_master_1.rsp.data)
+                  |vpiParent:
+                  \_hier_path: (rsp.data), line:416:10, endln:416:21
+                  |vpiName:rsp.data
+                  |vpiFullName:work@test_program.get_read_response_from_master_1.rsp.data
                 |vpiName:data
-                |vpiFullName:work@test_program.get_read_response_from_master_1.rsp.data.data
+                |vpiFullName:work@test_program.get_read_response_from_master_1.rsp.data
                 |vpiIndex:
                 \_ref_obj: (work@test_program.get_read_response_from_master_1.i), line:416:19, endln:416:20
                   |vpiParent:
@@ -10380,11 +10414,15 @@ design: (work@top)
                     |vpiActual:
                     \_struct_var: (work@test_program.get_command_from_slave_1.cmd), line:454:15, endln:454:18
                   |vpiActual:
-                  \_bit_select: (work@test_program.get_command_from_slave_1.cmd.data.data), line:463:17, endln:463:21
+                  \_bit_select: (work@test_program.get_command_from_slave_1.cmd.data), line:463:17, endln:463:21
                     |vpiParent:
-                    \_hier_path: (cmd.data), line:463:13, endln:463:24
+                    \_ref_obj: (work@test_program.get_command_from_slave_1.cmd.data)
+                      |vpiParent:
+                      \_hier_path: (cmd.data), line:463:13, endln:463:24
+                      |vpiName:cmd.data
+                      |vpiFullName:work@test_program.get_command_from_slave_1.cmd.data
                     |vpiName:data
-                    |vpiFullName:work@test_program.get_command_from_slave_1.cmd.data.data
+                    |vpiFullName:work@test_program.get_command_from_slave_1.cmd.data
                     |vpiIndex:
                     \_ref_obj: (work@test_program.get_command_from_slave_1.i), line:463:22, endln:463:23
                       |vpiParent:
@@ -10433,11 +10471,15 @@ design: (work@top)
                     |vpiActual:
                     \_struct_var: (work@test_program.get_command_from_slave_1.cmd), line:454:15, endln:454:18
                   |vpiActual:
-                  \_bit_select: (work@test_program.get_command_from_slave_1.cmd.byteenable.byteenable), line:464:17, endln:464:27
+                  \_bit_select: (work@test_program.get_command_from_slave_1.cmd.byteenable), line:464:17, endln:464:27
                     |vpiParent:
-                    \_hier_path: (cmd.byteenable), line:464:13, endln:464:30
+                    \_ref_obj: (work@test_program.get_command_from_slave_1.cmd.byteenable)
+                      |vpiParent:
+                      \_hier_path: (cmd.byteenable), line:464:13, endln:464:30
+                      |vpiName:cmd.byteenable
+                      |vpiFullName:work@test_program.get_command_from_slave_1.cmd.byteenable
                     |vpiName:byteenable
-                    |vpiFullName:work@test_program.get_command_from_slave_1.cmd.byteenable.byteenable
+                    |vpiFullName:work@test_program.get_command_from_slave_1.cmd.byteenable
                     |vpiIndex:
                     \_ref_obj: (work@test_program.get_command_from_slave_1.i), line:464:28, endln:464:29
                       |vpiParent:
@@ -11671,11 +11713,15 @@ design: (work@top)
                     |vpiActual:
                     \_struct_var: (work@test_program.create_command.cmd), line:576:15, endln:576:18
                   |vpiActual:
-                  \_bit_select: (work@test_program.create_command.cmd.data.data), line:590:17, endln:590:21
+                  \_bit_select: (work@test_program.create_command.cmd.data), line:590:17, endln:590:21
                     |vpiParent:
-                    \_hier_path: (cmd.data), line:590:13, endln:590:24
+                    \_ref_obj: (work@test_program.create_command.cmd.data)
+                      |vpiParent:
+                      \_hier_path: (cmd.data), line:590:13, endln:590:24
+                      |vpiName:cmd.data
+                      |vpiFullName:work@test_program.create_command.cmd.data
                     |vpiName:data
-                    |vpiFullName:work@test_program.create_command.cmd.data.data
+                    |vpiFullName:work@test_program.create_command.cmd.data
                     |vpiIndex:
                     \_ref_obj: (work@test_program.create_command.i), line:590:22, endln:590:23
                       |vpiParent:
@@ -11725,11 +11771,15 @@ design: (work@top)
                     |vpiActual:
                     \_struct_var: (work@test_program.create_command.cmd), line:576:15, endln:576:18
                   |vpiActual:
-                  \_bit_select: (work@test_program.create_command.cmd.byteenable.byteenable), line:591:17, endln:591:27
+                  \_bit_select: (work@test_program.create_command.cmd.byteenable), line:591:17, endln:591:27
                     |vpiParent:
-                    \_hier_path: (cmd.byteenable), line:591:13, endln:591:30
+                    \_ref_obj: (work@test_program.create_command.cmd.byteenable)
+                      |vpiParent:
+                      \_hier_path: (cmd.byteenable), line:591:13, endln:591:30
+                      |vpiName:cmd.byteenable
+                      |vpiFullName:work@test_program.create_command.cmd.byteenable
                     |vpiName:byteenable
-                    |vpiFullName:work@test_program.create_command.cmd.byteenable.byteenable
+                    |vpiFullName:work@test_program.create_command.cmd.byteenable
                     |vpiIndex:
                     \_ref_obj: (work@test_program.create_command.i), line:591:28, endln:591:29
                       |vpiParent:
@@ -11776,11 +11826,15 @@ design: (work@top)
                     |vpiActual:
                     \_struct_var: (work@test_program.create_command.cmd), line:576:15, endln:576:18
                   |vpiActual:
-                  \_bit_select: (work@test_program.create_command.cmd.data_idles.data_idles), line:592:17, endln:592:27
+                  \_bit_select: (work@test_program.create_command.cmd.data_idles), line:592:17, endln:592:27
                     |vpiParent:
-                    \_hier_path: (cmd.data_idles), line:592:13, endln:592:30
+                    \_ref_obj: (work@test_program.create_command.cmd.data_idles)
+                      |vpiParent:
+                      \_hier_path: (cmd.data_idles), line:592:13, endln:592:30
+                      |vpiName:cmd.data_idles
+                      |vpiFullName:work@test_program.create_command.cmd.data_idles
                     |vpiName:data_idles
-                    |vpiFullName:work@test_program.create_command.cmd.data_idles.data_idles
+                    |vpiFullName:work@test_program.create_command.cmd.data_idles
                     |vpiIndex:
                     \_ref_obj: (work@test_program.create_command.i), line:592:28, endln:592:29
                       |vpiParent:
@@ -11832,15 +11886,19 @@ design: (work@top)
                 |vpiActual:
                 \_struct_var: (work@test_program.create_command.cmd), line:576:15, endln:576:18
               |vpiActual:
-              \_bit_select: (work@test_program.create_command.cmd.data_idles.data_idles), line:595:14, endln:595:24
+              \_bit_select: (work@test_program.create_command.cmd.data_idles), line:595:14, endln:595:24
                 |vpiParent:
-                \_hier_path: (cmd.data_idles), line:595:10, endln:595:27
+                \_ref_obj: (work@test_program.create_command.cmd.data_idles)
+                  |vpiParent:
+                  \_hier_path: (cmd.data_idles), line:595:10, endln:595:27
+                  |vpiName:cmd.data_idles
+                  |vpiFullName:work@test_program.create_command.cmd.data_idles
                 |vpiName:data_idles
-                |vpiFullName:work@test_program.create_command.cmd.data_idles.data_idles
+                |vpiFullName:work@test_program.create_command.cmd.data_idles
                 |vpiIndex:
                 \_constant: , line:595:25, endln:595:26
                   |vpiParent:
-                  \_bit_select: (work@test_program.create_command.cmd.data_idles.data_idles), line:595:14, endln:595:24
+                  \_bit_select: (work@test_program.create_command.cmd.data_idles), line:595:14, endln:595:24
                   |vpiDecompile:0
                   |vpiSize:64
                   |UINT:0
@@ -14340,11 +14398,15 @@ design: (work@top)
                 |vpiActual:
                 \_struct_var: (work@test_program.create_response.rsp), line:763:16, endln:763:19
               |vpiActual:
-              \_bit_select: (work@test_program.create_response.rsp.data.data), line:767:14, endln:767:18
+              \_bit_select: (work@test_program.create_response.rsp.data), line:767:14, endln:767:18
                 |vpiParent:
-                \_hier_path: (rsp.data), line:767:10, endln:767:21
+                \_ref_obj: (work@test_program.create_response.rsp.data)
+                  |vpiParent:
+                  \_hier_path: (rsp.data), line:767:10, endln:767:21
+                  |vpiName:rsp.data
+                  |vpiFullName:work@test_program.create_response.rsp.data
                 |vpiName:data
-                |vpiFullName:work@test_program.create_response.rsp.data.data
+                |vpiFullName:work@test_program.create_response.rsp.data
                 |vpiIndex:
                 \_ref_obj: (work@test_program.create_response.i), line:767:19, endln:767:20
                   |vpiParent:
@@ -14391,11 +14453,15 @@ design: (work@top)
                 |vpiActual:
                 \_struct_var: (work@test_program.create_response.rsp), line:763:16, endln:763:19
               |vpiActual:
-              \_bit_select: (work@test_program.create_response.rsp.latency.latency), line:768:14, endln:768:21
+              \_bit_select: (work@test_program.create_response.rsp.latency), line:768:14, endln:768:21
                 |vpiParent:
-                \_hier_path: (rsp.latency), line:768:10, endln:768:24
+                \_ref_obj: (work@test_program.create_response.rsp.latency)
+                  |vpiParent:
+                  \_hier_path: (rsp.latency), line:768:10, endln:768:24
+                  |vpiName:rsp.latency
+                  |vpiFullName:work@test_program.create_response.rsp.latency
                 |vpiName:latency
-                |vpiFullName:work@test_program.create_response.rsp.latency.latency
+                |vpiFullName:work@test_program.create_response.rsp.latency
                 |vpiIndex:
                 \_ref_obj: (work@test_program.create_response.i), line:768:22, endln:768:23
                   |vpiParent:

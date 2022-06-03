@@ -1477,7 +1477,10 @@ UHDM::typespec* CompileHelper::compileTypespec(
           m->VpiRefEndLineNo(fC->EndLine(Data_type));
           m->VpiRefEndColumnNo(fC->EndColumn(Data_type));
           m->VpiParent(result);
-          m->Typespec(member_ts);
+          if (member_ts != nullptr) {
+            m->Typespec(member_ts);
+            member_ts->VpiParent(m);
+          }
           if (Expression && (fC->Type(Expression) != slVariable_dimension)) {
             any* ex =
                 compileExpression(component, fC, Expression, compileDesign,
