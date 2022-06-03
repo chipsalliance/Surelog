@@ -3375,10 +3375,10 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
         if (rexp) rexp->VpiParent(range);
         range->Right_expr(rexp);
         range->VpiFile(fC->getFileName());
-        range->VpiLineNo(fC->Line(Constant_range));
-        range->VpiColumnNo(fC->Column(Constant_range));
-        range->VpiEndLineNo(fC->EndLine(Constant_range));
-        range->VpiEndColumnNo(fC->EndColumn(Constant_range));
+        range->VpiLineNo(fC->Line(Packed_dimension));
+        range->VpiColumnNo(fC->Column(Packed_dimension));
+        range->VpiEndLineNo(fC->EndLine(Packed_dimension));
+        range->VpiEndColumnNo(fC->EndColumn(Packed_dimension));
         ranges->push_back(range);
         range->VpiParent(pexpr);
       } else if (fC->Type(Constant_range) ==
@@ -4665,6 +4665,20 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
           result = compileSelectExpression(component, fC, Bit_select, sval,
                                            compileDesign, pexpr, instance,
                                            reduce, muteErrors);
+          if (result && (result->UhdmType() == UHDM::uhdmpart_select)) {
+            result->VpiLineNo(fC->Line(name));
+            result->VpiColumnNo(fC->Column(name));
+            result->VpiEndLineNo(fC->EndLine(dotedName));
+            result->VpiEndColumnNo(fC->EndColumn(dotedName));
+            if ((result->VpiParent() != nullptr) &&
+                (result->VpiParent()->UhdmType() == UHDM::uhdmref_obj)) {
+              ref_obj *const parent = (ref_obj *)result->VpiParent();
+              parent->VpiLineNo(fC->Line(name));
+              parent->VpiColumnNo(fC->Column(name));
+              parent->VpiEndLineNo(fC->EndLine(name));
+              parent->VpiEndColumnNo(fC->EndColumn(name));
+            }
+          }
           return result;
         } else if ((!selectName) &&
                    (dtype == VObjectType::slSelect ||
@@ -4684,22 +4698,12 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
             select->VpiFullName(the_name);
             select->VpiName(fC->SymName(name));
             select->VpiParent(pexpr);
-            select->VpiFile(fC->getFileName());
-            select->VpiLineNo(fC->Line(name));
-            select->VpiColumnNo(fC->Column(name));
-            select->VpiEndLineNo(fC->EndLine(name));
-            select->VpiEndColumnNo(fC->EndColumn(name));
             result = select;
           } else {
             ref_obj *ref = s.MakeRef_obj();
             ref->VpiName(the_name);
             ref->VpiFullName(the_name);
             ref->VpiParent(pexpr);
-            ref->VpiFile(fC->getFileName());
-            ref->VpiLineNo(fC->Line(name));
-            ref->VpiColumnNo(fC->Column(name));
-            ref->VpiEndLineNo(fC->EndLine(name));
-            ref->VpiEndColumnNo(fC->EndColumn(name));
             result = ref;
           }
           result->VpiFile(fC->getFileName());
