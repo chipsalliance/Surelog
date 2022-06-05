@@ -4844,7 +4844,11 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
               if (index) {
                 bit_select *select = s.MakeBit_select();
                 elems->push_back(select);
-                if (!tmpName.empty()) select->VpiParent(path);
+                // if (!tmpName.empty()) select->VpiParent(path);
+                ref_obj *ref = s.MakeRef_obj();
+                ref->VpiParent(path);
+                ref->VpiName(tmpName);
+                select->VpiParent(ref);
                 select->VpiIndex(index);
                 select->VpiName(tmpName);
                 select->VpiFullName(tmpName);

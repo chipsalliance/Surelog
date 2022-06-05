@@ -324,7 +324,10 @@ design: (work@dm_csrs)
           |vpiActual:
           \_bit_select: (strb), line:3:49, endln:3:53
             |vpiParent:
-            \_hier_path: (keymgr_data_i.strb[i]), line:3:35, endln:3:56
+            \_ref_obj: (strb)
+              |vpiParent:
+              \_hier_path: (keymgr_data_i.strb[i]), line:3:35, endln:3:56
+              |vpiName:strb
             |vpiName:strb
             |vpiIndex:
             \_ref_obj: (i), line:3:54, endln:3:55
@@ -385,7 +388,11 @@ design: (work@dm_csrs)
       |vpiActual:
       \_bit_select: (key), line:4:27, endln:4:30
         |vpiParent:
-        \_hier_path: (keymgr_key_i.key[0][+:32]), line:4:14, endln:4:47
+        \_ref_obj: (work@dm_csrs.key)
+          |vpiParent:
+          \_hier_path: (keymgr_key_i.key[0][+:32]), line:4:14, endln:4:47
+          |vpiName:key
+          |vpiFullName:work@dm_csrs.key
         |vpiName:key
         |vpiIndex:
         \_constant: , line:4:31, endln:4:32
@@ -467,7 +474,11 @@ design: (work@dm_csrs)
       |vpiActual:
       \_bit_select: (sram_otp_key_o), line:5:10, endln:5:24
         |vpiParent:
-        \_hier_path: (sram_otp_key_o[...].nonce), line:5:10, endln:5:24
+        \_ref_obj: (work@dm_csrs.sram_otp_key_o)
+          |vpiParent:
+          \_hier_path: (sram_otp_key_o[...].nonce), line:5:10, endln:5:24
+          |vpiName:sram_otp_key_o
+          |vpiFullName:work@dm_csrs.sram_otp_key_o
         |vpiName:sram_otp_key_o
         |vpiIndex:
         \_operation: , line:5:25, endln:5:28
@@ -511,7 +522,10 @@ design: (work@dm_csrs)
       |vpiActual:
       \_bit_select: (a), line:6:13, endln:6:14
         |vpiParent:
-        \_hier_path: (a[0].source[6-:2]), line:6:13, endln:6:32
+        \_ref_obj: (a)
+          |vpiParent:
+          \_hier_path: (a[0].source[6-:2]), line:6:13, endln:6:32
+          |vpiName:a
         |vpiName:a
         |vpiIndex:
         \_constant: , line:6:15, endln:6:16
@@ -608,18 +622,18 @@ design: (work@dm_csrs)
           |vpiActual:
           \_bit_select: (strb), line:3:49, endln:3:53
             |vpiParent:
-            \_ref_obj: (work@dm_csrs.keymgr_data_i.strb[i])
+            \_ref_obj: (work@dm_csrs.strb)
               |vpiParent:
               \_hier_path: (keymgr_data_i.strb[i]), line:3:35, endln:3:56
-              |vpiName:keymgr_data_i.strb[i]
-              |vpiFullName:work@dm_csrs.keymgr_data_i.strb[i]
+              |vpiName:strb
+              |vpiFullName:work@dm_csrs.strb
             |vpiName:strb
             |vpiIndex:
-            \_ref_obj: (work@dm_csrs.keymgr_data_i.strb[i].i), line:3:54, endln:3:55
+            \_ref_obj: (work@dm_csrs.strb.i), line:3:54, endln:3:55
               |vpiParent:
               \_bit_select: (strb), line:3:49, endln:3:53
               |vpiName:i
-              |vpiFullName:work@dm_csrs.keymgr_data_i.strb[i].i
+              |vpiFullName:work@dm_csrs.strb.i
               |vpiActual:
               \_logic_net: (i)
     |vpiLhs:
@@ -667,11 +681,11 @@ design: (work@dm_csrs)
       |vpiActual:
       \_bit_select: (key), line:4:27, endln:4:30
         |vpiParent:
-        \_ref_obj: (work@dm_csrs.keymgr_key_i.key[0][+:32])
+        \_ref_obj: (work@dm_csrs.key)
           |vpiParent:
           \_hier_path: (keymgr_key_i.key[0][+:32]), line:4:14, endln:4:47
-          |vpiName:keymgr_key_i.key[0][+:32]
-          |vpiFullName:work@dm_csrs.keymgr_key_i.key[0][+:32]
+          |vpiName:key
+          |vpiFullName:work@dm_csrs.key
         |vpiName:key
         |vpiIndex:
         \_constant: , line:4:31, endln:4:32
@@ -712,11 +726,11 @@ design: (work@dm_csrs)
       |vpiActual:
       \_bit_select: (sram_otp_key_o), line:5:10, endln:5:24
         |vpiParent:
-        \_ref_obj: (work@dm_csrs.sram_otp_key_o[...].nonce)
+        \_ref_obj: (work@dm_csrs.sram_otp_key_o)
           |vpiParent:
           \_hier_path: (sram_otp_key_o[...].nonce), line:5:10, endln:5:24
-          |vpiName:sram_otp_key_o[...].nonce
-          |vpiFullName:work@dm_csrs.sram_otp_key_o[...].nonce
+          |vpiName:sram_otp_key_o
+          |vpiFullName:work@dm_csrs.sram_otp_key_o
         |vpiName:sram_otp_key_o
         |vpiIndex:
         \_operation: , line:5:25, endln:5:28
