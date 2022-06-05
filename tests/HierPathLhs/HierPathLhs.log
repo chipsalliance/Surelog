@@ -250,7 +250,11 @@ design: (work@alert_handler_reg_wrap)
       |vpiActual:
       \_bit_select: (a), line:15:10, endln:15:11
         |vpiParent:
-        \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
+        \_ref_obj: (work@top.a)
+          |vpiParent:
+          \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
+          |vpiName:a
+          |vpiFullName:work@top.a
         |vpiName:a
         |vpiIndex:
         \_constant: , line:15:12, endln:15:13
@@ -259,7 +263,13 @@ design: (work@alert_handler_reg_wrap)
           |UINT:0
           |vpiConstType:9
       |vpiActual:
-      \_bit_select: , line:15:12, endln:15:13
+      \_bit_select: (work@top), line:15:12, endln:15:13
+        |vpiParent:
+        \_ref_obj: (work@top)
+          |vpiParent:
+          \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
+          |vpiFullName:work@top
+        |vpiFullName:work@top
         |vpiIndex:
         \_constant: , line:15:15, endln:15:16
           |vpiDecompile:0
@@ -426,16 +436,24 @@ design: (work@alert_handler_reg_wrap)
       |vpiActual:
       \_bit_select: (a), line:15:10, endln:15:11
         |vpiParent:
-        \_ref_obj: (work@top.a[0][0].x[0])
+        \_ref_obj: (work@top.a)
           |vpiParent:
           \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
-          |vpiName:a[0][0].x[0]
-          |vpiFullName:work@top.a[0][0].x[0]
+          |vpiName:a
+          |vpiFullName:work@top.a
+          |vpiActual:
+          \_packed_array_var: (work@top.a), line:13:23, endln:13:24
         |vpiName:a
         |vpiIndex:
         \_constant: , line:15:12, endln:15:13
       |vpiActual:
-      \_bit_select: , line:15:12, endln:15:13
+      \_bit_select: (work@top), line:15:12, endln:15:13
+        |vpiParent:
+        \_ref_obj: (work@top)
+          |vpiParent:
+          \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
+          |vpiFullName:work@top
+        |vpiFullName:work@top
         |vpiIndex:
         \_constant: , line:15:15, endln:15:16
       |vpiActual:
