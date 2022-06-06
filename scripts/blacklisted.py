@@ -43,9 +43,13 @@ _msys2_black_list = _unix_black_list.union([
   r'earlgrey_verilator_01_05_21', # lowmem is unsupported
 ])
 
+_unix_ci_black_list = _unix_black_list.union(set([name.lower() for name in [
+    'rsd' # Temporarily disabled on CI as this test seems to be stalling
+]]))
+
 def is_blacklisted(name):
     if platform.system() == 'Windows':
         blacklist = _msys2_black_list if 'MSYSTEM' in os.environ else _windows_black_list
     else:
-        blacklist =  _unix_black_list
+        blacklist = _unix_ci_black_list if 'GITHUB_JOB' in os.environ else _unix_black_list
     return name.lower() in blacklist
