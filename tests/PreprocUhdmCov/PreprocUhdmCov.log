@@ -507,8 +507,6 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:UH0706] Creating UHDM Model...
 
-[INF:UH0707] Elaborating UHDM...
-
 [ERR:UH0717] dut.sv:9:11: Multiple continuous assignments to: a,
              dut.sv:15:11: other assignment.
 
@@ -526,6 +524,8 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [ERR:UH0717] dut.sv:20:11: Multiple continuous assignments to: a,
              dut.sv:26:9: other assignment.
+
+[INF:UH0707] Elaborating UHDM...
 
 [INF:UH0708] Writing UHDM DB: ../../build/regression/PreprocUhdmCov/slpp_all/surelog.uhdm ...
 
@@ -1383,6 +1383,40 @@ design: (work@top)
     \_logic_typespec: , line:4:35, endln:4:40
     |vpiInstance:
     \_module: work@top (work@top), file:dut.sv, line:4:1, endln:50:17
+  |vpiModule:
+  \_module: work@top::prim_subreg (work@top.u_ip0_p7), file:dut.sv, line:30:2, endln:34:6
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:4:1, endln:50:17
+    |vpiName:u_ip0_p7
+    |vpiFullName:work@top.u_ip0_p7
+    |vpiParamAssign:
+    \_param_assign: 
+      |vpiParent:
+      \_module: work@top::prim_subreg (work@top.u_ip0_p7), file:dut.sv, line:30:2, endln:34:6
+      |vpiOverriden:1
+      |vpiRhs:
+      \_constant: , line:31:0, endln:31:0
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (DW)
+        |vpiName:DW
+    |vpiDefName:work@top::prim_subreg
+    |vpiInstance:
+    \_module: work@top (work@top), file:dut.sv, line:4:1, endln:50:17
+    |vpiPort:
+    \_port: (clk_i), line:33:5, endln:33:10
+      |vpiParent:
+      \_module: work@top::prim_subreg (work@top.u_ip0_p7), file:dut.sv, line:30:2, endln:34:6
+      |vpiName:clk_i
+      |vpiHighConn:
+      \_ref_obj: (work@top.clk_i), line:33:14, endln:33:19
+        |vpiName:clk_i
+        |vpiFullName:work@top.clk_i
+        |vpiActual:
+        \_logic_net: (work@top.clk_i), line:33:14, endln:33:19
   |vpiContAssign:
   \_cont_assign: , line:9:11, endln:9:16
     |vpiParent:
@@ -1463,40 +1497,6 @@ design: (work@top)
       |vpiFullName:work@top.a
       |vpiActual:
       \_logic_net: (work@top.a), line:4:41, endln:4:42
-  |vpiModule:
-  \_module: work@top::prim_subreg (work@top.u_ip0_p7), file:dut.sv, line:30:2, endln:34:6
-    |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:4:1, endln:50:17
-    |vpiName:u_ip0_p7
-    |vpiFullName:work@top.u_ip0_p7
-    |vpiParamAssign:
-    \_param_assign: 
-      |vpiParent:
-      \_module: work@top::prim_subreg (work@top.u_ip0_p7), file:dut.sv, line:30:2, endln:34:6
-      |vpiOverriden:1
-      |vpiRhs:
-      \_constant: , line:31:0, endln:31:0
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-      |vpiLhs:
-      \_parameter: (DW)
-        |vpiName:DW
-    |vpiDefName:work@top::prim_subreg
-    |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:4:1, endln:50:17
-    |vpiPort:
-    \_port: (clk_i), line:33:5, endln:33:10
-      |vpiParent:
-      \_module: work@top::prim_subreg (work@top.u_ip0_p7), file:dut.sv, line:30:2, endln:34:6
-      |vpiName:clk_i
-      |vpiHighConn:
-      \_ref_obj: (work@top.clk_i), line:33:14, endln:33:19
-        |vpiName:clk_i
-        |vpiFullName:work@top.clk_i
-        |vpiActual:
-        \_logic_net: (work@top.clk_i), line:33:14, endln:33:19
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

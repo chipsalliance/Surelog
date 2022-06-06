@@ -554,13 +554,13 @@ n<> u<513> t<Top_level_rule> c<1> l<3:1> el<65:1>
 
 [INF:UH0706] Creating UHDM Model...
 
-[INF:UH0707] Elaborating UHDM...
-
 [ERR:UH0717] dut.sv:9:9: Multiple continuous assignments to: v,
              dut.sv:10:9: other assignment.
 
 [ERR:UH0717] dut.sv:60:10: Multiple continuous assignments to: two,
              dut.sv:61:10: other assignment.
+
+[INF:UH0707] Elaborating UHDM...
 
 [INF:UH0708] Writing UHDM DB: ../../build/regression/MultContAssign/slpp_all/surelog.uhdm ...
 
@@ -1190,6 +1190,71 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (driver_1)
   |vpiTopModule:1
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@top.genblk1), line:17:4, endln:18:50
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:45:10
+    |vpiName:genblk1
+    |vpiFullName:work@top.genblk1
+    |vpiGenScope:
+    \_gen_scope: (work@top.genblk1)
+      |vpiParent:
+      \_gen_scope_array: (work@top.genblk1), line:17:4, endln:18:50
+      |vpiFullName:work@top.genblk1
+      |vpiContAssign:
+      \_cont_assign: , line:18:35, endln:18:49
+        |vpiParent:
+        \_gen_scope: (work@top.genblk1)
+        |vpiStrength0:8
+        |vpiStrength1:8
+        |vpiRhs:
+        \_operation: , line:18:46, endln:18:49
+          |vpiParent:
+          \_cont_assign: , line:18:35, endln:18:49
+          |vpiOpType:4
+          |vpiOperand:
+          \_ref_obj: (work@top.genblk1.pd), line:18:47, endln:18:49
+            |vpiParent:
+            \_operation: , line:18:46, endln:18:49
+            |vpiName:pd
+            |vpiFullName:work@top.genblk1.pd
+            |vpiActual:
+            \_logic_net: (pd)
+        |vpiLhs:
+        \_ref_obj: (work@top.genblk1.inout_i3), line:18:35, endln:18:43
+          |vpiParent:
+          \_cont_assign: , line:18:35, endln:18:49
+          |vpiName:inout_i3
+          |vpiFullName:work@top.genblk1.inout_i3
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@top.genblk2), line:31:4, endln:42:11
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:45:10
+    |vpiName:genblk2
+    |vpiFullName:work@top.genblk2
+    |vpiGenScope:
+    \_gen_scope: (work@top.genblk2)
+      |vpiParent:
+      \_gen_scope_array: (work@top.genblk2), line:31:4, endln:42:11
+      |vpiFullName:work@top.genblk2
+      |vpiContAssign:
+      \_cont_assign: , line:34:19, endln:34:31
+        |vpiParent:
+        \_gen_scope: (work@top.genblk2)
+        |vpiRhs:
+        \_constant: , line:34:30, endln:34:31
+          |vpiParent:
+          \_cont_assign: , line:34:19, endln:34:31
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+        |vpiLhs:
+        \_ref_obj: (work@top.genblk2.fill_way), line:34:19, endln:34:27
+          |vpiParent:
+          \_cont_assign: , line:34:19, endln:34:31
+          |vpiName:fill_way
+          |vpiFullName:work@top.genblk2.fill_way
   |vpiContAssign:
   \_cont_assign: , line:6:30, endln:6:43
     |vpiParent:
@@ -1451,71 +1516,6 @@ design: (work@top)
       |vpiFullName:work@top.pull_up_1
       |vpiActual:
       \_logic_net: (pull_up_1)
-  |vpiGenScopeArray:
-  \_gen_scope_array: (work@top.genblk1), line:17:4, endln:18:50
-    |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:45:10
-    |vpiName:genblk1
-    |vpiFullName:work@top.genblk1
-    |vpiGenScope:
-    \_gen_scope: (work@top.genblk1)
-      |vpiParent:
-      \_gen_scope_array: (work@top.genblk1), line:17:4, endln:18:50
-      |vpiFullName:work@top.genblk1
-      |vpiContAssign:
-      \_cont_assign: , line:18:35, endln:18:49
-        |vpiParent:
-        \_gen_scope: (work@top.genblk1)
-        |vpiStrength0:8
-        |vpiStrength1:8
-        |vpiRhs:
-        \_operation: , line:18:46, endln:18:49
-          |vpiParent:
-          \_cont_assign: , line:18:35, endln:18:49
-          |vpiOpType:4
-          |vpiOperand:
-          \_ref_obj: (work@top.genblk1.pd), line:18:47, endln:18:49
-            |vpiParent:
-            \_operation: , line:18:46, endln:18:49
-            |vpiName:pd
-            |vpiFullName:work@top.genblk1.pd
-            |vpiActual:
-            \_logic_net: (pd)
-        |vpiLhs:
-        \_ref_obj: (work@top.genblk1.inout_i3), line:18:35, endln:18:43
-          |vpiParent:
-          \_cont_assign: , line:18:35, endln:18:49
-          |vpiName:inout_i3
-          |vpiFullName:work@top.genblk1.inout_i3
-  |vpiGenScopeArray:
-  \_gen_scope_array: (work@top.genblk2), line:31:4, endln:42:11
-    |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:45:10
-    |vpiName:genblk2
-    |vpiFullName:work@top.genblk2
-    |vpiGenScope:
-    \_gen_scope: (work@top.genblk2)
-      |vpiParent:
-      \_gen_scope_array: (work@top.genblk2), line:31:4, endln:42:11
-      |vpiFullName:work@top.genblk2
-      |vpiContAssign:
-      \_cont_assign: , line:34:19, endln:34:31
-        |vpiParent:
-        \_gen_scope: (work@top.genblk2)
-        |vpiRhs:
-        \_constant: , line:34:30, endln:34:31
-          |vpiParent:
-          \_cont_assign: , line:34:19, endln:34:31
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-        |vpiLhs:
-        \_ref_obj: (work@top.genblk2.fill_way), line:34:19, endln:34:27
-          |vpiParent:
-          \_cont_assign: , line:34:19, endln:34:31
-          |vpiName:fill_way
-          |vpiFullName:work@top.genblk2.fill_way
 |uhdmtopModules:
 \_module: work@wandwor_test0 (work@wandwor_test0), file:dut.sv, line:48:1, endln:54:10
   |vpiName:work@wandwor_test0
