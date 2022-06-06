@@ -3163,19 +3163,6 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
     printUhdmStats(s);
 
   // ----------------------------------
-  // Fully elaborated model
-  if (m_compileDesign->getCompiler()->getCommandLineParser()->getElabUhdm()) {
-    Error err(ErrorDefinition::UHDM_ELABORATION, loc);
-    m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
-    m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
-        m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
-
-    ElaboratorListener* listener = new ElaboratorListener(&s, false);
-    listener->uniquifyTypespec(false);
-    listen_designs(designs, listener);
-    delete listener;
-  }
-
   // Lint only the elaborated model
   UhdmLint* linter = new UhdmLint(&s, d);
   listen_designs(designs, linter);
@@ -3188,6 +3175,20 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
     SynthSubset* annotate = new SynthSubset(&s, nonSynthesizableObjects, true);
     listen_designs(designs, annotate);
     delete annotate;
+  }
+
+  // ----------------------------------
+  // Fully elaborated model
+  if (m_compileDesign->getCompiler()->getCommandLineParser()->getElabUhdm()) {
+    Error err(ErrorDefinition::UHDM_ELABORATION, loc);
+    m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
+    m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
+        m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
+
+    ElaboratorListener* listener = new ElaboratorListener(&s, false);
+    listener->uniquifyTypespec(false);
+    listen_designs(designs, listener);
+    delete listener;
   }
 
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getUhdmStats())

@@ -220,6 +220,72 @@ design: (work@top)
     \_logic_net: (counter)
     |vpiInstance:
     \_module: work@top (work@top), file:dut.sv, line:14:1, endln:16:10
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.c.cscope), line:4:5, endln:8:8
+      |vpiParent:
+      \_module: work@mod (work@top.c), file:dut.sv, line:15:3, endln:15:13
+      |vpiName:cscope
+      |vpiFullName:work@top.c.cscope
+      |vpiGenScope:
+      \_gen_scope: (work@top.c.cscope)
+        |vpiParent:
+        \_gen_scope_array: (work@top.c.cscope), line:4:5, endln:8:8
+        |vpiFullName:work@top.c.cscope
+        |vpiTaskFunc:
+        \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
+          |vpiParent:
+          \_gen_scope: (work@top.c.cscope)
+          |vpiName:local_function
+          |vpiFullName:work@top.c.cscope.local_function
+          |vpiVisibility:1
+          |vpiAutomatic:1
+          |vpiReturn:
+          \_logic_var: , line:5:26, endln:5:31
+            |vpiTypespec:
+            \_logic_typespec: , line:5:26, endln:5:31
+          |vpiParent:
+          \_gen_scope: (work@top.c.cscope)
+          |vpiIODecl:
+          \_io_decl: (x), line:5:54, endln:5:55
+            |vpiParent:
+            \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
+            |vpiDirection:1
+            |vpiName:x
+          |vpiStmt:
+          \_assignment: , line:6:9, endln:6:31
+            |vpiParent:
+            \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiRhs:
+            \_operation: , line:6:26, endln:6:31
+              |vpiParent:
+              \_assignment: , line:6:9, endln:6:31
+              |vpiOpType:24
+              |vpiOperand:
+              \_ref_obj: (work@top.c.cscope.local_function.x), line:6:26, endln:6:27
+                |vpiParent:
+                \_operation: , line:6:26, endln:6:31
+                |vpiName:x
+                |vpiFullName:work@top.c.cscope.local_function.x
+                |vpiActual:
+                \_io_decl: (x), line:5:54, endln:5:55
+              |vpiOperand:
+              \_constant: , line:6:30, endln:6:31
+                |vpiParent:
+                \_operation: , line:6:26, endln:6:31
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+                |vpiConstType:9
+            |vpiLhs:
+            \_ref_obj: (work@top.c.cscope.local_function.local_function), line:6:9, endln:6:23
+              |vpiParent:
+              \_assignment: , line:6:9, endln:6:31
+              |vpiName:local_function
+              |vpiFullName:work@top.c.cscope.local_function.local_function
+              |vpiActual:
+              \_logic_var: , line:5:26, endln:5:31
     |vpiContAssign:
     \_cont_assign: , line:11:10, endln:11:46
       |vpiParent:
@@ -249,8 +315,6 @@ design: (work@top)
               |vpiAutomatic:1
               |vpiReturn:
               \_logic_var: , line:5:26, endln:5:31
-                |vpiTypespec:
-                \_logic_typespec: , line:5:26, endln:5:31
               |vpiParent:
               \_gen_scope: (work@top.c.cscope)
               |vpiIODecl:
@@ -278,12 +342,6 @@ design: (work@top)
                     \_io_decl: (x), line:5:54, endln:5:55
                   |vpiOperand:
                   \_constant: , line:6:30, endln:6:31
-                    |vpiParent:
-                    \_operation: , line:6:26, endln:6:31
-                    |vpiDecompile:1
-                    |vpiSize:64
-                    |UINT:1
-                    |vpiConstType:9
                 |vpiLhs:
                 \_ref_obj: (work@top.c.cscope.local_function.local_function), line:6:9, endln:6:23
                   |vpiParent:
@@ -320,64 +378,6 @@ design: (work@top)
         |vpiFullName:work@top.c.foo
         |vpiActual:
         \_logic_net: (foo)
-    |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.c.cscope), line:4:5, endln:8:8
-      |vpiParent:
-      \_module: work@mod (work@top.c), file:dut.sv, line:15:3, endln:15:13
-      |vpiName:cscope
-      |vpiFullName:work@top.c.cscope
-      |vpiGenScope:
-      \_gen_scope: (work@top.c.cscope)
-        |vpiParent:
-        \_gen_scope_array: (work@top.c.cscope), line:4:5, endln:8:8
-        |vpiFullName:work@top.c.cscope
-        |vpiTaskFunc:
-        \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
-          |vpiParent:
-          \_gen_scope: (work@top.c.cscope)
-          |vpiName:local_function
-          |vpiFullName:work@top.c.cscope.local_function
-          |vpiVisibility:1
-          |vpiAutomatic:1
-          |vpiReturn:
-          \_logic_var: , line:5:26, endln:5:31
-          |vpiParent:
-          \_gen_scope: (work@top.c.cscope)
-          |vpiIODecl:
-          \_io_decl: (x), line:5:54, endln:5:55
-            |vpiParent:
-            \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
-            |vpiDirection:1
-            |vpiName:x
-          |vpiStmt:
-          \_assignment: , line:6:9, endln:6:31
-            |vpiParent:
-            \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
-            |vpiOpType:82
-            |vpiBlocking:1
-            |vpiRhs:
-            \_operation: , line:6:26, endln:6:31
-              |vpiParent:
-              \_assignment: , line:6:9, endln:6:31
-              |vpiOpType:24
-              |vpiOperand:
-              \_ref_obj: (work@top.c.cscope.local_function.x), line:6:26, endln:6:27
-                |vpiParent:
-                \_operation: , line:6:26, endln:6:31
-                |vpiName:x
-                |vpiFullName:work@top.c.cscope.local_function.x
-                |vpiActual:
-                \_io_decl: (x), line:5:54, endln:5:55
-              |vpiOperand:
-              \_constant: , line:6:30, endln:6:31
-            |vpiLhs:
-            \_ref_obj: (work@top.c.cscope.local_function.local_function), line:6:9, endln:6:23
-              |vpiParent:
-              \_assignment: , line:6:9, endln:6:31
-              |vpiName:local_function
-              |vpiFullName:work@top.c.cscope.local_function.local_function
-              |vpiActual:
-              \_logic_var: , line:5:26, endln:5:31
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
