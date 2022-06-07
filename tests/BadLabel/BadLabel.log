@@ -465,13 +465,6 @@ design: (work@test)
           |vpiFullName:work@block_tb.name1.a
           |vpiActual:
           \_logic_net: (work@block_tb.a), line:61:6, endln:61:11
-            |vpiParent:
-            \_module: work@block_tb (work@block_tb), file:dut.sv, line:60:1, endln:66:10
-            |vpiTypespec:
-            \_logic_typespec: , line:61:2, endln:61:5
-            |vpiName:a
-            |vpiFullName:work@block_tb.a
-            |vpiNetType:48
 |uhdmallModules:
 \_module: work@test (work@test), file:dut.sv, line:23:1, endln:57:21
   |vpiParent:
@@ -511,19 +504,6 @@ design: (work@test)
             |vpiFullName:work@test.dummy_label.err
             |vpiActual:
             \_bit_var: (work@test.err), line:27:8, endln:27:15
-              |vpiParent:
-              \_module: work@test (work@test), file:dut.sv, line:23:1, endln:57:21
-              |vpiTypespec:
-              \_bit_typespec: , line:27:4, endln:27:7
-              |vpiName:err
-              |vpiFullName:work@test.err
-              |vpiVisibility:1
-              |vpiExpr:
-              \_constant: , line:27:14, endln:27:15
-                |vpiDecompile:0
-                |vpiSize:1
-                |UINT:0
-                |vpiConstType:9
         |vpiStmt:
         \_sys_func_call: ($display), line:31:17, endln:31:35
           |vpiParent:
@@ -613,6 +593,19 @@ design: (work@test)
   |vpiName:work@test
   |vpiVariables:
   \_bit_var: (work@test.err), line:27:8, endln:27:15
+    |vpiParent:
+    \_module: work@test (work@test), file:dut.sv, line:23:1, endln:57:21
+    |vpiTypespec:
+    \_bit_typespec: , line:27:4, endln:27:7
+    |vpiName:err
+    |vpiFullName:work@test.err
+    |vpiVisibility:1
+    |vpiExpr:
+    \_constant: , line:27:14, endln:27:15
+      |vpiDecompile:0
+      |vpiSize:1
+      |UINT:0
+      |vpiConstType:9
   |vpiDefName:work@test
   |vpiTop:1
   |vpiTopModule:1
@@ -704,6 +697,13 @@ design: (work@test)
   |vpiTop:1
   |vpiNet:
   \_logic_net: (work@block_tb.a), line:61:6, endln:61:11
+    |vpiParent:
+    \_module: work@block_tb (work@block_tb), file:dut.sv, line:60:1, endln:66:10
+    |vpiTypespec:
+    \_logic_typespec: , line:61:2, endln:61:5
+    |vpiName:a
+    |vpiFullName:work@block_tb.a
+    |vpiNetType:48
   |vpiTopModule:1
   |vpiProcess:
   \_initial: , line:62:2, endln:65:14

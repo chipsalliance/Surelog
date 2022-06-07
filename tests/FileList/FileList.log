@@ -534,10 +534,6 @@ design: (work@foo)
           |vpiFullName:work@foo.clk
           |vpiActual:
           \_logic_net: (work@foo.clk), line:2:11, endln:2:14
-            |vpiParent:
-            \_module: work@foo (work@foo), file:dut.sv, line:1:1, endln:11:10
-            |vpiName:clk
-            |vpiFullName:work@foo.clk
       |vpiStmt:
       \_begin: (work@foo), line:7:23, endln:9:4
         |vpiParent:
@@ -561,49 +557,6 @@ design: (work@foo)
               |vpiFullName:work@foo.a
               |vpiActual:
               \_logic_var: (work@foo.a), line:6:22, endln:6:23
-                |vpiParent:
-                \_module: work@foo (work@foo), file:dut.sv, line:1:1, endln:11:10
-                |vpiTypespec:
-                \_logic_typespec: , line:6:1, endln:6:21
-                  |vpiRange:
-                  \_range: , line:6:7, endln:6:21
-                    |vpiLeftRange:
-                    \_constant: , line:6:8, endln:6:16
-                      |vpiParent:
-                      \_range: , line:6:7, endln:6:21
-                      |vpiDecompile:1
-                      |vpiSize:64
-                      |INT:1
-                      |vpiConstType:7
-                    |vpiRightRange:
-                    \_constant: , line:6:19, endln:6:20
-                      |vpiParent:
-                      \_range: , line:6:7, endln:6:21
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                      |vpiConstType:9
-                |vpiName:a
-                |vpiFullName:work@foo.a
-                |vpiVisibility:1
-                |vpiRange:
-                \_range: , line:6:7, endln:6:21
-                  |vpiLeftRange:
-                  \_constant: , line:6:8, endln:6:16
-                    |vpiParent:
-                    \_range: , line:6:7, endln:6:21
-                    |vpiDecompile:1
-                    |vpiSize:64
-                    |INT:1
-                    |vpiConstType:7
-                  |vpiRightRange:
-                  \_constant: , line:6:19, endln:6:20
-                    |vpiParent:
-                    \_range: , line:6:7, endln:6:21
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                    |vpiConstType:9
             |vpiOperand:
             \_constant: , line:8:14, endln:8:18
               |vpiParent:
@@ -651,15 +604,54 @@ design: (work@foo)
       |vpiFullName:work@foo.out
       |vpiActual:
       \_logic_net: (work@foo.out), line:3:12, endln:3:15
-        |vpiParent:
-        \_module: work@foo (work@foo), file:dut.sv, line:1:1, endln:11:10
-        |vpiName:out
-        |vpiFullName:work@foo.out
 |uhdmtopModules:
 \_module: work@foo (work@foo), file:dut.sv, line:1:1, endln:11:10
   |vpiName:work@foo
   |vpiVariables:
   \_logic_var: (work@foo.a), line:6:22, endln:6:23
+    |vpiParent:
+    \_module: work@foo (work@foo), file:dut.sv, line:1:1, endln:11:10
+    |vpiTypespec:
+    \_logic_typespec: , line:6:1, endln:6:21
+      |vpiRange:
+      \_range: , line:6:7, endln:6:21
+        |vpiLeftRange:
+        \_constant: , line:6:8, endln:6:16
+          |vpiParent:
+          \_range: , line:6:7, endln:6:21
+          |vpiDecompile:1
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+        |vpiRightRange:
+        \_constant: , line:6:19, endln:6:20
+          |vpiParent:
+          \_range: , line:6:7, endln:6:21
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiName:a
+    |vpiFullName:work@foo.a
+    |vpiVisibility:1
+    |vpiRange:
+    \_range: , line:6:7, endln:6:21
+      |vpiLeftRange:
+      \_constant: , line:6:8, endln:6:16
+        |vpiParent:
+        \_range: , line:6:7, endln:6:21
+        |vpiDecompile:1
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+      |vpiRightRange:
+      \_constant: , line:6:19, endln:6:20
+        |vpiParent:
+        \_range: , line:6:7, endln:6:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
   |vpiTypedef:
   \_import_typespec: (prim_util_pkg), line:5:8, endln:5:28
   |vpiDefName:work@foo
@@ -727,8 +719,16 @@ design: (work@foo)
     \_module: work@foo (work@foo), file:dut.sv, line:1:1, endln:11:10
   |vpiNet:
   \_logic_net: (work@foo.clk), line:2:11, endln:2:14
+    |vpiParent:
+    \_module: work@foo (work@foo), file:dut.sv, line:1:1, endln:11:10
+    |vpiName:clk
+    |vpiFullName:work@foo.clk
   |vpiNet:
   \_logic_net: (work@foo.out), line:3:12, endln:3:15
+    |vpiParent:
+    \_module: work@foo (work@foo), file:dut.sv, line:1:1, endln:11:10
+    |vpiName:out
+    |vpiFullName:work@foo.out
   |vpiTopModule:1
   |vpiPort:
   \_port: (clk), line:2:11, endln:2:14

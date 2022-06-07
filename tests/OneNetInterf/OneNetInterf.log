@@ -171,13 +171,6 @@ design: (work@dut)
           |vpiFullName:work@TESTBENCH.drive
           |vpiActual:
           \_logic_net: (work@tb.tb.drive), line:1:50, endln:1:55
-            |vpiParent:
-            \_program: work@TESTBENCH (work@tb.tb), file:tb.v, line:18:3, endln:18:61
-            |vpiTypespec:
-            \_logic_typespec: , line:1:46, endln:1:49
-            |vpiName:drive
-            |vpiFullName:work@tb.tb.drive
-            |vpiNetType:48
         |vpiArgument:
         \_ref_obj: (work@TESTBENCH.observe), line:5:53, endln:5:60
           |vpiParent:
@@ -186,13 +179,6 @@ design: (work@dut)
           |vpiFullName:work@TESTBENCH.observe
           |vpiActual:
           \_logic_net: (work@tb.tb.observe), line:1:30, endln:1:37
-            |vpiParent:
-            \_program: work@TESTBENCH (work@tb.tb), file:tb.v, line:18:3, endln:18:61
-            |vpiTypespec:
-            \_logic_typespec: , line:1:25, endln:1:29
-            |vpiName:observe
-            |vpiFullName:work@tb.tb.observe
-            |vpiNetType:1
         |vpiName:$monitor
       |vpiStmt:
       \_assignment: , line:6:5, endln:6:14
@@ -453,13 +439,6 @@ design: (work@dut)
       |vpiFullName:work@SUB.inp
       |vpiActual:
       \_logic_net: (work@dut.middle1.sub1.inp), line:14:24, endln:14:27
-        |vpiParent:
-        \_module: work@SUB (work@dut.middle1.sub1), file:dut.v, line:11:3, endln:11:47
-        |vpiTypespec:
-        \_logic_typespec: , line:14:19, endln:14:23
-        |vpiName:inp
-        |vpiFullName:work@dut.middle1.sub1.inp
-        |vpiNetType:1
     |vpiLhs:
     \_ref_obj: (work@SUB.out), line:15:10, endln:15:13
       |vpiParent:
@@ -468,13 +447,6 @@ design: (work@dut)
       |vpiFullName:work@SUB.out
       |vpiActual:
       \_logic_net: (work@dut.middle1.sub1.out), line:14:40, endln:14:43
-        |vpiParent:
-        \_module: work@SUB (work@dut.middle1.sub1), file:dut.v, line:11:3, endln:11:47
-        |vpiTypespec:
-        \_logic_typespec: , line:14:36, endln:14:39
-        |vpiName:out
-        |vpiFullName:work@dut.middle1.sub1.out
-        |vpiNetType:48
 |uhdmallModules:
 \_module: work@dut (work@dut), file:dut.v, line:2:1, endln:5:10
   |vpiParent:
@@ -701,15 +673,11 @@ design: (work@dut)
         |vpiFullName:work@dut.conntb
         |vpiActual:
         \_interface: work@ConnectTB (conntb), file:dut.v, line:3:0
-          |vpiName:conntb
-          |vpiDefName:work@ConnectTB
       |vpiLowConn:
       \_ref_obj: (work@dut.middle1.conn), line:4:18, endln:4:24
         |vpiFullName:work@dut.middle1.conn
         |vpiActual:
         \_interface: work@ConnectTB (conn), file:dut.v, line:4:0
-          |vpiName:conn
-          |vpiDefName:work@ConnectTB
     |vpiModule:
     \_module: work@SUB (work@dut.middle1.sub1), file:dut.v, line:11:3, endln:11:47
       |vpiParent:
@@ -721,8 +689,22 @@ design: (work@dut)
       |vpiDefLineNo:14
       |vpiNet:
       \_logic_net: (work@dut.middle1.sub1.inp), line:14:24, endln:14:27
+        |vpiParent:
+        \_module: work@SUB (work@dut.middle1.sub1), file:dut.v, line:11:3, endln:11:47
+        |vpiTypespec:
+        \_logic_typespec: , line:14:19, endln:14:23
+        |vpiName:inp
+        |vpiFullName:work@dut.middle1.sub1.inp
+        |vpiNetType:1
       |vpiNet:
       \_logic_net: (work@dut.middle1.sub1.out), line:14:40, endln:14:43
+        |vpiParent:
+        \_module: work@SUB (work@dut.middle1.sub1), file:dut.v, line:11:3, endln:11:47
+        |vpiTypespec:
+        \_logic_typespec: , line:14:36, endln:14:39
+        |vpiName:out
+        |vpiFullName:work@dut.middle1.sub1.out
+        |vpiNetType:48
       |vpiInstance:
       \_module: work@middle (work@dut.middle1), file:dut.v, line:4:3, endln:4:26
       |vpiPort:
@@ -795,8 +777,22 @@ design: (work@dut)
     |vpiDefLineNo:1
     |vpiNet:
     \_logic_net: (work@tb.tb.observe), line:1:30, endln:1:37
+      |vpiParent:
+      \_program: work@TESTBENCH (work@tb.tb), file:tb.v, line:18:3, endln:18:61
+      |vpiTypespec:
+      \_logic_typespec: , line:1:25, endln:1:29
+      |vpiName:observe
+      |vpiFullName:work@tb.tb.observe
+      |vpiNetType:1
     |vpiNet:
     \_logic_net: (work@tb.tb.drive), line:1:50, endln:1:55
+      |vpiParent:
+      \_program: work@TESTBENCH (work@tb.tb), file:tb.v, line:18:3, endln:18:61
+      |vpiTypespec:
+      \_logic_typespec: , line:1:46, endln:1:49
+      |vpiName:drive
+      |vpiFullName:work@tb.tb.drive
+      |vpiNetType:48
     |vpiInstance:
     \_module: work@tb (work@tb), file:tb.v, line:14:1, endln:19:10
     |vpiPort:
@@ -960,15 +956,11 @@ design: (work@dut)
         |vpiFullName:work@tb.conntb
         |vpiActual:
         \_interface: work@ConnectTB (conntb), file:tb.v, line:16:0
-          |vpiName:conntb
-          |vpiDefName:work@ConnectTB
       |vpiLowConn:
       \_ref_obj: (work@tb.dut1.conn), line:17:15, endln:17:21
         |vpiFullName:work@tb.dut1.conn
         |vpiActual:
         \_interface: work@ConnectTB (conn), file:tb.v, line:17:0
-          |vpiName:conn
-          |vpiDefName:work@ConnectTB
     |vpiModule:
     \_module: work@SUB (work@tb.dut1.sub1), file:dut.v, line:11:3, endln:11:47
       |vpiParent:

@@ -1702,13 +1702,6 @@ design: (work@foo)
           |vpiFullName:work@bar.clk
           |vpiActual:
           \_logic_net: (work@foo.bar_instance.clk), line:1:12, endln:1:15
-            |vpiParent:
-            \_module: work@bar (work@foo.bar_instance), file:dut.sv, line:19:3, endln:19:105
-            |vpiTypespec:
-            \_logic_typespec: , line:2:10, endln:2:14
-            |vpiName:clk
-            |vpiFullName:work@foo.bar_instance.clk
-            |vpiNetType:1
       |vpiStmt:
       \_if_else: , line:8:5, endln:9:26
         |vpiParent:
@@ -1721,13 +1714,6 @@ design: (work@foo)
           |vpiFullName:work@bar.rst
           |vpiActual:
           \_logic_net: (work@foo.bar_instance.rst), line:1:17, endln:1:20
-            |vpiParent:
-            \_module: work@bar (work@foo.bar_instance), file:dut.sv, line:19:3, endln:19:105
-            |vpiTypespec:
-            \_logic_typespec: , line:3:10, endln:3:14
-            |vpiName:rst
-            |vpiFullName:work@foo.bar_instance.rst
-            |vpiNetType:1
         |vpiStmt:
         \_assignment: , line:8:14, endln:8:25
           |vpiParent:
@@ -1749,13 +1735,6 @@ design: (work@foo)
             |vpiFullName:work@bar.out
             |vpiActual:
             \_logic_net: (work@foo.bar_instance.out), line:1:27, endln:1:30
-              |vpiParent:
-              \_module: work@bar (work@foo.bar_instance), file:dut.sv, line:19:3, endln:19:105
-              |vpiTypespec:
-              \_logic_typespec: , line:5:10, endln:5:13
-              |vpiName:out
-              |vpiFullName:work@foo.bar_instance.out
-              |vpiNetType:48
         |vpiElseStmt:
         \_assignment: , line:9:14, endln:9:25
           |vpiParent:
@@ -1774,13 +1753,6 @@ design: (work@foo)
               |vpiFullName:work@bar.inp
               |vpiActual:
               \_logic_net: (work@foo.bar_instance.inp), line:1:22, endln:1:25
-                |vpiParent:
-                \_module: work@bar (work@foo.bar_instance), file:dut.sv, line:19:3, endln:19:105
-                |vpiTypespec:
-                \_logic_typespec: , line:4:10, endln:4:14
-                |vpiName:inp
-                |vpiFullName:work@foo.bar_instance.inp
-                |vpiNetType:1
           |vpiLhs:
           \_ref_obj: (work@bar.out), line:9:14, endln:9:17
             |vpiParent:
@@ -1894,8 +1866,6 @@ design: (work@foo)
           |vpiFullName:work@foo.a
           |vpiActual:
           \_logic_net: (a)
-            |vpiName:a
-            |vpiNetType:1
         |vpiCaseItem:
         \_case_item: , line:30:7, endln:31:15
           |vpiParent:
@@ -1930,8 +1900,6 @@ design: (work@foo)
               |vpiFullName:work@foo.b
               |vpiActual:
               \_logic_net: (b)
-                |vpiName:b
-                |vpiNetType:1
         |vpiCaseItem:
         \_case_item: , line:32:7, endln:33:15
           |vpiParent:
@@ -2017,8 +1985,6 @@ design: (work@foo)
         |vpiFullName:work@foo.pieces0
         |vpiActual:
         \_logic_net: (pieces0)
-          |vpiName:pieces0
-          |vpiNetType:1
       |vpiOperand:
       \_ref_obj: (work@foo.b), line:22:61, endln:22:62
         |vpiParent:
@@ -2039,8 +2005,6 @@ design: (work@foo)
       |vpiFullName:work@foo.blah
       |vpiActual:
       \_logic_net: (blah)
-        |vpiName:blah
-        |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:24:10, endln:24:69
     |vpiParent:
@@ -2058,8 +2022,6 @@ design: (work@foo)
         |vpiFullName:work@foo.empty2
         |vpiActual:
         \_logic_net: (empty2)
-          |vpiName:empty2
-          |vpiNetType:1
       |vpiOperand:
       \_constant: , line:24:65, endln:24:69
         |vpiParent:
@@ -2080,8 +2042,6 @@ design: (work@foo)
       |vpiFullName:work@foo.$37 
       |vpiActual:
       \_logic_net: ($37)
-        |vpiName:$37
-        |vpiNetType:1
 |uhdmallModules:
 \_module: work@top (work@top), file:test_attributes.sv, line:32:1, endln:39:10
   |vpiParent:
@@ -2143,16 +2103,28 @@ design: (work@foo)
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (blah)
+    |vpiName:blah
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (pieces0)
+    |vpiName:pieces0
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (b)
+    |vpiName:b
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: ($37)
+    |vpiName:$37
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (empty2)
+    |vpiName:empty2
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (a)
+    |vpiName:a
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiPort:
   \_port: (clk), line:13:12, endln:13:15
@@ -2337,12 +2309,40 @@ design: (work@foo)
     |vpiDefLineNo:1
     |vpiNet:
     \_logic_net: (work@foo.bar_instance.clk), line:1:12, endln:1:15
+      |vpiParent:
+      \_module: work@bar (work@foo.bar_instance), file:dut.sv, line:19:3, endln:19:105
+      |vpiTypespec:
+      \_logic_typespec: , line:2:10, endln:2:14
+      |vpiName:clk
+      |vpiFullName:work@foo.bar_instance.clk
+      |vpiNetType:1
     |vpiNet:
     \_logic_net: (work@foo.bar_instance.rst), line:1:17, endln:1:20
+      |vpiParent:
+      \_module: work@bar (work@foo.bar_instance), file:dut.sv, line:19:3, endln:19:105
+      |vpiTypespec:
+      \_logic_typespec: , line:3:10, endln:3:14
+      |vpiName:rst
+      |vpiFullName:work@foo.bar_instance.rst
+      |vpiNetType:1
     |vpiNet:
     \_logic_net: (work@foo.bar_instance.inp), line:1:22, endln:1:25
+      |vpiParent:
+      \_module: work@bar (work@foo.bar_instance), file:dut.sv, line:19:3, endln:19:105
+      |vpiTypespec:
+      \_logic_typespec: , line:4:10, endln:4:14
+      |vpiName:inp
+      |vpiFullName:work@foo.bar_instance.inp
+      |vpiNetType:1
     |vpiNet:
     \_logic_net: (work@foo.bar_instance.out), line:1:27, endln:1:30
+      |vpiParent:
+      \_module: work@bar (work@foo.bar_instance), file:dut.sv, line:19:3, endln:19:105
+      |vpiTypespec:
+      \_logic_typespec: , line:5:10, endln:5:13
+      |vpiName:out
+      |vpiFullName:work@foo.bar_instance.out
+      |vpiNetType:48
     |vpiInstance:
     \_module: work@foo (work@foo), file:dut.sv, line:13:1, endln:41:10
     |vpiPort:

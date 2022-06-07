@@ -455,13 +455,6 @@ design: (work@TOP)
       |vpiFullName:work@SUB.inp
       |vpiActual:
       \_logic_net: (work@TOP.dut1.middle1.sub1.inp), line:26:24, endln:26:27
-        |vpiParent:
-        \_module: work@SUB (work@TOP.dut1.middle1.sub1), file:dut.v, line:23:3, endln:23:50
-        |vpiTypespec:
-        \_logic_typespec: , line:26:19, endln:26:23
-        |vpiName:inp
-        |vpiFullName:work@TOP.dut1.middle1.sub1.inp
-        |vpiNetType:1
     |vpiLhs:
     \_ref_obj: (work@SUB.out), line:27:10, endln:27:13
       |vpiParent:
@@ -470,13 +463,6 @@ design: (work@TOP)
       |vpiFullName:work@SUB.out
       |vpiActual:
       \_logic_net: (work@TOP.dut1.middle1.sub1.out), line:26:40, endln:26:43
-        |vpiParent:
-        \_module: work@SUB (work@TOP.dut1.middle1.sub1), file:dut.v, line:23:3, endln:23:50
-        |vpiTypespec:
-        \_logic_typespec: , line:26:36, endln:26:39
-        |vpiName:out
-        |vpiFullName:work@TOP.dut1.middle1.sub1.out
-        |vpiNetType:48
 |uhdmallModules:
 \_module: work@TOP (work@TOP), file:tb.v, line:15:1, endln:19:10
   |vpiParent:
@@ -535,13 +521,6 @@ design: (work@TOP)
       |vpiFullName:work@dut.i
       |vpiActual:
       \_logic_net: (work@TOP.dut1.i), line:2:24, endln:2:25
-        |vpiParent:
-        \_module: work@dut (work@TOP.dut1), file:tb.v, line:17:3, endln:17:42
-        |vpiTypespec:
-        \_logic_typespec: , line:2:19, endln:2:23
-        |vpiName:i
-        |vpiFullName:work@TOP.dut1.i
-        |vpiNetType:1
     |vpiLhs:
     \_hier_path: (conntb.drive), line:3:10, endln:3:22
       |vpiParent:
@@ -580,13 +559,6 @@ design: (work@TOP)
       |vpiFullName:work@dut.o
       |vpiActual:
       \_logic_net: (work@TOP.dut1.o), line:2:38, endln:2:39
-        |vpiParent:
-        \_module: work@dut (work@TOP.dut1), file:tb.v, line:17:3, endln:17:42
-        |vpiTypespec:
-        \_logic_typespec: , line:2:34, endln:2:37
-        |vpiName:o
-        |vpiFullName:work@TOP.dut1.o
-        |vpiNetType:48
 |uhdmallModules:
 \_module: work@middle (work@middle), file:dut.v, line:22:1, endln:24:10
   |vpiParent:
@@ -637,90 +609,11 @@ design: (work@TOP)
         |vpiFullName:work@TOP.conntb
         |vpiActual:
         \_interface: work@ConnectTB (conntb), file:tb.v, line:16:0
-          |vpiName:conntb
-          |vpiDefName:work@ConnectTB
-          |vpiModport:
-          \_modport: (dut), line:12:11, endln:12:14
-            |vpiParent:
-            \_interface: work@ConnectTB (conntb), file:tb.v, line:16:0
-            |vpiName:dut
-            |vpiIODecl:
-            \_io_decl: (drive), line:13:11, endln:13:16
-              |vpiDirection:1
-              |vpiName:drive
-              |vpiExpr:
-              \_logic_var: (work@TOP.conntb.drive), line:10:9, endln:10:14
-                |vpiParent:
-                \_interface: work@ConnectTB (work@TOP.conntb), file:tb.v, line:16:3, endln:16:22
-                |vpiTypespec:
-                \_logic_typespec: , line:10:3, endln:10:8
-                |vpiName:drive
-                |vpiFullName:work@TOP.conntb.drive
-                |vpiVisibility:1
-            |vpiIODecl:
-            \_io_decl: (observe), line:14:12, endln:14:19
-              |vpiDirection:2
-              |vpiName:observe
-              |vpiExpr:
-              \_logic_var: (work@TOP.conntb.observe), line:11:9, endln:11:16
-                |vpiParent:
-                \_interface: work@ConnectTB (work@TOP.conntb), file:tb.v, line:16:3, endln:16:22
-                |vpiTypespec:
-                \_logic_typespec: , line:11:3, endln:11:8
-                |vpiName:observe
-                |vpiFullName:work@TOP.conntb.observe
-                |vpiVisibility:1
-            |vpiInterface:
-            \_interface: work@ConnectTB (conntb), file:tb.v, line:16:0
-          |vpiModport:
-          \_modport: (tb), line:16:11, endln:16:13
-            |vpiParent:
-            \_interface: work@ConnectTB (conntb), file:tb.v, line:16:0
-            |vpiName:tb
-            |vpiIODecl:
-            \_io_decl: (drive), line:17:12, endln:17:17
-              |vpiDirection:2
-              |vpiName:drive
-              |vpiExpr:
-              \_logic_var: (work@TOP.conntb.drive), line:10:9, endln:10:14
-            |vpiIODecl:
-            \_io_decl: (observe), line:18:11, endln:18:18
-              |vpiDirection:1
-              |vpiName:observe
-              |vpiExpr:
-              \_logic_var: (work@TOP.conntb.observe), line:11:9, endln:11:16
-            |vpiInterface:
-            \_interface: work@ConnectTB (conntb), file:tb.v, line:16:0
       |vpiLowConn:
       \_ref_obj: (work@TOP.tb.intf), line:18:16, endln:18:22
         |vpiFullName:work@TOP.tb.intf
         |vpiActual:
         \_modport: (tb), line:16:11, endln:16:13
-          |vpiParent:
-          \_interface: work@ConnectTB (intf), file:tb.v, line:18:0
-          |vpiName:tb
-          |vpiIODecl:
-          \_io_decl: (drive), line:17:12, endln:17:17
-            |vpiDirection:2
-            |vpiName:drive
-            |vpiExpr:
-            \_logic_var: (drive), line:10:9, endln:10:14
-              |vpiTypespec:
-              \_logic_typespec: , line:10:3, endln:10:8
-              |vpiName:drive
-              |vpiVisibility:1
-          |vpiIODecl:
-          \_io_decl: (observe), line:18:11, endln:18:18
-            |vpiDirection:1
-            |vpiName:observe
-            |vpiExpr:
-            \_logic_var: (observe), line:11:9, endln:11:16
-              |vpiTypespec:
-              \_logic_typespec: , line:11:3, endln:11:8
-              |vpiName:observe
-              |vpiVisibility:1
-          |vpiInterface:
-          \_interface: work@ConnectTB (intf), file:tb.v, line:18:0
   |vpiTopModule:1
   |vpiInterface:
   \_interface: work@ConnectTB (work@TOP.conntb), file:tb.v, line:16:3, endln:16:22
@@ -730,8 +623,22 @@ design: (work@TOP)
     |vpiFullName:work@TOP.conntb
     |vpiVariables:
     \_logic_var: (work@TOP.conntb.drive), line:10:9, endln:10:14
+      |vpiParent:
+      \_interface: work@ConnectTB (work@TOP.conntb), file:tb.v, line:16:3, endln:16:22
+      |vpiTypespec:
+      \_logic_typespec: , line:10:3, endln:10:8
+      |vpiName:drive
+      |vpiFullName:work@TOP.conntb.drive
+      |vpiVisibility:1
     |vpiVariables:
     \_logic_var: (work@TOP.conntb.observe), line:11:9, endln:11:16
+      |vpiParent:
+      \_interface: work@ConnectTB (work@TOP.conntb), file:tb.v, line:16:3, endln:16:22
+      |vpiTypespec:
+      \_logic_typespec: , line:11:3, endln:11:8
+      |vpiName:observe
+      |vpiFullName:work@TOP.conntb.observe
+      |vpiVisibility:1
     |vpiDefName:work@ConnectTB
     |vpiDefFile:dut.v
     |vpiDefLineNo:9
@@ -786,8 +693,22 @@ design: (work@TOP)
     |vpiDefLineNo:2
     |vpiNet:
     \_logic_net: (work@TOP.dut1.i), line:2:24, endln:2:25
+      |vpiParent:
+      \_module: work@dut (work@TOP.dut1), file:tb.v, line:17:3, endln:17:42
+      |vpiTypespec:
+      \_logic_typespec: , line:2:19, endln:2:23
+      |vpiName:i
+      |vpiFullName:work@TOP.dut1.i
+      |vpiNetType:1
     |vpiNet:
     \_logic_net: (work@TOP.dut1.o), line:2:38, endln:2:39
+      |vpiParent:
+      \_module: work@dut (work@TOP.dut1), file:tb.v, line:17:3, endln:17:42
+      |vpiTypespec:
+      \_logic_typespec: , line:2:34, endln:2:37
+      |vpiName:o
+      |vpiFullName:work@TOP.dut1.o
+      |vpiNetType:48
     |vpiInstance:
     \_module: work@TOP (work@TOP), file:tb.v, line:15:1, endln:19:10
     |vpiPort:
@@ -925,76 +846,11 @@ design: (work@TOP)
           |vpiFullName:work@TOP.dut1.conntb
           |vpiActual:
           \_interface: work@ConnectTB (conntb), file:dut.v, line:5:0
-            |vpiName:conntb
-            |vpiDefName:work@ConnectTB
-            |vpiModport:
-            \_modport: (dut), line:12:11, endln:12:14
-              |vpiParent:
-              \_interface: work@ConnectTB (conntb), file:dut.v, line:5:0
-              |vpiName:dut
-              |vpiIODecl:
-              \_io_decl: (drive), line:13:11, endln:13:16
-                |vpiDirection:1
-                |vpiName:drive
-                |vpiExpr:
-                \_logic_var: (work@TOP.dut1.conntb.drive), line:10:9, endln:10:14
-              |vpiIODecl:
-              \_io_decl: (observe), line:14:12, endln:14:19
-                |vpiDirection:2
-                |vpiName:observe
-                |vpiExpr:
-                \_logic_var: (work@TOP.dut1.conntb.observe), line:11:9, endln:11:16
-              |vpiInterface:
-              \_interface: work@ConnectTB (conntb), file:dut.v, line:5:0
-            |vpiModport:
-            \_modport: (tb), line:16:11, endln:16:13
-              |vpiParent:
-              \_interface: work@ConnectTB (conntb), file:dut.v, line:5:0
-              |vpiName:tb
-              |vpiIODecl:
-              \_io_decl: (drive), line:17:12, endln:17:17
-                |vpiDirection:2
-                |vpiName:drive
-                |vpiExpr:
-                \_logic_var: (work@TOP.dut1.conntb.drive), line:10:9, endln:10:14
-              |vpiIODecl:
-              \_io_decl: (observe), line:18:11, endln:18:18
-                |vpiDirection:1
-                |vpiName:observe
-                |vpiExpr:
-                \_logic_var: (work@TOP.dut1.conntb.observe), line:11:9, endln:11:16
-              |vpiInterface:
-              \_interface: work@ConnectTB (conntb), file:dut.v, line:5:0
         |vpiLowConn:
         \_ref_obj: (work@TOP.dut1.middle1.intf), line:6:18, endln:6:24
           |vpiFullName:work@TOP.dut1.middle1.intf
           |vpiActual:
           \_modport: (dut), line:12:11, endln:12:14
-            |vpiParent:
-            \_interface: work@ConnectTB (intf), file:dut.v, line:6:0
-            |vpiName:dut
-            |vpiIODecl:
-            \_io_decl: (drive), line:13:11, endln:13:16
-              |vpiDirection:1
-              |vpiName:drive
-              |vpiExpr:
-              \_logic_var: (drive), line:10:9, endln:10:14
-                |vpiTypespec:
-                \_logic_typespec: , line:10:3, endln:10:8
-                |vpiName:drive
-                |vpiVisibility:1
-            |vpiIODecl:
-            \_io_decl: (observe), line:14:12, endln:14:19
-              |vpiDirection:2
-              |vpiName:observe
-              |vpiExpr:
-              \_logic_var: (observe), line:11:9, endln:11:16
-                |vpiTypespec:
-                \_logic_typespec: , line:11:3, endln:11:8
-                |vpiName:observe
-                |vpiVisibility:1
-            |vpiInterface:
-            \_interface: work@ConnectTB (intf), file:dut.v, line:6:0
       |vpiModule:
       \_module: work@SUB (work@TOP.dut1.middle1.sub1), file:dut.v, line:23:3, endln:23:50
         |vpiParent:
@@ -1006,8 +862,22 @@ design: (work@TOP)
         |vpiDefLineNo:26
         |vpiNet:
         \_logic_net: (work@TOP.dut1.middle1.sub1.inp), line:26:24, endln:26:27
+          |vpiParent:
+          \_module: work@SUB (work@TOP.dut1.middle1.sub1), file:dut.v, line:23:3, endln:23:50
+          |vpiTypespec:
+          \_logic_typespec: , line:26:19, endln:26:23
+          |vpiName:inp
+          |vpiFullName:work@TOP.dut1.middle1.sub1.inp
+          |vpiNetType:1
         |vpiNet:
         \_logic_net: (work@TOP.dut1.middle1.sub1.out), line:26:40, endln:26:43
+          |vpiParent:
+          \_module: work@SUB (work@TOP.dut1.middle1.sub1), file:dut.v, line:23:3, endln:23:50
+          |vpiTypespec:
+          \_logic_typespec: , line:26:36, endln:26:39
+          |vpiName:out
+          |vpiFullName:work@TOP.dut1.middle1.sub1.out
+          |vpiNetType:48
         |vpiInstance:
         \_module: work@middle (work@TOP.dut1.middle1), file:dut.v, line:6:3, endln:6:26
         |vpiPort:

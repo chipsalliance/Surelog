@@ -1387,31 +1387,6 @@ design: (work@toto)
       |vpiFullName:work@dut.o
       |vpiActual:
       \_logic_net: (work@dut.o), line:25:15, endln:25:16
-        |vpiParent:
-        \_module: work@dut (work@dut), file:top.sv, line:21:1, endln:27:10
-        |vpiTypespec:
-        \_logic_typespec: , line:25:5, endln:25:14
-          |vpiRange:
-          \_range: , line:25:9, endln:25:14
-            |vpiLeftRange:
-            \_constant: , line:25:10, endln:25:11
-              |vpiParent:
-              \_range: , line:25:9, endln:25:14
-              |vpiDecompile:2
-              |vpiSize:64
-              |UINT:2
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:25:12, endln:25:13
-              |vpiParent:
-              \_range: , line:25:9, endln:25:14
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiName:o
-        |vpiFullName:work@dut.o
-        |vpiNetType:48
 |uhdmallModules:
 \_module: work@dut_no_decl (work@dut_no_decl), file:top.sv, line:38:1, endln:41:10
   |vpiParent:
@@ -1742,8 +1717,6 @@ design: (work@toto)
           |vpiFullName:work@toto.clk
           |vpiActual:
           \_logic_net: (clk)
-            |vpiName:clk
-            |vpiNetType:1
       |vpiStmt:
       \_begin: (work@toto), line:7:26, endln:17:6
         |vpiParent:
@@ -1857,8 +1830,6 @@ design: (work@toto)
               |vpiFullName:work@toto.ESTABLISHED
               |vpiActual:
               \_logic_net: (ESTABLISHED)
-                |vpiName:ESTABLISHED
-                |vpiNetType:1
           |vpiStmt:
           \_begin: (work@toto), line:14:44, endln:15:8
             |vpiParent:
@@ -1933,8 +1904,12 @@ design: (work@toto)
     |vpiNetType:48
   |vpiNet:
   \_logic_net: (clk)
+    |vpiName:clk
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (ESTABLISHED)
+    |vpiName:ESTABLISHED
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiProcess:
   \_always: , line:7:3, endln:17:6
@@ -2088,6 +2063,31 @@ design: (work@toto)
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@dut.o), line:25:15, endln:25:16
+    |vpiParent:
+    \_module: work@dut (work@dut), file:top.sv, line:21:1, endln:27:10
+    |vpiTypespec:
+    \_logic_typespec: , line:25:5, endln:25:14
+      |vpiRange:
+      \_range: , line:25:9, endln:25:14
+        |vpiLeftRange:
+        \_constant: , line:25:10, endln:25:11
+          |vpiParent:
+          \_range: , line:25:9, endln:25:14
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:25:12, endln:25:13
+          |vpiParent:
+          \_range: , line:25:9, endln:25:14
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiName:o
+    |vpiFullName:work@dut.o
+    |vpiNetType:48
   |vpiTopModule:1
   |vpiPort:
   \_port: (a), line:21:13, endln:21:14
