@@ -180,8 +180,6 @@ design: (work@top)
           |vpiName:counter
           |vpiActual:
           \_logic_net: (counter)
-            |vpiName:counter
-            |vpiNetType:1
         |vpiName:local_function
     |vpiLhs:
     \_ref_obj: (work@mod.foo), line:11:10, endln:11:13
@@ -191,8 +189,6 @@ design: (work@top)
       |vpiFullName:work@mod.foo
       |vpiActual:
       \_logic_net: (foo)
-        |vpiName:foo
-        |vpiNetType:1
 |uhdmallModules:
 \_module: work@top (work@top), file:dut.sv, line:14:1, endln:16:10
   |vpiParent:
@@ -216,8 +212,12 @@ design: (work@top)
     |vpiDefLineNo:1
     |vpiNet:
     \_logic_net: (foo)
+      |vpiName:foo
+      |vpiNetType:1
     |vpiNet:
     \_logic_net: (counter)
+      |vpiName:counter
+      |vpiNetType:1
     |vpiInstance:
     \_module: work@top (work@top), file:dut.sv, line:14:1, endln:16:10
     |vpiGenScopeArray:
@@ -302,59 +302,6 @@ design: (work@top)
           |vpiName:cscope
           |vpiActual:
           \_gen_scope: (work@top.c.cscope)
-            |vpiParent:
-            \_gen_scope_array: (work@top.c.cscope), line:4:5, endln:8:8
-            |vpiFullName:work@top.c.cscope
-            |vpiTaskFunc:
-            \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
-              |vpiParent:
-              \_gen_scope: (work@top.c.cscope)
-              |vpiName:local_function
-              |vpiFullName:work@top.c.cscope.local_function
-              |vpiVisibility:1
-              |vpiAutomatic:1
-              |vpiReturn:
-              \_logic_var: , line:5:26, endln:5:31
-              |vpiParent:
-              \_gen_scope: (work@top.c.cscope)
-              |vpiIODecl:
-              \_io_decl: (x), line:5:54, endln:5:55
-                |vpiDirection:1
-                |vpiName:x
-              |vpiStmt:
-              \_assignment: , line:6:9, endln:6:31
-                |vpiParent:
-                \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
-                |vpiOpType:82
-                |vpiBlocking:1
-                |vpiRhs:
-                \_operation: , line:6:26, endln:6:31
-                  |vpiParent:
-                  \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
-                  |vpiOpType:24
-                  |vpiOperand:
-                  \_ref_obj: (work@top.c.cscope.local_function.x), line:6:26, endln:6:27
-                    |vpiParent:
-                    \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
-                    |vpiName:x
-                    |vpiFullName:work@top.c.cscope.local_function.x
-                    |vpiActual:
-                    \_io_decl: (x), line:5:54, endln:5:55
-                  |vpiOperand:
-                  \_constant: , line:6:30, endln:6:31
-                |vpiLhs:
-                \_ref_obj: (work@top.c.cscope.local_function.local_function), line:6:9, endln:6:23
-                  |vpiParent:
-                  \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
-                  |vpiName:local_function
-                  |vpiFullName:work@top.c.cscope.local_function.local_function
-                  |vpiActual:
-                  \_logic_var: (local_function), line:5:26, endln:5:31
-                    |vpiTypespec:
-                    \_logic_typespec: , line:5:26, endln:5:31
-                      |vpiParent:
-                      \_logic_var: (local_function), line:5:26, endln:5:31
-                    |vpiName:local_function
         |vpiActual:
         \_method_func_call: (local_function), line:11:23, endln:11:37
           |vpiParent:

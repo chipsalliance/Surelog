@@ -1256,13 +1256,6 @@ design: (work@top)
             |vpiFullName:prim_cipher_pkg::sbox4_64bit::k
             |vpiActual:
             \_int_var: (prim_cipher_pkg::sbox4_64bit::k), line:11:14, endln:11:15
-              |vpiParent:
-              \_assign_stmt: , line:11:10, endln:11:19
-              |vpiTypespec:
-              \_int_typespec: , line:11:10, endln:11:13
-              |vpiName:k
-              |vpiFullName:prim_cipher_pkg::sbox4_64bit::k
-              |vpiSigned:1
         |vpiCondition:
         \_operation: , line:11:21, endln:11:29
           |vpiParent:
@@ -1371,12 +1364,6 @@ design: (work@top)
                 |vpiDefName:state_out
                 |vpiActual:
                 \_logic_var: (prim_cipher_pkg::sbox4_64bit::state_out), line:9:18, endln:9:27
-                  |vpiParent:
-                  \_assign_stmt: , line:9:18, endln:9:27
-                  |vpiTypespec:
-                  \_logic_typespec: , line:9:5, endln:9:17
-                  |vpiName:state_out
-                  |vpiFullName:prim_cipher_pkg::sbox4_64bit::state_out
               |vpiConstantSelect:1
               |vpiIndexedPartSelectType:1
               |vpiBaseExpr:
@@ -1917,13 +1904,6 @@ design: (work@top)
             |vpiFullName:prim_cipher_pkg::sbox4_64bit::k
             |vpiActual:
             \_int_var: (prim_cipher_pkg::sbox4_64bit::k), line:11:14, endln:11:15
-              |vpiParent:
-              \_assign_stmt: , line:11:10, endln:11:19
-              |vpiTypespec:
-              \_int_typespec: , line:11:10, endln:11:13
-              |vpiName:k
-              |vpiFullName:prim_cipher_pkg::sbox4_64bit::k
-              |vpiSigned:1
         |vpiCondition:
         \_operation: , line:11:21, endln:11:29
           |vpiParent:
@@ -2032,12 +2012,6 @@ design: (work@top)
                 |vpiDefName:state_out
                 |vpiActual:
                 \_logic_var: (prim_cipher_pkg::sbox4_64bit::state_out), line:9:18, endln:9:27
-                  |vpiParent:
-                  \_assign_stmt: , line:9:18, endln:9:27
-                  |vpiTypespec:
-                  \_logic_typespec: , line:9:5, endln:9:17
-                  |vpiName:state_out
-                  |vpiFullName:prim_cipher_pkg::sbox4_64bit::state_out
               |vpiConstantSelect:1
               |vpiIndexedPartSelectType:1
               |vpiBaseExpr:
@@ -2574,8 +2548,6 @@ design: (work@top)
                   |vpiFullName:work@top.p_post_round_xor.NumRoundsHalf
                   |vpiActual:
                   \_logic_net: (NumRoundsHalf)
-                    |vpiName:NumRoundsHalf
-                    |vpiNetType:1
               |vpiOperand:
               \_constant: , line:32:49, endln:32:50
                 |vpiParent:
@@ -2615,8 +2587,6 @@ design: (work@top)
                   |vpiFullName:work@top.p_post_round_xor.DataWidth
                   |vpiActual:
                   \_logic_net: (DataWidth)
-                    |vpiName:DataWidth
-                    |vpiNetType:1
                 |vpiOperand:
                 \_constant: , line:35:33, endln:35:34
                   |vpiParent:
@@ -2639,8 +2609,6 @@ design: (work@top)
           |vpiFullName:work@top.p_post_round_xor.data_o
           |vpiActual:
           \_logic_net: (data_o)
-            |vpiName:data_o
-            |vpiNetType:1
       |vpiStmt:
       \_assignment: , line:36:11, endln:36:23
         |vpiParent:
@@ -2655,8 +2623,6 @@ design: (work@top)
           |vpiFullName:work@top.p_post_round_xor.k1
           |vpiActual:
           \_logic_net: (k1)
-            |vpiName:k1
-            |vpiNetType:1
         |vpiLhs:
         \_ref_obj: (work@top.p_post_round_xor.data_o), line:36:11, endln:36:17
           |vpiParent:
@@ -2679,8 +2645,6 @@ design: (work@top)
           |vpiFullName:work@top.p_post_round_xor.k0_prime
           |vpiActual:
           \_logic_net: (k0_prime)
-            |vpiName:k0_prime
-            |vpiNetType:1
         |vpiLhs:
         \_ref_obj: (work@top.p_post_round_xor.data_o), line:37:12, endln:37:18
           |vpiParent:
@@ -2706,8 +2670,6 @@ design: (work@top)
         |vpiFullName:work@top.data_state_xor
         |vpiActual:
         \_logic_net: (data_state_xor)
-          |vpiName:data_state_xor
-          |vpiNetType:1
       |vpiArgument:
       \_ref_obj: (prim_cipher_pkg::PRESENT_SBOX4), line:29:24, endln:29:41
         |vpiParent:
@@ -2726,8 +2688,6 @@ design: (work@top)
       |vpiFullName:work@top.data_state_sbox
       |vpiActual:
       \_logic_net: (data_state_sbox)
-        |vpiName:data_state_sbox
-        |vpiNetType:1
 |uhdmtopModules:
 \_module: work@top (work@top), file:dut.sv, line:26:1, endln:42:10
   |vpiName:work@top
@@ -2735,18 +2695,32 @@ design: (work@top)
   |vpiTop:1
   |vpiNet:
   \_logic_net: (data_state_sbox)
+    |vpiName:data_state_sbox
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (data_state_xor)
+    |vpiName:data_state_xor
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (data_o)
+    |vpiName:data_o
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (NumRoundsHalf)
+    |vpiName:NumRoundsHalf
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (DataWidth)
+    |vpiName:DataWidth
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (k1)
+    |vpiName:k1
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (k0_prime)
+    |vpiName:k0_prime
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiProcess:
   \_always: , line:31:2, endln:38:13

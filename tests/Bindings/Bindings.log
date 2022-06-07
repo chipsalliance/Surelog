@@ -1513,10 +1513,6 @@ design: (work@dut1)
       |vpiName:Off
       |vpiActual:
       \_enum_const: (Off), line:10:7, endln:10:20
-        |vpiName:Off
-        |BIN:0101
-        |vpiDecompile:4'b0101
-        |vpiSize:4
     |vpiLhs:
     \_parameter: (pack1::LC_TX_DEFAULT), line:15:22, endln:15:35
   |vpiTypedef:
@@ -1568,6 +1564,10 @@ design: (work@dut1)
       |vpiSize:4
     |vpiEnumConst:
     \_enum_const: (Off), line:10:7, endln:10:20
+      |vpiName:Off
+      |BIN:0101
+      |vpiDecompile:4'b0101
+      |vpiSize:4
   |vpiDefName:pack1
 |uhdmtopPackages:
 \_package: builtin (builtin::), file:
@@ -2202,8 +2202,6 @@ design: (work@dut1)
           |vpiFullName:work@bsg_dff_reset.clk_i
           |vpiActual:
           \_logic_net: (clk_i)
-            |vpiName:clk_i
-            |vpiNetType:1
       |vpiStmt:
       \_begin: (work@bsg_dff_reset), line:73:6, endln:78:9
         |vpiParent:
@@ -2221,8 +2219,6 @@ design: (work@dut1)
             |vpiFullName:work@bsg_dff_reset.reset_i
             |vpiActual:
             \_logic_net: (reset_i)
-              |vpiName:reset_i
-              |vpiNetType:1
           |vpiStmt:
           \_assignment: , line:75:11, endln:75:46
             |vpiParent:
@@ -2249,8 +2245,6 @@ design: (work@dut1)
               |vpiFullName:work@bsg_dff_reset.data_r
               |vpiActual:
               \_logic_net: (data_r)
-                |vpiName:data_r
-                |vpiNetType:1
           |vpiElseStmt:
           \_assignment: , line:77:11, endln:77:27
             |vpiParent:
@@ -2264,8 +2258,6 @@ design: (work@dut1)
               |vpiFullName:work@bsg_dff_reset.data_i
               |vpiActual:
               \_logic_net: (data_i)
-                |vpiName:data_i
-                |vpiNetType:1
             |vpiLhs:
             \_ref_obj: (work@bsg_dff_reset.data_r), line:77:11, endln:77:17
               |vpiParent:
@@ -2411,20 +2403,6 @@ design: (work@dut1)
             |vpiFullName:work@dut1.device
             |vpiActual:
             \_int_var: (work@dut1.device), line:26:7, endln:26:17
-              |vpiParent:
-              \_module: work@dut1 (work@dut1), file:dut.sv, line:20:1, endln:31:10
-              |vpiTypespec:
-              \_int_typespec: , line:26:3, endln:26:6
-                |vpiSigned:1
-              |vpiName:device
-              |vpiFullName:work@dut1.device
-              |vpiVisibility:1
-              |vpiExpr:
-              \_constant: , line:26:16, endln:26:17
-                |vpiDecompile:2
-                |vpiSize:32
-                |UINT:2
-                |vpiConstType:9
         |vpiLhs:
         \_ref_obj: (work@dut1.device_sel_req), line:28:5, endln:28:19
           |vpiParent:
@@ -2433,49 +2411,6 @@ design: (work@dut1)
           |vpiFullName:work@dut1.device_sel_req
           |vpiActual:
           \_logic_var: (work@dut1.device_sel_req), line:25:32, endln:25:46
-            |vpiParent:
-            \_module: work@dut1 (work@dut1), file:dut.sv, line:20:1, endln:31:10
-            |vpiTypespec:
-            \_logic_typespec: , line:25:3, endln:25:31
-              |vpiRange:
-              \_range: , line:25:9, endln:25:31
-                |vpiLeftRange:
-                \_constant: , line:25:10, endln:25:26
-                  |vpiParent:
-                  \_range: , line:25:9, endln:25:31
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |INT:0
-                  |vpiConstType:7
-                |vpiRightRange:
-                \_constant: , line:25:29, endln:25:30
-                  |vpiParent:
-                  \_range: , line:25:9, endln:25:31
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-                  |vpiConstType:9
-            |vpiName:device_sel_req
-            |vpiFullName:work@dut1.device_sel_req
-            |vpiVisibility:1
-            |vpiRange:
-            \_range: , line:25:9, endln:25:31
-              |vpiLeftRange:
-              \_constant: , line:25:10, endln:25:26
-                |vpiParent:
-                \_range: , line:25:9, endln:25:31
-                |vpiDecompile:0
-                |vpiSize:64
-                |INT:0
-                |vpiConstType:7
-              |vpiRightRange:
-              \_constant: , line:25:29, endln:25:30
-                |vpiParent:
-                \_range: , line:25:9, endln:25:31
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
     |vpiAlwaysType:2
 |uhdmallModules:
 \_module: work@dut2 (work@dut2), file:dut.sv, line:35:1, endln:50:10
@@ -2601,8 +2536,6 @@ design: (work@dut1)
             |vpiFullName:work@dut3.entropy_i
             |vpiActual:
             \_logic_net: (entropy_i)
-              |vpiName:entropy_i
-              |vpiNetType:1
         |vpiOperand:
         \_operation: , line:60:50, endln:60:78
           |vpiParent:
@@ -2650,8 +2583,6 @@ design: (work@dut1)
             |vpiFullName:work@dut3.coeffs
             |vpiActual:
             \_logic_net: (coeffs)
-              |vpiName:coeffs
-              |vpiNetType:1
       |vpiOperand:
       \_operation: , line:60:83, endln:60:94
         |vpiParent:
@@ -2665,8 +2596,6 @@ design: (work@dut1)
           |vpiFullName:work@dut3.lfsr_q
           |vpiActual:
           \_logic_net: (lfsr_q)
-            |vpiName:lfsr_q
-            |vpiNetType:1
         |vpiOperand:
         \_constant: , line:60:93, endln:60:94
           |vpiParent:
@@ -2683,8 +2612,6 @@ design: (work@dut1)
       |vpiFullName:work@dut3.next_lfsr_state
       |vpiActual:
       \_logic_net: (next_lfsr_state)
-        |vpiName:next_lfsr_state
-        |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:62:9, endln:62:28
     |vpiParent:
@@ -2715,8 +2642,6 @@ design: (work@dut1)
       |vpiFullName:work@dut3.lockup
       |vpiActual:
       \_logic_net: (lockup)
-        |vpiName:lockup
-        |vpiNetType:1
 |uhdmallModules:
 \_module: work@dut5 (work@dut5), file:dut.sv, line:82:1, endln:108:10
   |vpiParent:
@@ -2952,8 +2877,65 @@ design: (work@dut1)
   |vpiName:work@dut1
   |vpiVariables:
   \_logic_var: (work@dut1.device_sel_req), line:25:32, endln:25:46
+    |vpiParent:
+    \_module: work@dut1 (work@dut1), file:dut.sv, line:20:1, endln:31:10
+    |vpiTypespec:
+    \_logic_typespec: , line:25:3, endln:25:31
+      |vpiRange:
+      \_range: , line:25:9, endln:25:31
+        |vpiLeftRange:
+        \_constant: , line:25:10, endln:25:26
+          |vpiParent:
+          \_range: , line:25:9, endln:25:31
+          |vpiDecompile:0
+          |vpiSize:64
+          |INT:0
+          |vpiConstType:7
+        |vpiRightRange:
+        \_constant: , line:25:29, endln:25:30
+          |vpiParent:
+          \_range: , line:25:9, endln:25:31
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiName:device_sel_req
+    |vpiFullName:work@dut1.device_sel_req
+    |vpiVisibility:1
+    |vpiRange:
+    \_range: , line:25:9, endln:25:31
+      |vpiLeftRange:
+      \_constant: , line:25:10, endln:25:26
+        |vpiParent:
+        \_range: , line:25:9, endln:25:31
+        |vpiDecompile:0
+        |vpiSize:64
+        |INT:0
+        |vpiConstType:7
+      |vpiRightRange:
+      \_constant: , line:25:29, endln:25:30
+        |vpiParent:
+        \_range: , line:25:9, endln:25:31
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
   |vpiVariables:
   \_int_var: (work@dut1.device), line:26:7, endln:26:17
+    |vpiParent:
+    \_module: work@dut1 (work@dut1), file:dut.sv, line:20:1, endln:31:10
+    |vpiTypespec:
+    \_int_typespec: , line:26:3, endln:26:6
+      |vpiSigned:1
+    |vpiName:device
+    |vpiFullName:work@dut1.device
+    |vpiVisibility:1
+    |vpiExpr:
+    \_constant: , line:26:16, endln:26:17
+      |vpiDecompile:2
+      |vpiSize:32
+      |UINT:2
+      |vpiConstType:9
   |vpiParameter:
   \_parameter: (work@dut1.NrDevices), line:21:17, endln:21:26
     |vpiParent:
@@ -3294,14 +3276,24 @@ design: (work@dut1)
   |vpiTop:1
   |vpiNet:
   \_logic_net: (next_lfsr_state)
+    |vpiName:next_lfsr_state
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (entropy_i)
+    |vpiName:entropy_i
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (coeffs)
+    |vpiName:coeffs
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (lfsr_q)
+    |vpiName:lfsr_q
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (lockup)
+    |vpiName:lockup
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiModule:
   \_module: work@bsg_dff_reset (work@dut3.a1), file:dut.sv, line:56:3, endln:56:37
@@ -3392,12 +3384,20 @@ design: (work@dut1)
     |vpiDefLineNo:67
     |vpiNet:
     \_logic_net: (clk_i)
+      |vpiName:clk_i
+      |vpiNetType:1
     |vpiNet:
     \_logic_net: (reset_i)
+      |vpiName:reset_i
+      |vpiNetType:1
     |vpiNet:
     \_logic_net: (data_r)
+      |vpiName:data_r
+      |vpiNetType:1
     |vpiNet:
     \_logic_net: (data_i)
+      |vpiName:data_i
+      |vpiNetType:1
     |vpiInstance:
     \_module: work@dut3 (work@dut3), file:dut.sv, line:54:1, endln:64:10
     |vpiProcess:
@@ -3861,12 +3861,6 @@ design: (work@dut1)
                 |vpiFullName:work@dut5.LC_TX_DEFAULT.lc_tx_t.lc_tx_e.TxWidth
                 |vpiActual:
                 \_constant: , line:86:27, endln:86:28
-                  |vpiDecompile:4
-                  |vpiSize:32
-                  |UINT:4
-                  |vpiTypespec:
-                  \_int_typespec: , line:86:13, endln:86:16
-                  |vpiConstType:9
               |vpiOperand:
               \_constant: , line:87:33, endln:87:34
                 |vpiParent:
@@ -3998,6 +3992,12 @@ design: (work@dut1)
     \_module: work@dut5 (work@dut5), file:dut.sv, line:82:1, endln:108:10
     |vpiRhs:
     \_constant: , line:86:27, endln:86:28
+      |vpiDecompile:4
+      |vpiSize:32
+      |UINT:4
+      |vpiTypespec:
+      \_int_typespec: , line:86:13, endln:86:16
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut5.TxWidth), line:86:17, endln:86:24
   |vpiParamAssign:

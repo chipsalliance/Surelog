@@ -1731,8 +1731,6 @@ design: (work@tlul_adapter_host)
             |vpiName:WordSize
             |vpiActual:
             \_logic_net: (WordSize)
-              |vpiName:WordSize
-              |vpiNetType:1
         |vpiTypespec:
         \_string_typespec: (a_size), line:18:7, endln:18:13
           |vpiName:a_size
@@ -1744,8 +1742,6 @@ design: (work@tlul_adapter_host)
       |vpiFullName:work@tlul_adapter_host.tl_o
       |vpiActual:
       \_logic_net: (tl_o)
-        |vpiName:tl_o
-        |vpiNetType:1
 |uhdmallModules:
 \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
   |vpiParent:
@@ -1943,14 +1939,6 @@ design: (work@tlul_adapter_host)
                     |vpiFullName:work@top.a
                     |vpiActual:
                     \_int_var: (work@top.a), line:28:9, endln:28:10
-                      |vpiParent:
-                      \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
-                      |vpiTypespec:
-                      \_int_typespec: , line:28:5, endln:28:8
-                        |vpiSigned:1
-                      |vpiName:a
-                      |vpiFullName:work@top.a
-                      |vpiVisibility:1
                   |vpiOperand:
                   \_operation: , line:32:24, endln:32:33
                     |vpiParent:
@@ -1975,13 +1963,6 @@ design: (work@tlul_adapter_host)
                         |vpiFullName:work@top.b
                         |vpiActual:
                         \_int_var: (work@top.b), line:28:11, endln:28:12
-                          |vpiParent:
-                          \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
-                          |vpiTypespec:
-                          \_int_typespec: , line:28:5, endln:28:8
-                          |vpiName:b
-                          |vpiFullName:work@top.b
-                          |vpiVisibility:1
                       |vpiOperand:
                       \_ref_obj: (work@top.c), line:32:30, endln:32:31
                         |vpiParent:
@@ -1990,13 +1971,6 @@ design: (work@tlul_adapter_host)
                         |vpiFullName:work@top.c
                         |vpiActual:
                         \_int_var: (work@top.c), line:28:13, endln:28:14
-                          |vpiParent:
-                          \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
-                          |vpiTypespec:
-                          \_int_typespec: , line:28:5, endln:28:8
-                          |vpiName:c
-                          |vpiFullName:work@top.c
-                          |vpiVisibility:1
         |vpiLhs:
         \_ref_obj: (work@top.v1), line:32:7, endln:32:9
           |vpiParent:
@@ -2032,8 +2006,6 @@ design: (work@tlul_adapter_host)
             |vpiFullName:work@top.p_outmux.selected_hart
             |vpiActual:
             \_logic_net: (selected_hart)
-              |vpiName:selected_hart
-              |vpiNetType:1
           |vpiOperand:
           \_operation: , line:37:25, endln:37:49
             |vpiParent:
@@ -2065,8 +2037,6 @@ design: (work@tlul_adapter_host)
               |vpiFullName:work@top.p_outmux.NrHarts
               |vpiActual:
               \_logic_net: (NrHarts)
-                |vpiName:NrHarts
-                |vpiNetType:1
         |vpiStmt:
         \_begin: (work@top.p_outmux), line:37:51, endln:39:8
           |vpiParent:
@@ -2099,8 +2069,6 @@ design: (work@tlul_adapter_host)
               |vpiFullName:work@top.p_outmux.resumereq_o
               |vpiActual:
               \_logic_net: (resumereq_o)
-                |vpiName:resumereq_o
-                |vpiNetType:1
     |vpiAlwaysType:2
 |uhdmtopModules:
 \_module: work@tlul_adapter_host (work@tlul_adapter_host), file:dut.sv, line:14:3, endln:23:12
@@ -2109,8 +2077,12 @@ design: (work@tlul_adapter_host)
   |vpiTop:1
   |vpiNet:
   \_logic_net: (tl_o)
+    |vpiName:tl_o
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (WordSize)
+    |vpiName:WordSize
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiContAssign:
   \_cont_assign: , line:16:12, endln:19:6
@@ -2214,10 +2186,32 @@ design: (work@tlul_adapter_host)
           |vpiConstType:9
   |vpiVariables:
   \_int_var: (work@top.a), line:28:9, endln:28:10
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    |vpiTypespec:
+    \_int_typespec: , line:28:5, endln:28:8
+      |vpiSigned:1
+    |vpiName:a
+    |vpiFullName:work@top.a
+    |vpiVisibility:1
   |vpiVariables:
   \_int_var: (work@top.b), line:28:11, endln:28:12
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    |vpiTypespec:
+    \_int_typespec: , line:28:5, endln:28:8
+    |vpiName:b
+    |vpiFullName:work@top.b
+    |vpiVisibility:1
   |vpiVariables:
   \_int_var: (work@top.c), line:28:13, endln:28:14
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    |vpiTypespec:
+    \_int_typespec: , line:28:5, endln:28:8
+    |vpiName:c
+    |vpiFullName:work@top.c
+    |vpiVisibility:1
   |vpiParameter:
   \_parameter: (work@top.HartSelLen), line:35:14, endln:35:24
     |vpiParent:
@@ -2250,10 +2244,16 @@ design: (work@tlul_adapter_host)
   |vpiTop:1
   |vpiNet:
   \_logic_net: (selected_hart)
+    |vpiName:selected_hart
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (NrHarts)
+    |vpiName:NrHarts
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (resumereq_o)
+    |vpiName:resumereq_o
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiProcess:
   \_initial: , line:30:5, endln:33:8

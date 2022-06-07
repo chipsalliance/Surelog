@@ -225,8 +225,6 @@ design: (work@m)
         |vpiName:x
         |vpiActual:
         \_logic_net: (x)
-          |vpiName:x
-          |vpiNetType:1
       |vpiName:$past
     |vpiName:p1
   |vpiLetDecl:
@@ -264,8 +262,6 @@ design: (work@m)
           |vpiName:clock
           |vpiActual:
           \_logic_net: (clock)
-            |vpiName:clock
-            |vpiNetType:1
       |vpiName:$past
     |vpiName:p2
   |vpiLetDecl:
@@ -312,13 +308,6 @@ design: (work@m)
             |vpiName:a
             |vpiActual:
             \_logic_var: (work@m.a), line:3:7, endln:3:8
-              |vpiParent:
-              \_module: work@m (work@m), file:dut.sv, line:2:1, endln:16:14
-              |vpiTypespec:
-              \_logic_typespec: , line:3:1, endln:3:6
-              |vpiName:a
-              |vpiFullName:work@m.a
-              |vpiVisibility:1
           |vpiLetDecl:
           \_let_decl: (p1), line:4:1, endln:4:22
       |vpiStmt:
@@ -359,6 +348,13 @@ design: (work@m)
   |vpiName:work@m
   |vpiVariables:
   \_logic_var: (work@m.a), line:3:7, endln:3:8
+    |vpiParent:
+    \_module: work@m (work@m), file:dut.sv, line:2:1, endln:16:14
+    |vpiTypespec:
+    \_logic_typespec: , line:3:1, endln:3:6
+    |vpiName:a
+    |vpiFullName:work@m.a
+    |vpiVisibility:1
   |vpiLetDecl:
   \_let_decl: (p1), line:4:1, endln:4:22
     |vpiParent:
@@ -434,8 +430,12 @@ design: (work@m)
   |vpiTop:1
   |vpiNet:
   \_logic_net: (x)
+    |vpiName:x
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (clock)
+    |vpiName:clock
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiProcess:
   \_always: , line:9:1, endln:13:4

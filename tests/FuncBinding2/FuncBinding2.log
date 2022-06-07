@@ -190,8 +190,6 @@ design: (work@vend), id:61
                   |vpiFullName:work@vend.fsm.fsm_coin
                   |vpiActual:
                   \_logic_net: (fsm_coin), id:76
-                    |vpiName:fsm_coin
-                    |vpiNetType:1
                 |vpiOperand:
                 \_constant: , id:31, line:18:25, endln:18:30
                   |vpiParent:
@@ -249,31 +247,6 @@ design: (work@vend), id:61
           |vpiFullName:work@vend.fsm.fsm
           |vpiActual:
           \_logic_var: (fsm), id:77, line:10:10, endln:10:15
-            |vpiTypespec:
-            \_logic_typespec: , id:78, line:10:10, endln:10:15
-              |vpiParent:
-              \_logic_var: (fsm), id:77, line:10:10, endln:10:15
-              |vpiRange:
-              \_range: , id:79, line:10:10, endln:10:15
-                |vpiParent:
-                \_logic_typespec: , id:78, line:10:10, endln:10:15
-                |vpiLeftRange:
-                \_constant: , id:80, line:10:11, endln:10:12
-                  |vpiParent:
-                  \_range: , id:79, line:10:10, endln:10:15
-                  |vpiDecompile:2
-                  |vpiSize:64
-                  |UINT:2
-                  |vpiConstType:9
-                |vpiRightRange:
-                \_constant: , id:81, line:10:13, endln:10:14
-                  |vpiParent:
-                  \_range: , id:79, line:10:10, endln:10:15
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-                  |vpiConstType:9
-            |vpiName:fsm
     |vpiInstance:
     \_module: work@vend (work@vend), id:62, file:dut.sv, line:1:1, endln:33:10
   |vpiNet:
@@ -330,10 +303,6 @@ design: (work@vend), id:61
           |vpiFullName:work@vend.clock
           |vpiActual:
           \_logic_net: (work@vend.clock), id:58, line:1:13, endln:1:18
-            |vpiParent:
-            \_module: work@vend (work@vend), id:70, file:dut.sv, line:1:1, endln:33:10
-            |vpiName:clock
-            |vpiFullName:work@vend.clock
       |vpiStmt:
       \_begin: (work@vend), id:44, line:29:1, endln:31:4
         |vpiParent:
@@ -355,8 +324,6 @@ design: (work@vend), id:61
               |vpiFullName:work@vend.PRES_STATE
               |vpiActual:
               \_logic_net: (PRES_STATE), id:82
-                |vpiName:PRES_STATE
-                |vpiNetType:1
             |vpiName:fsm
             |vpiFunction:
             \_function: (work@vend.fsm), id:0, line:10:1, endln:26:12
@@ -368,13 +335,6 @@ design: (work@vend), id:61
             |vpiFullName:work@vend.newspaper
             |vpiActual:
             \_logic_net: (work@vend.newspaper), id:57, line:5:6, endln:5:15
-              |vpiParent:
-              \_module: work@vend (work@vend), id:70, file:dut.sv, line:1:1, endln:33:10
-              |vpiTypespec:
-              \_logic_typespec: , id:56, line:5:1, endln:5:5
-              |vpiName:newspaper
-              |vpiFullName:work@vend.newspaper
-              |vpiNetType:1
     |vpiAlwaysType:1
 |uhdmtopModules:
 \_module: work@vend (work@vend), id:70, file:dut.sv, line:1:1, endln:33:10
@@ -549,12 +509,27 @@ design: (work@vend), id:61
     \_module: work@vend (work@vend), id:70, file:dut.sv, line:1:1, endln:33:10
   |vpiNet:
   \_logic_net: (work@vend.newspaper), id:57, line:5:6, endln:5:15
+    |vpiParent:
+    \_module: work@vend (work@vend), id:70, file:dut.sv, line:1:1, endln:33:10
+    |vpiTypespec:
+    \_logic_typespec: , id:56, line:5:1, endln:5:5
+    |vpiName:newspaper
+    |vpiFullName:work@vend.newspaper
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@vend.clock), id:58, line:1:13, endln:1:18
+    |vpiParent:
+    \_module: work@vend (work@vend), id:70, file:dut.sv, line:1:1, endln:33:10
+    |vpiName:clock
+    |vpiFullName:work@vend.clock
   |vpiNet:
   \_logic_net: (fsm_coin), id:76
+    |vpiName:fsm_coin
+    |vpiNetType:1
   |vpiNet:
   \_logic_net: (PRES_STATE), id:82
+    |vpiName:PRES_STATE
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiPort:
   \_port: (clock), id:83, line:1:13, endln:1:18
