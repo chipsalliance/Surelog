@@ -49,9 +49,9 @@
 #include <uhdm/Serializer.h>
 #include <uhdm/SynthSubset.h>
 #include <uhdm/UhdmLint.h>
+#include <uhdm/VpiListener.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
-#include <uhdm/vpi_listener.h>
 #include <uhdm/vpi_visitor.h>
 
 namespace SURELOG {
@@ -772,133 +772,23 @@ void writeVariables(const DesignComponent::VariableMap& orig_vars,
 class ReInstanceTypespec : public VpiListener {
  public:
   explicit ReInstanceTypespec(package* p) : m_package(p) {}
-  ~ReInstanceTypespec() override {}
+  ~ReInstanceTypespec() override = default;
 
-  void leaveShort_real_typespec(const short_real_typespec* object,
-                                const BaseClass* parent, vpiHandle handle,
-                                vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-
-  void leaveReal_typespec(const real_typespec* object, const BaseClass* parent,
-                          vpiHandle handle, vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-
-  void leaveByte_typespec(const byte_typespec* object, const BaseClass* parent,
-                          vpiHandle handle, vpiHandle parentHandle) final {
-    reInstance(object);
+  void leaveAny(const any* object, vpiHandle handle) final {
+    if (any_cast<const typespec*>(object) != nullptr) {
+      if ((object->UhdmType() != uhdmclass_typespec) &&
+          (object->UhdmType() != uhdmevent_typespec) &&
+          (object->UhdmType() != uhdmimport_typespec) &&
+          (object->UhdmType() != uhdmtype_parameter)) {
+        reInstance(object);
+      }
+    }
   }
 
-  void leaveShort_int_typespec(const short_int_typespec* object,
-                               const BaseClass* parent, vpiHandle handle,
-                               vpiHandle parentHandle) final {
+  void leaveFunction(const function* object, vpiHandle handle) final {
     reInstance(object);
   }
-
-  void leaveInt_typespec(const int_typespec* object, const BaseClass* parent,
-                         vpiHandle handle, vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-
-  void leaveLong_int_typespec(const long_int_typespec* object,
-                              const BaseClass* parent, vpiHandle handle,
-                              vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-
-  void leaveInteger_typespec(const integer_typespec* object,
-                             const BaseClass* parent, vpiHandle handle,
-                             vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-
-  void leaveTime_typespec(const time_typespec* object, const BaseClass* parent,
-                          vpiHandle handle, vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-
-  void leaveString_typespec(const string_typespec* object,
-                            const BaseClass* parent, vpiHandle handle,
-                            vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-
-  void leaveChandle_typespec(const chandle_typespec* object,
-                             const BaseClass* parent, vpiHandle handle,
-                             vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-
-  void leavePacked_array_typespec(const packed_array_typespec* object,
-                                  const BaseClass* parent, vpiHandle handle,
-                                  vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-
-  void leaveArray_typespec(const array_typespec* object,
-                           const BaseClass* parent, vpiHandle handle,
-                           vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-
-  void leaveVoid_typespec(const void_typespec* object, const BaseClass* parent,
-                          vpiHandle handle, vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-
-  void leaveSequence_typespec(const sequence_typespec* object,
-                              const BaseClass* parent, vpiHandle handle,
-                              vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-
-  void leaveProperty_typespec(const property_typespec* object,
-                              const BaseClass* parent, vpiHandle handle,
-                              vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-
-  void leaveInterface_typespec(const interface_typespec* object,
-                               const BaseClass* parent, vpiHandle handle,
-                               vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-
-  void leaveStruct_typespec(const struct_typespec* object,
-                            const BaseClass* parent, vpiHandle handle,
-                            vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-  void leaveUnion_typespec(const union_typespec* object,
-                           const BaseClass* parent, vpiHandle handle,
-                           vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-  void leaveEnum_typespec(const enum_typespec* object, const BaseClass* parent,
-                          vpiHandle handle, vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-  void leaveLogic_typespec(const logic_typespec* object,
-                           const BaseClass* parent, vpiHandle handle,
-                           vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-  void leaveBit_typespec(const bit_typespec* object, const BaseClass* parent,
-                         vpiHandle handle, vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-  void leaveUnsupported_typespec(const unsupported_typespec* object,
-                                 const BaseClass* parent, vpiHandle handle,
-                                 vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-  void leaveFunction(const function* object, const BaseClass* parent,
-                     vpiHandle handle, vpiHandle parentHandle) final {
-    reInstance(object);
-  }
-  void leaveTask(const task* object, const BaseClass* parent, vpiHandle handle,
-                 vpiHandle parentHandle) final {
+  void leaveTask(const task* object, vpiHandle handle) final {
     reInstance(object);
   }
   void reInstance(const any* cobject) {
@@ -938,8 +828,9 @@ class ReInstanceTypespec : public VpiListener {
 void reInstanceTypespec(Serializer& serializer, any* root, package* p) {
   ReInstanceTypespec* listener = new ReInstanceTypespec(p);
   vpiHandle handle = serializer.MakeUhdmHandle(root->UhdmType(), root);
-  listen_any(handle, listener);
+  listener->listenAny(handle);
   vpi_release_handle(handle);
+  delete listener;
 }
 
 void UhdmWriter::writePackage(Package* pack, package* p, Serializer& s,
@@ -3165,7 +3056,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
   // ----------------------------------
   // Lint only the elaborated model
   UhdmLint* linter = new UhdmLint(&s, d);
-  listen_designs(designs, linter);
+  linter->listenDesigns(designs);
   delete linter;
 
   if (m_compileDesign->getCompiler()
@@ -3173,7 +3064,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
           ->reportNonSynthesizable()) {
     std::set<const any*> nonSynthesizableObjects;
     SynthSubset* annotate = new SynthSubset(&s, nonSynthesizableObjects, true);
-    listen_designs(designs, annotate);
+    annotate->listenDesigns(designs);
     delete annotate;
   }
 
@@ -3187,7 +3078,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
 
     ElaboratorListener* listener = new ElaboratorListener(&s, false);
     listener->uniquifyTypespec(false);
-    listen_designs(designs, listener);
+    listener->listenDesigns(designs);
     delete listener;
   }
 

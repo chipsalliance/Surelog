@@ -30,7 +30,6 @@
 #include <uhdm/UhdmListener.h>
 #include <uhdm/VpiListener.h>
 #include <uhdm/uhdm.h>
-#include <uhdm/vpi_listener.h>
 
 #include <algorithm>
 #include <fstream>
@@ -3458,7 +3457,7 @@ static int run_in_uhdm_mode(int argc, const char **argv) {
         (const UHDM::design *)((const uhdm_handle *)handle)->object;
     if (!design->VpiElaborated()) {
       UHDM::ElaboratorListener listener(&serializer, false);
-      UHDM::listen_designs(restoredDesigns, &listener);
+      listener.listenDesigns(restoredDesigns);
     }
   }
 

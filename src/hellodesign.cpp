@@ -32,13 +32,11 @@
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
+#include <uhdm/VpiListener.h>
 #include <uhdm/uhdm.h>
-#include <uhdm/vpi_listener.h>
 
 class DesignListener final : public UHDM::VpiListener {
-  void enterModule(const UHDM::module *const object,
-                   const UHDM::any *const parent, vpiHandle handle,
-                   vpiHandle parentHandle) final {
+  void enterModule(const UHDM::module *const object, vpiHandle handle) final {
     const std::string &instName = object->VpiName();
     m_flatTraversal =
         (instName.empty()) && ((object->VpiParent() == 0) ||
@@ -53,8 +51,7 @@ class DesignListener final : public UHDM::VpiListener {
   }
 
   void enterCont_assign(const UHDM::cont_assign *object,
-                        const UHDM::BaseClass *parent, vpiHandle handle,
-                        vpiHandle parentHandle) final {
+                        vpiHandle handle) final {
     if (m_flatTraversal) {
       std::cout << "  Let's skip the cont assigns in the flat traversal and "
                    "only navigate the ones in the hierarchical tree!"
@@ -71,7 +68,7 @@ class DesignListener final : public UHDM::VpiListener {
 
 static bool Build(const vpiHandle &design_handle) {
   DesignListener listener;
-  UHDM::listen_designs({design_handle}, &listener);
+  listener.listenDesigns({design_handle});
   std::cout << "End design traversal" << std::endl;
   return true;
 }

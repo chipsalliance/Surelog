@@ -55,9 +55,9 @@
 #include <string.h>
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/ExprEval.h>
+#include <uhdm/VpiListener.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
-#include <uhdm/vpi_listener.h>
 
 #include <iostream>
 #include <string>
@@ -3111,9 +3111,9 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
 
           ElaboratorListener* listener = new ElaboratorListener(&s, false);
           vpiHandle defModule = NewVpiHandle(modTmp);
-          VisitedContainer visited;
-          listen_module(defModule, listener, &visited);
+          listener->listenModule(defModule);
           vpi_free_object(defModule);
+          delete listener;
           return (any*)cts->Rhs();
         } else {
           let_expr* let = s.MakeLet_expr();
