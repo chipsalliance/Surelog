@@ -214,6 +214,12 @@ class CommandLineParser final {
   std::filesystem::path getExePath() const { return m_exePath; }
   std::string getExeCommand() const { return m_exeCommand; }
   std::set<std::string>& getTopLevelModules() { return m_topLevelModules; }
+  std::set<std::string>& getBlackBoxModules() { return m_blackboxModules; }
+  std::set<std::string>& getBlackBoxInstances() { return m_blackboxInstances; }
+  void setTopLevelModule(const std::string& module) { m_topLevelModules.insert(module); }
+  void setBlackBoxModule(const std::string& module) { m_blackboxModules.insert(module); }
+  void setBlackBoxInstance(const std::string& instance) { m_blackboxInstances.insert(instance); }
+
   bool fullSVMode() const { return m_sverilog; }
   void fullSVMode(bool sverilog) { m_sverilog = sverilog; }
   bool isSVFile(const std::filesystem::path& fileName) const;
@@ -314,6 +320,8 @@ class CommandLineParser final {
   std::filesystem::path m_exePath;
   std::string m_exeCommand;
   std::set<std::string> m_topLevelModules;
+  std::set<std::string> m_blackboxModules;
+  std::set<std::string> m_blackboxInstances;
   bool m_sverilog;
   bool m_dumpUhdm;
   bool m_elabUhdm;

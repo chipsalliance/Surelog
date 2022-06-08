@@ -764,6 +764,52 @@ void DesignElaboration::elaborateInstance_(
     std::vector<ModuleInstance*>& parentSubInstances) {
   if (!parent) return;
 
+  CommandLineParser* clp =
+      m_compileDesign->getCompiler()->getCommandLineParser();
+  std::set<std::string>& blackboxModules = clp->getBlackBoxModules();
+  std::string modName;
+  if (DesignComponent* def = parent->getDefinition()) {
+    modName = def->getName();
+  }
+  if (blackboxModules.find(modName) != blackboxModules.end()) {
+    SymbolTable* st =
+        m_compileDesign->getCompiler()->getErrorContainer()->getSymbolTable();
+    Location loc(st->registerSymbol(fC->getFileName().string()),
+                 fC->Line(nodeId), fC->Column(nodeId),
+                 st->registerSymbol(modName));
+    Error err(ErrorDefinition::ELAB_SKIPPING_BLACKBOX_MODULE, loc);
+    m_compileDesign->getCompiler()->getErrorContainer()->addError(err, false,
+                                                                  false);
+    return;
+  }
+  std::set<std::string>& blackboxInstances = clp->getBlackBoxInstances();
+  std::string instanceName;
+  if (parent) {
+    instanceName = parent->getFullPathName();
+  }
+  if (blackboxInstances.find(modName) != blackboxInstances.end()) {
+    SymbolTable* st =
+        m_compileDesign->getCompiler()->getErrorContainer()->getSymbolTable();
+    Location loc(st->registerSymbol(fC->getFileName().string()),
+                 fC->Line(nodeId), fC->Column(nodeId),
+                 st->registerSymbol(modName));
+    Error err(ErrorDefinition::ELAB_SKIPPING_BLACKBOX_INSTANCE, loc);
+    m_compileDesign->getCompiler()->getErrorContainer()->addError(err, false,
+                                                                  false);
+    return;
+  }
+  if (blackboxInstances.find(instanceName) != blackboxInstances.end()) {
+    SymbolTable* st =
+        m_compileDesign->getCompiler()->getErrorContainer()->getSymbolTable();
+    Location loc(st->registerSymbol(fC->getFileName().string()),
+                 fC->Line(nodeId), fC->Column(nodeId),
+                 st->registerSymbol(instanceName));
+    Error err(ErrorDefinition::ELAB_SKIPPING_BLACKBOX_INSTANCE, loc);
+    m_compileDesign->getCompiler()->getErrorContainer()->addError(err, false,
+                                                                  false);
+    return;
+  }
+
   std::vector<ModuleInstance*>& allSubInstances = parent->getAllSubInstances();
   std::string genBlkBaseName = "genblk";
   unsigned int genBlkIndex = 1;

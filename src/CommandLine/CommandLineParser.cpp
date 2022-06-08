@@ -127,6 +127,10 @@ static const std::initializer_list<std::string_view> helpText = {
     "  -nouhdm               No UHDM db write",
     "  -top/--top-module <module> Top level module for elaboration (multiple "
     "cmds ok)",
+    "  -bb_mod <module>      Blackbox module (multiple cmds ok, ex: -bb_mod "
+    "work@top)",
+    "  -bb_inst <instance>   Blackbox instance (multiple cmds ok, ex: -bb_inst "
+    "work@top.u1)",
     "  -batch <batch.txt>    Runs all the tests specified in the file in batch "
     "mode",
     "                        Tests are expressed as one full command line per "
@@ -888,6 +892,12 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
                (all_arguments[i] == "-top")) {
       i++;
       m_topLevelModules.insert(all_arguments[i]);
+    } else if (all_arguments[i] == "-bb_mod") {
+      i++;
+      m_blackboxModules.insert(all_arguments[i]);
+    } else if (all_arguments[i] == "-bb_inst") {
+      i++;
+      m_blackboxInstances.insert(all_arguments[i]);
     } else if (all_arguments[i] == "-createcache") {
       m_createCache = true;
     } else if (all_arguments[i] == "-lineoffsetascomments") {

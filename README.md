@@ -126,6 +126,8 @@ target_link_libraries(<your project name> surelog)
    -diffcompunit         Compiles both all files as a whole unit and separate compilation units to perform diffs
    -parse                Parse/Compile/Elaborate the files after pre-processing step
    -top/--top-module <module> Top level module for elaboration (multiple cmds ok)
+   -bb_mod <module>      Blackbox module (multiple cmds ok, ex: -bb_mod work@top)
+   -bb_inst <instance>   Blackbox instance (multiple cmds ok, ex: -bb_inst work@top.u1)
    -noparse              Turns off Parsing & Compilation & Elaboration
    -nocomp               Turns off Compilation & Elaboration
    -noelab               Turns off Elaboration

@@ -340,6 +340,10 @@ bool ErrorDefinition::init() {
   rec(COMP_UNSPECIFIED_PORT, ERROR, COMP, "Port \"%s\" of unspecified type");
   rec(COMP_UNMATCHED_LABEL, ERROR, COMP, "Unmached label \"%s\"",
       "%exloc closing label \"%exobj\"");
+  rec(COMP_SKIPPING_BLACKBOX_MODULE, INFO, COMP,
+      "Skipping blackboxed module \"%s\"");
+  rec(COMP_SKIPPING_BLACKBOX_INSTANCE, INFO, COMP,
+      "Skipping blackboxed instance \"%s\"");
   rec(PY_PROCESSING_SOURCE_FILE, INFO, PYTH, "Processing source file \"%s\"");
   rec(PY_NO_PYTHON_LISTENER_FOUND, FATAL, PYTH,
       "No Python listener found (slSV3_1aPythonListener.py)");
@@ -404,6 +408,10 @@ bool ErrorDefinition::init() {
   rec(ELAB_UNKNOWN_PARAMETER, ERROR, ELAB,
       "Unknown parameter in command line override \"%s\"");
   rec(ELAB_EXPRESSION_LOOP, ERROR, ELAB, "Expression loop in instance \"%s\"");
+  rec(ELAB_SKIPPING_BLACKBOX_MODULE, INFO, ELAB,
+      "Skipping blackboxed module \"%s\"");
+  rec(ELAB_SKIPPING_BLACKBOX_INSTANCE, INFO, ELAB,
+      "Skipping blackboxed instance \"%s\"");
   rec(LIB_FILE_MAPS_TO_MULTIPLE_LIBS, ERROR, LIB,
       R"(File "%exobj" maps to multiple libraries: "%s")");
   rec(UHDM_UNSUPPORTED_EXPR, ERROR, UHDM, "Unsupported expression \"%s\"");
