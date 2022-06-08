@@ -55,13 +55,13 @@ TEST(CompileExpression, ExprFromParseTree1) {
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
     NodeId rhs = fC->Sibling(param);
-    std::unique_ptr<UHDM::expr> exp((UHDM::expr*)helper.compileExpression(
+    const UHDM::expr *exp = (UHDM::expr *)helper.compileExpression(
         nullptr, fC.get(), rhs, compileDesign.get(), nullptr, nullptr, true,
-        true));
+        true);
     EXPECT_EQ(exp->UhdmType(), UHDM::uhdmconstant);
     bool invalidValue = false;
     UHDM::ExprEval eval;
-    EXPECT_EQ(eval.get_value(invalidValue, exp.get()), 16);
+    EXPECT_EQ(eval.get_value(invalidValue, exp), 16);
   }
 }
 TEST(CompileExpression, ExprFromParseTree2) {
@@ -84,13 +84,13 @@ TEST(CompileExpression, ExprFromParseTree2) {
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
     NodeId rhs = fC->Sibling(param);
-    std::unique_ptr<UHDM::expr> exp((UHDM::expr*)helper.compileExpression(
+    const UHDM::expr *exp = (UHDM::expr *)helper.compileExpression(
         nullptr, fC.get(), rhs, compileDesign.get(), nullptr, nullptr, true,
-        true));
+        true);
     EXPECT_EQ(exp->UhdmType(), UHDM::uhdmconstant);
     bool invalidValue = false;
     UHDM::ExprEval eval;
-    EXPECT_EQ(eval.get_value(invalidValue, exp.get()), 1);
+    EXPECT_EQ(eval.get_value(invalidValue, exp), 1);
   }
 }
 TEST(CompileExpression, ExprFromParseTree3) {
@@ -110,20 +110,20 @@ TEST(CompileExpression, ExprFromParseTree3) {
   EXPECT_EQ(assigns.size(), 2);
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
-    const std::string& name = fC->SymName(param);
+    const std::string &name = fC->SymName(param);
     NodeId rhs = fC->Sibling(param);
-    std::unique_ptr<UHDM::expr> exp1((UHDM::expr*)helper.compileExpression(
+    const UHDM::expr *exp1 = (UHDM::expr *)helper.compileExpression(
         nullptr, fC.get(), rhs, compileDesign.get(), nullptr, nullptr, false,
-        true));
+        true);
     EXPECT_EQ(exp1->UhdmType(), UHDM::uhdmoperation);
-    std::unique_ptr<UHDM::expr> exp2((UHDM::expr*)helper.compileExpression(
+    const UHDM::expr *exp2 = (UHDM::expr *)helper.compileExpression(
         nullptr, fC.get(), rhs, compileDesign.get(), nullptr, nullptr, true,
-        true));
+        true);
     if (name == "p1") {
       EXPECT_EQ(exp2->UhdmType(), UHDM::uhdmconstant);
       bool invalidValue = false;
       UHDM::ExprEval eval;
-      EXPECT_EQ(eval.get_value(invalidValue, exp2.get()), 6);
+      EXPECT_EQ(eval.get_value(invalidValue, exp2), 6);
     }
   }
 }
@@ -150,20 +150,20 @@ TEST(CompileExpression, ExprFromPpTree) {
   EXPECT_EQ(assigns.size(), 2);
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
-    const std::string& name = fC->SymName(param);
+    const std::string &name = fC->SymName(param);
     NodeId rhs = fC->Sibling(param);
-    std::unique_ptr<UHDM::expr> exp1((UHDM::expr*)helper.compileExpression(
+    const UHDM::expr *exp1 = (UHDM::expr *)helper.compileExpression(
         nullptr, fC.get(), rhs, compileDesign.get(), nullptr, nullptr, false,
-        true));
+        true);
     EXPECT_EQ(exp1->UhdmType(), UHDM::uhdmoperation);
-    std::unique_ptr<UHDM::expr> exp2((UHDM::expr*)helper.compileExpression(
+    const UHDM::expr *exp2 = (UHDM::expr *)helper.compileExpression(
         nullptr, fC.get(), rhs, compileDesign.get(), nullptr, nullptr, true,
-        true));
+        true);
     if (name == "p1") {
       EXPECT_EQ(exp2->UhdmType(), UHDM::uhdmconstant);
       bool invalidValue = false;
       UHDM::ExprEval eval;
-      EXPECT_EQ(eval.get_value(invalidValue, exp2.get()), 6);
+      EXPECT_EQ(eval.get_value(invalidValue, exp2), 6);
     }
   }
 }

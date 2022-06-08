@@ -68,6 +68,7 @@ CompileDesign::CompileDesign(Compiler* compiler) : m_compiler(compiler) {}
 CompileDesign::~CompileDesign() {
   // TODO: ownership not clear.
   // delete m_compiler;
+  m_serializer.Purge();
 }
 
 bool CompileDesign::compile() {
