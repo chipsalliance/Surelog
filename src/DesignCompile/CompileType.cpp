@@ -275,6 +275,9 @@ UHDM::any* CompileHelper::compileVariable(
         } else {
           ref_var* ref = s.MakeRef_var();
           ref->Typespec(ts);
+          //if (ts && (ts->UhdmType() == uhdmunsupported_typespec)) {
+          //  component->needLateTypedefBinding(ref);
+          //}
           ref->VpiName(typeName);
           result = ref;
         }
