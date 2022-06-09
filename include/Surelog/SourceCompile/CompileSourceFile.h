@@ -123,8 +123,8 @@ class CompileSourceFile {
   SymbolTable* m_symbolTable = nullptr;
   std::vector<PreprocessFile*> m_ppIncludeVec;
   ParseFile* m_parser = nullptr;
-  CompilationUnit* m_compilationUnit;
-  Action m_action;
+  CompilationUnit* m_compilationUnit = nullptr;
+  Action m_action = Action::Preprocess;
   SymbolId m_ppResultFileId;
   std::map<SymbolId, PreprocessFile::AntlrParserHandler*,
            SymbolIdLessThanComparer>

@@ -238,15 +238,17 @@ fs::path FileUtils::getPreferredPath(const fs::path& path) {
 
 std::string FileUtils::hashPath(const fs::path& path) {
   const std::string separator(1, fs::path::preferred_separator);
-  std::string hashedpath;
-  std::size_t val = std::hash<std::string>{}(path.string());
   std::string last_dir = path.string();
-  if (!last_dir.empty()) last_dir.erase(last_dir.end() - 1);
-  auto it1 = std::find_if(last_dir.rbegin(), last_dir.rend(),
-                          [](char ch) { return (ch == '/' || ch == '\\'); });
-  if (it1 != last_dir.rend()) last_dir.erase(last_dir.begin(), it1.base());
-
-  hashedpath = last_dir + "_" + std::to_string(val) + separator;
+  std::size_t val = std::hash<std::string>{}(last_dir);
+  if (!last_dir.empty()) {
+    if ((last_dir.back() == '/') || (last_dir.back() == '\\')) {
+      last_dir.pop_back();
+    }
+    auto it1 = std::find_if(last_dir.rbegin(), last_dir.rend(),
+                            [](char ch) { return (ch == '/' || ch == '\\'); });
+    if (it1 != last_dir.rend()) last_dir.erase(last_dir.begin(), it1.base());
+  }
+  std::string hashedpath = last_dir + "_" + std::to_string(val) + separator;
   return hashedpath;
 }
 

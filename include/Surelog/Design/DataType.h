@@ -123,7 +123,7 @@ class DataType : public RTTI {
   NodeId m_id;
   std::string m_name;
   mutable const DataType* m_definition = nullptr;
-  VObjectType m_type;
+  VObjectType m_type = VObjectType::sl_INVALID_;
   bool m_is_parameter = false;
   UHDM::typespec* m_typespec = nullptr;
   UHDM::typespec* m_unpacked_typespec = nullptr;

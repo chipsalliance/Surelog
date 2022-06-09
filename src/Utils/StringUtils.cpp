@@ -182,13 +182,14 @@ void StringUtils::replaceInTokenVector(
 void StringUtils::replaceInTokenVector(std::vector<std::string>& tokens,
                                        std::string_view pattern,
                                        std::string_view news) {
+  const std::string news_s(news);
   unsigned int tokensSize = tokens.size();
   for (unsigned int i = 0; i < tokensSize; i++) {
     if (tokens[i] == pattern) {
       const bool surrounded_by_quotes =
           (i > 0 && (tokens[i - 1] == "\"")) &&
           ((i < tokensSize - 1) && (tokens[i + 1] == "\""));
-      tokens[i] = surrounded_by_quotes ? removeCR(news) : news;
+      tokens[i] = surrounded_by_quotes ? removeCR(news) : news_s;
     }
   }
 }

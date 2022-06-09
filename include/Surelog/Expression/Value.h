@@ -139,7 +139,7 @@ class Value : public RTTI {
 
  protected:
   unsigned int nbWords_(unsigned int size);
-  ValueFactory* m_valueFactory;
+  ValueFactory* m_valueFactory = nullptr;
 };
 }  // namespace SURELOG
 SURELOG_IMPLEMENT_RTTI_CAST_FUNCTIONS(value_cast, SURELOG::Value)
