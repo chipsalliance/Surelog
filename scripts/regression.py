@@ -423,11 +423,6 @@ def _run_uhdm_dump(
 
     uhdm_dump_log_strm.flush()
 
-  # Go ahead and delete the file if it's too large. CI build tends to run out of disk space.
-  if os.path.isfile(uhdm_dump_log_filepath) and \
-      os.path.getsize(uhdm_dump_log_filepath) > (128 * 1024 * 1024):
-    os.remove(uhdm_dump_log_filepath)
-
   end_dt = datetime.now()
   delta = end_dt - start_dt
   print(f'end-time: {str(end_dt)} {str(delta)}')
@@ -552,7 +547,7 @@ def _run_one(params):
     print(f'Found {len(golden_snapshot)} files & directories')
     print('\n')
 
-    print('Running Surelog ...')
+    print('Running Surelog ...', flush=True)
     result.update(_run_surelog(
         name, filepath, dirpath, workspace_dirpath, surelog_filepath,
         surelog_log_filepath, uvm_reldirpath, mp, mt, tool, output_dirpath))
@@ -570,7 +565,7 @@ def _run_one(params):
         print(f'File not found: {uhdm_slpp_unit_filepath}')
 
     if uhdm_src_filepath and result['STATUS'] == Status.PASS:
-      print('Running uhdm-dump ...')
+      print('Running uhdm-dump ...', flush=True)
       result.update(_run_uhdm_dump(
           name, uhdm_dump_filepath, uhdm_src_filepath, uhdm_dump_log_filepath, output_dirpath))
       print('\n')
@@ -578,7 +573,7 @@ def _run_one(params):
 
     roundtrip_content = None
     if uhdm_src_filepath and result['STATUS'] == Status.PASS:
-      print('Running roundtrip ...')
+      print('Running roundtrip ...', flush=True)
       result.update(_run_roundtrip(
           name, filepath, roundtrip_filepath, uhdm_src_filepath,
           roundtrip_log_filepath, roundtrip_output_dirpath))
@@ -627,9 +622,16 @@ def _run_one(params):
       else:
         result['STATUS'] = Status.DIFF
 
-    print('Restoring pristine state ...')
+    print('Restoring pristine state ...', flush=True)
     current_snapshot = _snapshot_directory_state(dirpath)
     print(f'Found {len(current_snapshot)} files & directories')
+
+    if 'GITHUB_JOB' in os.environ:
+      # Go ahead and delete these files. CI build tends to run out of disk space.
+      for filepath in [uhdm_slpp_all_filepath, uhdm_slpp_unit_filepath, uhdm_dump_log_filepath]:
+        if os.path.isfile(filepath):
+          print(f'Deleting: {filepath}, {os.path.getsize(filepath)}')
+          os.remove(filepath)
 
     _restore_directory_state(
       dirpath, golden_snapshot,
@@ -785,7 +787,7 @@ def _print_report(results):
       _get_cell_value(columns[4]),
       _get_cell_value(columns[5]),
       _get_cell_value(columns[6]),
-      str(round(result.get(columns[7], 0), 2)),
+      '{:.2f}'.format(result.get(columns[7], 0)),
       str(round(result.get(columns[8], 0) / (1024 * 1024))),
       str(round(result.get(columns[9], 0) / (1024 * 1024))),
       '{}/{}'.format(_get_cell_value("ROUNDTRIP_A"), _get_cell_value("ROUNDTRIP_B")),
