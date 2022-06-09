@@ -32,8 +32,8 @@
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
+#include <uhdm/VpiListener.h>
 #include <uhdm/uhdm.h>
-#include <uhdm/vpi_listener.h>
 
 int main(int argc, const char** argv) {
   // Read command line, compile a design, use -parse argument
@@ -68,7 +68,8 @@ int main(int argc, const char** argv) {
     UHDM::Serializer serializer;
     UHDM::ElaboratorListener* listener =
         new UHDM::ElaboratorListener(&serializer, true);
-    listen_designs({the_design}, listener);
+    listener->listenDesigns({the_design});
+    delete listener;
   }
 
   // Browse the UHDM Data Model using the IEEE VPI API.
