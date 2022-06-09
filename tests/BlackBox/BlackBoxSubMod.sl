@@ -1,0 +1,1 @@
+-bb_mod work@nyuzi -parse -d uhdm -d coveruhdm -elabuhdm -d ast dut.sv -nobuiltin

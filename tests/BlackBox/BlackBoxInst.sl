@@ -1,0 +1,1 @@
+-bb_inst work@top.nyuzi.core_gen[0] -parse -d uhdm -d coveruhdm -elabuhdm -d ast dut.sv -nobuiltin

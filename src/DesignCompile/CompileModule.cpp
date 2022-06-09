@@ -24,6 +24,7 @@
 #include <Surelog/CommandLine/CommandLineParser.h>
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/Design/ModuleDefinition.h>
+#include <Surelog/Design/ModuleInstance.h>
 #include <Surelog/DesignCompile/CompileDesign.h>
 #include <Surelog/DesignCompile/CompileModule.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
@@ -94,15 +95,45 @@ bool CompileModule::compile() {
 
   m_module->setDesignElement(fC->getDesignElement(m_module->getName()));
 
+  CommandLineParser* clp =
+      m_compileDesign->getCompiler()->getCommandLineParser();
+  std::set<std::string>& blackboxModules = clp->getBlackBoxModules();
+  bool skipModule = false;
+  std::string libName;
+  if (m_module->getFileContents().size())
+    libName = m_module->getFileContents()[0]->getLibrary()->getName();
+  const std::string& modName = m_module->getName();
+  if (blackboxModules.find(modName) != blackboxModules.end()) {
+    errType = ErrorDefinition::COMP_SKIPPING_BLACKBOX_MODULE;
+    skipModule = true;
+  }
+  std::set<std::string>& blackboxInstances = clp->getBlackBoxInstances();
+  std::string instanceName;
+  if (m_instance) {
+    if (ModuleInstance* inst =
+            valuedcomponenti_cast<ModuleInstance*>(m_instance)) {
+      instanceName = inst->getFullPathName();
+    }
+  }
+  if (blackboxInstances.find(instanceName) != blackboxInstances.end()) {
+    errType = ErrorDefinition::COMP_SKIPPING_BLACKBOX_INSTANCE;
+    skipModule = true;
+  }
+  if (blackboxInstances.find(modName) != blackboxInstances.end()) {
+    errType = ErrorDefinition::COMP_SKIPPING_BLACKBOX_INSTANCE;
+    skipModule = true;
+  }
+
   Error err(errType, loc);
   ErrorContainer* errors = new ErrorContainer(m_symbols);
-  errors->registerCmdLine(
-      m_compileDesign->getCompiler()->getCommandLineParser());
+  errors->registerCmdLine(clp);
   errors->addError(err);
-  errors->printMessage(
-      err,
-      m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
+  errors->printMessage(err, clp->muteStdout());
   delete errors;
+
+  if (skipModule) {
+    return true;
+  }
 
   switch (moduleType) {
     case VObjectType::slModule_declaration:
