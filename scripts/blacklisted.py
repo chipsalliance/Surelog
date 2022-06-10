@@ -40,11 +40,15 @@ _unix_black_list = set([name.lower() for name in [
 ]])
 
 _msys2_black_list = _unix_black_list.union([
-  r'earlgrey_verilator_01_05_21', # lowmem is unsupported
+    r'earlgrey_verilator_01_05_21', # lowmem is unsupported
 ])
 
+# Temporarily disabled on CI as this test seems to be stalling
 _unix_ci_black_list = _unix_black_list.union(set([name.lower() for name in [
-    'rsd' # Temporarily disabled on CI as this test seems to be stalling
+#     'rsd',
+#     'compl1001',
+#     'google',
+#     'unisim'
 ]]))
 
 def is_blacklisted(name):
