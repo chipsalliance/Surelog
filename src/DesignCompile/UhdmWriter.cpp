@@ -3133,8 +3133,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
       }
       vpi_show_ids(
           m_compileDesign->getCompiler()->getCommandLineParser()->showVpiIds());
-      std::string restored = visit_designs(restoredDesigns);
-      std::cout << restored;
+      visit_designs(restoredDesigns, std::cout);
       std::cout << "===================\n";
     } else {
       Location loc(
@@ -3147,8 +3146,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
       std::cout << "====== UHDM =======\n";
       vpi_show_ids(
           m_compileDesign->getCompiler()->getCommandLineParser()->showVpiIds());
-      std::string result = visit_designs({designHandle});
-      std::cout << result;
+      visit_designs({designHandle}, std::cout);
       std::cout << "===================\n";
     }
   }
