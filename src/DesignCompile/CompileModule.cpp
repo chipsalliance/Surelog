@@ -100,7 +100,7 @@ bool CompileModule::compile() {
   std::set<std::string>& blackboxModules = clp->getBlackBoxModules();
   bool skipModule = false;
   std::string libName;
-  if (m_module->getFileContents().size())
+  if (!m_module->getFileContents().empty())
     libName = m_module->getFileContents()[0]->getLibrary()->getName();
   const std::string& modName = m_module->getName();
   if (blackboxModules.find(modName) != blackboxModules.end()) {
