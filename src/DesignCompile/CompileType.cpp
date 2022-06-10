@@ -1320,7 +1320,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
         // Include the ranges in the location information
         NodeId last_Packed_dimension = Packed_dimension;
         NodeId next_Packed_dimension = Packed_dimension;
-        while (next_Packed_dimension = fC->Sibling(next_Packed_dimension)) {
+        while ((next_Packed_dimension = fC->Sibling(next_Packed_dimension))) {
           last_Packed_dimension = next_Packed_dimension;
         }
         result->VpiEndLineNo(fC->EndLine(last_Packed_dimension));

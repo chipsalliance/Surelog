@@ -174,7 +174,7 @@ class PreprocessFile {
   PreprocessFile* m_includer = nullptr;
   unsigned int m_includerLine = 0;
   std::vector<PreprocessFile*> m_includes;
-  CompileSourceFile* m_compileSourceFile;
+  CompileSourceFile* m_compileSourceFile = nullptr;
   size_t m_lineCount = 0;
   static IncludeFileInfo s_badIncludeFileInfo;
 
@@ -254,7 +254,7 @@ class PreprocessFile {
     enum Type { IFDEF, IFNDEF, ELSIF, ELSE };
     std::string m_macroName;
     bool m_defined = false;
-    Type m_type;
+    Type m_type = Type::IFDEF;
     bool m_previousActiveState = false;
   };
   typedef std::vector<IfElseItem> IfElseStack;
@@ -346,11 +346,11 @@ class PreprocessFile {
   bool m_pauseAppend = false;
   bool m_usingCachedVersion = false;
   std::vector<IncludeFileInfo> m_includeFileInfo;
-  unsigned int m_embeddedMacroCallLine;
+  unsigned int m_embeddedMacroCallLine = 0;
   SymbolId m_embeddedMacroCallFile;
   std::string m_profileInfo;
   FileContent* m_fileContent = nullptr;
-  VerilogVersion m_verilogVersion;
+  VerilogVersion m_verilogVersion = VerilogVersion::NoVersion;
 };
 
 };  // namespace SURELOG

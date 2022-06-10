@@ -865,7 +865,8 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
         actual_args[i] = "";
       }
 
-      StringUtils::replaceInTokenVector(body_tokens, {"``", "`" + formal, "``"},
+      const std::string pattern = "`" + formal;
+      StringUtils::replaceInTokenVector(body_tokens, {"``", pattern, "``"},
                                         "`" + actual_args[i]);
       StringUtils::replaceInTokenVector(body_tokens, {"``", formal, "``"},
                                         actual_args[i]);
