@@ -58,6 +58,7 @@ class ElaborationStep {
 
  protected:
   bool bindTypedefs_();
+  bool bindTypedefsPostElab_();
 
   const DataType* bindTypeDef_(TypeDef* typd, const DesignComponent* parent,
                                ErrorDefinition::ErrorType errtype);
