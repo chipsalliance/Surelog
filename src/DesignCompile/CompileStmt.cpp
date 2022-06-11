@@ -421,11 +421,11 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       NodeId Ps_or_hierarchical_array_identifier = fC->Sibling(the_stmt);
       UHDM::any* var = compileVariable(
           component, fC, fC->Child(Ps_or_hierarchical_array_identifier),
-          compileDesign, for_each, nullptr, true, false);
+          compileDesign, for_each, nullptr, false, false);
       NodeId Loop_variables = fC->Sibling(Ps_or_hierarchical_array_identifier);
       UHDM::any* loop_var =
           compileVariable(component, fC, fC->Child(Loop_variables),
-                          compileDesign, for_each, nullptr, true, false);
+                          compileDesign, for_each, nullptr, false, false);
       NodeId Statement = fC->Sibling(Loop_variables);
       VectorOfany* forev = compileStmt(component, fC, Statement, compileDesign,
                                        for_each, instance);
@@ -439,6 +439,12 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         for_each->Variable((variables*)var);
       }
       if (loop_var) {
+        variables* lvar = (variables*)loop_var;
+        if (const typespec* ts = lvar->Typespec()) {
+          if (ts->UhdmType() == uhdmunsupported_typespec) {
+            lvar->Typespec(s.MakeInt_typespec());
+          }
+        }
         loop_var->VpiParent(for_each);
         VectorOfany* loop_vars = s.MakeAnyVec();
         loop_vars->push_back(loop_var);

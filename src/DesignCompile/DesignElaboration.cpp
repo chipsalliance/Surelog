@@ -85,6 +85,7 @@ bool DesignElaboration::elaborate() {
   elaborateAllModules_(true);
   elaborateAllModules_(false);
   reduceUnnamedBlocks_();
+  bindTypedefsPostElab_();
   checkElaboration_();
   reportElaboration_();
   createFileList_();
