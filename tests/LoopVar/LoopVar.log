@@ -129,16 +129,16 @@ design: (work@dut)
         \_ref_var: (work@dut.array), line:5:17, endln:5:22
           |vpiParent:
           \_foreach_stmt: (work@dut), line:5:9, endln:5:16
+          |vpiTypespec:
+          \_array_typespec: 
           |vpiName:array
           |vpiFullName:work@dut.array
         |vpiLoopVars:
-        \_ref_var: (work@dut.i), line:5:23, endln:5:24
-          |vpiParent:
-          \_foreach_stmt: (work@dut), line:5:9, endln:5:16
+        \_int_var: (i), line:5:23, endln:5:24
           |vpiTypespec:
-          \_int_typespec: 
+          \_int_typespec: , line:2:5, endln:2:8
+            |vpiSigned:1
           |vpiName:i
-          |vpiFullName:work@dut.i
         |vpiStmt:
         \_assignment: , line:6:13, endln:6:25
           |vpiParent:
@@ -152,7 +152,7 @@ design: (work@dut)
             |vpiName:i
             |vpiFullName:work@dut.i
             |vpiActual:
-            \_logic_net: (i)
+            \_int_var: (i), line:5:23, endln:5:24
           |vpiLhs:
           \_bit_select: (work@dut.array), line:6:13, endln:6:21
             |vpiParent:
@@ -170,7 +170,7 @@ design: (work@dut)
               |vpiName:i
               |vpiFullName:work@dut.i
               |vpiActual:
-              \_logic_net: (i)
+              \_int_var: (i), line:5:23, endln:5:24
 |uhdmtopModules:
 \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:9:10
   |vpiName:work@dut
@@ -179,6 +179,8 @@ design: (work@dut)
     |vpiParent:
     \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:9:10
     |vpiSize:16
+    |vpiTypespec:
+    \_array_typespec: 
     |vpiName:array
     |vpiFullName:work@dut.array
     |vpiRandType:1
@@ -220,10 +222,6 @@ design: (work@dut)
       |vpiFullName:work@dut.array
   |vpiDefName:work@dut
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (i)
-    |vpiName:i
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiProcess:
   \_initial: , line:4:5, endln:7:8
@@ -243,20 +241,20 @@ design: (work@dut)
         \_ref_var: (work@dut.array), line:5:17, endln:5:22
           |vpiParent:
           \_foreach_stmt: (work@dut), line:5:9, endln:5:16
+          |vpiTypespec:
+          \_array_typespec: 
           |vpiName:array
           |vpiFullName:work@dut.array
           |vpiActual:
           \_array_var: (work@dut.array), line:2:9, endln:2:18
         |vpiLoopVars:
-        \_ref_var: (work@dut.i), line:5:23, endln:5:24
+        \_int_var: (work@dut.i), line:5:23, endln:5:24
           |vpiParent:
           \_foreach_stmt: (work@dut), line:5:9, endln:5:16
           |vpiTypespec:
-          \_int_typespec: 
+          \_int_typespec: , line:2:5, endln:2:8
           |vpiName:i
           |vpiFullName:work@dut.i
-          |vpiActual:
-          \_logic_net: (i)
         |vpiStmt:
         \_assignment: , line:6:13, endln:6:25
           |vpiParent:
@@ -270,7 +268,7 @@ design: (work@dut)
             |vpiName:i
             |vpiFullName:work@dut.i
             |vpiActual:
-            \_logic_net: (i)
+            \_int_var: (i), line:5:23, endln:5:24
           |vpiLhs:
           \_bit_select: (work@dut.array), line:6:13, endln:6:21
             |vpiParent:
@@ -290,7 +288,7 @@ design: (work@dut)
               |vpiName:i
               |vpiFullName:work@dut.array.i
               |vpiActual:
-              \_logic_net: (i)
+              \_int_var: (i), line:5:23, endln:5:24
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -299,5 +297,5 @@ design: (work@dut)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/LoopVar/dut.sv | ${SURELOG_DIR}/build/regression/LoopVar/roundtrip/dut_000.sv | 2 | 9 | 
+[roundtrip]: ${SURELOG_DIR}/tests/LoopVar/dut.sv | ${SURELOG_DIR}/build/regression/LoopVar/roundtrip/dut_000.sv | 3 | 9 | 
 

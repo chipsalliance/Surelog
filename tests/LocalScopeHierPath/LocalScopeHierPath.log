@@ -245,6 +245,8 @@ design: (unnamed)
       |vpiParent:
       \_class_defn: (pack::uvm_hdl_path_concat), file:dut.sv, line:7:1, endln:9:9
       |vpiSize:1
+      |vpiTypespec:
+      \_array_typespec: 
       |vpiName:slices
       |vpiFullName:pack::uvm_hdl_path_concat::slices
       |vpiAutomatic:1
@@ -274,6 +276,8 @@ design: (unnamed)
       \_array_var: (pack::uvm_mem_mam::check_reg::paths)
         |vpiParent:
         \_function: (pack::uvm_mem_mam::check_reg), line:13:1, endln:13:10
+        |vpiTypespec:
+        \_array_typespec: 
         |vpiName:paths
         |vpiFullName:pack::uvm_mem_mam::check_reg::paths
         |vpiRange:
@@ -319,6 +323,8 @@ design: (unnamed)
         \_array_var: (pack::uvm_mem_mam::check_reg::paths)
           |vpiParent:
           \_begin: (pack::uvm_mem_mam::check_reg)
+          |vpiTypespec:
+          \_array_typespec: 
           |vpiName:paths
           |vpiFullName:pack::uvm_mem_mam::check_reg::paths
           |vpiRange:
@@ -354,6 +360,8 @@ design: (unnamed)
             \_array_var: (pack::uvm_mem_mam::check_reg::paths)
               |vpiParent:
               \_assign_stmt: , line:14:23, endln:14:31
+              |vpiTypespec:
+              \_array_typespec: 
               |vpiName:paths
               |vpiFullName:pack::uvm_mem_mam::check_reg::paths
               |vpiRange:
@@ -371,7 +379,8 @@ design: (unnamed)
             |vpiParent:
             \_foreach_stmt: (pack::uvm_mem_mam::check_reg), line:16:3, endln:16:10
             |vpiTypespec:
-            \_int_typespec: 
+            \_unsupported_typespec: (p), line:16:17, endln:16:18
+              |vpiName:p
             |vpiName:p
             |vpiFullName:pack::uvm_mem_mam::check_reg::p
           |vpiStmt:
@@ -427,28 +436,33 @@ design: (unnamed)
               \_begin: (pack::uvm_mem_mam::check_reg), line:16:21, endln:21:6
               |vpiFullName:pack::uvm_mem_mam::check_reg
               |vpiVariables:
-              \_ref_var: (pack::uvm_mem_mam::check_reg::path), line:18:14, endln:18:18
+              \_hier_path: (path.slices)
                 |vpiParent:
                 \_foreach_stmt: (pack::uvm_mem_mam::check_reg), line:18:5, endln:18:12
-                |vpiTypespec:
-                \_unsupported_typespec: (path), line:18:14, endln:18:18
-                  |vpiName:path
-                |vpiName:path
-                |vpiFullName:pack::uvm_mem_mam::check_reg::path
+                |vpiFullName:path.slices
                 |vpiActual:
-                \_class_var: (pack::uvm_mem_mam::check_reg::path), line:17:25, endln:17:29
+                \_ref_obj: (pack::uvm_mem_mam::check_reg::path)
                   |vpiParent:
-                  \_assign_stmt: , line:17:25, endln:17:38
-                  |vpiTypespec:
-                  \_class_typespec: 
+                  \_hier_path: (path.slices)
                   |vpiName:path
                   |vpiFullName:pack::uvm_mem_mam::check_reg::path
+                  |vpiActual:
+                  \_class_var: (pack::uvm_mem_mam::check_reg::path), line:17:25, endln:17:29
+                |vpiActual:
+                \_ref_obj: (pack::uvm_mem_mam::check_reg::slices)
+                  |vpiParent:
+                  \_hier_path: (path.slices)
+                  |vpiName:slices
+                  |vpiFullName:pack::uvm_mem_mam::check_reg::slices
+                  |vpiActual:
+                  \_array_var: (pack::uvm_hdl_path_concat::slices), line:8:23, endln:8:29
               |vpiLoopVars:
               \_ref_var: (pack::uvm_mem_mam::check_reg::j), line:18:26, endln:18:27
                 |vpiParent:
                 \_foreach_stmt: (pack::uvm_mem_mam::check_reg), line:18:5, endln:18:12
                 |vpiTypespec:
-                \_int_typespec: 
+                \_unsupported_typespec: (j), line:18:26, endln:18:27
+                  |vpiName:j
                 |vpiName:j
                 |vpiFullName:pack::uvm_mem_mam::check_reg::j
               |vpiStmt:

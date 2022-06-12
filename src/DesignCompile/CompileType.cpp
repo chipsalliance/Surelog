@@ -168,6 +168,7 @@ variables* CompileHelper::getSimpleVarFromTypespec(
     }
     case uhdmarray_typespec: {
       UHDM::array_var* array = s.MakeArray_var();
+      array->Typespec(s.MakeArray_typespec());
       var = array;
       break;
     }
@@ -208,6 +209,28 @@ UHDM::any* CompileHelper::compileVariable(
       Packed_dimension = variable;
     }
   }
+
+  if (fC->Type(variable) == slStringConst &&
+      fC->Type(Packed_dimension) == slStringConst) {
+    UHDM::hier_path* path = s.MakeHier_path();
+    VectorOfany* elems = s.MakeAnyVec();
+    path->Path_elems(elems);
+    std::string fullName = fC->SymName(variable);
+    ref_obj* obj = s.MakeRef_obj();
+    obj->VpiName(fullName);
+    elems->push_back(obj);
+    while (fC->Type(Packed_dimension) == slStringConst) {
+      ref_obj* obj = s.MakeRef_obj();
+      const std::string& name = fC->SymName(Packed_dimension);
+      fullName += "." + name;
+      obj->VpiName(name);
+      elems->push_back(obj);
+      Packed_dimension = fC->Sibling(Packed_dimension);
+    }
+    path->VpiFullName(fullName);
+    return path;
+  }
+
   int size;
   VectorOfrange* ranges =
       compileRanges(component, fC, Packed_dimension, compileDesign, pstmt,

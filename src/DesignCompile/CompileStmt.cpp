@@ -440,9 +440,14 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       }
       if (loop_var) {
         variables* lvar = (variables*)loop_var;
-        if (const typespec* ts = lvar->Typespec()) {
-          if (ts->UhdmType() == uhdmunsupported_typespec) {
-            lvar->Typespec(s.MakeInt_typespec());
+        if (lvar->UhdmType() == uhdmref_var) {
+          ref_var* refv = (ref_var*)lvar;
+          if (refv->Actual_group() == nullptr) {
+            if (const typespec* ts = lvar->Typespec()) {
+              if (ts->UhdmType() == uhdmunsupported_typespec) {
+                component->needLateTypedefBinding(refv);
+              }
+            }
           }
         }
         loop_var->VpiParent(for_each);
@@ -960,6 +965,7 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
 
           if (unpackedDimensions) {
             array_var* arr = s.MakeArray_var();
+            arr->Typespec(s.MakeArray_typespec());
             arr->VpiName(fC->SymName(Var));
             var->VpiName("");
             arr->Ranges(unpackedDimensions);
