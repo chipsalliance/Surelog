@@ -6747,6 +6747,8 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:UH0707] Elaborating UHDM...
 
+[ERR:UH0725]  Unresolved hierarchical reference "".
+
 [INF:UH0708] Writing UHDM DB: ../../build/regression/DollarRoot/slpp_all/surelog.uhdm ...
 
 [INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/DollarRoot/slpp_all/surelog.uhdm.chk.html ...
@@ -13277,13 +13279,18 @@ design: (work@top)
               |vpiName:write_command_queue_slave
               |vpiFullName:work@test_program.get_expected_command_for_slave.write_command_queue_slave
             |vpiLoopVars:
-            \_ref_var: (work@test_program.get_expected_command_for_slave.slave_id), line:691:45, endln:691:53
+            \_hier_path: (slave_id.i)
               |vpiParent:
               \_foreach_stmt: (work@test_program.get_expected_command_for_slave), line:691:10, endln:691:17
-              |vpiTypespec:
-              \_int_typespec: 
-              |vpiName:slave_id
-              |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
+              |vpiFullName:slave_id.i
+              |vpiActual:
+              \_ref_obj: (slave_id)
+                |vpiName:slave_id
+                |vpiActual:
+                \_io_decl: (slave_id), line:684:15, endln:684:23
+              |vpiActual:
+              \_ref_obj: (i)
+                |vpiName:i
             |vpiStmt:
             \_begin: (work@test_program.get_expected_command_for_slave), line:691:58, endln:698:13
               |vpiParent:
@@ -13530,13 +13537,18 @@ design: (work@top)
               |vpiName:read_command_queue_slave
               |vpiFullName:work@test_program.get_expected_command_for_slave.read_command_queue_slave
             |vpiLoopVars:
-            \_ref_var: (work@test_program.get_expected_command_for_slave.slave_id), line:703:44, endln:703:52
+            \_hier_path: (slave_id.i)
               |vpiParent:
               \_foreach_stmt: (work@test_program.get_expected_command_for_slave), line:703:10, endln:703:17
-              |vpiTypespec:
-              \_int_typespec: 
-              |vpiName:slave_id
-              |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
+              |vpiFullName:slave_id.i
+              |vpiActual:
+              \_ref_obj: (slave_id)
+                |vpiName:slave_id
+                |vpiActual:
+                \_io_decl: (slave_id), line:684:15, endln:684:23
+              |vpiActual:
+              \_ref_obj: (i)
+                |vpiName:i
             |vpiStmt:
             \_begin: (work@test_program.get_expected_command_for_slave), line:703:57, endln:710:13
               |vpiParent:
@@ -22662,15 +22674,26 @@ design: (work@top)
               |vpiActual:
               \_array_var: (work@test_program.write_command_queue_slave), line:71:10, endln:71:38
             |vpiLoopVars:
-            \_ref_var: (work@test_program.get_expected_command_for_slave.slave_id), line:691:45, endln:691:53
+            \_hier_path: (slave_id.i)
               |vpiParent:
               \_foreach_stmt: (work@test_program.get_expected_command_for_slave), line:691:10, endln:691:17
-              |vpiTypespec:
-              \_int_typespec: 
-              |vpiName:slave_id
-              |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
+              |vpiFullName:slave_id.i
               |vpiActual:
-              \_io_decl: (slave_id), line:684:15, endln:684:23
+              \_ref_obj: (work@test_program.get_expected_command_for_slave.slave_id)
+                |vpiParent:
+                \_hier_path: (slave_id.i)
+                |vpiName:slave_id
+                |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
+                |vpiActual:
+                \_io_decl: (slave_id), line:684:15, endln:684:23
+              |vpiActual:
+              \_ref_obj: (work@test_program.get_expected_command_for_slave.i)
+                |vpiParent:
+                \_hier_path: (slave_id.i)
+                |vpiName:i
+                |vpiFullName:work@test_program.get_expected_command_for_slave.i
+                |vpiActual:
+                \_logic_net: (i)
             |vpiStmt:
             \_begin: (work@test_program.get_expected_command_for_slave), line:691:58, endln:698:13
               |vpiParent:
@@ -22891,15 +22914,26 @@ design: (work@top)
               |vpiActual:
               \_array_var: (work@test_program.read_command_queue_slave), line:72:10, endln:72:37
             |vpiLoopVars:
-            \_ref_var: (work@test_program.get_expected_command_for_slave.slave_id), line:703:44, endln:703:52
+            \_hier_path: (slave_id.i)
               |vpiParent:
               \_foreach_stmt: (work@test_program.get_expected_command_for_slave), line:703:10, endln:703:17
-              |vpiTypespec:
-              \_int_typespec: 
-              |vpiName:slave_id
-              |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
+              |vpiFullName:slave_id.i
               |vpiActual:
-              \_io_decl: (slave_id), line:684:15, endln:684:23
+              \_ref_obj: (work@test_program.get_expected_command_for_slave.slave_id)
+                |vpiParent:
+                \_hier_path: (slave_id.i)
+                |vpiName:slave_id
+                |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
+                |vpiActual:
+                \_io_decl: (slave_id), line:684:15, endln:684:23
+              |vpiActual:
+              \_ref_obj: (work@test_program.get_expected_command_for_slave.i)
+                |vpiParent:
+                \_hier_path: (slave_id.i)
+                |vpiName:i
+                |vpiFullName:work@test_program.get_expected_command_for_slave.i
+                |vpiActual:
+                \_logic_net: (i)
             |vpiStmt:
             \_begin: (work@test_program.get_expected_command_for_slave), line:703:57, endln:710:13
               |vpiParent:
@@ -25956,7 +25990,7 @@ design: (work@top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 4
+[  ERROR] : 5
 [WARNING] : 3
 [   NOTE] : 8
 

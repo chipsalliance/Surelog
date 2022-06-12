@@ -1443,6 +1443,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
         var = avar;
       } else if (ttps == uhdmarray_typespec) {
         array_var* array_var = s.MakeArray_var();
+        array_var->Typespec(s.MakeArray_typespec());
         array_var->VpiArrayType(vpiStaticArray);
         array_var->VpiRandType(vpiNotRand);
         var = array_var;
@@ -1841,6 +1842,9 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       VectorOfvariables* array_vars = array_var->Variables();
       array_vars->push_back((variables*)obj);
       ((variables*)obj)->VpiName("");
+    }
+    if (array_var->Typespec() == nullptr) {
+      array_var->Typespec(s.MakeArray_typespec());
     }
     array_var->Expr(assignExp);
     obj->VpiFile(fC->getFileName());

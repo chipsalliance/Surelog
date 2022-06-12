@@ -723,9 +723,10 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
       ErrorContainer *errors =
           compileDesign->getCompiler()->getErrorContainer();
       SymbolTable *symbols = compileDesign->getCompiler()->getSymbolTable();
-      std::string fileContent = FileUtils::getFileContent(fileName);
-      std::string_view lineText =
-          StringUtils::getLineInString(fileContent, lineNumber);
+      // std::string fileContent = FileUtils::getFileContent(fileName);
+      // std::string_view lineText =
+      //     StringUtils::getLineInString(fileContent, lineNumber);
+      std::string_view lineText = path->VpiFullName();
       Location loc(symbols->registerSymbol(fileName.string()), lineNumber, 0,
                    symbols->registerSymbol(lineText));
       Error err(ErrorDefinition::UHDM_UNRESOLVED_HIER_PATH, loc);
@@ -2632,6 +2633,7 @@ UHDM::any *CompileHelper::compileExpression(
         }
         case VObjectType::slEmpty_queue: {
           UHDM::array_var *var = s.MakeArray_var();
+          var->Typespec(s.MakeArray_typespec());
           var->VpiArrayType(vpiQueueArray);
           result = var;
           break;
