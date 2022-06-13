@@ -81,8 +81,6 @@ n<> u<56> t<Top_level_rule> c<1> l<1:1> el<13:1>
 
 [INF:UH0707] Elaborating UHDM...
 
-[ERR:UH0725]  Unresolved hierarchical reference "".
-
 [INF:UH0708] Writing UHDM DB: ../../build/regression/ForeachFunction/slpp_all/surelog.uhdm ...
 
 [INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ForeachFunction/slpp_all/surelog.uhdm.chk.html ...
@@ -185,18 +183,18 @@ design: (work@dut)
           |vpiName:write_command_queue_slave
           |vpiFullName:work@dut.get_expected_command.write_command_queue_slave
         |vpiLoopVars:
-        \_hier_path: (slave_id.i)
+        \_ref_var: (work@dut.get_expected_command.slave_id), line:6:41, endln:6:49
           |vpiParent:
           \_foreach_stmt: (work@dut.get_expected_command), line:6:6, endln:6:13
-          |vpiFullName:slave_id.i
-          |vpiActual:
-          \_ref_obj: (slave_id)
-            |vpiName:slave_id
-            |vpiActual:
-            \_io_decl: (slave_id), line:3:52, endln:3:60
-          |vpiActual:
-          \_ref_obj: (i)
-            |vpiName:i
+          |vpiTypespec:
+          \_int_typespec: , line:3:48, endln:3:51
+          |vpiName:slave_id
+          |vpiFullName:work@dut.get_expected_command.slave_id
+        |vpiLoopVars:
+        \_array_var: (i), line:6:50, endln:6:51
+          |vpiTypespec:
+          \_array_typespec: 
+          |vpiName:i
         |vpiStmt:
         \_begin: (work@dut.get_expected_command), line:6:54, endln:7:9
           |vpiParent:
@@ -312,24 +310,23 @@ design: (work@dut)
           |vpiActual:
           \_array_var: (work@dut.get_expected_command.write_command_queue_slave)
         |vpiLoopVars:
-        \_hier_path: (slave_id.i)
+        \_ref_var: (work@dut.get_expected_command.slave_id), line:6:41, endln:6:49
           |vpiParent:
           \_foreach_stmt: (work@dut.get_expected_command), line:6:6, endln:6:13
-          |vpiFullName:slave_id.i
+          |vpiTypespec:
+          \_int_typespec: , line:3:48, endln:3:51
+          |vpiName:slave_id
+          |vpiFullName:work@dut.get_expected_command.slave_id
           |vpiActual:
-          \_ref_obj: (work@dut.get_expected_command.slave_id)
-            |vpiParent:
-            \_hier_path: (slave_id.i)
-            |vpiName:slave_id
-            |vpiFullName:work@dut.get_expected_command.slave_id
-            |vpiActual:
-            \_io_decl: (slave_id), line:3:52, endln:3:60
-          |vpiActual:
-          \_ref_obj: (work@dut.get_expected_command.i)
-            |vpiParent:
-            \_hier_path: (slave_id.i)
-            |vpiName:i
-            |vpiFullName:work@dut.get_expected_command.i
+          \_io_decl: (slave_id), line:3:52, endln:3:60
+        |vpiLoopVars:
+        \_array_var: (work@dut.get_expected_command.i), line:6:50, endln:6:51
+          |vpiParent:
+          \_foreach_stmt: (work@dut.get_expected_command), line:6:6, endln:6:13
+          |vpiTypespec:
+          \_array_typespec: 
+          |vpiName:i
+          |vpiFullName:work@dut.get_expected_command.i
         |vpiStmt:
         \_begin: (work@dut.get_expected_command), line:6:54, endln:7:9
           |vpiParent:
@@ -341,7 +338,7 @@ design: (work@dut)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
 

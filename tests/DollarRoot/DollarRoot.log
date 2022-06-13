@@ -6747,8 +6747,6 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:UH0707] Elaborating UHDM...
 
-[ERR:UH0725]  Unresolved hierarchical reference "".
-
 [INF:UH0708] Writing UHDM DB: ../../build/regression/DollarRoot/slpp_all/surelog.uhdm ...
 
 [INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/DollarRoot/slpp_all/surelog.uhdm.chk.html ...
@@ -13279,18 +13277,18 @@ design: (work@top)
               |vpiName:write_command_queue_slave
               |vpiFullName:work@test_program.get_expected_command_for_slave.write_command_queue_slave
             |vpiLoopVars:
-            \_hier_path: (slave_id.i)
+            \_ref_var: (work@test_program.get_expected_command_for_slave.slave_id), line:691:45, endln:691:53
               |vpiParent:
               \_foreach_stmt: (work@test_program.get_expected_command_for_slave), line:691:10, endln:691:17
-              |vpiFullName:slave_id.i
-              |vpiActual:
-              \_ref_obj: (slave_id)
-                |vpiName:slave_id
-                |vpiActual:
-                \_io_decl: (slave_id), line:684:15, endln:684:23
-              |vpiActual:
-              \_ref_obj: (i)
-                |vpiName:i
+              |vpiTypespec:
+              \_int_typespec: , line:684:7, endln:684:10
+              |vpiName:slave_id
+              |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
+            |vpiLoopVars:
+            \_int_var: (i), line:691:54, endln:691:55
+              |vpiTypespec:
+              \_int_typespec: 
+              |vpiName:i
             |vpiStmt:
             \_begin: (work@test_program.get_expected_command_for_slave), line:691:58, endln:698:13
               |vpiParent:
@@ -13323,7 +13321,7 @@ design: (work@top)
                     |vpiName:i
                     |vpiFullName:work@test_program.get_expected_command_for_slave.i
                     |vpiActual:
-                    \_logic_net: (i)
+                    \_int_var: (i), line:691:54, endln:691:55
                 |vpiLhs:
                 \_ref_obj: (work@test_program.get_expected_command_for_slave.exp_cmd), line:692:13, endln:692:20
                   |vpiParent:
@@ -13387,7 +13385,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.get_expected_command_for_slave.i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (i), line:691:54, endln:691:55
                     |vpiName:delete
                     |vpiPrefix:
                     \_ref_obj: (write_command_queue_slave), line:694:16, endln:694:41
@@ -13537,18 +13535,18 @@ design: (work@top)
               |vpiName:read_command_queue_slave
               |vpiFullName:work@test_program.get_expected_command_for_slave.read_command_queue_slave
             |vpiLoopVars:
-            \_hier_path: (slave_id.i)
+            \_ref_var: (work@test_program.get_expected_command_for_slave.slave_id), line:703:44, endln:703:52
               |vpiParent:
               \_foreach_stmt: (work@test_program.get_expected_command_for_slave), line:703:10, endln:703:17
-              |vpiFullName:slave_id.i
-              |vpiActual:
-              \_ref_obj: (slave_id)
-                |vpiName:slave_id
-                |vpiActual:
-                \_io_decl: (slave_id), line:684:15, endln:684:23
-              |vpiActual:
-              \_ref_obj: (i)
-                |vpiName:i
+              |vpiTypespec:
+              \_int_typespec: , line:684:7, endln:684:10
+              |vpiName:slave_id
+              |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
+            |vpiLoopVars:
+            \_int_var: (i), line:703:53, endln:703:54
+              |vpiTypespec:
+              \_int_typespec: 
+              |vpiName:i
             |vpiStmt:
             \_begin: (work@test_program.get_expected_command_for_slave), line:703:57, endln:710:13
               |vpiParent:
@@ -13581,7 +13579,7 @@ design: (work@top)
                     |vpiName:i
                     |vpiFullName:work@test_program.get_expected_command_for_slave.i
                     |vpiActual:
-                    \_logic_net: (i)
+                    \_int_var: (i), line:703:53, endln:703:54
                 |vpiLhs:
                 \_ref_obj: (work@test_program.get_expected_command_for_slave.exp_cmd), line:704:13, endln:704:20
                   |vpiParent:
@@ -13645,7 +13643,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.get_expected_command_for_slave.i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (i), line:703:53, endln:703:54
                     |vpiName:delete
                     |vpiPrefix:
                     \_ref_obj: (read_command_queue_slave), line:706:16, endln:706:40
@@ -17527,7 +17525,7 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.configure_and_push_command_to_master_0.i
                 |vpiActual:
-                \_logic_net: (i)
+                \_int_var: (work@test_program.configure_and_push_command_to_master_0.i), line:234:19, endln:234:20
             |vpiCondition:
             \_operation: , line:234:26, endln:234:44
               |vpiParent:
@@ -17540,7 +17538,7 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.configure_and_push_command_to_master_0.i
                 |vpiActual:
-                \_logic_net: (i)
+                \_int_var: (work@test_program.configure_and_push_command_to_master_0.i), line:234:19, endln:234:20
               |vpiOperand:
               \_hier_path: (cmd.burstcount), line:234:30, endln:234:44
                 |vpiParent:
@@ -17599,7 +17597,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.configure_and_push_command_to_master_0.data[i].i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.configure_and_push_command_to_master_0.i), line:234:19, endln:234:20
                 |vpiArgument:
                 \_ref_obj: (work@test_program.configure_and_push_command_to_master_0.i), line:235:65, endln:235:66
                   |vpiParent:
@@ -17607,7 +17605,7 @@ design: (work@top)
                   |vpiName:i
                   |vpiFullName:work@test_program.configure_and_push_command_to_master_0.i
                   |vpiActual:
-                  \_logic_net: (i)
+                  \_int_var: (work@test_program.configure_and_push_command_to_master_0.i), line:234:19, endln:234:20
                 |vpiName:$root.tb.dut.master_0.set_command_data
               |vpiStmt:
               \_func_call: ($root.tb.dut.master_0.set_command_byte_enable), line:236:13, endln:236:80
@@ -17643,7 +17641,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.configure_and_push_command_to_master_0.byteenable[i].i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.configure_and_push_command_to_master_0.i), line:234:19, endln:234:20
                 |vpiArgument:
                 \_ref_obj: (work@test_program.configure_and_push_command_to_master_0.i), line:236:78, endln:236:79
                   |vpiParent:
@@ -17651,7 +17649,7 @@ design: (work@top)
                   |vpiName:i
                   |vpiFullName:work@test_program.configure_and_push_command_to_master_0.i
                   |vpiActual:
-                  \_logic_net: (i)
+                  \_int_var: (work@test_program.configure_and_push_command_to_master_0.i), line:234:19, endln:234:20
                 |vpiName:$root.tb.dut.master_0.set_command_byte_enable
               |vpiStmt:
               \_func_call: ($root.tb.dut.master_0.set_command_idle), line:237:13, endln:237:73
@@ -17687,7 +17685,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.configure_and_push_command_to_master_0.data_idles[i].i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.configure_and_push_command_to_master_0.i), line:234:19, endln:234:20
                 |vpiArgument:
                 \_ref_obj: (work@test_program.configure_and_push_command_to_master_0.i), line:237:71, endln:237:72
                   |vpiParent:
@@ -17695,7 +17693,7 @@ design: (work@top)
                   |vpiName:i
                   |vpiFullName:work@test_program.configure_and_push_command_to_master_0.i
                   |vpiActual:
-                  \_logic_net: (i)
+                  \_int_var: (work@test_program.configure_and_push_command_to_master_0.i), line:234:19, endln:234:20
                 |vpiName:$root.tb.dut.master_0.set_command_idle
         |vpiElseStmt:
         \_begin: (work@test_program.configure_and_push_command_to_master_0), line:239:16, endln:242:10
@@ -17880,7 +17878,7 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@test_program.get_read_response_from_master_0.i
             |vpiActual:
-            \_logic_net: (i)
+            \_int_var: (work@test_program.get_read_response_from_master_0.i), line:272:16, endln:272:17
         |vpiCondition:
         \_operation: , line:272:23, endln:272:41
           |vpiParent:
@@ -17893,7 +17891,7 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@test_program.get_read_response_from_master_0.i
             |vpiActual:
-            \_logic_net: (i)
+            \_int_var: (work@test_program.get_read_response_from_master_0.i), line:272:16, endln:272:17
           |vpiOperand:
           \_hier_path: (rsp.burstcount), line:272:27, endln:272:41
             |vpiParent:
@@ -17986,7 +17984,7 @@ design: (work@top)
                   |vpiName:i
                   |vpiFullName:work@test_program.get_read_response_from_master_0.rsp.data.i
                   |vpiActual:
-                  \_logic_net: (i)
+                  \_int_var: (work@test_program.get_read_response_from_master_0.i), line:272:16, endln:272:17
       |vpiStmt:
       \_return_stmt: , line:276:7, endln:276:13
         |vpiParent:
@@ -18269,7 +18267,7 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.get_command_from_slave_0.i
                 |vpiActual:
-                \_logic_net: (i)
+                \_int_var: (work@test_program.get_command_from_slave_0.i), line:319:18, endln:319:19
             |vpiCondition:
             \_operation: , line:319:25, endln:319:43
               |vpiParent:
@@ -18282,7 +18280,7 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.get_command_from_slave_0.i
                 |vpiActual:
-                \_logic_net: (i)
+                \_int_var: (work@test_program.get_command_from_slave_0.i), line:319:18, endln:319:19
               |vpiOperand:
               \_hier_path: (cmd.burstcount), line:319:29, endln:319:43
                 |vpiParent:
@@ -18375,7 +18373,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.get_command_from_slave_0.cmd.data.i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.get_command_from_slave_0.i), line:319:18, endln:319:19
               |vpiStmt:
               \_assignment: , line:321:13, endln:321:79
                 |vpiParent:
@@ -18444,7 +18442,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.get_command_from_slave_0.cmd.byteenable.i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.get_command_from_slave_0.i), line:319:18, endln:319:19
         |vpiElseStmt:
         \_begin: (work@test_program.get_command_from_slave_0), line:323:16, endln:325:10
           |vpiParent:
@@ -18607,7 +18605,7 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@test_program.configure_and_push_response_to_slave_0.i
             |vpiActual:
-            \_logic_net: (i)
+            \_int_var: (work@test_program.configure_and_push_response_to_slave_0.i), line:348:16, endln:348:17
         |vpiCondition:
         \_operation: , line:348:23, endln:348:41
           |vpiParent:
@@ -18620,7 +18618,7 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@test_program.configure_and_push_response_to_slave_0.i
             |vpiActual:
-            \_logic_net: (i)
+            \_int_var: (work@test_program.configure_and_push_response_to_slave_0.i), line:348:16, endln:348:17
           |vpiOperand:
           \_hier_path: (rsp.burstcount), line:348:27, endln:348:41
             |vpiParent:
@@ -18679,7 +18677,7 @@ design: (work@top)
                   |vpiName:i
                   |vpiFullName:work@test_program.configure_and_push_response_to_slave_0.data[i].i
                   |vpiActual:
-                  \_logic_net: (i)
+                  \_int_var: (work@test_program.configure_and_push_response_to_slave_0.i), line:348:16, endln:348:17
             |vpiArgument:
             \_ref_obj: (work@test_program.configure_and_push_response_to_slave_0.i), line:349:62, endln:349:63
               |vpiParent:
@@ -18687,7 +18685,7 @@ design: (work@top)
               |vpiName:i
               |vpiFullName:work@test_program.configure_and_push_response_to_slave_0.i
               |vpiActual:
-              \_logic_net: (i)
+              \_int_var: (work@test_program.configure_and_push_response_to_slave_0.i), line:348:16, endln:348:17
             |vpiName:$root.tb.dut.slave_0.set_response_data
           |vpiStmt:
           \_if_else: , line:351:10, endln:357:13
@@ -18705,7 +18703,7 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.configure_and_push_response_to_slave_0.i
                 |vpiActual:
-                \_logic_net: (i)
+                \_int_var: (work@test_program.configure_and_push_response_to_slave_0.i), line:348:16, endln:348:17
               |vpiOperand:
               \_constant: , line:351:19, endln:351:20
             |vpiStmt:
@@ -18752,7 +18750,7 @@ design: (work@top)
                         |vpiName:i
                         |vpiFullName:work@test_program.configure_and_push_response_to_slave_0.latency[i].i
                         |vpiActual:
-                        \_logic_net: (i)
+                        \_int_var: (work@test_program.configure_and_push_response_to_slave_0.i), line:348:16, endln:348:17
                   |vpiOperand:
                   \_ref_obj: (work@test_program.configure_and_push_response_to_slave_0.pending_read_cycles_slave_0), line:352:72, endln:352:99
                     |vpiParent:
@@ -18768,7 +18766,7 @@ design: (work@top)
                   |vpiName:i
                   |vpiFullName:work@test_program.configure_and_push_response_to_slave_0.i
                   |vpiActual:
-                  \_logic_net: (i)
+                  \_int_var: (work@test_program.configure_and_push_response_to_slave_0.i), line:348:16, endln:348:17
                 |vpiName:$root.tb.dut.slave_0.set_response_latency
               |vpiStmt:
               \_assignment: , line:353:13, endln:353:51
@@ -18806,7 +18804,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.configure_and_push_response_to_slave_0.latency[i].i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.configure_and_push_response_to_slave_0.i), line:348:16, endln:348:17
                 |vpiLhs:
                 \_ref_obj: (work@test_program.configure_and_push_response_to_slave_0.read_response_latency), line:353:13, endln:353:34
                   |vpiParent:
@@ -18854,7 +18852,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.configure_and_push_response_to_slave_0.latency[i].i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.configure_and_push_response_to_slave_0.i), line:348:16, endln:348:17
                 |vpiArgument:
                 \_ref_obj: (work@test_program.configure_and_push_response_to_slave_0.i), line:355:71, endln:355:72
                   |vpiParent:
@@ -18862,7 +18860,7 @@ design: (work@top)
                   |vpiName:i
                   |vpiFullName:work@test_program.configure_and_push_response_to_slave_0.i
                   |vpiActual:
-                  \_logic_net: (i)
+                  \_int_var: (work@test_program.configure_and_push_response_to_slave_0.i), line:348:16, endln:348:17
                 |vpiName:$root.tb.dut.slave_0.set_response_latency
               |vpiStmt:
               \_assignment: , line:356:13, endln:356:75
@@ -18905,7 +18903,7 @@ design: (work@top)
                         |vpiName:i
                         |vpiFullName:work@test_program.configure_and_push_response_to_slave_0.latency[i].i
                         |vpiActual:
-                        \_logic_net: (i)
+                        \_int_var: (work@test_program.configure_and_push_response_to_slave_0.i), line:348:16, endln:348:17
                   |vpiOperand:
                   \_ref_obj: (work@test_program.configure_and_push_response_to_slave_0.read_response_latency), line:356:54, endln:356:75
                     |vpiParent:
@@ -19200,7 +19198,7 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.configure_and_push_command_to_master_1.i
                 |vpiActual:
-                \_logic_net: (i)
+                \_int_var: (work@test_program.configure_and_push_command_to_master_1.i), line:377:19, endln:377:20
             |vpiCondition:
             \_operation: , line:377:26, endln:377:44
               |vpiParent:
@@ -19213,7 +19211,7 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.configure_and_push_command_to_master_1.i
                 |vpiActual:
-                \_logic_net: (i)
+                \_int_var: (work@test_program.configure_and_push_command_to_master_1.i), line:377:19, endln:377:20
               |vpiOperand:
               \_hier_path: (cmd.burstcount), line:377:30, endln:377:44
                 |vpiParent:
@@ -19272,7 +19270,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.configure_and_push_command_to_master_1.data[i].i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.configure_and_push_command_to_master_1.i), line:377:19, endln:377:20
                 |vpiArgument:
                 \_ref_obj: (work@test_program.configure_and_push_command_to_master_1.i), line:378:65, endln:378:66
                   |vpiParent:
@@ -19280,7 +19278,7 @@ design: (work@top)
                   |vpiName:i
                   |vpiFullName:work@test_program.configure_and_push_command_to_master_1.i
                   |vpiActual:
-                  \_logic_net: (i)
+                  \_int_var: (work@test_program.configure_and_push_command_to_master_1.i), line:377:19, endln:377:20
                 |vpiName:$root.tb.dut.master_1.set_command_data
               |vpiStmt:
               \_func_call: ($root.tb.dut.master_1.set_command_byte_enable), line:379:13, endln:379:80
@@ -19316,7 +19314,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.configure_and_push_command_to_master_1.byteenable[i].i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.configure_and_push_command_to_master_1.i), line:377:19, endln:377:20
                 |vpiArgument:
                 \_ref_obj: (work@test_program.configure_and_push_command_to_master_1.i), line:379:78, endln:379:79
                   |vpiParent:
@@ -19324,7 +19322,7 @@ design: (work@top)
                   |vpiName:i
                   |vpiFullName:work@test_program.configure_and_push_command_to_master_1.i
                   |vpiActual:
-                  \_logic_net: (i)
+                  \_int_var: (work@test_program.configure_and_push_command_to_master_1.i), line:377:19, endln:377:20
                 |vpiName:$root.tb.dut.master_1.set_command_byte_enable
               |vpiStmt:
               \_func_call: ($root.tb.dut.master_1.set_command_idle), line:380:13, endln:380:73
@@ -19360,7 +19358,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.configure_and_push_command_to_master_1.data_idles[i].i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.configure_and_push_command_to_master_1.i), line:377:19, endln:377:20
                 |vpiArgument:
                 \_ref_obj: (work@test_program.configure_and_push_command_to_master_1.i), line:380:71, endln:380:72
                   |vpiParent:
@@ -19368,7 +19366,7 @@ design: (work@top)
                   |vpiName:i
                   |vpiFullName:work@test_program.configure_and_push_command_to_master_1.i
                   |vpiActual:
-                  \_logic_net: (i)
+                  \_int_var: (work@test_program.configure_and_push_command_to_master_1.i), line:377:19, endln:377:20
                 |vpiName:$root.tb.dut.master_1.set_command_idle
         |vpiElseStmt:
         \_begin: (work@test_program.configure_and_push_command_to_master_1), line:382:16, endln:385:10
@@ -19553,7 +19551,7 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@test_program.get_read_response_from_master_1.i
             |vpiActual:
-            \_logic_net: (i)
+            \_int_var: (work@test_program.get_read_response_from_master_1.i), line:415:16, endln:415:17
         |vpiCondition:
         \_operation: , line:415:23, endln:415:41
           |vpiParent:
@@ -19566,7 +19564,7 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@test_program.get_read_response_from_master_1.i
             |vpiActual:
-            \_logic_net: (i)
+            \_int_var: (work@test_program.get_read_response_from_master_1.i), line:415:16, endln:415:17
           |vpiOperand:
           \_hier_path: (rsp.burstcount), line:415:27, endln:415:41
             |vpiParent:
@@ -19659,7 +19657,7 @@ design: (work@top)
                   |vpiName:i
                   |vpiFullName:work@test_program.get_read_response_from_master_1.rsp.data.i
                   |vpiActual:
-                  \_logic_net: (i)
+                  \_int_var: (work@test_program.get_read_response_from_master_1.i), line:415:16, endln:415:17
       |vpiStmt:
       \_return_stmt: , line:419:7, endln:419:13
         |vpiParent:
@@ -19942,7 +19940,7 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.get_command_from_slave_1.i
                 |vpiActual:
-                \_logic_net: (i)
+                \_int_var: (work@test_program.get_command_from_slave_1.i), line:462:18, endln:462:19
             |vpiCondition:
             \_operation: , line:462:25, endln:462:43
               |vpiParent:
@@ -19955,7 +19953,7 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.get_command_from_slave_1.i
                 |vpiActual:
-                \_logic_net: (i)
+                \_int_var: (work@test_program.get_command_from_slave_1.i), line:462:18, endln:462:19
               |vpiOperand:
               \_hier_path: (cmd.burstcount), line:462:29, endln:462:43
                 |vpiParent:
@@ -20048,7 +20046,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.get_command_from_slave_1.cmd.data.i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.get_command_from_slave_1.i), line:462:18, endln:462:19
               |vpiStmt:
               \_assignment: , line:464:13, endln:464:79
                 |vpiParent:
@@ -20117,7 +20115,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.get_command_from_slave_1.cmd.byteenable.i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.get_command_from_slave_1.i), line:462:18, endln:462:19
         |vpiElseStmt:
         \_begin: (work@test_program.get_command_from_slave_1), line:466:16, endln:468:10
           |vpiParent:
@@ -20280,7 +20278,7 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@test_program.configure_and_push_response_to_slave_1.i
             |vpiActual:
-            \_logic_net: (i)
+            \_int_var: (work@test_program.configure_and_push_response_to_slave_1.i), line:491:16, endln:491:17
         |vpiCondition:
         \_operation: , line:491:23, endln:491:41
           |vpiParent:
@@ -20293,7 +20291,7 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@test_program.configure_and_push_response_to_slave_1.i
             |vpiActual:
-            \_logic_net: (i)
+            \_int_var: (work@test_program.configure_and_push_response_to_slave_1.i), line:491:16, endln:491:17
           |vpiOperand:
           \_hier_path: (rsp.burstcount), line:491:27, endln:491:41
             |vpiParent:
@@ -20352,7 +20350,7 @@ design: (work@top)
                   |vpiName:i
                   |vpiFullName:work@test_program.configure_and_push_response_to_slave_1.data[i].i
                   |vpiActual:
-                  \_logic_net: (i)
+                  \_int_var: (work@test_program.configure_and_push_response_to_slave_1.i), line:491:16, endln:491:17
             |vpiArgument:
             \_ref_obj: (work@test_program.configure_and_push_response_to_slave_1.i), line:492:62, endln:492:63
               |vpiParent:
@@ -20360,7 +20358,7 @@ design: (work@top)
               |vpiName:i
               |vpiFullName:work@test_program.configure_and_push_response_to_slave_1.i
               |vpiActual:
-              \_logic_net: (i)
+              \_int_var: (work@test_program.configure_and_push_response_to_slave_1.i), line:491:16, endln:491:17
             |vpiName:$root.tb.dut.slave_1.set_response_data
           |vpiStmt:
           \_if_else: , line:494:10, endln:500:13
@@ -20378,7 +20376,7 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.configure_and_push_response_to_slave_1.i
                 |vpiActual:
-                \_logic_net: (i)
+                \_int_var: (work@test_program.configure_and_push_response_to_slave_1.i), line:491:16, endln:491:17
               |vpiOperand:
               \_constant: , line:494:19, endln:494:20
             |vpiStmt:
@@ -20425,7 +20423,7 @@ design: (work@top)
                         |vpiName:i
                         |vpiFullName:work@test_program.configure_and_push_response_to_slave_1.latency[i].i
                         |vpiActual:
-                        \_logic_net: (i)
+                        \_int_var: (work@test_program.configure_and_push_response_to_slave_1.i), line:491:16, endln:491:17
                   |vpiOperand:
                   \_ref_obj: (work@test_program.configure_and_push_response_to_slave_1.pending_read_cycles_slave_1), line:495:72, endln:495:99
                     |vpiParent:
@@ -20441,7 +20439,7 @@ design: (work@top)
                   |vpiName:i
                   |vpiFullName:work@test_program.configure_and_push_response_to_slave_1.i
                   |vpiActual:
-                  \_logic_net: (i)
+                  \_int_var: (work@test_program.configure_and_push_response_to_slave_1.i), line:491:16, endln:491:17
                 |vpiName:$root.tb.dut.slave_1.set_response_latency
               |vpiStmt:
               \_assignment: , line:496:13, endln:496:51
@@ -20479,7 +20477,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.configure_and_push_response_to_slave_1.latency[i].i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.configure_and_push_response_to_slave_1.i), line:491:16, endln:491:17
                 |vpiLhs:
                 \_ref_obj: (work@test_program.configure_and_push_response_to_slave_1.read_response_latency), line:496:13, endln:496:34
                   |vpiParent:
@@ -20527,7 +20525,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.configure_and_push_response_to_slave_1.latency[i].i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.configure_and_push_response_to_slave_1.i), line:491:16, endln:491:17
                 |vpiArgument:
                 \_ref_obj: (work@test_program.configure_and_push_response_to_slave_1.i), line:498:71, endln:498:72
                   |vpiParent:
@@ -20535,7 +20533,7 @@ design: (work@top)
                   |vpiName:i
                   |vpiFullName:work@test_program.configure_and_push_response_to_slave_1.i
                   |vpiActual:
-                  \_logic_net: (i)
+                  \_int_var: (work@test_program.configure_and_push_response_to_slave_1.i), line:491:16, endln:491:17
                 |vpiName:$root.tb.dut.slave_1.set_response_latency
               |vpiStmt:
               \_assignment: , line:499:13, endln:499:75
@@ -20578,7 +20576,7 @@ design: (work@top)
                         |vpiName:i
                         |vpiFullName:work@test_program.configure_and_push_response_to_slave_1.latency[i].i
                         |vpiActual:
-                        \_logic_net: (i)
+                        \_int_var: (work@test_program.configure_and_push_response_to_slave_1.i), line:491:16, endln:491:17
                   |vpiOperand:
                   \_ref_obj: (work@test_program.configure_and_push_response_to_slave_1.read_response_latency), line:499:54, endln:499:75
                     |vpiParent:
@@ -20823,7 +20821,7 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@test_program.master_send_commands.i
             |vpiActual:
-            \_logic_net: (i)
+            \_int_var: (work@test_program.master_send_commands.i), line:554:16, endln:554:17
         |vpiCondition:
         \_operation: , line:554:23, endln:554:38
           |vpiParent:
@@ -20836,7 +20834,7 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@test_program.master_send_commands.i
             |vpiActual:
-            \_logic_net: (i)
+            \_int_var: (work@test_program.master_send_commands.i), line:554:16, endln:554:17
           |vpiOperand:
           \_ref_obj: (work@test_program.master_send_commands.num_command), line:554:27, endln:554:38
             |vpiParent:
@@ -21314,7 +21312,7 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.create_command.i
                 |vpiActual:
-                \_logic_net: (i)
+                \_int_var: (work@test_program.create_command.i), line:589:19, endln:589:20
             |vpiCondition:
             \_operation: , line:589:26, endln:589:44
               |vpiParent:
@@ -21327,7 +21325,7 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.create_command.i
                 |vpiActual:
-                \_logic_net: (i)
+                \_int_var: (work@test_program.create_command.i), line:589:19, endln:589:20
               |vpiOperand:
               \_hier_path: (cmd.burstcount), line:589:30, endln:589:44
                 |vpiParent:
@@ -21394,7 +21392,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.create_command.cmd.data.i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.create_command.i), line:589:19, endln:589:20
               |vpiStmt:
               \_assignment: , line:591:13, endln:591:55
                 |vpiParent:
@@ -21452,7 +21450,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.create_command.cmd.byteenable.i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.create_command.i), line:589:19, endln:589:20
               |vpiStmt:
               \_assignment: , line:592:13, endln:592:68
                 |vpiParent:
@@ -21505,7 +21503,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.create_command.cmd.data_idles.i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.create_command.i), line:589:19, endln:589:20
         |vpiElseStmt:
         \_begin: (work@test_program.create_command), line:594:16, endln:596:10
           |vpiParent:
@@ -22674,26 +22672,23 @@ design: (work@top)
               |vpiActual:
               \_array_var: (work@test_program.write_command_queue_slave), line:71:10, endln:71:38
             |vpiLoopVars:
-            \_hier_path: (slave_id.i)
+            \_ref_var: (work@test_program.get_expected_command_for_slave.slave_id), line:691:45, endln:691:53
               |vpiParent:
               \_foreach_stmt: (work@test_program.get_expected_command_for_slave), line:691:10, endln:691:17
-              |vpiFullName:slave_id.i
+              |vpiTypespec:
+              \_int_typespec: , line:684:7, endln:684:10
+              |vpiName:slave_id
+              |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
               |vpiActual:
-              \_ref_obj: (work@test_program.get_expected_command_for_slave.slave_id)
-                |vpiParent:
-                \_hier_path: (slave_id.i)
-                |vpiName:slave_id
-                |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
-                |vpiActual:
-                \_io_decl: (slave_id), line:684:15, endln:684:23
-              |vpiActual:
-              \_ref_obj: (work@test_program.get_expected_command_for_slave.i)
-                |vpiParent:
-                \_hier_path: (slave_id.i)
-                |vpiName:i
-                |vpiFullName:work@test_program.get_expected_command_for_slave.i
-                |vpiActual:
-                \_logic_net: (i)
+              \_io_decl: (slave_id), line:684:15, endln:684:23
+            |vpiLoopVars:
+            \_int_var: (work@test_program.get_expected_command_for_slave.i), line:691:54, endln:691:55
+              |vpiParent:
+              \_foreach_stmt: (work@test_program.get_expected_command_for_slave), line:691:10, endln:691:17
+              |vpiTypespec:
+              \_int_typespec: 
+              |vpiName:i
+              |vpiFullName:work@test_program.get_expected_command_for_slave.i
             |vpiStmt:
             \_begin: (work@test_program.get_expected_command_for_slave), line:691:58, endln:698:13
               |vpiParent:
@@ -22726,7 +22721,7 @@ design: (work@top)
                     |vpiName:i
                     |vpiFullName:work@test_program.get_expected_command_for_slave.write_command_queue_slave.i
                     |vpiActual:
-                    \_logic_net: (i)
+                    \_int_var: (i), line:691:54, endln:691:55
                 |vpiLhs:
                 \_ref_obj: (work@test_program.get_expected_command_for_slave.exp_cmd), line:692:13, endln:692:20
                   |vpiParent:
@@ -22798,7 +22793,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.get_expected_command_for_slave.i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (i), line:691:54, endln:691:55
                     |vpiName:delete
                     |vpiPrefix:
                     \_ref_obj: (work@test_program.get_expected_command_for_slave.write_command_queue_slave), line:694:16, endln:694:41
@@ -22914,26 +22909,23 @@ design: (work@top)
               |vpiActual:
               \_array_var: (work@test_program.read_command_queue_slave), line:72:10, endln:72:37
             |vpiLoopVars:
-            \_hier_path: (slave_id.i)
+            \_ref_var: (work@test_program.get_expected_command_for_slave.slave_id), line:703:44, endln:703:52
               |vpiParent:
               \_foreach_stmt: (work@test_program.get_expected_command_for_slave), line:703:10, endln:703:17
-              |vpiFullName:slave_id.i
+              |vpiTypespec:
+              \_int_typespec: , line:684:7, endln:684:10
+              |vpiName:slave_id
+              |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
               |vpiActual:
-              \_ref_obj: (work@test_program.get_expected_command_for_slave.slave_id)
-                |vpiParent:
-                \_hier_path: (slave_id.i)
-                |vpiName:slave_id
-                |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
-                |vpiActual:
-                \_io_decl: (slave_id), line:684:15, endln:684:23
-              |vpiActual:
-              \_ref_obj: (work@test_program.get_expected_command_for_slave.i)
-                |vpiParent:
-                \_hier_path: (slave_id.i)
-                |vpiName:i
-                |vpiFullName:work@test_program.get_expected_command_for_slave.i
-                |vpiActual:
-                \_logic_net: (i)
+              \_io_decl: (slave_id), line:684:15, endln:684:23
+            |vpiLoopVars:
+            \_int_var: (work@test_program.get_expected_command_for_slave.i), line:703:53, endln:703:54
+              |vpiParent:
+              \_foreach_stmt: (work@test_program.get_expected_command_for_slave), line:703:10, endln:703:17
+              |vpiTypespec:
+              \_int_typespec: 
+              |vpiName:i
+              |vpiFullName:work@test_program.get_expected_command_for_slave.i
             |vpiStmt:
             \_begin: (work@test_program.get_expected_command_for_slave), line:703:57, endln:710:13
               |vpiParent:
@@ -22966,7 +22958,7 @@ design: (work@top)
                     |vpiName:i
                     |vpiFullName:work@test_program.get_expected_command_for_slave.read_command_queue_slave.i
                     |vpiActual:
-                    \_logic_net: (i)
+                    \_int_var: (i), line:703:53, endln:703:54
                 |vpiLhs:
                 \_ref_obj: (work@test_program.get_expected_command_for_slave.exp_cmd), line:704:13, endln:704:20
                   |vpiParent:
@@ -23038,7 +23030,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.get_expected_command_for_slave.i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (i), line:703:53, endln:703:54
                     |vpiName:delete
                     |vpiPrefix:
                     \_ref_obj: (work@test_program.get_expected_command_for_slave.read_command_queue_slave), line:706:16, endln:706:40
@@ -23345,7 +23337,7 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.verify_command.i
                 |vpiActual:
-                \_logic_net: (i)
+                \_int_var: (work@test_program.verify_command.i), line:727:19, endln:727:20
             |vpiCondition:
             \_operation: , line:727:26, endln:727:51
               |vpiParent:
@@ -23358,7 +23350,7 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.verify_command.i
                 |vpiActual:
-                \_logic_net: (i)
+                \_int_var: (work@test_program.verify_command.i), line:727:19, endln:727:20
               |vpiOperand:
               \_hier_path: (actual_cmd.burstcount), line:727:30, endln:727:51
                 |vpiParent:
@@ -23419,7 +23411,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.verify_command.data[i].i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.verify_command.i), line:727:19, endln:727:20
                 |vpiArgument:
                 \_hier_path: (actual_cmd.data[i]), line:728:64, endln:728:82
                   |vpiParent:
@@ -23450,7 +23442,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.verify_command.data[i].i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.verify_command.i), line:727:19, endln:727:20
                 |vpiName:assert_equals
                 |vpiTask:
                 \_task: (work@test_program.assert_equals), line:735:4, endln:757:11
@@ -23490,7 +23482,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.verify_command.byteenable[i].i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.verify_command.i), line:727:19, endln:727:20
                 |vpiArgument:
                 \_hier_path: (actual_cmd.byteenable[i]), line:729:70, endln:729:94
                   |vpiParent:
@@ -23521,7 +23513,7 @@ design: (work@top)
                       |vpiName:i
                       |vpiFullName:work@test_program.verify_command.byteenable[i].i
                       |vpiActual:
-                      \_logic_net: (i)
+                      \_int_var: (work@test_program.verify_command.i), line:727:19, endln:727:20
                 |vpiName:assert_equals
                 |vpiTask:
                 \_task: (work@test_program.assert_equals), line:735:4, endln:757:11
@@ -23808,7 +23800,7 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@test_program.create_response.i
             |vpiActual:
-            \_logic_net: (i)
+            \_int_var: (work@test_program.create_response.i), line:766:16, endln:766:17
         |vpiCondition:
         \_operation: , line:766:22, endln:766:36
           |vpiParent:
@@ -23821,7 +23813,7 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@test_program.create_response.i
             |vpiActual:
-            \_logic_net: (i)
+            \_int_var: (work@test_program.create_response.i), line:766:16, endln:766:17
           |vpiOperand:
           \_ref_obj: (work@test_program.create_response.burstcount), line:766:26, endln:766:36
             |vpiParent:
@@ -23877,7 +23869,7 @@ design: (work@top)
                   |vpiName:i
                   |vpiFullName:work@test_program.create_response.rsp.data.i
                   |vpiActual:
-                  \_logic_net: (i)
+                  \_int_var: (work@test_program.create_response.i), line:766:16, endln:766:17
           |vpiStmt:
           \_assignment: , line:768:10, endln:768:62
             |vpiParent:
@@ -23930,7 +23922,7 @@ design: (work@top)
                   |vpiName:i
                   |vpiFullName:work@test_program.create_response.rsp.latency.i
                   |vpiActual:
-                  \_logic_net: (i)
+                  \_int_var: (work@test_program.create_response.i), line:766:16, endln:766:17
       |vpiStmt:
       \_return_stmt: , line:771:7, endln:771:13
         |vpiParent:
@@ -24214,7 +24206,7 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@test_program.verify_response.i
             |vpiActual:
-            \_logic_net: (i)
+            \_int_var: (work@test_program.verify_response.i), line:791:16, endln:791:17
         |vpiCondition:
         \_operation: , line:791:23, endln:791:48
           |vpiParent:
@@ -24227,7 +24219,7 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@test_program.verify_response.i
             |vpiActual:
-            \_logic_net: (i)
+            \_int_var: (work@test_program.verify_response.i), line:791:16, endln:791:17
           |vpiOperand:
           \_hier_path: (actual_rsp.burstcount), line:791:27, endln:791:48
             |vpiParent:
@@ -24288,7 +24280,7 @@ design: (work@top)
                   |vpiName:i
                   |vpiFullName:work@test_program.verify_response.data[i].i
                   |vpiActual:
-                  \_logic_net: (i)
+                  \_int_var: (work@test_program.verify_response.i), line:791:16, endln:791:17
             |vpiArgument:
             \_hier_path: (actual_rsp.data[i]), line:792:60, endln:792:78
               |vpiParent:
@@ -24319,7 +24311,7 @@ design: (work@top)
                   |vpiName:i
                   |vpiFullName:work@test_program.verify_response.data[i].i
                   |vpiActual:
-                  \_logic_net: (i)
+                  \_int_var: (work@test_program.verify_response.i), line:791:16, endln:791:17
             |vpiName:assert_equals
             |vpiTask:
             \_task: (work@test_program.assert_equals), line:735:4, endln:757:11
@@ -24332,10 +24324,6 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (REQ_READ)
     |vpiName:REQ_READ
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (i)
-    |vpiName:i
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (VERBOSITY_ERROR)
@@ -24683,7 +24671,7 @@ design: (work@top)
               |vpiName:i
               |vpiFullName:work@test_program.i
               |vpiActual:
-              \_logic_net: (i)
+              \_int_var: (work@test_program.i), line:290:16, endln:290:17
           |vpiCondition:
           \_operation: , line:290:23, endln:290:36
             |vpiParent:
@@ -24696,7 +24684,7 @@ design: (work@top)
               |vpiName:i
               |vpiFullName:work@test_program.i
               |vpiActual:
-              \_logic_net: (i)
+              \_int_var: (work@test_program.i), line:290:16, endln:290:17
             |vpiOperand:
             \_ref_obj: (work@test_program.MAX_BURST), line:290:27, endln:290:36
               |vpiParent:
@@ -24758,7 +24746,7 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.i
                 |vpiActual:
-                \_logic_net: (i)
+                \_int_var: (work@test_program.i), line:290:16, endln:290:17
               |vpiName:$root.tb.dut.slave_0.set_interface_wait_time
         |vpiStmt:
         \_assignment: , line:295:7, endln:295:46
@@ -25372,7 +25360,7 @@ design: (work@top)
               |vpiName:i
               |vpiFullName:work@test_program.i
               |vpiActual:
-              \_logic_net: (i)
+              \_int_var: (work@test_program.i), line:433:16, endln:433:17
           |vpiCondition:
           \_operation: , line:433:23, endln:433:36
             |vpiParent:
@@ -25385,7 +25373,7 @@ design: (work@top)
               |vpiName:i
               |vpiFullName:work@test_program.i
               |vpiActual:
-              \_logic_net: (i)
+              \_int_var: (work@test_program.i), line:433:16, endln:433:17
             |vpiOperand:
             \_ref_obj: (work@test_program.MAX_BURST), line:433:27, endln:433:36
               |vpiParent:
@@ -25447,7 +25435,7 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.i
                 |vpiActual:
-                \_logic_net: (i)
+                \_int_var: (work@test_program.i), line:433:16, endln:433:17
               |vpiName:$root.tb.dut.slave_1.set_interface_wait_time
         |vpiStmt:
         \_assignment: , line:438:7, endln:438:46
@@ -25990,7 +25978,7 @@ design: (work@top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 5
+[  ERROR] : 4
 [WARNING] : 3
 [   NOTE] : 8
 

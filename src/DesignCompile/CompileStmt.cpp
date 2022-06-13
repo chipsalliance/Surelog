@@ -423,9 +423,31 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
           component, fC, fC->Child(Ps_or_hierarchical_array_identifier),
           compileDesign, for_each, nullptr, false, false);
       NodeId Loop_variables = fC->Sibling(Ps_or_hierarchical_array_identifier);
-      UHDM::any* loop_var =
-          compileVariable(component, fC, fC->Child(Loop_variables),
-                          compileDesign, for_each, nullptr, false, false);
+      NodeId loopVarId = fC->Child(Loop_variables);
+      VectorOfany* loop_vars = s.MakeAnyVec();
+      while (loopVarId) {
+        ref_var* ref = s.MakeRef_var();
+        ref->VpiName(fC->SymName(loopVarId));
+        ref->VpiFile(fC->getFileName());
+        ref->VpiLineNo(fC->Line(loopVarId));
+        ref->VpiColumnNo(fC->Column(loopVarId));
+        ref->VpiEndLineNo(fC->EndLine(loopVarId));
+        ref->VpiEndColumnNo(fC->EndColumn(loopVarId));
+        typespec* tps = s.MakeUnsupported_typespec();
+        tps->VpiName(fC->SymName(loopVarId));
+        tps->VpiFile(fC->getFileName());
+        tps->VpiLineNo(fC->Line(loopVarId));
+        tps->VpiColumnNo(fC->Column(loopVarId));
+        tps->VpiEndLineNo(fC->EndLine(loopVarId));
+        tps->VpiEndColumnNo(fC->EndColumn(loopVarId));
+        tps->VpiParent(ref);
+        ref->Typespec(tps);
+        component->needLateTypedefBinding(ref);
+        loop_vars->push_back(ref);
+        ref->VpiParent(for_each);
+        loopVarId = fC->Sibling(loopVarId);
+      }
+      for_each->VpiLoopVars(loop_vars);
       NodeId Statement = fC->Sibling(Loop_variables);
       VectorOfany* forev = compileStmt(component, fC, Statement, compileDesign,
                                        for_each, instance);
@@ -437,23 +459,6 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       if (var) {
         var->VpiParent(for_each);
         for_each->Variable((variables*)var);
-      }
-      if (loop_var) {
-        variables* lvar = (variables*)loop_var;
-        if (lvar->UhdmType() == uhdmref_var) {
-          ref_var* refv = (ref_var*)lvar;
-          if (refv->Actual_group() == nullptr) {
-            if (const typespec* ts = lvar->Typespec()) {
-              if (ts->UhdmType() == uhdmunsupported_typespec) {
-                component->needLateTypedefBinding(refv);
-              }
-            }
-          }
-        }
-        loop_var->VpiParent(for_each);
-        VectorOfany* loop_vars = s.MakeAnyVec();
-        loop_vars->push_back(loop_var);
-        for_each->VpiLoopVars(loop_vars);
       }
       stmt = for_each;
       break;
