@@ -424,31 +424,42 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
           compileDesign, for_each, nullptr, false, false);
       NodeId Loop_variables = fC->Sibling(Ps_or_hierarchical_array_identifier);
       NodeId loopVarId = fC->Child(Loop_variables);
+      NodeId Statement = Loop_variables;
       VectorOfany* loop_vars = s.MakeAnyVec();
-      while (loopVarId) {
-        ref_var* ref = s.MakeRef_var();
-        ref->VpiName(fC->SymName(loopVarId));
-        ref->VpiFile(fC->getFileName());
-        ref->VpiLineNo(fC->Line(loopVarId));
-        ref->VpiColumnNo(fC->Column(loopVarId));
-        ref->VpiEndLineNo(fC->EndLine(loopVarId));
-        ref->VpiEndColumnNo(fC->EndColumn(loopVarId));
-        typespec* tps = s.MakeUnsupported_typespec();
-        tps->VpiName(fC->SymName(loopVarId));
-        tps->VpiFile(fC->getFileName());
-        tps->VpiLineNo(fC->Line(loopVarId));
-        tps->VpiColumnNo(fC->Column(loopVarId));
-        tps->VpiEndLineNo(fC->EndLine(loopVarId));
-        tps->VpiEndColumnNo(fC->EndColumn(loopVarId));
-        tps->VpiParent(ref);
-        ref->Typespec(tps);
-        component->needLateTypedefBinding(ref);
-        loop_vars->push_back(ref);
-        ref->VpiParent(for_each);
-        loopVarId = fC->Sibling(loopVarId);
+      while (fC->Type(Statement) == slStringConst ||
+             fC->Type(Statement) == slLoop_variables) {
+        if (fC->Type(Statement) == slStringConst)
+          loopVarId = Statement;
+        else
+          loopVarId = fC->Child(Statement);
+        while (loopVarId) {
+          ref_var* ref = s.MakeRef_var();
+          ref->VpiName(fC->SymName(loopVarId));
+          ref->VpiFile(fC->getFileName());
+          ref->VpiLineNo(fC->Line(loopVarId));
+          ref->VpiColumnNo(fC->Column(loopVarId));
+          ref->VpiEndLineNo(fC->EndLine(loopVarId));
+          ref->VpiEndColumnNo(fC->EndColumn(loopVarId));
+          typespec* tps = s.MakeUnsupported_typespec();
+          tps->VpiName(fC->SymName(loopVarId));
+          tps->VpiFile(fC->getFileName());
+          tps->VpiLineNo(fC->Line(loopVarId));
+          tps->VpiColumnNo(fC->Column(loopVarId));
+          tps->VpiEndLineNo(fC->EndLine(loopVarId));
+          tps->VpiEndColumnNo(fC->EndColumn(loopVarId));
+          tps->VpiParent(ref);
+          ref->Typespec(tps);
+          component->needLateTypedefBinding(ref);
+          loop_vars->push_back(ref);
+          ref->VpiParent(for_each);
+          loopVarId = fC->Sibling(loopVarId);
+          if (fC->Type(loopVarId) != slStringConst) {
+            break;
+          }
+        }
+        Statement = fC->Sibling(Statement);
       }
       for_each->VpiLoopVars(loop_vars);
-      NodeId Statement = fC->Sibling(Loop_variables);
       VectorOfany* forev = compileStmt(component, fC, Statement, compileDesign,
                                        for_each, instance);
       if (forev) {

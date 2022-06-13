@@ -2384,7 +2384,8 @@ loop_statement
       for_step? CLOSE_PARENS statement_or_null
     | DO statement_or_null WHILE OPEN_PARENS expression CLOSE_PARENS  SEMICOLUMN
     | FOREACH OPEN_PARENS ps_or_hierarchical_array_identifier OPEN_BRACKET loop_variables
-      CLOSE_BRACKET CLOSE_PARENS statement
+      CLOSE_BRACKET (OPEN_BRACKET identifier
+      CLOSE_BRACKET)? CLOSE_PARENS statement
     ;
 
 for_initialization
