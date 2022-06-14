@@ -45,7 +45,11 @@
 namespace SURELOG {
 namespace fs = std::filesystem;
 
-static std::string_view defaultLogFileName = "surelog.log";
+static constexpr std::string_view defaultLogFileName = "surelog.log";
+static constexpr std::string_view defaultCacheDirName = "cache";
+static constexpr std::string_view defaultCompileUnitDirName = "slpp_unit";
+static constexpr std::string_view defaultCompileAllDirName = "slpp_all";
+static constexpr std::string_view defaultPrecompiledDirName = "pkg";
 
 // !!! Update this number when the grammar changes !!!
 //         Or when the cache schema changes
@@ -251,19 +255,17 @@ void CommandLineParser::withPython() {
 
 std::string CommandLineParser::currentDateTime() {
   time_t now = time(0);
-  struct tm tstruct;
-  char buf[80];
-  tstruct = *localtime(&now);
+  struct tm tstruct = *localtime(&now);
   // Visit http://en.cppreference.com/w/cpp/chrono/c/strftime
   // for more information about date/time format
+  char buf[80] = {'\0'};
   strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
-
   return buf;
 }
 
 static std::string BuildIdentifier() {
-  return "VERSION: " + std::string(CommandLineParser::getVersionNumber()) +
-         "\nBUILT  : " + std::string(__DATE__) + "\n";
+  return StrCat("VERSION: ", CommandLineParser::getVersionNumber(),
+                "\nBUILT  : ", __DATE__, "\n");
 }
 
 void CommandLineParser::logBanner(int argc, const char** argv) {
@@ -361,14 +363,15 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_sepComp(false),
       m_link(false) {
   m_errors->registerCmdLine(this);
-  m_logFileId = m_symbolTable->registerSymbol(std::string(defaultLogFileName));
-  m_compileUnitDirectory = m_symbolTable->registerSymbol("slpp_unit");
-  m_compileAllDirectory = m_symbolTable->registerSymbol("slpp_all");
+  m_logFileId = m_symbolTable->registerSymbol(defaultLogFileName);
+  m_compileUnitDirectory =
+      m_symbolTable->registerSymbol(defaultCompileUnitDirName);
+  m_compileAllDirectory =
+      m_symbolTable->registerSymbol(defaultCompileAllDirName);
   m_outputDir = m_symbolTable->registerSymbol(".");
-  m_defaultLogFileId =
-      m_symbolTable->registerSymbol(std::string(defaultLogFileName));
-  m_defaultCacheDirId = m_symbolTable->registerSymbol("cache");
-  m_precompiledDirId = m_symbolTable->registerSymbol("pkg");
+  m_defaultLogFileId = m_symbolTable->registerSymbol(defaultLogFileName);
+  m_defaultCacheDirId = m_symbolTable->registerSymbol(defaultCacheDirName);
+  m_precompiledDirId = m_symbolTable->registerSymbol(defaultPrecompiledDirName);
   if (m_diff_comp_mode) {
     m_muteStdout = true;
     m_verbose = false;
@@ -422,13 +425,14 @@ void CommandLineParser::splitPlusArg_(
       std::string value;
       const size_t loc = tmp.find('=');
       if (loc == std::string::npos) {
-        SymbolId id = m_symbolTable->registerSymbol(tmp);
-        container.insert(std::make_pair(id, std::string()));
+        def = tmp;
       } else {
         def = tmp.substr(0, loc);
         value = tmp.substr(loc + 1);
+      }
+      if (!def.empty()) {
         SymbolId id = m_symbolTable->registerSymbol(def);
-        container.insert(std::make_pair(id, value));
+        container.emplace(id, value);
       }
     }
   }
@@ -436,9 +440,9 @@ void CommandLineParser::splitPlusArg_(
 
 /* Custom parser for +arguments */
 bool CommandLineParser::plus_arguments_(const std::string& s) {
-  std::string incdir("+incdir+");
-  std::string libext("+libext+");
-  std::string define("+define+");
+  constexpr std::string_view incdir("+incdir+");
+  constexpr std::string_view libext("+libext+");
+  constexpr std::string_view define("+define+");
   if (s.empty()) return false;
   if (s.at(0) != '+') return false;
   if (s.compare(0, incdir.size(), incdir) == 0) {
@@ -457,7 +461,7 @@ bool CommandLineParser::plus_arguments_(const std::string& s) {
   return false;
 }
 
-void CommandLineParser::processArgs_(std::vector<std::string>& args,
+void CommandLineParser::processArgs_(const std::vector<std::string>& args,
                                      std::vector<std::string>& container) {
   for (unsigned int i = 0; i < args.size(); i++) {
     std::string arg(undecorateArg(args[i]));
@@ -520,7 +524,7 @@ void CommandLineParser::processArgs_(std::vector<std::string>& args,
 }
 
 void CommandLineParser::processOutputDirectory_(
-    std::vector<std::string>& args) {
+    const std::vector<std::string>& args) {
   for (unsigned int i = 0; i < args.size(); i++) {
     std::string arg(undecorateArg(args[i]));
     if (arg == "-odir" || arg == "-o" || arg == "--Mdir") {
@@ -592,13 +596,24 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     cmd_line.emplace_back(undecorateArg(argv[i]));
     const std::string& arg = cmd_line.back();
 
-    if (arg == "-cd") {
+    if (arg == "-help" || arg == "-h" || arg == "--help") {
+      m_help = true;
+      std::string help = printStringArray(helpText);
+      m_errors->init();
+      logBanner(argc, argv);
+      std::cout << help;
+      return true;
+    }
+    if (arg == "--version") {
+      std::cout << BuildIdentifier() << std::flush;
+      m_help = true;
+      return true;
+    } else if (arg == "-cd") {
       if (i < argc - 1) {
         std::string newDir(undecorateArg(argv[i + 1]));
         int ret = chdir(newDir.c_str());
         if (ret < 0) {
-          std::cerr << "Could not change directory to " << newDir << "\n"
-                    << std::endl;
+          std::cerr << "Could not change directory to " << newDir << std::endl;
         }
       }
     } else if (arg == "-builtin") {
@@ -609,29 +624,28 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       if (i < argc - 1) {
         m_logFileId = m_symbolTable->registerSymbol(undecorateArg(argv[i + 1]));
       }
-    } else if (arg.find("-D") != std::string::npos) {
+    } else if (arg.find("-D") == 0) {
       std::string def;
       std::string value;
       const size_t loc = arg.find('=');
       if (loc == std::string::npos) {
         def = arg.substr(2);
-        StringUtils::registerEnvVar(def, "");
-        SymbolId id = m_symbolTable->registerSymbol(def);
-        m_defineList.insert(std::make_pair(id, std::string()));
       } else {
         def = arg.substr(2, loc - 2);
         value = arg.substr(loc + 1);
+      }
+      if (!def.empty()) {
         StringUtils::registerEnvVar(def, value);
         SymbolId id = m_symbolTable->registerSymbol(def);
-        m_defineList.insert(std::make_pair(id, value));
+        m_defineList.emplace(id, value);
       }
     }
   }
+
   std::vector<std::string> all_arguments;
-
   processOutputDirectory_(cmd_line);
-
   processArgs_(cmd_line, all_arguments);
+
   /*
   std::string cmd = "EXPANDED CMD:";
   for (unsigned int i = 0; i < all_arguments.size(); i++) {
@@ -640,26 +654,11 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
   cmd += "\n\n";
   std::cout << cmd;
   */
+
   for (const auto& argument : all_arguments) {
-    if (argument == "-help" || argument == "-h" || argument == "--help") {
-      m_help = true;
-      std::string help = printStringArray(helpText);
-      m_errors->init();
-      logBanner(argc, argv);
-      std::cout << help;
-      return true;
-    }
-    if (argument == "--version") {
-      std::cout << BuildIdentifier() << std::flush;
-      m_help = true;
-      return true;
-    }
     if (argument == "-nobuiltin") {
       m_parseBuiltIn = false;
-    }
-  }
-  for (const auto& argument : all_arguments) {
-    if (argument == "-fileunit") {
+    } else if (argument == "-fileunit") {
       if (m_diff_comp_mode == false)  // Controlled by constructor
         m_fileunit = true;
     } else if (argument == "-mutestdout") {
@@ -705,7 +704,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       } else if (all_arguments[i] == "coverelab") {
         // Ignored!
       } else if (is_number(all_arguments[i])) {
-        int debugLevel = atoi(all_arguments[i].c_str());
+        int debugLevel = std::stoi(all_arguments[i]);
         if (debugLevel < 0 || debugLevel > 4) {
           Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
           Error err(ErrorDefinition::CMD_DEBUG_INCORRECT_LEVEL, loc);
@@ -717,9 +716,9 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         std::cerr << "Option: " << all_arguments[i] << " ignored." << std::endl;
       }
     } else if (all_arguments[i].find("--enable-feature=") == 0) {
-      std::string features, tmp;
-      features = all_arguments[i].substr(17, std::string::npos);
+      std::string features = all_arguments[i].substr(17);
       std::istringstream f(features);
+      std::string tmp;
       while (getline(f, tmp, ',')) {
         if (tmp == "parametersubstitution") {
           m_parametersubstitution = true;
@@ -730,9 +729,9 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         }
       }
     } else if (all_arguments[i].find("--disable-feature=") == 0) {
-      std::string features, tmp;
-      features = all_arguments[i].substr(18, std::string::npos);
+      std::string features = all_arguments[i].substr(18);
       std::istringstream f(features);
+      std::string tmp;
       while (getline(f, tmp, ',')) {
         if (tmp == "parametersubstitution") {
           m_parametersubstitution = false;
@@ -743,8 +742,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         }
       }
     } else if (all_arguments[i].find("-timescale=") == 0) {
-      std::string timescale;
-      timescale = all_arguments[i].substr(11, std::string::npos);
+      std::string timescale = all_arguments[i].substr(11);
       if (timescale.empty()) {
         Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_TIMESCALE_MISSING_SETTING, loc);
@@ -755,50 +753,48 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (all_arguments[i].find("-D") == 0) {
       std::string def;
       std::string value;
-      std::string tmp = all_arguments[i];
-      const size_t loc = tmp.find('=');
+      const size_t loc = all_arguments[i].find('=');
       if (loc == std::string::npos) {
-        StringUtils::registerEnvVar(def, "");
-        SymbolId id = m_symbolTable->registerSymbol(def);
-        m_defineList.insert(std::make_pair(id, std::string()));
+        def = all_arguments[i].substr(2);
       } else {
-        def = tmp.substr(2, loc - 2);
-        value = tmp.substr(loc + 1);
+        def = all_arguments[i].substr(2, loc - 2);
+        value = all_arguments[i].substr(loc + 1);
+      }
+      if (!def.empty()) {
         StringUtils::registerEnvVar(def, value);
         SymbolId id = m_symbolTable->registerSymbol(def);
-        m_defineList.insert(std::make_pair(id, value));
+        m_defineList.emplace(id, value);
       }
     } else if (all_arguments[i].find("-P") == 0) {
       std::string def;
       std::string value;
-      std::string tmp = all_arguments[i];
-      const size_t loc = tmp.find('=');
+      const size_t loc = all_arguments[i].find('=');
       if (loc == std::string::npos) {
-        def = tmp.substr(2, tmp.size() - 2);
-        SymbolId id = m_symbolTable->registerSymbol(def);
-        m_paramList.insert(std::make_pair(id, std::string()));
+        def = all_arguments[i].substr(2);
       } else {
-        def = tmp.substr(2, loc - 2);
-        value = tmp.substr(loc + 1);
+        def = all_arguments[i].substr(2, loc - 2);
+        value = all_arguments[i].substr(loc + 1);
+      }
+      if (!def.empty()) {
         SymbolId id = m_symbolTable->registerSymbol(def);
-        m_paramList.insert(std::make_pair(id, value));
+        m_paramList.emplace(id, value);
       }
     } else if (all_arguments[i].find("-pvalue+") == 0) {
       std::string def;
       std::string value;
-      std::string tmp = all_arguments[i];
-      const size_t loc = tmp.find('=');
+      const size_t loc = all_arguments[i].find('=');
       if (loc == std::string::npos) {
-        SymbolId id = m_symbolTable->registerSymbol(def);
-        m_paramList.insert(std::make_pair(id, std::string()));
+        def = all_arguments[i].substr(8);
       } else {
-        def = tmp.substr(8, loc - 2);
-        value = tmp.substr(loc + 1);
+        def = all_arguments[i].substr(8, loc - 8);
+        value = all_arguments[i].substr(loc + 1);
+      }
+      if (!def.empty()) {
         SymbolId id = m_symbolTable->registerSymbol(def);
-        m_paramList.insert(std::make_pair(id, value));
+        m_paramList.emplace(id, value);
       }
     } else if (all_arguments[i].find("-I") == 0) {
-      fs::path include = all_arguments[i].substr(2, std::string::npos);
+      fs::path include = all_arguments[i].substr(2);
       if (include.empty()) {
         Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_INCLUDE_PATH_DOES_NOT_EXIST, loc);
@@ -815,7 +811,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         break;
       }
       i++;
-      m_nbLinesForFileSplitting = atoi(all_arguments[i].c_str());
+      m_nbLinesForFileSplitting = std::stoi(all_arguments[i]);
     } else if (all_arguments[i] == "-cd") {
       i++;
     } else if (all_arguments[i] == "-builtin") {
@@ -855,9 +851,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         unsigned int concurentThreadsSupported =
             std::thread::hardware_concurrency();
         maxMT = concurentThreadsSupported;
-
       } else {
-        maxMT = atoi(all_arguments[i].c_str());
+        maxMT = std::stoi(all_arguments[i]);
       }
       if (maxMT > 512) {
         Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
@@ -1256,6 +1251,7 @@ bool CommandLineParser::isSVFile(const fs::path& name) const {
 bool CommandLineParser::prepareCompilation_(int argc, const char** argv) {
   bool noError = true;
   fs::path odir = m_symbolTable->getSymbol(m_outputDir);
+
   odir /= m_symbolTable->getSymbol(
       (fileunit() ? m_compileUnitDirectory : m_compileAllDirectory));
   m_fullCompileDir =
