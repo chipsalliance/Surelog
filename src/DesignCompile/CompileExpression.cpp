@@ -4846,10 +4846,9 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
               if (index) {
                 bit_select *select = s.MakeBit_select();
                 elems->push_back(select);
-                // if (!tmpName.empty()) select->VpiParent(path);
                 ref_obj *ref = s.MakeRef_obj();
                 ref->VpiParent(path);
-                select->VpiParent(ref);
+                if (!tmpName.empty()) select->VpiParent(ref);
                 select->VpiIndex(index);
                 select->VpiName(tmpName);
                 select->VpiFullName(tmpName);
@@ -4860,7 +4859,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
                 select->VpiEndColumnNo(fC->EndColumn(name));
                 std::string indexName = decompileHelper(index);
                 the_name += indexName;
-                ref->VpiName(tmpName + indexName);
+                if (!tmpName.empty()) ref->VpiName(tmpName + indexName);
               }
             } else {
               ref_obj *ref = s.MakeRef_obj();
