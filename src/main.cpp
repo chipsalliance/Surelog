@@ -43,6 +43,14 @@
 
 namespace fs = std::filesystem;
 
+constexpr std::string_view cd_opt = "-cd";
+constexpr std::string_view diff_unit_opt = "-diffcompunit";
+constexpr std::string_view nopython_opt = "-nopython";
+constexpr std::string_view parseonly_opt = "-parseonly";
+constexpr std::string_view batch_opt = "-batch";
+constexpr std::string_view nostdout_opt = "-nostdout";
+constexpr std::string_view output_folder_opt = "-o";
+
 unsigned int executeCompilation(
     int argc, const char** argv, bool diff_comp_mode, bool fileunit,
     SURELOG::ErrorContainer::Stats* overallStats = nullptr) {
@@ -123,48 +131,72 @@ enum COMP_MODE {
   BATCH,
 };
 
-int batchCompilation(const char* argv0, const std::string& batchFile,
-                     bool nostdout) {
-  char path[10000];
+int batchCompilation(const char* argv0, const fs::path& batchFile,
+                     const fs::path& outputDir, bool nostdout) {
   int returnCode = 0;
-  SURELOG::ErrorContainer::Stats overallStats;
-  char* p = getcwd(path, 9999);
+
+  char path[10000] = {'\0'};
+  char* p = getcwd(path, sizeof(path));
   if (!p) returnCode |= 1;
+
   std::ifstream stream;
   stream.open(batchFile);
   if (!stream.good()) {
     returnCode |= 1;
     return returnCode;
   }
+
   std::string line;
   int count = 0;
+  SURELOG::ErrorContainer::Stats overallStats;
   while (std::getline(stream, line)) {
+    if (line.empty()) continue;
     if (!nostdout)
       std::cout << "Processing: " << line << std::endl << std::flush;
+
     std::vector<std::string> args;
-    SURELOG::StringUtils::tokenize(line, " ", args);
-    int argc = args.size() + 1;
-    char** argv = new char*[argc];
-    argv[0] = strdup(argv0);
-    for (int i = 0; i < argc - 1; i++) {
-      argv[i + 1] = strdup(args[i].c_str());
+    SURELOG::StringUtils::tokenize(line, " \r\t", args);
+
+    fs::path cwd;
+    for (size_t i = 0, n = args.size() - 1; i < n; i++) {
+      if (args[i] == cd_opt) {
+        cwd = SURELOG::StringUtils::unquoted(args[i + 1]);
+        break;
+      }
     }
-    returnCode |= executeCompilation(argc, (const char**)argv, false, false,
+
+    if (cwd.empty() || cwd.is_absolute()) {
+      if (!outputDir.empty()) {
+        args.push_back("-o");
+        args.push_back(outputDir.string());
+      }
+    } else if (!outputDir.empty()) {
+      args.push_back("-o");
+      args.push_back((outputDir / cwd).string());
+    }
+
+    std::vector<const char*> argv;
+    argv.reserve(args.size());
+    argv.push_back(argv0);
+    for (const std::string& arg : args) {
+      if (!arg.empty()) {
+        argv.push_back(arg.c_str());
+      }
+    }
+    if (argv.size() < 2) continue;
+
+    returnCode |= executeCompilation(argv.size(), argv.data(), false, false,
                                      &overallStats);
-    for (int i = 0; i < argc; i++) {
-      free(argv[i]);
-    }
-    delete[] argv;
     count++;
     int ret = chdir(path);
     if (ret < 0) {
-      std::cout << "FATAL: Could not change directory to " << path << "\n"
-                << std::endl;
+      std::cerr << "FATAL: Could not change directory to " << path << std::endl;
       returnCode |= 1;
     }
   }
   if (!nostdout)
     std::cout << "Processed " << count << " tests." << std::endl << std::flush;
+
   SURELOG::SymbolTable* symbolTable = new SURELOG::SymbolTable();
   SURELOG::ErrorContainer* errors = new SURELOG::ErrorContainer(symbolTable);
   if (!nostdout) errors->printStats(overallStats);
@@ -181,12 +213,8 @@ int main(int argc, const char** argv) {
   COMP_MODE mode = NORMAL;
   bool python_mode = true;
   bool nostdout = false;
-  std::string batchFile;
-  std::string diff_unit_opt = "-diffcompunit";
-  std::string nopython_opt = "-nopython";
-  std::string parseonly_opt = "-parseonly";
-  std::string batch_opt = "-batch";
-  std::string nostdout_opt = "-nostdout";
+  fs::path batchFile;
+  fs::path outputDir;
   for (int i = 1; i < argc; i++) {
     if (parseonly_opt == argv[i]) {
     } else if (diff_unit_opt == argv[i]) {
@@ -194,12 +222,17 @@ int main(int argc, const char** argv) {
     } else if (nopython_opt == argv[i]) {
       python_mode = false;
     } else if (batch_opt == argv[i]) {
-      batchFile = argv[i + 1];
-      i++;
+      batchFile = SURELOG::StringUtils::unquoted(argv[++i]);
       mode = BATCH;
     } else if (nostdout_opt == argv[i]) {
       nostdout = true;
+    } else if (output_folder_opt == argv[i]) {
+      outputDir = SURELOG::StringUtils::unquoted(argv[++i]);
     }
+  }
+
+  if (!outputDir.empty() && outputDir.is_relative()) {
+    outputDir = fs::current_path() / outputDir;
   }
 
   if (python_mode) SURELOG::PythonAPI::init(argc, argv);
@@ -233,7 +266,7 @@ int main(int argc, const char** argv) {
       codedReturn = executeCompilation(argc, argv, false, false);
       break;
     case BATCH:
-      codedReturn = batchCompilation(argv[0], batchFile, nostdout);
+      codedReturn = batchCompilation(argv[0], batchFile, outputDir, nostdout);
       break;
   }
 
