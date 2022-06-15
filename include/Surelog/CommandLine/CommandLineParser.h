@@ -315,7 +315,6 @@ class CommandLineParser final {
   bool m_profile;
   bool m_parseBuiltIn;
   bool m_ppOutputFileLocation;
-  bool m_logFileSpecified;
   std::filesystem::path m_builtinPath;
   std::filesystem::path m_exePath;
   std::string m_exeCommand;
