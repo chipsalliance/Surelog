@@ -103,7 +103,6 @@ jobs:
       if: matrix.mode == 'regression'
       run: |
         make test/regression
-        git status
 
     - name: Prepare regression artifacts
       if: matrix.mode == 'regression' && always()
@@ -348,7 +347,6 @@ jobs:
         make test_install
         make test/unittest
         make test/regression
-        git status
 
     - name: Prepare build artifacts
       run: |
@@ -466,8 +464,6 @@ jobs:
         make test/unittest
         if %errorlevel% neq 0 exit /b %errorlevel%
         make test/regression
-        if %errorlevel% neq 0 exit /b %errorlevel%
-        git status
 
     - name: Prepare build artifacts
       shell: bash
@@ -584,7 +580,6 @@ jobs:
     - name: Regression tests
       run: |
         make test/regression
-        git status
 
     - name: Prepare build artifacts
       run: |
