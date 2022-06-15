@@ -3221,7 +3221,7 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
 
 void printUhdmStats(Serializer& s) {
   std::cout << "UHDM Objects Stats:\n";
-  std::map<std::string, unsigned long> stats = s.ObjectStats();
+  auto stats = s.ObjectStats();
   std::multimap<unsigned long, std::string> rstats;
   for (const auto& stat : stats) {
     if (stat.second) rstats.insert(std::make_pair(stat.second, stat.first));
