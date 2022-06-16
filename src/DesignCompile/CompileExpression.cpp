@@ -3477,13 +3477,11 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
         }
         if (rexp && rexp->UhdmType() == uhdmref_obj) {
           if (reduce) {
-            const std::string &typeName = rexp->VpiName();
             typespec *assoc_tps =
                 compileTypespec(component, fC, rexpr, compileDesign, nullptr,
                                 instance, reduce, true);
             if (assoc_tps) {
               associativeArray = true;
-              NodeId DataType = fC->Child(fC->Child(Packed_dimension));
               UHDM::range *range = s.MakeRange();
 
               constant *lexpc = s.MakeConstant();
