@@ -1739,7 +1739,9 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
         } else if (value == "STRING:associative") {
           associative = true;
           const typespec* tp = rhs->Typespec();
-          array_var->Typespec((typespec*)tp);
+          array_typespec* taps = s.MakeArray_typespec();
+          taps->Index_typespec((typespec*)tp);
+          array_var->Typespec(taps);
           unpackedDimensions->erase(itr);
           break;
         } else if (value == "STRING:unsized") {

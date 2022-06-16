@@ -3475,6 +3475,55 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
           }
           if (c->VpiConstType() == vpiUnboundedConst) associativeArray = true;
         }
+        if (rexp && rexp->UhdmType() == uhdmref_obj) {
+          if (reduce) {
+            const std::string &typeName = rexp->VpiName();
+            typespec *assoc_tps =
+                compileTypespec(component, fC, rexpr, compileDesign, nullptr,
+                                instance, reduce, true);
+            if (assoc_tps) {
+              associativeArray = true;
+              NodeId DataType = fC->Child(fC->Child(Packed_dimension));
+              UHDM::range *range = s.MakeRange();
+
+              constant *lexpc = s.MakeConstant();
+              lexpc->VpiConstType(vpiUIntConst);
+              lexpc->VpiSize(64);
+              lexpc->VpiValue("UINT:0");
+              lexpc->VpiDecompile("0");
+              lexpc->VpiFile(fC->getFileName());
+              lexpc->VpiLineNo(fC->Line(Packed_dimension));
+              lexpc->VpiColumnNo(fC->Column(Packed_dimension));
+              lexpc->VpiEndLineNo(fC->EndLine(Packed_dimension));
+              lexpc->VpiEndColumnNo(fC->Column(Packed_dimension) + 1);
+              expr *lexp = lexpc;
+
+              range->Left_expr(lexp);
+              lexp->VpiParent(range);
+
+              constant *rexpc = s.MakeConstant();
+              rexpc->VpiConstType(vpiStringConst);
+              rexpc->VpiSize(0);
+              rexpc->VpiValue("STRING:associative");
+              rexpc->VpiDecompile("associative");
+              rexpc->VpiFile(fC->getFileName());
+              rexpc->VpiLineNo(fC->Line(Packed_dimension));
+              rexpc->VpiColumnNo(fC->Column(Packed_dimension));
+              rexpc->VpiEndLineNo(fC->EndLine(Packed_dimension));
+              rexpc->VpiEndColumnNo(fC->Column(Packed_dimension) + 1);
+
+              rexpc->Typespec(assoc_tps);
+              expr *rexp = rexpc;
+
+              range->Right_expr(rexp);
+              rexp->VpiParent(range);
+
+              ranges->push_back(range);
+              Packed_dimension = fC->Sibling(Packed_dimension);
+              continue;
+            }
+          }
+        }
         if (!associativeArray) {
           operation *op = s.MakeOperation();  // Decr by 1
           op->VpiOpType(vpiSubOp);
