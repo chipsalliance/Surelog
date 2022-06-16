@@ -102,7 +102,8 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
                                         const FileContent* fC, NodeId the_stmt,
                                         CompileDesign* compileDesign,
                                         UHDM::any* pstmt,
-                                        ValuedComponentI* instance) {
+                                        ValuedComponentI* instance,
+                                        bool reduce) {
   VectorOfany* results = nullptr;
   UHDM::Serializer& s = compileDesign->getSerializer();
   VObjectType type = fC->Type(the_stmt);
@@ -773,7 +774,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
     }
     case VObjectType::slData_declaration: {
       results = compileDataDeclaration(component, fC, fC->Child(the_stmt),
-                                       compileDesign, pstmt, instance);
+                                       compileDesign, pstmt, instance, reduce);
       break;
     }
     case VObjectType::slStringConst: {
@@ -911,12 +912,10 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
   return results;
 }
 
-VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
-                                                   const FileContent* fC,
-                                                   NodeId nodeId,
-                                                   CompileDesign* compileDesign,
-                                                   UHDM::any* pstmt,
-                                                   ValuedComponentI* instance) {
+VectorOfany* CompileHelper::compileDataDeclaration(
+    DesignComponent* component, const FileContent* fC, NodeId nodeId,
+    CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance,
+    bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   VectorOfany* results = nullptr;
   VObjectType type = fC->Type(nodeId);
@@ -958,7 +957,7 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
           int unpackedSize;
           unpackedDimensions =
               compileRanges(component, fC, tmp, compileDesign, nullptr,
-                            instance, false, unpackedSize, false);
+                            instance, reduce, unpackedSize, false);
         }
         while (tmp && (fC->Type(tmp) != slExpression)) {
           tmp = fC->Sibling(tmp);
@@ -2042,7 +2041,8 @@ bool CompileHelper::compileClassConstructorDeclaration(
 bool CompileHelper::compileFunction(DesignComponent* component,
                                     const FileContent* fC, NodeId nodeId,
                                     CompileDesign* compileDesign,
-                                    ValuedComponentI* instance, bool isMethod) {
+                                    ValuedComponentI* instance, bool isMethod,
+                                    bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   std::vector<UHDM::task_func*>* task_funcs = component->getTask_funcs();
   if (task_funcs == nullptr) {
@@ -2212,8 +2212,9 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     while (Function_statement_or_null) {
       NodeId Statement = fC->Child(Function_statement_or_null);
       if (Statement) {
-        if (VectorOfany* sts = compileStmt(component, fC, Statement,
-                                           compileDesign, begin, instance)) {
+        if (VectorOfany* sts =
+                compileStmt(component, fC, Statement, compileDesign, begin,
+                            instance, reduce)) {
           for (any* st : *sts) {
             UHDM_OBJECT_TYPE stmt_type = st->UhdmType();
             if (stmt_type == uhdmparam_assign) {
