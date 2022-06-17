@@ -118,6 +118,11 @@ variables* CompileHelper::getSimpleVarFromTypespec(
       var = int_var;
       break;
     }
+    case uhdmclass_typespec: {
+      UHDM::class_var* int_var = s.MakeClass_var();
+      var = int_var;
+      break;
+    }
     case uhdmenum_typespec: {
       UHDM::enum_var* enum_var = s.MakeEnum_var();
       var = enum_var;
@@ -167,9 +172,15 @@ variables* CompileHelper::getSimpleVarFromTypespec(
       break;
     }
     case uhdmarray_typespec: {
-      UHDM::array_var* array = s.MakeArray_var();
-      array->Typespec(s.MakeArray_typespec());
-      var = array;
+      array_typespec* atps = (array_typespec*)spec;
+      if (const typespec* indextps = atps->Index_typespec()) {
+        return getSimpleVarFromTypespec((typespec*)indextps, packedDimensions,
+                                        compileDesign);
+      } else {
+        UHDM::array_var* array = s.MakeArray_var();
+        array->Typespec(s.MakeArray_typespec());
+        var = array;
+      }
       break;
     }
     default:
