@@ -205,6 +205,12 @@ UHDM::any* CompileHelper::compileVariable(
       the_type == VObjectType::slPs_or_hierarchical_identifier) {
     variable = fC->Child(variable);
     the_type = fC->Type(variable);
+  } else if (the_type == slImplicit_class_handle) {
+    NodeId Handle = fC->Child(variable);
+    if (fC->Type(Handle) == slThis_keyword) {
+      variable = fC->Sibling(variable);
+      the_type = fC->Type(variable);
+    }
   } else if (the_type == VObjectType::sl_INVALID_) {
     return nullptr;
   }
