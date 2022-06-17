@@ -980,7 +980,21 @@ VectorOfany* CompileHelper::compileDataDeclaration(
 
           if (unpackedDimensions) {
             array_var* arr = s.MakeArray_var();
-            arr->Typespec(s.MakeArray_typespec());
+            array_typespec* tps = s.MakeArray_typespec();
+            arr->Typespec(tps);
+            for (range* r : *unpackedDimensions) {
+              const expr* rrange = r->Right_expr();
+              if (rrange->VpiValue() == "STRING:associative") {
+                arr->VpiArrayType(vpiAssocArray);
+                tps->Index_typespec((typespec*)rrange->Typespec());
+              } else if (rrange->VpiValue() == "STRING:unsized") {
+                arr->VpiArrayType(vpiDynamicArray);
+              } else if (rrange->VpiValue() == "STRING:$") {
+                arr->VpiArrayType(vpiQueueArray);
+              } else {
+                arr->VpiArrayType(vpiStaticArray);
+              }
+            }
             arr->VpiName(fC->SymName(Var));
             var->VpiName("");
             arr->Ranges(unpackedDimensions);
