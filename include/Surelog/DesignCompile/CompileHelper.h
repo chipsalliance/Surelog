@@ -189,7 +189,7 @@ class CompileHelper final {
 
   bool compileTask(DesignComponent* component, const FileContent* fC,
                    NodeId nodeId, CompileDesign* compileDesign,
-                   ValuedComponentI* instance, bool isMethod = false);
+                   ValuedComponentI* instance, bool isMethod = false, bool reduce = false);
 
   bool compileFunction(DesignComponent* component, const FileContent* fC,
                        NodeId nodeId, CompileDesign* compileDesign,

@@ -187,7 +187,8 @@ bool CompilePackage::collectObjects_(CollectType collectType, bool reduce) {
         case VObjectType::slTask_declaration: {
           // Called twice, placeholder first, then definition
           if (collectType == CollectType::OTHER) break;
-          m_helper.compileTask(m_package, fC, id, m_compileDesign, nullptr);
+          m_helper.compileTask(m_package, fC, id, m_compileDesign, nullptr,
+                               false, true);
           break;
         }
         case VObjectType::slFunction_declaration: {
