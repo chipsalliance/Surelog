@@ -122,8 +122,8 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         // That is the null statement (no statement)
         return nullptr;
       }
-      results =
-          compileStmt(component, fC, child, compileDesign, pstmt, instance);
+      results = compileStmt(component, fC, child, compileDesign, pstmt,
+                            instance, reduce);
       break;
     }
     case VObjectType::slBlock_item_declaration:
@@ -135,7 +135,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
     case VObjectType::slProcedural_assertion_statement:
     case VObjectType::slLoop_statement: {
       results = compileStmt(component, fC, fC->Child(the_stmt), compileDesign,
-                            pstmt, instance);
+                            pstmt, instance, reduce);
       break;
     }
     case VObjectType::slInc_or_dec_expression: {
@@ -1714,7 +1714,8 @@ NodeId CompileHelper::setFuncTaskQualifiers(const FileContent* fC,
 bool CompileHelper::compileTask(DesignComponent* component,
                                 const FileContent* fC, NodeId nodeId,
                                 CompileDesign* compileDesign,
-                                ValuedComponentI* instance, bool isMethod) {
+                                ValuedComponentI* instance, bool isMethod,
+                                bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   std::vector<UHDM::task_func*>* task_funcs = component->getTask_funcs();
   if (task_funcs == nullptr) {
@@ -1827,8 +1828,9 @@ bool CompileHelper::compileTask(DesignComponent* component,
           Statement_or_null = fC->Sibling(Statement_or_null);
         }
       } else {
-        if (VectorOfany* sts = compileStmt(component, fC, Statement_or_null,
-                                           compileDesign, begin, instance)) {
+        if (VectorOfany* sts =
+                compileStmt(component, fC, Statement_or_null, compileDesign,
+                            begin, instance, reduce)) {
           for (any* st : *sts) {
             UHDM_OBJECT_TYPE stmt_type = st->UhdmType();
             if (stmt_type == uhdmparam_assign) {
@@ -1869,7 +1871,7 @@ bool CompileHelper::compileTask(DesignComponent* component,
     // Page 983, 2017 Standard: 0 or 1 Stmt
     if (Statement_or_null && (fC->Type(Statement_or_null) != slEndtask)) {
       VectorOfany* stmts = compileStmt(component, fC, Statement_or_null,
-                                       compileDesign, task, instance);
+                                       compileDesign, task, instance, reduce);
       if (stmts) {
         for (any* st : *stmts) {
           UHDM_OBJECT_TYPE stmt_type = st->UhdmType();
@@ -2269,8 +2271,8 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     // Page 983, 2017 Standard: 0 or 1 Stmt
     NodeId Statement = fC->Child(Function_statement_or_null);
     if (Statement) {
-      VectorOfany* sts =
-          compileStmt(component, fC, Statement, compileDesign, func, instance);
+      VectorOfany* sts = compileStmt(component, fC, Statement, compileDesign,
+                                     func, instance, reduce);
       if (sts) {
         any* st = (*sts)[0];
         UHDM_OBJECT_TYPE stmt_type = st->UhdmType();
