@@ -396,7 +396,7 @@ bool writeElabParameters(Serializer& s, ModuleInstance* instance,
           }
         } else {
           // Regular param
-          ElaboratorListener listener(&s);
+          ElaboratorListener listener(&s, false, true);
           any* pclone = UHDM::clone_tree(orig, s, &listener);
           pclone->VpiParent(m);
           paramSet.insert(std::make_pair(name, pclone));
@@ -2131,7 +2131,7 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
         function* func = (function*)parent;
         if (parent->VpiName() == name) {
           if (const any* ret = func->Return()) {
-            ElaboratorListener listener(&s);
+            ElaboratorListener listener(&s, false, true);
             any* pclone = UHDM::clone_tree(ret, s, &listener);
             variables* var = (variables*)pclone;
             var->VpiName(name);
@@ -3579,7 +3579,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
     m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
         m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
 
-    ElaboratorListener* listener = new ElaboratorListener(&s, false);
+    ElaboratorListener* listener = new ElaboratorListener(&s, false, false);
     listener->uniquifyTypespec(false);
     listener->listenDesigns(designs);
     delete listener;

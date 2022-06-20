@@ -451,7 +451,7 @@ bool ErrorDefinition::init() {
       "Internal out of bound error");
   rec(UHDM_UNDEFINED_USER_FUNCTION, ERROR, UHDM,
       "Undefined user task/function \"%s\"");
-  rec(UHDM_UNRESOLVED_HIER_PATH, ERROR, UHDM,
+  rec(UHDM_UNRESOLVED_HIER_PATH, WARNING, UHDM,
       "Unresolved hierarchical reference \"%s\"");
   rec(UHDM_UNDEFINED_VARIABLE, ERROR, UHDM, "Undefined variable \"%s\"");
   return true;

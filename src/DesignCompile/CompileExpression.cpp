@@ -880,7 +880,7 @@ any *CompileHelper::getValue(const std::string &name,
                     }
                   }
 
-                  ElaboratorListener listener(&s);
+                  ElaboratorListener listener(&s, false, true);
                   result = UHDM::clone_tree((any *)param->Rhs(), s, &listener);
                   break;
                 }
@@ -979,7 +979,7 @@ any *CompileHelper::getValue(const std::string &name,
                 }
               }
 
-              ElaboratorListener listener(&s);
+              ElaboratorListener listener(&s, false, true);
               result = UHDM::clone_tree((any *)param->Rhs(), s, &listener);
               break;
             }
@@ -2273,7 +2273,7 @@ UHDM::any *CompileHelper::compileExpression(
                       if (param_name == n) {
                         if (substituteAssignedValue(param->Rhs(),
                                                     compileDesign)) {
-                          ElaboratorListener listener(&s);
+                          ElaboratorListener listener(&s, false, true);
                           result = UHDM::clone_tree((any *)param->Rhs(), s,
                                                     &listener);
                           result->VpiFile(fC->getFileName(child));
@@ -2323,7 +2323,7 @@ UHDM::any *CompileHelper::compileExpression(
                       if (param_name == n) {
                         if (substituteAssignedValue(param->Rhs(),
                                                     compileDesign)) {
-                          ElaboratorListener listener(&s);
+                          ElaboratorListener listener(&s, false, true);
                           result = UHDM::clone_tree((any *)param->Rhs(), s,
                                                     &listener);
                           result->VpiFile(fC->getFileName(child));
@@ -2406,7 +2406,7 @@ UHDM::any *CompileHelper::compileExpression(
                               (param_ass->Rhs()->UhdmType() == uhdmconstant)) {
                             if (substituteAssignedValue(param_ass->Rhs(),
                                                         compileDesign)) {
-                              ElaboratorListener listener(&s);
+                              ElaboratorListener listener(&s, false, true);
                               result = UHDM::clone_tree((any *)param_ass->Rhs(),
                                                         s, &listener);
                               result->VpiFile(fC->getFileName(child));
@@ -2466,7 +2466,7 @@ UHDM::any *CompileHelper::compileExpression(
                           if (complexValue) {
                             result = complexValue;
                           } else {
-                            ElaboratorListener listener(&s);
+                            ElaboratorListener listener(&s, false, true);
                             result = UHDM::clone_tree((any *)param_ass->Rhs(),
                                                       s, &listener);
                             result->VpiFile(fC->getFileName(child));
