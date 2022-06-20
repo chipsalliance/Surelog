@@ -177,6 +177,10 @@ n<> u<142> t<Top_level_rule> c<1> l<1:1> el<17:1>
 
 [INF:UH0707] Elaborating UHDM...
 
+[WRN:UH0725] dut.sv:3:12: Unresolved hierarchical reference "hw2reg.alert_cause[k].d".
+
+[WRN:UH0725] dut.sv:15:10: Unresolved hierarchical reference "a[0][0].x[0]".
+
 [INF:UH0708] Writing UHDM DB: ../../build/regression/HierPathLhs/slpp_all/surelog.uhdm ...
 
 [INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/HierPathLhs/slpp_all/surelog.uhdm.chk.html ...
@@ -438,6 +442,8 @@ design: (work@alert_handler_reg_wrap)
         |vpiName:a
         |vpiIndex:
         \_constant: , line:15:12, endln:15:13
+        |vpiActual:
+        \_packed_array_var: (work@top.a), line:13:23, endln:13:24
       |vpiActual:
       \_bit_select: , line:15:12, endln:15:13
         |vpiIndex:
@@ -461,7 +467,7 @@ design: (work@alert_handler_reg_wrap)
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 2
+[WARNING] : 4
 [   NOTE] : 7
 
 

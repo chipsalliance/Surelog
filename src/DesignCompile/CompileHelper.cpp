@@ -183,7 +183,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       }
 
       if (p) {
-        ElaboratorListener listener(&s);
+        ElaboratorListener listener(&s, false, true);
         any* pclone = UHDM::clone_tree(p, s, &listener);
         if (pclone->UhdmType() == uhdmtype_parameter) {
           type_parameter* the_p = (type_parameter*)pclone;
@@ -229,7 +229,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
         parameters = scope->getParameters();  // NOLINT(*.DeadStores)
       }
 
-      ElaboratorListener listener(&s);
+      ElaboratorListener listener(&s, false, true);
       UHDM::param_assign* cpass =
           (UHDM::param_assign*)UHDM::clone_tree(pass, s, &listener);
       clone->setUhdmParamAssign(cpass);
@@ -809,7 +809,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
         UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign,
                                              nullptr, nullptr, reduce);
         if (ts && (ts->UhdmType() != uhdmclass_typespec)) {
-          ElaboratorListener listener(&s);
+          ElaboratorListener listener(&s, false, true);
           typespec* tpclone =
               (typespec*)UHDM::clone_tree((any*)ts, s, &listener);
 
@@ -2785,7 +2785,7 @@ bool CompileHelper::compileParameterDeclaration(
           param_assign->VpiColumnNo(fC->Column(Param_assignment));
           param_assign->VpiEndLineNo(fC->EndLine(Param_assignment));
           param_assign->VpiEndColumnNo(fC->EndColumn(Param_assignment));
-          ElaboratorListener listener(&s);
+          ElaboratorListener listener(&s, false, true);
           any* pclone = UHDM::clone_tree(param, s, &listener);
           param_assign->Lhs(pclone);
           param_assign->Rhs(rhs);

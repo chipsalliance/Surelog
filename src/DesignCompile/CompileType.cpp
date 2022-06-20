@@ -507,7 +507,7 @@ const UHDM::typespec* bindTypespec(const std::string& name,
           type_parameter* tparam = any_cast<type_parameter*>(uparam);
           if (tparam) {
             result = tparam->Typespec();
-            ElaboratorListener listener(&s);
+            ElaboratorListener listener(&s, false, true);
             result = any_cast<typespec*>(
                 UHDM::clone_tree((any*)result, s, &listener));
           }
@@ -525,7 +525,7 @@ const UHDM::typespec* bindTypespec(const std::string& name,
             type_parameter* tparam = any_cast<type_parameter*>(uparam);
             if (tparam) {
               result = tparam->Typespec();
-              ElaboratorListener listener(&s);
+              ElaboratorListener listener(&s, false, true);
               result = any_cast<typespec*>(
                   UHDM::clone_tree((any*)result, s, &listener));
             }
@@ -535,7 +535,7 @@ const UHDM::typespec* bindTypespec(const std::string& name,
         if (dt) {
           dt = dt->getActual();
           result = dt->getTypespec();
-          ElaboratorListener listener(&s);
+          ElaboratorListener listener(&s, false, true);
           result =
               any_cast<typespec*>(UHDM::clone_tree((any*)result, s, &listener));
         }
@@ -703,7 +703,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
       } else if (const SimpleType* sit = datatype_cast<const SimpleType*>(dt)) {
         result = sit->getTypespec();
         if (parent_tpd && result) {
-          ElaboratorListener listener(&s);
+          ElaboratorListener listener(&s, false, true);
           typespec* new_result =
               any_cast<typespec*>(UHDM::clone_tree((any*)result, s, &listener));
           if (new_result) {
@@ -1896,7 +1896,7 @@ UHDM::typespec* CompileHelper::elabTypespec(DesignComponent* component,
       bit_typespec* tps = (bit_typespec*)spec;
       ranges = tps->Ranges();
       if (ranges) {
-        ElaboratorListener listener(&s);
+        ElaboratorListener listener(&s, false, true);
         bit_typespec* res =
             any_cast<bit_typespec*>(UHDM::clone_tree((any*)spec, s, &listener));
         ranges = res->Ranges();
@@ -1908,7 +1908,7 @@ UHDM::typespec* CompileHelper::elabTypespec(DesignComponent* component,
       logic_typespec* tps = (logic_typespec*)spec;
       ranges = tps->Ranges();
       if (ranges) {
-        ElaboratorListener listener(&s);
+        ElaboratorListener listener(&s, false, true);
         logic_typespec* res = any_cast<logic_typespec*>(
             UHDM::clone_tree((any*)spec, s, &listener));
         ranges = res->Ranges();
@@ -1920,7 +1920,7 @@ UHDM::typespec* CompileHelper::elabTypespec(DesignComponent* component,
       array_typespec* tps = (array_typespec*)spec;
       ranges = tps->Ranges();
       if (ranges) {
-        ElaboratorListener listener(&s);
+        ElaboratorListener listener(&s, false, true);
         array_typespec* res = any_cast<array_typespec*>(
             UHDM::clone_tree((any*)spec, s, &listener));
         ranges = res->Ranges();
@@ -1932,7 +1932,7 @@ UHDM::typespec* CompileHelper::elabTypespec(DesignComponent* component,
       packed_array_typespec* tps = (packed_array_typespec*)spec;
       ranges = tps->Ranges();
       if (ranges) {
-        ElaboratorListener listener(&s);
+        ElaboratorListener listener(&s, false, true);
         packed_array_typespec* res = any_cast<packed_array_typespec*>(
             UHDM::clone_tree((any*)spec, s, &listener));
         ranges = res->Ranges();

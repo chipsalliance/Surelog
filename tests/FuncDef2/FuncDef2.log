@@ -3647,13 +3647,21 @@ n<> u<3604> t<Top_level_rule> c<1> l<40:1> el<434:1>
 
 [INF:UH0707] Elaborating UHDM...
 
-[ERR:UH0725] dut.sv:417:33: Unresolved hierarchical reference "receiver_if.valid[i]".
+[WRN:UH0725] dut.sv:417:33: Unresolved hierarchical reference "receiver_if.valid[i]".
 
-[ERR:UH0725] dut.sv:418:7: Unresolved hierarchical reference "receiver_if.ready".
+[WRN:UH0725] dut.sv:417:7: Unresolved hierarchical reference "sender_if[i].valid".
 
-[ERR:UH0725] dut.sv:419:7: Unresolved hierarchical reference "receiver_if.vc_ready".
+[WRN:UH0725] dut.sv:418:33: Unresolved hierarchical reference "sender_if[i].ready".
 
-[ERR:UH0725] dut.sv:424:29: Unresolved hierarchical reference "receiver_if.flit[i]".
+[WRN:UH0725] dut.sv:418:7: Unresolved hierarchical reference "receiver_if.ready".
+
+[WRN:UH0725] dut.sv:419:33: Unresolved hierarchical reference "sender_if[i].vc_ready".
+
+[WRN:UH0725] dut.sv:419:7: Unresolved hierarchical reference "receiver_if.vc_ready".
+
+[WRN:UH0725] dut.sv:424:29: Unresolved hierarchical reference "receiver_if.flit[i]".
+
+[WRN:UH0725] dut.sv:424:9: Unresolved hierarchical reference "sender_if[i].flit".
 
 [INF:UH0708] Writing UHDM DB: ../../build/regression/FuncDef2/slpp_all/surelog.uhdm ...
 
@@ -4411,6 +4419,8 @@ design: (work@tnoc_vc_splitter)
                 |vpiFullName:tnoc_pkg::tnoc_clog2::i
                 |vpiActual:
                 \_int_var: (tnoc_pkg::tnoc_clog2::i), line:70:14, endln:70:15
+              |vpiActual:
+              \_io_decl: (n), line:66:48, endln:66:49
             |vpiStmt:
             \_begin: (tnoc_pkg::tnoc_clog2), line:71:17, endln:74:10
               |vpiParent:
@@ -5934,6 +5944,8 @@ design: (work@tnoc_vc_splitter)
               |vpiFullName:tnoc_pkg::is_request_packet_type::packet_type::TNOC_PACKET_TYPE_RESPONSE_BIT
               |vpiActual:
               \_parameter: (tnoc_pkg::TNOC_PACKET_TYPE_RESPONSE_BIT), line:183:19, endln:183:48
+            |vpiActual:
+            \_io_decl: (packet_type), line:203:68, endln:203:79
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -6004,6 +6016,8 @@ design: (work@tnoc_vc_splitter)
             |vpiFullName:tnoc_pkg::is_response_packet_type::packet_type::TNOC_PACKET_TYPE_RESPONSE_BIT
             |vpiActual:
             \_parameter: (tnoc_pkg::TNOC_PACKET_TYPE_RESPONSE_BIT), line:183:19, endln:183:48
+          |vpiActual:
+          \_io_decl: (packet_type), line:207:69, endln:207:80
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -6074,6 +6088,8 @@ design: (work@tnoc_vc_splitter)
             |vpiFullName:tnoc_pkg::is_packet_with_payload_type::packet_type::TNOC_PACKET_TYPE_PAYLOAD_BIT
             |vpiActual:
             \_parameter: (tnoc_pkg::TNOC_PACKET_TYPE_PAYLOAD_BIT), line:184:19, endln:184:47
+          |vpiActual:
+          \_io_decl: (packet_type), line:211:73, endln:211:84
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -6149,6 +6165,8 @@ design: (work@tnoc_vc_splitter)
               |vpiFullName:tnoc_pkg::is_header_only_packet_type::packet_type::TNOC_PACKET_TYPE_PAYLOAD_BIT
               |vpiActual:
               \_parameter: (tnoc_pkg::TNOC_PACKET_TYPE_PAYLOAD_BIT), line:184:19, endln:184:47
+            |vpiActual:
+            \_io_decl: (packet_type), line:215:72, endln:215:83
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -6224,6 +6242,8 @@ design: (work@tnoc_vc_splitter)
               |vpiFullName:tnoc_pkg::is_posted_request_packet_type::packet_type::TNOC_PACKET_TYPE_NON_POSTED_BIT
               |vpiActual:
               \_parameter: (tnoc_pkg::TNOC_PACKET_TYPE_NON_POSTED_BIT), line:185:19, endln:185:50
+            |vpiActual:
+            \_io_decl: (packet_type), line:219:75, endln:219:86
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -6294,6 +6314,8 @@ design: (work@tnoc_vc_splitter)
             |vpiFullName:tnoc_pkg::is_non_posted_request_packet_type::packet_type::TNOC_PACKET_TYPE_NON_POSTED_BIT
             |vpiActual:
             \_parameter: (tnoc_pkg::TNOC_PACKET_TYPE_NON_POSTED_BIT), line:185:19, endln:185:50
+          |vpiActual:
+          \_io_decl: (packet_type), line:223:79, endln:223:90
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -9778,6 +9800,8 @@ design: (work@tnoc_vc_splitter)
                 |vpiFullName:tnoc_pkg::tnoc_clog2::i
                 |vpiActual:
                 \_int_var: (tnoc_pkg::tnoc_clog2::i), line:70:14, endln:70:15
+              |vpiActual:
+              \_io_decl: (n), line:66:48, endln:66:49
             |vpiStmt:
             \_begin: (tnoc_pkg::tnoc_clog2), line:71:17, endln:74:10
               |vpiParent:
@@ -11301,6 +11325,8 @@ design: (work@tnoc_vc_splitter)
               |vpiFullName:tnoc_pkg::is_request_packet_type::packet_type::TNOC_PACKET_TYPE_RESPONSE_BIT
               |vpiActual:
               \_parameter: (tnoc_pkg::TNOC_PACKET_TYPE_RESPONSE_BIT), line:183:19, endln:183:48
+            |vpiActual:
+            \_io_decl: (packet_type), line:203:68, endln:203:79
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -11371,6 +11397,8 @@ design: (work@tnoc_vc_splitter)
             |vpiFullName:tnoc_pkg::is_response_packet_type::packet_type::TNOC_PACKET_TYPE_RESPONSE_BIT
             |vpiActual:
             \_parameter: (tnoc_pkg::TNOC_PACKET_TYPE_RESPONSE_BIT), line:183:19, endln:183:48
+          |vpiActual:
+          \_io_decl: (packet_type), line:207:69, endln:207:80
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -11441,6 +11469,8 @@ design: (work@tnoc_vc_splitter)
             |vpiFullName:tnoc_pkg::is_packet_with_payload_type::packet_type::TNOC_PACKET_TYPE_PAYLOAD_BIT
             |vpiActual:
             \_parameter: (tnoc_pkg::TNOC_PACKET_TYPE_PAYLOAD_BIT), line:184:19, endln:184:47
+          |vpiActual:
+          \_io_decl: (packet_type), line:211:73, endln:211:84
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -11516,6 +11546,8 @@ design: (work@tnoc_vc_splitter)
               |vpiFullName:tnoc_pkg::is_header_only_packet_type::packet_type::TNOC_PACKET_TYPE_PAYLOAD_BIT
               |vpiActual:
               \_parameter: (tnoc_pkg::TNOC_PACKET_TYPE_PAYLOAD_BIT), line:184:19, endln:184:47
+            |vpiActual:
+            \_io_decl: (packet_type), line:215:72, endln:215:83
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -11591,6 +11623,8 @@ design: (work@tnoc_vc_splitter)
               |vpiFullName:tnoc_pkg::is_posted_request_packet_type::packet_type::TNOC_PACKET_TYPE_NON_POSTED_BIT
               |vpiActual:
               \_parameter: (tnoc_pkg::TNOC_PACKET_TYPE_NON_POSTED_BIT), line:185:19, endln:185:50
+            |vpiActual:
+            \_io_decl: (packet_type), line:219:75, endln:219:86
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -11661,6 +11695,8 @@ design: (work@tnoc_vc_splitter)
             |vpiFullName:tnoc_pkg::is_non_posted_request_packet_type::packet_type::TNOC_PACKET_TYPE_NON_POSTED_BIT
             |vpiActual:
             \_parameter: (tnoc_pkg::TNOC_PACKET_TYPE_NON_POSTED_BIT), line:185:19, endln:185:50
+          |vpiActual:
+          \_io_decl: (packet_type), line:223:79, endln:223:90
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -19498,7 +19534,7 @@ design: (work@tnoc_vc_splitter)
     \_ref_obj: (TNOC_DEFAULT_PACKET_CONFIG), line:407:51, endln:407:77
       |vpiName:TNOC_DEFAULT_PACKET_CONFIG
       |vpiActual:
-      \_operation: , line:55:65, endln:64:4
+      \_parameter: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG), line:55:35, endln:55:61
     |vpiLhs:
     \_parameter: (work@tnoc_vc_splitter.PACKET_CONFIG), line:407:35, endln:407:48
   |vpiParamAssign:
@@ -19945,6 +19981,8 @@ design: (work@tnoc_vc_splitter)
                 |vpiFullName:work@tnoc_vc_splitter.tnoc_clog2.i
                 |vpiActual:
                 \_int_var: (tnoc_pkg::tnoc_clog2::i), line:70:14, endln:70:15
+              |vpiActual:
+              \_io_decl: (n), line:66:48, endln:66:49
             |vpiStmt:
             \_begin: (work@tnoc_vc_splitter.tnoc_clog2), line:71:17, endln:74:10
               |vpiParent:
@@ -21240,7 +21278,9 @@ design: (work@tnoc_vc_splitter)
               |vpiName:TNOC_PACKET_TYPE_RESPONSE_BIT
               |vpiFullName:work@tnoc_vc_splitter.is_request_packet_type.packet_type.TNOC_PACKET_TYPE_RESPONSE_BIT
               |vpiActual:
-              \_constant: , line:183:53, endln:183:54
+              \_parameter: (work@tnoc_vc_splitter.TNOC_PACKET_TYPE_RESPONSE_BIT), line:183:19, endln:183:48
+            |vpiActual:
+            \_io_decl: (packet_type), line:203:68, endln:203:79
     |vpiInstance:
     \_module: work@tnoc_vc_splitter (work@tnoc_vc_splitter), file:dut.sv, line:404:1, endln:433:10
   |vpiTaskFunc:
@@ -21306,7 +21346,9 @@ design: (work@tnoc_vc_splitter)
             |vpiName:TNOC_PACKET_TYPE_RESPONSE_BIT
             |vpiFullName:work@tnoc_vc_splitter.is_response_packet_type.packet_type.TNOC_PACKET_TYPE_RESPONSE_BIT
             |vpiActual:
-            \_constant: , line:183:53, endln:183:54
+            \_parameter: (work@tnoc_vc_splitter.TNOC_PACKET_TYPE_RESPONSE_BIT), line:183:19, endln:183:48
+          |vpiActual:
+          \_io_decl: (packet_type), line:207:69, endln:207:80
     |vpiInstance:
     \_module: work@tnoc_vc_splitter (work@tnoc_vc_splitter), file:dut.sv, line:404:1, endln:433:10
   |vpiTaskFunc:
@@ -21372,7 +21414,9 @@ design: (work@tnoc_vc_splitter)
             |vpiName:TNOC_PACKET_TYPE_PAYLOAD_BIT
             |vpiFullName:work@tnoc_vc_splitter.is_packet_with_payload_type.packet_type.TNOC_PACKET_TYPE_PAYLOAD_BIT
             |vpiActual:
-            \_constant: , line:184:53, endln:184:54
+            \_parameter: (work@tnoc_vc_splitter.TNOC_PACKET_TYPE_PAYLOAD_BIT), line:184:19, endln:184:47
+          |vpiActual:
+          \_io_decl: (packet_type), line:211:73, endln:211:84
     |vpiInstance:
     \_module: work@tnoc_vc_splitter (work@tnoc_vc_splitter), file:dut.sv, line:404:1, endln:433:10
   |vpiTaskFunc:
@@ -21443,7 +21487,9 @@ design: (work@tnoc_vc_splitter)
               |vpiName:TNOC_PACKET_TYPE_PAYLOAD_BIT
               |vpiFullName:work@tnoc_vc_splitter.is_header_only_packet_type.packet_type.TNOC_PACKET_TYPE_PAYLOAD_BIT
               |vpiActual:
-              \_constant: , line:184:53, endln:184:54
+              \_parameter: (work@tnoc_vc_splitter.TNOC_PACKET_TYPE_PAYLOAD_BIT), line:184:19, endln:184:47
+            |vpiActual:
+            \_io_decl: (packet_type), line:215:72, endln:215:83
     |vpiInstance:
     \_module: work@tnoc_vc_splitter (work@tnoc_vc_splitter), file:dut.sv, line:404:1, endln:433:10
   |vpiTaskFunc:
@@ -21514,7 +21560,9 @@ design: (work@tnoc_vc_splitter)
               |vpiName:TNOC_PACKET_TYPE_NON_POSTED_BIT
               |vpiFullName:work@tnoc_vc_splitter.is_posted_request_packet_type.packet_type.TNOC_PACKET_TYPE_NON_POSTED_BIT
               |vpiActual:
-              \_constant: , line:185:53, endln:185:54
+              \_parameter: (work@tnoc_vc_splitter.TNOC_PACKET_TYPE_NON_POSTED_BIT), line:185:19, endln:185:50
+            |vpiActual:
+            \_io_decl: (packet_type), line:219:75, endln:219:86
     |vpiInstance:
     \_module: work@tnoc_vc_splitter (work@tnoc_vc_splitter), file:dut.sv, line:404:1, endln:433:10
   |vpiTaskFunc:
@@ -21580,7 +21628,9 @@ design: (work@tnoc_vc_splitter)
             |vpiName:TNOC_PACKET_TYPE_NON_POSTED_BIT
             |vpiFullName:work@tnoc_vc_splitter.is_non_posted_request_packet_type.packet_type.TNOC_PACKET_TYPE_NON_POSTED_BIT
             |vpiActual:
-            \_constant: , line:185:53, endln:185:54
+            \_parameter: (work@tnoc_vc_splitter.TNOC_PACKET_TYPE_NON_POSTED_BIT), line:185:19, endln:185:50
+          |vpiActual:
+          \_io_decl: (packet_type), line:223:79, endln:223:90
     |vpiInstance:
     \_module: work@tnoc_vc_splitter (work@tnoc_vc_splitter), file:dut.sv, line:404:1, endln:433:10
   |vpiTaskFunc:
@@ -24249,6 +24299,8 @@ design: (work@tnoc_vc_splitter)
                   |vpiFullName:work@tnoc_vc_splitter.g[0].sender_if[i].i
                   |vpiActual:
                   \_parameter: (work@tnoc_vc_splitter.g[0].i), line:415:0
+                |vpiActual:
+                \_array_net: (work@tnoc_vc_splitter.sender_if), line:413:25, endln:413:34
               |vpiActual:
               \_ref_obj: (valid)
                 |vpiParent:
@@ -24282,6 +24334,8 @@ design: (work@tnoc_vc_splitter)
                   |vpiFullName:work@tnoc_vc_splitter.g[0].sender_if[i].i
                   |vpiActual:
                   \_parameter: (work@tnoc_vc_splitter.g[0].i), line:415:0
+                |vpiActual:
+                \_array_net: (work@tnoc_vc_splitter.sender_if), line:413:25, endln:413:34
               |vpiActual:
               \_ref_obj: (ready), line:418:46, endln:418:51
                 |vpiParent:
@@ -24345,6 +24399,8 @@ design: (work@tnoc_vc_splitter)
                   |vpiFullName:work@tnoc_vc_splitter.g[0].sender_if[i].i
                   |vpiActual:
                   \_parameter: (work@tnoc_vc_splitter.g[0].i), line:415:0
+                |vpiActual:
+                \_array_net: (work@tnoc_vc_splitter.sender_if), line:413:25, endln:413:34
               |vpiActual:
               \_ref_obj: (vc_ready), line:419:46, endln:419:54
                 |vpiParent:
@@ -24458,6 +24514,8 @@ design: (work@tnoc_vc_splitter)
                       |vpiFullName:work@tnoc_vc_splitter.g[0].g.sender_if[i].i
                       |vpiActual:
                       \_parameter: (work@tnoc_vc_splitter.g[0].i), line:415:0
+                    |vpiActual:
+                    \_array_net: (work@tnoc_vc_splitter.sender_if), line:413:25, endln:413:34
                   |vpiActual:
                   \_ref_obj: (flit)
                     |vpiParent:
@@ -24551,6 +24609,8 @@ design: (work@tnoc_vc_splitter)
                   |vpiFullName:work@tnoc_vc_splitter.g[1].sender_if[i].i
                   |vpiActual:
                   \_parameter: (work@tnoc_vc_splitter.g[1].i), line:415:0
+                |vpiActual:
+                \_array_net: (work@tnoc_vc_splitter.sender_if), line:413:25, endln:413:34
               |vpiActual:
               \_ref_obj: (valid)
                 |vpiParent:
@@ -24584,6 +24644,8 @@ design: (work@tnoc_vc_splitter)
                   |vpiFullName:work@tnoc_vc_splitter.g[1].sender_if[i].i
                   |vpiActual:
                   \_parameter: (work@tnoc_vc_splitter.g[1].i), line:415:0
+                |vpiActual:
+                \_array_net: (work@tnoc_vc_splitter.sender_if), line:413:25, endln:413:34
               |vpiActual:
               \_ref_obj: (ready), line:418:46, endln:418:51
                 |vpiParent:
@@ -24647,6 +24709,8 @@ design: (work@tnoc_vc_splitter)
                   |vpiFullName:work@tnoc_vc_splitter.g[1].sender_if[i].i
                   |vpiActual:
                   \_parameter: (work@tnoc_vc_splitter.g[1].i), line:415:0
+                |vpiActual:
+                \_array_net: (work@tnoc_vc_splitter.sender_if), line:413:25, endln:413:34
               |vpiActual:
               \_ref_obj: (vc_ready), line:419:46, endln:419:54
                 |vpiParent:
@@ -24760,6 +24824,8 @@ design: (work@tnoc_vc_splitter)
                       |vpiFullName:work@tnoc_vc_splitter.g[1].g.sender_if[i].i
                       |vpiActual:
                       \_parameter: (work@tnoc_vc_splitter.g[1].i), line:415:0
+                    |vpiActual:
+                    \_array_net: (work@tnoc_vc_splitter.sender_if), line:413:25, endln:413:34
                   |vpiActual:
                   \_ref_obj: (flit)
                     |vpiParent:
@@ -24769,8 +24835,8 @@ design: (work@tnoc_vc_splitter)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 7
-[WARNING] : 2
+[  ERROR] : 3
+[WARNING] : 10
 [   NOTE] : 5
 
 

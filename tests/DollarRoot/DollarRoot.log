@@ -6747,6 +6747,56 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:UH0707] Elaborating UHDM...
 
+[WRN:UH0725] dut.sv:2:11: Unresolved hierarchical reference "$root.top.a".
+
+[WRN:UH0725] dut.sv:249:13: Unresolved hierarchical reference "$root.tb.dut.master_0.signal_read_response_complete".
+
+[WRN:UH0725] dut.sv:261:13: Unresolved hierarchical reference "$root.tb.dut.master_0.signal_write_response_complete".
+
+[WRN:UH0725] dut.sv:282:13: Unresolved hierarchical reference "$root.tb.dut.slave_0.signal_command_received".
+
+[WRN:UH0725] dut.sv:333:21: Unresolved hierarchical reference "$root.tb.dut.clk_clk".
+
+[WRN:UH0725] dut.sv:392:13: Unresolved hierarchical reference "$root.tb.dut.master_1.signal_read_response_complete".
+
+[WRN:UH0725] dut.sv:404:13: Unresolved hierarchical reference "$root.tb.dut.master_1.signal_write_response_complete".
+
+[WRN:UH0725] dut.sv:425:13: Unresolved hierarchical reference "$root.tb.dut.slave_1.signal_command_received".
+
+[WRN:UH0725] dut.sv:476:21: Unresolved hierarchical reference "$root.tb.dut.clk_clk".
+
+[WRN:UH0725] dut.sv:526:13: Unresolved hierarchical reference "$root.tb.dut.reset_reset_n".
+
+[WRN:UH0725] dut.sv:271:27: Unresolved hierarchical reference "$root.tb.dut.master_0.get_response_burst_size".
+
+[WRN:UH0725] dut.sv:273:27: Unresolved hierarchical reference "$root.tb.dut.master_0.get_response_data".
+
+[WRN:UH0725] dut.sv:314:33: Unresolved hierarchical reference "$root.tb.dut.slave_0.get_command_burst_count".
+
+[WRN:UH0725] dut.sv:315:33: Unresolved hierarchical reference "$root.tb.dut.slave_0.get_command_address".
+
+[WRN:UH0725] dut.sv:317:11: Unresolved hierarchical reference "$root.tb.dut.slave_0.get_command_request".
+
+[WRN:UH0725] dut.sv:320:32: Unresolved hierarchical reference "$root.tb.dut.slave_0.get_command_data".
+
+[WRN:UH0725] dut.sv:321:32: Unresolved hierarchical reference "$root.tb.dut.slave_0.get_command_byte_enable".
+
+[WRN:UH0725] dut.sv:414:27: Unresolved hierarchical reference "$root.tb.dut.master_1.get_response_burst_size".
+
+[WRN:UH0725] dut.sv:416:27: Unresolved hierarchical reference "$root.tb.dut.master_1.get_response_data".
+
+[WRN:UH0725] dut.sv:457:33: Unresolved hierarchical reference "$root.tb.dut.slave_1.get_command_burst_count".
+
+[WRN:UH0725] dut.sv:458:33: Unresolved hierarchical reference "$root.tb.dut.slave_1.get_command_address".
+
+[WRN:UH0725] dut.sv:460:11: Unresolved hierarchical reference "$root.tb.dut.slave_1.get_command_request".
+
+[WRN:UH0725] dut.sv:463:32: Unresolved hierarchical reference "$root.tb.dut.slave_1.get_command_data".
+
+[WRN:UH0725] dut.sv:464:32: Unresolved hierarchical reference "$root.tb.dut.slave_1.get_command_byte_enable".
+
+[WRN:UH0725] dut.sv:802:13: Unresolved hierarchical reference "$root.tb.dut.master_0[2].signal_write_response_complete".
+
 [INF:UH0708] Writing UHDM DB: ../../build/regression/DollarRoot/slpp_all/surelog.uhdm ...
 
 [INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/DollarRoot/slpp_all/surelog.uhdm.chk.html ...
@@ -21229,7 +21279,7 @@ design: (work@top)
             |vpiName:MAX_COMMAND_IDLE
             |vpiFullName:work@test_program.create_command.MAX_COMMAND_IDLE
             |vpiActual:
-            \_constant: , line:24:42, endln:24:43
+            \_parameter: (work@test_program.MAX_COMMAND_IDLE), line:24:15, endln:24:31
           |vpiName:$urandom_range
         |vpiLhs:
         \_hier_path: (cmd.cmd_delay), line:586:7, endln:586:20
@@ -21411,7 +21461,7 @@ design: (work@top)
                     |vpiName:NUM_SYMBOLS
                     |vpiFullName:work@test_program.create_command.NUM_SYMBOLS
                     |vpiActual:
-                    \_constant: , line:16:42, endln:16:43
+                    \_parameter: (work@test_program.NUM_SYMBOLS), line:16:15, endln:16:26
                   |vpiOperand:
                   \_operation: , line:591:48, endln:591:54
                     |vpiParent:
@@ -21470,7 +21520,7 @@ design: (work@top)
                     |vpiName:MAX_DATA_IDLE
                     |vpiFullName:work@test_program.create_command.MAX_DATA_IDLE
                     |vpiActual:
-                    \_constant: , line:26:42, endln:26:43
+                    \_parameter: (work@test_program.MAX_DATA_IDLE), line:26:15, endln:26:28
                   |vpiName:$urandom_range
                 |vpiLhs:
                 \_hier_path: (cmd.data_idles), line:592:13, endln:592:30
@@ -21528,7 +21578,7 @@ design: (work@top)
                 |vpiName:MAX_DATA_IDLE
                 |vpiFullName:work@test_program.create_command.MAX_DATA_IDLE
                 |vpiActual:
-                \_constant: , line:26:42, endln:26:43
+                \_parameter: (work@test_program.MAX_DATA_IDLE), line:26:15, endln:26:28
               |vpiName:$urandom_range
             |vpiLhs:
             \_hier_path: (cmd.data_idles), line:595:10, endln:595:27
@@ -21622,7 +21672,7 @@ design: (work@top)
             |vpiName:MAX_BURST
             |vpiFullName:work@test_program.randomize_burstcount.MAX_BURST
             |vpiActual:
-            \_constant: , line:20:42, endln:20:43
+            \_parameter: (work@test_program.MAX_BURST), line:20:15, endln:20:24
           |vpiName:$urandom_range
         |vpiLhs:
         \_ref_obj: (work@test_program.randomize_burstcount.burstcount), line:605:7, endln:605:17
@@ -21729,7 +21779,7 @@ design: (work@top)
             |vpiName:SLAVE_SPAN
             |vpiFullName:work@test_program.generate_random_aligned_address.SLAVE_SPAN
             |vpiActual:
-            \_constant: , line:22:42, endln:22:50
+            \_parameter: (work@test_program.SLAVE_SPAN), line:22:15, endln:22:25
         |vpiLhs:
         \_ref_obj: (work@test_program.generate_random_aligned_address.base_addr), line:614:7, endln:614:16
           |vpiParent:
@@ -21774,7 +21824,7 @@ design: (work@top)
               |vpiName:SLAVE_SPAN
               |vpiFullName:work@test_program.generate_random_aligned_address.SLAVE_SPAN
               |vpiActual:
-              \_constant: , line:22:42, endln:22:50
+              \_parameter: (work@test_program.SLAVE_SPAN), line:22:15, endln:22:25
         |vpiLhs:
         \_ref_obj: (work@test_program.generate_random_aligned_address.addr), line:615:7, endln:615:11
           |vpiParent:
@@ -21812,7 +21862,7 @@ design: (work@top)
               |vpiName:NUM_SYMBOLS
               |vpiFullName:work@test_program.generate_random_aligned_address.NUM_SYMBOLS
               |vpiActual:
-              \_constant: , line:16:42, endln:16:43
+              \_parameter: (work@test_program.NUM_SYMBOLS), line:16:15, endln:16:26
           |vpiOperand:
           \_ref_obj: (work@test_program.generate_random_aligned_address.NUM_SYMBOLS), line:617:37, endln:617:48
             |vpiParent:
@@ -21820,7 +21870,7 @@ design: (work@top)
             |vpiName:NUM_SYMBOLS
             |vpiFullName:work@test_program.generate_random_aligned_address.NUM_SYMBOLS
             |vpiActual:
-            \_constant: , line:16:42, endln:16:43
+            \_parameter: (work@test_program.NUM_SYMBOLS), line:16:15, endln:16:26
     |vpiInstance:
     \_module: work@test_program (work@test_program), file:dut.sv, line:5:1, endln:797:10
   |vpiTaskFunc:
@@ -22320,7 +22370,7 @@ design: (work@top)
             |vpiName:SLAVE_SPAN
             |vpiFullName:work@test_program.translate_master_to_slave_address.SLAVE_SPAN
             |vpiActual:
-            \_constant: , line:22:42, endln:22:50
+            \_parameter: (work@test_program.SLAVE_SPAN), line:22:15, endln:22:25
         |vpiLhs:
         \_int_var: (work@test_program.translate_master_to_slave_address.slave_id), line:661:11, endln:661:19
           |vpiParent:
@@ -22356,7 +22406,7 @@ design: (work@top)
             |vpiName:SLAVE_SPAN
             |vpiFullName:work@test_program.translate_master_to_slave_address.SLAVE_SPAN
             |vpiActual:
-            \_constant: , line:22:42, endln:22:50
+            \_parameter: (work@test_program.SLAVE_SPAN), line:22:15, endln:22:25
         |vpiLhs:
         \_ref_obj: (work@test_program.translate_master_to_slave_address.base_addr), line:664:7, endln:664:16
           |vpiParent:
@@ -22424,7 +22474,7 @@ design: (work@top)
             |vpiName:NUM_SYMBOLS
             |vpiFullName:work@test_program.translate_master_to_slave_address.NUM_SYMBOLS
             |vpiActual:
-            \_constant: , line:16:42, endln:16:43
+            \_parameter: (work@test_program.NUM_SYMBOLS), line:16:15, endln:16:26
     |vpiInstance:
     \_module: work@test_program (work@test_program), file:dut.sv, line:5:1, endln:797:10
   |vpiTaskFunc:
@@ -22680,7 +22730,7 @@ design: (work@top)
               |vpiName:slave_id
               |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
               |vpiActual:
-              \_io_decl: (slave_id), line:684:15, endln:684:23
+              \_ref_var: (work@test_program.get_expected_command_for_slave.slave_id), line:691:45, endln:691:53
             |vpiLoopVars:
             \_int_var: (work@test_program.get_expected_command_for_slave.i), line:691:54, endln:691:55
               |vpiParent:
@@ -22713,7 +22763,7 @@ design: (work@top)
                     |vpiName:slave_id
                     |vpiFullName:work@test_program.get_expected_command_for_slave.write_command_queue_slave.slave_id
                     |vpiActual:
-                    \_io_decl: (slave_id), line:684:15, endln:684:23
+                    \_ref_var: (work@test_program.get_expected_command_for_slave.slave_id), line:691:45, endln:691:53
                   |vpiIndex:
                   \_ref_obj: (work@test_program.get_expected_command_for_slave.write_command_queue_slave.i), line:692:59, endln:692:60
                     |vpiParent:
@@ -22875,6 +22925,8 @@ design: (work@top)
                       |vpiFullName:work@test_program.get_expected_command_for_slave.write_command_queue_slave[slave_id].slave_id
                       |vpiActual:
                       \_io_decl: (slave_id), line:684:15, endln:684:23
+                    |vpiActual:
+                    \_array_var: (work@test_program.write_command_queue_slave), line:71:10, endln:71:38
                   |vpiActual:
                   \_method_func_call: (pop_front), line:700:59, endln:700:68
                     |vpiParent:
@@ -22917,7 +22969,7 @@ design: (work@top)
               |vpiName:slave_id
               |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
               |vpiActual:
-              \_io_decl: (slave_id), line:684:15, endln:684:23
+              \_ref_var: (work@test_program.get_expected_command_for_slave.slave_id), line:703:44, endln:703:52
             |vpiLoopVars:
             \_int_var: (work@test_program.get_expected_command_for_slave.i), line:703:53, endln:703:54
               |vpiParent:
@@ -22950,7 +23002,7 @@ design: (work@top)
                     |vpiName:slave_id
                     |vpiFullName:work@test_program.get_expected_command_for_slave.read_command_queue_slave.slave_id
                     |vpiActual:
-                    \_io_decl: (slave_id), line:684:15, endln:684:23
+                    \_ref_var: (work@test_program.get_expected_command_for_slave.slave_id), line:703:44, endln:703:52
                   |vpiIndex:
                   \_ref_obj: (work@test_program.get_expected_command_for_slave.read_command_queue_slave.i), line:704:58, endln:704:59
                     |vpiParent:
@@ -23112,6 +23164,8 @@ design: (work@top)
                       |vpiFullName:work@test_program.get_expected_command_for_slave.read_command_queue_slave[slave_id].slave_id
                       |vpiActual:
                       \_io_decl: (slave_id), line:684:15, endln:684:23
+                    |vpiActual:
+                    \_array_var: (work@test_program.read_command_queue_slave), line:72:10, endln:72:37
                   |vpiActual:
                   \_method_func_call: (pop_front), line:712:58, endln:712:67
                     |vpiParent:
@@ -23889,7 +23943,7 @@ design: (work@top)
                 |vpiName:MAX_DATA_IDLE
                 |vpiFullName:work@test_program.create_response.MAX_DATA_IDLE
                 |vpiActual:
-                \_constant: , line:26:42, endln:26:43
+                \_parameter: (work@test_program.MAX_DATA_IDLE), line:26:15, endln:26:28
               |vpiName:$urandom_range
             |vpiLhs:
             \_hier_path: (rsp.latency), line:768:10, endln:768:24
@@ -24031,7 +24085,7 @@ design: (work@top)
             |vpiName:SLAVE_SPAN
             |vpiFullName:work@test_program.get_expected_read_response.SLAVE_SPAN
             |vpiActual:
-            \_constant: , line:22:42, endln:22:50
+            \_parameter: (work@test_program.SLAVE_SPAN), line:22:15, endln:22:25
         |vpiLhs:
         \_int_var: (work@test_program.get_expected_read_response.slave_id), line:779:16, endln:779:24
           |vpiParent:
@@ -24069,6 +24123,8 @@ design: (work@top)
               |vpiFullName:work@test_program.get_expected_read_response.read_response_queue_slave[slave_id].slave_id
               |vpiActual:
               \_int_var: (work@test_program.get_expected_read_response.slave_id), line:779:16, endln:779:24
+            |vpiActual:
+            \_array_var: (work@test_program.read_response_queue_slave), line:75:10, endln:75:38
           |vpiActual:
           \_method_func_call: (pop_front), line:781:49, endln:781:58
             |vpiParent:
@@ -24424,6 +24480,8 @@ design: (work@top)
               |vpiName:read_command_queue_master
               |vpiIndex:
               \_constant: , line:254:39, endln:254:40
+              |vpiActual:
+              \_array_var: (work@test_program.read_command_queue_master), line:68:10, endln:68:38
             |vpiActual:
             \_method_func_call: (pop_front), line:254:42, endln:254:51
               |vpiParent:
@@ -24692,7 +24750,7 @@ design: (work@top)
               |vpiName:MAX_BURST
               |vpiFullName:work@test_program.MAX_BURST
               |vpiActual:
-              \_constant: , line:20:42, endln:20:43
+              \_parameter: (work@test_program.MAX_BURST), line:20:15, endln:20:24
           |vpiStmt:
           \_begin: (work@test_program), line:290:43, endln:293:10
             |vpiParent:
@@ -24717,7 +24775,7 @@ design: (work@top)
                   |vpiName:MAX_COMMAND_BACKPRESSURE
                   |vpiFullName:work@test_program.MAX_COMMAND_BACKPRESSURE
                   |vpiActual:
-                  \_constant: , line:25:42, endln:25:43
+                  \_parameter: (work@test_program.MAX_COMMAND_BACKPRESSURE), line:25:15, endln:25:39
                 |vpiName:$urandom_range
               |vpiLhs:
               \_ref_obj: (work@test_program.backpressure_cycles), line:291:10, endln:291:29
@@ -25113,6 +25171,8 @@ design: (work@top)
               |vpiName:read_command_queue_master
               |vpiIndex:
               \_constant: , line:397:39, endln:397:40
+              |vpiActual:
+              \_array_var: (work@test_program.read_command_queue_master), line:68:10, endln:68:38
             |vpiActual:
             \_method_func_call: (pop_front), line:397:42, endln:397:51
               |vpiParent:
@@ -25381,7 +25441,7 @@ design: (work@top)
               |vpiName:MAX_BURST
               |vpiFullName:work@test_program.MAX_BURST
               |vpiActual:
-              \_constant: , line:20:42, endln:20:43
+              \_parameter: (work@test_program.MAX_BURST), line:20:15, endln:20:24
           |vpiStmt:
           \_begin: (work@test_program), line:433:43, endln:436:10
             |vpiParent:
@@ -25406,7 +25466,7 @@ design: (work@top)
                   |vpiName:MAX_COMMAND_BACKPRESSURE
                   |vpiFullName:work@test_program.MAX_COMMAND_BACKPRESSURE
                   |vpiActual:
-                  \_constant: , line:25:42, endln:25:43
+                  \_parameter: (work@test_program.MAX_COMMAND_BACKPRESSURE), line:25:15, endln:25:39
                 |vpiName:$urandom_range
               |vpiLhs:
               \_ref_obj: (work@test_program.backpressure_cycles), line:434:10, endln:434:29
@@ -25979,7 +26039,7 @@ design: (work@top)
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 4
-[WARNING] : 3
+[WARNING] : 28
 [   NOTE] : 8
 
 

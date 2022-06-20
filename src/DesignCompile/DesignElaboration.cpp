@@ -1681,7 +1681,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         const std::string& name = packageFile->SymName(ident);
         if (UHDM::expr* exp = def->getComplexValue(name)) {
           UHDM::Serializer& s = m_compileDesign->getSerializer();
-          UHDM::ElaboratorListener listener(&s);
+          UHDM::ElaboratorListener listener(&s, false, true);
           UHDM::any* pclone = UHDM::clone_tree(exp, s, &listener);
           instance->setComplexValue(name, (UHDM::expr*)pclone);
         } else {
