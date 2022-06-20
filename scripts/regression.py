@@ -11,6 +11,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tarfile
 import time
 import traceback
 from collections import OrderedDict
@@ -65,6 +66,10 @@ class Status(Enum):
     return str(self.name)
 
 
+def _is_ci_build():
+  return 'GITHUB_JOB' in os.environ
+
+
 def _transform_path(path):
   if 'MSYSTEM' not in os.environ:
     return path
@@ -115,7 +120,7 @@ def _rmdir(dirpath, retries=10):
   return not os.path.exists(dirpath)
 
 
-def _rmdir_recursively(dirpath, patterns):
+def _rmtree(dirpath, patterns):
   for pattern in patterns:
     for path in Path(dirpath).rglob(pattern):
       if os.path.isdir(path):
@@ -181,6 +186,11 @@ def _restore_directory_state(dirpath, golden_snapshot, output_dirpath, current_s
       except:
         print(f'Failed to move {path} to {dst_abs_path}')
         traceback.print_exc()
+
+
+def _generate_tarball(dirpath):
+  with tarfile.open(dirpath + '.tgz', 'w:gz', format=tarfile.GNU_FORMAT) as tarball:
+    tarball.add(dirpath, arcname=os.path.basename(dirpath), recursive=True)
 
 
 def _normalize_log(content, path_mappings):
@@ -290,7 +300,7 @@ def _run_surelog(
       cmdline = cmdline.replace('*/*.sv', ' '.join(_find_files(dirpath, '*.sv')))
     if '-mt' in cmdline:
       cmdline = re.sub('-mt\s+(max|\d+)', '', cmdline)
-    if mp > 0:
+    if (mp == 'max') or (mp.isnumeric() and int(mp) > 0):
       cmdline = cmdline.replace('-nocache', '')
 
     parts = cmdline.split(' ')
@@ -503,7 +513,7 @@ def _run_one(params):
   roundtrip_output_dirpath = os.path.join(output_dirpath, 'roundtrip')
   roundtrip_log_filepath = os.path.join(roundtrip_output_dirpath, 'roundtrip.log')
 
-  _rmdir_recursively(dirpath, ['slpp_all', 'slpp_unit'])
+  _rmtree(dirpath, ['slpp_all', 'slpp_unit'])
   _rmdir(output_dirpath)
   _mkdir(output_dirpath)
   _mkdir(roundtrip_output_dirpath)
@@ -626,12 +636,12 @@ def _run_one(params):
     current_snapshot = _snapshot_directory_state(dirpath)
     print(f'Found {len(current_snapshot)} files & directories')
 
-    if 'GITHUB_JOB' in os.environ:
-      # Go ahead and delete these files. CI build tends to run out of disk space.
-      for filepath in [uhdm_slpp_all_filepath, uhdm_slpp_unit_filepath, uhdm_dump_log_filepath]:
-        if os.path.isfile(filepath):
-          print(f'Deleting: {filepath}, {os.path.getsize(filepath)}')
-          os.remove(filepath)
+#     if 'GITHUB_JOB' in os.environ:
+#       # Go ahead and delete these files. CI build tends to run out of disk space.
+#       for filepath in [uhdm_slpp_all_filepath, uhdm_slpp_unit_filepath, uhdm_dump_log_filepath]:
+#         if os.path.isfile(filepath):
+#           print(f'Deleting: {filepath}, {os.path.getsize(filepath)}')
+#           os.remove(filepath)
 
     _restore_directory_state(
       dirpath, golden_snapshot,
@@ -647,6 +657,10 @@ def _run_one(params):
     print(f'end-time: {str(end_dt)} {str(delta)}')
 
     regression_log_strm.flush()
+
+  if _is_ci_build():
+    _generate_tarball(output_dirpath)
+    _rmdir(output_dirpath)
 
   log(f'... {name} Completed.')
   return result
@@ -861,7 +875,7 @@ def _run(args, tests):
     os.path.join(args.output_dirpath, name)
   ) for name, filepath in tests.items()]
 
-  if args.jobs == 0:
+  if args.jobs <= 1:
     results = [_run_one(param) for param in params]
   else:
     with multiprocessing.Pool(processes=args.jobs) as pool:
@@ -973,8 +987,8 @@ def _main():
   parser.add_argument(
       '--tool', dest='tool', choices=['ddd', 'valgrind'], required=False, default=None, type=str,
       help='Run regression test using specified tool.')
-  parser.add_argument('--mt', dest='mt', default=0, type=int, help='Enable multithreading mode')
-  parser.add_argument('--mp', dest='mp', default=0, type=int, help='Enable multiprocessing mode')
+  parser.add_argument('--mt', dest='mt', default='0', type=str, help='Enable multithreading mode')
+  parser.add_argument('--mp', dest='mp', default='0', type=str, help='Enable multiprocessing mode')
 
   args = parser.parse_args()
 
@@ -1011,6 +1025,9 @@ def _main():
 
   args.filters = [text if text.isalnum() else re.compile(text, re.IGNORECASE) for text in args.filters]
   all_tests, filtered_tests, blacklisted_tests = _scan(args.test_dirpaths, args.filters)
+
+  if args.jobs > len(filtered_tests):
+    args.jobs = len(filtered_tests)
 
   print( 'Environment:')
   print(f'      command-line: {" ".join(sys.argv)}')

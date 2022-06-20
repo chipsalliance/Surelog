@@ -109,7 +109,7 @@ jobs:
       run: |
         cd build
         mv regression surelog-linux-${{matrix.compiler}}-regression
-        find surelog-linux-${{matrix.compiler}}-regression -name "*.log" | tar czvfp surelog-linux-${{matrix.compiler}}-regression.tgz -T -
+        find surelog-linux-${{matrix.compiler}}-regression -name "*.tgz" | tar czvfp surelog-linux-${{matrix.compiler}}-regression.tgz -T -
 
     - name: Archive regression artifacts
       if: matrix.mode == 'regression' && always()
@@ -358,7 +358,7 @@ jobs:
       run: |
         cd build
         mv regression surelog-msys2-gcc-regression
-        find surelog-msys2-gcc-regression -name "*.log" | tar czvfp surelog-msys2-gcc-regression.tgz -T -
+        find surelog-msys2-gcc-regression -name "*.tgz" | tar czvfp surelog-msys2-gcc-regression.tgz -T -
 
     - name: Archive build artifacts
       uses: actions/upload-artifact@v2
@@ -477,7 +477,7 @@ jobs:
       run: |
         cd build
         mv regression surelog-windows-cl-regression
-        find surelog-windows-cl-regression -name "*.log" | tar czvfp surelog-windows-cl-regression.tgz -T -
+        find surelog-windows-cl-regression -name "*.tgz" | tar czvfp surelog-windows-cl-regression.tgz -T -
 
     - name: Archive build artifacts
       uses: actions/upload-artifact@v2
@@ -591,7 +591,7 @@ jobs:
       run: |
         cd build
         mv regression surelog-macos-${{ matrix.compiler }}-regression
-        find surelog-macos-${{ matrix.compiler }}-regression -name "*.log" | tar czvfp surelog-macos-${{ matrix.compiler }}-regression.tgz -T -
+        find surelog-macos-${{ matrix.compiler }}-regression -name "*.tgz" | tar czvfp surelog-macos-${{ matrix.compiler }}-regression.tgz -T -
 
     - name: Archive build artifacts
       uses: actions/upload-artifact@v2
