@@ -300,8 +300,14 @@ def _run_surelog(
       cmdline = cmdline.replace('*/*.sv', ' '.join(_find_files(dirpath, '*.sv')))
     if '-mt' in cmdline:
       cmdline = re.sub('-mt\s+(max|\d+)', '', cmdline)
-    if (mp == 'max') or (mp.isnumeric() and int(mp) > 0):
+
+    if mp and ((mp == 'max') or (mp.isnumeric() and int(mp) > 0)):
+      cmdline = re.sub('-mp\s+(max|\d+)', '', cmdline)  # Option overridden from command prompt
+    if mp or ('-mp' in cmdline):
       cmdline = cmdline.replace('-nocache', '')
+    if '-lowmem' in cmdline:
+      cmdline = re.sub('-mp\s+(max|\d+)', '', cmdline)
+      mp = '1'
 
     parts = cmdline.split(' ')
     for i in range(0, len(parts)):
@@ -309,16 +315,16 @@ def _run_surelog(
           if parts[i].endswith('.v') or parts[i].endswith('.sv') or parts[i].endswith('.pkg'):
             parts[i] = ' '.join(_find_files(dirpath, parts[i]))
 
+    parts += ['-mt', (mt or '0')]
+    if mp or '-mp' not in cmdline:
+      parts += ['-mp', (mp or '0')]
+
     rel_output_dirpath = os.path.relpath(output_dirpath, dirpath)
     if 'MSYSTEM' in os.environ:
       rel_output_dirpath = rel_output_dirpath.replace('\\', '/')
+    parts += ['-o', rel_output_dirpath]
 
-    cmdline = ' '.join([part for part in parts if part] + [
-      '-mt', str(mt),
-      '-mp', '1' if '-lowmem' in cmdline else str(mp),
-      '-o', rel_output_dirpath
-    ])
-    cmdline = ' '.join(['"' + arg + '"' if '"' in arg else arg for arg in cmdline.split() if arg])
+    cmdline = ' '.join(['"' + part + '"' if '"' in part else part for part in parts if part])
     print(f'Processed command line: {cmdline}')
 
     args = tool_args_list + [surelog_filepath] + cmdline.split()
@@ -987,8 +993,8 @@ def _main():
   parser.add_argument(
       '--tool', dest='tool', choices=['ddd', 'valgrind'], required=False, default=None, type=str,
       help='Run regression test using specified tool.')
-  parser.add_argument('--mt', dest='mt', default='0', type=str, help='Enable multithreading mode')
-  parser.add_argument('--mp', dest='mp', default='0', type=str, help='Enable multiprocessing mode')
+  parser.add_argument('--mt', dest='mt', default=None, type=str, help='Enable multithreading mode')
+  parser.add_argument('--mp', dest='mp', default=None, type=str, help='Enable multiprocessing mode')
 
   args = parser.parse_args()
 
