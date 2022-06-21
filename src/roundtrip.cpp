@@ -2111,9 +2111,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     const std::filesystem::path &filepath = object->VpiFile();
     insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), "[");
 
-    const UHDM::expr *const lexpr = object->Left_expr();
     const UHDM::expr *const rexpr = object->Right_expr();
-
     if (rexpr->UhdmType() == UHDM::uhdmoperation) {  // single-range
       const UHDM::VectorOfany *const operands =
           static_cast<const UHDM::operation *>(rexpr)->Operands();
@@ -2125,18 +2123,6 @@ class RoundTripTracer final : public UHDM::UhdmListener {
         insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), loperand);
       }
     } else {  // double-range
-
-      //   loperand = static_cast<const UHDM::constant
-      //   *>(lexpr)->VpiDecompile();
-      // }
-      // if (rexpr->UhdmType() == UHDM::uhdmconstant) {
-      //   roperand = static_cast<const UHDM::constant
-      //   *>(rexpr)->VpiDecompile();
-      // }
-      //
-      // std::string text;
-      // text.append(loperand).append(":").append(roperand);
-
       insert(filepath, rexpr->VpiLineNo(), rexpr->VpiColumnNo() - 1, ":");
     }
     insert(filepath, object->VpiEndLineNo(), object->VpiEndColumnNo() - 1, "]");
