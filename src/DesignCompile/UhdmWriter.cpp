@@ -1979,8 +1979,7 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
         if (parent && (parent->UhdmType() == uhdmforeach_stmt)) {
           foreach_stmt* for_stmt = (foreach_stmt*)parent;
           if (VectorOfany* loopvars = for_stmt->VpiLoopVars()) {
-            for (uint32_t i = 0; i < loopvars->size(); i++) {
-              any* tmp = (*loopvars)[i];
+            for (any*& tmp : *loopvars) {
               if (tmp->VpiName() == name) {
                 if (var->UhdmType() == uhdmref_var) {
                   ref_var* ref = (ref_var*)var;
@@ -2036,7 +2035,7 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                       swapVar->VpiColumnNo(ref->VpiColumnNo());
                       swapVar->VpiEndLineNo(ref->VpiEndLineNo());
                       swapVar->VpiEndColumnNo(ref->VpiEndColumnNo());
-                      (*loopvars)[i] = swapVar;
+                      tmp = swapVar;
                     }
                     break;
                   }
