@@ -371,8 +371,6 @@ n<> u<346> t<Top_level_rule> c<1> l<3:1> el<37:1>
 
 [INF:UH0707] Elaborating UHDM...
 
-[WRN:UH0725] dut.sv:10:4: Unresolved hierarchical reference "cb.v".
-
 [WRN:UH0725] dut.sv:13:5: Unresolved hierarchical reference "cb.a".
 
 [WRN:UH0725] dut.sv:14:13: Unresolved hierarchical reference "cb.a".
@@ -388,12 +386,6 @@ n<> u<346> t<Top_level_rule> c<1> l<3:1> el<37:1>
 [WRN:UH0725] dut.sv:20:5: Unresolved hierarchical reference "bus.data".
 
 [WRN:UH0725] dut.sv:22:5: Unresolved hierarchical reference "bus.data".
-
-[WRN:UH0725] dut.sv:25:5: Unresolved hierarchical reference "cb.v".
-
-[WRN:UH0725] dut.sv:26:5: Unresolved hierarchical reference "cb.v".
-
-[WRN:UH0725] dut.sv:27:8: Unresolved hierarchical reference "cb.v".
 
 [WRN:UH0725] dut.sv:29:1: Unresolved hierarchical reference "cb.a".
 
@@ -1024,11 +1016,15 @@ design: (work@main)
               |vpiParent:
               \_hier_path: (cb.v), line:10:4, endln:10:8
               |vpiName:cb
+              |vpiActual:
+              \_clocking_block: (cb), line:6:1, endln:8:12
             |vpiActual:
             \_ref_obj: (v)
               |vpiParent:
               \_hier_path: (cb.v), line:10:4, endln:10:8
               |vpiName:v
+              |vpiActual:
+              \_clocking_io_decl: (v), line:7:8, endln:7:9
   |vpiProcess:
   \_initial: , line:12:1, endln:35:8
     |vpiParent:
@@ -1061,6 +1057,8 @@ design: (work@main)
             |vpiParent:
             \_hier_path: (cb.a), line:13:5, endln:13:9
             |vpiName:cb
+            |vpiActual:
+            \_clocking_block: (cb), line:6:1, endln:8:12
           |vpiActual:
           \_ref_obj: (a)
             |vpiParent:
@@ -1081,6 +1079,8 @@ design: (work@main)
             |vpiParent:
             \_hier_path: (cb.a), line:14:13, endln:14:17
             |vpiName:cb
+            |vpiActual:
+            \_clocking_block: (cb), line:6:1, endln:8:12
           |vpiActual:
           \_ref_obj: (a), line:14:16, endln:14:17
             |vpiParent:
@@ -1096,6 +1096,8 @@ design: (work@main)
             |vpiParent:
             \_hier_path: (cb.b), line:14:5, endln:14:9
             |vpiName:cb
+            |vpiActual:
+            \_clocking_block: (cb), line:6:1, endln:8:12
           |vpiActual:
           \_ref_obj: (b)
             |vpiParent:
@@ -1271,11 +1273,15 @@ design: (work@main)
             |vpiParent:
             \_hier_path: (cb.v), line:25:5, endln:25:9
             |vpiName:cb
+            |vpiActual:
+            \_clocking_block: (cb), line:6:1, endln:8:12
           |vpiActual:
           \_ref_obj: (v)
             |vpiParent:
             \_hier_path: (cb.v), line:25:5, endln:25:9
             |vpiName:v
+            |vpiActual:
+            \_clocking_io_decl: (v), line:7:8, endln:7:9
       |vpiStmt:
       \_assignment: , line:26:5, endln:26:22
         |vpiParent:
@@ -1299,11 +1305,15 @@ design: (work@main)
             |vpiParent:
             \_hier_path: (cb.v), line:26:5, endln:26:9
             |vpiName:cb
+            |vpiActual:
+            \_clocking_block: (cb), line:6:1, endln:8:12
           |vpiActual:
           \_ref_obj: (v)
             |vpiParent:
             \_hier_path: (cb.v), line:26:5, endln:26:9
             |vpiName:v
+            |vpiActual:
+            \_clocking_io_decl: (v), line:7:8, endln:7:9
         |vpiDelayControl:
         \_delay_control: , line:26:13, endln:26:16
           |vpiParent:
@@ -1337,11 +1347,15 @@ design: (work@main)
               |vpiParent:
               \_hier_path: (cb.v), line:27:8, endln:27:12
               |vpiName:cb
+              |vpiActual:
+              \_clocking_block: (cb), line:6:1, endln:8:12
             |vpiActual:
             \_ref_obj: (v)
               |vpiParent:
               \_hier_path: (cb.v), line:27:8, endln:27:12
               |vpiName:v
+              |vpiActual:
+              \_clocking_io_decl: (v), line:7:8, endln:7:9
           |vpiDelayControl:
           \_delay_control: , line:27:16, endln:27:19
             |vpiParent:
@@ -1369,6 +1383,8 @@ design: (work@main)
             |vpiParent:
             \_hier_path: (cb.a), line:29:1, endln:29:5
             |vpiName:cb
+            |vpiActual:
+            \_clocking_block: (cb), line:6:1, endln:8:12
           |vpiActual:
           \_ref_obj: (a)
             |vpiParent:
@@ -1403,6 +1419,8 @@ design: (work@main)
             |vpiParent:
             \_hier_path: (cb.a), line:31:1, endln:31:5
             |vpiName:cb
+            |vpiActual:
+            \_clocking_block: (cb), line:6:1, endln:8:12
           |vpiActual:
           \_ref_obj: (a)
             |vpiParent:
@@ -1461,9 +1479,9 @@ design: (work@main)
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 17
+[WARNING] : 13
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/ClockingDrive/dut.sv | ${SURELOG_DIR}/build/regression/ClockingDrive/roundtrip/dut_000.sv | 15 | 36 | 
+[roundtrip]: ${SURELOG_DIR}/tests/ClockingDrive/dut.sv | ${SURELOG_DIR}/build/regression/ClockingDrive/roundtrip/dut_000.sv | 17 | 36 | 
 

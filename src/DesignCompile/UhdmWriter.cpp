@@ -1409,6 +1409,33 @@ bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
   }
 
   if (mod) {
+    // ClockingBlocks
+    ModuleDefinition* def = (ModuleDefinition*)mod;
+    for (const auto& ctupple : def->getClockingBlockMap()) {
+      const ClockingBlock& cblock = ctupple.second;
+      switch (cblock.getType()) {
+        case ClockingBlock::Type::Default: {
+          m->Default_clocking(cblock.getActual());
+          break;
+        }
+        case ClockingBlock::Type::Global: {
+          // m->Global_clocking(cblock.getActual());
+          break;
+        }
+        case ClockingBlock::Type::Regular: {
+          VectorOfclocking_block* cblocks = m->Clocking_blocks();
+          if (cblocks == nullptr) {
+            m->Clocking_blocks(s.MakeClocking_blockVec());
+            cblocks = m->Clocking_blocks();
+          }
+          cblocks->push_back(cblock.getActual());
+          break;
+        }
+      }
+    }
+  }
+
+  if (mod) {
     lateTypedefBinding(s, mod, m, componentMap);
     lateBinding(s, mod, m, componentMap);
   }
@@ -2677,6 +2704,34 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
       }
     }
   }
+
+  if (mod) {
+    // ClockingBlocks
+    ModuleDefinition* def = (ModuleDefinition*)mod;
+    for (const auto& ctupple : def->getClockingBlockMap()) {
+      const ClockingBlock& cblock = ctupple.second;
+      switch (cblock.getType()) {
+        case ClockingBlock::Type::Default: {
+          m->Default_clocking(cblock.getActual());
+          break;
+        }
+        case ClockingBlock::Type::Global: {
+          m->Global_clocking(cblock.getActual());
+          break;
+        }
+        case ClockingBlock::Type::Regular: {
+          VectorOfclocking_block* cblocks = m->Clocking_blocks();
+          if (cblocks == nullptr) {
+            m->Clocking_blocks(s.MakeClocking_blockVec());
+            cblocks = m->Clocking_blocks();
+          }
+          cblocks->push_back(cblock.getActual());
+          break;
+        }
+      }
+    }
+  }
+
   if (mod) {
     if (auto from = mod->getTask_funcs()) {
       UHDM::VectorOftask_func* target = m->Task_funcs();
@@ -2849,6 +2904,33 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
     dest_modports->push_back(dest_modport);
   }
   m->Modports(dest_modports);
+
+  if (mod) {
+    // ClockingBlocks
+    ModuleDefinition* def = (ModuleDefinition*)mod;
+    for (const auto& ctupple : def->getClockingBlockMap()) {
+      const ClockingBlock& cblock = ctupple.second;
+      switch (cblock.getType()) {
+        case ClockingBlock::Type::Default: {
+          m->Default_clocking(cblock.getActual());
+          break;
+        }
+        case ClockingBlock::Type::Global: {
+          m->Global_clocking(cblock.getActual());
+          break;
+        }
+        case ClockingBlock::Type::Regular: {
+          VectorOfclocking_block* cblocks = m->Clocking_blocks();
+          if (cblocks == nullptr) {
+            m->Clocking_blocks(s.MakeClocking_blockVec());
+            cblocks = m->Clocking_blocks();
+          }
+          cblocks->push_back(cblock.getActual());
+          break;
+        }
+      }
+    }
+  }
 
   if (mod) {
     if (auto from = mod->getTask_funcs()) {
