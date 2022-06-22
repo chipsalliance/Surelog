@@ -530,7 +530,8 @@ bool Compiler::createMultiProcessParser_() {
     } else {
       // Multiple child processes managed by cmake
       std::string command =
-          StrCat("cd ", directory, "; cmake .; make -j ", nbProcesses);
+          StrCat("cd ", directory, "; cmake -G \"Unix Makefiles\" .; make -j ",
+                 nbProcesses);
       if (!muted)
         std::cout << "Running: " << command << std::endl << std::flush;
       int result = system(command.c_str());
@@ -667,7 +668,8 @@ bool Compiler::createMultiProcessPreProcessor_() {
       if (!result) return false;
     } else {
       std::string command =
-          StrCat("cd ", directory, "; cmake .; make -j ", nbProcesses);
+          StrCat("cd ", directory, "; cmake -G \"Unix Makefiles\" .; make -j ",
+                 nbProcesses);
       if (!muted)
         std::cout << "Running: " << command << std::endl << std::flush;
       int result = system(command.c_str());
