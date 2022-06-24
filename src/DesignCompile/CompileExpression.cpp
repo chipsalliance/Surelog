@@ -1235,11 +1235,7 @@ UHDM::any *CompileHelper::compileSelectExpression(
       }
       path->VpiName(hname);
       path->VpiFullName(hname);
-      path->VpiFile(fC->getFileName());
-      path->VpiLineNo(fC->Line(Bit_select));
-      path->VpiColumnNo(fC->Column(Bit_select));
-      path->VpiEndLineNo(fC->EndLine(Bit_select));
-      path->VpiEndColumnNo(fC->EndColumn(Bit_select));
+      fC->populateCoreMembers(Bit_select, Bit_select, path);
       path->VpiParent(pexpr);
       result = path;
       break;
@@ -1313,18 +1309,9 @@ UHDM::any *CompileHelper::compileExpression(
           operands->push_back(op);
         }
       }
-      list_op->VpiFile(fC->getFileName());
-      list_op->VpiLineNo(fC->Line(child));
-      list_op->VpiColumnNo(fC->Column(child));
-      list_op->VpiEndLineNo(fC->EndLine(child));
-      list_op->VpiEndColumnNo(fC->EndColumn(child));
       list_op->Attributes(attributes);
       result = list_op;
-      result->VpiFile(fC->getFileName(parent));
-      result->VpiLineNo(fC->Line(parent));
-      result->VpiColumnNo(fC->Column(parent));
-      result->VpiEndLineNo(fC->EndLine(parent));
-      result->VpiEndColumnNo(fC->EndColumn(parent));
+      fC->populateCoreMembers(parent, parent, result);
       return result;
     }
     case VObjectType::slNet_lvalue: {
@@ -1335,11 +1322,7 @@ UHDM::any *CompileHelper::compileExpression(
       operation->VpiParent(pexpr);
       operation->Operands(operands);
       operation->VpiOpType(vpiConcatOp);
-      result->VpiFile(fC->getFileName(parent));
-      result->VpiLineNo(fC->Line(parent));
-      result->VpiColumnNo(fC->Column(parent));
-      result->VpiEndLineNo(fC->EndLine(parent));
-      result->VpiEndColumnNo(fC->EndColumn(parent));
+      fC->populateCoreMembers(parent, parent, result);
       NodeId Expression = parent;
       while (Expression) {
         UHDM::any *exp = compileExpression(component, fC, fC->Child(Expression),
@@ -1366,11 +1349,7 @@ UHDM::any *CompileHelper::compileExpression(
       operation->VpiParent(pexpr);
       operation->Operands(operands);
       operation->VpiOpType(vpiConcatOp);
-      result->VpiFile(fC->getFileName());
-      result->VpiLineNo(fC->Line(parent));
-      result->VpiColumnNo(fC->Column(parent));
-      result->VpiEndLineNo(fC->EndLine(parent));
-      result->VpiEndColumnNo(fC->EndColumn(parent));
+      fC->populateCoreMembers(parent, parent, result);
       NodeId Expression = fC->Child(parent);
       while (Expression) {
         UHDM::any *exp =
@@ -1469,11 +1448,7 @@ UHDM::any *CompileHelper::compileExpression(
     operation->VpiParent(pexpr);
     operation->Operands(operands);
     operation->VpiOpType(vpiConcatOp);
-    result->VpiFile(fC->getFileName(child));
-    result->VpiLineNo(fC->Line(child));
-    result->VpiColumnNo(fC->Column(child));
-    result->VpiEndLineNo(fC->EndLine(child));
-    result->VpiEndColumnNo(fC->EndColumn(child));
+    fC->populateCoreMembers(child, child, result);
     NodeId Expression = child;
     while (Expression) {
       NodeId n = fC->Child(Expression);
@@ -1527,11 +1502,7 @@ UHDM::any *CompileHelper::compileExpression(
           operation->VpiParent(pexpr);
           operation->Operands(operands);
           operation->VpiOpType(vpiConcatOp);
-          result->VpiFile(fC->getFileName(child));
-          result->VpiLineNo(fC->Line(child));
-          result->VpiColumnNo(fC->Column(child));
-          result->VpiEndLineNo(fC->EndLine(child));
-          result->VpiEndColumnNo(fC->EndColumn(child));
+          fC->populateCoreMembers(child, child, result);
           NodeId Expression = child;
           bool odd = true;
           while (Expression) {
@@ -1591,11 +1562,7 @@ UHDM::any *CompileHelper::compileExpression(
               operands->push_back(operand);
             }
             op->Operands(operands);
-            op->VpiFile(fC->getFileName());
-            op->VpiLineNo(fC->Line(parent));
-            op->VpiColumnNo(fC->Column(parent));
-            op->VpiEndLineNo(fC->EndLine(parent));
-            op->VpiEndColumnNo(fC->EndColumn(parent));
+            fC->populateCoreMembers(parent, parent, op);
             result = op;
           }
           break;
@@ -1611,11 +1578,7 @@ UHDM::any *CompileHelper::compileExpression(
             UHDM::VectorOfany *operands = s.MakeAnyVec();
             operands->push_back(operand);
             op->Operands(operands);
-            op->VpiFile(fC->getFileName());
-            op->VpiLineNo(fC->Line(parent));
-            op->VpiColumnNo(fC->Column(parent));
-            op->VpiEndLineNo(fC->EndLine(parent));
-            op->VpiEndColumnNo(fC->EndColumn(parent));
+            fC->populateCoreMembers(parent, parent, op);
           }
           result = op;
           break;
@@ -1631,11 +1594,7 @@ UHDM::any *CompileHelper::compileExpression(
             UHDM::VectorOfany *operands = s.MakeAnyVec();
             operands->push_back(operand);
             op->Operands(operands);
-            op->VpiFile(fC->getFileName());
-            op->VpiLineNo(fC->Line(parent));
-            op->VpiColumnNo(fC->Column(parent));
-            op->VpiEndLineNo(fC->EndLine(parent));
-            op->VpiEndColumnNo(fC->EndColumn(parent));
+            fC->populateCoreMembers(parent, parent, op);
           }
           result = op;
           break;
@@ -1651,11 +1610,7 @@ UHDM::any *CompileHelper::compileExpression(
             UHDM::VectorOfany *operands = s.MakeAnyVec();
             operands->push_back(operand);
             op->Operands(operands);
-            op->VpiFile(fC->getFileName());
-            op->VpiLineNo(fC->Line(parent));
-            op->VpiColumnNo(fC->Column(parent));
-            op->VpiEndLineNo(fC->EndLine(parent));
-            op->VpiEndColumnNo(fC->EndColumn(parent));
+            fC->populateCoreMembers(parent, parent, op);
           }
           result = op;
           break;
@@ -1717,11 +1672,7 @@ UHDM::any *CompileHelper::compileExpression(
           NodeId Identifier = fC->Sibling(child);
           ref_obj *ref = s.MakeRef_obj();
           ref->VpiName(fC->SymName(Identifier));
-          ref->VpiFile(fC->getFileName());
-          ref->VpiLineNo(fC->Line(Identifier));
-          ref->VpiColumnNo(fC->Column(Identifier));
-          ref->VpiEndLineNo(fC->EndLine(Identifier));
-          ref->VpiEndColumnNo(fC->EndColumn(Identifier));
+          fC->populateCoreMembers(Identifier, Identifier, ref);
           result = ref;
           break;
         }
@@ -1800,11 +1751,7 @@ UHDM::any *CompileHelper::compileExpression(
           NodeId Expression = fC->Sibling(Identifier);
           UHDM::tagged_pattern *pattern = s.MakeTagged_pattern();
           pattern->VpiName(fC->SymName(Identifier));
-          pattern->VpiFile(fC->getFileName());
-          pattern->VpiLineNo(fC->Line(child));
-          pattern->VpiColumnNo(fC->Column(child));
-          pattern->VpiEndLineNo(fC->EndLine(child));
-          pattern->VpiEndColumnNo(fC->EndColumn(child));
+          fC->populateCoreMembers(child, child, pattern);
           if (Expression)
             pattern->Pattern(compileExpression(component, fC, Expression,
                                                compileDesign, pattern, instance,
@@ -1849,11 +1796,7 @@ UHDM::any *CompileHelper::compileExpression(
             }
           }
           if ((operation != nullptr) && (operation->VpiLineNo() == 0)) {
-            operation->VpiFile(fC->getFileName());
-            operation->VpiLineNo(fC->Line(parent));
-            operation->VpiColumnNo(fC->Column(parent));
-            operation->VpiEndLineNo(fC->EndLine(parent));
-            operation->VpiEndColumnNo(fC->EndColumn(parent));
+            fC->populateCoreMembers(parent, parent, operation);
           }
           break;
         }
@@ -1960,11 +1903,7 @@ UHDM::any *CompileHelper::compileExpression(
               operands->push_back(opR);
             }
           }
-          operation->VpiFile(fC->getFileName());
-          operation->VpiLineNo(fC->Line(child));
-          operation->VpiColumnNo(fC->Column(child));
-          operation->VpiEndLineNo(fC->EndLine(rval));
-          operation->VpiEndColumnNo(fC->EndColumn(rval));
+          fC->populateCoreMembers(child, rval, operation);
           break;
         }
         case VObjectType::slSystem_task_names: {
@@ -2023,11 +1962,7 @@ UHDM::any *CompileHelper::compileExpression(
                                 pexpr, instance, reduce, muteErrors);
           NodeId op = fC->Sibling(child);
           if (op) {
-            variable->VpiFile(fC->getFileName());
-            variable->VpiLineNo(fC->Line(child));
-            variable->VpiColumnNo(fC->Column(child));
-            variable->VpiEndLineNo(fC->EndLine(child));
-            variable->VpiEndColumnNo(fC->EndColumn(child));
+            fC->populateCoreMembers(child, child, variable);
 
             VObjectType opType = fC->Type(op);
             unsigned int vopType = UhdmWriter::getVpiOpType(opType);
@@ -2036,11 +1971,7 @@ UHDM::any *CompileHelper::compileExpression(
               UHDM::operation *operation = s.MakeOperation();
               UHDM::VectorOfany *operands = s.MakeAnyVec();
               operation->Attributes(attributes);
-              operation->VpiFile(fC->getFileName());
-              operation->VpiLineNo(fC->Line(parent));
-              operation->VpiColumnNo(fC->Column(parent));
-              operation->VpiEndLineNo(fC->EndLine(parent));
-              operation->VpiEndColumnNo(fC->EndColumn(parent));
+              fC->populateCoreMembers(parent, parent, operation);
               operation->VpiParent(pexpr);
               operation->VpiOpType(vopType);
               operation->Operands(operands);
@@ -2061,11 +1992,7 @@ UHDM::any *CompileHelper::compileExpression(
               UHDM::operation *operation = s.MakeOperation();
               UHDM::VectorOfany *operands = s.MakeAnyVec();
               operation->Attributes(attributes);
-              operation->VpiFile(fC->getFileName());
-              operation->VpiLineNo(fC->Line(parent));
-              operation->VpiColumnNo(fC->Column(parent));
-              operation->VpiEndLineNo(fC->EndLine(parent));
-              operation->VpiEndColumnNo(fC->EndColumn(parent));
+              fC->populateCoreMembers(parent, parent, operation);
               operation->VpiParent(pexpr);
               operation->VpiOpType(vpiAssignmentOp);
               operation->Operands(operands);
@@ -2128,11 +2055,8 @@ UHDM::any *CompileHelper::compileExpression(
               c->VpiDecompile("0");
               c->VpiSize(64);
               c->VpiConstType(vpiIntConst);
-              c->VpiFile(fC->getFileName());
-              c->VpiLineNo(fC->Line(Sequence_actual_arg));
-              c->VpiColumnNo(fC->Column(Sequence_actual_arg));
-              c->VpiEndLineNo(fC->EndLine(Sequence_actual_arg));
-              c->VpiEndColumnNo(fC->EndColumn(Sequence_actual_arg));
+              fC->populateCoreMembers(Sequence_actual_arg, Sequence_actual_arg,
+                                      c);
               args->push_back(c);
             }
             Sequence_actual_arg = fC->Sibling(Sequence_actual_arg);
@@ -2178,11 +2102,7 @@ UHDM::any *CompileHelper::compileExpression(
                   c->VpiDecompile(val);
                   c->VpiSize(64);
                   c->VpiConstType(vpiUIntConst);
-                  c->VpiFile(fC->getFileName());
-                  c->VpiLineNo(fC->Line(subOp1));
-                  c->VpiColumnNo(fC->Column(subOp1));
-                  c->VpiEndLineNo(fC->EndLine(subOp1));
-                  c->VpiEndColumnNo(fC->EndColumn(subOp1));
+                  fC->populateCoreMembers(subOp1, subOp1, c);
                   operands->push_back(c);
                 }
               }
@@ -2274,11 +2194,7 @@ UHDM::any *CompileHelper::compileExpression(
                           ElaboratorListener listener(&s, false, true);
                           result = UHDM::clone_tree((any *)param->Rhs(), s,
                                                     &listener);
-                          result->VpiFile(fC->getFileName(child));
-                          result->VpiLineNo(fC->Line(child));
-                          result->VpiColumnNo(fC->Column(child));
-                          result->VpiEndLineNo(fC->EndLine(child));
-                          result->VpiEndColumnNo(fC->EndColumn(child));
+                          fC->populateCoreMembers(child, child, result);
                         }
                         break;
                       }
@@ -2324,11 +2240,7 @@ UHDM::any *CompileHelper::compileExpression(
                           ElaboratorListener listener(&s, false, true);
                           result = UHDM::clone_tree((any *)param->Rhs(), s,
                                                     &listener);
-                          result->VpiFile(fC->getFileName(child));
-                          result->VpiLineNo(fC->Line(child));
-                          result->VpiColumnNo(fC->Column(child));
-                          result->VpiEndLineNo(fC->EndLine(child));
-                          result->VpiEndColumnNo(fC->EndColumn(child));
+                          fC->populateCoreMembers(child, child, result);
                         }
                         break;
                       }
@@ -2370,11 +2282,7 @@ UHDM::any *CompileHelper::compileExpression(
                                                  name, compileDesign, pexpr,
                                                  instance, reduce, muteErrors);
                 if (result != nullptr) {
-                  result->VpiFile(fC->getFileName(rhsbackup));
-                  result->VpiLineNo(fC->Line(rhsbackup));
-                  result->VpiColumnNo(fC->Column(rhsbackup));
-                  result->VpiEndLineNo(fC->EndLine(rhs));
-                  result->VpiEndColumnNo(fC->EndColumn(rhs));
+                  fC->populateCoreMembers(rhsbackup, rhs, result);
                 }
               }
               if (result) break;
@@ -2407,11 +2315,7 @@ UHDM::any *CompileHelper::compileExpression(
                               ElaboratorListener listener(&s, false, true);
                               result = UHDM::clone_tree((any *)param_ass->Rhs(),
                                                         s, &listener);
-                              result->VpiFile(fC->getFileName(child));
-                              result->VpiLineNo(fC->Line(child));
-                              result->VpiColumnNo(fC->Column(child));
-                              result->VpiEndLineNo(fC->EndLine(child));
-                              result->VpiEndColumnNo(fC->EndColumn(child));
+                              fC->populateCoreMembers(child, child, result);
                               const any *lhs = param_ass->Lhs();
                               expr *res = (expr *)result;
                               const typespec *tps = nullptr;
@@ -2467,11 +2371,7 @@ UHDM::any *CompileHelper::compileExpression(
                             ElaboratorListener listener(&s, false, true);
                             result = UHDM::clone_tree((any *)param_ass->Rhs(),
                                                       s, &listener);
-                            result->VpiFile(fC->getFileName(child));
-                            result->VpiLineNo(fC->Line(child));
-                            result->VpiColumnNo(fC->Column(child));
-                            result->VpiEndLineNo(fC->EndLine(child));
-                            result->VpiEndColumnNo(fC->EndColumn(child));
+                            fC->populateCoreMembers(child, child, result);
                           }
                           const any *lhs = param_ass->Lhs();
                           expr *res = (expr *)result;
@@ -2592,11 +2492,8 @@ UHDM::any *CompileHelper::compileExpression(
           UHDM::operation *operation = s.MakeOperation();
           UHDM::VectorOfany *operands = s.MakeAnyVec();
           operation->Attributes(attributes);
-          operation->VpiFile(fC->getFileName());
-          operation->VpiLineNo(fC->Line(Stream_concatenation));
-          operation->VpiColumnNo(fC->Column(Stream_concatenation));
-          operation->VpiEndLineNo(fC->EndLine(Stream_concatenation));
-          operation->VpiEndColumnNo(fC->EndColumn(Stream_concatenation));
+          fC->populateCoreMembers(Stream_concatenation, Stream_concatenation,
+                                  operation);
           result = operation;
           operation->VpiParent(pexpr);
           operation->Operands(operands);
@@ -2612,11 +2509,7 @@ UHDM::any *CompileHelper::compileExpression(
           concat_op->VpiParent(operation);
           concat_op->Operands(concat_ops);
           concat_op->VpiOpType(vpiConcatOp);
-          concat_op->VpiFile(fC->getFileName());
-          concat_op->VpiLineNo(fC->Line(parent));
-          concat_op->VpiColumnNo(fC->Column(parent));
-          concat_op->VpiEndLineNo(fC->EndLine(parent));
-          concat_op->VpiEndColumnNo(fC->EndColumn(parent));
+          fC->populateCoreMembers(parent, parent, concat_op);
 
           NodeId Stream_expression = fC->Child(Stream_concatenation);
           while (Stream_expression) {
@@ -2656,11 +2549,7 @@ UHDM::any *CompileHelper::compileExpression(
           operation->VpiParent(pexpr);
           operation->Operands(operands);
           operation->VpiOpType(vpiConcatOp);
-          operation->VpiFile(fC->getFileName());
-          operation->VpiLineNo(fC->Line(parent));
-          operation->VpiColumnNo(fC->Column(parent));
-          operation->VpiEndLineNo(fC->EndLine(parent));
-          operation->VpiEndColumnNo(fC->EndColumn(parent));
+          fC->populateCoreMembers(parent, parent, operation);
           break;
         }
         case VObjectType::slConstant_multiple_concatenation:
@@ -2737,11 +2626,7 @@ UHDM::any *CompileHelper::compileExpression(
             } else {
               bool invalidValue = false;
               UHDM::func_call *fcall = s.MakeFunc_call();
-              fcall->VpiFile(fC->getFileName());
-              fcall->VpiLineNo(fC->Line(Dollar_keyword));
-              fcall->VpiColumnNo(fC->Column(Dollar_keyword));
-              fcall->VpiEndLineNo(fC->EndLine(Dollar_keyword));
-              fcall->VpiEndColumnNo(fC->EndColumn(Dollar_keyword));
+              fC->populateCoreMembers(Dollar_keyword, Dollar_keyword, fcall);
               fcall->VpiName(name);
 
               auto [func, actual_comp] =
@@ -2822,11 +2707,7 @@ UHDM::any *CompileHelper::compileExpression(
                 c->VpiDecompile(val);
                 c->VpiSize(64);
                 c->VpiConstType(vpiUIntConst);
-                c->VpiFile(fC->getFileName());
-                c->VpiLineNo(fC->Line(subOp1));
-                c->VpiColumnNo(fC->Column(subOp1));
-                c->VpiEndLineNo(fC->EndLine(subOp1));
-                c->VpiEndColumnNo(fC->EndColumn(subOp1));
+                fC->populateCoreMembers(subOp1, subOp1, c);
                 operands->push_back(c);
               }
             }
@@ -3040,11 +2921,7 @@ UHDM::any *CompileHelper::compileExpression(
       Error err(ErrorDefinition::UHDM_UNSUPPORTED_EXPR, loc);
       errors->addError(err);
       exp->VpiValue(StrCat("STRING:", lineText));
-      exp->VpiFile(fC->getFileName(the_node));
-      exp->VpiLineNo(fC->Line(the_node));
-      exp->VpiColumnNo(fC->Column(the_node));
-      exp->VpiEndLineNo(fC->EndLine(the_node));
-      exp->VpiEndColumnNo(fC->EndColumn(the_node));
+      fC->populateCoreMembers(the_node, the_node, exp);
       exp->VpiParent(pexpr);
       result = exp;
     }
@@ -3063,17 +2940,9 @@ UHDM::any *CompileHelper::compileExpression(
 
   if (result && (result->VpiLineNo() == 0)) {
     if (child) {
-      result->VpiFile(fC->getFileName(child));
-      result->VpiLineNo(fC->Line(child));
-      result->VpiColumnNo(fC->Column(child));
-      result->VpiEndLineNo(fC->EndLine(child));
-      result->VpiEndColumnNo(fC->EndColumn(child));
+      fC->populateCoreMembers(child, child, result);
     } else {
-      result->VpiFile(fC->getFileName(parent));
-      result->VpiLineNo(fC->Line(parent));
-      result->VpiColumnNo(fC->Column(parent));
-      result->VpiEndLineNo(fC->EndLine(parent));
-      result->VpiEndColumnNo(fC->EndColumn(parent));
+      fC->populateCoreMembers(parent, parent, result);
     }
   }
 
@@ -3122,11 +2991,7 @@ UHDM::any *CompileHelper::compileAssignmentPattern(DesignComponent *component,
       operation->VpiOpType(vpiMultiAssignmentPatternOp);
       UHDM::operation *concat = s.MakeOperation();
       concat->VpiOpType(vpiConcatOp);
-      concat->VpiFile(fC->getFileName());
-      concat->VpiLineNo(fC->Line(Expression));
-      concat->VpiColumnNo(fC->Column(Expression));
-      concat->VpiEndLineNo(fC->EndLine(Expression));
-      concat->VpiEndColumnNo(fC->EndColumn(Expression));
+      fC->populateCoreMembers(Expression, Expression, concat);
       operands->push_back(concat);
       concat->VpiParent(operation);
       UHDM::VectorOfany *suboperands = s.MakeAnyVec();
@@ -3195,11 +3060,7 @@ UHDM::any *CompileHelper::compileAssignmentPattern(DesignComponent *component,
             }
           }
           tagged_pattern *pattern = s.MakeTagged_pattern();
-          pattern->VpiFile(fC->getFileName(Expression));
-          pattern->VpiLineNo(fC->Line(Expression));
-          pattern->VpiColumnNo(fC->Column(Expression));
-          pattern->VpiEndLineNo(fC->EndLine(Expression));
-          pattern->VpiEndColumnNo(fC->EndColumn(Expression));
+          fC->populateCoreMembers(Expression, Expression, pattern);
           pattern->Pattern(exp);
           NodeId Constant_expression = fC->Child(Structure_pattern_key);
           NodeId Constant_primary = fC->Child(Constant_expression);
@@ -3210,11 +3071,8 @@ UHDM::any *CompileHelper::compileAssignmentPattern(DesignComponent *component,
             } else {
               tps->VpiName("default");
             }
-            tps->VpiFile(fC->getFileName());
-            tps->VpiLineNo(fC->Line(Constant_expression));
-            tps->VpiColumnNo(fC->Column(Constant_expression));
-            tps->VpiEndLineNo(fC->EndLine(Constant_expression));
-            tps->VpiEndColumnNo(fC->EndColumn(Constant_expression));
+            fC->populateCoreMembers(Constant_expression, Constant_expression,
+                                    tps);
             pattern->Typespec(tps);
           } else {
             NodeId Primary_literal = Constant_primary;
@@ -3399,11 +3257,7 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
         }
         if (rexp) rexp->VpiParent(range);
         range->Right_expr(rexp);
-        range->VpiFile(fC->getFileName());
-        range->VpiLineNo(fC->Line(Packed_dimension));
-        range->VpiColumnNo(fC->Column(Packed_dimension));
-        range->VpiEndLineNo(fC->EndLine(Packed_dimension));
-        range->VpiEndColumnNo(fC->EndColumn(Packed_dimension));
+        fC->populateCoreMembers(Packed_dimension, Packed_dimension, range);
         ranges->push_back(range);
         range->VpiParent(pexpr);
       } else if (fC->Type(Constant_range) ==
@@ -3417,10 +3271,7 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
         lexpc->VpiSize(64);
         lexpc->VpiValue("UINT:0");
         lexpc->VpiDecompile("0");
-        lexpc->VpiFile(fC->getFileName());
-        lexpc->VpiLineNo(fC->Line(rexpr));
-        lexpc->VpiColumnNo(fC->Column(rexpr));
-        lexpc->VpiEndLineNo(fC->EndLine(rexpr));
+        fC->populateCoreMembers(rexpr, rexpr, lexpc);
         lexpc->VpiEndColumnNo(fC->Column(rexpr) + 1);
         expr *lexp = lexpc;
 
@@ -3487,10 +3338,8 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
               lexpc->VpiSize(64);
               lexpc->VpiValue("UINT:0");
               lexpc->VpiDecompile("0");
-              lexpc->VpiFile(fC->getFileName());
-              lexpc->VpiLineNo(fC->Line(Packed_dimension));
-              lexpc->VpiColumnNo(fC->Column(Packed_dimension));
-              lexpc->VpiEndLineNo(fC->EndLine(Packed_dimension));
+              fC->populateCoreMembers(Packed_dimension, Packed_dimension,
+                                      lexpc);
               lexpc->VpiEndColumnNo(fC->Column(Packed_dimension) + 1);
               expr *lexp = lexpc;
 
@@ -3502,10 +3351,8 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
               rexpc->VpiSize(0);
               rexpc->VpiValue("STRING:associative");
               rexpc->VpiDecompile("associative");
-              rexpc->VpiFile(fC->getFileName());
-              rexpc->VpiLineNo(fC->Line(Packed_dimension));
-              rexpc->VpiColumnNo(fC->Column(Packed_dimension));
-              rexpc->VpiEndLineNo(fC->EndLine(Packed_dimension));
+              fC->populateCoreMembers(Packed_dimension, Packed_dimension,
+                                      rexpc);
               rexpc->VpiEndColumnNo(fC->Column(Packed_dimension) + 1);
 
               rexpc->Typespec(assoc_tps);
@@ -3535,11 +3382,7 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
 
         if (rexp) rexp->VpiParent(range);
         range->Right_expr(rexp);
-        range->VpiFile(fC->getFileName());
-        range->VpiLineNo(fC->Line(Constant_range));
-        range->VpiColumnNo(fC->Column(Constant_range));
-        range->VpiEndLineNo(fC->EndLine(Constant_range));
-        range->VpiEndColumnNo(fC->EndColumn(Constant_range));
+        fC->populateCoreMembers(Constant_range, Constant_range, range);
         ranges->push_back(range);
         range->VpiParent(pexpr);
       } else if ((fC->Type(fC->Child(Packed_dimension)) ==
@@ -3553,10 +3396,7 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
         lexpc->VpiSize(64);
         lexpc->VpiValue("UINT:0");
         lexpc->VpiDecompile("0");
-        lexpc->VpiFile(fC->getFileName());
-        lexpc->VpiLineNo(fC->Line(Packed_dimension));
-        lexpc->VpiColumnNo(fC->Column(Packed_dimension));
-        lexpc->VpiEndLineNo(fC->EndLine(Packed_dimension));
+        fC->populateCoreMembers(Packed_dimension, Packed_dimension, lexpc);
         lexpc->VpiEndColumnNo(fC->Column(Packed_dimension) + 1);
         expr *lexp = lexpc;
 
@@ -3568,10 +3408,7 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
         rexpc->VpiSize(0);
         rexpc->VpiValue("STRING:unsized");
         rexpc->VpiDecompile("unsized");
-        rexpc->VpiFile(fC->getFileName());
-        rexpc->VpiLineNo(fC->Line(Packed_dimension));
-        rexpc->VpiColumnNo(fC->Column(Packed_dimension));
-        rexpc->VpiEndLineNo(fC->EndLine(Packed_dimension));
+        fC->populateCoreMembers(Packed_dimension, Packed_dimension, rexpc);
         rexpc->VpiEndColumnNo(fC->Column(Packed_dimension) + 1);
         expr *rexp = rexpc;
 
@@ -3589,10 +3426,7 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
         lexpc->VpiSize(64);
         lexpc->VpiValue("UINT:0");
         lexpc->VpiDecompile("0");
-        lexpc->VpiFile(fC->getFileName());
-        lexpc->VpiLineNo(fC->Line(Packed_dimension));
-        lexpc->VpiColumnNo(fC->Column(Packed_dimension));
-        lexpc->VpiEndLineNo(fC->EndLine(Packed_dimension));
+        fC->populateCoreMembers(Packed_dimension, Packed_dimension, lexpc);
         lexpc->VpiEndColumnNo(fC->Column(Packed_dimension) + 1);
         expr *lexp = lexpc;
 
@@ -3604,10 +3438,7 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
         rexpc->VpiSize(0);
         rexpc->VpiValue("STRING:associative");
         rexpc->VpiDecompile("associative");
-        rexpc->VpiFile(fC->getFileName());
-        rexpc->VpiLineNo(fC->Line(Packed_dimension));
-        rexpc->VpiColumnNo(fC->Column(Packed_dimension));
-        rexpc->VpiEndLineNo(fC->EndLine(Packed_dimension));
+        fC->populateCoreMembers(Packed_dimension, Packed_dimension, rexpc);
         rexpc->VpiEndColumnNo(fC->Column(Packed_dimension) + 1);
 
         typespec *assoc_tps =
@@ -3764,11 +3595,7 @@ UHDM::any *CompileHelper::compilePartSelectRange(
     }
   }
   if (result != nullptr) {
-    result->VpiFile(fC->getFileName());
-    result->VpiLineNo(fC->Line(Constant_range));
-    result->VpiColumnNo(fC->Column(Constant_range));
-    result->VpiEndLineNo(fC->EndLine(Constant_range));
-    result->VpiEndColumnNo(fC->EndColumn(Constant_range));
+    fC->populateCoreMembers(Constant_range, Constant_range, result);
   }
   return result;
 }
@@ -4561,13 +4388,9 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
           (expr *)compileExpression(component, fC, Handle, compileDesign, pexpr,
                                     instance, reduce, muteErrors);
       fcall->Prefix(object);
-      std::string methodName = fC->SymName(Method);
+      const std::string &methodName = fC->SymName(Method);
       fcall->VpiName(methodName);
-      fcall->VpiFile(fC->getFileName());
-      fcall->VpiLineNo(fC->Line(Method));
-      fcall->VpiColumnNo(fC->Column(Method));
-      fcall->VpiEndLineNo(fC->EndLine(Method));
-      fcall->VpiEndColumnNo(fC->EndColumn(Method));
+      fC->populateCoreMembers(Method, Method, fcall);
       VectorOfany *arguments = compileTfCallArguments(
           component, fC, List_of_arguments, compileDesign, fcall, instance,
           reduce, muteErrors);
@@ -4622,11 +4445,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
       // TODO: make name part of the prefix, get vpiName from sibling
       fcall->Prefix(object);
       fcall->VpiName(rootName);
-      fcall->VpiFile(fC->getFileName());
-      fcall->VpiLineNo(fC->Line(Method));
-      fcall->VpiColumnNo(fC->Column(Method));
-      fcall->VpiEndLineNo(fC->EndLine(Method));
-      fcall->VpiEndColumnNo(fC->EndColumn(Method));
+      fC->populateCoreMembers(Method, Method, fcall);
       fcall->Tf_call_args(arguments);
       result = fcall;
     } else if (fC->Type(List_of_arguments) == slStringConst) {
@@ -4667,11 +4486,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
         tcall->Task(any_cast<task *>(tf));
         call = tcall;
       }
-      call->VpiFile(fC->getFileName());
-      call->VpiLineNo(fC->Line(Class_type_name));
-      call->VpiColumnNo(fC->Column(Class_type_name));
-      call->VpiEndLineNo(fC->EndLine(Class_type_name));
-      call->VpiEndColumnNo(fC->EndColumn(Class_type_name));
+      fC->populateCoreMembers(Class_type_name, Class_type_name, call);
     }
     Design *design = compileDesign->getCompiler()->getDesign();
     Package *pack = design->getPackage(packagename);
@@ -4717,11 +4532,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
               ref->VpiFullName(packagename + "::" + functionname);
               ref->Actual_group(param);
               ref->VpiParent(pexpr);
-              ref->VpiFile(fC->getFileName());
-              ref->VpiLineNo(fC->Line(name));
-              ref->VpiColumnNo(fC->Column(name));
-              ref->VpiEndLineNo(fC->EndLine(name));
-              ref->VpiEndColumnNo(fC->EndColumn(name));
+              fC->populateCoreMembers(name, name, ref);
               result = ref;
             }
             break;
@@ -4767,17 +4578,11 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
                                            compileDesign, pexpr, instance,
                                            reduce, muteErrors);
           if (result && (result->UhdmType() == UHDM::uhdmpart_select)) {
-            result->VpiLineNo(fC->Line(name));
-            result->VpiColumnNo(fC->Column(name));
-            result->VpiEndLineNo(fC->EndLine(dotedName));
-            result->VpiEndColumnNo(fC->EndColumn(dotedName));
+            fC->populateCoreMembers(name, dotedName, result);
             if ((result->VpiParent() != nullptr) &&
                 (result->VpiParent()->UhdmType() == UHDM::uhdmref_obj)) {
               ref_obj *const parent = (ref_obj *)result->VpiParent();
-              parent->VpiLineNo(fC->Line(name));
-              parent->VpiColumnNo(fC->Column(name));
-              parent->VpiEndLineNo(fC->EndLine(name));
-              parent->VpiEndColumnNo(fC->EndColumn(name));
+              fC->populateCoreMembers(name, name, parent);
             }
           }
           return result;
@@ -4807,11 +4612,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
             ref->VpiParent(pexpr);
             result = ref;
           }
-          result->VpiFile(fC->getFileName());
-          result->VpiLineNo(fC->Line(name));
-          result->VpiColumnNo(fC->Column(name));
-          result->VpiEndLineNo(fC->EndLine(name));
-          result->VpiEndColumnNo(fC->EndColumn(name));
+          fC->populateCoreMembers(name, name, result);
           return result;
         }
       }
@@ -4857,11 +4658,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
             ref->VpiName(tmpName);
             ref->VpiFullName(tmpName);
             ref->VpiParent(path);
-            ref->VpiFile(fC->getFileName());
-            ref->VpiLineNo(fC->Line(name));
-            ref->VpiColumnNo(fC->Column(name));
-            ref->VpiEndLineNo(fC->EndLine(name));
-            ref->VpiEndColumnNo(fC->EndColumn(name));
+            fC->populateCoreMembers(name, name, ref);
             tmpName.clear();
             is_hierarchical = true;
           }
@@ -4926,11 +4723,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
                 select->VpiIndex(index);
                 select->VpiName(tmpName);
                 select->VpiFullName(tmpName);
-                select->VpiFile(fC->getFileName());
-                select->VpiLineNo(fC->Line(name));
-                select->VpiColumnNo(fC->Column(name));
-                select->VpiEndLineNo(fC->EndLine(name));
-                select->VpiEndColumnNo(fC->EndColumn(name));
+                fC->populateCoreMembers(name, name, select);
                 std::string indexName = decompileHelper(index);
                 the_name += indexName;
                 if (!tmpName.empty()) ref->VpiName(tmpName + indexName);
@@ -4940,11 +4733,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
               elems->push_back(ref);
               ref->VpiName(tmpName);
               ref->VpiFullName(tmpName);
-              ref->VpiFile(fC->getFileName());
-              ref->VpiLineNo(fC->Line(name));
-              ref->VpiColumnNo(fC->Column(name));
-              ref->VpiEndLineNo(fC->EndLine(name));
-              ref->VpiEndColumnNo(fC->EndColumn(name));
+              fC->populateCoreMembers(name, name, ref);
             }
             tmpName.clear();
             if (dtype == VObjectType::slSelect)
@@ -4992,11 +4781,8 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
             } else {
               fcall = s.MakeMethod_func_call();
               fcall->VpiName(method_name);
-              fcall->VpiFile(fC->getFileName());
-              fcall->VpiLineNo(fC->Line(method_name_node));
-              fcall->VpiColumnNo(fC->Column(method_name_node));
-              fcall->VpiEndLineNo(fC->EndLine(method_name_node));
-              fcall->VpiEndColumnNo(fC->EndColumn(method_name_node));
+              fC->populateCoreMembers(method_name_node, method_name_node,
+                                      fcall);
               NodeId list_of_arguments =
                   fC->Sibling(fC->Child(fC->Child(method_child)));
               NodeId with_conditions_node;
@@ -5025,11 +4811,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
             fcall = s.MakeMethod_func_call();
             std::string methodName = fC->SymName(dotedName);
             fcall->VpiName(methodName);
-            fcall->VpiFile(fC->getFileName());
-            fcall->VpiLineNo(fC->Line(dotedName));
-            fcall->VpiColumnNo(fC->Column(dotedName));
-            fcall->VpiEndLineNo(fC->EndLine(dotedName));
-            fcall->VpiEndColumnNo(fC->EndColumn(dotedName));
+            fC->populateCoreMembers(dotedName, dotedName, fcall);
             VectorOfany *arguments = compileTfCallArguments(
                 component, fC, List_of_arguments, compileDesign, fcall,
                 instance, reduce, muteErrors);

@@ -1669,15 +1669,11 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       logicv->Ranges(packedDimensions);
       logic_typespec* ltps = s.MakeLogic_typespec();
       ltps->Ranges(packedDimensions);
-      ltps->VpiFile(fC->getFileName());
       NodeId id;
       if (sig->getPackedDimension()) id = fC->Parent(sig->getPackedDimension());
       if (!id) id = sig->getNodeId();
       if (id) {
-        ltps->VpiLineNo(fC->Line(id));
-        ltps->VpiColumnNo(fC->Column(id));
-        ltps->VpiEndLineNo(fC->EndLine(id));
-        ltps->VpiEndColumnNo(fC->EndColumn(id));
+        fC->populateCoreMembers(id, id, ltps);
       }
       tps = ltps;
       logicv->Typespec(tps);
@@ -1849,11 +1845,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       array_var->Typespec(s.MakeArray_typespec());
     }
     array_var->Expr(assignExp);
-    obj->VpiFile(fC->getFileName());
-    obj->VpiLineNo(fC->Line(sig->getNodeId()));
-    obj->VpiColumnNo(fC->Column(sig->getNodeId()));
-    obj->VpiEndLineNo(fC->EndLine(sig->getNodeId()));
-    obj->VpiEndColumnNo(fC->EndColumn(sig->getNodeId()));
+    fC->populateCoreMembers(sig->getNodeId(), sig->getNodeId(), obj);
     obj = array_var;
   } else {
     if (obj->UhdmType() == uhdmenum_var) {

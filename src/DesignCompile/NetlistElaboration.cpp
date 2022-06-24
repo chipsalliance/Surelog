@@ -333,15 +333,10 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
         }
         c->VpiValue(value->uhdmValue());
         c->VpiDecompile(value->decompiledValue());
-        c->VpiFile(assign->getFileContent()->getFileName());
         c->VpiSize(value->getSize());
         c->VpiConstType(value->vpiValType());
-        c->VpiLineNo(assign->getFileContent()->Line(assign->getAssignId()));
-        c->VpiColumnNo(assign->getFileContent()->Column(assign->getAssignId()));
-        c->VpiEndLineNo(
-            assign->getFileContent()->EndLine(assign->getAssignId()));
-        c->VpiEndColumnNo(
-            assign->getFileContent()->EndColumn(assign->getAssignId()));
+        assign->getFileContent()->populateCoreMembers(assign->getAssignId(),
+                                                      assign->getAssignId(), c);
         inst_assign->Rhs(c);
         m_helper.adjustSize(c->Typespec(), instance->getDefinition(),
                             m_compileDesign, instance, c);
@@ -404,16 +399,10 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
           }
           c->VpiValue(value->uhdmValue());
           c->VpiDecompile(value->decompiledValue());
-          c->VpiFile(assign->getFileContent()->getFileName());
           c->VpiSize(value->getSize());
           c->VpiConstType(value->vpiValType());
-          c->VpiLineNo(assign->getFileContent()->Line(assign->getAssignId()));
-          c->VpiColumnNo(
-              assign->getFileContent()->Column(assign->getAssignId()));
-          c->VpiEndLineNo(
-              assign->getFileContent()->EndLine(assign->getAssignId()));
-          c->VpiEndColumnNo(
-              assign->getFileContent()->EndColumn(assign->getAssignId()));
+          assign->getFileContent()->populateCoreMembers(
+              assign->getAssignId(), assign->getAssignId(), c);
           inst_assign->Rhs(c);
           overriden = true;
         }
@@ -767,11 +756,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
 
             if ((!bit_or_part_select) && (fC->Type(sigId) == slStringConst)) {
               ref_obj* ref = s.MakeRef_obj();
-              ref->VpiFile(fC->getFileName());
-              ref->VpiLineNo(fC->Line(sigId));
-              ref->VpiColumnNo(fC->Column(sigId));
-              ref->VpiEndLineNo(fC->EndLine(sigId));
-              ref->VpiEndColumnNo(fC->EndColumn(sigId));
+              fC->populateCoreMembers(sigId, sigId, ref);
               p->High_conn(ref);
               ref->VpiName(sigName);
               if (parent) {
@@ -814,18 +799,10 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             ports = s.MakePortVec();
             netlist->ports(ports);
           }
-          p->VpiFile(fC->getFileName());
-          p->VpiLineNo(fC->Line(Net_lvalue));
-          p->VpiColumnNo(fC->Column(Net_lvalue));
-          p->VpiEndLineNo(fC->EndLine(Net_lvalue));
-          p->VpiEndColumnNo(fC->EndColumn(Net_lvalue));
+          fC->populateCoreMembers(Net_lvalue, Net_lvalue, p);
           if (fC->Type(sigId) == slStringConst) {
             ref_obj* ref = s.MakeRef_obj();
-            ref->VpiFile(fC->getFileName());
-            ref->VpiLineNo(fC->Line(sigId));
-            ref->VpiColumnNo(fC->Column(sigId));
-            ref->VpiEndLineNo(fC->EndLine(sigId));
-            ref->VpiEndColumnNo(fC->EndColumn(sigId));
+            fC->populateCoreMembers(sigId, sigId, ref);
             p->High_conn(ref);
             ref->VpiName(sigName);
             if (parent) {
@@ -972,19 +949,11 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                 p = s.MakePort();
                 ports->push_back(p);
                 p->VpiName(formalName);
-                p->VpiFile(fC->getFileName());
-                p->VpiLineNo(fC->Line(formalId));
-                p->VpiColumnNo(fC->Column(formalId));
-                p->VpiEndLineNo(fC->EndLine(formalId));
-                p->VpiEndColumnNo(fC->EndColumn(formalId));
+                fC->populateCoreMembers(formalId, formalId, p);
               }
               operation* op = s.MakeOperation();
               op->VpiOpType(vpiNullOp);
-              op->VpiFile(fC->getFileName());
-              op->VpiLineNo(fC->Line(tmp));
-              op->VpiColumnNo(fC->EndColumn(tmp));
-              op->VpiEndLineNo(fC->EndLine(tmp));
-              op->VpiEndColumnNo(fC->Column(tmp));
+              fC->populateCoreMembers(tmp, tmp, op);
               p->High_conn(op);
               index++;
               continue;
@@ -1055,11 +1024,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
 
         if ((!sigName.empty()) && (hexpr == nullptr)) {
           ref_obj* ref = s.MakeRef_obj();
-          ref->VpiFile(fC->getFileName());
-          ref->VpiLineNo(fC->Line(sigId));
-          ref->VpiColumnNo(fC->Column(sigId));
-          ref->VpiEndLineNo(fC->EndLine(sigId));
-          ref->VpiEndColumnNo(fC->EndColumn(sigId));
+          fC->populateCoreMembers(sigId, sigId, ref);
           ref->VpiName(sigName);
           if (parent) {
             ref->VpiFullName(parent->getFullPathName() + "." + sigName);
@@ -1080,21 +1045,13 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         p->VpiName(formalName);
         p->Attributes(attributes);
         if (p->VpiLineNo() == 0) {
-          p->VpiFile(fC->getFileName());
-          p->VpiLineNo(fC->Line(formalId));
-          p->VpiColumnNo(fC->Column(formalId));
-          p->VpiEndLineNo(fC->EndLine(formalId));
-          p->VpiEndColumnNo(fC->EndColumn(formalId));
+          fC->populateCoreMembers(formalId, formalId, p);
         }
         bool lowconn_is_nettype = false;
         if (const any* lc = p->Low_conn()) {
           if (lc->UhdmType() == uhdmref_obj) {
             ref_obj* rf = (ref_obj*)lc;
-            rf->VpiFile(fC->getFileName());
-            rf->VpiLineNo(fC->Line(formalId));
-            rf->VpiColumnNo(fC->Column(formalId));
-            rf->VpiEndLineNo(fC->EndLine(formalId));
-            rf->VpiEndColumnNo(fC->EndColumn(formalId));
+            fC->populateCoreMembers(formalId, formalId, rf);
             const any* act = rf->Actual_group();
             if (act && (act->UhdmType() == uhdmlogic_net))
               lowconn_is_nettype = true;
@@ -1163,11 +1120,8 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           if (sm) {
             ref_obj* ref = s.MakeRef_obj();
             ref->Actual_group(sm);
-            ref->VpiFile(fC->getFileName());
-            ref->VpiLineNo(fC->Line(Named_port_connection));
-            ref->VpiColumnNo(fC->Column(Named_port_connection));
-            ref->VpiEndLineNo(fC->EndLine(Named_port_connection));
-            ref->VpiEndColumnNo(fC->EndColumn(Named_port_connection));
+            fC->populateCoreMembers(Named_port_connection,
+                                    Named_port_connection, ref);
             p->Low_conn(ref);
           }
         }
@@ -1278,11 +1232,7 @@ interface* NetlistElaboration::elab_interface_(
     dest_modport->VpiParent(sm);
     const FileContent* orig_fC = orig_modport.second.getFileContent();
     const NodeId orig_nodeId = orig_modport.second.getNodeId();
-    dest_modport->VpiFile(orig_fC->getFileName());
-    dest_modport->VpiLineNo(orig_fC->Line(orig_nodeId));
-    dest_modport->VpiColumnNo(orig_fC->Column(orig_nodeId));
-    dest_modport->VpiEndLineNo(orig_fC->EndLine(orig_nodeId));
-    dest_modport->VpiEndColumnNo(orig_fC->EndColumn(orig_nodeId));
+    orig_fC->populateCoreMembers(orig_nodeId, orig_nodeId, dest_modport);
     netlist->getModPortMap().insert(std::make_pair(
         modportfullname, std::make_pair(&orig_modport.second, dest_modport)));
     netlist->getSymbolTable().insert(
@@ -1297,11 +1247,7 @@ interface* NetlistElaboration::elab_interface_(
       io->VpiName(sigName);
       unsigned int direction = UhdmWriter::getVpiDirection(sig.getDirection());
       io->VpiDirection(direction);
-      io->VpiFile(fC->getFileName());
-      io->VpiLineNo(fC->Line(nodeId));
-      io->VpiColumnNo(fC->Column(nodeId));
-      io->VpiEndLineNo(fC->EndLine(nodeId));
-      io->VpiEndColumnNo(fC->EndColumn(nodeId));
+      fC->populateCoreMembers(nodeId, nodeId, io);
       any* net = bind_net_(instance, sigName);
       if (net == nullptr) {
         net = bind_net_(interf_instance, sigName);
@@ -1310,11 +1256,7 @@ interface* NetlistElaboration::elab_interface_(
         ref_obj* n = s.MakeRef_obj();
         n->VpiName(sigName);
         n->VpiFullName(instance->getFullPathName() + "." + sigName);
-        n->VpiFile(fC->getFileName());
-        n->VpiLineNo(fC->Line(nodeId));
-        n->VpiColumnNo(fC->Column(nodeId));
-        n->VpiEndLineNo(fC->EndLine(nodeId));
-        n->VpiEndColumnNo(fC->EndColumn(nodeId));
+        fC->populateCoreMembers(nodeId, nodeId, n);
         if (sigName != instName)  // prevent loop in listener
           n->Actual_group(net);
         net = n;
@@ -1385,17 +1327,11 @@ bool NetlistElaboration::elab_generates_(ModuleInstance* instance) {
       gen_scope* gen_scope = s.MakeGen_scope();
       vec->push_back(gen_scope);
       gen_scope_array->Gen_scopes(vec);
-      gen_scope->VpiFile(fC->getFileName());
-      gen_scope->VpiLineNo(fC->Line(mm->getGenBlockId()));
-      gen_scope->VpiColumnNo(fC->Column(mm->getGenBlockId()));
-      gen_scope->VpiEndLineNo(fC->EndLine(mm->getGenBlockId()));
-      gen_scope->VpiEndColumnNo(fC->EndColumn(mm->getGenBlockId()));
+      fC->populateCoreMembers(mm->getGenBlockId(), mm->getGenBlockId(),
+                              gen_scope);
       gen_scope->VpiName(instance->getInstanceName());
-      gen_scope_array->VpiFile(fC->getFileName());
-      gen_scope_array->VpiLineNo(fC->Line(mm->getGenBlockId()));
-      gen_scope_array->VpiColumnNo(fC->Column(mm->getGenBlockId()));
-      gen_scope_array->VpiEndLineNo(fC->EndLine(mm->getGenBlockId()));
-      gen_scope_array->VpiEndColumnNo(fC->EndColumn(mm->getGenBlockId()));
+      fC->populateCoreMembers(mm->getGenBlockId(), mm->getGenBlockId(),
+                              gen_scope_array);
       gen_scopes->push_back(gen_scope_array);
 
       if (mm->getContAssigns()) gen_scope->Cont_assigns(mm->getContAssigns());
@@ -1801,11 +1737,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         array_net->Ranges(unpackedDimensions);
         array_net->VpiName(signame);
         array_net->VpiSize(unpackedSize);
-        array_net->VpiFile(fC->getFileName());
-        array_net->VpiLineNo(fC->Line(sig->getNodeId()));
-        array_net->VpiColumnNo(fC->Column(sig->getNodeId()));
-        array_net->VpiEndLineNo(fC->EndLine(sig->getNodeId()));
-        array_net->VpiEndColumnNo(fC->EndColumn(sig->getNodeId()));
+        fC->populateCoreMembers(sig->getNodeId(), sig->getNodeId(), array_net);
         if (array_nets == nullptr) {
           array_nets = s.MakeArray_netVec();
           netlist->array_nets(array_nets);
@@ -1855,11 +1787,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         array_net->Ranges(unpackedDimensions);
         array_net->VpiName(signame);
         array_net->VpiSize(unpackedSize);
-        array_net->VpiFile(fC->getFileName());
-        array_net->VpiLineNo(fC->Line(sig->getNodeId()));
-        array_net->VpiColumnNo(fC->Column(sig->getNodeId()));
-        array_net->VpiEndLineNo(fC->EndLine(sig->getNodeId()));
-        array_net->VpiEndColumnNo(fC->EndColumn(sig->getNodeId()));
+        fC->populateCoreMembers(sig->getNodeId(), sig->getNodeId(), array_net);
         if (array_nets == nullptr) {
           array_nets = s.MakeArray_netVec();
           netlist->array_nets(array_nets);
@@ -1892,21 +1820,13 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       logicn->Attributes(sig->attributes());
       logicn->Typespec(tps);
       if (unpackedDimensions) {
-        logicn->VpiLineNo(fC->Line(id));
-        logicn->VpiColumnNo(fC->Column(id));
-        logicn->VpiEndLineNo(fC->EndLine(id));
-        logicn->VpiEndColumnNo(fC->EndColumn(id));
-        logicn->VpiFile(fC->getFileName());
+        fC->populateCoreMembers(id, id, logicn);
         array_net* array_net = s.MakeArray_net();
         array_net->Nets(s.MakeNetVec());
         array_net->Ranges(unpackedDimensions);
         array_net->VpiName(signame);
         array_net->VpiSize(unpackedSize);
-        array_net->VpiFile(fC->getFileName());
-        array_net->VpiLineNo(fC->Line(sig->getNodeId()));
-        array_net->VpiColumnNo(fC->Column(sig->getNodeId()));
-        array_net->VpiEndLineNo(fC->EndLine(sig->getNodeId()));
-        array_net->VpiEndColumnNo(fC->EndColumn(sig->getNodeId()));
+        fC->populateCoreMembers(sig->getNodeId(), sig->getNodeId(), array_net);
         if (array_nets == nullptr) {
           array_nets = s.MakeArray_netVec();
           netlist->array_nets(array_nets);
@@ -1934,11 +1854,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
     if (exp) {
       cont_assign* assign = s.MakeCont_assign();
       assign->VpiNetDeclAssign(true);
-      assign->VpiFile(fC->getFileName());
-      assign->VpiLineNo(fC->Line(id));
-      assign->VpiColumnNo(fC->Column(id));
-      assign->VpiEndLineNo(fC->EndLine(id));
-      assign->VpiEndColumnNo(fC->EndColumn(id));
+      fC->populateCoreMembers(id, id, assign);
       assign->Lhs((expr*)obj);
       assign->Rhs(exp);
       m_helper.setParentNoOverride((expr*)obj, assign);
@@ -1965,15 +1881,10 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
 
   if (obj) {
     if (obj->VpiLineNo() == 0) {
-      obj->VpiFile(fC->getFileName());
-      obj->VpiLineNo(fC->Line(id));
-      obj->VpiColumnNo(fC->Column(id));
       if (unpackedDimension) {
-        obj->VpiEndLineNo(fC->EndLine(unpackedDimension));
-        obj->VpiEndColumnNo(fC->EndColumn(unpackedDimension));
+        fC->populateCoreMembers(id, unpackedDimension, obj);
       } else {
-        obj->VpiEndLineNo(fC->EndLine(id));
-        obj->VpiEndColumnNo(fC->EndColumn(id));
+        fC->populateCoreMembers(id, id, obj);
       }
     }
     if (parentNetlist)
@@ -2047,11 +1958,7 @@ bool NetlistElaboration::elab_ports_nets_(
           signame = sig->getName();
           dest_port->VpiName(signame);
         }
-        dest_port->VpiLineNo(fC->Line(id));
-        dest_port->VpiColumnNo(fC->Column(id));
-        dest_port->VpiEndLineNo(fC->EndLine(id));
-        dest_port->VpiEndColumnNo(fC->EndColumn(id));
-        dest_port->VpiFile(fC->getFileName());
+        fC->populateCoreMembers(id, id, dest_port);
         if (ports == nullptr) {
           ports = s.MakePortVec();
           netlist->ports(ports);
@@ -2086,11 +1993,7 @@ bool NetlistElaboration::elab_ports_nets_(
           portInterf.insert(sig->getName());
           ref_obj* ref = s.MakeRef_obj();
           ref->VpiFullName(instance->getFullPathName() + "." + sig->getName());
-          ref->VpiFile(fC->getFileName());
-          ref->VpiLineNo(fC->Line(sig->getNodeId()));
-          ref->VpiColumnNo(fC->Column(sig->getNodeId()));
-          ref->VpiEndLineNo(fC->EndLine(sig->getNodeId()));
-          ref->VpiEndColumnNo(fC->EndColumn(sig->getNodeId()));
+          fC->populateCoreMembers(sig->getNodeId(), sig->getNodeId(), ref);
           dest_port->Low_conn(ref);
           Netlist::ModPortMap::iterator itr =
               netlist->getModPortMap().find(signame);
@@ -2189,11 +2092,7 @@ bool NetlistElaboration::elab_ports_nets_(
           portInterf.insert(sig->getName());
           ref_obj* ref = s.MakeRef_obj();
           ref->VpiFullName(instance->getFullPathName() + "." + sig->getName());
-          ref->VpiFile(fC->getFileName());
-          ref->VpiLineNo(fC->Line(sig->getNodeId()));
-          ref->VpiColumnNo(fC->Column(sig->getNodeId()));
-          ref->VpiEndLineNo(fC->EndLine(sig->getNodeId()));
-          ref->VpiEndColumnNo(fC->EndColumn(sig->getNodeId()));
+          fC->populateCoreMembers(sig->getNodeId(), sig->getNodeId(), ref);
           dest_port->Low_conn(ref);
           Netlist::InstanceMap::iterator itr =
               netlist->getInstanceMap().find(signame);
@@ -2284,11 +2183,7 @@ bool NetlistElaboration::elab_ports_nets_(
             ref->VpiName(signame);
             ref->VpiFullName(netlist->getParent()->getFullPathName() + "." +
                              signame);
-            ref->VpiFile(fC->getFileName());
-            ref->VpiLineNo(fC->Line(sig->getNodeId()));
-            ref->VpiColumnNo(fC->Column(sig->getNodeId()));
-            ref->VpiEndLineNo(fC->EndLine(sig->getNodeId()));
-            ref->VpiEndColumnNo(fC->EndColumn(sig->getNodeId()));
+            fC->populateCoreMembers(sig->getNodeId(), sig->getNodeId(), ref);
             ref->Actual_group(n);
             dest_port->Low_conn(ref);
           }
@@ -2397,11 +2292,7 @@ UHDM::any* NetlistElaboration::bind_net_(const FileContent* origfC, NodeId id,
         logic_net* net = s.MakeLogic_net();
         net->VpiName(name);
         net->VpiNetType(UhdmWriter::getVpiNetType(implicitNetType));
-        net->VpiFile(origfC->getFileName());
-        net->VpiLineNo(origfC->Line(id));
-        net->VpiColumnNo(origfC->Column(id));
-        net->VpiEndLineNo(origfC->EndLine(id));
-        net->VpiEndColumnNo(origfC->EndColumn(id));
+        origfC->populateCoreMembers(id, id, net);
         result = net;
         Netlist::SymbolTable& symbols = netlist->getSymbolTable();
         std::vector<UHDM::net*>* nets = netlist->nets();

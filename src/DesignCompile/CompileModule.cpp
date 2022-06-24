@@ -243,11 +243,7 @@ bool CompileModule::collectUdpObjects_() {
         while (port) {
           UHDM::io_decl* io = s.MakeIo_decl();
           const std::string& name = fC->SymName(port);
-          io->VpiFile(fC->getFileName());
-          io->VpiLineNo(fC->Line(port));
-          io->VpiColumnNo(fC->Column(port));
-          io->VpiEndLineNo(fC->EndLine(port));
-          io->VpiEndColumnNo(fC->EndColumn(port));
+          fC->populateCoreMembers(port, port, io);
           io->VpiName(name);
           io->VpiParent(defn);
           ios->push_back(io);
@@ -269,11 +265,7 @@ bool CompileModule::collectUdpObjects_() {
         const std::string& outputname = fC->SymName(Output);
         std::vector<UHDM::io_decl*>* ios = defn->Io_decls();
         UHDM::logic_net* net = s.MakeLogic_net();
-        net->VpiFile(fC->getFileName());
-        net->VpiLineNo(fC->Line(id));
-        net->VpiColumnNo(fC->Column(id));
-        net->VpiEndLineNo(fC->EndLine(id));
-        net->VpiEndColumnNo(fC->EndColumn(id));
+        fC->populateCoreMembers(id, id, net);
         net->Attributes(attributes);
         net->VpiParent(defn);
         if (ios) {
@@ -305,11 +297,7 @@ bool CompileModule::collectUdpObjects_() {
           std::vector<UHDM::io_decl*>* ios = defn->Io_decls();
           if (ios) {
             UHDM::logic_net* net = s.MakeLogic_net();
-            net->VpiFile(fC->getFileName());
-            net->VpiLineNo(fC->Line(id));
-            net->VpiColumnNo(fC->Column(id));
-            net->VpiEndLineNo(fC->EndLine(id));
-            net->VpiEndColumnNo(fC->EndColumn(id));
+            fC->populateCoreMembers(id, id, net);
             net->Attributes(attributes);
             net->VpiParent(defn);
             for (auto io : *ios) {
@@ -365,11 +353,7 @@ bool CompileModule::collectUdpObjects_() {
         entry->VpiParent(defn);
         entry->VpiValue(ventry);
         entry->VpiSize(nb);
-        entry->VpiFile(fC->getFileName());
-        entry->VpiLineNo(fC->Line(Level_input_list));
-        entry->VpiColumnNo(fC->Column(Level_input_list));
-        entry->VpiEndLineNo(fC->EndLine(Level_input_list));
-        entry->VpiEndColumnNo(fC->EndColumn(Level_input_list));
+        fC->populateCoreMembers(Level_input_list, Level_input_list, entry);
         entries->push_back(entry);
         break;
       }
@@ -466,11 +450,7 @@ bool CompileModule::collectUdpObjects_() {
         entry->VpiParent(defn);
         entry->VpiValue(ventry);
         entry->VpiSize(nb);
-        entry->VpiFile(fC->getFileName());
-        entry->VpiLineNo(fC->Line(Level_input_list));
-        entry->VpiColumnNo(fC->Column(Level_input_list));
-        entry->VpiEndLineNo(fC->EndLine(Level_input_list));
-        entry->VpiEndColumnNo(fC->EndColumn(Level_input_list));
+        fC->populateCoreMembers(Level_input_list, Level_input_list, entry);
         entries->push_back(entry);
         break;
       }
@@ -478,11 +458,7 @@ bool CompileModule::collectUdpObjects_() {
         NodeId Identifier = fC->Child(id);
         NodeId Value = fC->Sibling(Identifier);
         UHDM::initial* init = s.MakeInitial();
-        init->VpiFile(fC->getFileName());
-        init->VpiLineNo(fC->Line(id));
-        init->VpiColumnNo(fC->Column(id));
-        init->VpiEndLineNo(fC->EndLine(id));
-        init->VpiEndColumnNo(fC->EndColumn(id));
+        fC->populateCoreMembers(id, id, init);
         init->VpiParent(defn);
         defn->Initial(init);
         UHDM::assign_stmt* assign_stmt = s.MakeAssign_stmt();
@@ -490,17 +466,9 @@ bool CompileModule::collectUdpObjects_() {
         UHDM::ref_obj* ref = s.MakeRef_obj();
         ref->VpiName(fC->SymName(Identifier));
         ref->VpiParent(assign_stmt);
-        ref->VpiFile(fC->getFileName());
-        ref->VpiLineNo(fC->Line(Identifier));
-        ref->VpiColumnNo(fC->Column(Identifier));
-        ref->VpiEndLineNo(fC->EndLine(Identifier));
-        ref->VpiEndColumnNo(fC->EndColumn(Identifier));
+        fC->populateCoreMembers(Identifier, Identifier, ref);
         assign_stmt->Lhs(ref);
-        assign_stmt->VpiFile(fC->getFileName());
-        assign_stmt->VpiLineNo(fC->Line(id));
-        assign_stmt->VpiColumnNo(fC->Column(id));
-        assign_stmt->VpiEndLineNo(fC->EndLine(id));
-        assign_stmt->VpiEndColumnNo(fC->EndColumn(id));
+        fC->populateCoreMembers(id, id, assign_stmt);
         assign_stmt->VpiParent(init);
         UHDM::constant* c = s.MakeConstant();
         assign_stmt->Rhs(c);
@@ -510,11 +478,7 @@ bool CompileModule::collectUdpObjects_() {
         c->VpiSize(64);
         c->VpiConstType(vpiUIntConst);
         c->VpiParent(assign_stmt);
-        c->VpiFile(fC->getFileName());
-        c->VpiLineNo(fC->Line(Value));
-        c->VpiColumnNo(fC->Column(Value));
-        c->VpiEndLineNo(fC->EndLine(Value));
-        c->VpiEndColumnNo(fC->EndColumn(Value));
+        fC->populateCoreMembers(Value, Value, c);
         break;
       }
       default:
