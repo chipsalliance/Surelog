@@ -2,22 +2,15 @@
 
 [WRN:CM0010] Command line argument "-Wno-UNOPTFLAT" ignored.
 
-[INF:CM0024] Executing with 2 processes and 0 threads.
+[INF:CM0024] Executing with 16 processes and 0 threads.
 
-Running: cd "../../../build/regression/CoresSweRVMP/slpp_all"; cmake -G "Unix Makefiles" .; make -j 2
+Running: cd "../../../build/regression/CoresSweRVMP/slpp_all"; cmake -G "Unix Makefiles" .; make -j 16
 -- Configuring done
 -- Generating done
 -- Build files have been written to: ${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all
-make[1]: Entering directory '${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all'
-make[2]: Entering directory '${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all'
-make[3]: Entering directory '${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all'
-make[3]: Leaving directory '${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all'
-make[3]: Entering directory '${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all'
+Scanning dependencies of target Parse
 [100%] Generating preprocessing
-make[3]: Leaving directory '${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all'
 [100%] Built target Parse
-make[2]: Leaving directory '${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all'
-make[1]: Leaving directory '${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all'
 Surelog preproc status: 0
 [INF:PP0122] Preprocessing source file "../../UVM/1800.2-2017-1.0/src/uvm_pkg.sv".
 
@@ -123,21 +116,27 @@ Surelog preproc status: 0
 
 [INF:PP0122] Preprocessing source file "${SURELOG_DIR}/third_party/tests/CoresSweRVMP/design/lib/axi4_to_ahb.sv".
 
-Running: cd "../../../build/regression/CoresSweRVMP/slpp_all"; cmake -G "Unix Makefiles" .; make -j 2
+Running: cd "../../../build/regression/CoresSweRVMP/slpp_all"; cmake -G "Unix Makefiles" .; make -j 16
 -- Configuring done
 -- Generating done
 -- Build files have been written to: ${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all
-make[1]: Entering directory '${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all'
-make[2]: Entering directory '${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all'
-make[3]: Entering directory '${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all'
-make[3]: Leaving directory '${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all'
-make[3]: Entering directory '${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all'
-[ 50%] Generating 1_axi4_to_ahb.sv
-[100%] Generating 2_mem_lib.sv
-make[3]: Leaving directory '${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all'
+[  6%] Generating 3_rvjtag_tap.sv
+[ 12%] Generating 1_lsu_stbuf.sv
+[ 18%] Generating 2_ahb_to_axi4.sv
+[ 25%] Generating 4_dec_tlu_ctl.sv
+[ 31%] Generating 6_dbg.sv
+[ 37%] Generating 5_lsu_bus_buffer.sv
+[ 43%] Generating 7_axi4_to_ahb.sv
+[ 50%] Generating 8_ifu_aln_ctl.sv
+[ 56%] Generating 9_tb_top.sv
+[ 62%] Generating 10_lsu_bus_intf.sv
+[ 68%] Generating 11_ifu_bp_ctl.sv
+[ 75%] Generating 12_beh_lib.sv
+[ 81%] Generating 13_ifu_mem_ctl.sv
+[ 87%] Generating 14_mem_lib.sv
+[ 93%] Generating 15_exu.sv
+[100%] Generating 16_dec_decode_ctl.sv
 [100%] Built target Parse
-make[2]: Leaving directory '${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all'
-make[1]: Leaving directory '${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all'
 Surelog parsing status: 0
 [INF:PA0201] Parsing source file "../../UVM/1800.2-2017-1.0/src/uvm_pkg.sv".
 
@@ -4836,8 +4835,6 @@ there are 4 more instances of this message.
 
 [INF:UH0707] Elaborating UHDM...
 
-[WRN:UH0725] 1800.2-2017-1.0/src/base/uvm_callback.svh:990:75: Unresolved hierarchical reference "cb_.get_inst_id".
-
 [WRN:UH0725] 1800.2-2017-1.0/src/base/uvm_comparer.svh:625:13: Unresolved hierarchical reference "m_recur_states[lhs][rhs].exists".
 
 [WRN:UH0725] 1800.2-2017-1.0/src/base/uvm_comparer.svh:627:10: Unresolved hierarchical reference "m_recur_states[lhs][rhs][recursion].state".
@@ -4845,16 +4842,6 @@ there are 4 more instances of this message.
 [WRN:UH0725] 1800.2-2017-1.0/src/base/uvm_comparer.svh:628:19: Unresolved hierarchical reference "m_recur_states[lhs][rhs][recursion].ret_val".
 
 [WRN:UH0725] 1800.2-2017-1.0/src/base/uvm_comparer.svh:629:13: Unresolved hierarchical reference "m_recur_states[lhs][rhs][recursion].state".
-
-[WRN:UH0725] 1800.2-2017-1.0/src/seq/uvm_sequencer_base.svh:555:50: Unresolved hierarchical reference "item.request".
-
-[WRN:UH0725] 1800.2-2017-1.0/src/seq/uvm_sequencer_base.svh:555:81: Unresolved hierarchical reference "item.process_id.status".
-
-[WRN:UH0725] 1800.2-2017-1.0/src/seq/uvm_sequencer_base.svh:565:71: Unresolved hierarchical reference "item.request".
-
-[WRN:UH0725] 1800.2-2017-1.0/src/seq/uvm_sequencer_base.svh:565:113: Unresolved hierarchical reference "item.sequence_ptr".
-
-[WRN:UH0725] 1800.2-2017-1.0/src/seq/uvm_sequencer_base.svh:1088:45: Unresolved hierarchical reference "item.get_inst_id".
 
 [WRN:UH0725] 1800.2-2017-1.0/src/base/uvm_copier.svh:112:13: Unresolved hierarchical reference "m_recur_states[rhs][lhs].exists".
 
@@ -4890,19 +4877,13 @@ there are 4 more instances of this message.
 
 [WRN:UH0725] 1800.2-2017-1.0/src/base/uvm_factory.svh:1999:34: Unresolved hierarchical reference "m_override_info[i].ovrd.m_type_name.len".
 
-[WRN:UH0725] 1800.2-2017-1.0/src/base/uvm_factory.svh:2037:51: Unresolved hierarchical reference "i.alias_type_name".
+[WRN:UH0725]  Unresolved hierarchical reference "".
 
-[WRN:UH0725] 1800.2-2017-1.0/src/base/uvm_factory.svh:2037:109: Unresolved hierarchical reference "i.full_inst_path".
+[WRN:UH0725] 1800.2-2017-1.0/src/base/uvm_phase.svh:958:31: Unresolved hierarchical reference "after_phase.m_successors".
 
-[WRN:UH0725] 1800.2-2017-1.0/src/base/uvm_domain.svh:194:38: Unresolved hierarchical reference "item.get_state".
+[WRN:UH0725] 1800.2-2017-1.0/src/base/uvm_phase.svh:963:14: Unresolved hierarchical reference "after_phase.m_successors.exists".
 
-[ERR:UH0703] ../../UVM/1800.2-2017-1.0/src/uvm_pkg.sv:38:23: Internal Error: adding wrong object type (type_parameter) in a actual_group group!.
-
-[ERR:UH0703] ../../UVM/1800.2-2017-1.0/src/uvm_pkg.sv:1121:27: Internal Error: adding wrong object type (type_parameter) in a actual_group group!.
-
-[ERR:UH0703] ../../UVM/1800.2-2017-1.0/src/uvm_pkg.sv:168:34: Internal Error: adding wrong object type (type_parameter) in a actual_group group!.
-
-[ERR:UH0703] ../../UVM/1800.2-2017-1.0/src/uvm_pkg.sv:1079:32: Internal Error: adding wrong object type (type_parameter) in a actual_group group!.
+[WRN:UH0725] 1800.2-2017-1.0/src/base/uvm_phase.svh:968:5: Unresolved hierarchical reference "after_phase.m_successors".
 
 [WRN:UH0725] 1800.2-2017-1.0/src/reg/uvm_vreg.svh:918:10: Unresolved hierarchical reference "cb.fname".
 
@@ -4952,9 +4933,7 @@ there are 4 more instances of this message.
 
 [WRN:UH0725] 1800.2-2017-1.0/src/reg/uvm_vreg_field.svh:594:7: Unresolved hierarchical reference "cb.lineno".
 
-[WRN:UH0725] 1800.2-2017-1.0/src/macros/uvm_message_defines.svh:138:8: Unresolved hierarchical reference "m_sequencer.get_full_name".
-
-[WRN:UH0725] 1800.2-2017-1.0/src/macros/uvm_message_defines.svh:120:8: Unresolved hierarchical reference "m_sequencer.get_full_name".
+[WRN:UH0725] 1800.2-2017-1.0/src/base/uvm_resource.svh:493:37: Unresolved hierarchical reference "r.get_type_handle".
 
 [WRN:UH0725] testbench/tb_top.sv:376:13: Unresolved hierarchical reference "tb_top.gpr".
 
@@ -4980,6 +4959,6 @@ there are 4 more instances of this message.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 4
-[WARNING] : 182
+[  ERROR] : 0
+[WARNING] : 176
 [   NOTE] : 15
