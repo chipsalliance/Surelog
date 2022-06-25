@@ -1694,9 +1694,19 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         } else {
           stv->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
         }
-      } else if (const SimpleType* sit =
-                     datatype_cast<const SimpleType*>(dtype)) {
-        UHDM::typespec* spec = sit->getTypespec();
+      } else if (dtype->getCategory() == DataType::Category::PARAMETER ||
+                 dtype->getCategory() == DataType::Category::SIMPLE_TYPEDEF) {
+        UHDM::typespec* spec = nullptr;
+        if (dtype->getCategory() == DataType::Category::SIMPLE_TYPEDEF) {
+          const SimpleType* sit = datatype_cast<const SimpleType*>(dtype);
+          spec = sit->getTypespec();
+        } else {
+          const Parameter* param = datatype_cast<const Parameter*>(dtype);
+          spec = param->getTypespec();
+          if (spec == nullptr) {
+            spec = tps;
+          }
+        }
         if (spec->UhdmType() == uhdmlogic_typespec) {
           logic_net* logicn = s.MakeLogic_net();
           logicn->Attributes(sig->attributes());

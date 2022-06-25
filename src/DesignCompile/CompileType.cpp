@@ -308,6 +308,22 @@ UHDM::any* CompileHelper::compileVariable(
         }
       }
       if (result == nullptr) {
+        if (the_type == slStringConst) {
+          if (ts) {
+            if (ts->UhdmType() == uhdmclass_typespec) {
+              class_var* var = s.MakeClass_var();
+              var->Typespec(ts);
+              var->VpiFile(fC->getFileName());
+              var->VpiLineNo(fC->Line(declarationId));
+              var->VpiColumnNo(fC->Column(declarationId));
+              var->VpiEndLineNo(fC->EndLine(declarationId));
+              var->VpiEndColumnNo(fC->EndColumn(declarationId));
+              result = var;
+            }
+          }
+        }
+      }
+      if (result == nullptr) {
         if (the_type == slChandle_type) {
           chandle_var* var = s.MakeChandle_var();
           var->Typespec(ts);
@@ -1693,6 +1709,34 @@ UHDM::typespec* CompileHelper::compileTypespec(
           }
         }
       }
+      if (!result) {
+        if (component) {
+          Design* design = compileDesign->getCompiler()->getDesign();
+          ClassDefinition* cl = design->getClassDefinition(typeName);
+          if (cl == nullptr) {
+            cl = design->getClassDefinition(component->getName() +
+                                            "::" + typeName);
+          }
+          if (cl == nullptr) {
+            if (const DesignComponent* p =
+                    valuedcomponenti_cast<const DesignComponent*>(
+                        component->getParentScope())) {
+              cl = design->getClassDefinition(p->getName() + "::" + typeName);
+            }
+          }
+          if (cl) {
+            class_typespec* tps = s.MakeClass_typespec();
+            tps->VpiName(typeName);
+            tps->Class_defn(cl->getUhdmDefinition());
+            tps->VpiFile(fC->getFileName());
+            tps->VpiLineNo(fC->Line(type));
+            tps->VpiColumnNo(fC->Column(type));
+            tps->VpiEndLineNo(fC->EndLine(type));
+            tps->VpiEndColumnNo(fC->EndColumn(type));
+            result = tps;
+          }
+        }
+      }
       if (result == nullptr) {
         result = compileDatastructureTypespec(
             component, fC, type, compileDesign, instance, reduce, "", typeName);
@@ -1729,6 +1773,21 @@ UHDM::typespec* CompileHelper::compileTypespec(
           result->VpiEndColumnNo(fC->EndColumn(type));
         }
       }
+      if ((!result) && component) {
+        UHDM::VectorOfany* params = component->getParameters();
+        if (params) {
+          for (any* param : *params) {
+            if (param->UhdmType() == uhdmtype_parameter) {
+              if (param->VpiName() == typeName) {
+                type_parameter* tparam = (type_parameter*)param;
+                result = (typespec*)tparam->Typespec();
+                break;
+              }
+            }
+          }
+        }
+      }
+
       break;
     }
     case VObjectType::slConstant_expression: {
