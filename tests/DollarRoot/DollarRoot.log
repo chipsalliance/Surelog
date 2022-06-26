@@ -6747,8 +6747,6 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:UH0707] Elaborating UHDM...
 
-[WRN:UH0725] dut.sv:2:11: Unresolved hierarchical reference "$root.top.a".
-
 [WRN:UH0725] dut.sv:249:13: Unresolved hierarchical reference "$root.tb.dut.master_0.signal_read_response_complete".
 
 [WRN:UH0725] dut.sv:261:13: Unresolved hierarchical reference "$root.tb.dut.master_0.signal_write_response_complete".
@@ -16871,6 +16869,45 @@ design: (work@top)
         |vpiParent:
         \_hier_path: (work@top.$root.top.a), line:2:11, endln:2:17
         |vpiName:top
+        |vpiActual:
+        \_module: work@top (work@top), file:dut.sv, line:1:1, endln:3:10
+      |vpiActual:
+      \_ref_obj: (a)
+        |vpiParent:
+        \_hier_path: (work@top.$root.top.a), line:2:11, endln:2:17
+        |vpiName:a
+        |vpiActual:
+        \_logic_net: (work@top.a), line:1:41, endln:1:42
+  |vpiContAssign:
+  \_cont_assign: , line:2:11, endln:2:26
+    |vpiParent:
+    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:3:10
+    |vpiRhs:
+    \_ref_obj: (work@top.b), line:2:25, endln:2:26
+      |vpiParent:
+      \_cont_assign: , line:2:11, endln:2:26
+      |vpiName:b
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_net: (work@top.b), line:1:25, endln:1:26
+    |vpiLhs:
+    \_hier_path: (work@top.$root.top.a), line:2:11, endln:2:17
+      |vpiParent:
+      \_cont_assign: , line:2:11, endln:2:26
+      |vpiName:$root.top.a
+      |vpiFullName:work@top.$root.top.a
+      |vpiActual:
+      \_ref_obj: ($root)
+        |vpiParent:
+        \_hier_path: (work@top.$root.top.a), line:2:11, endln:2:17
+        |vpiName:$root
+      |vpiActual:
+      \_ref_obj: (top)
+        |vpiParent:
+        \_hier_path: (work@top.$root.top.a), line:2:11, endln:2:17
+        |vpiName:top
+        |vpiActual:
+        \_module: work@top (work@top), file:dut.sv, line:1:1, endln:3:10
       |vpiActual:
       \_ref_obj: (a)
         |vpiParent:
@@ -26039,7 +26076,7 @@ design: (work@top)
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 4
-[WARNING] : 28
+[WARNING] : 27
 [   NOTE] : 8
 
 
