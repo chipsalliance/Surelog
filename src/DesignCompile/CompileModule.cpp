@@ -788,10 +788,8 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         case VObjectType::slN_input_gate_instance:
         case VObjectType::slN_output_gate_instance:
         case VObjectType::slUdp_instance:
-        case VObjectType::slUdp_instantiation:
         case VObjectType::slModule_instantiation:
         case VObjectType::slInterface_instantiation:
-        case VObjectType::slGate_instantiation:
         case VObjectType::slConditional_generate_construct:
         case VObjectType::slGenerate_module_conditional_statement:
         case VObjectType::slLoop_generate_construct:
@@ -802,6 +800,13 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           if (collectType != CollectType::OTHER) break;
           FileCNodeId fnid(fC, id);
           m_module->addObject(type, fnid);
+          break;
+        }
+        case VObjectType::slGate_instantiation:
+        case VObjectType::slUdp_instantiation: {
+          if (collectType != CollectType::OTHER) break;
+          m_helper.compileGateOrUdpInstantiation(m_module, fC, m_compileDesign,
+                                                 id, m_instance);
           break;
         }
         case VObjectType::slInitial_construct:

@@ -189,11 +189,13 @@ class CompileHelper final {
 
   bool compileTask(DesignComponent* component, const FileContent* fC,
                    NodeId nodeId, CompileDesign* compileDesign,
-                   ValuedComponentI* instance, bool isMethod = false, bool reduce = false);
+                   ValuedComponentI* instance, bool isMethod = false,
+                   bool reduce = false);
 
   bool compileFunction(DesignComponent* component, const FileContent* fC,
                        NodeId nodeId, CompileDesign* compileDesign,
-                       ValuedComponentI* instance, bool isMethod = false, bool reduce = false);
+                       ValuedComponentI* instance, bool isMethod = false,
+                       bool reduce = false);
 
   bool compileAssertionItem(DesignComponent* component, const FileContent* fC,
                             NodeId nodeId, CompileDesign* compileDesign);
@@ -224,7 +226,8 @@ class CompileHelper final {
                                  const FileContent* fC, NodeId nodeId,
                                  CompileDesign* compileDesign,
                                  UHDM::any* pstmt = nullptr,
-                                 ValuedComponentI* instance = nullptr, bool reduce = false);
+                                 ValuedComponentI* instance = nullptr,
+                                 bool reduce = false);
 
   UHDM::any* compileVariable(DesignComponent* component, const FileContent* fC,
                              NodeId nodeId, CompileDesign* compileDesign,
@@ -545,8 +548,13 @@ class CompileHelper final {
                     ValuedComponentI* instance);
 
   std::string decompileHelper(const UHDM::any* sel);
-  
+
   void setUnElabMode(bool on) { m_unElabMode = on; }
+  void compileGateOrUdpInstantiation(ModuleDefinition* mod,
+                                     const FileContent* fC,
+                                     CompileDesign* compileDesign, NodeId id,
+                                     ValuedComponentI* instance);
+
  private:
   CompileHelper(const CompileHelper&) = delete;
 
@@ -563,6 +571,9 @@ class CompileHelper final {
       CompileDesign* compileDesign, const std::filesystem::path& fileName,
       const std::string& name, const std::string& value, unsigned int line,
       unsigned short column, unsigned int eline, unsigned short ecolumn);
+  bool compilePrimitives(ModuleDefinition* mod, const FileContent* fC,
+                         CompileDesign* compileDesign, NodeId id,
+                         UHDM::primitive* prim);
   std::unordered_map<std::string, UHDM::int_typespec*> m_cache_int_typespec;
   std::unordered_map<std::string, UHDM::typespec_member*>
       m_cache_typespec_member;

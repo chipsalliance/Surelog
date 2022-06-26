@@ -58,7 +58,95 @@ namespace SURELOG {
 
 using namespace UHDM;  // NOLINT (we're using a whole bunch of these)
 
-unsigned int getBuiltinType(VObjectType type) {
+std::string UhdmWriter::builtinGateName(VObjectType type) {
+  std::string modName;
+  switch (type) {
+    case VObjectType::slNInpGate_And:
+      modName = "work@and";
+      break;
+    case VObjectType::slNInpGate_Or:
+      modName = "work@or";
+      break;
+    case VObjectType::slNInpGate_Nand:
+      modName = "work@nand";
+      break;
+    case VObjectType::slNInpGate_Nor:
+      modName = "work@nor";
+      break;
+    case VObjectType::slNInpGate_Xor:
+      modName = "work@xor";
+      break;
+    case VObjectType::slNInpGate_Xnor:
+      modName = "work@xnor";
+      break;
+    case VObjectType::slNOutGate_Buf:
+      modName = "work@buf";
+      break;
+    case VObjectType::slNOutGate_Not:
+      modName = "work@not";
+      break;
+    case VObjectType::slPassEnSwitch_Tranif0:
+      modName = "work@tranif0";
+      break;
+    case VObjectType::slPassEnSwitch_Tranif1:
+      modName = "work@tranif1";
+      break;
+    case VObjectType::slPassEnSwitch_RTranif1:
+      modName = "work@rtranif1";
+      break;
+    case VObjectType::slPassEnSwitch_RTranif0:
+      modName = "work@rtranif0";
+      break;
+    case VObjectType::slPassSwitch_Tran:
+      modName = "work@tran";
+      break;
+    case VObjectType::slPassSwitch_RTran:
+      modName = "work@rtran";
+      break;
+    case VObjectType::slCmosSwitchType_Cmos:
+      modName = "work@cmos";
+      break;
+    case VObjectType::slCmosSwitchType_RCmos:
+      modName = "work@rcmos";
+      break;
+    case VObjectType::slEnableGateType_Bufif0:
+      modName = "work@bufif0";
+      break;
+    case VObjectType::slEnableGateType_Bufif1:
+      modName = "work@bufif1";
+      break;
+    case VObjectType::slEnableGateType_Notif0:
+      modName = "work@notif0";
+      break;
+    case VObjectType::slEnableGateType_Notif1:
+      modName = "work@notif1";
+      break;
+    case VObjectType::slMosSwitchType_NMos:
+      modName = "work@nmos";
+      break;
+    case VObjectType::slMosSwitchType_PMos:
+      modName = "work@pmos";
+      break;
+    case VObjectType::slMosSwitchType_RNMos:
+      modName = "work@rnmos";
+      break;
+    case VObjectType::slMosSwitchType_RPMos:
+      modName = "work@rpmos";
+      break;
+    case VObjectType::slPullup:
+      modName = "work@pullup";
+      break;
+    case VObjectType::slPulldown:
+      modName = "work@pulldown";
+      break;
+    default:
+      modName = "work@UnsupportedPrimitive";
+      break;
+  }
+  return modName;
+}
+
+unsigned int UhdmWriter::getBuiltinType(VObjectType type) {
   switch (type) {
     case VObjectType::slNInpGate_And:
       return vpiAndPrim;
@@ -2955,56 +3043,6 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
   return true;
 }
 
-void writePrimTerms(ModuleInstance* instance, primitive* prim, int vpiGateType,
-                    Serializer& s) {
-  Netlist* netlist = instance->getNetlist();
-  VectorOfprim_term* terms = s.MakePrim_termVec();
-  prim->Prim_terms(terms);
-  if (netlist->ports()) {
-    unsigned int index = 0;
-    VectorOfport* ports = netlist->ports();
-    for (auto port : *ports) {
-      prim_term* term = s.MakePrim_term();
-      terms->push_back(term);
-      expr* hconn = (expr*)port->High_conn();
-      hconn->VpiParent(prim);
-      term->Expr(hconn);
-      term->VpiFile(port->VpiFile());
-      term->VpiLineNo(port->VpiLineNo());
-      term->VpiColumnNo(port->VpiColumnNo());
-      term->VpiEndLineNo(port->VpiEndLineNo());
-      term->VpiEndColumnNo(port->VpiEndColumnNo());
-      term->VpiDirection(port->VpiDirection());
-      term->VpiParent(prim);
-      term->VpiTermIndex(index);
-      if (vpiGateType == vpiBufPrim || vpiGateType == vpiNotPrim) {
-        if (index < ports->size() - 1) {
-          term->VpiDirection(vpiOutput);
-        } else {
-          term->VpiDirection(vpiInput);
-        }
-      } else if (vpiGateType == vpiTranif1Prim ||
-                 vpiGateType == vpiTranif0Prim ||
-                 vpiGateType == vpiRtranif1Prim ||
-                 vpiGateType == vpiRtranif0Prim || vpiGateType == vpiTranPrim ||
-                 vpiGateType == vpiRtranPrim) {
-        if (index < ports->size() - 1) {
-          term->VpiDirection(vpiInout);
-        } else {
-          term->VpiDirection(vpiInput);
-        }
-      } else {
-        if (index == 0) {
-          term->VpiDirection(vpiOutput);
-        } else {
-          term->VpiDirection(vpiInput);
-        }
-      }
-      index++;
-    }
-  }
-}
-
 void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
                                any* m, CompileDesign* compileDesign,
                                UhdmWriter::ComponentMap& componentMap,
@@ -3142,107 +3180,6 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
         }
         writeInstance(mm, child, sm, compileDesign, componentMap, modPortMap,
                       instanceMap, exprBuilder);
-
-      } else if ((insttype == VObjectType::slUdp_instantiation) ||
-                 (insttype == VObjectType::slGate_instantiation)) {
-        UHDM::primitive* gate = nullptr;
-        UHDM::primitive_array* gate_array = nullptr;
-        const FileContent* fC = child->getFileContent();
-        NodeId gatenode = fC->Child(child->getNodeId());
-        VObjectType gatetype = fC->Type(gatenode);
-        int vpiGateType = getBuiltinType(gatetype);
-        if (insttype == VObjectType::slUdp_instantiation) {
-          UHDM::udp* udp = s.MakeUdp();
-          gate = udp;
-          if (ModuleDefinition* mm =
-                  valuedcomponenti_cast<ModuleDefinition*>(childDef)) {
-            udp->Udp_defn(mm->getUdpDefn());
-          }
-          if (UHDM::VectorOfrange* ranges = child->getNetlist()->ranges()) {
-            gate_array = s.MakeUdp_array();
-            VectorOfprimitive* prims = s.MakePrimitiveVec();
-            gate_array->Primitives(prims);
-            gate_array->Ranges(ranges);
-            prims->push_back(gate);
-            if (subPrimitiveArrays == nullptr)
-              subPrimitiveArrays = s.MakePrimitive_arrayVec();
-            subPrimitiveArrays->push_back(gate_array);
-          } else {
-            if (subPrimitives == nullptr) subPrimitives = s.MakePrimitiveVec();
-            subPrimitives->push_back(gate);
-          }
-        } else if (vpiGateType == vpiPmosPrim || vpiGateType == vpiRpmosPrim ||
-                   vpiGateType == vpiNmosPrim || vpiGateType == vpiRnmosPrim ||
-                   vpiGateType == vpiCmosPrim || vpiGateType == vpiRcmosPrim ||
-                   vpiGateType == vpiTranif1Prim ||
-                   vpiGateType == vpiTranif0Prim ||
-                   vpiGateType == vpiRtranif1Prim ||
-                   vpiGateType == vpiRtranif0Prim ||
-                   vpiGateType == vpiTranPrim || vpiGateType == vpiRtranPrim) {
-          gate = s.MakeSwitch_tran();
-          if (UHDM::VectorOfrange* ranges = child->getNetlist()->ranges()) {
-            gate_array = s.MakeSwitch_array();
-            VectorOfprimitive* prims = s.MakePrimitiveVec();
-            gate_array->Primitives(prims);
-            gate_array->Ranges(ranges);
-            prims->push_back(gate);
-            if (subPrimitiveArrays == nullptr)
-              subPrimitiveArrays = s.MakePrimitive_arrayVec();
-            subPrimitiveArrays->push_back(gate_array);
-          } else {
-            if (subPrimitives == nullptr) subPrimitives = s.MakePrimitiveVec();
-            subPrimitives->push_back(gate);
-          }
-          gate->VpiPrimType(vpiGateType);
-        } else {
-          gate = s.MakeGate();
-          if (UHDM::VectorOfrange* ranges = child->getNetlist()->ranges()) {
-            gate_array = s.MakeGate_array();
-            gate_array->VpiName(child->getInstanceName());
-            gate_array->VpiFullName(child->getFullPathName());
-            gate_array->VpiFile(child->getFileName());
-            gate_array->VpiLineNo(child->getLineNb());
-            gate_array->VpiColumnNo(child->getColumnNb());
-            gate_array->VpiEndLineNo(child->getEndLineNb());
-            gate_array->VpiEndColumnNo(child->getEndColumnNb());
-            VectorOfprimitive* prims = s.MakePrimitiveVec();
-            gate_array->Primitives(prims);
-            gate_array->Ranges(ranges);
-            prims->push_back(gate);
-            if (subPrimitiveArrays == nullptr)
-              subPrimitiveArrays = s.MakePrimitive_arrayVec();
-            subPrimitiveArrays->push_back(gate_array);
-          } else {
-            if (subPrimitives == nullptr) subPrimitives = s.MakePrimitiveVec();
-            subPrimitives->push_back(gate);
-          }
-          gate->VpiPrimType(vpiGateType);
-        }
-        if (UHDM::VectorOfexpr* delays = child->getNetlist()->delays()) {
-          if (delays->size() == 1) {
-            gate->Delay((*delays)[0]);
-          }
-        }
-
-        gate->VpiName(child->getInstanceName());
-        gate->VpiDefName(child->getModuleName());
-        gate->VpiFullName(child->getFullPathName());
-        gate->VpiFile(child->getFileName());
-        gate->VpiLineNo(child->getLineNb());
-        gate->VpiColumnNo(child->getColumnNb());
-        gate->VpiEndLineNo(child->getEndLineNb());
-        gate->VpiEndColumnNo(child->getEndColumnNb());
-        UHDM_OBJECT_TYPE utype = m->UhdmType();
-        if (utype == uhdmmodule) {
-          ((module*)m)->Primitives(subPrimitives);
-          ((module*)m)->Primitive_arrays(subPrimitiveArrays);
-          gate->VpiParent(m);
-        } else if (utype == uhdmgen_scope) {
-          ((gen_scope*)m)->Primitives(subPrimitives);
-          ((gen_scope*)m)->Primitive_arrays(subPrimitiveArrays);
-          gate->VpiParent(m);
-        }
-        writePrimTerms(child, gate, vpiGateType, s);
       } else {
         // Unknown object type
       }
@@ -3511,9 +3448,14 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
     }
     d->AllPrograms(uhdm_programs);
 
-    // Interfaces
+    typedef std::map<std::string, udp_defn*> UdpDefnByName;
+    UdpDefnByName udpDefnByName;
     auto modules = m_design->getModuleDefinitions();
+
+    // Interfaces
     VectorOfinterface* uhdm_interfaces = s.MakeInterfaceVec();
+    // Udps
+    VectorOfudp_defn* uhdm_udps = s.MakeUdp_defnVec();
     for (const auto& modNamePair : modules) {
       ModuleDefinition* mod = modNamePair.second;
       if (mod->getFileContents().empty()) {
@@ -3534,39 +3476,6 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
         m->Attributes(mod->Attributes());
         uhdm_interfaces->push_back(m);
         writeInterface(mod, m, s, componentMap, modPortMap);
-      }
-    }
-    d->AllInterfaces(uhdm_interfaces);
-
-    // Modules
-    VectorOfmodule* uhdm_modules = s.MakeModuleVec();
-    // Udps
-    VectorOfudp_defn* uhdm_udps = s.MakeUdp_defnVec();
-    for (const auto& modNamePair : modules) {
-      ModuleDefinition* mod = modNamePair.second;
-      if (mod->getFileContents().empty()) {
-        // Built-in primitive
-      } else if (mod->getType() == VObjectType::slModule_declaration) {
-        const FileContent* fC = mod->getFileContents()[0];
-        module* m = s.MakeModule();
-        if (m_compileDesign->getCompiler()->isLibraryFile(
-                mod->getFileContents()[0]->getSymbolId())) {
-          m->VpiCellInstance(true);
-        }
-        componentMap.insert(std::make_pair(mod, m));
-        m->VpiParent(d);
-        m->VpiDefName(mod->getName());
-        m->Attributes(mod->Attributes());
-        m->VpiFile(fC->getFileName());
-        const NodeId modId = mod->getNodeIds()[0];
-        const NodeId startId =
-            fC->sl_collect(modId, VObjectType::slModule_keyword);
-        m->VpiLineNo(fC->Line(startId));
-        m->VpiColumnNo(fC->Column(startId));
-        m->VpiEndLineNo(fC->EndLine(modId));
-        m->VpiEndColumnNo(fC->EndColumn(modId));
-        uhdm_modules->push_back(m);
-        writeModule(mod, m, s, componentMap, modPortMap);
       } else if (mod->getType() == VObjectType::slUdp_declaration) {
         const FileContent* fC = mod->getFileContents()[0];
         UHDM::udp_defn* defn = mod->getUdpDefn();
@@ -3583,11 +3492,66 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
           defn->VpiEndColumnNo(fC->EndColumn(modId));
           defn->Attributes(mod->Attributes());
           uhdm_udps->push_back(defn);
+          udpDefnByName.emplace(mod->getName(), mod->getUdpDefn());
         }
       }
     }
-    d->AllModules(uhdm_modules);
+    d->AllInterfaces(uhdm_interfaces);
     d->AllUdps(uhdm_udps);
+
+    // Modules
+    VectorOfmodule* uhdm_modules = s.MakeModuleVec();
+    for (const auto& modNamePair : modules) {
+      ModuleDefinition* mod = modNamePair.second;
+      if (mod->getFileContents().empty()) {
+        // Built-in primitive
+      } else if (mod->getType() == VObjectType::slModule_declaration) {
+        const FileContent* fC = mod->getFileContents()[0];
+        module* m = s.MakeModule();
+        if (m_compileDesign->getCompiler()->isLibraryFile(
+                mod->getFileContents()[0]->getSymbolId())) {
+          m->VpiCellInstance(true);
+        }
+        componentMap.emplace(mod, m);
+        m->VpiParent(d);
+        m->VpiDefName(mod->getName());
+        m->Attributes(mod->Attributes());
+        m->VpiFile(fC->getFileName());
+        const NodeId modId = mod->getNodeIds()[0];
+        const NodeId startId =
+            fC->sl_collect(modId, VObjectType::slModule_keyword);
+        m->VpiLineNo(fC->Line(startId));
+        m->VpiColumnNo(fC->Column(startId));
+        m->VpiEndLineNo(fC->EndLine(modId));
+        m->VpiEndColumnNo(fC->EndColumn(modId));
+
+        if (UHDM::VectorOfprimitive* prims = mod->Primitives()) {
+          m->Primitives(prims);
+          for (auto p : *prims) {
+            p->VpiParent(m);
+
+            if (udp* u = any_cast<udp*>(p)) {
+              UdpDefnByName::const_iterator it =
+                  udpDefnByName.find(u->VpiDefName());
+              if (it != udpDefnByName.end()) {
+                u->Udp_defn(it->second);
+              }
+            }
+          }
+        }
+        if (UHDM::VectorOfprimitive_array* primArrays =
+                mod->PrimitiveArrays()) {
+          m->Primitive_arrays(primArrays);
+          for (auto subPrimAr : *primArrays) {
+            subPrimAr->VpiParent(m);
+          }
+        }
+
+        uhdm_modules->push_back(m);
+        writeModule(mod, m, s, componentMap, modPortMap);
+      }
+    }
+    d->AllModules(uhdm_modules);
 
     // Classes
     auto classes = m_design->getClassDefinitions();

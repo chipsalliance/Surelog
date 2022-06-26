@@ -42,6 +42,7 @@
 #include <Surelog/ErrorReporting/Error.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/ErrorReporting/Location.h>
+#include <Surelog/Library/Library.h>
 #include <Surelog/Package/Package.h>
 #include <Surelog/SourceCompile/Compiler.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
@@ -50,6 +51,7 @@
 #include <Surelog/Testbench/TypeDef.h>
 #include <Surelog/Testbench/Variable.h>
 #include <Surelog/Utils/NumUtils.h>
+#include <Surelog/Utils/StringUtils.h>
 
 // UHDM
 #include <string.h>
@@ -2260,6 +2262,262 @@ std::string CompileHelper::decompileHelper(const any* sel) {
     path_name += selectRange;
   }
   return path_name;
+}
+
+bool CompileHelper::compilePrimitives(ModuleDefinition* mod,
+                                      const FileContent* fC,
+                                      CompileDesign* compileDesign, NodeId id,
+                                      UHDM::primitive* prim) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  VObjectType inst_type = fC->Type(id);
+  NodeId modId = fC->Child(id);
+  NodeId Udp_instance = fC->Sibling(modId);
+  NodeId Net_lvalue = fC->Child(Udp_instance);
+  if (inst_type == VObjectType::slGate_instantiation) {
+    NodeId modId = fC->Child(id);
+    NodeId Udp_instance = fC->Sibling(modId);
+
+    if (const NodeId Name_of_instance = fC->Child(Udp_instance);
+        fC->Type(Name_of_instance) == slName_of_instance) {
+      Net_lvalue = fC->Sibling(Name_of_instance);
+    } else {
+      Net_lvalue = Name_of_instance;
+    }
+  }
+
+  if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
+    VectorOfprim_term* terms = prim->Prim_terms();
+    if (terms == nullptr) {
+      terms = s.MakePrim_termVec();
+      prim->Prim_terms(terms);
+    }
+
+    while (Net_lvalue) {
+      std::string sigName;
+      NodeId sigId;
+      bool bit_or_part_select = false;
+      if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
+        NodeId Hierarchical_identifier = fC->Child(Net_lvalue);
+        if (fC->Type(fC->Child(Hierarchical_identifier)) ==
+            slHierarchical_identifier) {
+          Hierarchical_identifier =
+              fC->Child(fC->Child(Hierarchical_identifier));
+        } else if (fC->Type(Hierarchical_identifier) !=
+                   slPs_or_hierarchical_identifier) {
+          Hierarchical_identifier = Net_lvalue;
+        }
+        if (isSelected(fC, Hierarchical_identifier)) bit_or_part_select = true;
+        sigId = Hierarchical_identifier;
+        if (fC->Type(fC->Child(sigId)) == slStringConst) {
+          sigId = fC->Child(sigId);
+        }
+        sigName = fC->SymName(sigId);
+      } else if (fC->Type(Net_lvalue) == VObjectType::slExpression) {
+        NodeId Primary = fC->Child(Net_lvalue);
+        NodeId Primary_literal = fC->Child(Primary);
+        if (fC->Type(Primary_literal) == slComplex_func_call)
+          bit_or_part_select = true;
+        sigId = fC->Child(Primary_literal);
+        sigName = fC->SymName(sigId);
+      }
+
+      prim_term* term = s.MakePrim_term();
+      term->VpiFile(fC->getFileName());
+      term->VpiLineNo(fC->Line(Net_lvalue));
+      term->VpiColumnNo(fC->Column(Net_lvalue));
+      term->VpiEndLineNo(fC->EndLine(Net_lvalue));
+      term->VpiEndColumnNo(fC->EndColumn(Net_lvalue));
+      term->VpiParent(prim);
+      term->VpiTermIndex(terms->size());
+      terms->push_back(term);
+
+      if ((!bit_or_part_select) && (fC->Type(sigId) == slStringConst)) {
+        ref_obj* ref = s.MakeRef_obj();
+        ref->VpiName(sigName);
+        ref->VpiParent(term);
+        ref->VpiFile(fC->getFileName());
+        ref->VpiLineNo(fC->Line(sigId));
+        ref->VpiColumnNo(fC->Column(sigId));
+        ref->VpiEndLineNo(fC->EndLine(sigId));
+        ref->VpiEndColumnNo(fC->EndColumn(sigId));
+        term->Expr(ref);
+      } else {
+        any* exp = nullptr;
+        if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
+          NodeId Hierarchical_identifier = fC->Child(Net_lvalue);
+          if (fC->Type(fC->Child(Hierarchical_identifier)) ==
+              slHierarchical_identifier) {
+            Hierarchical_identifier =
+                fC->Child(fC->Child(Hierarchical_identifier));
+          } else if (fC->Type(Hierarchical_identifier) !=
+                     slPs_or_hierarchical_identifier) {
+            Hierarchical_identifier = Net_lvalue;
+          }
+          checkForLoops(true);
+          exp = compileExpression(mod, fC, Hierarchical_identifier,
+                                  compileDesign, nullptr, nullptr, true);
+          checkForLoops(false);
+        } else {
+          checkForLoops(true);
+          exp = compileExpression(mod, fC, Net_lvalue, compileDesign, nullptr,
+                                  nullptr, true);
+          checkForLoops(false);
+        }
+        if (exp != nullptr) {
+          expr* exp2 = any_cast<expr*>(exp);
+          if (exp2 != nullptr) {
+            term->Expr(exp2);
+            exp2->VpiParent(term);
+          }
+        }
+      }
+      Net_lvalue = fC->Sibling(Net_lvalue);
+    }
+
+    const int vpiGateType = prim->VpiPrimType();
+    for (auto term : *terms) {
+      std::size_t index = term->VpiTermIndex();
+      if (vpiGateType == vpiBufPrim || vpiGateType == vpiNotPrim) {
+        if (index < terms->size() - 1) {
+          term->VpiDirection(vpiOutput);
+        } else {
+          term->VpiDirection(vpiInput);
+        }
+      } else if (vpiGateType == vpiTranif1Prim ||
+                 vpiGateType == vpiTranif0Prim ||
+                 vpiGateType == vpiRtranif1Prim ||
+                 vpiGateType == vpiRtranif0Prim || vpiGateType == vpiTranPrim ||
+                 vpiGateType == vpiRtranPrim) {
+        if (index < terms->size() - 1) {
+          term->VpiDirection(vpiInout);
+        } else {
+          term->VpiDirection(vpiInput);
+        }
+      } else {
+        if (index == 0) {
+          term->VpiDirection(vpiOutput);
+        } else {
+          term->VpiDirection(vpiInput);
+        }
+      }
+    }
+  }
+
+  return true;
+}
+
+void CompileHelper::compileGateOrUdpInstantiation(ModuleDefinition* mod,
+                                                  const FileContent* fC,
+                                                  CompileDesign* compileDesign,
+                                                  NodeId id,
+                                                  ValuedComponentI* instance) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::primitive* gate = nullptr;
+  UHDM::VectorOfprimitive* subPrimitives = mod->Primitives();
+  UHDM::VectorOfprimitive_array* subPrimitiveArrays = mod->PrimitiveArrays();
+  NodeId gateNode = fC->Child(id);
+  VObjectType gateType = fC->Type(gateNode);
+  NodeId gateSibling = fC->Sibling(gateNode);
+  NodeId sibChild1 = fC->Child(gateSibling);
+  NodeId sibChild2 = fC->Child(sibChild1);
+  NodeId gateChild2Sibling = fC->Sibling(sibChild2);
+  int vpiGateType = UhdmWriter::getBuiltinType(gateType);
+  VObjectType type = fC->Type(id);
+
+  int size = 0;
+  if (type == VObjectType::slUdp_instantiation) {
+    UHDM::udp* udp = s.MakeUdp();
+    gate = udp;
+
+    udp->Udp_defn(mod->getUdpDefn());
+    UHDM::VectorOfrange* ranges =
+        compileRanges(mod, fC, gateChild2Sibling, compileDesign, nullptr,
+                      instance, false, size, false);
+    if (ranges != nullptr) {
+      UHDM::primitive_array* gate_array = s.MakeUdp_array();
+      UHDM::VectorOfprimitive* prims = s.MakePrimitiveVec();
+      gate_array->Primitives(prims);
+      gate_array->Ranges(ranges);
+      prims->push_back(gate);
+      if (subPrimitiveArrays == nullptr)
+        subPrimitiveArrays = s.MakePrimitive_arrayVec();
+      subPrimitiveArrays->push_back(gate_array);
+    } else {
+      if (subPrimitives == nullptr) subPrimitives = s.MakePrimitiveVec();
+      subPrimitives->push_back(gate);
+    }
+    gate->VpiDefName(
+        StrCat(fC->getLibrary()->getName(), "@", fC->SymName(gateNode)));
+  } else if (vpiGateType == vpiPmosPrim || vpiGateType == vpiRpmosPrim ||
+             vpiGateType == vpiNmosPrim || vpiGateType == vpiRnmosPrim ||
+             vpiGateType == vpiCmosPrim || vpiGateType == vpiRcmosPrim ||
+             vpiGateType == vpiTranif1Prim || vpiGateType == vpiTranif0Prim ||
+             vpiGateType == vpiRtranif1Prim || vpiGateType == vpiRtranif0Prim ||
+             vpiGateType == vpiTranPrim || vpiGateType == vpiRtranPrim) {
+    gate = s.MakeSwitch_tran();
+    UHDM::VectorOfrange* ranges =
+        compileRanges(mod, fC, gateChild2Sibling, compileDesign, nullptr,
+                      instance, false, size, false);
+    if (ranges != nullptr) {
+      UHDM::primitive_array* gate_array = s.MakeSwitch_array();
+      gate_array->VpiName(fC->SymName(sibChild2));
+      gate_array->VpiFile(fC->getFileName());
+      gate_array->VpiLineNo(fC->Line(sibChild2));
+      gate_array->VpiColumnNo(fC->Column(sibChild2));
+      gate_array->VpiEndLineNo(fC->EndLine(sibChild2));
+      gate_array->VpiEndColumnNo(fC->EndColumn(sibChild2));
+      UHDM::VectorOfprimitive* prims = s.MakePrimitiveVec();
+      gate_array->Primitives(prims);
+      gate_array->Ranges(ranges);
+      prims->push_back(gate);
+      if (subPrimitiveArrays == nullptr)
+        subPrimitiveArrays = s.MakePrimitive_arrayVec();
+      subPrimitiveArrays->push_back(gate_array);
+    } else {
+      if (subPrimitives == nullptr) subPrimitives = s.MakePrimitiveVec();
+      subPrimitives->push_back(gate);
+    }
+    gate->VpiPrimType(vpiGateType);
+    gate->VpiDefName(UhdmWriter::builtinGateName(gateType));
+  } else {
+    gate = s.MakeGate();
+
+    UHDM::VectorOfrange* ranges =
+        compileRanges(mod, fC, gateChild2Sibling, compileDesign, nullptr,
+                      instance, false, size, false);
+    if (ranges != nullptr) {
+      UHDM::primitive_array* gate_array = s.MakeGate_array();
+      gate_array->VpiName(fC->SymName(sibChild2));
+      gate_array->VpiFile(fC->getFileName());
+      gate_array->VpiLineNo(fC->Line(sibChild2));
+      gate_array->VpiColumnNo(fC->Column(sibChild2));
+      gate_array->VpiEndLineNo(fC->EndLine(sibChild2));
+      gate_array->VpiEndColumnNo(fC->EndColumn(sibChild2));
+      UHDM::VectorOfprimitive* prims = s.MakePrimitiveVec();
+      gate_array->Primitives(prims);
+      gate_array->Ranges(ranges);
+      prims->push_back(gate);
+      if (subPrimitiveArrays == nullptr)
+        subPrimitiveArrays = s.MakePrimitive_arrayVec();
+      subPrimitiveArrays->push_back(gate_array);
+    } else {
+      if (subPrimitives == nullptr) subPrimitives = s.MakePrimitiveVec();
+      subPrimitives->push_back(gate);
+    }
+    gate->VpiPrimType(vpiGateType);
+    gate->VpiDefName(UhdmWriter::builtinGateName(gateType));
+  }
+  gate->VpiName(fC->SymName(sibChild2));
+  gate->VpiFile(fC->getFileName());
+  gate->VpiLineNo(fC->Line(sibChild2));
+  gate->VpiColumnNo(fC->Column(sibChild2));
+  gate->VpiEndLineNo(fC->EndLine(sibChild2));
+  gate->VpiEndColumnNo(fC->EndColumn(sibChild2));
+
+  compilePrimitives(mod, fC, compileDesign, id, gate);
+
+  mod->Primitives(subPrimitives);
+  mod->PrimitiveArrays(subPrimitiveArrays);
 }
 
 bool CompileHelper::compileInitialBlock(DesignComponent* component,

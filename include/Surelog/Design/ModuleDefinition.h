@@ -89,9 +89,19 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   UHDM::udp_defn* getUdpDefn() { return m_udpDefn; }
 
   UHDM::VectorOfattribute* Attributes() const { return attributes_; }
+  UHDM::VectorOfprimitive* Primitives() const { return m_subPrimitives; }
+  UHDM::VectorOfprimitive_array* PrimitiveArrays() const { return m_subPrimitiveArrays; }
 
   bool Attributes(UHDM::VectorOfattribute* data) {
     attributes_ = data;
+    return true;
+  }
+  bool Primitives(UHDM::VectorOfprimitive* data) {
+    m_subPrimitives = data;
+    return true;
+  }
+  bool PrimitiveArrays(UHDM::VectorOfprimitive_array* data) {
+    m_subPrimitiveArrays = data;
     return true;
   }
 
@@ -102,7 +112,8 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   ClassNameClassDefinitionMultiMap m_classDefinitions;
   NodeId m_gen_block_id;
   UHDM::udp_defn* m_udpDefn;
-
+  UHDM::VectorOfprimitive* m_subPrimitives = nullptr;
+  UHDM::VectorOfprimitive_array* m_subPrimitiveArrays = nullptr;
   UHDM::VectorOfattribute* attributes_ = nullptr;
 };
 
