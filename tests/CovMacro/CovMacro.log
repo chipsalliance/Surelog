@@ -709,14 +709,6 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:UH0707] Elaborating UHDM...
 
-[WRN:UH0725] dut.sv:12:42: Unresolved hierarchical reference "$root.top".
-
-[WRN:UH0725] dut.sv:14:42: Unresolved hierarchical reference "$root.top.unit1".
-
-[WRN:UH0725] dut.sv:15:43: Unresolved hierarchical reference "$root.top.unit2".
-
-[WRN:UH0725] dut.sv:18:35: Unresolved hierarchical reference "$root.top.unit1".
-
 [INF:UH0708] Writing UHDM DB: ../../build/regression/CovMacro/slpp_all/surelog.uhdm ...
 
 [INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/CovMacro/slpp_all/surelog.uhdm.chk.html ...
@@ -1783,6 +1775,8 @@ design: (work@top)
               |vpiParent:
               \_hier_path: (work@top.$root.top), line:12:42, endln:12:51
               |vpiName:top
+              |vpiActual:
+              \_module: work@top (work@top), file:dut.sv, line:5:1, endln:25:10
           |vpiName:$coverage_control
         |vpiLhs:
         \_ref_obj: (work@top.i), line:12:9, endln:12:10
@@ -1851,6 +1845,8 @@ design: (work@top)
               |vpiParent:
               \_hier_path: (work@top.$root.top.unit1), line:14:42, endln:14:57
               |vpiName:top
+              |vpiActual:
+              \_module: work@top (work@top), file:dut.sv, line:5:1, endln:25:10
             |vpiActual:
             \_ref_obj: (unit1)
               |vpiParent:
@@ -1899,6 +1895,8 @@ design: (work@top)
               |vpiParent:
               \_hier_path: (work@top.$root.top.unit2), line:15:43, endln:15:58
               |vpiName:top
+              |vpiActual:
+              \_module: work@top (work@top), file:dut.sv, line:5:1, endln:25:10
             |vpiActual:
             \_ref_obj: (unit2)
               |vpiParent:
@@ -1997,6 +1995,8 @@ design: (work@top)
               |vpiParent:
               \_hier_path: (work@top.$root.top.unit1), line:18:35, endln:18:50
               |vpiName:top
+              |vpiActual:
+              \_module: work@top (work@top), file:dut.sv, line:5:1, endln:25:10
             |vpiActual:
             \_ref_obj: (unit1)
               |vpiParent:
@@ -2118,7 +2118,7 @@ design: (work@top)
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 6
+[WARNING] : 2
 [   NOTE] : 5
 
 
