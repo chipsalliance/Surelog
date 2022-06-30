@@ -904,7 +904,8 @@ void DesignElaboration::elaborateInstance_(
       VObjectType::slLoop_generate_construct,
       VObjectType::slGenerate_module_loop_statement,
       VObjectType::slGenerate_interface_loop_statement,
-      VObjectType::slPar_block, VObjectType::slSeq_block};
+      VObjectType::slPar_block, VObjectType::slSeq_block,
+      VObjectType::slGenerate_region};
 
   VObjectTypeUnorderedSet stopPoints = {
       VObjectType::slConditional_generate_construct,
@@ -916,7 +917,8 @@ void DesignElaboration::elaborateInstance_(
       VObjectType::slPar_block,
       VObjectType::slSeq_block,
       VObjectType::slModule_declaration,
-      VObjectType::slBind_directive};
+      VObjectType::slBind_directive,
+      VObjectType::slGenerate_region};
 
   std::vector<NodeId> subInstances =
       fC->sl_collect_all(nodeId, types, stopPoints);
@@ -930,6 +932,38 @@ void DesignElaboration::elaborateInstance_(
     NodeId paramOverride;
     Config* subConfig = config;
     VObjectType type = fC->Type(subInstanceId);
+
+    if (type == slGenerate_region) {
+      NodeId Generate_block = fC->Child(subInstanceId);
+      if (fC->Type(Generate_block) != slGenerate_block) {
+        continue;
+      }
+      NodeId nameId = fC->Child(Generate_block);
+      if (fC->Name(nameId))
+        instName = fC->SymName(nameId);
+      else {
+        while (Generate_block) {
+          std::vector<NodeId> subSubInstances =
+              fC->sl_collect_all(Generate_block, types, stopPoints);
+          if (subSubInstances.size()) {
+            subInstanceId = subSubInstances.at(0);
+            type = fC->Type(subInstanceId);
+            break;
+          } else {
+            if (DesignComponent* def = parent->getDefinition()) {
+              // Compile generate block
+              ((ModuleDefinition*)def)->setGenBlockId(Generate_block);
+              FunctorCompileModule funct(
+                  m_compileDesign, (ModuleDefinition*)def, design,
+                  m_compileDesign->getCompiler()->getSymbolTable(),
+                  m_compileDesign->getCompiler()->getErrorContainer(), parent);
+              funct.operator()();
+            }
+          }
+          Generate_block = fC->Sibling(Generate_block);
+        }
+      }
+    }
 
     if (type == slSeq_block || type == slPar_block) {
       NodeId identifierId = fC->Child(subInstanceId);
@@ -1369,9 +1403,53 @@ void DesignElaboration::elaborateInstance_(
                          allSubInstances);
       parent->addSubInstance(child);
 
-    }
-    // Regular module binding
-    else {
+    } else if (type == slGenerate_region) {
+      NodeId Generate_block = fC->Child(subInstanceId);
+      if (fC->Type(Generate_block) != slGenerate_block) {
+        continue;
+      }
+      NodeId nameId = fC->Child(Generate_block);
+      if (fC->Name(nameId)) {
+        instName = fC->SymName(nameId);
+      }
+
+      std::string libName = fC->getLibrary()->getName();
+      std::string fullName;
+      if (instName.empty())
+        fullName = parent->getModuleName() + "." + genBlkBaseName +
+                   std::to_string(genBlkIndex);
+      else
+        fullName = parent->getModuleName() + "." + instName;
+
+      def = design->getComponentDefinition(fullName);
+      NodeId childId = fC->Child(subInstanceId);
+      if (def == nullptr) {
+        def = m_moduleDefFactory->newModuleDefinition(fC, subInstanceId,
+                                                      fullName);
+        design->addModuleDefinition(fullName, (ModuleDefinition*)def);
+      }
+
+      if (instName.empty()) {
+        instName = genBlkBaseName + std::to_string(genBlkIndex);
+      } else {
+        // Compile generate block
+        ((ModuleDefinition*)def)->setGenBlockId(childId);
+        FunctorCompileModule funct(
+            m_compileDesign, (ModuleDefinition*)def, design,
+            m_compileDesign->getCompiler()->getSymbolTable(),
+            m_compileDesign->getCompiler()->getErrorContainer(), parent);
+        funct.operator()();
+      }
+
+      ModuleInstance* child = factory->newModuleInstance(
+          def, fC, subInstanceId, parent, instName, modName);
+      elaborateInstance_(def->getFileContents()[0], subInstanceId,
+                         paramOverride, factory, child, config,
+                         allSubInstances);
+      parent->addSubInstance(child);
+
+    } else {
+      // Regular module binding
       NodeId moduleName =
           fC->sl_collect(subInstanceId, VObjectType::slStringConst);
       std::string libName = fC->getLibrary()->getName();
@@ -2240,18 +2318,23 @@ void DesignElaboration::reduceUnnamedBlocks_() {
            type == VObjectType::slGenerate_module_conditional_statement ||
            type == VObjectType::slLoop_generate_construct ||
            type == VObjectType::slGenerate_module_loop_statement ||
-           type == VObjectType::slGenerate_interface_loop_statement) &&
+           type == VObjectType::slGenerate_interface_loop_statement ||
+           type == VObjectType::slGenerate_block) &&
           (typeP == VObjectType::slConditional_generate_construct ||
            typeP == VObjectType::slGenerate_module_conditional_statement ||
            typeP == VObjectType::slGenerate_interface_conditional_statement ||
            typeP == VObjectType::slLoop_generate_construct ||
            typeP == VObjectType::slGenerate_module_loop_statement ||
-           typeP == VObjectType::slGenerate_interface_loop_statement)) {
+           typeP == VObjectType::slGenerate_interface_loop_statement ||
+           typeP == VObjectType::slGenerate_region)) {
         std::string fullModName = current->getModuleName();
         fullModName = StringUtils::leaf(fullModName);
         std::string fullModNameP = parent->getModuleName();
         fullModNameP = StringUtils::leaf(fullModNameP);
-        if (fullModName.find("genblk") != std::string::npos) {
+        if (typeP == VObjectType::slGenerate_region) {
+          parent->getParent()->overrideParentChild(parent->getParent(), parent,
+                                                   current);
+        } else if (fullModName.find("genblk") != std::string::npos) {
           if (fullModName == fullModNameP)
             parent->getParent()->overrideParentChild(parent->getParent(),
                                                      parent, current);
@@ -2329,6 +2412,7 @@ bool DesignElaboration::bindDataTypes_() {
                compType == VObjectType::slConditional_generate_construct ||
                compType == VObjectType::slLoop_generate_construct ||
                compType == VObjectType::slGenerate_item ||
+               compType == VObjectType::slGenerate_region ||
                compType ==
                    VObjectType::slGenerate_module_conditional_statement ||
                compType ==

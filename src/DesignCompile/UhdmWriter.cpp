@@ -3068,6 +3068,7 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
                  insttype == VObjectType::slLoop_generate_construct ||
                  insttype == VObjectType::slGenerate_block ||
                  insttype == VObjectType::slGenerate_item ||
+                 insttype == VObjectType::slGenerate_region ||
                  insttype == VObjectType::slGenerate_module_loop_statement ||
                  insttype ==
                      VObjectType::slGenerate_module_conditional_statement ||

@@ -462,6 +462,7 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance, bool recurse) {
       (insttype != VObjectType::slConditional_generate_construct) &&
       (insttype != VObjectType::slLoop_generate_construct) &&
       (insttype != VObjectType::slGenerate_item) &&
+      (insttype != VObjectType::slGenerate_region) &&
       (insttype != VObjectType::slGenerate_module_conditional_statement) &&
       (insttype != VObjectType::slGenerate_interface_conditional_statement) &&
       (insttype != VObjectType::slGenerate_module_loop_statement) &&
@@ -1357,6 +1358,7 @@ bool NetlistElaboration::elab_generates_(ModuleInstance* instance) {
         insttype == VObjectType::slLoop_generate_construct ||
         insttype == VObjectType::slGenerate_block ||
         insttype == VObjectType::slGenerate_item ||
+        insttype == VObjectType::slGenerate_region ||
         insttype == VObjectType::slGenerate_module_conditional_statement ||
         insttype == VObjectType::slGenerate_interface_conditional_statement ||
         insttype == VObjectType::slGenerate_module_loop_statement ||
@@ -2002,6 +2004,7 @@ bool NetlistElaboration::elab_ports_nets_(
         compType == VObjectType::slConditional_generate_construct ||
         compType == VObjectType::slLoop_generate_construct ||
         compType == VObjectType::slGenerate_item ||
+        compType == VObjectType::slGenerate_region ||
         compType == VObjectType::slGenerate_module_conditional_statement ||
         compType == VObjectType::slGenerate_interface_conditional_statement ||
         compType == VObjectType::slGenerate_module_loop_statement ||
@@ -2280,6 +2283,7 @@ UHDM::any* NetlistElaboration::bind_net_(const FileContent* origfC, NodeId id,
     if ((insttype != VObjectType::slConditional_generate_construct) &&
         (insttype != VObjectType::slLoop_generate_construct) &&
         (insttype != VObjectType::slGenerate_item) &&
+        (insttype != VObjectType::slGenerate_region) &&
         (insttype != VObjectType::slGenerate_module_conditional_statement) &&
         (insttype != VObjectType::slGenerate_interface_conditional_statement) &&
         (insttype != VObjectType::slGenerate_module_loop_statement) &&

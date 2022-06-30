@@ -78,6 +78,7 @@ bool CompileModule::compile() {
     case VObjectType::slGenerate_interface_block:
     case VObjectType::slGenerate_interface_item:
     case VObjectType::slGenerate_interface_named_block:
+    case VObjectType::slGenerate_region:
       errType = ErrorDefinition::COMP_COMPILE_GENERATE_BLOCK;
       break;
     case VObjectType::slInterface_declaration:
@@ -151,6 +152,7 @@ bool CompileModule::compile() {
     case VObjectType::slGenerate_module_block:
     case VObjectType::slGenerate_module_item:
     case VObjectType::slGenerate_module_named_block:
+    case VObjectType::slGenerate_region:
       if (!collectModuleObjects_(CollectType::FUNCTION)) return false;
       if (!collectModuleObjects_(CollectType::DEFINITION)) return false;
       if (!collectModuleObjects_(CollectType::OTHER)) return false;
@@ -536,7 +538,8 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
       VObjectType::slModule_declaration,
       VObjectType::slClass_declaration,
       VObjectType::slFunction_body_declaration,
-      VObjectType::slTask_body_declaration};
+      VObjectType::slTask_body_declaration,
+      VObjectType::slGenerate_region};
 
   for (unsigned int i = 0; i < m_module->m_fileContents.size(); i++) {
     const FileContent* fC = m_module->m_fileContents[i];
