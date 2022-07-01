@@ -24,7 +24,7 @@ namespace SURELOG {
  * should) be resolved only with the SymbolTable that it was generated with.
  * 
  */
-typedef uint64_t RawSymbolId;
+typedef uint32_t RawSymbolId;
 inline static constexpr RawSymbolId BadRawSymbolId = 0;
 inline static constexpr std::string_view BadRawSymbol = "@@BAD_SYMBOL@@";
 class SymbolId final {
