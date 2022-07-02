@@ -1092,15 +1092,11 @@ n<> u<1057> t<Top_level_rule> c<1> l<1:1> el<125:1>
 
 [INF:CP0303] dut.sv:1:1: Compile module "work@oh_delay".
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@oh_delay".
-
 [INF:CP0335] dut.sv:14:5: Compile generate block "work@oh_delay.gen_pipe[1]".
 
 [INF:CP0335] dut.sv:14:5: Compile generate block "work@oh_delay.gen_pipe[2]".
 
 [INF:CP0335] dut.sv:14:5: Compile generate block "work@oh_delay.gen_pipe[3]".
-
-[INF:CP0303] dut.sv:24:1: Compile module "work@shift".
 
 [INF:CP0335] dut.sv:34:10: Compile generate block "work@shift.SGNED".
 
@@ -1110,8 +1106,6 @@ n<> u<1057> t<Top_level_rule> c<1> l<1:1> el<125:1>
 
 [INF:CP0335] dut.sv:56:25: Compile generate block "work@gen_test9.A.C".
 
-[INF:CP0303] dut.sv:76:1: Compile module "work@test".
-
 [INF:CP0335] dut.sv:83:4: Compile generate block "work@dut.t.genblk1[0]".
 
 [INF:CP0335] dut.sv:83:4: Compile generate block "work@dut.t.genblk1[1]".
@@ -1119,8 +1113,6 @@ n<> u<1057> t<Top_level_rule> c<1> l<1:1> el<125:1>
 [INF:CP0335] dut.sv:83:4: Compile generate block "work@dut.t.genblk1[2]".
 
 [INF:CP0335] dut.sv:83:4: Compile generate block "work@dut.t.genblk1[3]".
-
-[INF:CP0303] dut.sv:93:1: Compile module "work@oh_rsync".
 
 [INF:CP0335] dut.sv:103:7: Compile generate block "work@oh_rsync.genblk1".
 
@@ -1305,17 +1297,11 @@ design: (work@oh_delay)
             \_event_control: , line:12:12, endln:12:27
             |vpiOpType:11
             |vpiOperand:
-            \_constant: , line:13:24, endln:13:25
+            \_ref_obj: (work@oh_delay.N), line:13:24, endln:13:25
               |vpiParent:
-              \_operation: , line:13:24, endln:13:27
-              |vpiDecompile:1
-              |vpiSize:32
-              |UINT:1
-              |vpiTypespec:
-              \_int_typespec: 
-                |vpiParent:
-                \_constant: , line:13:24, endln:13:25
-              |vpiConstType:9
+              \_event_control: , line:12:12, endln:12:27
+              |vpiName:N
+              |vpiFullName:work@oh_delay.N
             |vpiOperand:
             \_constant: , line:13:26, endln:13:27
               |vpiParent:
@@ -1782,7 +1768,13 @@ design: (work@oh_delay)
             \_part_select: , line:13:21, endln:13:30
             |vpiOpType:11
             |vpiOperand:
-            \_constant: , line:13:24, endln:13:25
+            \_ref_obj: (work@oh_delay.in.N), line:13:24, endln:13:25
+              |vpiParent:
+              \_operation: , line:13:24, endln:13:27
+              |vpiName:N
+              |vpiFullName:work@oh_delay.in.N
+              |vpiActual:
+              \_parameter: (work@oh_delay.N), line:2:13, endln:2:14
             |vpiOperand:
             \_constant: , line:13:26, endln:13:27
           |vpiRightRange:
@@ -3326,5 +3318,5 @@ design: (work@oh_delay)
 [   NOTE] : 11
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/GenerateRegion/dut.sv | ${SURELOG_DIR}/build/regression/GenerateRegion/roundtrip/dut_000.sv | 82 | 123 | 
+[roundtrip]: ${SURELOG_DIR}/tests/GenerateRegion/dut.sv | ${SURELOG_DIR}/build/regression/GenerateRegion/roundtrip/dut_000.sv | 81 | 123 | 
 

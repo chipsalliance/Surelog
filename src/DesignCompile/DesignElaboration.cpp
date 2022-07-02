@@ -888,9 +888,6 @@ void DesignElaboration::elaborateInstance_(
     }
   }
   bindDataTypes_(parent, parent->getDefinition());
-  NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
-  nelab->elaborateInstance(parent);
-  delete nelab;
 
   // Scan for regular instances and generate blocks
   VObjectTypeUnorderedSet types = {
@@ -922,7 +919,7 @@ void DesignElaboration::elaborateInstance_(
 
   std::vector<NodeId> subInstances =
       fC->sl_collect_all(nodeId, types, stopPoints);
-
+  bool elaborated = false;
   for (auto subInstanceId : subInstances) {
     VObjectType type = fC->Type(subInstanceId);
     std::vector<NodeId> subSubInstances;
@@ -956,11 +953,18 @@ void DesignElaboration::elaborateInstance_(
             }
           }
           Generate_block = fC->Sibling(Generate_block);
+          if (Generate_block && (fC->Type(Generate_block) == slEndgenerate)) {
+            break;
+          }
         }
       }
     } else {
       subSubInstances.push_back(subInstanceId);
     }
+    elaborated = true;
+    NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
+    nelab->elaborateInstance(parent);
+    delete nelab;
 
     for (auto subInstanceId : subSubInstances) {
       NodeId childId;
@@ -1680,6 +1684,11 @@ void DesignElaboration::elaborateInstance_(
         // std::endl;
       }
     }
+  }
+  if (!elaborated) {
+    NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
+    nelab->elaborateInstance(parent);
+    delete nelab;
   }
 }
 

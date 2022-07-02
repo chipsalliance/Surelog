@@ -1234,6 +1234,10 @@ interface* NetlistElaboration::elab_interface_(
     ModuleDefinition* mod, const fs::path& fileName, int lineNb,
     interface_array* interf_array, const std::string& modPortName) {
   Netlist* netlist = instance->getNetlist();
+  if (netlist == nullptr) {
+    netlist = new Netlist(instance);
+    instance->setNetlist(netlist);
+  }
   Serializer& s = m_compileDesign->getSerializer();
   VectorOfinterface* subInterfaces = netlist->interfaces();
   if (subInterfaces == nullptr) {
