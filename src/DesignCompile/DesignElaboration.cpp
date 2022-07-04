@@ -937,7 +937,7 @@ void DesignElaboration::elaborateInstance_(
         while (Generate_block) {
           std::vector<NodeId> subIds =
               fC->sl_collect_all(Generate_block, types, stopPoints);
-          if (subIds.size()) {
+          if (!subIds.empty()) {
             for (auto id : subIds) {
               subSubInstances.push_back(id);
             }
