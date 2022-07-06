@@ -1138,7 +1138,9 @@ UHDM::any *CompileHelper::compileSelectExpression(
       } else {
         result = sel;
       }
-    } else if (fC->Type(Bit_select) == VObjectType::slStringConst) {
+    } else if ((fC->Type(Bit_select) == VObjectType::slStringConst) ||
+               (fC->Type(Bit_select) ==
+                VObjectType::slPs_or_hierarchical_identifier)) {
       std::string hname = name;
       hier_path *path = s.MakeHier_path();
       UHDM::VectorOfany *elems = s.MakeAnyVec();
@@ -1149,7 +1151,22 @@ UHDM::any *CompileHelper::compileSelectExpression(
       elems->push_back(r1);
       r1->VpiParent(path);
       while (Bit_select) {
-        if (fC->Type(Bit_select) == VObjectType::slStringConst) {
+        if ((fC->Type(Bit_select) ==
+             VObjectType::slPs_or_hierarchical_identifier)) {
+          ref_obj *r = s.MakeRef_obj();
+          NodeId nameId = fC->Child(Bit_select);
+          r->VpiName(fC->SymName(nameId));
+          elems->push_back(r);
+          hname += "." + fC->SymName(nameId);
+        } else if ((fC->Type(Bit_select) == VObjectType::slSelect)) {
+          ref_obj *r = s.MakeRef_obj();
+          NodeId nameId = fC->Child(Bit_select);
+          if (nameId && (fC->Type(nameId) == slStringConst)) {
+            r->VpiName(fC->SymName(nameId));
+            elems->push_back(r);
+            hname += "." + fC->SymName(nameId);
+          }
+        } else if (fC->Type(Bit_select) == VObjectType::slStringConst) {
           NodeId tmp = fC->Sibling(Bit_select);
           if (((fC->Type(tmp) == slConstant_bit_select) ||
                (fC->Type(tmp) == slBit_select)) &&
@@ -1494,31 +1511,11 @@ UHDM::any *CompileHelper::compileExpression(
           result = c;
           break;
         }
-        case VObjectType::slThis_keyword: {
-          UHDM::constant *c = s.MakeConstant();
-          c->VpiValue("STRING:this");
-          c->VpiDecompile("this");
-          c->VpiConstType(vpiStringConst);
-          c->VpiSize(4);
-          result = c;
-          break;
-        }
-        case VObjectType::slSuper_keyword: {
-          UHDM::constant *c = s.MakeConstant();
-          c->VpiValue("STRING:super");
-          c->VpiDecompile("super");
-          c->VpiConstType(vpiStringConst);
-          c->VpiSize(5);
-          result = c;
-          break;
-        }
+        case VObjectType::slThis_keyword:
+        case VObjectType::slSuper_keyword:
         case VObjectType::slThis_dot_super: {
-          UHDM::constant *c = s.MakeConstant();
-          c->VpiValue("STRING:this.super");
-          c->VpiDecompile("this.super");
-          c->VpiConstType(vpiStringConst);
-          c->VpiSize(10);
-          result = c;
+          result = compileComplexFuncCall(component, fC, parent, compileDesign,
+                                          pexpr, instance, reduce, muteErrors);
           break;
         }
         case VObjectType::slArray_member_label: {
@@ -4548,7 +4545,14 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
       return compileExpression(component, fC, Handle, compileDesign, pexpr,
                                instance, reduce, muteErrors);
     }
-    const std::string &name = fC->SymName(Method);
+    std::string rootName = fC->SymName(Method);
+    if (fC->Type(Handle) == slThis_keyword) {
+      rootName = "this";
+    } else if (fC->Type(Handle) == slSuper_keyword) {
+      rootName = "super";
+    } else if (fC->Type(Handle) == slThis_dot_super) {
+      rootName = "super";
+    }
     NodeId List_of_arguments = fC->Sibling(Method);
     if (fC->Type(List_of_arguments) == slList_of_arguments) {
       method_func_call *fcall = s.MakeMethod_func_call();
@@ -4556,7 +4560,8 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
           (expr *)compileExpression(component, fC, Handle, compileDesign, pexpr,
                                     instance, reduce, muteErrors);
       fcall->Prefix(object);
-      fcall->VpiName(name);
+      std::string methodName = fC->SymName(Method);
+      fcall->VpiName(methodName);
       fcall->VpiFile(fC->getFileName());
       fcall->VpiLineNo(fC->Line(Method));
       fcall->VpiColumnNo(fC->Column(Method));
@@ -4574,14 +4579,35 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
       // (this.fields[idx-1].get...)
       if (fC->Type(List_of_arguments) == slSelect)
         List_of_arguments = fC->Child(List_of_arguments);
-      result = compileSelectExpression(component, fC, List_of_arguments, name,
+      result = compileSelectExpression(component, fC, Method, rootName,
                                        compileDesign, pexpr, instance, reduce,
                                        muteErrors);
       if (result == nullptr) {
-        // TODO: this is a mockup
-        constant *cvar = s.MakeConstant();
-        cvar->VpiDecompile("this");
-        result = cvar;
+        hier_path *path = s.MakeHier_path();
+        VectorOfany *elems = s.MakeAnyVec();
+        path->Path_elems(elems);
+        std::string fullName;
+        ref_obj *r1 = s.MakeRef_obj();
+        r1->VpiName(rootName);
+        fullName = rootName;
+        elems->push_back(r1);
+        r1->VpiParent(path);
+        while (Method) {
+          ref_obj *r = s.MakeRef_obj();
+          NodeId nameId = Method;
+          if (fC->Type(nameId) == slPs_or_hierarchical_identifier) {
+            nameId = fC->Child(Method);
+          }
+          r->VpiName(fC->SymName(nameId));
+          fullName += "." + fC->SymName(nameId);
+          elems->push_back(r);
+          Method = fC->Sibling(Method);
+          if (fC->Type(Method) != slStringConst) {
+            break;
+          }
+        }
+        path->VpiName(fullName);
+        result = path;
       }
     } else if (fC->Type(List_of_arguments) == slConstant_bit_select) {
       // TODO: Fill this
@@ -4594,7 +4620,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
           compileDesign, fcall, instance, reduce, muteErrors);
       // TODO: make name part of the prefix, get vpiName from sibling
       fcall->Prefix(object);
-      fcall->VpiName(name);
+      fcall->VpiName(rootName);
       fcall->VpiFile(fC->getFileName());
       fcall->VpiLineNo(fC->Line(Method));
       fcall->VpiColumnNo(fC->Column(Method));

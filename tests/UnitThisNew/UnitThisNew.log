@@ -573,7 +573,9 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:UH0707] Elaborating UHDM...
 
-[WRN:UH0725] dut.sv:27:8: Unresolved hierarchical reference "fields.get_lsb_pos_in_register".
+[WRN:UH0725] dut.sv:27:8: Unresolved hierarchical reference "this.fields.get_lsb_pos_in_register".
+
+[WRN:UH0725] dut.sv:33:11: Unresolved hierarchical reference "this.stream_handle".
 
 [INF:UH0708] Writing UHDM DB: ../../build/regression/UnitThisNew/slpp_all/surelog.uhdm ...
 
@@ -892,19 +894,24 @@ design: (unnamed)
       |vpiParent:
       \_function: (toto::uvm_reg::add_field), line:25:1, endln:30:12
       |vpiCondition:
-      \_hier_path: (fields.get_lsb_pos_in_register), line:27:8, endln:27:52
+      \_hier_path: (this.fields.get_lsb_pos_in_register), line:27:8, endln:27:52
         |vpiParent:
         \_if_stmt: , line:27:4, endln:28:7
-        |vpiName:fields.get_lsb_pos_in_register
+        |vpiName:this.fields.get_lsb_pos_in_register
+        |vpiActual:
+        \_ref_obj: (this)
+          |vpiParent:
+          \_hier_path: (this.fields.get_lsb_pos_in_register), line:27:8, endln:27:52
+          |vpiName:this
         |vpiActual:
         \_ref_obj: (fields)
           |vpiParent:
-          \_hier_path: (fields.get_lsb_pos_in_register), line:27:8, endln:27:52
+          \_hier_path: (this.fields.get_lsb_pos_in_register), line:27:8, endln:27:52
           |vpiName:fields
         |vpiActual:
         \_ref_obj: (get_lsb_pos_in_register)
           |vpiParent:
-          \_hier_path: (fields.get_lsb_pos_in_register), line:27:8, endln:27:52
+          \_hier_path: (this.fields.get_lsb_pos_in_register), line:27:8, endln:27:52
           |vpiName:get_lsb_pos_in_register
       |vpiStmt:
       \_begin: (toto::uvm_reg::add_field), line:27:54, endln:28:7
@@ -938,10 +945,20 @@ design: (unnamed)
         \_return_stmt: , line:33:3, endln:33:9
         |vpiOpType:15
         |vpiOperand:
-        \_constant: , line:33:11, endln:33:29
+        \_hier_path: (this.stream_handle), line:33:11, endln:33:29
           |vpiParent:
           \_operation: , line:33:11, endln:33:37
-          |vpiDecompile:this
+          |vpiName:this.stream_handle
+          |vpiActual:
+          \_ref_obj: (this)
+            |vpiParent:
+            \_hier_path: (this.stream_handle), line:33:11, endln:33:29
+            |vpiName:this
+          |vpiActual:
+          \_ref_obj: (stream_handle)
+            |vpiParent:
+            \_hier_path: (this.stream_handle), line:33:11, endln:33:29
+            |vpiName:stream_handle
         |vpiOperand:
         \_constant: , line:33:33, endln:33:37
           |vpiParent:
@@ -1378,19 +1395,24 @@ design: (unnamed)
       |vpiParent:
       \_function: (toto::uvm_reg::add_field), line:25:1, endln:30:12
       |vpiCondition:
-      \_hier_path: (fields.get_lsb_pos_in_register), line:27:8, endln:27:52
+      \_hier_path: (this.fields.get_lsb_pos_in_register), line:27:8, endln:27:52
         |vpiParent:
         \_if_stmt: , line:27:4, endln:28:7
-        |vpiName:fields.get_lsb_pos_in_register
+        |vpiName:this.fields.get_lsb_pos_in_register
+        |vpiActual:
+        \_ref_obj: (this)
+          |vpiParent:
+          \_hier_path: (this.fields.get_lsb_pos_in_register), line:27:8, endln:27:52
+          |vpiName:this
         |vpiActual:
         \_ref_obj: (fields)
           |vpiParent:
-          \_hier_path: (fields.get_lsb_pos_in_register), line:27:8, endln:27:52
+          \_hier_path: (this.fields.get_lsb_pos_in_register), line:27:8, endln:27:52
           |vpiName:fields
         |vpiActual:
         \_ref_obj: (get_lsb_pos_in_register)
           |vpiParent:
-          \_hier_path: (fields.get_lsb_pos_in_register), line:27:8, endln:27:52
+          \_hier_path: (this.fields.get_lsb_pos_in_register), line:27:8, endln:27:52
           |vpiName:get_lsb_pos_in_register
       |vpiStmt:
       \_begin: (toto::uvm_reg::add_field), line:27:54, endln:28:7
@@ -1424,10 +1446,20 @@ design: (unnamed)
         \_return_stmt: , line:33:3, endln:33:9
         |vpiOpType:15
         |vpiOperand:
-        \_constant: , line:33:11, endln:33:29
+        \_hier_path: (this.stream_handle), line:33:11, endln:33:29
           |vpiParent:
           \_operation: , line:33:11, endln:33:37
-          |vpiDecompile:this
+          |vpiName:this.stream_handle
+          |vpiActual:
+          \_ref_obj: (this)
+            |vpiParent:
+            \_hier_path: (this.stream_handle), line:33:11, endln:33:29
+            |vpiName:this
+          |vpiActual:
+          \_ref_obj: (stream_handle)
+            |vpiParent:
+            \_hier_path: (this.stream_handle), line:33:11, endln:33:29
+            |vpiName:stream_handle
         |vpiOperand:
         \_constant: , line:33:33, endln:33:37
           |vpiParent:
@@ -1961,7 +1993,7 @@ design: (unnamed)
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 2
+[WARNING] : 3
 [   NOTE] : 4
 
 
