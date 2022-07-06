@@ -887,10 +887,12 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
 #endif
           }
 
-          Location loc(mutableSymbolTable()->registerSymbol(
-              StrCat(m_nbMaxProcesses, " processes and ", m_nbMaxTreads)));
-          Error err(ErrorDefinition::CMD_NUMBER_THREADS, loc);
-          m_errors->addError(err);
+          if (profile()) {
+            Location loc(mutableSymbolTable()->registerSymbol(
+                StrCat(m_nbMaxProcesses, " processes and ", m_nbMaxTreads)));
+            Error err(ErrorDefinition::CMD_NUMBER_THREADS, loc);
+            m_errors->addError(err);
+          }
         }
       }
     } else if (all_arguments[i] == "-strictpythoncheck") {
