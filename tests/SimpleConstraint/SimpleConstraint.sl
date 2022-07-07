@@ -1,1 +1,1 @@
-   -profile   -writepp -parse  -verbose  -d ast -mt max   top.sv
+   -writepp -parse  -verbose  -d ast -mt max   top.sv
