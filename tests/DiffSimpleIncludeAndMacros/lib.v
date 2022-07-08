@@ -25,11 +25,11 @@ endmodule
 primitive FAKELIB_DFF_PRIMITIVE(output reg Q, input CLK, RST_N, SET_N, D  );
   table
    // CLK RST_N SET_N D : Q(state) : Q(next)
-       ?    0     ?   ? : ? : 0;
-       ?    1     0   ? : ? : 1;
-       p    1     1   0 : ? : 0;
-       p    1     1   1 : ? : 1;
-      (?0)  1     1   ? : ? : -;
-       ?    1     1   * : ? : -;
+       ?    0 ?   ? : ? : 0;
+       ?    10 ? : ? : 1;
+       p    110 : ? : 0;
+       p    111 : ? : 1;
+      (?0)  11 ? : ? : -;
+       ?    11 * : ? : -;
   endtable
 endprimitive
