@@ -65,7 +65,7 @@ target_link_directories(test_hellosureworld
 if (SURELOG_WITH_PYTHON)
   target_link_libraries(test_hellosureworld
     surelog
-    antlr4-runtime$<$<CXX_COMPILER_ID:MSVC>:-static>
+    antlr4-runtime$<$<CXX_COMPILER_ID:MSVC,Clang>:-static>
     flatbuffers
     uhdm
     capnp
@@ -76,7 +76,7 @@ if (SURELOG_WITH_PYTHON)
 else()
   target_link_libraries(test_hellosureworld
     surelog
-    antlr4-runtime$<$<CXX_COMPILER_ID:MSVC>:-static>
+    antlr4-runtime$<$<CXX_COMPILER_ID:MSVC,Clang>:-static>
     flatbuffers
     uhdm
     capnp
@@ -103,15 +103,13 @@ elseif (UNIX)
   )
 endif()
 
-if (WIN32)
-  if (SURELOG_WITH_PYTHON)
-    add_custom_command(
-      TARGET test_hellosureworld
-      POST_BUILD
-      COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            ${Python3_RUNTIME_LIBRARY_DIRS}/python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR}$<$<CONFIG:Debug>:_d>.dll
-            $<TARGET_FILE_DIR:test_hellosureworld>)
-    endif()
+if (WIN32 AND SURELOG_WITH_PYTHON)
+  add_custom_command(
+    TARGET test_hellosureworld
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+          ${Python3_RUNTIME_LIBRARY_DIRS}/python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR}$<$<CONFIG:Debug>:_d>.dll
+          $<TARGET_FILE_DIR:test_hellosureworld>)
 endif()
 
 add_custom_target(RunInstallTest ALL
