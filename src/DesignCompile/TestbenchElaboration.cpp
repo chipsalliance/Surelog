@@ -293,7 +293,8 @@ bool TestbenchElaboration::bindBaseClasses_() {
           UHDM::class_typespec* tps = s.MakeClass_typespec();
           tps->VpiName(class_def.second->getName());
           extends->Class_typespec(tps);
-          classDefinition->getUhdmDefinition()->Extends(extends);
+          UHDM::class_defn* def = classDefinition->getUhdmDefinition();
+          def->Extends(extends);
         }
       }
     }
