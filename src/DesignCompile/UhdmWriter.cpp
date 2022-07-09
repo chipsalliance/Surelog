@@ -703,6 +703,31 @@ void UhdmWriter::writeClass(ClassDefinition* classDef,
         ps->VpiParent(c);
       }
     }
+    // Extends, fix late binding
+    if (const extends* ext = c->Extends()) {
+      if (const class_typespec* tps = ext->Class_typespec()) {
+        if (tps->Class_defn() == nullptr) {
+          const std::string& tpsName = tps->VpiName();
+          if (c->Parameters()) {
+            for (auto ps : *c->Parameters()) {
+              if (ps->VpiName() == tpsName) {
+                if (ps->UhdmType() == uhdmtype_parameter) {
+                  type_parameter* tp = (type_parameter*)ps;
+                  if (const typespec* ptp = tp->Typespec()) {
+                    if (ptp->UhdmType() == uhdmclass_typespec) {
+                      class_typespec* cptp = (class_typespec*)ptp;
+                      ((class_typespec*)tps)
+                          ->Class_defn((class_defn*)cptp->Class_defn());
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
     // Param_assigns
     if (classDef->getParam_assigns()) {
       c->Param_assigns(classDef->getParam_assigns());
