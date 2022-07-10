@@ -773,7 +773,8 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
   }
   expr *res =
       eval.reduceExpr(result, invalidValue, m_exprEvalPlaceHolder, pexpr);
-  return res;
+  // If loop was detected, drop the partially constructed new value!
+  return m_unwind ? nullptr : res;
 }
 
 any *CompileHelper::getValue(const std::string &name,

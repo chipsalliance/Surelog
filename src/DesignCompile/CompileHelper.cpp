@@ -75,8 +75,13 @@ void CompileHelper::checkForLoops(bool on) {
 
 bool CompileHelper::loopDetected(const std::filesystem::path& fileName,
                                  int lineNumber, ValuedComponentI* instance) {
+#if defined(_WIN32)
+  constexpr int32_t kMaxAllowedStackDepth = 100;
+#else
+  constexpr int32_t kMaxAllowedStackDepth = 1000;
+#endif
   if (m_checkForLoops) {
-    if ((m_stackLevel > 1000) || (m_unwind)) {
+    if ((m_stackLevel > kMaxAllowedStackDepth) || (m_unwind)) {
       std::string instName;
       if (ModuleInstance* inst =
               valuedcomponenti_cast<ModuleInstance*>(instance)) {
