@@ -110,7 +110,7 @@ jobs:
       run: |
         cd build
         mv regression surelog-linux-${{matrix.compiler}}-regression
-        find surelog-linux-${{matrix.compiler}}-regression -name "*.tgz" | tar czvfp surelog-linux-${{matrix.compiler}}-regression.tgz -T -
+        find surelog-linux-${{matrix.compiler}}-regression -name "*.tgz" | tar czfp surelog-linux-${{matrix.compiler}}-regression.tgz -T -
 
     - name: Archive regression artifacts
       if: matrix.mode == 'regression' && always()
@@ -229,7 +229,7 @@ jobs:
       run: |
         mv install surelog-linux-gcc
         mkdir build
-        tar czvfp build/surelog-linux-gcc.tgz surelog-linux-gcc
+        tar czfp build/surelog-linux-gcc.tgz surelog-linux-gcc
 
     - name: Archive build artifacts
       if: matrix.mode == 'install'
@@ -353,14 +353,14 @@ jobs:
     - name: Prepare build artifacts
       run: |
         mv install surelog-msys2-gcc
-        tar czvfp build/surelog-msys2-gcc.tgz surelog-msys2-gcc
+        tar czfp build/surelog-msys2-gcc.tgz surelog-msys2-gcc
 
     - name: Prepare regression artifacts
       if: always()
       run: |
         cd build
         mv regression surelog-msys2-gcc-regression
-        find surelog-msys2-gcc-regression -name "*.tgz" | tar czvfp surelog-msys2-gcc-regression.tgz -T -
+        find surelog-msys2-gcc-regression -name "*.tgz" | tar czfp surelog-msys2-gcc-regression.tgz -T -
 
     - name: Archive build artifacts
       uses: actions/upload-artifact@v2
@@ -375,12 +375,20 @@ jobs:
         name: surelog-msys2-gcc-regression
         path: ${{ github.workspace }}/build/surelog-msys2-gcc-regression.tgz
 
-  windows-cl:
+  windows:
+    name: "windows-${{ matrix.compiler }}"
     runs-on: windows-2022
 
     defaults:
       run:
         shell: cmd
+
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler:
+        - cl
+        - clang
 
     steps:
 
@@ -412,6 +420,14 @@ jobs:
         java-package: jre
         architecture: x64
 
+    - name: Setup Clang
+      if: matrix.compiler == 'clang'
+      uses: egor-tensin/setup-clang@v1
+      with:
+        version: 13
+        platform: x64
+        cygwin: 0
+
     - run: git config --global core.autocrlf input
       shell: bash
 
@@ -435,7 +451,8 @@ jobs:
         submodules: recursive
         fetch-depth: 0
 
-    - name: Build & Test
+    - name: Build & Test (cl compiler)
+      if: matrix.compiler == 'cl'
       run: |
         call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
 
@@ -469,32 +486,67 @@ jobs:
         if %errorlevel% neq 0 exit /b %errorlevel%
         git status
 
+    - name: Build & Test (clang compiler)
+      if: matrix.compiler == 'clang'
+      run: |
+        set CMAKE_GENERATOR=Ninja
+        set CC=clang
+        set CXX=clang++
+        set NO_TCMALLOC=On
+        set PREFIX=%GITHUB_WORKSPACE%\install
+        set CPU_CORES=%NUMBER_OF_PROCESSORS%
+
+        set MAKE_DIR=C:\make\bin
+        set PATH=%pythonLocation%;%JAVA_HOME%\bin;%MAKE_DIR%;%PATH%
+        set ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=%pythonLocation%
+
+        set
+        where cmake && cmake --version
+        where make && make --version
+        where java && java -version
+        where python && python --version
+        where ninja && ninja --version
+        where clang && clang --version
+        where clang++ && clang++ --version
+
+        make release
+        if %errorlevel% neq 0 exit /b %errorlevel%
+        make install
+        if %errorlevel% neq 0 exit /b %errorlevel%
+        make test_install
+        if %errorlevel% neq 0 exit /b %errorlevel%
+        make test/unittest
+        if %errorlevel% neq 0 exit /b %errorlevel%
+        make test/regression
+        if %errorlevel% neq 0 exit /b %errorlevel%
+        git status
+
     - name: Prepare build artifacts
       shell: bash
       run: |
-        mv install surelog-windows-cl
-        tar czvfp build/surelog-windows-cl.tgz surelog-windows-cl
+        mv install surelog-windows-${{ matrix.compiler }}
+        tar czfp build/surelog-windows-${{ matrix.compiler }}.tgz surelog-windows-${{ matrix.compiler }}
+
+    - name: Archive build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: surelog-windows-${{ matrix.compiler }}
+        path: ${{ github.workspace }}/build/surelog-windows-${{ matrix.compiler }}.tgz
 
     - name: Prepare regression artifacts
       shell: bash
       if: always()
       run: |
         cd build
-        mv regression surelog-windows-cl-regression
-        find surelog-windows-cl-regression -name "*.tgz" | tar czvfp surelog-windows-cl-regression.tgz -T -
-
-    - name: Archive build artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: surelog-windows-cl
-        path: ${{ github.workspace }}/build/surelog-windows-cl.tgz
+        mv regression surelog-windows-${{ matrix.compiler }}-regression
+        find surelog-windows-${{ matrix.compiler }}-regression -name "*.tgz" | tar czfp surelog-windows-${{ matrix.compiler }}-regression.tgz -T -
 
     - name: Archive regression artifacts
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: surelog-windows-cl-regression
-        path: ${{ github.workspace }}/build/surelog-windows-cl-regression.tgz
+        name: surelog-windows-${{ matrix.compiler }}-regression
+        path: ${{ github.workspace }}/build/surelog-windows-${{ matrix.compiler }}-regression.tgz
 
   macos:
     name: macos-${{ matrix.compiler }}
@@ -589,14 +641,14 @@ jobs:
     - name: Prepare build artifacts
       run: |
         mv install surelog-macos-${{ matrix.compiler }}
-        tar czvfp build/surelog-macos-${{ matrix.compiler }}.tgz surelog-macos-${{ matrix.compiler }}
+        tar czfp build/surelog-macos-${{ matrix.compiler }}.tgz surelog-macos-${{ matrix.compiler }}
 
     - name: Prepare regression artifacts
       if: always()
       run: |
         cd build
         mv regression surelog-macos-${{ matrix.compiler }}-regression
-        find surelog-macos-${{ matrix.compiler }}-regression -name "*.tgz" | tar czvfp surelog-macos-${{ matrix.compiler }}-regression.tgz -T -
+        find surelog-macos-${{ matrix.compiler }}-regression -name "*.tgz" | tar czfp surelog-macos-${{ matrix.compiler }}-regression.tgz -T -
 
     - name: Archive build artifacts
       uses: actions/upload-artifact@v2

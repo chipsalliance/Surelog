@@ -716,7 +716,7 @@ install(
         ${PROJECT_SOURCE_DIR}/include/Surelog/Expression/Value.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/Expression)
 
-if (WIN32)
+if (WIN32 AND (CMAKE_CXX_COMPILER_ID MATCHES "MSVC"))
   if (SURELOG_WITH_PYTHON)
     install(
       FILES $<TARGET_PDB_FILE:surelog-bin>
