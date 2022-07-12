@@ -2115,29 +2115,63 @@ bool NetlistElaboration::elab_ports_nets_(
               ref->Actual_group(array_int);
             }
 
-            const std::string& sigName = sig->getName();
-            ModuleInstance* interfaceRefInstance =
-                getInterfaceInstance_(instance, sigName);
-
-            ModuleInstance* interfaceInstance = new ModuleInstance(
-                orig_interf, sig->getFileContent(), sig->getNodeId(), instance,
-                signame, orig_interf->getName());
-            Netlist* netlistInterf = new Netlist(interfaceInstance);
-            interfaceInstance->setNetlist(netlistInterf);
-            if (interfaceRefInstance) {
-              for (auto& itr : interfaceRefInstance->getMappedValues()) {
-                interfaceInstance->setValue(itr.first, itr.second.first,
-                                            m_exprBuilder, itr.second.second);
-              }
-            }
-
-            modport* mp = elab_modport_(
-                instance, interfaceInstance, signame, orig_interf->getName(),
-                orig_interf, instance->getFileName(), instance->getLineNb(),
-                orig_modport->getName(), array_int);
-
             if (unpackedDimensions) {
+              for (int index = 0; index < unpackedSize; index++) {
+                std::string sigName = sig->getName();
+
+                ModuleInstance* interfaceRefInstance =
+                    getInterfaceInstance_(instance, sigName);
+                sigName += "[" + std::to_string(index) + "]";
+                ModuleInstance* interfaceInstance = new ModuleInstance(
+                    orig_interf, sig->getFileContent(), sig->getNodeId(),
+                    instance, sigName, orig_interf->getName());
+                Netlist* netlistInterf = new Netlist(interfaceInstance);
+                interfaceInstance->setNetlist(netlistInterf);
+                if (interfaceRefInstance) {
+                  for (auto& itr : interfaceRefInstance->getMappedValues()) {
+                    interfaceInstance->setValue(itr.first, itr.second.first,
+                                                m_exprBuilder,
+                                                itr.second.second);
+                  }
+                }
+                instance->addSubInstance(interfaceInstance);
+                modport* mp = elab_modport_(
+                    instance, interfaceInstance, sigName,
+                    orig_interf->getName(), orig_interf,
+                    instance->getFileName(), instance->getLineNb(),
+                    orig_modport->getName(), array_int);
+
+                array_int->Instances()->push_back((interface*)mp->Interface());
+
+                auto interfs = netlist->interfaces();
+                if (interfs == nullptr) {
+                  netlist->interfaces(s.MakeInterfaceVec());
+                  interfs = netlist->interfaces();
+                }
+                interfs->push_back((interface*)mp->Interface());
+              }
             } else {
+              const std::string& sigName = sig->getName();
+              ModuleInstance* interfaceRefInstance =
+                  getInterfaceInstance_(instance, sigName);
+
+              ModuleInstance* interfaceInstance = new ModuleInstance(
+                  orig_interf, sig->getFileContent(), sig->getNodeId(),
+                  instance, signame, orig_interf->getName());
+              Netlist* netlistInterf = new Netlist(interfaceInstance);
+              interfaceInstance->setNetlist(netlistInterf);
+              if (interfaceRefInstance) {
+                for (auto& itr : interfaceRefInstance->getMappedValues()) {
+                  interfaceInstance->setValue(itr.first, itr.second.first,
+                                              m_exprBuilder, itr.second.second);
+                }
+              }
+
+              modport* mp = elab_modport_(
+                  instance, interfaceInstance, signame, orig_interf->getName(),
+                  orig_interf, instance->getFileName(), instance->getLineNb(),
+                  orig_modport->getName(), array_int);
+              instance->addSubInstance(interfaceInstance);
               ref->Actual_group(mp);
 
               auto interfs = netlist->interfaces();

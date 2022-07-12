@@ -15,6 +15,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 ///////////////////////////////////////////////////////////////////////////////
+import riscv_isa_pkg::*;
+
 
 module r5p_wbu #(
   int unsigned XLEN = 32  // XLEN width
