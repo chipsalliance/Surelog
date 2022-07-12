@@ -74,7 +74,7 @@
 
 [WRN:PA0205] hdl/rtl/soc/r5p_bus_arb.sv:19:1: No timescale set for "r5p_bus_arb".
 
-[WRN:PA0205] hdl/rtl/core/r5p_wbu.sv:19:1: No timescale set for "r5p_wbu".
+[WRN:PA0205] hdl/rtl/core/r5p_wbu.sv:21:1: No timescale set for "r5p_wbu".
 
 [WRN:PA0205] hdl/rtl/core/r5p_pkg.sv:19:1: No timescale set for "r5p_pkg".
 
@@ -120,7 +120,7 @@
 
 [INF:CP0303] hdl/rtl/soc/r5p_soc_top.sv:21:1: Compile module "work@r5p_soc_top".
 
-[INF:CP0303] hdl/rtl/core/r5p_wbu.sv:19:1: Compile module "work@r5p_wbu".
+[INF:CP0303] hdl/rtl/core/r5p_wbu.sv:21:1: Compile module "work@r5p_wbu".
 
 [INF:CP0302] Compile class "work@mailbox".
 
@@ -188,6 +188,9 @@ Instance tree:
 [SCO] work@r5p_soc_de0_cv.soc.core.gen_lsa_alu work@r5p_soc_de0_cv.soc.core.gen_lsa_alu
 [MOD] work@r5p_lsu work@r5p_soc_de0_cv.soc.core.lsu
 [MOD] work@r5p_wbu work@r5p_soc_de0_cv.soc.core.wbu
+[SCO] work@r5p_bus_if work@r5p_soc_de0_cv.soc.ls_dec.s
+[SCO] work@r5p_bus_if work@r5p_soc_de0_cv.soc.ls_dec.m[0]
+[SCO] work@r5p_bus_if work@r5p_soc_de0_cv.soc.ls_dec.m[1]
 [SCO] work@r5p_soc_de0_cv.soc.ls_dec.gen_loop[0] work@r5p_soc_de0_cv.soc.ls_dec.gen_loop[0]
 [SCO] work@r5p_soc_de0_cv.soc.ls_dec.gen_loop[1] work@r5p_soc_de0_cv.soc.ls_dec.gen_loop[1]
 [SCO] work@r5p_bus_dec.UNNAMED work@r5p_soc_de0_cv.soc.ls_dec.UNNAMED
@@ -195,6 +198,7 @@ Instance tree:
 [SCO] work@r5p_bus_dec.UNNAMED work@r5p_soc_de0_cv.soc.ls_dec.UNNAMED
 [MOD] work@r5p_soc_de0_cv.soc.gen_cyclone_v::rom32x4096 [U] work@r5p_soc_de0_cv.soc.gen_cyclone_v.imem
 [MOD] work@r5p_soc_de0_cv.soc.gen_cyclone_v::ram32x4096 [U] work@r5p_soc_de0_cv.soc.gen_cyclone_v.dmem
+[SCO] work@r5p_bus_if work@r5p_soc_de0_cv.soc.soc_gpio.bus
 [SCO] work@r5p_soc_de0_cv.soc.soc_gpio.gen_cdc work@r5p_soc_de0_cv.soc.soc_gpio.gen_cdc
 [SCO] work@r5p_soc_de0_cv.soc.soc_gpio.gen_min work@r5p_soc_de0_cv.soc.soc_gpio.gen_min
 [SCO] work@r5p_soc_gpio.UNNAMED work@r5p_soc_de0_cv.soc.soc_gpio.UNNAMED
@@ -236,8 +240,6 @@ Instance tree:
 [NTE:EL0504] Multiple top level modules in design.
 
 [WRN:EL0500] hdl/rtl/core/r5p_gpr.sv:111:3: Cannot find a module definition for "work@r5p_soc_de0_cv.soc.core.gpr.gen_cyclone_v::gpr32x32".
-
-[ERR:CP0317] hdl/rtl/core/r5p_wbu.sv:50:7: Undefined type "wbu_t".
 
 [WRN:EL0500] hdl/rtl/soc/r5p_soc_top.sv:263:3: Cannot find a module definition for "work@r5p_soc_de0_cv.soc.gen_cyclone_v::rom32x4096".
 
@@ -303,6 +305,12 @@ Instance tree:
 
 [NTE:EL0523] hdl/rtl/core/r5p_core.sv:468:1: Instance "work@r5p_soc_de0_cv.soc.core.wbu".
 
+[NTE:EL0522] hdl/rtl/soc/r5p_bus_dec.sv:27:18: Scope "work@r5p_soc_de0_cv.soc.ls_dec.s".
+
+[NTE:EL0522] hdl/rtl/soc/r5p_bus_dec.sv:28:18: Scope "work@r5p_soc_de0_cv.soc.ls_dec.m[0]".
+
+[NTE:EL0522] hdl/rtl/soc/r5p_bus_dec.sv:28:18: Scope "work@r5p_soc_de0_cv.soc.ls_dec.m[1]".
+
 [NTE:EL0522] hdl/rtl/soc/r5p_bus_dec.sv:46:22: Scope "work@r5p_soc_de0_cv.soc.ls_dec.gen_loop[0]".
 
 [NTE:EL0522] hdl/rtl/soc/r5p_bus_dec.sv:46:22: Scope "work@r5p_soc_de0_cv.soc.ls_dec.gen_loop[1]".
@@ -316,6 +324,8 @@ Instance tree:
 [NTE:EL0523] hdl/rtl/soc/r5p_soc_top.sv:263:3: Instance "work@r5p_soc_de0_cv.soc.gen_cyclone_v.imem".
 
 [NTE:EL0523] hdl/rtl/soc/r5p_soc_top.sv:277:3: Instance "work@r5p_soc_de0_cv.soc.gen_cyclone_v.dmem".
+
+[NTE:EL0522] hdl/rtl/soc/r5p_soc_gpio.sv:36:18: Scope "work@r5p_soc_de0_cv.soc.soc_gpio.bus".
 
 [NTE:EL0522] hdl/rtl/soc/r5p_soc_gpio.sv:47:1: Scope "work@r5p_soc_de0_cv.soc.soc_gpio.gen_cdc".
 
@@ -345,15 +355,15 @@ Instance tree:
 
 [NTE:EL0522] hdl/rtl/core/r5p_lsu.sv:138:13: Scope "work@r5p_soc_de0_cv.soc.core.lsu.blk_rdt".
 
-[NTE:EL0522] hdl/rtl/core/r5p_wbu.sv:54:10: Scope "work@r5p_soc_de0_cv.soc.core.wbu.UNNAMED".
+[NTE:EL0522] hdl/rtl/core/r5p_wbu.sv:56:10: Scope "work@r5p_soc_de0_cv.soc.core.wbu.UNNAMED".
 
-[NTE:EL0522] hdl/rtl/core/r5p_wbu.sv:58:10: Scope "work@r5p_soc_de0_cv.soc.core.wbu.UNNAMED".
-
-[NTE:EL0522] hdl/rtl/core/r5p_wbu.sv:66:10: Scope "work@r5p_soc_de0_cv.soc.core.wbu.UNNAMED".
+[NTE:EL0522] hdl/rtl/core/r5p_wbu.sv:60:10: Scope "work@r5p_soc_de0_cv.soc.core.wbu.UNNAMED".
 
 [NTE:EL0522] hdl/rtl/core/r5p_wbu.sv:68:10: Scope "work@r5p_soc_de0_cv.soc.core.wbu.UNNAMED".
 
-[NTE:EL0522] hdl/rtl/core/r5p_wbu.sv:81:13: Scope "work@r5p_soc_de0_cv.soc.core.wbu.UNNAMED".
+[NTE:EL0522] hdl/rtl/core/r5p_wbu.sv:70:10: Scope "work@r5p_soc_de0_cv.soc.core.wbu.UNNAMED".
+
+[NTE:EL0522] hdl/rtl/core/r5p_wbu.sv:83:13: Scope "work@r5p_soc_de0_cv.soc.core.wbu.UNNAMED".
 
 [NTE:EL0522] hdl/rtl/soc/r5p_bus_dec.sv:65:37: Scope "work@r5p_soc_de0_cv.soc.ls_dec.UNNAMED.UNNAMED".
 
@@ -387,37 +397,15 @@ Instance tree:
 
 [INF:UH0707] Elaborating UHDM...
 
-[WRN:UH0725] hdl/rtl/core/r5p_wbu.sv:59:10: Unresolved hierarchical reference "ctl.gpr.e.rd".
-
-[WRN:UH0725] hdl/rtl/core/r5p_wbu.sv:60:10: Unresolved hierarchical reference "ctl.gpr.a.rd".
-
-[WRN:UH0725] hdl/rtl/core/r5p_wbu.sv:61:10: Unresolved hierarchical reference "ctl.i.wbu".
-
-[WRN:UH0725] hdl/rtl/core/r5p_wbu.sv:69:16: Unresolved hierarchical reference "ctl.i.wbu".
-
-[WRN:UH0725] hdl/rtl/soc/r5p_bus_dec.sv:50:10: Unresolved hierarchical reference "m[i].vld".
-
-[WRN:UH0725] hdl/rtl/soc/r5p_bus_dec.sv:51:10: Unresolved hierarchical reference "m[i].wen".
-
-[WRN:UH0725] hdl/rtl/soc/r5p_bus_dec.sv:52:10: Unresolved hierarchical reference "m[i].ben".
-
-[WRN:UH0725] hdl/rtl/soc/r5p_bus_dec.sv:53:10: Unresolved hierarchical reference "m[i].adr".
-
-[WRN:UH0725] hdl/rtl/soc/r5p_bus_dec.sv:54:10: Unresolved hierarchical reference "m[i].wdt".
-
-[WRN:UH0725] hdl/rtl/soc/r5p_bus_dec.sv:56:32: Unresolved hierarchical reference "m[i].rdt".
-
-[WRN:UH0725] hdl/rtl/soc/r5p_bus_dec.sv:57:32: Unresolved hierarchical reference "m[i].rdy".
-
 [INF:UH0708] Writing UHDM DB: ../../../build/regression/rp32/slpp_all/surelog.uhdm ...
 
 [INF:UH0709] Writing UHDM Html Coverage: ../../../build/regression/rp32/slpp_all/surelog.uhdm.chk.html ...
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
-[WARNING] : 31
-[   NOTE] : 72
+[  ERROR] : 0
+[WARNING] : 20
+[   NOTE] : 76
 
 
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/Rp32/hdl/rtl/core/r5p_alu.sv        | ${SURELOG_DIR}/build/regression/rp32/roundtrip/r5p_alu_000.sv        | 72 | 184 | 
@@ -426,7 +414,7 @@ Instance tree:
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/Rp32/hdl/rtl/core/r5p_gpr.sv        | ${SURELOG_DIR}/build/regression/rp32/roundtrip/r5p_gpr_000.sv        | 126 | 181 | 
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/Rp32/hdl/rtl/core/r5p_lsu.sv        | ${SURELOG_DIR}/build/regression/rp32/roundtrip/r5p_lsu_000.sv        | 54 | 159 | 
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/Rp32/hdl/rtl/core/r5p_pkg.sv        | ${SURELOG_DIR}/build/regression/rp32/roundtrip/r5p_pkg_000.sv        | 4 | 38 | 
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Rp32/hdl/rtl/core/r5p_wbu.sv        | ${SURELOG_DIR}/build/regression/rp32/roundtrip/r5p_wbu_000.sv        | 32 | 93 | 
+[roundtrip]: ${SURELOG_DIR}/third_party/tests/Rp32/hdl/rtl/core/r5p_wbu.sv        | ${SURELOG_DIR}/build/regression/rp32/roundtrip/r5p_wbu_000.sv        | 33 | 95 | 
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/Rp32/hdl/rtl/riscv/riscv_isa_pkg.sv | ${SURELOG_DIR}/build/regression/rp32/roundtrip/riscv_isa_pkg_000.sv  | 303 | 1046 | 
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/Rp32/hdl/rtl/soc/r5p_bus_arb.sv     | ${SURELOG_DIR}/build/regression/rp32/roundtrip/r5p_bus_arb_000.sv    | 26 | 50 | 
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/Rp32/hdl/rtl/soc/r5p_bus_dec.sv     | ${SURELOG_DIR}/build/regression/rp32/roundtrip/r5p_bus_dec_000.sv    | 36 | 83 | 

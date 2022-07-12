@@ -3051,7 +3051,29 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
   } else if (m->UhdmType() == uhdminterface) {
     writeElabInterface(s, instance, (interface*)m, exprBuilder);
   }
-
+  Netlist* netlist = instance->getNetlist();
+  if (netlist) {
+    if (VectorOfinterface_array* subInterfaceArrays =
+            netlist->interface_arrays()) {
+      UHDM_OBJECT_TYPE utype = m->UhdmType();
+      if (utype == uhdmmodule) {
+        ((module*)m)->Interface_arrays(subInterfaceArrays);
+        for (interface_array* array : *subInterfaceArrays) {
+          array->VpiParent(m);
+        }
+      } else if (utype == uhdmgen_scope) {
+        ((gen_scope*)m)->Interface_arrays(subInterfaceArrays);
+        for (interface_array* array : *subInterfaceArrays) {
+          array->VpiParent(m);
+        }
+      } else if (utype == uhdminterface) {
+        ((interface*)m)->Interface_arrays(subInterfaceArrays);
+        for (interface_array* array : *subInterfaceArrays) {
+          array->VpiParent(m);
+        }
+      }
+    }
+  }
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
     ModuleInstance* child = instance->getChildren(i);
     DesignComponent* childDef = child->getDefinition();
