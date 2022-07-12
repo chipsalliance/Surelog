@@ -151,11 +151,9 @@ n<> u<128> t<Top_level_rule> c<1> l<1:1> el<15:1>
 
 [ERR:EL0542] dut.sv:11: Expression loop in instance "work@top".
 
-[ERR:EL0542] dut.sv:12: Expression loop in instance "work@top".
+[ERR:EL0542] dut.sv:10: Expression loop in instance "work@top.sub".
 
 [ERR:EL0542] dut.sv:3: Expression loop in instance "work@top.sub".
-
-[ERR:EL0542] dut.sv:11: Expression loop in instance "work@top.sub".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -312,10 +310,10 @@ design: (work@top)
     |vpiParent:
     \_module: work@top (work@top), file:dut.sv, line:8:1, endln:13:10
     |vpiRhs:
-    \_ref_obj: (P1), line:9:18, endln:9:20
-      |vpiName:P1
+    \_ref_obj: (P2), line:9:18, endln:9:20
+      |vpiName:P2
       |vpiActual:
-      \_parameter: (work@top.P1), line:11:13, endln:11:15
+      \_parameter: (work@top.P2), line:10:13, endln:10:15
     |vpiLhs:
     \_parameter: (work@top.P3), line:9:13, endln:9:15
   |vpiParamAssign:
@@ -323,10 +321,12 @@ design: (work@top)
     |vpiParent:
     \_module: work@top (work@top), file:dut.sv, line:8:1, endln:13:10
     |vpiRhs:
-    \_ref_obj: (P3), line:10:18, endln:10:20
-      |vpiName:P3
+    \_ref_obj: (P2), line:10:18, endln:10:20
+      |vpiTypespec:
+      \_int_typespec: 
+      |vpiName:P2
       |vpiActual:
-      \_parameter: (work@top.P3), line:9:13, endln:9:15
+      \_parameter: (work@top.P2), line:10:13, endln:10:15
     |vpiLhs:
     \_parameter: (work@top.P2), line:10:13, endln:10:15
   |vpiParamAssign:
@@ -334,12 +334,7 @@ design: (work@top)
     |vpiParent:
     \_module: work@top (work@top), file:dut.sv, line:8:1, endln:13:10
     |vpiRhs:
-    \_ref_obj: (P2), line:11:18, endln:11:20
-      |vpiTypespec:
-      \_int_typespec: 
-      |vpiName:P2
-      |vpiActual:
-      \_parameter: (work@top.P2), line:10:13, endln:10:15
+    \_ref_obj: (P2), line:10:18, endln:10:20
     |vpiLhs:
     \_parameter: (work@top.P1), line:11:13, endln:11:15
   |vpiDefName:work@top
@@ -374,15 +369,28 @@ design: (work@top)
       \_module: work@Foo (work@top.sub), file:dut.sv, line:12:1, endln:12:22
       |vpiOverriden:1
       |vpiRhs:
+      \_ref_obj: (P2), line:10:18, endln:10:20
+      |vpiLhs:
+      \_parameter: (work@top.sub.P1), line:2:12, endln:2:14
+    |vpiParamAssign:
+    \_param_assign: , line:3:12, endln:3:24
+      |vpiParent:
+      \_module: work@Foo (work@top.sub), file:dut.sv, line:12:1, endln:12:22
+      |vpiOverriden:1
+      |vpiRhs:
       \_operation: , line:3:17, endln:3:24
         |vpiOpType:24
         |vpiOperand:
-        \_ref_obj: (P1), line:9:18, endln:9:20
+        \_ref_obj: (P2), line:10:18, endln:10:20
           |vpiParent:
           \_operation: , line:3:17, endln:3:24
-          |vpiName:P1
+          |vpiTypespec:
+          \_int_typespec: 
+            |vpiParent:
+            \_ref_obj: (P2), line:10:18, endln:10:20
+          |vpiName:P2
           |vpiActual:
-          \_parameter: (work@top.sub.P1), line:2:12, endln:2:14
+          \_parameter: (work@top.P2), line:10:13, endln:10:15
         |vpiOperand:
         \_operation: , line:3:22, endln:3:24
           |vpiParent:
@@ -403,15 +411,6 @@ design: (work@top)
             |vpiActual:
             \_parameter: (work@top.sub.P2), line:3:12, endln:3:14
       |vpiLhs:
-      \_parameter: (work@top.sub.P1), line:2:12, endln:2:14
-    |vpiParamAssign:
-    \_param_assign: , line:3:12, endln:3:24
-      |vpiParent:
-      \_module: work@Foo (work@top.sub), file:dut.sv, line:12:1, endln:12:22
-      |vpiOverriden:1
-      |vpiRhs:
-      \_operation: , line:3:17, endln:3:24
-      |vpiLhs:
       \_parameter: (work@top.sub.P2), line:3:12, endln:3:14
     |vpiDefName:work@Foo
     |vpiDefFile:dut.sv
@@ -421,7 +420,7 @@ design: (work@top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 6
+[  ERROR] : 5
 [WARNING] : 2
 [   NOTE] : 5
 

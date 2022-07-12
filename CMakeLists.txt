@@ -95,6 +95,9 @@ if(MSVC)
       "${CMAKE_CXX_FLAGS_RELEASE} ${TCMALLOC_COMPILE_OPTIONS} /Zc:__cplusplus /W0 /bigobj ${MY_CXX_WARNING_FLAGS}"
   )
   set(CMAKE_EXE_LINKER_FLAGS /STACK:8388608)  # 8MB stack size
+elseif(WIN32 AND (CMAKE_CXX_COMPILER_ID MATCHES "Clang"))
+  # The stack size unnecessarily high here. Investigate and bring it back to something more reasonable.
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Xclang --stack-size=33554432")  # 32MB stack size
 else()
   if(DEFINED ENV{MSYSTEM})
     # Under MSYS some files are too large to build without additional flags
