@@ -672,12 +672,21 @@ design: (work@dut)
         |vpiName:conntb
         |vpiFullName:work@dut.conntb
         |vpiActual:
-        \_interface: work@ConnectTB (conntb), file:dut.v, line:3:0
+        \_interface: work@ConnectTB (work@dut.conntb), file:dut.v, line:3:0
       |vpiLowConn:
       \_ref_obj: (work@dut.middle1.conn), line:4:18, endln:4:24
         |vpiFullName:work@dut.middle1.conn
         |vpiActual:
-        \_interface: work@ConnectTB (conn), file:dut.v, line:4:0
+        \_interface: work@ConnectTB (work@dut.middle1.conn), file:dut.v, line:4:0
+    |vpiInterface:
+    \_interface: work@ConnectTB (work@dut.middle1.conn), file:dut.v, line:4:0
+      |vpiParent:
+      \_module: work@middle (work@dut.middle1), file:dut.v, line:4:3, endln:4:26
+      |vpiName:conn
+      |vpiFullName:work@dut.middle1.conn
+      |vpiDefName:work@ConnectTB
+    |vpiInterface:
+    \_interface: work@ConnectTB (work@dut.middle1.conn), file:dut.v, line:4:0
     |vpiModule:
     \_module: work@SUB (work@dut.middle1.sub1), file:dut.v, line:11:3, endln:11:47
       |vpiParent:
@@ -959,12 +968,21 @@ design: (work@dut)
         |vpiName:conntb
         |vpiFullName:work@tb.conntb
         |vpiActual:
-        \_interface: work@ConnectTB (conntb), file:tb.v, line:16:0
+        \_interface: work@ConnectTB (work@tb.conntb), file:tb.v, line:16:0
       |vpiLowConn:
       \_ref_obj: (work@tb.dut1.conn), line:17:15, endln:17:21
         |vpiFullName:work@tb.dut1.conn
         |vpiActual:
-        \_interface: work@ConnectTB (conn), file:tb.v, line:17:0
+        \_interface: work@ConnectTB (work@tb.dut1.conn), file:tb.v, line:17:0
+    |vpiInterface:
+    \_interface: work@ConnectTB (work@tb.dut1.conn), file:tb.v, line:17:0
+      |vpiParent:
+      \_module: work@middle (work@tb.dut1), file:tb.v, line:17:3, endln:17:23
+      |vpiName:conn
+      |vpiFullName:work@tb.dut1.conn
+      |vpiDefName:work@ConnectTB
+    |vpiInterface:
+    \_interface: work@ConnectTB (work@tb.dut1.conn), file:tb.v, line:17:0
     |vpiModule:
     \_module: work@SUB (work@tb.dut1.sub1), file:dut.v, line:11:3, endln:11:47
       |vpiParent:

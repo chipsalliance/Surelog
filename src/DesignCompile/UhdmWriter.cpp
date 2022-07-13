@@ -3073,6 +3073,25 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
         }
       }
     }
+    if (VectorOfinterface* subInterfaces = netlist->interfaces()) {
+      UHDM_OBJECT_TYPE utype = m->UhdmType();
+      if (utype == uhdmmodule) {
+        ((module*)m)->Interfaces(subInterfaces);
+        for (interface* interf : *subInterfaces) {
+          interf->VpiParent(m);
+        }
+      } else if (utype == uhdmgen_scope) {
+        ((gen_scope*)m)->Interfaces(subInterfaces);
+        for (interface* interf : *subInterfaces) {
+          interf->VpiParent(m);
+        }
+      } else if (utype == uhdminterface) {
+        ((interface*)m)->Interfaces(subInterfaces);
+        for (interface* interf : *subInterfaces) {
+          interf->VpiParent(m);
+        }
+      }
+    }
   }
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
     ModuleInstance* child = instance->getChildren(i);

@@ -1662,7 +1662,7 @@ design: (work@tb_operators)
     \_ref_obj: (work@memory_ctrl1.sif1), line:57:29, endln:57:33
       |vpiFullName:work@memory_ctrl1.sif1
       |vpiActual:
-      \_interface: work@mem_if (sif1), file:top.v, line:57:0
+      \_interface: work@mem_if (work@memory_ctrl1.sif1), file:top.v, line:57:0
   |vpiPort:
   \_port: (sif2), line:57:49, endln:57:53
     |vpiParent:
@@ -1674,6 +1674,71 @@ design: (work@tb_operators)
       |vpiFullName:work@memory_ctrl1.sif2
       |vpiActual:
       \_modport: (system), line:49:12, endln:49:18
+  |vpiInterface:
+  \_interface: work@mem_if (work@memory_ctrl1.sif1), file:top.v, line:57:0
+    |vpiParent:
+    \_module: work@memory_ctrl1 (work@memory_ctrl1), file:top.v, line:57:1, endln:67:10
+    |vpiName:sif1
+    |vpiFullName:work@memory_ctrl1.sif1
+    |vpiDefName:work@mem_if
+    |vpiModport:
+    \_modport: (memory), line:50:12, endln:50:18
+      |vpiParent:
+      \_interface: work@mem_if (work@memory_ctrl1.sif1), file:top.v, line:57:0
+      |vpiName:memory
+      |vpiIODecl:
+      \_io_decl: (clk), line:50:27, endln:50:30
+        |vpiDirection:2
+        |vpiName:clk
+        |vpiExpr:
+        \_logic_net: (clk), line:47:30, endln:47:33
+          |vpiTypespec:
+          \_logic_typespec: , line:47:25, endln:47:29
+          |vpiName:clk
+          |vpiNetType:1
+      |vpiInterface:
+      \_interface: work@mem_if (work@memory_ctrl1.sif1), file:top.v, line:57:0
+    |vpiModport:
+    \_modport: (system), line:49:12, endln:49:18
+      |vpiParent:
+      \_interface: work@mem_if (work@memory_ctrl1.sif1), file:top.v, line:57:0
+      |vpiName:system
+      |vpiIODecl:
+      \_io_decl: (clk), line:49:26, endln:49:29
+        |vpiDirection:1
+        |vpiName:clk
+        |vpiExpr:
+        \_logic_net: (clk), line:47:30, endln:47:33
+      |vpiInterface:
+      \_interface: work@mem_if (work@memory_ctrl1.sif1), file:top.v, line:57:0
+  |vpiInterface:
+  \_interface: work@mem_if (work@memory_ctrl1.sif1), file:top.v, line:57:0
+  |vpiInterface:
+  \_interface: work@mem_if (work@memory_ctrl1.sif2), file:top.v, line:57:0
+    |vpiParent:
+    \_module: work@memory_ctrl1 (work@memory_ctrl1), file:top.v, line:57:1, endln:67:10
+    |vpiName:sif2
+    |vpiFullName:work@memory_ctrl1.sif2
+    |vpiDefName:work@mem_if
+    |vpiModport:
+    \_modport: (system), line:49:12, endln:49:18
+      |vpiParent:
+      \_interface: work@mem_if (work@memory_ctrl1.sif2), file:top.v, line:57:0
+      |vpiName:system
+      |vpiIODecl:
+      \_io_decl: (clk), line:49:26, endln:49:29
+        |vpiDirection:1
+        |vpiName:clk
+        |vpiExpr:
+        \_logic_net: (clk), line:47:30, endln:47:33
+          |vpiTypespec:
+          \_logic_typespec: , line:47:25, endln:47:29
+          |vpiName:clk
+          |vpiNetType:1
+      |vpiInterface:
+      \_interface: work@mem_if (work@memory_ctrl1.sif2), file:top.v, line:57:0
+  |vpiInterface:
+  \_interface: work@mem_if (work@memory_ctrl1.sif2), file:top.v, line:57:0
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
