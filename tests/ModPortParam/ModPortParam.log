@@ -219,6 +219,32 @@ design: (work@Core)
         \_modport: (CSR), line:2:13, endln:2:16
       |vpiInstance:
       \_module: work@CSR_Unit (work@Core.csrUnit), file:dut.sv, line:16:2, endln:16:34
+    |vpiInterface:
+    \_interface: work@PerformanceCounterIF (work@Core.csrUnit.perfCounter), file:dut.sv, line:16:0
+      |vpiParent:
+      \_module: work@CSR_Unit (work@Core.csrUnit), file:dut.sv, line:16:2, endln:16:34
+      |vpiName:perfCounter
+      |vpiFullName:work@Core.csrUnit.perfCounter
+      |vpiDefName:work@PerformanceCounterIF
+      |vpiModport:
+      \_modport: (CSR), line:2:13, endln:2:16
+        |vpiParent:
+        \_interface: work@PerformanceCounterIF (work@Core.csrUnit.perfCounter), file:dut.sv, line:16:0
+        |vpiName:CSR
+        |vpiIODecl:
+        \_io_decl: (perfCounter), line:4:9, endln:4:20
+          |vpiDirection:1
+          |vpiName:perfCounter
+          |vpiExpr:
+          \_ref_obj: (work@Core.csrUnit.perfCounter), line:4:9, endln:4:20
+            |vpiName:perfCounter
+            |vpiFullName:work@Core.csrUnit.perfCounter
+            |vpiActual:
+            \_interface: work@PerformanceCounterIF (work@Core.csrUnit.perfCounter), file:dut.sv, line:16:0
+        |vpiInterface:
+        \_interface: work@PerformanceCounterIF (work@Core.csrUnit.perfCounter), file:dut.sv, line:16:0
+    |vpiInterface:
+    \_interface: work@PerformanceCounterIF (work@Core.csrUnit.perfCounter), file:dut.sv, line:16:0
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

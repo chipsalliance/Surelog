@@ -2404,7 +2404,7 @@ design: (work@interface_modports)
         |vpiName:miff
         |vpiFullName:work@interface_modports.miff
         |vpiActual:
-        \_interface: work@mem_if (miff), file:top.v, line:119:0
+        \_interface: work@mem_if (work@interface_modports.miff), file:top.v, line:119:0
       |vpiLowConn:
       \_ref_obj: (work@interface_modports.U_test.tif), line:122:15, endln:122:19
         |vpiFullName:work@interface_modports.U_test.tif
@@ -2940,12 +2940,328 @@ design: (work@interface_modports)
         |vpiName:miff
         |vpiFullName:work@interface_modports.miff
         |vpiActual:
-        \_interface: work@mem_if (miff), file:top.v, line:119:0
+        \_interface: work@mem_if (work@interface_modports.miff), file:top.v, line:119:0
       |vpiLowConn:
       \_ref_obj: (work@interface_modports.U_ctrl.sif), line:120:20, endln:120:24
         |vpiFullName:work@interface_modports.U_ctrl.sif
         |vpiActual:
         \_modport: (system), line:41:12, endln:41:18
+    |vpiInterface:
+    \_interface: work@mem_if (work@interface_modports.U_ctrl.sif), file:top.v, line:120:0
+      |vpiParent:
+      \_module: work@memory_ctrl (work@interface_modports.U_ctrl), file:top.v, line:120:1, endln:120:26
+      |vpiName:sif
+      |vpiFullName:work@interface_modports.U_ctrl.sif
+      |vpiDefName:work@mem_if
+      |vpiModport:
+      \_modport: (system), line:41:12, endln:41:18
+        |vpiParent:
+        \_interface: work@mem_if (work@interface_modports.U_ctrl.sif), file:top.v, line:120:0
+        |vpiName:system
+        |vpiIODecl:
+        \_io_decl: (clk), line:41:26, endln:41:29
+          |vpiDirection:1
+          |vpiName:clk
+          |vpiExpr:
+          \_logic_net: (clk), line:26:30, endln:26:33
+            |vpiTypespec:
+            \_logic_typespec: , line:26:25, endln:26:29
+            |vpiName:clk
+            |vpiNetType:1
+        |vpiIODecl:
+        \_io_decl: (reset), line:41:30, endln:41:35
+          |vpiDirection:1
+          |vpiName:reset
+          |vpiExpr:
+          \_logic_var: (reset), line:27:16, endln:27:21
+            |vpiTypespec:
+            \_logic_typespec: , line:27:3, endln:27:8
+            |vpiName:reset
+            |vpiVisibility:1
+        |vpiIODecl:
+        \_io_decl: (we_sys), line:41:36, endln:41:42
+          |vpiDirection:1
+          |vpiName:we_sys
+          |vpiExpr:
+          \_logic_var: (we_sys), line:28:16, endln:28:22
+            |vpiTypespec:
+            \_logic_typespec: , line:28:3, endln:28:8
+            |vpiName:we_sys
+            |vpiVisibility:1
+        |vpiIODecl:
+        \_io_decl: (cmd_valid_sys), line:41:44, endln:41:57
+          |vpiDirection:1
+          |vpiName:cmd_valid_sys
+          |vpiExpr:
+          \_logic_var: (cmd_valid_sys), line:29:16, endln:29:29
+            |vpiTypespec:
+            \_logic_typespec: , line:29:3, endln:29:8
+            |vpiName:cmd_valid_sys
+            |vpiVisibility:1
+        |vpiIODecl:
+        \_io_decl: (addr_sys), line:42:20, endln:42:28
+          |vpiDirection:1
+          |vpiName:addr_sys
+          |vpiExpr:
+          \_logic_var: (addr_sys), line:32:16, endln:32:24
+            |vpiTypespec:
+            \_logic_typespec: , line:32:3, endln:32:15
+              |vpiRange:
+              \_range: , line:32:10, endln:32:15
+                |vpiLeftRange:
+                \_constant: , line:32:11, endln:32:12
+                  |vpiParent:
+                  \_range: , line:32:10, endln:32:15
+                  |vpiDecompile:7
+                  |vpiSize:64
+                  |UINT:7
+                  |vpiConstType:9
+                |vpiRightRange:
+                \_constant: , line:32:13, endln:32:14
+                  |vpiParent:
+                  \_range: , line:32:10, endln:32:15
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
+            |vpiName:addr_sys
+            |vpiVisibility:1
+            |vpiRange:
+            \_range: , line:32:10, endln:32:15
+              |vpiLeftRange:
+              \_constant: , line:32:11, endln:32:12
+                |vpiParent:
+                \_range: , line:32:10, endln:32:15
+                |vpiDecompile:7
+                |vpiSize:64
+                |UINT:7
+                |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:32:13, endln:32:14
+                |vpiParent:
+                \_range: , line:32:10, endln:32:15
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+        |vpiIODecl:
+        \_io_decl: (datao_mem), line:42:30, endln:42:39
+          |vpiDirection:1
+          |vpiName:datao_mem
+          |vpiExpr:
+          \_logic_var: (datao_mem), line:35:16, endln:35:25
+            |vpiTypespec:
+            \_logic_typespec: , line:35:3, endln:35:15
+              |vpiRange:
+              \_range: , line:35:10, endln:35:15
+                |vpiLeftRange:
+                \_constant: , line:35:11, endln:35:12
+                  |vpiParent:
+                  \_range: , line:35:10, endln:35:15
+                  |vpiDecompile:7
+                  |vpiSize:64
+                  |UINT:7
+                  |vpiConstType:9
+                |vpiRightRange:
+                \_constant: , line:35:13, endln:35:14
+                  |vpiParent:
+                  \_range: , line:35:10, endln:35:15
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
+            |vpiName:datao_mem
+            |vpiVisibility:1
+            |vpiRange:
+            \_range: , line:35:10, endln:35:15
+              |vpiLeftRange:
+              \_constant: , line:35:11, endln:35:12
+                |vpiParent:
+                \_range: , line:35:10, endln:35:15
+                |vpiDecompile:7
+                |vpiSize:64
+                |UINT:7
+                |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:35:13, endln:35:14
+                |vpiParent:
+                \_range: , line:35:10, endln:35:15
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+        |vpiIODecl:
+        \_io_decl: (we_mem), line:43:27, endln:43:33
+          |vpiDirection:2
+          |vpiName:we_mem
+          |vpiExpr:
+          \_logic_var: (we_mem), line:33:16, endln:33:22
+            |vpiTypespec:
+            \_logic_typespec: , line:33:3, endln:33:8
+            |vpiName:we_mem
+            |vpiVisibility:1
+        |vpiIODecl:
+        \_io_decl: (ce_mem), line:43:35, endln:43:41
+          |vpiDirection:2
+          |vpiName:ce_mem
+          |vpiExpr:
+          \_logic_var: (ce_mem), line:34:16, endln:34:22
+            |vpiTypespec:
+            \_logic_typespec: , line:34:3, endln:34:8
+            |vpiName:ce_mem
+            |vpiVisibility:1
+        |vpiIODecl:
+        \_io_decl: (addr_mem), line:43:43, endln:43:51
+          |vpiDirection:2
+          |vpiName:addr_mem
+          |vpiExpr:
+          \_logic_var: (addr_mem), line:37:16, endln:37:24
+            |vpiTypespec:
+            \_logic_typespec: , line:37:3, endln:37:15
+              |vpiRange:
+              \_range: , line:37:10, endln:37:15
+                |vpiLeftRange:
+                \_constant: , line:37:11, endln:37:12
+                  |vpiParent:
+                  \_range: , line:37:10, endln:37:15
+                  |vpiDecompile:7
+                  |vpiSize:64
+                  |UINT:7
+                  |vpiConstType:9
+                |vpiRightRange:
+                \_constant: , line:37:13, endln:37:14
+                  |vpiParent:
+                  \_range: , line:37:10, endln:37:15
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
+            |vpiName:addr_mem
+            |vpiVisibility:1
+            |vpiRange:
+            \_range: , line:37:10, endln:37:15
+              |vpiLeftRange:
+              \_constant: , line:37:11, endln:37:12
+                |vpiParent:
+                \_range: , line:37:10, endln:37:15
+                |vpiDecompile:7
+                |vpiSize:64
+                |UINT:7
+                |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:37:13, endln:37:14
+                |vpiParent:
+                \_range: , line:37:10, endln:37:15
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+        |vpiIODecl:
+        \_io_decl: (datai_mem), line:44:20, endln:44:29
+          |vpiDirection:2
+          |vpiName:datai_mem
+          |vpiExpr:
+          \_logic_var: (datai_mem), line:36:16, endln:36:25
+            |vpiTypespec:
+            \_logic_typespec: , line:36:3, endln:36:15
+              |vpiRange:
+              \_range: , line:36:10, endln:36:15
+                |vpiLeftRange:
+                \_constant: , line:36:11, endln:36:12
+                  |vpiParent:
+                  \_range: , line:36:10, endln:36:15
+                  |vpiDecompile:7
+                  |vpiSize:64
+                  |UINT:7
+                  |vpiConstType:9
+                |vpiRightRange:
+                \_constant: , line:36:13, endln:36:14
+                  |vpiParent:
+                  \_range: , line:36:10, endln:36:15
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
+            |vpiName:datai_mem
+            |vpiVisibility:1
+            |vpiRange:
+            \_range: , line:36:10, endln:36:15
+              |vpiLeftRange:
+              \_constant: , line:36:11, endln:36:12
+                |vpiParent:
+                \_range: , line:36:10, endln:36:15
+                |vpiDecompile:7
+                |vpiSize:64
+                |UINT:7
+                |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:36:13, endln:36:14
+                |vpiParent:
+                \_range: , line:36:10, endln:36:15
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+        |vpiIODecl:
+        \_io_decl: (ready_sys), line:44:31, endln:44:40
+          |vpiDirection:2
+          |vpiName:ready_sys
+          |vpiExpr:
+          \_logic_var: (ready_sys), line:30:16, endln:30:25
+            |vpiTypespec:
+            \_logic_typespec: , line:30:3, endln:30:8
+            |vpiName:ready_sys
+            |vpiVisibility:1
+        |vpiIODecl:
+        \_io_decl: (data_sys), line:44:46, endln:44:54
+          |vpiDirection:3
+          |vpiName:data_sys
+          |vpiExpr:
+          \_logic_var: (data_sys), line:31:16, endln:31:24
+            |vpiTypespec:
+            \_logic_typespec: , line:31:3, endln:31:15
+              |vpiRange:
+              \_range: , line:31:10, endln:31:15
+                |vpiLeftRange:
+                \_constant: , line:31:11, endln:31:12
+                  |vpiParent:
+                  \_range: , line:31:10, endln:31:15
+                  |vpiDecompile:7
+                  |vpiSize:64
+                  |UINT:7
+                  |vpiConstType:9
+                |vpiRightRange:
+                \_constant: , line:31:13, endln:31:14
+                  |vpiParent:
+                  \_range: , line:31:10, endln:31:15
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
+            |vpiName:data_sys
+            |vpiVisibility:1
+            |vpiRange:
+            \_range: , line:31:10, endln:31:15
+              |vpiLeftRange:
+              \_constant: , line:31:11, endln:31:12
+                |vpiParent:
+                \_range: , line:31:10, endln:31:15
+                |vpiDecompile:7
+                |vpiSize:64
+                |UINT:7
+                |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:31:13, endln:31:14
+                |vpiParent:
+                \_range: , line:31:10, endln:31:15
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+        |vpiInterface:
+        \_interface: work@mem_if (work@interface_modports.U_ctrl.sif), file:top.v, line:120:0
+    |vpiInterface:
+    \_interface: work@mem_if (work@interface_modports.U_ctrl.sif), file:top.v, line:120:0
   |vpiModule:
   \_module: work@memory_model (work@interface_modports.U_model), file:top.v, line:121:1, endln:121:28
     |vpiParent:
@@ -3041,12 +3357,206 @@ design: (work@interface_modports)
         |vpiName:miff
         |vpiFullName:work@interface_modports.miff
         |vpiActual:
-        \_interface: work@mem_if (miff), file:top.v, line:119:0
+        \_interface: work@mem_if (work@interface_modports.miff), file:top.v, line:119:0
       |vpiLowConn:
       \_ref_obj: (work@interface_modports.U_model.mif), line:121:22, endln:121:26
         |vpiFullName:work@interface_modports.U_model.mif
         |vpiActual:
         \_modport: (memory), line:48:12, endln:48:18
+    |vpiInterface:
+    \_interface: work@mem_if (work@interface_modports.U_model.mif), file:top.v, line:121:0
+      |vpiParent:
+      \_module: work@memory_model (work@interface_modports.U_model), file:top.v, line:121:1, endln:121:28
+      |vpiName:mif
+      |vpiFullName:work@interface_modports.U_model.mif
+      |vpiDefName:work@mem_if
+      |vpiModport:
+      \_modport: (memory), line:48:12, endln:48:18
+        |vpiParent:
+        \_interface: work@mem_if (work@interface_modports.U_model.mif), file:top.v, line:121:0
+        |vpiName:memory
+        |vpiIODecl:
+        \_io_decl: (clk), line:48:26, endln:48:29
+          |vpiDirection:1
+          |vpiName:clk
+          |vpiExpr:
+          \_logic_net: (clk), line:26:30, endln:26:33
+            |vpiTypespec:
+            \_logic_typespec: , line:26:25, endln:26:29
+            |vpiName:clk
+            |vpiNetType:1
+        |vpiIODecl:
+        \_io_decl: (reset), line:48:30, endln:48:35
+          |vpiDirection:1
+          |vpiName:reset
+          |vpiExpr:
+          \_logic_var: (reset), line:27:16, endln:27:21
+            |vpiTypespec:
+            \_logic_typespec: , line:27:3, endln:27:8
+            |vpiName:reset
+            |vpiVisibility:1
+        |vpiIODecl:
+        \_io_decl: (we_mem), line:48:36, endln:48:42
+          |vpiDirection:1
+          |vpiName:we_mem
+          |vpiExpr:
+          \_logic_var: (we_mem), line:33:16, endln:33:22
+            |vpiTypespec:
+            \_logic_typespec: , line:33:3, endln:33:8
+            |vpiName:we_mem
+            |vpiVisibility:1
+        |vpiIODecl:
+        \_io_decl: (ce_mem), line:48:44, endln:48:50
+          |vpiDirection:1
+          |vpiName:ce_mem
+          |vpiExpr:
+          \_logic_var: (ce_mem), line:34:16, endln:34:22
+            |vpiTypespec:
+            \_logic_typespec: , line:34:3, endln:34:8
+            |vpiName:ce_mem
+            |vpiVisibility:1
+        |vpiIODecl:
+        \_io_decl: (addr_mem), line:49:20, endln:49:28
+          |vpiDirection:1
+          |vpiName:addr_mem
+          |vpiExpr:
+          \_logic_var: (addr_mem), line:37:16, endln:37:24
+            |vpiTypespec:
+            \_logic_typespec: , line:37:3, endln:37:15
+              |vpiRange:
+              \_range: , line:37:10, endln:37:15
+                |vpiLeftRange:
+                \_constant: , line:37:11, endln:37:12
+                  |vpiParent:
+                  \_range: , line:37:10, endln:37:15
+                  |vpiDecompile:7
+                  |vpiSize:64
+                  |UINT:7
+                  |vpiConstType:9
+                |vpiRightRange:
+                \_constant: , line:37:13, endln:37:14
+                  |vpiParent:
+                  \_range: , line:37:10, endln:37:15
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
+            |vpiName:addr_mem
+            |vpiVisibility:1
+            |vpiRange:
+            \_range: , line:37:10, endln:37:15
+              |vpiLeftRange:
+              \_constant: , line:37:11, endln:37:12
+                |vpiParent:
+                \_range: , line:37:10, endln:37:15
+                |vpiDecompile:7
+                |vpiSize:64
+                |UINT:7
+                |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:37:13, endln:37:14
+                |vpiParent:
+                \_range: , line:37:10, endln:37:15
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+        |vpiIODecl:
+        \_io_decl: (datai_mem), line:49:30, endln:49:39
+          |vpiDirection:1
+          |vpiName:datai_mem
+          |vpiExpr:
+          \_logic_var: (datai_mem), line:36:16, endln:36:25
+            |vpiTypespec:
+            \_logic_typespec: , line:36:3, endln:36:15
+              |vpiRange:
+              \_range: , line:36:10, endln:36:15
+                |vpiLeftRange:
+                \_constant: , line:36:11, endln:36:12
+                  |vpiParent:
+                  \_range: , line:36:10, endln:36:15
+                  |vpiDecompile:7
+                  |vpiSize:64
+                  |UINT:7
+                  |vpiConstType:9
+                |vpiRightRange:
+                \_constant: , line:36:13, endln:36:14
+                  |vpiParent:
+                  \_range: , line:36:10, endln:36:15
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
+            |vpiName:datai_mem
+            |vpiVisibility:1
+            |vpiRange:
+            \_range: , line:36:10, endln:36:15
+              |vpiLeftRange:
+              \_constant: , line:36:11, endln:36:12
+                |vpiParent:
+                \_range: , line:36:10, endln:36:15
+                |vpiDecompile:7
+                |vpiSize:64
+                |UINT:7
+                |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:36:13, endln:36:14
+                |vpiParent:
+                \_range: , line:36:10, endln:36:15
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+        |vpiIODecl:
+        \_io_decl: (datao_mem), line:49:48, endln:49:57
+          |vpiDirection:2
+          |vpiName:datao_mem
+          |vpiExpr:
+          \_logic_var: (datao_mem), line:35:16, endln:35:25
+            |vpiTypespec:
+            \_logic_typespec: , line:35:3, endln:35:15
+              |vpiRange:
+              \_range: , line:35:10, endln:35:15
+                |vpiLeftRange:
+                \_constant: , line:35:11, endln:35:12
+                  |vpiParent:
+                  \_range: , line:35:10, endln:35:15
+                  |vpiDecompile:7
+                  |vpiSize:64
+                  |UINT:7
+                  |vpiConstType:9
+                |vpiRightRange:
+                \_constant: , line:35:13, endln:35:14
+                  |vpiParent:
+                  \_range: , line:35:10, endln:35:15
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
+            |vpiName:datao_mem
+            |vpiVisibility:1
+            |vpiRange:
+            \_range: , line:35:10, endln:35:15
+              |vpiLeftRange:
+              \_constant: , line:35:11, endln:35:12
+                |vpiParent:
+                \_range: , line:35:10, endln:35:15
+                |vpiDecompile:7
+                |vpiSize:64
+                |UINT:7
+                |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:35:13, endln:35:14
+                |vpiParent:
+                \_range: , line:35:10, endln:35:15
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+        |vpiInterface:
+        \_interface: work@mem_if (work@interface_modports.U_model.mif), file:top.v, line:121:0
+    |vpiInterface:
+    \_interface: work@mem_if (work@interface_modports.U_model.mif), file:top.v, line:121:0
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
