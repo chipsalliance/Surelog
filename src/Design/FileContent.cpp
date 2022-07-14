@@ -659,4 +659,64 @@ const DesignElement* FileContent::getDesignElement(
   }
   return nullptr;
 }
+
+void FileContent::populateCoreMembers(NodeId startIndex, NodeId endIndex,
+                                      UHDM::any* instance) const {
+  if (!startIndex && !endIndex) return;
+  if (startIndex) {
+    if (startIndex < m_objects.size()) {
+      const VObject& object = m_objects[startIndex];
+      instance->VpiLineNo(object.m_line);
+      instance->VpiColumnNo(object.m_column);
+    } else {
+      Location loc(m_fileId);
+      Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
+      m_errors->addError(err);
+      std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
+    }
+  }
+
+  if (endIndex) {
+    if (endIndex < m_objects.size()) {
+      const VObject& object = m_objects[endIndex];
+      instance->VpiEndLineNo(object.m_endLine);
+      instance->VpiEndColumnNo(object.m_endColumn);
+    } else {
+      Location loc(m_fileId);
+      Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
+      m_errors->addError(err);
+      std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
+    }
+  }
+
+  SymbolId fileId;
+  if (startIndex && endIndex) {
+    const VObject& startObject = m_objects[startIndex];
+    const VObject& endObject = m_objects[endIndex];
+    if (startObject.m_fileId == endObject.m_fileId) {
+      fileId = startObject.m_fileId;
+    } else {
+      Location loc(m_fileId);
+      Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
+      m_errors->addError(err);
+      std::cerr << "\nFILE INDEX MISMATCH\n\n";
+    }
+  } else if (startIndex) {
+    const VObject& object = m_objects[startIndex];
+    fileId = object.m_fileId;
+  } else if (endIndex) {
+    const VObject& object = m_objects[endIndex];
+    fileId = object.m_fileId;
+  } else {
+    fileId = m_fileId;
+  }
+
+  if (!fileId) {
+    fileId = m_fileId;
+  }
+
+  if (fileId) {
+    instance->VpiFile(m_symbolTable->getSymbol(fileId));
+  }
+}
 }  // namespace SURELOG

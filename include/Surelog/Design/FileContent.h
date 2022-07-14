@@ -214,6 +214,9 @@ class FileContent : public DesignComponent {
   bool isLibraryCellFile() const { return m_isLibraryCellFile; }
   void setLibraryCellFile() { m_isLibraryCellFile = true; }
 
+  void populateCoreMembers(NodeId startIndex, NodeId endIndex,
+                           UHDM::any* instance) const;
+
  protected:
   std::vector<DesignElement*> m_elements;
   std::map<std::string, DesignElement*, StringViewCompare> m_elementMap;

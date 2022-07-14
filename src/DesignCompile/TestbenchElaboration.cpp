@@ -250,17 +250,11 @@ bool TestbenchElaboration::bindBaseClasses_() {
         UHDM::class_defn* parent = bdef->getUhdmDefinition();
         classDefinition->insertProperty(prop);
         UHDM::extends* extends = s.MakeExtends();
-        extends->VpiFile(fCDef->getFileName());
-        extends->VpiLineNo(fCDef->Line(placeHolder->getNodeId()));
-        extends->VpiColumnNo(fCDef->Column(placeHolder->getNodeId()));
-        extends->VpiEndLineNo(fCDef->EndLine(placeHolder->getNodeId()));
-        extends->VpiEndColumnNo(fCDef->EndColumn(placeHolder->getNodeId()));
+        fCDef->populateCoreMembers(placeHolder->getNodeId(),
+                                   placeHolder->getNodeId(), extends);
         UHDM::class_typespec* tps = s.MakeClass_typespec();
-        tps->VpiFile(fCDef->getFileName());
-        tps->VpiLineNo(fCDef->Line(placeHolder->getNodeId()));
-        tps->VpiColumnNo(fCDef->Column(placeHolder->getNodeId()));
-        tps->VpiEndLineNo(fCDef->EndLine(placeHolder->getNodeId()));
-        tps->VpiEndColumnNo(fCDef->EndColumn(placeHolder->getNodeId()));
+        fCDef->populateCoreMembers(placeHolder->getNodeId(),
+                                   placeHolder->getNodeId(), tps);
         extends->Class_typespec(tps);
         tps->Class_defn(parent);
         tps->VpiName(placeHolder->getName());
@@ -285,11 +279,8 @@ bool TestbenchElaboration::bindBaseClasses_() {
                            false, false, false, false, false);
           classDefinition->insertProperty(prop);
           UHDM::extends* extends = s.MakeExtends();
-          extends->VpiFile(fCDef->getFileName());
-          extends->VpiLineNo(fCDef->Line(placeHolder->getNodeId()));
-          extends->VpiColumnNo(fCDef->Column(placeHolder->getNodeId()));
-          extends->VpiEndLineNo(fCDef->EndLine(placeHolder->getNodeId()));
-          extends->VpiEndColumnNo(fCDef->EndColumn(placeHolder->getNodeId()));
+          fCDef->populateCoreMembers(placeHolder->getNodeId(),
+                                     placeHolder->getNodeId(), extends);
           UHDM::class_typespec* tps = s.MakeClass_typespec();
           tps->VpiName(class_def.second->getName());
           extends->Class_typespec(tps);
@@ -764,11 +755,7 @@ bool TestbenchElaboration::bindProperties_() {
           events->push_back((UHDM::named_event*)obj);
         }
 
-        obj->VpiLineNo(fC->Line(id));
-        obj->VpiColumnNo(fC->Column(id));
-        obj->VpiEndLineNo(fC->EndLine(id));
-        obj->VpiEndColumnNo(fC->EndColumn(id));
-        obj->VpiFile(fC->getFileName());
+        fC->populateCoreMembers(id, id, obj);
         obj->VpiParent(defn);
       } else {
         // Unsupported type

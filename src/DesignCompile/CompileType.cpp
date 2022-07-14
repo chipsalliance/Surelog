@@ -299,11 +299,7 @@ UHDM::any* CompileHelper::compileVariable(
           class_typespec* tps = s.MakeClass_typespec();
           var->Typespec(tps);
           tps->Class_defn(cl->getUhdmDefinition());
-          var->VpiFile(fC->getFileName());
-          var->VpiLineNo(fC->Line(declarationId));
-          var->VpiColumnNo(fC->Column(declarationId));
-          var->VpiEndLineNo(fC->EndLine(declarationId));
-          var->VpiEndColumnNo(fC->EndColumn(declarationId));
+          fC->populateCoreMembers(declarationId, declarationId, var);
           result = var;
         }
       }
@@ -313,11 +309,7 @@ UHDM::any* CompileHelper::compileVariable(
             if (ts->UhdmType() == uhdmclass_typespec) {
               class_var* var = s.MakeClass_var();
               var->Typespec(ts);
-              var->VpiFile(fC->getFileName());
-              var->VpiLineNo(fC->Line(declarationId));
-              var->VpiColumnNo(fC->Column(declarationId));
-              var->VpiEndLineNo(fC->EndLine(declarationId));
-              var->VpiEndColumnNo(fC->EndColumn(declarationId));
+              fC->populateCoreMembers(declarationId, declarationId, var);
               result = var;
             }
           }
@@ -344,11 +336,7 @@ UHDM::any* CompileHelper::compileVariable(
     case VObjectType::slIntVec_TypeReg: {
       logic_var* var = s.MakeLogic_var();
       var->Typespec(ts);
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(declarationId));
-      var->VpiColumnNo(fC->Column(declarationId));
-      var->VpiEndLineNo(fC->EndLine(declarationId));
-      var->VpiEndColumnNo(fC->EndColumn(declarationId));
+      fC->populateCoreMembers(declarationId, declarationId, var);
       result = var;
       break;
     }
@@ -500,11 +488,7 @@ UHDM::any* CompileHelper::compileVariable(
     }
   }
   if (result && (result->VpiLineNo() == 0)) {
-    result->VpiFile(fC->getFileName());
-    result->VpiLineNo(fC->Line(declarationId));
-    result->VpiColumnNo(fC->Column(declarationId));
-    result->VpiEndLineNo(fC->EndLine(declarationId));
-    result->VpiEndColumnNo(fC->EndColumn(declarationId));
+    fC->populateCoreMembers(declarationId, declarationId, result);
   }
   return result;
 }
@@ -737,11 +721,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
         class_typespec* ref = s.MakeClass_typespec();
         ref->Class_defn(classDefn->getUhdmDefinition());
         ref->VpiName(typeName);
-        ref->VpiFile(fC->getFileName());
-        ref->VpiLineNo(fC->Line(type));
-        ref->VpiColumnNo(fC->Column(type));
-        ref->VpiEndLineNo(fC->EndLine(type));
-        ref->VpiEndColumnNo(fC->EndColumn(type));
+        fC->populateCoreMembers(type, type, ref);
         result = ref;
 
         const FileContent* actualFC = fC;
@@ -842,11 +822,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
         if (def->getType() == slInterface_declaration) {
           interface_typespec* tps = s.MakeInterface_typespec();
           tps->VpiName(typeName);
-          tps->VpiFile(fC->getFileName());
-          tps->VpiLineNo(fC->Line(type));
-          tps->VpiColumnNo(fC->Column(type));
-          tps->VpiEndLineNo(fC->EndLine(type));
-          tps->VpiEndColumnNo(fC->EndColumn(type));
+          fC->populateCoreMembers(type, type, tps);
           result = tps;
           if (!suffixname.empty()) {
             const DataType* defType = def->getDataType(suffixname);
@@ -870,11 +846,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
             if (def->getModPort(name)) {
               interface_typespec* mptps = s.MakeInterface_typespec();
               mptps->VpiName(name);
-              mptps->VpiFile(fC->getFileName());
-              mptps->VpiLineNo(fC->Line(type));
-              mptps->VpiColumnNo(fC->Column(type));
-              mptps->VpiEndLineNo(fC->EndLine(type));
-              mptps->VpiEndColumnNo(fC->EndColumn(type));
+              fC->populateCoreMembers(type, type, mptps);
               mptps->VpiParent(tps);
               mptps->VpiIsModPort(true);
               result = mptps;
@@ -887,21 +859,13 @@ typespec* CompileHelper::compileDatastructureTypespec(
     if (result == nullptr) {
       unsupported_typespec* tps = s.MakeUnsupported_typespec();
       tps->VpiName(typeName);
-      tps->VpiFile(fC->getFileName());
-      tps->VpiLineNo(fC->Line(type));
-      tps->VpiColumnNo(fC->Column(type));
-      tps->VpiEndLineNo(fC->EndLine(type));
-      tps->VpiEndColumnNo(fC->EndColumn(type));
+      fC->populateCoreMembers(type, type, tps);
       result = tps;
     }
   } else {
     unsupported_typespec* tps = s.MakeUnsupported_typespec();
     tps->VpiName(typeName);
-    tps->VpiFile(fC->getFileName());
-    tps->VpiLineNo(fC->Line(type));
-    tps->VpiColumnNo(fC->Column(type));
-    tps->VpiEndLineNo(fC->EndLine(type));
-    tps->VpiEndColumnNo(fC->EndColumn(type));
+    fC->populateCoreMembers(type, type, tps);
     result = tps;
   }
   return result;
@@ -979,128 +943,80 @@ UHDM::typespec* CompileHelper::compileBuiltinTypespec(
     case VObjectType::slIntVec_TypeReg: {
       logic_typespec* var = s.MakeLogic_typespec();
       var->Ranges(ranges);
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      var->VpiColumnNo(fC->Column(type));
-      var->VpiEndLineNo(fC->EndLine(type));
-      var->VpiEndColumnNo(fC->EndColumn(type));
+      fC->populateCoreMembers(type, type, var);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_Int: {
       int_typespec* var = s.MakeInt_typespec();
       var->VpiSigned(isSigned);
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      var->VpiColumnNo(fC->Column(type));
-      var->VpiEndLineNo(fC->EndLine(isSigned ? type : sign));
-      var->VpiEndColumnNo(fC->EndColumn(isSigned ? type : sign));
+      fC->populateCoreMembers(type, isSigned ? type : sign, var);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_Integer: {
       integer_typespec* var = s.MakeInteger_typespec();
       var->VpiSigned(isSigned);
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      var->VpiColumnNo(fC->Column(type));
-      var->VpiEndLineNo(fC->EndLine(isSigned ? type : sign));
-      var->VpiEndColumnNo(fC->EndColumn(isSigned ? type : sign));
+      fC->populateCoreMembers(type, isSigned ? type : sign, var);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_Byte: {
       byte_typespec* var = s.MakeByte_typespec();
       var->VpiSigned(isSigned);
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      var->VpiColumnNo(fC->Column(type));
-      var->VpiEndLineNo(fC->EndLine(isSigned ? type : sign));
-      var->VpiEndColumnNo(fC->EndColumn(isSigned ? type : sign));
+      fC->populateCoreMembers(type, isSigned ? type : sign, var);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_LongInt: {
       long_int_typespec* var = s.MakeLong_int_typespec();
       var->VpiSigned(isSigned);
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      var->VpiColumnNo(fC->Column(type));
-      var->VpiEndLineNo(fC->EndLine(isSigned ? type : sign));
-      var->VpiEndColumnNo(fC->EndColumn(isSigned ? type : sign));
+      fC->populateCoreMembers(type, isSigned ? type : sign, var);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_Shortint: {
       short_int_typespec* var = s.MakeShort_int_typespec();
       var->VpiSigned(isSigned);
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      var->VpiColumnNo(fC->Column(type));
-      var->VpiEndLineNo(fC->EndLine(isSigned ? type : sign));
-      var->VpiEndColumnNo(fC->EndColumn(isSigned ? type : sign));
+      fC->populateCoreMembers(type, isSigned ? type : sign, var);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_Time: {
       time_typespec* var = s.MakeTime_typespec();
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      var->VpiColumnNo(fC->Column(type));
-      var->VpiEndLineNo(fC->EndLine(type));
-      var->VpiEndColumnNo(fC->EndColumn(type));
+      fC->populateCoreMembers(type, type, var);
       result = var;
       break;
     }
     case VObjectType::slIntVec_TypeBit: {
       bit_typespec* var = s.MakeBit_typespec();
       var->Ranges(ranges);
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      var->VpiColumnNo(fC->Column(type));
-      var->VpiEndLineNo(fC->EndLine(type));
-      var->VpiEndColumnNo(fC->EndColumn(type));
+      fC->populateCoreMembers(type, type, var);
       result = var;
       break;
     }
     case VObjectType::slNonIntType_ShortReal: {
       short_real_typespec* var = s.MakeShort_real_typespec();
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      var->VpiColumnNo(fC->Column(type));
-      var->VpiEndLineNo(fC->EndLine(type));
-      var->VpiEndColumnNo(fC->EndColumn(type));
+      fC->populateCoreMembers(type, type, var);
       result = var;
       break;
     }
     case VObjectType::slNonIntType_Real: {
       real_typespec* var = s.MakeReal_typespec();
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      var->VpiColumnNo(fC->Column(type));
-      var->VpiEndLineNo(fC->EndLine(type));
-      var->VpiEndColumnNo(fC->EndColumn(type));
+      fC->populateCoreMembers(type, type, var);
       result = var;
       break;
     }
     case VObjectType::slString_type: {
       UHDM::string_typespec* tps = s.MakeString_typespec();
-      tps->VpiFile(fC->getFileName());
-      tps->VpiLineNo(fC->Line(type));
-      tps->VpiColumnNo(fC->Column(type));
-      tps->VpiEndLineNo(fC->EndLine(type));
-      tps->VpiEndColumnNo(fC->EndColumn(type));
+      fC->populateCoreMembers(type, type, tps);
       result = tps;
       break;
     }
     default:
       logic_typespec* var = s.MakeLogic_typespec();
       var->Ranges(ranges);
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      var->VpiColumnNo(fC->Column(type));
-      var->VpiEndLineNo(fC->EndLine(type));
-      var->VpiEndColumnNo(fC->EndColumn(type));
+      fC->populateCoreMembers(type, type, var);
       result = var;
       break;
   }
@@ -1161,11 +1077,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
                                          nullptr, instance, reduce);
       if (res) {
         integer_typespec* var = s.MakeInteger_typespec();
-        var->VpiFile(fC->getFileName());
-        var->VpiLineNo(fC->Line(type));
-        var->VpiColumnNo(fC->Column(type));
-        var->VpiEndLineNo(fC->EndLine(type));
-        var->VpiEndColumnNo(fC->EndColumn(type));
+        fC->populateCoreMembers(type, type, var);
         result = var;
         if (UHDM::constant* constant = any_cast<UHDM::constant*>(res)) {
           var->VpiValue(constant->VpiValue());
@@ -1174,11 +1086,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
         }
       } else {
         unsupported_typespec* tps = s.MakeUnsupported_typespec();
-        tps->VpiFile(fC->getFileName());
-        tps->VpiLineNo(fC->Line(type));
-        tps->VpiColumnNo(fC->Column(type));
-        tps->VpiEndLineNo(fC->EndLine(type));
-        tps->VpiEndColumnNo(fC->EndColumn(type));
+        fC->populateCoreMembers(type, type, tps);
         result = tps;
       }
       break;
@@ -1198,7 +1106,6 @@ UHDM::typespec* CompileHelper::compileTypespec(
                  fC->getFileName(), baseType->VpiLineNo(), reduce, true);
       }
       enum_typespec* en = s.MakeEnum_typespec();
-      en->VpiFile(fC->getFileName());
       en->Base_typespec(baseType);
       VectorOfenum_const* econsts = s.MakeEnum_constVec();
       en->Enum_consts(econsts);
@@ -1226,11 +1133,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
         enum_const* econst = s.MakeEnum_const();
         econst->VpiName(enumName);
         econst->VpiParent(en);
-        econst->VpiFile(fC->getFileName());
-        econst->VpiLineNo(fC->Line(enum_name_declaration));
-        econst->VpiColumnNo(fC->Column(enum_name_declaration));
-        econst->VpiEndLineNo(fC->EndLine(enum_name_declaration));
-        econst->VpiEndColumnNo(fC->EndColumn(enum_name_declaration));
+        fC->populateCoreMembers(enum_name_declaration, enum_name_declaration,
+                                econst);
         econst->VpiValue(value->uhdmValue());
         if (enumValueId) {
           any* exp = compileExpression(component, fC, enumValueId,
@@ -1252,11 +1156,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       NodeId Name = fC->Child(type);
       const std::string& name = fC->SymName(Name);
       tps->VpiName(name);
-      tps->VpiFile(fC->getFileName());
-      tps->VpiLineNo(fC->Line(type));
-      tps->VpiColumnNo(fC->Column(type));
-      tps->VpiEndLineNo(fC->EndLine(type));
-      tps->VpiEndColumnNo(fC->EndColumn(type));
+      fC->populateCoreMembers(type, type, tps);
       result = tps;
       break;
     }
@@ -1273,11 +1173,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
         result = tps;
       }
 
-      result->VpiFile(fC->getFileName());
-      result->VpiLineNo(fC->Line(type));
-      result->VpiColumnNo(fC->Column(type));
-      result->VpiEndLineNo(fC->EndLine(type));
-      result->VpiEndColumnNo(fC->EndColumn(type));
+      fC->populateCoreMembers(type, type, result);
       break;
     }
     case VObjectType::slSigning_Unsigned: {
@@ -1291,11 +1187,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
         result = tps;
       }
 
-      result->VpiFile(fC->getFileName());
-      result->VpiLineNo(fC->Line(type));
-      result->VpiColumnNo(fC->Column(type));
-      result->VpiEndLineNo(fC->EndLine(type));
-      result->VpiEndColumnNo(fC->EndColumn(type));
+      fC->populateCoreMembers(type, type, result);
       break;
     }
     case VObjectType::slPacked_dimension: {
@@ -1310,11 +1202,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
         tps->Ranges(ranges);
         result = tps;
       }
-      result->VpiFile(fC->getFileName());
-      result->VpiLineNo(fC->Line(type));
-      result->VpiColumnNo(fC->Column(type));
-      result->VpiEndLineNo(fC->EndLine(type));
-      result->VpiEndColumnNo(fC->EndColumn(type));
+
+      fC->populateCoreMembers(type, type, result);
       break;
     }
     case VObjectType::slExpression: {
@@ -1337,11 +1226,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
         integer_typespec* var = s.MakeInteger_typespec();
         std::string value = "INT:" + fC->SymName(literal);
         var->VpiValue(value);
-        var->VpiFile(fC->getFileName());
-        var->VpiLineNo(fC->Line(type));
-        var->VpiColumnNo(fC->Column(type));
-        var->VpiEndLineNo(fC->EndLine(type));
-        var->VpiEndColumnNo(fC->EndColumn(type));
+        fC->populateCoreMembers(type, type, var);
         result = var;
       }
       break;
@@ -1379,8 +1264,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
         while ((next_Packed_dimension = fC->Sibling(next_Packed_dimension))) {
           last_Packed_dimension = next_Packed_dimension;
         }
-        result->VpiEndLineNo(fC->EndLine(last_Packed_dimension));
-        result->VpiEndColumnNo(fC->EndColumn(last_Packed_dimension));
+        fC->populateCoreMembers(InvalidNodeId, last_Packed_dimension, result);
       }
       break;
     }
@@ -1410,11 +1294,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
             class_typespec* ref = s.MakeClass_typespec();
             ref->Class_defn(classDefn->getUhdmDefinition());
             ref->VpiName(typeName);
-            ref->VpiFile(fC->getFileName());
-            ref->VpiLineNo(fC->Line(type));
-            ref->VpiColumnNo(fC->Column(type));
-            ref->VpiEndLineNo(fC->EndLine(type));
-            ref->VpiEndColumnNo(fC->EndColumn(type));
+            fC->populateCoreMembers(type, type, ref);
             result = ref;
             break;
           }
@@ -1465,11 +1345,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       if (result == nullptr) {
         unsupported_typespec* ref = s.MakeUnsupported_typespec();
         ref->VpiName(typeName);
-        ref->VpiFile(fC->getFileName());
-        ref->VpiLineNo(fC->Line(type));
-        ref->VpiColumnNo(fC->Column(type));
-        ref->VpiEndLineNo(fC->EndLine(type));
-        ref->VpiEndColumnNo(fC->EndColumn(type));
+        fC->populateCoreMembers(type, type, ref);
         result = ref;
       }
       break;
@@ -1496,11 +1372,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
         ts->Members(members);
         result = ts;
       }
-      result->VpiFile(fC->getFileName());
-      result->VpiLineNo(fC->Line(type));
-      result->VpiColumnNo(fC->Column(type));
-      result->VpiEndLineNo(fC->EndLine(type));
-      result->VpiEndColumnNo(fC->EndColumn(type));
+      fC->populateCoreMembers(type, type, result);
 
       if (ranges) {
         if (isPacked) {
@@ -1530,11 +1402,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
                                         result, instance, reduce);
           } else {
             void_typespec* tps = s.MakeVoid_typespec();
-            tps->VpiFile(fC->getFileName());
-            tps->VpiLineNo(fC->Line(Data_type_or_void));
-            tps->VpiColumnNo(fC->Column(Variable_decl_assignment));
-            tps->VpiEndLineNo(fC->EndLine(Data_type_or_void));
-            tps->VpiEndColumnNo(fC->EndColumn(Variable_decl_assignment));
+            fC->populateCoreMembers(Data_type_or_void, Variable_decl_assignment,
+                                    tps);
             member_ts = tps;
           }
           NodeId member_name = fC->Child(Variable_decl_assignment);
@@ -1584,28 +1453,16 @@ UHDM::typespec* CompileHelper::compileTypespec(
       if (typeName == "logic") {
         logic_typespec* var = s.MakeLogic_typespec();
         var->Ranges(ranges);
-        var->VpiFile(fC->getFileName());
-        var->VpiLineNo(fC->Line(type));
-        var->VpiColumnNo(fC->Column(type));
-        var->VpiEndLineNo(fC->EndLine(type));
-        var->VpiEndColumnNo(fC->EndColumn(type));
+        fC->populateCoreMembers(type, type, var);
         result = var;
       } else if (typeName == "bit") {
         bit_typespec* var = s.MakeBit_typespec();
         var->Ranges(ranges);
-        var->VpiFile(fC->getFileName());
-        var->VpiLineNo(fC->Line(type));
-        var->VpiColumnNo(fC->Column(type));
-        var->VpiEndLineNo(fC->EndLine(type));
-        var->VpiEndColumnNo(fC->EndColumn(type));
+        fC->populateCoreMembers(type, type, var);
         result = var;
       } else if (typeName == "byte") {
         byte_typespec* var = s.MakeByte_typespec();
-        var->VpiFile(fC->getFileName());
-        var->VpiLineNo(fC->Line(type));
-        var->VpiColumnNo(fC->Column(type));
-        var->VpiEndLineNo(fC->EndLine(type));
-        var->VpiEndColumnNo(fC->EndColumn(type));
+        fC->populateCoreMembers(type, type, var);
         result = var;
       } else if (reduce) {
         if (any* cast_to =
@@ -1615,19 +1472,11 @@ UHDM::typespec* CompileHelper::compileTypespec(
           if (c) {
             integer_typespec* var = s.MakeInteger_typespec();
             var->VpiValue(c->VpiValue());
-            var->VpiFile(fC->getFileName());
-            var->VpiLineNo(fC->Line(type));
-            var->VpiColumnNo(fC->Column(type));
-            var->VpiEndLineNo(fC->EndLine(type));
-            var->VpiEndColumnNo(fC->EndColumn(type));
+            fC->populateCoreMembers(type, type, var);
             result = var;
           } else {
             void_typespec* tps = s.MakeVoid_typespec();
-            tps->VpiFile(fC->getFileName());
-            tps->VpiLineNo(fC->Line(type));
-            tps->VpiColumnNo(fC->Column(type));
-            tps->VpiEndLineNo(fC->EndLine(type));
-            tps->VpiEndColumnNo(fC->EndColumn(type));
+            fC->populateCoreMembers(type, type, tps);
             result = tps;
           }
         }
@@ -1728,11 +1577,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
             class_typespec* tps = s.MakeClass_typespec();
             tps->VpiName(typeName);
             tps->Class_defn(cl->getUhdmDefinition());
-            tps->VpiFile(fC->getFileName());
-            tps->VpiLineNo(fC->Line(type));
-            tps->VpiColumnNo(fC->Column(type));
-            tps->VpiEndLineNo(fC->EndLine(type));
-            tps->VpiEndColumnNo(fC->EndColumn(type));
+            fC->populateCoreMembers(type, type, tps);
             result = tps;
           }
         }
@@ -1766,11 +1611,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
           }
         }
         if (result && (result->VpiLineNo() == 0)) {
-          result->VpiFile(fC->getFileName());
-          result->VpiLineNo(fC->Line(type));
-          result->VpiColumnNo(fC->Column(type));
-          result->VpiEndLineNo(fC->EndLine(type));
-          result->VpiEndColumnNo(fC->EndColumn(type));
+          fC->populateCoreMembers(type, type, result);
         }
       }
       if ((!result) && component) {
@@ -1804,32 +1645,20 @@ UHDM::typespec* CompileHelper::compileTypespec(
         } else {
           var->Expr(exp);
         }
-        var->VpiFile(fC->getFileName());
-        var->VpiLineNo(fC->Line(type));
-        var->VpiColumnNo(fC->Column(type));
-        var->VpiEndLineNo(fC->EndLine(type));
-        var->VpiEndColumnNo(fC->EndColumn(type));
+        fC->populateCoreMembers(type, type, var);
         result = var;
       }
       break;
     }
     case VObjectType::slChandle_type: {
       UHDM::chandle_typespec* tps = s.MakeChandle_typespec();
-      tps->VpiFile(fC->getFileName());
-      tps->VpiLineNo(fC->Line(type));
-      tps->VpiColumnNo(fC->Column(type));
-      tps->VpiEndLineNo(fC->EndLine(type));
-      tps->VpiEndColumnNo(fC->EndColumn(type));
+      fC->populateCoreMembers(type, type, tps);
       result = tps;
       break;
     }
     case VObjectType::slConstant_range: {
       UHDM::logic_typespec* tps = s.MakeLogic_typespec();
-      tps->VpiFile(fC->getFileName());
-      tps->VpiLineNo(fC->Line(type));
-      tps->VpiColumnNo(fC->Column(type));
-      tps->VpiEndLineNo(fC->EndLine(type));
-      tps->VpiEndColumnNo(fC->EndColumn(type));
+      fC->populateCoreMembers(type, type, tps);
       VectorOfrange* ranges =
           compileRanges(component, fC, type, compileDesign, pstmt, instance,
                         reduce, size, false);
@@ -1839,21 +1668,13 @@ UHDM::typespec* CompileHelper::compileTypespec(
     }
     case VObjectType::slEvent_type: {
       UHDM::event_typespec* tps = s.MakeEvent_typespec();
-      tps->VpiFile(fC->getFileName());
-      tps->VpiLineNo(fC->Line(type));
-      tps->VpiColumnNo(fC->Column(type));
-      tps->VpiEndLineNo(fC->EndLine(type));
-      tps->VpiEndColumnNo(fC->EndColumn(type));
+      fC->populateCoreMembers(type, type, tps);
       result = tps;
       break;
     }
     case VObjectType::slNonIntType_RealTime: {
       UHDM::time_typespec* tps = s.MakeTime_typespec();
-      tps->VpiFile(fC->getFileName());
-      tps->VpiLineNo(fC->Line(type));
-      tps->VpiColumnNo(fC->Column(type));
-      tps->VpiEndLineNo(fC->EndLine(type));
-      tps->VpiEndColumnNo(fC->EndColumn(type));
+      fC->populateCoreMembers(type, type, tps);
       result = tps;
       break;
     }
@@ -1889,11 +1710,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
               time_typespec* tps = s.MakeTime_typespec();
               result = tps;
             }
-            result->VpiFile(fC->getFileName());
-            result->VpiLineNo(fC->Line(type));
-            result->VpiColumnNo(fC->Column(type));
-            result->VpiEndLineNo(fC->EndLine(type));
-            result->VpiEndColumnNo(fC->EndColumn(type));
+            fC->populateCoreMembers(type, type, result);
           }
         } else {
           ErrorContainer* errors =

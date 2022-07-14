@@ -715,12 +715,8 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       if (typespecs) typespecs->push_back(enum_t);
     }
 
-    enum_t->VpiFile(the_enum->getFileContent()->getFileName());
-    enum_t->VpiLineNo(the_enum->getFileContent()->Line(type_declaration));
-    enum_t->VpiColumnNo(the_enum->getFileContent()->Column(type_declaration));
-    enum_t->VpiEndLineNo(the_enum->getFileContent()->EndLine(type_declaration));
-    enum_t->VpiEndColumnNo(
-        the_enum->getFileContent()->EndColumn(type_declaration));
+    the_enum->getFileContent()->populateCoreMembers(type_declaration,
+                                                    type_declaration, enum_t);
 
     // Enum basetype
     enum_t->Base_typespec(the_enum->getBaseTypespec());
@@ -765,11 +761,8 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
 
       enum_const* econst = s.MakeEnum_const();
       econst->VpiName(enumName);
-      econst->VpiFile(fC->getFileName());
-      econst->VpiLineNo(fC->Line(enum_name_declaration));
-      econst->VpiColumnNo(fC->Column(enum_name_declaration));
-      econst->VpiEndLineNo(fC->EndLine(enum_name_declaration));
-      econst->VpiEndColumnNo(fC->EndColumn(enum_name_declaration));
+      fC->populateCoreMembers(enum_name_declaration, enum_name_declaration,
+                              econst);
       econst->VpiValue(value->uhdmValue());
       if (enumValueId) {
         any* exp = compileExpression(scope, fC, enumValueId, compileDesign,
@@ -1941,11 +1934,8 @@ void CompileHelper::compileImportDeclaration(DesignComponent* component,
   Serializer& s = compileDesign->getSerializer();
   while (package_import_item_id) {
     import_typespec* import_stmt = s.MakeImport_typespec();
-    import_stmt->VpiFile(fC->getFileName());
-    import_stmt->VpiLineNo(fC->Line(package_import_item_id));
-    import_stmt->VpiColumnNo(fC->Column(package_import_item_id));
-    import_stmt->VpiEndLineNo(fC->EndLine(package_import_item_id));
-    import_stmt->VpiEndColumnNo(fC->EndColumn(package_import_item_id));
+    fC->populateCoreMembers(package_import_item_id, package_import_item_id,
+                            import_stmt);
     import_stmt->VpiName(fC->SymName(package_import_item_id));
     NodeId package_name_id = fC->Child(package_import_item_id);
 
@@ -2211,11 +2201,8 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
       cassign->Rhs((UHDM::expr*)rhs_exp);
       setParentNoOverride(lhs_exp, cassign);
       setParentNoOverride(rhs_exp, cassign);
-      cassign->VpiFile(fC->getFileName());
-      cassign->VpiLineNo(fC->Line(List_of_net_assignments));
-      cassign->VpiColumnNo(fC->Column(List_of_net_assignments));
-      cassign->VpiEndLineNo(fC->EndLine(List_of_net_assignments));
-      cassign->VpiEndColumnNo(fC->EndColumn(List_of_net_assignments));
+      fC->populateCoreMembers(List_of_net_assignments, List_of_net_assignments,
+                              cassign);
       if (component->getContAssigns() == nullptr) {
         component->setContAssigns(s.MakeCont_assignVec());
       }
@@ -2280,11 +2267,7 @@ bool CompileHelper::compileInitialBlock(DesignComponent* component,
     processes = component->getProcesses();
   }
   processes->push_back(init);
-  init->VpiFile(fC->getFileName());
-  init->VpiLineNo(fC->Line(initial_construct));
-  init->VpiColumnNo(fC->Column(initial_construct));
-  init->VpiEndLineNo(fC->EndLine(initial_construct));
-  init->VpiEndColumnNo(fC->EndColumn(initial_construct));
+  fC->populateCoreMembers(initial_construct, initial_construct, init);
   NodeId Statement_or_null = fC->Child(initial_construct);
   VectorOfany* stmts =
       compileStmt(component, fC, Statement_or_null, compileDesign, init);
@@ -2334,11 +2317,7 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(
   std::string value = fC->SymName(IntConst);
   UHDM::delay_control* dc = s.MakeDelay_control();
   dc->VpiDelay(value);
-  dc->VpiFile(fC->getFileName());
-  dc->VpiLineNo(fC->Line(fC->Child(Delay_control)));
-  dc->VpiColumnNo(fC->Column(fC->Child(Delay_control)));
-  dc->VpiEndLineNo(fC->EndLine(fC->Child(Delay_control)));
-  dc->VpiEndColumnNo(fC->EndColumn(fC->Child(Delay_control)));
+  fC->populateCoreMembers(Delay_control, Delay_control, dc);
   NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
   if (Statement_or_null) {
     VectorOfany* st = compileStmt(component, fC, Statement_or_null,
@@ -2368,11 +2347,7 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(
           }
         }
         if (call) {
-          call->VpiFile(fC->getFileName());
-          call->VpiLineNo(fC->Line(fC->Child(unit)));
-          call->VpiColumnNo(fC->Column(fC->Child(unit)));
-          call->VpiEndLineNo(fC->EndLine(fC->Child(unit)));
-          call->VpiEndColumnNo(fC->EndColumn(fC->Child(unit)));
+          fC->populateCoreMembers(fC->Child(unit), fC->Child(unit), call);
           dc->Stmt(call);
           call->VpiParent(dc);
         }
@@ -2397,11 +2372,8 @@ UHDM::atomic_stmt* CompileHelper::compileDelayControl(
   std::string value = fC->SymName(IntConst);
   UHDM::delay_control* dc = s.MakeDelay_control();
   dc->VpiDelay(value);
-  dc->VpiFile(fC->getFileName());
-  dc->VpiLineNo(fC->Line(fC->Child(Delay_control)));
-  dc->VpiColumnNo(fC->Column(fC->Child(Delay_control)));
-  dc->VpiEndLineNo(fC->EndLine(fC->Child(Delay_control)));
-  dc->VpiEndColumnNo(fC->EndColumn(fC->Child(Delay_control)));
+  fC->populateCoreMembers(fC->Child(Delay_control), fC->Child(Delay_control),
+                          dc);
   return dc;
 }
 
@@ -2452,11 +2424,7 @@ bool CompileHelper::compileAlwaysBlock(DesignComponent* component,
     stmt->VpiParent(always);
   }
 
-  always->VpiFile(fC->getFileName());
-  always->VpiLineNo(fC->Line(id));
-  always->VpiColumnNo(fC->Column(id));
-  always->VpiEndLineNo(fC->EndLine(id));
-  always->VpiEndColumnNo(fC->EndColumn(id));
+  fC->populateCoreMembers(id, id, always);
   compileDesign->unlockSerializer();
   return true;
 }
@@ -2561,11 +2529,7 @@ bool CompileHelper::compileParameterDeclaration(
       }
       UHDM::type_parameter* p = s.MakeType_parameter();
       p->VpiName(fC->SymName(typeNameId));
-      p->VpiFile(fC->getFileName());
-      p->VpiLineNo(fC->Line(typeNameId));
-      p->VpiColumnNo(fC->Column(typeNameId));
-      p->VpiEndLineNo(fC->Line(typeNameId));
-      p->VpiEndColumnNo(fC->Column(typeNameId));
+      fC->populateCoreMembers(typeNameId, typeNameId, p);
       typespec* tps = compileTypespec(component, fC, ntype, compileDesign, p,
                                       nullptr, false);
       p->Typespec(tps);
@@ -2592,11 +2556,7 @@ bool CompileHelper::compileParameterDeclaration(
       NodeId Constant_param_expression = fC->Sibling(Identifier);
       UHDM::type_parameter* p = s.MakeType_parameter();
       p->VpiName(fC->SymName(Identifier));
-      p->VpiFile(fC->getFileName());
-      p->VpiLineNo(fC->Line(Identifier));
-      p->VpiColumnNo(fC->Column(Identifier));
-      p->VpiEndLineNo(fC->EndLine(Identifier));
-      p->VpiEndColumnNo(fC->EndColumn(Identifier));
+      fC->populateCoreMembers(Identifier, Identifier, p);
       NodeId Data_type = fC->Child(Constant_param_expression);
       typespec* tps = compileTypespec(component, fC, Data_type, compileDesign,
                                       p, nullptr, false);
@@ -2752,11 +2712,7 @@ bool CompileHelper::compileParameterDeclaration(
         ts->VpiParent(param);
       }
       param->VpiSigned(isSigned);
-      param->VpiFile(fC->getFileName());
-      param->VpiLineNo(fC->Line(name));
-      param->VpiColumnNo(fC->Column(name));
-      param->VpiEndLineNo(fC->EndLine(name));
-      param->VpiEndColumnNo(fC->EndColumn(name));
+      fC->populateCoreMembers(name, name, param);
       param->VpiName(fC->SymName(name));
 
       if (localParam) {
@@ -2769,11 +2725,7 @@ bool CompileHelper::compileParameterDeclaration(
       UHDM::param_assign* param_assign = s.MakeParam_assign();
       assign->setUhdmParamAssign(param_assign);
       component->addParamAssign(assign);
-      param_assign->VpiFile(fC->getFileName());
-      param_assign->VpiLineNo(fC->Line(Param_assignment));
-      param_assign->VpiColumnNo(fC->Column(Param_assignment));
-      param_assign->VpiEndLineNo(fC->EndLine(Param_assignment));
-      param_assign->VpiEndColumnNo(fC->EndColumn(Param_assignment));
+      fC->populateCoreMembers(Param_assignment, Param_assignment, param_assign);
       param_assigns->push_back(param_assign);
       param_assign->Lhs(param);
 
@@ -2785,11 +2737,8 @@ bool CompileHelper::compileParameterDeclaration(
           expr* rhs = (expr*)compileExpression(
               component, fC, value, compileDesign, nullptr, instance, false);
           UHDM::param_assign* param_assign = s.MakeParam_assign();
-          param_assign->VpiFile(fC->getFileName());
-          param_assign->VpiLineNo(fC->Line(Param_assignment));
-          param_assign->VpiColumnNo(fC->Column(Param_assignment));
-          param_assign->VpiEndLineNo(fC->EndLine(Param_assignment));
-          param_assign->VpiEndColumnNo(fC->EndColumn(Param_assignment));
+          fC->populateCoreMembers(Param_assignment, Param_assignment,
+                                  param_assign);
           ElaboratorListener listener(&s, false, true);
           any* pclone = UHDM::clone_tree(param, s, &listener);
           param_assign->Lhs(pclone);
@@ -3046,19 +2995,11 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
       tfNameNode = fC->Sibling(Constant_bit_select);
       method_func_call* fcall = s.MakeMethod_func_call();
       const std::string& mname = fC->SymName(tfNameNode);
-      fcall->VpiFile(fC->getFileName());
-      fcall->VpiLineNo(fC->Line(tfNameNode));
-      fcall->VpiColumnNo(fC->Column(tfNameNode));
-      fcall->VpiEndLineNo(fC->EndLine(tfNameNode));
-      fcall->VpiEndColumnNo(fC->EndColumn(tfNameNode));
+      fC->populateCoreMembers(tfNameNode, tfNameNode, fcall);
       fcall->VpiName(mname);
       ref_obj* prefix = s.MakeRef_obj();
       prefix->VpiName(name);
-      prefix->VpiFile(fC->getFileName());
-      prefix->VpiLineNo(fC->Line(dollar_or_string));
-      prefix->VpiColumnNo(fC->Column(dollar_or_string));
-      prefix->VpiEndLineNo(fC->EndLine(dollar_or_string));
-      prefix->VpiEndColumnNo(fC->EndColumn(dollar_or_string));
+      fC->populateCoreMembers(dollar_or_string, dollar_or_string, prefix);
       fcall->Prefix(prefix);
       call = fcall;
     }
@@ -3141,11 +3082,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
   }
   if (call->VpiName().empty()) call->VpiName(name);
   if (call->VpiLineNo() == 0) {
-    call->VpiFile(fC->getFileName());
-    call->VpiLineNo(fC->Line(Tf_call_stmt));
-    call->VpiColumnNo(fC->Column(Tf_call_stmt));
-    call->VpiEndLineNo(fC->EndLine(Tf_call_stmt));
-    call->VpiEndColumnNo(fC->EndColumn(Tf_call_stmt));
+    fC->populateCoreMembers(Tf_call_stmt, Tf_call_stmt, call);
   }
   NodeId argListNode = fC->Sibling(tfNameNode);
   if (fC->Type(argListNode) == slAttribute_instance) {
@@ -3231,11 +3168,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(
         c->VpiDecompile("0");
         c->VpiSize(64);
         c->VpiConstType(vpiIntConst);
-        c->VpiFile(fC->getFileName());
-        c->VpiLineNo(fC->Line(argumentNode));
-        c->VpiColumnNo(fC->Column(argumentNode));
-        c->VpiEndLineNo(fC->EndLine(argumentNode));
-        c->VpiEndColumnNo(fC->EndColumn(argumentNode));
+        fC->populateCoreMembers(argumentNode, argumentNode, c);
         arguments->push_back(c);
       }
     }
@@ -3305,11 +3238,8 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
     AssignOp_Assign = InvalidNodeId;
     if (fC->Type(Delay_or_event_control) == slDynamic_array_new) {
       method_func_call* fcall = s.MakeMethod_func_call();
-      fcall->VpiFile(fC->getFileName());
-      fcall->VpiLineNo(fC->Line(Delay_or_event_control));
-      fcall->VpiColumnNo(fC->Column(Delay_or_event_control));
-      fcall->VpiEndLineNo(fC->EndLine(Delay_or_event_control));
-      fcall->VpiEndColumnNo(fC->EndColumn(Delay_or_event_control));
+      fC->populateCoreMembers(Delay_or_event_control, Delay_or_event_control,
+                              fcall);
       fcall->VpiName("new");
       NodeId List_of_arguments = fC->Child(Delay_or_event_control);
       if (List_of_arguments) {
@@ -3364,11 +3294,8 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
                                                compileDesign, pstmt, instance));
     method_func_call* fcall = s.MakeMethod_func_call();
     fcall->VpiName("new");
-    fcall->VpiFile(fC->getFileName());
-    fcall->VpiLineNo(fC->Line(Hierarchical_identifier));
-    fcall->VpiColumnNo(fC->Column(Hierarchical_identifier));
-    fcall->VpiEndLineNo(fC->EndLine(Hierarchical_identifier));
-    fcall->VpiEndColumnNo(fC->EndColumn(Hierarchical_identifier));
+    fC->populateCoreMembers(Hierarchical_identifier, Hierarchical_identifier,
+                            fcall);
     if (List_of_arguments) {
       VectorOfany* arguments =
           compileTfCallArguments(component, fC, List_of_arguments,
@@ -3390,11 +3317,8 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
     NodeId IntConst = fC->Child(Delay_control);
     const std::string& value = fC->SymName(IntConst);
     delay_control->VpiDelay(value);
-    delay_control->VpiFile(fC->getFileName());
-    delay_control->VpiLineNo(fC->Line(fC->Child(Delay_control)));
-    delay_control->VpiColumnNo(fC->Column(fC->Child(Delay_control)));
-    delay_control->VpiEndLineNo(fC->EndLine(fC->Child(Delay_control)));
-    delay_control->VpiEndColumnNo(fC->EndColumn(fC->Child(Delay_control)));
+    fC->populateCoreMembers(fC->Child(Delay_control), fC->Child(Delay_control),
+                            delay_control);
   }
   if (AssignOp_Assign)
     assign->VpiOpType(UhdmWriter::getVpiOpType(fC->Type(AssignOp_Assign)));
@@ -3447,11 +3371,7 @@ std::vector<UHDM::attribute*>* CompileHelper::compileAttributes(
       NodeId Constant_expression = fC->Sibling(Attr_name);
       const std::string& name = fC->SymName(fC->Child(Attr_name));
       attribute->VpiName(name);
-      attribute->VpiFile(fC->getFileName());
-      attribute->VpiLineNo(fC->Line(Attr_spec));
-      attribute->VpiColumnNo(fC->Column(Attr_spec));
-      attribute->VpiEndLineNo(fC->EndLine(Attr_spec));
-      attribute->VpiEndColumnNo(fC->EndColumn(Attr_spec));
+      fC->populateCoreMembers(Attr_spec, Attr_spec, attribute);
       results->push_back(attribute);
       if (Constant_expression) {
         UHDM::expr* expr = (UHDM::expr*)compileExpression(
@@ -3489,11 +3409,7 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(
   else
     name = "unnamed_clocking_block";
   cblock->VpiName(name);
-  cblock->VpiFile(fC->getFileName());
-  cblock->VpiLineNo(fC->Line(nodeId));
-  cblock->VpiColumnNo(fC->Column(nodeId));
-  cblock->VpiEndLineNo(fC->EndLine(nodeId));
-  cblock->VpiEndColumnNo(fC->EndColumn(nodeId));
+  fC->populateCoreMembers(nodeId, nodeId, cblock);
   event_control* ctrl = compileClocking_event(component, fC, clocking_event,
                                               compileDesign, cblock, instance);
   cblock->Clocking_event(ctrl);
@@ -3691,11 +3607,8 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(
           UHDM::clocking_io_decl* io = s.MakeClocking_io_decl();
           io->VpiInputEdge(inputEdge);
           io->VpiOutputEdge(outputEdge);
-          io->VpiFile(fC->getFileName());
-          io->VpiLineNo(fC->Line(Clocking_decl_assign));
-          io->VpiColumnNo(fC->Column(Clocking_decl_assign));
-          io->VpiEndLineNo(fC->EndLine(Clocking_decl_assign));
-          io->VpiEndColumnNo(fC->EndColumn(Clocking_decl_assign));
+          fC->populateCoreMembers(Clocking_decl_assign, Clocking_decl_assign,
+                                  io);
           if (Expr) {
             UHDM::expr* exp = (expr*)compileExpression(
                 component, fC, Expr, compileDesign, ctrl, instance);
@@ -3733,11 +3646,7 @@ UHDM::event_control* CompileHelper::compileClocking_event(
     ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   event_control* ctrl = s.MakeEvent_control();
-  ctrl->VpiFile(fC->getFileName());
-  ctrl->VpiLineNo(fC->Line(nodeId));
-  ctrl->VpiColumnNo(fC->Column(nodeId));
-  ctrl->VpiEndLineNo(fC->EndLine(nodeId));
-  ctrl->VpiEndColumnNo(fC->EndColumn(nodeId));
+  fC->populateCoreMembers(nodeId, nodeId, ctrl);
   NodeId identifier = fC->Child(nodeId);
   UHDM::any* exp = compileExpression(component, fC, identifier, compileDesign,
                                      pexpr, instance);
@@ -3938,11 +3847,7 @@ void CompileHelper::compileLetDeclaration(DesignComponent* component,
   component->lateBinding(true);
   let_decl* decl = s.MakeLet_decl();
   decl->VpiName(name);
-  decl->VpiFile(fC->getFileName());
-  decl->VpiLineNo(fC->Line(Let_declaration));
-  decl->VpiColumnNo(fC->Column(Let_declaration));
-  decl->VpiEndLineNo(fC->EndLine(Let_declaration));
-  decl->VpiEndColumnNo(fC->EndColumn(Let_declaration));
+  fC->populateCoreMembers(Let_declaration, Let_declaration, decl);
   VectorOfexpr* exprs = s.MakeExprVec();
   exprs->push_back(exp);
   decl->Expressions(exprs);
