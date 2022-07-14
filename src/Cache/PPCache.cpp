@@ -96,8 +96,9 @@ static bool compareVectors(std::vector<T> a, std::vector<T> b) {
   return (a == b);
 }
 
-bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
-  auto buffer = openFlatBuffers(cacheFileName);
+bool PPCache::restore_(const fs::path& cacheFileName,
+                       const std::unique_ptr<uint8_t[]>& buffer,
+                       bool errorsOnly) {
   if (buffer == nullptr) return false;
 
   const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(buffer.get());
@@ -171,8 +172,7 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
   }
 
   // Includes
-  auto includes = ppcache->includes();
-  if (includes) {
+  if (auto includes = ppcache->includes()) {
     for (const auto* include : *includes) {
       restore_(getCacheFileName_(include->str()), errorsOnly);
     }
@@ -205,16 +205,18 @@ bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
   return true;
 }
 
-bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName) {
-  CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
-  if (clp->parseOnly()) {
-    return true;
-  }
-  if (clp->lowMem()) {
-    return true;
-  }
-  auto buffer = openFlatBuffers(cacheFileName);
+bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
+  return restore_(cacheFileName, openFlatBuffers(cacheFileName), errorsOnly);
+}
+
+bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName,
+                                 const std::unique_ptr<uint8_t[]>& buffer) {
   if (buffer == nullptr) return false;
+
+  CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
+  if (clp->parseOnly() || clp->lowMem()) {
+    return true;
+  }
 
   if (!MACROCACHE::PPCacheBufferHasIdentifier(buffer.get())) {
     return false;
@@ -272,16 +274,25 @@ bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName) {
     }
 
     /* All includes*/
-    auto includes = ppcache->includes();
-    if (includes)
+    if (auto includes = ppcache->includes()) {
       for (const auto* include : *includes) {
         if (!checkCacheIsValid_(getCacheFileName_(include->str()))) {
           return false;
         }
       }
+    }
   }
 
   return true;
+}
+
+bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName) {
+  CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
+  if (clp->parseOnly() || clp->lowMem()) {
+    return true;
+  }
+
+  return checkCacheIsValid_(cacheFileName, openFlatBuffers(cacheFileName));
 }
 
 bool PPCache::restore(bool errorsOnly) {
@@ -289,11 +300,13 @@ bool PPCache::restore(bool errorsOnly) {
       m_pp->getCompileSourceFile()->getCommandLineParser()->cacheAllowed();
   if (!cacheAllowed) return false;
   if (m_pp->isMacroBody()) return false;
+
   fs::path cacheFileName = getCacheFileName_();
-  if (!checkCacheIsValid_(cacheFileName)) {
-    return false;
-  }
-  return restore_(cacheFileName, errorsOnly);
+  auto buffer = openFlatBuffers(cacheFileName);
+  if (buffer == nullptr) return false;
+
+  return checkCacheIsValid_(cacheFileName, buffer) &&
+         restore_(cacheFileName, buffer, errorsOnly);
 }
 
 bool PPCache::save() {
