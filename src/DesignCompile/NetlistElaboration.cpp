@@ -1248,9 +1248,9 @@ interface* NetlistElaboration::elab_interface_(
       unsigned int direction = UhdmWriter::getVpiDirection(sig.getDirection());
       io->VpiDirection(direction);
       fC->populateCoreMembers(nodeId, nodeId, io);
-      any* net = bind_net_(instance, sigName);
+      any* net = bind_net_(interf_instance, sigName);
       if (net == nullptr) {
-        net = bind_net_(interf_instance, sigName);
+        net = bind_net_(instance, sigName);
       }
       if (net && (net->UhdmType() == uhdminterface)) {
         ref_obj* n = s.MakeRef_obj();

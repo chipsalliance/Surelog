@@ -1,0 +1,84 @@
+start-time: 2022-07-14 22:01:58.319168
+
+Environment:
+               test-name: YosysDsp
+            test-dirpath: /home/alain/Surelog/third_party/tests/YosysDsp
+           test-filepath: /home/alain/Surelog/third_party/tests/YosysDsp/YosysDsp.sl
+       workspace-dirpath: /home/alain/Surelog
+        surelog-filepath: /home/alain/Surelog/tests/NameCollisionBind/bin/surelog
+      uhdm_dump-filepath: /home/alain/Surelog/tests/NameCollisionBind/third_party/UHDM/bin/uhdm-dump
+          uvm-reldirpath: ../../UVM
+          output-dirpath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysDsp
+     golden-log-filepath: /home/alain/Surelog/third_party/tests/YosysDsp/YosysDsp.log
+    surelog-log-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysDsp/YosysDsp.log
+  uhdm-slpp_all-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysDsp/slpp_all/surelog.uhdm
+ uhdm-slpp_unit-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysDsp/slpp_unit/surelog.uhdm
+  uhdm-dump-log-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysDsp/uhdm.dump
+roundtrip-output-dirpath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysDsp/roundtrip
+  roundtrip_log_filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysDsp/roundtrip/roundtrip.log
+                    tool: None
+
+
+Snapshot ...
+Found 25 files & directories
+
+
+Running Surelog ...
+start-time: 2022-07-14 22:01:58.319821
+Loaded command line: +incdir+.+../../../UVM/uvm-1.2/src/ -sverilog -writepp -parse  -mt max  -nopython -fileunit *.v
+Processed command line: +incdir+.+../../UVM/uvm-1.2/src/ -sverilog -writepp -parse -nopython -fileunit boxcar.v delayw.v dspswitch.v fastfir.v fastfir_dynamictaps.v fastfir_fixedtaps.v firtap.v genericfir.v iiravg.v lfsr.v lfsr_fib.v lfsr_gal.v shalfband.v slowfil.v slowfil_fixedtaps.v slowfil_srl.v slowfil_srl_fixedtaps.v slowsymf.v smplfir.v -mt 0 -mp 0 -o ../../../tests/NameCollisionBind/regression/YosysDsp
+Launching surelog with arguments:
+['/home/alain/Surelog/tests/NameCollisionBind/bin/surelog',
+ '+incdir+.+../../UVM/uvm-1.2/src/',
+ '-sverilog',
+ '-writepp',
+ '-parse',
+ '-nopython',
+ '-fileunit',
+ 'boxcar.v',
+ 'delayw.v',
+ 'dspswitch.v',
+ 'fastfir.v',
+ 'fastfir_dynamictaps.v',
+ 'fastfir_fixedtaps.v',
+ 'firtap.v',
+ 'genericfir.v',
+ 'iiravg.v',
+ 'lfsr.v',
+ 'lfsr_fib.v',
+ 'lfsr_gal.v',
+ 'shalfband.v',
+ 'slowfil.v',
+ 'slowfil_fixedtaps.v',
+ 'slowfil_srl.v',
+ 'slowfil_srl_fixedtaps.v',
+ 'slowsymf.v',
+ 'smplfir.v',
+ '-mt',
+ '0',
+ '-mp',
+ '0',
+ '-o',
+ '../../../tests/NameCollisionBind/regression/YosysDsp']
+
+
+Surelog threw an exception
+Traceback (most recent call last):
+  File "/home/alain/Surelog/scripts/regression.py", line 347, in _run_surelog
+    process = subprocess.Popen(
+  File "/usr/lib/python3.9/subprocess.py", line 951, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.9/subprocess.py", line 1821, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/alain/Surelog/tests/NameCollisionBind/bin/surelog'
+end-time: 2022-07-14 22:01:58.322081 0:00:00.002260
+
+
+Normalizing surelog log file /home/alain/Surelog/tests/NameCollisionBind/regression/YosysDsp/YosysDsp.log
+
+
+Restoring pristine state ...
+Found 25 files & directories
+
+
+end-time: 2022-07-14 22:01:58.326215 0:00:00.007047

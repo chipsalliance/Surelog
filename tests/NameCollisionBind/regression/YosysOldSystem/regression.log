@@ -1,0 +1,72 @@
+start-time: 2022-07-14 22:01:58.321617
+
+Environment:
+               test-name: YosysOldSystem
+            test-dirpath: /home/alain/Surelog/third_party/tests/YosysOldTests/systemcaes
+           test-filepath: /home/alain/Surelog/third_party/tests/YosysOldTests/systemcaes/YosysOldSystem.sl
+       workspace-dirpath: /home/alain/Surelog
+        surelog-filepath: /home/alain/Surelog/tests/NameCollisionBind/bin/surelog
+      uhdm_dump-filepath: /home/alain/Surelog/tests/NameCollisionBind/third_party/UHDM/bin/uhdm-dump
+          uvm-reldirpath: ../../../UVM
+          output-dirpath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysOldSystem
+     golden-log-filepath: /home/alain/Surelog/third_party/tests/YosysOldTests/systemcaes/YosysOldSystem.log
+    surelog-log-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysOldSystem/YosysOldSystem.log
+  uhdm-slpp_all-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysOldSystem/slpp_all/surelog.uhdm
+ uhdm-slpp_unit-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysOldSystem/slpp_unit/surelog.uhdm
+  uhdm-dump-log-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysOldSystem/uhdm.dump
+roundtrip-output-dirpath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysOldSystem/roundtrip
+  roundtrip_log_filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysOldSystem/roundtrip/roundtrip.log
+                    tool: None
+
+
+Snapshot ...
+Found 19 files & directories
+
+
+Running Surelog ...
+start-time: 2022-07-14 22:01:58.322172
+Loaded command line: -parse rtl/timescale.v rtl/aes.v rtl/keysched.v rtl/sbox.v rtl/byte_mixcolum.v rtl/mixcolum.v rtl/subbytes.v rtl/word_mixcolum.v +incdir+./rtl+. -nocache -d inst
+Processed command line: -parse rtl/timescale.v rtl/aes.v rtl/keysched.v rtl/sbox.v rtl/byte_mixcolum.v rtl/mixcolum.v rtl/subbytes.v rtl/word_mixcolum.v +incdir+./rtl+. -nocache -d inst -mt 0 -mp 0 -o ../../../../tests/NameCollisionBind/regression/YosysOldSystem
+Launching surelog with arguments:
+['/home/alain/Surelog/tests/NameCollisionBind/bin/surelog',
+ '-parse',
+ 'rtl/timescale.v',
+ 'rtl/aes.v',
+ 'rtl/keysched.v',
+ 'rtl/sbox.v',
+ 'rtl/byte_mixcolum.v',
+ 'rtl/mixcolum.v',
+ 'rtl/subbytes.v',
+ 'rtl/word_mixcolum.v',
+ '+incdir+./rtl+.',
+ '-nocache',
+ '-d',
+ 'inst',
+ '-mt',
+ '0',
+ '-mp',
+ '0',
+ '-o',
+ '../../../../tests/NameCollisionBind/regression/YosysOldSystem']
+
+
+Surelog threw an exception
+Traceback (most recent call last):
+  File "/home/alain/Surelog/scripts/regression.py", line 347, in _run_surelog
+    process = subprocess.Popen(
+  File "/usr/lib/python3.9/subprocess.py", line 951, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.9/subprocess.py", line 1821, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/alain/Surelog/tests/NameCollisionBind/bin/surelog'
+end-time: 2022-07-14 22:01:58.323457 0:00:00.001285
+
+
+Normalizing surelog log file /home/alain/Surelog/tests/NameCollisionBind/regression/YosysOldSystem/YosysOldSystem.log
+
+
+Restoring pristine state ...
+Found 19 files & directories
+
+
+end-time: 2022-07-14 22:01:58.324022 0:00:00.002405

@@ -1,0 +1,74 @@
+start-time: 2022-07-14 22:01:58.169748
+
+Environment:
+               test-name: GenerateAssigns
+            test-dirpath: /home/alain/Surelog/tests/GenerateAssigns
+           test-filepath: /home/alain/Surelog/tests/GenerateAssigns/GenerateAssigns.sl
+       workspace-dirpath: /home/alain/Surelog
+        surelog-filepath: /home/alain/Surelog/tests/NameCollisionBind/bin/surelog
+      uhdm_dump-filepath: /home/alain/Surelog/tests/NameCollisionBind/third_party/UHDM/bin/uhdm-dump
+          uvm-reldirpath: ../../third_party/UVM
+          output-dirpath: /home/alain/Surelog/tests/NameCollisionBind/regression/GenerateAssigns
+     golden-log-filepath: /home/alain/Surelog/tests/GenerateAssigns/GenerateAssigns.log
+    surelog-log-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/GenerateAssigns/GenerateAssigns.log
+  uhdm-slpp_all-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/GenerateAssigns/slpp_all/surelog.uhdm
+ uhdm-slpp_unit-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/GenerateAssigns/slpp_unit/surelog.uhdm
+  uhdm-dump-log-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/GenerateAssigns/uhdm.dump
+roundtrip-output-dirpath: /home/alain/Surelog/tests/NameCollisionBind/regression/GenerateAssigns/roundtrip
+  roundtrip_log_filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/GenerateAssigns/roundtrip/roundtrip.log
+                    tool: None
+
+
+Snapshot ...
+Found 4 files & directories
+
+
+Running Surelog ...
+start-time: 2022-07-14 22:01:58.170333
+Loaded command line: top.v   -writepp -parse  -verbose   -d inst -d ast +incdir+../../../UVM/ovm-2.1.2/src/ +incdir+../../../UVM/vmm-1.1.1a/sv -fileunit -d uhdm -d coveruhdm
+Processed command line: top.v -writepp -parse -verbose -d inst -d ast +incdir+../../third_party/UVM/ovm-2.1.2/src/ +incdir+../../third_party/UVM/vmm-1.1.1a/sv -fileunit -d uhdm -d coveruhdm -mt 0 -mp 0 -o ../NameCollisionBind/regression/GenerateAssigns
+Launching surelog with arguments:
+['/home/alain/Surelog/tests/NameCollisionBind/bin/surelog',
+ 'top.v',
+ '-writepp',
+ '-parse',
+ '-verbose',
+ '-d',
+ 'inst',
+ '-d',
+ 'ast',
+ '+incdir+../../third_party/UVM/ovm-2.1.2/src/',
+ '+incdir+../../third_party/UVM/vmm-1.1.1a/sv',
+ '-fileunit',
+ '-d',
+ 'uhdm',
+ '-d',
+ 'coveruhdm',
+ '-mt',
+ '0',
+ '-mp',
+ '0',
+ '-o',
+ '../NameCollisionBind/regression/GenerateAssigns']
+
+
+Surelog threw an exception
+Traceback (most recent call last):
+  File "/home/alain/Surelog/scripts/regression.py", line 347, in _run_surelog
+    process = subprocess.Popen(
+  File "/usr/lib/python3.9/subprocess.py", line 951, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.9/subprocess.py", line 1821, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/alain/Surelog/tests/NameCollisionBind/bin/surelog'
+end-time: 2022-07-14 22:01:58.172032 0:00:00.001699
+
+
+Normalizing surelog log file /home/alain/Surelog/tests/NameCollisionBind/regression/GenerateAssigns/GenerateAssigns.log
+
+
+Restoring pristine state ...
+Found 4 files & directories
+
+
+end-time: 2022-07-14 22:01:58.174343 0:00:00.004595

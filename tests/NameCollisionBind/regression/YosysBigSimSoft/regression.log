@@ -1,0 +1,68 @@
+start-time: 2022-07-14 22:01:58.312375
+
+Environment:
+               test-name: YosysBigSimSoft
+            test-dirpath: /home/alain/Surelog/third_party/tests/YosysBigSim/softusb_navre
+           test-filepath: /home/alain/Surelog/third_party/tests/YosysBigSim/softusb_navre/YosysBigSimSoft.sl
+       workspace-dirpath: /home/alain/Surelog
+        surelog-filepath: /home/alain/Surelog/tests/NameCollisionBind/bin/surelog
+      uhdm_dump-filepath: /home/alain/Surelog/tests/NameCollisionBind/third_party/UHDM/bin/uhdm-dump
+          uvm-reldirpath: ../../../UVM
+          output-dirpath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysBigSimSoft
+     golden-log-filepath: /home/alain/Surelog/third_party/tests/YosysBigSim/softusb_navre/YosysBigSimSoft.log
+    surelog-log-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysBigSimSoft/YosysBigSimSoft.log
+  uhdm-slpp_all-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysBigSimSoft/slpp_all/surelog.uhdm
+ uhdm-slpp_unit-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysBigSimSoft/slpp_unit/surelog.uhdm
+  uhdm-dump-log-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysBigSimSoft/uhdm.dump
+roundtrip-output-dirpath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysBigSimSoft/roundtrip
+  roundtrip_log_filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/YosysBigSimSoft/roundtrip/roundtrip.log
+                    tool: None
+
+
+Snapshot ...
+Found 15 files & directories
+
+
+Running Surelog ...
+start-time: 2022-07-14 22:01:58.312953
+Loaded command line: -writepp -parse   -mt  max  -nopython -fileunit rtl/softusb_navre.v sim/bench.v  +incdir+./rtl/+./sim/ -nobuiltin -nocache
+Processed command line: -writepp -parse -nopython -fileunit rtl/softusb_navre.v sim/bench.v +incdir+./rtl/+./sim/ -nobuiltin -nocache -mt 0 -mp 0 -o ../../../../tests/NameCollisionBind/regression/YosysBigSimSoft
+Launching surelog with arguments:
+['/home/alain/Surelog/tests/NameCollisionBind/bin/surelog',
+ '-writepp',
+ '-parse',
+ '-nopython',
+ '-fileunit',
+ 'rtl/softusb_navre.v',
+ 'sim/bench.v',
+ '+incdir+./rtl/+./sim/',
+ '-nobuiltin',
+ '-nocache',
+ '-mt',
+ '0',
+ '-mp',
+ '0',
+ '-o',
+ '../../../../tests/NameCollisionBind/regression/YosysBigSimSoft']
+
+
+Surelog threw an exception
+Traceback (most recent call last):
+  File "/home/alain/Surelog/scripts/regression.py", line 347, in _run_surelog
+    process = subprocess.Popen(
+  File "/usr/lib/python3.9/subprocess.py", line 951, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.9/subprocess.py", line 1821, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/alain/Surelog/tests/NameCollisionBind/bin/surelog'
+end-time: 2022-07-14 22:01:58.314180 0:00:00.001227
+
+
+Normalizing surelog log file /home/alain/Surelog/tests/NameCollisionBind/regression/YosysBigSimSoft/YosysBigSimSoft.log
+
+
+Restoring pristine state ...
+Found 15 files & directories
+
+
+end-time: 2022-07-14 22:01:58.314641 0:00:00.002266

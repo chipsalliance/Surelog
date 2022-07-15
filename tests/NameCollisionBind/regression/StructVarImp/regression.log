@@ -1,0 +1,68 @@
+start-time: 2022-07-14 22:01:58.271321
+
+Environment:
+               test-name: StructVarImp
+            test-dirpath: /home/alain/Surelog/tests/StructVarImp
+           test-filepath: /home/alain/Surelog/tests/StructVarImp/StructVarImp.sl
+       workspace-dirpath: /home/alain/Surelog
+        surelog-filepath: /home/alain/Surelog/tests/NameCollisionBind/bin/surelog
+      uhdm_dump-filepath: /home/alain/Surelog/tests/NameCollisionBind/third_party/UHDM/bin/uhdm-dump
+          uvm-reldirpath: ../../third_party/UVM
+          output-dirpath: /home/alain/Surelog/tests/NameCollisionBind/regression/StructVarImp
+     golden-log-filepath: /home/alain/Surelog/tests/StructVarImp/StructVarImp.log
+    surelog-log-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/StructVarImp/StructVarImp.log
+  uhdm-slpp_all-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/StructVarImp/slpp_all/surelog.uhdm
+ uhdm-slpp_unit-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/StructVarImp/slpp_unit/surelog.uhdm
+  uhdm-dump-log-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/StructVarImp/uhdm.dump
+roundtrip-output-dirpath: /home/alain/Surelog/tests/NameCollisionBind/regression/StructVarImp/roundtrip
+  roundtrip_log_filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/StructVarImp/roundtrip/roundtrip.log
+                    tool: None
+
+
+Snapshot ...
+Found 4 files & directories
+
+
+Running Surelog ...
+start-time: 2022-07-14 22:01:58.271971
+Loaded command line: -parse -d uhdm -d coveruhdm -elabuhdm -d ast dut.sv
+Processed command line: -parse -d uhdm -d coveruhdm -elabuhdm -d ast dut.sv -mt 0 -mp 0 -o ../NameCollisionBind/regression/StructVarImp
+Launching surelog with arguments:
+['/home/alain/Surelog/tests/NameCollisionBind/bin/surelog',
+ '-parse',
+ '-d',
+ 'uhdm',
+ '-d',
+ 'coveruhdm',
+ '-elabuhdm',
+ '-d',
+ 'ast',
+ 'dut.sv',
+ '-mt',
+ '0',
+ '-mp',
+ '0',
+ '-o',
+ '../NameCollisionBind/regression/StructVarImp']
+
+
+Surelog threw an exception
+Traceback (most recent call last):
+  File "/home/alain/Surelog/scripts/regression.py", line 347, in _run_surelog
+    process = subprocess.Popen(
+  File "/usr/lib/python3.9/subprocess.py", line 951, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.9/subprocess.py", line 1821, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/alain/Surelog/tests/NameCollisionBind/bin/surelog'
+end-time: 2022-07-14 22:01:58.273422 0:00:00.001451
+
+
+Normalizing surelog log file /home/alain/Surelog/tests/NameCollisionBind/regression/StructVarImp/StructVarImp.log
+
+
+Restoring pristine state ...
+Found 4 files & directories
+
+
+end-time: 2022-07-14 22:01:58.275766 0:00:00.004445

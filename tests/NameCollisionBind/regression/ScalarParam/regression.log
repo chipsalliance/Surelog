@@ -1,0 +1,69 @@
+start-time: 2022-07-14 22:01:58.286196
+
+Environment:
+               test-name: ScalarParam
+            test-dirpath: /home/alain/Surelog/tests/ScalarParam
+           test-filepath: /home/alain/Surelog/tests/ScalarParam/ScalarParam.sl
+       workspace-dirpath: /home/alain/Surelog
+        surelog-filepath: /home/alain/Surelog/tests/NameCollisionBind/bin/surelog
+      uhdm_dump-filepath: /home/alain/Surelog/tests/NameCollisionBind/third_party/UHDM/bin/uhdm-dump
+          uvm-reldirpath: ../../third_party/UVM
+          output-dirpath: /home/alain/Surelog/tests/NameCollisionBind/regression/ScalarParam
+     golden-log-filepath: /home/alain/Surelog/tests/ScalarParam/ScalarParam.log
+    surelog-log-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/ScalarParam/ScalarParam.log
+  uhdm-slpp_all-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/ScalarParam/slpp_all/surelog.uhdm
+ uhdm-slpp_unit-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/ScalarParam/slpp_unit/surelog.uhdm
+  uhdm-dump-log-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/ScalarParam/uhdm.dump
+roundtrip-output-dirpath: /home/alain/Surelog/tests/NameCollisionBind/regression/ScalarParam/roundtrip
+  roundtrip_log_filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/ScalarParam/roundtrip/roundtrip.log
+                    tool: None
+
+
+Snapshot ...
+Found 4 files & directories
+
+
+Running Surelog ...
+start-time: 2022-07-14 22:01:58.286932
+Loaded command line: -parse -d uhdm -d coveruhdm -elabuhdm -d ast dut.sv -nobuiltin
+Processed command line: -parse -d uhdm -d coveruhdm -elabuhdm -d ast dut.sv -nobuiltin -mt 0 -mp 0 -o ../NameCollisionBind/regression/ScalarParam
+Launching surelog with arguments:
+['/home/alain/Surelog/tests/NameCollisionBind/bin/surelog',
+ '-parse',
+ '-d',
+ 'uhdm',
+ '-d',
+ 'coveruhdm',
+ '-elabuhdm',
+ '-d',
+ 'ast',
+ 'dut.sv',
+ '-nobuiltin',
+ '-mt',
+ '0',
+ '-mp',
+ '0',
+ '-o',
+ '../NameCollisionBind/regression/ScalarParam']
+
+
+Surelog threw an exception
+Traceback (most recent call last):
+  File "/home/alain/Surelog/scripts/regression.py", line 347, in _run_surelog
+    process = subprocess.Popen(
+  File "/usr/lib/python3.9/subprocess.py", line 951, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.9/subprocess.py", line 1821, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/alain/Surelog/tests/NameCollisionBind/bin/surelog'
+end-time: 2022-07-14 22:01:58.288456 0:00:00.001524
+
+
+Normalizing surelog log file /home/alain/Surelog/tests/NameCollisionBind/regression/ScalarParam/ScalarParam.log
+
+
+Restoring pristine state ...
+Found 4 files & directories
+
+
+end-time: 2022-07-14 22:01:58.289274 0:00:00.003078

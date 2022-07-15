@@ -1,0 +1,66 @@
+start-time: 2022-07-14 22:01:58.100788
+
+Environment:
+               test-name: BuildUVMPkg
+            test-dirpath: /home/alain/Surelog/third_party/tests/BuildUVMPkg
+           test-filepath: /home/alain/Surelog/third_party/tests/BuildUVMPkg/BuildUVMPkg.sl
+       workspace-dirpath: /home/alain/Surelog
+        surelog-filepath: /home/alain/Surelog/tests/NameCollisionBind/bin/surelog
+      uhdm_dump-filepath: /home/alain/Surelog/tests/NameCollisionBind/third_party/UHDM/bin/uhdm-dump
+          uvm-reldirpath: ../../UVM
+          output-dirpath: /home/alain/Surelog/tests/NameCollisionBind/regression/BuildUVMPkg
+     golden-log-filepath: /home/alain/Surelog/third_party/tests/BuildUVMPkg/BuildUVMPkg.log
+    surelog-log-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/BuildUVMPkg/BuildUVMPkg.log
+  uhdm-slpp_all-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/BuildUVMPkg/slpp_all/surelog.uhdm
+ uhdm-slpp_unit-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/BuildUVMPkg/slpp_unit/surelog.uhdm
+  uhdm-dump-log-filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/BuildUVMPkg/uhdm.dump
+roundtrip-output-dirpath: /home/alain/Surelog/tests/NameCollisionBind/regression/BuildUVMPkg/roundtrip
+  roundtrip_log_filepath: /home/alain/Surelog/tests/NameCollisionBind/regression/BuildUVMPkg/roundtrip/roundtrip.log
+                    tool: None
+
+
+Snapshot ...
+Found 3 files & directories
+
+
+Running Surelog ...
+start-time: 2022-07-14 22:01:58.103476
+Loaded command line: ../../../UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv -verbose -parse -d coveruhdm -nocache -createcache
+Processed command line: ../../UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv -verbose -parse -d coveruhdm -nocache -createcache -mt 0 -mp 0 -o ../../../tests/NameCollisionBind/regression/BuildUVMPkg
+Launching surelog with arguments:
+['/home/alain/Surelog/tests/NameCollisionBind/bin/surelog',
+ '../../UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv',
+ '-verbose',
+ '-parse',
+ '-d',
+ 'coveruhdm',
+ '-nocache',
+ '-createcache',
+ '-mt',
+ '0',
+ '-mp',
+ '0',
+ '-o',
+ '../../../tests/NameCollisionBind/regression/BuildUVMPkg']
+
+
+Surelog threw an exception
+Traceback (most recent call last):
+  File "/home/alain/Surelog/scripts/regression.py", line 347, in _run_surelog
+    process = subprocess.Popen(
+  File "/usr/lib/python3.9/subprocess.py", line 951, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.9/subprocess.py", line 1821, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/alain/Surelog/tests/NameCollisionBind/bin/surelog'
+end-time: 2022-07-14 22:01:58.104902 0:00:00.001426
+
+
+Normalizing surelog log file /home/alain/Surelog/tests/NameCollisionBind/regression/BuildUVMPkg/BuildUVMPkg.log
+
+
+Restoring pristine state ...
+Found 3 files & directories
+
+
+end-time: 2022-07-14 22:01:58.105976 0:00:00.005188
