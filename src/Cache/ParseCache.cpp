@@ -93,17 +93,19 @@ fs::path ParseCache::getCacheFileName_(const fs::path& svFileNameIn) {
   return cacheFileName;
 }
 
-bool ParseCache::restore_(const fs::path& cacheFileName) {
-  auto buffer_pointer = openFlatBuffers(cacheFileName);
-  if (buffer_pointer == nullptr) return false;
+bool ParseCache::restore_(const fs::path& cacheFileName,
+                          const std::unique_ptr<uint8_t[]>& buffer) {
+  if (buffer == nullptr) return false;
 
   /* Restore Errors */
   const PARSECACHE::ParseCache* ppcache =
-      PARSECACHE::GetParseCache(buffer_pointer.get());
+      PARSECACHE::GetParseCache(buffer.get());
+
   SymbolTable cacheSymbols;
   restoreErrors(ppcache->errors(), ppcache->symbols(), &cacheSymbols,
                 m_parse->getCompileSourceFile()->getErrorContainer(),
                 m_parse->getCompileSourceFile()->getSymbolTable());
+
   /* Restore design content (Verilog Design Elements) */
   FileContent* fileContent = m_parse->getFileContent();
   if (fileContent == nullptr) {
@@ -156,26 +158,27 @@ bool ParseCache::restore_(const fs::path& cacheFileName) {
   return true;
 }
 
-bool ParseCache::checkCacheIsValid_(const fs::path& cacheFileName) {
-  auto buffer = openFlatBuffers(cacheFileName);
+bool ParseCache::checkCacheIsValid_(const fs::path& cacheFileName,
+                                    const std::unique_ptr<uint8_t[]>& buffer) {
+  if (buffer == nullptr) return false;
+
   CommandLineParser* clp =
       m_parse->getCompileSourceFile()->getCommandLineParser();
-  if (buffer == nullptr) {
-    return false;
-  }
+
   if (!PARSECACHE::ParseCacheBufferHasIdentifier(buffer.get())) {
     return false;
   }
+
   if (clp->noCacheHash()) {
     return true;
   }
+
   const PARSECACHE::ParseCache* ppcache =
       PARSECACHE::GetParseCache(buffer.get());
   auto header = ppcache->header();
-  if (!m_isPrecompiled) {
-    if (!checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileName)) {
-      return false;
-    }
+  if (!m_isPrecompiled &&
+      !checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileName)) {
+    return false;
   }
 
   return true;
@@ -183,7 +186,7 @@ bool ParseCache::checkCacheIsValid_(const fs::path& cacheFileName) {
 
 bool ParseCache::isValid() {
   fs::path cacheFileName = getCacheFileName_();
-  return checkCacheIsValid_(cacheFileName);
+  return checkCacheIsValid_(cacheFileName, openFlatBuffers(cacheFileName));
 }
 
 bool ParseCache::restore() {
@@ -193,7 +196,8 @@ bool ParseCache::restore() {
   if (!cacheAllowed) return false;
 
   fs::path cacheFileName = getCacheFileName_();
-  if (!checkCacheIsValid_(cacheFileName)) {
+  auto buffer = openFlatBuffers(cacheFileName);
+  if (!checkCacheIsValid_(cacheFileName, buffer)) {
     // char path [10000];
     // char* p = getcwd(path, 9999);
     // if (!clp->parseOnly())
@@ -202,7 +206,7 @@ bool ParseCache::restore() {
     return false;
   }
 
-  return restore_(cacheFileName);
+  return restore_(cacheFileName, buffer);
 }
 
 bool ParseCache::save() {
