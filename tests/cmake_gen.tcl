@@ -29,6 +29,7 @@ proc project_path {} {
 
 set workspace_root [file normalize [lindex $argv 0]]
 set output_dir [file normalize [lindex $argv 1]]
+set option [file normalize [lindex $argv 2]]
 
 proc findFiles { basedir pattern } {
 
@@ -88,14 +89,14 @@ proc load_tests { } {
     }
 }
 
-proc run_regression { } {
+proc run_regression { option } {
     global TESTS output_dir workspace_root
     set fid [open "$output_dir/CMakeLists.txt" "w"]
     puts $fid "cmake_minimum_required (VERSION 3.0)"
     puts $fid "project(SurelogRegression)"
     foreach testname [lsort -dictionary [array names TESTS]] {
         puts $fid "add_custom_command(OUTPUT $testname"
-        puts $fid "  COMMAND tclsh $workspace_root/tests/regression.tcl path=$workspace_root/build/bin mute test=$testname"
+        puts $fid "  COMMAND tclsh $workspace_root/tests/regression.tcl $option path=$workspace_root/build/bin mute test=$testname"
         puts $fid "  WORKING_DIRECTORY $workspace_root/build"
         puts $fid ")"
     }
@@ -120,4 +121,4 @@ if { $tcl_platform(platform) == "windows" } {
 load_tests
 puts "THERE ARE $totaltest tests"
 puts "RUNNING   $runtest tests"
-run_regression
+run_regression $option
