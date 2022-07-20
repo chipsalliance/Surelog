@@ -91,6 +91,16 @@ regression: release
 	pushd build && cmake --build test/build -j $(CPU_CORES) && popd
 	pushd build && tclsh ../tests/regression.tcl diff_mode show_diff && popd
 
+# Formal equivalence checking of Surelog+UHDM+UHDMYosysPlugin+Yosys and Yosys parsers
+verification: release
+	cmake -E make_directory build/tests
+	cmake -E remove_directory build/test
+	cmake -E make_directory build/test
+	tclsh tests/cmake_gen.tcl . build/test verification
+	cmake -S build/test -B build/test/build
+	pushd build && cmake --build test/build -j $(CPU_CORES) && popd
+	pushd build && tclsh ../tests/regression.tcl diff_mode show_diff && popd
+
 test/regression: release
 	python3 scripts/regression.py run --jobs $(CPU_CORES) --show-diffs
 

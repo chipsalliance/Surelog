@@ -84,7 +84,7 @@ set MP_MAX 0
 set LARGE_TESTS 0
 set SHOW_DIFF 0
 set DIFF_MODE 0
-
+set VERIF 0
 
 if [regexp {show_diff}  $argv] {
     regsub "show_diff" $argv "" argv
@@ -96,6 +96,10 @@ if [regexp {mute}  $argv] {
     set MUTE 1
 }
 
+if [regexp {verification}  $argv] {
+    regsub "verification" $argv "" argv
+    set VERIF 1
+}
 
 if [regexp {diff_mode}  $argv] {
     regsub "diff_mode" $argv "" argv
@@ -376,9 +380,102 @@ proc count_split { string } {
     return [llength [split $string /]]
 }
 
+# Equivalence checking in between Yosys parser and Surelog parser
+proc formal_verification { command testname } {
+    global env
+    set yosys_command ""
+    set output_dir ""
+    for {set i 0} {$i < [llength $command]} {incr i} {
+        set token [lindex $command $i]
+        if {$token == "-o"} {
+            incr i
+            set token [lindex $command $i]
+            set output_dir $token
+            continue
+        }
+        if {$token == "tb.v"} {
+            continue
+        }
+        if [file exist $token] {
+            append yosys_command "$token "
+        }
+    }
+    set yid [open "$output_dir/surelog.ys" "w"]
+    puts $yid "plugin -i systemverilog"
+    puts $yid "read_systemverilog -mutestdout $yosys_command"
+    puts $yid "synth_xilinx"
+    puts $yid "write_verilog $output_dir/surelog_gate.v"
+    close $yid
+    set surelog_parse ""
+    catch {set out [exec yosys -s "$output_dir/surelog.ys" -q -q -l $output_dir/surelog.out]} surelog_parse
+    set yid [open "$output_dir/yosys.ys" "w"]
+    puts $yid "read_verilog -sv $yosys_command"
+    puts $yid "synth_xilinx"
+    puts $yid "write_verilog $output_dir/yosys_gate.v"
+    close $yid
+    set yosys_parse ""
+    catch {set out [exec yosys -s "$output_dir/yosys.ys"  -q -q -l $output_dir/yosys.out]} yosys_parse
+
+    if [file exist "$output_dir/surelog.out"] {
+        set fid [open "$output_dir/surelog.out"]
+        set content [read $fid]
+        set topmodule ""
+        regexp {Top module:  \\([a-zA-Z0-9_-]*)} $content tmp topmodule
+        close $fid
+    }
+    set yosys_path "$env(HOME)/yosys"
+    if {($surelog_parse == "") && ($yosys_parse == "")} {
+        set yid [open "$output_dir/equiv.ys" "w"]
+        puts $yid "read_verilog $output_dir/surelog_gate.v $yosys_path/share/xilinx/cells_sim.v $yosys_path/share/xilinx/cells_xtra.v"
+        puts $yid "prep -flatten -top $topmodule"
+        puts $yid "splitnets -ports;;"
+        puts $yid "design -stash surelog"
+        puts $yid "read_verilog $output_dir/yosys_gate.v $yosys_path/share/xilinx/cells_sim.v $yosys_path/share/xilinx/cells_xtra.v"
+        puts $yid "splitnets -ports;;"
+        puts $yid "prep -flatten -top $topmodule"
+        puts $yid "design -stash yosys"
+        puts $yid "design -copy-from surelog -as surelog $topmodule"
+        puts $yid "design -copy-from yosys -as yosys $topmodule"
+        puts $yid "equiv_make surelog yosys equiv"
+        puts $yid "prep -flatten -top equiv"
+
+        puts $yid "opt_clean -purge"
+        #puts $yid "show -prefix equiv-prep -colors 1 -stretch"
+
+        puts $yid "opt -full"
+        puts $yid "equiv_simple -seq 5"
+        puts $yid "equiv_induct -seq 5"
+        puts $yid "equiv_status -assert"
+        close $yid
+        set equiv_run ""
+        catch {exec yosys -s "$output_dir/equiv.ys" -q -q -l $output_dir/equiv.out}  equiv_run
+        set proven 0
+        set unproven 0
+        if [file exist "$output_dir/equiv.out"] {
+            set fid [open "$output_dir/equiv.out"]
+            set content [read $fid]
+            close $fid
+            if [regexp {Equivalence successfully proven} $content] {
+                set proven 1
+            } elseif {[regexp {Unproven} $content] || [regexp {[0-9]+ unproven} $content]} {
+                set unproven 1
+            }
+        }
+        if {$equiv_run == ""} {
+            if {$proven} {
+                puts "EQUIV: $testname !!!!"
+            }
+        }
+        if {$unproven} {
+            puts "FAILED EQUIV: $testname !!!!"
+        }
+    }
+}
+
 proc run_regression { } {
     global TESTS TESTS_DIR SURELOG_COMMAND UHDM_DUMP_COMMAND LONGESTTESTNAME TESTTARGET ONETEST UPDATE USER ELAPSED PRIOR_USER PRIOR_ELAPSED MUTE TIME DEBUG
     global DIFF_TESTS PRIOR_MAX_MEM MAX_MEM MAX_TIME PRIOR_MAX_TIME SHOW_DETAILS MT_MAX MP_MAX REGRESSION_PATH LARGE_TESTS LONG_TESTS DIFF_MODE SHELL SHELL_ARGS
+    global VERIF
     set overrallpass "PASS"
 
     set w1 $LONGESTTESTNAME
@@ -515,6 +612,10 @@ proc run_regression { } {
                         set passstatus "FAILDUMP"
                         set overrallpass "FAIL"
                     }
+                }
+
+                if {$VERIF == 1} {
+                    formal_verification $command $testname
                 }
             }
         }
