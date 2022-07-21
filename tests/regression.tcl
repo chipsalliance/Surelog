@@ -34,7 +34,17 @@ proc printHelp {} {
     puts "               large                             (large tests too)"
     puts "               show_diff                         (Shows text diff)"
     puts "               diff_mode                         (Only diff)"
-    puts "regression.tcl update (Updates the diffs)"
+    puts "regression.tcl update                            (Updates the diffs)"
+    puts "regression.tcl verification                      (Equivalence checking against Yosys parser)"
+    puts "               NO GATE: Both parsers didn't produce gate-level netlist"
+    puts "               S GATE: Surelog parser didn't produce gate-level netlist"
+    puts "               Y GATE: Surelog parser didn't produce gate-level netlist"
+    puts "               INCOM: Incomplete, missing module declaration => Inconclusive"
+    puts "               PASS: Formally equivalent"
+    puts "               DIFF: Formally not-equivalent"
+    puts "               UH PLUG: UHDM Plugin error"
+    puts "               UH YGATE: UHDM Plugin error + Yosys no gate"
+
 }
 
 set MUTE 0
@@ -84,7 +94,7 @@ set MP_MAX 0
 set LARGE_TESTS 0
 set SHOW_DIFF 0
 set DIFF_MODE 0
-set VERIF 0
+set VERIFICATION 0
 
 if [regexp {show_diff}  $argv] {
     regsub "show_diff" $argv "" argv
@@ -98,7 +108,7 @@ if [regexp {mute}  $argv] {
 
 if [regexp {verification}  $argv] {
     regsub "verification" $argv "" argv
-    set VERIF 1
+    set VERIFICATION 1
 }
 
 if [regexp {diff_mode}  $argv] {
@@ -143,7 +153,7 @@ set TESTTARGET ""
 set ONETEST ""
 if [regexp {tests=([A-Za-z0-9_]+)} $argv tmp TESTTARGET] {
 }
-if [regexp {test=([A-Za-z0-9_]+)} $argv tmp TESTTARGET] {
+if [regexp {test=([A-Za-z0-9_\.]+)} $argv tmp TESTTARGET] {
     set ONETEST $TESTTARGET
 }
 
@@ -259,16 +269,26 @@ proc findDirs { basedir pattern {level 0}} {
 
 proc load_tests { } {
     global TESTS TESTS_DIR LONGESTTESTNAME TESTTARGET ONETEST LARGE_TESTS LONG_TESTS MT_MAX MP_MAX BLACK_LIST
+    global VERIFICATION
+
     set dirs "../tests/ ../third_party/tests/"
     set fileLists ""
     foreach dir $dirs {
-        append fileList "[findFiles $dir *.sl] "
+        if {$VERIFICATION == 0} {
+            append fileList "[findFiles $dir *.sl] "
+        } else {
+            append fileList "[findFiles $dir *.slv] "
+        }
     }
     set testcommand ""
     set LONGESTTESTNAME 1
     set totaltest 0
     foreach file $fileList {
-        regexp {([a-zA-Z0-9_/:-]+)/([a-zA-Z0-9_-]+)\.sl} $file tmp testdir testname
+        if {$VERIFICATION == 0} {
+            regexp {([a-zA-Z0-9_/:-]+)/([a-zA-Z0-9_-]+)\.sl} $file tmp testdir testname
+        } else {
+            regexp {([a-zA-Z0-9_/:-]+)/([a-zA-Z0-9_\.-]+)\.slv} $file tmp testdir testname
+       }
         regsub [pwd]/ $testdir "" testdir
         incr totaltest
         if {($TESTTARGET != "") && ![regexp $TESTTARGET $testname]} {
@@ -291,7 +311,11 @@ proc load_tests { } {
             set LONGESTTESTNAME [string length $testname]
         }
 
-        set fid [open $testdir/$testname.sl]
+        if {$VERIFICATION == 0} {
+            set fid [open $testdir/$testname.sl]
+        } else {
+             set fid [open $testdir/$testname.slv]
+        }
         set testcommand [read $fid]
         close $fid
 
@@ -463,19 +487,20 @@ proc formal_verification { command testname } {
         }
         if {$equiv_run == ""} {
             if {$proven} {
-                puts "EQUIV: $testname !!!!"
+                return "EQUIVALENT"
             }
         }
         if {$unproven} {
-            puts "FAILED EQUIV: $testname !!!!"
+            return "NOT_EQUIVALENT"
         }
     }
+    return "INCONCLUSIVE"
 }
 
 proc run_regression { } {
     global TESTS TESTS_DIR SURELOG_COMMAND UHDM_DUMP_COMMAND LONGESTTESTNAME TESTTARGET ONETEST UPDATE USER ELAPSED PRIOR_USER PRIOR_ELAPSED MUTE TIME DEBUG
     global DIFF_TESTS PRIOR_MAX_MEM MAX_MEM MAX_TIME PRIOR_MAX_TIME SHOW_DETAILS MT_MAX MP_MAX REGRESSION_PATH LARGE_TESTS LONG_TESTS DIFF_MODE SHELL SHELL_ARGS
-    global VERIF
+    global VERIFICATION
     set overrallpass "PASS"
 
     set w1 $LONGESTTESTNAME
@@ -560,6 +585,7 @@ proc run_regression { } {
             }
         }
         set passstatus "PASS"
+        set verification_result ""
         if {$DIFF_MODE == 0} {
             set path [file dirname $REGRESSION_PATH]
             regsub -all $path $testdir "" path
@@ -614,8 +640,8 @@ proc run_regression { } {
                     }
                 }
 
-                if {$VERIF == 1} {
-                    formal_verification $command $testname
+                if {$VERIFICATION == 1} {
+                    set verification_result [formal_verification $command $testname]
                 }
             }
         }
@@ -790,6 +816,43 @@ proc run_regression { } {
             }
         }
 
+        if {$verification_result == "EQUIVALENT"} {
+            set passstatus "PASS"
+        } elseif {$verification_result == "NOT_EQUIVALENT"} {
+            set passstatus "DIFF"
+        }  elseif {$verification_result == "INCONCLUSIVE"} {
+            set passstatus "   "
+            set fid [open "$REGRESSION_PATH/tests/$test/${testname}.log" "r"]
+            set result [read $fid]
+            close $fid
+            if [regexp {Nb undefined modules: [1-9][0-9]*} $result] {
+                set passstatus "INCOM"
+            }           
+            if ![regexp {Dumping module } $result] {
+                set passstatus "S GATE"
+            }
+            set fid [open "$REGRESSION_PATH/tests/$test/surelog.out" "r"]
+            set surelog [read $fid]
+            close $fid
+            foreach line [split $surelog "\n"] {
+                if [regexp {^ERROR: } $line] {
+                    set passstatus "UH PLUG"
+                }
+            }
+            set fid [open "$REGRESSION_PATH/tests/$test/yosys.out" "r"]
+            set yosys [read $fid]
+            close $fid
+            if ![regexp {Dumping module } $yosys] {
+                if {$passstatus == "S GATE"} {
+                    set passstatus "NO GATE"
+                } elseif {$passstatus == "UH PLUG"} {
+                   set passstatus "UH YGATE" 
+                } else {
+                    set passstatus "Y GATE"
+                }
+            }
+        } 
+        
         if {($fatals == -1) || ($errors == -1) || ($warnings == -1) || ($notes == -1)} {
             if {$segfault == 0} {
                 set segfault 1
