@@ -19,9 +19,10 @@
 # - It takes an optionnal <command> line option to add a <command> invokation from Surelog.
 #   Surelog will invoke that linux command with a filelist passed as argument.
 # - The resulting batch file batch.txt can be passed to surelog
+# - The "verification" option does not generate a batch, instead it creates one script per testcase, and calls the script .slv instead of .sl to be used by "regression.tcl verification"
 
 # Usages:
-# create_batch_script.tcl [exe=<Linux executable>] [ext=<.v,.sv,...>] [batch=<script_name>] [options="<surelog options>"]
+# create_batch_script.tcl [exe=<Linux executable>] [ext=<.v,.sv,...>] [batch=<script_name>] [options="<surelog options>"] [verification]
 #                       
 #
 # Example:
@@ -29,12 +30,14 @@
 #
 # surelog -batch batch.txt
 #
+
 puts "Command line: $argv"
 
 set EXTENSIONS      ".sv"
 set EXECUTABLE      ""
 set BATCH_SCRIPT    "batch.txt"
 set SURELOG_OPTIONS "-writepp -parse -nocache -nobuiltin -noinfo -nocomp -noelab -timescale=1ns/1ns -nostdout"
+set VERIFICATION 0
 
 if [regexp {exe=([a-zA-Z0-9_/\.]+)} $argv tmp EXECUTABLE] {
     puts "Creating callbacks to: $EXECUTABLE"
@@ -49,6 +52,10 @@ if [regexp {ext=([a-zA-Z0-9_/\.,]+)} $argv tmp EXTENSIONS] {
 if [regexp {\{options=(.*)\}} $argv tmp SURELOG_OPTIONS] {
 }
 
+if [regexp {verification} $argv] {
+    set VERIFICATION 1
+    regsub "verification" $argv "" argv
+}
 
 puts "Creating batch script: $BATCH_SCRIPT"
 
@@ -82,9 +89,10 @@ proc findFiles { basedir pattern } {
 
 
 proc create_file_list {} {
-    global EXTENSIONS EXECUTABLE BATCH_SCRIPT SURELOG_OPTIONS 
-
-    set fid [open $BATCH_SCRIPT "w"]
+    global EXTENSIONS EXECUTABLE BATCH_SCRIPT SURELOG_OPTIONS VERIFICATION
+    if {$VERIFICATION == 0} { 
+        set fid [open $BATCH_SCRIPT "w"]
+    }
     set fileList ""
     foreach EXT [split $EXTENSIONS ","] {
 	puts "Scanning for *$EXT files"
@@ -110,16 +118,30 @@ proc create_file_list {} {
 	if [regexp {import[ ]+uvm_pkg} $content] {
 	    set import_uvm "$uvm_dir/uvm_pkg.sv"
 	}
-	set cmd "-cd $dir_name -I$uvm_dir $import_uvm $SURELOG_OPTIONS [file tail $file] -l [file tail $file].log"
-	
+        set cmd ""
+        if {$VERIFICATION == 0} { 
+            set cmd "-cd $dir_name"
+        }
+	append cmd " -I$uvm_dir $import_uvm $SURELOG_OPTIONS [file tail $file]"
+        if {$VERIFICATION == 0} {
+            append cmd " -l [file tail $file].log"
+        }
 	if {$EXECUTABLE != ""} {
-	    set cmd "$cmd -exe $EXECUTABLE"
+	     append cmd " -exe $EXECUTABLE"
 	}
-	puts $fid $cmd
-	#puts $cmd
+        if {$VERIFICATION == 0} { 
+            puts $fid $cmd
+        } else {
+            set file_name [file tail $file]
+            set fid [open $dir_name/${file_name}.slv "w"]
+            puts $fid $cmd
+            close $fid
+        }
 	incr count
     }
-    close $fid
+    if {$VERIFICATION == 0} { 
+        close $fid
+    }
     puts "Created $count batch commands in: $BATCH_SCRIPT"
     puts "Please run surelog -batch $BATCH_SCRIPT"
 }
