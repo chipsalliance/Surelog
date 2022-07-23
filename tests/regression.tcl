@@ -44,7 +44,7 @@ proc printHelp {} {
     puts "               DIFF: Formally not-equivalent"
     puts "               UH PLUG: UHDM Plugin error"
     puts "               UH YGATE: UHDM Plugin error + Yosys no gate"
-
+    puts "               PASS E: Pass empty formal model"
 }
 
 set MUTE 0
@@ -95,6 +95,7 @@ set LARGE_TESTS 0
 set SHOW_DIFF 0
 set DIFF_MODE 0
 set VERIFICATION 0
+set SEARCH_DIR ""
 
 if [regexp {show_diff}  $argv] {
     regsub "show_diff" $argv "" argv
@@ -126,7 +127,7 @@ if [regexp {large}  $argv] {
 if [regexp {mt=([0-9]+)} $argv tmp MT_MAX] {
 }
 
-if [regexp {mp=([0-9]+)} $argv tmp MP_MAX] {
+if [regexp {search_dir=([a-zA-Z0-9/\.-]+)} $argv tmp SEARCH_DIR] {
 }
 
 if [regexp {debug=([a-z]+)} $argv tmp DEBUG] {
@@ -269,9 +270,12 @@ proc findDirs { basedir pattern {level 0}} {
 
 proc load_tests { } {
     global TESTS TESTS_DIR LONGESTTESTNAME TESTTARGET ONETEST LARGE_TESTS LONG_TESTS MT_MAX MP_MAX BLACK_LIST
-    global VERIFICATION
+    global VERIFICATION SEARCH_DIR
 
     set dirs "../tests/ ../third_party/tests/"
+    if {$SEARCH_DIR != ""} {
+        set dirs $SEARCH_DIR
+    }
     set fileLists ""
     foreach dir $dirs {
         if {$VERIFICATION == 0} {
@@ -483,7 +487,13 @@ proc formal_verification { command testname } {
                 set proven 1
             } elseif {[regexp {Unproven} $content] || [regexp {[0-9]+ unproven} $content]} {
                 set unproven 1
-            }
+            } elseif [regexp {ERROR: Can't find gold module surelog} $content] {
+                return "INVALID_MODEL_SURELOG"
+            } elseif [regexp {ERROR: Can't find gate module yosys} $content] {
+                return "INVALID_MODEL_YOSYS"
+            } elseif [regexp {Proved 0 previously unproven \$equiv cells\.} $content] {
+                return "EMPTY_MODEL"
+            }  
         }
         if {$equiv_run == ""} {
             if {$proven} {
@@ -820,9 +830,15 @@ proc run_regression { } {
             set passstatus "PASS"
         } elseif {$verification_result == "NOT_EQUIVALENT"} {
             set passstatus "DIFF"
-        }  elseif {$verification_result == "INCONCLUSIVE"} {
+        } elseif {$verification_result == "INVALID_MODEL_SURELOG"} {
+            set passstatus "S GATE"
+        } elseif {$verification_result == "INVALID_MODEL_YOSYS"} {
+            set passstatus "Y GATE"
+        } elseif {$verification_result == "EMPTY_MODEL"} {
+            set passstatus "PASS E"
+        } elseif {$verification_result == "INCONCLUSIVE"} {
             set passstatus "   "
-            set fid [open "$REGRESSION_PATH/tests/$test/${testname}.log" "r"]
+            set fid [open "$REGRESSION_PATH/tests/$test/surelog.out" "r"]
             set result [read $fid]
             close $fid
             if [regexp {Nb undefined modules: [1-9][0-9]*} $result] {
@@ -905,8 +921,11 @@ proc run_regression { } {
             file delete -force $REGRESSION_PATH/tests/$test/uhdm.dump
             file delete -force $testdir/uhdm.dump
         }
-
-        cd $REGRESSION_PATH/tests
+        if {$VERIFICATION == 0} {
+            cd $REGRESSION_PATH/tests
+        } else {
+            cd $REGRESSION_PATH
+        }
     }
     log $sep
     return $overrallpass
