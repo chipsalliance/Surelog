@@ -133,7 +133,7 @@ proc create_file_list {} {
             puts $fid $cmd
         } else {
             set file_name [file tail $file]
-            set fid [open $dir_name/${file_name}.slv "w"]
+            set fid [open $dir_name/[file tail $dir_name]_${file_name}.slv "w"]
             puts $fid $cmd
             close $fid
         }
