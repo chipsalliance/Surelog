@@ -131,6 +131,9 @@ if [regexp {mt=([0-9]+)} $argv tmp MT_MAX] {
 if [regexp {search_dir=([a-zA-Z0-9/\.-]+)} $argv tmp SEARCH_DIR] {
 }
 
+if [regexp {\{search_dir=(.*)\}} $argv tmp SEARCH_DIR] {
+}
+
 if [regexp {debug=([a-z]+)} $argv tmp DEBUG] {
     if {$DEBUG == "ddd"} {
         set DEBUG_TOOL "ddd"
@@ -543,7 +546,7 @@ proc formal_verification { command testname } {
 proc run_regression { } {
     global TESTS TESTS_DIR SURELOG_COMMAND UHDM_DUMP_COMMAND LONGESTTESTNAME TESTTARGET ONETEST UPDATE USER ELAPSED PRIOR_USER PRIOR_ELAPSED MUTE TIME DEBUG
     global DIFF_TESTS PRIOR_MAX_MEM MAX_MEM MAX_TIME PRIOR_MAX_TIME SHOW_DETAILS MT_MAX MP_MAX REGRESSION_PATH LARGE_TESTS LONG_TESTS DIFF_MODE SHELL SHELL_ARGS
-    global VERIFICATION
+    global VERIFICATION STATUS_STATS
     set overrallpass "PASS"
 
     set w1 $LONGESTTESTNAME
@@ -928,6 +931,12 @@ proc run_regression { } {
             set fatals "SEGFAULT"
         }
 
+        if [info exist STATUS_STATS($passstatus)] {
+            set STATUS_STATS($passstatus) [expr $STATUS_STATS($passstatus) + 1]
+        } else {
+            set STATUS_STATS($passstatus) 1
+        }
+        
         log [format " %-*s | %*s | %*s | %*s | %*s | %*s | %*s | %*s |" $w2 $passstatus $w6 $fatals $w2 $syntax $w4 $errors $w2 $warnings $w7 $notes $w5 $SPEED $w5 $MEM ]
         flush stdout
         if {$SHOW_DETAILS == 1} {
@@ -975,6 +984,11 @@ proc run_regression { } {
         }
     }
     log $sep
+    log ""
+    foreach item [array names STATUS_STATS] {
+        log " $item : $STATUS_STATS($item)"
+    }
+    
     return $overrallpass
 }
 
