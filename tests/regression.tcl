@@ -213,6 +213,10 @@ set SURELOG_COMMAND "$TIME $DEBUG_TOOL $SURELOG_VERSION"
 
 source [project_path]/tests/blacklisted.tcl
 
+if [regexp {black_listed=([A-Za-z0-9_/\.\-\:]+)} $argv tmp blacklisted_file] {
+    source $blacklisted_file
+}
+
 if { $tcl_platform(platform) == "windows" } {
     set BLACK_LIST $WINDOWS_BLACK_LIST
 } else {
@@ -546,7 +550,7 @@ proc formal_verification { command testname } {
 proc run_regression { } {
     global TESTS TESTS_DIR SURELOG_COMMAND UHDM_DUMP_COMMAND LONGESTTESTNAME TESTTARGET ONETEST UPDATE USER ELAPSED PRIOR_USER PRIOR_ELAPSED MUTE TIME DEBUG
     global DIFF_TESTS PRIOR_MAX_MEM MAX_MEM MAX_TIME PRIOR_MAX_TIME SHOW_DETAILS MT_MAX MP_MAX REGRESSION_PATH LARGE_TESTS LONG_TESTS DIFF_MODE SHELL SHELL_ARGS
-    global VERIFICATION STATUS_STATS
+    global VERIFICATION STATUS_STATS STATUS_TESTS
     set overrallpass "PASS"
 
     set w1 $LONGESTTESTNAME
@@ -562,6 +566,30 @@ proc run_regression { } {
     log [format "| %-*s | %-*s | %*s | %*s | %*s | %*s | %*s | %*s | %*s |" $w1 "TESTNAME" $w2 "STATUS" $w6 "FATAL"  $w2 "SYNTAX" $w4 "ERROR" $w2 "WARNING"  $w7 "NOTE-UHDM"  $w5 "TIME" $w5 "MEM(Mb)"]
     log $sep
 
+    if {$UPDATE == 1} {
+        if {$VERIFICATION == 1} {
+            if [file exist $REGRESSION_PATH/tests/formal_status.tcl] {
+                if [file exist $REGRESSION_PATH/../formal/formal_status.tcl] {
+                    source $REGRESSION_PATH/../formal/formal_status.tcl
+                }
+                source $REGRESSION_PATH/tests/formal_status.tcl
+                set fidStatus [open $REGRESSION_PATH/../formal/formal_status.tcl "w"]
+                foreach item [array names LOG_STATUS_TESTS] {
+                    puts $fidStatus "set LOG_STATUS_TESTS($item) \"$LOG_STATUS_TESTS($item)\""
+                }
+                close $fidStatus
+                puts "Updated Formal status for [array size LOG_STATUS_TESTS] tests."
+                exit 0
+            }
+        }
+        return ""
+    }
+    if {$VERIFICATION == 1} {
+        if [file exist $REGRESSION_PATH/../formal/formal_status.tcl] {
+            source $REGRESSION_PATH/../formal/formal_status.tcl
+        }
+    }
+    
     foreach testname [lsort -dictionary [array names TESTS]] {
         set time_result ""
         set result ""
@@ -600,22 +628,24 @@ proc run_regression { } {
             file delete -force "$REGRESSION_PATH/tests/$test/valgrind.log"
         }
         if {$UPDATE == 1} {
-            if [file exist "$REGRESSION_PATH/tests/$test/${testname}.log"] {
-                log  [format "| %-*s | Copying $REGRESSION_PATH/tests/$test/${testname}.log to $testdir/${testname}.log" $w1 $testname]
-
-                set fid [open "$REGRESSION_PATH/tests/$test/${testname}.log" "r"]
-                set content [read $fid]
-                close $fid
-                # Canonicalize things that should be neutral in diff outputs
-                regsub -all {[a-zA-Z_/-]*/Surelog/} $content {${SURELOG_DIR}/} content
-                regsub -all {[0-9]+\.[0-9]{3}([0-9]{3})?s?} $content {t.ttts} content
-                set outfd [open "$testdir/${testname}.log" "w"]
-                puts -nonewline $outfd $content
-                close $outfd
-                continue
-            } else {
-                log  [format "| %-*s | No action" $w1 $testname]
-                continue
+            if {$VERIFICATION == 0} {
+                if [file exist "$REGRESSION_PATH/tests/$test/${testname}.log"] {
+                    log  [format "| %-*s | Copying $REGRESSION_PATH/tests/$test/${testname}.log to $testdir/${testname}.log" $w1 $testname]
+                    
+                    set fid [open "$REGRESSION_PATH/tests/$test/${testname}.log" "r"]
+                    set content [read $fid]
+                    close $fid
+                    # Canonicalize things that should be neutral in diff outputs
+                    regsub -all {[a-zA-Z_/-]*/Surelog/} $content {${SURELOG_DIR}/} content
+                    regsub -all {[0-9]+\.[0-9]{3}([0-9]{3})?s?} $content {t.ttts} content
+                    set outfd [open "$testdir/${testname}.log" "w"]
+                    puts -nonewline $outfd $content
+                    close $outfd
+                    continue
+                } else {
+                    log  [format "| %-*s | No action" $w1 $testname]
+                    continue
+                }
             }
         }
 
@@ -936,6 +966,21 @@ proc run_regression { } {
         } else {
             set STATUS_STATS($passstatus) 1
         }
+        set STATUS_TESTS($test) $passstatus
+        if [info exist LOG_STATUS_TESTS($test)] {
+            set previous_status $LOG_STATUS_TESTS($test)
+            if {$previous_status == "PASS"} {
+                if {$passstatus != "PASS"} {
+                    puts "REGRESS $test (PASS -> $passstatus)"
+                }
+            } else {
+                if {$passstatus == "PASS"} {
+                    puts "FIXED $test ($passstatus -> PASS)"
+                } else {
+                    puts "CHANGED $test ($previous_status -> $passstatus)"
+                }
+            }
+        }
         
         log [format " %-*s | %*s | %*s | %*s | %*s | %*s | %*s | %*s |" $w2 $passstatus $w6 $fatals $w2 $syntax $w4 $errors $w2 $warnings $w7 $notes $w5 $SPEED $w5 $MEM ]
         flush stdout
@@ -988,7 +1033,12 @@ proc run_regression { } {
     foreach item [array names STATUS_STATS] {
         log " $item : $STATUS_STATS($item)"
     }
-    
+
+    set fidStatus [open $REGRESSION_PATH/tests/formal_status.tcl "w"]
+    foreach item [array names STATUS_TESTS] {
+        puts $fidStatus "set LOG_STATUS_TESTS($item) \"$STATUS_TESTS($item)\""
+    }
+    close $fidStatus
     return $overrallpass
 }
 
