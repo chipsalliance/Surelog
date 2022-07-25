@@ -977,7 +977,9 @@ proc run_regression { } {
                 if {$passstatus == "PASS"} {
                     puts "FIXED $test ($passstatus -> PASS)"
                 } else {
-                    puts "CHANGED $test ($previous_status -> $passstatus)"
+                    if {$previous_status != $passstatus} {
+                        puts "CHANGED $test ($previous_status -> $passstatus)"
+                    }
                 }
             }
         }
