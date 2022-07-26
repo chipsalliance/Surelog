@@ -1495,15 +1495,16 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
     } else if (Parameter* sit = const_cast<Parameter*>(
                    datatype_cast<const Parameter*>(dtype))) {
       UHDM::typespec* spec = elabTypeParameter_(component, sit, instance);
-
-      variables* var = m_helper.getSimpleVarFromTypespec(spec, packedDimensions,
-                                                         m_compileDesign);
-      if (var) {
-        var->Expr(assignExp);
-        var->VpiConstantVariable(sig->isConst());
-        var->VpiSigned(sig->isSigned());
-        var->VpiName(signame);
-        obj = var;
+      if (spec) {
+        variables* var = m_helper.getSimpleVarFromTypespec(
+            spec, packedDimensions, m_compileDesign);
+        if (var) {
+          var->Expr(assignExp);
+          var->VpiConstantVariable(sig->isConst());
+          var->VpiSigned(sig->isSigned());
+          var->VpiName(signame);
+          obj = var;
+        }
       }
     }
   } else if (tps) {

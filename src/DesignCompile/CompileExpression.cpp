@@ -1254,6 +1254,9 @@ UHDM::any *CompileHelper::compileExpression(
     DesignComponent *component, const FileContent *fC, NodeId parent,
     CompileDesign *compileDesign, UHDM::any *pexpr, ValuedComponentI *instance,
     bool reduce, bool muteErrors) {
+  if (m_checkForLoops) {
+    m_stackLevel++;
+  }
   UHDM::Serializer &s = compileDesign->getSerializer();
   UHDM::any *result = nullptr;
   VObjectType parentType = fC->Type(parent);
@@ -1312,6 +1315,9 @@ UHDM::any *CompileHelper::compileExpression(
       list_op->Attributes(attributes);
       result = list_op;
       fC->populateCoreMembers(parent, parent, result);
+      if (m_checkForLoops) {
+        m_stackLevel--;
+      }
       return result;
     }
     case VObjectType::slNet_lvalue: {
@@ -1337,6 +1343,9 @@ UHDM::any *CompileHelper::compileExpression(
           }
         }
         Expression = fC->Sibling(Expression);
+      }
+      if (m_checkForLoops) {
+        m_stackLevel--;
       }
       return result;
     }
@@ -1379,6 +1388,9 @@ UHDM::any *CompileHelper::compileExpression(
           if (exp) operands->push_back(exp);
           Expression = fC->Sibling(Expression);
         }
+        if (m_checkForLoops) {
+          m_stackLevel--;
+        }
         return result;
       }
       break;
@@ -1398,6 +1410,9 @@ UHDM::any *CompileHelper::compileExpression(
                                       op, instance, reduce, muteErrors);
         if (sExpr) operands->push_back(sExpr);
         Expression = fC->Sibling(Expression);
+      }
+      if (m_checkForLoops) {
+        m_stackLevel--;
       }
       return result;
     }
@@ -1419,6 +1434,9 @@ UHDM::any *CompileHelper::compileExpression(
             (expr *)compileExpression(component, fC, Expr, compileDesign, op,
                                       instance, reduce, muteErrors);
         if (rExpr) operands->push_back(rExpr);
+        if (m_checkForLoops) {
+          m_stackLevel--;
+        }
         return result;
       }
       break;
@@ -1433,6 +1451,9 @@ UHDM::any *CompileHelper::compileExpression(
                                  instance, reduce, muteErrors);
       sys->Tf_call_args(arguments);
       result = sys;
+      if (m_checkForLoops) {
+        m_stackLevel--;
+      }
       return result;
     }
     default:
@@ -1462,6 +1483,9 @@ UHDM::any *CompileHelper::compileExpression(
         if (!exp->VpiParent()) exp->VpiParent(operation);
       }
       Expression = fC->Sibling(Expression);
+    }
+    if (m_checkForLoops) {
+      m_stackLevel--;
     }
     return result;
   }
@@ -1528,6 +1552,9 @@ UHDM::any *CompileHelper::compileExpression(
             }
             Expression = fC->Sibling(Expression);
             odd = !odd;
+          }
+          if (m_checkForLoops) {
+            m_stackLevel--;
           }
           return result;
         }
@@ -2672,6 +2699,9 @@ UHDM::any *CompileHelper::compileExpression(
         }
         case VObjectType::slData_type:
           // When trying to evaluate type parameters
+          if (m_checkForLoops) {
+            m_stackLevel--;
+          }
           return nullptr;
         case VObjectType::slCycle_delay_range: {
           VObjectType type = fC->Type(child);
@@ -2945,7 +2975,9 @@ UHDM::any *CompileHelper::compileExpression(
       fC->populateCoreMembers(parent, parent, result);
     }
   }
-
+  if (m_checkForLoops) {
+    m_stackLevel--;
+  }
   return result;
 }
 
@@ -3606,6 +3638,12 @@ uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
                              ValuedComponentI *instance,
                              const fs::path &fileName, int lineNumber,
                              bool reduce, bool sizeMode) {
+  if (loopDetected(fileName, lineNumber, instance)) {
+    return 0;
+  }
+  if (m_checkForLoops) {
+    m_stackLevel++;
+  }
   UHDM::GetObjectFunctor getObjectFunctor =
       [&](const std::string &name, const any *inst,
           const any *pexpr) -> UHDM::any * {
@@ -3637,6 +3675,9 @@ uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
   }
   uint64_t size = eval.size(typespec, invalidValue, m_exprEvalPlaceHolder,
                             nullptr, !sizeMode);
+  if (m_checkForLoops) {
+    m_stackLevel--;
+  }
   return size;
 }
 
@@ -3667,6 +3708,9 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
                                            CompileDesign *compileDesign,
                                            ValuedComponentI *instance,
                                            bool reduce) {
+  if (loopDetected(fC->getFileName(), fC->Line(id), instance)) {
+    return nullptr;
+  }
   UHDM::Serializer &s = compileDesign->getSerializer();
   const DataType *dtype = nullptr;
   const typespec *result = nullptr;
