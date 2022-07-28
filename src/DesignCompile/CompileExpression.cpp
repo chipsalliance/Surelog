@@ -2785,6 +2785,18 @@ UHDM::any *CompileHelper::compileExpression(
           }
           break;
         }
+        case VObjectType::slClass_scope: {
+          NodeId Class_type = fC->Child(child);
+          NodeId Class_type_name = fC->Child(Class_type);
+          NodeId Class_scope_name = fC->Sibling(child);
+          std::string name = fC->SymName(Class_type_name) +
+                             "::" + fC->SymName(Class_scope_name);
+          ref_obj *ref = s.MakeRef_obj();
+          ref->VpiName(name);
+          fC->populateCoreMembers(child, child, ref);
+          result = ref;
+          break;
+        }
         default:
           break;
       }

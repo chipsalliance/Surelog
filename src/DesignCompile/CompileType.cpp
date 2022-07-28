@@ -1639,18 +1639,20 @@ UHDM::typespec* CompileHelper::compileTypespec(
       expr* exp =
           (expr*)compileExpression(component, fC, type, compileDesign, nullptr,
                                    instance, reduce, reduce == false);
-      if (exp && exp->UhdmType() == uhdmref_obj) {
-        return compileTypespec(component, fC, fC->Child(type), compileDesign,
-                               result, instance, reduce);
-      } else {
-        integer_typespec* var = s.MakeInteger_typespec();
-        if (exp->UhdmType() == uhdmconstant) {
-          var->VpiValue(exp->VpiValue());
+      if (exp) {
+        if (exp->UhdmType() == uhdmref_obj) {
+          return compileTypespec(component, fC, fC->Child(type), compileDesign,
+                                 result, instance, reduce);
         } else {
-          var->Expr(exp);
+          integer_typespec* var = s.MakeInteger_typespec();
+          if (exp->UhdmType() == uhdmconstant) {
+            var->VpiValue(exp->VpiValue());
+          } else {
+            var->Expr(exp);
+          }
+          fC->populateCoreMembers(type, type, var);
+          result = var;
         }
-        fC->populateCoreMembers(type, type, var);
-        result = var;
       }
       break;
     }
