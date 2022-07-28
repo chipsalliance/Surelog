@@ -103,7 +103,12 @@ void SV3_1aPpTreeShapeListener::enterNumber(
   if (m_inActiveBranch &&
       (!(m_filterProtectedRegions && m_inProtectedRegion))) {
     if (!m_inMacroDefinitionParsing) {
-      std::string text = ctx->Number()->getText();
+      std::string text;
+      if (ctx->Number()) {
+        text = ctx->Number()->getText();
+      } else {
+        text = ctx->getText();
+      }
       std::string text2;
       bool firstNonSpace = false;
       unsigned int size = text.size();
@@ -160,7 +165,11 @@ void SV3_1aPpTreeShapeListener::exitNumber(SV3_1aPpParser::NumberContext *ctx) {
   if (m_inActiveBranch &&
       (!(m_filterProtectedRegions && m_inProtectedRegion))) {
     if (!m_inMacroDefinitionParsing) {
-      std::string text = ctx->Number()->getText();
+      std::string text;
+      if (ctx->Number())
+        text = ctx->Number()->getText();
+      else
+        text = ctx->getText();
       addVObject(ctx, text, VObjectType::slNumber);
     }
   }
