@@ -1032,7 +1032,11 @@ UHDM::typespec* CompileHelper::compileTypespec(
   VObjectType the_type = fC->Type(type);
   if ((the_type == VObjectType::slData_type_or_implicit) ||
       (the_type == VObjectType::slData_type)) {
-    type = fC->Child(type);
+    if (fC->Child(type)) {
+      type = fC->Child(type);
+    } else {
+      // Implicit type
+    }
     the_type = fC->Type(type);
   }
   NodeId Packed_dimension;
@@ -1731,6 +1735,16 @@ UHDM::typespec* CompileHelper::compileTypespec(
         return compileTypespec(component, fC, child, compileDesign, result,
                                instance, reduce);
       }
+      break;
+    }
+    case slData_type_or_implicit: {
+      logic_typespec* tps = s.MakeLogic_typespec();
+      fC->populateCoreMembers(type, type, tps);
+      VectorOfrange* ranges =
+          compileRanges(component, fC, type, compileDesign, pstmt, instance,
+                        reduce, size, false);
+      tps->Ranges(ranges);
+      result = tps;
       break;
     }
     default:
