@@ -1163,17 +1163,22 @@ void SV3_1aPpTreeShapeListener::enterEndif_directive(
       switch (item.m_type) {
         case PreprocessFile::IfElseItem::IFDEF:
         case PreprocessFile::IfElseItem::IFNDEF:
-          // std::cout << "STACK SIZE: " << m_pp->getStack ().size () <<
-          // std::endl;
           m_inActiveBranch = item.m_previousActiveState;
-          stack.pop_back();
+          if (!stack.empty()) {
+            stack.pop_back();
+          }
           unroll = false;
           break;
         case PreprocessFile::IfElseItem::ELSIF:
         case PreprocessFile::IfElseItem::ELSE:
-          stack.pop_back();
+          if (!stack.empty()) {
+            stack.pop_back();
+          } else {
+            unroll = false;
+          }
           break;
         default:
+          unroll = false;
           break;
       }
     }
