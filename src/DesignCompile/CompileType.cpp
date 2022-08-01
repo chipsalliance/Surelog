@@ -606,55 +606,53 @@ typespec* CompileHelper::compileDatastructureTypespec(
       if (dt == nullptr) {
         for (Signal* sig : component->getPorts()) {
           // Interface port type
-          if (sig->getName() == typeName) {
-            if (sig->getInterfaceTypeNameId()) {
-              std::string suffixname;
-              std::string typeName;
-              if (fC->Type(sig->getInterfaceTypeNameId()) == slStringConst) {
-                typeName = fC->SymName(sig->getInterfaceTypeNameId());
-              }
-              NodeId suffixNode;
-              if ((suffixNode = fC->Sibling(type))) {
+          if ((sig->getName() == typeName) && sig->getInterfaceTypeNameId()) {
+            std::string suffixname;
+            std::string typeName2 = typeName;
+            if (fC->Type(sig->getInterfaceTypeNameId()) == slStringConst) {
+              typeName2 = fC->SymName(sig->getInterfaceTypeNameId());
+            }
+            NodeId suffixNode;
+            if ((suffixNode = fC->Sibling(type))) {
+              if (fC->Type(suffixNode) == slStringConst) {
+                suffixname = fC->SymName(suffixNode);
+              } else if (fC->Type(suffixNode) == slConstant_bit_select) {
+                suffixNode = fC->Sibling(suffixNode);
                 if (fC->Type(suffixNode) == slStringConst) {
                   suffixname = fC->SymName(suffixNode);
-                } else if (fC->Type(suffixNode) == slConstant_bit_select) {
-                  suffixNode = fC->Sibling(suffixNode);
-                  if (fC->Type(suffixNode) == slStringConst) {
-                    suffixname = fC->SymName(suffixNode);
-                  }
                 }
               }
-              typespec* tmp = compileDatastructureTypespec(
-                  component, fC, sig->getInterfaceTypeNameId(), compileDesign,
-                  instance, reduce, suffixname, typeName);
-              if (tmp) {
-                if (tmp->UhdmType() == uhdminterface_typespec) {
-                  if (!suffixname.empty()) {
-                    ErrorContainer* errors =
-                        compileDesign->getCompiler()->getErrorContainer();
-                    SymbolTable* symbols =
-                        compileDesign->getCompiler()->getSymbolTable();
-                    Location loc1(
-                        symbols->registerSymbol(fC->getFileName().string()),
-                        fC->Line(suffixNode), fC->Column(suffixNode),
-                        symbols->registerSymbol(suffixname));
-                    std::string libName = fC->getLibrary()->getName();
-                    Design* design = compileDesign->getCompiler()->getDesign();
-                    ModuleDefinition* def =
-                        design->getModuleDefinition(libName + "@" + typeName);
-                    const FileContent* interF = def->getFileContents()[0];
-                    Location loc2(
-                        symbols->registerSymbol(interF->getFileName().string()),
-                        interF->Line(def->getNodeIds()[0]),
-                        interF->Column(def->getNodeIds()[0]),
-                        symbols->registerSymbol(typeName));
-                    Error err(ErrorDefinition::ELAB_UNKNOWN_INTERFACE_MEMBER,
-                              loc1, loc2);
-                    errors->addError(err);
-                  }
+            }
+            typespec* tmp = compileDatastructureTypespec(
+                component, fC, sig->getInterfaceTypeNameId(), compileDesign,
+                instance, reduce, suffixname, typeName2);
+            if (tmp) {
+              if (tmp->UhdmType() == uhdminterface_typespec) {
+                if (!suffixname.empty()) {
+                  ErrorContainer* errors =
+                      compileDesign->getCompiler()->getErrorContainer();
+                  SymbolTable* symbols =
+                      compileDesign->getCompiler()->getSymbolTable();
+                  Location loc1(
+                      symbols->registerSymbol(fC->getFileName().string()),
+                      fC->Line(suffixNode), fC->Column(suffixNode),
+                      symbols->registerSymbol(suffixname));
+                  std::string libName = fC->getLibrary()->getName();
+                  Design* design = compileDesign->getCompiler()->getDesign();
+                  ModuleDefinition* def =
+                      design->getModuleDefinition(libName + "@" + typeName2);
+                  const FileContent* interF = def->getFileContents()[0];
+                  Location loc2(
+                      symbols->registerSymbol(interF->getFileName().string()),
+                      interF->Line(def->getNodeIds()[0]),
+                      interF->Column(def->getNodeIds()[0]),
+                      symbols->registerSymbol(typeName2));
+                  Error err(ErrorDefinition::ELAB_UNKNOWN_INTERFACE_MEMBER,
+                            loc1, loc2);
+                  errors->addError(err);
                 }
-                return tmp;
               }
+              return tmp;
             }
           }
         }
@@ -846,7 +844,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
             if (def->getModPort(name)) {
               interface_typespec* mptps = s.MakeInterface_typespec();
               mptps->VpiName(name);
-              fC->populateCoreMembers(type, type, mptps);
+              fC->populateCoreMembers(sub, sub, mptps);
               mptps->VpiParent(tps);
               mptps->VpiIsModPort(true);
               result = mptps;
@@ -1603,7 +1601,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
             pats->Ranges(ranges);
             result = pats;
           } else if (dstype == uhdmarray_typespec) {
-            packed_array_typespec* pats = s.MakePacked_array_typespec();
+            array_typespec* pats = s.MakeArray_typespec();
             pats->Elem_typespec(result);
             pats->Ranges(ranges);
             result = pats;
