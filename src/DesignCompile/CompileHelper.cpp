@@ -1958,11 +1958,10 @@ void CompileHelper::compileImportDeclaration(DesignComponent* component,
   }
 }
 
-bool CompileHelper::compileDataDeclaration(DesignComponent* component,
-                                           const FileContent* fC, NodeId id,
-                                           bool interface,
-                                           CompileDesign* compileDesign,
-                                           bool reduce) {
+bool CompileHelper::compileDataDeclaration(
+    DesignComponent* component, const FileContent* fC, NodeId id,
+    bool interface, CompileDesign* compileDesign, bool reduce,
+    UHDM::VectorOfattribute* attributes) {
   NodeId subNode = fC->Child(id);
   VObjectType subType = fC->Type(subNode);
   switch (subType) {
@@ -2094,7 +2093,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
         if (is_rand) sig->setRand();
         if (is_randc) sig->setRandc();
         if (is_signed) sig->setSigned();
-
+        sig->attributes(attributes);
         component->getSignals().push_back(sig);
         variable_decl_assignment = fC->Sibling(variable_decl_assignment);
       }

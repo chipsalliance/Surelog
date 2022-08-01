@@ -78,6 +78,7 @@ class CompilePackage final {
   SymbolTable* const m_symbols;
   ErrorContainer* const m_errors;
   CompileHelper m_helper;
+  UHDM::VectorOfattribute* m_attributes = nullptr;
 };
 
 }  // namespace SURELOG

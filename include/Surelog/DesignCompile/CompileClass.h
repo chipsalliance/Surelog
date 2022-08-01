@@ -86,6 +86,7 @@ class CompileClass final {
   bool compile_parameter_declaration_(const FileContent* fC, NodeId id);
   bool compile_class_type_(const FileContent* fC, NodeId id);
   std::set<std::string> builtins_;
+  UHDM::VectorOfattribute* m_attributes = nullptr;
 };
 
 }  // namespace SURELOG

@@ -252,12 +252,20 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
         if (collectType != CollectType::DEFINITION) break;
         m_helper.compileNetDeclaration(m_program, fC, id, false,
                                        m_compileDesign);
+        m_attributes = nullptr;
         break;
       }
       case VObjectType::slData_declaration: {
         if (collectType != CollectType::DEFINITION) break;
         m_helper.compileDataDeclaration(m_program, fC, id, false,
-                                        m_compileDesign, false);
+                                        m_compileDesign, false, m_attributes);
+        m_attributes = nullptr;
+        break;
+      }
+      case VObjectType::slAttribute_instance: {
+        if (collectType != CollectType::DEFINITION) break;
+        m_attributes =
+            m_helper.compileAttributes(m_program, fC, id, m_compileDesign);
         break;
       }
       case VObjectType::slInitial_construct:
