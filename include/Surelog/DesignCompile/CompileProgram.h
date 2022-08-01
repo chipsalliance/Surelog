@@ -83,6 +83,7 @@ class CompileProgram : public CompileToolbox {
   CompileHelper m_helper;
   uint32_t m_nbPorts = 0;
   bool m_hasNonNullPort = false;
+  UHDM::VectorOfattribute* m_attributes = nullptr;
 };
 
 }  // namespace SURELOG

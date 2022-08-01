@@ -134,7 +134,7 @@ class CompileHelper final {
 
   bool compileDataDeclaration(DesignComponent* component, const FileContent* fC,
                               NodeId id, bool interface,
-                              CompileDesign* compileDesign, bool reduce);
+                              CompileDesign* compileDesign, bool reduce, UHDM::VectorOfattribute* attributes);
 
   // ------------------------------------------------------------------------------------------
   // UHDM modeling

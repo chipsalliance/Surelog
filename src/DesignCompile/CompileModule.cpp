@@ -571,6 +571,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         case VObjectType::slAnsi_port_declaration: {
           if (collectType != CollectType::DEFINITION) break;
           m_helper.compileAnsiPortDeclaration(m_module, fC, id, port_direction);
+          m_attributes = nullptr;
           break;
         }
         case VObjectType::slPort: {
@@ -582,6 +583,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           m_helper.compilePortDeclaration(m_module, fC, id, m_compileDesign,
                                           port_direction,
                                           m_hasNonNullPort || (m_nbPorts > 1));
+          m_attributes = nullptr;
           break;
         }
         case VObjectType::slInput_declaration:
@@ -590,6 +592,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           if (collectType != CollectType::DEFINITION) break;
           m_helper.compilePortDeclaration(m_module, fC, id, m_compileDesign,
                                           port_direction, m_hasNonNullPort);
+          m_attributes = nullptr;
           break;
         }
         case VObjectType::slClocking_declaration: {
@@ -601,18 +604,27 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           if (collectType != CollectType::DEFINITION) break;
           m_helper.compileNetDeclaration(m_module, fC, id, false,
                                          m_compileDesign);
+          m_attributes = nullptr;
           break;
         }
         case VObjectType::slData_declaration: {
           if (collectType != CollectType::DEFINITION) break;
           m_helper.compileDataDeclaration(m_module, fC, id, false,
-                                          m_compileDesign, false);
+                                          m_compileDesign, false, m_attributes);
+          m_attributes = nullptr;
+          break;
+        }
+        case VObjectType::slAttribute_instance: {
+          if (collectType != CollectType::DEFINITION) break;
+          m_attributes =
+              m_helper.compileAttributes(m_module, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slPort_declaration: {
           if (collectType != CollectType::DEFINITION) break;
           m_helper.compilePortDeclaration(m_module, fC, id, m_compileDesign,
                                           port_direction, m_hasNonNullPort);
+          m_attributes = nullptr;
           break;
         }
         case VObjectType::slContinuous_assign: {
@@ -927,23 +939,33 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
           if (collectType != CollectType::DEFINITION) break;
           m_helper.compilePortDeclaration(m_module, fC, id, m_compileDesign,
                                           port_direction, m_hasNonNullPort);
+          m_attributes = nullptr;
           break;
         }
         case VObjectType::slAnsi_port_declaration: {
           if (collectType != CollectType::DEFINITION) break;
           m_helper.compileAnsiPortDeclaration(m_module, fC, id, port_direction);
+          m_attributes = nullptr;
           break;
         }
         case VObjectType::slNet_declaration: {
           if (collectType != CollectType::DEFINITION) break;
           m_helper.compileNetDeclaration(m_module, fC, id, true,
                                          m_compileDesign);
+          m_attributes = nullptr;
           break;
         }
         case VObjectType::slData_declaration: {
           if (collectType != CollectType::DEFINITION) break;
           m_helper.compileDataDeclaration(m_module, fC, id, true,
-                                          m_compileDesign, false);
+                                          m_compileDesign, false, m_attributes);
+          m_attributes = nullptr;
+          break;
+        }
+        case VObjectType::slAttribute_instance: {
+          if (collectType != CollectType::DEFINITION) break;
+          m_attributes =
+              m_helper.compileAttributes(m_module, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slContinuous_assign: {

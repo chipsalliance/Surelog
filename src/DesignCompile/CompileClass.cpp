@@ -278,7 +278,7 @@ bool CompileClass::compile() {
 bool CompileClass::compile_class_property_(const FileContent* fC, NodeId id) {
   NodeId data_declaration = fC->Child(id);
   m_helper.compileDataDeclaration(m_class, fC, data_declaration, false,
-                                  m_compileDesign, false);
+                                  m_compileDesign, false, m_attributes);
 
   NodeId var_decl = fC->Child(data_declaration);
   VObjectType type = fC->Type(data_declaration);
