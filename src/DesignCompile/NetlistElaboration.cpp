@@ -800,7 +800,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             netlist->ports(ports);
           }
           fC->populateCoreMembers(Net_lvalue, Net_lvalue, p);
-          if (fC->Type(sigId) == slStringConst) {
+          if ((fC->Type(sigId) == slStringConst) && (!bit_or_part_select)) {
             ref_obj* ref = s.MakeRef_obj();
             fC->populateCoreMembers(sigId, sigId, ref);
             p->High_conn(ref);
