@@ -65,6 +65,9 @@ class UhdmWriter final {
 
   static unsigned int getStrengthType(VObjectType type);
 
+  static std::string builtinGateName(VObjectType type);
+  static unsigned int getBuiltinType(VObjectType type);
+
  private:
   void writeModule(ModuleDefinition* mod, UHDM::module* m, UHDM::Serializer& s,
                    ComponentMap& componentMap, ModPortMap& modPortMap,

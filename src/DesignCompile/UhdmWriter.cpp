@@ -58,7 +58,95 @@ namespace SURELOG {
 
 using namespace UHDM;  // NOLINT (we're using a whole bunch of these)
 
-unsigned int getBuiltinType(VObjectType type) {
+std::string UhdmWriter::builtinGateName(VObjectType type) {
+  std::string modName;
+  switch (type) {
+    case VObjectType::slNInpGate_And:
+      modName = "work@and";
+      break;
+    case VObjectType::slNInpGate_Or:
+      modName = "work@or";
+      break;
+    case VObjectType::slNInpGate_Nand:
+      modName = "work@nand";
+      break;
+    case VObjectType::slNInpGate_Nor:
+      modName = "work@nor";
+      break;
+    case VObjectType::slNInpGate_Xor:
+      modName = "work@xor";
+      break;
+    case VObjectType::slNInpGate_Xnor:
+      modName = "work@xnor";
+      break;
+    case VObjectType::slNOutGate_Buf:
+      modName = "work@buf";
+      break;
+    case VObjectType::slNOutGate_Not:
+      modName = "work@not";
+      break;
+    case VObjectType::slPassEnSwitch_Tranif0:
+      modName = "work@tranif0";
+      break;
+    case VObjectType::slPassEnSwitch_Tranif1:
+      modName = "work@tranif1";
+      break;
+    case VObjectType::slPassEnSwitch_RTranif1:
+      modName = "work@rtranif1";
+      break;
+    case VObjectType::slPassEnSwitch_RTranif0:
+      modName = "work@rtranif0";
+      break;
+    case VObjectType::slPassSwitch_Tran:
+      modName = "work@tran";
+      break;
+    case VObjectType::slPassSwitch_RTran:
+      modName = "work@rtran";
+      break;
+    case VObjectType::slCmosSwitchType_Cmos:
+      modName = "work@cmos";
+      break;
+    case VObjectType::slCmosSwitchType_RCmos:
+      modName = "work@rcmos";
+      break;
+    case VObjectType::slEnableGateType_Bufif0:
+      modName = "work@bufif0";
+      break;
+    case VObjectType::slEnableGateType_Bufif1:
+      modName = "work@bufif1";
+      break;
+    case VObjectType::slEnableGateType_Notif0:
+      modName = "work@notif0";
+      break;
+    case VObjectType::slEnableGateType_Notif1:
+      modName = "work@notif1";
+      break;
+    case VObjectType::slMosSwitchType_NMos:
+      modName = "work@nmos";
+      break;
+    case VObjectType::slMosSwitchType_PMos:
+      modName = "work@pmos";
+      break;
+    case VObjectType::slMosSwitchType_RNMos:
+      modName = "work@rnmos";
+      break;
+    case VObjectType::slMosSwitchType_RPMos:
+      modName = "work@rpmos";
+      break;
+    case VObjectType::slPullup:
+      modName = "work@pullup";
+      break;
+    case VObjectType::slPulldown:
+      modName = "work@pulldown";
+      break;
+    default:
+      modName = "work@UnsupportedPrimitive";
+      break;
+  }
+  return modName;
+}
+
+unsigned int UhdmWriter::getBuiltinType(VObjectType type) {
   switch (type) {
     case VObjectType::slNInpGate_And:
       return vpiAndPrim;

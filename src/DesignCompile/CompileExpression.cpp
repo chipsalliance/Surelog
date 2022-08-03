@@ -1379,6 +1379,7 @@ UHDM::any *CompileHelper::compileExpression(
         UHDM::VectorOfany *operands = s.MakeAnyVec();
         operation->Operands(operands);
         operation->VpiOpType(vpiListOp);
+        fC->populateCoreMembers(parent, parent, operation);
         result = operation;
         NodeId Expression = MinTypMax;
         while (Expression) {
@@ -1401,6 +1402,7 @@ UHDM::any *CompileHelper::compileExpression(
       operation *op = s.MakeOperation();
       op->VpiOpType(vpiMinTypMaxOp);
       op->VpiParent(pexpr);
+      fC->populateCoreMembers(parent, parent, op);
       UHDM::VectorOfany *operands = s.MakeAnyVec();
       op->Operands(operands);
       result = op;
@@ -1720,6 +1722,7 @@ UHDM::any *CompileHelper::compileExpression(
             operation *op = s.MakeOperation();
             op->VpiOpType(vpiMinTypMaxOp);
             op->VpiParent(pexpr);
+            fC->populateCoreMembers(parent, parent, op);
             UHDM::VectorOfany *operands = s.MakeAnyVec();
             op->Operands(operands);
             result = op;
