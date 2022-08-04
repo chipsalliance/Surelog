@@ -1158,24 +1158,18 @@ void SV3_1aPpTreeShapeListener::enterEndif_directive(
     if (ctx->One_line_comment()) {
       addLineFiller(ctx);
     }
-    while (unroll) {
+    while (unroll && (!stack.empty())) {
       PreprocessFile::IfElseItem &item = stack.back();
       switch (item.m_type) {
         case PreprocessFile::IfElseItem::IFDEF:
         case PreprocessFile::IfElseItem::IFNDEF:
           m_inActiveBranch = item.m_previousActiveState;
-          if (!stack.empty()) {
-            stack.pop_back();
-          }
+          stack.pop_back();
           unroll = false;
           break;
         case PreprocessFile::IfElseItem::ELSIF:
         case PreprocessFile::IfElseItem::ELSE:
-          if (!stack.empty()) {
-            stack.pop_back();
-          } else {
-            unroll = false;
-          }
+          stack.pop_back();
           break;
         default:
           unroll = false;
