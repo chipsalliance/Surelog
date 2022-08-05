@@ -2,19 +2,12 @@
 # If you have nix installed, you may simply run `nix-shell`
 # in this repo, and have all dependencies ready in the new shell.
 
-{pkgs ? import (builtins.fetchTarball {
-  # Descriptive name to make the store path easier to identify
-  name = "nixos-2021-11";
-  # Commit hash
-  url = "https://github.com/NixOS/nixpkgs/archive/refs/tags/21.11.tar.gz";
-  # Hash obtained using `nix-prefetch-url --unpack <url>`
-  sha256 = "162dywda2dvfj1248afxc45kcrg83appjd0nmdb541hl7rnncf02";
-}) {}}:
-
-
+{ pkgs ? import <nixpkgs> {} }:
 pkgs.mkShell {
   buildInputs = with pkgs;
     [
+      stdenv
+
       antlr4
       cacert
       cmake
@@ -23,15 +16,22 @@ pkgs.mkShell {
       gperftools
       jdk11
       lcov
-      libuuid
       libunwind
+      libuuid
       pkg-config
-      python3
-      python39Packages.orderedmultidict
-      python39Packages.psutil
+      python310
+      python310Packages.orderedmultidict
+      python310Packages.psutil
       swig
       tcl
       time
       zlib
+
+      # Ease development
+      ccache
     ];
+  shellHook =
+  ''
+    export CMAKE_CXX_COMPILER_LAUNCHER=ccache
+  '';
 }
