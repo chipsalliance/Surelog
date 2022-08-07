@@ -3659,6 +3659,10 @@ bool CompileHelper::isSelected(const FileContent* fC,
   NodeId Constant_select = fC->Sibling(ps_or_hierarchical_identifier);
   NodeId Constant_bit_select = fC->Child(Constant_select);
   NodeId Constant_expression = fC->Child(Constant_bit_select);
+  NodeId Constant_part_select_range = fC->Sibling(Constant_bit_select);
+  if (Constant_part_select_range) {
+    return true;
+  }
   if (Constant_expression) return true;
   return false;
 }
