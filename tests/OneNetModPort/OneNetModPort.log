@@ -718,11 +718,16 @@ design: (work@TOP)
       |vpiName:i
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (work@TOP.conntb), line:17:12, endln:17:18
-        |vpiName:conntb
-        |vpiFullName:work@TOP.conntb
+      \_hier_path: (conntb.drive), line:17:12, endln:17:24
+        |vpiName:conntb.drive
         |vpiActual:
-        \_interface: work@ConnectTB (work@TOP.conntb), file:tb.v, line:16:0
+        \_ref_obj: (conntb)
+          |vpiParent:
+          \_hier_path: (conntb.drive), line:17:12, endln:17:24
+          |vpiName:conntb
+        |vpiActual:
+        \_ref_obj: (drive)
+          |vpiName:drive
       |vpiLowConn:
       \_ref_obj: (work@TOP.dut1.i), line:2:24, endln:2:25
         |vpiName:i
