@@ -216,6 +216,7 @@ TEST(StringUtilsTest, SplitLines) {
 }
 
 TEST(StringUtilsTest, RemoveComments) {
+  EXPECT_EQ("hello ", StringUtils::removeComments("hello /// world"));
   EXPECT_EQ("hello ", StringUtils::removeComments("hello // world"));
   EXPECT_EQ("hello ", StringUtils::removeComments("hello # world"));
   EXPECT_EQ("hello \nworld",
