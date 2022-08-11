@@ -467,6 +467,7 @@ UHDM::any* CompileHelper::compileVariable(
     }
     case VObjectType::slString_type: {
       string_var* var = s.MakeString_var();
+      var->Typespec(ts);
       result = var;
       break;
     }
