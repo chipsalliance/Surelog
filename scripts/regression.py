@@ -189,7 +189,7 @@ def _restore_directory_state(dirpath, golden_snapshot, output_dirpath, current_s
 
 
 def _generate_tarball(dirpath):
-  with tarfile.open(dirpath + '.tgz', 'w:gz', format=tarfile.GNU_FORMAT) as tarball:
+  with tarfile.open(dirpath + '.tar.gz', 'w:gz', format=tarfile.GNU_FORMAT) as tarball:
     tarball.add(dirpath, arcname=os.path.basename(dirpath), recursive=True)
 
 
