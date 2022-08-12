@@ -98,7 +98,7 @@ static bool compareVectors(std::vector<T> a, std::vector<T> b) {
 
 bool PPCache::restore_(const fs::path& cacheFileName,
                        const std::unique_ptr<uint8_t[]>& buffer,
-                       bool errorsOnly, bool skipLineTranslationInfo) {
+                       bool errorsOnly, int recursionDepth) {
   if (buffer == nullptr) return false;
 
   const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(buffer.get());
@@ -148,7 +148,7 @@ bool PPCache::restore_(const fs::path& cacheFileName,
   }
 
   /* Restore file line info */
-  if (!skipLineTranslationInfo) {
+  if (recursionDepth == 0) {
     const auto* lineinfos = ppcache->line_translation_vec();
     for (const MACROCACHE::LineTranslationInfo* lineinfo : *lineinfos) {
       const fs::path pretendFileName = lineinfo->pretend_file()->str();
@@ -161,6 +161,7 @@ bool PPCache::restore_(const fs::path& cacheFileName,
   }
 
   /* Restore include file info */
+  if (recursionDepth == 0) m_pp->clearIncludeFileInfo();
   for (const auto* incinfo : *ppcache->include_file_info()) {
     const fs::path sectionFileName = incinfo->section_file()->str();
     // std::cout << "read sectionFile: " << sectionFileName << " s:" <<
@@ -180,7 +181,8 @@ bool PPCache::restore_(const fs::path& cacheFileName,
   // Includes
   if (auto includes = ppcache->includes()) {
     for (const auto* include : *includes) {
-      restore_(getCacheFileName_(include->str()), errorsOnly, true);
+      restore_(getCacheFileName_(include->str()), errorsOnly,
+               recursionDepth + 1);
     }
   }
   // File Body
@@ -212,9 +214,9 @@ bool PPCache::restore_(const fs::path& cacheFileName,
 }
 
 bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly,
-                       bool skipLineTranslationInfo) {
+                       int recursionDepth) {
   return restore_(cacheFileName, openFlatBuffers(cacheFileName), errorsOnly,
-                  skipLineTranslationInfo);
+                  recursionDepth);
 }
 
 bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName,
@@ -314,7 +316,7 @@ bool PPCache::restore(bool errorsOnly) {
   if (buffer == nullptr) return false;
 
   return checkCacheIsValid_(cacheFileName, buffer) &&
-         restore_(cacheFileName, buffer, errorsOnly, false);
+         restore_(cacheFileName, buffer, errorsOnly, 0);
 }
 
 bool PPCache::save() {
