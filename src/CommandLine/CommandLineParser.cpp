@@ -83,7 +83,7 @@ static const std::initializer_list<std::string_view> helpText = {
     "  ------------ SURELOG HELP --------------",
     "",
     "STANDARD VERILOG COMMAND LINE:",
-    "  -style <mode>         Compatibility with existing vendor's command-line "
+    "  -style <mode>         Compatibility with existing vendor's command-line "  // NOLINT
     "arguments.",
     "                        Legal values are S, C or M.",
     "  -f <file>             Accepts a file containing command line arguments",
@@ -91,7 +91,7 @@ static const std::initializer_list<std::string_view> helpText = {
     "  -y <path>             Library directory",
     "  +incdir+<dir>[+<dir>...] Specifies include paths",
     "  -Idir                 Specifies include paths",
-    "  +libext+<extname>+... Specifies the library extensions, "  // NOLINT
+    "  +libext+<extname>+... Specifies the library extensions, "
     "default is .v+.sv",
     "  <file>.v              Verilog File",
     "  <file>.sv             SystemVerilog File",
