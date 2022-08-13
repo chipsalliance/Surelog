@@ -944,7 +944,14 @@ VectorOfany* CompileHelper::compileDataDeclaration(
 
           if (unpackedDimensions) {
             array_var* arr = s.MakeArray_var();
+            fC->populateCoreMembers(Var, Var, arr);
             array_typespec* tps = s.MakeArray_typespec();
+            tps->Elem_typespec((typespec*)var->Typespec());
+            tps->VpiLineNo(unpackedDimensions->front()->VpiLineNo());
+            tps->VpiColumnNo(unpackedDimensions->front()->VpiColumnNo());
+            tps->VpiEndLineNo(unpackedDimensions->back()->VpiEndLineNo());
+            tps->VpiEndColumnNo(unpackedDimensions->back()->VpiEndColumnNo());
+            tps->Ranges(unpackedDimensions);
             arr->Typespec(tps);
             for (range* r : *unpackedDimensions) {
               const expr* rrange = r->Right_expr();
@@ -961,7 +968,6 @@ VectorOfany* CompileHelper::compileDataDeclaration(
             }
             arr->VpiName(fC->SymName(Var));
             var->VpiName("");
-            arr->Ranges(unpackedDimensions);
             VectorOfvariables* vars = s.MakeVariablesVec();
             arr->Variables(vars);
             vars->push_back(var);
@@ -2038,13 +2044,13 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     // make placeholder first
     func = s.MakeFunction();
     func->VpiName(name);
+    fC->populateCoreMembers(nodeId, nodeId, func);
     task_funcs->push_back(func);
     return true;
   }
   if (func->Io_decls() || func->Variables() || func->Stmt()) return true;
   setFuncTaskQualifiers(fC, nodeId, func);
   func->VpiMethod(isMethod);
-  fC->populateCoreMembers(nodeId, nodeId, func);
   if (constructor) {
     UHDM::class_var* var = s.MakeClass_var();
     func->Return(var);

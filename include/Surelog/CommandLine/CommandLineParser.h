@@ -173,7 +173,11 @@ class CommandLineParser final {
     m_elaborate = val;
     m_elabUhdm = val;
   }
+  void setDebugUhdm(bool val) { m_dumpUhdm = val; }
+  void setCoverUhdm(bool val) { m_coverUhdm = val; }
   void setWriteUhdm(bool val) { m_writeUhdm = val; }
+  void showVpiIds(bool val) { m_showVpiIDs = val; }
+  void setDebugAstModel(bool val) { m_debugAstModel = val; }
   void setParametersSubstitution(bool val) { m_parametersubstitution = val; }
   void setLetExprSubstitution(bool val) { m_letexprsubstitution = val; }
   bool pythonListener() const { return m_pythonListener && m_pythonAllowed; }

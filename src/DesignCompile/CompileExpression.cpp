@@ -3437,7 +3437,7 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
                  (fC->Type(Packed_dimension) ==
                   VObjectType::slUnsized_dimension)) {
         UHDM::range *range = s.MakeRange();
-
+        fC->populateCoreMembers(Packed_dimension, Packed_dimension, range);
         constant *lexpc = s.MakeConstant();
         lexpc->VpiConstType(vpiUIntConst);
         lexpc->VpiSize(64);
