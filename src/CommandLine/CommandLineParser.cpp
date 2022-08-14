@@ -79,161 +79,166 @@ static const std::initializer_list<std::string_view> footer = {
     "********************************************",
 };
 
-static const std::initializer_list<std::string_view> helpText = {
-    "  ------------ SURELOG HELP --------------",
-    "",
-    "STANDARD VERILOG COMMAND LINE:",
-    "  -style <mode>         Compatibility with existing vendor's command-line "  // NOLINT
-    "arguments.",
-    "                        Legal values are S, C or M.",
-    "  -f <file>             Accepts a file containing command line arguments",
-    "  -v <file>             Library file",
-    "  -y <path>             Library directory",
-    "  +incdir+<dir>[+<dir>...] Specifies include paths",
-    "  -Idir                 Specifies include paths",
-    "  +libext+<extname>+... Specifies the library extensions, "
-    "default is .v+.sv",
-    "  <file>.v              Verilog File",
-    "  <file>.sv             SystemVerilog File",
-    "  +liborder             Lib Order option (ignored)",
-    "  +librescan            Lib Rescan option (ignored)",
-    "  +libverbose           Lib Verbose option (ignored)",
-    "  +nolibcell            No Lib Cell option (ignored)",
-    "  +define+<name>=<value>[+<name>=<value>...]",
-    "                        Defines a macro and optionally its value",
-    "  -L <libName>          Defines library compilation order",
-    "  -map <mapFile>        Specifies a library mapping file (multiple -map "
-    "options supported)",
-    "  -cfgfile <confiFile>  Specifies a configuration file (multiple -cfgFile "
-    "options supported)",
-    "  -cfg <configName>     Specifies a configuration to use (multiple -cfg "
-    "options supported)",
-    "  -Dvar=value           Same as env var definition for -f files var "
-    "substitution",
-    "  -Pparameter=value     Top level parameter override",
-    "  -pvalue+parameter=value Top level parameter override",
-    "  -sverilog/-sv         Forces all files to be parsed as SystemVerilog "
-    "files",
-    "  -sv <file>            Forces the following file to be parsed as "
-    "SystemVerilog file",
-    "FLOWS OPTIONS:",
-    "  -fileunit             Compiles each Verilog file as an independent",
-    "                        compilation unit (under slpp_unit/ if -writepp "
-    "used)",
-    "  -diffcompunit         Compiles both all files as a whole unit and",
-    "                        separate compilation units to perform diffs",
-    "  -parse                Parse/Compile/Elaborate the files after "
-    "pre-processing step",
-    "  -noparse              Turns off Parsing & Compilation & Elaboration",
-    "  -nocomp               Turns off Compilation & Elaboration",
-    "  -noelab               Turns off Elaboration",
-    "  -parseonly            Only Parses, reloads Preprocessor saved db",
-    "  -init                 Initialize cache for separate compile flow "
-    "(-sepcomp, -link)",
-    "  -sepcomp              Separate compilation, each invocation creates a "
-    "compilation unit",
-    "  -link                 Link and elaborate the separately compiled files",
-    "  -elabuhdm             Forces UHDM/VPI Full Elaboration, default is the "
-    "Folded Model",
-    "  -nouhdm               No UHDM db write",
-    "  -top/--top-module <module> Top level module for elaboration (multiple "
-    "cmds ok)",
-    "  -bb_mod <module>      Blackbox module (multiple cmds ok, ex: -bb_mod "
-    "work@top)",
-    "  -bb_inst <instance>   Blackbox instance (multiple cmds ok, ex: -bb_inst "
-    "work@top.u1)",
-    "  -batch <batch.txt>    Runs all the tests specified in the file in batch "
-    "mode",
-    "                        Tests are expressed as one full command line per "
-    "line.",
-    "  --enable-feature=<feature>",
-    "  --disable-feature=<feature>",
-    "    Features: parametersubstitution Enables substitution of assignment "
-    "patterns in parameters",
-    "              letexprsubstitution Enables Let expr substitution "
-    "(Inlining)",
+static const std::initializer_list<std::string_view> helpText =
+    {"  ------------ SURELOG HELP --------------",
+     "",
+     "STANDARD VERILOG COMMAND LINE:",
+     "  -style <mode>         Compatibility with existing vendor's "
+     "command-line "  // NOLINT
+     "arguments.",
+     "                        Legal values are S, C or M.",
+     "  -f <file>             Accepts a file containing command line arguments",
+     "  -v <file>             Library file",
+     "  -y <path>             Library directory",
+     "  +incdir+<dir>[+<dir>...] Specifies include paths",
+     "  -Idir                 Specifies include paths",
+     "  +libext+<extname>+... Specifies the library extensions, "
+     "default is .v+.sv",
+     "  <file>.v              Verilog File",
+     "  <file>.sv             SystemVerilog File",
+     "  +liborder             Lib Order option (ignored)",
+     "  +librescan            Lib Rescan option (ignored)",
+     "  +libverbose           Lib Verbose option (ignored)",
+     "  +nolibcell            No Lib Cell option (ignored)",
+     "  +define+<name>=<value>[+<name>=<value>...]",
+     "                        Defines a macro and optionally its value",
+     "  -L <libName>          Defines library compilation order",
+     "  -map <mapFile>        Specifies a library mapping file (multiple -map "
+     "options supported)",
+     "  -cfgfile <confiFile>  Specifies a configuration file (multiple "
+     "-cfgFile "
+     "options supported)",
+     "  -cfg <configName>     Specifies a configuration to use (multiple -cfg "
+     "options supported)",
+     "  -Dvar=value           Same as env var definition for -f files var "
+     "substitution",
+     "  -Pparameter=value     Top level parameter override",
+     "  -pvalue+parameter=value Top level parameter override",
+     "  -sverilog/-sv         Forces all files to be parsed as SystemVerilog "
+     "files",
+     "  -sv <file>            Forces the following file to be parsed as "
+     "SystemVerilog file",
+     "FLOWS OPTIONS:",
+     "  -fileunit             Compiles each Verilog file as an independent",
+     "                        compilation unit (under slpp_unit/ if -writepp "
+     "used)",
+     "  -diffcompunit         Compiles both all files as a whole unit and",
+     "                        separate compilation units to perform diffs",
+     "  -parse                Parse/Compile/Elaborate the files after "
+     "pre-processing step",
+     "  -noparse              Turns off Parsing & Compilation & Elaboration",
+     "  -nocomp               Turns off Compilation & Elaboration",
+     "  -noelab               Turns off Elaboration",
+     "  -parseonly            Only Parses, reloads Preprocessor saved db",
+     "  -init                 Initialize cache for separate compile flow "
+     "(-sepcomp, -link)",
+     "  -sepcomp              Separate compilation, each invocation creates a "
+     "compilation unit",
+     "  -link                 Link and elaborate the separately compiled files",
+     "  -elabuhdm             Forces UHDM/VPI Full Elaboration, default is the "
+     "Folded Model",
+     "  -nouhdm               No UHDM db write",
+     "  -top/--top-module <module> Top level module for elaboration (multiple "
+     "cmds ok)",
+     "  -bb_mod <module>      Blackbox module (multiple cmds ok, ex: -bb_mod "
+     "work@top)",
+     "  -bb_inst <instance>   Blackbox instance (multiple cmds ok, ex: "
+     "-bb_inst "
+     "work@top.u1)",
+     "  -batch <batch.txt>    Runs all the tests specified in the file in "
+     "batch "
+     "mode",
+     "                        Tests are expressed as one full command line per "
+     "line.",
+     "  --enable-feature=<feature>",
+     "  --disable-feature=<feature>",
+     "    Features: parametersubstitution Enables substitution of assignment "
+     "patterns in parameters",
+     "              letexprsubstitution Enables Let expr substitution "
+     "(Inlining)",
 #ifdef SURELOG_WITH_PYTHON
-    "  -pythonlistener       Enables the Parser Python Listener",
-    "  -pythonlistenerfile <script.py> Specifies the AST python listener file",
-    "  -pythonevalscriptperfile <script.py>  Eval the Python script on each "
-    "source file (Multithreaded)",
-    "  -pythonevalscript <script.py> Eval the Python script at the design "
-    "level",
-    "  -nopython             Turns off all Python features, including waivers",
-    "  -withpython           Turns on all Python features, including waivers",
-    "  -strictpythoncheck    Turns on strict Python checks",
+     "  -pythonlistener       Enables the Parser Python Listener",
+     "  -pythonlistenerfile <script.py> Specifies the AST python listener file",
+     "  -pythonevalscriptperfile <script.py>  Eval the Python script on each "
+     "source file (Multithreaded)",
+     "  -pythonevalscript <script.py> Eval the Python script at the design "
+     "level",
+     "  -nopython             Turns off all Python features, including waivers",
+     "  -withpython           Turns on all Python features, including waivers",
+     "  -strictpythoncheck    Turns on strict Python checks",
 #endif
-    "  -mt/--threads <nb_max_threads> 0 up to 512 max threads, 0 or 1 being "
-    "single "
-    "threaded,",
-    "                        if \"max\" is given, the program will use one ",
-    "                        thread per core on the host",
-    "  -mp <mb_max_process>  0 up to 512 max processes, 0 or 1 being single "
-    "process",
-    "  -lowmem               Minimizes memory high water mark (uses multiple "
-    "staggered processes for preproc, parsing and elaboration)",
-    "  -split <line number>  Split files or modules larger than specified line "
-    "number for multi thread compilation",
-    "  -timescale=<timescale> Specifies the overall timescale",
-    "  -nobuiltin            Do not parse SV builtin classes (array...)",
-    "",
-    "TRACES OPTIONS:",
-    "  -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm, "
-    "cache, "
-    "coveruhdm, vpi_ids",
-    "  -nostdout             Mutes Standard output",
-    "  -verbose              Gives verbose processing information",
-    "  -profile              Gives Profiling information",
-    "  -replay               Enables replay of internal elaboration errors",
-    "  -l <file>             Specifies log file, default is surelog.log under "
-    "output dir",
-    "",
-    "OUTPUT OPTIONS:",
-    "  -odir/--Mdir <dir>    Specifies the output directory, default is ./",
-    "  -writeppfile <file>   Writes out Preprocessor output in file",
-    "                        (all compilation units will override this file)",
-    "  -writepp              Writes out Preprocessor output (all compilation",
-    "                        units will generate files under slpp_all/ or "
-    "slpp_unit/)",
-    "  -lineoffsetascomments Writes the preprocessor line offsets as comments "
-    "as opposed as parser directives",
-    "  -nocache              Default allows to create a cache for include "
-    "files, this option prevents it",
-    "  -cache <dir>          Specifies the cache directory, default is "
-    "slpp_all/cache or slpp_unit/cache",
-    "  -nohash               Don't use hash mechanism for cache file path, "
-    "always treat cache as valid (no timestamp/dependancy check)",
-    "  -createcache          Create cache for precompiled packages",
-    "  -filterdirectives     Filters out simple directives like",
-    "                        `default_nettype in pre-processor's output",
-    "  -filterprotected      Filters out protected regions in pre-processor's "
-    "output",
-    "  -filtercomments       Filters out comments in pre-processor's output",
-    "  -outputlineinfo       Outputs SLline directives in pre-processor's "
-    "output",
-    "  -pploc                Output message location in terms of post "
-    "preprocessor location",
-    "  -noinfo               Filters out INFO messages",
-    "  -nonote               Filters out NOTE messages",
-    "  -nowarning            Filters out WARNING messages",
-    "  -synth                Reports non-synthesizable constructs",
-    "                        Honnors //pragma translate_off  ,  //pragma "
-    "translate_on",
-    "  -o <path>             Turns on all compilation stages, produces all",
-    "  -builtin <path>       Alternative path to python/ and pkg/ dirs",
-    "outputs under that path",
-    "  -cd <dir>             Internally change directory to <dir>",
-    "  -exe <command>        Post execute a system call <command>, passes it "
-    "the ",
-    "                        preprocessor file list.",
-    "  --help                This help",
-    "  --version             Surelog version",
-    "RETURN CODE:",
-    "   Bit mask the return code, more than 1 bit can be on.",
-    "   0   - No issues",
-    "   0x1 - Fatal error(s)",
-    "   0x2 - Syntax error(s)",
-    "   0x4 - Error(s)"};
+     "  -mt/--threads <nb_max_threads> 0 up to 512 max threads, 0 or 1 being "
+     "single "
+     "threaded,",
+     "                        if \"max\" is given, the program will use one ",
+     "                        thread per core on the host",
+     "  -mp <mb_max_process>  0 up to 512 max processes, 0 or 1 being single "
+     "process",
+     "  -lowmem               Minimizes memory high water mark (uses multiple "
+     "staggered processes for preproc, parsing and elaboration)",
+     "  -split <line number>  Split files or modules larger than specified "
+     "line "
+     "number for multi thread compilation",
+     "  -timescale=<timescale> Specifies the overall timescale",
+     "  -nobuiltin            Do not parse SV builtin classes (array...)",
+     "",
+     "TRACES OPTIONS:",
+     "  -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm, "
+     "cache, "
+     "coveruhdm, vpi_ids",
+     "  -nostdout             Mutes Standard output",
+     "  -verbose              Gives verbose processing information",
+     "  -profile              Gives Profiling information",
+     "  -replay               Enables replay of internal elaboration errors",
+     "  -l <file>             Specifies log file, default is surelog.log under "
+     "output dir",
+     "",
+     "OUTPUT OPTIONS:",
+     "  -odir/--Mdir <dir>    Specifies the output directory, default is ./",
+     "  -writeppfile <file>   Writes out Preprocessor output in file",
+     "                        (all compilation units will override this file)",
+     "  -writepp              Writes out Preprocessor output (all compilation",
+     "                        units will generate files under slpp_all/ or "
+     "slpp_unit/)",
+     "  -lineoffsetascomments Writes the preprocessor line offsets as comments "
+     "as opposed as parser directives",
+     "  -nocache              Default allows to create a cache for include "
+     "files, this option prevents it",
+     "  -cache <dir>          Specifies the cache directory, default is "
+     "slpp_all/cache or slpp_unit/cache",
+     "  -nohash               Don't use hash mechanism for cache file path, "
+     "always treat cache as valid (no timestamp/dependancy check)",
+     "  -createcache          Create cache for precompiled packages",
+     "  -filterdirectives     Filters out simple directives like",
+     "                        `default_nettype in pre-processor's output",
+     "  -filterprotected      Filters out protected regions in pre-processor's "
+     "output",
+     "  -filtercomments       Filters out comments in pre-processor's output",
+     "  -outputlineinfo       Outputs SLline directives in pre-processor's "
+     "output",
+     "  -pploc                Output message location in terms of post "
+     "preprocessor location",
+     "  -noinfo               Filters out INFO messages",
+     "  -nonote               Filters out NOTE messages",
+     "  -nowarning            Filters out WARNING messages",
+     "  -synth                Reports non-synthesizable constructs",
+     "                        Honnors //pragma translate_off  ,  //pragma "
+     "translate_on",
+     "  -o <path>             Turns on all compilation stages, produces all",
+     "  -builtin <path>       Alternative path to python/ and pkg/ dirs",
+     "outputs under that path",
+     "  -cd <dir>             Internally change directory to <dir>",
+     "  -exe <command>        Post execute a system call <command>, passes it "
+     "the ",
+     "                        preprocessor file list.",
+     "  --help                This help",
+     "  --version             Surelog version",
+     "RETURN CODE:",
+     "   Bit mask the return code, more than 1 bit can be on.",
+     "   0   - No issues",
+     "   0x1 - Fatal error(s)",
+     "   0x2 - Syntax error(s)",
+     "   0x4 - Error(s)"};
 
 static bool is_number(const std::string_view s) {
   return s.find_first_not_of("-.0123456789") == std::string_view::npos;
@@ -658,9 +663,10 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         auto style_arg = undecorateArg(argv[i + 1]);
         if (style_arg.length() == 1) {
           char c = tolower(style_arg[0]);
-          style = (c == 's') ? Style::S
-                             : (c == 'c') ? Style::C
-                                          : (c == 'm') ? Style::M : Style::ERR;
+          style = (c == 's')   ? Style::S
+                  : (c == 'c') ? Style::C
+                  : (c == 'm') ? Style::M
+                               : Style::ERR;
         }
       }
       if (style == Style::ERR) {
