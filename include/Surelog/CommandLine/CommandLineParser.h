@@ -233,6 +233,7 @@ class CommandLineParser final {
   CommandLineParser(const CommandLineParser& orig) = delete;
 
   bool plus_arguments_(const std::string& s);
+  bool style_c_arguments_(const std::string& s, const std::string& s_val);
   void processOutputDirectory_(const std::vector<std::string>& args);
   void processArgs_(const std::vector<std::string>& args,
                     std::vector<std::string>& container);
@@ -240,6 +241,9 @@ class CommandLineParser final {
                      std::vector<SymbolId>& container);
   void splitPlusArg_(
       const std::string& s, const std::string& prefix,
+      std::map<SymbolId, std::string, SymbolIdLessThanComparer>& container);
+  void splitEqArg_(
+      const std::string& s,
       std::map<SymbolId, std::string, SymbolIdLessThanComparer>& container);
   bool checkCommandLine_();
   bool prepareCompilation_(int argc, const char** argv);

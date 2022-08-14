@@ -51,6 +51,10 @@ static constexpr std::string_view defaultCompileUnitDirName = "slpp_unit";
 static constexpr std::string_view defaultCompileAllDirName = "slpp_all";
 static constexpr std::string_view defaultPrecompiledDirName = "pkg";
 
+// Which vendor
+enum class Style { Default, S, C, M, ERR };
+static Style style = Style::Default;
+
 // !!! Update this number when the grammar changes !!!
 //         Or when the cache schema changes
 //        This will render the cache invalid
@@ -79,12 +83,15 @@ static const std::initializer_list<std::string_view> helpText = {
     "  ------------ SURELOG HELP --------------",
     "",
     "STANDARD VERILOG COMMAND LINE:",
+    "  -style <mode>         Compatibility with existing vendor's command-line "  // NOLINT
+    "arguments.",
+    "                        Legal values are S, C or M.",
     "  -f <file>             Accepts a file containing command line arguments",
     "  -v <file>             Library file",
     "  -y <path>             Library directory",
     "  +incdir+<dir>[+<dir>...] Specifies include paths",
     "  -Idir                 Specifies include paths",
-    "  +libext+<extname>+... Specifies the library extensions, "  // NOLINT
+    "  +libext+<extname>+... Specifies the library extensions, "
     "default is .v+.sv",
     "  <file>.v              Verilog File",
     "  <file>.sv             SystemVerilog File",
@@ -414,6 +421,24 @@ void CommandLineParser::splitPlusArg_(const std::string& s,
   }
 }
 
+void CommandLineParser::splitEqArg_(
+    const std::string& s,
+    std::map<SymbolId, std::string, SymbolIdLessThanComparer>& container) {
+  std::string def;
+  std::string value;
+  const size_t loc = s.find('=');
+  if (loc == std::string::npos) {
+    def = s;
+  } else {
+    def = s.substr(0, loc);
+    value = s.substr(loc + 1);
+  }
+  if (!def.empty()) {
+    SymbolId id = m_symbolTable->registerSymbol(def);
+    container.emplace(id, value);
+  }
+}
+
 void CommandLineParser::splitPlusArg_(
     const std::string& s, const std::string& prefix,
     std::map<SymbolId, std::string, SymbolIdLessThanComparer>& container) {
@@ -421,19 +446,7 @@ void CommandLineParser::splitPlusArg_(
   std::string tmp;
   while (getline(f, tmp, '+')) {
     if (!tmp.empty() && (tmp != prefix)) {
-      std::string def;
-      std::string value;
-      const size_t loc = tmp.find('=');
-      if (loc == std::string::npos) {
-        def = tmp;
-      } else {
-        def = tmp.substr(0, loc);
-        value = tmp.substr(loc + 1);
-      }
-      if (!def.empty()) {
-        SymbolId id = m_symbolTable->registerSymbol(def);
-        container.emplace(id, value);
-      }
+      splitEqArg_(tmp, container);
     }
   }
 }
@@ -456,6 +469,32 @@ bool CommandLineParser::plus_arguments_(const std::string& s) {
   }
   if (s.compare(0, define.size(), define) == 0) {
     splitPlusArg_(s, "define", m_defineList);
+    return true;
+  }
+  return false;
+}
+
+/* Custom parser for -argument ARG_VAL */
+bool CommandLineParser::style_c_arguments_(const std::string& s,
+                                           const std::string& s_val) {
+  constexpr std::string_view incdir("-incdir");
+  constexpr std::string_view libext("-libext");
+  constexpr std::string_view define("-define");
+  if (s.empty()) return false;
+  if (s.at(0) != '-') return false;
+  if (s.compare(0, incdir.size(), incdir) == 0) {
+    SymbolId id = m_symbolTable->registerSymbol(s_val);
+    m_includePaths.push_back(id);
+    return true;
+  }
+  if (s.compare(0, libext.size(), libext) == 0) {
+    m_libraryExtensions.clear();
+    SymbolId id = m_symbolTable->registerSymbol(s_val);
+    m_libraryExtensions.push_back(id);
+    return true;
+  }
+  if (s.compare(0, define.size(), define) == 0) {
+    splitEqArg_(s_val, m_defineList);
     return true;
   }
   return false;
@@ -592,6 +631,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
   }
 
   std::vector<std::string> cmd_line;
+  style = Style::Default;
   for (int i = 1; i < argc; i++) {
     cmd_line.emplace_back(undecorateArg(argv[i]));
     const std::string& arg = cmd_line.back();
@@ -608,6 +648,29 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       std::cout << BuildIdentifier() << std::flush;
       m_help = true;
       return true;
+    } else if (arg == "-style") {
+      if (style != Style::Default) {
+        std::cerr << "Cannot have more than one -style option" << std::endl;
+        return false;
+      }
+      style = Style::ERR;
+      if (i < argc - 1) {
+        auto style_arg = undecorateArg(argv[i + 1]);
+        if (style_arg.length() == 1) {
+          char c = tolower(style_arg[0]);
+          style = (c == 's') ? Style::S
+                             : (c == 'c') ? Style::C
+                                          : (c == 'm') ? Style::M : Style::ERR;
+        }
+      }
+      if (style == Style::ERR) {
+        std::cerr << "Illegal style selected (Must be one of s, c or m)"
+                  << std::endl;
+        return false;
+      }
+      cmd_line.erase(cmd_line.end() - 1);  // remove '-style'
+      i++;                                 // also skip the argument
+      continue;
     } else if (arg == "-cd") {
       if (i < argc - 1) {
         std::string newDir(undecorateArg(argv[i + 1]));
@@ -675,6 +738,10 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
   for (unsigned int i = 0; i < all_arguments.size(); i++) {
     if (all_arguments[i].empty() || plus_arguments_(all_arguments[i])) {
       // handled by plus_arguments
+    } else if ((style == Style::C) && (i < all_arguments.size() - 1) &&
+               style_c_arguments_(all_arguments[i], all_arguments[i + 1])) {
+      // handle "c" style arguments
+      i++;  // skip 2nd argument
     } else if (all_arguments[i] == "-d") {
       if (i == all_arguments.size() - 1) {
         Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
@@ -997,9 +1064,11 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_parseBuiltIn = false;
     } else if (all_arguments[i] == "-outputlineinfo") {
       m_filterFileLine = false;
-    } else if (all_arguments[i] == "+liborder") {
+    } else if (all_arguments[i] == "+liborder" ||
+               ((style == Style::C) && (all_arguments[i] == "-liborder"))) {
       m_liborder = true;
-    } else if (all_arguments[i] == "+librescan") {
+    } else if (all_arguments[i] == "+librescan" ||
+               ((style == Style::C) && (all_arguments[i] == "-librescan"))) {
       m_librescan = true;
     } else if (all_arguments[i] == "+libverbose") {
       m_libverbose = true;
