@@ -51,9 +51,13 @@ static constexpr std::string_view defaultCompileUnitDirName = "slpp_unit";
 static constexpr std::string_view defaultCompileAllDirName = "slpp_all";
 static constexpr std::string_view defaultPrecompiledDirName = "pkg";
 
-// Which vendor
-enum class Style { Default, S, C, M, ERR };
-static Style style = Style::Default;
+static std::unordered_map<std::string, int>
+    cmd_ignore;  // commands with an arg to be dropped, and the number of args
+                 // to drop
+static std::unordered_map<std::string, std::string>
+    cmd_rename;  // commands to be renamed (no args)
+static std::unordered_map<std::string, std::string>
+    cmd_merge;  // commands to be merged into 1 argument
 
 // !!! Update this number when the grammar changes !!!
 //         Or when the cache schema changes
@@ -79,166 +83,168 @@ static const std::initializer_list<std::string_view> footer = {
     "********************************************",
 };
 
-static const std::initializer_list<std::string_view> helpText =
-    {"  ------------ SURELOG HELP --------------",
-     "",
-     "STANDARD VERILOG COMMAND LINE:",
-     "  -style <mode>         Compatibility with existing vendor's "
-     "command-line "  // NOLINT
-     "arguments.",
-     "                        Legal values are S, C or M.",
-     "  -f <file>             Accepts a file containing command line arguments",
-     "  -v <file>             Library file",
-     "  -y <path>             Library directory",
-     "  +incdir+<dir>[+<dir>...] Specifies include paths",
-     "  -Idir                 Specifies include paths",
-     "  +libext+<extname>+... Specifies the library extensions, "
-     "default is .v+.sv",
-     "  <file>.v              Verilog File",
-     "  <file>.sv             SystemVerilog File",
-     "  +liborder             Lib Order option (ignored)",
-     "  +librescan            Lib Rescan option (ignored)",
-     "  +libverbose           Lib Verbose option (ignored)",
-     "  +nolibcell            No Lib Cell option (ignored)",
-     "  +define+<name>=<value>[+<name>=<value>...]",
-     "                        Defines a macro and optionally its value",
-     "  -L <libName>          Defines library compilation order",
-     "  -map <mapFile>        Specifies a library mapping file (multiple -map "
-     "options supported)",
-     "  -cfgfile <confiFile>  Specifies a configuration file (multiple "
-     "-cfgFile "
-     "options supported)",
-     "  -cfg <configName>     Specifies a configuration to use (multiple -cfg "
-     "options supported)",
-     "  -Dvar=value           Same as env var definition for -f files var "
-     "substitution",
-     "  -Pparameter=value     Top level parameter override",
-     "  -pvalue+parameter=value Top level parameter override",
-     "  -sverilog/-sv         Forces all files to be parsed as SystemVerilog "
-     "files",
-     "  -sv <file>            Forces the following file to be parsed as "
-     "SystemVerilog file",
-     "FLOWS OPTIONS:",
-     "  -fileunit             Compiles each Verilog file as an independent",
-     "                        compilation unit (under slpp_unit/ if -writepp "
-     "used)",
-     "  -diffcompunit         Compiles both all files as a whole unit and",
-     "                        separate compilation units to perform diffs",
-     "  -parse                Parse/Compile/Elaborate the files after "
-     "pre-processing step",
-     "  -noparse              Turns off Parsing & Compilation & Elaboration",
-     "  -nocomp               Turns off Compilation & Elaboration",
-     "  -noelab               Turns off Elaboration",
-     "  -parseonly            Only Parses, reloads Preprocessor saved db",
-     "  -init                 Initialize cache for separate compile flow "
-     "(-sepcomp, -link)",
-     "  -sepcomp              Separate compilation, each invocation creates a "
-     "compilation unit",
-     "  -link                 Link and elaborate the separately compiled files",
-     "  -elabuhdm             Forces UHDM/VPI Full Elaboration, default is the "
-     "Folded Model",
-     "  -nouhdm               No UHDM db write",
-     "  -top/--top-module <module> Top level module for elaboration (multiple "
-     "cmds ok)",
-     "  -bb_mod <module>      Blackbox module (multiple cmds ok, ex: -bb_mod "
-     "work@top)",
-     "  -bb_inst <instance>   Blackbox instance (multiple cmds ok, ex: "
-     "-bb_inst "
-     "work@top.u1)",
-     "  -batch <batch.txt>    Runs all the tests specified in the file in "
-     "batch "
-     "mode",
-     "                        Tests are expressed as one full command line per "
-     "line.",
-     "  --enable-feature=<feature>",
-     "  --disable-feature=<feature>",
-     "    Features: parametersubstitution Enables substitution of assignment "
-     "patterns in parameters",
-     "              letexprsubstitution Enables Let expr substitution "
-     "(Inlining)",
+static const std::initializer_list<std::string_view> helpText = {
+    "  ------------ SURELOG HELP --------------",
+    "",
+    "STANDARD VERILOG COMMAND LINE:",
+    "  -cmd_ign <cmd> <argc> Ignore <cmd> when encountered "// NOLINT
+    "and drop <argc> arguments",  // NOLINT
+    "  -cmd_ren <flag1> <flag2> rename <flag1> into <flag2>"
+    " when encountered ",
+    "  -cmd_mrg <flag1> <flag2> merge <flag1> argument into a"
+    " unified <flag2> '+' argument when encountered ",
+    "  -f <file>             Accepts a file containing command line arguments",
+    "  -v <file>             Library file",
+    "  -y <path>             Library directory",
+    "  +incdir+<dir>[+<dir>...] Specifies include paths",
+    "  -Idir                 Specifies include paths",
+    "  +libext+<extname>+... Specifies the library extensions, "
+    "default is .v+.sv",
+    "  <file>.v              Verilog File",
+    "  <file>.sv             SystemVerilog File",
+    "  +liborder             Lib Order option (ignored)",
+    "  +librescan            Lib Rescan option (ignored)",
+    "  +libverbose           Lib Verbose option (ignored)",
+    "  +nolibcell            No Lib Cell option (ignored)",
+    "  +define+<name>=<value>[+<name>=<value>...]",
+    "                        Defines a macro and optionally its value",
+    "  -L <libName>          Defines library compilation order",
+    "  -map <mapFile>        Specifies a library mapping file (multiple -map "
+    "options supported)",
+    "  -cfgfile <confiFile>  Specifies a configuration file (multiple "
+    "-cfgFile "
+    "options supported)",
+    "  -cfg <configName>     Specifies a configuration to use (multiple -cfg "
+    "options supported)",
+    "  -Dvar=value           Same as env var definition for -f files var "
+    "substitution",
+    "  -Pparameter=value     Top level parameter override",
+    "  -pvalue+parameter=value Top level parameter override",
+    "  -sverilog/-sv         Forces all files to be parsed as SystemVerilog "
+    "files",
+    "  -sv <file>            Forces the following file to be parsed as "
+    "SystemVerilog file",
+    "FLOWS OPTIONS:",
+    "  -fileunit             Compiles each Verilog file as an independent",
+    "                        compilation unit (under slpp_unit/ if -writepp "
+    "used)",
+    "  -diffcompunit         Compiles both all files as a whole unit and",
+    "                        separate compilation units to perform diffs",
+    "  -parse                Parse/Compile/Elaborate the files after "
+    "pre-processing step",
+    "  -noparse              Turns off Parsing & Compilation & Elaboration",
+    "  -nocomp               Turns off Compilation & Elaboration",
+    "  -noelab               Turns off Elaboration",
+    "  -parseonly            Only Parses, reloads Preprocessor saved db",
+    "  -init                 Initialize cache for separate compile flow "
+    "(-sepcomp, -link)",
+    "  -sepcomp              Separate compilation, each invocation creates a "
+    "compilation unit",
+    "  -link                 Link and elaborate the separately compiled files",
+    "  -elabuhdm             Forces UHDM/VPI Full Elaboration, default is the "
+    "Folded Model",
+    "  -nouhdm               No UHDM db write",
+    "  -top/--top-module <module> Top level module for elaboration (multiple "
+    "cmds ok)",
+    "  -bb_mod <module>      Blackbox module (multiple cmds ok, ex: -bb_mod "
+    "work@top)",
+    "  -bb_inst <instance>   Blackbox instance (multiple cmds ok, ex: "
+    "-bb_inst "
+    "work@top.u1)",
+    "  -batch <batch.txt>    Runs all the tests specified in the file in "
+    "batch "
+    "mode",
+    "                        Tests are expressed as one full command line per "
+    "line.",
+    "  --enable-feature=<feature>",
+    "  --disable-feature=<feature>",
+    "    Features: parametersubstitution Enables substitution of assignment "
+    "patterns in parameters",
+    "              letexprsubstitution Enables Let expr substitution "
+    "(Inlining)",
 #ifdef SURELOG_WITH_PYTHON
-     "  -pythonlistener       Enables the Parser Python Listener",
-     "  -pythonlistenerfile <script.py> Specifies the AST python listener file",
-     "  -pythonevalscriptperfile <script.py>  Eval the Python script on each "
-     "source file (Multithreaded)",
-     "  -pythonevalscript <script.py> Eval the Python script at the design "
-     "level",
-     "  -nopython             Turns off all Python features, including waivers",
-     "  -withpython           Turns on all Python features, including waivers",
-     "  -strictpythoncheck    Turns on strict Python checks",
+    "  -pythonlistener       Enables the Parser Python Listener",
+    "  -pythonlistenerfile <script.py> Specifies the AST python listener file",
+    "  -pythonevalscriptperfile <script.py>  Eval the Python script on each "
+    "source file (Multithreaded)",
+    "  -pythonevalscript <script.py> Eval the Python script at the design "
+    "level",
+    "  -nopython             Turns off all Python features, including waivers",
+    "  -withpython           Turns on all Python features, including waivers",
+    "  -strictpythoncheck    Turns on strict Python checks",
 #endif
-     "  -mt/--threads <nb_max_threads> 0 up to 512 max threads, 0 or 1 being "
-     "single "
-     "threaded,",
-     "                        if \"max\" is given, the program will use one ",
-     "                        thread per core on the host",
-     "  -mp <mb_max_process>  0 up to 512 max processes, 0 or 1 being single "
-     "process",
-     "  -lowmem               Minimizes memory high water mark (uses multiple "
-     "staggered processes for preproc, parsing and elaboration)",
-     "  -split <line number>  Split files or modules larger than specified "
-     "line "
-     "number for multi thread compilation",
-     "  -timescale=<timescale> Specifies the overall timescale",
-     "  -nobuiltin            Do not parse SV builtin classes (array...)",
-     "",
-     "TRACES OPTIONS:",
-     "  -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm, "
-     "cache, "
-     "coveruhdm, vpi_ids",
-     "  -nostdout             Mutes Standard output",
-     "  -verbose              Gives verbose processing information",
-     "  -profile              Gives Profiling information",
-     "  -replay               Enables replay of internal elaboration errors",
-     "  -l <file>             Specifies log file, default is surelog.log under "
-     "output dir",
-     "",
-     "OUTPUT OPTIONS:",
-     "  -odir/--Mdir <dir>    Specifies the output directory, default is ./",
-     "  -writeppfile <file>   Writes out Preprocessor output in file",
-     "                        (all compilation units will override this file)",
-     "  -writepp              Writes out Preprocessor output (all compilation",
-     "                        units will generate files under slpp_all/ or "
-     "slpp_unit/)",
-     "  -lineoffsetascomments Writes the preprocessor line offsets as comments "
-     "as opposed as parser directives",
-     "  -nocache              Default allows to create a cache for include "
-     "files, this option prevents it",
-     "  -cache <dir>          Specifies the cache directory, default is "
-     "slpp_all/cache or slpp_unit/cache",
-     "  -nohash               Don't use hash mechanism for cache file path, "
-     "always treat cache as valid (no timestamp/dependancy check)",
-     "  -createcache          Create cache for precompiled packages",
-     "  -filterdirectives     Filters out simple directives like",
-     "                        `default_nettype in pre-processor's output",
-     "  -filterprotected      Filters out protected regions in pre-processor's "
-     "output",
-     "  -filtercomments       Filters out comments in pre-processor's output",
-     "  -outputlineinfo       Outputs SLline directives in pre-processor's "
-     "output",
-     "  -pploc                Output message location in terms of post "
-     "preprocessor location",
-     "  -noinfo               Filters out INFO messages",
-     "  -nonote               Filters out NOTE messages",
-     "  -nowarning            Filters out WARNING messages",
-     "  -synth                Reports non-synthesizable constructs",
-     "                        Honnors //pragma translate_off  ,  //pragma "
-     "translate_on",
-     "  -o <path>             Turns on all compilation stages, produces all",
-     "  -builtin <path>       Alternative path to python/ and pkg/ dirs",
-     "outputs under that path",
-     "  -cd <dir>             Internally change directory to <dir>",
-     "  -exe <command>        Post execute a system call <command>, passes it "
-     "the ",
-     "                        preprocessor file list.",
-     "  --help                This help",
-     "  --version             Surelog version",
-     "RETURN CODE:",
-     "   Bit mask the return code, more than 1 bit can be on.",
-     "   0   - No issues",
-     "   0x1 - Fatal error(s)",
-     "   0x2 - Syntax error(s)",
-     "   0x4 - Error(s)"};
+    "  -mt/--threads <nb_max_threads> 0 up to 512 max threads, 0 or 1 being "
+    "single "
+    "threaded,",
+    "                        if \"max\" is given, the program will use one ",
+    "                        thread per core on the host",
+    "  -mp <mb_max_process>  0 up to 512 max processes, 0 or 1 being single "
+    "process",
+    "  -lowmem               Minimizes memory high water mark (uses multiple "
+    "staggered processes for preproc, parsing and elaboration)",
+    "  -split <line number>  Split files or modules larger than specified "
+    "line "
+    "number for multi thread compilation",
+    "  -timescale=<timescale> Specifies the overall timescale",
+    "  -nobuiltin            Do not parse SV builtin classes (array...)",
+    "",
+    "TRACES OPTIONS:",
+    "  -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm, "
+    "cache, "
+    "coveruhdm, vpi_ids",
+    "  -nostdout             Mutes Standard output",
+    "  -verbose              Gives verbose processing information",
+    "  -profile              Gives Profiling information",
+    "  -replay               Enables replay of internal elaboration errors",
+    "  -l <file>             Specifies log file, default is surelog.log under "
+    "output dir",
+    "",
+    "OUTPUT OPTIONS:",
+    "  -odir/--Mdir <dir>    Specifies the output directory, default is ./",
+    "  -writeppfile <file>   Writes out Preprocessor output in file",
+    "                        (all compilation units will override this file)",
+    "  -writepp              Writes out Preprocessor output (all compilation",
+    "                        units will generate files under slpp_all/ or "
+    "slpp_unit/)",
+    "  -lineoffsetascomments Writes the preprocessor line offsets as comments "
+    "as opposed as parser directives",
+    "  -nocache              Default allows to create a cache for include "
+    "files, this option prevents it",
+    "  -cache <dir>          Specifies the cache directory, default is "
+    "slpp_all/cache or slpp_unit/cache",
+    "  -nohash               Don't use hash mechanism for cache file path, "
+    "always treat cache as valid (no timestamp/dependancy check)",
+    "  -createcache          Create cache for precompiled packages",
+    "  -filterdirectives     Filters out simple directives like",
+    "                        `default_nettype in pre-processor's output",
+    "  -filterprotected      Filters out protected regions in pre-processor's "
+    "output",
+    "  -filtercomments       Filters out comments in pre-processor's output",
+    "  -outputlineinfo       Outputs SLline directives in pre-processor's "
+    "output",
+    "  -pploc                Output message location in terms of post "
+    "preprocessor location",
+    "  -noinfo               Filters out INFO messages",
+    "  -nonote               Filters out NOTE messages",
+    "  -nowarning            Filters out WARNING messages",
+    "  -synth                Reports non-synthesizable constructs",
+    "                        Honnors //pragma translate_off  ,  //pragma "
+    "translate_on",
+    "  -o <path>             Turns on all compilation stages, produces all",
+    "  -builtin <path>       Alternative path to python/ and pkg/ dirs",
+    "outputs under that path",
+    "  -cd <dir>             Internally change directory to <dir>",
+    "  -exe <command>        Post execute a system call <command>, passes it "
+    "the ",
+    "                        preprocessor file list.",
+    "  --help                This help",
+    "  --version             Surelog version",
+    "RETURN CODE:",
+    "   Bit mask the return code, more than 1 bit can be on.",
+    "   0   - No issues",
+    "   0x1 - Fatal error(s)",
+    "   0x2 - Syntax error(s)",
+    "   0x4 - Error(s)"};
 
 static bool is_number(const std::string_view s) {
   return s.find_first_not_of("-.0123456789") == std::string_view::npos;
@@ -479,36 +485,75 @@ bool CommandLineParser::plus_arguments_(const std::string& s) {
   return false;
 }
 
-/* Custom parser for -argument ARG_VAL */
-bool CommandLineParser::style_c_arguments_(const std::string& s,
-                                           const std::string& s_val) {
-  constexpr std::string_view incdir("-incdir");
-  constexpr std::string_view libext("-libext");
-  constexpr std::string_view define("-define");
-  if (s.empty()) return false;
-  if (s.at(0) != '-') return false;
-  if (s.compare(0, incdir.size(), incdir) == 0) {
-    SymbolId id = m_symbolTable->registerSymbol(s_val);
-    m_includePaths.push_back(id);
-    return true;
-  }
-  if (s.compare(0, libext.size(), libext) == 0) {
-    m_libraryExtensions.clear();
-    SymbolId id = m_symbolTable->registerSymbol(s_val);
-    m_libraryExtensions.push_back(id);
-    return true;
-  }
-  if (s.compare(0, define.size(), define) == 0) {
-    splitEqArg_(s_val, m_defineList);
-    return true;
-  }
-  return false;
-}
-
 void CommandLineParser::processArgs_(const std::vector<std::string>& args,
                                      std::vector<std::string>& container) {
   for (unsigned int i = 0; i < args.size(); i++) {
     std::string arg(undecorateArg(args[i]));
+    if (arg == "-cmd_ign") {
+      // ignore command and drop <N> following arguments
+      if (i < args.size() - 2) {
+        const int argcount = std::stoi(args[i + 2]);
+        if (argcount < 0 || argcount > 100) {  // just a sane limit
+          std::cerr << "Illegal argument count for -cmd_ign (" << args[i + 2]
+                    << ")" << std::endl;
+          return;
+        }
+        cmd_ignore[args[i + 1]] = argcount;
+        i += 2;  // also skip the two arguments
+      } else {
+        std::cerr << "Missing arguments to -cmd_ign " << std::endl;
+        return;
+      }
+      continue;
+    } else if (arg == "-cmd_ren") {
+      if (i < args.size() - 2) {
+        cmd_rename[args[i + 1]] = args[i + 2];
+        i += 2;  // also skip two arguments
+      } else {
+        std::cerr << "Missing arguments to -cmd_ren " << std::endl;
+        return;
+      }
+      continue;
+    } else if (arg == "-cmd_mrg") {
+      if (i < args.size() - 2) {
+        cmd_merge[args[i + 1]] = args[i + 2];
+        i += 2;  // also skip two arguments
+      } else {
+        std::cerr << "Missing arguments to -cmd_mrg " << std::endl;
+        return;
+      }
+      continue;
+    }
+    auto cmd_ignore_it = cmd_ignore.find(arg);
+    if (cmd_ignore_it != cmd_ignore.end()) {
+      // found arg in list of commands to be ignored
+      if (i < args.size() - cmd_ignore_it->second) {
+        i += cmd_ignore_it->second;
+      } else {
+        std::cerr << "Missing arguments to ignored command " << arg
+                  << std::endl;
+      }
+      continue;
+    }
+    auto cmd_rename_it = cmd_rename.find(arg);
+    if (cmd_rename_it != cmd_rename.end()) {
+      // arg found in rename list
+      arg = cmd_rename_it->second;
+    }
+    auto cmd_merge_it = cmd_merge.find(arg);
+    if (cmd_merge_it != cmd_merge.end()) {
+      if (i < args.size() - 1) {
+        arg = cmd_merge_it->second;
+        arg.append("+");
+        arg.append(args[i + 1]);
+        i += 1;
+        continue;
+      } else {
+        std::cerr << "Missing arguments to renamed command " << arg
+                  << std::endl;
+        return;
+      }
+    }
     if (arg == "-f") {
       std::string f(undecorateArg(args[++i]));
       std::ifstream ifs(f);
@@ -636,7 +681,6 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
   }
 
   std::vector<std::string> cmd_line;
-  style = Style::Default;
   for (int i = 1; i < argc; i++) {
     cmd_line.emplace_back(undecorateArg(argv[i]));
     const std::string& arg = cmd_line.back();
@@ -653,30 +697,6 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       std::cout << BuildIdentifier() << std::flush;
       m_help = true;
       return true;
-    } else if (arg == "-style") {
-      if (style != Style::Default) {
-        std::cerr << "Cannot have more than one -style option" << std::endl;
-        return false;
-      }
-      style = Style::ERR;
-      if (i < argc - 1) {
-        auto style_arg = undecorateArg(argv[i + 1]);
-        if (style_arg.length() == 1) {
-          char c = tolower(style_arg[0]);
-          style = (c == 's')   ? Style::S
-                  : (c == 'c') ? Style::C
-                  : (c == 'm') ? Style::M
-                               : Style::ERR;
-        }
-      }
-      if (style == Style::ERR) {
-        std::cerr << "Illegal style selected (Must be one of s, c or m)"
-                  << std::endl;
-        return false;
-      }
-      cmd_line.erase(cmd_line.end() - 1);  // remove '-style'
-      i++;                                 // also skip the argument
-      continue;
     } else if (arg == "-cd") {
       if (i < argc - 1) {
         std::string newDir(undecorateArg(argv[i + 1]));
@@ -744,10 +764,6 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
   for (unsigned int i = 0; i < all_arguments.size(); i++) {
     if (all_arguments[i].empty() || plus_arguments_(all_arguments[i])) {
       // handled by plus_arguments
-    } else if ((style == Style::C) && (i < all_arguments.size() - 1) &&
-               style_c_arguments_(all_arguments[i], all_arguments[i + 1])) {
-      // handle "c" style arguments
-      i++;  // skip 2nd argument
     } else if (all_arguments[i] == "-d") {
       if (i == all_arguments.size() - 1) {
         Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
@@ -1070,11 +1086,9 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_parseBuiltIn = false;
     } else if (all_arguments[i] == "-outputlineinfo") {
       m_filterFileLine = false;
-    } else if (all_arguments[i] == "+liborder" ||
-               ((style == Style::C) && (all_arguments[i] == "-liborder"))) {
+    } else if (all_arguments[i] == "+liborder") {
       m_liborder = true;
-    } else if (all_arguments[i] == "+librescan" ||
-               ((style == Style::C) && (all_arguments[i] == "-librescan"))) {
+    } else if (all_arguments[i] == "+librescan") {
       m_librescan = true;
     } else if (all_arguments[i] == "+libverbose") {
       m_libverbose = true;
