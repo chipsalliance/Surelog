@@ -87,8 +87,8 @@ static const std::initializer_list<std::string_view> helpText = {
     "  ------------ SURELOG HELP --------------",
     "",
     "STANDARD VERILOG COMMAND LINE:",
-    "  -cmd_ign <cmd> <argc> Ignore <cmd> when encountered "// NOLINT
-    "and drop <argc> arguments",  // NOLINT
+    "  -cmd_ign <cmd> <argc> Ignore <cmd> when encountered "  // NOLINT
+    "and drop <argc> arguments",                              // NOLINT
     "  -cmd_ren <flag1> <flag2> rename <flag1> into <flag2>"
     " when encountered ",
     "  -cmd_mrg <flag1> <flag2> merge <flag1> argument into a"
