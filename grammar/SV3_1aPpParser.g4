@@ -15,6 +15,32 @@
 */
 
 parser grammar SV3_1aPpParser;
+@header {
+#include <Surelog/SourceCompile/CompileSourceFile.h>
+#include <Surelog/SourceCompile/PreprocessFile.h>
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/SourceCompile/MacroInfo.h>
+}
+@parser::members {
+  //
+  PreprocessFile *pp;
+  CommandLineParser *clp;
+  void setPreprocessFile(PreprocessFile *pp) {
+    this->pp = pp;
+    this->clp = pp->getCompileSourceFile()->getCommandLineParser();
+  }
+  bool isParamMacro() {
+    const std::string macro_name = getCurrentToken()->getText().substr(1);
+    SymbolId macroId = pp->registerSymbol(macro_name);
+    // if it's inm the +define override list, it has no macro arguments
+    if (clp->getDefineList().count(macroId))
+      return false;
+    MacroInfo* m = pp->getMacro(macro_name);
+    if (m && m->m_type == MacroInfo::Type::WITH_ARGS)
+      return true;
+    return false;
+  }
+}
 
 options { tokenVocab = SV3_1aPpLexer; }
 
@@ -99,7 +125,7 @@ description :
 
 escaped_identifier : Escaped_identifier;
 
-macro_instance : (Macro_identifier | Macro_Escaped_identifier) Spaces* PARENS_OPEN macro_actual_args PARENS_CLOSE # MacroInstanceWithArgs
+macro_instance : {isParamMacro()}? (Macro_identifier | Macro_Escaped_identifier) Spaces* PARENS_OPEN macro_actual_args PARENS_CLOSE # MacroInstanceWithArgs
                | (Macro_identifier | Macro_Escaped_identifier)                                                    # MacroInstanceNoArgs
                ;
 

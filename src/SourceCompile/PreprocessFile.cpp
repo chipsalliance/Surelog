@@ -459,6 +459,7 @@ bool PreprocessFile::preprocess() {
 
     m_antlrParserHandler->m_ppparser =
         new SV3_1aPpParser(m_antlrParserHandler->m_pptokens);
+    m_antlrParserHandler->m_ppparser->setPreprocessFile(this);
     m_antlrParserHandler->m_ppparser->getInterpreter<atn::ParserATNSimulator>()
         ->setPredictionMode(atn::PredictionMode::SLL);
     m_antlrParserHandler->m_ppparser->removeErrorListeners();
