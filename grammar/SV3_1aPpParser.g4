@@ -30,9 +30,9 @@ parser grammar SV3_1aPpParser;
     this->clp = pp->getCompileSourceFile()->getCommandLineParser();
   }
   bool isParamMacro() {
-    const std::string macro_name = getCurrentToken()->getText().substr(1);
+    const std::string macro_name = getTokenStream()->LT(-1)->getText().substr(1);
     SymbolId macroId = pp->registerSymbol(macro_name);
-    // if it's inm the +define override list, it has no macro arguments
+    // if it's in the +define override list, it has no macro arguments
     if (clp->getDefineList().count(macroId))
       return false;
     MacroInfo* m = pp->getMacro(macro_name);
@@ -125,7 +125,7 @@ description :
 
 escaped_identifier : Escaped_identifier;
 
-macro_instance : {isParamMacro()}? (Macro_identifier | Macro_Escaped_identifier) Spaces* PARENS_OPEN macro_actual_args PARENS_CLOSE # MacroInstanceWithArgs
+macro_instance : (Macro_identifier | Macro_Escaped_identifier) {isParamMacro()}? Spaces* PARENS_OPEN macro_actual_args PARENS_CLOSE # MacroInstanceWithArgs
                | (Macro_identifier | Macro_Escaped_identifier)                                                    # MacroInstanceNoArgs
                ;
 
