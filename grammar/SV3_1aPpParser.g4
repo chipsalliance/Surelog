@@ -36,9 +36,9 @@ parser grammar SV3_1aPpParser;
     if (clp->getDefineList().count(macroId))
       return false;
     MacroInfo* m = pp->getMacro(macro_name);
-    if (m && m->m_type == MacroInfo::Type::WITH_ARGS)
-      return true;
-    return false;
+    if (m && m->m_type == MacroInfo::Type::NO_ARGS)
+      return false;
+    return true;
   }
 }
 
