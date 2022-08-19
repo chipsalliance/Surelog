@@ -593,13 +593,14 @@ unsigned int UhdmWriter::getVpiNetType(VObjectType type) {
   return nettype;
 }
 
-static void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
-                       VectorOfport* dest_ports, VectorOfnet* dest_nets,
-                       Serializer& s, UhdmWriter::ComponentMap& componentMap,
-                       UhdmWriter::ModPortMap& modPortMap,
-                       UhdmWriter::SignalBaseClassMap& signalBaseMap,
-                       UhdmWriter::SignalMap& signalMap,
-                       ModuleInstance* instance = nullptr) {
+void UhdmWriter::writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
+                            VectorOfport* dest_ports, VectorOfnet* dest_nets,
+                            Serializer& s,
+                            UhdmWriter::ComponentMap& componentMap,
+                            UhdmWriter::ModPortMap& modPortMap,
+                            UhdmWriter::SignalBaseClassMap& signalBaseMap,
+                            UhdmWriter::SignalMap& signalMap,
+                            ModuleInstance* instance, ModuleDefinition* mod) {
   int lastPortDirection = vpiInout;
   for (Signal* orig_port : orig_ports) {
     port* dest_port = s.MakePort();
@@ -629,6 +630,49 @@ static void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
       const auto& found = componentMap.find(orig_interf);
       if (found != componentMap.end()) {
         ref->Actual_group(found->second);
+      }
+    }
+    if (orig_port->getTypeSpecId() && mod) {
+      if (NodeId unpackedDimensions = orig_port->getUnpackedDimension()) {
+        int unpackedSize = 0;
+        const FileContent* fC = orig_port->getFileContent();
+        if (std::vector<UHDM::range*>* ranges = m_helper.compileRanges(
+                mod, fC, unpackedDimensions, m_compileDesign, nullptr, instance,
+                false, unpackedSize, false)) {
+          array_typespec* array_ts = s.MakeArray_typespec();
+          array_ts->Ranges(ranges);
+          array_ts->VpiParent(dest_port);
+          fC->populateCoreMembers(orig_port->getTypeSpecId(), InvalidNodeId,
+                                  array_ts);
+          if (!ranges->empty()) {
+            array_ts->VpiEndLineNo(ranges->back()->VpiEndLineNo());
+            array_ts->VpiEndColumnNo(ranges->back()->VpiEndColumnNo());
+          }
+          for (range* r : *ranges) {
+            const expr* rrange = r->Right_expr();
+            if (rrange->VpiValue() == "STRING:associative") {
+              array_ts->VpiArrayType(vpiAssocArray);
+              array_ts->Index_typespec((typespec*)rrange->Typespec());
+            } else if (rrange->VpiValue() == "STRING:unsized") {
+              array_ts->VpiArrayType(vpiDynamicArray);
+            } else if (rrange->VpiValue() == "STRING:$") {
+              array_ts->VpiArrayType(vpiQueueArray);
+            } else {
+              array_ts->VpiArrayType(vpiStaticArray);
+            }
+          }
+          dest_port->Typespec(array_ts);
+
+          if (typespec* typespec = m_helper.compileTypespec(
+                  mod, fC, orig_port->getTypeSpecId(), m_compileDesign, nullptr,
+                  nullptr, false)) {
+            array_ts->Elem_typespec(typespec);
+          }
+        }
+      } else if (typespec* typespec = m_helper.compileTypespec(
+                     mod, fC, orig_port->getTypeSpecId(), m_compileDesign,
+                     nullptr, nullptr, false)) {
+        dest_port->Typespec(typespec);
       }
     }
     dest_ports->push_back(dest_port);
@@ -1073,7 +1117,7 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   VectorOfport* dest_ports = s.MakePortVec();
   VectorOfnet* dest_nets = s.MakeNetVec();
   writePorts(orig_ports, m, dest_ports, dest_nets, s, componentMap, modPortMap,
-             signalBaseMap, portMap, instance);
+             signalBaseMap, portMap, instance, mod);
   m->Ports(dest_ports);
   // Nets
   std::vector<Signal*> orig_nets = mod->getSignals();

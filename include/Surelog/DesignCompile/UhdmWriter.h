@@ -69,6 +69,12 @@ class UhdmWriter final {
   static unsigned int getBuiltinType(VObjectType type);
 
  private:
+  void writePorts(std::vector<Signal*>& orig_ports, UHDM::BaseClass* parent,
+                  UHDM::VectorOfport* dest_ports, UHDM::VectorOfnet* dest_nets,
+                  UHDM::Serializer& s, ComponentMap& componentMap,
+                  ModPortMap& modPortMap, SignalBaseClassMap& signalBaseMap,
+                  SignalMap& signalMap, ModuleInstance* instance = nullptr,
+                  ModuleDefinition* mod = nullptr);
   void writeModule(ModuleDefinition* mod, UHDM::module* m, UHDM::Serializer& s,
                    ComponentMap& componentMap, ModPortMap& modPortMap,
                    ModuleInstance* instance = nullptr);

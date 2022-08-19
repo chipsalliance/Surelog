@@ -1601,7 +1601,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
             pats->Logic_typespec((logic_typespec*)result);
             pats->Ranges(ranges);
             result = pats;
-          } else if (dstype == uhdmarray_typespec) {
+          } else if (dstype == uhdmarray_typespec ||
+                     dstype == uhdminterface_typespec) {
             array_typespec* pats = s.MakeArray_typespec();
             pats->Elem_typespec(result);
             pats->Ranges(ranges);
