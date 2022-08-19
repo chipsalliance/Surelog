@@ -23,6 +23,7 @@
 
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/SourceCompile/AntlrParserErrorListener.h>
+#include <Surelog/SourceCompile/CompileSourceFile.h>
 #include <Surelog/SourceCompile/ParseFile.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Utils/FileUtils.h>
@@ -56,10 +57,11 @@ void AntlrParserErrorListener::syntaxError(
   if (m_reportedSyntaxError == false) {
     SymbolId msgId = m_parser->registerSymbol(msg);
     int adjustedLine = m_parser->getLineNb(line + m_lineOffset);
-    Location loc(m_parser->getFileId(line + m_lineOffset), adjustedLine,
-                 charPositionInLine, msgId);
+    Location loc1(m_parser->getFileId(line + m_lineOffset), adjustedLine,
+                  charPositionInLine, msgId);
     Location loc2(m_parser->registerSymbol(lineText));
-    Error err(ErrorDefinition::PA_SYNTAX_ERROR, loc, loc2);
+    Location loc3(m_parser->getCompileSourceFile()->getFileId(), 0, 0);
+    Error err(ErrorDefinition::PA_SYNTAX_ERROR, {loc1, loc2, loc3});
     m_parser->addError(err);
     m_reportedSyntaxError = true;
   }

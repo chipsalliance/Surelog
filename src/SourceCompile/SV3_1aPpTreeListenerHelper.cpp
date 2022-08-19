@@ -173,7 +173,6 @@ void SV3_1aPpTreeListenerHelper::addLineFiller(antlr4::ParserRuleContext* ctx) {
 
 void SV3_1aPpTreeListenerHelper::checkMultiplyDefinedMacro(
     const std::string& macroName, antlr4::ParserRuleContext* ctx) {
-  std::set<PreprocessFile*> visited;
   MacroInfo* macroInf = m_pp->getMacro(macroName);
   if (macroInf) {
     std::pair<int, int> lineCol =
@@ -186,9 +185,6 @@ void SV3_1aPpTreeListenerHelper::checkMultiplyDefinedMacro(
     Location extraLoc(macroInf->m_file, macroInf->m_startLine,
                       macroInf->m_startColumn);
     logError(ErrorDefinition::PP_MULTIPLY_DEFINED_MACRO, loc, extraLoc);
-    visited.erase(visited.begin(), visited.end());
-    // So we can store the latest declaration
-    m_pp->deleteMacro(macroName, visited);
   }
 }
 
