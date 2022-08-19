@@ -1954,9 +1954,21 @@ bool NetlistElaboration::elab_ports_nets_(
         }
         dest_port->VpiDirection(lastPortDirection);
         std::string signame;
-        if (fC->Type(sig->getNodeId()) == slStringConst) {
+        VObjectType nodeIdType = fC->Type(sig->getNodeId());
+        if (nodeIdType == slStringConst) {
           signame = sig->getName();
           dest_port->VpiName(signame);
+        } else if (nodeIdType == slPort) {
+          NodeId PortName = fC->Child(sig->getNodeId());
+          signame = fC->SymName(PortName);
+          dest_port->VpiName(signame);
+          NodeId Port_expr = fC->Sibling(PortName);
+          if (fC->Type(Port_expr) == slPort_expression) {
+            any* exp =
+                m_helper.compileExpression(comp, fC, Port_expr, m_compileDesign,
+                                           nullptr, child, true, false);
+            dest_port->Low_conn(exp);
+          }
         }
         fC->populateCoreMembers(id, id, dest_port);
         if (ports == nullptr) {

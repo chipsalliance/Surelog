@@ -1458,6 +1458,34 @@ UHDM::any *CompileHelper::compileExpression(
       }
       return result;
     }
+    case VObjectType::slPort_expression: {
+      operation *op = s.MakeOperation();
+      op->VpiOpType(vpiConcatOp);
+      op->Operands(s.MakeAnyVec());
+      auto ops = op->Operands();
+      result = op;
+      NodeId Port_reference = child;
+      while (Port_reference) {
+        NodeId Name = fC->Child(Port_reference);
+        NodeId Constant_select = fC->Sibling(Name);
+
+        if (fC->Type(Constant_select) == slConstant_select) {
+          Constant_select = fC->Child(Constant_select);
+        }
+        if (fC->Child(Constant_select) || fC->Sibling(Constant_select)) {
+          any *select = compileSelectExpression(component, fC, Constant_select,
+                                                "", compileDesign, pexpr,
+                                                instance, reduce, muteErrors);
+          ops->push_back(select);
+        } else {
+          ref_obj *ref = s.MakeRef_obj();
+          ops->push_back(ref);
+          ref->VpiName(fC->SymName(Name));
+        }
+        Port_reference = fC->Sibling(Port_reference);
+      }
+      break;
+    }
     default:
       break;
   }
