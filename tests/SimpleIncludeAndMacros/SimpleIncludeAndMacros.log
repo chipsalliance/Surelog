@@ -47,7 +47,7 @@ ERROR: No Python allowed, check your arguments!
              top.v:2:9: previous definition.
 
 [NTE:PP0105] top_1.v:10:1: Multiply defined macro "single",
-             top.v:10:9: previous definition.
+             fake.sv:213:9: previous definition.
 
 [NTE:PP0105] top_1.v:11:1: Multiply defined macro "multiple",
              top.v:11:9: previous definition.
@@ -68,13 +68,13 @@ ERROR: No Python allowed, check your arguments!
 [WRN:PP0114] top_1.v:43:9: Undefined macro argument "z".
 
 [NTE:PP0105] top_2.v:2:1: Multiply defined macro "N",
-             top.v:2:9: previous definition.
+             top_1.v:2:9: previous definition.
 
 [NTE:PP0105] top_2.v:10:1: Multiply defined macro "single",
-             top.v:10:9: previous definition.
+             fake.sv:213:9: previous definition.
 
 [NTE:PP0105] top_2.v:11:1: Multiply defined macro "multiple",
-             top.v:11:9: previous definition.
+             top_1.v:11:9: previous definition.
 
 [WRN:PP0103] top_2.v:15: Undefining an unknown macro "multipl".
 
@@ -90,19 +90,16 @@ ERROR: No Python allowed, check your arguments!
 [WRN:PP0118] top_2.v:47:15: Unknown escaped sequence '\p'.
 
 [NTE:PP0105] top_3.v:2:1: Multiply defined macro "N",
-             top.v:2:9: previous definition.
+             top_2.v:2:9: previous definition.
 
 [NTE:PP0105] top_3.v:4:1: Multiply defined macro "TOP",
              top.v:45:9: previous definition.
 
-[ERR:PP0107] top_3.v:5: Too many arguments (2) for macro "TOP",
-             top.v:45:9: macro definition takes 0.
-
 [NTE:PP0105] top_3.v:13:1: Multiply defined macro "single",
-             top.v:10:9: previous definition.
+             fake.sv:213:9: previous definition.
 
 [NTE:PP0105] top_3.v:14:1: Multiply defined macro "multiple",
-             top.v:11:9: previous definition.
+             top_2.v:11:9: previous definition.
 
 [ERR:PP0102] top_3.v:16:1: Unknown macro "defaut_nettype".
 
@@ -130,13 +127,13 @@ ERROR: No Python allowed, check your arguments!
              mode.vh:21:9: macro definition takes 2.
 
 [NTE:PP0105] top_4.v:2:1: Multiply defined macro "N",
-             top.v:2:9: previous definition.
+             top_3.v:2:9: previous definition.
 
 [NTE:PP0105] top_4.v:10:1: Multiply defined macro "single",
-             top.v:10:9: previous definition.
+             fake.sv:213:9: previous definition.
 
 [NTE:PP0105] top_4.v:11:1: Multiply defined macro "multiple",
-             top.v:11:9: previous definition.
+             top_3.v:14:9: previous definition.
 
 [WRN:PP0103] top_4.v:15: Undefining an unknown macro "multipl".
 
@@ -147,29 +144,27 @@ ERROR: No Python allowed, check your arguments!
              top_4.v:34: macro instance.
 
 [SNT:PA0207] mode.vh:26: Syntax error: mismatched input 'initial' expecting <EOF>,
-initial $display("start", "msg1" , "msg2", "end");
+             initial $display("start", "msg1" , "msg2", "end");
 ^-- ../../build/regression/SimpleIncludeAndMacros/slpp_all/work/_6142509188972423790/top.v:69:0:.
 
 [SNT:PA0207] mode.vh:26: Syntax error: mismatched input 'initial' expecting <EOF>,
-initial $display("start", "msg1" , "msg2", "end");
+             initial $display("start", "msg1" , "msg2", "end");
 ^-- ../../build/regression/SimpleIncludeAndMacros/slpp_all/work/_6142509188972423790/top_1.v:69:0:.
 
 [SNT:PA0207] mode.vh:26: Syntax error: mismatched input 'initial' expecting <EOF>,
-initial $display("start", "msg1" , "msg2", "end");
+             initial $display("start", "msg1" , "msg2", "end");
 ^-- ../../build/regression/SimpleIncludeAndMacros/slpp_all/work/_6142509188972423790/top_2.v:69:0:.
 
-[SNT:PA0207] mode.vh:26: Syntax error: mismatched input 'initial' expecting <EOF>,
-initial $display("start", "msg1" , "msg2", "end");
-^-- ../../build/regression/SimpleIncludeAndMacros/slpp_all/work/_6142509188972423790/top_3.v:72:0:.
-
-[ERR:PA0203] top_3.v:5: Unknown macro "TOP".
+[SNT:PA0207] top_3.v:5: Syntax error: mismatched input '1' expecting <EOF>,
+             1 + 1 + 42 + 100 + c
+^-- ../../build/regression/SimpleIncludeAndMacros/slpp_all/work/_6142509188972423790/top_3.v:5:0:.
 
 [SNT:PA0207] mode.vh:26: Syntax error: mismatched input 'initial' expecting <EOF>,
-initial $display("start", "msg1" , "msg2", "end");
+             initial $display("start", "msg1" , "msg2", "end");
 ^-- ../../build/regression/SimpleIncludeAndMacros/slpp_all/work/_6142509188972423790/top_4.v:69:0:.
 
 [  FATAL] : 0
 [ SYNTAX] : 6
-[  ERROR] : 25
+[  ERROR] : 23
 [WARNING] : 12
 [   NOTE] : 16

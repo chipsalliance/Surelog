@@ -35,8 +35,10 @@ typedef std::multimap<std::string, ClassDefinition*, StringViewCompare>
     ClassNameClassDefinitionMultiMap;
 typedef std::map<std::string, ClassDefinition*> ClassNameClassDefinitionMap;
 
-typedef std::map<std::string, MacroInfo*, StringViewCompare> MacroStorage;
-typedef std::map<std::string, MacroInfo*, StringViewCompare> MacroStorageRef;
+typedef std::map<std::string, std::vector<MacroInfo*>, StringViewCompare>
+    MacroStorage;
+typedef std::map<std::string, std::vector<MacroInfo*>, StringViewCompare>
+    MacroStorageRef;
 
 }  // namespace SURELOG
 

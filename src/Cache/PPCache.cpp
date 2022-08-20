@@ -98,10 +98,16 @@ static bool compareVectors(std::vector<T> a, std::vector<T> b) {
 
 bool PPCache::restore_(const fs::path& cacheFileName,
                        const std::unique_ptr<uint8_t[]>& buffer,
-                       bool errorsOnly) {
+                       bool errorsOnly, bool skipLineTranslationInfo) {
   if (buffer == nullptr) return false;
 
   const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(buffer.get());
+
+  SymbolTable cacheSymbols;
+  restoreErrors(ppcache->errors(), ppcache->symbols(), &cacheSymbols,
+                m_pp->getCompileSourceFile()->getErrorContainer(),
+                m_pp->getCompileSourceFile()->getSymbolTable());
+
   // Always restore the macros
   const flatbuffers::Vector<flatbuffers::Offset<MACROCACHE::Macro>>* macros =
       ppcache->macros();
@@ -115,15 +121,13 @@ bool PPCache::restore_(const fs::path& cacheFileName,
     for (const auto* macro_token : *macro->tokens()) {
       tokens.push_back(macro_token->str());
     }
-    m_pp->recordMacro(macro->name()->str(), macro->start_line(),
-                      macro->start_column(), macro->end_line(),
-                      macro->end_column(), args, tokens);
+    m_pp->recordMacro(
+        macro->name()->str(),
+        m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(
+            cacheSymbols.getSymbol(SymbolId(macro->file_id(), "<unknown>"))),
+        macro->start_line(), macro->start_column(), macro->end_line(),
+        macro->end_column(), args, tokens);
   }
-
-  SymbolTable cacheSymbols;
-  restoreErrors(ppcache->errors(), ppcache->symbols(), &cacheSymbols,
-                m_pp->getCompileSourceFile()->getErrorContainer(),
-                m_pp->getCompileSourceFile()->getSymbolTable());
 
   /* Restore `timescale directives */
   if (!errorsOnly) {
@@ -144,14 +148,16 @@ bool PPCache::restore_(const fs::path& cacheFileName,
   }
 
   /* Restore file line info */
-  const auto* lineinfos = ppcache->line_translation_vec();
-  for (const MACROCACHE::LineTranslationInfo* lineinfo : *lineinfos) {
-    const fs::path pretendFileName = lineinfo->pretend_file()->str();
-    PreprocessFile::LineTranslationInfo lineFileInfo(
-        m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(
-            pretendFileName.string()),
-        lineinfo->original_line(), lineinfo->pretend_line());
-    m_pp->addLineTranslationInfo(lineFileInfo);
+  if (!skipLineTranslationInfo) {
+    const auto* lineinfos = ppcache->line_translation_vec();
+    for (const MACROCACHE::LineTranslationInfo* lineinfo : *lineinfos) {
+      const fs::path pretendFileName = lineinfo->pretend_file()->str();
+      PreprocessFile::LineTranslationInfo lineFileInfo(
+          m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(
+              pretendFileName.string()),
+          lineinfo->original_line(), lineinfo->pretend_line());
+      m_pp->addLineTranslationInfo(lineFileInfo);
+    }
   }
 
   /* Restore include file info */
@@ -174,7 +180,7 @@ bool PPCache::restore_(const fs::path& cacheFileName,
   // Includes
   if (auto includes = ppcache->includes()) {
     for (const auto* include : *includes) {
-      restore_(getCacheFileName_(include->str()), errorsOnly);
+      restore_(getCacheFileName_(include->str()), errorsOnly, true);
     }
   }
   // File Body
@@ -205,8 +211,10 @@ bool PPCache::restore_(const fs::path& cacheFileName,
   return true;
 }
 
-bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly) {
-  return restore_(cacheFileName, openFlatBuffers(cacheFileName), errorsOnly);
+bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly,
+                       bool skipLineTranslationInfo) {
+  return restore_(cacheFileName, openFlatBuffers(cacheFileName), errorsOnly,
+                  skipLineTranslationInfo);
 }
 
 bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName,
@@ -306,7 +314,7 @@ bool PPCache::restore(bool errorsOnly) {
   if (buffer == nullptr) return false;
 
   return checkCacheIsValid_(cacheFileName, buffer) &&
-         restore_(cacheFileName, buffer, errorsOnly);
+         restore_(cacheFileName, buffer, errorsOnly, false);
 }
 
 bool PPCache::save() {
@@ -331,33 +339,40 @@ bool PPCache::save() {
   if (m_pp->isMacroBody()) return false;
 
   flatbuffers::FlatBufferBuilder builder(1024);
+  SymbolTable cacheSymbols;
   /* Create header section */
   auto header = createHeader(builder, FlbSchemaVersion, origFileName);
 
   /* Cache the macro definitions */
   const MacroStorage& macros = m_pp->getMacros();
   std::vector<flatbuffers::Offset<MACROCACHE::Macro>> macro_vec;
-  for (const auto& [macroName, info] : macros) {
-    auto name = builder.CreateString(macroName);
-    MACROCACHE::MacroType type = (info->m_type == MacroInfo::WITH_ARGS)
-                                     ? MACROCACHE::MacroType_WITH_ARGS
-                                     : MACROCACHE::MacroType_NO_ARGS;
-    auto args = builder.CreateVectorOfStrings(info->m_arguments);
-    /*
-    Debug code for a flatbuffer issue"
-    std::cout << "STRING VECTOR CONTENT:\n";
-    int index = 0;
-    std::cout << "VECTOR SIZE: " << info->m_tokens.size() << std::endl;
-    for (auto st : info->m_tokens) {
-      std::cout << index << " ST:" << st.size() << " >>>" << st << "<<<"
-                << std::endl;
-      index++;
+  for (const auto& [macroName, infoVec] : macros) {
+    for (const auto& info : infoVec) {
+      auto name = builder.CreateString(macroName);
+      MACROCACHE::MacroType type = (info->m_type == MacroInfo::WITH_ARGS)
+                                       ? MACROCACHE::MacroType_WITH_ARGS
+                                       : MACROCACHE::MacroType_NO_ARGS;
+      auto args = builder.CreateVectorOfStrings(info->m_arguments);
+      /*
+      Debug code for a flatbuffer issue"
+      std::cout << "STRING VECTOR CONTENT:\n";
+      int index = 0;
+      std::cout << "VECTOR SIZE: " << info->m_tokens.size() << std::endl;
+      for (auto st : info->m_tokens) {
+        std::cout << index << " ST:" << st.size() << " >>>" << st << "<<<"
+                  << std::endl;
+        index++;
+      }
+      */
+      auto tokens = builder.CreateVectorOfStrings(info->m_tokens);
+      macro_vec.push_back(MACROCACHE::CreateMacro(
+          builder, name, type,
+          (RawSymbolId)cacheSymbols.registerSymbol(
+              m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
+                  info->m_file)),
+          info->m_startLine, info->m_startColumn, info->m_endLine,
+          info->m_endColumn, args, tokens));
     }
-    */
-    auto tokens = builder.CreateVectorOfStrings(info->m_tokens);
-    macro_vec.push_back(MACROCACHE::CreateMacro(
-        builder, name, type, info->m_startLine, info->m_startColumn,
-        info->m_endLine, info->m_endColumn, args, tokens));
   }
   auto macroList = builder.CreateVector(macro_vec);
 
@@ -378,7 +393,6 @@ bool PPCache::save() {
   ErrorContainer* errorContainer =
       m_pp->getCompileSourceFile()->getErrorContainer();
   SymbolId subjectFileId = m_pp->getFileId(LINE1);
-  SymbolTable cacheSymbols;
   auto errorCache = cacheErrors(builder, &cacheSymbols, errorContainer,
                                 *m_pp->getCompileSourceFile()->getSymbolTable(),
                                 subjectFileId);

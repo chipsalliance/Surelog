@@ -193,6 +193,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
       }
 
       /* Extra locations */
+      bool extraTextAppended = false;
       unsigned int nbExtraLoc = msg.m_locations.size();
       for (unsigned int i = 1; i < nbExtraLoc; i++) {
         const Location& extraLoc = msg.m_locations[i];
@@ -205,22 +206,30 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
               extraLocation += std::to_string(extraLoc.m_column) + ":";
           }
           size_t objectOffset = text.find("%exloc");
+          if ((objectOffset == std::string::npos) &&
+              !info.m_extraText.empty()) {
+            if (!extraTextAppended) {
+              text += ",\n             " + info.m_extraText;
+              extraTextAppended = true;
+            }
+            objectOffset = text.find("%exloc");
+          }
           if (objectOffset != std::string::npos) {
             text = text.replace(objectOffset, 6, extraLocation);
-          } else if (!info.m_extraText.empty()) {
-            text += ",\n             " + info.m_extraText;
-            // text += ",\n" + info.m_extraText;
-            size_t objectOffset = text.find("%exloc");
-            if (objectOffset != std::string::npos) {
-              text = text.replace(objectOffset, 6, extraLocation);
-            }
           }
         } else {
           if (!info.m_extraText.empty()) {
-            if ((nbExtraLoc == 2) && !extraLoc.m_fileId)
-              text += ",\n" + info.m_extraText;
-            else
-              text += ",\n             " + info.m_extraText;
+            if ((nbExtraLoc == 2) && !extraLoc.m_fileId) {
+              if (!extraTextAppended) {
+                text += ",\n" + info.m_extraText;
+                extraTextAppended = true;
+              }
+            } else {
+              if (!extraTextAppended) {
+                text += ",\n             " + info.m_extraText;
+                extraTextAppended = true;
+              }
+            }
           }
         }
         if (extraLoc.m_object) {
@@ -382,9 +391,9 @@ bool ErrorContainer::printMessage(Error& error, bool muteStdout) {
 
   if (!muteStdout) {
     std::cout << report.first << std::flush;
-    error.m_reported = true;
   }
   bool successLogFile = printToLogFile(report.first);
+  if (successLogFile) error.m_reported = true;
   return (successLogFile && (!report.second));
 }
 
@@ -392,11 +401,13 @@ bool ErrorContainer::printMessages(bool muteStdout) {
   std::pair<std::string, bool> report = createReport_();
   if (!muteStdout) {
     std::cout << report.first << std::flush;
+  }
+  bool successLogFile = printToLogFile(report.first);
+  if (successLogFile) {
     for (auto& err : m_errors) {
       err.m_reported = true;
     }
   }
-  bool successLogFile = printToLogFile(report.first);
   return (successLogFile && (!report.second));
 }
 }  // namespace SURELOG

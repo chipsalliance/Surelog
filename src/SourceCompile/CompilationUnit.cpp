@@ -30,14 +30,18 @@ CompilationUnit::CompilationUnit(bool fileunit)
 MacroInfo* CompilationUnit::getMacroInfo(const std::string& macroName) {
   MacroStorageRef::iterator itr = m_macros.find(macroName);
   if (itr != m_macros.end()) {
-    return (*itr).second;
+    return itr->second.back();
   }
   return nullptr;
 }
 
 void CompilationUnit::registerMacroInfo(const std::string& macroName,
                                         MacroInfo* macro) {
-  m_macros.insert(MacroStorageRef::value_type(macroName, macro));
+  MacroStorageRef::iterator itr = m_macros.find(macroName);
+  if (itr == m_macros.end()) {
+    itr = m_macros.emplace(macroName, std::vector<MacroInfo*>{}).first;
+  }
+  itr->second.push_back(macro);
 }
 
 void CompilationUnit::deleteMacro(const std::string& macroName) {

@@ -296,8 +296,13 @@ PreprocessFile::PreprocessFile(const PreprocessFile& orig) {}
 
 PreprocessFile::~PreprocessFile() {
   delete m_listener;
-  if (!m_instructions.m_persist)
-    for (const auto& name_macro : m_macros) delete name_macro.second;
+  if (!m_instructions.m_persist) {
+    for (auto& [name, macros] : m_macros) {
+      for (auto& macro : macros) {
+        delete macro;
+      }
+    }
+  }
 }
 
 PreprocessFile::AntlrParserHandler::~AntlrParserHandler() {
@@ -587,7 +592,11 @@ void PreprocessFile::recordMacro(const std::string& name,
       name, arguments.empty() ? MacroInfo::NO_ARGS : MacroInfo::WITH_ARGS,
       getFileId(startLine), startLine, startColumn, endLine, endColumn, args,
       tokens);
-  m_macros.insert(std::make_pair(name, macroInfo));
+  MacroStorageRef::iterator itr = m_macros.find(name);
+  if (itr == m_macros.end()) {
+    itr = m_macros.emplace(name, std::vector<MacroInfo*>()).first;
+  }
+  itr->second.push_back(macroInfo);
   m_compilationUnit->registerMacroInfo(name, macroInfo);
   checkMacroArguments_(name, startLine, startColumn, args, tokens);
 }
@@ -607,7 +616,7 @@ std::string PreprocessFile::reportIncludeInfo() const {
   return strm.str();
 }
 
-void PreprocessFile::recordMacro(const std::string& name,
+void PreprocessFile::recordMacro(const std::string& name, SymbolId fileId,
                                  unsigned int startLine,
                                  unsigned short int startColumn,
                                  unsigned int endLine,
@@ -616,9 +625,12 @@ void PreprocessFile::recordMacro(const std::string& name,
                                  const std::vector<std::string>& tokens) {
   MacroInfo* macroInfo = new MacroInfo(
       name, arguments.empty() ? MacroInfo::NO_ARGS : MacroInfo::WITH_ARGS,
-      getFileId(startLine), startLine, startColumn, endLine, endColumn,
-      arguments, tokens);
-  m_macros.insert(std::make_pair(name, macroInfo));
+      fileId, startLine, startColumn, endLine, endColumn, arguments, tokens);
+  MacroStorageRef::iterator itr = m_macros.find(name);
+  if (itr == m_macros.end()) {
+    itr = m_macros.emplace(name, std::vector<MacroInfo*>()).first;
+  }
+  itr->second.push_back(macroInfo);
   m_compilationUnit->registerMacroInfo(name, macroInfo);
 }
 
@@ -1049,6 +1061,9 @@ bool PreprocessFile::deleteMacro(const std::string& name,
   if (found == false) {
     MacroStorage::iterator itr = m_macros.find(name);
     if (itr != m_macros.end()) {
+      for (auto& macro : itr->second) {
+        delete macro;
+      }
       m_macros.erase(itr);
       m_compilationUnit->deleteMacro(name);
       found = true;
@@ -1057,8 +1072,7 @@ bool PreprocessFile::deleteMacro(const std::string& name,
   // Try in included files
   if (found == false) {
     for (PreprocessFile* pFile : m_includes) {
-      if (visited.find(pFile) == visited.end()) {
-        visited.insert(pFile);
+      if (visited.insert(pFile).second) {
         bool tmp = pFile->deleteMacro(name, visited);
         if (tmp == true) {
           found = true;
@@ -1068,14 +1082,11 @@ bool PreprocessFile::deleteMacro(const std::string& name,
     }
   }
   // Try in file that included this file
-  if (found == false) {
-    if (m_includer) {
-      if (visited.find(m_includer) == visited.end()) {
-        visited.insert(m_includer);
-        bool tmp = m_includer->deleteMacro(name, visited);
-        if (tmp == true) {
-          found = true;
-        }
+  if ((found == false) && (m_includer != nullptr)) {
+    if (visited.insert(m_includer).second) {
+      bool tmp = m_includer->deleteMacro(name, visited);
+      if (tmp == true) {
+        found = true;
       }
     }
   }
@@ -1084,6 +1095,11 @@ bool PreprocessFile::deleteMacro(const std::string& name,
 
 void PreprocessFile::undefineAllMacros(std::set<PreprocessFile*>& visited) {
   if (m_debugMacro) std::cout << "PP CALL TO undefineAllMacros" << std::endl;
+  for (auto& [name, macros] : m_macros) {
+    for (auto& macro : macros) {
+      delete macro;
+    }
+  }
   m_macros.clear();
   m_compilationUnit->deleteAllMacros();
 

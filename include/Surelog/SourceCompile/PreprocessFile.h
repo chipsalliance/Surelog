@@ -96,9 +96,9 @@ class PreprocessFile {
                    unsigned short int endColumn,
                    const std::string& formal_arguments,
                    const std::vector<std::string>& body);
-  void recordMacro(const std::string& name, unsigned int startLine,
-                   unsigned short int startColumn, unsigned int endLine,
-                   unsigned short int endColumn,
+  void recordMacro(const std::string& name, SymbolId fileId,
+                   unsigned int startLine, unsigned short int startColumn,
+                   unsigned int endLine, unsigned short int endColumn,
                    const std::vector<std::string>& formal_arguments,
                    const std::vector<std::string>& body);
   std::string getMacro(const std::string& name,

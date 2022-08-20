@@ -57,6 +57,9 @@ ERROR: No Python allowed, check your arguments!
 `default_nettype 
                  ^-- top_1.v:13:17:.
 
+[NTE:PP0105] top_1.v:10:1: Multiply defined macro "single",
+             fake.sv:213:9: previous definition.
+
 [WRN:PP0103] top_1.v:15: Undefining an unknown macro "multipl".
 
 [ERR:PP0120] mode.vh:15:6: Illegal directive in design element "`timescale",
@@ -74,6 +77,9 @@ ERROR: No Python allowed, check your arguments!
 
 [INF:PP0122] Preprocessing source file "top_2.v".
 
+[NTE:PP0105] top_2.v:10:1: Multiply defined macro "single",
+             fake.sv:213:9: previous definition.
+
 [WRN:PP0103] top_2.v:15: Undefining an unknown macro "multipl".
 
 [ERR:PP0120] mode.vh:15:6: Illegal directive in design element "`timescale",
@@ -90,6 +96,9 @@ ERROR: No Python allowed, check your arguments!
 [INF:PP0123] Preprocessing include file "foo/inc.sv".
 
 [INF:PP0122] Preprocessing source file "top_3.v".
+
+[NTE:PP0105] top_3.v:13:1: Multiply defined macro "single",
+             fake.sv:213:9: previous definition.
 
 [ERR:PP0102] top_3.v:16:1: Unknown macro "defaut_nettype".
 
@@ -118,6 +127,9 @@ ERROR: No Python allowed, check your arguments!
 
 [INF:PP0122] Preprocessing source file "top_4.v".
 
+[NTE:PP0105] top_4.v:10:1: Multiply defined macro "single",
+             fake.sv:213:9: previous definition.
+
 [WRN:PP0103] top_4.v:15: Undefining an unknown macro "multipl".
 
 [ERR:PP0120] mode.vh:15:6: Illegal directive in design element "`timescale",
@@ -128,31 +140,31 @@ ERROR: No Python allowed, check your arguments!
 [INF:PA0201] Parsing source file "top.v".
 
 [SNT:PA0207] mode.vh:26: Syntax error: mismatched input 'initial' expecting <EOF>,
-initial $display("start", "msg1" , "msg2", "end");
+             initial $display("start", "msg1" , "msg2", "end");
 ^-- ../../build/regression/UnitSimpleIncludeAndMacros/slpp_unit/work/_6142509188972423790/top.v:69:0:.
 
 [INF:PA0201] Parsing source file "top_1.v".
 
 [SNT:PA0207] mode.vh:26: Syntax error: mismatched input 'initial' expecting <EOF>,
-initial $display("start", "msg1" , "msg2", "end");
+             initial $display("start", "msg1" , "msg2", "end");
 ^-- ../../build/regression/UnitSimpleIncludeAndMacros/slpp_unit/work/_6142509188972423790/top_1.v:69:0:.
 
 [INF:PA0201] Parsing source file "top_2.v".
 
 [SNT:PA0207] mode.vh:26: Syntax error: mismatched input 'initial' expecting <EOF>,
-initial $display("start", "msg1" , "msg2", "end");
+             initial $display("start", "msg1" , "msg2", "end");
 ^-- ../../build/regression/UnitSimpleIncludeAndMacros/slpp_unit/work/_6142509188972423790/top_2.v:69:0:.
 
 [INF:PA0201] Parsing source file "top_3.v".
 
 [SNT:PA0207] top_3.v:5: Syntax error: mismatched input '1' expecting <EOF>,
-1 + 1 + 42 + 100 + c
+             1 + 1 + 42 + 100 + c
 ^-- ../../build/regression/UnitSimpleIncludeAndMacros/slpp_unit/work/_6142509188972423790/top_3.v:5:0:.
 
 [INF:PA0201] Parsing source file "top_4.v".
 
 [SNT:PA0207] mode.vh:26: Syntax error: mismatched input 'initial' expecting <EOF>,
-initial $display("start", "msg1" , "msg2", "end");
+             initial $display("start", "msg1" , "msg2", "end");
 ^-- ../../build/regression/UnitSimpleIncludeAndMacros/slpp_unit/work/_6142509188972423790/top_4.v:69:0:.
 
 [INF:PA0201] Parsing source file "${SURELOG_DIR}/tests/SimpleIncludeAndMacros/lib.v".
@@ -161,4 +173,4 @@ initial $display("start", "msg1" , "msg2", "end");
 [ SYNTAX] : 6
 [  ERROR] : 23
 [WARNING] : 12
-[   NOTE] : 2
+[   NOTE] : 6
