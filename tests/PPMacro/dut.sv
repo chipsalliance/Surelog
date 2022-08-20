@@ -5,7 +5,7 @@ endmodule
 
 `define FOO2 42
 module top2();
-  assign a = `FOO2(123);
+  assign a = `FOO2 + (123);
 endmodule
 
 
