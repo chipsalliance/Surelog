@@ -1258,6 +1258,15 @@ bool CompileModule::checkModule_() {
   Location* missingDirectionLoc = nullptr;
   for (Signal* port : m_module->m_ports) {
     if (port->isInterface()) continue;
+    const FileContent* fC = port->getFileContent();
+    NodeId portId = port->getNodeId();
+    if (fC->Type(portId) == slPort) {
+      NodeId expName = fC->Child(portId);
+      if (fC->Type(expName) == slStringConst) {
+        // Port expression
+        continue;
+      }
+    }
     if (port->getType() == VObjectType::slData_type_or_implicit) {
       if (port->getDirection() == VObjectType::slPortDir_Out ||
           port->getDirection() == VObjectType::slPortDir_Inout) {
