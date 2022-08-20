@@ -753,18 +753,6 @@ std::string PreprocessFile::evaluateMacroInstance(
   return result;
 }
 
-static bool isKeyword(const std::vector<std::string>& body_tokens) {
-  if (body_tokens.empty()) return false;
-  std::string first = body_tokens[0];
-  for (const char* const& keyword : {"assert", "assume"}) {
-    if (first == keyword) return true;
-  }
-  if (first[0] == '$') {
-    return true;
-  }
-  return false;
-}
-
 std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
     const std::string& name, std::vector<std::string>& actual_args,
     PreprocessFile* callingFile, unsigned int callingLine,
@@ -819,11 +807,6 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
     actual_arg = StringUtils::trim(actual_arg);
   }
 
-  bool keyword = false;
-  if (formal_args.empty() && !actual_args.empty()) {
-    keyword = isKeyword(body_tokens);
-  }
-
   if ((actual_args.size() > formal_args.size() && (!m_instructions.m_mute))) {
     if (formal_args.empty() &&
         (StringUtils::getFirstNonEmptyToken(body_tokens) == "(")) {
@@ -843,18 +826,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
       Error err(ErrorDefinition::PP_TOO_MANY_ARGS_MACRO, loc, &locs);
       addError(err);
 
-    } else if ((!keyword) && formal_args.empty() && !actual_args.empty()) {
-      Location loc(callingFile->getFileId(callingLine),
-                   callingFile->getLineNb(callingLine), 0, getId(name));
-      Location arg(BadSymbolId, 0, 0,
-                   registerSymbol(std::to_string(actual_args.size())));
-      Location def(macroInfo->m_file, macroInfo->m_startLine,
-                   macroInfo->m_startColumn,
-                   registerSymbol(std::to_string(formal_args.size())));
-      std::vector<Location> locs = {arg, def};
-      Error err(ErrorDefinition::PP_TOO_MANY_ARGS_MACRO, loc, &locs);
-      addError(err);
-    }
+    } 
   }
   bool incorrectArgNb = false;
   static const std::regex ws_re("[ \t]+");
@@ -946,7 +918,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   for (const auto& token : body_tokens) {
     body += token;
   }
-  if (keyword && !actual_args.empty() && formal_args.empty()) {
+  if (!actual_args.empty() && formal_args.empty()) {
     body += "(";
     body += actual_args[0];
     body += ")";
