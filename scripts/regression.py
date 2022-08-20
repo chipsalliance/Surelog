@@ -30,7 +30,10 @@ _default_workspace_dirpath = os.path.dirname(os.path.dirname(_this_filepath))
 # either to the workspace directory or the build directory
 _default_test_dirpaths = [ 'tests', os.path.join('third_party', 'tests') ]
 _default_build_dirpath = 'build'
-# _default_build_dirpath = os.path.join('out', 'build', 'Debug')
+# _default_build_dirpath = os.path.join('out', 'build', 'x64-Debug')
+# _default_build_dirpath = os.path.join('out', 'build', 'x64-Release')
+# _default_build_dirpath = os.path.join('out', 'build', 'x64-Clang-Debug')
+# _default_build_dirpath = os.path.join('out', 'build', 'x64-Clang-Release')
 _default_output_dirpath = 'regression'
 _default_surelog_filename = 'surelog.exe' if platform.system() == 'Windows' else 'surelog'
 _default_uhdm_dump_filename = 'uhdm-dump.exe' if platform.system() == 'Windows' else 'uhdm-dump'
@@ -749,17 +752,16 @@ def _report_one(params):
 
 
 def _update_one(params):
-  start_dt = datetime.now()
   name, filepath, output_dirpath = params
-
-  log(f'Updating {name}')
 
   dirpath = os.path.dirname(filepath)
   golden_log_filepath = os.path.join(dirpath, f'{name}.log')
   surelog_log_filepath = os.path.join(output_dirpath, f'{name}.log')
 
+  log(f'Updating {name}: {surelog_log_filepath} => {golden_log_filepath}')
+
   if not os.path.isfile(surelog_log_filepath):
-    print(f'File not found: {surelog_log_filepath}')
+    log(f'File not found: {surelog_log_filepath}')
   else:
     try:
       if os.path.isfile(golden_log_filepath):
@@ -775,7 +777,7 @@ def _update_one(params):
           ostrm.writelines(lines)
           ostrm.flush()
     except:
-      print(f'Failed to overwrite \"{golden_log_filepath}\" with \"{surelog_log_filepath}\"')
+      log(f'Failed to overwrite \"{golden_log_filepath}\" with \"{surelog_log_filepath}\"')
       traceback.print_exc()
       return 1
 
@@ -949,6 +951,58 @@ def _update(args, tests):
   return sum(results)
 
 
+def _extract(args, tests):
+  if not tests:
+    return 0  # No selected tests
+
+  if not args.archive_path:
+    raise "Missing required archive path"
+
+  if not os.path.isfile(args.archive_path):
+    raise "Input archive path is invalid"
+
+  archive_name = os.path.basename(args.archive_path)
+  pos = archive_name.find('.')
+  if pos >= 0:
+    archive_name = archive_name[:pos]
+  log(f'archive-name: {archive_name}')
+
+  results = []
+  with tarfile.open(args.archive_path, 'r') as archive_strm:
+    for name, filepath in tests.items():
+      test_filepath = f'{archive_name}/{name}.tar.gz'
+      with tarfile.open(fileobj=archive_strm.extractfile(test_filepath)) as test_strm:
+        src_log_filepath = f'{name}/{name}.log'
+
+        dst_dirpath = os.path.dirname(filepath)
+        dst_log_filepath = os.path.join(dst_dirpath, f'{name}.log')
+
+        log(f'{src_log_filepath} => {dst_log_filepath}')
+
+        try:
+          src_log_strm = test_strm.extractfile(src_log_filepath)
+
+          with open(dst_log_filepath, 'wb') as dst_log_strm:
+            dst_log_strm.write(src_log_strm.read())
+            dst_log_strm.flush()
+
+          # On Windows, fixup the line endings
+          if platform.system() == 'Windows':
+            with open(dst_log_filepath, 'rt', encoding='cp850') as istrm:
+              lines = istrm.readlines()
+            with open(dst_log_filepath, 'wt', encoding='cp850') as ostrm:
+              ostrm.writelines(lines)
+              ostrm.flush()
+
+          results.append(0)
+        except KeyError as e:
+          log(f'Failed to extract \"{name}/{name}.log\"')
+          traceback.print_exc()
+          results.append(1)
+
+  return sum(results)
+
+
 def _main():
   # Configure the standard streams to be unicode compatible
   sys.stdout.reconfigure(encoding='cp850')
@@ -960,7 +1014,7 @@ def _main():
   parser = argparse.ArgumentParser()
 
   parser.add_argument(
-      'mode', choices=['run', 'report', 'update'], type=str, help='Pick from available choices')
+      'mode', choices=['run', 'report', 'update', 'extract'], type=str, help='Pick from available choices')
   parser.add_argument(
       '--workspace-dirpath', dest='workspace_dirpath', required=False, default=_default_workspace_dirpath, type=str,
       help='Workspace root, either absolute or relative to current working directory.')
@@ -995,6 +1049,9 @@ def _main():
       help='Run regression test using specified tool.')
   parser.add_argument('--mt', dest='mt', default=None, type=str, help='Enable multithreading mode')
   parser.add_argument('--mp', dest='mp', default=None, type=str, help='Enable multiprocessing mode')
+  parser.add_argument(
+    '--archive-path', dest='archive_path', required=False, type=str,
+    help='Path to tarball to extract logs from.')
 
   args = parser.parse_args()
 
@@ -1063,8 +1120,11 @@ def _main():
     print(f'Reporting {len(filtered_tests)} tests ...')
     result = _report(args, filtered_tests)
   elif args.mode == 'update':
-    print(f'Updating {len(filtered_tests)} tests ...')
+    print(f'Updating {len(filtered_tests)} test logs ...')
     result = _update(args, filtered_tests)
+  elif args.mode == 'extract':
+    print(f'Extracting {len(filtered_tests)} test logs ...')
+    result = _extract(args, filtered_tests)
   print('\n\n')
 
   end_dt = datetime.now()
