@@ -562,7 +562,7 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns specify_01.v -l specify_01.v.log
 [SNT:PA0207] specify_01.v:13:9: Syntax error: no viable alternative at input '(clk,d =>',
-  (clk,d => q) = (tR_clk_q,tF_clk_q);
+               (clk,d => q) = (tR_clk_q,tF_clk_q);
          ^-- ${SURELOG_DIR}/third_party/tests/Icarus/../../../build/regression/Icarus/ivltests/slpp_all/work/_6142509188972423790/specify_01.v:13:9:.
 
 [  FATAL] : 0
@@ -1261,17 +1261,12 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns contrib8.2.v -l contrib8.2.v.log
-[WRN:CP0310] contrib8.2.v:47:10: Port "%s" definition missing its direction (input, output, inout).
-
-[WRN:CP0310] contrib8.2.v:51:10: Port "%s" definition missing its direction (input, output, inout),
-there are 1 more instances of this message.
-
-[WRN:CP0310] contrib8.2.v:56:10: Port "%s" definition missing its direction (input, output, inout).
+[WRN:CP0310] contrib8.2.v:51:22: Port "%s" definition missing its direction (input, output, inout).
 
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 3
+[WARNING] : 1
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns mem2port.v -l mem2port.v.log
 [  FATAL] : 0
@@ -1880,7 +1875,7 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns escape2a.v -l escape2a.v.log
 [SNT:PA0207] escape2a.v:14: Syntax error: no viable alternative at input 'module part1 (\n#~@6A_A#~@,\n#~@6Y_A#~@,\nVCC ,\nGND ,\n#~@6A_B#~@,\n#~@6Y_B#~@,\n#~@6A_C#~@,\n#~@6Y_C#~@,\n#~@6A_D#~@,\n#~@6Y_D#~@,\n#~@6A_E#~@,\n// note: there is not a space character before the nl below\n\',
-\6Y_E
+             \6Y_E
 ^-- ${SURELOG_DIR}/third_party/tests/Icarus/../../../build/regression/Icarus/ivltests/slpp_all/work/_6142509188972423790/escape2a.v:14:0:.
 
 [  FATAL] : 0
@@ -2271,7 +2266,7 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns escape2b.v -l escape2b.v.log
 [SNT:PA0207] escape2b.v:15: Syntax error: no viable alternative at input 'module part2 (\n#~@6A_A#~@,\n#~@6Y_A#~@,\nVCC ,\nGND ,\n#~@6A_B#~@,\n#~@6Y_B#~@,\n#~@6A_C#~@,\n#~@6Y_C#~@,\n#~@6A_D#~@,\n#~@6Y_D#~@,\n#~@6A_E#~@,\n// note: there is not a space character before the nl below\n// no space character after nl also\n\',
-\6Y_E
+             \6Y_E
 ^-- ${SURELOG_DIR}/third_party/tests/Icarus/../../../build/regression/Icarus/ivltests/slpp_all/work/_6142509188972423790/escape2b.v:15:0:.
 
 [  FATAL] : 0
@@ -4064,12 +4059,10 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns pr377.v -l pr377.v.log
-[WRN:CP0310] pr377.v:1:15: Port "%s" definition missing its direction (input, output, inout).
-
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 1
+[WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns always3.1.3F.v -l always3.1.3F.v.log
 [  FATAL] : 0
@@ -4259,5 +4252,5 @@ Processed 697 tests.
 [  FATAL] : 0
 [ SYNTAX] : 3
 [  ERROR] : 12
-[WARNING] : 18
+[WARNING] : 15
 [   NOTE] : 0
