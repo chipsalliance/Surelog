@@ -219,7 +219,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
           }
         } else {
           if (!info.m_extraText.empty()) {
-            if ((nbExtraLoc == 2) && !extraLoc.m_fileId) {
+            if ((i == 1) && !extraLoc.m_fileId) {
               if (!extraTextAppended) {
                 text += ",\n" + info.m_extraText;
                 extraTextAppended = true;
