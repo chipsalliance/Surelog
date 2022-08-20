@@ -42,7 +42,7 @@ namespace fs = std::filesystem;
 
 PPCache::PPCache(PreprocessFile* pp) : m_pp(pp), m_isPrecompiled(false) {}
 
-static const char FlbSchemaVersion[] = "1.2";
+static const char FlbSchemaVersion[] = "1.3";
 
 // TODO(hzeller): this should come from a function cacheFileResolver() or
 // something that can be passed to the cache. That way, we can leave the
