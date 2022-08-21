@@ -128,7 +128,7 @@ module top();
   assign a = `FOO_FUN(123);
 endmodule)");
 
-  EXPECT_TRUE(ContainsError(harness.collected_errors(),
+  EXPECT_FALSE(ContainsError(harness.collected_errors(),
                             ErrorDefinition::PP_TOO_MANY_ARGS_MACRO));
 }
 
