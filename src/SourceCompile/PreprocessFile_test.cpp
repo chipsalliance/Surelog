@@ -128,7 +128,7 @@ module top();
 endmodule)");
 
   EXPECT_FALSE(ContainsError(harness.collected_errors(),
-                            ErrorDefinition::PP_TOO_MANY_ARGS_MACRO));
+                             ErrorDefinition::PP_TOO_MANY_ARGS_MACRO));
 }
 
 TEST(PreprocessTest, IfdefCodeSelectionIfBranch) {
