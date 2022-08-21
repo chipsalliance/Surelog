@@ -547,7 +547,6 @@ void CommandLineParser::processArgs_(const std::vector<std::string>& args,
         arg.append("+");
         arg.append(args[i + 1]);
         i += 1;
-        continue;
       } else {
         std::cerr << "Missing arguments to renamed command " << arg
                   << std::endl;
