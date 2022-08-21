@@ -825,8 +825,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
       std::vector<Location> locs = {arg, def};
       Error err(ErrorDefinition::PP_TOO_MANY_ARGS_MACRO, loc, &locs);
       addError(err);
-
-    } 
+    }
   }
   bool incorrectArgNb = false;
   static const std::regex ws_re("[ \t]+");
