@@ -118,8 +118,7 @@ module top();
 endmodule)");
 }
 
-// With zero arg macro, the testing for too many args fails.
-// Documenting a bug: this results in unexpected results.
+// Zero arg macro
 TEST(PreprocessTest, PreprocessMacroReportErrorOnOneInsteadZeroParameters) {
   PreprocessHarness harness;
   const std::string res = harness.preprocess(R"(
