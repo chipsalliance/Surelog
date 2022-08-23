@@ -4838,6 +4838,8 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.clk), line:54:39, endln:54:42
+    |vpiTypedef:
+    \_logic_typespec: , line:54:39, endln:54:39
   |vpiPort:
   \_port: (reset), line:55:39, endln:55:44
     |vpiParent:
@@ -4848,6 +4850,8 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.reset), line:55:39, endln:55:44
+    |vpiTypedef:
+    \_logic_typespec: , line:55:39, endln:55:39
   |vpiPort:
   \_port: (of_operand1), line:58:39, endln:58:50
     |vpiParent:
@@ -4858,6 +4862,89 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.of_operand1), line:58:39, endln:58:50
+    |vpiTypedef:
+    \_logic_typespec: (vector_t), line:51:9, endln:51:17
+      |vpiParent:
+      \_design: (work@int_execute_stage)
+      |vpiName:vector_t
+      |vpiInstance:
+      \_design: (work@int_execute_stage)
+      |vpiElemTypespec:
+      \_logic_typespec: (scalar_t), line:50:9, endln:50:20
+        |vpiName:scalar_t
+        |vpiTypedefAlias:
+        \_logic_typespec: (scalar_t), line:50:9, endln:50:20
+          |vpiParent:
+          \_design: (work@int_execute_stage)
+          |vpiName:scalar_t
+          |vpiInstance:
+          \_design: (work@int_execute_stage)
+          |vpiRange:
+          \_range: , line:50:14, endln:50:20
+            |vpiLeftRange:
+            \_constant: , line:50:15, endln:50:17
+              |vpiParent:
+              \_range: , line:50:14, endln:50:20
+              |vpiDecompile:31
+              |vpiSize:64
+              |UINT:31
+              |vpiConstType:9
+            |vpiRightRange:
+            \_constant: , line:50:18, endln:50:19
+              |vpiParent:
+              \_range: , line:50:14, endln:50:20
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
+        |vpiRange:
+        \_range: , line:50:14, endln:50:20
+          |vpiParent:
+          \_logic_typespec: (scalar_t), line:50:9, endln:50:20
+          |vpiLeftRange:
+          \_constant: , line:50:15, endln:50:17
+            |vpiParent:
+            \_range: , line:50:14, endln:50:20
+            |vpiDecompile:31
+            |vpiSize:64
+            |UINT:31
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:50:18, endln:50:19
+            |vpiParent:
+            \_range: , line:50:14, endln:50:20
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+      |vpiRange:
+      \_range: , line:51:17, endln:51:41
+        |vpiLeftRange:
+        \_operation: , line:51:18, endln:51:38
+          |vpiParent:
+          \_range: , line:51:17, endln:51:41
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (NUM_VECTOR_LANES), line:51:18, endln:51:34
+            |vpiParent:
+            \_operation: , line:51:18, endln:51:38
+            |vpiName:NUM_VECTOR_LANES
+          |vpiOperand:
+          \_constant: , line:51:37, endln:51:38
+            |vpiParent:
+            \_operation: , line:51:18, endln:51:38
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:51:39, endln:51:40
+          |vpiParent:
+          \_range: , line:51:17, endln:51:41
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
   |vpiPort:
   \_port: (of_operand2), line:59:39, endln:59:50
     |vpiParent:
@@ -4868,6 +4955,8 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.of_operand2), line:59:39, endln:59:50
+    |vpiTypedef:
+    \_logic_typespec: (vector_t), line:51:9, endln:51:17
   |vpiPort:
   \_port: (of_mask_value), line:60:39, endln:60:52
     |vpiParent:
@@ -4878,6 +4967,9 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.of_mask_value), line:60:39, endln:60:52
+    |vpiTypedef:
+    \_unsupported_typespec: (vector_mask_t), line:60:11, endln:60:24
+      |vpiName:vector_mask_t
   |vpiPort:
   \_port: (of_instruction_valid), line:61:39, endln:61:59
     |vpiParent:
@@ -4888,6 +4980,8 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.of_instruction_valid), line:61:39, endln:61:59
+    |vpiTypedef:
+    \_logic_typespec: , line:61:39, endln:61:39
   |vpiPort:
   \_port: (of_instruction), line:62:39, endln:62:53
     |vpiParent:
@@ -4898,6 +4992,494 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.of_instruction), line:62:39, endln:62:53
+    |vpiTypedef:
+    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+      |vpiParent:
+      \_design: (work@int_execute_stage)
+      |vpiName:decoded_instruction_t
+      |vpiInstance:
+      \_design: (work@int_execute_stage)
+      |vpiPacked:1
+      |vpiTypespecMember:
+      \_typespec_member: (pc), line:9:14, endln:9:16
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:pc
+        |vpiTypespec:
+        \_unsupported_typespec: (scalar_t), line:9:5, endln:9:13
+          |vpiParent:
+          \_typespec_member: (pc), line:9:14, endln:9:16
+          |vpiName:scalar_t
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:9
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:9
+        |vpiRefEndColumnNo:13
+      |vpiTypespecMember:
+      \_typespec_member: (injected), line:12:11, endln:12:19
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:injected
+        |vpiTypespec:
+        \_logic_typespec: , line:12:5, endln:12:10
+          |vpiParent:
+          \_typespec_member: (injected), line:12:11, endln:12:19
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:12
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:12
+        |vpiRefEndColumnNo:10
+      |vpiTypespecMember:
+      \_typespec_member: (has_trap), line:15:11, endln:15:19
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:has_trap
+        |vpiTypespec:
+        \_logic_typespec: , line:15:5, endln:15:10
+          |vpiParent:
+          \_typespec_member: (has_trap), line:15:11, endln:15:19
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:15
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:15
+        |vpiRefEndColumnNo:10
+      |vpiTypespecMember:
+      \_typespec_member: (trap_cause), line:16:18, endln:16:28
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:trap_cause
+        |vpiTypespec:
+        \_unsupported_typespec: (trap_cause_t), line:16:5, endln:16:17
+          |vpiParent:
+          \_typespec_member: (trap_cause), line:16:18, endln:16:28
+          |vpiName:trap_cause_t
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:16
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:16
+        |vpiRefEndColumnNo:17
+      |vpiTypespecMember:
+      \_typespec_member: (has_scalar1), line:19:11, endln:19:22
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:has_scalar1
+        |vpiTypespec:
+        \_logic_typespec: , line:19:5, endln:19:10
+          |vpiParent:
+          \_typespec_member: (has_scalar1), line:19:11, endln:19:22
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:19
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:19
+        |vpiRefEndColumnNo:10
+      |vpiTypespecMember:
+      \_typespec_member: (scalar_sel1), line:20:20, endln:20:31
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:scalar_sel1
+        |vpiTypespec:
+        \_unsupported_typespec: (register_idx_t), line:20:5, endln:20:19
+          |vpiParent:
+          \_typespec_member: (scalar_sel1), line:20:20, endln:20:31
+          |vpiName:register_idx_t
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:20
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:20
+        |vpiRefEndColumnNo:19
+      |vpiTypespecMember:
+      \_typespec_member: (has_scalar2), line:21:11, endln:21:22
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:has_scalar2
+        |vpiTypespec:
+        \_logic_typespec: , line:21:5, endln:21:10
+          |vpiParent:
+          \_typespec_member: (has_scalar2), line:21:11, endln:21:22
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:21
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:21
+        |vpiRefEndColumnNo:10
+      |vpiTypespecMember:
+      \_typespec_member: (scalar_sel2), line:22:20, endln:22:31
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:scalar_sel2
+        |vpiTypespec:
+        \_unsupported_typespec: (register_idx_t), line:22:5, endln:22:19
+          |vpiParent:
+          \_typespec_member: (scalar_sel2), line:22:20, endln:22:31
+          |vpiName:register_idx_t
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:22
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:22
+        |vpiRefEndColumnNo:19
+      |vpiTypespecMember:
+      \_typespec_member: (has_vector1), line:23:11, endln:23:22
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:has_vector1
+        |vpiTypespec:
+        \_logic_typespec: , line:23:5, endln:23:10
+          |vpiParent:
+          \_typespec_member: (has_vector1), line:23:11, endln:23:22
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:23
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:23
+        |vpiRefEndColumnNo:10
+      |vpiTypespecMember:
+      \_typespec_member: (vector_sel1), line:24:20, endln:24:31
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:vector_sel1
+        |vpiTypespec:
+        \_unsupported_typespec: (register_idx_t), line:24:5, endln:24:19
+          |vpiParent:
+          \_typespec_member: (vector_sel1), line:24:20, endln:24:31
+          |vpiName:register_idx_t
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:24
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:24
+        |vpiRefEndColumnNo:19
+      |vpiTypespecMember:
+      \_typespec_member: (has_vector2), line:25:11, endln:25:22
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:has_vector2
+        |vpiTypespec:
+        \_logic_typespec: , line:25:5, endln:25:10
+          |vpiParent:
+          \_typespec_member: (has_vector2), line:25:11, endln:25:22
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:25
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:25
+        |vpiRefEndColumnNo:10
+      |vpiTypespecMember:
+      \_typespec_member: (vector_sel2), line:26:20, endln:26:31
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:vector_sel2
+        |vpiTypespec:
+        \_unsupported_typespec: (register_idx_t), line:26:5, endln:26:19
+          |vpiParent:
+          \_typespec_member: (vector_sel2), line:26:20, endln:26:31
+          |vpiName:register_idx_t
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:26
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:26
+        |vpiRefEndColumnNo:19
+      |vpiTypespecMember:
+      \_typespec_member: (has_dest), line:27:11, endln:27:19
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:has_dest
+        |vpiTypespec:
+        \_logic_typespec: , line:27:5, endln:27:10
+          |vpiParent:
+          \_typespec_member: (has_dest), line:27:11, endln:27:19
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:27
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:27
+        |vpiRefEndColumnNo:10
+      |vpiTypespecMember:
+      \_typespec_member: (dest_vector), line:28:11, endln:28:22
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:dest_vector
+        |vpiTypespec:
+        \_logic_typespec: , line:28:5, endln:28:10
+          |vpiParent:
+          \_typespec_member: (dest_vector), line:28:11, endln:28:22
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:28
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:28
+        |vpiRefEndColumnNo:10
+      |vpiTypespecMember:
+      \_typespec_member: (dest_reg), line:29:20, endln:29:28
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:dest_reg
+        |vpiTypespec:
+        \_unsupported_typespec: (register_idx_t), line:29:5, endln:29:19
+          |vpiParent:
+          \_typespec_member: (dest_reg), line:29:20, endln:29:28
+          |vpiName:register_idx_t
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:29
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:29
+        |vpiRefEndColumnNo:19
+      |vpiTypespecMember:
+      \_typespec_member: (alu_op), line:30:14, endln:30:20
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:alu_op
+        |vpiTypespec:
+        \_unsupported_typespec: (alu_op_t), line:30:5, endln:30:13
+          |vpiParent:
+          \_typespec_member: (alu_op), line:30:14, endln:30:20
+          |vpiName:alu_op_t
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:30
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:30
+        |vpiRefEndColumnNo:13
+      |vpiTypespecMember:
+      \_typespec_member: (mask_src), line:31:16, endln:31:24
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:mask_src
+        |vpiTypespec:
+        \_unsupported_typespec: (mask_src_t), line:31:5, endln:31:15
+          |vpiParent:
+          \_typespec_member: (mask_src), line:31:16, endln:31:24
+          |vpiName:mask_src_t
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:31
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:31
+        |vpiRefEndColumnNo:15
+      |vpiTypespecMember:
+      \_typespec_member: (op1_src), line:32:15, endln:32:22
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:op1_src
+        |vpiTypespec:
+        \_unsupported_typespec: (op1_src_t), line:32:5, endln:32:14
+          |vpiParent:
+          \_typespec_member: (op1_src), line:32:15, endln:32:22
+          |vpiName:op1_src_t
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:32
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:32
+        |vpiRefEndColumnNo:14
+      |vpiTypespecMember:
+      \_typespec_member: (op2_src), line:33:15, endln:33:22
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:op2_src
+        |vpiTypespec:
+        \_unsupported_typespec: (op2_src_t), line:33:5, endln:33:14
+          |vpiParent:
+          \_typespec_member: (op2_src), line:33:15, endln:33:22
+          |vpiName:op2_src_t
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:33
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:33
+        |vpiRefEndColumnNo:14
+      |vpiTypespecMember:
+      \_typespec_member: (store_value_vector), line:34:11, endln:34:29
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:store_value_vector
+        |vpiTypespec:
+        \_logic_typespec: , line:34:5, endln:34:10
+          |vpiParent:
+          \_typespec_member: (store_value_vector), line:34:11, endln:34:29
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:34
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:34
+        |vpiRefEndColumnNo:10
+      |vpiTypespecMember:
+      \_typespec_member: (immediate_value), line:35:14, endln:35:29
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:immediate_value
+        |vpiTypespec:
+        \_unsupported_typespec: (scalar_t), line:35:5, endln:35:13
+          |vpiParent:
+          \_typespec_member: (immediate_value), line:35:14, endln:35:29
+          |vpiName:scalar_t
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:35
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:35
+        |vpiRefEndColumnNo:13
+      |vpiTypespecMember:
+      \_typespec_member: (branch), line:36:11, endln:36:17
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:branch
+        |vpiTypespec:
+        \_logic_typespec: , line:36:5, endln:36:10
+          |vpiParent:
+          \_typespec_member: (branch), line:36:11, endln:36:17
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:36
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:36
+        |vpiRefEndColumnNo:10
+      |vpiTypespecMember:
+      \_typespec_member: (branch_type), line:37:19, endln:37:30
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:branch_type
+        |vpiTypespec:
+        \_unsupported_typespec: (branch_type_t), line:37:5, endln:37:18
+          |vpiParent:
+          \_typespec_member: (branch_type), line:37:19, endln:37:30
+          |vpiName:branch_type_t
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:37
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:37
+        |vpiRefEndColumnNo:18
+      |vpiTypespecMember:
+      \_typespec_member: (call), line:38:11, endln:38:15
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:call
+        |vpiTypespec:
+        \_logic_typespec: , line:38:5, endln:38:10
+          |vpiParent:
+          \_typespec_member: (call), line:38:11, endln:38:15
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:38
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:38
+        |vpiRefEndColumnNo:10
+      |vpiTypespecMember:
+      \_typespec_member: (pipeline_sel), line:39:20, endln:39:32
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:pipeline_sel
+        |vpiTypespec:
+        \_unsupported_typespec: (pipeline_sel_t), line:39:5, endln:39:19
+          |vpiParent:
+          \_typespec_member: (pipeline_sel), line:39:20, endln:39:32
+          |vpiName:pipeline_sel_t
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:39
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:39
+        |vpiRefEndColumnNo:19
+      |vpiTypespecMember:
+      \_typespec_member: (memory_access), line:40:11, endln:40:24
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:memory_access
+        |vpiTypespec:
+        \_logic_typespec: , line:40:5, endln:40:10
+          |vpiParent:
+          \_typespec_member: (memory_access), line:40:11, endln:40:24
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:40
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:40
+        |vpiRefEndColumnNo:10
+      |vpiTypespecMember:
+      \_typespec_member: (memory_access_type), line:41:17, endln:41:35
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:memory_access_type
+        |vpiTypespec:
+        \_unsupported_typespec: (memory_op_t), line:41:5, endln:41:16
+          |vpiParent:
+          \_typespec_member: (memory_access_type), line:41:17, endln:41:35
+          |vpiName:memory_op_t
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:41
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:41
+        |vpiRefEndColumnNo:16
+      |vpiTypespecMember:
+      \_typespec_member: (load), line:42:11, endln:42:15
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:load
+        |vpiTypespec:
+        \_logic_typespec: , line:42:5, endln:42:10
+          |vpiParent:
+          \_typespec_member: (load), line:42:11, endln:42:15
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:42
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:42
+        |vpiRefEndColumnNo:10
+      |vpiTypespecMember:
+      \_typespec_member: (compare), line:43:11, endln:43:18
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:compare
+        |vpiTypespec:
+        \_logic_typespec: , line:43:5, endln:43:10
+          |vpiParent:
+          \_typespec_member: (compare), line:43:11, endln:43:18
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:43
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:43
+        |vpiRefEndColumnNo:10
+      |vpiTypespecMember:
+      \_typespec_member: (last_subcycle), line:44:16, endln:44:29
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:last_subcycle
+        |vpiTypespec:
+        \_unsupported_typespec: (subcycle_t), line:44:5, endln:44:15
+          |vpiParent:
+          \_typespec_member: (last_subcycle), line:44:16, endln:44:29
+          |vpiName:subcycle_t
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:44
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:44
+        |vpiRefEndColumnNo:15
+      |vpiTypespecMember:
+      \_typespec_member: (creg_index), line:45:24, endln:45:34
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:creg_index
+        |vpiTypespec:
+        \_unsupported_typespec: (control_register_t), line:45:5, endln:45:23
+          |vpiParent:
+          \_typespec_member: (creg_index), line:45:24, endln:45:34
+          |vpiName:control_register_t
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:45
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:45
+        |vpiRefEndColumnNo:23
+      |vpiTypespecMember:
+      \_typespec_member: (cache_control), line:46:11, endln:46:24
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:cache_control
+        |vpiTypespec:
+        \_logic_typespec: , line:46:5, endln:46:10
+          |vpiParent:
+          \_typespec_member: (cache_control), line:46:11, endln:46:24
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:46
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:46
+        |vpiRefEndColumnNo:10
+      |vpiTypespecMember:
+      \_typespec_member: (cache_control_op), line:47:16, endln:47:32
+        |vpiParent:
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        |vpiName:cache_control_op
+        |vpiTypespec:
+        \_unsupported_typespec: (cache_op_t), line:47:5, endln:47:15
+          |vpiParent:
+          \_typespec_member: (cache_control_op), line:47:16, endln:47:32
+          |vpiName:cache_op_t
+        |vpiRefFile:dut.sv
+        |vpiRefLineNo:47
+        |vpiRefColumnNo:5
+        |vpiRefEndLineNo:47
+        |vpiRefEndColumnNo:15
   |vpiPort:
   \_port: (of_thread_idx), line:63:39, endln:63:52
     |vpiParent:
@@ -4908,6 +5490,9 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.of_thread_idx), line:63:39, endln:63:52
+    |vpiTypedef:
+    \_unsupported_typespec: (local_thread_idx_t), line:63:11, endln:63:29
+      |vpiName:local_thread_idx_t
   |vpiPort:
   \_port: (of_subcycle), line:64:39, endln:64:50
     |vpiParent:
@@ -4918,6 +5503,9 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.of_subcycle), line:64:39, endln:64:50
+    |vpiTypedef:
+    \_unsupported_typespec: (subcycle_t), line:64:11, endln:64:21
+      |vpiName:subcycle_t
   |vpiPort:
   \_port: (wb_rollback_en), line:67:39, endln:67:53
     |vpiParent:
@@ -4928,6 +5516,8 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.wb_rollback_en), line:67:39, endln:67:53
+    |vpiTypedef:
+    \_logic_typespec: , line:67:11, endln:67:16
   |vpiPort:
   \_port: (wb_rollback_thread_idx), line:68:39, endln:68:61
     |vpiParent:
@@ -4938,6 +5528,9 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.wb_rollback_thread_idx), line:68:39, endln:68:61
+    |vpiTypedef:
+    \_unsupported_typespec: (local_thread_idx_t), line:68:11, endln:68:29
+      |vpiName:local_thread_idx_t
   |vpiPort:
   \_port: (ix_instruction_valid), line:71:39, endln:71:59
     |vpiParent:
@@ -4948,6 +5541,8 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_instruction_valid), line:71:39, endln:71:59
+    |vpiTypedef:
+    \_logic_typespec: , line:71:12, endln:71:17
   |vpiPort:
   \_port: (ix_instruction), line:72:39, endln:72:53
     |vpiParent:
@@ -4958,6 +5553,8 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_instruction), line:72:39, endln:72:53
+    |vpiTypedef:
+    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
   |vpiPort:
   \_port: (ix_result), line:73:39, endln:73:48
     |vpiParent:
@@ -4968,6 +5565,8 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_result), line:73:39, endln:73:48
+    |vpiTypedef:
+    \_logic_typespec: (vector_t), line:51:9, endln:51:17
   |vpiPort:
   \_port: (ix_mask_value), line:74:39, endln:74:52
     |vpiParent:
@@ -4978,6 +5577,9 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_mask_value), line:74:39, endln:74:52
+    |vpiTypedef:
+    \_unsupported_typespec: (vector_mask_t), line:74:12, endln:74:25
+      |vpiName:vector_mask_t
   |vpiPort:
   \_port: (ix_thread_idx), line:75:39, endln:75:52
     |vpiParent:
@@ -4988,6 +5590,9 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_thread_idx), line:75:39, endln:75:52
+    |vpiTypedef:
+    \_unsupported_typespec: (local_thread_idx_t), line:75:12, endln:75:30
+      |vpiName:local_thread_idx_t
   |vpiPort:
   \_port: (ix_rollback_en), line:76:39, endln:76:53
     |vpiParent:
@@ -4998,6 +5603,8 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_rollback_en), line:76:39, endln:76:53
+    |vpiTypedef:
+    \_logic_typespec: , line:76:12, endln:76:17
   |vpiPort:
   \_port: (ix_rollback_pc), line:77:39, endln:77:53
     |vpiParent:
@@ -5008,6 +5615,33 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_rollback_pc), line:77:39, endln:77:53
+    |vpiTypedef:
+    \_logic_typespec: (scalar_t), line:50:9, endln:50:20
+      |vpiName:scalar_t
+      |vpiTypedefAlias:
+      \_logic_typespec: (scalar_t), line:50:9, endln:50:20
+      |vpiInstance:
+      \_design: (work@int_execute_stage)
+      |vpiRange:
+      \_range: , line:50:14, endln:50:20
+        |vpiParent:
+        \_logic_typespec: (scalar_t), line:50:9, endln:50:20
+        |vpiLeftRange:
+        \_constant: , line:50:15, endln:50:17
+          |vpiParent:
+          \_range: , line:50:14, endln:50:20
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:50:18, endln:50:19
+          |vpiParent:
+          \_range: , line:50:14, endln:50:20
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
   |vpiPort:
   \_port: (ix_subcycle), line:78:39, endln:78:50
     |vpiParent:
@@ -5018,6 +5652,9 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_subcycle), line:78:39, endln:78:50
+    |vpiTypedef:
+    \_unsupported_typespec: (subcycle_t), line:78:12, endln:78:22
+      |vpiName:subcycle_t
   |vpiPort:
   \_port: (ix_privileged_op_fault), line:79:39, endln:79:61
     |vpiParent:
@@ -5028,6 +5665,8 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_privileged_op_fault), line:79:39, endln:79:61
+    |vpiTypedef:
+    \_logic_typespec: , line:79:12, endln:79:17
   |vpiPort:
   \_port: (cr_eret_address), line:82:39, endln:82:54
     |vpiParent:
@@ -5038,6 +5677,64 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.cr_eret_address), line:82:39, endln:82:54
+    |vpiTypedef:
+    \_array_typespec: , line:82:11, endln:82:56
+      |vpiParent:
+      \_port: (cr_eret_address), line:82:39, endln:82:54
+      |vpiArrayType:1
+      |vpiRange:
+      \_range: , line:82:55, endln:82:56
+        |vpiLeftRange:
+        \_constant: , line:82:55, endln:82:56
+          |vpiParent:
+          \_range: , line:82:55, endln:82:56
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+        |vpiRightRange:
+        \_operation: 
+          |vpiParent:
+          \_range: , line:82:55, endln:82:56
+          |vpiOpType:11
+          |vpiOperand:
+          \_constant: , line:82:55, endln:82:56
+            |vpiDecompile:8
+            |vpiSize:64
+            |UINT:8
+            |vpiConstType:9
+          |vpiOperand:
+          \_constant: 
+            |vpiSize:64
+            |INT:1
+            |vpiConstType:7
+      |vpiElemTypespec:
+      \_logic_typespec: (scalar_t), line:50:9, endln:50:20
+        |vpiName:scalar_t
+        |vpiTypedefAlias:
+        \_logic_typespec: (scalar_t), line:50:9, endln:50:20
+        |vpiInstance:
+        \_design: (work@int_execute_stage)
+        |vpiRange:
+        \_range: , line:50:14, endln:50:20
+          |vpiParent:
+          \_logic_typespec: (scalar_t), line:50:9, endln:50:20
+          |vpiLeftRange:
+          \_constant: , line:50:15, endln:50:17
+            |vpiParent:
+            \_range: , line:50:14, endln:50:20
+            |vpiDecompile:31
+            |vpiSize:64
+            |UINT:31
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:50:18, endln:50:19
+            |vpiParent:
+            \_range: , line:50:14, endln:50:20
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
   |vpiPort:
   \_port: (cr_supervisor_en), line:83:39, endln:83:55
     |vpiParent:
@@ -5048,6 +5745,39 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.cr_supervisor_en), line:83:39, endln:83:55
+    |vpiTypedef:
+    \_array_typespec: , line:83:39, endln:83:57
+      |vpiParent:
+      \_port: (cr_supervisor_en), line:83:39, endln:83:55
+      |vpiArrayType:1
+      |vpiRange:
+      \_range: , line:83:56, endln:83:57
+        |vpiLeftRange:
+        \_constant: , line:83:56, endln:83:57
+          |vpiParent:
+          \_range: , line:83:56, endln:83:57
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+        |vpiRightRange:
+        \_operation: 
+          |vpiParent:
+          \_range: , line:83:56, endln:83:57
+          |vpiOpType:11
+          |vpiOperand:
+          \_constant: , line:83:56, endln:83:57
+            |vpiDecompile:8
+            |vpiSize:64
+            |UINT:8
+            |vpiConstType:9
+          |vpiOperand:
+          \_constant: 
+            |vpiSize:64
+            |INT:1
+            |vpiConstType:7
+      |vpiElemTypespec:
+      \_logic_typespec: , line:83:39, endln:83:39
   |vpiPort:
   \_port: (ix_perf_uncond_branch), line:86:39, endln:86:60
     |vpiParent:
@@ -5058,6 +5788,8 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_perf_uncond_branch), line:86:39, endln:86:60
+    |vpiTypedef:
+    \_logic_typespec: , line:86:12, endln:86:17
   |vpiPort:
   \_port: (ix_perf_cond_branch_taken), line:87:39, endln:87:64
     |vpiParent:
@@ -5068,6 +5800,8 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_perf_cond_branch_taken), line:87:39, endln:87:64
+    |vpiTypedef:
+    \_logic_typespec: , line:87:12, endln:87:17
   |vpiPort:
   \_port: (ix_perf_cond_branch_not_taken), line:88:39, endln:88:68
     |vpiParent:
@@ -5078,6 +5812,8 @@ design: (work@int_execute_stage)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_perf_cond_branch_not_taken), line:88:39, endln:88:68
+    |vpiTypedef:
+    \_logic_typespec: , line:88:12, endln:88:17
   |vpiProcess:
   \_always: , line:285:5, endln:320:8
     |vpiParent:
@@ -6380,492 +7116,6 @@ design: (work@int_execute_stage)
       \_logic_var: (work@int_execute_stage.privileged_op_fault), line:92:11, endln:92:30
 |vpiTypedef:
 \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-  |vpiParent:
-  \_design: (work@int_execute_stage)
-  |vpiName:decoded_instruction_t
-  |vpiInstance:
-  \_design: (work@int_execute_stage)
-  |vpiPacked:1
-  |vpiTypespecMember:
-  \_typespec_member: (pc), line:9:14, endln:9:16
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:pc
-    |vpiTypespec:
-    \_unsupported_typespec: (scalar_t), line:9:5, endln:9:13
-      |vpiParent:
-      \_typespec_member: (pc), line:9:14, endln:9:16
-      |vpiName:scalar_t
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:9
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:9
-    |vpiRefEndColumnNo:13
-  |vpiTypespecMember:
-  \_typespec_member: (injected), line:12:11, endln:12:19
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:injected
-    |vpiTypespec:
-    \_logic_typespec: , line:12:5, endln:12:10
-      |vpiParent:
-      \_typespec_member: (injected), line:12:11, endln:12:19
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:12
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:12
-    |vpiRefEndColumnNo:10
-  |vpiTypespecMember:
-  \_typespec_member: (has_trap), line:15:11, endln:15:19
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:has_trap
-    |vpiTypespec:
-    \_logic_typespec: , line:15:5, endln:15:10
-      |vpiParent:
-      \_typespec_member: (has_trap), line:15:11, endln:15:19
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:15
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:15
-    |vpiRefEndColumnNo:10
-  |vpiTypespecMember:
-  \_typespec_member: (trap_cause), line:16:18, endln:16:28
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:trap_cause
-    |vpiTypespec:
-    \_unsupported_typespec: (trap_cause_t), line:16:5, endln:16:17
-      |vpiParent:
-      \_typespec_member: (trap_cause), line:16:18, endln:16:28
-      |vpiName:trap_cause_t
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:16
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:16
-    |vpiRefEndColumnNo:17
-  |vpiTypespecMember:
-  \_typespec_member: (has_scalar1), line:19:11, endln:19:22
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:has_scalar1
-    |vpiTypespec:
-    \_logic_typespec: , line:19:5, endln:19:10
-      |vpiParent:
-      \_typespec_member: (has_scalar1), line:19:11, endln:19:22
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:19
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:19
-    |vpiRefEndColumnNo:10
-  |vpiTypespecMember:
-  \_typespec_member: (scalar_sel1), line:20:20, endln:20:31
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:scalar_sel1
-    |vpiTypespec:
-    \_unsupported_typespec: (register_idx_t), line:20:5, endln:20:19
-      |vpiParent:
-      \_typespec_member: (scalar_sel1), line:20:20, endln:20:31
-      |vpiName:register_idx_t
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:20
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:20
-    |vpiRefEndColumnNo:19
-  |vpiTypespecMember:
-  \_typespec_member: (has_scalar2), line:21:11, endln:21:22
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:has_scalar2
-    |vpiTypespec:
-    \_logic_typespec: , line:21:5, endln:21:10
-      |vpiParent:
-      \_typespec_member: (has_scalar2), line:21:11, endln:21:22
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:21
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:21
-    |vpiRefEndColumnNo:10
-  |vpiTypespecMember:
-  \_typespec_member: (scalar_sel2), line:22:20, endln:22:31
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:scalar_sel2
-    |vpiTypespec:
-    \_unsupported_typespec: (register_idx_t), line:22:5, endln:22:19
-      |vpiParent:
-      \_typespec_member: (scalar_sel2), line:22:20, endln:22:31
-      |vpiName:register_idx_t
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:22
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:22
-    |vpiRefEndColumnNo:19
-  |vpiTypespecMember:
-  \_typespec_member: (has_vector1), line:23:11, endln:23:22
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:has_vector1
-    |vpiTypespec:
-    \_logic_typespec: , line:23:5, endln:23:10
-      |vpiParent:
-      \_typespec_member: (has_vector1), line:23:11, endln:23:22
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:23
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:23
-    |vpiRefEndColumnNo:10
-  |vpiTypespecMember:
-  \_typespec_member: (vector_sel1), line:24:20, endln:24:31
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:vector_sel1
-    |vpiTypespec:
-    \_unsupported_typespec: (register_idx_t), line:24:5, endln:24:19
-      |vpiParent:
-      \_typespec_member: (vector_sel1), line:24:20, endln:24:31
-      |vpiName:register_idx_t
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:24
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:24
-    |vpiRefEndColumnNo:19
-  |vpiTypespecMember:
-  \_typespec_member: (has_vector2), line:25:11, endln:25:22
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:has_vector2
-    |vpiTypespec:
-    \_logic_typespec: , line:25:5, endln:25:10
-      |vpiParent:
-      \_typespec_member: (has_vector2), line:25:11, endln:25:22
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:25
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:25
-    |vpiRefEndColumnNo:10
-  |vpiTypespecMember:
-  \_typespec_member: (vector_sel2), line:26:20, endln:26:31
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:vector_sel2
-    |vpiTypespec:
-    \_unsupported_typespec: (register_idx_t), line:26:5, endln:26:19
-      |vpiParent:
-      \_typespec_member: (vector_sel2), line:26:20, endln:26:31
-      |vpiName:register_idx_t
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:26
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:26
-    |vpiRefEndColumnNo:19
-  |vpiTypespecMember:
-  \_typespec_member: (has_dest), line:27:11, endln:27:19
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:has_dest
-    |vpiTypespec:
-    \_logic_typespec: , line:27:5, endln:27:10
-      |vpiParent:
-      \_typespec_member: (has_dest), line:27:11, endln:27:19
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:27
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:27
-    |vpiRefEndColumnNo:10
-  |vpiTypespecMember:
-  \_typespec_member: (dest_vector), line:28:11, endln:28:22
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:dest_vector
-    |vpiTypespec:
-    \_logic_typespec: , line:28:5, endln:28:10
-      |vpiParent:
-      \_typespec_member: (dest_vector), line:28:11, endln:28:22
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:28
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:28
-    |vpiRefEndColumnNo:10
-  |vpiTypespecMember:
-  \_typespec_member: (dest_reg), line:29:20, endln:29:28
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:dest_reg
-    |vpiTypespec:
-    \_unsupported_typespec: (register_idx_t), line:29:5, endln:29:19
-      |vpiParent:
-      \_typespec_member: (dest_reg), line:29:20, endln:29:28
-      |vpiName:register_idx_t
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:29
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:29
-    |vpiRefEndColumnNo:19
-  |vpiTypespecMember:
-  \_typespec_member: (alu_op), line:30:14, endln:30:20
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:alu_op
-    |vpiTypespec:
-    \_unsupported_typespec: (alu_op_t), line:30:5, endln:30:13
-      |vpiParent:
-      \_typespec_member: (alu_op), line:30:14, endln:30:20
-      |vpiName:alu_op_t
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:30
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:30
-    |vpiRefEndColumnNo:13
-  |vpiTypespecMember:
-  \_typespec_member: (mask_src), line:31:16, endln:31:24
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:mask_src
-    |vpiTypespec:
-    \_unsupported_typespec: (mask_src_t), line:31:5, endln:31:15
-      |vpiParent:
-      \_typespec_member: (mask_src), line:31:16, endln:31:24
-      |vpiName:mask_src_t
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:31
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:31
-    |vpiRefEndColumnNo:15
-  |vpiTypespecMember:
-  \_typespec_member: (op1_src), line:32:15, endln:32:22
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:op1_src
-    |vpiTypespec:
-    \_unsupported_typespec: (op1_src_t), line:32:5, endln:32:14
-      |vpiParent:
-      \_typespec_member: (op1_src), line:32:15, endln:32:22
-      |vpiName:op1_src_t
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:32
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:32
-    |vpiRefEndColumnNo:14
-  |vpiTypespecMember:
-  \_typespec_member: (op2_src), line:33:15, endln:33:22
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:op2_src
-    |vpiTypespec:
-    \_unsupported_typespec: (op2_src_t), line:33:5, endln:33:14
-      |vpiParent:
-      \_typespec_member: (op2_src), line:33:15, endln:33:22
-      |vpiName:op2_src_t
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:33
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:33
-    |vpiRefEndColumnNo:14
-  |vpiTypespecMember:
-  \_typespec_member: (store_value_vector), line:34:11, endln:34:29
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:store_value_vector
-    |vpiTypespec:
-    \_logic_typespec: , line:34:5, endln:34:10
-      |vpiParent:
-      \_typespec_member: (store_value_vector), line:34:11, endln:34:29
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:34
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:34
-    |vpiRefEndColumnNo:10
-  |vpiTypespecMember:
-  \_typespec_member: (immediate_value), line:35:14, endln:35:29
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:immediate_value
-    |vpiTypespec:
-    \_unsupported_typespec: (scalar_t), line:35:5, endln:35:13
-      |vpiParent:
-      \_typespec_member: (immediate_value), line:35:14, endln:35:29
-      |vpiName:scalar_t
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:35
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:35
-    |vpiRefEndColumnNo:13
-  |vpiTypespecMember:
-  \_typespec_member: (branch), line:36:11, endln:36:17
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:branch
-    |vpiTypespec:
-    \_logic_typespec: , line:36:5, endln:36:10
-      |vpiParent:
-      \_typespec_member: (branch), line:36:11, endln:36:17
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:36
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:36
-    |vpiRefEndColumnNo:10
-  |vpiTypespecMember:
-  \_typespec_member: (branch_type), line:37:19, endln:37:30
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:branch_type
-    |vpiTypespec:
-    \_unsupported_typespec: (branch_type_t), line:37:5, endln:37:18
-      |vpiParent:
-      \_typespec_member: (branch_type), line:37:19, endln:37:30
-      |vpiName:branch_type_t
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:37
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:37
-    |vpiRefEndColumnNo:18
-  |vpiTypespecMember:
-  \_typespec_member: (call), line:38:11, endln:38:15
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:call
-    |vpiTypespec:
-    \_logic_typespec: , line:38:5, endln:38:10
-      |vpiParent:
-      \_typespec_member: (call), line:38:11, endln:38:15
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:38
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:38
-    |vpiRefEndColumnNo:10
-  |vpiTypespecMember:
-  \_typespec_member: (pipeline_sel), line:39:20, endln:39:32
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:pipeline_sel
-    |vpiTypespec:
-    \_unsupported_typespec: (pipeline_sel_t), line:39:5, endln:39:19
-      |vpiParent:
-      \_typespec_member: (pipeline_sel), line:39:20, endln:39:32
-      |vpiName:pipeline_sel_t
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:39
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:39
-    |vpiRefEndColumnNo:19
-  |vpiTypespecMember:
-  \_typespec_member: (memory_access), line:40:11, endln:40:24
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:memory_access
-    |vpiTypespec:
-    \_logic_typespec: , line:40:5, endln:40:10
-      |vpiParent:
-      \_typespec_member: (memory_access), line:40:11, endln:40:24
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:40
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:40
-    |vpiRefEndColumnNo:10
-  |vpiTypespecMember:
-  \_typespec_member: (memory_access_type), line:41:17, endln:41:35
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:memory_access_type
-    |vpiTypespec:
-    \_unsupported_typespec: (memory_op_t), line:41:5, endln:41:16
-      |vpiParent:
-      \_typespec_member: (memory_access_type), line:41:17, endln:41:35
-      |vpiName:memory_op_t
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:41
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:41
-    |vpiRefEndColumnNo:16
-  |vpiTypespecMember:
-  \_typespec_member: (load), line:42:11, endln:42:15
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:load
-    |vpiTypespec:
-    \_logic_typespec: , line:42:5, endln:42:10
-      |vpiParent:
-      \_typespec_member: (load), line:42:11, endln:42:15
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:42
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:42
-    |vpiRefEndColumnNo:10
-  |vpiTypespecMember:
-  \_typespec_member: (compare), line:43:11, endln:43:18
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:compare
-    |vpiTypespec:
-    \_logic_typespec: , line:43:5, endln:43:10
-      |vpiParent:
-      \_typespec_member: (compare), line:43:11, endln:43:18
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:43
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:43
-    |vpiRefEndColumnNo:10
-  |vpiTypespecMember:
-  \_typespec_member: (last_subcycle), line:44:16, endln:44:29
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:last_subcycle
-    |vpiTypespec:
-    \_unsupported_typespec: (subcycle_t), line:44:5, endln:44:15
-      |vpiParent:
-      \_typespec_member: (last_subcycle), line:44:16, endln:44:29
-      |vpiName:subcycle_t
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:44
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:44
-    |vpiRefEndColumnNo:15
-  |vpiTypespecMember:
-  \_typespec_member: (creg_index), line:45:24, endln:45:34
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:creg_index
-    |vpiTypespec:
-    \_unsupported_typespec: (control_register_t), line:45:5, endln:45:23
-      |vpiParent:
-      \_typespec_member: (creg_index), line:45:24, endln:45:34
-      |vpiName:control_register_t
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:45
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:45
-    |vpiRefEndColumnNo:23
-  |vpiTypespecMember:
-  \_typespec_member: (cache_control), line:46:11, endln:46:24
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:cache_control
-    |vpiTypespec:
-    \_logic_typespec: , line:46:5, endln:46:10
-      |vpiParent:
-      \_typespec_member: (cache_control), line:46:11, endln:46:24
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:46
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:46
-    |vpiRefEndColumnNo:10
-  |vpiTypespecMember:
-  \_typespec_member: (cache_control_op), line:47:16, endln:47:32
-    |vpiParent:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
-    |vpiName:cache_control_op
-    |vpiTypespec:
-    \_unsupported_typespec: (cache_op_t), line:47:5, endln:47:15
-      |vpiParent:
-      \_typespec_member: (cache_control_op), line:47:16, endln:47:32
-      |vpiName:cache_op_t
-    |vpiRefFile:dut.sv
-    |vpiRefLineNo:47
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:47
-    |vpiRefEndColumnNo:15
 |vpiTypedef:
 \_struct_typespec: (float32_t), line:2:9, endln:2:15
   |vpiParent:
@@ -6980,89 +7230,8 @@ design: (work@int_execute_stage)
     |vpiRefEndColumnNo:33
 |vpiTypedef:
 \_logic_typespec: (scalar_t), line:50:9, endln:50:20
-  |vpiParent:
-  \_design: (work@int_execute_stage)
-  |vpiName:scalar_t
-  |vpiInstance:
-  \_design: (work@int_execute_stage)
-  |vpiRange:
-  \_range: , line:50:14, endln:50:20
-    |vpiLeftRange:
-    \_constant: , line:50:15, endln:50:17
-      |vpiParent:
-      \_range: , line:50:14, endln:50:20
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:50:18, endln:50:19
-      |vpiParent:
-      \_range: , line:50:14, endln:50:20
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 |vpiTypedef:
 \_logic_typespec: (vector_t), line:51:9, endln:51:17
-  |vpiParent:
-  \_design: (work@int_execute_stage)
-  |vpiName:vector_t
-  |vpiInstance:
-  \_design: (work@int_execute_stage)
-  |vpiElemTypespec:
-  \_logic_typespec: (scalar_t), line:50:9, endln:50:20
-    |vpiName:scalar_t
-    |vpiTypedefAlias:
-    \_logic_typespec: (scalar_t), line:50:9, endln:50:20
-    |vpiRange:
-    \_range: , line:50:14, endln:50:20
-      |vpiParent:
-      \_logic_typespec: (scalar_t), line:50:9, endln:50:20
-      |vpiLeftRange:
-      \_constant: , line:50:15, endln:50:17
-        |vpiParent:
-        \_range: , line:50:14, endln:50:20
-        |vpiDecompile:31
-        |vpiSize:64
-        |UINT:31
-        |vpiConstType:9
-      |vpiRightRange:
-      \_constant: , line:50:18, endln:50:19
-        |vpiParent:
-        \_range: , line:50:14, endln:50:20
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-        |vpiConstType:9
-  |vpiRange:
-  \_range: , line:51:17, endln:51:41
-    |vpiLeftRange:
-    \_operation: , line:51:18, endln:51:38
-      |vpiParent:
-      \_range: , line:51:17, endln:51:41
-      |vpiOpType:11
-      |vpiOperand:
-      \_ref_obj: (NUM_VECTOR_LANES), line:51:18, endln:51:34
-        |vpiParent:
-        \_operation: , line:51:18, endln:51:38
-        |vpiName:NUM_VECTOR_LANES
-      |vpiOperand:
-      \_constant: , line:51:37, endln:51:38
-        |vpiParent:
-        \_operation: , line:51:18, endln:51:38
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:51:39, endln:51:40
-      |vpiParent:
-      \_range: , line:51:17, endln:51:41
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 |uhdmtopModules:
 \_module: work@int_execute_stage (work@int_execute_stage), file:dut.sv, line:53:1, endln:374:10
   |vpiName:work@int_execute_stage
