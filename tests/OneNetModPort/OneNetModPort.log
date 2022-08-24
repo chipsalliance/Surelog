@@ -433,6 +433,8 @@ design: (work@TOP)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@SUB.inp), line:26:24, endln:26:27
+    |vpiTypedef:
+    \_logic_typespec: , line:26:19, endln:26:23
   |vpiPort:
   \_port: (out), line:26:40, endln:26:43
     |vpiParent:
@@ -443,6 +445,8 @@ design: (work@TOP)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@SUB.out), line:26:40, endln:26:43
+    |vpiTypedef:
+    \_logic_typespec: , line:26:36, endln:26:39
   |vpiContAssign:
   \_cont_assign: , line:27:10, endln:27:19
     |vpiParent:
@@ -499,6 +503,8 @@ design: (work@TOP)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@dut.i), line:2:24, endln:2:25
+    |vpiTypedef:
+    \_logic_typespec: , line:2:19, endln:2:23
   |vpiPort:
   \_port: (o), line:2:38, endln:2:39
     |vpiParent:
@@ -509,6 +515,8 @@ design: (work@TOP)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@dut.o), line:2:38, endln:2:39
+    |vpiTypedef:
+    \_logic_typespec: , line:2:34, endln:2:37
   |vpiContAssign:
   \_cont_assign: , line:3:10, endln:3:26
     |vpiParent:
@@ -581,6 +589,12 @@ design: (work@TOP)
     \_ref_obj: 
       |vpiActual:
       \_modport: (dut), line:12:11, endln:12:14
+    |vpiTypedef:
+    \_interface_typespec: (dut), line:22:26, endln:22:29
+      |vpiParent:
+      \_interface_typespec: (ConnectTB), line:22:16, endln:22:25
+      |vpiName:dut
+      |vpiIsModPort:1
 |uhdmtopModules:
 \_module: work@TOP (work@TOP), file:tb.v, line:15:1, endln:19:10
   |vpiName:work@TOP
@@ -614,6 +628,12 @@ design: (work@TOP)
         |vpiFullName:work@TOP.tb.intf
         |vpiActual:
         \_modport: (tb), line:16:11, endln:16:13
+      |vpiTypedef:
+      \_interface_typespec: (tb), line:1:31, endln:1:33
+        |vpiParent:
+        \_interface_typespec: (ConnectTB), line:1:21, endln:1:30
+        |vpiName:tb
+        |vpiIsModPort:1
   |vpiTopModule:1
   |vpiInterface:
   \_interface: work@ConnectTB (work@TOP.conntb), file:tb.v, line:16:3, endln:16:22
@@ -856,6 +876,12 @@ design: (work@TOP)
           |vpiFullName:work@TOP.dut1.middle1.intf
           |vpiActual:
           \_modport: (dut), line:12:11, endln:12:14
+        |vpiTypedef:
+        \_interface_typespec: (dut), line:22:26, endln:22:29
+          |vpiParent:
+          \_interface_typespec: (ConnectTB), line:22:16, endln:22:25
+          |vpiName:dut
+          |vpiIsModPort:1
       |vpiInterface:
       \_interface: work@ConnectTB (work@TOP.dut1.middle1.intf), file:dut.v, line:6:0
         |vpiParent:
