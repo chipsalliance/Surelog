@@ -10,6 +10,9 @@
 # performance-inefficient-string-concatenation is good, but until we use
 # absl in this project with absl::StrCat(), the alternatives are not improving
 # readability.
+WarningsAsErrors: ''
+HeaderFilterRegex: ''
+AnalyzeTemporaryDtors: false
 Checks: >
   clang-diagnostic-*,clang-analyzer-*,
   -clang-analyzer-core.CallAndMessage,
@@ -46,7 +49,11 @@ Checks: >
   modernize-raw-string-literal,
   modernize-use-override,
 
-WarningsAsErrors: ''
-HeaderFilterRegex: ''
-AnalyzeTemporaryDtors: false
+CheckOptions:
+  - key: performance-unnecessary-value-param.AllowedTypes
+    value: 'NodeId;SymbolId'
+  - key: performance-unnecessary-copy-initialization.AllowedTypes
+    value: 'NodeId;SymbolId'
+  - key: performance-for-range-copy.AllowedTypes
+    value: 'NodeId;SymbolId'
 ...

@@ -75,6 +75,8 @@ class NodeId final {
   RawNodeId id;
 };
 
+static_assert(sizeof(NodeId) == sizeof(RawNodeId), "NodeId type grew?");
+
 inline static constexpr NodeId InvalidNodeId(InvalidRawNodeId);
 
 inline std::ostream &operator<<(std::ostream &strm, const NodeId &nodeId) {

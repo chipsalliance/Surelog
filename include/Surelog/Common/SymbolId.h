@@ -22,7 +22,7 @@ namespace SURELOG {
  *
  * Used to uniquely represent a string in SymbolTable. SymbolId can (and
  * should) be resolved only with the SymbolTable that it was generated with.
- * 
+ *
  */
 typedef uint32_t RawSymbolId;
 inline static constexpr RawSymbolId BadRawSymbolId = 0;
@@ -74,6 +74,10 @@ class SymbolId final {
 
   friend std::ostream &operator<<(std::ostream &strm, const SymbolId &symbolId);
 };
+
+#ifndef SYMBOLID_DEBUG_ENABLED
+static_assert(sizeof(SymbolId) == sizeof(RawSymboldId), "SymboldId type grew?");
+#endif
 
 inline static const SymbolId BadSymbolId(BadRawSymbolId, BadRawSymbol);
 
