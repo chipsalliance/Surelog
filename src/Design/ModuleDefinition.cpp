@@ -28,8 +28,8 @@
 namespace SURELOG {
 
 VObjectType ModuleDefinition::getType() const {
-  return (m_fileContents.size()) ? m_fileContents[0]->Type(m_nodeIds[0])
-                                 : VObjectType::slN_input_gate_instance;
+  return (m_fileContents.empty()) ? VObjectType::slN_input_gate_instance
+                                  : m_fileContents[0]->Type(m_nodeIds[0]);
 }
 
 ModuleDefinition::ModuleDefinition(const FileContent* fileContent,
