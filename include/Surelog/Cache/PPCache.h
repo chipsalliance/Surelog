@@ -46,10 +46,10 @@ class PPCache : Cache {
   std::filesystem::path getCacheFileName_(
       const std::filesystem::path& fileName = "");
   bool restore_(const std::filesystem::path& cacheFileName, bool errorsOnly,
-                bool skipLineTranslationInfo);
+                int recursionDepth);
   bool restore_(const std::filesystem::path& cacheFileName,
                 const std::unique_ptr<uint8_t[]>& buffer, bool errorsOnly,
-                bool skipLineTranslationInfo);
+                int recursionDepth);
   bool checkCacheIsValid_(const std::filesystem::path& cacheFileName);
   bool checkCacheIsValid_(const std::filesystem::path& cacheFileName,
                           const std::unique_ptr<uint8_t[]>& buffer);

@@ -150,6 +150,8 @@ class PreprocessFile {
                          unsigned int originalEndColumn,
                          IncludeFileInfo::Action type, int indexOpening = 0,
                          int indexClosing = 0);
+  void resetIncludeFileInfo();
+  void clearIncludeFileInfo();
   IncludeFileInfo& getIncludeFileInfo(int index) {
     if (index >= 0 && index < ((int)m_includeFileInfo.size()))
       return m_includeFileInfo[index];

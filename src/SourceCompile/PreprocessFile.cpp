@@ -229,11 +229,7 @@ PreprocessFile::PreprocessFile(SymbolId fileId, CompileSourceFile* csf,
       m_fileContent(nullptr),
       m_verilogVersion(VerilogVersion::NoVersion) {
   setDebug(m_compileSourceFile->m_commandLineParser->getDebugLevel());
-  if ((!m_compileSourceFile->m_commandLineParser->parseOnly()) &&
-      (!m_compileSourceFile->m_commandLineParser->lowMem())) {
-    addIncludeFileInfo(IncludeFileInfo::Context::NONE, 0, m_fileId, 0, 0, 0, 0,
-                       IncludeFileInfo::Action::POP, 0, 0);
-  }
+  resetIncludeFileInfo();
 }
 
 PreprocessFile::PreprocessFile(SymbolId fileId, PreprocessFile* includedIn,
@@ -340,6 +336,9 @@ bool PreprocessFile::preprocess() {
       std::cout << m_fileContent->printObjects();
     if (precompiled || clp->noCacheHash()) {
       return true;
+    }
+    if (!clp->parseOnly() && !clp->lowMem()) {
+      resetIncludeFileInfo();
     }
   }
   if (clp->parseOnly() || clp->lowMem() || clp->link()) return true;
@@ -545,6 +544,17 @@ int PreprocessFile::addIncludeFileInfo(
                                  indexOpening, indexClosing);
   return index;
 }
+
+void PreprocessFile::resetIncludeFileInfo() {
+  clearIncludeFileInfo();
+  if ((!m_compileSourceFile->m_commandLineParser->parseOnly()) &&
+      (!m_compileSourceFile->m_commandLineParser->lowMem())) {
+    addIncludeFileInfo(IncludeFileInfo::Context::NONE, 0, m_fileId, 0, 0, 0, 0,
+                       IncludeFileInfo::Action::POP, 0, 0);
+  }
+}
+
+void PreprocessFile::clearIncludeFileInfo() { m_includeFileInfo.clear(); }
 
 void PreprocessFile::append(const std::string& s) {
   if (!m_pauseAppend) {
