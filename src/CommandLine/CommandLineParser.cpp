@@ -92,7 +92,7 @@ static const std::initializer_list<std::string_view> helpText = {
     "  -y <path>             Library directory",
     "  +incdir+<dir>[+<dir>...] Specifies include paths",
     "  -Idir                 Specifies include paths",
-    "  +libext+<extname>+... Specifies the library extensions, "
+    "  +libext+<extname>+... Specifies the library extensions, "  // NOLINT
     "default is .v+.sv",
     "  <file>.v              Verilog File",
     "  <file>.sv             SystemVerilog File",
