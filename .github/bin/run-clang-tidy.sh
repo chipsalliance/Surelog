@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Copyright 2021 The Surelog Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,13 +17,24 @@ LOCAL_TMP=${TMPDIR:-/tmp}
 
 TIDY_OUT=${LOCAL_TMP}/clang-tidy-surelog.out
 
-CLANG_TIDY=clang-tidy-12
+# Default clang-tidy, but if they are only available in versioned form,
+# use them. Configuration below is tested with 12, so using that is our
+# preferred version.
+CLANG_TIDY=clang-tidy
+for version in 12 13 14 11 ; do
+  if command -v clang-tidy-${version}; then
+    CLANG_TIDY=clang-tidy-${version}
+    break
+  fi
+done
 
 hash ${CLANG_TIDY} || exit 2  # make sure it is installed.
 
 if [ "$1" == "limited" ]; then
     # For now, since there are a lot things to fix, don't enable everything
     # that is mentioned in .clang-tidy, but add rules as we fix them.
+    # The more strict .clang-tidy rules will still show up as reminders in the
+    # IDE, so are hopefully fixed on the way.
     cat > ${LOCAL_TMP}/clang-tidy <<EOF
 Checks: >
     -*,
