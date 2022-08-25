@@ -22,7 +22,7 @@ We started maintaning a list of ideas for contribution under [Help Wanted](https
 
 ## Features
 
- * The preprocessor and the parser use Antlr 4.72 as a parser generator.
+ * The preprocessor and the parser use Antlr 4.10 as a parser generator, we track Antlr/main.
  * The preprocessor and the parser ASTs are made persistent on disk using Google Flatbuffers, enabling incremental compilation.
  * The tool is built thread safe and performs multithread parsing.
  * Large files/modules/packages are splitted for multi-threading compilation.
@@ -34,7 +34,7 @@ We started maintaning a list of ideas for contribution under [Help Wanted](https
     * Visit the design data model and create custom linting rules
     * Customize the message formats
     * Waive messages
- * Surelog creates a [UHDM](https://github.com/alainmarcel/UHDM/) compiled database of the design that can be read by 3rd party tools (Synthesis, Simulator, Linter, Formal...) using the Standard VPI API.
+ * Surelog creates a [UHDM](https://github.com/chipsalliance/UHDM/) compiled database of the design that can be read by 3rd party tools (Synthesis, Simulator, Linter, Formal...) using the Standard VPI API.
 
 ## Build instructions and test:
 
@@ -97,7 +97,7 @@ target_link_libraries(<your project name> surelog)
    * /usr/local/bin/surelog (After install)
 
  * STANDARD VERILOG COMMAND LINE:
- ```
+  ```
    -f <file>             Accepts a file containing command line arguments
    -v <file>             Library file
    -sv <file>            Forces this file to be parsed as a SystemVerilog file
@@ -119,7 +119,13 @@ target_link_libraries(<your project name> surelog)
    -cfg <configName>     Specifies a configuration to use (multiple -cfg options supported)
    -Dvar=value           Same as env var definition for -f files var substitution
    -Pparameter=value     Overrides a toplevel module parameter
-```   
+
+ * EDA TOOLS COMPATIBILITY OPTIONS:
+ ```
+  -cmd_ign <cmd> <argc> Ignore <cmd> when encountered and drop <argc> arguments
+  -cmd_ren <flag1> <flag2> rename <flag1> into <flag2> when encountered 
+  -cmd_mrg <flag1> <flag2> merge <flag1> argument into a unified <flag2> '+' argument when encountered 
+```
  * FLOWS OPTIONS:
  ```
    -fileunit             Compiles each Verilog file as an independent compilation unit (under slpp_unit/ if -writepp used)
@@ -230,15 +236,13 @@ target_link_libraries(<your project name> surelog)
    * the non-elaborated and elaborated design/testbench data model.
    * the UHDM or IEEE VPI Object Model.
  * Creating your own executable using libsurelog.a is discussed in [`src/README`](src/README.md) file.
- * Two examples executable file (hellosureworld.cpp and hellouhdm.cpp) illustrate how to navigate the Surelog internal data structure or the UHDM "VPI Standard Object Model" of the design using the libsurelog.a library.
+ * Three examples executable source file [`src/hellosureworld.cpp`](src/hellosureworld.cpp), [`src/hellouhdm.cpp`](src/hellouhdm.cpp),  [`src/hellodesign.cpp`](src/hellodesign.cpp) illustrate how to navigate the Surelog internal data structure or the UHDM "VPI Standard Object Model" of the design using the libsurelog.a library.
 
 ### Python API
 
- * By default Surelog does not build the Python API, See  [`src/README`](src/README.md) 
+ * By default Surelog does not build the Python API, See  [`src/README`](src/README.md)
+ * The Python API is operating on the Preprocessor and Parser ASTs. It is not supporting elaboration. Post-elaborated API seekers need to the use UHDM C/C++ API.
  * The file [`slformatmsg.py`](src/API/slformatmsg.py) illustrates how messages can be reformated.
-   * Place a modified version of this file either in the execution directory, or install directory /usr/local/lib/surelog/python
-
- * The file [`src/API/slSV3_1aPythonListener.py`](src/API/slSV3_1aPythonListener.py) illustrates how a listener can be created to listen to the Parser AST.
    * Place a modified version of this file either in the execution directory, or install directory /usr/local/lib/surelog/python
 
  * A simple example of creating a new error message and generating errors can be found here: [`python_listener.py`](src/API/python_listener.py)
@@ -260,9 +264,15 @@ target_link_libraries(<your project name> surelog)
 
   * A utility script [`tests/create_batch_script.tcl`](tests/create_batch_script.tcl) generates batch command files for large unit test regressions. See the script's internal help.
 
-## Similar projects:
+## Projects using Surelog:
+* [Yosys SystemVerilog plugin](https://github.com/antmicro/yosys-systemverilog) Yosys plugin using Surelog/UHDM to add read_systemverilog command to Yosys
 * [Surelog/UHDM/Yosys/Verilator](https://github.com/chipsalliance/UHDM-integration-tests) Full SystemVerilog Synthesis / Simulation flow
-* [UHDM](https://github.com/alainmarcel/UHDM/) - Full SystemVerilog (VHDL later) VPI API for interfacing with 3rd party tools
+* [https://github.com/siliconcompiler/siliconcompiler](https://github.com/siliconcompiler/siliconcompiler) A modular build system for hardware
+
+## Sister project:
+* [UHDM](https://github.com/chipsalliance/UHDM/) - Full SystemVerilog (VHDL later) VPI API for interfacing with 3rd party tools
+
+## Similar projects:
 * [hdlConvertor](https://github.com/Nic30/hdlConvertor/) - SystemVerilog and VHDL parser, preprocessor and code generator for Python/C++ written in C++
 * [cl-vhdl](https://github.com/mabragor/cl-vhdl) - lisp, Parser of VHDL into lisp-expressions
 * [HDL_ANTLR4](https://github.com/denisgav/HDL_ANTLR4) - C# projects that use ANTLR4 library to analyse VHDL and Verilog code
