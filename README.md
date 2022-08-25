@@ -119,7 +119,7 @@ target_link_libraries(<your project name> surelog)
    -cfg <configName>     Specifies a configuration to use (multiple -cfg options supported)
    -Dvar=value           Same as env var definition for -f files var substitution
    -Pparameter=value     Overrides a toplevel module parameter
-
+```
  * EDA TOOLS COMPATIBILITY OPTIONS:
  ```
   -cmd_ign <cmd> <argc> Ignore <cmd> when encountered and drop <argc> arguments
@@ -186,7 +186,7 @@ target_link_libraries(<your project name> surelog)
    letexprsubstitution          Enables/Disables Let expr substitution
    ```
  * TRACES OPTIONS:
- ```
+```
    -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm, coveruhdm, cache
    -nostdout             Mutes Standard output
    -verbose              Gives verbose processing information
