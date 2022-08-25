@@ -87,12 +87,6 @@ static const std::initializer_list<std::string_view> helpText = {
     "  ------------ SURELOG HELP --------------",
     "",
     "STANDARD VERILOG COMMAND LINE:",
-    "  -cmd_ign <cmd> <argc> Ignore <cmd> when encountered "  // NOLINT
-    "and drop <argc> arguments",                              // NOLINT
-    "  -cmd_ren <flag1> <flag2> rename <flag1> into <flag2>"
-    " when encountered ",
-    "  -cmd_mrg <flag1> <flag2> merge <flag1> argument into a"
-    " unified <flag2> '+' argument when encountered ",
     "  -f <file>             Accepts a file containing command line arguments",
     "  -v <file>             Library file",
     "  -y <path>             Library directory",
@@ -124,6 +118,14 @@ static const std::initializer_list<std::string_view> helpText = {
     "files",
     "  -sv <file>            Forces the following file to be parsed as "
     "SystemVerilog file",
+    "EDA TOOLS COMPATIBILITY OPTIONS:",
+    "  -cmd_ign <cmd> <argc> Ignore <cmd> when encountered "  // NOLINT
+    "and drop <argc> arguments",                              // NOLINT
+    "  -cmd_ren <flag1> <flag2> rename <flag1> into <flag2>"
+    " when encountered ",
+    "  -cmd_mrg <flag1> <flag2> merge <flag1> argument into a"
+    " unified <flag2> '+' argument when encountered ",
+
     "FLOWS OPTIONS:",
     "  -fileunit             Compiles each Verilog file as an independent",
     "                        compilation unit (under slpp_unit/ if -writepp "
