@@ -665,13 +665,13 @@ void UhdmWriter::writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
 
           if (typespec* typespec = m_helper.compileTypespec(
                   mod, fC, orig_port->getTypeSpecId(), m_compileDesign, nullptr,
-                  nullptr, false)) {
+                  nullptr, false, true)) {
             array_ts->Elem_typespec(typespec);
           }
         }
       } else if (typespec* typespec = m_helper.compileTypespec(
                      mod, fC, orig_port->getTypeSpecId(), m_compileDesign,
-                     nullptr, nullptr, false)) {
+                     nullptr, nullptr, false, true)) {
         dest_port->Typespec(typespec);
       }
     }
