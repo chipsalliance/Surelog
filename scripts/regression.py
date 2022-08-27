@@ -212,19 +212,38 @@ def _get_log_statistics(filepath):
   if not os.path.isfile(filepath):
     return statistics
 
+  uhdm_dump_markers = [
+    '====== UHDM =======',
+    '==================='
+  ]
+
+  uhdm_stat_dump_markers = [
+    '=== UHDM Object Stats Begin (Non-Elaborated Model) ===',
+    '=== UHDM Object Stats Begin (Elaborated Model) ===',
+    '=== UHDM Object Stats End ==='
+  ]
+
   negatives = {}
   notes = 0
   uhdm_dump_started = False
+  uhdm_stats = {}
+  uhdm_stat_dump_started = False
   uhdm_line_count = 0
   with open(filepath, 'rt', encoding='cp850') as strm:
     for line in strm:
       line = line.strip()
 
-      if line == '====== UHDM =======':
-        uhdm_dump_started = True
+      if line in uhdm_dump_markers:
+        uhdm_dump_started = not uhdm_dump_started
         continue
-      elif uhdm_dump_started and line == '===================':
-        uhdm_dump_started = False
+      elif line in uhdm_stat_dump_markers:
+        uhdm_stat_dump_started = not uhdm_stat_dump_started
+        continue
+
+      if uhdm_stat_dump_started:
+        parts = [part.strip() for part in line.split()]
+        if len(parts) == 2:
+          uhdm_stats[parts[0]] = uhdm_stats.get(parts[0], 0) + int(parts[1])
         continue
 
       m = _re_status_3.match(line)
@@ -252,6 +271,7 @@ def _get_log_statistics(filepath):
           negatives['ERROR'] = negatives.get('ERROR', 0) + 1
 
   statistics['NOTE'] = statistics.get('NOTE', 0) + uhdm_line_count
+  statistics['STATS'] = uhdm_stats
 
   for key, value in negatives.items():
     statistics[key] = max(statistics.get(key, 0) - value, 0)
@@ -321,6 +341,7 @@ def _run_surelog(
     parts += ['-mt', (mt or '0')]
     if mp or '-mp' not in cmdline:
       parts += ['-mp', (mp or '0')]
+    parts += ['-d', 'uhdmstats'] # Force print uhdm stats
 
     rel_output_dirpath = os.path.relpath(output_dirpath, dirpath)
     if 'MSYSTEM' in os.environ:
@@ -635,8 +656,22 @@ def _run_one(params):
       golden = result['golden']
       if len(current) == len(golden):
         for k, v in current.items():
-          if k not in ['ROUNDTRIP_A', 'ROUNDTRIP_B'] and v != golden.get(k, 0):
+          if k == 'STATS':
+            current_stat = v
+            golden_stat = golden.get(k, {})
+            if len(current_stat) == len(golden_stat):
+              for m, c in current_stat.items():
+                if c != golden_stat.get(m, 0):
+                  result['STATUS'] = Status.DIFF
+                  break
+            elif golden_stat:
+              result['STATUS'] = Status.DIFF
+              break
+          elif k not in ['ROUNDTRIP_A', 'ROUNDTRIP_B'] and v != golden.get(k, 0):
             result['STATUS'] = Status.DIFF
+            break
+
+          if result['STATUS'] != Status.PASS:
             break
       else:
         result['STATUS'] = Status.DIFF
@@ -645,16 +680,12 @@ def _run_one(params):
     current_snapshot = _snapshot_directory_state(dirpath)
     print(f'Found {len(current_snapshot)} files & directories')
 
-#     if 'GITHUB_JOB' in os.environ:
-#       # Go ahead and delete these files. CI build tends to run out of disk space.
-#       for filepath in [uhdm_slpp_all_filepath, uhdm_slpp_unit_filepath, uhdm_dump_log_filepath]:
-#         if os.path.isfile(filepath):
-#           print(f'Deleting: {filepath}, {os.path.getsize(filepath)}')
-#           os.remove(filepath)
-
     _restore_directory_state(
       dirpath, golden_snapshot,
       output_dirpath, current_snapshot)
+    print('\n')
+
+    pprint.pprint({'result': result})
     print('\n')
 
     if result['STATUS'] == Status.DIFF:
