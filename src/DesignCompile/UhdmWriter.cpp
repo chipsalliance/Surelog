@@ -3443,19 +3443,6 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
   }
 }
 
-void printUhdmStats(Serializer& s) {
-  std::cout << "UHDM Objects Stats:\n";
-  auto stats = s.ObjectStats();
-  std::multimap<unsigned long, std::string> rstats;
-  for (const auto& stat : stats) {
-    if (stat.second) rstats.insert(std::make_pair(stat.second, stat.first));
-  }
-  for (const auto& stat : rstats) {
-    std::cout << stat.second << " " << stat.first << "\n";
-  }
-  std::cout << "\n";
-}
-
 vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
   ComponentMap componentMap;
   ModPortMap modPortMap;
@@ -3753,8 +3740,9 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
     d->TopModules(uhdm_top_modules);
   }
 
-  if (m_compileDesign->getCompiler()->getCommandLineParser()->getUhdmStats())
-    printUhdmStats(s);
+  if (m_compileDesign->getCompiler()->getCommandLineParser()->getUhdmStats()) {
+    s.PrintStats(std::cerr, "Non-Elaborated Model");
+  }
 
   // ----------------------------------
   // Lint only the elaborated model
@@ -3785,8 +3773,9 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
     delete listener;
   }
 
-  if (m_compileDesign->getCompiler()->getCommandLineParser()->getUhdmStats())
-    printUhdmStats(s);
+  if (m_compileDesign->getCompiler()->getCommandLineParser()->getUhdmStats()) {
+    s.PrintStats(std::cerr, "Elaborated Model");
+  }
 
   if (m_compileDesign->getCompiler()->getCommandLineParser()->writeUhdm()) {
     {
