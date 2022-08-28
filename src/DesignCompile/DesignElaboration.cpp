@@ -2117,9 +2117,9 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                 UHDM::constant* c = (UHDM::constant*)expr;
                 if (ts) {
                   if (ts->UhdmType() != UHDM::uhdmunsupported_typespec) {
-                    c->Typespec(ts);
                     m_helper.adjustSize(ts, instance->getDefinition(),
                                         m_compileDesign, instance, c);
+                    c->Typespec(ts);
                   }
                 }
 
