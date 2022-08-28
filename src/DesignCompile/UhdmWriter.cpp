@@ -3771,20 +3771,19 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) {
     listener->uniquifyTypespec(false);
     listener->listenDesigns(designs);
     delete listener;
-  }
 
-  if (m_compileDesign->getCompiler()->getCommandLineParser()->getUhdmStats()) {
-    s.PrintStats(std::cerr, "Elaborated Model");
+    if (m_compileDesign->getCompiler()
+            ->getCommandLineParser()
+            ->getUhdmStats()) {
+      s.PrintStats(std::cerr, "Elaborated Model");
+    }
   }
 
   if (m_compileDesign->getCompiler()->getCommandLineParser()->writeUhdm()) {
-    {
-      Error err(ErrorDefinition::UHDM_WRITE_DB, loc);
-      m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
-      m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
-          m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
-    }
-
+    Error err(ErrorDefinition::UHDM_WRITE_DB, loc);
+    m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
+    m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
+        m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
     s.Save(uhdmFile);
   }
 
