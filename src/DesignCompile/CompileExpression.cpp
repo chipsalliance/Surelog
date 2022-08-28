@@ -432,10 +432,10 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
             break;
           }
         }
-        // bool isSigned = false;
+        bool isSigned = false;
         if ((value.find_first_of('s') != std::string::npos) ||
             (value.find_first_of('S') != std::string::npos)) {
-          // isSigned = true;
+          isSigned = true;
           v = value.substr(i + 3);
         } else {
           v = value.substr(i + 2);
@@ -447,6 +447,11 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
           c->VpiSize(-1);
         } else {
           c->VpiSize(atoi(size.c_str()));
+        }
+        if (isSigned) {
+          int_typespec *tps = s.MakeInt_typespec();
+          tps->VpiSigned(true);
+          c->Typespec(tps);
         }
         switch (base) {
           case 'h':

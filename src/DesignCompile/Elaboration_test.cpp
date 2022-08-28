@@ -31,10 +31,13 @@
 
 // UHDM
 #include <uhdm/ExprEval.h>
+#include <uhdm/cont_assign.h>
 #include <uhdm/design.h>
 #include <uhdm/expr.h>
+#include <uhdm/int_typespec.h>
 #include <uhdm/module.h>
 #include <uhdm/param_assign.h>
+#include <uhdm/variables.h>
 #include <uhdm/vpi_user.h>
 
 using ::testing::ElementsAre;
@@ -397,6 +400,93 @@ endmodule
         EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
         UHDM::ExprEval eval;
         EXPECT_EQ(eval.get_value(invalidValue, rhs), 1);
+      }
+    }
+  }
+}
+
+TEST(Elaboration, SignedBinConstParam) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+
+  // Preprocess, Parse, Compile, Elaborate
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+module top();
+  parameter [1:0] p1 =  1'sb1;
+  parameter [1:0] p2 =  2'sb10;
+  parameter int p3 =  2'sb10;
+endmodule
+  )");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto passign : *topMod->Param_assigns()) {
+      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      bool invalidValue = false;
+      EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
+      UHDM::ExprEval eval;
+      int64_t val = eval.get_value(invalidValue, rhs);
+      const std::string& name = passign->Lhs()->VpiName();
+      if (name == "p1") {
+        EXPECT_EQ(val, 3);
+      } else if (name == "p2") {
+        EXPECT_EQ(val, 2);
+      } else if (name == "p3") {
+        EXPECT_EQ(val, -2);
+      }
+    }
+  }
+}
+
+TEST(Elaboration, SignedBinConstAssign) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+
+  // Preprocess, Parse, Compile, Elaborate
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+module top();
+  reg [1:0] p1 =  1'sb1;
+  reg [1:0] p2 =  2'sb10;
+  int p3 =  2'sb10;
+endmodule
+  )");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto cassign : *topMod->Cont_assigns()) {
+      UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
+      bool invalidValue = false;
+      EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
+      UHDM::ExprEval eval;
+      int64_t val = eval.get_value(invalidValue, rhs);
+      const std::string& name = cassign->Lhs()->VpiName();
+      if (name == "p1") {
+        // Val is 1, but it has a signed typespec (Meaning negative bin number)
+        EXPECT_EQ(val, 1);
+        const UHDM::typespec* tps = rhs->Typespec();
+        UHDM::int_typespec* itps = (UHDM::int_typespec*)tps;
+        EXPECT_EQ(itps->VpiSigned(), true);
+      } else if (name == "p2") {
+        EXPECT_EQ(val, 2);
+      }
+    }
+    for (auto var : *topMod->Variables()) {
+      UHDM::expr* rhs = (UHDM::expr*)var->Expr();
+      bool invalidValue = false;
+      EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
+      UHDM::ExprEval eval;
+      int64_t val = eval.get_value(invalidValue, rhs);
+      const std::string& name = var->VpiName();
+      if (name == "p3") {
+        EXPECT_EQ(val, -2);
       }
     }
   }

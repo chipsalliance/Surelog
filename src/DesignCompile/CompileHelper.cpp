@@ -2892,6 +2892,28 @@ void CompileHelper::adjustSize(const UHDM::typespec* ts,
         c->VpiDecompile(std::to_string(uval));
         c->VpiConstType(vpiUIntConst);
       } else if (c->VpiConstType() == vpiBinaryConst) {
+        const typespec* ts = c->Typespec();
+        if (ts) {
+          UHDM_OBJECT_TYPE ttype = ts->UhdmType();
+          if (ttype == uhdmint_typespec) {
+            int_typespec* itps = (int_typespec*)ts;
+            if (itps->VpiSigned()) {
+              if (size == 32) {
+                val = -val;
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                c->VpiConstType(vpiIntConst);
+              } else {
+                if ((orig_size == 1) && (val == 1)) {
+                  uint64_t mask = NumUtils::getMask(size);
+                  c->VpiValue("UINT:" + std::to_string(mask));
+                  c->VpiDecompile(std::to_string(mask));
+                  c->VpiConstType(vpiUIntConst);
+                }
+              }
+            }
+          }
+        }
         if (orig_size == -1) {
           // '1, '0
           uint64_t uval = (uint64_t)val;
