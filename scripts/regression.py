@@ -12,6 +12,7 @@ import shutil
 import subprocess
 import sys
 import tarfile
+import zipfile
 import time
 import traceback
 from collections import OrderedDict
@@ -983,50 +984,52 @@ def _update(args, tests):
 
 
 def _extract_worker(params):
-  archive_path, archive_name, queue = params
+  zipfile_path, archive_name, queue = params
 
   results = []
-  with tarfile.open(archive_path, 'r') as archive_strm:
-    while not queue.empty():
-      try:
-        params = queue.get(block=False)
-      except queue.Empty:
-        break
+  with zipfile.ZipFile(zipfile_path, 'r') as zipfile_strm:
+    with zipfile_strm.open(f'{archive_name}.tar.gz') as tarfile_strm:
+      with tarfile.open(fileobj=tarfile_strm) as archive_strm:
+        while not queue.empty():
+          try:
+            params = queue.get(block=False)
+          except queue.Empty:
+            break
 
-      if not params:
-        break
+          if not params:
+            break
 
-      name, filepath = params
+          name, filepath = params
 
-      test_filepath = f'{archive_name}/{name}.tar.gz'
-      with tarfile.open(fileobj=archive_strm.extractfile(test_filepath)) as test_strm:
-        src_log_filepath = f'{name}/{name}.log'
+          test_filepath = f'{archive_name}/{name}.tar.gz'
+          with tarfile.open(fileobj=archive_strm.extractfile(test_filepath)) as test_strm:
+            src_log_filepath = f'{name}/{name}.log'
 
-        dst_dirpath = os.path.dirname(filepath)
-        dst_log_filepath = os.path.join(dst_dirpath, f'{name}.log')
+            dst_dirpath = os.path.dirname(filepath)
+            dst_log_filepath = os.path.join(dst_dirpath, f'{name}.log')
 
-        log(f'{src_log_filepath} => {dst_log_filepath}')
+            log(f'{src_log_filepath} => {dst_log_filepath}')
 
-        try:
-          src_log_strm = test_strm.extractfile(src_log_filepath)
+            try:
+              src_log_strm = test_strm.extractfile(src_log_filepath)
 
-          with open(dst_log_filepath, 'wb') as dst_log_strm:
-            dst_log_strm.write(src_log_strm.read())
-            dst_log_strm.flush()
+              with open(dst_log_filepath, 'wb') as dst_log_strm:
+                dst_log_strm.write(src_log_strm.read())
+                dst_log_strm.flush()
 
-          # On Windows, fixup the line endings
-          if platform.system() == 'Windows':
-            with open(dst_log_filepath, 'rt', encoding='cp850') as istrm:
-              lines = istrm.readlines()
-            with open(dst_log_filepath, 'wt', encoding='cp850') as ostrm:
-              ostrm.writelines(lines)
-              ostrm.flush()
+              # On Windows, fixup the line endings
+              if platform.system() == 'Windows':
+                with open(dst_log_filepath, 'rt', encoding='cp850') as istrm:
+                  lines = istrm.readlines()
+                with open(dst_log_filepath, 'wt', encoding='cp850') as ostrm:
+                  ostrm.writelines(lines)
+                  ostrm.flush()
 
-          results.append(0)
-        except KeyError:
-          log(f'Failed to extract \"{name}/{name}.log\"')
-          traceback.print_exc()
-          results.append(-1)
+              results.append(0)
+            except KeyError:
+              log(f'Failed to extract \"{name}/{name}.log\"')
+              traceback.print_exc()
+              results.append(-1)
 
   return sum(results)
 
@@ -1035,13 +1038,13 @@ def _extract(args, tests):
   if not tests:
     return 0  # No selected tests
 
-  if not args.archive_path:
+  if not args.zipfile_path:
     raise "Missing required archive path"
 
-  if not os.path.isfile(args.archive_path):
+  if not os.path.isfile(args.zipfile_path):
     raise "Input archive path is invalid"
 
-  archive_name = os.path.basename(args.archive_path)
+  archive_name = os.path.basename(args.zipfile_path)
   pos = archive_name.find('.')
   if pos >= 0:
     archive_name = archive_name[:pos]
@@ -1053,10 +1056,10 @@ def _extract(args, tests):
     queue.put((name, filepath))
 
   if args.jobs == 0:
-    results = _extract_worker((args.archive_path, archive_name, queue))
+    results = _extract_worker((args.zipfile_path, archive_name, queue))
   else:
     with multiprocessing.Pool(processes=args.jobs) as pool:
-      results = pool.map(_extract_worker, [(args.archive_path, archive_name, queue)] * args.jobs)
+      results = pool.map(_extract_worker, [(args.zipfile_path, archive_name, queue)] * args.jobs)
 
   return sum(results)
 
@@ -1108,8 +1111,8 @@ def _main():
   parser.add_argument('--mt', dest='mt', default=None, type=str, help='Enable multithreading mode')
   parser.add_argument('--mp', dest='mp', default=None, type=str, help='Enable multiprocessing mode')
   parser.add_argument(
-    '--archive-path', dest='archive_path', required=False, type=str,
-    help='Path to tarball to extract logs from.')
+    '--zipfile-path', dest='zipfile_path', required=False, type=str,
+    help='Path to zipfile to extract logs from.')
 
   args = parser.parse_args()
 
