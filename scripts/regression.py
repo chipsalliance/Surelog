@@ -982,25 +982,22 @@ def _update(args, tests):
   return sum(results)
 
 
-def _extract(args, tests):
-  if not tests:
-    return 0  # No selected tests
-
-  if not args.archive_path:
-    raise "Missing required archive path"
-
-  if not os.path.isfile(args.archive_path):
-    raise "Input archive path is invalid"
-
-  archive_name = os.path.basename(args.archive_path)
-  pos = archive_name.find('.')
-  if pos >= 0:
-    archive_name = archive_name[:pos]
-  log(f'archive-name: {archive_name}')
+def _extract_worker(params):
+  archive_path, archive_name, queue = params
 
   results = []
-  with tarfile.open(args.archive_path, 'r') as archive_strm:
-    for name, filepath in tests.items():
+  with tarfile.open(archive_path, 'r') as archive_strm:
+    while not queue.empty():
+      try:
+        params = queue.get(block=False)
+      except queue.Empty:
+        break
+
+      if not params:
+        break
+
+      name, filepath = params
+
       test_filepath = f'{archive_name}/{name}.tar.gz'
       with tarfile.open(fileobj=archive_strm.extractfile(test_filepath)) as test_strm:
         src_log_filepath = f'{name}/{name}.log'
@@ -1026,10 +1023,40 @@ def _extract(args, tests):
               ostrm.flush()
 
           results.append(0)
-        except KeyError as e:
+        except KeyError:
           log(f'Failed to extract \"{name}/{name}.log\"')
           traceback.print_exc()
-          results.append(1)
+          results.append(-1)
+
+  return sum(results)
+
+
+def _extract(args, tests):
+  if not tests:
+    return 0  # No selected tests
+
+  if not args.archive_path:
+    raise "Missing required archive path"
+
+  if not os.path.isfile(args.archive_path):
+    raise "Input archive path is invalid"
+
+  archive_name = os.path.basename(args.archive_path)
+  pos = archive_name.find('.')
+  if pos >= 0:
+    archive_name = archive_name[:pos]
+  log(f'archive-name: {archive_name}')
+
+  manager = multiprocessing.Manager()
+  queue = manager.Queue()
+  for name, filepath in tests.items():
+    queue.put((name, filepath))
+
+  if args.jobs == 0:
+    results = _extract_worker((args.archive_path, archive_name, queue))
+  else:
+    with multiprocessing.Pool(processes=args.jobs) as pool:
+      results = pool.map(_extract_worker, [(args.archive_path, archive_name, queue)] * args.jobs)
 
   return sum(results)
 
