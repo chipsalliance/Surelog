@@ -848,14 +848,14 @@ def _print_report(results):
 
   longest_cpu_test = max(results, key=lambda result: result.get('CPU-TIME', 0))
   total_cpu_time = sum([result.get('CPU-TIME', 0) for result in results])
-  summary['MAX CPU TIME'] = f'{round(longest_cpu_test["CPU-TIME"], 2)} ({longest_cpu_test["TESTNAME"]})'
+  summary['MAX CPU TIME'] = f'{round(longest_cpu_test.get("CPU-TIME", 0), 2)} ({longest_cpu_test["TESTNAME"]})'
   summary['TOTAL CPU TIME'] = str(round(total_cpu_time, 2))
 
-  longest_wall_test = max(results, key=lambda result: result.get('WALL-TIME', 0))
-  summary['MAX WALL TIME'] = f'{round(longest_wall_test["WALL-TIME"].total_seconds())} ({longest_wall_test["TESTNAME"]})'
+  longest_wall_test = max(results, key=lambda result: result.get('WALL-TIME', timedelta(seconds=0)))
+  summary['MAX WALL TIME'] = f'{round(longest_wall_test.get("WALL-TIME", timedelta(seconds=0)).total_seconds())} ({longest_wall_test["TESTNAME"]})'
 
   largest_test = max(results, key=lambda result: result.get('PHY-MEM', 0))
-  summary['MAX MEMORY'] = f'{round(largest_test["PHY-MEM"] / (1024 * 1024))} ({largest_test["TESTNAME"]})'
+  summary['MAX MEMORY'] = f'{round(largest_test.get("PHY-MEM", 0) / (1024 * 1024))} ({largest_test["TESTNAME"]})'
 
   widths = [max([len(row[index]) for row in [columns] + rows]) for index in range(0, len(columns))]
   row_format = '  | ' + ' | '.join([f'{{:{"" if i < 2 else ">"}{widths[i]}}}' for i in range(0, len(widths))]) + ' |'
