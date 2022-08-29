@@ -18,6 +18,16 @@ option(
   "If buildling with clang++ and libc++(in Linux). To enable with: -DWITH_LIBCXX=On"
   OFF)
 
+option(
+  SURELOG_USE_HOST_FLATBUFFERS
+  "Use flatbuffers library from host instead of third_party" OFF)
+
+# TODO SURELOG_USE_HOST_CAPNP
+# TODO SURELOG_USE_HOST_ANTLR
+# TODO SURELOG_USE_HOST_UHDM
+
+include(FindPkgConfig)
+
 project(SURELOG)
 
 # NOTE: Policy changes has to happen before adding any subprojects
@@ -33,8 +43,13 @@ if(WITH_LIBCXX)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 endif()
 
-set(FLATBUFFERS_BUILD_TESTS OFF CACHE BOOL "Skip flatbuffers' tests")
-add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
+set(FLATBUFFERS_FLATC_EXECUTABLE "flatc")
+if(SURELOG_USE_HOST_FLATBUFFERS)
+  pkg_check_modules(FLATBUFFERS IMPORTED_TARGET REQUIRED flatbuffers>=2.0.7)
+else()
+  set(FLATBUFFERS_BUILD_TESTS OFF CACHE BOOL "Skip flatbuffers' tests")
+  add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
+endif()
 
 set(WITH_STATIC_CRT ON CACHE BOOL "Use Static CRT")
 set(ANTLR_BUILD_CPP_TESTS OFF CACHE BOOL "Skip ANTLR tests")
@@ -128,7 +143,7 @@ add_custom_target(GenerateSerializer DEPENDS ${flatbuffer-GENERATED_SRC})
 add_custom_command(
   OUTPUT ${flatbuffer-GENERATED_SRC}
   COMMAND
-    flatc --cpp --binary -o ${GENDIR}/include/Surelog/Cache
+    ${FLATBUFFERS_FLATC_EXECUTABLE} --cpp --binary -o ${GENDIR}/include/Surelog/Cache
     ${PROJECT_SOURCE_DIR}/src/Cache/header.fbs
     ${PROJECT_SOURCE_DIR}/src/Cache/parser.fbs
     ${PROJECT_SOURCE_DIR}/src/Cache/preproc.fbs
@@ -136,8 +151,7 @@ add_custom_command(
   WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
   DEPENDS ${PROJECT_SOURCE_DIR}/src/Cache/parser.fbs
           ${PROJECT_SOURCE_DIR}/src/Cache/header.fbs
-          ${PROJECT_SOURCE_DIR}/src/Cache/preproc.fbs
-          ${FLATBUFFERS_FLATC_EXECUTABLE})
+          ${PROJECT_SOURCE_DIR}/src/Cache/preproc.fbs)
 
 # Java
 find_package(Java 11 REQUIRED COMPONENTS Runtime)
@@ -437,9 +451,16 @@ endif()
 
 target_link_libraries(surelog-bin PUBLIC surelog)
 target_link_libraries(surelog PUBLIC antlr4_static)
-target_link_libraries(surelog PUBLIC flatbuffers)
+
+if(SURELOG_USE_HOST_FLATBUFFERS)
+  target_link_libraries(surelog PRIVATE PkgConfig::FLATBUFFERS)
+else()
+  target_link_libraries(surelog PUBLIC flatbuffers)
+  add_dependencies(surelog flatc)
+endif()
+
 target_link_libraries(surelog PUBLIC uhdm)
-add_dependencies(surelog flatc)
+
 add_dependencies(GenerateSerializer uhdm)
 add_dependencies(GenerateParser antlr4_static)
 add_dependencies(surelog GenerateParser)
@@ -607,13 +628,39 @@ endif()
 install(
   TARGETS surelog-bin
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+# Libraries
 install(
-  TARGETS surelog antlr4_static flatbuffers
+  TARGETS surelog
   EXPORT Surelog
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog)
+
+# TODO: SURELOG_USE_HOST_ANTLR
 install(
-  TARGETS uhdm capnp kj
+  TARGETS antlr4_static
+  EXPORT Surelog
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
+  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog)
+
+if(NOT SURELOG_USE_HOST_FLATBUFFERS)
+  install(
+    TARGETS flatbuffers
+    EXPORT Surelog
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog)
+endif()
+
+# TODO SURELOG_USE_HOST_CAPNP
+install(
+  TARGETS capnp kj
+  EXPORT Surelog
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/uhdm
+  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/uhdm)
+
+# TODO: SURELOG_USE_HOST_UHDM
+install(
+  TARGETS uhdm
   EXPORT Surelog
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/uhdm
   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/uhdm)
