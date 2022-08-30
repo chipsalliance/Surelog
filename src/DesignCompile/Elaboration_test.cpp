@@ -492,5 +492,38 @@ endmodule
   }
 }
 
+TEST(Elaboration, WordSizeFuncArg) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+
+  // Preprocess, Parse, Compile, Elaborate
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+module top(output logic [31:0] o);
+  typedef logic [31:0] word;   
+   
+  function automatic word element_sum(input word [1:0] w);
+    return w[0] + w[1];
+  endfunction
+  parameter p = element_sum({32'h1234, 32'h5678}); 
+endmodule
+  )");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto passign : *topMod->Param_assigns()) {
+      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      bool invalidValue = false;
+      EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
+      UHDM::ExprEval eval;
+      int64_t val = eval.get_value(invalidValue, rhs);
+      EXPECT_EQ(val, 26796);
+    }
+  }
+}
+
 }  // namespace
 }  // namespace SURELOG

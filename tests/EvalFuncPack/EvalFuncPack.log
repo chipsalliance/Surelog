@@ -763,7 +763,7 @@ bit_select                                         4
 class_defn                                         8
 class_typespec                                     4
 class_var                                          3
-constant                                         159
+constant                                         131
 design                                             1
 enum_const                                         5
 enum_typespec                                      1
@@ -775,7 +775,7 @@ if_stmt                                            2
 import_typespec                                    3
 int_typespec                                      41
 int_var                                            8
-integer_typespec                                  14
+integer_typespec                                  15
 integer_var                                        8
 io_decl                                           19
 logic_net                                          1
@@ -802,7 +802,7 @@ bit_select                                        10
 class_defn                                         8
 class_typespec                                     4
 class_var                                          3
-constant                                         159
+constant                                         131
 design                                             1
 enum_const                                        10
 enum_typespec                                      2
@@ -814,7 +814,7 @@ if_stmt                                            5
 import_typespec                                    3
 int_typespec                                      41
 int_var                                           20
-integer_typespec                                  14
+integer_typespec                                  15
 integer_var                                       12
 io_decl                                           39
 logic_net                                          1
@@ -2106,11 +2106,11 @@ design: (work@flash_ctrl_info_cfg)
     |vpiParent:
     \_package: flash_ctrl_pkg (flash_ctrl_pkg::), file:dut.sv, line:24:1, endln:45:11
     |vpiRhs:
-    \_constant: 
+    \_constant: , line:28:5, endln:28:7
       |vpiDecompile:10
-      |vpiSize:32
-      |INT:10
-      |vpiConstType:7
+      |vpiSize:64
+      |UINT:10
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (flash_ctrl_pkg::InfosPerBank), line:27:15, endln:27:27
   |vpiParamAssign:
@@ -2120,7 +2120,7 @@ design: (work@flash_ctrl_info_cfg)
     |vpiRhs:
     \_constant: 
       |vpiDecompile:4
-      |vpiSize:32
+      |vpiSize:64
       |INT:4
       |vpiConstType:7
     |vpiLhs:
@@ -2425,6 +2425,13 @@ design: (work@flash_ctrl_info_cfg)
       \_ref_obj: (InfosPerBank), line:54:38, endln:54:50
         |vpiParent:
         \_func_call: (vbits), line:54:32, endln:54:37
+        |vpiTypespec:
+        \_integer_typespec: , line:15:34, endln:15:41
+          |vpiParent:
+          \_io_decl: (value), line:15:42, endln:15:47
+          |vpiInstance:
+          \_package: prim_util_pkg (prim_util_pkg::), file:dut.sv, line:2:1, endln:22:11
+          |vpiSigned:1
         |vpiName:InfosPerBank
       |vpiName:vbits
       |vpiFunction:
@@ -2455,11 +2462,6 @@ design: (work@flash_ctrl_info_cfg)
       |vpiName:value
       |vpiTypedef:
       \_integer_typespec: , line:15:34, endln:15:41
-        |vpiParent:
-        \_io_decl: (value), line:15:42, endln:15:47
-        |vpiInstance:
-        \_package: prim_util_pkg (prim_util_pkg::), file:dut.sv, line:2:1, endln:22:11
-        |vpiSigned:1
     |vpiStmt:
     \_return_stmt: , line:17:5, endln:17:11
       |vpiParent:
@@ -3036,13 +3038,13 @@ design: (work@flash_ctrl_info_cfg)
     |vpiParent:
     \_module: work@flash_ctrl_info_cfg (work@flash_ctrl_info_cfg), file:dut.sv, line:59:1, endln:63:10
     |vpiRhs:
-    \_constant: 
+    \_constant: , line:28:5, endln:28:7
       |vpiParent:
       \_param_assign: , line:27:15, endln:31:5
       |vpiDecompile:10
-      |vpiSize:32
-      |INT:10
-      |vpiConstType:7
+      |vpiSize:64
+      |UINT:10
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@flash_ctrl_info_cfg.InfosPerBank), line:27:15, endln:27:27
       |vpiParent:
@@ -3067,7 +3069,7 @@ design: (work@flash_ctrl_info_cfg)
       |vpiParent:
       \_param_assign: , line:33:16, endln:33:68
       |vpiDecompile:4
-      |vpiSize:32
+      |vpiSize:64
       |INT:4
       |vpiConstType:7
     |vpiLhs:
@@ -3414,10 +3416,10 @@ design: (work@flash_ctrl_info_cfg)
     \_constant: , line:27:33, endln:31:5
       |vpiDecompile:10
       |vpiSize:32
-      |INT:10
+      |UINT:10
       |vpiTypespec:
       \_int_typespec: , line:27:11, endln:27:14
-      |vpiConstType:7
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@flash_ctrl_info_cfg.InfosPerBank), line:27:15, endln:27:27
   |vpiParamAssign:
@@ -3679,5 +3681,5 @@ design: (work@flash_ctrl_info_cfg)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/EvalFuncPack/dut.sv | ${SURELOG_DIR}/build/regression/EvalFuncPack/roundtrip/dut_000.sv | 9 | 63 | 
+[roundtrip]: ${SURELOG_DIR}/tests/EvalFuncPack/dut.sv | ${SURELOG_DIR}/build/regression/EvalFuncPack/roundtrip/dut_000.sv | 10 | 63 | 
 
