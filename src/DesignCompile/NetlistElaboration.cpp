@@ -2050,20 +2050,10 @@ bool NetlistElaboration::elab_ports_nets_(
                   }
                 }
                 instance->addSubInstance(interfaceInstance);
-                modport* mp = elab_modport_(
-                    instance, interfaceInstance, sigName,
-                    orig_interf->getName(), orig_interf,
-                    instance->getFileName(), instance->getLineNb(),
-                    orig_modport->getName(), array_int);
-
-                array_int->Instances()->push_back((interface*)mp->Interface());
-
-                auto interfs = netlist->interfaces();
-                if (interfs == nullptr) {
-                  netlist->interfaces(s.MakeInterfaceVec());
-                  interfs = netlist->interfaces();
-                }
-                interfs->push_back((interface*)mp->Interface());
+                elab_modport_(instance, interfaceInstance, sigName,
+                              orig_interf->getName(), orig_interf,
+                              instance->getFileName(), instance->getLineNb(),
+                              orig_modport->getName(), array_int);
               }
             } else {
               const std::string& sigName = sig->getName();
@@ -2088,13 +2078,6 @@ bool NetlistElaboration::elab_ports_nets_(
                   orig_modport->getName(), array_int);
               instance->addSubInstance(interfaceInstance);
               ref->Actual_group(mp);
-
-              auto interfs = netlist->interfaces();
-              if (interfs == nullptr) {
-                netlist->interfaces(s.MakeInterfaceVec());
-                interfs = netlist->interfaces();
-              }
-              interfs->push_back((interface*)mp->Interface());
             }
 
           } else {
