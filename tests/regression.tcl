@@ -447,7 +447,7 @@ proc formal_verification { command testname } {
     # Surelog parser
     set yid [open "$output_dir/surelog.ys" "w"]
     puts $yid "plugin -i systemverilog"
-    puts $yid "read_systemverilog -mutestdout $yosys_command"
+    puts $yid "tee -o $output_dir/surelog_ast.txt read_systemverilog -dump_ast1 -mutestdout $yosys_command"
     puts $yid "synth_xilinx"
     puts $yid "write_verilog $output_dir/surelog_gate.v"
     close $yid
@@ -456,7 +456,7 @@ proc formal_verification { command testname } {
     
     # Yosys parser
     set yid [open "$output_dir/yosys.ys" "w"]
-    puts $yid "read_verilog -sv $yosys_command"
+    puts $yid "tee -o $output_dir/yosys_ast.txt read_verilog -dump_ast1 -sv $yosys_command"
     puts $yid "synth_xilinx"
     puts $yid "write_verilog $output_dir/yosys_gate.v"
     close $yid
@@ -467,7 +467,7 @@ proc formal_verification { command testname } {
     if [regexp {ERROR:} $yosys_parse] {
         catch {set out [exec $SV2V_EXE [lindex $yosys_command 0] -w=$output_dir/sv2v.v]} yosys_parse
         set yid [open "$output_dir/yosys.ys" "w"]
-        puts $yid "read_verilog $output_dir/sv2v.v"
+        puts $yid "tee -o $output_dir/yosys_ast.txt read_verilog -dump_ast1 $output_dir/sv2v.v"
         puts $yid "synth_xilinx"
         puts $yid "write_verilog $output_dir/yosys_gate.v"
         close $yid
