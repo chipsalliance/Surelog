@@ -74,6 +74,30 @@ def _is_ci_build():
   return 'GITHUB_JOB' in os.environ
 
 
+def _get_platform_id():
+  system = platform.system()
+  if system == 'Linux':
+    return '.linux'
+  elif system == 'Darwin':
+    return '.osx'
+  elif system == 'Windows':
+    return '.msys' if 'MSYSTEM' in os.environ else '.win'
+
+  return ''
+
+def _get_surelog_log_filepaths(name, golden_dirpath, output_dirpath):
+  platform_id = _get_platform_id()
+
+  golden_log_filepath = os.path.join(golden_dirpath, f'{name}{platform_id}.log')
+  if os.path.exists(golden_log_filepath):
+    surelog_log_filepath = os.path.join(output_dirpath, f'{name}{platform_id}.log')
+  else:
+    golden_log_filepath = os.path.join(golden_dirpath, f'{name}.log')
+    surelog_log_filepath = os.path.join(output_dirpath, f'{name}.log')
+
+  return golden_log_filepath, surelog_log_filepath
+
+
 def _transform_path(path):
   if 'MSYSTEM' not in os.environ:
     return path
@@ -535,8 +559,7 @@ def _run_one(params):
 
   dirpath = os.path.dirname(filepath)
   regression_log_filepath = os.path.join(output_dirpath, 'regression.log')
-  surelog_log_filepath = os.path.join(output_dirpath, f'{name}.log')
-  golden_log_filepath = os.path.join(dirpath, f'{name}.log')
+  golden_log_filepath, surelog_log_filepath = _get_surelog_log_filepaths(name, dirpath, output_dirpath)
   uvm_reldirpath = os.path.relpath(os.path.join(workspace_dirpath, 'third_party', 'UVM'), dirpath)
   uhdm_slpp_all_filepath = os.path.join(output_dirpath, 'slpp_all', 'surelog.uhdm')
   uhdm_slpp_unit_filepath = os.path.join(output_dirpath, 'slpp_unit', 'surelog.uhdm')
@@ -714,8 +737,7 @@ def _report_one(params):
   log(f'Comparing {name}')
 
   dirpath = os.path.dirname(filepath)
-  golden_log_filepath = os.path.join(dirpath, f'{name}.log')
-  surelog_log_filepath = os.path.join(output_dirpath, f'{name}.log')
+  golden_log_filepath, surelog_log_filepath = _get_surelog_log_filepaths(name, dirpath, output_dirpath)
   report_log_filepath = os.path.join(output_dirpath, 'report.log')
 
   result = {
@@ -787,8 +809,7 @@ def _update_one(params):
   name, filepath, output_dirpath = params
 
   dirpath = os.path.dirname(filepath)
-  golden_log_filepath = os.path.join(dirpath, f'{name}.log')
-  surelog_log_filepath = os.path.join(output_dirpath, f'{name}.log')
+  golden_log_filepath, surelog_log_filepath = _get_surelog_log_filepaths(name, dirpath, output_dirpath)
 
   log(f'Updating {name}: {surelog_log_filepath} => {golden_log_filepath}')
 
