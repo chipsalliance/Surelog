@@ -134,7 +134,8 @@ class CompileHelper final {
 
   bool compileDataDeclaration(DesignComponent* component, const FileContent* fC,
                               NodeId id, bool interface,
-                              CompileDesign* compileDesign, bool reduce, UHDM::VectorOfattribute* attributes);
+                              CompileDesign* compileDesign, bool reduce,
+                              UHDM::VectorOfattribute* attributes);
 
   // ------------------------------------------------------------------------------------------
   // UHDM modeling
@@ -189,11 +190,13 @@ class CompileHelper final {
 
   bool compileTask(DesignComponent* component, const FileContent* fC,
                    NodeId nodeId, CompileDesign* compileDesign,
-                   ValuedComponentI* instance, bool isMethod = false, bool reduce = false);
+                   ValuedComponentI* instance, bool isMethod = false,
+                   bool reduce = false);
 
   bool compileFunction(DesignComponent* component, const FileContent* fC,
                        NodeId nodeId, CompileDesign* compileDesign,
-                       ValuedComponentI* instance, bool isMethod = false, bool reduce = false);
+                       ValuedComponentI* instance, bool isMethod = false,
+                       bool reduce = false);
 
   bool compileAssertionItem(DesignComponent* component, const FileContent* fC,
                             NodeId nodeId, CompileDesign* compileDesign);
@@ -224,7 +227,8 @@ class CompileHelper final {
                                  const FileContent* fC, NodeId nodeId,
                                  CompileDesign* compileDesign,
                                  UHDM::any* pstmt = nullptr,
-                                 ValuedComponentI* instance = nullptr, bool reduce = false);
+                                 ValuedComponentI* instance = nullptr,
+                                 bool reduce = false);
 
   UHDM::any* compileVariable(DesignComponent* component, const FileContent* fC,
                              NodeId nodeId, CompileDesign* compileDesign,
@@ -426,6 +430,10 @@ class CompileHelper final {
   void compileLetDeclaration(DesignComponent* component, const FileContent* fC,
                              NodeId nodeId, CompileDesign* compileDesign);
 
+  void compileInstantiation(ModuleDefinition* mod, const FileContent* fC,
+                            CompileDesign* compileDesign, NodeId id,
+                            ValuedComponentI* instance);
+
   /** Variable is either a bit select or a range */
   bool isSelected(const FileContent* fC, NodeId id);
 
@@ -545,8 +553,9 @@ class CompileHelper final {
                     ValuedComponentI* instance);
 
   std::string decompileHelper(const UHDM::any* sel);
-  
+
   void setUnElabMode(bool on) { m_unElabMode = on; }
+
  private:
   CompileHelper(const CompileHelper&) = delete;
 
