@@ -189,7 +189,7 @@ n<> u<155> t<Top_level_rule> c<1> l<2:1> el<30:1>
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                     1
 bit_select                                         4
-constant                                          23
+constant                                          25
 cont_assign                                        2
 design                                             1
 gen_scope                                          4
@@ -197,27 +197,27 @@ gen_scope_array                                    4
 hier_path                                          2
 int_typespec                                       4
 interface                                          3
-interface_array                                    1
-interface_typespec                                 6
+interface_array                                    2
+interface_typespec                                 7
 io_decl                                            3
 logic_net                                          2
 logic_typespec                                     2
 logic_var                                          2
 modport                                            3
 module                                             5
-operation                                          7
+operation                                          8
 param_assign                                       2
 parameter                                          4
 port                                               2
-range                                              2
-ref_obj                                           13
+range                                              3
+ref_obj                                           14
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                     1
 bit_select                                         8
-constant                                          23
+constant                                          25
 cont_assign                                        4
 design                                             1
 gen_scope                                          6
@@ -225,20 +225,20 @@ gen_scope_array                                    6
 hier_path                                          4
 int_typespec                                       4
 interface                                          3
-interface_array                                    1
-interface_typespec                                 6
+interface_array                                    2
+interface_typespec                                 7
 io_decl                                            3
 logic_net                                          2
 logic_typespec                                     2
 logic_var                                          2
 modport                                            3
 module                                             5
-operation                                          9
+operation                                         10
 param_assign                                       2
 parameter                                          4
 port                                               3
-range                                              2
-ref_obj                                           24
+range                                              3
+ref_obj                                           25
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ../../build/regression/ModPortArrayBind/slpp_all/surelog.uhdm ...
 
@@ -360,6 +360,43 @@ design: (work@r5p_bus_dec)
         \_interface_typespec: (r5p_bus_if), line:15:3, endln:15:13
         |vpiName:man
         |vpiIsModPort:1
+  |vpiInterfaceArray:
+  \_interface_array: (r5p_bus_if.man), line:15:18, endln:15:19
+    |vpiParent:
+    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:dut.sv, line:12:1, endln:29:10
+    |vpiName:m
+    |vpiFullName:r5p_bus_if.man
+    |vpiRange:
+    \_range: , line:15:19, endln:15:27
+      |vpiLeftRange:
+      \_operation: , line:15:20, endln:15:24
+        |vpiParent:
+        \_range: , line:15:19, endln:15:27
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (BN), line:15:20, endln:15:22
+          |vpiParent:
+          \_operation: , line:15:20, endln:15:24
+          |vpiName:BN
+        |vpiOperand:
+        \_constant: , line:15:23, endln:15:24
+          |vpiParent:
+          \_operation: , line:15:20, endln:15:24
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:15:25, endln:15:26
+        |vpiParent:
+        \_range: , line:15:19, endln:15:27
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_interface_typespec: (r5p_bus_if.man), line:15:3, endln:15:17
+      |vpiName:r5p_bus_if.man
 |uhdmtopModules:
 \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:dut.sv, line:12:1, endln:29:10
   |vpiName:work@r5p_bus_dec
@@ -403,7 +440,7 @@ design: (work@r5p_bus_dec)
       \_port: (m), line:15:18, endln:15:19
       |vpiFullName:work@r5p_bus_dec.m
       |vpiActual:
-      \_interface_array: (work@r5p_bus_dec.m)
+      \_interface_array: (work@r5p_bus_dec.m), line:15:18, endln:15:19
     |vpiTypedef:
     \_interface_typespec: (man), line:15:14, endln:15:17
       |vpiParent:
@@ -461,7 +498,7 @@ design: (work@r5p_bus_dec)
       |vpiInterface:
       \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[1]), file:dut.sv, line:12:0
   |vpiInterfaceArray:
-  \_interface_array: (work@r5p_bus_dec.m)
+  \_interface_array: (work@r5p_bus_dec.m), line:15:18, endln:15:19
     |vpiParent:
     \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:dut.sv, line:12:1, endln:29:10
     |vpiName:m

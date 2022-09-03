@@ -57,11 +57,11 @@
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_net                                          1
 array_typespec                                     5
-constant                                          28
+constant                                          36
 design                                             1
 interface                                         13
-interface_array                                    4
-interface_typespec                                36
+interface_array                                    8
+interface_typespec                                40
 io_decl                                           13
 logic_net                                         16
 logic_typespec                                    16
@@ -69,7 +69,7 @@ logic_var                                          7
 modport                                           13
 module                                            11
 port                                              23
-range                                             14
+range                                             18
 ref_obj                                           23
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -77,11 +77,11 @@ ref_obj                                           23
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_net                                          1
 array_typespec                                     5
-constant                                          28
+constant                                          36
 design                                             1
 interface                                         13
-interface_array                                    4
-interface_typespec                                36
+interface_array                                    8
+interface_typespec                                40
 io_decl                                           13
 logic_net                                         16
 logic_typespec                                    16
@@ -89,7 +89,7 @@ logic_var                                          7
 modport                                           13
 module                                            11
 port                                              32
-range                                             14
+range                                             18
 ref_obj                                           32
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ../../build/regression/ModPortRange/slpp_unit/surelog.uhdm ...
@@ -285,6 +285,33 @@ design: (work@range_itf_port)
       |vpiElemTypespec:
       \_interface_typespec: (ConnectTB), line:35:16, endln:35:25
         |vpiName:ConnectTB
+  |vpiInterfaceArray:
+  \_interface_array: (ConnectTB), line:35:26, endln:35:31
+    |vpiParent:
+    \_module: work@middle (work@middle), file:dut.sv, line:35:1, endln:36:10
+    |vpiName:conn1
+    |vpiFullName:ConnectTB
+    |vpiRange:
+    \_range: , line:35:32, endln:35:37
+      |vpiLeftRange:
+      \_constant: , line:35:33, endln:35:34
+        |vpiParent:
+        \_range: , line:35:32, endln:35:37
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:35:35, endln:35:36
+        |vpiParent:
+        \_range: , line:35:32, endln:35:37
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_interface_typespec: (ConnectTB), line:35:16, endln:35:25
+      |vpiName:ConnectTB
 |uhdmallModules:
 \_module: work@range_itf_port (work@range_itf_port), file:dut.sv, line:9:1, endln:13:10
   |vpiParent:
@@ -378,6 +405,33 @@ design: (work@range_itf_port)
           |vpiConstType:9
       |vpiElemTypespec:
       \_logic_typespec: , line:11:11, endln:11:16
+  |vpiInterfaceArray:
+  \_interface_array: (MyInterface.MyModPort), line:10:27, endln:10:35
+    |vpiParent:
+    \_module: work@range_itf_port (work@range_itf_port), file:dut.sv, line:9:1, endln:13:10
+    |vpiName:my_port1
+    |vpiFullName:MyInterface.MyModPort
+    |vpiRange:
+    \_range: , line:10:35, endln:10:40
+      |vpiLeftRange:
+      \_constant: , line:10:36, endln:10:37
+        |vpiParent:
+        \_range: , line:10:35, endln:10:40
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:10:38, endln:10:39
+        |vpiParent:
+        \_range: , line:10:35, endln:10:40
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_interface_typespec: (MyInterface.MyModPort), line:10:5, endln:10:26
+      |vpiName:MyInterface.MyModPort
 |uhdmallModules:
 \_module: work@range_itf_port2 (work@range_itf_port2), file:dut.sv, line:39:1, endln:46:10
   |vpiParent:
@@ -512,6 +566,60 @@ design: (work@range_itf_port)
       |vpiElemTypespec:
       \_interface_typespec: (MyInterface), line:43:5, endln:43:16
         |vpiName:MyInterface
+  |vpiInterfaceArray:
+  \_interface_array: (MyInterface.MyModPort), line:41:27, endln:41:35
+    |vpiParent:
+    \_module: work@range_itf_port2 (work@range_itf_port2), file:dut.sv, line:39:1, endln:46:10
+    |vpiName:my_port2
+    |vpiFullName:MyInterface.MyModPort
+    |vpiRange:
+    \_range: , line:41:35, endln:41:40
+      |vpiLeftRange:
+      \_constant: , line:41:36, endln:41:37
+        |vpiParent:
+        \_range: , line:41:35, endln:41:40
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:41:38, endln:41:39
+        |vpiParent:
+        \_range: , line:41:35, endln:41:40
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_interface_typespec: (MyInterface.MyModPort), line:41:5, endln:41:26
+      |vpiName:MyInterface.MyModPort
+  |vpiInterfaceArray:
+  \_interface_array: (MyInterface), line:43:18, endln:43:26
+    |vpiParent:
+    \_module: work@range_itf_port2 (work@range_itf_port2), file:dut.sv, line:39:1, endln:46:10
+    |vpiName:my_port4
+    |vpiFullName:MyInterface
+    |vpiRange:
+    \_range: , line:43:26, endln:43:31
+      |vpiLeftRange:
+      \_constant: , line:43:27, endln:43:28
+        |vpiParent:
+        \_range: , line:43:26, endln:43:31
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:43:29, endln:43:30
+        |vpiParent:
+        \_range: , line:43:26, endln:43:31
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_interface_typespec: (MyInterface), line:43:5, endln:43:16
+      |vpiName:MyInterface
 |uhdmtopModules:
 \_module: work@range_itf_port (work@range_itf_port), file:dut.sv, line:9:1, endln:13:10
   |vpiName:work@range_itf_port
@@ -563,7 +671,7 @@ design: (work@range_itf_port)
       \_port: (my_port1), line:10:27, endln:10:35
       |vpiFullName:work@range_itf_port.my_port1
       |vpiActual:
-      \_interface_array: (work@range_itf_port.my_port1)
+      \_interface_array: (work@range_itf_port.my_port1), line:10:27, endln:10:35
     |vpiTypedef:
     \_interface_typespec: (MyModPort), line:10:17, endln:10:26
       |vpiParent:
@@ -639,7 +747,7 @@ design: (work@range_itf_port)
       |vpiInterface:
       \_interface: work@MyInterface (work@range_itf_port.my_port1[1]), file:dut.sv, line:9:0
   |vpiInterfaceArray:
-  \_interface_array: (work@range_itf_port.my_port1)
+  \_interface_array: (work@range_itf_port.my_port1), line:10:27, endln:10:35
     |vpiParent:
     \_module: work@range_itf_port (work@range_itf_port), file:dut.sv, line:9:1, endln:13:10
     |vpiName:my_port1
@@ -872,7 +980,7 @@ design: (work@range_itf_port)
       \_port: (my_port2), line:41:27, endln:41:35
       |vpiFullName:work@range_itf_port2.my_port2
       |vpiActual:
-      \_interface_array: (work@range_itf_port2.my_port2)
+      \_interface_array: (work@range_itf_port2.my_port2), line:41:27, endln:41:35
     |vpiTypedef:
     \_interface_typespec: (MyModPort), line:41:17, endln:41:26
       |vpiParent:
@@ -1040,7 +1148,7 @@ design: (work@range_itf_port)
       |vpiInterface:
       \_interface: work@MyInterface (work@range_itf_port2.my_port4), file:dut.sv, line:39:0
   |vpiInterfaceArray:
-  \_interface_array: (work@range_itf_port2.my_port2)
+  \_interface_array: (work@range_itf_port2.my_port2), line:41:27, endln:41:35
     |vpiParent:
     \_module: work@range_itf_port2 (work@range_itf_port2), file:dut.sv, line:39:1, endln:46:10
     |vpiName:my_port2
