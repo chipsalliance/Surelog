@@ -46,17 +46,8 @@
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
-#include <uhdm/RTTI.h>
-#include <uhdm/bit_typespec.h>
 #include <uhdm/clone_tree.h>
-#include <uhdm/constant.h>
-#include <uhdm/expr.h>
-#include <uhdm/instance.h>
-#include <uhdm/operation.h>
-#include <uhdm/parameter.h>
-#include <uhdm/ref_obj.h>
-#include <uhdm/string_typespec.h>
-#include <uhdm/typespec.h>
+#include <uhdm/uhdm.h>
 
 #include <fstream>
 #include <queue>
@@ -1442,10 +1433,6 @@ void DesignElaboration::elaborateInstance_(
           paramOverride = tmpId;
         }
 
-        std::vector<int> from;
-        std::vector<int> to;
-        std::vector<int> index;
-
         VObjectTypeUnorderedSet insttypes = {
             VObjectType::slHierarchical_instance,
             VObjectType::slN_input_gate_instance,
@@ -1526,10 +1513,13 @@ void DesignElaboration::elaborateInstance_(
           }
 
           NodeId unpackedDimId;
-
           if (identifierId) unpackedDimId = fC->Sibling(identifierId);
 
           if (unpackedDimId) {
+            std::vector<int> from;
+            std::vector<int> to;
+            std::vector<int> index;
+
             // Vector instances
             while (unpackedDimId) {
               if (fC->Type(unpackedDimId) == slUnpacked_dimension) {
@@ -1563,9 +1553,39 @@ void DesignElaboration::elaborateInstance_(
               }
               unpackedDimId = fC->Sibling(unpackedDimId);
             }
+
+            std::vector<ModuleInstance*> localSubInstances;
             recurseInstanceLoop_(from, to, index, 0, def, fC, subInstanceId,
                                  paramOverride, factory, parent, subConfig,
-                                 instName, modName, allSubInstances);
+                                 instName, modName, localSubInstances);
+            allSubInstances.insert(allSubInstances.end(),
+                                   localSubInstances.begin(),
+                                   localSubInstances.end());
+
+            // Create module array
+            if (type == VObjectType::slModule_instantiation) {
+              int unpackedSize = 0;
+              unpackedDimId = fC->Sibling(identifierId);
+              if (std::vector<UHDM::range*>* unpackedDimensions =
+                      m_helper.compileRanges(def, fC, unpackedDimId,
+                                             m_compileDesign, nullptr, parent,
+                                             false, unpackedSize, false)) {
+                UHDM::Serializer& s = m_compileDesign->getSerializer();
+                UHDM::module_array* mod_array = s.MakeModule_array();
+                mod_array->Ranges(unpackedDimensions);
+                mod_array->VpiName(instName);
+                mod_array->VpiFullName(modName);
+                fC->populateCoreMembers(identifierId, identifierId, mod_array);
+
+                UHDM::module_typespec* tps = s.MakeModule_typespec();
+                NodeId typespecId = fC->Child(subInstanceId);
+                tps->VpiName(fC->SymName(typespecId));
+                fC->populateCoreMembers(typespecId, typespecId, tps);
+                mod_array->Elem_typespec(tps);
+                parent->getModuleArrayModuleInstancesMap().emplace(
+                    mod_array, localSubInstances);
+              }
+            }
           } else {
             // Simple instance
             if (reuseInstance) {

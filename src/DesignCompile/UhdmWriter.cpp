@@ -1216,6 +1216,53 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module* m, Serializer& s,
       ps->VpiParent(m);
     }
   }
+  // Module Instantiation
+  if (VectorOfmodule_array* subModuleArrays = mod->getModuleArrays()) {
+    m->Module_arrays(subModuleArrays);
+    for (auto subModArr : *subModuleArrays) {
+      subModArr->VpiParent(m);
+    }
+  }
+  // Interface instantiation
+  const std::vector<Signal*>& signals = mod->getSignals();
+  if (!signals.empty()) {
+    VectorOfinterface_array* subInterfaceArrays = s.MakeInterface_arrayVec();
+    m->Interface_arrays(subInterfaceArrays);
+    for (Signal* sig : signals) {
+      NodeId unpackedDimension = sig->getUnpackedDimension();
+      if (unpackedDimension && sig->getInterfaceDef()) {
+        int unpackedSize = 0;
+        const FileContent* fC = sig->getFileContent();
+        if (std::vector<UHDM::range*>* unpackedDimensions =
+                m_helper.compileRanges(mod, fC, unpackedDimension,
+                                       m_compileDesign, nullptr, instance,
+                                       false, unpackedSize, false)) {
+          NodeId id = sig->getNodeId();
+          const std::string typeName = sig->getInterfaceTypeName();
+          interface_array* smarray = s.MakeInterface_array();
+          smarray->Ranges(unpackedDimensions);
+          if (fC->Type(id) == slStringConst) {
+            smarray->VpiName(sig->getName());
+          }
+          smarray->VpiFullName(typeName);
+          smarray->VpiParent(m);
+          fC->populateCoreMembers(id, id, smarray);
+
+          NodeId typespecStart = sig->getInterfaceTypeNameId();
+          NodeId typespecEnd = typespecStart;
+          while (fC->Sibling(typespecEnd)) {
+            typespecEnd = fC->Sibling(typespecEnd);
+          }
+          interface_typespec* tps = s.MakeInterface_typespec();
+          tps->VpiName(typeName);
+          fC->populateCoreMembers(typespecStart, typespecEnd, tps);
+          smarray->Elem_typespec(tps);
+
+          subInterfaceArrays->push_back(smarray);
+        }
+      }
+    }
+  }
 }
 
 void UhdmWriter::writeInterface(ModuleDefinition* mod, interface* m,
@@ -3190,6 +3237,7 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
       }
     }
   }
+  std::map<ModuleInstance*, module*> tempInstanceMap;
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
     ModuleInstance* child = instance->getChildren(i);
     DesignComponent* childDef = child->getDefinition();
@@ -3199,6 +3247,7 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
       if (insttype == VObjectType::slModule_instantiation) {
         if (subModules == nullptr) subModules = s.MakeModuleVec();
         module* sm = s.MakeModule();
+        tempInstanceMap.emplace(child, sm);
         if (childDef && !childDef->getFileContents().empty() &&
             compileDesign->getCompiler()->isLibraryFile(
                 childDef->getFileContents()[0]->getSymbolId())) {
@@ -3439,6 +3488,27 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
       }
       writeInstance(mm, child, sm, compileDesign, componentMap, modPortMap,
                     instanceMap, exprBuilder);
+    }
+  }
+
+  if (m->UhdmType() == uhdmmodule) {
+    const auto& moduleArrayModuleInstancesMap =
+        instance->getModuleArrayModuleInstancesMap();
+    if (!moduleArrayModuleInstancesMap.empty()) {
+      ((module*)m)->Module_arrays(s.MakeModule_arrayVec());
+      for (auto [modArray, modInstances] : moduleArrayModuleInstancesMap) {
+        if (!modInstances.empty()) {
+          modArray->Modules(s.MakeModuleVec());
+          modArray->VpiParent(m);
+          ((module*)m)->Module_arrays()->push_back(modArray);
+          for (ModuleInstance* modInst : modInstances) {
+            auto it = tempInstanceMap.find(modInst);
+            if (it != tempInstanceMap.end()) {
+              modArray->Modules()->push_back(it->second);
+            }
+          }
+        }
+      }
     }
   }
 }

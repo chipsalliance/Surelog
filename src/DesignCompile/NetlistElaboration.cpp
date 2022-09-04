@@ -2020,6 +2020,8 @@ bool NetlistElaboration::elab_ports_nets_(
               array_int->Ranges(unpackedDimensions);
               array_int->VpiName(signame);
               array_int->VpiSize(unpackedSize);
+              fC->populateCoreMembers(sig->getNodeId(), sig->getNodeId(),
+                                      array_int);
 
               auto array = netlist->interface_arrays();
               if (array == nullptr) {

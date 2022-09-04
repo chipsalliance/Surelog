@@ -50,9 +50,15 @@ class ModuleInstance : public ValuedComponentI {
                  std::string_view instName, std::string_view moduleName);
   ~ModuleInstance() override;
 
+  typedef std::map<UHDM::module_array*, std::vector<ModuleInstance*>>
+      ModuleArrayModuleInstancesMap;
+
   void addSubInstance(ModuleInstance* subInstance);
   std::vector<ModuleInstance*>& getAllSubInstances() {
     return m_allSubInstances;
+  }
+  ModuleArrayModuleInstancesMap& getModuleArrayModuleInstancesMap() {
+    return m_moduleArrayModuleInstancesMap;
   }
   void setInstanceBinding(ModuleInstance* boundToInstance) {
     m_boundInstance = boundToInstance;
@@ -122,6 +128,7 @@ class ModuleInstance : public ValuedComponentI {
   ModuleInstance* m_boundInstance = nullptr;
   bool m_elaborated = false;
   std::set<std::string, StringViewCompare> m_overridenParams;
+  ModuleArrayModuleInstancesMap m_moduleArrayModuleInstancesMap;
 };
 
 class ModuleInstanceFactory {

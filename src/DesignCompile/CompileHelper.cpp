@@ -42,6 +42,7 @@
 #include <Surelog/ErrorReporting/Error.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/ErrorReporting/Location.h>
+#include <Surelog/Library/Library.h>
 #include <Surelog/Package/Package.h>
 #include <Surelog/SourceCompile/Compiler.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
@@ -2254,6 +2255,74 @@ std::string CompileHelper::decompileHelper(const any* sel) {
     path_name += selectRange;
   }
   return path_name;
+}
+
+void CompileHelper::compileInstantiation(ModuleDefinition* mod,
+                                         const FileContent* fC,
+                                         CompileDesign* compileDesign,
+                                         NodeId id,
+                                         ValuedComponentI* instance) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  auto subModuleArray = mod->getModuleArrays();
+
+  NodeId moduleName = fC->sl_collect(id, VObjectType::slStringConst);
+  std::string libName = fC->getLibrary()->getName();
+  std::string mname = fC->SymName(moduleName);
+  std::string modName = libName + "@" + mname;
+
+  Design* design = compileDesign->getCompiler()->getDesign();
+  DesignComponent* def = design->getComponentDefinition(modName);
+  if (def == nullptr) return;
+
+  NodeId typespecId = fC->Child(id);
+  NodeId hierInstId = fC->sl_collect(id, slHierarchical_instance);
+  while (hierInstId) {
+    NodeId instId = fC->sl_collect(hierInstId, slName_of_instance);
+    NodeId identifierId;
+    std::string instName;
+    if (instId) {
+      identifierId = fC->Child(instId);
+      instName = fC->SymName(identifierId);
+    }
+
+    NodeId unpackedDimId = fC->Sibling(identifierId);
+    if (unpackedDimId) {
+      int unpackedSize = 0;
+      if (std::vector<UHDM::range*>* unpackedDimensions =
+              compileRanges(mod, fC, unpackedDimId, compileDesign, nullptr,
+                            instance, false, unpackedSize, false)) {
+        UHDM::module_array* mod_array = s.MakeModule_array();
+        mod_array->Ranges(unpackedDimensions);
+        mod_array->VpiName(instName);
+        mod_array->VpiFullName(modName);
+        fC->populateCoreMembers(identifierId, identifierId, mod_array);
+
+        module_typespec* tps = s.MakeModule_typespec();
+        tps->VpiName(fC->SymName(typespecId));
+        fC->populateCoreMembers(typespecId, typespecId, tps);
+        mod_array->Elem_typespec(tps);
+
+        if (subModuleArray == nullptr) {
+          subModuleArray = s.MakeModule_arrayVec();
+          mod->setModuleArrays(subModuleArray);
+        }
+
+        subModuleArray->push_back(mod_array);
+      }
+    }
+    // } else {
+    //   // Simple instance
+    //   UHDM::module* m = s.MakeModule();
+    //   m->VpiName(instName);
+    //   m->VpiDefName(modName);
+    //   m->VpiDefLineNo(fC->Line(mod->getNodeIds()[0]));
+    //   m->VpiDefFile(fC->getSymbolTable()->getSymbol(
+    //       fC->GetDefinitionFile(mod->getNodeIds()[0])));
+    //   fC->populateCoreMembers(identifierId, identifierId, m);
+    //   m->Instance(m);
+
+    hierInstId = fC->Sibling(hierInstId);
+  }
 }
 
 bool CompileHelper::compileInitialBlock(DesignComponent* component,

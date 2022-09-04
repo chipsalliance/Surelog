@@ -6,5 +6,5 @@ module flop ();
 endmodule
 
 module top();
-  flop flop_instances[3:0] ();
+  flop flop_instances1[1:0](), flop_instances2[2:0][1:0]();
 endmodule

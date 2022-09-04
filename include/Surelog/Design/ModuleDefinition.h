@@ -94,6 +94,10 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
     attributes_ = data;
     return true;
   }
+  std::vector<UHDM::module_array*>* getModuleArrays() { return m_moduleArrays; }
+  void setModuleArrays(std::vector<UHDM::module_array*>* modules) {
+    m_moduleArrays = modules;
+  }
 
  private:
   const std::string m_name;
@@ -104,6 +108,7 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   UHDM::udp_defn* m_udpDefn;
 
   UHDM::VectorOfattribute* attributes_ = nullptr;
+  std::vector<UHDM::module_array*>* m_moduleArrays = nullptr;
 };
 
 class ModuleDefinitionFactory {
