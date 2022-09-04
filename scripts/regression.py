@@ -12,9 +12,9 @@ import shutil
 import subprocess
 import sys
 import tarfile
-import zipfile
 import time
 import traceback
+import zipfile
 from collections import OrderedDict
 from contextlib import redirect_stdout, redirect_stderr
 from datetime import datetime, timedelta
@@ -65,6 +65,7 @@ class Status(Enum):
   SEGFLT = -4
   NOGOLD = -5
   TOOLFAIL = -6
+  EXECERR = -7
 
   def __str__(self):
     return str(self.name)
@@ -304,12 +305,7 @@ def _get_log_statistics(filepath):
   return statistics
 
 
-def _run_surelog(
-    name, filepath, dirpath, workspace_dirpath, surelog_filepath,
-    surelog_log_filepath, uvm_reldirpath, mp, mt, tool, output_dirpath):
-  start_dt = datetime.now()
-  print(f'start-time: {start_dt}')
-
+def _get_run_args(name, filepath, dirpath, binary_filepath, uvm_reldirpath, mp, mt, tool, output_dirpath):
   tool_log_filepath = None
   tool_args_list = []
   if tool == 'valgrind':
@@ -334,13 +330,8 @@ def _run_surelog(
   cmdline = re.sub('[.\\\/]+[\\\/]UVM', uvm_reldirpath.replace('\\', '\\\\'), cmdline)
   cmdline = cmdline.strip()
 
-  status = Status.PASS
-  surelog_timedelta = timedelta(seconds=0)
-  max_cpu_time = 0
-  max_vms_memory = 0
-  max_rss_memory = 0
   if '.sh' in cmdline or '.bat' in cmdline:
-    args = ['sh'] + [arg for arg in cmdline.split() if arg] + [_transform_path(surelog_filepath)]
+    args = ['sh'] + [arg for arg in cmdline.split() if arg] + [_transform_path(binary_filepath)]
   else:
     if '*/*.v' in cmdline:
       cmdline = cmdline.replace('*/*.v', ' '.join(_find_files(dirpath, '*.v')))
@@ -376,20 +367,39 @@ def _run_surelog(
     cmdline = ' '.join(['"' + part + '"' if '"' in part else part for part in parts if part])
     print(f'Processed command line: {cmdline}')
 
-    args = tool_args_list + [surelog_filepath] + cmdline.split()
+    args = tool_args_list + [binary_filepath] + cmdline.split()
 
-    # MSYS2 seems to be having some issues when working with quoted
-    # argument on command line, specifically, when passing arguments
-    # as list of strings. The only solution found to be working
-    # reliably is to pass the arguments as a string rather than list
-    # of strings.
-    if '"' in cmdline and 'MSYSTEM' in os.environ:
-      args = ' '.join(args)
+  # MSYS2 seems to be having some issues when working with quoted
+  # argument on command line, specifically, when passing arguments
+  # as list of strings. The only solution found to be working
+  # reliably is to pass the arguments as a string rather than list
+  # of strings.
+  if '"' in cmdline and 'MSYSTEM' in os.environ:
+    args = ' '.join(args)
+
+  return args, tool_log_filepath
+
+
+def _run_surelog(
+    name, filepath, dirpath, surelog_filepath,
+    surelog_log_filepath, uvm_reldirpath, mp, mt, tool, output_dirpath):
+  start_dt = datetime.now()
+  print(f'start-time: {start_dt}')
+
+  surelog_timedelta = timedelta(seconds=0)
+
+  args, tool_log_filepath = _get_run_args(
+      name, filepath, dirpath, surelog_filepath,
+      uvm_reldirpath, mp, mt, tool, output_dirpath)
 
   print('Launching surelog with arguments:')
   pprint.pprint(args)
   print('\n')
 
+  status = Status.PASS
+  max_cpu_time = 0
+  max_vms_memory = 0
+  max_rss_memory = 0
   with open(surelog_log_filepath, 'wt', encoding='cp850') as surelog_log_strm:
     surelog_start_dt = datetime.now()
     try:
@@ -492,36 +502,32 @@ def _run_uhdm_dump(
   delta = end_dt - start_dt
   print(f'end-time: {str(end_dt)} {str(delta)}')
 
-  return {
-    'STATUS': status,
-    # 'WALL-TIME': delta  # Don't overwrite the time. We aren't tracking uhdm-dump times
-  }
+  return { 'STATUS': status }
+
 
 def _run_roundtrip(
-    name, filepath, roundtrip_filepath, uhdm_src_filepath, roundtrip_log_filepath, output_dirpath):
+    name, filepath, dirpath, roundtrip_filepath,
+    roundtrip_log_filepath, uvm_reldirpath, mp, mt, tool, output_dirpath):
   start_dt = datetime.now()
   print(f'start-time: {start_dt}')
 
-  status = Status.PASS
-  roundtrip_args = [
-    roundtrip_filepath,
-    '-uhdm-mode', _transform_path(uhdm_src_filepath),
-    '-base', _transform_path(os.path.dirname(filepath)),
-    '-log', _transform_path(output_dirpath)
-  ]
+  args, _ = _get_run_args(
+      name, filepath, dirpath, roundtrip_filepath,
+      uvm_reldirpath, mp, mt, tool, output_dirpath)
 
   print('Launching roundtrip with arguments:')
-  pprint.pprint(roundtrip_args)
+  pprint.pprint(args)
   print('\n')
 
+  status = Status.PASS
   with open(roundtrip_log_filepath, 'wt', encoding='cp850') as roundtrip_log_strm:
     try:
       result = subprocess.run(
-          roundtrip_args,
+          args,
           stdout=roundtrip_log_strm,
           stderr=subprocess.STDOUT,
           check=False,
-          cwd=os.path.dirname(roundtrip_filepath))
+          cwd=dirpath)
       print(f'roundtrip terminated with exit code: {result.returncode}')
     except:
       status = Status.FAILDUMP
@@ -539,10 +545,7 @@ def _run_roundtrip(
   delta = end_dt - start_dt
   print(f'end-time: {str(end_dt)} {str(delta)}')
 
-  return {
-    'STATUS': status,
-    # 'WALL-TIME': delta  # Don't overwrite the time. We aren't tracking uhdm-dump times
-  }
+  return { 'STATUS': status }
 
 
 def _compare_one(lhs_filepath, rhs_filepath, prefilter=lambda x: x):
@@ -585,140 +588,148 @@ def _run_one(params):
   with open(regression_log_filepath, 'wt', encoding='cp850') as regression_log_strm, \
           redirect_stdout(regression_log_strm), \
           redirect_stderr(regression_log_strm):
-    print(f'start-time: {start_dt}')
-    print( '')
-    print( 'Environment:')
-    print(f'               test-name: {name}')
-    print(f'            test-dirpath: {dirpath}')
-    print(f'           test-filepath: {filepath}')
-    print(f'       workspace-dirpath: {workspace_dirpath}')
-    print(f'        surelog-filepath: {surelog_filepath}')
-    print(f'      uhdm_dump-filepath: {uhdm_dump_filepath}')
-    print(f'          uvm-reldirpath: {uvm_reldirpath}')
-    print(f'          output-dirpath: {output_dirpath}')
-    print(f'     golden-log-filepath: {golden_log_filepath}')
-    print(f'    surelog-log-filepath: {surelog_log_filepath}')
-    print(f'  uhdm-slpp_all-filepath: {uhdm_slpp_all_filepath}')
-    print(f' uhdm-slpp_unit-filepath: {uhdm_slpp_unit_filepath}')
-    print(f'  uhdm-dump-log-filepath: {uhdm_dump_log_filepath}')
-    print(f'roundtrip-output-dirpath: {roundtrip_output_dirpath}')
-    print(f'  roundtrip_log_filepath: {roundtrip_log_filepath}')
-    print(f'                    tool: {tool}')
-    print( '\n')
+    completed = False
+    try:
+      print(f'start-time: {start_dt}')
+      print( '')
+      print( 'Environment:')
+      print(f'               test-name: {name}')
+      print(f'            test-dirpath: {dirpath}')
+      print(f'           test-filepath: {filepath}')
+      print(f'       workspace-dirpath: {workspace_dirpath}')
+      print(f'        surelog-filepath: {surelog_filepath}')
+      print(f'      uhdm_dump-filepath: {uhdm_dump_filepath}')
+      print(f'          uvm-reldirpath: {uvm_reldirpath}')
+      print(f'          output-dirpath: {output_dirpath}')
+      print(f'     golden-log-filepath: {golden_log_filepath}')
+      print(f'    surelog-log-filepath: {surelog_log_filepath}')
+      print(f'  uhdm-slpp_all-filepath: {uhdm_slpp_all_filepath}')
+      print(f' uhdm-slpp_unit-filepath: {uhdm_slpp_unit_filepath}')
+      print(f'  uhdm-dump-log-filepath: {uhdm_dump_log_filepath}')
+      print(f'roundtrip-output-dirpath: {roundtrip_output_dirpath}')
+      print(f'  roundtrip_log_filepath: {roundtrip_log_filepath}')
+      print(f'                    tool: {tool}')
+      print( '\n')
 
-    print('Snapshot ...')
-    golden_snapshot = _snapshot_directory_state(dirpath)
-    print(f'Found {len(golden_snapshot)} files & directories')
-    print('\n')
+      print('Snapshot ...')
+      golden_snapshot = _snapshot_directory_state(dirpath)
+      print(f'Found {len(golden_snapshot)} files & directories')
+      print('\n')
 
-    print('Running Surelog ...', flush=True)
-    result.update(_run_surelog(
-        name, filepath, dirpath, workspace_dirpath, surelog_filepath,
-        surelog_log_filepath, uvm_reldirpath, mp, mt, tool, output_dirpath))
-    print('\n')
-    regression_log_strm.flush()
+      print('Running Surelog ...', flush=True)
+      result.update(_run_surelog(
+          name, filepath, dirpath, surelog_filepath,
+          surelog_log_filepath, uvm_reldirpath, mp, mt, tool, output_dirpath))
+      print('\n')
+      regression_log_strm.flush()
 
-    uhdm_src_filepath = None
-    if result['STATUS'] == Status.PASS:
-      if os.path.isfile(uhdm_slpp_all_filepath):
-        uhdm_src_filepath = uhdm_slpp_all_filepath
-      elif os.path.isfile(uhdm_slpp_unit_filepath):
-        uhdm_src_filepath = uhdm_slpp_unit_filepath
+      uhdm_src_filepath = None
+      if result['STATUS'] == Status.PASS:
+        if os.path.isfile(uhdm_slpp_all_filepath):
+          uhdm_src_filepath = uhdm_slpp_all_filepath
+        elif os.path.isfile(uhdm_slpp_unit_filepath):
+          uhdm_src_filepath = uhdm_slpp_unit_filepath
+        else:
+          print(f'File not found: {uhdm_slpp_all_filepath}')
+          print(f'File not found: {uhdm_slpp_unit_filepath}')
+
+      if uhdm_src_filepath and result['STATUS'] == Status.PASS:
+        print('Running uhdm-dump ...', flush=True)
+        result.update(_run_uhdm_dump(
+            name, uhdm_dump_filepath, uhdm_src_filepath, uhdm_dump_log_filepath, output_dirpath))
+        print('\n')
+        regression_log_strm.flush()
+
+      roundtrip_content = []
+      if not tool and result['STATUS'] == Status.PASS:
+        print('Running roundtrip ...', flush=True)
+        result.update(_run_roundtrip(
+            name, filepath, dirpath, roundtrip_filepath,
+            roundtrip_log_filepath, uvm_reldirpath, mp, mt, None, roundtrip_output_dirpath))
+        print('\n')
+        regression_log_strm.flush()
+
+        if os.path.isfile(roundtrip_log_filepath):
+          with open(roundtrip_log_filepath, 'rt') as log_strm:
+            roundtrip_content.extend([line.rstrip() for line in log_strm if line.startswith('[roundtrip]:')])
+
+      print(f'Normalizing surelog log file {surelog_log_filepath}')
+      if os.path.isfile(surelog_log_filepath):
+        content = open(surelog_log_filepath, 'rt', encoding='cp850').read()
+        if 'Segmentation fault' in content:
+          result['STATUS'] = Status.SEGFLT
+
+        if roundtrip_content:
+          content += '\n\n' + '\n'.join(roundtrip_content)
+
+        content = _normalize_log(content, {
+          workspace_dirpath: '${SURELOG_DIR}'
+        })
+
+        open(surelog_log_filepath, 'wt', encoding='cp850').write(content)
       else:
-        print(f'File not found: {uhdm_slpp_all_filepath}')
-        print(f'File not found: {uhdm_slpp_unit_filepath}')
-
-    if uhdm_src_filepath and result['STATUS'] == Status.PASS:
-      print('Running uhdm-dump ...', flush=True)
-      result.update(_run_uhdm_dump(
-          name, uhdm_dump_filepath, uhdm_src_filepath, uhdm_dump_log_filepath, output_dirpath))
+        print(f'File not found: {surelog_log_filepath}')
+        result['STATUS'] == Status.FAIL
       print('\n')
-      regression_log_strm.flush()
 
-    roundtrip_content = None
-    if uhdm_src_filepath and result['STATUS'] == Status.PASS:
-      print('Running roundtrip ...', flush=True)
-      result.update(_run_roundtrip(
-          name, filepath, roundtrip_filepath, uhdm_src_filepath,
-          roundtrip_log_filepath, roundtrip_output_dirpath))
-      print('\n')
-      regression_log_strm.flush()
+      # If golden file is missing, then fail the test explicitly!
+      if result['STATUS'] == Status.PASS and not os.path.isfile(golden_log_filepath):
+        result['STATUS'] = Status.NOGOLD
 
-      if os.path.isfile(roundtrip_log_filepath):
-        roundtrip_content = open(roundtrip_log_filepath, 'rt').read()
-
-    print(f'Normalizing surelog log file {surelog_log_filepath}')
-    if os.path.isfile(surelog_log_filepath):
-      content = open(surelog_log_filepath, 'rt', encoding='cp850').read()
-      if 'Segmentation fault' in content:
-        result['STATUS'] = Status.SEGFLT
-
-      if roundtrip_content:
-        content += '\n\n' + roundtrip_content
-
-      content = _normalize_log(content, {
-        workspace_dirpath: '${SURELOG_DIR}'
+      result.update({
+        'golden': _get_log_statistics(golden_log_filepath),
+        'current': _get_log_statistics(surelog_log_filepath)
       })
 
-      open(surelog_log_filepath, 'wt', encoding='cp850').write(content)
-    else:
-      print(f'File not found: {surelog_log_filepath}')
-      result['STATUS'] == Status.FAIL
-    print('\n')
-
-    # If golden file is missing, then fail the test explicitly!
-    if result['STATUS'] == Status.PASS and not os.path.isfile(golden_log_filepath):
-      result['STATUS'] = Status.NOGOLD
-
-    result.update({
-      'golden': _get_log_statistics(golden_log_filepath),
-      'current': _get_log_statistics(surelog_log_filepath)
-    })
-
-    if result['STATUS'] == Status.PASS:
-      current = result['current']
-      golden = result['golden']
-      if len(current) == len(golden):
-        for k, v in current.items():
-          if k == 'STATS':
-            current_stat = v
-            golden_stat = golden.get(k, {})
-            if len(current_stat) == len(golden_stat):
-              for m, c in current_stat.items():
-                if c != golden_stat.get(m, 0):
-                  result['STATUS'] = Status.DIFF
-                  break
-            elif golden_stat:
+      if result['STATUS'] == Status.PASS:
+        current = result['current']
+        golden = result['golden']
+        if len(current) == len(golden):
+          for k, v in current.items():
+            if k == 'STATS':
+              current_stat = v
+              golden_stat = golden.get(k, {})
+              if len(current_stat) == len(golden_stat):
+                for m, c in current_stat.items():
+                  if c != golden_stat.get(m, 0):
+                    result['STATUS'] = Status.DIFF
+                    break
+              elif golden_stat:
+                result['STATUS'] = Status.DIFF
+                break
+            elif k not in ['ROUNDTRIP_A', 'ROUNDTRIP_B'] and v != golden.get(k, 0):
               result['STATUS'] = Status.DIFF
               break
-          elif k not in ['ROUNDTRIP_A', 'ROUNDTRIP_B'] and v != golden.get(k, 0):
-            result['STATUS'] = Status.DIFF
-            break
 
-          if result['STATUS'] != Status.PASS:
-            break
-      else:
-        result['STATUS'] = Status.DIFF
+            if result['STATUS'] != Status.PASS:
+              break
+        else:
+          result['STATUS'] = Status.DIFF
 
-    print('Restoring pristine state ...', flush=True)
-    current_snapshot = _snapshot_directory_state(dirpath)
-    print(f'Found {len(current_snapshot)} files & directories')
+      print('Restoring pristine state ...', flush=True)
+      current_snapshot = _snapshot_directory_state(dirpath)
+      print(f'Found {len(current_snapshot)} files & directories')
 
-    _restore_directory_state(
-      dirpath, golden_snapshot,
-      output_dirpath, current_snapshot)
-    print('\n')
+      _restore_directory_state(
+        dirpath, golden_snapshot,
+        output_dirpath, current_snapshot)
+      print('\n')
 
-    pprint.pprint({'result': result})
-    print('\n')
+      pprint.pprint({'result': result})
+      print('\n')
 
-    if result['STATUS'] == Status.DIFF:
-      result['diff-lines'] = _compare_one(golden_log_filepath, surelog_log_filepath)
-      regression_log_strm.writelines(result['diff-lines'])
+      if result['STATUS'] == Status.DIFF:
+        result['diff-lines'] = _compare_one(golden_log_filepath, surelog_log_filepath)
+        regression_log_strm.writelines(result['diff-lines'])
 
-    end_dt = datetime.now()
-    delta = end_dt - start_dt
-    print(f'end-time: {str(end_dt)} {str(delta)}')
+      end_dt = datetime.now()
+      delta = end_dt - start_dt
+      print(f'end-time: {str(end_dt)} {str(delta)}')
+
+      completed = True
+    except:
+      result['STATUS'] = Status.EXECERR
+      traceback.print_exc()
 
     regression_log_strm.flush()
 
@@ -726,7 +737,10 @@ def _run_one(params):
     _generate_tarball(output_dirpath)
     _rmdir(output_dirpath)
 
-  log(f'... {name} Completed.')
+  if completed:
+    log(f'... {name} Completed.')
+  else:
+    log(f'... {name} FAILED.')
   return result
 
 
@@ -1132,8 +1146,8 @@ def _main():
   parser.add_argument('--mt', dest='mt', default=None, type=str, help='Enable multithreading mode')
   parser.add_argument('--mp', dest='mp', default=None, type=str, help='Enable multiprocessing mode')
   parser.add_argument(
-    '--zipfile-path', dest='zipfile_path', required=False, type=str,
-    help='Path to zipfile to extract logs from.')
+      '--zipfile-path', dest='zipfile_path', required=False, type=str,
+      help='Path to zipfile to extract logs from.')
 
   args = parser.parse_args()
 
