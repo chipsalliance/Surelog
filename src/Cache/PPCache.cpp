@@ -20,7 +20,6 @@
  *
  * Created on April 23, 2017, 8:49 PM
  */
-
 #include <Surelog/Cache/PPCache.h>
 #include <Surelog/Cache/preproc_generated.h>
 #include <Surelog/CommandLine/CommandLineParser.h>
@@ -36,6 +35,8 @@
 #include <Surelog/SourceCompile/PreprocessFile.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Utils/FileUtils.h>
+
+#include <iostream>
 
 namespace SURELOG {
 namespace fs = std::filesystem;
@@ -102,7 +103,7 @@ bool PPCache::restore_(const fs::path& cacheFileName,
   if (buffer == nullptr) return false;
 
   const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(buffer.get());
-
+  // std::cout << "RESTORING FILE: " << cacheFileName << std::endl;
   SymbolTable cacheSymbols;
   restoreErrors(ppcache->errors(), ppcache->symbols(), &cacheSymbols,
                 m_pp->getCompileSourceFile()->getErrorContainer(),
@@ -112,6 +113,7 @@ bool PPCache::restore_(const fs::path& cacheFileName,
   const flatbuffers::Vector<flatbuffers::Offset<MACROCACHE::Macro>>* macros =
       ppcache->macros();
   for (const MACROCACHE::Macro* macro : *macros) {
+    // std::cout << "RESTORING MACRO: " << macro->name()->str() << std::endl;
     std::vector<std::string> args;
     for (const auto* macro_arg : *macro->arguments()) {
       args.push_back(macro_arg->str());
@@ -337,7 +339,7 @@ bool PPCache::save() {
   const fs::path& svFileName = m_pp->getFileName(LINE1);
   const fs::path& origFileName = svFileName;
   const fs::path& cacheFileName = getCacheFileName_();
-
+  // std::cout << "SAVING FILE: " << cacheFileName << std::endl;
   if (m_pp->isMacroBody()) return false;
 
   flatbuffers::FlatBufferBuilder builder(1024);
@@ -350,6 +352,7 @@ bool PPCache::save() {
   std::vector<flatbuffers::Offset<MACROCACHE::Macro>> macro_vec;
   for (const auto& [macroName, infoVec] : macros) {
     for (const auto& info : infoVec) {
+      // std::cout << "SAVING MACRO: " << macroName << std::endl;
       auto name = builder.CreateString(macroName);
       MACROCACHE::MacroType type = (info->m_type == MacroInfo::WITH_ARGS)
                                        ? MACROCACHE::MacroType_WITH_ARGS

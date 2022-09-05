@@ -1248,8 +1248,13 @@ void PreprocessFile::saveCache() {
       cache.save();
     }
   }
-  for (PreprocessFile* include : m_includes) {
-    include->saveCache();
-  }
+  // Disable cache saving for include files
+  // If an include file is multiply included in a compilation unit with
+  // different outcomes for the content of the file (GUARDING) The cache saved
+  // is incorrect.
+
+  // for (PreprocessFile* include : m_includes) {
+  //  include->saveCache();
+  // }
 }
 }  // namespace SURELOG
