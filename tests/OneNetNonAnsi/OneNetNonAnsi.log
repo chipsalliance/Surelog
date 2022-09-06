@@ -35,9 +35,8 @@ delay_control                                      4
 design                                             1
 immediate_assert                                   2
 initial                                            2
-logic_net                                          6
+logic_net                                          8
 logic_typespec                                     7
-logic_var                                          2
 module                                             4
 operation                                          2
 port                                               4
@@ -131,14 +130,12 @@ design: (work@tb)
     \_module: work@tb (work@tb), file:tb.v, line:1:1, endln:21:10
     |vpiName:i
     |vpiFullName:work@tb.i
-    |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@tb.o), line:2:12, endln:2:13
     |vpiParent:
     \_module: work@tb (work@tb), file:tb.v, line:1:1, endln:21:10
     |vpiName:o
     |vpiFullName:work@tb.o
-    |vpiNetType:36
   |vpiProcess:
   \_initial: , line:4:3, endln:9:6
     |vpiParent:
@@ -190,7 +187,7 @@ design: (work@tb)
           |vpiName:i
           |vpiFullName:work@tb.i
           |vpiActual:
-          \_logic_var: (work@tb.i), line:2:9, endln:2:10
+          \_logic_net: (work@tb.i), line:2:9, endln:2:10
         |vpiArgument:
         \_ref_obj: (work@tb.o), line:7:49, endln:7:50
           |vpiParent:
@@ -198,7 +195,7 @@ design: (work@tb)
           |vpiName:o
           |vpiFullName:work@tb.o
           |vpiActual:
-          \_logic_var: (work@tb.o), line:2:12, endln:2:13
+          \_logic_net: (work@tb.o), line:2:12, endln:2:13
         |vpiName:$monitor
       |vpiStmt:
       \_delay_control: , line:8:5, endln:8:9
@@ -240,7 +237,7 @@ design: (work@tb)
           |vpiName:i
           |vpiFullName:work@tb.i
           |vpiActual:
-          \_logic_var: (work@tb.i), line:2:9, endln:2:10
+          \_logic_net: (work@tb.i), line:2:9, endln:2:10
       |vpiStmt:
       \_delay_control: , line:14:5, endln:14:7
         |vpiParent:
@@ -262,7 +259,7 @@ design: (work@tb)
               |vpiName:i
               |vpiFullName:work@tb.i
               |vpiActual:
-              \_logic_var: (work@tb.i), line:2:9, endln:2:10
+              \_logic_net: (work@tb.i), line:2:9, endln:2:10
             |vpiOperand:
             \_ref_obj: (work@tb.o), line:14:20, endln:14:21
               |vpiParent:
@@ -270,7 +267,7 @@ design: (work@tb)
               |vpiName:o
               |vpiFullName:work@tb.o
               |vpiActual:
-              \_logic_var: (work@tb.o), line:2:12, endln:2:13
+              \_logic_net: (work@tb.o), line:2:12, endln:2:13
           |vpiStmt:
           \_sys_func_call: ($display), line:14:23, endln:14:38
             |vpiParent:
@@ -331,7 +328,7 @@ design: (work@tb)
             |vpiName:i
             |vpiFullName:work@tb.i
             |vpiActual:
-            \_logic_var: (work@tb.i), line:2:9, endln:2:10
+            \_logic_net: (work@tb.i), line:2:9, endln:2:10
       |vpiStmt:
       \_delay_control: , line:16:5, endln:16:7
         |vpiParent:
@@ -353,7 +350,7 @@ design: (work@tb)
               |vpiName:i
               |vpiFullName:work@tb.i
               |vpiActual:
-              \_logic_var: (work@tb.i), line:2:9, endln:2:10
+              \_logic_net: (work@tb.i), line:2:9, endln:2:10
             |vpiOperand:
             \_ref_obj: (work@tb.o), line:16:20, endln:16:21
               |vpiParent:
@@ -361,7 +358,7 @@ design: (work@tb)
               |vpiName:o
               |vpiFullName:work@tb.o
               |vpiActual:
-              \_logic_var: (work@tb.o), line:2:12, endln:2:13
+              \_logic_net: (work@tb.o), line:2:12, endln:2:13
           |vpiStmt:
           \_sys_func_call: ($display), line:16:23, endln:16:38
             |vpiParent:
@@ -399,26 +396,24 @@ design: (work@tb)
 |uhdmtopModules:
 \_module: work@tb (work@tb), file:tb.v, line:1:1, endln:21:10
   |vpiName:work@tb
-  |vpiVariables:
-  \_logic_var: (work@tb.i), line:2:9, endln:2:10
+  |vpiDefName:work@tb
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@tb.i), line:2:9, endln:2:10
     |vpiParent:
     \_module: work@tb (work@tb), file:tb.v, line:1:1, endln:21:10
     |vpiTypespec:
     \_logic_typespec: , line:2:3, endln:2:8
     |vpiName:i
     |vpiFullName:work@tb.i
-    |vpiVisibility:1
-  |vpiVariables:
-  \_logic_var: (work@tb.o), line:2:12, endln:2:13
+  |vpiNet:
+  \_logic_net: (work@tb.o), line:2:12, endln:2:13
     |vpiParent:
     \_module: work@tb (work@tb), file:tb.v, line:1:1, endln:21:10
     |vpiTypespec:
     \_logic_typespec: , line:2:3, endln:2:8
     |vpiName:o
     |vpiFullName:work@tb.o
-    |vpiVisibility:1
-  |vpiDefName:work@tb
-  |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
   \_module: work@dut (work@tb.dut1), file:tb.v, line:19:3, endln:19:17
@@ -460,7 +455,7 @@ design: (work@tb)
         |vpiName:i
         |vpiFullName:work@tb.i
         |vpiActual:
-        \_logic_var: (work@tb.i), line:2:9, endln:2:10
+        \_logic_net: (work@tb.i), line:2:9, endln:2:10
       |vpiLowConn:
       \_ref_obj: (work@tb.dut1.i), line:1:13, endln:1:14
         |vpiName:i
@@ -480,7 +475,7 @@ design: (work@tb)
         |vpiName:o
         |vpiFullName:work@tb.o
         |vpiActual:
-        \_logic_var: (work@tb.o), line:2:12, endln:2:13
+        \_logic_net: (work@tb.o), line:2:12, endln:2:13
       |vpiLowConn:
       \_ref_obj: (work@tb.dut1.o), line:1:16, endln:1:17
         |vpiName:o
