@@ -6,6 +6,7 @@
 #include <ostream>
 #include <set>
 #include <unordered_set>
+#include <type_traits>
 
 namespace SURELOG {
 /**
@@ -24,7 +25,15 @@ class NodeId final {
   constexpr NodeId(const NodeId &rhs) : id(rhs.id) {}
 
   operator RawNodeId() const { return id; }
-  operator std::size_t() const { return id; }
+
+  // Don't include size_t conversion on 32Bit machines where sizeof(size_t)==32
+  template <typename T = std::size_t,
+            typename std::enable_if<!std::is_same<T, RawNodeId>::value>::type
+                * = nullptr>
+  operator std::size_t() const {
+    return id;
+  }
+
   operator bool() const { return id != InvalidRawNodeId; }
 
   bool operator<(const NodeId &rhs) const { return id < rhs.id; }
