@@ -79,8 +79,8 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args,
         m_exprEvalPlaceHolder->Param_assigns()->begin(),
         m_exprEvalPlaceHolder->Param_assigns()->end());
   }
-  expr* res = eval.EvalFunc(func, args, invalidValue, m_exprEvalPlaceHolder,
-                            fileName, lineNumber, pexpr);
+  expr* res =
+      eval.evalFunc(func, args, invalidValue, m_exprEvalPlaceHolder, pexpr);
   return res;
 }
 
