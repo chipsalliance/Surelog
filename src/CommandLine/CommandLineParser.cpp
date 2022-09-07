@@ -1231,19 +1231,22 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (all_arguments[i] == "-nocache") {
       m_cacheAllowed = false;
     } else if (all_arguments[i] == "-sv") {
-      fs::path svpath = FileUtils::getPreferredPath(all_arguments[i]);
-      if (FileUtils::fileExists(svpath)) {
-        i++;
-        SymbolId id = m_symbolTable->registerSymbol(svpath.string());
-        m_sourceFiles.push_back(id);
-        fs::path fileName = FileUtils::basename(svpath);
-        m_svSourceFiles.insert(fileName);
-        fs::path path = FileUtils::getPathName(svpath);
-        if (!path.empty()) {
-          SymbolId pathId = m_symbolTable->registerSymbol(path.string());
-          if (m_includePathSet.find(pathId) == m_includePathSet.end()) {
-            m_includePathSet.insert(pathId);
-            m_includePaths.push_back(pathId);
+      if (((i + 1) < all_arguments.size()) &&
+          (all_arguments[i + 1][0] != '-')) {
+        ++i;
+        fs::path svpath = FileUtils::getPreferredPath(all_arguments[i]);
+        if (FileUtils::fileExists(svpath)) {
+          SymbolId id = m_symbolTable->registerSymbol(svpath.string());
+          m_sourceFiles.push_back(id);
+          fs::path fileName = FileUtils::basename(svpath);
+          m_svSourceFiles.insert(fileName);
+          fs::path path = FileUtils::getPathName(svpath);
+          if (!path.empty()) {
+            SymbolId pathId = m_symbolTable->registerSymbol(path.string());
+            if (m_includePathSet.find(pathId) == m_includePathSet.end()) {
+              m_includePathSet.insert(pathId);
+              m_includePaths.push_back(pathId);
+            }
           }
         }
       } else {
