@@ -31,8 +31,6 @@ SymbolTable::SymbolTable() : m_parent(nullptr), m_idOffset(0) {
   registerSymbol(getBadSymbol());
 }
 
-SymbolTable::~SymbolTable() {}
-
 SymbolTable* SymbolTable::CreateSnapshot() const {
   return new SymbolTable(*this);
 }
@@ -47,39 +45,44 @@ const std::string& SymbolTable::getEmptyMacroMarker() {
   return k_emptyMacroMarker;
 }
 
-SymbolId SymbolTable::registerSymbol(std::string_view symbol) {
+std::pair<SymbolId, std::string_view> SymbolTable::add(
+    std::string_view symbol) {
   if (m_parent) {
-    if (SymbolId id = m_parent->getId(symbol);
+    if (auto [id, normalized] = m_parent->get(symbol);
         (id != getBadId() || symbol == getBadSymbol()) &&
         (RawSymbolId)id < m_idOffset) {
-      return id;
+      return {id, normalized};
     }
   }
   assert(symbol.data());
   auto found = m_symbol2IdMap.find(symbol);
   if (found != m_symbol2IdMap.end()) {
-    return SymbolId(found->second + m_idOffset, found->first);
+    return {SymbolId(found->second + m_idOffset, found->first),
+            m_id2SymbolMap[found->second]};
   }
-  m_id2SymbolMap.emplace_back(symbol);
-  const std::string_view normalized_symbol = m_id2SymbolMap.back();
-  const auto inserted = m_symbol2IdMap.insert({normalized_symbol, m_idCounter});
+  const std::string& normalized = m_id2SymbolMap.emplace_back(symbol);
+  const auto inserted = m_symbol2IdMap.insert({normalized, m_idCounter});
   assert(inserted.second);  // This new insert must succeed.
   m_idCounter++;
-  return SymbolId(inserted.first->second + m_idOffset, inserted.first->first);
+  return {SymbolId(inserted.first->second + m_idOffset, inserted.first->first),
+          normalized};
 }
 
-SymbolId SymbolTable::getId(std::string_view symbol) const {
+std::pair<SymbolId, std::string_view> SymbolTable::get(
+    std::string_view symbol) const {
   if (m_parent) {
-    if (SymbolId id = m_parent->getId(symbol);
+    if (auto [id, normalized] = m_parent->get(symbol);
         id != getBadId() && (RawSymbolId)id < m_idOffset) {
-      return id;
+      return {id, normalized};
     }
   }
 
   auto found = m_symbol2IdMap.find(symbol);
   return (found == m_symbol2IdMap.end())
-             ? getBadId()
-             : SymbolId(found->second + m_idOffset, found->first);
+             ? std::make_pair(getBadId(), getBadSymbol())
+             : std::make_pair(
+                   SymbolId(found->second + m_idOffset, found->first),
+                   m_id2SymbolMap[found->second]);
 }
 
 const std::string& SymbolTable::getSymbol(SymbolId id) const {
@@ -91,6 +94,10 @@ const std::string& SymbolTable::getSymbol(SymbolId id) const {
   rid -= m_idOffset;
   if (rid >= m_id2SymbolMap.size()) return getBadSymbol();
   return m_id2SymbolMap[rid];
+}
+
+SymbolId SymbolTable::copyFrom(SymbolId id, const SymbolTable* rhs) {
+  return id ? registerSymbol(rhs->getSymbol(id)) : BadSymbolId;
 }
 
 void SymbolTable::AppendSymbols(int64_t up_to,

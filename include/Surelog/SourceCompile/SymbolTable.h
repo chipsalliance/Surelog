@@ -35,11 +35,10 @@
 #include <vector>
 
 namespace SURELOG {
-
 class SymbolTable final {
  public:
   SymbolTable();
-  ~SymbolTable();
+  ~SymbolTable() = default;
 
   // Create a snapshot of this symbol table. The returned SymbolTable contains
   // all the symbols this table has and allows to then continue using the new
@@ -47,18 +46,30 @@ class SymbolTable final {
   // TODO: at some point, return std::unique_ptr<>
   SymbolTable* CreateSnapshot() const;
 
+  // Register given "symbol" string as a symbol and return its id and the
+  // canonicalized view. If this is an existing symbol, its existing ID is
+  // returned, otherwise a new one is created.
+  std::pair<SymbolId, std::string_view> add(std::string_view symbol);
+
   // Register given "symbol" string as a symbol and return its id.
   // If this is an existing symbol, its ID is returned, otherwise a new one
   // is created.
-  SymbolId registerSymbol(std::string_view symbol);
+  SymbolId registerSymbol(std::string_view symbol) { return add(symbol).first; }
+
+  // Find id and canonicalized view of given "symbol" or return bad-ID
+  // (see #getBad()) if it doesn't exist.
+  std::pair<SymbolId, std::string_view> get(std::string_view symbol) const;
 
   // Find id of given "symbol" or return bad-ID (see #getBad()) if it doesn't
   // exist.
-  SymbolId getId(std::string_view symbol) const;
+  SymbolId getId(std::string_view symbol) const { return get(symbol).first; }
 
   // Get symbol string identified by given ID or BadSymbol if it doesn't exist
   // (see #getBadSymbol()).
   const std::string& getSymbol(SymbolId id) const;
+
+  // Copy input id from corresponding SymbolTable rhs to this SymbolTable
+  SymbolId copyFrom(SymbolId id, const SymbolTable* rhs);
 
   // Get a vector of all symbols. As a special property, the SymbolID can be
   // used as an index into this  vector to get the corresponding text-symbol.
@@ -88,7 +99,6 @@ class SymbolTable final {
   // m_id2SymbolMap
   std::unordered_map<std::string_view, RawSymbolId> m_symbol2IdMap;
 };
-
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* SURELOG_SYMBOLTABLE_H */
