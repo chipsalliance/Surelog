@@ -27,8 +27,6 @@
 
 #include <Surelog/Cache/Cache.h>
 
-#include <memory>
-
 namespace SURELOG {
 
 class ParseFile;
@@ -44,12 +42,9 @@ class ParseCache : Cache {
  private:
   ParseCache(const ParseCache& orig) = delete;
 
-  std::filesystem::path getCacheFileName_(
-      const std::filesystem::path& fileName = "");
-  bool restore_(const std::filesystem::path& cacheFileName,
-                const std::unique_ptr<uint8_t[]>& buffer);
-  bool checkCacheIsValid_(const std::filesystem::path& cacheFileName,
-                          const std::unique_ptr<uint8_t[]>& buffer);
+  PathId getCacheFileName_(PathId svFileNameId);
+  bool restore_(PathId cacheFileId, const std::unique_ptr<uint8_t[]>& buffer);
+  bool checkCacheIsValid_(PathId cacheFileId, const std::unique_ptr<uint8_t[]>& buffer);
 
   ParseFile* m_parse;
   bool m_isPrecompiled;

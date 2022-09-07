@@ -25,7 +25,7 @@
 
 namespace SURELOG {
 
-bool Location::operator==(const Location& rhs) const {
+bool Location::operator==(const Location &rhs) const {
   if (m_fileId != rhs.m_fileId) return false;
   if (m_line != rhs.m_line) return false;
   if (m_column != rhs.m_column) return false;
@@ -33,13 +33,22 @@ bool Location::operator==(const Location& rhs) const {
   return true;
 }
 
-bool Location::operator<(const Location& rhs) const {
-  static SymbolIdLessThanComparer comparer;
-  if (comparer(m_fileId, rhs.m_fileId)) return true;
+bool Location::operator<(const Location &rhs) const {
+  static PathIdLessThanComparer pathIdComparer;
+  static SymbolIdLessThanComparer symbolIdComparer;
+  if (pathIdComparer(m_fileId, rhs.m_fileId)) return true;
   if (m_line < rhs.m_line) return true;
   if (m_column < rhs.m_column) return true;
-  if (comparer(m_object, rhs.m_object)) return true;
+  if (symbolIdComparer(m_object, rhs.m_object)) return true;
   return false;
+}
+
+std::ostream &operator<<(std::ostream &strm, const Location &location) {
+  strm << "file-id=" << location.m_fileId << ", "
+       << "line=" << location.m_line << ", "
+       << "column=" << location.m_column << ", "
+       << "object=" << location.m_object;
+  return strm;
 }
 
 }  // namespace SURELOG

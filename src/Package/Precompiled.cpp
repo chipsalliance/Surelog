@@ -21,40 +21,46 @@
  * Created on April 28, 2018, 10:27 AM
  */
 
+#include <Surelog/Common/FileSystem.h>
+#include <Surelog/Common/PathId.h>
 #include <Surelog/Package/Precompiled.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/FileUtils.h>
 
 namespace SURELOG {
+Precompiled* Precompiled::getSingleton() {
+  static Precompiled* const singleton = new Precompiled();
+  return singleton;
+}
 
 Precompiled::Precompiled() {
   addPrecompiled("uvm_pkg", "uvm_pkg.sv");
   addPrecompiled("ovm_pkg", "ovm_pkg.sv");
 }
 
-Precompiled* Precompiled::getSingleton() {
-  static Precompiled* const singleton = new Precompiled();
-  return singleton;
+void Precompiled::addPrecompiled(std::string_view packageName,
+                                 std::string_view fileName) {
+  m_packageMap.emplace(packageName, fileName);
+  m_packageFileSet.emplace(fileName);
 }
 
-void Precompiled::addPrecompiled(const std::string& packageName,
-                                 const std::string& fileName) {
-  m_packageMap.insert({packageName, fileName});
-  m_packageFileSet.insert(fileName);
-}
-
-std::string Precompiled::getFileName(const std::string& packageName) const {
+std::string Precompiled::getFileName(std::string_view packageName) const {
   auto found = m_packageMap.find(packageName);
   return (found == m_packageMap.end()) ? "" : found->second;
 }
 
-bool Precompiled::isFilePrecompiled(
-    const std::filesystem::path& fileName) const {
-  auto found = m_packageFileSet.find(fileName);
-  return (found != m_packageFileSet.end());
+bool Precompiled::isFilePrecompiled(std::string_view fileName) const {
+  return (m_packageFileSet.find(fileName) != m_packageFileSet.end());
 }
 
-bool Precompiled::isPackagePrecompiled(const std::string& packageName) const {
-  auto found = m_packageMap.find(packageName);
-  return (found != m_packageMap.end());
+bool Precompiled::isFilePrecompiled(PathId fileId) const {
+  std::filesystem::path filePath = FileSystem::getInstance()->toPath(fileId);
+  std::filesystem::path fileName = FileUtils::basename(filePath);
+  return (m_packageFileSet.find(fileName) != m_packageFileSet.end());
+}
+
+bool Precompiled::isPackagePrecompiled(std::string_view packageName) const {
+  return (m_packageMap.find(packageName) != m_packageMap.end());
 }
 
 }  // namespace SURELOG

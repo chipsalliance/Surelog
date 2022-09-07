@@ -25,7 +25,9 @@
 #define SURELOG_ANTLRPARSERERRORLISTENER_H
 #pragma once
 
+#include <Surelog/Common/PathId.h>
 #include <ANTLRErrorListener.h>
+
 
 namespace SURELOG {
 
@@ -34,13 +36,14 @@ class ParseFile;
 class AntlrParserErrorListener : public antlr4::ANTLRErrorListener {
  public:
   AntlrParserErrorListener(ParseFile *parser, bool watchDogOn,
-                           unsigned int lineOffset, const std::string &fileName)
+                           unsigned int lineOffset,
+                           PathId fileId)
       : m_parser(parser),
         m_reportedSyntaxError(false),
         m_watchDogOn(watchDogOn),
         m_barked(false),
         m_lineOffset(lineOffset),
-        m_fileName(fileName) {}
+        m_fileId(fileId) {}
 
   ~AntlrParserErrorListener() override{};
 
@@ -70,7 +73,7 @@ class AntlrParserErrorListener : public antlr4::ANTLRErrorListener {
   bool m_watchDogOn;
   bool m_barked;
   unsigned int m_lineOffset;
-  std::string m_fileName;
+  PathId m_fileId;
   std::string m_fileContent;
 };
 

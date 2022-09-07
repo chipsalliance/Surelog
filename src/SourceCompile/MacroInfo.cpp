@@ -22,3 +22,20 @@
  */
 
 #include <Surelog/SourceCompile/MacroInfo.h>
+
+namespace SURELOG {
+MacroInfo::MacroInfo(std::string_view name, int type, PathId fileId,
+                     unsigned int startLine, unsigned short int startColumn,
+                     unsigned int endLine, unsigned short int endColumn,
+                     const std::vector<std::string>& arguments,
+                     const std::vector<std::string>& tokens)
+    : m_name(name),
+      m_type(type),
+      m_fileId(fileId),
+      m_startLine(startLine),
+      m_startColumn(startColumn),
+      m_endLine(endLine),
+      m_endColumn(endColumn),
+      m_arguments(arguments),
+      m_tokens(tokens) {}
+}  // namespace SURELOG

@@ -25,9 +25,9 @@
 #define SURELOG_COMMANDLINEPARSER_H
 #pragma once
 
+#include <Surelog/Common/PathId.h>
 #include <Surelog/Common/SymbolId.h>
 
-#include <filesystem>
 #include <map>
 #include <set>
 #include <string>
@@ -41,31 +41,21 @@ class SymbolTable;
 class CommandLineParser final {
  public:
   CommandLineParser(ErrorContainer* errors, SymbolTable* symbolTable,
-                    bool diff_comp_mode = false, bool fileUnit = false);
+                    bool diffCompMode = false, bool fileUnit = false);
   bool parseCommandLine(int argc, const char** argv);
 
   /* Verilog command line content */
-  const std::vector<SymbolId>& getLibraryPaths() const {
-    return m_libraryPaths;
-  }
-  const std::vector<SymbolId>& getSourceFiles() const { return m_sourceFiles; }
-  const std::vector<SymbolId>& getLibraryFiles() const {
-    return m_libraryFiles;
-  }
-  const std::vector<SymbolId>& getLibraryExtensions() const {
+  const PathIdVector& getLibraryPaths() const { return m_libraryPaths; }
+  const PathIdVector& getSourceFiles() const { return m_sourceFiles; }
+  const PathIdVector& getLibraryFiles() const { return m_libraryFiles; }
+  const SymbolIdVector& getLibraryExtensions() const {
     return m_libraryExtensions;
   }
-  const std::vector<SymbolId>& getIncludePaths() const {
-    return m_includePaths;
-  }
-  const std::vector<SymbolId>& getOrdredLibraries() const {
-    return m_orderedLibraries;
-  }
-  const std::vector<SymbolId>& getLibraryMapFiles() const {
-    return m_libraryMapFiles;
-  }
-  const std::vector<SymbolId>& getConfigFiles() const { return m_configFiles; }
-  const std::vector<SymbolId>& getUseConfigs() const { return m_useConfigs; }
+  const PathIdVector& getIncludePaths() const { return m_includePaths; }
+  const PathIdVector& getOrdredLibraries() const { return m_orderedLibraries; }
+  const PathIdVector& getLibraryMapFiles() const { return m_libraryMapFiles; }
+  const PathIdVector& getConfigFiles() const { return m_configFiles; }
+  const SymbolIdVector& getUseConfigs() const { return m_useConfigs; }
   const std::map<SymbolId, std::string, SymbolIdLessThanComparer>&
   getDefineList() const {
     return m_defineList;
@@ -75,19 +65,19 @@ class CommandLineParser final {
     return m_paramList;
   }
   bool fileunit() const {
-    return m_fileunit;
+    return m_fileUnit;
   }  // File or all compilation semantic
-  void setFileUnit() { m_fileunit = true; }
+  void setFileUnit() { m_fileUnit = true; }
   /* PP Output file/dir options */
-  SymbolId writePpOutputFileId() const { return m_writePpOutputFileId; }
-  SymbolId getOutputDir() const { return m_outputDir; }
-  SymbolId getCompileAllDir() const { return m_compileAllDirectory; }
-  SymbolId getCompileUnitDir() const { return m_compileUnitDirectory; }
-  SymbolId getCompileDir() const {
-    return fileunit() ? m_compileUnitDirectory : m_compileAllDirectory;
+  PathId writePpOutputFileId() const { return m_writePpOutputFileId; }
+  PathId getOutputDirId() const { return m_outputDirId; }
+  PathId getCompileAllDirId() const { return m_compileAllDirId; }
+  PathId getCompileUnitDirId() const { return m_compileUnitDirId; }
+  PathId getCompileDirId() const {
+    return fileunit() ? m_compileUnitDirId : m_compileAllDirId;
   }
-  SymbolId getFullCompileDir() const { return m_fullCompileDir; }
-  SymbolId getLogFileId() const { return m_logFileId; }
+  PathId getFullCompileDirId() const { return m_fullCompileDirId; }
+  PathId getLogFileId() const { return m_logFileId; }
   SymbolId getDefaultLogFileId() const { return m_defaultLogFileId; }
   bool writePpOutput() const { return m_writePpOutput; }
   void setwritePpOutput(bool value) { m_writePpOutput = value; }
@@ -98,8 +88,8 @@ class CommandLineParser final {
   bool noCacheHash() const { return m_noCacheHash; }
   void setCacheAllowed(bool val) { m_cacheAllowed = val; }
   bool lineOffsetsAsComments() const { return m_lineOffsetsAsComments; }
-  SymbolId getCacheDir() const { return m_cacheDirId; }
-  SymbolId getPrecompiledDir() const { return m_precompiledDirId; }
+  PathId getCacheDirId() const { return m_cacheDirId; }
+  PathId getPrecompiledDirId() const { return m_precompiledDirId; }
   bool usePPOutputFileLocation() const { return m_ppOutputFileLocation; }
   /* PP Output content generation options */
   bool filterFileLine() const { return m_filterFileLine; }
@@ -146,7 +136,7 @@ class CommandLineParser final {
   bool elaborate() const { return m_elaborate; }
   bool writeUhdm() const { return m_writeUhdm; }
   bool sepComp() const { return m_sepComp; }
-  bool link() const { return m_link; } 
+  bool link() const { return m_link; }
   void setParse(bool val) { m_parse = val; }
   void setParseOnly(bool val) { m_parseOnly = val; }
   void setLowMem(bool val) { m_lowMem = val; }
@@ -190,15 +180,15 @@ class CommandLineParser final {
   bool pythonEvalScript() const {
     return m_pythonEvalScript && m_pythonAllowed;
   }
-  SymbolId pythonEvalScriptPerFileId() const {
+  PathId pythonEvalScriptPerFileId() const {
     return m_pythonEvalScriptPerFileId;
   }
-  SymbolId pythonEvalScriptId() const { return m_pythonEvalScriptId; }
-  SymbolId pythonListenerId() const { return m_pythonListenerFileId; }
-  const SymbolTable& getSymbolTable() const { return *m_symbolTable; }
+  PathId pythonEvalScriptId() const { return m_pythonEvalScriptId; }
+  PathId pythonListenerId() const { return m_pythonListenerFileId; }
 
   // There are some places that modify the command-line symbol table.
-  SymbolTable* mutableSymbolTable() const { return m_symbolTable; }
+  SymbolTable* getSymbolTable() { return m_symbolTable; }
+  const SymbolTable* getSymbolTable() const { return m_symbolTable; }
 
   /* Internal */
   ErrorContainer* getErrorContainer() const { return m_errors; }
@@ -213,20 +203,25 @@ class CommandLineParser final {
   std::string getTimeScale() const { return m_timescale; }
   bool createCache() const { return m_createCache; }
   std::string currentDateTime();
-  bool parseBuiltIn();
-  std::filesystem::path getBuiltInPath() const { return m_builtinPath; }
-  std::filesystem::path getExePath() const { return m_exePath; }
+  bool parseBuiltIn() const { return m_parseBuiltIn; }
+  PathId getProgramId() const { return m_programId; }
   std::string getExeCommand() const { return m_exeCommand; }
   std::set<std::string>& getTopLevelModules() { return m_topLevelModules; }
   std::set<std::string>& getBlackBoxModules() { return m_blackboxModules; }
   std::set<std::string>& getBlackBoxInstances() { return m_blackboxInstances; }
-  void setTopLevelModule(const std::string& module) { m_topLevelModules.insert(module); }
-  void setBlackBoxModule(const std::string& module) { m_blackboxModules.insert(module); }
-  void setBlackBoxInstance(const std::string& instance) { m_blackboxInstances.insert(instance); }
+  void setTopLevelModule(const std::string& module) {
+    m_topLevelModules.insert(module);
+  }
+  void setBlackBoxModule(const std::string& module) {
+    m_blackboxModules.insert(module);
+  }
+  void setBlackBoxInstance(const std::string& instance) {
+    m_blackboxInstances.insert(instance);
+  }
 
   bool fullSVMode() const { return m_sverilog; }
   void fullSVMode(bool sverilog) { m_sverilog = sverilog; }
-  bool isSVFile(const std::filesystem::path& fileName) const;
+  bool isSVFile(PathId fileId) const;
   bool cleanCache();
 
  private:
@@ -237,7 +232,9 @@ class CommandLineParser final {
   void processArgs_(const std::vector<std::string>& args,
                     std::vector<std::string>& container);
   void splitPlusArg_(const std::string& s, const std::string& prefix,
-                     std::vector<SymbolId>& container);
+                     SymbolIdVector& container);
+  void splitPlusArg_(const std::string& s, const std::string& prefix,
+                     PathIdVector& container);
   void splitPlusArg_(
       const std::string& s, const std::string& prefix,
       std::map<SymbolId, std::string, SymbolIdLessThanComparer>& container);
@@ -248,28 +245,28 @@ class CommandLineParser final {
   bool prepareCompilation_(int argc, const char** argv);
   bool setupCache_();
 
-  std::vector<SymbolId> m_libraryPaths;             // -y
-  std::vector<SymbolId> m_sourceFiles;              // .v .sv
-  std::set<std::filesystem::path> m_svSourceFiles;  // user forced sv files
-  std::vector<SymbolId> m_libraryFiles;             // -v
-  std::vector<SymbolId> m_includePaths;             // +incdir+
-  SymbolIdSet m_includePathSet;
-  std::vector<SymbolId> m_libraryExtensions;  // +libext+
-  std::vector<SymbolId> m_orderedLibraries;   // -L <libName>
-  std::vector<SymbolId> m_libraryMapFiles;    // -map
-  std::vector<SymbolId> m_configFiles;        // -cfgFile <config file>
-  std::vector<SymbolId> m_useConfigs;         // -cfg <configName>
+  PathIdVector m_libraryPaths;  // -y
+  PathIdVector m_sourceFiles;   // .v .sv
+  PathIdSet m_svSourceFiles;    // user forced sv files
+  PathIdVector m_libraryFiles;  // -v
+  PathIdVector m_includePaths;  // +incdir+
+  PathIdSet m_includePathSet;
+  SymbolIdVector m_libraryExtensions;  // +libext+
+  PathIdVector m_orderedLibraries;     // -L <libName>
+  PathIdVector m_libraryMapFiles;      // -map
+  PathIdVector m_configFiles;          // -cfgFile <config file>
+  SymbolIdVector m_useConfigs;         // -cfg <configName>
   std::map<SymbolId, std::string, SymbolIdLessThanComparer>
       m_defineList;  // +define+
   std::map<SymbolId, std::string, SymbolIdLessThanComparer>
       m_paramList;  // -Pparameter=value
-  SymbolId m_writePpOutputFileId;
+  PathId m_writePpOutputFileId;
   bool m_writePpOutput;
   bool m_filterFileLine;
   int m_debugLevel;
-  ErrorContainer* m_errors;
-  SymbolTable* m_symbolTable;
-  SymbolId m_logFileId;
+  ErrorContainer* m_errors = nullptr;
+  SymbolTable* m_symbolTable = nullptr;
+  PathId m_logFileId;
   bool m_lineOffsetsAsComments;
   bool m_liborder;
   bool m_librescan;
@@ -277,7 +274,7 @@ class CommandLineParser final {
   bool m_nolibcell;
   bool m_muteStdout;
   bool m_verbose;
-  bool m_fileunit;
+  bool m_fileUnit;
   bool m_filterSimpleDirectives;
   bool m_filterProtectedRegions;
   bool m_filterComments;
@@ -287,20 +284,20 @@ class CommandLineParser final {
   bool m_elaborate;
   bool m_parametersubstitution;
   bool m_letexprsubstitution;
-  bool m_diff_comp_mode;
+  bool m_diffCompMode;
   bool m_help;
   bool m_cacheAllowed;
   bool m_debugCache;
   unsigned short int m_nbMaxTreads;
   unsigned short int m_nbMaxProcesses;
-  SymbolId m_compileUnitDirectory;
-  SymbolId m_compileAllDirectory;
-  SymbolId m_outputDir;
-  SymbolId m_fullCompileDir;
+  PathId m_compileUnitDirId;
+  PathId m_compileAllDirId;
+  PathId m_outputDirId;
+  PathId m_fullCompileDirId;
   SymbolId m_defaultLogFileId;
-  SymbolId m_defaultCacheDirId;
-  SymbolId m_cacheDirId;
-  SymbolId m_precompiledDirId;
+  PathId m_defaultCacheDirId;
+  PathId m_cacheDirId;
+  PathId m_precompiledDirId;
   bool m_note;
   bool m_info;
   bool m_warning;
@@ -314,16 +311,15 @@ class CommandLineParser final {
   std::string m_timescale;
   bool m_pythonEvalScriptPerFile;
   bool m_pythonEvalScript;
-  SymbolId m_pythonEvalScriptPerFileId;
-  SymbolId m_pythonEvalScriptId;
-  SymbolId m_pythonListenerFileId;
+  PathId m_pythonEvalScriptPerFileId;
+  PathId m_pythonEvalScriptId;
+  PathId m_pythonListenerFileId;
   bool m_debugIncludeFileInfo;
   bool m_createCache;
   bool m_profile;
   bool m_parseBuiltIn;
   bool m_ppOutputFileLocation;
-  std::filesystem::path m_builtinPath;
-  std::filesystem::path m_exePath;
+  PathId m_programId;
   std::string m_exeCommand;
   std::set<std::string> m_topLevelModules;
   std::set<std::string> m_blackboxModules;

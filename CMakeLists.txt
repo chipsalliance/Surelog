@@ -274,6 +274,9 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/Cache/ParseCache.cpp
   ${PROJECT_SOURCE_DIR}/src/CommandLine/CommandLineParser.cpp
   ${PROJECT_SOURCE_DIR}/src/Common/ClockingBlockHolder.cpp
+  ${PROJECT_SOURCE_DIR}/src/Common/FileSystem.cpp
+  ${PROJECT_SOURCE_DIR}/src/Common/PathId.cpp
+  ${PROJECT_SOURCE_DIR}/src/Common/SymbolId.cpp
   ${PROJECT_SOURCE_DIR}/src/Config/Config.cpp
   ${PROJECT_SOURCE_DIR}/src/Config/ConfigSet.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/DataType.cpp
@@ -697,7 +700,9 @@ install(
 install(
   FILES ${PROJECT_SOURCE_DIR}/include/Surelog/Common/ClockingBlockHolder.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/Containers.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Common/FileSystem.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/NodeId.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Common/PathId.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/PortNetHolder.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/RTTI.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/SymbolId.h

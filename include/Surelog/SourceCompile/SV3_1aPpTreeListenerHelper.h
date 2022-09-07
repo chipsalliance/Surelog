@@ -86,7 +86,7 @@ class SV3_1aPpTreeListenerHelper : public CommonListenerHelper {
   SymbolId registerSymbol(std::string_view symbol) final;
 
   std::tuple<unsigned int, unsigned short, unsigned int, unsigned short>
-  getFileLine(antlr4::ParserRuleContext* ctx, SymbolId& fileId) override;
+  getFileLine(antlr4::ParserRuleContext* ctx, PathId& fileId) override;
 
   ~SV3_1aPpTreeListenerHelper() override = default;
 };

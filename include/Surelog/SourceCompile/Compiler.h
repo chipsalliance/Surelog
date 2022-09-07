@@ -25,6 +25,7 @@ limitations under the License.
 #define SURELOG_COMPILER_H
 #pragma once
 
+#include <Surelog/Common/PathId.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/SourceCompile/CompileSourceFile.h>
@@ -56,6 +57,8 @@ class SymbolTable;
 
 class Compiler {
  public:
+  typedef std::map<PathId, std::vector<PathId>, PathIdLessThanComparer>
+      PPFileMap;
   Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
            SymbolTable* symbolTable);
   Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
@@ -91,11 +94,8 @@ class Compiler {
   vpiHandle getUhdmDesign() const { return m_uhdmDesign; }
   CompileDesign* getCompileDesign() const { return m_compileDesign; }
   ErrorContainer::Stats getErrorStats() const;
-  bool isLibraryFile(SymbolId id) const;
-  const std::map<std::filesystem::path, std::vector<std::filesystem::path>>&
-  getPPFileMap() {
-    return ppFileMap;
-  }
+  bool isLibraryFile(PathId id) const;
+  const PPFileMap& getPPFileMap() { return m_ppFileMap; }
 #ifdef USETBB
   tbb::task_group& getTaskGroup() { return m_taskGroup; }
 #endif
@@ -133,10 +133,10 @@ class Compiler {
   ConfigSet* const m_configSet;
   Design* const m_design;
   vpiHandle m_uhdmDesign;
-  SymbolIdSet m_libraryFiles;  // -v <file>
-  std::string m_text;          // unit tests
+  PathIdSet m_libraryFiles;  // -v <file>
+  std::string m_text;        // unit tests
   CompileDesign* m_compileDesign;
-  std::map<std::filesystem::path, std::vector<std::filesystem::path>> ppFileMap;
+  PPFileMap m_ppFileMap;
 #ifdef USETBB
   tbb::task_group m_taskGroup;
 #endif

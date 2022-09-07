@@ -60,8 +60,7 @@ class CompileFileContent final {
                      [[maybe_unused]] Design* design,
                      [[maybe_unused]] SymbolTable* symbols,
                      [[maybe_unused]] ErrorContainer* errors)
-      : m_compileDesign(compiler),
-        m_fileContent(file) {
+      : m_compileDesign(compiler), m_fileContent(file) {
     m_helper.seterrorReporting(errors, symbols);
   }
 

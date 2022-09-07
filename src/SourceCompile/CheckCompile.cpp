@@ -22,6 +22,7 @@
  */
 
 #include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/Design.h>
 #include <Surelog/Design/DesignElement.h>
 #include <Surelog/Design/FileContent.h>
@@ -50,24 +51,21 @@ bool CheckCompile::checkSyntaxErrors_() {
 }
 
 bool CheckCompile::mergeSymbolTables_() {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   const Design::FileIdDesignContentMap& all_files =
       m_compiler->getDesign()->getAllFileContents();
   for (const auto& sym_file : all_files) {
     const auto fileContent = sym_file.second;
-    m_compiler->getSymbolTable()->registerSymbol(
-        fileContent->getFileName().string());
+    fileSystem->copy(fileContent->getFileId(), m_compiler->getSymbolTable());
     for (NodeId id : fileContent->getNodeIds()) {
-      *fileContent->getMutableFileId(id) =
-          m_compiler->getSymbolTable()->registerSymbol(
-              fileContent->getSymbolTable()->getSymbol(
-                  fileContent->getFileId(id)));
+      *fileContent->getMutableFileId(id) = fileSystem->copy(
+          fileContent->getFileId(id), m_compiler->getSymbolTable());
     }
     for (DesignElement* elem : fileContent->getDesignElements()) {
       elem->m_name = m_compiler->getSymbolTable()->registerSymbol(
           fileContent->getSymbolTable()->getSymbol(elem->m_name));
-      elem->m_fileId = m_compiler->getSymbolTable()->registerSymbol(
-          fileContent->getSymbolTable()->getSymbol(
-              fileContent->getFileId(elem->m_node)));
+      elem->m_fileId = fileSystem->copy(fileContent->getFileId(elem->m_node),
+                                        m_compiler->getSymbolTable());
     }
   }
   return true;
@@ -102,16 +100,12 @@ bool CheckCompile::checkTimescale_() {
           timeUnitUsed = true;
         } else if (elem->m_timeInfo.m_type == TimeInfo::Type::Timescale) {
           timeScaleUsed = true;
-          Location loc(m_compiler->getSymbolTable()->registerSymbol(
-                           fileContent->getSymbolTable()->getSymbol(
-                               fileContent->getFileId(elem->m_node))),
-                       elem->m_line, elem->m_column, elem->m_name);
+          Location loc(fileContent->getFileId(elem->m_node), elem->m_line,
+                       elem->m_column, elem->m_name);
           noTimeUnitLocs.push_back(loc);
         } else {
-          Location loc(m_compiler->getSymbolTable()->registerSymbol(
-                           fileContent->getSymbolTable()->getSymbol(
-                               fileContent->getFileId(elem->m_node))),
-                       elem->m_line, elem->m_column, elem->m_name);
+          Location loc(fileContent->getFileId(elem->m_node), elem->m_line,
+                       elem->m_column, elem->m_name);
           noTimeUnitLocs.push_back(loc);
           if (reportedMissingTimescale.find(elem->m_name) ==
               reportedMissingTimescale.end()) {

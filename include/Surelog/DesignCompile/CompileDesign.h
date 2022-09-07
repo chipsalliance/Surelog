@@ -49,7 +49,7 @@ class CompileDesign {
 
   bool compile();
   bool elaborate();
-  vpiHandle writeUHDM(const std::string& fileName);
+  vpiHandle writeUHDM(PathId fileId);
 
   Compiler* getCompiler() const { return m_compiler; }
   virtual UHDM::Serializer& getSerializer() { return m_serializer; }

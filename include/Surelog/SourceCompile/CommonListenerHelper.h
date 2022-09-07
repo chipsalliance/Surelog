@@ -81,7 +81,7 @@ class CommonListenerHelper {
   FileContent* getFileContent() { return m_fileContent; }
 
   virtual std::tuple<unsigned int, unsigned short, unsigned int, unsigned short>
-  getFileLine(antlr4::ParserRuleContext* ctx, SymbolId& fileId) = 0;
+  getFileLine(antlr4::ParserRuleContext* ctx, PathId& fileId) = 0;
 
  private:
   NodeId& MutableChild(NodeId index);

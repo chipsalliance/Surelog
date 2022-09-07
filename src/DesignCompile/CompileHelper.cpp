@@ -22,6 +22,7 @@
  */
 
 #include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/DataType.h>
 #include <Surelog/Design/DummyType.h>
 #include <Surelog/Design/Enum.h>
@@ -74,8 +75,10 @@ void CompileHelper::checkForLoops(bool on) {
   m_unwind = false;
 }
 
-bool CompileHelper::loopDetected(const std::filesystem::path& fileName,
-                                 int lineNumber, ValuedComponentI* instance) {
+bool CompileHelper::loopDetected(PathId fileId, int lineNumber,
+                                 CompileDesign* compileDesign,
+                                 ValuedComponentI* instance) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
 #if defined(_WIN32)
   constexpr int32_t kMaxAllowedStackDepth = 100;
 #else
@@ -88,8 +91,7 @@ bool CompileHelper::loopDetected(const std::filesystem::path& fileName,
               valuedcomponenti_cast<ModuleInstance*>(instance)) {
         instName = inst->getFullPathName();
       }
-      Location loc(m_symbols->registerSymbol(fileName.string()), lineNumber, 0,
-                   m_symbols->registerSymbol(instName));
+      Location loc(fileId, lineNumber, 0, m_symbols->registerSymbol(instName));
       Error err(ErrorDefinition::ELAB_EXPRESSION_LOOP, loc);
       m_errors->addError(err);
       m_unwind = true;
@@ -304,8 +306,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       scope->setTask_funcs(sfuncs);
     }
   } else {
-    Location loc(m_symbols->registerSymbol(fC->getFileName(id).string()),
-                 fC->Line(id), fC->Column(id),
+    Location loc(fC->getFileId(id), fC->Line(id), fC->Column(id),
                  m_symbols->registerSymbol(pack_name));
     Error err(ErrorDefinition::COMP_UNDEFINED_PACKAGE, loc);
     m_errors->addError(err);
@@ -578,16 +579,13 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
   if (scope) {
     const TypeDef* prevDef = scope->getTypeDef(name);
     if (prevDef && !prevDef->isForwardDeclaration()) {
-      Location loc1(
-          m_symbols->registerSymbol(fC->getFileName(data_type).string()),
-          fC->Line(data_type), fC->Column(data_type),
-          m_symbols->registerSymbol(name));
+      Location loc1(fC->getFileId(data_type), fC->Line(data_type),
+                    fC->Column(data_type), m_symbols->registerSymbol(name));
       const FileContent* prevFile = prevDef->getFileContent();
       NodeId prevNode = prevDef->getNodeId();
-      Location loc2(
-          m_symbols->registerSymbol(prevFile->getFileName(prevNode).string()),
-          prevFile->Line(prevNode), prevFile->Column(prevNode),
-          m_symbols->registerSymbol(name));
+      Location loc2(prevFile->getFileId(prevNode), prevFile->Line(prevNode),
+                    prevFile->Column(prevNode),
+                    m_symbols->registerSymbol(name));
       Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_TYPEDEF, loc1, loc2);
       m_errors->addError(err);
     }
@@ -731,7 +729,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
     if (const typespec* base = enum_t->Base_typespec()) {
       bool invalidValue = false;
       baseSize = Bits(base, invalidValue, scope, compileDesign, nullptr,
-                      fC->getFileName(), base->VpiLineNo(), reduce, true);
+                      fC->getFileId(), base->VpiLineNo(), reduce, true);
     }
     while (enum_name_declaration) {
       NodeId enumNameId = fC->Child(enum_name_declaration);
@@ -1262,14 +1260,11 @@ bool CompileHelper::compileScopeVariable(Scope* parent, const FileContent* fC,
 
           Variable* previous = parent->getVariable(varName);
           if (previous) {
-            Location loc1(
-                m_symbols->registerSymbol(fC->getFileName(var).string()),
-                fC->Line(var), fC->Column(var),
-                m_symbols->registerSymbol(varName));
+            Location loc1(fC->getFileId(var), fC->Line(var), fC->Column(var),
+                          m_symbols->registerSymbol(varName));
             const FileContent* prevFile = previous->getFileContent();
             NodeId prevNode = previous->getNodeId();
-            Location loc2(m_symbols->registerSymbol(
-                              prevFile->getFileName(prevNode).string()),
+            Location loc2(prevFile->getFileId(prevNode),
                           prevFile->Line(prevNode), prevFile->Column(prevNode),
                           m_symbols->registerSymbol(varName));
             Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_VARIABLE, loc1,
@@ -2732,7 +2727,7 @@ bool CompileHelper::compileParameterDeclaration(
             bool invalidValue = false;
             int sizetmp =
                 Bits(ts, invalidValue, component, compileDesign, instance,
-                     fC->getFileName(), fC->Line(actual_value), true, false);
+                     fC->getFileId(), fC->Line(actual_value), true, false);
             if (!invalidValue) size = sizetmp;
           }
           Value* val = m_exprBuilder.fromVpiValue(c->VpiValue(), size);
@@ -2740,7 +2735,7 @@ bool CompileHelper::compileParameterDeclaration(
         } else if (reduce && (!isMultiDimension)) {
           UHDM::expr* the_expr = (UHDM::expr*)expr;
           if (the_expr->Typespec() == nullptr) the_expr->Typespec(ts);
-          ExprEval expr_eval(the_expr, instance, fC->getFileName(),
+          ExprEval expr_eval(the_expr, instance, fC->getFileId(),
                              fC->Line(name), nullptr);
           component->scheduleParamExprEval(the_name, expr_eval);
         } else if (expr && ((exprtype == uhdmoperation) ||
@@ -2913,7 +2908,7 @@ bool CompileHelper::compileParameterDeclaration(
             bool invalidValue = false;
             int sizetmp =
                 Bits(ts, invalidValue, component, compileDesign, instance,
-                     fC->getFileName(), fC->Line(actual_value), true, false);
+                     fC->getFileId(), fC->Line(actual_value), true, false);
             if (!invalidValue) size = sizetmp;
           }
           if (rhs->Typespec() == nullptr) rhs->Typespec(ts);
@@ -2940,11 +2935,16 @@ void CompileHelper::adjustSize(const UHDM::typespec* ts,
   if (ts == nullptr) {
     return;
   }
+
+  FileSystem* const fileSystem = FileSystem::getInstance();
   int orig_size = c->VpiSize();
 
   bool invalidValue = false;
-  int sizetmp = Bits(ts, invalidValue, component, compileDesign, instance,
-                     c->VpiFile(), c->VpiLineNo(), true, true);
+  int sizetmp =
+      Bits(ts, invalidValue, component, compileDesign, instance,
+           fileSystem->toPathId(c->VpiFile(),
+                                compileDesign->getCompiler()->getSymbolTable()),
+           c->VpiLineNo(), true, true);
 
   int size = orig_size;
   if (!invalidValue) size = sizetmp;
@@ -3193,6 +3193,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(
     DesignComponent* component, const FileContent* fC, NodeId Arg_list_node,
     CompileDesign* compileDesign, UHDM::any* call, ValuedComponentI* instance,
     bool reduce, bool muteErrors) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   UHDM::Serializer& s = compileDesign->getSerializer();
   if (fC->Type(Arg_list_node) == VObjectType::slSelect) {
     // Task or func call with no argument, not even ()
@@ -3286,7 +3287,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(
           arguments->push_back((*itr).second);
         } else {
           constant* c = s.MakeConstant();
-          c->VpiFile(fC->getFileName());
+          c->VpiFile(fileSystem->toPath(fC->getFileId()).string());
           c->VpiValue("INT:0");
           c->VpiDecompile("0");
           c->VpiSize(64);
@@ -3766,6 +3767,7 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
                                                    DesignComponent* component,
                                                    CompileDesign* compileDesign,
                                                    ValuedComponentI* instance) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   Serializer& s = compileDesign->getSerializer();
 
   uint64_t size = 1;
@@ -3782,12 +3784,18 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
         uint64_t r1 = eval.get_value(
             invalidValue,
             reduceExpr((any*)range->Left_expr(), invalidValue, component,
-                       compileDesign, instance, range->Left_expr()->VpiFile(),
+                       compileDesign, instance,
+                       fileSystem->toPathId(
+                           range->Left_expr()->VpiFile(),
+                           compileDesign->getCompiler()->getSymbolTable()),
                        range->Left_expr()->VpiLineNo(), nullptr));
         uint64_t r2 = eval.get_value(
             invalidValue,
             reduceExpr((any*)range->Right_expr(), invalidValue, component,
-                       compileDesign, instance, range->Right_expr()->VpiFile(),
+                       compileDesign, instance,
+                       fileSystem->toPathId(
+                           range->Right_expr()->VpiFile(),
+                           compileDesign->getCompiler()->getSymbolTable()),
                        range->Right_expr()->VpiLineNo(), nullptr));
         size *= (r1 > r2) ? (r1 - r2 + 1) : (r2 - r1 + 1);
       }
@@ -3824,9 +3832,13 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
               UHDM::ExprEval eval;
               int val = eval.get_value(
                   invalidValue,
-                  reduceExpr((any*)tp->Pattern(), invalidValue, component,
-                             compileDesign, instance, tp->Pattern()->VpiFile(),
-                             tp->Pattern()->VpiLineNo(), nullptr));
+                  reduceExpr(
+                      (any*)tp->Pattern(), invalidValue, component,
+                      compileDesign, instance,
+                      fileSystem->toPathId(
+                          tp->Pattern()->VpiFile(),
+                          compileDesign->getCompiler()->getSymbolTable()),
+                      tp->Pattern()->VpiLineNo(), nullptr));
               for (unsigned int i = 0; i < size; i++) {
                 values[i] = val;
               }
@@ -3887,9 +3899,9 @@ bool CompileHelper::valueRange(Value* val, UHDM::typespec* ts,
   if (r) {
     bool invalidValue = false;
     expr* lv = reduceExpr((any*)r->Left_expr(), invalidValue, component,
-                          compileDesign, instance, "", 0, nullptr, true);
+                          compileDesign, instance, BadPathId, 0, nullptr, true);
     expr* rv = reduceExpr((any*)r->Right_expr(), invalidValue, component,
-                          compileDesign, instance, "", 0, nullptr, true);
+                          compileDesign, instance, BadPathId, 0, nullptr, true);
     UHDM::ExprEval eval;
     int64_t lvv = eval.get_value(invalidValue, lv);
     int64_t rvv = eval.get_value(invalidValue, rv);

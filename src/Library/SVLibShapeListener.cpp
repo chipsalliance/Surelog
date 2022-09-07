@@ -21,6 +21,7 @@
  * Created on January 28, 2018, 10:17 PM
  */
 
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/Library/Library.h>
@@ -39,25 +40,21 @@ namespace SURELOG {
 namespace fs = std::filesystem;
 
 SVLibShapeListener::SVLibShapeListener(ParseLibraryDef *parser,
-                                       antlr4::CommonTokenStream *tokens,
-                                       const fs::path &relativePath)
+                                       antlr4::CommonTokenStream *tokens)
     : SV3_1aTreeShapeHelper(
           new ParseFile(parser->getFileId(), parser->getSymbolTable(),
                         parser->getErrorContainer()),
           tokens, 0),
       m_parser(parser),
-      m_tokens(tokens),
-      m_relativePath(relativePath) {
+      m_tokens(tokens) {
   m_fileContent = new FileContent(
       m_parser->getFileId(), nullptr, m_parser->getSymbolTable(),
-      m_parser->getErrorContainer(), nullptr, BadSymbolId);
+      m_parser->getErrorContainer(), nullptr, BadPathId);
   m_pf->setFileContent(m_fileContent);
   m_includeFileInfo.emplace(IncludeFileInfo::Context::NONE, 1,
                             m_pf->getFileId(0), 0, 0, 0, 0,
                             IncludeFileInfo::Action::PUSH);
 }
-
-SVLibShapeListener::~SVLibShapeListener() {}
 
 SymbolId SVLibShapeListener::registerSymbol(std::string_view symbol) {
   return m_parser->getSymbolTable()->registerSymbol(symbol);
@@ -65,6 +62,7 @@ SymbolId SVLibShapeListener::registerSymbol(std::string_view symbol) {
 
 void SVLibShapeListener::enterLibrary_declaration(
     SV3_1aParser::Library_declarationContext *ctx) {
+  FileSystem *const fileSystem = FileSystem::getInstance();
   std::string name = ctx->identifier()->getText();
   Library *lib = m_parser->getLibrarySet()->getLibrary(name);
   if (lib == nullptr) {
@@ -73,20 +71,21 @@ void SVLibShapeListener::enterLibrary_declaration(
   }
   lib = m_parser->getLibrarySet()->getLibrary(name);
 
+  SymbolTable *symbolTable = m_parser->getSymbolTable();
+  const PathId fileId = m_parser->getFileId();
+  const fs::path filepath = fileSystem->toPath(fileId);
+  const fs::path dirpath = FileUtils::getPathName(filepath);
   for (auto pathSpec : ctx->file_path_spec()) {
     for (const auto &id :
-         FileUtils::collectFiles(m_relativePath / pathSpec->getText(),
-                                 m_parser->getSymbolTable())) {
+         FileUtils::collectFiles(dirpath / pathSpec->getText(), symbolTable)) {
       lib->addFileId(id);
-      fs::path fileName = m_parser->getSymbolTable()->getSymbol(id);
+      fs::path fileName = fileSystem->toPath(id);
       if ((fileName.extension() == ".cfg") ||
           (fileName.extension() == ".map")) {
         ParseLibraryDef parser(
             m_parser->getCommandLineParser(), m_parser->getErrorContainer(),
-            m_parser->getSymbolTable(), m_parser->getLibrarySet(),
-            m_parser->getConfigSet());
-        parser.parseLibraryDefinition(
-            m_parser->getSymbolTable()->registerSymbol(fileName.string()), lib);
+            symbolTable, m_parser->getLibrarySet(), m_parser->getConfigSet());
+        parser.parseLibraryDefinition(id, lib);
       }
     }
   }
@@ -94,6 +93,7 @@ void SVLibShapeListener::enterLibrary_declaration(
 
 void SVLibShapeListener::enterInclude_statement(
     SV3_1aParser::Include_statementContext *ctx) {
+  FileSystem *const fileSystem = FileSystem::getInstance();
   fs::path filePath = ctx->file_path_spec()->getText();
 
   std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
@@ -110,7 +110,7 @@ void SVLibShapeListener::enterInclude_statement(
                          m_parser->getSymbolTable(), m_parser->getLibrarySet(),
                          m_parser->getConfigSet());
   parser.parseLibraryDefinition(
-      m_parser->getSymbolTable()->registerSymbol(filePath.string()));
+      fileSystem->toPathId(filePath, m_parser->getSymbolTable()));
 }
 
 void SVLibShapeListener::enterUselib_directive(

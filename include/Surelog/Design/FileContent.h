@@ -47,9 +47,8 @@ class Program;
 class FileContent : public DesignComponent {
   SURELOG_IMPLEMENT_RTTI(FileContent, DesignComponent)
  public:
-  FileContent(SymbolId fileId, Library* library, SymbolTable* symbolTable,
-              ErrorContainer* errors, FileContent* parent,
-              SymbolId fileChunkId);
+  FileContent(PathId fileId, Library* library, SymbolTable* symbolTable,
+              ErrorContainer* errors, FileContent* parent, PathId fileChunkId);
   ~FileContent() override = default;
 
   void setLibrary(Library* lib) { m_library = lib; }
@@ -98,7 +97,7 @@ class FileContent : public DesignComponent {
   unsigned int getSize() const override { return m_objects.size(); }
   VObjectType getType() const override { return VObjectType::slNoType; }
   bool isInstance() const override { return false; }
-  const std::string& getName() const override;
+  std::string getName() const override;
   NodeId getRootNode() const;
   std::string printObjects() const;  // The whole file content
   std::string printSubTree(
@@ -106,18 +105,16 @@ class FileContent : public DesignComponent {
   std::string printObject(NodeId noedId) const;  // Only print that object
   std::vector<std::string> collectSubTree(
       NodeId uniqueId) const;  // Helper function
-  std::filesystem::path getFileName(NodeId id) const;
-  std::filesystem::path getChunkFileName() const;
   SymbolTable* getSymbolTable() const { return m_symbolTable; }
   void setSymbolTable(SymbolTable* table) { m_symbolTable = table; }
-  SymbolId getFileId(NodeId id) const;
-  SymbolId* getMutableFileId(NodeId id);
+  PathId getFileId(NodeId id) const;
+  PathId* getMutableFileId(NodeId id);
   Library* getLibrary() const { return m_library; }
   std::vector<DesignElement*>& getDesignElements() { return m_elements; }
   void addDesignElement(const std::string& name, DesignElement* elem);
   const DesignElement* getDesignElement(std::string_view name) const;
   using DesignComponent::addObject;
-  NodeId addObject(SymbolId name, SymbolId fileId, VObjectType type,
+  NodeId addObject(SymbolId name, PathId fileId, VObjectType type,
                    unsigned int line, unsigned short column,
                    unsigned int endLine, unsigned short endColumn,
                    NodeId parent = InvalidNodeId,
@@ -146,8 +143,8 @@ class FileContent : public DesignComponent {
 
   NodeId Definition(NodeId index) const;
 
-  void SetDefinitionFile(NodeId index, SymbolId def);
-  SymbolId GetDefinitionFile(NodeId index) const;
+  void SetDefinitionFile(NodeId index, PathId def);
+  PathId GetDefinitionFile(NodeId index) const;
 
   NodeId Parent(NodeId index) const;
 
@@ -205,12 +202,12 @@ class FileContent : public DesignComponent {
   const FileContent* getParent() const { return m_parentFile; }
   void setParent(FileContent* parent) { m_parentFile = parent; }
 
-  std::filesystem::path getFileName() const;
-
   bool diffTree(NodeId id, const FileContent* oFc, NodeId oId,
                 std::string* diff_out) const;
 
-  SymbolId getSymbolId() const { return m_fileId; }
+  PathId getFileId() const { return m_fileId; }
+  PathId getChunkFileId() const { return m_fileChunkId; }
+
   bool isLibraryCellFile() const { return m_isLibraryCellFile; }
   void setLibraryCellFile() { m_isLibraryCellFile = true; }
 
@@ -221,7 +218,7 @@ class FileContent : public DesignComponent {
   std::vector<DesignElement*> m_elements;
   std::map<std::string, DesignElement*, StringViewCompare> m_elementMap;
   std::vector<VObject> m_objects;
-  std::unordered_map<NodeId, SymbolId, NodeIdHasher, NodeIdEqualityComparer>
+  std::unordered_map<NodeId, PathId, NodeIdHasher, NodeIdEqualityComparer>
       m_definitionFiles;
 
   NameIdMap m_objectLookup;  // Populated at ResolveSymbol stage
@@ -235,8 +232,8 @@ class FileContent : public DesignComponent {
 
   ClassNameClassDefinitionMultiMap m_classDefinitions;
 
-  const SymbolId m_fileId;
-  const SymbolId m_fileChunkId;
+  const PathId m_fileId;
+  const PathId m_fileChunkId;
   ErrorContainer* const m_errors;
 
   Library* m_library;          // TODO: should be set in constructor and *const

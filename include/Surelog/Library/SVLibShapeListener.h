@@ -25,10 +25,9 @@
 #define SURELOG_SVLIBSHAPELISTENER_H
 #pragma once
 
+#include <Surelog/Common/PathId.h>
 #include <Surelog/SourceCompile/SV3_1aTreeShapeHelper.h>
 #include <parser/SV3_1aParserBaseListener.h>
-
-#include <filesystem>
 
 namespace SURELOG {
 
@@ -38,13 +37,12 @@ class ParseLibraryDef;
 class SVLibShapeListener : public SV3_1aParserBaseListener,
                            public SV3_1aTreeShapeHelper {
  public:
-  SVLibShapeListener(ParseLibraryDef* parser, antlr4::CommonTokenStream* tokens,
-                     const std::filesystem::path& relativePath);
+  SVLibShapeListener(ParseLibraryDef* parser, antlr4::CommonTokenStream* tokens);
 
   SymbolId registerSymbol(std::string_view symbol) final;
 
   antlr4::CommonTokenStream* getTokenStream() const { return m_tokens; }
-  ~SVLibShapeListener() override;
+  ~SVLibShapeListener() override = default;
 
   // *** LIBRARY DEFINITION PARSING ***
 
@@ -174,7 +172,6 @@ class SVLibShapeListener : public SV3_1aParserBaseListener,
  private:
   ParseLibraryDef* m_parser;
   antlr4::CommonTokenStream* m_tokens;
-  const std::filesystem::path m_relativePath;
 };
 
 };  // namespace SURELOG

@@ -21,6 +21,7 @@
  * Created on March 16, 2017, 11:02 PM
  */
 
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Utils/FileUtils.h>
 #include <Surelog/Utils/StringUtils.h>
@@ -60,20 +61,20 @@ bool FileUtils::fileIsRegular(const fs::path& name) {
   return fs::is_regular_file(name);
 }
 
-SymbolId FileUtils::locateFile(SymbolId file, SymbolTable* symbols,
-                               const std::vector<SymbolId>& paths) {
-  const fs::path fileName = symbols->getSymbol(file);
+PathId FileUtils::locateFile(PathId file, SymbolTable* symbols,
+                             const std::vector<PathId>& paths) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  const fs::path fileName = fileSystem->toPath(file);
   if (fileExists(fileName)) {
-    return file;
+    return fileSystem->toPathId(fileName, symbols);
   }
-  for (const auto& id : paths) {
-    const fs::path path = symbols->getSymbol(id);
-    fs::path filePath = path / fileName;
+  for (auto id : paths) {
+    fs::path filePath = fileSystem->toPath(id) / fileName;
     if (fileExists(filePath)) {
-      return symbols->registerSymbol(filePath.string());
+      return fileSystem->toPathId(filePath, symbols);
     }
   }
-  return BadSymbolId;
+  return BadPathId;
 }
 
 bool FileUtils::mkDirs(const fs::path& path) {
@@ -107,29 +108,31 @@ bool FileUtils::getFullPath(const fs::path& path, fs::path* result) {
   return found;
 }
 
-std::vector<SymbolId> FileUtils::collectFiles(SymbolId dirPath, SymbolId ext,
-                                              SymbolTable* symbols) {
-  return collectFiles(symbols->getSymbol(dirPath), symbols->getSymbol(ext),
+std::vector<PathId> FileUtils::collectFiles(PathId dirPath, SymbolId ext,
+                                            SymbolTable* symbols) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  return collectFiles(fileSystem->toPath(dirPath), symbols->getSymbol(ext),
                       symbols);
 }
 
-std::vector<SymbolId> FileUtils::collectFiles(const fs::path& dirPath,
-                                              const fs::path& ext,
-                                              SymbolTable* symbols) {
-  std::vector<SymbolId> result;
+std::vector<PathId> FileUtils::collectFiles(const fs::path& dirPath,
+                                            const fs::path& ext,
+                                            SymbolTable* symbols) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  std::vector<PathId> result;
   if (fileIsDirectory(dirPath)) {
     for (const fs::directory_entry& entry : fs::directory_iterator(dirPath)) {
       const fs::path& filepath = entry.path();
       if (filepath.extension() == ext) {
-        result.push_back(symbols->registerSymbol(filepath.string()));
+        result.emplace_back(fileSystem->toPathId(filepath, symbols));
       }
     }
   }
   return result;
 }
 
-std::vector<SymbolId> FileUtils::collectFiles(const fs::path& pathSpec,
-                                              SymbolTable* symbols) {
+std::vector<PathId> FileUtils::collectFiles(const fs::path& pathSpec,
+                                            SymbolTable* symbols) {
   // ?   single character wildcard (matches any single character)
   // *   multiple character wildcard (matches any number of characters in a
   // directory/file name)
@@ -140,7 +143,7 @@ std::vector<SymbolId> FileUtils::collectFiles(const fs::path& pathSpec,
   // Identical to / * Paths that do not begin with / are relative to the
   // directory in which the current lib.map file is located.
 
-  std::vector<SymbolId> result;
+  std::vector<PathId> result;
 
   std::error_code ec;
   fs::path path(pathSpec);
@@ -191,6 +194,7 @@ std::vector<SymbolId> FileUtils::collectFiles(const fs::path& pathSpec,
       fs::directory_options::skip_permission_denied |
       fs::directory_options::follow_directory_symlink;
 
+  FileSystem* const fileSystem = FileSystem::getInstance();
   for (const fs::directory_entry& entry :
        fs::recursive_directory_iterator(prefix, options)) {
     if (fs::is_regular_file(entry.path())) {
@@ -198,7 +202,7 @@ std::vector<SymbolId> FileUtils::collectFiles(const fs::path& pathSpec,
           entry.path().string().substr(prefix.string().length() + 1);
       std::smatch match;
       if (!ec && std::regex_match(relative, match, regex)) {
-        result.push_back(symbols->registerSymbol(entry.path().string()));
+        result.emplace_back(fileSystem->toPathId(entry.path(), symbols));
       }
     }
   }

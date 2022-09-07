@@ -27,7 +27,7 @@
 
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/NodeId.h>
-#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Common/PathId.h>
 
 #include <map>
 #include <mutex>
@@ -52,7 +52,6 @@ class ParseCache;
 class ParseFile;
 class PPCache;
 class PreprocessFile;
-class SymbolId;
 class SV3_1aPpTreeShapeListener;
 class SV3_1aTreeShapeListener;
 class SVLibShapeListener;
@@ -80,7 +79,7 @@ class Design final {
 
   ~Design();
 
-  typedef std::vector<std::pair<SymbolId, FileContent*>> FileIdDesignContentMap;
+  typedef std::vector<std::pair<PathId, FileContent*>> FileIdDesignContentMap;
 
   // TODO: Unfortunately, all these need to be non-const, as there is code
   // on the receiving end is not using const stringently enough.
@@ -167,10 +166,10 @@ class Design final {
 
  protected:
   // Thread-safe
-  void addFileContent(SymbolId fileId, FileContent* content);
+  void addFileContent(PathId fileId, FileContent* content);
 
   // Thread-safe
-  void addPPFileContent(SymbolId fileId, FileContent* content);
+  void addPPFileContent(PathId fileId, FileContent* content);
 
   void addOrderedPackage(const std::string& packageName) {
     m_orderedPackageNames.push_back(packageName);

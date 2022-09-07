@@ -21,6 +21,7 @@
  * Created on February 6, 2019, 9:01 PM
  */
 
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/Design.h>
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/Design/Parameter.h>
@@ -148,6 +149,7 @@ bool TestbenchElaboration::bindClasses_() {
 }
 
 bool TestbenchElaboration::checkForMultipleDefinition_() {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   Compiler* compiler = m_compileDesign->getCompiler();
   ErrorContainer* errors = compiler->getErrorContainer();
   SymbolTable* symbols = compiler->getSymbolTable();
@@ -165,22 +167,22 @@ bool TestbenchElaboration::checkForMultipleDefinition_() {
     if (className == prevClassName) {
       const FileContent* fC1 = classDefinition->getFileContents()[0];
       NodeId nodeId1 = classDefinition->getNodeIds()[0];
-      fs::path fileName1 = fC1->getFileName(nodeId1);
+      PathId fileId1 = fileSystem->copy(fC1->getFileId(nodeId1), symbols);
       unsigned int line1 = fC1->Line(nodeId1);
-      Location loc1(symbols->registerSymbol(fileName1.string()), line1,
-                    fC1->Column(nodeId1), symbols->registerSymbol(className));
+      Location loc1(fileId1, line1, fC1->Column(nodeId1),
+                    symbols->registerSymbol(className));
 
       std::vector<Location> locations;
 
       while (1) {
         const FileContent* fC2 = prevClassDefinition->getFileContents()[0];
         NodeId nodeId2 = prevClassDefinition->getNodeIds()[0];
-        fs::path fileName2 = fC2->getFileName(nodeId2);
+        PathId fileId2 = fileSystem->copy(fC2->getFileId(nodeId2), symbols);
         unsigned int line2 = fC2->Line(nodeId2);
-        Location loc2(symbols->registerSymbol(fileName2.string()), line2,
-                      fC2->Column(nodeId2), symbols->registerSymbol(className));
+        Location loc2(fileId2, line2, fC2->Column(nodeId2),
+                      symbols->registerSymbol(className));
 
-        if ((fileName1 != fileName2) || (line1 != line2)) {
+        if ((fileId1 != fileId2) || (line1 != line2)) {
           std::string diff;
           if (fC1->diffTree(nodeId1, fC2, nodeId2, &diff)) {
             locations.push_back(loc2);
@@ -378,10 +380,8 @@ bool TestbenchElaboration::bindFunctionReturnTypesAndParamaters_() {
               const std::string& typeName = dtype->getName();
               NodeId p = param->getNodeId();
               const FileContent* fC = dtype->getFileContent();
-              fs::path fileName = fC->getFileName(p);
               Location loc1(
-                  symbols->registerSymbol(fileName.string()), fC->Line(p),
-                  fC->Column(p),
+                  fC->getFileId(p), fC->Line(p), fC->Column(p),
                   symbols->registerSymbol(name + " of type " + typeName));
               std::string exp;
               if (value->getType() == Value::Type::String)
@@ -498,9 +498,8 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
       if (!validFunction) {
         const FileContent* fC = st->getFileContent();
         NodeId p = st->getNodeId();
-        fs::path fileName = fC->getFileName(p);
-        Location loc1(symbols->registerSymbol(fileName.string()), fC->Line(p),
-                      fC->Column(p), symbols->registerSymbol(function));
+        Location loc1(fC->getFileId(p), fC->Line(p), fC->Column(p),
+                      symbols->registerSymbol(function));
         Error err1(ErrorDefinition::COMP_UNDEFINED_SYSTEM_FUNCTION, loc1);
         errors->addError(err1);
         return true;
@@ -540,16 +539,13 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
     if (!datatypeName.empty()) typeName = datatypeName;
     NodeId p = st->getNodeId();
     const FileContent* fC = st->getFileContent();
-    fs::path fileName = fC->getFileName(p);
     Location loc1(
-        symbols->registerSymbol(fileName.string()), fC->Line(p), fC->Column(p),
+        fC->getFileId(p), fC->Line(p), fC->Column(p),
         symbols->registerSymbol("\"" + name + "\"" + " of type " + typeName));
     const FileContent* fC2 = dtype->getFileContent();
-    fs::path fileName2 = fC2->getFileName(dtype->getNodeId());
-    Location loc2(symbols->registerSymbol(fileName2.string()),
-                  fC2->Line(dtype->getNodeId()),
-                  fC2->Column(dtype->getNodeId()),
-                  symbols->registerSymbol(function));
+    Location loc2(
+        fC2->getFileId(dtype->getNodeId()), fC2->Line(dtype->getNodeId()),
+        fC2->Column(dtype->getNodeId()), symbols->registerSymbol(function));
     Error err1(ErrorDefinition::COMP_NO_METHOD_FOR_TYPE, loc1, loc2);
     errors->addError(err1);
   }
@@ -762,8 +758,7 @@ bool TestbenchElaboration::bindProperties_() {
         ErrorContainer* errors =
             m_compileDesign->getCompiler()->getErrorContainer();
         SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
-        Location loc(symbols->registerSymbol(fC->getFileName().string()),
-                     fC->Line(id), fC->Column(id),
+        Location loc(fC->getFileId(), fC->Line(id), fC->Column(id),
                      symbols->registerSymbol(signame));
         Error err(ErrorDefinition::UHDM_UNSUPPORTED_SIGNAL, loc);
         errors->addError(err);

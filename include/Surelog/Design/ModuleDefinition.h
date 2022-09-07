@@ -52,7 +52,7 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
 
   ~ModuleDefinition() override = default;
 
-  const std::string& getName() const override { return m_name; }
+  std::string getName() const override { return m_name; }
   VObjectType getType() const override;
   bool isInstance() const override;
   unsigned int getSize() const override;

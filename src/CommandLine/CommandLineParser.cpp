@@ -23,6 +23,7 @@
 
 #include <Surelog/API/PythonAPI.h>
 #include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Utils/FileUtils.h>
@@ -313,9 +314,8 @@ void CommandLineParser::logFooter() {
 
 CommandLineParser::CommandLineParser(ErrorContainer* errors,
                                      SymbolTable* symbolTable,
-                                     bool diff_comp_mode, bool fileUnit)
-    : m_writePpOutputFileId(BadSymbolId),
-      m_writePpOutput(false),
+                                     bool diffCompMode, bool fileUnit)
+    : m_writePpOutput(false),
       m_filterFileLine(true),
       m_debugLevel(0),
       m_errors(errors),
@@ -327,7 +327,7 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_nolibcell(false),
       m_muteStdout(false),
       m_verbose(false),
-      m_fileunit(fileUnit),
+      m_fileUnit(fileUnit),
       m_filterSimpleDirectives(false),
       m_filterProtectedRegions(false),
       m_filterComments(false),
@@ -337,14 +337,12 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_elaborate(false),
       m_parametersubstitution(true),
       m_letexprsubstitution(true),
-      m_diff_comp_mode(diff_comp_mode),
+      m_diffCompMode(diffCompMode),
       m_help(false),
       m_cacheAllowed(true),
       m_debugCache(false),
       m_nbMaxTreads(0),
       m_nbMaxProcesses(0),
-      m_fullCompileDir(BadSymbolId),
-      m_cacheDirId(BadSymbolId),
       m_note(true),
       m_info(true),
       m_warning(true),
@@ -361,9 +359,6 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_nbLinesForFileSplitting(10000000),
       m_pythonEvalScriptPerFile(false),
       m_pythonEvalScript(false),
-      m_pythonEvalScriptPerFileId(BadSymbolId),
-      m_pythonEvalScriptId(BadSymbolId),
-      m_pythonListenerFileId(BadSymbolId),
       m_debugIncludeFileInfo(false),
       m_createCache(false),
       m_profile(false),
@@ -382,17 +377,20 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_noCacheHash(false),
       m_sepComp(false),
       m_link(false) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   m_errors->registerCmdLine(this);
-  m_logFileId = m_symbolTable->registerSymbol(defaultLogFileName);
-  m_compileUnitDirectory =
-      m_symbolTable->registerSymbol(defaultCompileUnitDirName);
-  m_compileAllDirectory =
-      m_symbolTable->registerSymbol(defaultCompileAllDirName);
-  m_outputDir = m_symbolTable->registerSymbol(".");
+  m_logFileId = fileSystem->toPathId(defaultLogFileName, m_symbolTable);
+  m_compileUnitDirId =
+      fileSystem->toPathId(defaultCompileUnitDirName, m_symbolTable);
+  m_compileAllDirId =
+      fileSystem->toPathId(defaultCompileAllDirName, m_symbolTable);
+  m_outputDirId = fileSystem->toPathId(".", m_symbolTable);
   m_defaultLogFileId = m_symbolTable->registerSymbol(defaultLogFileName);
-  m_defaultCacheDirId = m_symbolTable->registerSymbol(defaultCacheDirName);
-  m_precompiledDirId = m_symbolTable->registerSymbol(defaultPrecompiledDirName);
-  if (m_diff_comp_mode) {
+  m_defaultCacheDirId =
+      fileSystem->toPathId(defaultCacheDirName, m_symbolTable);
+  m_precompiledDirId =
+      fileSystem->toPathId(defaultPrecompiledDirName, m_symbolTable);
+  if (m_diffCompMode) {
     m_muteStdout = true;
     m_verbose = false;
   }
@@ -423,7 +421,7 @@ static std::string_view undecorateArg(std::string_view arg) {
 
 void CommandLineParser::splitPlusArg_(const std::string& s,
                                       const std::string& prefix,
-                                      std::vector<SymbolId>& container) {
+                                      SymbolIdVector& container) {
   std::istringstream f(s);
   std::string tmp;
   while (getline(f, tmp, '+')) {
@@ -449,6 +447,20 @@ void CommandLineParser::splitEqArg_(
   if (!def.empty()) {
     SymbolId id = m_symbolTable->registerSymbol(def);
     container.emplace(id, value);
+  }
+}
+
+void CommandLineParser::splitPlusArg_(const std::string& s,
+                                      const std::string& prefix,
+                                      PathIdVector& container) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  std::istringstream f(s);
+  std::string tmp;
+  while (getline(f, tmp, '+')) {
+    if (!tmp.empty() && (tmp != prefix)) {
+      PathId id = fileSystem->toPathId(tmp, m_symbolTable);
+      container.emplace_back(id);
+    }
   }
 }
 
@@ -489,6 +501,7 @@ bool CommandLineParser::plus_arguments_(const std::string& s) {
 
 void CommandLineParser::processArgs_(const std::vector<std::string>& args,
                                      std::vector<std::string>& container) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   for (unsigned int i = 0; i < args.size(); i++) {
     std::string arg(undecorateArg(args[i]));
     if (arg == "-cmd_ign") {
@@ -579,9 +592,9 @@ void CommandLineParser::processArgs_(const std::vector<std::string>& args,
       m_elaborate = true;
       m_writePpOutput = true;
       m_link = true;
-      fs::path odir = m_symbolTable->getSymbol(m_outputDir);
-      odir /= m_symbolTable->getSymbol(
-          (fileunit() ? m_compileUnitDirectory : m_compileAllDirectory));
+      fs::path odir = fileSystem->toPath(m_outputDirId);
+      odir /= fileSystem->toPath(
+          (fileunit() ? m_compileUnitDirId : m_compileAllDirId));
       odir = FileUtils::getPreferredPath(odir);
       if (FileUtils::fileExists(odir)) {
         for (const auto& entry : fs::directory_iterator(odir)) {
@@ -615,17 +628,18 @@ void CommandLineParser::processArgs_(const std::vector<std::string>& args,
 
 void CommandLineParser::processOutputDirectory_(
     const std::vector<std::string>& args) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   for (unsigned int i = 0; i < args.size(); i++) {
     std::string arg(undecorateArg(args[i]));
     if (arg == "-odir" || arg == "-o" || arg == "--Mdir") {
       if (i == args.size() - 1) {
-        Location loc(mutableSymbolTable()->registerSymbol(args[i]));
+        Location loc(m_symbolTable->registerSymbol(args[i]));
         Error err(ErrorDefinition::CMD_PP_FILE_MISSING_ODIR, loc);
         m_errors->addError(err);
         break;
       }
       fs::path path = FileUtils::getPreferredPath(undecorateArg(args[++i]));
-      m_outputDir = m_symbolTable->registerSymbol(path.string());
+      m_outputDirId = fileSystem->toPathId(path, m_symbolTable);
     }
   }
 }
@@ -666,17 +680,20 @@ static fs::path GetProgramNameAbsolutePath(const char* progname) {
 }
 
 bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
-  m_exePath = GetProgramNameAbsolutePath(argv[0]);
-  const fs::path exe_dir = FileUtils::getPathName(m_exePath);
-  const std::vector<fs::path> search_path = {
-      exe_dir, exe_dir / ".." / "lib" / "surelog"};
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  std::filesystem::path programPath = GetProgramNameAbsolutePath(argv[0]);
+  m_programId = fileSystem->toPathId(programPath, m_symbolTable);
 
-  m_precompiledDirId = m_symbolTable->registerSymbol(
-      FileUtils::getPreferredPath(exe_dir / "pkg").string());
+  const fs::path programDir = FileUtils::getPathName(programPath);
+  const std::vector<fs::path> search_path = {
+      programDir, programDir / ".." / "lib" / "surelog"};
+
+  m_precompiledDirId = fileSystem->toPathId(
+      FileUtils::getPreferredPath(programDir / "pkg"), m_symbolTable);
   for (const fs::path& dir : search_path) {
     const fs::path pkg_dir = FileUtils::getPreferredPath(dir / "pkg");
     if (FileUtils::fileIsDirectory(pkg_dir)) {
-      m_precompiledDirId = m_symbolTable->registerSymbol(pkg_dir.string());
+      m_precompiledDirId = fileSystem->toPathId(pkg_dir, m_symbolTable);
       break;
     }
   }
@@ -707,12 +724,11 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         }
       }
     } else if (arg == "-builtin") {
-      if (i < argc - 1) {
-        m_builtinPath = undecorateArg(argv[i + 1]);
-      }
+      ++i;  // Deprecated and ignored!
     } else if (arg == "-l") {
       if (i < argc - 1) {
-        m_logFileId = m_symbolTable->registerSymbol(undecorateArg(argv[i + 1]));
+        m_logFileId =
+            fileSystem->toPathId(undecorateArg(argv[i + 1]), m_symbolTable);
       }
     } else if (arg.find("-D") == 0) {
       std::string def;
@@ -749,8 +765,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     if (argument == "-nobuiltin") {
       m_parseBuiltIn = false;
     } else if (argument == "-fileunit") {
-      if (m_diff_comp_mode == false)  // Controlled by constructor
-        m_fileunit = true;
+      if (m_diffCompMode == false)  // Controlled by constructor
+        m_fileUnit = true;
     } else if (argument == "-mutestdout") {
       m_muteStdout = true;
     } else if (argument == "-nopython") {
@@ -767,7 +783,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       // handled by plus_arguments
     } else if (all_arguments[i] == "-d") {
       if (i == all_arguments.size() - 1) {
-        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_DEBUG_MISSING_LEVEL, loc);
         m_errors->addError(err);
         break;
@@ -796,7 +812,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       } else if (is_number(all_arguments[i])) {
         int debugLevel = std::stoi(all_arguments[i]);
         if (debugLevel < 0 || debugLevel > 4) {
-          Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+          Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
           Error err(ErrorDefinition::CMD_DEBUG_INCORRECT_LEVEL, loc);
           m_errors->addError(err);
         } else {
@@ -834,7 +850,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (all_arguments[i].find("-timescale=") == 0) {
       std::string timescale = all_arguments[i].substr(11);
       if (timescale.empty()) {
-        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_TIMESCALE_MISSING_SETTING, loc);
         m_errors->addError(err);
         break;
@@ -886,16 +902,16 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (all_arguments[i].find("-I") == 0) {
       fs::path include = all_arguments[i].substr(2);
       if (include.empty()) {
-        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_INCLUDE_PATH_DOES_NOT_EXIST, loc);
         m_errors->addError(err);
         break;
       }
-      m_includePaths.push_back(mutableSymbolTable()->registerSymbol(
-          FileUtils::getPreferredPath(include).string()));
+      m_includePaths.push_back(fileSystem->toPathId(
+          FileUtils::getPreferredPath(include), m_symbolTable));
     } else if (all_arguments[i] == "-split") {
       if (i == all_arguments.size() - 1) {
-        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_SPLIT_FILE_MISSING_SIZE, loc);
         m_errors->addError(err);
         break;
@@ -930,7 +946,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       bool mt =
           ((all_arguments[i] == "-mt") || (all_arguments[i] == "--threads"));
       if (i == all_arguments.size() - 1) {
-        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_MT_MISSING_LEVEL, loc);
         m_errors->addError(err);
         break;
@@ -945,11 +961,11 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         maxMT = std::stoi(all_arguments[i]);
       }
       if (maxMT > 512) {
-        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_MT_INCORRECT_LEVEL, loc);
         m_errors->addError(err);
       } else {
-        if (m_diff_comp_mode) {
+        if (m_diffCompMode) {
           unsigned int concurentThreadsSupported =
               std::thread::hardware_concurrency();
           if (maxMT > (concurentThreadsSupported / 2))
@@ -978,7 +994,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
           }
 
           if (profile()) {
-            Location loc(mutableSymbolTable()->registerSymbol(
+            Location loc(m_symbolTable->registerSymbol(
                 StrCat(m_nbMaxProcesses, " processes and ", m_nbMaxTreads)));
             Error err(ErrorDefinition::CMD_NUMBER_THREADS, loc);
             m_errors->addError(err);
@@ -1005,70 +1021,70 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_lineOffsetsAsComments = true;
     } else if (all_arguments[i] == "-v") {
       if (i == all_arguments.size() - 1) {
-        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_LIBRARY_FILE_MISSING_FILE, loc);
         m_errors->addError(err);
         break;
       }
       i++;
-      m_libraryFiles.push_back(m_symbolTable->registerSymbol(
-          FileUtils::getPreferredPath(all_arguments[i]).string()));
+      m_libraryFiles.emplace_back(fileSystem->toPathId(
+          FileUtils::getPreferredPath(all_arguments[i]), m_symbolTable));
     } else if (all_arguments[i] == "-y") {
       if (i == all_arguments.size() - 1) {
-        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_LIBRARY_PATH_MISSING_PATH, loc);
         m_errors->addError(err);
         break;
       }
       i++;
-      m_libraryPaths.push_back(m_symbolTable->registerSymbol(
-          FileUtils::getPreferredPath(all_arguments[i]).string()));
+      m_libraryPaths.emplace_back(fileSystem->toPathId(
+          FileUtils::getPreferredPath(all_arguments[i]), m_symbolTable));
     } else if (all_arguments[i] == "-l") {
       if (i == all_arguments.size() - 1) {
-        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_LOG_FILE_MISSING_FILE, loc);
         m_errors->addError(err);
         break;
       }
       i++;
-      m_logFileId = m_symbolTable->registerSymbol(all_arguments[i]);
+      m_logFileId = fileSystem->toPathId(all_arguments[i], m_symbolTable);
     } else if (all_arguments[i] == "-L") {
       i++;
-      m_orderedLibraries.push_back(m_symbolTable->registerSymbol(
-          FileUtils::getPreferredPath(all_arguments[i]).string()));
+      m_orderedLibraries.emplace_back(fileSystem->toPathId(
+          FileUtils::getPreferredPath(all_arguments[i]), m_symbolTable));
     } else if (all_arguments[i] == "-map") {
       i++;
-      m_libraryMapFiles.push_back(m_symbolTable->registerSymbol(
-          FileUtils::getPreferredPath(all_arguments[i]).string()));
+      m_libraryMapFiles.emplace_back(fileSystem->toPathId(
+          FileUtils::getPreferredPath(all_arguments[i]), m_symbolTable));
     } else if (all_arguments[i] == "-cfgfile") {
       i++;
-      m_configFiles.push_back(m_symbolTable->registerSymbol(
-          FileUtils::getPreferredPath(all_arguments[i]).string()));
+      m_configFiles.emplace_back(fileSystem->toPathId(
+          FileUtils::getPreferredPath(all_arguments[i]), m_symbolTable));
     } else if (all_arguments[i] == "-cfg") {
       i++;
       m_useConfigs.push_back(m_symbolTable->registerSymbol(all_arguments[i]));
     } else if (all_arguments[i] == "-writeppfile") {
       if (i == all_arguments.size() - 1) {
-        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_PP_FILE_MISSING_FILE, loc);
         m_errors->addError(err);
         break;
       }
       i++;
-      m_writePpOutputFileId = m_symbolTable->registerSymbol(
-          FileUtils::getPreferredPath(all_arguments[i]).string());
+      m_writePpOutputFileId = fileSystem->toPathId(
+          FileUtils::getPreferredPath(all_arguments[i]), m_symbolTable);
     } else if (all_arguments[i] == "-nohash") {
       m_noCacheHash = true;
     } else if (all_arguments[i] == "-cache") {
       if (i == all_arguments.size() - 1) {
-        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_PP_FILE_MISSING_FILE, loc);
         m_errors->addError(err);
         break;
       }
       i++;
-      m_cacheDirId = m_symbolTable->registerSymbol(
-          FileUtils::getPreferredPath(all_arguments[i]).string());
+      m_cacheDirId = fileSystem->toPathId(
+          FileUtils::getPreferredPath(all_arguments[i]), m_symbolTable);
     } else if (all_arguments[i] == "-replay") {
       m_replay = true;
     } else if (all_arguments[i] == "-writepp") {
@@ -1098,12 +1114,12 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (all_arguments[i] == "-sverilog") {
       m_sverilog = true;
     } else if (all_arguments[i] == "-fileunit") {
-      Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+      Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_SEPARATE_COMPILATION_UNIT_ON, loc);
       m_errors->addError(err);
     } else if (all_arguments[i] == "-diffcompunit") {
-      if (m_fileunit) {
-        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+      if (m_fileUnit) {
+        Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_SEPARATE_COMPILATION_UNIT_ON, loc);
         m_errors->addError(err);
       }
@@ -1176,7 +1192,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       withPython();
     } else if (all_arguments[i] == "-pythonevalscriptperfile") {
       if (i == all_arguments.size() - 1) {
-        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_PP_FILE_MISSING_FILE, loc);
         m_errors->addError(err);
         break;
@@ -1188,14 +1204,14 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_elaborate = true;
       m_pythonEvalScriptPerFile = true;
       m_pythonEvalScriptPerFileId =
-          m_symbolTable->registerSymbol(all_arguments[i]);
+          fileSystem->toPathId(all_arguments[i], m_symbolTable);
       if (m_pythonAllowed)
         PythonAPI::loadScript(all_arguments[i], true);
       else
         std::cerr << "ERROR: No Python allowed, check your arguments!\n";
     } else if (all_arguments[i] == "-pythonlistenerfile") {
       if (i == all_arguments.size() - 1) {
-        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_PP_FILE_MISSING_FILE, loc);
         m_errors->addError(err);
         break;
@@ -1206,12 +1222,12 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_compile = true;
       m_elaborate = true;
       m_pythonListener = true;
-      m_pythonListenerFileId = m_symbolTable->registerSymbol(
-          FileUtils::getPreferredPath(all_arguments[i]).string());
+      m_pythonListenerFileId = fileSystem->toPathId(
+          FileUtils::getPreferredPath(all_arguments[i]), m_symbolTable);
       PythonAPI::setListenerScript(all_arguments[i]);
     } else if (all_arguments[i] == "-pythonevalscript") {
       if (i == all_arguments.size() - 1) {
-        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_PP_FILE_MISSING_FILE, loc);
         m_errors->addError(err);
         break;
@@ -1222,8 +1238,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_compile = true;
       m_elaborate = true;
       m_pythonEvalScript = true;
-      m_pythonEvalScriptId = m_symbolTable->registerSymbol(
-          FileUtils::getPreferredPath(all_arguments[i]).string());
+      m_pythonEvalScriptId = fileSystem->toPathId(
+          FileUtils::getPreferredPath(all_arguments[i]), m_symbolTable);
       if (m_pythonAllowed)
         PythonAPI::loadScript(all_arguments[i], true);
       else
@@ -1233,16 +1249,15 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (all_arguments[i] == "-sv") {
       if (((i + 1) < all_arguments.size()) &&
           (all_arguments[i + 1][0] != '-')) {
-        ++i;
-        fs::path svpath = FileUtils::getPreferredPath(all_arguments[i]);
+        fs::path svpath = FileUtils::getPreferredPath(all_arguments[++i]);
         if (FileUtils::fileExists(svpath)) {
-          SymbolId id = m_symbolTable->registerSymbol(svpath.string());
+          PathId id = fileSystem->toPathId(svpath, m_symbolTable);
           m_sourceFiles.push_back(id);
           fs::path fileName = FileUtils::basename(svpath);
-          m_svSourceFiles.insert(fileName);
+          m_svSourceFiles.insert(id);
           fs::path path = FileUtils::getPathName(svpath);
           if (!path.empty()) {
-            SymbolId pathId = m_symbolTable->registerSymbol(path.string());
+            PathId pathId = fileSystem->toPathId(path, m_symbolTable);
             if (m_includePathSet.find(pathId) == m_includePathSet.end()) {
               m_includePathSet.insert(pathId);
               m_includePaths.push_back(pathId);
@@ -1253,35 +1268,35 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         m_sverilog = true;
       }
     } else if (all_arguments[i] == "--x-assign") {
-      Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+      Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
       m_errors->addError(err);
       i++;
     } else if (all_arguments[i] == "--x-initial") {
-      Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+      Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
       m_errors->addError(err);
       i++;
     } else if (all_arguments[i].at(0) == '+') {
-      Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+      Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
       m_errors->addError(err);
     } else if (all_arguments[i].at(0) == '-') {
-      Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+      Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_MINUS_ARG_IGNORED, loc);
       m_errors->addError(err);
     } else if ((all_arguments[i][0] == '-') || is_number(all_arguments[i]) ||
                is_c_file(all_arguments[i]) ||
                (all_arguments[i].rfind(".vlt") != std::string::npos)) {
-      Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+      Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
       m_errors->addError(err);
     } else {
       fs::path path = FileUtils::getPreferredPath(all_arguments[i]);
-      m_sourceFiles.push_back(m_symbolTable->registerSymbol(path.string()));
+      m_sourceFiles.push_back(fileSystem->toPathId(path, m_symbolTable));
       fs::path name = FileUtils::getPathName(path);
       if (!name.empty()) {
-        SymbolId pathId = m_symbolTable->registerSymbol(name.string());
+        PathId pathId = fileSystem->toPathId(name, m_symbolTable);
         if (m_includePathSet.find(pathId) == m_includePathSet.end()) {
           m_includePathSet.insert(pathId);
           m_includePaths.push_back(pathId);
@@ -1297,9 +1312,10 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
 }
 
 bool CommandLineParser::checkCommandLine_() {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   bool noError = true;
   for (const auto& fid : m_sourceFiles) {
-    if (!FileUtils::fileExists(m_symbolTable->getSymbol(fid))) {
+    if (!FileUtils::fileExists(fileSystem->toPath(fid))) {
       Location loc(fid);
       Error err(ErrorDefinition::CMD_VERILOG_FILE_DOES_NOT_EXIST, loc);
       m_errors->addError(err);
@@ -1307,14 +1323,14 @@ bool CommandLineParser::checkCommandLine_() {
     }
   }
   for (const auto& fid : m_libraryPaths) {
-    if (!FileUtils::fileExists(m_symbolTable->getSymbol(fid))) {
+    if (!FileUtils::fileExists(fileSystem->toPath(fid))) {
       Location loc(fid);
       Error err(ErrorDefinition::CMD_LIBRARY_PATH_DOES_NOT_EXIST, loc);
       m_errors->addError(err);
     }
   }
   for (const auto& fid : m_libraryFiles) {
-    if (!FileUtils::fileExists(m_symbolTable->getSymbol(fid))) {
+    if (!FileUtils::fileExists(fileSystem->toPath(fid))) {
       Location loc(fid);
       Error err(ErrorDefinition::CMD_LIBRARY_FILE_DOES_NOT_EXIST, loc);
       m_errors->addError(err);
@@ -1322,7 +1338,7 @@ bool CommandLineParser::checkCommandLine_() {
     }
   }
   for (const auto& fid : m_includePaths) {
-    if (!FileUtils::fileExists(m_symbolTable->getSymbol(fid))) {
+    if (!FileUtils::fileExists(fileSystem->toPath(fid))) {
       Location loc(fid);
       Error err(ErrorDefinition::CMD_INCLUDE_PATH_DOES_NOT_EXIST, loc);
       m_errors->addError(err);
@@ -1335,25 +1351,26 @@ bool CommandLineParser::checkCommandLine_() {
   return noError;
 }
 
-bool CommandLineParser::isSVFile(const fs::path& name) const {
-  return m_svSourceFiles.find(name) != m_svSourceFiles.end();
+bool CommandLineParser::isSVFile(PathId fileId) const {
+  return m_svSourceFiles.find(fileId) != m_svSourceFiles.end();
 }
 
 bool CommandLineParser::prepareCompilation_(int argc, const char** argv) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   bool noError = true;
-  fs::path odir = m_symbolTable->getSymbol(m_outputDir);
+  fs::path odir = fileSystem->toPath(m_outputDirId);
 
-  odir /= m_symbolTable->getSymbol(
-      (fileunit() ? m_compileUnitDirectory : m_compileAllDirectory));
-  m_fullCompileDir =
-      m_symbolTable->registerSymbol(FileUtils::getPreferredPath(odir).string());
+  odir /=
+      fileSystem->toPath((fileunit() ? m_compileUnitDirId : m_compileAllDirId));
+  m_fullCompileDirId =
+      fileSystem->toPathId(FileUtils::getPreferredPath(odir), m_symbolTable);
 
-  fs::path full_path = odir / m_symbolTable->getSymbol(m_logFileId);
-  m_logFileId = m_symbolTable->registerSymbol(
-      FileUtils::getPreferredPath(full_path).string());
+  fs::path full_path = odir / fileSystem->toPath(m_logFileId);
+  m_logFileId = fileSystem->toPathId(FileUtils::getPreferredPath(full_path),
+                                     m_symbolTable);
 
   if (!FileUtils::mkDirs(odir)) {
-    Location loc(m_fullCompileDir);
+    Location loc(m_fullCompileDirId);
     Error err(ErrorDefinition::CMD_PP_CANNOT_CREATE_OUTPUT_DIR, loc);
     m_errors->addError(err);
     noError = false;
@@ -1372,20 +1389,19 @@ bool CommandLineParser::prepareCompilation_(int argc, const char** argv) {
   return noError;
 }
 
-bool CommandLineParser::parseBuiltIn() { return m_parseBuiltIn; }
-
 bool CommandLineParser::setupCache_() {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   bool noError = true;
   fs::path cachedir;
-  fs::path odir = m_symbolTable->getSymbol(m_outputDir);
-  odir /= m_symbolTable->getSymbol(
-      (fileunit() ? m_compileUnitDirectory : m_compileAllDirectory));
+  fs::path odir = fileSystem->toPath(m_outputDirId);
+  odir /=
+      fileSystem->toPath((fileunit() ? m_compileUnitDirId : m_compileAllDirId));
   if (m_cacheDirId) {
-    cachedir = m_symbolTable->getSymbol(m_cacheDirId);
+    cachedir = fileSystem->toPath(m_cacheDirId);
   } else {
-    cachedir = odir / m_symbolTable->getSymbol(m_defaultCacheDirId);
-    m_cacheDirId = m_symbolTable->registerSymbol(
-        FileUtils::getPreferredPath(cachedir).string());
+    cachedir = odir / fileSystem->toPath(m_defaultCacheDirId);
+    m_cacheDirId = fileSystem->toPathId(FileUtils::getPreferredPath(cachedir),
+                                        m_symbolTable);
   }
 
   if (m_cacheAllowed) {
@@ -1403,17 +1419,18 @@ bool CommandLineParser::setupCache_() {
 }
 
 bool CommandLineParser::cleanCache() {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   bool noError = true;
   fs::path cachedir;
-  fs::path odir = m_symbolTable->getSymbol(m_outputDir);
-  odir /= m_symbolTable->getSymbol(
-      (fileunit() ? m_compileUnitDirectory : m_compileAllDirectory));
+  fs::path odir = fileSystem->toPath(m_outputDirId);
+  odir /=
+      fileSystem->toPath((fileunit() ? m_compileUnitDirId : m_compileAllDirId));
   if (m_cacheDirId) {
-    cachedir = m_symbolTable->getSymbol(m_cacheDirId);
+    cachedir = fileSystem->toPath(m_cacheDirId);
   } else {
-    cachedir = odir / m_symbolTable->getSymbol(m_defaultCacheDirId);
-    m_cacheDirId = m_symbolTable->registerSymbol(
-        FileUtils::getPreferredPath(cachedir).string());
+    cachedir = odir / fileSystem->toPath(m_defaultCacheDirId);
+    m_cacheDirId = fileSystem->toPathId(FileUtils::getPreferredPath(cachedir),
+                                        m_symbolTable);
   }
 
   if (!m_cacheAllowed) {

@@ -23,6 +23,7 @@
 
 #include <Surelog/API/PythonAPI.h>
 #include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/ErrorReporting/ErrorDefinition.h>
 #include <Surelog/ErrorReporting/LogListener.h>
@@ -61,8 +62,8 @@ ErrorContainer::~ErrorContainer() {
 
 void ErrorContainer::init() {
   if (ErrorDefinition::init()) {
-    const fs::path logFileName =
-        m_clp->getSymbolTable().getSymbol(m_clp->getLogFileId());
+    FileSystem* const fileSystem = FileSystem::getInstance();
+    const fs::path logFileName = fileSystem->toPath(m_clp->getLogFileId());
     if (LogListener::failed(m_logListener->initialize(logFileName.string()))) {
       std::cerr << "[FTL:LG0001] Cannot create log file \"" << logFileName
                 << "\"" << std::endl;
@@ -77,6 +78,7 @@ Error& ErrorContainer::addError(Error& error, bool showDuplicates,
   if (std::get<2>(textStatus))  // filter Message
     return error;
 
+  FileSystem* const fileSystem = FileSystem::getInstance();
   std::multimap<ErrorDefinition::ErrorType, Waiver::WaiverData>& waivers =
       Waiver::getWaivers();
   std::pair<
@@ -87,7 +89,7 @@ Error& ErrorContainer::addError(Error& error, bool showDuplicates,
            it = ret.first;
        it != ret.second; ++it) {
     if ((((*it).second.m_fileName.empty()) ||
-         (m_symbolTable->getSymbol(error.m_locations[0].m_fileId) ==
+         (fileSystem->toPath(error.m_locations[0].m_fileId) ==
           (*it).second.m_fileName)) &&
         (((*it).second.m_line == 0) ||
          (error.m_locations[0].m_line == (*it).second.m_line)) &&
@@ -99,6 +101,13 @@ Error& ErrorContainer::addError(Error& error, bool showDuplicates,
     }
   }
 
+  // Copy the PathId into our local SymbolTable!
+  for (Location& loc : error.m_locations) {
+    if (loc.m_fileId) {
+      loc.m_fileId = fileSystem->copy(loc.m_fileId, m_symbolTable);
+    }
+  }
+
   if (showDuplicates) {
     m_errors.emplace_back(error);
   } else {
@@ -107,28 +116,31 @@ Error& ErrorContainer::addError(Error& error, bool showDuplicates,
       m_errorSet.insert(std::get<0>(textStatus));
     }
   }
-  return m_errors[m_errors.size() - 1];
+  return m_errors.back();
 }
 
 void ErrorContainer::appendErrors(ErrorContainer& rhs) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   for (unsigned int i = 0; i < rhs.m_errors.size(); i++) {
     Error err = rhs.m_errors[i];
-    // Translate IDs to master symbol table
-    for (auto& loc : err.m_locations) {
-      if (loc.m_fileId)
-        loc.m_fileId = m_symbolTable->registerSymbol(
-            rhs.m_symbolTable->getSymbol(loc.m_fileId));
-      if (loc.m_object) {
-        loc.m_object = m_symbolTable->registerSymbol(
-            rhs.m_symbolTable->getSymbol(loc.m_object));
+    if (!err.m_reported) {
+      // Translate IDs to master symbol table
+      for (auto& loc : err.m_locations) {
+        if (loc.m_fileId)
+          loc.m_fileId = fileSystem->copy(loc.m_fileId, m_symbolTable);
+        if (loc.m_object) {
+          loc.m_object = m_symbolTable->registerSymbol(
+              rhs.m_symbolTable->getSymbol(loc.m_object));
+        }
       }
+      addError(err);
     }
-    if (!err.m_reported) addError(err);
   }
 }
 
 std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
     const Error& msg, bool reentrantPython) const {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   const std::map<ErrorDefinition::ErrorType, ErrorDefinition::ErrorInfo>&
       infoMap = ErrorDefinition::getErrorInfoMap();
   std::string tmp;
@@ -184,7 +196,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
       /* Location */
       std::string location;
       if (loc.m_fileId) {
-        location = m_symbolTable->getSymbol(loc.m_fileId);
+        location = fileSystem->toPath(loc.m_fileId).string();
         if (loc.m_line > 0) {
           location += ":" + std::to_string(loc.m_line) + ":";
           if (loc.m_column > 0) location += std::to_string(loc.m_column) + ":";
@@ -199,7 +211,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
         const Location& extraLoc = msg.m_locations[i];
         if (extraLoc.m_fileId) {
           std::string extraLocation =
-              m_symbolTable->getSymbol(extraLoc.m_fileId);
+              fileSystem->toPath(extraLoc.m_fileId).string();
           if (extraLoc.m_line > 0) {
             extraLocation += ":" + std::to_string(extraLoc.m_line) + ":";
             if (extraLoc.m_column > 0)

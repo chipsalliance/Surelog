@@ -25,8 +25,8 @@
 #define SURELOG_VALUEDCOMPONENTI_H
 #pragma once
 
-#include <Surelog/Common/RTTI.h>
 #include <Surelog/Common/Containers.h>
+#include <Surelog/Common/RTTI.h>
 
 // UHDM
 #include <uhdm/uhdm_forward_decl.h>
@@ -43,7 +43,8 @@ class Value;
 class ValuedComponentI : public RTTI {
   SURELOG_IMPLEMENT_RTTI(ValuedComponentI, RTTI)
  public:
-  using ParamMap = std::map<std::string, std::pair<Value*, int>, StringViewCompare>;
+  using ParamMap =
+      std::map<std::string, std::pair<Value*, int>, StringViewCompare>;
   using ComplexValueMap = std::map<std::string, UHDM::expr*, StringViewCompare>;
 
   ValuedComponentI(const ValuedComponentI* parentScope,
@@ -55,22 +56,18 @@ class ValuedComponentI : public RTTI {
   virtual Value* getValue(std::string_view name) const;
   virtual Value* getValue(std::string_view name,
                           ExprBuilder& exprBuilder) const;
-  virtual void setValue(std::string_view name, Value* val,         // NOLINT
+  virtual void setValue(std::string_view name, Value* val,  // NOLINT
                         ExprBuilder& exprBuilder, int lineNb = 0);
   virtual void deleteValue(std::string_view name, ExprBuilder& exprBuilder);
   virtual void forgetValue(std::string_view name);
-  const ParamMap& getMappedValues() const {
-    return m_paramMap;
-  }
+  const ParamMap& getMappedValues() const { return m_paramMap; }
   const ValuedComponentI* getParentScope() const { return m_parentScope; }
   void setParentScope(ValuedComponentI* parent) { m_parentScope = parent; }
 
   virtual void setComplexValue(std::string_view name, UHDM::expr* val);
   virtual UHDM::expr* getComplexValue(std::string_view name) const;
   virtual void forgetComplexValue(std::string_view name);
-  const ComplexValueMap& getComplexValues() const {
-    return m_complexValues;
-  }
+  const ComplexValueMap& getComplexValues() const { return m_complexValues; }
   // Do not change the signature of this method, it's use in gdb for debug.
   virtual std::string decompile(char* valueName) { return "Undefined"; }
 

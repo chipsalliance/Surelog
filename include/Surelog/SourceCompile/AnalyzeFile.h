@@ -25,13 +25,12 @@
 #define SURELOG_ANALYZEFILE_H
 #pragma once
 
-#include <filesystem>
-#include <stack>
-#include <vector>
-
-#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Common/PathId.h>
 #include <Surelog/Design/DesignElement.h>
 #include <Surelog/SourceCompile/IncludeFileInfo.h>
+
+#include <stack>
+#include <vector>
 
 namespace SURELOG {
 
@@ -61,35 +60,35 @@ class AnalyzeFile {
     unsigned long m_endChar;
   };
 
-  AnalyzeFile(CommandLineParser* clp, Design* design,
-              const std::filesystem::path& ppFileName,
-              const std::filesystem::path& fileName, int nbChunks,
-              const std::string& text = "")
+  AnalyzeFile(CommandLineParser* clp, Design* design, PathId ppFileId,
+              PathId fileId, int nbChunks, const std::string& text = "")
       : m_clp(clp),
         m_design(design),
-        m_ppFileName(ppFileName),
-        m_fileName(fileName),
+        m_ppFileId(ppFileId),
+        m_fileId(fileId),
         m_nbChunks(nbChunks),
         m_text(text) {}
 
   void analyze();
-  std::vector<std::filesystem::path>& getSplitFiles() { return m_splitFiles; }
-  std::vector<unsigned int>& getLineOffsets() { return m_lineOffsets; }
+  const std::vector<PathId>& getSplitFiles() const { return m_splitFiles; }
+  const std::vector<unsigned int>& getLineOffsets() const {
+    return m_lineOffsets;
+  }
 
   AnalyzeFile(const AnalyzeFile& orig) = delete;
-  virtual ~AnalyzeFile() {}
+  virtual ~AnalyzeFile() = default;
 
  private:
   void checkSLlineDirective_(const std::string& line, unsigned int lineNb);
   std::string setSLlineDirective_(unsigned int lineNb,
                                   unsigned int& origFromLine,
-                                  std::filesystem::path& origFile);
+                                  PathId& origFileId);
   CommandLineParser* m_clp;
   Design* m_design;
-  std::filesystem::path m_ppFileName;
-  std::filesystem::path m_fileName;
+  PathId m_ppFileId;
+  PathId m_fileId;
   std::vector<FileChunk> m_fileChunks;
-  std::vector<std::filesystem::path> m_splitFiles;
+  std::vector<PathId> m_splitFiles;
   std::vector<unsigned int> m_lineOffsets;
   int m_nbChunks;
   std::stack<IncludeFileInfo> m_includeFileInfo;

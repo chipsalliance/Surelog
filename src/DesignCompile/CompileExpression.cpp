@@ -22,6 +22,7 @@
  */
 
 #include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/Enum.h>
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/Design/ModuleDefinition.h>
@@ -687,10 +688,9 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
 any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
                                    DesignComponent *component,
                                    CompileDesign *compileDesign,
-                                   ValuedComponentI *instance,
-                                   const fs::path &fileName, int lineNumber,
-                                   any *pexpr, bool reduce, bool muteErrors,
-                                   bool returnTypespec) {
+                                   ValuedComponentI *instance, PathId fileId,
+                                   int lineNumber, any *pexpr, bool reduce,
+                                   bool muteErrors, bool returnTypespec) {
   UHDM::GetObjectFunctor getObjectFunctor =
       [&](const std::string &name, const any *inst,
           const any *pexpr) -> UHDM::any * {
@@ -699,7 +699,7 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
   UHDM::GetObjectFunctor getValueFunctor =
       [&](const std::string &name, const any *inst,
           const any *pexpr) -> UHDM::any * {
-    return (expr *)getValue(name, component, compileDesign, instance, fileName,
+    return (expr *)getValue(name, component, compileDesign, instance, fileId,
                             lineNumber, (any *)pexpr, true, false);
   };
   UHDM::GetTaskFuncFunctor getTaskFuncFunctor =
@@ -732,8 +732,7 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
       // std::string_view lineText =
       //     StringUtils::getLineInString(fileContent, lineNumber);
       std::string_view lineText = path->VpiFullName();
-      Location loc(symbols->registerSymbol(fileName.string()), lineNumber, 0,
-                   symbols->registerSymbol(lineText));
+      Location loc(fileId, lineNumber, 0, symbols->registerSymbol(lineText));
       Error err(ErrorDefinition::UHDM_UNRESOLVED_HIER_PATH, loc);
       errors->addError(err);
     }
@@ -744,9 +743,8 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
 expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
                                 DesignComponent *component,
                                 CompileDesign *compileDesign,
-                                ValuedComponentI *instance,
-                                const fs::path &fileName, int lineNumber,
-                                any *pexpr, bool muteErrors) {
+                                ValuedComponentI *instance, PathId fileId,
+                                int lineNumber, any *pexpr, bool muteErrors) {
   UHDM::GetObjectFunctor getObjectFunctor =
       [&](const std::string &name, const any *inst,
           const any *pexpr) -> UHDM::any * {
@@ -755,7 +753,7 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
   UHDM::GetObjectFunctor getValueFunctor =
       [&](const std::string &name, const any *inst,
           const any *pexpr) -> UHDM::any * {
-    return (expr *)getValue(name, component, compileDesign, instance, fileName,
+    return (expr *)getValue(name, component, compileDesign, instance, fileId,
                             lineNumber, (any *)pexpr, true, muteErrors);
   };
   UHDM::GetTaskFuncFunctor getTaskFuncFunctor =
@@ -785,13 +783,13 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
 any *CompileHelper::getValue(const std::string &name,
                              DesignComponent *component,
                              CompileDesign *compileDesign,
-                             ValuedComponentI *instance,
-                             const fs::path &fileName, int lineNumber,
-                             any *pexpr, bool reduce, bool muteErrors) {
+                             ValuedComponentI *instance, PathId fileId,
+                             int lineNumber, any *pexpr, bool reduce,
+                             bool muteErrors) {
   Serializer &s = compileDesign->getSerializer();
   Value *sval = nullptr;
   any *result = nullptr;
-  if (loopDetected(fileName, lineNumber, instance)) {
+  if (loopDetected(fileId, lineNumber, compileDesign, instance)) {
     return nullptr;
   }
   if (m_checkForLoops) {
@@ -1021,7 +1019,7 @@ any *CompileHelper::getValue(const std::string &name,
       if (result->VpiName() != name) {
         any *tmp =
             getValue(result->VpiName(), component, compileDesign, instance,
-                     fileName, lineNumber, pexpr, true, muteErrors);
+                     fileId, lineNumber, pexpr, true, muteErrors);
         if (tmp) result = tmp;
       }
     } else if (resultType == uhdmoperation || resultType == uhdmhier_path ||
@@ -1029,9 +1027,8 @@ any *CompileHelper::getValue(const std::string &name,
                resultType == uhdmsys_func_call) {
       if (reduce) {
         bool invalidValue = false;
-        any *tmp =
-            reduceExpr(result, invalidValue, component, compileDesign, instance,
-                       fileName, lineNumber, pexpr, muteErrors);
+        any *tmp = reduceExpr(result, invalidValue, component, compileDesign,
+                              instance, fileId, lineNumber, pexpr, muteErrors);
         if (tmp) result = tmp;
       }
     } else {
@@ -1262,6 +1259,7 @@ UHDM::any *CompileHelper::compileExpression(
   if (m_checkForLoops) {
     m_stackLevel++;
   }
+  FileSystem *const fileSystem = FileSystem::getInstance();
   UHDM::Serializer &s = compileDesign->getSerializer();
   UHDM::any *result = nullptr;
   VObjectType parentType = fC->Type(parent);
@@ -2723,15 +2721,14 @@ UHDM::any *CompileHelper::compileExpression(
                   component, fC, List_of_arguments, compileDesign, fcall,
                   instance, reduce, muteErrors);
               if (reduce) {
-                const fs::path fileName = fC->getFileName();
+                PathId fileId = fC->getFileId();
                 int lineNumber = fC->Line(nameId);
                 if (func == nullptr) {
                   ErrorContainer *errors =
                       compileDesign->getCompiler()->getErrorContainer();
                   SymbolTable *symbols =
                       compileDesign->getCompiler()->getSymbolTable();
-                  Location loc(symbols->registerSymbol(fileName.string()),
-                               lineNumber, fC->Column(nameId),
+                  Location loc(fileId, lineNumber, fC->Column(nameId),
                                symbols->registerSymbol(name));
                   Error err(ErrorDefinition::COMP_UNDEFINED_USER_FUNCTION, loc);
                   errors->addError(err);
@@ -2739,7 +2736,7 @@ UHDM::any *CompileHelper::compileExpression(
                 result = EvalFunc(
                     any_cast<function *>(func), args, invalidValue,
                     (instance) ? actual_comp : component, compileDesign,
-                    instance, fileName, lineNumber, pexpr);
+                    instance, fileId, lineNumber, pexpr);
               }
               if (result == nullptr || invalidValue == true) {
                 fcall->Tf_call_args(args);
@@ -3013,11 +3010,12 @@ UHDM::any *CompileHelper::compileExpression(
           compileDesign->getCompiler()->getErrorContainer();
       SymbolTable *symbols = compileDesign->getCompiler()->getSymbolTable();
       unsupported_expr *exp = s.MakeUnsupported_expr();
-      std::string fileContent = FileUtils::getFileContent(fC->getFileName());
+      std::string fileContent =
+          FileUtils::getFileContent(fileSystem->toPath(fC->getFileId()));
       std::string_view lineText =
           StringUtils::getLineInString(fileContent, fC->Line(the_node));
-      Location loc(symbols->registerSymbol(fC->getFileName(the_node).string()),
-                   fC->Line(the_node), fC->Column(the_node),
+      Location loc(fC->getFileId(the_node), fC->Line(the_node),
+                   fC->Column(the_node),
                    symbols->registerSymbol(
                        StrCat("<", fC->printObject(the_node), "> ", lineText)));
       Error err(ErrorDefinition::UHDM_UNSUPPORTED_EXPR, loc);
@@ -3033,8 +3031,8 @@ UHDM::any *CompileHelper::compileExpression(
     // Reduce
     bool invalidValue = false;
     any *tmp = reduceExpr(result, invalidValue, component, compileDesign,
-                          instance, fC->getFileName(the_node),
-                          fC->Line(the_node), pexpr, muteErrors);
+                          instance, fC->getFileId(the_node), fC->Line(the_node),
+                          pexpr, muteErrors);
     if (tmp && (invalidValue == false)) {
       result = tmp;
     }
@@ -3059,6 +3057,7 @@ UHDM::any *CompileHelper::compileAssignmentPattern(DesignComponent *component,
                                                    CompileDesign *compileDesign,
                                                    UHDM::any *pexpr,
                                                    ValuedComponentI *instance) {
+  FileSystem *const fileSystem = FileSystem::getInstance();
   UHDM::Serializer &s = compileDesign->getSerializer();
   UHDM::any *result = nullptr;
   UHDM::operation *operation = s.MakeOperation();
@@ -3145,9 +3144,10 @@ UHDM::any *CompileHelper::compileAssignmentPattern(DesignComponent *component,
             }
             if (reduceMore) {
               bool invalidValue = false;
-              any *tmp = reduceExpr(exp, invalidValue, component, compileDesign,
-                                    instance, op->VpiFile().string(),
-                                    op->VpiLineNo(), nullptr, true);
+              any *tmp = reduceExpr(
+                  exp, invalidValue, component, compileDesign, instance,
+                  fileSystem->toPathId(op->VpiFile(), fC->getSymbolTable()),
+                  op->VpiLineNo(), nullptr, true);
               if (invalidValue == false) {
                 exp = tmp;
               }
@@ -3157,7 +3157,7 @@ UHDM::any *CompileHelper::compileAssignmentPattern(DesignComponent *component,
             ref_obj *ref = (ref_obj *)exp;
             const std::string &name = ref->VpiName();
             any *tmp = getValue(name, component, compileDesign, instance,
-                                fC->getFileName(), fC->Line(Expression), pexpr,
+                                fC->getFileId(), fC->Line(Expression), pexpr,
                                 true, true);
             if (tmp) {
               exp = tmp;
@@ -3204,26 +3204,32 @@ bool CompileHelper::errorOnNegativeConstant(DesignComponent *component,
                                             ValuedComponentI *instance) {
   if (value == nullptr) return false;
   const std::string &val = value->uhdmValue();
-  return errorOnNegativeConstant(component, val, compileDesign, instance, "", 0,
-                                 0);
+  return errorOnNegativeConstant(component, val, compileDesign, instance,
+                                 BadPathId, 0, 0);
 }
 
 bool CompileHelper::errorOnNegativeConstant(DesignComponent *component,
                                             expr *exp,
                                             CompileDesign *compileDesign,
                                             ValuedComponentI *instance) {
+  FileSystem *const fileSystem = FileSystem::getInstance();
   if (exp == nullptr) return false;
   if (exp->UhdmType() != uhdmconstant) return false;
   const std::string &val = exp->VpiValue();
-  return errorOnNegativeConstant(component, val, compileDesign, instance,
-                                 exp->VpiFile(), exp->VpiLineNo(),
-                                 exp->VpiColumnNo());
+  return errorOnNegativeConstant(
+      component, val, compileDesign, instance,
+      fileSystem->toPathId(exp->VpiFile(),
+                           compileDesign->getCompiler()->getSymbolTable()),
+      exp->VpiLineNo(), exp->VpiColumnNo());
 }
 
-bool CompileHelper::errorOnNegativeConstant(
-    DesignComponent *component, const std::string &val,
-    CompileDesign *compileDesign, ValuedComponentI *instance,
-    const fs::path &fileName, unsigned int lineNo, unsigned short columnNo) {
+bool CompileHelper::errorOnNegativeConstant(DesignComponent *component,
+                                            const std::string &val,
+                                            CompileDesign *compileDesign,
+                                            ValuedComponentI *instance,
+                                            PathId fileId, unsigned int lineNo,
+                                            unsigned short columnNo) {
+  FileSystem *const fileSystem = FileSystem::getInstance();
   if (val[4] == '-') {
     std::string instanceName;
     if (instance) {
@@ -3236,14 +3242,14 @@ bool CompileHelper::errorOnNegativeConstant(
     }
     std::string message;
     StrAppend(&message, '"', instanceName, "\"\n");
+    SymbolTable *symbols = compileDesign->getCompiler()->getSymbolTable();
+    const std::filesystem::path fileName = fileSystem->toPath(fileId);
     const std::string &fileContent = FileUtils::getFileContent(fileName);
     auto lineText = StringUtils::getLineInString(fileContent, lineNo);
     StrAppend(&message, "             text: ", lineText);
     StrAppend(&message, "             value: ", val);
     ErrorContainer *errors = compileDesign->getCompiler()->getErrorContainer();
-    SymbolTable *symbols = compileDesign->getCompiler()->getSymbolTable();
-    Location loc(symbols->registerSymbol(fileName.string()), lineNo, columnNo,
-                 symbols->registerSymbol(message));
+    Location loc(fileId, lineNo, columnNo, symbols->registerSymbol(message));
     Error err(ErrorDefinition::ELAB_NEGATIVE_VALUE, loc);
 
     bool replay = false;
@@ -3254,9 +3260,11 @@ bool CompileHelper::errorOnNegativeConstant(
             valuedcomponenti_cast<ModuleInstance *>(instance);
         while (inst) {
           std::cout << "Instance:" << inst->getFullPathName() << " "
-                    << inst->getFileName() << "\n";
+                    << inst->getFileId() << "\n";
           std::cout << "Mod: " << inst->getModuleName() << " "
-                    << component->getFileContents()[0]->getFileName() << "\n";
+                    << fileSystem->toPath(
+                           component->getFileContents()[0]->getFileId())
+                    << "\n";
 
           for (const auto &ps : inst->getMappedValues()) {
             const std::string &name = ps.first;
@@ -3289,6 +3297,7 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
     DesignComponent *component, const FileContent *fC, NodeId Packed_dimension,
     CompileDesign *compileDesign, UHDM::any *pexpr, ValuedComponentI *instance,
     bool reduce, int &size, bool muteErrors) {
+  FileSystem *const fileSystem = FileSystem::getInstance();
   UHDM::Serializer &s = compileDesign->getSerializer();
   VectorOfrange *ranges = nullptr;
   size = 0;
@@ -3414,14 +3423,13 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
             std::string message;
             StrAppend(&message, '"', instanceName, "\"\n");
             std::string fileContent =
-                FileUtils::getFileContent(fC->getFileName().string());
+                FileUtils::getFileContent(fileSystem->toPath(fC->getFileId()));
             std::string_view lineText =
                 StringUtils::getLineInString(fileContent, fC->Line(rexpr));
             StrAppend(&message, "             text: ", lineText);
             StrAppend(&message, "             value: ", val);
 
-            Location loc(symbols->registerSymbol(fC->getFileName().string()),
-                         fC->Line(rexpr), fC->Column(rexpr),
+            Location loc(fC->getFileId(), fC->Line(rexpr), fC->Column(rexpr),
                          symbols->registerSymbol(message));
             Error err(ErrorDefinition::ELAB_ILLEGAL_ZERO_VALUE, loc);
             errors->addError(err);
@@ -3602,9 +3610,9 @@ UHDM::any *CompileHelper::compilePartSelectRange(
     if (reduce && (lexp->UhdmType() == uhdmconstant) &&
         (rexp->UhdmType() == uhdmconstant)) {
       if (!name.empty()) {
-        any *v = getValue(name, component, compileDesign, instance,
-                          fC->getFileName(), fC->Line(Constant_expression),
-                          pexpr, reduce, muteErrors);
+        any *v =
+            getValue(name, component, compileDesign, instance, fC->getFileId(),
+                     fC->Line(Constant_expression), pexpr, reduce, muteErrors);
         if (v && (v->UhdmType() == uhdmconstant)) {
           constant *cv = (constant *)v;
           Value *cvv =
@@ -3707,10 +3715,9 @@ UHDM::any *CompileHelper::compilePartSelectRange(
 uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
                              DesignComponent *component,
                              CompileDesign *compileDesign,
-                             ValuedComponentI *instance,
-                             const fs::path &fileName, int lineNumber,
-                             bool reduce, bool sizeMode) {
-  if (loopDetected(fileName, lineNumber, instance)) {
+                             ValuedComponentI *instance, PathId fileId,
+                             int lineNumber, bool reduce, bool sizeMode) {
+  if (loopDetected(fileId, lineNumber, compileDesign, instance)) {
     return 0;
   }
   if (m_checkForLoops) {
@@ -3724,7 +3731,7 @@ uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
   UHDM::GetObjectFunctor getValueFunctor =
       [&](const std::string &name, const any *inst,
           const any *pexpr) -> UHDM::any * {
-    return (expr *)getValue(name, component, compileDesign, instance, fileName,
+    return (expr *)getValue(name, component, compileDesign, instance, fileId,
                             lineNumber, (any *)pexpr, true, false);
   };
   UHDM::GetTaskFuncFunctor getTaskFuncFunctor =
@@ -3780,7 +3787,7 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
                                            CompileDesign *compileDesign,
                                            ValuedComponentI *instance,
                                            bool reduce) {
-  if (loopDetected(fC->getFileName(), fC->Line(id), instance)) {
+  if (loopDetected(fC->getFileId(), fC->Line(id), compileDesign, instance)) {
     return nullptr;
   }
   UHDM::Serializer &s = compileDesign->getSerializer();
@@ -3831,7 +3838,7 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
           bool invalidValue = false;
           result = (typespec *)decodeHierPath(
               (hier_path *)exp, invalidValue, component, compileDesign,
-              instance, fC->getFileName(), fC->Line(id), nullptr, reduce, false,
+              instance, fC->getFileId(), fC->Line(id), nullptr, reduce, false,
               true);
         } else if (exp->UhdmType() == uhdmbit_select) {
           bit_select *select = (bit_select *)exp;
@@ -4084,7 +4091,7 @@ UHDM::any *CompileHelper::compileBits(
           }
           if (reduce && tps)
             bits += Bits(tps, invalidValue, component, compileDesign, instance,
-                         fC->getFileName(typeSpecId), fC->Line(typeSpecId),
+                         fC->getFileId(typeSpecId), fC->Line(typeSpecId),
                          reduce, sizeMode);
           ConcatExpression = fC->Sibling(ConcatExpression);
         }
@@ -4108,7 +4115,7 @@ UHDM::any *CompileHelper::compileBits(
     }
     if (reduce && tps)
       bits = Bits(tps, invalidValue, component, compileDesign, instance,
-                  fC->getFileName(typeSpecId), fC->Line(typeSpecId), reduce,
+                  fC->getFileId(typeSpecId), fC->Line(typeSpecId), reduce,
                   sizeMode);
 
     if (reduce && (!tps)) {
@@ -4116,7 +4123,7 @@ UHDM::any *CompileHelper::compileBits(
                               instance, true, true);
       if (exp && typeSpecId) {
         bits = Bits(exp, invalidValue, component, compileDesign, instance,
-                    fC->getFileName(typeSpecId), fC->Line(typeSpecId), reduce,
+                    fC->getFileId(typeSpecId), fC->Line(typeSpecId), reduce,
                     sizeMode);
       }
     }
@@ -4305,12 +4312,12 @@ UHDM::any *CompileHelper::compileBound(
       expr *lr = (expr *)r->Left_expr();
       expr *rr = (expr *)r->Right_expr();
       bool invalidValue = false;
-      lr = reduceExpr(lr, invalidValue, component, compileDesign, instance, "",
-                      0, nullptr, true);
+      lr = reduceExpr(lr, invalidValue, component, compileDesign, instance,
+                      BadPathId, 0, nullptr, true);
       UHDM::ExprEval eval;
       int64_t lrv = eval.get_value(invalidValue, lr);
-      rr = reduceExpr(rr, invalidValue, component, compileDesign, instance, "",
-                      0, nullptr, true);
+      rr = reduceExpr(rr, invalidValue, component, compileDesign, instance,
+                      BadPathId, 0, nullptr, true);
       int64_t rrv = eval.get_value(invalidValue, rr);
       if (name == "left") {
         return lr;
@@ -4361,7 +4368,7 @@ UHDM::any *CompileHelper::compileClog2(
     val = eval.get_value(
         invalidValue,
         reduceExpr(operand, invalidValue, component, compileDesign, instance,
-                   fC->getFileName(), fC->Line(Expression), pexpr, muteErrors));
+                   fC->getFileId(), fC->Line(Expression), pexpr, muteErrors));
   }
   if (reduce && (invalidValue == false)) {
     val = val - 1;
@@ -4966,7 +4973,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
         result = ref;
       }
     } else if (UHDM::any *st = getValue(
-                   sval, component, compileDesign, instance, fC->getFileName(),
+                   sval, component, compileDesign, instance, fC->getFileId(),
                    fC->Line(Bit_select), pexpr, reduce, muteErrors)) {
       UHDM_OBJECT_TYPE type = st->UhdmType();
       NodeId Select = dotedName;
@@ -5148,8 +5155,8 @@ void CompileHelper::reorderAssignmentPattern(DesignComponent *mod,
   int optype = op->VpiOpType();
   if (optype == vpiConditionOp) {
     bool invalidValue = false;
-    expr *tmp = reduceExpr(op, invalidValue, mod, compileDesign, instance, "",
-                           0, nullptr, true);
+    expr *tmp = reduceExpr(op, invalidValue, mod, compileDesign, instance,
+                           BadPathId, 0, nullptr, true);
     if (tmp && (tmp->UhdmType() == uhdmoperation) && (invalidValue == false)) {
       op = (operation *)tmp;
       optype = op->VpiOpType();
@@ -5190,11 +5197,11 @@ void CompileHelper::reorderAssignmentPattern(DesignComponent *mod,
           expr *rr = (expr *)r->Right_expr();
           bool invalidValue = false;
           UHDM::ExprEval eval;
-          lr = reduceExpr(lr, invalidValue, mod, compileDesign, instance, "", 0,
-                          nullptr, true);
+          lr = reduceExpr(lr, invalidValue, mod, compileDesign, instance,
+                          BadPathId, 0, nullptr, true);
           int64_t lrv = eval.get_value(invalidValue, lr);
-          rr = reduceExpr(rr, invalidValue, mod, compileDesign, instance, "", 0,
-                          nullptr, true);
+          rr = reduceExpr(rr, invalidValue, mod, compileDesign, instance,
+                          BadPathId, 0, nullptr, true);
           int64_t rrv = eval.get_value(invalidValue, rr);
           if (lrv > rrv) {
             op->VpiReordered(true);
