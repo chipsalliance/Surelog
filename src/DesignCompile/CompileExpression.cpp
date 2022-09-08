@@ -1465,6 +1465,7 @@ UHDM::any *CompileHelper::compileExpression(
     }
     case VObjectType::slPort_expression: {
       operation *op = s.MakeOperation();
+      op->VpiParent(pexpr);
       op->VpiOpType(vpiConcatOp);
       op->Operands(s.MakeAnyVec());
       auto ops = op->Operands();
@@ -1485,7 +1486,27 @@ UHDM::any *CompileHelper::compileExpression(
         } else {
           ref_obj *ref = s.MakeRef_obj();
           ops->push_back(ref);
-          ref->VpiName(fC->SymName(Name));
+          const std::string &name = fC->SymName(Name);
+          ref->VpiName(name);
+          ref->VpiParent(op);
+          fC->populateCoreMembers(Port_reference, Port_reference, ref);
+          if (pexpr) {
+            UHDM::any *var =
+                bindVariable(component, pexpr, name, compileDesign);
+            if (var)
+              ref->Actual_group(var);
+            else if (component)
+              component->needLateBinding(ref);
+          } else if (instance) {
+            UHDM::any *var =
+                bindVariable(component, instance, name, compileDesign);
+            if (var)
+              ref->Actual_group(var);
+            else if (component)
+              component->needLateBinding(ref);
+          } else if (component) {
+            component->needLateBinding(ref);
+          }
         }
         Port_reference = fC->Sibling(Port_reference);
       }
@@ -5004,6 +5025,8 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
           ref->Actual_group(var);
         else if (component)
           component->needLateBinding(ref);
+      } else if (component) {
+        component->needLateBinding(ref);
       }
       result = ref;
     }
@@ -5026,6 +5049,8 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
         ref->Actual_group(var);
       else if (component)
         component->needLateBinding(ref);
+    } else if (component) {
+      component->needLateBinding(ref);
     }
     result = ref;
   } else if (fC->Type(name) == VObjectType::slSubroutine_call) {
