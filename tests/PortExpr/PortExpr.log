@@ -61,13 +61,17 @@ there are 1 more instances of this message.
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+array_typespec                                     1
+constant                                           2
 design                                             1
 logic_net                                          5
 logic_typespec                                     6
 module                                             3
 operation                                          1
 port                                               6
+range                                              1
 ref_obj                                            6
+unsupported_typespec                               2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ../../build/regression/PortExpr/slpp_all/surelog.uhdm ...
 
@@ -157,6 +161,18 @@ design: (work@top)
     |vpiDirection:3
     |vpiLowConn:
     \_operation: , line:2:9, endln:2:21
+      |vpiTypespec:
+      \_array_typespec: 
+        |vpiRange:
+        \_range: 
+          |vpiLeftRange:
+          \_constant: 
+            |UINT:1
+          |vpiRightRange:
+          \_constant: 
+            |UINT:0
+        |vpiElemTypespec:
+        \_logic_typespec: , line:5:11, endln:5:11
       |vpiOpType:33
       |vpiOperand:
       \_ref_obj: (op[79]), line:2:9, endln:2:21

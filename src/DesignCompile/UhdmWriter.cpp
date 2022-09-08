@@ -2250,6 +2250,42 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
         }
       }
 
+      if ((name == "") && (found == false)) {
+        // Port .op({\op[1] ,\op[0] })
+        if (operation* op = any_cast<operation*>(var)) {
+          const typespec* baseTypespec = nullptr;
+          uint64_t size = 0;
+          for (any* oper : *op->Operands()) {
+            if (oper->UhdmType() == uhdmref_obj) {
+              ref_obj* ref = (ref_obj*)oper;
+              const any* actual = ref->Actual_group();
+              if (const expr* ex = any_cast<const expr*>(actual)) {
+                const typespec* tps = ex->Typespec();
+                if (tps) {
+                  baseTypespec = tps;
+                }
+              }
+            }
+            size++;
+          }
+          if (baseTypespec) {
+            array_typespec* arr = s.MakeArray_typespec();
+            tps = arr;
+            found = true;
+            arr->Elem_typespec((typespec*)baseTypespec);
+            VectorOfrange* ranges = s.MakeRangeVec();
+            range* ra = s.MakeRange();
+            ranges->push_back(ra);
+            constant* l = s.MakeConstant();
+            l->VpiValue("UINT:" + std::to_string(size - 1));
+            ra->Left_expr(l);
+            constant* r = s.MakeConstant();
+            r->VpiValue("UINT:0");
+            ra->Right_expr(r);
+            arr->Ranges(ranges);
+          }
+        }
+      }
       if (found == true) {
         if (expr* ex = any_cast<expr*>(var)) {
           ex->Typespec((typespec*)tps);
@@ -2927,6 +2963,7 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
   if (mod) {
     lateTypedefBinding(s, mod, m, componentMap);
     lateBinding(s, mod, m, componentMap);
+    lateTypedefBinding(s, mod, m, componentMap);
   }
 
   return true;
