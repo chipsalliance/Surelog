@@ -2250,7 +2250,7 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
         }
       }
 
-      if ((name == "") && (found == false)) {
+      if ((name.empty()) && (found == false)) {
         // Port .op({\op[1] ,\op[0] })
         if (operation* op = any_cast<operation*>(var)) {
           const typespec* baseTypespec = nullptr;
