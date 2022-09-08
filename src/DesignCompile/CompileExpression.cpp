@@ -1508,6 +1508,9 @@ UHDM::any *CompileHelper::compileExpression(
             component->needLateBinding(ref);
           }
         }
+        unsupported_typespec *tps = s.MakeUnsupported_typespec();
+        op->Typespec(tps);
+        component->needLateTypedefBinding(op);
         Port_reference = fC->Sibling(Port_reference);
       }
       break;
