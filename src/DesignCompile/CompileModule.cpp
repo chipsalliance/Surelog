@@ -22,6 +22,7 @@
  */
 
 #include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/Design/ModuleDefinition.h>
 #include <Surelog/Design/ModuleInstance.h>
@@ -58,8 +59,7 @@ int FunctorCompileModule::operator()() const {
 bool CompileModule::compile() {
   const FileContent* const fC = m_module->m_fileContents[0];
   NodeId nodeId = m_module->m_nodeIds[0];
-  Location loc(m_symbols->registerSymbol(fC->getFileName(nodeId).string()),
-               fC->Line(nodeId), fC->Column(nodeId),
+  Location loc(fC->getFileId(nodeId), fC->Line(nodeId), fC->Column(nodeId),
                m_symbols->registerSymbol(m_module->getName()));
   VObjectType moduleType = fC->Type(nodeId);
   ErrorDefinition::ErrorType errType = ErrorDefinition::COMP_COMPILE_MODULE;
@@ -809,20 +809,13 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
             moduleName = StringUtils::ltrim(moduleName, ':');
             moduleName = StringUtils::ltrim(moduleName, ':');
             if (endLabel != moduleName) {
-              Location loc(
-                  m_compileDesign->getCompiler()
-                      ->getSymbolTable()
-                      ->registerSymbol(
-                          fC->getFileName(m_module->getNodeIds()[0]).string()),
-                  fC->Line(m_module->getNodeIds()[0]),
-                  fC->Column(m_module->getNodeIds()[0]),
-                  m_compileDesign->getCompiler()
-                      ->getSymbolTable()
-                      ->registerSymbol(moduleName));
-              Location loc2(m_compileDesign->getCompiler()
-                                ->getSymbolTable()
-                                ->registerSymbol(fC->getFileName(id).string()),
-                            fC->Line(id), fC->Column(id),
+              Location loc(fC->getFileId(m_module->getNodeIds()[0]),
+                           fC->Line(m_module->getNodeIds()[0]),
+                           fC->Column(m_module->getNodeIds()[0]),
+                           m_compileDesign->getCompiler()
+                               ->getSymbolTable()
+                               ->registerSymbol(moduleName));
+              Location loc2(fC->getFileId(id), fC->Line(id), fC->Column(id),
                             m_compileDesign->getCompiler()
                                 ->getSymbolTable()
                                 ->registerSymbol(endLabel));
@@ -1015,9 +1008,8 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
           VObjectTypeUnorderedSet types = {VObjectType::slModport_item};
           std::vector<NodeId> items = fC->sl_collect_all(id, types);
           for (auto nodeId : items) {
-            Location loc(
-                m_symbols->registerSymbol(fC->getFileName(nodeId).string()),
-                fC->Line(nodeId), fC->Column(nodeId));
+            Location loc(fC->getFileId(nodeId), fC->Line(nodeId),
+                         fC->Column(nodeId));
             Error err(ErrorDefinition::COMP_NO_MODPORT_IN_GENERATE, loc);
             m_errors->addError(err);
           }
@@ -1067,13 +1059,11 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
                   if (!Expression) {
                     // If expression is not null, we cannot conclude here
                     if (!port_exists) {
-                      Location loc(
-                          m_symbols->registerSymbol(
-                              fC->getFileName(simple_port_name).string()),
-                          fC->Line(simple_port_name),
-                          fC->Column(simple_port_name),
-                          m_symbols->registerSymbol(
-                              fC->SymName(simple_port_name)));
+                      Location loc(fC->getFileId(simple_port_name),
+                                   fC->Line(simple_port_name),
+                                   fC->Column(simple_port_name),
+                                   m_symbols->registerSymbol(
+                                       fC->SymName(simple_port_name)));
                       Error err(ErrorDefinition::COMP_MODPORT_UNDEFINED_PORT,
                                 loc);
                       m_errors->addError(err);
@@ -1098,11 +1088,10 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
                 ClockingBlock* cb =
                     m_module->getClockingBlock(clocking_block_symbol);
                 if (cb == nullptr) {
-                  Location loc(
-                      m_symbols->registerSymbol(
-                          fC->getFileName(clocking_block_name).string()),
-                      fC->Line(clocking_block_name),
-                      fC->Column(clocking_block_name), clocking_block_symbol);
+                  Location loc(fC->getFileId(clocking_block_name),
+                               fC->Line(clocking_block_name),
+                               fC->Column(clocking_block_name),
+                               clocking_block_symbol);
                   Error err(
                       ErrorDefinition::COMP_MODPORT_UNDEFINED_CLOCKING_BLOCK,
                       loc);
@@ -1194,20 +1183,13 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
             moduleName = StringUtils::ltrim(moduleName, ':');
             moduleName = StringUtils::ltrim(moduleName, ':');
             if (endLabel != moduleName) {
-              Location loc(
-                  m_compileDesign->getCompiler()
-                      ->getSymbolTable()
-                      ->registerSymbol(
-                          fC->getFileName(m_module->getNodeIds()[0]).string()),
-                  fC->Line(m_module->getNodeIds()[0]),
-                  fC->Column(m_module->getNodeIds()[0]),
-                  m_compileDesign->getCompiler()
-                      ->getSymbolTable()
-                      ->registerSymbol(moduleName));
-              Location loc2(m_compileDesign->getCompiler()
-                                ->getSymbolTable()
-                                ->registerSymbol(fC->getFileName(id).string()),
-                            fC->Line(id), fC->Column(id),
+              Location loc(fC->getFileId(m_module->getNodeIds()[0]),
+                           fC->Line(m_module->getNodeIds()[0]),
+                           fC->Column(m_module->getNodeIds()[0]),
+                           m_compileDesign->getCompiler()
+                               ->getSymbolTable()
+                               ->registerSymbol(moduleName));
+              Location loc2(fC->getFileId(id), fC->Line(id), fC->Column(id),
                             m_compileDesign->getCompiler()
                                 ->getSymbolTable()
                                 ->registerSymbol(endLabel));
@@ -1259,6 +1241,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
 }
 
 bool CompileModule::checkModule_() {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   int countMissingType = 0;
   int countMissingDirection = 0;
   Location* missingTypeLoc = nullptr;
@@ -1279,9 +1262,9 @@ bool CompileModule::checkModule_() {
           port->getDirection() == VObjectType::slPortDir_Inout) {
         if (countMissingType == 0)
           missingTypeLoc = new Location(
-              m_symbols->registerSymbol(port->getFileContent()
-                                            ->getFileName(port->getNodeId())
-                                            .string()),
+              fileSystem->copy(
+                  port->getFileContent()->getFileId(port->getNodeId()),
+                  m_symbols),
               port->getFileContent()->Line(port->getNodeId()),
               port->getFileContent()->Column(port->getNodeId()),
               m_symbols->registerSymbol(port->getName()));
@@ -1291,9 +1274,9 @@ bool CompileModule::checkModule_() {
     if (port->getDirection() == VObjectType::slNoType) {
       if (countMissingDirection == 0)
         missingDirectionLoc = new Location(
-            m_symbols->registerSymbol(port->getFileContent()
-                                          ->getFileName(port->getNodeId())
-                                          .string()),
+            fileSystem->copy(
+                port->getFileContent()->getFileId(port->getNodeId()),
+                m_symbols),
             port->getFileContent()->Line(port->getNodeId()),
             port->getFileContent()->Column(port->getNodeId()),
             m_symbols->registerSymbol(port->getName()));
@@ -1336,6 +1319,7 @@ bool CompileModule::checkModule_() {
 }
 
 bool CompileModule::checkInterface_() {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   int countMissingType = 0;
   Location* missingTypeLoc = nullptr;
   for (auto& port : m_module->m_ports) {
@@ -1344,9 +1328,9 @@ bool CompileModule::checkInterface_() {
           port->getDirection() == VObjectType::slPortDir_Inout) {
         if (countMissingType == 0)
           missingTypeLoc = new Location(
-              m_symbols->registerSymbol(port->getFileContent()
-                                            ->getFileName(port->getNodeId())
-                                            .string()),
+              fileSystem->copy(
+                  port->getFileContent()->getFileId(port->getNodeId()),
+                  m_symbols),
               port->getFileContent()->Line(port->getNodeId()), 0,
               m_symbols->registerSymbol(port->getName()));
         countMissingType++;

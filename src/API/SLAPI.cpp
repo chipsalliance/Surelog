@@ -29,6 +29,7 @@
 #include <Surelog/SourceCompile/PythonListen.h>
 #endif
 
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/Design.h>
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/Design/ModuleDefinition.h>
@@ -85,9 +86,11 @@ void SLaddError(ErrorContainer* errors, const char* messageId,
                 const char* fileName, unsigned int line, unsigned int col,
                 const char* objectName) {
   if (errors == nullptr) return;
+  FileSystem* const fileSystem = FileSystem::getInstance();
   SymbolTable* symbolTable = errors->getSymbolTable();
-  const SymbolId fileId =
-      IsEmpty(fileName) ? BadSymbolId : symbolTable->registerSymbol(fileName);
+  const PathId fileId = IsEmpty(fileName)
+                            ? BadPathId
+                            : fileSystem->toPathId(fileName, symbolTable);
   const SymbolId objectId = IsEmpty(objectName)
                                 ? BadSymbolId
                                 : symbolTable->registerSymbol(objectName);
@@ -104,19 +107,22 @@ void SLaddMLError(ErrorContainer* errors, const char* messageId,
                   unsigned int line2, unsigned int col2,
                   const char* objectName2) {
   if (errors == nullptr) return;
+  FileSystem* const fileSystem = FileSystem::getInstance();
   SymbolTable* symbolTable = errors->getSymbolTable();
-  const SymbolId fileId1 =
-      IsEmpty(fileName1) ? BadSymbolId : symbolTable->registerSymbol(fileName1);
+  const PathId fileId1 = IsEmpty(fileName1)
+                             ? BadPathId
+                             : fileSystem->toPathId(fileName1, symbolTable);
   const SymbolId objectId1 = IsEmpty(objectName1)
                                  ? BadSymbolId
                                  : symbolTable->registerSymbol(objectName1);
   Location loc1(fileId1, line1, col1, objectId1);
 
-  SymbolId fileId2;
-  if (!IsEmpty(fileName2)) fileId2 = symbolTable->registerSymbol(fileName2);
-  SymbolId objectId2;
-  if (!IsEmpty(objectName2))
-    objectId2 = symbolTable->registerSymbol(objectName2);
+  PathId fileId2 = IsEmpty(fileName2)
+                       ? BadPathId
+                       : fileSystem->toPathId(fileName2, symbolTable);
+  SymbolId objectId2 = IsEmpty(objectName2)
+                           ? BadSymbolId
+                           : symbolTable->registerSymbol(objectName2);
   Location loc2(fileId2, line2, col2, objectId2);
 
   ErrorDefinition::ErrorType type = ErrorDefinition::getErrorType(messageId);
@@ -196,9 +202,10 @@ void SLaddMLErrorContext(SV3_1aPythonListener* prog,
 std::string SLgetFile(SV3_1aPythonListener* prog,
                       antlr4::ParserRuleContext* context) {
 #ifdef SURELOG_WITH_PYTHON
+  FileSystem* const fileSystem = FileSystem::getInstance();
   SV3_1aPythonListener* listener = (SV3_1aPythonListener*)prog;
-  std::string file =
-      listener->getPythonListen()->getParseFile()->getFileName(0).string();
+  ParseFile* parseFile = listener->getPythonListen()->getParseFile();
+  std::string file = fileSystem->toPath(parseFile->getFileId(0)).string();
   return file;
 #else
   std::cerr << "SLgetFile(): Python support not compiled in\n";
@@ -288,7 +295,7 @@ RawNodeId SLgetRootNode(FileContent* fC) {
 
 std::string SLgetFile(FileContent* fC, RawNodeId id) {
   if (!fC) return "";
-  return fC->getSymbolTable()->getSymbol(fC->getFileId(NodeId(id)));
+  return FileSystem::getInstance()->toPath(fC->getFileId(NodeId(id))).string();
 }
 
 unsigned int SLgetType(FileContent* fC, RawNodeId id) {
@@ -468,8 +475,8 @@ static bool ModuleHasFirstFileContent(const ClassOrPackageOrProgram* module) {
 
 std::string SLgetModuleFile(ModuleDefinition* module) {
   if (!ModuleHasFirstFileContent(module)) return "";
-  return module->getFileContents()[0]
-      ->getFileName(module->getNodeIds()[0])
+  return FileSystem::getInstance()
+      ->toPath(module->getFileContents()[0]->getFileId(module->getNodeIds()[0]))
       .string();
 }
 
@@ -501,8 +508,8 @@ std::string SLgetClassName(ClassDefinition* module) {
 
 std::string SLgetClassFile(ClassDefinition* module) {
   if (!ModuleHasFirstFileContent(module)) return "";
-  return module->getFileContents()[0]
-      ->getFileName(module->getNodeIds()[0])
+  return FileSystem::getInstance()
+      ->toPath(module->getFileContents()[0]->getFileId(module->getNodeIds()[0]))
       .string();
 }
 
@@ -534,8 +541,8 @@ std::string SLgetPackageName(Package* module) {
 
 std::string SLgetPackageFile(Package* module) {
   if (!ModuleHasFirstFileContent(module)) return "";
-  return module->getFileContents()[0]
-      ->getFileName(module->getNodeIds()[0])
+  return FileSystem::getInstance()
+      ->toPath(module->getFileContents()[0]->getFileId(module->getNodeIds()[0]))
       .string();
 }
 
@@ -566,8 +573,8 @@ std::string SLgetProgramName(Program* module) {
 
 std::string SLgetProgramFile(Program* module) {
   if (!ModuleHasFirstFileContent(module)) return "";
-  return module->getFileContents()[0]
-      ->getFileName(module->getNodeIds()[0])
+  return FileSystem::getInstance()
+      ->toPath(module->getFileContents()[0]->getFileId(module->getNodeIds()[0]))
       .string();
 }
 
@@ -623,8 +630,8 @@ DesignComponent* SLgetInstanceDefinition(ModuleInstance* instance) {
 
 std::string SLgetInstanceFileName(ModuleInstance* instance) {
   if (!instance) return "";
-  return instance->getFileContent()
-      ->getFileName(instance->getNodeId())
+  return FileSystem::getInstance()
+      ->toPath(instance->getFileContent()->getFileId(instance->getNodeId()))
       .string();
 }
 

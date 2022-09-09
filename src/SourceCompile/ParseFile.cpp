@@ -23,6 +23,7 @@
 
 #include <Surelog/Cache/ParseCache.h>
 #include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/Package/Precompiled.h>
@@ -46,10 +47,9 @@ namespace SURELOG {
 
 namespace fs = std::filesystem;
 
-ParseFile::ParseFile(SymbolId fileId, SymbolTable* symbolTable,
+ParseFile::ParseFile(PathId fileId, SymbolTable* symbolTable,
                      ErrorContainer* errors)
     : m_fileId(fileId),
-      m_ppFileId(BadSymbolId),
       m_compileSourceFile(nullptr),
       m_compilationUnit(nullptr),
       m_library(nullptr),
@@ -66,9 +66,9 @@ ParseFile::ParseFile(SymbolId fileId, SymbolTable* symbolTable,
   debug_AstModel = false;
 }
 
-ParseFile::ParseFile(SymbolId fileId, CompileSourceFile* csf,
+ParseFile::ParseFile(PathId fileId, CompileSourceFile* csf,
                      CompilationUnit* compilationUnit, Library* library,
-                     SymbolId ppFileId, bool keepParserHandler)
+                     PathId ppFileId, bool keepParserHandler)
     : m_fileId(fileId),
       m_ppFileId(ppFileId),
       m_compileSourceFile(csf),
@@ -89,7 +89,7 @@ ParseFile::ParseFile(SymbolId fileId, CompileSourceFile* csf,
 }
 
 ParseFile::ParseFile(CompileSourceFile* compileSourceFile, ParseFile* parent,
-                     SymbolId chunkFileId, unsigned int offsetLine)
+                     PathId chunkFileId, unsigned int offsetLine)
     : m_fileId(parent->m_fileId),
       m_ppFileId(chunkFileId),
       m_compileSourceFile(compileSourceFile),
@@ -110,9 +110,7 @@ ParseFile::ParseFile(CompileSourceFile* compileSourceFile, ParseFile* parent,
 
 ParseFile::ParseFile(const std::string& text, CompileSourceFile* csf,
                      CompilationUnit* compilationUnit, Library* library)
-    : m_fileId(BadSymbolId),
-      m_ppFileId(BadSymbolId),
-      m_compileSourceFile(csf),
+    : m_compileSourceFile(csf),
       m_compilationUnit(compilationUnit),
       m_library(library),
       m_antlrParserHandler(nullptr),
@@ -155,10 +153,6 @@ std::string ParseFile::getSymbol(SymbolId id) const {
   return getCompileSourceFile()->getSymbolTable()->getSymbol(id);
 }
 
-fs::path ParseFile::getFileName(unsigned int line) {
-  return getSymbol(getFileId(line));
-}
-
 void ParseFile::addError(Error& error) {
   getCompileSourceFile()->getErrorContainer()->addError(error);
 }
@@ -182,7 +176,7 @@ void ParseFile::buildLineInfoCache_() {
       while (1) {
         if ((lineItr >= infos[index].m_originalStartLine) &&
             (infos[index].m_action == IncludeFileInfo::Action::POP)) {
-          SymbolId fileId = infos[index].m_sectionFile;
+          PathId fileId = infos[index].m_sectionFile;
           fileInfoCache[lineItr] = fileId;
           unsigned int l = infos[index].m_sectionStartLine +
                            (lineItr - infos[index].m_originalStartLine);
@@ -204,7 +198,7 @@ void ParseFile::buildLineInfoCache_() {
             (infos[index].m_indexClosing > -1) &&
             (lineItr <
              infos[infos[index].m_indexClosing].m_originalStartLine)) {
-          SymbolId fileId = infos[index].m_sectionFile;
+          PathId fileId = infos[index].m_sectionFile;
           fileInfoCache[lineItr] = fileId;
           unsigned int l = infos[index].m_sectionStartLine +
                            (lineItr - infos[index].m_originalStartLine);
@@ -218,12 +212,12 @@ void ParseFile::buildLineInfoCache_() {
   }
 }
 
-SymbolId ParseFile::getFileId(unsigned int line) {
+PathId ParseFile::getFileId(unsigned int line) {
   if (!getCompileSourceFile()) {
     return m_fileId;
   }
   PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
-  if (!pp) return BadSymbolId;
+  if (!pp) return BadPathId;
   auto& infos = pp->getIncludeFileInfo();
   if (!infos.empty()) {
     if (!fileInfoCache.empty()) {
@@ -276,8 +270,9 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
   }
 }
 
-bool ParseFile::parseOneFile_(const std::string& fileName,
-                              unsigned int lineOffset) {
+bool ParseFile::parseOneFile_(PathId fileId, unsigned int lineOffset) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  const std::filesystem::path fileName = fileSystem->toPath(fileId);
   CommandLineParser* clp = getCompileSourceFile()->getCommandLineParser();
   PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
   Timer tmr;
@@ -288,7 +283,6 @@ bool ParseFile::parseOneFile_(const std::string& fileName,
   if (m_sourceText.empty()) {
     stream.open(fileName);
     if (!stream.good()) {
-      SymbolId fileId = registerSymbol(fileName);
       Location ppfile(fileId);
       Error err(ErrorDefinition::PA_CANNOT_OPEN_FILE, ppfile);
       addError(err);
@@ -301,10 +295,9 @@ bool ParseFile::parseOneFile_(const std::string& fileName,
   }
 
   antlrParserHandler->m_errorListener =
-      new AntlrParserErrorListener(this, false, lineOffset, fileName);
+      new AntlrParserErrorListener(this, false, lineOffset, fileId);
   antlrParserHandler->m_lexer =
       new SV3_1aLexer(antlrParserHandler->m_inputStream);
-  const auto suffix = StringUtils::leaf(fileName);
   VerilogVersion version = VerilogVersion::SystemVerilog;
   if (pp) version = pp->getVerilogVersion();
   if (version != VerilogVersion::NoVersion) {
@@ -332,8 +325,8 @@ bool ParseFile::parseOneFile_(const std::string& fileName,
     }
   } else {
     fs::path baseFileName = FileUtils::basename(fileName);
-    if ((suffix == "sv") || (clp->fullSVMode()) ||
-        (clp->isSVFile(baseFileName))) {
+    if ((fileName.extension() == ".sv") || (clp->fullSVMode()) ||
+        (clp->isSVFile(fileId))) {
       antlrParserHandler->m_lexer->sverilog = true;
     } else {
       antlrParserHandler->m_lexer->sverilog = false;
@@ -386,7 +379,7 @@ bool ParseFile::parseOneFile_(const std::string& fileName,
     if (getCompileSourceFile()->getCommandLineParser()->profile()) {
       m_profileInfo +=
           "SLL Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
-          "s " + fileName + "\n";
+          "s " + fileName.string() + "\n";
       tmr.reset();
       profileParser();
     }
@@ -409,7 +402,7 @@ bool ParseFile::parseOneFile_(const std::string& fileName,
     if (getCompileSourceFile()->getCommandLineParser()->profile()) {
       m_profileInfo +=
           "LL  Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
-          "s " + fileName + "\n";
+          "s " + fileName.string() + "\n";
       tmr.reset();
       profileParser();
     }
@@ -466,11 +459,10 @@ std::string ParseFile::getProfileInfo() const {
 }
 
 bool ParseFile::parse() {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   CommandLineParser* clp = getCompileSourceFile()->getCommandLineParser();
   Precompiled* prec = Precompiled::getSingleton();
-  fs::path root = FileUtils::basename(this->getPpFileName());
-  bool precompiled = false;
-  if (prec->isFilePrecompiled(root)) precompiled = true;
+  bool precompiled = prec->isFilePrecompiled(m_ppFileId);
 
   if (m_children.empty()) {
     ParseCache cache(this);
@@ -480,8 +472,8 @@ bool ParseFile::parse() {
       if (debug_AstModel && !precompiled)
         std::cout << m_fileContent->printObjects();
       if (clp->debugCache()) {
-        std::cout << "PARSER CACHE USED FOR: " << this->getFileName(0)
-                  << std::endl;
+        std::cout << "PARSER CACHE USED FOR: "
+                  << fileSystem->toPath(getFileId(0)) << std::endl;
       }
       return true;
     }
@@ -501,8 +493,8 @@ bool ParseFile::parse() {
     }
     if (ok) {
       if (clp->debugCache()) {
-        std::cout << "PARSER CACHE USED FOR: " << this->getFileName(0)
-                  << std::endl;
+        std::cout << "PARSER CACHE USED FOR: "
+                  << fileSystem->toPath(getFileId(0)) << std::endl;
       }
       return true;
     }
@@ -513,7 +505,7 @@ bool ParseFile::parse() {
     // std::cout << std::endl << "Parsing " << getSymbol(m_ppFileId) << "
     // Line: " << m_offsetLine << std::endl << std::flush;
 
-    parseOneFile_(getSymbol(m_ppFileId), m_offsetLine);
+    parseOneFile_(m_ppFileId, m_offsetLine);
 
     // m_listener = new SV3_1aTreeShapeListener (this,
     // m_antlrParserHandler->m_tokens, m_offsetLine);

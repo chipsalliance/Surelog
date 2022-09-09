@@ -21,6 +21,7 @@
  * Created on June 8, 2017, 8:22 PM
  */
 
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/Library/Library.h>
@@ -30,9 +31,9 @@
 #include <stack>
 
 namespace SURELOG {
-FileContent::FileContent(SymbolId fileId, Library* library,
+FileContent::FileContent(PathId fileId, Library* library,
                          SymbolTable* symbolTable, ErrorContainer* errors,
-                         FileContent* parent, SymbolId fileChunkId)
+                         FileContent* parent, PathId fileChunkId)
     : DesignComponent(nullptr, nullptr),
       m_fileId(fileId),
       m_fileChunkId(fileChunkId),
@@ -40,16 +41,12 @@ FileContent::FileContent(SymbolId fileId, Library* library,
       m_library(library),
       m_symbolTable(symbolTable),
       m_parentFile(parent) {
-  addObject(BadSymbolId, BadSymbolId, sl_INVALID_, 0, 0, 0, 0, InvalidNodeId,
+  addObject(BadSymbolId, BadPathId, sl_INVALID_, 0, 0, 0, 0, InvalidNodeId,
             InvalidNodeId, InvalidNodeId, InvalidNodeId);
 }
 
-const std::string& FileContent::getName() const {
-  return m_symbolTable->getSymbol(m_fileId);
-}
-
-std::filesystem::path FileContent::getChunkFileName() const {
-  return m_symbolTable->getSymbol(m_fileChunkId);
+std::string FileContent::getName() const {
+  return FileSystem::getInstance()->toPath(m_fileId).string();
 }
 
 const std::string& FileContent::SymName(NodeId index) const {
@@ -63,25 +60,16 @@ const std::string& FileContent::SymName(NodeId index) const {
   return m_symbolTable->getSymbol(Name(index));
 }
 
-std::filesystem::path FileContent::getFileName() const {
-  return m_symbolTable->getSymbol(m_fileId);
-}
-
 NodeId FileContent::getRootNode() const {
   return m_objects.empty() ? InvalidNodeId : m_objects[1].m_sibling;
 }
 
-SymbolId FileContent::getFileId(NodeId id) const {
+PathId FileContent::getFileId(NodeId id) const {
   return m_objects[id].m_fileId;
 }
 
-SymbolId* FileContent::getMutableFileId(NodeId id) {
+PathId* FileContent::getMutableFileId(NodeId id) {
   return &m_objects[id].m_fileId;
-}
-
-std::filesystem::path FileContent::getFileName(NodeId id) const {
-  SymbolId fileId = m_objects[id].m_fileId;
-  return m_symbolTable->getSymbol(fileId);
 }
 
 std::string FileContent::printObjects() const {
@@ -89,7 +77,8 @@ std::string FileContent::printObjects() const {
   NodeId index(0);
 
   if (m_library) text += "LIB:  " + m_library->getName() + "\n";
-  const std::filesystem::path fileName = m_symbolTable->getSymbol(m_fileId);
+  const std::filesystem::path fileName =
+      FileSystem::getInstance()->toPath(m_fileId);
   text += "FILE: " + fileName.string() + "\n";
   for (auto& object : m_objects) {
     text +=
@@ -121,12 +110,10 @@ void FileContent::insertObjectLookup(const std::string& name, NodeId id,
   if (itr == m_objectLookup.end()) {
     m_objectLookup.insert(std::make_pair(name, id));
   } else {
-    Location loc(
-        errors->getSymbolTable()->registerSymbol(getFileName(id).string()),
-        Line(id), Column(id), errors->getSymbolTable()->registerSymbol(name));
-    Location loc2(errors->getSymbolTable()->registerSymbol(
-                      getFileName(itr->second).string()),
-                  Line(itr->second), Column(itr->second));
+    Location loc(getFileId(id), Line(id), Column(id),
+                 errors->getSymbolTable()->registerSymbol(name));
+    Location loc2(getFileId(itr->second), Line(itr->second),
+                  Column(itr->second));
     Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_DESIGN_UNIT, loc, loc2);
     errors->addError(err);
   }
@@ -205,16 +192,16 @@ std::vector<std::string> FileContent::collectSubTree(NodeId index) const {
   return text;
 }
 
-void FileContent::SetDefinitionFile(NodeId index, SymbolId def) {
+void FileContent::SetDefinitionFile(NodeId index, PathId def) {
   m_definitionFiles.insert(std::make_pair(index, def));
 }
 
-SymbolId FileContent::GetDefinitionFile(NodeId index) const {
+PathId FileContent::GetDefinitionFile(NodeId index) const {
   auto itr = m_definitionFiles.find(index);
-  return (itr == m_definitionFiles.end()) ? BadSymbolId : (*itr).second;
+  return (itr == m_definitionFiles.end()) ? BadPathId : itr->second;
 }
 
-NodeId FileContent::addObject(SymbolId name, SymbolId fileId, VObjectType type,
+NodeId FileContent::addObject(SymbolId name, PathId fileId, VObjectType type,
                               unsigned int line, unsigned short column,
                               unsigned int endLine, unsigned short endColumn,
                               NodeId parent /* = InvalidNodeId */,
@@ -689,7 +676,7 @@ void FileContent::populateCoreMembers(NodeId startIndex, NodeId endIndex,
     }
   }
 
-  SymbolId fileId;
+  PathId fileId;
   if (startIndex && endIndex) {
     const VObject& startObject = m_objects[startIndex];
     const VObject& endObject = m_objects[endIndex];
@@ -716,7 +703,7 @@ void FileContent::populateCoreMembers(NodeId startIndex, NodeId endIndex,
   }
 
   if (fileId) {
-    instance->VpiFile(m_symbolTable->getSymbol(fileId));
+    instance->VpiFile(FileSystem::getInstance()->toPath(fileId).string());
   }
 }
 }  // namespace SURELOG

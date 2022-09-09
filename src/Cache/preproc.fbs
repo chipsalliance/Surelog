@@ -27,7 +27,7 @@ namespace SURELOG.MACROCACHE;
 enum MacroType :byte { NO_ARGS = 0, WITH_ARGS = 1 }
 
 table Macro {
-  name:string;
+  name_id:ulong;
   type:MacroType;
   file_id:uint;
   start_line:uint;
@@ -41,7 +41,7 @@ table Macro {
 table IncludeFileInfo {
   context:uint;
   section_start_line:uint;
-  section_file:string;
+  section_file_id:ulong;
   original_start_line:uint;
   original_start_column:uint;
   original_end_line:uint;
@@ -52,7 +52,7 @@ table IncludeFileInfo {
 }
 
 table LineTranslationInfo {
-  pretend_file:string;
+  pretend_file_id:ulong;
   original_line:uint;
   pretend_line:uint;
 }
@@ -60,11 +60,11 @@ table LineTranslationInfo {
 table PPCache {
   header:CACHE.Header;
   macros:[Macro];
-  includes:[string];
+  includes:[ulong];
   body:string;
   errors:[CACHE.Error];
   symbols:[string];
-  cmd_include_paths:[string];
+  cmd_include_paths:[ulong];
   cmd_define_options:[string]; 
   time_info:[CACHE.TimeInfo];
   line_translation_vec:[LineTranslationInfo];

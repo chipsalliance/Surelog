@@ -39,7 +39,7 @@ Library* LibrarySet::getLibrary(std::string_view libName) {
   return nullptr;
 }
 
-Library* LibrarySet::getLibrary(SymbolId fileId) {
+Library* LibrarySet::getLibrary(PathId fileId) {
   Library* lib = nullptr;
   for (auto& library : m_libraries) {
     if (library.isMember(fileId)) {
@@ -64,15 +64,15 @@ std::string LibrarySet::report(SymbolTable* symbols) const {
 
 void LibrarySet::checkErrors(SymbolTable* symbols,
                              ErrorContainer* errors) const {
-  std::map<SymbolId, std::string, SymbolIdLessThanComparer> fileSet;
+  std::map<PathId, std::string, PathIdLessThanComparer> fileSet;
   for (const auto& library : m_libraries) {
     for (const auto& file : library.getFiles()) {
-      std::map<SymbolId, std::string>::iterator itr = fileSet.find(file);
+      auto itr = fileSet.find(file);
       if (itr == fileSet.end()) {
         fileSet.insert(std::make_pair(file, library.getName()));
       } else {
         Location loc1(
-            symbols->registerSymbol((*itr).second + ", " + library.getName()));
+            symbols->registerSymbol(itr->second + ", " + library.getName()));
         Location loc2(file);
         Error err(ErrorDefinition::LIB_FILE_MAPS_TO_MULTIPLE_LIBS, loc1, loc2);
         errors->addError(err);

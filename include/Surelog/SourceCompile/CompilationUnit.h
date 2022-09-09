@@ -53,15 +53,15 @@ class CompilationUnit {
   void deleteAllMacros() { m_macros.clear(); }
 
   /* Following methods deal with `timescale */
-  void setCurrentTimeInfo(SymbolId fileId);
+  void setCurrentTimeInfo(PathId fileId);
   std::vector<TimeInfo>& getTimeInfo() { return m_timeInfo; }
   void recordTimeInfo(TimeInfo& info);
-  TimeInfo& getTimeInfo(SymbolId fileId, unsigned int line);
+  TimeInfo& getTimeInfo(PathId fileId, unsigned int line);
 
   /* Following methods deal with `default_nettype */
   std::vector<NetTypeInfo>& getDefaultNetType() { return m_defaultNetTypes; }
   void recordDefaultNetType(NetTypeInfo& info);
-  VObjectType getDefaultNetType(SymbolId fileId, unsigned int line);
+  VObjectType getDefaultNetType(PathId fileId, unsigned int line);
 
   NodeId generateUniqueDesignElemId() {
     m_uniqueIdGenerator++;

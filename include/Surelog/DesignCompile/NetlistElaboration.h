@@ -62,21 +62,24 @@ class NetlistElaboration : public TestbenchElaboration {
   UHDM::interface* elab_interface_(
       ModuleInstance* instance, ModuleInstance* interf_instance,
       const std::string& instName, const std::string& defName,
-      ModuleDefinition* mod, const std::filesystem::path& fileName, int lineNb,
+      ModuleDefinition* mod, PathId fileId, int lineNb,
       UHDM::interface_array* interf_array, const std::string& modPortName);
-  UHDM::modport* elab_modport_(
-      ModuleInstance* instance, ModuleInstance* interfInstance,
-      const std::string& instName, const std::string& defName,
-      ModuleDefinition* mod, const std::filesystem::path& fileName, int lineNb,
-      const std::string& modPortName, UHDM::interface_array* interf_array);
+  UHDM::modport* elab_modport_(ModuleInstance* instance,
+                               ModuleInstance* interfInstance,
+                               const std::string& instName,
+                               const std::string& defName,
+                               ModuleDefinition* mod, PathId fileId, int lineNb,
+                               const std::string& modPortName,
+                               UHDM::interface_array* interf_array);
   bool elab_ports_nets_(ModuleInstance* instance, bool ports);
   bool elab_ports_nets_(ModuleInstance* instance, ModuleInstance* child,
                         Netlist* parentNetlist, Netlist* netlist,
                         DesignComponent* comp, const std::string& prefix,
                         bool ports);
 
-  UHDM::any* bind_net_(const FileContent* idfC, NodeId id, ModuleInstance* instance,
-                       ModuleInstance* boundInstance, const std::string& name);
+  UHDM::any* bind_net_(const FileContent* idfC, NodeId id,
+                       ModuleInstance* instance, ModuleInstance* boundInstance,
+                       const std::string& name);
   UHDM::any* bind_net_(ModuleInstance* instance, const std::string& name);
   ModuleInstance* getInterfaceInstance_(ModuleInstance* instance,
                                         const std::string& sigName);

@@ -39,6 +39,7 @@ class FileContent;
 class ModuleInstance;
 class Netlist;
 class Parameter;
+class PathId;
 class SymbolId;
 class SymbolTable;
 
@@ -74,8 +75,7 @@ class ModuleInstance : public ValuedComponentI {
   }
   ModuleInstance* getParent() const { return m_parent; }
   const FileContent* getFileContent() const { return m_fileContent; }
-  SymbolId getFileId() const;
-  std::filesystem::path getFileName() const;
+  PathId getFileId() const;
   NodeId getNodeId() const { return m_nodeId; }
   unsigned int getLineNb() const;
   unsigned short getColumnNb() const;

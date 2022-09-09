@@ -26,6 +26,7 @@
 #pragma once
 
 #include <Surelog/Common/Containers.h>
+#include <Surelog/Common/PathId.h>
 #include <Surelog/Common/PortNetHolder.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/FileCNodeId.h>
@@ -35,8 +36,6 @@
 
 // UHDM
 #include <uhdm/uhdm_forward_decl.h>
-
-#include <filesystem>
 
 namespace SURELOG {
 
@@ -53,17 +52,16 @@ class Variable;
 
 class ExprEval {
  public:
-  ExprEval(UHDM::expr* expr, ValuedComponentI* instance,
-           const std::filesystem::path& fileName, int lineNumber,
-           UHDM::any* pexpr)
+  ExprEval(UHDM::expr* expr, ValuedComponentI* instance, PathId fileId,
+           int lineNumber, UHDM::any* pexpr)
       : m_expr(expr),
         m_instance(instance),
-        m_fileName(fileName),
+        m_fileId(fileId),
         m_lineNumber(lineNumber),
         m_pexpr(pexpr) {}
   UHDM::expr* m_expr;
   ValuedComponentI* m_instance;
-  std::filesystem::path m_fileName;
+  PathId m_fileId;
   int m_lineNumber;
   UHDM::any* m_pexpr;
 };
@@ -78,7 +76,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   virtual unsigned int getSize() const = 0;
   virtual VObjectType getType() const = 0;
   virtual bool isInstance() const = 0;
-  virtual const std::string& getName() const = 0;
+  virtual std::string getName() const = 0;
   void append(DesignComponent*);
 
   typedef std::map<std::string, DataType*, StringViewCompare> DataTypeMap;
@@ -92,7 +90,9 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   typedef std::vector<Parameter*> ParameterVec;
   typedef std::vector<ParamAssign*> ParamAssignVec;
   typedef std::map<std::string, LetStmt*, StringViewCompare> LetStmtMap;
-  typedef std::map<std::string, std::pair<FileCNodeId, DesignComponent*>, StringViewCompare> NamedObjectMap;
+  typedef std::map<std::string, std::pair<FileCNodeId, DesignComponent*>,
+                   StringViewCompare>
+      NamedObjectMap;
 
   void addFileContent(const FileContent* fileContent, NodeId nodeId);
   const std::vector<const FileContent*>& getFileContents() const {
@@ -106,9 +106,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
 
   void addNamedObject(std::string_view name, FileCNodeId object,
                       DesignComponent* def = nullptr);
-  const NamedObjectMap& getNamedObjects() const {
-    return m_namedObjects;
-  }
+  const NamedObjectMap& getNamedObjects() const { return m_namedObjects; }
   const std::pair<FileCNodeId, DesignComponent*>* getNamedObject(
       std::string_view name) const;
 
@@ -149,7 +147,9 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   void addParamAssign(ParamAssign* assign) { m_paramAssigns.push_back(assign); }
   const ParamAssignVec& getParamAssignVec() const { return m_paramAssigns; }
 
-  void addImportedSymbol(UHDM::import_typespec* i) { m_imported_symbols.push_back(i); }
+  void addImportedSymbol(UHDM::import_typespec* i) {
+    m_imported_symbols.push_back(i);
+  }
   const std::vector<UHDM::import_typespec*>& getImportedSymbols() const {
     return m_imported_symbols;
   }
@@ -182,6 +182,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   LetStmt* getLetStmt(std::string_view name);
 
   const LetStmtMap& getLetStmts() const { return m_letDecls; }
+
  protected:
   std::vector<const FileContent*> m_fileContents;
   std::vector<NodeId> m_nodeIds;

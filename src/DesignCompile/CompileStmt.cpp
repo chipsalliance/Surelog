@@ -21,6 +21,7 @@
  * Created on May 14, 2019, 8:03 PM
  */
 
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/BindStmt.h>
 #include <Surelog/Design/Design.h>
 #include <Surelog/Design/Enum.h>
@@ -104,6 +105,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
                                         UHDM::any* pstmt,
                                         ValuedComponentI* instance,
                                         bool reduce) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   VectorOfany* results = nullptr;
   UHDM::Serializer& s = compileDesign->getSerializer();
   VObjectType type = fC->Type(the_stmt);
@@ -247,11 +249,10 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
                   compileDesign->getCompiler()->getErrorContainer();
               SymbolTable* symbols =
                   compileDesign->getCompiler()->getSymbolTable();
-              Location loc(symbols->registerSymbol(fC->getFileName().string()),
-                           fC->Line(labelId), fC->Column(labelId),
-                           symbols->registerSymbol(label));
-              Location loc2(symbols->registerSymbol(fC->getFileName().string()),
-                            fC->Line(endLabel), fC->Column(endLabel),
+              Location loc(fC->getFileId(), fC->Line(labelId),
+                           fC->Column(labelId), symbols->registerSymbol(label));
+              Location loc2(fC->getFileId(), fC->Line(endLabel),
+                            fC->Column(endLabel),
                             symbols->registerSymbol(endlabel));
               Error err(ErrorDefinition::COMP_UNMATCHED_LABEL, loc, loc2);
               errors->addError(err);
@@ -361,14 +362,12 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
                     compileDesign->getCompiler()->getErrorContainer();
                 SymbolTable* symbols =
                     compileDesign->getCompiler()->getSymbolTable();
-                Location loc(
-                    symbols->registerSymbol(fC->getFileName().string()),
-                    fC->Line(labelId), fC->Column(labelId),
-                    symbols->registerSymbol(label));
-                Location loc2(
-                    symbols->registerSymbol(fC->getFileName().string()),
-                    fC->Line(endLabel), fC->Column(endLabel),
-                    symbols->registerSymbol(endlabel));
+                Location loc(fC->getFileId(), fC->Line(labelId),
+                             fC->Column(labelId),
+                             symbols->registerSymbol(label));
+                Location loc2(fC->getFileId(), fC->Line(endLabel),
+                              fC->Column(endLabel),
+                              symbols->registerSymbol(endlabel));
                 Error err(ErrorDefinition::COMP_UNMATCHED_LABEL, loc, loc2);
                 errors->addError(err);
               }
@@ -859,11 +858,12 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
           compileDesign->getCompiler()->getErrorContainer();
       SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
       unsupported_stmt* ustmt = s.MakeUnsupported_stmt();
-      std::string fileContent = FileUtils::getFileContent(fC->getFileName());
+      std::string fileContent =
+          FileUtils::getFileContent(fileSystem->toPath(fC->getFileId()));
       std::string_view lineText =
           StringUtils::getLineInString(fileContent, fC->Line(the_stmt));
-      Location loc(symbols->registerSymbol(fC->getFileName(the_stmt).string()),
-                   fC->Line(the_stmt), fC->Column(the_stmt),
+      Location loc(fC->getFileId(the_stmt), fC->Line(the_stmt),
+                   fC->Column(the_stmt),
                    symbols->registerSymbol(
                        StrCat("<", fC->printObject(the_stmt), "> ", lineText)));
       Error err(ErrorDefinition::UHDM_UNSUPPORTED_STMT, loc);

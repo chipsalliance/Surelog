@@ -44,10 +44,10 @@ class ParseLibraryDef final {
                   ConfigSet* configSet);
 
   bool parseLibrariesDefinition();
-  bool parseLibraryDefinition(SymbolId file, Library* lib = nullptr);
+  bool parseLibraryDefinition(PathId file, Library* lib = nullptr);
   bool parseConfigDefinition();
 
-  SymbolId getFileId() const { return m_fileId; }
+  PathId getFileId() const { return m_fileId; }
   CommandLineParser* getCommandLineParser() const {
     return m_commandLineParser;
   }
@@ -63,7 +63,7 @@ class ParseLibraryDef final {
  private:
   ParseLibraryDef(const ParseLibraryDef& orig) = delete;
 
-  SymbolId m_fileId;
+  PathId m_fileId;
   CommandLineParser* const m_commandLineParser;
   ErrorContainer* const m_errors;
   SymbolTable* const m_symbolTable;

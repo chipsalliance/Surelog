@@ -24,7 +24,7 @@ namespace SURELOG {
 
 scompiler* start_compiler(CommandLineParser* clp) {
   Compiler* the_compiler =
-      new Compiler(clp, clp->getErrorContainer(), clp->mutableSymbolTable());
+      new Compiler(clp, clp->getErrorContainer(), clp->getSymbolTable());
   bool status = the_compiler->compile();
   if (!status) return nullptr;
   return (scompiler*)the_compiler;

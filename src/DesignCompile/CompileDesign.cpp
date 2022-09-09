@@ -22,6 +22,7 @@
  */
 
 #include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/Design/ModuleDefinition.h>
 #include <Surelog/Design/ModuleInstance.h>
@@ -76,14 +77,15 @@ bool CompileDesign::compile() {
   UHDM::ErrorHandler errHandler =
       [=](UHDM::ErrorType errType, const std::string& msg,
           const UHDM::any* object1, const UHDM::any* object2) {
+        FileSystem* const fileSystem = FileSystem::getInstance();
         ErrorContainer* errors = m_compiler->getErrorContainer();
         SymbolTable* symbols = m_compiler->getSymbolTable();
         if (object1) {
-          Location loc1(symbols->registerSymbol(object1->VpiFile().string()),
+          Location loc1(fileSystem->toPathId(object1->VpiFile(), symbols),
                         object1->VpiLineNo(), object1->VpiColumnNo(),
                         symbols->registerSymbol(msg));
           if (object2) {
-            Location loc2(symbols->registerSymbol(object2->VpiFile().string()),
+            Location loc2(fileSystem->toPathId(object2->VpiFile(), symbols),
                           object2->VpiLineNo(), object2->VpiColumnNo());
             Error err((ErrorDefinition::ErrorType)errType, loc1, loc2);
             errors->addError(err);
@@ -174,6 +176,7 @@ void CompileDesign::compileMT_(ObjectMapType& objects, int maxThreadCount) {
 
 void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
                                     Design* design, bool finalCollection) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   typedef std::map<std::string, std::vector<Package*>> FileNamePackageMap;
   FileNamePackageMap fileNamePackageMap;
   SymbolTable* symbols = m_compiler->getSymbolTable();
@@ -181,7 +184,6 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
   // Collect all packages and module definitions
   for (const auto& file : all_files) {
     const FileContent* fC = file.second;
-    const fs::path fileName = fC->getFileName();
     Library* lib = fC->getLibrary();
     for (const auto& mod : fC->getModuleDefinitions()) {
       ModuleDefinition* existing = design->getModuleDefinition(mod.first);
@@ -218,24 +220,24 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
       if (existing) {
         const FileContent* oldFC = existing->getFileContents()[0];
         const FileContent* oldParentFile = oldFC->getParent();
-        NodeId oldNodeId = existing->getNodeIds()[0];
-        fs::path oldFileName = oldFC->getFileName();
-        unsigned int oldLine = oldFC->Line(oldNodeId);
         Package* newP = pack.second;
         const FileContent* newFC = newP->getFileContents()[0];
         const FileContent* newParentFile = newFC->getParent();
         NodeId newNodeId = newP->getNodeIds()[0];
-        fs::path newFileName = newFC->getFileName();
-        unsigned int newLine = newFC->Line(newNodeId);
-        if (!finalCollection) {
-          if (((oldParentFile != newParentFile) ||
-               (oldParentFile == nullptr && newParentFile == nullptr)) &&
-              ((oldFileName != newFileName) || (oldLine != newLine))) {
-            Location loc1(symbols->registerSymbol(oldFileName.string()),
-                          oldLine, oldFC->Column(oldNodeId),
+        if (!finalCollection &&
+            ((oldParentFile != newParentFile) ||
+             ((oldParentFile == nullptr) && (newParentFile == nullptr)))) {
+          NodeId oldNodeId = existing->getNodeIds()[0];
+          fs::path oldFileName = fileSystem->toPath(oldFC->getFileId());
+          unsigned int oldLine = oldFC->Line(oldNodeId);
+          fs::path newFileName = fileSystem->toPath(newFC->getFileId());
+          unsigned int newLine = newFC->Line(newNodeId);
+          if ((oldFileName != newFileName) || (oldLine != newLine)) {
+            Location loc1(fileSystem->toPathId(oldFileName, symbols), oldLine,
+                          oldFC->Column(oldNodeId),
                           symbols->registerSymbol(pack.first));
-            Location loc2(symbols->registerSymbol(newFileName.string()),
-                          newLine, newFC->Column(newNodeId),
+            Location loc2(fileSystem->toPathId(newFileName, symbols), newLine,
+                          newFC->Column(newNodeId),
                           symbols->registerSymbol(pack.first));
             Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_PACKAGE, loc1,
                       loc2);
@@ -293,7 +295,7 @@ bool CompileDesign::compilation_() {
   int index = 0;
   do {
     SymbolTable* symbols =
-        m_compiler->getCommandLineParser()->getSymbolTable().CreateSnapshot();
+        m_compiler->getCommandLineParser()->getSymbolTable()->CreateSnapshot();
     m_symbolTables.push_back(symbols);
     ErrorContainer* errors = new ErrorContainer(symbols);
     errors->registerCmdLine(m_compiler->getCommandLineParser());
@@ -378,23 +380,26 @@ bool CompileDesign::elaboration_() {
   return true;
 }
 
-vpiHandle CompileDesign::writeUHDM(const std::string& fileName) {
+vpiHandle CompileDesign::writeUHDM(PathId fileId) {
   UhdmWriter* uhdmwriter = new UhdmWriter(this, m_compiler->getDesign());
-  vpiHandle h = uhdmwriter->write(fileName);
+  vpiHandle h = uhdmwriter->write(fileId);
   delete uhdmwriter;
   return h;
 }
 
 void decompile(ValuedComponentI* instance) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   if (instance) {
     ModuleInstance* inst = valuedcomponenti_cast<ModuleInstance*>(instance);
     if (inst) {
       DesignComponent* component = inst->getDefinition();
       while (inst) {
         std::cout << "Instance:" << inst->getFullPathName() << " "
-                  << inst->getFileName() << "\n";
+                  << fileSystem->toPath(inst->getFileId()) << "\n";
         std::cout << "Mod: " << inst->getModuleName() << " "
-                  << component->getFileContents()[0]->getFileName() << "\n";
+                  << fileSystem->toPath(
+                         component->getFileContents()[0]->getFileId())
+                  << "\n";
 
         for (const auto& ps : inst->getMappedValues()) {
           const std::string& name = ps.first;

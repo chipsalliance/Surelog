@@ -22,6 +22,7 @@
  */
 
 #include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/Library/Library.h>
 #include <Surelog/Package/Precompiled.h>
@@ -45,7 +46,7 @@ namespace SURELOG {
 using namespace antlr4;
 namespace fs = std::filesystem;
 
-CompileSourceFile::CompileSourceFile(SymbolId fileId, CommandLineParser* clp,
+CompileSourceFile::CompileSourceFile(PathId fileId, CommandLineParser* clp,
                                      ErrorContainer* errors, Compiler* compiler,
                                      SymbolTable* symbols,
                                      CompilationUnit* compilationUnit,
@@ -57,12 +58,11 @@ CompileSourceFile::CompileSourceFile(SymbolId fileId, CommandLineParser* clp,
       m_symbolTable(symbols),
       m_compilationUnit(compilationUnit),
       m_action(Preprocess),
-      m_ppResultFileId(BadSymbolId),
       m_library(library),
       m_text(text) {}
 
 CompileSourceFile::CompileSourceFile(CompileSourceFile* parent,
-                                     SymbolId ppResultFileId,
+                                     PathId ppResultFileId,
                                      unsigned int lineOffset)
     : m_fileId(parent->m_fileId),
       m_commandLineParser(parent->m_commandLineParser),
@@ -83,7 +83,8 @@ CompileSourceFile::CompileSourceFile(CompileSourceFile* parent,
 
 bool CompileSourceFile::compile(Action action) {
   m_action = action;
-  fs::path fileName = m_symbolTable->getSymbol(m_fileId);
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  fs::path fileName = fileSystem->toPath(m_fileId);
   if (m_commandLineParser->verbose()) {
     Location loc(m_fileId);
     ErrorDefinition::ErrorType type =
@@ -132,25 +133,30 @@ CompileSourceFile::~CompileSourceFile() {
 #ifdef SURELOG_WITH_PYTHON
   delete m_pythonListener;
 #endif
-  std::map<SymbolId, PreprocessFile::AntlrParserHandler*>::iterator itr2;
-  for (itr2 = m_antlrPpMap.begin(); itr2 != m_antlrPpMap.end(); itr2++) {
-    delete (*itr2).second;
+  for (auto& entry : m_antlrPpMacroMap) {
+    delete entry.second;
   }
+  for (auto& entry : m_antlrPpFileMap) {
+    delete entry.second;
+  }
+  m_antlrPpMacroMap.clear();
+  m_antlrPpFileMap.clear();
 }
 
 uint64_t CompileSourceFile::getJobSize(Action action) const {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   switch (action) {
     case Preprocess:
     case PostPreprocess: {
-      fs::path fileName = getSymbolTable()->getSymbol(m_fileId);
+      fs::path fileName = fileSystem->toPath(m_fileId);
       return FileUtils::fileSize(fileName);
     }
     case Parse: {
-      fs::path fileName = getSymbolTable()->getSymbol(m_ppResultFileId);
+      fs::path fileName = fileSystem->toPath(m_ppResultFileId);
       return FileUtils::fileSize(fileName);
     }
     case PythonAPI: {
-      fs::path fileName = getSymbolTable()->getSymbol(m_ppResultFileId);
+      fs::path fileName = fileSystem->toPath(m_ppResultFileId);
       return FileUtils::fileSize(fileName);
     }
   };
@@ -172,7 +178,7 @@ bool CompileSourceFile::pythonAPI_() {
 
   if (getCommandLineParser()->pythonEvalScriptPerFile()) {
     PythonAPI::evalScriptPerFile(
-        getCommandLineParser()->getSymbolTable().getSymbol(
+        FileSystem::getInstance()->toPath(
             getCommandLineParser()->pythonEvalScriptPerFileId()),
         m_errors, m_parser->getFileContent(), m_interpState);
   }
@@ -203,10 +209,6 @@ bool CompileSourceFile::parse_() {
 }
 
 bool CompileSourceFile::preprocess_() {
-  Precompiled* prec = Precompiled::getSingleton();
-  fs::path root = getSymbolTable()->getSymbol(m_fileId);
-  root = FileUtils::basename(root);
-
   PreprocessFile::SpecialInstructions instructions(
       PreprocessFile::SpecialInstructions::DontMute,
       PreprocessFile::SpecialInstructions::DontMark,
@@ -219,9 +221,10 @@ bool CompileSourceFile::preprocess_() {
     m_pp = new PreprocessFile(m_fileId, this, instructions, m_compilationUnit,
                               m_library);
   } else {
-    m_pp = new PreprocessFile(BadSymbolId, nullptr, 0, this, instructions,
-                              m_compilationUnit, m_library, m_text, nullptr, 0,
-                              BadSymbolId);
+    m_pp = new PreprocessFile(BadSymbolId, this, instructions,
+                              m_compilationUnit, m_library,
+                              /* includer */ nullptr, /* includerLine */ 0,
+                              m_text, nullptr, 0, BadPathId);
   }
   registerPP(m_pp);
 
@@ -236,7 +239,9 @@ bool CompileSourceFile::preprocess_() {
   if (m_commandLineParser->getDebugIncludeFileInfo())
     std::cerr << m_pp->reportIncludeInfo();
 
-  if ((!m_commandLineParser->createCache()) && prec->isFilePrecompiled(root))
+  Precompiled* prec = Precompiled::getSingleton();
+  if ((!m_commandLineParser->createCache()) &&
+      prec->isFilePrecompiled(m_fileId))
     return true;
 
   m_pp->saveCache();
@@ -244,10 +249,10 @@ bool CompileSourceFile::preprocess_() {
 }
 
 bool CompileSourceFile::postPreprocess_() {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   SymbolTable* symbolTable = getCompiler()->getSymbolTable();
   if (m_commandLineParser->parseOnly()) {
-    m_ppResultFileId =
-        m_symbolTable->registerSymbol(symbolTable->getSymbol(m_fileId));
+    m_ppResultFileId = fileSystem->copy(m_fileId, m_symbolTable);
     return true;
   }
   std::string m_pp_result = m_pp->getPreProcessedFileContent();
@@ -258,8 +263,8 @@ bool CompileSourceFile::postPreprocess_() {
   if (m_commandLineParser->writePpOutput() ||
       m_commandLineParser->writePpOutputFileId()) {
     const fs::path directory =
-        symbolTable->getSymbol(m_commandLineParser->getFullCompileDir());
-    fs::path fullFileName = symbolTable->getSymbol(m_fileId);
+        fileSystem->toPath(m_commandLineParser->getFullCompileDirId());
+    fs::path fullFileName = fileSystem->toPath(m_fileId);
     fs::path baseFileName = FileUtils::basename(fullFileName);
     fs::path filePath = FileUtils::getPathName(fullFileName);
     fs::path hashedPath = m_commandLineParser->noCacheHash()
@@ -268,15 +273,15 @@ bool CompileSourceFile::postPreprocess_() {
     fs::path fileName = hashedPath / baseFileName;
 
     const fs::path writePpOutputFileName =
-        symbolTable->getSymbol(m_commandLineParser->writePpOutputFileId());
+        fileSystem->toPath(m_commandLineParser->writePpOutputFileId());
     std::string libName = m_library->getName();
     fs::path ppFileName = m_commandLineParser->writePpOutput()
                               ? directory / libName / fileName
                               : writePpOutputFileName;
     fs::path dirPpFile = FileUtils::getPathName(ppFileName);
-    SymbolId ppOutId = symbolTable->registerSymbol(ppFileName.string());
-    m_ppResultFileId = m_symbolTable->registerSymbol(ppFileName.string());
-    SymbolId ppDirId = symbolTable->registerSymbol(dirPpFile.string());
+    PathId ppOutId = fileSystem->toPathId(ppFileName, symbolTable);
+    m_ppResultFileId = fileSystem->toPathId(ppFileName, m_symbolTable);
+    PathId ppDirId = fileSystem->toPathId(dirPpFile, symbolTable);
     if (m_commandLineParser->lowMem() || m_commandLineParser->link()) {
       return true;
     }
@@ -305,22 +310,38 @@ bool CompileSourceFile::postPreprocess_() {
 
 void CompileSourceFile::registerAntlrPpHandlerForId(
     SymbolId id, PreprocessFile::AntlrParserHandler* pp) {
-  std::map<SymbolId, PreprocessFile::AntlrParserHandler*>::iterator itr =
-      m_antlrPpMap.find(id);
-  if (itr != m_antlrPpMap.end()) {
+  auto itr = m_antlrPpMacroMap.find(id);
+  if (itr != m_antlrPpMacroMap.end()) {
     delete (*itr).second;
-    m_antlrPpMap.erase(itr);
-    m_antlrPpMap.insert(std::make_pair(id, pp));
-    return;
+    m_antlrPpMacroMap.erase(itr);
   }
-  m_antlrPpMap.insert(std::make_pair(id, pp));
+  m_antlrPpMacroMap.emplace(id, pp);
+}
+
+void CompileSourceFile::registerAntlrPpHandlerForId(
+    PathId id, PreprocessFile::AntlrParserHandler* pp) {
+  auto itr = m_antlrPpFileMap.find(id);
+  if (itr != m_antlrPpFileMap.end()) {
+    delete (*itr).second;
+    m_antlrPpFileMap.erase(itr);
+  }
+  m_antlrPpFileMap.emplace(id, pp);
 }
 
 PreprocessFile::AntlrParserHandler* CompileSourceFile::getAntlrPpHandlerForId(
     SymbolId id) {
-  std::map<SymbolId, PreprocessFile::AntlrParserHandler*>::iterator itr =
-      m_antlrPpMap.find(id);
-  if (itr != m_antlrPpMap.end()) {
+  auto itr = m_antlrPpMacroMap.find(id);
+  if (itr != m_antlrPpMacroMap.end()) {
+    PreprocessFile::AntlrParserHandler* ptr = (*itr).second;
+    return ptr;
+  }
+  return nullptr;
+}
+
+PreprocessFile::AntlrParserHandler* CompileSourceFile::getAntlrPpHandlerForId(
+    PathId id) {
+  auto itr = m_antlrPpFileMap.find(id);
+  if (itr != m_antlrPpFileMap.end()) {
     PreprocessFile::AntlrParserHandler* ptr = (*itr).second;
     return ptr;
   }

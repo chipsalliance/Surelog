@@ -22,6 +22,7 @@
  */
 
 #include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/DataType.h>
 #include <Surelog/Design/DummyType.h>
 #include <Surelog/Design/Enum.h>
@@ -77,6 +78,7 @@ ElaborationStep::ElaborationStep(CompileDesign* compileDesign)
 ElaborationStep::~ElaborationStep() {}
 
 bool ElaborationStep::bindTypedefs_() {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   Compiler* compiler = m_compileDesign->getCompiler();
   ErrorContainer* errors = compiler->getErrorContainer();
   SymbolTable* symbols = compiler->getSymbolTable();
@@ -216,7 +218,7 @@ bool ElaborationStep::bindTypedefs_() {
             specs.insert(std::make_pair(name, ts));
           }
           if (ts->UhdmType() == uhdmunsupported_typespec) {
-            Location loc1(symbols->registerSymbol(ts->VpiFile().string()),
+            Location loc1(fileSystem->toPathId(ts->VpiFile(), symbols),
                           ts->VpiLineNo(), ts->VpiColumnNo(),
                           symbols->registerSymbol(name));
             Error err1(ErrorDefinition::COMP_UNDEFINED_TYPE, loc1);
@@ -253,15 +255,13 @@ bool ElaborationStep::bindTypedefs_() {
         if (prevDef == nullptr) {
           const FileContent* fC = typd->getFileContent();
           NodeId id = typd->getNodeId();
-          fs::path fileName = fC->getFileName(id);
           std::string definition_string;
           NodeId defNode = typd->getDefinitionNode();
           VObjectType defType = fC->Type(defNode);
           if (defType == VObjectType::slStringConst) {
             definition_string = fC->SymName(defNode);
           }
-          Location loc1(symbols->registerSymbol(fileName.string()),
-                        fC->Line(id), fC->Column(id),
+          Location loc1(fC->getFileId(id), fC->Line(id), fC->Column(id),
                         symbols->registerSymbol(definition_string));
           Error err1(ErrorDefinition::COMP_UNDEFINED_TYPE, loc1);
           errors->addError(err1);
@@ -716,9 +716,8 @@ const DataType* ElaborationStep::bindDataType_(
   }
 
   if ((found == false) && (errtype != ErrorDefinition::NO_ERROR_MESSAGE)) {
-    fs::path fileName = fC->getFileName(id);
-    Location loc1(symbols->registerSymbol(fileName.string()), fC->Line(id),
-                  fC->Column(id), symbols->registerSymbol(type_name));
+    Location loc1(fC->getFileId(id), fC->Line(id), fC->Column(id),
+                  symbols->registerSymbol(type_name));
     Location loc2(symbols->registerSymbol(parent->getName()));
     Error err1(errtype, loc1, loc2);
     errors->addError(err1);
@@ -783,9 +782,8 @@ Variable* ElaborationStep::bindVariable_(const std::string& var_name,
   }
 
   if ((result == nullptr) && (errtype != ErrorDefinition::NO_ERROR_MESSAGE)) {
-    fs::path fileName = fC->getFileName(id);
-    Location loc1(symbols->registerSymbol(fileName.string()), fC->Line(id),
-                  fC->Column(id), symbols->registerSymbol(var_name));
+    Location loc1(fC->getFileId(id), fC->Line(id), fC->Column(id),
+                  symbols->registerSymbol(var_name));
     Location loc2(symbols->registerSymbol(parent->getName()));
     Error err1(errtype, loc1, loc2);
     errors->addError(err1);
@@ -948,8 +946,7 @@ void checkIfBuiltInTypeOrErrorOut(DesignComponent* def, const FileContent* fC,
       (interfName != "unsigned") && (interfName != "do") &&
       (interfName != "final") && (interfName != "global") &&
       (interfName != "soft")) {
-    Location loc(symbols->registerSymbol(fC->getFileName(id).string()),
-                 fC->Line(id), fC->Column(id),
+    Location loc(fC->getFileId(id), fC->Line(id), fC->Column(id),
                  symbols->registerSymbol(interfName));
     Error err(ErrorDefinition::COMP_UNDEFINED_TYPE, loc);
     errors->addError(err);
@@ -1027,8 +1024,7 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
               if (interface) {
                 signal->setInterfaceDef(interface);
               } else {
-                Location loc(symbols->registerSymbol(
-                                 fC->getFileName(if_type_name_s).string()),
+                Location loc(fC->getFileId(if_type_name_s),
                              fC->Line(if_type_name_s),
                              fC->Column(if_type_name_s),
                              symbols->registerSymbol(interfaceName));

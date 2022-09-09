@@ -25,7 +25,7 @@
 #define SURELOG_LIBRARY_H
 #pragma once
 
-#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Common/PathId.h>
 
 #include <map>
 #include <set>
@@ -42,14 +42,14 @@ class Library final {
   Library(std::string_view name, SymbolTable* symbols)
       : m_name(name), m_symbols(symbols) {}
 
-  void addFileId(SymbolId fid) {
+  void addFileId(PathId fid) {
     m_fileIds.push_back(fid);
     m_fileIdsSet.insert(fid);
   }
 
   const std::string& getName() const { return m_name; }
-  const std::vector<SymbolId>& getFiles() const { return m_fileIds; }
-  bool isMember(SymbolId fid) const {
+  const PathIdVector& getFiles() const { return m_fileIds; }
+  bool isMember(PathId fid) const {
     return m_fileIdsSet.find(fid) != m_fileIdsSet.end();
   }
   std::string report(SymbolTable* symbols) const;
@@ -60,8 +60,8 @@ class Library final {
 
  private:
   std::string m_name;
-  std::vector<SymbolId> m_fileIds;
-  SymbolIdSet m_fileIdsSet;
+  PathIdVector m_fileIds;
+  PathIdSet m_fileIdsSet;
   std::map<std::string, ModuleDefinition*> m_modules;
   SymbolTable* const m_symbols;
 };

@@ -24,6 +24,7 @@
  * Created on February 10, 2022, 12:00 PM
  */
 
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Utils/FileUtils.h>
 #include <Surelog/surelog.h>
 #include <uhdm/ElaboratorListener.h>
@@ -3447,6 +3448,7 @@ static int run(const std::vector<vpiHandle> &designHandles,
 static int run_in_surelog_mode(int argc, const char **argv) {
   // Read command line, compile a design, use -parse argument
   int code = 0;
+  SURELOG::FileSystem *const fileSystem = SURELOG::FileSystem::getInstance();
   SURELOG::SymbolTable *const symbolTable = new SURELOG::SymbolTable();
   SURELOG::ErrorContainer *const errors =
       new SURELOG::ErrorContainer(symbolTable);
@@ -3475,7 +3477,7 @@ static int run_in_surelog_mode(int argc, const char **argv) {
 
   if (vpi_design == nullptr) return code;
 
-  std::filesystem::path logDir = symbolTable->getSymbol(clp->getOutputDir());
+  std::filesystem::path logDir = fileSystem->toPath(clp->getOutputDirId());
   if (logDir.is_relative()) {
     logDir = std::filesystem::current_path() / logDir;
   }

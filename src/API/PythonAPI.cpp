@@ -79,7 +79,7 @@ void PythonAPI::shutdown() {
 #endif
 }
 
-bool PythonAPI::loadScript(const std::string& name, bool check) {
+bool PythonAPI::loadScript(const std::filesystem::path& name, bool check) {
 #ifdef SURELOG_WITH_PYTHON
   PyEval_AcquireThread(m_mainThreadState);
   bool status = loadScript_(name, check);
@@ -90,11 +90,12 @@ bool PythonAPI::loadScript(const std::string& name, bool check) {
 #endif
 }
 
-bool PythonAPI::loadScript_(const std::string& name, bool check) {
+bool PythonAPI::loadScript_(const std::filesystem::path& name, bool check) {
 #ifdef SURELOG_WITH_PYTHON
   if (FileUtils::fileExists(name)) {
-    FILE* fp = fopen(name.c_str(), "r");
-    PyRun_SimpleFile(fp, name.c_str());
+    std::string fname = name.string();
+    FILE* fp = fopen(fname.c_str(), "r");
+    PyRun_SimpleFile(fp, fname.c_str());
     PyErr_Print();
     fclose(fp);
     return true;
@@ -353,8 +354,9 @@ std::string PythonAPI::evalScript(const std::string& module,
 #endif
 }
 
-bool PythonAPI::evalScriptPerFile(std::string script, ErrorContainer* errors,
-                                  FileContent* fC, PyThreadState* interp) {
+bool PythonAPI::evalScriptPerFile(const std::filesystem::path& script,
+                                  ErrorContainer* errors, FileContent* fC,
+                                  PyThreadState* interp) {
 #ifdef SURELOG_WITH_PYTHON
   PyEval_AcquireThread(interp);
   loadScript_(script);
@@ -392,7 +394,8 @@ bool PythonAPI::evalScriptPerFile(std::string script, ErrorContainer* errors,
 #endif
 }
 
-bool PythonAPI::evalScript(std::string script, Design* design) {
+bool PythonAPI::evalScript(const std::filesystem::path& script,
+                           Design* design) {
 #ifdef SURELOG_WITH_PYTHON
   PyEval_AcquireThread(m_mainThreadState);
   loadScript_(script);

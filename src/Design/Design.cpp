@@ -63,13 +63,13 @@ Design::~Design() {
   }
 }
 
-void Design::addFileContent(SymbolId fileId, FileContent* content) {
+void Design::addFileContent(PathId fileId, FileContent* content) {
   m_mutex.lock();
   m_fileContents.push_back(std::make_pair(fileId, content));
   m_mutex.unlock();
 }
 
-void Design::addPPFileContent(SymbolId fileId, FileContent* content) {
+void Design::addPPFileContent(PathId fileId, FileContent* content) {
   m_mutex.lock();
   m_ppFileContents.push_back(std::make_pair(fileId, content));
   m_mutex.unlock();
@@ -120,8 +120,7 @@ std::string Design::reportInstanceTree() const {
       undef = " [U]";
     }
     std::string type_s;
-    Location loc(symbols->registerSymbol(tmp->getFileName().string()),
-                 tmp->getLineNb(), tmp->getColumnNb(),
+    Location loc(tmp->getFileId(), tmp->getLineNb(), tmp->getColumnNb(),
                  tmp->getFullPathId(symbols));
     if (type == slUdp_instantiation) {
       type_s = "[UDP]";

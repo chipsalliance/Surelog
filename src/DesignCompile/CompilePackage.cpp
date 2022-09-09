@@ -70,8 +70,7 @@ bool CompilePackage::compile(bool reduce) {
   const FileContent* fC = m_package->m_fileContents[0];
   NodeId packId = m_package->m_nodeIds[0];
   if (reduce) {
-    Location loc(m_symbols->registerSymbol(fC->getFileName(packId).string()),
-                 fC->Line(packId), fC->Column(packId),
+    Location loc(fC->getFileId(packId), fC->Line(packId), fC->Column(packId),
                  m_symbols->getId(m_package->getName()));
     Error err(ErrorDefinition::COMP_COMPILE_PACKAGE, loc);
 
@@ -282,20 +281,13 @@ bool CompilePackage::collectObjects_(CollectType collectType, bool reduce) {
             std::string moduleName = m_package->getName();
             moduleName = StringUtils::ltrim(moduleName, '@');
             if (endLabel != moduleName) {
-              Location loc(
-                  m_compileDesign->getCompiler()
-                      ->getSymbolTable()
-                      ->registerSymbol(
-                          fC->getFileName(m_package->getNodeIds()[0]).string()),
-                  fC->Line(m_package->getNodeIds()[0]),
-                  fC->Column(m_package->getNodeIds()[0]),
-                  m_compileDesign->getCompiler()
-                      ->getSymbolTable()
-                      ->registerSymbol(moduleName));
-              Location loc2(m_compileDesign->getCompiler()
-                                ->getSymbolTable()
-                                ->registerSymbol(fC->getFileName(id).string()),
-                            fC->Line(id), fC->Column(id),
+              Location loc(fC->getFileId(m_package->getNodeIds()[0]),
+                           fC->Line(m_package->getNodeIds()[0]),
+                           fC->Column(m_package->getNodeIds()[0]),
+                           m_compileDesign->getCompiler()
+                               ->getSymbolTable()
+                               ->registerSymbol(moduleName));
+              Location loc2(fC->getFileId(id), fC->Line(id), fC->Column(id),
                             m_compileDesign->getCompiler()
                                 ->getSymbolTable()
                                 ->registerSymbol(endLabel));

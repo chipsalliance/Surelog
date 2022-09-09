@@ -41,7 +41,7 @@ SymbolId SV3_1aPpTreeListenerHelper::registerSymbol(std::string_view symbol) {
 
 std::tuple<unsigned int, unsigned short, unsigned int, unsigned short>
 SV3_1aPpTreeListenerHelper::getFileLine(antlr4::ParserRuleContext* ctx,
-                                        SymbolId& fileId) {
+                                        PathId& fileId) {
   std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
   std::pair<int, int> endLineCol = ParseUtils::getEndLineColumn(m_tokens, ctx);
   unsigned int line = m_pp->getLineNb(lineCol.first);
@@ -115,7 +115,7 @@ void SV3_1aPpTreeListenerHelper::logError(ErrorDefinition::ErrorType error,
   std::pair<int, int> lineCol =
       ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
   if (m_pp->getMacroInfo()) {
-    Location loc(m_pp->getMacroInfo()->m_file,
+    Location loc(m_pp->getMacroInfo()->m_fileId,
                  m_pp->getMacroInfo()->m_startLine + lineCol.first - 1,
                  lineCol.second, getSymbolTable()->registerSymbol(object));
     Location extraLoc(m_pp->getIncluderFileId(m_pp->getIncluderLine()),
@@ -177,12 +177,12 @@ void SV3_1aPpTreeListenerHelper::checkMultiplyDefinedMacro(
   if (macroInf) {
     std::pair<int, int> lineCol =
         ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
-    if ((macroInf->m_file == m_pp->getFileId(lineCol.first)) &&
+    if ((macroInf->m_fileId == m_pp->getFileId(lineCol.first)) &&
         (m_pp->getLineNb(lineCol.first) == macroInf->m_startLine))
       return;
     Location loc(m_pp->getFileId(lineCol.first), m_pp->getLineNb(lineCol.first),
                  lineCol.second, getSymbolTable()->getId(macroName));
-    Location extraLoc(macroInf->m_file, macroInf->m_startLine,
+    Location extraLoc(macroInf->m_fileId, macroInf->m_startLine,
                       macroInf->m_startColumn);
     logError(ErrorDefinition::PP_MULTIPLY_DEFINED_MACRO, loc, extraLoc);
   }

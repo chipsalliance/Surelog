@@ -21,6 +21,7 @@
  * Created on July 29, 2017, 5:32 PM
  */
 
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/SourceCompile/AntlrParserErrorListener.h>
 #include <Surelog/SourceCompile/CompileSourceFile.h>
@@ -38,8 +39,10 @@ void AntlrParserErrorListener::syntaxError(
     m_barked = true;
     return;
   }
+  FileSystem *const fileSystem = FileSystem::getInstance();
+  const std::filesystem::path fileName = fileSystem->toPath(m_fileId);
   if (m_fileContent.empty()) {
-    m_fileContent = FileUtils::getFileContent(m_fileName);
+    m_fileContent = FileUtils::getFileContent(fileName);
   }
 
   std::string lineText;
@@ -50,8 +53,8 @@ void AntlrParserErrorListener::syntaxError(
         lineText += "\n";
       }
       for (unsigned int i = 0; i < charPositionInLine; i++) lineText += " ";
-      lineText += "^-- " + m_fileName + ":" + std::to_string(line) + ":" +
-                  std::to_string(charPositionInLine) + ":";
+      lineText += "^-- " + fileName.string() + ":" + std::to_string(line) +
+                  ":" + std::to_string(charPositionInLine) + ":";
     }
   }
   if (m_reportedSyntaxError == false) {

@@ -25,6 +25,7 @@
 #define SURELOG_PYTHONAPI_H
 #pragma once
 
+#include <filesystem>
 #include <string>
 #include <vector>
 
@@ -53,7 +54,7 @@ class PythonAPI {
   static void shutdown(PyThreadState* interp);
 
   static void loadScripts();
-  static bool loadScript(const std::string& name, bool check = false);
+  static bool loadScript(const std::filesystem::path& name, bool check = false);
   static std::string evalScript(const std::string& module,
                                 const std::string& function,
                                 const std::vector<std::string>& args,
@@ -66,9 +67,10 @@ class PythonAPI {
   static void setListenerScript(std::string script) {
     m_listenerScript = script;
   }
-  static bool evalScriptPerFile(std::string script, ErrorContainer* errors,
-                                FileContent* fC, PyThreadState* interp);
-  static bool evalScript(std::string script, Design* design);
+  static bool evalScriptPerFile(const std::filesystem::path& script,
+                                ErrorContainer* errors, FileContent* fC,
+                                PyThreadState* interp);
+  static bool evalScript(const std::filesystem::path& script, Design* design);
   static void setStrictMode(bool mode) { m_strictMode = mode; }
 
  private:
@@ -76,7 +78,8 @@ class PythonAPI {
 
   static void initInterp_();
   static void loadScriptsInInterp_();
-  static bool loadScript_(const std::string& name, bool check = false);
+  static bool loadScript_(const std::filesystem::path& name,
+                          bool check = false);
   static std::string m_invalidScriptResult;
   static PyThreadState* m_mainThreadState;
   static std::string m_programPath;

@@ -24,7 +24,7 @@
 #include <Surelog/Design/DesignElement.h>
 
 namespace SURELOG {
-DesignElement::DesignElement(SymbolId name, SymbolId fileId, ElemType type,
+DesignElement::DesignElement(SymbolId name, PathId fileId, ElemType type,
                              NodeId uniqueId, unsigned int line,
                              unsigned short column, unsigned int endLine,
                              unsigned short endColumn, NodeId parent)

@@ -27,7 +27,6 @@
 
 #include <Surelog/ErrorReporting/Error.h>
 
-#include <filesystem>
 #include <string>
 
 namespace SURELOG {
@@ -48,16 +47,16 @@ class ParseFile final {
   friend class PythonListen;
 
   // Helper constructor used by SVLibShapeListener
-  ParseFile(SymbolId fileId, SymbolTable* symbolTable, ErrorContainer* errors);
+  ParseFile(PathId fileId, SymbolTable* symbolTable, ErrorContainer* errors);
 
   // Regular file
-  ParseFile(SymbolId fileId, CompileSourceFile* csf,
-            CompilationUnit* compilationUnit, Library* library,
-            SymbolId ppFileId, bool keepParserHandler);
+  ParseFile(PathId fileId, CompileSourceFile* csf,
+            CompilationUnit* compilationUnit, Library* library, PathId ppFileId,
+            bool keepParserHandler);
 
   // File chunk
   ParseFile(CompileSourceFile* compileSourceFile, ParseFile* parent,
-            SymbolId chunkFileId, unsigned int offsetLine);
+            PathId chunkFileId, unsigned int offsetLine);
 
   // Unit test constructor
   ParseFile(const std::string& text, CompileSourceFile* csf,
@@ -72,23 +71,21 @@ class ParseFile final {
   }
   CompilationUnit* getCompilationUnit() const { return m_compilationUnit; }
   Library* getLibrary() const { return m_library; }
-  std::filesystem::path getFileName(unsigned int line);
-  std::filesystem::path getPpFileName() const { return getSymbol(m_ppFileId); }
   SymbolTable* getSymbolTable();
   ErrorContainer* getErrorContainer();
-  SymbolId getFileId(unsigned int line);
-  SymbolId getRawFileId() const { return m_fileId; }
-  SymbolId getPpFileId() const { return m_ppFileId; }
+  PathId getFileId(unsigned int line);
+  PathId getRawFileId() const { return m_fileId; }
+  PathId getPpFileId() const { return m_ppFileId; }
   unsigned int getLineNb(unsigned int line);
 
   class LineTranslationInfo {
    public:
-    LineTranslationInfo(SymbolId pretendFileId, unsigned int originalLine,
+    LineTranslationInfo(PathId pretendFileId, unsigned int originalLine,
                         unsigned int pretendLine)
         : m_pretendFileId(pretendFileId),
           m_originalLine(originalLine),
           m_pretendLine(pretendLine) {}
-    SymbolId m_pretendFileId;
+    PathId m_pretendFileId;
     unsigned int m_originalLine;
     unsigned int m_pretendLine;
   };
@@ -113,8 +110,8 @@ class ParseFile final {
   void profileParser();
 
  private:
-  SymbolId m_fileId;
-  SymbolId m_ppFileId;
+  PathId m_fileId;
+  PathId m_ppFileId;
   CompileSourceFile* const m_compileSourceFile;
   CompilationUnit* const m_compilationUnit;
   Library* m_library = nullptr;
@@ -126,7 +123,7 @@ class ParseFile final {
   FileContent* m_fileContent = nullptr;
   bool debug_AstModel;
 
-  bool parseOneFile_(const std::string& fileName, unsigned int lineOffset);
+  bool parseOneFile_(PathId fileId, unsigned int lineOffset);
   void buildLineInfoCache_();
   // For file chunk:
   std::vector<ParseFile*> m_children;
@@ -137,7 +134,7 @@ class ParseFile final {
   std::string m_profileInfo;
   std::string m_sourceText;  // For Unit tests
   std::vector<unsigned int> lineInfoCache;
-  std::vector<SymbolId> fileInfoCache;
+  std::vector<PathId> fileInfoCache;
 };
 
 };  // namespace SURELOG

@@ -50,8 +50,7 @@ bool CompileProgram::compile() {
   const FileContent* fC = m_program->m_fileContents[0];
   NodeId nodeId = m_program->m_nodeIds[0];
 
-  Location loc(m_symbols->registerSymbol(fC->getFileName(nodeId).string()),
-               fC->Line(nodeId), fC->Column(nodeId),
+  Location loc(fC->getFileId(nodeId), fC->Line(nodeId), fC->Column(nodeId),
                m_symbols->registerSymbol(m_program->getName()));
 
   Error err1(ErrorDefinition::COMP_COMPILE_PROGRAM, loc);
@@ -313,20 +312,13 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
           std::string moduleName = m_program->getName();
           moduleName = StringUtils::ltrim(moduleName, '@');
           if (endLabel != moduleName) {
-            Location loc(
-                m_compileDesign->getCompiler()
-                    ->getSymbolTable()
-                    ->registerSymbol(
-                        fC->getFileName(m_program->getNodeIds()[0]).string()),
-                fC->Line(m_program->getNodeIds()[0]),
-                fC->Column(m_program->getNodeIds()[0]),
-                m_compileDesign->getCompiler()
-                    ->getSymbolTable()
-                    ->registerSymbol(moduleName));
-            Location loc2(m_compileDesign->getCompiler()
-                              ->getSymbolTable()
-                              ->registerSymbol(fC->getFileName(id).string()),
-                          fC->Line(id), fC->Column(id),
+            Location loc(fC->getFileId(m_program->getNodeIds()[0]),
+                         fC->Line(m_program->getNodeIds()[0]),
+                         fC->Column(m_program->getNodeIds()[0]),
+                         m_compileDesign->getCompiler()
+                             ->getSymbolTable()
+                             ->registerSymbol(moduleName));
+            Location loc2(fC->getFileId(id), fC->Line(id), fC->Column(id),
                           m_compileDesign->getCompiler()
                               ->getSymbolTable()
                               ->registerSymbol(endLabel));

@@ -26,6 +26,7 @@
 #pragma once
 
 #include <Surelog/Common/NodeId.h>
+#include <Surelog/Common/PathId.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
@@ -38,14 +39,14 @@ class SymbolTable;
 
 class VObject final {
  public:
-  VObject(SymbolId name, SymbolId fileId, VObjectType type, unsigned int line,
+  VObject(SymbolId name, PathId fileId, VObjectType type, unsigned int line,
           unsigned short column, unsigned int endLine, unsigned short endColumn,
           NodeId parent = InvalidNodeId)
       : VObject(name, fileId, type, line, column, endLine, endColumn, parent,
                 InvalidNodeId /* definition */, InvalidNodeId /* child */,
                 InvalidNodeId /* sibling */) {}
 
-  VObject(SymbolId name, SymbolId fileId, VObjectType type, unsigned int line,
+  VObject(SymbolId name, PathId fileId, VObjectType type, unsigned int line,
           unsigned short column, unsigned int endLine, unsigned short endColumn,
           NodeId parent, NodeId definition, NodeId child, NodeId sibling)
       : m_name(name),
@@ -63,10 +64,10 @@ class VObject final {
   static std::string_view getTypeName(VObjectType type);
 
   std::string print(SymbolTable* symbols, NodeId uniqueId,
-                    SymbolId definitionFile, SymbolId printedFile) const;
+                    PathId definitionFile, PathId printedFile) const;
 
   SymbolId m_name;
-  SymbolId m_fileId;
+  PathId m_fileId;
   VObjectType m_type;
   unsigned short m_column = 0;
   unsigned short m_endColumn = 0;

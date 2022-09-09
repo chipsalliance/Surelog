@@ -47,9 +47,8 @@ using namespace UHDM;  // NOLINT (using a bunch of them)
 expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args,
                               bool& invalidValue, DesignComponent* component,
                               CompileDesign* compileDesign,
-                              ValuedComponentI* instance,
-                              const fs::path& fileName, int lineNumber,
-                              any* pexpr) {
+                              ValuedComponentI* instance, PathId fileId,
+                              int lineNumber, any* pexpr) {
   UHDM::GetObjectFunctor getObjectFunctor =
       [&](const std::string& name, const any* inst,
           const any* pexpr) -> UHDM::any* {
@@ -58,7 +57,7 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args,
   UHDM::GetObjectFunctor getValueFunctor = [&](const std::string& name,
                                                const any* inst,
                                                const any* pexpr) -> UHDM::any* {
-    return (expr*)getValue(name, component, compileDesign, instance, fileName,
+    return (expr*)getValue(name, component, compileDesign, instance, fileId,
                            lineNumber, (any*)pexpr, true, false);
   };
   UHDM::GetTaskFuncFunctor getTaskFuncFunctor =
@@ -92,7 +91,7 @@ void CompileHelper::evalScheduledExprs(DesignComponent* component,
     bool invalidValue = false;
     expr* result =
         reduceExpr(expr_eval.m_expr, invalidValue, component, compileDesign,
-                   expr_eval.m_instance, expr_eval.m_fileName,
+                   expr_eval.m_instance, expr_eval.m_fileId,
                    expr_eval.m_lineNumber, expr_eval.m_pexpr);
     if (result && result->UhdmType() == uhdmconstant) {
       UHDM::constant* c = (UHDM::constant*)result;
