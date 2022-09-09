@@ -26,8 +26,7 @@
 #pragma once
 
 #include <Surelog/Cache/header_generated.h>
-#include <Surelog/Common/SymbolId.h>
-#include <Surelog/Design/VObject.h>
+#include <Surelog/Common/PathId.h>
 #include <flatbuffers/flatbuffers.h>
 
 #include <filesystem>
@@ -38,6 +37,7 @@ namespace SURELOG {
 class ErrorContainer;
 class FileContent;
 class SymbolTable;
+class VObject;
 
 // A cache class used as a base for various other cashes persisting
 // things in flatbuffers.
@@ -64,37 +64,32 @@ class Cache {
   const std::string& getExecutableTimeStamp();
 
   // Open file and read contents into a buffer.
-  std::unique_ptr<uint8_t[]> openFlatBuffers(
-      const std::filesystem::path& cacheFileName);
+  std::unique_ptr<uint8_t[]> openFlatBuffers(PathId cacheFileId);
 
   bool saveFlatbuffers(flatbuffers::FlatBufferBuilder& builder,
-                       const std::filesystem::path& cacheFileName);
+                       PathId cacheFileId);
 
   bool checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
-                           std::string_view schemaVersion,
-                           const std::filesystem::path& cacheFileName);
+                           std::string_view schemaVersion, PathId cacheFileId);
 
   flatbuffers::Offset<SURELOG::CACHE::Header> createHeader(
       flatbuffers::FlatBufferBuilder& builder, std::string_view schemaVersion,
-      const std::filesystem::path& origFileName);
+      PathId origFileId);
 
   // Store errors in cache. Canonicalize strings and store in "cacheSymbols".
   flatbuffers::Offset<VectorOffsetError> cacheErrors(
       flatbuffers::FlatBufferBuilder& builder, SymbolTable* cacheSymbols,
       const ErrorContainer* errorContainer, const SymbolTable& localSymbols,
-      SymbolId subjectId);
+      PathId subjectId);
 
-  // Given the symbol table (that we've accumulated while emitting cached
-  // items), convert it to a flatbuffer cache vector.
-  flatbuffers::Offset<Cache::VectorOffsetString> createSymbolCache(
-      flatbuffers::FlatBufferBuilder& builder, const SymbolTable& cacheSymbols);
+  void restoreSymbols(const VectorOffsetString* symbolBuf,
+                      SymbolTable* cacheSymbols);
 
   // Restores errors and the cache symbol table (to be used in other restore
   // operations).
   // References in the error container to local symbols will be entered into
   // the local symbol table.
   void restoreErrors(const VectorOffsetError* errorsBuf,
-                     const VectorOffsetString* symbolBuf,
                      SymbolTable* cacheSymbols, ErrorContainer* errorContainer,
                      SymbolTable* localSymbols);
 
@@ -105,20 +100,20 @@ class Cache {
   std::vector<CACHE::VObject> cacheVObjects(const FileContent* fcontent,
                                             SymbolTable* cacheSymbols,
                                             const SymbolTable& localSymbols,
-                                            SymbolId fileId);
+                                            PathId fileId);
 
   // Restore objects coming from the flatbuffer cache and with the corresponding
   // "cacheSymbols" into "fileContent", with IDs relevant in the local
   // symbol table "localSymbols" (which is updated).
   void restoreVObjects(
       const flatbuffers::Vector<const SURELOG::CACHE::VObject*>* objects,
-      const SymbolTable& cacheSymbols, SymbolTable* localSymbols,
-      SymbolId fileId, FileContent* fileContent);
+      const SymbolTable& cacheSymbols, SymbolTable* localSymbols, PathId fileId,
+      FileContent* fileContent);
 
   void restoreVObjects(
       const flatbuffers::Vector<const SURELOG::CACHE::VObject*>* objects,
-      const SymbolTable& cacheSymbols, SymbolTable* localSymbols,
-      SymbolId fileId, std::vector<SURELOG::VObject>* result);
+      const SymbolTable& cacheSymbols, SymbolTable* localSymbols, PathId fileId,
+      std::vector<SURELOG::VObject>* result);
 
  private:
   Cache(const Cache& orig) = delete;

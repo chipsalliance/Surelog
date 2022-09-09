@@ -22,6 +22,7 @@
  */
 
 #include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/Design.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/SourceCompile/AnalyzeFile.h>
@@ -59,13 +60,14 @@ void AnalyzeFile::checkSLlineDirective_(const std::string& line,
   std::string keyword;
   ss >> keyword;
   if (keyword == "SLline") {
-    IncludeFileInfo info(IncludeFileInfo::Context::NONE, 0, BadSymbolId, 0, 0,
-                         0, 0, IncludeFileInfo::Action::NONE);
+    IncludeFileInfo info(IncludeFileInfo::Context::NONE, 0, BadPathId, 0, 0, 0,
+                         0, IncludeFileInfo::Action::NONE);
     ss >> info.m_sectionStartLine;
     std::string file;
     ss >> file;
     file = StringUtils::unquoted(file);
-    info.m_sectionFile = m_clp->mutableSymbolTable()->registerSymbol(file);
+    info.m_sectionFile =
+        FileSystem::getInstance()->toPathId(file, m_clp->getSymbolTable());
     unsigned int action = 0;
     ss >> action;
 
@@ -92,15 +94,15 @@ void AnalyzeFile::checkSLlineDirective_(const std::string& line,
 
 std::string AnalyzeFile::setSLlineDirective_(unsigned int lineNb,
                                              unsigned int& origFromLine,
-                                             fs::path& origFile) {
+                                             PathId& origFileId) {
   std::ostringstream result;
   if (!m_includeFileInfo.empty()) {
-    origFile = m_clp->mutableSymbolTable()->getSymbol(
+    origFileId = m_includeFileInfo.top().m_sectionFile;
+    fs::path origFile = FileSystem::getInstance()->toPath(
         m_includeFileInfo.top().m_sectionFile);
     const IncludeFileInfo& info = m_includeFileInfo.top();
     origFromLine = lineNb - info.m_originalStartLine + info.m_sectionStartLine;
-    result << "SLline " << origFromLine << " \"" << origFile.string() << "\" "
-           << 1 << "\n";
+    result << "SLline " << origFromLine << " " << origFile << " 1" << std::endl;
   } else {
     result << "";  // BUG or intentional ?
   }
@@ -108,12 +110,16 @@ std::string AnalyzeFile::setSLlineDirective_(unsigned int lineNb,
 }
 
 void AnalyzeFile::analyze() {
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  SymbolTable* const symbolTable = m_clp->getSymbolTable();
+  ErrorContainer* const errors = m_clp->getErrorContainer();
   std::string line;
   std::vector<std::string> allLines;
   allLines.emplace_back("FILLER LINE");
   if (m_text.empty()) {
+    fs::path ppFileName = fileSystem->toPath(m_ppFileId);
     std::ifstream ifs;
-    ifs.open(m_ppFileName);
+    ifs.open(ppFileName);
     if (!ifs.good()) {
       return;
     }
@@ -383,19 +389,9 @@ void AnalyzeFile::analyze() {
 
   unsigned int lineSize = lineNb;
 
-  if (m_clp->getNbMaxProcesses()) {
-    m_splitFiles.emplace_back(m_ppFileName);
-    m_lineOffsets.push_back(0);
-    return;
-  }
-
-  if (lineSize < minNbLineForPartitioning) {
-    m_splitFiles.emplace_back(m_ppFileName);
-    m_lineOffsets.push_back(0);
-    return;
-  }
-  if (m_nbChunks < 2) {
-    m_splitFiles.emplace_back(m_ppFileName);
+  if (m_clp->getNbMaxProcesses() || (lineSize < minNbLineForPartitioning) ||
+      (m_nbChunks < 2)) {
+    m_splitFiles.emplace_back(m_ppFileId);
     m_lineOffsets.push_back(0);
     return;
   }
@@ -403,11 +399,10 @@ void AnalyzeFile::analyze() {
   if (inComment || inString) {
     m_splitFiles.clear();
     m_lineOffsets.clear();
-    Location loc(
-        m_clp->mutableSymbolTable()->registerSymbol(m_fileName.string()));
+    Location loc((SymbolId)m_fileId);
     Error err(ErrorDefinition::PA_CANNOT_SPLIT_FILE, loc);
-    m_clp->getErrorContainer()->addError(err);
-    m_clp->getErrorContainer()->printMessages();
+    errors->addError(err);
+    errors->printMessages();
     return;
   }
 
@@ -418,11 +413,10 @@ void AnalyzeFile::analyze() {
 
   unsigned int fromLine = 1;
   unsigned int toIndex = 0;
-  m_includeFileInfo.emplace(
-      IncludeFileInfo::Context::INCLUDE, 1,
-      m_clp->mutableSymbolTable()->registerSymbol(m_fileName.string()), 1, 0, 1,
-      0, IncludeFileInfo::Action::PUSH);
+  m_includeFileInfo.emplace(IncludeFileInfo::Context::INCLUDE, 1, m_fileId, 1,
+                            0, 1, 0, IncludeFileInfo::Action::PUSH);
   unsigned int linesWriten = 0;
+  PathId origFileId;
   for (unsigned int i = 0; i < fileChunks.size(); i++) {
     DesignElement::ElemType chunkType = fileChunks[i].m_chunkType;
 
@@ -446,7 +440,6 @@ void AnalyzeFile::analyze() {
         bool endPackageDetected = false;
         std::string sllineInfo;
         unsigned int origFromLine = 0;
-        fs::path origFile;
         // unsigned int baseFromLine = fromLine;
         while (!endPackageDetected) {
           std::string content;
@@ -488,7 +481,8 @@ void AnalyzeFile::analyze() {
             // content += "SLline " + std::to_string(fromLine - baseFromLine +
             // origFromLine + 1) + " \"" + origFile + "\" 1";
           } else {
-            sllineInfo = setSLlineDirective_(fromLine, origFromLine, origFile);
+            sllineInfo =
+                setSLlineDirective_(fromLine, origFromLine, origFileId);
             content = sllineInfo;
           }
 
@@ -552,22 +546,22 @@ void AnalyzeFile::analyze() {
             splitted = false;
           }
 
-          fs::path splitFileName =
-              m_ppFileName.string() + ".ck" + std::to_string(chunkNb);
+          fs::path splitFileName = fileSystem->toPath(m_ppFileId).string() +
+                                   ".ck" + std::to_string(chunkNb);
           if (chunkNb > 1000) {
             m_splitFiles.clear();
             m_lineOffsets.clear();
-            Location loc(m_clp->mutableSymbolTable()->registerSymbol(
-                m_fileName.string()));
+            Location loc((SymbolId)m_fileId);
             Error err(ErrorDefinition::PA_CANNOT_SPLIT_FILE, loc);
-            m_clp->getErrorContainer()->addError(err);
-            m_clp->getErrorContainer()->printMessages();
+            errors->addError(err);
+            errors->printMessages();
             return;
           }
           content += "  " + fileLevelImportSection;
           saveContent(splitFileName, content);
 
-          m_splitFiles.emplace_back(splitFileName);
+          m_splitFiles.emplace_back(
+              fileSystem->toPathId(splitFileName, symbolTable));
 
           // m_lineOffsets.push_back(fromLine - 1);
 
@@ -594,11 +588,10 @@ void AnalyzeFile::analyze() {
             (allLines[toLine].find("*/") == std::string::npos)) {
           m_splitFiles.clear();
           m_lineOffsets.clear();
-          Location loc(
-              m_clp->mutableSymbolTable()->registerSymbol(m_fileName.string()));
+          Location loc((SymbolId)m_fileId);
           Error err(ErrorDefinition::PA_CANNOT_SPLIT_FILE, loc);
-          m_clp->getErrorContainer()->addError(err);
-          m_clp->getErrorContainer()->printMessages();
+          errors->addError(err);
+          errors->printMessages();
           return;
         }
 
@@ -611,7 +604,7 @@ void AnalyzeFile::analyze() {
 
         m_lineOffsets.push_back(linesWriten);
 
-        content += setSLlineDirective_(fromLine, origFromLine, origFile);
+        content += setSLlineDirective_(fromLine, origFromLine, origFileId);
         for (unsigned int l = fromLine; l < toLine; l++) {
           checkSLlineDirective_(allLines[l], l);
           content += allLines[l];
@@ -621,21 +614,21 @@ void AnalyzeFile::analyze() {
           linesWriten++;
         }
 
-        fs::path splitFileName =
-            m_ppFileName.string() + ".ck" + std::to_string(chunkNb);
+        fs::path splitFileName = fileSystem->toPath(m_ppFileId).string() +
+                                 ".ck" + std::to_string(chunkNb);
         if (chunkNb > 1000) {
           m_splitFiles.clear();
           m_lineOffsets.clear();
-          Location loc(
-              m_clp->mutableSymbolTable()->registerSymbol(m_fileName.string()));
+          Location loc((SymbolId)m_fileId);
           Error err(ErrorDefinition::PA_CANNOT_SPLIT_FILE, loc);
-          m_clp->getErrorContainer()->addError(err);
-          m_clp->getErrorContainer()->printMessages();
+          errors->addError(err);
+          errors->printMessages();
           return;
         }
         saveContent(splitFileName, content);
 
-        m_splitFiles.emplace_back(splitFileName);
+        m_splitFiles.emplace_back(
+            fileSystem->toPathId(splitFileName, symbolTable));
 
         // m_lineOffsets.push_back (fromLine-1);
 
@@ -682,7 +675,7 @@ void AnalyzeFile::analyze() {
 
       m_lineOffsets.push_back(linesWriten);
 
-      content += setSLlineDirective_(fromLine, origFromLine, origFile);
+      content += setSLlineDirective_(fromLine, origFromLine, origFileId);
       content += "  " + fileLevelImportSection;
       for (unsigned int l = fromLine; l < toLine; l++) {
         checkSLlineDirective_(allLines[l], l);
@@ -693,21 +686,21 @@ void AnalyzeFile::analyze() {
         linesWriten++;
       }
 
-      fs::path splitFileName =
-          m_ppFileName.string() + ".ck" + std::to_string(chunkNb);
+      fs::path splitFileName = fileSystem->toPath(m_ppFileId).string() + ".ck" +
+                               std::to_string(chunkNb);
       if (chunkNb > 1000) {
         m_splitFiles.clear();
         m_lineOffsets.clear();
-        Location loc(
-            m_clp->mutableSymbolTable()->registerSymbol(m_fileName.string()));
+        Location loc((SymbolId)m_fileId);
         Error err(ErrorDefinition::PA_CANNOT_SPLIT_FILE, loc);
-        m_clp->getErrorContainer()->addError(err);
-        m_clp->getErrorContainer()->printMessages();
+        errors->addError(err);
+        errors->printMessages();
         return;
       }
       saveContent(splitFileName, content);
 
-      m_splitFiles.emplace_back(splitFileName);
+      m_splitFiles.emplace_back(
+          fileSystem->toPathId(splitFileName, symbolTable));
 
       chunkNb++;
 

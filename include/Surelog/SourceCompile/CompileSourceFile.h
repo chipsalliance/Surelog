@@ -50,18 +50,18 @@ class PreprocessFile;
 class PythonListen;
 class SymbolTable;
 
-class CompileSourceFile {
+class CompileSourceFile final {
  public:
   friend PreprocessFile;
   enum Action { Preprocess, PostPreprocess, Parse, PythonAPI };
 
-  CompileSourceFile(SymbolId fileId, CommandLineParser* clp,
+  CompileSourceFile(PathId fileId, CommandLineParser* clp,
                     ErrorContainer* errors, Compiler* compiler,
                     SymbolTable* symbols, CompilationUnit* comp_unit,
                     Library* library, const std::string& = "");
 
   // Chunk File:
-  CompileSourceFile(CompileSourceFile* parent, SymbolId ppResultFileId,
+  CompileSourceFile(CompileSourceFile* parent, PathId ppResultFileId,
                     unsigned int lineOffset);
 
   bool compile(Action action);
@@ -80,11 +80,14 @@ class CompileSourceFile {
   const std::map<SymbolId, PreprocessFile::AntlrParserHandler*,
                  SymbolIdLessThanComparer>&
   getPpAntlrHandlerMap() const {
-    return m_antlrPpMap;
+    return m_antlrPpMacroMap;
   }
   void registerAntlrPpHandlerForId(SymbolId id,
                                    PreprocessFile::AntlrParserHandler* pp);
+  void registerAntlrPpHandlerForId(PathId id,
+                                   PreprocessFile::AntlrParserHandler* pp);
   PreprocessFile::AntlrParserHandler* getAntlrPpHandlerForId(SymbolId);
+  PreprocessFile::AntlrParserHandler* getAntlrPpHandlerForId(PathId);
 
 #ifdef SURELOG_WITH_PYTHON
   void setPythonInterp(PyThreadState* interpState);
@@ -98,8 +101,8 @@ class CompileSourceFile {
   // Get size of job approximated by size of file to process.
   uint64_t getJobSize(Action action) const;
 
-  SymbolId getFileId() const { return m_fileId; }
-  SymbolId getPpOutputFileId() const { return m_ppResultFileId; }
+  PathId getFileId() const { return m_fileId; }
+  PathId getPpOutputFileId() const { return m_ppResultFileId; }
 
   void setFileAnalyzer(AnalyzeFile* analyzer) { m_fileAnalyzer = analyzer; }
   AnalyzeFile* getFileAnalyzer() const { return m_fileAnalyzer; }
@@ -115,7 +118,7 @@ class CompileSourceFile {
 
   bool pythonAPI_();
 
-  SymbolId m_fileId;
+  PathId m_fileId;
   CommandLineParser* m_commandLineParser = nullptr;
   ErrorContainer* m_errors = nullptr;
   Compiler* m_compiler = nullptr;
@@ -125,10 +128,12 @@ class CompileSourceFile {
   ParseFile* m_parser = nullptr;
   CompilationUnit* m_compilationUnit = nullptr;
   Action m_action = Action::Preprocess;
-  SymbolId m_ppResultFileId;
+  PathId m_ppResultFileId;
   std::map<SymbolId, PreprocessFile::AntlrParserHandler*,
            SymbolIdLessThanComparer>
-      m_antlrPpMap;  // Preprocessor Antlr Handlers (One per included file)
+      m_antlrPpMacroMap;  // Preprocessor Antlr Handlers (One per macro)
+  std::map<PathId, PreprocessFile::AntlrParserHandler*, PathIdLessThanComparer>
+      m_antlrPpFileMap;  // Preprocessor Antlr Handlers (One per included file)
 #ifdef SURELOG_WITH_PYTHON
   PyThreadState* m_interpState = nullptr;
   PythonListen* m_pythonListener = nullptr;

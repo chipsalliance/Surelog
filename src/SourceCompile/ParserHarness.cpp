@@ -22,6 +22,7 @@
  */
 
 #include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/Library/Library.h>
@@ -58,13 +59,13 @@ std::unique_ptr<FileContent> ParserHarness::parse(const std::string& content) {
   m_h->compiler = std::make_unique<Compiler>(m_h->clp.get(), m_h->errors.get(),
                                              m_h->symbols.get());
   m_h->csf = std::make_unique<CompileSourceFile>(
-      BadSymbolId, m_h->clp.get(), m_h->errors.get(), m_h->compiler.get(),
+      BadPathId, m_h->clp.get(), m_h->errors.get(), m_h->compiler.get(),
       m_h->symbols.get(), m_h->unit.get(), m_h->lib.get());
   m_h->pf.reset(
       new ParseFile(content, m_h->csf.get(), m_h->unit.get(), m_h->lib.get()));
   std::unique_ptr<FileContent> file_content_result(
-      new FileContent(BadSymbolId, m_h->lib.get(), m_h->symbols.get(),
-                      m_h->errors.get(), nullptr, BadSymbolId));
+      new FileContent(BadPathId, m_h->lib.get(), m_h->symbols.get(),
+                      m_h->errors.get(), nullptr, BadPathId));
   m_h->pf->setFileContent(file_content_result.get());
   if (!m_h->pf->parse()) file_content_result.reset(nullptr);
   return file_content_result;
@@ -78,15 +79,15 @@ FileContent* ParserHarness::parse(const std::string& content,
   ErrorContainer* errors = compiler->getErrorContainer();
   CommandLineParser* clp = compiler->getCommandLineParser();
   Library* lib = new Library("work", symbols);
-  CompileSourceFile* csf = new CompileSourceFile(BadSymbolId, clp, errors,
+  CompileSourceFile* csf = new CompileSourceFile(BadPathId, clp, errors,
                                                  compiler, symbols, unit, lib);
   ParseFile* pf = new ParseFile(content, csf, unit, lib);
-  SymbolId fileId;
+  PathId fileId;
   if (!fileName.empty()) {
-    fileId = symbols->registerSymbol(fileName);
+    fileId = FileSystem::getInstance()->toPathId(fileName, symbols);
   }
   FileContent* file_content_result =
-      new FileContent(fileId, lib, symbols, errors, nullptr, BadSymbolId);
+      new FileContent(fileId, lib, symbols, errors, nullptr, BadPathId);
   pf->setFileContent(file_content_result);
   if (!pf->parse()) file_content_result = nullptr;
   return file_content_result;

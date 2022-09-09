@@ -43,7 +43,7 @@ class LibrarySet final {
   void addLibrary(const Library& lib);
   std::vector<Library>& getLibraries() { return m_libraries; }
   Library* getLibrary(std::string_view libName);
-  Library* getLibrary(SymbolId fileId);
+  Library* getLibrary(PathId fileId);
   void checkErrors(SymbolTable* symbols, ErrorContainer* errors) const;
   std::string report(SymbolTable* symbols) const;
 

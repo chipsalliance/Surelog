@@ -21,6 +21,7 @@
  * Created on January 27, 2018, 5:25 PM
  */
 
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/ModuleDefinition.h>
 #include <Surelog/Library/Library.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
@@ -42,10 +43,11 @@ ModuleDefinition* Library::getModule(const std::string& name) const {
 }
 
 std::string Library::report(SymbolTable* symbols) const {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   std::string report;
   report = "LIB: " + m_name + "\n";
-  for (const auto& id : m_fileIds) {
-    report += "     " + symbols->getSymbol(id) + "\n";
+  for (auto id : m_fileIds) {
+    report += "     " + fileSystem->toPath(id).string() + "\n";
   }
   return report;
 }

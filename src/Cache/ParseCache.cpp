@@ -24,6 +24,7 @@
 #include <Surelog/Cache/ParseCache.h>
 #include <Surelog/Cache/parser_generated.h>
 #include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/Design.h>
 #include <Surelog/Design/DesignElement.h>
 #include <Surelog/Design/FileContent.h>
@@ -46,43 +47,41 @@ static constexpr char FlbSchemaVersion[] = "1.2";
 // TODO(hzeller): this should come from a function cacheFileResolver() or
 // something that can be passed to the cache. That way, we can leave the
 // somewhat hard-coded notion of where cache files are.
-fs::path ParseCache::getCacheFileName_(const fs::path& svFileNameIn) {
-  fs::path svFileName = svFileNameIn;
+PathId ParseCache::getCacheFileName_(PathId svFileNameId) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   CommandLineParser* clp =
       m_parse->getCompileSourceFile()->getCommandLineParser();
   Precompiled* prec = Precompiled::getSingleton();
-  SymbolId cacheDirId = clp->getCacheDir();
-  if (svFileName.empty()) svFileName = m_parse->getPpFileName();
+  if (!svFileNameId) svFileNameId = m_parse->getPpFileId();
+  fs::path svFileName = fileSystem->toPath(svFileNameId);
   fs::path baseFileName = FileUtils::basename(svFileName);
   fs::path cacheFileName;
-  if (prec->isFilePrecompiled(baseFileName)) {
-    fs::path packageRepDir = m_parse->getSymbol(clp->getPrecompiledDir());
+  PathId cacheDirId = clp->getCacheDirId();
+  if (prec->isFilePrecompiled(baseFileName.string())) {
     cacheDirId =
-        clp->mutableSymbolTable()->registerSymbol(packageRepDir.string());
+        fileSystem->copy(clp->getPrecompiledDirId(), clp->getSymbolTable());
     m_isPrecompiled = true;
     svFileName = baseFileName;
-  } else {
-    if (clp->noCacheHash()) {
-      fs::path cacheDirName = m_parse->getSymbol(cacheDirId);
-      const std::string& svFileTemp = svFileName.string();
-      std::string svFile;
-      int nbSlash = 0;
-      // Bring back the .slpa file in the cache dir instead of alongside the
-      // writepp source file
-      for (char c : svFileTemp) {
-        if (nbSlash >= 2) {
-          svFile += c;
-        }
-        if (c == '/') {
-          nbSlash++;
-        }
+  } else if (clp->noCacheHash()) {
+    fs::path cacheDirName = fileSystem->toPath(cacheDirId);
+    const std::string& svFileTemp = svFileName.string();
+    std::string svFile;
+    int nbSlash = 0;
+    // Bring back the .slpa file in the cache dir instead of alongside the
+    // writepp source file
+    for (char c : svFileTemp) {
+      if (nbSlash >= 2) {
+        svFile += c;
       }
-      cacheFileName = cacheDirName / (svFile + ".slpa");
-    } else {
-      svFileName = svFileName.parent_path().filename() / baseFileName;
+      if (c == '/') {
+        nbSlash++;
+      }
     }
+    cacheFileName = cacheDirName / (svFile + ".slpa");
+  } else {
+    svFileName = svFileName.parent_path().filename() / baseFileName;
   }
-  fs::path cacheDirName = m_parse->getSymbol(cacheDirId);
+  fs::path cacheDirName = fileSystem->toPath(cacheDirId);
   Library* lib = m_parse->getLibrary();
   std::string libName = lib->getName();
   if (cacheFileName.empty()) {
@@ -90,19 +89,23 @@ fs::path ParseCache::getCacheFileName_(const fs::path& svFileNameIn) {
   }
 
   FileUtils::mkDirs(cacheDirName / libName);
-  return cacheFileName;
+  return fileSystem->toPathId(
+      cacheFileName, m_parse->getCompileSourceFile()->getSymbolTable());
 }
 
-bool ParseCache::restore_(const fs::path& cacheFileName,
+bool ParseCache::restore_(PathId cacheFileId,
                           const std::unique_ptr<uint8_t[]>& buffer) {
   if (buffer == nullptr) return false;
 
+  FileSystem* const fileSystem = FileSystem::getInstance();
   /* Restore Errors */
   const PARSECACHE::ParseCache* ppcache =
       PARSECACHE::GetParseCache(buffer.get());
 
   SymbolTable cacheSymbols;
-  restoreErrors(ppcache->errors(), ppcache->symbols(), &cacheSymbols,
+  restoreSymbols(ppcache->symbols(), &cacheSymbols);
+
+  restoreErrors(ppcache->errors(), &cacheSymbols,
                 m_parse->getCompileSourceFile()->getErrorContainer(),
                 m_parse->getCompileSourceFile()->getSymbolTable());
 
@@ -113,7 +116,7 @@ bool ParseCache::restore_(const fs::path& cacheFileName,
         new FileContent(m_parse->getFileId(0), m_parse->getLibrary(),
                         m_parse->getCompileSourceFile()->getSymbolTable(),
                         m_parse->getCompileSourceFile()->getErrorContainer(),
-                        nullptr, BadSymbolId);
+                        nullptr, BadPathId);
     m_parse->setFileContent(fileContent);
     m_parse->getCompileSourceFile()->getCompiler()->getDesign()->addFileContent(
         m_parse->getFileId(0), fileContent);
@@ -124,18 +127,17 @@ bool ParseCache::restore_(const fs::path& cacheFileName,
     DesignElement* elem = new DesignElement(
         m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
             elemName),
-        m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
-            cacheSymbols.getSymbol(SymbolId(elemc->file_id(), "<unknown>"))),
+        fileSystem->copy(PathId(&cacheSymbols, elemc->file_id(), BadRawPath),
+                         m_parse->getCompileSourceFile()->getSymbolTable()),
         (DesignElement::ElemType)elemc->type(), NodeId(elemc->unique_id()),
         elemc->line(), elemc->column(), elemc->end_line(), elemc->end_column(),
         NodeId(elemc->parent()));
     elem->m_node = NodeId(elemc->node());
     elem->m_defaultNetType = (VObjectType)elemc->default_net_type();
     elem->m_timeInfo.m_type = (TimeInfo::Type)elemc->time_info()->type();
-    elem->m_timeInfo.m_fileId =
-        m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
-            cacheSymbols.getSymbol(
-                SymbolId(elemc->time_info()->file_id(), "<unknown>")));
+    elem->m_timeInfo.m_fileId = fileSystem->copy(
+        PathId(&cacheSymbols, elemc->time_info()->file_id(), BadRawPath),
+        m_parse->getCompileSourceFile()->getSymbolTable());
     elem->m_timeInfo.m_line = elemc->time_info()->line();
     elem->m_timeInfo.m_timeUnit =
         (TimeInfo::Unit)elemc->time_info()->time_unit();
@@ -158,7 +160,7 @@ bool ParseCache::restore_(const fs::path& cacheFileName,
   return true;
 }
 
-bool ParseCache::checkCacheIsValid_(const fs::path& cacheFileName,
+bool ParseCache::checkCacheIsValid_(PathId cacheFileId,
                                     const std::unique_ptr<uint8_t[]>& buffer) {
   if (buffer == nullptr) return false;
 
@@ -177,7 +179,7 @@ bool ParseCache::checkCacheIsValid_(const fs::path& cacheFileName,
       PARSECACHE::GetParseCache(buffer.get());
   auto header = ppcache->header();
   if (!m_isPrecompiled &&
-      !checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileName)) {
+      !checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileId)) {
     return false;
   }
 
@@ -185,8 +187,8 @@ bool ParseCache::checkCacheIsValid_(const fs::path& cacheFileName,
 }
 
 bool ParseCache::isValid() {
-  fs::path cacheFileName = getCacheFileName_();
-  return checkCacheIsValid_(cacheFileName, openFlatBuffers(cacheFileName));
+  PathId cacheFileId = getCacheFileName_(BadPathId);
+  return checkCacheIsValid_(cacheFileId, openFlatBuffers(cacheFileId));
 }
 
 bool ParseCache::restore() {
@@ -195,9 +197,9 @@ bool ParseCache::restore() {
   bool cacheAllowed = clp->cacheAllowed();
   if (!cacheAllowed) return false;
 
-  fs::path cacheFileName = getCacheFileName_();
-  auto buffer = openFlatBuffers(cacheFileName);
-  if (!checkCacheIsValid_(cacheFileName, buffer)) {
+  PathId cacheFileId = getCacheFileName_(BadPathId);
+  auto buffer = openFlatBuffers(cacheFileId);
+  if (!checkCacheIsValid_(cacheFileId, buffer)) {
     // char path [10000];
     // char* p = getcwd(path, 9999);
     // if (!clp->parseOnly())
@@ -206,10 +208,11 @@ bool ParseCache::restore() {
     return false;
   }
 
-  return restore_(cacheFileName, buffer);
+  return restore_(cacheFileId, buffer);
 }
 
 bool ParseCache::save() {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   CommandLineParser* clp =
       m_parse->getCompileSourceFile()->getCommandLineParser();
   bool cacheAllowed = clp->cacheAllowed();
@@ -226,29 +229,27 @@ bool ParseCache::save() {
       return false;
     }
   }
-  fs::path svFileName = m_parse->getPpFileName();
-  fs::path origFileName = svFileName;
+  PathId origFileId = m_parse->getPpFileId();
+  fs::path origFileName = fileSystem->toPath(origFileId);
   if (parseOnly) {
-    SymbolId cacheDirId = clp->getCacheDir();
-    fs::path cacheDirName = m_parse->getSymbol(cacheDirId);
-    origFileName = cacheDirName / ".." / origFileName;
+    origFileName =
+        fileSystem->toPath(clp->getCacheDirId()) / ".." / origFileName;
   }
-  fs::path cacheFileName = getCacheFileName_();
-  if (strstr(cacheFileName.string().c_str(), "@@BAD_SYMBOL@@")) {
+  PathId cacheFileId = getCacheFileName_(BadPathId);
+  if (!cacheFileId) {
     // Any fake(virtual) file like builtin.sv
     return true;
   }
   flatbuffers::FlatBufferBuilder builder(1024);
   /* Create header section */
-  auto header = createHeader(builder, FlbSchemaVersion, origFileName);
+  auto header = createHeader(builder, FlbSchemaVersion, origFileId);
 
   /* Cache the errors and canonical symbols */
   ErrorContainer* errorContainer =
       m_parse->getCompileSourceFile()->getErrorContainer();
-  fs::path subjectFile = m_parse->getFileName(LINE1);
-  SymbolId subjectFileId =
-      m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
-          subjectFile.string());
+  PathId subjectFileId =
+      fileSystem->copy(m_parse->getFileId(LINE1),
+                       m_parse->getCompileSourceFile()->getSymbolTable());
   SymbolTable cacheSymbols;
   auto errorCache = cacheErrors(
       builder, &cacheSymbols, errorContainer,
@@ -264,17 +265,13 @@ bool ParseCache::save() {
               elem->m_name);
       auto timeInfo = CACHE::CreateTimeInfo(
           builder, static_cast<uint16_t>(info.m_type),
-          (RawSymbolId)cacheSymbols.registerSymbol(
-              m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
-                  info.m_fileId)),
+          (RawPathId)fileSystem->copy(info.m_fileId, &cacheSymbols),
           info.m_line, static_cast<uint16_t>(info.m_timeUnit),
           info.m_timeUnitValue, static_cast<uint16_t>(info.m_timePrecision),
           info.m_timePrecisionValue);
-      element_vec.push_back(PARSECACHE::CreateDesignElement(
+      element_vec.emplace_back(PARSECACHE::CreateDesignElement(
           builder, (RawSymbolId)cacheSymbols.registerSymbol(elemName),
-          (RawSymbolId)cacheSymbols.registerSymbol(
-              m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
-                  elem->m_fileId)),
+          (RawPathId)fileSystem->copy(elem->m_fileId, &cacheSymbols),
           elem->m_type, (RawNodeId)elem->m_uniqueId, elem->m_line,
           elem->m_column, elem->m_endLine, elem->m_endColumn, timeInfo,
           (RawNodeId)elem->m_parent, (RawNodeId)elem->m_node,
@@ -289,14 +286,14 @@ bool ParseCache::save() {
                     m_parse->getFileId(0));
   auto objectList = builder.CreateVectorOfStructs(object_vec);
 
-  auto symbolVec = createSymbolCache(builder, cacheSymbols);
+  auto symbolVec = builder.CreateVectorOfStrings(cacheSymbols.getSymbols());
   /* Create Flatbuffers */
   auto ppcache = PARSECACHE::CreateParseCache(
       builder, header, errorCache, symbolVec, elementList, objectList);
   FinishParseCacheBuffer(builder, ppcache);
 
   /* Save Flatbuffer */
-  bool status = saveFlatbuffers(builder, cacheFileName);
+  bool status = saveFlatbuffers(builder, cacheFileId);
 
   return status;
 }

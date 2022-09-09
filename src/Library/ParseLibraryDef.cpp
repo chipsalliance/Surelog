@@ -22,6 +22,7 @@
  */
 
 #include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Config/ConfigSet.h>
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
@@ -48,8 +49,7 @@ ParseLibraryDef::ParseLibraryDef(CommandLineParser* commandLineParser,
                                  ErrorContainer* errors,
                                  SymbolTable* symbolTable,
                                  LibrarySet* librarySet, ConfigSet* configSet)
-    : m_fileId(BadSymbolId),
-      m_commandLineParser(commandLineParser),
+    : m_commandLineParser(commandLineParser),
       m_errors(errors),
       m_symbolTable(symbolTable),
       m_librarySet(librarySet),
@@ -57,8 +57,9 @@ ParseLibraryDef::ParseLibraryDef(CommandLineParser* commandLineParser,
       m_fileContent(nullptr) {}
 
 bool ParseLibraryDef::parseLibrariesDefinition() {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   // Get .map files from command line
-  std::vector<SymbolId> libraryMapFiles =
+  std::vector<PathId> libraryMapFiles =
       m_commandLineParser->getLibraryMapFiles();
   if (libraryMapFiles.empty()) {
     // or scan local dir
@@ -73,27 +74,27 @@ bool ParseLibraryDef::parseLibrariesDefinition() {
   }
 
   // Config files are parsed using the library top rule
-  std::vector<SymbolId> cfgFiles = m_commandLineParser->getConfigFiles();
-  for (const auto& file : cfgFiles) {
-    libraryMapFiles.push_back(file);
-  }
+  const std::vector<PathId>& cfgFiles = m_commandLineParser->getConfigFiles();
+  libraryMapFiles.insert(libraryMapFiles.end(), cfgFiles.begin(),
+                         cfgFiles.end());
 
   for (const auto& fileId : libraryMapFiles) {
     parseLibraryDefinition(fileId);
   }
 
-  for (const auto& file : cfgFiles) {
-    fs::path fullPath = FileUtils::getFullPath(m_symbolTable->getSymbol(file));
-    m_librarySet->getLibrary(m_symbolTable->registerSymbol(
-        fullPath.string()));  // Register configuration files in "work" library
+  for (auto file : cfgFiles) {
+    fs::path fullPath = FileUtils::getFullPath(fileSystem->toPath(file));
+    m_librarySet->getLibrary(fileSystem->toPathId(
+        fullPath,
+        m_symbolTable));  // Register configuration files in "work" library
   }
 
   unsigned int size = m_commandLineParser->getSourceFiles().size();
   for (unsigned int i = 0; i < size; i++) {
-    SymbolId id = m_commandLineParser->getSourceFiles()[i];
-    fs::path fullPath = FileUtils::getFullPath(m_symbolTable->getSymbol(id));
-    m_librarySet->getLibrary(m_symbolTable->registerSymbol(
-        fullPath.string()));  // Register files in "work" library
+    PathId id = m_commandLineParser->getSourceFiles()[i];
+    fs::path fullPath = FileUtils::getFullPath(fileSystem->toPath(id));
+    m_librarySet->getLibrary(fileSystem->toPathId(
+        fullPath, m_symbolTable));  // Register files in "work" library
   }
 
   m_librarySet->checkErrors(m_symbolTable, m_errors);
@@ -104,10 +105,10 @@ bool ParseLibraryDef::parseLibrariesDefinition() {
   return true;
 }
 
-bool ParseLibraryDef::parseLibraryDefinition(SymbolId fileId, Library* lib) {
+bool ParseLibraryDef::parseLibraryDefinition(PathId fileId, Library* lib) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   m_fileId = fileId;
-  const fs::path fileName = m_symbolTable->getSymbol(fileId);
-  const fs::path relativePath = FileUtils::getPathName(fileName);
+  const fs::path fileName = fileSystem->toPath(fileId);
   std::ifstream stream;
   stream.open(fileName);
 
@@ -136,8 +137,7 @@ bool ParseLibraryDef::parseLibraryDefinition(SymbolId fileId, Library* lib) {
   m_parser->addErrorListener(errorListener);
   antlr4::tree::ParseTree* m_tree = m_parser->top_level_library_rule();
 
-  SVLibShapeListener* m_listener =
-      new SVLibShapeListener(this, m_tokens, relativePath);
+  SVLibShapeListener* m_listener = new SVLibShapeListener(this, m_tokens);
   m_fileContent = m_listener->getFileContent();
 
   tree::ParseTreeWalker::DEFAULT.walk(m_listener, m_tree);
@@ -146,10 +146,9 @@ bool ParseLibraryDef::parseLibraryDefinition(SymbolId fileId, Library* lib) {
     if (lib) {
       m_fileContent->setLibrary(lib);
     } else {
-      fs::path fullPath =
-          FileUtils::getFullPath(m_symbolTable->getSymbol(m_fileId));
+      fs::path fullPath = FileUtils::getFullPath(fileSystem->toPath(m_fileId));
       m_fileContent->setLibrary(m_librarySet->getLibrary(
-          m_symbolTable->registerSymbol(fullPath.string())));
+          fileSystem->toPathId(fullPath, m_symbolTable)));
     }
   }
 

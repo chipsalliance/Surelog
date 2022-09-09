@@ -25,11 +25,11 @@
 #define SURELOG_PACKAGE_H
 #pragma once
 
-#include <string_view>
-
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Expression/ExprBuilder.h>
+
+#include <string_view>
 
 // UHDM
 #include <uhdm/containers.h>
@@ -59,7 +59,7 @@ class Package : public DesignComponent {
     return VObjectType::slPackage_declaration;
   }
   bool isInstance() const override { return false; }
-  const std::string& getName() const override { return m_name; }
+  std::string getName() const override { return m_name; }
 
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;
@@ -82,6 +82,7 @@ class Package : public DesignComponent {
   void setNetlist(Netlist* netlist) { m_netlist = netlist; }
 
   Package* getUnElabPackage() { return m_unElabPackage; }
+
  private:
   std::string m_name;
   Library* m_library;

@@ -26,6 +26,7 @@
 #pragma once
 
 #include <Surelog/Common/NodeId.h>
+#include <Surelog/Common/PathId.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/TimeInfo.h>
 
@@ -51,12 +52,12 @@ class DesignElement final {
     SLline  // Used to split files with correct file info
   };
 
-  DesignElement(SymbolId name, SymbolId fileId, ElemType type, NodeId uniqueId,
+  DesignElement(SymbolId name, PathId fileId, ElemType type, NodeId uniqueId,
                 unsigned int line, unsigned short column, unsigned int endLine,
                 unsigned short endColumn, NodeId parent);
 
   SymbolId m_name;
-  SymbolId m_fileId;
+  PathId m_fileId;
   const ElemType m_type;
   const NodeId m_uniqueId;
   const unsigned int m_line;

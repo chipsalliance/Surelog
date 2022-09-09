@@ -298,7 +298,7 @@ bool ResolveSymbols::bindDefinition_(NodeId objIndex,
 
   bool found = false;
   for (const auto& file : all_files) {
-    SymbolId fileId = file.first;
+    PathId fileId = file.first;
     FileContent* fcontent = file.second;
 
     auto itr = fcontent->getObjectLookup().find(modName);

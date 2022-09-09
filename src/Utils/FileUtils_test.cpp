@@ -14,6 +14,7 @@
  limitations under the License.
 */
 
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Utils/FileUtils.h>
 #include <gtest/gtest.h>
@@ -28,6 +29,11 @@ namespace SURELOG {
 namespace fs = std::filesystem;
 
 namespace {
+class TestFileSystem : public FileSystem {
+ public:
+  TestFileSystem() : FileSystem(fs::current_path()) {}
+};
+
 TEST(FileUtilsTest, BasicFileOperations) {
   const std::string dirtest = testing::TempDir() + "/file-exist-dir";
   const std::string basename = "file-exists-test.txt";
@@ -66,6 +72,7 @@ TEST(FileUtilsTest, BasicFileOperations) {
 }
 
 TEST(FileUtilsTest, LocateFile) {
+  TestFileSystem fileSystem;
   SymbolTable sym;
   const std::string search_file = "search-file.txt";
 
@@ -77,26 +84,26 @@ TEST(FileUtilsTest, LocateFile) {
   FileUtils::mkDirs(path1);
   FileUtils::mkDirs(actual_dir);
 
-  std::vector<SymbolId> paths = {
-      sym.registerSymbol(path1.string()),
-      sym.registerSymbol(path2.string()),
-      sym.registerSymbol(actual_dir.string()),
+  std::vector<PathId> paths = {
+      fileSystem.toPathId(path1, &sym),
+      fileSystem.toPathId(path2, &sym),
+      fileSystem.toPathId(actual_dir, &sym),
   };
 
-  SymbolId search_file_id = sym.registerSymbol(search_file);
+  PathId search_file_id = fileSystem.toPathId(search_file, &sym);
 
   // At this point, the file does not exist yet.
-  SymbolId non_exist = FileUtils::locateFile(search_file_id, &sym, paths);
-  EXPECT_EQ(non_exist, BadSymbolId);
+  PathId non_exist = FileUtils::locateFile(search_file_id, &sym, paths);
+  EXPECT_EQ(non_exist, BadPathId);
 
   const fs::path actual_loc = actual_dir / search_file;
   std::ofstream(actual_loc).close();
 
-  SymbolId now_exists = FileUtils::locateFile(search_file_id, &sym, paths);
-  EXPECT_NE(now_exists, BadSymbolId);
-  EXPECT_EQ(sym.getSymbol(now_exists), actual_loc);
+  PathId now_exists = FileUtils::locateFile(search_file_id, &sym, paths);
+  EXPECT_NE(now_exists, BadPathId);
+  EXPECT_EQ(fileSystem.toPath(now_exists), actual_loc);
 
-  SymbolId already_found = FileUtils::locateFile(now_exists, &sym, paths);
+  PathId already_found = FileUtils::locateFile(now_exists, &sym, paths);
   EXPECT_EQ(already_found, now_exists);
 
   FileUtils::rmDirRecursively(basedir);

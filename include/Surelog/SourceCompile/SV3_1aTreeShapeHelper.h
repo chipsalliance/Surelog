@@ -25,15 +25,15 @@
 #define SURELOG_SV3_1ATREESHAPEHELPER_H
 #pragma once
 
-#include <stack>
-#include <string_view>
-
 #include <Surelog/Design/DesignElement.h>
 #include <Surelog/ErrorReporting/ErrorDefinition.h>
 #include <Surelog/ErrorReporting/Location.h>
 #include <Surelog/SourceCompile/CommonListenerHelper.h>
 #include <Surelog/SourceCompile/IncludeFileInfo.h>
 #include <parser/SV3_1aParser.h>
+
+#include <stack>
+#include <string_view>
 
 namespace antlr4 {
 class CommonTokenStream;
@@ -83,7 +83,7 @@ class SV3_1aTreeShapeHelper : public CommonListenerHelper {
       SV3_1aParser::Time_literalContext* ctx);
 
   std::tuple<unsigned int, unsigned short, unsigned int, unsigned short>
-  getFileLine(antlr4::ParserRuleContext* ctx, SymbolId& fileId) override;
+  getFileLine(antlr4::ParserRuleContext* ctx, PathId& fileId) override;
 
  protected:
   ParseFile* m_pf;

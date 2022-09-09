@@ -30,6 +30,7 @@
 #endif
 
 #include <Surelog/API/PythonAPI.h>
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/ErrorReporting/Report.h>
 #include <Surelog/Utils/StringUtils.h>
 #include <Surelog/surelog.h>
@@ -54,6 +55,7 @@ constexpr std::string_view output_folder_opt = "-o";
 unsigned int executeCompilation(
     int argc, const char** argv, bool diff_comp_mode, bool fileunit,
     SURELOG::ErrorContainer::Stats* overallStats = nullptr) {
+  SURELOG::FileSystem* const fileSystem = SURELOG::FileSystem::getInstance();
   bool success = true;
   bool noFatalErrors = true;
   unsigned int codedReturn = 0;
@@ -98,7 +100,7 @@ unsigned int executeCompilation(
 
   std::string ext_command = clp->getExeCommand();
   if (!ext_command.empty()) {
-    fs::path directory = symbolTable->getSymbol(clp->getFullCompileDir());
+    fs::path directory = fileSystem->toPath(clp->getFullCompileDirId());
     fs::path fileList = directory / "file.lst";
     std::string command = ext_command + " " + fileList.string();
     int result = system(command.c_str());

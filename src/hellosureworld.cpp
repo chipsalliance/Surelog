@@ -25,6 +25,7 @@
 // cd tests/UnitElabBlock
 // hellouhdm top.v -parse -mutestdout
 
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/surelog.h>
 
 #include <functional>
@@ -57,8 +58,11 @@ int main(int argc, const char** argv) {
     for (auto& top : the_design->getTopLevelModuleInstances()) {
       std::function<void(SURELOG::ModuleInstance*)> inst_visit =
           [&inst_visit](SURELOG::ModuleInstance* inst) {
+            SURELOG::FileSystem* const fileSystem =
+                SURELOG::FileSystem::getInstance();
             std::cout << "Inst: " << inst->getFullPathName() << std::endl;
-            std::cout << "File: " << inst->getFileName() << std::endl;
+            std::cout << "File: " << fileSystem->toPath(inst->getFileId())
+                      << std::endl;
             for (unsigned int i = 0; i < inst->getNbChildren(); i++) {
               inst_visit(inst->getChildren(i));
             }

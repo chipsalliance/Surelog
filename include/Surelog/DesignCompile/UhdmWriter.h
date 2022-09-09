@@ -55,7 +55,7 @@ class UhdmWriter final {
 
   UhdmWriter(CompileDesign* compiler, Design* design);
 
-  vpiHandle write(const std::string& uhdmFile);
+  vpiHandle write(PathId uhdmFileId);
 
   static unsigned int getVpiDirection(VObjectType type);
 
@@ -95,21 +95,26 @@ class UhdmWriter final {
   bool writeElabGenScope(UHDM::Serializer& s, ModuleInstance* instance,
                          UHDM::gen_scope* m, ExprBuilder& exprBuilder);
   void writePackage(Package* pack, UHDM::package* p, UHDM::Serializer& s,
-                  UhdmWriter::ComponentMap& componentMap, bool elaborated);
+                    UhdmWriter::ComponentMap& componentMap, bool elaborated);
 
   void writeClasses(ClassNameClassDefinitionMultiMap& orig_classes,
+                    UHDM::VectorOfclass_defn* dest_classes, UHDM::Serializer& s,
+                    UhdmWriter::ComponentMap& componentMap,
+                    UHDM::BaseClass* parent);
+  void writeClass(ClassDefinition* classDef,
                   UHDM::VectorOfclass_defn* dest_classes, UHDM::Serializer& s,
-                  UhdmWriter::ComponentMap& componentMap, UHDM::BaseClass* parent);
-  void writeClass(ClassDefinition* classDef, UHDM::VectorOfclass_defn* dest_classes,
-                UHDM::Serializer& s, UhdmWriter::ComponentMap& componentMap,
-                UHDM::BaseClass* parent);
-  void writeProgram(Program* mod, UHDM::program* m, UHDM::Serializer& s,
                   UhdmWriter::ComponentMap& componentMap,
-                  UhdmWriter::ModPortMap& modPortMap,
-                  ModuleInstance* instance = nullptr);
+                  UHDM::BaseClass* parent);
+  void writeProgram(Program* mod, UHDM::program* m, UHDM::Serializer& s,
+                    UhdmWriter::ComponentMap& componentMap,
+                    UhdmWriter::ModPortMap& modPortMap,
+                    ModuleInstance* instance = nullptr);
 
-  void lateBinding(UHDM::Serializer& s, DesignComponent* mod, UHDM::scope* m, UhdmWriter::ComponentMap& componentMap);
-  void lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod, UHDM::scope* m, UhdmWriter::ComponentMap& componentMap);
+  void lateBinding(UHDM::Serializer& s, DesignComponent* mod, UHDM::scope* m,
+                   UhdmWriter::ComponentMap& componentMap);
+  void lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
+                          UHDM::scope* m,
+                          UhdmWriter::ComponentMap& componentMap);
 
   CompileDesign* const m_compileDesign;
   Design* const m_design;

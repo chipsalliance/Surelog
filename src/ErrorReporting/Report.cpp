@@ -22,6 +22,7 @@
  */
 
 #include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/ErrorReporting/Report.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 
@@ -91,9 +92,10 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
                                                      SymbolTable* st) {
   // std::mutex m;
   // m.lock();
-  fs::path odir = st->getSymbol(clp->getOutputDir());
-  fs::path alldir = st->getSymbol(clp->getCompileAllDir());
-  fs::path unitdir = st->getSymbol(clp->getCompileUnitDir());
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  fs::path odir = fileSystem->toPath(clp->getOutputDirId());
+  fs::path alldir = fileSystem->toPath(clp->getCompileAllDirId());
+  fs::path unitdir = fileSystem->toPath(clp->getCompileUnitDirId());
   fs::path log = st->getSymbol(clp->getDefaultLogFileId());
   fs::path alllog = odir / alldir / log;
   fs::path unitlog = odir / unitdir / log;

@@ -25,7 +25,7 @@
 #define SURELOG_MACROINFO_H
 #pragma once
 
-#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Common/PathId.h>
 
 #include <string>
 #include <string_view>
@@ -35,20 +35,11 @@ namespace SURELOG {
 
 class MacroInfo {
  public:
-  MacroInfo(std::string_view name, int type, SymbolId file,
+  MacroInfo(std::string_view name, int type, PathId fileId,
             unsigned int startLine, unsigned short int startColumn,
             unsigned int endLine, unsigned short int endColumn,
             const std::vector<std::string>& arguments,
-            const std::vector<std::string>& tokens)
-      : m_name(name),
-        m_type(type),
-        m_file(file),
-        m_startLine(startLine),
-        m_startColumn(startColumn),
-        m_endLine(endLine),
-        m_endColumn(endColumn),
-        m_arguments(arguments),
-        m_tokens(tokens) {}
+            const std::vector<std::string>& tokens);
   enum Type {
     NO_ARGS,
     WITH_ARGS,
@@ -56,7 +47,7 @@ class MacroInfo {
 
   const std::string m_name;
   const int m_type;
-  const SymbolId m_file;
+  const PathId m_fileId;
   const unsigned int m_startLine;
   const unsigned short int m_startColumn;
   const unsigned int m_endLine;

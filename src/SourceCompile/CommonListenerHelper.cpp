@@ -91,7 +91,7 @@ unsigned int CommonListenerHelper::Line(NodeId index) const {
 
 int CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym,
                                      VObjectType objtype) {
-  SymbolId fileId;
+  PathId fileId;
   auto [line, column, endLine, endColumn] = getFileLine(ctx, fileId);
 
   NodeId objectIndex = m_fileContent->addObject(sym, fileId, objtype, line,

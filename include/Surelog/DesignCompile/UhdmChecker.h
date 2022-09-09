@@ -25,7 +25,6 @@
 #define SURELOG_UHDMCHECKER_H
 #pragma once
 
-#include <filesystem>
 #include <map>
 #include <set>
 #include <vector>
@@ -42,16 +41,15 @@ class UhdmChecker final {
       : m_compileDesign(compiler), m_design(design) {}
 
   // Technically not a const method as it modifies some static values.
-  bool check(const std::string& reportFile);
+  bool check(PathId reportFileId);
 
  private:
   bool registerFile(const FileContent* fC, std::set<std::string>& moduleNames);
-  bool reportHtml(CompileDesign* compileDesign,
-                  const std::filesystem::path& reportFile,
-                  float overallCoverage);
-  float reportCoverage(const std::filesystem::path& reportFile);
-  void annotate(CompileDesign* m_compileDesign);
+  bool reportHtml(PathId reportFileId, float overallCoverage);
+  float reportCoverage(PathId reportFileId);
+  void annotate();
   void mergeColumnCoverage();
+
   CompileDesign* const m_compileDesign;
   Design* const m_design;
   typedef unsigned int LineNb;
@@ -66,9 +64,9 @@ class UhdmChecker final {
   typedef std::map<LineNb, Ranges> RangesMap;
   typedef std::map<const FileContent*, RangesMap> FileNodeCoverMap;
   FileNodeCoverMap fileNodeCoverMap;
-  std::map<std::filesystem::path, const FileContent*> fileMap;
-  std::multimap<float, std::pair<std::filesystem::path, float>> coverageMap;
-  std::map<std::filesystem::path, float> fileCoverageMap;
+  std::map<PathId, const FileContent*, PathIdLessThanComparer> fileMap;
+  std::multimap<float, std::pair<PathId, float>> coverageMap;
+  std::map<PathId, float, PathIdLessThanComparer> fileCoverageMap;
 };
 
 }  // namespace SURELOG

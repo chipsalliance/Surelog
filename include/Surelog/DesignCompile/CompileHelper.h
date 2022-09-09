@@ -25,6 +25,7 @@
 #define SURELOG_COMPILEHELPER_H
 #pragma once
 
+#include <Surelog/Common/PathId.h>
 #include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/Expression/ExprBuilder.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
@@ -446,9 +447,9 @@ class CompileHelper final {
   UHDM::expr* reduceExpr(UHDM::any* expr, bool& invalidValue,
                          DesignComponent* component,
                          CompileDesign* compileDesign,
-                         ValuedComponentI* instance,
-                         const std::filesystem::path& fileName, int lineNumber,
-                         UHDM::any* pexpr, bool muteErrors = false);
+                         ValuedComponentI* instance, PathId fileId,
+                         int lineNumber, UHDM::any* pexpr,
+                         bool muteErrors = false);
 
   UHDM::expr* expandPatternAssignment(const UHDM::typespec* tps,
                                       UHDM::expr* rhs,
@@ -458,8 +459,7 @@ class CompileHelper final {
 
   uint64_t Bits(const UHDM::any* typespec, bool& invalidValue,
                 DesignComponent* component, CompileDesign* compileDesign,
-                ValuedComponentI* instance,
-                const std::filesystem::path& fileName, int lineNumber,
+                ValuedComponentI* instance, PathId fileId, int lineNumber,
                 bool reduce, bool sizeMode);
 
   UHDM::variables* getSimpleVarFromTypespec(
@@ -474,20 +474,19 @@ class CompileHelper final {
   UHDM::expr* EvalFunc(UHDM::function* func, std::vector<UHDM::any*>* args,
                        bool& invalidValue, DesignComponent* component,
                        CompileDesign* compileDesign, ValuedComponentI* instance,
-                       const std::filesystem::path& fileName, int lineNumber,
-                       UHDM::any* pexpr);
+                       PathId fileId, int lineNumber, UHDM::any* pexpr);
 
   void evalScheduledExprs(DesignComponent* component,
                           CompileDesign* compileDesign);
 
   void checkForLoops(bool on);
-  bool loopDetected(const std::filesystem::path& fileName, int lineNumber,
+  bool loopDetected(PathId fileId, int lineNumber, CompileDesign* compileDesign,
                     ValuedComponentI* instance);
 
   UHDM::any* getValue(const std::string& name, DesignComponent* component,
                       CompileDesign* compileDesign, ValuedComponentI* instance,
-                      const std::filesystem::path& fileName, int lineNumber,
-                      UHDM::any* pexpr, bool reduce, bool muteErrors = false);
+                      PathId fileId, int lineNumber, UHDM::any* pexpr,
+                      bool reduce, bool muteErrors = false);
 
   // Parse numeric UHDM constant into int64_t. Returns if successful.
   bool parseConstant(const UHDM::constant& constant, int64_t* value);
@@ -523,15 +522,13 @@ class CompileHelper final {
   bool errorOnNegativeConstant(DesignComponent* component,
                                const std::string& value,
                                CompileDesign* compileDesign,
-                               ValuedComponentI* instance,
-                               const std::filesystem::path& fileName,
+                               ValuedComponentI* instance, PathId fileId,
                                unsigned int lineNo, unsigned short columnNo);
 
   UHDM::any* decodeHierPath(UHDM::hier_path* path, bool& invalidValue,
                             DesignComponent* component,
                             CompileDesign* compileDesign,
-                            ValuedComponentI* instance,
-                            const std::filesystem::path& fileName,
+                            ValuedComponentI* instance, PathId fileName,
                             int lineNumber, UHDM::any* pexpr, bool reduce,
                             bool muteErrors, bool returnTypespec);
 
@@ -564,14 +561,16 @@ class CompileHelper final {
   ExprBuilder m_exprBuilder;
   UHDM::module* m_exprEvalPlaceHolder = nullptr;
   // Caches
-  UHDM::int_typespec* buildIntTypespec(
-      CompileDesign* compileDesign, const std::filesystem::path& fileName,
-      const std::string& name, const std::string& value, unsigned int line,
-      unsigned short column, unsigned int eline, unsigned short ecolumn);
+  UHDM::int_typespec* buildIntTypespec(CompileDesign* compileDesign,
+                                       PathId fileId, const std::string& name,
+                                       const std::string& value,
+                                       unsigned int line, unsigned short column,
+                                       unsigned int eline,
+                                       unsigned short ecolumn);
   UHDM::typespec_member* buildTypespecMember(
-      CompileDesign* compileDesign, const std::filesystem::path& fileName,
-      const std::string& name, const std::string& value, unsigned int line,
-      unsigned short column, unsigned int eline, unsigned short ecolumn);
+      CompileDesign* compileDesign, PathId fileId, const std::string& name,
+      const std::string& value, unsigned int line, unsigned short column,
+      unsigned int eline, unsigned short ecolumn);
   std::unordered_map<std::string, UHDM::int_typespec*> m_cache_int_typespec;
   std::unordered_map<std::string, UHDM::typespec_member*>
       m_cache_typespec_member;

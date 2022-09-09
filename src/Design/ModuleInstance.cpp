@@ -202,12 +202,8 @@ VObjectType ModuleInstance::getModuleType() const {
   return type;
 }
 
-SymbolId ModuleInstance::getFileId() const {
+PathId ModuleInstance::getFileId() const {
   return m_fileContent->getFileId(m_nodeId);
-}
-
-std::filesystem::path ModuleInstance::getFileName() const {
-  return m_fileContent->getFileName(m_nodeId);
 }
 
 unsigned int ModuleInstance::getLineNb() const {

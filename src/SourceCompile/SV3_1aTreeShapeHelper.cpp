@@ -108,7 +108,7 @@ SymbolId SV3_1aTreeShapeHelper::registerSymbol(std::string_view symbol) {
 void SV3_1aTreeShapeHelper::addNestedDesignElement(
     antlr4::ParserRuleContext* ctx, std::string_view name,
     DesignElement::ElemType elemtype, VObjectType objtype) {
-  SymbolId fileId;
+  PathId fileId;
   auto [line, column, endLine, endColumn] = getFileLine(ctx, fileId);
   std::string design_element = m_pf->getLibrary()->getName() + "@";
   design_element.append(name);
@@ -132,7 +132,7 @@ void SV3_1aTreeShapeHelper::addDesignElement(antlr4::ParserRuleContext* ctx,
                                              std::string_view name,
                                              DesignElement::ElemType elemtype,
                                              VObjectType objtype) {
-  SymbolId fileId;
+  PathId fileId;
   auto [line, column, endLine, endColumn] = getFileLine(ctx, fileId);
   std::string design_element = m_pf->getLibrary()->getName() + "@";
   design_element.append(name);
@@ -150,7 +150,7 @@ void SV3_1aTreeShapeHelper::addDesignElement(antlr4::ParserRuleContext* ctx,
 
 std::tuple<unsigned int, unsigned short, unsigned int, unsigned short>
 SV3_1aTreeShapeHelper::getFileLine(antlr4::ParserRuleContext* ctx,
-                                   SymbolId& fileId) {
+                                   PathId& fileId) {
   std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
   std::pair<int, int> endLineCol = ParseUtils::getEndLineColumn(m_tokens, ctx);
   unsigned int line = 0;

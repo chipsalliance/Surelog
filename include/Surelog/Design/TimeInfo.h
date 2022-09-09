@@ -25,7 +25,7 @@
 #define SURELOG_TIMEINFO_H
 #pragma once
 
-#include <Surelog/Common/SymbolId.h>
+#include <Surelog/Common/PathId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <string_view>
@@ -45,7 +45,7 @@ class TimeInfo final {
   };
 
   Type m_type = Type::None;
-  SymbolId m_fileId = BadSymbolId;
+  PathId m_fileId;
   unsigned int m_line = 0;
   Unit m_timeUnit = Unit::Second;
   double m_timeUnitValue = 0.0;
@@ -59,7 +59,7 @@ class TimeInfo final {
 class NetTypeInfo final {
  public:
   VObjectType m_type = slNoType;
-  SymbolId m_fileId = BadSymbolId;
+  PathId m_fileId;
   unsigned int m_line = 0;
 };
 

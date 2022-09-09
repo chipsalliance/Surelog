@@ -23,6 +23,7 @@
 #include <Surelog/Cache/PPCache.h>
 #include <Surelog/Cache/preproc_generated.h>
 #include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/Design.h>
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/Design/TimeInfo.h>
@@ -48,14 +49,13 @@ static const char FlbSchemaVersion[] = "1.3";
 // TODO(hzeller): this should come from a function cacheFileResolver() or
 // something that can be passed to the cache. That way, we can leave the
 // somewhat hard-coded notion of where cache files are.
-fs::path PPCache::getCacheFileName_(const fs::path& requested_file) {
+PathId PPCache::getCacheFileId_(PathId requestedFileId) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   Precompiled* prec = Precompiled::getSingleton();
   CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
-  SymbolId cacheDirId = clp->getCacheDir();
 
-  const fs::path svFileName =
-      requested_file.empty() ? m_pp->getFileName(LINE1) : requested_file;
-
+  if (!requestedFileId) requestedFileId = m_pp->getFileId(LINE1);
+  const fs::path svFileName = fileSystem->toPath(requestedFileId);
   const fs::path baseFileName = FileUtils::basename(svFileName);
   const fs::path filePath = FileUtils::getPathName(svFileName);
   fs::path hashedPath =
@@ -64,30 +64,28 @@ fs::path PPCache::getCacheFileName_(const fs::path& requested_file) {
   if (clp->parseOnly()) {
     fileName = filePath / baseFileName;
   }
-  if (prec->isFilePrecompiled(baseFileName)) {
-    fs::path packageRepDir = m_pp->getSymbol(m_pp->getCompileSourceFile()
-                                                 ->getCommandLineParser()
-                                                 ->getPrecompiledDir());
-    cacheDirId = m_pp->getCompileSourceFile()
-                     ->getCommandLineParser()
-                     ->mutableSymbolTable()
-                     ->registerSymbol(packageRepDir.string());
+
+  PathId cacheDirId = clp->getCacheDirId();
+  if (prec->isFilePrecompiled(baseFileName.string())) {
+    cacheDirId = fileSystem->copy(
+        m_pp->getCompileSourceFile()
+            ->getCommandLineParser()
+            ->getPrecompiledDirId(),
+        m_pp->getCompileSourceFile()->getCommandLineParser()->getSymbolTable());
     m_isPrecompiled = true;
     fileName = baseFileName;
-    hashedPath = "";
+    hashedPath.clear();
   }
 
-  fs::path cacheDirName = m_pp->getSymbol(cacheDirId);
-
+  fs::path cacheDirName = fileSystem->toPath(cacheDirId);
   Library* lib = m_pp->getLibrary();
   std::string libName = lib->getName();
-  if (clp->parseOnly()) {
-    libName = "";
-  }
+  if (clp->parseOnly()) libName.clear();
   fs::path cacheFileName =
       cacheDirName / libName / (fileName.string() + ".slpp");
   FileUtils::mkDirs(cacheDirName / libName / hashedPath);
-  return cacheFileName;
+  return fileSystem->toPathId(cacheFileName,
+                              m_pp->getCompileSourceFile()->getSymbolTable());
 }
 
 template <class T>
@@ -97,15 +95,18 @@ static bool compareVectors(std::vector<T> a, std::vector<T> b) {
   return (a == b);
 }
 
-bool PPCache::restore_(const fs::path& cacheFileName,
+bool PPCache::restore_(PathId cacheFileId,
                        const std::unique_ptr<uint8_t[]>& buffer,
                        bool errorsOnly, int recursionDepth) {
   if (buffer == nullptr) return false;
+  FileSystem* const fileSystem = FileSystem::getInstance();
 
   const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(buffer.get());
   // std::cout << "RESTORING FILE: " << cacheFileName << std::endl;
   SymbolTable cacheSymbols;
-  restoreErrors(ppcache->errors(), ppcache->symbols(), &cacheSymbols,
+  restoreSymbols(ppcache->symbols(), &cacheSymbols);
+
+  restoreErrors(ppcache->errors(), &cacheSymbols,
                 m_pp->getCompileSourceFile()->getErrorContainer(),
                 m_pp->getCompileSourceFile()->getSymbolTable());
 
@@ -116,30 +117,30 @@ bool PPCache::restore_(const fs::path& cacheFileName,
     // std::cout << "RESTORING MACRO: " << macro->name()->str() << std::endl;
     std::vector<std::string> args;
     for (const auto* macro_arg : *macro->arguments()) {
-      args.push_back(macro_arg->str());
+      args.emplace_back(macro_arg->string_view());
     }
     std::vector<std::string> tokens;
     tokens.reserve(macro->tokens()->size());
     for (const auto* macro_token : *macro->tokens()) {
-      tokens.push_back(macro_token->str());
+      tokens.emplace_back(macro_token->string_view());
     }
     m_pp->recordMacro(
-        macro->name()->str(),
-        m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(
-            cacheSymbols.getSymbol(SymbolId(macro->file_id(), "<unknown>"))),
+        cacheSymbols.getSymbol(SymbolId(macro->name_id(), "<unknown>")),
+        fileSystem->copy(PathId(&cacheSymbols, macro->file_id(), "<unknown>"),
+                         m_pp->getCompileSourceFile()->getSymbolTable()),
         macro->start_line(), macro->start_column(), macro->end_line(),
         macro->end_column(), args, tokens);
   }
 
   /* Restore `timescale directives */
   if (!errorsOnly) {
+    SymbolTable* localSymbols = m_pp->getCompileSourceFile()->getSymbolTable();
     for (const CACHE::TimeInfo* fbtimeinfo : *ppcache->time_info()) {
       TimeInfo timeInfo;
       timeInfo.m_type = (TimeInfo::Type)fbtimeinfo->type();
-      timeInfo.m_fileId =
-          m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(
-              cacheSymbols.getSymbol(
-                  SymbolId(fbtimeinfo->file_id(), "<unknown>")));
+      timeInfo.m_fileId = fileSystem->copy(
+          PathId(&cacheSymbols, fbtimeinfo->file_id(), BadRawPath),
+          m_pp->getCompileSourceFile()->getSymbolTable());
       timeInfo.m_line = fbtimeinfo->line();
       timeInfo.m_timeUnit = (TimeInfo::Unit)fbtimeinfo->time_unit();
       timeInfo.m_timeUnitValue = fbtimeinfo->time_unit_value();
@@ -153,11 +154,11 @@ bool PPCache::restore_(const fs::path& cacheFileName,
   if (recursionDepth == 0) {
     const auto* lineinfos = ppcache->line_translation_vec();
     for (const MACROCACHE::LineTranslationInfo* lineinfo : *lineinfos) {
-      const fs::path pretendFileName = lineinfo->pretend_file()->str();
+      PathId pretendFileId = fileSystem->copy(
+          PathId(&cacheSymbols, lineinfo->pretend_file_id(), "<unknown>"),
+          m_pp->getCompileSourceFile()->getSymbolTable());
       PreprocessFile::LineTranslationInfo lineFileInfo(
-          m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(
-              pretendFileName.string()),
-          lineinfo->original_line(), lineinfo->pretend_line());
+          pretendFileId, lineinfo->original_line(), lineinfo->pretend_line());
       m_pp->addLineTranslationInfo(lineFileInfo);
     }
   }
@@ -165,15 +166,15 @@ bool PPCache::restore_(const fs::path& cacheFileName,
   /* Restore include file info */
   if (recursionDepth == 0) m_pp->clearIncludeFileInfo();
   for (const auto* incinfo : *ppcache->include_file_info()) {
-    const fs::path sectionFileName = incinfo->section_file()->str();
+    PathId sectionFileId = fileSystem->copy(
+        PathId(&cacheSymbols, incinfo->section_file_id(), "<unknown>"),
+        m_pp->getCompileSourceFile()->getSymbolTable());
     // std::cout << "read sectionFile: " << sectionFileName << " s:" <<
     // incinfo->m_sectionStartLine() << " o:" << incinfo->m_originalLine() <<
     // " t:" << incinfo->m_type() << "\n";
     m_pp->addIncludeFileInfo(
         static_cast<IncludeFileInfo::Context>(incinfo->context()),
-        incinfo->section_start_line(),
-        m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(
-            sectionFileName.string()),
+        incinfo->section_start_line(), sectionFileId,
         incinfo->original_start_line(), incinfo->original_start_column(),
         incinfo->original_end_line(), incinfo->original_end_column(),
         static_cast<IncludeFileInfo::Action>(incinfo->action()),
@@ -182,9 +183,11 @@ bool PPCache::restore_(const fs::path& cacheFileName,
 
   // Includes
   if (auto includes = ppcache->includes()) {
-    for (const auto* include : *includes) {
-      restore_(getCacheFileName_(include->str()), errorsOnly,
-               recursionDepth + 1);
+    for (auto include : *includes) {
+      PathId includeFileId =
+          fileSystem->copy(PathId(&cacheSymbols, include, "<unknown>"),
+                           m_pp->getCompileSourceFile()->getSymbolTable());
+      restore_(getCacheFileId_(includeFileId), errorsOnly, recursionDepth + 1);
     }
   }
   // File Body
@@ -196,11 +199,10 @@ bool PPCache::restore_(const fs::path& cacheFileName,
   // FileContent
   FileContent* fileContent = m_pp->getFileContent();
   if (fileContent == nullptr) {
-    fileContent =
-        new FileContent(m_pp->getFileId(0), m_pp->getLibrary(),
-                        m_pp->getCompileSourceFile()->getSymbolTable(),
-                        m_pp->getCompileSourceFile()->getErrorContainer(),
-                        nullptr, BadSymbolId);
+    fileContent = new FileContent(
+        m_pp->getFileId(0), m_pp->getLibrary(),
+        m_pp->getCompileSourceFile()->getSymbolTable(),
+        m_pp->getCompileSourceFile()->getErrorContainer(), nullptr, BadPathId);
     m_pp->setFileContent(fileContent);
     m_pp->getCompileSourceFile()->getCompiler()->getDesign()->addPPFileContent(
         m_pp->getFileId(0), fileContent);
@@ -215,13 +217,13 @@ bool PPCache::restore_(const fs::path& cacheFileName,
   return true;
 }
 
-bool PPCache::restore_(const fs::path& cacheFileName, bool errorsOnly,
+bool PPCache::restore_(PathId cacheFileId, bool errorsOnly,
                        int recursionDepth) {
-  return restore_(cacheFileName, openFlatBuffers(cacheFileName), errorsOnly,
+  return restore_(cacheFileId, openFlatBuffers(cacheFileId), errorsOnly,
                   recursionDepth);
 }
 
-bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName,
+bool PPCache::checkCacheIsValid_(PathId cacheFileId,
                                  const std::unique_ptr<uint8_t[]>& buffer) {
   if (buffer == nullptr) return false;
 
@@ -236,11 +238,14 @@ bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName,
   if (clp->noCacheHash()) {
     return true;
   }
+  FileSystem* const fileSystem = FileSystem::getInstance();
   const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(buffer.get());
   auto header = ppcache->header();
 
+  const auto cacheSymbols = ppcache->symbols();
+
   if (!m_isPrecompiled) {
-    if (!checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileName)) {
+    if (!checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileId)) {
       return false;
     }
 
@@ -250,15 +255,14 @@ bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName,
     std::vector<fs::path> include_path_vec;
     include_path_vec.reserve(includePathList.size());
     for (const auto& path : includePathList) {
-      fs::path spath = m_pp->getSymbol(path);
-      include_path_vec.push_back(spath);
+      include_path_vec.emplace_back(fileSystem->toPath(path));
     }
 
     std::vector<fs::path> cache_include_path_vec;
     cache_include_path_vec.reserve(ppcache->cmd_include_paths()->size());
-    for (const auto* include_path : *ppcache->cmd_include_paths()) {
-      const fs::path path = include_path->str();
-      cache_include_path_vec.push_back(path);
+    for (auto include : *ppcache->cmd_include_paths()) {
+      cache_include_path_vec.emplace_back(
+          cacheSymbols->Get(include)->string_view());
     }
     if (!compareVectors(include_path_vec, cache_include_path_vec)) {
       return false;
@@ -272,14 +276,13 @@ bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName,
     for (const auto& definePair : defineList) {
       std::string spath =
           m_pp->getSymbol(definePair.first) + "=" + definePair.second;
-      define_vec.push_back(spath);
+      define_vec.emplace_back(std::move(spath));
     }
 
     std::vector<std::string> cache_define_vec;
     cache_define_vec.reserve(ppcache->cmd_define_options()->size());
     for (const auto* cmd_define_option : *ppcache->cmd_define_options()) {
-      const std::string path = cmd_define_option->str();
-      cache_define_vec.push_back(path);
+      cache_define_vec.emplace_back(cmd_define_option->string_view());
     }
     if (!compareVectors(define_vec, cache_define_vec)) {
       return false;
@@ -287,8 +290,11 @@ bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName,
 
     /* All includes*/
     if (auto includes = ppcache->includes()) {
-      for (const auto* include : *includes) {
-        if (!checkCacheIsValid_(getCacheFileName_(include->str()))) {
+      for (auto include : *includes) {
+        PathId includeFileId = fileSystem->toPathId(
+            cacheSymbols->Get(include)->string_view(),
+            m_pp->getCompileSourceFile()->getSymbolTable());
+        if (!checkCacheIsValid_(getCacheFileId_(includeFileId))) {
           return false;
         }
       }
@@ -298,13 +304,13 @@ bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName,
   return true;
 }
 
-bool PPCache::checkCacheIsValid_(const fs::path& cacheFileName) {
+bool PPCache::checkCacheIsValid_(PathId cacheFileId) {
   CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
   if (clp->parseOnly() || clp->lowMem()) {
     return true;
   }
 
-  return checkCacheIsValid_(cacheFileName, openFlatBuffers(cacheFileName));
+  return checkCacheIsValid_(cacheFileId, openFlatBuffers(cacheFileId));
 }
 
 bool PPCache::restore(bool errorsOnly) {
@@ -313,15 +319,16 @@ bool PPCache::restore(bool errorsOnly) {
   if (!cacheAllowed) return false;
   if (m_pp->isMacroBody()) return false;
 
-  fs::path cacheFileName = getCacheFileName_();
-  auto buffer = openFlatBuffers(cacheFileName);
+  PathId cacheFileId = getCacheFileId_(BadPathId);
+  auto buffer = openFlatBuffers(cacheFileId);
   if (buffer == nullptr) return false;
 
-  return checkCacheIsValid_(cacheFileName, buffer) &&
-         restore_(cacheFileName, buffer, errorsOnly, 0);
+  return checkCacheIsValid_(cacheFileId, buffer) &&
+         restore_(cacheFileId, buffer, errorsOnly, 0);
 }
 
 bool PPCache::save() {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   bool cacheAllowed =
       m_pp->getCompileSourceFile()->getCommandLineParser()->cacheAllowed();
   if (!cacheAllowed) return false;
@@ -336,16 +343,16 @@ bool PPCache::save() {
       return false;
     }
   }
-  const fs::path& svFileName = m_pp->getFileName(LINE1);
-  const fs::path& origFileName = svFileName;
-  const fs::path& cacheFileName = getCacheFileName_();
+
+  PathId origFileId = m_pp->getFileId(LINE1);
+  PathId cacheFileId = getCacheFileId_(BadPathId);
   // std::cout << "SAVING FILE: " << cacheFileName << std::endl;
   if (m_pp->isMacroBody()) return false;
 
   flatbuffers::FlatBufferBuilder builder(1024);
   SymbolTable cacheSymbols;
   /* Create header section */
-  auto header = createHeader(builder, FlbSchemaVersion, origFileName);
+  auto header = createHeader(builder, FlbSchemaVersion, origFileId);
 
   /* Cache the macro definitions */
   const MacroStorage& macros = m_pp->getMacros();
@@ -353,7 +360,6 @@ bool PPCache::save() {
   for (const auto& [macroName, infoVec] : macros) {
     for (const auto& info : infoVec) {
       // std::cout << "SAVING MACRO: " << macroName << std::endl;
-      auto name = builder.CreateString(macroName);
       MACROCACHE::MacroType type = (info->m_type == MacroInfo::WITH_ARGS)
                                        ? MACROCACHE::MacroType_WITH_ARGS
                                        : MACROCACHE::MacroType_NO_ARGS;
@@ -370,11 +376,9 @@ bool PPCache::save() {
       }
       */
       auto tokens = builder.CreateVectorOfStrings(info->m_tokens);
-      macro_vec.push_back(MACROCACHE::CreateMacro(
-          builder, name, type,
-          (RawSymbolId)cacheSymbols.registerSymbol(
-              m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
-                  info->m_file)),
+      macro_vec.emplace_back(MACROCACHE::CreateMacro(
+          builder, (RawSymbolId)cacheSymbols.registerSymbol(macroName), type,
+          (RawPathId)fileSystem->copy(info->m_fileId, &cacheSymbols),
           info->m_startLine, info->m_startColumn, info->m_endLine,
           info->m_endColumn, args, tokens));
     }
@@ -382,14 +386,14 @@ bool PPCache::save() {
   auto macroList = builder.CreateVector(macro_vec);
 
   /* Cache Included files */
-  std::vector<std::string> include_vec;
+  std::vector<uint64_t> include_vec;
   std::set<PreprocessFile*> included;
   m_pp->collectIncludedFiles(included);
   for (PreprocessFile* pp : included) {
-    fs::path svFileName = m_pp->getSymbol(pp->getRawFileId());
-    include_vec.push_back(svFileName.string());
+    PathId fileId = fileSystem->copy(pp->getRawFileId(), &cacheSymbols);
+    include_vec.emplace_back((RawPathId)fileId);
   }
-  auto includeList = builder.CreateVectorOfStrings(include_vec);
+  auto includeList = builder.CreateVector(include_vec);
 
   /* Cache the body of the file */
   auto body = builder.CreateString(m_pp->getPreProcessedFileContent());
@@ -397,7 +401,7 @@ bool PPCache::save() {
   /* Cache the errors and canonical symbols */
   ErrorContainer* errorContainer =
       m_pp->getCompileSourceFile()->getErrorContainer();
-  SymbolId subjectFileId = m_pp->getFileId(LINE1);
+  PathId subjectFileId = m_pp->getFileId(LINE1);
   auto errorCache = cacheErrors(builder, &cacheSymbols, errorContainer,
                                 *m_pp->getCompileSourceFile()->getSymbolTable(),
                                 subjectFileId);
@@ -405,12 +409,12 @@ bool PPCache::save() {
   /* Cache the include paths list */
   auto includePathList =
       m_pp->getCompileSourceFile()->getCommandLineParser()->getIncludePaths();
-  std::vector<std::string> include_path_vec;
-  for (const auto& path : includePathList) {
-    std::string spath = m_pp->getSymbol(path);
-    include_path_vec.push_back(spath);
+  std::vector<uint64_t> include_path_vec;
+  for (const auto& pathId : includePathList) {
+    PathId includePathId = fileSystem->copy(pathId, &cacheSymbols);
+    include_path_vec.emplace_back((RawPathId)includePathId);
   }
-  auto incPaths = builder.CreateVectorOfStrings(include_path_vec);
+  auto incPaths = builder.CreateVector(include_path_vec);
 
   /* Cache the defines on the command line */
   auto defineList =
@@ -419,7 +423,7 @@ bool PPCache::save() {
   for (auto& definePair : defineList) {
     std::string spath =
         m_pp->getSymbol(definePair.first) + "=" + definePair.second;
-    define_vec.push_back(spath);
+    define_vec.emplace_back(std::move(spath));
   }
   auto defines = builder.CreateVectorOfStrings(define_vec);
 
@@ -428,15 +432,12 @@ bool PPCache::save() {
   std::vector<flatbuffers::Offset<CACHE::TimeInfo>> timeinfo_vec;
   for (auto& info : timeinfoList) {
     if (info.m_fileId != m_pp->getFileId(0)) continue;
-    auto timeInfo = CACHE::CreateTimeInfo(
+    timeinfo_vec.emplace_back(CACHE::CreateTimeInfo(
         builder, static_cast<uint16_t>(info.m_type),
-        (RawSymbolId)cacheSymbols.registerSymbol(
-            m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
-                info.m_fileId)),
-        info.m_line, static_cast<uint16_t>(info.m_timeUnit),
-        info.m_timeUnitValue, static_cast<uint16_t>(info.m_timePrecision),
-        info.m_timePrecisionValue);
-    timeinfo_vec.push_back(timeInfo);
+        (RawPathId)fileSystem->copy(info.m_fileId, &cacheSymbols), info.m_line,
+        static_cast<uint16_t>(info.m_timeUnit), info.m_timeUnitValue,
+        static_cast<uint16_t>(info.m_timePrecision),
+        info.m_timePrecisionValue));
   }
   auto timeinfoFBList = builder.CreateVector(timeinfo_vec);
 
@@ -445,13 +446,11 @@ bool PPCache::save() {
   std::vector<flatbuffers::Offset<MACROCACHE::LineTranslationInfo>>
       linetrans_vec;
   for (const auto& info : lineTranslationVec) {
-    fs::path pretendFileName =
-        m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
-            info.m_pretendFileId);
-    auto lineInfo = MACROCACHE::CreateLineTranslationInfo(
-        builder, builder.CreateString(pretendFileName.string()),
-        info.m_originalLine, info.m_pretendLine);
-    linetrans_vec.push_back(lineInfo);
+    PathId pretendFileId =
+        fileSystem->copy(info.m_pretendFileId, &cacheSymbols);
+    linetrans_vec.emplace_back(MACROCACHE::CreateLineTranslationInfo(
+        builder, (RawPathId)pretendFileId, info.m_originalLine,
+        info.m_pretendLine));
   }
   auto lineinfoFBList = builder.CreateVector(linetrans_vec);
 
@@ -459,20 +458,16 @@ bool PPCache::save() {
   auto includeInfo = m_pp->getIncludeFileInfo();
   std::vector<flatbuffers::Offset<MACROCACHE::IncludeFileInfo>> lineinfo_vec;
   for (IncludeFileInfo& info : includeInfo) {
-    fs::path sectionFileName =
-        m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
-            info.m_sectionFile);
-    auto incInfo = MACROCACHE::CreateIncludeFileInfo(
+    PathId sectionFileId = fileSystem->copy(info.m_sectionFile, &cacheSymbols);
+    lineinfo_vec.emplace_back(MACROCACHE::CreateIncludeFileInfo(
         builder, static_cast<uint32_t>(info.m_context), info.m_sectionStartLine,
-        builder.CreateString(sectionFileName.string()),
-        info.m_originalStartLine, info.m_originalStartColumn,
-        info.m_originalEndLine, info.m_originalEndColumn,
-        static_cast<uint32_t>(info.m_action), info.m_indexOpening,
-        info.m_indexClosing);
+        (RawPathId)sectionFileId, info.m_originalStartLine,
+        info.m_originalStartColumn, info.m_originalEndLine,
+        info.m_originalEndColumn, static_cast<uint32_t>(info.m_action),
+        info.m_indexOpening, info.m_indexClosing));
     // std::cout << "save sectionFile: " << sectionFileName << " s:" <<
     // info.m_sectionStartLine << " o:" << info.m_originalLine << " t:" <<
     // info.m_type << "\n";
-    lineinfo_vec.push_back(incInfo);
   }
   auto incinfoFBList = builder.CreateVector(lineinfo_vec);
 
@@ -482,7 +477,7 @@ bool PPCache::save() {
       m_pp->getFileId(0));
   auto objectList = builder.CreateVectorOfStructs(object_vec);
 
-  auto symbolVec = createSymbolCache(builder, cacheSymbols);
+  auto symbolVec = builder.CreateVectorOfStrings(cacheSymbols.getSymbols());
   /* Create Flatbuffers */
   auto ppcache = MACROCACHE::CreatePPCache(
       builder, header, macroList, includeList, body, errorCache, symbolVec,
@@ -491,7 +486,7 @@ bool PPCache::save() {
   FinishPPCacheBuffer(builder, ppcache);
 
   /* Save Flatbuffer */
-  bool status = saveFlatbuffers(builder, cacheFileName);
+  bool status = saveFlatbuffers(builder, cacheFileId);
 
   return status;
 }

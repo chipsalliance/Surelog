@@ -30,7 +30,6 @@
 #include <Surelog/SourceCompile/IncludeFileInfo.h>
 #include <Surelog/SourceCompile/LoopCheck.h>
 
-#include <filesystem>
 #include <set>
 #include <vector>
 
@@ -67,24 +66,25 @@ enum VerilogVersion {
 };
 
 /* Can be either an include file or a macro definition being evaluated */
-class PreprocessFile {
+class PreprocessFile final {
  public:
   class SpecialInstructions;
   class DescriptiveErrorListener;
 
   /* Constructors */
-  PreprocessFile(SymbolId fileId, CompileSourceFile* csf,
-                 SpecialInstructions& instructions,
-                 CompilationUnit* compilationUnit, Library* library);
-  PreprocessFile(SymbolId fileId, PreprocessFile* includedIn,
-                 unsigned int includerLine, CompileSourceFile* csf,
+  PreprocessFile(PathId fileId, CompileSourceFile* csf,
                  SpecialInstructions& instructions,
                  CompilationUnit* compilationUnit, Library* library,
+                 PreprocessFile* includer = nullptr,
+                 unsigned int includerLine = 0);
+  PreprocessFile(SymbolId macroId, CompileSourceFile* csf,
+                 SpecialInstructions& instructions,
+                 CompilationUnit* compilationUnit, Library* library,
+                 PreprocessFile* includer, unsigned int includerLine,
                  std::string_view macroBody = "", MacroInfo* = nullptr,
                  unsigned int embeddedMacroCallLine = 0,
-                 SymbolId embeddedMacroCallFile = BadSymbolId);
-  PreprocessFile(const PreprocessFile& orig);
-  virtual ~PreprocessFile();
+                 PathId embeddedMacroCallFile = BadPathId);
+  ~PreprocessFile();
 
   /* Main function */
   bool preprocess();
@@ -96,7 +96,7 @@ class PreprocessFile {
                    unsigned short int endColumn,
                    const std::string& formal_arguments,
                    const std::vector<std::string>& body);
-  void recordMacro(const std::string& name, SymbolId fileId,
+  void recordMacro(const std::string& name, PathId fileId,
                    unsigned int startLine, unsigned short int startColumn,
                    unsigned int endLine, unsigned short int endColumn,
                    const std::vector<std::string>& formal_arguments,
@@ -107,17 +107,15 @@ class PreprocessFile {
                        LoopCheck& loopChecker,
                        SpecialInstructions& instructions,
                        unsigned int embeddedMacroCallLine = 0,
-                       SymbolId embeddedMacroCallFile = BadSymbolId);
+                       PathId embeddedMacroCallFile = BadPathId);
   bool deleteMacro(const std::string& name, std::set<PreprocessFile*>& visited);
   void undefineAllMacros(std::set<PreprocessFile*>& visited);
   bool isMacroBody() const { return !m_macroBody.empty(); }
   const std::string& getMacroBody() const { return m_macroBody; }
   MacroInfo* getMacroInfo() { return m_macroInfo; }
   SymbolId getMacroSignature();
-  const MacroStorage& getMacros() { return m_macros; }
+  const MacroStorage& getMacros() const { return m_macros; }
   MacroInfo* getMacro(const std::string& name);
-
-  std::filesystem::path getFileName(unsigned int line);
 
   std::string reportIncludeInfo() const;
 
@@ -130,9 +128,9 @@ class PreprocessFile {
     return m_antlrParserHandler ? m_antlrParserHandler->m_pptokens : nullptr;
   }
 
-  SymbolId getFileId(unsigned int line) const;
-  SymbolId getIncluderFileId(unsigned int line) const;
-  SymbolId getRawFileId() const { return m_fileId; }
+  PathId getFileId(unsigned int line) const;
+  PathId getIncluderFileId(unsigned int line) const;
+  PathId getRawFileId() const { return m_fileId; }
   unsigned int getLineNb(unsigned int line);
   PreprocessFile* getIncluder() const { return m_includer; }
   unsigned int getIncluderLine() const { return m_includerLine; }
@@ -143,7 +141,7 @@ class PreprocessFile {
     return m_includeFileInfo;
   }
   int addIncludeFileInfo(IncludeFileInfo::Context context,
-                         unsigned int sectionStartLine, SymbolId sectionFile,
+                         unsigned int sectionStartLine, PathId sectionFile,
                          unsigned int originalStartLine,
                          unsigned int originalStartColumn,
                          unsigned int originalEndLine,
@@ -161,7 +159,7 @@ class PreprocessFile {
   unsigned int getEmbeddedMacroCallLine() const {
     return m_embeddedMacroCallLine;
   }
-  SymbolId getEmbeddedMacroCallFile() const { return m_embeddedMacroCallFile; }
+  PathId getEmbeddedMacroCallFile() const { return m_embeddedMacroCallFile; }
 
   /* Markings */
   static const char* const MacroNotDefined;
@@ -169,7 +167,8 @@ class PreprocessFile {
   static const char* const PP__File__Marking;
 
  private:
-  SymbolId m_fileId;
+  PathId m_fileId;
+  SymbolId m_macroId;
   Library* m_library = nullptr;
   std::string m_result;
   std::string m_macroBody;
@@ -241,12 +240,12 @@ class PreprocessFile {
 
   /* Incoming `line handling */
   struct LineTranslationInfo final {
-    LineTranslationInfo(SymbolId pretendFileId, unsigned int originalLine,
+    LineTranslationInfo(PathId pretendFileId, unsigned int originalLine,
                         unsigned int pretendLine)
         : m_pretendFileId(pretendFileId),
           m_originalLine(originalLine),
           m_pretendLine(pretendLine) {}
-    const SymbolId m_pretendFileId;
+    const PathId m_pretendFileId;
     const unsigned int m_originalLine = 0;
     const unsigned int m_pretendLine = 0;
   };
@@ -330,7 +329,7 @@ class PreprocessFile {
       PreprocessFile* callingFile, unsigned int callingLine,
       LoopCheck& loopChecker, MacroInfo* macroInfo,
       SpecialInstructions& instructions, unsigned int embeddedMacroCallLine,
-      SymbolId embeddedMacroCallFile);
+      PathId embeddedMacroCallFile);
 
   void checkMacroArguments_(const std::string& name, unsigned int line,
                             unsigned short column,
@@ -349,7 +348,7 @@ class PreprocessFile {
   bool m_usingCachedVersion = false;
   std::vector<IncludeFileInfo> m_includeFileInfo;
   unsigned int m_embeddedMacroCallLine = 0;
-  SymbolId m_embeddedMacroCallFile;
+  PathId m_embeddedMacroCallFile;
   std::string m_profileInfo;
   FileContent* m_fileContent = nullptr;
   VerilogVersion m_verilogVersion = VerilogVersion::NoVersion;

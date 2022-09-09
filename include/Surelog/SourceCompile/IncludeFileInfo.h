@@ -35,7 +35,7 @@ class IncludeFileInfo {
   enum class Action : unsigned int { NONE = 0, PUSH = 1, POP = 2 };
 
   IncludeFileInfo(Context context, unsigned int sectionStartLine,
-                  SymbolId sectionFile, unsigned int originalStartLine,
+                  PathId sectionFile, unsigned int originalStartLine,
                   unsigned int originalStartColumn,
                   unsigned int originalEndLine, unsigned int originalEndColumn,
                   Action action)
@@ -61,7 +61,7 @@ class IncludeFileInfo {
         m_indexOpening(i.m_indexOpening),
         m_indexClosing(i.m_indexClosing) {}
   IncludeFileInfo(Context context, unsigned int sectionStartLine,
-                  SymbolId sectionFile, unsigned int originalStartLine,
+                  PathId sectionFile, unsigned int originalStartLine,
                   unsigned int originalStartColumn,
                   unsigned int originalEndLine, unsigned int originalEndColumn,
                   Action type, int indexOpening, int indexClosing)
@@ -78,7 +78,7 @@ class IncludeFileInfo {
 
   const Context m_context;
   unsigned int m_sectionStartLine = 0;
-  SymbolId m_sectionFile = BadSymbolId;
+  PathId m_sectionFile;
   unsigned int m_originalStartLine = 0;
   unsigned int m_originalStartColumn = 0;
   const unsigned int m_originalEndLine = 0;

@@ -23,6 +23,7 @@
 
 #include <Surelog/API/PythonAPI.h>
 #include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Config/ConfigSet.h>
 #include <Surelog/Design/Design.h>
 #include <Surelog/Design/FileContent.h>
@@ -131,11 +132,12 @@ bool Compiler::compileOneFile_(CompileSourceFile* compiler,
   return status;
 }
 
-bool Compiler::isLibraryFile(SymbolId id) const {
+bool Compiler::isLibraryFile(PathId id) const {
   return (m_libraryFiles.find(id) != m_libraryFiles.end());
 }
 
 bool Compiler::ppinit_() {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   if (!m_commandLineParser->fileunit()) {
     m_commonCompilationUnit = new CompilationUnit(false);
     if (m_commandLineParser->parseBuiltIn()) {
@@ -147,9 +149,9 @@ bool Compiler::ppinit_() {
   CompilationUnit* comp_unit = m_commonCompilationUnit;
 
   // Source files (.v, .sv on the command line)
-  SymbolIdSet sourceFiles;
+  PathIdSet sourceFiles;
   std::set<fs::path> sourceFileNames;
-  for (const SymbolId& source_file_id : m_commandLineParser->getSourceFiles()) {
+  for (const PathId& source_file_id : m_commandLineParser->getSourceFiles()) {
     SymbolTable* symbols = m_symbolTable;
     if (m_commandLineParser->fileunit()) {
       comp_unit = new CompilationUnit(true);
@@ -158,20 +160,18 @@ bool Compiler::ppinit_() {
         builtin->addBuiltinMacros(comp_unit);
       }
       m_compilationUnits.push_back(comp_unit);
-      symbols = m_commandLineParser->getSymbolTable().CreateSnapshot();
+      symbols = m_commandLineParser->getSymbolTable()->CreateSnapshot();
       m_symbolTables.push_back(symbols);
     }
     ErrorContainer* errors = new ErrorContainer(symbols);
     m_errorContainers.push_back(errors);
     errors->registerCmdLine(m_commandLineParser);
 
-    const fs::path fileName =
-        m_commandLineParser->getSymbolTable().getSymbol(source_file_id);
+    const fs::path fileName = fileSystem->toPath(source_file_id);
     const fs::path fullPath = FileUtils::getFullPath(fileName);
     sourceFileNames.insert(fullPath);
-    const SymbolId fullPathId =
-        m_commandLineParser->mutableSymbolTable()->registerSymbol(
-            fullPath.string());
+    const PathId fullPathId =
+        fileSystem->toPathId(fullPath, m_commandLineParser->getSymbolTable());
     Library* library = m_librarySet->getLibrary(fullPathId);
     sourceFiles.insert(fullPathId);
 
@@ -184,17 +184,16 @@ bool Compiler::ppinit_() {
   if (!m_text.empty()) {
     Library* library = new Library("UnitTest", m_symbolTable);
     CompileSourceFile* compiler =
-        new CompileSourceFile(BadSymbolId, m_commandLineParser, m_errors, this,
+        new CompileSourceFile(BadPathId, m_commandLineParser, m_errors, this,
                               m_symbolTable, comp_unit, library, m_text);
     m_compilers.push_back(compiler);
   }
 
   // Library files
-  SymbolIdSet libFiles;
+  PathIdSet libFiles;
   // (-v <file>)
-  for (const SymbolId& id : m_commandLineParser->getLibraryFiles()) {
-    const fs::path fileName =
-        m_commandLineParser->getSymbolTable().getSymbol(id);
+  for (PathId id : m_commandLineParser->getLibraryFiles()) {
+    const fs::path fileName = fileSystem->toPath(id);
     const fs::path fullPath = FileUtils::getFullPath(fileName);
     if (sourceFileNames.find(fullPath) == sourceFileNames.end()) {
       libFiles.insert(id);
@@ -202,12 +201,11 @@ bool Compiler::ppinit_() {
   }
   // (-y <path> +libext+<ext>)
   for (const auto& path : m_commandLineParser->getLibraryPaths()) {
-    for (const auto& ext : m_commandLineParser->getLibraryExtensions()) {
+    for (auto ext : m_commandLineParser->getLibraryExtensions()) {
       auto files = FileUtils::collectFiles(
-          path, ext, m_commandLineParser->mutableSymbolTable());
+          path, ext, m_commandLineParser->getSymbolTable());
       for (const auto& file : files) {
-        const fs::path fileName =
-            m_commandLineParser->getSymbolTable().getSymbol(file);
+        const fs::path fileName = fileSystem->toPath(file);
         const fs::path fullPath = FileUtils::getFullPath(fileName);
         if (sourceFileNames.find(fullPath) == sourceFileNames.end()) {
           libFiles.insert(file);
@@ -220,20 +218,18 @@ bool Compiler::ppinit_() {
     if (m_commandLineParser->fileunit()) {
       comp_unit = new CompilationUnit(true);
       m_compilationUnits.push_back(comp_unit);
-      symbols = m_commandLineParser->getSymbolTable().CreateSnapshot();
+      symbols = m_commandLineParser->getSymbolTable()->CreateSnapshot();
       m_symbolTables.push_back(symbols);
     }
     ErrorContainer* errors = new ErrorContainer(symbols);
     m_errorContainers.push_back(errors);
     errors->registerCmdLine(m_commandLineParser);
 
-    fs::path fullPath = FileUtils::getFullPath(
-        m_commandLineParser->getSymbolTable().getSymbol(id));
+    fs::path fullPath = FileUtils::getFullPath(fileSystem->toPath(id));
 
     // This line registers the file in the "work" library:
-    SymbolId fullPathId =
-        m_commandLineParser->mutableSymbolTable()->registerSymbol(
-            fullPath.string());
+    PathId fullPathId =
+        fileSystem->toPathId(fullPath, m_commandLineParser->getSymbolTable());
     /*Library* library  = */ m_librarySet->getLibrary(fullPathId);
     m_libraryFiles.insert(id);
     m_libraryFiles.insert(fullPathId);
@@ -249,8 +245,8 @@ bool Compiler::ppinit_() {
 
   // Libraries (.map)
   for (auto& lib : m_librarySet->getLibraries()) {
-    for (const auto& id : lib.getFiles()) {
-      fs::path fileName = lib.getSymbols()->getSymbol(id);
+    for (auto id : lib.getFiles()) {
+      fs::path fileName = fileSystem->toPath(id);
       if (sourceFiles.find(id) != sourceFiles.end()) {
         // These files are already included in the command line
         continue;
@@ -264,7 +260,7 @@ bool Compiler::ppinit_() {
       if (m_commandLineParser->fileunit()) {
         comp_unit = new CompilationUnit(true);
         m_compilationUnits.push_back(comp_unit);
-        symbols = m_commandLineParser->getSymbolTable().CreateSnapshot();
+        symbols = m_commandLineParser->getSymbolTable()->CreateSnapshot();
         m_symbolTables.push_back(symbols);
       }
       ErrorContainer* errors = new ErrorContainer(symbols);
@@ -280,12 +276,13 @@ bool Compiler::ppinit_() {
 }
 
 bool Compiler::createFileList_() {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   if ((m_commandLineParser->writePpOutput() ||
        m_commandLineParser->writePpOutputFileId()) &&
       (!m_commandLineParser->parseOnly())) {
     SymbolTable* symbolTable = getSymbolTable();
     const fs::path directory =
-        symbolTable->getSymbol(m_commandLineParser->getFullCompileDir());
+        fileSystem->toPath(m_commandLineParser->getFullCompileDirId());
     {
       std::ofstream ofs;
       fs::path fileList = directory / "file.lst";
@@ -293,12 +290,14 @@ bool Compiler::createFileList_() {
       if (ofs.good()) {
         unsigned int size = m_compilers.size();
         for (unsigned int i = 0; i < size; i++) {
-          fs::path ppFileName = m_compilers[i]->getSymbolTable()->getSymbol(
-              m_compilers[i]->getPpOutputFileId());
-          fs::path fileName = m_compilers[i]->getSymbolTable()->getSymbol(
-              m_compilers[i]->getFileId());
+          PathId ppFileId = fileSystem->copy(
+              m_compilers[i]->getPpOutputFileId(), symbolTable);
+          PathId fileId =
+              fileSystem->copy(m_compilers[i]->getFileId(), symbolTable);
+          m_ppFileMap[fileId].push_back(ppFileId);
+
+          fs::path ppFileName = fileSystem->toPath(ppFileId);
           ppFileName = FileUtils::getPreferredPath(ppFileName);
-          ppFileMap[fileName].push_back(ppFileName);
           ofs << ppFileName << std::flush << std::endl;
         }
         ofs.close();
@@ -313,10 +312,9 @@ bool Compiler::createFileList_() {
       if (ofs.good()) {
         unsigned int size = m_compilers.size();
         for (unsigned int i = 0; i < size; i++) {
-          fs::path ppFileName = m_compilers[i]->getSymbolTable()->getSymbol(
-              m_compilers[i]->getPpOutputFileId());
-          fs::path fileName = m_compilers[i]->getSymbolTable()->getSymbol(
-              m_compilers[i]->getFileId());
+          fs::path ppFileName =
+              fileSystem->toPath(m_compilers[i]->getPpOutputFileId());
+          fs::path fileName = fileSystem->toPath(m_compilers[i]->getFileId());
           ppFileName = FileUtils::getPreferredPath(ppFileName);
           ppFileName = ppFileName.lexically_relative(directory);
           ofs << ppFileName << " " << fileName << std::flush << std::endl;
@@ -331,8 +329,7 @@ bool Compiler::createFileList_() {
         std::string concatFiles;
         unsigned int size = m_compilers.size();
         for (unsigned int i = 0; i < size; i++) {
-          fs::path fileName = m_compilers[i]->getSymbolTable()->getSymbol(
-              m_compilers[i]->getFileId());
+          fs::path fileName = fileSystem->toPath(m_compilers[i]->getFileId());
           concatFiles += fileName.string() + "|";
         }
         std::size_t val = std::hash<std::string>{}(concatFiles);
@@ -344,8 +341,7 @@ bool Compiler::createFileList_() {
         if (ofs.good()) {
           unsigned int size = m_compilers.size();
           for (unsigned int i = 0; i < size; i++) {
-            fs::path fileName = m_compilers[i]->getSymbolTable()->getSymbol(
-                m_compilers[i]->getFileId());
+            fs::path fileName = fileSystem->toPath(m_compilers[i]->getFileId());
             if (i > 0) ofs << " ";
             ofs << fileName.string();
           }
@@ -368,13 +364,15 @@ bool Compiler::createMultiProcessParser_() {
     return true;
   }
 
+  FileSystem* const fileSystem = FileSystem::getInstance();
+
   // Create CMakeLists.txt
   bool muted = m_commandLineParser->muteStdout();
   SymbolTable* symbolTable = getSymbolTable();
   const fs::path outputDir =
-      symbolTable->getSymbol(m_commandLineParser->getOutputDir());
+      fileSystem->toPath(m_commandLineParser->getOutputDirId());
   const fs::path directory =
-      symbolTable->getSymbol(m_commandLineParser->getFullCompileDir());
+      fileSystem->toPath(m_commandLineParser->getFullCompileDirId());
   std::ofstream ofs;
   fs::path fileList = directory / "CMakeLists.txt";
   ofs.open(fileList);
@@ -409,10 +407,7 @@ bool Compiler::createMultiProcessParser_() {
 
     fs::path cwd = fs::current_path();
     for (const auto& compiler : m_compilers) {
-      fs::path root =
-          compiler->getSymbolTable()->getSymbol(compiler->getFileId());
-      root = FileUtils::basename(root);
-      if (prec->isFilePrecompiled(root)) {
+      if (prec->isFilePrecompiled(compiler->getFileId())) {
         continue;
       }
       unsigned int size =
@@ -433,7 +428,8 @@ bool Compiler::createMultiProcessParser_() {
       jobArray[newJobIndex].push_back(compiler);
     }
 
-    fs::path full_exe_path = m_commandLineParser->getExePath();
+    fs::path full_exe_path =
+        fileSystem->toPath(m_commandLineParser->getProgramId());
     if (m_commandLineParser->profile()) {
       full_exe_path += " -profile";
     }
@@ -444,15 +440,12 @@ bool Compiler::createMultiProcessParser_() {
     // Big jobs
     for (CompileSourceFile* compiler : bigJobs) {
       absoluteIndex++;
-      fs::path fileName =
-          compiler->getSymbolTable()->getSymbol(compiler->getPpOutputFileId());
-      fileName = fileName.lexically_relative(directory);
+      fs::path fileName = fileSystem->toPath(compiler->getPpOutputFileId());
       std::string targetname = std::to_string(absoluteIndex) + "_" +
                                FileUtils::basename(fileName).string();
       targets.push_back(targetname);
-      fs::path baseFileName = FileUtils::basename(fileName);
       std::string_view svFile =
-          m_commandLineParser->isSVFile(baseFileName) ? " -sv " : " ";
+          m_commandLineParser->isSVFile(compiler->getFileId()) ? " -sv " : " ";
       std::string batchCmd = StrCat(
           fileUnit, sverilog, synth, noHash,
           " -parseonly -nostdout -nobuiltin -mt 0 -mp 0 -l ",
@@ -473,11 +466,10 @@ bool Compiler::createMultiProcessParser_() {
       fs::path lastFile;
       absoluteIndex++;
       for (const auto compiler : jobArray[i]) {
-        fs::path fileName = compiler->getSymbolTable()->getSymbol(
-            compiler->getPpOutputFileId());
-        fs::path baseFileName = FileUtils::basename(fileName);
+        fs::path fileName = fileSystem->toPath(compiler->getPpOutputFileId());
         std::string_view svFile =
-            m_commandLineParser->isSVFile(baseFileName) ? " -sv " : " ";
+            m_commandLineParser->isSVFile(compiler->getFileId()) ? " -sv "
+                                                                 : " ";
         fileName = fileName.lexically_relative(directory);
         StrAppend(&fileList, svFile, fileName);
         lastFile = fileName;
@@ -555,13 +547,15 @@ bool Compiler::createMultiProcessPreProcessor_() {
     return true;
   }
 
+  FileSystem* const fileSystem = FileSystem::getInstance();
+
   // Create CMakeLists.txt
   bool muted = m_commandLineParser->muteStdout();
   SymbolTable* symbolTable = getSymbolTable();
   const fs::path outputDir =
-      symbolTable->getSymbol(m_commandLineParser->getOutputDir());
+      fileSystem->toPath(m_commandLineParser->getOutputDirId());
   const fs::path directory =
-      symbolTable->getSymbol(m_commandLineParser->getFullCompileDir());
+      fileSystem->toPath(m_commandLineParser->getFullCompileDirId());
   std::ofstream ofs;
   fs::path fileList = directory / "CMakeLists.txt";
   ofs.open(fileList);
@@ -571,7 +565,8 @@ bool Compiler::createMultiProcessPreProcessor_() {
     ofs << "project(SurelogPreprocessing NONE)" << std::endl;
 
     fs::path cwd = fs::current_path();
-    fs::path full_exe_path = m_commandLineParser->getExePath();
+    fs::path full_exe_path =
+        fileSystem->toPath(m_commandLineParser->getProgramId());
     if (m_commandLineParser->profile()) {
       full_exe_path += " -profile";
     }
@@ -580,7 +575,7 @@ bool Compiler::createMultiProcessPreProcessor_() {
     // +define+
     for (const auto& id_value : m_commandLineParser->getDefineList()) {
       const std::string defName =
-          m_commandLineParser->getSymbolTable().getSymbol(id_value.first);
+          m_commandLineParser->getSymbolTable()->getSymbol(id_value.first);
       std::string val;
       for (char c : id_value.second) {
         if (c == '#') {
@@ -593,39 +588,33 @@ bool Compiler::createMultiProcessPreProcessor_() {
     }
 
     // Source files (.v, .sv on the command line)
-    for (const SymbolId& id : m_commandLineParser->getSourceFiles()) {
-      const fs::path fileName =
-          m_commandLineParser->getSymbolTable().getSymbol(id);
-
-      fs::path baseFileName = FileUtils::basename(fileName);
+    for (const PathId& id : m_commandLineParser->getSourceFiles()) {
+      const fs::path fileName = fileSystem->toPath(id);
       std::string_view svFile =
-          m_commandLineParser->isSVFile(baseFileName) ? " -sv " : " ";
+          m_commandLineParser->isSVFile(id) ? " -sv " : " ";
       StrAppend(&fileList, svFile, fileName);
     }
     // Library files
     // (-v <file>)
-    for (const SymbolId& id : m_commandLineParser->getLibraryFiles()) {
-      const std::string& fileName =
-          m_commandLineParser->getSymbolTable().getSymbol(id);
-      fileList += " -v " + fileName;
+    for (const PathId& id : m_commandLineParser->getLibraryFiles()) {
+      const fs::path fileName = fileSystem->toPath(id);
+      fileList += " -v " + fileName.string();
     }
     // (-y <path> +libext+<ext>)
     for (const auto& id : m_commandLineParser->getLibraryPaths()) {
-      const std::string& fileName =
-          m_commandLineParser->getSymbolTable().getSymbol(id);
-      fileList += " -y " + fileName;
+      const fs::path fileName = fileSystem->toPath(id);
+      fileList += " -y " + fileName.string();
     }
     // +libext+
     for (const auto& id : m_commandLineParser->getLibraryExtensions()) {
       const std::string& extName =
-          m_commandLineParser->getSymbolTable().getSymbol(id);
+          m_commandLineParser->getSymbolTable()->getSymbol(id);
       fileList += " +libext+" + extName;
     }
     // Include dirs
-    for (const SymbolId& id : m_commandLineParser->getIncludePaths()) {
-      const std::string& fileName =
-          m_commandLineParser->getSymbolTable().getSymbol(id);
-      fileList += " -I" + fileName;
+    for (const PathId& id : m_commandLineParser->getIncludePaths()) {
+      const fs::path fileName = fileSystem->toPath(id);
+      fileList += " -I" + fileName.string();
     }
 
     std::string_view sverilog =
@@ -690,6 +679,7 @@ static int calculateEffectiveThreads(int nbThreads) {
 }
 
 bool Compiler::parseinit_() {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   Precompiled* const prec = Precompiled::getSingleton();
 
   // Single out the large files.
@@ -703,19 +693,21 @@ bool Compiler::parseinit_() {
 
   std::vector<CompileSourceFile*> tmp_compilers;
   for (CompileSourceFile* const compiler : m_compilers) {
-    const fs::path fileName =
-        compiler->getSymbolTable()->getSymbol(compiler->getPpOutputFileId());
-    const fs::path origFile =
-        compiler->getSymbolTable()->getSymbol(compiler->getFileId());
-    const fs::path root = FileUtils::basename(fileName);
-    const unsigned int nbThreads = prec->isFilePrecompiled(root)
-                                       ? 0
-                                       : m_commandLineParser->getNbMaxTreads();
+    const fs::path fileName = fileSystem->toPath(compiler->getPpOutputFileId());
+    const fs::path origFile = fileSystem->toPath(compiler->getFileId());
+    const unsigned int nbThreads =
+        prec->isFilePrecompiled(compiler->getPpOutputFileId())
+            ? 0
+            : m_commandLineParser->getNbMaxTreads();
 
     const int effectiveNbThreads = calculateEffectiveThreads(nbThreads);
 
     AnalyzeFile* const fileAnalyzer =
-        new AnalyzeFile(m_commandLineParser, m_design, fileName, origFile,
+        new AnalyzeFile(m_commandLineParser, m_design,
+                        fileSystem->copy(compiler->getPpOutputFileId(),
+                                         m_commandLineParser->getSymbolTable()),
+                        fileSystem->copy(compiler->getFileId(),
+                                         m_commandLineParser->getSymbolTable()),
                         effectiveNbThreads, m_text);
     fileAnalyzer->analyze();
     compiler->setFileAnalyzer(fileAnalyzer);
@@ -726,7 +718,7 @@ bool Compiler::parseinit_() {
 
       if (!m_commandLineParser->fileunit()) {
         SymbolTable* symbols =
-            m_commandLineParser->getSymbolTable().CreateSnapshot();
+            m_commandLineParser->getSymbolTable()->CreateSnapshot();
         m_symbolTables.push_back(symbols);
         compiler->setSymbolTable(symbols);
         // fileContent->setSymbolTable(symbols);
@@ -739,16 +731,14 @@ bool Compiler::parseinit_() {
       compiler->getParser()->setFileContent(new FileContent(
           compiler->getParser()->getFileId(0),
           compiler->getParser()->getLibrary(), compiler->getSymbolTable(),
-          compiler->getErrorContainer(), nullptr, BadSymbolId));
+          compiler->getErrorContainer(), nullptr, BadPathId));
 
       int j = 0;
-      for (auto& chunk : fileAnalyzer->getSplitFiles()) {
+      for (const auto& ppId : fileAnalyzer->getSplitFiles()) {
         SymbolTable* symbols =
-            m_commandLineParser->getSymbolTable().CreateSnapshot();
+            m_commandLineParser->getSymbolTable()->CreateSnapshot();
         m_symbolTables.push_back(symbols);
-        SymbolId ppId = symbols->registerSymbol(chunk.string());
-        symbols->registerSymbol(
-            compiler->getParser()->getFileName(LINE1).string());
+        fileSystem->copy(compiler->getParser()->getFileId(LINE1), symbols);
         CompileSourceFile* chunkCompiler = new CompileSourceFile(
             compiler, ppId, fileAnalyzer->getLineOffsets()[j]);
         // Schedule chunk
@@ -774,7 +764,7 @@ bool Compiler::parseinit_() {
     } else {
       if ((!m_commandLineParser->fileunit()) && m_text.empty()) {
         SymbolTable* symbols =
-            m_commandLineParser->getSymbolTable().CreateSnapshot();
+            m_commandLineParser->getSymbolTable()->CreateSnapshot();
         m_symbolTables.push_back(symbols);
         compiler->setSymbolTable(symbols);
         ErrorContainer* errors = new ErrorContainer(symbols);
@@ -813,6 +803,7 @@ bool Compiler::cleanup_() {
 bool Compiler::compileFileSet_(CompileSourceFile::Action action,
                                bool allowMultithread,
                                std::vector<CompileSourceFile*>& container) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   const unsigned short maxThreadCount =
       allowMultithread ? m_commandLineParser->getNbMaxTreads() : 0;
 
@@ -897,8 +888,9 @@ bool Compiler::compileFileSet_(CompileSourceFile::Action action,
         for (const CompileSourceFile* job : jobArray[i]) {
           fs::path fileName;
           if (job->getPreprocessor())
-            fileName = job->getPreprocessor()->getFileName(0);
-          if (job->getParser()) fileName = job->getParser()->getFileName(0);
+            fileName = fileSystem->toPath(job->getPreprocessor()->getFileId(0));
+          if (job->getParser())
+            fileName = fileSystem->toPath(job->getParser()->getFileId(0));
           sum += job->getJobSize(action);
           std::cout << job->getJobSize(action) << " " << fileName << std::endl;
         }
@@ -952,6 +944,7 @@ bool Compiler::compileFileSet_(CompileSourceFile::Action action,
 }
 
 bool Compiler::compile() {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   std::string profile;
   Timer tmr;
   Timer tmrTotal;
@@ -1073,9 +1066,9 @@ bool Compiler::compile() {
       }
 
       if (m_commandLineParser->pythonEvalScript()) {
-        PythonAPI::evalScript(m_commandLineParser->getSymbolTable().getSymbol(
-                                  m_commandLineParser->pythonEvalScriptId()),
-                              m_design);
+        PythonAPI::evalScript(
+            fileSystem->toPath(m_commandLineParser->pythonEvalScriptId()),
+            m_design);
         if (m_commandLineParser->profile()) {
           std::string msg = "Python design processing took " +
                             StringUtils::to_string(tmr.elapsed_rounded()) +
@@ -1088,11 +1081,12 @@ bool Compiler::compile() {
       m_errors->printMessages(m_commandLineParser->muteStdout());
     }
 
-    fs::path directory = m_commandLineParser->getSymbolTable().getSymbol(
-        m_commandLineParser->getFullCompileDir());
+    fs::path directory =
+        fileSystem->toPath(m_commandLineParser->getFullCompileDirId());
     fs::path uhdmFile = directory / "surelog.uhdm";
 
-    m_uhdmDesign = m_compileDesign->writeUHDM(uhdmFile.string());
+    m_uhdmDesign = m_compileDesign->writeUHDM(fileSystem->toPathId(
+        uhdmFile, m_compileDesign->getCompiler()->getSymbolTable()));
     // Do not delete as now UHDM has to live past the compilation step
     // delete compileDesign;
   }

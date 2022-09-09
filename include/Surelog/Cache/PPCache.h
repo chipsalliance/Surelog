@@ -27,8 +27,6 @@
 
 #include <Surelog/Cache/Cache.h>
 
-#include <filesystem>
-
 namespace SURELOG {
 
 class PreprocessFile;
@@ -43,15 +41,12 @@ class PPCache : Cache {
  private:
   PPCache(const PPCache& orig) = delete;
 
-  std::filesystem::path getCacheFileName_(
-      const std::filesystem::path& fileName = "");
-  bool restore_(const std::filesystem::path& cacheFileName, bool errorsOnly,
-                int recursionDepth);
-  bool restore_(const std::filesystem::path& cacheFileName,
-                const std::unique_ptr<uint8_t[]>& buffer, bool errorsOnly,
-                int recursionDepth);
-  bool checkCacheIsValid_(const std::filesystem::path& cacheFileName);
-  bool checkCacheIsValid_(const std::filesystem::path& cacheFileName,
+  PathId getCacheFileId_(PathId requestedFileId);
+  bool restore_(PathId cacheFileId, bool errorsOnly, int recursionDepth);
+  bool restore_(PathId cacheFileId, const std::unique_ptr<uint8_t[]>& buffer,
+                bool errorsOnly, int recursionDepth);
+  bool checkCacheIsValid_(PathId cacheFileId);
+  bool checkCacheIsValid_(PathId cacheFileId,
                           const std::unique_ptr<uint8_t[]>& buffer);
 
   PreprocessFile* m_pp;

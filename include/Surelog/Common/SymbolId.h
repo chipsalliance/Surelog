@@ -7,6 +7,7 @@
 #include <set>
 #include <string_view>
 #include <unordered_set>
+#include <vector>
 
 #if !defined(SYMBOLID_DEBUG_ENABLED)
 #if defined(DEBUG) || defined(_DEBUG)
@@ -22,33 +23,28 @@ namespace SURELOG {
  *
  * Used to uniquely represent a string in SymbolTable. SymbolId can (and
  * should) be resolved only with the SymbolTable that it was generated with.
- *
+ * 
  */
 typedef uint32_t RawSymbolId;
 inline static constexpr RawSymbolId BadRawSymbolId = 0;
 inline static constexpr std::string_view BadRawSymbol = "@@BAD_SYMBOL@@";
+
+class PathId;
+class SymbolTable;
+
 class SymbolId final {
  public:
 #if SYMBOLID_DEBUG_ENABLED
   SymbolId() : id(BadRawSymbolId), value(BadRawSymbol) {}
-  SymbolId(RawSymbolId id, std::string_view value)
-      : id(id)
-      , value(value)
-  {
-  }
+  SymbolId(RawSymbolId id, std::string_view value) : id(id) , value(value) {}
+  SymbolId(const SymbolId &rhs) : id(rhs.id), value(rhs.value) {}
 #else
   SymbolId() : id(BadRawSymbolId) {}
-  explicit SymbolId(RawSymbolId id) : id(id) {}
   SymbolId(RawSymbolId id, std::string_view value) : id(id) {}
+  SymbolId(const SymbolId &rhs) : id(rhs.id) {}
 #endif
 
-  SymbolId(const SymbolId &rhs)
-      : id(rhs.id)
-#if SYMBOLID_DEBUG_ENABLED
-      , value(rhs.value)
-#endif
-  {
-  }
+  explicit SymbolId(const PathId &rhs); // Implementation in Path.h
 
   SymbolId &operator=(const SymbolId &rhs) {
     if (this != &rhs) {
@@ -72,6 +68,7 @@ class SymbolId final {
   std::string_view value;
 #endif
 
+  friend class PathId;
   friend std::ostream &operator<<(std::ostream &strm, const SymbolId &symbolId);
 };
 
@@ -85,6 +82,16 @@ inline std::ostream &operator<<(std::ostream &strm, const SymbolId &symbolId) {
   strm << (RawSymbolId)symbolId;
   return strm;
 }
+
+struct SymbolIdPP final {  // Pretty Printer
+  const SymbolId &id;
+  const SymbolTable *const symbolTable;
+
+  SymbolIdPP(const SymbolId &id, const SymbolTable *const symbolTable)
+      : id(id), symbolTable(symbolTable) {}
+};
+
+std::ostream &operator<<(std::ostream &strm, const SymbolIdPP &id);
 
 struct SymbolIdHasher final {
   inline size_t operator()(const SymbolId &value) const {
@@ -107,6 +114,7 @@ struct SymbolIdLessThanComparer final {
 typedef std::set<SymbolId, SymbolIdLessThanComparer> SymbolIdSet;
 typedef std::unordered_set<SymbolId, SymbolIdHasher, SymbolIdEqualityComparer>
     SymbolIdUnorderedSet;
+typedef std::vector<SymbolId> SymbolIdVector;
 
 }  // namespace SURELOG
 

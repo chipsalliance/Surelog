@@ -48,11 +48,11 @@ std::string PreprocessHarness::preprocess(std::string_view content,
   CommandLineParser clp(&m_errors, &m_symbols, false, false);
   Library lib("work", &m_symbols);
   Compiler compiler(&clp, &m_errors, &m_symbols);
-  CompileSourceFile csf(BadSymbolId, &clp, &m_errors, &compiler, &m_symbols,
+  CompileSourceFile csf(BadPathId, &clp, &m_errors, &compiler, &m_symbols,
                         compUnit ? compUnit : &unit, &lib);
-  PreprocessFile pp(BadSymbolId, nullptr, 0, &csf, instructions,
-                    compUnit ? compUnit : &unit, &lib, content, nullptr, 0,
-                    BadSymbolId);
+  PreprocessFile pp(BadSymbolId, &csf, instructions,
+                    compUnit ? compUnit : &unit, &lib, nullptr, 0, content,
+                    nullptr, 0, BadPathId);
 
   if (!pp.preprocess()) {
     result = "ERROR_PP";
