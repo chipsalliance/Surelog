@@ -27,8 +27,14 @@ pkgs.mkShell {
       time
       zlib
 
+      # Libraries for USE_HOST_* use
+      flatbuffers
+      capnproto
+
       # Ease development
       ccache
+      ninja
+      clang-tools
     ];
   shellHook =
   ''

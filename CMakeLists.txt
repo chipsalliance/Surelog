@@ -261,7 +261,9 @@ if (SURELOG_WITH_PYTHON)
   )
 endif()
 
-include_directories(${PROJECT_SOURCE_DIR}/include ${GENDIR}/include ${GENDIR}/src)
+include_directories(${PROJECT_SOURCE_DIR}/include
+                    ${GENDIR}/include
+                    ${GENDIR}/src)
 
 # Put source code here, files that are generated at build time in
 # surelog_generated_SRC
@@ -404,11 +406,7 @@ endforeach()
 
 add_library(surelog STATIC ${surelog_SRC} ${surelog_generated_SRC})
 set_target_properties(surelog PROPERTIES PUBLIC_HEADER include/Surelog/surelog.h)
-target_include_directories(surelog PRIVATE
-  third_party/antlr4/runtime/Cpp/runtime/src
-  third_party/flatbuffers/include
-  third_party/googletest/googletest/include
-  third_party/googletest/googlemock/include)
+
 target_include_directories(surelog PUBLIC $<INSTALL_INTERFACE:include>)
 if (SURELOG_WITH_PYTHON)
   target_include_directories(surelog PUBLIC ${Python3_INCLUDE_DIRS}) # Keep this at the end
@@ -457,6 +455,7 @@ target_link_libraries(surelog PUBLIC antlr4_static)
 
 if(SURELOG_USE_HOST_FLATBUFFERS)
   target_link_libraries(surelog PRIVATE PkgConfig::FLATBUFFERS)
+  target_include_directories(surelog PUBLIC ${FLATBUFFERS_INCLUDE_DIRS})
 else()
   target_link_libraries(surelog PUBLIC flatbuffers)
   add_dependencies(surelog flatc)
@@ -526,9 +525,6 @@ function(register_gtests)
     # Build binary, link all relevant libs and extract tests
     add_executable(${test_bin} EXCLUDE_FROM_ALL ${gtest_cc_file})
 
-    target_include_directories(${test_bin} PRIVATE
-      ${PROJECT_SOURCE_DIR}/third_party/antlr4/runtime/Cpp/runtime/src
-      ${PROJECT_SOURCE_DIR}/third_party/flatbuffers/include)
     # For simplicity, we link the test with libsurelog, but there is of
     # course a lot unnecessary churn if headers are modified.
     # Often it is sufficient to just have a few depeendencies.
@@ -645,8 +641,13 @@ install(
   EXPORT Surelog
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog)
+target_include_directories(surelog PRIVATE
+                           third_party/antlr4/runtime/Cpp/runtime/src)
 
 if(NOT SURELOG_USE_HOST_FLATBUFFERS)
+  # TODO: should we even install these from third_party ? If it is
+  # always a static library, then it is an implementation detail
+  # of surelog.
   install(
     TARGETS flatbuffers
     EXPORT Surelog
