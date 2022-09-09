@@ -368,7 +368,6 @@ bool Compiler::createMultiProcessParser_() {
 
   // Create CMakeLists.txt
   bool muted = m_commandLineParser->muteStdout();
-  SymbolTable* symbolTable = getSymbolTable();
   const fs::path outputDir =
       fileSystem->toPath(m_commandLineParser->getOutputDirId());
   const fs::path directory =
@@ -551,7 +550,6 @@ bool Compiler::createMultiProcessPreProcessor_() {
 
   // Create CMakeLists.txt
   bool muted = m_commandLineParser->muteStdout();
-  SymbolTable* symbolTable = getSymbolTable();
   const fs::path outputDir =
       fileSystem->toPath(m_commandLineParser->getOutputDirId());
   const fs::path directory =

@@ -78,7 +78,6 @@ void CompileHelper::checkForLoops(bool on) {
 bool CompileHelper::loopDetected(PathId fileId, int lineNumber,
                                  CompileDesign* compileDesign,
                                  ValuedComponentI* instance) {
-  FileSystem* const fileSystem = FileSystem::getInstance();
 #if defined(_WIN32)
   constexpr int32_t kMaxAllowedStackDepth = 100;
 #else

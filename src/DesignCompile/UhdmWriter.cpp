@@ -3608,7 +3608,6 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
       for (const IncludeFileInfo& ifi : pf->getIncludeFileInfo()) {
         if ((ifi.m_context == IncludeFileInfo::Context::INCLUDE) &&
             (ifi.m_action == IncludeFileInfo::Action::PUSH)) {
-          const FileContent* const fC = pf->getFileContent();
           include_file_info* const pifi = s.MakeInclude_file_info();
           pifi->VpiFile(fileSystem->toPath(pf->getRawFileId()).string());
           pifi->VpiIncludedFile(fileSystem->toPath(ifi.m_sectionFile).string());
