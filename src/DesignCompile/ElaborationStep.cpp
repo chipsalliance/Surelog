@@ -1865,9 +1865,20 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
                           (constant*)assignExp);
     } else if (assignExp->UhdmType() == uhdmoperation) {
       operation* op = (operation*)assignExp;
+      int opType = op->VpiOpType();
+      const typespec* tp = tps;
+      if (opType == vpiAssignmentPatternOp) {
+        if (tp->UhdmType() == uhdmpacked_array_typespec) {
+          packed_array_typespec* ptp = (packed_array_typespec*)tp;
+          tp = dynamic_cast<const typespec*>(ptp->Elem_typespec());
+          if (tp == nullptr) {
+            tp = tps;
+          }
+        }
+      }
       for (auto oper : *op->Operands()) {
         if (oper->UhdmType() == uhdmconstant)
-          m_helper.adjustSize(tps, component, m_compileDesign, instance,
+          m_helper.adjustSize(tp, component, m_compileDesign, instance,
                               (constant*)oper);
       }
     }
