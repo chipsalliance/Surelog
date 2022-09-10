@@ -23,7 +23,7 @@ namespace SURELOG {
  *
  * Used to uniquely represent a string in SymbolTable. SymbolId can (and
  * should) be resolved only with the SymbolTable that it was generated with.
- * 
+ *
  */
 typedef uint32_t RawSymbolId;
 inline static constexpr RawSymbolId BadRawSymbolId = 0;
@@ -36,7 +36,7 @@ class SymbolId final {
  public:
 #if SYMBOLID_DEBUG_ENABLED
   SymbolId() : id(BadRawSymbolId), value(BadRawSymbol) {}
-  SymbolId(RawSymbolId id, std::string_view value) : id(id) , value(value) {}
+  SymbolId(RawSymbolId id, std::string_view value) : id(id), value(value) {}
   SymbolId(const SymbolId &rhs) : id(rhs.id), value(rhs.value) {}
 #else
   SymbolId() : id(BadRawSymbolId) {}
@@ -44,7 +44,7 @@ class SymbolId final {
   SymbolId(const SymbolId &rhs) : id(rhs.id) {}
 #endif
 
-  explicit SymbolId(const PathId &rhs); // Implementation in Path.h
+  explicit SymbolId(const PathId &rhs);  // Implementation in Path.h
 
   SymbolId &operator=(const SymbolId &rhs) {
     if (this != &rhs) {

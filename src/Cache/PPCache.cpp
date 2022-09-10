@@ -134,7 +134,6 @@ bool PPCache::restore_(PathId cacheFileId,
 
   /* Restore `timescale directives */
   if (!errorsOnly) {
-    SymbolTable* localSymbols = m_pp->getCompileSourceFile()->getSymbolTable();
     for (const CACHE::TimeInfo* fbtimeinfo : *ppcache->time_info()) {
       TimeInfo timeInfo;
       timeInfo.m_type = (TimeInfo::Type)fbtimeinfo->type();

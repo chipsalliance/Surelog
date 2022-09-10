@@ -1,3 +1,19 @@
+/*
+ Copyright 2019 Alain Dargelas
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
 #ifndef SURELOG_PATHID_H
 #define SURELOG_PATHID_H
 #pragma once
@@ -22,6 +38,19 @@
 #endif
 
 namespace SURELOG {
+/**
+ * class PathId
+ *
+ * Used to uniquely represent a file or directory abstractly.
+ * The context/value doesn't have to be a std::filesystem::path but
+ * can be any printable (i.e. convertible to string) value. This pinned
+ * value is stored in the PathId::m_symbolTable.
+ *
+ * All operations on/with PathId has to go through the SURELOG::FileSystem.
+ * Logic in Surelog (or client application) shouldn't access/alter the value
+ * of it outside of the SURELOG::FileSystem context.
+ *
+ */
 typedef uint32_t RawPathId;
 inline static constexpr RawPathId BadRawPathId = 0;
 inline static constexpr std::string_view BadRawPath = BadRawSymbol;
