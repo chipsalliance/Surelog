@@ -100,6 +100,7 @@ jobs:
         make test/unittest-d
 
     - name: Regression
+      timeout-minutes: 180
       if: matrix.mode == 'regression'
       run: |
         make test/regression
@@ -204,6 +205,7 @@ jobs:
         make coverage-build/surelog.coverage
 
     - name: Valgrind
+      timeout-minutes: 180
       if: matrix.mode == 'valgrind'
       run: |
         make test/valgrind
@@ -343,6 +345,7 @@ jobs:
         make install
 
     - name: Test
+      timeout-minutes: 180
       run: |
         export PATH=$JAVA_HOME/bin:$Py3_ROOT_DIR:$PATH
         make test_install
@@ -452,6 +455,7 @@ jobs:
         fetch-depth: 0
 
     - name: Build & Test (cl compiler)
+      timeout-minutes: 180
       if: matrix.compiler == 'cl'
       run: |
         call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
@@ -487,6 +491,7 @@ jobs:
         git status
 
     - name: Build & Test (clang compiler)
+      timeout-minutes: 180
       if: matrix.compiler == 'clang'
       run: |
         set CMAKE_GENERATOR=Ninja
@@ -634,6 +639,7 @@ jobs:
         make test/unittest-d
 
     - name: Regression tests
+      timeout-minutes: 180
       run: |
         make test/regression
         git status
@@ -667,7 +673,6 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-
     - name: Checkout code
       uses: actions/checkout@v2
       with:
@@ -683,8 +688,8 @@ jobs:
 
   ClangTidy:
     runs-on: ubuntu-20.04
-    steps:
 
+    steps:
     - name: Cancel previous
       uses: styfle/cancel-workflow-action@0.8.0
       with:
