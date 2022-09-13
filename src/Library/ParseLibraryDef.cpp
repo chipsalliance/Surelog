@@ -109,10 +109,11 @@ bool ParseLibraryDef::parseLibraryDefinition(PathId fileId, Library* lib) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   m_fileId = fileId;
   const fs::path fileName = fileSystem->toPath(fileId);
-  std::ifstream stream;
-  stream.open(fileName);
+  std::istream& stream = fileSystem->openForRead(m_fileId);
 
   if (!stream.good()) {
+    fileSystem->close(stream);
+
     Location ppfile(fileId);
     Error err(ErrorDefinition::PA_CANNOT_OPEN_FILE, ppfile);
     m_errors->addError(err);
@@ -126,21 +127,21 @@ bool ParseLibraryDef::parseLibraryDefinition(PathId fileId, Library* lib) {
 
   AntlrLibParserErrorListener* errorListener =
       new AntlrLibParserErrorListener(this);
-  antlr4::ANTLRInputStream* m_inputStream = new ANTLRInputStream(stream);
-  SV3_1aLexer* m_lexer = new SV3_1aLexer(m_inputStream);
-  m_lexer->removeErrorListeners();
-  m_lexer->addErrorListener(errorListener);
-  antlr4::CommonTokenStream* m_tokens = new CommonTokenStream(m_lexer);
-  m_tokens->fill();
-  SV3_1aParser* m_parser = new SV3_1aParser(m_tokens);
-  m_parser->removeErrorListeners();
-  m_parser->addErrorListener(errorListener);
-  antlr4::tree::ParseTree* m_tree = m_parser->top_level_library_rule();
+  antlr4::ANTLRInputStream* inputStream = new ANTLRInputStream(stream);
+  SV3_1aLexer* lexer = new SV3_1aLexer(inputStream);
+  lexer->removeErrorListeners();
+  lexer->addErrorListener(errorListener);
+  antlr4::CommonTokenStream* tokens = new CommonTokenStream(lexer);
+  tokens->fill();
+  SV3_1aParser* parser = new SV3_1aParser(tokens);
+  parser->removeErrorListeners();
+  parser->addErrorListener(errorListener);
+  antlr4::tree::ParseTree* m_tree = parser->top_level_library_rule();
 
-  SVLibShapeListener* m_listener = new SVLibShapeListener(this, m_tokens);
-  m_fileContent = m_listener->getFileContent();
+  SVLibShapeListener* listener = new SVLibShapeListener(this, tokens);
+  m_fileContent = listener->getFileContent();
 
-  tree::ParseTreeWalker::DEFAULT.walk(m_listener, m_tree);
+  tree::ParseTreeWalker::DEFAULT.walk(listener, m_tree);
 
   if (m_fileContent->getLibrary() == nullptr) {
     if (lib) {
@@ -157,11 +158,12 @@ bool ParseLibraryDef::parseLibraryDefinition(PathId fileId, Library* lib) {
   }
 
   // delete m_tree;
-  delete m_parser;
-  delete m_tokens;
-  delete m_lexer;
-  delete m_inputStream;
-  delete m_listener;
+  delete parser;
+  delete tokens;
+  delete lexer;
+  delete inputStream;
+  delete listener;
+  fileSystem->close(stream);
   return parseConfigDefinition();
 }
 

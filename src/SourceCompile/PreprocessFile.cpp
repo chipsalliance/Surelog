@@ -362,8 +362,7 @@ bool PreprocessFile::preprocess() {
     } else {
       if (m_debugPP)
         std::cout << "PP PREPROCESS FILE: " << fileName << std::endl;
-      std::ifstream stream;
-      stream.open(fileName);
+      std::istream& stream = fileSystem->openForRead(m_fileId);
       if (!stream.good()) {
         if (m_includer == nullptr) {
           Location loc(m_fileId);
@@ -405,7 +404,7 @@ bool PreprocessFile::preprocess() {
         columnNb++;
         c = stream.get();
       }
-      stream.close();
+      fileSystem->close(stream);
 
       if (nonAsciiContent) {
         std::string symbol;

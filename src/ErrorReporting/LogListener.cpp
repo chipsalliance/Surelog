@@ -21,25 +21,28 @@
  * Created on March 10, 2021, 9:30 PM
  */
 
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/ErrorReporting/LogListener.h>
 
 namespace SURELOG {
 
-LogListener::LogResult LogListener::initialize(const std::string &filename) {
-  std::ofstream strm(filename, std::fstream::out);
+LogListener::LogResult LogListener::initialize(PathId fileId) {
+  FileSystem *const fileSystem = FileSystem::getInstance();
+  std::ostream &strm = fileSystem->openForWrite(fileId);
   if (!strm.good()) {
+    fileSystem->close(strm);
     return LogResult::FailedToOpenFileForWrite;
   }
-  strm.close();
+  fileSystem->close(strm);
 
   std::scoped_lock<std::mutex> lock(mutex);
-  this->filename = filename;
+  this->fileId = fileId;
   return LogResult::Ok;
 }
 
-std::string LogListener::getLogFilename() const {
+PathId LogListener::getLogFileId() const {
   std::scoped_lock<std::mutex> lock(mutex);
-  return filename;
+  return fileId;
 }
 
 void LogListener::setMaxQueuedMessageCount(int count) {
@@ -68,7 +71,7 @@ void LogListener::enqueue(const std::string &message) {
   queued.push_back(message);
 }
 
-void LogListener::flush(std::ofstream &strm) {
+void LogListener::flush(std::ostream &strm) {
   // NOTE: This isn't guarded since this is expected to be used only via
   // public API (which in turn are reponsible for ensuring thread-safety)
 
@@ -91,27 +94,33 @@ LogListener::LogResult LogListener::flush() {
     return LogResult::Ok;  // Nothing to flush!
   }
 
-  std::ofstream strm(filename, std::fstream::app);
+  FileSystem *const fileSystem = FileSystem::getInstance();
+  std::ostream &strm =
+      fileSystem->openOutput(fileId, std::ios_base::out | std::ios_base::app);
   if (!strm.good()) {
+    fileSystem->close(strm);
     return LogResult::FailedToOpenFileForWrite;
   }
 
   flush(strm);
-  strm.close();
+  fileSystem->close(strm);
   return LogResult::Ok;
 }
 
 LogListener::LogResult LogListener::log(const std::string &message) {
   std::scoped_lock<std::mutex> lock(mutex);
 
-  if (filename.empty()) {
+  if (!fileId) {
     enqueue(message);
     return LogResult::Enqueued;
   }
 
-  std::ofstream strm(filename, std::fstream::app);
+  FileSystem *const fileSystem = FileSystem::getInstance();
+  std::ostream &strm =
+      fileSystem->openOutput(fileId, std::ios_base::out | std::ios_base::app);
   if (!strm.good()) {
     enqueue(message);
+    fileSystem->close(strm);
     return LogResult::FailedToOpenFileForWrite;
   }
 
@@ -120,7 +129,7 @@ LogListener::LogResult LogListener::log(const std::string &message) {
   }
 
   strm << message << std::flush;
-  strm.close();
+  fileSystem->close(strm);
   return LogResult::Ok;
 }
 

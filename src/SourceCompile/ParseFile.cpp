@@ -40,9 +40,6 @@
 #include <parser/SV3_1aLexer.h>
 #include <parser/SV3_1aParser.h>
 
-#include <fstream>
-#include <sstream>
-
 namespace SURELOG {
 
 namespace fs = std::filesystem;
@@ -276,28 +273,26 @@ bool ParseFile::parseOneFile_(PathId fileId, unsigned int lineOffset) {
   CommandLineParser* clp = getCompileSourceFile()->getCommandLineParser();
   PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
   Timer tmr;
-  AntlrParserHandler* antlrParserHandler = new AntlrParserHandler();
-  m_antlrParserHandler = antlrParserHandler;
-  std::ifstream stream;
-  std::stringstream ss(m_sourceText);
+  m_antlrParserHandler = new AntlrParserHandler();
   if (m_sourceText.empty()) {
-    stream.open(fileName);
+    std::istream& stream = fileSystem->openForRead(fileId);
     if (!stream.good()) {
       Location ppfile(fileId);
       Error err(ErrorDefinition::PA_CANNOT_OPEN_FILE, ppfile);
       addError(err);
       return false;
     }
-    antlrParserHandler->m_inputStream = new antlr4::ANTLRInputStream(stream);
-    stream.close();
+    m_antlrParserHandler->m_inputStream = new antlr4::ANTLRInputStream(stream);
+    fileSystem->close(stream);
   } else {
-    antlrParserHandler->m_inputStream = new antlr4::ANTLRInputStream(ss);
+    m_antlrParserHandler->m_inputStream =
+        new antlr4::ANTLRInputStream(m_sourceText);
   }
 
-  antlrParserHandler->m_errorListener =
+  m_antlrParserHandler->m_errorListener =
       new AntlrParserErrorListener(this, false, lineOffset, fileId);
-  antlrParserHandler->m_lexer =
-      new SV3_1aLexer(antlrParserHandler->m_inputStream);
+  m_antlrParserHandler->m_lexer =
+      new SV3_1aLexer(m_antlrParserHandler->m_inputStream);
   VerilogVersion version = VerilogVersion::SystemVerilog;
   if (pp) version = pp->getVerilogVersion();
   if (version != VerilogVersion::NoVersion) {
@@ -305,40 +300,40 @@ bool ParseFile::parseOneFile_(PathId fileId, unsigned int lineOffset) {
       case VerilogVersion::NoVersion:
         break;
       case VerilogVersion::Verilog1995:
-        antlrParserHandler->m_lexer->sverilog = false;
+        m_antlrParserHandler->m_lexer->sverilog = false;
         break;
       case VerilogVersion::Verilog2001:
-        antlrParserHandler->m_lexer->sverilog = false;
+        m_antlrParserHandler->m_lexer->sverilog = false;
         break;
       case VerilogVersion::Verilog2005:
-        antlrParserHandler->m_lexer->sverilog = false;
+        m_antlrParserHandler->m_lexer->sverilog = false;
         break;
       case VerilogVersion::SVerilog2005:
-        antlrParserHandler->m_lexer->sverilog = true;
+        m_antlrParserHandler->m_lexer->sverilog = true;
         break;
       case VerilogVersion::Verilog2009:
-        antlrParserHandler->m_lexer->sverilog = true;
+        m_antlrParserHandler->m_lexer->sverilog = true;
         break;
       case VerilogVersion::SystemVerilog:
-        antlrParserHandler->m_lexer->sverilog = true;
+        m_antlrParserHandler->m_lexer->sverilog = true;
         break;
     }
   } else {
     fs::path baseFileName = FileUtils::basename(fileName);
     if ((fileName.extension() == ".sv") || (clp->fullSVMode()) ||
         (clp->isSVFile(fileId))) {
-      antlrParserHandler->m_lexer->sverilog = true;
+      m_antlrParserHandler->m_lexer->sverilog = true;
     } else {
-      antlrParserHandler->m_lexer->sverilog = false;
+      m_antlrParserHandler->m_lexer->sverilog = false;
     }
   }
 
-  antlrParserHandler->m_lexer->removeErrorListeners();
-  antlrParserHandler->m_lexer->addErrorListener(
-      antlrParserHandler->m_errorListener);
-  antlrParserHandler->m_tokens =
-      new antlr4::CommonTokenStream(antlrParserHandler->m_lexer);
-  antlrParserHandler->m_tokens->fill();
+  m_antlrParserHandler->m_lexer->removeErrorListeners();
+  m_antlrParserHandler->m_lexer->addErrorListener(
+      m_antlrParserHandler->m_errorListener);
+  m_antlrParserHandler->m_tokens =
+      new antlr4::CommonTokenStream(m_antlrParserHandler->m_lexer);
+  m_antlrParserHandler->m_tokens->fill();
 
   if (getCompileSourceFile()->getCommandLineParser()->profile()) {
     // m_profileInfo += "Tokenizer: " + std::to_string (tmr.elapsed_rounded
@@ -356,10 +351,11 @@ bool ParseFile::parseOneFile_(PathId fileId, unsigned int lineOffset) {
           .setMaxSize(10000)
           .setClearEveryN(100));
 
-  antlrParserHandler->m_parser =
-      new SV3_1aParser(antlrParserHandler->m_tokens, options);
+  m_antlrParserHandler->m_parser =
+      new SV3_1aParser(m_antlrParserHandler->m_tokens, options);
 #else
-  antlrParserHandler->m_parser = new SV3_1aParser(antlrParserHandler->m_tokens);
+  m_antlrParserHandler->m_parser =
+      new SV3_1aParser(m_antlrParserHandler->m_tokens);
 #endif
 
   if (getCompileSourceFile()->getCommandLineParser()->profile()) {
@@ -392,12 +388,13 @@ bool ParseFile::parseOneFile_(PathId fileId, unsigned int lineOffset) {
     }
     m_antlrParserHandler->m_parser->setErrorHandler(
         std::make_shared<antlr4::DefaultErrorStrategy>());
-    antlrParserHandler->m_parser->addErrorListener(
-        antlrParserHandler->m_errorListener);
-    antlrParserHandler->m_parser
+    m_antlrParserHandler->m_parser->addErrorListener(
+        m_antlrParserHandler->m_errorListener);
+    m_antlrParserHandler->m_parser
         ->getInterpreter<antlr4::atn::ParserATNSimulator>()
         ->setPredictionMode(antlr4::atn::PredictionMode::LL);
-    antlrParserHandler->m_tree = antlrParserHandler->m_parser->top_level_rule();
+    m_antlrParserHandler->m_tree =
+        m_antlrParserHandler->m_parser->top_level_rule();
 
     if (getCompileSourceFile()->getCommandLineParser()->profile()) {
       m_profileInfo +=
@@ -411,9 +408,6 @@ bool ParseFile::parseOneFile_(PathId fileId, unsigned int lineOffset) {
      m_antlrParserHandler->m_parser->getInterpreter<antlr4::atn::ParserATNSimulator>()->clearDFA();
      SV3_1aParser::_sharedContextCache.clear();
   */
-  if (m_sourceText.empty()) {
-    stream.close();
-  }
   return true;
 }
 

@@ -277,78 +277,79 @@ bool Compiler::ppinit_() {
 
 bool Compiler::createFileList_() {
   FileSystem* const fileSystem = FileSystem::getInstance();
-  if ((m_commandLineParser->writePpOutput() ||
-       m_commandLineParser->writePpOutputFileId()) &&
-      (!m_commandLineParser->parseOnly())) {
-    SymbolTable* symbolTable = getSymbolTable();
-    const fs::path directory =
-        fileSystem->toPath(m_commandLineParser->getFullCompileDirId());
-    {
-      std::ofstream ofs;
-      fs::path fileList = directory / "file.lst";
-      ofs.open(fileList);
-      if (ofs.good()) {
-        unsigned int size = m_compilers.size();
-        for (unsigned int i = 0; i < size; i++) {
-          PathId ppFileId = fileSystem->copy(
-              m_compilers[i]->getPpOutputFileId(), symbolTable);
-          PathId fileId =
-              fileSystem->copy(m_compilers[i]->getFileId(), symbolTable);
-          m_ppFileMap[fileId].push_back(ppFileId);
+  if (!((m_commandLineParser->writePpOutput() ||
+         m_commandLineParser->writePpOutputFileId()) &&
+        (!m_commandLineParser->parseOnly()))) {
+    return true;
+  }
+  SymbolTable* symbolTable = getSymbolTable();
+  const fs::path directory =
+      fileSystem->toPath(m_commandLineParser->getFullCompileDirId());
+  {
+    fs::path fileList = directory / "file.lst";
+    PathId fileId = fileSystem->toPathId(fileList, symbolTable);
+    std::ostream& ofs = fileSystem->openForWrite(fileId);
+    if (ofs.good()) {
+      unsigned int size = m_compilers.size();
+      for (unsigned int i = 0; i < size; i++) {
+        PathId ppFileId =
+            fileSystem->copy(m_compilers[i]->getPpOutputFileId(), symbolTable);
+        PathId fileId =
+            fileSystem->copy(m_compilers[i]->getFileId(), symbolTable);
+        m_ppFileMap[fileId].push_back(ppFileId);
 
-          fs::path ppFileName = fileSystem->toPath(ppFileId);
-          ppFileName = FileUtils::getPreferredPath(ppFileName);
-          ofs << ppFileName << std::flush << std::endl;
-        }
-        ofs.close();
-      } else {
-        std::cerr << "Could not create filelist: " << fileList << std::endl;
+        fs::path ppFileName = fileSystem->toPath(ppFileId);
+        ppFileName = FileUtils::getPreferredPath(ppFileName);
+        ofs << ppFileName << std::flush << std::endl;
       }
+      fileSystem->close(ofs);
+    } else {
+      std::cerr << "Could not create filelist: " << fileList << std::endl;
     }
-    {
-      std::ofstream ofs;
-      fs::path fileList = directory / "file_map.lst";
-      ofs.open(fileList);
+  }
+  {
+    fs::path fileList = directory / "file_map.lst";
+    PathId fileId = fileSystem->toPathId(fileList, symbolTable);
+    std::ostream& ofs = fileSystem->openForWrite(fileId);
+    if (ofs.good()) {
+      unsigned int size = m_compilers.size();
+      for (unsigned int i = 0; i < size; i++) {
+        fs::path ppFileName =
+            fileSystem->toPath(m_compilers[i]->getPpOutputFileId());
+        fs::path fileName = fileSystem->toPath(m_compilers[i]->getFileId());
+        ppFileName = FileUtils::getPreferredPath(ppFileName);
+        ppFileName = ppFileName.lexically_relative(directory);
+        ofs << ppFileName << " " << fileName << std::flush << std::endl;
+      }
+      fileSystem->close(ofs);
+    } else {
+      std::cerr << "Could not create filelist: " << fileList << std::endl;
+    }
+  }
+  {
+    if (m_commandLineParser->sepComp()) {
+      std::string concatFiles;
+      unsigned int size = m_compilers.size();
+      for (unsigned int i = 0; i < size; i++) {
+        fs::path fileName = fileSystem->toPath(m_compilers[i]->getFileId());
+        concatFiles += fileName.string() + "|";
+      }
+      std::size_t val = std::hash<std::string>{}(concatFiles);
+      std::string hashedName = std::to_string(val);
+      hashedName += ".sep_lst";
+      fs::path fileList = directory / hashedName;
+      PathId fileId = fileSystem->toPathId(fileList, symbolTable);
+      std::ostream& ofs = fileSystem->openForWrite(fileId);
       if (ofs.good()) {
         unsigned int size = m_compilers.size();
         for (unsigned int i = 0; i < size; i++) {
-          fs::path ppFileName =
-              fileSystem->toPath(m_compilers[i]->getPpOutputFileId());
           fs::path fileName = fileSystem->toPath(m_compilers[i]->getFileId());
-          ppFileName = FileUtils::getPreferredPath(ppFileName);
-          ppFileName = ppFileName.lexically_relative(directory);
-          ofs << ppFileName << " " << fileName << std::flush << std::endl;
+          if (i > 0) ofs << " ";
+          ofs << fileName.string();
         }
-        ofs.close();
+        fileSystem->close(ofs);
       } else {
         std::cerr << "Could not create filelist: " << fileList << std::endl;
-      }
-    }
-    {
-      if (m_commandLineParser->sepComp()) {
-        std::string concatFiles;
-        unsigned int size = m_compilers.size();
-        for (unsigned int i = 0; i < size; i++) {
-          fs::path fileName = fileSystem->toPath(m_compilers[i]->getFileId());
-          concatFiles += fileName.string() + "|";
-        }
-        std::size_t val = std::hash<std::string>{}(concatFiles);
-        std::string hashedName = std::to_string(val);
-        hashedName += ".sep_lst";
-        std::ofstream ofs;
-        fs::path fileList = directory / hashedName;
-        ofs.open(fileList);
-        if (ofs.good()) {
-          unsigned int size = m_compilers.size();
-          for (unsigned int i = 0; i < size; i++) {
-            fs::path fileName = fileSystem->toPath(m_compilers[i]->getFileId());
-            if (i > 0) ofs << " ";
-            ofs << fileName.string();
-          }
-          ofs.close();
-        } else {
-          std::cerr << "Could not create filelist: " << fileList << std::endl;
-        }
       }
     }
   }
@@ -365,6 +366,7 @@ bool Compiler::createMultiProcessParser_() {
   }
 
   FileSystem* const fileSystem = FileSystem::getInstance();
+  SymbolTable* symbolTable = getSymbolTable();
 
   // Create CMakeLists.txt
   bool muted = m_commandLineParser->muteStdout();
@@ -372,10 +374,10 @@ bool Compiler::createMultiProcessParser_() {
       fileSystem->toPath(m_commandLineParser->getOutputDirId());
   const fs::path directory =
       fileSystem->toPath(m_commandLineParser->getFullCompileDirId());
-  std::ofstream ofs;
-  fs::path fileList = directory / "CMakeLists.txt";
-  ofs.open(fileList);
   std::vector<std::string> batchProcessCommands;
+  fs::path fileList = directory / "CMakeLists.txt";
+  PathId fileId = fileSystem->toPathId(fileList, symbolTable);
+  std::ostream& ofs = fileSystem->openForWrite(fileId);
   if (ofs.good()) {
     ofs << "cmake_minimum_required (VERSION 3.0)" << std::endl;
     ofs << "# Auto generated by Surelog" << std::endl;
@@ -500,16 +502,13 @@ bool Compiler::createMultiProcessParser_() {
     }
     ofs << ")" << std::endl;
     ofs << std::flush;
-    ofs.close();
+    fileSystem->close(ofs);
 
     if (nbProcesses == 1) {
       // Single child process
       fs::path fileList = directory / "parser_batch.txt";
-      ofs.open(fileList);
-      for (const auto& line : batchProcessCommands) {
-        ofs << line << std::endl;
-      }
-      ofs.close();
+      PathId fileId = fileSystem->toPathId(fileList, symbolTable);
+      fileSystem->writeLines(fileId, batchProcessCommands);
       std::string command = StrCat("cd ", cwd, "; ", full_exe_path, " -o ",
                                    outputDir, " -nostdout -batch ", fileList);
       if (!muted)
@@ -554,9 +553,10 @@ bool Compiler::createMultiProcessPreProcessor_() {
       fileSystem->toPath(m_commandLineParser->getOutputDirId());
   const fs::path directory =
       fileSystem->toPath(m_commandLineParser->getFullCompileDirId());
-  std::ofstream ofs;
+  SymbolTable* symbolTable = getSymbolTable();
   fs::path fileList = directory / "CMakeLists.txt";
-  ofs.open(fileList);
+  PathId fileId = fileSystem->toPathId(fileList, symbolTable);
+  std::ostream& ofs = fileSystem->openForWrite(fileId);
   if (ofs.good()) {
     ofs << "cmake_minimum_required (VERSION 3.0)" << std::endl;
     ofs << "# Auto generated by Surelog" << std::endl;
@@ -638,13 +638,17 @@ bool Compiler::createMultiProcessPreProcessor_() {
 
     ofs << "add_custom_target(Parse ALL DEPENDS preprocessing)" << std::endl;
     ofs << std::flush;
-    ofs.close();
+    fileSystem->close(ofs);
+
     if (nbProcesses == 1) {
       // Single child process
       fs::path fileList = directory / "pp_batch.txt";
-      ofs.open(fileList);
-      ofs << batchCmd << std::endl;
-      ofs.close();
+      PathId fileId = fileSystem->toPathId(fileList, symbolTable);
+      std::ostream& ofs = fileSystem->openForWrite(fileId);
+      if (ofs.good()) {
+        ofs << batchCmd << std::endl;
+      }
+      fileSystem->close(ofs);
       std::string command = StrCat("cd ", cwd, "; ", full_exe_path, " -o ",
                                    outputDir, " -nostdout -batch ", fileList);
       if (!muted)

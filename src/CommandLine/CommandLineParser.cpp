@@ -38,7 +38,6 @@
 #endif
 
 #include <cstring>
-#include <fstream>
 #include <iostream>
 #include <sstream>
 #include <thread>
@@ -314,7 +313,8 @@ void CommandLineParser::logFooter() {
 
 CommandLineParser::CommandLineParser(ErrorContainer* errors,
                                      SymbolTable* symbolTable,
-                                     bool diffCompMode, bool fileUnit)
+                                     bool diffCompMode /* = false */,
+                                     bool fileUnit /* = false */)
     : m_writePpOutput(false),
       m_filterFileLine(true),
       m_debugLevel(0),
@@ -401,6 +401,10 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
 // Undecorate command line arg by removing any space, single-quotes,
 // and/or double-quotes at the front or at the back
 static std::string_view undecorateArg(std::string_view arg) {
+  // Strip out any null terminators
+  while (!arg.empty() && (arg.front() == '\0')) arg.remove_prefix(1);
+  while (!arg.empty() && (arg.back() == '\0')) arg.remove_suffix(1);
+
   // Strip out any space character at front and back
   while (!arg.empty() && std::isspace(arg.front())) arg.remove_prefix(1);
   while (!arg.empty() && std::isspace(arg.back())) arg.remove_suffix(1);
@@ -411,9 +415,7 @@ static std::string_view undecorateArg(std::string_view arg) {
     arg.remove_prefix(1);
     arg.remove_suffix(1);
 
-    // Strip any space once again, post removal of quotes
-    while (!arg.empty() && std::isspace(arg.front())) arg.remove_prefix(1);
-    while (!arg.empty() && std::isspace(arg.back())) arg.remove_suffix(1);
+    arg = undecorateArg(arg);
   }
 
   return arg;
@@ -569,22 +571,27 @@ void CommandLineParser::processArgs_(const std::vector<std::string>& args,
       }
     }
     if (arg == "-f") {
-      std::string f(undecorateArg(args[++i]));
-      std::ifstream ifs(f);
-      if (!ifs) {
-        Location loc(m_symbolTable->registerSymbol(f));
+      if (i == args.size() - 1) {
+        Location loc(m_symbolTable->registerSymbol(args[i]));
         Error err(ErrorDefinition::CMD_DASH_F_FILE_DOES_NOT_EXIST, loc);
         m_errors->addError(err);
+        break;
       } else {
-        std::stringstream ss;
-        ss << ifs.rdbuf();
-        ifs.close();
-        std::string fileContent = ss.str();
-        fileContent = StringUtils::removeComments(fileContent);
-        fileContent = StringUtils::evaluateEnvVars(fileContent);
-        std::vector<std::string> argsInFile;
-        StringUtils::tokenize(fileContent, " \n\t\r", argsInFile);
-        processArgs_(argsInFile, container);
+        fs::path fp = undecorateArg(args[++i]);
+        PathId fId = fileSystem->toPathId(fp, m_symbolTable);
+        std::string fileContent;
+        if (fileSystem->readContent(fId, fileContent)) {
+          fileContent = StringUtils::removeComments(fileContent);
+          fileContent = StringUtils::evaluateEnvVars(fileContent);
+          std::vector<std::string> argsInFile;
+          StringUtils::tokenize(fileContent, " \n\t\r", argsInFile);
+          processArgs_(argsInFile, container);
+        } else {
+          Location loc(fId);
+          Error err(ErrorDefinition::CMD_DASH_F_FILE_DOES_NOT_EXIST, loc);
+          m_errors->addError(err);
+          break;
+        }
       }
     } else if (arg == "-link") {
       m_parse = true;
@@ -601,21 +608,18 @@ void CommandLineParser::processArgs_(const std::vector<std::string>& args,
           const fs::path& flist = entry.path();
           if (flist.extension() == ".sep_lst") {
             std::string f(undecorateArg(flist.string()));
-            std::ifstream ifs(f);
-            if (!ifs) {
-              Location loc(m_symbolTable->registerSymbol(f));
-              Error err(ErrorDefinition::CMD_DASH_F_FILE_DOES_NOT_EXIST, loc);
-              m_errors->addError(err);
-            } else {
-              std::stringstream ss;
-              ss << ifs.rdbuf();
-              ifs.close();
-              std::string fileContent = ss.str();
+            PathId fileId = fileSystem->toPathId(f, m_symbolTable);
+            std::string fileContent;
+            if (fileSystem->readContent(fileId, fileContent)) {
               fileContent = StringUtils::removeComments(fileContent);
               fileContent = StringUtils::evaluateEnvVars(fileContent);
               std::vector<std::string> argsInFile;
               StringUtils::tokenize(fileContent, " \n\t\r", argsInFile);
               processArgs_(argsInFile, container);
+            } else {
+              Location loc(m_symbolTable->registerSymbol(f));
+              Error err(ErrorDefinition::CMD_DASH_F_FILE_DOES_NOT_EXIST, loc);
+              m_errors->addError(err);
             }
           }
         }
