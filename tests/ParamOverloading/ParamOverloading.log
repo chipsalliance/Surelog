@@ -321,42 +321,42 @@ n<> u<289> t<Top_level_rule> c<1> l<2:1> el<44:1>
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              72
+constant                                             102
 design                                                 1
-int_typespec                                          14
+int_typespec                                          18
 int_var                                                1
 logic_net                                              1
-logic_typespec                                        26
-module                                                11
-operation                                             11
+logic_typespec                                        36
+module                                                12
+operation                                             17
 param_assign                                          10
 parameter                                             13
-range                                                 26
-ref_obj                                               17
+range                                                 36
+ref_obj                                               28
 string_typespec                                        4
-struct_typespec                                       11
+struct_typespec                                       16
 tagged_pattern                                         4
-typespec_member                                       22
+typespec_member                                       32
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              72
+constant                                             102
 design                                                 1
-int_typespec                                          14
+int_typespec                                          18
 int_var                                                1
 logic_net                                              1
-logic_typespec                                        26
-module                                                11
-operation                                             11
+logic_typespec                                        36
+module                                                12
+operation                                             17
 param_assign                                          10
 parameter                                             13
-range                                                 26
-ref_obj                                               17
+range                                                 36
+ref_obj                                               28
 string_typespec                                        4
-struct_typespec                                       11
+struct_typespec                                       16
 tagged_pattern                                         4
-typespec_member                                       22
+typespec_member                                       32
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ../../build/regression/ParamOverloading/slpp_all/surelog.uhdm ...
 
@@ -923,6 +923,7 @@ design: (work@top)
       \_ref_obj: (work@top.v1), line:35:5, endln:35:7
         |vpiParent:
         \_operation: , line:32:37, endln:36:5
+        |vpiSize:2
         |vpiName:v1
         |vpiFullName:work@top.v1
         |vpiActual:
@@ -931,6 +932,7 @@ design: (work@top)
       \_ref_obj: (work@top.v2), line:35:9, endln:35:11
         |vpiParent:
         \_operation: , line:32:37, endln:36:5
+        |vpiSize:3
         |vpiName:v2
         |vpiFullName:work@top.v2
         |vpiActual:
@@ -1118,6 +1120,7 @@ design: (work@top)
         \_ref_obj: (work@top.u_ctrl_reg_shadowed.v1), line:35:5, endln:35:7
           |vpiParent:
           \_operation: , line:39:15, endln:39:25
+          |vpiSize:2
           |vpiName:v1
           |vpiFullName:work@top.u_ctrl_reg_shadowed.v1
           |vpiActual:
@@ -1126,6 +1129,7 @@ design: (work@top)
         \_ref_obj: (work@top.u_ctrl_reg_shadowed.v2), line:35:9, endln:35:11
           |vpiParent:
           \_operation: , line:39:15, endln:39:25
+          |vpiSize:3
           |vpiName:v2
           |vpiFullName:work@top.u_ctrl_reg_shadowed.v2
           |vpiActual:
@@ -1162,12 +1166,36 @@ design: (work@top)
             |vpiSigned:1
           |vpiOpType:67
           |vpiOperand:
-          \_ref_obj: (RESVAL), line:4:17, endln:4:23
+          \_constant: , line:4:17, endln:4:23
             |vpiParent:
             \_operation: , line:4:12, endln:4:24
-            |vpiName:RESVAL
-            |vpiActual:
-            \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:3:26, endln:3:32
+            |vpiDecompile:5'd1
+            |vpiSize:32
+            |UINT:1
+            |vpiTypespec:
+            \_logic_typespec: , line:3:14, endln:3:25
+              |vpiParent:
+              \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:3:26, endln:3:32
+              |vpiRange:
+              \_range: , line:3:20, endln:3:25
+                |vpiParent:
+                \_logic_typespec: , line:3:14, endln:3:25
+                |vpiLeftRange:
+                \_constant: , line:3:21, endln:3:22
+                  |vpiParent:
+                  \_range: , line:3:20, endln:3:25
+                  |vpiDecompile:4
+                  |vpiSize:64
+                  |UINT:4
+                  |vpiConstType:9
+                |vpiRightRange:
+                \_constant: , line:3:23, endln:3:24
+                  |vpiParent:
+                  \_range: , line:3:20, endln:3:25
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
       |vpiParameter:
       \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:3:26, endln:3:32
         |vpiParent:
@@ -1205,101 +1233,10 @@ design: (work@top)
         \_module: work@prim_subreg (work@top.u_ctrl_reg_shadowed.staged_reg), file:dut.sv, line:18:4, endln:20:19
         |vpiOverriden:1
         |vpiRhs:
-        \_operation: , line:19:15, endln:19:21
-          |vpiParent:
-          \_param_assign: , line:3:26, endln:3:37
-          |vpiTypespec:
-          \_struct_typespec: (struct_ab), line:25:12, endln:25:18
-            |vpiParent:
-            \_operation: , line:19:15, endln:19:21
-            |vpiName:struct_ab
-            |vpiPacked:1
-            |vpiTypespecMember:
-            \_typespec_member: (a), line:26:19, endln:26:20
-              |vpiParent:
-              \_struct_typespec: (struct_ab), line:25:12, endln:25:18
-              |vpiName:a
-              |vpiTypespec:
-              \_logic_typespec: , line:26:7, endln:26:18
-                |vpiParent:
-                \_typespec_member: (a), line:26:19, endln:26:20
-                |vpiRange:
-                \_range: , line:26:13, endln:26:18
-                  |vpiParent:
-                  \_logic_typespec: , line:26:7, endln:26:18
-                  |vpiLeftRange:
-                  \_constant: , line:26:14, endln:26:15
-                    |vpiParent:
-                    \_range: , line:26:13, endln:26:18
-                    |vpiDecompile:1
-                    |vpiSize:64
-                    |UINT:1
-                    |vpiConstType:9
-                  |vpiRightRange:
-                  \_constant: , line:26:16, endln:26:17
-                    |vpiParent:
-                    \_range: , line:26:13, endln:26:18
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                    |vpiConstType:9
-              |vpiRefFile:dut.sv
-              |vpiRefLineNo:26
-              |vpiRefColumnNo:7
-              |vpiRefEndLineNo:26
-              |vpiRefEndColumnNo:18
-            |vpiTypespecMember:
-            \_typespec_member: (b), line:27:19, endln:27:20
-              |vpiParent:
-              \_struct_typespec: (struct_ab), line:25:12, endln:25:18
-              |vpiName:b
-              |vpiTypespec:
-              \_logic_typespec: , line:27:7, endln:27:18
-                |vpiParent:
-                \_typespec_member: (b), line:27:19, endln:27:20
-                |vpiRange:
-                \_range: , line:27:13, endln:27:18
-                  |vpiParent:
-                  \_logic_typespec: , line:27:7, endln:27:18
-                  |vpiLeftRange:
-                  \_constant: , line:27:14, endln:27:15
-                    |vpiParent:
-                    \_range: , line:27:13, endln:27:18
-                    |vpiDecompile:2
-                    |vpiSize:64
-                    |UINT:2
-                    |vpiConstType:9
-                  |vpiRightRange:
-                  \_constant: , line:27:16, endln:27:17
-                    |vpiParent:
-                    \_range: , line:27:13, endln:27:18
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                    |vpiConstType:9
-              |vpiRefFile:dut.sv
-              |vpiRefLineNo:27
-              |vpiRefColumnNo:7
-              |vpiRefEndLineNo:27
-              |vpiRefEndColumnNo:18
-          |vpiOpType:75
-          |vpiReordered:1
-          |vpiOperand:
-          \_ref_obj: (work@top.u_ctrl_reg_shadowed.staged_reg.v2), line:35:9, endln:35:11
-            |vpiParent:
-            \_operation: , line:19:15, endln:19:21
-            |vpiName:v2
-            |vpiFullName:work@top.u_ctrl_reg_shadowed.staged_reg.v2
-            |vpiActual:
-            \_parameter: (work@top.v2), line:30:14, endln:30:16
-          |vpiOperand:
-          \_ref_obj: (work@top.u_ctrl_reg_shadowed.staged_reg.v1), line:35:5, endln:35:7
-            |vpiParent:
-            \_operation: , line:19:15, endln:19:21
-            |vpiName:v1
-            |vpiFullName:work@top.u_ctrl_reg_shadowed.staged_reg.v1
-            |vpiActual:
-            \_parameter: (work@top.v1), line:29:14, endln:29:16
+        \_constant: , line:19:15, endln:19:21
+          |vpiDecompile:5'd1
+          |vpiSize:5
+          |UINT:1
         |vpiLhs:
         \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:3:26, endln:3:32
       |vpiDefName:work@prim_subreg

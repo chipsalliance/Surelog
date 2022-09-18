@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file ../../build/tests/PackedArrayAssign/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ../../build/regression/PackedArrayAssign/slpp_all/surelog.log.
 
 LIB:  work
 FILE: dut.sv
@@ -134,13 +134,49 @@ n<> u<111> t<Top_level_rule> c<1> l<1:1> el<9:1>
 
 [INF:UH0706] Creating UHDM Model...
 
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+bit_select                                             1
+constant                                              17
+cont_assign                                            1
+design                                                 1
+logic_net                                              3
+logic_typespec                                         4
+module                                                 3
+operation                                              1
+packed_array_typespec                                  1
+packed_array_var                                       1
+port                                                   2
+range                                                  7
+ref_obj                                                4
+struct_typespec                                        1
+struct_var                                             1
+typespec_member                                        1
+=== UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
-[INF:UH0708] Writing UHDM DB: ../../build/tests/PackedArrayAssign/slpp_all/surelog.uhdm ...
+=== UHDM Object Stats Begin (Elaborated Model) ===
+bit_select                                             2
+constant                                              17
+cont_assign                                            2
+design                                                 1
+logic_net                                              3
+logic_typespec                                         4
+module                                                 3
+operation                                              1
+packed_array_typespec                                  1
+packed_array_var                                       1
+port                                                   3
+range                                                  7
+ref_obj                                                7
+struct_typespec                                        1
+struct_var                                             1
+typespec_member                                        1
+=== UHDM Object Stats End ===
+[INF:UH0708] Writing UHDM DB: ../../build/regression/PackedArrayAssign/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/PackedArrayAssign/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/PackedArrayAssign/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/tests/PackedArrayAssign/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ../../build/regression/PackedArrayAssign/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -425,4 +461,7 @@ design: (work@top)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/PackedArrayAssign/dut.sv | ${SURELOG_DIR}/build/regression/PackedArrayAssign/roundtrip/dut_000.sv | 2 | 8 | 
 

@@ -2,7 +2,7 @@ module my_opt_reduce_or();
     parameter A_SIGNED = 0;
     parameter A_WIDTH = 1;
 
-    parameter logic [1:0][2:0] _TECHMAP_CONSTMSK_A_ = '{0, 0};
+    parameter logic [1:0][2:0] _TECHMAP_CONSTMSK_A_ = '{0, 0}; 
    
     function integer count_nonconst_bits;
         integer i;

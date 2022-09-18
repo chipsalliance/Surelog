@@ -451,6 +451,10 @@ class CompileHelper final {
                          int lineNumber, UHDM::any* pexpr,
                          bool muteErrors = false);
 
+  int adjustOpSize(const UHDM::typespec* tps, UHDM::expr* cop, int opIndex, UHDM::expr* rhs,
+                   DesignComponent* component, CompileDesign* compileDesign,
+                   ValuedComponentI* instance);
+
   UHDM::expr* expandPatternAssignment(const UHDM::typespec* tps,
                                       UHDM::expr* rhs,
                                       DesignComponent* component,

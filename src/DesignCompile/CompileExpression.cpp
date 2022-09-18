@@ -809,8 +809,11 @@ any *CompileHelper::getValue(const std::string &name,
             if (result->UhdmType() == uhdmoperation) {
               operation *op = (operation *)result;
               UHDM::ExprEval eval;
-              eval.flattenPatternAssignments(s, op->Typespec(),
-                                             (UHDM::expr *)result);
+              expr *res = eval.flattenPatternAssignments(s, op->Typespec(),
+                                                         (UHDM::expr *)result);
+              if (res->UhdmType() == uhdmoperation) {
+                ((operation *)result)->Operands(((operation *)res)->Operands());
+              }
             }
           }
         }
@@ -3723,6 +3726,21 @@ uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
   if (m_checkForLoops) {
     m_stackLevel++;
   }
+  if (typespec) {
+    const std::string &name = typespec->VpiName();
+    if (name.find("::") != std::string::npos) {
+      std::vector<std::string> res;
+      StringUtils::tokenizeMulti(name, "::", res);
+      if (res.size() > 1) {
+        const std::string &packName = res[0];
+        Design *design = compileDesign->getCompiler()->getDesign();
+        if (Package *pack = design->getPackage(packName)) {
+          component = pack;
+        }
+      }
+    }
+  }
+
   UHDM::GetObjectFunctor getObjectFunctor =
       [&](const std::string &name, const any *inst,
           const any *pexpr) -> UHDM::any * {

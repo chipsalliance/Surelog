@@ -226,8 +226,10 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
               if (lhs->UhdmType() == uhdmparameter) {
                 ts = ((parameter*)lhs)->Typespec();
               }
-              rhs = m_helper.expandPatternAssignment(ts, (expr*)rhs, mod,
-                                                     m_compileDesign, instance);
+              if (m_helper.substituteAssignedValue(rhs, m_compileDesign)) {
+                rhs = m_helper.expandPatternAssignment(
+                    ts, (expr*)rhs, mod, m_compileDesign, instance);
+              }
               pclone->Rhs(rhs);
               m_helper.reorderAssignmentPattern(mod, lhs, rhs, m_compileDesign,
                                                 instance, 0);
@@ -236,12 +238,21 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
                 parameter* p = (parameter*)lhs;
                 if (const typespec* tps = p->Typespec()) {
                   UHDM::ExprEval eval;
-                  eval.flattenPatternAssignments(s, tps, (expr*)rhs);
+                  expr* tmp =
+                      eval.flattenPatternAssignments(s, tps, (expr*)rhs);
+                  if (tmp->UhdmType() == uhdmoperation) {
+                    ((operation*)rhs)->Operands(((operation*)tmp)->Operands());
+                  }
                 } else if (rhs->UhdmType() == uhdmoperation) {
                   operation* op = (operation*)rhs;
                   if (const typespec* tps = op->Typespec()) {
                     UHDM::ExprEval eval;
-                    eval.flattenPatternAssignments(s, tps, (expr*)rhs);
+                    expr* tmp =
+                        eval.flattenPatternAssignments(s, tps, (expr*)rhs);
+                    if (tmp->UhdmType() == uhdmoperation) {
+                      ((operation*)rhs)
+                          ->Operands(((operation*)tmp)->Operands());
+                    }
                   }
                 }
               }
