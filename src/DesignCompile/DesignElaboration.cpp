@@ -2140,8 +2140,11 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                   int opType = op->VpiOpType();
                   if (opType == vpiAssignmentPatternOp) {
                     if (ts) {
-                      expr = m_helper.expandPatternAssignment(
-                          ts, expr, module, m_compileDesign, instance);
+                      if (m_helper.substituteAssignedValue(expr,
+                                                           m_compileDesign)) {
+                        expr = m_helper.expandPatternAssignment(
+                            ts, expr, module, m_compileDesign, instance);
+                      }
                       if (expr) instance->setComplexValue(name, expr);
                     }
                   }

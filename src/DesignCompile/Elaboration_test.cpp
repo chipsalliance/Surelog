@@ -603,5 +603,53 @@ endmodule : top
   }
 }
 
+TEST(Elaboration, StructValToLogic) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+
+  // Preprocess, Parse, Compile, Elaborate
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+module top();
+
+   typedef struct packed {
+      logic [1:0] a;
+      logic [2:0] b;
+      logic [1:0] c;
+   } struct_t;
+
+   typedef enum logic [1:0] {
+      ENUM_ITEM = 2'b11
+   } enum_t;
+
+   parameter struct_t CTRL_RESET = '{
+      a: ENUM_ITEM,
+      b: '0,
+      c: ENUM_ITEM
+   };
+
+   parameter  logic [6:0] RESVAL = CTRL_RESET;
+
+endmodule
+  )");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto passign : *topMod->Param_assigns()) {
+      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      bool invalidValue = false;
+      const std::string& name = passign->Lhs()->VpiName();
+      if (name == "RESVAL") {
+        UHDM::ExprEval eval;
+        int64_t val = eval.get_value(invalidValue, rhs);
+        EXPECT_EQ(val, 99);
+      }
+    }
+  }
+}
+
 }  // namespace
 }  // namespace SURELOG

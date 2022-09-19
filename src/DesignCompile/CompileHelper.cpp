@@ -3761,6 +3761,79 @@ bool CompileHelper::isSelected(const FileContent* fC,
   return false;
 }
 
+int CompileHelper::adjustOpSize(const typespec* tps, expr* cop, int opIndex,
+                                UHDM::expr* rhs, DesignComponent* component,
+                                CompileDesign* compileDesign,
+                                ValuedComponentI* instance) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  bool invalidValue = false;
+  int csize = cop->VpiSize();
+  if (csize == 0) {
+    expr* vexp = reduceExpr(
+        cop, invalidValue, component, compileDesign, instance,
+        fileSystem->toPathId(cop->VpiFile(),
+                             compileDesign->getCompiler()->getSymbolTable()),
+        cop->VpiLineNo(), nullptr);
+    csize = vexp->VpiSize();
+  }
+
+  const typespec* rtps = rhs->Typespec();
+  if (rtps == nullptr) {
+    rtps = tps;
+  }
+  if (rtps->UhdmType() == uhdmstruct_typespec) {
+    struct_typespec* stps = (struct_typespec*)rtps;
+    int index = 0;
+    for (typespec_member* member : *stps->Members()) {
+      if (index == opIndex) {
+        csize = Bits(member->Typespec(), invalidValue, component, compileDesign,
+                     instance,
+                     fileSystem->toPathId(
+                         member->VpiFile(),
+                         compileDesign->getCompiler()->getSymbolTable()),
+                     member->VpiLineNo(), true, false);
+        // Fix the size of the member:
+        cop->VpiSize(csize);
+        break;
+      }
+      index++;
+    }
+  } else if (rtps->UhdmType() == uhdmarray_typespec) {
+    array_typespec* atps = (array_typespec*)rtps;
+    csize = Bits(
+        atps->Elem_typespec(), invalidValue, component, compileDesign, instance,
+        fileSystem->toPathId(rtps->VpiFile(),
+                             compileDesign->getCompiler()->getSymbolTable()),
+        rtps->VpiLineNo(), true, false);
+    // Fix the size of the member:
+    cop->VpiSize(csize);
+  } else if (rtps->UhdmType() == uhdmlogic_typespec) {
+    uint64_t fullSize = Bits(
+        rtps, invalidValue, component, compileDesign, instance,
+        fileSystem->toPathId(rtps->VpiFile(),
+                             compileDesign->getCompiler()->getSymbolTable()),
+        rtps->VpiLineNo(), true, false);
+    uint64_t innerSize = Bits(
+        rtps, invalidValue, component, compileDesign, instance,
+        fileSystem->toPathId(rtps->VpiFile(),
+                             compileDesign->getCompiler()->getSymbolTable()),
+        rtps->VpiLineNo(), true, true);
+    csize = fullSize / innerSize;
+    // Fix the size of the member:
+    cop->VpiSize(csize);
+  } else {
+    csize = Bits(
+        rtps, invalidValue, component, compileDesign, instance,
+        fileSystem->toPathId(rtps->VpiFile(),
+                             compileDesign->getCompiler()->getSymbolTable()),
+        rtps->VpiLineNo(), true, false);
+    // Fix the size of the member:
+    cop->VpiSize(csize);
+  }
+
+  return csize;
+}
+
 UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
                                                    UHDM::expr* rhs,
                                                    DesignComponent* component,
@@ -3769,36 +3842,24 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
   FileSystem* const fileSystem = FileSystem::getInstance();
   Serializer& s = compileDesign->getSerializer();
 
-  uint64_t size = 1;
   expr* result = rhs;
   VectorOfany* vars = nullptr;
   if (tps == nullptr) return result;
-  if (tps->UhdmType() == uhdmpacked_array_typespec) {
+  if (tps->UhdmType() == uhdmpacked_array_typespec ||
+      tps->UhdmType() == uhdmlogic_typespec ||
+      tps->UhdmType() == uhdmstruct_typespec) {
     vars = s.MakeAnyVec();
+  }
+
+  bool invalidValue = false;
+  uint64_t size =
+      Bits(tps, invalidValue, component, compileDesign, instance,
+           fileSystem->toPathId(rhs->VpiFile(),
+                                compileDesign->getCompiler()->getSymbolTable()),
+           rhs->VpiLineNo(), true, false);
+
+  if (tps->UhdmType() == uhdmpacked_array_typespec) {
     const packed_array_typespec* atps = (const packed_array_typespec*)tps;
-    if (atps->Ranges()) {
-      for (auto range : *atps->Ranges()) {
-        UHDM::ExprEval eval;
-        bool invalidValue = false;
-        uint64_t r1 = eval.get_value(
-            invalidValue,
-            reduceExpr((any*)range->Left_expr(), invalidValue, component,
-                       compileDesign, instance,
-                       fileSystem->toPathId(
-                           range->Left_expr()->VpiFile(),
-                           compileDesign->getCompiler()->getSymbolTable()),
-                       range->Left_expr()->VpiLineNo(), nullptr));
-        uint64_t r2 = eval.get_value(
-            invalidValue,
-            reduceExpr((any*)range->Right_expr(), invalidValue, component,
-                       compileDesign, instance,
-                       fileSystem->toPathId(
-                           range->Right_expr()->VpiFile(),
-                           compileDesign->getCompiler()->getSymbolTable()),
-                       range->Right_expr()->VpiLineNo(), nullptr));
-        size *= (r1 > r2) ? (r1 - r2 + 1) : (r2 - r1 + 1);
-      }
-    }
     typespec* etps = (typespec*)atps->Elem_typespec();
     UHDM_OBJECT_TYPE etps_type = etps->UhdmType();
     if (size > 1) {
@@ -3813,7 +3874,18 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
         result = array;
       }
     }
+  } else if (tps->UhdmType() == uhdmlogic_typespec) {
+    constant* c = s.MakeConstant();
+    c->VpiFile(rhs->VpiFile());
+    c->VpiLineNo(rhs->VpiLineNo());
+    c->VpiColumnNo(rhs->VpiColumnNo());
+    c->VpiEndLineNo(rhs->VpiEndLineNo());
+    c->VpiEndColumnNo(rhs->VpiEndColumnNo());
+    result = c;
   }
+
+  UHDM::ExprEval eval;
+  rhs = eval.flattenPatternAssignments(s, tps, (UHDM::expr*)rhs);
 
   std::vector<int> values(size, 0);
   if (rhs->UhdmType() == uhdmoperation) {
@@ -3822,14 +3894,18 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
     if (opType == vpiAssignmentPatternOp) {
       VectorOfany* operands = op->Operands();
       if (operands) {
+        // Get default
+        int defaultval = 0;
+        bool taggedPattern = false;
         for (any* op : *operands) {
           if (op->UhdmType() == uhdmtagged_pattern) {
+            taggedPattern = true;
             tagged_pattern* tp = (tagged_pattern*)op;
-            const typespec* tps = tp->Typespec();
-            if (tps->VpiName() == "default") {
+            const typespec* tpsi = tp->Typespec();
+            if (tpsi->VpiName() == "default") {
               bool invalidValue = false;
               UHDM::ExprEval eval;
-              int val = eval.get_value(
+              defaultval = eval.get_value(
                   invalidValue,
                   reduceExpr(
                       (any*)tp->Pattern(), invalidValue, component,
@@ -3838,10 +3914,103 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
                           tp->Pattern()->VpiFile(),
                           compileDesign->getCompiler()->getSymbolTable()),
                       tp->Pattern()->VpiLineNo(), nullptr));
-              for (unsigned int i = 0; i < size; i++) {
-                values[i] = val;
+
+              break;
+            }
+          }
+        }
+        if (taggedPattern) {
+          const typespec* rtps = rhs->Typespec();
+          if (rtps == nullptr) {
+            rtps = tps;
+          }
+          if (rtps->UhdmType() == uhdmstruct_typespec) {
+            struct_typespec* stps = (struct_typespec*)rtps;
+            int valIndex = 0;
+            // Apply default
+            for (typespec_member* member : *stps->Members()) {
+              uint64_t csize =
+                  Bits(member, invalidValue, component, compileDesign, instance,
+                       fileSystem->toPathId(
+                           rhs->VpiFile(),
+                           compileDesign->getCompiler()->getSymbolTable()),
+                       rhs->VpiLineNo(), true, false);
+              for (uint64_t i = 0; i < csize; i++) {
+                if (valIndex > (int)(size - 1)) {
+                  break;
+                }
+                values[valIndex] = (defaultval & (1 << i)) ? 1 : 0;
+                valIndex++;
               }
             }
+            valIndex = 0;
+            for (typespec_member* member : *stps->Members()) {
+              uint64_t csize =
+                  Bits(member, invalidValue, component, compileDesign, instance,
+                       fileSystem->toPathId(
+                           rhs->VpiFile(),
+                           compileDesign->getCompiler()->getSymbolTable()),
+                       rhs->VpiLineNo(), true, false);
+
+              for (any* op : *operands) {
+                bool found = false;
+                int val = 0;
+                if (op->UhdmType() == uhdmtagged_pattern) {
+                  taggedPattern = true;
+                  tagged_pattern* tp = (tagged_pattern*)op;
+                  const typespec* tpsi = tp->Typespec();
+                  if (tpsi->VpiName() == member->VpiName()) {
+                    bool invalidValue = false;
+                    UHDM::ExprEval eval;
+                    val = eval.get_value(
+                        invalidValue,
+                        reduceExpr(
+                            (any*)tp->Pattern(), invalidValue, component,
+                            compileDesign, instance,
+                            fileSystem->toPathId(
+                                tp->Pattern()->VpiFile(),
+                                compileDesign->getCompiler()->getSymbolTable()),
+                            tp->Pattern()->VpiLineNo(), nullptr));
+                    found = true;
+                  }
+                }
+
+                for (uint64_t i = 0; i < csize; i++) {
+                  if (valIndex > (int)(size - 1)) {
+                    break;
+                  }
+                  if (found) {
+                    values[valIndex] = (val & (1 << i)) ? 1 : 0;
+                  }
+                  valIndex++;
+                }
+              }
+            }
+          }
+        } else {
+          int valIndex = 0;
+          int opIndex = 0;
+          for (any* op : *operands) {
+            expr* cop = (expr*)op;
+            UHDM::ExprEval eval;
+            expr* vexp = reduceExpr(
+                cop, invalidValue, component, compileDesign, instance,
+                fileSystem->toPathId(
+                    cop->VpiFile(),
+                    compileDesign->getCompiler()->getSymbolTable()),
+                cop->VpiLineNo(), nullptr);
+            uint64_t v = eval.get_uvalue(invalidValue, vexp);
+            int csize = adjustOpSize(tps, cop, opIndex, rhs, component,
+                                     compileDesign, instance);
+
+            for (int i = 0; i < csize; i++) {
+              if (valIndex > (int)(size - 1)) {
+                break;
+              }
+              values[valIndex] = (v & (1 << i)) ? 1 : 0;
+              valIndex++;
+            }
+            opIndex++;
           }
         }
       }
@@ -3851,6 +4020,16 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
     if (vars && ((int)i < (int)(vars->size()))) {
       ((variables*)(*vars)[i])->VpiValue("UINT:" + std::to_string(values[i]));
     }
+  }
+
+  if (tps->UhdmType() == uhdmlogic_typespec) {
+    uint64_t value = 0;
+    for (uint64_t i = 0; i < size; i++) {
+      value |= (values[i]) ? ((uint64_t)1 << i) : 0;
+    }
+    result->VpiSize(size);
+    result->VpiValue("UINT:" + std::to_string(value));
+    result->VpiDecompile(std::to_string(size) + "\'d" + std::to_string(value));
   }
   return result;
 }

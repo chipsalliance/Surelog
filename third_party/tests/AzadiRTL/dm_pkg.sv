@@ -223,8 +223,8 @@ package dm;
 
   // debugregs in core
   typedef struct packed {
-    logic [31:28]     xdebugver;
-    logic [27:16]     zero2;
+    logic [31:28]     xdebugver; 
+    logic [27:16]     zero2; 
     logic             ebreakm;
     logic             zero1;
     logic             ebreaks;
