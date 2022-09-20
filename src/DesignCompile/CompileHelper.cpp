@@ -3986,6 +3986,12 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
                 }
               }
             }
+          } else if (rtps->UhdmType() == uhdmlogic_typespec) {
+            // Apply default
+            // parameter logic[7:0] P = '{default: 1};
+            for (uint64_t i = 0; i < size; i++) {
+              values[i] = defaultval;
+            }
           }
         } else {
           int valIndex = 0;
