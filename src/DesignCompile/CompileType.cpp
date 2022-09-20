@@ -1165,32 +1165,34 @@ UHDM::typespec* CompileHelper::compileTypespec(
       break;
     }
     case VObjectType::slSigning_Signed: {
-      // Parameter implicit type is int
-      if (ranges) {
-        int_typespec* tps = s.MakeInt_typespec();
+      if (isVariable) {
+        // 6.8 Variable declarations, implicit type
+        logic_typespec* tps = s.MakeLogic_typespec();
         tps->VpiSigned(true);
         tps->Ranges(ranges);
         result = tps;
       } else {
+        // Parameter implicit type is int
         int_typespec* tps = s.MakeInt_typespec();
         tps->VpiSigned(true);
+        tps->Ranges(ranges);
         result = tps;
       }
-
       fC->populateCoreMembers(type, type, result);
       break;
     }
     case VObjectType::slSigning_Unsigned: {
-      // Parameter implicit type is int
-      if (ranges) {
-        int_typespec* tps = s.MakeInt_typespec();
+      if (isVariable) {
+        // 6.8 Variable declarations, implicit type
+        logic_typespec* tps = s.MakeLogic_typespec();
         tps->Ranges(ranges);
         result = tps;
       } else {
+        // Parameter implicit type is int
         int_typespec* tps = s.MakeInt_typespec();
+        tps->Ranges(ranges);
         result = tps;
       }
-
       fC->populateCoreMembers(type, type, result);
       break;
     }
