@@ -651,5 +651,35 @@ endmodule
   }
 }
 
+TEST(Elaboration, DefaultValLogic) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+
+  // Preprocess, Parse, Compile, Elaborate
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+module top();
+  parameter logic[7:0] P = '{default: 1};
+endmodule
+  )");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto passign : *topMod->Param_assigns()) {
+      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      bool invalidValue = false;
+      const std::string& name = passign->Lhs()->VpiName();
+      if (name == "P") {
+        UHDM::ExprEval eval;
+        int64_t val = eval.get_value(invalidValue, rhs);
+        EXPECT_EQ(val, 255);
+      }
+    }
+  }
+}
+
 }  // namespace
 }  // namespace SURELOG
