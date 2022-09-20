@@ -362,11 +362,11 @@ enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
-int_typespec                                          12
+int_typespec                                           9
 int_var                                                4
 io_decl                                               11
 logic_net                                              6
-logic_typespec                                         4
+logic_typespec                                         7
 logic_var                                              1
 module                                                 3
 operation                                              1
@@ -389,11 +389,11 @@ enum_const                                            10
 enum_typespec                                          2
 enum_var                                               1
 function                                              18
-int_typespec                                          12
+int_typespec                                           9
 int_var                                                4
 io_decl                                               22
 logic_net                                              6
-logic_typespec                                         4
+logic_typespec                                         7
 logic_var                                              1
 module                                                 3
 operation                                              2
@@ -985,8 +985,7 @@ design: (work@add)
       |vpiActual:
       \_logic_net: (work@add.sum), line:3:24, endln:3:27
     |vpiTypedef:
-    \_int_typespec: , line:3:10, endln:3:16
-      |vpiSigned:1
+    \_logic_typespec: , line:3:10, endln:3:16
       |vpiRange:
       \_range: , line:3:17, endln:3:23
         |vpiLeftRange:
@@ -1005,6 +1004,7 @@ design: (work@add)
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
+      |vpiSigned:1
   |vpiContAssign:
   \_cont_assign: , line:5:8, endln:5:19
     |vpiParent:
@@ -1082,8 +1082,7 @@ design: (work@add)
     |vpiParent:
     \_module: work@add (work@add), file:dut.sv, line:1:1, endln:6:10
     |vpiTypespec:
-    \_int_typespec: , line:3:10, endln:3:16
-      |vpiSigned:1
+    \_logic_typespec: , line:3:10, endln:3:16
       |vpiRange:
       \_range: , line:3:17, endln:3:23
         |vpiLeftRange:
@@ -1102,6 +1101,7 @@ design: (work@add)
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
+      |vpiSigned:1
     |vpiName:sum
     |vpiFullName:work@add.sum
     |vpiSigned:1
@@ -1177,8 +1177,7 @@ design: (work@add)
       |vpiActual:
       \_logic_net: (work@add.sum), line:3:24, endln:3:27
     |vpiTypedef:
-    \_int_typespec: , line:3:10, endln:3:16
-      |vpiSigned:1
+    \_logic_typespec: , line:3:10, endln:3:16
       |vpiRange:
       \_range: , line:3:17, endln:3:23
         |vpiParent:
@@ -1199,6 +1198,7 @@ design: (work@add)
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
+      |vpiSigned:1
     |vpiInstance:
     \_module: work@add (work@add), file:dut.sv, line:1:1, endln:6:10
   |vpiContAssign:
