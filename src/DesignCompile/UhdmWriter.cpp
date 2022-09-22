@@ -3399,11 +3399,18 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
                       instanceMap, exprBuilder);
 
       } else if ((insttype == VObjectType::slUdp_instantiation) ||
-                 (insttype == VObjectType::slGate_instantiation)) {
+                 (insttype == VObjectType::slCmos_switch_instance) ||
+                 (insttype == VObjectType::slEnable_gate_instance) ||
+                 (insttype == VObjectType::slMos_switch_instance) ||
+                 (insttype == VObjectType::slN_input_gate_instance) ||
+                 (insttype == VObjectType::slN_output_gate_instance) ||
+                 (insttype == VObjectType::slPass_enable_switch_instance) ||
+                 (insttype == VObjectType::slPass_switch_instance) ||
+                 (insttype == VObjectType::slPull_gate_instance)) {
         UHDM::primitive* gate = nullptr;
         UHDM::primitive_array* gate_array = nullptr;
         const FileContent* fC = child->getFileContent();
-        NodeId gatenode = fC->Child(child->getNodeId());
+        NodeId gatenode = fC->Child(fC->Parent(child->getNodeId()));
         VObjectType gatetype = fC->Type(gatenode);
         int vpiGateType = getBuiltinType(gatetype);
         if (insttype == VObjectType::slUdp_instantiation) {

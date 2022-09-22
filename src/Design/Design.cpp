@@ -130,7 +130,14 @@ std::string Design::reportInstanceTree() const {
       type_s = "[MOD]";
       Error err(ErrorDefinition::ELAB_INSTANCE_PATH, loc);
       m_errors->addError(err);
-    } else if (type == VObjectType::slGate_instantiation) {
+    } else if ((type == VObjectType::slCmos_switch_instance) ||
+               (type == VObjectType::slEnable_gate_instance) ||
+               (type == VObjectType::slMos_switch_instance) ||
+               (type == VObjectType::slN_input_gate_instance) ||
+               (type == VObjectType::slN_output_gate_instance) ||
+               (type == VObjectType::slPass_enable_switch_instance) ||
+               (type == VObjectType::slPass_switch_instance) ||
+               (type == VObjectType::slPull_gate_instance)) {
       type_s = "[GAT]";
       Error err(ErrorDefinition::ELAB_INSTANCE_PATH, loc);
       m_errors->addError(err);

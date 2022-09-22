@@ -537,7 +537,14 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
       (inst_type == VObjectType::slModule_instantiation) ||
       (inst_type == VObjectType::slProgram_instantiation) ||
       (inst_type == VObjectType::slInterface_instantiation) ||
-      (inst_type == VObjectType::slGate_instantiation)) {
+      (inst_type == VObjectType::slCmos_switch_instance) ||
+      (inst_type == VObjectType::slEnable_gate_instance) ||
+      (inst_type == VObjectType::slMos_switch_instance) ||
+      (inst_type == VObjectType::slN_input_gate_instance) ||
+      (inst_type == VObjectType::slN_output_gate_instance) ||
+      (inst_type == VObjectType::slPass_enable_switch_instance) ||
+      (inst_type == VObjectType::slPass_switch_instance) ||
+      (inst_type == VObjectType::slPull_gate_instance)) {
     NodeId modId = fC->Child(Udp_instantiation);
     NodeId Udp_instance = fC->Sibling(modId);
     if (fC->Type(Udp_instance) == VObjectType::slParameter_value_assignment) {
@@ -691,7 +698,14 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       (inst_type == VObjectType::slModule_instantiation) ||
       (inst_type == VObjectType::slProgram_instantiation) ||
       (inst_type == VObjectType::slInterface_instantiation) ||
-      (inst_type == VObjectType::slGate_instantiation)) {
+      (inst_type == VObjectType::slCmos_switch_instance) ||
+      (inst_type == VObjectType::slEnable_gate_instance) ||
+      (inst_type == VObjectType::slMos_switch_instance) ||
+      (inst_type == VObjectType::slN_input_gate_instance) ||
+      (inst_type == VObjectType::slN_output_gate_instance) ||
+      (inst_type == VObjectType::slPass_enable_switch_instance) ||
+      (inst_type == VObjectType::slPass_switch_instance) ||
+      (inst_type == VObjectType::slPull_gate_instance)) {
     /*
     n<DUT> u<178> t<StringConst> p<191> s<190> l<20>
     n<dut> u<179> t<StringConst> p<180> l<20>
@@ -710,6 +724,24 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
     */
     NodeId modId = fC->Child(Udp_instantiation);
     NodeId Udp_instance = fC->Sibling(modId);
+    if ((inst_type == VObjectType::slCmos_switch_instance) ||
+        (inst_type == VObjectType::slEnable_gate_instance) ||
+        (inst_type == VObjectType::slMos_switch_instance) ||
+        (inst_type == VObjectType::slN_input_gate_instance) ||
+        (inst_type == VObjectType::slN_output_gate_instance) ||
+        (inst_type == VObjectType::slPass_enable_switch_instance) ||
+        (inst_type == VObjectType::slPass_switch_instance) ||
+        (inst_type == VObjectType::slPull_gate_instance)) {
+      modId = fC->Child(fC->Parent(Udp_instantiation));
+      Udp_instance = Udp_instantiation;
+      // In the case of single instance, point to the delay or parameter
+      NodeId tmp = fC->Sibling(modId);
+      if ((fC->Type(tmp) == VObjectType::slParameter_value_assignment) ||
+          (fC->Type(tmp) == VObjectType::slDelay2) ||
+          (fC->Type(tmp) == VObjectType::slDelay3)) {
+        Udp_instance = tmp;
+      }
+    }
     if (fC->Type(Udp_instance) == VObjectType::slParameter_value_assignment) {
       Udp_instance = fC->Sibling(Udp_instance);
     } else if (fC->Type(Udp_instance) == VObjectType::slDelay2 ||
@@ -816,7 +848,14 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             }
           }
         }
-        if (inst_type == VObjectType::slGate_instantiation) {
+        if ((inst_type == VObjectType::slCmos_switch_instance) ||
+            (inst_type == VObjectType::slEnable_gate_instance) ||
+            (inst_type == VObjectType::slMos_switch_instance) ||
+            (inst_type == VObjectType::slN_input_gate_instance) ||
+            (inst_type == VObjectType::slN_output_gate_instance) ||
+            (inst_type == VObjectType::slPass_enable_switch_instance) ||
+            (inst_type == VObjectType::slPass_switch_instance) ||
+            (inst_type == VObjectType::slPull_gate_instance)) {
           port* p = s.MakePort();
           if (ports == nullptr) {
             ports = s.MakePortVec();

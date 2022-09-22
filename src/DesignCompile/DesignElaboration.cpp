@@ -896,13 +896,23 @@ void DesignElaboration::elaborateInstance_(
         VObjectType gatetype = fC->Type(fC->Child(subInstanceId));
         modName = UhdmWriter::builtinGateName(gatetype);
         def = design->getComponentDefinition(modName);
-        child = factory->newModuleInstance(def, fC, subInstanceId, parent,
-                                           instName, modName);
-        parent->addSubInstance(child);
-        bindDataTypes_(parent, def);
-        NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
-        nelab->elaborateInstance(child);
-        delete nelab;
+        NodeId instanceId = fC->Sibling(fC->Child(subInstanceId));
+        while (instanceId) {
+          NodeId instId = fC->sl_collect(instanceId, slName_of_instance);
+          NodeId identifierId;
+          if (instId) {
+            identifierId = fC->Child(instId);
+            instName = fC->SymName(identifierId);
+          }
+          child = factory->newModuleInstance(def, fC, instanceId, parent,
+                                             instName, modName);
+          parent->addSubInstance(child);
+          bindDataTypes_(parent, def);
+          NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
+          nelab->elaborateInstance(child);
+          delete nelab;
+          instanceId = fC->Sibling(instanceId);
+        }
       }
       // Special module binding for generate statements
       else if (type == VObjectType::slConditional_generate_construct ||
