@@ -42,7 +42,7 @@ class ParseCache : Cache {
  private:
   ParseCache(const ParseCache& orig) = delete;
 
-  PathId getCacheFileName_(PathId svFileNameId);
+  PathId getCacheFileName_(PathId svFilePathId);
   bool restore_(PathId cacheFileId, const std::unique_ptr<uint8_t[]>& buffer);
   bool checkCacheIsValid_(PathId cacheFileId, const std::unique_ptr<uint8_t[]>& buffer);
 

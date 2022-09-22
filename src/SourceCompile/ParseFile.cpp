@@ -33,7 +33,6 @@
 #include <Surelog/SourceCompile/ParseFile.h>
 #include <Surelog/SourceCompile/SV3_1aTreeShapeListener.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/FileUtils.h>
 #include <Surelog/Utils/StringUtils.h>
 #include <Surelog/Utils/Timer.h>
 #include <antlr4-runtime.h>
@@ -269,7 +268,6 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
 
 bool ParseFile::parseOneFile_(PathId fileId, unsigned int lineOffset) {
   FileSystem* const fileSystem = FileSystem::getInstance();
-  const std::filesystem::path fileName = fileSystem->toPath(fileId);
   CommandLineParser* clp = getCompileSourceFile()->getCommandLineParser();
   PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
   Timer tmr;
@@ -319,13 +317,10 @@ bool ParseFile::parseOneFile_(PathId fileId, unsigned int lineOffset) {
         break;
     }
   } else {
-    fs::path baseFileName = FileUtils::basename(fileName);
-    if ((fileName.extension() == ".sv") || (clp->fullSVMode()) ||
-        (clp->isSVFile(fileId))) {
-      m_antlrParserHandler->m_lexer->sverilog = true;
-    } else {
-      m_antlrParserHandler->m_lexer->sverilog = false;
-    }
+    std::string_view type = std::get<1>(
+        fileSystem->getType(fileId, getCompileSourceFile()->getSymbolTable()));
+    m_antlrParserHandler->m_lexer->sverilog =
+        (type == ".sv") || clp->fullSVMode() || clp->isSVFile(fileId);
   }
 
   m_antlrParserHandler->m_lexer->removeErrorListeners();
@@ -375,7 +370,7 @@ bool ParseFile::parseOneFile_(PathId fileId, unsigned int lineOffset) {
     if (getCompileSourceFile()->getCommandLineParser()->profile()) {
       m_profileInfo +=
           "SLL Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
-          "s " + fileName.string() + "\n";
+          "s " + fileSystem->toPath(fileId).string() + "\n";
       tmr.reset();
       profileParser();
     }
@@ -399,7 +394,7 @@ bool ParseFile::parseOneFile_(PathId fileId, unsigned int lineOffset) {
     if (getCompileSourceFile()->getCommandLineParser()->profile()) {
       m_profileInfo +=
           "LL  Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
-          "s " + fileName.string() + "\n";
+          "s " + fileSystem->toPath(fileId).string() + "\n";
       tmr.reset();
       profileParser();
     }
@@ -456,7 +451,7 @@ bool ParseFile::parse() {
   FileSystem* const fileSystem = FileSystem::getInstance();
   CommandLineParser* clp = getCompileSourceFile()->getCommandLineParser();
   Precompiled* prec = Precompiled::getSingleton();
-  bool precompiled = prec->isFilePrecompiled(m_ppFileId);
+  bool precompiled = prec->isFilePrecompiled(m_ppFileId, getSymbolTable());
 
   if (m_children.empty()) {
     ParseCache cache(this);

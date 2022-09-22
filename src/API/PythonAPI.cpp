@@ -22,10 +22,11 @@
  */
 
 #include <Surelog/API/PythonAPI.h>
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/Design.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/Utils/FileUtils.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Utils/StringUtils.h>
 #include <antlr4-runtime.h>
 
@@ -48,15 +49,15 @@ std::string PythonAPI::m_invalidScriptResult = "INVALID_PYTHON_SCRIPT_RESULT";
 
 PyThreadState* PythonAPI::m_mainThreadState = nullptr;
 
-std::string PythonAPI::m_programPath = "";
+std::filesystem::path PythonAPI::m_programPath;
 
 bool PythonAPI::m_listenerLoaded = false;
 
-std::string PythonAPI::m_listenerScript;
+std::filesystem::path PythonAPI::m_listenerScript;
 
 bool PythonAPI::m_strictMode = false;
 
-std::string PythonAPI::m_builtinPath;
+std::filesystem::path PythonAPI::m_builtinPath;
 
 #ifdef SURELOG_WITH_PYTHON
 static struct PyModuleDef SLAPI_module = {PyModuleDef_HEAD_INIT,
@@ -92,7 +93,10 @@ bool PythonAPI::loadScript(const std::filesystem::path& name, bool check) {
 
 bool PythonAPI::loadScript_(const std::filesystem::path& name, bool check) {
 #ifdef SURELOG_WITH_PYTHON
-  if (FileUtils::fileExists(name)) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  SymbolTable symbolTable;
+  PathId nameId = fileSystem->toPathId(name, &symbolTable);
+  if (fileSystem->isRegularFile(nameId)) {
     std::string fname = name.string();
     FILE* fp = fopen(fname.c_str(), "r");
     PyRun_SimpleFile(fp, fname.c_str());
@@ -137,53 +141,67 @@ void PythonAPI::shutdown(PyThreadState* interp) {
 }
 
 void PythonAPI::loadScriptsInInterp_() {
+#ifdef SURELOG_WITH_PYTHON
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  SymbolTable symbolTable;
+
   bool waiverLoaded = false;
-  std::string waivers = "./slwaivers.py";
-  if (FileUtils::fileExists(waivers)) {
+  std::filesystem::path waivers = fileSystem->getCwd() / "slwaivers.py";
+  PathId waiversId = fileSystem->toPathId(waivers, &symbolTable);
+  if (fileSystem->isRegularFile(waiversId)) {
     waiverLoaded = loadScript_(waivers);
   }
 
   if (!waiverLoaded) {
-    waivers = m_programPath + "/python/slwaivers.py";
-    if (FileUtils::fileExists(waivers)) {
+    waivers = m_programPath / "python" / "slwaivers.py";
+    waiversId = fileSystem->toPathId(waivers, &symbolTable);
+    if (fileSystem->isRegularFile(waiversId)) {
       waiverLoaded = loadScript_(waivers);
     }
   }
 
   bool messageFormatLoaded = false;
-  std::string format = "./slformatmsg.py";
-  if (FileUtils::fileExists(format)) {
+  std::filesystem::path format = fileSystem->getCwd() / "slformatmsg.py";
+  PathId formatId = fileSystem->toPathId(format, &symbolTable);
+  if (fileSystem->isRegularFile(formatId)) {
     messageFormatLoaded = loadScript_(format);
   }
 
   if (!messageFormatLoaded) {
-    format = m_programPath + "/python/slformatmsg.py";
-    if (FileUtils::fileExists(format)) {
+    format = m_programPath / "python" / "slformatmsg.py";
+    formatId = fileSystem->toPathId(format, &symbolTable);
+    if (fileSystem->isRegularFile(formatId)) {
       messageFormatLoaded = loadScript_(format);
     }
   }
 
   if (!m_listenerScript.empty()) {
-    if (FileUtils::fileExists(m_listenerScript)) {
+    PathId listenerId = fileSystem->toPathId(m_listenerScript, &symbolTable);
+    if (fileSystem->isRegularFile(listenerId)) {
       m_listenerLoaded = loadScript_(m_listenerScript);
     }
   }
 
   if (!m_listenerLoaded) {
-    std::string listener = "./slSV3_1aPythonListener.py";
-    if (FileUtils::fileExists(listener)) {
+    std::filesystem::path listener =
+        fileSystem->getCwd() / "slSV3_1aPythonListener.py";
+    PathId listenerId = fileSystem->toPathId(listener, &symbolTable);
+    if (fileSystem->isRegularFile(listenerId)) {
       m_listenerScript = listener;
       m_listenerLoaded = loadScript_(listener);
     }
   }
 
   if (!m_listenerLoaded) {
-    std::string listener = m_programPath + "/python/slSV3_1aPythonListener.py";
-    if (FileUtils::fileExists(listener)) {
+    std::filesystem::path listener =
+        m_programPath / "python" / "slSV3_1aPythonListener.py";
+    PathId listenerId = fileSystem->toPathId(listener, &symbolTable);
+    if (fileSystem->isRegularFile(listenerId)) {
       m_listenerScript = listener;
       m_listenerLoaded = loadScript_(listener);
     }
   }
+#endif
 }
 
 void PythonAPI::loadScripts() {
@@ -211,14 +229,15 @@ void PythonAPI::initInterp_() {
   PyRun_SimpleString("import sys");
   PyRun_SimpleString("sys.path.append(\".\")");
   PyRun_SimpleString(
-      std::string("sys.path.append(\"" + m_programPath + "\")").c_str());
+      std::string("sys.path.append(\"" + m_programPath.string() + "\")")
+          .c_str());
 #endif
 }
 
 void PythonAPI::init(int argc, const char** argv) {
-  m_programPath = argv[0];
-  m_programPath = StringUtils::replaceAll(m_programPath, "\\", "/");
-  m_programPath = StringUtils::rtrim(m_programPath, '/');
+  std::string programPath = argv[0];
+  programPath = StringUtils::replaceAll(programPath, "\\", "/");
+  m_programPath = StringUtils::rtrim(programPath, '/');
   for (int i = 1; i < argc; i++) {
     if (!strcmp(argv[i], "-builtin")) {
       if (i < argc - 1) {

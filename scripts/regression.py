@@ -291,7 +291,7 @@ def _get_log_statistics(filepath):
           elif uhdm_dump_started and (line.startswith('|') or line.startswith('\\')):
             uhdm_line_count += 1
 
-        if 'ERR:' in line and '/dev/null' in line:
+        if 'ERR:' in line and ('/dev/null' in line or '\\dev\\null' in line):
           # On Windows, this is reported as an error but on Linux it isn't.
           # Don't count it as error on Windows as well so that numbers across platforms can match.
           negatives['ERROR'] = negatives.get('ERROR', 0) + 1

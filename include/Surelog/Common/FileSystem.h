@@ -56,7 +56,7 @@ class SymbolTable;
  * example of such are implemented in FileSystem_test.cpp for reference.
  *
  * A few words on convention:
- * 
+ *
  * Stream convention:
  *   Read/Write is used in context to text streams
  *   and Load/Save in context to binary streams.
@@ -70,12 +70,20 @@ class SymbolTable;
  *     necessarily have to be a path (in FileSystem implementation it is but
  *     doesn't have to be. What the symbol represent is up to the
  *     interpretation of the FileSystem implementation itself.
- * 
+ *
  */
 class FileSystem {
  public:
   static FileSystem *getInstance();
   static FileSystem *setInstance(FileSystem *fileSystem);
+
+  // Normalizes the input path
+  //   Standardizes the directory separator based on platform
+  //   No trailing slash regardless of whether the path exists or not
+  //   Shortens the path by removing any '.' and '..'
+  // Read comments in the implementation before using this function!
+  static std::filesystem::path normalize(const std::filesystem::path &p,
+                                         std::error_code &ec);
 
  public:
   // Convert a native filesystem path to PathId
@@ -142,6 +150,28 @@ class FileSystem {
   bool saveContent(PathId fileId, const std::vector<char> &data, bool useTemp);
   bool saveContent(PathId fileId, const std::vector<char> &data);
 
+  // Rename directory/file represented by 'whatId' to 'toId'
+  virtual bool rename(PathId whatId, PathId toId);
+
+  // Remove the file represented by 'fileId'. Note this cannot be used
+  // for removing directories.
+  virtual bool remove(PathId fileId);
+
+  // Make a new directory represented by the input 'dirId'. The parent of the
+  // input 'dirId' should already exist.
+  virtual bool mkdir(PathId dirId);
+
+  // Remove the directory represented by the input 'dirId'. The directory has
+  // to be empty. For non-empty directories, use rmtree.
+  virtual bool rmdir(PathId dirId);
+
+  // Make a new directory and all its subsequent non-existent parents.
+  virtual bool mkdirs(PathId dirId);
+
+  // Remove the direcoty represented by input 'dirId' and all
+  // subdirectories & files under it.
+  virtual bool rmtree(PathId dirId);
+
   // Returns true if the input PathId is a pre-existing native filesystem path.
   virtual bool exists(PathId id);
 
@@ -157,6 +187,43 @@ class FileSystem {
 
   // Returns the length of the file represented by the input id.
   virtual bool filesize(PathId fileId, std::streamsize *result);
+
+  // Returns the 'last modified time' for the input fileId, or the default
+  // if the file was not found or the operation failed.
+  virtual std::filesystem::file_time_type modtime(
+      PathId fileId, std::filesystem::file_time_type defaultOnFail);
+  std::filesystem::file_time_type modtime(PathId fileId);
+
+  // Find the first directory in input 'directories' that contain
+  // directory/file named 'name'.
+  // If found, return the PathId representing that directory/file
+  // and otherwise BadPathId
+  virtual PathId locate(std::string_view name, const PathIdVector &directories,
+                        SymbolTable *symbolTable);
+
+  // Returns a list of all files under the input 'dirId'.
+  virtual PathIdVector &collect(PathId dirId, SymbolTable *symbolTable,
+                                PathIdVector &container);
+  // Returns a list of all files under the input 'dirId',
+  // filtered by 'extension'.
+  virtual PathIdVector &collect(PathId dirId, std::string_view extension,
+                                SymbolTable *symbolTable,
+                                PathIdVector &container);
+  // Returns all files under the input 'dirId' that matches the input 'pattern'
+  virtual PathIdVector &matching(PathId dirId, std::string_view pattern,
+                                 SymbolTable *symbolTable,
+                                 PathIdVector &container);
+
+  // Returns child, sibling, parent, leaf and type of filesystem path
+  virtual PathId getChild(PathId id, std::string_view name,
+                          SymbolTable *symbolTable);
+  virtual PathId getSibling(PathId id, std::string_view name,
+                            SymbolTable *symbolTable);
+  virtual PathId getParent(PathId id, SymbolTable *symbolTable);
+  virtual std::pair<SymbolId, std::string_view> getLeaf(
+      PathId id, SymbolTable *symbolTable);
+  virtual std::pair<SymbolId, std::string_view> getType(
+      PathId id, SymbolTable *symbolTable);
 
   // Returns a copy of the input id registered with the input SymbolTable.
   virtual PathId copy(PathId id, SymbolTable *toSymbolTable);

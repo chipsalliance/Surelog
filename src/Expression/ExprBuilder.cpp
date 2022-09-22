@@ -861,8 +861,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         break;
       }
       case slIncDec_PlusPlus: {
-        std::string name;
-        name = fC->SymName(fC->Sibling(parent));
+        const std::string& name = fC->SymName(fC->Sibling(parent));
         Value* sval = nullptr;
         if (instance) {
           if (instance->getComplexValue(name)) {
@@ -879,8 +878,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         break;
       }
       case slIncDec_MinusMinus: {
-        std::string name;
-        name = fC->SymName(fC->Sibling(parent));
+        const std::string& name = fC->SymName(fC->Sibling(parent));
         Value* sval = nullptr;
         if (instance) {
           if (instance->getComplexValue(name)) {

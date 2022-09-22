@@ -25,7 +25,6 @@
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Package/Precompiled.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/FileUtils.h>
 
 namespace SURELOG {
 Precompiled* Precompiled::getSingleton() {
@@ -53,9 +52,10 @@ bool Precompiled::isFilePrecompiled(std::string_view fileName) const {
   return (m_packageFileSet.find(fileName) != m_packageFileSet.end());
 }
 
-bool Precompiled::isFilePrecompiled(PathId fileId) const {
-  std::filesystem::path filePath = FileSystem::getInstance()->toPath(fileId);
-  std::filesystem::path fileName = FileUtils::basename(filePath);
+bool Precompiled::isFilePrecompiled(PathId fileId,
+                                    SymbolTable* symbolTable) const {
+  std::filesystem::path fileName =
+      std::get<1>(FileSystem::getInstance()->getLeaf(fileId, symbolTable));
   return (m_packageFileSet.find(fileName) != m_packageFileSet.end());
 }
 

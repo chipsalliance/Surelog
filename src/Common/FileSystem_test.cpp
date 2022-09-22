@@ -137,5 +137,111 @@ TEST(FileSystemTest, LoadSaveOperations) {
   const std::vector<char>& expectedContent = content;
   EXPECT_EQ(actualContent, expectedContent);
 }
+
+TEST(FileSystemTest, BasicFileOperations) {
+  const fs::path testdir = testing::TempDir();
+  const fs::path dirtest = testdir / "file-exist-dir";
+  const std::string_view filename = "file-exists-test.txt";
+  const fs::path filepath = dirtest / filename;
+  const std::string_view dummy_data = "This file contains some bytes";
+
+  TestFileSystem fileSystem;
+  SymbolTable symbolTable;
+  const PathId dirId = fileSystem.toPathId(dirtest, &symbolTable);
+  const PathId fileId = fileSystem.toPathId(filepath, &symbolTable);
+
+  EXPECT_FALSE(fileSystem.exists(dirId));
+  EXPECT_TRUE(fileSystem.rmtree(dirId));  // not there: no error
+  EXPECT_FALSE(fileSystem.isDirectory(dirId));
+
+  EXPECT_TRUE(fileSystem.mkdirs(dirId));
+  EXPECT_TRUE(fileSystem.isDirectory(dirId));
+  EXPECT_FALSE(fileSystem.isRegularFile(dirId));
+
+  EXPECT_FALSE(fileSystem.exists(fileId));
+  EXPECT_TRUE(fileSystem.writeContent(fileId, dummy_data));
+  EXPECT_TRUE(fileSystem.exists(fileId));
+  EXPECT_FALSE(fileSystem.isDirectory(fileId));
+  EXPECT_TRUE(fileSystem.isRegularFile(fileId));
+
+  std::streamsize size = 0;
+  EXPECT_TRUE(fileSystem.filesize(fileId, &size));
+  EXPECT_EQ(size, dummy_data.size());
+
+  std::string content;
+  EXPECT_TRUE(fileSystem.readContent(fileId, content));
+  EXPECT_EQ(content, dummy_data);
+
+  EXPECT_FALSE(fileSystem.remove(dirId));  // Non-empty dir
+  EXPECT_TRUE(fileSystem.rmtree(dirId));
+  EXPECT_FALSE(fileSystem.exists(dirId));
+}
+
+TEST(FileSystemTest, LocateFile) {
+  const std::string search_file = "search-file.txt";
+
+  std::error_code ec;
+  const fs::path testdir = FileSystem::normalize(testing::TempDir(), ec);
+  const fs::path basedir = testdir / "locate-file-test";
+  const fs::path path1 = basedir / "dir1";
+  const fs::path path2 = basedir / "dir2";
+  const fs::path actual_dir_1 = basedir / "actual-dir-1";
+  const fs::path actual_dir_2 = basedir / "actual-dir-2";
+
+  TestFileSystem fileSystem;
+  SymbolTable symbolTable;
+
+  const PathId pathId1 = fileSystem.toPathId(path1, &symbolTable);
+  const PathId pathId2 = fileSystem.toPathId(path2, &symbolTable);
+  const PathId dirId1 = fileSystem.toPathId(actual_dir_1, &symbolTable);
+  const PathId dirId2 = fileSystem.toPathId(actual_dir_2, &symbolTable);
+
+  EXPECT_TRUE(fileSystem.mkdirs(pathId1));
+  EXPECT_TRUE(fileSystem.mkdirs(dirId1));
+  EXPECT_TRUE(fileSystem.mkdirs(dirId2));
+
+  const std::vector<PathId> directories{
+      pathId1,
+      pathId2,
+      dirId1,
+      dirId2,
+  };
+
+  // At this point, the file does not exist yet.
+  const PathId not_exists =
+      fileSystem.locate(search_file, directories, &symbolTable);
+  EXPECT_EQ(not_exists, BadPathId);
+
+  const fs::path actual_loc_1 =
+      FileSystem::normalize(actual_dir_1 / search_file, ec);
+  EXPECT_FALSE(ec);
+  std::ofstream(actual_loc_1).close();
+
+  PathId now_exists = fileSystem.locate(search_file, directories, &symbolTable);
+  EXPECT_NE(now_exists, BadPathId);
+  EXPECT_EQ(fileSystem.toPath(now_exists), actual_loc_1);
+
+  PathId already_found =
+      fileSystem.locate(search_file, directories, &symbolTable);
+  EXPECT_EQ(already_found, now_exists);
+
+  const fs::path actual_loc_2 = actual_dir_2 / search_file;
+  std::ofstream(actual_loc_2).close();
+
+  PathId now_exists_1 =
+      fileSystem.locate(search_file, directories, &symbolTable);
+  EXPECT_NE(now_exists_1, BadPathId);
+  EXPECT_EQ(fileSystem.toPath(now_exists_1), actual_loc_1);
+
+  EXPECT_TRUE(fileSystem.remove(now_exists_1));
+  EXPECT_FALSE(fileSystem.exists(now_exists_1));
+
+  PathId now_exists_2 =
+      fileSystem.locate(search_file, directories, &symbolTable);
+  EXPECT_NE(now_exists_2, BadPathId);
+  EXPECT_EQ(fileSystem.toPath(now_exists_2), actual_loc_2);
+
+  EXPECT_TRUE(fileSystem.rmtree(fileSystem.toPathId(basedir, &symbolTable)));
+}
 }  // namespace
 }  // namespace SURELOG

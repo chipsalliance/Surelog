@@ -547,7 +547,6 @@ register_gtests(
   src/SourceCompile/ParseFile_test.cpp
   src/SourceCompile/PreprocessFile_test.cpp
   src/SourceCompile/SymbolTable_test.cpp
-  src/Utils/FileUtils_test.cpp
   src/Utils/StringUtils_test.cpp
 )
 

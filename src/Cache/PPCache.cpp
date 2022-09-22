@@ -50,30 +50,33 @@ static const char FlbSchemaVersion[] = "1.3";
 // something that can be passed to the cache. That way, we can leave the
 // somewhat hard-coded notion of where cache files are.
 PathId PPCache::getCacheFileId_(PathId requestedFileId) {
+  if (!requestedFileId) requestedFileId = m_pp->getFileId(LINE1);
+  if (!requestedFileId) return BadPathId;
   FileSystem* const fileSystem = FileSystem::getInstance();
   Precompiled* prec = Precompiled::getSingleton();
   CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
-
-  if (!requestedFileId) requestedFileId = m_pp->getFileId(LINE1);
-  const fs::path svFileName = fileSystem->toPath(requestedFileId);
-  const fs::path baseFileName = FileUtils::basename(svFileName);
-  const fs::path filePath = FileUtils::getPathName(svFileName);
+  SymbolTable* symbolTable = clp->getSymbolTable();
+  const fs::path svFilePath = fileSystem->toPath(requestedFileId);
+  const fs::path svFileName =
+      std::get<1>(fileSystem->getLeaf(requestedFileId, symbolTable));
+  const fs::path svDirPath =
+      fileSystem->toPath(fileSystem->getParent(requestedFileId, symbolTable));
   fs::path hashedPath =
-      clp->noCacheHash() ? filePath : fs::path(FileUtils::hashPath(filePath));
-  fs::path fileName = hashedPath / baseFileName;
+      clp->noCacheHash() ? svDirPath : fs::path(FileUtils::hashPath(svDirPath));
+  fs::path fileName = hashedPath / svFileName;
   if (clp->parseOnly()) {
-    fileName = filePath / baseFileName;
+    fileName = svDirPath / svFileName;
   }
 
   PathId cacheDirId = clp->getCacheDirId();
-  if (prec->isFilePrecompiled(baseFileName.string())) {
+  if (prec->isFilePrecompiled(svFileName.string())) {
     cacheDirId = fileSystem->copy(
         m_pp->getCompileSourceFile()
             ->getCommandLineParser()
             ->getPrecompiledDirId(),
         m_pp->getCompileSourceFile()->getCommandLineParser()->getSymbolTable());
     m_isPrecompiled = true;
-    fileName = baseFileName;
+    fileName = svFileName;
     hashedPath.clear();
   }
 
@@ -83,7 +86,9 @@ PathId PPCache::getCacheFileId_(PathId requestedFileId) {
   if (clp->parseOnly()) libName.clear();
   fs::path cacheFileName =
       cacheDirName / libName / (fileName.string() + ".slpp");
-  FileUtils::mkDirs(cacheDirName / libName / hashedPath);
+  fileSystem->mkdirs(
+      fileSystem->toPathId(cacheDirName / libName / hashedPath,
+                           m_pp->getCompileSourceFile()->getSymbolTable()));
   return fileSystem->toPathId(cacheFileName,
                               m_pp->getCompileSourceFile()->getSymbolTable());
 }

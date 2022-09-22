@@ -36,7 +36,6 @@
 #include <Surelog/SourceCompile/PreprocessFile.h>
 #include <Surelog/SourceCompile/PythonListen.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/FileUtils.h>
 #include <Surelog/Utils/StringUtils.h>
 #include <antlr4-runtime.h>
 #include <flatbuffers/util.h>
@@ -55,15 +54,17 @@ static std::string FlbSchemaVersion = "1.0";
 PythonAPICache::PythonAPICache(PythonListen* listener) : m_listener(listener) {}
 
 PathId PythonAPICache::getCacheFileId_(PathId svFileNameId) const {
+  ParseFile* parseFile = m_listener->getParseFile();
+  if (!svFileNameId) svFileNameId = parseFile->getFileId(LINE1);
+  if (!svFileNameId) return BadPathId;
   FileSystem* const fileSystem = FileSystem::getInstance();
   PathId cacheDirId = m_listener->getCompileSourceFile()
                           ->getCommandLineParser()
                           ->getCacheDirId();
-  ParseFile* parseFile = m_listener->getParseFile();
+
   fs::path cacheDirName = fileSystem->toPath(cacheDirId);
-  if (!svFileNameId) svFileNameId = parseFile->getFileId(LINE1);
-  std::filesystem::path svFileName = fileSystem->toPath(svFileNameId);
-  svFileName = FileUtils::basename(svFileName);
+  std::filesystem::path svFileName = std::get<1>(
+      fileSystem->getLeaf(svFileNameId, parseFile->getSymbolTable()));
   Library* lib = m_listener->getCompileSourceFile()->getLibrary();
   const std::string& libName = lib->getName();
   fs::path cacheFileName =

@@ -45,6 +45,7 @@ class CommandLineParser final {
   bool parseCommandLine(int argc, const char** argv);
 
   /* Verilog command line content */
+  const PathIdVector& getWorkingDirs() const { return m_workingDirs; }
   const PathIdVector& getLibraryPaths() const { return m_libraryPaths; }
   const PathIdVector& getSourceFiles() const { return m_sourceFiles; }
   const PathIdVector& getLibraryFiles() const { return m_libraryFiles; }
@@ -71,9 +72,9 @@ class CommandLineParser final {
   /* PP Output file/dir options */
   PathId writePpOutputFileId() const { return m_writePpOutputFileId; }
   PathId getOutputDirId() const { return m_outputDirId; }
-  PathId getCompileAllDirId() const { return m_compileAllDirId; }
-  PathId getCompileUnitDirId() const { return m_compileUnitDirId; }
-  PathId getCompileDirId() const {
+  SymbolId getCompileAllDirId() const { return m_compileAllDirId; }
+  SymbolId getCompileUnitDirId() const { return m_compileUnitDirId; }
+  SymbolId getCompileDirId() const {
     return fileunit() ? m_compileUnitDirId : m_compileAllDirId;
   }
   PathId getFullCompileDirId() const { return m_fullCompileDirId; }
@@ -245,6 +246,7 @@ class CommandLineParser final {
   bool prepareCompilation_(int argc, const char** argv);
   bool setupCache_();
 
+  PathIdVector m_workingDirs;
   PathIdVector m_libraryPaths;  // -y
   PathIdVector m_sourceFiles;   // .v .sv
   PathIdSet m_svSourceFiles;    // user forced sv files
@@ -290,12 +292,12 @@ class CommandLineParser final {
   bool m_debugCache;
   unsigned short int m_nbMaxTreads;
   unsigned short int m_nbMaxProcesses;
-  PathId m_compileUnitDirId;
-  PathId m_compileAllDirId;
+  SymbolId m_compileUnitDirId;
+  SymbolId m_compileAllDirId;
   PathId m_outputDirId;
   PathId m_fullCompileDirId;
   SymbolId m_defaultLogFileId;
-  PathId m_defaultCacheDirId;
+  SymbolId m_defaultCacheDirId;
   PathId m_cacheDirId;
   PathId m_precompiledDirId;
   bool m_note;

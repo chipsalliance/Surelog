@@ -40,7 +40,6 @@
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Testbench/ClassDefinition.h>
 #include <Surelog/Testbench/Program.h>
-#include <Surelog/Utils/FileUtils.h>
 #include <Surelog/Utils/ParseUtils.h>
 #include <Surelog/Utils/StringUtils.h>
 #include <antlr4-runtime.h>

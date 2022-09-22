@@ -25,6 +25,8 @@
 #define SURELOG_PYTHONAPI_H
 #pragma once
 
+#include <Surelog/Common/PathId.h>
+
 #include <filesystem>
 #include <string>
 #include <vector>
@@ -63,8 +65,8 @@ class PythonAPI {
                          parser_rule_context* ctx);
   static std::string getInvalidScriptString() { return m_invalidScriptResult; }
   static bool isListenerLoaded() { return m_listenerLoaded; }
-  static std::string getListenerScript() { return m_listenerScript; }
-  static void setListenerScript(std::string script) {
+  static std::string getListenerScript() { return m_listenerScript.string(); }
+  static void setListenerScript(const std::filesystem::path& script) {
     m_listenerScript = script;
   }
   static bool evalScriptPerFile(const std::filesystem::path& script,
@@ -82,11 +84,11 @@ class PythonAPI {
                           bool check = false);
   static std::string m_invalidScriptResult;
   static PyThreadState* m_mainThreadState;
-  static std::string m_programPath;
+  static std::filesystem::path m_programPath;
   static bool m_listenerLoaded;
-  static std::string m_listenerScript;
+  static std::filesystem::path m_listenerScript;
   static bool m_strictMode;
-  static std::string m_builtinPath;
+  static std::filesystem::path m_builtinPath;
 };
 
 };  // namespace SURELOG

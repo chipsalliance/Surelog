@@ -25,7 +25,6 @@
 #include <Surelog/SourceCompile/PreprocessFile.h>
 #include <Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/FileUtils.h>
 #include <Surelog/Utils/ParseUtils.h>
 #include <Surelog/Utils/StringUtils.h>
 
@@ -247,14 +246,17 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
     if (m_pp->m_debugPP)
       std::cout << "PP INCLUDE DIRECTIVE " << fileName << std::endl;
 
-    PathId fileId = fileSystem->toPathId(fileName, getSymbolTable());
-    const PathId locfileId = FileUtils::locateFile(fileId, getSymbolTable(),
-                                                   m_pp->getCompileSourceFile()
-                                                       ->getCommandLineParser()
-                                                       ->getIncludePaths());
-    if (locfileId) {
-      fileName = fileSystem->toPath(locfileId).string();
-      fileId = locfileId;
+    PathId fileId = fileSystem->locate(
+        fileName,
+        m_pp->getCompileSourceFile()->getCommandLineParser()->getIncludePaths(),
+        getSymbolTable());
+    if (fileId) {
+      fileName = fileSystem->toSymbol(fileId);
+    } else {
+      // If failed to locate, then assume the same folder as the includer file
+      // and let it fail down the stream.
+      fileId = fileSystem->getSibling(m_pp->getCompileSourceFile()->getFileId(),
+                                      fileName, getSymbolTable());
     }
 
     if (m_pp->getCompileSourceFile()->getCommandLineParser()->verbose()) {
@@ -784,11 +786,23 @@ void SV3_1aPpTreeShapeListener::enterLine_directive(
   FileSystem *const fileSystem = FileSystem::getInstance();
   std::pair<int, int> lineCol =
       ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
-  std::string fileName;
-  if (ctx->String()) fileName = StringUtils::unquoted(ctx->String()->getText());
+  PathId newFileId;
+  if (ctx->String()) {
+    std::string fileName = StringUtils::unquoted(ctx->String()->getText());
+    newFileId = fileSystem->locate(
+        fileName,
+        m_pp->getCompileSourceFile()->getCommandLineParser()->getIncludePaths(),
+        getSymbolTable());
+    if (!newFileId) {
+      // If failed to locate, then assume the same folder as the includer file
+      // and let it fail down the stream.
+      newFileId =
+          fileSystem->getSibling(m_pp->getCompileSourceFile()->getFileId(),
+                                 fileName, getSymbolTable());
+    }
+  }
   std::string number;
   if (!ctx->number().empty()) number = ctx->number()[0]->getText();
-  PathId newFileId = fileSystem->toPathId(fileName, getSymbolTable());
   if (ctx->number().size() > 1) {
     std::string type = ctx->number()[1]->getText();
     int newType = atoi(type.c_str());
