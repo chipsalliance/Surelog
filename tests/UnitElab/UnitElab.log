@@ -3805,16 +3805,16 @@ Instance tree:
 [MOD] work@my_module work@top.inst[3][2][0]
 [MOD] work@my_module work@top.inst[3][2][1]
 [MOD] work@my_module work@top.inst1
-[GAT] work@and work@test.u0
+[SCO] work@and work@test.u0
 [SCO] work@test.g1 work@test.g1
 [SCO] work@test.g1 work@test.g1
-[GAT] work@and work@test.u4
+[SCO] work@and work@test.u4
 [SCO] work@test.u1 work@test.u1
 [MOD] work@small_test work@small_top.u1
 [MOD] work@bottom4 work@bottom1.u1.u2
-[GAT] work@and work@test.g1.u2
+[SCO] work@and work@test.g1.u2
 [SCO] work@test.g1.g1 work@test.g1.g1
-[GAT] work@xor work@test.u1.g1
+[SCO] work@xor work@test.u1.g1
 [SCO] work@small_top.u1.B1[0] work@small_top.u1.B1[0]
 [SCO] work@small_top.u1.B1[1] work@small_top.u1.B1[1]
 [SCO] work@small_top.u1.B1[2] work@small_top.u1.B1[2]
@@ -3826,7 +3826,7 @@ Instance tree:
 [SCO] work@small_top.u1.B1[8] work@small_top.u1.B1[8]
 [SCO] work@small_top.u1.B1[9] work@small_top.u1.B1[9]
 [MOD] work@bottom2 work@bottom1.u1.u2.u2
-[GAT] work@and work@test.g1.g1.u4
+[SCO] work@and work@test.g1.g1.u4
 [MOD] work@small_top.u1.B1[0]::M1 [U] work@small_top.u1.B1[0].N1
 [SCO] work@small_top.u1.B1[0].B2[0] work@small_top.u1.B1[0].B2[0]
 [SCO] work@small_top.u1.B1[0].B2[1] work@small_top.u1.B1[0].B2[1]
@@ -8720,13 +8720,13 @@ Instance tree:
 
 [NTE:EL0523] top.v:30:3: Instance "work@top.inst1".
 
-[NTE:EL0523] top.v:39:3: Instance "work@test.u0".
+[NTE:EL0522] top.v:39:7: Scope "work@test.u0".
 
 [NTE:EL0522] top.v:44:7: Scope "work@test.g1".
 
 [NTE:EL0522] top.v:51:5: Scope "work@test.g1".
 
-[NTE:EL0523] top.v:58:2: Instance "work@test.u4".
+[NTE:EL0522] top.v:58:6: Scope "work@test.u4".
 
 [NTE:EL0522] top.v:62:6: Scope "work@test.u1".
 
@@ -8734,11 +8734,11 @@ Instance tree:
 
 [NTE:EL0523] top.v:7:2: Instance "work@bottom1.u1.u2".
 
-[NTE:EL0523] top.v:44:7: Instance "work@test.g1.u2".
+[NTE:EL0522] top.v:44:11: Scope "work@test.g1.u2".
 
 [NTE:EL0522] top.v:52:8: Scope "work@test.g1.g1".
 
-[NTE:EL0523] top.v:64:13: Instance "work@test.u1.g1".
+[NTE:EL0522] top.v:64:17: Scope "work@test.u1.g1".
 
 [NTE:EL0522] small.v:17:1: Scope "work@small_top.u1.B1[0]".
 
@@ -8762,7 +8762,7 @@ Instance tree:
 
 [NTE:EL0523] top.v:12:1: Instance "work@bottom1.u1.u2.u2".
 
-[NTE:EL0523] top.v:53:10: Instance "work@test.g1.g1.u4".
+[NTE:EL0522] top.v:53:14: Scope "work@test.g1.g1.u4".
 
 [NTE:EL0523] small.v:20:1: Instance "work@small_top.u1.B1[0].N1".
 
@@ -17579,7 +17579,7 @@ design: (work@bottom1)
       \_gen_scope_array: (work@test.g1), line:44:7, endln:44:19
       |vpiFullName:work@test.g1
       |vpiPrimitive:
-      \_gate: work@and (work@test.g1.u2), line:44:7, endln:44:19
+      \_gate: work@and (work@test.g1.u2), line:44:11, endln:44:18
         |vpiParent:
         \_gen_scope: (work@test.g1)
         |vpiDefName:work@and
@@ -17589,12 +17589,12 @@ design: (work@bottom1)
         |vpiPrimTerm:
         \_prim_term: , line:44:14, endln:44:15
           |vpiParent:
-          \_gate: work@and (work@test.g1.u2), line:44:7, endln:44:19
+          \_gate: work@and (work@test.g1.u2), line:44:11, endln:44:18
           |vpiDirection:2
           |vpiExpr:
           \_ref_obj: (work@test.g1.a), line:44:14, endln:44:15
             |vpiParent:
-            \_gate: work@and (work@test.g1.u2), line:44:7, endln:44:19
+            \_gate: work@and (work@test.g1.u2), line:44:11, endln:44:18
             |vpiName:a
             |vpiFullName:work@test.g1.a
             |vpiActual:
@@ -17602,13 +17602,13 @@ design: (work@bottom1)
         |vpiPrimTerm:
         \_prim_term: , line:44:16, endln:44:17
           |vpiParent:
-          \_gate: work@and (work@test.g1.u2), line:44:7, endln:44:19
+          \_gate: work@and (work@test.g1.u2), line:44:11, endln:44:18
           |vpiDirection:1
           |vpiTermIndex:1
           |vpiExpr:
           \_ref_obj: (work@test.g1.b), line:44:16, endln:44:17
             |vpiParent:
-            \_gate: work@and (work@test.g1.u2), line:44:7, endln:44:19
+            \_gate: work@and (work@test.g1.u2), line:44:11, endln:44:18
             |vpiName:b
             |vpiFullName:work@test.g1.b
             |vpiActual:
@@ -17636,7 +17636,7 @@ design: (work@bottom1)
           \_gen_scope_array: (work@test.g1.g1), line:52:8, endln:54:11
           |vpiFullName:work@test.g1.g1
           |vpiPrimitive:
-          \_gate: work@and (work@test.g1.g1.u4), line:53:10, endln:53:22
+          \_gate: work@and (work@test.g1.g1.u4), line:53:14, endln:53:21
             |vpiParent:
             \_gen_scope: (work@test.g1.g1)
             |vpiDefName:work@and
@@ -17646,12 +17646,12 @@ design: (work@bottom1)
             |vpiPrimTerm:
             \_prim_term: , line:53:17, endln:53:18
               |vpiParent:
-              \_gate: work@and (work@test.g1.g1.u4), line:53:10, endln:53:22
+              \_gate: work@and (work@test.g1.g1.u4), line:53:14, endln:53:21
               |vpiDirection:2
               |vpiExpr:
               \_ref_obj: (work@test.g1.g1.a), line:53:17, endln:53:18
                 |vpiParent:
-                \_gate: work@and (work@test.g1.g1.u4), line:53:10, endln:53:22
+                \_gate: work@and (work@test.g1.g1.u4), line:53:14, endln:53:21
                 |vpiName:a
                 |vpiFullName:work@test.g1.g1.a
                 |vpiActual:
@@ -17659,13 +17659,13 @@ design: (work@bottom1)
             |vpiPrimTerm:
             \_prim_term: , line:53:19, endln:53:20
               |vpiParent:
-              \_gate: work@and (work@test.g1.g1.u4), line:53:10, endln:53:22
+              \_gate: work@and (work@test.g1.g1.u4), line:53:14, endln:53:21
               |vpiDirection:1
               |vpiTermIndex:1
               |vpiExpr:
               \_ref_obj: (work@test.g1.g1.b), line:53:19, endln:53:20
                 |vpiParent:
-                \_gate: work@and (work@test.g1.g1.u4), line:53:10, endln:53:22
+                \_gate: work@and (work@test.g1.g1.u4), line:53:14, endln:53:21
                 |vpiName:b
                 |vpiFullName:work@test.g1.g1.b
                 |vpiActual:
@@ -17689,7 +17689,7 @@ design: (work@bottom1)
         |vpiFullName:work@test.u1.c
         |vpiNetType:1
       |vpiPrimitive:
-      \_gate: work@xor (work@test.u1.g1), line:64:13, endln:64:29
+      \_gate: work@xor (work@test.u1.g1), line:64:17, endln:64:28
         |vpiParent:
         \_gen_scope: (work@test.u1)
         |vpiDefName:work@xor
@@ -17699,12 +17699,12 @@ design: (work@bottom1)
         |vpiPrimTerm:
         \_prim_term: , line:64:20, endln:64:21
           |vpiParent:
-          \_gate: work@xor (work@test.u1.g1), line:64:13, endln:64:29
+          \_gate: work@xor (work@test.u1.g1), line:64:17, endln:64:28
           |vpiDirection:2
           |vpiExpr:
           \_ref_obj: (work@test.u1.a), line:64:20, endln:64:21
             |vpiParent:
-            \_gate: work@xor (work@test.u1.g1), line:64:13, endln:64:29
+            \_gate: work@xor (work@test.u1.g1), line:64:17, endln:64:28
             |vpiName:a
             |vpiFullName:work@test.u1.a
             |vpiActual:
@@ -17712,13 +17712,13 @@ design: (work@bottom1)
         |vpiPrimTerm:
         \_prim_term: , line:64:23, endln:64:24
           |vpiParent:
-          \_gate: work@xor (work@test.u1.g1), line:64:13, endln:64:29
+          \_gate: work@xor (work@test.u1.g1), line:64:17, endln:64:28
           |vpiDirection:1
           |vpiTermIndex:1
           |vpiExpr:
           \_ref_obj: (work@test.u1.b), line:64:23, endln:64:24
             |vpiParent:
-            \_gate: work@xor (work@test.u1.g1), line:64:13, endln:64:29
+            \_gate: work@xor (work@test.u1.g1), line:64:17, endln:64:28
             |vpiName:b
             |vpiFullName:work@test.u1.b
             |vpiActual:
@@ -17726,19 +17726,19 @@ design: (work@bottom1)
         |vpiPrimTerm:
         \_prim_term: , line:64:26, endln:64:27
           |vpiParent:
-          \_gate: work@xor (work@test.u1.g1), line:64:13, endln:64:29
+          \_gate: work@xor (work@test.u1.g1), line:64:17, endln:64:28
           |vpiDirection:1
           |vpiTermIndex:2
           |vpiExpr:
           \_ref_obj: (work@test.u1.c), line:64:26, endln:64:27
             |vpiParent:
-            \_gate: work@xor (work@test.u1.g1), line:64:13, endln:64:29
+            \_gate: work@xor (work@test.u1.g1), line:64:17, endln:64:28
             |vpiName:c
             |vpiFullName:work@test.u1.c
             |vpiActual:
             \_logic_net: (work@test.u1.c), line:64:26, endln:64:27
   |vpiPrimitive:
-  \_gate: work@and (work@test.u0), line:39:3, endln:39:15
+  \_gate: work@and (work@test.u0), line:39:7, endln:39:14
     |vpiParent:
     \_module: work@test (work@test), file:top.v, line:35:1, endln:76:10
     |vpiDefName:work@and
@@ -17748,12 +17748,12 @@ design: (work@bottom1)
     |vpiPrimTerm:
     \_prim_term: , line:39:10, endln:39:11
       |vpiParent:
-      \_gate: work@and (work@test.u0), line:39:3, endln:39:15
+      \_gate: work@and (work@test.u0), line:39:7, endln:39:14
       |vpiDirection:2
       |vpiExpr:
       \_ref_obj: (work@test.a), line:39:10, endln:39:11
         |vpiParent:
-        \_gate: work@and (work@test.u0), line:39:3, endln:39:15
+        \_gate: work@and (work@test.u0), line:39:7, endln:39:14
         |vpiName:a
         |vpiFullName:work@test.a
         |vpiActual:
@@ -17761,19 +17761,19 @@ design: (work@bottom1)
     |vpiPrimTerm:
     \_prim_term: , line:39:12, endln:39:13
       |vpiParent:
-      \_gate: work@and (work@test.u0), line:39:3, endln:39:15
+      \_gate: work@and (work@test.u0), line:39:7, endln:39:14
       |vpiDirection:1
       |vpiTermIndex:1
       |vpiExpr:
       \_ref_obj: (work@test.b), line:39:12, endln:39:13
         |vpiParent:
-        \_gate: work@and (work@test.u0), line:39:3, endln:39:15
+        \_gate: work@and (work@test.u0), line:39:7, endln:39:14
         |vpiName:b
         |vpiFullName:work@test.b
         |vpiActual:
         \_logic_net: (work@test.b), line:35:16, endln:35:17
   |vpiPrimitive:
-  \_gate: work@and (work@test.u4), line:58:2, endln:58:14
+  \_gate: work@and (work@test.u4), line:58:6, endln:58:13
     |vpiParent:
     \_module: work@test (work@test), file:top.v, line:35:1, endln:76:10
     |vpiDefName:work@and
@@ -17783,12 +17783,12 @@ design: (work@bottom1)
     |vpiPrimTerm:
     \_prim_term: , line:58:9, endln:58:10
       |vpiParent:
-      \_gate: work@and (work@test.u4), line:58:2, endln:58:14
+      \_gate: work@and (work@test.u4), line:58:6, endln:58:13
       |vpiDirection:2
       |vpiExpr:
       \_ref_obj: (work@test.a), line:58:9, endln:58:10
         |vpiParent:
-        \_gate: work@and (work@test.u4), line:58:2, endln:58:14
+        \_gate: work@and (work@test.u4), line:58:6, endln:58:13
         |vpiName:a
         |vpiFullName:work@test.a
         |vpiActual:
@@ -17796,13 +17796,13 @@ design: (work@bottom1)
     |vpiPrimTerm:
     \_prim_term: , line:58:11, endln:58:12
       |vpiParent:
-      \_gate: work@and (work@test.u4), line:58:2, endln:58:14
+      \_gate: work@and (work@test.u4), line:58:6, endln:58:13
       |vpiDirection:1
       |vpiTermIndex:1
       |vpiExpr:
       \_ref_obj: (work@test.b), line:58:11, endln:58:12
         |vpiParent:
-        \_gate: work@and (work@test.u4), line:58:2, endln:58:14
+        \_gate: work@and (work@test.u4), line:58:6, endln:58:13
         |vpiName:b
         |vpiFullName:work@test.b
         |vpiActual:

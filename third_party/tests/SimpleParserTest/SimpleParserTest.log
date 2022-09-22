@@ -96,9 +96,9 @@ there are 1 more instances of this message.
 
 [NTE:EL0509] Max instance depth: 2.
 
-[NTE:EL0510] Nb instances: 20.
+[NTE:EL0510] Nb instances: 22.
 
-[NTE:EL0511] Nb leaf instances: 10.
+[NTE:EL0511] Nb leaf instances: 12.
 
 [WRN:EL0512] Nb undefined modules: 1.
 
@@ -129,7 +129,7 @@ event_control                                         32
 for_stmt                                              11
 func_call                                              2
 function                                               9
-gate                                                   3
+gate                                                   5
 if_else                                               16
 if_stmt                                               21
 include_file_info                                      1
@@ -150,10 +150,10 @@ packed_array_typespec                                  3
 param_assign                                          14
 parameter                                             14
 part_select                                            9
-port                                                 157
-prim_term                                             25
+port                                                 163
+prim_term                                             31
 range                                                133
-ref_obj                                              639
+ref_obj                                              645
 ref_var                                               11
 repeat                                                 8
 switch_tran                                            4
@@ -14789,7 +14789,7 @@ design: (work@dff_async_reset)
     |vpiTypedef:
     \_logic_typespec: , line:9:8, endln:9:8
   |vpiPrimitive:
-  \_gate: work@and (work@full_adder_gates.U_and1), line:12:1, endln:14:23
+  \_gate: work@and (work@full_adder_gates.U_and1), line:12:5, endln:12:22
     |vpiParent:
     \_module: work@full_adder_gates (work@full_adder_gates), file:full_adder.v, line:7:1, endln:18:10
     |vpiDefName:work@and
@@ -14799,12 +14799,12 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:12:13, endln:12:17
       |vpiParent:
-      \_gate: work@and (work@full_adder_gates.U_and1), line:12:1, endln:14:23
+      \_gate: work@and (work@full_adder_gates.U_and1), line:12:5, endln:12:22
       |vpiDirection:2
       |vpiExpr:
       \_ref_obj: (work@full_adder_gates.and1), line:12:13, endln:12:17
         |vpiParent:
-        \_gate: work@and (work@full_adder_gates.U_and1), line:12:1, endln:14:23
+        \_gate: work@and (work@full_adder_gates.U_and1), line:12:5, endln:12:22
         |vpiName:and1
         |vpiFullName:work@full_adder_gates.and1
         |vpiActual:
@@ -14812,13 +14812,13 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:12:18, endln:12:19
       |vpiParent:
-      \_gate: work@and (work@full_adder_gates.U_and1), line:12:1, endln:14:23
+      \_gate: work@and (work@full_adder_gates.U_and1), line:12:5, endln:12:22
       |vpiDirection:1
       |vpiTermIndex:1
       |vpiExpr:
       \_ref_obj: (work@full_adder_gates.x), line:12:18, endln:12:19
         |vpiParent:
-        \_gate: work@and (work@full_adder_gates.U_and1), line:12:1, endln:14:23
+        \_gate: work@and (work@full_adder_gates.U_and1), line:12:5, endln:12:22
         |vpiName:x
         |vpiFullName:work@full_adder_gates.x
         |vpiActual:
@@ -14826,19 +14826,117 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:12:20, endln:12:21
       |vpiParent:
-      \_gate: work@and (work@full_adder_gates.U_and1), line:12:1, endln:14:23
+      \_gate: work@and (work@full_adder_gates.U_and1), line:12:5, endln:12:22
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
       \_ref_obj: (work@full_adder_gates.y), line:12:20, endln:12:21
         |vpiParent:
-        \_gate: work@and (work@full_adder_gates.U_and1), line:12:1, endln:14:23
+        \_gate: work@and (work@full_adder_gates.U_and1), line:12:5, endln:12:22
         |vpiName:y
         |vpiFullName:work@full_adder_gates.y
         |vpiActual:
         \_logic_net: (work@full_adder_gates.y), line:7:27, endln:7:28
   |vpiPrimitive:
-  \_gate: work@or (work@full_adder_gates.U_or), line:15:1, endln:15:35
+  \_gate: work@and (work@full_adder_gates.U_and2), line:13:5, endln:13:22
+    |vpiParent:
+    \_module: work@full_adder_gates (work@full_adder_gates), file:full_adder.v, line:7:1, endln:18:10
+    |vpiDefName:work@and
+    |vpiName:U_and2
+    |vpiFullName:work@full_adder_gates.U_and2
+    |vpiPrimType:1
+    |vpiPrimTerm:
+    \_prim_term: , line:13:13, endln:13:17
+      |vpiParent:
+      \_gate: work@and (work@full_adder_gates.U_and2), line:13:5, endln:13:22
+      |vpiDirection:2
+      |vpiExpr:
+      \_ref_obj: (work@full_adder_gates.and2), line:13:13, endln:13:17
+        |vpiParent:
+        \_gate: work@and (work@full_adder_gates.U_and2), line:13:5, endln:13:22
+        |vpiName:and2
+        |vpiFullName:work@full_adder_gates.and2
+        |vpiActual:
+        \_logic_net: (work@full_adder_gates.and2), line:10:11, endln:10:15
+    |vpiPrimTerm:
+    \_prim_term: , line:13:18, endln:13:19
+      |vpiParent:
+      \_gate: work@and (work@full_adder_gates.U_and2), line:13:5, endln:13:22
+      |vpiDirection:1
+      |vpiTermIndex:1
+      |vpiExpr:
+      \_ref_obj: (work@full_adder_gates.x), line:13:18, endln:13:19
+        |vpiParent:
+        \_gate: work@and (work@full_adder_gates.U_and2), line:13:5, endln:13:22
+        |vpiName:x
+        |vpiFullName:work@full_adder_gates.x
+        |vpiActual:
+        \_logic_net: (work@full_adder_gates.x), line:7:25, endln:7:26
+    |vpiPrimTerm:
+    \_prim_term: , line:13:20, endln:13:21
+      |vpiParent:
+      \_gate: work@and (work@full_adder_gates.U_and2), line:13:5, endln:13:22
+      |vpiDirection:1
+      |vpiTermIndex:2
+      |vpiExpr:
+      \_ref_obj: (work@full_adder_gates.z), line:13:20, endln:13:21
+        |vpiParent:
+        \_gate: work@and (work@full_adder_gates.U_and2), line:13:5, endln:13:22
+        |vpiName:z
+        |vpiFullName:work@full_adder_gates.z
+        |vpiActual:
+        \_logic_net: (work@full_adder_gates.z), line:7:29, endln:7:30
+  |vpiPrimitive:
+  \_gate: work@and (work@full_adder_gates.U_and3), line:14:5, endln:14:22
+    |vpiParent:
+    \_module: work@full_adder_gates (work@full_adder_gates), file:full_adder.v, line:7:1, endln:18:10
+    |vpiDefName:work@and
+    |vpiName:U_and3
+    |vpiFullName:work@full_adder_gates.U_and3
+    |vpiPrimType:1
+    |vpiPrimTerm:
+    \_prim_term: , line:14:13, endln:14:17
+      |vpiParent:
+      \_gate: work@and (work@full_adder_gates.U_and3), line:14:5, endln:14:22
+      |vpiDirection:2
+      |vpiExpr:
+      \_ref_obj: (work@full_adder_gates.and3), line:14:13, endln:14:17
+        |vpiParent:
+        \_gate: work@and (work@full_adder_gates.U_and3), line:14:5, endln:14:22
+        |vpiName:and3
+        |vpiFullName:work@full_adder_gates.and3
+        |vpiActual:
+        \_logic_net: (work@full_adder_gates.and3), line:10:16, endln:10:20
+    |vpiPrimTerm:
+    \_prim_term: , line:14:18, endln:14:19
+      |vpiParent:
+      \_gate: work@and (work@full_adder_gates.U_and3), line:14:5, endln:14:22
+      |vpiDirection:1
+      |vpiTermIndex:1
+      |vpiExpr:
+      \_ref_obj: (work@full_adder_gates.y), line:14:18, endln:14:19
+        |vpiParent:
+        \_gate: work@and (work@full_adder_gates.U_and3), line:14:5, endln:14:22
+        |vpiName:y
+        |vpiFullName:work@full_adder_gates.y
+        |vpiActual:
+        \_logic_net: (work@full_adder_gates.y), line:7:27, endln:7:28
+    |vpiPrimTerm:
+    \_prim_term: , line:14:20, endln:14:21
+      |vpiParent:
+      \_gate: work@and (work@full_adder_gates.U_and3), line:14:5, endln:14:22
+      |vpiDirection:1
+      |vpiTermIndex:2
+      |vpiExpr:
+      \_ref_obj: (work@full_adder_gates.z), line:14:20, endln:14:21
+        |vpiParent:
+        \_gate: work@and (work@full_adder_gates.U_and3), line:14:5, endln:14:22
+        |vpiName:z
+        |vpiFullName:work@full_adder_gates.z
+        |vpiActual:
+        \_logic_net: (work@full_adder_gates.z), line:7:29, endln:7:30
+  |vpiPrimitive:
+  \_gate: work@or (work@full_adder_gates.U_or), line:15:5, endln:15:34
     |vpiParent:
     \_module: work@full_adder_gates (work@full_adder_gates), file:full_adder.v, line:7:1, endln:18:10
     |vpiDefName:work@or
@@ -14848,12 +14946,12 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:15:13, endln:15:18
       |vpiParent:
-      \_gate: work@or (work@full_adder_gates.U_or), line:15:1, endln:15:35
+      \_gate: work@or (work@full_adder_gates.U_or), line:15:5, endln:15:34
       |vpiDirection:2
       |vpiExpr:
       \_ref_obj: (work@full_adder_gates.carry), line:15:13, endln:15:18
         |vpiParent:
-        \_gate: work@or (work@full_adder_gates.U_or), line:15:1, endln:15:35
+        \_gate: work@or (work@full_adder_gates.U_or), line:15:5, endln:15:34
         |vpiName:carry
         |vpiFullName:work@full_adder_gates.carry
         |vpiActual:
@@ -14861,13 +14959,13 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:15:19, endln:15:23
       |vpiParent:
-      \_gate: work@or (work@full_adder_gates.U_or), line:15:1, endln:15:35
+      \_gate: work@or (work@full_adder_gates.U_or), line:15:5, endln:15:34
       |vpiDirection:1
       |vpiTermIndex:1
       |vpiExpr:
       \_ref_obj: (work@full_adder_gates.and1), line:15:19, endln:15:23
         |vpiParent:
-        \_gate: work@or (work@full_adder_gates.U_or), line:15:1, endln:15:35
+        \_gate: work@or (work@full_adder_gates.U_or), line:15:5, endln:15:34
         |vpiName:and1
         |vpiFullName:work@full_adder_gates.and1
         |vpiActual:
@@ -14875,13 +14973,13 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:15:24, endln:15:28
       |vpiParent:
-      \_gate: work@or (work@full_adder_gates.U_or), line:15:1, endln:15:35
+      \_gate: work@or (work@full_adder_gates.U_or), line:15:5, endln:15:34
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
       \_ref_obj: (work@full_adder_gates.and2), line:15:24, endln:15:28
         |vpiParent:
-        \_gate: work@or (work@full_adder_gates.U_or), line:15:1, endln:15:35
+        \_gate: work@or (work@full_adder_gates.U_or), line:15:5, endln:15:34
         |vpiName:and2
         |vpiFullName:work@full_adder_gates.and2
         |vpiActual:
@@ -14889,19 +14987,19 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:15:29, endln:15:33
       |vpiParent:
-      \_gate: work@or (work@full_adder_gates.U_or), line:15:1, endln:15:35
+      \_gate: work@or (work@full_adder_gates.U_or), line:15:5, endln:15:34
       |vpiDirection:1
       |vpiTermIndex:3
       |vpiExpr:
       \_ref_obj: (work@full_adder_gates.and3), line:15:29, endln:15:33
         |vpiParent:
-        \_gate: work@or (work@full_adder_gates.U_or), line:15:1, endln:15:35
+        \_gate: work@or (work@full_adder_gates.U_or), line:15:5, endln:15:34
         |vpiName:and3
         |vpiFullName:work@full_adder_gates.and3
         |vpiActual:
         \_logic_net: (work@full_adder_gates.and3), line:10:16, endln:10:20
   |vpiPrimitive:
-  \_gate: work@xor (work@full_adder_gates.U_sum), line:16:1, endln:16:23
+  \_gate: work@xor (work@full_adder_gates.U_sum), line:16:5, endln:16:22
     |vpiParent:
     \_module: work@full_adder_gates (work@full_adder_gates), file:full_adder.v, line:7:1, endln:18:10
     |vpiDefName:work@xor
@@ -14911,12 +15009,12 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:16:12, endln:16:15
       |vpiParent:
-      \_gate: work@xor (work@full_adder_gates.U_sum), line:16:1, endln:16:23
+      \_gate: work@xor (work@full_adder_gates.U_sum), line:16:5, endln:16:22
       |vpiDirection:2
       |vpiExpr:
       \_ref_obj: (work@full_adder_gates.sum), line:16:12, endln:16:15
         |vpiParent:
-        \_gate: work@xor (work@full_adder_gates.U_sum), line:16:1, endln:16:23
+        \_gate: work@xor (work@full_adder_gates.U_sum), line:16:5, endln:16:22
         |vpiName:sum
         |vpiFullName:work@full_adder_gates.sum
         |vpiActual:
@@ -14924,13 +15022,13 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:16:16, endln:16:17
       |vpiParent:
-      \_gate: work@xor (work@full_adder_gates.U_sum), line:16:1, endln:16:23
+      \_gate: work@xor (work@full_adder_gates.U_sum), line:16:5, endln:16:22
       |vpiDirection:1
       |vpiTermIndex:1
       |vpiExpr:
       \_ref_obj: (work@full_adder_gates.x), line:16:16, endln:16:17
         |vpiParent:
-        \_gate: work@xor (work@full_adder_gates.U_sum), line:16:1, endln:16:23
+        \_gate: work@xor (work@full_adder_gates.U_sum), line:16:5, endln:16:22
         |vpiName:x
         |vpiFullName:work@full_adder_gates.x
         |vpiActual:
@@ -14938,13 +15036,13 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:16:18, endln:16:19
       |vpiParent:
-      \_gate: work@xor (work@full_adder_gates.U_sum), line:16:1, endln:16:23
+      \_gate: work@xor (work@full_adder_gates.U_sum), line:16:5, endln:16:22
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
       \_ref_obj: (work@full_adder_gates.y), line:16:18, endln:16:19
         |vpiParent:
-        \_gate: work@xor (work@full_adder_gates.U_sum), line:16:1, endln:16:23
+        \_gate: work@xor (work@full_adder_gates.U_sum), line:16:5, endln:16:22
         |vpiName:y
         |vpiFullName:work@full_adder_gates.y
         |vpiActual:
@@ -14952,13 +15050,13 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:16:20, endln:16:21
       |vpiParent:
-      \_gate: work@xor (work@full_adder_gates.U_sum), line:16:1, endln:16:23
+      \_gate: work@xor (work@full_adder_gates.U_sum), line:16:5, endln:16:22
       |vpiDirection:1
       |vpiTermIndex:3
       |vpiExpr:
       \_ref_obj: (work@full_adder_gates.z), line:16:20, endln:16:21
         |vpiParent:
-        \_gate: work@xor (work@full_adder_gates.U_sum), line:16:1, endln:16:23
+        \_gate: work@xor (work@full_adder_gates.U_sum), line:16:5, endln:16:22
         |vpiName:z
         |vpiFullName:work@full_adder_gates.z
         |vpiActual:
@@ -15396,7 +15494,7 @@ design: (work@dff_async_reset)
     |vpiTypedef:
     \_logic_typespec: , line:10:11, endln:10:11
   |vpiPrimitive:
-  \_switch_tran: work@pmos (work@mux21_switch.N1), line:16:4, endln:16:29
+  \_switch_tran: work@pmos (work@mux21_switch.N1), line:16:9, endln:16:28
     |vpiParent:
     \_module: work@mux21_switch (work@mux21_switch), file:mux21.v, line:7:1, endln:22:10
     |vpiDefName:work@pmos
@@ -15406,12 +15504,12 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:16:13, endln:16:14
       |vpiParent:
-      \_switch_tran: work@pmos (work@mux21_switch.N1), line:16:4, endln:16:29
+      \_switch_tran: work@pmos (work@mux21_switch.N1), line:16:9, endln:16:28
       |vpiDirection:2
       |vpiExpr:
       \_ref_obj: (work@mux21_switch.e), line:16:13, endln:16:14
         |vpiParent:
-        \_switch_tran: work@pmos (work@mux21_switch.N1), line:16:4, endln:16:29
+        \_switch_tran: work@pmos (work@mux21_switch.N1), line:16:9, endln:16:28
         |vpiName:e
         |vpiFullName:work@mux21_switch.e
         |vpiActual:
@@ -15419,13 +15517,13 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:16:16, endln:16:21
       |vpiParent:
-      \_switch_tran: work@pmos (work@mux21_switch.N1), line:16:4, endln:16:29
+      \_switch_tran: work@pmos (work@mux21_switch.N1), line:16:9, endln:16:28
       |vpiDirection:1
       |vpiTermIndex:1
       |vpiExpr:
       \_ref_obj: (work@mux21_switch.power), line:16:16, endln:16:21
         |vpiParent:
-        \_switch_tran: work@pmos (work@mux21_switch.N1), line:16:4, endln:16:29
+        \_switch_tran: work@pmos (work@mux21_switch.N1), line:16:9, endln:16:28
         |vpiName:power
         |vpiFullName:work@mux21_switch.power
         |vpiActual:
@@ -15433,19 +15531,19 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:16:23, endln:16:27
       |vpiParent:
-      \_switch_tran: work@pmos (work@mux21_switch.N1), line:16:4, endln:16:29
+      \_switch_tran: work@pmos (work@mux21_switch.N1), line:16:9, endln:16:28
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
       \_ref_obj: (work@mux21_switch.ctrl), line:16:23, endln:16:27
         |vpiParent:
-        \_switch_tran: work@pmos (work@mux21_switch.N1), line:16:4, endln:16:29
+        \_switch_tran: work@pmos (work@mux21_switch.N1), line:16:9, endln:16:28
         |vpiName:ctrl
         |vpiFullName:work@mux21_switch.ctrl
         |vpiActual:
         \_logic_net: (work@mux21_switch.ctrl), line:7:27, endln:7:31
   |vpiPrimitive:
-  \_switch_tran: work@nmos (work@mux21_switch.N2), line:17:4, endln:17:30
+  \_switch_tran: work@nmos (work@mux21_switch.N2), line:17:9, endln:17:29
     |vpiParent:
     \_module: work@mux21_switch (work@mux21_switch), file:mux21.v, line:7:1, endln:22:10
     |vpiDefName:work@nmos
@@ -15455,12 +15553,12 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:17:13, endln:17:14
       |vpiParent:
-      \_switch_tran: work@nmos (work@mux21_switch.N2), line:17:4, endln:17:30
+      \_switch_tran: work@nmos (work@mux21_switch.N2), line:17:9, endln:17:29
       |vpiDirection:2
       |vpiExpr:
       \_ref_obj: (work@mux21_switch.e), line:17:13, endln:17:14
         |vpiParent:
-        \_switch_tran: work@nmos (work@mux21_switch.N2), line:17:4, endln:17:30
+        \_switch_tran: work@nmos (work@mux21_switch.N2), line:17:9, endln:17:29
         |vpiName:e
         |vpiFullName:work@mux21_switch.e
         |vpiActual:
@@ -15468,13 +15566,13 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:17:16, endln:17:22
       |vpiParent:
-      \_switch_tran: work@nmos (work@mux21_switch.N2), line:17:4, endln:17:30
+      \_switch_tran: work@nmos (work@mux21_switch.N2), line:17:9, endln:17:29
       |vpiDirection:1
       |vpiTermIndex:1
       |vpiExpr:
       \_ref_obj: (work@mux21_switch.ground), line:17:16, endln:17:22
         |vpiParent:
-        \_switch_tran: work@nmos (work@mux21_switch.N2), line:17:4, endln:17:30
+        \_switch_tran: work@nmos (work@mux21_switch.N2), line:17:9, endln:17:29
         |vpiName:ground
         |vpiFullName:work@mux21_switch.ground
         |vpiActual:
@@ -15482,19 +15580,19 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:17:24, endln:17:28
       |vpiParent:
-      \_switch_tran: work@nmos (work@mux21_switch.N2), line:17:4, endln:17:30
+      \_switch_tran: work@nmos (work@mux21_switch.N2), line:17:9, endln:17:29
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
       \_ref_obj: (work@mux21_switch.ctrl), line:17:24, endln:17:28
         |vpiParent:
-        \_switch_tran: work@nmos (work@mux21_switch.N2), line:17:4, endln:17:30
+        \_switch_tran: work@nmos (work@mux21_switch.N2), line:17:9, endln:17:29
         |vpiName:ctrl
         |vpiFullName:work@mux21_switch.ctrl
         |vpiActual:
         \_logic_net: (work@mux21_switch.ctrl), line:7:27, endln:7:31
   |vpiPrimitive:
-  \_switch_tran: work@cmos (work@mux21_switch.C1), line:19:4, endln:19:32
+  \_switch_tran: work@cmos (work@mux21_switch.C1), line:19:9, endln:19:31
     |vpiParent:
     \_module: work@mux21_switch (work@mux21_switch), file:mux21.v, line:7:1, endln:22:10
     |vpiDefName:work@cmos
@@ -15504,12 +15602,12 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:19:13, endln:19:16
       |vpiParent:
-      \_switch_tran: work@cmos (work@mux21_switch.C1), line:19:4, endln:19:32
+      \_switch_tran: work@cmos (work@mux21_switch.C1), line:19:9, endln:19:31
       |vpiDirection:2
       |vpiExpr:
       \_ref_obj: (work@mux21_switch.out), line:19:13, endln:19:16
         |vpiParent:
-        \_switch_tran: work@cmos (work@mux21_switch.C1), line:19:4, endln:19:32
+        \_switch_tran: work@cmos (work@mux21_switch.C1), line:19:9, endln:19:31
         |vpiName:out
         |vpiFullName:work@mux21_switch.out
         |vpiActual:
@@ -15517,13 +15615,13 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:19:18, endln:19:21
       |vpiParent:
-      \_switch_tran: work@cmos (work@mux21_switch.C1), line:19:4, endln:19:32
+      \_switch_tran: work@cmos (work@mux21_switch.C1), line:19:9, endln:19:31
       |vpiDirection:1
       |vpiTermIndex:1
       |vpiExpr:
       \_ref_obj: (work@mux21_switch.in1), line:19:18, endln:19:21
         |vpiParent:
-        \_switch_tran: work@cmos (work@mux21_switch.C1), line:19:4, endln:19:32
+        \_switch_tran: work@cmos (work@mux21_switch.C1), line:19:9, endln:19:31
         |vpiName:in1
         |vpiFullName:work@mux21_switch.in1
         |vpiActual:
@@ -15531,13 +15629,13 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:19:23, endln:19:24
       |vpiParent:
-      \_switch_tran: work@cmos (work@mux21_switch.C1), line:19:4, endln:19:32
+      \_switch_tran: work@cmos (work@mux21_switch.C1), line:19:9, endln:19:31
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
       \_ref_obj: (work@mux21_switch.w), line:19:23, endln:19:24
         |vpiParent:
-        \_switch_tran: work@cmos (work@mux21_switch.C1), line:19:4, endln:19:32
+        \_switch_tran: work@cmos (work@mux21_switch.C1), line:19:9, endln:19:31
         |vpiName:w
         |vpiFullName:work@mux21_switch.w
         |vpiActual:
@@ -15545,19 +15643,19 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:19:26, endln:19:30
       |vpiParent:
-      \_switch_tran: work@cmos (work@mux21_switch.C1), line:19:4, endln:19:32
+      \_switch_tran: work@cmos (work@mux21_switch.C1), line:19:9, endln:19:31
       |vpiDirection:1
       |vpiTermIndex:3
       |vpiExpr:
       \_ref_obj: (work@mux21_switch.ctrl), line:19:26, endln:19:30
         |vpiParent:
-        \_switch_tran: work@cmos (work@mux21_switch.C1), line:19:4, endln:19:32
+        \_switch_tran: work@cmos (work@mux21_switch.C1), line:19:9, endln:19:31
         |vpiName:ctrl
         |vpiFullName:work@mux21_switch.ctrl
         |vpiActual:
         \_logic_net: (work@mux21_switch.ctrl), line:7:27, endln:7:31
   |vpiPrimitive:
-  \_switch_tran: work@cmos (work@mux21_switch.C2), line:20:4, endln:20:32
+  \_switch_tran: work@cmos (work@mux21_switch.C2), line:20:9, endln:20:31
     |vpiParent:
     \_module: work@mux21_switch (work@mux21_switch), file:mux21.v, line:7:1, endln:22:10
     |vpiDefName:work@cmos
@@ -15567,12 +15665,12 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:20:13, endln:20:16
       |vpiParent:
-      \_switch_tran: work@cmos (work@mux21_switch.C2), line:20:4, endln:20:32
+      \_switch_tran: work@cmos (work@mux21_switch.C2), line:20:9, endln:20:31
       |vpiDirection:2
       |vpiExpr:
       \_ref_obj: (work@mux21_switch.out), line:20:13, endln:20:16
         |vpiParent:
-        \_switch_tran: work@cmos (work@mux21_switch.C2), line:20:4, endln:20:32
+        \_switch_tran: work@cmos (work@mux21_switch.C2), line:20:9, endln:20:31
         |vpiName:out
         |vpiFullName:work@mux21_switch.out
         |vpiActual:
@@ -15580,13 +15678,13 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:20:18, endln:20:21
       |vpiParent:
-      \_switch_tran: work@cmos (work@mux21_switch.C2), line:20:4, endln:20:32
+      \_switch_tran: work@cmos (work@mux21_switch.C2), line:20:9, endln:20:31
       |vpiDirection:1
       |vpiTermIndex:1
       |vpiExpr:
       \_ref_obj: (work@mux21_switch.in2), line:20:18, endln:20:21
         |vpiParent:
-        \_switch_tran: work@cmos (work@mux21_switch.C2), line:20:4, endln:20:32
+        \_switch_tran: work@cmos (work@mux21_switch.C2), line:20:9, endln:20:31
         |vpiName:in2
         |vpiFullName:work@mux21_switch.in2
         |vpiActual:
@@ -15594,13 +15692,13 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:20:23, endln:20:27
       |vpiParent:
-      \_switch_tran: work@cmos (work@mux21_switch.C2), line:20:4, endln:20:32
+      \_switch_tran: work@cmos (work@mux21_switch.C2), line:20:9, endln:20:31
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
       \_ref_obj: (work@mux21_switch.ctrl), line:20:23, endln:20:27
         |vpiParent:
-        \_switch_tran: work@cmos (work@mux21_switch.C2), line:20:4, endln:20:32
+        \_switch_tran: work@cmos (work@mux21_switch.C2), line:20:9, endln:20:31
         |vpiName:ctrl
         |vpiFullName:work@mux21_switch.ctrl
         |vpiActual:
@@ -15608,13 +15706,13 @@ design: (work@dff_async_reset)
     |vpiPrimTerm:
     \_prim_term: , line:20:29, endln:20:30
       |vpiParent:
-      \_switch_tran: work@cmos (work@mux21_switch.C2), line:20:4, endln:20:32
+      \_switch_tran: work@cmos (work@mux21_switch.C2), line:20:9, endln:20:31
       |vpiDirection:1
       |vpiTermIndex:3
       |vpiExpr:
       \_ref_obj: (work@mux21_switch.w), line:20:29, endln:20:30
         |vpiParent:
-        \_switch_tran: work@cmos (work@mux21_switch.C2), line:20:4, endln:20:32
+        \_switch_tran: work@cmos (work@mux21_switch.C2), line:20:9, endln:20:31
         |vpiName:w
         |vpiFullName:work@mux21_switch.w
         |vpiActual:
