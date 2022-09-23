@@ -26,6 +26,7 @@
 #pragma once
 
 #include <Surelog/Common/NodeId.h>
+#include <Surelog/Common/PathId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <map>

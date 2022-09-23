@@ -29,6 +29,8 @@
 #include <set>
 #include <vector>
 
+#include <Surelog/Common/PathId.h>
+
 namespace SURELOG {
 
 class CompileDesign;
