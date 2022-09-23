@@ -26,6 +26,7 @@
 #pragma once
 
 #include <Surelog/Common/Containers.h>
+#include <Surelog/Common/PathId.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/SourceCompile/IncludeFileInfo.h>
 #include <Surelog/SourceCompile/LoopCheck.h>
