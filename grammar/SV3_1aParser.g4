@@ -2404,7 +2404,9 @@ for_step_assignment
     | subroutine_call
     ;
 
-loop_variables : ( identifier )? ( COMMA ( identifier )? )* ;
+comma : COMMA ;
+
+loop_variables : ( identifier )? ( comma ( identifier )? )* ;
 
 subroutine_call_statement
     : subroutine_call SEMICOLUMN

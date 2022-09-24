@@ -427,10 +427,16 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       NodeId Statement = Loop_variables;
       VectorOfany* loop_vars = s.MakeAnyVec();
       while (fC->Type(Statement) == slStringConst ||
-             fC->Type(Statement) == slLoop_variables) {
+             fC->Type(Statement) == slLoop_variables ||
+             fC->Type(Statement) == slComma) {
         if (fC->Type(Statement) == slStringConst)
           loopVarId = Statement;
-        else
+        else if (fC->Type(Statement) == slComma) {
+          operation* op = s.MakeOperation();
+          fC->populateCoreMembers(Statement, Statement, op);
+          op->VpiOpType(vpiNullOp);
+          loop_vars->push_back(op);
+        } else
           loopVarId = fC->Child(Statement);
         while (loopVarId) {
           ref_var* ref = s.MakeRef_var();
@@ -445,8 +451,25 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
           loop_vars->push_back(ref);
           ref->VpiParent(for_each);
           loopVarId = fC->Sibling(loopVarId);
-          if (fC->Type(loopVarId) != slStringConst) {
+          while (fC->Type(loopVarId) == slComma) {
+            NodeId lookahead = fC->Sibling(loopVarId);
+            if (fC->Type(lookahead) == slComma) {
+              operation* op = s.MakeOperation();
+              fC->populateCoreMembers(loopVarId, loopVarId, op);
+              op->VpiOpType(vpiNullOp);
+              loop_vars->push_back(op);
+              loopVarId = fC->Sibling(loopVarId);
+              continue;
+            } else {
+              break;
+            }
+          }
+          if ((fC->Type(loopVarId) != slStringConst) &&
+              ((fC->Type(loopVarId) != slComma))) {
             break;
+          }
+          if (fC->Type(loopVarId) == slComma) {
+            loopVarId = fC->Sibling(loopVarId);
           }
         }
         Statement = fC->Sibling(Statement);
