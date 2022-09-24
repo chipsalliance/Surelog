@@ -57,15 +57,21 @@ std::pair<SymbolId, std::string_view> SymbolTable::add(
   assert(symbol.data());
   auto found = m_symbol2IdMap.find(symbol);
   if (found != m_symbol2IdMap.end()) {
-    return {SymbolId(found->second + m_idOffset, found->first),
-            m_id2SymbolMap[found->second]};
+    // Do NOT use m_id2SymbolMap[found->second] to build the returned pair.
+    // MS cl compiler seems to have some bug that ends up actually creating
+    // the string_view from a clone of the string and thus invalid by the time
+    // the caller of this function receives it. Use the already pinned
+    // string_view from the map instead.
+    return {SymbolId(found->second + m_idOffset, found->first), found->first};
   }
   const std::string& normalized = m_id2SymbolMap.emplace_back(symbol);
   const auto inserted = m_symbol2IdMap.insert({normalized, m_idCounter});
   assert(inserted.second);  // This new insert must succeed.
   m_idCounter++;
+  // Read the comment above about using the string from m_id2SymbolMap
+  // to build the returned pair.
   return {SymbolId(inserted.first->second + m_idOffset, inserted.first->first),
-          normalized};
+          inserted.first->first};
 }
 
 std::pair<SymbolId, std::string_view> SymbolTable::get(
@@ -77,12 +83,14 @@ std::pair<SymbolId, std::string_view> SymbolTable::get(
     }
   }
 
+  // Read the comment in SymbolTable::add above about using the
+  // string from m_id2SymbolMap to build the returned pair.
   auto found = m_symbol2IdMap.find(symbol);
   return (found == m_symbol2IdMap.end())
              ? std::make_pair(getBadId(), getBadSymbol())
              : std::make_pair(
                    SymbolId(found->second + m_idOffset, found->first),
-                   m_id2SymbolMap[found->second]);
+                   found->first);
 }
 
 const std::string& SymbolTable::getSymbol(SymbolId id) const {
