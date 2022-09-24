@@ -33,7 +33,6 @@
 #include <stdio.h>
 
 #include <filesystem>
-#include <fstream>
 #include <iostream>
 #include <mutex>
 #if !(defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
@@ -63,10 +62,10 @@ ErrorContainer::~ErrorContainer() {
 void ErrorContainer::init() {
   if (ErrorDefinition::init()) {
     FileSystem* const fileSystem = FileSystem::getInstance();
-    const fs::path logFileName = fileSystem->toPath(m_clp->getLogFileId());
-    if (LogListener::failed(m_logListener->initialize(logFileName.string()))) {
-      std::cerr << "[FTL:LG0001] Cannot create log file \"" << logFileName
-                << "\"" << std::endl;
+    if (LogListener::failed(m_logListener->initialize(m_clp->getLogFileId()))) {
+      std::cerr << "[FTL:LG0001] Cannot create log file \""
+                << fileSystem->toPath(m_clp->getLogFileId()) << "\""
+                << std::endl;
     }
   }
 }
@@ -387,9 +386,10 @@ bool ErrorContainer::printToLogFile(const std::string& report) {
   if (LogListener::failed(result = m_logListener->log(report))) {
     if (!m_reportedFatalErrorLogFile &&
         (result == LogListener::LogResult::FailedToOpenFileForWrite)) {
+      FileSystem* const fileSystem = FileSystem::getInstance();
       std::cerr << "[FTL:LG0002] Cannot open log file \""
-                << m_logListener->getLogFilename() << "\" in append mode"
-                << std::endl;
+                << fileSystem->toPath(m_logListener->getLogFileId())
+                << "\" in append mode" << std::endl;
       m_reportedFatalErrorLogFile = true;
     }
     return false;

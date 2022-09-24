@@ -29,30 +29,12 @@
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Utils/StringUtils.h>
 
-#include <fstream>
 #include <regex>
 #include <sstream>
 
 namespace SURELOG {
 
 namespace fs = std::filesystem;
-
-static void saveContent(const fs::path& fileName, const std::string& content) {
-  std::ifstream ifs;
-  ifs.open(fileName);
-  bool save = true;
-  if (ifs.good()) {
-    std::string str((std::istreambuf_iterator<char>(ifs)),
-                    std::istreambuf_iterator<char>());
-    ifs.close();
-    if (str == content) save = false;
-  }
-  if (save) {
-    std::ofstream ofs(fileName);
-    ofs << content;
-    ofs.close();
-  }
-}
 
 void AnalyzeFile::checkSLlineDirective_(const std::string& line,
                                         unsigned int lineNb) {
@@ -113,26 +95,20 @@ void AnalyzeFile::analyze() {
   FileSystem* const fileSystem = FileSystem::getInstance();
   SymbolTable* const symbolTable = m_clp->getSymbolTable();
   ErrorContainer* const errors = m_clp->getErrorContainer();
-  std::string line;
+
   std::vector<std::string> allLines;
   allLines.emplace_back("FILLER LINE");
   if (m_text.empty()) {
-    fs::path ppFileName = fileSystem->toPath(m_ppFileId);
-    std::ifstream ifs;
-    ifs.open(ppFileName);
-    if (!ifs.good()) {
-      return;
-    }
-    while (std::getline(ifs, line)) {
-      allLines.push_back(line);
-    }
-    ifs.close();
+    fileSystem->readLines(m_ppFileId, allLines);
   } else {
+    std::string line;
     std::stringstream ss(m_text);
     while (std::getline(ss, line)) {
       allLines.push_back(line);
     }
   }
+  if (allLines.empty()) return;
+
   unsigned int minNbLineForPartitioning = m_clp->getNbLinesForFileSpliting();
   std::vector<FileChunk> fileChunks;
   bool inPackage = false;
@@ -162,7 +138,7 @@ void AnalyzeFile::analyze() {
   std::smatch pieces_match;
   std::string fileLevelImportSection;
   // Parse the file
-  for (auto& line : allLines) {
+  for (const auto& line : allLines) {
     bool inLineComment = false;
     lineNb++;
     char c = 0;
@@ -372,7 +348,7 @@ void AnalyzeFile::analyze() {
             }
             prev_keyword = keyword;
           }
-          keyword = "";
+          keyword.clear();
         }
       }
       cp = c;
@@ -558,12 +534,10 @@ void AnalyzeFile::analyze() {
             return;
           }
           content += "  " + fileLevelImportSection;
-          saveContent(splitFileName, content);
 
-          m_splitFiles.emplace_back(
-              fileSystem->toPathId(splitFileName, symbolTable));
-
-          // m_lineOffsets.push_back(fromLine - 1);
+          PathId splitFileId = fileSystem->toPathId(splitFileName, symbolTable);
+          fileSystem->writeContent(splitFileId, content);
+          m_splitFiles.emplace_back(splitFileId);
 
           chunkNb++;
           fromLine = fileChunks[toIndex].m_toLine + 1;
@@ -625,12 +599,10 @@ void AnalyzeFile::analyze() {
           errors->printMessages();
           return;
         }
-        saveContent(splitFileName, content);
 
-        m_splitFiles.emplace_back(
-            fileSystem->toPathId(splitFileName, symbolTable));
-
-        // m_lineOffsets.push_back (fromLine-1);
+        PathId splitFileId = fileSystem->toPathId(splitFileName, symbolTable);
+        fileSystem->writeContent(splitFileId, content);
+        m_splitFiles.emplace_back(splitFileId);
 
         chunkNb++;
         for (unsigned int j = i; j < fileChunks.size(); j++) {
@@ -697,10 +669,10 @@ void AnalyzeFile::analyze() {
         errors->printMessages();
         return;
       }
-      saveContent(splitFileName, content);
 
-      m_splitFiles.emplace_back(
-          fileSystem->toPathId(splitFileName, symbolTable));
+      PathId splitFileId = fileSystem->toPathId(splitFileName, symbolTable);
+      fileSystem->writeContent(splitFileId, content);
+      m_splitFiles.emplace_back(splitFileId);
 
       chunkNb++;
 

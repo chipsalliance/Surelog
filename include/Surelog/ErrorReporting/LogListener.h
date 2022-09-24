@@ -26,8 +26,8 @@
 #pragma once
 
 #include <deque>
-#include <fstream>
 #include <mutex>
+#include <ostream>
 #include <string>
 
 namespace SURELOG {
@@ -56,12 +56,12 @@ class LogListener {
   LogListener() = default;
   virtual ~LogListener() = default;  // virtual as used as interface
 
-  virtual LogResult initialize(const std::string& filename);
+  virtual LogResult initialize(PathId fileId);
 
   virtual void setMaxQueuedMessageCount(int count);
   int getMaxQueuedMessageCount() const;
 
-  std::string getLogFilename() const;
+  PathId getLogFileId() const;
   int getQueuedMessageCount() const;
 
   virtual LogResult log(const std::string& message);
@@ -70,10 +70,10 @@ class LogListener {
  protected:
   // NOTE: Internal protected/private methods aren't thread-safe.
   void enqueue(const std::string& message);
-  void flush(std::ofstream& strm);
+  void flush(std::ostream& strm);
 
  protected:
-  std::string filename;
+  PathId fileId;
   mutable std::mutex mutex;
   std::deque<std::string> queued;
   int droppedCount = 0;

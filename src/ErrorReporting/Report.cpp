@@ -25,13 +25,11 @@
 #include <Surelog/Common/FileSystem.h>
 #include <Surelog/ErrorReporting/Report.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/StringUtils.h>
 
 #include <chrono>
 #include <filesystem>
-#include <fstream>
-#include <iomanip>
 #include <iostream>
-#include <mutex>
 #include <regex>
 #include <thread>
 
@@ -54,37 +52,38 @@ struct Result {
   std::string m_nbInfo;
 };
 
-bool parseReportFile(const fs::path& logFile, Result& result) {
+bool parseReportFile(PathId logFileId, Result& result) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   bool ret = false;
-  std::ifstream ifs(logFile);
-  if (!ifs.bad()) {
+  std::istream& ifs = fileSystem->openForRead(logFileId);
+  if (ifs.good()) {
     std::string line;
     while (std::getline(ifs, line)) {
       if (ifs.bad()) break;
-      if (line.find("[  FATAL] : ") != std::string::npos) {
-        result.m_nbFatal = line.substr(12, line.size() - 11);
+      line = StringUtils::rtrim(line);
+      if (line.find("[  FATAL] : ") == 0) {
+        result.m_nbFatal = line.substr(12);
       }
-      if (line.find("[ SYNTAX] : ") != std::string::npos) {
-        result.m_nbSyntax = line.substr(12, line.size() - 11);
+      if (line.find("[ SYNTAX] : ") == 0) {
+        result.m_nbSyntax = line.substr(12);
       }
-      if (line.find("[  ERROR] : ") != std::string::npos) {
-        result.m_nbError = line.substr(12, line.size() - 11);
+      if (line.find("[  ERROR] : ") == 0) {
+        result.m_nbError = line.substr(12);
       }
-      if (line.find("[WARNING] : ") != std::string::npos) {
-        result.m_nbWarning = line.substr(12, line.size() - 11);
+      if (line.find("[WARNING] : ") == 0) {
+        result.m_nbWarning = line.substr(12);
       }
-      if (line.find("[   NOTE] : ") != std::string::npos) {
-        result.m_nbNote = line.substr(12, line.size() - 11);
+      if (line.find("[   NOTE] : ") == 0) {
+        result.m_nbNote = line.substr(12);
         ret = true;
       }
-      if (line.find("[   INFO] : ") != std::string::npos) {
-        result.m_nbInfo = line.substr(12, line.size() - 11);
+      if (line.find("[   INFO] : ") == 0) {
+        result.m_nbInfo = line.substr(12);
         ret = true;
       }
     }
   }
-
-  ifs.close();
+  fileSystem->close(ifs);
   return ret;
 }
 
@@ -107,10 +106,12 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
   while ((!readAll) || (!readUnit)) {
     std::this_thread::sleep_for(std::chrono::microseconds(1000));
     if (!readAll) {
-      readAll = parseReportFile(alllog, readAllResult);
+      readAll =
+          parseReportFile(fileSystem->toPathId(alllog, st), readAllResult);
     }
     if (!readUnit) {
-      readUnit = parseReportFile(unitlog, readUnitResult);
+      readUnit =
+          parseReportFile(fileSystem->toPathId(unitlog, st), readUnitResult);
     }
   }
 
@@ -147,8 +148,9 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
                         " --exclude cache --brief > " + diffFile.string();
   int retval = system(diffCmd.c_str());
 
-  std::ifstream ifs(diffFile.c_str());
-  if (!ifs.bad()) {
+  std::istream& ifs =
+      fileSystem->openForRead(fileSystem->toPathId(diffFile, st));
+  if (ifs.good()) {
     std::cout << "\nDIFFS:" << std::endl;
     std::string line;
     while (std::getline(ifs, line)) {
@@ -164,11 +166,12 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
       std::cout << line << std::endl;
     }
   }
+  fileSystem->close(ifs);
 
-  int nbFatal = atoi(readUnitResult.m_nbFatal.c_str()) +
-                atoi(readAllResult.m_nbFatal.c_str());
-  int nbSyntax = atoi(readUnitResult.m_nbSyntax.c_str()) +
-                 atoi(readAllResult.m_nbSyntax.c_str());
+  int nbFatal =
+      std::stoi(readUnitResult.m_nbFatal) + std::stoi(readAllResult.m_nbFatal);
+  int nbSyntax = std::stoi(readUnitResult.m_nbSyntax) +
+                 std::stoi(readAllResult.m_nbSyntax);
 
   // m.unlock();
   return std::make_pair(retval != -1, (!nbFatal) && (!nbSyntax));

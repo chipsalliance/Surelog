@@ -40,7 +40,6 @@
 #include <uhdm/uhdm.h>
 #include <uhdm/vpi_visitor.h>
 
-#include <fstream>
 #include <iomanip>
 #include <sstream>
 #include <stack>
@@ -241,10 +240,14 @@ bool UhdmChecker::reportHtml(PathId reportFileId, float overallCoverage) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   ErrorContainer* errors = m_compileDesign->getCompiler()->getErrorContainer();
   SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
-  const std::filesystem::path reportFile = fileSystem->toPath(reportFileId);
-  std::ofstream report;
-  report.open(reportFile.string() + ".html");
-  if (report.bad()) return false;
+  const std::filesystem::path reportFile = fileSystem->toPath(reportFileId) +=
+      ".html";
+  PathId fileId = fileSystem->toPathId(reportFile, symbols);
+  std::ostream& report = fileSystem->openForWrite(fileId);
+  if (report.bad()) {
+    fileSystem->close(report);
+    return false;
+  }
   report << "\n<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody {\n\n}\np "
             "{\nfont-size: 14px;\n}</style>\n";
   report << "<h2 style=\"text-decoration: underline\">"
@@ -254,14 +257,21 @@ bool UhdmChecker::reportHtml(PathId reportFileId, float overallCoverage) {
   std::string allUncovered;
   static std::multimap<int, std::string> orderedCoverageMap;
   for (const auto& [fC, uhdmCover] : fileNodeCoverMap) {
+    std::vector<std::string> fileContentLines;
+    if (!fileSystem->readLines(fC->getFileId(), fileContentLines)) {
+      fileSystem->close(report);
+      return false;
+    }
     const fs::path filepath = fileSystem->toPath(fC->getFileId());
-    std::string fileContent = FileUtils::getFileContent(filepath);
-    auto fileContentLines = StringUtils::splitLines(fileContent);
-    std::ofstream reportF;
     std::string fname = "chk" + std::to_string(fileIndex) + ".html";
     fs::path f = FileUtils::getPathName(reportFile) / fname;
-    reportF.open(f);
-    if (reportF.bad()) return false;
+    PathId chkFileId = fileSystem->toPathId(f, symbols);
+    std::ostream& reportF = fileSystem->openForWrite(chkFileId);
+    if (reportF.bad()) {
+      fileSystem->close(report);
+      fileSystem->close(reportF);
+      return false;
+    }
     reportF << "\n<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody {\n\n}\np "
                "{\nfont-size: 14px;\n}</style>\n";
 
@@ -299,11 +309,7 @@ bool UhdmChecker::reportHtml(PathId reportFileId, float overallCoverage) {
     std::string pinkCoverage;
     std::string redCoverage;
     int line = 0;
-    for (auto lineText : fileContentLines) {
-      while (!lineText.empty() &&
-             (lineText.back() == '\n' || lineText.back() == '\r')) {
-        lineText.remove_suffix(1);
-      }
+    for (const auto& lineText : fileContentLines) {
       ++line;
       RangesMap::const_iterator cItr = uhdmCover.find(line);
 
@@ -330,7 +336,7 @@ bool UhdmChecker::reportHtml(PathId reportFileId, float overallCoverage) {
         }
 
         if (lineText.empty()) {
-          Location loc(fileSystem->toPathId(filepath, symbols), line, 1);
+          Location loc(fC->getFileId(), line, 1);
           Error err(ErrorDefinition::UHDM_WRONG_COVERAGE_LINE, loc);
           errors->addError(err);
         }
@@ -402,7 +408,7 @@ bool UhdmChecker::reportHtml(PathId reportFileId, float overallCoverage) {
           std::make_pair(static_cast<int>(cov), fileStatGreen));
     }
     reportF << "</body>\n</html>\n";
-    reportF.close();
+    fileSystem->close(reportF);
     fileIndex++;
   }
   for (const auto& covFile : orderedCoverageMap) {
@@ -414,7 +420,7 @@ bool UhdmChecker::reportHtml(PathId reportFileId, float overallCoverage) {
          << "</h2>\n";
   report << allUncovered << "\n";
   report << "</body>\n</html>\n";
-  report.close();
+  fileSystem->close(report);
   return true;
 }
 
@@ -438,9 +444,13 @@ void UhdmChecker::mergeColumnCoverage() {
 float UhdmChecker::reportCoverage(PathId reportFileId) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   const std::filesystem::path reportFile = fileSystem->toPath(reportFileId);
-  std::ofstream report;
-  report.open(reportFile);
-  if (report.bad()) return false;
+
+  std::ostream& report = fileSystem->openForWrite(reportFileId);
+  if (report.bad()) {
+    fileSystem->close(report);
+    return false;
+  }
+
   int overallUncovered = 0;
   int overallLineNb = 0;
   for (auto& [fC, uhdmCover] : fileNodeCoverMap) {
@@ -509,7 +519,7 @@ float UhdmChecker::reportCoverage(PathId reportFileId) {
            << std::setprecision(3) << covFile.first << "% "
            << "\n";
   }
-  report.close();
+  fileSystem->close(report);
   return overallCoverage;
 }
 

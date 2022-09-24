@@ -50,7 +50,6 @@
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
 
-#include <fstream>
 #include <queue>
 #include <unordered_set>
 
@@ -2439,23 +2438,21 @@ void DesignElaboration::createFileList_() {
   }
 
   const fs::path directory = fileSystem->toPath(cmdLine->getFullCompileDirId());
-  std::ofstream ofs;
   fs::path fileList = directory / "file_elab.lst";
-  ofs.open(fileList);
-  const Compiler::PPFileMap& ppFileName =
-      m_compileDesign->getCompiler()->getPPFileMap();
-  SymbolTable* symbolTable = m_compileDesign->getCompiler()->getSymbolTable();
+  PathId fileId = fileSystem->toPathId(fileList, cmdLine->getSymbolTable());
+  std::ostream& ofs = fileSystem->openForWrite(fileId);
   if (ofs.good()) {
+    const Compiler::PPFileMap& ppFileName =
+        m_compileDesign->getCompiler()->getPPFileMap();
     for (const auto& fC : files) {
-      PathId fileId = fileSystem->copy(fC->getFileId(), symbolTable);
-      auto itr = ppFileName.find(fileId);
+      auto itr = ppFileName.find(fC->getFileId());
       if (itr != ppFileName.end()) {
         for (const auto& fId : itr->second) {
           ofs << fileSystem->toPath(fId) << std::flush << std::endl;
         }
       }
     }
-    ofs.close();
+    fileSystem->close(ofs);
   } else {
     std::cerr << "Could not create filelist: " << fileList << std::endl;
   }

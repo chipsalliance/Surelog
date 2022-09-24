@@ -53,7 +53,7 @@ constexpr std::string_view nostdout_opt = "-nostdout";
 constexpr std::string_view output_folder_opt = "-o";
 
 unsigned int executeCompilation(
-    int argc, const char** argv, bool diff_comp_mode, bool fileunit,
+    int argc, const char** argv, bool diffCompMode, bool fileUnit,
     SURELOG::ErrorContainer::Stats* overallStats = nullptr) {
   SURELOG::FileSystem* const fileSystem = SURELOG::FileSystem::getInstance();
   bool success = true;
@@ -62,7 +62,7 @@ unsigned int executeCompilation(
   SURELOG::SymbolTable* symbolTable = new SURELOG::SymbolTable();
   SURELOG::ErrorContainer* errors = new SURELOG::ErrorContainer(symbolTable);
   SURELOG::CommandLineParser* clp = new SURELOG::CommandLineParser(
-      errors, symbolTable, diff_comp_mode, fileunit);
+      errors, symbolTable, diffCompMode, fileUnit);
   success = clp->parseCommandLine(argc, argv);
   bool parseOnly = clp->parseOnly();
   errors->printMessages(clp->muteStdout());
@@ -108,7 +108,7 @@ unsigned int executeCompilation(
     std::cout << "Command result: " << result << std::endl;
   }
   clp->logFooter();
-  if (diff_comp_mode && fileunit) {
+  if (diffCompMode && fileUnit) {
     SURELOG::Report* report = new SURELOG::Report();
     std::pair<bool, bool> results =
         report->makeDiffCompUnitReport(clp, symbolTable);
@@ -137,9 +137,9 @@ int batchCompilation(const char* argv0, const fs::path& batchFile,
                      const fs::path& outputDir, bool nostdout) {
   int returnCode = 0;
 
-  char path[10000] = {'\0'};
-  char* p = getcwd(path, sizeof(path));
-  if (!p) returnCode |= 1;
+  std::error_code ec;
+  const fs::path cwd = fs::current_path(ec);
+  if (ec) returnCode |= 1;
 
   std::ifstream stream;
   stream.open(batchFile);
@@ -159,22 +159,22 @@ int batchCompilation(const char* argv0, const fs::path& batchFile,
     std::vector<std::string> args;
     SURELOG::StringUtils::tokenize(line, " \r\t", args);
 
-    fs::path cwd;
+    fs::path cd;
     for (size_t i = 0, n = args.size() - 1; i < n; i++) {
       if (args[i] == cd_opt) {
-        cwd = SURELOG::StringUtils::unquoted(args[i + 1]);
+        cd = SURELOG::StringUtils::unquoted(args[i + 1]);
         break;
       }
     }
 
-    if (cwd.empty() || cwd.is_absolute()) {
+    if (cd.empty() || cd.is_absolute()) {
       if (!outputDir.empty()) {
         args.push_back("-o");
         args.push_back(outputDir.string());
       }
     } else if (!outputDir.empty()) {
       args.push_back("-o");
-      args.push_back((outputDir / cwd).string());
+      args.push_back((outputDir / cd).string());
     }
 
     std::vector<const char*> argv;
@@ -190,9 +190,10 @@ int batchCompilation(const char* argv0, const fs::path& batchFile,
     returnCode |= executeCompilation(argv.size(), argv.data(), false, false,
                                      &overallStats);
     count++;
-    int ret = chdir(path);
-    if (ret < 0) {
-      std::cerr << "FATAL: Could not change directory to " << path << std::endl;
+    fs::current_path(cwd, ec);
+    if (ec) {
+      std::cerr << "FATAL: Could not change directory to " << cwd << std::endl;
+      std::cerr << "       " << ec.message() << std::endl;
       returnCode |= 1;
     }
   }
