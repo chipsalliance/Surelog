@@ -677,18 +677,23 @@ void FileContent::populateCoreMembers(NodeId startIndex, NodeId endIndex,
   }
 
   PathId fileId;
-  if (startIndex && endIndex) {
-    const VObject& startObject = m_objects[startIndex];
-    const VObject& endObject = m_objects[endIndex];
-    if (startObject.m_fileId == endObject.m_fileId) {
-      fileId = startObject.m_fileId;
-    } else {
-      Location loc(m_fileId);
-      Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
-      m_errors->addError(err);
-      std::cerr << "\nFILE INDEX MISMATCH\n\n";
-    }
-  } else if (startIndex) {
+  // Issue #3239: Apparently, it's possible that startIndex.m_fileId
+  // & endIndex.m_fileId are differently (for example, including a file
+  // in the middle of a module declaration).
+  //
+  // if (startIndex && endIndex) {
+  //   const VObject& startObject = m_objects[startIndex];
+  //   const VObject& endObject = m_objects[endIndex];
+  //   if (startObject.m_fileId == endObject.m_fileId) {
+  //     fileId = startObject.m_fileId;
+  //   } else {
+  //     Location loc(m_fileId);
+  //     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
+  //     m_errors->addError(err);
+  //     std::cerr << "\nFILE INDEX MISMATCH\n\n";
+  //   }
+  // } else
+  if (startIndex) {
     const VObject& object = m_objects[startIndex];
     fileId = object.m_fileId;
   } else if (endIndex) {
