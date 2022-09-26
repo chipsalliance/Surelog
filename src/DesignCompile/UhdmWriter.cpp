@@ -2001,6 +2001,56 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
               }
             }
           }
+        } else if (parent->UhdmType() == uhdmmodule) {
+          module* m = (module*)parent;
+          if (auto vars = m->Variables()) {
+            for (auto decl : *vars) {
+              if (decl->VpiName() == name) {
+                if (decl->UhdmType() == uhdmref_var) continue;
+                if (decl->UhdmType() == uhdmref_obj) continue;
+                found = true;
+                tps = decl->Typespec();
+                break;
+              }
+            }
+          }
+          if (found) break;
+          if (auto params = m->Parameters()) {
+            for (auto decl : *params) {
+              if (decl->VpiName() == name) {
+                if (decl->UhdmType() == uhdmparameter) {
+                  tps = ((parameter*)decl)->Typespec();
+                  found = true;
+                } else {
+                  tps = ((type_parameter*)decl)->Typespec();
+                  found = true;
+                }
+                break;
+              }
+            }
+          }
+          if (found) break;
+          VectorOfport* ports = m->Ports();
+          if (ports) {
+            for (auto port : *ports) {
+              if (port->VpiName() == name) {
+                found = true;
+                tps = port->Typespec();
+                break;
+              }
+            }
+          }
+          if (found) break;
+          VectorOfnet* nets = m->Nets();
+          if (nets) {
+            for (auto net : *nets) {
+              if (net->VpiName() == name) {
+                found = true;
+                tps = net->Typespec();
+              }
+            }
+          }
+          if (found) break;
         } else if (parent->UhdmType() == uhdmbegin) {
           begin* b = (begin*)parent;
           if (auto vars = b->Variables()) {
