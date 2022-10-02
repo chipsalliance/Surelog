@@ -992,7 +992,7 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
   ErrorContainer* errors = compiler->getErrorContainer();
   SymbolTable* symbols = compiler->getSymbolTable();
   Design* design = compiler->getDesign();
-  std::string libName = fC->getLibrary()->getName();
+  const std::string& libName = fC->getLibrary()->getName();
   VObjectType type = fC->Type(id);
   switch (type) {
     case VObjectType::slPort:
@@ -1057,7 +1057,7 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
         case VObjectType::slInterface_port_declaration: {
           NodeId interface_identifier = fC->Child(subNode);
           NodeId interfIdName = fC->Child(interface_identifier);
-          std::string interfName = fC->SymName(interfIdName);
+          const std::string& interfName = fC->SymName(interfIdName);
 
           DesignComponent* def = nullptr;
           const DataType* type = nullptr;

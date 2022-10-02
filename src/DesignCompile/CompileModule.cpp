@@ -507,7 +507,6 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
 
   for (unsigned int i = 0; i < m_module->m_fileContents.size(); i++) {
     const FileContent* fC = m_module->m_fileContents[i];
-    std::string libName = fC->getLibrary()->getName();
     VObject current = fC->Object(m_module->m_nodeIds[i]);
     NodeId id = current.m_child;
 
@@ -883,7 +882,6 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
       VObjectType::slTask_body_declaration};
   for (unsigned int i = 0; i < m_module->m_fileContents.size(); i++) {
     const FileContent* fC = m_module->m_fileContents[i];
-    std::string libName = fC->getLibrary()->getName();
     VObject current = fC->Object(m_module->m_nodeIds[i]);
     NodeId id = current.m_child;
     if (!id) id = current.m_sibling;

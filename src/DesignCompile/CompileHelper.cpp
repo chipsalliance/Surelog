@@ -109,7 +109,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
   scope->addObject(VObjectType::slPackage_import_item, fnid);
 
   NodeId nameId = fC->Child(id);
-  std::string pack_name = fC->SymName(nameId);
+  const std::string& pack_name = fC->SymName(nameId);
   std::string object_name;
   if (NodeId objId = fC->Sibling(nameId)) {
     if (fC->Type(objId) == slStringConst) {
@@ -125,7 +125,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
     for (const auto& cls : classSet) {
       const FileContent* packageFile = cls.fC;
       NodeId classDef = packageFile->Sibling(cls.nodeId);
-      std::string name = packageFile->SymName(classDef);
+      const std::string& name = packageFile->SymName(classDef);
       if (!object_name.empty()) {
         if (name != object_name) continue;
       }
@@ -454,7 +454,7 @@ bool CompileHelper::compileTfPortList(Procedure* parent, const FileContent* fC,
       } else {
         typeName = VObject::getTypeName(the_type);
       }
-      std::string name = fC->SymName(tf_param_name);
+      const std::string& name = fC->SymName(tf_param_name);
       NodeId expression = fC->Sibling(tf_param_name);
       DataType* dtype = new DataType(fC, type, typeName, fC->Type(type));
 
@@ -529,7 +529,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       dtype == VObjectType::slInterface_class_keyword ||
       dtype == VObjectType::slEnum_keyword) {
     type_name = fC->Sibling(data_type);
-    std::string name = fC->SymName(type_name);
+    const std::string& name = fC->SymName(type_name);
     const TypeDef* prevDef = scope->getTypeDef(name);
     if (prevDef) return prevDef;
     if (fC->Type(type_name) == VObjectType::slStringConst) {
@@ -732,7 +732,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
     }
     while (enum_name_declaration) {
       NodeId enumNameId = fC->Child(enum_name_declaration);
-      std::string enumName = fC->SymName(enumNameId);
+      const std::string& enumName = fC->SymName(enumNameId);
       NodeId enumValueId = fC->Sibling(enumNameId);
       Value* value = nullptr;
       if (enumValueId) {
@@ -1038,7 +1038,7 @@ bool CompileHelper::compileSubroutine_call(Scope* parent, Statement* parentStmt,
 
     next_name = fC->Sibling(next_name);
   }
-  std::string funcName = fC->SymName(var_chain[var_chain.size() - 1]);
+  const std::string& funcName = fC->SymName(var_chain[var_chain.size() - 1]);
   var_chain.pop_back();
 
   NodeId list_of_arguments = next_name;
@@ -1255,7 +1255,7 @@ bool CompileHelper::compileScopeVariable(Scope* parent, const FileContent* fC,
         if (varType == VObjectType::slList_of_arguments) {
           // new ()
         } else {
-          std::string varName = fC->SymName(var);
+          const std::string& varName = fC->SymName(var);
 
           Variable* previous = parent->getVariable(varName);
           if (previous) {
@@ -1557,7 +1557,6 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
           */
           NodeId type_identifier = fC->Child(subNode);
           NodeId interfIdName = fC->Child(type_identifier);
-          std::string interfName = fC->SymName(interfIdName);
 
           NodeId list_of_interface_identifiers = fC->Sibling(type_identifier);
           NodeId interface_identifier =
@@ -1948,7 +1947,7 @@ void CompileHelper::compileImportDeclaration(DesignComponent* component,
     m_exprBuilder.deleteValue(item_name);
     import_stmt->Item(imported_item);
 
-    const std::string& package_name(fC->SymName(package_name_id));
+    const std::string& package_name = fC->SymName(package_name_id);
     import_stmt->VpiName(package_name);
 
     package_import_item_id = fC->Sibling(package_import_item_id);
@@ -2260,8 +2259,8 @@ void CompileHelper::compileInstantiation(ModuleDefinition* mod,
   auto subModuleArray = mod->getModuleArrays();
 
   NodeId moduleName = fC->sl_collect(id, VObjectType::slStringConst);
-  std::string libName = fC->getLibrary()->getName();
-  std::string mname = fC->SymName(moduleName);
+  const std::string& libName = fC->getLibrary()->getName();
+  const std::string& mname = fC->SymName(moduleName);
   std::string modName = libName + "@" + mname;
 
   Design* design = compileDesign->getCompiler()->getDesign();
@@ -2379,7 +2378,7 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(
                                    compileDesign, pstmt, instance);
   }
   NodeId IntConst = fC->Child(Delay_control);
-  std::string value = fC->SymName(IntConst);
+  const std::string& value = fC->SymName(IntConst);
   UHDM::delay_control* dc = s.MakeDelay_control();
   dc->VpiDelay(value);
   fC->populateCoreMembers(Delay_control, Delay_control, dc);
@@ -2434,7 +2433,7 @@ UHDM::atomic_stmt* CompileHelper::compileDelayControl(
                                    compileDesign, pexpr, instance);
   }
   NodeId IntConst = fC->Child(Delay_control);
-  std::string value = fC->SymName(IntConst);
+  const std::string& value = fC->SymName(IntConst);
   UHDM::delay_control* dc = s.MakeDelay_control();
   dc->VpiDelay(value);
   fC->populateCoreMembers(fC->Child(Delay_control), fC->Child(Delay_control),
@@ -4124,7 +4123,7 @@ void CompileHelper::compileLetDeclaration(DesignComponent* component,
                                           CompileDesign* compileDesign) {
   Serializer& s = compileDesign->getSerializer();
   NodeId nameId = fC->Child(Let_declaration);
-  const std::string name = fC->SymName(nameId);
+  const std::string& name = fC->SymName(nameId);
   NodeId Let_port_list = fC->Sibling(nameId);
   NodeId Expression;
   if (fC->Type(Let_port_list) == slLet_port_list) {

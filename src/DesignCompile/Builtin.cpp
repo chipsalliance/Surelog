@@ -356,7 +356,7 @@ void Builtin::addBuiltinClasses() {
                                   VObjectType::slAttr_spec);
     const std::string& libName = fC1->getLibrary()->getName();
     if (stId) {
-      std::string name = fC1->SymName(stId);
+      const std::string& name = fC1->SymName(stId);
       fC1->insertObjectLookup(name, classId,
                               m_compiler->getCompiler()->getErrorContainer());
       std::string fullName = libName + "@" + name;

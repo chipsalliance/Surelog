@@ -434,8 +434,7 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
           }
         }
         bool isSigned = false;
-        if ((value.find_first_of('s') != std::string::npos) ||
-            (value.find_first_of('S') != std::string::npos)) {
+        if (value.find_first_of("sS") != std::string::npos) {
           isSigned = true;
           v = value.substr(i + 3);
         } else {
@@ -731,7 +730,7 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
       // std::string fileContent = FileUtils::getFileContent(fileName);
       // std::string_view lineText =
       //     StringUtils::getLineInString(fileContent, lineNumber);
-      std::string_view lineText = path->VpiFullName();
+      const std::string &lineText = path->VpiFullName();
       Location loc(fileId, lineNumber, 0, symbols->registerSymbol(lineText));
       Error err(ErrorDefinition::UHDM_UNRESOLVED_HIER_PATH, loc);
       errors->addError(err);
@@ -4610,8 +4609,8 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
       }
     }
 
-    std::string packagename = fC->SymName(Class_type_name);
-    std::string functionname = fC->SymName(Class_scope_name);
+    const std::string &packagename = fC->SymName(Class_type_name);
+    const std::string &functionname = fC->SymName(Class_scope_name);
     std::string basename = packagename + "::" + functionname;
     tf_call *call = nullptr;
     std::pair<task_func *, DesignComponent *> ret =
@@ -4950,7 +4949,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
             dotedName = fC->Sibling(dotedName);
           } else {
             fcall = s.MakeMethod_func_call();
-            std::string methodName = fC->SymName(dotedName);
+            const std::string &methodName = fC->SymName(dotedName);
             fcall->VpiName(methodName);
             fC->populateCoreMembers(dotedName, dotedName, fcall);
             VectorOfany *arguments = compileTfCallArguments(
@@ -5132,7 +5131,7 @@ bool CompileHelper::parseConstant(const UHDM::constant &constant,
       break;
     }
     default: {
-      if (v.find("UINT:") != std::string::npos) {
+      if (v.find("UINT:") == 0) {
         *value = std::strtoull(v.c_str() + std::string_view("UINT:").length(),
                                &endptr, 10);
       } else {

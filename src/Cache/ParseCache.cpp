@@ -83,7 +83,7 @@ PathId ParseCache::getCacheFileName_(PathId svFileNameId) {
   }
   fs::path cacheDirName = fileSystem->toPath(cacheDirId);
   Library* lib = m_parse->getLibrary();
-  std::string libName = lib->getName();
+  const std::string& libName = lib->getName();
   if (cacheFileName.empty()) {
     cacheFileName = cacheDirName / libName / (svFileName.string() + ".slpa");
   }

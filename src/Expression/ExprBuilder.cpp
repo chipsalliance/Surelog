@@ -410,7 +410,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         }
       } break;
       case VObjectType::slIntConst: {
-        std::string val = fC->SymName(child);
+        const std::string& val = fC->SymName(child);
         std::string size = val;
         StringUtils::rtrim(size, '\'');
         int64_t intsize = 0;
@@ -427,8 +427,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             }
           }
           std::string v;
-          if ((val.find_first_of('s') != std::string::npos) ||
-              (val.find_first_of('S') != std::string::npos)) {
+          if (val.find_first_of("sS") != std::string::npos) {
             v = val.substr(i + 3);
           } else {
             v = val.substr(i + 2);
@@ -483,17 +482,13 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             else
               value->set(hex_value, Value::Type::Unsigned, intsize);
           }
-        } else {
-          if (!val.empty() && (val[0] == '-')) {
+        } else if (!val.empty()) {
+          if (val[0] == '-') {
             int64_t i = std::strtoll(val.c_str(), nullptr, 10);
             value->set(i);
           } else {
-            if (uint64_t i = std::strtoull(val.c_str(), nullptr, 10)) {
-              value->set(i);
-            } else {
-              uint64_t j = std::strtoull(val.c_str(), nullptr, 10);
-              value->set(j);
-            }
+            uint64_t i = std::strtoull(val.c_str(), nullptr, 10);
+            value->set(i);
           }
         }
         break;
@@ -632,7 +627,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           args.push_back(evalExpr(fC, Expression, instance, muteErrors));
           Expression = fC->Sibling(Expression);
         }
-        std::string funcName = fC->SymName(function);
+        const std::string& funcName = fC->SymName(function);
         if (funcName == "clog2") {
           int val = args[0]->getValueL();
           val = val - 1;
@@ -692,7 +687,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
               }
             }
             std::string v;
-            if (token.find_first_of('s') != std::string::npos) {
+            if (token.find_first_of("sS") != std::string::npos) {
               v = token.substr(i + 3);
             } else {
               v = token.substr(i + 2);
@@ -914,7 +909,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
 Value* ExprBuilder::fromVpiValue(const std::string& s, int size) {
   Value* val = nullptr;
   size_t pos;
-  if ((pos = s.find("UINT:")) != std::string::npos) {
+  if ((pos = s.find("UINT:")) == 0) {
     val = m_valueFactory.newLValue();
     uint64_t v = std::strtoull(
         s.c_str() + pos + std::string_view("UINT:").length(), nullptr, 10);
@@ -922,7 +917,7 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, int size) {
       val->set(v, Value::Type::Unsigned, size);
     else
       val->set(v);
-  } else if ((pos = s.find("INT:")) != std::string::npos) {
+  } else if ((pos = s.find("INT:")) == 0) {
     val = m_valueFactory.newLValue();
     int64_t v = std::strtoll(
         s.c_str() + pos + std::string_view("INT:").length(), nullptr, 10);
@@ -930,7 +925,7 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, int size) {
       val->set(v, Value::Type::Integer, size);
     else
       val->set(v);
-  } else if ((pos = s.find("DEC:")) != std::string::npos) {
+  } else if ((pos = s.find("DEC:")) == 0) {
     val = m_valueFactory.newLValue();
     int64_t v = std::strtoll(
         s.c_str() + pos + std::string_view("DEC:").length(), nullptr, 10);
@@ -938,7 +933,7 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, int size) {
       val->set(v, Value::Type::Integer, size);
     else
       val->set(v);
-  } else if ((pos = s.find("SCAL:")) != std::string::npos) {
+  } else if ((pos = s.find("SCAL:")) == 0) {
     const char* const parse_pos =
         s.c_str() + pos + std::string_view("SCAL:").length();
     switch (parse_pos[0]) {
@@ -969,17 +964,17 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, int size) {
         }
         break;
     }
-  } else if ((pos = s.find("BIN:")) != std::string::npos) {
+  } else if ((pos = s.find("BIN:")) == 0) {
     StValue* sval = (StValue*)m_valueFactory.newStValue();
     sval->set(s.c_str() + pos + std::string_view("BIN:").length(),
               Value::Type::Binary, (size ? size : s.size()));
     val = sval;
-  } else if ((pos = s.find("HEX:")) != std::string::npos) {
+  } else if ((pos = s.find("HEX:")) == 0) {
     StValue* sval = (StValue*)m_valueFactory.newStValue();
     sval->set(s.c_str() + pos + std::string_view("HEX:").length(),
               Value::Type::Hexadecimal, (size ? size : (s.size() - 4) * 4));
     val = sval;
-  } else if ((pos = s.find("OCT:")) != std::string::npos) {
+  } else if ((pos = s.find("OCT:")) == 0) {
     val = m_valueFactory.newLValue();
     uint64_t v = std::strtoull(
         s.c_str() + pos + std::string_view("OCT:").length(), nullptr, 8);
@@ -987,10 +982,10 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, int size) {
       val->set(v, Value::Type::Unsigned, size);
     else
       val->set(v, Value::Type::Unsigned, (size ? size : (s.size() - 4) * 4));
-  } else if ((pos = s.find("STRING:")) != std::string::npos) {
+  } else if ((pos = s.find("STRING:")) == 0) {
     val = m_valueFactory.newStValue();
     val->set(s.c_str() + pos + std::string_view("STRING:").length());
-  } else if ((pos = s.find("REAL:")) != std::string::npos) {
+  } else if ((pos = s.find("REAL:")) == 0) {
     val = m_valueFactory.newLValue();
     double v = std::strtod(s.c_str() + pos + std::string_view("REAL:").length(),
                            nullptr);
@@ -1014,7 +1009,7 @@ Value* ExprBuilder::fromString(const std::string& value) {
         break;
       }
     }
-    if (value.find_first_of('s') != std::string::npos) {
+    if (value.find_first_of("sS") != std::string::npos) {
       sval = value.substr(i + 3);
     } else {
       sval = value.substr(i + 2);
