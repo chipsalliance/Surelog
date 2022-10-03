@@ -104,7 +104,11 @@ void AnalyzeFile::analyze() {
     std::string line;
     std::stringstream ss(m_text);
     while (std::getline(ss, line)) {
-      allLines.push_back(line);
+      while (!line.empty() &&
+             ((line.back() == '\r') || (line.back() == '\n'))) {
+        line.pop_back();
+      }
+      allLines.emplace_back(line);
     }
   }
   if (allLines.empty()) return;
