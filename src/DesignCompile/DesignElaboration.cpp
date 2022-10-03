@@ -532,7 +532,7 @@ bool DesignElaboration::elaborateModule_(const std::string& moduleName,
                                          const FileContent* fC,
                                          bool onlyTopLevel) {
   const FileContent::NameIdMap& nameIds = fC->getObjectLookup();
-  std::string libName = fC->getLibrary()->getName();
+  const std::string& libName = fC->getLibrary()->getName();
   Config* config = getInstConfig(moduleName);
   if (config == nullptr) config = getCellConfig(moduleName);
   Design* design = m_compileDesign->getCompiler()->getDesign();
@@ -977,7 +977,7 @@ void DesignElaboration::elaborateInstance_(
           Value* initValue = m_exprBuilder.getValueFactory().newLValue();
           initValue->set(initVal);
 
-          std::string name = fC->SymName(varId);
+          const std::string& name = fC->SymName(varId);
           parent->setValue(name, initValue, m_exprBuilder, fC->Line(varId));
 
           // End-loop test
@@ -1302,7 +1302,6 @@ void DesignElaboration::elaborateInstance_(
       }
       // Named blocks
       else if (type == slSeq_block || type == slPar_block) {
-        std::string libName = fC->getLibrary()->getName();
         std::string fullName = parent->getModuleName() + "." + instName;
 
         def = design->getComponentDefinition(fullName);
@@ -1329,7 +1328,6 @@ void DesignElaboration::elaborateInstance_(
           instName = fC->SymName(nameId);
         }
 
-        std::string libName = fC->getLibrary()->getName();
         std::string fullName;
         if (instName.empty())
           fullName = parent->getModuleName() + "." + genBlkBaseName +
@@ -1368,7 +1366,7 @@ void DesignElaboration::elaborateInstance_(
         // Regular module binding
         NodeId moduleName =
             fC->sl_collect(subInstanceId, VObjectType::slStringConst);
-        std::string libName = fC->getLibrary()->getName();
+        const std::string& libName = fC->getLibrary()->getName();
         mname = fC->SymName(moduleName);
 
         std::vector<std::string> libs;
@@ -1699,7 +1697,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
   }
   for (const auto& pack_import : pack_imports) {
     NodeId pack_id = pack_import.fC->Child(pack_import.nodeId);
-    std::string pack_name = pack_import.fC->SymName(pack_id);
+    const std::string& pack_name = pack_import.fC->SymName(pack_id);
     Package* def = design->getPackage(pack_name);
     if (def) {
       auto& paramSet = def->getObjects(VObjectType::slParam_assignment);
@@ -1736,7 +1734,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     for (FileCNodeId param :
          module->getObjects(VObjectType::slParam_assignment)) {
       NodeId ident = param.fC->Child(param.nodeId);
-      std::string name = param.fC->SymName(ident);
+      const std::string& name = param.fC->SymName(ident);
       params.push_back(name);
       moduleParams.push_back(name);
     }
@@ -1778,7 +1776,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
       }
       if (parentFile->Type(child) == VObjectType::slStringConst) {
         // Named param
-        std::string name = parentFile->SymName(child);
+        const std::string& name = parentFile->SymName(child);
         overridenParams.insert(name);
         NodeId expr = parentFile->Sibling(child);
         if (!expr) {
@@ -2099,7 +2097,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     for (FileCNodeId param :
          module->getObjects(VObjectType::slParam_assignment)) {
       NodeId ident = param.fC->Child(param.nodeId);
-      std::string name = param.fC->SymName(ident);
+      const std::string& name = param.fC->SymName(ident);
       if (overridenParams.find(name) == overridenParams.end()) {
         NodeId exprId = param.fC->Sibling(ident);
         while (param.fC->Type(exprId) == slUnpacked_dimension) {

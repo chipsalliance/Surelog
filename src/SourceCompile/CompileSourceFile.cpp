@@ -274,7 +274,7 @@ bool CompileSourceFile::postPreprocess_() {
 
   const fs::path writePpOutputFileName =
       fileSystem->toPath(m_commandLineParser->writePpOutputFileId());
-  std::string libName = m_library->getName();
+  const std::string& libName = m_library->getName();
   fs::path ppFileName = m_commandLineParser->writePpOutput()
                             ? directory / libName / fileName
                             : writePpOutputFileName;

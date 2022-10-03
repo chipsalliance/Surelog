@@ -60,7 +60,7 @@ std::string ResolveSymbols::SymName(NodeId index) const {
 void ResolveSymbols::createFastLookup() {
   UHDM::Serializer& s = m_compileDesign->getSerializer();
   Library* lib = m_fileData->getLibrary();
-  std::string libName = lib->getName();
+  const std::string& libName = lib->getName();
 
   // std::string fileName =  "FILE: " + m_fileData->getFileName() + " " +
   // m_fileData->getChunkFileName () + "\n"; std::cout << fileName;

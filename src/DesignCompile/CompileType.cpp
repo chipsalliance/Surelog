@@ -557,7 +557,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
   if (component) {
     const DataType* dt = component->getDataType(typeName);
     if (dt == nullptr) {
-      std::string libName = fC->getLibrary()->getName();
+      const std::string& libName = fC->getLibrary()->getName();
       dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(
           libName + "@" + typeName);
       if (dt == nullptr) {
@@ -637,7 +637,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
                   Location loc1(fC->getFileId(), fC->Line(suffixNode),
                                 fC->Column(suffixNode),
                                 symbols->registerSymbol(suffixname));
-                  std::string libName = fC->getLibrary()->getName();
+                  const std::string& libName = fC->getLibrary()->getName();
                   Design* design = compileDesign->getCompiler()->getDesign();
                   ModuleDefinition* def =
                       design->getModuleDefinition(libName + "@" + typeName2);
@@ -811,7 +811,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
     }
 
     if (result == nullptr) {
-      std::string libName = fC->getLibrary()->getName();
+      const std::string& libName = fC->getLibrary()->getName();
       Design* design = compileDesign->getCompiler()->getDesign();
       ModuleDefinition* def =
           design->getModuleDefinition(libName + "@" + typeName);
@@ -1117,7 +1117,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       int val = 0;
       while (enum_name_declaration) {
         NodeId enumNameId = fC->Child(enum_name_declaration);
-        std::string enumName = fC->SymName(enumNameId);
+        const std::string& enumName = fC->SymName(enumNameId);
         NodeId enumValueId = fC->Sibling(enumNameId);
         Value* value = nullptr;
         if (enumValueId) {

@@ -65,7 +65,7 @@ PathId PythonAPICache::getCacheFileId_(PathId svFileNameId) const {
   std::filesystem::path svFileName = fileSystem->toPath(svFileNameId);
   svFileName = FileUtils::basename(svFileName);
   Library* lib = m_listener->getCompileSourceFile()->getLibrary();
-  std::string libName = lib->getName();
+  const std::string& libName = lib->getName();
   fs::path cacheFileName =
       cacheDirName / libName / (svFileName.string() + ".slpy");
   return fileSystem->toPathId(

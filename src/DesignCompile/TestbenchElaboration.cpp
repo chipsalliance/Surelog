@@ -353,7 +353,7 @@ bool TestbenchElaboration::bindFunctionReturnTypesAndParamaters_() {
   for (const auto& [className, classDefinition] : classes) {
     for (auto& func : classDefinition->getFunctionMap()) {
       DataType* dtype = func.second->getReturnType();
-      std::string dataTypeName = dtype->getName();
+      const std::string& dataTypeName = dtype->getName();
       if (dtype->getDefinition()) continue;
       if (dtype->getFileContent() == nullptr) continue;
       if (dtype->getType() == VObjectType::slStringConst) {
@@ -364,7 +364,7 @@ bool TestbenchElaboration::bindFunctionReturnTypesAndParamaters_() {
       }
       for (auto& param : func.second->getParams()) {
         const DataType* dtype = param->getDataType();
-        std::string dataTypeName = dtype->getName();
+        const std::string& dataTypeName = dtype->getName();
         if (dtype->getDefinition()) continue;
         if (dtype->getFileContent() == nullptr) continue;
         if (dtype->getType() == VObjectType::slStringConst) {
@@ -586,7 +586,7 @@ bool TestbenchElaboration::bindForeachLoop_(ClassDefinition* classDefinition,
     }
     VObjectType rangeType = sfC->Type(rangeTypeId);
     if (rangeType == VObjectType::slStringConst) {
-      std::string dataTypeName = sfC->SymName(rangeTypeId);
+      const std::string& dataTypeName = sfC->SymName(rangeTypeId);
       itrDataType =
           bindDataType_(dataTypeName, sfC, rangeTypeId, classDefinition,
                         ErrorDefinition::COMP_UNDEFINED_TYPE);
@@ -669,7 +669,7 @@ bool TestbenchElaboration::bindTasks_() {
     for (auto& func : classDefinition->getTaskMap()) {
       for (auto param : func.second->getParams()) {
         const DataType* dtype = param->getDataType();
-        std::string dataTypeName = dtype->getName();
+        const std::string& dataTypeName = dtype->getName();
         if (dtype->getDefinition()) continue;
         if (dtype->getFileContent() == nullptr) continue;
         if (dtype->getType() == VObjectType::slStringConst) {

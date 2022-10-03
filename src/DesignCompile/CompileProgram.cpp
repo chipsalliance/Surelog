@@ -236,7 +236,7 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
         if (fC->Type(nameId) == slVirtual) {
           nameId = fC->Sibling(nameId);
         }
-        std::string name = fC->SymName(nameId);
+        const std::string& name = fC->SymName(nameId);
         FileCNodeId fnid(fC, nameId);
         m_program->addObject(type, fnid);
 
