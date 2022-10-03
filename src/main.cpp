@@ -42,6 +42,10 @@
 #include <string>
 #include <vector>
 
+#if defined(_MSC_VER) && defined(_DEBUG)
+#include <Windows.h>
+#endif
+
 namespace fs = std::filesystem;
 
 constexpr std::string_view cd_opt = "-cd";
@@ -210,6 +214,17 @@ int batchCompilation(const char* argv0, const fs::path& batchFile,
 }
 
 int main(int argc, const char** argv) {
+#if defined(_MSC_VER) && defined(_DEBUG)
+  // Redirect cout to file
+  std::streambuf* cout_rdbuf = nullptr;
+  std::streambuf* cerr_rdbuf = nullptr;
+  std::ofstream file;
+  if (IsDebuggerPresent() != 0) {
+    file.open("cout.txt");
+    cout_rdbuf = std::cout.rdbuf(file.rdbuf());
+    cerr_rdbuf = std::cerr.rdbuf(file.rdbuf());
+  }
+#endif
   SURELOG::Waiver::initWaivers();
 
   unsigned int codedReturn = 0;
@@ -274,5 +289,18 @@ int main(int argc, const char** argv) {
   }
 
   if (python_mode) SURELOG::PythonAPI::shutdown();
+#if defined(_MSC_VER) && defined(_DEBUG)
+  // Redirect cout back to screen
+  if (cout_rdbuf != nullptr) {
+    std::cout.rdbuf(cout_rdbuf);
+  }
+  if (cerr_rdbuf != nullptr) {
+    std::cerr.rdbuf(cerr_rdbuf);
+  }
+  if (file.is_open()) {
+    file.flush();
+    file.close();
+  }
+#endif
   return codedReturn;
 }
