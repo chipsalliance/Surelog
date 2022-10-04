@@ -21,6 +21,7 @@
  * Created on January 28, 2018, 10:17 PM
  */
 
+#include <Surelog/CommandLine/CommandLineParser.h>
 #include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
@@ -30,7 +31,6 @@
 #include <Surelog/Library/SVLibShapeListener.h>
 #include <Surelog/SourceCompile/ParseFile.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/FileUtils.h>
 #include <Surelog/Utils/ParseUtils.h>
 
 #include <regex>
@@ -64,27 +64,26 @@ void SVLibShapeListener::enterLibrary_declaration(
     SV3_1aParser::Library_declarationContext *ctx) {
   FileSystem *const fileSystem = FileSystem::getInstance();
   std::string name = ctx->identifier()->getText();
-  Library *lib = m_parser->getLibrarySet()->getLibrary(name);
+  LibrarySet *librarySet = m_parser->getLibrarySet();
+  Library *lib = librarySet->getLibrary(name);
   if (lib == nullptr) {
     Library lib(name, m_parser->getSymbolTable());
-    m_parser->getLibrarySet()->addLibrary(lib);
+    librarySet->addLibrary(lib);
   }
-  lib = m_parser->getLibrarySet()->getLibrary(name);
+  lib = librarySet->getLibrary(name);
 
   SymbolTable *symbolTable = m_parser->getSymbolTable();
-  const PathId fileId = m_parser->getFileId();
-  const fs::path filepath = fileSystem->toPath(fileId);
-  const fs::path dirpath = FileUtils::getPathName(filepath);
+  PathId baseDirId = fileSystem->getParent(m_parser->getFileId(), symbolTable);
   for (auto pathSpec : ctx->file_path_spec()) {
-    for (const auto &id :
-         FileUtils::collectFiles(dirpath / pathSpec->getText(), symbolTable)) {
+    PathIdVector fileIds;
+    fileSystem->matching(baseDirId, pathSpec->getText(), symbolTable, fileIds);
+    for (const auto &id : fileIds) {
       lib->addFileId(id);
-      fs::path fileName = fileSystem->toPath(id);
-      if ((fileName.extension() == ".cfg") ||
-          (fileName.extension() == ".map")) {
-        ParseLibraryDef parser(
-            m_parser->getCommandLineParser(), m_parser->getErrorContainer(),
-            symbolTable, m_parser->getLibrarySet(), m_parser->getConfigSet());
+      std::string_view type = std::get<1>(fileSystem->getType(id, symbolTable));
+      if ((type == ".cfg") || (type == ".map")) {
+        ParseLibraryDef parser(m_parser->getCommandLineParser(),
+                               m_parser->getErrorContainer(), symbolTable,
+                               librarySet, m_parser->getConfigSet());
         parser.parseLibraryDefinition(id, lib);
       }
     }
@@ -93,24 +92,33 @@ void SVLibShapeListener::enterLibrary_declaration(
 
 void SVLibShapeListener::enterInclude_statement(
     SV3_1aParser::Include_statementContext *ctx) {
-  FileSystem *const fileSystem = FileSystem::getInstance();
-  fs::path filePath = ctx->file_path_spec()->getText();
+  const std::string filename = ctx->file_path_spec()->getText();
 
-  std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
-  if (!FileUtils::fileExists(filePath)) {
+  FileSystem *const fileSystem = FileSystem::getInstance();
+  SymbolTable *const symbolTable = m_parser->getSymbolTable();
+
+  const PathIdVector &includePathIds =
+      m_parser->getCommandLineParser()->getIncludePaths();
+  PathId fileId = fileSystem->locate(filename, includePathIds, symbolTable);
+
+  if (!fileId) {
+    fileId =
+        fileSystem->getSibling(m_parser->getFileId(), filename, symbolTable);
+  }
+
+  if (!fileId || !fileSystem->isRegularFile(fileId)) {
+    std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
     Location loc(m_parser->getFileId(), lineCol.first, lineCol.second,
-                 m_parser->getSymbolTable()->registerSymbol(filePath.string()));
+                 symbolTable->registerSymbol(filename));
     Error err(ErrorDefinition::PP_CANNOT_OPEN_INCLUDE_FILE, loc);
     m_parser->getErrorContainer()->addError(err);
     return;
   }
 
   ParseLibraryDef parser(m_parser->getCommandLineParser(),
-                         m_parser->getErrorContainer(),
-                         m_parser->getSymbolTable(), m_parser->getLibrarySet(),
-                         m_parser->getConfigSet());
-  parser.parseLibraryDefinition(
-      fileSystem->toPathId(filePath, m_parser->getSymbolTable()));
+                         m_parser->getErrorContainer(), symbolTable,
+                         m_parser->getLibrarySet(), m_parser->getConfigSet());
+  parser.parseLibraryDefinition(fileId);
 }
 
 void SVLibShapeListener::enterUselib_directive(

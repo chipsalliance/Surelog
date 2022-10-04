@@ -41,7 +41,6 @@
 #include <Surelog/SourceCompile/Compiler.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Testbench/TypeDef.h>
-#include <Surelog/Utils/FileUtils.h>
 #include <Surelog/Utils/NumUtils.h>
 #include <Surelog/Utils/StringUtils.h>
 
@@ -484,7 +483,6 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
             break;
           }
         }
-
       } else {
         if (!value.empty() && value[0] == '-') {
           v = "INT:" + value;
@@ -3012,10 +3010,8 @@ UHDM::any *CompileHelper::compileExpression(
           compileDesign->getCompiler()->getErrorContainer();
       SymbolTable *symbols = compileDesign->getCompiler()->getSymbolTable();
       unsupported_expr *exp = s.MakeUnsupported_expr();
-      std::string fileContent =
-          FileUtils::getFileContent(fileSystem->toPath(fC->getFileId()));
-      std::string_view lineText =
-          StringUtils::getLineInString(fileContent, fC->Line(the_node));
+      std::string lineText;
+      fileSystem->readLine(fC->getFileId(), fC->Line(the_node), lineText);
       Location loc(fC->getFileId(the_node), fC->Line(the_node),
                    fC->Column(the_node),
                    symbols->registerSymbol(
@@ -3245,9 +3241,8 @@ bool CompileHelper::errorOnNegativeConstant(DesignComponent *component,
     std::string message;
     StrAppend(&message, '"', instanceName, "\"\n");
     SymbolTable *symbols = compileDesign->getCompiler()->getSymbolTable();
-    const std::filesystem::path fileName = fileSystem->toPath(fileId);
-    const std::string &fileContent = FileUtils::getFileContent(fileName);
-    auto lineText = StringUtils::getLineInString(fileContent, lineNo);
+    std::string lineText;
+    fileSystem->readLine(fileId, lineNo, lineText);
     StrAppend(&message, "             text: ", lineText);
     StrAppend(&message, "             value: ", val);
     ErrorContainer *errors = compileDesign->getCompiler()->getErrorContainer();
@@ -3424,10 +3419,8 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
             }
             std::string message;
             StrAppend(&message, '"', instanceName, "\"\n");
-            std::string fileContent =
-                FileUtils::getFileContent(fileSystem->toPath(fC->getFileId()));
-            std::string_view lineText =
-                StringUtils::getLineInString(fileContent, fC->Line(rexpr));
+            std::string lineText;
+            fileSystem->readLine(fC->getFileId(), fC->Line(rexpr), lineText);
             StrAppend(&message, "             text: ", lineText);
             StrAppend(&message, "             value: ", val);
 

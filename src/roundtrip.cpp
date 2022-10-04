@@ -25,7 +25,6 @@
  */
 
 #include <Surelog/Common/FileSystem.h>
-#include <Surelog/Utils/FileUtils.h>
 #include <Surelog/surelog.h>
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/UhdmListener.h>
@@ -3485,7 +3484,8 @@ static comparison_result_t compare(const std::filesystem::path &filepath,
 static int run(const std::vector<vpiHandle> &designHandles,
                const std::filesystem::path &baseDir,
                const std::filesystem::path &outDir) {
-  SURELOG::FileUtils::mkDirs(outDir);
+  std::error_code ec;
+  std::filesystem::create_directories(outDir, ec);
 
   design_statistics_t designStatistics;
   std::unordered_set<std::string> filenames;

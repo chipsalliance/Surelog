@@ -238,7 +238,7 @@ bool CompileSourceFile::preprocess_() {
 
   Precompiled* prec = Precompiled::getSingleton();
   if ((!m_commandLineParser->createCache()) &&
-      prec->isFilePrecompiled(m_fileId))
+      prec->isFilePrecompiled(m_fileId, getSymbolTable()))
     return true;
 
   m_pp->saveCache();
@@ -264,33 +264,35 @@ bool CompileSourceFile::postPreprocess_() {
 
   const fs::path directory =
       fileSystem->toPath(m_commandLineParser->getFullCompileDirId());
-  fs::path fullFileName = fileSystem->toPath(m_fileId);
-  fs::path baseFileName = FileUtils::basename(fullFileName);
-  fs::path filePath = FileUtils::getPathName(fullFileName);
-  fs::path hashedPath = m_commandLineParser->noCacheHash()
-                            ? filePath
-                            : fs::path(FileUtils::hashPath(filePath));
-  fs::path fileName = hashedPath / baseFileName;
+  const fs::path fullFileName = fileSystem->toPath(m_fileId);
+  const fs::path baseFileName =
+      std::get<1>(fileSystem->getLeaf(m_fileId, symbolTable));
+  const PathId dirId = fileSystem->getParent(m_fileId, symbolTable);
+  const fs::path dirPath = fileSystem->toPath(dirId);
+  const fs::path hashedPath = m_commandLineParser->noCacheHash()
+                                  ? dirPath
+                                  : fs::path(FileUtils::hashPath(dirPath));
+  const fs::path fileName = hashedPath / baseFileName;
 
   const fs::path writePpOutputFileName =
       fileSystem->toPath(m_commandLineParser->writePpOutputFileId());
   const std::string& libName = m_library->getName();
-  fs::path ppFileName = m_commandLineParser->writePpOutput()
-                            ? directory / libName / fileName
-                            : writePpOutputFileName;
-  fs::path dirPpFile = FileUtils::getPathName(ppFileName);
+  const fs::path ppFileName = m_commandLineParser->writePpOutput()
+                                  ? directory / libName / fileName
+                                  : writePpOutputFileName;
   m_ppResultFileId = fileSystem->toPathId(ppFileName, m_symbolTable);
-  PathId ppDirId = fileSystem->toPathId(dirPpFile, symbolTable);
   if (m_commandLineParser->lowMem() || m_commandLineParser->link()) {
     return true;
   }
-  if (!FileUtils::mkDirs(dirPpFile)) {
-    Location loc(ppDirId);
+  const PathId ppResultDirId =
+      fileSystem->getParent(m_ppResultFileId, m_symbolTable);
+  if (!fileSystem->mkdirs(ppResultDirId)) {
+    Location loc(ppResultDirId);
     Error err(ErrorDefinition::PP_CANNOT_CREATE_DIRECTORY, loc);
     m_errors->addError(err);
     return false;
   }
-  if ((!m_pp->usingCachedVersion()) || (!FileUtils::fileExists(ppFileName))) {
+  if (!m_pp->usingCachedVersion() || !fileSystem->exists(m_ppResultFileId)) {
     if (!fileSystem->writeContent(m_ppResultFileId, m_pp_result, true)) {
       Location loc(m_ppResultFileId);
       Error err(ErrorDefinition::PP_OPEN_FILE_FOR_WRITE, loc);

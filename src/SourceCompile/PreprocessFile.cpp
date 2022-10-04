@@ -35,7 +35,6 @@
 #include <Surelog/SourceCompile/PreprocessFile.h>
 #include <Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/FileUtils.h>
 #include <Surelog/Utils/StringUtils.h>
 #include <Surelog/Utils/Timer.h>
 #include <antlr4-runtime.h>
@@ -124,8 +123,10 @@ void PreprocessFile::setDebug(int level) {
 
 class PreprocessFile::DescriptiveErrorListener : public ANTLRErrorListener {
  public:
-  DescriptiveErrorListener(PreprocessFile* pp, std::string_view filename)
-      : m_pp(pp), m_fileName(filename) {}
+  DescriptiveErrorListener(PreprocessFile* pp, PathId fileId)
+      : m_pp(pp), m_fileId(fileId) {}
+  DescriptiveErrorListener(PreprocessFile* pp, std::string_view macroContext)
+      : m_pp(pp), m_macroContext(macroContext) {}
 
   void syntaxError(Recognizer* recognizer, Token* offendingSymbol, size_t line,
                    size_t charPositionInLine, const std::string& msg,
@@ -146,9 +147,10 @@ class PreprocessFile::DescriptiveErrorListener : public ANTLRErrorListener {
                                 size_t prediction,
                                 atn::ATNConfigSet* configs) override;
 
-  PreprocessFile* m_pp;
-  std::string m_fileName;
-  std::string m_fileContent;
+  PreprocessFile* const m_pp;
+  const PathId m_fileId;
+  const std::string m_macroContext;
+  std::vector<std::string> m_fileContent;
 };
 
 void PreprocessFile::DescriptiveErrorListener::syntaxError(
@@ -159,7 +161,7 @@ void PreprocessFile::DescriptiveErrorListener::syntaxError(
   if (m_pp->m_macroInfo) {
     std::string lineText = m_pp->getMacroBody();
     for (unsigned int i = 0; i < charPositionInLine; i++) lineText += " ";
-    lineText += "^-- " + m_fileName + ":" + std::to_string(line) + ":" +
+    lineText += "^-- " + m_macroContext + ":" + std::to_string(line) + ":" +
                 std::to_string(charPositionInLine) + ":";
     msgId = m_pp->registerSymbol(msg + "," + lineText);
     Location loc(m_pp->getMacroInfo()->m_fileId,
@@ -170,20 +172,21 @@ void PreprocessFile::DescriptiveErrorListener::syntaxError(
     Error err(ErrorDefinition::PP_MACRO_SYNTAX_ERROR, loc, extraLoc);
     m_pp->addError(err);
   } else {
+    FileSystem* fileSystem = FileSystem::getInstance();
     if (m_fileContent.empty()) {
-      m_fileContent = FileUtils::getFileContent(m_fileName);
+      fileSystem->readLines(m_fileId, m_fileContent);
     }
 
     std::string lineText;
-    if (!m_fileContent.empty()) {
-      lineText = StringUtils::getLineInString(m_fileContent, line);
+    if (!m_fileContent.empty() && (line <= m_fileContent.size())) {
+      lineText = m_fileContent[line - 1];
       if (!lineText.empty()) {
-        if (lineText.find('\n') == std::string::npos) {
+        if (lineText.back() != '\n') {
           lineText += "\n";
         }
-        for (unsigned int i = 0; i < charPositionInLine; i++) lineText += " ";
-        lineText += "^-- " + m_fileName + ":" + std::to_string(line) + ":" +
-                    std::to_string(charPositionInLine) + ":";
+        lineText.append(charPositionInLine, ' ');
+        StrAppend(&lineText, "^-- ", fileSystem->toPath(m_fileId), ":", line,
+                  ":", charPositionInLine, ":");
       }
     }
 
@@ -276,10 +279,10 @@ std::string PreprocessFile::getSymbol(SymbolId id) const {
 }
 
 SymbolId PreprocessFile::getMacroSignature() {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   std::string macroSignature = getSymbol(m_macroId);
   if (m_macroInfo) {
-    macroSignature +=
-        "|" + FileSystem::getInstance()->toPath(m_macroInfo->m_fileId).string();
+    macroSignature += "|" + fileSystem->toPath(m_macroInfo->m_fileId).string();
     macroSignature += "|" + std::to_string(m_macroInfo->m_startLine);
   }
   macroSignature += "|" + m_macroBody;
@@ -313,18 +316,15 @@ static size_t LinesCount(std::string_view s) {
 
 bool PreprocessFile::preprocess() {
   m_result.clear();
-  Timer tmr;
-  fs::path fileName;
   std::string macroName;
+  CommandLineParser* clp = getCompileSourceFile()->getCommandLineParser();
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  Timer tmr;
   bool precompiled = false;
   SymbolId macroSignatureId;
-  FileSystem* const fileSystem = FileSystem::getInstance();
-  CommandLineParser* clp = getCompileSourceFile()->getCommandLineParser();
   if (m_macroBody.empty()) {
-    fileName = fileSystem->toPath(m_fileId);
-    Precompiled* prec = Precompiled::getSingleton();
-    fs::path root = FileUtils::basename(fileName);
-    if (prec->isFilePrecompiled(root.string())) precompiled = true;
+    precompiled = Precompiled::getSingleton()->isFilePrecompiled(
+        m_fileId, getCompileSourceFile()->getSymbolTable());
     PPCache cache(this);
     if (cache.restore(clp->lowMem() || clp->noCacheHash())) {
       m_usingCachedVersion = true;
@@ -333,7 +333,7 @@ bool PreprocessFile::preprocess() {
         std::cout << m_fileContent->printObjects();
       if (precompiled || clp->noCacheHash()) {
         if (clp->debugCache()) {
-          std::cout << "PP CACHE USED FOR: " << fileName << std::endl;
+          std::cout << "PP CACHE USED FOR: " << PathIdPP(m_fileId) << std::endl;
         }
         return true;
       }
@@ -354,14 +354,9 @@ bool PreprocessFile::preprocess() {
 
   if (m_antlrParserHandler == nullptr) {
     m_antlrParserHandler = new AntlrParserHandler();
-    if (!m_macroBody.empty()) {
-      if (m_debugPP) {
-        std::cout << "PP PREPROCESS MACRO: " << m_macroBody << std::endl;
-      }
-      m_antlrParserHandler->m_inputStream = new ANTLRInputStream(m_macroBody);
-    } else {
+    if (m_macroBody.empty()) {
       if (m_debugPP)
-        std::cout << "PP PREPROCESS FILE: " << fileName << std::endl;
+        std::cout << "PP PREPROCESS FILE: " << PathIdPP(m_fileId) << std::endl;
       std::istream& stream = fileSystem->openForRead(m_fileId);
       if (!stream.good()) {
         if (m_includer == nullptr) {
@@ -438,11 +433,20 @@ bool PreprocessFile::preprocess() {
         addError(err);
         return false;
       }
+    } else {
+      if (m_debugPP) {
+        std::cout << "PP PREPROCESS MACRO: " << m_macroBody << std::endl;
+      }
+      m_antlrParserHandler->m_inputStream = new ANTLRInputStream(m_macroBody);
     }
-    m_antlrParserHandler->m_errorListener =
-        new PreprocessFile::DescriptiveErrorListener(
-            this, (m_macroBody.empty()) ? fileName.string()
-                                        : "in macro " + macroName);
+    if (m_macroBody.empty()) {
+      m_antlrParserHandler->m_errorListener =
+          new PreprocessFile::DescriptiveErrorListener(this, m_fileId);
+    } else {
+      m_antlrParserHandler->m_errorListener =
+          new PreprocessFile::DescriptiveErrorListener(this,
+                                                       "in macro " + macroName);
+    }
     m_antlrParserHandler->m_pplexer =
         new SV3_1aPpLexer(m_antlrParserHandler->m_inputStream);
     m_antlrParserHandler->m_pplexer->removeErrorListeners();
@@ -479,9 +483,9 @@ bool PreprocessFile::preprocess() {
 
       if (m_macroBody.empty() &&
           getCompileSourceFile()->getCommandLineParser()->profile()) {
-        m_profileInfo +=
-            "PP SSL Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
-            "s " + fileName.string() + "\n";
+        StrAppend(&m_profileInfo, "PP SSL Parsing: ",
+                  StringUtils::to_string(tmr.elapsed_rounded()), "s ",
+                  fileSystem->toPath(m_fileId), "\n");
         tmr.reset();
       }
     } catch (ParseCancellationException& pex) {
@@ -499,9 +503,9 @@ bool PreprocessFile::preprocess() {
 
       if (m_macroBody.empty() &&
           getCompileSourceFile()->getCommandLineParser()->profile()) {
-        m_profileInfo +=
-            "PP LL  Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
-            "s " + fileName.string() + "\n";
+        StrAppend(&m_profileInfo, "PP LL  Parsing: ",
+                  StringUtils::to_string(tmr.elapsed_rounded()), "s ",
+                  fileSystem->toPath(m_fileId), "\n");
         tmr.reset();
       }
     }
@@ -978,9 +982,8 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   if (body_short.find('`') != std::string::npos) {
     // Recursively resolve macro instantiation within the macro
     if (m_debugMacro) {
-      const fs::path fileName = fileSystem->toPath(m_fileId);
-      std::cout << "PP BODY EXPANSION FOR " << name << " in : " << fileName
-                << std::endl;
+      std::cout << "PP BODY EXPANSION FOR " << name
+                << " in : " << fileSystem->toPath(m_fileId) << std::endl;
       for (const auto& arg : actual_args) {
         std::cout << "PP ARG: " << arg << "\n";
       }
@@ -1007,8 +1010,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
         pp_result = std::regex_replace(
             pp_result, std::regex(PP__File__Marking),
             "\"" +
-                FileUtils::getFullPath(
-                    fileSystem->toPath(callingFile->getFileId(callingLine)))
+                fileSystem->toPath(callingFile->getFileId(callingLine))
                     .string() +
                 "\"");
         pp_result = std::regex_replace(pp_result, std::regex(PP__Line__Marking),
@@ -1207,6 +1209,7 @@ unsigned int PreprocessFile::getLineNb(unsigned int line) {
 }
 
 std::string PreprocessFile::getPreProcessedFileContent() {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   // If File is empty (Only CR) return an empty string
   bool nonEmpty = false;
   unsigned int pp_result_size = m_result.size();
@@ -1218,9 +1221,9 @@ std::string PreprocessFile::getPreProcessedFileContent() {
   }
   if (!nonEmpty) m_result.clear();
   if (m_debugPPResult) {
-    const fs::path fileName = FileSystem::getInstance()->toPath(m_fileId);
-    std::string objName = (!m_macroBody.empty()) ? "macro " + m_macroBody
-                                                 : "file " + fileName.string();
+    std::string objName = m_macroBody.empty()
+                              ? "file " + fileSystem->toPath(m_fileId).string()
+                              : "macro " + m_macroBody;
     std::cout << "PP RESULT for " << objName
               << " : \nvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n"
               << m_result << "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"

@@ -47,7 +47,6 @@
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Testbench/ClassDefinition.h>
 #include <Surelog/Testbench/Property.h>
-#include <Surelog/Utils/FileUtils.h>
 #include <Surelog/Utils/StringUtils.h>
 
 // UHDM
@@ -881,10 +880,8 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
           compileDesign->getCompiler()->getErrorContainer();
       SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
       unsupported_stmt* ustmt = s.MakeUnsupported_stmt();
-      std::string fileContent =
-          FileUtils::getFileContent(fileSystem->toPath(fC->getFileId()));
-      std::string_view lineText =
-          StringUtils::getLineInString(fileContent, fC->Line(the_stmt));
+      std::string lineText;
+      fileSystem->readLine(fC->getFileId(), fC->Line(the_stmt), lineText);
       Location loc(fC->getFileId(the_stmt), fC->Line(the_stmt),
                    fC->Column(the_stmt),
                    symbols->registerSymbol(

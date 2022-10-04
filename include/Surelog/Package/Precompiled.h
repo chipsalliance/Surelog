@@ -40,7 +40,7 @@ class Precompiled final {
 
   std::string getFileName(std::string_view packageName) const;
 
-  bool isFilePrecompiled(PathId fileId) const;
+  bool isFilePrecompiled(PathId fileId, SymbolTable* symbolTable) const;
   bool isFilePrecompiled(std::string_view fileName) const;
 
   bool isPackagePrecompiled(std::string_view packageName) const;

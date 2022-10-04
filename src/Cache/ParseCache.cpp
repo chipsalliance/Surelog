@@ -34,7 +34,6 @@
 #include <Surelog/SourceCompile/Compiler.h>
 #include <Surelog/SourceCompile/ParseFile.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/FileUtils.h>
 
 namespace SURELOG {
 namespace fs = std::filesystem;
@@ -47,24 +46,27 @@ static constexpr char FlbSchemaVersion[] = "1.2";
 // TODO(hzeller): this should come from a function cacheFileResolver() or
 // something that can be passed to the cache. That way, we can leave the
 // somewhat hard-coded notion of where cache files are.
-PathId ParseCache::getCacheFileName_(PathId svFileNameId) {
+PathId ParseCache::getCacheFileName_(PathId svFilePathId) {
+  if (!svFilePathId) svFilePathId = m_parse->getPpFileId();
+  if (!svFilePathId) return BadPathId;
   FileSystem* const fileSystem = FileSystem::getInstance();
   CommandLineParser* clp =
       m_parse->getCompileSourceFile()->getCommandLineParser();
+  SymbolTable* symbolTable = clp->getSymbolTable();
   Precompiled* prec = Precompiled::getSingleton();
-  if (!svFileNameId) svFileNameId = m_parse->getPpFileId();
-  fs::path svFileName = fileSystem->toPath(svFileNameId);
-  fs::path baseFileName = FileUtils::basename(svFileName);
+  fs::path svFilePath = fileSystem->toPath(svFilePathId);
+  fs::path svFileName =
+      std::get<1>(fileSystem->getLeaf(svFilePathId, symbolTable));
   fs::path cacheFileName;
   PathId cacheDirId = clp->getCacheDirId();
-  if (prec->isFilePrecompiled(baseFileName.string())) {
+  if (prec->isFilePrecompiled(svFileName.string())) {
     cacheDirId =
         fileSystem->copy(clp->getPrecompiledDirId(), clp->getSymbolTable());
     m_isPrecompiled = true;
-    svFileName = baseFileName;
+    svFilePath = svFileName;
   } else if (clp->noCacheHash()) {
     fs::path cacheDirName = fileSystem->toPath(cacheDirId);
-    const std::string& svFileTemp = svFileName.string();
+    const std::string& svFileTemp = svFilePath.string();
     std::string svFile;
     int nbSlash = 0;
     // Bring back the .slpa file in the cache dir instead of alongside the
@@ -73,22 +75,24 @@ PathId ParseCache::getCacheFileName_(PathId svFileNameId) {
       if (nbSlash >= 2) {
         svFile += c;
       }
-      if (c == '/') {
+      if ((c == '/') || (c == '\\')) {
         nbSlash++;
       }
     }
     cacheFileName = cacheDirName / (svFile + ".slpa");
   } else {
-    svFileName = svFileName.parent_path().filename() / baseFileName;
+    svFilePath = svFilePath.parent_path().filename() / svFileName;
   }
   fs::path cacheDirName = fileSystem->toPath(cacheDirId);
   Library* lib = m_parse->getLibrary();
   const std::string& libName = lib->getName();
   if (cacheFileName.empty()) {
-    cacheFileName = cacheDirName / libName / (svFileName.string() + ".slpa");
+    cacheFileName = cacheDirName / libName / (svFilePath.string() + ".slpa");
   }
 
-  FileUtils::mkDirs(cacheDirName / libName);
+  fileSystem->mkdirs(
+      fileSystem->toPathId(cacheDirName / libName,
+                           m_parse->getCompileSourceFile()->getSymbolTable()));
   return fileSystem->toPathId(
       cacheFileName, m_parse->getCompileSourceFile()->getSymbolTable());
 }

@@ -27,7 +27,6 @@
 #include <Surelog/SourceCompile/CompileSourceFile.h>
 #include <Surelog/SourceCompile/ParseFile.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/FileUtils.h>
 #include <Surelog/Utils/StringUtils.h>
 
 namespace SURELOG {
@@ -40,21 +39,18 @@ void AntlrParserErrorListener::syntaxError(
     return;
   }
   FileSystem *const fileSystem = FileSystem::getInstance();
-  const std::filesystem::path fileName = fileSystem->toPath(m_fileId);
   if (m_fileContent.empty()) {
-    m_fileContent = FileUtils::getFileContent(fileName);
+    fileSystem->readLines(m_fileId, m_fileContent);
   }
 
   std::string lineText;
-  if (!m_fileContent.empty()) {
-    lineText = StringUtils::getLineInString(m_fileContent, line);
+  if (!m_fileContent.empty() && (line <= m_fileContent.size())) {
+    lineText = m_fileContent[line - 1];
     if (!lineText.empty()) {
-      if (lineText.find('\n') == std::string::npos) {
-        lineText += "\n";
-      }
-      for (unsigned int i = 0; i < charPositionInLine; i++) lineText += " ";
-      lineText += "^-- " + fileName.string() + ":" + std::to_string(line) +
-                  ":" + std::to_string(charPositionInLine) + ":";
+      lineText.push_back('\n');
+      lineText.append(charPositionInLine, ' ');
+      StrAppend(&lineText, "^-- ", fileSystem->toSymbol(m_fileId), ":", line,
+                ":", charPositionInLine, ":");
     }
   }
   if (m_reportedSyntaxError == false) {

@@ -46,7 +46,6 @@
 #include <Surelog/Testbench/ClassDefinition.h>
 #include <Surelog/Testbench/TypeDef.h>
 #include <Surelog/Testbench/Variable.h>
-#include <Surelog/Utils/FileUtils.h>
 #include <Surelog/Utils/StringUtils.h>
 
 // UHDM
@@ -1732,10 +1731,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
           ErrorContainer* errors =
               compileDesign->getCompiler()->getErrorContainer();
           SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
-          std::string fileContent =
-              FileUtils::getFileContent(fileSystem->toPath(fC->getFileId()));
-          std::string_view lineText =
-              StringUtils::getLineInString(fileContent, fC->Line(type));
+          std::string lineText;
+          fileSystem->readLine(fC->getFileId(), fC->Line(type), lineText);
           Location loc(fC->getFileId(type), fC->Line(type), fC->Column(type),
                        symbols->registerSymbol(
                            StrCat("<", fC->printObject(type), "> ", lineText)));
@@ -1763,10 +1760,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
         ErrorContainer* errors =
             compileDesign->getCompiler()->getErrorContainer();
         SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
-        std::string fileContent =
-            FileUtils::getFileContent(fileSystem->toPath(fC->getFileId()));
-        std::string_view lineText =
-            StringUtils::getLineInString(fileContent, fC->Line(type));
+        std::string lineText;
+        fileSystem->readLine(fC->getFileId(), fC->Line(type), lineText);
         Location loc(fC->getFileId(type), fC->Line(type), fC->Column(type),
                      symbols->registerSymbol(
                          StrCat("<", fC->printObject(type), "> ", lineText)));

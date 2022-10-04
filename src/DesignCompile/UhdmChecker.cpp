@@ -32,7 +32,6 @@
 #include <Surelog/Package/Package.h>
 #include <Surelog/SourceCompile/Compiler.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/FileUtils.h>
 #include <Surelog/Utils/StringUtils.h>
 
 // UHDM
@@ -242,8 +241,8 @@ bool UhdmChecker::reportHtml(PathId reportFileId, float overallCoverage) {
   SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
   const std::filesystem::path reportFile = fileSystem->toPath(reportFileId) +=
       ".html";
-  PathId fileId = fileSystem->toPathId(reportFile, symbols);
-  std::ostream& report = fileSystem->openForWrite(fileId);
+  PathId htmlReportFileId = fileSystem->toPathId(reportFile, symbols);
+  std::ostream& report = fileSystem->openForWrite(htmlReportFileId);
   if (report.bad()) {
     fileSystem->close(report);
     return false;
@@ -264,8 +263,8 @@ bool UhdmChecker::reportHtml(PathId reportFileId, float overallCoverage) {
     }
     const fs::path filepath = fileSystem->toPath(fC->getFileId());
     std::string fname = "chk" + std::to_string(fileIndex) + ".html";
-    fs::path f = FileUtils::getPathName(reportFile) / fname;
-    PathId chkFileId = fileSystem->toPathId(f, symbols);
+    fs::path chkFilepath = reportFile.parent_path() / fname;
+    PathId chkFileId = fileSystem->toPathId(chkFilepath, symbols);
     std::ostream& reportF = fileSystem->openForWrite(chkFileId);
     if (reportF.bad()) {
       fileSystem->close(report);

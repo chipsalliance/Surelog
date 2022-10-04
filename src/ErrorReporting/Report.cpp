@@ -92,9 +92,11 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
   // std::mutex m;
   // m.lock();
   FileSystem* const fileSystem = FileSystem::getInstance();
+  SymbolTable* const symbolTable = clp->getSymbolTable();
   fs::path odir = fileSystem->toPath(clp->getOutputDirId());
-  fs::path alldir = fileSystem->toPath(clp->getCompileAllDirId());
-  fs::path unitdir = fileSystem->toPath(clp->getCompileUnitDirId());
+  const std::string& alldir = symbolTable->getSymbol(clp->getCompileAllDirId());
+  const std::string& unitdir =
+      symbolTable->getSymbol(clp->getCompileUnitDirId());
   fs::path log = st->getSymbol(clp->getDefaultLogFileId());
   fs::path alllog = odir / alldir / log;
   fs::path unitlog = odir / unitdir / log;
@@ -141,7 +143,7 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
   std::cout << "FILE UNIT LOG: " << unitlog << std::endl;
   std::cout << "ALL FILES LOG: " << alllog << std::endl;
 
-  fs::path diffFile = odir / unitdir / "diff.log";
+  fs::path diffFile = odir / "diff.log";
 
   std::string diffCmd = "diff -r " + (odir / unitdir).string() + " " +
                         (odir / alldir).string() +
