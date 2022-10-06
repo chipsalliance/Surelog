@@ -3856,7 +3856,7 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
            fileSystem->toPathId(rhs->VpiFile(),
                                 compileDesign->getCompiler()->getSymbolTable()),
            rhs->VpiLineNo(), true, false);
-
+  uint64_t patternSize = 0;
   if (tps->UhdmType() == uhdmpacked_array_typespec) {
     const packed_array_typespec* atps = (const packed_array_typespec*)tps;
     typespec* etps = (typespec*)atps->Elem_typespec();
@@ -3934,11 +3934,13 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
                            rhs->VpiFile(),
                            compileDesign->getCompiler()->getSymbolTable()),
                        rhs->VpiLineNo(), true, false);
+              patternSize += csize;
               for (uint64_t i = 0; i < csize; i++) {
                 if (valIndex > (int)(size - 1)) {
                   break;
                 }
-                values[valIndex] = (defaultval & (1 << i)) ? 1 : 0;
+                values[valIndex] =
+                    (defaultval & (1 << (csize - 1 - i))) ? 1 : 0;
                 valIndex++;
               }
             }
@@ -3979,7 +3981,7 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
                     break;
                   }
                   if (found) {
-                    values[valIndex] = (val & (1 << i)) ? 1 : 0;
+                    values[valIndex] = (val & (1 << (csize - 1 - i))) ? 1 : 0;
                   }
                   valIndex++;
                 }
@@ -3988,6 +3990,7 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
           } else if (rtps->UhdmType() == uhdmlogic_typespec) {
             // Apply default
             // parameter logic[7:0] P = '{default: 1};
+            patternSize += size;
             for (uint64_t i = 0; i < size; i++) {
               values[i] = defaultval;
             }
@@ -4007,12 +4010,12 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
             uint64_t v = eval.get_uvalue(invalidValue, vexp);
             int csize = adjustOpSize(tps, cop, opIndex, rhs, component,
                                      compileDesign, instance);
-
+            patternSize += csize;
             for (int i = 0; i < csize; i++) {
               if (valIndex > (int)(size - 1)) {
                 break;
               }
-              values[valIndex] = (v & (1 << i)) ? 1 : 0;
+              values[valIndex] = (v & (1 << (csize - 1 - i))) ? 1 : 0;
               valIndex++;
             }
             opIndex++;
@@ -4029,8 +4032,8 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
 
   if (tps->UhdmType() == uhdmlogic_typespec) {
     uint64_t value = 0;
-    for (uint64_t i = 0; i < size; i++) {
-      value |= (values[i]) ? ((uint64_t)1 << i) : 0;
+    for (uint64_t i = 0; i < patternSize; i++) {
+      value |= (values[i]) ? ((uint64_t)1 << (patternSize - 1 - i)) : 0;
     }
     result->VpiSize(size);
     result->VpiValue("UINT:" + std::to_string(value));

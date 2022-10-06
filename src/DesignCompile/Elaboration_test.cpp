@@ -681,5 +681,236 @@ endmodule
   }
 }
 
+TEST(Elaboration, AssignmentBitOrder) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+
+  // Preprocess, Parse, Compile, Elaborate
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+module dut();
+   parameter logic [0:4] A = 0;
+endmodule 
+
+module top();
+   typedef struct packed {
+      logic [1:0] a;
+      logic [2:0] b;
+   } struct_1;
+ 
+   parameter struct_1 X = '{a: 2'b10, b: 3'b110};
+
+   dut #(.A(X)) u_dut();
+endmodule
+
+  )");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto inst : *topMod->Modules()) {
+      for (auto passign : *inst->Param_assigns()) {
+        UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+        bool invalidValue = false;
+        const std::string& name = passign->Lhs()->VpiName();
+        if (name == "A") {
+          UHDM::ExprEval eval;
+          int64_t val = eval.get_value(invalidValue, rhs);
+          EXPECT_EQ(val, 22);
+        }
+      }
+    }
+  }
+}
+
+TEST(Elaboration, EnumConstElab) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+
+  // Preprocess, Parse, Compile, Elaborate
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+module prim_subreg;
+   parameter logic [4:0] RESVAL = '0;
+endmodule // prim_subreg
+
+module prim_subreg_shadow;
+   typedef struct packed {
+      logic [2:0] a;
+      logic [1:0] b;
+   } struct_t;
+
+   typedef enum logic [2:0] {
+      ENUM_ITEM = 3'b000
+   } enum_t;
+
+   parameter struct_t RESVAL = '{
+      a: ENUM_ITEM,
+      b: '1
+   };
+
+   prim_subreg #(
+      .RESVAL(RESVAL)
+   ) staged_reg ();
+endmodule // prim_subreg_shadow
+
+module top;
+   typedef struct packed {
+      logic [1:0] a;
+      logic [2:0] b;
+   } struct_t;
+
+   typedef enum logic [1:0] {
+      ENUM_ITEM = 2'b11
+   } enum_t;
+
+   parameter struct_t CTRL_RESET = '{
+      a: ENUM_ITEM,
+      b: '0
+   };
+
+   prim_subreg_shadow #(
+      .RESVAL(CTRL_RESET)
+   ) u_ctrl_reg_shadowed ();
+endmodule // top
+  )");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto inst : *topMod->Modules()) {
+      for (auto inst2 : *inst->Modules()) {
+        for (auto passign : *inst2->Param_assigns()) {
+          UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+          bool invalidValue = false;
+          const std::string& name = passign->Lhs()->VpiName();
+          if (name == "RESVAL") {
+            UHDM::ExprEval eval;
+            int64_t val = eval.get_value(invalidValue, rhs);
+            EXPECT_EQ(val, 24);
+          }
+        }
+      }
+    }
+  }
+}
+
+TEST(Elaboration, ParamNoDefault) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+
+  // Preprocess, Parse, Compile, Elaborate
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+module dut();
+parameter logic [4:0] A = 0;
+endmodule // dut
+
+module top();
+ typedef struct packed {
+    logic [1:0] a;
+ } struct_1;
+    
+ parameter struct_1 X = '{a: '1};
+ 
+ dut #(.A(X)) u_dut();
+endmodule
+  )");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto inst : *topMod->Modules()) {
+      for (auto passign : *inst->Param_assigns()) {
+        UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+        bool invalidValue = false;
+        const std::string& name = passign->Lhs()->VpiName();
+        if (name == "A") {
+          UHDM::ExprEval eval;
+          int64_t val = eval.get_value(invalidValue, rhs);
+          EXPECT_EQ(val, 3);
+        }
+      }
+    }
+  }
+}
+
+TEST(Elaboration, ParamOverloading) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+
+  // Preprocess, Parse, Compile, Elaborate
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+module prim_subreg;
+   parameter logic [4:0] RESVAL = '0;
+   int a = int'(RESVAL);
+endmodule // prim_subreg
+
+module prim_subreg_shadow;
+   typedef struct packed {
+      logic [2:0] a;
+      logic [1:0] b;
+   } struct_ab;
+
+   parameter struct_ab RESVAL = '{
+      a: '0,
+      b: '1
+   };
+
+   prim_subreg #(
+      .RESVAL(RESVAL)
+   ) staged_reg();
+   
+endmodule // prim_subreg_shadow
+
+module top;
+   typedef struct packed {
+      logic [1:0] a;
+      logic [2:0] b;
+   } struct_ab;
+   parameter v1 = 1;
+   parameter v2 = 0;
+   
+   parameter struct_ab CTRL_RESET = '{
+    //  a: '1,
+    //  b: '0
+    v1, v2
+   };
+
+   prim_subreg_shadow #(
+      .RESVAL(CTRL_RESET)
+   ) u_ctrl_reg_shadowed();
+endmodule // top
+  )");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto inst : *topMod->Modules()) {
+      for (auto inst2 : *inst->Modules()) {
+        for (auto passign : *inst2->Param_assigns()) {
+          UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+          bool invalidValue = false;
+          const std::string& name = passign->Lhs()->VpiName();
+          if (name == "RESVAL") {
+            UHDM::ExprEval eval;
+            int64_t val = eval.get_value(invalidValue, rhs);
+            EXPECT_EQ(val, 8);
+          }
+        }
+      }
+    }
+  }
+}
+
 }  // namespace
 }  // namespace SURELOG
