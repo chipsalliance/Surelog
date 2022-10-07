@@ -3243,7 +3243,7 @@ bool CompileHelper::errorOnNegativeConstant(DesignComponent *component,
     SymbolTable *symbols = compileDesign->getCompiler()->getSymbolTable();
     std::string lineText;
     fileSystem->readLine(fileId, lineNo, lineText);
-    StrAppend(&message, "             text: ", lineText);
+    StrAppend(&message, "             text: ", lineText, "\n");
     StrAppend(&message, "             value: ", val);
     ErrorContainer *errors = compileDesign->getCompiler()->getErrorContainer();
     Location loc(fileId, lineNo, columnNo, symbols->registerSymbol(message));
@@ -3421,7 +3421,7 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
             StrAppend(&message, '"', instanceName, "\"\n");
             std::string lineText;
             fileSystem->readLine(fC->getFileId(), fC->Line(rexpr), lineText);
-            StrAppend(&message, "             text: ", lineText);
+            StrAppend(&message, "             text: ", lineText, "\n");
             StrAppend(&message, "             value: ", val);
 
             Location loc(fC->getFileId(), fC->Line(rexpr), fC->Column(rexpr),
