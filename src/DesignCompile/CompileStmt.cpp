@@ -1375,11 +1375,9 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
           VectorOfrange* ranges =
               compileRanges(component, fC, Data_type, compileDesign, parent,
                             nullptr, false, size, false);
-          packed_array_typespec* pts = s.MakePacked_array_typespec();
+          logic_typespec* pts = s.MakeLogic_typespec();
           fC->populateCoreMembers(Data_type, Data_type, pts);
           pts->Ranges(ranges);
-          int_typespec* its = s.MakeInt_typespec();
-          pts->Typespec(its);
           ts = pts;
         }
 
