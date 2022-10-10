@@ -3320,20 +3320,6 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
         NodeId lexpr = fC->Child(Constant_range);
         NodeId rexpr = fC->Sibling(lexpr);
         UHDM::range *range = s.MakeRange();
-        if (reduce) {
-          Value *leftV = m_exprBuilder.evalExpr(fC, lexpr, instance, true);
-          Value *rightV = m_exprBuilder.evalExpr(fC, rexpr, instance, true);
-          uint64_t lint = 0;
-          uint64_t rint = 0;
-          if (leftV->isValid()) {
-            lint = leftV->getValueUL();
-          }
-          if (rightV->isValid()) {
-            rint = rightV->getValueUL();
-          }
-          uint64_t tmp = (lint > rint) ? lint - rint + 1 : rint - lint + 1;
-          size = size * tmp;
-        }
 
         expr *lexp = any_cast<expr *>(
             compileExpression(component, fC, lexpr, compileDesign, pexpr,
@@ -3367,6 +3353,28 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
         }
         if (rexp) rexp->VpiParent(range);
         range->Right_expr(rexp);
+        if ((lexp) && (rexp)) {
+          if (reduce) {
+            UHDM::ExprEval eval;
+            bool invalidValue = false;
+            lexp = reduceExpr(lexp, invalidValue, component, compileDesign,
+                              instance, fC->getFileId(), fC->Line(lexpr), pexpr,
+                              muteErrors);
+            rexp = reduceExpr(rexp, invalidValue, component, compileDesign,
+                              instance, fC->getFileId(), fC->Line(rexpr), pexpr,
+                              muteErrors);
+            uint64_t lint = eval.get_value(invalidValue, lexp);
+            uint64_t rint = eval.get_value(invalidValue, rexp);
+            if (lexp) lexp->VpiParent(range);
+            range->Left_expr(lexp);
+            if (rexp) rexp->VpiParent(range);
+            range->Right_expr(rexp);
+            if (!invalidValue) {
+              uint64_t tmp = (lint > rint) ? lint - rint + 1 : rint - lint + 1;
+              size = size * tmp;
+            }
+          }
+        }
         fC->populateCoreMembers(Packed_dimension, Packed_dimension, range);
         ranges->push_back(range);
         range->VpiParent(pexpr);

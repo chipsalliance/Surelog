@@ -869,7 +869,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       newTypeDef->setDataType(simple);
       newTypeDef->setDefinition(simple);
       UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign,
-                                           nullptr, nullptr, false);
+                                           nullptr, nullptr, reduce, false);
       if (ts) {
         if (array_tps) {
           array_tps->Elem_typespec(ts);
