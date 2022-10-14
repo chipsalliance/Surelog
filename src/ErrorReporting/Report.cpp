@@ -97,7 +97,7 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
   const std::string& alldir = symbolTable->getSymbol(clp->getCompileAllDirId());
   const std::string& unitdir =
       symbolTable->getSymbol(clp->getCompileUnitDirId());
-  fs::path log = st->getSymbol(clp->getDefaultLogFileId());
+  const std::string& log = st->getSymbol(clp->getLogFileNameId());
   fs::path alllog = odir / alldir / log;
   fs::path unitlog = odir / unitdir / log;
   bool readAll = false;
@@ -159,7 +159,7 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
       if (line.find("diff.log") != std::string::npos) {
         continue;
       }
-      if (line.find(log.string()) != std::string::npos) {
+      if (line.find(log) != std::string::npos) {
         continue;
       }
 

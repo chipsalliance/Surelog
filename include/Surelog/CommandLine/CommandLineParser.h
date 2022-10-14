@@ -28,6 +28,7 @@
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Common/SymbolId.h>
 
+#include <filesystem>
 #include <map>
 #include <set>
 #include <string>
@@ -79,7 +80,7 @@ class CommandLineParser final {
   }
   PathId getFullCompileDirId() const { return m_fullCompileDirId; }
   PathId getLogFileId() const { return m_logFileId; }
-  SymbolId getDefaultLogFileId() const { return m_defaultLogFileId; }
+  SymbolId getLogFileNameId() const { return m_logFileNameId; }
   bool writePpOutput() const { return m_writePpOutput; }
   void setwritePpOutput(bool value) { m_writePpOutput = value; }
   bool cacheAllowed() const { return m_cacheAllowed; }
@@ -228,14 +229,15 @@ class CommandLineParser final {
  private:
   CommandLineParser(const CommandLineParser& orig) = delete;
 
-  bool plus_arguments_(const std::string& s);
+  bool plus_arguments_(const std::string& s, const std::filesystem::path& cd);
   void processOutputDirectory_(const std::vector<std::string>& args);
   void processArgs_(const std::vector<std::string>& args,
+                    std::filesystem::path& wd, std::filesystem::path& cd,
                     std::vector<std::string>& container);
   void splitPlusArg_(const std::string& s, const std::string& prefix,
                      SymbolIdVector& container);
   void splitPlusArg_(const std::string& s, const std::string& prefix,
-                     PathIdVector& container);
+                     const std::filesystem::path& cd, PathIdVector& container);
   void splitPlusArg_(
       const std::string& s, const std::string& prefix,
       std::map<SymbolId, std::string, SymbolIdLessThanComparer>& container);
@@ -269,6 +271,7 @@ class CommandLineParser final {
   ErrorContainer* m_errors = nullptr;
   SymbolTable* m_symbolTable = nullptr;
   PathId m_logFileId;
+  SymbolId m_logFileNameId;
   bool m_lineOffsetsAsComments;
   bool m_liborder;
   bool m_librescan;

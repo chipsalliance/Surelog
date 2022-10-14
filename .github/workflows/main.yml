@@ -554,7 +554,7 @@ jobs:
 
   macos:
     name: macos-${{ matrix.compiler }}
-    runs-on: macos-latest
+    runs-on: macos-12
     strategy:
       fail-fast: false
       matrix:
@@ -599,6 +599,11 @@ jobs:
 
     - name: Configure compiler
       run: |
+        # Default xcode version 14.0.1 has reported bugs with linker
+        # Current recommended workaround is to downgrade to last known good version.
+        # https://github.com/actions/runner-images/issues/6350
+        sudo xcode-select -s '/Applications/Xcode_13.4.1.app/Contents/Developer'
+
         if [ "${{matrix.compiler}}" == "clang" ]; then
           echo 'CC=clang' >> $GITHUB_ENV
           echo 'CXX=clang++' >> $GITHUB_ENV
