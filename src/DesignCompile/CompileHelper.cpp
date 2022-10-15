@@ -2531,6 +2531,9 @@ bool CompileHelper::isMultidimensional(UHDM::typespec* ts,
       bit_typespec* lts = (bit_typespec*)ts;
       if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
     } else if (ttps == uhdmstruct_typespec) {
+      // Intentionally treating struct as multi-dimensional to prevent
+      // reduction.
+      // https://github.com/chipsalliance/Surelog/pull/3264#discussion_r996568514
       isMultiDimension = true;
     }
   }
