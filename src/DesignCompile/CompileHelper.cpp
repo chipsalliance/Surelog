@@ -2714,10 +2714,6 @@ bool CompileHelper::compileParameterDeclaration(
         isMultiDimension = true;
       }
 
-      if (m_unElabMode) {
-        isMultiDimension = true;  // Will force no reduction
-      }
-
       const std::string& the_name = fC->SymName(name);
       NodeId actual_value = value;
 
@@ -2726,7 +2722,7 @@ bool CompileHelper::compileParameterDeclaration(
           (instance == nullptr)) {
         UHDM::any* expr =
             compileExpression(component, fC, actual_value, compileDesign,
-                              nullptr, nullptr, !isMultiDimension);
+                              nullptr, nullptr, reduce && !isMultiDimension);
         UHDM::UHDM_OBJECT_TYPE exprtype = expr->UhdmType();
         if (expr && exprtype == UHDM::uhdmconstant) {
           UHDM::constant* c = (UHDM::constant*)expr;
