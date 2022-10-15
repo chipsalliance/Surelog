@@ -693,7 +693,12 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   if (comp) {
     signals = &comp->getPorts();
   }
-
+  std::map<std::string, Signal*> allSignals;
+  if (signals) {
+    for (Signal* s : *signals) {
+      allSignals.emplace(s->getName(), s);
+    }
+  }
   if ((inst_type == VObjectType::slUdp_instantiation) ||
       (inst_type == VObjectType::slModule_instantiation) ||
       (inst_type == VObjectType::slProgram_instantiation) ||
@@ -1193,12 +1198,20 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             p->Low_conn(ref);
           }
         }
-
+        std::map<std::string, Signal*>::iterator itr =
+            allSignals.find(formalName);
+        if (itr != allSignals.end()) {
+          allSignals.erase(itr);
+        }
         Named_port_connection = fC->Sibling(Named_port_connection);
         index++;
       }
-      if (wildcard) {
-        if (signals) {
+      if (signals) {
+        uint32_t formalSize = 0;
+        if (ports) {
+          formalSize = ports->size();
+        }
+        if (wildcard) {
           // Add missing ports
           VectorOfport* newPorts = s.MakePortVec();
           for (Signal* s1 : *signals) {
@@ -1239,6 +1252,45 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                     bind_net_(fC, InvalidNodeId, parent,
                               instance->getInstanceBinding(), sigName);
                 ref->Actual_group(net);
+              }
+            }
+          }
+          netlist->ports(newPorts);
+        } else if (index < formalSize) {
+          // Add missing ports
+          VectorOfport* newPorts = s.MakePortVec();
+          for (Signal* s1 : *signals) {
+            const std::string& sigName = s1->getName();
+
+            std::map<std::string, SURELOG::Signal*>::iterator itr =
+                allSignals.find(sigName);
+            if (itr != allSignals.end()) {
+              auto pair = (*itr);
+              port* p = nullptr;
+              for (port* pt : *ports) {
+                if (pt->VpiName() == sigName) {
+                  p = pt;
+                  newPorts->push_back(p);
+                  break;
+                }
+              }
+
+              if (p) {
+                if (NodeId defaultId = pair.second->getDefaultValue()) {
+                  m_helper.checkForLoops(true);
+                  expr* exp = (expr*)m_helper.compileExpression(
+                      comp, fC, defaultId, m_compileDesign, nullptr, instance,
+                      true);
+                  m_helper.checkForLoops(false);
+                  p->High_conn(exp);
+                }
+              }
+            } else {
+              for (port* pt : *ports) {
+                if (pt->VpiName() == sigName) {
+                  newPorts->push_back(pt);
+                  break;
+                }
               }
             }
           }
@@ -1919,7 +1971,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       parentNetlist->getSymbolTable().insert(std::make_pair(parentSymbol, obj));
     if (netlist) netlist->getSymbolTable().insert(std::make_pair(signame, obj));
 
-    if (exp) {
+    if (exp && (!signalIsPort)) {
       cont_assign* assign = s.MakeCont_assign();
       assign->VpiNetDeclAssign(true);
       fC->populateCoreMembers(id, id, assign);

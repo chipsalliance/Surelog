@@ -1703,9 +1703,19 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
         getSignalType(fC, net_port_type, /*ref*/ packedDimension,
                       /*ref*/ is_signed, /*ref*/ is_var, /*ref*/ nodeType);
     NodeId unpackedDimension;
+    NodeId defaultValue;
     NodeId tmp = fC->Sibling(identifier);
     if (fC->Type(tmp) == slUnpacked_dimension) {
       unpackedDimension = tmp;
+    }
+    if (fC->Type(tmp) == slConstant_expression) {
+      defaultValue = tmp;
+      if (dir_type == VObjectType::slPortDir_Ref) {
+        Location loc(fC->getFileId(tmp), fC->Line(tmp), fC->Column(tmp),
+                     m_symbols->registerSymbol(fC->SymName(identifier)));
+        Error err(ErrorDefinition::COMP_ILLEGAL_DEFAULT_PORT_VALUE, loc, loc);
+        m_errors->addError(err);
+      }
     }
     if (!nodeType) {
       nodeType = NetType;
@@ -1714,6 +1724,7 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
                            port_direction, specParamId ? specParamId : nodeType,
                            unpackedDimension, is_signed);
     if (is_var) p->setVar();
+    p->setDefaultValue(defaultValue);
     p->setStatic();
     component->getPorts().push_back(p);
     Signal* s = new Signal(fC, identifier, signal_type, packedDimension,
