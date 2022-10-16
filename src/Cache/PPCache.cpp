@@ -49,18 +49,18 @@ static const char FlbSchemaVersion[] = "1.3";
 // TODO(hzeller): this should come from a function cacheFileResolver() or
 // something that can be passed to the cache. That way, we can leave the
 // somewhat hard-coded notion of where cache files are.
-PathId PPCache::getCacheFileId_(PathId requestedFileId) {
-  if (!requestedFileId) requestedFileId = m_pp->getFileId(LINE1);
-  if (!requestedFileId) return BadPathId;
+PathId PPCache::getCacheFileId_(PathId sourceFileId) {
+  if (!sourceFileId) sourceFileId = m_pp->getFileId(LINE1);
+  if (!sourceFileId) return BadPathId;
   FileSystem* const fileSystem = FileSystem::getInstance();
   Precompiled* prec = Precompiled::getSingleton();
   CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
   SymbolTable* symbolTable = clp->getSymbolTable();
-  const fs::path svFilePath = fileSystem->toPath(requestedFileId);
+  const fs::path svFilePath = fileSystem->toPath(sourceFileId);
   const fs::path svFileName =
-      std::get<1>(fileSystem->getLeaf(requestedFileId, symbolTable));
+      std::get<1>(fileSystem->getLeaf(sourceFileId, symbolTable));
   const fs::path svDirPath =
-      fileSystem->toPath(fileSystem->getParent(requestedFileId, symbolTable));
+      fileSystem->toPath(fileSystem->getParent(sourceFileId, symbolTable));
   fs::path hashedPath =
       clp->noCacheHash() ? svDirPath : fs::path(FileUtils::hashPath(svDirPath));
   fs::path fileName = hashedPath / svFileName;
@@ -81,9 +81,10 @@ PathId PPCache::getCacheFileId_(PathId requestedFileId) {
   }
 
   fs::path cacheDirName = fileSystem->toPath(cacheDirId);
-  Library* lib = m_pp->getLibrary();
-  std::string libName = lib->getName();
-  if (clp->parseOnly()) libName.clear();
+  std::string libName;
+  if (!clp->parseOnly()) {
+    libName = m_pp->getLibrary()->getName();
+  }
   fs::path cacheFileName =
       cacheDirName / libName / (fileName.string() + ".slpp");
   fileSystem->mkdirs(
@@ -100,13 +101,12 @@ static bool compareVectors(std::vector<T> a, std::vector<T> b) {
   return (a == b);
 }
 
-bool PPCache::restore_(PathId cacheFileId,
-                       const std::unique_ptr<uint8_t[]>& buffer,
+bool PPCache::restore_(PathId cacheFileId, const std::vector<char>& content,
                        bool errorsOnly, int recursionDepth) {
-  if (buffer == nullptr) return false;
+  if (content.empty()) return false;
   FileSystem* const fileSystem = FileSystem::getInstance();
 
-  const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(buffer.get());
+  const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(content.data());
   // std::cout << "RESTORING FILE: " << cacheFileName << std::endl;
   SymbolTable cacheSymbols;
   restoreSymbols(ppcache->symbols(), &cacheSymbols);
@@ -223,43 +223,44 @@ bool PPCache::restore_(PathId cacheFileId,
 
 bool PPCache::restore_(PathId cacheFileId, bool errorsOnly,
                        int recursionDepth) {
-  return restore_(cacheFileId, openFlatBuffers(cacheFileId), errorsOnly,
-                  recursionDepth);
+  std::vector<char> content;
+  return cacheFileId && openFlatBuffers(cacheFileId, content) &&
+         restore_(cacheFileId, content, errorsOnly, recursionDepth);
 }
 
 bool PPCache::checkCacheIsValid_(PathId cacheFileId,
-                                 const std::unique_ptr<uint8_t[]>& buffer) {
-  if (buffer == nullptr) return false;
+                                 const std::vector<char>& content) {
+  if (!cacheFileId || content.empty()) return false;
 
   CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
   if (clp->parseOnly() || clp->lowMem()) {
     return true;
   }
 
-  if (!MACROCACHE::PPCacheBufferHasIdentifier(buffer.get())) {
+  if (!MACROCACHE::PPCacheBufferHasIdentifier(content.data())) {
     return false;
   }
   if (clp->noCacheHash()) {
     return true;
   }
-  FileSystem* const fileSystem = FileSystem::getInstance();
-  const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(buffer.get());
-  auto header = ppcache->header();
 
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(content.data());
+  const auto header = ppcache->header();
   const auto cacheSymbols = ppcache->symbols();
 
   if (!m_isPrecompiled) {
-    if (!checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileId)) {
+    if (!checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileId,
+                             m_pp->getCompileSourceFile()->getSymbolTable())) {
       return false;
     }
 
     /* Cache the include paths list */
-    const auto& includePathList =
-        m_pp->getCompileSourceFile()->getCommandLineParser()->getIncludePaths();
+    const auto& includePathList = clp->getIncludePaths();
     std::vector<fs::path> include_path_vec;
     include_path_vec.reserve(includePathList.size());
-    for (const auto& path : includePathList) {
-      include_path_vec.emplace_back(fileSystem->toPath(path));
+    for (const auto& pathId : includePathList) {
+      include_path_vec.emplace_back(fileSystem->toPath(pathId));
     }
 
     std::vector<fs::path> cache_include_path_vec;
@@ -273,8 +274,7 @@ bool PPCache::checkCacheIsValid_(PathId cacheFileId,
     }
 
     /* Cache the defines on the command line */
-    const auto& defineList =
-        m_pp->getCompileSourceFile()->getCommandLineParser()->getDefineList();
+    const auto& defineList = clp->getDefineList();
     std::vector<std::string> define_vec;
     define_vec.reserve(defineList.size());
     for (const auto& definePair : defineList) {
@@ -314,38 +314,44 @@ bool PPCache::checkCacheIsValid_(PathId cacheFileId) {
     return true;
   }
 
-  return checkCacheIsValid_(cacheFileId, openFlatBuffers(cacheFileId));
+  std::vector<char> content;
+  return cacheFileId && openFlatBuffers(cacheFileId, content) &&
+         checkCacheIsValid_(cacheFileId, content);
+}
+
+bool PPCache::isValid() {
+  PathId cacheFileId = getCacheFileId_(BadPathId);
+
+  std::vector<char> content;
+  return cacheFileId && openFlatBuffers(cacheFileId, content) &&
+         checkCacheIsValid_(cacheFileId, content);
 }
 
 bool PPCache::restore(bool errorsOnly) {
-  bool cacheAllowed =
-      m_pp->getCompileSourceFile()->getCommandLineParser()->cacheAllowed();
-  if (!cacheAllowed) return false;
+  CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
+  if (!clp->cacheAllowed()) return false;
   if (m_pp->isMacroBody()) return false;
 
   PathId cacheFileId = getCacheFileId_(BadPathId);
-  auto buffer = openFlatBuffers(cacheFileId);
-  if (buffer == nullptr) return false;
+  std::vector<char> content;
 
-  return checkCacheIsValid_(cacheFileId, buffer) &&
-         restore_(cacheFileId, buffer, errorsOnly, 0);
+  return cacheFileId && openFlatBuffers(cacheFileId, content) &&
+         checkCacheIsValid_(cacheFileId, content) &&
+         restore_(cacheFileId, content, errorsOnly, 0);
 }
 
 bool PPCache::save() {
+  CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
+  if (!clp->cacheAllowed()) return false;
+
   FileSystem* const fileSystem = FileSystem::getInstance();
-  bool cacheAllowed =
-      m_pp->getCompileSourceFile()->getCommandLineParser()->cacheAllowed();
-  if (!cacheAllowed) return false;
   FileContent* fcontent = m_pp->getFileContent();
-  if (fcontent) {
-    if (fcontent->getVObjects().size() > Cache::Capacity) {
-      m_pp->getCompileSourceFile()->getCommandLineParser()->setCacheAllowed(
-          false);
-      Location loc(BadSymbolId);
-      Error err(ErrorDefinition::CMD_CACHE_CAPACITY_EXCEEDED, loc);
-      m_pp->getCompileSourceFile()->getErrorContainer()->addError(err);
-      return false;
-    }
+  if (fcontent && (fcontent->getVObjects().size() > Cache::Capacity)) {
+    clp->setCacheAllowed(false);
+    Location loc(BadSymbolId);
+    Error err(ErrorDefinition::CMD_CACHE_CAPACITY_EXCEEDED, loc);
+    m_pp->getCompileSourceFile()->getErrorContainer()->addError(err);
+    return false;
   }
 
   PathId origFileId = m_pp->getFileId(LINE1);
@@ -411,8 +417,7 @@ bool PPCache::save() {
                                 subjectFileId);
 
   /* Cache the include paths list */
-  auto includePathList =
-      m_pp->getCompileSourceFile()->getCommandLineParser()->getIncludePaths();
+  auto includePathList = clp->getIncludePaths();
   std::vector<uint64_t> include_path_vec;
   for (const auto& pathId : includePathList) {
     PathId includePathId = fileSystem->copy(pathId, &cacheSymbols);
@@ -421,8 +426,7 @@ bool PPCache::save() {
   auto incPaths = builder.CreateVector(include_path_vec);
 
   /* Cache the defines on the command line */
-  auto defineList =
-      m_pp->getCompileSourceFile()->getCommandLineParser()->getDefineList();
+  auto defineList = clp->getDefineList();
   std::vector<std::string> define_vec;
   for (auto& definePair : defineList) {
     std::string spath =
@@ -490,7 +494,8 @@ bool PPCache::save() {
   FinishPPCacheBuffer(builder, ppcache);
 
   /* Save Flatbuffer */
-  bool status = saveFlatbuffers(builder, cacheFileId);
+  bool status = saveFlatbuffers(builder, cacheFileId,
+                                m_pp->getCompileSourceFile()->getSymbolTable());
 
   return status;
 }

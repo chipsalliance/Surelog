@@ -53,10 +53,10 @@ static std::string FlbSchemaVersion = "1.0";
 
 PythonAPICache::PythonAPICache(PythonListen* listener) : m_listener(listener) {}
 
-PathId PythonAPICache::getCacheFileId_(PathId svFileNameId) const {
+PathId PythonAPICache::getCacheFileId_(PathId sourceFileId) const {
   ParseFile* parseFile = m_listener->getParseFile();
-  if (!svFileNameId) svFileNameId = parseFile->getFileId(LINE1);
-  if (!svFileNameId) return BadPathId;
+  if (!sourceFileId) sourceFileId = parseFile->getFileId(LINE1);
+  if (!sourceFileId) return BadPathId;
   FileSystem* const fileSystem = FileSystem::getInstance();
   PathId cacheDirId = m_listener->getCompileSourceFile()
                           ->getCommandLineParser()
@@ -64,7 +64,7 @@ PathId PythonAPICache::getCacheFileId_(PathId svFileNameId) const {
 
   fs::path cacheDirName = fileSystem->toPath(cacheDirId);
   std::filesystem::path svFileName = std::get<1>(
-      fileSystem->getLeaf(svFileNameId, parseFile->getSymbolTable()));
+      fileSystem->getLeaf(sourceFileId, parseFile->getSymbolTable()));
   Library* lib = m_listener->getCompileSourceFile()->getLibrary();
   const std::string& libName = lib->getName();
   fs::path cacheFileName =
@@ -73,12 +73,12 @@ PathId PythonAPICache::getCacheFileId_(PathId svFileNameId) const {
       cacheFileName, m_listener->getCompileSourceFile()->getSymbolTable());
 }
 
-bool PythonAPICache::restore_(PathId cacheFileId) {
-  auto buffer = openFlatBuffers(cacheFileId);
-  if (buffer == nullptr) return false;
+bool PythonAPICache::restore_(PathId cacheFileId,
+                              const std::vector<char>& content) {
+  if (!cacheFileId || content.empty()) return false;
 
   const PYTHONAPICACHE::PythonAPICache* ppcache =
-      PYTHONAPICACHE::GetPythonAPICache(buffer.get());
+      PYTHONAPICACHE::GetPythonAPICache(content.data());
   SymbolTable canonicalSymbols;
   restoreSymbols(ppcache->m_symbols(), &canonicalSymbols);
   restoreErrors(ppcache->m_errors(), &canonicalSymbols,
@@ -88,41 +88,52 @@ bool PythonAPICache::restore_(PathId cacheFileId) {
   return true;
 }
 
-bool PythonAPICache::checkCacheIsValid_(PathId cacheFileId) {
-  auto buffer = openFlatBuffers(cacheFileId);
-  if (buffer == nullptr) return false;
-  if (!PYTHONAPICACHE::PythonAPICacheBufferHasIdentifier(buffer.get())) {
+bool PythonAPICache::checkCacheIsValid_(
+    PathId cacheFileId, const std::vector<char>& content) const {
+  if (!cacheFileId || content.empty()) return false;
+
+  if (!PYTHONAPICACHE::PythonAPICacheBufferHasIdentifier(content.data())) {
     return false;
   }
   FileSystem* const fileSystem = FileSystem::getInstance();
+  SymbolTable* symbolTable =
+      m_listener->getCompileSourceFile()->getSymbolTable();
+
   const PYTHONAPICACHE::PythonAPICache* ppcache =
-      PYTHONAPICACHE::GetPythonAPICache(buffer.get());
+      PYTHONAPICACHE::GetPythonAPICache(content.data());
   auto header = ppcache->m_header();
 
-  fs::path cacheFileName = fileSystem->toPath(cacheFileId);
-  auto scriptFile = ppcache->m_python_script_file()->string_view();
-  if (!scriptFile.empty()) {
-    time_t ct = get_mtime(cacheFileName);
-    time_t ft = get_mtime(scriptFile);
-    if (ft == -1) {
-      return false;
-    }
-    if (ct == -1) {
-      return false;
-    }
-    if (ct < ft) {
-      return false;
-    }
+  const PathId scriptFileId = fileSystem->toPathId(
+      ppcache->m_python_script_file()->string_view(), symbolTable);
+
+  std::filesystem::file_time_type ct = fileSystem->modtime(cacheFileId);
+  std::filesystem::file_time_type ft = fileSystem->modtime(scriptFileId);
+
+  if (ft == std::filesystem::file_time_type::min()) {
+    return false;
+  }
+  if (ct == std::filesystem::file_time_type::min()) {
+    return false;
+  }
+  if (ct < ft) {
+    return false;
   }
 
-  if (!checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileId)) {
+  if (!checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileId,
+                           symbolTable)) {
     return false;
   }
 
   return true;
 }
 
-bool PythonAPICache::isValid() {
+bool PythonAPICache::checkCacheIsValid_(PathId cacheFileId) const {
+  std::vector<char> content;
+  return cacheFileId && openFlatBuffers(cacheFileId, content) &&
+         checkCacheIsValid_(cacheFileId, content);
+}
+
+bool PythonAPICache::isValid() const {
   return checkCacheIsValid_(getCacheFileId_(BadPathId));
 }
 
@@ -133,24 +144,23 @@ bool PythonAPICache::restore() {
   if (!cacheAllowed) return false;
 
   PathId cacheFileId = getCacheFileId_(BadPathId);
-  if (!checkCacheIsValid_(cacheFileId)) {
-    return false;
-  }
+  std::vector<char> content;
 
-  return restore_(cacheFileId);
+  return cacheFileId && openFlatBuffers(cacheFileId, content) &&
+         checkCacheIsValid_(cacheFileId, content) &&
+         restore_(cacheFileId, content);
 }
 
 bool PythonAPICache::save() {
-  FileSystem* const fileSystem = FileSystem::getInstance();
-  bool cacheAllowed = m_listener->getCompileSourceFile()
-                          ->getCommandLineParser()
-                          ->cacheAllowed();
-  if (!cacheAllowed) return false;
-  ParseFile* parseFile = m_listener->getParseFile();
-  SymbolTable* symbolTable = parseFile->getSymbolTable();
-  fs::path svFileName = fileSystem->toPath(parseFile->getPpFileId());
-  fs::path origFileName = svFileName;
+  CommandLineParser* clp =
+      m_listener->getCompileSourceFile()->getCommandLineParser();
+  if (!clp->cacheAllowed()) return false;
+
   PathId cacheFileId = getCacheFileId_(BadPathId);
+  if (!cacheFileId) return false;
+
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  ParseFile* parseFile = m_listener->getParseFile();
 
   flatbuffers::FlatBufferBuilder builder(1024);
   /* Create header section */
@@ -177,7 +187,9 @@ bool PythonAPICache::save() {
   FinishPythonAPICacheBuffer(builder, ppcache);
 
   /* Save Flatbuffer */
-  bool status = saveFlatbuffers(builder, cacheFileId);
+  bool status =
+      saveFlatbuffers(builder, cacheFileId,
+                      m_listener->getCompileSourceFile()->getSymbolTable());
 
   return status;
 }
