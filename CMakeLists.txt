@@ -631,7 +631,7 @@ install(
 
 # Libraries
 install(
-  TARGETS surelog
+  TARGETS roundtrip surelog
   EXPORT Surelog
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog)
@@ -776,12 +776,13 @@ install(
 if (WIN32 AND (CMAKE_CXX_COMPILER_ID MATCHES "MSVC"))
   if (SURELOG_WITH_PYTHON)
     install(
-      FILES $<TARGET_PDB_FILE:surelog-bin>
-            ${Python3_RUNTIME_LIBRARY_DIRS}/python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR}$<$<CONFIG:Debug>:_d>.dll
+      FILES ${Python3_RUNTIME_LIBRARY_DIRS}/python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR}$<$<CONFIG:Debug>:_d>.dll
       DESTINATION ${CMAKE_INSTALL_BINDIR})
   endif()
   install(
-    FILES $<TARGET_PDB_FILE:surelog-bin>
+    FILES $<TARGET_PDB_FILE:roundtrip>
+          $<TARGET_PDB_FILE:surelog-bin>
+          ${UHDM_BINARY_DIR}/bin/uhdm-cmp.pdb
           ${UHDM_BINARY_DIR}/bin/uhdm-dump.pdb
           ${UHDM_BINARY_DIR}/bin/uhdm-hier.pdb
     CONFIGURATIONS Debug RelWithDebInfo
