@@ -59,7 +59,6 @@
 namespace SURELOG {
 
 using namespace UHDM;  // NOLINT (using a bunch of them)
-namespace fs = std::filesystem;
 
 variables* CompileHelper::getSimpleVarFromTypespec(
     UHDM::typespec* spec, std::vector<UHDM::range*>* packedDimensions,

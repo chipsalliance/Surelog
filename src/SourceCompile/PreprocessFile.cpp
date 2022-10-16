@@ -48,7 +48,6 @@
 namespace SURELOG {
 
 using namespace antlr4;
-namespace fs = std::filesystem;
 
 const char* const PreprocessFile::MacroNotDefined = "SURELOG_MACRO_NOT_DEFINED";
 const char* const PreprocessFile::PP__Line__Marking = "SURELOG__LINE__MARKING";

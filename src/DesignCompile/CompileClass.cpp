@@ -42,9 +42,6 @@
 #include <stack>
 
 namespace SURELOG {
-
-namespace fs = std::filesystem;
-
 int FunctorCompileClass::operator()() const {
   CompileClass* instance =
       new CompileClass(m_compileDesign, m_class, m_design, m_symbols, m_errors);
@@ -56,13 +53,9 @@ int FunctorCompileClass::operator()() const {
 bool CompileClass::compile() {
   if (m_class->m_fileContents.empty()) return true;
 
-  FileSystem* const fileSystem = FileSystem::getInstance();
   const FileContent* fC = m_class->m_fileContents[0];
   if (fC == nullptr) return true;
   NodeId nodeId = m_class->m_nodeIds[0];
-
-  fs::path fileName = fileSystem->toPath(fC->getFileId(nodeId));
-  std::string fullName;
 
   std::vector<std::string> names;
   ClassDefinition* parent = m_class;
@@ -72,6 +65,8 @@ bool CompileClass::compile() {
     names.push_back(parent->getName());
     parent = parent->m_parent;
   }
+
+  std::string fullName;
   if (tmp_container) {
     fullName = tmp_container->getName() + "::";
   }
@@ -87,8 +82,8 @@ bool CompileClass::compile() {
 
   if (m_class->m_uhdm_definition->VpiFullName().empty())
     m_class->m_uhdm_definition->VpiFullName(fullName);
-  Location loc(fileSystem->toPathId(fileName, m_symbols), fC->Line(nodeId),
-               fC->Column(nodeId), m_symbols->registerSymbol(fullName));
+  Location loc(fC->getFileId(nodeId), fC->Line(nodeId), fC->Column(nodeId),
+               m_symbols->registerSymbol(fullName));
 
   Error err1(ErrorDefinition::COMP_COMPILE_CLASS, loc);
   ErrorContainer* errors = new ErrorContainer(m_symbols);

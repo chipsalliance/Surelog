@@ -3623,7 +3623,6 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
 
 vpiHandle UhdmWriter::write(PathId uhdmFileId) {
   FileSystem* const fileSystem = FileSystem::getInstance();
-  const std::filesystem::path uhdmFile = fileSystem->toPath(uhdmFileId);
   ComponentMap componentMap;
   ModPortMap modPortMap;
   InstanceMap instanceMap;
@@ -3633,7 +3632,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
       m_compileDesign->getCompiler()->getErrorContainer(),
       m_compileDesign->getCompiler()->getSymbolTable());
 
-  Location loc((SymbolId)uhdmFileId);
+  Location loc(uhdmFileId);
   Error err(ErrorDefinition::UHDM_CREATING_MODEL, loc);
   m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
   m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
@@ -3957,6 +3956,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
     }
   }
 
+  const std::filesystem::path uhdmFile = fileSystem->toAbsPath(uhdmFileId);
   if (m_compileDesign->getCompiler()->getCommandLineParser()->writeUhdm()) {
     Error err(ErrorDefinition::UHDM_WRITE_DB, loc);
     m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
