@@ -32,6 +32,8 @@
 
 namespace SURELOG {
 class PathId;
+class SymbolTable;
+
 class Precompiled final {
  public:
   static Precompiled* getSingleton();

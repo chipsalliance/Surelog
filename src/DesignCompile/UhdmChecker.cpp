@@ -39,14 +39,12 @@
 #include <uhdm/uhdm.h>
 #include <uhdm/vpi_visitor.h>
 
+#include <filesystem>
 #include <iomanip>
 #include <sstream>
 #include <stack>
 
 namespace SURELOG {
-
-namespace fs = std::filesystem;
-
 using UHDM::BaseClass;
 using UHDM::begin;
 using UHDM::Serializer;
@@ -239,9 +237,9 @@ bool UhdmChecker::reportHtml(PathId reportFileId, float overallCoverage) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   ErrorContainer* errors = m_compileDesign->getCompiler()->getErrorContainer();
   SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
-  const std::filesystem::path reportFile = fileSystem->toPath(reportFileId) +=
-      ".html";
-  PathId htmlReportFileId = fileSystem->toPathId(reportFile, symbols);
+  const std::filesystem::path htmlReportFile =
+      fileSystem->toPath(reportFileId) += ".html";
+  PathId htmlReportFileId = fileSystem->toPathId(htmlReportFile, symbols);
   std::ostream& report = fileSystem->openForWrite(htmlReportFileId);
   if (report.bad()) {
     fileSystem->close(report);
@@ -261,10 +259,9 @@ bool UhdmChecker::reportHtml(PathId reportFileId, float overallCoverage) {
       fileSystem->close(report);
       return false;
     }
-    const fs::path filepath = fileSystem->toPath(fC->getFileId());
-    std::string fname = "chk" + std::to_string(fileIndex) + ".html";
-    fs::path chkFilepath = reportFile.parent_path() / fname;
-    PathId chkFileId = fileSystem->toPathId(chkFilepath, symbols);
+    const std::filesystem::path filepath = fileSystem->toPath(fC->getFileId());
+    const std::string fname = "chk" + std::to_string(fileIndex) + ".html";
+    PathId chkFileId = fileSystem->getSibling(htmlReportFileId, fname, symbols);
     std::ostream& reportF = fileSystem->openForWrite(chkFileId);
     if (reportF.bad()) {
       fileSystem->close(report);
@@ -442,7 +439,6 @@ void UhdmChecker::mergeColumnCoverage() {
 
 float UhdmChecker::reportCoverage(PathId reportFileId) {
   FileSystem* const fileSystem = FileSystem::getInstance();
-  const std::filesystem::path reportFile = fileSystem->toPath(reportFileId);
 
   std::ostream& report = fileSystem->openForWrite(reportFileId);
   if (report.bad()) {
@@ -644,10 +640,10 @@ bool UhdmChecker::check(PathId reportFileId) {
   }
 
   for (const FileContent* fC : files) {
-    const fs::path fileName = fileSystem->toPath(fC->getFileId());
     if (!clp->createCache()) {
-      if ((fileName.filename().compare("uvm_pkg.sv") == 0) ||
-          (fileName.filename().compare("ovm_pkg.sv") == 0)) {
+      std::string_view fileName = std::get<1>(
+          fileSystem->getLeaf(fC->getFileId(), fC->getSymbolTable()));
+      if ((fileName == "uvm_pkg.sv") || (fileName == "ovm_pkg.sv")) {
         continue;
       }
     }

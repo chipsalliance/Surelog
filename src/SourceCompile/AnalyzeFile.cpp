@@ -379,7 +379,7 @@ void AnalyzeFile::analyze() {
   if (inComment || inString) {
     m_splitFiles.clear();
     m_lineOffsets.clear();
-    Location loc((SymbolId)m_fileId);
+    Location loc(m_fileId);
     Error err(ErrorDefinition::PA_CANNOT_SPLIT_FILE, loc);
     errors->addError(err);
     errors->printMessages();

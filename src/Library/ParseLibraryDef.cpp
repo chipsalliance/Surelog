@@ -37,12 +37,9 @@
 #include <parser/SV3_1aLexer.h>
 #include <parser/SV3_1aParser.h>
 
-#include <filesystem>
-
 namespace SURELOG {
 
 using namespace antlr4;
-namespace fs = std::filesystem;
 
 ParseLibraryDef::ParseLibraryDef(CommandLineParser* commandLineParser,
                                  ErrorContainer* errors,
@@ -104,7 +101,6 @@ bool ParseLibraryDef::parseLibrariesDefinition() {
 bool ParseLibraryDef::parseLibraryDefinition(PathId fileId, Library* lib) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   m_fileId = fileId;
-  const fs::path fileName = fileSystem->toPath(fileId);
   std::istream& stream = fileSystem->openForRead(m_fileId);
 
   if (!stream.good()) {

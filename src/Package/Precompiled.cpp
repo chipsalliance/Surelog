@@ -54,7 +54,7 @@ bool Precompiled::isFilePrecompiled(std::string_view fileName) const {
 
 bool Precompiled::isFilePrecompiled(PathId fileId,
                                     SymbolTable* symbolTable) const {
-  std::filesystem::path fileName =
+  std::string_view fileName =
       std::get<1>(FileSystem::getInstance()->getLeaf(fileId, symbolTable));
   return (m_packageFileSet.find(fileName) != m_packageFileSet.end());
 }
