@@ -62,7 +62,7 @@ static std::unordered_map<std::string, std::string>
 //         Or when the cache schema changes
 //        This will render the cache invalid
 std::string_view CommandLineParser::getVersionNumber() {
-  static constexpr std::string_view kVersionNumber("1.40");
+  static constexpr std::string_view kVersionNumber("1.41");
   return kVersionNumber;
 }
 

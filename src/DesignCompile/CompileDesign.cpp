@@ -62,9 +62,6 @@
 #endif
 
 namespace SURELOG {
-
-namespace fs = std::filesystem;
-
 CompileDesign::CompileDesign(Compiler* compiler) : m_compiler(compiler) {}
 CompileDesign::~CompileDesign() {
   // TODO: ownership not clear.
@@ -176,7 +173,6 @@ void CompileDesign::compileMT_(ObjectMapType& objects, int maxThreadCount) {
 
 void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
                                     Design* design, bool finalCollection) {
-  FileSystem* const fileSystem = FileSystem::getInstance();
   typedef std::map<std::string, std::vector<Package*>> FileNamePackageMap;
   FileNamePackageMap fileNamePackageMap;
   SymbolTable* symbols = m_compiler->getSymbolTable();
@@ -228,16 +224,13 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
             ((oldParentFile != newParentFile) ||
              ((oldParentFile == nullptr) && (newParentFile == nullptr)))) {
           NodeId oldNodeId = existing->getNodeIds()[0];
-          fs::path oldFileName = fileSystem->toPath(oldFC->getFileId());
           unsigned int oldLine = oldFC->Line(oldNodeId);
-          fs::path newFileName = fileSystem->toPath(newFC->getFileId());
           unsigned int newLine = newFC->Line(newNodeId);
-          if ((oldFileName != newFileName) || (oldLine != newLine)) {
-            Location loc1(fileSystem->toPathId(oldFileName, symbols), oldLine,
-                          oldFC->Column(oldNodeId),
+          if ((oldFC->getFileId() != newFC->getFileId()) ||
+              (oldLine != newLine)) {
+            Location loc1(oldFC->getFileId(), oldLine, oldFC->Column(oldNodeId),
                           symbols->registerSymbol(pack.first));
-            Location loc2(fileSystem->toPathId(newFileName, symbols), newLine,
-                          newFC->Column(newNodeId),
+            Location loc2(newFC->getFileId(), newLine, newFC->Column(newNodeId),
                           symbols->registerSymbol(pack.first));
             Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_PACKAGE, loc1,
                       loc2);

@@ -44,8 +44,6 @@
 
 namespace SURELOG {
 
-namespace fs = std::filesystem;
-
 bool checkValidFunction(const DataType* dtype, const std::string& function,
                         Statement* stmt, Design* design,
                         std::string& datatypeName) {

@@ -32,7 +32,6 @@
 #include <antlr4-runtime.h>
 #include <stdio.h>
 
-#include <filesystem>
 #include <iostream>
 #include <mutex>
 #if !(defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
@@ -40,9 +39,6 @@
 #endif
 
 namespace SURELOG {
-
-namespace fs = std::filesystem;
-
 ErrorContainer::ErrorContainer(SymbolTable* symbolTable,
                                LogListener* logListener /* = nullptr */)
     : m_clp(nullptr),
@@ -128,8 +124,8 @@ void ErrorContainer::appendErrors(ErrorContainer& rhs) {
         if (loc.m_fileId)
           loc.m_fileId = fileSystem->copy(loc.m_fileId, m_symbolTable);
         if (loc.m_object) {
-          loc.m_object = m_symbolTable->registerSymbol(
-              rhs.m_symbolTable->getSymbol(loc.m_object));
+          loc.m_object =
+              m_symbolTable->copyFrom(loc.m_object, rhs.m_symbolTable);
         }
       }
       addError(err);

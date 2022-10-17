@@ -54,9 +54,6 @@
 #include <unordered_set>
 
 namespace SURELOG {
-
-namespace fs = std::filesystem;
-
 DesignElaboration::DesignElaboration(CompileDesign* compileDesign)
     : TestbenchElaboration(compileDesign) {
   m_moduleDefFactory = nullptr;
@@ -2435,9 +2432,9 @@ void DesignElaboration::createFileList_() {
     }
   }
 
-  const fs::path directory = fileSystem->toPath(cmdLine->getFullCompileDirId());
-  fs::path fileList = directory / "file_elab.lst";
-  PathId fileId = fileSystem->toPathId(fileList, cmdLine->getSymbolTable());
+  PathId fileId =
+      fileSystem->getChild(cmdLine->getFullCompileDirId(), "file_elab.lst",
+                           cmdLine->getSymbolTable());
   std::ostream& ofs = fileSystem->openForWrite(fileId);
   if (ofs.good()) {
     const Compiler::PPFileMap& ppFileName =
@@ -2452,7 +2449,7 @@ void DesignElaboration::createFileList_() {
     }
     fileSystem->close(ofs);
   } else {
-    std::cerr << "Could not create filelist: " << fileList << std::endl;
+    std::cerr << "Could not create filelist: " << PathIdPP(fileId) << std::endl;
   }
 }
 }  // namespace SURELOG

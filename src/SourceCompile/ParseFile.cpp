@@ -40,9 +40,6 @@
 #include <parser/SV3_1aParser.h>
 
 namespace SURELOG {
-
-namespace fs = std::filesystem;
-
 ParseFile::ParseFile(PathId fileId, SymbolTable* symbolTable,
                      ErrorContainer* errors)
     : m_fileId(fileId),
@@ -222,6 +219,7 @@ PathId ParseFile::getFileId(unsigned int line) {
         Location ppfile(fileId);
         Error err(ErrorDefinition::PA_INTERNAL_ERROR, ppfile);
         addError(err);
+        return m_fileId;
       }
       return fileInfoCache[line];
     }
@@ -231,6 +229,7 @@ PathId ParseFile::getFileId(unsigned int line) {
       Location ppfile(fileId);
       Error err(ErrorDefinition::PA_INTERNAL_ERROR, ppfile);
       addError(err);
+      return m_fileId;
     }
     return fileInfoCache[line];
   } else {
@@ -250,6 +249,7 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
         Location ppfile(fileId);
         Error err(ErrorDefinition::PA_INTERNAL_ERROR, ppfile);
         addError(err);
+        return line;
       }
       return lineInfoCache[line];
     }
@@ -259,6 +259,7 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
       Location ppfile(fileId);
       Error err(ErrorDefinition::PA_INTERNAL_ERROR, ppfile);
       addError(err);
+      return line;
     }
     return lineInfoCache[line];
   } else {

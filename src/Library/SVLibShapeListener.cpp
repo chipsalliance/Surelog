@@ -36,9 +36,6 @@
 #include <regex>
 
 namespace SURELOG {
-
-namespace fs = std::filesystem;
-
 SVLibShapeListener::SVLibShapeListener(ParseLibraryDef *parser,
                                        antlr4::CommonTokenStream *tokens)
     : SV3_1aTreeShapeHelper(

@@ -40,7 +40,6 @@
 
 namespace SURELOG {
 
-namespace fs = std::filesystem;
 using namespace UHDM;  // NOLINT (using a bunch of them)
 
 expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args,

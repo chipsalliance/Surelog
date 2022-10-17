@@ -21,7 +21,6 @@
 #include <Surelog/Common/SymbolId.h>
 
 #include <cstdint>
-#include <filesystem>
 #include <istream>
 #include <ostream>
 #include <set>
