@@ -33,6 +33,7 @@ namespace SURELOG {
 class CommandLineParser;
 class Design;
 struct scompiler;
+class AstListener;
 
 // Create a compiler session based on the command line options
 scompiler* start_compiler(CommandLineParser* clp);
@@ -51,6 +52,8 @@ vpiHandle get_uhdm_design(scompiler* compiler);
 // this invalidates any UHDM/VPI pointers the client application might still
 // use!
 void shutdown_compiler(scompiler* compiler);
+
+void walk_ast(scompiler* compiler, AstListener* listener);
 
 }  // namespace SURELOG
 

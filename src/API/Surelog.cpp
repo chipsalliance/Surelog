@@ -16,9 +16,14 @@
 
 #include <Surelog/API/Surelog.h>
 #include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/Design.h>
+#include <Surelog/Design/FileContent.h>
 #include <Surelog/DesignCompile/CompileDesign.h>
+#include <Surelog/SourceCompile/AstListener.h>
+#include <Surelog/SourceCompile/CompileSourceFile.h>
 #include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/ParseFile.h>
 
 namespace SURELOG {
 
@@ -51,6 +56,19 @@ vpiHandle get_uhdm_design(scompiler* compiler) {
     design_handle = the_compiler->getUhdmDesign();
   }
   return design_handle;
+}
+
+void walk_ast(scompiler* compiler, AstListener* listener) {
+  if (!compiler || !listener) return;
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  Compiler* the_compiler = (Compiler*)compiler;
+  for (const CompileSourceFile* csf : the_compiler->getCompileSourceFiles()) {
+    const FileContent* const fC = csf->getParser()->getFileContent();
+    const std::filesystem::path filepath = fileSystem->toPath(fC->getFileId());
+    const std::vector<VObject>& objects = fC->getVObjects();
+    const SymbolTable* const symbolTable = fC->getSymbolTable();
+    listener->listen(filepath, objects.data(), objects.size(), symbolTable);
+  }
 }
 
 }  // namespace SURELOG
