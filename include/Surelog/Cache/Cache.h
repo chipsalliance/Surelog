@@ -29,8 +29,8 @@
 #include <Surelog/Common/PathId.h>
 #include <flatbuffers/flatbuffers.h>
 
-#include <filesystem>
-#include <memory>
+#include <string_view>
+#include <vector>
 
 namespace SURELOG {
 
@@ -59,18 +59,17 @@ class Cache {
 
   Cache() = default;
 
-  time_t get_mtime(const std::filesystem::path& path);
-
-  const std::string& getExecutableTimeStamp();
+  std::string_view getExecutableTimeStamp() const;
 
   // Open file and read contents into a buffer.
-  std::unique_ptr<uint8_t[]> openFlatBuffers(PathId cacheFileId);
+  bool openFlatBuffers(PathId cacheFileId, std::vector<char>& content) const;
 
-  bool saveFlatbuffers(flatbuffers::FlatBufferBuilder& builder,
-                       PathId cacheFileId);
+  bool saveFlatbuffers(const flatbuffers::FlatBufferBuilder& builder,
+                       PathId cacheFileId, SymbolTable* symbolTable);
 
   bool checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
-                           std::string_view schemaVersion, PathId cacheFileId);
+                           std::string_view schemaVersion, PathId cacheFileId,
+                           SymbolTable* symbolTable) const;
 
   flatbuffers::Offset<SURELOG::CACHE::Header> createHeader(
       flatbuffers::FlatBufferBuilder& builder, std::string_view schemaVersion,

@@ -27,8 +27,6 @@
 
 #include <Surelog/Cache/Cache.h>
 
-#include <filesystem>
-
 namespace SURELOG {
 
 class PythonListen;
@@ -39,14 +37,16 @@ class PythonAPICache final : Cache {
 
   bool restore();
   bool save();
-  bool isValid();
+  bool isValid() const;
 
  private:
   PythonAPICache(const PythonAPICache& orig) = delete;
 
-  PathId getCacheFileId_(PathId svFileNameId) const;
-  bool restore_(PathId cacheFileId);
-  bool checkCacheIsValid_(PathId cacheFileId);
+  PathId getCacheFileId_(PathId sourceFileId) const;
+  bool restore_(PathId cacheFileId, const std::vector<char>& content);
+  bool checkCacheIsValid_(PathId cacheFileId) const;
+  bool checkCacheIsValid_(PathId cacheFileId,
+                          const std::vector<char>& content) const;
 
   PythonListen* m_listener;
 };

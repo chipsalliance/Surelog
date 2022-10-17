@@ -46,17 +46,16 @@ static constexpr char FlbSchemaVersion[] = "1.2";
 // TODO(hzeller): this should come from a function cacheFileResolver() or
 // something that can be passed to the cache. That way, we can leave the
 // somewhat hard-coded notion of where cache files are.
-PathId ParseCache::getCacheFileName_(PathId svFilePathId) {
-  if (!svFilePathId) svFilePathId = m_parse->getPpFileId();
-  if (!svFilePathId) return BadPathId;
+PathId ParseCache::getCacheFileId_(PathId ppFileId) {
+  if (!ppFileId) ppFileId = m_parse->getPpFileId();
+  if (!ppFileId) return BadPathId;
   FileSystem* const fileSystem = FileSystem::getInstance();
   CommandLineParser* clp =
       m_parse->getCompileSourceFile()->getCommandLineParser();
   SymbolTable* symbolTable = clp->getSymbolTable();
   Precompiled* prec = Precompiled::getSingleton();
-  fs::path svFilePath = fileSystem->toPath(svFilePathId);
-  fs::path svFileName =
-      std::get<1>(fileSystem->getLeaf(svFilePathId, symbolTable));
+  fs::path svFilePath = fileSystem->toPath(ppFileId);
+  fs::path svFileName = std::get<1>(fileSystem->getLeaf(ppFileId, symbolTable));
   fs::path cacheFileName;
   PathId cacheDirId = clp->getCacheDirId();
   if (prec->isFilePrecompiled(svFileName.string())) {
@@ -98,13 +97,13 @@ PathId ParseCache::getCacheFileName_(PathId svFilePathId) {
 }
 
 bool ParseCache::restore_(PathId cacheFileId,
-                          const std::unique_ptr<uint8_t[]>& buffer) {
-  if (buffer == nullptr) return false;
+                          const std::vector<char>& content) {
+  if (!cacheFileId || content.empty()) return false;
 
   FileSystem* const fileSystem = FileSystem::getInstance();
   /* Restore Errors */
   const PARSECACHE::ParseCache* ppcache =
-      PARSECACHE::GetParseCache(buffer.get());
+      PARSECACHE::GetParseCache(content.data());
 
   SymbolTable cacheSymbols;
   restoreSymbols(ppcache->symbols(), &cacheSymbols);
@@ -165,25 +164,25 @@ bool ParseCache::restore_(PathId cacheFileId,
 }
 
 bool ParseCache::checkCacheIsValid_(PathId cacheFileId,
-                                    const std::unique_ptr<uint8_t[]>& buffer) {
-  if (buffer == nullptr) return false;
+                                    const std::vector<char>& content) const {
+  if (!cacheFileId || content.empty()) return false;
 
-  CommandLineParser* clp =
-      m_parse->getCompileSourceFile()->getCommandLineParser();
-
-  if (!PARSECACHE::ParseCacheBufferHasIdentifier(buffer.get())) {
+  if (!PARSECACHE::ParseCacheBufferHasIdentifier(content.data())) {
     return false;
   }
 
+  CommandLineParser* clp =
+      m_parse->getCompileSourceFile()->getCommandLineParser();
   if (clp->noCacheHash()) {
     return true;
   }
 
   const PARSECACHE::ParseCache* ppcache =
-      PARSECACHE::GetParseCache(buffer.get());
+      PARSECACHE::GetParseCache(content.data());
   auto header = ppcache->header();
   if (!m_isPrecompiled &&
-      !checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileId)) {
+      !checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileId,
+                           m_parse->getCompileSourceFile()->getSymbolTable())) {
     return false;
   }
 
@@ -191,59 +190,53 @@ bool ParseCache::checkCacheIsValid_(PathId cacheFileId,
 }
 
 bool ParseCache::isValid() {
-  PathId cacheFileId = getCacheFileName_(BadPathId);
-  return checkCacheIsValid_(cacheFileId, openFlatBuffers(cacheFileId));
+  PathId cacheFileId = getCacheFileId_(BadPathId);
+
+  std::vector<char> content;
+  return cacheFileId && openFlatBuffers(cacheFileId, content) &&
+         checkCacheIsValid_(cacheFileId, content);
 }
 
 bool ParseCache::restore() {
   CommandLineParser* clp =
       m_parse->getCompileSourceFile()->getCommandLineParser();
-  bool cacheAllowed = clp->cacheAllowed();
-  if (!cacheAllowed) return false;
+  if (!clp->cacheAllowed()) return false;
 
-  PathId cacheFileId = getCacheFileName_(BadPathId);
-  auto buffer = openFlatBuffers(cacheFileId);
-  if (!checkCacheIsValid_(cacheFileId, buffer)) {
-    // char path [10000];
-    // char* p = getcwd(path, 9999);
-    // if (!clp->parseOnly())
-    //   std::cout << "Cache miss for: " << cacheFileName << " pwd: " << p <<
-    //   "\n";
-    return false;
-  }
+  PathId cacheFileId = getCacheFileId_(BadPathId);
 
-  return restore_(cacheFileId, buffer);
+  std::vector<char> content;
+  return cacheFileId && openFlatBuffers(cacheFileId, content) &&
+         checkCacheIsValid_(cacheFileId, content) &&
+         restore_(cacheFileId, content);
 }
 
 bool ParseCache::save() {
-  FileSystem* const fileSystem = FileSystem::getInstance();
   CommandLineParser* clp =
       m_parse->getCompileSourceFile()->getCommandLineParser();
-  bool cacheAllowed = clp->cacheAllowed();
-  bool parseOnly = clp->parseOnly();
+  if (!clp->cacheAllowed()) return true;
 
-  if (!cacheAllowed) return true;
+  FileSystem* const fileSystem = FileSystem::getInstance();
+
   FileContent* fcontent = m_parse->getFileContent();
-  if (fcontent) {
-    if (fcontent->getVObjects().size() > Cache::Capacity) {
-      clp->setCacheAllowed(false);
-      Location loc(BadSymbolId);
-      Error err(ErrorDefinition::CMD_CACHE_CAPACITY_EXCEEDED, loc);
-      m_parse->getCompileSourceFile()->getErrorContainer()->addError(err);
-      return false;
-    }
+  if (fcontent && (fcontent->getVObjects().size() > Cache::Capacity)) {
+    clp->setCacheAllowed(false);
+    Location loc(BadSymbolId);
+    Error err(ErrorDefinition::CMD_CACHE_CAPACITY_EXCEEDED, loc);
+    m_parse->getCompileSourceFile()->getErrorContainer()->addError(err);
+    return false;
   }
   PathId origFileId = m_parse->getPpFileId();
   fs::path origFileName = fileSystem->toPath(origFileId);
-  if (parseOnly) {
+  if (clp->parseOnly()) {
     origFileName =
         fileSystem->toPath(clp->getCacheDirId()) / ".." / origFileName;
   }
-  PathId cacheFileId = getCacheFileName_(BadPathId);
+  PathId cacheFileId = getCacheFileId_(BadPathId);
   if (!cacheFileId) {
     // Any fake(virtual) file like builtin.sv
     return true;
   }
+
   flatbuffers::FlatBufferBuilder builder(1024);
   /* Create header section */
   auto header = createHeader(builder, FlbSchemaVersion, origFileId);
@@ -264,9 +257,6 @@ bool ParseCache::save() {
   if (fcontent)
     for (const DesignElement* elem : fcontent->getDesignElements()) {
       const TimeInfo& info = elem->m_timeInfo;
-      const std::string& elemName =
-          m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
-              elem->m_name);
       auto timeInfo = CACHE::CreateTimeInfo(
           builder, static_cast<uint16_t>(info.m_type),
           (RawPathId)fileSystem->copy(info.m_fileId, &cacheSymbols),
@@ -274,7 +264,9 @@ bool ParseCache::save() {
           info.m_timeUnitValue, static_cast<uint16_t>(info.m_timePrecision),
           info.m_timePrecisionValue);
       element_vec.emplace_back(PARSECACHE::CreateDesignElement(
-          builder, (RawSymbolId)cacheSymbols.registerSymbol(elemName),
+          builder,
+          (RawSymbolId)cacheSymbols.copyFrom(
+              elem->m_name, m_parse->getCompileSourceFile()->getSymbolTable()),
           (RawPathId)fileSystem->copy(elem->m_fileId, &cacheSymbols),
           elem->m_type, (RawNodeId)elem->m_uniqueId, elem->m_line,
           elem->m_column, elem->m_endLine, elem->m_endColumn, timeInfo,
@@ -297,8 +289,7 @@ bool ParseCache::save() {
   FinishParseCacheBuffer(builder, ppcache);
 
   /* Save Flatbuffer */
-  bool status = saveFlatbuffers(builder, cacheFileId);
-
-  return status;
+  return saveFlatbuffers(builder, cacheFileId,
+                         m_parse->getCompileSourceFile()->getSymbolTable());
 }
 }  // namespace SURELOG

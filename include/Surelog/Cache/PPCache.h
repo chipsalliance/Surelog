@@ -37,17 +37,17 @@ class PPCache : Cache {
 
   bool restore(bool errorsOnly);
   bool save();
+  bool isValid();
 
  private:
   PPCache(const PPCache& orig) = delete;
 
-  PathId getCacheFileId_(PathId requestedFileId);
+  PathId getCacheFileId_(PathId sourceFileId);
   bool restore_(PathId cacheFileId, bool errorsOnly, int recursionDepth);
-  bool restore_(PathId cacheFileId, const std::unique_ptr<uint8_t[]>& buffer,
+  bool restore_(PathId cacheFileId, const std::vector<char>& content,
                 bool errorsOnly, int recursionDepth);
   bool checkCacheIsValid_(PathId cacheFileId);
-  bool checkCacheIsValid_(PathId cacheFileId,
-                          const std::unique_ptr<uint8_t[]>& buffer);
+  bool checkCacheIsValid_(PathId cacheFileId, const std::vector<char>& content);
 
   PreprocessFile* m_pp;
   bool m_isPrecompiled;

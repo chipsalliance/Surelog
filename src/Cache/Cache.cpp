@@ -37,67 +37,50 @@
 namespace SURELOG {
 namespace fs = std::filesystem;
 
-const std::string& Cache::getExecutableTimeStamp() {
-  static const std::string sExecTstamp(__DATE__ "-" __TIME__);
+std::string_view Cache::getExecutableTimeStamp() const {
+  static constexpr std::string_view sExecTstamp(__DATE__ "-" __TIME__);
   return sExecTstamp;
 }
 
-time_t Cache::get_mtime(const fs::path& path) {
-  std::string cpath = path.string();
-  struct stat statbuf;
-  if (stat(cpath.c_str(), &statbuf) == -1) {
-    return -1;
-  }
-  return statbuf.st_mtime;
-}
-
-std::unique_ptr<uint8_t[]> Cache::openFlatBuffers(PathId cacheFileId) {
+bool Cache::openFlatBuffers(PathId cacheFileId,
+                            std::vector<char>& content) const {
   FileSystem* const fileSystem = FileSystem::getInstance();
-  fs::path cacheFileName = fileSystem->toPath(cacheFileId);
-  const std::string filename = cacheFileName.string();
-  FILE* file = fopen(filename.c_str(), "rb");
-  if (file == nullptr) return nullptr;
-  fseek(file, 0L, SEEK_END);
-  unsigned int length = ftell(file);
-  fseek(file, 0L, SEEK_SET);
-  std::unique_ptr<uint8_t[]> data(new uint8_t[length]);
-  size_t l = fread(data.get(), sizeof(uint8_t), length, file);
-  fclose(file);
-  if (length != l) {
-    return nullptr;
-  }
-  return data;
+  return fileSystem->loadContent(cacheFileId, content);
 }
 
 bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
                                 std::string_view schemaVersion,
-                                PathId cacheFileId) {
-  FileSystem* const fileSystem = FileSystem::getInstance();
-  fs::path cacheFileName = fileSystem->toPath(cacheFileId);
+                                PathId cacheFileId,
+                                SymbolTable* symbolTable) const {
   /* Schema version */
-  if (schemaVersion != header->flb_version()->c_str()) {
+  if (schemaVersion != header->flb_version()->string_view()) {
     return false;
   }
 
   /* Tool version */
-  if (CommandLineParser::getVersionNumber() != header->sl_version()->c_str()) {
+  if (CommandLineParser::getVersionNumber() !=
+      header->sl_version()->string_view()) {
     return false;
   }
 
   /* Timestamp Tool that created Cache vs tool date */
-  if (getExecutableTimeStamp() != header->sl_date_compiled()->c_str()) {
+  if (getExecutableTimeStamp() != header->sl_date_compiled()->string_view()) {
     return false;
   }
 
   /* Timestamp Cache vs Orig File */
-  if (!cacheFileName.empty()) {
-    time_t ct = get_mtime(cacheFileName);
-    std::string fileName = header->file_deprecated()->c_str();
-    time_t ft = get_mtime(fileName.c_str());
-    if (ft == -1) {
+  if (cacheFileId) {
+    FileSystem* const fileSystem = FileSystem::getInstance();
+    std::filesystem::file_time_type ct = fileSystem->modtime(cacheFileId);
+
+    PathId fileId = fileSystem->toPathId(
+        header->file_deprecated()->string_view(), symbolTable);
+    std::filesystem::file_time_type ft = fileSystem->modtime(fileId);
+
+    if (ft == std::filesystem::file_time_type::min()) {
       return false;
     }
-    if (ct == -1) {
+    if (ct == std::filesystem::file_time_type::min()) {
       return false;
     }
     if (ct < ft) {
@@ -121,21 +104,17 @@ flatbuffers::Offset<SURELOG::CACHE::Header> Cache::createHeader(
   return header;
 }
 
-bool Cache::saveFlatbuffers(flatbuffers::FlatBufferBuilder& builder,
-                            PathId cacheFileId) {
+bool Cache::saveFlatbuffers(const flatbuffers::FlatBufferBuilder& builder,
+                            PathId cacheFileId, SymbolTable* symbolTable) {
   FileSystem* const fileSystem = FileSystem::getInstance();
-  fs::path cacheFileName = fileSystem->toPath(cacheFileId);
-  const std::string tmp_name = cacheFileName.string() + ".tmp";
+
   const unsigned char* buf = builder.GetBufferPointer();
   const int size = builder.GetSize();
-  bool success =
-      flatbuffers::SaveFile(tmp_name.c_str(), (const char*)buf, size, true);
-  if (success) {
-    fs::rename(tmp_name, cacheFileName);
-  } else {
-    fs::remove(tmp_name);
-  }
-  return success;
+
+  PathId cacheDirId = fileSystem->getParent(cacheFileId, symbolTable);
+  return fileSystem->mkdirs(cacheDirId) &&
+         fileSystem->saveContent(
+             cacheFileId, reinterpret_cast<const char*>(buf), size, true);
 }
 
 flatbuffers::Offset<Cache::VectorOffsetError> Cache::cacheErrors(
@@ -159,8 +138,8 @@ flatbuffers::Offset<Cache::VectorOffsetError> Cache::cacheErrors(
         std::vector<flatbuffers::Offset<SURELOG::CACHE::Location>> location_vec;
         for (const Location& loc : locs) {
           PathId canonicalFileId = fileSystem->copy(loc.m_fileId, cacheSymbols);
-          SymbolId canonicalObjectId = cacheSymbols->registerSymbol(
-              localSymbols.getSymbol(loc.m_object));
+          SymbolId canonicalObjectId =
+              cacheSymbols->copyFrom(loc.m_object, &localSymbols);
           auto locflb = CACHE::CreateLocation(
               builder, (RawPathId)canonicalFileId, loc.m_line, loc.m_column,
               (RawSymbolId)canonicalObjectId);
@@ -196,8 +175,8 @@ void Cache::restoreErrors(const VectorOffsetError* errorsBuf,
       auto locFlb = errorFlb->locations()->Get(j);
       PathId translFileId = fileSystem->copy(
           PathId(cacheSymbols, locFlb->file_id(), "<unknown>"), localSymbols);
-      SymbolId translObjectId = localSymbols->registerSymbol(
-          cacheSymbols->getSymbol(SymbolId(locFlb->object(), "<unknown>")));
+      SymbolId translObjectId = localSymbols->copyFrom(
+          SymbolId(locFlb->object(), "<unknown>"), cacheSymbols);
       locs.emplace_back(translFileId, locFlb->line(), locFlb->column(),
                         translObjectId);
     }
@@ -220,8 +199,7 @@ std::vector<CACHE::VObject> Cache::cacheVObjects(
   // Convert a local symbol ID to a cache symbol ID to be stored.
   std::function<uint64_t(SymbolId)> toCacheSym = [cacheSymbols,
                                                   &localSymbols](SymbolId id) {
-    return (RawSymbolId)cacheSymbols->registerSymbol(
-        localSymbols.getSymbol(id));
+    return (RawSymbolId)cacheSymbols->copyFrom(id, &localSymbols);
   };
   std::function<uint64_t(PathId)> toCachePath = [cacheSymbols](PathId id) {
     FileSystem* const fileSystem = FileSystem::getInstance();
@@ -316,8 +294,7 @@ void Cache::restoreVObjects(
     // clang-format on
 
     result->emplace_back(
-        localSymbols->registerSymbol(
-            cacheSymbols.getSymbol(SymbolId(name, "<unknown>"))),
+        localSymbols->copyFrom(SymbolId(name, "<unknown>"), &cacheSymbols),
         fileSystem->copy(PathId(&cacheSymbols, fileId, "<unknown>"),
                          localSymbols),
         (VObjectType)type, line, column, endLine, endColumn, NodeId(parent),
