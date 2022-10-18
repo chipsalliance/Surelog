@@ -314,7 +314,7 @@ class CompileHelper final {
                                       NodeId Assignment_pattern,
                                       CompileDesign* compileDesign,
                                       UHDM::any* pexpr,
-                                      ValuedComponentI* instance);
+                                      ValuedComponentI* instance, bool reduce);
 
   UHDM::array_var* compileArrayVar(DesignComponent* component,
                                    const FileContent* fC, NodeId varId,

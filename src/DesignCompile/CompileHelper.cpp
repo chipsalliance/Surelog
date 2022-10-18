@@ -3780,7 +3780,7 @@ int CompileHelper::adjustOpSize(const typespec* tps, expr* cop, int opIndex,
         fileSystem->toPathId(cop->VpiFile(),
                              compileDesign->getCompiler()->getSymbolTable()),
         cop->VpiLineNo(), nullptr);
-    csize = vexp->VpiSize();
+    if (invalidValue == false) csize = vexp->VpiSize();
   }
 
   const typespec* rtps = rhs->Typespec();

@@ -486,7 +486,7 @@ n<> u<435> t<Top_level_rule> c<1> l<1:1> el<62:1>
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 bit_select                                             1
-constant                                             183
+constant                                             182
 cont_assign                                            1
 design                                                 1
 enum_const                                            50
@@ -495,10 +495,10 @@ gen_scope                                              6
 gen_scope_array                                        6
 hier_path                                              1
 import_typespec                                        5
-int_typespec                                          39
+int_typespec                                          37
 logic_typespec                                        25
-module                                                18
-operation                                             45
+module                                                17
+operation                                             47
 package                                                6
 packed_array_typespec                                 23
 param_assign                                          20
@@ -514,7 +514,7 @@ typespec_member                                       23
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 bit_select                                             1
-constant                                             183
+constant                                             182
 cont_assign                                            8
 design                                                 1
 enum_const                                            50
@@ -523,10 +523,10 @@ gen_scope                                             17
 gen_scope_array                                       17
 hier_path                                              1
 import_typespec                                        5
-int_typespec                                          39
+int_typespec                                          37
 logic_typespec                                        25
-module                                                22
-operation                                             45
+module                                                21
+operation                                             47
 package                                                6
 packed_array_typespec                                 23
 param_assign                                          24
@@ -1288,14 +1288,29 @@ design: (work@top)
       |vpiOperand:
       \_tagged_pattern: , line:54:21, endln:54:68
         |vpiPattern:
-        \_constant: 
-          |vpiDecompile:001
-          |vpiSize:3
-          |BIN:001
-          |vpiTypespec:
-          \_int_typespec: 
-            |UINT:3
-          |vpiConstType:3
+        \_operation: , line:54:21, endln:54:68
+          |vpiParent:
+          \_operation: , line:53:58, endln:55:5
+          |vpiOpType:34
+          |vpiOperand:
+          \_constant: , line:54:22, endln:54:42
+            |vpiParent:
+            \_operation: , line:54:21, endln:54:68
+            |vpiDecompile:1
+            |vpiSize:32
+            |UINT:1
+            |vpiConstType:9
+          |vpiOperand:
+          \_operation: , line:54:42, endln:54:67
+            |vpiParent:
+            \_operation: , line:53:58, endln:55:5
+            |vpiOpType:33
+            |vpiOperand:
+            \_constant: , line:54:43, endln:54:66
+              |vpiDecompile:3'h1
+              |vpiSize:3
+              |HEX:1
+              |vpiConstType:5
         |vpiTypespec:
         \_string_typespec: (dio_pad_type), line:54:7, endln:54:19
           |vpiName:dio_pad_type
@@ -1508,7 +1523,7 @@ design: (work@top)
           |vpiRefEndColumnNo:32
       |vpiOpType:75
       |vpiOperand:
-      \_constant: 
+      \_constant: , line:54:21, endln:54:68
         |vpiParent:
         \_tagged_pattern: , line:54:21, endln:54:68
         |vpiDecompile:001
@@ -1517,7 +1532,7 @@ design: (work@top)
         |vpiTypespec:
         \_int_typespec: 
           |vpiParent:
-          \_constant: 
+          \_constant: , line:54:21, endln:54:68
           |UINT:3
         |vpiConstType:3
     |vpiLhs:
@@ -1981,7 +1996,7 @@ design: (work@top)
             |vpiRefEndColumnNo:32
         |vpiOpType:75
         |vpiOperand:
-        \_constant: 
+        \_constant: , line:54:21, endln:54:68
           |vpiParent:
           \_operation: , line:58:18, endln:58:33
           |vpiDecompile:001
@@ -1990,7 +2005,7 @@ design: (work@top)
           |vpiTypespec:
           \_int_typespec: 
             |vpiParent:
-            \_constant: 
+            \_constant: , line:54:21, endln:54:68
             |UINT:3
           |vpiConstType:3
       |vpiLhs:
