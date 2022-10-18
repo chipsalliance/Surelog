@@ -3061,7 +3061,7 @@ UHDM::any *CompileHelper::compileAssignmentPattern(
   operation->VpiParent(pexpr);
   operation->VpiOpType(vpiAssignmentPatternOp);
   operation->Operands(operands);
-  
+
   if (component && valuedcomponenti_cast<Package *>(component)) {
     reduce = true;
   } else if (instance) {
