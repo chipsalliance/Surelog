@@ -2104,7 +2104,7 @@ UHDM::any *CompileHelper::compileExpression(
         }
         case VObjectType::slAssignment_pattern: {
           result = compileAssignmentPattern(component, fC, child, compileDesign,
-                                            pexpr, instance);
+                                            pexpr, instance, reduce);
           break;
         }
         case VObjectType::slSequence_instance: {
@@ -3048,12 +3048,10 @@ UHDM::any *CompileHelper::compileExpression(
   return result;
 }
 
-UHDM::any *CompileHelper::compileAssignmentPattern(DesignComponent *component,
-                                                   const FileContent *fC,
-                                                   NodeId Assignment_pattern,
-                                                   CompileDesign *compileDesign,
-                                                   UHDM::any *pexpr,
-                                                   ValuedComponentI *instance) {
+UHDM::any *CompileHelper::compileAssignmentPattern(
+    DesignComponent *component, const FileContent *fC,
+    NodeId Assignment_pattern, CompileDesign *compileDesign, UHDM::any *pexpr,
+    ValuedComponentI *instance, bool reduce) {
   FileSystem *const fileSystem = FileSystem::getInstance();
   UHDM::Serializer &s = compileDesign->getSerializer();
   UHDM::any *result = nullptr;
@@ -3063,8 +3061,10 @@ UHDM::any *CompileHelper::compileAssignmentPattern(DesignComponent *component,
   operation->VpiParent(pexpr);
   operation->VpiOpType(vpiAssignmentPatternOp);
   operation->Operands(operands);
-  bool reduce = false;
+  
   if (component && valuedcomponenti_cast<Package *>(component)) {
+    reduce = true;
+  } else if (instance) {
     reduce = true;
   }
   // Page 1035: For an operation of type vpiAssignmentPatternOp, the operand
@@ -3130,23 +3130,25 @@ UHDM::any *CompileHelper::compileAssignmentPattern(DesignComponent *component,
         if (any *exp =
                 compileExpression(component, fC, Expression, compileDesign,
                                   operation, instance, reduce, false)) {
-          if (exp->UhdmType() == uhdmoperation) {
-            UHDM::operation *op = (UHDM::operation *)exp;
-            bool reduceMore = true;
-            int opType = op->VpiOpType();
-            if (opType == vpiConcatOp) {
-              if (op->Operands()->size() != 1) {
-                reduceMore = false;
+          if (reduce) {
+            if (exp->UhdmType() == uhdmoperation) {
+              UHDM::operation *op = (UHDM::operation *)exp;
+              bool reduceMore = true;
+              int opType = op->VpiOpType();
+              if (opType == vpiConcatOp) {
+                if (op->Operands()->size() != 1) {
+                  reduceMore = false;
+                }
               }
-            }
-            if (reduceMore) {
-              bool invalidValue = false;
-              any *tmp = reduceExpr(
-                  exp, invalidValue, component, compileDesign, instance,
-                  fileSystem->toPathId(op->VpiFile(), fC->getSymbolTable()),
-                  op->VpiLineNo(), nullptr, true);
-              if (invalidValue == false) {
-                exp = tmp;
+              if (reduceMore) {
+                bool invalidValue = false;
+                any *tmp = reduceExpr(
+                    exp, invalidValue, component, compileDesign, instance,
+                    fileSystem->toPathId(op->VpiFile(), fC->getSymbolTable()),
+                    op->VpiLineNo(), nullptr, true);
+                if (invalidValue == false) {
+                  exp = tmp;
+                }
               }
             }
           }
@@ -3158,6 +3160,9 @@ UHDM::any *CompileHelper::compileAssignmentPattern(DesignComponent *component,
                                 true, true);
             if (tmp) {
               exp = tmp;
+              if (exp->VpiLineNo() == 0) {
+                fC->populateCoreMembers(Expression, Expression, exp);
+              }
             }
           }
           tagged_pattern *pattern = s.MakeTagged_pattern();
