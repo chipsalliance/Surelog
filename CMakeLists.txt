@@ -228,6 +228,25 @@ add_custom_command(
   COMMAND ${Python3_EXECUTABLE} scripts/generate_parser_listener.py --input-dirpath ${PROJECT_SOURCE_DIR} --output-dirpath ${GENDIR}
 )
 
+add_custom_command(
+  OUTPUT ${GENDIR}/include/Surelog/SourceCompile/AstListener.h
+         ${GENDIR}/include/Surelog/SourceCompile/AstTraceListener.h
+         ${GENDIR}/src/SourceCompile/AstListener.cpp
+  DEPENDS ${GENDIR}/src/parser/generated-parsers.tstamp
+          ${GENDIR}/src/parser/SV3_1aParserBaseListener.h
+          ${PROJECT_SOURCE_DIR}/scripts/generate_ast_listener.py
+          ${PROJECT_SOURCE_DIR}/include/Surelog/SourceCompile/AstListener.template.hpp
+          ${PROJECT_SOURCE_DIR}/include/Surelog/SourceCompile/AstTraceListener.template.hpp
+          ${PROJECT_SOURCE_DIR}/src/SourceCompile/AstListener.template.cxx
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+  COMMAND echo "---------- Generating AST Listener"
+  COMMAND ${Python3_EXECUTABLE} scripts/generate_ast_listener.py --workspace-dirpath ${PROJECT_SOURCE_DIR} --output-dirpath ${GENDIR}
+)
+add_custom_target(GenerateListeners DEPENDS
+  ${GENDIR}/include/Surelog/SourceCompile/AstListener.h
+  ${GENDIR}/include/Surelog/SourceCompile/AstTraceListener.h
+  ${GENDIR}/src/SourceCompile/AstListener.cpp)
+
 if (SURELOG_WITH_PYTHON)
   set(surelog_python-GENERATED_SRC
     ${GENDIR}/include/Surelog/API/SV3_1aPythonListener.h
@@ -398,7 +417,10 @@ set(surelog_generated_SRC
   ${surelog_grammars-GENERATED_SRC}
 
   # Derived from parser generation.
-  ${GENDIR}/src/SourceCompile/VObjectTypes.cpp)
+  ${GENDIR}/src/SourceCompile/VObjectTypes.cpp
+
+  # Derived from ast listener generation.
+  ${GENDIR}/src/SourceCompile/AstListener.cpp)
 
 foreach(gen_src ${surelog_generated_SRC})
   set_source_files_properties(${gen_src} PROPERTIES GENERATED TRUE)
@@ -683,6 +705,8 @@ install(
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/CommandLine)
 install(
   FILES ${PROJECT_SOURCE_DIR}/include/Surelog/SourceCompile/SymbolTable.h
+        ${GENDIR}/include/Surelog/SourceCompile/AstListener.h
+        ${GENDIR}/include/Surelog/SourceCompile/AstTraceListener.h
         ${GENDIR}/include/Surelog/SourceCompile/VObjectTypes.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/SourceCompile)
 install(
