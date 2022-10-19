@@ -915,7 +915,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         m_paramList.emplace(id, value);
       }
     } else if (all_arguments[i].find("-I") == 0) {
-      fs::path include = all_arguments[i].substr(2);
+      fs::path include = undecorateArg(all_arguments[i].substr(2));
       if (include.empty()) {
         Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_INCLUDE_PATH_DOES_NOT_EXIST, loc);

@@ -74,6 +74,11 @@ class SymbolTable;
  */
 class FileSystem {
  public:
+  static constexpr std::string_view kMultiprocessingPpDirName = "mp_preprocess";
+  static constexpr std::string_view kMultiprocessingParserDirName = "mp_parser";
+  static constexpr std::string_view kCheckerDirName = "checker";
+
+ public:
   static FileSystem *getInstance();
   static FileSystem *setInstance(FileSystem *fileSystem);
 
