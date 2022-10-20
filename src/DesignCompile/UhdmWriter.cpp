@@ -3951,10 +3951,20 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
     m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
         m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
 
+    std::string uhdmFilename(std::get<1>(fileSystem->getLeaf(
+        uhdmFileId, m_compileDesign->getCompiler()->getSymbolTable())));
+    const PathId chkDirId =
+        fileSystem->getChild(m_compileDesign->getCompiler()
+                                 ->getCommandLineParser()
+                                 ->getFullCompileDirId(),
+                             FileSystem::kCheckerDirName,
+                             m_compileDesign->getCompiler()->getSymbolTable());
+    const PathId chkFileId =
+        fileSystem->getChild(chkDirId, uhdmFilename += ".chk",
+                             m_compileDesign->getCompiler()->getSymbolTable());
+    fileSystem->mkdirs(chkDirId);
     UhdmChecker* uhdmchecker = new UhdmChecker(m_compileDesign, m_design);
-    std::filesystem::path chkFile = uhdmFile;
-    uhdmchecker->check(fileSystem->toPathId(
-        chkFile += ".chk", m_compileDesign->getCompiler()->getSymbolTable()));
+    uhdmchecker->check(chkFileId);
     delete uhdmchecker;
   }
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getDebugUhdm()) {
