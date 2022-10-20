@@ -69,6 +69,33 @@ parameter                                              6
 ref_obj                                                4
 task                                                   9
 === UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+
+=== UHDM Object Stats Begin (Elaborated Model) ===
+class_defn                                             8
+class_typespec                                         4
+class_var                                              3
+constant                                              21
+cont_assign                                            4
+design                                                 1
+enum_const                                            10
+enum_typespec                                          2
+enum_var                                               1
+function                                              18
+gen_scope                                              6
+gen_scope_array                                        6
+int_typespec                                          15
+int_var                                                4
+io_decl                                               22
+logic_var                                              1
+module                                                15
+operation                                              4
+package                                                2
+param_assign                                           6
+parameter                                              6
+ref_obj                                                8
+task                                                  18
+=== UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ../../build/regression/ElabIf/slpp_unit/surelog.uhdm ...
 
 [INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ElabIf/slpp_unit/surelog.uhdm.chk.html ...
@@ -79,6 +106,7 @@ task                                                   9
 
 ====== UHDM =======
 design: (work@top)
+|vpiElaborated:1
 |vpiName:work@top
 |uhdmallPackages:
 \_package: builtin (builtin::)
@@ -147,6 +175,8 @@ design: (work@top)
     \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (bound)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiDirection:1
       |vpiName:bound
       |vpiExpr:
@@ -186,6 +216,8 @@ design: (work@top)
     \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_task: (work@mailbox::put)
       |vpiDirection:1
       |vpiName:message
   |vpiMethod:
@@ -202,6 +234,8 @@ design: (work@top)
     \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
       |vpiDirection:1
       |vpiName:message
   |vpiMethod:
@@ -216,6 +250,8 @@ design: (work@top)
     \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_task: (work@mailbox::get)
       |vpiDirection:6
       |vpiName:message
   |vpiMethod:
@@ -236,6 +272,8 @@ design: (work@top)
     \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiDirection:6
       |vpiName:message
   |vpiMethod:
@@ -250,6 +288,8 @@ design: (work@top)
     \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_task: (work@mailbox::peek)
       |vpiDirection:6
       |vpiName:message
   |vpiMethod:
@@ -270,6 +310,8 @@ design: (work@top)
     \_class_defn: (work@mailbox), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiDirection:6
       |vpiName:message
 |uhdmallClasses:
@@ -284,30 +326,40 @@ design: (work@top)
     |vpiName:state
     |vpiEnumConst:
     \_enum_const: (FINISHED)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:FINISHED
       |INT:0
       |vpiDecompile:0
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (RUNNING)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:RUNNING
       |INT:1
       |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (WAITING)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:WAITING
       |INT:2
       |vpiDecompile:2
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (SUSPENDED)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:SUSPENDED
       |INT:3
       |vpiDecompile:3
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (KILLED)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:KILLED
       |INT:4
       |vpiDecompile:4
@@ -340,6 +392,39 @@ design: (work@top)
     \_enum_var: 
       |vpiTypespec:
       \_enum_typespec: (state)
+        |vpiParent:
+        \_class_defn: (work@process), file:builtin.sv
+        |vpiName:state
+        |vpiEnumConst:
+        \_enum_const: (FINISHED)
+          |vpiName:FINISHED
+          |INT:0
+          |vpiDecompile:0
+          |vpiSize:64
+        |vpiEnumConst:
+        \_enum_const: (RUNNING)
+          |vpiName:RUNNING
+          |INT:1
+          |vpiDecompile:1
+          |vpiSize:64
+        |vpiEnumConst:
+        \_enum_const: (WAITING)
+          |vpiName:WAITING
+          |INT:2
+          |vpiDecompile:2
+          |vpiSize:64
+        |vpiEnumConst:
+        \_enum_const: (SUSPENDED)
+          |vpiName:SUSPENDED
+          |INT:3
+          |vpiDecompile:3
+          |vpiSize:64
+        |vpiEnumConst:
+        \_enum_const: (KILLED)
+          |vpiName:KILLED
+          |INT:4
+          |vpiDecompile:4
+          |vpiSize:64
     |vpiParent:
     \_class_defn: (work@process), file:builtin.sv
   |vpiMethod:
@@ -404,6 +489,8 @@ design: (work@top)
     \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (keyCount)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -427,6 +514,8 @@ design: (work@top)
     \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (keyCount)
+      |vpiParent:
+      \_task: (work@semaphore::put)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -450,6 +539,8 @@ design: (work@top)
     \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (keyCount)
+      |vpiParent:
+      \_task: (work@semaphore::get)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -479,6 +570,8 @@ design: (work@top)
     \_class_defn: (work@semaphore), file:builtin.sv
     |vpiIODecl:
     \_io_decl: (keyCount)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:

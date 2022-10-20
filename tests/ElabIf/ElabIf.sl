@@ -1,2 +1,2 @@
-dut.sv -parse -verbose -fileunit -d uhdm
+dut.sv -parse -elabuhdm -verbose -fileunit -d uhdm
 
