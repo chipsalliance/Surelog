@@ -134,16 +134,16 @@ design: (work@TOP)
   |vpiProcess:
   \_initial: , line:2:3, endln:11:6
     |vpiParent:
-    \_program: work@TESTBENCH (work@TESTBENCH), file:tb.v, line:1:1, endln:12:11
+    \_program: work@TESTBENCH (work@TOP.tb), file:tb.v, line:18:3, endln:18:24
     |vpiStmt:
-    \_begin: (work@TESTBENCH), line:2:11, endln:11:6
+    \_begin: (work@TOP.tb), line:2:11, endln:11:6
       |vpiParent:
       \_initial: , line:2:3, endln:11:6
-      |vpiFullName:work@TESTBENCH
+      |vpiFullName:work@TOP.tb
       |vpiStmt:
       \_sys_func_call: ($dumpfile), line:3:5, endln:3:26
         |vpiParent:
-        \_begin: (work@TESTBENCH), line:2:11, endln:11:6
+        \_begin: (work@TOP.tb), line:2:11, endln:11:6
         |vpiArgument:
         \_constant: , line:3:15, endln:3:25
           |vpiParent:
@@ -156,12 +156,12 @@ design: (work@TOP)
       |vpiStmt:
       \_sys_func_call: ($dumpvars), line:4:5, endln:4:14
         |vpiParent:
-        \_begin: (work@TESTBENCH), line:2:11, endln:11:6
+        \_begin: (work@TOP.tb), line:2:11, endln:11:6
         |vpiName:$dumpvars
       |vpiStmt:
       \_sys_func_call: ($monitor), line:5:5, endln:5:71
         |vpiParent:
-        \_begin: (work@TESTBENCH), line:2:11, endln:11:6
+        \_begin: (work@TOP.tb), line:2:11, endln:11:6
         |vpiArgument:
         \_constant: , line:5:14, endln:5:39
           |vpiParent:
@@ -205,7 +205,7 @@ design: (work@TOP)
       |vpiStmt:
       \_assignment: , line:6:5, endln:6:19
         |vpiParent:
-        \_begin: (work@TESTBENCH), line:2:11, endln:11:6
+        \_begin: (work@TOP.tb), line:2:11, endln:11:6
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -219,7 +219,7 @@ design: (work@TOP)
         |vpiLhs:
         \_hier_path: (intf.drive), line:6:5, endln:6:15
           |vpiParent:
-          \_begin: (work@TESTBENCH), line:2:11, endln:11:6
+          \_begin: (work@TOP.tb), line:2:11, endln:11:6
           |vpiName:intf.drive
           |vpiActual:
           \_ref_obj: (intf)
@@ -232,7 +232,7 @@ design: (work@TOP)
       |vpiStmt:
       \_delay_control: , line:7:5, endln:7:7
         |vpiParent:
-        \_begin: (work@TESTBENCH), line:2:11, endln:11:6
+        \_begin: (work@TOP.tb), line:2:11, endln:11:6
         |#1
         |vpiStmt:
         \_immediate_assert: , line:7:8, endln:7:106
@@ -306,7 +306,7 @@ design: (work@TOP)
       |vpiStmt:
       \_delay_control: , line:8:5, endln:8:9
         |vpiParent:
-        \_begin: (work@TESTBENCH), line:2:11, endln:11:6
+        \_begin: (work@TOP.tb), line:2:11, endln:11:6
         |#100
         |vpiStmt:
         \_assignment: , line:8:10, endln:8:24
@@ -338,7 +338,7 @@ design: (work@TOP)
       |vpiStmt:
       \_delay_control: , line:9:5, endln:9:7
         |vpiParent:
-        \_begin: (work@TESTBENCH), line:2:11, endln:11:6
+        \_begin: (work@TOP.tb), line:2:11, endln:11:6
         |#1
         |vpiStmt:
         \_immediate_assert: , line:9:8, endln:9:106
@@ -412,7 +412,7 @@ design: (work@TOP)
       |vpiStmt:
       \_delay_control: , line:10:5, endln:10:9
         |vpiParent:
-        \_begin: (work@TESTBENCH), line:2:11, endln:11:6
+        \_begin: (work@TOP.tb), line:2:11, endln:11:6
         |#100
         |vpiStmt:
         \_sys_func_call: ($finish), line:10:10, endln:10:19
@@ -635,6 +635,8 @@ design: (work@TOP)
     |vpiDefLineNo:1
     |vpiInstance:
     \_module: work@TOP (work@TOP), file:tb.v, line:15:1, endln:19:10
+    |vpiProcess:
+    \_initial: , line:2:3, endln:11:6
     |vpiPort:
     \_port: (intf), line:1:34, endln:1:38
       |vpiParent:
@@ -1027,6 +1029,12 @@ design: (work@TOP)
             \_logic_net: (work@TOP.dut1.middle1.sub1.out), line:26:40, endln:26:43
           |vpiTypedef:
           \_logic_typespec: , line:26:36, endln:26:39
+        |vpiContAssign:
+        \_cont_assign: , line:27:10, endln:27:19
+    |vpiContAssign:
+    \_cont_assign: , line:3:10, endln:3:26
+    |vpiContAssign:
+    \_cont_assign: , line:4:10, endln:4:28
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

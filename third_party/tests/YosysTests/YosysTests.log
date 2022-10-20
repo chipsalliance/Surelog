@@ -2955,9 +2955,15 @@ Processing: -cd frontends/verilog_lexer_assert_assume_restrict testbench.v -writ
 
 [WRN:EL0513] Nb undefined instances: 3.
 
+[ERR:UH0717] testbench.v:4:7: Multiple continuous assignments to: patt_out,
+             testbench.v:29:15: other assignment.
+
+[ERR:UH0717] testbench.v:5:7: Multiple continuous assignments to: patt_carry_out,
+             testbench.v:30:15: other assignment.
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 5
 [   NOTE] : 0
 Processing: -cd frontends/read_verilog_dpi top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
@@ -9395,9 +9401,12 @@ Processing: -cd regression/issue_00814 testbench.v -writepp -parse -nocache -nob
 
 [ERR:UH0718] testbench.v:34:3: Illegal lhs of type wire "out".
 
+[ERR:UH0717] testbench.v:18:13: Multiple continuous assignments to: jmp,
+             testbench.v:27:11: other assignment.
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 3
+[  ERROR] : 4
 [WARNING] : 11
 [   NOTE] : 0
 Processing: -cd regression/issue_00474 top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
@@ -12965,6 +12974,6 @@ Processing: -cd regression/issue_01329 synchronizer.sv -writepp -parse -nocache 
 Processed 1309 tests.
 [  FATAL] : 0
 [ SYNTAX] : 61
-[  ERROR] : 45
+[  ERROR] : 48
 [WARNING] : 2371
 [   NOTE] : 0

@@ -189,16 +189,16 @@ design: (work@TOP)
   |vpiProcess:
   \_initial: , line:2:3, endln:12:6
     |vpiParent:
-    \_program: work@TESTBENCH (work@TESTBENCH), file:tb.v, line:1:1, endln:13:11
+    \_program: work@TESTBENCH (work@TOP.tb), file:tb.v, line:22:3, endln:22:70
     |vpiStmt:
-    \_begin: (work@TESTBENCH), line:2:11, endln:12:6
+    \_begin: (work@TOP.tb), line:2:11, endln:12:6
       |vpiParent:
       \_initial: , line:2:3, endln:12:6
-      |vpiFullName:work@TESTBENCH
+      |vpiFullName:work@TOP.tb
       |vpiStmt:
       \_sys_func_call: ($dumpfile), line:3:5, endln:3:26
         |vpiParent:
-        \_begin: (work@TESTBENCH), line:2:11, endln:12:6
+        \_begin: (work@TOP.tb), line:2:11, endln:12:6
         |vpiArgument:
         \_constant: , line:3:15, endln:3:25
           |vpiParent:
@@ -211,12 +211,12 @@ design: (work@TOP)
       |vpiStmt:
       \_sys_func_call: ($dumpvars), line:4:5, endln:4:14
         |vpiParent:
-        \_begin: (work@TESTBENCH), line:2:11, endln:12:6
+        \_begin: (work@TOP.tb), line:2:11, endln:12:6
         |vpiName:$dumpvars
       |vpiStmt:
       \_sys_func_call: ($monitor), line:5:5, endln:5:61
         |vpiParent:
-        \_begin: (work@TESTBENCH), line:2:11, endln:12:6
+        \_begin: (work@TOP.tb), line:2:11, endln:12:6
         |vpiArgument:
         \_constant: , line:5:14, endln:5:39
           |vpiParent:
@@ -231,26 +231,26 @@ design: (work@TOP)
           \_sys_func_call: ($monitor), line:5:5, endln:5:61
           |vpiName:$time
         |vpiArgument:
-        \_ref_obj: (work@TESTBENCH.drive), line:5:46, endln:5:51
+        \_ref_obj: (work@TOP.tb.drive), line:5:46, endln:5:51
           |vpiParent:
           \_sys_func_call: ($monitor), line:5:5, endln:5:61
           |vpiName:drive
-          |vpiFullName:work@TESTBENCH.drive
+          |vpiFullName:work@TOP.tb.drive
           |vpiActual:
           \_logic_net: (work@TOP.tb.drive), line:1:98, endln:1:103
         |vpiArgument:
-        \_ref_obj: (work@TESTBENCH.observe), line:5:53, endln:5:60
+        \_ref_obj: (work@TOP.tb.observe), line:5:53, endln:5:60
           |vpiParent:
           \_sys_func_call: ($monitor), line:5:5, endln:5:61
           |vpiName:observe
-          |vpiFullName:work@TESTBENCH.observe
+          |vpiFullName:work@TOP.tb.observe
           |vpiActual:
           \_logic_net: (work@TOP.tb.observe), line:1:66, endln:1:73
         |vpiName:$monitor
       |vpiStmt:
       \_assignment: , line:6:5, endln:6:16
         |vpiParent:
-        \_begin: (work@TESTBENCH), line:2:11, endln:12:6
+        \_begin: (work@TOP.tb), line:2:11, endln:12:6
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -262,17 +262,17 @@ design: (work@TOP)
           |UINT:0
           |vpiConstType:9
         |vpiLhs:
-        \_ref_obj: (work@TESTBENCH.drive), line:6:5, endln:6:10
+        \_ref_obj: (work@TOP.tb.drive), line:6:5, endln:6:10
           |vpiParent:
-          \_begin: (work@TESTBENCH), line:2:11, endln:12:6
+          \_begin: (work@TOP.tb), line:2:11, endln:12:6
           |vpiName:drive
-          |vpiFullName:work@TESTBENCH.drive
+          |vpiFullName:work@TOP.tb.drive
           |vpiActual:
           \_logic_net: (work@TOP.tb.drive), line:1:98, endln:1:103
       |vpiStmt:
       \_delay_control: , line:7:5, endln:7:7
         |vpiParent:
-        \_begin: (work@TESTBENCH), line:2:11, endln:12:6
+        \_begin: (work@TOP.tb), line:2:11, endln:12:6
         |#1
         |vpiStmt:
         \_immediate_assert: , line:7:8, endln:7:86
@@ -284,19 +284,19 @@ design: (work@TOP)
             \_immediate_assert: , line:7:8, endln:7:86
             |vpiOpType:14
             |vpiOperand:
-            \_ref_obj: (work@TESTBENCH.drive), line:7:15, endln:7:20
+            \_ref_obj: (work@TOP.tb.drive), line:7:15, endln:7:20
               |vpiParent:
               \_delay_control: , line:7:5, endln:7:7
               |vpiName:drive
-              |vpiFullName:work@TESTBENCH.drive
+              |vpiFullName:work@TOP.tb.drive
               |vpiActual:
               \_logic_net: (work@TOP.tb.drive), line:1:98, endln:1:103
             |vpiOperand:
-            \_ref_obj: (work@TESTBENCH.observe), line:7:24, endln:7:31
+            \_ref_obj: (work@TOP.tb.observe), line:7:24, endln:7:31
               |vpiParent:
               \_operation: , line:7:15, endln:7:31
               |vpiName:observe
-              |vpiFullName:work@TESTBENCH.observe
+              |vpiFullName:work@TOP.tb.observe
               |vpiActual:
               \_logic_net: (work@TOP.tb.observe), line:1:66, endln:1:73
           |vpiStmt:
@@ -336,7 +336,7 @@ design: (work@TOP)
       |vpiStmt:
       \_delay_control: , line:8:5, endln:8:7
         |vpiParent:
-        \_begin: (work@TESTBENCH), line:2:11, endln:12:6
+        \_begin: (work@TOP.tb), line:2:11, endln:12:6
         |#5
         |vpiStmt:
         \_assignment: , line:8:8, endln:8:19
@@ -353,17 +353,17 @@ design: (work@TOP)
             |UINT:111
             |vpiConstType:9
           |vpiLhs:
-          \_ref_obj: (work@TESTBENCH.drive), line:8:8, endln:8:13
+          \_ref_obj: (work@TOP.tb.drive), line:8:8, endln:8:13
             |vpiParent:
             \_delay_control: , line:8:5, endln:8:7
             |vpiName:drive
-            |vpiFullName:work@TESTBENCH.drive
+            |vpiFullName:work@TOP.tb.drive
             |vpiActual:
             \_logic_net: (work@TOP.tb.drive), line:1:98, endln:1:103
       |vpiStmt:
       \_delay_control: , line:9:5, endln:9:7
         |vpiParent:
-        \_begin: (work@TESTBENCH), line:2:11, endln:12:6
+        \_begin: (work@TOP.tb), line:2:11, endln:12:6
         |#1
         |vpiStmt:
         \_immediate_assert: , line:9:8, endln:9:86
@@ -375,19 +375,19 @@ design: (work@TOP)
             \_immediate_assert: , line:9:8, endln:9:86
             |vpiOpType:14
             |vpiOperand:
-            \_ref_obj: (work@TESTBENCH.drive), line:9:15, endln:9:20
+            \_ref_obj: (work@TOP.tb.drive), line:9:15, endln:9:20
               |vpiParent:
               \_delay_control: , line:9:5, endln:9:7
               |vpiName:drive
-              |vpiFullName:work@TESTBENCH.drive
+              |vpiFullName:work@TOP.tb.drive
               |vpiActual:
               \_logic_net: (work@TOP.tb.drive), line:1:98, endln:1:103
             |vpiOperand:
-            \_ref_obj: (work@TESTBENCH.observe), line:9:24, endln:9:31
+            \_ref_obj: (work@TOP.tb.observe), line:9:24, endln:9:31
               |vpiParent:
               \_operation: , line:9:15, endln:9:31
               |vpiName:observe
-              |vpiFullName:work@TESTBENCH.observe
+              |vpiFullName:work@TOP.tb.observe
               |vpiActual:
               \_logic_net: (work@TOP.tb.observe), line:1:66, endln:1:73
           |vpiStmt:
@@ -427,7 +427,7 @@ design: (work@TOP)
       |vpiStmt:
       \_delay_control: , line:10:5, endln:10:9
         |vpiParent:
-        \_begin: (work@TESTBENCH), line:2:11, endln:12:6
+        \_begin: (work@TOP.tb), line:2:11, endln:12:6
         |#100
         |vpiStmt:
         \_sys_func_call: ($finish), line:10:10, endln:10:19
@@ -906,6 +906,8 @@ design: (work@TOP)
       |vpiNetType:48
     |vpiInstance:
     \_module: work@TOP (work@TOP), file:tb.v, line:16:1, endln:23:10
+    |vpiProcess:
+    \_initial: , line:2:3, endln:12:6
     |vpiPort:
     \_port: (observe), line:1:66, endln:1:73
       |vpiParent:
@@ -1829,6 +1831,8 @@ design: (work@TOP)
                 |vpiSize:64
                 |UINT:0
                 |vpiConstType:9
+        |vpiContAssign:
+        \_cont_assign: , line:16:10, endln:16:19
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

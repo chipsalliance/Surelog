@@ -1138,15 +1138,9 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   // m->Variables(dest_vars);
 
   // Cont assigns
-  std::vector<cont_assign*>* orig_cont_assigns = mod->getContAssigns();
-  if (orig_cont_assigns) {
-    std::vector<cont_assign*>* assigns = m->Cont_assigns();
-    if (assigns == nullptr) {
-      m->Cont_assigns(s.MakeCont_assignVec());
-      assigns = m->Cont_assigns();
-    }
-    for (auto ps : *orig_cont_assigns) {
-      assigns->push_back(ps);
+  m->Cont_assigns(mod->getContAssigns());
+  if (m->Cont_assigns()) {
+    for (auto ps : *m->Cont_assigns()) {
       ps->VpiParent(m);
     }
   }
@@ -1339,15 +1333,9 @@ void UhdmWriter::writeInterface(ModuleDefinition* mod, interface* m,
   m->Modports(dest_modports);
 
   // Cont assigns
-  std::vector<cont_assign*>* orig_cont_assigns = mod->getContAssigns();
-  if (orig_cont_assigns) {
-    std::vector<cont_assign*>* assigns = m->Cont_assigns();
-    if (assigns == nullptr) {
-      m->Cont_assigns(s.MakeCont_assignVec());
-      assigns = m->Cont_assigns();
-    }
-    for (auto ps : *orig_cont_assigns) {
-      assigns->push_back(ps);
+  m->Cont_assigns(mod->getContAssigns());
+  if (m->Cont_assigns()) {
+    for (auto ps : *m->Cont_assigns()) {
       ps->VpiParent(m);
     }
   }
@@ -1460,6 +1448,14 @@ void UhdmWriter::writeProgram(Program* mod, program* m, Serializer& s,
   VectorOfvariables* dest_vars = s.MakeVariablesVec();
   writeVariables(orig_vars, m, dest_vars, s, componentMap);
   m->Variables(dest_vars);
+
+  // Cont assigns
+  m->Cont_assigns(mod->getContAssigns());
+  if (m->Cont_assigns()) {
+    for (auto ps : *m->Cont_assigns()) {
+      ps->VpiParent(m);
+    }
+  }
   // Processes
   m->Process(mod->getProcesses());
   if (m->Process()) {
@@ -1558,19 +1554,21 @@ bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
       }
     }
 
-    if (netlist->cont_assigns()) {
-      std::vector<cont_assign*>* assigns = m->Cont_assigns();
-      if (assigns == nullptr) {
-        m->Cont_assigns(s.MakeCont_assignVec());
-        assigns = m->Cont_assigns();
+    // Cont assigns
+    m->Cont_assigns(mod->getContAssigns());
+    if (m->Cont_assigns()) {
+      for (auto ps : *m->Cont_assigns()) {
+        ps->VpiParent(m);
       }
-      for (auto obj : *netlist->cont_assigns()) {
-        obj->VpiParent(m);
-        assigns->push_back(obj);
+    }
+    // Processes
+    m->Process(mod->getProcesses());
+    if (m->Process()) {
+      for (auto ps : *m->Process()) {
+        ps->VpiParent(m);
       }
     }
   }
-
   if (mod) {
     if (auto from = mod->getTask_funcs()) {
       UHDM::VectorOftask_func* target = m->Task_funcs();
@@ -1653,16 +1651,22 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
       }
     }
 
+    if (netlist->cont_assigns()) {
+      std::vector<cont_assign*>* assigns = m->Cont_assigns();
+      if (assigns == nullptr) {
+        m->Cont_assigns(s.MakeCont_assignVec());
+        assigns = m->Cont_assigns();
+      }
+      for (auto obj : *netlist->cont_assigns()) {
+        obj->VpiParent(m);
+        assigns->push_back(obj);
+      }
+    }
+
     std::vector<gen_scope_array*>* gen_scope_arrays = netlist->gen_scopes();
     if (gen_scope_arrays) {
       for (gen_scope_array* scope_arr : *gen_scope_arrays) {
         for (gen_scope* scope : *scope_arr->Gen_scopes()) {
-          m->Cont_assigns(scope->Cont_assigns());
-          if (m->Cont_assigns()) {
-            for (auto ps : *m->Cont_assigns()) {
-              ps->VpiParent(m);
-            }
-          }
           m->Process(scope->Process());
           if (m->Process()) {
             for (auto ps : *m->Process()) {
@@ -1743,20 +1747,6 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
     for (auto tf : *def->getTask_funcs()) {
       target->push_back(tf);
       if (tf->VpiParent() == nullptr) tf->VpiParent(m);
-    }
-  }
-
-  if (netlist) {
-    if (netlist->cont_assigns()) {
-      std::vector<cont_assign*>* assigns = m->Cont_assigns();
-      if (assigns == nullptr) {
-        m->Cont_assigns(s.MakeCont_assignVec());
-        assigns = m->Cont_assigns();
-      }
-      for (auto obj : *netlist->cont_assigns()) {
-        obj->VpiParent(m);
-        assigns->push_back(obj);
-      }
     }
   }
 
@@ -2975,7 +2965,6 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
         assigns = m->Cont_assigns();
       }
       for (auto obj : *netlist->cont_assigns()) {
-        obj->VpiParent(m);
         assigns->push_back(obj);
       }
     }
@@ -3100,19 +3089,6 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
       }
     }
   }
-  // Cont assigns
-  std::vector<cont_assign*>* orig_cont_assigns = mod->getContAssigns();
-  if (orig_cont_assigns) {
-    std::vector<cont_assign*>* assigns = m->Cont_assigns();
-    if (assigns == nullptr) {
-      m->Cont_assigns(s.MakeCont_assignVec());
-      assigns = m->Cont_assigns();
-    }
-    for (auto ps : *orig_cont_assigns) {
-      assigns->push_back(ps);
-      ps->VpiParent(m);
-    }
-  }
 
   // Processes
   m->Process(mod->getProcesses());
@@ -3130,7 +3106,6 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
         assigns = m->Cont_assigns();
       }
       for (auto obj : *netlist->cont_assigns()) {
-        obj->VpiParent(m);
         assigns->push_back(obj);
       }
     }

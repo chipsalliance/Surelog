@@ -461,6 +461,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
 bool NetlistElaboration::elaborate_(ModuleInstance* instance, bool recurse) {
   if (instance->isElaborated()) return true;
   FileSystem* const fileSystem = FileSystem::getInstance();
+  Serializer& s = m_compileDesign->getSerializer();
   instance->setElaborated();
   Netlist* netlist = instance->getNetlist();
   bool elabPortsNets = false;
@@ -516,6 +517,21 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance, bool recurse) {
   }
 
   high_conn_(instance);
+
+  DesignComponent* component = instance->getDefinition();
+  if (component) {
+    if (UHDM::VectorOfcont_assign* cassigns = component->getContAssigns()) {
+      std::vector<cont_assign*>* assigns = netlist->cont_assigns();
+      if (assigns == nullptr) {
+        netlist->cont_assigns(s.MakeCont_assignVec());
+        assigns = netlist->cont_assigns();
+      }
+      for (cont_assign* assign : *cassigns) {
+        assigns->push_back(assign);
+      }
+    }
+  }
+
   if (recurse) {
     for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
       elaborate_(instance->getChildren(i), recurse);
