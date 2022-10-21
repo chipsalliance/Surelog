@@ -62,13 +62,7 @@ void SVLibShapeListener::enterLibrary_declaration(
   FileSystem *const fileSystem = FileSystem::getInstance();
   std::string name = ctx->identifier()->getText();
   LibrarySet *librarySet = m_parser->getLibrarySet();
-  Library *lib = librarySet->getLibrary(name);
-  if (lib == nullptr) {
-    Library lib(name, m_parser->getSymbolTable());
-    librarySet->addLibrary(lib);
-  }
-  lib = librarySet->getLibrary(name);
-
+  Library *lib = librarySet->addLibrary(name, m_parser->getSymbolTable());
   SymbolTable *symbolTable = m_parser->getSymbolTable();
   PathId baseDirId = fileSystem->getParent(m_parser->getFileId(), symbolTable);
   for (auto pathSpec : ctx->file_path_spec()) {
