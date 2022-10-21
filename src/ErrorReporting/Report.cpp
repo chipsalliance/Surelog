@@ -91,15 +91,14 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
                                                      SymbolTable* st) {
   // std::mutex m;
   // m.lock();
+  constexpr std::string_view kDiffLogFileName = "diff.log";
   FileSystem* const fileSystem = FileSystem::getInstance();
-  SymbolTable* const symbolTable = clp->getSymbolTable();
-  fs::path odir = fileSystem->toPath(clp->getOutputDirId());
-  const std::string& alldir = symbolTable->getSymbol(clp->getCompileAllDirId());
-  const std::string& unitdir =
-      symbolTable->getSymbol(clp->getCompileUnitDirId());
-  const std::string& log = st->getSymbol(clp->getLogFileNameId());
-  fs::path alllog = odir / alldir / log;
-  fs::path unitlog = odir / unitdir / log;
+  const PathId outputDirId = clp->getOutputDirId();
+  const PathId allLogFileId = fileSystem->getLogFile(false, st);
+  const PathId unitLogFileId = fileSystem->getLogFile(true, st);
+  const PathId diffFileId =
+      fileSystem->getChild(outputDirId, kDiffLogFileName, st);
+
   bool readAll = false;
   bool readUnit = false;
   Result readAllResult;
@@ -108,12 +107,10 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
   while ((!readAll) || (!readUnit)) {
     std::this_thread::sleep_for(std::chrono::microseconds(1000));
     if (!readAll) {
-      readAll =
-          parseReportFile(fileSystem->toPathId(alllog, st), readAllResult);
+      readAll = parseReportFile(allLogFileId, readAllResult);
     }
     if (!readUnit) {
-      readUnit =
-          parseReportFile(fileSystem->toPathId(unitlog, st), readUnitResult);
+      readUnit = parseReportFile(unitLogFileId, readUnitResult);
     }
   }
 
@@ -140,26 +137,28 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
             << "         |" << std::endl;
   std::cout << "|-------|------------------|-------------------|" << std::endl;
   std::cout << std::endl;
-  std::cout << "FILE UNIT LOG: " << unitlog << std::endl;
-  std::cout << "ALL FILES LOG: " << alllog << std::endl;
+  std::cout << "FILE UNIT LOG: " << PathIdPP(unitLogFileId) << std::endl;
+  std::cout << "ALL FILES LOG: " << PathIdPP(allLogFileId) << std::endl;
 
-  fs::path diffFile = odir / "diff.log";
+  const PathId allCompileDirId = fileSystem->getCompileDir(false, st);
+  const PathId unitCompileDirId = fileSystem->getCompileDir(true, st);
+  const fs::path allCompileDir = fileSystem->toPath(allCompileDirId);
+  const fs::path unitCompileDir = fileSystem->toPath(unitCompileDirId);
+  const fs::path diffFile = fileSystem->toPath(diffFileId);
 
-  std::string diffCmd = "diff -r " + (odir / unitdir).string() + " " +
-                        (odir / alldir).string() +
-                        " --exclude cache --brief > " + diffFile.string();
+  std::string diffCmd = StrCat("diff -r ", unitCompileDir, " ", allCompileDir,
+                               " --exclude cache --brief > ", diffFile);
   int retval = system(diffCmd.c_str());
 
-  std::istream& ifs =
-      fileSystem->openForRead(fileSystem->toPathId(diffFile, st));
+  std::istream& ifs = fileSystem->openForRead(diffFileId);
   if (ifs.good()) {
     std::cout << "\nDIFFS:" << std::endl;
     std::string line;
     while (std::getline(ifs, line)) {
-      if (line.find("diff.log") != std::string::npos) {
+      if (line.find(kDiffLogFileName) != std::string::npos) {
         continue;
       }
-      if (line.find(log) != std::string::npos) {
+      if (line.find(FileSystem::kLogFileName) != std::string::npos) {
         continue;
       }
 

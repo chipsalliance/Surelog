@@ -43,56 +43,21 @@ ParseCache::ParseCache(ParseFile* parser)
 
 static constexpr char FlbSchemaVersion[] = "1.3";
 
-// TODO(hzeller): this should come from a function cacheFileResolver() or
-// something that can be passed to the cache. That way, we can leave the
-// somewhat hard-coded notion of where cache files are.
 PathId ParseCache::getCacheFileId_(PathId ppFileId) {
   if (!ppFileId) ppFileId = m_parse->getPpFileId();
   if (!ppFileId) return BadPathId;
+
   FileSystem* const fileSystem = FileSystem::getInstance();
   CommandLineParser* clp =
       m_parse->getCompileSourceFile()->getCommandLineParser();
-  SymbolTable* symbolTable = clp->getSymbolTable();
+  SymbolTable* const symbolTable =
+      m_parse->getCompileSourceFile()->getSymbolTable();
   Precompiled* prec = Precompiled::getSingleton();
 
-  const fs::path filepath = fileSystem->toPath(ppFileId);
-  const fs::path filename =
-      std::get<1>(fileSystem->getLeaf(ppFileId, symbolTable));
-  const fs::path dirpath =
-      fileSystem->toPath(fileSystem->getParent(ppFileId, symbolTable));
+  m_isPrecompiled = prec->isFilePrecompiled(ppFileId, symbolTable);
   const std::string& libName = m_parse->getLibrary()->getName();
-
-  fs::path cacheFilepath;
-  if ((m_isPrecompiled = prec->isFilePrecompiled(filename.string()))) {
-    cacheFilepath = fileSystem->toPath(clp->getPrecompiledDirId());
-    cacheFilepath /= libName;
-    cacheFilepath /= filename;
-  } else if (clp->parseOnly()) {
-    cacheFilepath = fileSystem->toPath(clp->getCacheDirId());
-    cacheFilepath /= libName;
-
-    fs::path rel_filepath = filename;
-    for (const PathId& wdId : clp->getWorkingDirs()) {
-      const fs::path wd = fileSystem->toPath(wdId);
-      const fs::path rp = filepath.lexically_relative(wd);
-      if (rp.string().find("..") != 0) {
-        rel_filepath = rp;
-        break;
-      }
-    }
-    cacheFilepath /= rel_filepath;
-  } else {
-    const fs::path compileDirId =
-        fileSystem->toPath(clp->getFullCompileDirId());
-
-    cacheFilepath = fileSystem->toPath(clp->getCacheDirId());
-    cacheFilepath /= filepath.lexically_relative(compileDirId);
-  }
-  cacheFilepath += ".slpa";
-
-  PathId cacheFileId = fileSystem->toPathId(cacheFilepath, symbolTable);
-  fileSystem->mkdirs(fileSystem->getParent(cacheFileId, symbolTable));
-  return cacheFileId;
+  return fileSystem->getParseCacheFile(clp->fileunit(), ppFileId, libName,
+                                       m_isPrecompiled, symbolTable);
 }
 
 bool ParseCache::restore_(PathId cacheFileId,

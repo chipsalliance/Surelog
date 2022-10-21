@@ -3931,7 +3931,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
     }
   }
 
-  const std::filesystem::path uhdmFile = fileSystem->toAbsPath(uhdmFileId);
+  const std::filesystem::path uhdmFile = fileSystem->toPath(uhdmFileId);
   if (m_compileDesign->getCompiler()->getCommandLineParser()->writeUhdm()) {
     Error err(ErrorDefinition::UHDM_WRITE_DB, loc);
     m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
@@ -3943,28 +3943,15 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getDebugUhdm() ||
       m_compileDesign->getCompiler()->getCommandLineParser()->getCoverUhdm()) {
     // Check before restore
-    Location loc(
-        m_compileDesign->getCompiler()->getSymbolTable()->registerSymbol(
-            uhdmFile.string() + ".chk.html"));
+    Location loc(fileSystem->getCheckerHtmlFile(
+        uhdmFileId, m_compileDesign->getCompiler()->getSymbolTable()));
     Error err(ErrorDefinition::UHDM_WRITE_HTML_COVERAGE, loc);
     m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
     m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
         m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
 
-    std::string uhdmFilename(std::get<1>(fileSystem->getLeaf(
-        uhdmFileId, m_compileDesign->getCompiler()->getSymbolTable())));
-    const PathId chkDirId =
-        fileSystem->getChild(m_compileDesign->getCompiler()
-                                 ->getCommandLineParser()
-                                 ->getFullCompileDirId(),
-                             FileSystem::kCheckerDirName,
-                             m_compileDesign->getCompiler()->getSymbolTable());
-    const PathId chkFileId =
-        fileSystem->getChild(chkDirId, uhdmFilename += ".chk",
-                             m_compileDesign->getCompiler()->getSymbolTable());
-    fileSystem->mkdirs(chkDirId);
     UhdmChecker* uhdmchecker = new UhdmChecker(m_compileDesign, m_design);
-    uhdmchecker->check(chkFileId);
+    uhdmchecker->check(uhdmFileId);
     delete uhdmchecker;
   }
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getDebugUhdm()) {

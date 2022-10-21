@@ -233,14 +233,15 @@ bool UhdmChecker::registerFile(const FileContent* fC,
   return true;
 }
 
-bool UhdmChecker::reportHtml(PathId reportFileId, float overallCoverage) {
+bool UhdmChecker::reportHtml(PathId uhdmFileId, float overallCoverage) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   ErrorContainer* errors = m_compileDesign->getCompiler()->getErrorContainer();
   SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
-  const std::filesystem::path htmlReportFile =
-      fileSystem->toPath(reportFileId) += ".html";
-  PathId htmlReportFileId = fileSystem->toPathId(htmlReportFile, symbols);
-  std::ostream& report = fileSystem->openForWrite(htmlReportFileId);
+
+  const PathId reportFileId =
+      fileSystem->getCheckerHtmlFile(uhdmFileId, symbols);
+
+  std::ostream& report = fileSystem->openForWrite(reportFileId);
   if (report.bad()) {
     fileSystem->close(report);
     return false;
@@ -260,8 +261,10 @@ bool UhdmChecker::reportHtml(PathId reportFileId, float overallCoverage) {
       return false;
     }
     const std::filesystem::path filepath = fileSystem->toPath(fC->getFileId());
-    const std::string fname = "chk" + std::to_string(fileIndex) + ".html";
-    PathId chkFileId = fileSystem->getSibling(htmlReportFileId, fname, symbols);
+    const PathId chkFileId =
+        fileSystem->getCheckerHtmlFile(uhdmFileId, fileIndex, symbols);
+    const std::string fname(
+        std::get<1>(fileSystem->getLeaf(chkFileId, symbols)));
     std::ostream& reportF = fileSystem->openForWrite(chkFileId);
     if (reportF.bad()) {
       fileSystem->close(report);
@@ -437,8 +440,10 @@ void UhdmChecker::mergeColumnCoverage() {
   }
 }
 
-float UhdmChecker::reportCoverage(PathId reportFileId) {
+float UhdmChecker::reportCoverage(PathId uhdmFileId) {
   FileSystem* const fileSystem = FileSystem::getInstance();
+  SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
+  const PathId reportFileId = fileSystem->getCheckerFile(uhdmFileId, symbols);
 
   std::ostream& report = fileSystem->openForWrite(reportFileId);
   if (report.bad()) {
@@ -622,11 +627,12 @@ void collectUsedFileContents(std::set<const FileContent*>& files,
   }
 }
 
-bool UhdmChecker::check(PathId reportFileId) {
+bool UhdmChecker::check(PathId uhdmFileId) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   // Register all objects location in file content
   CommandLineParser* clp =
       m_compileDesign->getCompiler()->getCommandLineParser();
+  SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
   std::set<const FileContent*> files;
   std::set<std::string> moduleNames;
   for (ModuleInstance* top : m_design->getTopLevelModuleInstances()) {
@@ -656,9 +662,14 @@ bool UhdmChecker::check(PathId reportFileId) {
 
   mergeColumnCoverage();
 
+  if (!fileSystem->mkdirs(
+          fileSystem->getCheckerDir(clp->fileunit(), symbols))) {
+    return false;
+  }
+
   // Report uncovered objects
-  float overallCoverage = reportCoverage(reportFileId);
-  reportHtml(reportFileId, overallCoverage);
+  float overallCoverage = reportCoverage(uhdmFileId);
+  reportHtml(uhdmFileId, overallCoverage);
   return true;
 }
 

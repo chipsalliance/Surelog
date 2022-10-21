@@ -47,8 +47,6 @@
 #include <filesystem>
 
 namespace SURELOG {
-namespace fs = std::filesystem;
-
 static std::string FlbSchemaVersion = "1.0";
 
 PythonAPICache::PythonAPICache(PythonListen* listener) : m_listener(listener) {}
@@ -57,20 +55,17 @@ PathId PythonAPICache::getCacheFileId_(PathId sourceFileId) const {
   ParseFile* parseFile = m_listener->getParseFile();
   if (!sourceFileId) sourceFileId = parseFile->getFileId(LINE1);
   if (!sourceFileId) return BadPathId;
-  FileSystem* const fileSystem = FileSystem::getInstance();
-  PathId cacheDirId = m_listener->getCompileSourceFile()
-                          ->getCommandLineParser()
-                          ->getCacheDirId();
 
-  fs::path cacheDirName = fileSystem->toPath(cacheDirId);
-  std::filesystem::path svFileName = std::get<1>(
-      fileSystem->getLeaf(sourceFileId, parseFile->getSymbolTable()));
-  Library* lib = m_listener->getCompileSourceFile()->getLibrary();
-  const std::string& libName = lib->getName();
-  fs::path cacheFileName =
-      cacheDirName / libName / (svFileName.string() + ".slpy");
-  return fileSystem->toPathId(
-      cacheFileName, m_listener->getCompileSourceFile()->getSymbolTable());
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  CommandLineParser* clp =
+      m_listener->getCompileSourceFile()->getCommandLineParser();
+  SymbolTable* symbolTable =
+      m_listener->getCompileSourceFile()->getSymbolTable();
+
+  const std::string& libName =
+      m_listener->getCompileSourceFile()->getLibrary()->getName();
+  return fileSystem->getPythonCacheFile(clp->fileunit(), sourceFileId, libName,
+                                        symbolTable);
 }
 
 bool PythonAPICache::restore_(PathId cacheFileId,
@@ -187,10 +182,7 @@ bool PythonAPICache::save() {
   FinishPythonAPICacheBuffer(builder, ppcache);
 
   /* Save Flatbuffer */
-  bool status =
-      saveFlatbuffers(builder, cacheFileId,
-                      m_listener->getCompileSourceFile()->getSymbolTable());
-
-  return status;
+  return saveFlatbuffers(builder, cacheFileId,
+                         m_listener->getCompileSourceFile()->getSymbolTable());
 }
 }  // namespace SURELOG

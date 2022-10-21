@@ -31,12 +31,22 @@ std::ostream &operator<<(std::ostream &strm, const PathIdPP &id) {
 }
 
 bool PathId::operator==(const PathId &rhs) const {
-  FileSystem *const fileSystem = FileSystem::getInstance();
-  return ((m_symbolTable != nullptr) && (rhs.m_symbolTable != nullptr) &&
-          (m_id != BadRawPathId) && (rhs.m_id != BadRawPathId))
-             ? ((m_symbolTable == rhs.m_symbolTable) && (m_id == rhs.m_id)) ||
-                   (fileSystem->toPath(*this) == fileSystem->toPath(rhs))
-             : (m_symbolTable == nullptr) && (rhs.m_symbolTable == nullptr) &&
-                   (m_id == BadRawPathId) && (rhs.m_id == BadRawPathId);
+  // IMPORTANT: The logic to compare two PathId instances cannot use
+  // std::filesystem::equivalent (or FileSystem::areEquivalent) since those
+  // API expects both the paths to exist. PathId doesn't have the same
+  // restriction or guarantee. String comparison is the only viable option
+  // and potentially good enough since the paths stored in the SymbolTable are
+  // expected to be *normalized*.
+  if ((m_id == rhs.m_id) && (m_symbolTable == rhs.m_symbolTable)) {
+    return true;
+  }
+
+  if ((m_symbolTable != nullptr) && (rhs.m_symbolTable != nullptr) &&
+      (m_id != BadRawPathId) && (rhs.m_id != BadRawPathId)) {
+    FileSystem *const fileSystem = FileSystem::getInstance();
+    return fileSystem->toPath(*this) == fileSystem->toPath(rhs);
+  }
+
+  return false;
 }
 }  // namespace SURELOG

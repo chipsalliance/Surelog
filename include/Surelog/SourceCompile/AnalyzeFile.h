@@ -30,6 +30,8 @@
 #include <Surelog/SourceCompile/IncludeFileInfo.h>
 
 #include <stack>
+#include <string>
+#include <string_view>
 #include <vector>
 
 namespace SURELOG {
@@ -38,9 +40,9 @@ class CommandLineParser;
 class Design;
 class SymbolTable;
 
-class AnalyzeFile {
+class AnalyzeFile final {
  public:
-  class FileChunk {
+  class FileChunk final {
    public:
     FileChunk(DesignElement::ElemType type, unsigned long from,
               unsigned long to, unsigned long startChar, unsigned long endChar)
@@ -61,7 +63,7 @@ class AnalyzeFile {
   };
 
   AnalyzeFile(CommandLineParser* clp, Design* design, PathId ppFileId,
-              PathId fileId, int nbChunks, const std::string& text = "")
+              PathId fileId, int nbChunks, std::string_view text = "")
       : m_clp(clp),
         m_design(design),
         m_ppFileId(ppFileId),
@@ -76,15 +78,13 @@ class AnalyzeFile {
   }
 
   AnalyzeFile(const AnalyzeFile& orig) = delete;
-  virtual ~AnalyzeFile() = default;
+  ~AnalyzeFile() = default;
 
  private:
   void checkSLlineDirective_(const std::string& line, unsigned int lineNb);
-  std::string setSLlineDirective_(unsigned int lineNb,
-                                  unsigned int& origFromLine,
-                                  PathId& origFileId);
-  CommandLineParser* m_clp;
-  Design* m_design;
+  std::string setSLlineDirective_(unsigned int lineNb);
+  CommandLineParser* const m_clp = nullptr;
+  Design* const m_design = nullptr;
   PathId m_ppFileId;
   PathId m_fileId;
   std::vector<FileChunk> m_fileChunks;

@@ -104,8 +104,9 @@ unsigned int executeCompilation(
 
   std::string ext_command = clp->getExeCommand();
   if (!ext_command.empty()) {
-    fs::path directory = fileSystem->toPath(clp->getFullCompileDirId());
-    fs::path fileList = directory / "file.lst";
+    SURELOG::PathId fileId = fileSystem->getChild(
+        clp->getCompileDirId(), "file.lst", clp->getSymbolTable());
+    fs::path fileList = fileSystem->toPath(fileId);
     std::string command = ext_command + " " + fileList.string();
     int result = system(command.c_str());
     codedReturn |= result;
@@ -163,22 +164,27 @@ int batchCompilation(const char* argv0, const fs::path& batchFile,
     std::vector<std::string> args;
     SURELOG::StringUtils::tokenize(line, " \r\t", args);
 
-    fs::path cd;
-    for (size_t i = 0, n = args.size() - 1; i < n; i++) {
-      if (args[i] == cd_opt) {
-        cd = SURELOG::StringUtils::unquoted(args[i + 1]);
-        break;
+    if (!outputDir.empty()) {
+      fs::path cd;
+      int32_t odirIndex = -1;
+      for (size_t i = 0, n = args.size() - 1; i < n; i++) {
+        if (args[i] == cd_opt) {
+          cd = SURELOG::StringUtils::unquoted(args[++i]);
+        } else if (args[i] == output_folder_opt) {
+          odirIndex = ++i;
+        }
       }
-    }
 
-    if (cd.empty() || cd.is_absolute()) {
-      if (!outputDir.empty()) {
+      if (odirIndex >= 0) {
+        fs::path odir = args[odirIndex];
+        if (odir.is_relative()) {
+          odir = outputDir / odir;
+        }
+        args[odirIndex] = odir.string();
+      } else {
         args.push_back("-o");
         args.push_back(outputDir.string());
       }
-    } else if (!outputDir.empty()) {
-      args.push_back("-o");
-      args.push_back((outputDir / cd).string());
     }
 
     std::vector<const char*> argv;
@@ -227,6 +233,9 @@ int main(int argc, const char** argv) {
 #endif
   SURELOG::Waiver::initWaivers();
 
+  SURELOG::FileSystem* const fileSystem = SURELOG::FileSystem::getInstance();
+  const std::filesystem::path& workingDir = fileSystem->getWorkingDir();
+
   unsigned int codedReturn = 0;
   COMP_MODE mode = NORMAL;
   bool python_mode = true;
@@ -250,7 +259,7 @@ int main(int argc, const char** argv) {
   }
 
   if (!outputDir.empty() && outputDir.is_relative()) {
-    outputDir = fs::current_path() / outputDir;
+    outputDir = workingDir / outputDir;
   }
 
   if (python_mode) SURELOG::PythonAPI::init(argc, argv);

@@ -2432,9 +2432,8 @@ void DesignElaboration::createFileList_() {
     }
   }
 
-  PathId fileId =
-      fileSystem->getChild(cmdLine->getFullCompileDirId(), "file_elab.lst",
-                           cmdLine->getSymbolTable());
+  PathId fileId = fileSystem->getChild(
+      cmdLine->getCompileDirId(), "file_elab.lst", cmdLine->getSymbolTable());
   std::ostream& ofs = fileSystem->openForWrite(fileId);
   if (ofs.good()) {
     const Compiler::PPFileMap& ppFileName =
