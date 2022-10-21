@@ -30,7 +30,7 @@ jobs:
     steps:
 
     - name: Cancel previous
-      uses: styfle/cancel-workflow-action@0.9.1
+      uses: styfle/cancel-workflow-action@0.11.0
       with:
         access_token: ${{ github.token }}
 
@@ -55,7 +55,7 @@ jobs:
         fetch-depth: 0
 
     - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1
+      uses: hendrikmuhs/ccache-action@v1.2
       with:
         key: linux-${{ matrix.mode }}-${{ matrix.compiler }}
 
@@ -142,7 +142,7 @@ jobs:
     steps:
 
     - name: Cancel previous
-      uses: styfle/cancel-workflow-action@0.9.1
+      uses: styfle/cancel-workflow-action@0.11.0
       with:
         access_token: ${{ github.token }}
 
@@ -171,7 +171,7 @@ jobs:
         fetch-depth: 0
 
     - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1
+      uses: hendrikmuhs/ccache-action@v1.2
       with:
         key: linux-${{ matrix.mode }}
 
@@ -213,7 +213,7 @@ jobs:
     - name: Upload coverage
       # will show up under https://app.codecov.io/gh/chipsalliance/Surelog
       if: matrix.mode == 'coverage'
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v3
       with:
         files: coverage-build/surelog.coverage
         fail_ci_if_error: false
@@ -249,7 +249,7 @@ jobs:
     steps:
 
     - name: Cancel previous
-      uses: styfle/cancel-workflow-action@0.9.1
+      uses: styfle/cancel-workflow-action@0.11.0
       with:
         access_token: ${{ github.token }}
 
@@ -395,7 +395,7 @@ jobs:
     steps:
 
     - name: Cancel previous
-      uses: styfle/cancel-workflow-action@0.9.1
+      uses: styfle/cancel-workflow-action@0.11.0
       with:
         access_token: ${{ github.token }}
 
@@ -564,7 +564,7 @@ jobs:
 
     steps:
     - name: Cancel previous
-      uses: styfle/cancel-workflow-action@0.9.1
+      uses: styfle/cancel-workflow-action@0.11.0
       with:
         access_token: ${{ github.token }}
 
@@ -593,7 +593,7 @@ jobs:
         fetch-depth: 0
 
     - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1
+      uses: hendrikmuhs/ccache-action@v1.2
       with:
         key: macos-${{ matrix.compiler }}
 
@@ -603,8 +603,8 @@ jobs:
           echo 'CC=clang' >> $GITHUB_ENV
           echo 'CXX=clang++' >> $GITHUB_ENV
         else
-          echo 'CC=gcc-9' >> $GITHUB_ENV
-          echo 'CXX=g++-9' >> $GITHUB_ENV
+          echo 'CC=gcc-11' >> $GITHUB_ENV
+          echo 'CXX=g++-11' >> $GITHUB_ENV
         fi
 
     - name: Configure shell
@@ -690,7 +690,7 @@ jobs:
 
     steps:
     - name: Cancel previous
-      uses: styfle/cancel-workflow-action@0.8.0
+      uses: styfle/cancel-workflow-action@0.11.0
       with:
         access_token: ${{ github.token }}
 
@@ -719,7 +719,7 @@ jobs:
         fetch-depth: 0
 
     - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1
+      uses: hendrikmuhs/ccache-action@v1.2
       with:
         key: clang-tidy-codegen
 
