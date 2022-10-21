@@ -32,6 +32,7 @@
 #include <sys/types.h>
 
 #include <ctime>
+#include <filesystem>
 #include <iostream>
 
 namespace SURELOG {
@@ -50,7 +51,7 @@ bool Cache::openFlatBuffers(PathId cacheFileId,
 
 bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
                                 std::string_view schemaVersion,
-                                PathId cacheFileId,
+                                PathId cacheFileId, PathId sourceFileId,
                                 SymbolTable* symbolTable) const {
   /* Schema version */
   if (schemaVersion != header->flb_version()->string_view()) {
@@ -72,10 +73,7 @@ bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
   if (cacheFileId) {
     FileSystem* const fileSystem = FileSystem::getInstance();
     std::filesystem::file_time_type ct = fileSystem->modtime(cacheFileId);
-
-    PathId fileId = fileSystem->toPathId(
-        header->file_deprecated()->string_view(), symbolTable);
-    std::filesystem::file_time_type ft = fileSystem->modtime(fileId);
+    std::filesystem::file_time_type ft = fileSystem->modtime(sourceFileId);
 
     if (ft == std::filesystem::file_time_type::min()) {
       return false;
@@ -91,16 +89,12 @@ bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
 }
 
 flatbuffers::Offset<SURELOG::CACHE::Header> Cache::createHeader(
-    flatbuffers::FlatBufferBuilder& builder, std::string_view schemaVersion,
-    PathId origFileId) {
-  FileSystem* const fileSystem = FileSystem::getInstance();
-  fs::path origFileName = fileSystem->toPath(origFileId);
-  auto fName = builder.CreateString(origFileName.string());
+    flatbuffers::FlatBufferBuilder& builder, std::string_view schemaVersion) {
   auto sl_version = builder.CreateString(CommandLineParser::getVersionNumber());
   auto sl_build_date = builder.CreateString(getExecutableTimeStamp());
   auto sl_flb_version = builder.CreateString(schemaVersion);
-  auto header = CACHE::CreateHeader(builder, sl_version, sl_flb_version,
-                                    sl_build_date, fName);
+  auto header =
+      CACHE::CreateHeader(builder, sl_version, sl_flb_version, sl_build_date);
   return header;
 }
 

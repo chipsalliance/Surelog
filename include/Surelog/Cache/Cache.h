@@ -69,11 +69,10 @@ class Cache {
 
   bool checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
                            std::string_view schemaVersion, PathId cacheFileId,
-                           SymbolTable* symbolTable) const;
+                           PathId sourceFileId, SymbolTable* symbolTable) const;
 
   flatbuffers::Offset<SURELOG::CACHE::Header> createHeader(
-      flatbuffers::FlatBufferBuilder& builder, std::string_view schemaVersion,
-      PathId origFileId);
+      flatbuffers::FlatBufferBuilder& builder, std::string_view schemaVersion);
 
   // Store errors in cache. Canonicalize strings and store in "cacheSymbols".
   flatbuffers::Offset<VectorOffsetError> cacheErrors(

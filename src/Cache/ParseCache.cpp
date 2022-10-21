@@ -41,7 +41,7 @@ namespace fs = std::filesystem;
 ParseCache::ParseCache(ParseFile* parser)
     : m_parse(parser), m_isPrecompiled(false) {}
 
-static constexpr char FlbSchemaVersion[] = "1.2";
+static constexpr char FlbSchemaVersion[] = "1.3";
 
 // TODO(hzeller): this should come from a function cacheFileResolver() or
 // something that can be passed to the cache. That way, we can leave the
@@ -182,6 +182,7 @@ bool ParseCache::checkCacheIsValid_(PathId cacheFileId,
   auto header = ppcache->header();
   if (!m_isPrecompiled &&
       !checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileId,
+                           m_parse->getPpFileId(),
                            m_parse->getCompileSourceFile()->getSymbolTable())) {
     return false;
   }
@@ -215,8 +216,6 @@ bool ParseCache::save() {
       m_parse->getCompileSourceFile()->getCommandLineParser();
   if (!clp->cacheAllowed()) return true;
 
-  FileSystem* const fileSystem = FileSystem::getInstance();
-
   FileContent* fcontent = m_parse->getFileContent();
   if (fcontent && (fcontent->getVObjects().size() > Cache::Capacity)) {
     clp->setCacheAllowed(false);
@@ -225,32 +224,27 @@ bool ParseCache::save() {
     m_parse->getCompileSourceFile()->getErrorContainer()->addError(err);
     return false;
   }
-  PathId origFileId = m_parse->getPpFileId();
-  fs::path origFileName = fileSystem->toPath(origFileId);
-  if (clp->parseOnly()) {
-    origFileName =
-        fileSystem->toPath(clp->getCacheDirId()) / ".." / origFileName;
-  }
+
   PathId cacheFileId = getCacheFileId_(BadPathId);
   if (!cacheFileId) {
     // Any fake(virtual) file like builtin.sv
     return true;
   }
 
+  FileSystem* const fileSystem = FileSystem::getInstance();
+
   flatbuffers::FlatBufferBuilder builder(1024);
   /* Create header section */
-  auto header = createHeader(builder, FlbSchemaVersion, origFileId);
+  auto header = createHeader(builder, FlbSchemaVersion);
 
   /* Cache the errors and canonical symbols */
   ErrorContainer* errorContainer =
       m_parse->getCompileSourceFile()->getErrorContainer();
-  PathId subjectFileId =
-      fileSystem->copy(m_parse->getFileId(LINE1),
-                       m_parse->getCompileSourceFile()->getSymbolTable());
   SymbolTable cacheSymbols;
-  auto errorCache = cacheErrors(
-      builder, &cacheSymbols, errorContainer,
-      *m_parse->getCompileSourceFile()->getSymbolTable(), subjectFileId);
+  auto errorCache =
+      cacheErrors(builder, &cacheSymbols, errorContainer,
+                  *m_parse->getCompileSourceFile()->getSymbolTable(),
+                  m_parse->getFileId(LINE1));
 
   /* Cache the design content */
   std::vector<flatbuffers::Offset<PARSECACHE::DesignElement>> element_vec;

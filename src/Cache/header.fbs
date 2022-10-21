@@ -28,11 +28,7 @@ table Header {
 
   // No file-timestamp as this would violate hermetic build assumptions:
   // running the same tool on the same file must always yield the same cache.
-
-  // Arguably, the filename should also not be recorded here, as this is
-  // strictly derived from the original filename when reading the cache. It
-  // makes it hard to create hermetic builds in different directories.
-  file_deprecated:string;
+  // Same is true for source filename as well.
 }
 
 table Error {

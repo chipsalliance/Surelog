@@ -44,7 +44,7 @@ namespace fs = std::filesystem;
 
 PPCache::PPCache(PreprocessFile* pp) : m_pp(pp), m_isPrecompiled(false) {}
 
-static const char FlbSchemaVersion[] = "1.3";
+static const char FlbSchemaVersion[] = "1.4";
 
 // TODO(hzeller): this should come from a function cacheFileResolver() or
 // something that can be passed to the cache. That way, we can leave the
@@ -251,6 +251,7 @@ bool PPCache::checkCacheIsValid_(PathId cacheFileId,
 
   if (!m_isPrecompiled) {
     if (!checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileId,
+                             m_pp->getFileId(LINE1),
                              m_pp->getCompileSourceFile()->getSymbolTable())) {
       return false;
     }
@@ -343,6 +344,7 @@ bool PPCache::restore(bool errorsOnly) {
 bool PPCache::save() {
   CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
   if (!clp->cacheAllowed()) return false;
+  if (m_pp->isMacroBody()) return false;
 
   FileSystem* const fileSystem = FileSystem::getInstance();
   FileContent* fcontent = m_pp->getFileContent();
@@ -354,15 +356,15 @@ bool PPCache::save() {
     return false;
   }
 
-  PathId origFileId = m_pp->getFileId(LINE1);
   PathId cacheFileId = getCacheFileId_(BadPathId);
-  // std::cout << "SAVING FILE: " << cacheFileName << std::endl;
-  if (m_pp->isMacroBody()) return false;
+  if (!cacheFileId) return true;
+
+  // std::cout << "SAVING FILE: " << PathIdPP(cacheFileId) << std::endl;
 
   flatbuffers::FlatBufferBuilder builder(1024);
   SymbolTable cacheSymbols;
   /* Create header section */
-  auto header = createHeader(builder, FlbSchemaVersion, origFileId);
+  auto header = createHeader(builder, FlbSchemaVersion);
 
   /* Cache the macro definitions */
   const MacroStorage& macros = m_pp->getMacros();
