@@ -120,6 +120,7 @@ bool PythonAPICache::checkCacheIsValid_(
   }
 
   if (!checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileId,
+                           m_listener->getParseFile()->getFileId(LINE1),
                            symbolTable)) {
     return false;
   }
@@ -164,8 +165,7 @@ bool PythonAPICache::save() {
 
   flatbuffers::FlatBufferBuilder builder(1024);
   /* Create header section */
-  auto header =
-      createHeader(builder, FlbSchemaVersion, parseFile->getPpFileId());
+  auto header = createHeader(builder, FlbSchemaVersion);
 
   std::string pythonScriptFile = PythonAPI::getListenerScript();
   auto scriptFile = builder.CreateString(pythonScriptFile);
