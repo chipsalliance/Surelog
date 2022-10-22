@@ -65,11 +65,8 @@ bool ParseLibraryDef::parseLibrariesDefinition() {
   }
 
   // If "work" library is not yet declared from command line, create it
-  std::string workN = "work";
-  if (m_librarySet->getLibrary(workN) == nullptr) {
-    Library work(workN, m_symbolTable);
-    m_librarySet->addLibrary(work);
-  }
+  constexpr std::string_view workN = "work";
+  m_librarySet->addLibrary(workN, m_symbolTable);
 
   // Config files are parsed using the library top rule
   const PathIdVector& cfgFiles = m_commandLineParser->getConfigFiles();
@@ -93,7 +90,7 @@ bool ParseLibraryDef::parseLibrariesDefinition() {
   m_librarySet->checkErrors(m_symbolTable, m_errors);
 
   if (m_commandLineParser->getDebugLibraryDef()) {
-    std::cout << m_librarySet->report(m_symbolTable) << std::endl;
+    m_librarySet->report(std::cout) << std::endl;
   }
   return true;
 }

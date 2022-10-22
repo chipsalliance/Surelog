@@ -27,6 +27,7 @@
 
 #include <Surelog/Common/SymbolId.h>
 
+#include <ostream>
 #include <string_view>
 #include <vector>
 
@@ -40,12 +41,12 @@ class LibrarySet final {
  public:
   LibrarySet() = default;
 
-  void addLibrary(const Library& lib);
+  Library* addLibrary(std::string_view name, SymbolTable* symbolTable);
   std::vector<Library>& getLibraries() { return m_libraries; }
   Library* getLibrary(std::string_view libName);
   Library* getLibrary(PathId fileId);
   void checkErrors(SymbolTable* symbols, ErrorContainer* errors) const;
-  std::string report(SymbolTable* symbols) const;
+  std::ostream& report(std::ostream& out) const;
 
  private:
   LibrarySet(const LibrarySet& orig) = default;

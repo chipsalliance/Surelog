@@ -28,28 +28,28 @@
 
 namespace SURELOG {
 
+Library::Library(std::string_view name, SymbolTable* symbols)
+    : m_nameId(symbols->registerSymbol(name)), m_symbols(symbols) {}
+
+const std::string& Library::getName() const {
+  return m_symbols->getSymbol(m_nameId);
+}
+
 void Library::addModuleDefinition(ModuleDefinition* def) {
-  m_modules.insert(std::make_pair(def->getName(), def));
+  m_modules.emplace(m_symbols->registerSymbol(def->getName()), def);
 }
 
 ModuleDefinition* Library::getModule(const std::string& name) const {
-  std::map<std::string, ModuleDefinition*>::const_iterator itr =
-      m_modules.find(name);
-  if (itr == m_modules.end()) {
-    return nullptr;
-  } else {
-    return (*itr).second;
-  }
+  auto itr = m_modules.find(m_symbols->registerSymbol(name));
+  return (itr == m_modules.end()) ? nullptr : itr->second;
 }
 
-std::string Library::report(SymbolTable* symbols) const {
-  FileSystem* const fileSystem = FileSystem::getInstance();
-  std::string report;
-  report = "LIB: " + m_name + "\n";
-  for (auto id : m_fileIds) {
-    report += "     " + fileSystem->toPath(id).string() + "\n";
+std::ostream& Library::report(std::ostream& out) const {
+  out << "LIB: " << m_symbols->getSymbol(m_nameId) << std::endl;
+  for (const auto& id : m_fileIds) {
+    out << "     " << PathIdPP(id) << std::endl;
   }
-  return report;
+  return out;
 }
 
 }  // namespace SURELOG

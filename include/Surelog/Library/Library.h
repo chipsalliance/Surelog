@@ -28,8 +28,10 @@
 #include <Surelog/Common/PathId.h>
 
 #include <map>
+#include <ostream>
 #include <set>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace SURELOG {
@@ -39,31 +41,35 @@ class SymbolTable;
 
 class Library final {
  public:
-  Library(std::string_view name, SymbolTable* symbols)
-      : m_name(name), m_symbols(symbols) {}
+  typedef std::map<SymbolId, ModuleDefinition*, SymbolIdLessThanComparer>
+      ModuleDefinitionByNameMap;
+
+ public:
+  Library(std::string_view name, SymbolTable* symbols);
 
   void addFileId(PathId fid) {
     m_fileIds.push_back(fid);
     m_fileIdsSet.insert(fid);
   }
 
-  const std::string& getName() const { return m_name; }
+  const std::string& getName() const;
+  SymbolId getNameId() const { return m_nameId; }
   const PathIdVector& getFiles() const { return m_fileIds; }
   bool isMember(PathId fid) const {
     return m_fileIdsSet.find(fid) != m_fileIdsSet.end();
   }
-  std::string report(SymbolTable* symbols) const;
+  std::ostream& report(std::ostream& out) const;
   void addModuleDefinition(ModuleDefinition* def);
-  std::map<std::string, ModuleDefinition*>& getModules() { return m_modules; }
+  ModuleDefinitionByNameMap& getModules() { return m_modules; }
   ModuleDefinition* getModule(const std::string& name) const;
-  SymbolTable* getSymbols() const { return m_symbols; }
+  SymbolTable* getSymbols() { return m_symbols; }
 
  private:
-  std::string m_name;
+  SymbolId m_nameId;
+  SymbolTable* const m_symbols;
   PathIdVector m_fileIds;
   PathIdSet m_fileIdsSet;
-  std::map<std::string, ModuleDefinition*> m_modules;
-  SymbolTable* const m_symbols;
+  ModuleDefinitionByNameMap m_modules;
 };
 
 }  // namespace SURELOG

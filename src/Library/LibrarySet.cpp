@@ -26,10 +26,17 @@
 #include <Surelog/Library/LibrarySet.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 
+#include <sstream>
+
 namespace SURELOG {
 
-void LibrarySet::addLibrary(const Library& lib) {
-  m_libraries.emplace_back(lib);
+Library* LibrarySet::addLibrary(std::string_view name,
+                                SymbolTable* symbolTable) {
+  Library* lib = getLibrary(name);
+  if (lib == nullptr) {
+    lib = &m_libraries.emplace_back(name, symbolTable);
+  }
+  return lib;
 }
 
 Library* LibrarySet::getLibrary(std::string_view libName) {
@@ -48,18 +55,17 @@ Library* LibrarySet::getLibrary(PathId fileId) {
     }
   }
   if (lib == nullptr) {
-    getLibrary("work")->addFileId(fileId);
     lib = getLibrary("work");
+    lib->addFileId(fileId);
   }
   return lib;
 }
 
-std::string LibrarySet::report(SymbolTable* symbols) const {
-  std::string report;
+std::ostream& LibrarySet::report(std::ostream& out) const {
   for (const auto& library : m_libraries) {
-    report += library.report(symbols) + "\n";
+    library.report(out) << std::endl;
   }
-  return report;
+  return out;
 }
 
 void LibrarySet::checkErrors(SymbolTable* symbols,
@@ -69,7 +75,7 @@ void LibrarySet::checkErrors(SymbolTable* symbols,
     for (const auto& file : library.getFiles()) {
       auto itr = fileSet.find(file);
       if (itr == fileSet.end()) {
-        fileSet.insert(std::make_pair(file, library.getName()));
+        fileSet.emplace(file, library.getName());
       } else {
         Location loc1(
             symbols->registerSymbol(itr->second + ", " + library.getName()));
