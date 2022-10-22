@@ -15,7 +15,7 @@
  */
 
 /*
- * File:   FileSystem.cpp
+ * File:   FileSystem_test.cpp
  * Author: hs
  *
  * Created on June 1, 2022, 3:00 AM
@@ -180,14 +180,14 @@ TEST(FileSystemTest, BasicFileOperations) {
 TEST(FileSystemTest, LocateFile) {
   const std::string search_file = "search-file.txt";
 
-  std::error_code ec;
-  const fs::path testdir = FileSystem::normalize(testing::TempDir(), ec);
+  const fs::path testdir = FileSystem::normalize(testing::TempDir());
   const fs::path basedir = testdir / "locate-file-test";
   const fs::path path1 = basedir / "dir1";
   const fs::path path2 = basedir / "dir2";
   const fs::path actual_dir_1 = basedir / "actual-dir-1";
   const fs::path actual_dir_2 = basedir / "actual-dir-2";
 
+  std::error_code ec;
   TestFileSystem fileSystem;
   SymbolTable symbolTable;
 
@@ -213,8 +213,7 @@ TEST(FileSystemTest, LocateFile) {
   EXPECT_EQ(not_exists, BadPathId);
 
   const fs::path actual_loc_1 =
-      FileSystem::normalize(actual_dir_1 / search_file, ec);
-  EXPECT_FALSE(ec);
+      FileSystem::normalize(actual_dir_1 / search_file);
   std::ofstream(actual_loc_1).close();
 
   PathId now_exists = fileSystem.locate(search_file, directories, &symbolTable);

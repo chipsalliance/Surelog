@@ -82,13 +82,14 @@ class FileSystem {
   static FileSystem *getInstance();
   static FileSystem *setInstance(FileSystem *fileSystem);
 
+  // Returns the executing binary's path by querying the OS
+  static std::filesystem::path getProgramPath();
+
   // Normalizes the input path
   //   Standardizes the directory separator based on platform
   //   No trailing slash regardless of whether the path exists or not
   //   Shortens the path by removing any '.' and '..'
-  // Read comments in the implementation before using this function!
-  static std::filesystem::path normalize(const std::filesystem::path &p,
-                                         std::error_code &ec);
+  static std::filesystem::path normalize(const std::filesystem::path &p);
 
  public:
   // Convert a native filesystem path to PathId
@@ -108,8 +109,8 @@ class FileSystem {
 
   // Returns the current working directory as either the native filesystem
   // path or as a PathId registered in the input SymbolTable.
-  virtual const std::filesystem::path &getCwd();
-  virtual PathId getCwd(SymbolTable *symbolTable);
+  virtual const std::filesystem::path &getWorkingDir();
+  virtual PathId getWorkingDir(SymbolTable *symbolTable);
 
   // Open/Close an input stream represented by the input PathId.
   // openForRead defaults the ios_base::openmode to ios_base::text
@@ -278,7 +279,7 @@ class FileSystem {
   typedef std::set<std::unique_ptr<std::ostream>, Comparer<std::ostream>>
       OutputStreams;
 
-  const std::filesystem::path m_cwd;
+  const std::filesystem::path m_workingDir;
   bool m_useAbsPaths = true;
 
   std::mutex m_inputStreamsMutex;
@@ -293,7 +294,7 @@ class FileSystem {
   static FileSystem *sInstance;
 
  protected:
-  explicit FileSystem(const std::filesystem::path &cwd);
+  explicit FileSystem(const std::filesystem::path &workingDir);
 
  private:
   FileSystem(const FileSystem &rhs) = delete;

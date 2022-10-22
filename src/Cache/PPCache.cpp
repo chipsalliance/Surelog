@@ -56,42 +56,45 @@ PathId PPCache::getCacheFileId_(PathId sourceFileId) {
   Precompiled* prec = Precompiled::getSingleton();
   CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
   SymbolTable* symbolTable = clp->getSymbolTable();
-  const fs::path svFilePath = fileSystem->toPath(sourceFileId);
-  const fs::path svFileName =
+
+  const fs::path filepath = fileSystem->toPath(sourceFileId);
+  const fs::path filename =
       std::get<1>(fileSystem->getLeaf(sourceFileId, symbolTable));
-  const fs::path svDirPath =
+  const fs::path dirpath =
       fileSystem->toPath(fileSystem->getParent(sourceFileId, symbolTable));
-  fs::path hashedPath =
-      clp->noCacheHash() ? svDirPath : fs::path(FileUtils::hashPath(svDirPath));
-  fs::path fileName = hashedPath / svFileName;
-  if (clp->parseOnly()) {
-    fileName = svDirPath / svFileName;
-  }
+  const std::string& libName = m_pp->getLibrary()->getName();
 
-  PathId cacheDirId = clp->getCacheDirId();
-  if (prec->isFilePrecompiled(svFileName.string())) {
-    cacheDirId = fileSystem->copy(
-        m_pp->getCompileSourceFile()
-            ->getCommandLineParser()
-            ->getPrecompiledDirId(),
-        m_pp->getCompileSourceFile()->getCommandLineParser()->getSymbolTable());
-    m_isPrecompiled = true;
-    fileName = svFileName;
-    hashedPath.clear();
-  }
+  fs::path cacheFilepath;
+  if ((m_isPrecompiled = prec->isFilePrecompiled(filename.string()))) {
+    cacheFilepath = fileSystem->toPath(clp->getPrecompiledDirId());
+    cacheFilepath /= libName;
+    cacheFilepath /= filename;
+  } else {
+    cacheFilepath = fileSystem->toPath(clp->getCacheDirId());
+    cacheFilepath /= libName;
 
-  fs::path cacheDirName = fileSystem->toPath(cacheDirId);
-  std::string libName;
-  if (!clp->parseOnly()) {
-    libName = m_pp->getLibrary()->getName();
+    fs::path rel_filepath = filename;
+    for (const PathId& wdId : clp->getWorkingDirs()) {
+      const fs::path wd = fileSystem->toPath(wdId);
+      const fs::path rp = filepath.lexically_relative(wd);
+      if (rp.string().find("..") != 0) {
+        rel_filepath = rp;
+        break;
+      }
+    }
+
+    if (clp->noCacheHash()) {
+      cacheFilepath /= rel_filepath;
+    } else {
+      cacheFilepath /= FileUtils::hashPath(rel_filepath.parent_path());
+      cacheFilepath /= rel_filepath.filename();
+    }
   }
-  fs::path cacheFileName =
-      cacheDirName / libName / (fileName.string() + ".slpp");
-  fileSystem->mkdirs(
-      fileSystem->toPathId(cacheDirName / libName / hashedPath,
-                           m_pp->getCompileSourceFile()->getSymbolTable()));
-  return fileSystem->toPathId(cacheFileName,
-                              m_pp->getCompileSourceFile()->getSymbolTable());
+  cacheFilepath += ".slpp";
+
+  PathId cacheFileId = fileSystem->toPathId(cacheFilepath, symbolTable);
+  fileSystem->mkdirs(fileSystem->getParent(cacheFileId, symbolTable));
+  return cacheFileId;
 }
 
 template <class T>

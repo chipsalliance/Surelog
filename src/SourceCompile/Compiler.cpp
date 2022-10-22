@@ -380,7 +380,7 @@ bool Compiler::createMultiProcessParser_() {
   std::vector<CompileSourceFile*> bigJobs;
   Precompiled* prec = Precompiled::getSingleton();
 
-  const fs::path cwd = fileSystem->getCwd();
+  const fs::path workingDir = fileSystem->getWorkingDir();
   for (const auto& compiler : m_compilers) {
     if (prec->isFilePrecompiled(compiler->getFileId(),
                                 compiler->getSymbolTable())) {
@@ -471,7 +471,7 @@ bool Compiler::createMultiProcessParser_() {
     }
 
     const std::string command =
-        StrCat("cd ", cwd, "; ", programPath, " -o ", outputDir,
+        StrCat("cd ", workingDir, "; ", programPath, " -o ", outputDir,
                " -nostdout -batch ", fileSystem->toPath(fileId));
     if (!muted) std::cout << "Running: " << command << std::endl << std::flush;
     int result = system(command.c_str());
@@ -495,7 +495,7 @@ bool Compiler::createMultiProcessParser_() {
         ofs << "add_custom_command(OUTPUT " << targets[i] << std::endl;
         ofs << "  COMMAND " << programPath << batchProcessCommands[i];
         ofs << std::endl;
-        ofs << "  WORKING_DIRECTORY " << cwd << std::endl;
+        ofs << "  WORKING_DIRECTORY " << workingDir << std::endl;
         ofs << ")" << std::endl;
       }
       ofs << std::endl;
@@ -537,7 +537,7 @@ bool Compiler::createMultiProcessPreProcessor_() {
   SymbolTable* symbolTable = getSymbolTable();
 
   const bool muted = m_commandLineParser->muteStdout();
-  const fs::path cwd = fileSystem->getCwd();
+  const fs::path workingDir = fileSystem->getWorkingDir();
   const fs::path outputDir =
       fileSystem->toAbsPath(m_commandLineParser->getOutputDirId());
   const fs::path programPath =
@@ -589,7 +589,7 @@ bool Compiler::createMultiProcessPreProcessor_() {
   std::string batchCmd = StrCat(profile, fileUnit, sverilog, synth, noHash,
                                 " -writepp -mt 0 -mp 0 -nobuiltin -noparse "
                                 "-nostdout -l preprocessing.log -cd ",
-                                cwd, fileList);
+                                workingDir, fileList);
 
   if (nbProcesses == 1) {
     // Single child process
@@ -602,7 +602,7 @@ bool Compiler::createMultiProcessPreProcessor_() {
       return false;
     }
     std::string command =
-        StrCat("cd ", cwd, "; ", programPath, " -o ", outputDir,
+        StrCat("cd ", workingDir, "; ", programPath, " -o ", outputDir,
                " -nostdout -batch ", fileSystem->toPath(fileId));
     if (!muted) std::cout << "Running: " << command << std::endl << std::flush;
     int result = system(command.c_str());
@@ -625,7 +625,7 @@ bool Compiler::createMultiProcessPreProcessor_() {
       ofs << "project(SurelogPreprocessing NONE)" << std::endl << std::endl;
       ofs << "add_custom_command(OUTPUT preprocessing" << std::endl;
       ofs << "  COMMAND " << programPath << batchCmd << std::endl;
-      ofs << "  WORKING_DIRECTORY " << cwd << std::endl;
+      ofs << "  WORKING_DIRECTORY " << workingDir << std::endl;
       ofs << ")" << std::endl << std::endl;
       ofs << "add_custom_target(Parse ALL DEPENDS preprocessing)" << std::endl;
       ofs << std::flush;

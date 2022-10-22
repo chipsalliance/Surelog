@@ -559,6 +559,7 @@ function(register_gtests)
 endfunction()
 
 register_gtests(
+  src/CommandLine/CommandLineParser_test.cpp
   src/Common/FileSystem_test.cpp
   src/Common/PathId_test.cpp
   src/DesignCompile/CompileExpression_test.cpp

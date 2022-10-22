@@ -54,46 +54,45 @@ PathId ParseCache::getCacheFileId_(PathId ppFileId) {
       m_parse->getCompileSourceFile()->getCommandLineParser();
   SymbolTable* symbolTable = clp->getSymbolTable();
   Precompiled* prec = Precompiled::getSingleton();
-  fs::path svFilePath = fileSystem->toPath(ppFileId);
-  fs::path svFileName = std::get<1>(fileSystem->getLeaf(ppFileId, symbolTable));
-  fs::path cacheFileName;
-  PathId cacheDirId = clp->getCacheDirId();
-  if (prec->isFilePrecompiled(svFileName.string())) {
-    cacheDirId =
-        fileSystem->copy(clp->getPrecompiledDirId(), clp->getSymbolTable());
-    m_isPrecompiled = true;
-    svFilePath = svFileName;
-  } else if (clp->noCacheHash()) {
-    fs::path cacheDirName = fileSystem->toPath(cacheDirId);
-    const std::string& svFileTemp = svFilePath.string();
-    std::string svFile;
-    int nbSlash = 0;
-    // Bring back the .slpa file in the cache dir instead of alongside the
-    // writepp source file
-    for (char c : svFileTemp) {
-      if (nbSlash >= 2) {
-        svFile += c;
-      }
-      if ((c == '/') || (c == '\\')) {
-        nbSlash++;
+
+  const fs::path filepath = fileSystem->toPath(ppFileId);
+  const fs::path filename =
+      std::get<1>(fileSystem->getLeaf(ppFileId, symbolTable));
+  const fs::path dirpath =
+      fileSystem->toPath(fileSystem->getParent(ppFileId, symbolTable));
+  const std::string& libName = m_parse->getLibrary()->getName();
+
+  fs::path cacheFilepath;
+  if ((m_isPrecompiled = prec->isFilePrecompiled(filename.string()))) {
+    cacheFilepath = fileSystem->toPath(clp->getPrecompiledDirId());
+    cacheFilepath /= libName;
+    cacheFilepath /= filename;
+  } else if (clp->parseOnly()) {
+    cacheFilepath = fileSystem->toPath(clp->getCacheDirId());
+    cacheFilepath /= libName;
+
+    fs::path rel_filepath = filename;
+    for (const PathId& wdId : clp->getWorkingDirs()) {
+      const fs::path wd = fileSystem->toPath(wdId);
+      const fs::path rp = filepath.lexically_relative(wd);
+      if (rp.string().find("..") != 0) {
+        rel_filepath = rp;
+        break;
       }
     }
-    cacheFileName = cacheDirName / (svFile + ".slpa");
+    cacheFilepath /= rel_filepath;
   } else {
-    svFilePath = svFilePath.parent_path().filename() / svFileName;
-  }
-  fs::path cacheDirName = fileSystem->toPath(cacheDirId);
-  Library* lib = m_parse->getLibrary();
-  const std::string& libName = lib->getName();
-  if (cacheFileName.empty()) {
-    cacheFileName = cacheDirName / libName / (svFilePath.string() + ".slpa");
-  }
+    const fs::path compileDirId =
+        fileSystem->toPath(clp->getFullCompileDirId());
 
-  fileSystem->mkdirs(
-      fileSystem->toPathId(cacheDirName / libName,
-                           m_parse->getCompileSourceFile()->getSymbolTable()));
-  return fileSystem->toPathId(
-      cacheFileName, m_parse->getCompileSourceFile()->getSymbolTable());
+    cacheFilepath = fileSystem->toPath(clp->getCacheDirId());
+    cacheFilepath /= filepath.lexically_relative(compileDirId);
+  }
+  cacheFilepath += ".slpa";
+
+  PathId cacheFileId = fileSystem->toPathId(cacheFilepath, symbolTable);
+  fileSystem->mkdirs(fileSystem->getParent(cacheFileId, symbolTable));
+  return cacheFileId;
 }
 
 bool ParseCache::restore_(PathId cacheFileId,

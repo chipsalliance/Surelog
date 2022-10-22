@@ -31,6 +31,10 @@
 #if defined(_MSC_VER)
 #define NOMINMAX
 #include <Windows.h>
+#elif defined(__APPLE__)
+#include <mach-o/dyld.h>
+#include <sys/param.h>
+#include <unistd.h>
 #else
 #include <sys/param.h>
 #include <unistd.h>
@@ -52,8 +56,36 @@ FileSystem *FileSystem::setInstance(FileSystem *fileSystem) {
   return instance;
 }
 
-FileSystem::FileSystem(const std::filesystem::path &cwd)
-    : m_cwd(cwd), m_useAbsPaths(true) {}
+std::filesystem::path FileSystem::getProgramPath() {
+#if defined(_WIN32)
+  char result[MAX_PATH + 1] = {'\0'};
+  auto count = GetModuleFileNameA(NULL, result, MAX_PATH);
+#elif defined(__APPLE__)
+  char result[MAXPATHLEN + 1] = {'\0'};
+  uint32_t count = MAXPATHLEN;
+  if (_NSGetExecutablePath(result, &count) != 0) {
+    count = readlink("/proc/self/exe", result, MAXPATHLEN);
+  }
+#else
+  char result[PATH_MAX + 1] = {'\0'};
+  ssize_t count = readlink("/proc/self/exe", result, PATH_MAX);
+#endif
+  return (count > 0) ? std::filesystem::path(result) : std::filesystem::path();
+}
+
+std::filesystem::path FileSystem::normalize(const std::filesystem::path &p) {
+  std::filesystem::path norm = p.lexically_normal();
+  // Remove the trailing slash, if any!
+  if (norm != norm.root_path()) {
+    std::string s = norm.string();
+    while ((s.back() == '\\') || (s.back() == '/')) s.pop_back();
+    norm = s;
+  }
+  return norm;
+}
+
+FileSystem::FileSystem(const std::filesystem::path &workingDir)
+    : m_workingDir(workingDir), m_useAbsPaths(true) {}
 
 FileSystem::~FileSystem() {
   {
@@ -74,61 +106,11 @@ FileSystem::~FileSystem() {
   if (sInstance == this) setInstance(nullptr);
 }
 
-std::filesystem::path FileSystem::normalize(const std::filesystem::path &p,
-                                            std::error_code &ec) {
-  // NOTES & SHORTCOMINGS:
-  // * Though this implementation enforces an absolute path requirement, for
-  //   the sake of completeness, the input path is made absolute if it was
-  //   relative. Note that std::filesystem::weakly_canonical works only if the
-  //   path is rooted i.e. some portion of the prefix path actually exist.
-  //
-  // * std::filesystem::weakly_canonical has to be called multiple times
-  //   since some implementations can get tripped over with multiple 'walk up'
-  //   in the path. For instance, paths like "dir/subdir/../../dir" doesn't
-  //   work the same across platforms.
-  //
-  // * There is also an issue of trailing slash - for paths that do exist, the
-  //   result of std::filesystem::weakly_canonical appends a trailing slash for
-  //   directories. For non-existent paths, there is no trailing slash. This
-  //   can cause paths to mismatch.
-  //
-  // * Most importantly, the implementation doesn't account for case
-  //   sensitivity. For case insensitive platforms, like Windows, two paths of
-  //   different casing will resolve to the same file/directory but are still
-  //   wouldn't be considered equal i.e. as strings.
-  //
-  // * Few reference links:
-  //   https://stackoverflow.com/questions/72678527/version-of-stdfilesystemequivalent-for-non-existing-files
-
-  std::filesystem::path p1 =
-      p.is_absolute() ? p : std::filesystem::current_path() / p;
-  std::filesystem::path p2 = std::filesystem::weakly_canonical(p1, ec);
-  while ((p1 != p2) && !ec) {
-    p1 = p2;
-    p2 = std::filesystem::weakly_canonical(p2, ec);
-  }
-
-  if (!ec) {
-    // Remove the trailing slash, if any.
-    std::string s = p2.string();
-    if (p2 != p2.root_path()) {
-      while (!s.empty() && ((s.back() == '\\') || (s.back() == '/'))) {
-        s.pop_back();
-      }
-    }
-
-    return s;
-  }
-
-  return std::filesystem::path();
-}
-
 PathId FileSystem::toPathId(const std::filesystem::path &path,
                             SymbolTable *symbolTable) {
   if (path.empty()) return BadPathId;
 
-  std::filesystem::path fullpath = path.lexically_normal();
-
+  const std::filesystem::path fullpath = normalize(path);
   auto [symbolId, symbol] = symbolTable->add(fullpath.string());
   return PathId(symbolTable, (RawSymbolId)symbolId, symbol);
 }
@@ -159,10 +141,12 @@ std::filesystem::path FileSystem::toRelPath(PathId id) {
   return toPath(id);
 }
 
-const std::filesystem::path &FileSystem::getCwd() { return m_cwd; }
+const std::filesystem::path &FileSystem::getWorkingDir() {
+  return m_workingDir;
+}
 
-PathId FileSystem::getCwd(SymbolTable *symbolTable) {
-  return toPathId(m_cwd, symbolTable);
+PathId FileSystem::getWorkingDir(SymbolTable *symbolTable) {
+  return toPathId(m_workingDir, symbolTable);
 }
 
 std::istream &FileSystem::openInput(const std::filesystem::path &filepath,

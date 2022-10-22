@@ -89,10 +89,11 @@ static const std::initializer_list<std::string_view> helpText = {
     "  -f <file>             Accepts a file containing command line arguments",
     "  -v <file>             Library file",
     "  -y <path>             Library directory",
-    "  +incdir+<dir>[+<dir>...] Specifies include paths",
+    "  +incdir+<dir>[+<dir>...]",
+    "                        Specifies include paths",
     "  -Idir                 Specifies include paths",
-    "  +libext+<extname>+... Specifies the library extensions, "  // NOLINT
-    "default is .v+.sv",
+    "  +libext+<extname>+... Specifies the library extensions, ",
+    "                        default is .v+.sv",
     "  <file>.v              Verilog File",
     "  <file>.sv             SystemVerilog File",
     "  +liborder             Lib Order option (ignored)",
@@ -102,150 +103,167 @@ static const std::initializer_list<std::string_view> helpText = {
     "  +define+<name>=<value>[+<name>=<value>...]",
     "                        Defines a macro and optionally its value",
     "  -L <libName>          Defines library compilation order",
-    "  -map <mapFile>        Specifies a library mapping file (multiple -map "
-    "options supported)",
-    "  -cfgfile <confiFile>  Specifies a configuration file (multiple "
-    "-cfgFile "
-    "options supported)",
-    "  -cfg <configName>     Specifies a configuration to use (multiple -cfg "
-    "options supported)",
-    "  -Dvar=value           Same as env var definition for -f files var "
-    "substitution",
+    "  -map <mapFile>        Specifies a library mapping file (multiple -map",
+    "                        options supported)",
+    "  -cfgfile <confiFile>  Specifies a configuration file (multiple",
+    "                        -cfgFile options supported)",
+    "  -cfg <configName>     Specifies a configuration to use (multiple -cfg",
+    "                        options supported)",
+    "  -Dvar=value           Same as env var definition for -f files var",
+    "                        substitution",
     "  -Pparameter=value     Top level parameter override",
-    "  -pvalue+parameter=value Top level parameter override",
-    "  -sverilog/-sv         Forces all files to be parsed as SystemVerilog "
-    "files",
-    "  -sv <file>            Forces the following file to be parsed as "
-    "SystemVerilog file",
+    "  -pvalue+parameter=value",
+    "                        Top level parameter override",
+    "  -sverilog/-sv         Forces all files to be parsed as SystemVerilog",
+    "                        files",
+    "  -sv <file>            Forces the following file to be parsed as",
+    "                        SystemVerilog file",
+    "",
     "EDA TOOLS COMPATIBILITY OPTIONS:",
-    "  -cmd_ign <cmd> <argc> Ignore <cmd> when encountered "  // NOLINT
-    "and drop <argc> arguments",                              // NOLINT
-    "  -cmd_ren <flag1> <flag2> rename <flag1> into <flag2>"
-    " when encountered ",
-    "  -cmd_mrg <flag1> <flag2> merge <flag1> argument into a"
-    " unified <flag2> '+' argument when encountered ",
-
+    "  -cmd_ign <cmd> <argc>    Ignore <cmd> when encountered and drop <argc>",
+    "                           arguments",
+    "  -cmd_ren <flag1> <flag2> Rename <flag1> into <flag2> when encountered",
+    "  -cmd_mrg <flag1> <flag2> Merge <flag1> argument into a unified <flag2>",
+    "                           '+' argument when encountered",
+    "",
     "FLOWS OPTIONS:",
     "  -fileunit             Compiles each Verilog file as an independent",
-    "                        compilation unit (under slpp_unit/ if -writepp "
-    "used)",
+    "                        compilation unit (under slpp_unit/ if -writepp",
+    "                        used)",
     "  -diffcompunit         Compiles both all files as a whole unit and",
     "                        separate compilation units to perform diffs",
-    "  -parse                Parse/Compile/Elaborate the files after "
-    "pre-processing step",
+    "  -parse                Parse/Compile/Elaborate the files after",
+    "                        pre-processing step",
     "  -noparse              Turns off Parsing & Compilation & Elaboration",
     "  -nocomp               Turns off Compilation & Elaboration",
     "  -noelab               Turns off Elaboration",
     "  -parseonly            Only Parses, reloads Preprocessor saved db",
-    "  -init                 Initialize cache for separate compile flow "
-    "(-sepcomp, -link)",
-    "  -sepcomp              Separate compilation, each invocation creates a "
-    "compilation unit",
+    "  -init                 Initialize cache for separate compile flow",
+    "                        (-sepcomp, -link)",
+    "  -sepcomp              Separate compilation, each invocation creates a",
+    "                        compilation unit",
     "  -link                 Link and elaborate the separately compiled files",
-    "  -elabuhdm             Forces UHDM/VPI Full Elaboration, default is the "
-    "Folded Model",
+    "  -elabuhdm             Forces UHDM/VPI Full Elaboration, default is the",
+    "                        Folded Model",
     "  -nouhdm               No UHDM db write",
-    "  -top/--top-module <module> Top level module for elaboration (multiple "
-    "cmds ok)",
-    "  -bb_mod <module>      Blackbox module (multiple cmds ok, ex: -bb_mod "
-    "work@top)",
-    "  -bb_inst <instance>   Blackbox instance (multiple cmds ok, ex: "
-    "-bb_inst "
-    "work@top.u1)",
-    "  -batch <batch.txt>    Runs all the tests specified in the file in "
-    "batch "
-    "mode",
-    "                        Tests are expressed as one full command line per "
-    "line.",
+    "  -top/--top-module <module>",
+    "                        Top level module for elaboration",
+    "                        (multiple cmds ok)",
+    "  -bb_mod <module>      Blackbox module (multiple cmds ok, ex: -bb_mod",
+    "                        work@top)",
+    "  -bb_inst <instance>   Blackbox instance (multiple cmds ok, ex:",
+    "                        -bb_inst work@top.u1)",
+    "  -batch <batch.txt>    Runs all the tests specified in the file in",
+    "                        batch mode. Tests are expressed as one full",
+    "                        command line per line.",
     "  --enable-feature=<feature>",
     "  --disable-feature=<feature>",
-    "    Features: parametersubstitution Enables substitution of assignment "
-    "patterns in parameters",
-    "              letexprsubstitution Enables Let expr substitution "
-    "(Inlining)",
+    "    Features: parametersubstitution Enables substitution of assignment",
+    "                                    patterns in parameters",
+    "              letexprsubstitution   Enables Let expr substitution",
+    "                                    (Inlining)",
 #ifdef SURELOG_WITH_PYTHON
     "  -pythonlistener       Enables the Parser Python Listener",
-    "  -pythonlistenerfile <script.py> Specifies the AST python listener file",
-    "  -pythonevalscriptperfile <script.py>  Eval the Python script on each "
-    "source file (Multithreaded)",
-    "  -pythonevalscript <script.py> Eval the Python script at the design "
-    "level",
+    "  -pythonlistenerfile <script.py>",
+    "                        Specifies the AST python listener file",
+    "  -pythonevalscriptperfile <script.py>",
+    "                        Eval the Python script on each source file",
+    "                        (Multithreaded)",
+    "  -pythonevalscript <script.py>",
+    "                        Eval the Python script at the design level",
     "  -nopython             Turns off all Python features, including waivers",
     "  -withpython           Turns on all Python features, including waivers",
     "  -strictpythoncheck    Turns on strict Python checks",
 #endif
-    "  -mt/--threads <nb_max_threads> 0 up to 512 max threads, 0 or 1 being "
-    "single "
-    "threaded,",
-    "                        if \"max\" is given, the program will use one ",
-    "                        thread per core on the host",
-    "  -mp <mb_max_process>  0 up to 512 max processes, 0 or 1 being single "
-    "process",
-    "  -lowmem               Minimizes memory high water mark (uses multiple "
-    "staggered processes for preproc, parsing and elaboration)",
-    "  -split <line number>  Split files or modules larger than specified "
-    "line "
-    "number for multi thread compilation",
-    "  -timescale=<timescale> Specifies the overall timescale",
+    "  -mt/--threads <nb_max_threads>",
+    "                        0 up to 512 max threads, 0 or 1 being single",
+    "                        threaded, if \"max\" is given, the program will",
+    "                        use one thread per core on the host",
+    "  -mp <mb_max_process>  0 up to 512 max processes, 0 or 1 being single",
+    "                        process",
+    "  -lowmem               Minimizes memory high water mark (uses multiple",
+    "                        staggered processes for preproc, parsing and",
+    "                        elaboration)",
+    "  -split <line number>  Split files or modules larger than specified",
+    "                        line number for multi thread compilation",
+    "  -timescale=<timescale>",
+    "                        Specifies the overall timescale",
     "  -nobuiltin            Do not parse SV builtin classes (array...)",
     "",
     "TRACES OPTIONS:",
-    "  -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm, "
-    "cache, "
-    "coveruhdm, vpi_ids",
+    "  -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm,",
+    "                        cache, coveruhdm, vpi_ids",
     "  -nostdout             Mutes Standard output",
     "  -verbose              Gives verbose processing information",
     "  -profile              Gives Profiling information",
     "  -replay               Enables replay of internal elaboration errors",
-    "  -l <file>             Specifies log file, default is surelog.log under "
-    "output dir",
+    "  -l <filename>         Specifies log file name, default is surelog.log",
     "",
     "OUTPUT OPTIONS:",
     "  -odir/--Mdir <dir>    Specifies the output directory, default is ./",
     "  -writeppfile <file>   Writes out Preprocessor output in file",
     "                        (all compilation units will override this file)",
     "  -writepp              Writes out Preprocessor output (all compilation",
-    "                        units will generate files under slpp_all/ or "
-    "slpp_unit/)",
-    "  -lineoffsetascomments Writes the preprocessor line offsets as comments "
-    "as opposed as parser directives",
-    "  -nocache              Default allows to create a cache for include "
-    "files, this option prevents it",
-    "  -cache <dir>          Specifies the cache directory, default is "
-    "slpp_all/cache or slpp_unit/cache",
-    "  -nohash               Don't use hash mechanism for cache file path, "
-    "always treat cache as valid (no timestamp/dependancy check)",
+    "                        units will generate files under slpp_all/ or",
+    "                        slpp_unit/)",
+    "  -lineoffsetascomments Writes the preprocessor line offsets as comments",
+    "                        as opposed as parser directives",
+    "  -nocache              Default allows to create a cache for include",
+    "                        files, this option prevents it",
+    "  -cache <dir>          Specifies the cache directory, default is",
+    "                        slpp_all/cache or slpp_unit/cache",
+    "  -nohash               Don't use hash mechanism for cache file path,",
+    "                        always treat cache as valid (no",
+    "                        timestamp/dependancy check)",
     "  -createcache          Create cache for precompiled packages",
     "  -filterdirectives     Filters out simple directives like",
     "                        `default_nettype in pre-processor's output",
-    "  -filterprotected      Filters out protected regions in pre-processor's "
-    "output",
+    "  -filterprotected      Filters out protected regions in pre-processor's",
+    "                        output",
     "  -filtercomments       Filters out comments in pre-processor's output",
-    "  -outputlineinfo       Outputs SLline directives in pre-processor's "
-    "output",
-    "  -pploc                Output message location in terms of post "
-    "preprocessor location",
+    "  -outputlineinfo       Outputs SLline directives in pre-processor's",
+    "                        output",
+    "  -pploc                Output message location in terms of post",
+    "                        preprocessor location",
     "  -noinfo               Filters out INFO messages",
     "  -nonote               Filters out NOTE messages",
     "  -nowarning            Filters out WARNING messages",
-    "  -synth                Reports non-synthesizable constructs",
-    "                        Honnors //pragma translate_off  ,  //pragma "
-    "translate_on",
+    "  -synth                Reports non-synthesizable constructs honors",
+    "                        // pragma translate_off",
+    "                        // pragma translate_on",
     "  -o <path>             Turns on all compilation stages, produces all",
     "  -builtin <path>       Alternative path to python/ and pkg/ dirs",
-    "outputs under that path",
-    "  -cd <dir>             Internally change directory to <dir>",
-    "  -exe <command>        Post execute a system call <command>, passes it "
-    "the ",
-    "                        preprocessor file list.",
+    "                        outputs under that path",
+    "  -wd <dir>             Internally change directory to <dir>. Relative",
+    "                        paths are w.r.t. FileSystem's working directory.",
+    "                        All following relative paths using -cd option are",
+    "                        w.r.t.this directory.Defaults to the current",
+    "                        working directory.",
+    "  -cd <dir>             Internally change directory to <dir>. This should",
+    "                        only be relative and is w.r.t.to last - wd",
+    "                        option.",
+    "  -exe <command>        Post execute a system call <command>, passes it",
+    "                        the preprocessor file list.",
     "  --help                This help",
     "  --version             Surelog version",
+    "",
     "RETURN CODE:",
     "   Bit mask the return code, more than 1 bit can be on.",
     "   0   - No issues",
     "   0x1 - Fatal error(s)",
     "   0x2 - Syntax error(s)",
-    "   0x4 - Error(s)"};
+    "   0x4 - Error(s)",
+    "",
+    "NOTES:",
+    "  -wd/-cd : Working directory & current directory options work in pairs.",
+    "            Relative working directory arguments should be relative to",
+    "            FileSystem's working directory and relative current",
+    "            directory arguments should be relative to the last working",
+    "            directory argument. Multiple series of -wd / -cd are",
+    "            supported. Working directory arguments are also used to",
+    "            compute the absolute root (all sources, includes, libraries,",
+    "            etc are under this absolute root) for the FileSystem (which",
+    "            in turn is used to organize the output directory)."};
 
 static bool is_number(const std::string_view s) {
   return s.find_first_not_of("-.0123456789") == std::string_view::npos;
@@ -378,10 +396,10 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_link(false) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   m_errors->registerCmdLine(this);
-  m_logFileId = fileSystem->toPathId(defaultLogFileName, m_symbolTable);
+  m_logFileNameId = m_symbolTable->registerSymbol(defaultLogFileName);
   m_compileUnitDirId = m_symbolTable->registerSymbol(defaultCompileUnitDirName);
   m_compileAllDirId = m_symbolTable->registerSymbol(defaultCompileAllDirName);
-  m_outputDirId = fileSystem->toPathId(".", m_symbolTable);
+  m_outputDirId = fileSystem->getWorkingDir(m_symbolTable);
   m_defaultLogFileId = m_symbolTable->registerSymbol(defaultLogFileName);
   m_defaultCacheDirId = m_symbolTable->registerSymbol(defaultCacheDirName);
   m_precompiledDirId =
@@ -450,13 +468,14 @@ void CommandLineParser::splitEqArg_(
 
 void CommandLineParser::splitPlusArg_(const std::string& s,
                                       const std::string& prefix,
+                                      const fs::path& cd,
                                       PathIdVector& container) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   std::istringstream f(s);
   std::string tmp;
   while (getline(f, tmp, '+')) {
     if (!tmp.empty() && (tmp != prefix)) {
-      PathId id = fileSystem->toPathId(tmp, m_symbolTable);
+      PathId id = fileSystem->toPathId(cd / tmp, m_symbolTable);
       container.emplace_back(id);
     }
   }
@@ -475,14 +494,24 @@ void CommandLineParser::splitPlusArg_(
 }
 
 /* Custom parser for +arguments */
-bool CommandLineParser::plus_arguments_(const std::string& s) {
+bool CommandLineParser::plus_arguments_(const std::string& s,
+                                        const fs::path& cd) {
   constexpr std::string_view incdir("+incdir+");
   constexpr std::string_view libext("+libext+");
   constexpr std::string_view define("+define+");
   if (s.empty()) return false;
   if (s.at(0) != '+') return false;
   if (s.compare(0, incdir.size(), incdir) == 0) {
-    splitPlusArg_(s, "incdir", m_includePaths);
+    PathIdVector includePathIds;
+    splitPlusArg_(s, "incdir", cd, includePathIds);
+
+    for (const PathId& includeId : includePathIds) {
+      if (m_includePathSet.find(includeId) == m_includePathSet.end()) {
+        m_includePathSet.emplace(includeId);
+        m_includePaths.emplace_back(includeId);
+      }
+    }
+
     return true;
   }
   if (s.compare(0, libext.size(), libext) == 0) {
@@ -498,6 +527,7 @@ bool CommandLineParser::plus_arguments_(const std::string& s) {
 }
 
 void CommandLineParser::processArgs_(const std::vector<std::string>& args,
+                                     fs::path& wd, fs::path& cd,
                                      std::vector<std::string>& container) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   for (unsigned int i = 0; i < args.size(); i++) {
@@ -566,7 +596,29 @@ void CommandLineParser::processArgs_(const std::vector<std::string>& args,
         return;
       }
     }
-    if (arg == "-f") {
+    if (arg == "-wd") {
+      if (i == args.size() - 1) {
+        Location loc(m_symbolTable->registerSymbol(args[i]));
+        Error err(ErrorDefinition::CMD_WD_MISSING_DIR, loc);
+        m_errors->addError(err);
+        break;
+      }
+      fs::path rwd = undecorateArg(args[++i]);
+      container.emplace_back(arg);
+      container.emplace_back(rwd.string());
+      wd = cd = rwd.is_relative() ? fileSystem->getWorkingDir() / rwd : rwd;
+    } else if (arg == "-cd") {
+      if (i == args.size() - 1) {
+        Location loc(m_symbolTable->registerSymbol(args[i]));
+        Error err(ErrorDefinition::CMD_CD_MISSING_DIR, loc);
+        m_errors->addError(err);
+        break;
+      }
+      std::string_view rcd = undecorateArg(args[++i]);
+      container.emplace_back(arg);
+      container.emplace_back(rcd);
+      cd = wd / rcd;
+    } else if (arg == "-f") {
       if (i == args.size() - 1) {
         Location loc(m_symbolTable->registerSymbol(args[i]));
         Error err(ErrorDefinition::CMD_DASH_F_FILE_DOES_NOT_EXIST, loc);
@@ -574,6 +626,7 @@ void CommandLineParser::processArgs_(const std::vector<std::string>& args,
         break;
       } else {
         fs::path fp = undecorateArg(args[++i]);
+        if (fp.is_relative()) fp = cd / fp;
         PathId fId = fileSystem->toPathId(fp, m_symbolTable);
         std::string fileContent;
         if (fileSystem->readContent(fId, fileContent)) {
@@ -581,7 +634,7 @@ void CommandLineParser::processArgs_(const std::vector<std::string>& args,
           fileContent = StringUtils::evaluateEnvVars(fileContent);
           std::vector<std::string> argsInFile;
           StringUtils::tokenize(fileContent, " \n\t\r", argsInFile);
-          processArgs_(argsInFile, container);
+          processArgs_(argsInFile, wd, cd, container);
         } else {
           Location loc(fId);
           Error err(ErrorDefinition::CMD_DASH_F_FILE_DOES_NOT_EXIST, loc);
@@ -611,7 +664,7 @@ void CommandLineParser::processArgs_(const std::vector<std::string>& args,
               fileContent = StringUtils::evaluateEnvVars(fileContent);
               std::vector<std::string> argsInFile;
               StringUtils::tokenize(fileContent, " \n\t\r", argsInFile);
-              processArgs_(argsInFile, container);
+              processArgs_(argsInFile, wd, cd, container);
             } else {
               Location loc(m_symbolTable->registerSymbol(f));
               Error err(ErrorDefinition::CMD_DASH_F_FILE_DOES_NOT_EXIST, loc);
@@ -629,17 +682,38 @@ void CommandLineParser::processArgs_(const std::vector<std::string>& args,
 void CommandLineParser::processOutputDirectory_(
     const std::vector<std::string>& args) {
   FileSystem* const fileSystem = FileSystem::getInstance();
+  fs::path wd = fileSystem->getWorkingDir();
   for (unsigned int i = 0; i < args.size(); i++) {
     std::string arg(undecorateArg(args[i]));
-    if (arg == "-odir" || arg == "-o" || arg == "--Mdir") {
+
+    if (arg == "-wd") {
+      if (i == args.size() - 1) {
+        Location loc(m_symbolTable->registerSymbol(args[i]));
+        Error err(ErrorDefinition::CMD_WD_MISSING_DIR, loc);
+        m_errors->addError(err);
+        break;
+      }
+      fs::path rwd = undecorateArg(args[++i]);
+      wd = rwd.is_relative() ? fileSystem->getWorkingDir() / rwd : rwd;
+    } else if (arg == "-odir" || arg == "-o" || arg == "--Mdir") {
       if (i == args.size() - 1) {
         Location loc(m_symbolTable->registerSymbol(args[i]));
         Error err(ErrorDefinition::CMD_PP_FILE_MISSING_ODIR, loc);
         m_errors->addError(err);
         break;
       }
-      m_outputDirId =
-          fileSystem->toPathId(undecorateArg(args[++i]), m_symbolTable);
+
+      fs::path outputDir = undecorateArg(args[++i]);
+      if (outputDir.is_relative()) outputDir = wd / outputDir;
+      m_outputDirId = fileSystem->toPathId(outputDir.string(), m_symbolTable);
+    } else if (arg == "-l") {
+      if (i == args.size() - 1) {
+        Location loc(m_symbolTable->registerSymbol(arg));
+        Error err(ErrorDefinition::CMD_LOG_FILE_MISSING_FILE, loc);
+        m_errors->addError(err);
+        break;
+      }
+      m_logFileNameId = m_symbolTable->registerSymbol(undecorateArg(args[++i]));
     }
   }
 }
@@ -704,47 +778,26 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         programDir / defaultPrecompiledDirName, m_symbolTable);
   }
 
-  fs::path cwd = fileSystem->getCwd();
-  m_workingDirs.emplace_back(fileSystem->getCwd(m_symbolTable));
-
   std::vector<std::string> cmd_line;
   for (int i = 1; i < argc; i++) {
     cmd_line.emplace_back(undecorateArg(argv[i]));
     const std::string& arg = cmd_line.back();
 
-    if (arg == "-help" || arg == "-h" || arg == "--help") {
+    if (arg.empty() || (arg[0] != '-')) {
+      continue;
+    } else if (arg == "-help" || arg == "-h" || arg == "--help") {
       m_help = true;
       std::string help = printStringArray(helpText);
       m_errors->init();
       logBanner(argc, argv);
       std::cout << help;
       return true;
-    }
-    if (arg == "--version") {
+    } else if (arg == "--version") {
       std::cout << BuildIdentifier() << std::flush;
       m_help = true;
       return true;
-    } else if (arg == "-cd") {
-      if (i < argc - 1) {
-        fs::path newDir = undecorateArg(argv[i + 1]);
-        if (newDir.is_relative()) newDir = cwd / newDir;
-        PathId newDirId = fileSystem->toPathId(newDir, m_symbolTable);
-        m_workingDirs.emplace_back(newDirId);
-        newDir = fileSystem->toPath(newDirId);
-
-        std::error_code ec;
-        std::filesystem::current_path(newDir, ec);
-        if (ec) {
-          std::cerr << "Could not change directory to " << newDir << std::endl;
-        }
-      }
     } else if (arg == "-builtin") {
       ++i;  // Deprecated and ignored!
-    } else if (arg == "-l") {
-      if (i < argc - 1) {
-        m_logFileId =
-            fileSystem->toPathId(undecorateArg(argv[i + 1]), m_symbolTable);
-      }
     } else if (arg.find("-D") == 0) {
       std::string def;
       std::string value;
@@ -765,7 +818,10 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
 
   std::vector<std::string> all_arguments;
   processOutputDirectory_(cmd_line);
-  processArgs_(cmd_line, all_arguments);
+
+  fs::path wd = fileSystem->getWorkingDir();
+  fs::path cd = wd;
+  processArgs_(cmd_line, wd, cd, all_arguments);
 
   /*
   std::string cmd = "EXPANDED CMD:";
@@ -793,9 +849,33 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
   bool status = prepareCompilation_(argc, argv);
   if (!status) return status;
 
+  wd = cd = fileSystem->getWorkingDir();
+  m_workingDirs.emplace_back(fileSystem->getWorkingDir(m_symbolTable));
+
   for (unsigned int i = 0; i < all_arguments.size(); i++) {
-    if (all_arguments[i].empty() || plus_arguments_(all_arguments[i])) {
+    if (all_arguments[i].empty() || plus_arguments_(all_arguments[i], cd)) {
       // handled by plus_arguments
+    } else if (all_arguments[i] == "-wd") {
+      if (i == all_arguments.size() - 1) {
+        Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
+        Error err(ErrorDefinition::CMD_CD_MISSING_DIR, loc);
+        m_errors->addError(err);
+        break;
+      }
+      fs::path rwd = all_arguments[++i];
+      wd = cd = rwd.is_relative() ? fileSystem->getWorkingDir() / rwd : rwd;
+      m_workingDirs.emplace_back(
+          fileSystem->toPathId(cd.string(), m_symbolTable));
+    } else if (all_arguments[i] == "-cd") {
+      if (i == all_arguments.size() - 1) {
+        Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
+        Error err(ErrorDefinition::CMD_CD_MISSING_DIR, loc);
+        m_errors->addError(err);
+        break;
+      }
+      cd = wd / all_arguments[++i];
+      m_workingDirs.emplace_back(
+          fileSystem->toPathId(cd.string(), m_symbolTable));
     } else if (all_arguments[i] == "-d") {
       if (i == all_arguments.size() - 1) {
         Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
@@ -922,7 +1002,12 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         m_errors->addError(err);
         break;
       }
-      m_includePaths.push_back(fileSystem->toPathId(include, m_symbolTable));
+      if (include.is_relative()) include = cd / include;
+      PathId includeId = fileSystem->toPathId(include, m_symbolTable);
+      if (m_includePathSet.find(includeId) == m_includePathSet.end()) {
+        m_includePathSet.emplace(includeId);
+        m_includePaths.emplace_back(includeId);
+      }
     } else if (all_arguments[i] == "-split") {
       if (i == all_arguments.size() - 1) {
         Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
@@ -932,14 +1017,14 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       }
       i++;
       m_nbLinesForFileSplitting = std::stoi(all_arguments[i]);
-    } else if (all_arguments[i] == "-cd") {
-      i++;
     } else if (all_arguments[i] == "-builtin") {
       i++;
     } else if (all_arguments[i] == "-exe") {
-      i++;
-      m_exeCommand = all_arguments[i];
-
+      fs::path exeCommand = all_arguments[++i];
+      if (exeCommand.is_relative()) {
+        exeCommand = cd / exeCommand;
+      }
+      m_exeCommand = exeCommand.string();
     }
 // No multiprocess on Windows platform, only multithreads
 #if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)
@@ -1040,9 +1125,10 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         m_errors->addError(err);
         break;
       }
-      i++;
+      fs::path filepath = all_arguments[++i];
+      if (filepath.is_relative()) filepath = cd / filepath;
       m_libraryFiles.emplace_back(
-          fileSystem->toPathId(all_arguments[i], m_symbolTable));
+          fileSystem->toPathId(filepath, m_symbolTable));
     } else if (all_arguments[i] == "-y") {
       if (i == all_arguments.size() - 1) {
         Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
@@ -1050,30 +1136,25 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         m_errors->addError(err);
         break;
       }
-      i++;
-      m_libraryPaths.emplace_back(
-          fileSystem->toPathId(all_arguments[i], m_symbolTable));
+      fs::path dirpath = all_arguments[++i];
+      if (dirpath.is_relative()) dirpath = cd / dirpath;
+      m_libraryPaths.emplace_back(fileSystem->toPathId(dirpath, m_symbolTable));
     } else if (all_arguments[i] == "-l") {
-      if (i == all_arguments.size() - 1) {
-        Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
-        Error err(ErrorDefinition::CMD_LOG_FILE_MISSING_FILE, loc);
-        m_errors->addError(err);
-        break;
-      }
       i++;
-      m_logFileId = fileSystem->toPathId(all_arguments[i], m_symbolTable);
     } else if (all_arguments[i] == "-L") {
-      i++;
+      fs::path filepath = all_arguments[++i];
+      if (filepath.is_relative()) filepath = cd / filepath;
       m_orderedLibraries.emplace_back(
-          fileSystem->toPathId(all_arguments[i], m_symbolTable));
+          fileSystem->toPathId(filepath, m_symbolTable));
     } else if (all_arguments[i] == "-map") {
-      i++;
+      fs::path filepath = all_arguments[++i];
+      if (filepath.is_relative()) filepath = cd / filepath;
       m_libraryMapFiles.emplace_back(
-          fileSystem->toPathId(all_arguments[i], m_symbolTable));
+          fileSystem->toPathId(filepath, m_symbolTable));
     } else if (all_arguments[i] == "-cfgfile") {
-      i++;
-      m_configFiles.emplace_back(
-          fileSystem->toPathId(all_arguments[i], m_symbolTable));
+      fs::path filepath = all_arguments[++i];
+      if (filepath.is_relative()) filepath = cd / filepath;
+      m_configFiles.emplace_back(fileSystem->toPathId(filepath, m_symbolTable));
     } else if (all_arguments[i] == "-cfg") {
       i++;
       m_useConfigs.push_back(m_symbolTable->registerSymbol(all_arguments[i]));
@@ -1084,9 +1165,13 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         m_errors->addError(err);
         break;
       }
-      i++;
-      m_writePpOutputFileId =
-          fileSystem->toPathId(all_arguments[i], m_symbolTable);
+      fs::path filepath = all_arguments[++i];
+      if (filepath.is_relative()) {
+        m_writePpOutputFileId = fileSystem->getChild(
+            m_outputDirId, filepath.string(), m_symbolTable);
+      } else {
+        m_writePpOutputFileId = fileSystem->toPathId(filepath, m_symbolTable);
+      }
     } else if (all_arguments[i] == "-nohash") {
       m_noCacheHash = true;
     } else if (all_arguments[i] == "-cache") {
@@ -1096,8 +1181,13 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         m_errors->addError(err);
         break;
       }
-      i++;
-      m_cacheDirId = fileSystem->toPathId(all_arguments[i], m_symbolTable);
+      fs::path dirpath = all_arguments[++i];
+      if (dirpath.is_relative()) {
+        m_cacheDirId = fileSystem->getChild(m_outputDirId, dirpath.string(),
+                                            m_symbolTable);
+      } else {
+        m_cacheDirId = fileSystem->toPathId(dirpath, m_symbolTable);
+      }
     } else if (all_arguments[i] == "-replay") {
       m_replay = true;
     } else if (all_arguments[i] == "-writepp") {
@@ -1229,15 +1319,15 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         m_errors->addError(err);
         break;
       }
-      i++;
       m_writePpOutput = true;
       m_parse = true;
       m_compile = true;
       m_elaborate = true;
       m_pythonListener = true;
-      m_pythonListenerFileId =
-          fileSystem->toPathId(all_arguments[i], m_symbolTable);
-      PythonAPI::setListenerScript(all_arguments[i]);
+      fs::path filepath = all_arguments[++i];
+      if (filepath.is_relative()) filepath = cd / filepath;
+      m_pythonListenerFileId = fileSystem->toPathId(filepath, m_symbolTable);
+      PythonAPI::setListenerScript(filepath);
     } else if (all_arguments[i] == "-pythonevalscript") {
       if (i == all_arguments.size() - 1) {
         Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
@@ -1245,16 +1335,16 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         m_errors->addError(err);
         break;
       }
-      i++;
       m_writePpOutput = true;
       m_parse = true;
       m_compile = true;
       m_elaborate = true;
       m_pythonEvalScript = true;
-      m_pythonEvalScriptId =
-          fileSystem->toPathId(all_arguments[i], m_symbolTable);
+      fs::path filepath = all_arguments[++i];
+      if (filepath.is_relative()) filepath = cd / filepath;
+      m_pythonEvalScriptId = fileSystem->toPathId(filepath, m_symbolTable);
       if (m_pythonAllowed)
-        PythonAPI::loadScript(all_arguments[i], true);
+        PythonAPI::loadScript(filepath, true);
       else
         std::cerr << "ERROR: No Python allowed, check your arguments!\n";
     } else if (all_arguments[i] == "-nocache") {
@@ -1262,19 +1352,15 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (all_arguments[i] == "-sv") {
       if (((i + 1) < all_arguments.size()) &&
           (all_arguments[i + 1][0] != '-')) {
-        const fs::path svpath = all_arguments[++i];
-        const PathId svpathId = fileSystem->toPathId(svpath, m_symbolTable);
-        if (fileSystem->isRegularFile(svpathId)) {
-          m_sourceFiles.push_back(svpathId);
-          m_svSourceFiles.insert(svpathId);
-          fs::path svdir = svpath.parent_path();
-          if (!svdir.empty()) {
-            PathId svdirId = fileSystem->toPathId(svdir, m_symbolTable);
-            if (m_includePathSet.find(svdirId) == m_includePathSet.end()) {
-              m_includePathSet.insert(svdirId);
-              m_includePaths.push_back(svdirId);
-            }
-          }
+        fs::path filepath = all_arguments[++i];
+        if (filepath.is_relative()) filepath = cd / filepath;
+        const PathId fileId = fileSystem->toPathId(filepath, m_symbolTable);
+        m_sourceFiles.emplace_back(fileId);
+        m_svSourceFiles.emplace(fileId);
+        PathId dirId = fileSystem->getParent(fileId, m_symbolTable);
+        if (m_includePathSet.find(dirId) == m_includePathSet.end()) {
+          m_includePathSet.emplace(dirId);
+          m_includePaths.emplace_back(dirId);
         }
       } else {
         m_sverilog = true;
@@ -1304,15 +1390,14 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
       m_errors->addError(err);
     } else {
-      fs::path svpath = all_arguments[i];
-      m_sourceFiles.push_back(fileSystem->toPathId(svpath, m_symbolTable));
-      fs::path svdir = svpath.parent_path();
-      if (!svdir.empty()) {
-        PathId svdirId = fileSystem->toPathId(svdir, m_symbolTable);
-        if (m_includePathSet.find(svdirId) == m_includePathSet.end()) {
-          m_includePathSet.insert(svdirId);
-          m_includePaths.push_back(svdirId);
-        }
+      fs::path filepath = all_arguments[i];
+      if (filepath.is_relative()) filepath = cd / filepath;
+      const PathId fileId = fileSystem->toPathId(filepath, m_symbolTable);
+      m_sourceFiles.emplace_back(fileId);
+      PathId dirId = fileSystem->getParent(fileId, m_symbolTable);
+      if (m_includePathSet.find(dirId) == m_includePathSet.end()) {
+        m_includePathSet.emplace(dirId);
+        m_includePaths.emplace_back(dirId);
       }
     }
   }
@@ -1364,7 +1449,7 @@ bool CommandLineParser::checkCommandLine_() {
 }
 
 bool CommandLineParser::isSVFile(PathId fileId) const {
-  return m_svSourceFiles.find(fileId) != m_svSourceFiles.end();
+  return fileId && (m_svSourceFiles.find(fileId) != m_svSourceFiles.end());
 }
 
 bool CommandLineParser::prepareCompilation_(int argc, const char** argv) {
@@ -1376,7 +1461,7 @@ bool CommandLineParser::prepareCompilation_(int argc, const char** argv) {
                                               : m_compileAllDirId);
   m_fullCompileDirId = fileSystem->toPathId(odir, m_symbolTable);
 
-  fs::path full_path = odir / fileSystem->toPath(m_logFileId);
+  fs::path full_path = odir / m_symbolTable->getSymbol(m_logFileNameId);
   m_logFileId = fileSystem->toPathId(full_path, m_symbolTable);
 
   if (!fileSystem->mkdirs(m_fullCompileDirId)) {

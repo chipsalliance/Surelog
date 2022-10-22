@@ -196,6 +196,10 @@ bool ErrorDefinition::init() {
   rec(CMD_USING_GLOBAL_TIMESCALE, INFO, CMD, "Using global timescale: \"%s\"");
   rec(CMD_CACHE_CAPACITY_EXCEEDED, WARNING, CMD,
       "Cache capacity exceeded, turning off cache");
+  rec(CMD_WD_MISSING_DIR, WARNING, CMD,
+      "Working directory option \"%s\" is missing directory");
+  rec(CMD_CD_MISSING_DIR, WARNING, CMD,
+      "Current directory option \"%s\" is missing directory");
   rec(PP_CANNOT_OPEN_FILE, ERROR, PP, "Cannot open file \"%s\"");
   rec(PP_CANNOT_OPEN_INCLUDE_FILE, ERROR, PP,
       "Cannot open include file \"%s\"");

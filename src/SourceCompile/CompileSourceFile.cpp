@@ -262,24 +262,33 @@ bool CompileSourceFile::postPreprocess_() {
     return true;
   }
 
-  const fs::path directory =
-      fileSystem->toPath(m_commandLineParser->getFullCompileDirId());
-  const fs::path fullFileName = fileSystem->toPath(m_fileId);
-  const fs::path baseFileName =
-      std::get<1>(fileSystem->getLeaf(m_fileId, symbolTable));
-  const PathId dirId = fileSystem->getParent(m_fileId, symbolTable);
-  const fs::path dirPath = fileSystem->toPath(dirId);
-  const fs::path hashedPath = m_commandLineParser->noCacheHash()
-                                  ? dirPath
-                                  : fs::path(FileUtils::hashPath(dirPath));
-  const fs::path fileName = hashedPath / baseFileName;
+  fs::path ppFileName;
+  if (m_commandLineParser->writePpOutputFileId()) {
+    ppFileName = fileSystem->toPath(m_commandLineParser->writePpOutputFileId());
+  } else {
+    ppFileName = fileSystem->toPath(m_commandLineParser->getFullCompileDirId());
+    ppFileName /= m_library->getName();
 
-  const fs::path writePpOutputFileName =
-      fileSystem->toPath(m_commandLineParser->writePpOutputFileId());
-  const std::string& libName = m_library->getName();
-  const fs::path ppFileName = m_commandLineParser->writePpOutput()
-                                  ? directory / libName / fileName
-                                  : writePpOutputFileName;
+    const fs::path filepath = fileSystem->toPath(m_fileId);
+    fs::path rel_filepath =
+        std::get<1>(fileSystem->getLeaf(m_fileId, symbolTable));
+    for (const PathId& wdId : m_commandLineParser->getWorkingDirs()) {
+      const fs::path wd = fileSystem->toPath(wdId);
+      const fs::path rp = filepath.lexically_relative(wd);
+      if (rp.string().find("..") != 0) {
+        rel_filepath = rp;
+        break;
+      }
+    }
+
+    if (m_commandLineParser->noCacheHash()) {
+      ppFileName /= rel_filepath;
+    } else {
+      ppFileName /= FileUtils::hashPath(rel_filepath.parent_path());
+      ppFileName /= rel_filepath.filename();
+    }
+  }
+
   m_ppResultFileId = fileSystem->toPathId(ppFileName, m_symbolTable);
   if (m_commandLineParser->lowMem() || m_commandLineParser->link()) {
     return true;

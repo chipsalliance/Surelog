@@ -146,7 +146,7 @@ void PythonAPI::loadScriptsInInterp_() {
   SymbolTable symbolTable;
 
   bool waiverLoaded = false;
-  std::filesystem::path waivers = fileSystem->getCwd() / "slwaivers.py";
+  std::filesystem::path waivers = fileSystem->getWorkingDir() / "slwaivers.py";
   PathId waiversId = fileSystem->toPathId(waivers, &symbolTable);
   if (fileSystem->isRegularFile(waiversId)) {
     waiverLoaded = loadScript_(waivers);
@@ -161,7 +161,7 @@ void PythonAPI::loadScriptsInInterp_() {
   }
 
   bool messageFormatLoaded = false;
-  std::filesystem::path format = fileSystem->getCwd() / "slformatmsg.py";
+  std::filesystem::path format = fileSystem->getWorkingDir() / "slformatmsg.py";
   PathId formatId = fileSystem->toPathId(format, &symbolTable);
   if (fileSystem->isRegularFile(formatId)) {
     messageFormatLoaded = loadScript_(format);
@@ -184,7 +184,7 @@ void PythonAPI::loadScriptsInInterp_() {
 
   if (!m_listenerLoaded) {
     std::filesystem::path listener =
-        fileSystem->getCwd() / "slSV3_1aPythonListener.py";
+        fileSystem->getWorkingDir() / "slSV3_1aPythonListener.py";
     PathId listenerId = fileSystem->toPathId(listener, &symbolTable);
     if (fileSystem->isRegularFile(listenerId)) {
       m_listenerScript = listener;
