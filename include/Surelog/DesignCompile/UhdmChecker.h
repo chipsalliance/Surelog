@@ -43,12 +43,12 @@ class UhdmChecker final {
       : m_compileDesign(compiler), m_design(design) {}
 
   // Technically not a const method as it modifies some static values.
-  bool check(PathId reportFileId);
+  bool check(PathId uhdmFileId);
 
  private:
   bool registerFile(const FileContent* fC, std::set<std::string>& moduleNames);
-  bool reportHtml(PathId reportFileId, float overallCoverage);
-  float reportCoverage(PathId reportFileId);
+  bool reportHtml(PathId uhdmFileId, float overallCoverage);
+  float reportCoverage(PathId uhdmFileId);
   void annotate();
   void mergeColumnCoverage();
 

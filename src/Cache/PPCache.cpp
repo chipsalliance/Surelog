@@ -35,7 +35,6 @@
 #include <Surelog/SourceCompile/MacroInfo.h>
 #include <Surelog/SourceCompile/PreprocessFile.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/FileUtils.h>
 
 #include <iostream>
 
@@ -46,55 +45,19 @@ PPCache::PPCache(PreprocessFile* pp) : m_pp(pp), m_isPrecompiled(false) {}
 
 static const char FlbSchemaVersion[] = "1.4";
 
-// TODO(hzeller): this should come from a function cacheFileResolver() or
-// something that can be passed to the cache. That way, we can leave the
-// somewhat hard-coded notion of where cache files are.
 PathId PPCache::getCacheFileId_(PathId sourceFileId) {
   if (!sourceFileId) sourceFileId = m_pp->getFileId(LINE1);
   if (!sourceFileId) return BadPathId;
+
   FileSystem* const fileSystem = FileSystem::getInstance();
-  Precompiled* prec = Precompiled::getSingleton();
   CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
-  SymbolTable* symbolTable = clp->getSymbolTable();
+  SymbolTable* symbolTable = m_pp->getCompileSourceFile()->getSymbolTable();
+  Precompiled* prec = Precompiled::getSingleton();
 
-  const fs::path filepath = fileSystem->toPath(sourceFileId);
-  const fs::path filename =
-      std::get<1>(fileSystem->getLeaf(sourceFileId, symbolTable));
-  const fs::path dirpath =
-      fileSystem->toPath(fileSystem->getParent(sourceFileId, symbolTable));
+  m_isPrecompiled = prec->isFilePrecompiled(sourceFileId, symbolTable);
   const std::string& libName = m_pp->getLibrary()->getName();
-
-  fs::path cacheFilepath;
-  if ((m_isPrecompiled = prec->isFilePrecompiled(filename.string()))) {
-    cacheFilepath = fileSystem->toPath(clp->getPrecompiledDirId());
-    cacheFilepath /= libName;
-    cacheFilepath /= filename;
-  } else {
-    cacheFilepath = fileSystem->toPath(clp->getCacheDirId());
-    cacheFilepath /= libName;
-
-    fs::path rel_filepath = filename;
-    for (const PathId& wdId : clp->getWorkingDirs()) {
-      const fs::path wd = fileSystem->toPath(wdId);
-      const fs::path rp = filepath.lexically_relative(wd);
-      if (rp.string().find("..") != 0) {
-        rel_filepath = rp;
-        break;
-      }
-    }
-
-    if (clp->noCacheHash()) {
-      cacheFilepath /= rel_filepath;
-    } else {
-      cacheFilepath /= FileUtils::hashPath(rel_filepath.parent_path());
-      cacheFilepath /= rel_filepath.filename();
-    }
-  }
-  cacheFilepath += ".slpp";
-
-  PathId cacheFileId = fileSystem->toPathId(cacheFilepath, symbolTable);
-  fileSystem->mkdirs(fileSystem->getParent(cacheFileId, symbolTable));
-  return cacheFileId;
+  return fileSystem->getPpCacheFile(clp->fileunit(), sourceFileId, libName,
+                                    m_isPrecompiled, symbolTable);
 }
 
 template <class T>

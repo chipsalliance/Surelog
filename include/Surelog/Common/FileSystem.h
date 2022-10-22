@@ -74,9 +74,25 @@ class SymbolTable;
  */
 class FileSystem {
  public:
+  static constexpr std::string_view kCacheDirName = "cache";
+  static constexpr std::string_view kAllCompileDirName = "slpp_all";
+  static constexpr std::string_view kUnitCompileDirName = "slpp_unit";
+  static constexpr std::string_view kLogFileName = "surelog.log";
+  static constexpr std::string_view kPrecompiledDirName = "pkg";
   static constexpr std::string_view kMultiprocessingPpDirName = "mp_preprocess";
   static constexpr std::string_view kMultiprocessingParserDirName = "mp_parser";
   static constexpr std::string_view kCheckerDirName = "checker";
+  static constexpr std::string_view kPreprocessLibraryDirName = "lib";
+  static constexpr std::string_view kPreprocessCacheDirName = kCacheDirName;
+  static constexpr std::string_view kParserCacheDirName = kCacheDirName;
+  static constexpr std::string_view kPythonCacheDirName = kCacheDirName;
+
+ public:
+  struct Configuration {
+    std::filesystem::path m_sourceDir;
+    std::filesystem::path m_cacheDir;
+  };
+  typedef std::vector<Configuration> Configurations;
 
  public:
   static FileSystem *getInstance();
@@ -90,19 +106,14 @@ class FileSystem {
   //   No trailing slash regardless of whether the path exists or not
   //   Shortens the path by removing any '.' and '..'
   static std::filesystem::path normalize(const std::filesystem::path &p);
+  static bool is_subpath(const std::filesystem::path &parent,
+                         const std::filesystem::path &child);
 
  public:
   // Convert a native filesystem path to PathId
-  virtual PathId toPathId(const std::filesystem::path &path,
-                          SymbolTable *symbolTable);
+  virtual PathId toPathId(std::string_view path, SymbolTable *symbolTable);
   // Returns the string/printable representation of the input id
   virtual std::string_view toSymbol(PathId id);
-
-  // Returns the absolute/relative native filesystem path
-  // representation for the input id
-  virtual std::filesystem::path toAbsPath(PathId id);
-  virtual std::filesystem::path toRelPath(PathId id);
-
   // Returns either the absolute or relative native filesystem path
   // based on how the FileSystem is configured.
   virtual std::filesystem::path toPath(PathId id);
@@ -155,6 +166,69 @@ class FileSystem {
   bool saveContent(PathId fileId, const char *content, std::streamsize length);
   bool saveContent(PathId fileId, const std::vector<char> &data, bool useTemp);
   bool saveContent(PathId fileId, const std::vector<char> &data);
+
+  virtual PathId getProgramFile(std::string_view hint,
+                                SymbolTable *symbolTable);
+
+  virtual PathId getWorkingDir(std::string_view dir, SymbolTable *symbolTable);
+  virtual PathId getOutputDir(std::string_view dir, SymbolTable *symbolTable);
+  virtual PathId getPrecompiledDir(PathId programId, SymbolTable *symbolTable);
+
+  virtual PathId getLogFile(bool isUnitCompilation, SymbolTable *symbolTable);
+  virtual PathId getLogFile(bool isUnitCompilation, std::string_view filename,
+                            SymbolTable *symbolTable);
+
+  virtual PathId getCacheDir(bool isUnitCompilation, SymbolTable *symbolTable);
+  virtual PathId getCacheDir(bool isUnitCompilation, std::string_view dirname,
+                             SymbolTable *symbolTable);
+
+  virtual PathId getCompileDir(bool isUnitCompilation,
+                               SymbolTable *symbolTable);
+
+  virtual PathId getPpOutputFile(bool isUnitCompilation, PathId sourceFileId,
+                                 std::string_view libraryName,
+                                 SymbolTable *symbolTable);
+  virtual PathId getPpOutputFile(bool isUnitCompilation, PathId sourceFileId,
+                                 SymbolId libraryNameId,
+                                 SymbolTable *symbolTable);
+
+  virtual PathId getPpCacheFile(bool isUnitCompilation, PathId sourceFileId,
+                                std::string_view libraryName,
+                                bool isPrecompiled, SymbolTable *symbolTable);
+  virtual PathId getPpCacheFile(bool isUnitCompilation, PathId sourceFileId,
+                                SymbolId libraryNameId, bool isPrecompiled,
+                                SymbolTable *symbolTable);
+
+  virtual PathId getParseCacheFile(bool isUnitCompilation, PathId ppFileId,
+                                   std::string_view libraryName,
+                                   bool isPrecompiled,
+                                   SymbolTable *symbolTable);
+  virtual PathId getParseCacheFile(bool isUnitCompilation, PathId ppFileId,
+                                   SymbolId libraryNameId, bool isPrecompiled,
+                                   SymbolTable *symbolTable);
+
+  virtual PathId getPythonCacheFile(bool isUnitCompilation, PathId sourceFileId,
+                                    std::string_view libraryName,
+                                    SymbolTable *symbolTable);
+  virtual PathId getPythonCacheFile(bool isUnitCompilation, PathId sourceFileId,
+                                    SymbolId libraryNameId,
+                                    SymbolTable *symbolTable);
+
+  virtual PathId getPpMultiprocessingDir(bool isUnitCompilation,
+                                         SymbolTable *symbolTable);
+  virtual PathId getParserMultiprocessingDir(bool isUnitCompilation,
+                                             SymbolTable *symbolTable);
+
+  virtual PathId getChunkFile(PathId ppFileId, int32_t chunkIndex,
+                              SymbolTable *symbolTable);
+
+  virtual PathId getCheckerDir(bool isUnitCompilation,
+                               SymbolTable *symbolTable);
+  virtual PathId getCheckerFile(PathId uhdmFileId, SymbolTable *symbolTable);
+  virtual PathId getCheckerHtmlFile(PathId uhdmFileId,
+                                    SymbolTable *symbolTable);
+  virtual PathId getCheckerHtmlFile(PathId uhdmFileId, int32_t index,
+                                    SymbolTable *symbolTable);
 
   // Rename directory/file represented by 'whatId' to 'toId'
   virtual bool rename(PathId whatId, PathId toId);
@@ -234,9 +308,20 @@ class FileSystem {
   // Returns a copy of the input id registered with the input SymbolTable.
   virtual PathId copy(PathId id, SymbolTable *toSymbolTable);
 
+  // Returns all accumulated working directories (including
+  // the externally registered ones)
+  virtual std::set<std::filesystem::path> getWorkingDirs();
+
+  // For debugging: Print internal configuration
+  virtual void printConfiguration(std::ostream &out);
+
   virtual ~FileSystem();
 
  protected:
+  // Internal helpers
+  std::filesystem::path toRelPath(PathId id);
+  void addConfiguration(const std::filesystem::path &dir);
+
   virtual std::istream &openInput(const std::filesystem::path &filepath,
                                   std::ios_base::openmode mode);
   virtual std::ostream &openOutput(const std::filesystem::path &filepath,
@@ -280,12 +365,14 @@ class FileSystem {
       OutputStreams;
 
   const std::filesystem::path m_workingDir;
-  bool m_useAbsPaths = true;
 
   std::mutex m_inputStreamsMutex;
   std::mutex m_outputStreamsMutex;
   InputStreams m_inputStreams;
   OutputStreams m_outputStreams;
+
+  Configurations m_configurations;
+  std::filesystem::path m_outputDir;
 
   std::istringstream m_nullInputStream;
   std::ostringstream m_nullOutputStream;

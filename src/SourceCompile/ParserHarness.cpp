@@ -72,20 +72,15 @@ std::unique_ptr<FileContent> ParserHarness::parse(const std::string& content) {
 }
 
 FileContent* ParserHarness::parse(const std::string& content,
-                                  Compiler* compiler,
-                                  const std::string& fileName) {
+                                  Compiler* compiler, PathId fileId) {
   CompilationUnit* unit = new CompilationUnit(false);
   SymbolTable* symbols = compiler->getSymbolTable();
   ErrorContainer* errors = compiler->getErrorContainer();
   CommandLineParser* clp = compiler->getCommandLineParser();
   Library* lib = new Library("work", symbols);
-  CompileSourceFile* csf = new CompileSourceFile(BadPathId, clp, errors,
-                                                 compiler, symbols, unit, lib);
+  CompileSourceFile* csf =
+      new CompileSourceFile(fileId, clp, errors, compiler, symbols, unit, lib);
   ParseFile* pf = new ParseFile(content, csf, unit, lib);
-  PathId fileId;
-  if (!fileName.empty()) {
-    fileId = FileSystem::getInstance()->toPathId(fileName, symbols);
-  }
   FileContent* file_content_result =
       new FileContent(fileId, lib, symbols, errors, nullptr, BadPathId);
   pf->setFileContent(file_content_result);

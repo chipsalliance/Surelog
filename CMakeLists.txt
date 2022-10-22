@@ -396,7 +396,6 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/Testbench/TaskMethod.cpp
   ${PROJECT_SOURCE_DIR}/src/Testbench/TypeDef.cpp
   ${PROJECT_SOURCE_DIR}/src/Testbench/Variable.cpp
-  ${PROJECT_SOURCE_DIR}/src/Utils/FileUtils.cpp
   ${PROJECT_SOURCE_DIR}/src/Utils/ParseUtils.cpp
   ${PROJECT_SOURCE_DIR}/src/Utils/StringUtils.cpp
   ${PROJECT_SOURCE_DIR}/src/Utils/NumUtils.cpp

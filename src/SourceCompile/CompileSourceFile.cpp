@@ -30,7 +30,6 @@
 #include <Surelog/SourceCompile/Compiler.h>
 #include <Surelog/SourceCompile/ParseFile.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/FileUtils.h>
 
 #ifdef SURELOG_WITH_PYTHON
 #include <Python.h>
@@ -43,7 +42,6 @@
 namespace SURELOG {
 
 using namespace antlr4;
-namespace fs = std::filesystem;
 
 CompileSourceFile::CompileSourceFile(PathId fileId, CommandLineParser* clp,
                                      ErrorContainer* errors, Compiler* compiler,
@@ -247,7 +245,6 @@ bool CompileSourceFile::preprocess_() {
 
 bool CompileSourceFile::postPreprocess_() {
   FileSystem* const fileSystem = FileSystem::getInstance();
-  SymbolTable* symbolTable = getCompiler()->getSymbolTable();
   if (m_commandLineParser->parseOnly()) {
     m_ppResultFileId = fileSystem->copy(m_fileId, m_symbolTable);
     return true;
@@ -262,37 +259,17 @@ bool CompileSourceFile::postPreprocess_() {
     return true;
   }
 
-  fs::path ppFileName;
-  if (m_commandLineParser->writePpOutputFileId()) {
-    ppFileName = fileSystem->toPath(m_commandLineParser->writePpOutputFileId());
-  } else {
-    ppFileName = fileSystem->toPath(m_commandLineParser->getFullCompileDirId());
-    ppFileName /= m_library->getName();
-
-    const fs::path filepath = fileSystem->toPath(m_fileId);
-    fs::path rel_filepath =
-        std::get<1>(fileSystem->getLeaf(m_fileId, symbolTable));
-    for (const PathId& wdId : m_commandLineParser->getWorkingDirs()) {
-      const fs::path wd = fileSystem->toPath(wdId);
-      const fs::path rp = filepath.lexically_relative(wd);
-      if (rp.string().find("..") != 0) {
-        rel_filepath = rp;
-        break;
-      }
-    }
-
-    if (m_commandLineParser->noCacheHash()) {
-      ppFileName /= rel_filepath;
-    } else {
-      ppFileName /= FileUtils::hashPath(rel_filepath.parent_path());
-      ppFileName /= rel_filepath.filename();
-    }
+  m_ppResultFileId = m_commandLineParser->writePpOutputFileId();
+  if (!m_ppResultFileId) {
+    const std::string& libraryName = m_library->getName();
+    m_ppResultFileId = fileSystem->getPpOutputFile(
+        m_commandLineParser->fileunit(), m_fileId, libraryName, m_symbolTable);
   }
 
-  m_ppResultFileId = fileSystem->toPathId(ppFileName, m_symbolTable);
   if (m_commandLineParser->lowMem() || m_commandLineParser->link()) {
     return true;
   }
+
   const PathId ppResultDirId =
       fileSystem->getParent(m_ppResultFileId, m_symbolTable);
   if (!fileSystem->mkdirs(ppResultDirId)) {

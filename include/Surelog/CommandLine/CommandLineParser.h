@@ -73,12 +73,11 @@ class CommandLineParser final {
   /* PP Output file/dir options */
   PathId writePpOutputFileId() const { return m_writePpOutputFileId; }
   PathId getOutputDirId() const { return m_outputDirId; }
-  SymbolId getCompileAllDirId() const { return m_compileAllDirId; }
-  SymbolId getCompileUnitDirId() const { return m_compileUnitDirId; }
-  SymbolId getCompileDirId() const {
+  PathId getCompileAllDirId() const { return m_compileAllDirId; }
+  PathId getCompileUnitDirId() const { return m_compileUnitDirId; }
+  PathId getCompileDirId() const {
     return fileunit() ? m_compileUnitDirId : m_compileAllDirId;
   }
-  PathId getFullCompileDirId() const { return m_fullCompileDirId; }
   PathId getLogFileId() const { return m_logFileId; }
   SymbolId getLogFileNameId() const { return m_logFileNameId; }
   bool writePpOutput() const { return m_writePpOutput; }
@@ -229,6 +228,8 @@ class CommandLineParser final {
  private:
   CommandLineParser(const CommandLineParser& orig) = delete;
 
+  std::pair<PathId, std::filesystem::path> addWorkingDirectory_(
+      const std::filesystem::path& wd, const std::filesystem::path& rwd);
   bool plus_arguments_(const std::string& s, const std::filesystem::path& cd);
   void processOutputDirectory_(const std::vector<std::string>& args);
   void processArgs_(const std::vector<std::string>& args,
@@ -293,14 +294,12 @@ class CommandLineParser final {
   bool m_help;
   bool m_cacheAllowed;
   bool m_debugCache;
+  bool m_debugFSConfig;
   unsigned short int m_nbMaxTreads;
   unsigned short int m_nbMaxProcesses;
-  SymbolId m_compileUnitDirId;
-  SymbolId m_compileAllDirId;
+  PathId m_compileUnitDirId;
+  PathId m_compileAllDirId;
   PathId m_outputDirId;
-  PathId m_fullCompileDirId;
-  SymbolId m_defaultLogFileId;
-  SymbolId m_defaultCacheDirId;
   PathId m_cacheDirId;
   PathId m_precompiledDirId;
   bool m_note;

@@ -42,7 +42,7 @@ class ParserHarness {
 
   // Builtin
   FileContent* parse(const std::string& content, Compiler* compiler,
-                     const std::string& fileName);
+                     PathId fileId);
   ~ParserHarness();
 
  private:

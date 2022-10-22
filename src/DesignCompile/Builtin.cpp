@@ -21,6 +21,7 @@
  * Created on May 30, 2019, 6:36 PM
  */
 
+#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/Design.h>
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/DesignCompile/Builtin.h>
@@ -269,13 +270,17 @@ void Builtin::addBuiltinMacros(CompilationUnit* compUnit) {
 
 void Builtin::addBuiltinClasses() {
   // builtin.sv compilation
+  FileSystem* const fileSystem = FileSystem::getInstance();
   UHDM::Serializer& s = m_compiler->getSerializer();
+  // A fake path to keep the API simple!
+  SymbolTable* const symbolTable = m_compiler->getCompiler()->getSymbolTable();
+  PathId fileId = fileSystem->getChild(fileSystem->getWorkingDir(symbolTable),
+                                       "builtin.sv", symbolTable);
   CompileHelper helper;
   ParserHarness pharness;
   CompilerHarness charness;
   FileContent* fC1 = pharness.parse(
-      R"(
-          class mailbox;
+      R"(  class mailbox;
 
     function new (int bound = 0);
     endfunction
@@ -346,12 +351,12 @@ void Builtin::addBuiltinClasses() {
   endclass
 
         )",
-      m_compiler->getCompiler(), "builtin.sv");
+      m_compiler->getCompiler(), fileId);
 
   std::vector<NodeId> classes =
       fC1->sl_collect_all(fC1->getRootNode(), slClass_declaration);
   m_compiler->getCompiler()->getDesign()->addFileContent(fC1->getFileId(), fC1);
-  for (auto classId : classes) {
+  for (const auto& classId : classes) {
     NodeId stId = fC1->sl_collect(classId, VObjectType::slStringConst,
                                   VObjectType::slAttr_spec);
     const std::string& libName = fC1->getLibrary()->getName();

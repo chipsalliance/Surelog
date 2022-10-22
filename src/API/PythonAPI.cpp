@@ -94,8 +94,8 @@ bool PythonAPI::loadScript(const std::filesystem::path& name, bool check) {
 bool PythonAPI::loadScript_(const std::filesystem::path& name, bool check) {
 #ifdef SURELOG_WITH_PYTHON
   FileSystem* const fileSystem = FileSystem::getInstance();
-  SymbolTable symbolTable;
-  PathId nameId = fileSystem->toPathId(name, &symbolTable);
+  std::unique_ptr<SymbolTable> symbolTable(new SymbolTable);
+  PathId nameId = fileSystem->toPathId(name.string(), symbolTable.get());
   if (fileSystem->isRegularFile(nameId)) {
     std::string fname = name.string();
     FILE* fp = fopen(fname.c_str(), "r");
@@ -143,49 +143,52 @@ void PythonAPI::shutdown(PyThreadState* interp) {
 void PythonAPI::loadScriptsInInterp_() {
 #ifdef SURELOG_WITH_PYTHON
   FileSystem* const fileSystem = FileSystem::getInstance();
-  SymbolTable symbolTable;
+  std::unique_ptr<SymbolTable> symbolTable(new SymbolTable);
+
+  const std::filesystem::path workingDir = fileSystem->getWorkingDir();
 
   bool waiverLoaded = false;
-  std::filesystem::path waivers = fileSystem->getWorkingDir() / "slwaivers.py";
-  PathId waiversId = fileSystem->toPathId(waivers, &symbolTable);
+  std::filesystem::path waivers = workingDir / "slwaivers.py";
+  PathId waiversId = fileSystem->toPathId(waivers.string(), symbolTable.get());
   if (fileSystem->isRegularFile(waiversId)) {
     waiverLoaded = loadScript_(waivers);
   }
 
   if (!waiverLoaded) {
     waivers = m_programPath / "python" / "slwaivers.py";
-    waiversId = fileSystem->toPathId(waivers, &symbolTable);
+    waiversId = fileSystem->toPathId(waivers.string(), symbolTable.get());
     if (fileSystem->isRegularFile(waiversId)) {
       waiverLoaded = loadScript_(waivers);
     }
   }
 
   bool messageFormatLoaded = false;
-  std::filesystem::path format = fileSystem->getWorkingDir() / "slformatmsg.py";
-  PathId formatId = fileSystem->toPathId(format, &symbolTable);
+  std::filesystem::path format = workingDir / "slformatmsg.py";
+  PathId formatId = fileSystem->toPathId(format.string(), symbolTable.get());
   if (fileSystem->isRegularFile(formatId)) {
     messageFormatLoaded = loadScript_(format);
   }
 
   if (!messageFormatLoaded) {
     format = m_programPath / "python" / "slformatmsg.py";
-    formatId = fileSystem->toPathId(format, &symbolTable);
+    formatId = fileSystem->toPathId(format.string(), symbolTable.get());
     if (fileSystem->isRegularFile(formatId)) {
       messageFormatLoaded = loadScript_(format);
     }
   }
 
   if (!m_listenerScript.empty()) {
-    PathId listenerId = fileSystem->toPathId(m_listenerScript, &symbolTable);
+    PathId listenerId =
+        fileSystem->toPathId(m_listenerScript.string(), symbolTable.get());
     if (fileSystem->isRegularFile(listenerId)) {
       m_listenerLoaded = loadScript_(m_listenerScript);
     }
   }
 
   if (!m_listenerLoaded) {
-    std::filesystem::path listener =
-        fileSystem->getWorkingDir() / "slSV3_1aPythonListener.py";
-    PathId listenerId = fileSystem->toPathId(listener, &symbolTable);
+    std::filesystem::path listener = workingDir / "slSV3_1aPythonListener.py";
+    PathId listenerId =
+        fileSystem->toPathId(listener.string(), symbolTable.get());
     if (fileSystem->isRegularFile(listenerId)) {
       m_listenerScript = listener;
       m_listenerLoaded = loadScript_(listener);
@@ -195,7 +198,8 @@ void PythonAPI::loadScriptsInInterp_() {
   if (!m_listenerLoaded) {
     std::filesystem::path listener =
         m_programPath / "python" / "slSV3_1aPythonListener.py";
-    PathId listenerId = fileSystem->toPathId(listener, &symbolTable);
+    PathId listenerId =
+        fileSystem->toPathId(listener.string(), symbolTable.get());
     if (fileSystem->isRegularFile(listenerId)) {
       m_listenerScript = listener;
       m_listenerLoaded = loadScript_(listener);
